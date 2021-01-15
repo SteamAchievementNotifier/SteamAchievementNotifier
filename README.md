@@ -89,5 +89,5 @@ Thank you for checking out this project. This is the first Powershell applicatio
 
 Special Thanks:
 - A.C. for ongoing support and guidance.
-- Windos for created BurntToast.
+- Windos for creating BurntToast Notifications.
 - Steam for allowing me to use their extensive Web API for this project.

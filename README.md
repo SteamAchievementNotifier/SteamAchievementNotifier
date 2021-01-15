@@ -1,6 +1,6 @@
 **Steam Achievement Notifier** is a Powershell application that shows a Windows 10 Toast Notification when you unlock any Steam Achievement!
 
-![notification](https://media.giphy.com/media/HBU4sWKTzLrHmOTUlj/giphy.gif)
+![notification](https://media.giphy.com/media/KeESWb1oFDknbmURfj/giphy.gif)
 
 Inspired by Xbox Achievement notifications for *Game Pass for PC*, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification. Includes a setup file ("SteamAchievementNotifier-SETUP.ps1") to automatically set up all dependencies and prompts for *Steam API Key*/*Steam64ID* ***(This must be run as Administrator).***
 

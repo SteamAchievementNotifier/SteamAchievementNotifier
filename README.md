@@ -81,7 +81,18 @@ Ensure your Steam64ID is correct. Users can have similar names on Steam, so if y
 - *SteamAchievementNotifier-SETUP.ps1* may give an error if incorrect API Key/Steam64ID values are entered, and then correct API Key/Steam64ID values are re-entered when prompted. If this occurs, close the powershell window and restart the script. If the issue persists, go to `C:\Users\%username%\AppData\Local\SteamAchievementNotifier\Store` in File Explorer and delete *"apikey.txt"* and *"steam64id.txt"*. Once deleted, run the setup script again.
 - **BurntToast** Notification removes the achievement description if the game name/achievement title is too long. I will be looking into a way to shorten the achievement name if it contains more than a certain amount of characters which would fix this issue.
 - **BurntToast** Notification displays *"Windows Powershell"* as the AppID - this cannot easily be fixed due to a recent change in Windows 10 Notifications, but this will be updated as soon as possible.
-- Achievement sound cannot be changed to custom audio - this is a limitation of the **BurntToast** module, so by default, the Windows "IM" sound is used. You can use other system sounds available in `C:\Windows\Media` if you prefer by opening *"SteamAchievementManager.ps1"* in *Powershell ISE*/*Notepad* etc., and changing the **-Sound** parameter in: `New-BurntToastNotification -AppLogo $currentIcon -Sound IM` to a preferred sound.
+- Achievement sound cannot be changed to custom audio - this is a limitation of the **BurntToast** module, so by default, the Windows "IM" sound is used. You can use other system sounds available in `C:\Windows\Media` if you prefer by opening *"SteamAchievementNotifier.ps1"* (located in `C:\Users\%username%\AppData\Local\SteamAchievementNotifier`) in *Powershell ISE*/*Notepad* etc., and changing the **-Sound** parameter in: `New-BurntToastNotification -AppLogo $currentIcon -Sound IM` to a preferred sound (e.g. `-Sound Default`).
+
+*Valid -Sound IDs:*
+- Alarm
+- Alarm2/Alarm3/Alarm4/Alarm5/Alarm6/Alarm7/Alarm8/Alarm9/Alarm10
+- Call
+- Call2/Call3/Call4/Call5/Call6/Call7/Call8/Call9/Call10
+- Default
+- IM
+- Mail
+- Reminder
+- SMS
 
 **THANKS:**
 

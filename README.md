@@ -29,7 +29,7 @@ This script uses [**BurntToast** by Windos](https://github.com/Windos/BurntToast
 - Type or paste: `C:\Users\$env:username\Downloads\SteamAchievementNotifier\SteamAchievementNotifier-SETUP.ps1`
 - Press *Enter* to run the script.
 
-When prompted to install the **BurntToast** module, select **"Yes To All"** for complete installation.
+When prompted to install the **BurntToast** module, select **"Yes To All"** for complete installation and install all required dependencies.
 
 5. You will then be prompted to enter your *Steam API Key* - a valid API Key is required to access links to the Steam Web API (included in the script) which will display personal stats for your account. You can obtain a *Steam API Key* by following [this link](https://steamcommunity.com/login/home/?goto=%2Fdev%2Fapikey), logging in with your Steam credentials and completing the form. Once you have obtained your API Key, copy and paste it into the Powershell console and press *Enter*.
 
@@ -105,6 +105,6 @@ Ensure your Steam64ID is correct. Users can have similar names on Steam, so if y
 Thank you for checking out this project. This is the first Powershell application I've ever created and I would love your feedback. As I'm still pretty much a novice, I'm sure there are issues in the code that would be more efficient or could be done in a better way. If you're interested in this project or if you are a programmer or application developer, I would love to hear from you if you have suggestions on how to make this even better!
 
 **Special Thanks:**
-- A.C. for ongoing support and guidance.
-- @Windos for creating BurntToast Notifications.
+- Adam C. for ongoing support and guidance.
+- Windos for creating BurntToast Notifications.
 - Steam for allowing me to use their extensive Web API for this project.

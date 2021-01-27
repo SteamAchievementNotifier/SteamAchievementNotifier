@@ -7,6 +7,8 @@ Steam Achievement Notifier
 
 Inspired by Xbox Achievement notifications for *Game Pass for PC*, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification. Includes a setup file ("SteamAchievementNotifier-SETUP.ps1") to automatically set up all dependencies and prompts for *Steam API Key*/*Steam64ID* ***(This must be run as Administrator).***
 
+**[Version 1.1](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.0)** introduces **Custom Audio** for achievement notifications! *(.WAV Files only.)*
+
 This script uses [**BurntToast** by Windos](https://github.com/Windos/BurntToast) to display Windows 10 notifications. The setup file includes an automatic installer for the **BurntToast** module via *Powershell Gallery*.
 
 **SETUP:**
@@ -35,7 +37,9 @@ When prompted to install the **BurntToast** module, select **"Yes To All"** for 
 
 6. You will then be prompted to enter your *Steam64ID* - this is a unique identifier for your Steam account and is also used in links within the script. You can find your *Steam64ID* by going to [this link](https://steamid.io/) and either searching for your Steam profile or by pasting your profile URL into the search box.
 
-7. Once completed, the setup script will confirm your Steam username and will automatically run *"SteamAchievementNotifier.ps1"*.
+7. You will then be prompted to enter the path to your .WAV file to be used for your Custom Audio notification sound. Find the desired .WAV file in Windows Explorer, **hold shift** and **right-click** the file and select *"Copy as path"* - then paste the path into the *"SteamAchievementNotifier-SETUP.ps1"* window and press *Enter*.
+
+8. Once completed, the setup script will confirm your Steam username and will automatically run *"SteamAchievementNotifier.ps1"*.
 
 **USAGE:**
 -
@@ -82,13 +86,18 @@ If these are set incorrectly, the script will not be able to contact the *Steam 
 
 Ensure your Steam64ID is correct. Users can have similar names on Steam, so if you are unsure whether a profile is yours when using https://steamid.io/, click the profile link on the steamid.io page, or copy your Steam Community profile URL and paste into the steamid.io search box.
 
+***Version 1.1 - No Sound with achievement notification***
+
+Custom audio for notifications ***only*** supports **.WAV files**. If you have a custom sound you would like to use for the notification that is not in .WAV format, there are plenty of reputable MP3 to WAV converters online. An easy method for converting any audio file to .WAV is to use [https://mp3cut.net/](https://mp3cut.net/) to open your file, click the *"MP3"* drop-down in the bottom-right corner and change to *"WAV"*. Then click *"Save"* to download the .WAV version. You can then follow the steps outlined on the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to add the path to your new .WAV file.
+
 **KNOWN ISSUES:**
 -
 
 - *SteamAchievementNotifier-SETUP.ps1* may give an error if incorrect API Key/Steam64ID values are entered, and then correct API Key/Steam64ID values are re-entered when prompted. If this occurs, close the powershell window and restart the script. If the issue persists, go to `C:\Users\%username%\AppData\Local\SteamAchievementNotifier\Store` in File Explorer and delete *"apikey.txt"* and *"steam64id.txt"*. Once deleted, run the setup script again.
-- **BurntToast** Notification removes the achievement description if the game name/achievement title is too long. I will be looking into a way to shorten the achievement name if it contains more than a certain amount of characters which would fix this issue.
+- *Powershell* asks for permission to run script at every update - Right-click *"Steam Achievement Notifier"* shortcut on the Desktop and select *"Open File Location"*. Right-Click *"SteamAchievementNotifier.ps1"* > *"Properties"* > Tick the *"Unblock"* checkbox and click *"Apply"*.
+- **BurntToast** Notification removes the achievement description if the game name/achievement title is too long. I will be looking into a way to shorten the achievement name if it contains more than a certain amount of characters which would fix this issue. *Note: This also happens when the Steam achievement is "Hidden"/"Secret" - this is a limitation of the Steam Web API as "Hidden"/"Secret" achievement descriptions are updated after unlocking.*
 - **BurntToast** Notification displays *"Windows Powershell"* as the AppID - this cannot easily be fixed due to a recent change in Windows 10 Notifications, but this will be updated as soon as possible.
-- Achievement sound cannot be changed to custom audio - this is a limitation of the **BurntToast** module, so by default, the Windows "IM" sound is used. You can use other system sounds available in `C:\Windows\Media` if you prefer by opening *"SteamAchievementNotifier.ps1"* (located in `C:\Users\%username%\AppData\Local\SteamAchievementNotifier`) in *Powershell ISE*/*Notepad* etc., and changing the **-Sound** parameter in: `New-BurntToastNotification -AppLogo $currentIcon -Sound IM` to a preferred sound (e.g. `-Sound Default`).
+- **[Version 1.0](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.0) only (Custom Audio is supported in [Version 1.1](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.1))**: When using Steam Achievement Notifier - Version 1.0, Achievement sound cannot be changed to custom audio - this is a limitation of the **BurntToast** module, so by default, the Windows "IM" sound is used. **Please update to [Version 1.1](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.1) to use Custom Audio notification sounds**. You can use other system sounds available in `C:\Windows\Media` if you prefer by opening *"SteamAchievementNotifier.ps1"* (located in `C:\Users\%username%\AppData\Local\SteamAchievementNotifier`) in *Powershell ISE*/*Notepad* etc., and changing the **-Sound** parameter in: `New-BurntToastNotification -AppLogo $currentIcon -Sound IM` to a preferred sound (e.g. `-Sound Default`).
 
 ### *Valid -Sound IDs:*
 - Alarm/Alarm2/Alarm3/Alarm4/Alarm5/Alarm6/Alarm7/Alarm8/Alarm9/Alarm10

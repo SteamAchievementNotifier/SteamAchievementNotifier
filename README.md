@@ -90,6 +90,8 @@ Ensure your Steam64ID is correct. Users can have similar names on Steam, so if y
 
 Custom audio for notifications ***only*** supports **.WAV files**. If you have a custom sound you would like to use for the notification that is not in .WAV format, there are plenty of reputable MP3 to WAV converters online. An easy method for converting any audio file to .WAV is to use [https://mp3cut.net/](https://mp3cut.net/) to open your file, click the *"MP3"* drop-down in the bottom-right corner and change to *"WAV"*. Then click *"Save"* to download the .WAV version. You can then follow the steps outlined on the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to add the path to your new .WAV file.
 
+If you want to change your audio file at any point, go to `C:\Users\%username%\%localappdata%\SteamAchievementNotifier\Store`, open `sound.txt`, replace the existing path with the path to your new file and save `sound.txt`.
+
 **KNOWN ISSUES:**
 -
 

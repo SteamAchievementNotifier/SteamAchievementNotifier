@@ -7,7 +7,7 @@ Steam Achievement Notifier
 
 Inspired by Xbox Achievement notifications for *Game Pass for PC*, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification. Includes a setup file ("SteamAchievementNotifier-SETUP.ps1") to automatically set up all dependencies and prompts for *Steam API Key*/*Steam64ID* ***(This must be run as Administrator).***
 
-**[Version 1.1](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.0)** introduces **Custom Audio** for achievement notifications! *(.WAV Files only.)*
+**[Version 1.1](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.1)** introduces **Custom Audio** for achievement notifications! *(.WAV Files only.)*
 
 This script uses [**BurntToast** by Windos](https://github.com/Windos/BurntToast) to display Windows 10 notifications. The setup file includes an automatic installer for the **BurntToast** module via *Powershell Gallery*.
 

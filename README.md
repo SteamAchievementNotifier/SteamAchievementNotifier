@@ -18,7 +18,7 @@ This script uses [**BurntToast** by Windos](https://github.com/Windos/BurntToast
 
 2. In your Downloads folder, right-click *"SteamAchievementNotifier-systray.zip"*, select *"Extract All..."* and click the *"Extract"* button.
 
-Ensure to **"Unblock"** the ZIP file before extracting, or the scripts may not be allowed to run on your system - `Right-click` *"SteamAchievementNotifier-systray.zip"* > Properties > Tick `Unblock` checkbox > Click `Apply`.
+- Ensure to **"Unblock"** the ZIP file before extracting, or the scripts may not be allowed to run on your system - `Right-click` *"SteamAchievementNotifier-systray.zip"* > Properties > Tick `Unblock` checkbox > Click `Apply`.
 
 3. Once unzipped, open the extracted *"SteamAchievementNotifier-systray"* folder and double-click **INSTALL.bat** to run the installer.
 
@@ -37,11 +37,13 @@ After setup has completed, a desktop shortcut called *"Steam Achievement Notifie
 
 If Steam is not currently running, **Steam Achievement Notifier** will open it.
 
-Once a game is running, **Steam Achievement Notifier** will display a notification saying: `Now tracking achievements for <Current Game>.`
+Once a game is running, **Steam Achievement Notifier** will display a notification saying:
+
+`Now tracking achievements for <Current Game>.`
 
 Once an achievement is unlocked, a **Toast Notification** will display containing the game name and details of the unlocked achievement!
   
-Happy Achievement Hunting!
+🏆 Happy Achievement Hunting! 🏆
 
 **TROUBLESHOOTING:**
 -

@@ -1,0 +1,2 @@
+@echo off
+powershell -ExecutionPolicy Bypass -noprofile -command "&{ start-process powershell -ArgumentList '-noprofile -file %userprofile%\Downloads\SteamAchievementNotifier-systray\temp\SteamAchievementNotifier-SETUP.ps1' -verb RunAs}"

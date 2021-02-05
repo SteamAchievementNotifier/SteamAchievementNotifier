@@ -7,7 +7,7 @@ Steam Achievement Notifier
 
 Inspired by Xbox Achievement notifications for *Game Pass for PC*, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification. Includes a setup file ("SteamAchievementNotifier-SETUP.ps1") to automatically set up all dependencies and prompts for *Steam API Key*/*Steam64ID* ***(This must be run as Administrator).***
 
-**[Version 1.1](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.1)** introduces **Custom Audio** for achievement notifications! *(.WAV Files only.)*
+**[Version 1.2](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.2)** now functions as a **System Tray application**, and also implements **Custom Audio** for achievement notifications! *(.WAV Files only.)*
 
 This script uses [**BurntToast** by Windos](https://github.com/Windos/BurntToast) to display Windows 10 notifications. The setup file includes an automatic installer for the **BurntToast** module via *Powershell Gallery*.
 
@@ -16,30 +16,19 @@ This script uses [**BurntToast** by Windos](https://github.com/Windos/BurntToast
   
 1. Download the latest version of **Steam Achievement Notifier** from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page.
 
-2. In your Downloads folder, right-click *"SteamAchievementNotifier.zip"*, select *"Extract All..."* and click the *"Extract"* button.
+2. In your Downloads folder, right-click *"SteamAchievementNotifier-systray.zip"*, select *"Extract All..."* and click the *"Extract"* button.
 
-3. Before running, please check your *Execution Policy* settings in Powershell:
+Ensure to **"Unblock"** the ZIP file before extracting, or the scripts may not be allowed to run on your system - `Right-click` *"SteamAchievementNotifier-systray.zip"* > Properties > Tick `Unblock` checkbox > Click `Apply`.
 
-* Search *"Powershell"* in the Windows Start Menu, right-click (before opening) and select *"Run As Administrator"*.
-* When loaded, type: `Get-ExecutionPolicy`
-* If your PC's *Execution Policy* is set to anything other than `bypass` (e.g. `restricted`), the script may not be allowed to run by your system. Please see the ***Troubleshooting*** section below for instructions on how to update your PC's *Execution Policy*.
+3. Once unzipped, open the extracted *"SteamAchievementNotifier-systray"* folder and double-click **INSTALL.bat** to run the installer.
 
-4. In order for the **BurntToast** Powershell module to install, *"SteamAchievementNotifier-SETUP.ps1"* will need to be run as Administrator:
+4. You will then be prompted to enter your *Steam API Key* - a valid API Key is required to access links to the Steam Web API (included in the script) which will display personal stats for your account. You can obtain a *Steam API Key* by following [this link](https://steamcommunity.com/login/home/?goto=%2Fdev%2Fapikey), logging in with your Steam credentials and completing the form. Once you have obtained your API Key, copy and paste it into the Powershell console and press *Enter*.
 
-- Search *"Powershell"* in the Windows Start Menu.
-- **Before opening**, right-click and select *"Run as Administrator"*.
-- Type or paste: `C:\Users\$env:username\Downloads\SteamAchievementNotifier\SteamAchievementNotifier-SETUP.ps1`
-- Press *Enter* to run the script.
+5. You will then be prompted to enter your *Steam64ID* - this is a unique identifier for your Steam account and is also used in links within the script. You can find your *Steam64ID* by going to [this link](https://steamid.io/) and either searching for your Steam profile or by pasting your profile URL into the search box.
 
-When prompted to install the **BurntToast** module, select **"Yes To All"** for complete installation and install all required dependencies.
+6. You will then be prompted to enter the path to your .WAV file to be used for your Custom Audio notification sound. Find the desired .WAV file in Windows Explorer, **hold shift** and **right-click** the file and select *"Copy as path"* - then paste the path into the *"SteamAchievementNotifier-SETUP.ps1"* window and press *Enter*.
 
-5. You will then be prompted to enter your *Steam API Key* - a valid API Key is required to access links to the Steam Web API (included in the script) which will display personal stats for your account. You can obtain a *Steam API Key* by following [this link](https://steamcommunity.com/login/home/?goto=%2Fdev%2Fapikey), logging in with your Steam credentials and completing the form. Once you have obtained your API Key, copy and paste it into the Powershell console and press *Enter*.
-
-6. You will then be prompted to enter your *Steam64ID* - this is a unique identifier for your Steam account and is also used in links within the script. You can find your *Steam64ID* by going to [this link](https://steamid.io/) and either searching for your Steam profile or by pasting your profile URL into the search box.
-
-7. You will then be prompted to enter the path to your .WAV file to be used for your Custom Audio notification sound. Find the desired .WAV file in Windows Explorer, **hold shift** and **right-click** the file and select *"Copy as path"* - then paste the path into the *"SteamAchievementNotifier-SETUP.ps1"* window and press *Enter*.
-
-8. Once completed, the setup script will confirm your Steam username and will automatically run *"SteamAchievementNotifier.ps1"*.
+7. Once completed, the setup script will confirm your Steam username and will automatically run *"SteamAchievementNotifier.ps1"*.
 
 **USAGE:**
 -
@@ -48,11 +37,9 @@ After setup has completed, a desktop shortcut called *"Steam Achievement Notifie
 
 If Steam is not currently running, **Steam Achievement Notifier** will open it.
 
-If you are not currently playing a game, **Steam Achievement Notifier** will display: `No Steam game detected.`
+Once a game is running, **Steam Achievement Notifier** will display a notification saying: `Now tracking achievements for <Current Game>.`
 
-Once a game is running, **Steam Achievement Notifier** will display: `Now tracking achievements for <Current Game>.`
-
-Once an achievement is unlocked, a **Toast Notification** will display containing the game name and details of the achievement and confirmation of the achievement will be printed in the Powershell console!
+Once an achievement is unlocked, a **Toast Notification** will display containing the game name and details of the unlocked achievement!
   
 Happy Achievement Hunting!
 
@@ -61,7 +48,7 @@ Happy Achievement Hunting!
 
 ***When the "Steam Achievement Notifier" desktop icon is clicked, it opens in Notepad/another application.***
 
-If the shortcut opens a Notepad or other application window after double-clicking, ensure your PC is set to open .ps1 files in Powershell by default. You can do this by right-clicking the desktop shortcut, selecting **"Open file location"**, right-click **"SteamAchievementNotifier.ps1"**, select **"Properties"** and click **"Change"** - then select *"Powershell"* from the list.)
+If the shortcut opens a Notepad or other application window after double-clicking, ensure your PC is set to open .ps1 files in Powershell by default. You can do this by right-clicking the Desktop shortcut, selecting **"Open file location"**, right-click **"SteamAchievementNotifier.ps1"** (or any *".ps1"* file), select **"Properties"** and click **"Change"**. Click **"More apps"** > **"Look for another app on this PC"** > **"This PC"** and go to the following folder: `C:\Windows\system32\WindowsPowershell\v1.0\`. Select `powershell.exe` and click **"Open"**. then click **"Apply"** to set the default app to Powershell.
 
 ***Errors when running "SteamAchievementNotifier-SETUP.ps1"***
 
@@ -92,10 +79,15 @@ Custom audio for notifications ***only*** supports **.WAV files**. If you have a
 
 If you want to change your audio file at any point, go to `C:\Users\%username%\%localappdata%\SteamAchievementNotifier\Store`, open `sound.txt`, replace the existing path with the path to your new file and save `sound.txt`.
 
+***Notification does not appear on screen when unlocking an achievement***
+
+Some games do not allow Windows notifications to overlay above them if they are in "Fullscreen" mode. If you hear the achievement notification sound but don't see it, run the game in "Fullscreen Borderless" mode, which should allow notifications to appear.
+
+If you can't see any achievement and do not hear any achievement sounds when unlocking, check your Windows "Focus Assist" settings and ensure that notifications are allowed when running games.
+
 **KNOWN ISSUES:**
 -
 
-- *SteamAchievementNotifier-SETUP.ps1* may give an error if incorrect API Key/Steam64ID values are entered, and then correct API Key/Steam64ID values are re-entered when prompted. If this occurs, close the powershell window and restart the script. If the issue persists, go to `C:\Users\%username%\AppData\Local\SteamAchievementNotifier\Store` in File Explorer and delete *"apikey.txt"* and *"steam64id.txt"*. Once deleted, run the setup script again.
 - *Powershell* asks for permission to run script at every update - Right-click *"Steam Achievement Notifier"* shortcut on the Desktop and select *"Open File Location"*. Right-Click *"SteamAchievementNotifier.ps1"* > *"Properties"* > Tick the *"Unblock"* checkbox and click *"Apply"*.
 - **BurntToast** Notification removes the achievement description if the game name/achievement title is too long. I will be looking into a way to shorten the achievement name if it contains more than a certain amount of characters which would fix this issue. *Note: This also happens when the Steam achievement is "Hidden"/"Secret" - this is a limitation of the Steam Web API as "Hidden"/"Secret" achievement descriptions are updated after unlocking.*
 - **BurntToast** Notification displays *"Windows Powershell"* as the AppID - this cannot easily be fixed due to a recent change in Windows 10 Notifications, but this will be updated as soon as possible.
@@ -119,3 +111,4 @@ Thank you for checking out this project. This is the first Powershell applicatio
 - Adam C. for ongoing support and guidance.
 - Windos for creating BurntToast Notifications.
 - Steam for allowing me to use their extensive Web API for this project.
+- Adam The Automator (https://adamtheautomator.com/) - "systray.ps1" was modified using the script from this article: https://adamtheautomator.com/powershell-form/

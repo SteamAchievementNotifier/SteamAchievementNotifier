@@ -7,7 +7,7 @@ Steam Achievement Notifier
 
 Inspired by Xbox Achievement notifications for *Game Pass for PC*, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
 
-**[Version 1.4](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.4)** now adds a GUI to the application! Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
+**[Version 1.4](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/1.4)** now adds a GUI to the application! Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
 
 <p align="left"><img width="300" height="200" src="https://user-images.githubusercontent.com/77490730/126452901-cd141a79-418b-41fe-ae75-1565d2385a3c.png"></p>
 
@@ -81,7 +81,7 @@ If you can't see any achievement and do not hear any achievement sounds when unl
 
 ***Version 1.4 - Antivirus blocks "setup.exe"/"SANGUI.exe" due to malware/malicious content***
 
-This is explained further in the [Version 1.4 release notes](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/v1.4), but to briefly summarise: I have used a tool called [PowershellToEXE](https://github.com/VortexUK/PowerShellToEXE) to convert the original .ps1 files to EXE format. Unfortunately, due to some people creating malware/malicious scripts by using tools like these, a lot of Antivirus vendors automatically and incorrectly flag **ANY** files converted using various .ps1 to EXE converters (such as PowershellToEXE/PS2EXE etc.) as malicious content.
+This is explained further in the [Version 1.4 release notes](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/1.4), but to briefly summarise: I have used a tool called [PowershellToEXE](https://github.com/VortexUK/PowerShellToEXE) to convert the original .ps1 files to EXE format. Unfortunately, due to some people creating malware/malicious scripts by using tools like these, a lot of Antivirus vendors automatically and incorrectly flag **ANY** files converted using various .ps1 to EXE converters (such as PowershellToEXE/PS2EXE etc.) as malicious content.
 
 I can assure you that I have not included any malicious scripts or executables in the available downloads, but if you're still wary, I have included an alternate version of the GUI application called "SANGUI-PS1.zip" which uses Powershell .ps1 scripts in place of the EXEs. If you wish to install this version instead, please see the installation notes on the releases page linked above.
 

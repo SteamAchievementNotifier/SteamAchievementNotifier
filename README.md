@@ -16,7 +16,7 @@ This script uses [**BurntToast** by Windos](https://github.com/Windos/BurntToast
 **SETUP:**
 -
 
-1. Download "*[SANGUI-V1.6.zip](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/v1.6/SANGUI-V1.6.zip)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+1. Download "*[SANGUI-V1.6.zip](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.6/SANGUI-V1.6.zip)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
 - **Also ensure to "_Unblock_" the ZIP file before extracting, or the .ps1 scripts may not be allowed to run on your system - Right-click "SANGUI-V1.6.zip" > _Properties_ > Tick `Unblock` checkbox > Click `Apply`.**
 
 2. Unzip the folder (`Right-click` > _Extract All..._ > `Extract`).

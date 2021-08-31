@@ -7,7 +7,7 @@ Steam Achievement Notifier
 
 Inspired by Xbox Achievement notifications for *Game Pass for PC*, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
 
-**[Version 1.6](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.6/SANGUI-V1.6.zip)** now adds a GUI to the application, along with support for displaying an in-game Steam screenshot in the notification! Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
+**[Version 1.6](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.6/SANGUI-V1.61.zip)** now adds a GUI to the application, along with support for displaying an in-game Steam screenshot in the notification! Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
 
 <p align="left"><img width="300" height="200" src="https://user-images.githubusercontent.com/77490730/126452901-cd141a79-418b-41fe-ae75-1565d2385a3c.png"></p>
 
@@ -16,8 +16,8 @@ This script uses [**BurntToast** by Windos](https://github.com/Windos/BurntToast
 **SETUP:**
 -
 
-1. Download "*[SANGUI-V1.6.zip](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.6/SANGUI-V1.6.zip)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
-- **Also ensure to "_Unblock_" the ZIP file before extracting, or the .ps1 scripts may not be allowed to run on your system - Right-click "SANGUI-V1.6.zip" > _Properties_ > Tick `Unblock` checkbox > Click `Apply`.**
+1. Download "*[SANGUI-V1.61.zip](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.6/SANGUI-V1.61.zip)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+- **Also ensure to "_Unblock_" the ZIP file before extracting, or the .ps1 scripts may not be allowed to run on your system - Right-click "SANGUI-V1.61.zip" > _Properties_ > Tick `Unblock` checkbox > Click `Apply`.**
 
 2. Unzip the folder (`Right-click` > _Extract All..._ > `Extract`).
 3. `Double-click` "_setup.exe_" and click the _INSTALL_ button - this will uninstall previous versions of _Steam Achievement Notifier_ and install the new required files (including the latest version of _BurntToast_). _**Note: This will also remove your previous "apikey.txt" and "steam64id.txt" files!**_
@@ -67,7 +67,7 @@ This is explained further in the [Version 1.4 release notes](https://github.com/
 I can assure you that I have not included any malicious scripts or executables in the available downloads, and will attempt to remove any false positive reports from antivirus companies stating otherwise.
 
 If you are unable to download via your browser due to an error such as "*Download blocked: File contains malware*", you can download it via Powershell directly by pasting the following command:
-`Invoke-WebRequest "https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/v1.6/SANGUI-V1.6.zip" -outfile "$env:userprofile\Downloads\SANGUI-V1.6.zip"`.
+`Invoke-WebRequest "https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.6/SANGUI-V1.61.zip" -outfile "$env:userprofile\Downloads\SANGUI-V1.61.zip"`.
 
 **KNOWN ISSUES:**
 -

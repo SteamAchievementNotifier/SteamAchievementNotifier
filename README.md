@@ -1,5 +1,6 @@
 Steam Achievement Notifier
 -
+**[<img src="https://api.iconify.design/akar-icons/discord-fill.svg?color=white"> Join on Discord for news on the upcoming Version 1.7 update!](https://discord.gg/FxCFtpd3eu)**
 
 **Steam Achievement Notifier** is a Powershell application that shows a Windows 10 Toast Notification when you unlock any Steam Achievement!
 

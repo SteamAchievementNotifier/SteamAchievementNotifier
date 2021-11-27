@@ -17,14 +17,18 @@ This application uses [**BurntToast** by Windos](https://github.com/Windos/Burnt
 **SETUP:**
 -
 
-1. Download "*[SteamAchievementNotifierV1.7.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.7/SteamAchievementNotifierV1.7.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
-2. Run *SteamAchievementNotifierV1.7.exe*.
-3. When the application opens, click the _SETTINGS_ button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
+1. Download "*[SteamAchievementNotifierV1.7.zip](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.7/SteamAchievementNotifierV1.7.zip)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+
+**Make sure to unblock the ZIP file before extracting - the application may not work as intended if not unblocked! To do this, right-click the ZIP file > Properties > Click the "Unblock" checkbox > Click "Apply".**
+
+2. Extract the ZIP file: *Right-click* > *Extract All...*
+3. Run *Steam Achievement Notifier (V1.7).exe*.
+4. When the application opens, click the _SETTINGS_ button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
 
 **USAGE:**
 -
 
-Start *SteamAchievementNotifierV1.7.exe*, and start any game through Steam.
+Start *Steam Achievement Notifier (V1.7).exe*, and start any game through Steam.
 
 Once a game is running, **Steam Achievement Notifier** will display a notification saying:
 

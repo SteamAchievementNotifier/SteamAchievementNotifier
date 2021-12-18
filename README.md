@@ -8,7 +8,7 @@ Steam Achievement Notifier
 
 Inspired by Xbox Achievement notifications for *Game Pass for PC*, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
 
-**[Version 1.7](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.7/SteamAchievementNotifierV1.7.exe)** adds custom sounds for **rare achievements**, along with a shiny new ***Electron***-based interface (with various improvements)! Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
+**[Version 1.72](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.72/SteamAchievementNotifierV1.72.exe)** adds custom sounds for **rare achievements**, along with a shiny new ***Electron***-based interface (with various improvements) and **localisation support**! Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
 
 <p align="left"><img width="400" src="https://user-images.githubusercontent.com/77490730/143625339-bf739383-03db-45c4-bca3-514759146e8a.png"></p>
 
@@ -17,22 +17,25 @@ This application uses [**BurntToast** by Windos](https://github.com/Windos/Burnt
 **SETUP:**
 -
 
-1. Download "*[SteamAchievementNotifierV1.71.zip](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.71/SteamAchievementNotifierV1.71.zip)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+**PREREQUISITES:**
+- An **[API Key](https://steamcommunity.com/login/home/?goto=%2Fdev%2Fapikey)** for your Steam account
+- The **[Steam64ID](https://steamid.io/lookup)** for your Steam account
+- "**Game Details**" are set to "**Public**" in Steam
+> *To check this, open **Steam** and click **Username Tab** > **Profile** > **Edit Profile** > **Privacy Settings** > **Game Details***
 
-**Make sure to unblock the ZIP file before extracting - the application may not work as intended if not unblocked! To do this, right-click the ZIP file > Properties > Click the "Unblock" checkbox > Click "Apply".**
-
-2. Extract the ZIP file: *Right-click* > *Extract All...*
-3. Run *Steam Achievement Notifier (V1.71).exe*.
-4. When the application opens, click the _SETTINGS_ button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
+**INSTALLATION:**
+1. Download "*[SteamAchievementNotifierV1.72.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.72/SteamAchievementNotifierV1.72.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+2. Run *SteamAchievementNotifierV1.72.exe*.
+3. When the application opens, click the _SETTINGS_ button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
 
 **USAGE:**
 -
 
-Start *Steam Achievement Notifier (V1.71).exe*, and start any game through Steam.
+Start **Steam Achievement Notifier**, and start any game through Steam.
 
 Once a game is running, **Steam Achievement Notifier** will display a notification saying:
 
-`Now tracking achievements for <Current Game>.`
+`Now tracking achievements for <Current Game>.` (This can be turned off via the Settings menu)
 
 Once an achievement is unlocked, a **Toast Notification** will display containing the game name and details of the unlocked achievement!
   
@@ -49,7 +52,7 @@ Check your API Key/Steam64 ID values. If these are set incorrectly, the script w
 
 Ensure your Steam64ID is correct. Users can have similar names on Steam, so if you are unsure whether a profile is yours when using https://steamid.io/, click the profile link on the steamid.io page, or copy your Steam Community profile URL and paste into the steamid.io search box.
 
-***Cannot select custom sound in GUI***
+***Cannot hear sound when achievements are unlocked***
 
 Custom audio for notifications ***only*** supports **.WAV files**. If you have a custom sound you would like to use for the notification that is not in .WAV format, there are plenty of reputable MP3 to WAV converters online. An easy method for converting any audio file to .WAV is to use [https://mp3cut.net/](https://mp3cut.net/) to open your file, click the *"MP3"* drop-down in the bottom-right corner and change to *"WAV"*. Then click *"Save"* to download the .WAV version. You can then view and select your sound from the sound browser.
 
@@ -59,7 +62,25 @@ Some games do not allow Windows notifications to overlay above them if they are 
 
 If you can't see any achievement and do not hear any achievement sounds when unlocking, check your Windows "Focus Assist" settings and ensure that notifications are allowed when running games.
 
+***Cannot download EXE via Releases due to "Virus Detected" warning in Browser***
+
+EXE files generated by the [electron-builder](https://www.electron.build/) NPM Package can mistakenly trigger virus/trojan warnings when downloading via a browser. This is a false positive, as Antivirus programs do not thoroughly scan each file for viruses, but instead flag ALL unsigned apps generated by a particular method (such as electron-builder) as unsafe, due to some people abusing the method by generating malware.
+
+Each version of Steam Achievement Notifier is sent to Microsoft to confirm a false positive when triggered, and has always been marked as an incorrect virus detection upon further investigation. Once this is complete, the signature is usually updated to reflect that it is in fact safe to download and use. **Steam Achievement Notifier will never include any features that will intentionally damage your computer or its contents.**
+
+If you are using Windows Defender but you are unable to download the file due to the above error, please do the following:
+- Open Windows Defender
+- Click the Menu (☰) button
+- Select "*Virus & threat protection*"
+- Click "*Protection history*"
+- Under "*All recent items*", click the "*Threat blocked*" message that contains "**SteamAchievementNotifierVX.XX.exe**"
+- Click "*Actions*" in the bottom-right corner
+- Select "*Allow*" and confirm
+
+Once these steps are complete, the file should now show in your Downloads folder as normal.
+
 **KNOWN ISSUES:**
 -
 
 - **BurntToast** Notification removes the achievement description if the game name/achievement title is too long. I will be looking into a way to shorten the achievement name if it contains more than a certain amount of characters which would fix this issue. *Note: This also happens when the Steam achievement is "Hidden"/"Secret" - this is a limitation of the Steam Web API as "Hidden"/"Secret" achievement descriptions are updated after unlocking.*
+- A large number of tracking notifications can be sent in quick succession while playing a game. If this issue occurs, please right-click the system tray icon and select "Exit", and restart the application.

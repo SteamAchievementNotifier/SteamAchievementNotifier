@@ -1,0 +1,11 @@
+{
+  "name": "steamachievementnotifierv1-7",
+  "productName": "Steam Achievement Notifier (V1.72)",
+  "version": "1.7.2",
+  "description": "Steam Achievement Notifier (V1.72)",
+  "copyright": "Copyright © Jackson0ne 2021",
+  "main": "main.js",
+  "author": "Jackson0ne",
+  "license": "ISC",
+  "dependencies": {}
+}

@@ -1,0 +1,1389 @@
+* {
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+}
+
+html {
+    height: 100vh;
+    width: 100vw;
+    cursor: default;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    height: 100%;
+    background: transparent;
+    color: white;
+    padding: 0px;
+    margin: 0px;
+    font-family: "Segoe UI";
+    -webkit-app-region: drag;
+}
+
+a {
+    color: rgba(255,255,255,0.5);
+}
+
+a:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.material-icons {
+    padding: 0px;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+.icons {
+    width: 24px;
+}
+
+#offlinecont {
+    background: #1b1b1b;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+#offlineimg {
+    display: block;
+    position: absolute;
+    top: 74px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#offlinesymbol {
+    font-family: "Bahnschrift";
+    font-size: 30px;
+    font-weight: bold;
+    margin: 150px 0px 20px;
+    animation: fadein 0.5s;
+}
+
+#offlinetitle {
+    width: 500px;
+    font-family: "Bahnschrift";
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px 0px 5px;
+    animation: fadein 0.5s;
+}
+
+#offlinesub {
+    font-size: 12px;
+    margin: 0px 0px 10px;
+    animation: fadein 0.5s;
+}
+
+#offlineicon {
+    width: 50px;
+    margin: 0px 0px 10px;
+    animation: spin 1s infinite;
+}
+
+#offlinereconnect {
+    font-family: "Bahnschrift";
+    font-size: 16px;
+    font-weight: bold;
+    animation: fadein 0.5s alternate infinite;
+}
+
+.maincont {
+    background: #1b1b1b;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: stretch;
+    border-radius: 5px;
+}
+
+#overlay {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 30px 20px;
+    height: 20px;
+}
+
+.settings {
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+}
+
+#settings {
+    opacity: 0.5;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+#settings:hover {
+    opacity: 1;
+    transform: rotate(90deg);
+    transition: 0.5s;
+}
+
+#settings:not(:hover) {
+    transform: rotate(-90deg);
+    transition: 0.5s;
+}
+
+.windowcontrols {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+#close {
+    opacity: 0.5;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+#close:hover {
+    opacity: 1;
+    color: white;
+    transition: 0.2s;
+}
+
+.bodycont {
+    background: #1b1b1b;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    animation: fadein 0.5s;
+}
+
+.imgcont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0px 30px 30px;
+}
+
+.usercont {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 490px;
+    height: 40px;
+    margin: 0px 0px 10px;
+    user-select: none;
+}
+
+.steamimg {
+    background: rgba(32,62,122,1);
+    color: white;
+    height: 100%;
+    width: 50px;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 0px solid white;
+    border-radius: 5px 0px 0px 5px;
+    -webkit-app-region: no-drag;
+}
+
+.icon {
+    width: 24px;
+    vertical-align: -3px;
+}
+
+.user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    background: rgba(32,62,122,1);
+    color: red;
+    font-family: "Bahnschrift";
+    border-style: hidden;
+    height: 100%;
+    flex: 8;
+    padding: 0px 20px;
+    text-align: center;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    -webkit-app-region: no-drag;
+}
+
+.empty {
+    background: rgba(32,62,122,1);
+    color: white;
+    height: 100%;
+    width: 50px;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    border-radius: 0px 5px 5px 0px;
+    -webkit-app-region: no-drag;
+}
+
+.toggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 490px;
+    -webkit-app-region: no-drag;
+}
+
+.togglebtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    flex: 1;
+    font-family: "Bahnschrift";
+    font-size: 12px;
+    padding: 3px;
+    border: 1px solid white;
+    border-top: none;
+    cursor: pointer;
+    background-size: 200% 100%;
+}
+
+.togglebtn:hover {
+    background-position: -100% 0%;
+    color: black;
+    transition: 0.2s;
+}
+
+#maincheevbtn {
+    display: flex;
+    background: white;
+    color: black;
+    border-radius: 0px 0px 0px 5px;
+}
+
+#rarecheevbtn {
+    display: flex;
+    background: rgba(32,62,122,1);
+    color: white;
+    border-radius: 0px 0px 5px 0px;
+    opacity: 0.5;
+}
+
+#rarecheevbtn:hover {
+    opacity: 1;
+}
+
+#rarecheevbtn:not(hover) {
+    opacity: 0.5;
+}
+
+#trophy {
+    font-size: 16px;
+    padding-right: 5px;
+}
+
+#raretrophy {
+    color: darkorchid;
+    font-size: 16px;
+    padding-right: 5px;
+}
+
+.maindiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 490px;
+    height: 40px;
+}
+
+.preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 100%;
+    width: 50px;
+    border: 1px solid white;
+    border-radius: 5px 0px 0px 0px;
+    background-size: 200% 100%;
+	background-image: linear-gradient(to right, rgba(32,62,122,1) 50%, white 50%);
+	transition: background-position 0.2s;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.preview:hover {
+    background-position: -99% 0%;
+    color: black;
+    transition: 0.2s;
+}
+
+.stop {
+    background: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    height: 100%;
+    width: 50px;
+    border: 1px solid white;
+    border-radius: 5px 0px 0px 0px;
+    transition: 0.2s;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.sounddiv {
+    display: flex;
+    flex-direction: row;
+    flex: 8;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.soundfile {
+    display: block;
+    line-height: 38px;
+    background: #3d3d3d;
+    font-family: "Bahnschrift";
+    font-size: 14px;
+    border-style: hidden;
+    height: 100%;
+    flex: 8;
+    padding: 0px 20px;
+    text-align: center;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
+    -webkit-app-region: no-drag;
+}
+
+.soundsearch {
+    color: white;
+    height: 100%;
+    width: 50px;
+    border: 1px solid white;
+    border-radius: 0px 5px 0px 0px;
+    background-size: 200% 100%;
+	background-image: linear-gradient(to right, rgba(32,62,122,1) 50%, white 50%);
+	transition: background-position 0.2s;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.sounddiv:hover .soundsearch {
+    background-position: -99% 0%;
+    color: black;
+    transition: 0.2s;
+}
+
+.rarediv {
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 490px;
+    height: 40px;
+}
+
+.previewrare {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 100%;
+    width: 50px;
+    border: 1px solid white;
+    border-radius: 5px 0px 0px 0px;
+    background-size: 200% 100%;
+	background-image: linear-gradient(to right, rebeccapurple 50%, white 50%);
+	transition: background-position 0.2s;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.previewrare:hover {
+    background-position: -99% 0%;
+    color: black;
+    transition: 0.2s;
+}
+
+.stoprare {
+    background: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    height: 100%;
+    width: 50px;
+    border: 1px solid white;
+    border-radius: 5px 0px 0px 0px;
+	transition: background-position 0.2s;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.sounddivrare {
+    display: flex;
+    flex-direction: row;
+    flex: 8;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.soundfilerare {
+    display: block;
+    line-height: 38px;
+    background: #3d3d3d;
+    font-family: "Bahnschrift";
+    font-size: 14px;
+    border-style: hidden;
+    height: 100%;
+    flex: 8;
+    padding: 0px 20px;
+    text-align: center;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
+    -webkit-app-region: no-drag;
+}
+
+.soundsearchrare {
+    color: white;
+    height: 100%;
+    width: 50px;
+    border: 1px solid white;
+    border-radius: 0px 5px 0px 0px;
+    background-size: 200% 100%;
+	background-image: linear-gradient(to right, rebeccapurple 50%, white 50%);
+	transition: background-position 0.2s;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.sounddivrare:hover .soundsearchrare {
+    background-position: -99% 0%;
+    color: black;
+    transition: 0.2s;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px;
+    width: 490px;
+}
+
+.test {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: "Bahnschrift";
+    font-weight: 500;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 490px;
+    background-size: 200% 100%;
+	background-image: linear-gradient(to right, rgba(32,62,122,1) 50%, white 50%);
+	transition: background-position 0.2s;
+    -webkit-app-region: no-drag;
+}
+
+.test:hover {
+    background-position: -100% 0%;
+    color: black;
+    transition: 0.5s;
+}
+
+.testrare {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: "Bahnschrift";
+    font-weight: 500;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 490px;
+    background-size: 200% 100%;
+	background-image: linear-gradient(to right, rebeccapurple 50%, white 50%);
+	transition: background-position 0.2s;
+    -webkit-app-region: no-drag;
+}
+
+.testrare:hover {
+    background-position: -100% 0%;
+    color: black;
+    transition: 0.5s;
+}
+
+.settingscont {
+    background: #1b1b1b;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0px 50px 20px;
+    flex: 1;
+    animation: fadein 0.5s;
+}
+
+.checks {
+    display: block;
+    position: absolute;
+    background: #101010;
+    top: 60px;
+    /*left: 522px;*/
+    right: 70px;
+    font-family: "Bahnschrift";
+    font-size: 8px;
+    padding: 5px 5px 5px 10px;
+    text-align: right;
+    border-radius: 5px;
+    opacity: 0;
+    z-index: 1;
+}
+
+.pchecks {
+    padding: 0px;
+    margin: 0px;
+}
+
+.dot {
+    padding: 0px;
+    margin: 0px;
+    vertical-align: -5px;
+}
+
+.reset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    opacity: 0.3;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 35px;
+    left: 654px;
+    font-family: "Bahnschrift";
+    font-size: 8px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.reset:hover {
+    animation: colorcycleredbg 0.5s alternate infinite;
+    transform: rotate(180deg);
+    transition: 0.2s;
+    opacity: 1;
+}
+
+.reset:not(hover) {
+    background: transparent;
+    transition: 0.2s;
+    transform: rotate(-180deg);
+    opacity: 0.3;
+}
+
+.settingstitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.settingsboxes {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px 20px 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.settingssection {
+    background: rgba(0,0,0,0.4);
+    border-radius: 5px;
+    font-size: 20px;
+    margin: 0px 0px 10px;
+    padding: 10px 20px;
+}
+
+.configcont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.configleft {
+    display: flex;
+    flex: 1;
+}
+
+.configright {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+    font-family: "Bahnschrift";
+    font-size: 12px;
+}
+
+.statustitle {
+    -webkit-app-region: no-drag;
+}
+
+.status {
+    margin-left: 5px;
+    color: red;
+    -webkit-app-region: no-drag;
+}
+
+.apikey {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    margin: 0px 0px 10px;
+    height: 35px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+#ext {
+    width: 12px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.apilink {
+    display: none;
+    font-family: "Bahnschrift";
+    width: 150px;
+    font-size: 10px;
+    font-style: italic;
+    color: white;
+    text-decoration: none;
+    margin: 0px 0px 5px;
+    -webkit-app-region: no-drag;
+}
+
+.apilink:hover {
+    color: rgba(32,62,122,1);
+    transition: 0.2s;
+}
+
+.apilink:not(:hover) {
+    color: white;
+    transition: 0.2s;
+}
+
+.steam64id {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    margin: 0px 0px 10px;
+    height: 35px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.steam64link {
+    display: none;
+    font-family: "Bahnschrift";
+    width: 165px;
+    font-size: 10px;
+    font-style: italic;
+    color: white;
+    text-decoration: none;
+    margin: 0px 0px 5px;
+    -webkit-app-region: no-drag;
+}
+
+.steam64link:hover {
+    color: rgba(32,62,122,1);
+    transition: 0.2s;
+}
+
+.steam64link:not(:hover) {
+    color: white;
+    transition: 0.2s;
+}
+
+.lbl {
+    font-family: "Bahnschrift";
+    background: rgba(32,62,122,1);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+    width: 110px;
+    border: 1px solid white;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.lbl:hover {
+    background: rgba(32,62,122,0.5);
+    transition: 0.2s;
+}
+
+.lbl:not(hover) {
+    background: rgba(32,62,122,1);
+    transition: 0.2s;
+}
+
+.boxcont {
+    display: flex;
+    flex: 1;
+}
+
+.box {
+    font-family: "Bahnschrift";
+    background: black;
+    color: white;
+    text-align: center;
+    border: 1px solid white;
+    height: 35px;
+    width: 100%;
+    cursor: pointer;
+}
+
+::placeholder {
+    font-family: "Bahnschrift";
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+}
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+.save {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 35px;
+    border: 1px solid white;
+    border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
+    background-size: 200% 100%;
+	background-image: linear-gradient(to right, rgba(32,62,122,1) 50%, white 50%);
+	transition: background-position 0.2s;
+}
+
+.save:hover {
+    background-position: -99% 0%;
+    color: black;
+    transition: 0.2s;
+}
+
+.confirm {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background: #1d1d1d;
+    border: 1px solid white;
+    border-radius: 5px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    padding: 20px;
+    width: 350px;
+    height: 150px;
+    animation: fadein 0.2s;
+    z-index: 2;
+    -webkit-app-region: no-drag;
+}
+
+.confirmtext {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.confirmbody {
+    font-family: "Bahnschrift";
+    font-size: 14px;
+    margin: 0px;
+    padding: 10px 0px 5px;
+}
+
+.confirmvalue {
+    font-family: "Bahnschrift";
+    font-size: 16px;
+    color: lightskyblue;
+    margin: 0px;
+    padding: 0px 0px 10px;
+}
+
+.confirmbtncont {
+    flex-direction: row;
+}
+
+.yesbtn {
+    background: rgba(32,62,122,1);
+    color: white;
+    height: 30px;
+    width: 60px;
+    font-family: "Bahnschrift";
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.yesbtn:hover {
+    background: green;
+}
+
+.nobtn {
+    background: rgba(32,62,122,1);
+    color: white;
+    height: 30px;
+    width: 60px;
+    font-family: "Bahnschrift";
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.nobtn:hover {
+    background: darkred;
+}
+
+.miscsettings {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0px 20px 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.optionscont {
+    display: flex;
+    flex-direction: row;
+}
+
+.optionsleft {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.optionsright {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.options {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    -webkit-app-region: no-drag;
+}
+
+input[type="checkbox"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid white;
+    border-radius: 2px;
+    outline: none;
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    margin-right: 10px;
+}
+
+input[type="checkbox"]:checked {
+    background-image: url("./img/SANTick.png");
+    background-size: cover;
+    background-position: center;
+}
+
+input[type="checkbox"]:hover {
+    background-color: #3d3d3d;
+    transition: 0.2s;
+}
+
+input[type="checkbox"]:not(hover) {
+    background-color: black;
+    transition: 0.2s;
+}
+
+#msg {
+    display: inline-block;
+    position: absolute;
+    color: white;
+    top: 289px;
+    left: 329px;
+    width: 280px;
+    font-family: "Bahnschrift";
+    font-size: 12px;
+    text-align: right;
+    transition: opacity 0.2s;
+    -webkit-app-region: no-drag;
+}
+
+#msgresult {
+    display: inline-block;
+    transition: opacity 0.2s;
+    margin: 0px;
+    padding: 0px;
+    -webkit-app-region: no-drag;
+}
+
+.slidercont {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    -webkit-app-region: no-drag;
+}
+
+.sliderinnercont {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 1px;
+    flex: 1;
+}
+
+.slider {
+    appearance: none;
+    background: white;
+    border-radius: 1px;
+    height: 2px;
+    width: 300px;
+    -webkit-app-region: no-drag;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    background: radial-gradient(circle, rgba(47,90,181,1) 0%, rgba(31,55,105,1) 100%);
+    height: 20px;
+    width: 20px;
+    border: 1px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slidervaluetitle {
+    display: block;
+    position: absolute;
+    left: 383px;
+    top: 419px;
+    -webkit-app-region: no-drag;
+}
+
+.slidervalue {
+    color: lightskyblue;
+    -webkit-app-region: no-drag;
+}
+
+.seconds {
+    color: lightskyblue;
+    -webkit-app-region: no-drag;
+}
+
+#screenshottext {
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+#screenshottext:hover {
+    color: lightskyblue;
+}
+
+#keybindicon {
+    margin-left: 7px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+#keybindicon:hover {
+    opacity: 1;
+    transition: 0.2s;
+}
+
+#keybindicon:not(hover) {
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+#keybindcont {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    height: 150px;
+    background: #1d1d1d;
+    border: 1px solid white;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+#keybindclose {
+    display: flex;
+    position: absolute;
+    top: 15%;
+    left: 93%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+    opacity: 0.5;
+}
+
+#keybindclose:hover {
+    opacity: 1;
+    transition: 0.2s;
+}
+
+#keybindclose:not(hover) {
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+#keybindtitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 150px;
+    transform: translate(-50%, -83%);
+    font-family: "Bahnschrift";
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#keybindsub {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 230px;
+    height: 100px;
+    transform: translate(-50%, -65%);
+    font-size: 10px;
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+}
+
+#keybind {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 30%);
+    width: 230px;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 2px;
+    background: rgba(32,62,122,1);
+    font-family: "Bahnschrift";
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+.tippy-box[data-theme~="customfit"] {
+    background: limegreen;
+    color: black;
+    font-family: "Segoe UI";
+    font-size: 10px;
+    font-weight: bolder;
+    text-align: center;
+    border-radius: 5px;
+    animation: colorcyclebg 0.5s alternate infinite;
+}
+
+.tippy-box[data-theme~="transparent"] {
+    background: transparent;
+    color: white;
+    font-family: "Segoe UI";
+    font-size: 10px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.tippy-box[data-theme~="win"] {
+    background: #3d3d3d;
+    color: white;
+    font-family: "Segoe UI";
+    font-size: 10px;
+    text-align: center;
+    border: 1px solid grey;
+    border-radius: 0;
+}
+
+.footercont {
+    background: rgba(0,0,0,0);
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    padding-bottom: 10px;
+    font-size: 8px;
+    font-weight: 500;
+}
+
+.footertext1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 5px;
+    padding: 0px 20px;
+    flex: 1;
+    min-width: 190px;
+}
+
+#updateicon {
+    display: none;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 20px;
+    color: limegreen;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+#updateicon:hover {
+    animation: colorcycle 0.5s alternate infinite;
+}
+
+#warn {
+    display: none;
+    align-items: center;
+    margin-right: 10px;
+    width: 20px;
+    opacity: 0.5;
+    animation: fadein 0.5s alternate infinite;
+    transition: 0.2s;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+#warn:hover {
+    animation: none;
+    opacity: 1;
+    transition: 0.2s;
+}
+
+#warn:not(hover) {
+    opacity: 0.5;
+    animation: fadein 0.5s alternate infinite;
+    transition: 0.2s;
+}
+
+#warnmsg {
+    background: rgba(32,62,122,1);
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Bahnschrift";
+    font-size: 8px;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px 10px 5px;
+}
+
+#warnmsgicon {
+    width: 10px;
+    vertical-align: -2px;
+}
+
+#reconnect {
+    width: 12px;
+    vertical-align: -3px;
+    animation: spin 1s infinite;
+}
+
+.footertext2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    padding: 0px 20px;
+    flex: 2;
+    min-width: 260px;
+}
+
+.footertext3 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 5px;
+    padding: 0px 20px;
+    flex: 1;
+    min-width: 120px;
+    -webkit-app-region: no-drag;
+}
+
+.discordicon {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#discord {
+    opacity: 0.5;
+}
+
+.githubicon {
+    cursor: pointer;
+}
+
+#github {
+    opacity: 0.5;
+}
+
+#langbox {
+    display: block;
+    position: absolute;
+    top: 17%;
+    left: 125px;
+    transform: translate(-50%, -50%);
+    -webkit-app-region: no-drag;
+}
+
+select:focus {
+    outline: none;
+}
+
+select::-webkit-scrollbar {
+    background-color: #101010;
+}
+
+select::-webkit-scrollbar-thumb {
+    background-color: #3d3d3d;
+    border-radius: 5px;
+}
+
+#lang {
+    background: #101010;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: "Bahnschrift";
+    font-size: 12px;
+}
+
+@keyframes fadein {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes bluetowhite {
+    0% { background: rgba(32,62,122,1); color: white }
+    100% { background: white; color: black }
+}
+
+@keyframes colorcycle {
+    0% { color: limegreen; }
+    100% { color: palegreen; }
+}
+
+@keyframes colorcyclebg {
+    0% { background: limegreen; }
+    100% { background: palegreen; }
+}
+
+@keyframes colorcycleredbg {
+    0% { background: transparent; }
+    100% { background: red; }
+}
+
+@keyframes stop {
+    0% { background: rgba(32,62,122,1); color: white; }
+    100% { background: white; color: black }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

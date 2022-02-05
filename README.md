@@ -8,7 +8,7 @@ Steam Achievement Notifier
 
 Inspired by Xbox Achievement notifications for *Game Pass for PC*, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
 
-**[Version 1.72](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.72/SteamAchievementNotifierV1.72.exe)** adds custom sounds for **rare achievements**, along with a shiny new ***Electron***-based interface (with various improvements) and **localisation support**! Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
+**[Version 1.73](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.73/SteamAchievementNotifierV1.73.exe)** adds custom sounds for **rare achievements**, along with a shiny new ***Electron***-based interface (with various improvements) and **localisation support**! Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
 
 <p align="left"><img width="400" src="https://user-images.githubusercontent.com/77490730/143625339-bf739383-03db-45c4-bca3-514759146e8a.png"></p>
 
@@ -24,8 +24,8 @@ This application uses [**BurntToast** by Windos](https://github.com/Windos/Burnt
 > *To check this, open **Steam** and click **Username Tab** > **Profile** > **Edit Profile** > **Privacy Settings** > **Game Details***
 
 **INSTALLATION:**
-1. Download "*[SteamAchievementNotifierV1.72.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.72/SteamAchievementNotifierV1.72.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
-2. Run *SteamAchievementNotifierV1.72.exe*.
+1. Download "*[SteamAchievementNotifierV1.73.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.73/SteamAchievementNotifierV1.73.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+2. Run *SteamAchievementNotifierV1.73.exe*.
 3. When the application opens, click the _SETTINGS_ button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
 
 **USAGE:**

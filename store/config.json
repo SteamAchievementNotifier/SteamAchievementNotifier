@@ -1,0 +1,15 @@
+{
+  "apikey": "",
+  "steam64id": "",
+  "sound": "",
+  "raresound": "",
+  "screenshot": "false",
+  "shortcut": "false",
+  "startwin": "false",
+  "startmin": "false",
+  "soundonly": "false",
+  "tracking": "true",
+  "displaytime": "5",
+  "keybind": "F12",
+  "lang": "english"
+}

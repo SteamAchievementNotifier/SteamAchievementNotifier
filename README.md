@@ -2,6 +2,8 @@ Steam Achievement Notifier
 -
 **[<img src="https://api.iconify.design/akar-icons/discord-fill.svg?color=white"> Join on Discord for news on future updates!](https://discord.gg/FxCFtpd3eu)**
 
+**[<img src="https://uploads-ssl.webflow.com/5c14e387dab576fe667689cf/61e1116779fc0a9bd5bdbcc7_Frame%206.png" width="16px"> Donate on Ko-Fi!](https://ko-fi.com/steamachievementnotifier)**
+
 **Steam Achievement Notifier** is an Electron application that shows customised notifications when you unlock any Steam Achievement!
 
 <p align="left"><img width="546" src="https://user-images.githubusercontent.com/77490730/156606559-e8dbb046-7cf4-49bc-927f-3767f9b62e06.gif"></p>

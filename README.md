@@ -2,17 +2,22 @@ Steam Achievement Notifier
 -
 **[<img src="https://api.iconify.design/akar-icons/discord-fill.svg?color=white"> Join on Discord for news on future updates!](https://discord.gg/FxCFtpd3eu)**
 
-**Steam Achievement Notifier** is a Powershell application that shows a Windows 10 Toast Notification when you unlock any Steam Achievement!
+**Steam Achievement Notifier** is an Electron application that shows customised notifications when you unlock any Steam Achievement!
 
-<p align="left"><img width="546" src="https://user-images.githubusercontent.com/77490730/143626251-31aae548-05be-4428-ba1f-02bd051242b2.gif"></p>
+<p align="left"><img width="546" src="https://user-images.githubusercontent.com/77490730/156606559-e8dbb046-7cf4-49bc-927f-3767f9b62e06.gif"></p>
 
-Inspired by Xbox Achievement notifications for *Game Pass for PC*, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
+Inspired by achievement notifications for consoles, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
 
-**[Version 1.73](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.73/SteamAchievementNotifierV1.73.exe)** adds custom sounds for **rare achievements**, along with a shiny new ***Electron***-based interface (with various improvements) and **localisation support**! Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
+**[Version 1.8](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.8/SteamAchievementNotifierV1.8.exe)** is a huge new update including:
 
-<p align="left"><img width="400" src="https://user-images.githubusercontent.com/77490730/143625339-bf739383-03db-45c4-bca3-514759146e8a.png"></p>
+- **Customisable Notifications**: Click the "**Customise...**" button to open the new **Steam Achievement Customiser** interface. From there, select an Achievement Style (including Console-style designs), and customise the size, screen position, shape, colour/image background, icon shape, display time and more! All changes will be shown in the preview window as you customise, and you can use different styles/values for both main and rare notifications!
+- **Randomised Sound Mode**: When hovering over the "*Sound Select*" box, scroll your mouse wheel to switch between *File Mode* and *Randomised Mode*. In *File Mode*, your selected sound will play as normal, but in *Randomised Mode*, select a folder containing audio files, and each one will randomly play every time an achievement is unlocked!
+- **Volume Controls**: Hover over the "*Preview Sound*" button and scroll your mouse wheel to change the volume of the notification sound. This can be changed independently for both main and rare achievements!
+- **Redesigned Settings Menu**: The Settings menu has been re-worked as a flyout-style menu instead of a separate page, which makes changing things a lot quicker! Additional Settings have also been added, including *hiding native Steam achievement notifications*, *configurable rarity percentage*, *showing percentages for all notification types*, and *tracking notification opacity*!
 
-This application uses [**BurntToast** by Windos](https://github.com/Windos/BurntToast) to display Windows 10 notifications.
+Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
+
+<p align="left"><img width="400" alt="image" src="https://user-images.githubusercontent.com/77490730/156600759-72fcaf6b-6ad9-437e-aed1-742d45a1dfe1.png"></p>
 
 **SETUP:**
 -
@@ -21,11 +26,11 @@ This application uses [**BurntToast** by Windos](https://github.com/Windos/Burnt
 - An **[API Key](https://steamcommunity.com/login/home/?goto=%2Fdev%2Fapikey)** for your Steam account
 - The **[Steam64ID](https://steamid.io/lookup)** for your Steam account
 - "**Game Details**" are set to "**Public**" in Steam
-> *To check this, open **Steam** and click **Username Tab** > **Profile** > **Edit Profile** > **Privacy Settings** > **Game Details***
+> *To check this, click the "**Game Details**" link in the Settings menu.*
 
 **INSTALLATION:**
-1. Download "*[SteamAchievementNotifierV1.73.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.73/SteamAchievementNotifierV1.73.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
-2. Run *SteamAchievementNotifierV1.73.exe*.
+1. Download "*[SteamAchievementNotifierV1.8.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.8/SteamAchievementNotifierV1.8.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+2. Run *SteamAchievementNotifierV1.8.exe*.
 3. When the application opens, click the _SETTINGS_ button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
 
 **USAGE:**
@@ -37,7 +42,7 @@ Once a game is running, **Steam Achievement Notifier** will display a notificati
 
 `Now tracking achievements for <Current Game>.` (This can be turned off via the Settings menu)
 
-Once an achievement is unlocked, a **Toast Notification** will display containing the game name and details of the unlocked achievement!
+Once an achievement is unlocked, a **Notification** will display containing the game name and details of the unlocked achievement!
   
 🏆 Happy Achievement Hunting! 🏆
 
@@ -58,9 +63,7 @@ Custom audio for notifications ***only*** supports **.WAV files**. If you have a
 
 ***Notification does not appear on screen when unlocking an achievement***
 
-Some games do not allow Windows notifications to overlay above them if they are in "Fullscreen" mode. If you hear the achievement notification sound but don't see it, run the game in "Fullscreen Borderless" mode, which should allow notifications to appear.
-
-If you can't see any achievement and do not hear any achievement sounds when unlocking, check your Windows "Focus Assist" settings and ensure that notifications are allowed when running games.
+Some games do not allow Windows notifications to overlay above them if they are in "Fullscreen" mode. If you hear the achievement notification sound but don't see it, run the game in "Fullscreen Borderless" mode, which should allow notifications to appear. I am actively working on a solution to allow notifications to show in Fullscreen mode!
 
 ***Cannot download EXE via Releases due to "Virus Detected" warning in Browser***
 
@@ -82,5 +85,4 @@ Once these steps are complete, the file should now show in your Downloads folder
 **KNOWN ISSUES:**
 -
 
-- **BurntToast** Notification removes the achievement description if the game name/achievement title is too long. I will be looking into a way to shorten the achievement name if it contains more than a certain amount of characters which would fix this issue. *Note: This also happens when the Steam achievement is "Hidden"/"Secret" - this is a limitation of the Steam Web API as "Hidden"/"Secret" achievement descriptions are updated after unlocking.*
-- A large number of tracking notifications can be sent in quick succession while playing a game. If this issue occurs, please right-click the system tray icon and select "Exit", and restart the application.
+- Notification will not show achievement description if the Steam achievement is "Hidden"/"Secret" - this is a limitation of the Steam Web API as "Hidden"/"Secret" achievement descriptions are updated after unlocking.

@@ -10,7 +10,7 @@ Steam Achievement Notifier
 
 Inspired by achievement notifications for consoles, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
 
-**[Version 1.8](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.8/SteamAchievementNotifierV1.8.exe)** is a huge new update including:
+**[Version 1.81](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.81/SteamAchievementNotifierV1.81.exe)** is a huge new update including:
 
 - **Customisable Notifications**: Click the "**Customise...**" button to open the new **Steam Achievement Customiser** interface. From there, select an Achievement Style (including Console-style designs), and customise the size, screen position, shape, colour/image background, icon shape, display time and more! All changes will be shown in the preview window as you customise, and you can use different styles/values for both main and rare notifications!
 - **Randomised Sound Mode**: When hovering over the "*Sound Select*" box, scroll your mouse wheel to switch between *File Mode* and *Randomised Mode*. In *File Mode*, your selected sound will play as normal, but in *Randomised Mode*, select a folder containing audio files, and each one will randomly play every time an achievement is unlocked!
@@ -31,8 +31,8 @@ Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchiev
 > *To check this, click the "**Game Details**" link in the Settings menu.*
 
 **INSTALLATION:**
-1. Download "*[SteamAchievementNotifierV1.8.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.8/SteamAchievementNotifierV1.8.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
-2. Run *SteamAchievementNotifierV1.8.exe*.
+1. Download "*[SteamAchievementNotifierV1.81.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.81/SteamAchievementNotifierV1.81.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+2. Run *SteamAchievementNotifierV1.81.exe*.
 3. When the application opens, click the _SETTINGS_ button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
 
 **USAGE:**
@@ -59,13 +59,9 @@ Check your API Key/Steam64 ID values. If these are set incorrectly, the script w
 
 Ensure your Steam64ID is correct. Users can have similar names on Steam, so if you are unsure whether a profile is yours when using https://steamid.io/, click the profile link on the steamid.io page, or copy your Steam Community profile URL and paste into the steamid.io search box.
 
-***Cannot hear sound when achievements are unlocked***
-
-Custom audio for notifications ***only*** supports **.WAV files**. If you have a custom sound you would like to use for the notification that is not in .WAV format, there are plenty of reputable MP3 to WAV converters online. An easy method for converting any audio file to .WAV is to use [https://mp3cut.net/](https://mp3cut.net/) to open your file, click the *"MP3"* drop-down in the bottom-right corner and change to *"WAV"*. Then click *"Save"* to download the .WAV version. You can then view and select your sound from the sound browser.
-
 ***Notification does not appear on screen when unlocking an achievement***
 
-Some games do not allow Windows notifications to overlay above them if they are in "Fullscreen" mode. If you hear the achievement notification sound but don't see it, run the game in "Fullscreen Borderless" mode, which should allow notifications to appear. I am actively working on a solution to allow notifications to show in Fullscreen mode!
+Some games do not allow Windows notifications to overlay above them if they are in "Fullscreen" mode. If you hear the achievement notification sound but don't see it, run the game in "Borderless" mode, which should allow notifications to appear. I am actively working on a solution to allow notifications to show in Fullscreen mode!
 
 ***Cannot download EXE via Releases due to "Virus Detected" warning in Browser***
 

@@ -1,0 +1,36 @@
+{
+  "name": "steamachievementnotifierv1-8",
+  "productName": "Steam Achievement Notifier (V1.82)",
+  "version": "1.8.2",
+  "description": "Steam Achievement Notifier (V1.82)",
+  "copyright": "Copyright © Jackson0ne 2022",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win=portable --ia32"
+  },
+  "author": "Jackson0ne",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^16.0.8",
+    "electron-builder": "^22.14.13"
+  },
+  "dependencies": {
+    "regedit": "^5.0.0"
+  },
+  "build": {
+    "productName": "Steam Achievement Notifier (V1.82)",
+    "artifactName": "SteamAchievementNotifierV1.82.exe",
+    "appId": "Jackson0ne.SteamAchievementNotifier",
+    "asar": "false",
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "img/sanlogo.ico"
+    },
+    "portable": {
+      "unpackDirName": true
+    }
+  }
+}

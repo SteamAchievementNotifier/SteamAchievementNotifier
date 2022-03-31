@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            html, body {
+                width: 100%;
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
+                overflow: hidden;
+            }
+
+            #cont {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(100%, 100%);
+                width: 300px;
+                height: 110px;
+                color: white;
+                font-family: "Segoe UI";
+                font-size: 12px;
+                overflow: hidden;
+            }
+
+            #notifycont {
+                background: rebeccapurple;
+                width: 100%;
+                height: 110px;
+                padding: 0px 8px 20px;
+                transform: translateX(100%);
+            }
+
+            #headercont {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                height: 30%;
+                padding: 20px 20px 0px;
+            }
+
+            #toastheaderimg {
+                margin-right: 8px;
+            }
+
+            #toastheader {
+                font-size: 10px;
+            }
+
+            #test {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                height: 70%;
+                padding-top: 20px;
+            }
+
+            #innercontleft {
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                height: 100%;
+            }
+
+            #icon {
+                width: 45px;
+                margin: 0px 20px 0px;
+            }
+
+            #innercontright {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                width: 230px;
+            }
+
+            #game {
+                font-weight: 500;
+            }
+
+            #screenshotcont {
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                width: 300px;
+                height: 169px;
+                transform: translateX(105%);
+            }
+
+            @keyframes slideinright {
+                0% { transform: translateX(100%); }
+                5% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+
+            @keyframes slideoutright {
+                0% { transform: translateX(100%); }
+                5% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+
+            @keyframes slideinleft {
+                0% { transform: translateX(-100%); }
+                5% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+
+            @keyframes slideoutleft {
+                0% { transform: translateX(-100%); }
+                5% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+
+            @keyframes slideinup {
+                0% { transform: translateY(100%); }
+                5% { transform: translateY(0%); }
+                100% { transform: translateY(0%); }
+            }
+
+            @keyframes slideoutup {
+                0% { transform: translateY(100%); }
+                5% { transform: translateY(0%); }
+                100% { transform: translateY(0%); }
+            }
+
+            @keyframes slideindown {
+                0% { transform: translateY(-100%); }
+                5% { transform: translateY(0%); }
+                100% { transform: translateY(0%); }
+            }
+
+            @keyframes slideoutdown {
+                0% { transform: translateY(-100%); }
+                5% { transform: translateY(0%); }
+                100% { transform: translateY(0%); }
+            }
+
+            @keyframes animpause {
+                0% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+        </style>
+    </head>
+    <body>
+        <audio id="audio" src=""></audio>
+        <div id="cont">
+            <div id="screenshotcont">
+                <img id="screenshot" src="../../../img/santextlogobg.png" width="100%" height="100%">
+            </div>
+            <div id="notifycont">
+                <div id="headercont">
+                    <img id="toastheaderimg" src="../../../img/sanlogo.svg" width="15px" height="15px">
+                    <div id="toastheader">Steam Achievement Notifier (V1.8)</div>
+                </div>
+                <div id="test">
+                    <div id="innercontleft">
+                        <img id="icon" src="../../../img/sanlogosquare.svg">
+                    </div>
+                    <div id="innercontright">
+                        <div id="game"></div>
+                        <div id="desc" style="word-wrap: break-word"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="./windows.js"></script>
+</html>

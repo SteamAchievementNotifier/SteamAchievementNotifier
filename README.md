@@ -10,7 +10,7 @@ Steam Achievement Notifier
 
 Inspired by achievement notifications for consoles, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
 
-**[Version 1.82](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.82/SteamAchievementNotifierV1.82.exe)** is a huge new update including:
+**[Version 1.83](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.83/SANLauncherV1.83.exe)** is a huge new update including:
 
 - **Customisable Notifications**: Click the "**Customise...**" button to open the new **Steam Achievement Customiser** interface. From there, select an Achievement Style (including Console-style designs), and customise the size, screen position, shape, colour/image background, icon shape, display time and more! All changes will be shown in the preview window as you customise, and you can use different styles/values for both main and rare notifications!
 - **Randomised Sound Mode**: When hovering over the "*Sound Select*" box, scroll your mouse wheel to switch between *File Mode* and *Randomised Mode*. In *File Mode*, your selected sound will play as normal, but in *Randomised Mode*, select a folder containing audio files, and each one will randomly play every time an achievement is unlocked!
@@ -31,8 +31,8 @@ Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchiev
 > *To check this, click the "**Game Details**" link in the Settings menu.*
 
 **INSTALLATION:**
-1. Download "*[SteamAchievementNotifierV1.82.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.82/SteamAchievementNotifierV1.82.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
-2. Run *SteamAchievementNotifierV1.82.exe*.
+1. Download "*[SANLauncherV1.83.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.83/SanLauncherV1.83.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+2. Run *SANLauncherV1.83.exe*.
 3. When the application opens, click the _SETTINGS_ button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
 
 **USAGE:**
@@ -84,3 +84,10 @@ Once these steps are complete, the file should now show in your Downloads folder
 -
 
 - Notification will not show achievement description if the Steam achievement is "Hidden"/"Secret" - this is a limitation of the Steam Web API as "Hidden"/"Secret" achievement descriptions are updated after unlocking.
+
+**ADDITIONAL NPM DEPENDENCIES**
+-
+
+Steam Achievement Notifier **requires** [regedit](https://github.com/ironSource/node-regedit) to check the Windows Registry, and will not function correctly if not installed manually when cloning/forking the repository. To install via NPM, use: `npm install regedit`
+
+Optionally, the application is complied to EXE format using [electron-builder](https://www.electron.build/). To install via NPM, use: `npm install electron-builder`

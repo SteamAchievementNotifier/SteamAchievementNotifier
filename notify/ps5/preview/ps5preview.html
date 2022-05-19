@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        @font-face {
+            font-family: "Source Sans Pro";
+            src: url("../../../fonts/SourceSansPro-Light.ttf");
+        }
+
+        @font-face {
+            font-family: "Source Sans Pro ExtraLight";
+            src: url("../../../fonts/SourceSansPro-ExtraLight.ttf");
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #101010;
+            user-select: none;
+        }
+        
+        #cont {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(100%, 100%);
+            width: 340px;
+            height: 50px;
+            color: white;
+            font-family: "Source Sans Pro";
+            font-size: 14px;
+            /* font-weight: 500; */
+        }
+        
+        #notifycont {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(90deg, rgba(51,51,51,1) 0%, rgba(31,31,31,1) 50%);
+            width: 300px;
+            height: 50px;
+            border-radius: 5px;
+            opacity: 0;
+        }
+        
+        #icon {
+            margin: 0px 10px 0px;
+        }
+        
+        #textcont {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            width: 242px;
+        }
+        
+        #text {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        #desc {
+            font-family: "Source Sans Pro ExtraLight";
+            font-size: 12px;
+            opacity: 0.75;
+        }
+
+        #screenshotcont {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 300px;
+            height: 169px;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        #screenshot {
+            transform: translateY(101%);
+        }
+        
+        @keyframes fadeinleft {
+            0% { opacity: 0; transform: translateX(20px) }
+            100% { opacity: 1; transform: translateX(0px) }
+        }
+        
+        @keyframes fadeinrevleft {
+            0% { opacity: 1; transform: translateX(0px) }
+            100% { opacity: 0; transform: translateX(20px) }
+        }
+
+        @keyframes fadeinright {
+            0% { opacity: 0; transform: translateX(-20px) }
+            100% { opacity: 1; transform: translateX(0px) }
+        }
+        
+        @keyframes fadeinrevright {
+            0% { opacity: 1; transform: translateX(0px) }
+            100% { opacity: 0; transform: translateX(-20px) }
+        }
+
+        @keyframes animpause {
+            0% { opacity: 1; transform: translateX(0%); }
+            100% { opacity: 1; transform: translateX(0%); }
+        }
+
+        @keyframes revealup {
+            0% { transform: translateY(101%); }
+            100% { transform: translateY(0%); }
+        }
+
+        @keyframes revealdown {
+            0% { transform: translateY(-101%); }
+            100% { transform: translateY(0%); }
+        }
+        </style>
+    </head>
+    <body>
+        <div id="cont">
+        <div id="notifycont">
+            <img id="icon" src="../../../img/sanlogosquare.svg" width="25px">
+            <div id="textcont">
+            <div id="text"><img id="trophyicon" src="../../../img/pssilver.png" width="10px" style="margin-right: 3px"><span id="textinner"></span></div>
+            <div id="desc"></div>
+            </div>
+        </div>
+        <div id="screenshotcont">
+            <img id="screenshot" src="../../../img/santextlogobg.png" width="100%" height="100%" style="z-index: 0">
+        </div>
+        </div>
+    </body>
+    <script src="./ps5preview.js"></script>
+    <script>
+        if (config.screenshot == "true") {
+            document.getElementById("cont").style.transform = "translate(-50%, -50%) scale(90%, 90%)";
+        }
+    </script>
+</html>

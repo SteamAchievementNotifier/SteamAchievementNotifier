@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @font-face {
+                font-family: "Titillium Web";
+                src: url("../../fonts/TitilliumWeb-SemiBold.ttf");
+            }
+
+            @font-face {
+                font-family: "Noto Sans";
+                src: url("../../fonts/NotoSans-Regular.ttf");
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html, body {
+                width: 100vw;
+                height: 100vh;
+                color: white;
+                overflow: hidden;
+                font-family: "Titillium Web";
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            #cont {
+                display: flex;
+                position: absolute;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 165px;
+                height: 65px;
+                opacity: 1;
+            }
+
+            #notifycont {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                width: 100%;
+                height: 100%;
+                transform: scaleX(0%);
+                background: linear-gradient(90deg, rgba(32,61,122,1) 0%, rgba(17,34,68,1) 50%, rgba(32,61,122,1) 100%);
+                background-size: 400% 400%;
+                border-radius: 5px;
+                padding: 10px 20px 10px;
+                overflow: hidden;
+                animation: glow 5s ease infinite, reveal 0.5s forwards;
+            }
+
+            @keyframes glow {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            @keyframes reveal {
+                0% { transform: scaleX(0%) }
+                100% { transform: scaleX(100%); }
+            }
+
+            #logo {
+                display: block;
+                position: absolute;
+                top: -65px;
+                right: -100px;
+                opacity: 0.1;
+                width: 200px;
+                z-index: -1;
+                animation: move 5s ease infinite;
+            }
+
+            @keyframes move {
+                0% { transform: scale(0%, 0%); opacity: 0; }
+                20% { transform: scale(0%, 0%); opacity: 0.1; }
+                80% { transform: scale(1000%, 1000%); opacity: 0.1;}
+                100% { transform: scale(1000%, 1000%); opacity: 0;}
+            }
+
+            #track {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            #sanlogo {
+                margin-right: 5px;
+                margin-bottom: 2px;
+            }
+
+            #gamename {
+                font-family: "Noto Sans";
+                font-size: 10px;
+                font-weight: 500;
+                width: 100%;
+                word-wrap: break-word;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="cont">
+            <div id="notifycont">
+                <img id="logo" src="../../img/sanlogo.svg" width="20px">
+                <div id="track">NOW TRACKING:</div>
+                <div id="gamename"></div>
+            </div>
+        </div>
+    </body>
+    <script>
+        const { ipcRenderer } = require('electron');
+        const fs = require('fs');
+        const path = require('path');
+
+        var localappdata;
+
+        if (process.platform == "win32") {
+            localappdata = path.join(process.env.LOCALAPPDATA);
+        } else if (process.platform == "linux") {
+            localappdata = path.join(process.env.HOME,".local","share");
+        } else if (process.platform == "darwin") {
+            localappdata = path.join(process.env.HOME,"Library","Application Support");
+        }
+
+        const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+
+        ipcRenderer.on('track', function(event, gamename) {
+            document.getElementById("notifycont").style.opacity = "" + config.trackopacity * 0.01 + "";
+
+            if (gamename.length > 22) {
+                var shortgamename = gamename.substring(0, 22);
+                gamename = shortgamename + "...";
+            }
+            document.getElementById("gamename").innerHTML = gamename;
+        });
+    </script>
+</html>

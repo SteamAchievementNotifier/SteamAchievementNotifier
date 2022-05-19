@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @font-face {
+                font-family: "Noto Sans";
+                src: url("../../../fonts/NotoSans-SemiBold.ttf");
+            }
+
+            @font-face {
+                font-family: "Noto Sans Regular";
+                src: url("../../../fonts/NotoSans-Regular.ttf");
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html, body {
+                width: 100%;
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
+                overflow: hidden;
+                background: #101010;
+                user-select: none;
+                will-change: contents;
+            }
+
+            #cont {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(100%, 100%);
+                width: 300px;
+                height: 110px;
+                color: white;
+                font-family: "Noto Sans";
+                font-size: 11px;
+                overflow: hidden;
+            }
+
+            #notifycont {
+                background: rebeccapurple;
+                width: 100%;
+                height: 110px;
+                padding: 0px 8px 20px;
+                transform: translateX(100%);
+            }
+
+            #headercont {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                height: 30%;
+                padding: 20px 12px 0px;
+            }
+
+            #toastheaderimg {
+                margin-right: 8px;
+            }
+
+            #toastheader {
+                font-size: 9px;
+            }
+
+            #test {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                height: 70%;
+                padding-top: 20px;
+            }
+
+            #innercontleft {
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                height: 100%;
+            }
+
+            #icon {
+                width: 45px;
+                margin: 0px 12px 0px;
+                box-shadow: 0px 0px 2px 1px rgba(255,184,78,.6),0px 0px 16px 1px rgba(255,184,78,.4);
+            }
+
+            #innercontright {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+
+            #game {
+                font-family: "Noto Sans";
+                width: 200px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            #desc {
+                font-family: "Noto Sans Regular";
+                width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: initial;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+
+            #screenshotcont {
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                width: 300px;
+                height: 169px;
+                transform: translateX(105%);
+            }
+
+            /*STEAM OUTLINE*/
+            #outlinecont {
+                -webkit-mask-image: url("../../../img/base64.png");
+                -webkit-mask-repeat: repeat;
+                -webkit-mask-size: 100%;
+                overflow: hidden;
+                position: absolute;
+            }
+
+            #outlineinnercont {
+                animation: steamrotate 18s linear infinite reverse;
+                -webkit-mask-image: url("../../../img/base64.png");
+                -webkit-mask-repeat: repeat;
+                -webkit-mask-size: 100%;
+            }
+
+            #outline {
+                width: 60px;
+                height: 60px;
+                animation: steamrotate 6s linear infinite;
+                mix-blend-mode: overlay;
+                background: repeating-conic-gradient(rgba(255, 217, 0, 0.178) 0%, rgba(255, 184, 78, 0) 6%, rgba(255, 217, 0, 0.178) 10%, #ffb84e 26%, rgba(255, 217, 0, 0.178) 35%, #ffb84e 40%, rgba(255, 217, 0, 0.178) 60%, #ffb84e 82%, rgba(255, 217, 0, 0.178) 100%);
+                overflow: hidden;
+            }
+
+            @keyframes steamrotate {
+                to{
+                    transform:rotate(1turn)
+                }
+            }
+
+            /*STEAM OUTLINE*/
+
+            @keyframes slideinright {
+                0% { transform: translateX(100%); }
+                5% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+
+            @keyframes slideoutright {
+                0% { transform: translateX(100%); }
+                5% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+
+            @keyframes slideinleft {
+                0% { transform: translateX(-100%); }
+                5% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+
+            @keyframes slideoutleft {
+                0% { transform: translateX(-100%); }
+                5% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+
+            @keyframes slideinup {
+                0% { transform: translateY(100%); }
+                5% { transform: translateY(0%); }
+                100% { transform: translateY(0%); }
+            }
+
+            @keyframes slideoutup {
+                0% { transform: translateY(100%); }
+                5% { transform: translateY(0%); }
+                100% { transform: translateY(0%); }
+            }
+
+            @keyframes slideindown {
+                0% { transform: translateY(-100%); }
+                5% { transform: translateY(0%); }
+                100% { transform: translateY(0%); }
+            }
+
+            @keyframes slideoutdown {
+                0% { transform: translateY(-100%); }
+                5% { transform: translateY(0%); }
+                100% { transform: translateY(0%); }
+            }
+
+            @keyframes animpause {
+                0% { transform: translateX(0%); }
+                100% { transform: translateX(0%); }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="cont">
+            <div id="screenshotcont">
+                <img id="screenshot" src="../../../img/santextlogobg.png" width="100%" height="100%">
+            </div>
+            <div id="notifycont">
+                <div id="headercont">
+                    <img id="toastheaderimg" src="../../../img/sanlogo.svg" width="15px" height="15px">
+                    <div id="toastheader">Steam Achievement Notifier (V1.8)</div>
+                </div>
+                <div id="test">
+                    <div id="innercontleft">
+                        <img id="icon" src="../../../img/sanlogosquare.svg">
+                        <div id="outlinecont" style="top: 40px; left: 12px; z-index: -1">
+                            <div id="outlineinnercont">
+                                <div id="outline"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="innercontright">
+                        <div id="game"></div>
+                        <div id="desc"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="./windowsrarepreview.js"></script>
+    <script>
+        if (config.rarescreenshot == "true") {
+            document.getElementById("cont").style.transform = "translate(-50%, -50%) scale(90%, 90%)";
+        }
+    </script>
+</html>

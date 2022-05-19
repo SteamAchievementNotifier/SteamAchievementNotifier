@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @font-face {
+                font-family: "Titillium Web";
+                src: url("../../fonts/TitilliumWeb-SemiBold.ttf");
+            }
+
+            html, body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
+                color: white;
+            }
+
+            #img {
+                width: 100%;
+                height: 100%;
+            }
+
+            #overlay {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 300px;
+                height: 50px;
+                font-family: "Titillium Web";
+                position: absolute;
+                bottom: -5px;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(100%, 100%);
+                transform-origin: bottom;
+                background: linear-gradient(135deg, rgba(32,62,122,1), rgba(15,29,56,1));
+                padding-left: 10px;
+                border-radius: 5px;
+                zoom: 0.75;
+                overflow: hidden;
+            }
+
+            #trophy {
+                width: 400px;
+                height: 400px;
+                position: absolute;
+                top: 100%;
+                left: 150%;
+                transform: translate(-100%, -50%);
+                opacity: 0.1;
+            }
+
+            #iconcont {
+                width: 30px;
+                height: 30px;
+            }
+
+            #textcont {
+                margin-left: 10px;
+                width: 250px;
+                word-wrap: break-word;
+            }
+
+            #title {
+                font-size: 16px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            #desc {
+                font-size: 12px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <img id="img" src="">
+        <div id="overlay">
+            <div id="iconcont">
+                <img id="icon" src="" width="100%" height="100%">
+            </div>
+            <div id="textcont">
+                <div id="title"></div>
+                <div id="desc"></div>
+            </div>
+            <img src="../../img/sanlogotrophy.svg" id="trophy"></div>
+        </div>
+    </body>
+    <script>
+        const { ipcRenderer } = require('electron')
+        const fs = require('fs')
+        const path = require('path')
+
+        if (process.platform == "win32") {
+            localappdata = path.join(process.env.LOCALAPPDATA)
+        } else if (process.platform == "linux") {
+            localappdata = path.join(process.env.HOME,".local","share")
+        } else if (process.platform == "darwin") {
+            localappdata = path.join(process.env.HOME,"Application Support")
+        }
+
+        document.getElementById("img").src = path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","ss1080p.png");
+
+        ipcRenderer.on('details', (event, title, desc, icon, type) => {
+            const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")))
+
+            if (type == "main") {
+                document.getElementById("overlay").style.transform = "translate(-50%, -50%) scale(" + config.scale + "%, " + config.scale + "%)"
+                document.getElementById("overlay").style.borderRadius = config.roundness + "px";
+
+                if (config.bgtype == "bgsolid") {
+                    document.getElementById("overlay").style.background = config.colour1
+                } else if (config.bgtype == "bg") {
+                    var background = "linear-gradient(135deg, " + config.colour1 + ", " + config.colour2 + ")"
+                    document.getElementById("overlay").style.background = background
+                } else if (config.bgtype == "img") {
+                    var bgimg
+                    if (config.img == "default") {
+                        bgimg = "url('../../img/santextlogobg.png')"
+                        document.getElementById("overlay").style.background = bgimg
+                    } else {
+                        bgimg = `url("${config.img}")`
+                        document.getElementById("overlay").style.background = bgimg
+                    }
+                    document.getElementById("overlay").style.backgroundPosition = "center";
+                    document.getElementById("overlay").style.backgroundRepeat = "no-repeat";
+                    document.getElementById("overlay").style.backgroundSize = "cover";
+                }
+            } else {
+                document.getElementById("overlay").style.transform = "translate(-50%, -50%) scale(" + config.rarescale + "%, " + config.rarescale + "%)"
+                document.getElementById("overlay").style.borderRadius = config.rareroundness + "px";
+
+                if (config.rarebgtype == "bgsolid") {
+                    document.getElementById("overlay").style.background = config.rarecolour1
+                } else if (config.rarebgtype == "bg") {
+                    var background = "linear-gradient(135deg, " + config.rarecolour1 + ", " + config.rarecolour2 + ")"
+                    document.getElementById("overlay").style.background = background
+                } else if (config.rarebgtype == "img") {
+                    var bgimg = `url("${config.rareimg}")`
+                    document.getElementById("overlay").style.background = bgimg
+                    document.getElementById("overlay").style.backgroundPosition = "center";
+                    document.getElementById("overlay").style.backgroundRepeat = "no-repeat";
+                    document.getElementById("overlay").style.backgroundSize = "cover";
+                }
+            }
+
+            document.getElementById("overlay").style.color = config.textcolour
+            document.getElementById("overlay").style.opacity = config.opacity * 0.01
+
+            document.getElementById("icon").src = icon
+
+            document.getElementById("title").innerHTML = title
+            document.getElementById("desc").innerHTML = desc
+        })
+    </script>
+</html>

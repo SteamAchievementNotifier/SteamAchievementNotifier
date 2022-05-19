@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @font-face {
+                font-family: "Titillium Web";
+                src: url("../../../fonts/TitilliumWeb-SemiBold.ttf");
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+            
+            html, body {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            #cont {
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(100%, 100%);
+                width: 300px;
+                height: 50px;
+                color: white;
+                font-family: "Titillium Web";
+                font-size: 12.9px;
+                overflow: hidden;
+            }
+
+            #notifycont {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 17%;
+                height: 100%;
+                border-radius: 0px;
+                transition: 0.5s;
+                transform: scale(0%, 0%);
+            }
+
+            #innercont {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+            }
+
+            #icon1 {
+                margin-left: 10px;
+                z-index: 1;
+            }
+
+            #textcont1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 82%;
+                opacity: 0;
+                margin-left: -5px;
+            }
+
+            #desccont {
+                display: flex;
+                position: absolute;
+                top: 0px;
+                left: 300px;
+                justify-content: center;
+                align-items: center;
+                width: 17%;
+                height: 100%;
+                border-radius: 0px;
+            }
+
+            #innercont1 {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                width: 100%;
+            }
+
+            #icon2 {
+                margin-right: 11px;
+                z-index: 1;
+            }
+
+            #textcont2 {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                position: absolute;
+                top: 0px;
+                left: -300px;
+                width: 240px;
+                height: 100%;
+                padding-left: 25px;
+                font-size: 10px;
+                opacity: 0;
+            }
+
+            #game {
+                font-size: 11px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                width: 100%;
+                line-height: 15px;
+            }
+
+            #desc {
+                font-size: 9px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: initial;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                width: 100%;
+                line-height: 12px;
+            }
+
+            #maincont {
+                position: relative;
+                height: 50px;
+                overflow: hidden;
+            }
+
+            #screenshotcont {
+                display: none;
+                justify-content: flex-start;
+                align-items: flex-end;
+                width: 100%;
+                height: 169px;
+                overflow: hidden;
+            }
+
+            #screenshot {
+                transform: translateX(305px);
+                width: 300px;
+                height: 169px;
+            }
+
+            @keyframes popin {
+                0% { width: 17%; transform: translateX(0px) scale(0%, 0%); }
+                100% { width: 17%; transform: translateX(0px) scale(100%, 100%); }
+            }
+
+            @keyframes moveright {
+                0% { width: 17%; transform: translateX(0px); }
+                100% { width: 17%; transform: translateX(250px); }
+            }
+
+            @keyframes revealleft {
+                0% { width: 17%; transform: translateX(250px); }
+                0% { width: 17%; transform: translateX(250px); }
+                100% { width: 100%; transform: translateX(0px); }
+            }
+
+            @keyframes moveleft {
+                0% { width: 17%; left: 300px }
+                100% { width: 17%; left: 0px }
+            }
+
+            @keyframes revealright {
+                0% { width: 17%; left: 0px; }
+                100% { width: 100%; left: 0px; }
+            }
+
+            @keyframes revealrightrev {
+                0% { width: 100%; left: 0px; }
+                100% { width: 17%; left: 0px; }
+            }
+
+            @keyframes animpause {
+                0% { width: 100%; transform: translateX(0px); }
+                100% { width: 100%; transform: translateX(0px); }
+            }
+
+            @keyframes animpause1 {
+                0% { width: 100%; left: 0px; }
+                100% { width: 100%; left: 0px; }
+            }
+
+            @keyframes slideup {
+                0% { width: 17%; left: 0px; top: 0px; }
+                100% { width: 17%; left: 0px; top: -50px; }
+            }
+
+            @keyframes fadeout {
+                0% { opacity: 1; }
+                100% { opacity: 0; }
+            }
+
+            @keyframes slideinleft {
+                0% { left: -300px; opacity: 0; }
+                100% { left: 0px; opacity: 1; }
+            }
+
+            @keyframes slideoutleft {
+                0% { left: 0px; opacity: 1; }
+                100% { left: -300px; opacity: 0; }
+            }
+
+            @keyframes width {
+                0% { transform: translateX(100%); }
+                100% { transform: translateX(0%); }
+            }
+
+            @keyframes widthrev {
+                0% { width: 300px; height: 169px; }
+                100% { width: 51px; height: 51px; }
+            }
+
+            @keyframes shrinkdown {
+                0% { width: 51px; height: 51px; }
+                100% { width: 51px; height: 0px; }
+            }
+        </style>
+    </head>
+    <body>
+        <audio id="audio" src=""></audio>
+        <div id="cont">
+            <div id="screenshotcont">
+                <img id="screenshot" src="../../../img/santextlogobg.png" width="100%" height="100%">
+            </div>
+            <div id="maincont">
+                <div id="notifycont">
+                    <div id="innercont">
+                        <img id="icon1" src="../../../img/sanlogosquare.svg" width="30px" height="30px">
+                        <div id="textcont1">
+                            <div id="text"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="desccont">
+                    <div id="innercont1">
+                        <div id="textcont2">
+                            <div id="game"></div>
+                            <div id="desc" style="word-wrap: break-word"></div>
+                        </div>
+                        <img id="icon2" src="../../../img/sanlogosquare.svg" width="30px" height="30px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="./default.js"></script>
+</html>

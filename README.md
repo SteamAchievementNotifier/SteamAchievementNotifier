@@ -4,22 +4,29 @@ Steam Achievement Notifier
 
 **[<img src="https://uploads-ssl.webflow.com/5c14e387dab576fe667689cf/61e1116779fc0a9bd5bdbcc7_Frame%206.png" width="16px"> Donate on Ko-Fi!](https://ko-fi.com/steamachievementnotifier)**
 
-**Steam Achievement Notifier** is an Electron application that shows customised notifications when you unlock any Steam Achievement!
+**Steam Achievement Notifier** is an Electron application that shows customisable notifications when you unlock any Steam Achievement!
 
-<p align="left"><img width="546" src="https://user-images.githubusercontent.com/77490730/156606559-e8dbb046-7cf4-49bc-927f-3767f9b62e06.gif"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/77490730/169311283-b733f2fa-9aaa-4d67-b15f-26c0f24c4b13.gif"></p>
 
 Inspired by achievement notifications for consoles, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
 
-**[Version 1.83](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.83/SANLauncherV1.83.exe)** is a huge new update including:
+**[Version 1.84](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.84/SANLauncherV1.84.exe)** is a huge new update including:
 
 - **Customisable Notifications**: Click the "**Customise...**" button to open the new **Steam Achievement Customiser** interface. From there, select an Achievement Style (including Console-style designs), and customise the size, screen position, shape, colour/image background, icon shape, display time and more! All changes will be shown in the preview window as you customise, and you can use different styles/values for both main and rare notifications!
+- **Game Completion Notification**: The **Game Completion Notification** will show when 100% of achievements have been earned in any game!
+- **Custom Icons**: Most notification types now support using a custom icon for certain elements of the notification!
+- **Custom Notification Positions**: Using the new "**Use Custom Screen Position**" option in the Customiser menu, notifications can now be positioned wherever you like - even on secondary monitors!
 - **Randomised Sound Mode**: When hovering over the "*Sound Select*" box, scroll your mouse wheel to switch between *File Mode* and *Randomised Mode*. In *File Mode*, your selected sound will play as normal, but in *Randomised Mode*, select a folder containing audio files, and each one will randomly play every time an achievement is unlocked!
 - **Volume Controls**: Hover over the "*Preview Sound*" button and scroll your mouse wheel to change the volume of the notification sound. This can be changed independently for both main and rare achievements!
-- **Redesigned Settings Menu**: The Settings menu has been re-worked as a flyout-style menu instead of a separate page, which makes changing things a lot quicker! Additional Settings have also been added, including *hiding native Steam achievement notifications*, *configurable rarity percentage*, *showing percentages for all notification types*, and *tracking notification opacity*!
+- **Redesigned Settings Menu**: The Settings menu has been re-worked as a flyout-style menu instead of a separate page, which makes changing things a lot quicker! Additional Settings have also been added, including *hiding native Steam achievement notifications*, *configurable rarity percentage*, *showing percentages for all notification types*, *notification opacity* and more!
+- **Screenshot Overlay**: Enabling the "**Save Screenshots with Overlay**" option in the Settings menu (and enabling screenshots in the Customiser menu) will save a screenshot to your specified folder, and will overlay a notification with details of your earned achievement on top!
+- **Automatic Updates**: Starting with **Version 1.84**, all elements of the app can now be updated on-the-fly, without needing to download new EXE versions!
+- **Linux Support**: An AppImage version of **Version 1.84** is available for download! (*Note: Not all features are currently available for use on the Linux platform!*)
+- **Localisation Support**: All application elements have been translated into most Steam-supported languages - just select your preferred language option in the Settings menu!
 
 Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page to see all improvements and updates!
 
-<p align="left"><img width="400" alt="image" src="https://user-images.githubusercontent.com/77490730/156600759-72fcaf6b-6ad9-437e-aed1-742d45a1dfe1.png"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/77490730/169263877-b839022d-b444-49f4-acd6-8f4e73018157.png"></p>
 
 **SETUP:**
 -
@@ -31,9 +38,12 @@ Check out the [releases](https://github.com/SteamAchievementNotifier/SteamAchiev
 > *To check this, click the "**Game Details**" link in the Settings menu.*
 
 **INSTALLATION:**
-1. Download "*[SANLauncherV1.83.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.83/SanLauncherV1.83.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
-2. Run *SANLauncherV1.83.exe*.
-3. When the application opens, click the _SETTINGS_ button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
+1. Download "*[SANLauncherV1.84.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.84/SanLauncherV1.84.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+
+> ⚠ Starting with **Version 1.84**, automatic updates are attempted on every launch. Make sure to "unblock" **SANLauncherV1.84.exe** (via *right-click* > `Properties` > *Tick* `Unblock` > *Click* `Apply`) before running - automatic updates cannot be downloaded if the file is blocked!
+
+2. Run *SANLauncherV1.84.exe*.
+3. When the application opens, click the _Settings_ (⚙) button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the "_Save_" button(s). After valid credentials have been saved, your username will be updated and the app is ready to use!
 
 **USAGE:**
 -
@@ -83,11 +93,13 @@ Once these steps are complete, the file should now show in your Downloads folder
 **KNOWN ISSUES:**
 -
 
-- Notification will not show achievement description if the Steam achievement is "Hidden"/"Secret" - this is a limitation of the Steam Web API as "Hidden"/"Secret" achievement descriptions are updated after unlocking.
+- A error dialog appears when switching between Customiser tabs on Linux.
 
-**ADDITIONAL NPM DEPENDENCIES**
+**ADDITIONAL NPM DEPENDENCIES/CREDITS**
 -
 
 Steam Achievement Notifier **requires** [regedit](https://github.com/ironSource/node-regedit) to check the Windows Registry, and will not function correctly if not installed manually when cloning/forking the repository. To install via NPM, use: `npm install regedit`
 
 Optionally, the application is complied to EXE format using [electron-builder](https://www.electron.build/). To install via NPM, use: `npm install electron-builder`
+
+Steam Achievement Notifier also makes use of [vdf-parser](https://github.com/rossengeorgiev/vdf-parser) by [rossengeorgiev](https://github.com/rossengeorgiev).

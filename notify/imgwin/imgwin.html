@@ -113,6 +113,7 @@
             if (type == "main") {
                 document.getElementById("overlay").style.transform = "translate(-50%, -50%) scale(" + config.scale + "%, " + config.scale + "%)"
                 document.getElementById("overlay").style.borderRadius = config.roundness + "px";
+                document.getElementById("overlay").style.color = config.textcolour
 
                 if (config.bgtype == "bgsolid") {
                     document.getElementById("overlay").style.background = config.colour1
@@ -135,6 +136,7 @@
             } else {
                 document.getElementById("overlay").style.transform = "translate(-50%, -50%) scale(" + config.rarescale + "%, " + config.rarescale + "%)"
                 document.getElementById("overlay").style.borderRadius = config.rareroundness + "px";
+                document.getElementById("overlay").style.color = config.raretextcolour
 
                 if (config.rarebgtype == "bgsolid") {
                     document.getElementById("overlay").style.background = config.rarecolour1
@@ -150,7 +152,6 @@
                 }
             }
 
-            document.getElementById("overlay").style.color = config.textcolour
             document.getElementById("overlay").style.opacity = config.opacity * 0.01
 
             document.getElementById("icon").src = icon

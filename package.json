@@ -7,6 +7,7 @@
   "main": "appentry.js",
   "scripts": {
     "start": "electron .",
+    "devmode": "electron . --devmode=true",
     "dist": "electron-builder --win=portable --ia32",
     "linux": "electron-builder --linux"
   },

@@ -40,10 +40,14 @@ var launcher;
 var regkey;
 
 if (process.platform == "win32") {
-    if (fs.existsSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app"))) {
-        regkey = require(path.join(respath,'node_modules','regedit'));
-    } else {
+    if (process.env.npm_lifecycle_event == "devmode") {
         regkey = require('regedit');
+    } else {
+        if (fs.existsSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app"))) {
+            regkey = require(path.join(respath,'node_modules','regedit'));
+        } else {
+            regkey = require('regedit');
+        }
     }
     
     launcher = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","launcher.json")));
@@ -230,6 +234,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "FONT SIZE:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Reset Position";
+        document.getElementById("gameiconlbl").innerHTML = "Use Game Icon";
 
         document.getElementById("customiserstylelblrare").innerHTML = "ACHIEVEMENT STYLE:";
         document.getElementById("notifypositionlblrare").innerHTML = "SCREEN POSITION:";
@@ -252,6 +257,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "FONT SIZE:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Reset Position";
+        document.getElementById("gameiconlblrare").innerHTML = "Use Game Icon";
 
         document.getElementById("trackopacitylbl").innerHTML = "Tracking Opacity:";
         document.getElementById("resetlbl").innerHTML = "Reset App to Default";
@@ -264,6 +270,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Save Screenshots with Overlay";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Path:";
         document.getElementById("opacitylbl").innerHTML = "Notification Opacity:";
+        document.getElementById("ssmaintestbtn").innerHTML = "PREVIEW MAIN OVERLAY";
+        document.getElementById("ssraretestbtn").innerHTML = "PREVIEW RARE OVERLAY";
 
         secret = "Secret Achievement!";
         gamecomplete = "Game Complete!";
@@ -358,6 +366,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "حجم الخط:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "إعادة تعيين الموقف";
+        document.getElementById("gameiconlbl").innerHTML = "استخدم أيقونة اللعبة";
 
         document.getElementById("customiserstylelblrare").innerHTML = "أسلوب الإنجاز:";
         document.getElementById("notifypositionlblrare").innerHTML = "موضع الشاشة:";
@@ -380,6 +389,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "حجم الخط:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "إعادة تعيين الموقف";
+        document.getElementById("gameiconlblrare").innerHTML = "استخدم أيقونة اللعبة";
 
         document.getElementById("trackopacitylbl").innerHTML = "عتامة التتبع:";
         document.getElementById("resetlbl").innerHTML = "إعادة تعيين التطبيق";
@@ -392,6 +402,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "حفظ لقطات الشاشة مع التراكب";
         document.getElementById("ssoverlaypathlbl").innerHTML = "طريق:";
         document.getElementById("opacitylbl").innerHTML = "شفافية الإخطار:";
+        document.getElementById("ssmaintestbtn").innerHTML = "معاينة التراكب الرئيسي";
+        document.getElementById("ssraretestbtn").innerHTML = "معاينة تراكب نادر";
 
         secret = "الانجاز السري!";
         gamecomplete = "اكتملت اللعبة!";
@@ -481,6 +493,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "РАЗМЕР НА ШРИФТА:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Нулиране На Позицията";
+        document.getElementById("gameiconlbl").innerHTML = "Икона На Играта";
 
         document.getElementById("customiserstylelblrare").innerHTML = "СТИЛ НА ПОСТИЖЕНИЕ:";
         document.getElementById("notifypositionlblrare").innerHTML = "ПОЗИЦИЯ НА ЕКРАНА:";
@@ -503,6 +516,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "РАЗМЕР НА ШРИФТА:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Нулиране На Позицията";
+        document.getElementById("gameiconlblrare").innerHTML = "Икона На Играта";
 
         document.getElementById("trackopacitylbl").innerHTML = "Непрозрачност:";
         document.getElementById("resetlbl").innerHTML = "Нулиране На Приложението";
@@ -515,6 +529,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Запазване На Екранни Снимки С Наслагване";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Път:";
         document.getElementById("opacitylbl").innerHTML = "Прозрачност На Известията:";
+        document.getElementById("ssmaintestbtn").innerHTML = "ПРЕГЛЕД НА ГЛАВНИЯ ЕКРАН";
+        document.getElementById("ssraretestbtn").innerHTML = "ПРЕГЛЕД НА РЕДКИЯ ЕКРАН";
 
         secret = "Тайно Постижение!";
         gamecomplete = "Играта Е Завършена!";
@@ -604,6 +620,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "字体大小：";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "重置位置";
+        document.getElementById("gameiconlbl").innerHTML = "使用游戏图标";
 
         document.getElementById("customiserstylelblrare").innerHTML = "成就风格：";
         document.getElementById("notifypositionlblrare").innerHTML = "屏幕位置：";
@@ -626,6 +643,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "字体大小：";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "重置位置";
+        document.getElementById("gameiconlblrare").innerHTML = "使用游戏图标";
 
         document.getElementById("trackopacitylbl").innerHTML = "跟踪不透明度：";
         document.getElementById("resetlbl").innerHTML = "将应用重置为默认值";
@@ -638,6 +656,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "使用叠加保存屏幕截图";
         document.getElementById("ssoverlaypathlbl").innerHTML = "小路：";
         document.getElementById("opacitylbl").innerHTML = "通知不透明度：";
+        document.getElementById("ssmaintestbtn").innerHTML = "预览主要叠加";
+        document.getElementById("ssraretestbtn").innerHTML = "预览稀有覆盖";
 
         secret = "秘密成就！";
         gamecomplete = "游戏完成！";
@@ -727,6 +747,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "字體大小：";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "重置位置";
+        document.getElementById("gameiconlbl").innerHTML = "使用遊戲圖標";
 
         document.getElementById("customiserstylelblrare").innerHTML = "成就風格：";
         document.getElementById("notifypositionlblrare").innerHTML = "屏幕位置：";
@@ -749,6 +770,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "字體大小：";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "重置位置";
+        document.getElementById("gameiconlblrare").innerHTML = "使用遊戲圖標";
 
         document.getElementById("trackopacitylbl").innerHTML = "跟踪不透明度：";
         document.getElementById("resetlbl").innerHTML = "將應用重置為默認值";
@@ -761,6 +783,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "使用疊加保存屏幕截圖";
         document.getElementById("ssoverlaypathlbl").innerHTML = "小路：";
         document.getElementById("opacitylbl").innerHTML = "通知不透明度：";
+        document.getElementById("ssmaintestbtn").innerHTML = "預覽主要疊加";
+        document.getElementById("ssraretestbtn").innerHTML = "預覽稀有覆蓋";
 
         secret = "秘密成就！";
         gamecomplete = "遊戲完成！";
@@ -850,6 +874,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "VELIKOST PÍSMA:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Resetovat Pozici";
+        document.getElementById("gameiconlbl").innerHTML = "Použijte Ikonu Hry";
 
         document.getElementById("customiserstylelblrare").innerHTML = "STYL OZNÁMENÍ:";
         document.getElementById("notifypositionlblrare").innerHTML = "POLOHA OBRAZOVKY:";
@@ -872,6 +897,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "VELIKOST PÍSMA:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Resetovat Pozici";
+        document.getElementById("gameiconlblrare").innerHTML = "Použijte Ikonu Hry";
 
         document.getElementById("trackopacitylbl").innerHTML = "Neprůhlednost:";
         document.getElementById("resetlbl").innerHTML = "Resetovat Aplikaci";
@@ -884,6 +910,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Uložte Snímky Obrazovky s Překrytím";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Cesta:";
         document.getElementById("opacitylbl").innerHTML = "Neprůhlednost Oznámení:";
+        document.getElementById("ssmaintestbtn").innerHTML = "NÁHLED HLAVNÍ OBRAZOVKY";
+        document.getElementById("ssraretestbtn").innerHTML = "NÁHLED VZÁCNÝCH OBRAZOVKY";
 
         secret = "Tajný Úspěch!";
         gamecomplete = "Hra Dokončena!";
@@ -973,6 +1001,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "SKRIFTSTØRRELSE:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Nulstil Position";
+        document.getElementById("gameiconlbl").innerHTML = "Brug Spilikonet";
 
         document.getElementById("customiserstylelblrare").innerHTML = "MEDDELELSESSTIL:";
         document.getElementById("notifypositionlblrare").innerHTML = "SKÆRMPOSITION:";
@@ -995,6 +1024,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "SKRIFTSTØRRELSE:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Nulstil Position";
+        document.getElementById("gameiconlblrare").innerHTML = "Brug Spilikonet";
 
         document.getElementById("trackopacitylbl").innerHTML = "Gennemsigtighed:";
         document.getElementById("resetlbl").innerHTML = "Nulstil Applikation";
@@ -1007,6 +1037,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Gem Skærmbilleder med Overlay";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Sti:";
         document.getElementById("opacitylbl").innerHTML = "Gennemsigtighed:";
+        document.getElementById("ssmaintestbtn").innerHTML = "SE HOVEDOVERLAG";
+        document.getElementById("ssraretestbtn").innerHTML = "SE SJÆLDNE OVERLAG";
 
         secret = "Hemmelig Præstation!";
         gamecomplete = "Spil Færdig!";
@@ -1096,6 +1128,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "LETTERTYPEGROOTTE:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Positie Resetten";
+        document.getElementById("gameiconlbl").innerHTML = "Spel Icoon";
         
         document.getElementById("customiserstylelblrare").innerHTML = "STIJL VAN MELDINGEN:";
         document.getElementById("notifypositionlblrare").innerHTML = "SCHERMPOSITIE:";
@@ -1118,6 +1151,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "LETTERTYPEGROOTTE:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Positie Resetten";
+        document.getElementById("gameiconlblrare").innerHTML = "Spel Icoon";
         
         document.getElementById("trackopacitylbl").innerHTML = "Transparantie:";
         document.getElementById("resetlbl").innerHTML = "Applicatie Resetten";
@@ -1130,6 +1164,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Schermafbeeldingen Opslaan met Overlay";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Pad:";
         document.getElementById("opacitylbl").innerHTML = "Transparantie:";
+        document.getElementById("ssmaintestbtn").innerHTML = "VOORBEELD HOOFDOVERLAY";
+        document.getElementById("ssraretestbtn").innerHTML = "VOORBEELD ZELDZAME OVERLAY";
 
         secret = "Geheime Prestatie!";
         gamecomplete = "Spel Compleet!";
@@ -1219,6 +1255,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "FONTTIKOKO:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Palauta Sijainti";
+        document.getElementById("gameiconlbl").innerHTML = "Käytä Pelikuvaketta";
 
         document.getElementById("customiserstylelblrare").innerHTML = "ILMOITUSTYYLI:";
         document.getElementById("notifypositionlblrare").innerHTML = "NÄYTÖN ASENTO:";
@@ -1240,7 +1277,8 @@ function LoadLang() {
         document.getElementById("rareiconselectlbl").innerHTML = "MUKAUTETTU KUVAKE:";
         document.getElementById("fontsizelblrare").innerHTML = "FONTTIKOKO:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
-        document.getElementById("recenterbtnrare").innerHTML = "Palauta Sijainti";        
+        document.getElementById("recenterbtnrare").innerHTML = "Palauta Sijainti";
+        document.getElementById("gameiconlblrare").innerHTML = "Käytä Pelikuvaketta";
 
         document.getElementById("trackopacitylbl").innerHTML = "Läpinäkyvyys:";
         document.getElementById("resetlbl").innerHTML = "Nollaa Sovellus";
@@ -1253,6 +1291,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Tallenna Kuvakaappaukset Peittokuvalla";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Polku:";
         document.getElementById("opacitylbl").innerHTML = "Ilmoituksen Läpinäkyvyys:";
+        document.getElementById("ssmaintestbtn").innerHTML = "NÄYTÄ PÄÄKUVA";
+        document.getElementById("ssraretestbtn").innerHTML = "NÄYTÄ HARVINAINEN KUVA";
 
         secret = "Salainen Saavutus!";
         gamecomplete = "Peli Valmis!";
@@ -1342,6 +1382,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "TAILLE DE POLICE:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Position de Réinitialisation";
+        document.getElementById("gameiconlbl").innerHTML = "Utiliser l'Icône Du Jeu";
 
         document.getElementById("customiserstylelblrare").innerHTML = "STYLE DE NOTIFICATION:";
         document.getElementById("notifypositionlblrare").innerHTML = "POSITION DE L'ÉCRAN:";
@@ -1364,6 +1405,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "TAILLE DE POLICE:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Position de Réinitialisation";
+        document.getElementById("gameiconlblrare").innerHTML = "Utiliser l'Icône Du Jeu";
 
         document.getElementById("trackopacitylbl").innerHTML = "Opacité de Suivi:";
         document.getElementById("resetlbl").innerHTML = "Réinitialiser l'Application";
@@ -1376,6 +1418,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Enregistrer des Captures d'Écran avec Superposition";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Chemin:";
         document.getElementById("opacitylbl").innerHTML = "Opacité des Notifications:";
+        document.getElementById("ssmaintestbtn").innerHTML = "APERÇU DE LA SUPERPOSITION PRINCIPALE";
+        document.getElementById("ssraretestbtn").innerHTML = "APERÇU DE LA SUPERPOSITION RARE";
 
         secret = "Réalisation Secrète!";
         gamecomplete = "Jeu Complet!";
@@ -1465,6 +1509,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "SCHRIFTGRÖSSE:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Position Zurücksetzen";
+        document.getElementById("gameiconlbl").innerHTML = "Spielsymbol Verwenden";
 
         document.getElementById("customiserstylelblrare").innerHTML = "BENACHRICHTIGUNGSSTIL:";
         document.getElementById("notifypositionlblrare").innerHTML = "BILDSCHIRMPOSITION:";
@@ -1487,6 +1532,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "SCHRIFTGRÖSSE:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Position Zurücksetzen";
+        document.getElementById("gameiconlblrare").innerHTML = "Spielsymbol Verwenden";
 
         document.getElementById("trackopacitylbl").innerHTML = "Opazität:";
         document.getElementById("resetlbl").innerHTML = "Anwendung Zurücksetzen";
@@ -1499,6 +1545,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Speichern Sie Bildschirmfoto mit Overlay";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Pfad:";
         document.getElementById("opacitylbl").innerHTML = "Opazität der Benachrichtigung:";
+        document.getElementById("ssmaintestbtn").innerHTML = "VORSCHAU HAUPTBILD";
+        document.getElementById("ssraretestbtn").innerHTML = "VORSCHAU SELTENES BILD";
 
         secret = "Geheimer Errungshaft!";
         gamecomplete = "Spiel Abgeschlossen!";
@@ -1588,6 +1636,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "ΜΕΓΕΘΟΣ ΓΡΑΜΜΑΤΟΣΕΙΡΑΣ:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Επαναφορά θέσης";
+        document.getElementById("gameiconlbl").innerHTML = "Εικονίδιο Παιχνιδιού";
 
         document.getElementById("customiserstylelblrare").innerHTML = "ΣΤΥΛ ΕΙΔΟΠΟΙΗΣΗΣ:";
         document.getElementById("notifypositionlblrare").innerHTML = "ΘΕΣΗ ΟΘΟΝΗΣ:";
@@ -1610,6 +1659,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "ΜΕΓΕΘΟΣ ΓΡΑΜΜΑΤΟΣΕΙΡΑΣ:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Επαναφορά θέσης";
+        document.getElementById("gameiconlblrare").innerHTML = "Εικονίδιο Παιχνιδιού";
 
         document.getElementById("trackopacitylbl").innerHTML = "Αδιαφάνεια:";
         document.getElementById("resetlbl").innerHTML = "Επαναφορά Εφαρμογής";
@@ -1622,6 +1672,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Αποθήκευση Στιγμιότυπων Οθόνης Με Επικάλυψη";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Μονοπάτι:";
         document.getElementById("opacitylbl").innerHTML = "Αδιαφάνεια Ειδοποίησης:";
+        document.getElementById("ssmaintestbtn").innerHTML = "ΚΥΡΙΑ ΠΡΟΕΠΙΣΚΟΠΗΣΗ";
+        document.getElementById("ssraretestbtn").innerHTML = "ΣΠΑΝΙΑ ΠΡΟΕΠΙΣΚΟΠΗΣΗ";
 
         secret = "Μυστικό Επίτευγμα!";
         gamecomplete = "Παιχνίδι Τελείωσε!";
@@ -1711,6 +1763,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "BETŰMÉRET:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Állítsa Vissza A Pozíciót";
+        document.getElementById("gameiconlbl").innerHTML = "Használja a Játék Ikont";
 
         document.getElementById("customiserstylelblrare").innerHTML = "ÉRTESÍTÉSI STÍLUS:";
         document.getElementById("notifypositionlblrare").innerHTML = "A KÉPERNYŐ HELYZETE:";
@@ -1733,6 +1786,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "BETŰMÉRET:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Állítsa Vissza A Pozíciót";
+        document.getElementById("gameiconlblrare").innerHTML = "Használja a Játék Ikont";
 
         document.getElementById("trackopacitylbl").innerHTML = "Átlátszatlanság:";
         document.getElementById("resetlbl").innerHTML = "Alkalmazás Visszaállítása";
@@ -1745,6 +1799,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Képernyőképek Mentése Átfedéssel";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Pálya:";
         document.getElementById("opacitylbl").innerHTML = "Átlátszatlanság:";
+        document.getElementById("ssmaintestbtn").innerHTML = "A FŐKÉP ELŐNÉZÉSE";
+        document.getElementById("ssraretestbtn").innerHTML = "RITKA KÉP ELŐNÉZÉSE";
 
         secret = "Titkos Teljesítmény!";
         gamecomplete = "A Játék Kész!";
@@ -1834,6 +1890,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "DIMENSIONE DEL FONT:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Ripristina Posizione";
+        document.getElementById("gameiconlbl").innerHTML = "Usa l'Icona del Gioco";
 
         document.getElementById("customiserstylelblrare").innerHTML = "STILE DI NOTIFICA:";
         document.getElementById("notifypositionlblrare").innerHTML = "POSIZIONE SCHERMO:";
@@ -1856,6 +1913,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "DIMENSIONE DEL FONT:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Ripristina Posizione";
+        document.getElementById("gameiconlblrare").innerHTML = "Usa l'Icona del Gioco";
 
         document.getElementById("trackopacitylbl").innerHTML = "Opacità:";
         document.getElementById("resetlbl").innerHTML = "Ripristina Applicazione";
@@ -1868,6 +1926,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Salva Screenshot con Sovrapposizione";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Percorso:";
         document.getElementById("opacitylbl").innerHTML = "Opacità di Notifica:";
+        document.getElementById("ssmaintestbtn").innerHTML = "ANTEPRIMA IMMAGINE PRINCIPALE";
+        document.getElementById("ssraretestbtn").innerHTML = "ANTEPRIMA IMMAGINE RARA";
 
         secret = "Obiettivo Segreto!";
         gamecomplete = "Gioco Completo!";
@@ -1957,6 +2017,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "フォントサイズ：";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "位置をリセット";
+        document.getElementById("gameiconlbl").innerHTML = "ゲームアイコンを使用する";
 
         document.getElementById("customiserstylelblrare").innerHTML = "アチーブメントスタイル:";
         document.getElementById("notifypositionlblrare").innerHTML = "画面の位置:";
@@ -1979,6 +2040,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "フォントサイズ：";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "位置をリセット";
+        document.getElementById("gameiconlblrare").innerHTML = "ゲームアイコンを使用する";
 
         document.getElementById("trackopacitylbl").innerHTML = "不透明度の追跡：";
         document.getElementById("resetlbl").innerHTML = "アプリケーションをリセット";
@@ -1991,6 +2053,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "オーバーレイでスクリーンショットを保存";
         document.getElementById("ssoverlaypathlbl").innerHTML = "道：";
         document.getElementById("opacitylbl").innerHTML = "通知の不透明度：";
+        document.getElementById("ssmaintestbtn").innerHTML = "メインオーバーレイのプレビュー";
+        document.getElementById("ssraretestbtn").innerHTML = "プレビューレアオーバーレイ";
 
         secret = "秘密の達成！";
         gamecomplete = "ゲーム完了！";
@@ -2080,6 +2144,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "글꼴 크기:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "위치 재설정";
+        document.getElementById("gameiconlbl").innerHTML = "게임 아이콘 사용";
 
         document.getElementById("customiserstylelblrare").innerHTML = "알림 스타일:";
         document.getElementById("notifypositionlblrare").innerHTML = "화면 위치:";
@@ -2102,6 +2167,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "글꼴 크기:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "위치 재설정";
+        document.getElementById("gameiconlblrare").innerHTML = "게임 아이콘 사용";
 
         document.getElementById("trackopacitylbl").innerHTML = "불투명도 추적:";
         document.getElementById("resetlbl").innerHTML = "애플리케이션 재설정";
@@ -2114,6 +2180,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "오버레이로 스크린샷 저장";
         document.getElementById("ssoverlaypathlbl").innerHTML = "길:";
         document.getElementById("opacitylbl").innerHTML = "알림 불투명도:";
+        document.getElementById("ssmaintestbtn").innerHTML = "기본 오버레이 미리보기";
+        document.getElementById("ssraretestbtn").innerHTML = "희귀 오버레이 미리보기";
 
         secret = "비밀 성취!";
         gamecomplete = "게임 완료!";
@@ -2203,6 +2271,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "SKRIFTSTØRRELSE:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Tilbakestill Posisjon";
+        document.getElementById("gameiconlbl").innerHTML = "Bruk Spillikonet";
 
         document.getElementById("customiserstylelblrare").innerHTML = "MELDINGSSTIL:";
         document.getElementById("notifypositionlblrare").innerHTML = "SKJERMPOSISJON:";
@@ -2225,6 +2294,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "SKRIFTSTØRRELSE:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Tilbakestill Posisjon";
+        document.getElementById("gameiconlblrare").innerHTML = "Bruk Spillikonet";
 
         document.getElementById("trackopacitylbl").innerHTML = "Sporingsopasitet:";
         document.getElementById("resetlbl").innerHTML = "Tilbakestill Applikasjon";
@@ -2237,6 +2307,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Lagre Skjermbilder med Overlegg";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Sti:";
         document.getElementById("opacitylbl").innerHTML = "Varslingsopacitet:";
+        document.getElementById("ssmaintestbtn").innerHTML = "SE HOVEDBILDE";
+        document.getElementById("ssraretestbtn").innerHTML = "SE SJELDENT BILDE";
 
         secret = "Hemmelig Prestasjon!";
         gamecomplete = "Spillet Er Fullført!";
@@ -2326,6 +2398,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "ROZMIAR CZCIONKI:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Resetuj Pozycję";
+        document.getElementById("gameiconlbl").innerHTML = "Użyj Ikony Gry";
 
         document.getElementById("customiserstylelblrare").innerHTML = "STYL POWIADOMIENIA:";
         document.getElementById("notifypositionlblrare").innerHTML = "POZYCJA EKRANU:";
@@ -2348,6 +2421,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "ROZMIAR CZCIONKI:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Resetuj Pozycję";
+        document.getElementById("gameiconlblrare").innerHTML = "Użyj Ikony Gry";
 
         document.getElementById("trackopacitylbl").innerHTML = "Krycie Śledzące:";
         document.getElementById("resetlbl").innerHTML = "Zresetuj Aplikację";
@@ -2360,6 +2434,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Zapisz Zrzuty Ekranu z Nakładką";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Ścieżka:";
         document.getElementById("opacitylbl").innerHTML = "Przejrzystość Powiadomień:";
+        document.getElementById("ssmaintestbtn").innerHTML = "PODGLĄD GŁÓWNEJ NAKŁADKI";
+        document.getElementById("ssraretestbtn").innerHTML = "PODGLĄD RZADKIEJ NAKŁADKI";
 
         secret = "Tajne Osiągnięcie!";
         gamecomplete = "Gra Zakończona!";
@@ -2449,6 +2525,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "TAMANHO DA FONTE:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Redefinir Posição";
+        document.getElementById("gameiconlbl").innerHTML = "Use O Ícone Do Jogo";
 
         document.getElementById("customiserstylelblrare").innerHTML = "ESTILO DE NOTIFICAÇÃO:";
         document.getElementById("notifypositionlblrare").innerHTML = "POSIÇÃO DA TELA:";
@@ -2471,6 +2548,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "TAMANHO DA FONTE:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Redefinir Posição";
+        document.getElementById("gameiconlblrare").innerHTML = "Use O Ícone Do Jogo";
 
         document.getElementById("trackopacitylbl").innerHTML = "Opacidade:";
         document.getElementById("resetlbl").innerHTML = "Redefinir Aplicativo";
@@ -2483,6 +2561,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Salvar Capturas de Tela com Sobreposição";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Caminho:";
         document.getElementById("opacitylbl").innerHTML = "Opacidade da Notificação:";
+        document.getElementById("ssmaintestbtn").innerHTML = "VER SOBREPOSIÇÃO PRINCIPAL";
+        document.getElementById("ssraretestbtn").innerHTML = "VER SOBREPOSIÇÃO RARO";
 
         secret = "Conquista Secreta!";
         gamecomplete = "Jogo Completo!";
@@ -2572,6 +2652,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "MARIMEA FONTULUI:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Resetează Poziția";
+        document.getElementById("gameiconlbl").innerHTML = "Utilizați Pictograma Jocului";
 
         document.getElementById("customiserstylelblrare").innerHTML = "STILUL DE NOTIFICARE:";
         document.getElementById("notifypositionlblrare").innerHTML = "POZIȚIA ECRANULUI:";
@@ -2594,6 +2675,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "MARIMEA FONTULUI:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Resetează Poziția";
+        document.getElementById("gameiconlblrare").innerHTML = "Utilizați Pictograma Jocului";
 
         document.getElementById("trackopacitylbl").innerHTML = "Opacitatea Urmăririi:";
         document.getElementById("resetlbl").innerHTML = "Resetați Aplicația";
@@ -2606,6 +2688,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Salvați Capturi de Ecran cu Suprapunere";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Cale:";
         document.getElementById("opacitylbl").innerHTML = "Opacitatea Notificărilor:";
+        document.getElementById("ssmaintestbtn").innerHTML = "VEZI IMAGINEA PRINCIPALA";
+        document.getElementById("ssraretestbtn").innerHTML = "VEZI IMAGINEA RARE";
 
         secret = "Realizare Secretă!";
         gamecomplete = "Joc Complet!";
@@ -2695,6 +2779,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "РАЗМЕР ШРИФТА:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Сбросить Положение";
+        document.getElementById("gameiconlbl").innerHTML = "Использовать Значок Игры";
 
         document.getElementById("customiserstylelblrare").innerHTML = "СТИЛЬ УВЕДОМЛЕНИЯ:";
         document.getElementById("notifypositionlblrare").innerHTML = "ПОЛОЖЕНИЕ ЭКРАНА:";
@@ -2717,6 +2802,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "РАЗМЕР ШРИФТА:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Сбросить Положение";
+        document.getElementById("gameiconlblrare").innerHTML = "Использовать Значок Игры";
 
         document.getElementById("trackopacitylbl").innerHTML = "Непрозрачность:";
         document.getElementById("resetlbl").innerHTML = "Сбросить Приложение";
@@ -2729,6 +2815,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Сохранение Скриншотов С Наложением";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Путь:";
         document.getElementById("opacitylbl").innerHTML = "Непрозрачность:";
+        document.getElementById("ssmaintestbtn").innerHTML = "ПОСМОТРЕТЬ ГЛАВНУЮ ОВЕРЛЕЙ";
+        document.getElementById("ssraretestbtn").innerHTML = "ПОСМОТРЕТЬ РЕДКИЙ ОВЕРЛЕЙ";
 
         secret = "Секретное Достижение!";
         gamecomplete = "Завершенная Игра!";
@@ -2818,6 +2906,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "TAMAÑO DE FUENTE:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Restablecer Posición";
+        document.getElementById("gameiconlbl").innerHTML = "Usar Icono de Juego";
 
         document.getElementById("customiserstylelblrare").innerHTML = "ESTILO DE NOTIFICACIÓN:";
         document.getElementById("notifypositionlblrare").innerHTML = "POSICIÓN DE LA PANTALLA:";
@@ -2840,6 +2929,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "TAMAÑO DE FUENTE:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Restablecer Posición";
+        document.getElementById("gameiconlblrare").innerHTML = "Usar Icono de Juego";
 
         document.getElementById("trackopacitylbl").innerHTML = "Opacidad:";
         document.getElementById("resetlbl").innerHTML = "Restablecer Aplicación";
@@ -2852,6 +2942,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Guardar Capturas de Pantalla con Superposición";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Ruta:";
         document.getElementById("opacitylbl").innerHTML = "Opacidad de Notificación:";
+        document.getElementById("ssmaintestbtn").innerHTML = "VER SUPERPOSICIÓN PRINCIPAL";
+        document.getElementById("ssraretestbtn").innerHTML = "VER SUPERPOSICIÓN RARO";
 
         secret = "¡Logro Secreto!";
         gamecomplete = "¡Juego Completo!";
@@ -2941,6 +3033,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "TEXTSTORLEK:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Återställ Position";
+        document.getElementById("gameiconlbl").innerHTML = "Använd Spelikonen";
 
         document.getElementById("customiserstylelblrare").innerHTML = "MEDDELANDE STIL:";
         document.getElementById("notifypositionlblrare").innerHTML = "SKÄRMPOSITION:";
@@ -2963,6 +3056,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "TEXTSTORLEK:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Återställ Position";
+        document.getElementById("gameiconlblrare").innerHTML = "Använd Spelikonen";
 
         document.getElementById("trackopacitylbl").innerHTML = "Spårningsopacitet:";
         document.getElementById("resetlbl").innerHTML = "Återställ Applikation";
@@ -2975,6 +3069,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Spara Skärmdumpar med Overlay";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Väg:";
         document.getElementById("opacitylbl").innerHTML = "Opacitet:";
+        document.getElementById("ssmaintestbtn").innerHTML = "VISA HUVUDBILD";
+        document.getElementById("ssraretestbtn").innerHTML = "VISA SÄLLSYNT BILD";
 
         secret = "Hemlig Prestation!";
         gamecomplete = "Spelet Avklarat!";
@@ -3064,6 +3160,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "ขนาดตัวอักษร:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "รีเซ็ตตำแหน่ง";
+        document.getElementById("gameiconlbl").innerHTML = "ใช้ไอคอนเกม";
 
         document.getElementById("customiserstylelblrare").innerHTML = "รูปแบบการแจ้งเตือน:";
         document.getElementById("notifypositionlblrare").innerHTML = "ตำแหน่งหน้าจอ:";
@@ -3086,6 +3183,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "ขนาดตัวอักษร:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "รีเซ็ตตำแหน่ง";
+        document.getElementById("gameiconlblrare").innerHTML = "ใช้ไอคอนเกม";
 
         document.getElementById("trackopacitylbl").innerHTML = "ติดตามความทึบ:";
         document.getElementById("resetlbl").innerHTML = "รีเซ็ตแอปพลิเคชัน";
@@ -3098,6 +3196,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "บันทึกภาพหน้าจอด้วยโอเวอร์เลย์";
         document.getElementById("ssoverlaypathlbl").innerHTML = "เส้นทาง:";
         document.getElementById("opacitylbl").innerHTML = "ความทึบของการแจ้งเตือน:";
+        document.getElementById("ssmaintestbtn").innerHTML = "ดูตัวอย่างภาพซ้อนทับหลัก";
+        document.getElementById("ssraretestbtn").innerHTML = "ดูตัวอย่างภาพซ้อนทับที่หายาก";
 
         secret = "ความลับความสำเร็จ!";
         gamecomplete = "เกมจบ!";
@@ -3187,6 +3287,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "YAZI BOYUTU:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Pozisyonu Sıfırla";
+        document.getElementById("gameiconlbl").innerHTML = "Oyun Simgesini Kullan";
 
         document.getElementById("customiserstylelblrare").innerHTML = "BİLDİRİM TARZI:";
         document.getElementById("notifypositionlblrare").innerHTML = "EKRAN KONUMU:";
@@ -3209,6 +3310,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "YAZI BOYUTU:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Pozisyonu Sıfırla";
+        document.getElementById("gameiconlblrare").innerHTML = "Oyun Simgesini Kullan";
 
         document.getElementById("trackopacitylbl").innerHTML = "Opaklığı İzliyor:";
         document.getElementById("resetlbl").innerHTML = "Uygulamayı Sıfırla";
@@ -3221,6 +3323,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Yer Paylaşımlı Ekran Görüntülerini Kaydet";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Yol:";
         document.getElementById("opacitylbl").innerHTML = "Bildirim Opaklığı:";
+        document.getElementById("ssmaintestbtn").innerHTML = "ANA GÖRÜNTÜ ÖNİZLEME";
+        document.getElementById("ssraretestbtn").innerHTML = "NADİR GÖRÜNTÜ ÖNİZLEME";
 
         secret = "Gizli Başarı!";
         gamecomplete = "Oyun Tamamlandı!";
@@ -3310,6 +3414,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "РОЗМІР ШРИФТУ:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Скинути Позицію";
+        document.getElementById("gameiconlbl").innerHTML = "Використовуйте Значок Гри";
 
         document.getElementById("customiserstylelblrare").innerHTML = "СТИЛЬ ПОВІДОМЛЕННЯ:";
         document.getElementById("notifypositionlblrare").innerHTML = "ПОЛОЖЕННЯ ЕКРАНА:";
@@ -3332,6 +3437,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "РОЗМІР ШРИФТУ:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Скинути Позицію";
+        document.getElementById("gameiconlblrare").innerHTML = "Використовуйте Значок Гри";
 
         document.getElementById("trackopacitylbl").innerHTML = "Непрозорість:";
         document.getElementById("resetlbl").innerHTML = "Скинути Програму";
@@ -3344,6 +3450,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Збережіть Знімки Екрана З Накладенням";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Шлях:";
         document.getElementById("opacitylbl").innerHTML = "Непрозорість Сповіщень:";
+        document.getElementById("ssmaintestbtn").innerHTML = "ПЕРЕГЛЯНУТИ ГОЛОВНЕ ЗОБРАЖЕННЯ";
+        document.getElementById("ssraretestbtn").innerHTML = "ПЕРЕГЛЯНУТИ РІДКІСНІ ЗОБРАЖЕННЯ";
 
         secret = "Секретне Досягнення!";
         gamecomplete = "Гра Завершено!";
@@ -3433,6 +3541,7 @@ function LoadLang() {
         document.getElementById("fontsizelbl").innerHTML = "CỠ CHỮ:";
         document.getElementById("dragposbtn").innerHTML = custompos;
         document.getElementById("recenterbtn").innerHTML = "Đặt Lại Vị Trí";
+        document.getElementById("gameiconlbl").innerHTML = "Biểu Tượng Trò Chơi";
 
         document.getElementById("customiserstylelblrare").innerHTML = "PHONG CÁCH THÔNG BÁO:";
         document.getElementById("notifypositionlblrare").innerHTML = "VỊ TRÍ MÀN HÌNH:";
@@ -3455,6 +3564,7 @@ function LoadLang() {
         document.getElementById("fontsizelblrare").innerHTML = "CỠ CHỮ:";
         document.getElementById("dragposbtnrare").innerHTML = custompos;
         document.getElementById("recenterbtnrare").innerHTML = "Đặt Lại Vị Trí";
+        document.getElementById("gameiconlblrare").innerHTML = "Biểu Tượng Trò Chơi";
 
         document.getElementById("trackopacitylbl").innerHTML = "Theo Dõi Minh Bạch:";
         document.getElementById("resetlbl").innerHTML = "Đặt Lại Ứng Dụng";
@@ -3467,6 +3577,8 @@ function LoadLang() {
         document.getElementById("ssoverlaylbl").innerHTML = "Lưu Ảnh Chụp Màn Hình Bằng Lớp Phủ";
         document.getElementById("ssoverlaypathlbl").innerHTML = "Đường Dẫn:";
         document.getElementById("opacitylbl").innerHTML = "ĐỘ MỜ THÔNG BÁO:";
+        document.getElementById("ssmaintestbtn").innerHTML = "XEM HÌNH ẢNH CHÍNH";
+        document.getElementById("ssraretestbtn").innerHTML = "XEM HÌNH ẢNH HIẾM";
 
         secret = "Thành Tựu Bí Mật!";
         gamecomplete = "Hoàn Thành Trò Chơi!";
@@ -5302,6 +5414,16 @@ function GetNotifyStyle() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     }
+
+    if (document.getElementById("customiserstyledropdown").value == "xbox" || document.getElementById("customiserstyledropdown").value == "ps5") {
+        document.getElementById("iconselectlbl").style.display = "none";
+        document.getElementById("iconselectcont").style.display = "none";
+        document.getElementById("gameiconcont").style.display = "none";
+    } else {
+        document.getElementById("iconselectlbl").style.display = "flex";
+        document.getElementById("iconselectcont").style.display = "flex";
+        document.getElementById("gameiconcont").style.display = "flex";
+    }
 }
 
 GetNotifyStyle();
@@ -5423,6 +5545,16 @@ function GetNotifyStyleRare() {
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
+    }
+
+    if (document.getElementById("customiserstyledropdownrare").value == "xbox" || document.getElementById("customiserstyledropdownrare").value == "ps5") {
+        document.getElementById("rareiconselectlbl").style.display = "none";
+        document.getElementById("rareiconselectcont").style.display = "none";
+        document.getElementById("gameiconcontrare").style.display = "none";
+    } else {
+        document.getElementById("rareiconselectlbl").style.display = "flex";
+        document.getElementById("rareiconselectcont").style.display = "flex";
+        document.getElementById("gameiconcontrare").style.display = "flex";
     }
 }
 
@@ -6426,7 +6558,6 @@ function GetHiddenDescs() {
                     desc: achievementdata[i].children[4].textContent
                 }
                 achievementarr.push(achievementobj)
-                // console.log(`%cTitle: %c${achievementobj.name}\n%cAPI Name: %c${achievementobj.apiname}\n%cDescription: %c${achievementobj.desc}`,"color: deeppink","color: white","color:rebeccapurple","color:white","color:blueviolet","color:white");
             }
         })
     }
@@ -6486,7 +6617,7 @@ function SANIdle() {
                 regkey.list([`HKCU\\SOFTWARE\\Valve\\Steam\\Apps\\${appid}`], function(err, result) {
                     gamename = result[`HKCU\\SOFTWARE\\Valve\\Steam\\Apps\\${appid}`].values.Name.value;
                     if (config.tracking == "true") {
-                        ipcRenderer.send('trackwin', gamename);
+                        ipcRenderer.send('trackwin', gamename, appid);
                         setTimeout(function() {
                             ipcRenderer.send('trackstop')
                         }, 5000);
@@ -6669,7 +6800,7 @@ async function StartSAN() {
                             }
 
                             if (config.screenshot == "true" && config.ssoverlay == "true") {
-                                ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type)
+                                ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
                             }
 
                             ipcRenderer.once('notrunning', function() {
@@ -6749,7 +6880,7 @@ async function StartSAN() {
                             }
 
                             if (config.rarescreenshot == "true" && config.ssoverlay == "true") {
-                                ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type)
+                                ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
                             }
 
                             ipcRenderer.once('notrunning', function() {
@@ -7213,13 +7344,17 @@ function CheckSSOverlay() {
 
     document.getElementById("ssoverlaypathcont").style.transition = "0.2s";
     document.getElementById("ssoverlaypathcont").style.animation = "fadein 0.5s forwards";
+    document.getElementById("sstestcont").style.transition = "0.2s";
+    document.getElementById("sstestcont").style.animation = "fadein 0.5s forwards";
 
     if (config.ssoverlay == "true") {
         document.getElementById("ssoverlaybox").checked = true;
         document.getElementById("ssoverlaypathcont").style.display = "flex";
+        document.getElementById("sstestcont").style.display = "flex";
     } else {
         document.getElementById("ssoverlaybox").checked = false;
         document.getElementById("ssoverlaypathcont").style.display = "none";
+        document.getElementById("sstestcont").style.display = "none";
     }
 }
 
@@ -7523,6 +7658,112 @@ function ResetIconRare() {
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     document.getElementById("webviewrare").reload();
+}
+
+function CheckGameIcon() {
+    if (config.gameicon == undefined) {
+        config["gameicon"] = "false";
+        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    }
+
+    if (config.gameicon == "true") {
+        document.getElementById("gameiconbox").checked = true;
+        document.getElementById("iconselectcont").style.pointerEvents = "none";
+        document.getElementById("iconselectcont").style.filter = "brightness(50%)";
+    } else {
+        document.getElementById("gameiconbox").checked = false;
+        document.getElementById("iconselectcont").style.pointerEvents = "auto";
+        document.getElementById("iconselectcont").style.filter = "brightness(100%)";
+    }
+}
+
+CheckGameIcon();
+
+function ToggleGameIcon() {
+    if (config.gameicon == "false") {
+        config["gameicon"] = "true";
+        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        
+        document.getElementById("webview").reload();
+    } else {
+        config["gameicon"] = "false";
+        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+
+        document.getElementById("webview").reload();
+    }
+    CheckGameIcon();
+}
+
+function CheckGameIconRare() {
+    if (config.raregameicon == undefined) {
+        config["raregameicon"] = "false";
+        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    }
+
+    if (config.raregameicon == "true") {
+        document.getElementById("gameiconboxrare").checked = true;
+        document.getElementById("rareiconselectcont").style.pointerEvents = "none";
+        document.getElementById("rareiconselectcont").style.filter = "brightness(50%)";
+    } else {
+        document.getElementById("gameiconboxrare").checked = false;
+        document.getElementById("rareiconselectcont").style.pointerEvents = "auto";
+        document.getElementById("rareiconselectcont").style.filter = "brightness(100%)";
+    }
+}
+
+CheckGameIconRare();
+
+function ToggleGameIconRare() {
+    if (config.raregameicon == "false") {
+        config["raregameicon"] = "true";
+        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+
+        document.getElementById("webviewrare").reload();
+    } else {
+        config["raregameicon"] = "false";
+        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+
+        document.getElementById("webviewrare").reload();
+    }
+    CheckGameIconRare();
+}
+
+function ShowOverlayTest(type) {
+    console.log(type)
+    ipcRenderer.send("overlaytest", type)
+}
+
+document.getElementById("ssmaintestbtn").style.display = "flex";
+document.getElementById("ssmainbtn").style.display = "flex";
+document.getElementById("ssraretestbtn").style.display = "none";
+document.getElementById("ssrarebtn").style.display = "none";
+
+function SSHover() {
+    document.getElementById("ssmainimg").src = "./icon/replay.svg";
+    document.getElementById("ssmainimg").style.filter = "brightness(0%)";
+    document.getElementById("ssrareimg").src = "./icon/replay.svg";
+    document.getElementById("ssrareimg").style.filter = "brightness(0%)";
+}
+
+function SSOut() {
+    document.getElementById("ssmainimg").src = "./icon/emoji_events_gold.png";
+    document.getElementById("ssmainimg").style.filter = "brightness(100%)";
+    document.getElementById("ssrareimg").src = "./icon/emoji_events_purple.png";
+    document.getElementById("ssrareimg").style.filter = "brightness(100%)";
+}
+
+function ToggleSSTestType() {
+    if (document.getElementById("ssmaintestbtn").style.display == "flex") {
+        document.getElementById("ssmaintestbtn").style.display = "none";
+        document.getElementById("ssmainbtn").style.display = "none";
+        document.getElementById("ssraretestbtn").style.display = "flex";
+        document.getElementById("ssrarebtn").style.display = "flex";
+    } else {
+        document.getElementById("ssmaintestbtn").style.display = "flex";
+        document.getElementById("ssmainbtn").style.display = "flex";
+        document.getElementById("ssraretestbtn").style.display = "none";
+        document.getElementById("ssrarebtn").style.display = "none";
+    }
 }
 
 // Clears webFrame cache every minute

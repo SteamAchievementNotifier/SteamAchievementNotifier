@@ -269,6 +269,12 @@
                      <div id="ssoverlaypathlbl" style="margin: 0px 5px 0px">Path:</div>
                      <div id="ssoverlaypath" onclick="SetSSOverlayPath()"></div>
                   </div>
+                  <div class="optcont" id="sstestcont">
+                     <button id="ssmainbtn" onclick="ToggleSSTestType()" onmouseover="SSHover()" onmouseleave="SSOut()"><img id="ssmainimg" src="./icon/emoji_events_gold.png" width="15px"></button>
+                     <button id="ssrarebtn" style="display: none" onclick="ToggleSSTestType()" onmouseover="SSHover()" onmouseleave="SSOut()"><img id="ssrareimg" src="./icon/emoji_events_purple.png" width="15px"></button>
+                     <button id="ssmaintestbtn" onclick="ShowOverlayTest('main')">PREVIEW MAIN OVERLAY</button>
+                     <button id="ssraretestbtn" style="display: none" onclick="ShowOverlayTest('rare')">PREVIEW RARE OVERLAY</button>
+                  </div>
                   <div class="optcont" id="tracking" style="cursor: pointer; margin-bottom: 0px" onclick="ToggleNowTracking()">
                      <input id="trackingbox" type="checkbox">
                      <div class="optlbl" id="trackinglbl">Show "Now Tracking" Notification</div>
@@ -419,6 +425,10 @@
                               <img src="./img/sanlogosquare.svg" id="iconselecticon" width="80px" height="80px">
                            </label>
                            <input id="iconselect" type="file" accept="image/*" style="display: none;" onclick="this.value = null">
+                        </div>
+                        <div class="customiseropts" id="gameiconcont">
+                           <input type="checkbox" id="gameiconbox" onclick="ToggleGameIcon()">
+                           <div id="gameiconlbl">Use Game Icon</div>
                         </div>
                         <!-- Custom Icon -->
 
@@ -572,6 +582,10 @@
                               <img src="./img/sanlogosquare.svg" id="rareiconselecticon" width="80px" height="80px">
                            </label>
                            <input id="rareiconselect" type="file" accept="image/*" style="display: none;" onclick="this.value = null">
+                        </div>
+                        <div class="customiseropts" id="gameiconcontrare">
+                           <input type="checkbox" id="gameiconboxrare" onclick="ToggleGameIconRare()">
+                           <div id="gameiconlblrare">Use Game Icon</div>
                         </div>
                         <!-- Rare Custom Icon -->
 

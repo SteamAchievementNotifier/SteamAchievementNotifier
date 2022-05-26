@@ -11,10 +11,16 @@ if (process.platform == "win32") {
     localappdata = path.join(process.env.HOME,"Library","Application Support");
 }
 
-try {
-    var startapp = require(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app","main.js"))
-} catch (err) {
+const devmode = app.commandLine.getSwitchValue("devmode")
+
+if (devmode == "true") {
     var startapp = require("./main.js")
+} else {
+    try {
+        var startapp = require(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app","main.js"))
+    } catch (err) {
+        var startapp = require("./main.js")
+    }
 }
 
 app.on('ready', () => {

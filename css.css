@@ -1861,7 +1861,7 @@ input[type="number"]::-webkit-inner-spin-button {
     align-items: center;
     font-family: "Noto Sans";
     font-size: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 #showscreenshotcheckbox {
@@ -1943,6 +1943,8 @@ input[type="color"]::-webkit-color-swatch {
     width: 169px;
     height: 96px;
     background: black;
+    margin-bottom: 5px;
+    transition: 0.2s;
 }
 
 #iconselectinnerlbl {
@@ -2236,6 +2238,21 @@ input[type="color"]::-webkit-color-swatch {
     background: rgba(255,0,0,0.5);
 }
 
+#gameiconcont, #gameiconcontrare {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: "Noto Sans";
+    font-size: 10px;
+    font-weight: 500;
+    margin: 0px 0px 5px;
+}
+
+#gameiconbox, #gameiconboxrare {
+    margin-left: 0px;
+}
+
 /*MAIN NOTIFICATION*/
 
 /*RARE NOTIFICATION*/
@@ -2316,6 +2333,8 @@ input[type="color"]::-webkit-color-swatch {
     width: 169px;
     height: 96px;
     background: black;
+    margin-bottom: 5px;
+    transition: 0.2s;
 }
 
 #rareiconselectinnerlbl {
@@ -2700,6 +2719,55 @@ input[type="color"]::-webkit-color-swatch {
 
 #ssoverlaypath:hover {
     background: #3d3d3d;
+}
+
+#sstestcont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+}
+
+#ssmaintestbtn:not(hover), #ssraretestbtn:not(hover) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(32, 66, 122);
+    color: white;
+    width: 100%;
+    height: 25px;
+    font-family: "Titillium Web";
+    font-size: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 5px 0px 5px;
+}
+
+#ssmaintestbtn:hover, #ssraretestbtn:hover {
+    background: white;
+    color: black;
+    transition: 0.2s;
+}
+
+#ssmainbtn:not(hover), #ssrarebtn:not(hover) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 25px;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#ssmainbtn:hover, #ssrarebtn:hover {
+    background:white;
 }
 
 @keyframes fadein {

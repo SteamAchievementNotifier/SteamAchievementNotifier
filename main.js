@@ -157,7 +157,7 @@ const startapp = () => {
         screenobj = screen;
     });
 
-    ipcMain.on('trackwin', function(event, gamename) {
+    ipcMain.on('trackwin', function(event, gamename, appid) {
         var trackx = display.width - 185;
         var tracky = display.height - 85;
 
@@ -192,12 +192,18 @@ const startapp = () => {
 
         trackwin.once('ready-to-show', function() {
             trackwin.show();
-            trackwin.webContents.send('track', gamename);
+            trackwin.webContents.send('track', gamename, appid);
         });
 
         ipcMain.on('trackstop', function() {
             trackwin.destroy();
         });
+    });
+
+    var gameicon;
+
+    ipcMain.on('gameicon', (event, gameiconsrc) => {
+        gameicon = gameiconsrc;
     });
 
     ipcMain.on('notifywin', function(event, queueobj) {
@@ -605,7 +611,7 @@ const startapp = () => {
             notifywin.setSize(width, height)
 
             notifywin.show();
-            notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio);
+            notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon);
             
             // notifywin.webContents.openDevTools({ mode: 'detach' })
         });
@@ -862,7 +868,29 @@ const startapp = () => {
         })
     })
 
-    ipcMain.on('img', function(event, title, desc, icon, game, type) {
+    ipcMain.on('overlaytest', (event, type) => {
+        const imgtestwin = new BrowserWindow({
+            // width: 640,
+            // height: 360,
+            width: 1920,
+            height: 1080,
+            center: true,
+            frame: false,
+            transparent: true,
+            resizable: false,
+            show: true,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+
+        imgtestwin.loadFile('./notify/imgwin/imgwin.html')
+
+        imgtestwin.webContents.send('test', type)
+    })
+
+    ipcMain.on('img', function(event, title, desc, icon, game, type, percent) {
         function TakeScreenshot() {
             return new Promise((resolve) => {
                 setTimeout(() => {
@@ -1013,7 +1041,7 @@ const startapp = () => {
                 }
             
                 imgwin.on('ready-to-show', () => {
-                    imgwin.webContents.send('details', title, desc, icon, type)
+                    imgwin.webContents.send('details', title, desc, icon, type, percent)
                 })
             } catch (err) {
                 var m = "SCREENSHOT CREATION ERROR: " + err

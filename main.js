@@ -188,7 +188,13 @@ const startapp = () => {
         trackwin.setIgnoreMouseEvents(true);
         trackwin.setAlwaysOnTop(true, 'screen-saver');
 
-        trackwin.loadFile("./notify/track/track.html");
+        const trackpath = path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app","notify","track","track.html")
+
+        if (fs.existsSync(trackpath)) {
+            trackwin.loadFile(trackpath);
+        } else {
+            trackwin.loadFile("./notify/track/track.html");
+        }
 
         trackwin.once('ready-to-show', function() {
             trackwin.show();
@@ -562,38 +568,95 @@ const startapp = () => {
         notifywin.setAlwaysOnTop(true, 'screen-saver');
 
         var notifysrc;
+        const notifypath = path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app","notify")
 
         if (queueobj.type == "main") {
             if (queueobj.style == "default") {
-                notifysrc = path.join(__dirname,"notify","default","main","default.html");
+                if (fs.existsSync(path.join(notifypath,"default","main","default.html"))) {
+                    notifysrc = path.join(notifypath,"default","main","default.html");
+                } else {
+                    notifysrc = path.join(__dirname,"notify","default","main","default.html");
+                }
             } else if (queueobj.style == "xbox") {
-                notifysrc = path.join(__dirname,"notify","xbox","main","xbox.html");
+                if (fs.existsSync(path.join(notifypath,"xbox","main","xbox.html"))) {
+                    notifysrc = path.join(notifypath,"xbox","main","xbox.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","xbox","main","xbox.html");
+                }
             } else if (queueobj.style == "playstation") {
-                notifysrc = path.join(__dirname,"notify","playstation","main","playstation.html");
+                if (fs.existsSync(path.join(notifypath,"playstation","main","playstation.html"))) {
+                    notifysrc = path.join(notifypath,"playstation","main","playstation.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","playstation","main","playstation.html");
+                }
             } else if (queueobj.style == "ps5") {
-                notifysrc = path.join(__dirname,"notify","ps5","main","ps5.html");
+                if (fs.existsSync(path.join(notifypath,"ps5","main","ps5.html"))) {
+                    notifysrc = path.join(notifypath,"ps5","main","ps5.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","ps5","main","ps5.html");
+                }
             } else if (queueobj.style == "windows") {
-                notifysrc = path.join(__dirname,"notify","windows","main","windows.html");
+                if (fs.existsSync(path.join(notifypath,"windows","main","windows.html"))) {
+                    notifysrc = path.join(notifypath,"windows","main","windows.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","windows","main","windows.html");
+                }
             } else if (queueobj.style == "xbox360") {
-                notifysrc = path.join(__dirname,"notify","xbox360","main","xbox360.html");
+                if (fs.existsSync(path.join(notifypath,"xbox360","main","xbox360.html"))) {
+                    notifysrc = path.join(notifypath,"xbox360","main","xbox360.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","xbox360","main","xbox360.html");
+                }
             } else if (queueobj.style == "xqjan") {
-                notifysrc = path.join(__dirname,"notify","xqjan","main","xqjan.html");
+                if (fs.existsSync(path.join(notifypath,"xqjan","main","xqjan.html"))) {
+                    notifysrc = path.join(notifypath,"xqjan","main","xqjan.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","xqjan","main","xqjan.html");
+                }
             }
         } else {
             if (queueobj.style == "default") {
-                notifysrc = path.join(__dirname,"notify","default","rare","defaultrare.html");
+                if (fs.existsSync(path.join(notifypath,"default","rare","defaultrare.html"))) {
+                    notifysrc = path.join(notifypath,"default","rare","defaultrare.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","default","rare","defaultrare.html");
+                }
             } else if (queueobj.style == "xbox") {
-                notifysrc = path.join(__dirname,"notify","xbox","rare","xboxrare.html");
+                if (fs.existsSync(path.join(notifypath,"xbox","rare","xboxrare.html"))) {
+                    notifysrc = path.join(notifypath,"xbox","rare","xboxrare.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","xbox","rare","xboxrare.html");
+                }
             } else if (queueobj.style == "playstation") {
-                notifysrc = path.join(__dirname,"notify","playstation","rare","playstationrare.html");
+                if (fs.existsSync(path.join(notifypath,"playstation","rare","playstationrare.html"))) {
+                    notifysrc = path.join(notifypath,"playstation","rare","playstationrare.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","playstation","rare","playstationrare.html");
+                }
             } else if (queueobj.style == "ps5") {
-                notifysrc = path.join(__dirname,"notify","ps5","rare","ps5rare.html");
+                if (fs.existsSync(path.join(notifypath,"ps5","rare","ps5rare.html"))) {
+                    notifysrc = path.join(notifypath,"ps5","rare","ps5rare.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","ps5","rare","ps5rare.html");
+                }
             } else if (queueobj.style == "windows") {
-                notifysrc = path.join(__dirname,"notify","windows","rare","windowsrare.html");
+                if (fs.existsSync(path.join(notifypath,"windows","rare","windowsrare.html"))) {
+                    notifysrc = path.join(notifypath,"windows","rare","windowsrare.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","windows","rare","windowsrare.html");
+                }
             } else if (queueobj.style == "xbox360") {
-                notifysrc = path.join(__dirname,"notify","xbox360","rare","xbox360rare.html");
+                if (fs.existsSync(path.join(notifypath,"xbox360","rare","xbox360rare.html"))) {
+                    notifysrc = path.join(notifypath,"xbox360","rare","xbox360rare.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","xbox360","rare","xbox360rare.html");
+                }
             } else if (queueobj.style == "xqjan") {
-                notifysrc = path.join(__dirname,"notify","xqjan","rare","xqjanrare.html");
+                if (fs.existsSync(path.join(notifypath,"xqjan","rare","xqjanrare.html"))) {
+                    notifysrc = path.join(notifypath,"xqjan","rare","xqjanrare.html");
+                }  else {
+                    notifysrc = path.join(__dirname,"notify","xqjan","rare","xqjanrare.html");
+                }
             }
         }
 
@@ -885,7 +948,13 @@ const startapp = () => {
             }
         });
 
-        imgtestwin.loadFile('./notify/imgwin/imgwin.html')
+        const imgtestpath = path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app","notify","imgwin","imgwin.html")
+
+        if (fs.existsSync(imgtestpath)) {
+            imgtestwin.loadFile(imgtestpath);
+        } else {
+            imgtestwin.loadFile('./notify/imgwin/imgwin.html')
+        }
 
         imgtestwin.webContents.send('test', type)
     })
@@ -922,7 +991,13 @@ const startapp = () => {
                     }
                 });
 
-                imgwin.loadFile("./notify/imgwin/imgwin.html")
+                const imgwinpath = path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app","notify","imgwin","imgwin.html")
+
+                if (fs.existsSync(imgwinpath)) {
+                    imgwin.loadFile(imgwinpath);
+                } else {
+                    imgwin.loadFile("./notify/imgwin/imgwin.html")
+                }
 
                 var ovpath;
                 
@@ -1213,7 +1288,13 @@ const startapp = () => {
             }
         });
 
-        dragwin.loadFile("./notify/dragwin/dragwin.html");
+        const dragpath = path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app","notify","dragwin","dragwin.html")
+
+        if (fs.existsSync(dragpath)) {
+            dragwin.loadFile(dragpath);
+        } else {
+            dragwin.loadFile("./notify/dragwin/dragwin.html");
+        }
 
         dragwin.on('ready-to-show', () => {
             dragwin.webContents.send('postype', postype, style, dragwidth, dragheight);

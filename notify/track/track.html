@@ -24,6 +24,7 @@
                 font-family: "Titillium Web";
                 font-size: 12px;
                 font-weight: 500;
+                will-change: contents;
             }
 
             #cont {
@@ -42,18 +43,20 @@
 
             #notifycont {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 justify-content: center;
-                align-items: flex-start;
+                align-items: center;
                 width: 100%;
                 height: 100%;
                 transform: scaleX(0%);
                 background: linear-gradient(90deg, rgba(32,61,122,1) 0%, rgba(17,34,68,1) 50%, rgba(32,61,122,1) 100%);
                 background-size: 400% 400%;
                 border-radius: 5px;
-                padding: 10px 20px 10px;
+                padding: 10px 0px 10px;
                 overflow: hidden;
-                animation: glow 5s ease infinite, reveal 0.5s forwards;
+                /* animation: glow 5s ease infinite, reveal 0.5s forwards; */
+                opacity: 0;
+                transition: 0.2s;
             }
 
             @keyframes glow {
@@ -75,7 +78,13 @@
                 opacity: 0.1;
                 width: 200px;
                 z-index: -1;
-                animation: move 5s ease infinite;
+                /* animation: move 5s ease infinite; */
+            }
+
+            #icon {
+                margin-right: 10px;
+                transition: 0.2s;
+                border-radius: 2px;
             }
 
             @keyframes move {
@@ -91,7 +100,8 @@
                 justify-content: flex-start;
                 align-items: center;
                 width: 100%;
-                margin-bottom: 5px;
+                margin-top: -3px;
+                margin-bottom: 1px;
             }
 
             #sanlogo {
@@ -103,8 +113,12 @@
                 font-family: "Noto Sans";
                 font-size: 10px;
                 font-weight: 500;
-                width: 100%;
+                /* width: 100%; */
                 word-wrap: break-word;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                width: 100px;
             }
         </style>
     </head>
@@ -112,8 +126,11 @@
         <div id="cont">
             <div id="notifycont">
                 <img id="logo" src="../../img/sanlogo.svg" width="20px">
-                <div id="track">NOW TRACKING:</div>
-                <div id="gamename"></div>
+                <img id="icon" src="../../img/sanlogosquare.svg" width="30px">
+                <div id="textcont">
+                    <div id="track">NOW TRACKING:</div>
+                    <div id="gamename"></div>
+                </div>
             </div>
         </div>
     </body>
@@ -134,14 +151,47 @@
 
         const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
 
-        ipcRenderer.on('track', function(event, gamename) {
-            document.getElementById("notifycont").style.opacity = "" + config.trackopacity * 0.01 + "";
+        ipcRenderer.on('track', function(event, gamename, appid) {
+            var xmllist = `https://steamcommunity.com/profiles/${config.steam64id}/stats/${appid}/?xml=1`;
 
-            if (gamename.length > 22) {
-                var shortgamename = gamename.substring(0, 22);
-                gamename = shortgamename + "...";
+            function GetGameIcon() {
+                if (config.steam64id == "") {
+                    console.log("%cError fetching achievement information: No Steam64ID provided",`color: red; font-family:${font}`)
+                } else {
+                    fetch(xmllist)
+                    .then(res => {
+                        if (res.ok) {
+                            if (!(res.url).includes(appid) && !(res.url).includes("/?xml=1")) {
+                                console.log("%cError: Game uses Community Game Name (instead of appid)! Re-checking...","color:red");
+                                xmllist = res.url + "/?xml=1";
+                                GetGameIcon();
+                            } else {
+                                console.log("%cUsing URL: " + xmllist,"color:limegreen");
+                                xmllist = `https://steamcommunity.com/profiles/${config.steam64id}/stats/${appid}/?xml=1`;
+                                return res.text();
+                            }
+                        } else {
+                            console.log("%cError fetching achievement information for " + appid,"color:red");
+                        }
+                    })
+                    .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+                    .then(data => {
+                        var gameicon = data.getElementsByTagName("gameIcon")[0].textContent
+
+                        document.getElementById("icon").src = gameicon
+                        document.getElementById("notifycont").style.opacity = "1";
+                        document.body.style.opacity = "" + config.trackopacity * 0.01 + "";
+                        document.getElementById("gamename").innerHTML = gamename;
+
+                        document.getElementById("notifycont").style.animation = "glow 5s ease infinite, reveal 0.5s forwards"
+                        document.getElementById("logo").style.animation = "move 5s ease infinite";
+
+                        ipcRenderer.send('gameicon', gameicon)
+                    })
+                }
             }
-            document.getElementById("gamename").innerHTML = gamename;
+
+            GetGameIcon()
         });
     </script>
 </html>

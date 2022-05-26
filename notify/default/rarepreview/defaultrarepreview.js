@@ -29,11 +29,15 @@ if (config.rareimg == "default") {
 
 var icon;
 
-if (config.rareicon == "" || config.rareicon == undefined) {
-    icon = "../../../img/sanlogosquare.svg";
+if (config.raregameicon == "true") {
+    icon = "../../../img/gameicon.png";
 } else {
-    icon = config.rareicon;
-    document.getElementById("icon1").style.boxShadow = "none";
+    if (config.rareicon == "" || config.rareicon == undefined) {
+        icon = "../../../img/sanlogosquare.svg";
+    } else {
+        icon = config.rareicon;
+        document.getElementById("icon1").style.boxShadow = "none";
+    }
 }
 
 var icon1 = "../../../img/sanlogosquare.svg";

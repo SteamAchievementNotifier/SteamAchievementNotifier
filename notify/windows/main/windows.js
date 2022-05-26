@@ -16,7 +16,7 @@ const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievem
 
 document.body.style.opacity = config.opacity * 0.01;
 
-ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio) {
+ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon) {
 
 document.getElementById("audio").src = audio;
 document.getElementById("audio").play();
@@ -42,10 +42,18 @@ if (notifyicon == "test") {
 
 var toasticon;
 
-if (config.icon == "" || config.icon == undefined) {
-    toasticon = "../../../img/sanlogo.svg";
+if (config.gameicon == "true") {
+    if (notifyicon == "test") {
+        toasticon = "../../../img/gameicon.png";
+    } else {
+        toasticon = gameicon;
+    }
 } else {
-    toasticon = config.icon;
+    if (config.icon == "" || config.icon == undefined) {
+        toasticon = "../../../img/sanlogo.svg";
+    } else {
+        toasticon = config.icon;
+    }
 }
 
 var solid = "background: " + colour1;

@@ -31,10 +31,14 @@ var icon = "../../../img/sanlogosquare.svg";
 
 var logo;
 
-if (config.rareicon == "" || config.rareicon == undefined) {
-    logo = "../../../img/steamlogonew.svg";
+if (config.raregameicon == "true") {
+    logo = "../../../img/gameicon.png";
 } else {
-    logo = config.rareicon;
+    if (config.rareicon == "" || config.rareicon == undefined) {
+        logo = "../../../img/steamlogonew.svg";
+    } else {
+        logo = config.rareicon;
+    }
 }
 
 var borderradius = config.rareroundness + "px ";

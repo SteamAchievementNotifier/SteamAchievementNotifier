@@ -31,10 +31,14 @@ var icon = "../../../img/sanlogosquare.svg";
 
 var logo;
 
-if (config.icon == "" || config.icon == undefined) {
-    logo = "../../../img/sanlogosquare.svg";
+if (config.gameicon == "true") {
+    logo = "../../../img/gameicon.png";
 } else {
-    logo = config.icon;
+    if (config.icon == "" || config.icon == undefined) {
+        logo = "../../../img/sanlogosquare.svg";
+    } else {
+        logo = config.icon;
+    }
 }
 
 var borderradius = config.roundness + "px";

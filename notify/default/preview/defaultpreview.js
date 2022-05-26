@@ -30,10 +30,14 @@ if (config.img == "default") {
 
 var icon;
 
-if (config.icon == "" || config.icon == undefined) {
-    icon = "../../../img/sanlogosquare.svg";
+if (config.gameicon == "true") {
+    icon = "../../../img/gameicon.png";
 } else {
-    icon = config.icon;
+    if (config.icon == "" || config.icon == undefined) {
+        icon = "../../../img/sanlogosquare.svg";
+    } else {
+        icon = config.icon;
+    }
 }
 
 var icon1 = "../../../img/sanlogosquare.svg";

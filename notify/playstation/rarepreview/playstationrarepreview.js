@@ -31,10 +31,14 @@ var icon = "../../../img/sanlogosquare.svg";
 
 var righticon;
 
-if (config.rareicon == "" || config.rareicon == undefined) {
-    righticon = "../../../img/sanlogo.svg";
+if (config.raregameicon == "true") {
+    righticon = "../../../img/gameicon.png";
 } else {
-    righticon = config.rareicon;
+    if (config.rareicon == "" || config.rareicon == undefined) {
+        righticon = "../../../img/sanlogo.svg";
+    } else {
+        righticon = config.rareicon;
+    }
 }
 
 var borderradius;

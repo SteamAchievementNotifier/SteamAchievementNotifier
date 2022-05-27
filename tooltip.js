@@ -537,7 +537,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Requires NVDA ClipReader addon</div><div style='color: white; font-weight: normal'>Copies all achievement information to the clipboard, which can then be read by the NVDA Screen Reader software.</div>";
       iconanimtt = "Toggles the gold outline on the rare achievement icon.";
       gamecompletiontt = "Shows an additional notification when all achievements in a game have been unlocked.";
-      ssoverlaytt = `Takes a non-Steam screenshot and overlays the details of the unlocked achievement. These non-Steam screenshots can be saved in a specific directory using the "Path" option.<br><br><i>The "Show Achievement Screenshot" Customiser option must be enabled for at least one achievement type to enable.</i>`;
+      ssoverlaytt = `Takes a non-Steam screenshot and overlays the details of the unlocked achievement. These non-Steam screenshots can be saved in a specific directory using the "Path" option.`;
       sserrortt = "<span style='color: red; font-weight: bold'>No screenshot option enabled!</span>"
    } else if (configtt.lang == "arabic") {
       usertt = "اسم مستخدم Steam<br><div style='font-size: 6px;'>يتم تعقب الإنجازات لهذا المستخدم</div>";
@@ -575,7 +575,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*يتطلب إضافة NVDA ClipReader</div><div style='color: white; font-weight: normal'>ينسخ جميع معلومات الإنجاز إلى الحافظة ، والتي يمكن قراءتها بعد ذلك بواسطة برنامج NVDA.</div>";
       iconanimtt = "يبدل المخطط التفصيلي الذهبي على أيقونة الإنجاز النادرة.";
       gamecompletiontt = "يعرض إشعارًا إضافيًا عند إلغاء قفل جميع الإنجازات في اللعبة.";
-      ssoverlaytt = `يأخذ لقطة شاشة غير Steam ويغطي تفاصيل الإنجاز غير المؤمّن. يمكن حفظ لقطات الشاشة غير Steam في دليل محدد باستخدام خيار "المسار".<br><br><i>يجب تمكين خيار "\إظهار لقطة الإنجاز\" المخصص لنوع إنجاز واحد على الأقل ليتم تمكينه.</i>`;
+      ssoverlaytt = `يأخذ لقطة شاشة غير Steam ويغطي تفاصيل الإنجاز غير المؤمّن. يمكن حفظ لقطات الشاشة غير Steam في دليل محدد باستخدام خيار "المسار".`;
       sserrortt = "<span style='color: red; font-weight: bold'>لم يتم تمكين خيار لقطة الشاشة!</span>"
    } else if (configtt.lang == "bulgarian") {
       usertt = "Потребителско име на Steam<br><div style='font-size: 6px;'>Постиженията се проследяват за този потребител</div>";
@@ -613,7 +613,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Изисква добавка NVDA ClipReader</div><div style='color: white; font-weight: normal'>Копира цялата информация за постиженията в клипборда, която след това може да бъде прочетена от софтуера на NVDA.</div>";
       iconanimtt = "Превключва златния контур на иконата за рядко постижение.";
       gamecompletiontt = "Показва допълнително известие, когато всички постижения в играта са отключени.";
-      ssoverlaytt = `Прави екранна снимка извън Steam и наслагва детайлите на отключеното постижение. Тези екранни снимки, различни от Steam, могат да бъдат записани в определена директория с помощта на опцията "Път".<br><br><i>Опцията "Покажи снимка на екрана" трябва да е активирана за поне един тип постижение.</i>`;
+      ssoverlaytt = `Прави екранна снимка извън Steam и наслагва детайлите на отключеното постижение. Тези екранни снимки, различни от Steam, могат да бъдат записани в определена директория с помощта на опцията "Път".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Опцията за екранна снимка не е активирана!</span>"
    } else if (configtt.lang == "schinese") {
       usertt = "Steam 用户名<br><div style='font-size: 6px;'>正在跟踪此用户的成就</div>";
@@ -651,7 +651,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*需要 NVDA ClipReader 插件</div><div style='color: white; font-weight: normal'>将所有成就信息复制到剪贴板，然后可以通过 NVDA 屏幕阅读器软件读取。</div>";
       iconanimtt = "切换稀有成就图标上的金色轮廓。";
       gamecompletiontt = "当游戏中的所有成就都已解锁时显示附加通知。";
-      ssoverlaytt = `截取非 Steam 屏幕截图并覆盖解锁成就的详细信息。这些非 Steam 屏幕截图可以使用“路径”选项保存在特定目录中。<br><br><i>必须为至少一种成就类型启用“显示成就屏幕截图”选项。</i>`;
+      ssoverlaytt = `截取非 Steam 屏幕截图并覆盖解锁成就的详细信息。这些非 Steam 屏幕截图可以使用“路径”选项保存在特定目录中。`;
       sserrortt = "<span style='color: red; font-weight: bold'>没有启用截图选项！</span>"
    } else if (configtt.lang == "tchinese") {
       usertt = "Steam 用戶名<br><div style='font-size: 6px;'>正在跟踪此用戶的成就</div>";
@@ -689,7 +689,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*需要 NVDA ClipReader 插件</div><div style='color: white; font-weight: normal'>將所有成就信息複製到剪貼板，然後可以通過 NVDA 屏幕閱讀器軟件讀取。</div>";
       iconanimtt = "切換稀有成就圖標上的金色輪廓。";
       gamecompletiontt = "當遊戲中的所有成就都已解鎖時顯示附加通知。";
-      ssoverlaytt = `拍攝非 Steam 屏幕截圖並覆蓋解鎖的成就詳情。這些非 Steam 屏幕截圖可以使用“路徑”選項保存在特定目錄中。 <br><br><i>必須為至少一種成就類型啟用“顯示成就截圖”選項。</i>`;
+      ssoverlaytt = `拍攝非 Steam 屏幕截圖並覆蓋解鎖的成就詳情。這些非 Steam 屏幕截圖可以使用“路徑”選項保存在特定目錄中。`;
       sserrortt = "<span style='color: red; font-weight: bold'>沒有啟用截圖選項！</span>"
    } else if (configtt.lang == "czech") {
       usertt = "Uživatelské Jméno Pro Steam<br><div style='font-size: 6px;'>Pro tohoto uživatele jsou sledovány úspěchy</div>";
@@ -727,7 +727,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Vyžaduje doplněk NVDA ClipReader</div><div style='color: white; font-weight: normal'>Zkopíruje všechny informace o úspěchu do schránky, kterou pak může číst software NVDA.</div>";
       iconanimtt = "Přepíná zlatý obrys na ikoně vzácného úspěchu.";
       gamecompletiontt = "Zobrazí další upozornění, když byly odemčeny všechny úspěchy ve hře.";
-      ssoverlaytt = `Pořídí snímek obrazovky mimo Steam a překryje podrobnosti o odemčeném úspěchu. Tyto snímky obrazovky mimo Steam lze uložit do konkrétního adresáře pomocí možnosti "Cesta".<br><br><i>Možnost "Zobrazit Snímek Obrazovky" musí být povolena alespoň pro jeden typ úspěchu.</i>`;
+      ssoverlaytt = `Pořídí snímek obrazovky mimo Steam a překryje podrobnosti o odemčeném úspěchu. Tyto snímky obrazovky mimo Steam lze uložit do konkrétního adresáře pomocí možnosti "Cesta".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Není nastavena žádná možnost snímku obrazovky!</span>"
    } else if (configtt.lang == "danish") {
       usertt = "Steam Brugernavn<br><div style='font-size: 6px;'>Præstationer bliver sporet for denne bruger</div>";
@@ -765,7 +765,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Kræver NVDA ClipReader-tilføjelse</div><div style='color: white; font-weight: normal'>Kopierer alle præstationsoplysninger til udklipsholderen, som derefter kan læses af NVDA-softwaren.</div>";
       iconanimtt = "Skifter guldkonturen på det sjældne præstationsikon.";
       gamecompletiontt = "Viser en ekstra notifikation, når alle præstationer i et spil er blevet låst op.";
-      ssoverlaytt = `Tager et ikke-Steam-skærmbillede og overlejrer detaljerne for den ulåste præstation. Disse ikke-Steam-skærmbilleder kan gemmes i en specifik mappe ved at bruge "Sti"-indstillingen.<br><br><i>Indstillingen "Vis Skærmbillede" skal være aktiveret for mindst én præstationstype.</i>`;
+      ssoverlaytt = `Tager et ikke-Steam-skærmbillede og overlejrer detaljerne for den ulåste præstation. Disse ikke-Steam-skærmbilleder kan gemmes i en specifik mappe ved at bruge "Sti"-indstillingen.`;
       sserrortt = "<span style='color: red; font-weight: bold'>Ingen mulighed for skærmbillede aktiveret!</span>"
    } else if (configtt.lang == "dutch") {
       usertt = "Steam Gebruikersnaam<br><div style='font-size: 6px;'>Prestaties worden bijgehouden voor deze gebruiker</div>";
@@ -803,7 +803,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Vereist NVDA ClipReader-add-on</div><div style='color: white; font-weight: normal'>Kopieert alle prestatie-informatie naar het klembord, dat vervolgens kan worden gelezen door de NVDA-software.</div>";
       iconanimtt = "Schakelt de gouden omtrek op het zeldzame prestatie icoon.";
       gamecompletiontt = "Toont een extra melding wanneer alle prestaties in een game zijn ontgrendeld.";
-      ssoverlaytt = `Maakt een niet-Steam-screenshot en overlapt de details van de ontgrendelde prestatie. Deze niet-Steam-screenshots kunnen in een specifieke map worden opgeslagen met de optie "Pad".<br><br><i>De optie "Schermafbeelding Prestatie Tonen" moet zijn ingeschakeld voor ten minste één prestatietype.</i>`;
+      ssoverlaytt = `Maakt een niet-Steam-screenshot en overlapt de details van de ontgrendelde prestatie. Deze niet-Steam-screenshots kunnen in een specifieke map worden opgeslagen met de optie "Pad".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Geen screenshot-optie ingeschakeld!</span>"
    } else if (configtt.lang == "finnish") {
       usertt = "Steam Käyttäjätunnus<br><div style='font-size: 6px;'>Tämän käyttäjän saavutuksia seurataan</div>";
@@ -841,7 +841,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Vaatii NVDA ClipReader-lisäosan</div><div style='color: white; font-weight: normal'>Kopioi kaikki saavutustiedot leikepöydälle, jonka NVDA-ohjelmisto voi sitten lukea.</div>";
       iconanimtt = "Vaihtaa harvinaisen saavutuskuvakkeen kultaisen ääriviivan.";
       gamecompletiontt = "Näyttää lisäilmoituksen, kun kaikki pelin saavutukset on avattu.";
-      ssoverlaytt = `Ottaa muun kuin Steam-kuvakaappauksen ja näyttää avatun saavutuksen yksityiskohdat. Nämä muut kuin Steam-kuvakaappaukset voidaan tallentaa tiettyyn hakemistoon "Polku"-vaihtoehdon avulla.<br><br><i>"Näytä Kuvakaappaus"-vaihtoehdon on oltava käytössä vähintään yhdelle saavutustyypille.</i>`;
+      ssoverlaytt = `Ottaa muun kuin Steam-kuvakaappauksen ja näyttää avatun saavutuksen yksityiskohdat. Nämä muut kuin Steam-kuvakaappaukset voidaan tallentaa tiettyyn hakemistoon "Polku"-vaihtoehdon avulla.`;
       sserrortt = "<span style='color: red; font-weight: bold'>Kuvakaappausvaihtoehtoa ei ole asetettu!</span>"
    } else if (configtt.lang == "french") {
       usertt = "Nom d'Utilisateur Steam<br><div style='font-size: 6px;'>Le suivi des succés est activé pour cet utilisateur</div>";
@@ -879,7 +879,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Nécessite l'extension NVDA ClipReader</div><div style='color: white; font-weight: normal'>Copie toutes les informations sur les réalisations dans le presse-papiers, qui peuvent ensuite être lues par le logiciel NVDA.</div>";
       iconanimtt = "Bascule le contour doré sur l'icône de réalisation rare.";
       gamecompletiontt = "Affiche une notification supplémentaire lorsque tous les succès d'un jeu ont été déverrouillés.";
-      ssoverlaytt = `Prend une capture d'écran non-Steam et superpose les détails de la réussite déverrouillée. Ces captures d'écran non Steam peuvent être enregistrées dans un répertoire spécifique à l'aide de l'option "Chemin".<br><br><i>L'option "Afficher la Capture d'Écran" doit être activée pour au moins un type de succès.</i>`;
+      ssoverlaytt = `Prend une capture d'écran non-Steam et superpose les détails de la réussite déverrouillée. Ces captures d'écran non Steam peuvent être enregistrées dans un répertoire spécifique à l'aide de l'option "Chemin".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Aucune option de capture d'écran activée!</span>"
    } else if (configtt.lang == "german") {
       usertt = "Steam Benutzername<br><div style='font-size: 6px;'>Errungenschaften werden für diesen Benutzer nachverfolgt</div>";
@@ -917,7 +917,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Erfordert das NVDA ClipReader-Addon</div><div style='color: white; font-weight: normal'>Kopiert alle Leistungsinformationen in die Zwischenablage, die dann von der NVDA-Software gelesen werden können.</div>";
       iconanimtt = "Schaltet die goldene Umrandung des seltenen Erfolgssymbols um.";
       gamecompletiontt = "Zeigt eine zusätzliche Benachrichtigung an, wenn alle Errungschafts in einem Spiel freigeschaltet wurden.";
-      ssoverlaytt = `Macht einen Nicht-Steam-Screenshot und blendet die Details des freigeschalteten Erfolgs ein. Diese Nicht-Steam-Screenshots können mit der Option "Pfad" in einem bestimmten Verzeichnis gespeichert werden.<br><br><i>Die Option "Bildschirmfoto Anzeigen" muss für mindestens einen Errungschafts-Typ aktiviert sein.</i>`;
+      ssoverlaytt = `Macht einen Nicht-Steam-Screenshot und blendet die Details des freigeschalteten Erfolgs ein. Diese Nicht-Steam-Screenshots können mit der Option "Pfad" in einem bestimmten Verzeichnis gespeichert werden.`;
       sserrortt = "<span style='color: red; font-weight: bold'>Keine Bildschirmfoto-option aktiviert!</span>"
    } else if (configtt.lang == "greek") {
       usertt = "Όνομα χρήστη Steam<br><div style='font-size: 6px;'>Τα επιτεύγματα παρακολουθούνται για αυτόν τον χρήστη</div>";
@@ -957,7 +957,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Απαιτείται πρόσθετο NVDA ClipReader</div><div style='color: white; font-weight: normal'>Αντιγράφει όλες τις πληροφορίες επιτεύγματος στο πρόχειρο, το οποίο στη συνέχεια μπορεί να διαβαστεί από το λογισμικό NVDA.</div>";
       iconanimtt = "Εναλλάσσει το χρυσό περίγραμμα στο εικονίδιο σπάνιων επιτευγμάτων.";
       gamecompletiontt = "Εμφανίζει μια πρόσθετη ειδοποίηση όταν όλα τα επιτεύγματα σε ένα παιχνίδι έχουν ξεκλειδωθεί.";
-      ssoverlaytt = `Λαμβάνει ένα στιγμιότυπο οθόνης εκτός Steam και επικαλύπτει τις λεπτομέρειες του ξεκλειδωμένου επιτεύγματος. Αυτά τα στιγμιότυπα οθόνης που δεν ανήκουν στο Steam μπορούν να αποθηκευτούν σε έναν συγκεκριμένο κατάλογο χρησιμοποιώντας την επιλογή "Μονοπάτι".<br><br><i>Η επιλογή "Εμφάνιση στιγμιότυπου οθόνης" πρέπει να είναι ενεργοποιημένη για να ενεργοποιηθεί τουλάχιστον ένας τύπος επιτεύγματος.</i>`;
+      ssoverlaytt = `Λαμβάνει ένα στιγμιότυπο οθόνης εκτός Steam και επικαλύπτει τις λεπτομέρειες του ξεκλειδωμένου επιτεύγματος. Αυτά τα στιγμιότυπα οθόνης που δεν ανήκουν στο Steam μπορούν να αποθηκευτούν σε έναν συγκεκριμένο κατάλογο χρησιμοποιώντας την επιλογή "Μονοπάτι".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Η επιλογή Στιγμιότυπων δεν είναι ενεργοποιημένη!</span>"
    } else if (configtt.lang == "hungarian") {
       usertt = "Steam Felhasználónév<br><div style='font-size: 6px;'>A felhasználó elért eredményeit nyomon követik</div>";
@@ -995,7 +995,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*NVDA ClipReader kiegészítő szükséges</div><div style='color: white; font-weight: normal'>Az összes elért információt a vágólapra másolja, amelyet az NVDA szoftver elolvashat.</div>";
       iconanimtt = "Bekapcsolja az arany körvonalat a ritka jutalom ikonján.";
       gamecompletiontt = "További értesítést jelenít meg, ha egy játékban az összes jutalmat feloldották.";
-      ssoverlaytt = `Nem Steam képernyőképet készít, és ráfedi a feloldott jutalom részleteit. Ezek a nem Steam képernyőképek egy adott könyvtárba menthetők az "Pálya" opció használatával.<br><br><i>A "Képernyőkép Megjelenítése" opciót legalább egy jutalomtípushoz engedélyezni kell.</i>`;
+      ssoverlaytt = `Nem Steam képernyőképet készít, és ráfedi a feloldott jutalom részleteit. Ezek a nem Steam képernyőképek egy adott könyvtárba menthetők az "Pálya" opció használatával.`;
       sserrortt = "<span style='color: red; font-weight: bold'>Nincs engedélyezve a képernyőkép opció!</span>"
    } else if (configtt.lang == "italian") {
       usertt = "Nome Utente Di Steam<br><div style='font-size: 6px;'>I risultati vengono monitorati per questo utente</div>";
@@ -1033,7 +1033,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Richiede il componente aggiuntivo NVDA ClipReader</div><div style='color: white; font-weight: normal'>Copia tutte le informazioni sui risultati negli appunti, che possono quindi essere lette dal software NVDA.</div>";
       iconanimtt = "Attiva o disattiva il contorno dorato sull'icona dell'obiettivo raro.";
       gamecompletiontt = "Mostra una notifica aggiuntiva quando tutti gli obiettivi in ​​un gioco sono stati sbloccati.";
-      ssoverlaytt = `Acquisisce uno screenshot non di Steam e sovrappone i dettagli dell'obiettivo sbloccato. Questi screenshot non di Steam possono essere salvati in una directory specifica utilizzando l'opzione "Percorso".<br><br><i>L'opzione "Mostra Screenshot" deve essere abilitata per almeno un tipo di obiettivo.</i>`;
+      ssoverlaytt = `Acquisisce uno screenshot non di Steam e sovrappone i dettagli dell'obiettivo sbloccato. Questi screenshot non di Steam possono essere salvati in una directory specifica utilizzando l'opzione "Percorso".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Nessuna opzione screenshot abilitata!</span>"
    } else if (configtt.lang == "japanese") {
       usertt = "Steamユーザー名<br><div style='font-size: 6px;'>このユーザーの実績は追跡されています</div>";
@@ -1071,7 +1071,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*NVDAClipReaderアドオンが必要です</div><div style='color: white; font-weight: normal'>すべての実績情報をクリップボードにコピーし、NVDAソフトウェアで読み取ることができます。</div>";
       iconanimtt = "レアアチーブメントアイコンのゴールドアウトラインを切り替えます。";
       gamecompletiontt = "ゲーム内のすべてのアチーブメントのロックが解除されたときに追加の通知を表示します。";
-      ssoverlaytt = `Steamの外でスクリーンショットを撮り、ロック解除されたアチーブメントの詳細をオーバーレイします。これらの非Steamスクリーンショットは、「パス」オプションを使用して特定のディレクトリに保存できます。<br><br><i>少なくとも1つのアチーブメントタイプで[スクリーンショットを表示]オプションを有効にする必要があります。</i>`;
+      ssoverlaytt = `Steamの外でスクリーンショットを撮り、ロック解除されたアチーブメントの詳細をオーバーレイします。これらの非Steamスクリーンショットは、「パス」オプションを使用して特定のディレクトリに保存できます。`;
       sserrortt = "<span style='color: red; font-weight: bold'>スクリーンショットオプションが有効になっていません！</span>"
    } else if (configtt.lang == "korean") {
       usertt = "Steam 사용자 이름<br><div style='font-size: 6px;'>이 사용자의 업적을 추적 중입니다.</div>";
@@ -1109,7 +1109,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*NVDA ClipReader 애드온 필요</div><div style='color: white; font-weight: normal'>모든 업적 정보를 NVDA 소프트웨어에서 읽을 수 있는 클립보드에 복사합니다.</div>";
       iconanimtt = "희귀 업적 아이콘의 금색 윤곽선을 토글합니다.";
       gamecompletiontt = "게임의 모든 업적이 잠금 해제되면 추가 알림을 표시합니다.";
-      ssoverlaytt = `Steam이 아닌 스크린샷을 찍고 잠금 해제된 업적의 세부 정보를 오버레이합니다. Steam이 아닌 스크린샷은 "경로" 옵션을 사용하여 특정 디렉토리에 저장할 수 있습니다.<br><br><i>최소 하나의 업적 유형에 대해 "업적 스크린샷 표시" 옵션을 활성화해야 합니다.</i>`;
+      ssoverlaytt = `Steam이 아닌 스크린샷을 찍고 잠금 해제된 업적의 세부 정보를 오버레이합니다. Steam이 아닌 스크린샷은 "경로" 옵션을 사용하여 특정 디렉토리에 저장할 수 있습니다.`;
       sserrortt = "<span style='color: red; font-weight: bold'>활성화된 스크린샷 옵션이 없습니다!</span>"
    } else if (configtt.lang == "norwegian") {
       usertt = "Steam Brukernavn<br><div style='font-size: 6px;'>Prestasjoner spores for denne brukeren</div>";
@@ -1145,7 +1145,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Krever NVDA ClipReader-tillegg</div><div style='color: white; font-weight: normal'>Kopierer all prestasjonsinformasjon til utklippstavlen, som deretter kan leses av NVDA-programvaren.</div>";
       iconanimtt = "Bytter gullomrisset på det sjeldne prestasjonsikonet.";
       gamecompletiontt = "Viser et ekstra varsel når alle prestasjoner i et spill har blitt låst opp.";
-      ssoverlaytt = `Tar et ikke-Steam-skjermbilde og legger over detaljene for den ulåste prestasjonen. Disse ikke-Steam-skjermbildene kan lagres i en spesifikk katalog ved å bruke "Sti"-alternativet.<br><br><i>"Vis Skjermbilde"-alternativet må være aktivert for minst én prestasjonstype.</i>`;
+      ssoverlaytt = `Tar et ikke-Steam-skjermbilde og legger over detaljene for den ulåste prestasjonen. Disse ikke-Steam-skjermbildene kan lagres i en spesifikk katalog ved å bruke "Sti"-alternativet.`;
       sserrortt = "<span style='color: red; font-weight: bold'>Ingen skjermdumper er aktivert!</span>"
    } else if (configtt.lang == "polish") {
       usertt = "Nazwa Użytkownika Steam<br><div style='font-size: 6px;'>Osiągnięcia tego użytkownika są śledzone</div>";
@@ -1183,7 +1183,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Wymaga dodatku NVDA ClipReader</div><div style='color: white; font-weight: normal'>Kopiuje wszystkie informacje o osiągnięciach do schowka, które mogą być następnie odczytane przez oprogramowanie NVDA.</div>";
       iconanimtt = "Przełącza złoty kontur na ikonie rzadkiego osiągnięcia.";
       gamecompletiontt = "Wyświetla dodatkowe powiadomienie, gdy wszystkie osiągnięcia w grze zostaną odblokowane.";
-      ssoverlaytt = `Wykonuje zrzut ekranu spoza Steam i nakłada szczegóły odblokowanego osiągnięcia. Te zrzuty ekranu spoza Steam można zapisać w określonym katalogu za pomocą opcji "Ścieżka".<br><br><i>Opcja "Pokaż Zrzut Ekranu Osiągnięcia" musi być włączona dla co najmniej jednego typu osiągnięcia.</i>`;
+      ssoverlaytt = `Wykonuje zrzut ekranu spoza Steam i nakłada szczegóły odblokowanego osiągnięcia. Te zrzuty ekranu spoza Steam można zapisać w określonym katalogu za pomocą opcji "Ścieżka".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Brak włączonej opcji zrzutu ekranu!</span>"
    } else if (configtt.lang == "portuguese") {
       usertt = "Nome de Usuário do Steam<br><div style='font-size: 6px;'>Conquistas estão sendo rastreadas para este usuário</div>";
@@ -1221,7 +1221,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Requer o complemento NVDA ClipReader</div><div style='color: white; font-weight: normal'>Copia todas as informações de conquistas para a área de transferência, que pode ser lida pelo software NVDA.</div>";
       iconanimtt = "Alterna o contorno dourado no ícone de conquista rara.";
       gamecompletiontt = "Mostra uma notificação adicional quando todas as conquistas de um jogo foram desbloqueadas.";
-      ssoverlaytt = `Faz uma captura de tela não Steam e sobrepõe os detalhes da conquista desbloqueada. Essas capturas de tela que não são do Steam podem ser salvas em um diretório específico usando a opção "Caminho".<br><br><i>A opção "Mostrar Captura de Tela" deve ser ativada para pelo menos um tipo de conquista.</i>`;
+      ssoverlaytt = `Faz uma captura de tela não Steam e sobrepõe os detalhes da conquista desbloqueada. Essas capturas de tela que não são do Steam podem ser salvas em um diretório específico usando a opção "Caminho".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Nenhuma opção de captura de tela ativada!</span>"
    } else if (configtt.lang == "romanian") {
       usertt = "Nume de Utilizator Steam<br><div style='font-size: 6px;'>Realizările sunt urmărite pentru acest utilizator</div>";
@@ -1259,7 +1259,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Necesită suplimentul NVDA ClipReader</div><div style='color: white; font-weight: normal'>Copiază toate informațiile despre realizare în clipboard, care pot fi apoi citite de software-ul NVDA.</div>";
       iconanimtt = "Comută conturul auriu pe pictograma realizarii rare.";
       gamecompletiontt = "Afișează o notificare suplimentară când toate realizările dintr-un joc au fost deblocate.";
-      ssoverlaytt = `Face o captură de ecran non-Steam și suprapune detaliile realizării deblocate. Aceste capturi de ecran non-Steam pot fi salvate într-un anumit director folosind opțiunea "Cale".<br><br><i>Opțiunea "Afișează Captura De Ecran" trebuie să fie activată pentru cel puțin un tip de realizare.</i>`;
+      ssoverlaytt = `Face o captură de ecran non-Steam și suprapune detaliile realizării deblocate. Aceste capturi de ecran non-Steam pot fi salvate într-un anumit director folosind opțiunea "Cale".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Nicio opțiune de captură de ecran activată!</span>"
    } else if (configtt.lang == "russian") {
       usertt = "Имя пользователя Steam<br><div style='font-size: 6px;'>Достижения этого пользователя отслеживаются</div>";
@@ -1297,7 +1297,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Требуется дополнение NVDA ClipReader</div><div style='color: white; font-weight: normal'>Копирует всю информацию о достижениях в буфер обмена, который затем может быть прочитан программным обеспечением NVDA.</div>";
       iconanimtt = "Переключает золотой контур на значке редкого достижения.";
       gamecompletiontt = "Показывает дополнительное уведомление, когда все достижения в игре разблокированы.";
-      ssoverlaytt = `Делает снимок экрана не из Steam и накладывает детали разблокированного достижения. Эти сторонние скриншоты можно сохранить в определенном каталоге с помощью параметра "Путь".<br><br><i>Параметр "Показать Скриншот" должен быть включен как минимум для одного типа достижений.</i>`;
+      ssoverlaytt = `Делает снимок экрана не из Steam и накладывает детали разблокированного достижения. Эти сторонние скриншоты можно сохранить в определенном каталоге с помощью параметра "Путь".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Опция скриншота не включена!</span>"
    } else if (configtt.lang == "spanish") {
       usertt = "Nombre de Usuario de Steam<br><div style='font-size: 6px;'>Se está realizando un seguimiento de los logros de este usuario</div>";
@@ -1335,7 +1335,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Requiere el complemento NVDA ClipReader</div><div style='color: white; font-weight: normal'>Copia toda la información de logros en el portapapeles, que luego puede ser leído por el software NVDA.</div>";
       iconanimtt = "Alterna el contorno dorado en el ícono de logro raro.";
       gamecompletiontt = "Muestra una notificación adicional cuando se han desbloqueado todos los logros de un juego.";
-      ssoverlaytt = `Toma una captura de pantalla que no es de Steam y superpone los detalles del logro desbloqueado. Estas capturas de pantalla que no son de Steam se pueden guardar en un directorio específico usando la opción "Ruta".<br><br><i>La opción "Mostrar Captura de Pantalla" debe estar habilitada para al menos un tipo de logro.</i>`;
+      ssoverlaytt = `Toma una captura de pantalla que no es de Steam y superpone los detalles del logro desbloqueado. Estas capturas de pantalla que no son de Steam se pueden guardar en un directorio específico usando la opción "Ruta".`;
       sserrortt = "<span style='color: red; font-weight: bold'>¡No hay opción de captura de pantalla habilitada!</span>"
    } else if (configtt.lang == "swedish") {
       usertt = "Användarnamn För Steam<br><div style='font-size: 6px;'>Prestationer spåras för denna användare</div>";
@@ -1373,7 +1373,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Kräver NVDA ClipReader-tillägg</div><div style='color: white; font-weight: normal'>Kopierar all prestationsinformation till klippbordet, som sedan kan läsas av NVDA-programvaran.</div>";
       iconanimtt = "Växlar guldkonturen på den sällsynta prestationsikonen.";
       gamecompletiontt = "Visar ytterligare ett meddelande när alla prestationer i ett spel har låsts upp.";
-      ssoverlaytt = `Tar en skärmdump som inte är Steam och lägger över detaljerna om den upplåsta prestationen. Dessa skärmdumpar som inte är Steam kan sparas i en specifik katalog med alternativet "Väg".<br><br><i>Alternativet "Visa Skärmdump" måste vara aktiverat för minst en prestationstyp.</i>`;
+      ssoverlaytt = `Tar en skärmdump som inte är Steam och lägger över detaljerna om den upplåsta prestationen. Dessa skärmdumpar som inte är Steam kan sparas i en specifik katalog med alternativet "Väg".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Inget alternativ för skärmdump är aktiverat!</span>"
    } else if (configtt.lang == "thai") {
       usertt = "ชื่อผู้ใช้ Steam<br><div style='font-size: 6px;'>กำลังติดตามความสำเร็จสำหรับผู้ใช้รายนี้</div>";
@@ -1411,7 +1411,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*ต้องใช้โปรแกรมเสริม NVDA ClipReader</div><div style='color: white; font-weight: normal'>คัดลอกข้อมูลความสำเร็จทั้งหมดไปยังคลิปบอร์ด ซึ่งซอฟต์แวร์ NVDA สามารถอ่านได้</div>";
       iconanimtt = "สลับโครงร่างสีทองบนไอคอนความสำเร็จที่หายาก";
       gamecompletiontt = "แสดงการแจ้งเตือนเพิ่มเติมเมื่อปลดล็อกความสำเร็จทั้งหมดในเกมแล้ว";
-      ssoverlaytt = `จับภาพหน้าจอที่ไม่ใช่ Steam และซ้อนทับรายละเอียดของรางวัลพิเศษที่ปลดล็อค ภาพหน้าจอที่ไม่ใช่ Steam สามารถบันทึกในไดเร็กทอรีเฉพาะโดยใช้ตัวเลือก "เส้นทาง"<br><br><i>ต้องเปิดใช้งานตัวเลือก "แสดงภาพหน้าจอ" สำหรับประเภทความสำเร็จอย่างน้อยหนึ่งประเภท</i>`;
+      ssoverlaytt = `จับภาพหน้าจอที่ไม่ใช่ Steam และซ้อนทับรายละเอียดของรางวัลพิเศษที่ปลดล็อค ภาพหน้าจอที่ไม่ใช่ Steam สามารถบันทึกในไดเร็กทอรีเฉพาะโดยใช้ตัวเลือก "เส้นทาง"`;
       sserrortt = "<span style='color: red; font-weight: bold'>ไม่ได้เปิดใช้งานตัวเลือกภาพหน้าจอ!</span>"
    } else if (configtt.lang == "turkish") {
       usertt = "Steam Kullanıcı Adı<br><div style='font-size: 6px;'>Bu kullanıcı için başarılar izleniyor</div>";
@@ -1449,7 +1449,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*NVDA ClipReader eklentisi gerektirir</div><div style='color: white; font-weight: normal'>Tüm başarı bilgilerini daha sonra NVDA yazılımı tarafından okunabilen panoya kopyalar.</div>";
       iconanimtt = "Nadir başarı simgesindeki altın anahattı değiştirir.";
       gamecompletiontt = "Bir oyundaki tüm başarıların kilidi açıldığında ek bir bildirim gösterir.";
-      ssoverlaytt = `Steam dışı bir ekran görüntüsü alır ve kilidi açılmış başarının ayrıntılarını kaplar. Bu Steam dışı ekran görüntüleri "Yol" seçeneği kullanılarak belirli bir dizine kaydedilebilir.<br><br><i>En az bir başarı türü için "Ekran Görüntüsünü Göster" seçeneği etkinleştirilmelidir.</i>`;
+      ssoverlaytt = `Steam dışı bir ekran görüntüsü alır ve kilidi açılmış başarının ayrıntılarını kaplar. Bu Steam dışı ekran görüntüleri "Yol" seçeneği kullanılarak belirli bir dizine kaydedilebilir.`;
       sserrortt = "<span style='color: red; font-weight: bold'>Ekran görüntüsü seçeneği etkin değil!</span>"
    } else if (configtt.lang == "ukrainian") {
       usertt = "Ім'я Користувача Steam<br><div style='font-size: 6px;'>Відстежуються досягнення цього користувача</div>";
@@ -1487,7 +1487,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Потрібен аддон NVDA ClipReader</div><div style='color: white; font-weight: normal'>Копіює всю інформацію про досягнення в буфер обміну, яку потім може прочитати програмне забезпечення NVDA.</div>";
       iconanimtt = "Перемикає золотий контур на значку рідкісного досягнення.";
       gamecompletiontt = "Показує додаткове сповіщення, коли всі досягнення в грі розблоковано.";
-      ssoverlaytt = `Робить знімок екрана не в Steam і накладає деталі розблокованого досягнення. Ці знімки екрана не в Steam можна зберегти в певному каталозі за допомогою параметра "Шлях".<br><br><i>Параметр "Показати скріншот досягнення" має бути ввімкнено принаймні для одного типу досягнення.</i>`;
+      ssoverlaytt = `Робить знімок екрана не в Steam і накладає деталі розблокованого досягнення. Ці знімки екрана не в Steam можна зберегти в певному каталозі за допомогою параметра "Шлях".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Не ввімкнено опцію знімка екрана!</span>"
    } else if (configtt.lang == "vietnamese") {
       usertt = "Tên Người Dùng Steam<br><div style='font-size: 6px;'>Thành tích đang được theo dõi cho người dùng này</div>";
@@ -1525,7 +1525,7 @@ function LoadLangTT() {
       nvdatt = "<div style='font-weight: bold; color: red'>*Yêu cầu addon NVDA ClipReader</div><div style='color: white; font-weight: normal'>Sao chép tất cả thông tin thành tích vào khay nhớ tạm, sau đó phần mềm NVDA có thể đọc được.</div>";
       iconanimtt = "Chuyển đổi đường viền vàng trên biểu tượng thành tích hiếm có.";
       gamecompletiontt = "Hiển thị thông báo bổ sung khi tất cả thành tích trong trò chơi đã được mở khóa.";
-      ssoverlaytt = `Chụp ảnh màn hình không phải Steam và phủ lên các chi tiết của thành tích đã mở khóa. Các ảnh chụp màn hình không phải Steam này có thể được lưu trong một thư mục cụ thể bằng cách sử dụng tùy chọn "Đường Dẫn". <br> <br> <i> Tùy chọn "Hiển Thị Ảnh Chụp Màn Hình" phải được bật cho ít nhất một loại thành tích.</i>`;
+      ssoverlaytt = `Chụp ảnh màn hình không phải Steam và phủ lên các chi tiết của thành tích đã mở khóa. Các ảnh chụp màn hình không phải Steam này có thể được lưu trong một thư mục cụ thể bằng cách sử dụng tùy chọn "Đường Dẫn".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Không có tùy chọn ảnh chụp màn hình nào được bật!</span>"
    }
    usertippy.setContent(usertt);

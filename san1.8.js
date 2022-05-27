@@ -6799,7 +6799,8 @@ async function StartSAN() {
                                 clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc);
                             }
 
-                            if (config.screenshot == "true" && config.ssoverlay == "true") {
+                            //if (config.screenshot == "true" && config.ssoverlay == "true") {
+                            if (config.ssoverlay == "true") {
                                 ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
                             }
 
@@ -6879,7 +6880,8 @@ async function StartSAN() {
                                 clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc);
                             }
 
-                            if (config.rarescreenshot == "true" && config.ssoverlay == "true") {
+                            // if (config.rarescreenshot == "true" && config.ssoverlay == "true") {
+                            if (config.ssoverlay == "true") { 
                                 ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
                             }
 
@@ -7365,16 +7367,16 @@ function ToggleSSOverlay() {
         config["ssoverlay"] = "true";
         fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
     
-        if (config.ssoverlay == "true" && config.screenshot == "false" && config.rarescreenshot == "false") {
-            document.getElementById("sserror").style.display = "block";
-        } else {
-            document.getElementById("sserror").style.display = "none";
-        }
+        // if (config.ssoverlay == "true" && config.screenshot == "false" && config.rarescreenshot == "false") {
+        //     document.getElementById("sserror").style.display = "block";
+        // } else {
+        //     document.getElementById("sserror").style.display = "none";
+        // }
     } else {
         config["ssoverlay"] = "false";
         fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
     
-        document.getElementById("sserror").style.display = "none";
+        // document.getElementById("sserror").style.display = "none";
     }
 
     CheckSSOverlay();

@@ -404,7 +404,7 @@ function Run() {
                         return new Promise(resolve => {
                             if (latest.version > current.version) {
                                 console.log("%cUpdates found - downloading...", "color: blueviolet")
-                                document.getElementById("log").innerHTML = `Downloading Version ${latest.version} updates...`
+                                document.getElementById("log").innerHTML = `Downloading App Revision ${latest.version} updates...`
                                 document.getElementById("log").style.color = "white"
 
                                 https.get(`https://codeload.github.com/${user}/${repo}/zip/main`, res => {
@@ -428,14 +428,57 @@ function Run() {
                                         if (process.platform == "win32") {
                                             extract = spawn('powershell.exe',["-Command",`Expand-Archive -Path '${path.join(__dirname,"latest.zip")}' -DestinationPath '${path.join(__dirname)}' -Force; Remove-Item -Path '${path.join(localappdata,appdatadir,"store","app")}' -Recurse -Force; New-Item -Path '${path.join(localappdata,appdatadir,"store")}' -Name "app" -ItemType "directory"; Move-Item -Path '${path.join(__dirname,extractdirname)}\\*' -Destination '${path.join(localappdata,appdatadir,"store","app")}' -Force;`])
                                         } else if (process.platform == "linux") {
-                                            extract = exec(`unzip -o '${path.join(localappdata,appdatadir,"latest.zip")}' -d '${path.join(localappdata,appdatadir)}'; rm -rf '${path.join(localappdata,appdatadir,"store","app")}'; mkdir '${path.join(localappdata,appdatadir,"store","app")}'; mv ~/.local/share/${appdatadir}/store/${extractdirname}/* ~/.local/share/${appdatadir}/store/app/; rm -rf '${path.join(localappdata,appdatadir,extractdirname)}'`)
+                                            extract = exec(`unzip -o '${path.join(localappdata,appdatadir,"latest.zip")}' -d '${path.join(localappdata,appdatadir)}'; rm -rf '${path.join(localappdata,appdatadir,"store","app")}'; mkdir '${path.join(localappdata,appdatadir,"store","app")}'; mv ~/.local/share/${appdatadir}/store/${extractdirname}/* ~/.local/share/${appdatadir}/store/app/;`)
                                         }
 
                                         extract.on('exit', () => {
-                                            console.log(`%cApp updated to Version ${current.version}`,"color: limegreen")
-                                            document.getElementById("log").innerHTML = `Updated to Version ${latest.version}`
-                                            document.getElementById("log").style.color = "white"
-                                            resolve()
+                                            function CheckForMissingFiles() {
+                                                var required = ["fonts","icon","img","notify","sanlauncher","sound","store","README.md","appentry.js","css.css","index.html","main.js","package-lock.json","package.json","san1.8.js","tooltip.js","vdf.js","version.json"]
+                                            
+                                                var requiredfiles = []
+                                                var actualfiles = []
+                                            
+                                                fs.readdir(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app"), (err, files) => {
+                                                    if (err) {
+                                                        console.log(`%cError reading "app" dir: ` + err)
+                                                    } else {
+                                                        files.forEach(file => {
+                                                            actualfiles.push(file)
+                                                        })
+                                                
+                                                        required.forEach(file => {
+                                                            requiredfiles.push(file)
+                                                        })
+                                                
+                                                        console.log("Expected: ", requiredfiles)
+                                                        console.log("Actual:", actualfiles)
+                                                
+                                                        if (actualfiles.length < requiredfiles.length) {
+                                                            console.log("%cMissing files!", "color: red")
+
+                                                            var reextract
+
+                                                            if (process.platform == "win32") {
+                                                                reextract = spawn('powershell.exe',["-Command",`Move-Item -Path '${path.join(__dirname,extractdirname)}\\*' -Destination '${path.join(localappdata,appdatadir,"store","app")}' -Force;`])
+                                                            } else if (process.platform == "linux") {
+                                                                reextract = exec(`mv ~/.local/share/${appdatadir}/store/${extractdirname}/* ~/.local/share/${appdatadir}/store/app/;`)
+                                                            }
+
+                                                            reextract.on('exit', () => {
+                                                                CheckForMissingFiles()
+                                                            })
+                                                        } else {
+                                                            console.log(`%cAll required files exist in local "app" directory`,"color:limegreen")
+                                                            console.log(`%cApp updated to App Revision ${current.version}`, "color: limegreen")
+                                                            document.getElementById("log").innerHTML = `Updated to App Revision ${latest.version}`
+                                                            document.getElementById("log").style.color = "white"
+                                                            resolve()
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                            
+                                            CheckForMissingFiles()
                                         })
                                     })
                                 })

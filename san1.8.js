@@ -7021,8 +7021,6 @@ async function StartSAN() {
 
                             clearInterval(checkgame);
                             GetAchievementsFromURL();
-                        } else {
-                            console.log("%cNo change", "color: red")
                         }
                     }
                 });

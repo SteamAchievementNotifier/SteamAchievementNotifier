@@ -3782,12 +3782,6 @@ function ShowSettings() {
     CheckAllPercent();
     CheckNVDA();
     CheckHWA();
-
-    if (config.ssoverlay == "true" && config.screenshot == "false" && config.rarescreenshot == "false") {
-        document.getElementById("sserror").style.display = "block";
-    } else {
-        document.getElementById("sserror").style.display = "none";
-    }
 }
 
 function CloseSettings() {
@@ -7731,7 +7725,6 @@ function ToggleGameIconRare() {
 }
 
 function ShowOverlayTest(type) {
-    console.log(type)
     ipcRenderer.send("overlaytest", type)
 }
 

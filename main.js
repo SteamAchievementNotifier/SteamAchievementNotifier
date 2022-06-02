@@ -1401,12 +1401,12 @@ const startapp = () => {
         //     powerSaveBlocker.start('prevent-app-suspension');
         // });
 
-        powerMonitor.on('resume', () => {
-            var launcher = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","launcher.json")));
+        // powerMonitor.on('resume', () => {
+        //     var launcher = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","launcher.json")));
 
-            app.relaunch({ execPath: launcher.path });
-            app.exit();
-        });
+        //     app.relaunch({ execPath: launcher.path });
+        //     app.exit();
+        // });
     });
 }
 

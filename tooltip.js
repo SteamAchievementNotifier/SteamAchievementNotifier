@@ -1570,7 +1570,6 @@ function LoadLangTT() {
    document.getElementById("nvda")._tippy.setContent(nvdatt);
    document.getElementById("gamecompletion")._tippy.setContent(gamecompletiontt);
    document.getElementById("ssoverlay")._tippy.setContent(ssoverlaytt);
-   document.getElementById("sserror")._tippy.setContent(sserrortt)
 }
 
 LoadLangTT();

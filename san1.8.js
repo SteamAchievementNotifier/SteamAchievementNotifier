@@ -1337,8 +1337,8 @@ function LoadLang() {
         trayexit = "Sortir";
 
         //!!!1.8 Translations;
-        achievementunlocked = "Succès Dévérouillé!";
-        rareachievementunlocked = "Succès Rare Dévérouillé!";
+        achievementunlocked = "Succès Déverrouillé!";
+        rareachievementunlocked = "Succès Rare Déverrouillé!";
         testdesc = "Vos notifications fonctionnent correctement";
 
         addsound = "Ajouter Le Son Sélectionné";

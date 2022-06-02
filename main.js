@@ -1002,21 +1002,7 @@ const startapp = () => {
                         
                         CheckFilePath()
                     } else {
-                        // Enable below if whitescreen issue is still occurring
-                        // imgwin.webContents.on('did-finish-load', () => {
                         imgwin.webContents.on('paint', (event, dirty, image) => {
-                            //fs.writeFile(path.join(ovpath,sandir,gamedir,filename) + ".png", image.toPNG(), (err) => {
-                            //    if (err) {
-                            //        var m = "FILE CREATION ERROR: " + err
-                            //        console.log(m)
-                            //        win.webContents.send('errormsg', m)
-                            //    } else {
-                            //        var m = "File \"" + filename + ".png\" created successfully in " + path.join(ovpath,sandir,gamedir)
-                            //        console.log(m)
-                            //        win.webContents.send('warnmsg', m)
-                            //    }
-                            //})
-                            
                             fs.writeFileSync(path.join(ovpath,sandir,gamedir,filename) + ".png", image.toPNG())
                             var m = `File "${filename}.png" created successfully in ${path.join(ovpath,sandir,gamedir)}`
                             console.log(m)
@@ -1026,8 +1012,6 @@ const startapp = () => {
                                 imgwin.destroy()
                             }, 1000)
                         })
-                        // Enable with "did-finish-load" event
-                        // })
                     }
                 }
 
@@ -1392,21 +1376,6 @@ const startapp = () => {
 
     app.on('ready', () => {
         createWindow()
-
-        // powerMonitor.on("lock-screen", () => {
-        //     powerSaveBlocker.start("prevent-display-sleep");
-        // });
-
-        // powerMonitor.on('suspend', () => {
-        //     powerSaveBlocker.start('prevent-app-suspension');
-        // });
-
-        // powerMonitor.on('resume', () => {
-        //     var launcher = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","launcher.json")));
-
-        //     app.relaunch({ execPath: launcher.path });
-        //     app.exit();
-        // });
     });
 }
 

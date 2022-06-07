@@ -1,4 +1,4 @@
-[![GitHub release](https://img.shields.io/github/release/SteamAchievementNotifier/SteamAchievementNotifier.svg?label=Release&logo=)](https://GitHub.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/)
+[![GitHub release](https://img.shields.io/github/release/SteamAchievementNotifier/SteamAchievementNotifier.svg?label=Release&logo=)](https://GitHub.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/1.84)
 [![Github all releases](https://img.shields.io/github/downloads/SteamAchievementNotifier/SteamAchievementNotifier/total.svg?&label=Downloads&color=46C018)](https://GitHub.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/)
 [![Discord](https://img.shields.io/discord/903745038826229762?label=Discord&logo=discord&logoColor=ffffff&color=768bd3)](https://discord.gg/FxCFtpd3eu)
 [![KoFi](https://img.shields.io/static/v1?message=Donate&logo=kofi&labelColor=5c5c5c&color=yellow&logoColor=white&label=Ko-Fi)](https://kofi.com/steamachievementnotifier)

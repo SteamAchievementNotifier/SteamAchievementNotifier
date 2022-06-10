@@ -7,21 +7,37 @@ const startapp = () => {
 
     app.commandLine.appendSwitch("disable-background-timer-throttling");
 
+    var localappdata;
+    var appicon = path.join(__dirname,"img","sanlogo.ico");
+
+    if (process.platform == "win32") {
+        localappdata = path.join(process.env.LOCALAPPDATA);
+    } else if (process.platform == "linux") {
+        localappdata = path.join(process.env.HOME,".local","share");
+        appicon = path.join(__dirname,"img","sanlogo-675x675.png");
+    } else if (process.platform == "darwin") {
+        localappdata = path.join(process.env.HOME,"Library","Application Support");
+    } else {
+        console.log(`Unsupported platform (${process.platform}) detected - awaiting exit signal...`);
+    }
+
+    // app.disableHardwareAcceleration() massively reduces memory usage on integrated graphics
+    // Allows manual garbage collection via "gc()"
+    if (fs.existsSync(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt")) {
+        console.log("No HWA")
+
+        app.disableHardwareAcceleration();
+        app.commandLine.appendSwitch('js-flags', '--expose_gc --max-old-space-size=128');
+        require("v8").setFlagsFromString('--expose_gc');
+        global.gc = require("vm").runInNewContext('gc');
+            
+        // Garbage collected every minute
+        setInterval(function() {
+            gc();
+        }, 60000);
+    }
+
     function RunApp() {
-        var localappdata;
-        var appicon = path.join(__dirname,"img","sanlogo.ico");
-
-        if (process.platform == "win32") {
-            localappdata = path.join(process.env.LOCALAPPDATA);
-        } else if (process.platform == "linux") {
-            localappdata = path.join(process.env.HOME,".local","share");
-            appicon = path.join(__dirname,"img","sanlogo-675x675.png");
-        } else if (process.platform == "darwin") {
-            localappdata = path.join(process.env.HOME,"Library","Application Support");
-        } else {
-            console.log(`Unsupported platform (${process.platform}) detected - awaiting exit signal...`);
-        }
-
         const sanlocalappdata = path.join(localappdata,"Steam Achievement Notifier (V1.8)");
 
         function CheckConfig() {
@@ -82,22 +98,6 @@ const startapp = () => {
         }
 
         const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
-
-        // app.disableHardwareAcceleration() massively reduces memory usage on integrated graphics
-        // Allows manual garbage collection via "gc()"
-        if (config.hwa == "true") {
-            console.log("No HWA")
-
-            app.disableHardwareAcceleration();
-            app.commandLine.appendSwitch('js-flags', '--expose_gc --max-old-space-size=128');
-            require("v8").setFlagsFromString('--expose_gc');
-            global.gc = require("vm").runInNewContext('gc');
-                
-            // Garbage collected every minute
-            setInterval(function() {
-                gc();
-            }, 60000);
-        }
 
         let win;
         let tray = null;

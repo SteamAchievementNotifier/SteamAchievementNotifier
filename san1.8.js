@@ -6794,7 +6794,7 @@ function SANIdle() {
 
                 gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name;
                 
-                ipcRenderer.send('trackwin', gamename);
+                ipcRenderer.send('trackwin', gamename, appid);
                 setTimeout(function() {
                     ipcRenderer.send('trackstop')
                 }, 5000);
@@ -6810,7 +6810,7 @@ function SANIdle() {
 
                 gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name;
                 
-                ipcRenderer.send('trackwin', gamename);
+                ipcRenderer.send('trackwin', gamename, appid);
                 setTimeout(function() {
                     ipcRenderer.send('trackstop')
                 }, 5000);

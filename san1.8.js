@@ -7347,10 +7347,12 @@ function ToggleHWA() {
     if (config.hwa == "false") {
         config["hwa"] = "true";
         fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt"), "")
         ipcRenderer.send('resetcomplete');
     } else {
         config["hwa"] = "false";
         fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.rmSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt"))
         ipcRenderer.send('resetcomplete');
     }
 }

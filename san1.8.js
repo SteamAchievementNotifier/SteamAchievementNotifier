@@ -273,7 +273,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "PREVIEW MAIN OVERLAY";
         document.getElementById("ssraretestbtn").innerHTML = "PREVIEW RARE OVERLAY";
 
-        secret = "Secret Achievement!";
+        secret = "Secret";
         gamecomplete = "Game Complete!";
         allunlocked = "You've unlocked all achievements!";
     } else if (config.lang == "arabic") {
@@ -405,7 +405,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "معاينة التراكب الرئيسي";
         document.getElementById("ssraretestbtn").innerHTML = "معاينة تراكب نادر";
 
-        secret = "الانجاز السري!";
+        secret = "سر";
         gamecomplete = "اكتملت اللعبة!";
         allunlocked = "لقد فتحت جميع الإنجازات!";
     } else if (config.lang == "bulgarian") {
@@ -532,7 +532,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "ПРЕГЛЕД НА ГЛАВНИЯ ЕКРАН";
         document.getElementById("ssraretestbtn").innerHTML = "ПРЕГЛЕД НА РЕДКИЯ ЕКРАН";
 
-        secret = "Тайно Постижение!";
+        secret = "Тайна";
         gamecomplete = "Играта Е Завършена!";
         allunlocked = "Отключихте всички постижения!";
     } else if (config.lang == "schinese") {
@@ -659,7 +659,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "预览主要叠加";
         document.getElementById("ssraretestbtn").innerHTML = "预览稀有覆盖";
 
-        secret = "秘密成就！";
+        secret = "秘密";
         gamecomplete = "游戏完成！";
         allunlocked = "您已解锁所有成就！";
     } else if (config.lang == "tchinese") {
@@ -786,7 +786,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "預覽主要疊加";
         document.getElementById("ssraretestbtn").innerHTML = "預覽稀有覆蓋";
 
-        secret = "秘密成就！";
+        secret = "秘密";
         gamecomplete = "遊戲完成！";
         allunlocked = "您已解鎖所有成就！";
     } else if (config.lang == "czech") {
@@ -913,7 +913,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "NÁHLED HLAVNÍ OBRAZOVKY";
         document.getElementById("ssraretestbtn").innerHTML = "NÁHLED VZÁCNÝCH OBRAZOVKY";
 
-        secret = "Tajný Úspěch!";
+        secret = "Tajný";
         gamecomplete = "Hra Dokončena!";
         allunlocked = "Odemkli jste všechny úspěchy!";
     } else if (config.lang == "danish") {
@@ -1040,7 +1040,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "SE HOVEDOVERLAG";
         document.getElementById("ssraretestbtn").innerHTML = "SE SJÆLDNE OVERLAG";
 
-        secret = "Hemmelig Præstation!";
+        secret = "Hemmelig";
         gamecomplete = "Spil Færdig!";
         allunlocked = "Du har låst op for alle præstationer!";
     } else if (config.lang == "dutch") {
@@ -1167,7 +1167,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "VOORBEELD HOOFDOVERLAY";
         document.getElementById("ssraretestbtn").innerHTML = "VOORBEELD ZELDZAME OVERLAY";
 
-        secret = "Geheime Prestatie!";
+        secret = "Geheim";
         gamecomplete = "Spel Compleet!";
         allunlocked = "Je hebt alle prestaties ontgrendeld!";
     } else if (config.lang == "finnish") {
@@ -1294,7 +1294,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "NÄYTÄ PÄÄKUVA";
         document.getElementById("ssraretestbtn").innerHTML = "NÄYTÄ HARVINAINEN KUVA";
 
-        secret = "Salainen Saavutus!";
+        secret = "Salaisuus";
         gamecomplete = "Peli Valmis!";
         allunlocked = "Olet avannut kaikki saavutukset!";
     } else if (config.lang == "french") {
@@ -1421,7 +1421,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "APERÇU DE LA SUPERPOSITION PRINCIPALE";
         document.getElementById("ssraretestbtn").innerHTML = "APERÇU DE LA SUPERPOSITION RARE";
 
-        secret = "Réalisation Secrète!";
+        secret = "Secret";
         gamecomplete = "Jeu Complet!";
         allunlocked = "Vous avez débloqué toutes les réalisations!";
     } else if (config.lang == "german") {
@@ -1548,7 +1548,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "VORSCHAU HAUPTBILD";
         document.getElementById("ssraretestbtn").innerHTML = "VORSCHAU SELTENES BILD";
 
-        secret = "Geheimer Errungshaft!";
+        secret = "Geheim";
         gamecomplete = "Spiel Abgeschlossen!";
         allunlocked = "Du hast alle Erfolge freigeschaltet!";
     } else if (config.lang == "greek") {
@@ -1675,7 +1675,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "ΚΥΡΙΑ ΠΡΟΕΠΙΣΚΟΠΗΣΗ";
         document.getElementById("ssraretestbtn").innerHTML = "ΣΠΑΝΙΑ ΠΡΟΕΠΙΣΚΟΠΗΣΗ";
 
-        secret = "Μυστικό Επίτευγμα!";
+        secret = "Μυστικό";
         gamecomplete = "Παιχνίδι Τελείωσε!";
         allunlocked = "Ξεκλειδώσατε όλα τα επιτεύγματα!";
     } else if (config.lang == "hungarian") {
@@ -1802,7 +1802,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "A FŐKÉP ELŐNÉZÉSE";
         document.getElementById("ssraretestbtn").innerHTML = "RITKA KÉP ELŐNÉZÉSE";
 
-        secret = "Titkos Teljesítmény!";
+        secret = "Titkos";
         gamecomplete = "A Játék Kész!";
         allunlocked = "Minden jutalmat megszereztél!";
     } else if (config.lang == "italian") {
@@ -1929,7 +1929,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "ANTEPRIMA IMMAGINE PRINCIPALE";
         document.getElementById("ssraretestbtn").innerHTML = "ANTEPRIMA IMMAGINE RARA";
 
-        secret = "Obiettivo Segreto!";
+        secret = "Segreto";
         gamecomplete = "Gioco Completo!";
         allunlocked = "Hai sbloccato tutti gli obiettivi!";
     } else if (config.lang == "japanese") {
@@ -2056,7 +2056,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "メインオーバーレイのプレビュー";
         document.getElementById("ssraretestbtn").innerHTML = "プレビューレアオーバーレイ";
 
-        secret = "秘密の達成！";
+        secret = "ひみつ";
         gamecomplete = "ゲーム完了！";
         allunlocked = "すべての実績のロックを解除しました！";
     } else if (config.lang == "korean") {
@@ -2183,7 +2183,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "기본 오버레이 미리보기";
         document.getElementById("ssraretestbtn").innerHTML = "희귀 오버레이 미리보기";
 
-        secret = "비밀 성취!";
+        secret = "비밀";
         gamecomplete = "게임 완료!";
         allunlocked = "모든 업적을 달성했습니다!";
     } else if (config.lang == "norwegian") {
@@ -2310,7 +2310,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "SE HOVEDBILDE";
         document.getElementById("ssraretestbtn").innerHTML = "SE SJELDENT BILDE";
 
-        secret = "Hemmelig Prestasjon!";
+        secret = "Hemmelig";
         gamecomplete = "Spillet Er Fullført!";
         allunlocked = "Du har låst opp alle prestasjoner!";
     } else if (config.lang == "polish") {
@@ -2437,7 +2437,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "PODGLĄD GŁÓWNEJ NAKŁADKI";
         document.getElementById("ssraretestbtn").innerHTML = "PODGLĄD RZADKIEJ NAKŁADKI";
 
-        secret = "Tajne Osiągnięcie!";
+        secret = "Sekret";
         gamecomplete = "Gra Zakończona!";
         allunlocked = "Odblokowałeś wszystkie osiągnięcia!";
     } else if (config.lang == "portuguese") {
@@ -2564,9 +2564,141 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "VER SOBREPOSIÇÃO PRINCIPAL";
         document.getElementById("ssraretestbtn").innerHTML = "VER SOBREPOSIÇÃO RARO";
 
-        secret = "Conquista Secreta!";
+        secret = "Segredo";
         gamecomplete = "Jogo Completo!";
         allunlocked = "Você desbloqueou todas as conquistas!";
+    } else if (config.lang == "brazilian") {
+        document.getElementById("username").innerHTML = "Nenhum Usuário Detectado";
+        document.getElementById("gamestatus").innerHTML = "Nenhum Jogo Detectado";
+        document.getElementById("soundfile").innerHTML = "Padrão (Sem Som Selecionado)";
+        document.getElementById("soundfilerare").innerHTML = "Padrão (Sem Som Selecionado)";
+        document.getElementById("maincheevsound").innerHTML = "Som de Notificação Principal";
+        document.getElementById("rarecheevsound").innerHTML = "Som de Notificação Raro";
+        document.getElementById("test").innerHTML = "MOSTRAR NOTIFICAÇÃO DE TESTE";
+        document.getElementById("testrare").innerHTML = "MOSTRAR NOTIFICAÇÃO DE TESTE RARO";
+        document.getElementById("settingstitle").innerHTML = "CONFIGURAÇÕES";
+        document.getElementById("configtitle").innerHTML = "CONFIGURAÇÃO";
+        document.getElementById("apibox").placeholder = "Digite Chave API";
+        document.getElementById("steam64box").placeholder = "Digite Steam64ID";
+        document.getElementById("other").innerHTML = "OUTROS";
+        document.getElementById("showscreenshotlbl").innerHTML = "Mostrar Imagem de Tela";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Mostrar Imagem de Tela";
+        document.getElementById("desktoplbl").innerHTML = "Criar Atalho de Desktop";
+        document.getElementById("startwinlbl").innerHTML = "Comece com Windows";
+        document.getElementById("startminlbl").innerHTML = "Início Minimizado";
+        document.getElementById("soundonlylbl").innerHTML = "Modo só Som";
+        document.getElementById("trackinglbl").innerHTML = 'Mostrar "Agora Rastreamento"';
+
+        nouser = "Nenhum Usuário Detectado";
+        nogame = "Nenhum Jogo Detectado";
+        nosound = "Padrão (Sem Som Selecionado)";
+        nosoundrare = "Padrão (Sem Som Selecionado)";
+        rareheader = `'Conquista Rara Desbloqueada!`;
+        unlinked = "DESCONECIDO";
+        linked = "CONECTADO";
+        novalue = "Por favor, digite um valor";
+
+        second = "segundo";
+        seconds = "segundos";
+
+        tracknotifymsg = "Agora, o rastreamento de conquistas para";
+
+        resettitle = "Redefinir a Aplicação Padrão?";
+        resetdesc = `AVISO: Isto removerá todas as configurações do usuário!`;
+        resetbtns = ["Redefinir","Desinstalar","Cancelar"];
+
+        traylabel = "Nenhum Jogo Detectado";
+        trayshow = "Mostrar";
+        trayexit = "Fechar";
+
+        //!!!1.8 Translations;
+        achievementunlocked = "Conquista Desbloqueada!";
+        rareachievementunlocked = "Conquista Rara Desbloqueada!";
+        testdesc = "Suas notificações estão funcionando corretamente";
+
+        addsound = "Adicionar Som Selecionado";
+        invalid = 'Tipo de Arquivo Inválido';
+        addimage = 'Adicionar Imagem Selecionada';
+        file = "FILE";
+        nofolder = "Padrão (Sem Pasta Selecionada)";
+        novalidaudio = "Nenhum arquivo de áudio válido localizado em ";
+        soundmode = "MODELO DE SOM: ";
+        randomised = "RANDOMIZADO";
+        presskey = "...";
+        custompos = "Definir Posição Personalizada";
+        settingpos = "Definindo a Posição Principal...";
+        settingposrare = "Definindo Posição Raro...";
+
+        document.getElementById("steamkeybindlbl").innerHTML = "Chave de Imagem Steam:";
+        document.getElementById("langlbl").innerHTML = "Língua:";
+        document.getElementById("raritylbl").innerHTML = "Valor de Raridade:";
+        document.getElementById("nosteamlbl").innerHTML = "Ocultar Notificação de Steam";
+        document.getElementById("customiselbl").innerHTML = "PERSONALIZAÇÃO...";
+        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Principal';
+        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Raro';
+        document.getElementById("customiserstylelbl").innerHTML = "ESTILO DE NOTIFICAÇÃO:";
+        document.getElementById("notifypositionlbl").innerHTML = "POSIÇÃO DA TELA:";
+        document.getElementById("bgtypelbl").innerHTML = "TIPO DE FUNDO:";
+        document.getElementById("colourslbl").innerHTML = "COLORES";
+        document.getElementById("colour1lbl").innerHTML = "Cor 1";
+        document.getElementById("colour2lbl").innerHTML = "Cor 2";
+        document.getElementById("textcolourlbl").innerHTML = "Cor do Texto";
+        document.getElementById("imgselectlbl").innerHTML = "IMAGEM DE FUNDO:"
+        document.getElementById("roundnesslbl").innerHTML = "REDONDEZA:";
+        document.getElementById("iconroundnesslbl").innerHTML = "ÍCONE REDONDEZA:";
+        document.getElementById("displaytimelbl").innerHTML = "TEMPO DE EXIBIÇÃO:";
+        document.getElementById("scalelbl").innerHTML = "ESCALA:";
+        document.getElementById("styledefault").innerHTML = "Padrão";
+        document.getElementById("typesolid").innerHTML = "Cor Sólida";
+        document.getElementById("typegradient").innerHTML = "Gradiente de Cor";
+        document.getElementById("typeimg").innerHTML = "Imagem de Fundo";
+        document.getElementById("dragposlbl").innerHTML = "Usar Posição Personalizada";
+        document.getElementById("iconselectlbl").innerHTML = "ÍCONE PERSONALIZADO:";
+        document.getElementById("fontsizelbl").innerHTML = "TAMANHO DE FONT:";
+        document.getElementById("dragposbtn").innerHTML = custompos;
+        document.getElementById("recenterbtn").innerHTML = "Reinicialização";
+        document.getElementById("gameiconlbl").innerHTML = "Usar Ícone de Jogo";
+
+        document.getElementById("customiserstylelblrare").innerHTML = "ESTILO DE NOTIFICAÇÃO:";
+        document.getElementById("notifypositionlblrare").innerHTML = "POSIÇÃO DA TELA:";
+        document.getElementById("bgtypelblrare").innerHTML = "TIPO DE FUNDO:";
+        document.getElementById("rarecolourslbl").innerHTML = "COLORES";
+        document.getElementById("colour1lblrare").innerHTML = "Cor 1";
+        document.getElementById("colour2lblrare").innerHTML = "Cor 2";
+        document.getElementById("textcolourlblrare").innerHTML = "Cor do Texto";
+        document.getElementById("rareimgselectlbl").innerHTML = "IMAGEM DE FUNDO:"
+        document.getElementById("roundnesslblrare").innerHTML = "REDONDEZA:";
+        document.getElementById("iconroundnesslblrare").innerHTML = "ÍCONE REDONDEZA::";
+        document.getElementById("displaytimelblrare").innerHTML = "TEMPO DE EXIBIÇÃO:";
+        document.getElementById("scalelblrare").innerHTML = "ESCALA:";
+        document.getElementById("styledefaultrare").innerHTML = "Padrão";
+        document.getElementById("typesolidrare").innerHTML = "Cor Sólida";
+        document.getElementById("typegradientrare").innerHTML = "Gradiente de Cor";
+        document.getElementById("typeimgrare").innerHTML = "Imagem de Fundo";
+        document.getElementById("dragposlblrare").innerHTML = "Usar Posição Personalizada";
+        document.getElementById("rareiconselectlbl").innerHTML = "ÍCONE PERSONALIZADO:";
+        document.getElementById("fontsizelblrare").innerHTML = "TAMANHO DE FONT:";
+        document.getElementById("dragposbtnrare").innerHTML = custompos;
+        document.getElementById("recenterbtnrare").innerHTML = "Reinicialização";
+        document.getElementById("gameiconlblrare").innerHTML = "Usar Ícone de Jogo";
+
+        document.getElementById("trackopacitylbl").innerHTML = "Rastreamento Opacidade:";
+        document.getElementById("resetlbl").innerHTML = "Reinicialização";
+        document.getElementById("details").innerHTML = '<a id="gamedetails" href="steam://openurl/https://steamcommunity.com/id/' + username + '/edit/settings">Detalhes do jogo</a> também deve ser definido como "Público".';
+        document.getElementById("allpercentlbl").innerHTML = "Mostrar Todas as Porcentagens";
+        document.getElementById("iconanimationlbl").innerHTML = "Mostrar Animação de Ícones Raros";
+        document.getElementById("hwalbl").innerHTML = "Desativar Aceleração de Hardware";
+        document.getElementById("nvdalbl").innerHTML = "Habilitar o Suporte da NVDA";
+        document.getElementById("gamecompletionlbl").innerHTML = "Mostrar Notificação de Conclusão do Jogo";
+        document.getElementById("ssoverlaylbl").innerHTML = "Salvar Imagens com Overlay";
+        document.getElementById("ssoverlaypathlbl").innerHTML = "Caminho:";
+        document.getElementById("opacitylbl").innerHTML = "Notificação Opacidade:";
+        document.getElementById("ssmaintestbtn").innerHTML = "VER IMAGEM PRINCIPAL";
+        document.getElementById("ssraretestbtn").innerHTML = "VER IMAGEM RARO";
+
+        secret = "Segredo";
+        gamecomplete = "Jogo Completo!";
+        allunlocked = "Você já Desbloqueou Todas as Conquistas!";
     } else if (config.lang == "romanian") {
         document.getElementById("username").innerHTML = "Niciun Utilizator Detectat";
         document.getElementById("gamestatus").innerHTML = "Niciun Joc Detectat";
@@ -2691,7 +2823,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "VEZI IMAGINEA PRINCIPALA";
         document.getElementById("ssraretestbtn").innerHTML = "VEZI IMAGINEA RARE";
 
-        secret = "Realizare Secretă!";
+        secret = "Secret";
         gamecomplete = "Joc Complet!";
         allunlocked = "Ai deblocat toate realizările!";
     } else if (config.lang == "russian") {
@@ -2818,7 +2950,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "ПОСМОТРЕТЬ ГЛАВНУЮ ОВЕРЛЕЙ";
         document.getElementById("ssraretestbtn").innerHTML = "ПОСМОТРЕТЬ РЕДКИЙ ОВЕРЛЕЙ";
 
-        secret = "Секретное Достижение!";
+        secret = "Секрет";
         gamecomplete = "Завершенная Игра!";
         allunlocked = "Вы разблокировали все достижения!";
     } else if (config.lang == "spanish") {
@@ -2945,7 +3077,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "VER SUPERPOSICIÓN PRINCIPAL";
         document.getElementById("ssraretestbtn").innerHTML = "VER SUPERPOSICIÓN RARO";
 
-        secret = "¡Logro Secreto!";
+        secret = "Secreto";
         gamecomplete = "¡Juego Completo!";
         allunlocked = "¡Has desbloqueado todos los logros!";
     } else if (config.lang == "swedish") {
@@ -3072,7 +3204,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "VISA HUVUDBILD";
         document.getElementById("ssraretestbtn").innerHTML = "VISA SÄLLSYNT BILD";
 
-        secret = "Hemlig Prestation!";
+        secret = "Hemlig";
         gamecomplete = "Spelet Avklarat!";
         allunlocked = "Du har låst upp alla prestationer!";
     } else if (config.lang == "thai") {
@@ -3199,7 +3331,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "ดูตัวอย่างภาพซ้อนทับหลัก";
         document.getElementById("ssraretestbtn").innerHTML = "ดูตัวอย่างภาพซ้อนทับที่หายาก";
 
-        secret = "ความลับความสำเร็จ!";
+        secret = "ความลับ";
         gamecomplete = "เกมจบ!";
         allunlocked = "คุณได้ปลดล็อคความสำเร็จทั้งหมดแล้ว!";
     } else if (config.lang == "turkish") {
@@ -3326,7 +3458,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "ANA GÖRÜNTÜ ÖNİZLEME";
         document.getElementById("ssraretestbtn").innerHTML = "NADİR GÖRÜNTÜ ÖNİZLEME";
 
-        secret = "Gizli Başarı!";
+        secret = "Gizli";
         gamecomplete = "Oyun Tamamlandı!";
         allunlocked = "Tüm başarıların kilidini açtınız!";
     } else if (config.lang == "ukrainian") {
@@ -3453,7 +3585,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "ПЕРЕГЛЯНУТИ ГОЛОВНЕ ЗОБРАЖЕННЯ";
         document.getElementById("ssraretestbtn").innerHTML = "ПЕРЕГЛЯНУТИ РІДКІСНІ ЗОБРАЖЕННЯ";
 
-        secret = "Секретне Досягнення!";
+        secret = "Секрет";
         gamecomplete = "Гра Завершено!";
         allunlocked = "Ви розблокували всі досягнення!";
     } else if (config.lang == "vietnamese") {
@@ -3580,7 +3712,7 @@ function LoadLang() {
         document.getElementById("ssmaintestbtn").innerHTML = "XEM HÌNH ẢNH CHÍNH";
         document.getElementById("ssraretestbtn").innerHTML = "XEM HÌNH ẢNH HIẾM";
 
-        secret = "Thành Tựu Bí Mật!";
+        secret = "Bí Mật";
         gamecomplete = "Hoàn Thành Trò Chơi!";
         allunlocked = "Bạn đã mở khóa tất cả các thành tích!";
     }
@@ -4650,8 +4782,12 @@ function GetPlayerName() {
 function CheckNowTracking() {
     if (config.tracking == "true") {
         document.getElementById("trackingbox").checked = true;
+        document.getElementById("trackopacity").style.opacity = "1";
+        document.getElementById("trackopacityslider").style.pointerEvents = "auto";
     } else {
         document.getElementById("trackingbox").checked = false;
+        document.getElementById("trackopacity").style.opacity = "0.5";
+        document.getElementById("trackopacityslider").style.pointerEvents = "none";
     }
 }
 
@@ -4659,13 +4795,9 @@ function ToggleNowTracking() {
     if (config.tracking == "false") {
         config["tracking"] = "true";
         fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-        document.getElementById("trackopacity").style.opacity = "1";
-        document.getElementById("trackopacityslider").style.pointerEvents = "auto";
     } else {
         config["tracking"] = "false";
         fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-        document.getElementById("trackopacity").style.opacity = "0.5";
-        document.getElementById("trackopacityslider").style.pointerEvents = "none";
     }
     CheckNowTracking();
 }
@@ -4736,7 +4868,17 @@ function CreateDesktopShortcut() {
     if (fs.existsSync(shortcut)) {
         document.getElementById("desktopbox").checked = true;
     } else {
-        spawn("powershell.exe",["-Command",`$shell = New-Object -ComObject WScript.Shell; $shortcut = $shell.CreateShortcut('` + shortcut + `'); $shortcut.IconLocation = '` + path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","sanlogo.ico") + `'; $shortcut.TargetPath = '` + launcher.path + `'; $shortcut.Save(); $sc = "steam achievement notifier (V${thisver})"; $txtinfo = (Get-Culture).TextInfo; $scfix = $txtinfo.ToTitleCase($sc); Rename-Item -Path "` + shortcut + `" -NewName "$scfix.lnk"`]);
+        var desktopspawner = spawn("powershell.exe",["-Command",`$shell = New-Object -ComObject WScript.Shell; $shortcut = $shell.CreateShortcut('` + shortcut + `'); $shortcut.IconLocation = '` + path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","sanlogo.ico") + `'; $shortcut.TargetPath = '` + launcher.path + `'; $shortcut.Save(); $sc = "steam achievement notifier (V${thisver})"; $txtinfo = (Get-Culture).TextInfo; $scfix = $txtinfo.ToTitleCase($sc); Rename-Item -Path "` + shortcut + `" -NewName "$scfix.lnk"`]);
+        desktopspawner.stderr.on('data', (err) => {
+            console.log(`%cError: %cUnable to create Desktop Shortcut:\n%c${err}`, "color: red", "color: white", "color: deeppink")
+        })
+        desktopspawner.on('close', (code) => {
+            if (code == 0) {
+                console.log(`%cDesktop shortcut created.`, "color: seagreen")
+            } else {
+                console.log(`%cError creating Desktop shortcut!`, "color: darkred")
+            }
+        })
         document.getElementById("desktopbox").checked = true;
     }
 }
@@ -5036,11 +5178,35 @@ function ToggleStartWin() {
     if (config.startwin == "false") {
         config["startwin"] = "true";
         fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-        spawn("powershell.exe",["-Command",`$shell = New-Object -ComObject WScript.Shell; $shortcut = $shell.CreateShortcut('` + path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup","Steam Achievement Notifier (V" + thisver + ").lnk") + `'); $shortcut.IconLocation = '` + path.join(__dirname,"img","sanlogo.ico") + `'; $shortcut.TargetPath = '` + launcher.path + `'; $shortcut.Save();`]);
+        var startwinspawner = spawn("powershell.exe",["-Command",`$shell = New-Object -ComObject WScript.Shell; $shortcut = $shell.CreateShortcut('` + path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup","Steam Achievement Notifier (V" + thisver + ").lnk") + `'); $shortcut.IconLocation = '` + path.join(__dirname,"img","sanlogo.ico") + `'; $shortcut.TargetPath = '` + launcher.path + `'; $shortcut.Save();`]);
+        startwinspawner.stderr.on('data', (err) => {
+            console.log(`%cError: %cUnable to create "Start with Windows" shortcut:\n%c${err}`, "color: red", "color: white", "color: deeppink")
+        })
+        startwinspawner.on('close', (code) => {
+            if (code == 0) {
+                console.log(`%cStartWin shortcut created.`, "color: seagreen")
+            } else {
+                console.log(`%cError creating StartWin shortcut!`, "color: darkred")
+            }
+        })
     } else {
         config["startwin"] = "false";
         fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-        spawn("powershell.exe",["-Command",`Remove-Item -Path '` + path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup","Steam Achievement Notifier (V" + thisver + ").lnk") + `'`]);
+        if (fs.existsSync(path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup",`Steam Achievement Notifier (V${thisver}).lnk`))) {
+            var startwinremover = spawn("powershell.exe",["-Command",`Remove-Item -Path '` + path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup","Steam Achievement Notifier (V" + thisver + ").lnk") + `'`]);
+            startwinremover.stderr.on('data', (err) => {
+                console.log(`%cError: %cUnable to remove "Start with Windows" shortcut:\n%c${err}`, "color: red", "color: white", "color: deeppink")
+            })
+            startwinremover.on('close', (code) => {
+                if (code == 0) {
+                    console.log(`%cStartWin shortcut removed.`, "color: seagreen")
+                } else {
+                    console.log(`%cError removing StartWin shortcut!`, "color: darkred")
+                }
+            })
+        } else {
+            console.log(`%cStartWin shortcut no longer exists in "shell:startup"!`, "color: darkred")
+        }
     }
     CheckStartWin();
 }
@@ -6610,12 +6776,12 @@ function SANIdle() {
             if (process.platform == "win32") {
                 regkey.list([`HKCU\\SOFTWARE\\Valve\\Steam\\Apps\\${appid}`], function(err, result) {
                     gamename = result[`HKCU\\SOFTWARE\\Valve\\Steam\\Apps\\${appid}`].values.Name.value;
-                    if (config.tracking == "true") {
-                        ipcRenderer.send('trackwin', gamename, appid);
-                        setTimeout(function() {
-                            ipcRenderer.send('trackstop')
-                        }, 5000);
-                    }
+
+                    ipcRenderer.send('trackwin', gamename, appid);
+                    setTimeout(function() {
+                        ipcRenderer.send('trackstop')
+                    }, 5000);
+
                     console.log("%cNow tracking achievements for: " + gamename, "color: deepskyblue;");
                     document.getElementById("gamestatus").style.color = "white";
                     document.getElementById("gamestatus").innerHTML = gamename;
@@ -6628,12 +6794,11 @@ function SANIdle() {
 
                 gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name;
                 
-                if (config.tracking == "true") {
-                    ipcRenderer.send('trackwin', gamename);
-                    setTimeout(function() {
-                        ipcRenderer.send('trackstop')
-                    }, 5000);
-                }
+                ipcRenderer.send('trackwin', gamename);
+                setTimeout(function() {
+                    ipcRenderer.send('trackstop')
+                }, 5000);
+
                 console.log("%cNow tracking achievements for: " + gamename, "color: deepskyblue;");
                 document.getElementById("gamestatus").style.color = "white";
                 document.getElementById("gamestatus").innerHTML = gamename;
@@ -6645,12 +6810,11 @@ function SANIdle() {
 
                 gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name;
                 
-                if (config.tracking == "true") {
-                    ipcRenderer.send('trackwin', gamename);
-                    setTimeout(function() {
-                        ipcRenderer.send('trackstop')
-                    }, 5000);
-                }
+                ipcRenderer.send('trackwin', gamename);
+                setTimeout(function() {
+                    ipcRenderer.send('trackstop')
+                }, 5000);
+
                 console.log("%cNow tracking achievements for: " + gamename, "color: deepskyblue;");
                 document.getElementById("gamestatus").style.color = "white";
                 document.getElementById("gamestatus").innerHTML = gamename;
@@ -6746,7 +6910,7 @@ async function StartSAN() {
                     if (notifydesc == "" || notifydesc == undefined) {
                         achievementarr.forEach((achievement) => {
                             if (notifytitle == achievement.name) {
-                                notifydesc = achievement.desc
+                                notifydesc = `${achievement.desc} (${secret})`
                             }
                         })
                     }

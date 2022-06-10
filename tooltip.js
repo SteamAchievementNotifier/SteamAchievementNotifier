@@ -1223,6 +1223,45 @@ function LoadLangTT() {
       gamecompletiontt = "Mostra uma notificação adicional quando todas as conquistas de um jogo foram desbloqueadas.";
       ssoverlaytt = `Faz uma captura de tela não Steam e sobrepõe os detalhes da conquista desbloqueada. Essas capturas de tela que não são do Steam podem ser salvas em um diretório específico usando a opção "Caminho".`;
       sserrortt = "<span style='color: red; font-weight: bold'>Nenhuma opção de captura de tela ativada!</span>"
+   } else if (configtt.lang == "brazilian") {
+      usertt = "Nome de usuário Steam<br><div style='font-size: 6px;'>As conquistas estão sendo rastreadas para este usuário</div>";
+      gamett = "Mostrador do Jogo<br><div style='font-size: 6px;'>Mostra o nome do jogo que está sendo rastreado atualmente</div>";
+      mainprevtt = "Som de Notificação Principal";
+      rareprevtt = "Som de Notificação Raro";
+      maintabtt = "Selecione Som de Notificação Principal";
+      raretabtt = "Selecione Som de Notificação Raro";
+      selmaintt = "Selecione Som de Notificação Principal";
+      selrarett = "Selecione Som de Notificação Raro";
+      screenshottt = "Tira uma foto da tela e a exibe na notificação quando uma conquista é desbloqueada.";
+      shortcuttt = "Cria um atalho na área de trabalho<br>para executar o Steam Achievement Notifier.";
+      startwintt = "Automaticamente inicia a aplicação<br>quando o Windows é iniciado.";
+      startmintt = "Oculta a janela de aplicação na inicialização.";
+      soundonlytt = "Ele esconde todas as notificações, mas toca sons selecionados ao desbloquear conquistas.";
+      tracktt = "Mostra a notificação de \"Agora Rastreando\" quando se inicia um jogo.";
+      displaytt = "Define o período de tempo de conquistas<br>notificações serão exibidas para <br><span style='font-size: 8px;'>(Não disponível se o \"Modo só Som\" tiver sido ativado)</span>";
+      updatett = "ATUALIZAÇÃO DISPONÍVEL";
+      kofitt = "Faça uma doação na Ko-Fi!";
+      discordtt = "Participe da Discord!";
+      githubtt = "Relatar um problema";
+      resettt = "REINICIAR";
+      apilbltt = 'Clique aqui para obter sua Chave API <img src="./icon/open_in_new.svg" width="12px" style="vertical-align: -3px">';
+      steam64lbltt = 'Clique aqui para obter seu Steam64ID <img src="./icon/open_in_new.svg" width="12px" style="vertical-align: -3px">';
+      savett = "Salvar";
+      keybindtt = "Clique no botão para começar a ouvir uma tecla (\"...\"), depois pressione a tecla que corresponde à sua tecla de captura de tela em Steam.";
+
+      raritytt = "\"Raros\" sons/notificações só se mostrarão para conquistas com um valor de raridade abaixo deste percentual.";
+      nosteamtt = "Esconde a notificação de vapor padrão<br>quando se desbloqueia uma conquista.<br><span style='color: red; font-weight: bold'>A ativação desta opção reiniciará o Steam.</span>";
+      customisett = "Notificação de Conquista Personalizada";
+      eyett = "Mostrar/ocultar Chave API";
+      kofitt = "Faça uma doação em Ko-Fi!";
+      trackopacitytt = "Define a opacidade da notificação do \"Agora Rastreamento\".";
+      allpercenttt = "As porcentagens de conquista também serão mostradas para notificações não raras.";
+      hwatt = "<div style='font-weight: bold; color: red'>*Aplicação será reiniciada quando verificada</div><div style='color: white; font-weight: normal'>Desativa a aceleração do hardware e permite a coleta manual de lixo, o que reduz muito o uso de memória em sistemas que utilizam hardware gráfico integrado/baixo.";
+      nvdatt = "<div style='font-weight: bold; color: red'>*Requere-se um addon NVDA ClipReader</div><div style='color: white; font-weight: normal'>Copia todas as informações de realização para a prancheta, que pode então ser lida pelo software NVDA Screen Reader.</div>";
+      iconanimtt = "Alterna o contorno dourado sobre o raro ícone de conquista.";
+      gamecompletiontt = "Mostra uma notificação adicional quando todas as conquistas em um jogo foram desbloqueadas.";
+      ssoverlaytt = `Tira uma foto de tela não-Steam e sobrepõe os detalhes da conquista desbloqueada. Estas capturas de tela não-Steam podem ser salvas em um diretório específico usando a opção "Caminho".`;
+      sserrortt = "<span style='color: red; font-weight: bold'>Nenhuma opção de captura de tela ativada!</span>"
    } else if (configtt.lang == "romanian") {
       usertt = "Nume de Utilizator Steam<br><div style='font-size: 6px;'>Realizările sunt urmărite pentru acest utilizator</div>";
       gamett = "Afișarea Jocului<br><div style='font-size: 6px;'>Afișează numele jocului care este urmărit în prezent</div>";

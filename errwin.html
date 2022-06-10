@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: "Titillium Web";
+            src: url("./fonts/TitilliumWeb-Regular.ttf");
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: none;
+            color: white;
+            font-family: "Titillium Web";
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            user-select: none;
+        }
+
+        #maincont {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #101010;
+            border-radius: 10px;
+            padding: 50px 100px;
+            transition: 0.2s;
+        }
+
+        #content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+        }
+
+        #close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 25px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 20px 20px 0px 0px;
+        }
+
+        #closebtn {
+            opacity: 0.5;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        #closebtn:hover {
+            opacity: 1;
+        }
+
+        #title {
+            color: red;
+            font-size: 40px;
+            margin: 0px 0px 10px;
+        }
+
+        #tblflip {
+            font-size: 40px;
+            margin: 0px 0px 20px;
+        }
+
+        #sub {
+            margin: 0px 0px 20px;
+        }
+
+        #errorcont {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #errorheadercont {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            background: #202020;
+            padding: 10px 10px;
+            border-radius: 10px 10px 0px 0px;
+            z-index: 9;
+        }
+        
+        #errorheader {
+            flex: 1;
+        }
+        
+        #error {
+            width: 100%;
+            height: 100px;
+            font-family: 'Consolas';
+            font-size: 12px;
+            background: #505050;
+            padding: 5px 10px;
+            border-radius: 0px 0px 10px 10px;
+            margin: 0px 0px 10px;
+        }
+
+        #msg {
+            width: 100%;
+            height: 32px;
+            min-height: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #202020;
+            font-size: 10px;
+            opacity: 0;
+            margin: 0px 0px 10px;
+            transition: 0.2s;
+            padding: 0px 10px 0px;
+            border-radius: 5px;
+        }
+
+        #imgcont {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: red;
+        }
+
+        #copy, #copyfill {
+            position: absolute;
+            margin-right: 20px;
+            transition: 0.2s;
+            z-index: 9;
+            cursor: pointer;
+        }
+
+        #copy {
+            opacity: 0.7;
+        }
+
+        #copyfill {
+            opacity: 0;
+        }
+        
+        button {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            height: 30px;
+            font-family: "Titillium Web";
+            background: rgb(32,66,122);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: 0.2s;
+            cursor: pointer;
+            margin: 0px 5px 0px;
+        }
+
+        #restore:hover {
+            background: rgba(0,255,0,0.5);
+        }
+
+        #reinstall:hover {
+            background: rgba(255,0,0,0.5);
+        }
+
+        #report:hover {
+            background: deepskyblue;
+        }
+
+        #buttoncont {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* background: green; */
+        }
+
+        .btnimg {
+            margin-right: 5px;
+        }
+
+        #copy {
+            cursor: pointer;
+        }
+
+        #restorecont {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 10;
+            opacity: 0;
+        }
+
+        #supportbtns {
+            display: none;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.2s;
+            opacity: 0;
+        }
+
+        #gh:hover {
+            background: #202020;
+        }
+
+        #discord:hover {
+            background: rgb(85, 97, 245);
+        }
+
+        #back {
+            flex: 0;
+            background: none;
+            opacity: 0.5;
+        }
+
+        #back:hover {
+            opacity: 1;
+        }
+
+        @keyframes fadein {
+            0% {
+                opacity: 0;
+                transform: scale(0%,0%);
+            } 50% {
+                opacity: 0.5;
+                transform: scale(120%,120%);
+            } 100% {
+                opacity: 1;
+                transform: scale(100%,100%);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg) scale(100%,100%);
+            } 50% {
+                transform: rotate(-360deg) scale(100%,100%);
+            } 75% {
+                transform: rotate(-360deg) scale(120%,120%);
+            } 100% {
+                transform: rotate(-360deg) scale(100%,100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="close">
+        <img id="closebtn" src="./icon/close.svg" onclick="CloseApp()">
+    </div>
+    <div id="maincont">
+        <div id="restorecont">
+            <img id="restoreicon" src="" width="50px">
+            <span id="restoretext"></span>
+        </div>
+        <div id="content">
+            <div id="title">Dang...</div>
+            <div id="tblflip">(╯°□°)╯︵ ┻━┻</div>
+            <div id="sub">Steam Achievement Notifier encountered an issue and couldn't start!</div>
+            <div id="errorcont">
+                <div id="errorheadercont">
+                    <span id="errorheader"> Here's the error details:</span>
+                    <span id="copylbl" style="margin-right: 25px; opacity: 0; transition: 0.2s;">Copy to clipboard</span>
+                    <div id="imgcont" onmouseenter="Highlight()" onmouseleave="UnHighlight()" onclick="CopyError()">
+                        <img id="copy" src="./icon/copy.svg" width="20px">
+                        <img id="copyfill" src="./icon/copyfill.svg" width="20px">
+                    </div>
+                </div>
+                <span id="error"></span>
+            </div>
+            <div id="msg">
+                <span id="mainmsg"></span>
+                <span id="submsg" style="font-size: 8px"></span>
+            </div>
+            <div id="buttoncont">
+                <button id="restore" onclick="Restore()" onmouseenter="ShowMsg('restore')" onmouseleave="HideMsg()"><img class="btnimg" src="./icon/replay.svg" width="15px">RESTORE</button>
+                <button id="reinstall" onclick="Reinstall()" onmouseenter="ShowMsg('reinstall')" onmouseleave="HideMsg()"><img class="btnimg" src="./icon/build.svg" width="12px">REINSTALL</button>
+                <button id="report" onclick="Report()" onmouseenter="ShowMsg('report')" onmouseleave="HideMsg()"><img class="btnimg" src="./icon/report.svg" width="18px" style="margin-top: 3px">REPORT</button>
+            </div>
+            <div id="supportbtns">
+                <button id="back" onclick="GoBack()"><img src="./icon/back.svg"></button>
+                <button id="gh" onclick="OpenGitHubIssue()" onmouseenter="ShowMsg('github')" onmouseleave="HideMsg()">
+                    <img src="./icon/github.svg" style="margin-right: 10px">
+                    Report an <span style="font-weight: bold; margin: 0px 3px">issue</span> on GitHub
+                </button>
+                <button id="discord" onclick="OpenDiscordIssue()" onmouseenter="ShowMsg('discord')" onmouseleave="HideMsg()">
+                    <img src="./icon/discord.svg" style="margin-right: 10px">
+                    Post in <span style="font-weight: bold; margin: 0px 3px">#support</span> on Discord
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const { ipcRenderer, clipboard } = require('electron')
+        const fs = require('fs')
+        const path = require('path')
+        const { spawn, exec } = require('child_process')
+        const appversion = "V1.8"
+
+        ipcRenderer.on('err', (err, msg) => {
+            document.getElementById("error").textContent = msg
+        })
+
+        var localappdata;
+
+        if (process.platform == "win32") {
+            localappdata = path.join(process.env.LOCALAPPDATA);
+        } else if (process.platform == "linux") {
+            localappdata = path.join(process.env.HOME,".local","share");
+        } else if (process.platform == "darwin") {
+            localappdata = path.join(process.env.HOME,"Library","Application Support");
+        }
+
+        function Highlight() {
+            document.getElementById("copyfill").style.opacity = 1
+            document.getElementById("copylbl").style.opacity = 1
+        }
+
+        function UnHighlight() {
+            document.getElementById("copyfill").style.opacity = 0
+            document.getElementById("copylbl").style.opacity = 0
+            document.getElementById("copylbl").innerHTML = "Copy to clipboard"
+            document.getElementById("copylbl").style.color = "white"
+        }
+
+        function CopyError() {
+            document.getElementById("copylbl").innerHTML = "Copied!"
+            document.getElementById("copylbl").style.color = "rgba(0,255,0,0.5)"
+            clipboard.writeText(document.getElementById("error").textContent)
+        }
+
+        function CloseApp() {
+            ipcRenderer.send('closeapp')
+        }
+
+        function ShowMsg(type) {
+            document.getElementById("msg").style.opacity = 1
+
+            if (type == "restore") {
+                document.getElementById("mainmsg").textContent = `Backs up your previous configuration, deletes application data and restores the configuration file.`
+                document.getElementById("submsg").textContent = `The application still may not start after restoring if the configuration file is corrupt. In this case, please select the "Reinstall" option instead.`
+            } else if (type == "reinstall") {
+                document.getElementById("mainmsg").textContent = `Deletes application data, then relaunches the app with the default configuration.`
+                document.getElementById("submsg").textContent = `If "Restore" brings you back here after relaunching the app, try this option.`
+            } else if (type == "report") {
+                document.getElementById("mainmsg").textContent = `Open an issue on GitHub, or get help directly on the official Discord server!`
+                document.getElementById("submsg").textContent = `If you're still having issues, or you're not sure what to do, get help by opening an issue or reaching out to the community.`
+            } else if (type == "github") {
+                document.getElementById("mainmsg").textContent = `This will take you to the Steam Achievement Notifier "Issues" page on GitHub.`
+                document.getElementById("submsg").textContent = `The link will open in your default browser. Please be sure to copy the error message above before posting!`
+            } else if (type == "discord") {
+                document.getElementById("mainmsg").textContent = `This will take you to an invite link for the Steam Achievement Notifier Community Discord Server.`
+                document.getElementById("submsg").textContent = `The link will open in your default browser. Please be sure to copy the error message above before posting!`
+            }
+        }
+
+        function HideMsg() {
+            document.getElementById("msg").style.opacity = 0
+            document.getElementById("mainmsg").textContent = ""
+            document.getElementById("submsg").textContent = ""
+        }
+
+        function BackupConfig() {
+            return new Promise((resolve, reject) => {
+                fs.copyFile(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","config.json"), path.join(localappdata,"Temp","sanconfig.json"), (err) => {
+                    if (err) {
+                        reject(`%c${err}`, "color: red")
+                    } else {
+                        console.log(`%c"config.json" copied to ${path.join(localappdata,"Temp")} successfully`, "color: limegreen")
+                        resolve()
+                    }
+                })
+            })
+        }
+
+        function RemoveJSONFile(file) {
+            return new Promise((resolve, reject) => {
+                fs.rm(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store",`${file}.json`), { recursive: true }, (err) => {
+                    if (err) {
+                        reject(`%c${err}`, "color: red")
+                    } else {
+                        console.log(`%c${path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store",`${file}.json`)} deleted successfully`, "color: limegreen")
+                        resolve()
+                    }
+                })
+            })
+        }
+
+        function RestoreConfig() {
+            return new Promise((resolve, reject) => {
+                fs.copyFile(path.join(localappdata,"Temp","sanconfig.json"), path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","config.json"), (err) => {
+                    if (err) {
+                        reject(`%c${err}`, "color: red")
+                    } else {
+                        console.log(`%c"config.json" copied successfully`,"color: limegreen")
+                        resolve()
+                    }
+                })
+            })
+        }
+
+        function RestartSANLauncher() {
+            if (process.platform == "win32") {
+                var restart = spawn("powershell.exe", ["-Command",`Start-Process ${launcher.path}`])
+                restart.on('exit', () => {
+                    console.log("Exited")
+                    ipcRenderer.send('closeapp')
+                })
+                restart.on('error', (err) => {
+                    console.log(err)
+                })
+            } else if (process.platform == "linux") {
+                var restart = exec(`${launcher.path}`, (err) => {
+                    if (err) {
+                        console.log(err)
+                        setTimeout(() => {
+                            ipcRenderer.send('closeapp')
+                        }, 5000)
+                    } else {
+                        ipcRenderer.send('closeapp')
+                    }
+                })
+            }
+        }
+
+        const launcher = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","launcher.json")))
+        console.log("Path: " + launcher.path)
+
+        function Restore() {
+            document.getElementById("content").style.opacity = "0"
+            document.getElementById("restoretext").innerHTML = "Restoring..."
+            document.getElementById("restoreicon").src = path.join(__dirname,"icon","replay.svg")
+            document.getElementById("restorecont").style.animation = "fadein 0.5s forwards"
+            document.getElementById("restoreicon").style.animation = "rotate 1s infinite forwards"
+            document.getElementById("maincont").style.width = "30%"
+            document.getElementById("maincont").style.height = "30%"
+            document.getElementById("close").style.display = "none"
+
+            async function StartRestore() {
+                try {
+                    await BackupConfig()
+                    await RemoveJSONFile("config")
+                    await RemoveJSONFile("launcher")
+                    await RemoveJSONFile("gamestats")
+                    if (fs.existsSync(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","local.json"))) {
+                        await RemoveJSONFile("local")
+                    } else {
+                        console.log(`%c"local.json" does not exist! Skipping...`,"color: deepskyblue")
+                    }
+                    await RestoreConfig()
+                    RestartSANLauncher()
+                } catch (err) {
+                    console.log(err)
+                    ipcRenderer.send('closeapp')
+                }
+            }
+
+            StartRestore()
+        }
+
+        function Reinstall() {
+            document.getElementById("content").style.opacity = "0"
+            document.getElementById("restoretext").innerHTML = "Reinstalling..."
+            document.getElementById("restoreicon").src = path.join(__dirname,"icon","build.svg")
+            document.getElementById("restorecont").style.animation = "fadein 0.5s forwards"
+            document.getElementById("restoreicon").style.animation = "rotate 1s infinite forwards"
+            document.getElementById("maincont").style.width = "30%"
+            document.getElementById("maincont").style.height = "30%"
+            document.getElementById("close").style.display = "none"
+
+            async function StartReinstall() {
+                try {
+                    await RemoveJSONFile("config")
+                    await RemoveJSONFile("launcher")
+                    await RemoveJSONFile("gamestats")
+                    if (fs.existsSync(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","local.json"))) {
+                        await RemoveJSONFile("local")
+                    } else {
+                        console.log(`%c"local.json" does not exist! Skipping...`,"color: deepskyblue")
+                    }
+                    RestartSANLauncher()
+                } catch (err) {
+                    alert(err)
+                    ipcRenderer.send('closeapp')
+                }
+            }
+
+            StartReinstall()
+        }
+
+        function Report() {
+            document.getElementById("restore").style.display = "none"
+            document.getElementById("reinstall").style.display = "none"
+            document.getElementById("report").style.display = "none"
+            document.getElementById("supportbtns").style.display = "flex"
+            document.getElementById("supportbtns").style.animation = "fadein 0.5s forwards"
+        }
+
+        function GoBack() {
+            document.getElementById("restore").style.display = "flex"
+            document.getElementById("reinstall").style.display = "flex"
+            document.getElementById("report").style.display = "flex"
+            document.getElementById("supportbtns").style.display = "none"
+        }
+
+        function OpenGitHubIssue() {
+            ipcRenderer.send('ghissue')
+        }
+
+        function OpenDiscordIssue() {
+            ipcRenderer.send('discordissue')
+        }
+    </script>
+</body>
+</html>

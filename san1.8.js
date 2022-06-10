@@ -7337,6 +7337,10 @@ function ToggleNVDA() {
 
 function CheckHWA() {
     if (config.hwa == "true") {
+        if (!fs.existsSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt"))) {
+            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt"), "")
+        }
+
         document.getElementById("hwabox").checked = true;
     } else {
         document.getElementById("hwabox").checked = false;

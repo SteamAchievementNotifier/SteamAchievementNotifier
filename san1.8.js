@@ -5511,7 +5511,7 @@ function SetNotifyStyle() {
 function GetNotifyStyle() {
     document.getElementById("customiserstyledropdown").value = config.notifystyle;
     if (document.getElementById("customiserstyledropdown").value == "default") {
-        if (config.ssprev == "true") {
+        if (config.ssprev == "true" && config.screenshot == "true") {
             notifywidth = 300;
             notifyheight = 219;
         } else {
@@ -5531,7 +5531,7 @@ function GetNotifyStyle() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "xbox") {
-        if (config.ssprev == "true") {
+        if (config.ssprev == "true" && config.screenshot == "true") {
             notifywidth = 315;
             notifyheight = 244;
         } else {
@@ -5551,7 +5551,7 @@ function GetNotifyStyle() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "playstation") {
-        if (config.ssprev == "true") {
+        if (config.ssprev == "true" && config.screenshot == "true") {
             notifywidth = 310;
             notifyheight = 224;
         } else {
@@ -5571,7 +5571,7 @@ function GetNotifyStyle() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "ps5") {
-        if (config.ssprev == "true") {
+        if (config.ssprev == "true" && config.screenshot == "true") {
             notifywidth = 340;
             notifyheight = 219;
         } else {
@@ -5591,7 +5591,7 @@ function GetNotifyStyle() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "windows") {
-        if (config.ssprev == "true") {
+        if (config.ssprev == "true" && config.screenshot == "true") {
             notifywidth = 300;
             notifyheight = 279;
         } else {
@@ -5611,7 +5611,7 @@ function GetNotifyStyle() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "xbox360") {
-        if (config.ssprev == "true") {
+        if (config.ssprev == "true" && config.screenshot == "true") {
             notifywidth = 300;
             notifyheight = 219;
         } else {
@@ -5631,7 +5631,7 @@ function GetNotifyStyle() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "xqjan") {
-        if (config.ssprev == "true") {
+        if (config.ssprev == "true" && config.screenshot == "true") {
             notifywidth = 300;
             notifyheight = 239;
         } else {
@@ -5678,7 +5678,7 @@ document.getElementById("customiserstyledropdownrare").value = config.rarenotify
 function GetNotifyStyleRare() {
     document.getElementById("customiserstyledropdownrare").value = config.rarenotifystyle;
     if (document.getElementById("customiserstyledropdownrare").value == "default") {
-        if (config.raressprev == "true") {
+        if (config.raressprev == "true" && config.rarescreenshot == "true") {
             notifywidth = 300;
             notifyheight = 219;
         } else {
@@ -5698,7 +5698,7 @@ function GetNotifyStyleRare() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "xbox") {
-        if (config.raressprev == "true") {
+        if (config.raressprev == "true" && config.rarescreenshot == "true") {
             notifywidth = 315;
             notifyheight = 244;
         } else {
@@ -5718,7 +5718,7 @@ function GetNotifyStyleRare() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "playstation") {
-        if (config.raressprev == "true") {
+        if (config.raressprev == "true" && config.rarescreenshot == "true") {
             notifywidth = 310;
             notifyheight = 224;
         } else {
@@ -5738,7 +5738,7 @@ function GetNotifyStyleRare() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "ps5") {
-        if (config.raressprev == "true") {
+        if (config.raressprev == "true" && config.rarescreenshot == "true") {
             notifywidth = 340;
             notifyheight = 219;
         } else {
@@ -5758,7 +5758,7 @@ function GetNotifyStyleRare() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "windows") {
-        if (config.raressprev == "true") {
+        if (config.raressprev == "true" && config.rarescreenshot == "true") {
             notifywidth = 300;
             notifyheight = 279;
         } else {
@@ -5778,7 +5778,7 @@ function GetNotifyStyleRare() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "xbox360") {
-        if (config.raressprev == "true") {
+        if (config.raressprev == "true" && config.rarescreenshot == "true") {
             notifywidth = 300;
             notifyheight = 219;
         } else {
@@ -5798,7 +5798,7 @@ function GetNotifyStyleRare() {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "xqjan") {
-        if (config.raressprev == "true") {
+        if (config.raressprev == "true" && config.rarescreenshot == "true") {
             notifywidth = 300;
             notifyheight = 239;
         } else {
@@ -7214,11 +7214,11 @@ async function StartSAN() {
                 }
 
                 setTimeout(() =>{
-                    if (config.ssprev == "true") {
+                    if (config.ssprev == "true" && config.screenshot == "true") {
                         desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 1280, height: 720 }}).then(function(sources) {
                             screenshot = sources[0].thumbnail.toDataURL();
                         });
-                    } else if (config.raressprev == "true") {
+                    } else if (config.raressprev == "true" && config.rarescreenshot == "true") {
                         desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 1280, height: 720 }}).then(function(sources) {
                             screenshot = sources[0].thumbnail.toDataURL();
                         });
@@ -7565,6 +7565,7 @@ function GameCompletionNotification() {
         desc: notifydesc,
         icon: notifyicon,
         screenshot: config.raressprev,
+        showss: config.rarescreenshot,
         pos: config.rarenotifypos,
         scale: config.rarescale
     };

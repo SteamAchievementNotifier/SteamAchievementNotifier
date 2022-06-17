@@ -41,6 +41,22 @@ if (notifyicon == "test") {
     icon = notifyicon;
 }
 
+var righticon;
+
+if (config.gameicon == "true") {
+    if (notifyicon == "test") {
+        righticon = "../../../img/gameicon.png";
+    } else {
+        righticon = gameicon;
+    }
+} else {
+    if (config.icon == "" || config.icon == undefined) {
+        righticon = "../../../img/sanlogosquare.svg";
+    } else {
+        righticon = config.icon;
+    }
+}
+
 var borderradius;
 var ssborderradius;
 var ssimgborderradius;
@@ -97,6 +113,7 @@ if (bgtype == "bgsolid") {
     }
     document.getElementById("icon").src = icon;
     document.getElementById("icon").style.borderRadius = "" + config.iconroundness + "px";
+    document.getElementById("righticon").src = righticon
 } else if (bgtype == "bg") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style = background;
@@ -108,6 +125,7 @@ if (bgtype == "bgsolid") {
     }
     document.getElementById("icon").src = icon;
     document.getElementById("icon").style.borderRadius = "" + config.iconroundness + "px";
+    document.getElementById("righticon").src = righticon
 } else if (bgtype == "img") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style.backgroundImage = imgbackground;
@@ -122,6 +140,7 @@ if (bgtype == "bgsolid") {
     }
     document.getElementById("icon").src = icon;
     document.getElementById("icon").style.borderRadius = "" + config.iconroundness + "px";
+    document.getElementById("righticon").src = righticon
 }
 
 if (screenshot == "true") {

@@ -22,6 +22,9 @@
             overflow: hidden;
             background: #101010;
             user-select: none;
+            will-change: contents;
+            padding: 0;
+            margin: 0;
         }
         
         #cont {
@@ -38,7 +41,6 @@
             color: white;
             font-family: "Source Sans Pro";
             font-size: 14px;
-            /* font-weight: 500; */
         }
         
         #notifycont {
@@ -54,6 +56,35 @@
         
         #icon {
             margin: 0px 10px 0px;
+        }
+
+        #righticoncont {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 30px;
+            min-height: 30px;
+            margin-right: 10px;
+        }
+
+        #righticon {
+            position: absolute;
+            min-width: 20px;
+            min-height: 20px;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        #ripple {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: none;
+            border: 1.5px solid white;
+            border-radius: 50%;
+            transform: scale(0%,0%);
+            opacity: 1;
+            animation: ripple 1.5s linear infinite forwards;
         }
         
         #textcont {
@@ -125,20 +156,31 @@
             0% { transform: translateY(-101%); }
             100% { transform: translateY(0%); }
         }
+
+        @keyframes ripple {
+            0% { transform: scale(0%,0%); opacity: 1; }
+            50% { transform: scale(50%,50%); opacity: 1; }
+            75% { transform: scale(100%,100%); opacity: 1; }
+            100% { transform: scale(120%,120%); opacity: 0; }
+        }
         </style>
     </head>
     <body>
         <div id="cont">
-        <div id="notifycont">
-            <img id="icon" src="../../../img/sanlogosquare.svg" width="25px">
-            <div id="textcont">
-            <div id="text"><img id="trophyicon" src="../../../img/pssilver.png" width="10px" style="margin-right: 3px"><span id="textinner"></span></div>
-            <div id="desc"></div>
+            <div id="notifycont">
+                <img id="icon" src="../../../img/sanlogosquare.svg" width="25px">
+                <div id="textcont">
+                    <div id="text"><img id="trophyicon" src="../../../img/pssilver.png" width="10px" style="margin-right: 3px"><span id="textinner"></span></div>
+                    <div id="desc"></div>
+                </div>
+                <div id="righticoncont">
+                    <img id="righticon" src="../../../img/sanlogosquare.svg" width="20px" height="20px">
+                    <div id="ripple"></div>
+                </div>
             </div>
-        </div>
-        <div id="screenshotcont">
-            <img id="screenshot" src="../../../img/santextlogobg.png" width="100%" height="100%" style="z-index: 0">
-        </div>
+            <div id="screenshotcont">
+                <img id="screenshot" src="../../../img/santextlogobg.png" width="100%" height="100%" style="z-index: 0">
+            </div>
         </div>
     </body>
     <script src="./ps5preview.js"></script>

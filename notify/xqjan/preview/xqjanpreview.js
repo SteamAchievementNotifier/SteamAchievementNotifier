@@ -114,7 +114,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 1.5 + "px";
 }
 
-if (config.screenshot == "true") {
+if (config.ssprev == "true") {
     document.getElementById("cont").style.height = "219px";
     document.getElementById("screenshotcont").style.display = "flex";
 } else {
@@ -195,7 +195,7 @@ function PlayNotification(add) {
         } else if (event.animationName == "animpause1") {
             document.getElementById("imgcont").style.animation = "fadeout1 0.5s forwards";
             document.getElementById("textcont").style.animation = "fadeout1 0.5s forwards";
-            if (config.screenshot == "true") {
+            if (config.ssprev == "true") {
                 if (config.notifypos == "topleft" || config.notifypos == "topcenter" || config.notifypos == "topright") {
                     document.getElementById("screenshot").style.animation = "slidedownrev 0.5s forwards";
                 } else {
@@ -214,7 +214,7 @@ function PlayNotification(add) {
 
     document.getElementById("logocont").addEventListener('animationend', function(event) {
         if (event.animationName == "width") {
-            if (config.screenshot == "true") {
+            if (config.ssprev == "true") {
                 if (config.notifypos == "topleft" || config.notifypos == "topcenter" || config.notifypos == "topright") {
                     document.getElementById("screenshot").style.animation = "slidedown 0.5s forwards";
                 } else {
@@ -289,7 +289,7 @@ function PlayFastNotification(add) {
         if (event.animationName == "fadeout") {
             document.getElementById("imgcont").style.animation = "fadeout1 0.5s forwards";
             document.getElementById("textcont").style.animation = "fadeout1 0.5s forwards";
-            if (config.screenshot == "true") {
+            if (config.ssprev == "true") {
                 if (config.notifypos == "topleft" || config.notifypos == "topcenter" || config.notifypos == "topright") {
                     document.getElementById("screenshot").style.animation = "slidedownrev 0.5s forwards";
                 } else {
@@ -308,7 +308,7 @@ function PlayFastNotification(add) {
 
     document.getElementById("logocont").addEventListener('animationend', function(event) {
         if (event.animationName == "width") {
-            if (config.screenshot == "true") {
+            if (config.ssprev == "true") {
                 if (config.notifypos == "topleft" || config.notifypos == "topcenter" || config.notifypos == "topright") {
                     document.getElementById("screenshot").style.animation = "slidedown 0.5s forwards";
                 } else {
@@ -383,7 +383,7 @@ function PlaySuperFastNotification(add) {
         if (event.animationName == "fadeout") {
             document.getElementById("imgcont").style.animation = "fadeout1 0.25s forwards";
             document.getElementById("textcont").style.animation = "fadeout1 0.25s forwards";
-            if (config.screenshot == "true") {
+            if (config.ssprev == "true") {
                 if (config.notifypos == "topleft" || config.notifypos == "topcenter" || config.notifypos == "topright") {
                     document.getElementById("screenshot").style.animation = "slidedownrev 0.5s forwards";
                 } else {
@@ -402,7 +402,7 @@ function PlaySuperFastNotification(add) {
 
     document.getElementById("logocont").addEventListener('animationend', function(event) {
         if (event.animationName == "width") {
-            if (config.screenshot == "true") {
+            if (config.ssprev == "true") {
                 if (config.notifypos == "topleft" || config.notifypos == "topcenter" || config.notifypos == "topright") {
                     document.getElementById("screenshot").style.animation = "slidedown 0.5s forwards";
                 } else {
@@ -468,7 +468,7 @@ function PlaySuperFastestNotification(add) {
         if (event.animationName == "fadeout") {
             document.getElementById("imgcont").style.animation = "fadeout1 0.25s forwards";
             document.getElementById("textcont").style.animation = "fadeout1 0.25s forwards";
-            if (config.screenshot == "true") {
+            if (config.ssprev == "true") {
                 if (config.notifypos == "topleft" || config.notifypos == "topcenter" || config.notifypos == "topright") {
                     document.getElementById("screenshot").style.animation = "slidedownrev 0.1s forwards";
                 } else {
@@ -487,7 +487,7 @@ function PlaySuperFastestNotification(add) {
 
     document.getElementById("logocont").addEventListener('animationend', function(event) {
         if (event.animationName == "width") {
-            if (config.screenshot == "true") {
+            if (config.ssprev == "true") {
                 if (config.notifypos == "topleft" || config.notifypos == "topcenter" || config.notifypos == "topright") {
                     document.getElementById("screenshot").style.animation = "slidedown 0.1s forwards";
                 } else {

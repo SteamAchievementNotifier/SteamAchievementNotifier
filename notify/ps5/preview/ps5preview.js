@@ -29,6 +29,18 @@ if (config.img == "default") {
 
 var icon = "../../../img/sanlogosquare.svg";
 
+var righticon
+
+if (config.gameicon == "true") {
+    righticon = "../../../img/gameicon.png";
+} else {
+    if (config.icon == "" || config.icon == undefined) {
+        righticon = "../../../img/sanlogosquare.svg";
+    } else {
+        righticon = config.icon;
+    }
+}
+
 var borderradius;
 var ssborderradius;
 var ssimgborderradius;
@@ -81,7 +93,7 @@ var bgtype = config.bgtype;
 if (bgtype == "bgsolid") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style = solid;
-    if (config.screenshot == "true") {
+    if (config.ssprev == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -89,10 +101,11 @@ if (bgtype == "bgsolid") {
     }
     document.getElementById("icon").src = icon;
     document.getElementById("icon").style.borderRadius = "" + config.iconroundness + "px";
+    document.getElementById("righticon").src = righticon
 } else if (bgtype == "bg") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style = background;
-    if (config.screenshot == "true") {
+    if (config.ssprev == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -100,13 +113,14 @@ if (bgtype == "bgsolid") {
     }
     document.getElementById("icon").src = icon;
     document.getElementById("icon").style.borderRadius = "" + config.iconroundness + "px";
+    document.getElementById("righticon").src = righticon
 } else if (bgtype == "img") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style.backgroundImage = imgbackground;
     document.getElementById("notifycont").style.backgroundPosition = "center";
     document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
     document.getElementById("notifycont").style.backgroundSize = "300px";
-    if (config.screenshot == "true") {
+    if (config.ssprev == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -114,9 +128,10 @@ if (bgtype == "bgsolid") {
     }
     document.getElementById("icon").src = icon;
     document.getElementById("icon").style.borderRadius = "" + config.iconroundness + "px";
+    document.getElementById("righticon").src = righticon
 }
 
-if (config.screenshot == "true") {
+if (config.ssprev == "true") {
     document.getElementById("cont").style.height = "219px";
     document.getElementById("screenshotcont").style.display = "flex";
 } else {
@@ -209,9 +224,11 @@ if (displaytime == 15) {
 ipcRenderer.on('pausenotify', function() {
     document.getElementById("notifycont").style.animationPlayState = "paused";
     document.getElementById("screenshot").style.animationPlayState = "paused";
+    document.getElementById("ripple").style.animationPlayState = "paused";
 });
 
 ipcRenderer.on('playnotify', function() {
     document.getElementById("notifycont").style.animationPlayState = "running";
     document.getElementById("screenshot").style.animationPlayState = "running";
+    document.getElementById("ripple").style.animationPlayState = "running";
 });

@@ -133,7 +133,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("icon2").style.borderRadius = "" + config.rareiconroundness + "px";
 }
 
-if (config.rarescreenshot == "true") {
+if (config.raressprev == "true") {
     document.getElementById("cont").style.height = "219px";
     document.getElementById("screenshotcont").style.display = "flex";
 } else {
@@ -166,7 +166,7 @@ function PlayNotification(add) {
         if (event.animationName == "popin") {
             document.getElementById("notifycont").style.animation = "moveright 0.5s ease-in-out forwards";
         } else if (event.animationName == "moveright") {
-            if (config.rarescreenshot == "true") {
+            if (config.raressprev == "true") {
                 document.getElementById("notifycont").style.borderRadius = ssborderradius;
             } else {
                 document.getElementById("notifycont").style.borderRadius = borderradius;
@@ -185,7 +185,7 @@ function PlayNotification(add) {
 
     document.getElementById("desccont").addEventListener('animationend', function(event) {
         if (event.animationName == "moveleft") {
-            if (config.rarescreenshot == "true") {
+            if (config.raressprev == "true") {
                 document.getElementById("desccont").style.borderRadius = ssborderradius;
             } else {
                 document.getElementById("desccont").style.borderRadius = borderradius;
@@ -217,7 +217,7 @@ function PlayFastNotification(add) {
         if (event.animationName == "popin") {
             document.getElementById("notifycont").style.animation = "moveright 0.5s ease-in-out forwards";
         } else if (event.animationName == "moveright") {
-            if (config.rarescreenshot == "true") {
+            if (config.raressprev == "true") {
                 document.getElementById("notifycont").style.borderRadius = ssborderradius;
             } else {
                 document.getElementById("notifycont").style.borderRadius = borderradius;
@@ -240,7 +240,7 @@ function PlayFastNotification(add) {
 
     document.getElementById("desccont").addEventListener('animationstart', function(event) {
         if (event.animationName == "moveleft") {
-            if (config.rarescreenshot == "true") {
+            if (config.raressprev == "true") {
                 setTimeout(function() {
                     document.getElementById("desccont").style.transition = "0.3s";
                     document.getElementById("desccont").style.borderRadius = ssborderradius;
@@ -267,7 +267,7 @@ function PlaySuperFastNotification(add) {
         if (event.animationName == "popin") {
             document.getElementById("notifycont").style.animation = "moveright 0.3s ease-in-out forwards";
         } else if (event.animationName == "moveright") {
-            if (config.rarescreenshot == "true") {
+            if (config.raressprev == "true") {
                 document.getElementById("notifycont").style.borderRadius = ssborderradius;
             } else {
                 document.getElementById("notifycont").style.borderRadius = borderradius;
@@ -290,7 +290,7 @@ function PlaySuperFastNotification(add) {
 
     document.getElementById("desccont").addEventListener('animationend', function(event) {
         if (event.animationName == "moveleft") {
-            if (config.rarescreenshot == "true") {
+            if (config.raressprev == "true") {
                 document.getElementById("desccont").style.borderRadius = ssborderradius;
             } else {
                 document.getElementById("desccont").style.borderRadius = borderradius;

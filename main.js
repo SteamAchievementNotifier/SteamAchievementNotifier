@@ -247,7 +247,7 @@ const startapp = () => {
             } else {
                 if (queueobj.pos == "bottomcenter") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -259,7 +259,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "xbox") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01);
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -271,7 +271,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "playstation") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01);
                             offsety = display.height - (224 * queueobj.scale * 0.01);
                             offsetx = Math.round(offsetx);
@@ -283,7 +283,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "ps5") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01);
                             offsety = display.height - (239 * queueobj.scale * 0.01);
                             offsetx = Math.round(offsetx);
@@ -295,7 +295,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "windows") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
                             offsety = display.height - ((279 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -307,7 +307,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "xqjan") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -405,7 +405,7 @@ const startapp = () => {
                     }
                 } else if (queueobj.pos == "bottomleft") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = 20;
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -417,7 +417,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "xbox") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = 20;
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -429,7 +429,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "playstation") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = 0;
                             offsety = display.height - ((224 * queueobj.scale * 0.01) + 100);
                             offsetx = Math.round(offsetx);
@@ -441,7 +441,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "ps5") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = 0;
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -453,7 +453,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "windows") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = 20;
                             offsety = display.height - ((279 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -465,7 +465,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "xqjan") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = 20;
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -479,7 +479,7 @@ const startapp = () => {
                     }
                 } else if (queueobj.pos == "bottomright") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -491,7 +491,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "xbox") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20);
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -503,7 +503,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "playstation") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width - (310 * queueobj.scale * 0.01);
                             offsety = display.height - ((224 * queueobj.scale * 0.01) + 100);
                             offsetx = Math.round(offsetx);
@@ -515,7 +515,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "ps5") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width - (340 * queueobj.scale * 0.01);
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -527,7 +527,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } else if (queueobj.style == "windows") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
                             offsety = display.height - ((279 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);
@@ -539,7 +539,7 @@ const startapp = () => {
                             offsety = Math.round(offsety);
                         }
                     } if (queueobj.style == "xqjan") {
-                        if (queueobj.screenshot == "true") {
+                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
                             offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
                             offsetx = Math.round(offsetx);

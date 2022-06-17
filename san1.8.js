@@ -4013,6 +4013,7 @@ function TestNotification() {
         desc: notifydesc,
         icon: notifyicon,
         screenshot: config.ssprev,
+        showss: config.screenshot,
         pos: config.notifypos,
         scale: config.scale,
         audio: document.getElementById("audio").src
@@ -4070,6 +4071,7 @@ function TestRareNotification() {
         desc: notifydesc,
         icon: notifyicon,
         screenshot: config.raressprev,
+        showss: config.rarescreenshot,
         pos: config.rarenotifypos,
         scale: config.rarescale,
         audio: document.getElementById("audiorare").src
@@ -7069,6 +7071,7 @@ async function StartSAN() {
                         desc: notifydesc,
                         icon: notifyicon,
                         screenshot: config.ssprev,
+                        showss: config.screenshot,
                         pos: config.notifypos,
                         scale: config.scale,
                         percent: percent,
@@ -7147,6 +7150,7 @@ async function StartSAN() {
                         desc: notifydesc,
                         icon: notifyicon,
                         screenshot: config.raressprev,
+                        showss: config.rarescreenshot,
                         pos: config.rarenotifypos,
                         scale: config.rarescale,
                         percent: percent,

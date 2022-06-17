@@ -105,7 +105,7 @@ var bgtype = config.bgtype;
 if (bgtype == "bgsolid") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style = solid;
-    if (screenshot == "true") {
+    if (screenshot == "true" && config.screenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -117,7 +117,7 @@ if (bgtype == "bgsolid") {
 } else if (bgtype == "bg") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style = background;
-    if (screenshot == "true") {
+    if (screenshot == "true" && config.screenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -132,7 +132,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("notifycont").style.backgroundPosition = "center";
     document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
     document.getElementById("notifycont").style.backgroundSize = "300px";
-    if (screenshot == "true") {
+    if (screenshot == "true" && config.screenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -143,7 +143,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("righticon").src = righticon
 }
 
-if (screenshot == "true") {
+if (screenshot == "true" && config.screenshot == "true") {
     if (notifyicon == "test") {
         document.getElementById("screenshot").src = "../../../img/santextlogobg.png";
     } else {

@@ -113,7 +113,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("innercircle4").style.borderRadius = borderradius;
 }
 
-if (screenshot == "true") {
+if (screenshot == "true" && config.screenshot == "true") {
     if (notifyicon == "test") {
         document.getElementById("screenshot").src = "../../../img/santextlogobg.png";
     } else {
@@ -154,7 +154,7 @@ function PlayNotification(add) {
 
     document.getElementById("trophy").addEventListener('animationend', function(event) {
         if (event.animationName == "trophy") {
-            if (screenshot == "true") {
+            if (screenshot == "true" && config.screenshot == "true") {
                 document.getElementById("innercont").style.transition = "0.5s";
                 document.getElementById("innercont").style.borderRadius = ssborderradius;
             }
@@ -200,7 +200,7 @@ function PlayNotification(add) {
 
             document.getElementById("screenshot").addEventListener('animationstart', function(event) {
                 if (event.animationName == "widthrev") {
-                    if (screenshot == "true") {
+                    if (screenshot == "true" && config.screenshot == "true") {
                         document.getElementById("innercont").style.borderRadius = borderradius;
                     }
                 }
@@ -222,7 +222,7 @@ function PlayFastNotification(add) {
 
     document.getElementById("trophy").addEventListener('animationstart', function(event) {
         if (event.animationName == "trophy") {
-            if (screenshot == "true") {
+            if (screenshot == "true" && config.screenshot == "true") {
                 document.getElementById("innercont").style.transition = "0.5s";
                 document.getElementById("innercont").style.borderRadius = ssborderradius;
             }
@@ -248,7 +248,7 @@ function PlayFastNotification(add) {
 
             document.getElementById("screenshot").addEventListener('animationstart', function(event) {
                 if (event.animationName == "widthrev") {
-                    if (screenshot == "true") {
+                    if (screenshot == "true" && config.screenshot == "true") {
                         document.getElementById("innercont").style.borderRadius = borderradius;
                     }
                 }
@@ -270,7 +270,7 @@ function PlaySuperFastNotification(add) {
 
     document.getElementById("innercircle1").addEventListener('animationstart', function(event) {
         if (event.animationName == "circle1") {
-            if (screenshot == "true") {
+            if (screenshot == "true" && config.screenshot == "true") {
                 document.getElementById("innercont").style.transition = "0.5s";
                 document.getElementById("innercont").style.borderRadius = ssborderradius;
             }

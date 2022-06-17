@@ -433,7 +433,7 @@ function Run() {
 
                                         extract.on('exit', () => {
                                             function CheckForMissingFiles() {
-                                                var required = ["fonts","icon","img","notify","sanlauncher","sound","store","README.md","appentry.js","css.css","index.html","main.js","package-lock.json","package.json","san1.8.js","tooltip.js","vdf.js","version.json"]
+                                                var required = ["fonts","icon","img","notify","sanlauncher","sound","store","README.md","appentry.js","css.css","errwin.html","index.html","main.js","package-lock.json","package.json","san1.8.js","tooltip.js","vdf.js","version.json"]
                                             
                                                 var requiredfiles = []
                                                 var actualfiles = []
@@ -441,6 +441,8 @@ function Run() {
                                                 fs.readdir(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app"), (err, files) => {
                                                     if (err) {
                                                         console.log(`%cError reading "app" dir: ` + err)
+                                                        document.getElementById("log").innerHTML = `Error reading "app" dir: ${err}`
+                                                        document.getElementById("log").style.color = "red"
                                                     } else {
                                                         files.forEach(file => {
                                                             actualfiles.push(file)
@@ -479,6 +481,8 @@ function Run() {
                                             }
                                             
                                             CheckForMissingFiles()
+                                        }).on('error', (err) => {
+                                            console.log(`%cEXTRACT ERROR: ${err}`,"color:red")
                                         })
                                     })
                                 })

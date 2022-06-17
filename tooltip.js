@@ -1,5 +1,6 @@
 const fstt = require('fs');
 const pathtt = require('path');
+const appdirtt = "V1.8"
 
 var usertt;
 var gamett;
@@ -498,7 +499,9 @@ function LoadLangTT() {
       localappdata = pathtt.join(process.env.HOME,"Library","Application Support");
    }
 
-   const configtt = JSON.parse(fstt.readFileSync(pathtt.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+   const sanlocalappdata = pathtt.join(localappdata,`Steam Achievement Notifier (${appdirtt})`)
+
+   const configtt = JSON.parse(fstt.readFileSync(pathtt.join(sanlocalappdata,"store","config.json")));
    
    if (configtt.lang == "english") {
       usertt = "Steam Username<br><div style='font-size: 6px;'>Achievements are being tracked for this user</div>";

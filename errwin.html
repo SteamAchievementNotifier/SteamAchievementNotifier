@@ -322,7 +322,7 @@
         const fs = require('fs')
         const path = require('path')
         const { spawn, exec } = require('child_process')
-        const appversion = "V1.8"
+        const appdir = "V1.8"
 
         ipcRenderer.on('err', (err, msg) => {
             document.getElementById("error").textContent = msg
@@ -337,6 +337,8 @@
         } else if (process.platform == "darwin") {
             localappdata = path.join(process.env.HOME,"Library","Application Support");
         }
+
+        const sanlocalappdata = path.join(localappdata,`Steam Achievement Notifier (${appdir})`)
 
         function Highlight() {
             document.getElementById("copyfill").style.opacity = 1
@@ -389,7 +391,7 @@
 
         function BackupConfig() {
             return new Promise((resolve, reject) => {
-                fs.copyFile(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","config.json"), path.join(localappdata,"Temp","sanconfig.json"), (err) => {
+                fs.copyFile(path.join(sanlocalappdata,"store","config.json"), path.join(localappdata,"Temp","sanconfig.json"), (err) => {
                     if (err) {
                         reject(`%c${err}`, "color: red")
                     } else {
@@ -402,11 +404,11 @@
 
         function RemoveJSONFile(file) {
             return new Promise((resolve, reject) => {
-                fs.rm(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store",`${file}.json`), { recursive: true }, (err) => {
+                fs.rm(path.join(sanlocalappdata,"store",`${file}.json`), { recursive: true }, (err) => {
                     if (err) {
                         reject(`%c${err}`, "color: red")
                     } else {
-                        console.log(`%c${path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store",`${file}.json`)} deleted successfully`, "color: limegreen")
+                        console.log(`%c${path.join(sanlocalappdata,"store",`${file}.json`)} deleted successfully`, "color: limegreen")
                         resolve()
                     }
                 })
@@ -415,7 +417,7 @@
 
         function RestoreConfig() {
             return new Promise((resolve, reject) => {
-                fs.copyFile(path.join(localappdata,"Temp","sanconfig.json"), path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","config.json"), (err) => {
+                fs.copyFile(path.join(localappdata,"Temp","sanconfig.json"), path.join(sanlocalappdata,"store","config.json"), (err) => {
                     if (err) {
                         reject(`%c${err}`, "color: red")
                     } else {
@@ -450,7 +452,7 @@
             }
         }
 
-        const launcher = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","launcher.json")))
+        const launcher = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","launcher.json")))
         console.log("Path: " + launcher.path)
 
         function Restore() {
@@ -469,7 +471,7 @@
                     await RemoveJSONFile("config")
                     await RemoveJSONFile("launcher")
                     await RemoveJSONFile("gamestats")
-                    if (fs.existsSync(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","local.json"))) {
+                    if (fs.existsSync(path.join(sanlocalappdata,"store","local.json"))) {
                         await RemoveJSONFile("local")
                     } else {
                         console.log(`%c"local.json" does not exist! Skipping...`,"color: deepskyblue")
@@ -500,7 +502,7 @@
                     await RemoveJSONFile("config")
                     await RemoveJSONFile("launcher")
                     await RemoveJSONFile("gamestats")
-                    if (fs.existsSync(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","local.json"))) {
+                    if (fs.existsSync(path.join(sanlocalappdata,"store","local.json"))) {
                         await RemoveJSONFile("local")
                     } else {
                         console.log(`%c"local.json" does not exist! Skipping...`,"color: deepskyblue")

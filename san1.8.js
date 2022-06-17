@@ -1,16 +1,19 @@
 //IMPORT & SET UP MAIN CONTENT
-const { ipcRenderer, desktopCapturer, clipboard } = require('electron');
+const { ipcRenderer, desktopCapturer, clipboard, shell } = require('electron');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const spawn = require('child_process').spawn;
 const { exec } = require('child_process');
-// const https = require('https');
+const appversion = "V1.84"
+const appdir = "V1.8"
 
 var localappdata;
+var shortcut
 
 if (process.platform == "win32") {
     localappdata = path.join(process.env.LOCALAPPDATA);
+    shortcut = path.join(process.env.USERPROFILE,"Desktop",`Steam Achievement Notifier (${appversion}).lnk`)
 } else if (process.platform == "linux") {
     localappdata = path.join(process.env.HOME,".local","share");
 
@@ -32,10 +35,12 @@ if (process.platform == "win32") {
     ipcRenderer.send("uninstallcomplete");
 }
 
+const sanlocalappdata = path.join(localappdata,`Steam Achievement Notifier (${appdir})`)
+
 const respath = path.join(process.resourcesPath,"app")
 
-const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
-const gamestats = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","gamestats.json")));
+const config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
+const gamestats = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","gamestats.json")));
 var launcher;
 var regkey;
 
@@ -43,40 +48,36 @@ if (process.platform == "win32") {
     if (process.env.npm_lifecycle_event == "devmode") {
         regkey = require('regedit');
     } else {
-        if (fs.existsSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app"))) {
+        if (fs.existsSync(path.join(sanlocalappdata,"store","app"))) {
             regkey = require(path.join(respath,'node_modules','regedit'));
         } else {
             regkey = require('regedit');
         }
     }
     
-    launcher = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","launcher.json")));
+    launcher = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","launcher.json")));
     launcher["firstlaunch"] = false;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","launcher.json"), JSON.stringify(launcher, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2));
 }
 
 // fs.writeFileSync(path.join(__dirname,"store","local.json"), "");
-const rev = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","version.json")));
+const rev = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","version.json")));
 document.getElementById("rev").innerHTML = rev.version;
 
-//CURRENT VERSION NUMBER
-var thisver = "1.84";
 var tag = null;
 
 function CheckUpdate() {
     fetch("https://api.github.com/repos/SteamAchievementNotifier/SteamAchievementNotifier/releases").then(response => response.json()).then((data) => {
         tag = data[0].tag_name
-        if (tag > thisver) {
+        if (tag > appversion.replace("V","")) {
             document.getElementById("updateicon").style.display = "flex";
         }
-    });
+    }).catch(err => {
+        console.log("%cUnable to check for updates: " + err, "color: red");
+    })
 }
 
-try {
-    CheckUpdate();
-} catch (err) {
-    console.log("%cUnable to check for updates: " + err, "color: red");
-}
+CheckUpdate();
 
 //////////////////////////
 // Auto Update Function //
@@ -95,14 +96,12 @@ try {
 //     })
 // }
 
-const shortcut = path.join(os.homedir(),"Desktop","Steam Achievement Notifier (V" + thisver + ").lnk");
-
 function OpenUpdateInBrowser() {
     ipcRenderer.send('update', tag);
 }
 
 function LoadVer() {
-    document.getElementById("footertext1").innerHTML = `Steam Achievement Notifier (V${thisver})`;
+    document.getElementById("footertext1").innerHTML = `Steam Achievement Notifier (${appversion})`;
 }
 
 LoadVer();
@@ -158,8 +157,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Enter API Key";
         document.getElementById("steam64box").placeholder = "Enter Steam64ID";
         document.getElementById("other").innerHTML = "OTHER";
-        document.getElementById("showscreenshotlbl").innerHTML = "Show Achievement Screenshot";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Show Achievement Screenshot";
+        document.getElementById("showscreenshotlbl").innerHTML = "Capture Steam Screenshot";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Capture Steam Screenshot";
+        document.getElementById("previewlbl").innerHTML = "Show Screenshot Preview"
+        document.getElementById("previewlblrare").innerHTML = "Show Screenshot Preview"
         document.getElementById("desktoplbl").innerHTML = "Create Desktop Shortcut";
         document.getElementById("startwinlbl").innerHTML = "Start with Windows";
         document.getElementById("startminlbl").innerHTML = "Start Minimized To System Tray";
@@ -211,8 +212,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Rarity Percentage: ";
         document.getElementById("nosteamlbl").innerHTML = "Hide Steam Achievement Notification";
         document.getElementById("customiselbl").innerHTML = "CUSTOMISE...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Main';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Rare';
+        document.getElementById("customisermainlbl").innerHTML = "Main";
+        document.getElementById("customiserrarelbl").innerHTML = "Rare";
         document.getElementById("customiserstylelbl").innerHTML = "ACHIEVEMENT STYLE:";
         document.getElementById("notifypositionlbl").innerHTML = "SCREEN POSITION:";
         document.getElementById("bgtypelbl").innerHTML = "BACKGROUND TYPE:";
@@ -290,8 +291,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "أدخل API Key";
         document.getElementById("steam64box").placeholder = "أدخل Steam64ID";
         document.getElementById("other").innerHTML = "آخر";
-        document.getElementById("showscreenshotlbl").innerHTML = "إظهار لقطة الإنجاز";
-        document.getElementById("showscreenshotlblrare").innerHTML = "إظهار لقطة الإنجاز";
+        document.getElementById("showscreenshotlbl").innerHTML = "التقاط لقطة شاشة Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "التقاط لقطة شاشة Steam";
+        document.getElementById("previewlbl").innerHTML = "إظهار معاينة لقطة الشاشة"
+        document.getElementById("previewlblrare").innerHTML = "إظهار معاينة لقطة الشاشة"
         document.getElementById("desktoplbl").innerHTML = "إنشاء اختصار سطح المكتب";
         document.getElementById("startwinlbl").innerHTML = "ابدأ بنظام Windows";
         document.getElementById("startminlbl").innerHTML = "بدء مصغر إلى علبة النظام";
@@ -343,8 +346,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "نسبة الندرة:";
         document.getElementById("nosteamlbl").innerHTML = "إخفاء تنبيهات Steam";
         document.getElementById("customiselbl").innerHTML = "أضفى طابع شخصي...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">الأساسية';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">نادر';
+        document.getElementById("customisermainlbl").innerHTML = "الأساسية";
+        document.getElementById("customiserrarelbl").innerHTML = "نادر";
         document.getElementById("customiserstylelbl").innerHTML = "أسلوب الإنجاز:";
         document.getElementById("notifypositionlbl").innerHTML = "موضع الشاشة:";
         document.getElementById("bgtypelbl").innerHTML = "نوع الخلفية:";
@@ -422,8 +425,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Въведете API Key";
         document.getElementById("steam64box").placeholder = "Въведете Steam64ID";
         document.getElementById("other").innerHTML = "ДРУГИ";
-        document.getElementById("showscreenshotlbl").innerHTML = "Покажи снимка на екрана";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Покажи снимка на екрана";
+        document.getElementById("showscreenshotlbl").innerHTML = "Екранна Снимка На Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Екранна Снимка На Steam";
+        document.getElementById("previewlbl").innerHTML = "Вижте Екранна Снимка"
+        document.getElementById("previewlblrare").innerHTML = "Вижте Екранна Снимка"
         document.getElementById("desktoplbl").innerHTML = "Пряк път на работния плот";
         document.getElementById("startwinlbl").innerHTML = "Започнете с Windows";
         document.getElementById("startminlbl").innerHTML = "Старт Минимизиран";
@@ -470,8 +475,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Рядка Стойност: ";
         document.getElementById("nosteamlbl").innerHTML = "Скриване На Известието На Steam";
         document.getElementById("customiselbl").innerHTML = "РЕДАКТИРАНЕ...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Основен';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Рядко';
+        document.getElementById("customisermainlbl").innerHTML = "Основен";
+        document.getElementById("customiserrarelbl").innerHTML = "Рядко";
         document.getElementById("customiserstylelbl").innerHTML = "СТИЛ НА ПОСТИЖЕНИЕ:";
         document.getElementById("notifypositionlbl").innerHTML = "ПОЗИЦИЯ НА ЕКРАНА:";
         document.getElementById("bgtypelbl").innerHTML = "ТИП ФОН:";
@@ -549,8 +554,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "输入 API Key";
         document.getElementById("steam64box").placeholder = "输入 Steam64ID";
         document.getElementById("other").innerHTML = "其他";
-        document.getElementById("showscreenshotlbl").innerHTML = "显示成就截图";
-        document.getElementById("showscreenshotlblrare").innerHTML = "显示成就截图";
+        document.getElementById("showscreenshotlbl").innerHTML = "捕获 Steam 屏幕截图";
+        document.getElementById("showscreenshotlblrare").innerHTML = "捕获 Steam 屏幕截图";
+        document.getElementById("previewlbl").innerHTML = "显示截图预览"
+        document.getElementById("previewlblrare").innerHTML = "显示截图预览"
         document.getElementById("desktoplbl").innerHTML = "创建桌面快捷方式";
         document.getElementById("startwinlbl").innerHTML = "从 Windows 开始";
         document.getElementById("startminlbl").innerHTML = "开始最小化到系统托盘";
@@ -597,8 +604,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "稀有度：";
         document.getElementById("nosteamlbl").innerHTML = "隐藏 Steam 成就通知";
         document.getElementById("customiselbl").innerHTML = "个性化...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">主要的';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">稀有的';
+        document.getElementById("customisermainlbl").innerHTML = "主要的";
+        document.getElementById("customiserrarelbl").innerHTML = "稀有的";
         document.getElementById("customiserstylelbl").innerHTML = "成就风格：";
         document.getElementById("notifypositionlbl").innerHTML = "屏幕位置：";
         document.getElementById("bgtypelbl").innerHTML = "背景类型：";
@@ -676,8 +683,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "輸入 API Key";
         document.getElementById("steam64box").placeholder = "輸入 Steam64ID";
         document.getElementById("other").innerHTML = "其他";
-        document.getElementById("showscreenshotlbl").innerHTML = "顯示成就截圖";
-        document.getElementById("showscreenshotlblrare").innerHTML = "顯示成就截圖";
+        document.getElementById("showscreenshotlbl").innerHTML = "捕獲 Steam 屏幕截圖";
+        document.getElementById("showscreenshotlblrare").innerHTML = "捕獲 Steam 屏幕截圖";
+        document.getElementById("previewlbl").innerHTML = "顯示截圖預覽"
+        document.getElementById("previewlblrare").innerHTML = "顯示截圖預覽"
         document.getElementById("desktoplbl").innerHTML = "創建桌面快捷方式";
         document.getElementById("startwinlbl").innerHTML = "從 Windows 開始";
         document.getElementById("startminlbl").innerHTML = "開始最小化到系統托盤";
@@ -724,8 +733,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "稀有度： ";
         document.getElementById("nosteamlbl").innerHTML = "隱藏 Steam 成就通知";
         document.getElementById("customiselbl").innerHTML = "個性化...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">主要的';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">稀有的';
+        document.getElementById("customisermainlbl").innerHTML = "主要的";
+        document.getElementById("customiserrarelbl").innerHTML = "稀有的";
         document.getElementById("customiserstylelbl").innerHTML = "成就風格：";
         document.getElementById("notifypositionlbl").innerHTML = "屏幕位置：";
         document.getElementById("bgtypelbl").innerHTML = "背景類型：";
@@ -803,8 +812,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Zadejte API Key";
         document.getElementById("steam64box").placeholder = "Zadejte Steam64ID";
         document.getElementById("other").innerHTML = "OSTATNÍ";
-        document.getElementById("showscreenshotlbl").innerHTML = "Zobrazit Snímek Obrazovky";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Zobrazit Snímek Obrazovky";
+        document.getElementById("showscreenshotlbl").innerHTML = "Snímek Obrazovky ze Služby Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Snímek Obrazovky ze Služby Steam";
+        document.getElementById("previewlbl").innerHTML = "Náhled Snímku Obrazovky"
+        document.getElementById("previewlblrare").innerHTML = "Náhled Snímku Obrazovky"
         document.getElementById("desktoplbl").innerHTML = "Vytvoření Zástupce na Desktop";
         document.getElementById("startwinlbl").innerHTML = "Spustit Při Spuštění Systému Windows";
         document.getElementById("startminlbl").innerHTML = "Start Minimalizován";
@@ -851,8 +862,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Procento Vzácnosti: ";
         document.getElementById("nosteamlbl").innerHTML = "Skryjte Upozornění Steam";
         document.getElementById("customiselbl").innerHTML = "UPRAVIT...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Hlavní';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Vzácný';
+        document.getElementById("customisermainlbl").innerHTML = "Hlavní";
+        document.getElementById("customiserrarelbl").innerHTML = "Vzácný";
         document.getElementById("customiserstylelbl").innerHTML = "STYL OZNÁMENÍ:";
         document.getElementById("notifypositionlbl").innerHTML = "POLOHA OBRAZOVKY:";
         document.getElementById("bgtypelbl").innerHTML = "TYP POZADÍ:";
@@ -930,8 +941,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Indtast API Key";
         document.getElementById("steam64box").placeholder = "Indtast Steam64ID";
         document.getElementById("other").innerHTML = "ANDRE";
-        document.getElementById("showscreenshotlbl").innerHTML = "Vis Skærmbillede";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Vis Skærmbillede";
+        document.getElementById("showscreenshotlbl").innerHTML = "Tag Steam-Skærmbilledet";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Tag Steam-Skærmbilledet";
+        document.getElementById("previewlbl").innerHTML = "Forhåndsvisning af Skærmbillede"
+        document.getElementById("previewlblrare").innerHTML = "Forhåndsvisning af Skærmbillede"
         document.getElementById("desktoplbl").innerHTML = "Opret Genvej Til Desktop";
         document.getElementById("startwinlbl").innerHTML = "Start med Windows";
         document.getElementById("startminlbl").innerHTML = "Start Minimeret Til Systembakken";
@@ -978,8 +991,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Sjældenhedsprocent: ";
         document.getElementById("nosteamlbl").innerHTML = "Skjul Steam-Meddelelse";
         document.getElementById("customiselbl").innerHTML = "TILPASSER...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Hoved';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Sjælden';
+        document.getElementById("customisermainlbl").innerHTML = "Hoved";
+        document.getElementById("customiserrarelbl").innerHTML = "Sjælden";
         document.getElementById("customiserstylelbl").innerHTML = "MEDDELELSESSTIL:";
         document.getElementById("notifypositionlbl").innerHTML = "SKÆRMPOSITION:";
         document.getElementById("bgtypelbl").innerHTML = "BAGGRUNDSTYPE:";
@@ -1057,8 +1070,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Voer API Key in";
         document.getElementById("steam64box").placeholder = "Voer Steam64ID in";
         document.getElementById("other").innerHTML = "ANDERE";
-        document.getElementById("showscreenshotlbl").innerHTML = "Schermafbeelding Prestatie Tonen";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Schermafbeelding Prestatie Tonen";
+        document.getElementById("showscreenshotlbl").innerHTML = "Steam-Schermafbeelding Maken";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Steam-Schermafbeelding Maken";
+        document.getElementById("previewlbl").innerHTML = "Schermafbeelding Voorbeeld"
+        document.getElementById("previewlblrare").innerHTML = "Schermafbeelding Voorbeeld"
         document.getElementById("desktoplbl").innerHTML = "Snelkoppeling Naar Desktop Maken";
         document.getElementById("startwinlbl").innerHTML = "Begin met Windows";
         document.getElementById("startminlbl").innerHTML = "Start Geminimaliseerd";
@@ -1105,8 +1120,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Zeldzaamheid: ";
         document.getElementById("nosteamlbl").innerHTML = "Steam-Melding Verbergen";
         document.getElementById("customiselbl").innerHTML = "BEWERK...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Voornaamst';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Zeldzaam';
+        document.getElementById("customisermainlbl").innerHTML = "Voornaamst";
+        document.getElementById("customiserrarelbl").innerHTML = "Zeldzaam";
         document.getElementById("customiserstylelbl").innerHTML = "STIJL VAN MELDINGEN:";
         document.getElementById("notifypositionlbl").innerHTML = "SCHERMPOSITIE:";
         document.getElementById("bgtypelbl").innerHTML = "ACHTERGRONDTYPE:";
@@ -1184,8 +1199,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Anna APIKey";
         document.getElementById("steam64box").placeholder = "Anna Steam64ID";
         document.getElementById("other").innerHTML = "MUUT";
-        document.getElementById("showscreenshotlbl").innerHTML = "Näytä Kuvakaappaus";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Näytä Kuvakaappaus";
+        document.getElementById("showscreenshotlbl").innerHTML = "Ota Steam-Kuvakaappaus";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Ota Steam-Kuvakaappaus";
+        document.getElementById("previewlbl").innerHTML = "Näytä Kuvakaappauksen Esikatselu"
+        document.getElementById("previewlblrare").innerHTML = "Näytä Kuvakaappauksen Esikatselu"
         document.getElementById("desktoplbl").innerHTML = "Luo Desktop Pikakuvake";
         document.getElementById("startwinlbl").innerHTML = "Aloita Windowsista";
         document.getElementById("startminlbl").innerHTML = "Käynnistä Minimoitu";
@@ -1232,8 +1249,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Harvinainen Prosentti: ";
         document.getElementById("nosteamlbl").innerHTML = "Piilota Steam-ilmoitus";
         document.getElementById("customiselbl").innerHTML = "MUOKKAA...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Tärkein';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Harvinainen';
+        document.getElementById("customisermainlbl").innerHTML = "Tärkein";
+        document.getElementById("customiserrarelbl").innerHTML = "Harvinainen";
         document.getElementById("customiserstylelbl").innerHTML = "ILMOITUSTYYLI:";
         document.getElementById("notifypositionlbl").innerHTML = "NÄYTÖN ASENTO:";
         document.getElementById("bgtypelbl").innerHTML = "TAUSTATYYPPI:";
@@ -1311,8 +1328,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Entrez clé API";
         document.getElementById("steam64box").placeholder = "Entrez Steam64ID";
         document.getElementById("other").innerHTML = "AUTRE";
-        document.getElementById("showscreenshotlbl").innerHTML = "Afficher la Capture d'Écran";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Afficher la Capture d'Écran";
+        document.getElementById("showscreenshotlbl").innerHTML = "Prendre Capture d'Écran Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Prendre Capture d'Écran Steam";
+        document.getElementById("previewlbl").innerHTML = "Afficher l'Aperçu"
+        document.getElementById("previewlblrare").innerHTML = "Afficher l'Aperçu"
         document.getElementById("desktoplbl").innerHTML = "Crée Un Raccourci Bureau";
         document.getElementById("startwinlbl").innerHTML = "Démarrage Automatique";
         document.getElementById("startminlbl").innerHTML = "Démarrage Minimisé";
@@ -1359,8 +1378,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Pourcentage de Rareté: ";
         document.getElementById("nosteamlbl").innerHTML = "Masquer la Notification Steam";
         document.getElementById("customiselbl").innerHTML = "PERSONNALISER...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Principal';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Rare';
+        document.getElementById("customisermainlbl").innerHTML = "Principal";
+        document.getElementById("customiserrarelbl").innerHTML = "Rare";
         document.getElementById("customiserstylelbl").innerHTML = "STYLE DE NOTIFICATION:";
         document.getElementById("notifypositionlbl").innerHTML = "POSITION DE L'ÉCRAN:";
         document.getElementById("bgtypelbl").innerHTML = "TYPE DE FOND:";
@@ -1438,8 +1457,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "API Key eingeben";
         document.getElementById("steam64box").placeholder = "Steam64ID eingeben";
         document.getElementById("other").innerHTML = "SONSTIGES";
-        document.getElementById("showscreenshotlbl").innerHTML = "Bildschirmfoto Anzeigen";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Bildschirmfoto Anzeigen";
+        document.getElementById("showscreenshotlbl").innerHTML = "Steam-Bildschirmfoto Aufnehmen";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Steam-Bildschirmfoto Aufnehmen";
+        document.getElementById("previewlbl").innerHTML = "Bildschirmfoto-Vorschau Anzeigen"
+        document.getElementById("previewlblrare").innerHTML = "Bildschirmfoto-Vorschau Anzeigen"
         document.getElementById("desktoplbl").innerHTML = "Desktopverknüpfung Erstellen";
         document.getElementById("startwinlbl").innerHTML = "Starte mit Windows";
         document.getElementById("startminlbl").innerHTML = "Minimiert Starten";
@@ -1486,8 +1507,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Seltenheitswert: ";
         document.getElementById("nosteamlbl").innerHTML = "Steam Benachrichtigung ausblenden";
         document.getElementById("customiselbl").innerHTML = "BEARBEITEN...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Haupt';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Selten';
+        document.getElementById("customisermainlbl").innerHTML = "Haupt";
+        document.getElementById("customiserrarelbl").innerHTML = "Selten";
         document.getElementById("customiserstylelbl").innerHTML = "BENACHRICHTIGUNGSSTIL:";
         document.getElementById("notifypositionlbl").innerHTML = "BILDSCHIRMPOSITION:";
         document.getElementById("bgtypelbl").innerHTML = "HINTERGRUNDTYP:";
@@ -1565,8 +1586,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Εισαγάγετε το API Key";
         document.getElementById("steam64box").placeholder = "Εισαγάγετε το Steam64ID";
         document.getElementById("other").innerHTML = "ΑΛΛΑ";
-        document.getElementById("showscreenshotlbl").innerHTML = "Εμφάνιση στιγμιότυπου οθόνης";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Εμφάνιση στιγμιότυπου οθόνης";
+        document.getElementById("showscreenshotlbl").innerHTML = "Στιγμιότυπο Οθόνης Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Στιγμιότυπο Οθόνης Steam";
+        document.getElementById("previewlbl").innerHTML = "Προεπισκόπηση Εμφάνισης"
+        document.getElementById("previewlblrare").innerHTML = "Προεπισκόπηση Εμφάνισης"
         document.getElementById("desktoplbl").innerHTML = "Συντόμευση Desktop";
         document.getElementById("startwinlbl").innerHTML = "Ξεκινήστε με τα Windows";
         document.getElementById("startminlbl").innerHTML = "Έναρξη Ελαχιστοποιημένη";
@@ -1613,8 +1636,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Αξία Σπανιότητας: ";
         document.getElementById("nosteamlbl").innerHTML = "Απόκρυψη Ειδοποίησης Steam";
         document.getElementById("customiselbl").innerHTML = "ΕΠΕΞΕΡΓΑΣΙΑ...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Κύριος';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Σπάνιος';
+        document.getElementById("customisermainlbl").innerHTML = "Κύριος";
+        document.getElementById("customiserrarelbl").innerHTML = "Σπάνιος";
         document.getElementById("customiserstylelbl").innerHTML = "ΣΤΥΛ ΕΙΔΟΠΟΙΗΣΗΣ:";
         document.getElementById("notifypositionlbl").innerHTML = "ΘΕΣΗ ΟΘΟΝΗΣ:";
         document.getElementById("bgtypelbl").innerHTML = "ΤΥΠΟΣ ΥΠΟΒΑΘΡΟ:";
@@ -1692,8 +1715,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Írja be az API Key-t";
         document.getElementById("steam64box").placeholder = "Írja be a Steam64ID-t";
         document.getElementById("other").innerHTML = "EGYÉB";
-        document.getElementById("showscreenshotlbl").innerHTML = "Képernyőkép Megjelenítése";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Képernyőkép Megjelenítése";
+        document.getElementById("showscreenshotlbl").innerHTML = "Készítsen Steam Képernyőképet";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Készítsen Steam Képernyőképet";
+        document.getElementById("previewlbl").innerHTML = "Képernyőkép Előnézete"
+        document.getElementById("previewlblrare").innerHTML = "Képernyőkép Előnézete"
         document.getElementById("desktoplbl").innerHTML = "Parancsikon Létrehozása";
         document.getElementById("startwinlbl").innerHTML = "Futtassa Amikor A Windows Elindul";
         document.getElementById("startminlbl").innerHTML = "Indítás Minimalizálva";
@@ -1740,8 +1765,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Ritkaság Százaléka: ";
         document.getElementById("nosteamlbl").innerHTML = "Steam Értesítés Elrejtése";
         document.getElementById("customiselbl").innerHTML = "TESTRESZAB...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Fő';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Ritka';
+        document.getElementById("customisermainlbl").innerHTML = "Fő";
+        document.getElementById("customiserrarelbl").innerHTML = "Ritka";
         document.getElementById("customiserstylelbl").innerHTML = "ÉRTESÍTÉSI STÍLUS:";
         document.getElementById("notifypositionlbl").innerHTML = "A KÉPERNYŐ HELYZETE:";
         document.getElementById("bgtypelbl").innerHTML = "HÁTTÉRTÍPUS:";
@@ -1819,8 +1844,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Inserisci API Key";
         document.getElementById("steam64box").placeholder = "Inserisci Steam64ID";
         document.getElementById("other").innerHTML = "ALTRO";
-        document.getElementById("showscreenshotlbl").innerHTML = "Mostra Screenshot";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Mostra Screenshot";
+        document.getElementById("showscreenshotlbl").innerHTML = "Fai uno Screenshot di Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Fai uno Screenshot di Steam";
+        document.getElementById("previewlbl").innerHTML = "Visualizza Anteprima"
+        document.getElementById("previewlblrare").innerHTML = "Visualizza Anteprima"
         document.getElementById("desktoplbl").innerHTML = "Collegamento Sul Desktop";
         document.getElementById("startwinlbl").innerHTML = "Inizia con Windows";
         document.getElementById("startminlbl").innerHTML = "Inizio Ridotto a Icona";
@@ -1867,8 +1894,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Valore di Rarità: ";
         document.getElementById("nosteamlbl").innerHTML = "Nascondi la Notifica di Steam";
         document.getElementById("customiselbl").innerHTML = "MODIFICARE...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Principale';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Raro';
+        document.getElementById("customisermainlbl").innerHTML = "Principale";
+        document.getElementById("customiserrarelbl").innerHTML = "Raro";
         document.getElementById("customiserstylelbl").innerHTML = "STILE DI NOTIFICA:";
         document.getElementById("notifypositionlbl").innerHTML = "POSIZIONE SCHERMO:";
         document.getElementById("bgtypelbl").innerHTML = "TIPO DI SFONDO:";
@@ -1946,8 +1973,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "API Keyを入力してください";
         document.getElementById("steam64box").placeholder = "Steam64IDを入力してください";
         document.getElementById("other").innerHTML = "他の";
-        document.getElementById("showscreenshotlbl").innerHTML = "スクリーンショットを表示";
-        document.getElementById("showscreenshotlblrare").innerHTML = "スクリーンショットを表示";
+        document.getElementById("showscreenshotlbl").innerHTML = "Steamのスクリーンショットを撮る";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Steamのスクリーンショットを撮る";
+        document.getElementById("previewlbl").innerHTML = "スクリーンショットプレビューを表示"
+        document.getElementById("previewlblrare").innerHTML = "スクリーンショットプレビューを表示"
         document.getElementById("desktoplbl").innerHTML = "デスクトップのショートカット";
         document.getElementById("startwinlbl").innerHTML = "Windowsから始める";
         document.getElementById("startminlbl").innerHTML = "システムトレイへの最小化を開始";
@@ -1994,8 +2023,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "レア度値：";
         document.getElementById("nosteamlbl").innerHTML = "Steam通知を非表示にする";
         document.getElementById("customiselbl").innerHTML = "カスタマイズ...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">主要';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">レア';
+        document.getElementById("customisermainlbl").innerHTML = "主要";
+        document.getElementById("customiserrarelbl").innerHTML = "レア";
         document.getElementById("customiserstylelbl").innerHTML = "アチーブメントスタイル:";
         document.getElementById("notifypositionlbl").innerHTML = "画面の位置:";
         document.getElementById("bgtypelbl").innerHTML = "背景タイプ:";
@@ -2073,8 +2102,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "API Key 입력";
         document.getElementById("steam64box").placeholder = "Steam64ID 입력";
         document.getElementById("other").innerHTML = "다른";
-        document.getElementById("showscreenshotlbl").innerHTML = "업적 스크린샷 표시";
-        document.getElementById("showscreenshotlblrare").innerHTML = "업적 스크린샷 표시";
+        document.getElementById("showscreenshotlbl").innerHTML = "Steam 스크린샷 찍기";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Steam 스크린샷 찍기";
+        document.getElementById("previewlbl").innerHTML = "스크린샷 미리보기 표시"
+        document.getElementById("previewlblrare").innerHTML = "스크린샷 미리보기 표시"
         document.getElementById("desktoplbl").innerHTML = "바탕 화면 바로 가기 만들기";
         document.getElementById("startwinlbl").innerHTML = "Windows로 시작";
         document.getElementById("startminlbl").innerHTML = "시스템 트레이에 최소화된 시작";
@@ -2121,8 +2152,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "희귀도 백분율: ";
         document.getElementById("nosteamlbl").innerHTML = "Steam 알림 숨기기";
         document.getElementById("customiselbl").innerHTML = "커스터마이즈...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">기본';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">희귀 한';
+        document.getElementById("customisermainlbl").innerHTML = "기본";
+        document.getElementById("customiserrarelbl").innerHTML = "희귀 한";
         document.getElementById("customiserstylelbl").innerHTML = "알림 스타일:";
         document.getElementById("notifypositionlbl").innerHTML = "화면 위치:";
         document.getElementById("bgtypelbl").innerHTML = "배경 유형:";
@@ -2200,8 +2231,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Skriv inn API Key";
         document.getElementById("steam64box").placeholder = "Skriv inn Steam64ID";
         document.getElementById("other").innerHTML = "ANNEN";
-        document.getElementById("showscreenshotlbl").innerHTML = "Vis Skjermbilde";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Vis Skjermbilde";
+        document.getElementById("showscreenshotlbl").innerHTML = "Ta Steam-Skjermbilde";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Ta Steam-Skjermbilde";
+        document.getElementById("previewlbl").innerHTML = "Forhåndsvisning av Skjermbilde"
+        document.getElementById("previewlblrare").innerHTML = "Forhåndsvisning av Skjermbilde"
         document.getElementById("desktoplbl").innerHTML = "Lag Desktop Snarvei";
         document.getElementById("startwinlbl").innerHTML = "Start med Windows";
         document.getElementById("startminlbl").innerHTML = "Start Minimert";
@@ -2248,8 +2281,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Sjeldenhetsprosent: ";
         document.getElementById("nosteamlbl").innerHTML = "Skjul Steam-Varsling";
         document.getElementById("customiselbl").innerHTML = "TILPASSE ...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Hoved';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Sjelden';
+        document.getElementById("customisermainlbl").innerHTML = "Hoved";
+        document.getElementById("customiserrarelbl").innerHTML = "Sjelden";
         document.getElementById("customiserstylelbl").innerHTML = "MELDINGSSTIL:";
         document.getElementById("notifypositionlbl").innerHTML = "SKJERMPOSISJON:";
         document.getElementById("bgtypelbl").innerHTML = "BAKGRUNNSTYPE:";
@@ -2327,8 +2360,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Wpisz API Key";
         document.getElementById("steam64box").placeholder = "Wpisz Steam64ID";
         document.getElementById("other").innerHTML = "INNE";
-        document.getElementById("showscreenshotlbl").innerHTML = "Pokaż Zrzut Ekranu Osiągnięcia";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Pokaż Zrzut Ekranu Osiągnięcia";
+        document.getElementById("showscreenshotlbl").innerHTML = "Zrób Zrzut Ekranu Na Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Zrób Zrzut Ekranu Na Steam";
+        document.getElementById("previewlbl").innerHTML = "Pokaż Podgląd Zrzutu Ekranu"
+        document.getElementById("previewlblrare").innerHTML = "Pokaż Podgląd Zrzutu Ekranu"
         document.getElementById("desktoplbl").innerHTML = "Utwórz Skrót Na Pulpicie";
         document.getElementById("startwinlbl").innerHTML = "Uruchom z Windows";
         document.getElementById("startminlbl").innerHTML = "Zacznij w Obszarze Powiadomień";
@@ -2375,8 +2410,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Procent Rzadkości: ";
         document.getElementById("nosteamlbl").innerHTML = "Ukryj Powiadomienie Steam";
         document.getElementById("customiselbl").innerHTML = "DOSTOSUJ...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Główny';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Rzadki';
+        document.getElementById("customisermainlbl").innerHTML = "Główny";
+        document.getElementById("customiserrarelbl").innerHTML = "Rzadki";
         document.getElementById("customiserstylelbl").innerHTML = "STYL POWIADOMIENIA:";
         document.getElementById("notifypositionlbl").innerHTML = "POZYCJA EKRANU:";
         document.getElementById("bgtypelbl").innerHTML = "RODZAJ TŁA:";
@@ -2454,8 +2489,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Digite API Key";
         document.getElementById("steam64box").placeholder = "Digite Steam64ID";
         document.getElementById("other").innerHTML = "OUTROS";
-        document.getElementById("showscreenshotlbl").innerHTML = "Mostrar Captura de Tela";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Mostrar Captura de Tela";
+        document.getElementById("showscreenshotlbl").innerHTML = "Captura de Tela do Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Captura de Tela do Steam";
+        document.getElementById("previewlbl").innerHTML = "Mostrar Visualização"
+        document.getElementById("previewlblrare").innerHTML = "Mostrar Visualização"
         document.getElementById("desktoplbl").innerHTML = "Atalho Desktop";
         document.getElementById("startwinlbl").innerHTML = "Executar com Windows";
         document.getElementById("startminlbl").innerHTML = "Iniciar Minimizado";
@@ -2502,8 +2539,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Valor de Raridade: ";
         document.getElementById("nosteamlbl").innerHTML = "Ocultar Notificação do Steam";
         document.getElementById("customiselbl").innerHTML = "CUSTOMIZAR...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Principal';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Raro';
+        document.getElementById("customisermainlbl").innerHTML = "Principal";
+        document.getElementById("customiserrarelbl").innerHTML = "Raro";
         document.getElementById("customiserstylelbl").innerHTML = "ESTILO DE NOTIFICAÇÃO:";
         document.getElementById("notifypositionlbl").innerHTML = "POSIÇÃO DA TELA:";
         document.getElementById("bgtypelbl").innerHTML = "TIPO DE FUNDO:";
@@ -2581,8 +2618,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Digite Chave API";
         document.getElementById("steam64box").placeholder = "Digite Steam64ID";
         document.getElementById("other").innerHTML = "OUTROS";
-        document.getElementById("showscreenshotlbl").innerHTML = "Mostrar Imagem de Tela";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Mostrar Imagem de Tela";
+        document.getElementById("showscreenshotlbl").innerHTML = "Captura de Tela do Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Captura de Tela do Steam";
+        document.getElementById("previewlbl").innerHTML = "Mostrar Pré-Visualização"
+        document.getElementById("previewlblrare").innerHTML = "Mostrar Pré-Visualização"
         document.getElementById("desktoplbl").innerHTML = "Criar Atalho de Desktop";
         document.getElementById("startwinlbl").innerHTML = "Comece com Windows";
         document.getElementById("startminlbl").innerHTML = "Início Minimizado";
@@ -2634,8 +2673,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Valor de Raridade:";
         document.getElementById("nosteamlbl").innerHTML = "Ocultar Notificação de Steam";
         document.getElementById("customiselbl").innerHTML = "PERSONALIZAÇÃO...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Principal';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Raro';
+        document.getElementById("customisermainlbl").innerHTML = "Principal";
+        document.getElementById("customiserrarelbl").innerHTML = "Raro";
         document.getElementById("customiserstylelbl").innerHTML = "ESTILO DE NOTIFICAÇÃO:";
         document.getElementById("notifypositionlbl").innerHTML = "POSIÇÃO DA TELA:";
         document.getElementById("bgtypelbl").innerHTML = "TIPO DE FUNDO:";
@@ -2713,8 +2752,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Introduceți API Key";
         document.getElementById("steam64box").placeholder = "Introduceți Steam64ID";
         document.getElementById("other").innerHTML = "ALTE";
-        document.getElementById("showscreenshotlbl").innerHTML = "Afișează Captura De Ecran";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Afișează Captura De Ecran";
+        document.getElementById("showscreenshotlbl").innerHTML = "Faceți Captură de Ecran în Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Faceți Captură de Ecran în Steam";
+        document.getElementById("previewlbl").innerHTML = "Afișează Previzualizare"
+        document.getElementById("previewlblrare").innerHTML = "Afișează Previzualizare"
         document.getElementById("desktoplbl").innerHTML = "Comandă Rapidă Pe Desktop";
         document.getElementById("startwinlbl").innerHTML = "Rulați Când Windows Pornește";
         document.getElementById("startminlbl").innerHTML = "Începe Minimizat";
@@ -2761,8 +2802,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Procent de Raritate: ";
         document.getElementById("nosteamlbl").innerHTML = "Ascundeți Notificarea Steam";
         document.getElementById("customiselbl").innerHTML = "PERSONALIZĂ...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Principal';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Rar';
+        document.getElementById("customisermainlbl").innerHTML = "Principal";
+        document.getElementById("customiserrarelbl").innerHTML = "Rar";
         document.getElementById("customiserstylelbl").innerHTML = "STILUL DE NOTIFICARE:";
         document.getElementById("notifypositionlbl").innerHTML = "POZIȚIA ECRANULUI:";
         document.getElementById("bgtypelbl").innerHTML = "TIP DE FUNDAL:";
@@ -2840,8 +2881,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Введите API Key";
         document.getElementById("steam64box").placeholder = "Введите Steam64ID";
         document.getElementById("other").innerHTML = "ДРУГИЕ";
-        document.getElementById("showscreenshotlbl").innerHTML = "Показать Скриншот";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Показать Скриншот";
+        document.getElementById("showscreenshotlbl").innerHTML = "Сделать Скриншот Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Сделать Скриншот Steam";
+        document.getElementById("previewlbl").innerHTML = "Показать Предварительный Просмотр"
+        document.getElementById("previewlblrare").innerHTML = "Показать Предварительный Просмотр"
         document.getElementById("desktoplbl").innerHTML = "Ярлык На Рабочий Стол";
         document.getElementById("startwinlbl").innerHTML = "Автозагрузка";
         document.getElementById("startminlbl").innerHTML = "Сворачивание При Автозагрузке";
@@ -2888,8 +2931,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Процент Редкости: ";
         document.getElementById("nosteamlbl").innerHTML = "Скрыть Уведомление Steam";
         document.getElementById("customiselbl").innerHTML = "НАСТРАИВАТЬ...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Главный';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Редкий';
+        document.getElementById("customisermainlbl").innerHTML = "Главный";
+        document.getElementById("customiserrarelbl").innerHTML = "Редкий";
         document.getElementById("customiserstylelbl").innerHTML = "СТИЛЬ УВЕДОМЛЕНИЯ:";
         document.getElementById("notifypositionlbl").innerHTML = "ПОЛОЖЕНИЕ ЭКРАНА:";
         document.getElementById("bgtypelbl").innerHTML = "ТИП ФОНА:";
@@ -2967,8 +3010,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Introduzca API Key";
         document.getElementById("steam64box").placeholder = "Introduzca Steam64ID";
         document.getElementById("other").innerHTML = "OTRO";
-        document.getElementById("showscreenshotlbl").innerHTML = "Mostrar Captura de Pantalla";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Mostrar Captura de Pantalla";
+        document.getElementById("showscreenshotlbl").innerHTML = "Captura de Pantalla de Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Captura de Pantalla de Steam";
+        document.getElementById("previewlbl").innerHTML = "Mostrar Vista Previa"
+        document.getElementById("previewlblrare").innerHTML = "Mostrar Vista Previa"
         document.getElementById("desktoplbl").innerHTML = "Atajo Desktop";
         document.getElementById("startwinlbl").innerHTML = "Ejecutar con Windows";
         document.getElementById("startminlbl").innerHTML = "Iniciar Minimizado";
@@ -3015,8 +3060,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Valor de Rareza: ";
         document.getElementById("nosteamlbl").innerHTML = "Ocultar Notificación de Steam";
         document.getElementById("customiselbl").innerHTML = "PERSONALIZAR...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Principal';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Raro';
+        document.getElementById("customisermainlbl").innerHTML = "Principal";
+        document.getElementById("customiserrarelbl").innerHTML = "Raro";
         document.getElementById("customiserstylelbl").innerHTML = "ESTILO DE NOTIFICACIÓN:";
         document.getElementById("notifypositionlbl").innerHTML = "POSICIÓN DE LA PANTALLA:";
         document.getElementById("bgtypelbl").innerHTML = "TIPO DE FONDO:";
@@ -3094,8 +3139,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Ange API Key";
         document.getElementById("steam64box").placeholder = "Ange Steam64ID";
         document.getElementById("other").innerHTML = "ÖVRIG";
-        document.getElementById("showscreenshotlbl").innerHTML = "Visa Skärmdump";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Visa Skärmdump";
+        document.getElementById("showscreenshotlbl").innerHTML = "Ta Steam-Skärmdump";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Ta Steam-Skärmdump";
+        document.getElementById("previewlbl").innerHTML = "Förhandsvisning av Skärmdump"
+        document.getElementById("previewlblrare").innerHTML = "Förhandsvisning av Skärmdump"
         document.getElementById("desktoplbl").innerHTML = "Skapa Desktop-sökväg";
         document.getElementById("startwinlbl").innerHTML = "Börja med Windows";
         document.getElementById("startminlbl").innerHTML = "Start Minimerad";
@@ -3142,8 +3189,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Sällsynthetsprocent: ";
         document.getElementById("nosteamlbl").innerHTML = "Dölj Steam-Meddelande";
         document.getElementById("customiselbl").innerHTML = "PERSONIFIERA...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Huvudsaklig';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Sällsynt';
+        document.getElementById("customisermainlbl").innerHTML = "Huvudsaklig";
+        document.getElementById("customiserrarelbl").innerHTML = "Sällsynt";
         document.getElementById("customiserstylelbl").innerHTML = "MEDDELANDE STIL:";
         document.getElementById("notifypositionlbl").innerHTML = "SKÄRMPOSITION:";
         document.getElementById("bgtypelbl").innerHTML = "BAKGRUNDSTYP:";
@@ -3221,8 +3268,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "เข้าสู่ API Key";
         document.getElementById("steam64box").placeholder = "เข้าสู่ Steam64ID";
         document.getElementById("other").innerHTML = "อื่น ๆ";
-        document.getElementById("showscreenshotlbl").innerHTML = "แสดงภาพหน้าจอ";
-        document.getElementById("showscreenshotlblrare").innerHTML = "แสดงภาพหน้าจอ";
+        document.getElementById("showscreenshotlbl").innerHTML = "จับภาพหน้าจอ Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "จับภาพหน้าจอ Steam";
+        document.getElementById("previewlbl").innerHTML = "แสดงตัวอย่างภาพหน้าจอ"
+        document.getElementById("previewlblrare").innerHTML = "แสดงตัวอย่างภาพหน้าจอ"
         document.getElementById("desktoplbl").innerHTML = "สร้างทางลัดบนเดสก์ท็อป";
         document.getElementById("startwinlbl").innerHTML = "เริ่มด้วย Windows";
         document.getElementById("startminlbl").innerHTML = "เริ่มย่อเล็กสุด";
@@ -3269,8 +3318,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "เค่าความหายาก:";
         document.getElementById("nosteamlbl").innerHTML = "ซ่อนการแจ้งเตือน Steam";
         document.getElementById("customiselbl").innerHTML = "ปรับแต่ง...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">หลัก';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">หายาก';
+        document.getElementById("customisermainlbl").innerHTML = "หลัก";
+        document.getElementById("customiserrarelbl").innerHTML = "หายาก";
         document.getElementById("customiserstylelbl").innerHTML = "รูปแบบการแจ้งเตือน:";
         document.getElementById("notifypositionlbl").innerHTML = "ตำแหน่งหน้าจอ:";
         document.getElementById("bgtypelbl").innerHTML = "ประเภทพื้นหลัง:";
@@ -3348,8 +3397,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "API Key'i girin";
         document.getElementById("steam64box").placeholder = "Steam64ID'yi girin";
         document.getElementById("other").innerHTML = "BAŞKA";
-        document.getElementById("showscreenshotlbl").innerHTML = "Ekran Görüntüsünü Göster";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Ekran Görüntüsünü Göster";
+        document.getElementById("showscreenshotlbl").innerHTML = "Steam'de Ekran Görüntüsü Al";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Steam'de Ekran Görüntüsü Al";
+        document.getElementById("previewlbl").innerHTML = "Önizlemeyi Göster"
+        document.getElementById("previewlblrare").innerHTML = "Önizlemeyi Göster"
         document.getElementById("desktoplbl").innerHTML = "Desktop kısayolu oluştur";
         document.getElementById("startwinlbl").innerHTML = "Windows Başladığında Çalıştır";
         document.getElementById("startminlbl").innerHTML = "Başlangıçta Gizle";
@@ -3396,8 +3447,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Nadirlik Yüzdesi: ";
         document.getElementById("nosteamlbl").innerHTML = "Steam Bildirimini Gizle";
         document.getElementById("customiselbl").innerHTML = "ÖZELLEŞTİRMEK...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Ana';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Nadir';
+        document.getElementById("customisermainlbl").innerHTML = "Ana";
+        document.getElementById("customiserrarelbl").innerHTML = "Nadir";
         document.getElementById("customiserstylelbl").innerHTML = "BİLDİRİM TARZI:";
         document.getElementById("notifypositionlbl").innerHTML = "EKRAN KONUMU:";
         document.getElementById("bgtypelbl").innerHTML = "ARKA PLAN TİPİ:";
@@ -3475,8 +3526,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Введіть API Key";
         document.getElementById("steam64box").placeholder = "Введіть Steam64ID";
         document.getElementById("other").innerHTML = "ІНШИЙ";
-        document.getElementById("showscreenshotlbl").innerHTML = "Показати скріншот досягнення";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Показати скріншот досягнення";
+        document.getElementById("showscreenshotlbl").innerHTML = "Зробіть Скріншот у Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Зробіть Скріншот у Steam";
+        document.getElementById("previewlbl").innerHTML = "Попередній Перегляд Скріншоту"
+        document.getElementById("previewlblrare").innerHTML = "Попередній Перегляд Скріншоту"
         document.getElementById("desktoplbl").innerHTML = "Створіть ярлик на Desktop";
         document.getElementById("startwinlbl").innerHTML = "Почніть з Windows";
         document.getElementById("startminlbl").innerHTML = "Сховати під час запуску";
@@ -3523,8 +3576,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Відсоток Рідкості: ";
         document.getElementById("nosteamlbl").innerHTML = "Приховати Сповіщення Steam";
         document.getElementById("customiselbl").innerHTML = "РЕДАГУВАТИ...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Головний';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Рідкісні';
+        document.getElementById("customisermainlbl").innerHTML = "Головний";
+        document.getElementById("customiserrarelbl").innerHTML = "Рідкісні";
         document.getElementById("customiserstylelbl").innerHTML = "СТИЛЬ ПОВІДОМЛЕННЯ:";
         document.getElementById("notifypositionlbl").innerHTML = "ПОЛОЖЕННЯ ЕКРАНА:";
         document.getElementById("bgtypelbl").innerHTML = "ТИП ФОНУ:";
@@ -3602,8 +3655,10 @@ function LoadLang() {
         document.getElementById("apibox").placeholder = "Nhập API Key";
         document.getElementById("steam64box").placeholder = "Nhập Steam64ID";
         document.getElementById("other").innerHTML = "KHÁC";
-        document.getElementById("showscreenshotlbl").innerHTML = "Hiển Thị Ảnh Chụp Màn Hình";
-        document.getElementById("showscreenshotlblrare").innerHTML = "Hiển Thị Ảnh Chụp Màn Hình";
+        document.getElementById("showscreenshotlbl").innerHTML = "Chụp Ảnh Màn Hình Steam";
+        document.getElementById("showscreenshotlblrare").innerHTML = "Chụp Ảnh Màn Hình Steam";
+        document.getElementById("previewlbl").innerHTML = "Hiển Thị Bản Xem Trước"
+        document.getElementById("previewlblrare").innerHTML = "Hiển Thị Bản Xem Trước"
         document.getElementById("desktoplbl").innerHTML = "Tạo lối tắt Desktop";
         document.getElementById("startwinlbl").innerHTML = "Chạy Khi Windows Khởi Động";
         document.getElementById("startminlbl").innerHTML = "Ẩn Khi Khởi Động";
@@ -3650,8 +3705,8 @@ function LoadLang() {
         document.getElementById("raritylbl").innerHTML = "Giá Trị Quý Hiếm: ";
         document.getElementById("nosteamlbl").innerHTML = "Ẩn Thông Báo Thành Tích Steam";
         document.getElementById("customiselbl").innerHTML = "TÙY CHỈNH ...";
-        document.getElementById("customisermaintab").innerHTML = '<img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Chủ Yếu';
-        document.getElementById("customiserraretab").innerHTML = '<img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Hiếm';
+        document.getElementById("customisermainlbl").innerHTML = "Chủ Yếu";
+        document.getElementById("customiserrarelbl").innerHTML = "Hiếm";
         document.getElementById("customiserstylelbl").innerHTML = "PHONG CÁCH THÔNG BÁO:";
         document.getElementById("notifypositionlbl").innerHTML = "VỊ TRÍ MÀN HÌNH:";
         document.getElementById("bgtypelbl").innerHTML = "LOẠI NỀN:";
@@ -3742,7 +3797,7 @@ LoadLang();
 
 function SetLang() {
     config["lang"] = document.getElementById("lang").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
     LoadLang();
     LoadSound();
@@ -3794,7 +3849,7 @@ function RemoveApp() {
     }
     // Backup config file
     try {
-        fs.copyFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), path.join(tempdir,"SAN1.8BACKUP","config.json"));
+        fs.copyFileSync(path.join(sanlocalappdata,"store","config.json"), path.join(tempdir,"SAN1.8BACKUP","config.json"));
         console.log("%cSteam Achievement Notifier config backed up", "color: seagreen;")
         fs.appendFileSync(path.join(tempdir,"sanresetlog.txt"), "\r\nSteam Achievement Notifier config backed up");
     } catch {
@@ -3803,7 +3858,7 @@ function RemoveApp() {
     }
     // Backup logo file
     try {
-        fs.copyFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","sanlogo.ico"), path.join(tempdir,"SAN1.8BACKUP","sanlogo.ico"));
+        fs.copyFileSync(path.join(sanlocalappdata,"img","sanlogo.ico"), path.join(tempdir,"SAN1.8BACKUP","sanlogo.ico"));
         console.log("%cSteam Achievement Notifier logo backed up", "color: seagreen;")
         fs.appendFileSync(path.join(tempdir,"sanresetlog.txt"), "\r\nSteam Achievement Notifier logo backed up");
     } catch {
@@ -3818,7 +3873,7 @@ function RemoveApp() {
     if (resettype == "reset") {
         // Delete "config.json" in %localappdata%\SteamAchievementNotifier(V1.8)\"store"
         try {
-            fs.rmSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"));
+            fs.rmSync(path.join(sanlocalappdata,"store","config.json"));
             console.log("%c\"config.json\" deleted in %localappdata%\\Steam Achievement Notifier (V1.8)\\store.", "color: seagreen;")
             fs.appendFileSync(path.join(tempdir,"sanresetlog.txt"), "\r\n\"config.json\" deleted in %localappdata%\\Steam Achievement Notifier (V1.8)\\store");
         } catch {
@@ -3828,7 +3883,7 @@ function RemoveApp() {
     } else if (resettype == "uninstall") {
         // Delete "Steam Achievement Notifier (V1.8)" dir in %localappdata%
         try {
-            fs.rmSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)"), { recursive: true });
+            fs.rmSync(path.join(sanlocalappdata), { recursive: true });
             console.log("%c\"Steam Achievement Notifier (V1.8)\" directory deleted in %localappdata%.", "color: seagreen;")
             fs.appendFileSync(path.join(tempdir,"sanresetlog.txt"), "\r\n\"Steam Achievement Notifier (V1.8)\" directory deleted in %localappdata%");
         } catch {
@@ -3839,7 +3894,7 @@ function RemoveApp() {
 
     // Remove Desktop shortcut
     try {
-        fs.rmSync(path.join(os.homedir(),"Desktop","Steam Achievement Notifier (V" + thisver + ").lnk"));
+        fs.rmSync(shortcut);
         console.log("%cDesktop shortcut deleted.", "color: seagreen;")
         fs.appendFileSync(path.join(tempdir,"sanresetlog.txt"), "\r\nDesktop shortcut deleted.");
     } catch {
@@ -3848,7 +3903,7 @@ function RemoveApp() {
     }
     // Remove Startup folder shortcut from "shell:startup"
     try {
-        fs.rmSync(path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup","Steam Achievement Notifier (V" + thisver + ").lnk"));
+        fs.rmSync(path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup",`Steam Achievement Notifier (${appversion}).lnk`));
         console.log("%cStartup shortcut deleted.", "color: seagreen;")
         fs.appendFileSync(path.join(tempdir,"sanresetlog.txt"), "\r\nStartup shortcut deleted.");
     } catch {
@@ -3867,7 +3922,7 @@ function ResetApp() {
 
     if (process.platform == "win32") {
         launcher["firstlaunch"] = true
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","launcher.json"), JSON.stringify(launcher, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2));
     }
     
     ipcRenderer.send('resetcomplete');
@@ -3957,7 +4012,7 @@ function TestNotification() {
         title: notifytitle,
         desc: notifydesc,
         icon: notifyicon,
-        screenshot: config.screenshot,
+        screenshot: config.ssprev,
         pos: config.notifypos,
         scale: config.scale,
         audio: document.getElementById("audio").src
@@ -4014,7 +4069,7 @@ function TestRareNotification() {
         title: notifytitle,
         desc: notifydesc,
         icon: notifyicon,
-        screenshot: config.rarescreenshot,
+        screenshot: config.raressprev,
         pos: config.rarenotifypos,
         scale: config.rarescale,
         audio: document.getElementById("audiorare").src
@@ -4064,7 +4119,7 @@ function OpenSoundFile() {
             var file = selection.target.files[0];
             document.getElementById("soundfile").innerHTML = file.path;
             config["sound"] = (file.path).replace("\\","\\\\").replace(":\\\\",":\\");
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             LoadSound();
         }
         
@@ -4078,7 +4133,7 @@ function OpenSoundFile() {
             var files = selection.target.files[0];
             var relpath = files.path.split("\\" + files.name);
             config["sounddir"] = relpath[0].replace("\\","\\\\").replace(":\\\\",":\\");
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             LoadSound();
         }
 
@@ -4096,7 +4151,7 @@ function OpenRareSoundFile() {
             var file = selection.target.files[0];
             document.getElementById("soundfilerare").innerHTML = file.path;
             config["raresound"] = (file.path).replace("\\","\\\\").replace(":\\\\",":\\");
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             LoadRareSound();
         }
         
@@ -4110,7 +4165,7 @@ function OpenRareSoundFile() {
             var files = selection.target.files[0];
             var relpath = files.path.split("\\" + files.name);
             config["raresounddir"] = relpath[0].replace("\\","\\\\").replace(":\\\\",":\\");
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             LoadRareSound();
         }
 
@@ -4145,7 +4200,7 @@ function DropSound(event) {
             if (file.type == "audio/wav" || file.type == "audio/mpeg") {
                 document.getElementById("soundfile").innerHTML = file.path;
                 config["sound"] = (file.path).replace("\\","\\\\").replace(":\\\\",":\\");
-                fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+                fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
                 document.getElementById("soundfile").style.background = "#3d3d3d";
                 LoadSound();
             } else {
@@ -4160,7 +4215,7 @@ function DropSound(event) {
     } else {
         var folder = event.dataTransfer.files[0].path;
         config["sounddir"] = folder.replace("\\","\\\\").replace(":\\\\",":\\");
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
         document.getElementById("soundfile").style.background = "#3d3d3d";
         LoadSound();
     }
@@ -4192,7 +4247,7 @@ function DropRareSound(event) {
         if (file.type == "audio/wav" || file.type == "audio/mpeg") {
             document.getElementById("soundfilerare").innerHTML = file.path;
             config["raresound"] = (file.path).replace("\\","\\\\").replace(":\\\\",":\\");
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             document.getElementById("soundfilerare").style.background = "#3d3d3d";
             LoadRareSound();
         } else {
@@ -4232,7 +4287,7 @@ function DropImage(event) {
     for (var file of event.dataTransfer.files) {
         if (file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") {
             config["img"] = (file.path).replace(/\\/g,"/");
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             document.getElementById("imgselectcont").style.background = "#1b1b1b";
             document.getElementById("imgselectinnerlbl").innerHTML = '<img src="" id="imgselecticon" width="169px" height="96px">';
             GetBGType();
@@ -4277,7 +4332,7 @@ function DropRareImage(event) {
     for (var file of event.dataTransfer.files) {
         if (file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") {
             config["rareimg"] = (file.path).replace(/\\/g,"/");
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             document.getElementById("rareimgselectcont").style.background = "#1b1b1b";
             document.getElementById("rareimgselectinnerlbl").innerHTML = '<img src="" id="rareimgselecticon" width="169px" height="96px">';
             GetRareBGType();
@@ -4370,7 +4425,7 @@ function CheckSoundSource() {
         if (counter >= 50) {
             alert(novalidaudio + "\"" + sounddir + "\".");
             config["sounddir"] = "";
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             document.getElementById("soundfile").innerHTML = nofolder;
             document.getElementById("audio").src = defaultsound;
         } else {
@@ -4385,7 +4440,7 @@ function CheckSoundSource() {
 function ChangeSoundMode(event) {
     if (config.soundmode == "file") {
         config["soundmode"] = "folder";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
         
         if (event.deltaY < 0) {
             if (document.getElementById("searchhoverdir").style.transform == "translateY(-50px)") {
@@ -4422,7 +4477,7 @@ function ChangeSoundMode(event) {
         }
     } else {
         config["soundmode"] = "file";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
         
         if (event.deltaY < 0) {
             if (document.getElementById("searchhover").style.transform == "translateY(-50px)") {
@@ -4571,7 +4626,7 @@ function CheckRareSoundSource() {
         if (counter >= 50) {
             alert(novalidaudio + "\"" + raresounddir + "\".");
             config["raresounddir"] = "";
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             document.getElementById("soundfilerare").innerHTML = nofolder;
             document.getElementById("audiorare").src = defaultsound;
         } else {
@@ -4586,7 +4641,7 @@ function CheckRareSoundSource() {
 function ChangeRareSoundMode(event) {
     if (config.raresoundmode == "file") {
         config["raresoundmode"] = "folder";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
         
         if (event.deltaY < 0) {
             if (document.getElementById("searchhoverdirrare").style.transform == "translateY(-50px)") {
@@ -4623,7 +4678,7 @@ function ChangeRareSoundMode(event) {
         }
     } else {
         config["raresoundmode"] = "file";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
         
         if (event.deltaY < 0) {
             if (document.getElementById("searchhoverrare").style.transform == "translateY(-50px)") {
@@ -4764,7 +4819,7 @@ function GetPlayerName() {
 
             if (process.platform == "win32") {
                 launcher["user"] = data.response.players[0].personaname;
-                fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","launcher.json"), JSON.stringify(launcher, null, 2));
+                fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2));
             }
 
             document.getElementById("username").style.color = "white";
@@ -4794,10 +4849,10 @@ function CheckNowTracking() {
 function ToggleNowTracking() {
     if (config.tracking == "false") {
         config["tracking"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["tracking"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     CheckNowTracking();
 }
@@ -4807,7 +4862,7 @@ document.getElementById("trackopacityvalue").innerHTML = config.trackopacity;
 
 function SetTrackOpacity() {
     config["trackopacity"] = document.getElementById("trackopacityslider").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 }
 
 function CheckSoundOnlyMode() {
@@ -4821,10 +4876,10 @@ function CheckSoundOnlyMode() {
 function ToggleSoundOnlyMode() {
     if (config.soundonly == "false") {
         config["soundonly"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["soundonly"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     CheckSoundOnlyMode();
 }
@@ -4864,23 +4919,29 @@ function CheckShortcut() {
 // EDIT: Removed option at script start instead                            //
 /////////////////////////////////////////////////////////////////////////////
 function CreateDesktopShortcut() {
-    CheckShortcut();
     if (fs.existsSync(shortcut)) {
-        document.getElementById("desktopbox").checked = true;
+        document.getElementById("desktopbox").checked = true
+        console.log(`%cDesktop Shortcut already exists.`, "color: deepskyblue")
     } else {
-        var desktopspawner = spawn("powershell.exe",["-Command",`$shell = New-Object -ComObject WScript.Shell; $shortcut = $shell.CreateShortcut('` + shortcut + `'); $shortcut.IconLocation = '` + path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","sanlogo.ico") + `'; $shortcut.TargetPath = '` + launcher.path + `'; $shortcut.Save(); $sc = "steam achievement notifier (V${thisver})"; $txtinfo = (Get-Culture).TextInfo; $scfix = $txtinfo.ToTitleCase($sc); Rename-Item -Path "` + shortcut + `" -NewName "$scfix.lnk"`]);
-        desktopspawner.stderr.on('data', (err) => {
-            console.log(`%cError: %cUnable to create Desktop Shortcut:\n%c${err}`, "color: red", "color: white", "color: deeppink")
-        })
-        desktopspawner.on('close', (code) => {
-            if (code == 0) {
-                console.log(`%cDesktop shortcut created.`, "color: seagreen")
+        const opts = {
+            target: launcher.path,
+            description: "Enhance your Steam achievement experience!"
+        }
+
+        try {
+            const desktopshortcut = shell.writeShortcutLink(shortcut, opts)
+
+            if (desktopshortcut.valueOf() == false) {
+                throw new Error("Desktop Shortcut Error: ")
             } else {
-                console.log(`%cError creating Desktop shortcut!`, "color: darkred")
+                console.log(`%cDesktop shortcut created successfully.`, "color: limegreen")
             }
-        })
-        document.getElementById("desktopbox").checked = true;
+        } catch (err) {
+            console.log(`%cDesktop shortcut could not be created!\n${err}`, "color: red")
+        }
     }
+
+    CheckShortcut()
 }
 
 function ShowAPI() {
@@ -4941,7 +5002,7 @@ function CheckAPIKey() {
 function SaveAPIKey() {
     var apivalue = document.getElementById("apibox").value;
     config["apikey"] = apivalue.replace(/\s+/g, "");
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     document.getElementById("apibox").value = apivalue;
 
     document.getElementById("saveapiimg").style.animation = "shrink 0.1s forwards";
@@ -5010,7 +5071,7 @@ function CheckSteam64ID() {
 function SaveSteam64ID() {
     var steam64value = document.getElementById("steam64box").value;
     config["steam64id"] = steam64value.replace(/\s+/g, "");
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     document.getElementById("steam64box").value = steam64value;
     
     document.getElementById("save64img").style.animation = "shrink 0.1s forwards";
@@ -5131,36 +5192,16 @@ function ShowRareTest() {
     document.getElementById("testrare").style.display = "flex";
 }
 
-function CheckScreenshot() {
-    if (config.screenshot == "true") {
-        document.getElementById("showscreenshotcheckbox").checked = true;
-    } else {
-        document.getElementById("showscreenshotcheckbox").checked = false;
-    }
-}
-
-CheckScreenshot();
-
-function CheckRareScreenshot() {
-    if (config.rarescreenshot == "true") {
-        document.getElementById("showscreenshotcheckboxrare").checked = true;
-    } else {
-        document.getElementById("showscreenshotcheckboxrare").checked = false;
-    }
-}
-
-CheckRareScreenshot();
-
-function ToggleScreenshot() {
-    if (config.screenshot == "false") {
-        config["screenshot"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-    } else {
-        config["screenshot"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-    }
-    CheckScreenshot();
-}
+// function ToggleScreenshot() {
+//     if (config.screenshot == "false") {
+//         config["screenshot"] = "true";
+//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+//     } else {
+//         config["screenshot"] = "false";
+//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+//     }
+//     CheckScreenshot();
+// }
 
 function CheckStartWin() {
     if (config.startwin == "true") {
@@ -5175,35 +5216,34 @@ function CheckStartWin() {
 // EDIT: Removed at script start instead                                       //
 /////////////////////////////////////////////////////////////////////////////////
 function ToggleStartWin() {
+    const startwin = path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup",`Steam Achievement Notifier (${appversion}).lnk`)
+
     if (config.startwin == "false") {
         config["startwin"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-        var startwinspawner = spawn("powershell.exe",["-Command",`$shell = New-Object -ComObject WScript.Shell; $shortcut = $shell.CreateShortcut('` + path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup","Steam Achievement Notifier (V" + thisver + ").lnk") + `'); $shortcut.IconLocation = '` + path.join(__dirname,"img","sanlogo.ico") + `'; $shortcut.TargetPath = '` + launcher.path + `'; $shortcut.Save();`]);
-        startwinspawner.stderr.on('data', (err) => {
-            console.log(`%cError: %cUnable to create "Start with Windows" shortcut:\n%c${err}`, "color: red", "color: white", "color: deeppink")
-        })
-        startwinspawner.on('close', (code) => {
-            if (code == 0) {
-                console.log(`%cStartWin shortcut created.`, "color: seagreen")
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+        
+        const opts = {
+            target: launcher.path,
+            description: "Enhance your Steam achievement experience!"
+        }
+
+        try {
+            const startwinshortcut = shell.writeShortcutLink(startwin, opts)
+
+            if (startwinshortcut.valueOf() == false) {
+                throw new Error("Startup Shortcut Error: ")
             } else {
-                console.log(`%cError creating StartWin shortcut!`, "color: darkred")
+                console.log(`%cStartup shortcut created successfully.`, "color: limegreen")
             }
-        })
+        } catch (err) {
+            console.log(`%cStartup shortcut could not be created!\n${err}`, "color: red")
+        }
     } else {
         config["startwin"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-        if (fs.existsSync(path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup",`Steam Achievement Notifier (V${thisver}).lnk`))) {
-            var startwinremover = spawn("powershell.exe",["-Command",`Remove-Item -Path '` + path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup","Steam Achievement Notifier (V" + thisver + ").lnk") + `'`]);
-            startwinremover.stderr.on('data', (err) => {
-                console.log(`%cError: %cUnable to remove "Start with Windows" shortcut:\n%c${err}`, "color: red", "color: white", "color: deeppink")
-            })
-            startwinremover.on('close', (code) => {
-                if (code == 0) {
-                    console.log(`%cStartWin shortcut removed.`, "color: seagreen")
-                } else {
-                    console.log(`%cError removing StartWin shortcut!`, "color: darkred")
-                }
-            })
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+
+        if (fs.existsSync(startwin)) {
+            fs.rmSync(startwin)
         } else {
             console.log(`%cStartWin shortcut no longer exists in "shell:startup"!`, "color: darkred")
         }
@@ -5222,10 +5262,10 @@ function CheckStartMin() {
 function ToggleStartMin() {
     if (config.startmin == "false") {
         config["startmin"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["startmin"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     CheckStartMin();
 }
@@ -5462,14 +5502,14 @@ function SetNotifyStyle() {
     config["notifystyle"] = document.getElementById("customiserstyledropdown").value;
     ipcRenderer.send('storedragwin')
 
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     CheckCustomPos();
 }
 
 function GetNotifyStyle() {
     document.getElementById("customiserstyledropdown").value = config.notifystyle;
     if (document.getElementById("customiserstyledropdown").value == "default") {
-        if (config.screenshot == "true") {
+        if (config.ssprev == "true") {
             notifywidth = 300;
             notifyheight = 219;
         } else {
@@ -5479,12 +5519,17 @@ function GetNotifyStyle() {
         paused = false;
         document.getElementById("pause").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webview").src = "./notify/default/preview/defaultpreview.html";
+            // document.getElementById("webview").src = "./notify/default/preview/defaultpreview.html";
+            document.getElementById("webview")
+            .loadURL(`file://${path.join(__dirname,"notify","default","preview","defaultpreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "xbox") {
-        if (config.screenshot == "true") {
+        if (config.ssprev == "true") {
             notifywidth = 315;
             notifyheight = 244;
         } else {
@@ -5494,12 +5539,17 @@ function GetNotifyStyle() {
         paused = false;
         document.getElementById("pause").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webview").src = "./notify/xbox/preview/xboxpreview.html";
+            // document.getElementById("webview").src = "./notify/xbox/preview/xboxpreview.html";
+            document.getElementById("webview")
+            .loadURL(`file://${path.join(__dirname,"notify","xbox","preview","xboxpreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "playstation") {
-        if (config.screenshot == "true") {
+        if (config.ssprev == "true") {
             notifywidth = 310;
             notifyheight = 224;
         } else {
@@ -5509,12 +5559,17 @@ function GetNotifyStyle() {
         paused = false;
         document.getElementById("pause").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webview").src = "./notify/playstation/preview/playstationpreview.html";
+            // document.getElementById("webview").src = "./notify/playstation/preview/playstationpreview.html";
+            document.getElementById("webview")
+            .loadURL(`file://${path.join(__dirname,"notify","playstation","preview","playstationpreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "ps5") {
-        if (config.screenshot == "true") {
+        if (config.ssprev == "true") {
             notifywidth = 340;
             notifyheight = 219;
         } else {
@@ -5524,12 +5579,17 @@ function GetNotifyStyle() {
         paused = false;
         document.getElementById("pause").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webview").src = "./notify/ps5/preview/ps5preview.html";
+            // document.getElementById("webview").src = "./notify/ps5/preview/ps5preview.html";
+            document.getElementById("webview")
+            .loadURL(`file://${path.join(__dirname,"notify","ps5","preview","ps5preview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "windows") {
-        if (config.screenshot == "true") {
+        if (config.ssprev == "true") {
             notifywidth = 300;
             notifyheight = 279;
         } else {
@@ -5539,12 +5599,17 @@ function GetNotifyStyle() {
         paused = false;
         document.getElementById("pause").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webview").src = "./notify/windows/preview/windowspreview.html";
+            // document.getElementById("webview").src = "./notify/windows/preview/windowspreview.html";
+            document.getElementById("webview")
+            .loadURL(`file://${path.join(__dirname,"notify","windows","preview","windowspreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "xbox360") {
-        if (config.screenshot == "true") {
+        if (config.ssprev == "true") {
             notifywidth = 300;
             notifyheight = 219;
         } else {
@@ -5554,12 +5619,17 @@ function GetNotifyStyle() {
         paused = false;
         document.getElementById("pause").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webview").src = "./notify/xbox360/preview/xbox360preview.html";
+            // document.getElementById("webview").src = "./notify/xbox360/preview/xbox360preview.html";
+            document.getElementById("webview")
+            .loadURL(`file://${path.join(__dirname,"notify","xbox360","preview","xbox360preview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdown").value == "xqjan") {
-        if (config.screenshot == "true") {
+        if (config.ssprev == "true") {
             notifywidth = 300;
             notifyheight = 239;
         } else {
@@ -5569,13 +5639,18 @@ function GetNotifyStyle() {
         paused = false;
         document.getElementById("pause").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webview").src = "./notify/xqjan/preview/xqjanpreview.html";
+            // document.getElementById("webview").src = "./notify/xqjan/preview/xqjanpreview.html";
+            document.getElementById("webview")
+            .loadURL(`file://${path.join(__dirname,"notify","xqjan","preview","xqjanpreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     }
 
-    if (document.getElementById("customiserstyledropdown").value == "xbox" || document.getElementById("customiserstyledropdown").value == "ps5") {
+    if (document.getElementById("customiserstyledropdown").value == "xbox") {
         document.getElementById("iconselectlbl").style.display = "none";
         document.getElementById("iconselectcont").style.display = "none";
         document.getElementById("gameiconcont").style.display = "none";
@@ -5592,7 +5667,7 @@ function SetNotifyStyleRare() {
     config["rarenotifystyle"] = document.getElementById("customiserstyledropdownrare").value;
     ipcRenderer.send('storedragwin')
 
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     CheckCustomPosRare();
 }
 
@@ -5601,7 +5676,7 @@ document.getElementById("customiserstyledropdownrare").value = config.rarenotify
 function GetNotifyStyleRare() {
     document.getElementById("customiserstyledropdownrare").value = config.rarenotifystyle;
     if (document.getElementById("customiserstyledropdownrare").value == "default") {
-        if (config.rarescreenshot == "true") {
+        if (config.raressprev == "true") {
             notifywidth = 300;
             notifyheight = 219;
         } else {
@@ -5611,12 +5686,17 @@ function GetNotifyStyleRare() {
         paused = false;
         document.getElementById("pauserare").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webviewrare").src = "./notify/default/rarepreview/defaultrarepreview.html";
+            // document.getElementById("webviewrare").src = "./notify/default/rarepreview/defaultrarepreview.html";
+            document.getElementById("webviewrare")
+            .loadURL(`file://${path.join(__dirname,"notify","default","rarepreview","defaultrarepreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "xbox") {
-        if (config.rarescreenshot == "true") {
+        if (config.raressprev == "true") {
             notifywidth = 315;
             notifyheight = 244;
         } else {
@@ -5626,12 +5706,17 @@ function GetNotifyStyleRare() {
         paused = false;
         document.getElementById("pauserare").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webviewrare").src = "./notify/xbox/rarepreview/xboxrarepreview.html";
+            // document.getElementById("webviewrare").src = "./notify/xbox/rarepreview/xboxrarepreview.html";
+            document.getElementById("webviewrare")
+            .loadURL(`file://${path.join(__dirname,"notify","xbox","rarepreview","xboxrarepreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "playstation") {
-        if (config.rarescreenshot == "true") {
+        if (config.raressprev == "true") {
             notifywidth = 310;
             notifyheight = 224;
         } else {
@@ -5641,12 +5726,17 @@ function GetNotifyStyleRare() {
         paused = false;
         document.getElementById("pauserare").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webviewrare").src = "./notify/playstation/rarepreview/playstationrarepreview.html";
+            // document.getElementById("webviewrare").src = "./notify/playstation/rarepreview/playstationrarepreview.html";
+            document.getElementById("webviewrare")
+            .loadURL(`file://${path.join(__dirname,"notify","playstation","rarepreview","playstationrarepreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "ps5") {
-        if (config.rarescreenshot == "true") {
+        if (config.raressprev == "true") {
             notifywidth = 340;
             notifyheight = 219;
         } else {
@@ -5656,12 +5746,17 @@ function GetNotifyStyleRare() {
         paused = false;
         document.getElementById("pauserare").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webviewrare").src = "./notify/ps5/rarepreview/ps5rarepreview.html";
+            // document.getElementById("webviewrare").src = "./notify/ps5/rarepreview/ps5rarepreview.html";
+            document.getElementById("webviewrare")
+            .loadURL(`file://${path.join(__dirname,"notify","ps5","rarepreview","ps5rarepreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "windows") {
-        if (config.rarescreenshot == "true") {
+        if (config.raressprev == "true") {
             notifywidth = 300;
             notifyheight = 279;
         } else {
@@ -5671,12 +5766,17 @@ function GetNotifyStyleRare() {
         paused = false;
         document.getElementById("pauserare").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webviewrare").src = "./notify/windows/rarepreview/windowsrarepreview.html";
+            // document.getElementById("webviewrare").src = "./notify/windows/rarepreview/windowsrarepreview.html";
+            document.getElementById("webviewrare")
+            .loadURL(`file://${path.join(__dirname,"notify","windows","rarepreview","windowsrarepreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "xbox360") {
-        if (config.rarescreenshot == "true") {
+        if (config.raressprev == "true") {
             notifywidth = 300;
             notifyheight = 219;
         } else {
@@ -5686,12 +5786,17 @@ function GetNotifyStyleRare() {
         paused = false;
         document.getElementById("pause").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webviewrare").src = "./notify/xbox360/rarepreview/xbox360rarepreview.html";
+            // document.getElementById("webviewrare").src = "./notify/xbox360/rarepreview/xbox360rarepreview.html";
+            document.getElementById("webviewrare")
+            .loadURL(`file://${path.join(__dirname,"notify","xbox360","rarepreview","xbox360rarepreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     } else if (document.getElementById("customiserstyledropdownrare").value == "xqjan") {
-        if (config.rarescreenshot == "true") {
+        if (config.raressprev == "true") {
             notifywidth = 300;
             notifyheight = 239;
         } else {
@@ -5701,13 +5806,18 @@ function GetNotifyStyleRare() {
         paused = false;
         document.getElementById("pause").src = "./icon/pause_white.svg";
         try {
-            document.getElementById("webviewrare").src = "./notify/xqjan/rarepreview/xqjanrarepreview.html";
+            // document.getElementById("webviewrare").src = "./notify/xqjan/rarepreview/xqjanrarepreview.html";
+            document.getElementById("webviewrare")
+            .loadURL(`file://${path.join(__dirname,"notify","xqjan","rarepreview","xqjanrarepreview.html")}`)
+            .catch(err => {
+                console.log(`%c${err}`, "color: red")
+            })
         } catch (err) {
             // console.log("%cWEBVIEW ERROR: " + err, "color: orange")
         }
     }
 
-    if (document.getElementById("customiserstyledropdownrare").value == "xbox" || document.getElementById("customiserstyledropdownrare").value == "ps5") {
+    if (document.getElementById("customiserstyledropdownrare").value == "xbox") {
         document.getElementById("rareiconselectlbl").style.display = "none";
         document.getElementById("rareiconselectcont").style.display = "none";
         document.getElementById("gameiconcontrare").style.display = "none";
@@ -5723,13 +5833,13 @@ GetNotifyStyleRare();
 function SetBGType() {
     if (document.getElementById("customiserbgdropdown").value == "bgsolid") {
         config["bgtype"] = "bgsolid";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else if (document.getElementById("customiserbgdropdown").value == "bg") {
         config["bgtype"] = "bg";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else if (document.getElementById("customiserbgdropdown").value == "img") {
         config["bgtype"] = "img";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     GetBGType();
 }
@@ -5786,13 +5896,13 @@ function GetBGType() {
 function SetRareBGType() {
     if (document.getElementById("customiserbgdropdownrare").value == "bgsolid") {
         config["rarebgtype"] = "bgsolid";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else if (document.getElementById("customiserbgdropdownrare").value == "bg") {
         config["rarebgtype"] = "bg";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else if (document.getElementById("customiserbgdropdownrare").value == "img") {
         config["rarebgtype"] = "img";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     GetRareBGType();
 }
@@ -5868,7 +5978,7 @@ function SetTopLeft() {
     document.getElementById("bottomcenter").style.opacity = "0.5";
     document.getElementById("bottomright").style.opacity = "0.5";
     config["notifypos"] = pos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));   
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));   
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     ReplayNotification();
@@ -5883,7 +5993,7 @@ function SetTopCenter() {
     document.getElementById("bottomcenter").style.opacity = "0.5";
     document.getElementById("bottomright").style.opacity = "0.5";
     config["notifypos"] = pos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     ReplayNotification();
@@ -5898,7 +6008,7 @@ function SetTopRight() {
     document.getElementById("bottomcenter").style.opacity = "0.5";
     document.getElementById("bottomright").style.opacity = "0.5";
     config["notifypos"] = pos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     ReplayNotification();
@@ -5913,7 +6023,7 @@ function SetBottomLeft() {
     document.getElementById("bottomcenter").style.opacity = "0.5";
     document.getElementById("bottomright").style.opacity = "0.5";
     config["notifypos"] = pos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     ReplayNotification();
@@ -5928,7 +6038,7 @@ function SetBottomCenter() {
     document.getElementById("bottomcenter").style.opacity = "1";
     document.getElementById("bottomright").style.opacity = "0.5";
     config["notifypos"] = pos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     ReplayNotification();
@@ -5943,7 +6053,7 @@ function SetBottomRight() {
     document.getElementById("bottomcenter").style.opacity = "0.5";
     document.getElementById("bottomright").style.opacity = "1";
     config["notifypos"] = pos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     ReplayNotification();
@@ -5958,7 +6068,7 @@ function SetTopLeftRare() {
     document.getElementById("bottomcenterrare").style.opacity = "0.5";
     document.getElementById("bottomrightrare").style.opacity = "0.5";
     config["rarenotifypos"] = rarepos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));   
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));   
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     ReplayRareNotification();
@@ -5973,7 +6083,7 @@ function SetTopCenterRare() {
     document.getElementById("bottomcenterrare").style.opacity = "0.5";
     document.getElementById("bottomrightrare").style.opacity = "0.5";
     config["rarenotifypos"] = rarepos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     ReplayRareNotification();
@@ -5988,7 +6098,7 @@ function SetTopRightRare() {
     document.getElementById("bottomcenterrare").style.opacity = "0.5";
     document.getElementById("bottomrightrare").style.opacity = "0.5";
     config["rarenotifypos"] = rarepos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     ReplayRareNotification();
@@ -6003,7 +6113,7 @@ function SetBottomLeftRare() {
     document.getElementById("bottomcenterrare").style.opacity = "0.5";
     document.getElementById("bottomrightrare").style.opacity = "0.5";
     config["rarenotifypos"] = rarepos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     ReplayRareNotification();
@@ -6018,7 +6128,7 @@ function SetBottomCenterRare() {
     document.getElementById("bottomcenterrare").style.opacity = "1";
     document.getElementById("bottomrightrare").style.opacity = "0.5";
     config["rarenotifypos"] = rarepos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     ReplayRareNotification();
@@ -6033,7 +6143,7 @@ function SetBottomRightRare() {
     document.getElementById("bottomcenterrare").style.opacity = "0.5";
     document.getElementById("bottomrightrare").style.opacity = "1";
     config["rarenotifypos"] = rarepos;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     ReplayRareNotification();
@@ -6042,7 +6152,7 @@ function SetBottomRightRare() {
 function SetColour1() {
     document.getElementById("colour1box").addEventListener('change', function() {
         config["colour1"] = document.getElementById("colour1box").value;
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     });
     GetBGType();
 }
@@ -6050,7 +6160,7 @@ function SetColour1() {
 function SetColour2() {
     document.getElementById("colour2box").addEventListener('change', function() {
         config["colour2"] = document.getElementById("colour2box").value;
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     });
     GetBGType();
 }
@@ -6058,7 +6168,7 @@ function SetColour2() {
 function SetTextColour() {
     document.getElementById("textcolourbox").addEventListener('change', function() {
         config["textcolour"] = document.getElementById("textcolourbox").value;
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     });
     GetBGType();
 }
@@ -6066,7 +6176,7 @@ function SetTextColour() {
 function SetRareColour1() {
     document.getElementById("rarecolour1box").addEventListener('change', function() {
         config["rarecolour1"] = document.getElementById("rarecolour1box").value;
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     });
     GetRareBGType();
 }
@@ -6074,7 +6184,7 @@ function SetRareColour1() {
 function SetRareColour2() {
     document.getElementById("rarecolour2box").addEventListener('change', function() {
         config["rarecolour2"] = document.getElementById("rarecolour2box").value;
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     });
     GetRareBGType();
 }
@@ -6082,39 +6192,39 @@ function SetRareColour2() {
 function SetRareTextColour() {
     document.getElementById("raretextcolourbox").addEventListener('change', function() {
         config["raretextcolour"] = document.getElementById("raretextcolourbox").value;
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     });
     GetRareBGType();
 }
 
 document.getElementById("roundness").addEventListener('input', function() {
     config["roundness"] = document.getElementById("roundness").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     GetBGType();
 });
 
 document.getElementById("roundnessrare").addEventListener('input', function() {
     config["rareroundness"] = document.getElementById("roundnessrare").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     GetRareBGType();
 });
 
 document.getElementById("iconroundness").addEventListener('input', function() {
     config["iconroundness"] = document.getElementById("iconroundness").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     GetBGType();
 });
 
 document.getElementById("iconroundnessrare").addEventListener('input', function() {
     config["rareiconroundness"] = document.getElementById("iconroundnessrare").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     GetRareBGType();
 });
 
 document.getElementById("imgselect").onchange = function(selection) {
     var file = selection.target.files[0];
     config["img"] = (file.path).replace(/\\/g,"/");
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     PauseNotification();
     GetBGType();
     paused = false;
@@ -6125,7 +6235,7 @@ document.getElementById("imgselect").onchange = function(selection) {
 document.getElementById("rareimgselect").onchange = function(selection) {
     var file = selection.target.files[0];
     config["rareimg"] = (file.path).replace(/\\/g,"/");
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     GetRareBGType();
@@ -6141,7 +6251,7 @@ document.getElementById("iconselect").onchange = function(selection) {
     try {
         config["icon"] = file.replace(/\\/g,"/");
     } catch {}
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     PauseNotification();
     GetBGType();
     paused = false;
@@ -6156,7 +6266,7 @@ document.getElementById("rareiconselect").onchange = function(selection) {
     try {
         config["rareicon"] = file.replace(/\\/g,"/");
     } catch {}
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     GetRareBGType();
@@ -6171,7 +6281,7 @@ document.getElementById("displaytimevalue").innerHTML = config.displaytime + "s"
 function SetDisplayTime() {
     var displaytime = document.getElementById("displaytimeslider").value;
     config["displaytime"] = displaytime;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     document.getElementById("webview").reload();
@@ -6183,7 +6293,7 @@ document.getElementById("displaytimevaluerare").innerHTML = config.raredisplayti
 function SetRareDisplayTime() {
     var displaytime = document.getElementById("displaytimesliderrare").value;
     config["raredisplaytime"] = displaytime;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     document.getElementById("webviewrare").reload();
@@ -6194,26 +6304,58 @@ function OpenDevTools() {
     document.getElementsByTagName('webview')[0].openDevTools()
 }
 
+function CheckScreenshot() {
+    if (config.screenshot == "true") {
+        document.getElementById("showscreenshotcheckbox").checked = true;
+        document.getElementById("showscreenshotlblcont").style.marginBottom = "5px";
+        document.getElementById("previewlblcont").style.display = "flex";
+        document.getElementById("previewlblcont").style.animation = "fadein 1s forwards";
+    } else {
+        document.getElementById("showscreenshotcheckbox").checked = false;
+        document.getElementById("showscreenshotlblcont").style.marginBottom = "10px";
+        document.getElementById("previewlblcont").style.display = "none";
+    }
+}
+
+CheckScreenshot();
+
 function ToggleShowScreenshot() {
     if (config.screenshot == "true") {
         config["screenshot"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["screenshot"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
-    document.getElementById("webview").reload();
+
+    CheckScreenshot()
+    GetNotifyStyle()
 }
+
+function CheckRareScreenshot() {
+    if (config.rarescreenshot == "true") {
+        document.getElementById("showscreenshotcheckboxrare").checked = true;
+        document.getElementById("previewlblcontrare").style.display = "flex";
+        document.getElementById("previewlblcontrare").style.animation = "fadein 1s forwards";
+    } else {
+        document.getElementById("showscreenshotcheckboxrare").checked = false;
+        document.getElementById("previewlblcontrare").style.display = "none";
+    }
+}
+
+CheckRareScreenshot();
 
 function ToggleShowRareScreenshot() {
     if (config.rarescreenshot == "true") {
         config["rarescreenshot"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["rarescreenshot"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
-    document.getElementById("webviewrare").reload();
+
+    CheckRareScreenshot()
+    GetNotifyStyleRare()
 }
 
 function ToggleMainTab() {
@@ -6221,19 +6363,19 @@ function ToggleMainTab() {
     GetNotifyStyle();
 
     document.getElementById("customisermaintab").addEventListener('mouseover', function() {
-        this.style.opacity = "1";
+        document.getElementById("customisermaintab").style.opacity = "1";
     })
 
     document.getElementById("customisermaintab").addEventListener('mouseleave', function() {
-        this.style.opacity = "1";
+        document.getElementById("customisermaintab").style.opacity = "1";
     })
 
     document.getElementById("customiserraretab").addEventListener('mouseover', function() {
-        this.style.opacity = "1";
+        document.getElementById("customiserraretab").style.opacity = "1";
     })
 
     document.getElementById("customiserraretab").addEventListener('mouseleave', function() {
-        this.style.opacity = "0.5";
+        document.getElementById("customiserraretab").style.opacity = "0.5";
     })
 
     document.getElementById("customisermaintab").style.background = "white";
@@ -6277,19 +6419,19 @@ function ToggleRareTab() {
     GetNotifyStyleRare();
 
     document.getElementById("customiserraretab").addEventListener('mouseover', function() {
-        this.style.opacity = "1";
+        document.getElementById("customiserraretab").style.opacity = "1";
     })
 
     document.getElementById("customiserraretab").addEventListener('mouseleave', function() {
-        this.style.opacity = "1";
+        document.getElementById("customiserraretab").style.opacity = "1";
     })
 
     document.getElementById("customisermaintab").addEventListener('mouseover', function() {
-        this.style.opacity = "1";
+        document.getElementById("customisermaintab").style.opacity = "1";
     })
 
     document.getElementById("customisermaintab").addEventListener('mouseleave', function() {
-        this.style.opacity = "0.5";
+        document.getElementById("customisermaintab").style.opacity = "0.5";
     })
 
     document.getElementById("customiserraretab").style.background = "white";
@@ -6387,7 +6529,7 @@ function SetKeybind() {
         
         if (keybind != "INVALID") {
             config["keybind"] = keybind;
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             
             document.getElementById("steamkeybind").innerHTML = keybind;
             document.getElementById("steamkeybind").style.animation = "none";
@@ -6416,7 +6558,7 @@ function SetKeybind() {
 //         var key = event.key;
 
 //         config["keybind"] = key;
-//         fs.writeFileSync(path.join(process.env.LOCALAPPDATA,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+//         fs.writeFileSync(path.join(process.env.sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
         
 //         document.getElementById("steamkeybind").innerHTML = key.toUpperCase();
 //         document.getElementById("steamkeybind").style.animation = "none";
@@ -6514,7 +6656,7 @@ function SetKeybind() {
 //             }
 
 //             config["keybind"] = keybind;
-//             fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+//             fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
             
 //             document.getElementById("steamkeybind").innerHTML = keybind.replace("KEY_","").replace("PAD_","Num ");
 //             document.getElementById("steamkeybind").style.animation = "none";
@@ -6539,7 +6681,7 @@ document.getElementById("scalevalue").innerHTML = config.scale + "%";
 
 function SetScale() {
     config["scale"] = document.getElementById("scaleslider").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     document.getElementById("webview").reload();
@@ -6550,7 +6692,7 @@ document.getElementById("scalevaluerare").innerHTML = config.rarescale + "%";
 
 function SetRareScale() {
     config["rarescale"] = document.getElementById("scalesliderrare").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     document.getElementById("webviewrare").reload();
@@ -6561,7 +6703,7 @@ document.getElementById("rarityvalue").innerHTML = config.rarity;
 
 function SetRarity() {
     config["rarity"] = document.getElementById("rarityslider").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 }
 
 document.getElementById("audio").volume = (config.volume * 10) / 100;
@@ -6577,7 +6719,7 @@ function Volume(event) {
     }
     document.getElementById("audio").volume = (config.volume * 10) / 100;
     config["volume"] = document.getElementById("volumeslider").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 }
 
 function ShowVolume() {
@@ -6600,7 +6742,7 @@ function VolumeRare(event) {
     }
     document.getElementById("audiorare").volume = (config.rarevolume * 10) / 100;
     config["rarevolume"] = document.getElementById("volumesliderrare").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 }
 
 function ShowVolumeRare() {
@@ -6761,7 +6903,7 @@ function SANIdle() {
         
         var gpalocal = `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${apikey}&steamid=${steam64id}&l=${lang}&?__random=${random}`;
         fetch(gpalocal).then(response => response.json()).then((data) => {
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","local.json"), JSON.stringify(data));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), JSON.stringify(data));
         }).catch(error => {
             console.log("%cSTEAM WEB API ERROR: " + error, "color: red");
         });
@@ -6771,7 +6913,7 @@ function SANIdle() {
         GetAppIDFromRegKey();
         
         if (appid == 0 || appid == undefined) {
-            console.log("%cNo game detected", "color: darkred;");
+            // console.log("%cNo game detected", "color: darkred;");
         } else {
             if (process.platform == "win32") {
                 regkey.list([`HKCU\\SOFTWARE\\Valve\\Steam\\Apps\\${appid}`], function(err, result) {
@@ -6877,7 +7019,7 @@ async function StartSAN() {
         if (!gamestats.games[appid]) {
             gamestats.games["" + appid + ""] = {};
             gamestats.games[appid]["completed"] = false;
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","gamestats.json"), JSON.stringify(gamestats, null, 2));
+            fs.writeFileSync(path.join(sanlocalappdata,"store","gamestats.json"), JSON.stringify(gamestats, null, 2));
         }
 
         function GetAchievementsFromURL() {
@@ -6888,7 +7030,7 @@ async function StartSAN() {
 
             var gpa = `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${apikey}&steamid=${steam64id}&l=${lang}&?__random=${random}`;
             fetch(gpa).then(response => response.json()).then((data) => {
-                var local = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","local.json")));
+                var local = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","local.json")));
                 var url = data;
 
                 function MainNotification(t, d, i) {
@@ -6926,7 +7068,7 @@ async function StartSAN() {
                         title: notifytitle,
                         desc: notifydesc,
                         icon: notifyicon,
-                        screenshot: config.screenshot,
+                        screenshot: config.ssprev,
                         pos: config.notifypos,
                         scale: config.scale,
                         percent: percent,
@@ -6988,7 +7130,7 @@ async function StartSAN() {
                     if (notifydesc == "" || notifydesc == undefined) {
                         achievementarr.forEach((achievement) => {
                             if (notifytitle == achievement.name) {
-                                notifydesc = achievement.desc
+                                notifydesc = `${achievement.desc} (${secret})`
                             }
                         })
                     }
@@ -7004,7 +7146,7 @@ async function StartSAN() {
                         title: notifytitle,
                         desc: notifydesc,
                         icon: notifyicon,
-                        screenshot: config.rarescreenshot,
+                        screenshot: config.raressprev,
                         pos: config.rarenotifypos,
                         scale: config.rarescale,
                         percent: percent,
@@ -7068,11 +7210,11 @@ async function StartSAN() {
                 }
 
                 setTimeout(() =>{
-                    if (config.screenshot == "true") {
+                    if (config.ssprev == "true") {
                         desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 1280, height: 720 }}).then(function(sources) {
                             screenshot = sources[0].thumbnail.toDataURL();
                         });
-                    } else if (config.rarescreenshot == "true") {
+                    } else if (config.raressprev == "true") {
                         desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 1280, height: 720 }}).then(function(sources) {
                             screenshot = sources[0].thumbnail.toDataURL();
                         });
@@ -7096,7 +7238,7 @@ async function StartSAN() {
                             GameCompletionNotification();
 
                             gamestats.games[appid]["completed"] = true;
-                            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","gamestats.json"), JSON.stringify(gamestats, null, 2));
+                            fs.writeFileSync(path.join(sanlocalappdata,"store","gamestats.json"), JSON.stringify(gamestats, null, 2));
                         } else {
                             console.log("%cGame has not yet been completed", "color: orange;");
                         }
@@ -7137,8 +7279,8 @@ async function StartSAN() {
                         }
 
                         setTimeout(function() {
-                            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","local.json"), JSON.stringify(url));
-                            local = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","local.json")));
+                            fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), JSON.stringify(url));
+                            local = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","local.json")));
                         }, 100);
 
                         if (config.gamecomplete == "true") {
@@ -7168,7 +7310,7 @@ async function StartSAN() {
 
             if (appid == 0 || appid == undefined || appid !== currgame) {
                 clearInterval(checkgame);
-                fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","local.json"), "");
+                fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), "");
                 document.getElementById("gamestatus").style.color = "red";
                 document.getElementById("gamestatus").innerHTML = nogame;
                 ipcRenderer.send('idle', traylabel, trayshow, trayexit);
@@ -7198,7 +7340,7 @@ async function StartSAN() {
 
             if (appid == 0 || appid == undefined || appid !== currgame) {
                 clearInterval(checkappid);
-                fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","local.json"), "");
+                fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), "");
                 document.getElementById("gamestatus").style.color = "red";
                 document.getElementById("gamestatus").innerHTML = nogame;
                 ipcRenderer.send('idle', traylabel, trayshow, trayexit);
@@ -7274,7 +7416,7 @@ function ToggleNoSteam() {
         document.getElementById("nosteamloadcont").style.display = "flex";
 
         config["nosteam"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
         if (fs.existsSync(path.join(steampath,"skins","NoSteamNotifications","resource","styles","steam.styles"))) {
             SetSkinInReg();
@@ -7289,7 +7431,7 @@ function ToggleNoSteam() {
         document.getElementById("nosteamloadcont").style.display = "flex";
         
         config["nosteam"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
         RemoveSkinInReg();
     }
@@ -7308,10 +7450,10 @@ function CheckAllPercent() {
 function ToggleAllPercent() {
     if (config.allpercent == "false") {
         config["allpercent"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["allpercent"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     CheckAllPercent();
 }
@@ -7327,18 +7469,18 @@ function CheckNVDA() {
 function ToggleNVDA() {
     if (config.nvda == "false") {
         config["nvda"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["nvda"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     CheckNVDA();
 }
 
 function CheckHWA() {
     if (config.hwa == "true") {
-        if (!fs.existsSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt"))) {
-            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt"), "")
+        if (!fs.existsSync(path.join(sanlocalappdata,"store","hwa.txt"))) {
+            fs.writeFileSync(path.join(sanlocalappdata,"store","hwa.txt"), "")
         }
 
         document.getElementById("hwabox").checked = true;
@@ -7350,13 +7492,13 @@ function CheckHWA() {
 function ToggleHWA() {
     if (config.hwa == "false") {
         config["hwa"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt"), "")
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","hwa.txt"), "")
         ipcRenderer.send('resetcomplete');
     } else {
         config["hwa"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-        fs.rmSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt"))
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+        fs.rmSync(path.join(sanlocalappdata,"store","hwa.txt"))
         ipcRenderer.send('resetcomplete');
     }
 }
@@ -7380,14 +7522,14 @@ function CheckIfSteamIsRunning() {
         var steam = process.toLowerCase().indexOf(execname);
 
         if (steam == -1) {
+            console.log("%cSteam is NOT running", "color: red");
+
             var checkprocesses = setInterval(function() {
                 exec(tasklist, function(err, process) {
                     var steamrecheck = process.toLowerCase().indexOf(execname);
                     if (steamrecheck !== -1) {
                         clearInterval(checkprocesses);
                         ipcRenderer.send('reloadapp');
-                    } else {
-                        console.log("%cSteam is NOT running", "color: red");
                     }
                 });
             }, 2000);
@@ -7418,7 +7560,7 @@ function GameCompletionNotification() {
         title: notifytitle,
         desc: notifydesc,
         icon: notifyicon,
-        screenshot: config.rarescreenshot,
+        screenshot: config.raressprev,
         pos: config.rarenotifypos,
         scale: config.rarescale
     };
@@ -7470,10 +7612,10 @@ CheckIconAnimation();
 function ToggleIconAnimation() {
     if (config.iconanim == "false") {
         config["iconanim"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["iconanim"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     CheckIconAnimation();
 }
@@ -7481,12 +7623,12 @@ function ToggleIconAnimation() {
 function CheckSSOverlay() {
     if (!config.ssoverlay) {
         config["ssoverlay"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
 
     if (!config.ovpath) {
         config["ovpath"] = ""; 
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     
     if (config.ovpath == "") {
@@ -7527,18 +7669,10 @@ CheckSSOverlay();
 function ToggleSSOverlay() {
     if (config.ssoverlay == "false") {
         config["ssoverlay"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-    
-        // if (config.ssoverlay == "true" && config.screenshot == "false" && config.rarescreenshot == "false") {
-        //     document.getElementById("sserror").style.display = "block";
-        // } else {
-        //     document.getElementById("sserror").style.display = "none";
-        // }
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["ssoverlay"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
-    
-        // document.getElementById("sserror").style.display = "none";
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
 
     CheckSSOverlay();
@@ -7570,7 +7704,7 @@ ipcRenderer.on('unlockpath', (event, folder) => {
     CheckPathLock();
 
     config["ovpath"] = folder;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
     var folderpath = folder;
 
@@ -7594,7 +7728,7 @@ ipcRenderer.on('unlockpath', (event, folder) => {
 function CheckGameCompletion() {
     if (!config.gamecomplete) {
         config["gamecomplete"] = "true"; 
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
 
     if (config.gamecomplete == "true") {
@@ -7609,10 +7743,10 @@ CheckGameCompletion();
 function ToggleGameCompletion() {
     if (config.gamecomplete == "false") {
         config["gamecomplete"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["gamecomplete"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     CheckGameCompletion();
 }
@@ -7623,18 +7757,11 @@ function CheckCustomPos() {
         document.getElementById("dragposbtn").style.display = "none";
         document.getElementById("notifypositioncont").style.opacity = "1";
         document.getElementById("notifypositioncont").style.pointerEvents = "auto";
-        // document.getElementById("dircont").style.display = "none";
     } else {
         document.getElementById("dragposbox").checked = true;
         document.getElementById("dragposbtn").style.display = "flex";
         document.getElementById("notifypositioncont").style.opacity = "0.5";
         document.getElementById("notifypositioncont").style.pointerEvents = "none";
-        
-        // if (document.getElementById("customiserstyledropdown").value == "playstation" || document.getElementById("customiserstyledropdown").value == "windows") {
-        //     document.getElementById("dircont").style.display = "flex";
-        // } else {
-        //     document.getElementById("dircont").style.display = "none";
-        // }
     }
 }
 
@@ -7643,10 +7770,10 @@ CheckCustomPos()
 function ToggleCustomPos() {
     if (config.custompos == "false") {
         config["custompos"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["custompos"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     CheckCustomPos()
 }
@@ -7657,18 +7784,11 @@ function CheckCustomPosRare() {
         document.getElementById("dragposbtnrare").style.display = "none";
         document.getElementById("notifypositioncontrare").style.opacity = "1";
         document.getElementById("notifypositioncontrare").style.pointerEvents = "auto";
-        // document.getElementById("dircontrare").style.display = "none";
     } else {
         document.getElementById("dragposboxrare").checked = true;
         document.getElementById("dragposbtnrare").style.display = "flex";
         document.getElementById("notifypositioncontrare").style.opacity = "0.5";
         document.getElementById("notifypositioncontrare").style.pointerEvents = "none";
-
-        // if (document.getElementById("customiserstyledropdownrare").value == "playstation" || document.getElementById("customiserstyledropdownrare").value == "windows") {
-        //     document.getElementById("dircontrare").style.display = "flex";
-        // } else {
-        //     document.getElementById("dircontrare").style.display = "none";
-        // }
     }
 }
 
@@ -7677,10 +7797,10 @@ CheckCustomPosRare()
 function ToggleCustomPosRare() {
     if (config.rarecustompos == "false") {
         config["rarecustompos"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     } else {
         config["rarecustompos"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
     CheckCustomPosRare()
 }
@@ -7748,13 +7868,13 @@ function RecenterDragWin() {
 ipcRenderer.on('saveposmain', (event, x, y) => {
     config["x"] = x;
     config["y"] = y;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 });
 
 ipcRenderer.on('saveposrare', (event, x, y) => {
     config["rarex"] = x;
     config["rarey"] = y;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 });
 
 if (config.fontsize == undefined) {
@@ -7775,7 +7895,7 @@ if (config.rarefontsize == undefined) {
 
 function SetFontSize() {
     config["fontsize"] = document.getElementById("fontsizeslider").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pause").src = "./icon/pause_white.svg";
     document.getElementById("webview").reload();
@@ -7783,7 +7903,7 @@ function SetFontSize() {
 
 function SetFontSizeRare() {
     config["rarefontsize"] = document.getElementById("fontsizesliderrare").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     paused = false;
     document.getElementById("pauserare").src = "./icon/pause_white.svg";
     document.getElementById("webviewrare").reload();
@@ -7799,35 +7919,31 @@ if (config.opacity == undefined) {
 
 function SetOpacity() {
     config["opacity"] = document.getElementById("opacityslider").value;
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 }
 
 function ResetIcon() {
     document.getElementById("iconselecticon").src = "./img/sanlogosquare.svg"
 
     config["icon"] = "";
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
-    paused = false;
-    document.getElementById("pause").src = "./icon/pause_white.svg";
-    document.getElementById("webview").reload();
+    GetNotifyStyle()
 }
 
 function ResetIconRare() {
     document.getElementById("rareiconselecticon").src = "./img/sanlogosquare.svg"
 
     config["rareicon"] = "";
-    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
-    paused = false;
-    document.getElementById("pause").src = "./icon/pause_white.svg";
-    document.getElementById("webviewrare").reload();
+    GetNotifyStyleRare()
 }
 
 function CheckGameIcon() {
     if (config.gameicon == undefined) {
         config["gameicon"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
 
     if (config.gameicon == "true") {
@@ -7846,14 +7962,14 @@ CheckGameIcon();
 function ToggleGameIcon() {
     if (config.gameicon == "false") {
         config["gameicon"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
         
-        document.getElementById("webview").reload();
+        GetNotifyStyle()
     } else {
         config["gameicon"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
-        document.getElementById("webview").reload();
+        GetNotifyStyle()
     }
     CheckGameIcon();
 }
@@ -7861,7 +7977,7 @@ function ToggleGameIcon() {
 function CheckGameIconRare() {
     if (config.raregameicon == undefined) {
         config["raregameicon"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
 
     if (config.raregameicon == "true") {
@@ -7880,14 +7996,14 @@ CheckGameIconRare();
 function ToggleGameIconRare() {
     if (config.raregameicon == "false") {
         config["raregameicon"] = "true";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
-        document.getElementById("webviewrare").reload();
+        GetNotifyStyleRare()
     } else {
         config["raregameicon"] = "false";
-        fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
-        document.getElementById("webviewrare").reload();
+        GetNotifyStyleRare()
     }
     CheckGameIconRare();
 }
@@ -7929,12 +8045,72 @@ function ToggleSSTestType() {
     }
 }
 
+function CheckScreenshotPreview() {
+    if (config.ssprev == undefined) {
+        config["ssprev"] = "true"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+    }
+
+    if (config.ssprev == "true") {
+        document.getElementById("previewcheckbox").checked = true
+    } else {
+        document.getElementById("previewcheckbox").checked = false
+    }
+}
+
+CheckScreenshotPreview()
+
+function ToggleScreenshotPreview() {
+    if (config.ssprev == "true") {
+        config["ssprev"] = "false"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+    } else {
+        config["ssprev"] = "true"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+    }
+
+    GetNotifyStyle()
+    CheckScreenshotPreview()
+}
+
+function CheckScreenshotPreviewRare() {
+    if (config.raressprev == undefined) {
+        config["raressprev"] = "true"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+    }
+
+    if (config.raressprev == "true") {
+        document.getElementById("previewcheckboxrare").checked = true
+    } else {
+        document.getElementById("previewcheckboxrare").checked = false
+    }
+}
+
+CheckScreenshotPreviewRare()
+
+function ToggleScreenshotPreviewRare() {
+    if (config.raressprev == "true") {
+        config["raressprev"] = "false"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+    } else {
+        config["raressprev"] = "true"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+    }
+
+    GetNotifyStyleRare()
+    CheckScreenshotPreviewRare()
+}
+
 // Clears webFrame cache every minute
 // Removes images from cache which apparently hogs memory
 // const { webFrame } = require('electron');
 // var clearcache = setInterval(function() {
 //     webFrame.clearCache();
 // }, 60000);
+
+ipcRenderer.on('displayupdated', (event, w, h, sf) => {
+    console.log(`%cPrimary Display metrics updated!\n`, "color: mediumpurple", { resolution: `${w} x ${h}`, scaleFactor: `${sf * 100}%` })
+})
 
 ipcRenderer.on('warnmsg', (e, m) => {
     console.log(`%c${m}`, "color: orange")

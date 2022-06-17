@@ -4,6 +4,8 @@ const startapp = () => {
     const fs = require('fs');
     const shell = require('electron').shell;
     const os = require('os');
+    const appversion = "V1.84"
+    const appdir = "V1.8"
 
     app.commandLine.appendSwitch("disable-background-timer-throttling");
 
@@ -23,7 +25,7 @@ const startapp = () => {
 
     // app.disableHardwareAcceleration() massively reduces memory usage on integrated graphics
     // Allows manual garbage collection via "gc()"
-    if (fs.existsSync(localappdata,"Steam Achievement Notifier (V1.8)","store","hwa.txt")) {
+    if (fs.existsSync(localappdata,`Steam Achievement Notifier (${appdir})`,"store","hwa.txt")) {
         console.log("No HWA")
 
         app.disableHardwareAcceleration();
@@ -38,7 +40,7 @@ const startapp = () => {
     }
 
     function RunApp() {
-        const sanlocalappdata = path.join(localappdata,"Steam Achievement Notifier (V1.8)");
+        const sanlocalappdata = path.join(localappdata,`Steam Achievement Notifier (${appdir})`);
 
         function CheckConfig() {
             if (!fs.existsSync(path.join(sanlocalappdata,"store"))) {
@@ -92,16 +94,15 @@ const startapp = () => {
         }
 
         try {
-            JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+            JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
         } catch (err) {
             throw new Error(`"config.json" caused an error on load: "${err}"`)
         }
 
-        const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+        const config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
 
         let win;
         let tray = null;
-        var ver = "1.84";
 
         function createWindow() {
             win = new BrowserWindow({
@@ -111,7 +112,7 @@ const startapp = () => {
                 autoHideMenuBar: true,
                 frame: false,
                 center: true,
-                title: "Steam Achievement Notifier (V" + ver + ")",
+                title: `Steam Achievement Notifier (${appversion})`,
                 icon: appicon,
                 resizable: false,
                 maximizable: false,
@@ -126,7 +127,7 @@ const startapp = () => {
                 }
             });
 
-            win.loadFile(path.join(__dirname, "index.html"));
+            win.loadFile(path.join(__dirname, "index.html"))
 
             win.webContents.setBackgroundThrottling(false);
 
@@ -156,11 +157,19 @@ const startapp = () => {
 
         app.whenReady().then(function(){
             const { screen } = require('electron');
-            const primaryDisplay = screen.getPrimaryDisplay().bounds;
-
-            display = primaryDisplay;
-
+            display = screen.getPrimaryDisplay().bounds;
             screenobj = screen;
+
+            screen.on('display-metrics-changed', (event, disp) => {
+                if (disp.id == screen.getPrimaryDisplay().id) {
+                    win.webContents.send('displayupdated', disp.bounds.width, disp.bounds.height, disp.scaleFactor)
+                    display = screen.getPrimaryDisplay().bounds
+                    screenobj = screen
+                    win.setMinimumSize(700,500)
+                    win.setSize(700,500)
+                    win.center()
+                }
+            })
         });
 
         ipcMain.on('trackwin', function(event, gamename, appid) {
@@ -222,7 +231,7 @@ const startapp = () => {
         });
 
         ipcMain.on('notifywin', function(event, queueobj) {
-            var config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
 
             var width = queueobj.width * queueobj.scale * 0.01;
             var height = queueobj.height * queueobj.scale * 0.01;
@@ -614,9 +623,9 @@ const startapp = () => {
 
             notifywin.loadFile(notifysrc);
 
-            if (config.screenshot == "true" || config.rarescreenshot == "true") {
+            if (config.screenshot == "true" && config.ssprev == "true" || config.rarescreenshot == "true" && config.raressprev == "true") {
                 desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 852, height: 480 }}).then(function(sources) {
-                    fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","ss.png"), sources[0].thumbnail.toPNG());
+                    fs.writeFileSync(path.join(sanlocalappdata,"img","ss.png"), sources[0].thumbnail.toPNG());
                 });
             }
 
@@ -626,7 +635,6 @@ const startapp = () => {
 
                 notifywin.show();
                 notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon);
-                
                 // notifywin.webContents.openDevTools({ mode: 'detach' })
             });
 
@@ -670,7 +678,7 @@ const startapp = () => {
             ];
             
             const contextMenu = Menu.buildFromTemplate(menuTemplate);
-            tray.setToolTip("Steam Achievement Notifier (V" + ver + ")");
+            tray.setToolTip(`Steam Achievement Notifier (${appversion})`);
             tray.setContextMenu(contextMenu);
             tray.on('double-click', function() {
                 win.show();
@@ -702,7 +710,7 @@ const startapp = () => {
                     }
                 ];
                 const contextMenu = Menu.buildFromTemplate(menuTemplate);
-                tray.setToolTip("Steam Achievement Notifier (V" + ver + ")");
+                tray.setToolTip(`Steam Achievement Notifier (${appversion})`);
                 tray.setContextMenu(contextMenu);
                 tray.on('double-click', function() {
                     win.show();
@@ -740,7 +748,7 @@ const startapp = () => {
                     }
                 ];
                 const contextMenu = Menu.buildFromTemplate(menuTemplate);
-                tray.setToolTip("Steam Achievement Notifier (V" + ver + ")");
+                tray.setToolTip(`Steam Achievement Notifier (${appversion})`);
                 tray.setContextMenu(contextMenu);
             });
 
@@ -771,7 +779,7 @@ const startapp = () => {
                     }
                 ];
                 const contextMenu = Menu.buildFromTemplate(menuTemplate);
-                tray.setToolTip("Steam Achievement Notifier (V" + ver + ")");
+                tray.setToolTip(`Steam Achievement Notifier (${appversion})`);
                 tray.setContextMenu(contextMenu);
             });
         });
@@ -788,7 +796,7 @@ const startapp = () => {
         });
 
         ipcMain.on('resetcomplete', function() {
-            var launcher = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","launcher.json")));
+            var launcher = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","launcher.json")));
 
             app.relaunch({ execPath: launcher.path });
             app.exit();
@@ -843,7 +851,7 @@ const startapp = () => {
         }
 
         ipcMain.on('ovpath', function() {
-            var config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
 
             win.webContents.send('lockpath')
 
@@ -883,11 +891,12 @@ const startapp = () => {
         })
 
         ipcMain.on('overlaytest', (event, type) => {
+            var screenwidth = display.width * screenobj.getPrimaryDisplay().scaleFactor
+            var screenheight = display.height * screenobj.getPrimaryDisplay().scaleFactor
+
             const imgtestwin = new BrowserWindow({
-                // width: 640,
-                // height: 360,
-                width: 1920,
-                height: 1080,
+                width: screenwidth,
+                height: screenheight,
                 center: true,
                 frame: false,
                 transparent: true,
@@ -897,25 +906,29 @@ const startapp = () => {
                     nodeIntegration: true,
                     contextIsolation: false
                 }
-            });
+            })
 
-            const imgtestpath = path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","app","notify","imgwin","imgwin.html")
-
-            imgtestwin.loadFile(path.join(__dirname,"notify","imgwin","imgwin.html"));
-
+            imgtestwin.loadFile(path.join(__dirname,"notify","imgwin","imgwin.html"))
             imgtestwin.webContents.send('test', type)
         })
 
         ipcMain.on('img', function(event, title, desc, icon, game, type, percent) {
+            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
+
+            var screenwidth = display.width * screenobj.getPrimaryDisplay().scaleFactor
+            var screenheight = display.height * screenobj.getPrimaryDisplay().scaleFactor
+
             function TakeScreenshot() {
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 1920, height: 1080 }}).then(function(sources) {
-                            // fs.writeFileSync(path.join(__dirname,"img","ss1080p.png"), sources[0].thumbnail.toPNG());
-                            fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","ss1080p.png"), sources[0].thumbnail.toPNG());
-                            resolve()
-                        });
-                    }, 100)
+                return new Promise((resolve, reject) => {
+                    desktopCapturer.getSources({ types: ['screen'], thumbnailSize: {
+                        width: screenwidth,
+                        height: screenheight
+                    }}).then((sources) => {
+                        fs.writeFileSync(path.join(sanlocalappdata,"img","ss1080p.png"), sources[0].thumbnail.toPNG());
+                        resolve()
+                    }).catch(err => {
+                        reject(err)
+                    })
                 })
             }
 
@@ -924,8 +937,8 @@ const startapp = () => {
                     await TakeScreenshot()
 
                     const imgwin = new BrowserWindow({
-                        width: 1920,
-                        height: 1080,
+                        width: screenwidth,
+                        height: screenheight,
                         center: true,
                         frame: false,
                         fullscreen: true,
@@ -936,27 +949,29 @@ const startapp = () => {
                             contextIsolation: false,
                             offscreen: true
                         }
-                    });
+                    })
 
-                    imgwin.loadFile(path.join(__dirname,"notify","imgwin","imgwin.html"));
+                    imgwin.loadFile(path.join(__dirname,"notify","imgwin","imgwin.html"))
+                    imgwin.setIgnoreMouseEvents(true)
+                    imgwin.webContents.send('details', title, desc, icon, type, percent)
 
                     var ovpath;
                     
                     if (config.ovpath == "") {
                         ovpath = defaultPath;
-                        var m = "Screenshot Path not set - writing to " + ovpath
+                        var m = `Screenshot Path not set - writing to ${ovpath}`
                         console.log(m)
                         win.webContents.send('warnmsg', m)
                     } else {
                         try {
                             ovpath = config.ovpath;
-                            var m = "Screenshot Path set to " + ovpath
+                            var m = `Screenshot Path set to ${ovpath}`
                             console.log(m)
                             win.webContents.send('warnmsg', m)
                         } catch (err) {
                             ovpath = defaultPath;
-                            var m = "SCREENSHOT ERROR: " + err
-                            var m1 = "Unable to save to Screenshot Path - writing to " + ovpath
+                            var m = `SCREENSHOT ERROR: ${err}`
+                            var m1 = `Unable to save to Screenshot Path - writing to ${ovpath}`
                             console.log(m);
                             console.log(m1);
                             win.webContents.send('errormsg', m)
@@ -965,19 +980,19 @@ const startapp = () => {
                     }
                     
                     var sandir = "SteamAchievementNotifier"
-                    var gamedir = game
-                    var filename = title
+                    var gamedir = game.replace(/[*<>:/\\|?]/g,"_")
+                    var filename = title.replace(/[*<>:/\\|?]/g,"_")
                     var counter = 0
 
                     function CreateSANDir() {
                         if (!fs.existsSync(path.join(ovpath,sandir))) {
                             fs.mkdir(path.join(ovpath,sandir), (err) => {
                                 if (err) {
-                                    var m = "SAN FOLDER CREATION ERROR: " + err
+                                    var m = `SAN FOLDER CREATION ERROR: ${err}`
                                     console.log(m)
                                     win.webContents.send('errormsg', m)
                                 } else {
-                                    var m = "Directory for \"" + sandir + "\" created in " + ovpath
+                                    var m = `Directory for "${sandir}" created in ${ovpath}`
                                     console.log(m)
                                     win.webContents.send('warnmsg', m)
                                     CreateGameDir()
@@ -996,7 +1011,7 @@ const startapp = () => {
                                     console.log(m)
                                     win.webContents.send('errormsg', m)
                                 } else {
-                                    var m = "Directory for \"" + game + "\" created in " + ovpath + sandir
+                                    var m = `Directory for "${game}" created in ${path.join(ovpath,sandir)}`
                                     console.log(m)
                                     win.webContents.send('warnmsg', m)
                                     CheckFilePath()
@@ -1009,7 +1024,7 @@ const startapp = () => {
                     
                     function CheckFilePath() {
                         if (fs.existsSync(path.join(ovpath,sandir,gamedir,filename) + ".png")) {
-                            var m = "File \"" + filename + ".png\" already exists!"
+                            var m = `File "${filename}.png" already exists! Renaming...`
                             console.log(m)
                             win.webContents.send('errormsg', m)
                             counter += 1
@@ -1017,22 +1032,37 @@ const startapp = () => {
                             
                             CheckFilePath()
                         } else {
-                            imgwin.webContents.on('paint', (event, dirty, image) => {
-                                fs.writeFileSync(path.join(ovpath,sandir,gamedir,filename) + ".png", image.toPNG())
-                                var m = `File "${filename}.png" created successfully in ${path.join(ovpath,sandir,gamedir)}`
-                                console.log(m)
-                                win.webContents.send('warnmsg', m)
+                            // OG
+                            // imgwin.webContents.invalidate()
+                            // imgwin.webContents.on('paint', (event, dirty, image) => {
+                            //     fs.writeFileSync(path.join(ovpath,sandir,gamedir,filename) + ".png", image.toPNG())
+                            //     var m = `File "${filename}.png" created successfully in ${path.join(ovpath,sandir,gamedir)}`
+                            //     console.log(m)
+                            //     win.webContents.send('warnmsg', m)
                                 
+                            //     setTimeout(() => {
+                            //         imgwin.destroy()
+                            //     }, 1000)
+                            // })
+
+                            ipcMain.once('imgready', () => {
                                 setTimeout(() => {
-                                    imgwin.destroy()
-                                }, 1000)
+                                    imgwin.webContents.capturePage().then(image => {
+                                            fs.writeFileSync(`${path.join(ovpath,sandir,gamedir,filename)}.png`, image.toPNG())
+                                            imgwin.destroy()
+                                    }).catch(err => {
+                                        var m = `Error writing screenshot: ${err}`
+                                        console.log(m);
+                                        win.webContents.send('errormsg', m)
+                                    })
+                                }, 5000)
                             })
                         }
                     }
 
                     if (!fs.existsSync(path.join(ovpath))) {
                         ovpath = defaultPath;
-                        var m = `${config.ovpath} does not exist! Writing to ` + ovpath
+                        var m = `${config.ovpath} does not exist! Writing to ${ovpath}`
                         console.log(m);
                         win.webContents.send('errormsg', m)
                         CreateSANDir()
@@ -1040,11 +1070,11 @@ const startapp = () => {
                         CreateSANDir()
                     }
                 
-                    imgwin.on('ready-to-show', () => {
-                        imgwin.webContents.send('details', title, desc, icon, type, percent)
-                    })
+                    // imgwin.on('ready-to-show', () => {
+                    //     imgwin.webContents.send('details', title, desc, icon, type, percent)
+                    // })
                 } catch (err) {
-                    var m = "SCREENSHOT CREATION ERROR: " + err
+                    var m = `SCREENSHOT CREATION ERROR: ${err}`
                     console.log(m)
                     win.webContents.send('errormsg', m)
                 }
@@ -1056,21 +1086,21 @@ const startapp = () => {
         var dragwin = null;
 
         ipcMain.on('setcustompos', (event, postype, style) => {
-            var config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
 
             var dragwidth;
             var dragheight;
 
             if (style == "default" || style == "xbox360") {
                 if (postype == "main") {
-                    if (config.screenshot == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 219 * config.scale * 0.01;
                     } else {
                         dragheight = 50 * config.scale * 0.01;
                     }
                     dragwidth = 300 * config.scale * 0.01;
                 } else {
-                    if (config.rarescreenshot == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 219 * config.rarescale * 0.01;
                     } else {
                         dragheight = 50 * config.rarescale * 0.01;
@@ -1079,14 +1109,14 @@ const startapp = () => {
                 }
             } else if (style == "xbox") {
                 if (postype == "main") {
-                    if (config.screenshot == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 239 * config.scale * 0.01;
                     } else {
                         dragheight = 70 * config.scale * 0.01;
                     }
                     dragwidth = 310 * config.scale * 0.01;
                 } else {
-                    if (config.rarescreenshot == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 239 * config.rarescale * 0.01;
                     } else {
                         dragheight = 70 * config.rarescale * 0.01;
@@ -1095,14 +1125,14 @@ const startapp = () => {
                 }
             } else if (style == "playstation") {
                 if (postype == "main") {
-                    if (config.screenshot == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 224 * config.scale * 0.01;
                     } else {
                         dragheight = 55 * config.scale * 0.01;
                     }
                     dragwidth = 310 * config.scale * 0.01;
                 } else {
-                    if (config.rarescreenshot == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 224 * config.rarescale * 0.01;
                     } else {
                         dragheight = 55 * config.rarescale * 0.01;
@@ -1111,14 +1141,14 @@ const startapp = () => {
                 }
             } else if (style == "ps5") {
                 if (postype == "main") {
-                    if (config.screenshot == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 239 * config.scale * 0.01;
                     } else {
                         dragheight = 50 * config.scale * 0.01;
                     }
                     dragwidth = 320 * config.scale * 0.01;
                 } else {
-                    if (config.rarescreenshot == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 239 * config.rarescale * 0.01;
                     } else {
                         dragheight = 50 * config.rarescale * 0.01;
@@ -1127,14 +1157,14 @@ const startapp = () => {
                 }
             } else if (style == "windows") {
                 if (postype == "main") {
-                    if (config.screenshot == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 279 * config.scale * 0.01;
                     } else {
                         dragheight = 110 * config.scale * 0.01;
                     }
                     dragwidth = 300 * config.scale * 0.01;
                 } else {
-                    if (config.rarescreenshot == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 279 * config.rarescale * 0.01;
                     } else {
                         dragheight = 110 * config.rarescale * 0.01;
@@ -1143,14 +1173,14 @@ const startapp = () => {
                 }
             } else if (style == "xqjan") {
                 if (postype == "main") {
-                    if (config.screenshot == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 259 * config.scale * 0.01;
                     } else {
                         dragheight = 70 * config.scale * 0.01;
                     }
                     dragwidth = 300 * config.scale * 0.01;
                 } else {
-                    if (config.rarescreenshot == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 259 * config.rarescale * 0.01;
                     } else {
                         dragheight = 70 * config.rarescale * 0.01;
@@ -1236,7 +1266,7 @@ const startapp = () => {
                     config["rarey"] = dragwin.getPosition()[1]
                 }
                 
-                fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+                fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
                 SetDragWinPos()
             })
 
@@ -1305,7 +1335,7 @@ const startapp = () => {
                     config["rarey"] = config.rarey
                 }
 
-                fs.writeFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json"), JSON.stringify(config, null, 2));
+                fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
 
                 if (dragwin) {
                     win.webContents.send('dragwinclose')
@@ -1414,12 +1444,6 @@ const startapp = () => {
 
         ipcMain.on('closeapp', () => {
             app.exit()
-        })
-
-        ipcMain.on('shrinkwin', () => {
-            // errwin.center()
-            // errwin.setMinimumSize(300, 300)
-            // errwin.setSize(300, 300)
         })
 
         ipcMain.on('ghissue', () => {

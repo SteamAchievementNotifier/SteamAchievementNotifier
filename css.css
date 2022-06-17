@@ -1854,7 +1854,7 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 92%;
 }
 
-#showscreenshotlblcont {
+#showscreenshotlblcont, #previewlblcont {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -1864,7 +1864,7 @@ input[type="number"]::-webkit-inner-spin-button {
     margin-bottom: 10px;
 }
 
-#showscreenshotcheckbox {
+#showscreenshotcheckbox, #previewcheckbox {
     margin-left: 0px;
 }
 
@@ -2271,7 +2271,7 @@ input[type="color"]::-webkit-color-swatch {
     height: 30px;
 }
 
-#showscreenshotlblcontrare {
+#showscreenshotlblcontrare, #previewlblcontrare {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -2281,7 +2281,7 @@ input[type="color"]::-webkit-color-swatch {
     margin-bottom: 5px;
 }
 
-#showscreenshotcheckboxrare {
+#showscreenshotcheckboxrare, #previewcheckboxrare {
     margin-left: 0px;
 }
 

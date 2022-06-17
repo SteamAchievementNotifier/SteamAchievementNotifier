@@ -264,7 +264,6 @@
                   <div class="optcont" id="ssoverlay" style="cursor: pointer" onclick="ToggleSSOverlay()">
                      <input id="ssoverlaybox" type="checkbox">
                      <div class="optlbl" id="ssoverlaylbl" style="width: 212px;">Save Screenshots with Overlay</div>
-                     <!-- <img id="sserror" src="./icon/error.svg" width="15px" style="display: none; cursor: auto"> -->
                   </div>
                   <div class="optcont" id="ssoverlaypathcont" style="width: 95%">
                      <div id="ssoverlaypathlbl" style="margin: 0px 5px 0px">Path:</div>
@@ -336,8 +335,8 @@
                   </div>
                   <div id="customiseropts">
                      <div class="customiseropts" id="tabs">
-                        <div id="customisermaintab" onclick="ToggleMainTab()"><img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Main</div>
-                        <div id="customiserraretab" onclick="ToggleRareTab()"><img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px">Rare</div>
+                        <div id="customisermaintab" onclick="ToggleMainTab()"><img src="./icon/emoji_events_gold.png" width="12px" style="margin-right: 3px; padding-bottom: 1px"><span id="customisermainlbl">Main</span></div>
+                        <div id="customiserraretab" onclick="ToggleRareTab()"><img src="./icon/emoji_events_purple.png" width="12px" style="margin-right: 3px; padding-bottom: 1px"><span id="customiserrarelbl">Rare</span></div>
                      </div>
                      <div id="maintab">
                         <div class="customiserlbl" id="customiserstylelbl">ACHIEVEMENT STYLE:</div>
@@ -352,7 +351,14 @@
                               <option value="windows" id="stylewindows">Windows Toast</option>
                            </select>
                         </div>
-                        <div class="customiseropts" id="showscreenshotlblcont"><input id="showscreenshotcheckbox" type="checkbox" onclick="ToggleShowScreenshot(); GetNotifyStyle()"><div id="showscreenshotlbl">Show Achievement Screenshot</div></div>
+                        <div class="customiseropts" id="showscreenshotlblcont">
+                           <input id="showscreenshotcheckbox" type="checkbox" onclick="ToggleShowScreenshot()">
+                           <div id="showscreenshotlbl">Show Achievement Screenshot</div>
+                        </div>
+                        <div class="customiseropts" id="previewlblcont">
+                           <input id="previewcheckbox" type="checkbox" onclick="ToggleScreenshotPreview()">
+                           <div id="previewlbl">Show Screenshot Preview</div>
+                        </div>
                         <div class="customiserlbl" id="notifypositionlbl">SCREEN POSITION:</div>
                         <div class="customiseropts" id="notifypositioncont" style="margin-bottom: 5px; transition: 0.5s;">
                            <div id="notifyposition">
@@ -508,7 +514,14 @@
                               <option value="windows" id="stylewindowsrare">Windows Toast</option>
                            </select>
                         </div>
-                        <div class="customiseropts" id="showscreenshotlblcontrare"><input id="showscreenshotcheckboxrare" type="checkbox" onclick="ToggleShowRareScreenshot(); GetNotifyStyleRare()"><div id="showscreenshotlblrare">Show Achievement Screenshot</div></div>
+                        <div class="customiseropts" id="showscreenshotlblcontrare">
+                           <input id="showscreenshotcheckboxrare" type="checkbox" onclick="ToggleShowRareScreenshot()">
+                           <div id="showscreenshotlblrare">Show Screenshot Preview</div>
+                        </div>
+                        <div class="customiseropts" id="previewlblcontrare">
+                           <input id="previewcheckboxrare" type="checkbox" onclick="ToggleScreenshotPreviewRare()">
+                           <div id="previewlblrare">Show Screenshot Preview</div>
+                        </div>
                         <div class="customiseropts" id="iconanimationcont"><input id="iconanimation" type="checkbox" onclick="ToggleIconAnimation(); GetNotifyStyleRare()"><div id="iconanimationlbl">Show Rare Icon Animation</div></div>
                         <div class="customiserlbl" id="notifypositionlblrare">SCREEN POSITION:</div>
                         <div class="customiseropts" id="notifypositioncontrare" style="margin-bottom: 5px; transition: 0.5s;">

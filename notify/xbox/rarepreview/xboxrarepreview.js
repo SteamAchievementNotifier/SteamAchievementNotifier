@@ -112,7 +112,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("innercircle4").style.borderRadius = borderradius;
 }
 
-if (config.raressprev == "true") {
+if (config.raressprev == "true" && config.rarescreenshot == "true") {
     document.getElementById("cont").style.height = "219px";
     document.getElementById("screenshotcont").style.display = "flex";
 } else {
@@ -147,7 +147,7 @@ function PlayNotification(add) {
 
     document.getElementById("trophy").addEventListener('animationend', function(event) {
         if (event.animationName == "trophy") {
-            if (config.raressprev == "true") {
+            if (config.raressprev == "true" && config.rarescreenshot == "true") {
                 document.getElementById("innercont").style.transition = "0.5s";
                 document.getElementById("innercont").style.borderRadius = ssborderradius;
             }
@@ -188,7 +188,7 @@ function PlayNotification(add) {
 
             document.getElementById("screenshot").addEventListener('animationstart', function(event) {
                 if (event.animationName == "widthrev") {
-                    if (config.raressprev == "true") {
+                    if (config.raressprev == "true" && config.rarescreenshot == "true") {
                         document.getElementById("innercont").style.borderRadius = borderradius;
                     }
                 }
@@ -210,7 +210,7 @@ function PlayFastNotification(add) {
 
     document.getElementById("trophy").addEventListener('animationstart', function(event) {
         if (event.animationName == "trophy") {
-            if (config.raressprev == "true") {
+            if (config.raressprev == "true" && config.rarescreenshot == "true") {
                 document.getElementById("innercont").style.transition = "0.5s";
                 document.getElementById("innercont").style.borderRadius = ssborderradius;
             }
@@ -229,7 +229,7 @@ function PlayFastNotification(add) {
 
             document.getElementById("screenshot").addEventListener('animationstart', function(event) {
                 if (event.animationName == "widthrev") {
-                    if (config.raressprev == "true") {
+                    if (config.raressprev == "true" && config.rarescreenshot == "true") {
                         document.getElementById("innercont").style.borderRadius = borderradius;
                     }
                 }
@@ -251,7 +251,7 @@ function PlaySuperFastNotification(add) {
 
     document.getElementById("innercircle1").addEventListener('animationstart', function(event) {
         if (event.animationName == "circle1") {
-            if (config.raressprev == "true") {
+            if (config.raressprev == "true" && config.rarescreenshot == "true") {
                 document.getElementById("innercont").style.transition = "0.5s";
                 document.getElementById("innercont").style.borderRadius = ssborderradius;
             }

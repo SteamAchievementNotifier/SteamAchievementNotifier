@@ -100,7 +100,7 @@ var bgtype = config.rarebgtype;
 if (bgtype == "bgsolid") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style = solid;
-    if (config.raressprev == "true") {
+    if (config.raressprev == "true" && config.rarescreenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -112,7 +112,7 @@ if (bgtype == "bgsolid") {
 } else if (bgtype == "bg") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style = background;
-    if (config.raressprev == "true") {
+    if (config.raressprev == "true" && config.rarescreenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -127,7 +127,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("notifycont").style.backgroundPosition = "center";
     document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
     document.getElementById("notifycont").style.backgroundSize = "300px";
-    if (config.raressprev == "true") {
+    if (config.raressprev == "true" && config.rarescreenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -138,7 +138,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("righticon").src = righticon
 }
 
-if (config.raressprev == "true") {
+if (config.raressprev == "true" && config.rarescreenshot == "true") {
     document.getElementById("cont").style.height = "219px";
     document.getElementById("screenshotcont").style.display = "flex";
 } else {

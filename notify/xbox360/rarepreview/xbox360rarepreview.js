@@ -91,7 +91,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("cont").style = solid;
     document.getElementById("semicircle1").style.background = colour2;
-    if (config.raressprev == "true") {
+    if (config.raressprev == "true" && config.rarescreenshot == "true") {
         document.getElementById("cont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -111,7 +111,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("cont").style = background;
     document.getElementById("semicircle1").style.background = colour2;
-    if (config.raressprev == "true") {
+    if (config.raressprev == "true" && config.rarescreenshot == "true") {
         document.getElementById("cont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -134,7 +134,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("cont").style.backgroundPosition = "center";
     document.getElementById("cont").style.backgroundRepeat = "no-repeat";
     document.getElementById("cont").style.backgroundSize = "300px";
-    if (config.raressprev == "true") {
+    if (config.raressprev == "true" && config.rarescreenshot == "true") {
         document.getElementById("cont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     } else {
@@ -152,7 +152,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.rareiconroundness * 1.25 + "px 0";
 }
 
-if (config.raressprev == "true") {
+if (config.raressprev == "true" && config.rarescreenshot == "true") {
     document.getElementById("maincont").style.height = "219px";
     document.getElementById("screenshotcont").style.display = "flex";
 } else {

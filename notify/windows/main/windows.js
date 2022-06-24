@@ -16,7 +16,7 @@ const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievem
 
 document.body.style.opacity = config.opacity * 0.01;
 
-ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon) {
+ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon, gameartimg) {
 
 document.getElementById("audio").src = audio;
 document.getElementById("audio").volume = (config.volume * 10) / 100;
@@ -99,6 +99,30 @@ if (bgtype == "bgsolid") {
 } else if (bgtype == "img") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("notifycont").style.backgroundImage = imgbackground;
+    document.getElementById("notifycont").style.backgroundPosition = "center";
+    document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("notifycont").style.backgroundSize = "364px";
+    if (screenshot == "true" && config.screenshot == "true") {
+        document.getElementById("notifycont").style.borderRadius = ssborderradius;
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+    } else {
+        document.getElementById("notifycont").style.borderRadius = borderradius;
+    }
+    document.getElementById("icon").src = icon;
+    document.getElementById("icon").style.borderRadius = "" + (config.iconroundness * 1.6) + "px";
+    document.getElementById("toastheaderimg").src = toasticon;
+    document.getElementById("toastheaderimg").style.borderRadius = "" + (config.iconroundness * 0.6) + "px";
+} else if (bgtype == "game") {
+    var gameartbg
+
+    if (notifyicon == "test") {
+        gameartbg = `url("../../../img/sanimgbg.png")`
+    } else {
+        gameartbg = `url("${gameartimg}")`
+    }
+
+    document.getElementById("cont").style.color = textcolour;
+    document.getElementById("notifycont").style.backgroundImage = gameartbg;
     document.getElementById("notifycont").style.backgroundPosition = "center";
     document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
     document.getElementById("notifycont").style.backgroundSize = "364px";

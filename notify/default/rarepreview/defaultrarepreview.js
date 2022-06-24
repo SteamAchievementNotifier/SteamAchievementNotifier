@@ -131,6 +131,23 @@ if (bgtype == "bgsolid") {
     document.getElementById("icon2").src = icon1;
     document.getElementById("icon1").style.borderRadius = "" + config.rareiconroundness + "px";
     document.getElementById("icon2").style.borderRadius = "" + config.rareiconroundness + "px";
+} else if (bgtype == "game") {
+    document.getElementById("cont").style.color = textcolour;
+    document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+    document.getElementById("notifycont").style.backgroundImage = `url("../../../img/sanimgbg.png")`
+    document.getElementById("notifycont").style.backgroundPosition = "center";
+    document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("notifycont").style.backgroundSize = "300px";
+    document.getElementById("notifycont").style.borderRadius = borderradius;
+    document.getElementById("desccont").style.backgroundImage = `url("../../../img/sanimgbg.png")`
+    document.getElementById("desccont").style.backgroundPosition = "center";
+    document.getElementById("desccont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("desccont").style.backgroundSize = "300px";
+    document.getElementById("desccont").style.borderRadius = borderradius;
+    document.getElementById("icon1").src = icon;
+    document.getElementById("icon2").src = icon1;
+    document.getElementById("icon1").style.borderRadius = "" + config.rareiconroundness + "px";
+    document.getElementById("icon2").style.borderRadius = "" + config.rareiconroundness + "px";
 }
 
 if (config.raressprev == "true" && config.rarescreenshot == "true") {

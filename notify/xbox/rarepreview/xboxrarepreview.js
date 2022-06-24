@@ -110,6 +110,27 @@ if (bgtype == "bgsolid") {
     document.getElementById("innercircle2").style.borderRadius = borderradius;
     document.getElementById("innercircle3").style.borderRadius = borderradius;
     document.getElementById("innercircle4").style.borderRadius = borderradius;
+} else if (bgtype == "game") {
+    document.getElementById("cont").style.color = textcolour;
+    document.getElementById("innercont").style.backgroundImage = `url("../../../img/sanimgbg.png")`;
+    document.getElementById("innercont").style.backgroundPosition = "center";
+    document.getElementById("innercont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("innercont").style.backgroundSize = "314px";
+    document.getElementById("innercont").style.borderRadius = borderradius;
+    document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+    document.getElementById("trophy").src = icon;
+    document.getElementById("trophy").style.borderRadius = "" + config.rareiconroundness + "px";
+    document.getElementById("circle").style.background = "rgba(0,0,0,0.2)";
+    document.getElementById("innercircle1").style.background = "transparent";
+    document.getElementById("innercircle2").style.background = "rgba(0,0,0,0.2)";
+    document.getElementById("innercircle3").style.background = "transparent";
+    document.getElementById("innercircle4").style.background = "rgba(0,0,0,0.2)";
+
+    document.getElementById("circle").style.borderRadius = borderradius;
+    document.getElementById("innercircle1").style.borderRadius = borderradius;
+    document.getElementById("innercircle2").style.borderRadius = borderradius;
+    document.getElementById("innercircle3").style.borderRadius = borderradius;
+    document.getElementById("innercircle4").style.borderRadius = borderradius;
 }
 
 if (config.raressprev == "true" && config.rarescreenshot == "true") {

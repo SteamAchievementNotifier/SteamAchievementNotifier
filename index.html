@@ -26,6 +26,7 @@
          </div>
          <div class="bodycont" id="bodycont">
             <div class="imgcont">
+               <div id="betalogo">BETA</div>
                <img id="mainimg" src="./img/santextlogo.png" width="500px">
                <img id="rareimg" src="./img/sanraretextlogo.png" width="500px" style="display: none">
             </div>
@@ -138,6 +139,41 @@
                <button class="testrare" id="testrare" style="outline: none" onclick="TestRareNotification()">SHOW RARE TEST NOTIFICATION</button>
             </div>
          </div>
+
+         <!-- Beta Channel Dialog -->
+         <div id="betadialog">
+            <div id="betatext">BETA</div>
+            <img id="sanbetalogo" src="./img/santextlogo.png" width="75%">
+            <div id="betatagline">Join the <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Beta Channel&nbsp;</span> to get early access to new features!</div>
+            <div id="betadesccont">
+               <div class="betadiv"><span class="betaicon">👀&nbsp;</span><span id="betatest">Test new features before official release</span></div>
+               <div class="betadiv"><span class="betaicon">🔄&nbsp;</span><span id="betaoptin">Opt in/out of the Beta Channel at any time</span></div>
+               <div class="betadiv"><span class="betaicon">🦠&nbsp;</span><span id="betabugs">Squash bugs and improve the app</span></div>
+               <div class="betadiv"><img src="./icon/discord.svg" width="12px" style="margin: 0px 8px 0px 3px;"><span id="betadiscord">Dedicated&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord channel</span></div>
+               <div class="betadiv"><span class="betaicon">💭&nbsp;</span><span id="betafb">Provide feedback on upcoming additions</span></div>
+               <div class="betadiv"><span class="betaicon">💥&nbsp;</span><span id="betabugswarn" style="color: red"><u>Bugs are likely</u>&nbsp;(not for the squeamish!)</span></div>
+            </div>
+            <div id="betawarn" style="font-size: 8px; margin: 0px 0px 10px; color: rgba(255,255,255,0.75)"><span style="font-size: 10px;">⚠️</span><span id="betawarntext">Steam Achievement Notifier will restart after joining the Beta Channel</span></div>
+            <div id="betabtns">
+               <button id="betaok" onclick="BetaAccept()">Yup, sounds good!</button>
+               <button id="betacancel" onclick="BetaCancel()">Nope, I'll stay here...</button>
+            </div>
+            <div id="leavebetacont">
+               <div id="leavebetatitle">Leave Beta Channel?</div>
+               <div id="leavebetasub">App will revert to the most recent official release</div>
+               <div id="leavebetabtns">
+                  <button id="leavebetaok" onclick="LeaveBeta()">Leave Beta Channel</button>
+                  <button id="leavebetacancel" onclick="BetaCancel()">Stay on Beta Channel</button>
+               </div>
+            </div>
+         </div>
+         <div id="betaerror">
+            <div id="betaerrortext"></div>
+            <div id="betaerrorsub"></div>
+            <button id="betaerrorbtn" onclick="CloseBetaError()">Close</button>
+         </div>
+         <!-- Beta Channel Dialog -->
+
          <div class="settingscont" id="settingscont">
             <div id="settingstitle">SETTINGS</div>
             <div class="settingsinner" id="settingsinner">
@@ -215,8 +251,6 @@
                         <div>%</div>
                      </div>
                   </div>
-
-                  <!-- Notification Opacity Slider -->
                   <div class="optcont" id="opacity">
                      <div class="optlbl" id="opacitylbl">Notification Opacity: </div>
                      <div class="optcont" id="opacityslidercont">
@@ -227,15 +261,14 @@
                         <div>%</div>
                      </div>
                   </div>
-                  <!-- Notification Opacity Slider -->
-
                   <hr style="margin: auto; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
-                  <div class="optcont" id="nosteam" style="margin-top: 5px">
-                     <input id="nosteambox" type="checkbox" onclick="ToggleNoSteam()">
+                  <div class="optcont" id="nosteam" style="margin-top: 5px" onclick="ToggleNoSteam()">
+                     <input id="nosteambox" type="checkbox">
                      <div id="nosteamloadcont">
                         <img id="nosteamload" src="./icon/reset.svg">
                      </div>
                      <div class="optlbl" id="nosteamlbl">Hide Steam Achievement Notification</div>
+                     <span style="color: red; margin-left: 4px;">*</span>
                   </div>
                   <div class="optcont" id="desktop" style="cursor: pointer" onclick="CreateDesktopShortcut()">
                      <input id="desktopbox" type="checkbox">
@@ -293,18 +326,27 @@
                   <div class="optcont" id="hwa" style="cursor: pointer; margin-top: 5px" onclick="ToggleHWA()">
                      <input id="hwabox" type="checkbox">
                      <div class="optlbl" id="hwalbl">Disable Hardware Acceleration</div>
+                     <span style="color: red; margin-left: 4px;">*</span>
                   </div>
                   <div class="optcont" id="nvda" style="cursor: pointer; margin-bottom: 0px" onclick="ToggleNVDA()">
                      <input id="nvdabox" type="checkbox">
                      <div class="optlbl" id="nvdalbl">Enable NVDA Support</div>
                   </div>
                   <hr style="margin: auto; margin-top: 5px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
+                  
+                  <!-- Beta Button -->
+                  <div class="optcont" id="beta">
+                     <button id="joinbetabtn" onclick="ToggleBeta()">Join Beta Channel</button>
+                  </div>
+                  <!-- Beta Button -->
+
                   <div class="optcont" id="resetcont">
                      <div id="resetcontinner"  onclick="ResetAppConfirm()" onmouseover="ResetHover()" onmouseleave="ResetOut()">
-                        <img id="reseticon" src="./icon/reset.svg" width="20px" style="margin-right: 2px">
+                        <img id="reseticon" src="./icon/reset.svg" width="20px" style="margin-right: 2px;">
                         <span id="resetlbl">Reset App to Default</span>
                      </div>
                   </div>
+
                </div>
             </div>
             <div id="revcont">
@@ -313,8 +355,8 @@
          </div>
          <div id="customisemenu">
             <div style="width: 500px; height: 107.37px"></div>
-            <!-- <img id="customiserimg" src="./img/sancustomisertextlogo.png" width="500px" style="-webkit-app-region: no-drag" onclick="OpenDevTools()"> -->
-            <img id="customiserimg" src="./img/sancustomisertextlogo.png" width="500px" style="-webkit-app-region: no-drag">
+            <img id="customiserimg" src="./img/sancustomisertextlogo.png" width="500px" style="-webkit-app-region: no-drag" onclick="OpenDevTools()">
+            <!-- <img id="customiserimg" src="./img/sancustomisertextlogo.png" width="500px" style="-webkit-app-region: no-drag"> -->
             <div id="customiserbody">
                <div id="customisermain">
                   <div id="notifymain">
@@ -401,6 +443,7 @@
                               <option value="bgsolid" id="typesolid">Solid Colour</option>
                               <option value="bg" id="typegradient">Colour Gradient</option>
                               <option value="img" id="typeimg">Background Image</option>
+                              <option value="game" id="typegame">Game Art</option>
                            </select>
                         </div>
                         <div class="customiserlbl" id="colourslbl">COLOURS:</div>
@@ -565,6 +608,7 @@
                               <option value="bgsolid" id="typesolidrare">Solid Colour</option>
                               <option value="bg" id="typegradientrare">Colour Gradient</option>
                               <option value="img" id="typeimgrare">Background Image</option>
+                              <option value="game" id="typegamerare">Game Art</option>
                            </select>
                         </div>
                         <div class="customiserlbl" id="rarecolourslbl">COLOURS:</div>

@@ -112,6 +112,19 @@ if (bgtype == "bgsolid") {
     document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 1.5 + "px";
     document.getElementById("logo").src = logo;
     document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 1.5 + "px";
+} else if (bgtype == "game") {
+    document.getElementById("cont").style.color = textcolour;
+    document.getElementById("first").style = solid1;
+    document.getElementById("second").style = solid;
+    document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+    document.getElementById("logocont").style.backgroundImage = `url("../../../img/sanimgbg.png")`
+    document.getElementById("logocont").style.backgroundPosition = "center";
+    document.getElementById("logocont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("logocont").style.backgroundSize = "300px";
+    document.getElementById("icon").src = icon;
+    document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 1.5 + "px";
+    document.getElementById("logo").src = logo;
+    document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 1.5 + "px";
 }
 
 if (config.ssprev == "true" && config.screenshot == "true") {

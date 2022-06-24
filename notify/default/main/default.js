@@ -16,7 +16,7 @@ const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievem
 
 document.body.style.opacity = config.opacity * 0.01;
 
-ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon) {
+ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon, gameartimg) {
 
 document.getElementById("audio").src = audio;
 document.getElementById("audio").volume = (config.volume * 10) / 100;
@@ -131,13 +131,37 @@ if (bgtype == "bgsolid") {
     document.getElementById("icon2").src = icon1;
     document.getElementById("icon1").style.borderRadius = "" + config.iconroundness + "px";
     document.getElementById("icon2").style.borderRadius = "" + config.iconroundness + "px";
+} else if (bgtype == "game") {
+    var gameartbg
+
+    if (notifyicon == "test") {
+        gameartbg = `url("../../../img/sanimgbg.png")`
+    } else {
+        gameartbg = `url("${gameartimg}")`
+    }
+
+    document.getElementById("cont").style.color = textcolour;
+    document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+    document.getElementById("notifycont").style.backgroundImage = gameartbg
+    document.getElementById("notifycont").style.backgroundPosition = "center";
+    document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("notifycont").style.backgroundSize = "300px";
+    document.getElementById("notifycont").style.borderRadius = borderradius;
+    document.getElementById("desccont").style.backgroundImage = gameartbg
+    document.getElementById("desccont").style.backgroundPosition = "center";
+    document.getElementById("desccont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("desccont").style.backgroundSize = "300px";
+    document.getElementById("desccont").style.borderRadius = borderradius;
+    document.getElementById("icon1").src = icon;
+    document.getElementById("icon2").src = icon1;
+    document.getElementById("icon1").style.borderRadius = "" + config.iconroundness + "px";
+    document.getElementById("icon2").style.borderRadius = "" + config.iconroundness + "px";
 }
 
 if (screenshot == "true" && config.screenshot == "true") {
     if (notifyicon == "test") {
         document.getElementById("screenshot").src = "../../../img/santextlogobg.png";
     } else {
-        // document.getElementById("screenshot").src = "../../../img/ss.png";
         document.getElementById("screenshot").src = path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","ss.png");
     }
     document.getElementById("cont").style.height = "219px";

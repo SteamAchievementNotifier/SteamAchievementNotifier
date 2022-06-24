@@ -89,7 +89,23 @@ if (bgtype == "bgsolid") {
     document.getElementById("notifycont").style.backgroundImage = imgbackground;
     document.getElementById("notifycont").style.backgroundPosition = "center";
     document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
-    document.getElementById("notifycont").style.backgroundSize = "364px";
+    document.getElementById("notifycont").style.backgroundSize = "cover";
+    if (config.ssprev == "true" && config.screenshot == "true") {
+        document.getElementById("notifycont").style.borderRadius = ssborderradius;
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+    } else {
+        document.getElementById("notifycont").style.borderRadius = borderradius;
+    }
+    document.getElementById("icon").src = icon;
+    document.getElementById("icon").style.borderRadius = "" + (config.iconroundness * 1.6) + "px";
+    document.getElementById("toastheaderimg").src = toasticon;
+    document.getElementById("toastheaderimg").style.borderRadius = "" + (config.iconroundness * 0.6) + "px";
+} else if (bgtype == "game") {
+    document.getElementById("cont").style.color = textcolour;
+    document.getElementById("notifycont").style.backgroundImage = `url("../../../img/sanimgbg.png")`;
+    document.getElementById("notifycont").style.backgroundPosition = "center";
+    document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("notifycont").style.backgroundSize = "cover";
     if (config.ssprev == "true" && config.screenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius;
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius;

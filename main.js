@@ -225,9 +225,11 @@ const startapp = () => {
         });
 
         var gameicon;
+        var gameartimg
 
-        ipcMain.on('gameicon', (event, gameiconsrc) => {
+        ipcMain.on('gameicon', (event, gameiconsrc, gameartimgsrc) => {
             gameicon = gameiconsrc;
+            gameartimg = gameartimgsrc
         });
 
         ipcMain.on('notifywin', function(event, queueobj) {
@@ -634,7 +636,7 @@ const startapp = () => {
                 notifywin.setSize(width, height)
 
                 notifywin.show();
-                notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon);
+                notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg);
                 // notifywin.webContents.openDevTools({ mode: 'detach' })
             });
 
@@ -841,6 +843,10 @@ const startapp = () => {
         ipcMain.on('reloadapp', function() {
             win.webContents.reloadIgnoringCache();
         });
+
+        ipcMain.on('steamnotrunning', () => {
+            dialog.showErrorBox("Steam is not running!", "Please ensure Steam is running to enable this option.")
+        })
 
         var defaultPath;
 

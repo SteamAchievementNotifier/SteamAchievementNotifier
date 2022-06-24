@@ -16,7 +16,7 @@ const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievem
 
 document.body.style.opacity = config.opacity * 0.01;
 
-ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon) {
+ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon, gameartimg) {
 
 document.getElementById("audio").src = audio;
 document.getElementById("audio").volume = (config.rarevolume * 10) / 100;
@@ -145,6 +145,37 @@ if (bgtype == "bgsolid") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("semicircle1").style.background = colour2;
     document.getElementById("cont").style.backgroundImage = imgbackground;
+    document.getElementById("cont").style.backgroundPosition = "center";
+    document.getElementById("cont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("cont").style.backgroundSize = "300px";
+    if (screenshot == "true" && config.rarescreenshot == "true") {
+        document.getElementById("cont").style.borderRadius = ssborderradius;
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+    } else {
+        document.getElementById("cont").style.borderRadius = borderradius;
+    }
+    document.getElementById("icon").src = icon;
+    document.getElementById("icon").style.borderRadius = "" + config.rareiconroundness * 0.75 + "px";
+    document.getElementById("logo").src = logo;
+    document.getElementById("logo").style.borderRadius = "" + config.rareiconroundness * 0.75 + "px";
+    document.getElementById("innercont").style.borderRadius = "" + config.rareiconroundness * 1.5 + "px";
+    document.getElementById("circle").style.borderRadius = "" + config.rareiconroundness + "px";
+    document.getElementById("semicircle1").style.borderRadius = "" + config.rareiconroundness * 1.25 + "px 0 0 0";
+    document.getElementById("semicircle2").style.borderRadius = "0 0 0 " + config.rareiconroundness * 1.25 + "px";
+    document.getElementById("semicircle3").style.borderRadius = "0 " + config.rareiconroundness * 1.25 + "px 0 0";
+    document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.rareiconroundness * 1.25 + "px 0";
+} else if (bgtype == "game") {
+    var gameartbg
+
+    if (notifyicon == "test") {
+        gameartbg = `url("../../../img/sanimgbg.png")`
+    } else {
+        gameartbg = `url("${gameartimg}")`
+    }
+    
+    document.getElementById("cont").style.color = textcolour;
+    document.getElementById("semicircle1").style.background = colour2;
+    document.getElementById("cont").style.backgroundImage = gameartbg;
     document.getElementById("cont").style.backgroundPosition = "center";
     document.getElementById("cont").style.backgroundRepeat = "no-repeat";
     document.getElementById("cont").style.backgroundSize = "300px";

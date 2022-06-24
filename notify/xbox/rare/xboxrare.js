@@ -16,7 +16,7 @@ const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievem
 
 document.body.style.opacity = config.opacity * 0.01;
 
-ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio) {
+ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon, gameartimg) {
 
 document.getElementById("audio").src = audio;
 document.getElementById("audio").volume = (config.rarevolume * 10) / 100;
@@ -100,6 +100,35 @@ if (bgtype == "bgsolid") {
 } else if (bgtype == "img") {
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("innercont").style.backgroundImage = imgbackground;
+    document.getElementById("innercont").style.backgroundPosition = "center";
+    document.getElementById("innercont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("innercont").style.backgroundSize = "314px";
+    document.getElementById("innercont").style.borderRadius = borderradius;
+    document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+    document.getElementById("trophy").src = icon;
+    document.getElementById("trophy").style.borderRadius = "" + config.rareiconroundness + "px";
+    document.getElementById("circle").style.background = "rgba(0,0,0,0.2)";
+    document.getElementById("innercircle1").style.background = "transparent";
+    document.getElementById("innercircle2").style.background = "rgba(0,0,0,0.2)";
+    document.getElementById("innercircle3").style.background = "transparent";
+    document.getElementById("innercircle4").style.background = "rgba(0,0,0,0.2)";
+
+    document.getElementById("circle").style.borderRadius = borderradius;
+    document.getElementById("innercircle1").style.borderRadius = borderradius;
+    document.getElementById("innercircle2").style.borderRadius = borderradius;
+    document.getElementById("innercircle3").style.borderRadius = borderradius;
+    document.getElementById("innercircle4").style.borderRadius = borderradius;
+} else if (bgtype == "game") {
+    var gameartbg
+
+    if (notifyicon == "test") {
+        gameartbg = `url("../../../img/sanimgbg.png")`
+    } else {
+        gameartbg = `url("${gameartimg}")`
+    }
+    
+    document.getElementById("cont").style.color = textcolour;
+    document.getElementById("innercont").style.backgroundImage = gameartbg;
     document.getElementById("innercont").style.backgroundPosition = "center";
     document.getElementById("innercont").style.backgroundRepeat = "no-repeat";
     document.getElementById("innercont").style.backgroundSize = "314px";

@@ -177,6 +177,13 @@
                     .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
                     .then(data => {
                         var gameicon = data.getElementsByTagName("gameIcon")[0].textContent
+                        var gameart
+
+                        try {
+                            gameart = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/library_hero.jpg`
+                        } catch (err) {
+                            gameart = data.getElementsByTagName("gameLogo")[0].textContent
+                        }
 
                         document.getElementById("icon").src = gameicon
                         document.getElementById("notifycont").style.opacity = "1";
@@ -186,7 +193,7 @@
                         document.getElementById("notifycont").style.animation = "glow 5s ease infinite, reveal 0.5s forwards"
                         document.getElementById("logo").style.animation = "move 5s ease infinite";
 
-                        ipcRenderer.send('gameicon', gameicon)
+                        ipcRenderer.send('gameicon', gameicon, gameart)
                     })
                 }
             }

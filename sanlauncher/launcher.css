@@ -138,3 +138,19 @@ html, body {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
+
+@keyframes progressgrow {
+    0% { width: 0%; }
+    100% { width: 80%; }
+}
+
+@keyframes progressshrink {
+    0% { width: 80%; }
+    100% { width: 0%; }
+}
+
+@keyframes finishdl {
+    0% { background-color: white; }
+    50% { background-color: limegreen; }
+    100% { background-color: white; }
+}

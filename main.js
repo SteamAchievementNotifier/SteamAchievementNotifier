@@ -842,6 +842,10 @@ const startapp = () => {
             win.webContents.reloadIgnoringCache();
         });
 
+        ipcMain.on('steamnotrunning', () => {
+            dialog.showErrorBox("Steam is not running!", "Please ensure Steam is running to enable this option.")
+        })
+
         var defaultPath;
 
         if (process.platform == "win32") {

@@ -10,6 +10,8 @@
   "lang": "english",
   "screenshot": "false",
   "rarescreenshot": "false",
+  "ssprev": "true",
+  "raressprev": "true",
   "nosteam": "false",
   "keybind": "F12",
   "shortcut": "false",

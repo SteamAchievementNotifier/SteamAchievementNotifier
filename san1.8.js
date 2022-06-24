@@ -1,5 +1,5 @@
 //IMPORT & SET UP MAIN CONTENT
-const { ipcRenderer, desktopCapturer, clipboard, shell } = require('electron');
+const { ipcRenderer, desktopCapturer, clipboard, shell, app } = require('electron');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -60,9 +60,17 @@ if (process.platform == "win32") {
     fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2));
 }
 
-// fs.writeFileSync(path.join(__dirname,"store","local.json"), "");
-const rev = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","version.json")));
-document.getElementById("rev").innerHTML = rev.version;
+const version = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","version.json")));
+
+if (version.beta == true && fs.existsSync(path.join(sanlocalappdata,"store","app","beta.txt"))) {
+    document.getElementById("rev").innerHTML = `BETA ${version.betaversion}`;
+    document.getElementById("betalogo").style.display = "flex"
+    // document.getElementById("joinbetabtn").innerHTML = "Join Beta Channel"
+} else {
+    document.getElementById("rev").innerHTML = `${version.version}`
+    document.getElementById("betalogo").style.display = "none"
+    // document.getElementById("joinbetabtn").innerHTML = "Leave Beta Channel"
+}
 
 var tag = null;
 
@@ -138,6 +146,12 @@ var allunlocked;
 var custompos;
 var settingpos;
 var settingposrare;
+
+// Beta Channel (App Revision 0.8)
+var betajoin
+var betaleave
+var betaerrortext
+var betaerrorsub
 
 function LoadLang() {
     document.getElementById("lang").value = config.lang;
@@ -277,6 +291,28 @@ function LoadLang() {
         secret = "Secret";
         gamecomplete = "Game Complete!";
         allunlocked = "You've unlocked all achievements!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Join the <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Beta Channel&nbsp;</span> to get early access to new features!`
+        document.getElementById("betatest").innerHTML = "Test new features before official release"
+        document.getElementById("betaoptin").innerHTML = "Opt in/out of the Beta Channel at any time"
+        document.getElementById("betabugs").innerHTML = "Squash bugs and improve the app"
+        document.getElementById("betadiscord").innerHTML = `Dedicated&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord channel`
+        document.getElementById("betafb").innerHTML = "Provide feedback on upcoming additions"
+        document.getElementById("betabugswarn").innerHTML = "<u>Bugs are likely</u>&nbsp;(not for the squeamish!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier will restart after joining the Beta Channel"
+        document.getElementById("betaok").innerHTML = "Yup, sounds good!"
+        document.getElementById("betacancel").innerHTML = "Nope, I'll stay here..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Leave Beta Channel?"
+        document.getElementById("leavebetasub").innerHTML = "App will revert to the most recent official release"
+        document.getElementById("leavebetaok").innerHTML = "Leave Beta Channel"
+        document.getElementById("leavebetacancel").innerHTML = "Stay on Beta Channel"
+
+        betajoin = "Join Beta Channel"
+        betaleave = "Leave Beta Channel"
+        betaerrortext = "Unable to update to Beta Channel!"
+        betaerrorsub = "Looks like you don't have a network connection. No internet = No Beta!"
     } else if (config.lang == "arabic") {
         document.getElementById("username").innerHTML = "لم يتم اكتشاف أي مستخدم";
         document.getElementById("gamestatus").innerHTML = "لم يتم اكتشاف لعبة";
@@ -411,6 +447,28 @@ function LoadLang() {
         secret = "سر";
         gamecomplete = "اكتملت اللعبة!";
         allunlocked = "لقد فتحت جميع الإنجازات!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `انضم إلى <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;قناة بيتا&nbsp;</span> للوصول مبكرًا إلى الميزات الجديدة!`
+        document.getElementById("betatest").innerHTML = "اختبار الميزات الجديدة قبل الإصدار الرسمي"
+        document.getElementById("betaoptin").innerHTML = "الاشتراك / الخروج من القناة التجريبية في أي وقت"
+        document.getElementById("betabugs").innerHTML = "البق الاسكواش وتحسين التطبيق"
+        document.getElementById("betadiscord").innerHTML = `مخصصة &nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp; قناة Discord`
+        document.getElementById("betafb").innerHTML = "تقديم ملاحظات على الإضافات القادمة"
+        document.getElementById("betabugswarn").innerHTML = "<u>البق على الأرجح</u>&nbsp;(ليست للجميع!)"
+        document.getElementById("betawarntext").innerHTML = "ستتم إعادة تشغيل برنامج Steam Achievement Notifier بعد الانضمام إلى القناة التجريبية"
+        document.getElementById("betaok").innerHTML = "نعم ، تبدو جيدة!"
+        document.getElementById("betacancel").innerHTML = "لا ، سأبقى هنا ..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "مغادرة القناة التجريبية؟"
+        document.getElementById("leavebetasub").innerHTML = "سيعود التطبيق إلى أحدث إصدار رسمي"
+        document.getElementById("leavebetaok").innerHTML = "اترك القناة التجريبية"
+        document.getElementById("leavebetacancel").innerHTML = "ابق على قناة بيتا"
+    
+        betajoin = "انضم إلى قناة بيتا"
+        betaleave = "اترك القناة التجريبية"
+        betaerrortext = "تعذر التحديث إلى القناة التجريبية!"
+        betaerrorsub = "يبدو أنه ليس لديك اتصال بالشبكة. لا يوجد إنترنت = لا يوجد بيتا!"
     } else if (config.lang == "bulgarian") {
         document.getElementById("username").innerHTML = "Няма oткрит потребител";
         document.getElementById("gamestatus").innerHTML = "Не е открита игра";
@@ -540,6 +598,28 @@ function LoadLang() {
         secret = "Тайна";
         gamecomplete = "Играта Е Завършена!";
         allunlocked = "Отключихте всички постижения!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Присъединете се към <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;бета канала&nbsp;</span> за нови функции!`
+        document.getElementById("betatest").innerHTML = "Тествайте новите функции преди пускането"
+        document.getElementById("betaoptin").innerHTML = "Включете/изключете се по всяко време"
+        document.getElementById("betabugs").innerHTML = "Премахнете грешки и подобрете приложението"
+        document.getElementById("betadiscord").innerHTML = `Специален <span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span> Discord канал`
+        document.getElementById("betafb").innerHTML = "Предоставете обратна връзка"
+        document.getElementById("betabugswarn").innerHTML = "<u>Вероятни са грешки</u>&nbsp;(не за всеки!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier ще се рестартира след присъединяване към бета канала"
+        document.getElementById("betaok").innerHTML = "Да, звучи добре!"
+        document.getElementById("betacancel").innerHTML = "Не, аз ще остана тук..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Да напуснеш ли бета канала?"
+        document.getElementById("leavebetasub").innerHTML = "Приложението ще се върне към официалната версия"
+        document.getElementById("leavebetaok").innerHTML = "Напуснете бета канала"
+        document.getElementById("leavebetacancel").innerHTML = "Останете на бета канала"
+        
+        betajoin = "Влезте в бета канала"
+        betaleave = "Напуснете бета канала"
+        betaerrortext = "Бета каналът се провали!"
+        betaerrorsub = "Изглежда нямате мрежова връзка. Няма интернет = няма бета версия!"
     } else if (config.lang == "schinese") {
         document.getElementById("username").innerHTML = "未检测到用户";
         document.getElementById("gamestatus").innerHTML = "未检测到游戏";
@@ -669,6 +749,28 @@ function LoadLang() {
         secret = "秘密";
         gamecomplete = "游戏完成！";
         allunlocked = "您已解锁所有成就！";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `加入 <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;贝塔通道&nbsp;</span> 抢先体验新功能！`
+        document.getElementById("betatest").innerHTML = "正式发布前测试新功能"
+        document.getElementById("betaoptin").innerHTML = "随时选择加入/退出测试版频道"
+        document.getElementById("betabugs").innerHTML = "消除错误并改进应用程序"
+        document.getElementById("betadiscord").innerHTML = `专用的&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord 频道`
+        document.getElementById("betafb").innerHTML = "提供有关即将添加的内容的反馈"
+        document.getElementById("betabugswarn").innerHTML = "<u>错误很可能</u>&nbsp;(并不适合所有人！)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier 加入后会重启"
+        document.getElementById("betaok").innerHTML = "是的，听起来不错！"
+        document.getElementById("betacancel").innerHTML = "不，我会留在这里..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "离开测试频道？"
+        document.getElementById("leavebetasub").innerHTML = "应用程序将恢复到最新的官方版本"
+        document.getElementById("leavebetaok").innerHTML = "离开测试频道"
+        document.getElementById("leavebetacancel").innerHTML = "留在测试频道"
+        
+        betajoin = "加入测试频道"
+        betaleave = "离开测试频道"
+        betaerrortext = "无法更新到测试频道！"
+        betaerrorsub = "看起来你没有网络连接。没有互联网 = 没有测试版！"
     } else if (config.lang == "tchinese") {
         document.getElementById("username").innerHTML = "未檢測到用戶";
         document.getElementById("gamestatus").innerHTML = "未檢測到遊戲";
@@ -798,6 +900,28 @@ function LoadLang() {
         secret = "秘密";
         gamecomplete = "遊戲完成！";
         allunlocked = "您已解鎖所有成就！";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `加入 <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;測試頻道&nbsp;</span> 搶先體驗新功能！`
+        document.getElementById("betatest").innerHTML = "正式發布前測試新功能"
+        document.getElementById("betaoptin").innerHTML = "隨時選擇加入/退出測試版頻道"
+        document.getElementById("betabugs").innerHTML = "消除錯誤並改進應用程序"
+        document.getElementById("betadiscord").innerHTML = `專用的&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord 頻道`
+        document.getElementById("betafb").innerHTML = "提供有關即將添加的內容的反饋"
+        document.getElementById("betabugswarn").innerHTML = "<u>錯誤很可能</u>&nbsp;(並不適合所有人！)"
+        document.getElementById("betawarntext").innerHTML = "SteamAchievementNotifier 加入後會重啟"
+        document.getElementById("betaok").innerHTML = "是的，聽起來不錯！"
+        document.getElementById("betacancel").innerHTML = "不，我會留在這裡..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "離開測試頻道？"
+        document.getElementById("leavebetasub").innerHTML = "應用程序將恢復到最新的官方版本"
+        document.getElementById("leavebetaok").innerHTML = "離開測試頻道"
+        document.getElementById("leavebetacancel").innerHTML = "留在測試頻道"
+        
+        betajoin = "加入測試頻道"
+        betaleave = "離開測試頻道"
+        betaerrortext = "無法更新到測試頻道！"
+        betaerrorsub = "看起來你沒有網絡連接。沒有互聯網 = 沒有測試版！"
     } else if (config.lang == "czech") {
         document.getElementById("username").innerHTML = "Nebyl Zjištěn Žádný Uživatel";
         document.getElementById("gamestatus").innerHTML = "Nebyla Zjištěna Žádná Hra";
@@ -927,6 +1051,28 @@ function LoadLang() {
         secret = "Tajný";
         gamecomplete = "Hra Dokončena!";
         allunlocked = "Odemkli jste všechny úspěchy!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Připojte se k <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Beta Kanálu&nbsp;</span> a získejte přístup k novým funkcím!`
+        document.getElementById("betatest").innerHTML = "Otestujte nové funkce před oficiálním vydáním"
+        document.getElementById("betaoptin").innerHTML = "Kdykoli se můžete přihlásit/odhlásit z Beta Kanálu"
+        document.getElementById("betabugs").innerHTML = "Squashové chyby"
+        document.getElementById("betadiscord").innerHTML = `Vyhrazený&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;kanál Discord`
+        document.getElementById("betafb").innerHTML = "Poskytněte zpětnou vazbu ohledně nadcházejících doplňků"
+        document.getElementById("betabugswarn").innerHTML = "<u>Chyby jsou pravděpodobné</u>&nbsp;(ne pro každého!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier se po připojení k beta kanálu restartuje"
+        document.getElementById("betaok").innerHTML = "Jo, to zní dobře!"
+        document.getElementById("betacancel").innerHTML = "Ne, zůstanu tady..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Opustit Beta Kanál?"
+        document.getElementById("leavebetasub").innerHTML = "Aplikace se vrátí na nejnovější oficiální verzi"
+        document.getElementById("leavebetaok").innerHTML = "Opustit Beta Kanál"
+        document.getElementById("leavebetacancel").innerHTML = "Zůstaňte na Beta Kanálu"
+        
+        betajoin = "Vstupte Beta Kanál"
+        betaleave = "Opustit Beta Kanál"
+        betaerrortext = "Nelze upgradovat na Beta Kanál!"
+        betaerrorsub = "Zdá se, že nemáte připojení k síti. Žádný internet = žádná Beta!"
     } else if (config.lang == "danish") {
         document.getElementById("username").innerHTML = "Ingen Bruger Fundet";
         document.getElementById("gamestatus").innerHTML = "Intet Spil Opdaget";
@@ -1056,6 +1202,28 @@ function LoadLang() {
         secret = "Hemmelig";
         gamecomplete = "Spil Færdig!";
         allunlocked = "Du har låst op for alle præstationer!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Deltag i <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Betakanal&nbsp;</span> for at få tidlig adgang til nye funktioner!`
+        document.getElementById("betatest").innerHTML = "Test nye funktioner før officiel udgivelse"
+        document.getElementById("betaoptin").innerHTML = "Tilmeld dig/fravælg Betakanalen til enhver tid"
+        document.getElementById("betabugs").innerHTML = "Fjern fejl og forbedre appen"
+        document.getElementById("betadiscord").innerHTML = `Dedikeret&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord-kanal`
+        document.getElementById("betafb").innerHTML = "Giv feedback om kommende tilføjelser"
+        document.getElementById("betabugswarn").innerHTML = "<u>Bugs er sandsynlige</u>&nbsp;(ikke for alle!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier vil genstarte efter tilslutning til betakanalen"
+        document.getElementById("betaok").innerHTML = "Ja, det lyder godt!"
+        document.getElementById("betacancel").innerHTML = "Nej, jeg bliver her..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Forlad Betakanalen?"
+        document.getElementById("leavebetasub").innerHTML = "Appen vender tilbage til den seneste officielle udgivelse"
+        document.getElementById("leavebetaok").innerHTML = "Forlad Betakanalen"
+        document.getElementById("leavebetacancel").innerHTML = "Bliv på Betakanalen"
+        
+        betajoin = "Tilmeld dig Betakanalen"
+        betaleave = "Forlad Betakanalen"
+        betaerrortext = "Kan ikke opdatere til Betakanal!"
+        betaerrorsub = "Det ser ud til, at du ikke har en netværksforbindelse. Intet internet = Ingen Beta!"
     } else if (config.lang == "dutch") {
         document.getElementById("username").innerHTML = "Geen Gebruiker Gedetecteerd";
         document.getElementById("gamestatus").innerHTML = "Geen Spel Gedetecteerd";
@@ -1185,6 +1353,28 @@ function LoadLang() {
         secret = "Geheim";
         gamecomplete = "Spel Compleet!";
         allunlocked = "Je hebt alle prestaties ontgrendeld!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Doe mee met de <span of="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Bètakanaal&nbsp;</span> voor nieuwe functies!`
+        document.getElementById("betatest").innerHTML = "Test nieuwe functies vóór officiële release"
+        document.getElementById("betaoptin").innerHTML = "U kunt zich op elk moment afmelden voor het Bètakanaal"
+        document.getElementById("betabugs").innerHTML = "Verwijder bugs en verbeter de app"
+        document.getElementById("betadiscord").innerHTML = `Toegewijd&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord-kanaal`
+        document.getElementById("betafb").innerHTML = "Feedback geven over aankomende toevoegingen"
+        document.getElementById("betabugswarn").innerHTML = "<u>Bugs zijn waarschijnlijk</u>&nbsp;(niet voor iedereen!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier wordt opnieuw opgestart nadat je lid bent geworden van het Bètakanaal"
+        document.getElementById("betaok").innerHTML = "Ja, klinkt goed!"
+        document.getElementById("betacancel").innerHTML = "Nee, ik blijf hier..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Bètakanaal Verlaten?"
+        document.getElementById("leavebetasub").innerHTML = "App keert terug naar de meest recente officiële release"
+        document.getElementById("leavebetaok").innerHTML = "Bètakanaal Verlaten"
+        document.getElementById("leavebetacancel").innerHTML = "Blijf op Bètakanaal"
+        
+        betajoin = "Deelnemen aan Bètakanaal"
+        betaleave = "Bètakanaal Verlaten"
+        betaerrortext = "Kan niet updaten naar Bètakanaal!"
+        betaerrorsub = "Het lijkt erop dat je geen netwerkverbinding hebt. Geen internet = geen Bèta!"
     } else if (config.lang == "finnish") {
         document.getElementById("username").innerHTML = "Käyttäjää Ei Havaittu";
         document.getElementById("gamestatus").innerHTML = "Peliä Ei Havaittu";
@@ -1314,6 +1504,28 @@ function LoadLang() {
         secret = "Salaisuus";
         gamecomplete = "Peli Valmis!";
         allunlocked = "Olet avannut kaikki saavutukset!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Liity <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Beta-Kanava&nbsp;</span> kokeilla uusia ominaisuuksia!`
+        document.getElementById("betatest").innerHTML = "Testaa uusia ominaisuuksia ajoissa"
+        document.getElementById("betaoptin").innerHTML = "Ota Beta-Kanava käyttöön tai poista se milloin tahansa"
+        document.getElementById("betabugs").innerHTML = "Poista virheet ja korjaa sovellus"
+        document.getElementById("betadiscord").innerHTML = `Oma&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord-kanava`
+        document.getElementById("betafb").innerHTML = "Anna palautetta tulevista lisäyksistä"
+        document.getElementById("betabugswarn").innerHTML = "<u>Bugit ovat todennäköisiä</u>&nbsp;(ei kaikille!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier käynnistyy uudelleen Beta-Kanavalle liittymisen jälkeen"
+        document.getElementById("betaok").innerHTML = "Joo, kuulostaa hyvältä!"
+        document.getElementById("betacancel").innerHTML = "Ei, jään tänne..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Poistu Beta-Kanava?"
+        document.getElementById("leavebetasub").innerHTML = "Sovellus palaa uusimpaan viralliseen julkaisuun"
+        document.getElementById("leavebetaok").innerHTML = "Poistu Beta-Kanava"
+        document.getElementById("leavebetacancel").innerHTML = "Pysy Beta-Kanava"
+        
+        betajoin = "Liity Beta-Kanava"
+        betaleave = "Poistu Beta-Kanava"
+        betaerrortext = "Beta-Kanava ei voi päivittää!"
+        betaerrorsub = "Näyttää siltä, ​​että sinulla ei ole verkkoyhteyttä. Ei Internetiä = Ei Betaa!"
     } else if (config.lang == "french") {
         document.getElementById("username").innerHTML = "Aucun Utilisateur Détecté";
         document.getElementById("gamestatus").innerHTML = "Aucun Jeu Détecté";
@@ -1443,6 +1655,28 @@ function LoadLang() {
         secret = "Secret";
         gamecomplete = "Jeu Complet!";
         allunlocked = "Vous avez débloqué toutes les réalisations!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Rejoignez la <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Chaîne Bêta&nbsp;</span> pour un accès anticipé!`
+        document.getElementById("betatest").innerHTML = "Tester de nouvelles fonctionnalités"
+        document.getElementById("betaoptin").innerHTML = "Activer/désactiver le Canal Bêta à tout moment"
+        document.getElementById("betabugs").innerHTML = "Corriger et améliorer l'application"
+        document.getElementById("betadiscord").innerHTML = `Chaîne Discord dédié aux&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;`
+        document.getElementById("betafb").innerHTML = "Fournir des commentaires sur les ajouts à venir"
+        document.getElementById("betabugswarn").innerHTML = "<u>Les bogues sont probables</u>&nbsp;(pas pour tout le monde!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier redémarrera après avoir rejoint le Chaîne Bêta"
+        document.getElementById("betaok").innerHTML = "Ouais, ça sonne bien!"
+        document.getElementById("betacancel").innerHTML = "Non, je vais rester ici..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Quitter Chaîne Bêta?"
+        document.getElementById("leavebetasub").innerHTML = "L'application reviendra à la version officielle la plus récente"
+        document.getElementById("leavebetaok").innerHTML = "Quitter Chaîne Bêta"
+        document.getElementById("leavebetacancel").innerHTML = "Rester sur Chaîne Bêta"
+        
+        betajoin = "Entrez Chaîne Bêta"
+        betaleave = "Quitter Chaîne Bêta?"
+        betaerrortext = "Impossible de mettre à jour vers la Chaîne Bêta !"
+        betaerrorsub = "Il semble que vous n'ayez pas de connexion réseau. Pas d'Internet = Pas de Bêta!"
     } else if (config.lang == "german") {
         document.getElementById("username").innerHTML = "Kein Benutzer Erkannt";
         document.getElementById("gamestatus").innerHTML = "Kein Spiel Erkannt";
@@ -1572,6 +1806,28 @@ function LoadLang() {
         secret = "Geheim";
         gamecomplete = "Spiel Abgeschlossen!";
         allunlocked = "Du hast alle Erfolge freigeschaltet!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Treten Sie dem <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Beta-Kanal&nbsp;</span> für frühen Zugriff!`
+        document.getElementById("betatest").innerHTML = "Testen Sie neue Funktionen früher"
+        document.getElementById("betaoptin").innerHTML = "Dem Beta-Kanal jederzeit beitreten/verlassen"
+        document.getElementById("betabugs").innerHTML = "Korrigieren und verbessern Sie die App"
+        document.getElementById("betadiscord").innerHTML = `Dedizierter&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord-Kanal`
+        document.getElementById("betafb").innerHTML = "Geben Sie Feedback zu bevorstehenden Ergänzungen"
+        document.getElementById("betabugswarn").innerHTML = "<u>Fehler sind wahrscheinlich</u>&nbsp;(nicht für jeden!)"
+        document.getElementById("betawarntext").innerHTML = "Der Steam Achievement Notifier wird nach dem Beitritt zum Beta-Kanal neu gestartet"
+        document.getElementById("betaok").innerHTML = "Ja, es klingt gut!"
+        document.getElementById("betacancel").innerHTML = "Nein, ich bleibe hier..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Betakanal Verlassen?"
+        document.getElementById("leavebetasub").innerHTML = "Die App wird auf die neueste offizielle Version zurückgesetzt"
+        document.getElementById("leavebetaok").innerHTML = "Betakanal Verlassen"
+        document.getElementById("leavebetacancel").innerHTML = "Bleiben auf dem Betakanal"
+        
+        betajoin = "Geben Beta-Kanal"
+        betaleave = "Betakanal Verlassen"
+        betaerrortext = "Update auf Beta-Kanal nicht möglich!"
+        betaerrorsub = "Sieht so aus, als hätten Sie keine Netzwerkverbindung. Kein Internet = Keine Beta!"
     } else if (config.lang == "greek") {
         document.getElementById("username").innerHTML = "Δεν εντοπίστηκε χρήστης";
         document.getElementById("gamestatus").innerHTML = "Δεν εντοπίστηκε παιχνίδι";
@@ -1701,6 +1957,28 @@ function LoadLang() {
         secret = "Μυστικό";
         gamecomplete = "Παιχνίδι Τελείωσε!";
         allunlocked = "Ξεκλειδώσατε όλα τα επιτεύγματα!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Εγγραφείτε στο <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Κανάλι Beta&nbsp;</span> για νέες δυνατότητες!`
+        document.getElementById("betatest").innerHTML = "Δοκιμάστε νέες δυνατότητες"
+        document.getElementById("betaoptin").innerHTML = "Εξαίρεση/εξαίρεση από το Κανάλι Beta ανά πάσα στιγμή"
+        document.getElementById("betabugs").innerHTML = "Διορθώστε και βελτιώστε την εφαρμογή"
+        document.getElementById("betadiscord").innerHTML = `Αφιερωμένο&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;κανάλι Discord`
+        document.getElementById("betafb").innerHTML = "Παρέχετε σχόλια για νέες δυνατότητες"
+        document.getElementById("betabugswarn").innerHTML = "<u>Σφάλματα είναι πιθανά</u>&nbsp;(δεν ειναι για ολους!)"
+        document.getElementById("betawarntext").innerHTML = "Το Steam Achievement Notifier θα επανεκκινήσει αφού εγγραφεί στο Κανάλι Beta"
+        document.getElementById("betaok").innerHTML = "Ναι, ακούγεται καλό!"
+        document.getElementById("betacancel").innerHTML = "Όχι, θα μείνω εδώ..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Έξοδος από Κανάλι Beta?"
+        document.getElementById("leavebetasub").innerHTML = "Η εφαρμογή θα επανέλθει στην πιο πρόσφατη επίσημη έκδοση"
+        document.getElementById("leavebetaok").innerHTML = "Έξοδος από Κανάλι Beta"
+        document.getElementById("leavebetacancel").innerHTML = "Μείνετε στο Κανάλι Beta"
+        
+        betajoin = "Μπείτε Κανάλι Beta"
+        betaleave = "Έξοδος από Κανάλι Beta"
+        betaerrortext = "Δεν είναι δυνατή η ενημέρωση στο Κανάλι Beta!"
+        betaerrorsub = "Φαίνεται ότι δεν έχετε σύνδεση δικτύου. Χωρίς Διαδίκτυο = Χωρίς Beta!"
     } else if (config.lang == "hungarian") {
         document.getElementById("username").innerHTML = "Nincs Felhasználó Észlelve";
         document.getElementById("gamestatus").innerHTML = "Nincs Játék Észlelve";
@@ -1830,6 +2108,28 @@ function LoadLang() {
         secret = "Titkos";
         gamecomplete = "A Játék Kész!";
         allunlocked = "Minden jutalmat megszereztél!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Lépjen be a <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Béta Csatorna&nbsp;</span> a korai hozzáférésért!`
+        document.getElementById("betatest").innerHTML = "Kiadás előtt tesztelje az új funkciókat"
+        document.getElementById("betaoptin").innerHTML = "Bármikor előfizethet/leiratkozhat a Béta Csatorna"
+        document.getElementById("betabugs").innerHTML = "Javítsa ki és javítsa az alkalmazást"
+        document.getElementById("betadiscord").innerHTML = `Dedikált&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord csatorna`
+        document.getElementById("betafb").innerHTML = "Adjon visszajelzést a kiegészítésekről"
+        document.getElementById("betabugswarn").innerHTML = "<u>A hibák valószínűek</u>&nbsp;(nem mindenkinek!)"
+        document.getElementById("betawarntext").innerHTML = "A Steam Achievement Notifier újraindul, miután csatlakozott a Béta Csatorna"
+        document.getElementById("betaok").innerHTML = "Igen, ez jól hangzik!"
+        document.getElementById("betacancel").innerHTML = "Nem, itt maradok..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Kilép Béta Csatorna?"
+        document.getElementById("leavebetasub").innerHTML = "Az alkalmazás visszaáll a legújabb hivatalos kiadásra"
+        document.getElementById("leavebetaok").innerHTML = "Kilép Béta Csatorna"
+        document.getElementById("leavebetacancel").innerHTML = "Maradjon Béta Csatorna"
+        
+        betajoin = "Lépjen Béta Csatorna"
+        betaleave = "Kilép Béta Csatorna"
+        betaerrortext = "Nem sikerült frissíteni a Béta Csatorna!"
+        betaerrorsub = "Úgy tűnik, nincs hálózati kapcsolata. Nincs internet = Nincs Béta!"
     } else if (config.lang == "italian") {
         document.getElementById("username").innerHTML = "Nessun Utente Rilevato";
         document.getElementById("gamestatus").innerHTML = "Nessun Gioco Rilevato";
@@ -1959,6 +2259,28 @@ function LoadLang() {
         secret = "Segreto";
         gamecomplete = "Gioco Completo!";
         allunlocked = "Hai sbloccato tutti gli obiettivi!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Unisciti al <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Canale Beta&nbsp;</span> per l'accesso anticipato!`
+        document.getElementById("betatest").innerHTML = "Prova prima le nuove funzionalità"
+        document.getElementById("betaoptin").innerHTML = "Attiva/disattiva il Canale Beta in qualsiasi momento"
+        document.getElementById("betabugs").innerHTML = "Elimina i bug e migliora l'app"
+        document.getElementById("betadiscord").innerHTML = `Canale Discord dedicato&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;`
+        document.getElementById("betafb").innerHTML = "Fornisci feedback sulle prossime aggiunte"
+        document.getElementById("betabugswarn").innerHTML = "<u>I bug sono probabili</u>&nbsp;(non per tutti!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier si riavvierà dopo essere entrato nel Canale Beta"
+        document.getElementById("betaok").innerHTML = "Sì, suona bene!"
+        document.getElementById("betacancel").innerHTML = "No, rimango qui..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Uscire Canale Beta?"
+        document.getElementById("leavebetasub").innerHTML = "L'app tornerà alla versione ufficiale più recente"
+        document.getElementById("leavebetaok").innerHTML = "Uscire Canale Beta"
+        document.getElementById("leavebetacancel").innerHTML = "Rimani sul Canale Beta"
+        
+        betajoin = "Unisciti Canale Beta"
+        betaleave = "Uscire Canale Beta"
+        betaerrortext = "Impossibile aggiornare al Canale Beta!"
+        betaerrorsub = "Sembra che tu non abbia una connessione di rete. Niente internet = Niente Beta!"
     } else if (config.lang == "japanese") {
         document.getElementById("username").innerHTML = "ユーザーが検出されません";
         document.getElementById("gamestatus").innerHTML = "ゲームが検出されません";
@@ -2088,6 +2410,28 @@ function LoadLang() {
         secret = "ひみつ";
         gamecomplete = "ゲーム完了！";
         allunlocked = "すべての実績のロックを解除しました！";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `<span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;ベータチャンネル&nbsp;</span> に参加して、新機能を入手してください。`
+        document.getElementById("betatest").innerHTML = "新機能をより早くテストする"
+        document.getElementById("betaoptin").innerHTML = "いつでもベータチャンネルをオプトイン/オプトアウト"
+        document.getElementById("betabugs").innerHTML = "アプリを修正して改善する"
+        document.getElementById("betadiscord").innerHTML = `専用の&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord チャンネル`
+        document.getElementById("betafb").innerHTML = "機能に関するフィードバックを提供する"
+        document.getElementById("betabugswarn").innerHTML = "<u>バグが発生する可能性があります</u>&nbsp;(みんなのためではありません！)"
+        document.getElementById("betawarntext").innerHTML = "ベータチャンネルに参加した後、SteamAchievementNotifierが再起動します"
+        document.getElementById("betaok").innerHTML = "うん、いいね！"
+        document.getElementById("betacancel").innerHTML = "いいえ、滞在します..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "ベータチャンネルを離れますか？"
+        document.getElementById("leavebetasub").innerHTML = "アプリは最新の公式リリースに戻ります"
+        document.getElementById("leavebetaok").innerHTML = "ベータチャネルを離れる"
+        document.getElementById("leavebetacancel").innerHTML = "ベータチャンネルにとどまる"
+        
+        betajoin = "ベータチャンネルに参加する"
+        betaleave = "ベータチャネルを離れる"
+        betaerrortext = "ベータチャンネルに更新できません！"
+        betaerrorsub = "ネットワークに接続されていないようです。インターネットなし=ベータなし！"
     } else if (config.lang == "korean") {
         document.getElementById("username").innerHTML = "감지된 사용자 없음";
         document.getElementById("gamestatus").innerHTML = "감지된 게임 없음";
@@ -2217,6 +2561,28 @@ function LoadLang() {
         secret = "비밀";
         gamecomplete = "게임 완료!";
         allunlocked = "모든 업적을 달성했습니다!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `<span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;베타 채널&nbsp;</span>에 가입하여 새로운 기능을 미리 사용해 보세요!`
+        document.getElementById("betatest").innerHTML = "공식 출시 전에 새로운 기능 테스트"
+        document.getElementById("betaoptin").innerHTML = "언제든지 베타 채널 옵트인/아웃"
+        document.getElementById("betabugs").innerHTML = "버그 수정 및 앱 개선"
+        document.getElementById("betadiscord").innerHTML = `&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;전용 Discord 채널`
+        document.getElementById("betafb").innerHTML = "향후 추가 사항에 대한 피드백 제공"
+        document.getElementById("betabugswarn").innerHTML = "<u>버그 가능성</u>&nbsp;(모두를 위해 아닙니다!)"
+        document.getElementById("betawarntext").innerHTML = "베타 채널에 참여하면 SteamAchievementNotifier가 다시 시작됩니다."
+        document.getElementById("betaok").innerHTML = "예, 좋은 것 같습니다!"
+        document.getElementById("betacancel").innerHTML = "아니 여기 남을게..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "베타 채널 나가기?"
+        document.getElementById("leavebetasub").innerHTML = "앱이 가장 최근의 공식 릴리스로 되돌아갑니다."
+        document.getElementById("leavebetaok").innerHTML = "베타 채널 나가기"
+        document.getElementById("leavebetacancel").innerHTML = "베타 채널 유지"
+        
+        betajoin = "베타 채널 가입"
+        betaleave = "베타 채널 나가기"
+        betaerrortext = "베타 채널로 업데이트할 수 없습니다!"
+        betaerrorsub = "네트워크에 연결되어 있지 않은 것 같습니다. 인터넷 없음 = 베타 없음!"
     } else if (config.lang == "norwegian") {
         document.getElementById("username").innerHTML = "Ingen Bruker Oppdaget";
         document.getElementById("gamestatus").innerHTML = "Ingen Spill Oppdaget";
@@ -2346,6 +2712,28 @@ function LoadLang() {
         secret = "Hemmelig";
         gamecomplete = "Spillet Er Fullført!";
         allunlocked = "Du har låst opp alle prestasjoner!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Bli med i <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Betakanalen&nbsp;</span> for å få tidlig tilgang til nye funksjoner!`
+        document.getElementById("betatest").innerHTML = "Test nye funksjoner før offisiell utgivelse"
+        document.getElementById("betaoptin").innerHTML = "Meld deg på/av betakanalen når som helst"
+        document.getElementById("betabugs").innerHTML = "Rett opp feil og forbedre appen"
+        document.getElementById("betadiscord").innerHTML = `Dedikert&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord-kanal`
+        document.getElementById("betafb").innerHTML = "Gi tilbakemelding på kommende tillegg"
+        document.getElementById("betabugswarn").innerHTML = "<u>Det er sannsynlig med feil</u>&nbsp;(ikke for alle!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier vil starte på nytt etter å ha blitt med i betakanalen"
+        document.getElementById("betaok").innerHTML = "Ja, høres bra ut!"
+        document.getElementById("betacancel").innerHTML = "Nei, jeg blir her..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Forlat Betakanalen?"
+        document.getElementById("leavebetasub").innerHTML = "Appen vil gå tilbake til den siste offisielle utgivelsen"
+        document.getElementById("leavebetaok").innerHTML = "Forlat Betakanalen"
+        document.getElementById("leavebetacancel").innerHTML = "Hold deg på Betakanalen"
+        
+        betajoin = "Bli med i Betakanalen"
+        betaleave = "Forlat Betakanalen"
+        betaerrortext = "Kan ikke oppdatere til Betakanal!"
+        betaerrorsub = "Det ser ut til at du ikke har en nettverkstilkobling. Ingen internett = ingen Beta!"
     } else if (config.lang == "polish") {
         document.getElementById("username").innerHTML = "Nie Wykryto Użytkownika";
         document.getElementById("gamestatus").innerHTML = "Nie Wykryto Gry";
@@ -2475,6 +2863,28 @@ function LoadLang() {
         secret = "Sekret";
         gamecomplete = "Gra Zakończona!";
         allunlocked = "Odblokowałeś wszystkie osiągnięcia!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Dołącz do <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Kanału Beta&nbsp;</span>, aby uzyskać wczesny dostęp!`
+        document.getElementById("betatest").innerHTML = "Przetestuj nowe funkcje przed wydaniem"
+        document.getElementById("betaoptin").innerHTML = "Włącz/wyłącz Kanał Beta w dowolnym momencie"
+        document.getElementById("betabugs").innerHTML = "Napraw błędy i ulepsz aplikację"
+        document.getElementById("betadiscord").innerHTML = `Dedykowany kanał&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord`
+        document.getElementById("betafb").innerHTML = "Przekaż opinię na temat przyszłych aktualizacji"
+        document.getElementById("betabugswarn").innerHTML = "<u>Błędy są prawdopodobne</u>&nbsp;(nie dla każdego!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier uruchomi się ponownie po dołączeniu do Kanału Beta"
+        document.getElementById("betaok").innerHTML = "Tak to brzmi dobrze!"
+        document.getElementById("betacancel").innerHTML = "Nie, zostanę tutaj..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Opuść Kanał Beta?"
+        document.getElementById("leavebetasub").innerHTML = "Aplikacja powróci do najnowszej oficjalnej wersji"
+        document.getElementById("leavebetaok").innerHTML = "Opuść Kanał Beta"
+        document.getElementById("leavebetacancel").innerHTML = "Pozostań na Kanał Beta"
+        
+        betajoin = "Dołącz Kanału Beta"
+        betaleave = "Opuść Kanał Beta"
+        betaerrortext = "Nie można zaktualizować do Kanału Beta!"
+        betaerrorsub = "Wygląda na to, że nie masz połączenia sieciowego. Brak internetu = Brak wersji Beta!"
     } else if (config.lang == "portuguese") {
         document.getElementById("username").innerHTML = "Nenhum Usuário Detectado";
         document.getElementById("gamestatus").innerHTML = "Nenhum Jogo Detectado";
@@ -2604,6 +3014,28 @@ function LoadLang() {
         secret = "Segredo";
         gamecomplete = "Jogo Completo!";
         allunlocked = "Você desbloqueou todas as conquistas!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Junte-se ao <span id="beta highlight" style="color: blueviolet; font-weight: bold;">&nbsp;Canal Beta&nbsp;</span> para acesso antecipado!`
+        document.getElementById("betatest").innerHTML = "Teste novos recursos antes do lançamento"
+        document.getElementById("betaoptin").innerHTML = "Ative/desative o Canal Beta a qualquer momento"
+        document.getElementById("betabugs").innerHTML = "Corrija bugs e melhore o aplicativo"
+        document.getElementById("betadiscord").innerHTML = `Canal dedicado do Discord &nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;`
+        document.getElementById("betafb").innerHTML = "Fornecer feedback sobre as próximas adições"
+        document.getElementById("betabugswarn").innerHTML = "<u>Erros são prováveis</u>&nbsp;(não para todos!)"
+        document.getElementById("betawarntext").innerHTML = "O Steam Achievement Notifier será reiniciado após ingressar no Canal Beta"
+        document.getElementById("betaok").innerHTML = "Sim, soa bem!"
+        document.getElementById("betacancel").innerHTML = "Não, vou ficar aqui..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Sair do Canal Beta?"
+        document.getElementById("leavebetasub").innerHTML = "O aplicativo será revertido para a versão oficial mais recente"
+        document.getElementById("leavebetaok").innerHTML = "Sair do Canal Beta"
+        document.getElementById("leavebetacancel").innerHTML = "Fique no Canal Beta"
+        
+        betajoin = "Entre no Canal Beta"
+        betaleave = "Sair do Canal Beta"
+        betaerrortext = "Não foi possível atualizar para o Canal Beta!"
+        betaerrorsub = "Parece que você não tem uma conexão de rede. Sem internet = Sem Beta!"
     } else if (config.lang == "brazilian") {
         document.getElementById("username").innerHTML = "Nenhum Usuário Detectado";
         document.getElementById("gamestatus").innerHTML = "Nenhum Jogo Detectado";
@@ -2738,6 +3170,28 @@ function LoadLang() {
         secret = "Segredo";
         gamecomplete = "Jogo Completo!";
         allunlocked = "Você já Desbloqueou Todas as Conquistas!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Junte-se à <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Canal Beta&nbsp;</span> para acesso antecipado!`
+        document.getElementById("betatest").innerHTML = "Teste as novas características antes do lançamento"
+        document.getElementById("betaoptin").innerHTML = "Optar por entrar/sair do Canal Beta a qualquer momento"
+        document.getElementById("betabugs").innerHTML = "Corrigir bugs e melhorar o aplicativo"
+        document.getElementById("betadiscord").innerHTML = `Canal dedicado &nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord`
+        document.getElementById("betafb").innerHTML = "Fornecer feedback sobre os próximos acréscimos"
+        document.getElementById("betabugswarn").innerHTML = "<u>Os erros são prováveis</u>&nbsp;(não para todos!)"
+        document.getElementById("betawarntext").innerHTML = "O Steam Achievement Notifier será reiniciado após a adesão ao Canal Beta"
+        document.getElementById("betaok").innerHTML = "Sim, soa bem!"
+        document.getElementById("betacancel").innerHTML = "Não, eu fico aqui..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Abandonar Canal Beta?"
+        document.getElementById("leavebetasub").innerHTML = "O aplicativo voltará ao mais recente lançamento oficial"
+        document.getElementById("leavebetaok").innerHTML = "Abandonar Canal Beta"
+        document.getElementById("leavebetacancel").innerHTML = "Stay on Beta Channel"
+        
+        betajoin = "Entre no Canal Beta"
+        betaleave = "Abandonar Canal Beta"
+        betaerrortext = "Incapaz de atualizar para o Canal Beta!"
+        betaerrorsub = "Parece que você não tem uma conexão de rede. Sem internet = Sem Beta!"
     } else if (config.lang == "romanian") {
         document.getElementById("username").innerHTML = "Niciun Utilizator Detectat";
         document.getElementById("gamestatus").innerHTML = "Niciun Joc Detectat";
@@ -2867,6 +3321,28 @@ function LoadLang() {
         secret = "Secret";
         gamecomplete = "Joc Complet!";
         allunlocked = "Ai deblocat toate realizările!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Alăturați-vă <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Canalul Beta&nbsp;</span> pentru acces anticipat!`
+        document.getElementById("betatest").innerHTML = "Testați funcții noi înainte de lansare"
+        document.getElementById("betaoptin").innerHTML = "Înscrieți-vă/renunțați la Canalul Beta în orice moment"
+        document.getElementById("betabugs").innerHTML = "Remediați erorile din aplicație"
+        document.getElementById("betadiscord").innerHTML = `Canal dedicat&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord`
+        document.getElementById("betafb").innerHTML = "Oferiți feedback despre funcții"
+        document.getElementById("betabugswarn").innerHTML = "<u>Sunt probabile erori</u>&nbsp;(nu pentru toata lumea!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier va reporni după alăturarea Canalul Beta"
+        document.getElementById("betaok").innerHTML = "Da, sună bine!"
+        document.getElementById("betacancel").innerHTML = "Nu, voi sta aici..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Părăsiți Canalul Beta?"
+        document.getElementById("leavebetasub").innerHTML = "Aplicația va reveni la cea mai recentă versiune oficială"
+        document.getElementById("leavebetaok").innerHTML = "Părăsiți Canalul Beta"
+        document.getElementById("leavebetacancel").innerHTML = "Stay on Beta Channel"
+        
+        betajoin = "Intră pe Canalul Beta"
+        betaleave = "Părăsiți Canalul Beta"
+        betaerrortext = "Nu se poate actualiza la Canalul Beta!"
+        betaerrorsub = "Se pare că nu aveți o conexiune la rețea. Fără internet = Fără Beta!"
     } else if (config.lang == "russian") {
         document.getElementById("username").innerHTML = "Пользователь Не Обнаружен";
         document.getElementById("gamestatus").innerHTML = "Игра Не Обнаружена";
@@ -2996,6 +3472,28 @@ function LoadLang() {
         secret = "Секрет";
         gamecomplete = "Завершенная Игра!";
         allunlocked = "Вы разблокировали все достижения!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Присоединяйтесь к <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;бета-каналу&nbsp;</span> для раннего доступа!`
+        document.getElementById("betatest").innerHTML = "Тестируйте новые функции перед выпуском"
+        document.getElementById("betaoptin").innerHTML = "Присоединяйтесь/отключайтесь от бета-каналу в любое время"
+        document.getElementById("betabugs").innerHTML = "Исправьте ошибки и улучшите приложение"
+        document.getElementById("betadiscord").innerHTML = `Выделенный канал&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;в Discord`
+        document.getElementById("betafb").innerHTML = "Оставьте отзыв о предстоящих дополнениях"
+        document.getElementById("betabugswarn").innerHTML = "<u>Ошибки вероятны</u>&nbsp;(не для всех!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier перезапустится после присоединения к бета-каналу"
+        document.getElementById("betaok").innerHTML = "Да, звучит хорошо!"
+        document.getElementById("betacancel").innerHTML = "Нет, я останусь здесь..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Выйти бета-каналу"
+        document.getElementById("leavebetasub").innerHTML = "Приложение вернется к самой последней официальной версии"
+        document.getElementById("leavebetaok").innerHTML = "Выйти бета-каналу"
+        document.getElementById("leavebetacancel").innerHTML = "Оставайтесь на бета-каналу"
+        
+        betajoin = "Участвуйте в бета-каналу"
+        betaleave = "Выйти бета-каналу"
+        betaerrortext = "Невозможно обновиться до бета-каналу!"
+        betaerrorsub = "Похоже, у вас нет подключения к сети. Нет интернета = нет бета-версии!"
     } else if (config.lang == "spanish") {
         document.getElementById("username").innerHTML = "No Se Detectó Ningún Usuario";
         document.getElementById("gamestatus").innerHTML = "No Se Detectó Ningún Juego";
@@ -3125,6 +3623,28 @@ function LoadLang() {
         secret = "Secreto";
         gamecomplete = "¡Juego Completo!";
         allunlocked = "¡Has desbloqueado todos los logros!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `¡Únase al <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Canal Beta&nbsp;</span> para obtener acceso anticipado!`
+        document.getElementById("betatest").innerHTML = "Probar nuevas funciones antes del lanzamiento"
+        document.getElementById("betaoptin").innerHTML = "Activar/desactivar el Canal Beta en cualquier momento"
+        document.getElementById("betabugs").innerHTML = "Corrige errores y mejora la aplicación."
+        document.getElementById("betadiscord").innerHTML = `Canal de Discord dedicado a&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;`
+        document.getElementById("betafb").innerHTML = "Proporcionar comentarios sobre futuras incorporaciones"
+        document.getElementById("betabugswarn").innerHTML = "<u>Es probable que haya errores</u>&nbsp;(no para todos!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier se reiniciará después de unirse al Canal Beta"
+        document.getElementById("betaok").innerHTML = "¡Sí, suena bien!"
+        document.getElementById("betacancel").innerHTML = "No, me quedaré aquí..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "¿Abandonar Canal Beta?"
+        document.getElementById("leavebetasub").innerHTML = "La aplicación volverá a la versión oficial más reciente"
+        document.getElementById("leavebetaok").innerHTML = "Salir Canal Beta"
+        document.getElementById("leavebetacancel").innerHTML = "Permanecer en Canal Beta"
+        
+        betajoin = "Únete Canal Beta"
+        betaleave = "Salir Canal Beta"
+        betaerrortext = "¡No se puede actualizar al canal Beta!"
+        betaerrorsub = "Parece que no tienes una conexión de red. ¡Sin Internet = Sin Beta!"
     } else if (config.lang == "swedish") {
         document.getElementById("username").innerHTML = "Ingen Användare Upptäckt";
         document.getElementById("gamestatus").innerHTML = "Inget Spel Upptäckt";
@@ -3254,6 +3774,28 @@ function LoadLang() {
         secret = "Hemlig";
         gamecomplete = "Spelet Avklarat!";
         allunlocked = "Du har låst upp alla prestationer!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Gå med i <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Betakanalen&nbsp;</span> för att få tidig tillgång till nya funktioner!`
+        document.getElementById("betatest").innerHTML = "Testa nya funktioner innan officiell release"
+        document.getElementById("betaoptin").innerHTML = "Du kan när som helst välja in/av Betakanalen"
+        document.getElementById("betabugs").innerHTML = "Fixa buggar och förbättra appen"
+        document.getElementById("betadiscord").innerHTML = `Dedikerad&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord-kanal`
+        document.getElementById("betafb").innerHTML = "Ge feedback om kommande tillägg"
+        document.getElementById("betabugswarn").innerHTML = "<u>Buggar är troliga</u>&nbsp;(inte för alla!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier kommer att starta om efter att ha gått med i Betakanalen"
+        document.getElementById("betaok").innerHTML = "Japp, låter bra!"
+        document.getElementById("betacancel").innerHTML = "Nej, jag stannar här..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Lämna Betakanalen?"
+        document.getElementById("leavebetasub").innerHTML = "Appen återgår till den senaste officiella versionen"
+        document.getElementById("leavebetaok").innerHTML = "Lämna Betakanalen"
+        document.getElementById("leavebetacancel").innerHTML = "Stanna på Betakanalen"
+        
+        betajoin = "Gå med i Betakanalen"
+        betaleave = "Lämna Betakanalen"
+        betaerrortext = "Det går inte att uppdatera till Betakanalen!"
+        betaerrorsub = "Det verkar som att du inte har någon nätverksanslutning. Inget internet = Ingen Beta!"
     } else if (config.lang == "thai") {
         document.getElementById("username").innerHTML = "ไม่พบผู้ใช้";
         document.getElementById("gamestatus").innerHTML = "ไม่พบเกม";
@@ -3383,6 +3925,28 @@ function LoadLang() {
         secret = "ความลับ";
         gamecomplete = "เกมจบ!";
         allunlocked = "คุณได้ปลดล็อคความสำเร็จทั้งหมดแล้ว!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `เข้าร่วม <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;ช่องเบต้า&nbsp;</span> เพื่อเข้าถึงคุณลักษณะใหม่ก่อนใคร!`
+        document.getElementById("betatest").innerHTML = "ทดสอบฟีเจอร์ใหม่ก่อนเปิดตัวอย่างเป็นทางการ"
+        document.getElementById("betaoptin").innerHTML = "เลือกเข้า/ออกจากช่องเบต้าได้ตลอดเวลา"
+        document.getElementById("betabugs").innerHTML = "แก้ไขข้อผิดพลาดและการปรับปรุงแอพ"
+        document.getElementById("betadiscord").innerHTML = `ช่อง Discord ของ&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;โดยเฉพาะ`
+        document.getElementById("betafb").innerHTML = "ให้ข้อเสนอแนะเกี่ยวกับการเพิ่มเติมที่จะเกิดขึ้น"
+        document.getElementById("betabugswarn").innerHTML = "<u>บั๊กมีแนวโน้ม</u>&nbsp;(ไม่ใช่สำหรับทุกคน!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier จะรีสตาร์ทหลังจากเข้าร่วมช่องเบต้า"
+        document.getElementById("betaok").innerHTML = "ใช่ฟังดูดี!"
+        document.getElementById("betacancel").innerHTML = "ไม่ ฉันจะอยู่ที่นี่..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "ออกจากช่องเบต้า?"
+        document.getElementById("leavebetasub").innerHTML = "แอปจะเปลี่ยนกลับเป็นเวอร์ชันล่าสุดอย่างเป็นทางการ"
+        document.getElementById("leavebetaok").innerHTML = "ออกจากช่องเบต้า"
+        document.getElementById("leavebetacancel").innerHTML = "อยู่ในช่องเบต้า"
+        
+        betajoin = "เข้าร่วมช่องเบต้า"
+        betaleave = "ออกจากช่องเบต้า"
+        betaerrortext = "ไม่สามารถอัปเดตเป็นช่องเบต้าได้!"
+        betaerrorsub = "ดูเหมือนว่าคุณไม่มีการเชื่อมต่อเครือข่าย ไม่มีอินเทอร์เน็ต = ไม่มีเบต้า!"
     } else if (config.lang == "turkish") {
         document.getElementById("username").innerHTML = "Kullanıcı Tespit Edilmedi";
         document.getElementById("gamestatus").innerHTML = "Oyun Algılanmadı";
@@ -3512,6 +4076,28 @@ function LoadLang() {
         secret = "Gizli";
         gamecomplete = "Oyun Tamamlandı!";
         allunlocked = "Tüm başarıların kilidini açtınız!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Erken erişim için <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Beta Kanalı&nbsp;</span>'na katılın!`
+        document.getElementById("betatest").innerHTML = "Resmi sürümden önce yeni özellikleri test edin"
+        document.getElementById("betaoptin").innerHTML = "Beta Kanalın istediğiniz zaman dahil olun/çıkın"
+        document.getElementById("betabugs").innerHTML = "Hataları düzeltin ve uygulamayı iyileştirin"
+        document.getElementById("betadiscord").innerHTML = `Özel&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord kanalı`
+        document.getElementById("betafb").innerHTML = "Yaklaşan eklemeler hakkında geri bildirim sağlayın"
+        document.getElementById("betabugswarn").innerHTML = "<u>Hatalar muhtemeldir</u>&nbsp;(herkes için değil!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier, Beta Kanalına katıldıktan sonra yeniden başlayacak"
+        document.getElementById("betaok").innerHTML = "Evet, kulağa hoş geliyor!"
+        document.getElementById("betacancel").innerHTML = "Hayır, burada kalacağım..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Beta Kanalından Ayrıl?"
+        document.getElementById("leavebetasub").innerHTML = "App will revert to the most recent official release"
+        document.getElementById("leavebetaok").innerHTML = "Beta Kanalından Ayrıl"
+        document.getElementById("leavebetacancel").innerHTML = "Beta Kanalında Kalın"
+        
+        betajoin = "Beta Kanalına Katılın"
+        betaleave = "Beta Kanalından Ayrıl"
+        betaerrortext = "Beta Kanalına güncellenemiyor!"
+        betaerrorsub = "Ağ bağlantınız yok gibi görünüyor. İnternet yok = Beta yok!"
     } else if (config.lang == "ukrainian") {
         document.getElementById("username").innerHTML = "Користувача Не Виявлено";
         document.getElementById("gamestatus").innerHTML = "Гра Не Виявлена";
@@ -3641,6 +4227,28 @@ function LoadLang() {
         secret = "Секрет";
         gamecomplete = "Гра Завершено!";
         allunlocked = "Ви розблокували всі досягнення!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Приєднуйтесь до <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;бета-каналу&nbsp;</span> для раннього доступу!`
+        document.getElementById("betatest").innerHTML = "Перевірте нові функції перед офіційним випуском"
+        document.getElementById("betaoptin").innerHTML = "Відмовтеся від бета-каналу в будь-який час"
+        document.getElementById("betabugs").innerHTML = "Виправляйте помилки та покращуйте програму"
+        document.getElementById("betadiscord").innerHTML = `Спеціальний канал&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord`
+        document.getElementById("betafb").innerHTML = "Надайте відгук про майбутні доповнення"
+        document.getElementById("betabugswarn").innerHTML = "<u>Ймовірні помилки</u>&nbsp;(не для всіх!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier перезапуститься після приєднання до бета-каналу"
+        document.getElementById("betaok").innerHTML = "Так, звучить добре!"
+        document.getElementById("betacancel").innerHTML = "Ні, я залишуся тут..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Залиште бета-каналу?"
+        document.getElementById("leavebetasub").innerHTML = "Додаток повернеться до останнього офіційного випуску"
+        document.getElementById("leavebetaok").innerHTML = "Залиште бета-каналу"
+        document.getElementById("leavebetacancel").innerHTML = "Залишайтеся на бета-каналу"
+        
+        betajoin = "Приєднуйтесь до бета-каналу"
+        betaleave = "Залиште бета-каналу"
+        betaerrortext = "Не вдається оновити до бета-каналу!"
+        betaerrorsub = "Схоже, у вас немає підключення до мережі. Немає інтернету = немає бета-версії!"
     } else if (config.lang == "vietnamese") {
         document.getElementById("username").innerHTML = "Không Có Người Dùng Nào Được Phát Hiện";
         document.getElementById("gamestatus").innerHTML = "Không Có Trò Chơi Nào Được Phát Hiện";
@@ -3770,7 +4378,30 @@ function LoadLang() {
         secret = "Bí Mật";
         gamecomplete = "Hoàn Thành Trò Chơi!";
         allunlocked = "Bạn đã mở khóa tất cả các thành tích!";
+
+        // Beta Translations (App Revision 0.8)
+        document.getElementById("betatagline").innerHTML = `Tham gia <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Kênh Beta&nbsp;</span> để có quyền truy cập sớm!`
+        document.getElementById("betatest").innerHTML = "Thử nghiệm các tính năng mới trước khi phát hành chính thức"
+        document.getElementById("betaoptin").innerHTML = "Chọn tham gia / không tham gia Kênh Beta bất kỳ lúc nào"
+        document.getElementById("betabugs").innerHTML = "Sửa lỗi và cải thiện ứng dụng"
+        document.getElementById("betadiscord").innerHTML = `Kênh&nbsp;<span style="background: #5662f6; padding: 2px 3px; border-radius: 2px;">#beta-testing</span>&nbsp;Discord chuyên dụng`
+        document.getElementById("betafb").innerHTML = "Cung cấp phản hồi về các bổ sung sắp tới"
+        document.getElementById("betabugswarn").innerHTML = "<u>Có khả năng xảy ra lỗi</u>&nbsp;(không phải cho tất cả mọi người!)"
+        document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier sẽ khởi động lại sau khi tham gia Kênh Beta"
+        document.getElementById("betaok").innerHTML = "Vâng, đó là tốt!"
+        document.getElementById("betacancel").innerHTML = "Không, tôi sẽ ở lại đây ..."
+        
+        document.getElementById("leavebetatitle").innerHTML = "Rời khỏi kênh Beta?"
+        document.getElementById("leavebetasub").innerHTML = "Ứng dụng sẽ hoàn nguyên về bản phát hành chính thức gần đây nhất"
+        document.getElementById("leavebetaok").innerHTML = "Rời khỏi kênh Beta"
+        document.getElementById("leavebetacancel").innerHTML = "Tiếp tục trên kênh Beta"
+        
+        betajoin = "Tham gia kênh Beta"
+        betaleave = "Rời khỏi kênh Beta"
+        betaerrortext = "Không thể cập nhật lên Kênh Beta!"
+        betaerrorsub = "Có vẻ như bạn không có kết nối mạng. Không có internet = Không có bản Beta!"
     }
+    CheckBeta()
     GetPlayerName();
 
     var apikey = config.apikey;
@@ -3969,6 +4600,7 @@ function ShowSettings() {
     CheckAllPercent();
     CheckNVDA();
     CheckHWA();
+    CheckBeta()
 }
 
 function CloseSettings() {
@@ -3977,6 +4609,16 @@ function CloseSettings() {
     setTimeout(function() {
         document.getElementById("settingscont").style.display = "none";
     }, 200)
+    
+    if (document.getElementById("settingscont").style.display = "none") {
+        document.getElementById("betadialog").style.animation = "poprev 0.2s forwards"
+        document.getElementById("betaerror").style.animation = "poprev 0.2s forwards"
+        document.getElementById("overlay").style.zIndex = "3"
+        setTimeout(() => {
+            document.getElementById("betadialog").style.display = "none"
+            document.getElementById("betaerror").style.display = "none"
+        }, 200)
+    }
 }
 
 function CloseWindow() {
@@ -7415,32 +8057,51 @@ function ToggleNoSteam() {
         });
     }
 
-    if (config.nosteam == "false") {
-        document.getElementById("nosteambox").style.display = "none";
-        document.getElementById("nosteamloadcont").style.display = "flex";
+    var execname;
+    var tasklist;
 
-        config["nosteam"] = "true";
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
-
-        if (fs.existsSync(path.join(steampath,"skins","NoSteamNotifications","resource","styles","steam.styles"))) {
-            SetSkinInReg();
-        } else {
-            fs.mkdirSync(path.join(steampath,"skins","NoSteamNotifications","resource","styles"), { recursive: true });
-            fs.copyFileSync(path.join(__dirname,"store","steam.styles"), path.join(steampath,"skins","NoSteamNotifications","resource","styles","steam.styles"));
-
-            SetSkinInReg();
-        }
-    } else {
-        document.getElementById("nosteambox").style.display = "none";
-        document.getElementById("nosteamloadcont").style.display = "flex";
-        
-        config["nosteam"] = "false";
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
-
-        RemoveSkinInReg();
+    if (process.platform == "win32") {
+        execname = "steam.exe";
+        tasklist = "tasklist";
+    } else if (process.platform == "linux") {
+        execname = "steam";
+        tasklist = "ps -A";
+    } else if (process.platform == "darwin") {
+        execname = "steam"
+        tasklist = `ps -ax | grep ${execname}`
     }
 
-    CheckNoSteam();
+    if (issteamrunning == true) {
+        if (config.nosteam == "false") {
+            document.getElementById("nosteambox").style.display = "none";
+            document.getElementById("nosteamloadcont").style.display = "flex";
+
+            config["nosteam"] = "true";
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+
+            if (fs.existsSync(path.join(steampath,"skins","NoSteamNotifications","resource","styles","steam.styles"))) {
+                SetSkinInReg();
+            } else {
+                fs.mkdirSync(path.join(steampath,"skins","NoSteamNotifications","resource","styles"), { recursive: true });
+                fs.copyFileSync(path.join(__dirname,"store","steam.styles"), path.join(steampath,"skins","NoSteamNotifications","resource","styles","steam.styles"));
+
+                SetSkinInReg();
+            }
+        } else {
+            document.getElementById("nosteambox").style.display = "none";
+            document.getElementById("nosteamloadcont").style.display = "flex";
+            
+            config["nosteam"] = "false";
+            fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+
+            RemoveSkinInReg();
+        }
+
+        CheckNoSteam();
+    } else {
+        ipcRenderer.send('steamnotrunning')
+        document.getElementById("nosteambox").checked = false
+    }
 }
 
 function CheckAllPercent() {
@@ -7507,6 +8168,8 @@ function ToggleHWA() {
     }
 }
 
+var issteamrunning
+
 function CheckIfSteamIsRunning() {
     var execname;
     var tasklist;
@@ -7526,7 +8189,9 @@ function CheckIfSteamIsRunning() {
         var steam = process.toLowerCase().indexOf(execname);
 
         if (steam == -1) {
+            issteamrunning = false
             console.log("%cSteam is NOT running", "color: red");
+            document.getElementById("nosteamlbl").style.opacity = "0.5"
 
             var checkprocesses = setInterval(function() {
                 exec(tasklist, function(err, process) {
@@ -7538,7 +8203,9 @@ function CheckIfSteamIsRunning() {
                 });
             }, 2000);
         } else {
+            issteamrunning = true
             console.log("%cSteam is running.", "color: cyan");
+            document.getElementById("nosteamlbl").style.opacity = "1"
         }
     });
 }
@@ -8106,12 +8773,116 @@ function ToggleScreenshotPreviewRare() {
     CheckScreenshotPreviewRare()
 }
 
-// Clears webFrame cache every minute
-// Removes images from cache which apparently hogs memory
-// const { webFrame } = require('electron');
-// var clearcache = setInterval(function() {
-//     webFrame.clearCache();
-// }, 60000);
+function CheckBeta() {
+    const version = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","version.json")))
+
+    if (version.beta == undefined) {
+        version["beta"] = false
+        version["betaversion"] = 0.1
+        fs.writeFileSync(path.join(sanlocalappdata,"store","version.json"), JSON.stringify(version, null, 2))
+    }
+
+    if (version.beta == true) {
+        document.getElementById("joinbetabtn").innerHTML = betaleave
+    } else {
+        document.getElementById("joinbetabtn").innerHTML = betajoin
+    }
+}
+
+if (document.getElementById("settingscont").style.display = "none") {
+    document.getElementById("betadialog").style.display = "none"
+    document.getElementById("betaerror").style.display = "none"
+}
+
+function ToggleBeta() {
+    const version = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","version.json")))
+
+    function ShowBetaDialog() {
+        document.getElementById("betadialog").style.display = "flex"
+        document.getElementById("betadialog").style.animation = "pop 0.5s forwards"
+        document.getElementById("betatext").style.animation = "bounce 1s ease-in-out infinite forwards";
+        document.getElementById("overlay").style.zIndex = "19"
+        document.getElementById("leavebetacont").style.display = "none"
+    }
+
+    function ShowLeaveBetaDialog() {
+        document.getElementById("betadialog").style.display = "flex"
+        document.getElementById("betadialog").style.animation = "pop 0.5s forwards"
+        document.getElementById("betatext").style.display = "none"
+        document.getElementById("sanbetalogo").style.display = "none"
+        document.getElementById("betatagline").style.display = "none"
+        document.getElementById("betadesccont").style.display = "none"
+        document.getElementById("betawarn").style.display = "none"
+        document.getElementById("betabtns").style.display = "none"
+        document.getElementById("overlay").style.zIndex = "19"
+
+        document.getElementById("betadialog").style.width = "50%"
+        document.getElementById("betadialog").style.height = "30%"
+        document.getElementById("betadialog").style.justifyContent = "center"
+        document.getElementById("betadialog").style.alignItems = "center"
+        document.getElementById("leavebetacont").style.display = "flex"
+    }
+
+    if (version.beta == false) {
+        ShowBetaDialog()
+    } else {
+        ShowLeaveBetaDialog()
+    }
+}
+
+function BetaAccept() {
+    const version = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","version.json")))
+
+    document.getElementById("betadialog").style.animation = "poprev 0.2s forwards"
+    setTimeout(() => {
+        document.getElementById("betadialog").style.display = "none"
+    }, 200)
+
+    fetch("https://www.github.com/steamachievementnotifier/steamachievementnotifier/").then(res => {
+        if (res.ok == true) {
+            return `Connected! (Status Code: ${res.status})`
+        } else {
+            Promise.reject()
+        }
+    }).then(status => {
+        console.log(`%c${status}`, "color: lime")
+
+        version["beta"] = true
+        version["betaversion"] = 0
+        fs.writeFileSync(path.join(sanlocalappdata,"store","version.json"), JSON.stringify(version, null, 4))
+
+        ipcRenderer.send('resetcomplete')
+    }).catch(err => {
+        console.log(`%cDisconnected! (Reason: "${err}")`, "color:red")
+        document.getElementById("betaerror").style.display = "flex"
+        document.getElementById("betaerrortext").innerHTML = `🛑 ${betaerrortext}`
+        document.getElementById("betaerrorsub").innerHTML = betaerrorsub
+        document.getElementById("betaerror").style.animation = "pop 0.5s forwards"
+    })
+}
+
+function BetaCancel() {
+    document.getElementById("betadialog").style.animation = "poprev 0.2s forwards"
+    document.getElementById("overlay").style.zIndex = "3"
+    setTimeout(() => {
+        document.getElementById("betadialog").style.display = "none"
+    }, 200)
+}
+
+function LeaveBeta() {
+    version["beta"] = false
+    version["betaversion"] = 0
+    fs.writeFileSync(path.join(sanlocalappdata,"store","version.json"), JSON.stringify(version, null, 4))
+    ipcRenderer.send('resetcomplete')
+}
+
+function CloseBetaError() {
+    document.getElementById("betaerror").style.animation = "poprev 0.2s forwards"
+    document.getElementById("overlay").style.zIndex = "3"
+    setTimeout(() => {
+        document.getElementById("betaerror").style.display = "none"
+    }, 200)
+}
 
 ipcRenderer.on('displayupdated', (event, w, h, sf) => {
     console.log(`%cPrimary Display metrics updated!\n`, "color: mediumpurple", { resolution: `${w} x ${h}`, scaleFactor: `${sf * 100}%` })

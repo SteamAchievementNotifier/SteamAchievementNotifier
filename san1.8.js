@@ -6488,6 +6488,7 @@ function SetBGType() {
         config["bgtype"] = "game";
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
     }
+
     GetBGType();
 }
 
@@ -6549,6 +6550,14 @@ function GetBGType() {
         document.getElementById("iconselecticon").src = "./img/sanlogosquare.svg";
     } else {
         document.getElementById("iconselecticon").src = config.icon;
+    }
+
+    if (config.bgtype !== "game") {
+        document.getElementById("brightnesslblcont").style.display = "none"
+        document.getElementById("brightnessslidercont").style.display = "none"
+    } else {
+        document.getElementById("brightnesslblcont").style.display = "flex"
+        document.getElementById("brightnessslidercont").style.display = "flex"
     }
 }
 
@@ -6624,6 +6633,14 @@ function GetRareBGType() {
         document.getElementById("rareiconselecticon").src = "./img/sanlogosquare.svg";
     } else {
         document.getElementById("rareiconselecticon").src = config.rareicon;
+    }
+
+    if (config.rarebgtype !== "game") {
+        document.getElementById("brightnesslblcontrare").style.display = "none"
+        document.getElementById("brightnessslidercontrare").style.display = "none"
+    } else {
+        document.getElementById("brightnesslblcontrare").style.display = "flex"
+        document.getElementById("brightnessslidercontrare").style.display = "flex"
     }
 }
 
@@ -8912,6 +8929,46 @@ function CloseBetaError() {
     setTimeout(() => {
         document.getElementById("betaerror").style.display = "none"
     }, 200)
+}
+
+if (config.brightness == undefined) {
+    // Opacity is calculated backwards for linear-gradient in
+    // the notifications - i.e. 0 is 100% opacity, 1 is 0%
+    config["brightness"] = "0"
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+}
+
+if (config.rarebrightness == undefined) {
+    // Opacity is calculated backwards for linear-gradient in
+    // the notifications - i.e. 0 is 100% opacity, 1 is 0%
+    config["rarebrightness"] = "0"
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+}
+
+function GetGameArtBrightness() {
+    document.getElementById("brightnessslider").value = config.brightness
+    document.getElementById("brightnessvalue").innerHTML = `${(config.brightness * 100 - 100).toString().replace('-','')}%`
+}
+
+GetGameArtBrightness()
+
+function SetGameArtBrightness() {
+    config["brightness"] = document.getElementById("brightnessslider").value
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    ReplayNotification()
+}
+
+function GetGameArtBrightnessRare() {
+    document.getElementById("brightnesssliderrare").value = config.rarebrightness
+    document.getElementById("brightnessvaluerare").innerHTML = `${(config.rarebrightness * 100 - 100).toString().replace('-','')}%`
+}
+
+GetGameArtBrightnessRare()
+
+function SetGameArtBrightnessRare() {
+    config["rarebrightness"] = document.getElementById("brightnesssliderrare").value
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    ReplayRareNotification()
 }
 
 ipcRenderer.on('displayupdated', (event, w, h, sf) => {

@@ -120,11 +120,36 @@ if (bgtype == "bgsolid") {
     document.getElementById("logo").src = logo;
     document.getElementById("logo").style.borderRadius = "" + config.rareiconroundness * 1.5 + "px";
 } else if (bgtype == "game") {
+    var arr = [
+        "220",
+        "620",
+        "4000",
+        "22300",
+        "257510",
+        "275850",
+        "361420",
+        "412020",
+        "499520",
+        "582010",
+        "648800",
+        "782330",
+        "1091500",
+        "1659040",
+    ]
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    var gamearturl = `https://cdn.cloudflare.steamstatic.com/steam/apps/${arr[getRandomInt(arr.length)]}/library_hero.jpg`
+
+    var gameartbg = `linear-gradient(rgba(0,0,0,${config.rarebrightness}), rgba(0,0,0,${config.rarebrightness})), url("${gamearturl}")`
+
     document.getElementById("cont").style.color = textcolour;
     document.getElementById("first").style = solid1;
     document.getElementById("second").style = solid;
     document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
-    document.getElementById("logocont").style.backgroundImage = `url("../../../img/sanimgbg.png")`
+    document.getElementById("logocont").style.backgroundImage = gameartbg
     document.getElementById("logocont").style.backgroundPosition = "center";
     document.getElementById("logocont").style.backgroundRepeat = "no-repeat";
     document.getElementById("logocont").style.backgroundSize = "300px";

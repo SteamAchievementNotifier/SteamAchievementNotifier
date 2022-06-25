@@ -1278,7 +1278,7 @@ input[type="range"] {
     cursor: pointer;
 }*/
 
-#rarityslider::-webkit-slider-thumb, #opacityslider::-webkit-slider-thumb, #roundness::-webkit-slider-thumb, #iconroundness::-webkit-slider-thumb, #displaytimeslider::-webkit-slider-thumb, #scaleslider::-webkit-slider-thumb, #volumeslider::-webkit-slider-thumb, #trackopacityslider::-webkit-slider-thumb, #fontsizeslider::-webkit-slider-thumb {
+#rarityslider::-webkit-slider-thumb, #opacityslider::-webkit-slider-thumb, #roundness::-webkit-slider-thumb, #iconroundness::-webkit-slider-thumb, #displaytimeslider::-webkit-slider-thumb, #scaleslider::-webkit-slider-thumb, #volumeslider::-webkit-slider-thumb, #trackopacityslider::-webkit-slider-thumb, #fontsizeslider::-webkit-slider-thumb, #brightnessslider::-webkit-slider-thumb {
     appearance: none;
     width: 15px;
     height: 15px;
@@ -1288,7 +1288,7 @@ input[type="range"] {
     cursor: pointer;
 }
 
-#roundnessrare::-webkit-slider-thumb, #displaytimesliderrare::-webkit-slider-thumb, #scalesliderrare::-webkit-slider-thumb, #volumesliderrare::-webkit-slider-thumb, #iconroundnessrare::-webkit-slider-thumb, #fontsizesliderrare::-webkit-slider-thumb {
+#roundnessrare::-webkit-slider-thumb, #displaytimesliderrare::-webkit-slider-thumb, #scalesliderrare::-webkit-slider-thumb, #volumesliderrare::-webkit-slider-thumb, #iconroundnessrare::-webkit-slider-thumb, #fontsizesliderrare::-webkit-slider-thumb, #brightnesssliderrare::-webkit-slider-thumb {
     appearance: none;
     width: 15px;
     height: 15px;
@@ -1298,7 +1298,7 @@ input[type="range"] {
     cursor: pointer;
 }
 
-#rarityslider::-webkit-slider-thumb:hover, #opacityslider::-webkit-slider-thumb:hover, #roundness::-webkit-slider-thumb:hover, #iconroundness::-webkit-slider-thumb:hover, #displaytimeslider::-webkit-slider-thumb:hover, #scaleslider::-webkit-slider-thumb:hover, #roundnessrare::-webkit-slider-thumb:hover, #displaytimesliderrare::-webkit-slider-thumb:hover, #scalesliderrare::-webkit-slider-thumb:hover, #iconroundnessrare::-webkit-slider-thumb:hover, #trackopacityslider::-webkit-slider-thumb:hover, #fontsizeslider::-webkit-slider-thumb:hover, #fontsizesliderrare::-webkit-slider-thumb:hover {
+#rarityslider::-webkit-slider-thumb:hover, #opacityslider::-webkit-slider-thumb:hover, #roundness::-webkit-slider-thumb:hover, #iconroundness::-webkit-slider-thumb:hover, #displaytimeslider::-webkit-slider-thumb:hover, #scaleslider::-webkit-slider-thumb:hover, #roundnessrare::-webkit-slider-thumb:hover, #displaytimesliderrare::-webkit-slider-thumb:hover, #scalesliderrare::-webkit-slider-thumb:hover, #iconroundnessrare::-webkit-slider-thumb:hover, #trackopacityslider::-webkit-slider-thumb:hover, #fontsizeslider::-webkit-slider-thumb:hover, #fontsizesliderrare::-webkit-slider-thumb:hover, #brightnessslider::-webkit-slider-thumb:hover, #brightnesssliderrare::-webkit-slider-thumb:hover {
     transition: 0.2s;
     background: radial-gradient(circle, white 0%, lightgrey 100%);
 }
@@ -2001,7 +2001,7 @@ input[type="color"]::-webkit-color-swatch {
     opacity: 1;
 }
 
-#roundness, #iconroundness, #displaytimeslider, #scaleslider, #roundnessrare, #iconroundnessrare, #displaytimesliderrare, #scalesliderrare, #fontsizeslider, #fontsizesliderrare {
+#roundness, #iconroundness, #displaytimeslider, #scaleslider, #roundnessrare, #iconroundnessrare, #displaytimesliderrare, #scalesliderrare, #fontsizeslider, #fontsizesliderrare, #brightnessslider, #brightnesssliderrare {
     width: 95%;
 }
 
@@ -2044,7 +2044,7 @@ input[type="color"]::-webkit-color-swatch {
     width: 145px;
 }
 
-#displaytimelblcont, #fontsizelblcont {
+#displaytimelblcont, #fontsizelblcont, #brightnesslblcont {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -2053,21 +2053,21 @@ input[type="color"]::-webkit-color-swatch {
     margin-bottom: 5px;
 }
 
-#displaytimeleft, #fontsizeleft {
+#displaytimeleft, #fontsizeleft, #brightnessleft {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
 }
 
-#displaytimeright, #fontsizeright {
+#displaytimeright, #fontsizeright, #brightnessright {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 100%;
 }
 
-#displaytimevalue, #fontsizevalue {
+#displaytimevalue, #fontsizevalue, #brightnessvalue {
     width: 50px;
     text-align: right;
     padding-right: 10px;
@@ -2401,7 +2401,7 @@ input[type="color"]::-webkit-color-swatch {
     width: 145px;
 }
 
-#displaytimelblcontrare, #fontsizelblcontrare {
+#displaytimelblcontrare, #fontsizelblcontrare, #brightnesslblcontrare {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -2410,21 +2410,21 @@ input[type="color"]::-webkit-color-swatch {
     margin-bottom: 5px;
 }
 
-#displaytimeleftrare, #fontsizeleftrare {
+#displaytimeleftrare, #fontsizeleftrare, #brightnessleftrare {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
 }
 
-#displaytimerightrare, #fontsizerightrare {
+#displaytimerightrare, #fontsizerightrare, #brightnessrightrare {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 100%;
 }
 
-#displaytimevaluerare, #fontsizevaluerare {
+#displaytimevaluerare, #fontsizevaluerare, #brightnessvaluerare {
     width: 50px;
     text-align: right;
     padding-right: 10px;

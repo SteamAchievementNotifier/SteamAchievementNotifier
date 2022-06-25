@@ -145,12 +145,35 @@ if (bgtype == "bgsolid") {
     document.getElementById("icon1").style.borderRadius = "" + config.rareiconroundness + "px";
     document.getElementById("icon2").style.borderRadius = "" + config.rareiconroundness + "px";
 } else if (bgtype == "game") {
+    var arr = [
+        "220",
+        "620",
+        "4000",
+        "22300",
+        "257510",
+        "275850",
+        "361420",
+        "412020",
+        "499520",
+        "582010",
+        "648800",
+        "782330",
+        "1091500",
+        "1659040",
+    ]
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    var gamearturl = `https://cdn.cloudflare.steamstatic.com/steam/apps/${arr[getRandomInt(arr.length)]}/library_hero.jpg`
+
     var gameartbg
 
     if (notifyicon == "test") {
-        gameartbg = `url("../../../img/sanimgbg.png")`
+        gameartbg = `linear-gradient(rgba(0,0,0,${config.rarebrightness}), rgba(0,0,0,${config.rarebrightness})), url("${gamearturl}")`
     } else {
-        gameartbg = `url("${gameartimg}")`
+        gameartbg = `linear-gradient(rgba(0,0,0,${config.rarebrightness}), rgba(0,0,0,${config.rarebrightness})), url("${gameartimg}")`
     }
 
     document.getElementById("cont").style.color = textcolour;

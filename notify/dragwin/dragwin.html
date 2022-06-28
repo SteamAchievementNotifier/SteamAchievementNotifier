@@ -99,6 +99,7 @@
             const { ipcRenderer } = require('electron')            
             const fs = require('fs')
             const path = require('path')
+            const appdir = "V1.8"
 
             var localappdata
 
@@ -111,7 +112,7 @@
             }
             
             ipcRenderer.on('postype', (event, postype, style, dragwidth, dragheight) => {
-                var config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")))
+                var config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
 
                 if (postype == "main") {
                     document.getElementById("cont").style.background = config.colour1

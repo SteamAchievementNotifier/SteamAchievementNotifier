@@ -1,146 +1,147 @@
-const { ipcRenderer } = require('electron');
-const fs = require('fs');
-const path = require('path');
+const { ipcRenderer } = require('electron')
+const fs = require('fs')
+const path = require('path')
+const appdir = "V1.8"
 
-var localappdata;
+var localappdata
 
 if (process.platform == "win32") {
-    localappdata = path.join(process.env.LOCALAPPDATA);
+    localappdata = path.join(process.env.LOCALAPPDATA)
 } else if (process.platform == "linux") {
-    localappdata = path.join(process.env.HOME,".local","share");
+    localappdata = path.join(process.env.HOME,".local","share")
 } else if (process.platform == "darwin") {
-    localappdata = path.join(process.env.HOME,"Library","Application Support");
+    localappdata = path.join(process.env.HOME,"Library","Application Support")
 }
 
-const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
 
-document.body.style.opacity = config.opacity * 0.01;
+document.body.style.opacity = config.opacity * 0.01
 
-var colour1 = config.colour1;
-var colour2 = config.colour2;
-var textcolour = config.textcolour;
-var img;
+var colour1 = config.colour1
+var colour2 = config.colour2
+var textcolour = config.textcolour
+var img
 
 if (config.img == "default") {
-    img = "../../../img/santextlogobg.png";
+    img = "../../../img/santextlogobg.png"
 } else {
-    img = config.img;
+    img = config.img
 }
 
-var icon = "../../../img/sanlogosquare.svg";
+var icon = "../../../img/sanlogosquare.svg"
 
-var logo;
+var logo
 
 if (config.gameicon == "true") {
-    logo = "../../../img/gameicon.png";
+    logo = "../../../img/gameicon.png"
 } else {
     if (config.icon == "" || config.icon == undefined) {
-        logo = "../../../img/sanlogosquare.svg";
+        logo = "../../../img/sanlogosquare.svg"
     } else {
-        logo = config.icon;
+        logo = config.icon
     }
 }
 
-var borderradius = config.roundness + "px";
-var ssborderradius;
-var ssimgborderradius;
+var borderradius = config.roundness + "px"
+var ssborderradius
+var ssimgborderradius
 
 if (config.notifypos == "topleft") {
-    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px ";
-    ssimgborderradius = config.roundness + "px " + config.roundness + "px " + " 0px 0px";
+    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px "
+    ssimgborderradius = config.roundness + "px " + config.roundness + "px " + " 0px 0px"
 } else if (config.notifypos == "bottomleft") {
-    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px";
-    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px";
+    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px"
+    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px"
 } else if (config.notifypos == "topcenter") {
-    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px";
-    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px";
+    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px"
+    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px"
 } else if (config.notifypos == "topright") {
-    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px";
-    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px";
+    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px"
+    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px"
 } else if (config.notifypos == "bottomright") {
-    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px";
-    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px";
+    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px"
+    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px"
 } else if (config.notifypos == "bottomcenter") {
-    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px";
-    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px";
+    ssborderradius = "0px 0px " + config.roundness + "px " + config.roundness + "px"
+    ssimgborderradius = config.roundness + "px " + config.roundness + "px 0px 0px"
 }
 
-var solid = "background: " + colour1;
-var background = "background: radial-gradient(circle, " + colour1 + " 0%, " + colour2 + " 100%)";
-var imgbackground = "url('" + img + "')";
+var solid = "background: " + colour1
+var background = "background: radial-gradient(circle, " + colour1 + " 0%, " + colour2 + " 100%)"
+var imgbackground = "url('" + img + "')"
 
-var scale = config.scale;
+var scale = config.scale
 if (scale > 100) {
-    document.getElementById("maincont").style.transform = "scale(" + (100 + scale * 0.1) + "%, " + (100 + scale * 0.1) + "%)";
+    document.getElementById("maincont").style.transform = "scale(" + (100 + scale * 0.1) + "%, " + (100 + scale * 0.1) + "%)"
 } else {
-    document.getElementById("maincont").style.transform = "scale(" + scale + "%, " + scale + "%)";
+    document.getElementById("maincont").style.transform = "scale(" + scale + "%, " + scale + "%)"
 }
 
-var bgtype = config.bgtype;
+var bgtype = config.bgtype
 
 if (bgtype == "bgsolid") {
-    document.getElementById("cont").style.color = textcolour;
-    document.getElementById("cont").style = solid;
-    document.getElementById("semicircle1").style.background = colour2;
+    document.getElementById("cont").style.color = textcolour
+    document.getElementById("cont").style = solid
+    document.getElementById("semicircle1").style.background = colour2
     if (config.ssprev == "true" && config.screenshot == "true") {
-        document.getElementById("cont").style.borderRadius = ssborderradius;
-        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+        document.getElementById("cont").style.borderRadius = ssborderradius
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius
     } else {
-        document.getElementById("cont").style.borderRadius = borderradius;
+        document.getElementById("cont").style.borderRadius = borderradius
     }
-    document.getElementById("icon").src = icon;
-    document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 0.75 + "px";
-    document.getElementById("logo").src = logo;
-    document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 0.75 + "px";
-    document.getElementById("innercont").style.borderRadius = "" + config.iconroundness * 1.5 + "px";
-    document.getElementById("circle").style.borderRadius = "" + config.iconroundness + "px";
-    document.getElementById("semicircle1").style.borderRadius = "" + config.iconroundness * 1.25 + "px 0 0 0";
-    document.getElementById("semicircle2").style.borderRadius = "0 0 0 " + config.iconroundness * 1.25 + "px";
-    document.getElementById("semicircle3").style.borderRadius = "0 " + config.iconroundness * 1.25 + "px 0 0";
-    document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.iconroundness * 1.25 + "px 0";
+    document.getElementById("icon").src = icon
+    document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 0.75 + "px"
+    document.getElementById("logo").src = logo
+    document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 0.75 + "px"
+    document.getElementById("innercont").style.borderRadius = "" + config.iconroundness * 1.5 + "px"
+    document.getElementById("circle").style.borderRadius = "" + config.iconroundness + "px"
+    document.getElementById("semicircle1").style.borderRadius = "" + config.iconroundness * 1.25 + "px 0 0 0"
+    document.getElementById("semicircle2").style.borderRadius = "0 0 0 " + config.iconroundness * 1.25 + "px"
+    document.getElementById("semicircle3").style.borderRadius = "0 " + config.iconroundness * 1.25 + "px 0 0"
+    document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.iconroundness * 1.25 + "px 0"
 } else if (bgtype == "bg") {
-    document.getElementById("cont").style.color = textcolour;
-    document.getElementById("cont").style = background;
-    document.getElementById("semicircle1").style.background = colour2;
+    document.getElementById("cont").style.color = textcolour
+    document.getElementById("cont").style = background
+    document.getElementById("semicircle1").style.background = colour2
     if (config.ssprev == "true" && config.screenshot == "true") {
-        document.getElementById("cont").style.borderRadius = ssborderradius;
-        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+        document.getElementById("cont").style.borderRadius = ssborderradius
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius
     } else {
-        document.getElementById("cont").style.borderRadius = borderradius;
+        document.getElementById("cont").style.borderRadius = borderradius
     }
-    document.getElementById("icon").src = icon;
-    document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 0.75 + "px";
-    document.getElementById("logo").src = logo;
-    document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 0.75 + "px";
-    document.getElementById("innercont").style.borderRadius = "" + config.iconroundness * 1.5 + "px";
-    document.getElementById("circle").style.borderRadius = "" + config.iconroundness + "px";
-    document.getElementById("semicircle1").style.borderRadius = "" + config.iconroundness * 1.25 + "px 0 0 0";
-    document.getElementById("semicircle2").style.borderRadius = "0 0 0 " + config.iconroundness * 1.25 + "px";
-    document.getElementById("semicircle3").style.borderRadius = "0 " + config.iconroundness * 1.25 + "px 0 0";
-    document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.iconroundness * 1.25 + "px 0";
+    document.getElementById("icon").src = icon
+    document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 0.75 + "px"
+    document.getElementById("logo").src = logo
+    document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 0.75 + "px"
+    document.getElementById("innercont").style.borderRadius = "" + config.iconroundness * 1.5 + "px"
+    document.getElementById("circle").style.borderRadius = "" + config.iconroundness + "px"
+    document.getElementById("semicircle1").style.borderRadius = "" + config.iconroundness * 1.25 + "px 0 0 0"
+    document.getElementById("semicircle2").style.borderRadius = "0 0 0 " + config.iconroundness * 1.25 + "px"
+    document.getElementById("semicircle3").style.borderRadius = "0 " + config.iconroundness * 1.25 + "px 0 0"
+    document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.iconroundness * 1.25 + "px 0"
 } else if (bgtype == "img") {
-    document.getElementById("cont").style.color = textcolour;
-    document.getElementById("semicircle1").style.background = colour2;
-    document.getElementById("cont").style.backgroundImage = imgbackground;
-    document.getElementById("cont").style.backgroundPosition = "center";
-    document.getElementById("cont").style.backgroundRepeat = "no-repeat";
-    document.getElementById("cont").style.backgroundSize = "300px";
+    document.getElementById("cont").style.color = textcolour
+    document.getElementById("semicircle1").style.background = colour2
+    document.getElementById("cont").style.backgroundImage = imgbackground
+    document.getElementById("cont").style.backgroundPosition = "center"
+    document.getElementById("cont").style.backgroundRepeat = "no-repeat"
+    document.getElementById("cont").style.backgroundSize = "300px"
     if (config.ssprev == "true" && config.screenshot == "true") {
-        document.getElementById("cont").style.borderRadius = ssborderradius;
-        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+        document.getElementById("cont").style.borderRadius = ssborderradius
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius
     } else {
-        document.getElementById("cont").style.borderRadius = borderradius;
+        document.getElementById("cont").style.borderRadius = borderradius
     }
-    document.getElementById("icon").src = icon;
-    document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 0.75 + "px";
-    document.getElementById("logo").src = logo;
-    document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 0.75 + "px";
-    document.getElementById("innercont").style.borderRadius = "" + config.iconroundness * 1.5 + "px";
-    document.getElementById("circle").style.borderRadius = "" + config.iconroundness + "px";
-    document.getElementById("semicircle1").style.borderRadius = "" + config.iconroundness * 1.25 + "px 0 0 0";
-    document.getElementById("semicircle2").style.borderRadius = "0 0 0 " + config.iconroundness * 1.25 + "px";
-    document.getElementById("semicircle3").style.borderRadius = "0 " + config.iconroundness * 1.25 + "px 0 0";
-    document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.iconroundness * 1.25 + "px 0";
+    document.getElementById("icon").src = icon
+    document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 0.75 + "px"
+    document.getElementById("logo").src = logo
+    document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 0.75 + "px"
+    document.getElementById("innercont").style.borderRadius = "" + config.iconroundness * 1.5 + "px"
+    document.getElementById("circle").style.borderRadius = "" + config.iconroundness + "px"
+    document.getElementById("semicircle1").style.borderRadius = "" + config.iconroundness * 1.25 + "px 0 0 0"
+    document.getElementById("semicircle2").style.borderRadius = "0 0 0 " + config.iconroundness * 1.25 + "px"
+    document.getElementById("semicircle3").style.borderRadius = "0 " + config.iconroundness * 1.25 + "px 0 0"
+    document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.iconroundness * 1.25 + "px 0"
 } else if (bgtype == "game") {
     var arr = [
         "220",
@@ -160,59 +161,59 @@ if (bgtype == "bgsolid") {
     ]
 
     function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
+        return Math.floor(Math.random() * max)
     }
 
     var gamearturl = `https://cdn.cloudflare.steamstatic.com/steam/apps/${arr[getRandomInt(arr.length)]}/library_hero.jpg`
 
     var gameartbg = `linear-gradient(rgba(0,0,0,${config.brightness}), rgba(0,0,0,${config.brightness})), url("${gamearturl}")`
 
-    document.getElementById("cont").style.color = textcolour;
-    document.getElementById("semicircle1").style.background = colour2;
+    document.getElementById("cont").style.color = textcolour
+    document.getElementById("semicircle1").style.background = colour2
     document.getElementById("cont").style.backgroundImage = gameartbg
-    document.getElementById("cont").style.backgroundPosition = "center";
-    document.getElementById("cont").style.backgroundRepeat = "no-repeat";
-    document.getElementById("cont").style.backgroundSize = "300px";
+    document.getElementById("cont").style.backgroundPosition = "center"
+    document.getElementById("cont").style.backgroundRepeat = "no-repeat"
+    document.getElementById("cont").style.backgroundSize = "300px"
     if (config.ssprev == "true" && config.screenshot == "true") {
-        document.getElementById("cont").style.borderRadius = ssborderradius;
-        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+        document.getElementById("cont").style.borderRadius = ssborderradius
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius
     } else {
-        document.getElementById("cont").style.borderRadius = borderradius;
+        document.getElementById("cont").style.borderRadius = borderradius
     }
-    document.getElementById("icon").src = icon;
-    document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 0.75 + "px";
-    document.getElementById("logo").src = logo;
-    document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 0.75 + "px";
-    document.getElementById("innercont").style.borderRadius = "" + config.iconroundness * 1.5 + "px";
-    document.getElementById("circle").style.borderRadius = "" + config.iconroundness + "px";
-    document.getElementById("semicircle1").style.borderRadius = "" + config.iconroundness * 1.25 + "px 0 0 0";
-    document.getElementById("semicircle2").style.borderRadius = "0 0 0 " + config.iconroundness * 1.25 + "px";
-    document.getElementById("semicircle3").style.borderRadius = "0 " + config.iconroundness * 1.25 + "px 0 0";
-    document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.iconroundness * 1.25 + "px 0";
+    document.getElementById("icon").src = icon
+    document.getElementById("icon").style.borderRadius = "" + config.iconroundness * 0.75 + "px"
+    document.getElementById("logo").src = logo
+    document.getElementById("logo").style.borderRadius = "" + config.iconroundness * 0.75 + "px"
+    document.getElementById("innercont").style.borderRadius = "" + config.iconroundness * 1.5 + "px"
+    document.getElementById("circle").style.borderRadius = "" + config.iconroundness + "px"
+    document.getElementById("semicircle1").style.borderRadius = "" + config.iconroundness * 1.25 + "px 0 0 0"
+    document.getElementById("semicircle2").style.borderRadius = "0 0 0 " + config.iconroundness * 1.25 + "px"
+    document.getElementById("semicircle3").style.borderRadius = "0 " + config.iconroundness * 1.25 + "px 0 0"
+    document.getElementById("semicircle4").style.borderRadius = "0 0 " + config.iconroundness * 1.25 + "px 0"
 }
 
 if (config.ssprev == "true" && config.screenshot == "true") {
-    document.getElementById("maincont").style.height = "219px";
-    document.getElementById("screenshotcont").style.display = "flex";
+    document.getElementById("maincont").style.height = "219px"
+    document.getElementById("screenshotcont").style.display = "flex"
 } else {
-    document.getElementById("maincont").style.height = "50px";
-    document.getElementById("screenshotcont").style.display = "none";
+    document.getElementById("maincont").style.height = "50px"
+    document.getElementById("screenshotcont").style.display = "none"
 }
 
-var title = "Steam Achievement Notifier";
-var desc = " - " + "Your notifications are working correctly";
+var title = "Steam Achievement Notifier"
+var desc = " - " + "Your notifications are working correctly"
 
-document.getElementById("title").innerHTML = title;
-document.getElementById("desc").innerHTML = desc;
+document.getElementById("title").innerHTML = title
+document.getElementById("desc").innerHTML = desc
 
-document.getElementById("title").style.fontSize = 12.5 * config.fontsize * 0.01 + "px";
-document.getElementById("desc").style.fontSize = 12.5 * config.fontsize * 0.01 + "px";
-document.getElementById("trophyicon").style.width = 14 * config.fontsize * 0.01 + "px";
+document.getElementById("title").style.fontSize = 12.5 * config.fontsize * 0.01 + "px"
+document.getElementById("desc").style.fontSize = 12.5 * config.fontsize * 0.01 + "px"
+document.getElementById("trophyicon").style.width = 14 * config.fontsize * 0.01 + "px"
 
 var time = 0.2
 
 function PlayNotification(add) {
-    document.getElementById("innercont").style.display = "flex";
+    document.getElementById("innercont").style.display = "flex"
 
     document.getElementById("cont").style.animation = "growright " + time + "s ease-in-out forwards"
     document.getElementById("innercont").style.animation = "grow " + time + "s ease-in-out forwards"
@@ -222,7 +223,7 @@ function PlayNotification(add) {
     document.getElementById("logo").style.animation = "growalt 2s infinite forwards"
     document.getElementById("icon").style.animation = "growalt 2s 1s infinite forwards"
         
-    document.getElementById("cont").addEventListener('animationend', function(event) {
+    document.getElementById("cont").addEventListener('animationend', (event) => {
         if (event.animationName == "growright") {
             document.getElementById("cont").style.animation = "animpause " + time * add * 10 + "s forwards"
         } else if (event.animationName == "animpause") {
@@ -270,7 +271,7 @@ if (displaytime == 15) {
     PlayNotification(1)
 }
 
-ipcRenderer.on('pausenotify', function() {
+ipcRenderer.on('pausenotify', () => {
     document.getElementById("cont").style.animationPlayState = "paused"
     document.getElementById("logo").style.animationPlayState = "paused"
     document.getElementById("icon").style.animationPlayState = "paused"
@@ -279,7 +280,7 @@ ipcRenderer.on('pausenotify', function() {
     document.getElementById("screenshot").style.animationPlayState = "paused"
 })
 
-ipcRenderer.on('playnotify', function() {
+ipcRenderer.on('playnotify', () => {
     document.getElementById("cont").style.animationPlayState = "running"
     document.getElementById("logo").style.animationPlayState = "running"
     document.getElementById("icon").style.animationPlayState = "running"

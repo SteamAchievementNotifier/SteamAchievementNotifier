@@ -1,26 +1,26 @@
 const startapp = () => {
-    const { app, BrowserWindow, Menu, Tray, nativeImage, nativeTheme, ipcMain, dialog, desktopCapturer, powerSaveBlocker, globalShortcut, ipcRenderer } = require('electron');
-    const path = require('path');
-    const fs = require('fs');
-    const shell = require('electron').shell;
-    const os = require('os');
+    const { app, BrowserWindow, Menu, Tray, nativeImage, nativeTheme, ipcMain, dialog, desktopCapturer, powerSaveBlocker, globalShortcut, ipcRenderer } = require('electron')
+    const path = require('path')
+    const fs = require('fs')
+    const shell = require('electron').shell
+    const os = require('os')
     const appversion = "V1.84"
     const appdir = "V1.8"
 
-    app.commandLine.appendSwitch("disable-background-timer-throttling");
+    app.commandLine.appendSwitch("disable-background-timer-throttling")
 
-    var localappdata;
-    var appicon = path.join(__dirname,"img","sanlogo.ico");
+    var localappdata
+    var appicon = path.join(__dirname,"img","sanlogo.ico")
 
     if (process.platform == "win32") {
-        localappdata = path.join(process.env.LOCALAPPDATA);
+        localappdata = path.join(process.env.LOCALAPPDATA)
     } else if (process.platform == "linux") {
-        localappdata = path.join(process.env.HOME,".local","share");
-        appicon = path.join(__dirname,"img","sanlogo-675x675.png");
+        localappdata = path.join(process.env.HOME,".local","share")
+        appicon = path.join(__dirname,"img","sanlogo-675x675.png")
     } else if (process.platform == "darwin") {
-        localappdata = path.join(process.env.HOME,"Library","Application Support");
+        localappdata = path.join(process.env.HOME,"Library","Application Support")
     } else {
-        console.log(`Unsupported platform (${process.platform}) detected - awaiting exit signal...`);
+        console.log(`Unsupported platform (${process.platform}) detected - awaiting exit signal...`)
     }
 
     // app.disableHardwareAcceleration() massively reduces memory usage on integrated graphics
@@ -28,28 +28,28 @@ const startapp = () => {
     if (fs.existsSync(localappdata,`Steam Achievement Notifier (${appdir})`,"store","hwa.txt")) {
         console.log("No HWA")
 
-        app.disableHardwareAcceleration();
-        app.commandLine.appendSwitch('js-flags', '--expose_gc --max-old-space-size=128');
-        require("v8").setFlagsFromString('--expose_gc');
-        global.gc = require("vm").runInNewContext('gc');
+        app.disableHardwareAcceleration()
+        app.commandLine.appendSwitch('js-flags', '--expose_gc --max-old-space-size=128')
+        require("v8").setFlagsFromString('--expose_gc')
+        global.gc = require("vm").runInNewContext('gc')
             
         // Garbage collected every minute
-        setInterval(function() {
-            gc();
-        }, 60000);
+        setInterval(() => {
+            gc()
+        }, 60000)
     }
 
     function RunApp() {
-        const sanlocalappdata = path.join(localappdata,`Steam Achievement Notifier (${appdir})`);
+        const sanlocalappdata = path.join(localappdata,`Steam Achievement Notifier (${appdir})`)
 
         function CheckConfig() {
             if (!fs.existsSync(path.join(sanlocalappdata,"store"))) {
-                fs.mkdirSync(path.join(sanlocalappdata,"store"));
-                console.log("\"store\" dir created in %LOCALAPPDATA%\\Steam Achievement Notifier (V1.8)");
-                fs.copyFileSync(path.join(__dirname,"store","config.json"), path.join(sanlocalappdata,"store","config.json"));
+                fs.mkdirSync(path.join(sanlocalappdata,"store"))
+                console.log("\"store\" dir created in %LOCALAPPDATA%\\Steam Achievement Notifier (V1.8)")
+                fs.copyFileSync(path.join(__dirname,"store","config.json"), path.join(sanlocalappdata,"store","config.json"))
                 CheckGameStats()
             } else if (!fs.existsSync(path.join(sanlocalappdata,"store","config.json"))) {
-                fs.copyFileSync(path.join(__dirname,"store","config.json"), path.join(sanlocalappdata,"store","config.json"));
+                fs.copyFileSync(path.join(__dirname,"store","config.json"), path.join(sanlocalappdata,"store","config.json"))
                 CheckGameStats()
             } else {
                 console.log("config.json exists")
@@ -59,11 +59,11 @@ const startapp = () => {
 
         function CheckImg() {
             if (!fs.existsSync(path.join(sanlocalappdata,"img"))) {
-                fs.mkdirSync(path.join(sanlocalappdata,"img"));
-                console.log("\"img\" dir created in %LOCALAPPDATA%\\Steam Achievement Notifier (V1.8)");
-                fs.copyFileSync(path.join(__dirname,"img","sanlogo.ico"), path.join(sanlocalappdata,"img","sanlogo.ico"));
+                fs.mkdirSync(path.join(sanlocalappdata,"img"))
+                console.log("\"img\" dir created in %LOCALAPPDATA%\\Steam Achievement Notifier (V1.8)")
+                fs.copyFileSync(path.join(__dirname,"img","sanlogo.ico"), path.join(sanlocalappdata,"img","sanlogo.ico"))
             } else if (!fs.existsSync(path.join(sanlocalappdata,"img","sanlogo.ico"))) {
-                fs.copyFileSync(path.join(__dirname,"img","sanlogo.ico"), path.join(sanlocalappdata,"img","sanlogo.ico"));
+                fs.copyFileSync(path.join(__dirname,"img","sanlogo.ico"), path.join(sanlocalappdata,"img","sanlogo.ico"))
             } else {
                 console.log("sanlogo.ico exists")
             }
@@ -71,19 +71,19 @@ const startapp = () => {
 
         function CheckGameStats() {
             if (!fs.existsSync(path.join(sanlocalappdata,"store","gamestats.json"))) {
-                fs.copyFileSync(path.join(__dirname,"store","gamestats.json"), path.join(sanlocalappdata,"store","gamestats.json"));
+                fs.copyFileSync(path.join(__dirname,"store","gamestats.json"), path.join(sanlocalappdata,"store","gamestats.json"))
             } else {
                 console.log("gamestats.json exists")
             }
         }
 
         if (!fs.existsSync(sanlocalappdata)) {
-            console.log("\"Steam Achievement Notifier (V1.8)\" directory does not exist in " + localappdata + ". Creating...");
+            console.log("\"Steam Achievement Notifier (V1.8)\" directory does not exist in " + localappdata + ". Creating...")
 
-            fs.mkdirSync(sanlocalappdata);
+            fs.mkdirSync(sanlocalappdata)
 
-            CheckConfig();
-            CheckImg();
+            CheckConfig()
+            CheckImg()
             
             console.log("\"Steam Achievement Notifier (V1.8)\" directory created in " + localappdata + ".")
         } else {
@@ -94,15 +94,15 @@ const startapp = () => {
         }
 
         try {
-            JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
+            JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
         } catch (err) {
             throw new Error(`"config.json" caused an error on load: "${err}"`)
         }
 
-        const config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
+        const config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
 
-        let win;
-        let tray = null;
+        let win
+        let tray = null
 
         function createWindow() {
             win = new BrowserWindow({
@@ -125,40 +125,40 @@ const startapp = () => {
                     backgroundThrottling: false,
                     webviewTag: true
                 }
-            });
+            })
 
             win.loadFile(path.join(__dirname, "index.html"))
 
-            win.webContents.setBackgroundThrottling(false);
+            win.webContents.setBackgroundThrottling(false)
 
-            win.on('close', function(action) {
-                action.preventDefault();
-                win.hide();
-            });
+            win.on('close', (event) => {
+                event.preventDefault()
+                win.hide()
+            })
 
-            win.once('ready-to-show', function() {
+            win.once('ready-to-show', () => {
                 try {
                     if (config.startmin == "true") {
-                        win.hide();
+                        win.hide()
                     } else {
-                        win.show();
+                        win.show()
                     }
                 } catch {
-                    win.show();
+                    win.show()
                 }
-            });
+            })
         }
 
-        var offsetx;
-        var offsety;
+        var offsetx
+        var offsety
 
-        var display;
-        var screenobj;
+        var display
+        var screenobj
 
-        app.whenReady().then(function(){
-            const { screen } = require('electron');
-            display = screen.getPrimaryDisplay().bounds;
-            screenobj = screen;
+        app.whenReady().then(() =>{
+            const { screen } = require('electron')
+            display = screen.getPrimaryDisplay().bounds
+            screenobj = screen
 
             screen.on('display-metrics-changed', (event, disp) => {
                 if (disp.id == screen.getPrimaryDisplay().id) {
@@ -170,11 +170,11 @@ const startapp = () => {
                     win.center()
                 }
             })
-        });
+        })
 
-        ipcMain.on('trackwin', function(event, gamename, appid) {
-            var trackx = display.width - 185;
-            var tracky = display.height - 85;
+        ipcMain.on('trackwin', (event, gamename, appid) => {
+            var trackx = display.width - 185
+            var tracky = display.height - 85
 
             const trackwin = new BrowserWindow({
                 width: 165,
@@ -199,362 +199,362 @@ const startapp = () => {
                     enableRemoteModule: true,
                     backgroundThrottling: false
                 }
-            });
-            trackwin.setIgnoreMouseEvents(true);
-            trackwin.setAlwaysOnTop(true, 'screen-saver');
+            })
+            trackwin.setIgnoreMouseEvents(true)
+            trackwin.setAlwaysOnTop(true, 'screen-saver')
 
-            trackwin.loadFile(path.join(__dirname,"notify","track","track.html"));
+            trackwin.loadFile(path.join(__dirname,"notify","track","track.html"))
 
-            trackwin.once('ready-to-show', function() {
+            trackwin.once('ready-to-show', () => {
                 try {
                     if (config.tracking == "true") {
-                        trackwin.show();
+                        trackwin.show()
                     } else {
-                        trackwin.hide();
+                        trackwin.hide()
                     }
                 } catch {
-                    trackwin.show();
+                    trackwin.show()
                 }
 
-                trackwin.webContents.send('track', gamename, appid);
-            });
+                trackwin.webContents.send('track', gamename, appid)
+            })
 
-            ipcMain.on('trackstop', function() {
-                trackwin.destroy();
-            });
-        });
+            ipcMain.on('trackstop', () => {
+                trackwin.destroy()
+            })
+        })
 
-        var gameicon;
+        var gameicon
         var gameartimg
 
         ipcMain.on('gameicon', (event, gameiconsrc, gameartimgsrc) => {
-            gameicon = gameiconsrc;
+            gameicon = gameiconsrc
             gameartimg = gameartimgsrc
-        });
+        })
 
-        ipcMain.on('notifywin', function(event, queueobj) {
-            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
+        ipcMain.on('notifywin', (event, queueobj) => {
+            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
 
-            var width = queueobj.width * queueobj.scale * 0.01;
-            var height = queueobj.height * queueobj.scale * 0.01;
-            width = Math.round(width);
-            height = Math.round(height);
+            var width = queueobj.width * queueobj.scale * 0.01
+            var height = queueobj.height * queueobj.scale * 0.01
+            width = Math.round(width)
+            height = Math.round(height)
 
             if (queueobj.type == "main" && config.custompos == "true") {
-                offsetx = config.x;
-                offsety = config.y;
+                offsetx = config.x
+                offsety = config.y
             } else if (queueobj.type == "rare" && config.rarecustompos == "true") {
-                offsetx = config.rarex;
-                offsety = config.rarey;
+                offsetx = config.rarex
+                offsety = config.rarey
             } else {
                 if (queueobj.pos == "bottomcenter") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
+                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
+                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xbox") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01);
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
+                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01);
-                            offsety = display.height - ((65 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
+                            offsety = display.height - ((65 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "playstation") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01);
-                            offsety = display.height - (224 * queueobj.scale * 0.01);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
+                            offsety = display.height - (224 * queueobj.scale * 0.01)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01);
-                            offsety = display.height - (55 * queueobj.scale * 0.01);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
+                            offsety = display.height - (55 * queueobj.scale * 0.01)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "ps5") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01);
-                            offsety = display.height - (239 * queueobj.scale * 0.01);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
+                            offsety = display.height - (239 * queueobj.scale * 0.01)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01);
-                            offsety = display.height - (70 * queueobj.scale * 0.01);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
+                            offsety = display.height - (70 * queueobj.scale * 0.01)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "windows") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
-                            offsety = display.height - ((279 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
+                            offsety = display.height - ((279 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
-                            offsety = display.height - ((110 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
+                            offsety = display.height - ((110 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xqjan") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
+                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
-                            offsety = display.height - ((70 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
+                            offsety = display.height - ((70 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     }
                 } else if (queueobj.pos == "topcenter") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "xbox") {
-                        offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "playstation") {
-                        offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01);
-                        offsety = 0;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
+                        offsety = 0
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "ps5") {
-                        offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "windows") {
-                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "xqjan") {
-                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     }
                 } else if (queueobj.pos == "topleft") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        offsetx = 20;
-                        offsety = 20;
+                        offsetx = 20
+                        offsety = 20
                     } else if (queueobj.style == "xbox") {
-                        offsetx = 20;
-                        offsety = 20;
+                        offsetx = 20
+                        offsety = 20
                     } else if (queueobj.style == "playstation") {
-                        offsetx = 0;
-                        offsety = 100;
+                        offsetx = 0
+                        offsety = 100
                     } else if (queueobj.style == "ps5") {
-                        offsetx = 0;
-                        offsety = 20;
+                        offsetx = 0
+                        offsety = 20
                     } else if (queueobj.style == "windows") {
-                        offsetx = 20;
-                        offsety = 20;
+                        offsetx = 20
+                        offsety = 20
                     } else if (queueobj.style == "xqjan") {
-                        offsetx = 20;
-                        offsety = 20;
+                        offsetx = 20
+                        offsety = 20
                     }
                 } else if (queueobj.pos == "topright") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "xbox") {   
-                        offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "playstation") {
-                        offsetx = display.width - (310 * queueobj.scale * 0.01);
-                        offsety = 100;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width - (310 * queueobj.scale * 0.01)
+                        offsety = 100
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "ps5") {
-                        offsetx = display.width - (340 * queueobj.scale * 0.01);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width - (340 * queueobj.scale * 0.01)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "windows") {
-                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "xqjan") {
-                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
-                        offsety = 20;
-                        offsetx = Math.round(offsetx);
-                        offsety = Math.round(offsety);
+                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
+                        offsety = 20
+                        offsetx = Math.round(offsetx)
+                        offsety = Math.round(offsety)
                     }
                 } else if (queueobj.pos == "bottomleft") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20;
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 20
+                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 20;
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 20
+                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xbox") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20;
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 20
+                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 20;
-                            offsety = display.height - ((65 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 20
+                            offsety = display.height - ((65 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "playstation") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 0;
-                            offsety = display.height - ((224 * queueobj.scale * 0.01) + 100);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 0
+                            offsety = display.height - ((224 * queueobj.scale * 0.01) + 100)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 0;
-                            offsety = display.height - ((55 * queueobj.scale * 0.01) + 100);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 0
+                            offsety = display.height - ((55 * queueobj.scale * 0.01) + 100)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "ps5") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 0;
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 0
+                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 0;
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 0
+                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "windows") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20;
-                            offsety = display.height - ((279 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 20
+                            offsety = display.height - ((279 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 20;
-                            offsety = display.height - ((110 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 20
+                            offsety = display.height - ((110 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xqjan") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20;
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 20
+                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 20;
-                            offsety = display.height - ((70 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = 20
+                            offsety = display.height - ((70 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     }
                 } else if (queueobj.pos == "bottomright") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
+                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
+                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xbox") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20);
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
+                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20);
-                            offsety = display.height - ((65 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
+                            offsety = display.height - ((65 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "playstation") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - (310 * queueobj.scale * 0.01);
-                            offsety = display.height - ((224 * queueobj.scale * 0.01) + 100);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - (310 * queueobj.scale * 0.01)
+                            offsety = display.height - ((224 * queueobj.scale * 0.01) + 100)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - (310 * queueobj.scale * 0.01);
-                            offsety = display.height - ((55 * queueobj.scale * 0.01) + 100);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - (310 * queueobj.scale * 0.01)
+                            offsety = display.height - ((55 * queueobj.scale * 0.01) + 100)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "ps5") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - (340 * queueobj.scale * 0.01);
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - (340 * queueobj.scale * 0.01)
+                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - (340 * queueobj.scale * 0.01);
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - (340 * queueobj.scale * 0.01)
+                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "windows") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
-                            offsety = display.height - ((279 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
+                            offsety = display.height - ((279 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
-                            offsety = display.height - ((110 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
+                            offsety = display.height - ((110 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     } if (queueobj.style == "xqjan") {
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
+                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20);
-                            offsety = display.height - ((70 * queueobj.scale * 0.01) + 20);
-                            offsetx = Math.round(offsetx);
-                            offsety = Math.round(offsety);
+                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
+                            offsety = display.height - ((70 * queueobj.scale * 0.01) + 20)
+                            offsetx = Math.round(offsetx)
+                            offsety = Math.round(offsety)
                         }
                     }
                 } else {
-                    console.log("Error! Could not place notification. X: 0, Y: 0");
+                    console.log("Error! Could not place notification. X: 0, Y: 0")
                     offsetx = 0
                     offsety = 0
                 }
@@ -583,75 +583,75 @@ const startapp = () => {
                     enableRemoteModule: true,
                     backgroundThrottling: false
                 }
-            });
-            notifywin.setIgnoreMouseEvents(true);
-            notifywin.setAlwaysOnTop(true, 'screen-saver');
+            })
+            notifywin.setIgnoreMouseEvents(true)
+            notifywin.setAlwaysOnTop(true, 'screen-saver')
 
-            var notifysrc;
+            var notifysrc
 
             if (queueobj.type == "main") {
                 if (queueobj.style == "default") {
-                    notifysrc = path.join(__dirname,"notify","default","main","default.html");
+                    notifysrc = path.join(__dirname,"notify","default","main","default.html")
                 } else if (queueobj.style == "xbox") {
-                    notifysrc = path.join(__dirname,"notify","xbox","main","xbox.html");
+                    notifysrc = path.join(__dirname,"notify","xbox","main","xbox.html")
                 } else if (queueobj.style == "playstation") {
-                    notifysrc = path.join(__dirname,"notify","playstation","main","playstation.html");
+                    notifysrc = path.join(__dirname,"notify","playstation","main","playstation.html")
                 } else if (queueobj.style == "ps5") {
-                    notifysrc = path.join(__dirname,"notify","ps5","main","ps5.html");
+                    notifysrc = path.join(__dirname,"notify","ps5","main","ps5.html")
                 } else if (queueobj.style == "windows") {
-                    notifysrc = path.join(__dirname,"notify","windows","main","windows.html");
+                    notifysrc = path.join(__dirname,"notify","windows","main","windows.html")
                 } else if (queueobj.style == "xbox360") {
-                    notifysrc = path.join(__dirname,"notify","xbox360","main","xbox360.html");
+                    notifysrc = path.join(__dirname,"notify","xbox360","main","xbox360.html")
                 } else if (queueobj.style == "xqjan") {
-                    notifysrc = path.join(__dirname,"notify","xqjan","main","xqjan.html");
+                    notifysrc = path.join(__dirname,"notify","xqjan","main","xqjan.html")
                 }
             } else {
                 if (queueobj.style == "default") {
-                    notifysrc = path.join(__dirname,"notify","default","rare","defaultrare.html");
+                    notifysrc = path.join(__dirname,"notify","default","rare","defaultrare.html")
                 } else if (queueobj.style == "xbox") {
-                    notifysrc = path.join(__dirname,"notify","xbox","rare","xboxrare.html");
+                    notifysrc = path.join(__dirname,"notify","xbox","rare","xboxrare.html")
                 } else if (queueobj.style == "playstation") {
-                    notifysrc = path.join(__dirname,"notify","playstation","rare","playstationrare.html");
+                    notifysrc = path.join(__dirname,"notify","playstation","rare","playstationrare.html")
                 } else if (queueobj.style == "ps5") {
-                    notifysrc = path.join(__dirname,"notify","ps5","rare","ps5rare.html");
+                    notifysrc = path.join(__dirname,"notify","ps5","rare","ps5rare.html")
                 } else if (queueobj.style == "windows") {
-                    notifysrc = path.join(__dirname,"notify","windows","rare","windowsrare.html");
+                    notifysrc = path.join(__dirname,"notify","windows","rare","windowsrare.html")
                 } else if (queueobj.style == "xbox360") {
-                    notifysrc = path.join(__dirname,"notify","xbox360","rare","xbox360rare.html");
+                    notifysrc = path.join(__dirname,"notify","xbox360","rare","xbox360rare.html")
                 } else if (queueobj.style == "xqjan") {
-                    notifysrc = path.join(__dirname,"notify","xqjan","rare","xqjanrare.html");
+                    notifysrc = path.join(__dirname,"notify","xqjan","rare","xqjanrare.html")
                 }
             }
 
-            notifywin.loadFile(notifysrc);
+            notifywin.loadFile(notifysrc)
 
             if (config.screenshot == "true" && config.ssprev == "true" || config.rarescreenshot == "true" && config.raressprev == "true") {
-                desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 852, height: 480 }}).then(function(sources) {
-                    fs.writeFileSync(path.join(sanlocalappdata,"img","ss.png"), sources[0].thumbnail.toPNG());
-                });
+                desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 852, height: 480 }}).then(sources => {
+                    fs.writeFileSync(path.join(sanlocalappdata,"img","ss.png"), sources[0].thumbnail.toPNG())
+                })
             }
 
-            notifywin.once('ready-to-show', function() {
+            notifywin.once('ready-to-show', () => {
                 notifywin.setMinimumSize(width, height)
                 notifywin.setSize(width, height)
 
-                notifywin.show();
-                notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg);
+                notifywin.show()
+                notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg)
                 // notifywin.webContents.openDevTools({ mode: 'detach' })
-            });
+            })
 
-            ipcMain.once('notifywinstop', function() {
-                notifywin.destroy();
-                win.webContents.send('notrunning');
-            });
-        });
+            ipcMain.once('notifywinstop', () => {
+                notifywin.destroy()
+                win.webContents.send('notrunning')
+            })
+        })
 
-        var traylabel;
-        var trayshow;
-        var trayexit;
+        var traylabel
+        var trayshow
+        var trayexit
 
-        app.whenReady().then(function() {
-            tray = new Tray(appicon);
+        app.whenReady().then(() => {
+            tray = new Tray(appicon)
 
             const menuTemplate = [
                 {
@@ -666,26 +666,26 @@ const startapp = () => {
                 {
                     label: trayshow,
                     icon: nativeImage.createFromPath(path.join(__dirname,"img","show.png")).resize({ width:16 }),
-                    click: function() {
-                        win.show();
+                    click: () => {
+                        win.show()
                     }
                 },
                 {
                     label: trayexit,
                     icon: nativeImage.createFromPath(path.join(__dirname,"img","close.png")).resize({ width:16 }),
-                    click: function() {
-                        app.exit(0);
+                    click: () => {
+                        app.exit(0)
                     }
                 }
-            ];
+            ]
             
-            const contextMenu = Menu.buildFromTemplate(menuTemplate);
-            tray.setToolTip(`Steam Achievement Notifier (${appversion})`);
-            tray.setContextMenu(contextMenu);
-            tray.on('double-click', function() {
-                win.show();
-            });
-            ipcMain.on('changelang', function(event, traylabel, trayshow, trayexit) {
+            const contextMenu = Menu.buildFromTemplate(menuTemplate)
+            tray.setToolTip(`Steam Achievement Notifier (${appversion})`)
+            tray.setContextMenu(contextMenu)
+            tray.on('double-click', () => {
+                win.show()
+            })
+            ipcMain.on('changelang', (event, traylabel, trayshow, trayexit) => {
                 const menuTemplate = [
                     {
                         label: traylabel,
@@ -699,30 +699,30 @@ const startapp = () => {
                     {
                         label: trayshow,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","show.png")).resize({ width:16 }),
-                        click: function() {
-                        win.show();
+                        click: () => {
+                        win.show()
                         }
                     },
                     {
                         label: trayexit,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","close.png")).resize({ width:16 }),
-                        click: function() {
-                        app.exit(0);
+                        click: () => {
+                        app.exit(0)
                         }
                     }
-                ];
-                const contextMenu = Menu.buildFromTemplate(menuTemplate);
-                tray.setToolTip(`Steam Achievement Notifier (${appversion})`);
-                tray.setContextMenu(contextMenu);
-                tray.on('double-click', function() {
-                    win.show();
-                });
-            });
+                ]
+                const contextMenu = Menu.buildFromTemplate(menuTemplate)
+                tray.setToolTip(`Steam Achievement Notifier (${appversion})`)
+                tray.setContextMenu(contextMenu)
+                tray.on('double-click', () => {
+                    win.show()
+                })
+            })
             
-            ipcMain.on('track', function(event, gamename, trayshow, trayexit) {
-                var gamenamelbl = gamename;
+            ipcMain.on('track', (event, gamename, trayshow, trayexit) => {
+                var gamenamelbl = gamename
                 if (gamenamelbl.length > 25) {
-                    gamenamelbl = gamenamelbl.substring(0, 25) + "...";
+                    gamenamelbl = gamenamelbl.substring(0, 25) + "..."
                 }
                 const menuTemplate = [
                     {
@@ -737,24 +737,24 @@ const startapp = () => {
                     {
                         label: trayshow,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","show.png")).resize({ width:16 }),
-                        click: function() {
-                        win.show();
+                        click: () => {
+                        win.show()
                         }
                     },
                     {
                         label: trayexit,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","close.png")).resize({ width:16 }),
-                        click: function() {
-                        app.exit(0);
+                        click: () => {
+                        app.exit(0)
                         }
                     }
-                ];
-                const contextMenu = Menu.buildFromTemplate(menuTemplate);
-                tray.setToolTip(`Steam Achievement Notifier (${appversion})`);
-                tray.setContextMenu(contextMenu);
-            });
+                ]
+                const contextMenu = Menu.buildFromTemplate(menuTemplate)
+                tray.setToolTip(`Steam Achievement Notifier (${appversion})`)
+                tray.setContextMenu(contextMenu)
+            })
 
-            ipcMain.on('idle', function(event, traylabel, trayshow, trayexit) {
+            ipcMain.on('idle', (event, traylabel, trayshow, trayexit) => {
                 const menuTemplate = [
                     {
                         label: traylabel,
@@ -768,96 +768,94 @@ const startapp = () => {
                     {
                         label: trayshow,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","show.png")).resize({ width:16 }),
-                        click: function() {
-                        win.show();
+                        click: () => {
+                        win.show()
                         }
                     },
                     {
                         label: trayexit,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","close.png")).resize({ width:16 }),
-                        click: function() {
-                        app.exit(0);
+                        click: () => {
+                        app.exit(0)
                         }
                     }
-                ];
-                const contextMenu = Menu.buildFromTemplate(menuTemplate);
-                tray.setToolTip(`Steam Achievement Notifier (${appversion})`);
-                tray.setContextMenu(contextMenu);
-            });
-        });
+                ]
+                const contextMenu = Menu.buildFromTemplate(menuTemplate)
+                tray.setToolTip(`Steam Achievement Notifier (${appversion})`)
+                tray.setContextMenu(contextMenu)
+            })
+        })
 
-        ipcMain.on('reset', function(e, options) {
-            var resetoptions = options;
+        ipcMain.on('reset', (e, options) => {
+            var resetoptions = options
 
             var msg = dialog.showMessageBoxSync(win, resetoptions)
             if (msg == 0) {
-                win.webContents.send('resetapp');
+                win.webContents.send('resetapp')
             } else if (msg == 1) {
-                win.webContents.send('uninstallapp');
+                win.webContents.send('uninstallapp')
             }
-        });
+        })
 
-        ipcMain.on('resetcomplete', function() {
-            var launcher = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","launcher.json")));
+        ipcMain.on('resetcomplete', () => {
+            var launcher = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","launcher.json")))
 
-            app.relaunch({ execPath: launcher.path });
-            app.exit();
-        });
+            app.relaunch({ execPath: launcher.path })
+            app.exit()
+        })
 
-        ipcMain.on('uninstallcomplete', function() {
-            app.exit();
-        });
+        ipcMain.on('uninstallcomplete', () => {
+            app.exit()
+        })
 
-        ipcMain.on('openapilink', function() {
-            shell.openExternal("https://steamcommunity.com/login/home/?goto=%2Fdev%2Fapikey");
-        });
+        ipcMain.on('openapilink', () => {
+            shell.openExternal("https://steamcommunity.com/login/home/?goto=%2Fdev%2Fapikey")
+        })
 
-        ipcMain.on('opensteam64link', function() {
-            shell.openExternal("https://steamid.io/lookup");
-        });
+        ipcMain.on('opensteam64link', () => {
+            shell.openExternal("https://steamid.io/lookup")
+        })
 
-        ipcMain.on('kofi', function() {
-            shell.openExternal("https://ko-fi.com/steamachievementnotifier");
-        });
+        ipcMain.on('kofi', () => {
+            shell.openExternal("https://ko-fi.com/steamachievementnotifier")
+        })
 
-        ipcMain.on('discord', function() {
-            shell.openExternal("https://discord.gg/FxCFtpd3eu");
-        });
+        ipcMain.on('discord', () => {
+            shell.openExternal("https://discord.gg/FxCFtpd3eu")
+        })
 
-        ipcMain.on('report', function() {
-            shell.openExternal("https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/issues");
-        });
+        ipcMain.on('report', () => {
+            shell.openExternal("https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/issues")
+        })
 
-        ipcMain.on('update', function(event, args) {
-            var tag = args;
-            shell.openExternal(`https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/${tag}`);
-        });
+        ipcMain.on('update', (event, tag) => {
+            shell.openExternal(`https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/${tag}`)
+        })
 
         // TO DO: Test whether "execPath" actually starts the new EXE
-        ipcMain.on('updatecomplete', (event, args) => {
-            var newtag = args;
+        ipcMain.on('updatecomplete', (event, newtag) => {
             app.relaunch({ execPath: path.join(os.homedir(),"Downloads",`SANLauncher(V${newtag}).exe`) })
             app.exit()
         })
 
-        ipcMain.on('reloadapp', function() {
-            win.webContents.reloadIgnoringCache();
-        });
+        ipcMain.on('reloadapp', () => {
+            win.webContents.reloadIgnoringCache()
+        })
 
         ipcMain.on('steamnotrunning', () => {
             dialog.showErrorBox("Steam is not running!", "Please ensure Steam is running to enable this option.")
         })
 
-        var defaultPath;
+        var defaultPath
 
         if (process.platform == "win32") {
-            defaultPath = path.join(process.env.USERPROFILE,"Pictures");
+            defaultPath = path.join(process.env.USERPROFILE,"Pictures")
         } else if (process.platform == "linux" || process.platform == "darwin") {
-            defaultPath = path.join(process.env.HOME,"Pictures");
+            defaultPath = path.join(process.env.HOME,"Pictures")
         }
 
-        ipcMain.on('ovpath', function() {
-            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
+        ipcMain.on('ovpath', () => {
+            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
 
             win.webContents.send('lockpath')
 
@@ -867,7 +865,7 @@ const startapp = () => {
                 buttonLabel: "Select Folder",
                 properties: ["openDirectory","dontAddToRecent"]
             }).then(selection => {
-                var folder;
+                var folder
 
                 if (selection.canceled == true) {
                     if (config.ovpath !== "") {
@@ -918,7 +916,7 @@ const startapp = () => {
             imgtestwin.webContents.send('test', type)
         })
 
-        ipcMain.on('img', function(event, title, desc, icon, game, type, percent) {
+        ipcMain.on('img', (event, title, desc, icon, game, type, percent) => {
             var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
 
             var screenwidth = display.width * screenobj.getPrimaryDisplay().scaleFactor
@@ -930,7 +928,7 @@ const startapp = () => {
                         width: screenwidth,
                         height: screenheight
                     }}).then((sources) => {
-                        fs.writeFileSync(path.join(sanlocalappdata,"img","ss1080p.png"), sources[0].thumbnail.toPNG());
+                        fs.writeFileSync(path.join(sanlocalappdata,"img","ss1080p.png"), sources[0].thumbnail.toPNG())
                         resolve()
                     }).catch(err => {
                         reject(err)
@@ -961,25 +959,25 @@ const startapp = () => {
                     imgwin.setIgnoreMouseEvents(true)
                     imgwin.webContents.send('details', title, desc, icon, type, percent)
 
-                    var ovpath;
+                    var ovpath
                     
                     if (config.ovpath == "") {
-                        ovpath = defaultPath;
+                        ovpath = defaultPath
                         var m = `Screenshot Path not set - writing to ${ovpath}`
                         console.log(m)
                         win.webContents.send('warnmsg', m)
                     } else {
                         try {
-                            ovpath = config.ovpath;
+                            ovpath = config.ovpath
                             var m = `Screenshot Path set to ${ovpath}`
                             console.log(m)
                             win.webContents.send('warnmsg', m)
                         } catch (err) {
-                            ovpath = defaultPath;
+                            ovpath = defaultPath
                             var m = `SCREENSHOT ERROR: ${err}`
                             var m1 = `Unable to save to Screenshot Path - writing to ${ovpath}`
-                            console.log(m);
-                            console.log(m1);
+                            console.log(m)
+                            console.log(m1)
                             win.webContents.send('errormsg', m)
                             win.webContents.send('warnmsg', m1)
                         }
@@ -1058,7 +1056,7 @@ const startapp = () => {
                                             imgwin.destroy()
                                     }).catch(err => {
                                         var m = `Error writing screenshot: ${err}`
-                                        console.log(m);
+                                        console.log(m)
                                         win.webContents.send('errormsg', m)
                                     })
                                 }, 5000)
@@ -1067,9 +1065,9 @@ const startapp = () => {
                     }
 
                     if (!fs.existsSync(path.join(ovpath))) {
-                        ovpath = defaultPath;
+                        ovpath = defaultPath
                         var m = `${config.ovpath} does not exist! Writing to ${ovpath}`
-                        console.log(m);
+                        console.log(m)
                         win.webContents.send('errormsg', m)
                         CreateSANDir()
                     } else {
@@ -1087,111 +1085,111 @@ const startapp = () => {
             }
 
             CreateOverlay()
-        });
+        })
 
-        var dragwin = null;
+        var dragwin = null
 
         ipcMain.on('setcustompos', (event, postype, style) => {
-            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")));
+            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
 
-            var dragwidth;
-            var dragheight;
+            var dragwidth
+            var dragheight
 
             if (style == "default" || style == "xbox360") {
                 if (postype == "main") {
                     if (config.ssprev == "true") {
-                        dragheight = 219 * config.scale * 0.01;
+                        dragheight = 219 * config.scale * 0.01
                     } else {
-                        dragheight = 50 * config.scale * 0.01;
+                        dragheight = 50 * config.scale * 0.01
                     }
-                    dragwidth = 300 * config.scale * 0.01;
+                    dragwidth = 300 * config.scale * 0.01
                 } else {
                     if (config.raressprev == "true") {
-                        dragheight = 219 * config.rarescale * 0.01;
+                        dragheight = 219 * config.rarescale * 0.01
                     } else {
-                        dragheight = 50 * config.rarescale * 0.01;
+                        dragheight = 50 * config.rarescale * 0.01
                     }
-                    dragwidth = 300 * config.rarescale * 0.01;
+                    dragwidth = 300 * config.rarescale * 0.01
                 }
             } else if (style == "xbox") {
                 if (postype == "main") {
                     if (config.ssprev == "true") {
-                        dragheight = 239 * config.scale * 0.01;
+                        dragheight = 239 * config.scale * 0.01
                     } else {
-                        dragheight = 70 * config.scale * 0.01;
+                        dragheight = 70 * config.scale * 0.01
                     }
-                    dragwidth = 310 * config.scale * 0.01;
+                    dragwidth = 310 * config.scale * 0.01
                 } else {
                     if (config.raressprev == "true") {
-                        dragheight = 239 * config.rarescale * 0.01;
+                        dragheight = 239 * config.rarescale * 0.01
                     } else {
-                        dragheight = 70 * config.rarescale * 0.01;
+                        dragheight = 70 * config.rarescale * 0.01
                     }
-                    dragwidth = 310 * config.rarescale * 0.01;
+                    dragwidth = 310 * config.rarescale * 0.01
                 }
             } else if (style == "playstation") {
                 if (postype == "main") {
                     if (config.ssprev == "true") {
-                        dragheight = 224 * config.scale * 0.01;
+                        dragheight = 224 * config.scale * 0.01
                     } else {
-                        dragheight = 55 * config.scale * 0.01;
+                        dragheight = 55 * config.scale * 0.01
                     }
-                    dragwidth = 310 * config.scale * 0.01;
+                    dragwidth = 310 * config.scale * 0.01
                 } else {
                     if (config.raressprev == "true") {
-                        dragheight = 224 * config.rarescale * 0.01;
+                        dragheight = 224 * config.rarescale * 0.01
                     } else {
-                        dragheight = 55 * config.rarescale * 0.01;
+                        dragheight = 55 * config.rarescale * 0.01
                     }
-                    dragwidth = 310 * config.rarescale * 0.01;
+                    dragwidth = 310 * config.rarescale * 0.01
                 }
             } else if (style == "ps5") {
                 if (postype == "main") {
                     if (config.ssprev == "true") {
-                        dragheight = 239 * config.scale * 0.01;
+                        dragheight = 239 * config.scale * 0.01
                     } else {
-                        dragheight = 50 * config.scale * 0.01;
+                        dragheight = 50 * config.scale * 0.01
                     }
-                    dragwidth = 320 * config.scale * 0.01;
+                    dragwidth = 320 * config.scale * 0.01
                 } else {
                     if (config.raressprev == "true") {
-                        dragheight = 239 * config.rarescale * 0.01;
+                        dragheight = 239 * config.rarescale * 0.01
                     } else {
-                        dragheight = 50 * config.rarescale * 0.01;
+                        dragheight = 50 * config.rarescale * 0.01
                     }
-                    dragwidth = 320 * config.rarescale * 0.01;
+                    dragwidth = 320 * config.rarescale * 0.01
                 }
             } else if (style == "windows") {
                 if (postype == "main") {
                     if (config.ssprev == "true") {
-                        dragheight = 279 * config.scale * 0.01;
+                        dragheight = 279 * config.scale * 0.01
                     } else {
-                        dragheight = 110 * config.scale * 0.01;
+                        dragheight = 110 * config.scale * 0.01
                     }
-                    dragwidth = 300 * config.scale * 0.01;
+                    dragwidth = 300 * config.scale * 0.01
                 } else {
                     if (config.raressprev == "true") {
-                        dragheight = 279 * config.rarescale * 0.01;
+                        dragheight = 279 * config.rarescale * 0.01
                     } else {
-                        dragheight = 110 * config.rarescale * 0.01;
+                        dragheight = 110 * config.rarescale * 0.01
                     }
-                    dragwidth = 300 * config.rarescale * 0.01;
+                    dragwidth = 300 * config.rarescale * 0.01
                 }
             } else if (style == "xqjan") {
                 if (postype == "main") {
                     if (config.ssprev == "true") {
-                        dragheight = 259 * config.scale * 0.01;
+                        dragheight = 259 * config.scale * 0.01
                     } else {
-                        dragheight = 70 * config.scale * 0.01;
+                        dragheight = 70 * config.scale * 0.01
                     }
-                    dragwidth = 300 * config.scale * 0.01;
+                    dragwidth = 300 * config.scale * 0.01
                 } else {
                     if (config.raressprev == "true") {
-                        dragheight = 259 * config.rarescale * 0.01;
+                        dragheight = 259 * config.rarescale * 0.01
                     } else {
-                        dragheight = 70 * config.rarescale * 0.01;
+                        dragheight = 70 * config.rarescale * 0.01
                     }
-                    dragwidth = 300 * config.rarescale * 0.01;
+                    dragwidth = 300 * config.rarescale * 0.01
                 }
             }
 
@@ -1247,12 +1245,12 @@ const startapp = () => {
                     contextIsolation: false,
                     backgroundThrottling: false
                 }
-            });
+            })
 
-            dragwin.loadFile(path.join(__dirname,"notify","dragwin","dragwin.html"));
+            dragwin.loadFile(path.join(__dirname,"notify","dragwin","dragwin.html"))
 
             dragwin.on('ready-to-show', () => {
-                dragwin.webContents.send('postype', postype, style, dragwidth, dragheight);
+                dragwin.webContents.send('postype', postype, style, dragwidth, dragheight)
                 dragwin.setMinimumSize(dragwidth, dragheight)
                 dragwin.setSize(dragwidth, dragheight)
             })
@@ -1272,7 +1270,7 @@ const startapp = () => {
                     config["rarey"] = dragwin.getPosition()[1]
                 }
                 
-                fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+                fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
                 SetDragWinPos()
             })
 
@@ -1341,7 +1339,7 @@ const startapp = () => {
                     config["rarey"] = config.rarey
                 }
 
-                fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2));
+                fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
 
                 if (dragwin) {
                     win.webContents.send('dragwinclose')
@@ -1421,9 +1419,9 @@ const startapp = () => {
                 dragwin.setSize(dragwidth, dragheight)
                 dragwin.setSize(dragwidth, dragheight)
             })
-        });
+        })
 
-        nativeTheme.themeSource = "dark";
+        nativeTheme.themeSource = "dark"
 
         createWindow()
     }

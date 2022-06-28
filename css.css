@@ -70,7 +70,7 @@ a:hover {
     width: 24px;
 }
 
-#offlinecont {
+/* #offlinecont {
     background: #1b1b1b;
     height: 100%;
     display: none;
@@ -92,7 +92,6 @@ a:hover {
 #offlinesymbol {
     font-family: "Titillium Web";
     font-size: 30px;
-    /* font-weight: bold; */
     margin: 150px 0px 20px;
     animation: fadein 0.5s;
 }
@@ -101,7 +100,6 @@ a:hover {
     width: 500px;
     font-family: "Titillium Web";
     font-size: 16px;
-    /* font-weight: bold; */
     text-align: center;
     margin: 0px 0px 5px;
     animation: fadein 0.5s;
@@ -122,9 +120,8 @@ a:hover {
 #offlinereconnect {
     font-family: "Titillium Web";
     font-size: 16px;
-    /* font-weight: bold; */
     animation: fadein 0.5s alternate infinite;
-}
+} */
 
 .maincont {
     background: #1b1b1b;
@@ -262,7 +259,6 @@ a:hover {
     background: rgba(32,62,122,1);
     color: red;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     border-style: hidden;
     height: 100%;
     flex: 8;
@@ -301,7 +297,6 @@ a:hover {
     flex: 1;
     color: black;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     font-size: 12px;
     padding: 3px;
     border: 1px solid white;
@@ -488,7 +483,6 @@ a:hover {
     height: 30px;
     font-family: "Titillium Web";
     font-size: 10px;
-    /* font-weight: bold; */
     background: #101010;
     border-top: 1px solid white;
     border-left: 1px solid white;
@@ -515,7 +509,6 @@ a:hover {
     height: 30px;
     font-family: "Titillium Web";
     font-size: 10px;
-    /* font-weight: bold; */
     background: #101010;
     border-top: 1px solid white;
     border-left: 1px solid white;
@@ -537,7 +530,6 @@ a:hover {
     line-height: 38px;
     background: linear-gradient(45deg, #2d2d2d 0%, #3d3d3d 50%, #2d2d2d 100%);
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     font-size: 14px;
     border-style: hidden;
     height: 100%;
@@ -705,7 +697,6 @@ a:hover {
     line-height: 38px;
     background: #3d3d3d;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     font-size: 14px;
     border-style: hidden;
     height: 100%;
@@ -755,7 +746,6 @@ a:hover {
     align-items: center;
     color: white;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     padding: 10px;
     border: 1px solid white;
     border-radius: 5px;
@@ -779,7 +769,6 @@ a:hover {
     align-items: center;
     color: white;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     padding: 10px;
     border: 1px solid white;
     border-radius: 5px;
@@ -801,23 +790,18 @@ a:hover {
     display: block;
     position: absolute;
     bottom: 68px;
-    /*right: 57px;*/
     right: 106px;
     width: 30px;
     height: 30px;
     border: none;
     border-radius: 50px;
     background: none;
-    /*background-size: 200% 100%;
-	background-image: linear-gradient(to right, rgba(32,62,122,1) 50%, white 50%);
-	transition: background-position 0.2s;*/
     transition: 0.2s;
     -webkit-app-region: no-drag;
     cursor: pointer;
 }
 
 #customisecont:hover {
-    /*background-position: -100% 0%;*/
     background: white;
     color: black;
     border-radius: 5px;
@@ -836,7 +820,6 @@ a:hover {
     justify-content: center;
     align-items: center;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
 }
 
 #customisebtn {
@@ -844,7 +827,6 @@ a:hover {
     justify-content: center;
     align-items: center;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     width: 50px;
     height: 100%;
     border-left: none;
@@ -893,7 +875,6 @@ hr {
     opacity: 0.99;
     border-radius: 5px;
     z-index: 3;
-    /*animation: slideright 0.2s forwards;*/
 }
 
 @keyframes slideright {
@@ -929,7 +910,6 @@ hr {
     margin-top: 20px;
     font-family: "Titillium Web";
     font-size: 20px;
-    /* font-weight: bold; */
     margin-bottom: 10px;
 }
 
@@ -944,7 +924,6 @@ hr {
     margin: 5px 0px 15px;
     font-family: "Titillium Web";
     font-size: 14px;
-    /* font-weight: bold; */
     padding: 5px;
     border: 1px solid white;
     border-radius: 5px;
@@ -995,7 +974,6 @@ hr {
     background: rgba(32,62,122,1);
     font-family: "Titillium Web";
     font-size: 11px;
-    /* font-weight: bold; */
     transition: 0.2s;
     margin-left: 15px;
     padding: 2px 10px 2px;
@@ -1146,7 +1124,6 @@ hr {
     margin: 5px 0px 5px;
     font-family: "Titillium Web";
     font-size: 14px;
-    /* font-weight: bold; */
     padding: 5px;
     border: 1px solid white;
     border-radius: 5px;
@@ -1250,9 +1227,6 @@ input[type="checkbox"]:hover {
 }
 
 input[type="checkbox"]:checked {
-    /*background-image: url("./img/SANTick.png");
-    background-size: cover;
-    background-position: center;*/
     background: rgba(32,62,122,1);
     animation: fadein 0.5s;
     transition: 0.2s;
@@ -1267,16 +1241,6 @@ input[type="range"] {
     border-radius: 1px;
     margin: 5px 0px 10px;
 }
-
-/*input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    width: 15px;
-    height: 15px;
-    background: rgba(32,62,122,1);
-    border-radius: 3px;
-    transition: 0.2s;
-    cursor: pointer;
-}*/
 
 #rarityslider::-webkit-slider-thumb, #opacityslider::-webkit-slider-thumb, #roundness::-webkit-slider-thumb, #iconroundness::-webkit-slider-thumb, #displaytimeslider::-webkit-slider-thumb, #scaleslider::-webkit-slider-thumb, #volumeslider::-webkit-slider-thumb, #trackopacityslider::-webkit-slider-thumb, #fontsizeslider::-webkit-slider-thumb, #brightnessslider::-webkit-slider-thumb {
     appearance: none;
@@ -1333,10 +1297,8 @@ input[type="range"] {
 
 #steamkeybindcont {
     display: flex;
-    /*right: 35px;*/
     justify-content: flex-end;
     align-items: center;
-    /*width: 125px;*/
 }
 
 #steamkeybind {
@@ -1347,7 +1309,6 @@ input[type="range"] {
     color: white;
     font-family: "Titillium Web";
     font-size: 10px;
-    /* font-weight: bold; */
     width: 70px;
     height: 25px;
     border-radius: 5px;
@@ -1376,7 +1337,6 @@ input[type="range"] {
     justify-content: flex-end;
     align-items: center;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     width: 18px;
 }
 
@@ -1405,7 +1365,6 @@ input[type="range"] {
     justify-content: flex-end;
     align-items: center;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     width: 18px;
 }
 
@@ -1434,7 +1393,6 @@ input[type="range"] {
     justify-content: flex-end;
     align-items: center;
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     width: 18px;
 }
 
@@ -1503,7 +1461,6 @@ input[type="range"] {
     width: 45px;
     font-family: "Titillium Web";
     font-size: 12px;
-    /* font-weight: bold; */
     text-align: right;
     vertical-align: middle;
     caret-color: transparent;
@@ -1596,7 +1553,6 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 5px;
     font-family: "Titillium Web";
     font-size: 20px;
-    /* font-weight: bold; */
     width: 390px;
     padding: 10px;
 }
@@ -1657,7 +1613,6 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 5px 0px 0px 5px;
     font-family: "Titillium Web";
     font-size: 12px;
-    /* font-weight: bold; */
     text-align: center;
     opacity: 1;
     transition: 0.2s;
@@ -1677,7 +1632,6 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 0px 5px 5px 0px;
     font-family: "Titillium Web";
     font-size: 12px;
-    /* font-weight: bold; */
     text-align: center;
     opacity: 0.5;
     transition: 0.2s;
@@ -1809,7 +1763,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .customiserlbl {
     font-family: "Titillium Web";
-    /* font-weight: bold; */
     margin: -5px 0px 5px;
 }
 
@@ -2787,11 +2740,12 @@ input[type="color"]::-webkit-color-swatch {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 95%;
+    width: 100%;
+    padding: 0px;
+    -webkit-app-region: no-drag;
 }
 
 #joinbetabtn:not(hover) {
-    min-width: 130px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2810,6 +2764,12 @@ input[type="color"]::-webkit-color-swatch {
 
 #joinbetabtn:hover {
     background: blueviolet;
+}
+
+#joinbetabtn, #resetcontinner {
+    flex: 1;
+    margin-left: 6%;
+    margin-right: 6%;
 }
 
 #betadialog {

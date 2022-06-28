@@ -1,3 +1,5 @@
+// TO DO: Move "lang" folder to "required" array when merged with Main branch!
+// Search "!!!" to find
 document.getElementById("maincont").style.opacity = 1
 
 const { ipcRenderer } = require('electron')
@@ -499,6 +501,7 @@ function Run() {
                                                     "fonts",
                                                     "icon",
                                                     "img",
+                                                    // "lang",
                                                     "notify",
                                                     "sanlauncher",
                                                     "sound",
@@ -520,6 +523,8 @@ function Run() {
 
                                                 if (branch == "beta") {
                                                     required.push("beta.txt")
+                                                    // !!! BETA 0.3 TESTING - Remove and re-add in "required" array when merged with Main branch!
+                                                    required.push("lang")
                                                 }
                                             
                                                 var requiredfiles = []

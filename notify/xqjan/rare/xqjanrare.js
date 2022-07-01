@@ -1,6 +1,7 @@
 const { ipcRenderer } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const appdir = "V1.8"
 
 var localappdata;
 
@@ -12,11 +13,11 @@ if (process.platform == "win32") {
     localappdata = path.join(process.env.HOME,"Library","Application Support");
 }
 
-const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")));
 
 document.body.style.opacity = config.opacity * 0.01;
 
-ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon) {
+ipcRenderer.on('notifymain', (event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon, gameartimg) => {
 
 document.getElementById("audio").src = audio;
 document.getElementById("audio").volume = (config.rarevolume * 10) / 100;
@@ -128,6 +129,51 @@ if (bgtype == "bgsolid") {
     document.getElementById("second").style = solid;
     document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
     document.getElementById("logocont").style.backgroundImage = imgbackground;
+    document.getElementById("logocont").style.backgroundColor = "transparent"
+    document.getElementById("logocont").style.backgroundPosition = "center";
+    document.getElementById("logocont").style.backgroundRepeat = "no-repeat";
+    document.getElementById("logocont").style.backgroundSize = "300px";
+    document.getElementById("icon").src = icon;
+    document.getElementById("icon").style.borderRadius = "" + config.rareiconroundness * 1.5 + "px";
+    document.getElementById("logo").src = logo;
+    document.getElementById("logo").style.borderRadius = "" + config.rareiconroundness * 1.5 + "px";
+} else if (bgtype == "game") {
+    var arr = [
+        "220",
+        "620",
+        "4000",
+        "22300",
+        "257510",
+        "275850",
+        "361420",
+        "412020",
+        "499520",
+        "582010",
+        "648800",
+        "782330",
+        "1091500",
+        "1659040",
+    ]
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    var gamearturl = `https://cdn.cloudflare.steamstatic.com/steam/apps/${arr[getRandomInt(arr.length)]}/library_hero.jpg`
+
+    var gameartbg
+
+    if (notifyicon == "test") {
+        gameartbg = `linear-gradient(rgba(0,0,0,${config.rarebrightness}), rgba(0,0,0,${config.rarebrightness})), url("${gamearturl}")`
+    } else {
+        gameartbg = `linear-gradient(rgba(0,0,0,${config.rarebrightness}), rgba(0,0,0,${config.rarebrightness})), url("${gameartimg}")`
+    }
+
+    document.getElementById("cont").style.color = textcolour;
+    document.getElementById("first").style = solid1;
+    document.getElementById("second").style = solid;
+    document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+    document.getElementById("logocont").style.backgroundImage = gameartbg
     document.getElementById("logocont").style.backgroundPosition = "center";
     document.getElementById("logocont").style.backgroundRepeat = "no-repeat";
     document.getElementById("logocont").style.backgroundSize = "300px";
@@ -141,8 +187,7 @@ if (screenshot == "true" && config.rarescreenshot == "true") {
     if (notifyicon == "test") {
         document.getElementById("screenshot").src = "../../../img/santextlogobg.png";
     } else {
-        // document.getElementById("screenshot").src = "../../../img/ss.png";
-        document.getElementById("screenshot").src = path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","ss.png");
+        document.getElementById("screenshot").src = path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"img","ss.png");
     }
     document.getElementById("cont").style.height = "219px";
     document.getElementById("screenshotcont").style.display = "flex";
@@ -194,7 +239,7 @@ function PlayNotification(add) {
     document.getElementById("imgcont").style.animation = "fadein 0.5s 2.5s forwards";
     document.getElementById("textcont").style.animation = "fadein 0.5s 2.5s forwards";
 
-    document.getElementById("textcont").addEventListener('animationend', function(event) {
+    document.getElementById("textcont").addEventListener('animationend', (event) => {
         if (event.animationName == "fadein") {
             document.getElementById("logo").style.opacity = "0";
             document.getElementById("imgcont").style.animation = "animpause " + add + "s forwards";
@@ -218,7 +263,7 @@ function PlayNotification(add) {
         }
     });
 
-    document.getElementById("desc").addEventListener('animationend', function(event) {
+    document.getElementById("desc").addEventListener('animationend', (event) => {
         if (event.animationName == "fadein") {
             document.getElementById("desc").style.animation = "animpause1 " + add + "s forwards";
         } else if (event.animationName == "animpause1") {
@@ -235,13 +280,13 @@ function PlayNotification(add) {
         }
     });
 
-    document.getElementById("logocont").addEventListener('animationstart', function(event) {
+    document.getElementById("logocont").addEventListener('animationstart', (event) => {
         if (event.animationName == "width") {
             document.getElementById("logocont").style.borderRadius = borderradius;
         }
     });
 
-    document.getElementById("logocont").addEventListener('animationend', function(event) {
+    document.getElementById("logocont").addEventListener('animationend', (event) => {
         if (event.animationName == "width") {
             if (screenshot == "true" && config.rarescreenshot == "true") {
                 if (config.rarenotifypos == "topleft" || config.rarenotifypos == "topcenter" || config.rarenotifypos == "topright") {
@@ -258,7 +303,7 @@ function PlayNotification(add) {
         }
     });
 
-    document.getElementById("logo").addEventListener('animationstart', function(event) {
+    document.getElementById("logo").addEventListener('animationstart', (event) => {
         if (event.animationName == "fadein") {
             document.getElementById("logocont").style.borderRadius = "50%";
         }
@@ -287,7 +332,7 @@ function PlayFastNotification(add) {
     document.getElementById("imgcont").style.animation = "fadein 0.5s 2.5s forwards";
     document.getElementById("textcont").style.animation = "fadein 0.5s 2.5s forwards";
 
-    document.getElementById("textcont").addEventListener('animationend', function(event) {
+    document.getElementById("textcont").addEventListener('animationend', (event) => {
         if (event.animationName == "fadein") {
             document.getElementById("logo").style.opacity = "0";
             document.getElementById("imgcont").style.animation = "animpause " + add + "s forwards";
@@ -298,7 +343,7 @@ function PlayFastNotification(add) {
         }
     });
 
-    document.getElementById("title").addEventListener('animationend', function(event) {
+    document.getElementById("title").addEventListener('animationend', (event) => {
         if (event.animationName == "fadeout") {
             document.getElementById("logocont").style.animation = "widthrev 0.5s forwards, popout 0.5s 2s forwards";
             document.getElementById("logo").style.animation = "fadein 0.5s 0.3s forwards";
@@ -314,7 +359,7 @@ function PlayFastNotification(add) {
         }
     });
 
-    document.getElementById("title").addEventListener('animationstart', function(event) {
+    document.getElementById("title").addEventListener('animationstart', (event) => {
         if (event.animationName == "fadeout") {
             document.getElementById("imgcont").style.animation = "fadeout1 0.5s forwards";
             document.getElementById("textcont").style.animation = "fadeout1 0.5s forwards";
@@ -329,13 +374,13 @@ function PlayFastNotification(add) {
         }
     });
 
-    document.getElementById("logocont").addEventListener('animationstart', function(event) {
+    document.getElementById("logocont").addEventListener('animationstart', (event) => {
         if (event.animationName == "width") {
             document.getElementById("logocont").style.borderRadius = borderradius;
         }
     });
 
-    document.getElementById("logocont").addEventListener('animationend', function(event) {
+    document.getElementById("logocont").addEventListener('animationend', (event) => {
         if (event.animationName == "width") {
             if (screenshot == "true" && config.rarescreenshot == "true") {
                 if (config.rarenotifypos == "topleft" || config.rarenotifypos == "topcenter" || config.rarenotifypos == "topright") {
@@ -352,7 +397,7 @@ function PlayFastNotification(add) {
         }
     });
 
-    document.getElementById("logo").addEventListener('animationstart', function(event) {
+    document.getElementById("logo").addEventListener('animationstart', (event) => {
         if (event.animationName == "fadein") {
             document.getElementById("logocont").style.borderRadius = "50%";
         }
@@ -381,7 +426,7 @@ function PlaySuperFastNotification(add) {
     document.getElementById("imgcont").style.animation = "fadein 0.25s 1.5s forwards";
     document.getElementById("textcont").style.animation = "fadein 0.25s 1.5s forwards";
 
-    document.getElementById("textcont").addEventListener('animationend', function(event) {
+    document.getElementById("textcont").addEventListener('animationend', (event) => {
         if (event.animationName == "fadein") {
             document.getElementById("logo").style.opacity = "0";
             document.getElementById("imgcont").style.animation = "animpause " + add + "s forwards";
@@ -392,7 +437,7 @@ function PlaySuperFastNotification(add) {
         }
     });
 
-    document.getElementById("title").addEventListener('animationend', function(event) {
+    document.getElementById("title").addEventListener('animationend', (event) => {
         if (event.animationName == "fadeout") {
             document.getElementById("logocont").style.animation = "widthrev 0.5s forwards, popout 0.5s 2s forwards";
             document.getElementById("logo").style.animation = "fadein 0.25s 0.3s forwards";
@@ -408,7 +453,7 @@ function PlaySuperFastNotification(add) {
         }
     });
 
-    document.getElementById("title").addEventListener('animationstart', function(event) {
+    document.getElementById("title").addEventListener('animationstart', (event) => {
         if (event.animationName == "fadeout") {
             document.getElementById("imgcont").style.animation = "fadeout1 0.25s forwards";
             document.getElementById("textcont").style.animation = "fadeout1 0.25s forwards";
@@ -423,13 +468,13 @@ function PlaySuperFastNotification(add) {
         }
     });
 
-    document.getElementById("logocont").addEventListener('animationstart', function(event) {
+    document.getElementById("logocont").addEventListener('animationstart', (event) => {
         if (event.animationName == "width") {
             document.getElementById("logocont").style.borderRadius = borderradius;
         }
     });
 
-    document.getElementById("logocont").addEventListener('animationend', function(event) {
+    document.getElementById("logocont").addEventListener('animationend', (event) => {
         if (event.animationName == "width") {
             if (screenshot == "true" && config.rarescreenshot == "true") {
                 if (config.rarenotifypos == "topleft" || config.rarenotifypos == "topcenter" || config.rarenotifypos == "topright") {
@@ -446,7 +491,7 @@ function PlaySuperFastNotification(add) {
         }
     });
 
-    document.getElementById("logo").addEventListener('animationstart', function(event) {
+    document.getElementById("logo").addEventListener('animationstart', (event) => {
         if (event.animationName == "fadein") {
             document.getElementById("logocont").style.borderRadius = "50%";
         }
@@ -475,7 +520,7 @@ function PlaySuperFastestNotification(add) {
     document.getElementById("imgcont").style.animation = "fadein 0.25s 1s forwards";
     document.getElementById("textcont").style.animation = "fadein 0.25s 1s forwards";
 
-    document.getElementById("textcont").addEventListener('animationend', function(event) {
+    document.getElementById("textcont").addEventListener('animationend', (event) => {
         if (event.animationName == "fadein") {
             document.getElementById("logo").style.opacity = "0";
             document.getElementById("imgcont").style.animation = "animpause " + add + "s forwards";
@@ -486,14 +531,14 @@ function PlaySuperFastestNotification(add) {
         }
     });
 
-    document.getElementById("title").addEventListener('animationend', function(event) {
+    document.getElementById("title").addEventListener('animationend', (event) => {
         if (event.animationName == "fadeout") {
             document.getElementById("logocont").style.width = "300px"
             document.getElementById("logocont").style.animation = "fadeout2 0.25s forwards";
         }
     });
 
-    document.getElementById("title").addEventListener('animationstart', function(event) {
+    document.getElementById("title").addEventListener('animationstart', (event) => {
         if (event.animationName == "fadeout") {
             document.getElementById("imgcont").style.animation = "fadeout1 0.25s forwards";
             document.getElementById("textcont").style.animation = "fadeout1 0.25s forwards";
@@ -508,13 +553,13 @@ function PlaySuperFastestNotification(add) {
         }
     });
 
-    document.getElementById("logocont").addEventListener('animationstart', function(event) {
+    document.getElementById("logocont").addEventListener('animationstart', (event) => {
         if (event.animationName == "width") {
             document.getElementById("logocont").style.borderRadius = borderradius;
         }
     });
 
-    document.getElementById("logocont").addEventListener('animationend', function(event) {
+    document.getElementById("logocont").addEventListener('animationend', (event) => {
         if (event.animationName == "width") {
             if (screenshot == "true" && config.rarescreenshot == "true") {
                 if (config.rarenotifypos == "topleft" || config.rarenotifypos == "topcenter" || config.rarenotifypos == "topright") {
@@ -531,7 +576,7 @@ function PlaySuperFastestNotification(add) {
         }
     });
 
-    document.getElementById("logo").addEventListener('animationstart', function(event) {
+    document.getElementById("logo").addEventListener('animationstart', (event) => {
         if (event.animationName == "fadein") {
             document.getElementById("logocont").style.borderRadius = "50%";
         }

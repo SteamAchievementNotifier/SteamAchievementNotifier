@@ -443,8 +443,24 @@
                               <option value="bgsolid" id="typesolid">Solid Colour</option>
                               <option value="bg" id="typegradient">Colour Gradient</option>
                               <option value="img" id="typeimg">Background Image</option>
+                              <option value="game" id="typegame">Game Art</option>
                            </select>
                         </div>
+
+                        <!-- GAME ART BRIGHTNESS SLIDER -->
+                        <div class="customiserlbl" id="brightnesslblcont" style="margin-top: 5px">
+                           <div id="brightnessleft">
+                              <div id="brightnesslbl">BRIGHTNESS:</div>
+                           </div>
+                           <div id="brightnessright">
+                              <div id="brightnessvalue">100%</div>
+                           </div>
+                        </div>
+                        <div class="customiseropts" id="brightnessslidercont">
+                           <input type="range" id="brightnessslider" min="0" max="0.9" value="0" step="0.1" dir="rtl" onchange="SetGameArtBrightness()" oninput="document.getElementById('brightnessvalue').innerHTML = (this.value * 100 - 100).toString().replace('-','') + '%'">
+                        </div>
+                        <!-- GAME ART BRIGHTNESS SLIDER -->
+
                         <div class="customiserlbl" id="colourslbl">COLOURS:</div>
                         <div class="customiseropts" id="colour1">
                            <input id="colour1box" type="color" onclick="SetColour1()">
@@ -607,8 +623,24 @@
                               <option value="bgsolid" id="typesolidrare">Solid Colour</option>
                               <option value="bg" id="typegradientrare">Colour Gradient</option>
                               <option value="img" id="typeimgrare">Background Image</option>
+                              <option value="game" id="typegamerare">Game Art</option>
                            </select>
                         </div>
+
+                        <!-- GAME ART BRIGHTNESS SLIDER -->
+                        <div class="customiserlbl" id="brightnesslblcontrare" style="margin-top: 5px">
+                           <div id="brightnessleftrare">
+                              <div id="brightnesslblrare">BRIGHTNESS:</div>
+                           </div>
+                           <div id="brightnessrightrare">
+                              <div id="brightnessvaluerare">100%</div>
+                           </div>
+                        </div>
+                        <div class="customiseropts" id="brightnessslidercontrare">
+                           <input type="range" id="brightnesssliderrare" min="0" max="0.9" value="0" step="0.1" dir="rtl" onchange="SetGameArtBrightnessRare()" oninput="document.getElementById('brightnessvaluerare').innerHTML = (this.value * 100 - 100).toString().replace('-','') + '%'">
+                        </div>
+                        <!-- GAME ART BRIGHTNESS SLIDER -->
+
                         <div class="customiserlbl" id="rarecolourslbl">COLOURS:</div>
                         <div class="customiseropts" id="rarecolour1">
                            <input id="rarecolour1box" type="color" onclick="SetRareColour1()">

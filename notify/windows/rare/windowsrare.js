@@ -1,188 +1,237 @@
-const { ipcRenderer } = require('electron');
-const fs = require('fs');
-const path = require('path');
+const { ipcRenderer } = require('electron')
+const fs = require('fs')
+const path = require('path')
+const appdir = "V1.8"
 
-var localappdata;
+document.getElementById("toastheader").innerHTML = `Steam Achievement Notifier (${appdir})`
+
+var localappdata
 
 if (process.platform == "win32") {
-    localappdata = path.join(process.env.LOCALAPPDATA);
+    localappdata = path.join(process.env.LOCALAPPDATA)
 } else if (process.platform == "linux") {
-    localappdata = path.join(process.env.HOME,".local","share");
+    localappdata = path.join(process.env.HOME,".local","share")
 } else if (process.platform == "darwin") {
-    localappdata = path.join(process.env.HOME,"Library","Application Support");
+    localappdata = path.join(process.env.HOME,"Library","Application Support")
 }
 
-const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
 
-document.body.style.opacity = config.opacity * 0.01;
+document.body.style.opacity = config.opacity * 0.01
 
-ipcRenderer.on('notifymain', function(event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon) {
+ipcRenderer.on('notifymain', (event, notifyachievement, notifytitle, notifydesc, notifyicon, screenshot, percent, audio, gameicon, gameartimg) => {
 
-document.getElementById("audio").src = audio;
-document.getElementById("audio").volume = (config.rarevolume * 10) / 100;
-document.getElementById("audio").play();
+document.getElementById("audio").src = audio
+document.getElementById("audio").volume = (config.rarevolume * 10) / 100
+document.getElementById("audio").play()
 
-var colour1 = config.rarecolour1;
-var colour2 = config.rarecolour2;
-var textcolour = config.raretextcolour;
-var img;
+var colour1 = config.rarecolour1
+var colour2 = config.rarecolour2
+var textcolour = config.raretextcolour
+var img
 
 if (config.rareimg == "default") {
-    img = "../../../img/santextlogobg.png";
+    img = "../../../img/santextlogobg.png"
 } else {
-    img = config.rareimg;
+    img = config.rareimg
 }
 
-var icon;
+var icon
 
 if (notifyicon == "test") {
-    icon = "../../../img/sanlogosquare.svg";
+    icon = "../../../img/sanlogosquare.svg"
 } else {
-    icon = notifyicon;
+    icon = notifyicon
 }
 
-var toasticon;
+var toasticon
 
 if (config.raregameicon == "true") {
     if (notifyicon == "test") {
-        toasticon = "../../../img/gameicon.png";
+        toasticon = "../../../img/gameicon.png"
     } else {
-        toasticon = gameicon;
+        toasticon = gameicon
     }
 } else {
     if (config.rareicon == "" || config.rareicon == undefined) {
-        toasticon = "../../../img/sanlogo.svg";
+        toasticon = "../../../img/sanlogo.svg"
     } else {
-        toasticon = config.rareicon;
+        toasticon = config.rareicon
     }
 }
 
-var solid = "background: " + colour1;
-var background = "background: radial-gradient(circle, " + colour1 + " 0%, " + colour2 + " 100%)";
-var imgbackground = "url('" + img + "')";
+var solid = "background: " + colour1
+var background = "background: radial-gradient(circle, " + colour1 + " 0%, " + colour2 + " 100%)"
+var imgbackground = "url('" + img + "')"
 
-var scale = config.rarescale;
-document.getElementById("cont").style.transform = "translate(-50%, -50%) scale(" + scale + "%, " + scale + "%)";
+var scale = config.rarescale
+document.getElementById("cont").style.transform = "translate(-50%, -50%) scale(" + scale + "%, " + scale + "%)"
 
 if (config.iconanim == "false") {
-    document.getElementById("outline").style.display = "none";
-    document.getElementById("outlinecont").style.display = "none";
-    document.getElementById("outlineinnercont").style.display = "none";
-    document.getElementById("icon").style.boxShadow = "none";
+    document.getElementById("outline").style.display = "none"
+    document.getElementById("outlinecont").style.display = "none"
+    document.getElementById("outlineinnercont").style.display = "none"
+    document.getElementById("icon").style.boxShadow = "none"
 }
 
-var borderradius = config.rareroundness + "px";
-var ssborderradius = "0px 0px " + config.rareroundness + "px " + config.rareroundness + "px";
-var ssimgborderradius = config.rareroundness + "px " + config.rareroundness + "px 0px 0px";
+var borderradius = config.rareroundness + "px"
+var ssborderradius = "0px 0px " + config.rareroundness + "px " + config.rareroundness + "px"
+var ssimgborderradius = config.rareroundness + "px " + config.rareroundness + "px 0px 0px"
 
-var bgtype = config.rarebgtype;
+var bgtype = config.rarebgtype
 
 if (bgtype == "bgsolid") {
-    document.getElementById("cont").style.color = textcolour;
-    document.getElementById("notifycont").style = solid;
+    document.getElementById("cont").style.color = textcolour
+    document.getElementById("notifycont").style = solid
     if (screenshot == "true" && config.rarescreenshot == "true") {
-        document.getElementById("notifycont").style.borderRadius = ssborderradius;
-        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+        document.getElementById("notifycont").style.borderRadius = ssborderradius
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius
     } else {
-        document.getElementById("notifycont").style.borderRadius = borderradius;
+        document.getElementById("notifycont").style.borderRadius = borderradius
     }
-    document.getElementById("icon").src = icon;
-    document.getElementById("icon").style.borderRadius = "" + (config.rareiconroundness * 1.6) + "px";
-    document.getElementById("toastheaderimg").src = toasticon;
-    document.getElementById("toastheaderimg").style.borderRadius = "" + (config.rareiconroundness * 0.6) + "px";
+    document.getElementById("icon").src = icon
+    document.getElementById("icon").style.borderRadius = "" + (config.rareiconroundness * 1.6) + "px"
+    document.getElementById("toastheaderimg").src = toasticon
+    document.getElementById("toastheaderimg").style.borderRadius = "" + (config.rareiconroundness * 0.6) + "px"
 } else if (bgtype == "bg") {
-    document.getElementById("cont").style.color = textcolour;
-    document.getElementById("notifycont").style = background;
+    document.getElementById("cont").style.color = textcolour
+    document.getElementById("notifycont").style = background
     if (screenshot == "true" && config.rarescreenshot == "true") {
-        document.getElementById("notifycont").style.borderRadius = ssborderradius;
-        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+        document.getElementById("notifycont").style.borderRadius = ssborderradius
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius
     } else {
-        document.getElementById("notifycont").style.borderRadius = borderradius;
+        document.getElementById("notifycont").style.borderRadius = borderradius
     }
-    document.getElementById("icon").src = icon;
-    document.getElementById("icon").style.borderRadius = "" + (config.rareiconroundness * 1.6) + "px";
-    document.getElementById("toastheaderimg").src = toasticon;
-    document.getElementById("toastheaderimg").style.borderRadius = "" + (config.rareiconroundness * 0.6) + "px";
+    document.getElementById("icon").src = icon
+    document.getElementById("icon").style.borderRadius = "" + (config.rareiconroundness * 1.6) + "px"
+    document.getElementById("toastheaderimg").src = toasticon
+    document.getElementById("toastheaderimg").style.borderRadius = "" + (config.rareiconroundness * 0.6) + "px"
 } else if (bgtype == "img") {
-    document.getElementById("cont").style.color = textcolour;
-    document.getElementById("notifycont").style.backgroundImage = imgbackground;
-    document.getElementById("notifycont").style.backgroundPosition = "center";
-    document.getElementById("notifycont").style.backgroundRepeat = "no-repeat";
-    document.getElementById("notifycont").style.backgroundSize = "364px";
+    document.getElementById("cont").style.color = textcolour
+    document.getElementById("notifycont").style.backgroundImage = imgbackground
+    document.getElementById("notifycont").style.backgroundPosition = "center"
+    document.getElementById("notifycont").style.backgroundRepeat = "no-repeat"
+    document.getElementById("notifycont").style.backgroundSize = "cover"
     if (screenshot == "true" && config.rarescreenshot == "true") {
-        document.getElementById("notifycont").style.borderRadius = ssborderradius;
-        document.getElementById("screenshot").style.borderRadius = ssimgborderradius;
+        document.getElementById("notifycont").style.borderRadius = ssborderradius
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius
     } else {
-        document.getElementById("notifycont").style.borderRadius = borderradius;
+        document.getElementById("notifycont").style.borderRadius = borderradius
     }
-    document.getElementById("icon").src = icon;
-    document.getElementById("icon").style.borderRadius = "" + (config.rareiconroundness * 1.6) + "px";
-    document.getElementById("toastheaderimg").src = toasticon;
-    document.getElementById("toastheaderimg").style.borderRadius = "" + (config.rareiconroundness * 0.6) + "px";
+    document.getElementById("icon").src = icon
+    document.getElementById("icon").style.borderRadius = "" + (config.rareiconroundness * 1.6) + "px"
+    document.getElementById("toastheaderimg").src = toasticon
+    document.getElementById("toastheaderimg").style.borderRadius = "" + (config.rareiconroundness * 0.6) + "px"
+} else if (bgtype == "game") {
+    var arr = [
+        "220",
+        "620",
+        "4000",
+        "22300",
+        "257510",
+        "275850",
+        "361420",
+        "412020",
+        "499520",
+        "582010",
+        "648800",
+        "782330",
+        "1091500",
+        "1659040",
+    ]
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max)
+    }
+
+    var gamearturl = `https://cdn.cloudflare.steamstatic.com/steam/apps/${arr[getRandomInt(arr.length)]}/library_hero.jpg`
+
+    var gameartbg
+
+    if (notifyicon == "test") {
+        gameartbg = `linear-gradient(rgba(0,0,0,${config.rarebrightness}), rgba(0,0,0,${config.rarebrightness})), url("${gamearturl}")`
+    } else {
+        gameartbg = `linear-gradient(rgba(0,0,0,${config.rarebrightness}), rgba(0,0,0,${config.rarebrightness})), url("${gameartimg}")`
+    }
+
+    document.getElementById("cont").style.color = textcolour
+    document.getElementById("notifycont").style.backgroundImage = gameartbg
+    document.getElementById("notifycont").style.backgroundPosition = "center"
+    document.getElementById("notifycont").style.backgroundRepeat = "no-repeat"
+    document.getElementById("notifycont").style.backgroundSize = "cover"
+    if (screenshot == "true" && config.rarescreenshot == "true") {
+        document.getElementById("notifycont").style.borderRadius = ssborderradius
+        document.getElementById("screenshot").style.borderRadius = ssimgborderradius
+    } else {
+        document.getElementById("notifycont").style.borderRadius = borderradius
+    }
+    document.getElementById("icon").src = icon
+    document.getElementById("icon").style.borderRadius = "" + (config.rareiconroundness * 1.6) + "px"
+    document.getElementById("toastheaderimg").src = toasticon
+    document.getElementById("toastheaderimg").style.borderRadius = "" + (config.rareiconroundness * 0.6) + "px"
 }
 
 if (screenshot == "true" && config.rarescreenshot == "true") {
     if (notifyicon == "test") {
-        document.getElementById("screenshot").src = "../../../img/santextlogobg.png";
+        document.getElementById("screenshot").src = "../../../img/santextlogobg.png"
     } else {
-        // document.getElementById("screenshot").src = "../../../img/ss.png";
-        document.getElementById("screenshot").src = path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","ss.png");
+        document.getElementById("screenshot").src = path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"img","ss.png")
     }
-    document.getElementById("cont").style.height = "279px";
-    document.getElementById("screenshotcont").style.display = "flex";
+    document.getElementById("cont").style.height = "279px"
+    document.getElementById("screenshotcont").style.display = "flex"
 } else {
-    document.getElementById("cont").style.height = "110px";
-    document.getElementById("screenshotcont").style.display = "none";
+    document.getElementById("cont").style.height = "110px"
+    document.getElementById("screenshotcont").style.display = "none"
 }
 
-var title = notifytitle;
-var desc = notifydesc;
+var title = notifytitle
+var desc = notifydesc
 
 if (percent == undefined) {
-    document.getElementById("game").innerHTML = title + " (0.0%)";
+    document.getElementById("game").innerHTML = title + " (0.0%)"
 } else {
-    document.getElementById("game").innerHTML = title + " (" + percent + "%)";
+    document.getElementById("game").innerHTML = title + " (" + percent + "%)"
 }
-document.getElementById("desc").innerHTML = desc;
+document.getElementById("desc").innerHTML = desc
 
-document.getElementById("cont").style.fontSize = 11 * config.rarefontsize * 0.01 + "px";
-document.getElementById("toastheader").style.fontSize = 9 * config.rarefontsize * 0.01 + "px";
+document.getElementById("cont").style.fontSize = 11 * config.rarefontsize * 0.01 + "px"
+document.getElementById("toastheader").style.fontSize = 9 * config.rarefontsize * 0.01 + "px"
 
-var pause = 0;
-var direction;
+var pause = 0
+var direction
 
 if (config.rarenotifypos == "topleft") {
-    direction = "left";
+    direction = "left"
 } else if (config.rarenotifypos == "topcenter") {
-    direction = "down";
+    direction = "down"
 } else if (config.rarenotifypos == "topright") {
-    direction = "right";
+    direction = "right"
 } else if (config.rarenotifypos == "bottomleft") {
-    direction = "left";
+    direction = "left"
 } else if (config.rarenotifypos == "bottomcenter") {
-    direction = "up";
+    direction = "up"
 } else if (config.rarenotifypos == "bottomright") {
-    direction = "right";
+    direction = "right"
 }
 
 function PlayNotification(add) {
-    document.getElementById("screenshotcont").style.animation = "slidein" + direction + " 1s linear forwards";
-    document.getElementById("notifycont").style.animation = "slidein" + direction + " 1s linear forwards";
+    document.getElementById("screenshotcont").style.animation = "slidein" + direction + " 1s linear forwards"
+    document.getElementById("notifycont").style.animation = "slidein" + direction + " 1s linear forwards"
     
-    document.getElementById("notifycont").addEventListener('animationend', function(event) {
+    document.getElementById("notifycont").addEventListener('animationend', (event) => {
         if (event.animationName == "slidein" + direction) {
-            document.getElementById("screenshotcont").style.animation = "animpause " + ((pause * 0.001) + add) + "s linear forwards";
-            document.getElementById("notifycont").style.animation = "animpause " + ((pause * 0.001) + add) + "s linear forwards";
+            document.getElementById("screenshotcont").style.animation = "animpause " + ((pause * 0.001) + add) + "s linear forwards"
+            document.getElementById("notifycont").style.animation = "animpause " + ((pause * 0.001) + add) + "s linear forwards"
         } else if (event.animationName == "animpause") {
-            document.getElementById("screenshotcont").style.animation = "slideout" + direction + " 1s linear reverse backwards";
-            document.getElementById("notifycont").style.animation = "slideout" + direction + " 1s linear reverse backwards";
+            document.getElementById("screenshotcont").style.animation = "slideout" + direction + " 1s linear reverse backwards"
+            document.getElementById("notifycont").style.animation = "slideout" + direction + " 1s linear reverse backwards"
         } else if (event.animationName == "slideout" + direction) {
-            ipcRenderer.send('notifywinstop');
+            ipcRenderer.send('notifywinstop')
         }
-    });
+    })
 }
 
-var displaytime = config.raredisplaytime;
+var displaytime = config.raredisplaytime
 
 if (displaytime == 15) {
     PlayNotification(13)
@@ -214,4 +263,4 @@ if (displaytime == 15) {
     PlayNotification(0)
 }
 
-});
+})

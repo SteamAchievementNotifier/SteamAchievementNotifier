@@ -54,7 +54,6 @@
                 border-radius: 5px;
                 padding: 10px 0px 10px;
                 overflow: hidden;
-                /* animation: glow 5s ease infinite, reveal 0.5s forwards; */
                 opacity: 0;
                 transition: 0.2s;
             }
@@ -78,7 +77,6 @@
                 opacity: 0.1;
                 width: 200px;
                 z-index: -1;
-                /* animation: move 5s ease infinite; */
             }
 
             #icon {
@@ -113,7 +111,6 @@
                 font-family: "Noto Sans";
                 font-size: 10px;
                 font-weight: 500;
-                /* width: 100%; */
                 word-wrap: break-word;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -135,24 +132,25 @@
         </div>
     </body>
     <script>
-        const { ipcRenderer } = require('electron');
-        const fs = require('fs');
-        const path = require('path');
+        const { ipcRenderer } = require('electron')
+        const fs = require('fs')
+        const path = require('path')
+        const appdir = "V1.8"
 
-        var localappdata;
+        var localappdata
 
         if (process.platform == "win32") {
-            localappdata = path.join(process.env.LOCALAPPDATA);
+            localappdata = path.join(process.env.LOCALAPPDATA)
         } else if (process.platform == "linux") {
-            localappdata = path.join(process.env.HOME,".local","share");
+            localappdata = path.join(process.env.HOME,".local","share")
         } else if (process.platform == "darwin") {
-            localappdata = path.join(process.env.HOME,"Library","Application Support");
+            localappdata = path.join(process.env.HOME,"Library","Application Support")
         }
 
-        const config = JSON.parse(fs.readFileSync(path.join(localappdata,"Steam Achievement Notifier (V1.8)","store","config.json")));
+        const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
 
-        ipcRenderer.on('track', function(event, gamename, appid) {
-            var xmllist = `https://steamcommunity.com/profiles/${config.steam64id}/stats/${appid}/?xml=1`;
+        ipcRenderer.on('track', (event, gamename, appid) => {
+            var xmllist = `https://steamcommunity.com/profiles/${config.steam64id}/stats/${appid}/?xml=1`
 
             function GetGameIcon() {
                 if (config.steam64id == "") {
@@ -162,36 +160,43 @@
                     .then(res => {
                         if (res.ok) {
                             if (!(res.url).includes(appid) && !(res.url).includes("/?xml=1")) {
-                                console.log("%cError: Game uses Community Game Name (instead of appid)! Re-checking...","color:red");
-                                xmllist = res.url + "/?xml=1";
-                                GetGameIcon();
+                                console.log("%cError: Game uses Community Game Name (instead of appid)! Re-checking...","color:red")
+                                xmllist = res.url + "/?xml=1"
+                                GetGameIcon()
                             } else {
-                                console.log("%cUsing URL: " + xmllist,"color:limegreen");
-                                xmllist = `https://steamcommunity.com/profiles/${config.steam64id}/stats/${appid}/?xml=1`;
-                                return res.text();
+                                console.log("%cUsing URL: " + xmllist,"color:limegreen")
+                                xmllist = `https://steamcommunity.com/profiles/${config.steam64id}/stats/${appid}/?xml=1`
+                                return res.text()
                             }
                         } else {
-                            console.log("%cError fetching achievement information for " + appid,"color:red");
+                            console.log("%cError fetching achievement information for " + appid,"color:red")
                         }
                     })
                     .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
                     .then(data => {
                         var gameicon = data.getElementsByTagName("gameIcon")[0].textContent
+                        var gameart
+
+                        try {
+                            gameart = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/library_hero.jpg`
+                        } catch (err) {
+                            gameart = data.getElementsByTagName("gameLogo")[0].textContent
+                        }
 
                         document.getElementById("icon").src = gameicon
-                        document.getElementById("notifycont").style.opacity = "1";
-                        document.body.style.opacity = "" + config.trackopacity * 0.01 + "";
-                        document.getElementById("gamename").innerHTML = gamename;
+                        document.getElementById("notifycont").style.opacity = "1"
+                        document.body.style.opacity = "" + config.trackopacity * 0.01 + ""
+                        document.getElementById("gamename").innerHTML = gamename
 
                         document.getElementById("notifycont").style.animation = "glow 5s ease infinite, reveal 0.5s forwards"
-                        document.getElementById("logo").style.animation = "move 5s ease infinite";
+                        document.getElementById("logo").style.animation = "move 5s ease infinite"
 
-                        ipcRenderer.send('gameicon', gameicon)
+                        ipcRenderer.send('gameicon', gameicon, gameart)
                     })
                 }
             }
 
             GetGameIcon()
-        });
+        })
     </script>
 </html>

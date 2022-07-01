@@ -201,8 +201,8 @@ if (screenshot == "true" && config.screenshot == "true") {
     document.getElementById("screenshotcont").style.display = "none"
 }
 
-var text = notifyachievement
-var title = notifytitle
+var text = notifytitle
+var title = notifydesc
 
 document.getElementById("notifycont").style.animation = "none"
 

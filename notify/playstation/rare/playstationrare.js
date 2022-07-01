@@ -208,8 +208,8 @@ if (screenshot == "true" && config.rarescreenshot == "true") {
     document.getElementById("screenshotcont").style.display = "none"
 }
 
-var text = notifyachievement
-var title = notifytitle
+var text = notifytitle
+var title = notifydesc
 
 document.getElementById("notifycont").style.animation = "none"
 
@@ -385,12 +385,4 @@ if (displaytime == 15) {
     PlayNotification(1)
 }
 
-})
-
-ipcRenderer.on('pausenotify', () => {
-    document.getElementById("notifycont").style.animationPlayState = "paused"
-})
-
-ipcRenderer.on('playnotify', () => {
-    document.getElementById("notifycont").style.animationPlayState = "running"
 })

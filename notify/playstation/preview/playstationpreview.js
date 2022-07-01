@@ -178,8 +178,8 @@ if (config.ssprev == "true" && config.screenshot == "true") {
     document.getElementById("screenshotcont").style.display = "none"
 }
 
-var text = "Achievement Unlocked!"
-var title = "Steam Achievement Notifier"
+var text = "Steam Achievement Notifier"
+var title = "Your notifications are working correctly"
 
 document.getElementById("notifycont").style.animation = "none"
 

@@ -204,7 +204,7 @@ if (screenshot == "true" && config.screenshot == "true") {
 }
 
 var title = notifytitle
-var desc = notifyachievement
+var desc = notifydesc
 
 document.getElementById("textinner").innerHTML = title
 document.getElementById("desc").innerHTML = desc

@@ -185,8 +185,8 @@ if (config.raressprev == "true" && config.rarescreenshot == "true") {
     document.getElementById("screenshotcont").style.display = "none"
 }
 
-var text = "Rare Achievement Unlocked! (0.0%)"
-var title = "Steam Achievement Notifier"
+var text = "Steam Achievement Notifier"
+var title = "Your notifications are working correctly"
 
 document.getElementById("notifycont").style.animation = "none"
 

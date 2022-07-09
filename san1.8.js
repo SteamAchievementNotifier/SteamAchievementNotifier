@@ -3221,7 +3221,7 @@ function SANIdle() {
                 regvdffile = regvdffile.toString()
                 var regvdfdata = VDF.parse(regvdffile)
 
-                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name
+                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.Apps[appid].name
                 
                 ipcRenderer.send('trackwin', gamename, appid)
                 setTimeout(() => {
@@ -3237,7 +3237,7 @@ function SANIdle() {
                 regvdffile = regvdffile.toString()
                 var regvdfdata = VDF.parse(regvdffile)
 
-                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name
+                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.Apps[appid].name
                 
                 ipcRenderer.send('trackwin', gamename, appid)
                 setTimeout(() => {

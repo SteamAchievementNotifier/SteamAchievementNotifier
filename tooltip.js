@@ -18,6 +18,7 @@ var startwintt
 var startmintt
 var soundonlytt
 var tracktt
+var displaytt
 var updatett
 var kofitt
 var discordtt
@@ -37,8 +38,6 @@ var iconanimtt
 var gamecompletiontt
 var ssoverlaytt
 var sserrortt
-var fullscreentt
-var extwintt
 
 var usertippy = tippy(user, {
    allowHTML: true,
@@ -225,30 +224,6 @@ var tracktippy = tippy(tracking, {
    offset: [30,15],
    delay: [400, 0],
    maxWidth: 250,
-   theme: "win",
-})
-
-tippy('#fullscreen', {
-   allowHTML: true,
-   content: fullscreentt,
-   arrow: false,
-   followCursor: true,
-   maxWidth: 200,
-   placement: "right",
-   offset: [30,15],
-   delay: [250,0],
-   theme: "win",
-})
-
-tippy('#extwin', {
-   allowHTML: true,
-   content: extwintt,
-   arrow: false,
-   followCursor: true,
-   maxWidth: 185,
-   placement: "right",
-   offset: [30,15],
-   delay: [250,0],
    theme: "win",
 })
 
@@ -567,9 +542,6 @@ function LoadLangTT() {
       gamecompletiontt = "Shows an additional notification when all achievements in a game have been unlocked."
       ssoverlaytt = `Takes a non-Steam screenshot and overlays the details of the unlocked achievement. These non-Steam screenshots can be saved in a specific directory using the "Path" option.`
       sserrortt = "<span style='color: red; font-weight: bold'>No screenshot option enabled!</span>"
-      fullscreentt = `Enables notifications to be displayed over games set to use "Fullscreen" or "Exclusive Fullscreen" display modes.`
-      customposwarn = `Unavailable when "Enable Fullscreen Notifications" option is enabled!`
-      extwintt = "Spawns an additional external window which will playback all achievement notifications.<br><br><i>Suitable for window capture in OBS or other streaming software.</i>"
    } else if (configtt.lang == "arabic") {
       usertt = "اسم مستخدم Steam<br><div style='font-size: 6px'>يتم تعقب الإنجازات لهذا المستخدم</div>"
       gamett = "لعبة الحالية<br><div style='font-size: 6px'>يظهر اسم اللعبة التي يتم تعقبها حاليًا</div>"
@@ -1640,8 +1612,6 @@ function LoadLangTT() {
    document.getElementById("nvda")._tippy.setContent(nvdatt)
    document.getElementById("gamecompletion")._tippy.setContent(gamecompletiontt)
    document.getElementById("ssoverlay")._tippy.setContent(ssoverlaytt)
-   document.getElementById("fullscreen")._tippy.setContent(fullscreentt)
-   document.getElementById("extwin")._tippy.setContent(extwintt)
 }
 
 LoadLangTT()

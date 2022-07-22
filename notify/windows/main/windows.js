@@ -104,7 +104,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("notifycont").style.backgroundImage = imgbackground
     document.getElementById("notifycont").style.backgroundPosition = "center"
     document.getElementById("notifycont").style.backgroundRepeat = "no-repeat"
-    document.getElementById("notifycont").style.backgroundSize = "cover"
+    document.getElementById("notifycont").style.backgroundSize = "364px"
     if (screenshot == "true" && config.screenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius
@@ -151,7 +151,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("notifycont").style.backgroundImage = gameartbg
     document.getElementById("notifycont").style.backgroundPosition = "center"
     document.getElementById("notifycont").style.backgroundRepeat = "no-repeat"
-    document.getElementById("notifycont").style.backgroundSize = "cover"
+    document.getElementById("notifycont").style.backgroundSize = "364px"
     if (screenshot == "true" && config.screenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius

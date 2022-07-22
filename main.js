@@ -1,10 +1,9 @@
 const startapp = () => {
-    const { app, BrowserWindow, Menu, Tray, nativeImage, nativeTheme, ipcMain, dialog, desktopCapturer, powerSaveBlocker, powerMonitor, globalShortcut } = require('electron')
+    const { app, BrowserWindow, Menu, Tray, nativeImage, nativeTheme, ipcMain, dialog, desktopCapturer, powerSaveBlocker, globalShortcut, ipcRenderer } = require('electron')
     const path = require('path')
     const fs = require('fs')
     const shell = require('electron').shell
     const os = require('os')
-    const { spawn } = require('child_process')
     const appversion = "V1.84"
     const appdir = "V1.8"
 
@@ -78,15 +77,6 @@ const startapp = () => {
             }
         }
 
-        // FULLSCREEN - Check whether "fullscreen.json" exists and copy over from __dirname "store" folder if not
-        function CheckFullscreen() {
-            if (!fs.existsSync(path.join(sanlocalappdata,"store","fullscreen.json"))) {
-                fs.copyFileSync(path.join(__dirname,"store","fullscreen.json"), path.join(sanlocalappdata,"store","fullscreen.json"))
-            } else {
-                console.log("fullscreen.json exists")
-            }
-        }
-
         if (!fs.existsSync(sanlocalappdata)) {
             console.log("\"Steam Achievement Notifier (V1.8)\" directory does not exist in " + localappdata + ". Creating...")
 
@@ -94,13 +84,11 @@ const startapp = () => {
 
             CheckConfig()
             CheckImg()
-            CheckFullscreen()
             
             console.log("\"Steam Achievement Notifier (V1.8)\" directory created in " + localappdata + ".")
         } else {
             CheckConfig()
             CheckImg()
-            CheckFullscreen()
             
             console.log("\"Steam Achievement Notifier (V1.8)\" directory already exists in " + localappdata)
         }
@@ -112,14 +100,6 @@ const startapp = () => {
         }
 
         const config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
-
-        try {
-            JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","fullscreen.json")))
-        } catch (err) {
-            throw new Error(`"fullscreen.json" caused an error on load: "${err}"`)
-        }
-        
-        const fullscreen = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","fullscreen.json")))
 
         let win
         let tray = null
@@ -247,19 +227,9 @@ const startapp = () => {
         var gameicon
         var gameartimg
 
-        // FULLSCREEN - Receive "gamename" back from "trackwin" and write to "fullscreen.json" (otherwise, "gamename" gets overwritten to nothing for some reason)
-        ipcMain.on('gameicon', (event, gameiconsrc, gameartimgsrc, gamename) => {
+        ipcMain.on('gameicon', (event, gameiconsrc, gameartimgsrc) => {
             gameicon = gameiconsrc
             gameartimg = gameartimgsrc
-
-            if (config.fullscreen == true) {
-                fullscreen["gamename"] = gamename
-                fullscreen["gameicon"] = gameiconsrc
-                fullscreen["gameart"] = gameartimgsrc
-                fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
-
-                win.webContents.send('gametrackdetails', gamename, gameicon, gameartimg)
-            }
         })
 
         ipcMain.on('notifywin', (event, queueobj) => {
@@ -589,7 +559,7 @@ const startapp = () => {
                     offsety = 0
                 }
             }
-
+            
             const notifywin = new BrowserWindow({
                 width: width,
                 height: height,
@@ -616,9 +586,9 @@ const startapp = () => {
             })
             notifywin.setIgnoreMouseEvents(true)
             notifywin.setAlwaysOnTop(true, 'screen-saver')
-    
+
             var notifysrc
-    
+
             if (queueobj.type == "main") {
                 if (queueobj.style == "default") {
                     notifysrc = path.join(__dirname,"notify","default","main","default.html")
@@ -654,51 +624,25 @@ const startapp = () => {
             }
 
             notifywin.loadFile(notifysrc)
-        
+
             if (config.screenshot == "true" && config.ssprev == "true" || config.rarescreenshot == "true" && config.raressprev == "true") {
                 desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 852, height: 480 }}).then(sources => {
                     fs.writeFileSync(path.join(sanlocalappdata,"img","ss.png"), sources[0].thumbnail.toPNG())
                 })
             }
-        
+
             notifywin.once('ready-to-show', () => {
                 notifywin.setMinimumSize(width, height)
                 notifywin.setSize(width, height)
-        
+
                 notifywin.show()
                 notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg)
                 // notifywin.webContents.openDevTools({ mode: 'detach' })
             })
-        
+
             ipcMain.once('notifywinstop', () => {
                 notifywin.destroy()
                 win.webContents.send('notrunning')
-            })
-        })
-
-        ipcMain.on('extwin', (event, queueobj) => {
-            var width = queueobj.width * queueobj.scale * 0.01
-            var height = queueobj.height * queueobj.scale * 0.01
-            width = Math.round(width)
-            height = Math.round(height)
-
-            extwin.setContentSize(width, height)
-
-            var extnotifysrc
-
-            function GetNotifySrc() {
-                return new Promise(resolve => {
-                    if (queueobj.type == "main") {
-                        extnotifysrc = path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","app","notify",queueobj.style,"fullscreen",`${queueobj.style}_fs.html`)
-                    } else {
-                        extnotifysrc = path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","app","notify",queueobj.style,"fullscreen",`${queueobj.style}rare_fs.html`)
-                    }
-                    resolve()
-                })
-            }
-
-            GetNotifySrc().then(() => {
-                extwin.webContents.send('notifyext', extnotifysrc, queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg)
             })
         })
 
@@ -730,14 +674,7 @@ const startapp = () => {
                     label: trayexit,
                     icon: nativeImage.createFromPath(path.join(__dirname,"img","close.png")).resize({ width:16 }),
                     click: () => {
-                        if (config.fullscreen == true) {
-                            spawn("powershell.exe", ["-Command","taskkill /f /im goverlay.exe"])
-                            .on('exit', () => {
-                                app.exit()
-                            })
-                        } else {
-                            app.exit()
-                        }
+                        app.exit(0)
                     }
                 }
             ]
@@ -763,21 +700,14 @@ const startapp = () => {
                         label: trayshow,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","show.png")).resize({ width:16 }),
                         click: () => {
-                            win.show()
+                        win.show()
                         }
                     },
                     {
                         label: trayexit,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","close.png")).resize({ width:16 }),
                         click: () => {
-                            if (config.fullscreen == true) {
-                                spawn("powershell.exe", ["-Command","taskkill /f /im goverlay.exe"])
-                                .on('exit', () => {
-                                    app.exit()
-                                })
-                            } else {
-                                app.exit()
-                            }
+                        app.exit(0)
                         }
                     }
                 ]
@@ -808,21 +738,14 @@ const startapp = () => {
                         label: trayshow,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","show.png")).resize({ width:16 }),
                         click: () => {
-                            win.show()
+                        win.show()
                         }
                     },
                     {
                         label: trayexit,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","close.png")).resize({ width:16 }),
                         click: () => {
-                            if (config.fullscreen == true) {
-                                spawn("powershell.exe", ["-Command","taskkill /f /im goverlay.exe"])
-                                .on('exit', () => {
-                                    app.exit()
-                                })
-                            } else {
-                                app.exit()
-                            }
+                        app.exit(0)
                         }
                     }
                 ]
@@ -846,21 +769,14 @@ const startapp = () => {
                         label: trayshow,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","show.png")).resize({ width:16 }),
                         click: () => {
-                            win.show()
+                        win.show()
                         }
                     },
                     {
                         label: trayexit,
                         icon: nativeImage.createFromPath(path.join(__dirname,"img","close.png")).resize({ width:16 }),
                         click: () => {
-                            if (config.fullscreen == true) {
-                                spawn("powershell.exe", ["-Command","taskkill /f /im goverlay.exe"])
-                                .on('exit', () => {
-                                    app.exit()
-                                })
-                            } else {
-                                app.exit()
-                            }
+                        app.exit(0)
                         }
                     }
                 ]
@@ -1013,142 +929,162 @@ const startapp = () => {
                         height: screenheight
                     }}).then((sources) => {
                         fs.writeFileSync(path.join(sanlocalappdata,"img","ss1080p.png"), sources[0].thumbnail.toPNG())
-                        resolve(`"ss1080p.png" updated. Applying overlay...`)
+                        resolve()
                     }).catch(err => {
                         reject(err)
                     })
                 })
             }
 
-            TakeScreenshot().then(data => {
-                win.webContents.send("warnmsg", data)
+            async function CreateOverlay() {
+                try {
+                    await TakeScreenshot()
 
-                const imgwin = new BrowserWindow({
-                    width: screenwidth,
-                    height: screenheight,
-                    center: true,
-                    frame: false,
-                    fullscreen: true,
-                    resizable: false,
-                    show: false,
-                    webPreferences: {
-                        nodeIntegration: true,
-                        contextIsolation: false,
-                        backgroundThrottling: false,
-                        offscreen: true
-                    }
-                })
+                    const imgwin = new BrowserWindow({
+                        width: screenwidth,
+                        height: screenheight,
+                        center: true,
+                        frame: false,
+                        fullscreen: true,
+                        resizable: false,
+                        show: false,
+                        webPreferences: {
+                            nodeIntegration: true,
+                            contextIsolation: false,
+                            offscreen: true
+                        }
+                    })
 
-                imgwin.loadFile(path.join(__dirname,"notify","imgwin","imgwin.html"))
-                imgwin.setIgnoreMouseEvents(true)
-                imgwin.webContents.send('details', title, desc, icon, type, percent, gameartimg)
+                    imgwin.loadFile(path.join(__dirname,"notify","imgwin","imgwin.html"))
+                    imgwin.setIgnoreMouseEvents(true)
+                    imgwin.webContents.send('details', title, desc, icon, type, percent)
 
-                var ovpath
-                
-                if (config.ovpath == "") {
-                    ovpath = defaultPath
-                    var m = `Screenshot Path not set - writing to ${ovpath}`
-                    console.log(m)
-                    win.webContents.send('warnmsg', m)
-                } else {
-                    try {
-                        ovpath = config.ovpath
-                        var m = `Screenshot Path set to ${ovpath}`
+                    var ovpath
+                    
+                    if (config.ovpath == "") {
+                        ovpath = defaultPath
+                        var m = `Screenshot Path not set - writing to ${ovpath}`
                         console.log(m)
                         win.webContents.send('warnmsg', m)
-                    } catch (err) {
-                        ovpath = defaultPath
-                        var m = `SCREENSHOT ERROR: ${err}`
-                        var m1 = `Unable to save to Screenshot Path - writing to ${ovpath}`
-                        console.log(m)
-                        console.log(m1)
-                        win.webContents.send('errormsg', m)
-                        win.webContents.send('warnmsg', m1)
+                    } else {
+                        try {
+                            ovpath = config.ovpath
+                            var m = `Screenshot Path set to ${ovpath}`
+                            console.log(m)
+                            win.webContents.send('warnmsg', m)
+                        } catch (err) {
+                            ovpath = defaultPath
+                            var m = `SCREENSHOT ERROR: ${err}`
+                            var m1 = `Unable to save to Screenshot Path - writing to ${ovpath}`
+                            console.log(m)
+                            console.log(m1)
+                            win.webContents.send('errormsg', m)
+                            win.webContents.send('warnmsg', m1)
+                        }
                     }
-                }
-                
-                var sandir = "SteamAchievementNotifier"
-                var gamedir = game.replace(/[*<>:/\\|?]/g,"_")
-                var filename = title.replace(/[*<>:/\\|?]/g,"_")
-                var counter = 0
+                    
+                    var sandir = "SteamAchievementNotifier"
+                    var gamedir = game.replace(/[*<>:/\\|?]/g,"_")
+                    var filename = title.replace(/[*<>:/\\|?]/g,"_")
+                    var counter = 0
 
-                function CreateSANDir() {
-                    if (!fs.existsSync(path.join(ovpath,sandir))) {
-                        fs.mkdir(path.join(ovpath,sandir), (err) => {
-                            if (err) {
-                                var m = `SAN FOLDER CREATION ERROR: ${err}`
-                                console.log(m)
-                                win.webContents.send('errormsg', m)
-                            } else {
-                                var m = `Directory for "${sandir}" created in ${ovpath}`
-                                console.log(m)
-                                win.webContents.send('warnmsg', m)
-                                CreateGameDir()
-                            }
-                        })
-                    } else {
-                        CreateGameDir()
-                    }
-                }
-
-                function CreateGameDir() {
-                    if (!fs.existsSync(path.join(ovpath,sandir,gamedir))) {
-                        fs.mkdir(path.join(ovpath,sandir,gamedir), (err) => {
-                            if (err) {
-                                var m = "DIR CREATION ERROR: " + err
-                                console.log(m)
-                                win.webContents.send('errormsg', m)
-                            } else {
-                                var m = `Directory for "${game}" created in ${path.join(ovpath,sandir)}`
-                                console.log(m)
-                                win.webContents.send('warnmsg', m)
-                                CheckFilePath()
-                            }
-                        })
-                    } else {
-                        CheckFilePath()
-                    }
-                }
-                
-                function CheckFilePath() {
-                    if (fs.existsSync(path.join(ovpath,sandir,gamedir,filename) + ".png")) {
-                        var m = `File "${filename}.png" already exists! Renaming...`
-                        console.log(m)
-                        win.webContents.send('errormsg', m)
-                        counter += 1
-                        filename = filename.replace(/[0-9]/g,"") + counter
-                        
-                        CheckFilePath()
-                    } else {
-                        ipcMain.once('imgready', () => {
-                            setTimeout(() => {
-                                imgwin.webContents.capturePage().then(image => {
-                                        fs.writeFileSync(`${path.join(ovpath,sandir,gamedir,filename)}.png`, image.toPNG())
-                                        imgwin.destroy()
-                                }).catch(err => {
-                                    var m = `Error writing screenshot: ${err}`
+                    function CreateSANDir() {
+                        if (!fs.existsSync(path.join(ovpath,sandir))) {
+                            fs.mkdir(path.join(ovpath,sandir), (err) => {
+                                if (err) {
+                                    var m = `SAN FOLDER CREATION ERROR: ${err}`
                                     console.log(m)
                                     win.webContents.send('errormsg', m)
-                                })
-                            }, 5000)
-                        })
+                                } else {
+                                    var m = `Directory for "${sandir}" created in ${ovpath}`
+                                    console.log(m)
+                                    win.webContents.send('warnmsg', m)
+                                    CreateGameDir()
+                                }
+                            })
+                        } else {
+                            CreateGameDir()
+                        }
                     }
-                }
 
-                if (!fs.existsSync(path.join(ovpath))) {
-                    ovpath = defaultPath
-                    var m = `${config.ovpath} does not exist! Writing to ${ovpath}`
+                    function CreateGameDir() {
+                        if (!fs.existsSync(path.join(ovpath,sandir,gamedir))) {
+                            fs.mkdir(path.join(ovpath,sandir,gamedir), (err) => {
+                                if (err) {
+                                    var m = "DIR CREATION ERROR: " + err
+                                    console.log(m)
+                                    win.webContents.send('errormsg', m)
+                                } else {
+                                    var m = `Directory for "${game}" created in ${path.join(ovpath,sandir)}`
+                                    console.log(m)
+                                    win.webContents.send('warnmsg', m)
+                                    CheckFilePath()
+                                }
+                            })
+                        } else {
+                            CheckFilePath()
+                        }
+                    }
+                    
+                    function CheckFilePath() {
+                        if (fs.existsSync(path.join(ovpath,sandir,gamedir,filename) + ".png")) {
+                            var m = `File "${filename}.png" already exists! Renaming...`
+                            console.log(m)
+                            win.webContents.send('errormsg', m)
+                            counter += 1
+                            filename = filename.replace(/[0-9]/g,"") + counter
+                            
+                            CheckFilePath()
+                        } else {
+                            // OG
+                            // imgwin.webContents.invalidate()
+                            // imgwin.webContents.on('paint', (event, dirty, image) => {
+                            //     fs.writeFileSync(path.join(ovpath,sandir,gamedir,filename) + ".png", image.toPNG())
+                            //     var m = `File "${filename}.png" created successfully in ${path.join(ovpath,sandir,gamedir)}`
+                            //     console.log(m)
+                            //     win.webContents.send('warnmsg', m)
+                                
+                            //     setTimeout(() => {
+                            //         imgwin.destroy()
+                            //     }, 1000)
+                            // })
+
+                            ipcMain.once('imgready', () => {
+                                setTimeout(() => {
+                                    imgwin.webContents.capturePage().then(image => {
+                                            fs.writeFileSync(`${path.join(ovpath,sandir,gamedir,filename)}.png`, image.toPNG())
+                                            imgwin.destroy()
+                                    }).catch(err => {
+                                        var m = `Error writing screenshot: ${err}`
+                                        console.log(m)
+                                        win.webContents.send('errormsg', m)
+                                    })
+                                }, 5000)
+                            })
+                        }
+                    }
+
+                    if (!fs.existsSync(path.join(ovpath))) {
+                        ovpath = defaultPath
+                        var m = `${config.ovpath} does not exist! Writing to ${ovpath}`
+                        console.log(m)
+                        win.webContents.send('errormsg', m)
+                        CreateSANDir()
+                    } else {
+                        CreateSANDir()
+                    }
+                
+                    // imgwin.on('ready-to-show', () => {
+                    //     imgwin.webContents.send('details', title, desc, icon, type, percent)
+                    // })
+                } catch (err) {
+                    var m = `SCREENSHOT CREATION ERROR: ${err}`
                     console.log(m)
                     win.webContents.send('errormsg', m)
-                    CreateSANDir()
-                } else {
-                    CreateSANDir()
                 }
-            }).catch(err => {
-                var m = `SCREENSHOT CREATION ERROR: ${err}`
-                console.log(m)
-                win.webContents.send('errormsg', m)
-            })
+            }
+
+            CreateOverlay()
         })
 
         var dragwin = null
@@ -1161,14 +1097,14 @@ const startapp = () => {
 
             if (style == "default" || style == "xbox360") {
                 if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 219 * config.scale * 0.01
                     } else {
                         dragheight = 50 * config.scale * 0.01
                     }
                     dragwidth = 300 * config.scale * 0.01
                 } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 219 * config.rarescale * 0.01
                     } else {
                         dragheight = 50 * config.rarescale * 0.01
@@ -1177,14 +1113,14 @@ const startapp = () => {
                 }
             } else if (style == "xbox") {
                 if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 239 * config.scale * 0.01
                     } else {
                         dragheight = 70 * config.scale * 0.01
                     }
                     dragwidth = 310 * config.scale * 0.01
                 } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 239 * config.rarescale * 0.01
                     } else {
                         dragheight = 70 * config.rarescale * 0.01
@@ -1193,14 +1129,14 @@ const startapp = () => {
                 }
             } else if (style == "playstation") {
                 if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 224 * config.scale * 0.01
                     } else {
                         dragheight = 55 * config.scale * 0.01
                     }
                     dragwidth = 310 * config.scale * 0.01
                 } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 224 * config.rarescale * 0.01
                     } else {
                         dragheight = 55 * config.rarescale * 0.01
@@ -1209,14 +1145,14 @@ const startapp = () => {
                 }
             } else if (style == "ps5") {
                 if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 239 * config.scale * 0.01
                     } else {
                         dragheight = 50 * config.scale * 0.01
                     }
                     dragwidth = 320 * config.scale * 0.01
                 } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 239 * config.rarescale * 0.01
                     } else {
                         dragheight = 50 * config.rarescale * 0.01
@@ -1225,14 +1161,14 @@ const startapp = () => {
                 }
             } else if (style == "windows") {
                 if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 279 * config.scale * 0.01
                     } else {
                         dragheight = 110 * config.scale * 0.01
                     }
                     dragwidth = 300 * config.scale * 0.01
                 } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 279 * config.rarescale * 0.01
                     } else {
                         dragheight = 110 * config.rarescale * 0.01
@@ -1241,14 +1177,14 @@ const startapp = () => {
                 }
             } else if (style == "xqjan") {
                 if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
+                    if (config.ssprev == "true") {
                         dragheight = 259 * config.scale * 0.01
                     } else {
                         dragheight = 70 * config.scale * 0.01
                     }
                     dragwidth = 300 * config.scale * 0.01
                 } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
+                    if (config.raressprev == "true") {
                         dragheight = 259 * config.rarescale * 0.01
                     } else {
                         dragheight = 70 * config.rarescale * 0.01
@@ -1485,43 +1421,6 @@ const startapp = () => {
             })
         })
 
-        let extwin
-
-        ipcMain.on('spawnextwin', () => {
-            extwin = new BrowserWindow({
-                width: 300,
-                height: 50,
-                title: `Notification Window`,
-                icon: appicon,
-                fullscreenable: false,
-                minimizable: true,
-                maximizable: false,
-                autoHideMenuBar: true,
-                center: true,
-                useContentSize: true,
-                resizable: false,
-                webPreferences: {
-                    nodeIntegration: true,
-                    contextIsolation: false,
-                    backgroundThrottling: false,
-                    webviewTag: true
-                }
-            })
-
-            extwin.loadFile(path.join(__dirname,"extwin.html"))
-
-            ipcMain.on('despawnextwin', () => {
-                if (extwin) {
-                    extwin.destroy()
-                }
-            })
-
-            extwin.on('close', () => {
-                extwin.destroy()
-                win.webContents.send('extwinclosed')
-            })
-        })
-
         nativeTheme.themeSource = "dark"
 
         createWindow()
@@ -1529,13 +1428,7 @@ const startapp = () => {
 
     app.whenReady().then(() => {
         RunApp()
-
         powerSaveBlocker.start('prevent-app-suspension')
-        
-        powerMonitor.on('resume', () => {
-            app.relaunch()
-            app.exit()
-        })
     }).catch(err => {
         var errwin = new BrowserWindow({
             width: 700,

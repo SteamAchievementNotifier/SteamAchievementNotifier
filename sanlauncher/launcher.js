@@ -1,3 +1,5 @@
+// TO DO: Move "lang" folder to "required" array when merged with Main branch!
+// Search "!!!" to find
 document.getElementById("maincont").style.opacity = 1
 
 const { ipcRenderer } = require('electron')
@@ -490,8 +492,7 @@ function Run() {
                                         if (process.platform == "win32") {
                                             extract = spawn('powershell.exe',["-Command",`Expand-Archive -Path '${path.join(__dirname,"latest.zip")}' -DestinationPath '${path.join(__dirname)}' -Force; Remove-Item -Path '${path.join(localappdata,appdatadir,"store","app")}' -Recurse -Force; New-Item -Path '${path.join(localappdata,appdatadir,"store")}' -Name "app" -ItemType "directory"; Move-Item -Path '${path.join(__dirname,extractdirname)}\\*' -Destination '${path.join(localappdata,appdatadir,"store","app")}' -Force;`])
                                         } else if (process.platform == "linux") {
-                                            fs.rmdirSync(path.join(localappdata,appdatadir,"store","app"), { recursive: true })
-                                            extract = exec(`unzip -o '${path.join(localappdata,appdatadir,"latest.zip")}' -d '${path.join(localappdata,appdatadir,"store")}'; mv ${localappdata}/'${appdatadir}'/store/${extractdirname} ${localappdata}/'${appdatadir}'/store/app`)
+                                            extract = exec(`unzip -o '${path.join(localappdata,appdatadir,"latest.zip")}' -d '${path.join(localappdata,appdatadir)}'; rm -rf '${path.join(localappdata,appdatadir,"store","app")}'; mkdir '${path.join(localappdata,appdatadir,"store","app")}'; mv ~/.local/share/${appdatadir}/store/${extractdirname}/* ~/.local/share/${appdatadir}/store/app/;`)
                                         }
 
                                         extract.on('exit', () => {
@@ -500,7 +501,7 @@ function Run() {
                                                     "fonts",
                                                     "icon",
                                                     "img",
-                                                    "lang",
+                                                    // "lang",
                                                     "notify",
                                                     "sanlauncher",
                                                     "sound",
@@ -522,10 +523,8 @@ function Run() {
 
                                                 if (branch == "beta") {
                                                     required.push("beta.txt")
-
-                                                    // Beta Channel [0.4] Fullscreen Update
-                                                    required.push("GOverlay.exe")
-                                                    required.push("extwin.html")
+                                                    // !!! BETA 0.3 TESTING - Remove and re-add in "required" array when merged with Main branch!
+                                                    required.push("lang")
                                                 }
                                             
                                                 var requiredfiles = []
@@ -556,7 +555,7 @@ function Run() {
                                                             if (process.platform == "win32") {
                                                                 reextract = spawn('powershell.exe',["-Command",`Move-Item -Path '${path.join(__dirname,extractdirname)}\\*' -Destination '${path.join(localappdata,appdatadir,"store","app")}' -Force;`])
                                                             } else if (process.platform == "linux") {
-                                                                reextract = exec(`shopt -s dotglob; mv -v ${localappdata}/'${appdatadir}'/${extractdirname}/* ${localappdata}/'${appdatadir}'/store/app/; sleep 1`)
+                                                                reextract = exec(`mv ~/.local/share/${appdatadir}/store/${extractdirname}/* ~/.local/share/${appdatadir}/store/app/;`)
                                                             }
 
                                                             reextract.on('exit', () => {

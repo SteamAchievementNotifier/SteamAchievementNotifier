@@ -191,7 +191,7 @@
                         document.getElementById("notifycont").style.animation = "glow 5s ease infinite, reveal 0.5s forwards"
                         document.getElementById("logo").style.animation = "move 5s ease infinite"
 
-                        ipcRenderer.send('gameicon', gameicon, gameart)
+                        ipcRenderer.send('gameicon', gameicon, gameart, gamename)
                     })
                 }
             }

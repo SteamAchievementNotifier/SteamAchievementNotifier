@@ -174,6 +174,37 @@
          </div>
          <!-- Beta Channel Dialog -->
 
+         <!-- Fullscreen Warning Box -->
+         <div id="fswarn">
+            <div id="fswarntitle">BEFORE YOU START...</div>
+            <div id="fswarncont">
+               <div id="fswarncontent" onscroll="CheckScroll(event)">
+                  <span id="fswarncontenttop"></span>
+                  <div id="fswarncontentmain">
+                     In order to overlay notifications on top of games set to "Fullscreen" or "Exclusive Fullscreen" in-game display modes, the notification must be injected directly into the game process to be displayed over a DirectX game window.
+                     <br><br>This means that, as the game's code is technically being altered by a third-party program, games using Anti-Cheat technology may view this method unfavourably.
+                     <br><br>Although no games have displayed any issues while testing, it is generally advised <u>not</u> to use the "Enable Fullscreen Notifications" option when there is a risk of injection being detected by games using Anti-Cheat technology (such as in online competitive games).
+                  </div>
+                  <div id="fswarnimportant">
+                     By enabling and using the "Enable Fullscreen Notifications" option, you hereby agree that you have suitably informed of, and understand the risks associated with, injecting third-party content into Steam games (such as the method used by Steam Achievement Notifier to display content over games set to use Fullscreen in-game display modes), and that by enabling this option, you accept that you do so at your own risk, and therefore, the developer of Steam Achievement Notifier (Jackson0ne) accepts no responsibility or liability regarding the use of this option.
+                  </div>
+                  <div id="fswarninfocont" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background: #505050; border-radius: 5px; font-family: 'Titillium Web'; font-size: 9px;">
+                     <div style="padding: 10px;">By clicking the <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AGREE</span> button below, you accept the above terms, and the "Enable Fullscreen Notifications" option will be enabled.</div>
+                     <div style="padding: 0px 10px 10px;">By clicking the <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DISAGREE</span> button below, this message will be closed, and the "Enable Fullscreen Notifications" option will <u>not</u> be enabled.</div>
+                  </div>
+               </div>
+            </div>
+            <div id="fshidemsg" onclick="HideMsg()">
+               <input id="fshidemsgbox" type="checkbox">
+               <span id="fshidemsglbl">I'll agree, don't show this message again</span>
+            </div>
+            <div id="fswarnbtncont">
+               <button id="fsok" onclick="EnableFullscreen()">AGREE</button>
+               <button id="fscancel" onclick="CloseFullscreenWarning(); ResetHideMsg()">DISAGREE</button>
+            </div>
+         </div>
+         <!-- Fullscreen Warning Box -->
+
          <div class="settingscont" id="settingscont">
             <div id="settingstitle">SETTINGS</div>
             <div class="settingsinner" id="settingsinner">
@@ -262,7 +293,24 @@
                      </div>
                   </div>
                   <hr style="margin: auto; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
-                  <div class="optcont" id="nosteam" style="margin-top: 5px" onclick="ToggleNoSteam()">
+
+                  <!-- Fullscreen Notifications -->
+                  <div class="optcont" id="fullscreen" onclick="ToggleFullscreen()">
+                     <input id="fullscreenbox" type="checkbox">
+                     <div class="optlbl" id="fullscreenlbl">Enable Fullscreen Notifications<span style="font-family: VT323; font-size: 14px; background: blueviolet; margin-left: 5px; padding: 0px 5px;">BETA</span></div>
+                  </div>
+                  <!-- <div class="optcont" id="fsresopt" onclick="ToggleCustomRes()">
+                     <input id="fsresbox" type="checkbox">
+                     <div class="optlbl" id="fsreslbl">Use Custom Fullscreen Resolution</div>
+                  </div>
+                  <div class="optcont" id="fsrescont">
+                     <span class="fswhlbl" style="padding-left: 6px;">W</span><input class="fswh" id="fswidth" type="number" value="1920" onchange="CheckFSResWidth()">
+                     <span style="font-family: 'Titillium Web'; font-size: 12px; margin: 0px 5px 0px">x</span>
+                     <span class="fswhlbl">H</span><input class="fswh" id="fsheight" type="number" value="1080" onchange="CheckFSResHeight()">
+                  </div> -->
+                  <!-- Fullscreen Notifications -->
+
+                  <div class="optcont" id="nosteam" onclick="ToggleNoSteam()">
                      <input id="nosteambox" type="checkbox">
                      <div id="nosteamloadcont">
                         <img id="nosteamload" src="./icon/reset.svg">
@@ -308,6 +356,14 @@
                      <button id="ssmaintestbtn" onclick="ShowOverlayTest('main')">PREVIEW MAIN OVERLAY</button>
                      <button id="ssraretestbtn" style="display: none" onclick="ShowOverlayTest('rare')">PREVIEW RARE OVERLAY</button>
                   </div>
+
+                  <!-- External Notification Window -->
+                  <div class="optcont" id="extwin" onclick="ToggleExtWin()" style="cursor: pointer;">
+                     <input id="extwinbox" type="checkbox">
+                     <div class="optlbl" id="extwinlbl">Duplicate Notifications to Window <img src="./icon/open_in_new.svg" width="14px" style="vertical-align: -3px;"></div>
+                  </div>
+                  <!-- External Notification Window -->
+                  
                   <div class="optcont" id="tracking" style="cursor: pointer; margin-bottom: 0px" onclick="ToggleNowTracking()">
                      <input id="trackingbox" type="checkbox">
                      <div class="optlbl" id="trackinglbl">Show "Now Tracking" Notification</div>

@@ -77,7 +77,6 @@
                 transform-origin: bottom;
                 background: linear-gradient(135deg, rgba(32,62,122,1), rgba(15,29,56,1));
                 padding-left: 10px;
-                zoom: 0.75;
                 overflow: hidden;
                 user-select: none;
                 outline: none;
@@ -300,6 +299,10 @@
                     xbox360.style.display = "none"
                     ps5trophy.style.display = "none"
                     steamrare.style.left = "5px"
+
+                    if (config.bgtype == "img" || config.bgtype == "game") {
+                        outericon.style.background = "rgba(0,0,0,0.5)"
+                    }
                 } else if (config.notifystyle == "playstation" && notifytype == "main" || config.rarenotifystyle == "playstation" && notifytype == "rare") {
                     title.style.fontFamily = "Source Sans Pro"
                     title.style.fontSize = "12.7px"
@@ -476,6 +479,44 @@
                         document.getElementById("overlay").style.backgroundPosition = "center"
                         document.getElementById("overlay").style.backgroundRepeat = "no-repeat"
                         document.getElementById("overlay").style.backgroundSize = "cover"
+                    } else if (config.bgtype == "game") {
+                        if (test == true) {
+                            var arr = [
+                                "220",
+                                "620",
+                                "4000",
+                                "22300",
+                                "257510",
+                                "275850",
+                                "361420",
+                                "412020",
+                                "499520",
+                                "582010",
+                                "648800",
+                                "782330",
+                                "1091500",
+                                "1659040",
+                            ]
+
+                            function getRandomInt(max) {
+                                return Math.floor(Math.random() * max)
+                            }
+
+                            var gamearturl = `https://cdn.cloudflare.steamstatic.com/steam/apps/${arr[getRandomInt(arr.length)]}/library_hero.jpg`
+                            var gameartbg = `linear-gradient(rgba(0,0,0,${config.brightness}), rgba(0,0,0,${config.brightness})), url("${gamearturl}")`
+
+                            document.getElementById("overlay").style.background = gameartbg
+                            document.getElementById("overlay").style.backgroundPosition = "center"
+                            document.getElementById("overlay").style.backgroundRepeat = "no-repeat"
+                            document.getElementById("overlay").style.backgroundSize = "cover"
+                        } else {
+                            var gameartbg = `linear-gradient(rgba(0,0,0,${config.brightness}), rgba(0,0,0,${config.brightness})), url("${gameart}")`
+    
+                            document.getElementById("overlay").style.background = gameartbg
+                            document.getElementById("overlay").style.backgroundPosition = "center"
+                            document.getElementById("overlay").style.backgroundRepeat = "no-repeat"
+                            document.getElementById("overlay").style.backgroundSize = "cover"
+                        }
                     }
                     
                     document.getElementById("outericon").style.background = config.colour2
@@ -517,6 +558,44 @@
                         document.getElementById("overlay").style.backgroundPosition = "center"
                         document.getElementById("overlay").style.backgroundRepeat = "no-repeat"
                         document.getElementById("overlay").style.backgroundSize = "cover"
+                    } else if (config.rarebgtype == "game") {
+                        if (test == true) {
+                            var arr = [
+                                "220",
+                                "620",
+                                "4000",
+                                "22300",
+                                "257510",
+                                "275850",
+                                "361420",
+                                "412020",
+                                "499520",
+                                "582010",
+                                "648800",
+                                "782330",
+                                "1091500",
+                                "1659040",
+                            ]
+
+                            function getRandomInt(max) {
+                                return Math.floor(Math.random() * max)
+                            }
+
+                            var gamearturl = `https://cdn.cloudflare.steamstatic.com/steam/apps/${arr[getRandomInt(arr.length)]}/library_hero.jpg`
+                            var gameartbg = `linear-gradient(rgba(0,0,0,${config.rarebrightness}), rgba(0,0,0,${config.rarebrightness})), url("${gamearturl}")`
+
+                            document.getElementById("overlay").style.background = gameartbg
+                            document.getElementById("overlay").style.backgroundPosition = "center"
+                            document.getElementById("overlay").style.backgroundRepeat = "no-repeat"
+                            document.getElementById("overlay").style.backgroundSize = "cover"
+                        } else {
+                            var gameartbg = `linear-gradient(rgba(0,0,0,${config.brightness}), rgba(0,0,0,${config.brightness})), url("${gameart}")`
+
+                            document.getElementById("overlay").style.background = gameartbg
+                            document.getElementById("overlay").style.backgroundPosition = "center"
+                            document.getElementById("overlay").style.backgroundRepeat = "no-repeat"
+                            document.getElementById("overlay").style.backgroundSize = "cover"
+                        }
                     }
                     
                     document.getElementById("outericon").style.background = config.rarecolour2
@@ -524,9 +603,15 @@
                 }
                 
                 document.getElementById("overlay").style.opacity = config.opacity * 0.01
+                test = false
             }
 
+            var test = false
+            var gameart
+
             ipcRenderer.on('test', (event, type) => {
+                test = true
+
                 document.getElementById("img").src = "../../img/santextlogobg.png"
                 document.getElementById("icon").src = "../../img/sanlogosquare.svg"
                 document.getElementById("title").innerHTML = "Steam Achievement Notifier"
@@ -543,8 +628,11 @@
                 SetOverlayStyle(type)
             })
 
-            ipcRenderer.on('details', (event, title, desc, icon, type, percent) => {
-                document.getElementById("img").src = path.join(localappdata,"Steam Achievement Notifier (V1.8)","img","ss1080p.png");
+            ipcRenderer.on('details', (event, title, desc, icon, type, percent, gameartimg) => {
+                test = false
+                gameart = gameartimg
+
+                document.getElementById("img").src = path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"img","ss1080p.png")
 
                 if (percent > 25) {
                     document.getElementById("psimg").src = "../../img/psbronze.png"

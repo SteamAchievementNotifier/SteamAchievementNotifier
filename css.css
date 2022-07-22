@@ -26,6 +26,11 @@ input:focus {
     outline: none;
 }
 
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 html {
     height: 100vh;
     width: 100vw;
@@ -69,59 +74,6 @@ a:hover {
 .icons {
     width: 24px;
 }
-
-/* #offlinecont {
-    background: #1b1b1b;
-    height: 100%;
-    display: none;
-    flex-direction: column;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-}
-
-#offlineimg {
-    display: block;
-    position: absolute;
-    top: 74px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-#offlinesymbol {
-    font-family: "Titillium Web";
-    font-size: 30px;
-    margin: 150px 0px 20px;
-    animation: fadein 0.5s;
-}
-
-#offlinetitle {
-    width: 500px;
-    font-family: "Titillium Web";
-    font-size: 16px;
-    text-align: center;
-    margin: 0px 0px 5px;
-    animation: fadein 0.5s;
-}
-
-#offlinesub {
-    font-size: 12px;
-    margin: 0px 0px 10px;
-    animation: fadein 0.5s;
-}
-
-#offlineicon {
-    width: 50px;
-    margin: 0px 0px 10px;
-    animation: spin 1s infinite;
-}
-
-#offlinereconnect {
-    font-family: "Titillium Web";
-    font-size: 16px;
-    animation: fadein 0.5s alternate infinite;
-} */
 
 .maincont {
     background: #1b1b1b;
@@ -2992,6 +2944,173 @@ input[type="color"]::-webkit-color-swatch {
     background: red;
 }
 
+/* FULLSCREEN OPTION */
+
+#fullscreen {
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+/* FULLSCREEN OPTION */
+
+/* FULLSCREEN WARNING BOX */
+
+#fswarn {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0%,0%);
+    background: #1b1b1b;
+    border: 1px solid white;
+    border-radius: 5px;
+    z-index: 20;
+    -webkit-app-region: no-drag;
+}
+
+#fswarntitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    font-family: "Titillium Web";
+    font-size: 20px; display: flex;
+    margin-top: 5px;
+}
+
+#fswarncont {
+    width: 360px;
+    height: 150px;
+    background: #101010;
+    border-radius: 5px;
+}
+
+#fswarncontent {
+    height: 100%;
+    width: 100%;
+    font-family: "Titillium Web";
+    font-size: 11px;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+#fswarncontent::-webkit-scrollbar {
+    background-color: #101010;
+    border-radius: 5px;
+}
+
+#fswarncontent::-webkit-scrollbar-thumb:not(hover) {
+    background-color: #3d3d3d;
+    border-radius: 5px;
+}
+
+#fswarncontentmain {
+    padding: 0px 10px 10px;
+}
+
+#fswarnimportant {
+    background: rgba(32,62,122,1);
+    padding: 10px;
+    border-radius: 5px;
+    font-family: "Titillium Web";
+    margin-bottom: 10px;
+}
+
+#fshidemsg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    margin: 10px 0px 0px;
+}
+
+#fswarnbtncont {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
+    height: 90px;
+    margin: 10px 0px 5px;
+}
+
+#fsok:not(hover), #fscancel:not(hover) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    background: rgb(32,62,122);
+    color: white;
+    font-family: "Titillium Web";
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: 0.2s;
+    cursor: pointer;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#fsok:hover {
+    background: limegreen;
+}
+
+#fscancel:hover {
+    background: red;
+}
+
+/* FULLSCREEN WARNING BOX */
+
+/* #fsresopt {
+    animation: fadein 0.5s forwards;
+}
+
+#fsrescont {
+    width: 90%;
+    justify-content: center;
+    margin-left: 20px;
+    padding-left: 0;
+    animation: fadein 0.5s forwards;
+}
+
+.fswhlbl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    background: rgb(32,62,122);
+    color: white;
+    border-radius: 5px 0px 0px 5px;
+    font-family: 'Titillium Web';
+    padding: 0px 5px;
+}
+
+.fswh:not(hover) {
+    width: 60px;
+    height: 20px;
+    border: none;
+    border-radius: 0px 5px 5px 0px;
+    background: #101010;
+    color: white;
+    font-family: "Titillium Web";
+    font-size: 12px;
+    text-align: center;
+    padding: 2px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.fswh:hover {
+    background: #3d3d3d;
+} */
+
 @keyframes fadein {
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -3063,4 +3182,10 @@ input[type="color"]::-webkit-color-swatch {
     0% { transform: rotate(22deg) scale(100%,100%); }
     50% { transform: rotate(22deg) scale(120%,120%); }
     100% { transform: rotate(22deg) scale(100%,100%); }
+}
+
+@keyframes flash {
+    0% { background: #101010; color: white; }
+    50% { background: white; color: black; }
+    100% { background: #101010; color: white; }
 }

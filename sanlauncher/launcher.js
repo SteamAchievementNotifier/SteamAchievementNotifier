@@ -593,38 +593,55 @@ function Run() {
 
                         if (branch == "beta") {
                             if (!fs.existsSync(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))) {
-                                console.log("%cDownloading GOverlay.exe...", "color: seagreen")
-                                document.getElementById("log").innerHTML = `Downloading "GOverlay.exe"...`
-
-                                fetch("https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.84/GOverlay.exe").then(response => {
-                                    https.get(response.url, res => {
-                                        var goverlay = fs.createWriteStream(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))
-                                        
-                                        res.pipe(goverlay)
-                                        
-                                        goverlay.on('finish', () => {
-                                            goverlay.close()
-                                            console.log("%cGOverlay.exe downloaded successfully", "color: limegreen")
-                                            document.getElementById("log").innerHTML = "Downloaded GOverlay.exe"
-                                        })
-    
-                                        goverlay.on('error', err => {
-                                            console.log(`GOVERLAY ERROR: ${err}`)
-                                            document.getElementById("log").innerHTML = "Error downloading GOverlay.exe!"
-                                            document.getElementById("log").style.color = "red"
-                                            goverlay.close()
+                                function DownloadGOverlay() {
+                                    return new Promise(resolve => {
+                                        console.log("%cDownloading GOverlay.exe...", "color: seagreen")
+                                        document.getElementById("log").innerHTML = `Downloading "GOverlay.exe"...`
+                
+                                        fetch("https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.84/GOverlay.exe").then(response => {
+                                            https.get(response.url, res => {
+                                                var goverlay = fs.createWriteStream(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))
+                                                
+                                                res.pipe(goverlay)
+                                                
+                                                goverlay.on('finish', () => {
+                                                    goverlay.close()
+                                                    console.log("%cGOverlay.exe downloaded successfully", "color: limegreen")
+                                                    document.getElementById("log").innerHTML = "Downloaded GOverlay.exe"
+                                                    resolve()
+                                                })
+                    
+                                                goverlay.on('error', err => {
+                                                    console.log(`GOVERLAY ERROR: ${err}`)
+                                                    document.getElementById("log").innerHTML = "Error downloading GOverlay.exe!"
+                                                    document.getElementById("log").style.color = "red"
+                                                    goverlay.close()
+                                                    resolve()
+                                                })
+                                            })
                                         })
                                     })
+                                }
+
+                                DownloadGOverlay().then(() => {
+                                    console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
+                                    document.getElementById("log").innerHTML = `Starting...`
+                                    document.getElementById("log").style.color = "white"
+                                    StartApp()
                                 })
                             } else {
                                 console.log("%cGOverlay.exe exists!", "color: seagreen")
+                                console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
+                                document.getElementById("log").innerHTML = `Starting...`
+                                document.getElementById("log").style.color = "white"
+                                StartApp()
                             }
+                        } else {
+                            console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
+                            document.getElementById("log").innerHTML = `Starting...`
+                            document.getElementById("log").style.color = "white"
+                            StartApp()
                         }
-
-                        console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
-                        document.getElementById("log").innerHTML = `Starting...`
-                        document.getElementById("log").style.color = "white"
-                        StartApp()
                     }
 
                     CheckForUpdates()

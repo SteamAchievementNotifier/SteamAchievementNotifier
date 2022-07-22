@@ -567,42 +567,7 @@ function Run() {
                                                             console.log(`%cApp updated to App Revision ${localversion}`, "color: limegreen")
                                                             document.getElementById("log").innerHTML = `Updated to App Revision ${latest.version}`
                                                             document.getElementById("log").style.color = "white"
-                                                            // resolve()
-
-                                                            if (branch == "beta") {
-                                                                if (!fs.existsSync(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))) {
-                                                                    console.log("%cDownloading GOverlay.exe...", "color: seagreen")
-                                                                    document.getElementById("log").innerHTML = `Downloading "GOverlay.exe"...`
-    
-                                                                    var goverlayurl = "https://objects.githubusercontent.com/github-production-release-asset-2e65be/329898059/8bed4875-3b8f-42c5-81b0-6e15c4705a2a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220722%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220722T104212Z&X-Amz-Expires=300&X-Amz-Signature=f177964ef637dd8106991ebe06e40d557124ca61fba1e7e95d8003715987deaa&X-Amz-SignedHeaders=host&actor_id=77490730&key_id=0&repo_id=329898059&response-content-disposition=attachment%3B%20filename%3DGOverlay.exe&response-content-type=application%2Foctet-stream"
-    
-                                                                    https.get(goverlayurl, res => {
-                                                                        var goverlay = fs.createWriteStream(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))
-                                                                        
-                                                                        res.pipe(goverlay)
-                                                                        
-                                                                        goverlay.on('finish', () => {
-                                                                            goverlay.close()
-                                                                            console.log("%cGOverlay.exe downloaded successfully")
-                                                                            document.getElementById("log").innerHTML = "Downloaded GOverlay.exe"
-                                                                            resolve()
-                                                                        })
-    
-                                                                        goverlay.on('error', err => {
-                                                                            console.log(`GOVERLAY ERROR: ${err}`)
-                                                                            document.getElementById("log").innerHTML = "Error downloading GOverlay.exe!"
-                                                                            document.getElementById("log").style.color = "red"
-                                                                            goverlay.close()
-                                                                            resolve()
-                                                                        })
-                                                                    })
-                                                                } else {
-                                                                    console.log("GOverlay.exe exists!", "color: seagreen")
-                                                                    resolve()
-                                                                }
-                                                            } else {
-                                                                resolve()
-                                                            }
+                                                            resolve()
                                                         }
                                                     }
                                                 })
@@ -625,6 +590,36 @@ function Run() {
 
                     async function CheckForUpdates() {
                         await CheckVersion()
+
+                        if (branch == "beta") {
+                            if (!fs.existsSync(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))) {
+                                console.log("%cDownloading GOverlay.exe...", "color: seagreen")
+                                document.getElementById("log").innerHTML = `Downloading "GOverlay.exe"...`
+
+                                var goverlayurl = "https://objects.githubusercontent.com/github-production-release-asset-2e65be/329898059/8bed4875-3b8f-42c5-81b0-6e15c4705a2a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220722%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220722T104212Z&X-Amz-Expires=300&X-Amz-Signature=f177964ef637dd8106991ebe06e40d557124ca61fba1e7e95d8003715987deaa&X-Amz-SignedHeaders=host&actor_id=77490730&key_id=0&repo_id=329898059&response-content-disposition=attachment%3B%20filename%3DGOverlay.exe&response-content-type=application%2Foctet-stream"
+
+                                https.get(goverlayurl, res => {
+                                    var goverlay = fs.createWriteStream(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))
+                                    
+                                    res.pipe(goverlay)
+                                    
+                                    goverlay.on('finish', () => {
+                                        goverlay.close()
+                                        console.log("%cGOverlay.exe downloaded successfully")
+                                        document.getElementById("log").innerHTML = "Downloaded GOverlay.exe"
+                                    })
+
+                                    goverlay.on('error', err => {
+                                        console.log(`GOVERLAY ERROR: ${err}`)
+                                        document.getElementById("log").innerHTML = "Error downloading GOverlay.exe!"
+                                        document.getElementById("log").style.color = "red"
+                                        goverlay.close()
+                                    })
+                                })
+                            } else {
+                                console.log("GOverlay.exe exists!", "color: seagreen")
+                            }
+                        }
 
                         console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
                         document.getElementById("log").innerHTML = `Starting...`

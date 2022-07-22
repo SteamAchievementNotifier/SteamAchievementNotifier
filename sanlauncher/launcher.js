@@ -524,8 +524,8 @@ function Run() {
                                                     required.push("beta.txt")
 
                                                     // Beta Channel [0.4] Fullscreen Update
-                                                    required.push("GOverlay.exe")
-                                                    required.push("extwin.html")
+                                                    // required.push("GOverlay.exe")
+                                                    // required.push("extwin.html")
                                                 }
                                             
                                                 var requiredfiles = []

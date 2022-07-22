@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            @font-face {
+                font-family: "Titillium Web";
+                src: url("../fonts/TitilliumWeb-SemiBold.ttf");
+            }
+
+            html, body {
+                width: 100vw;
+                height: 100vh;
+                min-width: 100vw;
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
+                /* background: rgba(0,0,255,0.5); */
+            }
+
+            #webview {
+                margin: 20px 0px 0px 20px;
+            }
+
+            #debug {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 10px 5px;
+                color: rgba(255,255,255,0.5);
+                font-family: "Titillium Web";
+                font-size: 8px;
+                text-align: right;
+                z-index: -1;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="debug">
+            <div>Steam Achievement Notifier (V1.84)</div>
+            <div>Fullscreen Notifications [BETA]</div>
+        </div>
+        <script defer>
+            const { ipcRenderer } = require("electron")
+            const fs = require("fs")
+            const path = require("path")
+            const appversion = "V1.8"
+
+            var localappdata
+
+            if (process.platform == "win32") {
+                localappdata = path.join(process.env.LOCALAPPDATA);
+            } else if (process.platform == "linux") {
+                localappdata = path.join(process.env.HOME,".local","share");
+            } else if (process.platform == "darwin") {
+                localappdata = path.join(process.env.HOME,"Library","Application Support");
+            }
+
+            const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","config.json")))
+
+            // ipcRenderer.on('test', (event, type, notifystyle) => {
+            //     const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","config.json")))
+
+            //     var notifywidth
+            //     var notifyheight
+            //     var notifysound
+
+            //     if (type == "main") {
+            //         if (notifystyle == "default" || notifystyle == "xbox360") {
+            //             notifywidth = 300 * config.scale * 0.01
+            //             notifyheight = 50 * config.scale * 0.01
+            //         } else if (notifystyle == "xbox") {
+            //             notifywidth = 315 * config.scale * 0.01
+            //             notifyheight = 65 * config.scale * 0.01
+            //         } else if (notifystyle == "playstation") {
+            //             notifywidth = 310 * config.scale * 0.01
+            //             notifyheight = 55 * config.scale * 0.01
+            //         } else if (notifystyle == "ps5") {
+            //             notifywidth = 340 * config.scale * 0.01
+            //             notifyheight = 50 * config.scale * 0.01
+            //         } else if (notifystyle == "windows") {
+            //             notifywidth = 300 * config.scale * 0.01
+            //             notifyheight = 110 * config.scale * 0.01
+            //         } else if (notifystyle == "xqjan") {
+            //             notifywidth = 300 * config.scale * 0.01
+            //             notifyheight = 70 * config.scale * 0.01
+            //         }
+
+            //         notifysound = config.sound
+            //     } else {
+            //         if (notifystyle == "default" || notifystyle == "xbox360") {
+            //             notifywidth = 300 * config.rarescale * 0.01
+            //             notifyheight = 50 * config.rarescale * 0.01
+            //         } else if (notifystyle == "xbox") {
+            //             notifywidth = 315 * config.rarescale * 0.01
+            //             notifyheight = 65 * config.rarescale * 0.01
+            //         } else if (notifystyle == "playstation") {
+            //             notifywidth = 310 * config.rarescale * 0.01
+            //             notifyheight = 55 * config.rarescale * 0.01
+            //         } else if (notifystyle == "ps5") {
+            //             notifywidth = 340 * config.rarescale * 0.01
+            //             notifyheight = 50 * config.rarescale * 0.01
+            //         } else if (notifystyle == "windows") {
+            //             notifywidth = 300 * config.rarescale * 0.01
+            //             notifyheight = 110 * config.rarescale * 0.01
+            //         } else if (notifystyle == "xqjan") {
+            //             notifywidth = 300 * config.rarescale * 0.01
+            //             notifyheight = 70 * config.rarescale * 0.01
+            //         }
+
+            //         notifysound = config.raresound
+            //     }
+                
+            //     function LoadNotifyStyleHTML(style) {
+            //         return new Promise(resolve => {
+            //             var webview = document.createElement("webview")
+            //             webview.id = "webview"
+            //             webview.webpreferences = "nodeIntegration = true, contextIsolation = false, backgroundThrottling = false"
+
+            //             var pos
+
+            //             if (type == "main") {
+            //                 webview.src = `file://${path.join("O:",`SteamAchievementNotifier(${appversion})`,"notify",style,"fullscreen",`${style}_fs.html`)}`
+            //                 pos = config.notifypos
+            //                 webview.style.width = `${notifywidth}px`
+            //                 webview.style.height = `${notifyheight}px`
+            //             } else {
+            //                 webview.src = `file://${path.join("O:",`SteamAchievementNotifier(${appversion})`,"notify",style,"fullscreen",`${style}rare_fs.html`)}`
+            //                 pos = config.rarenotifypos
+            //                 webview.style.width = `${notifywidth}px`
+            //                 webview.style.height = `${notifyheight}px`
+            //             }
+
+            //             if (pos == "bottomcenter") {
+            //                 document.body.style.justifyContent = "center"
+            //                 document.body.style.alignItems = "flex-end"
+            //             } else if (pos == "topcenter") {
+            //                 document.body.style.justifyContent = "center"
+            //                 document.body.style.alignItems = "flex-start"
+            //             } else if (pos == "topleft") {
+            //                 document.body.style.justifyContent = "flex-start"
+            //                 document.body.style.alignItems = "flex-start"
+            //             } else if (pos == "topright") {
+            //                 document.body.style.justifyContent = "flex-end"
+            //                 document.body.style.alignItems = "flex-start"
+            //             } else if (pos == "bottomleft") {
+            //                 document.body.style.justifyContent = "flex-start"
+            //                 document.body.style.alignItems = "flex-end"
+            //             } else if (pos == "bottomright") {
+            //                 document.body.style.justifyContent = "flex-end"
+            //                 document.body.style.alignItems = "flex-end"
+            //             }
+
+            //             console.log({ notifywidth, notifyheight })
+            //             document.body.appendChild(webview)
+
+            //             webview.addEventListener('dom-ready', () => {
+            //                 // webview.openDevTools()
+            //                 resolve()
+            //             })
+
+            //             webview.addEventListener('ipc-message', (event) => {
+            //                 ipcRenderer.send('reload')
+            //             })
+            //         })
+            //     }
+
+            //     async function PlayNotification() {
+            //         await LoadNotifyStyleHTML(notifystyle)
+
+            //         const testobj = {
+            //             achievement: "Test Achievement",
+            //             title: "Test Title",
+            //             desc: "This is a test achievement",
+            //             icon: "o:/steamachievementnotifier(v1.8)/img/sanlogosquare.svg",
+            //             screenshot: "false",
+            //             percent: "50",
+            //             audio: notifysound,
+            //             gameicon: "o:/steamachievementnotifier(v1.8)/img/sanlogosquare.svg",
+            //             gameart: "o:/steamachievementnotifier(v1.8)/img/sanimgbg.png"
+            //         }
+
+            //         document.getElementById("webview").send('play', testobj.achievement, testobj.title, testobj.desc, testobj.icon, testobj.screenshot, testobj.percent, testobj.audio, testobj.gameicon, testobj.gameart)
+            //     }
+
+            //     PlayNotification()
+            // })
+
+            ipcRenderer.on('play', (
+                event,
+                achievement,
+                title,
+                desc,
+                icon,
+                screenshot,
+                percent,
+                audio,
+                gameicon,
+                gameart,
+                style,
+                type,
+                pos,
+                width,
+                height
+            ) => {
+                function LoadNotifyStyleHTML() {
+                    return new Promise(resolve => {
+                        var webview = document.createElement("webview")
+                        webview.id = "webview"
+                        webview.webpreferences = "nodeIntegration = true, contextIsolation = false"
+                        
+                        var pos
+
+                        if (type == "main") {
+                            webview.src = `file://${path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","app","notify",config.notifystyle,"fullscreen",`${config.notifystyle}_fs.html`)}`
+                            pos = config.notifypos
+                            webview.style.width = `${width * config.scale * 0.01}px`
+                            webview.style.height = `${height * config.scale * 0.01}px`
+                        } else {
+                            webview.src = `file://${path.join(localappdata,`Steam Achievement Notifier (${appversion})`,"store","app","notify",config.rarenotifystyle,"fullscreen",`${config.rarenotifystyle}rare_fs.html`)}`
+                            pos = config.rarenotifypos
+                            webview.style.width = `${width * config.rarescale * 0.01}px`
+                            webview.style.height = `${height * config.rarescale * 0.01}px`
+                        }
+
+                        if (pos == "bottomcenter") {
+                            document.body.style.justifyContent = "center"
+                            document.body.style.alignItems = "flex-end"
+                        } else if (pos == "topcenter") {
+                            document.body.style.justifyContent = "center"
+                            document.body.style.alignItems = "flex-start"
+                        } else if (pos == "topleft") {
+                            document.body.style.justifyContent = "flex-start"
+                            document.body.style.alignItems = "flex-start"
+                        } else if (pos == "topright") {
+                            document.body.style.justifyContent = "flex-end"
+                            document.body.style.alignItems = "flex-start"
+                        } else if (pos == "bottomleft") {
+                            document.body.style.justifyContent = "flex-start"
+                            document.body.style.alignItems = "flex-end"
+                        } else if (pos == "bottomright") {
+                            document.body.style.justifyContent = "flex-end"
+                            document.body.style.alignItems = "flex-end"
+                        }
+
+                        document.body.appendChild(webview)
+
+                        webview.addEventListener('dom-ready', () => {
+                            // webview.openDevTools()
+                            resolve()
+                        })
+
+                        webview.addEventListener('ipc-message', () => {
+                            ipcRenderer.send('reload')
+                        })
+                    })
+                }
+
+                async function PlayNotification() {
+                    await LoadNotifyStyleHTML()
+                    document.getElementById("webview").send('play',
+                        achievement,
+                        title,
+                        desc,
+                        icon,
+                        screenshot,
+                        percent,
+                        audio,
+                        gameicon,
+                        gameart
+                    )
+                }
+
+                PlayNotification()
+            })
+        </script>
+    </body>
+</html>

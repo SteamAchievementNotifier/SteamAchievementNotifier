@@ -522,6 +522,10 @@ function Run() {
 
                                                 if (branch == "beta") {
                                                     required.push("beta.txt")
+
+                                                    // Beta Channel [0.4] Fullscreen Update
+                                                    required.push("GOverlay.exe")
+                                                    required.push("extwin.html")
                                                 }
                                             
                                                 var requiredfiles = []

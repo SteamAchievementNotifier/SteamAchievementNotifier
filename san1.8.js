@@ -4111,19 +4111,8 @@ function GameCompletionNotification() {
                 fullscreen["audio"] = queueobj.audio
                 fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
 
-                if (config.rarescreenshot == "true") {
-                    // !!! Need to add alternative for Linux/MacOS
-                    if (process.platform == "win32") {
-                        spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
-                    }
-                }
-
                 if (config.nvda == "true") {
                     clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
-                }
-
-                if (config.ssoverlay == "true") { 
-                    ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
                 }
 
                 setTimeout(() => {

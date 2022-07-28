@@ -2,8 +2,7 @@
 const { ipcRenderer, desktopCapturer, clipboard, shell } = require('electron')
 const fs = require('fs')
 const path = require('path')
-const spawn = require('child_process').spawn
-const { exec } = require('child_process')
+const { spawn, exec, execFile } = require('child_process')
 const appversion = "V1.84"
 const appdir = "V1.8"
 
@@ -3309,17 +3308,19 @@ function SANIdle() {
 
             if (process.platform == "win32") {
                 if (config.fullscreen == true) {
-                    // StartGOverlay()
                     // FULLSCREEN - Step 2: Awaits "gamename" to be populated, then starts "goverlay.exe" ("gamename" value is needed for Goverlay to find the name of the game window)
                     GetGameName().then(() => {
                         console.log(`%cAttempting to start GOverlay...`, "color: deeppink")
-                        
-                        spawn("powershell.exe", ["-Command","start ./GOverlay.exe"], { windowsHide: true })
+
+                        execFile(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","app","GOverlay.exe"))
                         .on('spawn', () => {
-                            console.log("%cGOverlay started", "color: limegreen")
+                            console.log("%cGOverlay started", "color: deeppink")
                         })
-                        .on('error', err => {
+                        .on('error', () => {
                             console.log(`%cGOverlay Error: ${err}`, "color: red")
+                        })
+                        .on('exit', () => {
+                            console.log(`%cGOverlay closed`, "color: deeppink")
                         })
                     }).catch(err => {
                         console.log(`GetGameName() Error: ${err}`, "color: red")

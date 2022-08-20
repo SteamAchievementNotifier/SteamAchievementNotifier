@@ -24,12 +24,27 @@
 <body>
     <script>
         const { ipcRenderer } = require("electron")
+        const fs = require("fs")
         const path = require("path")
         const appdir = "V1.8"
+        
+        var localappdata
+        
+        if (process.platform == "win32") {
+            localappdata = path.join(process.env.LOCALAPPDATA)
+        } else if (process.platform == "linux") {
+            localappdata = path.join(process.env.HOME,".local","share")
+        } else if (process.platform == "darwin") {
+            localappdata = path.join(process.env.HOME,"Library","Application Support")
+        }
 
+        const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
+        
         var webview
 
-        ipcRenderer.on('notifyext', (event, src, achievement, title, desc, icon, screenshot, percent, audio, gameicon, gameartimg) => {
+        document.body.style.background = config.extwinbg
+
+        ipcRenderer.on('notifyext', (event, src, achievement, title, desc, icon, screenshot, percent, audio, gameicon, gameartimg) => {            
             webview = document.createElement("webview")
             webview.id = "webview"
             webview.style.width = "100%"
@@ -48,6 +63,11 @@
             webview.addEventListener('ipc-message', () => {
                 document.body.removeChild(document.getElementById("webview"))
             })
+        })
+
+        ipcRenderer.on('changecolour', () => {
+            const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
+            document.body.style.background = config.extwinbg
         })
     </script>
 </body>

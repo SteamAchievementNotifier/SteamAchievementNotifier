@@ -8,8 +8,8 @@ document.getElementById("test").innerHTML = "MOSTRAR NOTIFICACIÓN DE PRUEBA";
 document.getElementById("testrare").innerHTML = "MOSTRAR NOTIFICACIÓN DE PRUEBA RARA";
 document.getElementById("settingstitle").innerHTML = "AJUSTES";
 document.getElementById("configtitle").innerHTML = "CONFIGURACIÓN";
-document.getElementById("apibox").placeholder = "Introduzca API Key";
-document.getElementById("steam64box").placeholder = "Introduzca Steam64ID";
+document.getElementById("apibox").placeholder = "Ingrese la Clave API";
+document.getElementById("steam64box").placeholder = "Ingrese la Steam64 ID";
 document.getElementById("other").innerHTML = "OTRO";
 document.getElementById("showscreenshotlbl").innerHTML = "Captura de Pantalla de Steam";
 document.getElementById("showscreenshotlblrare").innerHTML = "Captura de Pantalla de Steam";
@@ -152,3 +152,66 @@ betajoin = "Únete Canal Beta"
 betaleave = "Salir Canal Beta"
 betaerrortext = "¡No se puede actualizar al canal Beta!"
 betaerrorsub = "Parece que no tienes una conexión de red. ¡Sin Internet = Sin Beta!"
+
+// Fullscreen Notifications
+document.getElementById("fullscreenlbl").innerHTML = "Notificaciones de Pantalla Completa"
+document.getElementById("extwinlbltxt").innerHTML = "Notificaciones Duplicadas a la Ventana"
+document.getElementById("fswarntitle").innerHTML = "ANTES DE QUE EMPIECES..."
+document.getElementById("fswarncontentmain").innerHTML = `Para superponer notificaciones en la parte superior de los juegos configurados en los modos de visualización en el juego "Pantalla Completa" o "Pantalla Completa Exclusiva", la notificación debe inyectarse directamente en el proceso del juego para que se muestre en una ventana de juego de DirectX.<br><br>Esto significa que, dado que el código del juego está técnicamente alterado por un programa de terceros, los juegos que utilizan la tecnología Anti-Cheat pueden ver este método desfavorablemente.<br><br>Aunque ningún juego ha mostrado ningún problema durante la prueba, generalmente se recomienda <u>no</u> usar la opción "Notificaciones de Pantalla Completa" cuando existe el riesgo de que los juegos que usan la tecnología Anti-Cheat detecten la inyección (como en los juegos competitivos en línea).`
+document.getElementById("fswarnimportant").innerHTML = `Al habilitar y utilizar la opción "Notificaciones de Pantalla Completa", acepta que se ha informado adecuadamente y comprende los riesgos asociados con la inyección de contenido de terceros en los juegos de Steam (como el método utilizado por Steam Achievement Notifier para mostrar contenido sobre juegos configurados para usar los modos de visualización de pantalla completa en el juego), y que al habilitar esta opción, acepta que lo hace bajo su propio riesgo y, por lo tanto, el desarrollador de Steam Achievement Notifier (Jackson0ne) no acepta ninguna responsabilidad u obligación con respecto a el uso de esta opción.`
+document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Al hacer clic en el botón <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACEPTO</span> a continuación, acepta los términos anteriores y la Se habilitará la opción "Notificaciones de Pantalla Completa".</div><div style="padding: 0px 10px 10px;">Al hacer clic en el botón <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DESACUERDO</span> a continuación, este mensaje se cerrará y el La opción "Notificaciones de Pantalla Completa" <u>no</u> estará habilitada.</div>`
+document.getElementById("fshidemsglbl").innerHTML = "Estoy de acuerdo, no mostrar este mensaje de nuevo"
+document.getElementById("fsok").innerHTML = "ACEPTO"
+document.getElementById("fscancel").innerHTML = "DESACUERDO"
+document.getElementById("fsselectlbl").innerHTML = "Seleccionar Ventana de Juego"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "Ver Política de Privacidad"
+document.getElementById("pptitle").innerHTML = "POLÍTICA DE PRIVACIDAD"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">USO DE DATOS STEAM WEB API</span>
+    </div>
+    <div class="ppbodycont">
+    Steam Achievement Notifier utiliza la <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> de Valve para recuperar y mostrar datos relacionados con las cuentas de Steam del usuario, a través de la combinación Clave API Steam/Steam64 ID proporcionada a la aplicación por el usuario. Estos datos incluyen:<br><br>
+        <div class="ppbodyembed">
+            • Estadísticas de logros bloqueados y desbloqueados<br>
+            • Tu nombre de usuario de Steam<br>
+            • Tus juegos de Steam jugados<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier puede usar más datos de Steam Web API en el futuro para proporcionar funciones y actualizaciones adicionales de la aplicación.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">CLAVE API STEAM/STEAM64 ID USO</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier requiere que el usuario ingrese su combinación Clave API Steam/Steam64 ID para el acceso autenticado a Steam Web API. Sin esta información, no se puede acceder a los enlaces web (que Valve proporciona para acceder a Steam Web API) utilizados para recuperar datos relacionados con las cuentas de Steam de un usuario, incluidos los datos de logros.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ALMACENAMIENTO DE DATOS STEAM WEB API</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier almacena temporalmente los datos de Steam Web API localmente en la computadora del usuario únicamente para su uso dentro de la aplicación. Cualquier almacenamiento temporal de estos datos está destinado a ser utilizado únicamente por Steam Achievement Notifier y, en circunstancias normales, todos los datos Steam Web API no persistentes se borrarán del almacenamiento local al salir de la aplicación.<br><br>
+        Los datos persistentes almacenados en el dispositivo del usuario solo incluyen datos almacenados por la aplicación para la comodidad del usuario, como la Clave Steam Web API y Steam64 ID del usuario.<br><br>
+        Estos datos también pueden ser eliminados manualmente por el usuario en cualquier momento si es necesario. Los archivos creados por Steam Achievement Notifier se encuentran en el siguiente directorio:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: Actualmente no compatible
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">POSTURA SOBRE LA RECOPILACIÓN DE DATOS</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier <u>nunca</u> enviará ni almacenará datos de usuario fuera del sistema de archivos local del usuario. Esto incluye cualquier información recuperada a través de Steam Web API para su uso dentro de la aplicación, incluida la combinación Clave API Steam/Steam64 ID proporcionada a la aplicación para acceder a Steam Web API. El desarrollador de Steam Achievement Notifier (Jackson0ne) intencionalmente no ha incluido ningún medio para acceder, ver, recopilar o enviar externamente cualquier información proporcionada a la aplicación por el usuario.<br><br>
+        Las solicitudes para acceder a los datos de Steam Web API se realizan desde la propia aplicación utilizando métodos integrados, similares a la funcionalidad proporcionada por los navegadores web. Estas solicitudes contienen la combinación Clave API Steam/Steam64 ID del usuario según lo requiere Steam Web API, pero no están disponibles para su uso o intercepción por ninguna otra aplicación.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">RESPONSABILIDAD DEL USUARIO</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        AL DESCARGAR Y USAR CUALQUIER VERSIÓN LANZADA OFICIALMENTE DE STEAMACHIEVEMENTNOTIFIER A TRAVÉS DEL <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">REPOSITORIO OFICIAL DE GITHUB</span>, USTED, EL USUARIO, POR EXTENSIÓN, SE ADHIERE A LAS SECCIONES 7 Y 8 DE LOS <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">TÉRMINOS DE USO DE STEAM WEB API</span>.
+    </div>
+`

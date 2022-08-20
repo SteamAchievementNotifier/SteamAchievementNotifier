@@ -1,3 +1,6 @@
+// TO DO:
+// !!! Re-enable GOverlay start in SANIdle() [Line 3328] when re-built for Selection Window
+
 //IMPORT & SET UP MAIN CONTENT
 const { ipcRenderer, desktopCapturer, clipboard, shell } = require('electron')
 const fs = require('fs')
@@ -380,6 +383,7 @@ function CloseSettings() {
     if (document.getElementById("settingscont").style.display = "none") {
         document.getElementById("betadialog").style.animation = "poprev 0.2s forwards"
         document.getElementById("betaerror").style.animation = "poprev 0.2s forwards"
+        document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
         document.getElementById("overlay").style.zIndex = "3"
 
         if (document.getElementById("fswarn").style.display == "flex") {
@@ -387,10 +391,15 @@ function CloseSettings() {
             ResetHideMsg()
         }
 
+        if (document.getElementById("ppwin").style.display == "flex") {
+            document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
+        }
+
         setTimeout(() => {
             document.getElementById("betadialog").style.display = "none"
             document.getElementById("betaerror").style.display = "none"
             document.getElementById("fswarn").style.display = "none"
+            document.getElementById("ppwin").style.display = "none"
         }, 200)
     }
 }
@@ -3113,19 +3122,24 @@ function GetSteamDetails() {
     GetSteam3ID()
     GetSteamPath()
     
-    var checksteamdetails = setInterval(() => {
+    // var checksteamdetails = setInterval(() => {
+    console.log(`%cDEBUG: "checksteamdetails" CRON job starting...`,"color:yellow")
+    var checksteamdetails = new Cron("* * * * * *", () => {
         if (steam3id && steampath) {
             if (steam3id == 0) {
                 GetSteam3ID()
             } else {
-                clearInterval(checksteamdetails)
+                // clearInterval(checksteamdetails)
+                checksteamdetails.stop()
+                console.log(`%cDEBUG: "checksteamdetails" CRON job stopped`,"color:yellow")
                 SANIdle()
             }
         } else {
             GetSteam3ID()
             GetSteamPath()
         }
-    }, 1000)
+    // }, 1000)
+    })
 }
 
 GetSteamDetails()
@@ -3245,7 +3259,9 @@ function SANIdle() {
         })
     }
 
-    var sanidle = setInterval(() => {
+    // var sanidle = setInterval(() => {
+    console.log(`%cDEBUG: "sanidle" CRON job starting...`,"color:yellow")
+    var sanidle = new Cron("* * * * * *", () => {
         GetAppIDFromRegKey()
         
         if (appid == 0 || appid == undefined) {
@@ -3302,7 +3318,9 @@ function SANIdle() {
             xmllist = `https://steamcommunity.com/profiles/${config.steam64id}/stats/${appid}/?xml=1`
             
             StoreLocal()
-            clearInterval(sanidle)
+            // clearInterval(sanidle)
+            sanidle.stop()
+            console.log(`%cDEBUG: "sanidle" CRON job stopped`,"color:yellow")
             currgame = appid
             StartSAN()
 
@@ -3328,7 +3346,8 @@ function SANIdle() {
                 }
             }
         }
-    }, 1000)
+    // }, 1000)
+    })
 }
 
 var percentages
@@ -3786,11 +3805,15 @@ async function StartSAN() {
             }
         })
 
-        var checkgame = setInterval(() => {
+        // var checkgame = setInterval(() => {
+        console.log(`%cDEBUG: "checkgame" CRON job starting...`,"color:yellow")
+        var checkgame = new Cron("* * * * * *", () => {
             GetAppIDFromRegKey()
 
             if (appid == 0 || appid == undefined || appid !== currgame) {
-                clearInterval(checkgame)
+                // clearInterval(checkgame)
+                checkgame.stop()
+                console.log(`%cDEBUG: "checkgame" CRON job stopped [AppID is 0]`,"color:yellow")
 
                 // FULLSCREEN - Step 4: Force close "goverlay.exe" (and all associated sub-processes) when no App ID is detected.
                 if (process.platform == "win32") {
@@ -3814,21 +3837,28 @@ async function StartSAN() {
                             console.log("%cFile was changed!", "color: deepskyblue")
                             lastmodified = stats.mtime
 
-                            clearInterval(checkgame)
+                            // clearInterval(checkgame)
+                            checkgame.stop()
+                            console.log(`%cDEBUG: "checkgame" CRON job stopped [Checking achievement info...]`,"color:yellow")
                             GetAchievementsFromURL()
                         }
                     }
                 })
             }
-        }, 1000)
+            // }, 1000)
+        })
     } catch (err) {
         console.log(`%cSTARTSAN ERROR: ${err}`, "color: red")
 
-        var checkappid = setInterval(() => {
+        // var checkappid = setInterval(() => {
+        console.log(`%cDEBUG: "checkappid" CRON job starting...`,"color:yellow")
+        var checkappid = new Cron("* * * * * *", () => {
             GetAppIDFromRegKey()
 
             if (appid == 0 || appid == undefined || appid !== currgame) {
-                clearInterval(checkappid)
+                // clearInterval(checkappid)
+                checkappid.stop()
+                console.log(`%cDEBUG: "checkappid" CRON job stopped`,"color:yellow")
                 
                 // FULLSCREEN - Step 4: Force close "goverlay.exe" (and all associated sub-processes) when no App ID is detected.
                 if (process.platform == "win32") {
@@ -3844,7 +3874,8 @@ async function StartSAN() {
                 currgame = null
                 SANIdle()
             }
-        }, 1000)
+        // }, 1000)
+        })
     }
 }
 
@@ -4044,15 +4075,19 @@ function CheckIfSteamIsRunning() {
             console.log("%cSteam is NOT running", "color: red")
             document.getElementById("nosteamlbl").style.opacity = "0.5"
 
-            var checkprocesses = setInterval(() => {
+            // var checkprocesses = setInterval(() => {
+            console.log(`%cDEBUG: "checkprocesses" CRON job starting...`,"color:yellow")
+            checkprocesses = new Cron("* * * * * *", () => {
                 exec(tasklist, (err, process) => {
                     var steamrecheck = process.toLowerCase().indexOf(execname)
                     if (steamrecheck !== -1) {
-                        clearInterval(checkprocesses)
+                        // clearInterval(checkprocesses)
+                        console.log(`%cDEBUG: "checkprocesses" CRON job stopped`,"color:yellow")
                         ipcRenderer.send('reloadapp')
                     }
                 })
-            }, 2000)
+            // }, 2000)
+            })
         } else {
             issteamrunning = true
             console.log("%cSteam is running.", "color: cyan")
@@ -4856,6 +4891,24 @@ ipcRenderer.on('extwinclosed', () => {
     CheckExtWin()
 })
 
+function CheckExtWinBg() {
+    if (config.extwinbg == undefined) {
+        config["extwinbg"] = "#000000"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    config["extwinbg"] = document.getElementById("extwincolour").value
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+    ipcRenderer.send('extwinbgchange')
+}
+
+try {
+    document.getElementById("extwincolour").value = config.extwinbg
+} catch {
+    CheckExtWinBg()
+}
+
 // FULLSCREEN FUNCTIONS
 
 function CheckFullscreen() {
@@ -4872,37 +4925,15 @@ function CheckFullscreen() {
     if (config.fullscreen == true) {
         document.getElementById("fullscreenbox").checked = true
         // document.getElementById("fsresopt").style.display = "flex"
-        
-        // document.getElementById("dragposcont").style.opacity = "0.5"
-        // document.getElementById("dragposcont").style.pointerEvents = "none"
-        // document.getElementById("dragposbtn").style.display = "none"
-        // document.getElementById("dragposcontrare").style.opacity = "0.5"
-        // document.getElementById("dragposcontrare").style.pointerEvents = "none"
-        // document.getElementById("dragposbtnrare").style.display = "none"
-        // document.getElementById("dragposbox").checked = false
-        // document.getElementById("dragposbox").style.pointerEvents = "none"
-        // document.getElementById("dragposboxrare").checked = false
-        // document.getElementById("dragposboxrare").style.pointerEvents = "none"
-        // document.getElementById("notifypositioncont").style.opacity = "1"
-        // document.getElementById("notifypositioncont").style.pointerEvents = "auto"
-        // document.getElementById("notifypositioncontrare").style.opacity = "1"
-        // document.getElementById("notifypositioncontrare").style.pointerEvents = "auto"
-        
+        document.getElementById("fsselect").style.display = "flex"
+    
         config["custompos"] = "false"
         config["rarecustompos"] = "false"
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
     } else {
         document.getElementById("fullscreenbox").checked = false
         // document.getElementById("fsresopt").style.display = "none"
-        
-        // document.getElementById("dragposcont").style.opacity = "1"
-        // document.getElementById("dragposcont").style.pointerEvents = "auto"
-        // document.getElementById("dragposbtn").style.display = "flex"
-        // document.getElementById("dragposcontrare").style.opacity = "1"
-        // document.getElementById("dragposcontrare").style.pointerEvents = "auto"
-        // document.getElementById("dragposbtnrare").style.display = "flex"
-        // document.getElementById("dragposbox").style.pointerEvents = "auto"
-        // document.getElementById("dragposboxrare").style.pointerEvents = "auto"
+        document.getElementById("fsselect").style.display = "none"
     }
 
     CheckCustomPos()
@@ -4920,6 +4951,7 @@ function ToggleFullscreen() {
         config["fullscreen"] = false
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
         CheckFullscreen()
+        ipcRenderer.send('relaunchapp')
     }
 }
 
@@ -4964,6 +4996,7 @@ function EnableFullscreen() {
     config["fullscreen"] = true
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
     CloseFullscreenWarning()
+    ipcRenderer.send('relaunchapp')
 }
 
 function CheckScroll(event) {
@@ -5057,7 +5090,60 @@ function CheckScroll(event) {
 //     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
 // }
 
+function CheckSelWin() {
+    if (config.fsselect == undefined) {
+        config["fsselect"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    if (config.fsselect == true) {
+        document.getElementById("fsselectbox").checked = true
+    } else {
+        document.getElementById("fsselectbox").checked = false
+    }
+}
+
+CheckSelWin()
+
+function ToggleSelWin() {
+    if (config.fsselect == false) {
+        config["fsselect"] = true
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    } else {
+        config["fsselect"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    CheckSelWin()
+}
+
 // FULLSCREEN FUNCTIONS
+
+function OpenPP() {
+    document.getElementById("ppwin").style.display = "flex"
+    document.getElementById("ppwin").style.animation = "pop 0.5s forwards"
+    document.getElementById("overlay").style.zIndex = "19"
+}
+
+function ClosePP() {
+    document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
+    document.getElementById("overlay").style.zIndex = "3"
+    setTimeout(() => {
+        document.getElementById("ppwin").style.display = "none"
+    }, 200)
+}
+
+function OpenLink(link) {
+    ipcRenderer.send('link', link)
+}
+
+function OpenDevTools() {
+    ipcRenderer.send("opendevtools")
+}
+
+function OpenAppData() {
+    shell.openPath(sanlocalappdata)
+}
 
 ipcRenderer.on('displayupdated', (event, w, h, sf) => {
     console.log(`%cPrimary Display metrics updated!\n`, "color: mediumpurple", { resolution: `${w} x ${h}`, scaleFactor: `${sf * 100}%` })

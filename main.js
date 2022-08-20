@@ -654,20 +654,56 @@ const startapp = () => {
             }
 
             notifywin.loadFile(notifysrc)
-        
-            if (config.screenshot == "true" && config.ssprev == "true" || config.rarescreenshot == "true" && config.raressprev == "true") {
-                desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 852, height: 480 }}).then(sources => {
-                    fs.writeFileSync(path.join(sanlocalappdata,"img","ss.png"), sources[0].thumbnail.toPNG())
+            
+            // OG
+            // if (config.screenshot == "true" && config.ssprev == "true" || config.rarescreenshot == "true" && config.raressprev == "true") {
+            //     desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 852, height: 480 }}).then(sources => {
+            //         fs.writeFileSync(path.join(sanlocalappdata,"img","ss.png"), sources[0].thumbnail.toPNG())
+            //     })
+            // }
+
+            function TakeNotifyScreenshot() {
+                return new Promise((resolve, reject) => {
+                    if (queueobj.type == "main" && config.screenshot == "true" && config.ssprev == "true" || queueobj.type == "rare" && config.rarescreenshot == "true" && config.raressprev == "true") {
+                        desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 852, height: 480 }}).then(sources => {
+                            try {
+                                fs.writeFileSync(path.join(sanlocalappdata,"img","ss.png"), sources[0].thumbnail.toPNG())
+                                resolve()
+                            } catch (err) {
+                                reject(err)
+                            }
+                        })
+                    }
                 })
             }
         
             notifywin.once('ready-to-show', () => {
-                notifywin.setMinimumSize(width, height)
-                notifywin.setSize(width, height)
+                function SendNotify() {
+                    notifywin.setMinimumSize(width, height)
+                    notifywin.setSize(width, height)
+            
+                    notifywin.show()
+                    notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg)
+                }
+
+                if (queueobj.type == "main" && config.screenshot == "true" && config.ssprev == "true" || queueobj.type == "rare" && config.rarescreenshot == "true" && config.raressprev == "true") {
+                    TakeNotifyScreenshot().then(() => {
+                        SendNotify()
+                    }).catch(err => {
+                        var m = `TakeNotifyScreenshot() Error: ${err}`
+                        win.webContents.send('errormsg', m)
+                    })
+                } else {
+                    SendNotify()
+                }
+
+                // OG
+                // notifywin.setMinimumSize(width, height)
+                // notifywin.setSize(width, height)
         
-                notifywin.show()
-                notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg)
-                // notifywin.webContents.openDevTools({ mode: 'detach' })
+                // notifywin.show()
+                // notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg)
+                // // notifywin.webContents.openDevTools({ mode: 'detach' })
             })
         
             ipcMain.once('notifywinstop', () => {
@@ -679,8 +715,8 @@ const startapp = () => {
         ipcMain.on('extwin', (event, queueobj) => {
             var width = queueobj.width * queueobj.scale * 0.01
             var height = queueobj.height * queueobj.scale * 0.01
-            width = Math.round(width)
-            height = Math.round(height)
+            width = Math.round(width + 20)
+            height = Math.round(height + 20)
 
             extwin.setContentSize(width, height)
 
@@ -900,6 +936,10 @@ const startapp = () => {
             shell.openExternal("https://steamid.io/lookup")
         })
 
+        ipcMain.on('link', (event, link) => {
+            shell.openExternal(link)
+        })
+
         ipcMain.on('kofi', () => {
             shell.openExternal("https://ko-fi.com/steamachievementnotifier")
         })
@@ -917,13 +957,18 @@ const startapp = () => {
         })
 
         // TO DO: Test whether "execPath" actually starts the new EXE
-        ipcMain.on('updatecomplete', (event, newtag) => {
-            app.relaunch({ execPath: path.join(os.homedir(),"Downloads",`SANLauncher(V${newtag}).exe`) })
-            app.exit()
-        })
+        // ipcMain.on('updatecomplete', (event, newtag) => {
+        //     app.relaunch({ execPath: path.join(os.homedir(),"Downloads",`SANLauncher(V${newtag}).exe`) })
+        //     app.exit()
+        // })
 
         ipcMain.on('reloadapp', () => {
             win.webContents.reloadIgnoringCache()
+        })
+
+        ipcMain.on('relaunchapp', () => {
+            app.relaunch({ execPath: path.join(localappdata,`Steam Achievement Notifier (${appdir})`,`SteamAchievementNotifier${appversion}.exe`) })
+            app.exit()
         })
 
         ipcMain.on('steamnotrunning', () => {
@@ -1518,8 +1563,19 @@ const startapp = () => {
 
             extwin.on('close', () => {
                 extwin.destroy()
+                extwin = null
                 win.webContents.send('extwinclosed')
             })
+        })
+
+        ipcMain.on('extwinbgchange', () => {
+            if (extwin) {
+                extwin.webContents.send('changecolour')
+            }
+        })
+
+        ipcMain.on("opendevtools", () => {
+            win.webContents.openDevTools({ mode: "detach" })
         })
 
         nativeTheme.themeSource = "dark"
@@ -1533,7 +1589,7 @@ const startapp = () => {
         powerSaveBlocker.start('prevent-app-suspension')
         
         powerMonitor.on('resume', () => {
-            app.relaunch()
+            app.relaunch({ execPath: path.join(localappdata,`Steam Achievement Notifier (${appdir})`,`SteamAchievementNotifier${appversion}.exe`) })
             app.exit()
         })
     }).catch(err => {

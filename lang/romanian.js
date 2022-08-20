@@ -8,7 +8,7 @@ document.getElementById("test").innerHTML = "AFIȘAȚI NOTIFICAREA TESTULUI";
 document.getElementById("testrare").innerHTML = "AFIȘAȚI NOTIFICAREA TESTULUI RAR";
 document.getElementById("settingstitle").innerHTML = "SETĂRI";
 document.getElementById("configtitle").innerHTML = "CONFIGURARE";
-document.getElementById("apibox").placeholder = "Introduceți API Key";
+document.getElementById("apibox").placeholder = "Introduceți Cheia API";
 document.getElementById("steam64box").placeholder = "Introduceți Steam64ID";
 document.getElementById("other").innerHTML = "ALTE";
 document.getElementById("showscreenshotlbl").innerHTML = "Faceți Captură de Ecran în Steam";
@@ -146,9 +146,72 @@ document.getElementById("betacancel").innerHTML = "Nu, voi sta aici..."
 document.getElementById("leavebetatitle").innerHTML = "Părăsiți Canalul Beta?"
 document.getElementById("leavebetasub").innerHTML = "Aplicația va reveni la cea mai recentă versiune oficială"
 document.getElementById("leavebetaok").innerHTML = "Părăsiți Canalul Beta"
-document.getElementById("leavebetacancel").innerHTML = "Stay on Beta Channel"
+document.getElementById("leavebetacancel").innerHTML = "Rămâneți pe Canalul Beta"
 
 betajoin = "Intră pe Canalul Beta"
 betaleave = "Părăsiți Canalul Beta"
 betaerrortext = "Nu se poate actualiza la Canalul Beta!"
 betaerrorsub = "Se pare că nu aveți o conexiune la rețea. Fără internet = Fără Beta!"
+
+// Fullscreen Notifications
+document.getElementById("fullscreenlbl").innerHTML = "Notificări pe Ecran Complet"
+document.getElementById("extwinlbltxt").innerHTML = "Notificări Duplicate în Fereastră"
+document.getElementById("fswarntitle").innerHTML = "INAINTE SA INCEPI..."
+document.getElementById("fswarncontentmain").innerHTML = `Pentru a suprapune notificări peste jocurile setate la modurile de afișare în joc „Ecran Complet” sau „Ecran Complet Exclusiv”, notificarea trebuie să fie injectată direct în procesul de joc pentru a fi afișată într-o fereastră de joc DirectX.<br><br>Aceasta înseamnă că, deoarece codul jocului este modificat din punct de vedere tehnic de un program terță parte, jocurile care utilizează tehnologia Anti-Cheat pot vedea această metodă în mod nefavorabil.<br><br>Deși niciun joc nu a afișat probleme în timpul testării, în general se recomandă <u>nu</u> să utilizați opțiunea „Notificări pe Ecran Complet” atunci când există riscul ca injecția să fie detectată de jocurile care utilizează tehnologia Anti-Cheat (cum ar fi ca în jocurile competitive online).`
+document.getElementById("fswarnimportant").innerHTML = `Prin activarea și utilizarea opțiunii „Notificări pe Ecran Complet”, sunteți de acord că ați informat în mod corespunzător și ați înțeles riscurile asociate cu injectarea de conținut terță parte în jocurile Steam (cum ar fi metoda utilizată de Steam Achievement Notifier pentru a afișa conținut peste jocurile setate să utilizeze moduri de afișare în joc pe ecran complet) și că, activând această opțiune, acceptați că faceți acest lucru pe propriul risc și, prin urmare, dezvoltatorul Steam Achievement Notifier (Jackson0ne) nu își asumă nicio responsabilitate sau răspundere în ceea ce privește utilizarea acestei opțiuni.`
+document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Făcând clic pe butonul <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACORD</span> de mai jos, acceptați termenii de mai sus și Opțiunea „Notificări pe Ecran Complet” va fi activată.</div><div style="padding: 0px 10px 10px;">Făcând clic pe butonul <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DEZACORD</span> de mai jos, acest mesaj va fi închis, iar Opțiunea „Notificări pe Ecran Complet” <u>nu</u> va fi activată.</div>`
+document.getElementById("fshidemsglbl").innerHTML = "Sunt de acord, nu mai afișa acest mesaj"
+document.getElementById("fsok").innerHTML = "ACORD"
+document.getElementById("fscancel").innerHTML = "DEZACORD"
+document.getElementById("fsselectlbl").innerHTML = "Selectați Manual Fereastra Jocului"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "Vedeți Politica de Confidențialitate"
+document.getElementById("pptitle").innerHTML = "POLITICA DE CONFIDENȚIALITATE"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">UTILIZAREA DATELOR STEAM WEB API</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier folosește <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> de la Valve pentru a prelua și afișa date referitoare la conturile Steam ale utilizatorului, prin combinația Cheie API Steam/Steam64 ID furnizată aplicației de către utilizator. Aceste date includ:<br><br>
+        <div class="ppbodyembed">
+            • Statistici pentru realizările blocate și deblocate<br>
+            • Numele dvs. de utilizator Steam<br>
+            • Ai jucat jocuri Steam<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier poate folosi mai multe date Steam Web API în viitor pentru a oferi funcții și actualizări suplimentare ale aplicației.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">FOLOSIND CHEIA API STEAM/STEAM64ID</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier cere utilizatorului să introducă combinația Cheie API Steam/Steam64 ID pentru acces autentificat la Steam Web API. Fără aceste informații, linkurile web (furnizate pentru utilizare de către Valve pentru a accesa Steam Web API) utilizate pentru a prelua date legate de conturile Steam ale unui utilizator - inclusiv datele de realizare - nu pot fi accesate.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STOCARE DE DATE STEAM WEB API</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier stochează temporar datele Steam Web API la nivel local, pe computerul utilizatorului, exclusiv pentru utilizare în cadrul aplicației. Orice stocare temporară a acestor date este destinată utilizării exclusiv de către Steam Achievement Notifier și, în circumstanțe normale, toate datele Steam Web API nepersistente vor fi șterse din stocarea locală la ieșirea din aplicație.<br><br>
+        Datele persistente stocate pe dispozitivul utilizatorului includ numai date stocate de aplicație pentru confortul utilizatorului, cum ar fi Cheia API Web Steam a utilizatorului și Steam64ID.<br><br>
+        Aceste date pot fi, de asemenea, șterse manual de către utilizator în orice moment, dacă este necesar. Fișierele create de Steam Achievement Notifier se află în următorul director:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: Momentan neacceptat
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">POZIȚIE PRIVIND CULEGEREA DE DATE</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier nu va <u>niciodata</u> trimite sau stoca datele utilizatorului în afara sistemului de fișiere local al utilizatorului. Aceasta include orice informații preluate prin Steam Web API pentru utilizare în cadrul aplicației, inclusiv combinația Cheie API Steam/Steam64 ID furnizată aplicației pentru acces la Steam Web API. Dezvoltatorul Steam Achievement Notifier (Jackson0ne) nu a inclus în mod intenționat niciun mijloc de a accesa, vizualiza, colecta sau trimite în mod extern orice informație furnizată aplicației de către utilizator.<br><br>
+        Solicitările de acces la date din Steam Web API sunt făcute din interiorul aplicației în sine, folosind metode încorporate, similare cu funcționalitatea oferită de browserele web. Aceste solicitări conțin combinația de identificare Cheie API Steam/Steam64 a utilizatorului, așa cum este cerută de Steam Web API, dar nu sunt disponibile pentru utilizare sau interceptare de către alte aplicații.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">RESPONSABILITATEA UTILIZATORULUI</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        PRIN DESCĂRCAREA ȘI UTILIZAREA ORICĂREI VERSIUNI LANSATE OFICIAL A STEAM ACHIEVEMENT NOTIFIER PRIN <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">DEPOZITUL OFICIAL GITHUB</span>DVS., UTILIZATORUL, PRIN EXTENSIE, RESPECTAȚI SECȚIUNILE 7 ȘI 8 DIN <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">TERMENII DE UTILIZARE STEAM WEB API</span>.
+    </div>
+`

@@ -816,6 +816,20 @@ hr {
     margin: 0px 0px 5px;
 }
 
+.optconnector {
+    width: 20px;
+    height: 22px;
+    position: absolute;
+    border-top: none;
+    border-left: 1.5px solid rgba(255,255,255,0.5);
+    border-bottom: 1.5px solid rgba(255,255,255,0.5);
+    border-right: none;
+    border-radius: 2px;
+    top: -11px;
+    left: 1px;
+    z-index: -1;
+}
+
 .settingscont {
     background: #1b1b1b;
     display: none;
@@ -1469,6 +1483,103 @@ input[type="number"]::-webkit-inner-spin-button {
 #resetlbl {
     padding-bottom: 2px;
 }
+
+/* Privacy Policy */
+
+#ppcont {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 95%;
+    margin: 2px 0px 5px 3px;
+}
+
+#pp {
+    cursor: pointer;
+}
+
+#ppwin {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 300px;
+    background: #1b1b1b;
+    border: 1px solid white;
+    border-radius: 5px;
+    z-index: 20;
+}
+
+#pptitle {
+    font-family: "Titillium Web";
+    font-size: 22px;
+    margin: 25px 0px 20px;
+}
+
+#ppcontent {
+    font-size: 9px;
+    font-family: "Noto Sans Reg";
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 0px 30px;
+    margin-bottom: 35px;
+}
+
+#ppcontent::-webkit-scrollbar {
+    background: none;
+}
+
+#ppcontent::-webkit-scrollbar-thumb {
+    background-color: #3d3d3d;
+    border-radius: 5px;
+}
+
+.ppheader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-family: "Titillium Web";
+    font-size: 12px;
+}
+
+.ppheadercontent {
+    width: 100%;
+    background: rgb(32,62,122);
+    padding: 5px 10px;
+}
+
+.ppbodycont {
+    background: rgba(16,16,16,0.5);
+    padding: 10px;
+}
+
+.pplink:not(hover) {
+    color: lightskyblue;
+    text-decoration: underline;
+    transition: 0.2s;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.pplink:hover {
+    opacity: 1;
+}
+
+.ppbodyembed {
+    background: #2b2b2b;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 5px;
+}
+
+/* Privacy Policy */
 
 #gamedetails {
     color: lightskyblue;
@@ -2603,6 +2714,10 @@ input[type="color"]::-webkit-color-swatch {
     align-items: center;
     font-family: "Titillium Web";
     font-size: 8px;
+    /* opacity: 0.5; */
+}
+
+#jsrev {
     opacity: 0.5;
 }
 
@@ -2718,7 +2833,7 @@ input[type="color"]::-webkit-color-swatch {
     background: blueviolet;
 }
 
-#joinbetabtn, #resetcontinner {
+#joinbetabtn, #resetcontinner, #ppbtn {
     flex: 1;
     margin-left: 6%;
     margin-right: 6%;
@@ -3110,6 +3225,22 @@ input[type="color"]::-webkit-color-swatch {
 .fswh:hover {
     background: #3d3d3d;
 } */
+
+#fullscreen:hover #fullscreenbox:not(:checked), #nosteam:hover #nosteambox:not(:checked), #desktop:hover #desktopbox:not(:checked), #startwin:hover #startwinbox:not(:checked), #startmin:hover #startminbox:not(:checked), #soundonly:hover #soundonlybox:not(:checked), #allpercent:hover #allpercentbox:not(:checked), #gamecompletion:hover #gamecompletionbox:not(:checked), #ssoverlay:hover #ssoverlaybox:not(:checked), #extwin:hover #extwinbox:not(:checked), #tracking:hover #trackingbox:not(:checked), #hwa:hover #hwabox:not(:checked), #nvda:hover #nvdabox:not(:checked) {
+    background-color: #3d3d3d;
+    transition: 0.2s;
+}
+
+#console:not(hover), #appdata:not(hover) {
+    position: absolute;
+    cursor: pointer;
+    opacity: 0.25;
+    transition: 0.2s;
+}
+
+#console:hover, #appdata:hover {
+    opacity: 1;
+}
 
 @keyframes fadein {
     0% { opacity: 0; }

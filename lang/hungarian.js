@@ -8,7 +8,7 @@ document.getElementById("test").innerHTML = "TESZT ÜZENET MUTATÁSA";
 document.getElementById("testrare").innerHTML = "RITKA TESZT ÜZENET MUTATÁSA";
 document.getElementById("settingstitle").innerHTML = "BEÁLLÍTÁSOK";
 document.getElementById("configtitle").innerHTML = "KONFIGURÁCIÓ";
-document.getElementById("apibox").placeholder = "Írja be az API Key-t";
+document.getElementById("apibox").placeholder = "Írja be az API Kulcsot";
 document.getElementById("steam64box").placeholder = "Írja be a Steam64ID-t";
 document.getElementById("other").innerHTML = "EGYÉB";
 document.getElementById("showscreenshotlbl").innerHTML = "Készítsen Steam Képernyőképet";
@@ -152,3 +152,66 @@ betajoin = "Lépjen Béta Csatorna"
 betaleave = "Kilép Béta Csatorna"
 betaerrortext = "Nem sikerült frissíteni a Béta Csatorna!"
 betaerrorsub = "Úgy tűnik, nincs hálózati kapcsolata. Nincs internet = Nincs Béta!"
+
+// Fullscreen Notifications
+document.getElementById("fullscreenlbl").innerHTML = "Teljes Képernyős Értesítések"
+document.getElementById("extwinlbltxt").innerHTML = "Az Értesítések Másolása Az Ablakba "
+document.getElementById("fswarntitle").innerHTML = "MIELŐTT ELKEZDED..."
+document.getElementById("fswarncontentmain").innerHTML = `A „Teljes Képernyős” vagy „Exkluzív Teljes Képernyős” játékon belüli megjelenítési módra beállított játékok feletti értesítések átfedéséhez az értesítést közvetlenül a játék folyamatába kell beilleszteni, hogy a DirectX játékablakon keresztül megjelenjenek.<br><br>Ez azt jelenti, hogy mivel a játék kódját technikailag egy harmadik féltől származó program módosítja, az Anti-Cheat technológiát használó játékok kedvezőtlenül értékelhetik ezt a módszert.<br><br>Bár a tesztelés során egyetlen játék sem mutatott problémát, általában <u>ne</u> tanácsos a „Teljes Képernyős Értesítések” opció használata, ha fennáll annak a veszélye, hogy az Anti-Cheat technológiát használó játékok injekciót észlelnek (pl. online versenyjátékokban).`
+document.getElementById("fswarnimportant").innerHTML = `A „Teljes Képernyős Értesítések” opció engedélyezésével és használatával ezennel beleegyezik, hogy megfelelően tájékoztatta és megértette a harmadik féltől származó tartalmak Steam játékokba való bejuttatásával kapcsolatos kockázatokat (például a Steam Achievement Notifier által a tartalom megjelenítésére használt módszert). játékon belüli teljes képernyős megjelenítési módok használatára beállított játékok felett), és ennek az opciónak a bekapcsolásával elfogadja, hogy ezt saját felelősségére teszi, ezért a Steam Achievement Notifier (Jackson0ne) fejlesztője nem vállal felelősséget a ennek az opciónak a használata.`
+document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Az alábbi <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ELFOGAD</span> gombra kattintva elfogadja a fenti feltételeket, és A „Teljes Képernyős Értesítések” opció engedélyezve lesz.</div><div style="padding: 0px 10px 10px;">Az alábbi <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ELUTASÍT</span> gombra kattintva ez az üzenet bezárul, és a A „Teljes Képernyős Értesítések” opció <u>nem</u> lesz engedélyezve.</div>`
+document.getElementById("fshidemsglbl").innerHTML = "Egyetértek, ne mutasd többet ezt az üzenetet"
+document.getElementById("fsok").innerHTML = "ELFOGAD"
+document.getElementById("fscancel").innerHTML = "ELUTASÍT"
+document.getElementById("fsselectlbl").innerHTML = "Válassza a Játék Ablak Lehetőséget"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "Adatvédelmi Irányelv Megtekintése"
+document.getElementById("pptitle").innerHTML = "ADATVÉDELMI IRÁNYELVEK"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">STEAM WEB API ADATHASZNÁLAT</span>
+    </div>
+    <div class="ppbodycont">
+        A Steam Achievement Notifier a Valve <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API-ját</span> használja a felhasználó Steam-fiókjaival kapcsolatos adatok lekérésére és megjelenítésére, a felhasználó által az alkalmazásnak biztosított Steam API Kulcs/Steam64 ID kombináción keresztül. Ezek az adatok a következőket tartalmazzák:<br><br>
+        <div class="ppbodyembed">
+            • Statisztikák a zárolt és feloldott jutalmakhoz<br>
+            • Steam felhasználóneved<br>
+            • Az Ön által játszott Steam-játékok<br>
+        </div>
+        <br>
+        <i>A Steam Achievement Notifier a jövőben további Steam Web API-adatokat használhat fel további alkalmazásfunkciók és frissítések biztosítására.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM API KULCS/STEAM64 ID HASZNÁLAT</span>
+    </div>
+    <div class="ppbodycont">
+        A Steam Achievement Notifier megköveteli a felhasználótól, hogy adja meg a Steam API Kulcs/Steam64 azonosító kombinációját a Steam Web API hitelesített eléréséhez. Ezen információk nélkül nem érhetők el a webes hivatkozások (amelyeket a Valve a Steam Web API eléréséhez biztosít), amelyek a felhasználó Steam-fiókjaival kapcsolatos adatok - köztük a jutalomadatok - lekérésére szolgálnak.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM WEB API ADATTÁROLÁS</span>
+    </div>
+    <div class="ppbodycont">
+        A Steam Achievement Notifier ideiglenesen helyileg tárolja a Steam Web API-adatokat a felhasználó számítógépén, kizárólag az alkalmazáson belüli felhasználás céljából. Ezen adatok ideiglenes tárolását kizárólag a Steam Achievement Notifier használhatja, és normál körülmények között az alkalmazásból való kilépéskor minden nem állandó Steam Web API adat törlődik a helyi tárhelyről.<br><br>
+        A felhasználó eszközén tárolt állandó adatok csak azokat az adatokat tartalmazzák, amelyeket az alkalmazás a felhasználói kényelem érdekében tárol, például a felhasználó Steam Web API kulcsát és Steam64 azonosítóját.<br><br>
+        Ezeket az adatokat a felhasználó bármikor manuálisan is törölheti, ha szükséges. A Steam Achievement Notifier által létrehozott fájlok a következő könyvtárban találhatók:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: Jelenleg nem támogatott
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ÁLLÁS AZ ADATGYŰJTÉSRŐL</span>
+    </div>
+    <div class="ppbodycont">
+        A Steam Achievement Notifier <u>soha</u> nem küld és nem tárol felhasználói adatokat a felhasználó helyi fájlrendszerén kívül. Ez magában foglal minden olyan információt, amelyet a Steam Web API-n keresztül az alkalmazáson belüli használatra kértek le, beleértve a Steam API Kulcs/Steam64 azonosító kombinációját, amelyet az alkalmazás a Steam Web API-hoz való hozzáféréshez biztosít. A Steam Achievement Notifier (Jackson0ne) fejlesztője szándékosan nem tartalmazott semmilyen eszközt a felhasználó által az alkalmazásnak biztosított információk külső eléréséhez, megtekintéséhez, összegyűjtéséhez vagy elküldéséhez.<br><br>
+        A Steam Web API-ból származó adatokhoz való hozzáférési kérelmek az alkalmazáson belülről, beépített módszerekkel történnek, hasonlóan a webböngészők által biztosított funkciókhoz. Ezek a kérések tartalmazzák a felhasználó Steam API Kulcs/Steam64 azonosító kombinációját, ahogy azt a Steam Web API megköveteli, de nem teszik elérhetővé más alkalmazások általi használatra vagy lehallgatásra.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">A FELHASZNÁLÓ FELELŐSSÉGE</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        A STEAM TELJESÍTMÉNYÉRTESÍTŐ BÁRMELY HIVATALOSAN KIADOTT VERZIÓJÁNAK LETÖLTÉSÉVEL ÉS HASZNÁLATÁVAL A <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">HIVATALOS GITHUB LEHETŐSÉGÉN</span> KERESZTÜL, ÖN, A FELHASZNÁLÓ, KITERJESZTVE BETARTJA A <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API HASZNÁLATI FELTÉTELEK</span> 7. ÉS 8. SZAKASZÁT.
+    </div>
+`

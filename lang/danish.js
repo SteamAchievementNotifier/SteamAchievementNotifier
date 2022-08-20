@@ -8,7 +8,7 @@ document.getElementById("test").innerHTML = "VIS TEST";
 document.getElementById("testrare").innerHTML = "VIS SJÆLDEN TEST";
 document.getElementById("settingstitle").innerHTML = "INDSTILLINGER";
 document.getElementById("configtitle").innerHTML = "KONFIGURATION";
-document.getElementById("apibox").placeholder = "Indtast API Key";
+document.getElementById("apibox").placeholder = "Indtast API Nøgle";
 document.getElementById("steam64box").placeholder = "Indtast Steam64ID";
 document.getElementById("other").innerHTML = "ANDRE";
 document.getElementById("showscreenshotlbl").innerHTML = "Tag Steam-Skærmbilledet";
@@ -151,3 +151,66 @@ var betajoin = "Tilmeld dig Betakanalen"
 var betaleave = "Forlad Betakanalen"
 var betaerrortext = "Kan ikke opdatere til Betakanal!"
 var betaerrorsub = "Det ser ud til, at du ikke har en netværksforbindelse. Intet internet = Ingen Beta!"
+
+// Fullscreen Notifications
+document.getElementById("fullscreenlbl").innerHTML = "Aktiver Fuldskærmsmeddelelser"
+document.getElementById("extwinlbltxt").innerHTML = "Dublerede Meddelelser til Vinduet"
+document.getElementById("fswarntitle").innerHTML = "FØR DU STARTER..."
+document.getElementById("fswarncontentmain").innerHTML = `For at overlejre meddelelser oven på spil, der er indstillet til "Fuldskærm" eller "Eksklusiv Fuldskærm" i spillets visningstilstande, skal meddelelsen injiceres direkte i spilprocessen for at blive vist over et DirectX-spilvindue.<br><br>Dette betyder, at da spillets kode teknisk set bliver ændret af et tredjepartsprogram, kan spil, der bruger Anti-Cheat-teknologi, se denne metode ugunstigt.<br><br>Selvom ingen spil har vist nogen problemer under testning, anbefales det generelt <u>ikke</u> at bruge muligheden "Aktiver Fuldskærmsmeddelelser", når der er risiko for, at der bliver opdaget injektion af spil, der bruger Anti-Cheat-teknologi (f.eks. i online konkurrencespil).`
+document.getElementById("fswarnimportant").innerHTML = `Ved at aktivere og bruge valgmuligheden "Aktiver Fuldskærmsmeddelelser", accepterer du hermed, at du har informeret passende om og forstår de risici, der er forbundet med, at injicere tredjepartsindhold i Steam-spil (såsom den metode, Steam Achievement Notifier bruger til at vise indhold over spil, der er indstillet til at bruge fuldskærmsvisningstilstande i spillet), og at du ved at aktivere denne mulighed accepterer, at du gør det på egen risiko, og derfor påtager udvikleren af ​​Steam Achievement Notifier (Jackson0ne) intet ansvar eller erstatningsansvar vedrørende brug af denne mulighed.`
+document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Ved at klikke på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ENIG</span> nedenfor, accepterer du ovenstående vilkår, og Muligheden "Aktiver Fuldskærmsmeddelelser" vil være aktiveret.</div><div style="padding: 0px 10px 10px;">Ved at klikke på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">UENIG</span> nedenfor, lukkes denne meddelelse, og Indstillingen "Aktiver Fuldskærmsmeddelelser" vil <u>ikke</u> være aktiveret.</div>`
+document.getElementById("fshidemsglbl").innerHTML = "Jeg er enig, vis ikke denne besked igen"
+document.getElementById("fsok").innerHTML = "ENIG"
+document.getElementById("fscancel").innerHTML = "UENIG"
+document.getElementById("fsselectlbl").innerHTML = "Vælg Spilvindue Manuelt"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "Se Privatlivspolitik"
+document.getElementById("pptitle").innerHTML = "PRIVATLIVSPOLITIK"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">STEAM WEB API DATABRUG</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier bruger Valves <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> til at hente og vise data relateret til brugerens Steam-konto(s), via Steam API Nøgle/Steam64 ID-kombinationen, som brugeren har leveret til applikationen. Disse data inkluderer:<br><br>
+        <div class="ppbodyembed">
+            • Statistik for låste og ulåste præstationer<br>
+            • Dit Steam-brugernavn<br>
+            • Dine spillede Steam-spil<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier kan bruge yderligere Steam Web API-data i fremtiden til at levere yderligere applikationsfunktioner og opdateringer.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">BRUG AF STEAM API NØGLE/STEAM64 ID</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier kræver, at brugeren indtaster deres Steam API Nøgle/Steam64 ID-kombination for autentificeret adgang til Steam Web API. Uden disse oplysninger kan weblinks (leveret til brug af Valve for at få adgang til Steam Web API), der bruges til at hente data relateret til en brugers Steam-konto(r) - inklusive præstationsdata - ikke tilgås.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM WEB API DATALAGRING</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier gemmer midlertidigt Steam Web API-data lokalt på brugerens pc udelukkende til brug i applikationen. Enhver midlertidig lagring af disse data er udelukkende beregnet til brug af Steam Achievement Notifier, og under normale omstændigheder vil alle ikke-vedvarende Steam Web API-data blive ryddet fra lokal lagring ved afslutning af applikationen.<br><br>
+        Vedvarende data, der er gemt på brugerens enhed, omfatter kun data, der er gemt af applikationen af hensyn til brugerens bekvemmelighed, såsom brugerens Steam API Nøgle og Steam64 ID.<br><br>
+        Disse data kan også til enhver tid slettes manuelt af brugeren, hvis det kræves. Filer oprettet af Steam Achievement Notifier er placeret i følgende mappe:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: I øjeblikket ikke understøttet
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STANDNING TIL DATAINDSAMLING</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier vil <u>aldrig</u> sende eller gemme brugerdata uden for brugerens lokale filsystem. Dette inkluderer enhver information hentet via Steam Web API til brug i applikationen, inklusive Steam API Nøgle/Steam64 ID-kombinationen leveret til applikationen for adgang til Steam Web API. Udvikleren af Steam Achievement Notifier (Jackson0ne) har med vilje ikke inkluderet nogen midler til eksternt at få adgang til, se, indsamle eller sende nogen information, der er givet til applikationen af brugeren.<br><br>
+        Anmodninger om at få adgang til data fra Steam Web API er lavet inde fra selve applikationen ved hjælp af indbyggede metoder, svarende til funktionalitet leveret af webbrowsere. Disse anmodninger indeholder brugerens Steam API-nøgle/Steam64 ID-kombination som krævet af Steam Web API, men er ikke gjort tilgængelige til brug eller aflytning af andre applikationer.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">BRUGERANSVAR</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        VED AT DOWNLOADE OG BRUGE EN OFFICIEL UDGIVET VERSION AF STEAM ACHIEVEMENT NOTIFIER VIA DEN <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFFICIELLE GITHUB REPOSITOR</span>, DU, BRUGEREN, VED UDVIDELSE, OVERHOLDER AFSNIT 7 OG 8 I <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API VILKÅR TIL BRUG</span>.
+    </div>
+`

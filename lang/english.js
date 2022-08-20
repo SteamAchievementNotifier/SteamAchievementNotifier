@@ -152,3 +152,66 @@ betajoin = "Join Beta Channel"
 betaleave = "Leave Beta Channel"
 betaerrortext = "Unable to update to Beta Channel!"
 betaerrorsub = "Looks like you don't have a network connection. No internet = No Beta!"
+
+// Fullscreen Notifications
+document.getElementById("fullscreenlbl").innerHTML = "Enable Fullscreen Notifications"
+document.getElementById("extwinlbltxt").innerHTML = "Duplicate Notifications to Window "
+document.getElementById("fswarntitle").innerHTML = "BEFORE YOU START..."
+document.getElementById("fswarncontentmain").innerHTML = `In order to overlay notifications on top of games set to "Fullscreen" or "Exclusive Fullscreen" in-game display modes, the notification must be injected directly into the game process to be displayed over a DirectX game window.<br><br>This means that, as the game's code is technically being altered by a third-party program, games using Anti-Cheat technology may view this method unfavourably.<br><br>Although no games have displayed any issues while testing, it is generally advised <u>not</u> to use the "Enable Fullscreen Notifications" option when there is a risk of injection being detected by games using Anti-Cheat technology (such as in online competitive games).`
+document.getElementById("fswarnimportant").innerHTML = `By enabling and using the "Enable Fullscreen Notifications" option, you hereby agree that you have suitably informed of, and understand the risks associated with, injecting third-party content into Steam games (such as the method used by Steam Achievement Notifier to display content over games set to use Fullscreen in-game display modes), and that by enabling this option, you accept that you do so at your own risk, and therefore, the developer of Steam Achievement Notifier (Jackson0ne) accepts no responsibility or liability regarding the use of this option.`
+document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">By clicking the <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AGREE</span> button below, you accept the above terms, and the "Enable Fullscreen Notifications" option will be enabled.</div><div style="padding: 0px 10px 10px;">By clicking the <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DISAGREE</span> button below, this message will be closed, and the "Enable Fullscreen Notifications" option will <u>not</u> be enabled.</div>`
+document.getElementById("fshidemsglbl").innerHTML = "I'll agree, don't show this message again"
+document.getElementById("fsok").innerHTML = "AGREE"
+document.getElementById("fscancel").innerHTML = "DISAGREE"
+document.getElementById("fsselectlbl").innerHTML = "Manually Select Game Window"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "View Privacy Policy"
+document.getElementById("pptitle").innerHTML = "PRIVACY POLICY"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">STEAM WEB API DATA USAGE</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier uses Valve's <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> to retrieve and display data relating to the user's Steam account(s), via the Steam API Key/Steam64 ID combination provided to the application by the user. This data includes:<br><br>
+        <div class="ppbodyembed">
+            • Statistics for locked and unlocked achievements<br>
+            • Your Steam username<br>
+            • Your played Steam games<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier may use further Steam Web API data in future to provide additional application features and updates.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM API KEY/STEAM64 ID USAGE</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier requires the user to input their Steam API Key/Steam64 ID combination for authenticated access to the Steam Web API. Without this information, web links (provided for use by Valve to access the Steam Web API) used to retrieve data related to a user's Steam account(s) - including achievement data - cannot be accessed.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM WEB API DATA STORAGE</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier temporarily stores Steam Web API data locally on the user's PC solely for use within the application. Any temporary storage of this data is intended for use solely by Steam Achievement Notifier, and under normal circumstances, all non-persisent Steam Web API data will be cleared from local storage upon exit of the application.<br><br>
+        Persistent data stored on the user's device only includes data that is stored by the application for user convenience, such as the user's Steam Web API Key and Steam64 ID.<br><br>
+        This data can also be manually deleted by the user at any time if required. Files created by Steam Achievement Notifier are located in the following directory:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: Currently unsupported
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STANCE ON DATA COLLECTION</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier will <u>never</u> send or store user data outside of the user's local file system. This includes any information retrieved via the Steam Web API for use within the application, including the Steam API Key/Steam64 ID combination provided to the application for access to the Steam Web API. The developer of Steam Achievement Notifier (Jackson0ne) has intentionally not included any means to externally access, view, collect or send any information provided to the application by the user.<br><br>
+        Requests to access data from the Steam Web API are made from within the application itself using built-in methods, similar to functionality provided by web browsers. These requests contain the user's Steam API Key/Steam64 ID combination as required by the Steam Web API, but are not made available for use or interception by any other applications.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">USER RESPONSIBILITY</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        BY DOWNLOADING AND USING ANY OFFICIALLY RELEASED VERSION OF STEAM ACHIEVEMENT NOTIFIER VIA THE <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFFICIAL GITHUB REPOSITORY</span>, YOU, THE USER, BY EXTENSION, ADHERE TO SECTIONS 7 AND 8 OF THE <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API TERMS OF USE</span>.
+    </div>
+`

@@ -9,6 +9,7 @@
       <!-- <script defer src="./preload.js"></script> -->
       <script defer src="./san1.8.js"></script>
       <script defer src="./tooltip.js"></script>
+      <script src="./croner.min.js"></script>
    </head>
    <body>
       <div id="overlay" onclick="CloseSettings()"></div>
@@ -249,7 +250,7 @@
                         <option value="hungarian">Hungarian</option>
                         <option value="italian">Italian</option>
                         <option value="japanese">Japanese</option>
-                        <option value="korean">Korean</option>
+                        <option value="koreana">Korean</option>
                         <option value="norwegian">Norwegian</option>
                         <option value="polish">Polish</option>
                         <option value="portuguese">Portuguese</option>
@@ -298,6 +299,7 @@
                   <div class="optcont" id="fullscreen" onclick="ToggleFullscreen()">
                      <input id="fullscreenbox" type="checkbox">
                      <div class="optlbl" id="fullscreenlbl">Enable Fullscreen Notifications<span style="font-family: VT323; font-size: 14px; background: blueviolet; margin-left: 5px; padding: 0px 5px;">BETA</span></div>
+                     <span style="color: red; margin-left: 4px;">*</span>
                   </div>
                   <!-- <div class="optcont" id="fsresopt" onclick="ToggleCustomRes()">
                      <input id="fsresbox" type="checkbox">
@@ -308,6 +310,11 @@
                      <span style="font-family: 'Titillium Web'; font-size: 12px; margin: 0px 5px 0px">x</span>
                      <span class="fswhlbl">H</span><input class="fswh" id="fsheight" type="number" value="1080" onchange="CheckFSResHeight()">
                   </div> -->
+                  <div class="optcont" id="fsselect" style="cursor: pointer; margin-left: 25px; position: relative;" onclick="ToggleSelWin()">
+                     <input id="fsselectbox" type="checkbox">
+                     <div class="optlbl" id="fsselectlbl">Manually Select Game Window</div>
+                     <div class="optconnector"></div>
+                  </div>
                   <!-- Fullscreen Notifications -->
 
                   <div class="optcont" id="nosteam" onclick="ToggleNoSteam()">
@@ -358,9 +365,12 @@
                   </div>
 
                   <!-- External Notification Window -->
-                  <div class="optcont" id="extwin" onclick="ToggleExtWin()" style="cursor: pointer;">
-                     <input id="extwinbox" type="checkbox">
-                     <div class="optlbl" id="extwinlbl">Duplicate Notifications to Window <img src="./icon/open_in_new.svg" width="14px" style="vertical-align: -3px;"></div>
+                  <div class="optcont" id="extwin" style="cursor: pointer;">
+                     <div id="extwincont" onclick="ToggleExtWin()" style="display: flex; justify-content: flex-start; align-items: center;">
+                        <input id="extwinbox" type="checkbox">
+                        <div class="optlbl" id="extwinlbl"><span id="extwinlbltxt">Duplicate Notifications to Window</span> <img src="./icon/open_in_new.svg" width="14px" style="vertical-align: -3px;"></div>
+                     </div>
+                     <input id="extwincolour" type="color" width="20px" onchange="CheckExtWinBg()">
                   </div>
                   <!-- External Notification Window -->
                   
@@ -384,9 +394,15 @@
                      <div class="optlbl" id="hwalbl">Disable Hardware Acceleration</div>
                      <span style="color: red; margin-left: 4px;">*</span>
                   </div>
-                  <div class="optcont" id="nvda" style="cursor: pointer; margin-bottom: 0px" onclick="ToggleNVDA()">
+                  <div class="optcont" id="nvda" style="cursor: pointer;" onclick="ToggleNVDA()">
                      <input id="nvdabox" type="checkbox">
                      <div class="optlbl" id="nvdalbl">Enable NVDA Support</div>
+                  </div>
+                  <div class="optcont" id="ppcont">
+                     <div onclick="OpenPP()" style="display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                        <img src="./icon/privacy.svg" width="17px" style="margin-right: 9px;">
+                        <span id="pp">View Privacy Policy</span>
+                     </div>
                   </div>
                   <hr style="margin: auto; margin-top: 5px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
                   
@@ -398,17 +414,28 @@
 
                   <div class="optcont" id="resetcont">
                      <div id="resetcontinner"  onclick="ResetAppConfirm()" onmouseover="ResetHover()" onmouseleave="ResetOut()">
-                        <img id="reseticon" src="./icon/reset.svg" width="20px" style="margin-right: 2px;">
                         <span id="resetlbl">Reset App to Default</span>
                      </div>
                   </div>
-
                </div>
             </div>
             <div id="revcont">
                <div id="jsrev">App Revision:<span id="rev"></span></div>
+               <img id="console" src="./icon/devtools.svg" width="16px" style="bottom: -2px; right: 0;" onclick="OpenDevTools()">
+               <img id="appdata" src="./icon/appdata.svg" width="12px" style="bottom: 0; right: 20px;" onclick="OpenAppData()">
             </div>
          </div>
+
+         <!-- Privacy Policy Window -->
+         <div id="ppwin">
+            <div style="display: flex;  justify-content: center; align-items: center;">
+               <img src="./icon/privacy.svg" width="30px">
+               <span id="pptitle" style="margin-left: 7px">PRIVACY POLICY</span>
+            </div>
+            <div id="ppcontent"></div>
+         </div>
+         <!-- Privacy Policy Window -->
+
          <div id="customisemenu">
             <div style="width: 500px; height: 107.37px"></div>
             <!-- <img id="customiserimg" src="./img/sancustomisertextlogo.png" width="500px" style="-webkit-app-region: no-drag" onclick="OpenDevTools()"> -->

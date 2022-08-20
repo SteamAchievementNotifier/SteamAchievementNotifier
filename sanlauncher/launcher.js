@@ -6,6 +6,7 @@ const execFile = require('child_process').execFile
 const spawn = require('child_process').spawn
 const fs = require('fs')
 const path = require('path')
+const https = require('https')
 
 var localappdata
 var runproc
@@ -35,6 +36,7 @@ const ver = "1.84"
 const exename = `SteamAchievementNotifierV${ver}.exe`
 const appimgname = `SteamAchievementNotifierV${ver}.AppImage`
 const appdatadir = `Steam Achievement Notifier (V1.8)`
+
 var branch
 
 if (fs.existsSync(path.join(localappdata,appdatadir,"store","version.json"))) {
@@ -68,7 +70,8 @@ if (fs.existsSync(path.join(localappdata,appdatadir,"store","version.json"))) {
 
 const ghuser = "SteamAchievementNotifier"
 const ghrepo = "SteamAchievementNotifier"
-const extractdirname = `${ghrepo}-${branch}`
+
+const files = []
 
 function Run() {
     function CheckForPreviousVersions() {
@@ -308,7 +311,6 @@ function Run() {
                         console.log("%cAll required files copied!", "color: limegreen")
                         TestQuit()
                     }
-                    // console.log(files)
                 }
             })
         }
@@ -401,7 +403,7 @@ function Run() {
             console.log(`%cExecutable exists!`, "color: deeppink")
             
             if (process.platform == "win32") {
-                spawn('powershell.exe', ["-Command",`start '${exepath}'`])
+                execFile(exepath)
             } else if (process.platform == "linux") {
                 execFile(appimgpath)
             }
@@ -421,8 +423,6 @@ function Run() {
         document.getElementById("log").innerHTML = `Checking for updates...`
         document.getElementById("log").style.color = "white"
 
-        const https = require('https')
-
         const commits = `https://api.github.com/repos/${ghuser}/${ghrepo}/commits?sha=${branch}`
         fetch(commits, { cache: "no-store" }).then(response => {
             if (!response.ok) {
@@ -433,240 +433,335 @@ function Run() {
         }).then(commitdata => {
             var sha = commitdata[0].sha
 
-            function DownloadFiles() {
-                console.log("Current: ", current)
+            function GetTreeURL() {
+                return new Promise(resolve => {
+                    fetch(`https://api.github.com/repos/${ghuser}/${ghrepo}/commits/${sha}`, { cache: "no-store" }).then(response => {
+                        if (!response.ok) {
+                            return Promise.reject(response.status)
+                        } else {
+                            return response.json()
+                        }
+                    }).then(data => {
+                        resolve(`${data.commit.tree.url}?recursive=true`)
+                    }).catch(err => {
+                        console.log(`%cError checking for Repo Filetree (Status: ${err})`, "color: red")
+                        alert(`Error in GetTreeURL() (Status: ${err})`)
+                    })
+                })
+            }
 
-                fetch(`https://cdn.jsdelivr.net/gh/${ghuser}/${ghrepo}@${sha}/version.json`).then(res => res.json()).then(data => {
-                    var latest = data
-                    console.log("Latest: ", latest)
-
-                    var repoversion
-                    var localversion
-
-                    if (branch == "beta") {
-                        repoversion = latest.betaversion
-                        localversion = current.betaversion
+            GetTreeURL().then(treeurl => {
+                fetch(treeurl, { cache: "no-store" }).then(response => {
+                    if (!response.ok) {
+                        return Promise.reject(response.status)
                     } else {
-                        repoversion = latest.version
-                        localversion = current.version
+                        return response.json()
                     }
-
-                    function CheckVersion() {
-                        return new Promise(resolve => {
-                            if (repoversion > localversion) {
-                                if (branch == "beta") {
-                                    console.log("%cBeta Updates found - downloading...", "color: blueviolet")
-                                    document.getElementById("log").innerHTML = `Downloading Beta App Revision ${repoversion} updates...`
-                                    document.getElementById("log").style.color = "mediumpurple"
-                                } else {
-                                    console.log("%cUpdates found - downloading...", "color: blueviolet")
-                                    document.getElementById("log").innerHTML = `Downloading App Revision ${repoversion} updates...`
-                                    document.getElementById("log").style.color = "white"
-                                }
-
-                                https.get(`https://codeload.github.com/${ghuser}/${ghrepo}/zip/${branch}`, res => {
-                                    var zip
-                                    
-                                    if (process.platform == "win32") {
-                                        zip = fs.createWriteStream(path.join(__dirname,"latest.zip"))   
-                                    } else if (process.platform == "linux") {
-                                        zip = fs.createWriteStream(path.join(localappdata,appdatadir,"latest.zip"))
-                                    }
-                                    
-                                    res.pipe(zip)
-                                    zip.on('finish', () => {
-                                        zip.close()
-
-                                        if (branch == "beta") {
-                                            current["betaversion"] = latest.betaversion
-                                            fs.writeFileSync(path.join(localappdata,appdatadir,"store","version.json"), JSON.stringify(current, null, 4))
-                                        } else {
-                                            current["version"] = latest.version
-                                            fs.writeFileSync(path.join(localappdata,appdatadir,"store","version.json"), JSON.stringify(current, null, 4))
+                }).then(treefiles => {
+                    treefiles.tree.forEach(treefile => {
+                        if (treefile.type == "blob") {
+                            files.push(treefile.path)
+                        }
+                    })
+                    
+                    function DownloadFiles() {
+                        console.log("Current: ", current)
+        
+                        fetch(`https://cdn.jsdelivr.net/gh/${ghuser}/${ghrepo}@${sha}/version.json`).then(res => res.json()).then(data => {
+                            var latest = data
+                            console.log("Latest: ", latest)
+        
+                            var repoversion
+                            var localversion
+        
+                            if (branch == "beta") {
+                                repoversion = latest.betaversion
+                                localversion = current.betaversion
+                            } else {
+                                repoversion = latest.version
+                                localversion = current.version
+                            }
+        
+                            function CheckVersion() {
+                                return new Promise(resolve => {
+                                    // New DL Code
+                                    function StartDownload() {
+                                        const sandir = path.join(localappdata,appdatadir).replace(/\\/g,"/")
+        
+                                        try {
+                                            fs.rmdirSync(`${sandir}/store/app`, { recursive: true, force: true })
+                                            console.log(`%c"${sandir}/store/app" deleted successfully`, "color: limegreen")
+                                        } catch (err) {
+                                            console.log(`%cError deleting "app" dir: ${err}`, "color: red")
                                         }
-
-                                        var extract
                                         
-                                        if (process.platform == "win32") {
-                                            extract = spawn('powershell.exe',["-Command",`Expand-Archive -Path '${path.join(__dirname,"latest.zip")}' -DestinationPath '${path.join(__dirname)}' -Force; Remove-Item -Path '${path.join(localappdata,appdatadir,"store","app")}' -Recurse -Force; New-Item -Path '${path.join(localappdata,appdatadir,"store")}' -Name "app" -ItemType "directory"; Move-Item -Path '${path.join(__dirname,extractdirname)}\\*' -Destination '${path.join(localappdata,appdatadir,"store","app")}' -Force;`])
-                                        } else if (process.platform == "linux") {
-                                            fs.rmdirSync(path.join(localappdata,appdatadir,"store","app"), { recursive: true })
-                                            extract = exec(`unzip -o '${path.join(localappdata,appdatadir,"latest.zip")}' -d '${path.join(localappdata,appdatadir,"store")}'; mv ${localappdata}/'${appdatadir}'/store/${extractdirname} ${localappdata}/'${appdatadir}'/store/app`)
-                                        }
-
-                                        extract.on('exit', () => {
-                                            function CheckForMissingFiles() {
-                                                var required = [
-                                                    "fonts",
-                                                    "icon",
-                                                    "img",
-                                                    "lang",
-                                                    "notify",
-                                                    "sanlauncher",
-                                                    "sound",
-                                                    "store",
-                                                    ".gitignore",
-                                                    "appentry.js",
-                                                    "css.css",
-                                                    "errwin.html",
-                                                    "index.html",
-                                                    "main.js",
-                                                    "package.json",
-                                                    "package-lock.json",
-                                                    "README.md",
-                                                    "san1.8.js",
-                                                    "tooltip.js",
-                                                    "vdf.js",
-                                                    "version.json"
-                                                ]
-
-                                                if (branch == "beta") {
-                                                    required.push("beta.txt")
-
-                                                    // Beta Channel [0.4] Fullscreen Update
-                                                    // required.push("GOverlay.exe")
-                                                    // required.push("extwin.html")
-                                                }
-                                            
-                                                var requiredfiles = []
-                                                var actualfiles = []
-                                            
-                                                fs.readdir(path.join(localappdata,appdatadir,"store","app"), (err, files) => {
-                                                    if (err) {
-                                                        console.log(`%cError reading "app" dir: ` + err)
-                                                        document.getElementById("log").innerHTML = `Error reading "app" dir: ${err}`
-                                                        document.getElementById("log").style.color = "red"
+                                        var completed = []
+                                        
+                                        function CreateSANRootDir() {
+                                            return new Promise((resolve, reject) => {
+                                                try {
+                                                    if (!fs.existsSync(sandir)) {
+                                                        fs.mkdirSync(sandir)
+                                                        console.log(`%cRoot dir ${sandir} created`,"color:limegreen")
+                                                        resolve()
                                                     } else {
-                                                        files.forEach(file => {
-                                                            actualfiles.push(file)
-                                                        })
-                                                
-                                                        required.forEach(file => {
-                                                            requiredfiles.push(file)
-                                                        })
-                                                
-                                                        console.log("Expected: ", requiredfiles)
-                                                        console.log("Actual:", actualfiles)
-                                                
-                                                        if (actualfiles.length < requiredfiles.length) {
-                                                            console.log("%cMissing files!", "color: red")
-
-                                                            var reextract
-
-                                                            if (process.platform == "win32") {
-                                                                reextract = spawn('powershell.exe',["-Command",`Move-Item -Path '${path.join(__dirname,extractdirname)}\\*' -Destination '${path.join(localappdata,appdatadir,"store","app")}' -Force;`])
-                                                            } else if (process.platform == "linux") {
-                                                                reextract = exec(`shopt -s dotglob; mv -v ${localappdata}/'${appdatadir}'/${extractdirname}/* ${localappdata}/'${appdatadir}'/store/app/; sleep 1`)
-                                                            }
-
-                                                            reextract.on('exit', () => {
-                                                                CheckForMissingFiles()
-                                                            })
-                                                        } else {
-                                                            console.log(`%cAll required files exist in local "app" directory`,"color:limegreen")
-                                                            console.log(`%cApp updated to App Revision ${localversion}`, "color: limegreen")
-                                                            document.getElementById("log").innerHTML = `Updated to App Revision ${latest.version}`
-                                                            document.getElementById("log").style.color = "white"
-                                                            resolve()
-                                                        }
+                                                        console.log(`%cRoot dir ${sandir} already exists! Skipping...`,"color:blueviolet")
+                                                        resolve()
                                                     }
+                                                } catch (err) {
+                                                    reject(err)
+                                                }
+                                            })
+                                        }
+                                        
+                                        CreateSANRootDir().then(() => {
+                                            // Create Progress Bar
+                                            var pbcont = document.createElement("div")
+                                            pbcont.id = "pbcont"
+                                            document.body.appendChild(pbcont)
+                                            
+                                            var pbl = document.createElement("div")
+                                            pbl.id = "pbl"
+                                            document.getElementById("pbcont").appendChild(pbl)
+                                            
+                                            var pbr = document.createElement("div")
+                                            pbr.id = "pbr"
+                                            document.getElementById("pbcont").appendChild(pbr)
+                                            
+                                            // DL Timeout
+                                            var seconds = 0
+                                            var dlcomplete = false
+                                            
+                                            var timer = setInterval(() => {
+                                                seconds += 1
+                                                if (seconds > 15 && dlcomplete == false) {
+                                                    seconds = 0
+                                                    console.log(`%cDownload incomplete after 10 seconds. Rechecking...`,"color:yellow")
+                                                
+                                                    completed = []
+                                                
+                                                    DLAllFiles()
+                                                }
+                                            }, 1000)
+                                        
+                                            function DLAllFiles() {
+                                                files.forEach(filepath => {
+                                                    var folderpath = (`${sandir}/store/app/${filepath.replace(/[^\/]+$/g,"")}`)
+                                                    
+                                                    function CreateSANDirs() {
+                                                        return new Promise((resolve, reject) => {
+                                                            try {
+                                                                if (!fs.existsSync(folderpath)) {
+                                                                fs.mkdirSync(folderpath, { recursive: true })
+                                                                console.log(`%c${folderpath} dir created`,"color:limegreen")
+                                                                resolve()
+                                                                } else {
+                                                                console.log(`%c${folderpath} already exists! Skipping...`,"color:blueviolet")
+                                                                resolve()
+                                                                }
+                                                            } catch (err) {
+                                                                reject(err)
+                                                            }
+                                                        })
+                                                    }
+                                            
+                                                    CreateSANDirs().then(() => {
+                                                        var filename = filepath.replace(/.*\//g,"")
+                                                
+                                                        function CheckCompletedFiles() {
+                                                            completed.push(filename)
+                                                            console.log(`%cCompleted: ${completed.length}/${files.length}`,"color:teal")
+            
+                                                            document.getElementById("pbl").style.width = Math.round(completed.length / files.length * 100) + "%"
+                                                            document.getElementById("pbr").style.width = (100 - Math.round(completed.length / files.length * 100)) + "%"
+                                                
+                                                            if (completed.length == files.length) {
+                                                                dlcomplete = true
+                                                                clearInterval(timer)
+            
+                                                                document.getElementById("pbcont").style.animation = "progressbarrev 0.5s ease-in-out forwards"
+            
+                                                                if (branch == "beta") {
+                                                                    current["betaversion"] = latest.betaversion
+                                                                    fs.writeFileSync(path.join(localappdata,appdatadir,"store","version.json"), JSON.stringify(current, null, 4))
+                                                                } else {
+                                                                    current["version"] = latest.version
+                                                                    fs.writeFileSync(path.join(localappdata,appdatadir,"store","version.json"), JSON.stringify(current, null, 4))
+                                                                }
+            
+                                                                resolve()
+                                                            }
+                                                        }
+                                                    
+                                                        if (fs.existsSync(folderpath + filename)) {
+                                                            console.log(`%c${folderpath + filename} exists`,"color:rebeccapurple")
+                                                            CheckCompletedFiles()
+                                                        } else {
+                                                            console.log(`%c${folderpath + filename} does not exist! Downloading...`,"color:seagreen")
+        
+                                                            https.get(`https://cdn.jsdelivr.net/gh/${ghuser}/${ghrepo}@${sha}/${filepath}`, res => {
+                                                                var file = fs.createWriteStream(folderpath + filename)
+                                                                res.pipe(file)
+                                                                file.on("finish", () => {
+                                                                    file.close()
+                                                        
+                                                                    console.log(`%c${filename} downloaded successfully`,"color:limegreen")
+                                                        
+                                                                    CheckCompletedFiles()
+                                                                }).on("error", err => {
+                                                                    console.log(`%cError downloading ${filename}: ${err}`,"color:red")
+                                                                })
+                                                            })
+                                                        }
+                                                    }).catch(err => {
+                                                        console.log(`%c${err}`,"color:red")
+                                                    })
                                                 })
                                             }
                                             
-                                            CheckForMissingFiles()
-                                        }).on('error', (err) => {
-                                            console.log(`%cEXTRACT ERROR: ${err}`,"color:red")
+                                            DLAllFiles()
+                                        }).catch(err => {
+                                            console.log(`%c${err}`,"color:red")
                                         })
-                                    })
-                                })
-                            } else {
-                                console.log(`%cApp is up to date`,"color: green")
-                                document.getElementById("log").innerHTML = `Latest Version (${localversion}) is already installed`
-                                document.getElementById("log").style.color = "white"
-                                resolve()
-                            }
-                        })
-                    }
-
-                    async function CheckForUpdates() {
-                        await CheckVersion()
-
-                        if (branch == "beta") {
-                            if (!fs.existsSync(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))) {
-                                function DownloadGOverlay() {
-                                    return new Promise(resolve => {
-                                        console.log("%cDownloading GOverlay.exe...", "color: seagreen")
-                                        document.getElementById("log").innerHTML = `Downloading "GOverlay.exe"...`
-                
-                                        fetch("https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.84/GOverlay.exe").then(response => {
-                                            https.get(response.url, res => {
-                                                var goverlay = fs.createWriteStream(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))
-                                                
-                                                res.pipe(goverlay)
-                                                
-                                                goverlay.on('finish', () => {
-                                                    goverlay.close()
-                                                    console.log("%cGOverlay.exe downloaded successfully", "color: limegreen")
-                                                    document.getElementById("log").innerHTML = "Downloaded GOverlay.exe"
-                                                    resolve()
+                                    }
+        
+                                    if (repoversion > localversion) {
+                                        if (branch == "beta") {
+                                            console.log("%cBeta Updates found - downloading...", "color: blueviolet")
+                                            document.getElementById("log").innerHTML = `Downloading Beta App Revision ${repoversion} updates...`
+                                            document.getElementById("log").style.color = "mediumpurple"
+                                        } else {
+                                            console.log("%cUpdates found - downloading...", "color: blueviolet")
+                                            document.getElementById("log").innerHTML = `Downloading App Revision ${repoversion} updates...`
+                                            document.getElementById("log").style.color = "white"
+                                        }
+        
+                                        StartDownload()
+                                    } else {
+                                        // Check for missing files on every launch - re-download if files are missing
+                                        const appdir = path.join(localappdata,appdatadir,"store","app").replace(/\\/g,"/")
+                                        var existingfiles = []
+        
+                                        function GetExistingFiles(dirname) {
+                                            localfiles = fs.readdirSync(dirname)
+                                            
+                                            localfiles.forEach(localfile => {
+                                                if (fs.statSync(`${dirname}/${localfile}`).isDirectory()) {
+                                                    GetExistingFiles(`${dirname}/${localfile}`)
+                                                } else {
+                                                    existingfiles.push(`${dirname}/${localfile}`)
+                                                }
+                                            })
+                                        }
+        
+                                        function CompareFiles() {
+                                            if (existingfiles.length != files.length) {
+                                                files.forEach(file => {
+                                                    var filepath = (`${localappdata}/${appdatadir}/store/app/${file}`).replace(/\\/g,"/")
+        
+                                                    if (!existingfiles.includes(filepath)) {
+                                                        console.log(`%cMissing: ${filepath}`, "color: red")
+                                                    }
                                                 })
-                    
-                                                goverlay.on('error', err => {
-                                                    console.log(`GOVERLAY ERROR: ${err}`)
-                                                    document.getElementById("log").innerHTML = "Error downloading GOverlay.exe!"
-                                                    document.getElementById("log").style.color = "red"
-                                                    goverlay.close()
-                                                    resolve()
+                                                
+                                                document.getElementById("log").innerHTML = `Re-downloading missing app files...`
+                                                document.getElementById("log").style.color = "white"
+                                                StartDownload()
+                                            } else {
+                                                console.log(`%cApp is up to date`,"color: limegreen")
+                                                document.getElementById("log").innerHTML = `App Revision ${localversion} is installed and verified`
+                                                document.getElementById("log").style.color = "white"
+                                                resolve()
+                                            }
+                                        }
+        
+                                        GetExistingFiles(appdir)
+                                        CompareFiles()
+                                    }
+                                })
+                            }
+        
+                            async function CheckForUpdates() {
+                                await CheckVersion()
+        
+                                if (branch == "beta") {
+                                    if (!fs.existsSync(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))) {
+                                        function DownloadGOverlay() {
+                                            return new Promise(resolve => {
+                                                console.log("%cDownloading GOverlay.exe...", "color: seagreen")
+                                                document.getElementById("log").innerHTML = `Downloading "GOverlay.exe"...`
+                        
+                                                fetch(`https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/${ver}/GOverlay.exe`).then(response => {
+                                                    https.get(response.url, res => {
+                                                        var goverlay = fs.createWriteStream(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))
+                                                        
+                                                        res.pipe(goverlay)
+                                                        
+                                                        goverlay.on('finish', () => {
+                                                            goverlay.close()
+                                                            console.log("%cGOverlay.exe downloaded successfully", "color: limegreen")
+                                                            document.getElementById("log").innerHTML = "Downloaded GOverlay.exe"
+                                                            resolve()
+                                                        })
+                            
+                                                        goverlay.on('error', err => {
+                                                            console.log(`GOVERLAY ERROR: ${err}`)
+                                                            document.getElementById("log").innerHTML = "Error downloading GOverlay.exe!"
+                                                            document.getElementById("log").style.color = "red"
+                                                            goverlay.close()
+                                                            resolve()
+                                                        })
+                                                    })
                                                 })
                                             })
+                                        }
+        
+                                        DownloadGOverlay().then(() => {
+                                            console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
+                                            document.getElementById("log").innerHTML = `Starting...`
+                                            document.getElementById("log").style.color = "white"
+                                            StartApp()
                                         })
-                                    })
-                                }
-
-                                DownloadGOverlay().then(() => {
+                                    } else {
+                                        console.log("%cGOverlay.exe exists!", "color: seagreen")
+                                        console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
+                                        document.getElementById("log").innerHTML = `Starting...`
+                                        document.getElementById("log").style.color = "white"
+                                        StartApp()
+                                    }
+                                } else {
                                     console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
                                     document.getElementById("log").innerHTML = `Starting...`
                                     document.getElementById("log").style.color = "white"
                                     StartApp()
-                                })
-                            } else {
-                                console.log("%cGOverlay.exe exists!", "color: seagreen")
-                                console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
-                                document.getElementById("log").innerHTML = `Starting...`
-                                document.getElementById("log").style.color = "white"
-                                StartApp()
+                                }
                             }
-                        } else {
-                            console.log("%cUpdate checks complete - app should now start...", "color: deepskyblue")
-                            document.getElementById("log").innerHTML = `Starting...`
-                            document.getElementById("log").style.color = "white"
-                            StartApp()
-                        }
+        
+                            CheckForUpdates()
+                        })
                     }
-
-                    CheckForUpdates()
+        
+                    fetch(`https://cdn.jsdelivr.net/gh/${ghuser}/${ghrepo}@${sha}/`).then(response => {
+                        if (response.ok) {
+                            return response
+                        } else {
+                            return Promise.reject(err)
+                        }
+                    }).then(() => {
+                        console.log(`%cConnected to Repo`, "color: limegreen")
+                        document.getElementById("log").innerHTML = `Connected to GitHub Repository...`
+                        document.getElementById("log").style.color = "white"
+        
+                        DownloadFiles()
+                    }).catch(err => {
+                        console.log(`%cFailed to locate updates in Repo - loading local fallbacks...`, "color: red")
+                        document.getElementById("log").innerHTML = `Unable to locate update files...`
+                        document.getElementById("log").style.color = "orange"
+        
+                        console.log("%cApp should now start...", "color: deeppink")
+                        StartApp()
+                    })
                 })
-            }
-
-            fetch(`https://cdn.jsdelivr.net/gh/${ghuser}/${ghrepo}@${sha}/`).then(response => {
-                if (response.ok) {
-                    return response
-                } else {
-                    return Promise.reject(err)
-                }
-            }).then(() => {
-                console.log(`%cConnected to Repo`, "color: limegreen")
-                document.getElementById("log").innerHTML = `Connected to GitHub Repository...`
-                document.getElementById("log").style.color = "white"
-
-                DownloadFiles()
-            }).catch(err => {
-                console.log(`%cFailed to locate updates in Repo - loading local fallbacks...`, "color: red")
-                document.getElementById("log").innerHTML = `Unable to locate update files...`
-                document.getElementById("log").style.color = "orange"
-
-                console.log("%cApp should now start...", "color: deeppink")
-                StartApp()
             })
         }).catch(err => {
             console.log(`%cNo response received from Repo: ${ghuser}/${ghrepo} - loading local fallbacks...`, "color: red")

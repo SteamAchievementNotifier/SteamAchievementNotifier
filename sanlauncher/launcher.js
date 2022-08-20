@@ -655,7 +655,7 @@ function Run() {
                                         }
         
                                         function CompareFiles() {
-                                            if (existingfiles.length != files.length) {
+                                            if (existingfiles.length < files.length) {
                                                 files.forEach(file => {
                                                     var filepath = (`${localappdata}/${appdatadir}/store/app/${file}`).replace(/\\/g,"/")
         

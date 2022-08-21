@@ -279,308 +279,161 @@ const startapp = () => {
             } else {
                 if (queueobj.pos == "bottomcenter") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
+                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                             offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xbox") {
+                        offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
                             offsety = display.height - ((65 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "playstation") {
+                        offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
                             offsety = display.height - (224 * queueobj.scale * 0.01)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
                             offsety = display.height - (55 * queueobj.scale * 0.01)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "ps5") {
+                        offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
                             offsety = display.height - (239 * queueobj.scale * 0.01)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
                             offsety = display.height - (70 * queueobj.scale * 0.01)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "windows") {
+                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                             offsety = display.height - ((279 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                             offsety = display.height - ((110 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xqjan") {
+                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                             offsety = display.height - ((70 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     }
                 } else if (queueobj.pos == "topcenter") {
-                    if (queueobj.style == "default" || queueobj.style == "xbox360") {
+                    offsety = 20
+                    if (queueobj.style == "default" || queueobj.style == "xbox360" || queueobj.style == "windows" || queueobj.style == "xqjan") {
                         offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "xbox") {
                         offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "playstation") {
                         offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
                         offsety = 0
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "ps5") {
                         offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "windows") {
-                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "xqjan") {
-                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
                     }
                 } else if (queueobj.pos == "topleft") {
-                    if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        offsetx = 20
-                        offsety = 20
-                    } else if (queueobj.style == "xbox") {
-                        offsetx = 20
-                        offsety = 20
-                    } else if (queueobj.style == "playstation") {
-                        offsetx = 0
-                        offsety = 100
-                    } else if (queueobj.style == "ps5") {
-                        offsetx = 0
-                        offsety = 20
-                    } else if (queueobj.style == "windows") {
-                        offsetx = 20
-                        offsety = 20
-                    } else if (queueobj.style == "xqjan") {
-                        offsetx = 20
-                        offsety = 20
-                    }
+                    offsetx = 20
+                    offsety = 20
                 } else if (queueobj.pos == "topright") {
-                    if (queueobj.style == "default" || queueobj.style == "xbox360") {
+                    offsety = 20
+                    if (queueobj.style == "default" || queueobj.style == "xbox360" || queueobj.style == "windows" || queueobj.style == "xqjan") {
                         offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "xbox") {   
                         offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "playstation") {
                         offsetx = display.width - (310 * queueobj.scale * 0.01)
                         offsety = 100
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
                     } else if (queueobj.style == "ps5") {
                         offsetx = display.width - (340 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "windows") {
-                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "xqjan") {
-                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
                     }
                 } else if (queueobj.pos == "bottomleft") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
+                        offsetx = 20
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 20
                             offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xbox") {
+                        offsetx = 20
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 20
                             offsety = display.height - ((65 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "playstation") {
+                        offsetx = 0
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 0
                             offsety = display.height - ((224 * queueobj.scale * 0.01) + 100)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 0
                             offsety = display.height - ((55 * queueobj.scale * 0.01) + 100)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "ps5") {
+                        offsetx = 0
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 0
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 0
                             offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "windows") {
+                        offsetx = 20
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20
                             offsety = display.height - ((279 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 20
                             offsety = display.height - ((110 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xqjan") {
+                        offsetx = 20
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = 20
                             offsety = display.height - ((70 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     }
                 } else if (queueobj.pos == "bottomright") {
                     if (queueobj.style == "default" || queueobj.style == "xbox360") {
+                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                             offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "xbox") {
+                        offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
                             offsety = display.height - ((65 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "playstation") {
+                        offsetx = display.width - (310 * queueobj.scale * 0.01)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - (310 * queueobj.scale * 0.01)
                             offsety = display.height - ((224 * queueobj.scale * 0.01) + 100)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - (310 * queueobj.scale * 0.01)
                             offsety = display.height - ((55 * queueobj.scale * 0.01) + 100)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "ps5") {
+                        offsetx = display.width - (340 * queueobj.scale * 0.01)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - (340 * queueobj.scale * 0.01)
                             offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - (340 * queueobj.scale * 0.01)
                             offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } else if (queueobj.style == "windows") {
+                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                             offsety = display.height - ((279 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                             offsety = display.height - ((110 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     } if (queueobj.style == "xqjan") {
+                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                         if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                             offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         } else {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                             offsety = display.height - ((70 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
                         }
                     }
                 } else {
@@ -588,6 +441,8 @@ const startapp = () => {
                     offsetx = 0
                     offsety = 0
                 }
+                offsetx = Math.round(offsetx)
+                offsety = Math.round(offsety)
             }
 
             const notifywin = new BrowserWindow({

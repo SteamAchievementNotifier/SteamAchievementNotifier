@@ -178,6 +178,8 @@ const startapp = () => {
         app.whenReady().then(() =>{
             const { screen } = require('electron')
             display = screen.getPrimaryDisplay().bounds
+            display.width = display.width + display.x
+            display.height = display.height + display.y
             screenobj = screen
 
             screen.on('display-metrics-changed', (event, disp) => {

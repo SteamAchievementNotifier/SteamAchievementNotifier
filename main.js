@@ -178,9 +178,11 @@ const startapp = () => {
         app.whenReady().then(() =>{
             const { screen } = require('electron')
             display = screen.getPrimaryDisplay().bounds
+            console.log(display)
             display.width = display.width + display.x
             display.height = display.height + display.y
-            
+            console.log(display)
+
             screenobj = screen
 
             screen.on('display-metrics-changed', (event, disp) => {
@@ -325,7 +327,7 @@ const startapp = () => {
                         }
                     }
                 } else if (queueobj.pos == "topcenter") {
-                    offsety = 20
+                    offsety = 20 + display.y
                     if (queueobj.style == "default" || queueobj.style == "xbox360" || queueobj.style == "windows" || queueobj.style == "xqjan") {
                         offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
                     } else if (queueobj.style == "xbox") {
@@ -338,9 +340,9 @@ const startapp = () => {
                     }
                 } else if (queueobj.pos == "topleft") {
                     offsetx = 20
-                    offsety = 20
+                    offsety = 20 + display.y
                 } else if (queueobj.pos == "topright") {
-                    offsety = 20
+                    offsety = 20 + display.y
                     if (queueobj.style == "default" || queueobj.style == "xbox360" || queueobj.style == "windows" || queueobj.style == "xqjan") {
                         offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
                     } else if (queueobj.style == "xbox") {   

@@ -403,7 +403,8 @@ function Run() {
             console.log(`%cExecutable exists!`, "color: deeppink")
             
             if (process.platform == "win32") {
-                execFile(exepath)
+                // execFile(exepath)
+                spawn('powershell.exe', ["-Command",`start '${exepath}'`])
             } else if (process.platform == "linux") {
                 execFile(appimgpath)
             }

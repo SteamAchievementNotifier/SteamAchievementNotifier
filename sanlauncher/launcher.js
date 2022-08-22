@@ -535,7 +535,7 @@ function Run() {
                                             
                                             var timer = setInterval(() => {
                                                 seconds += 1
-                                                if (seconds > 15 && dlcomplete == false) {
+                                                if (seconds > 60 && dlcomplete == false) {
                                                     seconds = 0
                                                     console.log(`%cDownload incomplete after 10 seconds. Rechecking...`,"color:yellow")
                                                 

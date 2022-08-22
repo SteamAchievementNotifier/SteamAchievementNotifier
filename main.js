@@ -1,5 +1,5 @@
 const startapp = () => {
-    const { app, BrowserWindow, Menu, Tray, nativeImage, nativeTheme, ipcMain, dialog, desktopCapturer, powerSaveBlocker, powerMonitor, globalShortcut, systemPreferences } = require('electron')
+    const { app, BrowserWindow, Menu, Tray, nativeImage, nativeTheme, ipcMain, dialog, desktopCapturer, powerSaveBlocker, powerMonitor, globalShortcut } = require('electron')
     const path = require('path')
     const fs = require('fs')
     const shell = require('electron').shell

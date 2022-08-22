@@ -1,5 +1,5 @@
 const startapp = () => {
-    const { app, BrowserWindow, Menu, Tray, nativeImage, nativeTheme, ipcMain, dialog, desktopCapturer, powerSaveBlocker, powerMonitor, globalShortcut } = require('electron')
+    const { app, BrowserWindow, Menu, Tray, nativeImage, nativeTheme, ipcMain, dialog, desktopCapturer, powerSaveBlocker, powerMonitor, globalShortcut, systemPreferences } = require('electron')
     const path = require('path')
     const fs = require('fs')
     const shell = require('electron').shell
@@ -441,6 +441,9 @@ const startapp = () => {
                     offsetx = 0
                     offsety = 0
                 }
+
+                console.log("display stuff: "  + display)
+
                 offsetx = Math.round(offsetx)
                 offsety = Math.round(offsety)
             }
@@ -1390,7 +1393,7 @@ const startapp = () => {
         ipcMain.on('spawnextwin', () => {
             extwin = new BrowserWindow({
                 width: 300,
-                height: 50,
+                height: 50, 
                 title: `Notification Window`,
                 icon: appicon,
                 fullscreenable: false,

@@ -441,9 +441,6 @@ const startapp = () => {
                     offsetx = 0
                     offsety = 0
                 }
-
-                console.log("display stuff: "  + display)
-
                 offsetx = Math.round(offsetx)
                 offsety = Math.round(offsety)
             }

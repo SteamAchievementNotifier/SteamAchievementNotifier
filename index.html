@@ -365,12 +365,17 @@
                   </div>
 
                   <!-- External Notification Window -->
-                  <div class="optcont" id="extwin" style="cursor: pointer;">
+                  <div class="optcont" id="extwin" style="cursor: pointer; margin-bottom: 0px;">
                      <div id="extwincont" onclick="ToggleExtWin()" style="display: flex; justify-content: flex-start; align-items: center;">
                         <input id="extwinbox" type="checkbox">
                         <div class="optlbl" id="extwinlbl"><span id="extwinlbltxt">Duplicate Notifications to Window</span> <img src="./icon/open_in_new.svg" width="14px" style="vertical-align: -3px;"></div>
                      </div>
                      <input id="extwincolour" type="color" width="20px" onchange="CheckExtWinBg()">
+                  </div>
+                  <div class="optcont" id="extwintransparent" style="cursor: pointer; margin-left: 25px; position: relative;" onclick="ExtWinToggleTransparent()">
+                     <input id="extwintransparentcheckbox" type="checkbox">
+                     <div class="optlbl" id="extwintransparentlbl">Transparent Window</div>
+                     <div class="optconnector"></div>
                   </div>
                   <!-- External Notification Window -->
                   

@@ -1545,6 +1545,8 @@ const startapp = () => {
                 center: true,
                 useContentSize: true,
                 resizable: false,
+                transparent: true,
+                frame: false,
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
@@ -1571,6 +1573,12 @@ const startapp = () => {
         ipcMain.on('extwinbgchange', () => {
             if (extwin) {
                 extwin.webContents.send('changecolour')
+            }
+        })
+
+        ipcMain.on('extwintoggletransparent', () => {
+            if (extwin) {
+                extwin.webContents.send('toggletransparent')
             }
         })
 

@@ -15,7 +15,6 @@
             padding: 0;
             margin: 0;
             overflow: hidden;
-            background: black;
             -webkit-app-region: drag;
             user-select: none;
         }
@@ -38,11 +37,13 @@
             localappdata = path.join(process.env.HOME,"Library","Application Support")
         }
 
-        const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
+        const configpath = path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")
+        const config = JSON.parse(fs.readFileSync(configpath))
         
         var webview
 
-        document.body.style.background = config.extwinbg
+        var transparent = config.extwintransparent ? "00" : "FF"
+        document.body.style.background = config.extwinbg + transparent
 
         ipcRenderer.on('notifyext', (event, src, achievement, title, desc, icon, screenshot, percent, audio, gameicon, gameartimg) => {            
             webview = document.createElement("webview")
@@ -66,8 +67,15 @@
         })
 
         ipcRenderer.on('changecolour', () => {
-            const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
-            document.body.style.background = config.extwinbg
+            const config = JSON.parse(fs.readFileSync(configpath))
+            var transparent = config.extwintransparent ? "00" : "FF"
+            document.body.style.background = config.extwinbg + transparent
+        })
+
+        ipcRenderer.on('toggletransparent', () => {
+            const config = JSON.parse(fs.readFileSync(configpath))
+            var transparent = config.extwintransparent ? "00" : "FF"
+            document.body.style.background = config.extwinbg + transparent
         })
     </script>
 </body>

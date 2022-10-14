@@ -4861,11 +4861,18 @@ function CheckExtWin() {
         config["extwin"] = false
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
     }
+    if (config.extwintransparent == undefined) {
+        config["extwintransparent"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
 
     if (config.extwin == true) {
         document.getElementById("extwinbox").checked = true
+        document.getElementById("extwintransparent").style.display = "flex"
+        document.getElementById("extwintransparentcheckbox").checked = config.extwintransparent
     } else {
         document.getElementById("extwinbox").checked = false
+        document.getElementById("extwintransparent").style.display = "none"
     }
 }
 
@@ -4881,6 +4888,14 @@ function ToggleExtWin() {
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
         ipcRenderer.send('despawnextwin')
     }
+
+    CheckExtWin()
+}
+
+function ExtWinToggleTransparent() {
+    config["extwintransparent"] = !config.extwintransparent
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    ipcRenderer.send('extwintoggletransparent')
 
     CheckExtWin()
 }

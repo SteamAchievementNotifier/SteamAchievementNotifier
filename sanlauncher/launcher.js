@@ -68,6 +68,14 @@ if (fs.existsSync(path.join(localappdata,appdatadir,"store","version.json"))) {
     branch = "main"
 }
 
+function IntToFloat(num) {
+    if (Number.isInteger(num)) {
+        return num += ".0"
+    } else {
+        return num
+    }
+}
+
 const ghuser = "SteamAchievementNotifier"
 const ghrepo = "SteamAchievementNotifier"
 
@@ -403,8 +411,7 @@ function Run() {
             console.log(`%cExecutable exists!`, "color: deeppink")
             
             if (process.platform == "win32") {
-                // execFile(exepath)
-                spawn('powershell.exe', ["-Command",`start '${exepath}'`])
+                execFile(exepath)
             } else if (process.platform == "linux") {
                 execFile(appimgpath)
             }
@@ -535,7 +542,7 @@ function Run() {
                                             
                                             var timer = setInterval(() => {
                                                 seconds += 1
-                                                if (seconds > 60 && dlcomplete == false) {
+                                                if (seconds > 15 && dlcomplete == false) {
                                                     seconds = 0
                                                     console.log(`%cDownload incomplete after 10 seconds. Rechecking...`,"color:yellow")
                                                 
@@ -583,10 +590,10 @@ function Run() {
                                                                 document.getElementById("pbcont").style.animation = "progressbarrev 0.5s ease-in-out forwards"
             
                                                                 if (branch == "beta") {
-                                                                    current["betaversion"] = latest.betaversion
+                                                                    current["betaversion"] = IntToFloat(latest.betaversion)
                                                                     fs.writeFileSync(path.join(localappdata,appdatadir,"store","version.json"), JSON.stringify(current, null, 4))
                                                                 } else {
-                                                                    current["version"] = latest.version
+                                                                    current["version"] = IntToFloat(latest.version)
                                                                     fs.writeFileSync(path.join(localappdata,appdatadir,"store","version.json"), JSON.stringify(current, null, 4))
                                                                 }
             
@@ -627,17 +634,29 @@ function Run() {
                                     }
         
                                     if (repoversion > localversion) {
+                                        var confirmmsg
+
                                         if (branch == "beta") {
-                                            console.log("%cBeta Updates found - downloading...", "color: blueviolet")
-                                            document.getElementById("log").innerHTML = `Downloading Beta App Revision ${repoversion} updates...`
-                                            document.getElementById("log").style.color = "mediumpurple"
+                                            confirmmsg = `New App Revision (BETA ${IntToFloat(repoversion)}) available! Do you want to download it?`
                                         } else {
-                                            console.log("%cUpdates found - downloading...", "color: blueviolet")
-                                            document.getElementById("log").innerHTML = `Downloading App Revision ${repoversion} updates...`
-                                            document.getElementById("log").style.color = "white"
+                                            confirmmsg = `New App Revision (${IntToFloat(repoversion)}) available! Do you want to download it?`
                                         }
-        
-                                        StartDownload()
+
+                                        if (window.confirm(confirmmsg)) {
+                                            if (branch == "beta") {
+                                                console.log("%cBeta Updates found - downloading...", "color: blueviolet")
+                                                document.getElementById("log").innerHTML = `Downloading Beta App Revision ${IntToFloat(repoversion)} updates...`
+                                                document.getElementById("log").style.color = "mediumpurple"
+                                            } else {
+                                                console.log("%cUpdates found - downloading...", "color: blueviolet")
+                                                document.getElementById("log").innerHTML = `Downloading App Revision ${IntToFloat(repoversion)} updates...`
+                                                document.getElementById("log").style.color = "white"
+                                            }
+            
+                                            StartDownload()
+                                        } else {
+                                            StartApp()
+                                        }
                                     } else {
                                         // Check for missing files on every launch - re-download if files are missing
                                         const appdir = path.join(localappdata,appdatadir,"store","app").replace(/\\/g,"/")

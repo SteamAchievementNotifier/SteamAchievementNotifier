@@ -152,17 +152,18 @@ var betaleave = "Forlad Betakanalen"
 var betaerrortext = "Kan ikke opdatere til Betakanal!"
 var betaerrorsub = "Det ser ud til, at du ikke har en netværksforbindelse. Intet internet = Ingen Beta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Aktiver Fuldskærmsmeddelelser"
 document.getElementById("extwinlbltxt").innerHTML = "Dublerede Meddelelser til Vinduet"
-document.getElementById("fswarntitle").innerHTML = "FØR DU STARTER..."
-document.getElementById("fswarncontentmain").innerHTML = `For at overlejre meddelelser oven på spil, der er indstillet til "Fuldskærm" eller "Eksklusiv Fuldskærm" i spillets visningstilstande, skal meddelelsen injiceres direkte i spilprocessen for at blive vist over et DirectX-spilvindue.<br><br>Dette betyder, at da spillets kode teknisk set bliver ændret af et tredjepartsprogram, kan spil, der bruger Anti-Cheat-teknologi, se denne metode ugunstigt.<br><br>Selvom ingen spil har vist nogen problemer under testning, anbefales det generelt <u>ikke</u> at bruge muligheden "Aktiver Fuldskærmsmeddelelser", når der er risiko for, at der bliver opdaget injektion af spil, der bruger Anti-Cheat-teknologi (f.eks. i online konkurrencespil).`
-document.getElementById("fswarnimportant").innerHTML = `Ved at aktivere og bruge valgmuligheden "Aktiver Fuldskærmsmeddelelser", accepterer du hermed, at du har informeret passende om og forstår de risici, der er forbundet med, at injicere tredjepartsindhold i Steam-spil (såsom den metode, Steam Achievement Notifier bruger til at vise indhold over spil, der er indstillet til at bruge fuldskærmsvisningstilstande i spillet), og at du ved at aktivere denne mulighed accepterer, at du gør det på egen risiko, og derfor påtager udvikleren af ​​Steam Achievement Notifier (Jackson0ne) intet ansvar eller erstatningsansvar vedrørende brug af denne mulighed.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Ved at klikke på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ENIG</span> nedenfor, accepterer du ovenstående vilkår, og Muligheden "Aktiver Fuldskærmsmeddelelser" vil være aktiveret.</div><div style="padding: 0px 10px 10px;">Ved at klikke på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">UENIG</span> nedenfor, lukkes denne meddelelse, og Indstillingen "Aktiver Fuldskærmsmeddelelser" vil <u>ikke</u> være aktiveret.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Jeg er enig, vis ikke denne besked igen"
-document.getElementById("fsok").innerHTML = "ENIG"
-document.getElementById("fscancel").innerHTML = "UENIG"
-document.getElementById("fsselectlbl").innerHTML = "Vælg Spilvindue Manuelt"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Aktiver Fuldskærmsmeddelelser"
+// document.getElementById("fswarntitle").innerHTML = "FØR DU STARTER..."
+// document.getElementById("fswarncontentmain").innerHTML = `For at overlejre meddelelser oven på spil, der er indstillet til "Fuldskærm" eller "Eksklusiv Fuldskærm" i spillets visningstilstande, skal meddelelsen injiceres direkte i spilprocessen for at blive vist over et DirectX-spilvindue.<br><br>Dette betyder, at da spillets kode teknisk set bliver ændret af et tredjepartsprogram, kan spil, der bruger Anti-Cheat-teknologi, se denne metode ugunstigt.<br><br>Selvom ingen spil har vist nogen problemer under testning, anbefales det generelt <u>ikke</u> at bruge muligheden "Aktiver Fuldskærmsmeddelelser", når der er risiko for, at der bliver opdaget injektion af spil, der bruger Anti-Cheat-teknologi (f.eks. i online konkurrencespil).`
+// document.getElementById("fswarnimportant").innerHTML = `Ved at aktivere og bruge valgmuligheden "Aktiver Fuldskærmsmeddelelser", accepterer du hermed, at du har informeret passende om og forstår de risici, der er forbundet med, at injicere tredjepartsindhold i Steam-spil (såsom den metode, Steam Achievement Notifier bruger til at vise indhold over spil, der er indstillet til at bruge fuldskærmsvisningstilstande i spillet), og at du ved at aktivere denne mulighed accepterer, at du gør det på egen risiko, og derfor påtager udvikleren af ​​Steam Achievement Notifier (Jackson0ne) intet ansvar eller erstatningsansvar vedrørende brug af denne mulighed.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Ved at klikke på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ENIG</span> nedenfor, accepterer du ovenstående vilkår, og Muligheden "Aktiver Fuldskærmsmeddelelser" vil være aktiveret.</div><div style="padding: 0px 10px 10px;">Ved at klikke på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">UENIG</span> nedenfor, lukkes denne meddelelse, og Indstillingen "Aktiver Fuldskærmsmeddelelser" vil <u>ikke</u> være aktiveret.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Jeg er enig, vis ikke denne besked igen"
+// document.getElementById("fsok").innerHTML = "ENIG"
+// document.getElementById("fscancel").innerHTML = "UENIG"
+// document.getElementById("fsselectlbl").innerHTML = "Vælg Spilvindue Manuelt"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Se Privatlivspolitik"
@@ -214,3 +215,18 @@ document.getElementById("ppcontent").innerHTML = `
         VED AT DOWNLOADE OG BRUGE EN OFFICIEL UDGIVET VERSION AF STEAM ACHIEVEMENT NOTIFIER VIA DEN <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFFICIELLE GITHUB REPOSITOR</span>, DU, BRUGEREN, VED UDVIDELSE, OVERHOLDER AFSNIT 7 OG 8 I <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API VILKÅR TIL BRUG</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Åbn Statistikvinduet"
+
+statsresettitle = "Nulstille Alle Gemte Præstationsdata?"
+statsresetbody = "Alle tidligere gemte præstationsdata vil blive fjernet fra denne enhed. Dine seneste præstationsdata vil blive hentet, næste gang vinduet Præstationsstatistik åbnes.\n\nVær opmærksom på, at hentning af præstationsdata bruger Steam Web API-kald for hvert ejet spil i brugerens Steam-bibliotek. Valve begrænser mængden af ​​Steam Web API-kald til 100.000 pr. dag for hver brugers API-nøgle.\n\nSom et resultat, afhængigt af mængden af ​​spil i dit Steam-bibliotek, kan dette påvirke den generelle funktionalitet af applikationen, hvis funktionen til at nulstille dine præstationsdata er meget overudnyttet."
+statsresetbtns = ["Nulstil alle Præstationsstatistikker", "Afbestille"]
+
+statwincurrent = "AKTUELLE SPIL"
+statwinall = "ALLE SPIL"
+statwincomplete = "FULDFØRT (100 %)"
+statwintop5 = "BEDSTE 5 SPIL"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Vis Notifikationskonsol"

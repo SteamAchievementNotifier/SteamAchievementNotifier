@@ -153,17 +153,18 @@ betaleave = "Quitter Chaîne Bêta?"
 betaerrortext = "Impossible de mettre à jour vers la Chaîne Bêta !"
 betaerrorsub = "Il semble que vous n'ayez pas de connexion réseau. Pas d'Internet = Pas de Bêta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Notifications en Plein Écran"
 document.getElementById("extwinlbltxt").innerHTML = "Dupliquer Dans la Fenêtre"
-document.getElementById("fswarntitle").innerHTML = "AVANT DE COMMENCER..."
-document.getElementById("fswarncontentmain").innerHTML = `Afin de superposer les notifications sur les jeux définis sur les modes d'affichage "Plein Écran" ou "Plein Écran Exclusif", la notification doit être injectée directement dans le processus de jeu pour être affichée sur une fenêtre de jeu DirectX.<br><br>Cela signifie que, comme le code du jeu est techniquement modifié par un programme tiers, les jeux utilisant la technologie Anti-Cheat peuvent voir cette méthode de manière défavorable.<br><br>Bien qu'aucun jeu n'ait affiché de problème lors des tests, il est généralement <u>déconseillé</u> d'utiliser l'option "Notifications en Plein Écran" lorsqu'il existe un risque d'injection détectée par des jeux utilisant la technologie Anti-Cheat (comme comme dans les jeux compétitifs en ligne).`
-document.getElementById("fswarnimportant").innerHTML = `En activant et en utilisant l'option "Notifications en Plein Écran", vous reconnaissez être dûment informé et comprendre les risques associés à l'injection de contenu tiers dans les jeux Steam (comme la méthode utilisée par Steam Achievement Notifier pour afficher contenu sur les jeux configurés pour utiliser les modes d'affichage plein écran dans le jeu), et qu'en activant cette option, vous acceptez que vous le faites à vos propres risques, et par conséquent, le développeur de Steam Achievement Notifier (Jackson0ne) n'accepte aucune responsabilité concernant l'utilisation de cette option.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">En cliquant sur le bouton <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACCEPTER</span> ci-dessous, vous acceptez les conditions ci-dessus, et l'option "Notifications en Plein Écran" sera activée.</div><div style="padding: 0px 10px 10px;">En cliquant sur le bouton <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">REJETER</span> ci-dessous, ce message sera fermé et l'option "Notifications en Plein Écran" ne sera <u>pas</u> activée.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Je suis d'accord, ne plus afficher ce message"
-document.getElementById("fsok").innerHTML = "ACCEPTER"
-document.getElementById("fscancel").innerHTML = "REJETER"
-document.getElementById("fsselectlbl").innerHTML = "Sélectionnez la Fenêtre de Jeu"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Notifications en Plein Écran"
+// document.getElementById("fswarntitle").innerHTML = "AVANT DE COMMENCER..."
+// document.getElementById("fswarncontentmain").innerHTML = `Afin de superposer les notifications sur les jeux définis sur les modes d'affichage "Plein Écran" ou "Plein Écran Exclusif", la notification doit être injectée directement dans le processus de jeu pour être affichée sur une fenêtre de jeu DirectX.<br><br>Cela signifie que, comme le code du jeu est techniquement modifié par un programme tiers, les jeux utilisant la technologie Anti-Cheat peuvent voir cette méthode de manière défavorable.<br><br>Bien qu'aucun jeu n'ait affiché de problème lors des tests, il est généralement <u>déconseillé</u> d'utiliser l'option "Notifications en Plein Écran" lorsqu'il existe un risque d'injection détectée par des jeux utilisant la technologie Anti-Cheat (comme comme dans les jeux compétitifs en ligne).`
+// document.getElementById("fswarnimportant").innerHTML = `En activant et en utilisant l'option "Notifications en Plein Écran", vous reconnaissez être dûment informé et comprendre les risques associés à l'injection de contenu tiers dans les jeux Steam (comme la méthode utilisée par Steam Achievement Notifier pour afficher contenu sur les jeux configurés pour utiliser les modes d'affichage plein écran dans le jeu), et qu'en activant cette option, vous acceptez que vous le faites à vos propres risques, et par conséquent, le développeur de Steam Achievement Notifier (Jackson0ne) n'accepte aucune responsabilité concernant l'utilisation de cette option.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">En cliquant sur le bouton <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACCEPTER</span> ci-dessous, vous acceptez les conditions ci-dessus, et l'option "Notifications en Plein Écran" sera activée.</div><div style="padding: 0px 10px 10px;">En cliquant sur le bouton <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">REJETER</span> ci-dessous, ce message sera fermé et l'option "Notifications en Plein Écran" ne sera <u>pas</u> activée.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Je suis d'accord, ne plus afficher ce message"
+// document.getElementById("fsok").innerHTML = "ACCEPTER"
+// document.getElementById("fscancel").innerHTML = "REJETER"
+// document.getElementById("fsselectlbl").innerHTML = "Sélectionnez la Fenêtre de Jeu"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Afficher la Politique de Confidentialité"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         EN TÉLÉCHARGEANT ET EN UTILISANT TOUTE VERSION OFFICIELLE DE STEAM ACHIEVEMENT NOTIFIER VIA LE <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">DÉPÔT OFFICIEL GITHUB</span>, VOUS, L'UTILISATEUR, PAR EXTENSION, ADHÉREZ AUX SECTIONS 7 ET 8 DES <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">TERMES DE L'API WEB STEAM D'UTILISATION</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Fenêtre des Statistiques de Succès"
+
+statsresettitle = "Réinitialiser Toutes Les Données de Réalisations Stockées?"
+statsresetbody = "Toutes les données de réalisations précédemment stockées seront supprimées de cet appareil. Vos données de succès les plus récentes seront récupérées lors de la prochaine ouverture de la fenêtre Statistiques de Succès.\n\nVeuillez noter que la récupération des données de succès utilise les appels de l'API Web Steam pour chaque jeu détenu dans la bibliothèque Steam de l'utilisateur. Valve limite le nombre d'appels de l'API Web Steam à 100,000 par jour pour la clé API de chaque utilisateur.\n\nPar conséquent, selon la quantité de jeux dans votre bibliothèque Steam, cela peut affecter la fonctionnalité générale de l'application si la fonction de réinitialisation de vos données de succès est largement surutilisée."
+statsresetbtns = ["Réinitialiser toutes les Statistiques de Succès", "Annuler"]
+
+statwincurrent = "JEU EN COURS"
+statwinall = "TOUS LES JEUX"
+statwincomplete = "COMPLET (100%)"
+statwintop5 = "LES 5 MEILLEURS JEUX"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Afficher la Console de Notification"

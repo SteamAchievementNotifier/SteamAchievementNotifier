@@ -153,17 +153,18 @@ betaleave = "ออกจากช่องเบต้า"
 betaerrortext = "ไม่สามารถอัปเดตเป็นช่องเบต้าได้!"
 betaerrorsub = "ดูเหมือนว่าคุณไม่มีการเชื่อมต่อเครือข่าย ไม่มีอินเทอร์เน็ต = ไม่มีเบต้า!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "เปิดใช้งานการแจ้งเตือนแบบเต็มหน้าจอ"
 document.getElementById("extwinlbltxt").innerHTML = "คัดลอกการแจ้งเตือนไปที่หน้าต่าง "
-document.getElementById("fswarntitle").innerHTML = "ก่อนคุณเริ่ม..."
-document.getElementById("fswarncontentmain").innerHTML = `เพื่อวางการแจ้งเตือนที่ด้านบนของเกมที่ตั้งค่าเป็นโหมดการแสดงผลในเกม "เต็มหน้าจอ" หรือ "เต็มหน้าจอพิเศษ" การแจ้งเตือนจะต้องส่งเข้าไปในกระบวนการเกมโดยตรงเพื่อแสดงผ่านหน้าต่างเกม DirectX<br><br>ซึ่งหมายความว่า เนื่องจากโค้ดของเกมกำลังถูกแก้ไขทางเทคนิคโดยโปรแกรมของบริษัทอื่น เกมที่ใช้เทคโนโลยี Anti-Cheat อาจมองวิธีการนี้อย่างไม่เอื้ออำนวย<br><br>แม้ว่าจะไม่มีเกมแสดงปัญหาใด ๆ ในขณะทำการทดสอบ แต่โดยทั่วไปแนะนำว่า <u>ไม่</u> ให้ใช้ตัวเลือก "ตักเตือนสติ" เมื่อมีความเสี่ยงที่เกมจะตรวจพบการฉีดยา เทคโนโลยี Anti-Cheat (เช่นในเกมการแข่งขันออนไลน์)`
-document.getElementById("fswarnimportant").innerHTML = `โดยการเปิดใช้งานและการใช้ตัวเลือก "เตือนเตือนสติ" คุณตกลงในที่นี้ว่าคุณได้แจ้งอย่างเหมาะสมและเข้าใจความเสี่ยงที่เกี่ยวข้องกับการแทรกเนื้อหาของบุคคลที่สามลงในเกม Steam (เช่น วิธีการที่ใช้ โดย Steam Achievement Notifier เพื่อแสดงเนื้อหาเหนือเกมที่ตั้งค่าให้ใช้โหมดการแสดงผลในเกมแบบเต็มหน้าจอ) และด้วยการเปิดใช้งานตัวเลือกนี้ คุณยอมรับว่าคุณต้องยอมรับความเสี่ยงเอง ดังนั้นผู้พัฒนา Steam Achievement Notifier (Jackson0ne) ไม่รับผิดชอบหรือรับผิดใด ๆ เกี่ยวกับการใช้ตัวเลือกนี้`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">การคลิกปุ่ม <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">เห็นด้วย</span> ด้านล่าง แสดงว่าคุณยอมรับข้อกำหนดข้างต้น และ จะเปิดใช้งานตัวเลือก "ปัญญาอ่อน"</div><div style="padding: 0px 10px 10px;">เมื่อคลิกปุ่ม <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ไม่เห็นด้วย</span> ด้านล่างข้อความนี้จะถูกปิดใช้งานและ "เปิดใช้งาน การแจ้งเตือนแบบเต็มหน้าจอ" จะ <u>ไม่</u> เปิดใช้งาน</div>`
-document.getElementById("fshidemsglbl").innerHTML = "ฉันจะยอมอย่าแสดงข้อความนี้อีก"
-document.getElementById("fsok").innerHTML = "เห็นด้วย"
-document.getElementById("fscancel").innerHTML = "ไม่เห็นด้วย"
-document.getElementById("fsselectlbl").innerHTML = "เลือกหน้าต่างเกมด้วยตนเอง"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "เปิดใช้งานการแจ้งเตือนแบบเต็มหน้าจอ"
+// document.getElementById("fswarntitle").innerHTML = "ก่อนคุณเริ่ม..."
+// document.getElementById("fswarncontentmain").innerHTML = `เพื่อวางการแจ้งเตือนที่ด้านบนของเกมที่ตั้งค่าเป็นโหมดการแสดงผลในเกม "เต็มหน้าจอ" หรือ "เต็มหน้าจอพิเศษ" การแจ้งเตือนจะต้องส่งเข้าไปในกระบวนการเกมโดยตรงเพื่อแสดงผ่านหน้าต่างเกม DirectX<br><br>ซึ่งหมายความว่า เนื่องจากโค้ดของเกมกำลังถูกแก้ไขทางเทคนิคโดยโปรแกรมของบริษัทอื่น เกมที่ใช้เทคโนโลยี Anti-Cheat อาจมองวิธีการนี้อย่างไม่เอื้ออำนวย<br><br>แม้ว่าจะไม่มีเกมแสดงปัญหาใด ๆ ในขณะทำการทดสอบ แต่โดยทั่วไปแนะนำว่า <u>ไม่</u> ให้ใช้ตัวเลือก "ตักเตือนสติ" เมื่อมีความเสี่ยงที่เกมจะตรวจพบการฉีดยา เทคโนโลยี Anti-Cheat (เช่นในเกมการแข่งขันออนไลน์)`
+// document.getElementById("fswarnimportant").innerHTML = `โดยการเปิดใช้งานและการใช้ตัวเลือก "เตือนเตือนสติ" คุณตกลงในที่นี้ว่าคุณได้แจ้งอย่างเหมาะสมและเข้าใจความเสี่ยงที่เกี่ยวข้องกับการแทรกเนื้อหาของบุคคลที่สามลงในเกม Steam (เช่น วิธีการที่ใช้ โดย Steam Achievement Notifier เพื่อแสดงเนื้อหาเหนือเกมที่ตั้งค่าให้ใช้โหมดการแสดงผลในเกมแบบเต็มหน้าจอ) และด้วยการเปิดใช้งานตัวเลือกนี้ คุณยอมรับว่าคุณต้องยอมรับความเสี่ยงเอง ดังนั้นผู้พัฒนา Steam Achievement Notifier (Jackson0ne) ไม่รับผิดชอบหรือรับผิดใด ๆ เกี่ยวกับการใช้ตัวเลือกนี้`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">การคลิกปุ่ม <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">เห็นด้วย</span> ด้านล่าง แสดงว่าคุณยอมรับข้อกำหนดข้างต้น และ จะเปิดใช้งานตัวเลือก "ปัญญาอ่อน"</div><div style="padding: 0px 10px 10px;">เมื่อคลิกปุ่ม <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ไม่เห็นด้วย</span> ด้านล่างข้อความนี้จะถูกปิดใช้งานและ "เปิดใช้งาน การแจ้งเตือนแบบเต็มหน้าจอ" จะ <u>ไม่</u> เปิดใช้งาน</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "ฉันจะยอมอย่าแสดงข้อความนี้อีก"
+// document.getElementById("fsok").innerHTML = "เห็นด้วย"
+// document.getElementById("fscancel").innerHTML = "ไม่เห็นด้วย"
+// document.getElementById("fsselectlbl").innerHTML = "เลือกหน้าต่างเกมด้วยตนเอง"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "ดูนโยบายความเป็นส่วนตัว"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         โดยการดาวน์โหลดและใช้ STEAM ACHIEVEMENT NOTIFIER เวอร์ชันใด ๆ ที่เผยแพร่อย่างเป็นทางการผ่านทาง <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">ที่เก็บ GITHUB อย่างเป็นทางการ</span> คุณ ผู้ใช้ โดยส่วนขยาย ปฏิบัติตามส่วนที่ 7 และ 8 ของ <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">ข้อกำหนดการใช้งาน STEAM WEB API</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "เปิดหน้าต่างสถิติความสำเร็จ"
+
+statsresettitle = "รีเซ็ตข้อมูลความสำเร็จที่เก็บไว้ทั้งหมด?"
+statsresetbody = "ข้อมูลความสำเร็จที่เก็บไว้ก่อนหน้านี้ทั้งหมดจะถูกลบออกจากอุปกรณ์นี้ ข้อมูลความสำเร็จล่าสุดของคุณจะถูกดึงมาเมื่อเปิดหน้าต่างสถิติความสำเร็จครั้งถัดไป\n\nโปรดทราบว่าการดึงข้อมูลความสำเร็จนั้นใช้การเรียก Steam Web API สำหรับแต่ละเกมที่เป็นเจ้าของในคลัง Steam ของผู้ใช้ Valve จำกัดจำนวนการเรียก Steam Web API ไว้ที่ 100,000 ต่อวันสำหรับคีย์ API ของผู้ใช้แต่ละราย\n\nด้วยเหตุนี้ ขึ้นอยู่กับจำนวนเกมในคลัง Steam ของคุณ ซึ่งอาจส่งผลต่อการทำงานทั่วไปของแอปพลิเคชัน หากใช้ฟังก์ชันรีเซ็ตข้อมูลความสำเร็จมากเกินไป"
+statsresetbtns = ["รีเซ็ตสถิติความสำเร็จทั้งหมด", "ยกเลิก"]
+
+statwincurrent = "เกมปัจจุบัน"
+statwinall = "เกมส์ทั้งหมด"
+statwincomplete = "สมบูรณ์ (100%)"
+statwintop5 = "5 อันดับเกม"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "แสดงคอนโซลการแจ้งเตือน"

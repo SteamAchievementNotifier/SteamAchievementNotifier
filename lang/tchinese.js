@@ -153,17 +153,18 @@ betaleave = "離開測試頻道"
 betaerrortext = "無法更新到測試頻道！"
 betaerrorsub = "看起來你沒有網絡連接。沒有互聯網 = 沒有測試版！"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "啟用全屏通知"
 document.getElementById("extwinlbltxt").innerHTML = "將通知複製到窗口"
-document.getElementById("fswarntitle").innerHTML = "在你開始之前..."
-document.getElementById("fswarncontentmain").innerHTML = `為了在遊戲內顯示模式設置為“全屏”或“獨占全屏”的遊戲上覆蓋通知，必須將通知直接注入遊戲進程以在 DirectX 遊戲窗口上顯示。<br><br>這意味著，由於遊戲的代碼在技術上被第三方程序更改，使用反作弊技術的遊戲可能會對這種方法不利。<br><br>雖然沒有遊戲在測試時顯示任何問題，但通常建議<u>不要</u>在使用反作弊技術的遊戲有檢測到注入風險時使用“啟用全屏通知”選項（例如在在線競技遊戲中）。`
-document.getElementById("fswarnimportant").innerHTML = `通過啟用和使用“啟用全屏通知”選項，您在此同意您已適當告知並了解將第三方內容注入 Steam 遊戲的相關風險（例如 Steam Achievement Notifier 用於在遊戲中顯示內容的方法）設置為使用全屏遊戲內顯示模式），並且通過啟用此選項，您接受您自行承擔風險，因此，Steam Achievement Notifier (Jackson0ne) 的開發者對使用此選項不承擔任何責任或義務.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">點擊下方的 <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">同意</span> 按鈕，即表示您接受上述條款，並且“啟用全屏通知”選項將被啟用。</div><div style="padding: 0px 10px 10px;">點擊下方的<span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px;border-radius: 2px;">不同意</span>按鈕，此消息將關閉，並且“啟用全屏通知”選項將<u>不</u>啟用。</div>`
-document.getElementById("fshidemsglbl").innerHTML = "我同意，不再顯示此消息"
-document.getElementById("fsok").innerHTML = "同意"
-document.getElementById("fscancel").innerHTML = "不同意"
-document.getElementById("fsselectlbl").innerHTML = "手動選擇遊戲窗口"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "啟用全屏通知"
+// document.getElementById("fswarntitle").innerHTML = "在你開始之前..."
+// document.getElementById("fswarncontentmain").innerHTML = `為了在遊戲內顯示模式設置為“全屏”或“獨占全屏”的遊戲上覆蓋通知，必須將通知直接注入遊戲進程以在 DirectX 遊戲窗口上顯示。<br><br>這意味著，由於遊戲的代碼在技術上被第三方程序更改，使用反作弊技術的遊戲可能會對這種方法不利。<br><br>雖然沒有遊戲在測試時顯示任何問題，但通常建議<u>不要</u>在使用反作弊技術的遊戲有檢測到注入風險時使用“啟用全屏通知”選項（例如在在線競技遊戲中）。`
+// document.getElementById("fswarnimportant").innerHTML = `通過啟用和使用“啟用全屏通知”選項，您在此同意您已適當告知並了解將第三方內容注入 Steam 遊戲的相關風險（例如 Steam Achievement Notifier 用於在遊戲中顯示內容的方法）設置為使用全屏遊戲內顯示模式），並且通過啟用此選項，您接受您自行承擔風險，因此，Steam Achievement Notifier (Jackson0ne) 的開發者對使用此選項不承擔任何責任或義務.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">點擊下方的 <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">同意</span> 按鈕，即表示您接受上述條款，並且“啟用全屏通知”選項將被啟用。</div><div style="padding: 0px 10px 10px;">點擊下方的<span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px;border-radius: 2px;">不同意</span>按鈕，此消息將關閉，並且“啟用全屏通知”選項將<u>不</u>啟用。</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "我同意，不再顯示此消息"
+// document.getElementById("fsok").innerHTML = "同意"
+// document.getElementById("fscancel").innerHTML = "不同意"
+// document.getElementById("fsselectlbl").innerHTML = "手動選擇遊戲窗口"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "查看隱私政策"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         通過 <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">官方 GITHUB 存儲庫</span> 下載和使用任何正式發布的 SteamAchievementNotifier 版本，作為擴展的用戶，您遵守 <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API 使用條款</span> 的第 7 和 8 節.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "打開成就統計窗口"
+
+statsresettitle = "重置所有存儲的成就數據？"
+statsresetbody = "所有以前存儲的成就數據都將從該設備中刪除。下次打開“成就統計”窗口時，將檢索您最近的成就數據。\n\n請注意，檢索成就數據會使用 Steam Web API 調用用戶 Steam 庫中每個擁有的遊戲。 Valve 將每位用戶的 API 密鑰的 Steam Web API 調用量限制為每天 100,000 次。\n\n因此，根據您 Steam 庫中的遊戲數量，如果重置成就數據的功能被過度使用，這可能會影響應用程序的一般功能。"
+statsresetbtns = ["重置所有成就統計", "取消"]
+
+statwincurrent = "當前遊戲"
+statwinall = "所有遊戲"
+statwincomplete = "完成 (100%)"
+statwintop5 = "前 5 名遊戲"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "顯示通知控制台"

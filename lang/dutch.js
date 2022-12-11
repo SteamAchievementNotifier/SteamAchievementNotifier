@@ -38,7 +38,6 @@ var traylabel = "Geen Spel Gedetecteerd";
 var trayshow = "Toon";
 var trayexit = "Sluit";
 
-
 var achievementunlocked = "Prestatie Ontgrendeld!";
 var rareachievementunlocked = "Zeldzame Prestatie Ontgrendeld!";
 var testdesc = "Uw meldingen werken correct";
@@ -153,17 +152,18 @@ var betaleave = "Bètakanaal Verlaten"
 var betaerrortext = "Kan niet updaten naar Bètakanaal!"
 var betaerrorsub = "Het lijkt erop dat je geen netwerkverbinding hebt. Geen internet = geen Bèta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Meldingen op Volledig Scherm"
 document.getElementById("extwinlbltxt").innerHTML = "Dubbele Meldingen naar Venster"
-document.getElementById("fswarntitle").innerHTML = "VOORDAT JE START..."
-document.getElementById("fswarncontentmain").innerHTML = `Om meldingen over games te plaatsen die zijn ingesteld op "Volledig Scherm" of "Exclusief Volledig Scherm" in-game weergavemodi, moet de melding rechtstreeks in het spelproces worden geïnjecteerd om te worden weergegeven via een DirectX-spelvenster.<br><br>Dit betekent dat, aangezien de code van de game technisch wordt gewijzigd door een programma van een derde partij, games die Anti-Cheat-technologie gebruiken deze methode ongunstig kunnen beoordelen.<br><br>Hoewel geen enkele game problemen heeft vertoond tijdens het testen, wordt het over het algemeen aangeraden om <u>niet</u> de optie "Meldingen op Volledig Scherm" te gebruiken wanneer er een risico bestaat dat injectie wordt gedetecteerd door games die gebruik maken van Anti-Cheat-technologie (zoals in online competitieve spellen).`
-document.getElementById("fswarnimportant").innerHTML = `Door de optie "Meldingen op Volledig Scherm" in te schakelen en te gebruiken, stemt u er hierbij mee in dat u naar behoren bent geïnformeerd over en begrijpt welke risico's verbonden zijn aan het injecteren van inhoud van derden in Steam-spellen (zoals de methode die door Steam Achievement Notifier wordt gebruikt om inhoud op de top van games die zijn ingesteld om in het spel weergavemodi op volledig scherm te gebruiken), en dat u door deze optie in te schakelen, accepteert dat u dit op eigen risico doet, en daarom aanvaardt de ontwikkelaar van Steam Achievement Notifier (Jackson0ne) geen verantwoordelijkheid of aansprakelijkheid met betrekking tot het gebruik van deze optie.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Door hieronder op de knop <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AKKOORD</span> te klikken, accepteert u de bovenstaande voorwaarden en de optie "Meldingen op Volledig Scherm" wordt ingeschakeld.</div><div style="padding: 0px 10px 10px;">Door op de knop <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">NIET AKKOORD</span> hieronder te klikken, wordt dit bericht gesloten en wordt de optie "Meldingen op Volledig Scherm" is <u>niet</u> ingeschakeld.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Ik ga akkoord, laat dit bericht niet meer zien"
-document.getElementById("fsok").innerHTML = "AKKOORD"
-document.getElementById("fscancel").innerHTML = "NIET AKKOORD"
-document.getElementById("fsselectlbl").innerHTML = "Handmatig Spelvenster Selecteren"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Meldingen op Volledig Scherm"
+// document.getElementById("fswarntitle").innerHTML = "VOORDAT JE START..."
+// document.getElementById("fswarncontentmain").innerHTML = `Om meldingen over games te plaatsen die zijn ingesteld op "Volledig Scherm" of "Exclusief Volledig Scherm" in-game weergavemodi, moet de melding rechtstreeks in het spelproces worden geïnjecteerd om te worden weergegeven via een DirectX-spelvenster.<br><br>Dit betekent dat, aangezien de code van de game technisch wordt gewijzigd door een programma van een derde partij, games die Anti-Cheat-technologie gebruiken deze methode ongunstig kunnen beoordelen.<br><br>Hoewel geen enkele game problemen heeft vertoond tijdens het testen, wordt het over het algemeen aangeraden om <u>niet</u> de optie "Meldingen op Volledig Scherm" te gebruiken wanneer er een risico bestaat dat injectie wordt gedetecteerd door games die gebruik maken van Anti-Cheat-technologie (zoals in online competitieve spellen).`
+// document.getElementById("fswarnimportant").innerHTML = `Door de optie "Meldingen op Volledig Scherm" in te schakelen en te gebruiken, stemt u er hierbij mee in dat u naar behoren bent geïnformeerd over en begrijpt welke risico's verbonden zijn aan het injecteren van inhoud van derden in Steam-spellen (zoals de methode die door Steam Achievement Notifier wordt gebruikt om inhoud op de top van games die zijn ingesteld om in het spel weergavemodi op volledig scherm te gebruiken), en dat u door deze optie in te schakelen, accepteert dat u dit op eigen risico doet, en daarom aanvaardt de ontwikkelaar van Steam Achievement Notifier (Jackson0ne) geen verantwoordelijkheid of aansprakelijkheid met betrekking tot het gebruik van deze optie.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Door hieronder op de knop <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AKKOORD</span> te klikken, accepteert u de bovenstaande voorwaarden en de optie "Meldingen op Volledig Scherm" wordt ingeschakeld.</div><div style="padding: 0px 10px 10px;">Door op de knop <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">NIET AKKOORD</span> hieronder te klikken, wordt dit bericht gesloten en wordt de optie "Meldingen op Volledig Scherm" is <u>niet</u> ingeschakeld.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Ik ga akkoord, laat dit bericht niet meer zien"
+// document.getElementById("fsok").innerHTML = "AKKOORD"
+// document.getElementById("fscancel").innerHTML = "NIET AKKOORD"
+// document.getElementById("fsselectlbl").innerHTML = "Handmatig Spelvenster Selecteren"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Privacybeleid Bekijken"
@@ -215,3 +215,18 @@ document.getElementById("ppcontent").innerHTML = `
         DOOR HET DOWNLOADEN EN GEBRUIKEN VAN EEN OFFICIEEL GEGEVEN VERSIE VAN STEAM ACHIEVEMENT NOTIFIER VIA DE <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFFICILE GITHUB REPOSITORY</span >, U, DE GEBRUIKER, HOUDT ZICH UITGEBREID AAN DE SECTIE 7 EN 8 VAN DE <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API-VOORWAARDEN VAN GEBRUIK</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Statistiekenvenster Openen"
+
+statsresettitle = "Alle Opgeslagen Prestatiegegevens Resetten?"
+statsresetbody = "Alle eerder opgeslagen prestatiegegevens worden van dit apparaat verwijderd. Je meest recente prestatiegegevens worden opgehaald wanneer het venster Prestatiestatistieken de volgende keer wordt geopend.\n\nHoud er rekening mee dat het ophalen van prestatiegegevens Steam Web API-aanroepen gebruikt voor elke game in de Steam-bibliotheek van de gebruiker. Valve beperkt het aantal Steam Web API-aanroepen tot 100,000 per dag voor de API-sleutel van elke gebruiker.\n\nAls gevolg hiervan kan dit, afhankelijk van het aantal games in je Steam-bibliotheek, de algemene functionaliteit van de applicatie beïnvloeden als de functie om je prestatiegegevens te resetten veel te veel wordt gebruikt."
+statsresetbtns = ["Alle Prestatiestatistieken resetten", "Annuleren"]
+
+statwincurrent = "HUIDIGE SPEL"
+statwinall = "ALLE SPELEN"
+statwincomplete = "COMPLEET (100%)"
+statwintop5 = "BESTE 5 SPELLEN"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Meldingsconsole Tonen"

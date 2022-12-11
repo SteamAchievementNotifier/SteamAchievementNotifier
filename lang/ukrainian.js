@@ -153,17 +153,18 @@ betaleave = "Залиште бета-каналу"
 betaerrortext = "Не вдається оновити до бета-каналу!"
 betaerrorsub = "Схоже, у вас немає підключення до мережі. Немає інтернету = немає бета-версії!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Сповіщення На Весь Екран"
 document.getElementById("extwinlbltxt").innerHTML = "Дубльовані Сповіщення У Вікні"
-document.getElementById("fswarntitle").innerHTML = "ПЕРЕД ПОЧАТКОМ..."
-document.getElementById("fswarncontentmain").innerHTML = `Щоб накладати сповіщення поверх ігор, у яких встановлено режим відображення "Повноекранний" або "Ексклюзивний Повний Екран", сповіщення має бути введено безпосередньо в ігровий процес, щоб відображатися у вікні гри DirectX.<br><br>Це означає, що, оскільки код гри технічно змінено сторонньою програмою, ігри, які використовують технологію Anti-Cheat, можуть сприймати цей метод несприятливо.<br><br>Хоча жодна з ігор не виявила проблем під час тестування, зазвичай <u>не</u> рекомендується використовувати опцію "Сповіщення На Весь Екран", якщо існує ризик виявлення ін’єкції в іграх, які використовують технологію Anti-Cheat (наприклад, як в онлайн змагальних іграх).`
-document.getElementById("fswarnimportant").innerHTML = `Увімкнувши та використовуючи опцію "Сповіщення На Весь Екран", ви підтверджуєте, що ви належним чином поінформовані про введення стороннього вмісту в ігри Steam (наприклад, метод, який використовує Steam Achievement Notifier для відображення) та розумієте ризики, пов’язані з цим. контент над іграми, налаштованими на використання повноекранних режимів відображення в грі), і що, увімкнувши цю опцію, ви погоджуєтеся, що робите це на свій власний ризик, і тому розробник Steam Achievement Notifier (Jackson0ne) не бере на себе жодної відповідальності щодо використання цієї опції.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Натиснувши кнопку <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ПОГОДЖЕН</span> нижче, ви приймаєте наведені вище умови та Опція "Сповіщення На Весь Екран" буде включена.</div><div style="padding: 0px 10px 10px;">Якщо натиснути кнопку <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">НЕ ЗГОДЖЕН</span> нижче, це повідомлення буде закрито, а Параметр "Сповіщення На Весь Екран" <u>не</u> буде ввімкнено.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Я погоджуюся, більше не показувати це повідомлення"
-document.getElementById("fsok").innerHTML = "ПОГОДЖЕН"
-document.getElementById("fscancel").innerHTML = "НЕ ЗГОДЖЕН"
-document.getElementById("fsselectlbl").innerHTML = "Виберіть Вікно Гри Вручну"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Сповіщення На Весь Екран"
+// document.getElementById("fswarntitle").innerHTML = "ПЕРЕД ПОЧАТКОМ..."
+// document.getElementById("fswarncontentmain").innerHTML = `Щоб накладати сповіщення поверх ігор, у яких встановлено режим відображення "Повноекранний" або "Ексклюзивний Повний Екран", сповіщення має бути введено безпосередньо в ігровий процес, щоб відображатися у вікні гри DirectX.<br><br>Це означає, що, оскільки код гри технічно змінено сторонньою програмою, ігри, які використовують технологію Anti-Cheat, можуть сприймати цей метод несприятливо.<br><br>Хоча жодна з ігор не виявила проблем під час тестування, зазвичай <u>не</u> рекомендується використовувати опцію "Сповіщення На Весь Екран", якщо існує ризик виявлення ін’єкції в іграх, які використовують технологію Anti-Cheat (наприклад, як в онлайн змагальних іграх).`
+// document.getElementById("fswarnimportant").innerHTML = `Увімкнувши та використовуючи опцію "Сповіщення На Весь Екран", ви підтверджуєте, що ви належним чином поінформовані про введення стороннього вмісту в ігри Steam (наприклад, метод, який використовує Steam Achievement Notifier для відображення) та розумієте ризики, пов’язані з цим. контент над іграми, налаштованими на використання повноекранних режимів відображення в грі), і що, увімкнувши цю опцію, ви погоджуєтеся, що робите це на свій власний ризик, і тому розробник Steam Achievement Notifier (Jackson0ne) не бере на себе жодної відповідальності щодо використання цієї опції.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Натиснувши кнопку <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ПОГОДЖЕН</span> нижче, ви приймаєте наведені вище умови та Опція "Сповіщення На Весь Екран" буде включена.</div><div style="padding: 0px 10px 10px;">Якщо натиснути кнопку <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">НЕ ЗГОДЖЕН</span> нижче, це повідомлення буде закрито, а Параметр "Сповіщення На Весь Екран" <u>не</u> буде ввімкнено.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Я погоджуюся, більше не показувати це повідомлення"
+// document.getElementById("fsok").innerHTML = "ПОГОДЖЕН"
+// document.getElementById("fscancel").innerHTML = "НЕ ЗГОДЖЕН"
+// document.getElementById("fsselectlbl").innerHTML = "Виберіть Вікно Гри Вручну"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Переглянути Політику Конфіденційності"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         Завантажуючи та використовуючи будь-яку офіційно випущену версію Steam Achievement Notifier через <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">ОФІЦІЙНЕ СХОВІЩИЩЕ GITHUB</span>, ви, користувач, відповідно до розширення, дотримуєтеся розділів 7 і 8 <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">УМОВ ВИКОРИСТАННЯ STEAM WEB API</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Відкрийте Вікно Статистики"
+
+statsresettitle = "Скинути Всі Збережені Дані Досягнень?"
+statsresetbody = "Усі раніше збережені дані про досягнення буде видалено з цього пристрою. Дані про ваші останні досягнення буде отримано під час наступного відкриття вікна Статистика Досягнень.\n\nМайте на увазі, що для отримання даних про досягнення використовуються виклики Steam Web API для кожної належної гри в бібліотеці Steam користувача. Valve обмежує кількість викликів Steam Web API до 100,000 на день для ключа API кожного користувача.\n\nЯк наслідок, залежно від кількості ігор у вашій бібліотеці Steam, це може вплинути на загальну функціональність програми, якщо функція скидання даних ваших досягнень використовується надмірно."
+statsresetbtns = ["Скинути всю Статистику Досягнень", "Скасувати"]
+
+statwincurrent = "ПОТОЧНА ГРА"
+statwinall = "ВСІ ІГРИ"
+statwincomplete = "ЗАВЕРШЕНО (100%)"
+statwintop5 = "ТОП 5 ІГОР"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Показати Консоль Сповіщень"

@@ -153,17 +153,18 @@ betaleave = "Părăsiți Canalul Beta"
 betaerrortext = "Nu se poate actualiza la Canalul Beta!"
 betaerrorsub = "Se pare că nu aveți o conexiune la rețea. Fără internet = Fără Beta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Notificări pe Ecran Complet"
 document.getElementById("extwinlbltxt").innerHTML = "Notificări Duplicate în Fereastră"
-document.getElementById("fswarntitle").innerHTML = "INAINTE SA INCEPI..."
-document.getElementById("fswarncontentmain").innerHTML = `Pentru a suprapune notificări peste jocurile setate la modurile de afișare în joc „Ecran Complet” sau „Ecran Complet Exclusiv”, notificarea trebuie să fie injectată direct în procesul de joc pentru a fi afișată într-o fereastră de joc DirectX.<br><br>Aceasta înseamnă că, deoarece codul jocului este modificat din punct de vedere tehnic de un program terță parte, jocurile care utilizează tehnologia Anti-Cheat pot vedea această metodă în mod nefavorabil.<br><br>Deși niciun joc nu a afișat probleme în timpul testării, în general se recomandă <u>nu</u> să utilizați opțiunea „Notificări pe Ecran Complet” atunci când există riscul ca injecția să fie detectată de jocurile care utilizează tehnologia Anti-Cheat (cum ar fi ca în jocurile competitive online).`
-document.getElementById("fswarnimportant").innerHTML = `Prin activarea și utilizarea opțiunii „Notificări pe Ecran Complet”, sunteți de acord că ați informat în mod corespunzător și ați înțeles riscurile asociate cu injectarea de conținut terță parte în jocurile Steam (cum ar fi metoda utilizată de Steam Achievement Notifier pentru a afișa conținut peste jocurile setate să utilizeze moduri de afișare în joc pe ecran complet) și că, activând această opțiune, acceptați că faceți acest lucru pe propriul risc și, prin urmare, dezvoltatorul Steam Achievement Notifier (Jackson0ne) nu își asumă nicio responsabilitate sau răspundere în ceea ce privește utilizarea acestei opțiuni.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Făcând clic pe butonul <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACORD</span> de mai jos, acceptați termenii de mai sus și Opțiunea „Notificări pe Ecran Complet” va fi activată.</div><div style="padding: 0px 10px 10px;">Făcând clic pe butonul <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DEZACORD</span> de mai jos, acest mesaj va fi închis, iar Opțiunea „Notificări pe Ecran Complet” <u>nu</u> va fi activată.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Sunt de acord, nu mai afișa acest mesaj"
-document.getElementById("fsok").innerHTML = "ACORD"
-document.getElementById("fscancel").innerHTML = "DEZACORD"
-document.getElementById("fsselectlbl").innerHTML = "Selectați Manual Fereastra Jocului"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Notificări pe Ecran Complet"
+// document.getElementById("fswarntitle").innerHTML = "INAINTE SA INCEPI..."
+// document.getElementById("fswarncontentmain").innerHTML = `Pentru a suprapune notificări peste jocurile setate la modurile de afișare în joc „Ecran Complet” sau „Ecran Complet Exclusiv”, notificarea trebuie să fie injectată direct în procesul de joc pentru a fi afișată într-o fereastră de joc DirectX.<br><br>Aceasta înseamnă că, deoarece codul jocului este modificat din punct de vedere tehnic de un program terță parte, jocurile care utilizează tehnologia Anti-Cheat pot vedea această metodă în mod nefavorabil.<br><br>Deși niciun joc nu a afișat probleme în timpul testării, în general se recomandă <u>nu</u> să utilizați opțiunea „Notificări pe Ecran Complet” atunci când există riscul ca injecția să fie detectată de jocurile care utilizează tehnologia Anti-Cheat (cum ar fi ca în jocurile competitive online).`
+// document.getElementById("fswarnimportant").innerHTML = `Prin activarea și utilizarea opțiunii „Notificări pe Ecran Complet”, sunteți de acord că ați informat în mod corespunzător și ați înțeles riscurile asociate cu injectarea de conținut terță parte în jocurile Steam (cum ar fi metoda utilizată de Steam Achievement Notifier pentru a afișa conținut peste jocurile setate să utilizeze moduri de afișare în joc pe ecran complet) și că, activând această opțiune, acceptați că faceți acest lucru pe propriul risc și, prin urmare, dezvoltatorul Steam Achievement Notifier (Jackson0ne) nu își asumă nicio responsabilitate sau răspundere în ceea ce privește utilizarea acestei opțiuni.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Făcând clic pe butonul <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACORD</span> de mai jos, acceptați termenii de mai sus și Opțiunea „Notificări pe Ecran Complet” va fi activată.</div><div style="padding: 0px 10px 10px;">Făcând clic pe butonul <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DEZACORD</span> de mai jos, acest mesaj va fi închis, iar Opțiunea „Notificări pe Ecran Complet” <u>nu</u> va fi activată.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Sunt de acord, nu mai afișa acest mesaj"
+// document.getElementById("fsok").innerHTML = "ACORD"
+// document.getElementById("fscancel").innerHTML = "DEZACORD"
+// document.getElementById("fsselectlbl").innerHTML = "Selectați Manual Fereastra Jocului"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Vedeți Politica de Confidențialitate"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         PRIN DESCĂRCAREA ȘI UTILIZAREA ORICĂREI VERSIUNI LANSATE OFICIAL A STEAM ACHIEVEMENT NOTIFIER PRIN <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">DEPOZITUL OFICIAL GITHUB</span>DVS., UTILIZATORUL, PRIN EXTENSIE, RESPECTAȚI SECȚIUNILE 7 ȘI 8 DIN <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">TERMENII DE UTILIZARE STEAM WEB API</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Deschideți Fereastra cu Statistici"
+
+statsresettitle = "Resetați Toate Datele de Realizare Stocate?"
+statsresetbody = "Toate datele de realizare stocate anterior vor fi șterse de pe acest dispozitiv. Cele mai recente date de realizare vor fi preluate la următoarea deschidere a ferestrei Statistici de Realizare.\n\nVă rugăm să fiți conștienți de faptul că preluarea datelor de realizare utilizează apeluri API Web Steam pentru fiecare joc deținut din Biblioteca Steam a utilizatorului. Valve limitează cantitatea de apeluri API Steam Web la 100,000 pe zi pentru cheia API a fiecărui utilizator.\n\nCa urmare, în funcție de cantitatea de jocuri din Biblioteca dvs. Steam, acest lucru poate afecta funcționalitatea generală a aplicației dacă funcția de resetare a datelor de realizare este suprautilizată."
+statsresetbtns = ["Resetați toate Statisticile", "Anulare"]
+
+statwincurrent = "JOC ACTUAL"
+statwinall = "TOATE JOCURILE"
+statwincomplete = "COMPLET (100%)"
+statwintop5 = "5 CELE MAI BUNE JOCURI"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Afișați Consola de Notificare"

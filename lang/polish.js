@@ -153,17 +153,18 @@ betaleave = "Opuść Kanał Beta"
 betaerrortext = "Nie można zaktualizować do Kanału Beta!"
 betaerrorsub = "Wygląda na to, że nie masz połączenia sieciowego. Brak internetu = Brak wersji Beta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Włącz Powiadomienia Pełnoekranowe"
 document.getElementById("extwinlbltxt").innerHTML = "Zduplikuj Powiadomienia do Okna"
-document.getElementById("fswarntitle").innerHTML = "ZANIM ZACZNIESZ..."
-document.getElementById("fswarncontentmain").innerHTML = `Aby nałożyć powiadomienia na gry ustawione w trybach wyświetlania „Pełnoekranowego” lub „Ekskluzywny Pełny Ekran”, powiadomienie musi być dodane bezpośrednio w proces gry, aby było wyświetlane nad oknem gry DirectX.<br><br>Oznacza to, że kod gry jest technicznie zmieniany przez program innej firmy, gry korzystające z oprogramowania zapobiegającego oszustwom mogą niekorzystnie postrzegać tę metodę.<br><br>Mimo że żadna z gier nie wykazywała żadnych problemów podczas testów, generalnie nie zaleca się używania opcji „Włącz Powiadomienia Pełnoekranowe”, ponieważ istnieje ryzyko wykrycia oszustw przez gry korzystające z oprogramowania zapobiegającego oszustwom (np. w grach online).`
-document.getElementById("fswarnimportant").innerHTML = `Włączając i korzystając z opcji „Włącz powiadomienia w trybie pełnoekranowym”, niniejszym zgadzasz się, że odpowiednio poinformowałeś i rozumiesz ryzyko związane z udostępnianiem treści stron trzecich do gier Steam (takich jak metoda wykorzystywana przez Steam Achievement Notifier do wyświetlania treści w grach ustawionych na używanie pełnoekranowych trybów wyświetlania w grze), a włączając tę ​​opcję, akceptujesz, że robisz to na własne ryzyko, a zatem twórca Steam Achievement Notifier (JacksonOne) nie ponosi żadnej odpowiedzialności za korzystanie z tej opcji.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Klikając poniższy przycisk <span style = "background: rgb (32.62.122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ZGADZAM SIĘ</span>, akceptujesz powyższe warunki, a opcja „Włącz Powiadomienia Pełnoekranowe” zostanie włączona.</div><div style="padding: 0px 10px 10px;">Klikając poniższy przycisk <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">NIE ZGADZAM SIĘ</span>, ten komunikat zostanie zamknięty, a opcja „Włącz Powiadomienia Pełnoekranowe” nie zostanie włączona.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Zgadzam się, nie pokazuj więcej tego komunikatu"
-document.getElementById("fsok").innerHTML = "ZGADZAM SIĘ"
-document.getElementById("fscancel").innerHTML = "NIE ZGADZAM SIĘ"
-document.getElementById("fsselectlbl").innerHTML = "Ręcznie Wybierz Okno Gry"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Włącz Powiadomienia Pełnoekranowe"
+// document.getElementById("fswarntitle").innerHTML = "ZANIM ZACZNIESZ..."
+// document.getElementById("fswarncontentmain").innerHTML = `Aby nałożyć powiadomienia na gry ustawione w trybach wyświetlania „Pełnoekranowego” lub „Ekskluzywny Pełny Ekran”, powiadomienie musi być dodane bezpośrednio w proces gry, aby było wyświetlane nad oknem gry DirectX.<br><br>Oznacza to, że kod gry jest technicznie zmieniany przez program innej firmy, gry korzystające z oprogramowania zapobiegającego oszustwom mogą niekorzystnie postrzegać tę metodę.<br><br>Mimo że żadna z gier nie wykazywała żadnych problemów podczas testów, generalnie nie zaleca się używania opcji „Włącz Powiadomienia Pełnoekranowe”, ponieważ istnieje ryzyko wykrycia oszustw przez gry korzystające z oprogramowania zapobiegającego oszustwom (np. w grach online).`
+// document.getElementById("fswarnimportant").innerHTML = `Włączając i korzystając z opcji „Włącz powiadomienia w trybie pełnoekranowym”, niniejszym zgadzasz się, że odpowiednio poinformowałeś i rozumiesz ryzyko związane z udostępnianiem treści stron trzecich do gier Steam (takich jak metoda wykorzystywana przez Steam Achievement Notifier do wyświetlania treści w grach ustawionych na używanie pełnoekranowych trybów wyświetlania w grze), a włączając tę ​​opcję, akceptujesz, że robisz to na własne ryzyko, a zatem twórca Steam Achievement Notifier (JacksonOne) nie ponosi żadnej odpowiedzialności za korzystanie z tej opcji.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Klikając poniższy przycisk <span style = "background: rgb (32.62.122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ZGADZAM SIĘ</span>, akceptujesz powyższe warunki, a opcja „Włącz Powiadomienia Pełnoekranowe” zostanie włączona.</div><div style="padding: 0px 10px 10px;">Klikając poniższy przycisk <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">NIE ZGADZAM SIĘ</span>, ten komunikat zostanie zamknięty, a opcja „Włącz Powiadomienia Pełnoekranowe” nie zostanie włączona.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Zgadzam się, nie pokazuj więcej tego komunikatu"
+// document.getElementById("fsok").innerHTML = "ZGADZAM SIĘ"
+// document.getElementById("fscancel").innerHTML = "NIE ZGADZAM SIĘ"
+// document.getElementById("fsselectlbl").innerHTML = "Ręcznie Wybierz Okno Gry"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Zobacz Politykę Prywatności"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         POBIERAJĄC I KORZYSTAJĄC Z DOWOLNEJ OFICJALNIE WYDANEJ WERSJI STEAM ACHIEVEMENT NOTIFIER ZA POŚREDNICTWEM <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFICJALNEGO REPOZYTORIUM GITHUB</span>, TY, JAKO UŻYTKOWNIK, PRZESTRZEGASZ SEKCJI 7 I 8 <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">WARUNKÓW KORZYSTANIA Z STEAM WEB API</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Otwórz Okno Statystyk Osiągnięć"
+
+statsresettitle = "Zresetować Wszystkie Zapisane Dane Osiągnięć?"
+statsresetbody = "Wszystkie zapisane wcześniej dane o osiągnięciach zostaną usunięte z tego urządzenia. Twoje najnowsze dane o osiągnięciach zostaną pobrane przy następnym otwarciu okna Statystyk Osiągnięć.\n\nPamiętaj, że pobieranie danych o osiągnięciach wykorzystuje wywołania Steam Web API dla każdej posiadanej gry w bibliotece Steam użytkownika. Valve ogranicza liczbę wywołań Steam Web API do 100,000 dziennie dla klucza API każdego użytkownika.\n\nW rezultacie, w zależności od ilości gier w Twojej bibliotece Steam, może to wpłynąć na ogólną funkcjonalność aplikacji, jeśli funkcja resetowania danych osiągnięć jest nadużywana."
+statsresetbtns = ["Zresetuj wszystkie Statystyk Osiągnięć", "Anuluj"]
+
+statwincurrent = "AKTUALNA GRA"
+statwinall = "WSZYSTKIE GRY"
+statwincomplete = "KOMPLETNY (100%)"
+statwintop5 = "5 NAJLEPSZYCH GIER"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Pokaż Konsolę Powiadomień"

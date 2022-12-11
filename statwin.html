@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            @font-face {
+                font-family: "Titillium Web SB";
+                src: url("./fonts/TitilliumWeb-SemiBold.ttf");
+            }
+
+            @font-face {
+                font-family: "Noto Sans Reg";
+                src: url("./fonts/NotoSans-Regular.ttf");
+            }
+
+            * {
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+
+            html, body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                background: transparent;
+                color: white;
+                user-select: none;
+                font-family: "Titillium Web SB";
+            }
+
+            body {
+                border-radius: 5px;
+            }
+
+            ::-webkit-scrollbar {
+                appearance: none;
+            }
+
+            ::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background-color: #3d3d3d;
+                border-radius: 5px;
+            }
+
+            #maincont {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                padding: 20px;
+                border-radius: 5px;
+                transition: 1s;
+            }
+
+            .gametitle, .percentbg {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                height: 100%;
+                padding: 10px 20px;
+                font-size: 14px;
+                z-index: 20;
+            }
+
+            .gametitle {
+                /* justify-content: flex-start; */
+                border-radius: 0px 5px 5px 5px;
+            }
+
+            .overflow {
+                display: block;
+                width: 90%;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            
+            .percentbg {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 35px;
+                justify-content: center;
+            }
+
+            #currentcont {
+                margin-top: 40px;
+            }
+            
+            .titlecont {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                font-size: 14px;
+            }
+
+            .title {
+                background: rgb(32,62,122);
+                height: 100%;
+                padding: 5px 20px;
+                border-radius: 5px 5px 0px 0px;
+            }
+
+            .bar, .contdiv {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                height: 35px;
+                background: #505050;
+                border-radius: 0px 5px 5px 5px;
+                overflow: hidden;
+            }
+
+            .percentbar, .bardiv {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 100%;
+                background: rgb(42,81,160);
+                border-radius: 0px 5px 5px 5px;
+                transition: 0.2s;
+            }
+
+            #log {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 80%;
+                opacity: 0;
+                animation: flash 1s alternate infinite;
+                font-size: 12px;
+                z-index: 22;
+                text-align: center;
+            }
+
+            .cont {
+                width: 100%;
+                margin-top: 30px;
+                -webkit-app-region: drag;
+            }
+
+            #usertitle {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                position: relative;
+                align-items: center;
+                position: absolute;
+                top: 30px;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                width: 80%;
+                background: linear-gradient(to right, transparent, rgba(32,62,122,0.5), transparent);
+                padding: 5px;
+                -webkit-app-region: drag;
+            }
+
+            #userimg {
+                margin-right: 10px;
+            }
+
+            #overlay {
+                display: flex;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(16,16,16,0.95);
+                pointer-events: none;
+                z-index: 21;
+            }
+
+            #close:not(hover) {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translate(0%,-50%);
+                opacity: 0.5;
+                transition: 0.2s;
+                cursor: pointer;
+                -webkit-app-region: no-drag;
+            }
+
+            #close:hover {
+                opacity: 1;
+            }
+
+            #toggle:not(hover) {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translate(0%,-50%);
+                opacity: 0.5;
+                transition: 0.2s;
+                cursor: pointer;
+                -webkit-app-region: no-drag;
+            }
+
+            #toggle:hover {
+                opacity: 1;
+            }
+
+            .textcont {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+            }
+
+            @keyframes flash {
+                from { opacity: 0.1; }
+                to { opacity: 1; }
+            }
+
+            @keyframes fadeout {
+                from { opacity: 0.95; }
+                to { opacity: 0; }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="maincont">
+            <div id="overlay"></div>
+            <div id="usertitle">
+                <img id="userimg" src="./img/steamlogonew.svg" width="28px" style="border: 2px solid white; border-radius: 50%;">
+                <div id="username"></div>
+                <img id="toggle" src="./icon/bgoutline.svg" width="20px" onclick="ToggleTransparency()">
+                <img id="close" src="./icon/close.svg" width="20px" onclick="CloseStatWin()">
+            </div>
+            <div class="cont" id="currentcont">
+                <div class="titlecont" id="currenttitlecont">
+                    <span class="title" id="currenttitle">CURRENT GAME</span>
+                </div>
+                <div class="bar" id="current">
+                    <div class="textcont">
+                        <div class="gametitle overflow" id="currentgametitle" style="color: red">No Game Detected</div>
+                    </div>
+                    <div class="percentbg">
+                        <span id="currentpercent">0</span>%
+                    </div>
+                    <div class="percentbar" id="currentpercentbar"></div>
+                </div>
+            </div>
+            <div class="cont" id="allgamescont">
+                <div class="titlecont" id="allgamestitlecont">
+                    <span class="title" id="allgamestitle">ALL GAMES</span>
+                </div>
+                <div class="bar" id="allgames">
+                    <div class="textcont">
+                        <div class="gametitle" id="allgamesnum">0/0</div>
+                    </div>
+                    <div class="percentbg">
+                        <span id="allgamespercent">0</span>%
+                    </div>
+                    <div class="percentbar" id="allgamespercentbar"></div>
+                </div>
+            </div>
+            <div class="cont" id="completecont">
+                <div class="titlecont" id="completetitlecont">
+                    <span class="title" id="completetitle">COMPLETE (100%)</span>
+                </div>
+                <div class="bar" id="complete">
+                    <div class="gametitle" id="completenum">0/0</div>
+                    <div class="percentbg">
+                        <span id="completepercent">0</span>%
+                    </div>
+                    <div class="percentbar" id="completepercentbar"></div>
+                </div>
+            </div>
+            <div class="cont" id="top5cont">
+                <div class="titlecont" id="top5titlecont">
+                    <span class="title" id="top5title">TOP 5 GAMES</span>
+                </div>
+                <div id="top5elemcont"></div>
+            </div>
+            <div class="cont" id="log"></div>
+        </div>
+        <script>
+            const { ipcRenderer } = require("electron")
+            const fs = require("fs")
+            const path = require("path")
+            const appdir = "V1.8"
+
+            var localappdata
+
+            if (process.platform == "win32") {
+                localappdata = path.join(process.env.LOCALAPPDATA)
+            } else if (process.platform == "linux") {
+                localappdata = path.join(process.env.HOME,".local","share")
+                appicon = path.join(__dirname,"img","sanlogo-675x675.png")
+            } else if (process.platform == "darwin") {
+                localappdata = path.join(process.env.HOME,"Library","Application Support")
+            }
+
+            const sanlocalappdata = path.join(localappdata,`Steam Achievement Notifier (${appdir})`)
+
+            const currentgame = {}
+            var currentunlocked = []
+            var currentappid = null
+
+            const unlocked = []
+            const invalid = []
+            const total = []
+
+            const config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
+
+            var local
+
+            var statswinnogame
+
+            function getRandomInt(max) {
+                return Math.floor(Math.random() * max)
+            }
+            const random = getRandomInt(9999999)
+
+            if (!config.apikey) {
+                alert("No API Key found! Exiting...")
+                ipcRenderer.send("exit")
+            } else if (!config.steam64id) {
+                alert("No Steam64 ID found! Exiting...")
+                ipcRenderer.send("exit")
+            } else {
+                ipcRenderer.send('statwinopen')
+
+                // CURRENT GAME
+                ipcRenderer.on('statwingame', (event, appid) => {
+                    console.log(`%cCurrent Game AppID: ${appid}`, "color: seagreen")
+
+                    document.getElementById("currentpercentbar").style.backgroundColor = "rgb(42,81,160)"
+
+                    currentappid = appid
+                    local = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","local.json")))
+
+                    currentgame[currentappid] = []
+
+                    for (var i = 0; i < local.playerstats.achievements.length; i++) {
+                        currentgame[currentappid].push({
+                            unlocked: local.playerstats.achievements[i].achieved,
+                            apiname: local.playerstats.achievements[i].apiname
+                        })
+
+                        if (currentgame[currentappid][i].unlocked == 1) {
+                            currentunlocked.push(currentgame[currentappid][i])
+                        }
+                    }
+
+                    console.log({
+                        game: local.playerstats.gameName,
+                        unlocked: `${currentunlocked.length}/${currentgame[currentappid].length}`
+                    })
+
+                    var completion = Math.floor(currentunlocked.length / currentgame[currentappid].length * 100)
+
+                    document.getElementById("currentgametitle").textContent = local.playerstats.gameName
+                    document.getElementById("currentgametitle").style.color = "white"
+                    document.getElementById("currentpercentbar").style.width = completion + "%"
+                    document.getElementById("currentpercent").textContent = completion
+
+                    if (completion >= 100) {
+                        document.getElementById("currentpercentbar").style.backgroundColor = "blueviolet"
+                    }
+                })
+
+                ipcRenderer.on('updatestatwin', (event, apiname) => {
+                    setTimeout(() => {
+                        //CURRENT GAME
+                        local = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","local.json")))
+    
+                        for (var i = 0; i < local.playerstats.achievements.length; i++) {
+                            if (local.playerstats.achievements[i].apiname == apiname) {
+                                if (local.playerstats.achievements[i].achieved != currentgame[currentappid][i].unlocked) {
+                                    currentgame[currentappid][i].unlocked = local.playerstats.achievements[i].achieved
+                                    currentunlocked.push(currentgame[currentappid][i])
+                                }
+
+                                console.log({
+                                    game: local.playerstats.gameName,
+                                    unlocked: `${currentunlocked.length}/${currentgame[currentappid].length}`
+                                })
+
+                                var completion = Math.floor(currentunlocked.length / currentgame[currentappid].length * 100)
+
+                                document.getElementById("currentpercentbar").style.width = completion + "%"
+                                document.getElementById("currentpercent").textContent = completion
+
+                                if (completion >= 100) {
+                                    document.getElementById("currentpercentbar").style.backgroundColor = "blueviolet"
+                                }
+                            }
+                        }
+
+                        // ALL GAMES
+                        for (var j = 0; j < JSON.parse(localStorage.getItem(currentappid)).achievementdata.length; j++) {
+                            if (JSON.parse(localStorage.getItem(currentappid)).achievementdata[j].apiname == apiname) {
+                                var updatestat = JSON.parse(localStorage.getItem(currentappid))
+                                updatestat.achievementdata[j]["achieved"] = 1
+                                localStorage.setItem(currentappid, JSON.stringify(updatestat))
+                                unlocked.push(updatestat.achievementdata[j])
+
+                                console.log(unlocked)
+
+                                console.log(`TOTAL: ${unlocked.length}/${total.length} (${Math.floor(unlocked.length / total.length * 100)}%)`)
+                                document.getElementById("allgamesnum").textContent = `${unlocked.length}/${total.length}`
+                                document.getElementById("allgamespercent").textContent = Math.floor(unlocked.length / total.length * 100)
+                                document.getElementById("allgamespercentbar").style.width = Math.floor(unlocked.length / total.length * 100) + "%"
+                            }
+                        }
+                    }, 500)
+                })
+
+                ipcRenderer.on('statwinnogame', () => {
+                    currentappid = null
+                    local = null
+                    currentunlocked = []
+                    document.getElementById("currentgametitle").textContent = statswinnogame
+                    document.getElementById("currentgametitle").style.color = "red"
+                    document.getElementById("currentpercentbar").style.width = "0%"
+                    document.getElementById("currentpercent").textContent = "0"
+                })
+
+                // ALL GAMES
+                fetch(`https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${config.apikey}&steamid=${config.steam64id}&format=json`, { cache: "no-store" })
+                .then(res => res.json())
+                .then(data => {
+                    const complete = []
+
+                    function GetAchievementData(appid) {
+                        if (!localStorage.getItem(appid)) {
+                            console.log(`%cKey for ${appid} doesn't exist in LocalStorage - fetching data...`,"color:red")
+                            fetch(`https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${config.apikey}&steamid=${config.steam64id}&?__random=${random}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log()
+                                const obj = {
+                                    gamename: data.playerstats.gameName,
+                                    achievementdata: data.playerstats.achievements
+                                }
+
+                                localStorage.setItem(appid, JSON.stringify(obj))
+                                GetAchievementData(appid)
+                            })
+                            .catch(err => {
+                                console.log(`%cError fetching data for ${appid}: ${err}`, "color: red")
+                            })
+                        } else {
+                            console.log(`%cKey for ${appid} exists in LocalStorage`,"color:limegreen")
+                            
+                            complete.push(appid)
+                            console.log(`Completed: ${complete.length}/${data.response.game_count}`)
+                            document.getElementById("log").textContent = `Fetching Achievement Data...[${complete.length}/${data.response.game_count}]`
+    
+                            if (complete.length == data.response.game_count) {
+                                document.getElementById("log").style.display = "none"
+                                document.getElementById("overlay").style.display = "none"
+
+                                const top5games = []
+                                const completions = []
+                                var gametotal = []
+
+                                for (var i = 0; i < localStorage.length; i++) {
+                                    try {
+                                        JSON.parse(localStorage.getItem(localStorage.key(i))).achievementdata.forEach(achievement => {
+                                            total.push(achievement)
+        
+                                            if (achievement.achieved == 1) {
+                                                unlocked.push(achievement)
+                                                gametotal.push(achievement.achieved)
+                                            }
+                                        })
+
+                                        top5games.push({
+                                            gamename: JSON.parse(localStorage.getItem(localStorage.key(i))).gamename,
+                                            percentage: Math.floor(gametotal.length / JSON.parse(localStorage.getItem(localStorage.key(i))).achievementdata.length * 100)
+                                        })
+                                    } catch (err) {
+                                        console.log(`%cAppID ${localStorage.key(i)} has no achievements.`, "color: orange")
+                                        invalid.push(localStorage.key(i))
+                                    }
+
+                                    gametotal = []
+                                }
+                                
+                                console.log("Invalid Games:", invalid)
+                                console.log(`TOTAL: ${unlocked.length}/${total.length} (${Math.floor(unlocked.length / total.length * 100)}%)`)
+                                document.getElementById("allgamesnum").textContent = `${unlocked.length}/${total.length}`
+                                document.getElementById("allgamespercent").textContent = Math.floor(unlocked.length / total.length * 100)
+                                document.getElementById("allgamespercentbar").style.width = Math.floor(unlocked.length / total.length * 100) + "%"
+
+                                // TOP 5 GAMES
+                                var test = top5games.sort((a,b) => {
+                                    return b.percentage - a.percentage
+                                })
+
+                                var counter = 0
+
+                                function CreateTop5(name, percent) {
+                                    if (counter <= 4) {
+                                        var cont = document.createElement("div")
+                                        cont.className = "bar"
+                                        cont.id = `top5-${counter + 1}`
+
+                                        if (counter > 0) {
+                                            cont.style.borderRadius = "5px"
+                                            cont.style.marginTop = "5px"
+                                        }
+
+                                        document.getElementById("top5elemcont").appendChild(cont)
+
+                                        var textcont = document.createElement("div")
+                                        textcont.className = "textcont"
+                                        cont.appendChild(textcont)
+
+                                        var title = document.createElement("div")
+                                        title.className = "gametitle overflow"
+                                        title.id = `top5gametitle-${counter + 1}`
+                                        title.textContent = name
+                                        textcont.appendChild(title)
+
+                                        var percentbg = document.createElement("div")
+                                        percentbg.className = "percentbg"
+                                        cont.appendChild(percentbg)
+
+                                        var span1 = document.createElement("span")
+                                        span1.id = `top5percent-${counter + 1}`
+                                        span1.textContent = percent
+                                        percentbg.appendChild(span1)
+
+                                        var span2 = document.createElement("span")
+                                        span2.textContent = "%"
+                                        percentbg.appendChild(span2)
+
+                                        var bar = document.createElement("div")
+                                        bar.className = "percentbar"
+                                        bar.id = `top5percentbar-${counter + 1}`
+                                        bar.style.width = percent + "%"
+                                        cont.appendChild(bar)
+
+                                        counter += 1
+                                    }
+                                }
+
+                                top5games.forEach(game => {
+                                    if (game.percentage != 100) {
+                                        CreateTop5(game.gamename, game.percentage)
+                                    } else {
+                                        completions.push(game)
+                                    }
+                                })
+
+                                document.getElementById("completenum").textContent = `${completions.length}/${localStorage.length}`
+                                document.getElementById("completepercent").textContent = Math.floor(completions.length / localStorage.length * 100)
+                                document.getElementById("completepercentbar").style.width = Math.floor(completions.length / localStorage.length * 100) + "%"
+                            }
+                        }
+                    }
+                    
+                    data.response.games.forEach(game => {
+                        GetAchievementData(game.appid)
+                    })
+                })
+                .catch(err => {
+                    console.log(`%cError fetching game list for ${config.steam64id}: ${err}`, "color: red")
+                    document.getElementById("log").textContent = `Unable to fetch game list! [${err}]`
+                    document.getElementById("log").style.color = "red"
+                })
+            }
+
+            ipcRenderer.on('user', (event, user, translations) => {
+                document.getElementById("username").textContent = user.toUpperCase()
+                document.getElementById("currenttitle").textContent = translations.current
+                document.getElementById("allgamestitle").textContent = translations.allgames
+                document.getElementById("completetitle").textContent = translations.complete
+                document.getElementById("top5title").textContent = translations.top5
+                
+                statswinnogame = translations.nogame
+                document.getElementById("currentgametitle").textContent = statswinnogame
+            })
+
+            function CloseStatWin() {
+                ipcRenderer.send('closestatwin')
+            }
+
+            document.getElementById("maincont").style.background = "#1b1b1b"
+
+            function ToggleTransparency() {
+                if (document.getElementById("maincont").style.background == "transparent") {
+                    document.getElementById("maincont").style.background = "#1b1b1b"
+                    document.getElementById("toggle").src = "./icon/bgoutline.svg"
+                } else {
+                    document.getElementById("maincont").style.background = "transparent"
+                    document.getElementById("toggle").src = "./icon/bgfill.svg"
+                }
+            }
+        </script>
+    </body>
+</html>

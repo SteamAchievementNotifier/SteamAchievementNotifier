@@ -157,17 +157,18 @@ var betaleave = "اترك القناة التجريبية"
 var betaerrortext = "تعذر التحديث إلى القناة التجريبية!"
 var betaerrorsub = "يبدو أنه ليس لديك اتصال بالشبكة. لا يوجد إنترنت = لا يوجد بيتا!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "تفعيل إخطارات ملء الشاشة"
 document.getElementById("extwinlbltxt").innerHTML = "نسخ الإخطارات إلى النافذة"
-document.getElementById("fswarntitle").innerHTML = "قبل ان تبدا..."
-document.getElementById("fswarncontentmain").innerHTML = `من أجل تراكب الإشعارات أعلى الألعاب التي تم ضبطها على أوضاع العرض في اللعبة "ملء الشاشة" أو "ملء الشاشة الحصري" ، يجب إدخال الإشعار مباشرةً في عملية اللعبة ليتم عرضه عبر نافذة لعبة DirectX.<br><br>هذا يعني أنه نظرًا لأنه يتم تغيير رمز اللعبة تقنيًا بواسطة برنامج جهة خارجية ، فإن الألعاب التي تستخدم تقنية Anti-Cheat قد تنظر إلى هذه الطريقة بشكل غير موات.<br><br>على الرغم من عدم ظهور أي مشاكل في الألعاب أثناء الاختبار ، يوصى عمومًا بعدم استخدام خيار "تمكين إشعارات ملء الشاشة" عندما يكون هناك خطر اكتشاف الحقن بواسطة الألعاب التي تستخدم تقنية Anti-Cheat (كما هو الحال في الألعاب التنافسية عبر الإنترنت) .`
-document.getElementById("fswarnimportant").innerHTML = `من خلال تمكين واستخدام خيار "تمكين إشعارات ملء الشاشة" ، فإنك توافق على أنك قد أبلغت بشكل مناسب وفهمت المخاطر المرتبطة بحقن محتوى جهة خارجية في ألعاب Steam (مثل الطريقة التي تستخدمها Steam Achievement Notifier لعرض المحتوى على الألعاب تعيين لاستخدام أوضاع العرض بملء الشاشة داخل اللعبة) ، وبتمكين هذا الخيار ، فإنك تقبل أن تقوم بذلك على مسؤوليتك الخاصة ، وبالتالي ، لا يتحمل مطور Steam Achievement Notifier (Jackson0ne) أي مسؤولية أو التزام فيما يتعلق باستخدام هذا الخيار .`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">بالنقر فوق الزر "يوافق على" أدناه ، فإنك تقبل الشروط المذكورة أعلاه ، وسيتم تمكين خيار "تمكين إشعارات ملء الشاشة".</div><div style="padding: 0px 10px 10px;">بالنقر فوق الزر "تعارض" أدناه ، سيتم إغلاق هذه الرسالة ، ولن يتم تمكين خيار "تمكين إشعارات ملء الشاشة".</div>`
-document.getElementById("fshidemsglbl").innerHTML = "أوافق ، لا تظهر هذه الرسالة مرة أخرى"
-document.getElementById("fsok").innerHTML = "يوافق على"
-document.getElementById("fscancel").innerHTML = "تعارض"
-document.getElementById("fsselectlbl").innerHTML = "حدد نافذة اللعبة يدويًا"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "تفعيل إخطارات ملء الشاشة"
+// document.getElementById("fswarntitle").innerHTML = "قبل ان تبدا..."
+// document.getElementById("fswarncontentmain").innerHTML = `من أجل تراكب الإشعارات أعلى الألعاب التي تم ضبطها على أوضاع العرض في اللعبة "ملء الشاشة" أو "ملء الشاشة الحصري" ، يجب إدخال الإشعار مباشرةً في عملية اللعبة ليتم عرضه عبر نافذة لعبة DirectX.<br><br>هذا يعني أنه نظرًا لأنه يتم تغيير رمز اللعبة تقنيًا بواسطة برنامج جهة خارجية ، فإن الألعاب التي تستخدم تقنية Anti-Cheat قد تنظر إلى هذه الطريقة بشكل غير موات.<br><br>على الرغم من عدم ظهور أي مشاكل في الألعاب أثناء الاختبار ، يوصى عمومًا بعدم استخدام خيار "تمكين إشعارات ملء الشاشة" عندما يكون هناك خطر اكتشاف الحقن بواسطة الألعاب التي تستخدم تقنية Anti-Cheat (كما هو الحال في الألعاب التنافسية عبر الإنترنت) .`
+// document.getElementById("fswarnimportant").innerHTML = `من خلال تمكين واستخدام خيار "تمكين إشعارات ملء الشاشة" ، فإنك توافق على أنك قد أبلغت بشكل مناسب وفهمت المخاطر المرتبطة بحقن محتوى جهة خارجية في ألعاب Steam (مثل الطريقة التي تستخدمها Steam Achievement Notifier لعرض المحتوى على الألعاب تعيين لاستخدام أوضاع العرض بملء الشاشة داخل اللعبة) ، وبتمكين هذا الخيار ، فإنك تقبل أن تقوم بذلك على مسؤوليتك الخاصة ، وبالتالي ، لا يتحمل مطور Steam Achievement Notifier (Jackson0ne) أي مسؤولية أو التزام فيما يتعلق باستخدام هذا الخيار .`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">بالنقر فوق الزر "يوافق على" أدناه ، فإنك تقبل الشروط المذكورة أعلاه ، وسيتم تمكين خيار "تمكين إشعارات ملء الشاشة".</div><div style="padding: 0px 10px 10px;">بالنقر فوق الزر "تعارض" أدناه ، سيتم إغلاق هذه الرسالة ، ولن يتم تمكين خيار "تمكين إشعارات ملء الشاشة".</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "أوافق ، لا تظهر هذه الرسالة مرة أخرى"
+// document.getElementById("fsok").innerHTML = "يوافق على"
+// document.getElementById("fscancel").innerHTML = "تعارض"
+// document.getElementById("fsselectlbl").innerHTML = "حدد نافذة اللعبة يدويًا"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "عرض سياسة الخصوصية"
@@ -219,3 +220,18 @@ document.getElementById("ppcontent").innerHTML = `
         عن طريق تنزيل واستخدام أي إصدار رسمي من STEAM ACHIEVEMENT NOTIFIER عبر مستودع GITHUB الرسمي, أنت ، المستخدم ، بالتوسيع ، تلتزم بالمادتين 7 و 8 من شروط استخدام<span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "افتح نافذة إحصائيات الإنجاز"
+
+statsresettitle = "إعادة تعيين كافة بيانات الإنجازات المخزنة؟"
+statsresetbody = "ستتم إزالة جميع بيانات الإنجاز المخزنة مسبقًا من هذا الجهاز. سيتم استرداد بيانات الإنجاز الحالية عند فتح نافذة إحصائيات الإنجاز بعد ذلك.\n\nيرجى العلم أن استرداد بيانات الإنجاز يستخدم استدعاءات Steam Web API لكل لعبة مملوكة في مكتبة Steam الخاصة بالمستخدم. يحد Valve مقدار مكالمات Steam Web API إلى 100,000 يوميًا لكل مفتاح API لكل مستخدم.\n\nنتيجة لذلك ، اعتمادًا على كمية الألعاب في مكتبة Steam الخاصة بك ، قد يؤثر ذلك على الوظيفة العامة للتطبيق إذا تم الإفراط في استخدام وظيفة إعادة تعيين بيانات الإنجاز الخاصة بك."
+statsresetbtns = ["إعادة تعيين جميع إحصائيات الإنجاز", "عودة"]
+
+statwincurrent = "لعبة الحالية"
+statwinall = "كل الألعاب"
+statwincomplete = "مكتمل (100٪)"
+statwintop5 = "أفضل 5 ألعاب"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "إظهار وحدة التحكم بالإخطارات"

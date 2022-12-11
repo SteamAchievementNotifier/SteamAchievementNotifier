@@ -26,6 +26,7 @@ document.getElementById("audio").play()
 var colour1 = config.colour1
 var colour2 = config.colour2
 var textcolour = config.textcolour
+var textoutline = `0 0 1px ${config.textout}, `
 
 if (config.img == "default") {
     img = "../../../img/santextlogobg.png"
@@ -192,6 +193,13 @@ if (screenshot == "true" && config.screenshot == "true") {
 } else {
     document.getElementById("cont").style.height = "50px"
     document.getElementById("screenshotcont").style.display = "none"
+}
+
+if (config.textout != "none") {
+    document.getElementById("cont").style.textShadow = `${textoutline.repeat(31)} 0 0 1px ${config.textout}`
+    document.getElementById("text").style.padding = "0 2px"
+    document.getElementById("game").style.padding = "0 2px"
+    document.getElementById("desc").style.padding = "0 2px"
 }
 
 var text = notifyachievement

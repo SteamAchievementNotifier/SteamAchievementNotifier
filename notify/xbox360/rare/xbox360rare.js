@@ -26,6 +26,8 @@ document.getElementById("audio").play()
 var colour1 = config.rarecolour1
 var colour2 = config.rarecolour2
 var textcolour = config.raretextcolour
+var textoutline = `0 0 1px ${config.raretextout}, `
+
 var img
 
 if (config.rareimg == "default") {
@@ -232,6 +234,12 @@ if (screenshot == "true" && config.rarescreenshot == "true") {
 } else {
     document.getElementById("maincont").style.height = "50px"
     document.getElementById("screenshotcont").style.display = "none"
+}
+
+if (config.raretextout != "none") {
+    document.getElementById("cont").style.textShadow = `${textoutline.repeat(31)} 0 0 1px ${config.raretextout}`
+    document.getElementById("title").style.padding = "0 2px"
+    document.getElementById("desc").style.padding = "0 2px"
 }
 
 var title = notifytitle

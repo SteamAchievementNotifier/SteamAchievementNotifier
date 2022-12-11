@@ -153,17 +153,18 @@ betaleave = "Salir Canal Beta"
 betaerrortext = "¡No se puede actualizar al canal Beta!"
 betaerrorsub = "Parece que no tienes una conexión de red. ¡Sin Internet = Sin Beta!"
 
+document.getElementById("extwinlbltxt").innerHTML = "Duplicar en Ventana"
+
 // Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Notificaciones de Pantalla Completa"
-document.getElementById("extwinlbltxt").innerHTML = "Notificaciones Duplicadas a la Ventana"
-document.getElementById("fswarntitle").innerHTML = "ANTES DE QUE EMPIECES..."
-document.getElementById("fswarncontentmain").innerHTML = `Para superponer notificaciones en la parte superior de los juegos configurados en los modos de visualización en el juego "Pantalla Completa" o "Pantalla Completa Exclusiva", la notificación debe inyectarse directamente en el proceso del juego para que se muestre en una ventana de juego de DirectX.<br><br>Esto significa que, dado que el código del juego está técnicamente alterado por un programa de terceros, los juegos que utilizan la tecnología Anti-Cheat pueden ver este método desfavorablemente.<br><br>Aunque ningún juego ha mostrado ningún problema durante la prueba, generalmente se recomienda <u>no</u> usar la opción "Notificaciones de Pantalla Completa" cuando existe el riesgo de que los juegos que usan la tecnología Anti-Cheat detecten la inyección (como en los juegos competitivos en línea).`
-document.getElementById("fswarnimportant").innerHTML = `Al habilitar y utilizar la opción "Notificaciones de Pantalla Completa", acepta que se ha informado adecuadamente y comprende los riesgos asociados con la inyección de contenido de terceros en los juegos de Steam (como el método utilizado por Steam Achievement Notifier para mostrar contenido sobre juegos configurados para usar los modos de visualización de pantalla completa en el juego), y que al habilitar esta opción, acepta que lo hace bajo su propio riesgo y, por lo tanto, el desarrollador de Steam Achievement Notifier (Jackson0ne) no acepta ninguna responsabilidad u obligación con respecto a el uso de esta opción.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Al hacer clic en el botón <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACEPTO</span> a continuación, acepta los términos anteriores y la Se habilitará la opción "Notificaciones de Pantalla Completa".</div><div style="padding: 0px 10px 10px;">Al hacer clic en el botón <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DESACUERDO</span> a continuación, este mensaje se cerrará y el La opción "Notificaciones de Pantalla Completa" <u>no</u> estará habilitada.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Estoy de acuerdo, no mostrar este mensaje de nuevo"
-document.getElementById("fsok").innerHTML = "ACEPTO"
-document.getElementById("fscancel").innerHTML = "DESACUERDO"
-document.getElementById("fsselectlbl").innerHTML = "Seleccionar Ventana de Juego"
+// document.getElementById("fullscreenlbl").innerHTML = "Notificaciones de Pantalla Completa"
+// document.getElementById("fswarntitle").innerHTML = "ANTES DE QUE EMPIECES..."
+// document.getElementById("fswarncontentmain").innerHTML = `Para superponer notificaciones en la parte superior de los juegos configurados en los modos de visualización en el juego "Pantalla Completa" o "Pantalla Completa Exclusiva", la notificación debe inyectarse directamente en el proceso del juego para que se muestre en una ventana de juego de DirectX.<br><br>Esto significa que, dado que el código del juego está técnicamente alterado por un programa de terceros, los juegos que utilizan la tecnología Anti-Cheat pueden ver este método desfavorablemente.<br><br>Aunque ningún juego ha mostrado ningún problema durante la prueba, generalmente se recomienda <u>no</u> usar la opción "Notificaciones de Pantalla Completa" cuando existe el riesgo de que los juegos que usan la tecnología Anti-Cheat detecten la inyección (como en los juegos competitivos en línea).`
+// document.getElementById("fswarnimportant").innerHTML = `Al habilitar y utilizar la opción "Notificaciones de Pantalla Completa", acepta que se ha informado adecuadamente y comprende los riesgos asociados con la inyección de contenido de terceros en los juegos de Steam (como el método utilizado por Steam Achievement Notifier para mostrar contenido sobre juegos configurados para usar los modos de visualización de pantalla completa en el juego), y que al habilitar esta opción, acepta que lo hace bajo su propio riesgo y, por lo tanto, el desarrollador de Steam Achievement Notifier (Jackson0ne) no acepta ninguna responsabilidad u obligación con respecto a el uso de esta opción.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Al hacer clic en el botón <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACEPTO</span> a continuación, acepta los términos anteriores y la Se habilitará la opción "Notificaciones de Pantalla Completa".</div><div style="padding: 0px 10px 10px;">Al hacer clic en el botón <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DESACUERDO</span> a continuación, este mensaje se cerrará y el La opción "Notificaciones de Pantalla Completa" <u>no</u> estará habilitada.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Estoy de acuerdo, no mostrar este mensaje de nuevo"
+// document.getElementById("fsok").innerHTML = "ACEPTO"
+// document.getElementById("fscancel").innerHTML = "DESACUERDO"
+// document.getElementById("fsselectlbl").innerHTML = "Seleccionar Ventana de Juego"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Ver Política de Privacidad"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         AL DESCARGAR Y USAR CUALQUIER VERSIÓN LANZADA OFICIALMENTE DE STEAMACHIEVEMENTNOTIFIER A TRAVÉS DEL <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">REPOSITORIO OFICIAL DE GITHUB</span>, USTED, EL USUARIO, POR EXTENSIÓN, SE ADHIERE A LAS SECCIONES 7 Y 8 DE LOS <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">TÉRMINOS DE USO DE STEAM WEB API</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Abrir Ventana de Estadísticas"
+
+statsresettitle = "¿Restablecer Todos los Datos de Logros Almacenados?"
+statsresetbody = "Todos los datos de logros previamente almacenados se eliminarán de este dispositivo. Los datos de sus logros más recientes se recuperarán la próxima vez que se abra la ventana Estadísticas de Logros.\n\nTenga en cuenta que la recuperación de datos de logros utiliza llamadas a la API Web de Steam para cada juego propio en la biblioteca de Steam del usuario. Valve limita la cantidad de llamadas a la API Web de Steam a 100,000 por día para la clave API de cada usuario.\n\nComo resultado, dependiendo de la cantidad de juegos en su biblioteca de Steam, esto puede afectar la funcionalidad general de la aplicación si la función para restablecer sus datos de logros se usa demasiado."
+statsresetbtns = ["Restablecer todas las Estadísticas", "Cancelar"]
+
+statwincurrent = "JUEGO ACTUAL"
+statwinall = "TODOS LOS JUEGOS"
+statwincomplete = "COMPLETO (100%)"
+statwintop5 = "LOS 5 MEJORES JUEGOS"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Mostrar Consola de Notificaciones"

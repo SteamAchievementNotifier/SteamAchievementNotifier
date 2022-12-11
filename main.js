@@ -3,7 +3,6 @@ const startapp = () => {
     const path = require('path')
     const fs = require('fs')
     const shell = require('electron').shell
-    const os = require('os')
     const { spawn } = require('child_process')
     const appversion = "V1.84"
     const appdir = "V1.8"
@@ -169,9 +168,6 @@ const startapp = () => {
             })
         }
 
-        var offsetx
-        var offsety
-
         var display
         var screenobj
 
@@ -180,16 +176,37 @@ const startapp = () => {
             display = screen.getPrimaryDisplay().bounds
             screenobj = screen
 
+            function SetWindowSize() {
+                win.setMinimumSize(700,500)
+                win.setSize(700,500)
+                win.center()
+            }
+
+            // Linux Window Manager fix (Beta Revision 0.6)
+            if (process.platform == "linux") {
+                display.width += display.x
+                display.height += display.y
+            }
+
             screen.on('display-metrics-changed', (event, disp) => {
                 if (disp.id == screen.getPrimaryDisplay().id) {
                     win.webContents.send('displayupdated', disp.bounds.width, disp.bounds.height, disp.scaleFactor)
                     display = screen.getPrimaryDisplay().bounds
                     screenobj = screen
-                    win.setMinimumSize(700,500)
-                    win.setSize(700,500)
-                    win.center()
+
+                    // Linux Window Manager fix (Beta Revision 0.6)
+                    if (process.platform == "linux") {
+                        display.width += display.x
+                        display.height += + display.y
+                    }
+
+                    SetWindowSize()
                 }
             })
+
+            // Reset window size on 'display-added'/'display-removed' events (Beta Revision 0.6)
+            screen.on('display-added', SetWindowSize)
+            screen.on('display-removed', SetWindowSize)
         })
 
         ipcMain.on('trackwin', (event, gamename, appid) => {
@@ -249,6 +266,9 @@ const startapp = () => {
 
         // FULLSCREEN - Receive "gamename" back from "trackwin" and write to "fullscreen.json" (otherwise, "gamename" gets overwritten to nothing for some reason)
         ipcMain.on('gameicon', (event, gameiconsrc, gameartimgsrc, gamename) => {
+            // Reset icon/art to null to prevent previous game values being stored
+            gameicon = null
+            gameartimg = null
             gameicon = gameiconsrc
             gameartimg = gameartimgsrc
 
@@ -262,335 +282,127 @@ const startapp = () => {
             }
         })
 
-        ipcMain.on('notifywin', (event, queueobj) => {
-            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
+        var offset = {}
 
-            var width = queueobj.width * queueobj.scale * 0.01
-            var height = queueobj.height * queueobj.scale * 0.01
-            width = Math.round(width)
-            height = Math.round(height)
+        let notifywin
+
+        ipcMain.on('notifywin', (event, queueobj) => {
+            const config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
+
+            var width = Math.round(queueobj.width * queueobj.scale * 0.01)
+            var height = Math.round(queueobj.height * queueobj.scale * 0.01)
+
+            function GetOffset(wh, dispfactor, notify, factor, add) {
+                return Math.round(wh * dispfactor - (((notify * factor) * queueobj.scale * 0.01) + add))
+            }
+
+            function SetNotifyPos(bc, tc, tl, tr, bl, br) {
+                function GetNotifySize(p1, p2) {
+                    return {
+                        x: p1,
+                        y: p2
+                    }
+                }
+
+                function SetNotifySize(bc = { x, y }, tc = { x, y }, tl = { x, y }, tr = { x, y }, bl = { x, y }, br = { x, y }) {
+                    switch (queueobj.pos) {
+                        case "bottomcenter":
+                            offset = GetNotifySize(bc.x, bc.y)
+                            break
+                        case "topcenter":
+                            offset = GetNotifySize(tc.x, tc.y)
+                            break
+                        case "topleft":
+                            offset = GetNotifySize(tl.x, tl.y)
+                            break
+                        case "topright":
+                            offset = GetNotifySize(tr.x, tr.y)
+                            break
+                        case "bottomleft":
+                            offset = GetNotifySize(bl.x, bl.y)
+                            break
+                        case "bottomright":
+                            offset = GetNotifySize(br.x, br.y)
+                            break
+                    }
+                }
+
+                SetNotifySize(bc, tc, tl, tr, bl, br)
+            }
 
             if (queueobj.type == "main" && config.custompos == "true") {
-                offsetx = config.x
-                offsety = config.y
+                offset.x = config.x
+                offset.y = config.y
             } else if (queueobj.type == "rare" && config.rarecustompos == "true") {
-                offsetx = config.rarex
-                offsety = config.rarey
+                offset.x = config.rarex
+                offset.y = config.rarey
             } else {
-                if (queueobj.pos == "bottomcenter") {
-                    if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "xbox") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
-                            offsety = display.height - ((65 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "playstation") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
-                            offsety = display.height - (224 * queueobj.scale * 0.01)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
-                            offsety = display.height - (55 * queueobj.scale * 0.01)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "ps5") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
-                            offsety = display.height - (239 * queueobj.scale * 0.01)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
-                            offsety = display.height - (70 * queueobj.scale * 0.01)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "windows") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                            offsety = display.height - ((279 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                            offsety = display.height - ((110 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "xqjan") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                            offsety = display.height - ((70 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    }
-                } else if (queueobj.pos == "topcenter") {
-                    if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "xbox") {
-                        offsetx = display.width * 0.5 - (157 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "playstation") {
-                        offsetx = display.width * 0.5 - (155 * queueobj.scale * 0.01)
-                        offsety = 0
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "ps5") {
-                        offsetx = display.width * 0.5 - (170 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "windows") {
-                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "xqjan") {
-                        offsetx = display.width * 0.5 - (150 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    }
-                } else if (queueobj.pos == "topleft") {
-                    if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        offsetx = 20
-                        offsety = 20
-                    } else if (queueobj.style == "xbox") {
-                        offsetx = 20
-                        offsety = 20
-                    } else if (queueobj.style == "playstation") {
-                        offsetx = 0
-                        offsety = 100
-                    } else if (queueobj.style == "ps5") {
-                        offsetx = 0
-                        offsety = 20
-                    } else if (queueobj.style == "windows") {
-                        offsetx = 20
-                        offsety = 20
-                    } else if (queueobj.style == "xqjan") {
-                        offsetx = 20
-                        offsety = 20
-                    }
-                } else if (queueobj.pos == "topright") {
-                    if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "xbox") {   
-                        offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "playstation") {
-                        offsetx = display.width - (310 * queueobj.scale * 0.01)
-                        offsety = 100
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "ps5") {
-                        offsetx = display.width - (340 * queueobj.scale * 0.01)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "windows") {
-                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    } else if (queueobj.style == "xqjan") {
-                        offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                        offsety = 20
-                        offsetx = Math.round(offsetx)
-                        offsety = Math.round(offsety)
-                    }
-                } else if (queueobj.pos == "bottomleft") {
-                    if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = 20
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "xbox") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = 20
-                            offsety = display.height - ((65 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "playstation") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 0
-                            offsety = display.height - ((224 * queueobj.scale * 0.01) + 100)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = 0
-                            offsety = display.height - ((55 * queueobj.scale * 0.01) + 100)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "ps5") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 0
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = 0
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "windows") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20
-                            offsety = display.height - ((279 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = 20
-                            offsety = display.height - ((110 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "xqjan") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = 20
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = 20
-                            offsety = display.height - ((70 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    }
-                } else if (queueobj.pos == "bottomright") {
-                    if (queueobj.style == "default" || queueobj.style == "xbox360") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "xbox") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width - ((315 * queueobj.scale * 0.01) + 20)
-                            offsety = display.height - ((65 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "playstation") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - (310 * queueobj.scale * 0.01)
-                            offsety = display.height - ((224 * queueobj.scale * 0.01) + 100)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width - (310 * queueobj.scale * 0.01)
-                            offsety = display.height - ((55 * queueobj.scale * 0.01) + 100)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "ps5") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - (340 * queueobj.scale * 0.01)
-                            offsety = display.height - ((219 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width - (340 * queueobj.scale * 0.01)
-                            offsety = display.height - ((50 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } else if (queueobj.style == "windows") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                            offsety = display.height - ((279 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                            offsety = display.height - ((110 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    } if (queueobj.style == "xqjan") {
-                        if (queueobj.screenshot == "true" && queueobj.showss == "true") {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                            offsety = display.height - ((239 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        } else {
-                            offsetx = display.width - ((300 * queueobj.scale * 0.01) + 20)
-                            offsety = display.height - ((70 * queueobj.scale * 0.01) + 20)
-                            offsetx = Math.round(offsetx)
-                            offsety = Math.round(offsety)
-                        }
-                    }
-                } else {
-                    console.log("Error! Could not place notification. X: 0, Y: 0")
-                    offsetx = 0
-                    offsety = 0
+                switch (queueobj.style) {
+                    case "default":
+                    case "xbox360":
+                        SetNotifyPos(
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: 20 },
+                            { x: 20, y: 20 },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 20), y: 20 },
+                            { x: 20, y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 20), y: GetOffset(display.height, 1, queueobj.height, 1, 20) }
+                        )
+                        break
+                    case "playstation":
+                        SetNotifyPos(
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: GetOffset(display.height, 1, queueobj.height, 1, 0) },
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: 0 },
+                            { x: 0, y: 100 },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 0), y: 100 },
+                            { x: 0, y: GetOffset(display.height, 1, queueobj.height, 1, 100) },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 0), y: GetOffset(display.height, 1, queueobj.height, 1, 100) },
+                        )
+                        break
+                    case "ps5":
+                        SetNotifyPos(
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: 20 },
+                            { x: 20, y: 20 },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 0), y: 20 },
+                            { x: 20, y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 20), y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                        )
+                        break
+                    case "windows":
+                        SetNotifyPos(
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: 20 },
+                            { x: 20, y: 20 },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 20), y: 20 },
+                            { x: 20, y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 20), y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                        )
+                        break
+                    case "xbox":
+                        SetNotifyPos(
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: 20 },
+                            { x: 20, y: 20 },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 20), y: 20 },
+                            { x: 20, y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 20), y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                        )
+                        break
+                    case "xqjan":
+                        SetNotifyPos(
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 0.5, queueobj.width, 0.5, 0), y: 20 },
+                            { x: 20, y: 20 },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 20), y: 20 },
+                            { x: 20, y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                            { x: GetOffset(display.width, 1, queueobj.width, 1, 20), y: GetOffset(display.height, 1, queueobj.height, 1, 20) },
+                        )
+                        break
                 }
             }
 
-            const notifywin = new BrowserWindow({
+            notifywin = new BrowserWindow({
                 width: width,
                 height: height,
                 title: 'notifywin',
@@ -605,62 +417,28 @@ const startapp = () => {
                 focusable: false,
                 skipTaskbar: true,
                 transparent: true,
-                x: offsetx,
-                y: offsety,
+                x: offset.x,
+                y: offset.y,
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
-                    enableRemoteModule: true,
                     backgroundThrottling: false
                 }
             })
+
             notifywin.setIgnoreMouseEvents(true)
             notifywin.setAlwaysOnTop(true, 'screen-saver')
-    
-            var notifysrc
-    
-            if (queueobj.type == "main") {
-                if (queueobj.style == "default") {
-                    notifysrc = path.join(__dirname,"notify","default","main","default.html")
-                } else if (queueobj.style == "xbox") {
-                    notifysrc = path.join(__dirname,"notify","xbox","main","xbox.html")
-                } else if (queueobj.style == "playstation") {
-                    notifysrc = path.join(__dirname,"notify","playstation","main","playstation.html")
-                } else if (queueobj.style == "ps5") {
-                    notifysrc = path.join(__dirname,"notify","ps5","main","ps5.html")
-                } else if (queueobj.style == "windows") {
-                    notifysrc = path.join(__dirname,"notify","windows","main","windows.html")
-                } else if (queueobj.style == "xbox360") {
-                    notifysrc = path.join(__dirname,"notify","xbox360","main","xbox360.html")
-                } else if (queueobj.style == "xqjan") {
-                    notifysrc = path.join(__dirname,"notify","xqjan","main","xqjan.html")
-                }
-            } else {
-                if (queueobj.style == "default") {
-                    notifysrc = path.join(__dirname,"notify","default","rare","defaultrare.html")
-                } else if (queueobj.style == "xbox") {
-                    notifysrc = path.join(__dirname,"notify","xbox","rare","xboxrare.html")
-                } else if (queueobj.style == "playstation") {
-                    notifysrc = path.join(__dirname,"notify","playstation","rare","playstationrare.html")
-                } else if (queueobj.style == "ps5") {
-                    notifysrc = path.join(__dirname,"notify","ps5","rare","ps5rare.html")
-                } else if (queueobj.style == "windows") {
-                    notifysrc = path.join(__dirname,"notify","windows","rare","windowsrare.html")
-                } else if (queueobj.style == "xbox360") {
-                    notifysrc = path.join(__dirname,"notify","xbox360","rare","xbox360rare.html")
-                } else if (queueobj.style == "xqjan") {
-                    notifysrc = path.join(__dirname,"notify","xqjan","rare","xqjanrare.html")
+
+            function SetNotifySrc(style) {
+                switch (queueobj.type) {
+                    case "main":
+                        return path.join(__dirname, "notify", style, "main", `${style}.html`)
+                    case "rare":
+                        return path.join(__dirname, "notify", style, "rare", `${style}rare.html`)
                 }
             }
 
-            notifywin.loadFile(notifysrc)
-            
-            // OG
-            // if (config.screenshot == "true" && config.ssprev == "true" || config.rarescreenshot == "true" && config.raressprev == "true") {
-            //     desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 852, height: 480 }}).then(sources => {
-            //         fs.writeFileSync(path.join(sanlocalappdata,"img","ss.png"), sources[0].thumbnail.toPNG())
-            //     })
-            // }
+            notifywin.loadFile(SetNotifySrc(queueobj.style))
 
             function TakeNotifyScreenshot() {
                 return new Promise((resolve, reject) => {
@@ -684,26 +462,28 @@ const startapp = () => {
             
                     notifywin.show()
                     notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg)
+
+                    win.webContents.send('startcircle')
                 }
 
                 if (queueobj.type == "main" && config.screenshot == "true" && config.ssprev == "true" || queueobj.type == "rare" && config.rarescreenshot == "true" && config.raressprev == "true") {
                     TakeNotifyScreenshot().then(() => {
-                        SendNotify()
+                        try {
+                            SendNotify()
+                        } catch (err) {
+                            dialog.showErrorBox("SendNotify() Error: ", err)
+                        }
                     }).catch(err => {
                         var m = `TakeNotifyScreenshot() Error: ${err}`
                         win.webContents.send('errormsg', m)
                     })
                 } else {
-                    SendNotify()
+                    try {
+                        SendNotify()
+                    } catch (err) {
+                        dialog.showErrorBox("SendNotify() Error: ", err)
+                    }
                 }
-
-                // OG
-                // notifywin.setMinimumSize(width, height)
-                // notifywin.setSize(width, height)
-        
-                // notifywin.show()
-                // notifywin.webContents.send('notifymain', queueobj.achievement, queueobj.title, queueobj.desc, queueobj.icon, queueobj.screenshot, queueobj.percent, queueobj.audio, gameicon, gameartimg)
-                // // notifywin.webContents.openDevTools({ mode: 'detach' })
             })
         
             ipcMain.once('notifywinstop', () => {
@@ -713,10 +493,8 @@ const startapp = () => {
         })
 
         ipcMain.on('extwin', (event, queueobj) => {
-            var width = queueobj.width * queueobj.scale * 0.01
-            var height = queueobj.height * queueobj.scale * 0.01
-            width = Math.round(width + 20)
-            height = Math.round(height + 20)
+            var width = Math.round(queueobj.width * queueobj.scale * 0.01) + 20
+            var height = Math.round(queueobj.height * queueobj.scale * 0.01) + 20
 
             extwin.setContentSize(width, height)
 
@@ -906,7 +684,7 @@ const startapp = () => {
             })
         })
 
-        ipcMain.on('reset', (e, options) => {
+        ipcMain.on('reset', (event, options) => {
             var resetoptions = options
 
             var msg = dialog.showMessageBoxSync(win, resetoptions)
@@ -1199,142 +977,57 @@ const startapp = () => {
         var dragwin = null
 
         ipcMain.on('setcustompos', (event, postype, style) => {
-            var config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
+            const config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
 
-            var dragwidth
-            var dragheight
+            function GetNotifyStyle() {
+                function GetNotifyWidth(w) {
+                    return w * config.scale * 0.01
+                }
 
-            if (style == "default" || style == "xbox360") {
-                if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
-                        dragheight = 219 * config.scale * 0.01
-                    } else {
-                        dragheight = 50 * config.scale * 0.01
+                function GetNotifyHeight(ss, noss) {
+                    switch (postype) {
+                        case "main":
+                            return config.screenshot == "true" && config.ssprev == "true" ? ss * config.scale * 0.01 : noss * config.scale * 0.01
+                        case "rare":
+                            return config.rarescreenshot == "true" && config.raressprev == "true" ? ss * config.scale * 0.01 : noss * config.scale * 0.01
                     }
-                    dragwidth = 300 * config.scale * 0.01
-                } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
-                        dragheight = 219 * config.rarescale * 0.01
-                    } else {
-                        dragheight = 50 * config.rarescale * 0.01
-                    }
-                    dragwidth = 300 * config.rarescale * 0.01
                 }
-            } else if (style == "xbox") {
-                if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
-                        dragheight = 239 * config.scale * 0.01
-                    } else {
-                        dragheight = 70 * config.scale * 0.01
-                    }
-                    dragwidth = 310 * config.scale * 0.01
-                } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
-                        dragheight = 239 * config.rarescale * 0.01
-                    } else {
-                        dragheight = 70 * config.rarescale * 0.01
-                    }
-                    dragwidth = 310 * config.rarescale * 0.01
-                }
-            } else if (style == "playstation") {
-                if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
-                        dragheight = 224 * config.scale * 0.01
-                    } else {
-                        dragheight = 55 * config.scale * 0.01
-                    }
-                    dragwidth = 310 * config.scale * 0.01
-                } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
-                        dragheight = 224 * config.rarescale * 0.01
-                    } else {
-                        dragheight = 55 * config.rarescale * 0.01
-                    }
-                    dragwidth = 310 * config.rarescale * 0.01
-                }
-            } else if (style == "ps5") {
-                if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
-                        dragheight = 239 * config.scale * 0.01
-                    } else {
-                        dragheight = 50 * config.scale * 0.01
-                    }
-                    dragwidth = 320 * config.scale * 0.01
-                } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
-                        dragheight = 239 * config.rarescale * 0.01
-                    } else {
-                        dragheight = 50 * config.rarescale * 0.01
-                    }
-                    dragwidth = 320 * config.rarescale * 0.01
-                }
-            } else if (style == "windows") {
-                if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
-                        dragheight = 279 * config.scale * 0.01
-                    } else {
-                        dragheight = 110 * config.scale * 0.01
-                    }
-                    dragwidth = 300 * config.scale * 0.01
-                } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
-                        dragheight = 279 * config.rarescale * 0.01
-                    } else {
-                        dragheight = 110 * config.rarescale * 0.01
-                    }
-                    dragwidth = 300 * config.rarescale * 0.01
-                }
-            } else if (style == "xqjan") {
-                if (postype == "main") {
-                    if (config.screenshot == "true" && config.ssprev == "true") {
-                        dragheight = 259 * config.scale * 0.01
-                    } else {
-                        dragheight = 70 * config.scale * 0.01
-                    }
-                    dragwidth = 300 * config.scale * 0.01
-                } else {
-                    if (config.rarescreenshot == "true" && config.raressprev == "true") {
-                        dragheight = 259 * config.rarescale * 0.01
-                    } else {
-                        dragheight = 70 * config.rarescale * 0.01
-                    }
-                    dragwidth = 300 * config.rarescale * 0.01
+
+                switch (style) {
+                    case "default":
+                    case "xbox360":
+                        return { w: GetNotifyWidth(300), h: GetNotifyHeight(219, 50) }
+                    case "playstation":
+                        return { w: GetNotifyWidth(310), h: GetNotifyHeight(224, 55) }
+                    case "ps5":
+                        return { w: GetNotifyWidth(320), h: GetNotifyHeight(239, 50) }
+                    case "windows":
+                        return { w: GetNotifyWidth(300), h: GetNotifyHeight(279, 110) }
+                    case "xbox":
+                        return { w: GetNotifyWidth(310), h: GetNotifyHeight(239, 70) }
+                    case "xqjan":
+                        return { w: GetNotifyWidth(300), h: GetNotifyHeight(259, 70) }
                 }
             }
 
-            dragwidth = Math.floor(dragwidth)
-            dragheight = Math.floor(dragheight)
-
-            var xpos
-            var ypos
+            var dragwidth = Math.floor(GetNotifyStyle().w)
+            var dragheight = Math.floor(GetNotifyStyle().h)
 
             function SetDragWinPos() {
-                if (postype == "main") {
-                    if (config.x == "" && config.x != 0 || config.y == "" && config.y != 0) {
-                        xpos = (display.width * 0.5) - (dragwidth * 0.5)
-                        ypos = (display.height * 0.5) - (dragheight * 0.5)
-            
-                        xpos = Math.floor(xpos)
-                        ypos = Math.floor(ypos)
-                    } else {
-                        xpos = config.x
-                        ypos = config.y
-                    }
-                } else {
-                    if (config.rarex == "" && config.rarex != 0 || config.rarey == "" && config.y != 0) {
-                        xpos = (display.width * 0.5) - (dragwidth * 0.5)
-                        ypos = (display.height * 0.5) - (dragheight * 0.5)
-            
-                        xpos = Math.floor(xpos)
-                        ypos = Math.floor(ypos)
-                    } else {
-                        xpos = config.rarex
-                        ypos = config.rarey
-                    }
+                function CalculatePos(p1, p2) {
+                    return Math.floor((p1 * 0.5) - (p2 * 0.5))
+                }
+
+                switch (postype) {
+                    case "main":
+                        return config.x == "" && config.x != 0 || config.y == "" && config.y != 0 ? { x: CalculatePos(display.width, dragwidth), y: CalculatePos(display.height, dragheight) } : { x: config.x, y: config.y }
+                    case "rare":
+                        return config.rarex == "" && config.rarex != 0 || config.rarey == "" && config.y != 0 ? { x: CalculatePos(display.width, dragwidth), y: CalculatePos(display.height, dragheight) } : { x: config.rarex, y: config.rarey }
                 }
             }
 
-            SetDragWinPos()
+            var xpos = SetDragWinPos().x
+            var ypos = SetDragWinPos().y
             
             dragwin = new BrowserWindow({
                 width: dragwidth,
@@ -1380,51 +1073,28 @@ const startapp = () => {
                 }
                 
                 fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-                SetDragWinPos()
+                xpos = SetDragWinPos().x
+                ypos = SetDragWinPos().y
             })
 
             dragwin.on('focus', () => {
-                globalShortcut.register('Up', () => {
-                    dragwin.setPosition(dragwin.getPosition()[0], dragwin.getPosition()[1] - 5)
-                    dragwin.setMinimumSize(dragwidth, dragheight)
-                    dragwin.setSize(dragwidth, dragheight)
-                })
-                globalShortcut.register('Down', () => {
-                    dragwin.setPosition(dragwin.getPosition()[0], dragwin.getPosition()[1] + 5)
-                    dragwin.setMinimumSize(dragwidth, dragheight)
-                    dragwin.setSize(dragwidth, dragheight)
-                })
-                globalShortcut.register('Left', () => {
-                    dragwin.setPosition(dragwin.getPosition()[0] - 5, dragwin.getPosition()[1])
-                    dragwin.setMinimumSize(dragwidth, dragheight)
-                    dragwin.setSize(dragwidth, dragheight)
-                })
-                globalShortcut.register('Right', () => {
-                    dragwin.setPosition(dragwin.getPosition()[0] + 5, dragwin.getPosition()[1])
-                    dragwin.setMinimumSize(dragwidth, dragheight)
-                    dragwin.setSize(dragwidth, dragheight)
-                })
+                function SetShortcut(dir, x, y) {
+                    globalShortcut.register(dir, () => {
+                        dragwin.setPosition(x, y)
+                        dragwin.setMinimumSize(dragwidth, dragheight)
+                        dragwin.setSize(dragwidth, dragheight)
+                    })
+                }
 
-                globalShortcut.register('Shift+Up', () => {
-                    dragwin.setPosition(dragwin.getPosition()[0], dragwin.getPosition()[1] - 50)
-                    dragwin.setMinimumSize(dragwidth, dragheight)
-                    dragwin.setSize(dragwidth, dragheight)
-                })
-                globalShortcut.register('Shift+Down', () => {
-                    dragwin.setPosition(dragwin.getPosition()[0], dragwin.getPosition()[1] + 50)
-                    dragwin.setMinimumSize(dragwidth, dragheight)
-                    dragwin.setSize(dragwidth, dragheight)
-                })
-                globalShortcut.register('Shift+Left', () => {
-                    dragwin.setPosition(dragwin.getPosition()[0] - 50, dragwin.getPosition()[1])
-                    dragwin.setMinimumSize(dragwidth, dragheight)
-                    dragwin.setSize(dragwidth, dragheight)
-                })
-                globalShortcut.register('Shift+Right', () => {
-                    dragwin.setPosition(dragwin.getPosition()[0] + 50, dragwin.getPosition()[1])
-                    dragwin.setMinimumSize(dragwidth, dragheight)
-                    dragwin.setSize(dragwidth, dragheight)
-                })
+                SetShortcut('Up', dragwin.getPosition()[0], dragwin.getPosition()[1] - 5)
+                SetShortcut('Down', dragwin.getPosition()[0], dragwin.getPosition()[1] + 5)
+                SetShortcut('Left', dragwin.getPosition()[0] - 5, dragwin.getPosition()[1])
+                SetShortcut('Right', dragwin.getPosition()[0] + 5, dragwin.getPosition()[1])
+
+                SetShortcut('Shift+Up', dragwin.getPosition()[0], dragwin.getPosition()[1] - 50)
+                SetShortcut('Shift+Down', dragwin.getPosition()[0], dragwin.getPosition()[1] + 50)
+                SetShortcut('Shift+Left', dragwin.getPosition()[0] - 50, dragwin.getPosition()[1])
+                SetShortcut('Shift+Right', dragwin.getPosition()[0] + 50, dragwin.getPosition()[1])
             })
 
             dragwin.on('blur', () => {
@@ -1458,21 +1128,20 @@ const startapp = () => {
             })
 
             ipcMain.on('resize', () => {
-                dragwin.setMinimumSize(dragwidth, dragheight)
-                dragwin.setSize(dragwidth, dragheight)
-                dragwin.setSize(dragwidth, dragheight)
+                if (dragwin) {
+                    win.webContents.send('dragwinclose')
+                    globalShortcut.unregisterAll()
+                    dragwin.close()
+                }
             })
 
             dragwin.on('moved', () => {
-                xpos = dragwin.getPosition()[0]
-                ypos = dragwin.getPosition()[1]
-
-                xpos = Math.floor(xpos)
-                ypos = Math.floor(ypos)
+                xpos = Math.floor(dragwin.getPosition()[0])
+                ypos = Math.floor(dragwin.getPosition()[1])
 
                 dragwin.setMinimumSize(dragwidth, dragheight)
                 dragwin.setSize(dragwidth, dragheight)
-                dragwin.setSize(dragwidth, dragheight)
+                // dragwin.setSize(dragwidth, dragheight)
             })
 
             ipcMain.once('savepos', () => {
@@ -1508,7 +1177,7 @@ const startapp = () => {
 
                 dragwin.setMinimumSize(dragwidth, dragheight)
                 dragwin.setSize(dragwidth, dragheight)
-                dragwin.setSize(dragwidth, dragheight)
+                // dragwin.setSize(dragwidth, dragheight)
             })
 
             ipcMain.on('lockY', () => {
@@ -1526,7 +1195,7 @@ const startapp = () => {
 
                 dragwin.setMinimumSize(dragwidth, dragheight)
                 dragwin.setSize(dragwidth, dragheight)
-                dragwin.setSize(dragwidth, dragheight)
+                // dragwin.setSize(dragwidth, dragheight)
             })
         })
 
@@ -1535,7 +1204,7 @@ const startapp = () => {
         ipcMain.on('spawnextwin', () => {
             extwin = new BrowserWindow({
                 width: 300,
-                height: 50,
+                height: 80,
                 title: `Notification Window`,
                 icon: appicon,
                 fullscreenable: false,
@@ -1545,6 +1214,8 @@ const startapp = () => {
                 center: true,
                 useContentSize: true,
                 resizable: false,
+                transparent: true,
+                frame: false,
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
@@ -1561,6 +1232,15 @@ const startapp = () => {
                 }
             })
 
+            ipcMain.once('closeextwin', () => {
+                if (extwin) {
+                    extwin.destroy()
+                }
+
+                extwin = null
+                win.webContents.send('extwinclosed')
+            })
+
             extwin.on('close', () => {
                 extwin.destroy()
                 extwin = null
@@ -1568,14 +1248,102 @@ const startapp = () => {
             })
         })
 
-        ipcMain.on('extwinbgchange', () => {
-            if (extwin) {
-                extwin.webContents.send('changecolour')
+        ipcMain.on("opendevtools", () => {
+            win.webContents.openDevTools({ mode: "detach" })
+        })
+
+        let statwin
+
+        ipcMain.on('spawnstatwin', (event, user, translations) => {
+            statwin = new BrowserWindow({
+                width: 300,
+                height: 600,
+                minWidth: 300,
+                minHeight: 200,
+                maxHeight: 600,
+                autoHideMenuBar: true,
+                title: `Achievement Stats (${user})`,
+                center: true,
+                transparent: true,
+                frame: false,
+                webPreferences: {
+                    nodeIntegration: true,
+                    contextIsolation: false,
+                    backgroundThrottling: false
+                }
+            })
+
+            statwin.loadFile(path.join(__dirname,"statwin.html"))
+
+            // statwin.webContents.openDevTools({ mode: "detach" })
+
+            statwin.on('ready-to-show', () => {
+                statwin.webContents.send('user', user, translations)
+            })
+
+            ipcMain.on('despawnstatwin', () => {
+                if (statwin) {
+                    statwin.destroy()
+                }
+            })
+
+            statwin.on('close', () => {
+                statwin.destroy()
+                statwin = null
+                win.webContents.send('statwinclosed')
+            })
+        })
+
+        ipcMain.on('statwinopen', () => {
+            win.webContents.send('statwinopen')
+        })
+
+        ipcMain.on('statwingame', (event, appid) => {
+            if (statwin) {
+                statwin.webContents.send('statwingame', appid)
             }
         })
 
-        ipcMain.on("opendevtools", () => {
-            win.webContents.openDevTools({ mode: "detach" })
+        ipcMain.on('updatestatwin', (event, apiname) => {
+            if (statwin) {
+                statwin.webContents.send('updatestatwin', apiname)
+            }
+        })
+
+        ipcMain.on('statwinnogame', () => {
+            if (statwin) {
+                statwin.webContents.send('statwinnogame')
+            }
+        })
+
+        ipcMain.on('resetstats', (event, options) => {
+            var statsresult = dialog.showMessageBoxSync(win, options)
+            if (statsresult == 0) {
+                if (statwin) {
+                    statwin.destroy()
+                }
+
+                win.webContents.send('clearlocalstorage')
+            } else {
+                console.log("Achievement Stats Reset cancelled")
+            }
+        })
+
+        ipcMain.on('closestatwin', () => {
+            statwin.destroy()
+            statwin = null
+            win.webContents.send('statwinclosed')
+        })
+
+        ipcMain.on('setstartwin', (event, bool, exepath) => {
+            app.setLoginItemSettings({
+                openAtLogin: bool,
+                path: exepath
+            })
+        })
+
+        ipcMain.on('notifydebug', () => {
+            notifywin.webContents.openDevTools({ mode: "detach" })
         })
 
         nativeTheme.themeSource = "dark"

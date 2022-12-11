@@ -37,10 +37,16 @@ var iconanimtt
 var gamecompletiontt
 var ssoverlaytt
 var sserrortt
-var fullscreentt
-var fsselecttt
+// var fullscreentt
+// var fsselecttt
 var extwintt
 var extwincolourtt
+var statwintt
+var appdatatt
+var consolett
+var opacitytt
+var statwinresettt
+var notifydebugtt
 
 var usertippy = tippy(user, {
    allowHTML: true,
@@ -230,29 +236,29 @@ var tracktippy = tippy(tracking, {
    theme: "win",
 })
 
-tippy('#fullscreen', {
-   allowHTML: true,
-   content: fullscreentt,
-   arrow: false,
-   followCursor: true,
-   maxWidth: 200,
-   placement: "right",
-   offset: [30,15],
-   delay: [250,0],
-   theme: "win",
-})
+// tippy('#fullscreen', {
+//    allowHTML: true,
+//    content: fullscreentt,
+//    arrow: false,
+//    followCursor: true,
+//    maxWidth: 200,
+//    placement: "right",
+//    offset: [30,15],
+//    delay: [250,0],
+//    theme: "win",
+// })
 
-tippy('#fsselect', {
-   allowHTML: true,
-   content: fsselecttt,
-   arrow: false,
-   followCursor: true,
-   maxWidth: 185,
-   placement: "right",
-   offset: [30,15],
-   delay: [250,0],
-   theme: "win",
-})
+// tippy('#fsselect', {
+//    allowHTML: true,
+//    content: fsselecttt,
+//    arrow: false,
+//    followCursor: true,
+//    maxWidth: 185,
+//    placement: "right",
+//    offset: [30,15],
+//    delay: [250,0],
+//    theme: "win",
+// })
 
 tippy('#extwincont', {
    allowHTML: true,
@@ -269,6 +275,54 @@ tippy('#extwincont', {
 tippy('#extwincolour', {
    allowHTML: true,
    content: extwincolourtt,
+   arrow: false,
+   followCursor: true,
+   maxWidth: 185,
+   placement: "right",
+   offset: [30,15],
+   delay: [250,0],
+   theme: "win",
+})
+
+tippy('#statwincont', {
+   allowHTML: true,
+   content: extwintt,
+   arrow: false,
+   followCursor: true,
+   maxWidth: 185,
+   placement: "right",
+   offset: [30,15],
+   delay: [250,0],
+   theme: "win",
+})
+
+tippy('#console', {
+   allowHTML: true,
+   content: extwintt,
+   arrow: false,
+   followCursor: true,
+   maxWidth: 185,
+   placement: "right",
+   offset: [30,15],
+   delay: [250,0],
+   theme: "win",
+})
+
+tippy('#appdata', {
+   allowHTML: true,
+   content: extwintt,
+   arrow: false,
+   followCursor: true,
+   maxWidth: 185,
+   placement: "right",
+   offset: [30,15],
+   delay: [250,0],
+   theme: "win",
+})
+
+tippy('#opacity', {
+   allowHTML: true,
+   content: extwintt,
    arrow: false,
    followCursor: true,
    maxWidth: 185,
@@ -527,6 +581,18 @@ tippy('#nvda', {
    theme: "win",
 })
 
+tippy('#notifydebug', {
+   allowHTML: true,
+   content: notifydebugtt,
+   arrow: false,
+   followCursor: true,
+   maxWidth: 195,
+   placement: "right",
+   offset: [30,15],
+   delay: [250,0],
+   theme: "win",
+})
+
 tippy('#sserror', {
    allowHTML: true,
    content: sserrortt,
@@ -535,6 +601,18 @@ tippy('#sserror', {
    maxWidth: 195,
    placement: "left",
    offset: [0,15],
+   delay: [250,0],
+   theme: "win",
+})
+
+tippy('#statwinresetcont', {
+   allowHTML: true,
+   content: statwinresettt,
+   arrow: false,
+   followCursor: true,
+   maxWidth: 185,
+   placement: "right",
+   offset: [30,15],
    delay: [250,0],
    theme: "win",
 })
@@ -593,10 +671,16 @@ function LoadLangTT() {
       gamecompletiontt = "Shows an additional notification when all achievements in a game have been unlocked."
       ssoverlaytt = `Takes a non-Steam screenshot and overlays the details of the unlocked achievement. These non-Steam screenshots can be saved in a specific directory using the "Path" option.`
       sserrortt = "<span style='color: red; font-weight: bold'>No screenshot option enabled!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Application will restart when checked</span><br>Enables notifications to be displayed over games set to use "Fullscreen" or "Exclusive Fullscreen" display modes.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Application will restart when checked</span><br>Enables notifications to be displayed over games set to use "Fullscreen" or "Exclusive Fullscreen" display modes.`
       extwintt = "Spawns an additional external window which will playback all achievement notifications.<br><br><i>Suitable for window capture in OBS or other streaming software.</i>"
       extwincolourtt = `Sets the window's background colour for the "Duplicate Notifications to Window" option.`
-      fsselecttt = `Select the Fullscreen game process from a list of valid windows.<br><br><i>Useful if you are having issues with the default automatic window search used by the "Enable Fullscreen Notifications" option.</i>`
+      // fsselecttt = `Select the Fullscreen game process from a list of valid windows.<br><br><i>Useful if you are having issues with the default automatic window search used by the "Enable Fullscreen Notifications" option.</i>`
+      statwintt = `Displays various achievement statistics for all games in the user's Steam Library.`
+      appdatatt = `Opens the Steam Achievement Notifier application data folder.`
+      consolett = `Opens the DevTools Console in a separate window.`
+      opacitytt = `Sets the global opacity of all achievement notifications.`
+      statwinresettt = `Clear all stored Achievement Stats`
+      notifydebugtt = `Opens the notification's DevTools window to provide further debugging information.`
    } else if (configtt.lang == "arabic") {
       usertt = "اسم مستخدم Steam<br><div style='font-size: 6px'>يتم تعقب الإنجازات لهذا المستخدم</div>"
       gamett = "لعبة الحالية<br><div style='font-size: 6px'>يظهر اسم اللعبة التي يتم تعقبها حاليًا</div>"
@@ -635,10 +719,16 @@ function LoadLangTT() {
       gamecompletiontt = "يعرض إشعارًا إضافيًا عند إلغاء قفل جميع الإنجازات في اللعبة."
       ssoverlaytt = `يأخذ لقطة شاشة غير Steam ويغطي تفاصيل الإنجاز غير المؤمّن. يمكن حفظ لقطات الشاشة غير Steam في دليل محدد باستخدام خيار "المسار".`
       sserrortt = "<span style='color: red; font-weight: bold'>لم يتم تمكين خيار لقطة الشاشة!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">* سيتم إعادة تشغيل التطبيق عند التمكين</span><br>لتمكين عرض الإشعارات على الألعاب التي تم تعيينها لاستخدام أوضاع العرض "ملء الشاشة" أو "ملء الشاشة الحصري".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">* سيتم إعادة تشغيل التطبيق عند التمكين</span><br>لتمكين عرض الإشعارات على الألعاب التي تم تعيينها لاستخدام أوضاع العرض "ملء الشاشة" أو "ملء الشاشة الحصري".`
       extwintt = "يُنشئ نافذة خارجية إضافية تُظهر جميع الإخطارات.<br><br><i>مناسبة لالتقاط النافذة في OBS أو برامج البث الأخرى.</i>"
       extwincolourtt = `يضبط لون خلفية النوافذ لخيار "نسخ الإشعارات إلى النافذة"`
-      fsselecttt = `حدد عملية اللعبة بملء الشاشة من قائمة النوافذ الصالحة.<br><br><i>مفيد إذا كنت تواجه مشكلات في البحث التلقائي عن النوافذ الذي يستخدمه خيار "تمكين إشعارات ملء الشاشة".</i>`
+      // fsselecttt = `حدد عملية اللعبة بملء الشاشة من قائمة النوافذ الصالحة.<br><br><i>مفيد إذا كنت تواجه مشكلات في البحث التلقائي عن النوافذ الذي يستخدمه خيار "تمكين إشعارات ملء الشاشة".</i>`
+      statwintt = `يعرض إحصائيات الإنجاز المختلفة لجميع الألعاب في مكتبة Steam الخاصة بالمستخدم.`
+      appdatatt = `يفتح مجلد بيانات التطبيق لـ Steam Achievement Notifier.`
+      consolett = `يفتح وحدة تحكم DevTools في نافذة منفصلة.`
+      opacitytt = `يضبط التعتيم العام لجميع إعلامات الإنجاز.`
+      statwinresettt = `امسح كافة إحصائيات الإنجاز المخزنة`
+      notifydebugtt = `يفتح نافذة DevTools للإشعار لتقديم مزيد من معلومات تصحيح الأخطاء.`
    } else if (configtt.lang == "bulgarian") {
       usertt = "Потребителско име на Steam<br><div style='font-size: 6px'>Постиженията се проследяват за този потребител</div>"
       gamett = "Дисплей На Играта<br><div style='font-size: 6px'>Показва името на играта, която се проследява в момента</div>"
@@ -677,10 +767,16 @@ function LoadLangTT() {
       gamecompletiontt = "Показва допълнително известие, когато всички постижения в играта са отключени."
       ssoverlaytt = `Прави екранна снимка извън Steam и наслагва детайлите на отключеното постижение. Тези екранни снимки, различни от Steam, могат да бъдат записани в определена директория с помощта на опцията "Път".`
       sserrortt = "<span style='color: red; font-weight: bold'>Опцията за екранна снимка не е активирана!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Приложението ще се рестартира при отметка</span><br>Разрешава показването на известия за игри, настроени да използват режими на показване „Цял екран“ или „Изключителен цял екран“.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Приложението ще се рестартира при отметка</span><br>Разрешава показването на известия за игри, настроени да използват режими на показване „Цял екран“ или „Изключителен цял екран“.`
       extwintt = "Създава допълнителен външен прозорец, който ще възпроизвежда всички известия за постижения.<br><br><i>Подходящ за заснемане на прозорец в OBS или друг софтуер за поточно предаване.</i>"
       extwincolourtt = `Задава цвета на фона на прозореца за опцията „Дублирани известия в прозореца“.`
-      fsselecttt = `Изберете процеса на игра на цял екран от списък с валидни прозорци.<br><br><i>Полезно, ако имате проблеми с автоматичното търсене на прозорци по подразбиране, използвано от опцията „Известия На Цял Екран“.</i>`
+      // fsselecttt = `Изберете процеса на игра на цял екран от списък с валидни прозорци.<br><br><i>Полезно, ако имате проблеми с автоматичното търсене на прозорци по подразбиране, използвано от опцията „Известия На Цял Екран“.</i>`
+      statwintt = `Показва различни статистики за постиженията за всички игри в Steam библиотеката на потребителя.`
+      appdatatt = `Отваря папката с данни на приложението Steam Achievement Notifier.`
+      consolett = `Отваря конзолата DevTools в отделен прозорец.`
+      opacitytt = `Задава глобалната непрозрачност на всички известия за постижения.`
+      statwinresettt = `Изчистете всички запазени статистики за постиженията`
+      notifydebugtt = `Отваря прозореца DevTools на известието, за да предостави допълнителна информация за отстраняване на грешки.`
    } else if (configtt.lang == "schinese") {
       usertt = "Steam 用户名<br><div style='font-size: 6px'>正在跟踪此用户的成就</div>"
       gamett = "当前游戏<br><div style='font-size: 6px'>显示当前正在跟踪的游戏名称</div>"
@@ -719,10 +815,16 @@ function LoadLangTT() {
       gamecompletiontt = "当游戏中的所有成就都已解锁时显示附加通知。"
       ssoverlaytt = `截取非 Steam 屏幕截图并覆盖解锁成就的详细信息。这些非 Steam 屏幕截图可以使用“路径”选项保存在特定目录中。`
       sserrortt = "<span style='color: red; font-weight: bold'>没有启用截图选项！</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*启用后应用会重启</span><br>允许在设置为使用“全屏”或“独占全屏”显示模式的游戏上显示通知。`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*启用后应用会重启</span><br>允许在设置为使用“全屏”或“独占全屏”显示模式的游戏上显示通知。`
       extwintt = "生成一个额外的外部窗口，它将播放所有成就通知。<br><br><i>适用于OBS或其他流媒体软件中的窗口捕获。</i>"
       extwincolourtt = `为“将通知复制到窗口”选项设置窗口的背景颜色`
-      fsselecttt = `从有效窗口列表中选择全屏游戏进程。<br><br><i>如果您对“启用全屏通知”选项使用的默认自动窗口搜索有疑问，这很有用。</i>`
+      // fsselecttt = `从有效窗口列表中选择全屏游戏进程。<br><br><i>如果您对“启用全屏通知”选项使用的默认自动窗口搜索有疑问，这很有用。</i>`
+      statwintt = `显示用户 Steam 库中所有游戏的各种成就统计数据。`
+      appdatatt = `打开 Steam 成就通知程序应用程序数据文件夹。`
+      consolett = `在单独的窗口中打开 DevTools 控制台。`
+      opacitytt = `设置所有成就通知的全局不透明度。`
+      statwinresettt = `清除所有存储的成就统计`
+      notifydebugtt = `打开通知的 DevTools 窗口以提供进一步的调试信息。`
    } else if (configtt.lang == "tchinese") {
       usertt = "Steam 用戶名<br><div style='font-size: 6px'>正在跟踪此用戶的成就</div>"
       gamett = "當前遊戲<br><div style='font-size: 6px'>顯示當前正在跟踪的遊戲名稱</div>"
@@ -761,10 +863,16 @@ function LoadLangTT() {
       gamecompletiontt = "當遊戲中的所有成就都已解鎖時顯示附加通知。"
       ssoverlaytt = `拍攝非 Steam 屏幕截圖並覆蓋解鎖的成就詳情。這些非 Steam 屏幕截圖可以使用“路徑”選項保存在特定目錄中。`
       sserrortt = "<span style='color: red; font-weight: bold'>沒有啟用截圖選項！</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*選中後應用程序將重新啟動</span><br>允許在設置為使用“全屏”或“獨占全屏”顯示模式的遊戲上顯示通知。`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*選中後應用程序將重新啟動</span><br>允許在設置為使用“全屏”或“獨占全屏”顯示模式的遊戲上顯示通知。`
       extwintt = "生成一個額外的外部窗口，它將播放所有成就通知。<br><br><i>適用於OBS或其他流媒體軟件中的窗口捕獲。</i>"
       extwincolourtt = `為“將通知複製到窗口”選項設置窗口的背景顏色`
-      fsselecttt = `從有效窗口列表中選擇全屏遊戲進程。<br><br><i>如果您對“啟用全屏通知”選項使用的默認自動窗口搜索有疑問，這很有用。</i>`
+      // fsselecttt = `從有效窗口列表中選擇全屏遊戲進程。<br><br><i>如果您對“啟用全屏通知”選項使用的默認自動窗口搜索有疑問，這很有用。</i>`
+      statwintt = `顯示用戶 Steam 庫中所有遊戲的各種成就統計數據。`
+      appdatatt = `打開 Steam 成就通知程序應用程序數據文件夾。`
+      consolett = `在單獨的窗口中打開 DevTools 控制台。`
+      opacitytt = `設置所有成就通知的全局不透明度。`
+      statwinresettt = `清除所有存儲的成就統計`
+      notifydebugtt = `打開通知的 DevTools 窗口以提供進一步的調試信息。`
    } else if (configtt.lang == "czech") {
       usertt = "Uživatelské Jméno Pro Steam<br><div style='font-size: 6px'>Pro tohoto uživatele jsou sledovány úspěchy</div>"
       gamett = "Aktuální Hra<br><div style='font-size: 6px'>Zobrazuje název aktuálně sledované hry</div>"
@@ -803,10 +911,16 @@ function LoadLangTT() {
       gamecompletiontt = "Zobrazí další upozornění, když byly odemčeny všechny úspěchy ve hře."
       ssoverlaytt = `Pořídí snímek obrazovky mimo Steam a překryje podrobnosti o odemčeném úspěchu. Tyto snímky obrazovky mimo Steam lze uložit do konkrétního adresáře pomocí možnosti "Cesta".`
       sserrortt = "<span style='color: red; font-weight: bold'>Není nastavena žádná možnost snímku obrazovky!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Po zaškrtnutí se aplikace restartuje</span><br>Umožňuje zobrazování upozornění ve hrách nastavených na režim zobrazení „Celá Obrazovka“ nebo „Exkluzivní Celá Obrazovka“.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Po zaškrtnutí se aplikace restartuje</span><br>Umožňuje zobrazování upozornění ve hrách nastavených na režim zobrazení „Celá Obrazovka“ nebo „Exkluzivní Celá Obrazovka“.`
       extwintt = "Vytvoří další externí okno, které přehraje všechna oznámení o úspěchu.<br><br><i>Vhodné pro zachycení okna v OBS nebo jiném streamovacím softwaru.</i>"
       extwincolourtt = `Nastaví barvu pozadí okna pro volbu „Duplicitní Oznámení do Okna“.`
-      fsselecttt = `Ze seznamu platných oken vyberte proces hry na celou obrazovku.<br><br><i>Užitečné, pokud máte problémy s výchozím automatickým prohledáváním oken, které používá volba „Upozornění na Celou Obrazovku“.</i>`
+      // fsselecttt = `Ze seznamu platných oken vyberte proces hry na celou obrazovku.<br><br><i>Užitečné, pokud máte problémy s výchozím automatickým prohledáváním oken, které používá volba „Upozornění na Celou Obrazovku“.</i>`
+      statwintt = `Zobrazuje různé statistiky úspěchů pro všechny hry v knihovně Steam uživatele.`
+      appdatatt = `Otevře datovou složku aplikace Steam Achievement Notifier.`
+      consolett = `Otevře konzolu DevTools v samostatném okně.`
+      opacitytt = `Nastaví globální neprůhlednost všech oznámení o úspěchu.`
+      statwinresettt = `Vymažte všechny uložené statistiky úspěchů`
+      notifydebugtt = `Otevře okno DevTools oznámení, kde jsou uvedeny další informace o ladění.`
    } else if (configtt.lang == "danish") {
       usertt = "Steam Brugernavn<br><div style='font-size: 6px'>Præstationer bliver sporet for denne bruger</div>"
       gamett = "Spil Display<br><div style='font-size: 6px'>Viser navnet på det spil, der spores i øjeblikket</div>"
@@ -845,10 +959,16 @@ function LoadLangTT() {
       gamecompletiontt = "Viser en ekstra notifikation, når alle præstationer i et spil er blevet låst op."
       ssoverlaytt = `Tager et ikke-Steam-skærmbillede og overlejrer detaljerne for den ulåste præstation. Disse ikke-Steam-skærmbilleder kan gemmes i en specifik mappe ved at bruge "Sti"-indstillingen.`
       sserrortt = "<span style='color: red; font-weight: bold'>Ingen mulighed for skærmbillede aktiveret!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Applikationen genstartes, når den er markeret</span><br>Gør det muligt at vise meddelelser over spil, der er indstillet til at bruge "Fuldskærm" eller "Eksklusiv Fuldskærm" visningstilstande.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Applikationen genstartes, når den er markeret</span><br>Gør det muligt at vise meddelelser over spil, der er indstillet til at bruge "Fuldskærm" eller "Eksklusiv Fuldskærm" visningstilstande.`
       extwintt = "Skaber et ekstra eksternt vindue, som afspiller alle præstationsmeddelelser.<br><br><i>Velegnet til vinduesoptagelse i OBS eller anden udsendelsessoftware.</i>"
       extwincolourtt = `Indstiller vinduets baggrundsfarve for "Dublerede Meddelelser til Vinduet".`
-      fsselecttt = `Vælg fuldskærms-spilprocessen fra en liste over gyldige vinduer.<br><br><i>Nyttigt, hvis du har problemer med standard automatisk vinduessøgning, der bruges af "Aktiv Fuldskærmsmeddelelser".</i>`
+      // fsselecttt = `Vælg fuldskærms-spilprocessen fra en liste over gyldige vinduer.<br><br><i>Nyttigt, hvis du har problemer med standard automatisk vinduessøgning, der bruges af "Aktiv Fuldskærmsmeddelelser".</i>`
+      statwintt = `Viser forskellige præstationsstatistikker for alle spil i brugerens Steam-bibliotek.`
+      appdatatt = `Åbner Steam Achievement Notifier-programdatamappen.`
+      consolett = `Åbner DevTools-konsollen i et separat vindue.`
+      opacitytt = `Indstiller den globale uigennemsigtighed for alle præstationsmeddelelser.`
+      statwinresettt = `Ryd alle gemte præstationsstatistikker`
+      notifydebugtt = `Åbner meddelelsens DevTools-vindue for at give yderligere fejlretningsoplysninger.`
    } else if (configtt.lang == "dutch") {
       usertt = "Steam Gebruikersnaam<br><div style='font-size: 6px'>Prestaties worden bijgehouden voor deze gebruiker</div>"
       gamett = "Huidig ​​Spel<br><div style='font-size: 6px'>Toont de naam van de game die momenteel wordt gevolgd</div>"
@@ -887,10 +1007,16 @@ function LoadLangTT() {
       gamecompletiontt = "Toont een extra melding wanneer alle prestaties in een game zijn ontgrendeld."
       ssoverlaytt = `Maakt een niet-Steam-screenshot en overlapt de details van de ontgrendelde prestatie. Deze niet-Steam-screenshots kunnen in een specifieke map worden opgeslagen met de optie "Pad".`
       sserrortt = "<span style='color: red; font-weight: bold'>Geen screenshot-optie ingeschakeld!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Applicatie zal herstarten wanneer aangevinkt</span><br>Hiermee kunnen meldingen worden weergegeven bovenop games die zijn ingesteld om de weergavemodi "Volledig Scherm" of "Exclusief Volledig Scherm" te gebruiken.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Applicatie zal herstarten wanneer aangevinkt</span><br>Hiermee kunnen meldingen worden weergegeven bovenop games die zijn ingesteld om de weergavemodi "Volledig Scherm" of "Exclusief Volledig Scherm" te gebruiken.`
       extwintt = "Spawnt een extra extern venster waarin alle prestatiemeldingen worden afgespeeld.<br><br><i>Geschikt voor opname in OBS of andere uitzendsoftware.</i>"
       extwincolourtt = `Stelt de achtergrondkleur van het venster in voor de optie "Dubbele Meldingen naar Venster".`
-      fsselecttt = `Selecteer het spelproces Volledig scherm uit een lijst met geldige vensters.<br><br><i>Handig als je problemen hebt met de standaard automatische vensterzoekfunctie van de optie "Meldingen op Volledig Scherm".</i>`
+      // fsselecttt = `Selecteer het spelproces Volledig scherm uit een lijst met geldige vensters.<br><br><i>Handig als je problemen hebt met de standaard automatische vensterzoekfunctie van de optie "Meldingen op Volledig Scherm".</i>`
+      statwintt = `Toont verschillende prestatiestatistieken voor alle games in de Steam-bibliotheek van de gebruiker.`
+      appdatatt = `Opent de applicatiegegevensmap van Steam Achievement Notifier.`
+      consolett = `Opent de DevTools-console in een apart venster.`
+      opacitytt = `Stelt de globale transparantie van alle prestatiemeldingen in.`
+      statwinresettt = `Alle opgeslagen prestatiestatistieken wissen`
+      notifydebugtt = `Opent het DevTools-venster van de melding om verdere foutopsporingsinformatie te geven.`
    } else if (configtt.lang == "finnish") {
       usertt = "Steam Käyttäjätunnus<br><div style='font-size: 6px'>Tämän käyttäjän saavutuksia seurataan</div>"
       gamett = "Nykyinen Peli<br><div style='font-size: 6px'>Näyttää parhaillaan seurattavan pelin nimen</div>"
@@ -929,10 +1055,16 @@ function LoadLangTT() {
       gamecompletiontt = "Näyttää lisäilmoituksen, kun kaikki pelin saavutukset on avattu."
       ssoverlaytt = `Ottaa muun kuin Steam-kuvakaappauksen ja näyttää avatun saavutuksen yksityiskohdat. Nämä muut kuin Steam-kuvakaappaukset voidaan tallentaa tiettyyn hakemistoon "Polku"-vaihtoehdon avulla.`
       sserrortt = "<span style='color: red; font-weight: bold'>Kuvakaappausvaihtoehtoa ei ole asetettu!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Sovellus käynnistyy uudelleen, kun se on valittuna</span><br>Mahdollistaa ilmoitusten näyttämisen peleissä, jotka on asetettu käyttämään "Koko Näytön" tai "Yksinomaista Koko Näytön" näyttötiloja.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Sovellus käynnistyy uudelleen, kun se on valittuna</span><br>Mahdollistaa ilmoitusten näyttämisen peleissä, jotka on asetettu käyttämään "Koko Näytön" tai "Yksinomaista Koko Näytön" näyttötiloja.`
       extwintt = "Luo ylimääräisen ulkoisen ikkunan, joka toistaa kaikki saavutusilmoitukset.<br><br><i>Sopii ikkunoiden kaappaamiseen OBS:ssä tai muussa suoratoistoohjelmistossa.</i>"
       extwincolourtt = `Asettaa "Kopioi Ilmoitukset Ikkunaan"-vaihtoehdon ikkunan taustavärin`
-      fsselecttt = `Valitse koko näytön peliprosessi kelvollisten ikkunoiden luettelosta.<br><br><i>Hyödyllinen, jos sinulla on ongelmia "Koko Näytön Ilmoitukset"-vaihtoehdon käyttämän oletusautomaattisen ikkunahaun kanssa.</i>`
+      // fsselecttt = `Valitse koko näytön peliprosessi kelvollisten ikkunoiden luettelosta.<br><br><i>Hyödyllinen, jos sinulla on ongelmia "Koko Näytön Ilmoitukset"-vaihtoehdon käyttämän oletusautomaattisen ikkunahaun kanssa.</i>`
+      statwintt = `Näyttää erilaisia ​​saavutustilastoja kaikista käyttäjän Steam-kirjaston peleistä.`
+      appdatatt = `Avaa Steam Achievement Notifier-sovelluksen tietokansion.`
+      consolett = `Avaa DevTools-konsolin erilliseen ikkunaan.`
+      opacitytt = `Asettaa kaikkien saavutusilmoitusten yleisen läpinäkyvyyden.`
+      statwinresettt = `Tyhjennä kaikki tallennetut saavutustilastot`
+      notifydebugtt = `Avaa ilmoituksen DevTools-ikkunan ja antaa lisätietoja virheenkorjauksesta.`
    } else if (configtt.lang == "french") {
       usertt = "Nom d'Utilisateur Steam<br><div style='font-size: 6px'>Le suivi des succés est activé pour cet utilisateur</div>"
       gamett = "Affichage du Jeu<br><div style='font-size: 6px'>Affiche le nom du jeu actuellement suivi</div>"
@@ -971,10 +1103,16 @@ function LoadLangTT() {
       gamecompletiontt = "Affiche une notification supplémentaire lorsque tous les succès d'un jeu ont été déverrouillés."
       ssoverlaytt = `Prend une capture d'écran non-Steam et superpose les détails de la réussite déverrouillée. Ces captures d'écran non Steam peuvent être enregistrées dans un répertoire spécifique à l'aide de l'option "Chemin".`
       sserrortt = "<span style='color: red; font-weight: bold'>Aucune option de capture d'écran activée!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*L'application redémarrera une fois cochée</span><br>Permet d'afficher des notifications dans les jeux configurés pour utiliser les modes d'affichage "Plein Écran" ou "Plein Écran Exclusif".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*L'application redémarrera une fois cochée</span><br>Permet d'afficher des notifications dans les jeux configurés pour utiliser les modes d'affichage "Plein Écran" ou "Plein Écran Exclusif".`
       extwintt = "Génère une fenêtre supplémentaire qui affichera toutes les notifications<br><br><i>Convient pour la capture de fenêtre dans OBS ou un autre logiciel de streaming.</i>"
       extwincolourtt = `Définit la couleur de fond de la fenêtre pour l'option "Dupliquer Dans la Fenêtre"`
-      fsselecttt = `Sélectionnez le processus de jeu plein écran dans une liste de fenêtres valides.<br><br><i>Utile si vous rencontrez des problèmes avec la recherche automatique de fenêtre par défaut utilisée par l'option "Notifications en plein écran".</i>`
+      // fsselecttt = `Sélectionnez le processus de jeu plein écran dans une liste de fenêtres valides.<br><br><i>Utile si vous rencontrez des problèmes avec la recherche automatique de fenêtre par défaut utilisée par l'option "Notifications en plein écran".</i>`
+      statwintt = `Affiche diverses statistiques de réussite pour tous les jeux de la bibliothèque Steam de l'utilisateur.`
+      appdatatt = `Ouvre le dossier de données de l'application Steam Achievement Notifier.`
+      consolett = `Ouvre la console DevTools dans une fenêtre séparée.`
+      opacitytt = `Définit l'opacité globale de toutes les notifications de succès.`
+      statwinresettt = `Effacer toutes les statistiques de réalisations stockées`
+      notifydebugtt = `Ouvre la fenêtre DevTools de la notification pour fournir des informations de débogage supplémentaires.`
    } else if (configtt.lang == "german") {
       usertt = "Steam Benutzername<br><div style='font-size: 6px'>Errungenschaften werden für diesen Benutzer nachverfolgt</div>"
       gamett = "Spielanzeige<br><div style='font-size: 6px'>Zeigt den Namen des aktuell verfolgten Spiels an</div>"
@@ -1013,10 +1151,16 @@ function LoadLangTT() {
       gamecompletiontt = "Zeigt eine zusätzliche Benachrichtigung an, wenn alle Errungschafts in einem Spiel freigeschaltet wurden."
       ssoverlaytt = `Macht einen Nicht-Steam-Screenshot und blendet die Details des freigeschalteten Erfolgs ein. Diese Nicht-Steam-Screenshots können mit der Option "Pfad" in einem bestimmten Verzeichnis gespeichert werden.`
       sserrortt = "<span style='color: red; font-weight: bold'>Keine Bildschirmfoto-option aktiviert!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Die Anwendung wird neu gestartet, wenn sie aktiviert ist</span><br>Ermöglicht die Anzeige von Benachrichtigungen in Spielen, die auf die Ansichtsmodi „Vollbild“ oder „Exklusiver Vollbild“ eingestellt sind.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Die Anwendung wird neu gestartet, wenn sie aktiviert ist</span><br>Ermöglicht die Anzeige von Benachrichtigungen in Spielen, die auf die Ansichtsmodi „Vollbild“ oder „Exklusiver Vollbild“ eingestellt sind.`
       extwintt = "Öffnet ein zusätzliches externes Fenster, das alle Erfolgsbenachrichtigungen wiedergibt.<br><br><i>Geeignet für die Fenstererfassung in OBS oder anderer Übertragungssoftware.</i>"
       extwincolourtt = `Legt die Hintergrundfarbe des Fensters für die Option "Doppelte Benachrichtigungen an Fenster" fest`
-      fsselecttt = `Wählen Sie den Vollbild-Spielprozess aus einer Liste gültiger Fenster aus.<br><br><i>Nützlich, wenn Sie Probleme mit der standardmäßigen automatischen Fenstersuche haben, die von der Option "Vollbild-Benachrichtigungen" verwendet wird.</i>`
+      // fsselecttt = `Wählen Sie den Vollbild-Spielprozess aus einer Liste gültiger Fenster aus.<br><br><i>Nützlich, wenn Sie Probleme mit der standardmäßigen automatischen Fenstersuche haben, die von der Option "Vollbild-Benachrichtigungen" verwendet wird.</i>`
+      statwintt = `Zeigt verschiedene Erfolgsstatistiken für alle Spiele in der Steam-Bibliothek des Benutzers an.`
+      appdatatt = `Öffnet den Anwendungsdatenordner von Steam Achievement Notifier.`
+      consolett = `Öffnet die DevTools-Konsole in einem separaten Fenster.`
+      opacitytt = `Legt die globale Deckkraft aller Erfolgsbenachrichtigungen fest.`
+      statwinresettt = `Löschen Sie alle gespeicherten Erfolgsstatistiken`
+      notifydebugtt = `Öffnet das DevTools-Fenster der Benachrichtigung, um weitere Debuginformationen bereitzustellen.`
    } else if (configtt.lang == "greek") {
       usertt = "Όνομα χρήστη Steam<br><div style='font-size: 6px'>Τα επιτεύγματα παρακολουθούνται για αυτόν τον χρήστη</div>"
       gamett = "Εμφάνιση παιχνιδιού<br><div style='font-size: 6px'>Εμφανίζει το όνομα του παιχνιδιού που παρακολουθείται αυτήν τη στιγμή</div>"
@@ -1057,10 +1201,16 @@ function LoadLangTT() {
       gamecompletiontt = "Εμφανίζει μια πρόσθετη ειδοποίηση όταν όλα τα επιτεύγματα σε ένα παιχνίδι έχουν ξεκλειδωθεί."
       ssoverlaytt = `Λαμβάνει ένα στιγμιότυπο οθόνης εκτός Steam και επικαλύπτει τις λεπτομέρειες του ξεκλειδωμένου επιτεύγματος. Αυτά τα στιγμιότυπα οθόνης που δεν ανήκουν στο Steam μπορούν να αποθηκευτούν σε έναν συγκεκριμένο κατάλογο χρησιμοποιώντας την επιλογή "Μονοπάτι".`
       sserrortt = "<span style='color: red; font-weight: bold'>Η επιλογή Στιγμιότυπων δεν είναι ενεργοποιημένη!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Η εφαρμογή θα επανεκκινήσει όταν επιλεγεί</span><br>Επιτρέπει την εμφάνιση ειδοποιήσεων σε παιχνίδια που έχουν ρυθμιστεί να χρησιμοποιούν λειτουργίες προβολής "Πλήρης οθόνη" ή "Αποκλειστική πλήρης οθόνη".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Η εφαρμογή θα επανεκκινήσει όταν επιλεγεί</span><br>Επιτρέπει την εμφάνιση ειδοποιήσεων σε παιχνίδια που έχουν ρυθμιστεί να χρησιμοποιούν λειτουργίες προβολής "Πλήρης οθόνη" ή "Αποκλειστική πλήρης οθόνη".`
       extwintt = "Δημιουργεί ένα επιπλέον εξωτερικό παράθυρο που θα αναπαράγει όλες τις ειδοποιήσεις επιτευγμάτων.<br><br><i>Κατάλληλο για λήψη παραθύρων σε OBS ή άλλο λογισμικό ροής.</i>"
       extwincolourtt = `Ορίζει το χρώμα φόντου του παραθύρου για την επιλογή "Διπλότυπες Ειδοποιήσεις Στο Παράθυρο".`
-      fsselecttt = `Επιλέξτε τη διαδικασία παιχνιδιού πλήρους οθόνης από μια λίστα έγκυρων παραθύρων.<br><br><i>Χρήσιμο εάν αντιμετωπίζετε προβλήματα με την προεπιλεγμένη αυτόματη αναζήτηση παραθύρων που χρησιμοποιείται από την επιλογή "Ειδοποιήσεις Πλήρους Οθόνης".</i>`
+      // fsselecttt = `Επιλέξτε τη διαδικασία παιχνιδιού πλήρους οθόνης από μια λίστα έγκυρων παραθύρων.<br><br><i>Χρήσιμο εάν αντιμετωπίζετε προβλήματα με την προεπιλεγμένη αυτόματη αναζήτηση παραθύρων που χρησιμοποιείται από την επιλογή "Ειδοποιήσεις Πλήρους Οθόνης".</i>`
+      statwintt = `Εμφανίζει διάφορα στατιστικά επιτευγμάτων για όλα τα παιχνίδια στη βιβλιοθήκη Steam του χρήστη.`
+      appdatatt = `Ανοίγει το φάκελο δεδομένων της εφαρμογής Steam Achievement Notifier.`
+      consolett = `Ανοίγει την Κονσόλα DevTools σε ξεχωριστό παράθυρο.`
+      opacitytt = `Ορίζει την καθολική αδιαφάνεια όλων των ειδοποιήσεων επιτευγμάτων.`
+      statwinresettt = `Διαγραφή όλων των αποθηκευμένων στατιστικών επιτεύγματος`
+      notifydebugtt = `Ανοίγει το παράθυρο DevTools της ειδοποίησης για να παρέχει περαιτέρω πληροφορίες εντοπισμού σφαλμάτων.`
    } else if (configtt.lang == "hungarian") {
       usertt = "Steam Felhasználónév<br><div style='font-size: 6px'>A felhasználó elért eredményeit nyomon követik</div>"
       gamett = "Játék Kijelző<br><div style='font-size: 6px'>Az éppen nyomon követett játék nevét mutatja</div>"
@@ -1099,10 +1249,16 @@ function LoadLangTT() {
       gamecompletiontt = "További értesítést jelenít meg, ha egy játékban az összes jutalmat feloldották."
       ssoverlaytt = `Nem Steam képernyőképet készít, és ráfedi a feloldott jutalom részleteit. Ezek a nem Steam képernyőképek egy adott könyvtárba menthetők az "Pálya" opció használatával.`
       sserrortt = "<span style='color: red; font-weight: bold'>Nincs engedélyezve a képernyőkép opció!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Az alkalmazás újraindul, ha be van jelölve</span><br>Lehetővé teszi az értesítések megjelenítését a „Teljes Képernyős” vagy „Exkluzív Teljes Képernyős” megjelenítési módra beállított játékok felett.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Az alkalmazás újraindul, ha be van jelölve</span><br>Lehetővé teszi az értesítések megjelenítését a „Teljes Képernyős” vagy „Exkluzív Teljes Képernyős” megjelenítési módra beállított játékok felett.`
       extwintt = "Egy további külső ablakot hoz létre, amely lejátssza az összes jutalomértesítést.<br><br><i>Alkalmas ablakrögzítésre OBS-ben vagy más műsorszóró szoftverben.</i>"
       extwincolourtt = `Beállítja az ablak háttérszínét az „Az Értesítések Másolása Az Ablakba” opcióhoz.`
-      fsselecttt = `Válassza ki a Teljes képernyős játékfolyamatot az érvényes ablakok listájából.<br><br><i>Hasznos, ha problémái vannak a „Teljes Képernyős Értesítések” opció által használt alapértelmezett automatikus ablakkereséssel.</i>`
+      // fsselecttt = `Válassza ki a Teljes képernyős játékfolyamatot az érvényes ablakok listájából.<br><br><i>Hasznos, ha problémái vannak a „Teljes Képernyős Értesítések” opció által használt alapértelmezett automatikus ablakkereséssel.</i>`
+      statwintt = `Különféle teljesítménystatisztikát jelenít meg a felhasználó Steam könyvtárában található összes játékhoz.`
+      appdatatt = `Megnyitja a Steam Achievement Notifier alkalmazás adatmappáját.`
+      consolett = `Megnyitja a DevTools konzolt egy külön ablakban.`
+      opacitytt = `Beállítja az összes jutalomértesítés globális átlátszatlanságát.`
+      statwinresettt = `Törölje az összes tárolt teljesítménystatisztikát`
+      notifydebugtt = `Megnyitja az értesítés DevTools ablakát, hogy további hibakeresési információkat biztosítson.`
    } else if (configtt.lang == "italian") {
       usertt = "Nome Utente Di Steam<br><div style='font-size: 6px'>I risultati vengono monitorati per questo utente</div>"
       gamett = "Display Di Gioco<br><div style='font-size: 6px'>Mostra il nome del gioco attualmente monitorato</div>"
@@ -1141,10 +1297,16 @@ function LoadLangTT() {
       gamecompletiontt = "Mostra una notifica aggiuntiva quando tutti gli obiettivi in ​​un gioco sono stati sbloccati."
       ssoverlaytt = `Acquisisce uno screenshot non di Steam e sovrappone i dettagli dell'obiettivo sbloccato. Questi screenshot non di Steam possono essere salvati in una directory specifica utilizzando l'opzione "Percorso".`
       sserrortt = "<span style='color: red; font-weight: bold'>Nessuna opzione screenshot abilitata!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*L'applicazione si riavvierà una volta selezionata</span><br>Visualizza le notifiche sopra i giochi che sono impostati per utilizzare le modalità di visualizzazione "Schermo Intero" o "Schermo Intero Esclusivo".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*L'applicazione si riavvierà una volta selezionata</span><br>Visualizza le notifiche sopra i giochi che sono impostati per utilizzare le modalità di visualizzazione "Schermo Intero" o "Schermo Intero Esclusivo".`
       extwintt = "Genera una finestra esterna aggiuntiva che riprodurrà tutte le notifiche.<br><br><i>Adatto per acquisire finestre in OBS o altri software di trasmissione.</i>"
       extwincolourtt = `Imposta il colore di sfondo della finestra per l'opzione "Notifiche Duplicate su Finestra".`
-      fsselecttt = `Seleziona il processo di gioco a schermo intero da un elenco di finestre valide.<br><br><i>Utile in caso di problemi con la ricerca automatica della finestra predefinita utilizzata dall'opzione "Notifiche a Schermo Intero".</i>`
+      // fsselecttt = `Seleziona il processo di gioco a schermo intero da un elenco di finestre valide.<br><br><i>Utile in caso di problemi con la ricerca automatica della finestra predefinita utilizzata dall'opzione "Notifiche a Schermo Intero".</i>`
+      statwintt = `Visualizza varie statistiche sugli obiettivi per tutti i giochi nella libreria di Steam dell'utente.`
+      appdatatt = `Apre la cartella dei dati dell'applicazione Steam Achievement Notifier.`
+      consolett = `Apre la console DevTools in una finestra separata.`
+      opacitytt = `Imposta l'opacità globale di tutte le notifiche degli obiettivi.`
+      statwinresettt = `Cancella tutte le statistiche degli obiettivi memorizzate`
+      notifydebugtt = `Apre la finestra DevTools della notifica per fornire ulteriori informazioni di debug.`
    } else if (configtt.lang == "japanese") {
       usertt = "Steamユーザー名<br><div style='font-size: 6px'>このユーザーの実績は追跡されています</div>"
       gamett = "ゲームディスプレイ<br><div style='font-size: 6px'>現在追跡されているゲームの名前を表示します</div>"
@@ -1183,10 +1345,16 @@ function LoadLangTT() {
       gamecompletiontt = "ゲーム内のすべてのアチーブメントのロックが解除されたときに追加の通知を表示します。"
       ssoverlaytt = `Steamの外でスクリーンショットを撮り、ロック解除されたアチーブメントの詳細をオーバーレイします。これらの非Steamスクリーンショットは、「パス」オプションを使用して特定のディレクトリに保存できます。`
       sserrortt = "<span style='color: red; font-weight: bold'>スクリーンショットオプションが有効になっていません！</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*チェックするとアプリケーションが再起動します</span><br>「フルスクリーン」または「排他的フルスクリーン」表示モードを使用するように設定されたゲームで通知を表示できるようにします。`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*チェックするとアプリケーションが再起動します</span><br>「フルスクリーン」または「排他的フルスクリーン」表示モードを使用するように設定されたゲームで通知を表示できるようにします。`
       extwintt = "すべての実績通知を再生する追加の外部ウィンドウを生成します。<br><br><i>OBS やその他のストリーミング ソフトウェアでのウィンドウ キャプチャに適しています。</i>"
       extwincolourtt = `「通知をウィンドウに複製」オプションのウィンドウの背景色を設定します。`
-      fsselecttt = `有効なウィンドウのリストからフルスクリーン ゲーム プロセスを選択します。<br><br><i>「フルスクリーン通知を有効にする」オプションで使用されるデフォルトの自動ウィンドウ検索に問題がある場合に役立ちます。</i>`
+      // fsselecttt = `有効なウィンドウのリストからフルスクリーン ゲーム プロセスを選択します。<br><br><i>「フルスクリーン通知を有効にする」オプションで使用されるデフォルトの自動ウィンドウ検索に問題がある場合に役立ちます。</i>`
+      statwintt = `ユーザーの Steam ライブラリにあるすべてのゲームのさまざまな実績統計を表示します。`
+      appdatatt = `Steam Achievement Notifier アプリケーション データ フォルダを開きます。`
+      consolett = `DevTools コンソールを別のウィンドウで開きます。`
+      opacitytt = `すべての実績通知の全体的な不透明度を設定します。`
+      statwinresettt = `保存されているすべての実績統計をクリアする`
+      notifydebugtt = `通知の DevTools ウィンドウを開き、詳細なデバッグ情報を提供します。`
    } else if (configtt.lang == "koreana") {
       usertt = "Steam 사용자 이름<br><div style='font-size: 6px'>이 사용자의 업적을 추적 중입니다.</div>"
       gamett = "게임 디스플레이<br><div style='font-size: 6px'>현재 추적 중인 게임의 이름을 표시합니다</div>"
@@ -1225,10 +1393,16 @@ function LoadLangTT() {
       gamecompletiontt = "게임의 모든 업적이 잠금 해제되면 추가 알림을 표시합니다."
       ssoverlaytt = `Steam이 아닌 스크린샷을 찍고 잠금 해제된 업적의 세부 정보를 오버레이합니다. Steam이 아닌 스크린샷은 "경로" 옵션을 사용하여 특정 디렉토리에 저장할 수 있습니다.`
       sserrortt = "<span style='color: red; font-weight: bold'>활성화된 스크린샷 옵션이 없습니다!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*선택 시 응용 프로그램이 다시 시작됩니다.</span><br>"전체 화면" 또는 "독점 전체 화면" 표시 모드를 사용하도록 설정된 게임에 알림을 표시할 수 있습니다.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*선택 시 응용 프로그램이 다시 시작됩니다.</span><br>"전체 화면" 또는 "독점 전체 화면" 표시 모드를 사용하도록 설정된 게임에 알림을 표시할 수 있습니다.`
       extwintt = "모든 업적 알림을 재생하는 추가 외부 창을 생성합니다.<br><br><i>OBS 또는 기타 스트리밍 소프트웨어의 창 캡처에 적합합니다.</i>"
       extwincolourtt = `"창에 알림" 옵션에 대한 창의 배경색을 설정합니다.`
-      fsselecttt = `유효한 창 목록에서 전체 화면 게임 프로세스를 선택합니다.<br><br><i>"전체 화면 알림 활성화" 옵션에서 사용하는 기본 자동 창 검색에 문제가 있는 경우 유용합니다.</i>`
+      // fsselecttt = `유효한 창 목록에서 전체 화면 게임 프로세스를 선택합니다.<br><br><i>"전체 화면 알림 활성화" 옵션에서 사용하는 기본 자동 창 검색에 문제가 있는 경우 유용합니다.</i>`
+      statwintt = `사용자의 Steam 라이브러리에 있는 모든 게임에 대한 다양한 업적 통계를 표시합니다.`
+      appdatatt = `Steam Achievement Notifier 애플리케이션 데이터 폴더를 엽니다.`
+      consolett = `별도의 창에서 DevTools 콘솔을 엽니다.`
+      opacitytt = `모든 업적 알림의 전역 불투명도를 설정합니다.`
+      statwinresettt = `저장된 모든 성취 통계 지우기`
+      notifydebugtt = `추가 디버깅 정보를 제공하기 위해 알림의 DevTools 창을 엽니다.`
    } else if (configtt.lang == "norwegian") {
       usertt = "Steam Brukernavn<br><div style='font-size: 6px'>Prestasjoner spores for denne brukeren</div>"
       gamett = "Nåværende Spill<br><div style='font-size: 6px'>Viser navnet på spillet som spores</div>"
@@ -1265,10 +1439,16 @@ function LoadLangTT() {
       gamecompletiontt = "Viser et ekstra varsel når alle prestasjoner i et spill har blitt låst opp."
       ssoverlaytt = `Tar et ikke-Steam-skjermbilde og legger over detaljene for den ulåste prestasjonen. Disse ikke-Steam-skjermbildene kan lagres i en spesifikk katalog ved å bruke "Sti"-alternativet.`
       sserrortt = "<span style='color: red; font-weight: bold'>Ingen skjermdumper er aktivert!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Applikasjonen starter på nytt når det er merket av</span><br>Gjør det mulig å vise varsler over spill som er satt til å bruke "Fullskjerm" eller "Eksklusiv Fullskjerm"-visningsmodus.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Applikasjonen starter på nytt når det er merket av</span><br>Gjør det mulig å vise varsler over spill som er satt til å bruke "Fullskjerm" eller "Eksklusiv Fullskjerm"-visningsmodus.`
       extwintt = "Skaper et ekstra eksternt vindu som vil spille av alle prestasjonsvarslinger.<br><br><i>Egnet for vindusfangst i OBS eller annen strømmeprogramvare.</i>"
       extwincolourtt = `Angir vinduets bakgrunnsfarge for alternativet "Dupliserte Varsler til Vinduet".`
-      fsselecttt = `Velg fullskjermspillprosessen fra en liste over gyldige vinduer.<br><br><i>Nyttig hvis du har problemer med standard automatisk vindussøk som brukes av alternativet "Aktiv Fullskjermvarsler".</i>`
+      // fsselecttt = `Velg fullskjermspillprosessen fra en liste over gyldige vinduer.<br><br><i>Nyttig hvis du har problemer med standard automatisk vindussøk som brukes av alternativet "Aktiv Fullskjermvarsler".</i>`
+      statwintt = `Viser ulike prestasjonsstatistikker for alle spill i brukerens Steam-bibliotek.`
+      appdatatt = `Åpner Steam Achievement Notifier-programdatamappen.`
+      consolett = `Åpner DevTools-konsollen i et eget vindu.`
+      opacitytt = `Angir den globale opasiteten for alle prestasjonsvarsler.`
+      statwinresettt = `Fjern all lagret prestasjonsstatistikk`
+      notifydebugtt = `Åpner varselets DevTools-vindu for å gi ytterligere feilsøkingsinformasjon.`
    } else if (configtt.lang == "polish") {
       usertt = "Nazwa Użytkownika Steam<br><div style='font-size: 6px'>Osiągnięcia tego użytkownika są śledzone</div>"
       gamett = "Wyświetlacz Gry<br><div style='font-size: 6px'>Pokazuje nazwę aktualnie śledzonej gry</div>"
@@ -1307,10 +1487,16 @@ function LoadLangTT() {
       gamecompletiontt = "Wyświetla dodatkowe powiadomienie, gdy wszystkie osiągnięcia w grze zostaną odblokowane."
       ssoverlaytt = `Wykonuje zrzut ekranu spoza Steam i nakłada szczegóły odblokowanego osiągnięcia. Te zrzuty ekranu spoza Steam można zapisać w określonym katalogu za pomocą opcji "Ścieżka".`
       sserrortt = "<span style='color: red; font-weight: bold'>Brak włączonej opcji zrzutu ekranu!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Po zaznaczeniu aplikacja uruchomi się ponownie</span><br>Umożliwia wyświetlanie powiadomień w grach ustawionych w trybie wyświetlania „Pełny Ekran” lub „Ekskluzywny Pełny Ekran”.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Po zaznaczeniu aplikacja uruchomi się ponownie</span><br>Umożliwia wyświetlanie powiadomień w grach ustawionych w trybie wyświetlania „Pełny Ekran” lub „Ekskluzywny Pełny Ekran”.`
       extwintt = "Tworzy dodatkowe zewnętrzne okno, w którym będą odtwarzane wszystkie powiadomienia o osiągnięciach.<br><br><i>Nadaje się do przechwytywania okien w OBS lub innym oprogramowaniu do przesyłania strumieniowego.</i>"
       extwincolourtt = `Ustawia kolor tła okna dla opcji „Zduplikuj Powiadomienia do Okna”.`
-      fsselecttt = `Wybierz proces gry na pełnym ekranie z listy prawidłowych okien.<br><br><i>Przydatne w przypadku problemów z domyślnym automatycznym wyszukiwaniem okien używanym przez opcję „Włącz Powiadomienia Pełnoekranowe”.</i>`
+      // fsselecttt = `Wybierz proces gry na pełnym ekranie z listy prawidłowych okien.<br><br><i>Przydatne w przypadku problemów z domyślnym automatycznym wyszukiwaniem okien używanym przez opcję „Włącz Powiadomienia Pełnoekranowe”.</i>`
+      statwintt = `Wyświetla różne statystyki osiągnięć dla wszystkich gier w bibliotece Steam użytkownika.`
+      appdatatt = `Otwiera folder danych aplikacji Steam Achievement Notifier.`
+      consolett = `Otwiera konsolę DevTools w osobnym oknie.`
+      opacitytt = `Ustawia globalną nieprzezroczystość wszystkich powiadomień o osiągnięciach.`
+      statwinresettt = `Wyczyść wszystkie zapisane statystyki osiągnięć`
+      notifydebugtt = `Otwiera okno DevTools powiadomienia, aby podać dalsze informacje dotyczące debugowania.`
    } else if (configtt.lang == "portuguese") {
       usertt = "Nome de Usuário do Steam<br><div style='font-size: 6px'>Conquistas estão sendo rastreadas para este usuário</div>"
       gamett = "Exibição Do Jogo<br><div style='font-size: 6px'>Mostra o nome do jogo que está sendo monitorado</div>"
@@ -1349,10 +1535,16 @@ function LoadLangTT() {
       gamecompletiontt = "Mostra uma notificação adicional quando todas as conquistas de um jogo foram desbloqueadas."
       ssoverlaytt = `Faz uma captura de tela não Steam e sobrepõe os detalhes da conquista desbloqueada. Essas capturas de tela que não são do Steam podem ser salvas em um diretório específico usando a opção "Caminho".`
       sserrortt = "<span style='color: red; font-weight: bold'>Nenhuma opção de captura de tela ativada!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*O aplicativo será reiniciado quando marcado</span><br>Permite que as notificações sejam exibidas em jogos configurados para usar os modos de exibição "Tela Cheia" ou "Tela Cheia Exclusiva".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*O aplicativo será reiniciado quando marcado</span><br>Permite que as notificações sejam exibidas em jogos configurados para usar os modos de exibição "Tela Cheia" ou "Tela Cheia Exclusiva".`
       extwintt = "Gera uma janela externa adicional que reproduzirá todas as notificações de conquistas.<br><br><i>Adequado para captura de janela em OBS ou outro software de transmissão.</i>"
       extwincolourtt = `Define a cor de fundo da janela para a opção "Notificações Duplicadas para a Janela".`
-      fsselecttt = `Selecione o processo do jogo em tela cheia em uma lista de janelas válidas.<br><br><i>Útil se você estiver tendo problemas com a busca automática de janela padrão usada pela opção "Notificações em Tela Cheia".</i>`
+      // fsselecttt = `Selecione o processo do jogo em tela cheia em uma lista de janelas válidas.<br><br><i>Útil se você estiver tendo problemas com a busca automática de janela padrão usada pela opção "Notificações em Tela Cheia".</i>`
+      statwintt = `Exibe várias estatísticas de conquistas para todos os jogos na Biblioteca Steam do usuário.`
+      appdatatt = `Abre a pasta de dados do aplicativo Steam Achievement Notifier.`
+      consolett = `Abre o console do DevTools em uma janela separada.`
+      opacitytt = `Define a opacidade global de todas as notificações de conquistas.`
+      statwinresettt = `Limpe todas as estatísticas de conquista armazenadas`
+      notifydebugtt = `Abre a janela DevTools da notificação para fornecer mais informações de depuração.`
    } else if (configtt.lang == "brazilian") {
       usertt = "Nome de usuário Steam<br><div style='font-size: 6px'>As conquistas estão sendo rastreadas para este usuário</div>"
       gamett = "Mostrador do Jogo<br><div style='font-size: 6px'>Mostra o nome do jogo que está sendo rastreado atualmente</div>"
@@ -1392,10 +1584,16 @@ function LoadLangTT() {
       gamecompletiontt = "Mostra uma notificação adicional quando todas as conquistas em um jogo foram desbloqueadas."
       ssoverlaytt = `Tira uma foto de tela não-Steam e sobrepõe os detalhes da conquista desbloqueada. Estas capturas de tela não-Steam podem ser salvas em um diretório específico usando a opção "Caminho".`
       sserrortt = "<span style='color: red; font-weight: bold'>Nenhuma opção de captura de tela ativada!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Aplicação será reiniciada quando verificada</span><br>Permite que as notificações sejam exibidas em jogos configurados para usar os modos de exibição "Ecrã Inteiro" ou "Ecrã Inteiro Exclusivo".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Aplicação será reiniciada quando verificada</span><br>Permite que as notificações sejam exibidas em jogos configurados para usar os modos de exibição "Ecrã Inteiro" ou "Ecrã Inteiro Exclusivo".`
       extwintt = "Gera uma janela externa adicional que reproduzirá todas as notificações de realização.<br><br><i>Adequado para captura de janelas em OBS ou outro software de transmissão.</i>"
       extwincolourtt = `Define a cor de fundo da janela para a opção "Notificações duplicadas à Janela".`
-      fsselecttt = `Selecione o processo de jogo em tela cheia a partir de uma lista de janelas válidas.<br><br><i>Útil se você estiver tendo problemas com a busca automática padrão da janela usada pela opção "Notificações em Tela Cheia".</i>`
+      // fsselecttt = `Selecione o processo de jogo em tela cheia a partir de uma lista de janelas válidas.<br><br><i>Útil se você estiver tendo problemas com a busca automática padrão da janela usada pela opção "Notificações em Tela Cheia".</i>`
+      statwintt = `Exibe várias estatísticas de realizações para todos os jogos na Biblioteca Steammm do usuário.`
+      appdatatt = `Abre a pasta de dados da aplicação Steam Achievement Notifier.`
+      consolett = `Abre o console DevTools em uma janela separada.`
+      opacitytt = `Define a opacidade global de todas as notificações de realização.`
+      statwinresettt = `Limpar todas as Estatísticas de Realizações armazenadas`
+      notifydebugtt = `Abre a janela DevTools da notificação para fornecer mais informações de depuração.`
    } else if (configtt.lang == "romanian") {
       usertt = "Nume de Utilizator Steam<br><div style='font-size: 6px'>Realizările sunt urmărite pentru acest utilizator</div>"
       gamett = "Afișarea Jocului<br><div style='font-size: 6px'>Afișează numele jocului care este urmărit în prezent</div>"
@@ -1434,10 +1632,16 @@ function LoadLangTT() {
       gamecompletiontt = "Afișează o notificare suplimentară când toate realizările dintr-un joc au fost deblocate."
       ssoverlaytt = `Face o captură de ecran non-Steam și suprapune detaliile realizării deblocate. Aceste capturi de ecran non-Steam pot fi salvate într-un anumit director folosind opțiunea "Cale".`
       sserrortt = "<span style='color: red; font-weight: bold'>Nicio opțiune de captură de ecran activată!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Aplicația va reporni când este bifată</span><br>Permite afișarea notificărilor pentru jocurile setate să folosească modurile de afișare „Ecran Complet” sau „Ecran Complet Exclusiv”.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Aplicația va reporni când este bifată</span><br>Permite afișarea notificărilor pentru jocurile setate să folosească modurile de afișare „Ecran Complet” sau „Ecran Complet Exclusiv”.`
       extwintt = "Afișează o fereastră externă suplimentară care va reda toate notificările de realizare.<br><br><i>Potrivit pentru capturarea ferestrelor în OBS sau alt software de difuzare.</i>"
       extwincolourtt = `Setează culoarea de fundal a ferestrei pentru opțiunea „Notificări Duplicate în Fereastră”.`
-      fsselecttt = `Selectați procesul de joc pe ecran complet dintr-o listă de ferestre valide.<br><br><i>Util dacă aveți probleme cu căutarea automată implicită în fereastră utilizată de opțiunea „Notificări pe Ecran Complet”.</i>`
+      // fsselecttt = `Selectați procesul de joc pe ecran complet dintr-o listă de ferestre valide.<br><br><i>Util dacă aveți probleme cu căutarea automată implicită în fereastră utilizată de opțiunea „Notificări pe Ecran Complet”.</i>`
+      statwintt = `Afișează diverse statistici de realizare pentru toate jocurile din Biblioteca Steam a utilizatorului.`
+      appdatatt = `Deschide folderul de date al aplicației Steam Achievement Notifier.`
+      consolett = `Deschide consola DevTools într-o fereastră separată.`
+      opacitytt = `Setează opacitatea globală a tuturor notificărilor de realizare.`
+      statwinresettt = `Ștergeți toate statisticile de realizare stocate`
+      notifydebugtt = `Deschide fereastra DevTools a notificării pentru a furniza informații suplimentare de depanare.`
    } else if (configtt.lang == "russian") {
       usertt = "Имя пользователя Steam<br><div style='font-size: 6px'>Достижения этого пользователя отслеживаются</div>"
       gamett = "Дисплей Игры<br><div style='font-size: 6px'>Показывает название отслеживаемой в данный момент игры</div>"
@@ -1476,10 +1680,16 @@ function LoadLangTT() {
       gamecompletiontt = "Показывает дополнительное уведомление, когда все достижения в игре разблокированы."
       ssoverlaytt = `Делает снимок экрана не из Steam и накладывает детали разблокированного достижения. Эти сторонние скриншоты можно сохранить в определенном каталоге с помощью параметра "Путь".`
       sserrortt = "<span style='color: red; font-weight: bold'>Опция скриншота не включена!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Приложение перезапустится при проверке</span><br>Позволяет отображать уведомления в играх, для которых установлен режим отображения "Полноэкранный" или "Эксклюзивный полноэкранный режим".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Приложение перезапустится при проверке</span><br>Позволяет отображать уведомления в играх, для которых установлен режим отображения "Полноэкранный" или "Эксклюзивный полноэкранный режим".`
       extwintt = "Создает дополнительное внешнее окно, в котором будут воспроизводиться все уведомления о достижениях.<br><br><i>Подходит для захвата окна в OBS или другом программном обеспечении для потоковой передачи.</i>"
       extwincolourtt = `Устанавливает цвет фона окна для опции "Дублировать Уведомления В Окно".`
-      fsselecttt = `Выберите полноэкранный игровой процесс из списка допустимых окон.<br><br><i>Полезно, если у вас возникли проблемы с автоматическим поиском окна по умолчанию, используемым опцией "Полноэкранные Уведомления".</i>`
+      // fsselecttt = `Выберите полноэкранный игровой процесс из списка допустимых окон.<br><br><i>Полезно, если у вас возникли проблемы с автоматическим поиском окна по умолчанию, используемым опцией "Полноэкранные Уведомления".</i>`
+      statwintt = `Отображает различную статистику достижений для всех игр в библиотеке Steam пользователя.`
+      appdatatt = `Открывает папку данных приложения Steam Achievement Notifier.`
+      consolett = `Открывает консоль DevTools в отдельном окне.`
+      opacitytt = `Устанавливает глобальную непрозрачность всех уведомлений о достижениях.`
+      statwinresettt = `Очистить всю сохраненную статистику достижений`
+      notifydebugtt = `Открывает окно DevTools уведомления для предоставления дополнительной информации об отладке.`
    } else if (configtt.lang == "spanish") {
       usertt = "Nombre de Usuario de Steam<br><div style='font-size: 6px'>Se está realizando un seguimiento de los logros de este usuario</div>"
       gamett = "Juego Actual<br><div style='font-size: 6px'>Muestra el nombre del juego que se está rastreando actualmente</div>"
@@ -1518,10 +1728,16 @@ function LoadLangTT() {
       gamecompletiontt = "Muestra una notificación adicional cuando se han desbloqueado todos los logros de un juego."
       ssoverlaytt = `Toma una captura de pantalla que no es de Steam y superpone los detalles del logro desbloqueado. Estas capturas de pantalla que no son de Steam se pueden guardar en un directorio específico usando la opción "Ruta".`
       sserrortt = "<span style='color: red; font-weight: bold'>¡No hay opción de captura de pantalla habilitada!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*La aplicación se reiniciará cuando esté marcada</span><br>Permite que las notificaciones se muestren sobre los juegos configurados para usar los modos de visualización "Pantalla Completa" o "Pantalla Completa Exclusiva".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*La aplicación se reiniciará cuando esté marcada</span><br>Permite que las notificaciones se muestren sobre los juegos configurados para usar los modos de visualización "Pantalla Completa" o "Pantalla Completa Exclusiva".`
       extwintt = "Genera una ventana externa adicional que reproducirá todas las notificaciones de logros.<br><br><i>Adecuado para captura de ventana en OBS u otro software de transmisión.</i>"
       extwincolourtt = `Establece el color de fondo de la ventana para la opción "Notificaciones Duplicadas a la Ventana".`
-      fsselecttt = `Seleccione el proceso de juego de pantalla completa de una lista de ventanas válidas.<br><br><i>Útil si tiene problemas con la búsqueda de ventana automática predeterminada utilizada por la opción "Notificaciones de Pantalla Completa".</i>`
+      // fsselecttt = `Seleccione el proceso de juego de pantalla completa de una lista de ventanas válidas.<br><br><i>Útil si tiene problemas con la búsqueda de ventana automática predeterminada utilizada por la opción "Notificaciones de Pantalla Completa".</i>`
+      statwintt = `Muestra varias estadísticas de logros para todos los juegos en la Biblioteca Steam del usuario.`
+      appdatatt = `Abre la carpeta de datos de la aplicación Steam Achievement Notifier.`
+      consolett = `Abre la consola de DevTools en una ventana separada.`
+      opacitytt = `Establece la opacidad global de todas las notificaciones de logros.`
+      statwinresettt = `Borrar todas las estadísticas de logros almacenados`
+      notifydebugtt = `Abre la ventana DevTools de la notificación para proporcionar más información de depuración.`
    } else if (configtt.lang == "swedish") {
       usertt = "Användarnamn För Steam<br><div style='font-size: 6px'>Prestationer spåras för denna användare</div>"
       gamett = "Aktuellt Spel<br><div style='font-size: 6px'>Visar namnet på spelet som för närvarande spåras</div>"
@@ -1560,10 +1776,16 @@ function LoadLangTT() {
       gamecompletiontt = "Visar ytterligare ett meddelande när alla prestationer i ett spel har låsts upp."
       ssoverlaytt = `Tar en skärmdump som inte är Steam och lägger över detaljerna om den upplåsta prestationen. Dessa skärmdumpar som inte är Steam kan sparas i en specifik katalog med alternativet "Väg".`
       sserrortt = "<span style='color: red; font-weight: bold'>Inget alternativ för skärmdump är aktiverat!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Applikationen startar om när det är markerat</span><br>Möjliggör att meddelanden visas över spel som är inställda på att använda visningslägena "Helskärm" eller "Exklusiv helskärm".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Applikationen startar om när det är markerat</span><br>Möjliggör att meddelanden visas över spel som är inställda på att använda visningslägena "Helskärm" eller "Exklusiv helskärm".`
       extwintt = "Skapar ett extra externt fönster som kommer att spela upp alla prestationsaviseringar.<br><br><i>Lämplig för fönsterinspelning i OBS eller annan sändningsprogramvara.</i>"
       extwincolourtt = `Ställer in fönstrets bakgrundsfärg för alternativet "Duplicera Aviseringar till Fönstret".`
-      fsselecttt = `Välj helskärmsspelprocessen från en lista med giltiga fönster.<br><br><i>Användbart om du har problem med den automatiska fönstersökningen som standard som används av alternativet "Aktivera Helskärmsmeddelanden".</i>`
+      // fsselecttt = `Välj helskärmsspelprocessen från en lista med giltiga fönster.<br><br><i>Användbart om du har problem med den automatiska fönstersökningen som standard som används av alternativet "Aktivera Helskärmsmeddelanden".</i>`
+      statwintt = `Visar olika prestationsstatistik för alla spel i användarens Steam-bibliotek.`
+      appdatatt = `Öppnar Steam Achievement Notifier-programdatamappen.`
+      consolett = `Öppnar DevTools-konsolen i ett separat fönster.`
+      opacitytt = `Ställer in den globala opaciteten för alla prestationsaviseringar.`
+      statwinresettt = `Rensa all lagrad prestationsstatistik`
+      notifydebugtt = `Öppnar meddelandets DevTools-fönster för att ge ytterligare felsökningsinformation.`
    } else if (configtt.lang == "thai") {
       usertt = "ชื่อผู้ใช้ Steam<br><div style='font-size: 6px'>กำลังติดตามความสำเร็จสำหรับผู้ใช้รายนี้</div>"
       gamett = "เกมปัจจุบัน<br><div style='font-size: 6px'>แสดงชื่อเกมที่กำลังติดตาม</div>"
@@ -1602,10 +1824,16 @@ function LoadLangTT() {
       gamecompletiontt = "แสดงการแจ้งเตือนเพิ่มเติมเมื่อปลดล็อกความสำเร็จทั้งหมดในเกมแล้ว"
       ssoverlaytt = `จับภาพหน้าจอที่ไม่ใช่ Steam และซ้อนทับรายละเอียดของรางวัลพิเศษที่ปลดล็อค ภาพหน้าจอที่ไม่ใช่ Steam สามารถบันทึกในไดเร็กทอรีเฉพาะโดยใช้ตัวเลือก "เส้นทาง"`
       sserrortt = "<span style='color: red; font-weight: bold'>ไม่ได้เปิดใช้งานตัวเลือกภาพหน้าจอ!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*แอปพลิเคชันจะรีสตาร์ทเมื่อเลือก</span><br>เปิดใช้งานการแสดงการแจ้งเตือนในเกมที่ตั้งค่าให้ใช้โหมดการแสดงผล "เต็มหน้าจอ" หรือ "เต็มหน้าจอพิเศษ"`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*แอปพลิเคชันจะรีสตาร์ทเมื่อเลือก</span><br>เปิดใช้งานการแสดงการแจ้งเตือนในเกมที่ตั้งค่าให้ใช้โหมดการแสดงผล "เต็มหน้าจอ" หรือ "เต็มหน้าจอพิเศษ"`
       extwintt = "สร้างหน้าต่างภายนอกเพิ่มเติมซึ่งจะเล่นการแจ้งเตือนความสำเร็จทั้งหมด<br><br><i>เหมาะสำหรับการจับภาพหน้าต่างใน OBS หรือซอฟต์แวร์สตรีมมิ่งอื่นๆ</i>"
       extwincolourtt = `ตั้งค่าสีพื้นหลังของหน้าต่างสำหรับ "คัดลอกการแจ้งเตือนไปที่หน้าต่าง"`
-      fsselecttt = `เลือกกระบวนการเกมแบบเต็มหน้าจอจากรายการหน้าต่างที่ถูกต้อง<br><br><i>มีประโยชน์หากคุณมีปัญหากับการค้นหาหน้าต่างอัตโนมัติเริ่มต้นที่ใช้โดย "เปิดใช้งานการแจ้งเตือนแบบเต็มหน้าจอ"</i>`
+      // fsselecttt = `เลือกกระบวนการเกมแบบเต็มหน้าจอจากรายการหน้าต่างที่ถูกต้อง<br><br><i>มีประโยชน์หากคุณมีปัญหากับการค้นหาหน้าต่างอัตโนมัติเริ่มต้นที่ใช้โดย "เปิดใช้งานการแจ้งเตือนแบบเต็มหน้าจอ"</i>`
+      statwintt = `แสดงสถิติความสำเร็จต่างๆ สำหรับเกมทั้งหมดในคลัง Steam ของผู้ใช้`
+      appdatatt = `เปิดโฟลเดอร์ข้อมูลแอปพลิเคชัน Steam Achievement Notifier`
+      consolett = `เปิดคอนโซล DevTools ในหน้าต่างแยกต่างหาก`
+      opacitytt = `ตั้งค่าความทึบทั่วโลกของการแจ้งเตือนความสำเร็จทั้งหมด`
+      statwinresettt = `ล้างสถิติความสำเร็จที่เก็บไว้ทั้งหมด`
+      notifydebugtt = `เปิดหน้าต่าง DevTools ของการแจ้งเตือนเพื่อให้ข้อมูลการดีบักเพิ่มเติม`
    } else if (configtt.lang == "turkish") {
       usertt = "Steam Kullanıcı Adı<br><div style='font-size: 6px'>Bu kullanıcı için başarılar izleniyor</div>"
       gamett = "Suanki Oyun<br><div style='font-size: 6px'>Şu anda izlenen oyunun adını gösterir</div>"
@@ -1644,10 +1872,16 @@ function LoadLangTT() {
       gamecompletiontt = "Bir oyundaki tüm başarıların kilidi açıldığında ek bir bildirim gösterir."
       ssoverlaytt = `Steam dışı bir ekran görüntüsü alır ve kilidi açılmış başarının ayrıntılarını kaplar. Bu Steam dışı ekran görüntüleri "Yol" seçeneği kullanılarak belirli bir dizine kaydedilebilir.`
       sserrortt = "<span style='color: red; font-weight: bold'>Ekran görüntüsü seçeneği etkin değil!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Kontrol edildiğinde uygulama yeniden başlayacak</span><br>"Tam Ekran" veya "Özel Tam Ekran" görüntüleme modlarını kullanacak şekilde ayarlanmış oyunlar üzerinde bildirimlerin görüntülenmesini sağlar.`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Kontrol edildiğinde uygulama yeniden başlayacak</span><br>"Tam Ekran" veya "Özel Tam Ekran" görüntüleme modlarını kullanacak şekilde ayarlanmış oyunlar üzerinde bildirimlerin görüntülenmesini sağlar.`
       extwintt = "Tüm başarı bildirimlerini oynatacak ek bir harici pencere açar.<br><br><i>OBS veya diğer akış yazılımlarında pencere yakalama için uygundur.</i>"
       extwincolourtt = `"Bildirimleri Pencereye Çoğalt" seçeneği için pencerenin arka plan rengini belirler.`
-      fsselecttt = `Kullanılabilir pencereler listesinden Tam Ekran oyununu seçin.<br><br><i>"Tam Ekran Bildirimleri" seçeneği tarafından kullanılan varsayılan otomatik pencere aramasıyla ilgili sorun yaşıyorsanız kullanışlıdır.</i>`
+      // fsselecttt = `Kullanılabilir pencereler listesinden Tam Ekran oyununu seçin.<br><br><i>"Tam Ekran Bildirimleri" seçeneği tarafından kullanılan varsayılan otomatik pencere aramasıyla ilgili sorun yaşıyorsanız kullanışlıdır.</i>`
+      statwintt = `Kullanıcının Steam Kitaplığındaki tüm oyunlar için çeşitli başarı istatistiklerini görüntüler.`
+      appdatatt = `Steam Achievement Notifier uygulama veri klasörünü açar.`
+      consolett = `DevTools Konsolunu ayrı bir pencerede açar.`
+      opacitytt = `Tüm başarı bildirimlerinin genel opaklığını ayarlar.`
+      statwinresettt = `Depolanan tüm Başarı İstatistiklerini temizle`
+      notifydebugtt = `Daha fazla hata ayıklama bilgisi sağlamak için bildirimin DevTools penceresini açar.`
    } else if (configtt.lang == "ukrainian") {
       usertt = "Ім'я Користувача Steam<br><div style='font-size: 6px'>Відстежуються досягнення цього користувача</div>"
       gamett = "Ігровий Дисплей<br><div style='font-size: 6px'>Показує назву гри, яка в даний момент відстежується</div>"
@@ -1686,10 +1920,16 @@ function LoadLangTT() {
       gamecompletiontt = "Показує додаткове сповіщення, коли всі досягнення в грі розблоковано."
       ssoverlaytt = `Робить знімок екрана не в Steam і накладає деталі розблокованого досягнення. Ці знімки екрана не в Steam можна зберегти в певному каталозі за допомогою параметра "Шлях".`
       sserrortt = "<span style='color: red; font-weight: bold'>Не ввімкнено опцію знімка екрана!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Програма перезапуститься, коли буде встановлено прапорець</span><br>Дозволяє відображати сповіщення в іграх, налаштованих на використання режимів відображення "Повноекранний" або "Ексклюзивний Повний Екран".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Програма перезапуститься, коли буде встановлено прапорець</span><br>Дозволяє відображати сповіщення в іграх, налаштованих на використання режимів відображення "Повноекранний" або "Ексклюзивний Повний Екран".`
       extwintt = "Створює додаткове зовнішнє вікно, у якому відтворюватимуться всі повідомлення про досягнення.<br><br><i>Підходить для захоплення вікон у OBS або іншому програмному забезпеченні потокового передавання.</i>"
       extwincolourtt = `Встановлює колір тла вікна для параметра "Дубльовані Сповіщення У Вікні".`
-      fsselecttt = `Виберіть повноекранний процес гри зі списку дійсних вікон.<br><br><i>Корисно, якщо у вас виникли проблеми з автоматичним пошуком вікон за замовчуванням, який використовується опцією "Сповіщення На Весь Екран".</i>`
+      // fsselecttt = `Виберіть повноекранний процес гри зі списку дійсних вікон.<br><br><i>Корисно, якщо у вас виникли проблеми з автоматичним пошуком вікон за замовчуванням, який використовується опцією "Сповіщення На Весь Екран".</i>`
+      statwintt = `Відображає різноманітну статистику досягнень для всіх ігор у бібліотеці користувача Steam.`
+      appdatatt = `Відкриває папку даних програми Steam Achievement Notifier.`
+      consolett = `Відкриває консоль DevTools в окремому вікні.`
+      opacitytt = `Встановлює загальну прозорість усіх повідомлень про досягнення.`
+      statwinresettt = `Очистити всю збережену статистику досягнень`
+      notifydebugtt = `Відкриває вікно DevTools сповіщення, щоб надати додаткову інформацію про налагодження.`
    } else if (configtt.lang == "vietnamese") {
       usertt = "Tên Người Dùng Steam<br><div style='font-size: 6px'>Thành tích đang được theo dõi cho người dùng này</div>"
       gamett = "Trò Chơi Hiện Tại<br><div style='font-size: 6px'>Hiển thị tên của trò chơi hiện đang được theo dõi</div>"
@@ -1728,11 +1968,18 @@ function LoadLangTT() {
       gamecompletiontt = "Hiển thị thông báo bổ sung khi tất cả thành tích trong trò chơi đã được mở khóa."
       ssoverlaytt = `Chụp ảnh màn hình không phải Steam và phủ lên các chi tiết của thành tích đã mở khóa. Các ảnh chụp màn hình không phải Steam này có thể được lưu trong một thư mục cụ thể bằng cách sử dụng tùy chọn "Đường Dẫn".`
       sserrortt = "<span style='color: red; font-weight: bold'>Không có tùy chọn ảnh chụp màn hình nào được bật!</span>"
-      fullscreentt = `<span style="font-weight: bold; color: red">*Ứng dụng sẽ khởi động lại khi được chọn</span><br>Cho phép hiển thị thông báo trên các trò chơi được đặt để sử dụng chế độ hiển thị "Toàn Màn Hình" hoặc "Toàn Màn Hình Độc Quyền".`
+      // fullscreentt = `<span style="font-weight: bold; color: red">*Ứng dụng sẽ khởi động lại khi được chọn</span><br>Cho phép hiển thị thông báo trên các trò chơi được đặt để sử dụng chế độ hiển thị "Toàn Màn Hình" hoặc "Toàn Màn Hình Độc Quyền".`
       extwintt = "Tạo ra một cửa sổ bên ngoài bổ sung sẽ phát lại tất cả các thông báo thành tích.<br><br><i>Thích hợp để chụp cửa sổ trong OBS hoặc phần mềm phát trực tuyến khác.</i>"
       extwincolourtt = `Đặt màu nền của cửa sổ cho tùy chọn "Thông Báo Trùng Lặp Vào Cửa Sổ".`
-      fsselecttt = `Chọn quy trình trò chơi Toàn màn hình từ danh sách các cửa sổ hợp lệ.<br><br><i>Hữu ích nếu bạn gặp vấn đề với tìm kiếm cửa sổ tự động mặc định được sử dụng bởi tùy chọn "Bật Thông Báo Toàn Hình".</i>`
+      // fsselecttt = `Chọn quy trình trò chơi Toàn màn hình từ danh sách các cửa sổ hợp lệ.<br><br><i>Hữu ích nếu bạn gặp vấn đề với tìm kiếm cửa sổ tự động mặc định được sử dụng bởi tùy chọn "Bật Thông Báo Toàn Hình".</i>`
+      statwintt = `Hiển thị các thống kê thành tích khác nhau cho tất cả các trò chơi trong Thư viện Steam của người dùng.`
+      appdatatt = `Mở thư mục dữ liệu ứng dụng Steam Achievement Notifier.`
+      consolett = `Mở Bảng điều khiển DevTools trong một cửa sổ riêng biệt.`
+      opacitytt = `Đặt độ mờ toàn cầu của tất cả các thông báo thành tích.`
+      statwinresettt = `Xóa tất cả Thống kê thành tích đã lưu`
+      notifydebugtt = `Mở cửa sổ DevTools của thông báo để cung cấp thêm thông tin gỡ lỗi.`
    }
+   
    usertippy.setContent(usertt)
    gametippy.setContent(gamett)
    mainprevtippy.setContent(mainprevtt)
@@ -1775,10 +2022,16 @@ function LoadLangTT() {
    document.getElementById("nvda")._tippy.setContent(nvdatt)
    document.getElementById("gamecompletion")._tippy.setContent(gamecompletiontt)
    document.getElementById("ssoverlay")._tippy.setContent(ssoverlaytt)
-   document.getElementById("fullscreen")._tippy.setContent(fullscreentt)
-   document.getElementById("fsselect")._tippy.setContent(fsselecttt)
+   // document.getElementById("fullscreen")._tippy.setContent(fullscreentt)
+   // document.getElementById("fsselect")._tippy.setContent(fsselecttt)
    document.getElementById("extwincont")._tippy.setContent(extwintt)
-   document.getElementById("extwincolour")._tippy.setContent(extwincolourtt)
+   // document.getElementById("extwincolour")._tippy.setContent(extwincolourtt)
+   document.getElementById("statwincont")._tippy.setContent(statwintt)
+   document.getElementById("appdata")._tippy.setContent(appdatatt)
+   document.getElementById("console")._tippy.setContent(consolett)
+   document.getElementById("opacity")._tippy.setContent(opacitytt)
+   document.getElementById("statwinresetcont")._tippy.setContent(statwinresettt)
+   document.getElementById("notifydebug")._tippy.setContent(notifydebugtt)
 }
 
 LoadLangTT()

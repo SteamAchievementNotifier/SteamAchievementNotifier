@@ -153,17 +153,18 @@ betaleave = "ベータチャネルを離れる"
 betaerrortext = "ベータチャンネルに更新できません！"
 betaerrorsub = "ネットワークに接続されていないようです。インターネットなし=ベータなし！"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "フルスクリーン通知を有効にする"
 document.getElementById("extwinlbltxt").innerHTML = "ウィンドウへの通知が重複しています"
-document.getElementById("fswarntitle").innerHTML = "始める前に..."
-document.getElementById("fswarncontentmain").innerHTML = `「フルスクリーン」または「エクスクルーシブフルスクリーン」のゲーム内表示モードに設定されたゲームの上に通知をオーバーレイするには、DirectXゲームウィンドウに表示されるように、通知をゲームプロセスに直接挿入する必要があります。<br><br>これは、ゲームのコードがサードパーティのプログラムによって技術的に変更されているため、アンチチートテクノロジーを使用するゲームがこの方法を不利に見る可能性があることを意味します。<br><br>テスト中に問題が発生したゲームはありませんが、アンチチートを使用するゲームで注射が検出されるリスクがある場合は、通常、「フル静止通知を有効にする」オプションを使用しないことをお勧めします。テクノロジー（オンラインの競争ゲームなど）。`
-document.getElementById("fswarnimportant").innerHTML = `「フル静止通知を有効する」オプションを有効にして使用することにより、サードパーティのコンテンツをSteamゲームに注入することに関連するリスク（Steam Achievementで使用される方法など）を適切に通知し、理解したことに同意するものとします。フルスクリーンのゲーム内表示モードを使用するように設定されたゲームにコンテンツを表示する通知機能）、およびこのオプションを有効にすることで、自己責任で表示することに同意するため、Steam Achievement Notifier（Jackson0ne）の開発者は責任を負いませんまたはこのオプションの使用に関する責任。`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">下の<span style= "background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">同意する</ span>ボタンをクリックすると、上記の条件に同意したことになります。 「フル輻輳を有効にする」オプションが有効になります。</div><div style="padding: 0px 10px 10px;">下の<span style= "background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">同意しない</ span>ボタンをクリックすると、このメッセージは閉じられ、 「フル書き込み通知を有効にする」オプションは<u>無効</u>になります。</div>`
-document.getElementById("fshidemsglbl").innerHTML = "同意します、このメッセージを二度と表示しないでください"
-document.getElementById("fsok").innerHTML = "同意する"
-document.getElementById("fscancel").innerHTML = "同意しない"
-document.getElementById("fsselectlbl").innerHTML = "ゲーム ウィンドウを手動で選択する"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "フルスクリーン通知を有効にする"
+// document.getElementById("fswarntitle").innerHTML = "始める前に..."
+// document.getElementById("fswarncontentmain").innerHTML = `「フルスクリーン」または「エクスクルーシブフルスクリーン」のゲーム内表示モードに設定されたゲームの上に通知をオーバーレイするには、DirectXゲームウィンドウに表示されるように、通知をゲームプロセスに直接挿入する必要があります。<br><br>これは、ゲームのコードがサードパーティのプログラムによって技術的に変更されているため、アンチチートテクノロジーを使用するゲームがこの方法を不利に見る可能性があることを意味します。<br><br>テスト中に問題が発生したゲームはありませんが、アンチチートを使用するゲームで注射が検出されるリスクがある場合は、通常、「フル静止通知を有効にする」オプションを使用しないことをお勧めします。テクノロジー（オンラインの競争ゲームなど）。`
+// document.getElementById("fswarnimportant").innerHTML = `「フル静止通知を有効する」オプションを有効にして使用することにより、サードパーティのコンテンツをSteamゲームに注入することに関連するリスク（Steam Achievementで使用される方法など）を適切に通知し、理解したことに同意するものとします。フルスクリーンのゲーム内表示モードを使用するように設定されたゲームにコンテンツを表示する通知機能）、およびこのオプションを有効にすることで、自己責任で表示することに同意するため、Steam Achievement Notifier（Jackson0ne）の開発者は責任を負いませんまたはこのオプションの使用に関する責任。`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">下の<span style= "background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">同意する</ span>ボタンをクリックすると、上記の条件に同意したことになります。 「フル輻輳を有効にする」オプションが有効になります。</div><div style="padding: 0px 10px 10px;">下の<span style= "background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">同意しない</ span>ボタンをクリックすると、このメッセージは閉じられ、 「フル書き込み通知を有効にする」オプションは<u>無効</u>になります。</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "同意します、このメッセージを二度と表示しないでください"
+// document.getElementById("fsok").innerHTML = "同意する"
+// document.getElementById("fscancel").innerHTML = "同意しない"
+// document.getElementById("fsselectlbl").innerHTML = "ゲーム ウィンドウを手動で選択する"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "プライバシーポリシーを見る"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">公式 Github リポジトリ</span> から公式にリリースされたバージョンの Steam Achievement Notifier をダウンロードして使用することにより、ユーザーであるあなたは、ひいては <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API 利用規約</span> のセクション 7 および 8 を遵守します。
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "アチーブメント統計ウィンドウを開く"
+
+statsresettitle = "保存されているすべての実績データをリセットしますか?"
+statsresetbody = "以前に保存された実績データはすべて、このデバイスから削除されます。達成統計ウィンドウが次に開かれたときに、最新の達成データが取得されます。\n\n実績データの取得には、ユーザーの Steam ライブラリで所有している各ゲームの Steam Web API 呼び出しが使用されることに注意してください。 Valve は、Steam Web API 呼び出しの量を、ユーザーの API キーごとに 1 日あたり 100,000 に制限しています。\n\n結果として、Steam ライブラリ内のゲームの量によっては、実績データをリセットする機能が過度に使用されている場合、アプリケーションの一般的な機能に影響を与える可能性があります。"
+statsresetbtns = ["すべての実績統計をリセット", "キャンセル"]
+
+statwincurrent = "現在のゲーム"
+statwinall = "すべてのゲーム"
+statwincomplete = "完全 (100%)"
+statwintop5 = "トップ 5 ゲーム"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "通知コンソールを表示"

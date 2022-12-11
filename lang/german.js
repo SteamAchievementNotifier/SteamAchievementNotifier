@@ -153,17 +153,18 @@ betaleave = "Betakanal verlassen"
 betaerrortext = "Update auf Beta-Kanal nicht möglich!"
 betaerrorsub = "Sieht so aus, als hätten Sie keine Netzwerkverbindung. Kein Internet = Keine Beta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Vollbild-Benachrichtigungen"
 document.getElementById("extwinlbltxt").innerHTML = "Doppelte Benachrichtigungen an Fenster "
-document.getElementById("fswarntitle").innerHTML = "BEVOR DU ANFÄNGST..."
-document.getElementById("fswarncontentmain").innerHTML = `Um Benachrichtigungen über Spiele zu legen, die auf den Anzeigemodus „Vollbild“ oder „Exklusiver Vollbildmodus“ im Spiel eingestellt sind, muss die Benachrichtigung direkt in den Spielprozess eingefügt werden, damit sie über einem DirectX-Spielfenster angezeigt wird.<br><br>Dies bedeutet, dass Spiele, die Anti-Cheat-Technologie verwenden, diese Methode möglicherweise ungünstig sehen, da der Code des Spiels technisch durch ein Drittanbieterprogramm geändert wird.<br><br>Obwohl keine Spiele beim Testen Probleme angezeigt haben, wird im Allgemeinen davon abgeraten, die Option „Vollbild-Benachrichtigungen“ <u>nicht</u> zu verwenden, wenn die Gefahr besteht, dass Injektionen von Spielen erkannt werden, die Anti-Cheat-Technologie verwenden (z Online-Wettkampfspiele).`
-document.getElementById("fswarnimportant").innerHTML = `Indem Sie die Option „Vollbild-Benachrichtigungen“ aktivieren und verwenden, stimmen Sie hiermit zu, dass Sie angemessen über das Einfügen von Inhalten Dritter in Steam-Spiele informiert wurden und die damit verbundenen Risiken verstehen (z. B. die Methode, die von Steam Achievement Notifier zum Anzeigen von Inhalten verwendet wird über Spiele, die auf Vollbild-Anzeigemodi im Spiel eingestellt sind), und dass Sie durch Aktivieren dieser Option akzeptieren, dass Sie dies auf Ihr eigenes Risiko tun, und daher übernimmt der Entwickler von Steam Achievement Notifier (Jackson0ne) keine Verantwortung oder Haftung in Bezug auf die Nutzung dieser Möglichkeit.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Indem Sie unten auf die Schaltfläche <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ANNEHMEN</span> klicken, akzeptieren Sie die obigen Bedingungen und die Die Option „Vollbild-Benachrichtigungen“ wird aktiviert.</div><div style="padding: 0px 10px 10px;">Indem Sie unten auf die Schaltfläche <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ABLEHNEN</span> klicken, wird diese Nachricht geschlossen und die Die Option "Vollbild-Benachrichtigungen" wird <u>nicht</u> aktiviert.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Ich stimme zu, diese Nachricht nicht mehr anzeigen"
-document.getElementById("fsok").innerHTML = "ANNEHMEN"
-document.getElementById("fscancel").innerHTML = "ABLEHNEN"
-document.getElementById("fsselectlbl").innerHTML = "Spielfenster Manuell Auswählen"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Vollbild-Benachrichtigungen"
+// document.getElementById("fswarntitle").innerHTML = "BEVOR DU ANFÄNGST..."
+// document.getElementById("fswarncontentmain").innerHTML = `Um Benachrichtigungen über Spiele zu legen, die auf den Anzeigemodus „Vollbild“ oder „Exklusiver Vollbildmodus“ im Spiel eingestellt sind, muss die Benachrichtigung direkt in den Spielprozess eingefügt werden, damit sie über einem DirectX-Spielfenster angezeigt wird.<br><br>Dies bedeutet, dass Spiele, die Anti-Cheat-Technologie verwenden, diese Methode möglicherweise ungünstig sehen, da der Code des Spiels technisch durch ein Drittanbieterprogramm geändert wird.<br><br>Obwohl keine Spiele beim Testen Probleme angezeigt haben, wird im Allgemeinen davon abgeraten, die Option „Vollbild-Benachrichtigungen“ <u>nicht</u> zu verwenden, wenn die Gefahr besteht, dass Injektionen von Spielen erkannt werden, die Anti-Cheat-Technologie verwenden (z Online-Wettkampfspiele).`
+// document.getElementById("fswarnimportant").innerHTML = `Indem Sie die Option „Vollbild-Benachrichtigungen“ aktivieren und verwenden, stimmen Sie hiermit zu, dass Sie angemessen über das Einfügen von Inhalten Dritter in Steam-Spiele informiert wurden und die damit verbundenen Risiken verstehen (z. B. die Methode, die von Steam Achievement Notifier zum Anzeigen von Inhalten verwendet wird über Spiele, die auf Vollbild-Anzeigemodi im Spiel eingestellt sind), und dass Sie durch Aktivieren dieser Option akzeptieren, dass Sie dies auf Ihr eigenes Risiko tun, und daher übernimmt der Entwickler von Steam Achievement Notifier (Jackson0ne) keine Verantwortung oder Haftung in Bezug auf die Nutzung dieser Möglichkeit.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Indem Sie unten auf die Schaltfläche <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ANNEHMEN</span> klicken, akzeptieren Sie die obigen Bedingungen und die Die Option „Vollbild-Benachrichtigungen“ wird aktiviert.</div><div style="padding: 0px 10px 10px;">Indem Sie unten auf die Schaltfläche <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ABLEHNEN</span> klicken, wird diese Nachricht geschlossen und die Die Option "Vollbild-Benachrichtigungen" wird <u>nicht</u> aktiviert.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Ich stimme zu, diese Nachricht nicht mehr anzeigen"
+// document.getElementById("fsok").innerHTML = "ANNEHMEN"
+// document.getElementById("fscancel").innerHTML = "ABLEHNEN"
+// document.getElementById("fsselectlbl").innerHTML = "Spielfenster Manuell Auswählen"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Datenschutz-Bestimmungen Anzeigen"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         INDEM SIE EINE OFFIZIELL VERÖFFENTLICHTE VERSION VON STEAM ACHIEVEMENT NOTIFIER ÜBER DAS <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFFIZIELLE GITHUB REPOSITORY</span> HERUNTERLADEN UND VERWENDEN HALTEN SIE, DER BENUTZER, IM FOLGENDEN DIE ABSCHNITTE 7 UND 8 DER <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API BEDINGUNGEN EIN NUTZUNG</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Statistikfenster für Erfolge"
+
+statsresettitle = "Alle Gespeicherten Erfolgsdaten Zurücksetzen?"
+statsresetbody = "Alle zuvor gespeicherten Erfolgsdaten werden von diesem Gerät entfernt. Ihre letzten Erfolgsdaten werden abgerufen, wenn das Statistikfenster das nächste Mal geöffnet wird.\n\nBitte beachten Sie, dass zum Abrufen von Erfolgsdaten Steam Web API Aufrufe für jedes eigene Spiel in der Steam-Bibliothek des Benutzers verwendet werden. Valve begrenzt die Anzahl der Steam Web API Aufrufe auf 100.000 pro Tag für den API-Schlüssel jedes Benutzers.\n\nJe nach Anzahl der Spiele in Ihrer Steam-Bibliothek kann dies daher die allgemeine Funktionalität der Anwendung beeinträchtigen, wenn die Funktion zum Zurücksetzen Ihrer Erfolgsdaten stark überbeansprucht wird."
+statsresetbtns = ["Alle Erfolgsstatistiken zurücksetzen", "Kündigen"]
+
+statwincurrent = "AKTUELLES SPIEL"
+statwinall = "ALLE SPIELE"
+statwincomplete = "VOLLSTÄNDIG (100%)"
+statwintop5 = "DIE BESTEN 5 SPIELE"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Benachrichtigungskonsole Anzeigen"

@@ -15,13 +15,34 @@
             padding: 0;
             margin: 0;
             overflow: hidden;
-            background: black;
+            background: none;
             -webkit-app-region: drag;
             user-select: none;
+        }
+
+        body {
+            border: 2px solid blueviolet;
+            border-top: 20px solid blueviolet;
+            transition: 0.5s;
+        }
+
+        #close {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            opacity: 0.5;
+            transition: 0.2s;
+            cursor: pointer;
+            -webkit-app-region: no-drag;
+        }
+
+        #close:hover {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
+    <img id="close" src="./icon/close.svg" width="16px" onclick="CloseExtWin()">
     <script>
         const { ipcRenderer } = require("electron")
         const fs = require("fs")
@@ -41,8 +62,6 @@
         const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
         
         var webview
-
-        document.body.style.background = config.extwinbg
 
         ipcRenderer.on('notifyext', (event, src, achievement, title, desc, icon, screenshot, percent, audio, gameicon, gameartimg) => {            
             webview = document.createElement("webview")
@@ -65,10 +84,19 @@
             })
         })
 
-        ipcRenderer.on('changecolour', () => {
-            const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
-            document.body.style.background = config.extwinbg
-        })
+        window.onfocus = () => {
+            document.body.style.border = "2px solid blueviolet"
+            document.body.style.borderTop = "20px solid blueviolet" 
+        }
+
+        window.onblur = () => {
+            document.body.style.border = "2px solid #1b1b1b"
+            document.body.style.borderTop = "20px solid #1b1b1b"
+        }
+
+        function CloseExtWin() {
+            ipcRenderer.send('closeextwin')
+        }
     </script>
 </body>
 </html>

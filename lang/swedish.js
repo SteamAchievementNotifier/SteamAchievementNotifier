@@ -153,17 +153,18 @@ betaleave = "Lämna Betakanalen"
 betaerrortext = "Det går inte att uppdatera till Betakanalen!"
 betaerrorsub = "Det verkar som att du inte har någon nätverksanslutning. Inget internet = Ingen Beta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Aktivera Helskärmsmeddelanden"
 document.getElementById("extwinlbltxt").innerHTML = "Duplicera Aviseringar till Fönstret"
-document.getElementById("fswarntitle").innerHTML = "INNAN DU BÖRJAR..."
-document.getElementById("fswarncontentmain").innerHTML = `För att lägga över aviseringar ovanpå spel som är inställda på "Helskärmsläge" eller "Exklusivt Helskärmsläge" i spelets visningsläge, måste meddelandet injiceras direkt i spelprocessen för att visas över ett DirectX-spelfönster.<br><br>Detta innebär att eftersom spelets kod tekniskt förändras av ett tredjepartsprogram, kan spel som använder Anti-Cheat-tekniken uppleva denna metod ogynnsamt.<br><br>Även om inga spel har visat några problem under testning, rekommenderas det generellt att <u>inte</u> använda alternativet "Aktivera Helskärmsmeddelanden" när det finns risk för att injektion upptäcks av spel som använder Anti-Cheat-teknik (som i tävlingsspel online).`
-document.getElementById("fswarnimportant").innerHTML = `Genom att aktivera och använda alternativet "Aktivera Helskärmsmeddelanden" samtycker du härmed till att du på lämpligt sätt har informerat om, och förstår riskerna med att injicera innehåll från tredje part i Steam-spel (såsom metoden som används av Steam Achievement Notifier för att visa innehåll över spel inställda på att använda fullskärmslägen i spelet), och att genom att aktivera det här alternativet accepterar du att du gör det på egen risk, och därför tar utvecklaren av Steam Achievement Notifier (Jackson0ne) inget ansvar eller ansvar angående användningen av detta alternativ.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Genom att klicka på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">SAMTYCKE</span> nedan accepterar du villkoren ovan, och Alternativet "Aktivera Helskärmsmeddelanden" kommer att vara aktiverat.</div><div style="padding: 0px 10px 10px;">Genom att klicka på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AVVISA</span> nedan kommer detta meddelande att stängas, och Alternativet "Aktivera Helskärmsmeddelanden" kommer <u>inte</u> att vara aktiverat.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Jag håller med, visa inte det här meddelandet igen"
-document.getElementById("fsok").innerHTML = "SAMTYCKE"
-document.getElementById("fscancel").innerHTML = "AVVISA"
-document.getElementById("fsselectlbl").innerHTML = "Välj Spelfönster Manuellt"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Aktivera Helskärmsmeddelanden"
+// document.getElementById("fswarntitle").innerHTML = "INNAN DU BÖRJAR..."
+// document.getElementById("fswarncontentmain").innerHTML = `För att lägga över aviseringar ovanpå spel som är inställda på "Helskärmsläge" eller "Exklusivt Helskärmsläge" i spelets visningsläge, måste meddelandet injiceras direkt i spelprocessen för att visas över ett DirectX-spelfönster.<br><br>Detta innebär att eftersom spelets kod tekniskt förändras av ett tredjepartsprogram, kan spel som använder Anti-Cheat-tekniken uppleva denna metod ogynnsamt.<br><br>Även om inga spel har visat några problem under testning, rekommenderas det generellt att <u>inte</u> använda alternativet "Aktivera Helskärmsmeddelanden" när det finns risk för att injektion upptäcks av spel som använder Anti-Cheat-teknik (som i tävlingsspel online).`
+// document.getElementById("fswarnimportant").innerHTML = `Genom att aktivera och använda alternativet "Aktivera Helskärmsmeddelanden" samtycker du härmed till att du på lämpligt sätt har informerat om, och förstår riskerna med att injicera innehåll från tredje part i Steam-spel (såsom metoden som används av Steam Achievement Notifier för att visa innehåll över spel inställda på att använda fullskärmslägen i spelet), och att genom att aktivera det här alternativet accepterar du att du gör det på egen risk, och därför tar utvecklaren av Steam Achievement Notifier (Jackson0ne) inget ansvar eller ansvar angående användningen av detta alternativ.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Genom att klicka på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">SAMTYCKE</span> nedan accepterar du villkoren ovan, och Alternativet "Aktivera Helskärmsmeddelanden" kommer att vara aktiverat.</div><div style="padding: 0px 10px 10px;">Genom att klicka på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AVVISA</span> nedan kommer detta meddelande att stängas, och Alternativet "Aktivera Helskärmsmeddelanden" kommer <u>inte</u> att vara aktiverat.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Jag håller med, visa inte det här meddelandet igen"
+// document.getElementById("fsok").innerHTML = "SAMTYCKE"
+// document.getElementById("fscancel").innerHTML = "AVVISA"
+// document.getElementById("fsselectlbl").innerHTML = "Välj Spelfönster Manuellt"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Se Integritetspolicy"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         GENOM ATT LADDA NER OCH ANVÄNDA VALFRI OFFICIELLT SLÄPPT VERSION AV STEAM ACHIEVEMENT NOTIFIER VIA DET <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFFICIELLA GITHUB-FÖREVARET</span>, FÖLJER DU, ANVÄNDAREN, I FÖRLÄNGNINGEN AVSNITTEN 7 OCH 8 I <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API ANVÄNDARVILLKOR</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Öppna Fönstret Prestationsstatistik"
+
+statsresettitle = "Återställa Alla Lagrade Prestationsdata?"
+statsresetbody = "All tidigare lagrad prestationsdata kommer att tas bort från den här enheten. Din senaste prestationsdata kommer att hämtas när fönstret Prestationsstatistik öppnas nästa gång.\n\nVar medveten om att hämtning av prestationsdata använder Steam Web API-anrop för varje ägt spel i användarens Steam-bibliotek. Valve begränsar mängden Steam Web API-anrop till 100,000 per dag för varje användares API-nyckel.\n\nSom ett resultat, beroende på mängden spel i ditt Steam-bibliotek, kan detta påverka applikationens allmänna funktionalitet om funktionen för att återställa dina prestationsdata är kraftigt överanvänd."
+statsresetbtns = ["Återställ all Prestationsstatistik", "Annullera"]
+
+statwincurrent = "AKTUELLT SPEL"
+statwinall = "ALLA SPEL"
+statwincomplete = "KOMPLETT (100 %)"
+statwintop5 = "BÄSTA 5 SPEL"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Visa Meddelandekonsol"

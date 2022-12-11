@@ -153,17 +153,18 @@ betaleave = "Forlat Betakanalen"
 betaerrortext = "Kan ikke oppdatere til Betakanal!"
 betaerrorsub = "Det ser ut til at du ikke har en nettverkstilkobling. Ingen internett = ingen Beta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Aktiver Fullskjermvarsler"
 document.getElementById("extwinlbltxt").innerHTML = "Dupliserte Varsler til Vinduet "
-document.getElementById("fswarntitle").innerHTML = "FØR DU BEGYNNER..."
-document.getElementById("fswarncontentmain").innerHTML = `For å legge varsler på toppen av spill satt til "Fullskjerm" eller "Eksklusiv Fullskjerm" i spillets visningsmodus, må varselet injiseres direkte i spillprosessen for å vises over et DirectX-spillvindu.<br><br>Dette betyr at siden spillets kode blir teknisk endret av et tredjepartsprogram, kan spill som bruker Anti-Cheat-teknologi se denne metoden ugunstig.<br><br>Selv om ingen spill har vist noen problemer under testing, anbefales det generelt <u>ikke</u> å bruke alternativet "Aktiver fullskjermvarsler" når det er en risiko for at injeksjon blir oppdaget av spill som bruker Anti-Cheat-teknologi (som konkurransespill på nett).`
-document.getElementById("fswarnimportant").innerHTML = `Ved å aktivere og bruke alternativet "Aktiver Fullskjermvarsler", godtar du herved at du har informert om, og forstår risikoen forbundet med, injeksjon av tredjepartsinnhold i Steam-spill (som metoden som brukes av Steam Achievement Notifier for å vise innhold over spill som er satt til å bruke fullskjermsvisningsmoduser i spillet), og at ved å aktivere dette alternativet godtar du at du gjør det på egen risiko, og derfor påtar utvikleren av Steam Achievement Notifier (Jackson0ne) ikke noe ansvar eller ansvar angående bruken av dette alternativet.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Ved å klikke på <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AKSEPTERER</span>-knappen nedenfor, godtar du vilkårene ovenfor, og Alternativet "Aktiv Fullskjermvarsler" vil være aktivert.</div><div style="padding: 0px 10px 10px;">Ved å klikke <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AVSLÅ</span>-knappen nedenfor, lukkes denne meldingen, og Alternativet "Aktiv Fullskjermvarsler" vil <u>ikke</u> være aktivert.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Jeg er enig. Ikke vis denne meldingen igjen."
-document.getElementById("fsok").innerHTML = "AKSEPTERER"
-document.getElementById("fscancel").innerHTML = "AVSLÅ"
-document.getElementById("fsselectlbl").innerHTML = "Velg Spillvindu Manuelt"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Aktiver Fullskjermvarsler"
+// document.getElementById("fswarntitle").innerHTML = "FØR DU BEGYNNER..."
+// document.getElementById("fswarncontentmain").innerHTML = `For å legge varsler på toppen av spill satt til "Fullskjerm" eller "Eksklusiv Fullskjerm" i spillets visningsmodus, må varselet injiseres direkte i spillprosessen for å vises over et DirectX-spillvindu.<br><br>Dette betyr at siden spillets kode blir teknisk endret av et tredjepartsprogram, kan spill som bruker Anti-Cheat-teknologi se denne metoden ugunstig.<br><br>Selv om ingen spill har vist noen problemer under testing, anbefales det generelt <u>ikke</u> å bruke alternativet "Aktiver fullskjermvarsler" når det er en risiko for at injeksjon blir oppdaget av spill som bruker Anti-Cheat-teknologi (som konkurransespill på nett).`
+// document.getElementById("fswarnimportant").innerHTML = `Ved å aktivere og bruke alternativet "Aktiver Fullskjermvarsler", godtar du herved at du har informert om, og forstår risikoen forbundet med, injeksjon av tredjepartsinnhold i Steam-spill (som metoden som brukes av Steam Achievement Notifier for å vise innhold over spill som er satt til å bruke fullskjermsvisningsmoduser i spillet), og at ved å aktivere dette alternativet godtar du at du gjør det på egen risiko, og derfor påtar utvikleren av Steam Achievement Notifier (Jackson0ne) ikke noe ansvar eller ansvar angående bruken av dette alternativet.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Ved å klikke på <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AKSEPTERER</span>-knappen nedenfor, godtar du vilkårene ovenfor, og Alternativet "Aktiv Fullskjermvarsler" vil være aktivert.</div><div style="padding: 0px 10px 10px;">Ved å klikke <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AVSLÅ</span>-knappen nedenfor, lukkes denne meldingen, og Alternativet "Aktiv Fullskjermvarsler" vil <u>ikke</u> være aktivert.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Jeg er enig. Ikke vis denne meldingen igjen."
+// document.getElementById("fsok").innerHTML = "AKSEPTERER"
+// document.getElementById("fscancel").innerHTML = "AVSLÅ"
+// document.getElementById("fsselectlbl").innerHTML = "Velg Spillvindu Manuelt"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Se Personvernerklæring"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         VED Å LASTE NED OG BRUKE EN HVILKEN SOM HELST OFFISIELT UTGITT VERSJON AV STEAM ACHIEVEMENT NOTIFIER VIA DET <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFFISIELLE GITHUB-REPOSITORIET</span>, FØLGER DU, BRUKEREN, I FORLENGELSEN AV SEKSJONENE 7 OG 8 I <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">VILKÅRENE FOR BRUK AV STEAM WEB API</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Åpne Statistikkvinduet"
+
+statsresettitle = "Tilbakestille Alle Lagrede Prestasjonsdata?"
+statsresetbody = "Alle tidligere lagrede prestasjonsdata vil bli fjernet fra denne enheten. Dine siste prestasjonsdata vil bli hentet neste gang vinduet Prestasjonsstatistikk åpnes.\n\nVær oppmerksom på at henting av prestasjonsdata bruker Steam Web API-kall for hvert eid spill i brukerens Steam-bibliotek. Valve begrenser mengden Steam Web API-anrop til 100,000 per dag for hver brukers API-nøkkel.\n\nSom et resultat, avhengig av mengden spill i Steam-biblioteket ditt, kan dette påvirke den generelle funksjonaliteten til applikasjonen hvis funksjonen for å tilbakestille prestasjonsdataene dine er sterkt overbrukt."
+statsresetbtns = ["Tilbakestill all Statistikk", "Avbryt"]
+
+statwincurrent = "GJELDENDE SPILL"
+statwinall = "ALLE SPILL"
+statwincomplete = "FULLT (100 %)"
+statwintop5 = "TOPP 5 SPILL"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Vis Varslingskonsoll"

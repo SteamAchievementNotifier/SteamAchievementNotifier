@@ -153,17 +153,18 @@ betaleave = "Beta Kanalından Ayrıl"
 betaerrortext = "Beta Kanalına güncellenemiyor!"
 betaerrorsub = "Ağ bağlantınız yok gibi görünüyor. İnternet yok = Beta yok!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Tam Ekran Bildirimleri"
 document.getElementById("extwinlbltxt").innerHTML = "Bildirimleri Pencereye Çoğalt "
-document.getElementById("fswarntitle").innerHTML = "BAŞLAMADAN ÖNCE..."
-document.getElementById("fswarncontentmain").innerHTML = `"Tam Ekran" veya "Özel Tam Ekran" oyun içi görüntüleme modlarına ayarlanmış oyunların üzerine bildirimleri bindirmek için, bildirimin DirectX oyun penceresinde görüntülenmesi için doğrudan oyun sürecine enjekte edilmesi gerekir.<br><br>Bu, oyunun kodu bir üçüncü taraf programı tarafından teknik olarak değiştirildiği için, Anti-Cheat teknolojisini kullanan oyunların bu yöntemi olumsuz görebileceği anlamına gelir.<br><br>Test sırasında hiçbir oyun herhangi bir sorun göstermese de, Anti-Cheat teknolojisini kullanan oyunlar tarafından bir enjeksiyon tespit etme riski olduğunda (çevrimiçi rekabetçi oyunlarda olduğu gibi), genellikle "Tam Ekran Bildirimleri" seçeneğini <u>kullanmamanız</u> önerilir.`
-document.getElementById("fswarnimportant").innerHTML = `"Tam Ekran Bildirimleri" seçeneğini etkinleştirerek ve kullanarak, Steam oyunlarına üçüncü taraf içeriği enjekte etmenin risklerini (örneğin, SteamAchievementNotifier tarafından oyun seti üzerinde içerik görüntülemek için kullanılan yöntem gibi) uygun şekilde bilgilendirdiğinizi ve bununla ilgili riskleri anladığınızı kabul etmektesiniz. Tam ekran oyun içi görüntüleme modlarını kullanmak için) ve bu seçeneği etkinleştirerek, bunu kendi sorumluluğunuzda yaptığınızı kabul ettiğinizi ve bu nedenle SteamAchievementNotifier (Jackson0ne) geliştiricisinin bu seçeneğin kullanımıyla ilgili hiçbir sorumluluk veya yükümlülük kabul etmediğini.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Aşağıdaki <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">KABUL</span> düğmesini tıklayarak, yukarıdaki şartları ve "Tam Ekran Bildirimleri" seçeneği etkinleştirilecektir.</div><div style="padding: 0px 10px 10px;">Aşağıdaki <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">REDDETMEK</span> düğmesini tıkladığınızda, bu mesaj kapatılacak ve "Tam Ekran Bildirimleri" seçeneği <u>etkinleştirilmeyecek</u>.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Kabul edeceğim, bu mesajı bir daha gösterme"
-document.getElementById("fsok").innerHTML = "KABUL"
-document.getElementById("fscancel").innerHTML = "REDDETMEK"
-document.getElementById("fsselectlbl").innerHTML = "Oyun Penceresini Manuel Olarak Seç"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Tam Ekran Bildirimleri"
+// document.getElementById("fswarntitle").innerHTML = "BAŞLAMADAN ÖNCE..."
+// document.getElementById("fswarncontentmain").innerHTML = `"Tam Ekran" veya "Özel Tam Ekran" oyun içi görüntüleme modlarına ayarlanmış oyunların üzerine bildirimleri bindirmek için, bildirimin DirectX oyun penceresinde görüntülenmesi için doğrudan oyun sürecine enjekte edilmesi gerekir.<br><br>Bu, oyunun kodu bir üçüncü taraf programı tarafından teknik olarak değiştirildiği için, Anti-Cheat teknolojisini kullanan oyunların bu yöntemi olumsuz görebileceği anlamına gelir.<br><br>Test sırasında hiçbir oyun herhangi bir sorun göstermese de, Anti-Cheat teknolojisini kullanan oyunlar tarafından bir enjeksiyon tespit etme riski olduğunda (çevrimiçi rekabetçi oyunlarda olduğu gibi), genellikle "Tam Ekran Bildirimleri" seçeneğini <u>kullanmamanız</u> önerilir.`
+// document.getElementById("fswarnimportant").innerHTML = `"Tam Ekran Bildirimleri" seçeneğini etkinleştirerek ve kullanarak, Steam oyunlarına üçüncü taraf içeriği enjekte etmenin risklerini (örneğin, SteamAchievementNotifier tarafından oyun seti üzerinde içerik görüntülemek için kullanılan yöntem gibi) uygun şekilde bilgilendirdiğinizi ve bununla ilgili riskleri anladığınızı kabul etmektesiniz. Tam ekran oyun içi görüntüleme modlarını kullanmak için) ve bu seçeneği etkinleştirerek, bunu kendi sorumluluğunuzda yaptığınızı kabul ettiğinizi ve bu nedenle SteamAchievementNotifier (Jackson0ne) geliştiricisinin bu seçeneğin kullanımıyla ilgili hiçbir sorumluluk veya yükümlülük kabul etmediğini.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Aşağıdaki <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">KABUL</span> düğmesini tıklayarak, yukarıdaki şartları ve "Tam Ekran Bildirimleri" seçeneği etkinleştirilecektir.</div><div style="padding: 0px 10px 10px;">Aşağıdaki <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">REDDETMEK</span> düğmesini tıkladığınızda, bu mesaj kapatılacak ve "Tam Ekran Bildirimleri" seçeneği <u>etkinleştirilmeyecek</u>.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Kabul edeceğim, bu mesajı bir daha gösterme"
+// document.getElementById("fsok").innerHTML = "KABUL"
+// document.getElementById("fscancel").innerHTML = "REDDETMEK"
+// document.getElementById("fsselectlbl").innerHTML = "Oyun Penceresini Manuel Olarak Seç"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Gizlilik Politikasını Görüntüle"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">RESMİ GITHUB REPOSITORY</span>ARACILIĞIYLA STEAM ACHIEVEMENT NOTIFIER'IN RESMI OLARAK YAYINLANMIŞ HERHANGI BIR SÜRÜMÜNÜ INDIRIP KULLANARAK, SIZ, KULLANICI, UZANTI OLARAK, <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API KULLANIM ŞARTLARI'NIN</span>  7. ve 8. bölümlerine bağlı kalırsınız.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Başarı İstatistikleri Penceresini Aç"
+
+statsresettitle = "Saklanan Tüm Başarı Verileri Sıfırlansın mı?"
+statsresetbody = "Önceden saklanan tüm başarı verileri bu cihazdan kaldırılacak. En son başarı verileriniz, Başarı İstatistikleri penceresi bir sonraki açıldığında alınacaktır.\n\nLütfen başarı verilerini almanın, kullanıcının Steam Kitaplığındaki sahip olunan her oyun için Steam Web API çağrılarını kullandığını unutmayın. Valve, her kullanıcının API Anahtarı için Steam Web API çağrılarının miktarını günde 100,000 ile sınırlar.\n\nSonuç olarak, Steam Kitaplığınızdaki oyun miktarına bağlı olarak, başarı verilerinizi sıfırlama işlevi çok fazla kullanılırsa bu, uygulamanın genel işlevselliğini etkileyebilir."
+statsresetbtns = ["Tüm Başarı İstatistiklerini Sıfırla", "İptal Etmek"]
+
+statwincurrent = "SUANKİ OYUN"
+statwinall = "BÜTÜN OYUNLAR"
+statwincomplete = "TAMAMLANDI (%100)"
+statwintop5 = "EN İYİ 5 OYUN"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Bildirim Konsolunu Göster"

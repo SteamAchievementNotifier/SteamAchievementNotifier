@@ -1,6 +1,3 @@
-// TO DO:
-// !!! Re-enable GOverlay start in SANIdle() [Line 3328] when re-built for Selection Window
-
 //IMPORT & SET UP MAIN CONTENT
 const { ipcRenderer, desktopCapturer, clipboard, shell } = require('electron')
 const fs = require('fs')
@@ -140,6 +137,15 @@ var betajoin
 var betaleave
 var betaerrortext
 var betaerrorsub
+
+// Achievement Stats Window (Beta Revision 0.6)
+var statsresettitle
+var statsresetbody
+var statsresetbtns
+var statwincurrent
+var statwinall
+var statwincomplete
+var statwintop5
 
 function LoadLangScript(language) {
     if (document.getElementById("langscript")) {
@@ -386,10 +392,10 @@ function CloseSettings() {
         document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
         document.getElementById("overlay").style.zIndex = "3"
 
-        if (document.getElementById("fswarn").style.display == "flex") {
-            CloseFullscreenWarning()
-            ResetHideMsg()
-        }
+        // if (document.getElementById("fswarn").style.display == "flex") {
+        //     CloseFullscreenWarning()
+        //     ResetHideMsg()
+        // }
 
         if (document.getElementById("ppwin").style.display == "flex") {
             document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
@@ -398,7 +404,7 @@ function CloseSettings() {
         setTimeout(() => {
             document.getElementById("betadialog").style.display = "none"
             document.getElementById("betaerror").style.display = "none"
-            document.getElementById("fswarn").style.display = "none"
+            // document.getElementById("fswarn").style.display = "none"
             document.getElementById("ppwin").style.display = "none"
         }, 200)
     }
@@ -407,6 +413,21 @@ function CloseSettings() {
 function CloseWindow() {
     window.close()
 }
+
+var hover = false
+
+function CheckHoverStatus(elem) {
+    document.getElementById(elem).addEventListener('mouseover', () => {
+        hover = true
+    })
+
+    document.getElementById(elem).addEventListener('mouseleave', () => {
+        hover = false
+    })
+}
+
+CheckHoverStatus("test")
+CheckHoverStatus("testrare")
 
 var queue = []
 var running = false
@@ -451,28 +472,101 @@ function TestNotification() {
             setTimeout(CheckIfRunning, 1000)
             return
         } else {
-            running = true
-            queue.shift(queueobj)
-            NotifyWinPos()
-            ipcRenderer.send('notifywin', queueobj)
-            LoadSound()
+            if (config.fullscreen == true && fullscreen.gamename !== "") {
+                running = true
+                queue.shift(queueobj)
 
-            if (config.nvda == "true") {
-                clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
-            }
+                fullscreen["type"] = queueobj.type
+                fullscreen["style"] = queueobj.style
+                fullscreen["pos"] = queueobj.pos
+                fullscreen["width"] = queueobj.width
+                fullscreen["height"] = queueobj.height
+                fullscreen["achievement"] = queueobj.achievement
+                fullscreen["title"] = queueobj.title
+                fullscreen["desc"] = queueobj.desc
+                fullscreen["icon"] = queueobj.icon
+                fullscreen["screenshot"] = queueobj.screenshot
+                fullscreen["percent"] = queueobj.percent
+                fullscreen["audio"] = queueobj.audio
 
-            if (config.extwin == true) {
-                ipcRenderer.send('extwin', queueobj)
-            }
+                fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
 
-            ipcRenderer.once('notrunning', () => {
-                running = false
-                if (queue.length == 0) {
-                    console.log("%cQueue is empty.", "color: grey")
-                } else {
-                    console.log("%cQueue Position: " + queue.length, "color: grey")
+                if (config.screenshot == "true") {
+                    // !!! Need to add alternative for Linux/MacOS
+                    if (process.platform == "win32") {
+                        spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
+                    }
                 }
-            })
+
+                if (config.nvda == "true") {
+                    clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
+                }
+
+                if (config.ssoverlay == "true") {
+                    ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
+                }
+
+                if (config.extwin == true) {
+                    ipcRenderer.send('extwin', queueobj)
+                }
+
+                if (config.notifydebug == true) {
+                    ipcRenderer.send('notifydebug')
+                }
+
+                setTimeout(() => {
+                    running = false
+                    if (queue.length == 0) {
+                        console.log("%cQueue is empty.", "color: grey")
+                    } else {
+                        console.log(`%cQueue Position: ${queue.length}`, "color: grey")
+                    }
+                }, config.displaytime * 1000 + 1000)
+            } else {
+                running = true
+                queue.shift(queueobj)
+                NotifyWinPos()
+                ipcRenderer.send('notifywin', queueobj)
+                LoadSound()
+    
+                if (config.nvda == "true") {
+                    clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
+                }
+    
+                if (config.extwin == true) {
+                    ipcRenderer.send('extwin', queueobj)
+                }
+
+                if (config.notifydebug == true) {
+                    ipcRenderer.send('notifydebug')
+                }
+
+                ipcRenderer.once('startcircle', () => {
+                    document.getElementById("progresscircle").style.animation = `fill ${config.displaytime}s linear forwards`
+        
+                    if (document.getElementById("bodycont").style.display != "none") {
+                        document.getElementById("progresscircle").style.opacity = 1
+                    }
+        
+                    if (hover == true) {
+                        document.getElementById("progresscircle").style.background = "conic-gradient(black var(--circlepercentage), transparent 0)"
+                    } else {
+                        document.getElementById("progresscircle").style.background = "conic-gradient(white var(--circlepercentage), transparent 0)"
+                    }
+                })
+    
+                ipcRenderer.once('notrunning', () => {
+                    running = false
+                    document.getElementById("progresscircle").style.animation = "none"
+                    document.getElementById("progresscircle").style.opacity = 0
+
+                    if (queue.length == 0) {
+                        console.log("%cQueue is empty.", "color: grey")
+                    } else {
+                        console.log("%cQueue Position: " + queue.length, "color: grey")
+                    }
+                })
+            }
         }
     }
 
@@ -512,28 +606,99 @@ function TestRareNotification() {
             setTimeout(CheckIfRunning, 1000)
             return
         } else {
-            running = true
-            queue.shift(queueobj)
-            NotifyWinPos()
-            ipcRenderer.send('notifywin', queueobj)
-            LoadRareSound()
+            if (config.fullscreen == true && fullscreen.gamename !== "") {
+                running = true
+                queue.shift(queueobj)
 
-            if (config.nvda == "true") {
-                clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
-            }
+                fullscreen["type"] = queueobj.type
+                fullscreen["style"] = queueobj.style
+                fullscreen["pos"] = queueobj.pos
+                fullscreen["width"] = queueobj.width
+                fullscreen["height"] = queueobj.height
+                fullscreen["achievement"] = queueobj.achievement
+                fullscreen["title"] = queueobj.title
+                fullscreen["desc"] = queueobj.desc
+                fullscreen["icon"] = queueobj.icon
+                fullscreen["screenshot"] = queueobj.screenshot
+                fullscreen["percent"] = queueobj.percent
+                fullscreen["audio"] = queueobj.audio
+                
+                fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
 
-            if (config.extwin == true) {
-                ipcRenderer.send('extwin', queueobj)
-            }
-
-            ipcRenderer.once('notrunning', () => {
-                running = false
-                if (queue.length == 0) {
-                    console.log("%cQueue is empty.", "color: grey")
-                } else {
-                    console.log("%cQueue Position: " + queue.length, "color: grey")
+                if (config.rarescreenshot == "true") {
+                    // !!! Need to add alternative for Linux/MacOS
+                    if (process.platform == "win32") {
+                        spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
+                    }
                 }
-            })
+
+                if (config.nvda == "true") {
+                    clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
+                }
+
+                if (config.ssoverlay == "true") { 
+                    ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
+                }
+
+                if (config.extwin == true) {
+                    ipcRenderer.send('extwin', queueobj)
+                }
+
+                if (config.notifydebug == true) {
+                    ipcRenderer.send('notifydebug')
+                }
+
+                setTimeout(() => {
+                    running = false
+                    if (queue.length == 0) {
+                        console.log("%cQueue is empty.", "color: grey")
+                    } else {
+                        console.log(`%cQueue Position: ${queue.length}`, "color: grey")
+                    }
+                }, config.raredisplaytime * 1000 + 1000)
+            } else {
+                running = true
+                queue.shift(queueobj)
+                NotifyWinPos()
+                ipcRenderer.send('notifywin', queueobj)
+                LoadRareSound()
+    
+                if (config.nvda == "true") {
+                    clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
+                }
+    
+                if (config.extwin == true) {
+                    ipcRenderer.send('extwin', queueobj)
+                }
+
+                if (config.notifydebug == true) {
+                    ipcRenderer.send('notifydebug')
+                }
+                
+                document.getElementById("progresscircle").style.animation = `fill ${config.raredisplaytime}s linear forwards`
+                
+                if (document.getElementById("bodycont").style.display != "none") {
+                    document.getElementById("progresscircle").style.opacity = 1
+                }
+
+                if (hover == true) {
+                    document.getElementById("progresscircle").style.background = "conic-gradient(black var(--circlepercentage), transparent 0)"
+                } else {
+                    document.getElementById("progresscircle").style.background = "conic-gradient(white var(--circlepercentage), transparent 0)"
+                }
+
+                ipcRenderer.once('notrunning', () => {
+                    running = false
+                    document.getElementById("progresscircle").style.animation = "none"
+                    document.getElementById("progresscircle").style.opacity = 0
+
+                    if (queue.length == 0) {
+                        console.log("%cQueue is empty.", "color: grey")
+                    } else {
+                        console.log("%cQueue Position: " + queue.length, "color: grey")
+                    }
+                })
+            }
         }
     }
 
@@ -1262,7 +1427,7 @@ function GetPlayerName() {
             document.getElementById("username").style.color = "red"
             document.getElementById("statusdot").src = "./icon/dot_red.svg"
 
-            console.log("%USERNAME ERROR: " + error, "color: red")
+            console.log("%cUSERNAME ERROR: " + error, "color: red")
         })
     }
 }
@@ -1522,9 +1687,13 @@ function SaveSteam64ID() {
             }, 200)
         }, 1000)
     }, 200)
+
     GetPlayerName()
     GetSteam3ID()
     GetSteamPath()
+
+    // Clear localStorage values each time Steam64ID is updated to clear Achievement Stats for other accounts (Beta Revision 0.6)
+    localStorage.clear()
 }
 
 function ShowRareCheev() {
@@ -1625,62 +1794,41 @@ function ShowRareTest() {
     document.getElementById("testrare").style.display = "flex"
 }
 
-// function ToggleScreenshot() {
-//     if (config.screenshot == "false") {
-//         config["screenshot"] = "true"
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     } else {
-//         config["screenshot"] = "false"
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     }
-//     CheckScreenshot()
-// }
-
 function CheckStartWin() {
-    if (config.startwin == "true") {
+    if (config.startwin == true) {
         document.getElementById("startwinbox").checked = true
     } else {
         document.getElementById("startwinbox").checked = false
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-// TO DO: Edit for Linux/MacOS - potentially remove option on these platforms  //
-// EDIT: Removed at script start instead                                       //
-/////////////////////////////////////////////////////////////////////////////////
-function ToggleStartWin() {
+// Resets "Start with Windows" option if type is String
+// Changed to boolean for use in new "Start with Windows" code (Beta Revision 0.6)
+if (typeof config.startwin == "string") {
+    console.log(`%c"config.startwin" is of type String - resetting to Boolean...`, "color: orange")
+
+    config["startwin"] = false
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
     const startwin = path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup",`Steam Achievement Notifier (${appversion}).lnk`)
-
-    if (config.startwin == "false") {
-        config["startwin"] = "true"
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-        
-        const opts = {
-            target: launcher.path,
-            description: "Enhance your Steam achievement experience!"
-        }
-
-        try {
-            const startwinshortcut = shell.writeShortcutLink(startwin, opts)
-
-            if (startwinshortcut.valueOf() == false) {
-                throw new Error("Startup Shortcut Error: ")
-            } else {
-                console.log(`%cStartup shortcut created successfully.`, "color: limegreen")
-            }
-        } catch (err) {
-            console.log(`%cStartup shortcut could not be created!\n${err}`, "color: red")
-        }
+    if (fs.existsSync(startwin)) {
+        fs.rmSync(startwin)
     } else {
-        config["startwin"] = "false"
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-
-        if (fs.existsSync(startwin)) {
-            fs.rmSync(startwin)
-        } else {
-            console.log(`%cStartWin shortcut no longer exists in "shell:startup"!`, "color: darkred")
-        }
+        console.log(`%cStartWin shortcut no longer exists in "shell:startup"!`, "color: darkred")
     }
+}
+
+function ToggleStartWin() {
+    if (config.startwin == false) {
+        config["startwin"] = true
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    } else {
+        config["startwin"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    ipcRenderer.send('setstartwin', config.startwin, launcher.path)
+
     CheckStartWin()
 }
 
@@ -1822,6 +1970,8 @@ function ShowCustomise() {
     document.getElementById("customisemenu").style.display = "flex"
     document.getElementById("close").onclick = function () { CloseCustomiser() }
 
+    document.getElementById("progresscircle").style.opacity = 0
+
     if (tabtype == "main") {
         ToggleMainTab()
     } else {
@@ -1838,6 +1988,12 @@ function CloseCustomiser() {
     document.getElementById("webview").remove()
     document.getElementById("webviewrare").remove()
     document.getElementById("close").onclick = function () { CloseWindow() }
+
+    if (running == true) {
+        document.getElementById("progresscircle").style.opacity = 1
+    } else {
+        document.getElementById("progresscircle").style.opacity = 0
+    }
 
     ipcRenderer.send('checkdragwin')
 }
@@ -2593,6 +2749,7 @@ function SetColour1() {
     document.getElementById("colour1box").addEventListener('change', () => {
         config["colour1"] = document.getElementById("colour1box").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayNotification()
     })
     GetBGType()
 }
@@ -2601,6 +2758,7 @@ function SetColour2() {
     document.getElementById("colour2box").addEventListener('change', () => {
         config["colour2"] = document.getElementById("colour2box").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayNotification()
     })
     GetBGType()
 }
@@ -2609,6 +2767,7 @@ function SetTextColour() {
     document.getElementById("textcolourbox").addEventListener('change', () => {
         config["textcolour"] = document.getElementById("textcolourbox").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayNotification()
     })
     GetBGType()
 }
@@ -2617,6 +2776,7 @@ function SetRareColour1() {
     document.getElementById("rarecolour1box").addEventListener('change', () => {
         config["rarecolour1"] = document.getElementById("rarecolour1box").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayRareNotification()
     })
     GetRareBGType()
 }
@@ -2625,6 +2785,7 @@ function SetRareColour2() {
     document.getElementById("rarecolour2box").addEventListener('change', () => {
         config["rarecolour2"] = document.getElementById("rarecolour2box").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayRareNotification()
     })
     GetRareBGType()
 }
@@ -2633,6 +2794,7 @@ function SetRareTextColour() {
     document.getElementById("raretextcolourbox").addEventListener('change', () => {
         config["raretextcolour"] = document.getElementById("raretextcolourbox").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayRareNotification()
     })
     GetRareBGType()
 }
@@ -2722,9 +2884,7 @@ function SetDisplayTime() {
     var displaytime = document.getElementById("displaytimeslider").value
     config["displaytime"] = displaytime
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pause").src = "./icon/pause_white.svg"
-    document.getElementById("webview").reload()
+    ReplayNotification()
 }
 
 document.getElementById("displaytimesliderrare").value = config.raredisplaytime
@@ -2734,9 +2894,7 @@ function SetRareDisplayTime() {
     var displaytime = document.getElementById("displaytimesliderrare").value
     config["raredisplaytime"] = displaytime
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pauserare").src = "./icon/pause_white.svg"
-    document.getElementById("webviewrare").reload()
+    ReplayRareNotification()
 }
 
 // !!! TESTING !!!
@@ -2995,9 +3153,7 @@ document.getElementById("scalevalue").innerHTML = config.scale + "%"
 function SetScale() {
     config["scale"] = document.getElementById("scaleslider").value
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pause").src = "./icon/pause_white.svg"
-    document.getElementById("webview").reload()
+    ReplayNotification()
 }
 
 document.getElementById("scalesliderrare").value = config.rarescale
@@ -3006,9 +3162,7 @@ document.getElementById("scalevaluerare").innerHTML = config.rarescale + "%"
 function SetRareScale() {
     config["rarescale"] = document.getElementById("scalesliderrare").value
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pauserare").src = "./icon/pause_white.svg"
-    document.getElementById("webviewrare").reload()
+    ReplayRareNotification()
 }
 
 document.getElementById("rarityslider").value = config.rarity
@@ -3122,14 +3276,12 @@ function GetSteamDetails() {
     GetSteam3ID()
     GetSteamPath()
     
-    // var checksteamdetails = setInterval(() => {
     console.log(`%cDEBUG: "checksteamdetails" CRON job starting...`,"color:yellow")
     var checksteamdetails = new Cron("* * * * * *", () => {
         if (steam3id && steampath) {
             if (steam3id == 0) {
                 GetSteam3ID()
             } else {
-                // clearInterval(checksteamdetails)
                 checksteamdetails.stop()
                 console.log(`%cDEBUG: "checksteamdetails" CRON job stopped`,"color:yellow")
                 SANIdle()
@@ -3138,7 +3290,6 @@ function GetSteamDetails() {
             GetSteam3ID()
             GetSteamPath()
         }
-    // }, 1000)
     })
 }
 
@@ -3259,7 +3410,6 @@ function SANIdle() {
         })
     }
 
-    // var sanidle = setInterval(() => {
     console.log(`%cDEBUG: "sanidle" CRON job starting...`,"color:yellow")
     var sanidle = new Cron("* * * * * *", () => {
         GetAppIDFromRegKey()
@@ -3286,7 +3436,7 @@ function SANIdle() {
                 regvdffile = regvdffile.toString()
                 var regvdfdata = VDF.parse(regvdffile)
 
-                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name
+                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.Apps[appid].name
                 
                 ipcRenderer.send('trackwin', gamename, appid)
                 setTimeout(() => {
@@ -3302,7 +3452,7 @@ function SANIdle() {
                 regvdffile = regvdffile.toString()
                 var regvdfdata = VDF.parse(regvdffile)
 
-                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name
+                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.Apps[appid].name
                 
                 ipcRenderer.send('trackwin', gamename, appid)
                 setTimeout(() => {
@@ -3318,7 +3468,6 @@ function SANIdle() {
             xmllist = `https://steamcommunity.com/profiles/${config.steam64id}/stats/${appid}/?xml=1`
             
             StoreLocal()
-            // clearInterval(sanidle)
             sanidle.stop()
             console.log(`%cDEBUG: "sanidle" CRON job stopped`,"color:yellow")
             currgame = appid
@@ -3345,8 +3494,19 @@ function SANIdle() {
                     })
                 }
             }
+
+            function GetCurrentStats() {
+                try {
+                    JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","local.json")))
+                    ipcRenderer.send('statwingame', appid)
+                } catch (err) {
+                    console.log("local.json is empty")
+                    setTimeout(GetCurrentStats, 1000)
+                }
+            }
+
+            GetCurrentStats()
         }
-    // }, 1000)
     })
 }
 
@@ -3473,12 +3633,12 @@ async function StartSAN() {
                             setTimeout(CheckIfRunning, 1000)
                             return
                         } else {
+                            running = true
+                            queue.shift(queueobj)
+
                             // FULLSCREEN - Step 3: Values are written to "fullscreen.json". Goverlay checks for changes to this file to trigger a notification (and includes this info in the notification)
                             // Note: "gamename"/"gameicon"/"gameart" are already written to "fullscreen.json" on game launch (main.js:249)
                             if (config.fullscreen == true) {
-                                running = true
-                                queue.shift(queueobj)
-
                                 // fullscreen["gamename"] = gamename
                                 fullscreen["type"] = queueobj.type
                                 fullscreen["style"] = queueobj.style
@@ -3515,6 +3675,10 @@ async function StartSAN() {
                                     ipcRenderer.send('extwin', queueobj)
                                 }
 
+                                if (config.notifydebug == true) {
+                                    ipcRenderer.send('notifydebug')
+                                }
+
                                 setTimeout(() => {
                                     running = false
                                     if (queue.length == 0) {
@@ -3546,6 +3710,10 @@ async function StartSAN() {
 
                                 if (config.extwin == true) {
                                     ipcRenderer.send('extwin', queueobj)
+                                }
+
+                                if (config.notifydebug == true) {
+                                    ipcRenderer.send('notifydebug')
                                 }
     
                                 ipcRenderer.once('notrunning', () => {
@@ -3648,6 +3816,10 @@ async function StartSAN() {
                                     ipcRenderer.send('extwin', queueobj)
                                 }
 
+                                if (config.notifydebug == true) {
+                                    ipcRenderer.send('notifydebug')
+                                }
+
                                 setTimeout(() => {
                                     running = false
                                     if (queue.length == 0) {
@@ -3682,6 +3854,10 @@ async function StartSAN() {
 
                                 if (config.extwin == true) {
                                     ipcRenderer.send('extwin', queueobj)
+                                }
+
+                                if (config.notifydebug == true) {
+                                    ipcRenderer.send('notifydebug')
                                 }
     
                                 ipcRenderer.once('notrunning', () => {
@@ -3778,6 +3954,8 @@ async function StartSAN() {
                             }
                         }
 
+                        ipcRenderer.send('updatestatwin', apiname)
+
                         setTimeout(() => {
                             fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), JSON.stringify(url))
                             local = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","local.json")))
@@ -3805,13 +3983,11 @@ async function StartSAN() {
             }
         })
 
-        // var checkgame = setInterval(() => {
         console.log(`%cDEBUG: "checkgame" CRON job starting...`,"color:yellow")
         var checkgame = new Cron("* * * * * *", () => {
             GetAppIDFromRegKey()
 
             if (appid == 0 || appid == undefined || appid !== currgame) {
-                // clearInterval(checkgame)
                 checkgame.stop()
                 console.log(`%cDEBUG: "checkgame" CRON job stopped [AppID is 0]`,"color:yellow")
 
@@ -3828,6 +4004,8 @@ async function StartSAN() {
                 ipcRenderer.send('idle', traylabel, trayshow, trayexit)
                 currgame = null
                 SANIdle()
+
+                ipcRenderer.send('statwinnogame')
             } else {
                 fs.stat(`${steampath}/appcache/stats/UserGameStats_${steam3id}_${appid}.bin`, (err, stats) => {
                     if (err) {
@@ -3837,7 +4015,6 @@ async function StartSAN() {
                             console.log("%cFile was changed!", "color: deepskyblue")
                             lastmodified = stats.mtime
 
-                            // clearInterval(checkgame)
                             checkgame.stop()
                             console.log(`%cDEBUG: "checkgame" CRON job stopped [Checking achievement info...]`,"color:yellow")
                             GetAchievementsFromURL()
@@ -3845,18 +4022,15 @@ async function StartSAN() {
                     }
                 })
             }
-            // }, 1000)
         })
     } catch (err) {
         console.log(`%cSTARTSAN ERROR: ${err}`, "color: red")
 
-        // var checkappid = setInterval(() => {
         console.log(`%cDEBUG: "checkappid" CRON job starting...`,"color:yellow")
         var checkappid = new Cron("* * * * * *", () => {
             GetAppIDFromRegKey()
 
             if (appid == 0 || appid == undefined || appid !== currgame) {
-                // clearInterval(checkappid)
                 checkappid.stop()
                 console.log(`%cDEBUG: "checkappid" CRON job stopped`,"color:yellow")
                 
@@ -3873,8 +4047,9 @@ async function StartSAN() {
                 ipcRenderer.send('idle', traylabel, trayshow, trayexit)
                 currgame = null
                 SANIdle()
+
+                ipcRenderer.send('statwinnogame')
             }
-        // }, 1000)
         })
     }
 }
@@ -4075,18 +4250,15 @@ function CheckIfSteamIsRunning() {
             console.log("%cSteam is NOT running", "color: red")
             document.getElementById("nosteamlbl").style.opacity = "0.5"
 
-            // var checkprocesses = setInterval(() => {
             console.log(`%cDEBUG: "checkprocesses" CRON job starting...`,"color:yellow")
             checkprocesses = new Cron("* * * * * *", () => {
                 exec(tasklist, (err, process) => {
                     var steamrecheck = process.toLowerCase().indexOf(execname)
                     if (steamrecheck !== -1) {
-                        // clearInterval(checkprocesses)
                         console.log(`%cDEBUG: "checkprocesses" CRON job stopped`,"color:yellow")
                         ipcRenderer.send('reloadapp')
                     }
                 })
-            // }, 2000)
             })
         } else {
             issteamrunning = true
@@ -4461,6 +4633,10 @@ function RecenterDragWin() {
     ipcRenderer.send('recenter')
 }
 
+function ResizeDragWin() {
+    ipcRenderer.send('resize')
+}
+
 ipcRenderer.on('saveposmain', (event, x, y) => {
     config["x"] = x
     config["y"] = y
@@ -4492,17 +4668,13 @@ if (config.rarefontsize == undefined) {
 function SetFontSize() {
     config["fontsize"] = document.getElementById("fontsizeslider").value
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pause").src = "./icon/pause_white.svg"
-    document.getElementById("webview").reload()
+    ReplayNotification()
 }
 
 function SetFontSizeRare() {
     config["rarefontsize"] = document.getElementById("fontsizesliderrare").value
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pauserare").src = "./icon/pause_white.svg"
-    document.getElementById("webviewrare").reload()
+    ReplayRareNotification()
 }
 
 if (config.opacity == undefined) {
@@ -4886,127 +5058,112 @@ function ToggleExtWin() {
 }
 
 ipcRenderer.on('extwinclosed', () => {
+    console.log("extwinclosed")
     config["extwin"] = false
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
     CheckExtWin()
 })
 
-function CheckExtWinBg() {
-    if (config.extwinbg == undefined) {
-        config["extwinbg"] = "#000000"
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
-
-    config["extwinbg"] = document.getElementById("extwincolour").value
-    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-
-    ipcRenderer.send('extwinbgchange')
-}
-
-try {
-    document.getElementById("extwincolour").value = config.extwinbg
-} catch {
-    CheckExtWinBg()
-}
-
 // FULLSCREEN FUNCTIONS
 
-function CheckFullscreen() {
-    if (config.fullscreen == undefined) {
-        config["fullscreen"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
+// function CheckFullscreen() {
+//     if (config.fullscreen == undefined) {
+//         config["fullscreen"] = false
+//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+//     }
 
-    if (config.fullscreenagree == undefined) {
-        config["fullscreenagree"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
+//     if (config.fullscreenagree == undefined) {
+//         config["fullscreenagree"] = false
+//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+//     }
     
-    if (config.fullscreen == true) {
-        document.getElementById("fullscreenbox").checked = true
-        // document.getElementById("fsresopt").style.display = "flex"
-        document.getElementById("fsselect").style.display = "flex"
+//     if (config.fullscreen == true) {
+//         document.getElementById("fullscreenbox").checked = true
+//         // document.getElementById("fsresopt").style.display = "flex"
+//         document.getElementById("fsselect").style.display = "flex"
     
-        config["custompos"] = "false"
-        config["rarecustompos"] = "false"
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    } else {
-        document.getElementById("fullscreenbox").checked = false
-        // document.getElementById("fsresopt").style.display = "none"
-        document.getElementById("fsselect").style.display = "none"
-    }
+//         config["custompos"] = "false"
+//         config["rarecustompos"] = "false"
+//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+//     } else {
+//         document.getElementById("fullscreenbox").checked = false
+//         // document.getElementById("fsresopt").style.display = "none"
+//         document.getElementById("fsselect").style.display = "none"
+//     }
 
-    CheckCustomPos()
-    CheckCustomPosRare()
-}
+//     CheckCustomPos()
+//     CheckCustomPosRare()
+// }
 
-CheckFullscreen()
+// CheckFullscreen()
 
-function ToggleFullscreen() {
-    if (config.fullscreen == false && config.fullscreenagree == false) {
-        ShowFullscreenWarning()
-    } else if (config.fullscreen == false && config.fullscreenagree == true) {
-        EnableFullscreen()
-    } else {
-        config["fullscreen"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-        CheckFullscreen()
-        ipcRenderer.send('relaunchapp')
-    }
-}
+// function ToggleFullscreen() {
+//     if (config.fullscreen == false && config.fullscreenagree == false) {
+//         ShowFullscreenWarning()
+//     } else if (config.fullscreen == false && config.fullscreenagree == true) {
+//         EnableFullscreen()
+//     } else {
+//         config["fullscreen"] = false
+//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+//         CheckFullscreen()
+//         ipcRenderer.send('relaunchapp')
+//     }
+// }
 
-function ShowFullscreenWarning() {
-    document.getElementById("fswarn").style.display = "flex";
-    document.getElementById("fswarn").style.animation = "pop 0.5s forwards"
-    document.getElementById("overlay").style.zIndex = "19"
-}
+// function ShowFullscreenWarning() {
+//     document.getElementById("fswarn").style.display = "flex";
+//     document.getElementById("fswarn").style.animation = "pop 0.5s forwards"
+//     document.getElementById("overlay").style.zIndex = "19"
+// }
 
-function CloseFullscreenWarning() {
-    document.getElementById("fswarn").style.animation = "poprev 0.2s forwards"
-    document.getElementById("fswarncontenttop").scrollIntoView()
-    document.getElementById("fshidemsgbox").checked = false
-    setTimeout(() => {
-        document.getElementById("fswarn").style.display = "none"
-        document.getElementById("overlay").style.zIndex = "3"
+// function CloseFullscreenWarning() {
+//     document.getElementById("fswarn").style.animation = "poprev 0.2s forwards"
+//     document.getElementById("fswarncontenttop").scrollIntoView()
+//     document.getElementById("fshidemsgbox").checked = false
+//     setTimeout(() => {
+//         document.getElementById("fswarn").style.display = "none"
+//         document.getElementById("overlay").style.zIndex = "3"
 
-        document.getElementById("fsok").style.opacity = "0.5"
-        document.getElementById("fsok").style.pointerEvents = "none"
-        document.getElementById("fscancel").style.opacity = "0.5"
-        document.getElementById("fscancel").style.pointerEvents = "none"
+//         document.getElementById("fsok").style.opacity = "0.5"
+//         document.getElementById("fsok").style.pointerEvents = "none"
+//         document.getElementById("fscancel").style.opacity = "0.5"
+//         document.getElementById("fscancel").style.pointerEvents = "none"
 
-        CheckFullscreen()
-    }, 200)
-}
+//         CheckFullscreen()
+//     }, 200)
+// }
 
-function HideMsg() {
-    if (document.getElementById("fshidemsgbox").checked == true) {
-        config["fullscreenagree"] = true
-    } else {
-        config["fullscreenagree"] = false
-    }
-    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-}
+// function HideMsg() {
+//     if (document.getElementById("fshidemsgbox").checked == true) {
+//         config["fullscreenagree"] = true
+//     } else {
+//         config["fullscreenagree"] = false
+//     }
+//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+// }
 
-function ResetHideMsg() {
-    config["fullscreenagree"] = false
-    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-}
+// function ResetHideMsg() {
+//     config["fullscreenagree"] = false
+//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+// }
 
-function EnableFullscreen() { 
-    config["fullscreen"] = true
-    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    CloseFullscreenWarning()
-    ipcRenderer.send('relaunchapp')
-}
+// function EnableFullscreen() { 
+//     config["fullscreen"] = true
+//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+//     CloseFullscreenWarning()
+//     ipcRenderer.send('relaunchapp')
+// }
 
-function CheckScroll(event) {
-    if (Math.floor(event.target.scrollHeight - event.target.scrollTop) <= Math.floor(event.target.clientHeight)) {
-        document.getElementById("fsok").style.opacity = "1"
-        document.getElementById("fsok").style.pointerEvents = "auto"
-        document.getElementById("fscancel").style.opacity = "1"
-        document.getElementById("fscancel").style.pointerEvents = "auto"
-    }
-}
+// function CheckScroll(event) {
+//     if (Math.floor(event.target.scrollHeight - event.target.scrollTop) <= Math.floor(event.target.clientHeight)) {
+//         document.getElementById("fsok").style.opacity = "1"
+//         document.getElementById("fsok").style.pointerEvents = "auto"
+//         document.getElementById("fscancel").style.opacity = "1"
+//         document.getElementById("fscancel").style.pointerEvents = "auto"
+//     }
+// }
+
+// TEST CODE
 
 // function CheckCustomRes() {
 //     if (config.customres == undefined) {
@@ -5090,32 +5247,34 @@ function CheckScroll(event) {
 //     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
 // }
 
-function CheckSelWin() {
-    if (config.fsselect == undefined) {
-        config["fsselect"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
+// TEST CODE
 
-    if (config.fsselect == true) {
-        document.getElementById("fsselectbox").checked = true
-    } else {
-        document.getElementById("fsselectbox").checked = false
-    }
-}
+// function CheckSelWin() {
+//     if (config.fsselect == undefined) {
+//         config["fsselect"] = false
+//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+//     }
 
-CheckSelWin()
+//     if (config.fsselect == true) {
+//         document.getElementById("fsselectbox").checked = true
+//     } else {
+//         document.getElementById("fsselectbox").checked = false
+//     }
+// }
 
-function ToggleSelWin() {
-    if (config.fsselect == false) {
-        config["fsselect"] = true
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    } else {
-        config["fsselect"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
+// CheckSelWin()
 
-    CheckSelWin()
-}
+// function ToggleSelWin() {
+//     if (config.fsselect == false) {
+//         config["fsselect"] = true
+//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+//     } else {
+//         config["fsselect"] = false
+//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+//     }
+
+//     CheckSelWin()
+// }
 
 // FULLSCREEN FUNCTIONS
 
@@ -5131,6 +5290,314 @@ function ClosePP() {
     setTimeout(() => {
         document.getElementById("ppwin").style.display = "none"
     }, 200)
+}
+
+document.getElementById("displaymodecont").style.background = "transparent"
+
+function CheckFS() {
+    if (config.fullscreen == undefined) {
+        config["fullscreen"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    if (config.fullscreen == false) {
+        document.getElementById("displaymodeimg").src = "./icon/monitor.svg"
+        document.getElementById("displaymodelbl").innerHTML = "BORDERLESS"
+    } else {
+        document.getElementById("displaymodeimg").src = "./icon/monitorfs.svg"
+        document.getElementById("displaymodelbl").innerHTML = "FULLSCREEN"
+
+        config["custompos"] = "false"
+        config["rarecustompos"] = "false"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    CheckCustomPos()
+    CheckCustomPosRare()
+}
+
+CheckFS()
+
+function ToggleFS() {
+    if (config.fullscreen == false) {
+        config["fullscreen"] = true
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        document.getElementById("displaymodecont").style.background = "blueviolet"
+    } else {
+        config["fullscreen"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        document.getElementById("displaymodecont").style.background = "rgb(32,62,122)"
+    }
+
+    CheckFS()
+}
+
+function FSHover() {
+    if (config.fullscreen == true) {
+        document.getElementById("displaymodecont").style.background = "blueviolet"
+    } else {
+        document.getElementById("displaymodecont").style.background = "rgb(32,62,122)"
+    }
+}
+
+function FSOut() {
+    document.getElementById("displaymodecont").style.background = "transparent"
+}
+
+// Reset "Show Stats Window" on app launch
+// Prevents option from being true but no window being spawned on launch
+function StatWinReset() {
+    config["statwin"] = false
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    document.getElementById("statwinbox").checked = false
+}
+
+StatWinReset()
+
+function CheckStatWin() {
+    if (config.statwin == undefined) {
+        config["statwin"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    if (config.statwin == true) {
+        document.getElementById("statwinbox").checked = true
+    } else {
+        document.getElementById("statwinbox").checked = false
+    }
+}
+
+CheckStatWin()
+
+function OpenStatWin() {
+    if (config.statwin == false) {
+        config["statwin"] = true
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+        var translations = {
+            current: statwincurrent,
+            nogame: nogame,
+            allgames: statwinall,
+            complete: statwincomplete,
+            top5: statwintop5
+        }
+        
+        ipcRenderer.send('spawnstatwin', launcher.user, translations)
+
+        if (appid != 0) {
+            ipcRenderer.send('statwingame', appid)
+        }
+    } else {
+        config["statwin"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ipcRenderer.send('despawnstatwin')
+    }
+
+    CheckStatWin()
+}
+
+ipcRenderer.on('statwinclosed', () => {
+    config["statwin"] = false
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    CheckStatWin()
+})
+
+function ResetStats() {
+    const options = {
+        title: "Steam Achievement Notifier",
+        icon: (path.join(__dirname, "img","sanlogo.ico")),
+        message: statsresettitle,
+        detail: statsresetbody,
+        buttons: statsresetbtns,
+        noLink: true,
+        defaultId: 1,
+        cancelId: 1
+    }
+
+    ipcRenderer.send('resetstats', options)
+}
+
+ipcRenderer.on('clearlocalstorage', () => {
+    try {
+        localStorage.clear()
+        console.log("Stats removed")
+    } catch (err) {
+        alert(err)
+    }
+
+    config["statwin"] = false
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    CheckStatWin()
+})
+
+ipcRenderer.on('statwinopen', () => {
+    if (appid != 0) {
+        ipcRenderer.send('statwingame', appid)
+    }
+})
+
+function StatResetHover() {
+    document.getElementById("statwinresetcont").style.background = "white"
+    document.getElementById("statwinreset").style.filter = "invert()"
+}
+
+function StatResetOut() {
+    document.getElementById("statwinresetcont").style.background = "rgb(32,62,122)"
+    document.getElementById("statwinreset").style.filter = "none"
+}
+
+function CircleHover() {
+    if (running == true) {
+        document.getElementById("progresscircle").style.background = "conic-gradient(black var(--circlepercentage), transparent 0)"
+    }
+}
+
+function CircleOut() {
+    if (running == true) {
+        document.getElementById("progresscircle").style.background = "conic-gradient(white var(--circlepercentage), transparent 0)"
+    }
+}
+
+// Text Outline
+function CheckTextOut() {
+    if (config.textout == undefined) {
+        config["textout"] = "none"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    if (config.textout != "none") {
+        document.getElementById("textout").style.opacity = 1
+        document.getElementById("textoutbox").value = config.textout
+    } else {
+        document.getElementById("textout").style.opacity = 0.5
+        document.getElementById("textoutbox").value = "#000000"
+    }
+}
+
+CheckTextOut()
+
+function SetTextOut() {
+    if (config.textout == "none") {
+        ReplayNotification()
+    }
+
+    config["textout"] = document.getElementById("textoutbox").value
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    CheckTextOut()
+
+    document.getElementById("textoutbox").addEventListener('change', () => {
+        config["textout"] = document.getElementById("textoutbox").value
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+        ReplayNotification()
+    })
+
+    CheckTextOut()
+}
+
+function ShowOutClose() {
+    if (config.textout != "none") {
+        document.getElementById("textoutclose").style.opacity = 1
+        document.getElementById("textoutclose").style.pointerEvents = "auto"
+    }
+}
+
+function HideOutClose() {
+    document.getElementById("textoutclose").style.opacity = 0
+    document.getElementById("textoutclose").style.pointerEvents = "none"
+}
+
+function RemoveTextOut() {
+    config["textout"] = "none"
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+    ReplayNotification()
+
+    CheckTextOut()
+}
+
+// Rare Text Outline
+function CheckTextOutRare() {
+    if (config.raretextout == undefined) {
+        config["raretextout"] = "none"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    if (config.raretextout != "none") {
+        document.getElementById("textoutrare").style.opacity = 1
+        document.getElementById("textoutboxrare").value = config.raretextout
+    } else {
+        document.getElementById("textoutrare").style.opacity = 0.5
+        document.getElementById("textoutboxrare").value = "#000000"
+    }
+}
+
+CheckTextOutRare()
+
+function SetTextOutRare() {
+    if (config.raretextout == "none") {
+        ReplayRareNotification()
+    }
+
+    config["raretextout"] = document.getElementById("textoutboxrare").value
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    CheckTextOutRare()
+
+    document.getElementById("textoutboxrare").addEventListener('change', () => {
+        config["raretextout"] = document.getElementById("textoutboxrare").value
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+        ReplayRareNotification()
+    })
+
+    CheckTextOutRare()
+}
+
+function ShowOutCloseRare() {
+    if (config.raretextout != "none") {
+        document.getElementById("textoutcloserare").style.opacity = 1
+        document.getElementById("textoutcloserare").style.pointerEvents = "auto"
+    }
+}
+
+function HideOutCloseRare() {
+    document.getElementById("textoutcloserare").style.opacity = 0
+    document.getElementById("textoutcloserare").style.pointerEvents = "none"
+}
+
+function RemoveTextOutRare() {
+    config["raretextout"] = "none"
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+    ReplayRareNotification()
+    CheckTextOutRare()
+}
+
+function CheckNotifyDebug() {
+    if (config.notifydebug == undefined) {
+        config["notifydebug"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    if (config.notifydebug == true) {
+        document.getElementById("notifydebugbox").checked = true
+    } else {
+        document.getElementById("notifydebugbox").checked = false
+    }
+}
+
+CheckNotifyDebug()
+
+function ToggleNotifyDebug() {
+    if (config.notifydebug == true) {
+        config["notifydebug"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    } else {
+        config["notifydebug"] = true
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    CheckNotifyDebug()
 }
 
 function OpenLink(link) {

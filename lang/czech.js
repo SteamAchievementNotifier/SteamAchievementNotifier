@@ -152,17 +152,18 @@ var betaleave = "Opustit Beta Kanál"
 var betaerrortext = "Nelze upgradovat na Beta Kanál!"
 var betaerrorsub = "Zdá se, že nemáte připojení k síti. Žádný internet = žádná Beta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Upozornění na Celou Obrazovku"
 document.getElementById("extwinlbltxt").innerHTML = "Duplicitní Oznámení do Okna"
-document.getElementById("fswarntitle").innerHTML = "NEŽ ZAČNEŠ..."
-document.getElementById("fswarncontentmain").innerHTML = `Aby bylo možné překrýt oznámení nad hrami nastavenými na režim zobrazení „Celá Obrazovka“ nebo „Exkluzivní Celá Obrazovka“, musí být oznámení vloženo přímo do herního procesu, aby se zobrazilo přes okno hry DirectX.<br><br>To znamená, že jelikož je kód hry technicky měněn programem třetí strany, hry využívající technologii Anti-Cheat mohou tuto metodu vnímat nepříznivě.<br><br>Ačkoli žádné hry během testování nevykazovaly žádné problémy, obecně se <u>nedoporučuje</u> používat možnost „Oznámení na Celou Obrazovku“, pokud existuje riziko, že hry využívající technologii Anti-Cheat (např. v online konkurenčních hrách).`
-document.getElementById("fswarnimportant").innerHTML = `Povolením a používáním možnosti „Oznámení na Celou Obrazovku“ souhlasíte s tím, že jste náležitě informovali a rozumíte rizikům spojeným s vkládáním obsahu třetích stran do her Steam (jako je metoda používaná Steam Achievement Notifier k zobrazení obsahu přes hry nastaveny tak, aby používaly režimy zobrazení na celé obrazovce ve hře), a že povolením této možnosti souhlasíte s tím, že tak činíte na vlastní riziko, a proto vývojář Steam Achievement Notifier (Jackson0ne) nenese žádnou odpovědnost za použití. této možnosti.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Kliknutím na tlačítko <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">SOUHLASIT</span> níže přijímáte výše uvedené podmínky a Bude povolena možnost „Oznámení na Celou Obrazovku“.</div><div style="padding: 0px 10px 10px;">Kliknutím na tlačítko <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">NESOUHLASIT</span> níže se tato zpráva zavře a Možnost „Oznámení na Celou Obrazovku“ <u>nebude</u> povolena.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Souhlasím, už tuto zprávu nezobrazovat"
-document.getElementById("fsok").innerHTML = "SOUHLASIT"
-document.getElementById("fscancel").innerHTML = "NESOUHLASIT"
-document.getElementById("fsselectlbl").innerHTML = "Ručně Vyberte Okno Hry"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Upozornění na Celou Obrazovku"
+// document.getElementById("fswarntitle").innerHTML = "NEŽ ZAČNEŠ..."
+// document.getElementById("fswarncontentmain").innerHTML = `Aby bylo možné překrýt oznámení nad hrami nastavenými na režim zobrazení „Celá Obrazovka“ nebo „Exkluzivní Celá Obrazovka“, musí být oznámení vloženo přímo do herního procesu, aby se zobrazilo přes okno hry DirectX.<br><br>To znamená, že jelikož je kód hry technicky měněn programem třetí strany, hry využívající technologii Anti-Cheat mohou tuto metodu vnímat nepříznivě.<br><br>Ačkoli žádné hry během testování nevykazovaly žádné problémy, obecně se <u>nedoporučuje</u> používat možnost „Oznámení na Celou Obrazovku“, pokud existuje riziko, že hry využívající technologii Anti-Cheat (např. v online konkurenčních hrách).`
+// document.getElementById("fswarnimportant").innerHTML = `Povolením a používáním možnosti „Oznámení na Celou Obrazovku“ souhlasíte s tím, že jste náležitě informovali a rozumíte rizikům spojeným s vkládáním obsahu třetích stran do her Steam (jako je metoda používaná Steam Achievement Notifier k zobrazení obsahu přes hry nastaveny tak, aby používaly režimy zobrazení na celé obrazovce ve hře), a že povolením této možnosti souhlasíte s tím, že tak činíte na vlastní riziko, a proto vývojář Steam Achievement Notifier (Jackson0ne) nenese žádnou odpovědnost za použití. této možnosti.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Kliknutím na tlačítko <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">SOUHLASIT</span> níže přijímáte výše uvedené podmínky a Bude povolena možnost „Oznámení na Celou Obrazovku“.</div><div style="padding: 0px 10px 10px;">Kliknutím na tlačítko <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">NESOUHLASIT</span> níže se tato zpráva zavře a Možnost „Oznámení na Celou Obrazovku“ <u>nebude</u> povolena.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Souhlasím, už tuto zprávu nezobrazovat"
+// document.getElementById("fsok").innerHTML = "SOUHLASIT"
+// document.getElementById("fscancel").innerHTML = "NESOUHLASIT"
+// document.getElementById("fsselectlbl").innerHTML = "Ručně Vyberte Okno Hry"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Zobrazit Zásady Ochrany Osobních Údajů"
@@ -214,3 +215,18 @@ document.getElementById("ppcontent").innerHTML = `
         STAŽENÍM A POUŽITÍM JAKÉKOLI OFICIÁLNĚ VYDANÉ VERZE STEAM ACHIEVEMENT NOTIFIER PROSTŘEDNICTVÍM <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFICIÁLNÍHO GITHUB RESETU</span> VY, UŽIVATEL, PO ROZŠÍŘENÍ DODRŽUJETE ODDÍLY 7 A 8 PODMÍNEK <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API POUŽÍVÁNÍ</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Otevřete Okno Statistiky Úspěchů"
+
+statsresettitle = "Resetovat Všechna Uložená Data Úspěchů?"
+statsresetbody = "Z tohoto zařízení budou odstraněna všechna dříve uložená data úspěchů. Vaše nejnovější údaje o úspěších budou načteny při příštím otevření okna Statistiky Úspěchů.\n\nMějte prosím na paměti, že získávání dat úspěchů využívá volání Steam Web API pro každou vlastněnou hru v knihovně Steam uživatele. Valve omezuje počet volání Steam Web API na 100 000 za den pro každý uživatelský klíč API.\n\nV důsledku toho, v závislosti na množství her ve vaší knihovně Steam, to může ovlivnit obecnou funkčnost aplikace, pokud je funkce pro resetování vašich úspěchů velmi nadměrně využívána."
+statsresetbtns = ["Resetovat všechny Statistiky Úspěchů", "Zrušit"]
+
+statwincurrent = "AKTUÁLNÍ HRA"
+statwinall = "VŠECHNY HRY"
+statwincomplete = "KOMPLETNÍ (100 %)"
+statwintop5 = "5 NEJLEPŠÍCH HER"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Zobrazit Oznamovací Konzolu"

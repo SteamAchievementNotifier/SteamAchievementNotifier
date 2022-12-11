@@ -157,17 +157,18 @@ var betaleave = "Abandonar Canal Beta"
 var betaerrortext = "Incapaz de atualizar para o Canal Beta!"
 var betaerrorsub = "Parece que você não tem uma conexão de rede. Sem internet = Sem Beta!"
 
+document.getElementById("extwinlbltxt").innerHTML = "Notificações Duplicadas à Janela "
+
 // Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Notificações em Tela Cheia"
-document.getElementById("extwinlbltxt").innerHTML = "Notificações duplicadas à Janela "
-document.getElementById("fswarntitle").innerHTML = "ANTES DE COMEÇAR..."
-document.getElementById("fswarncontentmain").innerHTML = `A fim de sobrepor as notificações no topo dos jogos definidos para os modos de exibição em tela cheia ou tela cheia exclusiva, a notificação deve ser injetada diretamente no processo do jogo para ser exibida sobre uma janela de jogo DirectX.<br><br>Isto significa que, como o código do jogo está sendo tecnicamente alterado por um programa de terceiros, os jogos que utilizam a tecnologia Anti-Cheat podem ver este método de forma desfavorável.<br><br>Embora nenhum jogo tenha apresentado problemas durante os testes, geralmente é aconselhável <u>não</u> utilizar a opção "Notificações em Tela Cheia" quando há o risco de injeção ser detectada por jogos que utilizam a tecnologia Anti-Cheat (como em jogos competitivos on-line).`
-document.getElementById("fswarnimportant").innerHTML = `Ao ativar e usar a opção "Notificações em Tela Cheia", você concorda que informou adequadamente e entendeu os riscos associados à injeção de conteúdo de terceiros em jogos Steam (como o método usado pela Steam Achievement Notifier para exibir conteúdo sobre jogos configurados para usar os modos de exibição em tela cheia), e que ao ativar esta opção, você aceita que o faça por sua própria conta e risco e, portanto, o desenvolvedor da Steam Achievement Notifier (Jackson0ne) não aceita nenhuma responsabilidade ou obrigação com relação ao uso desta opção.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Ao clicar no botão <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACORDO</span> abaixo, você aceita os termos acima, e a opção "Notificações em Tela Cheia" será ativada.</div><div style="padding: 0px 10px 10px;">Ao clicar no botão <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DISCORDAR</span> abaixo, esta mensagem será fechada, e a opção "Notificações em Tela Cheia" será <u>não</u> habilitada.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Eu concordo, não mostre esta mensagem novamente"
-document.getElementById("fsok").innerHTML = "ACORDO"
-document.getElementById("fscancel").innerHTML = "DISCORDAR"
-document.getElementById("fsselectlbl").innerHTML = "Janela de Seleção Manual do Jogo"
+// document.getElementById("fullscreenlbl").innerHTML = "Notificações em Tela Cheia"
+// document.getElementById("fswarntitle").innerHTML = "ANTES DE COMEÇAR..."
+// document.getElementById("fswarncontentmain").innerHTML = `A fim de sobrepor as notificações no topo dos jogos definidos para os modos de exibição em tela cheia ou tela cheia exclusiva, a notificação deve ser injetada diretamente no processo do jogo para ser exibida sobre uma janela de jogo DirectX.<br><br>Isto significa que, como o código do jogo está sendo tecnicamente alterado por um programa de terceiros, os jogos que utilizam a tecnologia Anti-Cheat podem ver este método de forma desfavorável.<br><br>Embora nenhum jogo tenha apresentado problemas durante os testes, geralmente é aconselhável <u>não</u> utilizar a opção "Notificações em Tela Cheia" quando há o risco de injeção ser detectada por jogos que utilizam a tecnologia Anti-Cheat (como em jogos competitivos on-line).`
+// document.getElementById("fswarnimportant").innerHTML = `Ao ativar e usar a opção "Notificações em Tela Cheia", você concorda que informou adequadamente e entendeu os riscos associados à injeção de conteúdo de terceiros em jogos Steam (como o método usado pela Steam Achievement Notifier para exibir conteúdo sobre jogos configurados para usar os modos de exibição em tela cheia), e que ao ativar esta opção, você aceita que o faça por sua própria conta e risco e, portanto, o desenvolvedor da Steam Achievement Notifier (Jackson0ne) não aceita nenhuma responsabilidade ou obrigação com relação ao uso desta opção.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Ao clicar no botão <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ACORDO</span> abaixo, você aceita os termos acima, e a opção "Notificações em Tela Cheia" será ativada.</div><div style="padding: 0px 10px 10px;">Ao clicar no botão <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">DISCORDAR</span> abaixo, esta mensagem será fechada, e a opção "Notificações em Tela Cheia" será <u>não</u> habilitada.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Eu concordo, não mostre esta mensagem novamente"
+// document.getElementById("fsok").innerHTML = "ACORDO"
+// document.getElementById("fscancel").innerHTML = "DISCORDAR"
+// document.getElementById("fsselectlbl").innerHTML = "Janela de Seleção Manual do Jogo"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Ver Política de Privacidade"
@@ -219,3 +220,18 @@ document.getElementById("ppcontent").innerHTML = `
         AO BAIXAR E USAR QUALQUER VERSÃO LANÇADA OFICIALMENTE DO STEAM ACHIEVEMENT NOTIFIER ATRAVÉS DA <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">REPOSITÓRIO OFICIAL DO GITHUB</span>, VOCÊ, O USUÁRIO, POR EXTENSÃO, ADERE ÀS SEÇÕES 7 E 8 DA <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API TERMOS DE USO</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Abrir Janela de Estatísticas"
+
+statsresettitle = "Redefinir todos os dados de Realizações Armazenadas?"
+statsresetbody = "Todos os dados de realização previamente armazenados serão removidos deste dispositivo. Seus dados de conquistas mais recentes serão recuperados quando a janela de Estatísticas de conquistas for aberta em seguida.\n\nPor favor, esteja ciente de que a recuperação de dados de realizações utiliza as chamadas Steam Web API para cada jogo de propriedade do usuário na Biblioteca Steam do usuário. A Valve limita a quantidade de chamadas de Steam Web API a 100.000 por dia para a chave API de cada usuário.\n\nComo resultado, dependendo da quantidade de jogos em sua biblioteca Steam, isto pode afetar a funcionalidade geral da aplicação se a função de redefinir seus dados de realização for muito utilizada."
+statsresetbtns = ["Redefinir todas as Estatísticas de Realizações", "Cancelar"]
+
+statwincurrent = "JOGO CORRENTE"
+statwinall = "TODOS OS JOGOS"
+statwincomplete = "COMPLETO (100%)"
+statwintop5 = "5 MELHORES JOGOS"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Mostrar Console de Notificação"

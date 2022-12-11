@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: "Titillium Web";
     src: url("./fonts/TitilliumWeb-SemiBold.ttf");
@@ -21,6 +22,34 @@
 * {
     box-sizing: border-box;
 }
+
+/* CIRCLE ANIMATION */
+
+@property --circlepercentage {
+    initial-value: 100%;
+    inherits: false;
+    syntax: "<percentage>";
+}
+
+#progresscircle {
+    position: absolute;
+    top: 406px;
+    left: 115px;
+    background: conic-gradient(black var(--circlepercentage), transparent 0);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    z-index: 2;
+}
+
+@keyframes fill {
+    to {
+        --circlepercentage: 0%;
+    }
+}
+
+/* CIRCLE ANIMATION */
 
 input:focus {
     outline: none;
@@ -1916,17 +1945,24 @@ input[type="number"]::-webkit-inner-spin-button {
     height: 30px;
 }
 
-#colour1, #colour2 {
+#colour1, #colour2, #textcolour {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 0px;    
 }
 
-#textcolour {
+#textout, #textoutlbl {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+#textoutclose {
+    margin-left: 5px;
+    opacity: 0;
+    transition: 0.5s;
+    cursor: pointer;
 }
 
 input[type="color"] {
@@ -2319,17 +2355,24 @@ input[type="color"]::-webkit-color-swatch {
     height: 30px;
 }
 
-#rarecolour1, #rarecolour2 {
+#rarecolour1, #rarecolour2, #raretextcolour {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 0px;    
 }
 
-#raretextcolour {
+#textoutrare, #textoutlblrare {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+#textoutcloserare {
+    margin-left: 5px;
+    opacity: 0;
+    transition: 0.5s;
+    cursor: pointer;
 }
 
 #rareimgselectcont {
@@ -2803,7 +2846,6 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 #beta {
-    margin-top: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -3226,7 +3268,7 @@ input[type="color"]::-webkit-color-swatch {
     background: #3d3d3d;
 } */
 
-#fullscreen:hover #fullscreenbox:not(:checked), #nosteam:hover #nosteambox:not(:checked), #desktop:hover #desktopbox:not(:checked), #startwin:hover #startwinbox:not(:checked), #startmin:hover #startminbox:not(:checked), #soundonly:hover #soundonlybox:not(:checked), #allpercent:hover #allpercentbox:not(:checked), #gamecompletion:hover #gamecompletionbox:not(:checked), #ssoverlay:hover #ssoverlaybox:not(:checked), #extwin:hover #extwinbox:not(:checked), #tracking:hover #trackingbox:not(:checked), #hwa:hover #hwabox:not(:checked), #nvda:hover #nvdabox:not(:checked) {
+#fullscreen:hover #fullscreenbox:not(:checked), #nosteam:hover #nosteambox:not(:checked), #desktop:hover #desktopbox:not(:checked), #startwin:hover #startwinbox:not(:checked), #startmin:hover #startminbox:not(:checked), #soundonly:hover #soundonlybox:not(:checked), #allpercent:hover #allpercentbox:not(:checked), #gamecompletion:hover #gamecompletionbox:not(:checked), #ssoverlay:hover #ssoverlaybox:not(:checked), #extwin:hover #extwinbox:not(:checked), #tracking:hover #trackingbox:not(:checked), #hwa:hover #hwabox:not(:checked), #nvda:hover #nvdabox:not(:checked), #notifydebug:hover #notifydebugbox:not(:checked), #statwin:hover #statwinbox:not(:checked) {
     background-color: #3d3d3d;
     transition: 0.2s;
 }
@@ -3242,9 +3284,87 @@ input[type="color"]::-webkit-color-swatch {
     opacity: 1;
 }
 
+/* DISPLAY MODE BTN */
+
+#displaymodecont:not(hover) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 23px;
+    margin: 0px 10px;
+    border-radius: 5px;
+    font-family: "Titillium Web";
+    font-size: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.5s;
+    -webkit-app-region: no-drag;
+    opacity: 0.5;
+}
+
+#displaymodecont:hover {
+    width: 100px;
+    background: rgb(32,66,122);
+    opacity: 1;
+}
+
+#displaymodecont:not(hover) #displaymodeimg {
+    animation: dmgrow 0.25s forwards;
+}
+
+#displaymodecont:hover #displaymodeimg {
+    animation: dmshrink 0.25s forwards;
+}
+
+#displaymodecont:not(hover) #displaymodelbl {
+    animation: fadeout 0.5s forwards;
+}
+
+#displaymodecont:hover #displaymodelbl {
+    animation: fadein 0.5s forwards;
+}
+
+#displaymodeinnercont:not(hover) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-0%,-50%);
+}
+
+#displaymodecont:hover #displaymodeinnercont {
+    margin-left: 6px;
+}
+
+#displaymodeimg {
+    margin-right: 5px;
+}
+
+@keyframes dmshrink {
+    0% { width: 18px; }
+    100% { width: 12px; }
+}
+
+@keyframes dmgrow {
+    0% { width: 12px; }
+    100% { width: 18px; }
+}
+
+/* DISPLAY MODE BTN */
+
 @keyframes fadein {
     0% { opacity: 0; }
     100% { opacity: 1; }
+}
+
+@keyframes fadeout {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 @keyframes bluetowhite {
@@ -3275,6 +3395,11 @@ input[type="color"]::-webkit-color-swatch {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@keyframes spinrev {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
 }
 
 @keyframes moveup {

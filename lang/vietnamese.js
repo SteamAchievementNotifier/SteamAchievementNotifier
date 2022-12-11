@@ -153,17 +153,18 @@ betaleave = "Rời khỏi kênh Beta"
 betaerrortext = "Không thể cập nhật lên Kênh Beta!"
 betaerrorsub = "Có vẻ như bạn không có kết nối mạng. Không có internet = Không có bản Beta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Bật Thông Báo Toàn Màn Hình"
 document.getElementById("extwinlbltxt").innerHTML = "Thông Báo Trùng Lặp Vào Cửa Sổ"
-document.getElementById("fswarntitle").innerHTML = "TRƯỚC KHI BẠN BẮT ĐẦU..."
-document.getElementById("fswarncontentmain").innerHTML = `Đối với lớp phủ thông báo trên đầu trò chơi được đặt thành "Toàn màn hình" hoặc "Toàn màn hình độc quyền" trong trò chơi, thông báo phải được đưa trực tiếp vào quá trình trò chơi để hiển thị trên trò chơi DirectX.<br><br>Điều này có nghĩa là, bởi vì mã của trò chơi đang bị thay đổi về mặt kỹ thuật bởi một chương trình của bên thứ ba, các trò chơi sử dụng công nghệ Chống gian lận có thể xem phương pháp này không tốt.<br><br>Mặc dù không có trò chơi nào cho thấy bất kỳ sự cố nào trong quá trình thử nghiệm, nhưng nói chung <u> không </u> sử dụng tùy chọn "Bật thông báo toàn màn hình" khi có nguy cơ bị phát hiện bởi các trò chơi sử dụng công nghệ Chống gian lận (chẳng hạn như trong trò chơi trực tuyến cạnh tranh).`
-document.getElementById("fswarnimportant").innerHTML = `Bằng cách bật và sử dụng tùy chọn "Bật Thông Báo Toàn Hình", bạn đồng ý rằng bạn đã thông báo một cách thích hợp và hiểu những rủi ro liên quan đến việc đưa nội dung của bên thứ ba vào các trò chơi Steam (chẳng hạn như phương pháp được sử dụng bởi Steam Achievement Notifier để hiển thị nội dung trên các trò chơi được thiết lập để sử dụng chế độ hiển thị Toàn màn hình trong trò chơi) và bằng cách bật tùy chọn này, bạn chấp nhận rằng bạn tự chịu rủi ro khi làm như vậy và do đó, nhà phát triển của Steam Achievement Notifier (Jackson0ne) không chịu trách nhiệm hoặc trách nhiệm pháp lý liên quan đến việc sử dụng tùy chọn này.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Bằng cách nhấp vào nút <span style = "background: rgb (32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ĐỒNG Ý</span> bên dưới, bạn chấp nhận các điều khoản trên và Tùy chọn "Bật Thông Báo Toàn Hình" sẽ được kích hoạt.</div><div style="padding: 0px 10px 10px;">Bằng cách nhấp vào nút <span style = "background: rgb (32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">KHÔNG ĐỒNG Ý</span> bên dưới, thông báo này sẽ bị đóng và Tùy chọn "Bật Thông Báo Toàn Hình" sẽ <u> không </u> được bật.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Tôi đồng ý, không hiển thị thông báo này nữa"
-document.getElementById("fsok").innerHTML = "ĐỒNG Ý"
-document.getElementById("fscancel").innerHTML = "KHÔNG ĐỒNG Ý"
-document.getElementById("fsselectlbl").innerHTML = "Chọn Cửa Sổ Trò Chơi"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Bật Thông Báo Toàn Màn Hình"
+// document.getElementById("fswarntitle").innerHTML = "TRƯỚC KHI BẠN BẮT ĐẦU..."
+// document.getElementById("fswarncontentmain").innerHTML = `Đối với lớp phủ thông báo trên đầu trò chơi được đặt thành "Toàn màn hình" hoặc "Toàn màn hình độc quyền" trong trò chơi, thông báo phải được đưa trực tiếp vào quá trình trò chơi để hiển thị trên trò chơi DirectX.<br><br>Điều này có nghĩa là, bởi vì mã của trò chơi đang bị thay đổi về mặt kỹ thuật bởi một chương trình của bên thứ ba, các trò chơi sử dụng công nghệ Chống gian lận có thể xem phương pháp này không tốt.<br><br>Mặc dù không có trò chơi nào cho thấy bất kỳ sự cố nào trong quá trình thử nghiệm, nhưng nói chung <u> không </u> sử dụng tùy chọn "Bật thông báo toàn màn hình" khi có nguy cơ bị phát hiện bởi các trò chơi sử dụng công nghệ Chống gian lận (chẳng hạn như trong trò chơi trực tuyến cạnh tranh).`
+// document.getElementById("fswarnimportant").innerHTML = `Bằng cách bật và sử dụng tùy chọn "Bật Thông Báo Toàn Hình", bạn đồng ý rằng bạn đã thông báo một cách thích hợp và hiểu những rủi ro liên quan đến việc đưa nội dung của bên thứ ba vào các trò chơi Steam (chẳng hạn như phương pháp được sử dụng bởi Steam Achievement Notifier để hiển thị nội dung trên các trò chơi được thiết lập để sử dụng chế độ hiển thị Toàn màn hình trong trò chơi) và bằng cách bật tùy chọn này, bạn chấp nhận rằng bạn tự chịu rủi ro khi làm như vậy và do đó, nhà phát triển của Steam Achievement Notifier (Jackson0ne) không chịu trách nhiệm hoặc trách nhiệm pháp lý liên quan đến việc sử dụng tùy chọn này.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Bằng cách nhấp vào nút <span style = "background: rgb (32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ĐỒNG Ý</span> bên dưới, bạn chấp nhận các điều khoản trên và Tùy chọn "Bật Thông Báo Toàn Hình" sẽ được kích hoạt.</div><div style="padding: 0px 10px 10px;">Bằng cách nhấp vào nút <span style = "background: rgb (32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">KHÔNG ĐỒNG Ý</span> bên dưới, thông báo này sẽ bị đóng và Tùy chọn "Bật Thông Báo Toàn Hình" sẽ <u> không </u> được bật.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Tôi đồng ý, không hiển thị thông báo này nữa"
+// document.getElementById("fsok").innerHTML = "ĐỒNG Ý"
+// document.getElementById("fscancel").innerHTML = "KHÔNG ĐỒNG Ý"
+// document.getElementById("fsselectlbl").innerHTML = "Chọn Cửa Sổ Trò Chơi"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Xem Chính Sách Bảo Mật"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         BẰNG CÁCH TẢI XUỐNG VÀ SỬ DỤNG BẤT KỲ PHIÊN BẢN STEAMACHIEVEMENTNOTIFIER NÀO ĐƯỢC PHÁT HÀNH CHÍNH THỨC THÔNG QUA <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">BỆNH VIỆN GITHUB CHÍNH THỨC</span>, BẠN, NGƯỜI DÙNG, THEO TIỆN ÍCH MỞ RỘNG, TUÂN THỦ CÁC PHẦN 7 VÀ 8 CỦA <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">ĐIỀU KHOẢN SỬ DỤNG STEAM WEB API</span>.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Mở Cửa Sổ Thống Kê Thành Tích"
+
+statsresettitle = "Đặt Lại Tất Cả Dữ Liệu Thành Tích Đã Lưu Trữ?"
+statsresetbody = "Tất cả dữ liệu thành tích đã lưu trữ trước đó sẽ bị xóa khỏi thiết bị này. Dữ liệu thành tích gần đây nhất của bạn sẽ được truy xuất khi cửa sổ Thống kê Thành tích được mở tiếp theo.\n\nXin lưu ý rằng việc truy xuất dữ liệu thành tích sử dụng lệnh gọi API Web Steam cho từng trò chơi thuộc sở hữu của Thư viện Steam của người dùng. Valve giới hạn số lượng lệnh gọi API Steam Web ở mức 100.000 cho mỗi khóa API người dùng mỗi ngày.\n\nDo đó, tùy thuộc vào số lượng trò chơi trong Thư viện Steam của bạn, điều này có thể ảnh hưởng đến chức năng chung của ứng dụng nếu chức năng đặt lại dữ liệu thành tích của bạn bị lạm dụng quá nhiều."
+statsresetbtns = ["Đặt Lại Số Liệu Thống Kê", "Hủy Bỏ"]
+
+statwincurrent = "TRÒ CHƠI HIỆN TẠI"
+statwinall = "TẤT CẢ TRÒ CHƠI"
+statwincomplete = "HOÀN THÀNH (100%)"
+statwintop5 = "5 TRÒ CHƠI HÀNG ĐẦU"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Hiển Thị Bảng Điều Khiển Thông Báo"

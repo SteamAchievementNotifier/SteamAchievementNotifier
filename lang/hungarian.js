@@ -32,7 +32,7 @@ novalue = "Adjon meg egy értéket";
 
 resettitle = "Visszaállítja Az Alkalmazást Az Alapértelmezettre?";
 resetdesc = `FIGYELMEZTETÉS: Ezzel eltávolítja az összes felhasználói beállítást!`;
-resetbtns = ["Visszaállítás","Eltávolítás","Megszünteti"];
+resetbtns = ["Visszaállítás","Eltávolítás","Vissza"];
 
 traylabel = "Nincs Játék Észlelve";
 trayshow = "Mutasd";
@@ -153,17 +153,18 @@ betaleave = "Kilép Béta Csatorna"
 betaerrortext = "Nem sikerült frissíteni a Béta Csatorna!"
 betaerrorsub = "Úgy tűnik, nincs hálózati kapcsolata. Nincs internet = Nincs Béta!"
 
-// Fullscreen Notifications
-document.getElementById("fullscreenlbl").innerHTML = "Teljes Képernyős Értesítések"
 document.getElementById("extwinlbltxt").innerHTML = "Az Értesítések Másolása Az Ablakba "
-document.getElementById("fswarntitle").innerHTML = "MIELŐTT ELKEZDED..."
-document.getElementById("fswarncontentmain").innerHTML = `A „Teljes Képernyős” vagy „Exkluzív Teljes Képernyős” játékon belüli megjelenítési módra beállított játékok feletti értesítések átfedéséhez az értesítést közvetlenül a játék folyamatába kell beilleszteni, hogy a DirectX játékablakon keresztül megjelenjenek.<br><br>Ez azt jelenti, hogy mivel a játék kódját technikailag egy harmadik féltől származó program módosítja, az Anti-Cheat technológiát használó játékok kedvezőtlenül értékelhetik ezt a módszert.<br><br>Bár a tesztelés során egyetlen játék sem mutatott problémát, általában <u>ne</u> tanácsos a „Teljes Képernyős Értesítések” opció használata, ha fennáll annak a veszélye, hogy az Anti-Cheat technológiát használó játékok injekciót észlelnek (pl. online versenyjátékokban).`
-document.getElementById("fswarnimportant").innerHTML = `A „Teljes Képernyős Értesítések” opció engedélyezésével és használatával ezennel beleegyezik, hogy megfelelően tájékoztatta és megértette a harmadik féltől származó tartalmak Steam játékokba való bejuttatásával kapcsolatos kockázatokat (például a Steam Achievement Notifier által a tartalom megjelenítésére használt módszert). játékon belüli teljes képernyős megjelenítési módok használatára beállított játékok felett), és ennek az opciónak a bekapcsolásával elfogadja, hogy ezt saját felelősségére teszi, ezért a Steam Achievement Notifier (Jackson0ne) fejlesztője nem vállal felelősséget a ennek az opciónak a használata.`
-document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Az alábbi <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ELFOGAD</span> gombra kattintva elfogadja a fenti feltételeket, és A „Teljes Képernyős Értesítések” opció engedélyezve lesz.</div><div style="padding: 0px 10px 10px;">Az alábbi <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ELUTASÍT</span> gombra kattintva ez az üzenet bezárul, és a A „Teljes Képernyős Értesítések” opció <u>nem</u> lesz engedélyezve.</div>`
-document.getElementById("fshidemsglbl").innerHTML = "Egyetértek, ne mutasd többet ezt az üzenetet"
-document.getElementById("fsok").innerHTML = "ELFOGAD"
-document.getElementById("fscancel").innerHTML = "ELUTASÍT"
-document.getElementById("fsselectlbl").innerHTML = "Válassza a Játék Ablak Lehetőséget"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Teljes Képernyős Értesítések"
+// document.getElementById("fswarntitle").innerHTML = "MIELŐTT ELKEZDED..."
+// document.getElementById("fswarncontentmain").innerHTML = `A „Teljes Képernyős” vagy „Exkluzív Teljes Képernyős” játékon belüli megjelenítési módra beállított játékok feletti értesítések átfedéséhez az értesítést közvetlenül a játék folyamatába kell beilleszteni, hogy a DirectX játékablakon keresztül megjelenjenek.<br><br>Ez azt jelenti, hogy mivel a játék kódját technikailag egy harmadik féltől származó program módosítja, az Anti-Cheat technológiát használó játékok kedvezőtlenül értékelhetik ezt a módszert.<br><br>Bár a tesztelés során egyetlen játék sem mutatott problémát, általában <u>ne</u> tanácsos a „Teljes Képernyős Értesítések” opció használata, ha fennáll annak a veszélye, hogy az Anti-Cheat technológiát használó játékok injekciót észlelnek (pl. online versenyjátékokban).`
+// document.getElementById("fswarnimportant").innerHTML = `A „Teljes Képernyős Értesítések” opció engedélyezésével és használatával ezennel beleegyezik, hogy megfelelően tájékoztatta és megértette a harmadik féltől származó tartalmak Steam játékokba való bejuttatásával kapcsolatos kockázatokat (például a Steam Achievement Notifier által a tartalom megjelenítésére használt módszert). játékon belüli teljes képernyős megjelenítési módok használatára beállított játékok felett), és ennek az opciónak a bekapcsolásával elfogadja, hogy ezt saját felelősségére teszi, ezért a Steam Achievement Notifier (Jackson0ne) fejlesztője nem vállal felelősséget a ennek az opciónak a használata.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Az alábbi <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ELFOGAD</span> gombra kattintva elfogadja a fenti feltételeket, és A „Teljes Képernyős Értesítések” opció engedélyezve lesz.</div><div style="padding: 0px 10px 10px;">Az alábbi <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ELUTASÍT</span> gombra kattintva ez az üzenet bezárul, és a A „Teljes Képernyős Értesítések” opció <u>nem</u> lesz engedélyezve.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Egyetértek, ne mutasd többet ezt az üzenetet"
+// document.getElementById("fsok").innerHTML = "ELFOGAD"
+// document.getElementById("fscancel").innerHTML = "ELUTASÍT"
+// document.getElementById("fsselectlbl").innerHTML = "Válassza a Játék Ablak Lehetőséget"
 
 // Privacy Policy
 document.getElementById("pp").innerHTML = "Adatvédelmi Irányelv Megtekintése"
@@ -215,3 +216,18 @@ document.getElementById("ppcontent").innerHTML = `
         A STEAM TELJESÍTMÉNYÉRTESÍTŐ BÁRMELY HIVATALOSAN KIADOTT VERZIÓJÁNAK LETÖLTÉSÉVEL ÉS HASZNÁLATÁVAL A <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">HIVATALOS GITHUB LEHETŐSÉGÉN</span> KERESZTÜL, ÖN, A FELHASZNÁLÓ, KITERJESZTVE BETARTJA A <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API HASZNÁLATI FELTÉTELEK</span> 7. ÉS 8. SZAKASZÁT.
     </div>
 `
+
+// Achievement Stats Window (Beta Revision 0.6)
+document.getElementById("statwinlbltxt").innerHTML = "Statisztika Ablak Megjelenítése"
+
+statsresettitle = "Visszaállítja Az Összes Tárolt Eredményadatot?"
+statsresetbody = "A korábban tárolt jutalomadatokat eltávolítjuk erről az eszközről. A legfrissebb jutalomadatokat a rendszer a Statisztika ablak következő megnyitásakor kéri le.\n\nKérjük, vegye figyelembe, hogy a jutalmak adatainak lekérése a Steam Web API-hívásokat használja a felhasználó Steam könyvtárában lévő minden egyes tulajdonában lévő játékhoz. A Valve a Steam Web API-hívások számát napi 100,000-re korlátozza minden egyes felhasználó API-kulcsához.\n\nEnnek eredményeként a Steam könyvtárban lévő játékok mennyiségétől függően az alkalmazás általános működését befolyásolhatja, ha a teljesítmény-visszaállítási funkció jelentősen túlterhelt."
+statsresetbtns = ["Állítsa Vissza Az Összes Statisztikát", "Vissza"]
+
+statwincurrent = "AKTUÁLIS JÁTÉK"
+statwinall = "MINDEN JÁTÉK"
+statwincomplete = "TELJES (100%)"
+statwintop5 = "5 LEGJOBB JÁTÉK"
+
+// Notify Debug (Beta Revision 0.6)
+document.getElementById("notifydebuglbl").innerHTML = "Értesítési Konzol Megjelenítése"

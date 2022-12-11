@@ -13,15 +13,20 @@
    </head>
    <body>
       <div id="overlay" onclick="CloseSettings()"></div>
+      <div id="progresscircle"></div>
       <div class="maincont" id="maincont">
          <div class="controls">
             <div class="settings">
                <img src="./icon/settings.svg" class="icons" id="settings" onclick="ShowSettings()">
             </div>
             <div class="windowcontrols">
-               <!-- <div class="material-icons" id="updateicon" onclick="OpenUpdateInBrowser()">download_for_offline</div> -->
                <div class="material-icons-outlined" id="updateicon" onclick="OpenUpdateInBrowser()">download_for_offline</div>
-               <!-- <div class="material-icons-outlined" id="updateicon" onclick="UpdateSAN()">file_download</div> -->
+               <div id="displaymodecont" onclick="ToggleFS()" onmouseenter="FSHover()" onmouseleave="FSOut()">
+                  <div id="displaymodeinnercont">
+                     <img id="displaymodeimg" src="./icon/monitor.svg" width="18px">
+                     <span id="displaymodelbl">BORDERLESS</span>
+                  </div>
+               </div>
                <img src="./icon/close.svg" class="icons" id="close" onclick="CloseWindow()">
             </div>
          </div>
@@ -136,8 +141,8 @@
                </div>
             </div>
             <div class="buttons" id="buttons">
-               <button class="test" id="test" style="outline: none" onclick="TestNotification()">SHOW TEST NOTIFICATION</button>
-               <button class="testrare" id="testrare" style="outline: none" onclick="TestRareNotification()">SHOW RARE TEST NOTIFICATION</button>
+               <button class="test" id="test" style="outline: none;" onclick="TestNotification()" onmouseenter="CircleHover()" onmouseleave="CircleOut()">SHOW TEST NOTIFICATION</button>
+               <button class="testrare" id="testrare" style="outline: none" onclick="TestRareNotification()" onmouseenter="CircleHover()" onmouseleave="CircleOut()">SHOW RARE TEST NOTIFICATION</button>
             </div>
          </div>
 
@@ -176,7 +181,7 @@
          <!-- Beta Channel Dialog -->
 
          <!-- Fullscreen Warning Box -->
-         <div id="fswarn">
+         <!-- <div id="fswarn">
             <div id="fswarntitle">BEFORE YOU START...</div>
             <div id="fswarncont">
                <div id="fswarncontent" onscroll="CheckScroll(event)">
@@ -203,7 +208,7 @@
                <button id="fsok" onclick="EnableFullscreen()">AGREE</button>
                <button id="fscancel" onclick="CloseFullscreenWarning(); ResetHideMsg()">DISAGREE</button>
             </div>
-         </div>
+         </div> -->
          <!-- Fullscreen Warning Box -->
 
          <div class="settingscont" id="settingscont">
@@ -293,14 +298,16 @@
                         <div>%</div>
                      </div>
                   </div>
-                  <hr style="margin: auto; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
+                  <hr style="margin: 0px auto 5px; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
 
                   <!-- Fullscreen Notifications -->
-                  <div class="optcont" id="fullscreen" onclick="ToggleFullscreen()">
+                  <!-- <div class="optcont" id="fullscreen" onclick="ToggleFullscreen()">
                      <input id="fullscreenbox" type="checkbox">
                      <div class="optlbl" id="fullscreenlbl">Enable Fullscreen Notifications<span style="font-family: VT323; font-size: 14px; background: blueviolet; margin-left: 5px; padding: 0px 5px;">BETA</span></div>
                      <span style="color: red; margin-left: 4px;">*</span>
-                  </div>
+                  </div> -->
+
+                  <!-- TESTING -->
                   <!-- <div class="optcont" id="fsresopt" onclick="ToggleCustomRes()">
                      <input id="fsresbox" type="checkbox">
                      <div class="optlbl" id="fsreslbl">Use Custom Fullscreen Resolution</div>
@@ -310,11 +317,13 @@
                      <span style="font-family: 'Titillium Web'; font-size: 12px; margin: 0px 5px 0px">x</span>
                      <span class="fswhlbl">H</span><input class="fswh" id="fsheight" type="number" value="1080" onchange="CheckFSResHeight()">
                   </div> -->
-                  <div class="optcont" id="fsselect" style="cursor: pointer; margin-left: 25px; position: relative;" onclick="ToggleSelWin()">
+                  <!-- TESTING -->
+
+                  <!-- <div class="optcont" id="fsselect" style="cursor: pointer; margin-left: 25px; position: relative;" onclick="ToggleSelWin()">
                      <input id="fsselectbox" type="checkbox">
                      <div class="optlbl" id="fsselectlbl">Manually Select Game Window</div>
                      <div class="optconnector"></div>
-                  </div>
+                  </div> -->
                   <!-- Fullscreen Notifications -->
 
                   <div class="optcont" id="nosteam" onclick="ToggleNoSteam()">
@@ -368,11 +377,28 @@
                   <div class="optcont" id="extwin" style="cursor: pointer;">
                      <div id="extwincont" onclick="ToggleExtWin()" style="display: flex; justify-content: flex-start; align-items: center;">
                         <input id="extwinbox" type="checkbox">
-                        <div class="optlbl" id="extwinlbl"><span id="extwinlbltxt">Duplicate Notifications to Window</span> <img src="./icon/open_in_new.svg" width="14px" style="vertical-align: -3px;"></div>
+                        <div class="optlbl" id="extwinlbl">
+                           <span id="extwinlbltxt">Duplicate Notifications to Window</span>
+                           <img src="./icon/open_in_new.svg" width="14px" style="vertical-align: -3px;">
+                        </div>
                      </div>
-                     <input id="extwincolour" type="color" width="20px" onchange="CheckExtWinBg()">
                   </div>
                   <!-- External Notification Window -->
+
+                  <!-- Stat Window -->
+                  <div class="optcont" id="statwin" style="cursor: pointer;">
+                     <div id="statwincont" onclick="OpenStatWin()" style="display: flex; justify-content: flex-start; align-items: center;">
+                        <input id="statwinbox" type="checkbox">
+                        <div class="optlbl" id="statwinlbl">
+                           <span id="statwinlbltxt">Open Achievement Stats Window</span>
+                           <img src="./icon/open_in_new.svg" width="15px" style="vertical-align: -3px;">
+                        </div>
+                     </div>
+                     <div id="statwinresetcont" style="display: flex; justify-content: center; align-items: center; margin-left: 5px; padding: 2px; background: rgb(32,62,122); border-radius: 5px; transition: 0.2s;" onmouseenter="StatResetHover()" onmouseleave="StatResetOut()" onclick="ResetStats()">
+                        <img id="statwinreset" src="./icon/delete.svg" width="12px">
+                     </div>
+                  </div>
+                  <!-- Stat Window -->
                   
                   <div class="optcont" id="tracking" style="cursor: pointer; margin-bottom: 0px" onclick="ToggleNowTracking()">
                      <input id="trackingbox" type="checkbox">
@@ -388,8 +414,8 @@
                         <div>%</div>
                      </div>
                   </div>
-                  <hr style="margin: auto; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
-                  <div class="optcont" id="hwa" style="cursor: pointer; margin-top: 5px" onclick="ToggleHWA()">
+                  <hr style="margin: 0px auto 5px; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
+                  <div class="optcont" id="hwa" style="cursor: pointer;" onclick="ToggleHWA()">
                      <input id="hwabox" type="checkbox">
                      <div class="optlbl" id="hwalbl">Disable Hardware Acceleration</div>
                      <span style="color: red; margin-left: 4px;">*</span>
@@ -398,13 +424,21 @@
                      <input id="nvdabox" type="checkbox">
                      <div class="optlbl" id="nvdalbl">Enable NVDA Support</div>
                   </div>
+
+                  <!-- Notify Debug -->
+                  <div class="optcont" id="notifydebug" style="cursor: pointer;" onclick="ToggleNotifyDebug()">
+                     <input id="notifydebugbox" type="checkbox">
+                     <div class="optlbl" id="notifydebuglbl">Show Notification Console</div>
+                  </div>
+                  <!-- Notify Debug -->
+
                   <div class="optcont" id="ppcont">
                      <div onclick="OpenPP()" style="display: flex; justify-content: center; align-items: center; cursor: pointer;">
                         <img src="./icon/privacy.svg" width="17px" style="margin-right: 9px;">
                         <span id="pp">View Privacy Policy</span>
                      </div>
                   </div>
-                  <hr style="margin: auto; margin-top: 5px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
+                  <hr style="margin: 0px auto 5px; margin-top: 5px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
                   
                   <!-- Beta Button -->
                   <div class="optcont" id="beta">
@@ -477,11 +511,11 @@
                            </select>
                         </div>
                         <div class="customiseropts" id="showscreenshotlblcont">
-                           <input id="showscreenshotcheckbox" type="checkbox" onclick="ToggleShowScreenshot()">
+                           <input id="showscreenshotcheckbox" type="checkbox" onclick="ToggleShowScreenshot(); ResizeDragWin()">
                            <div id="showscreenshotlbl">Show Achievement Screenshot</div>
                         </div>
                         <div class="customiseropts" id="previewlblcont">
-                           <input id="previewcheckbox" type="checkbox" onclick="ToggleScreenshotPreview()">
+                           <input id="previewcheckbox" type="checkbox" onclick="ToggleScreenshotPreview(); ResizeDragWin()">
                            <div id="previewlbl">Show Screenshot Preview</div>
                         </div>
                         <div class="customiserlbl" id="notifypositionlbl">SCREEN POSITION:</div>
@@ -557,6 +591,17 @@
                            <input id="textcolourbox" type="color" onclick="SetTextColour()">
                            <span id="textcolourlbl">Text Colour</span>
                         </div>
+
+                        <!-- TEXT OUTLINE -->
+                        <div class="customiseropts" id="textout">
+                           <input id="textoutbox" type="color" onclick="SetTextOut()">
+                           <span id="textoutlbl" onmouseenter="ShowOutClose()" onmouseleave="HideOutClose()">
+                              Outline Colour
+                              <img id="textoutclose" src="./icon/close.svg" width="16px" onclick="RemoveTextOut()">
+                           </span>
+                        </div>
+                        <!-- TEXT OUTLINE -->
+
                         <div class="customiserlbl" id="imgselectlbl">BACKGROUND IMAGE:</div>
                         <div class="customiseropts" id="imgselectcont" ondrop="DropImage(event)">
                            <label for="imgselect" id="imgselectinnerlbl" style="display: flex; justify-content: center; align-items: center; cursor: pointer;">
@@ -737,6 +782,17 @@
                            <input id="raretextcolourbox" type="color" onclick="SetRareTextColour()">
                            <span id="textcolourlblrare">Text Colour</span>
                         </div>
+
+                        <!-- RARE TEXT OUTLINE -->
+                        <div class="customiseropts" id="textoutrare">
+                           <input id="textoutboxrare" type="color" onclick="SetTextOutRare()">
+                           <span id="textoutlblrare" onmouseenter="ShowOutCloseRare()" onmouseleave="HideOutCloseRare()">
+                              Outline Colour
+                              <img id="textoutcloserare" src="./icon/close.svg" width="16px" onclick="RemoveTextOutRare()">
+                           </span>
+                        </div>
+                        <!-- RARE TEXT OUTLINE -->
+
                         <div class="customiserlbl" id="rareimgselectlbl">BACKGROUND IMAGE:</div>
                         <div class="customiseropts" id="rareimgselectcont" ondrop="DropRareImage(event)">
                            <label for="rareimgselect" id="rareimgselectinnerlbl" style="display: flex; justify-content: center; align-items: center; cursor: pointer;">

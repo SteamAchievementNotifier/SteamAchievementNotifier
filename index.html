@@ -6,21 +6,20 @@
       <link rel="stylesheet" href="./css.css">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-      <!-- <script defer src="./preload.js"></script> -->
       <script defer src="./san1.8.js"></script>
       <script defer src="./tooltip.js"></script>
+      <script src="./croner.min.js"></script>
    </head>
    <body>
       <div id="overlay" onclick="CloseSettings()"></div>
+      <div id="progresscircle"></div>
       <div class="maincont" id="maincont">
          <div class="controls">
             <div class="settings">
                <img src="./icon/settings.svg" class="icons" id="settings" onclick="ShowSettings()">
             </div>
             <div class="windowcontrols">
-               <!-- <div class="material-icons" id="updateicon" onclick="OpenUpdateInBrowser()">download_for_offline</div> -->
                <div class="material-icons-outlined" id="updateicon" onclick="OpenUpdateInBrowser()">download_for_offline</div>
-               <!-- <div class="material-icons-outlined" id="updateicon" onclick="UpdateSAN()">file_download</div> -->
                <img src="./icon/close.svg" class="icons" id="close" onclick="CloseWindow()">
             </div>
          </div>
@@ -135,8 +134,8 @@
                </div>
             </div>
             <div class="buttons" id="buttons">
-               <button class="test" id="test" style="outline: none" onclick="TestNotification()">SHOW TEST NOTIFICATION</button>
-               <button class="testrare" id="testrare" style="outline: none" onclick="TestRareNotification()">SHOW RARE TEST NOTIFICATION</button>
+               <button class="test" id="test" style="outline: none;" onclick="TestNotification()" onmouseenter="CircleHover()" onmouseleave="CircleOut()">SHOW TEST NOTIFICATION</button>
+               <button class="testrare" id="testrare" style="outline: none" onclick="TestRareNotification()" onmouseenter="CircleHover()" onmouseleave="CircleOut()">SHOW RARE TEST NOTIFICATION</button>
             </div>
          </div>
 
@@ -218,7 +217,7 @@
                         <option value="hungarian">Hungarian</option>
                         <option value="italian">Italian</option>
                         <option value="japanese">Japanese</option>
-                        <option value="korean">Korean</option>
+                        <option value="koreana">Korean</option>
                         <option value="norwegian">Norwegian</option>
                         <option value="polish">Polish</option>
                         <option value="portuguese">Portuguese</option>
@@ -261,8 +260,8 @@
                         <div>%</div>
                      </div>
                   </div>
-                  <hr style="margin: auto; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
-                  <div class="optcont" id="nosteam" style="margin-top: 5px" onclick="ToggleNoSteam()">
+                  <hr style="margin: 0px auto 5px; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
+                  <div class="optcont" id="nosteam" onclick="ToggleNoSteam()">
                      <input id="nosteambox" type="checkbox">
                      <div id="nosteamloadcont">
                         <img id="nosteamload" src="./icon/reset.svg">
@@ -308,6 +307,19 @@
                      <button id="ssmaintestbtn" onclick="ShowOverlayTest('main')">PREVIEW MAIN OVERLAY</button>
                      <button id="ssraretestbtn" style="display: none" onclick="ShowOverlayTest('rare')">PREVIEW RARE OVERLAY</button>
                   </div>
+
+                  <!-- External Notification Window -->
+                  <div class="optcont" id="extwin" style="cursor: pointer;">
+                     <div id="extwincont" onclick="ToggleExtWin()" style="display: flex; justify-content: flex-start; align-items: center;">
+                        <input id="extwinbox" type="checkbox">
+                        <div class="optlbl" id="extwinlbl">
+                           <span id="extwinlbltxt">Duplicate Notifications to Window</span>
+                           <img src="./icon/open_in_new.svg" width="14px" style="vertical-align: -3px;">
+                        </div>
+                     </div>
+                  </div>
+                  <!-- External Notification Window -->
+
                   <div class="optcont" id="tracking" style="cursor: pointer; margin-bottom: 0px" onclick="ToggleNowTracking()">
                      <input id="trackingbox" type="checkbox">
                      <div class="optlbl" id="trackinglbl">Show "Now Tracking" Notification</div>
@@ -322,17 +334,23 @@
                         <div>%</div>
                      </div>
                   </div>
-                  <hr style="margin: auto; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
-                  <div class="optcont" id="hwa" style="cursor: pointer; margin-top: 5px" onclick="ToggleHWA()">
+                  <hr style="margin: 0px auto 5px; margin-top: 0px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
+                  <div class="optcont" id="hwa" style="cursor: pointer;" onclick="ToggleHWA()">
                      <input id="hwabox" type="checkbox">
                      <div class="optlbl" id="hwalbl">Disable Hardware Acceleration</div>
                      <span style="color: red; margin-left: 4px;">*</span>
                   </div>
-                  <div class="optcont" id="nvda" style="cursor: pointer; margin-bottom: 0px" onclick="ToggleNVDA()">
+                  <div class="optcont" id="nvda" style="cursor: pointer;" onclick="ToggleNVDA()">
                      <input id="nvdabox" type="checkbox">
                      <div class="optlbl" id="nvdalbl">Enable NVDA Support</div>
                   </div>
-                  <hr style="margin: auto; margin-top: 5px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
+                  <div class="optcont" id="ppcont">
+                     <div onclick="OpenPP()" style="display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                        <img src="./icon/privacy.svg" width="17px" style="margin-right: 9px;">
+                        <span id="pp">View Privacy Policy</span>
+                     </div>
+                  </div>
+                  <hr style="margin: 0px auto 5px; margin-top: 5px; width: 88%; height: 0.5px; background: white; border: 0.5px solid white; opacity: 0.5;">
                   
                   <!-- Beta Button -->
                   <div class="optcont" id="beta">
@@ -342,17 +360,28 @@
 
                   <div class="optcont" id="resetcont">
                      <div id="resetcontinner"  onclick="ResetAppConfirm()" onmouseover="ResetHover()" onmouseleave="ResetOut()">
-                        <img id="reseticon" src="./icon/reset.svg" width="20px" style="margin-right: 2px;">
                         <span id="resetlbl">Reset App to Default</span>
                      </div>
                   </div>
-
                </div>
             </div>
             <div id="revcont">
                <div id="jsrev">App Revision:<span id="rev"></span></div>
+               <img id="console" src="./icon/devtools.svg" width="16px" style="bottom: -2px; right: 0;" onclick="OpenDevTools()">
+               <img id="appdata" src="./icon/appdata.svg" width="12px" style="bottom: 0; right: 20px;" onclick="OpenAppData()">
             </div>
          </div>
+
+         <!-- Privacy Policy Window -->
+         <div id="ppwin">
+            <div style="display: flex;  justify-content: center; align-items: center;">
+               <img src="./icon/privacy.svg" width="30px">
+               <span id="pptitle" style="margin-left: 7px">PRIVACY POLICY</span>
+            </div>
+            <div id="ppcontent"></div>
+         </div>
+         <!-- Privacy Policy Window -->
+
          <div id="customisemenu">
             <div style="width: 500px; height: 107.37px"></div>
             <!-- <img id="customiserimg" src="./img/sancustomisertextlogo.png" width="500px" style="-webkit-app-region: no-drag" onclick="OpenDevTools()"> -->
@@ -394,11 +423,11 @@
                            </select>
                         </div>
                         <div class="customiseropts" id="showscreenshotlblcont">
-                           <input id="showscreenshotcheckbox" type="checkbox" onclick="ToggleShowScreenshot()">
+                           <input id="showscreenshotcheckbox" type="checkbox" onclick="ToggleShowScreenshot(); ResizeDragWin()">
                            <div id="showscreenshotlbl">Show Achievement Screenshot</div>
                         </div>
                         <div class="customiseropts" id="previewlblcont">
-                           <input id="previewcheckbox" type="checkbox" onclick="ToggleScreenshotPreview()">
+                           <input id="previewcheckbox" type="checkbox" onclick="ToggleScreenshotPreview(); ResizeDragWin()">
                            <div id="previewlbl">Show Screenshot Preview</div>
                         </div>
                         <div class="customiserlbl" id="notifypositionlbl">SCREEN POSITION:</div>
@@ -474,6 +503,17 @@
                            <input id="textcolourbox" type="color" onclick="SetTextColour()">
                            <span id="textcolourlbl">Text Colour</span>
                         </div>
+
+                        <!-- TEXT OUTLINE -->
+                        <div class="customiseropts" id="textout">
+                           <input id="textoutbox" type="color" onclick="SetTextOut()">
+                           <span id="textoutlbl" onmouseenter="ShowOutClose()" onmouseleave="HideOutClose()">
+                              Outline Colour
+                              <img id="textoutclose" src="./icon/close.svg" width="16px" onclick="RemoveTextOut()">
+                           </span>
+                        </div>
+                        <!-- TEXT OUTLINE -->
+
                         <div class="customiserlbl" id="imgselectlbl">BACKGROUND IMAGE:</div>
                         <div class="customiseropts" id="imgselectcont" ondrop="DropImage(event)">
                            <label for="imgselect" id="imgselectinnerlbl" style="display: flex; justify-content: center; align-items: center; cursor: pointer;">
@@ -654,6 +694,17 @@
                            <input id="raretextcolourbox" type="color" onclick="SetRareTextColour()">
                            <span id="textcolourlblrare">Text Colour</span>
                         </div>
+
+                        <!-- RARE TEXT OUTLINE -->
+                        <div class="customiseropts" id="textoutrare">
+                           <input id="textoutboxrare" type="color" onclick="SetTextOutRare()">
+                           <span id="textoutlblrare" onmouseenter="ShowOutCloseRare()" onmouseleave="HideOutCloseRare()">
+                              Outline Colour
+                              <img id="textoutcloserare" src="./icon/close.svg" width="16px" onclick="RemoveTextOutRare()">
+                           </span>
+                        </div>
+                        <!-- RARE TEXT OUTLINE -->
+
                         <div class="customiserlbl" id="rareimgselectlbl">BACKGROUND IMAGE:</div>
                         <div class="customiseropts" id="rareimgselectcont" ondrop="DropRareImage(event)">
                            <label for="rareimgselect" id="rareimgselectinnerlbl" style="display: flex; justify-content: center; align-items: center; cursor: pointer;">

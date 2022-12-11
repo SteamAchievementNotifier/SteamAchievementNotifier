@@ -151,3 +151,79 @@ var betajoin = "Vstupte Beta Kanál"
 var betaleave = "Opustit Beta Kanál"
 var betaerrortext = "Nelze upgradovat na Beta Kanál!"
 var betaerrorsub = "Zdá se, že nemáte připojení k síti. Žádný internet = žádná Beta!"
+
+document.getElementById("extwinlbltxt").innerHTML = "Duplicitní Oznámení do Okna"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Upozornění na Celou Obrazovku"
+// document.getElementById("fswarntitle").innerHTML = "NEŽ ZAČNEŠ..."
+// document.getElementById("fswarncontentmain").innerHTML = `Aby bylo možné překrýt oznámení nad hrami nastavenými na režim zobrazení „Celá Obrazovka“ nebo „Exkluzivní Celá Obrazovka“, musí být oznámení vloženo přímo do herního procesu, aby se zobrazilo přes okno hry DirectX.<br><br>To znamená, že jelikož je kód hry technicky měněn programem třetí strany, hry využívající technologii Anti-Cheat mohou tuto metodu vnímat nepříznivě.<br><br>Ačkoli žádné hry během testování nevykazovaly žádné problémy, obecně se <u>nedoporučuje</u> používat možnost „Oznámení na Celou Obrazovku“, pokud existuje riziko, že hry využívající technologii Anti-Cheat (např. v online konkurenčních hrách).`
+// document.getElementById("fswarnimportant").innerHTML = `Povolením a používáním možnosti „Oznámení na Celou Obrazovku“ souhlasíte s tím, že jste náležitě informovali a rozumíte rizikům spojeným s vkládáním obsahu třetích stran do her Steam (jako je metoda používaná Steam Achievement Notifier k zobrazení obsahu přes hry nastaveny tak, aby používaly režimy zobrazení na celé obrazovce ve hře), a že povolením této možnosti souhlasíte s tím, že tak činíte na vlastní riziko, a proto vývojář Steam Achievement Notifier (Jackson0ne) nenese žádnou odpovědnost za použití. této možnosti.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Kliknutím na tlačítko <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">SOUHLASIT</span> níže přijímáte výše uvedené podmínky a Bude povolena možnost „Oznámení na Celou Obrazovku“.</div><div style="padding: 0px 10px 10px;">Kliknutím na tlačítko <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">NESOUHLASIT</span> níže se tato zpráva zavře a Možnost „Oznámení na Celou Obrazovku“ <u>nebude</u> povolena.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Souhlasím, už tuto zprávu nezobrazovat"
+// document.getElementById("fsok").innerHTML = "SOUHLASIT"
+// document.getElementById("fscancel").innerHTML = "NESOUHLASIT"
+// document.getElementById("fsselectlbl").innerHTML = "Ručně Vyberte Okno Hry"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "Zobrazit Zásady Ochrany Osobních Údajů"
+document.getElementById("pptitle").innerHTML = "ZÁSADY OCHRANY OSOBNÍCH ÚDAJŮ"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">VYUŽITÍ DAT STEAM WEB API</span>
+    </div>
+    <div class="ppbodycont">
+    Steam Achievement Notifier používá Valve <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> k načítání a zobrazování dat souvisejících s účtem Steam uživatele(s), prostřednictvím kombinace Klíč API Steam/Steam64 ID poskytnuté aplikaci uživatelem. Tato data zahrnují:<br><br>
+        <div class="ppbodyembed">
+            • Statistiky zamčených a odemčených úspěchů<br>
+            • Vaše uživatelské jméno pro Steam<br>
+            • Hráli jste hry na Steamu<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier může v budoucnu používat další data Steam Web API k poskytování dalších funkcí aplikace a aktualizací.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">VYUŽITÍ KLÍČE STEAM API/STEAM64 ID</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier vyžaduje, aby uživatel zadal kombinaci Klíč API Steam/Steam64 ID pro ověřený přístup k Steam Web API. Bez těchto informací nelze získat přístup k webovým odkazům (poskytnutým pro použití společností Valve k přístupu k webovému rozhraní Steam API), které se používají k načtení dat souvisejících s účtem (účty) uživatele Steam - včetně údajů o úspěchu.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ÚLOŽIŠTĚ DAT STEAM WEB API</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier dočasně ukládá data Steam Web API lokálně na PC uživatele výhradně pro použití v rámci aplikace. Jakékoli dočasné uložení těchto dat je určeno pro použití výhradně Steam Achievement Notifier a za normálních okolností budou všechna netrvalá data Steam Web API vymazána z místního úložiště po ukončení aplikace.<br><br>
+        Trvalá data uložená v zařízení uživatele zahrnují pouze data, která jsou uložena aplikací pro pohodlí uživatele, jako je uživatelův klíč Steam Web API Key a Steam64 ID.<br><br>
+        Tato data může uživatel v případě potřeby kdykoli ručně smazat. Soubory vytvořené nástrojem Steam Achievement Notifier jsou umístěny v následujícím adresáři:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: Momentálně nepodporováno
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STANOVISKO KE SBĚRU DAT</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier <u>nikdy</u> nebude odesílat ani ukládat uživatelská data mimo lokální systém souborů uživatele. To zahrnuje veškeré informace získané prostřednictvím rozhraní Steam Web API pro použití v rámci aplikace, včetně kombinace klíče Klíč API Steam/Steam64 ID poskytnuté aplikaci pro přístup k Steam Web API. Vývojář Steam Achievement Notifier (Jackson0ne) záměrně nezahrnul žádné prostředky k externímu přístupu, prohlížení, shromažďování nebo odesílání jakýchkoli informací poskytnutých uživateli uživatelem.<br><br>
+        Požadavky na přístup k datům z webového rozhraní Steam Web API jsou prováděny ze samotné aplikace pomocí vestavěných metod, podobných funkcím poskytovaným webovými prohlížeči. Tyto požadavky obsahují kombinaci klíče Klíč API Steam/Steam64 ID uživatele, jak to vyžaduje Steam Web API, ale nejsou zpřístupněny pro použití nebo zachycení jinými aplikacemi.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ODPOVĚDNOST UŽIVATELE</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        STAŽENÍM A POUŽITÍM JAKÉKOLI OFICIÁLNĚ VYDANÉ VERZE STEAM ACHIEVEMENT NOTIFIER PROSTŘEDNICTVÍM <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFICIÁLNÍHO GITHUB RESETU</span> VY, UŽIVATEL, PO ROZŠÍŘENÍ DODRŽUJETE ODDÍLY 7 A 8 PODMÍNEK <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API POUŽÍVÁNÍ</span>.
+    </div>
+`
+
+// Achievement Stats Window (Beta Revision 0.6)
+// document.getElementById("statwinlbltxt").innerHTML = "Otevřete Okno Statistiky Úspěchů"
+
+statsresettitle = "Resetovat Všechna Uložená Data Úspěchů?"
+statsresetbody = "Z tohoto zařízení budou odstraněna všechna dříve uložená data úspěchů. Vaše nejnovější údaje o úspěších budou načteny při příštím otevření okna Statistiky Úspěchů.\n\nMějte prosím na paměti, že získávání dat úspěchů využívá volání Steam Web API pro každou vlastněnou hru v knihovně Steam uživatele. Valve omezuje počet volání Steam Web API na 100 000 za den pro každý uživatelský klíč API.\n\nV důsledku toho, v závislosti na množství her ve vaší knihovně Steam, to může ovlivnit obecnou funkčnost aplikace, pokud je funkce pro resetování vašich úspěchů velmi nadměrně využívána."
+statsresetbtns = ["Resetovat všechny Statistiky Úspěchů", "Zrušit"]
+
+statwincurrent = "AKTUÁLNÍ HRA"
+statwinall = "VŠECHNY HRY"
+statwincomplete = "KOMPLETNÍ (100 %)"
+statwintop5 = "5 NEJLEPŠÍCH HER"

@@ -151,3 +151,79 @@ var betajoin = "Влезте в бета канала"
 var betaleave = "Напуснете бета канала"
 var betaerrortext = "Бета каналът се провали!"
 var betaerrorsub = "Изглежда нямате мрежова връзка. Няма интернет = няма бета версия!"
+
+document.getElementById("extwinlbltxt").innerHTML = "Дублирани Известия В Прозореца "
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Известия На Цял Екран"
+// document.getElementById("fswarntitle").innerHTML = "ПРЕДИ ДА ЗАПОЧНЕШ..."
+// document.getElementById("fswarncontentmain").innerHTML = `За да наслагвате известия върху игри, настроени на режими на показване в играта „Цял екран“ или „Изключителен цял екран“, известието трябва да бъде инжектирано директно в процеса на играта, за да се покаже върху прозорец на игра на DirectX.<br><br>Това означава, че тъй като кодът на играта е технически променен от програма на трета страна, игрите, използващи технологията Anti-Cheat, могат да гледат на този метод неблагоприятно.<br><br>Въпреки че никоя игра не показа никакви проблеми по време на тестването, обикновено <u>не</u> се препоръчва да използвате опцията „Активиране на известия на цял екран“, когато има риск инжектирането да бъде открито от игри, използващи Anti-Cheat (като както в онлайн игрите).`
+// document.getElementById("fswarnimportant").innerHTML = `Като активирате и използвате опцията „Известия на цял екран“, вие се съгласявате, че сте информирани по подходящ начин и разбирате рисковете, свързани с инжектирането на съдържание на трети страни в Steam игри (като метода, използван от Steam Achievement Notifier за показване на съдържание през игри, настроени да използват режими на показване на цял екран в играта), и че като активирате тази опция, вие приемате, че правите това на свой собствен риск и следователно разработчикът на Steam Achievement Notifier (Jackson0ne) не поема никаква отговорност или задължения по отношение на използването на тази опция.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Щраквайки върху бутона <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">СЪГЛАСЯВАМ СЕ</span> по-долу, вие приемате горните условия и Опцията „Известия на цял екран“ ще бъде активирана.</div><div style="padding: 0px 10px 10px;">Като щракнете върху бутона <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">НЕ СЪГЛАСЕН</span> по-долу, това съобщение ще бъде затворено и опцията за „Известия на цял екран“ <u>няма</u> да бъде активирана.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Ще се съглася, не показвайте това съобщение отново"
+// document.getElementById("fsok").innerHTML = "СЪГЛАСЕН"
+// document.getElementById("fscancel").innerHTML = "НЕ СЪГЛАСЕН"
+// document.getElementById("fsselectlbl").innerHTML = "Ръчно Изберете Прозорец На Играта"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "Вижте Политиката За Поверителност"
+document.getElementById("pptitle").innerHTML = "ПОЛИТИКА ЗА ПОВЕРИТЕЛНОСТ"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">ИЗПОЛЗВАНЕ НА ДАННИ НА STEAM WEB API</span>
+    </div>
+    <div class="ppbodycont">
+    Steam Achievement Notifier използва <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> на Valve, за да извлече и покаже данни, свързани със Steam акаунта на потребителя ( s), чрез комбинацията Steam API ключ/Steam64 ID, предоставена на приложението от потребителя. Тези данни включват:<br><br>
+        <div class="ppbodyembed">
+            • Статистика за заключени и отключени постижения<br>
+            • Вашето потребителско име в Steam<br>
+            • Вашите играни Steam игри<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier може да използва допълнителни данни на Steam Web API в бъдеще, за да предостави допълнителни функции и актуализации на приложението.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM API КЛЮЧ/STEAM64 ID ИЗПОЛЗВАНЕ</span>
+    </div>
+    <div class="ppbodycont">
+    Steam Achievement Notifier изисква от потребителя да въведе своя Steam API ключ/Steam64 ID комбинация за удостоверен достъп до Steam Web API. Без тази информация уеб връзките (предоставени за използване от Valve за достъп до Steam Web API), използвани за извличане на данни, свързани със Steam акаунт(и) на потребителя – включително данни за постижения – не могат да бъдат достъпни.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM WEB API СЪХРАНЕНИЕ НА ДАННИ</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier временно съхранява данни на Steam Web API локално на компютъра на потребителя единствено за използване в рамките на приложението. Всяко временно съхранение на тези данни е предназначено за използване единствено от Steam Achievement Notifier и при нормални обстоятелства всички непостоянни данни на Steam Web API ще бъдат изчистени от локалното хранилище при излизане от приложението.<br><br>
+        Постоянните данни, съхранявани на устройството на потребителя, включват само данни, които се съхраняват от приложението за удобство на потребителя, като потребителския Steam Web API ключ и Steam64 ID.<br><br>
+        Тези данни могат също да бъдат ръчно изтрити от потребителя по всяко време, ако е необходимо. Файловете, създадени от Steam Achievement Notifier, се намират в следната директория:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: В момента не се поддържа
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ПОЗИЦИЯ ЗА СЪБИРАНЕ НА ДАННИ</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier <u>никога</u> няма да изпраща или съхранява потребителски данни извън локалната файлова система на потребителя. Това включва всяка информация, извлечена чрез Steam Web API за използване в рамките на приложението, включително комбинацията Steam API ключ/Steam64 ID, предоставена на приложението за достъп до Steam Web API. Разработчикът на Steam Achievement Notifier (Jackson0ne) умишлено не е включил никакви средства за външен достъп, преглед, събиране или изпращане на информация, предоставена на приложението от потребителя.<br><br>
+        Заявките за достъп до данни от Steam Web API се правят от самото приложение, като се използват вградени методи, подобни на функционалността, предоставена от уеб браузърите. Тези заявки съдържат комбинацията Steam API ключ/Steam64 ID, както се изисква от Steam Web API, но не са достъпни за използване или прихващане от други приложения.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ОТГОВОРНОСТ НА ПОТРЕБИТЕЛЯ</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        ЧРЕЗ ИЗТЕГЛЯНЕ И ИЗПОЛЗВАНЕ НА ВСЯКА ОФИЦИАЛНО ПУСКАНА ВЕРСИЯ НА STEAM ACHIEVEMENT NOTIFER ЧРЕЗ <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">ОФИЦИАЛНО ХРАНИЛИЩЕ НА GITHUB</span>, ВИЕ, ПОТРЕБИТЕЛЯТ, С РАЗШИРЕНИЕ, СЕ ПРИДЪРЖАВАТЕ КЪМ РАЗДЕЛИ 7 И 8 ОТ <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">УСЛОВИЯТА НА STEAM WEB API ИЗПОЛЗВАНЕ</span>.
+    </div>
+`
+
+// Achievement Stats Window (Beta Revision 0.6)
+// document.getElementById("statwinlbltxt").innerHTML = "Отворете прозореца Статистика"
+
+statsresettitle = "Нулиране На Всички Съхранени Данни За Постижения?"
+statsresetbody = "Всички съхранени преди това данни за постижения ще бъдат премахнати от това устройство. Вашите най-нови данни за постиженията ще бъдат извлечени, когато прозорецът за статистика на постиженията бъде отворен следващия път.\n\nМоля, имайте предвид, че извличането на данни за постиженията използва извиквания на Steam Web API за всяка притежавана игра в Steam библиотеката на потребителя. Valve ограничава количеството извиквания на Steam Web API до 100,000 на ден за API ключа на всеки потребител.\n\nВ резултат на това, в зависимост от количеството игри във вашата Steam библиотека, това може да повлияе на общата функционалност на приложението, ако функцията за нулиране на вашите данни за постижения се използва значително."
+statsresetbtns = ["Нулирайте всички статистики за постиженията", "Отменям"]
+
+statwincurrent = "ТЕКУЩА ИГРА"
+statwinall = "ВСИЧКИ ИГРИ"
+statwincomplete = "ЗАВЪРШЕН (100%)"
+statwintop5 = "ТОП 5 ИГРИ"

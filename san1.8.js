@@ -2,8 +2,7 @@
 const { ipcRenderer, desktopCapturer, clipboard, shell } = require('electron')
 const fs = require('fs')
 const path = require('path')
-const spawn = require('child_process').spawn
-const { exec } = require('child_process')
+const { spawn, exec, execFile } = require('child_process')
 const appversion = "V1.84"
 const appdir = "V1.8"
 
@@ -376,10 +375,17 @@ function CloseSettings() {
     if (document.getElementById("settingscont").style.display = "none") {
         document.getElementById("betadialog").style.animation = "poprev 0.2s forwards"
         document.getElementById("betaerror").style.animation = "poprev 0.2s forwards"
+        document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
         document.getElementById("overlay").style.zIndex = "3"
+
+        if (document.getElementById("ppwin").style.display == "flex") {
+            document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
+        }
+
         setTimeout(() => {
             document.getElementById("betadialog").style.display = "none"
             document.getElementById("betaerror").style.display = "none"
+            document.getElementById("ppwin").style.display = "none"
         }, 200)
     }
 }
@@ -387,6 +393,21 @@ function CloseSettings() {
 function CloseWindow() {
     window.close()
 }
+
+var hover = false
+
+function CheckHoverStatus(elem) {
+    document.getElementById(elem).addEventListener('mouseover', () => {
+        hover = true
+    })
+
+    document.getElementById(elem).addEventListener('mouseleave', () => {
+        hover = false
+    })
+}
+
+CheckHoverStatus("test")
+CheckHoverStatus("testrare")
 
 var queue = []
 var running = false
@@ -434,7 +455,6 @@ function TestNotification() {
             running = true
             queue.shift(queueobj)
             NotifyWinPos()
-            // notifystyle = config.notifystyle
             ipcRenderer.send('notifywin', queueobj)
             LoadSound()
 
@@ -442,17 +462,38 @@ function TestNotification() {
                 clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
             }
 
+            if (config.extwin == true) {
+                ipcRenderer.send('extwin', queueobj)
+            }
+
+            ipcRenderer.once('startcircle', () => {
+                document.getElementById("progresscircle").style.animation = `fill ${config.displaytime}s linear forwards`
+    
+                if (document.getElementById("bodycont").style.display != "none") {
+                    document.getElementById("progresscircle").style.opacity = 1
+                }
+    
+                if (hover == true) {
+                    document.getElementById("progresscircle").style.background = "conic-gradient(black var(--circlepercentage), transparent 0)"
+                } else {
+                    document.getElementById("progresscircle").style.background = "conic-gradient(white var(--circlepercentage), transparent 0)"
+                }
+            })
+
             ipcRenderer.once('notrunning', () => {
                 running = false
+                document.getElementById("progresscircle").style.animation = "none"
+                document.getElementById("progresscircle").style.opacity = 0
+
                 if (queue.length == 0) {
                     console.log("%cQueue is empty.", "color: grey")
                 } else {
-                    console.log("Queue Position: " + queue.length, "color: grey")
+                    console.log("%cQueue Position: " + queue.length, "color: grey")
                 }
             })
         }
     }
-
+    
     CheckIfRunning()
 }
 
@@ -492,7 +533,6 @@ function TestRareNotification() {
             running = true
             queue.shift(queueobj)
             NotifyWinPos()
-            // notifystyle = config.rarenotifystyle
             ipcRenderer.send('notifywin', queueobj)
             LoadRareSound()
 
@@ -500,8 +540,29 @@ function TestRareNotification() {
                 clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
             }
 
+            if (config.extwin == true) {
+                ipcRenderer.send('extwin', queueobj)
+            }
+
+            ipcRenderer.once('startcircle', () => {
+                document.getElementById("progresscircle").style.animation = `fill ${config.raredisplaytime}s linear forwards`
+                
+                if (document.getElementById("bodycont").style.display != "none") {
+                    document.getElementById("progresscircle").style.opacity = 1
+                }
+    
+                if (hover == true) {
+                    document.getElementById("progresscircle").style.background = "conic-gradient(black var(--circlepercentage), transparent 0)"
+                } else {
+                    document.getElementById("progresscircle").style.background = "conic-gradient(white var(--circlepercentage), transparent 0)"
+                }
+            })
+
             ipcRenderer.once('notrunning', () => {
                 running = false
+                document.getElementById("progresscircle").style.animation = "none"
+                document.getElementById("progresscircle").style.opacity = 0
+
                 if (queue.length == 0) {
                     console.log("%cQueue is empty.", "color: grey")
                 } else {
@@ -707,9 +768,7 @@ function DropImage(event) {
                 GetBGType()
             }, 1000)
         }
-        paused = false
-        document.getElementById("pause").src = "./icon/pause_white.svg"
-        document.getElementById("webview").reload()
+        ReplayNotification()
     }
 }
 
@@ -752,9 +811,7 @@ function DropRareImage(event) {
                 GetRareBGType()
             }, 1000)
         }
-        paused = false
-        document.getElementById("pauserare").src = "./icon/pause_white.svg"
-        document.getElementById("webviewrare").reload()
+        ReplayRareNotification()
     }
 }
 
@@ -1236,7 +1293,7 @@ function GetPlayerName() {
             document.getElementById("username").style.color = "red"
             document.getElementById("statusdot").src = "./icon/dot_red.svg"
 
-            console.log("%USERNAME ERROR: " + error, "color: red")
+            console.log("%cUSERNAME ERROR: " + error, "color: red")
         })
     }
 }
@@ -1496,9 +1553,13 @@ function SaveSteam64ID() {
             }, 200)
         }, 1000)
     }, 200)
+
     GetPlayerName()
     GetSteam3ID()
     GetSteamPath()
+
+    // Clear localStorage values each time Steam64ID is updated to clear Achievement Stats for other accounts (Beta Revision 0.6)
+    localStorage.clear()
 }
 
 function ShowRareCheev() {
@@ -1599,62 +1660,41 @@ function ShowRareTest() {
     document.getElementById("testrare").style.display = "flex"
 }
 
-// function ToggleScreenshot() {
-//     if (config.screenshot == "false") {
-//         config["screenshot"] = "true"
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     } else {
-//         config["screenshot"] = "false"
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     }
-//     CheckScreenshot()
-// }
-
 function CheckStartWin() {
-    if (config.startwin == "true") {
+    if (config.startwin == true) {
         document.getElementById("startwinbox").checked = true
     } else {
         document.getElementById("startwinbox").checked = false
     }
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-// TO DO: Edit for Linux/MacOS - potentially remove option on these platforms  //
-// EDIT: Removed at script start instead                                       //
-/////////////////////////////////////////////////////////////////////////////////
-function ToggleStartWin() {
+// Resets "Start with Windows" option if type is String
+// Changed to boolean for use in new "Start with Windows" code (App Revision 1.0)
+if (typeof config.startwin == "string") {
+    console.log(`%c"config.startwin" is of type String - resetting to Boolean...`, "color: orange")
+
+    config["startwin"] = false
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
     const startwin = path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup",`Steam Achievement Notifier (${appversion}).lnk`)
-
-    if (config.startwin == "false") {
-        config["startwin"] = "true"
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-        
-        const opts = {
-            target: launcher.path,
-            description: "Enhance your Steam achievement experience!"
-        }
-
-        try {
-            const startwinshortcut = shell.writeShortcutLink(startwin, opts)
-
-            if (startwinshortcut.valueOf() == false) {
-                throw new Error("Startup Shortcut Error: ")
-            } else {
-                console.log(`%cStartup shortcut created successfully.`, "color: limegreen")
-            }
-        } catch (err) {
-            console.log(`%cStartup shortcut could not be created!\n${err}`, "color: red")
-        }
+    if (fs.existsSync(startwin)) {
+        fs.rmSync(startwin)
     } else {
-        config["startwin"] = "false"
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-
-        if (fs.existsSync(startwin)) {
-            fs.rmSync(startwin)
-        } else {
-            console.log(`%cStartWin shortcut no longer exists in "shell:startup"!`, "color: darkred")
-        }
+        console.log(`%cStartWin shortcut no longer exists in "shell:startup"!`, "color: darkred")
     }
+}
+
+function ToggleStartWin() {
+    if (config.startwin == false) {
+        config["startwin"] = true
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    } else {
+        config["startwin"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    ipcRenderer.send('setstartwin', config.startwin, launcher.path)
+
     CheckStartWin()
 }
 
@@ -1796,6 +1836,8 @@ function ShowCustomise() {
     document.getElementById("customisemenu").style.display = "flex"
     document.getElementById("close").onclick = function () { CloseCustomiser() }
 
+    document.getElementById("progresscircle").style.opacity = 0
+
     if (tabtype == "main") {
         ToggleMainTab()
     } else {
@@ -1812,6 +1854,12 @@ function CloseCustomiser() {
     document.getElementById("webview").remove()
     document.getElementById("webviewrare").remove()
     document.getElementById("close").onclick = function () { CloseWindow() }
+
+    if (running == true) {
+        document.getElementById("progresscircle").style.opacity = 1
+    } else {
+        document.getElementById("progresscircle").style.opacity = 0
+    }
 
     ipcRenderer.send('checkdragwin')
 }
@@ -2567,6 +2615,7 @@ function SetColour1() {
     document.getElementById("colour1box").addEventListener('change', () => {
         config["colour1"] = document.getElementById("colour1box").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayNotification()
     })
     GetBGType()
 }
@@ -2575,6 +2624,7 @@ function SetColour2() {
     document.getElementById("colour2box").addEventListener('change', () => {
         config["colour2"] = document.getElementById("colour2box").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayNotification()
     })
     GetBGType()
 }
@@ -2583,6 +2633,7 @@ function SetTextColour() {
     document.getElementById("textcolourbox").addEventListener('change', () => {
         config["textcolour"] = document.getElementById("textcolourbox").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayNotification()
     })
     GetBGType()
 }
@@ -2591,6 +2642,7 @@ function SetRareColour1() {
     document.getElementById("rarecolour1box").addEventListener('change', () => {
         config["rarecolour1"] = document.getElementById("rarecolour1box").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayRareNotification()
     })
     GetRareBGType()
 }
@@ -2599,6 +2651,7 @@ function SetRareColour2() {
     document.getElementById("rarecolour2box").addEventListener('change', () => {
         config["rarecolour2"] = document.getElementById("rarecolour2box").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayRareNotification()
     })
     GetRareBGType()
 }
@@ -2607,6 +2660,7 @@ function SetRareTextColour() {
     document.getElementById("raretextcolourbox").addEventListener('change', () => {
         config["raretextcolour"] = document.getElementById("raretextcolourbox").value
         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ReplayRareNotification()
     })
     GetRareBGType()
 }
@@ -2696,9 +2750,7 @@ function SetDisplayTime() {
     var displaytime = document.getElementById("displaytimeslider").value
     config["displaytime"] = displaytime
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pause").src = "./icon/pause_white.svg"
-    document.getElementById("webview").reload()
+    ReplayNotification()
 }
 
 document.getElementById("displaytimesliderrare").value = config.raredisplaytime
@@ -2708,9 +2760,7 @@ function SetRareDisplayTime() {
     var displaytime = document.getElementById("displaytimesliderrare").value
     config["raredisplaytime"] = displaytime
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pauserare").src = "./icon/pause_white.svg"
-    document.getElementById("webviewrare").reload()
+    ReplayRareNotification()
 }
 
 // !!! TESTING !!!
@@ -2969,9 +3019,7 @@ document.getElementById("scalevalue").innerHTML = config.scale + "%"
 function SetScale() {
     config["scale"] = document.getElementById("scaleslider").value
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pause").src = "./icon/pause_white.svg"
-    document.getElementById("webview").reload()
+    ReplayNotification()
 }
 
 document.getElementById("scalesliderrare").value = config.rarescale
@@ -2980,9 +3028,7 @@ document.getElementById("scalevaluerare").innerHTML = config.rarescale + "%"
 function SetRareScale() {
     config["rarescale"] = document.getElementById("scalesliderrare").value
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pauserare").src = "./icon/pause_white.svg"
-    document.getElementById("webviewrare").reload()
+    ReplayRareNotification()
 }
 
 document.getElementById("rarityslider").value = config.rarity
@@ -3096,19 +3142,21 @@ function GetSteamDetails() {
     GetSteam3ID()
     GetSteamPath()
     
-    var checksteamdetails = setInterval(() => {
+    console.log(`%cDEBUG: "checksteamdetails" CRON job starting...`,"color:yellow")
+    var checksteamdetails = new Cron("* * * * * *", () => {
         if (steam3id && steampath) {
             if (steam3id == 0) {
                 GetSteam3ID()
             } else {
-                clearInterval(checksteamdetails)
+                checksteamdetails.stop()
+                console.log(`%cDEBUG: "checksteamdetails" CRON job stopped`,"color:yellow")
                 SANIdle()
             }
         } else {
             GetSteam3ID()
             GetSteamPath()
         }
-    }, 1000)
+    })
 }
 
 GetSteamDetails()
@@ -3175,9 +3223,9 @@ function GetAppIDFromRegKey() {
 
 function SANIdle() {
     GetSteam3ID()
-    console.log("%cSteam3ID (For user logged into Steam client): " + steam3id, "color: seagreen")
+    console.log(`%cSteam3ID (For user logged into Steam client): ${steam3id}`, "color: seagreen")
     GetSteamPath()
-    console.log("%cSteam installation path: " + steampath, "color: seagreen")
+    console.log(`%cSteam installation path: ${steampath}`, "color: seagreen")
 
     function StoreLocal() {
         var apikey = config.apikey
@@ -3196,8 +3244,9 @@ function SANIdle() {
         })
     }
 
-    var sanidle = setInterval(() => {
-        GetAppIDFromRegKey()
+    console.log(`%cDEBUG: "sanidle" CRON job starting...`,"color:yellow")
+    var sanidle = new Cron("* * * * * *", () => {
+            GetAppIDFromRegKey()
         
         if (appid == 0 || appid == undefined) {
             // console.log("%cNo game detected", "color: darkred")
@@ -3253,11 +3302,23 @@ function SANIdle() {
             xmllist = `https://steamcommunity.com/profiles/${config.steam64id}/stats/${appid}/?xml=1`
             
             StoreLocal()
-            clearInterval(sanidle)
+            sanidle.stop()
+            console.log(`%cDEBUG: "sanidle" CRON job stopped`,"color:yellow")
             currgame = appid
             StartSAN()
+
+            function GetCurrentStats() {
+                try {
+                    JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","local.json")))
+                } catch (err) {
+                    console.log("local.json is empty")
+                    setTimeout(GetCurrentStats, 1000)
+                }
+            }
+
+            GetCurrentStats()
         }
-    }, 1000)
+    })
 }
 
 var percentages
@@ -3328,13 +3389,13 @@ async function StartSAN() {
                     var notifyachievement
 
                     if (config.allpercent == "true") {
-                        notifyachievement = achievementunlocked + ` (${percent}%)`
+                        notifyachievement = `${achievementunlocked} (${percent}%)`
                     } else {
                         notifyachievement = achievementunlocked
                     }
 
-                    var notifytitle = "" + t + ""
-                    var notifydesc = "" +  d + ""
+                    var notifytitle = t
+                    var notifydesc = d
 
                     if (notifydesc == "" || notifydesc == undefined) {
                         achievementarr.forEach(achievement => {
@@ -3344,7 +3405,7 @@ async function StartSAN() {
                         })
                     }
 
-                    var notifyicon = "" + i + ""
+                    var notifyicon = i
                 
                     const queueobj = {
                         type: "main",
@@ -3373,23 +3434,25 @@ async function StartSAN() {
                             running = true
                             queue.shift(queueobj)
                             NotifyWinPos()
-                            // notifystyle = config.notifystyle
                             if (config.screenshot == "true") {
                                 // !!! Need to add alternative for Linux/MacOS
                                 if (process.platform == "win32") {
-                                    spawn("powershell.exe",["-Command","Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{" + configkeybind + "}');"])
+                                    spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
                                 }
                             }
                             ipcRenderer.send('notifywin', queueobj)
                             LoadSound()
 
                             if (config.nvda == "true") {
-                                clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
+                                clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
                             }
 
-                            //if (config.screenshot == "true" && config.ssoverlay == "true") {
                             if (config.ssoverlay == "true") {
                                 ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
+                            }
+
+                            if (config.extwin == true) {
+                                ipcRenderer.send('extwin', queueobj)
                             }
 
                             ipcRenderer.once('notrunning', () => {
@@ -3397,12 +3460,12 @@ async function StartSAN() {
                                 if (queue.length == 0) {
                                     console.log("%cQueue is empty.", "color: grey")
                                 } else {
-                                    console.log("%cQueue Position: " + queue.length, "color: grey")
+                                    console.log(`%cQueue Position: ${queue.length}`, "color: grey")
                                 }
                             })
                         }
                     }
-                
+
                     CheckIfRunning()
                 }
 
@@ -3411,9 +3474,9 @@ async function StartSAN() {
 
                     console.log("%cRare Notification added to queue.", "color: darkorchid")
 
-                    var notifyachievement = rareachievementunlocked + ` (${percent}%)`
-                    var notifytitle = "" + t + ""
-                    var notifydesc = "" + d + ""
+                    var notifyachievement = `${rareachievementunlocked} (${percent}%)`
+                    var notifytitle = t
+                    var notifydesc = d
 
                     if (notifydesc == "" || notifydesc == undefined) {
                         achievementarr.forEach(achievement => {
@@ -3423,7 +3486,7 @@ async function StartSAN() {
                         })
                     }
 
-                    var notifyicon = "" + i + ""
+                    var notifyicon = i
                 
                     const queueobj = {
                         type: "rare",
@@ -3452,12 +3515,11 @@ async function StartSAN() {
                             running = true
                             queue.shift(queueobj)
                             NotifyWinPos()
-                            // notifystyle = config.rarenotifystyle
                             ipcRenderer.send('notifywin', queueobj)
                             if (config.rarescreenshot == "true") {
                                 // !!! Need to add alternative for Linux/MacOS
                                 if (process.platform == "win32") {
-                                    spawn("powershell.exe",["-Command","Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{" + configkeybind + "}');"])
+                                    spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
                                 }
                                 // } else if (process.platform == "linux") {
                                 //     spawn("gnome-terminal",[`xdotool key ${configkeybind}`])
@@ -3466,12 +3528,15 @@ async function StartSAN() {
                             LoadRareSound()
 
                             if (config.nvda == "true") {
-                                clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
+                                clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
                             }
 
-                            // if (config.rarescreenshot == "true" && config.ssoverlay == "true") {
                             if (config.ssoverlay == "true") { 
                                 ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
+                            }
+
+                            if (config.extwin == true) {
+                                ipcRenderer.send('extwin', queueobj)
                             }
 
                             ipcRenderer.once('notrunning', () => {
@@ -3479,7 +3544,7 @@ async function StartSAN() {
                                 if (queue.length == 0) {
                                     console.log("%cQueue is empty.", "color: grey")
                                 } else {
-                                    console.log("%cQueue Position: " + queue.length, "color: grey")
+                                    console.log(`%cQueue Position: ${queue.length}`, "color: grey")
                                 }
                             })
                         }
@@ -3579,7 +3644,7 @@ async function StartSAN() {
                 }
                 StartSAN()
             }).catch(error => {
-                console.log("%cSTEAM WEB API ERROR: " + error, "color: red")
+                console.log(`%cSTEAM WEB API ERROR: ${error}`, "color: red")
             })
         }
 
@@ -3594,11 +3659,13 @@ async function StartSAN() {
             }
         })
 
-        var checkgame = setInterval(() => {
+        console.log(`%cDEBUG: "checkgame" CRON job starting...`,"color:yellow")
+        var checkgame = new Cron("* * * * * *", () => {
             GetAppIDFromRegKey()
 
             if (appid == 0 || appid == undefined || appid !== currgame) {
-                clearInterval(checkgame)
+                checkgame.stop()
+                console.log(`%cDEBUG: "checkgame" CRON job stopped [AppID is 0]`,"color:yellow")
                 fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), "")
                 document.getElementById("gamestatus").style.color = "red"
                 document.getElementById("gamestatus").innerHTML = nogame
@@ -3608,27 +3675,30 @@ async function StartSAN() {
             } else {
                 fs.stat(`${steampath}/appcache/stats/UserGameStats_${steam3id}_${appid}.bin`, (err, stats) => {
                     if (err) {
-                        console.log("%cFSSTAT ERROR: " + err, "color: red")
+                        console.log(`%cFSSTAT ERROR: ${err}`, "color: red")
                     } else {
                         if (stats.mtime > lastmodified) {
                             console.log("%cFile was changed!", "color: deepskyblue")
                             lastmodified = stats.mtime
 
-                            clearInterval(checkgame)
+                            checkgame.stop()
+                            console.log(`%cDEBUG: "checkgame" CRON job stopped [Checking achievement info...]`,"color:yellow")
                             GetAchievementsFromURL()
                         }
                     }
                 })
             }
-        }, 1000)
+        })
     } catch (err) {
-        console.log("%cSTARTSAN ERROR: " + err, "color: red")
+        console.log(`%cSTARTSAN ERROR: ${err}`, "color: red")
 
-        var checkappid = setInterval(() => {
+        console.log(`%cDEBUG: "checkappid" CRON job starting...`,"color:yellow")
+        var checkappid = new Cron("* * * * * *", () => {
             GetAppIDFromRegKey()
 
             if (appid == 0 || appid == undefined || appid !== currgame) {
-                clearInterval(checkappid)
+                checkappid.stop()
+                console.log(`%cDEBUG: "checkappid" CRON job stopped`,"color:yellow")
                 fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), "")
                 document.getElementById("gamestatus").style.color = "red"
                 document.getElementById("gamestatus").innerHTML = nogame
@@ -3636,7 +3706,7 @@ async function StartSAN() {
                 currgame = null
                 SANIdle()
             }
-        }, 1000)
+        })
     }
 }
 
@@ -3652,7 +3722,7 @@ function ToggleNoSteam() {
     function RestartSteam() {
         spawn("powershell.exe",["-Command","taskkill /f /im steam.exe"])
         setTimeout(() => {
-            spawn("powershell.exe",["-Command",`start '` + steampath + `/steam.exe'`])
+            spawn("powershell.exe",["-Command",`start '${steampath}/steam.exe'`])
             setTimeout(() => {
                 document.getElementById("nosteambox").style.display = "flex"
                 document.getElementById("nosteamloadcont").style.display = "none"
@@ -3836,15 +3906,16 @@ function CheckIfSteamIsRunning() {
             console.log("%cSteam is NOT running", "color: red")
             document.getElementById("nosteamlbl").style.opacity = "0.5"
 
-            var checkprocesses = setInterval(() => {
+            console.log(`%cDEBUG: "checkprocesses" CRON job starting...`,"color:yellow")
+            checkprocesses = new Cron("* * * * * *", () => {
                 exec(tasklist, (err, process) => {
                     var steamrecheck = process.toLowerCase().indexOf(execname)
                     if (steamrecheck !== -1) {
-                        clearInterval(checkprocesses)
+                        console.log(`%cDEBUG: "checkprocesses" CRON job stopped`,"color:yellow")
                         ipcRenderer.send('reloadapp')
                     }
                 })
-            }, 2000)
+            })
         } else {
             issteamrunning = true
             console.log("%cSteam is running.", "color: cyan")
@@ -3890,7 +3961,6 @@ function GameCompletionNotification() {
             running = true
             queue.shift(queueobj)
             NotifyWinPos()
-            // notifystyle = config.rarenotifystyle
             ipcRenderer.send('notifywin', queueobj)
             var audio = document.getElementById("audiorare")
             LoadRareSound()
@@ -4180,6 +4250,10 @@ function RecenterDragWin() {
     ipcRenderer.send('recenter')
 }
 
+function ResizeDragWin() {
+    ipcRenderer.send('resize')
+}
+
 ipcRenderer.on('saveposmain', (event, x, y) => {
     config["x"] = x
     config["y"] = y
@@ -4211,17 +4285,13 @@ if (config.rarefontsize == undefined) {
 function SetFontSize() {
     config["fontsize"] = document.getElementById("fontsizeslider").value
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pause").src = "./icon/pause_white.svg"
-    document.getElementById("webview").reload()
+    ReplayNotification()
 }
 
 function SetFontSizeRare() {
     config["rarefontsize"] = document.getElementById("fontsizesliderrare").value
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    paused = false
-    document.getElementById("pauserare").src = "./icon/pause_white.svg"
-    document.getElementById("webviewrare").reload()
+    ReplayRareNotification()
 }
 
 if (config.opacity == undefined) {
@@ -4563,6 +4633,205 @@ function SetGameArtBrightnessRare() {
     config["rarebrightness"] = document.getElementById("brightnesssliderrare").value
     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
     ReplayRareNotification()
+}
+
+// Reset "Show in External Window" on app launch
+// Prevents option from being true but no window being spawned on launch
+function ExtWinReset() {
+    config["extwin"] = false
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    document.getElementById("extwinbox").checked = false
+}
+
+ExtWinReset()
+
+function CheckExtWin() {
+    if (config.extwin == undefined) {
+        config["extwin"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    if (config.extwin == true) {
+        document.getElementById("extwinbox").checked = true
+    } else {
+        document.getElementById("extwinbox").checked = false
+    }
+}
+
+CheckExtWin()
+
+function ToggleExtWin() {
+    if (config.extwin == false) {
+        config["extwin"] = true
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ipcRenderer.send('spawnextwin')
+    } else {
+        config["extwin"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+        ipcRenderer.send('despawnextwin')
+    }
+
+    CheckExtWin()
+}
+
+ipcRenderer.on('extwinclosed', () => {
+    console.log("extwinclosed")
+    config["extwin"] = false
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    CheckExtWin()
+})
+
+function OpenPP() {
+    document.getElementById("ppwin").style.display = "flex"
+    document.getElementById("ppwin").style.animation = "pop 0.5s forwards"
+    document.getElementById("overlay").style.zIndex = "19"
+}
+
+function ClosePP() {
+    document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
+    document.getElementById("overlay").style.zIndex = "3"
+    setTimeout(() => {
+        document.getElementById("ppwin").style.display = "none"
+    }, 200)
+}
+
+function CircleHover() {
+    if (running == true) {
+        document.getElementById("progresscircle").style.background = "conic-gradient(black var(--circlepercentage), transparent 0)"
+    }
+}
+
+function CircleOut() {
+    if (running == true) {
+        document.getElementById("progresscircle").style.background = "conic-gradient(white var(--circlepercentage), transparent 0)"
+    }
+}
+
+// Text Outline
+function CheckTextOut() {
+    if (config.textout == undefined) {
+        config["textout"] = "none"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    if (config.textout != "none") {
+        document.getElementById("textout").style.opacity = 1
+        document.getElementById("textoutbox").value = config.textout
+    } else {
+        document.getElementById("textout").style.opacity = 0.5
+        document.getElementById("textoutbox").value = "#000000"
+    }
+}
+
+CheckTextOut()
+
+function SetTextOut() {
+    if (config.textout == "none") {
+        ReplayNotification()
+    }
+
+    config["textout"] = document.getElementById("textoutbox").value
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    CheckTextOut()
+
+    document.getElementById("textoutbox").addEventListener('change', () => {
+        config["textout"] = document.getElementById("textoutbox").value
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+        ReplayNotification()
+    })
+
+    CheckTextOut()
+}
+
+function ShowOutClose() {
+    if (config.textout != "none") {
+        document.getElementById("textoutclose").style.opacity = 1
+        document.getElementById("textoutclose").style.pointerEvents = "auto"
+    }
+}
+
+function HideOutClose() {
+    document.getElementById("textoutclose").style.opacity = 0
+    document.getElementById("textoutclose").style.pointerEvents = "none"
+}
+
+function RemoveTextOut() {
+    config["textout"] = "none"
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+    ReplayNotification()
+
+    CheckTextOut()
+}
+
+// Rare Text Outline
+function CheckTextOutRare() {
+    if (config.raretextout == undefined) {
+        config["raretextout"] = "none"
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    }
+
+    if (config.raretextout != "none") {
+        document.getElementById("textoutrare").style.opacity = 1
+        document.getElementById("textoutboxrare").value = config.raretextout
+    } else {
+        document.getElementById("textoutrare").style.opacity = 0.5
+        document.getElementById("textoutboxrare").value = "#000000"
+    }
+}
+
+CheckTextOutRare()
+
+function SetTextOutRare() {
+    if (config.raretextout == "none") {
+        ReplayRareNotification()
+    }
+
+    config["raretextout"] = document.getElementById("textoutboxrare").value
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    CheckTextOutRare()
+
+    document.getElementById("textoutboxrare").addEventListener('change', () => {
+        config["raretextout"] = document.getElementById("textoutboxrare").value
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+        ReplayRareNotification()
+    })
+
+    CheckTextOutRare()
+}
+
+function ShowOutCloseRare() {
+    if (config.raretextout != "none") {
+        document.getElementById("textoutcloserare").style.opacity = 1
+        document.getElementById("textoutcloserare").style.pointerEvents = "auto"
+    }
+}
+
+function HideOutCloseRare() {
+    document.getElementById("textoutcloserare").style.opacity = 0
+    document.getElementById("textoutcloserare").style.pointerEvents = "none"
+}
+
+function RemoveTextOutRare() {
+    config["raretextout"] = "none"
+    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+
+    ReplayRareNotification()
+    CheckTextOutRare()
+}
+
+function OpenLink(link) {
+    ipcRenderer.send('link', link)
+}
+
+function OpenDevTools() {
+    ipcRenderer.send("opendevtools")
+}
+
+function OpenAppData() {
+    shell.openPath(sanlocalappdata)
 }
 
 ipcRenderer.on('displayupdated', (event, w, h, sf) => {

@@ -8,7 +8,7 @@ document.getElementById("test").innerHTML = "显示测试通知";
 document.getElementById("testrare").innerHTML = "显示稀有测试通知";
 document.getElementById("settingstitle").innerHTML = "设置";
 document.getElementById("configtitle").innerHTML = "配置";
-document.getElementById("apibox").placeholder = "输入 API Key";
+document.getElementById("apibox").placeholder = "输入 API 密钥";
 document.getElementById("steam64box").placeholder = "输入 Steam64ID";
 document.getElementById("other").innerHTML = "其他";
 document.getElementById("showscreenshotlbl").innerHTML = "捕获 Steam 屏幕截图";
@@ -152,3 +152,79 @@ betajoin = "加入测试频道"
 betaleave = "离开测试频道"
 betaerrortext = "无法更新到测试频道！"
 betaerrorsub = "看起来你没有网络连接。没有互联网 = 没有测试版！"
+
+document.getElementById("extwinlbltxt").innerHTML = "将通知复制到窗口"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "启用全屏通知"
+// document.getElementById("fswarntitle").innerHTML = "在你开始之前..."
+// document.getElementById("fswarncontentmain").innerHTML = `为了在游戏内显示模式设置为“全屏”或“独占全屏”的游戏上覆盖通知，必须将通知直接注入游戏进程以在 DirectX 游戏窗口上显示。<br><br>这意味着，由于游戏的代码在技术上被第三方程序更改，使用反作弊技术的游戏可能会对这种方法不利。<br><br>虽然没有游戏在测试时出现任何问题，但一般建议<u>不要</u>在使用反作弊技术的游戏存在被检测到注入风险的情况下使用“启用全屏通知”选项（例如在在线竞技游戏中）。`
+// document.getElementById("fswarnimportant").innerHTML = `通过启用和使用“启用全屏通知”选项，您在此同意您已适当告知并了解将第三方内容注入 Steam 游戏的相关风险（例如 Steam Achievement Notifier 用于在游戏中显示内容的方法）设置为使用全屏游戏内显示模式），并且通过启用此选项，您接受您自行承担风险，因此，Steam Achievement Notifier (Jackson0ne) 的开发者对使用此选项不承担任何责任或义务.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">点击下方的 <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">同意</span> 按钮，即表示您接受上述条款，并且“启用全屏通知”选项将被启用。</div><div style="padding: 0px 10px 10px;">点击下方的<span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px;border-radius: 2px;">不同意</span>按钮，此消息将关闭，并且“启用全屏通知”选项将<u>不</u>启用。</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "我同意，不再显示此消息"
+// document.getElementById("fsok").innerHTML = "同意"
+// document.getElementById("fscancel").innerHTML = "不同意"
+// document.getElementById("fsselectlbl").innerHTML = "手动选择游戏窗口"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "查看隐私政策"
+document.getElementById("pptitle").innerHTML = "隐私政策"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">STEAM WEB API 数据使用</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier 使用 Valve 的 <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> 来检索和显示与用户 Steam 帐户数据相关的信息，通过用户提供给应用程序的 Steam API 密钥/Steam64 ID 组合。这些数据包括：<br><br>
+        <div class="ppbodyembed">
+            • 锁定和解锁成就的统计数据<br>
+            • 您的 Steam 用户名<br>
+            • 您玩过的 Steam 游戏<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier 将来可能会使用更多 Steam Web API 数据来提供额外的应用程序功能和更新。</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">Steam API 密钥/STEAM64 ID 使用情况</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier 要求用户输入他们的 Steam API 密钥/Steam64 ID 组合来验证 SteamWebAPI。如果没有此信息，将无法访问用于检索与用户 Steam 帐户相关的数据（包括成就数据）的 Web 链接（由 Valve 提供以访问 SteamWebAPI）.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM WEB API 数据存储</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier 将 Steam Web API 数据临时存储在用户计算机本地，仅供应用程序使用。此数据的任何临时存储仅由 Steam Achievement Notifier 使用，在正常情况下，所有非持久性 Steam Web API 数据将在应用程序退出时从本地存储中清除。<br><br>
+        存储在用户设备上的持久性数据仅包括应用程序为方便用户而存储的数据，例如用户的 Steam Web API 密钥和 Steam64 ID。<br><br>
+        如果需要，用户也可以随时手动删除这些数据。 Steam Achievement Notifier 创建的文件位于以下目录中：<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: 目前不支持
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">数据收集的立场</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier <u>从不</u>在用户本地文件系统之外发送或存储用户数据。这包括通过 Steam Web API 检索并在应用程序中使用的任何信息，包括提供给应用程序以访问 Steam Web API 的 Steam API 密钥/Steam64 ID 组合。 Steam Achievement Notifier (Jackson0ne) 的开发者故意不包含任何外部手段来访问、查看、收集或发送用户提供的信息给应用程序。<br><br>
+        从 Steam Web API 访问数据的请求是由应用程序本身使用内置方法发出的，类似于浏览器提供的方法。这些请求包含 Steam Web API 所需的用户 Steam API 密钥/Steam64 ID 组合，但不会被任何其他应用程序使用或拦截。<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">用户责任</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        通过<span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">官方 GITHUB 存储库</span> 下载和使用任何正式发布的 STEAM ACHIEVEMENT NOTIFIER 版本，作为扩展的用户，您遵守 <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API 使用条款</span> 的第 7 和 8 节.
+    </div>
+`
+
+// Achievement Stats Window (Beta Revision 0.6)
+// document.getElementById("statwinlbltxt").innerHTML = "打开成就统计窗口"
+
+statsresettitle = "重置所有存储的成就数据？"
+statsresetbody = "所有以前存储的成就数据都将从该设备中删除。下次打开“成就统计”窗口时，将检索您最近的成就数据。\n\n请注意，检索成就数据会使用 Steam Web API 调用用户 Steam 库中每个拥有的游戏。 Valve 将每位用户的 API 密钥的 Steam Web API 调用量限制为每天 100,000 次。\n\n因此，根据您 Steam 库中的游戏数量，如果重置成就数据的功能被过度使用，这可能会影响应用程序的一般功能。"
+statsresetbtns = ["重置所有成就统计", "取消"]
+
+statwincurrent = "当前游戏"
+statwinall = "所有游戏"
+statwincomplete = "完成 (100%)"
+statwintop5 = "前 5 名游戏"

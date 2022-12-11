@@ -28,6 +28,8 @@ document.getElementById("audio").play()
 var colour1 = config.colour1
 var colour2 = config.colour2
 var textcolour = config.textcolour
+var textoutline = `0 0 1px ${config.textout}, `
+
 var img
 
 if (config.img == "default") {
@@ -104,7 +106,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("notifycont").style.backgroundImage = imgbackground
     document.getElementById("notifycont").style.backgroundPosition = "center"
     document.getElementById("notifycont").style.backgroundRepeat = "no-repeat"
-    document.getElementById("notifycont").style.backgroundSize = "364px"
+    document.getElementById("notifycont").style.backgroundSize = "cover"
     if (screenshot == "true" && config.screenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius
@@ -151,7 +153,7 @@ if (bgtype == "bgsolid") {
     document.getElementById("notifycont").style.backgroundImage = gameartbg
     document.getElementById("notifycont").style.backgroundPosition = "center"
     document.getElementById("notifycont").style.backgroundRepeat = "no-repeat"
-    document.getElementById("notifycont").style.backgroundSize = "364px"
+    document.getElementById("notifycont").style.backgroundSize = "cover"
     if (screenshot == "true" && config.screenshot == "true") {
         document.getElementById("notifycont").style.borderRadius = ssborderradius
         document.getElementById("screenshot").style.borderRadius = ssimgborderradius
@@ -175,6 +177,12 @@ if (screenshot == "true" && config.screenshot == "true") {
 } else {
     document.getElementById("cont").style.height = "110px"
     document.getElementById("screenshotcont").style.display = "none"
+}
+
+if (config.textout != "none") {
+    document.getElementById("cont").style.textShadow = `${textoutline.repeat(31)} 0 0 1px ${config.textout}`
+    document.getElementById("game").style.padding = "0 2px"
+    document.getElementById("desc").style.padding = "0 2px"
 }
 
 var title = notifytitle

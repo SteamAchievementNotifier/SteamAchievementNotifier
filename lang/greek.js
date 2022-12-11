@@ -8,7 +8,7 @@ document.getElementById("test").innerHTML = "ΕΜΦΑΝΙΣΗ ΕΙΔΟΠΟΙΗΣ
 document.getElementById("testrare").innerHTML = "ΕΜΦΑΝΙΣΗ ΕΙΔΟΠΟΙΗΣΗΣ ΣΠΑΝΙΩΝ ΔΟΚΙΜΩΝ";
 document.getElementById("settingstitle").innerHTML = "ΡΥΘΜΙΣΕΙΣ";
 document.getElementById("configtitle").innerHTML = "ΔΙΑΜΟΡΦΩΣΗ";
-document.getElementById("apibox").placeholder = "Εισαγάγετε το API Key";
+document.getElementById("apibox").placeholder = "Εισαγάγετε το Κλειδί API";
 document.getElementById("steam64box").placeholder = "Εισαγάγετε το Steam64ID";
 document.getElementById("other").innerHTML = "ΑΛΛΑ";
 document.getElementById("showscreenshotlbl").innerHTML = "Στιγμιότυπο Οθόνης Steam";
@@ -152,3 +152,79 @@ betajoin = "Μπείτε Κανάλι Beta"
 betaleave = "Έξοδος από Κανάλι Beta"
 betaerrortext = "Δεν είναι δυνατή η ενημέρωση στο Κανάλι Beta!"
 betaerrorsub = "Φαίνεται ότι δεν έχετε σύνδεση δικτύου. Χωρίς Διαδίκτυο = Χωρίς Beta!"
+
+document.getElementById("extwinlbltxt").innerHTML = "Διπλότυπες Ειδοποιήσεις Στο Παράθυρο "
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Ειδοποιήσεις Πλήρους Οθόνης"
+// document.getElementById("fswarntitle").innerHTML = "ΠΡΙΝ ΞΕΚΙΝΗΣΕΙΣ..."
+// document.getElementById("fswarncontentmain").innerHTML = `Προκειμένου να επικαλύπτονται οι ειδοποιήσεις πάνω από παιχνίδια που έχουν ρυθμιστεί σε λειτουργίες προβολής "Πλήρης οθόνη" ή "Αποκλειστική Πλήρης Οθόνη" εντός του παιχνιδιού, η ειδοποίηση πρέπει να εισαχθεί απευθείας στη διαδικασία του παιχνιδιού για να εμφανιστεί σε ένα παράθυρο παιχνιδιού DirectX.<br><br>Αυτό σημαίνει ότι, καθώς ο κώδικας του παιχνιδιού τροποποιείται τεχνικά από ένα πρόγραμμα τρίτου μέρους, τα παιχνίδια που χρησιμοποιούν τεχνολογία Anti-Cheat ενδέχεται να δουν αυτή τη μέθοδο δυσμενώς.<br><br>Παρόλο που κανένα παιχνίδι δεν παρουσίασε προβλήματα κατά τη διάρκεια της δοκιμής, γενικά συνιστάται <u>μην</u> να χρησιμοποιείτε την επιλογή "Ειδοποιήσεις Πλήρους Οθόνης" όταν υπάρχει κίνδυνος εντοπισμού ένεσης από παιχνίδια που χρησιμοποιούν τεχνολογία Anti-Cheat (όπως π.χ. σε διαδικτυακά ανταγωνιστικά παιχνίδια).`
+// document.getElementById("fswarnimportant").innerHTML = `Ενεργοποιώντας και χρησιμοποιώντας την επιλογή "Ειδοποιήσεις Πλήρους Οθόνης", συμφωνείτε ότι έχετε ενημερωθεί κατάλληλα και κατανοείτε τους κινδύνους που σχετίζονται με την εισαγωγή περιεχομένου τρίτων σε παιχνίδια Steam (όπως η μέθοδος που χρησιμοποιείται από το Steam Achievement Notifier για την εμφάνιση περιεχομένου πάνω από παιχνίδια που έχουν οριστεί να χρησιμοποιούν λειτουργίες προβολής σε πλήρη οθόνη εντός του παιχνιδιού) και ότι ενεργοποιώντας αυτήν την επιλογή, αποδέχεστε ότι το κάνετε με δική σας ευθύνη και επομένως, ο προγραμματιστής του Steam Achievement Notifier (Jackson0ne) δεν φέρει καμία ευθύνη σχετικά με χρήση αυτής της επιλογής.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Κάνοντας κλικ στο κουμπί <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ΣΥΜΦΩΝΩ</span> παρακάτω, αποδέχεστε τους παραπάνω όρους και Θα ενεργοποιηθεί η επιλογή "Ειδοποιήσεις Πλήρους Οθόνης".</div><div style="padding: 0px 10px 10px;">Κάνοντας κλικ στο κουμπί <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">ΔΙΑΦΩΝΩ</span> παρακάτω, αυτό το μήνυμα θα κλείσει και Η επιλογή "Ειδοποιήσεις Πλήρους Οθόνης" <u>δεν</u> θα είναι ενεργοποιημένη.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Θα συμφωνήσω, μην εμφανιστεί ξανά αυτό το μήνυμα"
+// document.getElementById("fsok").innerHTML = "ΣΥΜΦΩΝΩ"
+// document.getElementById("fscancel").innerHTML = "ΔΙΑΦΩΝΩ"
+// document.getElementById("fsselectlbl").innerHTML = "Επιλέξτε Παράθυρο Παιχνιδιού"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "Δείτε την Πολιτική Απορρήτου"
+document.getElementById("pptitle").innerHTML = "ΠΟΛΙΤΙΚΗ ΑΠΟΡΡΗΤΟΥ"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">ΧΡΗΣΗ ΔΕΔΟΜΕΝΩΝ STEAM WEB API</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier χρησιμοποιεί το <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> της Valve για την ανάκτηση και εμφάνιση δεδομένων που σχετίζονται με τον λογαριασμό Steam του χρήστη( s), μέσω του συνδυασμού Κλειδί API Steam/Steam64 ID που παρέχεται στην εφαρμογή από τον χρήστη. Αυτά τα δεδομένα περιλαμβάνουν:<br><br>
+        <div class="ppbodyembed">
+            • Στατιστικά στοιχεία για κλειδωμένα και ξεκλείδωτα επιτεύγματα<br>
+            • Το όνομα χρήστη σας στο Steam<br>
+            • Τα παιχνίδια Steam που παίξατε<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier ενδέχεται να χρησιμοποιήσει περαιτέρω δεδομένα του Steam Web API στο μέλλον για να παρέχει πρόσθετες λειτουργίες και ενημερώσεις εφαρμογής.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ΚΛΕΙΔΊ API STEAM/STEAM64 ID ΧΡΉΣΗΣ</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier απαιτεί από τον χρήστη να εισαγάγει τον συνδυασμό Steam API Key/Steam64 ID για επαληθευμένη πρόσβαση στο Steam Web API. Χωρίς αυτές τις πληροφορίες, δεν είναι δυνατή η πρόσβαση σε συνδέσμους ιστού (που παρέχονται για χρήση από τη Valve για πρόσβαση στο Steam Web API) που χρησιμοποιούνται για την ανάκτηση δεδομένων που σχετίζονται με τους λογαριασμούς Steam ενός χρήστη - συμπεριλαμβανομένων των δεδομένων επιτεύγματος.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ΑΠΟΘΗΚΕΥΣΗ ΔΕΔΟΜΕΝΩΝ STEAM WEB API</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier αποθηκεύει προσωρινά δεδομένα του Steam Web API τοπικά στον υπολογιστή του χρήστη αποκλειστικά για χρήση εντός της εφαρμογής. Οποιαδήποτε προσωρινή αποθήκευση αυτών των δεδομένων προορίζεται για χρήση αποκλειστικά από το Steam Achievement Notifier και υπό κανονικές συνθήκες, όλα τα μη μόνιμα δεδομένα του Steam Web API θα διαγραφούν από την τοπική αποθήκευση κατά την έξοδο από την εφαρμογή.<br><br>
+        Τα μόνιμα δεδομένα που είναι αποθηκευμένα στη συσκευή του χρήστη περιλαμβάνουν μόνο δεδομένα που αποθηκεύονται από την εφαρμογή για διευκόλυνση του χρήστη, όπως το κλειδί Steam Web API του χρήστη και το Steam64 ID.<br><br>
+        Αυτά τα δεδομένα μπορούν επίσης να διαγραφούν με μη αυτόματο τρόπο από τον χρήστη ανά πάσα στιγμή, εάν απαιτείται. Τα αρχεία που δημιουργούνται από το Steam Achievement Notifier βρίσκονται στον ακόλουθο κατάλογο:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: Αυτήν τη στιγμή δεν υποστηρίζεται
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ΣΤΑΣΗ ΓΙΑ ΤΗ ΣΥΛΛΟΓΗ ΔΕΔΟΜΕΝΩΝ</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier <u>ποτέ</u> δεν θα στείλει ή δεν θα αποθηκεύσει δεδομένα χρήστη εκτός του τοπικού συστήματος αρχείων του χρήστη. Αυτό περιλαμβάνει οποιεσδήποτε πληροφορίες ανακτώνται μέσω του Steam Web API για χρήση εντός της εφαρμογής, συμπεριλαμβανομένου του συνδυασμού Κλειδί API Steam/Steam64 ID που παρέχεται στην εφαρμογή για πρόσβαση στο Steam Web API. Ο προγραμματιστής του Steam Achievement Notifier (Jackson0ne) δεν έχει σκοπίμως συμπεριλάβει κανένα μέσο για εξωτερική πρόσβαση, προβολή, συλλογή ή αποστολή οποιωνδήποτε πληροφοριών παρέχονται στην εφαρμογή από τον χρήστη.<br><br>
+        Τα αιτήματα για πρόσβαση σε δεδομένα από το Steam Web API γίνονται μέσα από την ίδια την εφαρμογή χρησιμοποιώντας ενσωματωμένες μεθόδους, παρόμοιες με τις λειτουργίες που παρέχονται από προγράμματα περιήγησης ιστού. Αυτά τα αιτήματα περιέχουν τον συνδυασμό Κλειδί API Steam/Steam64 ID του χρήστη όπως απαιτείται από το Steam Web API, αλλά δεν διατίθενται για χρήση ή υποκλοπή από άλλες εφαρμογές.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ΕΥΘΥΝΗ ΧΡΗΣΤΗ</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        ΜΕ ΛΉΨΗ ΚΑΙ ΧΡΉΣΗ ΟΠΟΙΑΣΔΉΠΟΤΕ ΕΠΊΣΗΜΗΣ ΈΚΔΟΣΗΣ ΤΟΥ ΕΙΔΟΠΟΙΗΤΉ ΕΠΙΤΕΎΓΜΑΤΟΣ STEAM ΜΈΣΩ ΤΟΥ <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">ΕΠΙΣΗΜΟΥ ΑΠΟΘΗΚΕΥΤΙΚΟΥ GITHUB</span>, ΕΣΕΊΣ, Ο ΧΡΉΣΤΗΣ, ΚΑΤ' ΕΠΈΚΤΑΣΗ, ΤΗΡΕΊΤΕ ΤΙΣ ΕΝΌΤΗΤΕΣ 7 ΚΑΙ 8 ΤΩΝ <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">ΟΡΩΝ ΧΡΗΣΗΣ STEAM WEB API</span>.
+    </div>
+`
+
+// Achievement Stats Window (Beta Revision 0.6)
+// document.getElementById("statwinlbltxt").innerHTML = "Παράθυρο Στατιστικών"
+
+statsresettitle = "Επαναφορά Όλων Των Αποθηκευμένων Δεδομένων Επιτεύγματος;"
+statsresetbody = "Όλα τα δεδομένα επιτεύγματος που είχαν αποθηκευτεί προηγουμένως θα καταργηθούν από αυτήν τη συσκευή. Τα πιο πρόσφατα δεδομένα επιτευγμάτων σας θα ανακτηθούν όταν ανοίξει στη συνέχεια το παράθυρο Στατιστικά επιτεύγματος.\n\nΛάβετε υπόψη ότι η ανάκτηση δεδομένων επιτευγμάτων χρησιμοποιεί κλήσεις Steam Web API για κάθε παιχνίδι που ανήκει στη βιβλιοθήκη Steam του χρήστη. Η Valve περιορίζει τον αριθμό των κλήσεων Steam Web API σε 100,000 την ημέρα για το κλειδί API κάθε χρήστη.\n\nΩς αποτέλεσμα, ανάλογα με τον αριθμό των παιχνιδιών στη βιβλιοθήκη Steam σας, αυτό μπορεί να επηρεάσει τη γενική λειτουργικότητα της εφαρμογής, εάν η λειτουργία επαναφοράς των δεδομένων επιτευγμάτων σας χρησιμοποιηθεί υπερβολικά."
+statsresetbtns = ["Επαναφορά Όλων Των Στατιστικών", "Ακυρώνω"]
+
+statwincurrent = "ΤΡΕΧΟΝ ΠΑΙΧΝΙΔΙ"
+statwinall = "ΟΛΑ ΤΑ ΠΑΙΧΝΙΔΙΑ"
+statwincomplete = "ΟΛΟΚΛΗΡΩΜΕΝΟΣ (100%)"
+statwintop5 = "5 ΚΑΛΥΤΕΡΑ ΠΑΙΧΝΙΔΙΑ"

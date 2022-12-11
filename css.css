@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: "Titillium Web";
     src: url("./fonts/TitilliumWeb-SemiBold.ttf");
@@ -22,8 +23,41 @@
     box-sizing: border-box;
 }
 
+/* CIRCLE ANIMATION */
+
+@property --circlepercentage {
+    initial-value: 100%;
+    inherits: false;
+    syntax: "<percentage>";
+}
+
+#progresscircle {
+    position: absolute;
+    top: 406px;
+    left: 115px;
+    background: conic-gradient(black var(--circlepercentage), transparent 0);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    z-index: 2;
+}
+
+@keyframes fill {
+    to {
+        --circlepercentage: 0%;
+    }
+}
+
+/* CIRCLE ANIMATION */
+
 input:focus {
     outline: none;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 html {
@@ -811,6 +845,20 @@ hr {
     margin: 0px 0px 5px;
 }
 
+.optconnector {
+    width: 20px;
+    height: 22px;
+    position: absolute;
+    border-top: none;
+    border-left: 1.5px solid rgba(255,255,255,0.5);
+    border-bottom: 1.5px solid rgba(255,255,255,0.5);
+    border-right: none;
+    border-radius: 2px;
+    top: -11px;
+    left: 1px;
+    z-index: -1;
+}
+
 .settingscont {
     background: #1b1b1b;
     display: none;
@@ -1465,6 +1513,103 @@ input[type="number"]::-webkit-inner-spin-button {
     padding-bottom: 2px;
 }
 
+/* Privacy Policy */
+
+#ppcont {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 95%;
+    margin: 2px 0px 5px 3px;
+}
+
+#pp {
+    cursor: pointer;
+}
+
+#ppwin {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 300px;
+    background: #1b1b1b;
+    border: 1px solid white;
+    border-radius: 5px;
+    z-index: 20;
+}
+
+#pptitle {
+    font-family: "Titillium Web";
+    font-size: 22px;
+    margin: 25px 0px 20px;
+}
+
+#ppcontent {
+    font-size: 9px;
+    font-family: "Noto Sans Reg";
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 0px 30px;
+    margin-bottom: 35px;
+}
+
+#ppcontent::-webkit-scrollbar {
+    background: none;
+}
+
+#ppcontent::-webkit-scrollbar-thumb {
+    background-color: #3d3d3d;
+    border-radius: 5px;
+}
+
+.ppheader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-family: "Titillium Web";
+    font-size: 12px;
+}
+
+.ppheadercontent {
+    width: 100%;
+    background: rgb(32,62,122);
+    padding: 5px 10px;
+}
+
+.ppbodycont {
+    background: rgba(16,16,16,0.5);
+    padding: 10px;
+}
+
+.pplink:not(hover) {
+    color: lightskyblue;
+    text-decoration: underline;
+    transition: 0.2s;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.pplink:hover {
+    opacity: 1;
+}
+
+.ppbodyembed {
+    background: #2b2b2b;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 5px;
+}
+
+/* Privacy Policy */
+
 #gamedetails {
     color: lightskyblue;
     opacity: 0.75;
@@ -1800,17 +1945,24 @@ input[type="number"]::-webkit-inner-spin-button {
     height: 30px;
 }
 
-#colour1, #colour2 {
+#colour1, #colour2, #textcolour {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 0px;    
 }
 
-#textcolour {
+#textout, #textoutlbl {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+#textoutclose {
+    margin-left: 5px;
+    opacity: 0;
+    transition: 0.5s;
+    cursor: pointer;
 }
 
 input[type="color"] {
@@ -2203,17 +2355,24 @@ input[type="color"]::-webkit-color-swatch {
     height: 30px;
 }
 
-#rarecolour1, #rarecolour2 {
+#rarecolour1, #rarecolour2, #raretextcolour {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 0px;    
 }
 
-#raretextcolour {
+#textoutrare, #textoutlblrare {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+#textoutcloserare {
+    margin-left: 5px;
+    opacity: 0;
+    transition: 0.5s;
+    cursor: pointer;
 }
 
 #rareimgselectcont {
@@ -2598,6 +2757,10 @@ input[type="color"]::-webkit-color-swatch {
     align-items: center;
     font-family: "Titillium Web";
     font-size: 8px;
+    /* opacity: 0.5; */
+}
+
+#jsrev {
     opacity: 0.5;
 }
 
@@ -2683,7 +2846,6 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 #beta {
-    margin-top: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2713,7 +2875,7 @@ input[type="color"]::-webkit-color-swatch {
     background: blueviolet;
 }
 
-#joinbetabtn, #resetcontinner {
+#joinbetabtn, #resetcontinner, #ppbtn {
     flex: 1;
     margin-left: 6%;
     margin-right: 6%;
@@ -2939,9 +3101,25 @@ input[type="color"]::-webkit-color-swatch {
     background: red;
 }
 
+#console:not(hover), #appdata:not(hover) {
+    position: absolute;
+    cursor: pointer;
+    opacity: 0.25;
+    transition: 0.2s;
+}
+
+#console:hover, #appdata:hover {
+    opacity: 1;
+}
+
 @keyframes fadein {
     0% { opacity: 0; }
     100% { opacity: 1; }
+}
+
+@keyframes fadeout {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 @keyframes bluetowhite {
@@ -2972,6 +3150,11 @@ input[type="color"]::-webkit-color-swatch {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@keyframes spinrev {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
 }
 
 @keyframes moveup {
@@ -3010,4 +3193,10 @@ input[type="color"]::-webkit-color-swatch {
     0% { transform: rotate(22deg) scale(100%,100%); }
     50% { transform: rotate(22deg) scale(120%,120%); }
     100% { transform: rotate(22deg) scale(100%,100%); }
+}
+
+@keyframes flash {
+    0% { background: #101010; color: white; }
+    50% { background: white; color: black; }
+    100% { background: #101010; color: white; }
 }

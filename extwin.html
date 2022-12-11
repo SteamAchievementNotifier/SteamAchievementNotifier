@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background: none;
+            -webkit-app-region: drag;
+            user-select: none;
+        }
+
+        body {
+            border: 2px solid blueviolet;
+            border-top: 20px solid blueviolet;
+            transition: 0.5s;
+        }
+
+        #close {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            opacity: 0.5;
+            transition: 0.2s;
+            cursor: pointer;
+            -webkit-app-region: no-drag;
+        }
+
+        #close:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <img id="close" src="./icon/close.svg" width="16px" onclick="CloseExtWin()">
+    <script>
+        const { ipcRenderer } = require("electron")
+        const fs = require("fs")
+        const path = require("path")
+        const appdir = "V1.8"
+        
+        var localappdata
+        
+        if (process.platform == "win32") {
+            localappdata = path.join(process.env.LOCALAPPDATA)
+        } else if (process.platform == "linux") {
+            localappdata = path.join(process.env.HOME,".local","share")
+        } else if (process.platform == "darwin") {
+            localappdata = path.join(process.env.HOME,"Library","Application Support")
+        }
+
+        const config = JSON.parse(fs.readFileSync(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","config.json")))
+        
+        var webview
+
+        ipcRenderer.on('notifyext', (event, src, achievement, title, desc, icon, screenshot, percent, audio, gameicon, gameartimg) => {            
+            webview = document.createElement("webview")
+            webview.id = "webview"
+            webview.style.width = "100%"
+            webview.style.height = "100%"
+            webview.webpreferences = "nodeIntegration = true, contextIsolation = false, backgroundThrottling = false"
+
+            document.body.appendChild(webview)
+            webview.src = src
+            
+            webview.addEventListener('dom-ready', () => {
+                // webview.openDevTools()
+                webview.setAudioMuted(true)
+                document.getElementById("webview").send('play', achievement, title, desc, icon, screenshot, percent, audio, gameicon, gameartimg)
+            })
+
+            webview.addEventListener('ipc-message', () => {
+                document.body.removeChild(document.getElementById("webview"))
+            })
+        })
+
+        window.onfocus = () => {
+            document.body.style.border = "2px solid blueviolet"
+            document.body.style.borderTop = "20px solid blueviolet" 
+        }
+
+        window.onblur = () => {
+            document.body.style.border = "2px solid #1b1b1b"
+            document.body.style.borderTop = "20px solid #1b1b1b"
+        }
+
+        function CloseExtWin() {
+            ipcRenderer.send('closeextwin')
+        }
+    </script>
+</body>
+</html>

@@ -8,7 +8,7 @@ document.getElementById("test").innerHTML = "NÄYTÄ TESTI-ILMOITUS";
 document.getElementById("testrare").innerHTML = "NÄYTÄ HARVINAINEN TESTI-ILMOITUS";
 document.getElementById("settingstitle").innerHTML = "ASETUKSET";
 document.getElementById("configtitle").innerHTML = "KONFIGUROINTI";
-document.getElementById("apibox").placeholder = "Anna APIKey";
+document.getElementById("apibox").placeholder = "Anna API-Avain";
 document.getElementById("steam64box").placeholder = "Anna Steam64ID";
 document.getElementById("other").innerHTML = "MUUT";
 document.getElementById("showscreenshotlbl").innerHTML = "Ota Steam-Kuvakaappaus";
@@ -32,7 +32,7 @@ novalue = "Anna arvo";
 
 resettitle = "Palautetaanko Sovellus Oletusasetuksiin?";
 resetdesc = `VAROITUS: Tämä poistaa kaikki käyttäjäasetukset!`;
-resetbtns = ["Nollaa","Poista Asennus","Peruuttaa"];
+resetbtns = ["Nollaa","Poista Asennus","Takaisin"];
 
 traylabel = "Peliä Ei Havaittu";
 trayshow = "Näytä";
@@ -152,3 +152,79 @@ betajoin = "Liity Beta-Kanava"
 betaleave = "Poistu Beta-Kanava"
 betaerrortext = "Beta-Kanava ei voi päivittää!"
 betaerrorsub = "Näyttää siltä, ​​että sinulla ei ole verkkoyhteyttä. Ei Internetiä = Ei Betaa!"
+
+document.getElementById("extwinlbltxt").innerHTML = "Kopioi Ilmoitukset Ikkunaan "
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Koko Näytön Ilmoitukset"
+// document.getElementById("fswarntitle").innerHTML = "ENNEN KUIN ALOITAT..."
+// document.getElementById("fswarncontentmain").innerHTML = `Jotta ilmoitukset voidaan peittää pelien päällä, jotka on asetettu "Fullscreen"- tai "Exclusive Fullscreen" -näyttötilaan, ilmoitus on ruiskutettava suoraan peliprosessiin, jotta se voidaan näyttää DirectX-peliikkunassa.<br><br>Tämä tarkoittaa, että koska pelin koodia teknisesti muuttaa kolmannen osapuolen ohjelma, Anti-Cheat-tekniikkaa käyttävät pelit saattavat suhtautua tähän menetelmään epäsuotuisasti.<br><br>Vaikka mikään peli ei ole näyttänyt ongelmia testauksen aikana, on yleensä suositeltavaa <u>ei</u> käyttää "Koko Näytön Ilmoitukset"-vaihtoehtoa, jos on olemassa vaara, että Anti-Cheat-tekniikkaa käyttävät pelit havaitsevat ruiskeen (esim. online-kilpailupelit).`
+// document.getElementById("fswarnimportant").innerHTML = `Ottamalla käyttöön ja käyttämällä "Koko Näytön Ilmoitukset" -vaihtoehtoa hyväksyt, että olet asianmukaisesti informoinut ja ymmärtänyt riskit, jotka liittyvät kolmannen osapuolen sisällön lisäämiseen Steam-peleihin (kuten Steam Achievement Notifier sisällön näyttämiseen käyttämästä menetelmästä peleihin, jotka on asetettu käyttämään koko näytön sisäisiä näyttötiloja), ja että ottamalla tämän vaihtoehdon käyttöön hyväksyt, että teet sen omalla vastuullasi, ja siksi Steam Achievement Notifier (Jackson0ne) kehittäjä ei ota mitään vastuuta tämän vaihtoehdon käyttöä.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Napsauttamalla alla olevaa <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">SUOSTUA</span>-painiketta hyväksyt yllä olevat ehdot ja "Koko Näytön Ilmoitukset"-vaihtoehto otetaan käyttöön.</div><div style="padding: 0px 10px 10px;">Napsauttamalla alla olevaa <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">HYLKÄYTÄ</span>-painiketta, tämä viesti suljetaan ja "Koko Näytön Ilmoitukset"-vaihtoehto <u>ei</u> ole käytössä.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Olen samaa mieltä, älä näytä tätä viestiä uudelleen"
+// document.getElementById("fsok").innerHTML = "SUOSTUA"
+// document.getElementById("fscancel").innerHTML = "HYLKÄYTÄ"
+// document.getElementById("fsselectlbl").innerHTML = "Valitse Peliikkuna Manuaalisesti"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "Katso Tietosuojakäytäntö"
+document.getElementById("pptitle").innerHTML = "TIETOSUOJAKÄYTÄNTÖ"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">STEAM WEB API-TIETOJEN KÄYTTÖ</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier käyttää Valven <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> -sovellusta käyttäjän Steam-tiliin liittyvien tietojen hakemiseen ja näyttämiseen ( s) Steam API-Avain/Steam64 ID -yhdistelmän kautta, jonka käyttäjä on antanut sovellukselle. Nämä tiedot sisältävät:<br><br>
+        <div class="ppbodyembed">
+            • Tilastot lukituista ja lukitsemattomista saavutuksista<br>
+            • Steam-käyttäjänimesi<br>
+            • Pelaamasi Steam-pelit<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier voi käyttää lisää Steam Web API -tietoja tulevaisuudessa tarjotakseen lisäsovellusominaisuuksia ja -päivityksiä.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM API-AVAIN/STEAM64 ID KÄYTTÖ</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier vaatii käyttäjän syöttämään Steam API-Avain/Steam64 ID -yhdistelmänsä Steam Web API:n todennettua käyttöä varten. Ilman näitä tietoja ei voida käyttää verkkolinkkejä (jotka Valve käyttää Steam Web API:n käyttöä varten), joita käytetään käyttäjän Steam-tileihin liittyvien tietojen - mukaan lukien saavutustietojen - hakemiseen.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM WEB API-TIETOJEN TALLENNUS</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier tallentaa Steam Web API -tiedot väliaikaisesti paikallisesti käyttäjän tietokoneelle vain sovelluksen sisällä käytettäväksi. Näiden tietojen tilapäinen tallennus on tarkoitettu yksinomaan Steam Achievement Notifierin käyttöön, ja normaaleissa olosuhteissa kaikki pysymättömät Steam Web API-tiedot tyhjennetään paikallisesta tallennustilasta sovelluksen sulkemisen yhteydessä.<br><br>
+        Käyttäjän laitteelle tallennetut pysyvät tiedot sisältävät vain tietoja, jotka sovellus on tallentanut käyttömukavuuden vuoksi, kuten käyttäjän Steam Web API-avain ja Steam64 ID.<br><br>
+        Käyttäjä voi myös tarvittaessa poistaa nämä tiedot manuaalisesti milloin tahansa. Steam Achievement Notifierin luomat tiedostot sijaitsevat seuraavassa hakemistossa:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: Tällä hetkellä ei tueta
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ASENNUS TIEDONKERUUUN</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier <u>ei koskaan</u> lähetä tai tallenna käyttäjätietoja käyttäjän paikallisen tiedostojärjestelmän ulkopuolelle. Tämä sisältää kaikki tiedot, jotka on haettu Steam Web API:n kautta käytettäväksi sovelluksessa, mukaan lukien Steam API-Avain/Steam64 ID -yhdistelmä, joka annetaan sovellukselle Steam Web API:n käyttöä varten. Steam Achievement Notifier (Jackson0ne) -kehittäjä ei ole tarkoituksella sisällyttänyt mitään keinoja käyttää, tarkastella, kerätä tai lähettää ulkoisesti käyttäjän sovellukselle antamia tietoja.<br><br>
+        Tietojen käyttöpyynnöt Steam Web API:sta tehdään itse sovelluksesta sisäänrakennetuilla menetelmillä, jotka vastaavat verkkoselaimien tarjoamia toimintoja. Nämä pyynnöt sisältävät käyttäjän Steam API-Avain/Steam64 ID -yhdistelmän, kuten Steam Web API vaatii, mutta niitä ei anneta muiden sovellusten käytettäväksi tai siepattavaksi.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">KÄYTTÄJÄN VASTUU</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        LATAAMALLA JA KÄYTTÄMÄLLÄ MITÄ TAHANSA VIRALLISESTI JULKAISTUA STEAM ACHIEVEMENT NOTIFIER VERSIOTA <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">VIRALLISEN GITHUBIN ARKISTON</span>, SINÄ, KÄYTTÄJÄ, LAAJEMMIN, NOUDATAT <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API-EHTOJEN KOHTIA 7 JA 8 KÄYTÖSTÄ</span>.
+    </div>
+`
+
+// Achievement Stats Window (Beta Revision 0.6)
+// document.getElementById("statwinlbltxt").innerHTML = "Avaa Tilastot-ikkuna"
+
+statsresettitle = "Nollataanko Kaikki Tallennetut Saavutustiedot?"
+statsresetbody = "Kaikki aiemmin tallennetut saavutustiedot poistetaan tältä laitteelta. Viimeisimmät saavutustietosi haetaan, kun Saavutustilastot-ikkuna avataan seuraavan kerran.\n\nHuomaa, että saavutustietojen noutaminen käyttää Steam Web API -kutsuja jokaiselle käyttäjän Steam-kirjastossa olevalle pelille. Valve rajoittaa Steam Web API-kutsujen määrän 100 000:een päivässä kunkin käyttäjän API-avaimella.\n\nTämän seurauksena Steam-kirjastossasi olevien pelien määrästä riippuen tämä voi vaikuttaa sovelluksen yleiseen toimintaan, jos saavutustietojen nollaustoimintoa käytetään huomattavasti liikaa."
+statsresetbtns = ["Nollaa kaikki Saavutustilastot", "Takaisin"]
+
+statwincurrent = "NYKYINEN PELI"
+statwinall = "KAIKKI PELIT"
+statwincomplete = "TÄYDELLINEN (100%)"
+statwintop5 = "5 PARHAAT PELIT"

@@ -8,7 +8,7 @@ document.getElementById("test").innerHTML = "테스트 알림 표시";
 document.getElementById("testrare").innerHTML = "희귀 테스트 알림 표시";
 document.getElementById("settingstitle").innerHTML = "설정";
 document.getElementById("configtitle").innerHTML = "구성";
-document.getElementById("apibox").placeholder = "API Key 입력";
+document.getElementById("apibox").placeholder = "API 키 입력";
 document.getElementById("steam64box").placeholder = "Steam64ID 입력";
 document.getElementById("other").innerHTML = "다른";
 document.getElementById("showscreenshotlbl").innerHTML = "Steam 스크린샷 찍기";
@@ -152,3 +152,79 @@ betajoin = "베타 채널 가입"
 betaleave = "베타 채널 나가기"
 betaerrortext = "베타 채널로 업데이트할 수 없습니다!"
 betaerrorsub = "네트워크에 연결되어 있지 않은 것 같습니다. 인터넷 없음 = 베타 없음!"
+
+document.getElementById("extwinlbltxt").innerHTML = "창에 알림 복제 "
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "전체 화면 알림 활성화"
+// document.getElementById("fswarntitle").innerHTML = "시작하기 전에..."
+// document.getElementById("fswarncontentmain").innerHTML = `"전체 화면" 또는 "독점적인 전체 화면" 게임 내 표시 모드로 설정된 게임 위에 알림을 오버레이하려면 알림이 DirectX 게임 창에 표시될 게임 프로세스에 직접 주입되어야 합니다.<br><br>즉, 게임 코드가 기술적으로 타사 프로그램에 의해 변경되기 때문에 Anti-Cheat 기술을 사용하는 게임이 이 방법을 불리하게 볼 수 있습니다.<br><br>테스트하는 동안 문제가 표시된 게임은 없지만 Anti-Cheat 기술을 사용하는 게임(예: 온라인 경쟁 게임에서와 같이).`
+// document.getElementById("fswarnimportant").innerHTML = `"전체 화면 알림 활성화" 옵션을 활성화하고 사용함으로써 귀하는 Steam 게임에 제3자 콘텐츠를 삽입하는 것과 관련된 위험(예: Steam Achievement Notifier가 표시하는 방법 전체 화면 게임 내 표시 모드를 사용하도록 설정된 게임의 콘텐츠), 이 옵션을 활성화하면 귀하가 위험을 감수하는 데 동의하는 것으로 간주되므로 Steam Achievement Notifier(Jackson0ne) 개발자는 다음과 같은 책임을 지지 않습니다. 이 옵션의 사용.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">아래 <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">동의하다</span> 버튼을 클릭하면 위의 이용약관에 동의하는 것입니다. "화면 알림 활성화" 옵션이 활성화됩니다.</div><div style="padding: 0px 10px 10px;">아래의 <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">동의하지 않는다</span> 버튼을 클릭하면 이 메시지가 닫히고 "전체 화면 알림 활성화" 옵션이 활성화되지 <u>않습니다</u>.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "동의합니다. 이 메시지를 다시 표시하지 않습니다."
+// document.getElementById("fsok").innerHTML = "동의하다"
+// document.getElementById("fscancel").innerHTML = "동의하지 않는다"
+// document.getElementById("fsselectlbl").innerHTML = "수동으로 게임 창 선택"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "개인정보 보호정책 보기"
+document.getElementById("pptitle").innerHTML = "개인 정보 정책"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">STEAM WEB API 데이터 사용</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier는 <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> 를 사용하여 사용자가 애플리케이션에 제공한 Steam API 키/Steam64 ID 조합을 사용하여 사용자의 Steam 계정과 관련된 데이터를 검색하고 표시합니다. 이 데이터에는 다음이 포함됩니다:<br><br>
+        <div class="ppbodyembed">
+            • 잠긴 업적과 잠금 해제된 업적에 대한 통계<br>
+            • Steam 사용자 이름<br>
+            • 플레이한 Steam 게임<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier는 향후 추가 애플리케이션 기능 및 업데이트를 제공하기 위해 추가 Steam Web API 데이터를 사용할 수 있습니다.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM API 키/STEAM64ID 사용</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier는 사용자가 Steam Web API에 대한 인증된 액세스를 위해 STEAM API 키/Steam64 ID 조합을 입력하도록 요구합니다. 이 정보가 없으면 업적 데이터(Steam Web API에 대한 액세스를 제공)를 포함하여 사용자의 Steam 계정과 관련된 데이터를 검색하는 데 사용되는 웹 링크에 액세스할 수 없습니다.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM WEB API 데이터 스토리지</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier는 애플리케이션 내에서만 사용할 수 있도록 Steam Web API 데이터를 사용자의 PC에 로컬로 임시로 저장합니다. 이 데이터의 모든 임시 저장은 Steam Achievement Notifier에서만 사용하기 위한 것이며, 정상적인 상황에서 모든 비영구 Steam Web API 데이터는 애플리케이션 종료 시 로컬 저장소에서 지워집니다.<br><br>
+        사용자의 장치에 저장되는 영구 데이터에는 사용자의 Steam Web API 키 및 Steam64 ID와 같이 사용자 편의를 위해 애플리케이션에서 저장하는 데이터만 포함됩니다.<br><br>
+        이 데이터는 필요한 경우 사용자가 언제든지 수동으로 삭제할 수도 있습니다. Steam Achievement Notifier로 생성된 파일은 다음 디렉터리에 있습니다:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: 현재 지원되지 않음
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">데이터 수집에 대한 입장</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier는 사용자의 로컬 파일 시스템 외부로 사용자 데이터를 보내거나 저장하지 <u>않습니다</u>. 여기에는 Steam Web API에 액세스하기 위해 애플리케이션에 제공된 Steam API 키/Steam64 ID 조합을 포함하여 애플리케이션 내에서 사용하기 위해 Steam Web API를 통해 검색된 모든 정보가 포함됩니다. Steam Achievement Notifier(Jackson0ne)의 개발자는 사용자가 애플리케이션에 제공한 정보를 외부에서 액세스, 조회, 수집 또는 전송하는 수단을 의도적으로 포함하지 않았습니다.<br><br>
+        Steam Web API의 데이터 액세스 요청은 웹 브라우저에서 제공하는 기능과 유사한 내장 메서드를 사용하여 애플리케이션 자체에서 이루어집니다. 이러한 요청에는 Steam Web API에서 요구하는 사용자의 Steam API 키/Steam64 ID 조합이 포함되어 있지만 다른 애플리케이션에서 사용하거나 가로챌 수 없습니다.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">사용자 책임</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">공식 GITHUB REPOSITORY</span>를 통해 SteamAchievementNotifier의 공식 출시 버전을 다운로드하고 사용함으로써 귀하는 더 나아가 <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API 사용 약관</span> 의 섹션 7 및 8을 준수하게 됩니다.
+    </div>
+`
+
+// Achievement Stats Window (Beta Revision 0.6)
+// document.getElementById("statwinlbltxt").innerHTML = "업적 통계 창 열기"
+
+statsresettitle = "저장된 모든 업적 데이터를 재설정하시겠습니까?"
+statsresetbody = "이전에 저장된 모든 업적 데이터가 이 기기에서 제거됩니다. 다음에 업적 통계 창이 열리면 가장 최근의 업적 데이터가 검색됩니다.\n\n업적 데이터 검색은 사용자의 Steam 라이브러리에 있는 각 소유 게임에 대해 Steam Web API 호출을 사용한다는 점에 유의하십시오. Valve는 각 사용자의 API 키에 대해 Steam Web API 호출을 하루 100,000개로 제한합니다.\n\n결과적으로 Steam 라이브러리에 있는 게임의 양에 따라 업적 데이터를 재설정하는 기능을 과도하게 사용하면 응용 프로그램의 일반적인 기능에 영향을 줄 수 있습니다."
+statsresetbtns = ["모든 업적 통계 재설정", "취소"]
+
+statwincurrent = "현재 게임"
+statwinall = "모든 게임들"
+statwincomplete = "완료(100%)"
+statwintop5 = "상위 5개 게임"

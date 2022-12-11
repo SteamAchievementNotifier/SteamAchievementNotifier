@@ -8,8 +8,8 @@ document.getElementById("test").innerHTML = "VISA TESTMEDDELANDE";
 document.getElementById("testrare").innerHTML = "VISA SÄLLSAMT TESTMEDDELANDE";
 document.getElementById("settingstitle").innerHTML = "INSTÄLLNINGAR";
 document.getElementById("configtitle").innerHTML = "KONFIGURATION";
-document.getElementById("apibox").placeholder = "Ange API Key";
-document.getElementById("steam64box").placeholder = "Ange Steam64ID";
+document.getElementById("apibox").placeholder = "Ange API-Nyckel";
+document.getElementById("steam64box").placeholder = "Ange Steam64 ID";
 document.getElementById("other").innerHTML = "ÖVRIG";
 document.getElementById("showscreenshotlbl").innerHTML = "Ta Steam-Skärmdump";
 document.getElementById("showscreenshotlblrare").innerHTML = "Ta Steam-Skärmdump";
@@ -152,3 +152,79 @@ betajoin = "Gå med i Betakanalen"
 betaleave = "Lämna Betakanalen"
 betaerrortext = "Det går inte att uppdatera till Betakanalen!"
 betaerrorsub = "Det verkar som att du inte har någon nätverksanslutning. Inget internet = Ingen Beta!"
+
+document.getElementById("extwinlbltxt").innerHTML = "Duplicera Aviseringar till Fönstret"
+
+// Fullscreen Notifications
+// document.getElementById("fullscreenlbl").innerHTML = "Aktivera Helskärmsmeddelanden"
+// document.getElementById("fswarntitle").innerHTML = "INNAN DU BÖRJAR..."
+// document.getElementById("fswarncontentmain").innerHTML = `För att lägga över aviseringar ovanpå spel som är inställda på "Helskärmsläge" eller "Exklusivt Helskärmsläge" i spelets visningsläge, måste meddelandet injiceras direkt i spelprocessen för att visas över ett DirectX-spelfönster.<br><br>Detta innebär att eftersom spelets kod tekniskt förändras av ett tredjepartsprogram, kan spel som använder Anti-Cheat-tekniken uppleva denna metod ogynnsamt.<br><br>Även om inga spel har visat några problem under testning, rekommenderas det generellt att <u>inte</u> använda alternativet "Aktivera Helskärmsmeddelanden" när det finns risk för att injektion upptäcks av spel som använder Anti-Cheat-teknik (som i tävlingsspel online).`
+// document.getElementById("fswarnimportant").innerHTML = `Genom att aktivera och använda alternativet "Aktivera Helskärmsmeddelanden" samtycker du härmed till att du på lämpligt sätt har informerat om, och förstår riskerna med att injicera innehåll från tredje part i Steam-spel (såsom metoden som används av Steam Achievement Notifier för att visa innehåll över spel inställda på att använda fullskärmslägen i spelet), och att genom att aktivera det här alternativet accepterar du att du gör det på egen risk, och därför tar utvecklaren av Steam Achievement Notifier (Jackson0ne) inget ansvar eller ansvar angående användningen av detta alternativ.`
+// document.getElementById("fswarninfocont").innerHTML = `<div style="padding: 10px;">Genom att klicka på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">SAMTYCKE</span> nedan accepterar du villkoren ovan, och Alternativet "Aktivera Helskärmsmeddelanden" kommer att vara aktiverat.</div><div style="padding: 0px 10px 10px;">Genom att klicka på knappen <span style="background: rgb(32,62,122); padding: 0px 5px; margin: 1px; border-radius: 2px;">AVVISA</span> nedan kommer detta meddelande att stängas, och Alternativet "Aktivera Helskärmsmeddelanden" kommer <u>inte</u> att vara aktiverat.</div>`
+// document.getElementById("fshidemsglbl").innerHTML = "Jag håller med, visa inte det här meddelandet igen"
+// document.getElementById("fsok").innerHTML = "SAMTYCKE"
+// document.getElementById("fscancel").innerHTML = "AVVISA"
+// document.getElementById("fsselectlbl").innerHTML = "Välj Spelfönster Manuellt"
+
+// Privacy Policy
+document.getElementById("pp").innerHTML = "Se Integritetspolicy"
+document.getElementById("pptitle").innerHTML = "INTEGRITETSPOLICY"
+document.getElementById("ppcontent").innerHTML = `
+    <div class="ppheader">
+        <span class="ppheadercontent" style="border-radius: 5px 5px 0px 0px;">STEAM WEB API DATAANVÄNDNING</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier använder Valve <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">Steam Web API</span> för att hämta och visa data relaterad till användarens Steam-konton , via Steam API-Nyckel/Steam64 ID-kombinationen som tillhandahålls till applikationen av användaren. Dessa data inkluderar:<br><br>
+        <div class="ppbodyembed">
+            • Statistik för låsta och olåsta prestationer<br>
+            • Ditt Steam-användarnamn<br>
+            • Dina spelade Steam-spel<br>
+        </div>
+        <br>
+        <i>Steam Achievement Notifier kan komma att använda ytterligare Steam Web API-data i framtiden för att tillhandahålla ytterligare applikationsfunktioner och uppdateringar.</i>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ANVÄNDNING AV STEAM API-NYCKEL/STEAM64 ID</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier kräver att användaren matar in sin Steam API-Nyckel/Steam64 ID-kombination för autentiserad åtkomst till Steam Web API. Utan denna information kan webblänkar (tillhandahålls för användning av Valve för att komma åt Steam Web API) som används för att hämta data relaterad till en användares Steam-konton - inklusive prestationsdata - inte nås.
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STEAM WEB API DATALAGRING</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier lagrar tillfälligt Steam Web API-data lokalt på användarens PC enbart för användning inom applikationen. All tillfällig lagring av dessa data är endast avsedd att användas av Steam Achievement Notifier, och under normala omständigheter kommer all icke-beständig Steam Web API-data att raderas från lokal lagring när applikationen avslutas.<br><br>
+        Beständiga data som lagras på användarens enhet inkluderar endast data som lagras av applikationen för användarens bekvämlighet, såsom användarens Steam Web API-Nyckel och Steam64 ID.<br><br>
+        Denna data kan också raderas manuellt av användaren när som helst om det behövs. Filer skapade av Steam Achievement Notifier finns i följande katalog:<br><br>
+        <div class="ppbodyembed">
+            • Windows: C:\\Users\\%username%\\AppData\\Local\\Steam Achievement Notifier (Vx.x)<br>
+            • Linux: /home/user/.local/share/Steam Achievement Notifier (Vx.x)<br>
+            • MacOS: Stöds inte för närvarande
+        </div>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">STANS PÅ DATAINSAMLING</span>
+    </div>
+    <div class="ppbodycont">
+        Steam Achievement Notifier kommer <u>aldrig</u> att skicka eller lagra användardata utanför användarens lokala filsystem. Detta inkluderar all information som hämtas via Steam Web API för användning inom applikationen, inklusive Steam API-Nyckel/Steam64 ID-kombinationen som tillhandahålls till applikationen för åtkomst till Steam Web API. Utvecklaren av Steam Achievement Notifier (Jackson0ne) har avsiktligt inte inkluderat något sätt att externt få tillgång till, visa, samla in eller skicka någon information som användaren tillhandahållit applikationen.<br><br>
+        Begäranden om att få tillgång till data från Steam Web API görs inifrån själva applikationen med hjälp av inbyggda metoder, liknande funktioner som tillhandahålls av webbläsare. Dessa förfrågningar innehåller användarens Steam API-Nyckel/Steam64 ID-kombination som krävs av Steam Web API, men görs inte tillgängliga för användning eller avlyssning av några andra applikationer.<br>
+    </div>
+    <div class="ppheader">
+        <span class="ppheadercontent">ANVÄNDARANSVAR</span>
+    </div>
+    <div class="ppbodycont" style="border-radius: 0px 0px 5px 5px;">
+        GENOM ATT LADDA NER OCH ANVÄNDA VALFRI OFFICIELLT SLÄPPT VERSION AV STEAM ACHIEVEMENT NOTIFIER VIA DET <span class="pplink" onclick="OpenLink('https://github.com/steamachievementnotifier/steamachievementnotifier/releases')">OFFICIELLA GITHUB-FÖREVARET</span>, FÖLJER DU, ANVÄNDAREN, I FÖRLÄNGNINGEN AVSNITTEN 7 OCH 8 I <span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev/apiterms')">STEAM WEB API ANVÄNDARVILLKOR</span>.
+    </div>
+`
+
+// Achievement Stats Window (Beta Revision 0.6)
+// document.getElementById("statwinlbltxt").innerHTML = "Öppna Fönstret Prestationsstatistik"
+
+statsresettitle = "Återställa Alla Lagrade Prestationsdata?"
+statsresetbody = "All tidigare lagrad prestationsdata kommer att tas bort från den här enheten. Din senaste prestationsdata kommer att hämtas när fönstret Prestationsstatistik öppnas nästa gång.\n\nVar medveten om att hämtning av prestationsdata använder Steam Web API-anrop för varje ägt spel i användarens Steam-bibliotek. Valve begränsar mängden Steam Web API-anrop till 100,000 per dag för varje användares API-nyckel.\n\nSom ett resultat, beroende på mängden spel i ditt Steam-bibliotek, kan detta påverka applikationens allmänna funktionalitet om funktionen för att återställa dina prestationsdata är kraftigt överanvänd."
+statsresetbtns = ["Återställ all Prestationsstatistik", "Annullera"]
+
+statwincurrent = "AKTUELLT SPEL"
+statwinall = "ALLA SPEL"
+statwincomplete = "KOMPLETT (100 %)"
+statwintop5 = "BÄSTA 5 SPEL"

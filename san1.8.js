@@ -1804,17 +1804,19 @@ function CheckStartWin() {
 
 // Resets "Start with Windows" option if type is String
 // Changed to boolean for use in new "Start with Windows" code (Beta Revision 0.6)
-if (typeof config.startwin == "string") {
-    console.log(`%c"config.startwin" is of type String - resetting to Boolean...`, "color: orange")
-
-    config["startwin"] = false
-    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-
-    const startwin = path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup",`Steam Achievement Notifier (${appversion}).lnk`)
-    if (fs.existsSync(startwin)) {
-        fs.rmSync(startwin)
-    } else {
-        console.log(`%cStartWin shortcut no longer exists in "shell:startup"!`, "color: darkred")
+if (process.platform == "win32") {
+    if (typeof config.startwin == "string") {
+        console.log(`%c"config.startwin" is of type String - resetting to Boolean...`, "color: orange")
+    
+        config["startwin"] = false
+        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
+    
+        const startwin = path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup",`Steam Achievement Notifier (${appversion}).lnk`)
+        if (fs.existsSync(startwin)) {
+            fs.rmSync(startwin)
+        } else {
+            console.log(`%cStartWin shortcut no longer exists in "shell:startup"!`, "color: darkred")
+        }
     }
 }
 
@@ -3436,7 +3438,7 @@ function SANIdle() {
                 regvdffile = regvdffile.toString()
                 var regvdfdata = VDF.parse(regvdffile)
 
-                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.Apps[appid].name
+                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name
                 
                 ipcRenderer.send('trackwin', gamename, appid)
                 setTimeout(() => {
@@ -3452,7 +3454,7 @@ function SANIdle() {
                 regvdffile = regvdffile.toString()
                 var regvdfdata = VDF.parse(regvdffile)
 
-                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.Apps[appid].name
+                gamename = regvdfdata.Registry.HKCU.Software.Valve.Steam.apps[appid].name
                 
                 ipcRenderer.send('trackwin', gamename, appid)
                 setTimeout(() => {

@@ -20,8 +20,6 @@ if (process.platform == "win32") {
     document.getElementById("startwin").style.display = "none"
     // !!! Re-add if Steam can be stopped/restarted via shortcut, and if "SkinV5" regkey exists in "registry.vdf" after changing skin
     document.getElementById("nosteam").style.display = "none"
-    // !!! Re-add if GOverlay AppImage can be uploaded to GitHub (file size limit is 100MB)
-    document.getElementById("fullscreen").style.display = "none"
 } else if (process.platform == "darwin") {
     localappdata = path.join(process.env.HOME,"Library","Application Support")
 
@@ -30,8 +28,6 @@ if (process.platform == "win32") {
     document.getElementById("startwin").style.display = "none"
     // !!! Re-add if Steam can be stopped/restarted via shortcut, and if "SkinV5" regkey exists in "registry.vdf" after changing skin
     document.getElementById("nosteam").style.display = "none"
-    // !!! Re-add if GOverlay portable PKG can be uploaded to GitHub
-    document.getElementById("fullscreen").style.display = "none"
 } else {
     alert(`Steam Achievement Notifier is not supported on ${process.platform}!`)
     ipcRenderer.send("uninstallcomplete")
@@ -42,7 +38,6 @@ const sanlocalappdata = path.join(localappdata,`Steam Achievement Notifier (${ap
 const respath = path.join(process.resourcesPath,"app")
 
 const config = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","config.json")))
-const fullscreen = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","fullscreen.json")))
 const gamestats = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","gamestats.json")))
 var launcher
 var regkey
@@ -137,15 +132,6 @@ var betajoin
 var betaleave
 var betaerrortext
 var betaerrorsub
-
-// Achievement Stats Window (Beta Revision 0.6)
-var statsresettitle
-var statsresetbody
-var statsresetbtns
-var statwincurrent
-var statwinall
-var statwincomplete
-var statwintop5
 
 function LoadLangScript(language) {
     if (document.getElementById("langscript")) {
@@ -392,11 +378,6 @@ function CloseSettings() {
         document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
         document.getElementById("overlay").style.zIndex = "3"
 
-        // if (document.getElementById("fswarn").style.display == "flex") {
-        //     CloseFullscreenWarning()
-        //     ResetHideMsg()
-        // }
-
         if (document.getElementById("ppwin").style.display == "flex") {
             document.getElementById("ppwin").style.animation = "poprev 0.2s forwards"
         }
@@ -404,7 +385,6 @@ function CloseSettings() {
         setTimeout(() => {
             document.getElementById("betadialog").style.display = "none"
             document.getElementById("betaerror").style.display = "none"
-            // document.getElementById("fswarn").style.display = "none"
             document.getElementById("ppwin").style.display = "none"
         }, 200)
     }
@@ -472,104 +452,48 @@ function TestNotification() {
             setTimeout(CheckIfRunning, 1000)
             return
         } else {
-            if (config.fullscreen == true && fullscreen.gamename !== "") {
-                running = true
-                queue.shift(queueobj)
+            running = true
+            queue.shift(queueobj)
+            NotifyWinPos()
+            ipcRenderer.send('notifywin', queueobj)
+            LoadSound()
 
-                fullscreen["type"] = queueobj.type
-                fullscreen["style"] = queueobj.style
-                fullscreen["pos"] = queueobj.pos
-                fullscreen["width"] = queueobj.width
-                fullscreen["height"] = queueobj.height
-                fullscreen["achievement"] = queueobj.achievement
-                fullscreen["title"] = queueobj.title
-                fullscreen["desc"] = queueobj.desc
-                fullscreen["icon"] = queueobj.icon
-                fullscreen["screenshot"] = queueobj.screenshot
-                fullscreen["percent"] = queueobj.percent
-                fullscreen["audio"] = queueobj.audio
-
-                fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
-
-                if (config.screenshot == "true") {
-                    // !!! Need to add alternative for Linux/MacOS
-                    if (process.platform == "win32") {
-                        spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
-                    }
-                }
-
-                if (config.nvda == "true") {
-                    clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
-                }
-
-                if (config.ssoverlay == "true") {
-                    ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
-                }
-
-                if (config.extwin == true) {
-                    ipcRenderer.send('extwin', queueobj)
-                }
-
-                if (config.notifydebug == true) {
-                    ipcRenderer.send('notifydebug')
-                }
-
-                setTimeout(() => {
-                    running = false
-                    if (queue.length == 0) {
-                        console.log("%cQueue is empty.", "color: grey")
-                    } else {
-                        console.log(`%cQueue Position: ${queue.length}`, "color: grey")
-                    }
-                }, config.displaytime * 1000 + 1000)
-            } else {
-                running = true
-                queue.shift(queueobj)
-                NotifyWinPos()
-                ipcRenderer.send('notifywin', queueobj)
-                LoadSound()
-    
-                if (config.nvda == "true") {
-                    clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
-                }
-    
-                if (config.extwin == true) {
-                    ipcRenderer.send('extwin', queueobj)
-                }
-
-                if (config.notifydebug == true) {
-                    ipcRenderer.send('notifydebug')
-                }
-
-                ipcRenderer.once('startcircle', () => {
-                    document.getElementById("progresscircle").style.animation = `fill ${config.displaytime}s linear forwards`
-        
-                    if (document.getElementById("bodycont").style.display != "none") {
-                        document.getElementById("progresscircle").style.opacity = 1
-                    }
-        
-                    if (hover == true) {
-                        document.getElementById("progresscircle").style.background = "conic-gradient(black var(--circlepercentage), transparent 0)"
-                    } else {
-                        document.getElementById("progresscircle").style.background = "conic-gradient(white var(--circlepercentage), transparent 0)"
-                    }
-                })
-    
-                ipcRenderer.once('notrunning', () => {
-                    running = false
-                    document.getElementById("progresscircle").style.animation = "none"
-                    document.getElementById("progresscircle").style.opacity = 0
-
-                    if (queue.length == 0) {
-                        console.log("%cQueue is empty.", "color: grey")
-                    } else {
-                        console.log("%cQueue Position: " + queue.length, "color: grey")
-                    }
-                })
+            if (config.nvda == "true") {
+                clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
             }
+
+            if (config.extwin == true) {
+                ipcRenderer.send('extwin', queueobj)
+            }
+
+            ipcRenderer.once('startcircle', () => {
+                document.getElementById("progresscircle").style.animation = `fill ${config.displaytime}s linear forwards`
+    
+                if (document.getElementById("bodycont").style.display != "none") {
+                    document.getElementById("progresscircle").style.opacity = 1
+                }
+    
+                if (hover == true) {
+                    document.getElementById("progresscircle").style.background = "conic-gradient(black var(--circlepercentage), transparent 0)"
+                } else {
+                    document.getElementById("progresscircle").style.background = "conic-gradient(white var(--circlepercentage), transparent 0)"
+                }
+            })
+
+            ipcRenderer.once('notrunning', () => {
+                running = false
+                document.getElementById("progresscircle").style.animation = "none"
+                document.getElementById("progresscircle").style.opacity = 0
+
+                if (queue.length == 0) {
+                    console.log("%cQueue is empty.", "color: grey")
+                } else {
+                    console.log("%cQueue Position: " + queue.length, "color: grey")
+                }
+            })
         }
     }
-
+    
     CheckIfRunning()
 }
 
@@ -606,99 +530,45 @@ function TestRareNotification() {
             setTimeout(CheckIfRunning, 1000)
             return
         } else {
-            if (config.fullscreen == true && fullscreen.gamename !== "") {
-                running = true
-                queue.shift(queueobj)
+            running = true
+            queue.shift(queueobj)
+            NotifyWinPos()
+            ipcRenderer.send('notifywin', queueobj)
+            LoadRareSound()
 
-                fullscreen["type"] = queueobj.type
-                fullscreen["style"] = queueobj.style
-                fullscreen["pos"] = queueobj.pos
-                fullscreen["width"] = queueobj.width
-                fullscreen["height"] = queueobj.height
-                fullscreen["achievement"] = queueobj.achievement
-                fullscreen["title"] = queueobj.title
-                fullscreen["desc"] = queueobj.desc
-                fullscreen["icon"] = queueobj.icon
-                fullscreen["screenshot"] = queueobj.screenshot
-                fullscreen["percent"] = queueobj.percent
-                fullscreen["audio"] = queueobj.audio
-                
-                fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
+            if (config.nvda == "true") {
+                clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
+            }
 
-                if (config.rarescreenshot == "true") {
-                    // !!! Need to add alternative for Linux/MacOS
-                    if (process.platform == "win32") {
-                        spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
-                    }
-                }
+            if (config.extwin == true) {
+                ipcRenderer.send('extwin', queueobj)
+            }
 
-                if (config.nvda == "true") {
-                    clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
-                }
-
-                if (config.ssoverlay == "true") { 
-                    ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
-                }
-
-                if (config.extwin == true) {
-                    ipcRenderer.send('extwin', queueobj)
-                }
-
-                if (config.notifydebug == true) {
-                    ipcRenderer.send('notifydebug')
-                }
-
-                setTimeout(() => {
-                    running = false
-                    if (queue.length == 0) {
-                        console.log("%cQueue is empty.", "color: grey")
-                    } else {
-                        console.log(`%cQueue Position: ${queue.length}`, "color: grey")
-                    }
-                }, config.raredisplaytime * 1000 + 1000)
-            } else {
-                running = true
-                queue.shift(queueobj)
-                NotifyWinPos()
-                ipcRenderer.send('notifywin', queueobj)
-                LoadRareSound()
-    
-                if (config.nvda == "true") {
-                    clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
-                }
-    
-                if (config.extwin == true) {
-                    ipcRenderer.send('extwin', queueobj)
-                }
-
-                if (config.notifydebug == true) {
-                    ipcRenderer.send('notifydebug')
-                }
-                
+            ipcRenderer.once('startcircle', () => {
                 document.getElementById("progresscircle").style.animation = `fill ${config.raredisplaytime}s linear forwards`
                 
                 if (document.getElementById("bodycont").style.display != "none") {
                     document.getElementById("progresscircle").style.opacity = 1
                 }
-
+    
                 if (hover == true) {
                     document.getElementById("progresscircle").style.background = "conic-gradient(black var(--circlepercentage), transparent 0)"
                 } else {
                     document.getElementById("progresscircle").style.background = "conic-gradient(white var(--circlepercentage), transparent 0)"
                 }
+            })
 
-                ipcRenderer.once('notrunning', () => {
-                    running = false
-                    document.getElementById("progresscircle").style.animation = "none"
-                    document.getElementById("progresscircle").style.opacity = 0
+            ipcRenderer.once('notrunning', () => {
+                running = false
+                document.getElementById("progresscircle").style.animation = "none"
+                document.getElementById("progresscircle").style.opacity = 0
 
-                    if (queue.length == 0) {
-                        console.log("%cQueue is empty.", "color: grey")
-                    } else {
-                        console.log("%cQueue Position: " + queue.length, "color: grey")
-                    }
-                })
-            }
+                if (queue.length == 0) {
+                    console.log("%cQueue is empty.", "color: grey")
+                } else {
+                    console.log("%cQueue Position: " + queue.length, "color: grey")
+                }
+            })
         }
     }
 
@@ -898,9 +768,7 @@ function DropImage(event) {
                 GetBGType()
             }, 1000)
         }
-        paused = false
-        document.getElementById("pause").src = "./icon/pause_white.svg"
-        document.getElementById("webview").reload()
+        ReplayNotification()
     }
 }
 
@@ -943,9 +811,7 @@ function DropRareImage(event) {
                 GetRareBGType()
             }, 1000)
         }
-        paused = false
-        document.getElementById("pauserare").src = "./icon/pause_white.svg"
-        document.getElementById("webviewrare").reload()
+        ReplayRareNotification()
     }
 }
 
@@ -1803,7 +1669,7 @@ function CheckStartWin() {
 }
 
 // Resets "Start with Windows" option if type is String
-// Changed to boolean for use in new "Start with Windows" code (Beta Revision 0.6)
+// Changed to boolean for use in new "Start with Windows" code (App Revision 1.0)
 if (process.platform == "win32") {
     if (typeof config.startwin == "string") {
         console.log(`%c"config.startwin" is of type String - resetting to Boolean...`, "color: orange")
@@ -3357,43 +3223,11 @@ function GetAppIDFromRegKey() {
     }
 }
 
-// FULLSCREEN - Step 1: Writes "gamename" to "fullscreen.json" (which is used for window search)
-function GetGameName() {
-    return new Promise(resolve => {
-        const fullscreen = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","fullscreen.json")))
-        if (fullscreen.gamename == "" || fullscreen.gamename == undefined) {
-            fullscreen["gamename"] = gamename
-            fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
-            resolve()
-        } else {
-            resolve()
-        }
-    })
-}
-
 function SANIdle() {
     GetSteam3ID()
     console.log(`%cSteam3ID (For user logged into Steam client): ${steam3id}`, "color: seagreen")
     GetSteamPath()
     console.log(`%cSteam installation path: ${steampath}`, "color: seagreen")
-
-    // FULLSCREEN - Resets all values when app is started/game is closed
-    fullscreen["gamename"] = ""
-    fullscreen["type"] = ""
-    fullscreen["style"] = ""
-    fullscreen["pos"] = ""
-    fullscreen["width"] = ""
-    fullscreen["height"] = ""
-    fullscreen["achievement"] = ""
-    fullscreen["title"] = ""
-    fullscreen["desc"] = ""
-    fullscreen["icon"] = ""
-    fullscreen["screenshot"] = ""
-    fullscreen["percent"] = ""
-    fullscreen["audio"] = ""
-    fullscreen["gameicon"] = ""
-    fullscreen["gameart"] = ""
-    fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
 
     function StoreLocal() {
         var apikey = config.apikey
@@ -3414,7 +3248,7 @@ function SANIdle() {
 
     console.log(`%cDEBUG: "sanidle" CRON job starting...`,"color:yellow")
     var sanidle = new Cron("* * * * * *", () => {
-        GetAppIDFromRegKey()
+            GetAppIDFromRegKey()
         
         if (appid == 0 || appid == undefined) {
             // console.log("%cNo game detected", "color: darkred")
@@ -3475,32 +3309,9 @@ function SANIdle() {
             currgame = appid
             StartSAN()
 
-            if (process.platform == "win32") {
-                if (config.fullscreen == true) {
-                    // FULLSCREEN - Step 2: Awaits "gamename" to be populated, then starts "goverlay.exe" ("gamename" value is needed for Goverlay to find the name of the game window)
-                    GetGameName().then(() => {
-                        console.log(`%cAttempting to start GOverlay...`, "color: deeppink")
-
-                        execFile(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","app","GOverlay.exe"))
-                        .on('spawn', () => {
-                            console.log("%cGOverlay started", "color: deeppink")
-                        })
-                        .on('error', () => {
-                            console.log(`%cGOverlay Error: ${err}`, "color: red")
-                        })
-                        .on('exit', () => {
-                            console.log(`%cGOverlay closed`, "color: deeppink")
-                        })
-                    }).catch(err => {
-                        console.log(`GetGameName() Error: ${err}`, "color: red")
-                    })
-                }
-            }
-
             function GetCurrentStats() {
                 try {
                     JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","local.json")))
-                    ipcRenderer.send('statwingame', appid)
                 } catch (err) {
                     console.log("local.json is empty")
                     setTimeout(GetCurrentStats, 1000)
@@ -3541,21 +3352,8 @@ function CheckAchievements() {
     })
 }
 
-var gameicon
-var gameartimg
-
 async function StartSAN() {
     try {
-        ipcRenderer.on('gametrackdetails', (event, gamenamesrc, gameiconsrc, gameartimgsrc) => {
-            fullscreen["gamename"] = gamenamesrc
-            fullscreen["gameicon"] = gameiconsrc
-            fullscreen["gameart"] = gameartimgsrc
-            fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
-
-            gameicon = gameiconsrc
-            gameartimg = gameartimgsrc
-        })
-
         await CheckAchievements()
 
         var apikey = config.apikey
@@ -3637,99 +3435,39 @@ async function StartSAN() {
                         } else {
                             running = true
                             queue.shift(queueobj)
-
-                            // FULLSCREEN - Step 3: Values are written to "fullscreen.json". Goverlay checks for changes to this file to trigger a notification (and includes this info in the notification)
-                            // Note: "gamename"/"gameicon"/"gameart" are already written to "fullscreen.json" on game launch (main.js:249)
-                            if (config.fullscreen == true) {
-                                // fullscreen["gamename"] = gamename
-                                fullscreen["type"] = queueobj.type
-                                fullscreen["style"] = queueobj.style
-                                fullscreen["pos"] = queueobj.pos
-                                fullscreen["width"] = queueobj.width
-                                fullscreen["height"] = queueobj.height
-                                fullscreen["achievement"] = queueobj.achievement
-                                fullscreen["title"] = queueobj.title
-                                fullscreen["desc"] = queueobj.desc
-                                fullscreen["icon"] = queueobj.icon
-                                fullscreen["screenshot"] = queueobj.screenshot
-                                fullscreen["percent"] = queueobj.percent
-                                fullscreen["audio"] = queueobj.audio
-                                // fullscreen["gameicon"] = gameicon
-                                // fullscreen["gameart"] = gameartimg
-                                fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
-
-                                if (config.screenshot == "true") {
-                                    // !!! Need to add alternative for Linux/MacOS
-                                    if (process.platform == "win32") {
-                                        spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
-                                    }
+                            NotifyWinPos()
+                            if (config.screenshot == "true") {
+                                // !!! Need to add alternative for Linux/MacOS
+                                if (process.platform == "win32") {
+                                    spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
                                 }
-
-                                if (config.nvda == "true") {
-                                    clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
-                                }
-
-                                if (config.ssoverlay == "true") {
-                                    ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
-                                }
-
-                                if (config.extwin == true) {
-                                    ipcRenderer.send('extwin', queueobj)
-                                }
-
-                                if (config.notifydebug == true) {
-                                    ipcRenderer.send('notifydebug')
-                                }
-
-                                setTimeout(() => {
-                                    running = false
-                                    if (queue.length == 0) {
-                                        console.log("%cQueue is empty.", "color: grey")
-                                    } else {
-                                        console.log(`%cQueue Position: ${queue.length}`, "color: grey")
-                                    }
-                                }, config.displaytime * 1000 + 1000)
-                            } else {
-                                running = true
-                                queue.shift(queueobj)
-                                NotifyWinPos()
-                                if (config.screenshot == "true") {
-                                    // !!! Need to add alternative for Linux/MacOS
-                                    if (process.platform == "win32") {
-                                        spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
-                                    }
-                                }
-                                ipcRenderer.send('notifywin', queueobj)
-                                LoadSound()
-    
-                                if (config.nvda == "true") {
-                                    clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
-                                }
-    
-                                if (config.ssoverlay == "true") {
-                                    ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
-                                }
-
-                                if (config.extwin == true) {
-                                    ipcRenderer.send('extwin', queueobj)
-                                }
-
-                                if (config.notifydebug == true) {
-                                    ipcRenderer.send('notifydebug')
-                                }
-    
-                                ipcRenderer.once('notrunning', () => {
-                                    running = false
-                                    if (queue.length == 0) {
-                                        console.log("%cQueue is empty.", "color: grey")
-                                    } else {
-                                        console.log(`%cQueue Position: ${queue.length}`, "color: grey")
-                                    }
-                                })
                             }
+                            ipcRenderer.send('notifywin', queueobj)
+                            LoadSound()
+
+                            if (config.nvda == "true") {
+                                clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
+                            }
+
+                            if (config.ssoverlay == "true") {
+                                ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
+                            }
+
+                            if (config.extwin == true) {
+                                ipcRenderer.send('extwin', queueobj)
+                            }
+
+                            ipcRenderer.once('notrunning', () => {
+                                running = false
+                                if (queue.length == 0) {
+                                    console.log("%cQueue is empty.", "color: grey")
+                                } else {
+                                    console.log(`%cQueue Position: ${queue.length}`, "color: grey")
+                                }
+                            })
                         }
                     }
-                
+
                     CheckIfRunning()
                 }
 
@@ -3778,99 +3516,39 @@ async function StartSAN() {
                         } else {
                             running = true
                             queue.shift(queueobj)
-
-                            // FULLSCREEN - Step 3: Values are written to "fullscreen.json". Goverlay checks for changes to this file to trigger a notification (and includes this info in the notification)
-                            // Note: "gamename"/"gameicon"/"gameart" are already written to "fullscreen.json" on game launch (main.js:249)
-                            if (config.fullscreen == true) {
-                                // fullscreen["gamename"] = gamename
-                                fullscreen["type"] = queueobj.type
-                                fullscreen["style"] = queueobj.style
-                                fullscreen["pos"] = queueobj.pos
-                                fullscreen["width"] = queueobj.width
-                                fullscreen["height"] = queueobj.height
-                                fullscreen["achievement"] = queueobj.achievement
-                                fullscreen["title"] = queueobj.title
-                                fullscreen["desc"] = queueobj.desc
-                                fullscreen["icon"] = queueobj.icon
-                                fullscreen["screenshot"] = queueobj.screenshot
-                                fullscreen["percent"] = queueobj.percent
-                                fullscreen["audio"] = queueobj.audio
-                                // fullscreen["gameicon"] = gameicon
-                                // fullscreen["gameart"] = gameartimg
-                                fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
-
-                                if (config.rarescreenshot == "true") {
-                                    // !!! Need to add alternative for Linux/MacOS
-                                    if (process.platform == "win32") {
-                                        spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
-                                    }
+                            NotifyWinPos()
+                            ipcRenderer.send('notifywin', queueobj)
+                            if (config.rarescreenshot == "true") {
+                                // !!! Need to add alternative for Linux/MacOS
+                                if (process.platform == "win32") {
+                                    spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
                                 }
-
-                                if (config.nvda == "true") {
-                                    clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
-                                }
-
-                                if (config.ssoverlay == "true") { 
-                                    ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
-                                }
-
-                                if (config.extwin == true) {
-                                    ipcRenderer.send('extwin', queueobj)
-                                }
-
-                                if (config.notifydebug == true) {
-                                    ipcRenderer.send('notifydebug')
-                                }
-
-                                setTimeout(() => {
-                                    running = false
-                                    if (queue.length == 0) {
-                                        console.log("%cQueue is empty.", "color: grey")
-                                    } else {
-                                        console.log(`%cQueue Position: ${queue.length}`, "color: grey")
-                                    }
-                                }, config.raredisplaytime * 1000 + 1000)
-                            } else {
-                                running = true
-                                queue.shift(queueobj)
-                                NotifyWinPos()
-                                ipcRenderer.send('notifywin', queueobj)
-                                if (config.rarescreenshot == "true") {
-                                    // !!! Need to add alternative for Linux/MacOS
-                                    if (process.platform == "win32") {
-                                        spawn("powershell.exe",["-Command",`Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('{${configkeybind}}');`])
-                                    }
-                                    // } else if (process.platform == "linux") {
-                                    //     spawn("gnome-terminal",[`xdotool key ${configkeybind}`])
-                                    // }
-                                }
-                                LoadRareSound()
-    
-                                if (config.nvda == "true") {
-                                    clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
-                                }
-    
-                                if (config.ssoverlay == "true") { 
-                                    ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
-                                }
-
-                                if (config.extwin == true) {
-                                    ipcRenderer.send('extwin', queueobj)
-                                }
-
-                                if (config.notifydebug == true) {
-                                    ipcRenderer.send('notifydebug')
-                                }
-    
-                                ipcRenderer.once('notrunning', () => {
-                                    running = false
-                                    if (queue.length == 0) {
-                                        console.log("%cQueue is empty.", "color: grey")
-                                    } else {
-                                        console.log(`%cQueue Position: ${queue.length}`, "color: grey")
-                                    }
-                                })
+                                // } else if (process.platform == "linux") {
+                                //     spawn("gnome-terminal",[`xdotool key ${configkeybind}`])
+                                // }
                             }
+                            LoadRareSound()
+
+                            if (config.nvda == "true") {
+                                clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
+                            }
+
+                            if (config.ssoverlay == "true") { 
+                                ipcRenderer.send('img', notifytitle, notifydesc, notifyicon, gamename, queueobj.type, percent)
+                            }
+
+                            if (config.extwin == true) {
+                                ipcRenderer.send('extwin', queueobj)
+                            }
+
+                            ipcRenderer.once('notrunning', () => {
+                                running = false
+                                if (queue.length == 0) {
+                                    console.log("%cQueue is empty.", "color: grey")
+                                } else {
+                                    console.log(`%cQueue Position: ${queue.length}`, "color: grey")
+                                }
+                            })
                         }
                     }
                 
@@ -3956,8 +3634,6 @@ async function StartSAN() {
                             }
                         }
 
-                        ipcRenderer.send('updatestatwin', apiname)
-
                         setTimeout(() => {
                             fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), JSON.stringify(url))
                             local = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","local.json")))
@@ -3992,22 +3668,12 @@ async function StartSAN() {
             if (appid == 0 || appid == undefined || appid !== currgame) {
                 checkgame.stop()
                 console.log(`%cDEBUG: "checkgame" CRON job stopped [AppID is 0]`,"color:yellow")
-
-                // FULLSCREEN - Step 4: Force close "goverlay.exe" (and all associated sub-processes) when no App ID is detected.
-                if (process.platform == "win32") {
-                    spawn("powershell.exe", ["-Command","taskkill /f /im goverlay.exe"])
-                } else if (process.platform == "linux") {
-                    exec("pkill goverlay")
-                }
-
                 fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), "")
                 document.getElementById("gamestatus").style.color = "red"
                 document.getElementById("gamestatus").innerHTML = nogame
                 ipcRenderer.send('idle', traylabel, trayshow, trayexit)
                 currgame = null
                 SANIdle()
-
-                ipcRenderer.send('statwinnogame')
             } else {
                 fs.stat(`${steampath}/appcache/stats/UserGameStats_${steam3id}_${appid}.bin`, (err, stats) => {
                     if (err) {
@@ -4035,22 +3701,12 @@ async function StartSAN() {
             if (appid == 0 || appid == undefined || appid !== currgame) {
                 checkappid.stop()
                 console.log(`%cDEBUG: "checkappid" CRON job stopped`,"color:yellow")
-                
-                // FULLSCREEN - Step 4: Force close "goverlay.exe" (and all associated sub-processes) when no App ID is detected.
-                if (process.platform == "win32") {
-                    spawn("powershell.exe", ["-Command","taskkill /f /im goverlay.exe"])
-                } else if (process.platform == "linux") {
-                    exec("pkill goverlay")
-                }
-
                 fs.writeFileSync(path.join(sanlocalappdata,"store","local.json"), "")
                 document.getElementById("gamestatus").style.color = "red"
                 document.getElementById("gamestatus").innerHTML = nogame
                 ipcRenderer.send('idle', traylabel, trayshow, trayexit)
                 currgame = null
                 SANIdle()
-
-                ipcRenderer.send('statwinnogame')
             }
         })
     }
@@ -4306,55 +3962,24 @@ function GameCompletionNotification() {
         } else {
             running = true
             queue.shift(queueobj)
-            
-            // FULLSCREEN - Step 3: Values are written to "fullscreen.json". Goverlay checks for changes to this file to trigger a notification (and includes this info in the notification)
-            // Note: "gamename"/"gameicon"/"gameart" are already written to "fullscreen.json" on game launch (main.js:249)
-            if (config.fullscreen == true) {
-                fullscreen["type"] = queueobj.type
-                fullscreen["style"] = queueobj.style
-                fullscreen["achievement"] = queueobj.achievement
-                fullscreen["title"] = queueobj.title
-                fullscreen["desc"] = queueobj.desc
-                fullscreen["icon"] = queueobj.icon
-                fullscreen["screenshot"] = queueobj.screenshot
-                fullscreen["percent"] = queueobj.percent
-                fullscreen["audio"] = queueobj.audio
-                fs.writeFileSync(path.join(sanlocalappdata,"store","fullscreen.json"), JSON.stringify(fullscreen, null, 2))
+            NotifyWinPos()
+            ipcRenderer.send('notifywin', queueobj)
+            var audio = document.getElementById("audiorare")
+            LoadRareSound()
+            audio.play()
 
-                if (config.nvda == "true") {
-                    clipboard.writeText(`${notifyachievement} ${notifytitle} ${notifydesc}`)
-                }
-
-                setTimeout(() => {
-                    running = false
-                    if (queue.length == 0) {
-                        console.log("%cQueue is empty.", "color: grey")
-                    } else {
-                        console.log(`%cQueue Position: ${queue.length}`, "color: grey")
-                    }
-                }, config.raredisplaytime * 1000 + 1000)
-            } else {
-                running = true
-                queue.shift(queueobj)
-                NotifyWinPos()
-                ipcRenderer.send('notifywin', queueobj)
-                var audio = document.getElementById("audiorare")
-                LoadRareSound()
-                audio.play()
-    
-                if (config.nvda == "true") {
-                    clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
-                }
-    
-                ipcRenderer.once('notrunning', () => {
-                    running = false
-                    if (queue.length == 0) {
-                        console.log("%cQueue is empty.", "color: grey")
-                    } else {
-                        console.log("%cQueue Position: " + queue.length, "color: grey")
-                    }
-                })
+            if (config.nvda == "true") {
+                clipboard.writeText(notifyachievement + " " + notifytitle + " " + notifydesc)
             }
+
+            ipcRenderer.once('notrunning', () => {
+                running = false
+                if (queue.length == 0) {
+                    console.log("%cQueue is empty.", "color: grey")
+                } else {
+                    console.log("%cQueue Position: " + queue.length, "color: grey")
+                }
+            })
         }
     }
 
@@ -4519,14 +4144,6 @@ function CheckCustomPos() {
         document.getElementById("dragposbtn").style.display = "none"
         document.getElementById("notifypositioncont").style.opacity = "1"
         document.getElementById("notifypositioncont").style.pointerEvents = "auto"
-
-        if (config.fullscreen == true) {
-            document.getElementById("dragposcont").style.pointerEvents = "none"
-            document.getElementById("dragposcont").style.opacity = "0.5"
-        } else {
-            document.getElementById("dragposcont").style.pointerEvents = "auto"
-            document.getElementById("dragposcont").style.opacity = "1"
-        }
     } else {
         document.getElementById("dragposbox").checked = true
         document.getElementById("dragposbtn").style.display = "flex"
@@ -5066,220 +4683,6 @@ ipcRenderer.on('extwinclosed', () => {
     CheckExtWin()
 })
 
-// FULLSCREEN FUNCTIONS
-
-// function CheckFullscreen() {
-//     if (config.fullscreen == undefined) {
-//         config["fullscreen"] = false
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     }
-
-//     if (config.fullscreenagree == undefined) {
-//         config["fullscreenagree"] = false
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     }
-    
-//     if (config.fullscreen == true) {
-//         document.getElementById("fullscreenbox").checked = true
-//         // document.getElementById("fsresopt").style.display = "flex"
-//         document.getElementById("fsselect").style.display = "flex"
-    
-//         config["custompos"] = "false"
-//         config["rarecustompos"] = "false"
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     } else {
-//         document.getElementById("fullscreenbox").checked = false
-//         // document.getElementById("fsresopt").style.display = "none"
-//         document.getElementById("fsselect").style.display = "none"
-//     }
-
-//     CheckCustomPos()
-//     CheckCustomPosRare()
-// }
-
-// CheckFullscreen()
-
-// function ToggleFullscreen() {
-//     if (config.fullscreen == false && config.fullscreenagree == false) {
-//         ShowFullscreenWarning()
-//     } else if (config.fullscreen == false && config.fullscreenagree == true) {
-//         EnableFullscreen()
-//     } else {
-//         config["fullscreen"] = false
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//         CheckFullscreen()
-//         ipcRenderer.send('relaunchapp')
-//     }
-// }
-
-// function ShowFullscreenWarning() {
-//     document.getElementById("fswarn").style.display = "flex";
-//     document.getElementById("fswarn").style.animation = "pop 0.5s forwards"
-//     document.getElementById("overlay").style.zIndex = "19"
-// }
-
-// function CloseFullscreenWarning() {
-//     document.getElementById("fswarn").style.animation = "poprev 0.2s forwards"
-//     document.getElementById("fswarncontenttop").scrollIntoView()
-//     document.getElementById("fshidemsgbox").checked = false
-//     setTimeout(() => {
-//         document.getElementById("fswarn").style.display = "none"
-//         document.getElementById("overlay").style.zIndex = "3"
-
-//         document.getElementById("fsok").style.opacity = "0.5"
-//         document.getElementById("fsok").style.pointerEvents = "none"
-//         document.getElementById("fscancel").style.opacity = "0.5"
-//         document.getElementById("fscancel").style.pointerEvents = "none"
-
-//         CheckFullscreen()
-//     }, 200)
-// }
-
-// function HideMsg() {
-//     if (document.getElementById("fshidemsgbox").checked == true) {
-//         config["fullscreenagree"] = true
-//     } else {
-//         config["fullscreenagree"] = false
-//     }
-//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-// }
-
-// function ResetHideMsg() {
-//     config["fullscreenagree"] = false
-//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-// }
-
-// function EnableFullscreen() { 
-//     config["fullscreen"] = true
-//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     CloseFullscreenWarning()
-//     ipcRenderer.send('relaunchapp')
-// }
-
-// function CheckScroll(event) {
-//     if (Math.floor(event.target.scrollHeight - event.target.scrollTop) <= Math.floor(event.target.clientHeight)) {
-//         document.getElementById("fsok").style.opacity = "1"
-//         document.getElementById("fsok").style.pointerEvents = "auto"
-//         document.getElementById("fscancel").style.opacity = "1"
-//         document.getElementById("fscancel").style.pointerEvents = "auto"
-//     }
-// }
-
-// TEST CODE
-
-// function CheckCustomRes() {
-//     if (config.customres == undefined) {
-//         config["customres"] = false
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     }
-
-//     if (config.customres == true) {
-//         document.getElementById("fsresbox").checked = true
-//         document.getElementById("fsrescont").style.display = "flex"
-//     } else {
-//         document.getElementById("fsresbox").checked = false
-//         document.getElementById("fsrescont").style.display = "none"
-//     }
-// }
-
-// CheckCustomRes()
-
-// function ToggleCustomRes() {
-//     if (config.customres == false) {
-//         config["customres"] = true
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     } else {
-//         config["customres"] = false
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     }
-
-//     CheckCustomRes()
-// }
-
-// if (config.fswidth == undefined) {
-//     config["fswidth"] = 1920
-//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-// }
-
-// if (config.fsheight == undefined) {
-//     config["fsheight"] = 1080
-//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-// }
-
-// document.getElementById("fswidth").value = config.fswidth
-// document.getElementById("fsheight").value = config.fsheight
-
-// function CheckFSResWidth() {
-//     const w = document.getElementById("fswidth")
-//     if (w.value < 800) {
-//         w.value = 800
-//     } else if (w.value > 8192) {
-//         w.value = 8192
-//     }
-    
-//     w.style.animation = "flash 0.5s forwards"
-    
-//     w.addEventListener('animationend', event => {
-//         if (event.animationName == "flash") {
-//             w.style.animation = null
-//         }
-//     })
-
-//     config["fswidth"] = parseInt(w.value)
-//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-// }
-
-// function CheckFSResHeight() {
-//     const h = document.getElementById("fsheight")
-//     if (h.value < 600) {
-//         h.value = 600
-//     } else if (h.value > 4320) {
-//         h.value = 4320
-//     }
-
-//     h.style.animation = "flash 0.5s forwards"
-    
-//     h.addEventListener('animationend', event => {
-//         if (event.animationName == "flash") {
-//             h.style.animation = null
-//         }
-//     })
-
-//     config["fsheight"] = parseInt(h.value)
-//     fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-// }
-
-// TEST CODE
-
-// function CheckSelWin() {
-//     if (config.fsselect == undefined) {
-//         config["fsselect"] = false
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     }
-
-//     if (config.fsselect == true) {
-//         document.getElementById("fsselectbox").checked = true
-//     } else {
-//         document.getElementById("fsselectbox").checked = false
-//     }
-// }
-
-// CheckSelWin()
-
-// function ToggleSelWin() {
-//     if (config.fsselect == false) {
-//         config["fsselect"] = true
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     } else {
-//         config["fsselect"] = false
-//         fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-//     }
-
-//     CheckSelWin()
-// }
-
-// FULLSCREEN FUNCTIONS
-
 function OpenPP() {
     document.getElementById("ppwin").style.display = "flex"
     document.getElementById("ppwin").style.animation = "pop 0.5s forwards"
@@ -5292,160 +4695,6 @@ function ClosePP() {
     setTimeout(() => {
         document.getElementById("ppwin").style.display = "none"
     }, 200)
-}
-
-document.getElementById("displaymodecont").style.background = "transparent"
-
-function CheckFS() {
-    if (config.fullscreen == undefined) {
-        config["fullscreen"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
-
-    if (config.fullscreen == false) {
-        document.getElementById("displaymodeimg").src = "./icon/monitor.svg"
-        document.getElementById("displaymodelbl").innerHTML = "BORDERLESS"
-    } else {
-        document.getElementById("displaymodeimg").src = "./icon/monitorfs.svg"
-        document.getElementById("displaymodelbl").innerHTML = "FULLSCREEN"
-
-        config["custompos"] = "false"
-        config["rarecustompos"] = "false"
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
-
-    CheckCustomPos()
-    CheckCustomPosRare()
-}
-
-CheckFS()
-
-function ToggleFS() {
-    if (config.fullscreen == false) {
-        config["fullscreen"] = true
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-        document.getElementById("displaymodecont").style.background = "blueviolet"
-    } else {
-        config["fullscreen"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-        document.getElementById("displaymodecont").style.background = "rgb(32,62,122)"
-    }
-
-    CheckFS()
-}
-
-function FSHover() {
-    if (config.fullscreen == true) {
-        document.getElementById("displaymodecont").style.background = "blueviolet"
-    } else {
-        document.getElementById("displaymodecont").style.background = "rgb(32,62,122)"
-    }
-}
-
-function FSOut() {
-    document.getElementById("displaymodecont").style.background = "transparent"
-}
-
-// Reset "Show Stats Window" on app launch
-// Prevents option from being true but no window being spawned on launch
-function StatWinReset() {
-    config["statwin"] = false
-    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    document.getElementById("statwinbox").checked = false
-}
-
-StatWinReset()
-
-function CheckStatWin() {
-    if (config.statwin == undefined) {
-        config["statwin"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
-
-    if (config.statwin == true) {
-        document.getElementById("statwinbox").checked = true
-    } else {
-        document.getElementById("statwinbox").checked = false
-    }
-}
-
-CheckStatWin()
-
-function OpenStatWin() {
-    if (config.statwin == false) {
-        config["statwin"] = true
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-
-        var translations = {
-            current: statwincurrent,
-            nogame: nogame,
-            allgames: statwinall,
-            complete: statwincomplete,
-            top5: statwintop5
-        }
-        
-        ipcRenderer.send('spawnstatwin', launcher.user, translations)
-
-        if (appid != 0) {
-            ipcRenderer.send('statwingame', appid)
-        }
-    } else {
-        config["statwin"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-        ipcRenderer.send('despawnstatwin')
-    }
-
-    CheckStatWin()
-}
-
-ipcRenderer.on('statwinclosed', () => {
-    config["statwin"] = false
-    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    CheckStatWin()
-})
-
-function ResetStats() {
-    const options = {
-        title: "Steam Achievement Notifier",
-        icon: (path.join(__dirname, "img","sanlogo.ico")),
-        message: statsresettitle,
-        detail: statsresetbody,
-        buttons: statsresetbtns,
-        noLink: true,
-        defaultId: 1,
-        cancelId: 1
-    }
-
-    ipcRenderer.send('resetstats', options)
-}
-
-ipcRenderer.on('clearlocalstorage', () => {
-    try {
-        localStorage.clear()
-        console.log("Stats removed")
-    } catch (err) {
-        alert(err)
-    }
-
-    config["statwin"] = false
-    fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    CheckStatWin()
-})
-
-ipcRenderer.on('statwinopen', () => {
-    if (appid != 0) {
-        ipcRenderer.send('statwingame', appid)
-    }
-})
-
-function StatResetHover() {
-    document.getElementById("statwinresetcont").style.background = "white"
-    document.getElementById("statwinreset").style.filter = "invert()"
-}
-
-function StatResetOut() {
-    document.getElementById("statwinresetcont").style.background = "rgb(32,62,122)"
-    document.getElementById("statwinreset").style.filter = "none"
 }
 
 function CircleHover() {
@@ -5573,33 +4822,6 @@ function RemoveTextOutRare() {
 
     ReplayRareNotification()
     CheckTextOutRare()
-}
-
-function CheckNotifyDebug() {
-    if (config.notifydebug == undefined) {
-        config["notifydebug"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
-
-    if (config.notifydebug == true) {
-        document.getElementById("notifydebugbox").checked = true
-    } else {
-        document.getElementById("notifydebugbox").checked = false
-    }
-}
-
-CheckNotifyDebug()
-
-function ToggleNotifyDebug() {
-    if (config.notifydebug == true) {
-        config["notifydebug"] = false
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    } else {
-        config["notifydebug"] = true
-        fs.writeFileSync(path.join(sanlocalappdata,"store","config.json"), JSON.stringify(config, null, 2))
-    }
-
-    CheckNotifyDebug()
 }
 
 function OpenLink(link) {

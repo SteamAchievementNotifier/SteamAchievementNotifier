@@ -21,7 +21,8 @@ if (process.platform == "win32") {
     // !!! Re-add if Steam can be stopped/restarted via shortcut, and if "SkinV5" regkey exists in "registry.vdf" after changing skin
     document.getElementById("nosteam").style.display = "none"
     // !!! Re-add if GOverlay AppImage can be uploaded to GitHub (file size limit is 100MB)
-    document.getElementById("fullscreen").style.display = "none"
+    // document.getElementById("fullscreen").style.display = "none"
+    document.getElementById("displaymodecont").style.display = "none"
 } else if (process.platform == "darwin") {
     localappdata = path.join(process.env.HOME,"Library","Application Support")
 
@@ -31,7 +32,8 @@ if (process.platform == "win32") {
     // !!! Re-add if Steam can be stopped/restarted via shortcut, and if "SkinV5" regkey exists in "registry.vdf" after changing skin
     document.getElementById("nosteam").style.display = "none"
     // !!! Re-add if GOverlay portable PKG can be uploaded to GitHub
-    document.getElementById("fullscreen").style.display = "none"
+    // document.getElementById("fullscreen").style.display = "none"
+    document.getElementById("displaymodecont").style.display = "none"
 } else {
     alert(`Steam Achievement Notifier is not supported on ${process.platform}!`)
     ipcRenderer.send("uninstallcomplete")
@@ -58,6 +60,12 @@ if (process.platform == "win32") {
         }
     }
     
+    launcher = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","launcher.json")))
+    launcher["firstlaunch"] = false
+    fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2))
+} else {
+    // !!! Added as "else" statement as to not affect current Windows App Revision (Beta 0.6)
+    // !!! Will be updated in after testing in later version
     launcher = JSON.parse(fs.readFileSync(path.join(sanlocalappdata,"store","launcher.json")))
     launcher["firstlaunch"] = false
     fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2))
@@ -328,6 +336,11 @@ function ResetApp() {
     RemoveApp()
 
     if (process.platform == "win32") {
+        launcher["firstlaunch"] = true
+        fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2))
+    } else {
+        // !!! Added as "else" statement as to not affect current Windows App Revision (Beta 0.6)
+        // !!! Will be updated in after testing in later version
         launcher["firstlaunch"] = true
         fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2))
     }
@@ -1416,6 +1429,11 @@ function GetPlayerName() {
             document.getElementById("username").innerHTML = data.response.players[0].personaname
 
             if (process.platform == "win32") {
+                launcher["user"] = data.response.players[0].personaname
+                fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2))
+            } else {
+                // !!! Added as "else" statement as to not affect current Windows App Revision (Beta 0.6)
+                // !!! Will be updated in after testing in later version
                 launcher["user"] = data.response.players[0].personaname
                 fs.writeFileSync(path.join(sanlocalappdata,"store","launcher.json"), JSON.stringify(launcher, null, 2))
             }

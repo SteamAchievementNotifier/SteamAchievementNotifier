@@ -705,7 +705,7 @@ function Run() {
                             async function CheckForUpdates() {
                                 await CheckVersion()
         
-                                if (branch == "beta") {
+                                if (branch == "beta" && process.platform == "win32") {
                                     if (!fs.existsSync(path.join(localappdata,appdatadir,"store","app","GOverlay.exe"))) {
                                         function DownloadGOverlay() {
                                             return new Promise(resolve => {

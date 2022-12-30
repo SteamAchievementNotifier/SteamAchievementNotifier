@@ -3499,7 +3499,7 @@ function SANIdle() {
                     GetGameName().then(() => {
                         console.log(`%cAttempting to start GOverlay...`, "color: deeppink")
 
-                        execFile(path.join(localappdata,`Steam Achievement Notifier (${appdir})`,"store","app","GOverlay.exe"))
+                        spawn("powershell.exe",["-Command",`start "${path.join(sanlocalappdata,"store","app","GOverlay.exe")}"`])
                         .on('spawn', () => {
                             console.log("%cGOverlay started", "color: deeppink")
                         })

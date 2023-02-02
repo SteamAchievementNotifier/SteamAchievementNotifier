@@ -2,8 +2,8 @@ document.getElementById("username").innerHTML = "Nessun Utente Rilevato";
 document.getElementById("gamestatus").innerHTML = "Nessun Gioco Rilevato";
 document.getElementById("soundfile").innerHTML = "Predefinito (Nessun Suono Selezionato)";
 document.getElementById("soundfilerare").innerHTML = "Predefinito (Nessun Suono Selezionato)";
-document.getElementById("maincheevsound").innerHTML = "Suono Principale";
-document.getElementById("rarecheevsound").innerHTML = "Suono Raro";
+document.getElementById("maincheevsound").innerHTML = "Suono Achievement Principale";
+document.getElementById("rarecheevsound").innerHTML = "Suono Achievement Raro";
 document.getElementById("test").innerHTML = "MOSTRA NOTIFICA DI PROVA";
 document.getElementById("testrare").innerHTML = "MOSTRA NOTIFICA DI PROVA RARA";
 document.getElementById("settingstitle").innerHTML = "IMPOSTAZIONI";
@@ -16,8 +16,8 @@ document.getElementById("showscreenshotlblrare").innerHTML = "Fai uno Screenshot
 document.getElementById("previewlbl").innerHTML = "Visualizza Anteprima"
 document.getElementById("previewlblrare").innerHTML = "Visualizza Anteprima"
 document.getElementById("desktoplbl").innerHTML = "Collegamento Sul Desktop";
-document.getElementById("startwinlbl").innerHTML = "Inizia con Windows";
-document.getElementById("startminlbl").innerHTML = "Inizio Ridotto a Icona";
+document.getElementById("startwinlbl").innerHTML = "Avvia con Windows";
+document.getElementById("startminlbl").innerHTML = "Avvia Ridotto a Icona";
 document.getElementById("soundonlylbl").innerHTML = "Modalità Solo Audio";
 document.getElementById("trackinglbl").innerHTML = 'Mostra Notifica "Ora Osservando"';
 
@@ -25,7 +25,7 @@ nouser = "Nessun Utente Rilevato";
 nogame = "Nessun Gioco Rilevato";
 nosound = "Predefinito (Nessun Suono Selezionato)";
 nosoundrare = "Predefinito (Nessun Suono Selezionato)";
-rareheader = `'Obiettivo Raro Sbloccato!`;
+rareheader = `'Achievement Raro Sbloccato!`;
 unlinked = "SCOLLEGATO";
 linked = "COLLEGATO";
 novalue = "Per favore inserisci un valore";
@@ -39,8 +39,8 @@ trayshow = "Mostra";
 trayexit = "Esci";
 
 //!!!1.8 Translations;
-achievementunlocked = "Obiettivo Sbloccato!";
-rareachievementunlocked = "Raro Obiettivo Sbloccato!";
+achievementunlocked = "Achievement Sbloccato!";
+rareachievementunlocked = "Achievement Raro Sbloccato!";
 testdesc = "Le tue notifiche funzionano correttamente";
 
 addsound = "Aggiungi Suono";
@@ -128,8 +128,8 @@ document.getElementById("ssmaintestbtn").innerHTML = "ANTEPRIMA IMMAGINE PRINCIP
 document.getElementById("ssraretestbtn").innerHTML = "ANTEPRIMA IMMAGINE RARA";
 
 secret = "Segreto";
-gamecomplete = "Gioco Completo!";
-allunlocked = "Hai sbloccato tutti gli obiettivi!";
+gamecomplete = "Gioco Completato!";
+allunlocked = "Hai sbloccato tutti gli achievement!";
 
 // Beta Translations (App Revision 0.8)
 document.getElementById("betatagline").innerHTML = `Unisciti al <span id="betahighlight" style="color: blueviolet; font-weight: bold;">&nbsp;Canale Beta&nbsp;</span> per l'accesso anticipato!`
@@ -143,13 +143,13 @@ document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier 
 document.getElementById("betaok").innerHTML = "Sì, suona bene!"
 document.getElementById("betacancel").innerHTML = "No, rimango qui..."
 
-document.getElementById("leavebetatitle").innerHTML = "Uscire Canale Beta?"
+document.getElementById("leavebetatitle").innerHTML = "Uscire dal Canale Beta?"
 document.getElementById("leavebetasub").innerHTML = "L'app tornerà alla versione ufficiale più recente"
-document.getElementById("leavebetaok").innerHTML = "Uscire Canale Beta"
+document.getElementById("leavebetaok").innerHTML = "Esci dal Canale Beta"
 document.getElementById("leavebetacancel").innerHTML = "Rimani sul Canale Beta"
 
-betajoin = "Unisciti Canale Beta"
-betaleave = "Uscire Canale Beta"
+betajoin = "Unisciti al Canale Beta"
+betaleave = "Uscire dal Canale Beta"
 betaerrortext = "Impossibile aggiornare al Canale Beta!"
 betaerrorsub = "Sembra che tu non abbia una connessione di rete. Niente internet = Niente Beta!"
 
@@ -176,7 +176,7 @@ document.getElementById("ppcontent").innerHTML = `
     <div class="ppbodycont">
         Steam Achievement Notifier utilizza l'<span class="pplink" onclick="OpenLink('https://steamcommunity.com/dev')">API Steam Web</span> di Valve per recuperare e visualizzare i dati relativi agli account Steam dell'utente, tramite la combinazione ID Chiave API di Steam/Steam64 fornita all'applicazione dall'utente. Questi dati includono:<br><br>
         <div class="ppbodyembed">
-            • Statistiche per obiettivi bloccati e sbloccati<br>
+            • Statistiche per achievement bloccati e sbloccati<br>
             • Il tuo nome utente Steam<br>
             • Hai giocato ai giochi di Steam<br>
         </div>
@@ -187,7 +187,7 @@ document.getElementById("ppcontent").innerHTML = `
         <span class="ppheadercontent">CHIAVE API DI STEAM/STEAM64 ID UTILIZZO</span>
     </div>
     <div class="ppbodycont">
-        Steam Achievement Notifier richiede all'utente di inserire la combinazione di ID Chiave API di Steam/Steam64 per l'accesso autenticato all'API Web di Steam. Senza queste informazioni, non è possibile accedere ai collegamenti Web (forniti per l'uso da Valve per accedere all'API Web di Steam) utilizzati per recuperare i dati relativi agli account Steam di un utente, inclusi i dati sugli obiettivi.
+        Steam Achievement Notifier richiede all'utente di inserire la combinazione di ID Chiave API di Steam/Steam64 per l'accesso autenticato all'API Web di Steam. Senza queste informazioni, non è possibile accedere ai collegamenti Web (forniti per l'uso da Valve per accedere all'API Web di Steam) utilizzati per recuperare i dati relativi agli account Steam di un utente, inclusi i dati sugli achievement.
     </div>
     <div class="ppheader">
         <span class="ppheadercontent">ARCHIVIAZIONE DATI STEAM WEB API</span>
@@ -220,11 +220,11 @@ document.getElementById("ppcontent").innerHTML = `
 // Achievement Stats Window (Beta Revision 0.6)
 // document.getElementById("statwinlbltxt").innerHTML = "Apri la Finestra delle Statistiche"
 
-statsresettitle = "Reimpostare Tutti I Dati Dei Risultati Archiviati?"
-statsresetbody = "Tutti i dati sugli obiettivi precedentemente memorizzati verranno rimossi da questo dispositivo. I tuoi dati sugli obiettivi più recenti verranno recuperati alla successiva apertura della finestra delle statistiche sugli obiettivi.\n\nTieni presente che il recupero dei dati sugli obiettivi utilizza le chiamate dell'API Web di Steam per ogni gioco di proprietà nella libreria di Steam dell'utente. Valve limita la quantità di chiamate all'API Web di Steam a 100,000 al giorno per la chiave API di ciascun utente.\n\nDi conseguenza, a seconda della quantità di giochi nella tua libreria di Steam, ciò potrebbe influire sulla funzionalità generale dell'applicazione se la funzione per ripristinare i dati degli obiettivi è molto utilizzata."
+statsresettitle = "Reimpostare Tutti I Dati Degli Achievement Archiviati?"
+statsresetbody = "Tutti i dati sugli achievement precedentemente memorizzati verranno rimossi da questo dispositivo. I tuoi dati sugli achievement più recenti verranno recuperati alla successiva apertura della finestra delle statistiche sugli achievement.\n\nTieni presente che il recupero dei dati sugli achievement utilizza le chiamate dell'API Web di Steam per ogni gioco di proprietà nella libreria di Steam dell'utente. Valve limita la quantità di chiamate all'API Web di Steam a 100,000 al giorno per la chiave API di ciascun utente.\n\nDi conseguenza, a seconda della quantità di giochi nella tua libreria di Steam, ciò potrebbe influire sulla funzionalità generale dell'applicazione se la funzione per ripristinare i dati degli achievement è molto utilizzata."
 statsresetbtns = ["Ripristina Tutte le Statistiche", "Annulla"]
 
 statwincurrent = "GIOCO ATTUALE"
 statwinall = "TUTTI I GIOCHI"
-statwincomplete = "COMPLETO (100%)"
+statwincomplete = "COMPLETATO (100%)"
 statwintop5 = "5 MIGLIORI GIOCHI"

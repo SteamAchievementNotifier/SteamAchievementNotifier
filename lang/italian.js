@@ -14,12 +14,12 @@ document.getElementById("other").innerHTML = "ALTRO";
 document.getElementById("showscreenshotlbl").innerHTML = "Fai uno Screenshot di Steam";
 document.getElementById("showscreenshotlblrare").innerHTML = "Fai uno Screenshot di Steam";
 document.getElementById("previewlbl").innerHTML = "Visualizza Anteprima"
-document.getElementById("previewlblrare").innerHTML = "Visualizza Anteprima"
+document.getElementById("previewlblrare").innerHTML = "Visualizza Anteprima Rara"
 document.getElementById("desktoplbl").innerHTML = "Collegamento Sul Desktop";
 document.getElementById("startwinlbl").innerHTML = "Avvia con Windows";
 document.getElementById("startminlbl").innerHTML = "Avvia Ridotto a Icona";
 document.getElementById("soundonlylbl").innerHTML = "Modalità Solo Audio";
-document.getElementById("trackinglbl").innerHTML = 'Mostra Notifica "Ora Osservando"';
+document.getElementById("trackinglbl").innerHTML = 'Mostra Notifica di "Monitoraggio"';
 
 nouser = "Nessun Utente Rilevato";
 nogame = "Nessun Gioco Rilevato";
@@ -29,8 +29,10 @@ rareheader = `'Achievement Raro Sbloccato!`;
 unlinked = "SCOLLEGATO";
 linked = "COLLEGATO";
 novalue = "Per favore inserisci un valore";
-
-resettitle = "Ripristinare l'Applicazione Ai Predefiniti?";
+second = "secondo"
+seconds = "secondi"
+tracknotifymsg = "Monitoraggio degli achievement di"
+resettitle = "Ripristinare l'Applicazione ai Valori Predefiniti?";
 resetdesc = `ATTENZIONE: Questo rimuoverà tutte le impostazioni utente!`;
 resetbtns = ["Ripristina","Disinstalla","Annulla"];
 
@@ -50,7 +52,7 @@ file = "FILE";
 nofolder = "Predefinito (Nessuna Cartella Selezionata)";
 novalidaudio = "Nessun file audio valido si trova in";
 soundmode = "MODALITÀ SUONO: ";
-randomised = "RANDOMIZZATO";
+randomised = "CASUALE";
 presskey = "...";
 custompos = "Imposta Posizione Personalizzata";
 settingpos = "Impostazione Principale...";
@@ -58,13 +60,13 @@ settingposrare = "Impostazione Rara...";
 
 document.getElementById("steamkeybindlbl").innerHTML = "Schermata di Steam:";
 document.getElementById("langlbl").innerHTML = "Lingua:";
-document.getElementById("raritylbl").innerHTML = "Valore di Rarità: ";
+document.getElementById("raritylbl").innerHTML = "Percentuale di Rarità: ";
 document.getElementById("nosteamlbl").innerHTML = "Nascondi la Notifica di Steam";
 document.getElementById("customiselbl").innerHTML = "MODIFICARE...";
 document.getElementById("customisermainlbl").innerHTML = "Principale";
 document.getElementById("customiserrarelbl").innerHTML = "Raro";
-document.getElementById("customiserstylelbl").innerHTML = "STILE DI NOTIFICA:";
-document.getElementById("notifypositionlbl").innerHTML = "POSIZIONE SCHERMO:";
+document.getElementById("customiserstylelbl").innerHTML = "STILE ACHIEVEMENT:";
+document.getElementById("notifypositionlbl").innerHTML = "POSIZIONE SU SCHERMO:";
 document.getElementById("bgtypelbl").innerHTML = "TIPO DI SFONDO:";
 document.getElementById("colourslbl").innerHTML = "COLORI";
 document.getElementById("colour1lbl").innerHTML = "Colore 1";
@@ -74,7 +76,7 @@ document.getElementById("imgselectlbl").innerHTML = "IMMAGINE DI SFONDO:"
 document.getElementById("roundnesslbl").innerHTML = "ROTONDITÀ:";
 document.getElementById("iconroundnesslbl").innerHTML = "ROTONDEZZA DELL'ICONA:";
 document.getElementById("displaytimelbl").innerHTML = "TEMPO DI NOTIFICA:";
-document.getElementById("scalelbl").innerHTML = "SCALA:";
+document.getElementById("scalelbl").innerHTML = "RIDIMENSIONA:";
 document.getElementById("styledefault").innerHTML = "Predefinito";
 document.getElementById("typesolid").innerHTML = "Colore Solido";
 document.getElementById("typegradient").innerHTML = "Gradiente di Colore";
@@ -88,7 +90,7 @@ document.getElementById("gameiconlbl").innerHTML = "Usa l'Icona del Gioco";
 document.getElementById("typegame").innerHTML = "Arte del Gioco"
 document.getElementById("brightnesslbl").innerHTML = "LUMINOSITÀ"
 
-document.getElementById("customiserstylelblrare").innerHTML = "STILE DI NOTIFICA:";
+document.getElementById("customiserstylelblrare").innerHTML = "STILE ACHIEVEMENT:";
 document.getElementById("notifypositionlblrare").innerHTML = "POSIZIONE SCHERMO:";
 document.getElementById("bgtypelblrare").innerHTML = "TIPO DI SFONDO:";
 document.getElementById("rarecolourslbl").innerHTML = "COLORI";
@@ -99,7 +101,7 @@ document.getElementById("rareimgselectlbl").innerHTML = "IMMAGINE DI SFONDO:"
 document.getElementById("roundnesslblrare").innerHTML = "ROTONDITÀ:";
 document.getElementById("iconroundnesslblrare").innerHTML = "ROTONDEZZA DELL'ICONA:";
 document.getElementById("displaytimelblrare").innerHTML = "TEMPO DI NOTIFICA:";
-document.getElementById("scalelblrare").innerHTML = "SCALA:";
+document.getElementById("scalelblrare").innerHTML = "RIDIMENSIONA:";
 document.getElementById("styledefaultrare").innerHTML = "Predefinito";
 document.getElementById("typesolidrare").innerHTML = "Colore Solido";
 document.getElementById("typegradientrare").innerHTML = "Gradiente di Colore";
@@ -140,7 +142,7 @@ document.getElementById("betadiscord").innerHTML = `Canale Discord dedicato&nbsp
 document.getElementById("betafb").innerHTML = "Fornisci feedback sulle prossime aggiunte"
 document.getElementById("betabugswarn").innerHTML = "<u>I bug sono probabili</u>&nbsp;(non per tutti!)"
 document.getElementById("betawarntext").innerHTML = "Steam Achievement Notifier si riavvierà dopo essere entrato nel Canale Beta"
-document.getElementById("betaok").innerHTML = "Sì, suona bene!"
+document.getElementById("betaok").innerHTML = "Sì, d'accordo!"
 document.getElementById("betacancel").innerHTML = "No, rimango qui..."
 
 document.getElementById("leavebetatitle").innerHTML = "Uscire dal Canale Beta?"
@@ -149,7 +151,7 @@ document.getElementById("leavebetaok").innerHTML = "Esci dal Canale Beta"
 document.getElementById("leavebetacancel").innerHTML = "Rimani sul Canale Beta"
 
 betajoin = "Unisciti al Canale Beta"
-betaleave = "Uscire dal Canale Beta"
+betaleave = "Esci dal Canale Beta"
 betaerrortext = "Impossibile aggiornare al Canale Beta!"
 betaerrorsub = "Sembra che tu non abbia una connessione di rete. Niente internet = Niente Beta!"
 
@@ -220,7 +222,7 @@ document.getElementById("ppcontent").innerHTML = `
 // Achievement Stats Window (Beta Revision 0.6)
 // document.getElementById("statwinlbltxt").innerHTML = "Apri la Finestra delle Statistiche"
 
-statsresettitle = "Reimpostare Tutti I Dati Degli Achievement Archiviati?"
+statsresettitle = "Ripristinare Tutti I Dati Degli Achievement Archiviati?"
 statsresetbody = "Tutti i dati sugli achievement precedentemente memorizzati verranno rimossi da questo dispositivo. I tuoi dati sugli achievement più recenti verranno recuperati alla successiva apertura della finestra delle statistiche sugli achievement.\n\nTieni presente che il recupero dei dati sugli achievement utilizza le chiamate dell'API Web di Steam per ogni gioco di proprietà nella libreria di Steam dell'utente. Valve limita la quantità di chiamate all'API Web di Steam a 100,000 al giorno per la chiave API di ciascun utente.\n\nDi conseguenza, a seconda della quantità di giochi nella tua libreria di Steam, ciò potrebbe influire sulla funzionalità generale dell'applicazione se la funzione per ripristinare i dati degli achievement è molto utilizzata."
 statsresetbtns = ["Ripristina Tutte le Statistiche", "Annulla"]
 

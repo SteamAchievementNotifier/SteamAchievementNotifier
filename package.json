@@ -1,0 +1,16 @@
+{
+  "name": "steamachievementnotifier",
+  "private": true,
+  "version": "1.85.0",
+  "type": "module",
+  "scripts": {
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.4.0"
+  },
+  "dependencies": {
+    "tauri-plugin-autostart-api": "git+https://github.com/tauri-apps/tauri-plugin-autostart.git",
+    "tauri-plugin-upload-api": "git+https://github.com/tauri-apps/tauri-plugin-upload.git"
+  }
+}

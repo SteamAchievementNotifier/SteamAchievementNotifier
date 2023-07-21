@@ -1,0 +1,490 @@
+dialog:not([open]),
+dialog[closing] {
+    scale: 0 0;
+    transition: var(--transition), scale var(--transition) cubic-bezier(0.5, -1, 0.5, 1);
+    pointer-events: none;
+}
+
+dialog {
+    display: grid;
+    grid-template-rows: 1fr;
+    place-items: center;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    /* min-width: 40%; */
+    width: 50%;
+    /* max-width: 65%; */
+    min-height: 30%;
+    max-height: 75%;
+    border: none;
+    border-radius: 0.35rem;
+    background-color: #1b1b1b;
+    color: white;
+    transition: var(--transition), scale var(--transition) cubic-bezier(0.5, 0, 0.5, 1.75);
+    overflow: hidden;
+}
+
+dialog::backdrop {
+    background-color: rgba(0,0,0,0.75);
+    border-radius: 0.7rem;
+    animation: fadein var(--transition) forwards;
+}
+
+dialog[closing]::backdrop {
+    animation: fadeout var(--transition) forwards;
+}
+
+html:has(dialog[closing],dialog[closing]::backdrop) {
+    pointer-events: none;
+}
+
+dialog[error] > .dialogwrapper > .dialogtitle {
+    background-color: #b60000;
+}
+
+dialog[error] > .dialogwrapper > .dialogtitle > img {
+    content: url("../icon/thumbdown.svg") !important;
+}
+
+dialog[test] > .dialogwrapper > .dialogtitle > img {
+    content: url("../icon/connect.svg");
+}
+
+dialog[test] > .dialogwrapper > .dialogcontent > .dialogmsg {
+    display: none;
+}
+
+.dialog[error] > .dialogwrapper > .dialogcontent > .dialogmsg,
+.dialog[success] > .dialogwrapper > .dialogcontent > .dialogmsg {
+    display: grid;
+}
+
+dialog[success] > .dialogwrapper > .dialogtitle {
+    background-color: green;
+}
+
+dialog[success] > .dialogwrapper > .dialogtitle > img {
+    content: url("../icon/thumb.svg");
+}
+
+.dialog[success] > .dialogwrapper > .dialogcontent > .dialogmsg > img {
+    border-radius: 50%;
+    filter: drop-shadow(0 0 0.2rem #101010bc);
+}
+
+.dialog[success] > .dialogwrapper > .dialogcontent > .dialogmsg > label > span {
+    color: deepskyblue;
+}
+
+.dialog[error] .testwrapper,
+.dialog[success] .testwrapper {
+    scale: 0 0;
+}
+
+.dialogwrapper {
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    place-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    height: 100%;
+}
+
+.dialogtitle {
+    display: grid;
+    grid-template-columns: repeat(2,max-content);
+    place-content: center;
+    place-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    padding: 0.35rem;
+    font-size: 1rem;
+    background-color: var(--primary);
+    transition: var(--transition);
+    text-transform: uppercase;
+}
+
+.dialogtitle > img {
+    width: 1rem;
+    height: 1rem;
+}
+
+.dialogtitlelbl {
+    cursor: default;
+}
+
+.dialogcontent {
+    display: grid;
+    grid-template-rows: 1fr;
+    place-items: center;
+    gap: 0.7rem;
+    padding-inline: 1.5rem;
+    width: 100%;
+    height: 100%;
+    max-height: 50vh;
+    font-size: 0.75rem;
+    overflow-x: hidden;
+    overflow-y: overlay;
+}
+
+.dialogcontent > * {
+    width: 100%;
+}
+
+dialog[switch] .dialogcontent {
+    grid-template-columns: repeat(auto-fit,minmax(80px,1fr));
+    /* gap: 5%; */
+    justify-content: center;
+    max-height: 7rem;
+}
+
+dialog[test] .dialogcontent {
+    overflow-x: hidden;
+    overflow-y: overlay;
+}
+
+.dialogmsg {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem;
+    background-color: var(--primary);
+    border-radius: 0.35rem;
+}
+
+.dialogmsg > img {
+    justify-self: start;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: 1rem;
+}
+
+.dialogmsg > label {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    padding-inline: 1.8rem;
+}
+
+.dialogdetail {
+    padding: 0.7rem;
+    background-color: #101010;
+    border-radius: 0.35rem;
+}
+
+.dialog:not([success]) .dialogdetail {
+    word-break: break-all;
+}
+
+dialog[test] .dialogdetail > .testwrapper {
+    display: grid;
+    grid-template-columns: max-content auto max-content;
+    place-content: center;
+    place-items: center;
+    grid-auto-flow: column;
+    gap: 30px;
+    /* padding-inline: 30px; */
+}
+
+.dialogdetail > .testwrapper > img {
+    width: 0.85rem;
+}
+
+dialog[test] .dialogdetail > .testwrapper > img {
+    width: 100%;
+    min-width: 40px;
+    height: 3rem;
+    min-height: 40px;
+}
+
+dialog[error]:not([test]) .dialogdetail {
+    display: flex;
+    place-content: center;
+}
+
+.solutionwrapper {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    justify-items: start;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.solutionicon {
+    width: 1.15rem;
+    text-align: center;
+}
+
+.solutionmsg > img {
+    vertical-align: -0.2rem;
+    width: 1.5rem;
+    padding: 0.15rem 0.35rem;
+    background-color: var(--primary);
+    border-radius: 0.15rem;
+    margin-inline: 0.15rem;
+}
+
+.solutionmsg > span {
+    color: #c081ff;
+}
+
+#dialogokbtn {
+    position: relative;
+    min-width: 25%;
+    padding: 0.35rem 0.7rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    background-color: var(--primary);
+    border-radius: 0.35rem;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+#dialogokbtn > * {
+    pointer-events: none;
+}
+
+#dialogokbtn > span {
+    position: absolute;
+    translate: -150% 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    transition: var(--transition);
+    z-index: -1;
+    pointer-events: none;
+}
+
+#dialogokbtn:hover {
+    color: black;
+}
+
+#dialogokbtn:hover > span {
+    translate: 0 0;
+}
+
+.accountcard {
+    position: relative;
+    display: grid;
+    place-content: center;
+    place-items: center;
+    gap: 0.7rem;
+    min-width: 5rem;
+    max-width: 7rem;
+    height: 7rem;
+    padding: 0.7rem;
+    background-color: #101010;
+    border-radius: 0.35rem;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.accountcard > * {
+    will-change: contents;
+}
+
+.accountcard[active] {
+    background-color: var(--primary);
+    pointer-events: none;
+}
+
+.accountcard:not([active]):hover {
+    background-color: #3d3d3d;
+}
+
+.accountavatar {
+    width: 75%;
+    max-width: 50px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.accountcard:not([active]):hover > .accountavatar {
+    scale: 1.2 1.2;
+}
+
+.accountcard > label {
+    font-size: 0.75rem;
+}
+
+.deletebtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.15rem;
+    margin: 0.35rem;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.deletebtn:focus-visible {
+    opacity: 1 !important;
+}
+
+.deletebtn > img {
+    width: 100%;
+    height: 100%;
+}
+
+.accountcard:hover > .deletebtn {
+    opacity: 0.5;
+}
+
+.accountcard:hover > .deletebtn:hover {
+    opacity: 1;
+}
+
+.testwrapper {
+    transition: var(--transition);
+}
+
+dialog[test] .dialogdetail > .testwrapper > :first-child {
+    animation: imgpulse calc(var(--transition) * 2) alternate infinite cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+dialog[test] .dialogdetail > .testwrapper > :last-child {
+    animation: imgpulse calc(var(--transition) * 2) calc(var(--transition) * 2) alternate infinite cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+@keyframes imgpulse {
+    to { scale: 1.1 1.1 }
+}
+
+.dotwrapper {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 0.7rem;
+    font-family: "Roboto";
+    font-size: 3rem;
+}
+
+.dotwrapper > :nth-child(1) {
+    animation: dotbounce calc(var(--transition) * 1.5) alternate infinite cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+.dotwrapper > :nth-child(2) {
+    animation: dotbounce calc(var(--transition) * 1.5) calc(var(--transition) * 0.75) alternate infinite cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+.dotwrapper > :nth-child(3) {
+    animation: dotbounce calc(var(--transition) * 1.5) calc(var(--transition) * 1.5) alternate infinite cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+@keyframes dotbounce {
+    to {
+        color: #32cd32;
+        translate: 0 -10%;
+    }
+}
+
+.ppwin {
+    justify-items: center;
+    align-items: start;
+    gap: 1rem;
+    width: 65%;
+    height: 65%;
+    padding: 1.5rem;
+}
+
+#pptitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Titillium Web", "Roboto";
+    font-size: 1.375rem;
+    gap: 0.7rem;
+    text-transform: uppercase;
+}
+
+#pptitle::before {
+    content: "";
+    background: url("../icon/privacy.svg") center / contain no-repeat;
+    width: 1.875rem;
+    height: 1.875rem;
+}
+
+.ppcontent {
+    width: 100%;
+    height: 100%;
+    padding-inline: 0.7rem;
+    font-size: 0.75rem;
+    font-family: "Titillium Web", "Roboto";
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.ppheader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0.35rem 0.7rem;
+    font-family: "Titillium Web", "Roboto";
+    font-size: 0.9rem;
+    background: var(--primary);
+}
+
+.ppheader:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.ppbodywrapper {
+    display: grid;
+    gap: 1rem;
+    background: rgba(16,16,16,0.5);
+    padding: 0.7rem;
+    word-break: break-word;
+}
+
+.ppbodywrapper:last-child {
+    border-radius: 0 0 0.35rem 0.35rem;
+}
+
+.ppbodyembed {
+    display: grid;
+    background: #2b2b2b;
+    padding: 0.7rem;
+    width: 100%;
+    border-radius: 0.35rem;
+}
+
+#ppstoragecontent > .ppbodyembed {
+    gap: 0.35rem;
+}
+
+.ppwin li {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-template-rows: 1fr;
+    justify-items: start;
+    align-items: center;
+    gap: 0.35rem;
+    word-break: break-all;
+}
+
+.ppwin li::before {
+    content: "•";
+}
+
+.ppwin li > img {
+    width: 0.8rem;
+}
+
+.ppwin li > span.path {
+    padding: 0.2rem 0.35rem;
+    background-color: var(--primary);
+    border-radius: 0.35rem;
+}
+
+.ppwin li > span:not(.path) {
+    font-style: italic;
+}
+
+@media (orientation: portrait) {
+    dialog[test] .dialogdetail > .testwrapper {
+        grid-template-columns: none;
+        gap: 0;
+        grid-auto-flow: row;
+    }
+}

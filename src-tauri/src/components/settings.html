@@ -1,0 +1,268 @@
+<div class="settingswrapper">
+    <div class="settingstitle" data-tauri-drag-region>
+        <span id="settingstitlelbl" data-tauri-drag-region></span>
+        <button id="closesettingsbtn">
+            <img src="./icon/close.svg" alt="">
+        </button>
+    </div>
+    <div class="settingscontent">
+        <div class="sanbox" id="configuration">
+            <span class="sanboxtitle" src="build.svg">
+                <label></label>
+            </span>
+            <div class="sanboxcontent">
+                <div class="configbox">
+                    <button id="apikeybtn" onclick="shell.open(`https://steamcommunity.com/login/home/?goto=%2Fdev%2Fapikey`)">
+                        <img src="./icon/key.svg" alt="">
+                    </button>
+                    <input type="password" id="apikey" autocomplete="off" spellcheck="off" placeholder="Enter API Key" onkeyup="BlurOnEnter(event)">
+                    <button id="eyebtn" onclick="ToggleAPI(event)">
+                        <img src="./icon/visibility_off.svg" alt="">
+                    </button>
+                    <span id="apikeylbl"></span>
+                </div>
+                <div class="configbox">
+                    <button id="steam64idbtn" onclick="shell.open(`https://steamid.io/lookup`)">
+                        <img src="./icon/id.svg" alt="">
+                    </button>
+                    <input type="text" id="steam64id" autocomplete="off" spellcheck="off" placeholder="Enter Steam64 ID" onkeyup="BlurOnEnter(event)">
+                    <button id="switchaccountbtn" onclick="ShowDialog(`accounts`,`dialog`,LoadSwitchAccountsMenu)">
+                        <img src="./icon/switch.svg" alt="">
+                    </button>
+                    <span id="steam64idlbl"></span>
+                    <span id="switchaccountspan"></span>
+                </div>
+                <div class="detailswrapper">
+                    <a href=""></a>
+                    <span></span>
+                </div>
+                <button class="testconnectionbtn" onclick="TestConnection()">
+                    <img src="./icon/connect.svg" alt="">
+                    <label id="testconnectionlbl"></label>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="sanbox" id="language">
+            <span class="sanboxtitle" src="language.svg">
+                <label></label>
+            </span>
+            <div class="sanboxcontent">
+                <select name="langdropdown" id="lang">
+                    <option value="arabic">Arabic (العربية)</option>
+                    <option value="bulgarian">Bulgarian (български език)</option>
+                    <option value="schinese">Chinese [Simplified] (中国人)</option>
+                    <option value="tchinese">Chinese [Traditional] (中國人)</option>
+                    <option value="czech">Czech (Český Jazyk)</option>
+                    <option value="danish">Danish (Dansk)</option>
+                    <option value="dutch">Dutch (Nederlands)</option>
+                    <option value="english" selected>English</option>
+                    <option value="finnish">Finnish (Suomi)</option>
+                    <option value="french">French (Français)</option>
+                    <option value="german">German (Deutsch)</option>
+                    <option value="greek">Greek (Ελληνικά)</option>
+                    <option value="hungarian">Hungarian (Magyar)</option>
+                    <option value="italian">Italian (Italiano)</option>
+                    <option value="japanese">Japanese (日本語)</option>
+                    <option value="koreana">Korean (조선말)</option>
+                    <option value="norwegian">Norwegian (Norsk)</option>
+                    <option value="polish">Polish (Polski)</option>
+                    <option value="portuguese">Portuguese (Português)</option>
+                    <option value="brazilian">Portuguese-Brazilian (Português do Brasil)</option>
+                    <option value="romanian">Romanian (Română)</option>
+                    <option value="russian">Russian (Русский)</option>
+                    <option value="spanish">Spanish (Español)</option>
+                    <option value="swedish">Swedish (Svenska)</option>
+                    <option value="thai">Thai (ภาษาไทย)</option>
+                    <option value="turkish">Turkish (Türkçe)</option>
+                    <option value="ukrainian">Ukrainian (Українська)</option>
+                    <option value="vietnamese">Vietnamese (Tiếng Việt Nam)</option>
+                </select>
+            </div>
+        </div>
+        <div class="sanbox" id="os">
+            <span class="sanboxtitle" src="windows.svg">
+                <label></label>
+            </span>
+            <div class="sanboxcontent">
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="desktop">
+                </div>
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="startwin">
+                </div>
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="startmin">
+                </div>
+                <div class="sanboxoption">
+                    <label class="sanboxlbl" star></label>
+                    <input type="checkbox" id="hwa">
+                </div>
+                <div class="sanboxoption" soon>
+                    <label class="sanboxlbl" src="leaf.png" star></label>
+                    <input type="checkbox" id="litemode">
+                </div>
+            </div>
+        </div>
+        <!-- <div class="sanbox" id="steam">
+            <span class="sanboxtitle" src="steam.svg">
+                <label></label>
+            </span>
+            <div class="sanboxcontent">
+                <div class="sanboxoption">
+                    <label class="sanboxlbl" star>Hide Steam Notifications</label>
+                    <input type="checkbox" id="nosteam">
+                </div>
+            </div>
+        </div> -->
+        <div class="sanbox" id="notifications">
+            <span class="sanboxtitle" src="notification.svg">
+                <label for=""></label>
+            </span>
+            <div class="sanboxcontent">
+                <div class="sanboxoption" unit="%">
+                    <label class="sanboxlbl"></label>
+                    <input type="range" min="0" max="10" id="rarity">
+                </div>
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="soundonly">
+                </div>
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="allpercent">
+                </div>
+                <div class="sanboxoption" soon>
+                    <label class="sanboxlbl" ext></label>
+                    <input type="checkbox" id="extwin">
+                </div>
+                <!-- <div class="sanboxoption" soon>
+                    <label class="sanboxlbl" ext></label>
+                    <input type="checkbox" id="statwin">
+                </div> -->
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="track">
+                </div>
+            </div>
+        </div>
+        <div class="sanbox" id="screenshots">
+            <div class="sanboxtitle" src="camera.svg">
+                <label></label>
+            </div>
+            <div class="sanboxcontent">
+                <select name="screenshotsdropdown" id="screenshotmode">
+                    <option value="off"></option>
+                    <option value="steam"></option>
+                    <option value="overlay"></option>
+                </select>
+                <div class="sanboxoption" steam overlay soon>
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="displayscreenshot">
+                </div>
+                <div class="sanboxoption" overlay>
+                    <label class="sanboxlbl"></label>
+                    <select name="monitordropdown" id="monitor"></select>
+                </div>
+                <div class="ovtabwrapper" overlay>
+                    <button id="ovtabmain" onclick="ToggleTab(event)" type="main">
+                        <img src="./icon/trophy_gold.svg" alt="">
+                    </button>
+                    <button id="ovtabrare" onclick="ToggleTab(event)" type="rare">
+                        <img src="./icon/trophy_purple.svg" alt="">
+                    </button>
+                    <button id="ovtabplat" onclick="ToggleTab(event)" type="plat">
+                        <img src="./icon/trophy_plat.svg" alt="">
+                    </button>
+                </div>
+                <div class="sanboxoption" steam>
+                    <label class="sanboxlbl"></label>
+                    <button id="keybind" onclick="settings.keybind(event)">
+                        <label class="sanboxlbl">F12</label>
+                        <span></span>
+                    </button>
+                </div>
+                <div class="sanboxoption" overlay>
+                    <label class="sanboxlbl"></label>
+                    <select name="overlayposdropdown" id="overlayposdropdown" onchange="sanhelper.write({config},[`customisation`,GetTabType(),`ovpos`],this.value)">
+                        <option value="match" selected></option>
+                        <option value="topleft"></option>
+                        <option value="topcenter"></option>
+                        <option value="topright"></option>
+                        <option value="bottomleft"></option>
+                        <option value="bottomcenter"></option>
+                        <option value="bottomright"></option>
+                    </select>
+                </div>
+                <div class="sanboxoption" overlay>
+                    <label class="sanboxlbl"></label>
+                    <button id="ovpathbtn" onclick="settings.ovpath(event)">
+                        <label class="sanboxlbl"></label>
+                        <div class="marquee">
+                            <label class="sanboxlbl"></label>
+                            <label class="sanboxlbl" aria-hidden="true"></label>
+                        </div>
+                    </button>
+                </div>
+                <button id="ovpreviewbtn" onclick="ShowOvPreview(event)" overlay>
+                    <label id="ovpreviewlbl"></label>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="sanbox" id="accessibility">
+            <div class="sanboxtitle" src="accessibility.svg">
+                <label></label>
+            </div>
+            <div class="sanboxcontent">
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="noanim">
+                </div>
+                <div class="sanboxoption">
+                    <label class="sanboxlbl" star></label>
+                    <input type="checkbox" id="nvda">
+                </div>
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="tooltips">
+                </div>
+            </div>
+        </div>
+        <div class="sanbox" id="other">
+            <div class="sanboxtitle" src="settings.svg">
+                <label></label>
+            </div>
+            <div class="sanboxcontent">
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="debug">
+                </div>
+                <div class="sanboxoption" onclick="settings.ppbtn(event.target)">
+                    <label class="sanboxlbl"></label>
+                    <button id="ppbtn">
+                        <img src="./icon/privacy.svg" alt="">
+                    </button>
+                </div>
+                <button class="otherbtn" id="betabtn" onclick="settings.betabtn(event.target)">
+                    <img src="./icon/beta.svg" alt="">
+                    <label></label>
+                </button>
+                <button class="otherbtn" id="logbtn" onclick="log.open()">
+                    <img src="./icon/log.svg" alt="">
+                    <label></label>
+                </button>
+                <button class="otherbtn" id="resetbtn" onclick="settings.resetbtn(event.target)">
+                    <img src="./icon/reset.svg" alt="">
+                    <label></label>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="settingsfooter">
+        <span id="apprevlbl"></span>: <span id="apprevnum">0.1</span>
+    </div>
+</div>

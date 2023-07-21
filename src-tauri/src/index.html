@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="./components/settings.css">
+        <link rel="stylesheet" href="./components/dialog.css">
+        <link rel="stylesheet" href="./components/customiser.css">
+        <script src="./plugins/HackTimer.min.js"></script>
+        <script type="text/javascript" src="./components/sanhelper.js"></script>
+        <script type="text/javascript" src="./main.js"></script>
+        <script type="module" src="./import.js"></script>
+        <script src="./vdf.js"></script>
+    </head>
+    <body alpha>
+        <audio src="./sound/notify.wav"></audio>
+        <dialog class="settings"></dialog>
+        <dialog class="dialog"></dialog>
+        <dialog class="ppwin"></dialog>
+        <div class="mainwrapper" type="main" loading>
+            <div id="loading">
+                <div>
+                    <img src="./img/sanlogotrophy.svg" alt="" width="100%">
+                </div>
+            </div>
+            <div class="ctrlswrapper" data-tauri-drag-region>
+                <button id="settingsbtn" onclick="ShowDialog(`settings`,`settings`,LoadConfig.bind(this,`settings`))">
+                    <img src="./icon/settings.svg" alt="">
+                </button>
+                <div class="ctrlsinnerwrapper">
+                    <button id="steamstatus" nosteam>
+                        <img src="./icon/steam_error.svg" alt="">
+                    </button>
+                    <button id="updatebtn">
+                        <img src="./icon/file_download.svg" alt="">
+                    </button>
+                    <button id="errorbtn" onclick="log.open(); this.removeAttribute(`error`)">
+                        <img src="./icon/error.svg" alt="">
+                    </button>
+                    <button id="closebtn" onclick="invoke(`close_window`)">
+                        <img src="./icon/close.svg" alt="">
+                    </button>
+                </div>
+            </div>
+            <div class="logowrapper" data-tauri-drag-region>
+                <img class="logo" src="./img/santextlogo.png" alt="" id="logomain" width="100%">
+                <img class="logo" src="./img/sanraretextlogo.png" alt="" id="logorare" width="100%">
+                <img class="logo" src="./img/sanplattextlogo.png" alt="" id="logoplat" width="100%">
+                <img class="customiserlogo" src="./img/sancustomisertextlogo.png" alt="" id="customiserlogomain" width="100%">
+                <img class="customiserlogo" src="./img/sancustomiserraretextlogo.png" alt="" id="customiserlogorare" width="100%">
+                <img class="customiserlogo" src="./img/sancustomiserplattextlogo.png" alt="" id="customiserlogoplat" width="100%">
+            </div>
+            <div class="mousewrapper">
+                <div id="mouse">
+                    <img class="mousearrow" id="arrowup" src="./icon/play_white.svg" alt="">
+                    <span id="mousewheel"></span>
+                    <img class="mousearrow" id="arrowdown" src="./icon/play_white.svg" alt="">
+                </div>
+            </div>
+            <div class="bodywrapper">
+                <div class="rect">
+                    <img src="./icon/steam.svg" alt="">
+                    <label class="rectlbl" id="userlbl" novalue></label>
+                </div>
+                <div class="rect">
+                    <img src="./icon/sports_esports.svg" alt="">
+                    <label class="rectlbl" id="gamelbl" novalue></label>
+                </div>
+                <div class="soundbar" mode="file">
+                    <button id="previewbtn" state="play" onclick="PreviewSound()" onwheel="SetVolume(event)">
+                        <img src="./icon/volume_up_white.svg" alt="">
+                        <span class="hover"></span>
+                    </button>
+                    <button id="soundfilebtn" onclick="SelectSound(this.parentElement.getAttribute(`mode`))" onwheel="ChangeSoundMode(event)">
+                        <label class="rectlbl" id="soundfilelbl"></label>
+                        <div class="volumewrapper" id="portraitvolumewrapper">
+                            <img src="./icon/volume_down_white.svg" alt="">
+                            <input type="range" id="portraitvolumeslider" min="1" max="10" step="1">
+                            <img src="./icon/volume_up_white.svg" alt="">
+                        </div>
+                    </button>
+                    <div id="soundmodewrapper">
+                        <span id="soundmodelbl" mode="file"></span>
+                    </div>
+                    <button id="searchbtn" onclick="SelectSound(this.parentElement.getAttribute(`mode`))" onwheel="ChangeSoundMode(event)">
+                        <img id="fileicon" src="./icon/file_white.svg" alt="">
+                        <img id="diceicon" src="./icon/dice.svg" alt="">
+                        <span class="hover"></span>
+                    </button>
+                </div>
+                <div class="togglewrapper">
+                    <button id="togglemain" onclick="ToggleTab(event)" type="main">Main</button>
+                    <button id="togglerare" onclick="ToggleTab(event)" type="rare">Rare</button>
+                    <button id="toggleplat" onclick="ToggleTab(event)" type="plat">100%</button>
+                </div>
+                <div class="btnwrapper">
+                    <button class="rect progresscirclewrapper" id="progresscirclewrapper" onclick="Notify()">
+                        <span id="progresscircle"></span>
+                    </button>
+                    <button class="rect testbtnwrapper" id="testbtnwrapper" onclick="Notify()">
+                        <label class="rectlbl"></label>
+                    </button>
+                    <button class="rect customiserbtnwrapper" id="customiserbtnwrapper" onclick="ShowCustomiser()">
+                        <img src="./icon/paintbrush.svg" alt="">
+                        <label class="rectlbl"></label>
+                    </button>
+                    <div class="hover">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="volumewrapper">
+                <img src="./icon/volume_down_white.svg" alt="">
+                <input type="range" id="volumeslider" min="1" max="10" step="1">
+                <img src="./icon/volume_up_white.svg" alt="">
+            </div>
+            <div class="footerwrapper" data-tauri-drag-region>
+                <span id="version" data-tauri-drag-region>Steam Achievement Notifier (V1.85)</span>
+                <span id="copyright" data-tauri-drag-region></span>
+                <div class="linkwrapper" data-tauri-drag-region>
+                    <button class="link" id="kofibtn" onclick="shell.open(`https://ko-fi.com/steamachievementnotifier`)">
+                        <img src="./icon/ko-fi.svg" alt="">
+                    </button>
+                    <button class="link" id="discordbtn" onclick="shell.open(`https://discord.com/invite/FxCFtpd3eu`)">
+                        <img src="./icon/discord.svg" alt="">
+                    </button>
+                    <button class="link" id="githubbtn" onclick="shell.open(`https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/issues`)">
+                        <img src="./icon/github.svg" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

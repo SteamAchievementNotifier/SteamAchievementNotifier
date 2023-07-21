@@ -1,0 +1,667 @@
+/* Fix for Live Server injecting script in fetch call */
+/* dialog > script {
+    display: none;
+} */
+
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    height: 100%;
+    padding: 0.35rem 0.7rem;
+    font-family: "Titillium Web", "Roboto";
+    font-size: 0.7rem;
+    color: white;
+    border: none;
+    background-color: #101010;
+    caret-color: rgba(255,255,255,0.25);
+    transition: var(--transition);
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+
+input[type="checkbox"]:hover:not(:checked),
+label:hover ~ input[type="checkbox"]:not(:checked),
+input[type="password"]:hover,
+input[type="password"]:focus,
+input[type="password"]:hover + #eyebtn,
+input[type="password"]:focus + #eyebtn,
+input[type="text"]:hover,
+input[type="text"]:focus,
+input[type="number"]:hover,
+input[type="number"]:focus,
+select:hover,
+.sanboxoption > button:not(:has(img)):hover {
+    background-color: #3d3d3d;
+}
+
+label:not(.rectlbl,.dialogtitlelbl) {
+    cursor: pointer;
+    overflow: hidden;
+    will-change: contents;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: #101010;
+    min-width: 1rem;
+    width: 1rem;
+    height: 1rem;
+    border: none;
+    border-radius: 0.15rem;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--primary);
+}
+
+select {
+    appearance: none;
+    width: 100%;
+    height: 1.8rem;
+    padding: 0.15rem 0.35rem;
+    font-family: "Titillium Web", "Roboto";
+    font-size: 0.75rem;
+    background: url("../icon/expand.svg") 100% / 1rem no-repeat;
+    background-color: #101010;
+    color: white;
+    border: none;
+    border-radius: 0.35rem;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+select:focus {
+    background-color: #101010;
+}
+
+.settings:not([open]),
+.settings[closing] {
+    scale: 1 1;
+    translate: -100% 0;
+}
+
+.settings {
+    display: grid;
+    grid-template-rows: 1fr;
+    top: 0;
+    left: 0;
+    translate: 0;
+    width: 40%;
+    min-width: 280px;
+    height: 100vh;
+    min-height: 100%;
+    max-height: 100%;
+    background-color: transparent;
+    border: none;
+    transition: var(--transition);
+    z-index: 2;
+    overflow: hidden;
+}
+
+.settingswrapper {
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    gap: 0.7rem;
+    width: 100%;
+    height: 100vh;
+    padding-block: 1.5rem 0.7rem;
+    background-color: #1b1b1bfc;
+    border-radius: 0.7rem;
+}
+
+.settingstitle,
+.settingsfooter {
+    display: flex;
+}
+
+.settingstitle {
+    display: grid;
+    place-items: center;
+    padding-inline: 1.5rem;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+#settingstitlelbl,
+.settingstitle > button {
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.settingstitle > button {
+    justify-self: end;
+    cursor: pointer;
+}
+
+.settingscontent {
+    width: 100%;
+    padding-inline: 1.5rem;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.settingscontent > :last-child {
+    margin-bottom: 0;
+}
+
+.sanbox {
+    display: grid;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    background-color: #2b2b2b;
+    border-radius: 0.35rem;
+    overflow: hidden;
+}
+
+#eyebtn > img {
+    content: url("../icon/visibility_off.svg");
+}
+
+#eyebtn[show] > img {
+    content: url("../icon/visibility.svg");
+}
+
+.sanboxtitle {
+    --icon: url("../icon/windows.svg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    padding: 0.35rem;
+    font-family: "Titillium Web", "Roboto";
+    font-size: 0.8rem;
+    background-color: var(--primary);
+    transition: var(--transition);
+    text-transform: uppercase;
+}
+
+.sanboxtitle::before {
+    content: "";
+    display: inline-block;
+    background: var(--icon) center / contain no-repeat;
+    width: 0.85rem;
+    height: 0.85rem;
+}
+
+.sanboxcontent {
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.75rem;
+    background-color: #2b2b2b;
+    border-radius: 0 0 0.35rem 0.35rem;
+}
+
+.sanboxcontent > button {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2,max-content);
+    place-content: center;
+    gap: 0.15rem;
+    padding: 0.35rem;
+    font-size: 0.75rem;
+    background-color: var(--primary);
+    border-radius: 0.35rem;
+    transition: var(--transition);
+    overflow: hidden;
+    text-transform: uppercase;
+    isolation: isolate;
+    will-change: contents;
+}
+
+.sanboxcontent > button > * {
+    place-self: center;
+    transition: var(--transition);
+}
+
+.sanboxcontent > button > img {
+    width: 1rem;
+}
+
+.sanboxcontent > button > label {
+    display: grid;
+    grid-template-columns: repeat(2,max-content);
+    gap: 0.35rem;
+    place-items: center;
+}
+
+.sanboxcontent > button > span,
+#keybind > span {
+    position: absolute;
+    translate: -150% 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: -1;
+}
+
+.sanboxcontent > button:hover > span,
+#keybind:hover > span {
+    translate: 0 0;
+}
+
+.sanboxcontent > button:not(#ovpreviewbtn):hover > *:not(span) {
+    filter: invert();
+}
+
+.sanboxoption {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    align-items: center;
+    transition: var(--transition);
+}
+
+button[soon],
+.sanboxoption[soon] {
+    cursor: not-allowed;
+}
+
+.sanboxoption > button {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.75rem;
+    background-color: #101010;
+    border-radius: 0.35rem;
+    transition: var(--transition);
+}
+
+.sanboxoption:has(button > img) > button {
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+.sanboxoption > button > img {
+    width: 1rem;
+    cursor: pointer;
+}
+
+.sanboxoption:has(input[type="range"]) {
+    grid-template-columns: repeat(2,1fr);
+}
+
+.sanboxoption:has(#rarity) {
+    grid-template-columns: max-content auto;
+    gap: 0.7rem;
+}
+
+.sanboxoption:has(#overlayposdropdown,#monitor) {
+    grid-template-columns: auto auto;
+}
+
+.sanboxlbl {
+    --icon: "../icon/windows.svg";
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+}
+
+.sanboxlbl[src]::before {
+    content: "";
+    display: inline-block;
+    background: var(--icon) center / contain no-repeat;
+    width: 0.85rem;
+    height: 0.85rem;
+}
+
+.sanboxlbl[star]::after {
+    content: "*";
+    color: red;
+}
+
+.sanboxlbl[ext]::after {
+    content: "";
+    display: inline-block;
+    background: url("../icon/open_in_new.svg") center / contain no-repeat;
+    width: 0.85rem;
+    height: 0.85rem;
+}
+
+.configbox {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    align-items: center;
+    border-radius: 0.35rem;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.configbox > * {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    transition: var(--transition);
+    will-change: contents;
+}
+
+.configbox > input[type="password"],
+.configbox > input[type="text"] {
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+
+.configbox > button:not(:hover) {
+    animation: zindex calc(var(--transition) * 2);
+}
+
+@keyframes zindex {
+    from { z-index: 2; }
+    to { z-index: 0; }
+}
+
+.configbox > button:nth-child(1) {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    background-color: var(--primary);
+}
+
+.configbox > button:nth-child(3) {
+    grid-column-start: 3;
+    grid-row-start: 1;
+    background-color: var(--primary);
+}
+
+.configbox > button:hover {
+    background-color: white;
+    transition: var(--transition);
+    z-index: 2;
+}
+
+.configbox > button:not(#eyebtn):hover > img {
+    filter: invert();
+}
+
+#eyebtn {
+    background-color: #101010;
+}
+
+#eyebtn > img {
+    opacity: 0.5;
+    transition: var(--transition);
+}
+
+#eyebtn:hover > img {
+    opacity: 1;
+}
+
+.configbox > button > img {
+    width: 0.85rem;
+    margin: 0.35rem 0.7rem;
+}
+
+.configbox > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
+    grid-column: 1 / span 3;
+    grid-row-start: 1;
+    translate: 150% 0;
+    background-color: var(--primary);
+    border-radius: 0.35rem;
+    pointer-events: none;
+}
+
+#switchaccountspan {
+    translate: -150% 0;
+}
+
+.configbox > button:nth-child(1):hover ~ span:not(#switchaccountspan) {
+    translate: 0 0;
+}
+
+.configbox > #switchaccountbtn:hover ~ #switchaccountspan {
+    translate: 0 0;
+}
+
+.detailswrapper {
+    margin-bottom: 2%;
+    font-size: 0.5rem;
+    font-style: italic;
+    color: #ffffffbf;
+    text-align: center;
+}
+
+#screenshots > .sanboxcontent:has(select > option[value="off"]:checked) > *:not(select),
+#screenshots > .sanboxcontent:has(select > option[value="steam"]:checked) > *[overlay]:not([steam][overlay]),
+#screenshots > .sanboxcontent:has(select > option[value="overlay"]:checked) > *[steam]:not([steam][overlay]) {
+    display: none;
+}
+
+#keybind {
+    position: relative;
+    background-color: var(--primary);
+    overflow: hidden;
+    isolation: isolate;
+    min-width: 2.75rem;
+    text-transform: uppercase;
+}
+
+#keybind[listen] > label {
+    animation: fadein 0.5s alternate infinite;
+}
+
+#keybind[listen] > span {
+    translate: 0 !important;
+}
+
+#keybind > label,
+#keybind > span {
+    transition: var(--transition);
+}
+
+#keybind > * {
+    pointer-events: none;
+}
+
+#keybind:hover > label,
+#keybind[listen] > label {
+    color: black;
+}
+
+.ovtabwrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-radius: 0.35rem;
+    overflow: hidden;
+}
+
+.ovtabwrapper > button {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    padding: 0.2rem;
+    background-color: var(--primary);
+}
+
+body:has(.mainwrapper[type="main"]) #ovtabmain,
+body:has(.mainwrapper[type="rare"]) #ovtabrare,
+body:has(.mainwrapper[type="plat"]) #ovtabplat {
+    background-color: white;
+    pointer-events: none;
+}
+
+.ovtabwrapper > button > img {
+    width: 1rem;
+}
+
+.settingswrapper .sanbox:has(#screenshotdropdown > option[value="overlay"]:checked) > .sanboxcontent,
+.customiserwrapper .sanboxcontent {
+    gap: 0.7rem;
+}
+
+.sanboxoption:has(#ovpathbtn) {
+    grid-template-columns: max-content 1fr;
+    gap: 0.7rem;
+}
+
+#ovpreviewbtn > *,
+#ovpathbtn > * {
+    pointer-events: none;
+}
+
+#ovpathbtn > label {
+    display: block;
+}
+
+#ovpathbtn:hover > label,
+#ovpathbtn > .marquee {
+    display: none;
+}
+
+#ovpathbtn:hover > .marquee {
+   display: flex;
+}
+
+.marquee {
+    --gap: 0.75rem;
+    display: flex;
+    gap: var(--gap);
+    overflow: hidden;
+    user-select: none;
+}
+
+.marquee > label {
+    display: flex;
+    justify-content: space-around;
+    flex-shrink: 0;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: marqueescroll 10s linear infinite
+}
+
+@keyframes marqueescroll {
+    from { translate: 0; }
+    to { translate: calc(-100% - var(--gap)); }
+}
+
+#ovpreviewbtn {
+    text-transform: uppercase;
+}
+
+#ovpreviewbtn:hover > label {
+    color: black;
+}
+
+#ovpreviewlbl {
+    --icon: url("../icon/trophy_gold.svg");
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+
+#ovpreviewlbl::before {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    content: "";
+    display: block;
+    background: var(--icon) center / contain no-repeat;
+    width: 1rem;
+    height: 1rem;
+    transition: var(--transition);
+}
+
+body:has(.mainwrapper[type="main"]) #ovpreviewlbl {
+    --icon: url("../icon/trophy_gold.svg");
+}
+
+body:has(.mainwrapper[type="rare"]) #ovpreviewlbl {
+    --icon: url("../icon/trophy_purple.svg");
+}
+
+body:has(.mainwrapper[type="plat"]) #ovpreviewlbl {
+    --icon: url("../icon/trophy_plat.svg");
+}
+
+.otherbtn {
+    text-transform: none !important;
+}
+
+.otherbtn:hover > * {
+    filter: none !important;
+}
+
+#betabtn {
+    background-color: #892be280;
+    margin-top: 0.35rem;
+}
+
+#betabtn:hover {
+    background-color: #892be2;
+}
+
+#betabtn:hover > img {
+    animation: wiggle calc(var(--transition) * 2.5) ease-in-out forwards;
+}
+
+@keyframes wiggle {
+    0% { scale: 1 1; rotate: 0; }
+    10% { scale: 1.2 1.2; rotate: -25deg; }
+    20% { scale: 1.25 1.25; rotate: 0; }
+    30% { scale: 1.2; rotate: 25deg; }
+    40% { scale: 1.25; rotate: 0; }
+    50% { scale: 1.2; rotate: -25deg; }
+    60% { scale: 1.25 1.25; rotate: 0; }
+    70% { scale: 1.2 1.2; rotate: 25deg; }
+    100% { scale: 1 1; rotate: 0; }
+}
+
+body[alpha] #betabtn,
+body[alpha] #betabtn:hover,
+button[soon] > *,
+.sanboxoption[soon] > * {
+    opacity: 0.5 !important;
+    pointer-events: none;
+}
+
+#logbtn {
+    background-color: #50505080;
+}
+
+#logbtn:hover {
+    background-color: #505050;
+}
+
+#resetbtn {
+    background-color: #ff000080;
+}
+
+#resetbtn > img {
+    transition: calc(var(--transition) * 2.5) ease-in-out;
+}
+
+#resetbtn:hover {
+    background-color: #ff0000;
+}
+
+#resetbtn:hover > img {
+    scale: 1.2 1.2;
+    rotate: 720deg;
+}
+
+.settingsfooter {
+    place-content: center;
+    font-size: 0.65rem;
+    opacity: 0.5;
+}
+
+.settingsfooter > #apprevnum {
+    margin-left: 0.2rem;
+}
+
+@media (orientation: portrait),(aspect-ratio: 1/1),(width <= 400px) {
+    .settings {
+        width: 100%;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,367 @@
+@font-face {
+    font-family: "Source Sans Pro Light";
+    src: url("../../../fonts/SourceSansPro-Light.ttf");
+}
+
+@font-face {
+    font-family: "Source Sans Pro ExtraLight";
+    src: url("../../../fonts/SourceSansPro-ExtraLight.ttf");
+}
+
+body[noanim] > .notifywrapper,
+body[noanim] > .notifywrapper::before,
+body[noanim] > .notifywrapper::after,
+body[noanim] .logowrapper::before {
+    translate: 0 !important;
+    animation: none !important;
+}
+
+/* Added for specificity over "base.css" - probably need to update "base.css" to prevent...this... */
+body[paused]:has(.mainwrapper[ss]) > .screenshotwrapper,
+body[paused] > .mainwrapper > .notifywrapper,
+body[paused] > .mainwrapper[bgimg] > .notifywrapper,
+body[paused] > .mainwrapper[gameart] > .notifywrapper,
+body[paused] > .mainwrapper > .notifywrapper::before,
+body[paused] > .mainwrapper > .notifywrapper::after,
+body[paused] > .mainwrapper[ss] > .notifywrapper,
+body[paused] > .mainwrapper[ss][bgimg] > .notifywrapper,
+body[paused] > .mainwrapper[ss][gameart] > .notifywrapper,
+body[paused] > .mainwrapper[ss] > .notifywrapper::before,
+body[paused] > .mainwrapper[ss] > .notifywrapper::after,
+body[paused] > .mainwrapper[ss][bgimg] > .notifywrapper::before,
+body[paused] > .mainwrapper[ss][bgimg] > .notifywrapper::after,
+body[paused] > .mainwrapper[ss][gameart] > .notifywrapper::before,
+body[paused] > .mainwrapper[ss][gameart] > .notifywrapper::after {
+    animation-play-state: paused !important;
+}
+
+body {
+    --percentcolor: #8b5f3f;
+    --percentaccent: #b17f40;
+    --dynbr: 0 var(--br) var(--br) 0;
+    --ssdynbr: 0 var(--br) var(--br) 0;
+    --translate: -100% 0;
+    --justify: start;
+    font-family: "Source Sans Pro ExtraLight";
+}
+
+body[bronze] {
+    --percentcolor: #8b5f3f;
+    --percentaccent: #b17f40;
+}
+
+body[silver] {
+    --percentcolor: #898989;
+    --percentaccent: #d2d2d2;
+}
+
+body[gold] {
+    --percentcolor: #c89600;
+    --percentaccent: #ffd045;
+}
+
+body[topleft],
+body[bottomleft] {
+    --justify: start;
+    --dynbr: 0 var(--br) var(--br) 0;
+    --translate: -100% 0;
+}
+
+body[topleft]:has(.mainwrapper[ss]) {
+    --dynbr: 0 var(--br) 0 0;
+}
+
+body[bottomleft]:has(.mainwrapper[ss]) {
+    --dynbr: 0 0 var(--br) 0;
+}
+
+body[topright]:has(.mainwrapper[ss]) {
+    --dynbr: var(--br) 0 0 0;
+}
+
+body[bottomright]:has(.mainwrapper[ss]) {
+    --dynbr: 0 0 0 var(--br);
+} 
+
+body[topcenter]:has(.mainwrapper[ss]),
+body[bottomcenter]:has(.mainwrapper[ss]) {
+    --dynbr: 0;
+}
+
+body[topcenter] {
+    --justify: center;
+    --dynbr: 0 0 var(--br) var(--br);
+    --translate: 0 -100%;
+}
+
+html:has(body[topcenter]) {
+    align-content: start;
+}
+
+body[bottomcenter] {
+    --justify: center;
+    --dynbr: var(--br) var(--br) 0 0;
+    --translate: 0 100%;
+}
+
+html:has(body[bottomcenter]) {
+    align-content: end;
+}
+
+body[topright],
+body[bottomright] {
+    --justify: end;
+    --dynbr: var(--br) 0 0 var(--br);
+    --translate: 100% 0;
+}
+
+.mainwrapper {
+    border-radius: 0 !important;
+    justify-items: var(--justify);
+    overflow: visible;
+}
+
+body[topcenter]  > .mainwrapper {
+    align-items: start;
+}
+
+body[bottomcenter]  > .mainwrapper {
+    align-items: end;
+}
+
+.mainwrapper > .notifywrapper {
+    grid-template-columns: 1fr 2fr 12.5vmax;
+    gap: 2.5vmax;
+    width: 95vw !important;
+    height: calc((60 / 80) * var(--minheight)) !important;
+    translate: var(--translate);
+    border-radius: var(--dynbr) !important;
+    opacity: 1;
+    animation:
+        slidein calc(var(--transition) * 2.5) cubic-bezier(0,0,0,1) forwards,
+        fadeout calc(var(--transition) * 5) calc(var(--time) - var(--transition) * 5) forwards !important;
+    filter: drop-shadow(0 0.1rem 0.25rem #101010);
+}
+
+@keyframes slidein {
+    to { translate: 0 0; }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}
+
+.mainwrapper[bgimg] > .notifywrapper::before,
+.mainwrapper[bgimg] > .notifywrapper::after,
+.mainwrapper[gameart] > .notifywrapper::before,
+.mainwrapper[gameart] > .notifywrapper::after {
+    border-radius: var(--dynbr) !important;
+}
+
+.mainwrapper[ss] > .notifywrapper,
+.mainwrapper[ss][bgimg] > .notifywrapper,
+.mainwrapper[ss][gameart] > .notifywrapper,
+.mainwrapper[ss] > .notifywrapper::before,
+.mainwrapper[ss] > .notifywrapper::after,
+.mainwrapper[ss][bgimg] > .notifywrapper::before,
+.mainwrapper[ss][bgimg] > .notifywrapper::after,
+.mainwrapper[ss][gameart] > .notifywrapper::before,
+.mainwrapper[ss][gameart] > .notifywrapper::after {
+    border-radius: var(--dynbr) !important;
+}
+
+body[topleft] .notifywrapper,
+body[bottomleft] .notifywrapper {
+    grid-template-columns: 1fr 2fr 12.5vmax !important;
+}
+
+body[topright] .notifywrapper,
+body[bottomright] .notifywrapper {
+    grid-template-columns: 12.5vmax 2fr 1fr !important;
+}
+
+body[topcenter] .notifywrapper,
+body[bottomcenter] .notifywrapper {
+    grid-template-columns: 12.5vmax 1fr 12.5vmax !important;
+}
+
+.iconwrapper {
+    max-width: 8vmax;
+}
+
+body[topleft] .iconwrapper,
+body[bottomleft] .iconwrapper,
+body[topcenter] .iconwrapper,
+body[bottomcenter] .iconwrapper {
+    justify-self: end;
+}
+
+body[topright] .iconwrapper,
+body[bottomright] .iconwrapper {
+    justify-self: start;
+}
+
+#msg {
+    font-family: "Source Sans Pro Light";
+    font-size: calc(4vmax * var(--fontsize));
+}
+
+.titlewrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+    justify-items: start;
+    align-items: center;
+    gap: 1.5vmax;
+}
+
+.titlewrapper::before {
+    content: "";
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: calc(3vmax * var(--fontsize));
+    height: calc(3vmax * var(--fontsize));
+    -webkit-mask-image: url("../../../img/sanlogotrophy.svg");
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    background: linear-gradient(to right,var(--percentcolor) 30%,var(--percentaccent),var(--percentcolor) 70%);
+}
+
+body[alldetails] .titlewrapper::before {
+    width: calc(2.5vmax * var(--fontsize));
+    height: calc(2.5vmax * var(--fontsize));
+}
+
+#title {
+    display: block;
+    font-size: calc(3.5vmax * var(--fontsize));
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#desc {
+    display: none;
+}
+
+#title,
+#desc {
+    opacity: 0.7 !important;
+}
+
+body[alldetails] .textwrapper > *,
+body[alldetails] .textwrapper > .titlewrapper > * {
+    font-size: calc(3vmax * var(--fontsize)) !important;
+}
+
+body[alldetails] #desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+}
+
+.logowrapper {
+    position: relative;
+    display: grid;
+    place-content: center;
+    isolation: isolate;
+}
+
+body[topleft] .logowrapper,
+body[bottomleft] .logowrapper {
+    grid-column-start: 3;
+    grid-row-start: 1;
+}
+
+body[topright] .logowrapper,
+body[bottomright] .logowrapper {
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.logowrapper::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    content: "";
+    width: 10.5vmax;
+    height: 10.5vmax;
+    outline: 0.15rem solid var(--secondary);
+    border-radius: 50%;
+    opacity: 0;
+    z-index: -1;
+    filter: blur(0.05rem);
+    animation: opacity calc(var(--time) / 2) calc(var(--transition) * 10) forwards;
+}
+
+@keyframes opacity {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.logowrapper > img {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    max-width: 7.25vmax;
+    z-index: 50;
+}
+
+body > .screenshotwrapper {
+    justify-self: var(--justify);
+    width: 95vw;
+    translate: var(--translate);
+    border-radius: var(--ssdynbr) !important;
+    opacity: 1;
+    animation:
+        slidein calc(var(--transition) * 2.5) cubic-bezier(0,0,0,1) forwards,
+        fadeout calc(var(--transition) * 5) calc(var(--time) - var(--transition) * 5) forwards !important;
+}
+
+body[topleft]:has(.mainwrapper[ss]),
+body[topcenter]:has(.mainwrapper[ss]),
+body[topright]:has(.mainwrapper[ss]) {
+    grid-template-rows: auto 1fr;
+}
+
+body[bottomleft]:has(.mainwrapper[ss]),
+body[bottomcenter]:has(.mainwrapper[ss]),
+body[bottomright]:has(.mainwrapper[ss]) {
+    grid-template-rows: 1fr auto;
+}
+
+body[topleft] > .screenshotwrapper,
+body[topcenter] > .screenshotwrapper,
+body[topright] > .screenshotwrapper {
+    grid-row-start: 2;
+}
+
+body[bottomleft] > .screenshotwrapper,
+body[bottomcenter] > .screenshotwrapper,
+body[bottomright] > .screenshotwrapper {
+    grid-row-start: 1;
+}
+
+body[topleft]:has(.mainwrapper[ss]) {
+    --ssdynbr: 0 0 var(--br) 0;
+}
+
+body[bottomleft]:has(.mainwrapper[ss]) {
+    --ssdynbr: 0 var(--br) 0 0;
+}
+
+body[topright]:has(.mainwrapper[ss]) {
+    --ssdynbr: 0 0 0 var(--br);
+}
+
+body[bottomright]:has(.mainwrapper[ss]) {
+    --ssdynbr: var(--br) 0 0 0;
+}
+
+body[topcenter]:has(.mainwrapper[ss]) {
+    --ssdynbr: 0 0 var(--br) var(--br);
+}
+
+body[bottomcenter]:has(.mainwrapper[ss]) {
+    --ssdynbr: var(--br) var(--br) 0 0;
+}

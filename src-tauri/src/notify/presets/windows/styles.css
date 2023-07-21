@@ -1,0 +1,167 @@
+@font-face {
+    font-family: "Noto Sans Medium";
+    src: url("../../../fonts/NotoSans-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Noto Sans Light";
+    src: url("../../../fonts/NotoSans-Light.ttf");
+}
+
+html {
+    overflow: hidden;
+}
+
+body {
+    --translate: 100% 0;
+    font-family: "Noto Sans Light";
+}
+
+body[topleft][noanim] > .mainwrapper,
+body[topcenter][noanim] > .mainwrapper,
+body[topright][noanim] > .mainwrapper,
+body[bottomleft][noanim] > .mainwrapper,
+body[bottomcenter][noanim] > .mainwrapper,
+body[bottomright][noanim] > .mainwrapper,
+body[topleft][noanim] > .screenshotwrapper,
+body[topcenter][noanim] > .screenshotwrapper,
+body[topright][noanim] > .screenshotwrapper,
+body[bottomleft][noanim] > .screenshotwrapper,
+body[bottomcenter][noanim] > .screenshotwrapper,
+body[bottomright][noanim] > .screenshotwrapper {
+    animation: none !important;
+}
+
+body[topleft][paused] > .mainwrapper,
+body[topcenter][paused] > .mainwrapper,
+body[topright][paused] > .mainwrapper,
+body[bottomleft][paused] > .mainwrapper,
+body[bottomcenter][paused] > .mainwrapper,
+body[bottomright][paused] > .mainwrapper,
+body[topleft][paused] > .screenshotwrapper,
+body[topcenter][paused] > .screenshotwrapper,
+body[topright][paused] > .screenshotwrapper,
+body[bottomleft][paused] > .screenshotwrapper,
+body[bottomcenter][paused] > .screenshotwrapper,
+body[bottomright][paused] > .screenshotwrapper {
+    animation-play-state: paused !important;
+}
+
+.mainwrapper {
+    border-radius: 0;
+}
+
+.notifywrapper {
+    grid-template-rows: auto 1fr;
+    gap: 2vmax 3.5vmax;
+    padding: 3vmax;
+    translate: var(--translate);
+    border-radius: var(--br);
+    animation:
+        slidein calc(var(--transition) * 2.5) ease-in-out forwards,
+        slideout calc(var(--transition) * 2.5) calc(var(--time) - var(--transition) * 2.5) ease-in-out forwards;
+}
+
+body[topleft],
+body[bottomleft] {
+    --translate: -100% 0;
+}
+
+body[topright],
+body[bottomright] {
+    --translate: 100% 0;
+}
+
+body[topcenter] {
+    --translate: 0 -200%;
+}
+
+body[bottomcenter] {
+    --translate: 0 200%;
+}
+
+body[topcenter] .notifywrapper,
+body[bottomcenter] .notifywrapper,
+body[topcenter] .screenshotwrapper,
+body[bottomcenter] .screenshotwrapper {
+    translate: 0;
+    animation: none;
+}
+
+body[topcenter] .mainwrapper,
+body[topcenter] .screenshotwrapper,
+body[bottomcenter] .mainwrapper,
+body[bottomcenter] .screenshotwrapper {
+    translate: var(--translate);
+    animation:
+        start var(--transition) forwards, finish var(--transition) var(--time) forwards,
+        slidein calc(var(--transition) * 2.5) ease-in-out forwards,
+        slideout calc(var(--transition) * 2.5) calc(var(--time) - var(--transition) * 2.5) ease-in-out forwards !important;
+}
+
+
+.iconwrapper,
+.textwrapper {
+    grid-row-start: 2;
+}
+
+.iconwrapper {
+    max-width: 16vmax;
+}
+
+.msgwrapper {
+    grid-column: 1 / span 2;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+    gap: 2vmax;
+    justify-items: start;
+    align-items: center;
+    font-size: calc(3.5vmax * var(--fontsize));
+}
+
+#customicon {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: 3.5vmax;
+    filter: var(--dropshadow);
+}
+
+#msg {
+    grid-row-start: 1;
+    text-shadow: var(--textoutline);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+#title {
+    font-family: "Noto Sans Medium";
+    -webkit-line-clamp: 1;
+}
+
+#desc {
+    -webkit-line-clamp: 2;
+}
+
+.rareR {
+    width: 20vmax;
+    height: 20vmax;
+}
+
+@keyframes slidein {
+    to { translate: 0 0; }
+}
+
+@keyframes slideout {
+    to { translate: var(--translate); }
+}
+
+.screenshotwrapper {
+    translate: var(--translate);
+    opacity: 1;
+    animation:
+        slidein calc(var(--transition) * 2.5) ease-in-out forwards,
+        slideout calc(var(--transition) * 2.5) calc(var(--time) - var(--transition) * 2.5) ease-in-out forwards !important;
+}

@@ -1,0 +1,133 @@
+{
+    "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+    "build": {
+        "devPath": "src",
+        "distDir": "src",
+        "withGlobalTauri": true
+    },
+    "package": {
+        "productName": "SteamAchievementNotifier",
+        "version": "1.85.0"
+    },
+    "tauri": {
+        "allowlist": {
+            "all": false,
+            "clipboard": {
+                "writeText": true
+            },
+            "dialog": {
+                "open": true
+            },
+            "fs": {
+                "exists": true,
+                "copyFile": true,
+                "createDir": true,
+                "readDir": true,
+                "readFile": true,
+                "removeFile": true,
+                "removeDir": true,
+                "writeFile": true,
+                "scope": [
+                    "**",
+                    "$HOME/.cache/**",
+                    "$HOME/.steam/**",
+                    "$HOME/.var/app/com.valvesoftware.steam/.steam/**"
+                ]
+            },
+            "globalShortcut": {
+                "all": true
+            },
+            "http": {
+                "all": true,
+                "scope": [
+                    "https://api.steampowered.com/*",
+                    "https://avatars.akamai.steamstatic.com/*",
+                    "https://steamcdn-a.akamaihd.net/*",
+                    "https://cdn.cloudflare.steamstatic.com/*",
+                    "https://steamcommunity.com/*",
+                    "steam://openurl/*"
+                ]
+            },
+            "os": {
+                "all": true
+            },
+            "path": {
+                "all": true
+            },
+            "process": {
+                "all": false,
+                "exit": true,
+                "relaunch": true
+            },
+            "protocol": {
+                "asset": true,
+                "assetScope": ["**"]
+            },
+            "shell": {
+                "all": false,
+                "open": ".*"
+            },
+            "window": {
+                "create": true,
+                "show": true,
+                "hide": true,
+                "close": true,
+                "setPosition": true,
+                "startDragging": true,
+                "setIgnoreCursorEvents": true,
+                "setSize": true,
+                "maximize": true,
+                "unmaximize": true
+            }
+        },
+        "bundle": {
+            "active": true,
+            "category": "Utility",
+            "publisher": "Jackson0ne",
+            "copyright": "Copyright © Jackson0ne 2023. All Rights Reserved.",
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ],
+            "identifier": "com.steamachievementnotifier.jackson0ne",
+            "resources": ["src/*"],
+            "targets": [
+                "appimage",
+                "nsis",
+                "updater"
+            ]
+        },
+        "security": {
+            "csp": null
+        },
+        "systemTray": {
+            "iconPath": "icons/icon.png",
+            "iconAsTemplate": true
+        },
+        "updater": {
+            "active": true,
+            "endpoints": ["https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/alpha/src-tauri/src/updater.json"],
+            "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEFGMzczMkJBN0E0OTlGOUUKUldTZW4wbDZ1akkzcjRzeEl2dWRMZTlmRTEyR3FUcnBNWGRMS2prcTc0dkxOUzFQRHdDeUdYREEK"
+        },
+        "windows": [
+            {
+                "fullscreen": false,
+                "resizable": true,
+                "title": "Steam Achievement Notifier (V1.85)",
+                "minWidth": 300,
+                "width": 700,
+                "minHeight": 450,
+                "height": 500,
+                "minimizable": false,
+                "center": true,
+                "focus": false,
+                "transparent": true,
+                "decorations": false,
+                "theme": "Dark"
+            }
+        ]
+    }
+}

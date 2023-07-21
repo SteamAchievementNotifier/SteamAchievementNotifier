@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @font-face {
+                font-family: "Titillium Web";
+                src: url("../fonts/TitilliumWeb-SemiBold.ttf");
+            }
+
+            @font-face {
+                font-family: "Roboto";
+                src: url("../fonts/Roboto-Medium.ttf");
+            }
+
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+                user-select: none;
+            }
+
+            html,body {
+                color-scheme: dark;
+                width: 100vw;
+                min-width: 300px;
+                height: 100vh;
+                min-height: 300px;
+                font-family: "Titillium Web", "Roboto";
+                color: white;
+                overflow: hidden;
+            }
+
+            body {
+                font-family: "Titillium Web", "Roboto";
+                background-color: transparent;
+                color: white;
+                padding: 1.5rem;
+            }
+
+            :root {
+                font-size: clamp(0.7rem,0.25rem + 1.5vmax,10vmax);
+                --transition: 0.2s;
+            }
+
+            button {
+                display: grid;
+                place-content: center;
+                place-items: center;
+                font-family: "Titillium Web", "Roboto";
+                font-size: 1rem;
+                background-color: transparent;
+                color: white;
+                border: none;
+                transition: var(--transition);
+                cursor: pointer;
+            }
+
+            button > * {
+                will-change: contents;
+            }
+
+            button > img {
+                width: 1.5rem;
+                pointer-events: none;
+            }
+
+            ::-webkit-scrollbar {
+                width: 1rem;
+                background-color: #101010;
+                border-radius: 0.35rem;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background-color: #3d3d3d;
+                border-radius: 0.35rem;
+            }
+
+            .controls,
+            .logowrapper {
+                grid-column-start: 1;
+                grid-row-start: 1;
+            }
+
+            .controls > button {
+                opacity: 0.5;
+            }
+
+            .controls > button:hover {
+                scale: 1.2 1.2;
+                opacity: 1;
+            }
+
+            .mainwrapper {
+                display: grid;
+                grid-template-rows: auto 1fr auto;
+                place-content: center;
+                gap: 0.7rem;
+                width: 100%;
+                height: 100%;
+                padding: 2rem;
+                background-color: #1b1b1b;
+                border-radius: 1.5rem;
+                filter: drop-shadow(0 0 0.35rem #00000055);
+            }
+
+            .mainwrapper > * {
+                display: grid;
+            }
+
+            #closebtn {
+                justify-self: end;
+                align-self: self-start;
+            }
+
+            .logowrapper {
+                gap: 0.7rem;
+                place-items: center;
+            }
+            
+            .logowrapper > img {
+                place-self: center;
+                width: 75%;
+            }
+            
+            .logowrapper > span {
+                font-size: 0.75rem;
+                font-style: italic;
+                opacity: 0.75;
+                text-align: center;
+            }
+
+            .logbox {
+                font-size: 0.7rem;
+                padding: 0.7rem;
+                margin-block: 0.7rem;
+                background-color: #2b2b2b;
+                border-radius: 0.35rem;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                white-space: pre-line;
+                word-break: break-all;
+            }
+
+            .btnwrapper {
+                gap: 0.7rem;
+            }
+
+            .btnwrapper > button {
+                padding: 0.35rem;
+                background-color: #203e7a;
+                border-radius: 0.35rem;
+            }
+
+            .btnwrapper > button:hover {
+                background-color: black;
+                filter: invert();
+            }
+
+            .btnwrapper > button > span {
+                display: grid;
+                grid-template-columns: max-content 1fr;
+                place-items: center;
+                gap: 0.2rem;
+                font-size: 0.7rem;
+            }
+
+            .btnwrapper > button > span::before {
+                content: "";
+                display: block;
+                width: 0.9rem;
+                height: 0.9rem;
+            }
+            
+            #copy > span::before {
+                background: url("../icon/copyfill.svg") center / contain no-repeat;
+            }
+
+            #open > span::before {
+                background: url("../icon/open_in_new.svg") center / contain no-repeat;
+            }
+        </style>
+        <script src="sanhelper.js"></script>
+        <script type="module" src="../import.js"></script>
+    </head>
+    <body>
+        <div class="mainwrapper" data-tauri-drag-region>
+            <div class="controls" data-tauri-drag-region>
+                <button id="closebtn" onclick="invoke(`close_window`)">
+                    <img src="../icon/close.svg" alt="">
+                </button>
+            </div>
+            <div class="logowrapper">
+                <img src="../img/santextlogo.png" alt="" data-tauri-drag-region>
+                <span id="tagline"></span>
+            </div>
+            <code class="logbox">Whoops, nothing here 😅</code>
+            <div class="btnwrapper" data-tauri-drag-region>
+                <button id="copy" onclick="CopyToClipboard(document.querySelector(`.logbox`).textContent)">
+                    <span id="copylbl"></span>
+                </button>
+                <button id="open" onclick="GenerateLogFile()">
+                    <span id="openlbl"></span>
+                </button>
+            </div>
+        </div>
+        <script>
+            const { fs, path, shell } = window.__TAURI__
+            const { invoke } = window.__TAURI__.tauri
+            const { writeText } = window.__TAURI__.clipboard
+            const { emit, listen, once } = window.__TAURI__.event
+
+            const config = JSON.parse(localStorage.getItem("config"))
+
+            window.addEventListener("DOMContentLoaded", () => {
+                invoke("ipc", { eventname: "webviewready", payload: {} }), { once: true }
+                LoadLang(config.lang)
+            })
+
+            once("logwin", event => {
+                document.querySelector(".logbox").textContent = event.payload.msg
+                document.querySelector(".logowrapper > span").textContent = `${translations.tagline.elem} ${event.payload.optional}`
+            })
+
+            listen("updatelog", event => document.querySelector(".logbox").textContent = event.payload.msg)
+
+            function CopyToClipboard(text) {
+                writeText(text)
+                .then(() => console.log("Log contents copied successfully"))
+                .catch(err => console.log(`Unable to copy log contents: (${err})`))
+            }
+
+            async function GenerateLogFile() {
+                try {
+                    const generate = await log.generate()
+                    console.log(`%c${generate}`,"color:limegreen")
+
+                    shell.open(await path.join(await path.appLocalDataDir()))
+                    .then(() => console.log(`%cShell opened`,"color:limegreen"))
+                    .catch(err => console.log(`%c${err}`,"color:red"))
+                } catch (err) {
+                    console.log(`%c${err}`,"color:red")
+                }
+            }
+
+            // Object.assign(window, { CopyToClipboard, GenerateLogFile })
+        </script>
+    </body>
+</html>

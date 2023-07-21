@@ -1,0 +1,496 @@
+@font-face {
+    font-family: "Titillium Web Regular";
+    src: url("../../../fonts/TitilliumWeb-Regular.ttf");
+}
+
+body {
+    --dynbr: var(--br) !important;
+    font-family: "Titillium Web","Roboto";
+    will-change: contents;
+}
+
+.mainwrapper {
+    overflow: visible;
+}
+
+.mainwrapper[ss] {
+    align-items: start;
+}
+
+body:has(.mainwrapper[ss]) {
+    --dynbr: 0 0 var(--br) var(--br) !important;
+}
+
+body[noanim] .notifywrapper {
+    grid-template-columns: auto 1fr;
+    gap: 3.5vmax;
+    scale: 1 1;
+    width: 100vw;
+    border-radius: var(--dynbr);
+}
+
+.circle  {
+    display: grid;
+    place-content: center;
+    width: calc((50 / 70) * var(--minheight));
+    height: calc((50 / 70) * var(--minheight));
+}
+
+body[noanim] #msg,
+body[fastanim] #msg,
+body[noanim] .circle,
+body[noanim] #customiconwrapper {
+    display: none;
+}
+
+.circle,
+.notifywrapper {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    scale: 0 0;
+    border-radius: 50%;
+}
+
+#customiconwrapper {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    position: relative;
+    display: grid;
+    place-content: center;
+    width: calc((50 / 70) * var(--minheight));
+    height: calc((50 / 70) * var(--minheight));
+    padding: 0.5rem;
+    animation:
+        popin calc(var(--transition) * 5) forwards,
+        popout calc(var(--transition) * 5) calc(var(--transition) * 12) forwards,
+        popin calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 4)) forwards,
+        popout calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 14)) forwards;
+    z-index: 100;
+}
+
+body[fastanim] #customiconwrapper {
+    animation:
+        popin calc(var(--transition) * 2.5) forwards,
+        popout calc(var(--transition) * 2.5) calc(var(--transition) * 6) forwards;
+}
+
+#customicon {
+    border-radius: 50% !important;
+    width: 100%;
+    height: 100%;
+}
+
+#one {
+    background-color: var(--primary);
+    animation:
+        popin calc(var(--transition) * 5) forwards,
+        scaledown 0.1ms calc(var(--transition) * 9) forwards,
+        onezindex 0.1ms calc(var(--transition) * 9) forwards,
+        scaleup calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 9)) forwards,
+        popout calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 14)) forwards;
+    opacity: var(--op);
+    z-index: 0;
+}
+
+body[fastanim] #one {
+    opacity: var(--op);
+    animation:
+        popin calc(var(--transition) * 2.5) forwards,
+        scaledown 0.1ms calc(var(--transition) * 4.5) forwards;
+}
+
+#two {
+    background-color: var(--secondary);
+    opacity: var(--op);
+    animation:
+        scaleup calc(var(--transition) * 5) calc(var(--transition) * 4) forwards,
+        scaledown 0.1ms calc(var(--transition) * 14) forwards,
+        twozindex 0.1ms calc(var(--transition) * 14) forwards,
+        scaleup calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 4)) forwards,
+        scaledown 0.1ms calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 14)) forwards;
+    z-index: 1;
+}
+
+body[fastanim] #two {
+    opacity: var(--op);
+    animation:
+        scaleup calc(var(--transition) * 2.5) calc(var(--transition) * 2) forwards,
+        scaledown 0.1ms calc(var(--transition) * 7) forwards;
+}
+
+#three {
+    background-color: white;
+    opacity: var(--op);
+    animation:
+        scaleup calc(var(--transition) * 5) calc(var(--transition) * 8) forwards,
+        popout calc(var(--transition) * 5) calc(var(--transition) * 12) forwards,
+        popin calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 4)) forwards,
+        scaledown 0.1ms calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 9)) forwards;
+    z-index: 2;
+}
+
+body[fastanim] #three {
+    opacity: var(--op);
+    animation:
+        scaleup calc(var(--transition) * 2.5) calc(var(--transition) * 4) forwards,
+        scaledown 0.1ms calc(var(--transition) * 6) forwards;
+}
+
+.mainwrapper > .notifywrapper {
+    position: relative;
+    width: calc((50 / 70) * var(--minheight));
+    height: calc((50 / 70) * var(--minheight));
+    grid-template-columns: auto 0fr;
+    justify-content: center;
+    gap: 0;
+    animation:
+        scaleup calc(var(--transition) * 5) calc(var(--transition) * 16) forwards,
+        grow calc(var(--transition) * 10) calc(var(--transition) * 20) forwards,
+        shrink calc(var(--transition) * 10) calc(calc(var(--time)) - calc(var(--time) / 4) - calc(var(--transition) * 9)) forwards,
+        scaledown calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 4)) forwards;
+    z-index: 4;
+}
+
+/* body:not([fastanim]) > .mainwrapper[ss] > .notifywrapper {
+    animation:
+        scaleup calc(var(--transition) * 5) calc(var(--transition) * 16) forwards,
+        ssgrow calc(var(--transition) * 10) calc(var(--transition) * 20) forwards,
+        ssshrink calc(var(--transition) * 10) calc(calc(var(--time)) - calc(var(--time) / 4) - calc(var(--transition) * 9)) forwards,
+        scaledown calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 4)) forwards;
+} */
+
+body[fastanim] > .mainwrapper > .notifywrapper {
+    animation:
+        scaleup calc(var(--transition) * 2.5) calc(var(--transition) * 8) forwards,
+        grow calc(var(--transition) * 5) calc(var(--transition) * 10) forwards,
+        fadeout calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 2.5)) forwards;
+}
+
+.iconwrapper {
+    max-width: 10vmax;
+}
+
+.textwrapper {
+    min-width: 0;
+}
+
+.textwrapper > * {
+    opacity: 0;
+}
+
+#title,
+#desc {
+    font-family: "Titillium Web Regular","Roboto";
+}
+
+.msgwrapper,
+body[fastanim] .titlewrapper,
+body[noanim] .titlewrapper {
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.titlewrapper,
+body[noanim] .boxwrapper,
+body[fastanim] .boxwrapper {
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+body[noanim] #title,
+body[fastanim] #title {
+    font-family: "Titillium Web","Roboto";
+}
+
+.msgwrapper,
+.titlewrapper {
+    display: grid;
+    animation:
+        fadein calc(var(--transition) * 5) calc(var(--transition) * 24) forwards,
+        fadeout calc(var(--transition) * 5) calc(calc(var(--time) / 2) - calc(var(--transition) * 5)) forwards;
+}
+
+#msg {
+    align-self: end;
+}
+
+#msg,
+#title {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+body[fastanim] .titlewrapper,
+body[fastanim] .boxwrapper {
+    animation:
+        fadein calc(var(--transition) * 2.5) calc(var(--transition) * 14) forwards,
+        fadeout calc(var(--transition) * 2.5) calc(calc(var(--time)) - calc(var(--transition) * 2.5)) forwards;
+}
+
+.boxwrapper {
+    display: grid;
+    align-content: center;
+    grid-column-start: 1;
+    grid-row: 1 / span 2;
+    padding: 0;
+    animation:
+        fadein calc(var(--transition) * 5) calc(var(--time) / 2) forwards,
+        fadeout calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) - calc(var(--transition) * 9)) forwards;
+}
+
+#desc {
+    padding-inline: 0.2rem;
+}
+
+body[noanim] #desc,
+body[fastanim] #desc {
+    -webkit-line-clamp: 2;
+}
+
+@keyframes popin {
+    from { scale: 0 0; }
+    50% { scale: 1.2 1.2; }
+    to { scale: 1 1; }
+}
+
+@keyframes popout {
+    from { scale: 1 1; }
+    50% { scale: 1.2 1.2; }
+    to { scale: 0 0; }
+}
+
+@keyframes scaleup {
+    from {
+        scale: 0 0;
+        border-radius: 50%;
+    }
+    to {
+        scale: 1 1;
+        border-radius: 50%;
+    }
+}
+
+@keyframes scaledown {
+    from {
+        scale: 1 1;
+        border-radius: 50%;
+    }
+    to {
+        scale: 0 0;
+        border-radius: 50%;
+    }
+}
+
+@keyframes grow {
+    from {
+        grid-template-columns: auto 0fr;
+        gap: 0;
+        border-radius: 50%;
+        width: calc((50 / 70) * var(--minheight));
+    }
+    
+    25% {
+        grid-template-columns: auto 0fr;
+        gap: 0;
+        border-radius: var(--dynbr);
+        width: calc((50 / 70) * var(--minheight));
+    }
+
+    30% {
+        grid-template-columns: auto 1fr;
+        gap: 0;
+        border-radius: var(--dynbr);
+        width: calc((50 / 70) * var(--minheight));
+    }
+
+    to {
+        grid-template-columns: auto 1fr;
+        gap: 3.5vmax;
+        border-radius: var(--dynbr);
+        width: 100vw;
+    }
+}
+
+@keyframes shrink {
+    from {
+        grid-template-columns: auto 1fr;
+        gap: 3.5vmax;
+        border-radius: var(--dynbr);
+        width: 100vw;
+    }
+    
+    75% {
+        grid-template-columns: auto 1fr;
+        gap: 0;
+        border-radius: var(--dynbr);
+        width: calc((50 / 70) * var(--minheight));
+    }
+
+    80% {
+        grid-template-columns: auto 0fr;
+        gap: 0;
+        border-radius: var(--dynbr);
+        width: calc((50 / 70) * var(--minheight));
+    }
+
+    to {
+        grid-template-columns: auto 0fr;
+        gap: 0;
+        border-radius: 50%;
+        width: calc((50 / 70) * var(--minheight));
+    }
+}
+
+/* @keyframes ssgrow {
+    from {
+        grid-template-columns: auto 0fr;
+        gap: 0;
+        border-radius: 50%;
+        width: calc((50 / 70) * var(--minheight));
+    }
+    
+    25% {
+        grid-template-columns: auto 0fr;
+        gap: 0;
+        border-radius: 0 0 var(--br) var(--br);
+        width: calc((50 / 70) * var(--minheight));
+    }
+
+    30% {
+        grid-template-columns: auto 1fr;
+        gap: 0;
+        border-radius: 0 0 var(--br) var(--br);
+        width: calc((50 / 70) * var(--minheight));
+    }
+
+    to {
+        grid-template-columns: auto 1fr;
+        gap: 3.5vmax;
+        border-radius: 0 0 var(--br) var(--br);
+        width: 100vw;
+    }
+}
+
+@keyframes ssshrink {
+    from {
+        grid-template-columns: auto 1fr;
+        gap: 3.5vmax;
+        border-radius: 0 0 var(--br) var(--br);
+        width: 100vw;
+    }
+    
+    75% {
+        grid-template-columns: auto 1fr;
+        gap: 0;
+        border-radius: 0 0 var(--br) var(--br);
+        width: calc((50 / 70) * var(--minheight));
+    }
+
+    80% {
+        grid-template-columns: auto 0fr;
+        gap: 0;
+        border-radius: 0 0 var(--br) var(--br);
+        width: calc((50 / 70) * var(--minheight));
+    }
+
+    to {
+        grid-template-columns: auto 0fr;
+        gap: 0;
+        border-radius: 50%;
+        width: calc((50 / 70) * var(--minheight));
+    }
+} */
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes onezindex {
+    from { z-index: 0; }
+    to { z-index: 4; }
+}
+
+@keyframes twozindex {
+    from { z-index: 0; }
+    to { z-index: 3; }
+}
+
+.screenshotwrapper {
+    translate: 0 100%;
+    opacity: 1;
+    scale: 16.67% 1;
+    opacity: 0;
+    animation:
+        ssslideup calc(var(--transition) * 5) calc(var(--transition) * 16) forwards,
+        ssgrow calc(var(--transition) * 10) calc(var(--transition) * 20) forwards,
+        ssshrink calc(var(--transition) * 10) calc(calc(var(--time)) - calc(var(--time) / 4) - calc(var(--transition) * 9)) forwards,
+        ssslidedown calc(var(--transition) * 5) calc(calc(var(--time)) - calc(var(--time) / 4) + calc(var(--transition) * 4)) forwards !important;
+    will-change: scale, contents;
+}
+
+body[fastanim][paused] > .screenshotwrapper {
+    animation-play-state: paused !important;
+}
+    
+body[fastanim] .screenshotwrapper {
+    animation:
+        ssslideup calc(var(--transition) * 2.5) calc(var(--transition) * 8) forwards,
+        ssgrow calc(var(--transition) * 5) calc(var(--transition) * 10) forwards,
+        fadeout calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 2.5)) forwards !important;
+}
+
+@keyframes ssslideup {
+    from {
+        opacity: 0;
+        translate: 0 100%;
+    }
+    
+    50% {
+        opacity: 0;
+        translate: 0 50%;
+    }
+    
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+@keyframes ssgrow {
+    from { scale: 16.67% 1; }
+    25% { scale: 16.67% 1; }
+    30% { scale: 16.67% 1; }
+    to { scale: 1 1; }
+}
+
+@keyframes ssslidedown {
+    from {
+        opacity: 1;
+        translate: 0 0;
+    }
+
+    50% {
+        opacity: 0;
+        translate: 0 50%;
+    }
+    
+    to {
+        opacity: 0;
+        translate: 0 100%;
+    }
+}
+
+@keyframes ssshrink {
+    from { scale: 1 1; }
+    75% { scale: 16.67% 1; }
+    80% { scale: 16.67% 1; }
+    to { scale: 16.67% 1; }
+}

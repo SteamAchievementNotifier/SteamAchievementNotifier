@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+                user-select: none;
+            }
+
+            html, body {
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
+                cursor: move;
+            }
+
+            body {
+                display: grid;
+                place-content: center;
+            }
+            
+            body[main] {
+                background-color: #203e7abf;
+            }
+
+            body[rare] {
+                background-color: #663399bf;
+            }
+
+            body[plat] {
+                background-color: #4e75c9bf;
+            }
+
+            button {
+                appearance: none;
+                display: grid;
+                place-content: center;
+                min-width: 2rem;
+                background-color: #203e7a;
+                border: none;
+                border-radius: 0.35rem;
+                opacity: 0.5;
+                cursor: pointer;
+            }
+            
+            button:hover {
+                opacity: 1;
+                transition: 0.2s;
+            }
+        </style>
+    </head>
+    <body data-tauri-drag-region>
+        <button>
+            <img src="../icon/save_white.svg" alt="">
+        </button>
+        <script>
+            const { invoke } = window.__TAURI__.tauri
+            const { once } = window.__TAURI__.event
+            const { getCurrent } = window.__TAURI__.window
+
+            window.addEventListener("DOMContentLoaded", () => invoke("ipc", { eventname: "webviewready", payload: {} }), { once: true })
+
+            once("type", event => document.body.setAttribute(event.payload.msg,""))
+
+            document.querySelector("button").onclick = async () => {
+                const { x, y } = await getCurrent().innerPosition()
+
+                await invoke("ipc", { eventname: "coords", payload: { msg: { x: x, y: y }, } })
+                await invoke("close_window")
+            }
+        </script>
+    </body>
+</html>

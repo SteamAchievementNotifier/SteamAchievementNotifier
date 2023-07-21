@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            user-select: none;
+        }
+
+        html,
+        body {
+            width: 100vw;
+            height: 100vh;
+            isolation: isolate;
+        }
+
+        body {
+            display: grid;
+            place-content: center;
+            place-items: center;
+            background-color: transparent;
+            overflow: hidden;
+        }
+
+        body > * {
+            grid-column-start: 1;
+            grid-row-start: 1;
+        }
+
+        body > img {
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        iframe {
+            --offset: 1.25rem;
+        }
+
+        iframe[topleft],
+        iframe[bottomleft],
+        iframe[topright],
+        iframe[bottomright] {
+            margin: 1.25rem var(--offset) 1.25rem;
+        }
+        
+        iframe[topcenter] {
+            margin: var(--offset) 1.25rem 1.25rem;
+        }
+        
+        iframe[bottomcenter] {
+            margin: 1.25rem 1.25rem var(--offset);
+        }
+
+        button {
+            appearance: none;
+            display: grid;
+            place-content: center;
+            grid-column-start: 1;
+            grid-row-start: 1;
+            justify-self: self-end;
+            align-self: self-start;
+            width: 1.25rem;
+            height: 1.25rem;
+            margin: 1.25rem;
+            scale: 1 1;
+            background-color: transparent;
+            border: none;
+            opacity: 0.5;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        button > * {
+            pointer-events: none;
+        }
+
+        button:hover {
+            opacity: 1;
+            scale: 1.2 1.2;
+        }
+    </style>
+    <body>
+        <button id="closebtn" onclick="invoke(`close_window`)">
+            <img src="../icon/close.svg" alt="">
+        </button>
+        <img src="" alt="">
+        <iframe src="./base.html" frameborder="0" allowtransparency="true"></iframe>
+        <script type="module">
+            import { snapshotDocument } from "../plugins/snapshot/webview-dist/index.js"
+
+            const { fs, path } = window.__TAURI__
+            const { convertFileSrc, invoke } = window.__TAURI__.tauri
+            const { listen } = window.__TAURI__.event
+
+            window.invoke = invoke
+
+            document.addEventListener("contextmenu", event => event.preventDefault())
+
+            window.addEventListener("DOMContentLoaded", () => invoke("ipc", { eventname: "ssready", payload: {} }), { once: true })
+
+            listen("ss", async event => {
+                const iframe = document.getElementsByTagName("iframe")[0]
+                const { msg, custom, html, preview } = event.payload.optional
+
+                msg.overlay = true
+
+                await new Promise(resolve => {
+                    function SetOvPos(pos) {
+                        switch (pos) {
+                            case "topleft": return ["self-start","self-start"]
+                            case "topcenter": return ["center","self-start"]
+                            case "topright": return ["self-end","self-start"]
+                            case "bottomleft": return ["self-start","self-end"]
+                            case "bottomcenter": return ["center","self-end"]
+                            case "bottomright": return ["self-end","self-end"]
+                        }
+                    }
+
+                    iframe.style.justifySelf = custom.ovpos === "match" ? SetOvPos(custom.pos)[0] : SetOvPos(custom.ovpos)[0]
+                    iframe.style.alignSelf = custom.ovpos === "match" ? SetOvPos(custom.pos)[1] : SetOvPos(custom.ovpos)[1]
+
+                    const dims = ["width","height"]
+                    dims.forEach(dim => iframe[dim] = (custom.scale / 100) * (msg.base[custom.preset] ? msg.base[custom.preset][dim] : dim === "width" ? 300 : 50))
+
+                    const posattrs = [
+                        "topleft",
+                        "topcenter",
+                        "topright",
+                        "bottomleft",
+                        "bottomcenter",
+                        "bottomright",
+                    ]
+
+                    posattrs.forEach(attr => iframe.toggleAttribute(attr,custom.ovpos === "match" ? attr === custom.pos : attr === custom.ovpos))
+                    msg.base[custom.preset].offset !== undefined && iframe.style.setProperty("--offset",`${(msg.base[custom.preset].offset / 20) * 1.25}rem`)
+    
+                    const img = document.querySelector("body > img")
+                    img.src = event.payload.msg
+                    
+                    !preview ? document.getElementById("closebtn").style.display = "none" : null
+
+                    iframe.contentWindow.postMessage({ msg: msg, optional: { custom: custom, html: html } })
+
+                    img.onload = () => resolve(document.querySelector("body > img").style.opacity = 1)
+                })
+
+                if (!preview) {
+                    if (msg.hasdata) {
+                        await new Promise(async resolve => resolve(!await fs.exists(msg.ovpath) && await fs.createDir(msg.ovpath, { recursive: true })))
+                        await fs.writeBinaryFile(await path.join(msg.ovpath,`${msg.title.replace(/[\\/:"*?<>|]+/g,"")}.png`),await snapshotDocument())
+                    }
+
+                    invoke("close_window")
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,92 @@
+@font-face {
+    font-family: "Mandali";
+    src: url("../../../fonts/Mandali-Regular.ttf");
+}
+
+body {
+    --percentcolor: #8b5f3f;
+    --percentaccent: #b17f40;
+    font-family: "Mandali","Roboto";
+    font-weight: bold;
+}
+
+body[bronze] {
+    --percentcolor: #8b5f3f;
+    --percentaccent: #b17f40;
+}
+
+body[silver] {
+    --percentcolor: #898989;
+    --percentaccent: #d2d2d2;
+}
+
+body[gold] {
+    --percentcolor: #c89600;
+    --percentaccent: #ffd045;
+}
+
+body[noanim] > .mainwrapper > .notifywrapper,
+body[noanim] > .mainwrapper > .screenshotwrapper {
+    animation-play-state: paused !important;
+}
+
+.notifywrapper,
+.screenshotwrapper {
+    opacity: 0;
+    animation:
+        fadein calc(var(--transition) * 2) forwards,
+        fadeout calc(var(--transition) * 2) calc(var(--time) - var(--transition) * 2) forwards !important;
+}
+
+@keyframes fadein {
+    to { opacity: 1; }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}
+
+.iconwrapper {
+    max-width: 18vmax;
+}
+
+.textwrapper > * {
+    font-size: calc(5vmax * var(--fontsize));
+}
+
+.boxwrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    align-items: center;
+    gap: 0.15rem;
+}
+
+.boxwrapper::before {
+    content: "";
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: calc(5vmax * var(--fontsize));
+    height: calc(5vmax * var(--fontsize));
+    -webkit-mask-image: url("../../../img/sanlogotrophy.svg");
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    background: linear-gradient(to right,var(--percentcolor) 30%,var(--percentaccent),var(--percentcolor) 70%);
+}
+
+#title {
+    display: block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#desc {
+    display: none;
+}
+
+body[alldetails] #desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+}

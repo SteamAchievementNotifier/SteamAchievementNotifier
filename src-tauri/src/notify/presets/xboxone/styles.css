@@ -1,0 +1,326 @@
+@font-face {
+    font-family: "Noto Sans Light";
+    src: url("../../../fonts/NotoSans-Light.ttf");
+}
+
+body {
+    --dynbr: var(--br);
+    font-family: "Noto Sans Light";
+}
+
+.mainwrapper {
+    border-radius: 0;
+}
+
+.notifywrapper {
+    position: relative;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: 17.5vmax;
+    gap: 0;
+    scale: 0;
+    padding: 0;
+    border-radius: var(--dynbr);
+    animation:
+        scaleup var(--transition) forwards,
+        grow calc(var(--transition) * 5) calc(var(--transition) * 12.5) cubic-bezier(0.5,0,0.25,1) forwards,
+        shrink calc(var(--transition) * 10) calc(var(--time) - calc(var(--time) / 4)) cubic-bezier(0.5,0,1,0) forwards,
+        scaledown calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 2.5)) forwards;
+    isolation: isolate;
+}
+
+body[fastanim] .notifywrapper {
+    animation:
+        scaleup var(--transition) forwards,
+        grow var(--transition) calc(var(--time) / 6) cubic-bezier(0.5,0,1,0) forwards,
+        fadeout var(--transition) calc(var(--time) - var(--transition)) forwards;
+}
+
+@keyframes scaleup {
+    to { scale: 1; }
+}
+
+@keyframes scaledown {
+    to { scale: 0; }
+}
+
+@keyframes grow {
+    to {
+        width: 100%;
+        gap: 0.35rem;
+    }
+}
+
+@keyframes shrink {
+    to {
+        width: 17.5vmax;
+        gap: 0;
+    }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}
+
+body[noanim] > .mainwrapper > .notifywrapper > .iconwrapper,
+body[noanim] > .mainwrapper > .notifywrapper > .iconwrapper::before,
+body[noanim] > .mainwrapper > .notifywrapper > .iconwrapper::after {
+    animation-play-state: paused !important;
+}
+
+.iconwrapper,
+.iconwrapper::before,
+.iconwrapper::after {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    max-width: unset;
+    width: 17.5vmax;
+    padding: 3.5vmax;
+    background-color: var(--secondary);
+    border-radius: var(--br);
+}
+
+body[maxrnd] .notifywrapper,
+body[maxrnd] .notifywrapper::before,
+body[maxrnd] .notifywrapper::after,
+body[maxrnd] .iconwrapper,
+body[maxrnd] .iconwrapper::before,
+body[maxrnd] .iconwrapper::after {
+    border-radius: 10rem;
+}
+
+.iconwrapper::before,
+.iconwrapper::after {
+    position: relative;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary);
+}
+
+.iconwrapper::before {
+    animation: scaledown calc(var(--transition) * 10) calc(var(--time) - calc(var(--transition) * 10)) ease-in-out forwards;
+    z-index: 2;
+}
+
+body[fastanim] .iconwrapper::before {
+    animation: scaledown calc(var(--transition) * 5) calc(var(--time) - calc(var(--transition) * 5)) ease-in-out forwards;
+}
+
+.iconwrapper::after {
+    scale: 0.75;
+    background-color: var(--primary);
+    animation:
+        scaleup calc(var(--transition) * 10) calc(var(--time) - calc(var(--transition) * 15)) forwards,
+        scaledown calc(var(--transition) * 10) calc(var(--time) - calc(var(--transition) * 7.5)) ease-in-out forwards;
+    z-index: 1;
+}
+    
+body[fastanim] .iconwrapper::after {
+    animation:
+        scaleup calc(var(--transition) * 5) calc(var(--time) - calc(var(--transition) * 7.5)) forwards,
+        scaledown calc(var(--transition) * 5) calc(var(--time) - calc(var(--transition) * 3.75)) ease-in-out forwards;
+}
+
+.iconwrapper > img {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    scale: 0;
+    border-radius: var(--iconbr);
+}
+
+#achicon {
+    width: 10vmax;
+    height: 10vmax;
+    animation:
+        scaleup var(--transition) calc(var(--time) / 8 - calc(var(--transition) * 2)) forwards,
+        scaledown var(--transition) calc(var(--time) - calc(var(--time) / 5) + calc(var(--transition) * 10)) ease-in-out forwards;
+}
+
+#customicon {
+    width: 9.5vmax;
+    height: 9.5vmax;
+    animation:
+        popin calc(var(--transition) * 2) forwards,
+        scaledown calc(var(--transition) * 5) calc(var(--time) - calc(var(--transition) * 10)) ease-in-out forwards;
+}
+
+@keyframes popin {
+    50% { scale: 1.25; }
+    to { scale: 1 }
+}
+
+.iconwrapper[rare]:not([noanim]) > .rarewrapper {
+    z-index: 3;
+}
+
+.textwrapper {
+    gap: 0.2rem;
+}
+
+.textwrapper > * {
+    grid-column-start: 1;
+    translate: 10% 0;
+    font-size: calc(4vmax * var(--fontsize));
+    opacity: 0;
+    animation:
+        text calc(var(--transition) * 5) calc(var(--transition) * 17.5) forwards,
+        translateup calc(var(--transition) * 5) calc(var(--time) / 2 - calc(var(--transition) * 5)) cubic-bezier(0,0,0,1) forwards;
+}
+
+body[fastanim] .textwrapper > *:not(.boxwrapper) {
+    animation:
+        text calc(var(--transition) * 5) calc(var(--time) / 6) forwards,
+        translateup calc(var(--transition) * 5) calc(var(--time) / 2 - calc(var(--transition) * 5)) cubic-bezier(0,0,0,1) forwards;
+}
+
+@keyframes text {
+    to {
+        translate: 0 0;
+        opacity: 1;
+    }
+}
+
+.msgwrapper,
+.titlewrapper {
+    display: grid;
+}
+
+#msg {
+    align-self: end;
+}
+
+#msg,
+#title {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* #msg, */
+.msgwrapper,
+body[noanim] .titlewrapper {
+    grid-row-start: 1;
+}
+
+body[noanim] .msgwrapper {
+    display: none;
+}
+
+/* #title, */
+.titlewrapper,
+body[noanim] .boxwrapper {
+    grid-row-start: 2;
+}
+
+@keyframes translateup {
+    to {
+        translate: 0 -200%;
+        opacity: 0;
+    }
+}
+
+.boxwrapper {
+    grid-row: 1 / span 2;
+    display: grid;
+    justify-items: start;
+    align-items: center;
+    translate: 0 100%;
+    opacity: 0;
+    animation: text calc(var(--transition) * 5) calc(var(--time) / 2 - calc(var(--transition) * 5)) cubic-bezier(0,0,0,1) forwards;
+}
+
+body[noanim] .boxwrapper {
+    grid-row: 2 / span 1;
+}
+
+body[noanim] #desc {
+    -webkit-line-clamp: 2;
+}
+
+#shine {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#shine > span {
+    width: 25%;
+    height: 500%;
+    translate: -500% 0;
+    rotate: 45deg;
+    background-color: rgba(255,255,255,0.25);
+    opacity: 0;
+    filter: blur(1rem);
+    animation: move 5s linear infinite;
+}
+
+@keyframes move {
+    25% {
+        translate: 0 0;
+        opacity: 1;
+    }
+
+    50% {
+        translate: 500% 0;
+        opacity: 0;
+    }
+}
+
+body:has(.mainwrapper[ss]) {
+    --dynbr: 0 0 var(--br) var(--br);
+}
+
+body:not([noanim]) > .mainwrapper[ss] > .notifywrapper {
+    border-radius: var(--br);
+    animation:
+        scaleup var(--transition) forwards,
+        ssgrow calc(var(--transition) * 5) calc(var(--transition) * 12.5) cubic-bezier(0.5,0,0.25,1) forwards,
+        ssshrink calc(var(--transition) * 10) calc(var(--time) - calc(var(--time) / 4)) cubic-bezier(0.5,0,1,0) forwards,
+        scaledown calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 2.5)) forwards;
+}
+
+@keyframes ssgrow {
+    to {
+        width: 100%;
+        gap: 0.35rem;
+        border-radius: var(--dynbr);
+    }
+}
+
+@keyframes ssshrink {
+    to {
+        width: 17.5vmax;
+        gap: 0;
+        border-radius: var(--br);
+    }
+}
+
+.screenshotwrapper {
+    scale: 1 0.5;
+    translate: 0 25%;
+    transform-origin: bottom;
+    opacity: 0;
+    animation:
+        ssslideup calc(var(--transition) * 2.5) calc(var(--transition) * 15) ease-in-out forwards,
+        ssslidedown calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--time) / 4 - calc(var(--transition) * 2.5))) ease-in-out forwards !important;
+}
+
+@keyframes ssslideup {
+    to {
+        scale: 1 1;
+        translate: 0 0;
+        opacity: 1;
+    }
+}
+
+@keyframes ssslidedown {
+    to {
+        scale: 1 0.5;
+        translate: 0 25%;
+        opacity: 0;
+    }
+}

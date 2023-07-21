@@ -1,0 +1,40 @@
+:root {
+  --primary: #1eb854;
+  --base-content: #d7cccc;
+  --base-100: #1e1e1e;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  height: 200vh;
+  width: 100vw;
+  font-size: 16px;
+  background-color: var(--base-100);
+  color: var(--base-content);
+}
+
+body {
+  padding: 1rem;
+}
+
+button {
+  padding: 0.3rem 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 0.3rem;
+  background: var(--primary);
+  border: none;
+  cursor: pointer;
+}
+
+#image-preview {
+  width: 420px;
+  aspect-ratio: 1/1;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 2px solid var(--primary);
+  object-fit: cover;
+}

@@ -1,0 +1,224 @@
+@font-face {
+    font-family: "Source Sans Pro Light";
+    src: url("../../../fonts/SourceSansPro-Light.ttf");
+}
+
+@font-face {
+    font-family: "Source Sans Pro Extralight";
+    src: url("../../../fonts/SourceSansPro-ExtraLight.ttf");
+}
+
+html {
+    overflow: hidden;
+}
+
+body {
+    --percentcolor: #8b5f3f;
+    --percentaccent: #b17f40;
+    --translate: 10% 0;
+    font-family: "Source Sans Pro Extralight","Roboto";
+}
+
+body[bronze] {
+    --percentcolor: #8b5f3f;
+    --percentaccent: #b17f40;
+}
+
+body[silver] {
+    --percentcolor: #898989;
+    --percentaccent: #d2d2d2;
+}
+
+body[gold] {
+    --percentcolor: #c89600;
+    --percentaccent: #ffd045;
+}
+
+body[topleft],
+body[bottomleft] {
+    --translate: -10% 0;
+}
+
+body[topright],
+body[bottomright],
+body[topcenter],
+body[bottomcenter] {
+    --translate: 10% 0;
+}
+
+body[noanim] > .notifywrapper,
+body[noanim] > .notifywrapper::before,
+body[noanim] > .notifywrapper::after,
+body[noanim] .logowrapper::before {
+    translate: 0 !important;
+    animation: none !important;
+}
+
+body[paused] > .mainwrapper > .notifywrapper,
+body[paused] > .mainwrapper > .notifywrapper > *,
+body[paused] > .mainwrapper > .screenshotwrapper {
+    animation-play-state: paused !important;
+}
+
+.mainwrapper {
+    border-radius: 0;
+}
+
+.notifywrapper {
+    grid-template-columns: auto 1fr auto;
+    translate: var(--translate);
+    border-radius: var(--br);
+    opacity: 0;
+    animation:
+        slidein calc(var(--transition) * 5) forwards,
+        fadein calc(var(--transition) * 10) forwards,
+        slideout calc(var(--transition) * 5) calc(var(--time) - calc(var(--transition) * 5)) forwards;
+}
+
+@keyframes slidein {
+    to {
+        translate: 0 0;
+        opacity: 1;
+    }
+}
+
+@keyframes slideout {
+    to {
+        translate: var(--translate);
+        opacity: 0;
+    }
+}
+
+.iconwrapper,
+.trophywrapper {
+    opacity: 0;
+    filter: blur(0.025rem);
+    animation: fadein calc(var(--transition) * 10) calc(var(--transition)) forwards;
+}
+
+@keyframes fadein {
+    to {
+        filter: blur(0) brightness(100%);
+        opacity: 1;
+    }
+}
+
+.textwrapper {
+    translate: var(--translate);
+    animation: slidein calc(var(--transition) * 5) forwards;
+}
+
+.boxwrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.boxwrapper::before {
+    content: "";
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: calc(4.5vmax * var(--fontsize));
+    height: calc(4.5vmax * var(--fontsize));
+    -webkit-mask-image: url("../../../img/sanlogotrophy.svg");
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    background: linear-gradient(to right,var(--percentcolor) 30%,var(--percentaccent),var(--percentcolor) 70%);
+}
+
+body[alldetails] #title {
+    font-size: calc(3.5vmax * var(--fontsize));
+}
+
+body[alldetails] #msg,
+body[alldetails] #desc {
+    font-size: calc(3vmax * var(--fontsize));
+}
+
+#title {
+    display: block;
+    font-family: "Source Sans Pro Light";
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+body[alldetails] .boxwrapper::before {
+    width: calc(3.5vmax * var(--fontsize));
+    height: calc(3.5vmax * var(--fontsize));
+}
+
+#msg {
+    font-size: calc(4vmax * var(--fontsize));
+}
+
+#desc {
+    display: none;
+    -webkit-line-clamp: 1;
+}
+
+.trophywrapper {
+    display: grid;
+    place-content: center;
+    margin-right: 0.25rem;
+}
+
+.trophywrapper > img {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    max-width: 10vmax;
+    padding: 0.4rem;
+}
+
+#outline {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    place-self: center;
+    width: 8.5vmax;
+    height: 8.5vmax;
+    scale: 0;
+    border-radius: 50%;
+    outline: 0.1rem solid var(--secondary);
+    filter: blur(0.035rem);
+    animation:
+        outline calc(var(--transition) * 30) calc(var(--time) / 6) linear infinite;
+    z-index: -1;
+}
+
+@keyframes outline {
+    from {
+        scale: 0;
+        opacity: 1;
+    }
+
+    35% {
+        scale: 1;
+        opacity: 1;
+    }
+
+    50% {
+        scale: 1;
+        opacity: 0;
+    }
+
+    55% {
+        scale: 0;
+        opacity: 1;
+    }
+}
+
+body[alldetails] #desc {
+    display: -webkit-box;
+}
+
+.screenshotwrapper {
+    translate: var(--translate);
+    opacity: 0;
+    animation:
+        slidein calc(var(--transition) * 5) forwards,
+        fadein calc(var(--transition) * 10) forwards,
+        slideout calc(var(--transition) * 5) calc(var(--time) - calc(var(--transition) * 5)) forwards !important;
+}

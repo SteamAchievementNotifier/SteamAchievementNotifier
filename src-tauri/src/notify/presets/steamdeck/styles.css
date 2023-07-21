@@ -1,0 +1,124 @@
+@font-face {
+    font-family: "Mandali";
+    src: url("../../../fonts/Mandali-Regular.ttf");
+}
+
+html,
+body {
+    overflow: hidden;
+}
+
+body {
+    --translate: 0 100%;
+    font-family: "Mandali","Roboto";
+}
+
+.screenshotwrapper {
+    opacity: 1;
+}
+
+body[noanim] > .mainwrapper > .notifywrapper {
+    border-radius: var(--br) !important;
+    animation: none !important;
+}
+
+body[paused]:has(.mainwrapper[ss]) > .screenshotwrapper,
+body[paused] > .mainwrapper > .notifywrapper,
+body[paused] > .mainwrapper > .notifywrapper > .textwrapper > * {
+    animation-play-state: paused !important;
+}
+
+body[topleft],
+body[bottomleft] {
+    --translate: -100% 0;
+}
+
+body[topright],
+body[bottomright] {
+    --translate: 100% 0;
+}
+
+body[topcenter] {
+    --translate: 0 -100%;
+}
+
+body[bottomcenter] {
+    --translate: 0 100%;
+}
+
+.mainwrapper {
+    border-radius: 0;
+}
+
+.notifywrapper,
+.screenshotwrapper {
+    translate: var(--translate);
+    border-radius: var(--br);
+    animation:
+        slidein calc(var(--transition) * 2.5) forwards,
+        slideout calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 2.5)) forwards !important;
+}
+
+body[topleft]:not([noanim]) > .mainwrapper[ss],
+body[topcenter]:not([noanim]) > .mainwrapper[ss],
+body[topright]:not([noanim]) > .mainwrapper[ss],
+body[topleft]:not([noanim]) > .mainwrapper[ss] > .notifywrapper,
+body[topcenter]:not([noanim]) > .mainwrapper[ss] > .notifywrapper,
+body[topright]:not([noanim]) > .mainwrapper[ss] > .notifywrapper {
+    border-radius: var(--br) var(--br) 0 0 !important;
+    grid-row-start: 1 !important;
+}
+
+body[topleft]:has(.mainwrapper[ss]) > .screenshotwrapper,
+body[topcenter]:has(.mainwrapper[ss]) > .screenshotwrapper,
+body[topright]:has(.mainwrapper[ss]) > .screenshotwrapper {
+    border-radius: 0 0 var(--br) var(--br) !important;
+    grid-row-start: 2 !important;
+}
+
+#msg {
+    display: none;
+    font-weight: bold;
+}
+
+body[alldetails] #msg {
+    display: -webkit-box;
+}
+
+.boxwrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.boxwrapper > img {
+    width: 1rem;
+    place-self: center;
+    filter: var(--dropshadow);
+}
+
+#title::before,
+#title::after {
+    margin-left: 1.35rem;
+}
+
+#title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    font-weight: bold;
+}
+
+body[noanim] #desc {
+    -webkit-line-clamp: 2;
+}
+
+@keyframes slidein {
+    to { translate: 0 0; }
+}
+
+@keyframes slideout {
+    to { translate: var(--translate); }
+}

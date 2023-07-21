@@ -1,0 +1,243 @@
+<div class="customiserwrapper">
+    <div class="webviewwrapper">
+        <div>
+            <iframe src="../notify/base.html" frameborder="0" allowtransparency="true"></iframe>
+        </div>
+        <div class="webviewbtnwrapper">
+            <button id="customiserplaystate" onclick="ToggleIFramePlayState()">
+                <img src="./icon/pause_white.svg" alt="">
+            </button>
+            <button id="customiserreplay" onclick="LoadIFrame()">
+                <img src="./icon/replay.svg" alt="">
+            </button>
+            <button id="customisersavepreset" soon>
+                <img src="./icon/save_white.svg" alt="">
+            </button>
+        </div>
+    </div>
+    <div class="contentwrapper">
+        <div class="customisertabwrapper">
+            <button class="customisertabnavbtn" id="tabbtnprev" type="main" onclick="ToggleCustomiserTab(event)">
+                <img src="./icon/play_white.svg" alt="">
+            </button>
+            <div class="customisertab">
+                <label class="sanboxlbl"></label>
+            </div>
+            <button class="customisertabnavbtn" id="tabbtnnext" type="rare" onclick="ToggleCustomiserTab(event)">
+                <img src="./icon/play_white.svg" alt="">
+            </button>
+        </div>
+        <div class="customiseroptswrapper">
+            <div class="sanbox" id="notificationpreset">
+                <div class="sanboxtitle" src="preset.svg">
+                    <label></label>
+                </div>
+                <div class="sanboxcontent">
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <select name="preset" id="preset">
+                            <option value="default" lbl="Default"></option>
+                            <option value="xqjan" lbl="xQjan"></option>
+                            <option value="steamdeck" lbl="Steam Deck"></option>
+                            <option value="epicgames" lbl="Epic Games"></option>
+                            <option value="xboxone" lbl="Xbox One"></option>
+                            <option value="xbox360" lbl="Xbox 360"></option>
+                            <option value="ps5" lbl="Playstation 5"></option>
+                            <option value="ps4" lbl="Playstation 4"></option>
+                            <option value="ps3" lbl="Playstation 3"></option>
+                            <option value="windows" lbl="Windows"></option>
+                        </select>
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="checkbox" id="iconanim">
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl">Show All Details</label>
+                        <input type="checkbox" id="alldetails">
+                    </div>
+                    <div class="sanboxoption" value="" unit="s">
+                        <label class="sanboxlbl"></label>
+                        <input type="range" min="2" max="15" step="1" id="displaytime">
+                    </div>
+                    <div class="sanboxoption" unit="%">
+                        <label class="sanboxlbl"></label>
+                        <input type="range" min="50" max="250" step="10" id="scale">
+                    </div>
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <input type="text" id="customtext" autocomplete="off" spellcheck="false" onkeyup="BlurOnEnter(event)">
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="checkbox" id="usegametitle">
+                    </div>
+                </div>
+            </div>
+            <div class="sanbox" id="style">
+                <div class="sanboxtitle" src="style.svg">
+                    <label></label>
+                </div>
+                <div class="sanboxcontent">
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <select name="bgstyle" id="bgstyle">
+                            <option value="solid"></option>
+                            <option value="gradient"></option>
+                            <option value="bgimg"></option>
+                            <option value="gameart"></option>
+                        </select>
+                    </div>
+                    <div class="sanboxoption sub" unit="º">
+                        <label class="sanboxlbl"></label>
+                        <input type="number" id="angle" min="0" max="360" onkeyup="BlurOnEnter(event)">
+                    </div>
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <div class="sanboximg" id="bgimg">
+                            <button id="bgimgbtn" onclick="LoadImgFile(event,`bgimg`)">
+                                <img src="">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sanboxoption" unit="%">
+                        <label class="sanboxlbl"></label>
+                        <input type="range" min="10" max="100" step="10" id="brightness">
+                    </div>
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <input type="range" min="0" max="4" step="1" id="roundness">
+                    </div>
+                    <div class="sanboxoption" unit="%">
+                        <label class="sanboxlbl"></label>
+                        <input type="range" min="50" max="100" step="5" id="fontsize">
+                    </div>
+                    <div class="sanboxoption" unit="%">
+                        <label class="sanboxlbl"></label>
+                        <input type="range" min="10" max="100" step="10" id="opacity">
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="checkbox" id="bgonly">
+                    </div>
+                </div>
+            </div>
+            <div class="sanbox" id="colors">
+                <div class="sanboxtitle" src="colours.svg">
+                    <label></label>
+                </div>
+                <div class="sanboxcontent">
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <input type="color" id="primarycolor">
+                    </div>
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <input type="color" id="secondarycolor">
+                    </div>
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <input type="color" id="textcolor">
+                    </div>
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <input type="checkbox" id="textoutline">
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="color" id="outlinecolor">
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="checkbox" id="textshadow">
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="color" id="shadowcolor">
+                    </div>
+                </div>
+            </div>
+            <div class="sanbox" id="icon">
+                <div class="sanboxtitle" src="icon.svg">
+                    <label></label>
+                </div>
+                <div class="sanboxcontent">
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <input type="range" min="0" max="4" step="1" id="iconroundness">
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="checkbox" id="useplaticon">
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <div class="sanboximg customicon" id="platicon">
+                            <button class="customicondeletebtn" id="deleteplaticonbtn" onclick="DeleteIcon(event.target)">
+                                <img src="../icon/delete.svg">
+                            </button>
+                            <button class="customiconbtn" id="platiconbtn" onclick="LoadImgFile(event,`platicon`)">
+                                <img src="">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="checkbox" id="usecustomicon">
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <div class="sanboximg customicon" id="customicon">
+                            <button class="customicondeletebtn" id="deletecustomiconbtn" onclick="DeleteIcon(event.target)">
+                                <img src="../icon/delete.svg">
+                            </button>
+                            <button class="customiconbtn" id="customiconbtn" onclick="LoadImgFile(event,`customicon`)">
+                                <img src="">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="checkbox" id="usegameicon">
+                    </div>
+                </div>
+            </div>
+            <div class="sanbox" id="position">
+                <div class="sanboxtitle" src="position.svg">
+                    <label></label>
+                </div>
+                <div class="sanboxcontent">
+                    <div class="sanboxoption">
+                        <label class="sanboxlbl"></label>
+                        <select name="pos" id="pos">
+                            <option value="topleft"></option>
+                            <option value="topcenter"></option>
+                            <option value="topright"></option>
+                            <option value="bottomleft"></option>
+                            <option value="bottomcenter"></option>
+                            <option value="bottomright"></option>
+                        </select>
+                    </div>
+                    <div class="sanboxoption sub">
+                        <label class="sanboxlbl"></label>
+                        <input type="checkbox" id="usecustompos">
+                    </div>
+                    <button class="sub" id="setcustompos" onclick="OpenCustomPos()">
+                        <img src="./icon/recenter.svg" alt="">
+                        <label class="sanboxlbl"></label>
+                        <span></span>
+                    </button>
+                    <div class="sanboxoption" soon>
+                        <label class="sanboxlbl"></label>
+                        <select name="animdir" id="animdir">
+                            <option value="up"></option>
+                            <option value="down"></option>
+                            <option value="left"></option>
+                            <option value="right"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

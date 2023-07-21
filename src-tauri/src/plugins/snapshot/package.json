@@ -1,0 +1,37 @@
+{
+  "name": "tauri-plugin-snapshot-api",
+  "version": "0.1.0",
+  "authors": [
+    "Fractal-Tess",
+    "FabianLars"
+  ],
+  "private": false,
+  "keywords": [
+    "tauri",
+    "snapshot",
+    "screenshot",
+    "plugin"
+  ],
+  "description": "A Tauri plugin for easily capturing snapshots of the webview",
+  "browser": "webview-dist/index.js",
+  "license": "MIT",
+  "main": "webview-dist/index.js",
+  "types": "webview-dist/index.d.ts",
+  "scripts": {
+    "dev": "rollup -w -c ./webview-src/rollup.config.js",
+    "build": "rollup -c ./webview-src/rollup.config.js",
+    "prepublishOnly": "yarn build",
+    "pretest": "yarn build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "13.3.0",
+    "@rollup/plugin-typescript": "8.3.3",
+    "rollup": "2.75.6",
+    "rollup-plugin-terser": "7.0.2",
+    "typescript": "4.7.3"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.0.0",
+    "tslib": "^2.1.0"
+  }
+}

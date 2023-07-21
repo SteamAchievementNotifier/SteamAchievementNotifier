@@ -1,0 +1,35 @@
+[package]
+name = "steamachievementnotifier"
+version = "1.85.0"
+description = "Steam Achievement Notifier (V1.85)"
+authors = ["Jackson0ne"]
+license = ""
+repository = "https://github.com/steamachievementnotifier/steamachievementnotifier"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "1.4", features = [] }
+
+[profile.dev.package.wry]
+debug-assertions = true
+
+[dependencies]
+tauri = { version = "1.4", features = [ "updater", "window-unmaximize", "window-maximize", "window-set-size", "process-exit", "process-relaunch", "clipboard-write-text", "devtools", "dialog-open", "fs-copy-file", "fs-create-dir", "fs-exists", "fs-read-dir", "fs-read-file", "fs-remove-dir", "fs-remove-file", "fs-write-file", "global-shortcut-all", "http-all", "os-all", "path-all", "protocol-asset", "shell-open", "system-tray", "window-close", "window-create", "window-hide", "window-set-ignore-cursor-events", "window-set-position", "window-show", "window-start-dragging"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tauri-plugin-fs-extra = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+tauri-plugin-upload = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+reqwest = "0.11.18"
+screenshots = "0.6.0"
+tauri-plugin-snapshot= { git = "https://github.com/Fractal-Tess/tauri-plugin-snapshot" }
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.50"
+mslnk = "0.1.8"
+
+[features]
+# this feature is used for production builds or when `devPath` points to the filesystem
+# DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]

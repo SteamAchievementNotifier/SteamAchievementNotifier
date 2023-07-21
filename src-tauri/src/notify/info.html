@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @font-face {
+                font-family: "Titillium Web";
+                src: url("../fonts/TitilliumWeb-SemiBold.ttf");
+            }
+
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+                user-select: none;
+            }
+
+            html,body {
+                width: 100vw;
+                height: 100vh;
+                background-color: none transparent;
+            }
+            
+            body {
+                font-family: "Titillium Web";
+                font-size: 0.75rem;
+                background-color: transparent;
+                color: white;
+                overflow: hidden;
+            }
+
+            /* @property --bg1 {
+                syntax: "<color>";
+                inherits: false;
+                initial-value: #162052;
+            }
+
+            @property --bg2 {
+                syntax: "<color>";
+                inherits: false;
+                initial-value: #203e7a;
+            } */
+            
+            .mainwrapper {
+                position: relative;
+                display: grid;
+                grid-template-columns: 1fr 4fr;
+                place-content: center;
+                gap: 5vmax;
+                width: 100vw;
+                height: 100vh;
+                padding: 7.5vmax;
+                /* background: linear-gradient(45deg,var(--bg1),var(--bg2)); */
+                background: linear-gradient(45deg,#162052,#203e7a);
+                border-radius: 0.35rem;
+                overflow: hidden;
+                cursor: pointer;
+                /* animation: colorswap 2s infinite; */
+            }
+
+            .mainwrapper[error] {
+                background: linear-gradient(45deg,darkred,red);
+            }
+
+            .mainwrapper[error] #gamename {
+                font-size: 0.5rem;
+            }
+
+            /* @keyframes colorswap {
+                to { background: linear-gradient(45deg,var(--bg2),var(--bg1)); }
+            } */
+
+            .mainwrapper > img:nth-child(1) {
+                position: absolute;
+                top: -25%;
+                right: -25%;
+                translate: 0 0;
+                width: 25%;
+                opacity: 0;
+                transform-origin: top right;
+                animation: scale 2s infinite;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            @keyframes scale {
+                25%, 75% { opacity: 0.1; }
+
+                to {
+                    opacity: 0;
+                    scale: 2500%;
+                }
+            }
+
+            #icon {
+                place-self: center;
+                width: 100%;
+                filter: drop-shadow(0 0 0.35rem #101010bf);
+            }
+
+            .mainwrapper > *:not(img:nth-child(1)) {
+                text-wrap: balance;
+                z-index: 1;
+            }
+
+            .textwrapper {
+                display: grid;
+            }
+        </style>
+    </head>
+    <body onclick="SwitchAccount()">
+        <div class="mainwrapper">
+            <img src="../img/sanlogo.svg" alt="">
+            <img id="icon" src="" alt="">
+            <div class="textwrapper">
+                <span id="msg"></span>
+                <span id="gamename"></span>
+            </div>
+        </div>
+        <script>
+            const { invoke } = window.__TAURI__.tauri
+            const { listen } = window.__TAURI__.event
+
+            window.addEventListener("DOMContentLoaded", () => invoke("ipc", { eventname: "webviewready", payload: {} }), { once: true })
+
+            listen("showtrack", event => {
+                document.getElementById("msg").textContent = `${event.payload.msg}:`
+                document.getElementById("gamename").textContent = event.payload.optional.gamename
+                document.getElementById("icon").src = event.payload.optional.gameicon
+
+                setTimeout(() => invoke("ipc", { eventname: "close", payload: {} }), 5000)
+            })
+
+            listen("showerr", event => {
+                console.log(event)
+                document.querySelector(".mainwrapper").setAttribute("error","")
+
+                document.getElementById("msg").textContent = event.payload.msg
+                document.getElementById("gamename").textContent = event.payload.optional.gamename
+                document.getElementById("icon").src = event.payload.optional.gameicon
+
+                setTimeout(() => invoke("ipc", { eventname: "close", payload: {} }), 5000)
+            })
+
+            function SwitchAccount() {
+                invoke("ipc", { eventname: "switchaccount", payload: {} })
+                invoke("ipc", { eventname: "close", payload: {} })
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+[package]
+name = "tauri-plugin-snapshot"
+version = "0.1.0"
+authors = [ "Fractal-Tess", "FabianLars" ]
+description = "A Tauri plugin for easily capturing snapshots of the webview"
+license = "MIT"
+edition = "2021"
+rust-version = "1.59"
+exclude = [ "/examples", "/webview-dist", "/webview-src", "node_modules" ]
+
+[dependencies]
+tauri = { version = "1.0.0", features = [ "wry" ] }
+serde = "1.0"
+thiserror = "1.0"
+
+[target."cfg(target_os = \"linux\")".dependencies]
+webkit2gtk = "0.18.2"
+cairo-rs = { version = "0.15.1", features = [ "png" ] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+webview2-com={version="0.19.1"}
+windows={version="0.39", features=["Win32_UI_Shell","Win32_System_Com"]}

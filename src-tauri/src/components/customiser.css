@@ -1,0 +1,437 @@
+input[type="color"] {
+    background-color: transparent;
+    width: 100%;
+    height: 1.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 5px;
+}
+
+input[type="number"] {
+    appearance: none;
+    border: none;
+    width: 100%;
+    font-family: "Titillium Web", "Roboto";
+    font-size: 0.8rem;
+    padding: 0.15rem 0.35rem;
+    background-color: #101010;
+    color: white;
+    border-radius: 0.35rem;
+    caret-color: rgba(255,255,255,0.25);
+    transition: var(--transition);
+    cursor: pointer;
+    text-align: center;
+}
+
+.customisertab > .sanboxlbl,
+.sanboxtitle > label,
+.customiserwrapper .sanboxoption:has(input:not([type="checkbox"]),select,div > button) > label,
+.sanboxoption:has(#overlayposdropdown,#ovpathbtn,#monitor) > label {
+    cursor: default;
+}
+
+.customiserwrapper .sanboxcontent {
+    gap: 1rem;
+}
+
+.sub {
+    margin-top: -0.5rem;
+}
+
+.sanboxoption:has(input[type="number"]) {
+    grid-template-columns: 1fr auto auto !important;
+    grid-template-rows: 1fr !important;
+    gap: 0.2rem;
+}
+
+.sanboxoption > input[type="number"] {
+    justify-self: end;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+}
+
+.customiserwrapper .sanboxoption:has(select,input:not([type="checkbox"],[type="number"]),.sanboximg) {
+    grid-auto-flow: column;
+    grid-template-columns: 1fr repeat(2,max-content);
+    grid-template-rows: max-content 1fr;
+}
+
+.customiserwrapper .sanboxoption:has(select,input:not([type="checkbox"],[type="number"]),.sanboximg) > label {
+    padding: 0.2rem 0.35rem !important;
+    width: max-content;
+    background-color: var(--primary);
+    border-radius: 0.35rem 0.35rem 0 0;
+    transition: var(--transition);
+}
+
+.customiserwrapper select,
+.customiserwrapper input[type="text"],
+.customiserwrapper input[type="color"]::-webkit-color-swatch {
+    border-radius: 0 0.35rem 0.35rem 0.35rem;
+}
+
+.customiserwrapper input[type="range"] {
+    border-radius: 0 0.15rem 0.15rem 0.15rem;
+}
+
+.customiserwrapper .sanboxlbl:not(.customisertab > .sanboxlbl) {
+    padding-inline: 0.15rem;
+}
+
+.customisertab > .sanboxlbl {
+    gap: 0.35rem;
+}
+
+.mainwrapper[type="main"]:has(.customiserwrapper) > .logowrapper > .customiserlogo:not(#customiserlogomain),
+.mainwrapper[type="rare"]:has(.customiserwrapper) > .logowrapper > .customiserlogo:not(#customiserlogorare),
+.mainwrapper[type="plat"]:has(.customiserwrapper) > .logowrapper > .customiserlogo:not(#customiserlogoplat) {
+    opacity: 0;;
+}
+
+.mainwrapper[closing] > .logowrapper > .logo,
+.mainwrapper:has(.customiserwrapper) > .logowrapper > .logo,
+.mainwrapper:has(.customiserwrapper[closing]) > .logowrapper > .customiserlogo {
+    scale: 0 0;
+    transition: var(--transition), scale var(--transition) cubic-bezier(0.5, -1, 0.5, 1), opacity 0s var(--transition);
+}
+
+.mainwrapper:has(.customiserwrapper) > .logowrapper > .logo {
+    scale: 0 0;
+}
+
+.mainwrapper:has(.customiserwrapper) > .logowrapper > .customiserlogo {
+    scale: 1 1;
+}
+
+.mainwrapper[closing] > .logowrapper > .customiserlogo,
+.mainwrapper:has(.customiserwrapper[closing]) > .logowrapper > .logo {
+    transition: var(--transition), scale var(--transition) var(--transition) cubic-bezier(0.5, 0, 0.5, 1.75), opacity 0s var(--transition);
+}
+
+.customiserlogo {
+    scale: 0 0;
+}
+
+.customiserwrapper {
+    grid-column: 1 / span 3;
+    grid-row-start: 3;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.5rem;
+    width: 75%;
+    height: 100%;
+    min-height: 0;
+    scale: 0 0;
+    transition: var(--transition);
+    animation: scaleup var(--transition) var(--transition) ease-in-out forwards;
+}
+
+@keyframes scaleup {
+    from { scale: 0 0; }
+    75% { scale: 1.1 1.1; }
+    to { scale: 1 1; }
+}
+
+.customiserwrapper[closing] {
+    animation: scaledown var(--transition) ease-in-out forwards;
+}
+
+@keyframes scaledown {
+    from { scale: 1 1; }
+    25% { scale: 1.1 1.1; }
+    to { scale: 0 0; }
+}
+
+.webviewwrapper {
+    display: grid;
+    grid-template-columns: max(18rem);
+    grid-template-rows: 1fr auto;
+    gap: 0.7rem;
+    place-content: center;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0.7rem;
+    background-color: #101010;
+    border-radius: 0.35rem;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    background-color: #101010;
+    scale: 0.75;
+}
+
+iframe > * {
+    background-color: #101010;
+}
+
+.webviewbtnwrapper {
+    display: grid;
+    grid-template-columns: repeat(3,max-content);
+    gap: 0.7rem;
+    place-self: center;
+}
+
+.webviewbtnwrapper > button {
+    transition: var(--transition);
+    opacity: 0.5;
+}
+
+.webviewbtnwrapper > button:hover {
+    scale: 1.1 1.1;
+    opacity: 1;
+}
+
+#customiserplaystate > img {
+    content: url("../icon/pause_white.svg");
+}
+
+#customiserplaystate[paused] > img,
+#customiserplaystate[finish] > img {
+    content: url("../icon/play_white.svg");
+}
+
+.contentwrapper {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    gap: 1.5rem;
+    height: 100%;
+    min-height: 0;
+}
+
+.customisertabwrapper {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    gap: 0.7rem;
+}
+
+.customisertabwrapper > button {
+    border-radius: 0.35rem;
+    transition: var(--transition);
+    opacity: 0.5;
+}
+
+.customisertabwrapper > button:hover {
+    background-color: black;
+    filter: invert();
+    opacity: 1;
+}
+
+.customisertabwrapper > button > img {
+    width: 0.8rem;
+}
+
+.customisertabwrapper > button:nth-child(1) {
+    rotate: -180deg;
+}
+
+.mainwrapper[type="main"] .customisertabwrapper > button:nth-child(1),
+.mainwrapper[type="plat"] .customisertabwrapper > button:nth-child(3),
+.sanboxcontent:has(#usegametitle:checked) #customtext,
+.sanboxcontent:has(#usecustompos:checked) > .sanboxoption:has(#pos) > #pos {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.customisertab {
+    display: grid;
+    grid-template-columns: repeat(2,max-content);
+    gap: 0.35rem;
+    place-content: center;
+    place-items: center;
+    font-size: 0.8rem;
+    padding: 0.15rem 0.35rem;
+    background-color: var(--primary);
+    border-radius: 0.35rem;
+    transition: var(--transition);
+}
+
+.customisertab > .sanboxlbl::before {
+    --icon: url("../icon/trophy_gold.svg");
+    content: "";
+    background: var(--icon) center / contain no-repeat;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    transition: var(--transition);
+}
+
+.mainwrapper[type="rare"] .customisertab > .sanboxlbl::before {
+    --icon: url("../icon/trophy_purple.svg");
+}
+
+.mainwrapper[type="plat"] .customisertab > .sanboxlbl::before {
+    --icon: url("../icon/trophy_plat.svg");
+}
+
+.customiseroptswrapper {
+    display: block;
+    height: 100%;
+    padding-right: 0.7rem;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.customiseroptswrapper > .sanbox:last-child {
+    margin-bottom: 0;
+}
+
+.customiserwrapper .sanboxoption[unit] {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.customiserwrapper .sanboxoption[unit] > input:not([type="number"]),
+.sanboxoption:has(#roundness) > input[type="range"],
+.sanboxoption:has(#iconroundness) > input[type="range"] {
+    grid-column: 1 / span 3;
+    grid-row-start: 2;
+}
+
+.sanboxoption[unit]:not(:has(input[type="number"]))::before,
+.sanboxoption[unit]::after {
+    display: grid;
+    place-self: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+.customiserwrapper .sanboxoption[unit]:not(:has(input[type="number"]))::before {
+    content: attr(value);
+    grid-column-start: 2;
+}
+
+.customiserwrapper .sanboxoption[unit]::after {
+    content: attr(unit);
+}
+
+.sanboximg {
+    display: grid;
+    place-content: center;
+    width: 100%;
+}
+
+#bgimg > button > img {
+    width: 100%;
+    /* max-width: 12.5rem; */
+    border-radius: 0 0.35rem 0.35rem 0.35rem;
+    transition: var(--transition);
+}
+
+.customicon {
+    place-content: unset;
+    background-color: #101010;
+    border-radius: 0 0.35rem 0.35rem 0.35rem;
+}
+
+.customicon > button {
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.customicon > .customiconbtn > img {
+    place-self: center;
+    width: 65%;
+    max-width: 6rem;
+    padding: 0.7rem;
+    transition: var(--transition);
+}
+
+.customicon > .customicondeletebtn {
+    width: 1rem;
+    height: 1rem;
+    margin: 0.2rem;
+    justify-self: end;
+    align-self: start;
+    z-index: 1;
+}
+
+.customicondeletebtn > img {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+#bgimg > button:hover > img,
+.customicon > button:hover > img {
+    filter: brightness(0.75);
+}
+
+.mainwrapper[type="main"] .customiserwrapper .sanboxoption:has(#iconanim),
+.mainwrapper[type="plat"] .customiserwrapper .sanboxoption:has(#usegametitle),
+#notificationpreset > .sanboxcontent:not(:has(#preset > option[value="epicgames"]:checked,#preset > option[value="steamdeck"]:checked,#preset > option[value="ps3"]:checked,#preset > option[value="ps4"]:checked,#preset > option[value="ps5"]:checked,#preset > option[value="xbox360"]:checked)) > .sanboxoption:has(#alldetails),
+#notificationpreset > .sanboxcontent:has(#preset > option[value="epicgames"]:checked,#preset > option[value="steamdeck"]:checked,#preset > option[value="ps3"]:checked,#preset > option[value="ps4"]:checked,#preset > option[value="ps5"]:checked,#preset > option[value="xbox360"]:checked):has(#alldetails:not(:checked)) > .sanboxoption:has(#customtext,#usegametitle),
+#style > .sanboxcontent:has(#bgstyle > option[value="gradient"]:not(:checked)) .sanboxoption:has(#angle),
+#style > .sanboxcontent:has(#bgstyle > option[value="bgimg"]:not(:checked)) .sanboxoption:has(#bgimg),
+#style > .sanboxcontent:has(#bgstyle > option[value="gameart"]:not(:checked)) .sanboxoption:has(#brightness),
+#colors > .sanboxcontent:has(#textoutline:checked) > .sanboxoption:has(#textshadow),
+#colors > .sanboxcontent:has(#textshadow:checked) > .sanboxoption:has(#textoutline),
+#colors > .sanboxcontent:has(#textoutline:not(:checked)) > .sanboxoption:has(#outlinecolor),
+#colors > .sanboxcontent:has(#textshadow:not(:checked)) > .sanboxoption:has(#shadowcolor),
+.mainwrapper:not([type="plat"]) .sanboxoption:has(#useplaticon),
+.mainwrapper:not([type="plat"]) .sanboxoption:has(#platicon),
+#icon > .sanboxcontent:has(#useplaticon:not(:checked)) > .sanboxoption:has(#platicon),
+.mainwrapper[type="plat"] #icon > .sanboxcontent:has(#useplaticon:checked) > .sanboxoption:has(#usegameicon),
+.mainwrapper[type="plat"] #icon > .sanboxcontent:has(#usegameicon:checked) > .sanboxoption:has(#useplaticon),
+.mainwrapper[type="plat"] #icon > .sanboxcontent:has(#usegameicon:checked) > .sanboxoption:has(#platicon),
+#icon > .sanboxcontent:has(#usecustomicon:not(:checked)) > .sanboxoption:has(#customicon),
+#position > .sanboxcontent:has(#usecustompos:not(:checked)) > #setcustompos,
+#position > .sanboxcontent:has(#usecustompos:not(:checked)) > .sanboxoption:has(#animdir) {
+    display: none;
+}
+
+#colors > .sanboxcontent:has(#textshadow:checked) > .sanboxoption:has(#textshadow) {
+    margin-top: 0;
+}
+
+.sanboxoption:has(#roundness)::before,
+.sanboxoption:has(#iconroundness)::before {
+    content: "";
+    grid-column-start: 2;
+    display: block;
+    height: 1rem;
+    background-color: white;
+    border-radius: calc(var(--value) * 0.125);
+}
+
+.sanboxoption:has(#roundness)::before {
+    width: 3rem;
+}
+
+.sanboxoption:has(#iconroundness)::before {
+    width: 1rem;
+}
+
+#setcustompos[open] {
+    opacity: 0.5 !important;
+    pointer-events: none !important;
+}
+
+@media (orientation: portrait),(aspect-ratio: 1/1),(width <= 400px),(height <= 400px) {
+    .customiserwrapper {
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr auto;
+    }
+}
+
+/* @media (orientation: portrait) and (height < 500px) {
+    body:has(.webviewwrapper > div[ss]) .logowrapper,
+    body:has(.webviewwrapper > div[ss]) .logowrapper > * {
+        height: 0 !important;
+    }
+} */

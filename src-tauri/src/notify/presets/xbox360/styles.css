@@ -1,0 +1,196 @@
+@font-face {
+    font-family: "Open Sans SemiBold";
+    src: url("../../../fonts/OpenSans-SemiBold.ttf");
+}
+
+body {
+    --gs: "5G";
+    --dash: " - ";
+    font-family: "Open Sans SemiBold";
+}
+
+body[bronze] {
+    --gs: "5G";
+}
+
+body[silver] {
+    --gs: "25G";
+}
+
+body[gold] {
+    --gs: "100G";
+}
+
+.mainwrapper {
+    justify-items: start;
+    border-radius: 0;
+}
+
+.notifywrapper {
+    padding: 0.25rem;
+    border-radius: var(--br);
+    width: calc(0.5rem + 15vmax);
+    gap: 0;
+    scale: 0;
+    animation:
+        scaleup var(--transition) forwards,
+        grow var(--transition) var(--transition) forwards,
+        shrink calc(var(--transition)) calc(var(--time) - calc(var(--transition) * 7.5)) forwards;
+}
+
+@keyframes scaleup {
+    to { scale: 1 }
+}
+
+@keyframes grow {
+    to {
+        width: 100%;
+        gap: 0.35rem;
+    }
+}
+
+@keyframes shrink {
+    to {
+        width: calc(0.5rem + 15vmax);
+        gap: 0;
+        opacity: 0;
+    }
+}
+
+.iconwrapper {
+    width: 15vmax;
+    height: 15vmax;
+    border-radius: var(--iconbr);
+    max-width: unset;
+    background-color: #101010;
+    animation: popout calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 10)) forwards;
+}
+
+#iconcircle {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: 100%;
+    height: 100%;
+    scale: 0.7 !important;
+    background-color: #101010;
+    border-radius: var(--iconbr);
+    filter: drop-shadow(0 0 0.1rem #101010);
+    z-index: 1;
+}
+
+/* Added for "scale" specificity over "base.css" */
+body > .mainwrapper > .notifywrapper > .iconwrapper > .sectionwrapper {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+    scale: 0.9 !important;
+    border-radius: var(--iconbr);
+    background-color: #101010;
+    overflow: hidden;
+}
+
+@keyframes popout {
+    from { scale: 1; }
+    50% { scale: 1.2; }
+    to { scale: 0; }
+}
+
+.sectionwrapper > :nth-child(1) {
+    background-color: var(--secondary);
+}
+
+.sectionwrapper > span {
+    background-color: #808080;
+}
+
+.iconwrapper > img {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    place-self: center;
+    width: 9.5vmax;
+    scale: 0;
+    animation: iconscale 2.5s infinite;
+}
+
+.iconwrapper > #customicon {
+    padding: 0.125rem;
+    animation: iconscale 2.5s 1.25s infinite;
+}
+
+body[noanim] .iconwrapper > #customicon {
+    display: none;
+}
+
+.iconwrapper[rare]:not([noanim]) > .rarewrapper {
+    scale: 0;
+    animation: rarewrapperscale 1.25s infinite;
+    z-index: 1;
+}
+
+@keyframes iconscale {
+    from { scale: 0; }
+    10% { scale: 1; }
+    40% { scale: 1; }
+    50% { scale: 0; }
+    to { scale: 0; }
+}
+
+@keyframes rarewrapperscale {
+    10% { scale: 1; }
+    80% { scale: 1; }
+}
+
+.textwrapper > * {
+    opacity: 0;
+    animation: fadein calc(var(--transition) * 2) calc(var(--transition) * 2) forwards;
+}
+
+body[alldetails] .textwrapper > * {
+    font-size: calc(4vmax * var(--fontsize));
+}
+
+@keyframes fadein {
+    to { opacity: 1; }
+}
+
+body[noanim] #msg {
+    display: none;
+}
+
+#title::before {
+    content: var(--gs) var(--dash);
+}
+
+body[noanim] #title {
+    grid-row-start: 1;
+}
+
+#desc {
+    display: none;
+    -webkit-line-clamp: 1;
+}
+
+body[alldetails] #desc,
+body[noanim] #desc {
+    display: -webkit-box;
+}
+
+body[noanim] #desc {
+    grid-row-start: 2;
+    -webkit-line-clamp: 2;
+}
+
+.screenshotwrapper {
+    animation:
+        fadein var(--transition) var(--transition) forwards,
+        fadeout calc(var(--transition)) calc(var(--time) - calc(var(--transition) * 7.5)) forwards !important;
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}

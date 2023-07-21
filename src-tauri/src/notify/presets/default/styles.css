@@ -1,0 +1,213 @@
+html,
+body {
+    overflow: hidden;
+}
+
+.mainwrapper,
+.notifywrapper {
+    border-radius: unset;
+}
+
+.notifywrapper {
+    display: grid;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-template-columns: 1fr 0fr;
+    place-content: center;
+    padding: 0 3vmax;
+    translate: 0 -100%;
+    border-radius: var(--br);
+}
+
+#first {
+    justify-self: self-start;
+    animation:
+        movedown calc(var(--transition) * 2.5) ease-in-out forwards,
+        growleft calc(var(--transition) * 2.5) calc(var(--transition) * 2.5) ease-in-out forwards,
+        hide var(--transition) calc(var(--time) / 2 + calc(var(--transition) * 5) - calc(var(--transition) * 2.5)) forwards;
+}
+    
+.mainwrapper[ss] #first {
+    border-radius: var(--br);
+    animation:
+        movedown calc(var(--transition) * 2.5) ease-in-out forwards,
+        growleft calc(var(--transition) * 2.5) calc(var(--transition) * 2.5) ease-in-out forwards,
+        setbr calc(var(--transition) * 2.5) calc(var(--transition) * 5) ease-in-out forwards,
+        hide var(--transition) calc(var(--time) / 2 + calc(var(--transition) * 5) - calc(var(--transition) * 2.5)) forwards;
+}
+
+body[noanim] #second,
+body[noanim] #first > .textwrapper > #msg,
+#first > .textwrapper > #desc {
+    display: none;
+    -webkit-line-clamp: 2;
+}
+
+body[noanim] #first > .textwrapper > #desc {
+    display: -webkit-box;
+}
+
+#second {
+    justify-self: right;
+    animation:
+        movedown calc(var(--transition) * 2.5) calc(var(--time) / 2 - calc(var(--transition) * 2.5)) ease-in-out forwards,
+        growright calc(var(--transition) * 2.5) calc(var(--time) / 2) ease-in-out forwards,
+        shrink calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 5)) ease-in-out forwards,
+        moveup calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 2.5)) ease-in-out forwards;
+}
+
+.mainwrapper[ss] #second {
+    animation:
+        movedown calc(var(--transition) * 2.5) calc(var(--time) / 2 - calc(var(--transition) * 2.5)) ease-in-out forwards,
+        growright calc(var(--transition) * 2.5) calc(var(--time) / 2) ease-in-out forwards,
+        shrink calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 5)) ease-in-out forwards,
+        unsetbr calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 5)) ease-in-out forwards,
+        moveup calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 2.5)) ease-in-out forwards;
+}
+
+.mainwrapper[solid] #second {
+    background: var(--secondary);
+}
+
+.textwrapper > * {
+    opacity: 0;
+}
+
+#first > .textwrapper > * {
+    animation: fadein calc(var(--transition) * 2.5) calc(var(--transition) * 3.75) forwards;
+}
+
+#second > .textwrapper > * {
+    animation:
+        fadein calc(var(--transition) * 2.5) calc(var(--time) / 2 + calc(var(--transition) * 3.75)) forwards,
+        fadeout calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 3.75)) forwards;
+}
+
+@keyframes setbr {
+    from { border-radius: var(--br); }
+    to { border-radius: 0 0 var(--br) var(--br); }
+}
+
+@keyframes unsetbr {
+    from { border-radius: 0 0 var(--br) var(--br); }
+    to { border-radius: var(--br); }
+}
+
+@keyframes movedown {
+    from {
+        gap: 0;
+        translate: 0 -100%; 
+        width: 16.6%;
+    }
+
+    to {
+        gap: 0;
+        translate: 0 0; 
+        width: 16.6%;
+    }
+}
+
+@keyframes moveup {
+    from {
+        gap: 0;
+        translate: 0 0; 
+        width: 16.6%;
+    }
+
+    to {
+        gap: 0;
+        translate: 0 -100%; 
+        width: 16.6%;
+    }
+}
+
+@keyframes hide {
+    to { opacity: 0; }
+}
+
+@keyframes growleft {
+    from {
+        grid-template-columns: 1fr 0fr;
+        gap: 0;
+        width: 16.6%;
+    }
+
+    to {
+        grid-template-columns: 1fr 7.5fr;
+        gap: 3.5vmax;
+        width: 100%;
+    }
+}
+
+@keyframes growright {
+    from {
+        grid-template-columns: 1fr 0fr;
+        gap: 0;
+        width: 16.6%;
+    }
+
+    to {
+        grid-template-columns: 1fr 7.5fr;
+        gap: 3.5vmax;
+        width: 100%;
+    }
+}
+
+@keyframes shrink {
+    from {
+        grid-template-columns: 1fr 7.5fr;
+        gap: 3.5vmax;
+        justify-self: self-start;
+        width : 100%;
+    }
+
+    to {
+        grid-template-columns: 1fr 0fr;
+        gap: 0;
+        justify-self: self-start;
+        width: 16.6%;
+    }
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.screenshotwrapper {
+    translate: 0 100%;
+    scale: 1 0;
+    opacity: 1;
+    animation:
+        ssslideup calc(var(--transition) * 2.5) calc(var(--transition) * 5) forwards,
+        ssslidedown calc(var(--transition) * 2.5) calc(var(--time) - calc(var(--transition) * 5)) forwards !important;
+}
+
+@keyframes ssslideup {
+    from {
+        translate: 0 100%;
+        scale: 1 0;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 1 1;
+    }
+}
+
+@keyframes ssslidedown {
+    from {
+        translate: 0 0;
+        scale: 1 1;
+    }
+
+    to {
+        translate: 0 100%;
+        scale: 1 0;
+    }
+}

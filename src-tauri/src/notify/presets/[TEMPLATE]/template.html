@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../base.css">
+        <link rel="stylesheet" href="./styles.css">
+        <!-- <script src="./base.js" defer></script> -->
+        <!-- ^^^ DISABLED FOR BROWSER TESTING - RE-ENABLE WHEN COMPLETE -->
+        <style>
+            /* !!! ENABLED FOR BROWSER TESTING - REMOVE WHEN COMPLETE */
+            /* Prevents the default fadein/out animation from hiding elements */
+            /* Remove when testing animations */
+            * {
+                opacity: 1 !important;
+            }
+
+            /* Adds mock variable values generated in "base.js" */
+            body {
+                --transition: 100ms;
+                --time: 5s;
+                --minheight: 50px;
+                --bg: deeppink;
+                --secondary: limegreen;
+                --br: 0.5rem;
+                --op: 1;
+                --fontsize: 1;
+                --textcolor: white;
+                --textoutline: 0;
+                --textshadow: none;
+                --iconbr: 0%;
+                --brightness: 100%;
+                opacity: 1;
+            }
+
+            .mainwrapper,
+            .screenshotwrapper {
+                animation: start var(--transition) forwards, finish var(--transition) var(--time) forwards;
+            }
+            /* !!! ENABLED FOR BROWSER TESTING - REMOVE WHEN COMPLETE */
+        </style>
+    </head>
+    <body>
+        <audio src=""></audio>
+        <div class="screenshotwrapper">
+            <img src="" alt="">
+        </div>
+        <div class="mainwrapper">
+            <base width="300" height="50">
+            <div class="notifywrapper">
+                <div class="iconwrapper">
+                    <img src="../../../img/achicon.png" alt="">
+                    <div class="rarewrapper">
+                        <div class="rareL">
+                            <div class="rareR"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="textwrapper">
+                    <span id="msg">Achievement unlocked</span>
+                    <span id="title">Achievement Title</span>
+                    <span id="desc">Achievement Description</span>
+                </div>
+            </div>
+        </div>
+        <script>
+            const start = Date.now()
+            document.querySelector(".mainwrapper").addEventListener("animationend", event => event.animationName === "finish" && console.log((Date.now() - start) / 1000))
+        </script>
+    </body>
+</html>

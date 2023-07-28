@@ -81,6 +81,8 @@ const plat = {
     type: "plat"
 }
 
+let hasshown = false
+
 async function CheckUnlockStatus(appid) {
     const { data: { playerstats: { achievements } } } = await http(`https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${config.apikey}&steamid=${config.steam64id}&l=${config.lang}&?__random=${sanhelper.random()}`)
 
@@ -97,5 +99,9 @@ async function CheckUnlockStatus(appid) {
         resolve()
     })
     
-    achievements.every(achievement => achievement.achieved === 1) && Notify(plat)
+    // achievements.every(achievement => achievement.achieved === 1) && Notify(plat)
+    if (achievements.every(achievement => achievement.achieved === 1) && !hasshown) {
+        hasshown = true
+        Notify(plat)
+    }
 }

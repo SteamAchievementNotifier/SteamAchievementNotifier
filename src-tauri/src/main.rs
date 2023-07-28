@@ -1,11 +1,13 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use tauri::{Manager,Window,SystemTray,SystemTrayMenu,SystemTrayEvent,CustomMenuItem,SystemTrayMenuItem};
-use std::{fs,path::{Path,PathBuf},time::{Duration,SystemTime,},thread::{sleep,spawn},process::Command,str,env,sync::{Arc, atomic::{AtomicBool,Ordering}}};
+use tauri::{Manager,Window,SystemTray,SystemTrayMenu,SystemTrayEvent,CustomMenuItem};
+use std::{fs,path::{Path,PathBuf},time::{Duration,SystemTime,},thread::{sleep,spawn},process::Command,str,env,sync::{Arc,atomic::{AtomicBool,Ordering}}};
 use serde::{Deserialize,Serialize};
 use tauri_plugin_autostart::MacosLauncher;
 use screenshots::Screen;
 use tauri_plugin_window_state::{WindowExt,AppHandleExt,StateFlags};
+use log::{LevelFilter,error,warn,info};
+// use backtrace;
 
 #[cfg(target_os="windows")]
 mod windows_module {
@@ -75,7 +77,8 @@ fn get_last_modified(path: &PathBuf) -> Result<i64, std::io::Error> {
 fn start_san(window: Window) {
     unsafe {
         if STATUS {
-            return println!("\"start_san\" is already running!");
+            // return println!("\"start_san\" is already running!");
+            return warn!("\"start_san\" is already running!");
         }
     }
 
@@ -95,7 +98,8 @@ fn start_san(window: Window) {
 
             let should_break_clone = Arc::clone(&should_break);
             let handler = window.once("stop_san", move |_event| {
-                println!("\"stop_san\" event received");
+                // println!("\"stop_san\" event received");
+                info!("\"stop_san\" event received");
                 should_break_clone.store(true, Ordering::Relaxed);
 
                 unsafe {
@@ -134,7 +138,8 @@ fn start_san(window: Window) {
                             last_modified = current_modified;
                         }
                     } else {
-                        eprintln!("Failed to get last modified time: {}", path.display());
+                        // eprintln!("Failed to get last modified time: {}", path.display());
+                        error!("Failed to get last modified time: {}", path.display());
                     }
                 },
                 Ok(_) => {
@@ -160,13 +165,22 @@ fn start_san(window: Window) {
     });
 }
 
+static mut WINSTATE: bool = true;
+
 #[tauri::command]
 fn close_window(window: Window) {
-    println!("{}",window.label());
     if window.label() != "main" {
+        // println!("\"{}\" closed",window.label());
+        info!("\"{}\" closed",window.label());
         window.close().unwrap();
     } else {
-        window.hide().unwrap();
+        // window.hide().unwrap();
+        unsafe {
+            window.emit("hideui", Payload { msg: Some(serde_json::Value::Bool(WINSTATE)), optional: None }).expect("Failed to emit \"hideui\" event!");
+            window.set_skip_taskbar(WINSTATE).unwrap();
+            window.set_ignore_cursor_events(WINSTATE).unwrap();
+            WINSTATE = !WINSTATE;
+        }
     }
 }
 
@@ -194,17 +208,20 @@ async fn is_steam_running(window: Window) -> Result<bool, String> {
         let processes = String::from_utf8_lossy(&output.stdout);
 
         if (cfg!(target_os="windows") && processes.contains("steam.exe")) || (cfg!(target_os="linux") && !output.stdout.is_empty()) {
-            println!("Steam is running");
+            // println!("Steam is running");
+            info!("Steam is running");
             window.emit("steam_running", Payload { msg: None, optional: None })
             .expect("Failed to emit \"steam_running\" event!");
 
-            println!("Running \"start_san\"...");
+            // println!("Running \"start_san\"...");
+            info!("Running \"start_san\"...");
             start_san(window);
             unsafe { STATUS = true; }
 
             return Ok(true);
         } else {
-            println!("Steam is not running. Checking...");
+            // println!("Steam is not running. Checking...");
+            info!("Steam is not running. Checking...");
             std::thread::sleep(std::time::Duration::from_secs(1));
         }
     }
@@ -214,7 +231,8 @@ async fn is_steam_running(window: Window) -> Result<bool, String> {
 // 2.Once Rust receives the "webviewready" event from an external window, emit the "webviewready" event back to the main window 
 #[tauri::command]
 fn ipc(window: Window, eventname: &str, payload: Payload) {
-    println!("Received event: \"{}\"", eventname);
+    // println!("Received event: \"{}\"", eventname);
+    info!("Received event: \"{}\"", eventname);
     if eventname == "close" {
         window.close().unwrap();
     } else {
@@ -233,8 +251,10 @@ async fn get_url_redirect(window: Window,steam64id: String,appid: String) -> Res
     let xmllist = format!("https://steamcommunity.com/profiles/{}/stats/{}/",steam64id,appid);
     let res = reqwest::get(&xmllist).await.map_err(|err| err.to_string())?;
 
-    println!("Status: {}", res.status());
-    println!("Redirected: {}", res.url());
+    // println!("Status: {}", res.status());
+    info!("Status: {}", res.status());
+    // println!("Redirected: {}", res.url());
+    info!("Redirected: {}", res.url());
 
     if res.status().to_string() == "200 OK" {
         window.emit("redirect", Payload { msg: Some(serde_json::Value::String(res.url().to_string())), optional: None }).map_err(|err| err.to_string())?;
@@ -256,7 +276,8 @@ fn desktop_shortcut(path: String) {
                 let sl = ShellLink::new(&target).unwrap();
                 sl.create_lnk(&lnk).unwrap();
                 
-                println!("{} {}",target,lnk);
+                // println!("{} {}",target,lnk);
+                info!("{} {}",target,lnk);
             }
             
             #[cfg(target_os="linux")]
@@ -280,7 +301,10 @@ fn desktop_shortcut(path: String) {
                 file.write_all(content.as_bytes())?;
             }
         },
-        Err(error) => println!("Error: {error}"),
+        Err(error) => {
+            // println!("Error: {error}");
+            error!("Error: {error}");
+        },
     }
 }
 
@@ -357,7 +381,8 @@ fn take_screenshot(handle: tauri::AppHandle, window: Window, id: &str) {
 fn press_key(key: &str) {
     let cmd: String = format!("Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait(\"{}\");",&key);
 
-    println!("{}",cmd);
+    // println!("{}",cmd);
+    info!("{}",cmd);
 
     let status = if cfg!(target_os = "windows") {
         Command::new("powershell.exe")
@@ -373,27 +398,65 @@ fn press_key(key: &str) {
     };
 
     match status.code() {
-        Some(code) => println!("Exited with status code: {code}"),
-        None => println!("Process terminated by signal")
+        Some(code) => {
+            // println!("Exited with status code: {code}");
+            info!("Exited with status code: {code}");
+        },
+        None => {
+            // println!("Process terminated by signal");
+            warn!("Process terminated by signal");
+        }
     }
+}
+
+fn setup_logger(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
+    let appcachedir = app.path_resolver().app_cache_dir().expect("Unable to retrieve appCacheDir!");
+    let log_path = Path::new(&appcachedir).join("rust.log");
+    let log_file = fs::File::create(log_path).expect("Failed to create log file");
+    let logger_config = fern::Dispatch::new()
+    .format(|out, message, record| {
+        out.finish(format_args!(
+            "[{}][{}] {}",
+            record.level(),
+            record.target(),
+            message
+        ))
+    })
+    .level(LevelFilter::Debug)
+    .chain(log_file)
+    .apply();
+
+    if let Err(e) = logger_config {
+        eprintln!("Failed to initialize logger: {}", e);
+        return Err(e.into());
+    }
+
+    Ok(())
+}
+
+#[tauri::command]
+fn test_panic() {
+    panic!("This is a test panic");
 }
 
 fn main() {
     match check_dir_for_file("hwa") {
         Ok(file_path) => {
             env::set_var("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--disable-gpu --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding");
-            println!("HWA DISABLED (\"{}\" exists!)",file_path);
+            // println!("HWA DISABLED (\"{}\" exists!)",file_path);
+            info!("HWA DISABLED (\"{}\" exists!)",file_path);
         }
         Err(file_path) => {
             env::set_var("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding");
-            println!("HWA ENABLED (\"{}\" does not exist!)",file_path);
+            // println!("HWA ENABLED (\"{}\" does not exist!)",file_path);
+            info!("HWA ENABLED (\"{}\" does not exist!)",file_path);
         }
     }
 
     let quit = CustomMenuItem::new("quit".to_string(),"Quit");
     let show = CustomMenuItem::new("show".to_string(),"Show");
     let tray_menu = SystemTrayMenu::new()
-    .add_native_item(SystemTrayMenuItem::Separator)
+    // .add_native_item(SystemTrayMenuItem::Separator)
     .add_item(show)
     .add_item(quit);
 
@@ -406,21 +469,25 @@ fn main() {
     .plugin(tauri_plugin_upload::init())
     .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"])))
     .plugin(tauri_plugin_snapshot::init())
-    .plugin(tauri_plugin_window_state::Builder::default().with_denylist(&[&"notify",&"info",&"ss",&"poswin"]).build())
+    .plugin(tauri_plugin_window_state::Builder::default()
+    .with_denylist(&[&"notify",&"info",&"ss",&"poswin"])
+    .build())
     .system_tray(tray)
     .on_system_tray_event(|app,event| match event {
         SystemTrayEvent::DoubleClick {..} => {
             let window = app.get_window("main").unwrap();
-            window.show().unwrap();
-            window.set_focus().unwrap();
+            // window.show().unwrap();
+            unsafe { WINSTATE = false; }
+            close_window(window);
         },
         SystemTrayEvent::MenuItemClick { id, .. } => {
             match id.as_str() {
                 "quit" => { exit_app(app) }
                 "show" => {
                     let window = app.get_window("main").unwrap();
-                    window.show().unwrap();
-                    window.set_focus().unwrap();
+                    // window.show().unwrap();
+                    unsafe { WINSTATE = false; }
+                    close_window(window);
                 }
                 _ => {}
             }
@@ -428,6 +495,16 @@ fn main() {
         _ => {}
     })
     .setup(|app| {
+        setup_logger(app).unwrap_or_else(|e| {
+            eprintln!("Failed to set up logger: {}",e);
+        });
+
+        std::panic::set_hook(Box::new(|panic_info| {
+            // let backtrace = backtrace::Backtrace::new();
+            error!("PANIC: {:?}",panic_info);
+            // error!("Backtrace: {:?}",backtrace);
+        }));
+
         let window = app.get_window("main").unwrap();
         
         #[cfg(debug_assertions)]
@@ -435,13 +512,17 @@ fn main() {
 
         match check_dir_for_file("startmin") {
             Ok(file_path) => {
-                window.hide().unwrap();
-                println!("\"{}\" exists!",file_path);
+                // window.hide().unwrap();
+                unsafe { WINSTATE = false; }
+                close_window(window);
+                // println!("\"{}\" exists!",file_path);
+                info!("\"{}\" exists!",file_path);
             }
             Err(file_path) => {
                 window.show().unwrap();
                 window.restore_state(StateFlags::all()).expect("Failed to restore window state!");
-                println!("\"{}\" does not exist!",file_path);
+                // println!("\"{}\" does not exist!",file_path);
+                info!("\"{}\" does not exist!",file_path);
             }
         }
         
@@ -450,12 +531,14 @@ fn main() {
     .invoke_handler(tauri::generate_handler![
         close_window,
         get_steam_path,
-        is_steam_running,ipc,
+        is_steam_running,
+        ipc,
         get_url_redirect,
         desktop_shortcut,
         take_screenshot,
         available_monitors,
-        press_key
+        press_key,
+        test_panic
     ])
     .run(tauri::generate_context!())
     .expect("failed to run app");

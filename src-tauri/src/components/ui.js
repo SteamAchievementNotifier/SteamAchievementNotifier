@@ -7,8 +7,12 @@ function HWAStatus() {
     })
 }
 
-document.getElementById("version").textContent = `Steam Achievement Notifier (V${sanhelper.version})`
-document.getElementById("copyright").textContent = `Copyright © Jackson0ne ${new Date().getFullYear()}. All Rights Reserved.`
+async function SetFooterValues() {
+    document.getElementById("version").textContent = `Steam Achievement Notifier (V${await sanhelper.version()})`
+    document.getElementById("copyright").textContent = `Copyright © Jackson0ne ${new Date().getFullYear()}. All Rights Reserved.`
+}
+
+SetFooterValues()
 
 function BlurOnEnter(event) {
     event.key === "Enter" && event.target.blur()
@@ -33,7 +37,7 @@ async function ShowCustomiser() {
 
     const type = GetTabType()
 
-    readTextFile(await path.resolve(".","src","components","customiser.html"))
+    readTextFile(await path.join("SteamAchievementNotifier","src","components","customiser.html"), { dir: fs.BaseDirectory.LocalData })
     .then(data => mainwrapper.insertAdjacentHTML("beforeend",data))
     .finally(() => {
         const iframe = CheckIfPortrait()
@@ -101,7 +105,6 @@ function CheckIfPortrait() {
 
 function SetIFrameDimensions(dim) {
     const webviewrapper = document.querySelector(".webviewwrapper")
-    // return Math.floor((base[config.customisation[GetTabType()].preset][dim] + (dim === "height" && config.screenshotmode !== "off" && config.displayscreenshot ? 168.75 : 0)) * (webviewrapper.clientWidth / base[config.customisation[GetTabType()].preset].width))
     return Math.floor(base[config.customisation[GetTabType()].preset][dim] * (webviewrapper.clientWidth / base[config.customisation[GetTabType()].preset].width))
 }
 
@@ -110,7 +113,7 @@ async function LoadIFrame() {
     const iframe = document.getElementsByTagName("iframe")[0]
 
     const { msg, custom } = await BuildNotify({type})
-    const html = await readTextFile(await path.resolve(".","src","notify","presets",custom.preset,"index.html"))
+    const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
 
     const divs = ["mainwrapper","screenshotwrapper"]
     divs.map(div => iframe.contentWindow.document.querySelector(`.${div}`).style.animation = "none")
@@ -180,7 +183,7 @@ function ToggleTab(event) {
 }
 
 async function ShowDialog(file,elem,callback) {
-    readTextFile(await path.resolve(".","src","components",`${file}.html`))
+    await readTextFile(await path.join("SteamAchievementNotifier","src","components",`${file}.html`), { dir: fs.BaseDirectory.LocalData })
     .then(data => {
         return new Promise(resolve => {
             document.querySelector(`.${elem}`).insertAdjacentHTML("beforeend",data)
@@ -443,22 +446,6 @@ const settings = {
         relaunch()
     },
     litemode: () => console.log("litemode"),
-    // nosteam: async () => {
-    //     const skindir = await path.join(await sanhelper.steampath(),"skins","NoSteamNotifications","resource","styles")
-
-    //     if (config.nosteam) {
-    //         try {
-    //             !await exists(skindir) && await createDir(skindir, { recursive: true })
-    //             await copyFile(await path.join(await path.resolve("src","notify","steam.styles")),await path.join(skindir,"steam.styles"))
-
-    //             await invoke("toggle_steam_skin", { mode: true })
-    //         } catch (err) {
-    //             return log.write("error",`Unable to create "${skindir}" directory: ${err}`)
-    //         }
-    //     } else {
-    //         await invoke("toggle_steam_skin", { mode: false })
-    //     }
-    // },
     soundonly: () => console.log("soundonly"),
     allpercent: () => console.log("allpercent"),
     extwin: () => console.log("extwin"),
@@ -489,10 +476,10 @@ const settings = {
             event.target.removeAttribute("listen")
         }, { once: true })
     },
-    ovpath: event => {
+    ovpath: async event => {
         dialog.open({
             directory: true,
-            title: `Steam Achievement Notifier (V${sanhelper.version}) - ${translations.sspath}`,
+            title: `Steam Achievement Notifier (V${await sanhelper.version()}) - ${translations.sspath}`,
             multiple: false
         })
         .then(res => {
@@ -564,6 +551,7 @@ async function LoadConfig(menu) {
         document.querySelector("#ovpathbtn > label").textContent = config.ovpath.replace(/\\\\/g,"\\")
         document.querySelectorAll(".marquee > label").forEach(lbl => lbl.textContent = config.ovpath.replace(/\\\\/g,"\\"))
         document.querySelector("#keybind > label").textContent = GetKeybindValue()
+        document.getElementById("apprevnum").textContent = await getVersion()
     }
 
     if (menu === "customiser") {
@@ -724,10 +712,10 @@ function ToggleAPI(event) {
     document.getElementById("apikey").type = event.target.hasAttribute("show") ? "text" : "password"
 }
 
-function LoadImgFile(event,value) {
+async function LoadImgFile(event,value) {
     dialog.open({
         directory: false,
-        title: `Steam Achievement Notifier (V${sanhelper.version}) - ${translations.imgselectdialog}`,
+        title: `Steam Achievement Notifier (V${await sanhelper.version()}) - ${translations.imgselectdialog}`,
         multiple: false,
         filters: [{
             name: "Image",
@@ -811,12 +799,12 @@ function TestConnection() {
     }
 }
 
-function OpenCustomPos() {
+async function OpenCustomPos() {
     let { x, y } = config.customisation[GetTabType()].custompos
 
     const queueobj = {
         notify: {
-            title: `Steam Achievement Notifier (V${sanhelper.version}) - Custom Position`,
+            title: `Steam Achievement Notifier (V${await sanhelper.version()}) - Custom Position`,
             resizable: false,
             focus: false,
             alwaysOnTop: true,

@@ -10,6 +10,7 @@ async function SetNotifyContent(msg,custom,html) {
         link.id = "styles"
         link.rel = "stylesheet"
         link.href = `./presets/${custom.preset}/styles.css`
+
         document.head.appendChild(link)
 
         document.querySelector(".mainwrapper").insertAdjacentHTML("beforeend",html)
@@ -84,7 +85,7 @@ async function SetNotifyContent(msg,custom,html) {
             ["--bg",bgtypes[custom.bgstyle]],
             ["--primary",`${custom.primarycolor}${hexopacity}`],
             ["--secondary",`${custom.secondarycolor}${hexopacity}`],
-            ["--br",`${custom.roundness <= 1 ? custom.roundness * 0.33 : custom.roundness * 0.33 + (custom.roundness - 1) * 0.05}rem`],
+            ["--br",`${(custom.roundness <= 1 ? custom.roundness * 0.33 : custom.roundness * 0.33 + (custom.roundness - 1) * 0.05) * (custom.scale > 100 ? custom.scale / 100 : 1)}rem`],
             ["--op",custom.bgonly ? custom.opacity / 100 : 1],
             ["--fontsize",custom.fontsize / 100],
             ["--textcolor",custom.textcolor],
@@ -117,13 +118,11 @@ if (window === window.top) {
     const { listen } = window.__TAURI__.event
     const { writeText } = window.__TAURI__.clipboard
 
-
     window.addEventListener("DOMContentLoaded", () => invoke("ipc", { eventname: "webviewready", payload: {} }), { once: true })
 
     listen("achievement", event => {
         const msg = event.payload.msg
-        const custom = event.payload.optional.custom
-        const html = event.payload.optional.html
+        const { custom, html } = event.payload.optional
 
         SetNotifyContent(msg,custom,html)
         .catch(err => invoke("ipc", { eventname: "notifyerror", payload: { msg: typeof err === "object" ? err.message : err } }))
@@ -131,6 +130,7 @@ if (window === window.top) {
             msg.nvda && writeText(`${msg.unlockmsg}, ${msg.title}, ${msg.desc}`)
 
             document.querySelector("audio").src = msg.audio
+            document.querySelector("audio").volume = custom.volume / 10
             document.querySelector("audio").play()
 
             invoke("ipc", { eventname: "startprogress", payload: { msg: msg.debug } })

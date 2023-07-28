@@ -93,8 +93,8 @@ export const translations = () => {
                 query: `.sanboxtitle > label`
             },
             apprevlbl: {
-                elem: "Αναθεώρηση Εφαρμογής"
-            },
+                elem: "Έκδοση"
+            },            
             apikeybtn: {
                 tt: "Κάντε κλικ εδώ για να λάβετε το Steam Web API Key σας"
             },

@@ -1,6 +1,6 @@
 [package]
 name = "steamachievementnotifier"
-version = "1.85.0"
+version = "1.85.1"
 description = "Steam Achievement Notifier (V1.85)"
 authors = ["Jackson0ne"]
 license = ""
@@ -24,6 +24,8 @@ tauri-plugin-window-state = { git = "https://github.com/tauri-apps/plugins-works
 reqwest = "0.11.18"
 screenshots = "0.6.0"
 tauri-plugin-snapshot= { git = "https://github.com/Fractal-Tess/tauri-plugin-snapshot" }
+log = "0.4"
+fern = "0.6"
 
 [target.'cfg(windows)'.dependencies]
 winreg = "0.50"

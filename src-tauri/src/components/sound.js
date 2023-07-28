@@ -46,13 +46,13 @@ function ValidateAudioFile(res,mode,errmsg) {
     })
 }
 
-function SelectSound(mode) {
+async function SelectSound(mode) {
     const type = GetTabType()
     const soundfilelbl = document.getElementById("soundfilelbl")
     
     dialog.open({
         directory: mode === "folder",
-        title: `Steam Achievement Notifier (V${sanhelper.version}) - ${translations.audioselectdialog}`,
+        title: `Steam Achievement Notifier (V${await sanhelper.version()}) - ${translations.audioselectdialog}`,
         multiple: false,
         filters: [{
             name: "Audio",
@@ -146,7 +146,7 @@ function GetSoundFile(type) {
         ValidateAudioFile(config.customisation[type][mode === "file" ? "soundfile" : "sounddir"],mode,translations.nolocate)
         .then(res => resolve(res))
         .catch(err => reject(err))
-        : resolve([await path.join(await path.resolve("src","sound","notify.wav"))])
+        : resolve([await path.resolve(await path.localDataDir(),"SteamAchievementNotifier","src","sound","notify.wav")])
     })
 }
 
@@ -170,6 +170,6 @@ function PreviewSound() {
     .then(res => PlaySound(res))
     .catch(async err => {
         log.write("error",`Unable to play "${err.path}": ${err.msg}`)
-        PlaySound([await path.join(await path.resolve("src","sound","notify.wav"))])
+        PlaySound([await path.resolve(await path.localDataDir(),"SteamAchievementNotifier","src","sound","notify.wav")])
     })
 }

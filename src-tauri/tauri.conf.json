@@ -1,13 +1,15 @@
 {
     "$schema": "../node_modules/@tauri-apps/cli/schema.json",
     "build": {
+        "beforeBuildCommand": "",
+        "beforeDevCommand": "",
         "devPath": "src",
         "distDir": "src",
         "withGlobalTauri": true
     },
     "package": {
         "productName": "SteamAchievementNotifier",
-        "version": "1.85.0"
+        "version": "1.85.1"
     },
     "tauri": {
         "allowlist": {
@@ -61,7 +63,9 @@
             },
             "protocol": {
                 "asset": true,
-                "assetScope": ["**"]
+                "assetScope": [
+                    "**"
+                ]
             },
             "shell": {
                 "all": false,

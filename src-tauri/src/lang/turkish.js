@@ -93,7 +93,7 @@ export const translations = () => {
                 query: ".sanboxtitle > label"
             },
             apprevlbl: {
-                elem: "Uygulama Sürümü"
+                elem: "Sürüm"
             },
             apikeybtn: {
                 tt: "Steam Web API Anahtarınızı almak için buraya tıklayın"

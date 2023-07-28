@@ -93,8 +93,8 @@ export const translations = () => {
                 query: `.sanboxtitle > label`
             },
             apprevlbl: {
-                elem: "Phiên bản Ứng dụng"
-            },
+                elem: "Phiên bản"
+            },            
             apikeybtn: {
                 tt: "Nhấp vào đây để lấy Khóa API Web Steam của bạn"
             },

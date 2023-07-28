@@ -107,7 +107,7 @@
 
             listen("ss", async event => {
                 const iframe = document.getElementsByTagName("iframe")[0]
-                const { msg, custom, html, preview } = event.payload.optional
+                const { msg, custom, html, preview, href } = event.payload.optional
 
                 msg.overlay = true
 
@@ -146,7 +146,7 @@
                     
                     !preview ? document.getElementById("closebtn").style.display = "none" : null
 
-                    iframe.contentWindow.postMessage({ msg: msg, optional: { custom: custom, html: html } })
+                    iframe.contentWindow.postMessage({ msg: msg, optional: { custom: custom, html: html, href: href } })
 
                     img.onload = () => resolve(document.querySelector("body > img").style.opacity = 1)
                 })

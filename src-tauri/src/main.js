@@ -15,7 +15,7 @@ function GetTabType() {
 
 async function GetBaseDimensions() {
     const base = {}
-    const dir = await readDir(await path.join(await path.resolve("src","notify","presets")))
+    const dir = await readDir(await path.join("SteamAchievementNotifier","src","notify","presets"), { dir: fs.BaseDirectory.LocalData })
 
     const filesarr = await Promise.all(dir.map(async subfolder => await readDir(await path.resolve(subfolder.path))))
 
@@ -103,7 +103,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     async function SteamAccountMatch() {
         const loginusers = VDF.parse(await fs.readTextFile(await path.join(await invoke("get_steam_path"),"config","loginusers.vdf")))
-        return Object.entries(loginusers.users).find(user => parseInt(user[1].MostRecent) === 1)[0] === config.steam64id
+        return Object.entries(loginusers.users).find(user => parseInt(user[1].MostRecent || user[1].mostrecent) === 1)[0] === config.steam64id
     }
 
     window.SteamAccountMatch = SteamAccountMatch
@@ -118,7 +118,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             const loginusers = VDF.parse(await fs.readTextFile(await path.join(await invoke("get_steam_path"),"config","loginusers.vdf")))
             const accounts = JSON.parse(localStorage.getItem("accounts"))
 
-            Object.entries(loginusers.users).forEach(user => parseInt(user[1].MostRecent) === 1 && sanhelper.write({config},["steam64id"],user[0]))
+            Object.entries(loginusers.users).forEach(user => parseInt(user[1].MostRecent || user[1].mostrecent) === 1 && sanhelper.write({config},["steam64id"],user[0]))
             
             try {
                 userlbl.textContent = Object.values(accounts).find(account => account.id === config.steam64id).user
@@ -205,6 +205,11 @@ window.addEventListener("DOMContentLoaded", async () => {
 
         sanhelper.write({config},["customisation",GetTabType(),"custompos"],{ x: x, y: y })
         setcustompos.removeAttribute("open")
+    })
+
+    listen("hideui", event => {
+        !config.noanim && document.body.toggleAttribute("noanim",event.payload.msg)
+        document.body.style.opacity = event.payload.msg ? 0 : 1
     })
 
     await invoke("is_steam_running")

@@ -114,7 +114,7 @@ const config = JSON.parse(localStorage.getItem("config"))
 
 !config.ovpath && path.pictureDir()
 .then(async defaultdir => {
-    config.ovpath = await path.join(defaultdir,`Steam Achievement Notifier (V${sanhelper.version})`)
+    config.ovpath = await path.join(defaultdir,`Steam Achievement Notifier (V${await sanhelper.version()})`)
     !await exists(await config.ovpath) && createDir(await config.ovpath)
     
     localStorage.setItem("config",JSON.stringify(config))

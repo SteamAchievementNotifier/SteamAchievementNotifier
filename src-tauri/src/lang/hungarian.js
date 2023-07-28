@@ -93,7 +93,7 @@ export const translations = () => {
                 query: `.sanboxtitle > label`
             },
             apprevlbl: {
-                elem: "App Revízió"
+                elem: "Verzió"
             },
             apikeybtn: {
                 tt: "Kattints ide a Steam Web API kulcsának megszerzéséhez"

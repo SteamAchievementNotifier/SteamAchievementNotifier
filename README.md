@@ -1,5 +1,4 @@
-[![GitHub release](https://img.shields.io/github/release/SteamAchievementNotifier/SteamAchievementNotifier.svg?label=Release&logo=github)](https://GitHub.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/tag/1.85)
-![Revision](https://img.shields.io/badge/dynamic/json.svg?url=https://github.com/steamachievementnotifier/steamachievementnotifier/raw/alpha/src-tauri/src/updater.json&query=$.version&label=App%20Revision&style=flat&color=mediumpurple&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAABxUlEQVRYw+2XvUrDUBiGj1IVlwp17IVkcPICFIpo7epV5AJEwT2dBF0chIBI6+QguOnYbooOrThYdXCqbeVxMk05v4n0gOC75jvvk5yc7+cI8a8/IGYICIlp8QzAMy1iQgJmfm9eZp8uOnXZp5zfvEREH5v6RJTy2G/xiqte2cpmXqBOVtUpuNov0iCPGiy6vX2TvGo6fEWOzZnYKJt9ld+qarJfpqdc9MgxR5wYMmKsHst6QKRccpCKWOHWioj0WatOq2H6lDPPmTX11NnNnnbJML2zFLmzIPZU9rN0pMBdBgliOxW7bgF0mJUBgRR2LwSVBDGilsTO8WJBBDIglIIOhUghvthJRV9aAKEMiHWngQqDSXshOLUAYhnQloKOkmeVSXshuLYA2jJATrEnfcfizZZu8hJVDqxqAWt8mnPBDfBAMSei77JFABcs5UL0XH7yT6HbYCEzou1yTMd654qYGz6oOCJil0RTaeCICF1KhSti061UqIqdE4JiUq9Mxc5Yrg0I5jl3KteGhmNAKO372nFS0zJ1iBpFhb2+ZRqavk6jjE1/6mOLh8HLw+g49eHXw/ju4QLi5Qrl4RLo5Rr7Lw/6Bhs9w9VVVJH+AAAAAElFTkSuQmCC)
+![Version](https://img.shields.io/badge/dynamic/json.svg?url=https://github.com/steamachievementnotifier/steamachievementnotifier/raw/alpha/src-tauri/src/updater.json&query=$.version&label=Version&style=flat&color=0F80C1&logo=github)
 [![Downloads](https://img.shields.io/github/downloads/SteamAchievementNotifier/SteamAchievementNotifier/total.svg?&label=Downloads&color=46C018&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAw0lEQVRYhe3TSQ6EIBCFYe7BNRxu5pbTcDRdmegN/t4YWprBoYxJJ/VWLOB9CRTGaDSvhi0KKKCAAgpcLh1oSgANg7TeAQttDqBlAZy0ni+xB7Z6REQAYKHbA3Sh/gqQPuKOWOnDumfN1R8OQW5DRKQrd3T+EIiI37gz509sKBDJ3d8GskTmaQVAQmQnRwRERGEwhUAginMvBozB1b7VA0A9CvwDMPJExjLgHwF8GbDM4voZW7tFi2e6XT7hq/Uaza18AN4mbZC0hY1XAAAAAElFTkSuQmCC)](https://GitHub.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/)
 [![Discord](https://img.shields.io/discord/903745038826229762?label=Discord&logo=discord&logoColor=ffffff&color=768bd3)](https://discord.gg/FxCFtpd3eu)
 [![KoFi](https://img.shields.io/static/v1?message=Donate&logo=kofi&labelColor=5c5c5c&color=yellow&logoColor=white&label=Ko-Fi)](https://ko-fi.com/steamachievementnotifier)
@@ -12,7 +11,7 @@
 
 <p align="center"><b><i>Enhance your Steam achievement experience!</i></b></p>
 
-**Steam Achievement Notifier** is an Tauri application that shows customisable notifications when you unlock any Steam Achievement!
+**Steam Achievement Notifier** is a Tauri application that shows customisable notifications when you unlock any Steam Achievement!
 
 <p align="center"><img src=""></p>
 
@@ -21,7 +20,7 @@ Inspired by achievement notifications for consoles, it uses the *Steam Web API* 
 **UPDATES**
 -
 
-**Version 1.85** is a complete overhaul of the existing application, and brings with it a huge number of changes, fixes and improvements:!
+**Version 1.85** is a complete overhaul of the existing application, and brings with it a huge number of changes, fixes and improvements:
 
 - **Tauri**: Using the new [Tauri framework]("https://github.com/tauri-apps/tauri") allows access to **Rust** on the backend, which, along with providing more stable and reliable achievement tracking, benefits from internal build optimisations to reduce overall system resource usage, faster startup times and options for further development expansion.
 - **UI Redesign**: Every aspect of the UI has been redesigned from the ground up. In addition, the window is now resizable, and the window contents should resize responsively for most* screen sizes/orientations! (**Some width/height combinations may not be fully supported, so currently, YMMV*)
@@ -71,4 +70,22 @@ Once an achievement is unlocked, a **notification** will display containing the 
 
 - https://github.com/rossengeorgiev/vdf-parser
 - https://github.com/Fractal-Tess/tauri-plugin-snapshot
+- https://github.com/turuslan/HackTimer
 - Steam logos and assets used with permission granted by Section 3 of the [Steam Web API Terms of Use](https://steamcommunity.com/dev/apiterms)
+
+**RELEASE NOTES**:
+-
+
+V1.85.1
+-
+
+### **Bug Fixes:**
+- Fixed an issue where the application would not function correctly after autostarting when using the **Start with Windows** option
+- Fixed an issue where notifications would steal focus when the main window was closed to the system tray
+- Fixed an issue where the **100% notification** would spawn multiple times after completing a game.
+- Fixed an issue where screenshots taken using the **Screenshot with Notification Overlay** option could not create a screenshot folder due to invalid characters in the game name.
+- Fixed an issue where the volume set using the **Volume slider** would not be reflected in spawned notifications.
+- Fixed an issue where **Roundness** values for spawned notifications would not be properly applied. 
+- Updated the **Version** string in **Settings** to reflect the current app's semantic version number and updated associated translations.
+- Added `rust.log` file to log info, errors and panics from Rust process throughout the application's lifecycle.
+- Fixed typos in `README.md`.

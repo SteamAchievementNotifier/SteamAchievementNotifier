@@ -31,6 +31,8 @@ invoke("available_monitors")
 function NotifyPosition(notify,type,offset = 20) {
     if (config.soundonly) return
 
+    const custom = config.customisation[type]
+
     notify.innerSize().then(res => {
         const { width, height, scaleFactor } = monitors[0]
         const screenwidth = width / scaleFactor
@@ -46,10 +48,8 @@ function NotifyPosition(notify,type,offset = 20) {
             bottomcenter: { x: (screenwidth / 2) - (notifywidth / 2), y: screenheight - notifyheight - offset },
             bottomright: { x: screenwidth - notifywidth - offset, y: screenheight - notifyheight - offset }
         }
-    
-        const custom = config.customisation[type]
-        const { x, y } = notify.label !== "info" ? (type ? (custom.usecustompos ? custom.custompos : positions[custom.pos]) : positions.bottomcenter) : positions.bottomright
 
+        const { x, y } = notify.label !== "info" ? (type ? (custom.usecustompos ? custom.custompos : positions[custom.pos]) : positions.bottomcenter) : positions.bottomright
         notify.setPosition(notify.label !== "info" && custom.usecustompos ? new PhysicalPosition(x,y) : new LogicalPosition(x,y))
     })
     .finally(() => {
@@ -59,7 +59,7 @@ function NotifyPosition(notify,type,offset = 20) {
 }
 
 async function TestGameArt() {
-    const imgs = await readDir(await path.join(await path.resolve("src","img","gameart")))
+    const imgs = await readDir(await path.join("SteamAchievementNotifier","src","img","gameart"), { dir: fs.BaseDirectory.LocalData })
     return convertFileSrc(imgs[sanhelper.random(imgs.length)].path)
 }
 
@@ -79,7 +79,7 @@ async function BuildNotify({data,type,audio}) {
         icon: (data?.usegameicon && (convertFileSrc(await path.join(cachepath,appid,"gameicon.jpg")) || "../img/gameicon.png")) || (data?.icon && convertFileSrc(data.icon) || (custom.usegameicon ? "../img/gameicon.png" : (type === "plat" ? custom.useplaticon && custom.platicon || "../img/ribbon.svg" : "../img/achicon.png"))),
         audio: data?.audio ?? audio ?? "",
         screenshot: [config.screenshotmode !== "off" && config.displayscreenshot, data && convertFileSrc(await path.join(await path.appCacheDir(),"src.png")) || "../img/santextlogobg.png"],
-        ovpath: user ? `${config.ovpath}\\${user.replace(/[\\/:"*?<>|]+/g,"_")}\\${gameName}` : null,
+        ovpath: user ? `${config.ovpath}\\${user.replace(/[\\/:"*?<>|]+/g,"_")}\\${gameName ? gameName.replace(/[\\/:"*?<>|]+/g,"_") : null}` : null,
         nvda: config.nvda,
         debug: config.debug,
         percent: data?.percentage ?? GetTabType() === "main" ? 50 : 0.1,
@@ -90,25 +90,24 @@ async function BuildNotify({data,type,audio}) {
     return { msg, custom }
 }
 
-function CreateSSWin(event,msg,custom,html,preview) {
+async function CreateSSWin(event,msg,custom,html,preview) {
     const monitor = monitors.find(monitor => monitor.id === config.monitor)
 
     const ss = new WebviewWindow("ss", {
         width: monitor.width,
         height: monitor.height,
-        title: `Steam Achievement Notifier (V${sanhelper.version}) - Screenshot`,
+        title: `Steam Achievement Notifier (V${await sanhelper.version()}) - Screenshot`,
         resizable: false,
         focus: false,
         fullscreen: true,
-        visible: preview !== undefined,
+        visible: preview,
         transparent: true,
         skipTaskbar: !preview,
         url: "./notify/ss.html"
     })
-
     
-    ss.once("tauri://created", () => {
-        ss.setIgnoreCursorEvents(!preview)
+    ss.once("tauri://created", async () => {
+        await ss.setIgnoreCursorEvents(!preview)
         once("ssready", () => setTimeout(() => invoke("ipc", { eventname: "ss", payload: { msg: event.detail, optional: { msg: msg, custom: custom, html: html, preview: preview } } }),100))
     })
     ss.once("tauri://error", err => log.write("error",`"${err.windowLabel}" could not be created: ${err.payload}`))
@@ -117,11 +116,13 @@ function CreateSSWin(event,msg,custom,html,preview) {
 async function ShowOvPreview() {
     const type = GetTabType()
     const { msg, custom } = await BuildNotify({type})
-    const html = await readTextFile(await path.resolve(".","src","notify","presets",custom.preset,"index.html"))
+    const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
 
     CreateSSWin({ detail: "../img/santextlogobg.png" },msg,custom,html,true)
 }
 
+// !!! When moving the notification window to another monitor and setting "decorations: false", the extra space normally taken up by the now hidden title bar is added to the window, resulting in the notification area being bigger than intended
+// (Can be seen if commenting out "transparent: true" in Notify function, and comparing against "decorations: true"/"transparent: false")
 function SetNotifyDimensions(queueobj) {
     return new Promise(resolve => resolve(base))
     .then(async base => {
@@ -151,7 +152,7 @@ let sslock = false
 async function Notify(data) {
     const queueobj = {
         notify: {
-            title: `Steam Achievement Notifier (V${sanhelper.version}) - Notification`,
+            title: `Steam Achievement Notifier (V${await sanhelper.version()}) - Notification`,
             resizable: false,
             focus: false,
             alwaysOnTop: true,
@@ -166,6 +167,8 @@ async function Notify(data) {
 
     SetNotifyDimensions(queueobj)
     .finally(() => {
+        window.blur()
+
         sslock = queue.length > 0
         queueobj.sslock = sslock
         // Cooldown for "sslock"
@@ -180,17 +183,17 @@ async function Notify(data) {
             } else {
                 running = true
 
-                const notify = new WebviewWindow("notify", queue[0].notify)
+                const notify = new WebviewWindow("notify",queue[0].notify)
                 const progresscircle = document.getElementById("progresscircle")
-                
-                notify.once("tauri://created", () => {
+
+                notify.once("tauri://created", async () => {
                     once("webviewready", async () => {
                         const type = queue[0].type
                         const res = await GetSoundFile(type)
                         const audio = convertFileSrc(res[sanhelper.random(res.length)])
 
                         const { msg, custom } = await BuildNotify({data,type,audio})
-                        const html = await readTextFile(await path.resolve(".","src","notify","presets",custom.preset,"index.html"))
+                        const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
 
                         function ShiftNotify() {
                             invoke("ipc", { eventname: "achievement", payload: { msg: msg, optional: { custom: custom, html: html } } })
@@ -207,7 +210,7 @@ async function Notify(data) {
                         if (config.screenshotmode !== "off") {
                             window.addEventListener("ss", async event => {
                                 await new Promise(async resolve => {
-                                    config.screenshotmode === "overlay" ? CreateSSWin(event,msg,custom,html) : await invoke("press_key", { key: config.keybind })
+                                    config.screenshotmode === "overlay" ? CreateSSWin(event,msg,custom,html,false) : await invoke("press_key", { key: config.keybind })
                                     setTimeout(resolve,50)
                                 })
                                 
@@ -240,11 +243,11 @@ async function Notify(data) {
     })
 }
 
-function ShowInfoNotify(gamename,gameicon,err) {
+async function ShowInfoNotify(gamename,gameicon,err) {
     const info = new WebviewWindow("info", {
         width: 200,
         height: 75,
-        title: `Steam Achievement Notifier (V${sanhelper.version}) - Info`,
+        title: `Steam Achievement Notifier (V${await sanhelper.version()}) - Info`,
         resizable: false,
         focus: false,
         alwaysOnTop: true,

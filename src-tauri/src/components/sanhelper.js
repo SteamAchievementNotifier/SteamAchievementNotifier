@@ -1,5 +1,9 @@
+const { getVersion } = window.__TAURI__.app
+
 const sanhelper = {
-    version: 1.85,
+    version: async () => {
+        return parseFloat((await getVersion()).match(new RegExp(/^(\d+\.\d+)/)))
+    },
     os: async () => {
         const platform = await os.platform()
         return platform
@@ -25,7 +29,7 @@ const sanhelper = {
 }
 
 sanhelper.shortcut = async () => {
-    return await sanhelper.os() === "win32" ? await path.join(await path.desktopDir(),`Steam Achievement Notifier (V${sanhelper.version}).lnk`) : `~/.local/share/applications/'Steam Achievement Notifier (V${sanhelper.version})'.desktop`
+    return await sanhelper.os() === "win32" ? await path.join(await path.desktopDir(),`Steam Achievement Notifier (V${await sanhelper.version()}).lnk`) : `~/.local/share/applications/'Steam Achievement Notifier (V${await sanhelper.version()})'.desktop`
 }
 
 sanhelper.steampath = async () => {
@@ -68,7 +72,7 @@ const log = {
             // !!! Base width/height on calculation of resolution and scale factor
             width: 300,
             height: 400,
-            title: `Steam Achievement Notifier (V${sanhelper.version}) Log`,
+            title: `Steam Achievement Notifier (V${await sanhelper.version()}) Log`,
             resizable: false,
             transparent: true,
             decorations: false,

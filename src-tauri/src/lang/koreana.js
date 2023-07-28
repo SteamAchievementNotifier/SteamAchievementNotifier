@@ -93,8 +93,8 @@ export const translations = () => {
                 query: ".sanboxtitle > label"
             },
             apprevlbl: {
-                elem: "앱 리비전"
-            },
+                elem: "버전"
+            },            
             apikeybtn: {
                 tt: "Steam 웹 API 키를 가져오려면 여기를 클릭"
             },

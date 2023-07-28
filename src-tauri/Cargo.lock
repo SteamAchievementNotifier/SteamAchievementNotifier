@@ -721,6 +721,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "fern"
+version = "0.6.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d9f0c14694cbd524c8720dd69b0e3179344f04ebb5f90f2e4a440c6ea3b2f1ee"
+dependencies = [
+ "log",
+]
+
+[[package]]
 name = "field-offset"
 version = "0.3.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2914,8 +2923,10 @@ dependencies = [
 
 [[package]]
 name = "steamachievementnotifier"
-version = "1.85.0"
+version = "1.85.1"
 dependencies = [
+ "fern",
+ "log",
  "mslnk",
  "reqwest",
  "screenshots",

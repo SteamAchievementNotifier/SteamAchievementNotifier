@@ -37,7 +37,8 @@ async function ShowCustomiser() {
 
     const type = GetTabType()
 
-    readTextFile(await path.join("SteamAchievementNotifier","src","components","customiser.html"), { dir: fs.BaseDirectory.LocalData })
+    // readTextFile(await path.join("SteamAchievementNotifier","src","components","customiser.html"), { dir: fs.BaseDirectory.LocalData })
+    readTextFile(await path.join("src","components","customiser.html"), { dir: fs.BaseDirectory.Resource })
     .then(data => mainwrapper.insertAdjacentHTML("beforeend",data))
     .finally(() => {
         const iframe = CheckIfPortrait()
@@ -113,7 +114,8 @@ async function LoadIFrame() {
     const iframe = document.getElementsByTagName("iframe")[0]
 
     const { msg, custom } = await BuildNotify({type})
-    const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
+    // const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
+    const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
 
     const divs = ["mainwrapper","screenshotwrapper"]
     divs.map(div => iframe.contentWindow.document.querySelector(`.${div}`).style.animation = "none")
@@ -183,7 +185,8 @@ function ToggleTab(event) {
 }
 
 async function ShowDialog(file,elem,callback) {
-    await readTextFile(await path.join("SteamAchievementNotifier","src","components",`${file}.html`), { dir: fs.BaseDirectory.LocalData })
+    // await readTextFile(await path.join("SteamAchievementNotifier","src","components",`${file}.html`), { dir: fs.BaseDirectory.LocalData })
+    await readTextFile(await path.join("src","components",`${file}.html`), { dir: fs.BaseDirectory.Resource })
     .then(data => {
         return new Promise(resolve => {
             document.querySelector(`.${elem}`).insertAdjacentHTML("beforeend",data)

@@ -221,7 +221,7 @@ async fn is_steam_running(window: Window) -> Result<bool, String> {
             return Ok(true);
         } else {
             // println!("Steam is not running. Checking...");
-            info!("Steam is not running. Checking...");
+            // info!("Steam is not running. Checking...");
             std::thread::sleep(std::time::Duration::from_secs(1));
         }
     }
@@ -243,6 +243,9 @@ fn ipc(window: Window, eventname: &str, payload: Payload) {
         }
 
         window.emit(eventname,payload).unwrap();
+        // window.with_webview(|webview| {
+        //     webview.controller().remove_MoveFocusRequested(token)
+        // })
     }
 }
 
@@ -310,22 +313,14 @@ fn desktop_shortcut(path: String) {
 
 fn check_dir_for_file(file: &str) -> Result<String, String> {
     #[cfg(target_os="windows")]
-    let local_app_data = match env::var("LOCALAPPDATA") {
+    let localappdata = match env::var("LOCALAPPDATA") {
         Ok(val) => val,
         Err(_) => {
             return Err(String::from("Unable to retrieve LOCALAPPDATA environmental variable!"));
         }
     };
 
-    #[cfg(target_os="linux")]
-    let local_app_data = match env::var("HOME") {
-        Ok(val) => format!("{}/.cache",val),
-        Err(_) => {
-            return Err(String::from("Unable to retrieve HOME environmental variable!"));
-        }
-    };
-
-    let file_path = Path::new(&local_app_data).join("SteamAchievementNotifierV1.85").join(file);
+    let file_path = Path::new(&localappdata).join("com.steamachievementnotifier.jackson0ne").join(file);
 
     if file_path.exists() {
         Ok(String::from(format!("{}",file_path.display())))
@@ -361,7 +356,7 @@ fn available_monitors() -> Vec<serde_json::Value> {
 
 #[tauri::command]
 fn take_screenshot(handle: tauri::AppHandle, window: Window, id: &str) {
-    let appcachedir = handle.path_resolver().app_cache_dir().expect("Unable to retrieve appCacheDir!");
+    let appcachedir = handle.path_resolver().app_cache_dir().expect("Unable to resolve app cache dir!");
     let file_path = Path::new(&appcachedir).join("src.png");
 
     let id: u32 = id.parse().expect("Unable to parse \"id\" &str!");
@@ -379,6 +374,9 @@ fn take_screenshot(handle: tauri::AppHandle, window: Window, id: &str) {
 
 #[tauri::command]
 fn press_key(key: &str) {
+    #[cfg(target_os="windows")]
+    const CREATE_NO_WINDOW: u32 = 0x08000000;
+
     let cmd: String = format!("Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait(\"{}\");",&key);
 
     // println!("{}",cmd);
@@ -387,6 +385,7 @@ fn press_key(key: &str) {
     let status = if cfg!(target_os = "windows") {
         Command::new("powershell.exe")
         .args(&["-Command",&cmd])
+        .creation_flags(CREATE_NO_WINDOW)
         .status()
         .expect("failed to execute process")
     } else {
@@ -452,7 +451,7 @@ fn main() {
             info!("HWA ENABLED (\"{}\" does not exist!)",file_path);
         }
     }
-
+    
     let quit = CustomMenuItem::new("quit".to_string(),"Quit");
     let show = CustomMenuItem::new("show".to_string(),"Show");
     let tray_menu = SystemTrayMenu::new()
@@ -510,21 +509,25 @@ fn main() {
         #[cfg(debug_assertions)]
         window.open_devtools();
 
+        window.show().unwrap();
+        window.restore_state(StateFlags::all()).expect("Failed to restore window state!");
+
         match check_dir_for_file("startmin") {
             Ok(file_path) => {
-                // window.hide().unwrap();
-                unsafe { WINSTATE = false; }
-                close_window(window);
-                // println!("\"{}\" exists!",file_path);
+                unsafe { WINSTATE = true; }
                 info!("\"{}\" exists!",file_path);
             }
             Err(file_path) => {
-                window.show().unwrap();
-                window.restore_state(StateFlags::all()).expect("Failed to restore window state!");
-                // println!("\"{}\" does not exist!",file_path);
+                unsafe { WINSTATE = false; }
                 info!("\"{}\" does not exist!",file_path);
             }
         }
+
+        app.once_global("contentloaded", |_event| {
+            info!("Received \"contentloaded\" event");
+            close_window(window);
+        });
+
         
         Ok(())
     })

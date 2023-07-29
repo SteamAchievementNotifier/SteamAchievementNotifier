@@ -59,7 +59,8 @@ function NotifyPosition(notify,type,offset = 20) {
 }
 
 async function TestGameArt() {
-    const imgs = await readDir(await path.join("SteamAchievementNotifier","src","img","gameart"), { dir: fs.BaseDirectory.LocalData })
+    // const imgs = await readDir(await path.join("SteamAchievementNotifier","src","img","gameart"), { dir: fs.BaseDirectory.LocalData })
+    const imgs = await readDir(await path.join("src","img","gameart"), { dir: fs.BaseDirectory.Resource })
     return convertFileSrc(imgs[sanhelper.random(imgs.length)].path)
 }
 
@@ -116,7 +117,8 @@ async function CreateSSWin(event,msg,custom,html,preview) {
 async function ShowOvPreview() {
     const type = GetTabType()
     const { msg, custom } = await BuildNotify({type})
-    const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
+    // const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
+    const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
 
     CreateSSWin({ detail: "../img/santextlogobg.png" },msg,custom,html,true)
 }
@@ -193,7 +195,8 @@ async function Notify(data) {
                         const audio = convertFileSrc(res[sanhelper.random(res.length)])
 
                         const { msg, custom } = await BuildNotify({data,type,audio})
-                        const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
+                        // const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
+                        const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
 
                         function ShiftNotify() {
                             invoke("ipc", { eventname: "achievement", payload: { msg: msg, optional: { custom: custom, html: html } } })

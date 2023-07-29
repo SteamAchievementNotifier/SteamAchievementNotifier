@@ -89,3 +89,12 @@ V1.85.1
 - Updated the **Version** string in **Settings** to reflect the current app's semantic version number and updated associated translations.
 - Added `rust.log` file to log info, errors and panics from Rust process throughout the application's lifecycle.
 - Fixed typos in `README.md`.
+
+V1.85.2
+-
+
+### **Bug Fixes:**
+- Fixed an issue where the application would not function correctly if the user chose to install anywhere other than the default location.
+- Fixed an issue where the **Start Minimised** option did not function correctly.
+- Fixed an issue where a Powershell console window would appear when the **Steam In-Game Screenshot** option was selected.
+- Removed continuous logging to `rust.log` when Steam is not running.

@@ -15,7 +15,8 @@ function GetTabType() {
 
 async function GetBaseDimensions() {
     const base = {}
-    const dir = await readDir(await path.join("SteamAchievementNotifier","src","notify","presets"), { dir: fs.BaseDirectory.LocalData })
+    // const dir = await readDir(await path.join("SteamAchievementNotifier","src","notify","presets"), { dir: fs.BaseDirectory.LocalData })
+    const dir = await readDir(await path.join("src","notify","presets"), { dir: fs.BaseDirectory.Resource })
 
     const filesarr = await Promise.all(dir.map(async subfolder => await readDir(await path.resolve(subfolder.path))))
 
@@ -73,6 +74,8 @@ window.appid = null
 window.gameName = null
 
 window.addEventListener("DOMContentLoaded", async () => {
+    setTimeout(() => emit("contentloaded"),100)
+
     const userlbl = document.getElementById("userlbl")
     const gamelbl = document.getElementById("gamelbl")
     

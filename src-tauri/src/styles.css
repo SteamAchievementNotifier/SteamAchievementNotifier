@@ -30,7 +30,8 @@
     --transition: 0.2s;
 }
 
-html, body {
+html,
+body {
     color-scheme: dark;
     width: 100vw;
     min-width: 300px;
@@ -39,6 +40,10 @@ html, body {
     font-family: "Titillium Web", "Roboto";
     color: white;
     overflow: hidden;
+}
+
+body {
+    opacity: 0;
 }
 
 :root:has(body[noanim]),

@@ -150,6 +150,9 @@ window.addEventListener("DOMContentLoaded", () => {
 function InitUI() {
     const loadingdiv = document.querySelector("#loading > div")
 
-    document.querySelector(".mainwrapper").removeAttribute("loading")
-    !config.noanim ? loadingdiv.addEventListener("animationend", event => event.animationName === "loadcomplete" && event.target.parentElement.remove(), { once: true }) : loadingdiv.parentElement.remove()
+    // Timeout added to match the timeout set to trigger "contentloaded" in main.js
+    setTimeout(() => {
+        document.querySelector(".mainwrapper").removeAttribute("loading")
+        !config.noanim ? loadingdiv.addEventListener("animationend", event => event.animationName === "loadcomplete" && event.target.parentElement.remove(), { once: true }) : loadingdiv.parentElement.remove()
+    },100)
 }

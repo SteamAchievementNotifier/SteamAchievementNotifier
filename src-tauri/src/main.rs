@@ -527,7 +527,6 @@ fn main() {
             info!("Received \"contentloaded\" event");
             close_window(window);
         });
-
         
         Ok(())
     })

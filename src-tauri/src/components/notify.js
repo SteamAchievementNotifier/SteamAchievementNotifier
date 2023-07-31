@@ -107,8 +107,8 @@ async function CreateSSWin(event,msg,custom,html,preview) {
         url: "./notify/ss.html"
     })
     
-    ss.once("tauri://created", async () => {
-        await ss.setIgnoreCursorEvents(!preview)
+    ss.once("tauri://created", () => {
+        ss.setIgnoreCursorEvents(!preview)
         once("ssready", () => setTimeout(() => invoke("ipc", { eventname: "ss", payload: { msg: event.detail, optional: { msg: msg, custom: custom, html: html, preview: preview } } }),100))
     })
     ss.once("tauri://error", err => log.write("error",`"${err.windowLabel}" could not be created: ${err.payload}`))
@@ -169,8 +169,6 @@ async function Notify(data) {
 
     SetNotifyDimensions(queueobj)
     .finally(() => {
-        window.blur()
-
         sslock = queue.length > 0
         queueobj.sslock = sslock
         // Cooldown for "sslock"
@@ -201,30 +199,32 @@ async function Notify(data) {
                         function ShiftNotify() {
                             invoke("ipc", { eventname: "achievement", payload: { msg: msg, optional: { custom: custom, html: html } } })
                             NotifyPosition(notify,type,queue[0].offset)
-        
+
                             once("startprogress", () => {
                                 progresscircle.setAttribute("running","")
                                 progresscircle.style.animation = `fill ${config.customisation[queueobj.type].displaytime}s linear forwards`
+
                             })
-        
+
                             queue.shift()
                         }
-            
+
                         if (config.screenshotmode !== "off") {
                             window.addEventListener("ss", async event => {
                                 await new Promise(async resolve => {
                                     config.screenshotmode === "overlay" ? CreateSSWin(event,msg,custom,html,false) : await invoke("press_key", { key: config.keybind })
                                     setTimeout(resolve,50)
                                 })
-                                
+
                                 ShiftNotify()
                             }, { once: true })
 
                             // If "sslock" is false, take the screenshot, otherwise use the first screenshot taken (within 500ms)
                             !queue[0].sslock ? await invoke("take_screenshot", { id: config.monitor }) : await invoke("ipc", { eventname: "ssready", payload: {} })
                         } else ShiftNotify()
+
                     })
-        
+
                     once("notifyclosed", () => {
                         running = false
                         

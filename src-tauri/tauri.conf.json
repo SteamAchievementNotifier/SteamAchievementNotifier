@@ -102,7 +102,14 @@
                 "appimage",
                 "nsis",
                 "updater"
-            ]
+            ],
+            "windows": {
+                "nsis": {
+                    "installerIcon": "icons/icon.ico",
+                    "headerImage": "icons/saninstallerlogo1small.bmp",
+                    "sidebarImage": "icons/saninstallerlogo2small.bmp"
+                }
+            }
         },
         "security": {
             "csp": null
@@ -118,6 +125,7 @@
         },
         "windows": [
             {
+                "label": "main",
                 "fullscreen": false,
                 "resizable": true,
                 "title": "Steam Achievement Notifier (V1.85)",

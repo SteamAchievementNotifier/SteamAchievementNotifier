@@ -112,20 +112,20 @@ fn start_san(window: Window) {
                 Ok(appid) if appid != 0 => {
                     if !running {
                         fnappid = appid;
-
+                        
                         window.emit("startsan",Payload { msg: Some("Starting SAN!".into()), optional: None })
                         .expect("Failed to emit \"startsan\" event!");
-
+                    
                         path.push(format!(
                             "{}/appcache/stats/UserGameStats_{}_{}.bin",
                             get_reg_value::<String>("SOFTWARE\\Valve\\Steam","SteamPath").unwrap(),
                             get_reg_value::<u32>("SOFTWARE\\Valve\\Steam\\ActiveProcess","ActiveUser").unwrap(),
                             fnappid,
                         ));
-
+                        
                         window.emit("track", Payload { msg: Some(format!("Tracking changes to file: {}", path.display()).into()), optional: Some(appid.to_string().into()) })
                         .expect("Failed to \"emit\" track event!");
-
+                
                         last_modified = get_last_modified(&path).unwrap();
                         running = true;
                         pollrate = 100;
@@ -330,7 +330,7 @@ fn check_dir_for_file(file: &str) -> Result<String, String> {
 }
 
 fn exit_app(handle: &tauri::AppHandle) {
-    handle.save_window_state(StateFlags::all()).expect("Failed to save window state!");
+    handle.save_window_state(StateFlags::SIZE | StateFlags::POSITION).expect("Failed to save window state!");
     handle.exit(0);
 }
 
@@ -510,7 +510,7 @@ fn main() {
         window.open_devtools();
 
         window.show().unwrap();
-        window.restore_state(StateFlags::all()).expect("Failed to restore window state!");
+        window.restore_state(StateFlags::SIZE | StateFlags::POSITION).expect("Failed to restore window state!");
 
         match check_dir_for_file("startmin") {
             Ok(file_path) => {

@@ -2,7 +2,7 @@ document.addEventListener("contextmenu", event => event.preventDefault())
 
 const transition = 100
 
-async function SetNotifyContent(msg,custom,html) {
+async function SetNotifyContent(msg,custom,html) {    
     return new Promise(async resolve => {
         document.querySelector(".mainwrapper").innerHTML = null
 

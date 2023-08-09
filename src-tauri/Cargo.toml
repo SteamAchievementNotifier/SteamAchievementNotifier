@@ -1,6 +1,6 @@
 [package]
 name = "steamachievementnotifier"
-version = "1.85.2"
+version = "1.85.3"
 description = "Steam Achievement Notifier (V1.85)"
 authors = ["Jackson0ne"]
 license = ""

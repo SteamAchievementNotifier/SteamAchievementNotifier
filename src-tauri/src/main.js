@@ -83,17 +83,19 @@ window.addEventListener("DOMContentLoaded", async () => {
         log.write("info",event.payload.msg)
 
         if (parseInt(event.payload.optional) === 0) {
-            
             async function CheckQueueIsEmpty() {
                 if (!queue.length) {
                     window.gameName = null
-                    
-                    gamelbl.textContent = translations.gamelbl.elem
-                    gamelbl.setAttribute("novalue","")
 
-                    await removeDir(await path.join(cachepath,appid), { recursive: true })
+                    appid && await removeDir(await path.join(cachepath,appid), { recursive: true })
                     window.appid = null
                     delete window.cachedata
+                    
+                    gamelbl.setAttribute("novalue","")
+                    gamelbl.removeAttribute("complete")
+
+                    // Resets "gamelbl" variable back to default value if gameName is null
+                    LoadLang(config.lang)
                 } else {
                     console.log("%cWaiting for queue to be empty...","color:darkred")
                     return setTimeout(CheckQueueIsEmpty,1000)
@@ -133,11 +135,12 @@ window.addEventListener("DOMContentLoaded", async () => {
         })
         .finally(async () => {
             try {
-                window.appid = event.payload.optional
-                
                 const { gameName, cachedata, gameicon } = await CacheAchievementData(event.payload.optional)
+
+                window.appid = event.payload.optional
                 window.gameName = gameName
                 window.cachedata = cachedata
+                window.gameicon = gameicon
     
                 config.track && ShowInfoNotify(gameName,gameicon ? convertFileSrc(gameicon) : "../img/sanlogo.svg")
     
@@ -146,8 +149,20 @@ window.addEventListener("DOMContentLoaded", async () => {
                 gamelbl.textContent = gameName
                 gamelbl.removeAttribute("novalue")
             } catch (err) {
-                log.write("error",`Error caching achievement data: ${err}`)
-                ShowInfoNotify(translations.trackingfailed,"../icon/error.svg",translations.checkapplog)
+                if (err === 0) {
+                    log.write("info",`AppID ${event.payload.optional} has no achievements`)
+                } else if (err[0] === 100) {
+                    log.write("info",`AppID ${event.payload.optional} has all achievements unlocked`)
+
+                    window.gameName = err[1]
+
+                    gamelbl.textContent = gameName
+                    gamelbl.removeAttribute("novalue")
+                    gamelbl.setAttribute("complete","")
+                } else {
+                    log.write("error",`Error caching achievement data: ${err}`)
+                    ShowInfoNotify(translations.trackingfailed,"../icon/error.svg",translations.checkapplog)
+                }
             }
         })
     })
@@ -191,8 +206,14 @@ window.addEventListener("DOMContentLoaded", async () => {
     })
 
     listen("modified",event => {
-        cachedata ? CheckUnlockStatus(event.payload.optional) : log.write("cache miss",`"cachedata" was missing on last check`)
-        log.write("info",`MSG: ${event.payload.msg}\nAPPID: ${event.payload.optional}`)
+        const checkunlockstatus = msg => {
+            cachedata ? CheckUnlockStatus(event.payload.optional) : log.write("cache miss",`"cachedata" was missing on last check`)
+            log.write("info",msg)
+        }
+
+        checkunlockstatus(`MSG: ${event.payload.msg}\nAPPID: ${event.payload.optional}`)
+        setTimeout(() => checkunlockstatus(`Re-checking unlock status for APPID: ${event.payload.optional}`),1000)
+        setTimeout(() => checkunlockstatus(`Final re-check of unlock status for APPID: ${event.payload.optional}`),2000)
     })
 
     listen("notifyerror", event => {

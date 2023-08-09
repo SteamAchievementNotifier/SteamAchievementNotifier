@@ -23,3 +23,4 @@ zstart.cmd
 *.njsproj
 *.sln
 *.sw?
+*.code-workspace

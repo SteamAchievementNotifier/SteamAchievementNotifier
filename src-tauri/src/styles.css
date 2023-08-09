@@ -436,6 +436,10 @@ body[beta] .logowrapper::after {
     color: red;
 }
 
+.rectlbl[complete] {
+    color: gold;
+}
+
 button.rect {
     cursor: pointer;
 }

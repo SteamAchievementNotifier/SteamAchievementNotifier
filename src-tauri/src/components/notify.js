@@ -59,7 +59,6 @@ function NotifyPosition(notify,type,offset = 20) {
 }
 
 async function TestGameArt() {
-    // const imgs = await readDir(await path.join("SteamAchievementNotifier","src","img","gameart"), { dir: fs.BaseDirectory.LocalData })
     const imgs = await readDir(await path.join("src","img","gameart"), { dir: fs.BaseDirectory.Resource })
     return convertFileSrc(imgs[sanhelper.random(imgs.length)].path)
 }
@@ -77,13 +76,13 @@ async function BuildNotify({data,type,audio}) {
         unlockmsg: type === "plat" ? (custom.customtext || translations.gamecomplete) : `${custom.usegametitle ? gameName || translations.gametitle : custom.customtext || translations.achievementunlocked}${(data?.type === "rare" || data && config.allpercent) ? ` (${data?.percentage.toFixed(1)}%)` : type === "rare" ? ` (0.1%)` : (config.allpercent && type !== "plat") ? ` (50%)` : ""}`,
         title: type !== "plat" ? data?.title || translations.achievementtitle : gameName || translations.gametitle,
         desc: type === "plat" ? translations.allachievements : data?.desc || translations.achievementdesc,
-        icon: (data?.usegameicon && (convertFileSrc(await path.join(cachepath,appid,"gameicon.jpg")) || "../img/gameicon.png")) || (data?.icon && convertFileSrc(data.icon) || (custom.usegameicon ? "../img/gameicon.png" : (type === "plat" ? custom.useplaticon && custom.platicon || "../img/ribbon.svg" : "../img/achicon.png"))),
+        icon: (data && custom.usegameicon && convertFileSrc(gameicon)) || (data?.icon && convertFileSrc(data.icon) || (custom.usegameicon ? "../img/gameicon.png" : (type === "plat" ? custom.useplaticon && custom.platicon || "../img/ribbon.svg" : "../img/achicon.png"))),
         audio: data?.audio ?? audio ?? "",
         screenshot: [config.screenshotmode !== "off" && config.displayscreenshot, data && convertFileSrc(await path.join(await path.appCacheDir(),"src.png")) || "../img/santextlogobg.png"],
         ovpath: user ? `${config.ovpath}\\${user.replace(/[\\/:"*?<>|]+/g,"_")}\\${gameName ? gameName.replace(/[\\/:"*?<>|]+/g,"_") : null}` : null,
         nvda: config.nvda,
         debug: config.debug,
-        percent: data?.percentage ?? GetTabType() === "main" ? 50 : 0.1,
+        percent: (Math.round(data?.percentage * 100) / 100) || (GetTabType() === "main" ? 50 : 0.1),
         rarity: config.rarity,
         defaulticons: defaulticons
     }
@@ -98,9 +97,11 @@ async function CreateSSWin(event,msg,custom,html,preview) {
         width: monitor.width,
         height: monitor.height,
         title: `Steam Achievement Notifier (V${await sanhelper.version()}) - Screenshot`,
+        center: true,
         resizable: false,
         focus: false,
-        fullscreen: true,
+        fullscreen: preview,
+        decorations: false,
         visible: preview,
         transparent: true,
         skipTaskbar: !preview,
@@ -117,7 +118,6 @@ async function CreateSSWin(event,msg,custom,html,preview) {
 async function ShowOvPreview() {
     const type = GetTabType()
     const { msg, custom } = await BuildNotify({type})
-    // const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
     const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
 
     CreateSSWin({ detail: "../img/santextlogobg.png" },msg,custom,html,true)
@@ -193,7 +193,6 @@ async function Notify(data) {
                         const audio = convertFileSrc(res[sanhelper.random(res.length)])
 
                         const { msg, custom } = await BuildNotify({data,type,audio})
-                        // const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
                         const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
 
                         function ShiftNotify() {

@@ -7,11 +7,14 @@ async function CacheAchievementData(appid) {
 
             const { data: { playerstats, playerstats: { gameName } } } = await http(`https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${config.apikey}&steamid=${config.steam64id}&l=${config.lang}&?__random=${sanhelper.random()}`)
             
-            !playerstats.success ? reject(`Unable to access achievement data for ${appid}`) : null
+            !playerstats.success && reject(`Unable to access achievement data for ${appid}`)
 
             const { achievements } = playerstats
             const { data: { game: { availableGameStats: { achievements: schema } } } } = await http(`https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=${config.apikey}&appid=${appid}&l=${config.lang}&format=json`)
             const { data: { achievementpercentages: { achievements: percentages } } } = await http(`https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${appid}&l=${config.lang}&format=json`)
+
+            if (!achievements) return reject(0)
+            if (achievements.every(achievement => achievement.achieved === 1)) return reject([100,gameName])
 
             const cachedata = []
         
@@ -99,7 +102,6 @@ async function CheckUnlockStatus(appid) {
         resolve()
     })
     
-    // achievements.every(achievement => achievement.achieved === 1) && Notify(plat)
     if (achievements.every(achievement => achievement.achieved === 1) && !hasshown) {
         hasshown = true
         Notify(plat)

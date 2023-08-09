@@ -76,10 +76,51 @@ Once an achievement is unlocked, a **notification** will display containing the 
 **RELEASE NOTES**:
 -
 
-V1.85.1
--
+<details>
+<summary>
+    <h4>
+        V1.85.3
+        <span style="background-color:green; border-radius: 0.35rem; padding: 0.2rem 0.35rem; font-size: 0.75rem">LATEST</span>
+    </h4>
+</summary>
 
-### **Bug Fixes:**
+<h4><u>Updates:</u></h4>
+
+- Added multiple extra API checks when a game's `.bin` file is updated in order to minimise the risk that an achievement unlock will be missed if the API is not updated before the check occurs.
+- Updated logos to SVG format.
+- Prevented further achievement tracking for games with 100% completion, and added a <span style="color:gold">gold</span> colour to the game's name in the **Game Display** box to indicate all achievements have been earned.
+
+<h4><u>Bug Fixes:</u></h4>
+
+- Fixed an issue where the screenshot background window could take focus from the game when the **Screenshot with Notification Overlay** option was enabled.
+- Fixed an issue where the application would stop tracking stats after launching a game with no achievements.
+- Fixed an issue where continuous notifications would spawn after launching a game that was previously completed.
+- Fixed an issue where the **Use Game Icon** Customiser option did not function correctly.
+- Fixed an issue where percentages for the **Epic Games** preset did not show the actual value.
+- Fixed an issue where the **Game Display** box would sometimes retain the previous game name instead of resetting back to the "No Game Detected" text after closing a game.
+- Set the `window-state` plugin to only read the `SIZE` and `POSITION` properties of the main window on launch, which prevents an issue where a previously maximised window would stay stuck in a maximised state upon each subsequent launch of the application.
+</details>
+
+<details>
+<summary>
+    <h4>V1.85.2</h4>
+</summary>
+
+<h4><u>Bug Fixes:</u></h4>
+
+- Fixed an issue where the application would not function correctly if the user chose to install anywhere other than the default location.
+- Fixed an issue where the **Start Minimised** option did not function correctly.
+- Fixed an issue where a Powershell console window would appear when the **Steam In-Game Screenshot** option was selected.
+- Removed continuous logging to `rust.log` when Steam is not running.
+</details>
+
+<details>
+<summary>
+    <h4>V1.85.1</h4>
+</summary>
+
+<h4><u>Bug Fixes:</u></h4>
+
 - Fixed an issue where the application would not function correctly after autostarting when using the **Start with Windows** option
 - Fixed an issue where notifications would steal focus when the main window was closed to the system tray
 - Fixed an issue where the **100% notification** would spawn multiple times after completing a game.
@@ -89,12 +130,4 @@ V1.85.1
 - Updated the **Version** string in **Settings** to reflect the current app's semantic version number and updated associated translations.
 - Added `rust.log` file to log info, errors and panics from Rust process throughout the application's lifecycle.
 - Fixed typos in `README.md`.
-
-V1.85.2
--
-
-### **Bug Fixes:**
-- Fixed an issue where the application would not function correctly if the user chose to install anywhere other than the default location.
-- Fixed an issue where the **Start Minimised** option did not function correctly.
-- Fixed an issue where a Powershell console window would appear when the **Steam In-Game Screenshot** option was selected.
-- Removed continuous logging to `rust.log` when Steam is not running.
+</details>

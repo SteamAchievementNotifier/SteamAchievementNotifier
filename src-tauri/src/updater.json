@@ -1,10 +1,10 @@
 {
-    "version": "1.85.2",
-    "notes": "Fixed an issue where the app would break for installs in non-default location. Other bug fixes",
+    "version": "1.85.3",
+    "notes": "Release Notes: https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/tree/alpha#release-notes",
     "platforms": {
         "windows-x86_64": {
-            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZW4wbDZ1akkzcitHcXozMDJjVStVeEFoY1cxYWM4RVVRL2RoOERldmx0OHI3K2tHNktYWE9CMlFRQkdzb2M5Y3VpT1VVQkJUOU9WU0dWNGNDNXYxcmw1UWsrcWZobWdnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkwNjYxNTIzCWZpbGU6U3RlYW1BY2hpZXZlbWVudE5vdGlmaWVyXzEuODUuMl94NjQtc2V0dXAubnNpcy56aXAKMWhtREI5eFhac29NaWl6d1NsWm5rTDhmbjRvWFRLMW52czF5eUI3NFJneTJlTGNwUW0rYy8zb0RrTWJidjBqRC9ZZ0RDQ2hoSjRLYzhRSE9RQnhCQUE9PQo=",
-            "url": "https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/alpha/SteamAchievementNotifier_1.85.2_x64-setup.nsis.zip"
+            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZW4wbDZ1akkzcjZIV3F2YXhlaGVpRW85YUFKMHhtSCtMZW5sTUo1MldDbTkvZHQxNFNCWGNzVFk4VUNLbFI0MkU0REJnN2V4SGdBbkhTdXc3RnFpUXFkWmNqYXdTakFJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkxNjkwMTM4CWZpbGU6U3RlYW1BY2hpZXZlbWVudE5vdGlmaWVyXzEuODUuM194NjQtc2V0dXAubnNpcy56aXAKRDB5ZzB1TEN0d1kvTUlLWTZVSUZkUExQU29LdlR4a01xc0tTN3FybmZNWVN0YmNvRm8vekVJVEdXUVVpYmEvYjFJaEVPYUpvZnBMam83M3lnenJCQlE9PQo=",
+            "url": "https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/alpha/SteamAchievementNotifier_1.85.3_x64-setup.nsis.zip"
         }
     }
 }

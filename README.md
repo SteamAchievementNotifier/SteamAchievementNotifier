@@ -89,6 +89,7 @@ Once an achievement is unlocked, a **notification** will display containing the 
 - Added multiple extra API checks when a game's `.bin` file is updated in order to minimise the risk that an achievement unlock will be missed if the API is not updated before the check occurs.
 - Updated logos to SVG format.
 - Prevented further achievement tracking for games with 100% completion, and added a <span style="color:gold">gold</span> colour to the game's name in the **Game Display** box to indicate all achievements have been earned.
+- Added header/sidebar images and EXE logo to installer.
 
 <h4><u>Bug Fixes:</u></h4>
 

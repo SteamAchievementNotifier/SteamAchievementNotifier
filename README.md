@@ -45,8 +45,8 @@ Inspired by achievement notifications for consoles, it uses the *Steam Web API* 
 > *To check this, click the "**Game Details**" link in the Settings menu.*
 
 **INSTALLATION:**
-1. Download "**[SteamAchievementNotifier_1.85.0_x64-setup.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.85/SteamAchievementNotifier_1.85.0_x64-setup.exe)*" (or download from the [releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
-2. Run **SteamAchievementNotifier_1.85.0_x64-setup.exe** and follow the prompts to install.
+1. Download **[SteamAchievementNotifier_1.85.4_x64-setup.exe](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.85/SteamAchievementNotifier_1.85.4_x64-setup.exe)** (or download from the [Releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page).
+2. Run **SteamAchievementNotifier_1.85.4_x64-setup.exe** and follow the prompts to install.
 3. When the application opens, click the **Settings** (⚙) button in the top-left corner. Enter your _API Key_/_Steam64 ID_ and click the _Test Connection_ button to test your connection to the Steam Web API. After valid credentials have been entered, your username will display on the main app screen, and the app is ready to use!
 
 **USAGE:**

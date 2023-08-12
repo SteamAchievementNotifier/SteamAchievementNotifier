@@ -13,7 +13,7 @@
 
 **Steam Achievement Notifier** is a Tauri application that shows customisable notifications when you unlock any Steam Achievement!
 
-<p align="center"><img src=""></p>
+<p align="center"><img src="https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/assets/77490730/53bc72c1-42e9-4f03-8479-ce02b7b9098a"></p>
 
 Inspired by achievement notifications for consoles, it uses the *Steam Web API* to track achievement stats in real time, and displays an achievement summary within the notification.
 
@@ -34,6 +34,8 @@ Inspired by achievement notifications for consoles, it uses the *Steam Web API* 
 - **App Log**: All main window information and errors will now be logged to the **App Log** window, which can be displayed using the **Open App Log** button in the **Settings** menu.
 
 > ❗ **Steam Achievement Notifier (V1.85)** is an **ALPHA** build, meaning that you are **very likely** to encounter bugs and issues through general use! If you discover an issue, please report it either via a new [Issue]("https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/issues") or via the `#support` forum on [Discord]("https://discord.gg/FxCFtpd3eu")!
+
+<p align="center"><img src="https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/assets/77490730/02d4802f-8d8e-4843-9080-ecd3e39f5f51" width="50%"></p>
 
 **SETUP:**
 -

@@ -9,7 +9,7 @@
     },
     "package": {
         "productName": "SteamAchievementNotifier",
-        "version": "1.85.3"
+        "version": "1.85.4"
     },
     "tauri": {
         "allowlist": {
@@ -108,6 +108,9 @@
                     "installerIcon": "icons/icon.ico",
                     "headerImage": "icons/saninstallerlogo1small.bmp",
                     "sidebarImage": "icons/saninstallerlogo2small.bmp"
+                },
+                "webviewInstallMode": {
+                    "type": "offlineInstaller"
                 }
             }
         },

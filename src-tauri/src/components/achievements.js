@@ -7,7 +7,10 @@ async function CacheAchievementData(appid) {
 
             const { data: { playerstats, playerstats: { gameName } } } = await http(`https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${config.apikey}&steamid=${config.steam64id}&l=${config.lang}&?__random=${sanhelper.random()}`)
             
-            !playerstats.success && reject(`Unable to access achievement data for ${appid}`)
+            if (!playerstats.success) {
+                log.write("info",`Unable to access achievement data for ${appid}: ${playerstats.error}`)
+                return reject(0)
+            }
 
             const { achievements } = playerstats
             const { data: { game: { availableGameStats: { achievements: schema } } } } = await http(`https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=${config.apikey}&appid=${appid}&l=${config.lang}&format=json`)
@@ -68,7 +71,7 @@ async function CacheAchievementData(appid) {
                 resolve({ gameName, cachedata, gameicon })
             }, { once: true })
         } catch (err) {
-            reject(err)
+            return reject(0)
         }
     })
 }

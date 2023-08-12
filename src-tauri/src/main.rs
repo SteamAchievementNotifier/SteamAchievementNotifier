@@ -1,4 +1,4 @@
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+// #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::{Manager,Window,SystemTray,SystemTrayMenu,SystemTrayEvent,CustomMenuItem};
 use std::{fs,path::{Path,PathBuf},time::{Duration,SystemTime,},thread::{sleep,spawn},process::Command,str,env,sync::{Arc,atomic::{AtomicBool,Ordering}}};
@@ -126,9 +126,14 @@ fn start_san(window: Window) {
                         window.emit("track", Payload { msg: Some(format!("Tracking changes to file: {}", path.display()).into()), optional: Some(appid.to_string().into()) })
                         .expect("Failed to \"emit\" track event!");
                 
-                        last_modified = get_last_modified(&path).unwrap();
+                        if path.exists() {
+                            last_modified = get_last_modified(&path).unwrap();
+                            pollrate = 100;
+                        } else {
+                            error!("\"{}\" does not exist", path.display());
+                        }
+
                         running = true;
-                        pollrate = 100;
                     }
 
                     if let Ok(current_modified) = get_last_modified(&path) {
@@ -137,9 +142,6 @@ fn start_san(window: Window) {
                             .expect("Failed to emit \"modified\" event!");
                             last_modified = current_modified;
                         }
-                    } else {
-                        // eprintln!("Failed to get last modified time: {}", path.display());
-                        error!("Failed to get last modified time: {}", path.display());
                     }
                 },
                 Ok(_) => {

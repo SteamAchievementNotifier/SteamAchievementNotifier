@@ -1,31 +1,35 @@
-const target = {
-    width: 1920,
-    height: 1080
-}
-
 const monitors = []
 
-// !!! Does not log event on resolution change
-// listen("tauri://scale-change", event => console.log(event))
-
-invoke("available_monitors")
-.then(async res => {
-    const available = await availableMonitors()
-
-    res.map((monitor,i) => {
-        const info = {
-            id: monitor.id.toString(),
-            width: monitor.width,
-            height: monitor.height,
-            // "scale_factor" from "screenshots" crate always returns "1", so get it from "availableMonitors" API instead
-            scaleFactor: available[i].scaleFactor,
-            isPrimary: monitor.is_primary
-        }
-
-        monitors.push(info)
+function GetMonitorInfo() {
+    invoke("available_monitors")
+    .then(async res => {
+        const available = await availableMonitors()
+    
+        res.map((monitor,i) => {
+            const info = {
+                id: monitor.id.toString(),
+                width: monitor.width,
+                height: monitor.height,
+                // "scale_factor" from "screenshots" crate always returns "1", so get it from "availableMonitors" API instead
+                scaleFactor: available[i].scaleFactor,
+                isPrimary: monitor.is_primary
+            }
+    
+            monitors.push(info)
+        })
+    
+        !config.monitor && sanhelper.write({config},["monitor"],monitors[0].id.toString())
     })
+}
 
-    !config.monitor && sanhelper.write({config},["monitor"],monitors[0].id.toString())
+GetMonitorInfo()
+
+listen("tauri://scale-change", event => {
+    const { size: { width, height }, scaleFactor } = event.payload
+    log.write("info",`Scale Factor changed: ${width} x ${height} @ ${scaleFactor}x`)
+
+    return new Promise(resolve => resolve(monitors.length = 0))
+    .finally(GetMonitorInfo)
 })
 
 function NotifyPosition(notify,type,offset = 20) {
@@ -69,11 +73,13 @@ async function BuildNotify({data,type,audio}) {
 
     custom.gameart = appid ? convertFileSrc(await exists(await path.join(steampath,"appcache","librarycache",`${appid}_library_hero.jpg`)) ? await path.join(steampath,"appcache","librarycache",`${appid}_library_hero.jpg`) : await path.join(cachepath,appid,`gameart.jpg`)) : await TestGameArt()
 
+    const percentage = (Math.round(data?.percentage * 100) / 100)
+
     const msg = {
         hasdata: data !== undefined,
         type: type,
         base: base,
-        unlockmsg: type === "plat" ? (custom.customtext || translations.gamecomplete) : `${custom.usegametitle ? gameName || translations.gametitle : custom.customtext || translations.achievementunlocked}${(data?.type === "rare" || data && config.allpercent) ? ` (${data?.percentage.toFixed(1)}%)` : type === "rare" ? ` (0.1%)` : (config.allpercent && type !== "plat") ? ` (50%)` : ""}`,
+        unlockmsg: type === "plat" ? (custom.customtext || translations.gamecomplete) : `${custom.usegametitle ? gameName || translations.gametitle : custom.customtext || translations.achievementunlocked}${(data?.type === "rare" || data && config.allpercent) ? ` (${percentage}%)` : type === "rare" ? ` (0.1%)` : (config.allpercent && type !== "plat") ? ` (50%)` : ""}`,
         title: type !== "plat" ? data?.title || translations.achievementtitle : gameName || translations.gametitle,
         desc: type === "plat" ? translations.allachievements : data?.desc || translations.achievementdesc,
         icon: (data && custom.usegameicon && convertFileSrc(gameicon)) || (data?.icon && convertFileSrc(data.icon) || (custom.usegameicon ? "../img/gameicon.png" : (type === "plat" ? custom.useplaticon && custom.platicon || "../img/ribbon.svg" : "../img/achicon.png"))),
@@ -82,7 +88,7 @@ async function BuildNotify({data,type,audio}) {
         ovpath: user ? `${config.ovpath}\\${user.replace(/[\\/:"*?<>|]+/g,"_")}\\${gameName ? gameName.replace(/[\\/:"*?<>|]+/g,"_") : null}` : null,
         nvda: config.nvda,
         debug: config.debug,
-        percent: (Math.round(data?.percentage * 100) / 100) || (GetTabType() === "main" ? 50 : 0.1),
+        percent: percentage || (GetTabType() === "main" ? 50 : 0.1),
         rarity: config.rarity,
         defaulticons: defaulticons
     }
@@ -94,19 +100,21 @@ async function CreateSSWin(event,msg,custom,html,preview) {
     const monitor = monitors.find(monitor => monitor.id === config.monitor)
 
     const ss = new WebviewWindow("ss", {
-        width: monitor.width,
-        height: monitor.height,
+        width: monitor.width / monitor.scaleFactor,
+        height: monitor.height / monitor.scaleFactor,
         title: `Steam Achievement Notifier (V${await sanhelper.version()}) - Screenshot`,
         center: true,
         resizable: false,
         focus: false,
-        fullscreen: preview,
+        fullscreen: false,
         decorations: false,
         visible: preview,
         transparent: true,
         skipTaskbar: !preview,
         url: "./notify/ss.html"
     })
+
+    msg.title += (msg.type === "rare" || msg.hasdata && config.allpercent) ? ` (${msg.percent}%)` : msg.type === "rare" ? ` (0.1%)` : (config.allpercent && msg.type !== "plat") ? ` (50%)` : ""
     
     ss.once("tauri://created", () => {
         ss.setIgnoreCursorEvents(!preview)

@@ -1,10 +1,10 @@
 {
-    "version": "1.85.3",
-    "notes": "Release Notes: https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/tree/alpha#release-notes",
+    "version": "1.85.4",
+    "notes": "https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/tree/alpha#release-notes",
     "platforms": {
         "windows-x86_64": {
-            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZW4wbDZ1akkzcjZIV3F2YXhlaGVpRW85YUFKMHhtSCtMZW5sTUo1MldDbTkvZHQxNFNCWGNzVFk4VUNLbFI0MkU0REJnN2V4SGdBbkhTdXc3RnFpUXFkWmNqYXdTakFJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkxNjkwMTM4CWZpbGU6U3RlYW1BY2hpZXZlbWVudE5vdGlmaWVyXzEuODUuM194NjQtc2V0dXAubnNpcy56aXAKRDB5ZzB1TEN0d1kvTUlLWTZVSUZkUExQU29LdlR4a01xc0tTN3FybmZNWVN0YmNvRm8vekVJVEdXUVVpYmEvYjFJaEVPYUpvZnBMam83M3lnenJCQlE9PQo=",
-            "url": "https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/alpha/SteamAchievementNotifier_1.85.3_x64-setup.nsis.zip"
+            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZW4wbDZ1akkzcjkrQ0JQc1cwMnZXT1lzWk56amYzZkdUZkYzOHVqWUQ3M0hWZmFscG8wbGYyZWpJdUZ2dUQ5eDZZQlF6MG1ENTlraFAzYzJOVXdOd3d6bjVHQUczRFFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkxODQzMzM4CWZpbGU6U3RlYW1BY2hpZXZlbWVudE5vdGlmaWVyXzEuODUuNF94NjQtc2V0dXAubnNpcy56aXAKVzdybmxxUjFhUUYvMUlDbHVUVFVRK09tSVhKa3UxMWdKMTJyd3BtMW5oVFVYWVVucWdoZ0YwQkhLb3d6RlYrOTBXZWFTK0tqVkpZRmViWWh0d3hmQVE9PQo=",
+            "url": "https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/alpha/SteamAchievementNotifier_1.85.4_x64-setup.nsis.zip"
         }
     }
 }

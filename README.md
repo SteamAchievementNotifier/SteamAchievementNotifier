@@ -78,10 +78,29 @@ Once an achievement is unlocked, a **notification** will display containing the 
 
 <details>
 <summary>
-    <h4>
-        V1.85.3
-        <span style="background-color:green; border-radius: 0.35rem; padding: 0.2rem 0.35rem; font-size: 0.75rem">LATEST</span>
-    </h4>
+    <h4>V1.85.4 [LATEST]</h4>
+</summary>
+
+<h4><u>Bug Fixes:</u></h4>
+
+- Fixed an issue where screenshots generated using the **Screenshot with Notification Overlay** option would be rendered at an incorrect resolution if Windows scaling was set to anything higher than 100%.
+- Fixed an issue where the notification overlay would be rendered at a smaller size when using the **Screenshot with Notification Overlay** option.
+- Fixed an issue where percentages would not be displayed in screenshots generated using the **Screenshot with Notification Overlay** option.
+- Added further checks for instances where tracking games with an invalid API response (such as games with no achievements or non-Steam games) would cause the application to stop working.
+- Updated the installer's `webviewInstallMode` to `offlineInstaller` to handle cases where the application could be installed without having a valid **Webview2** installation, causing the application to crash immediately if the user has previously manually uninstalled Microsoft Edge.
+- Added [Debug build](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases/download/1.85/SteamAchievementNotifier_1.85.4_x64_DEBUG.exe) to allow for further investigation into startup crashes before in-app logging is initialised.
+
+_In order to see error output to the Console when running the Debug build, please do the following:_
+> - Uninstall any previously installed versions of the application.
+> - Run the Debug build setup EXE and install.
+> - Open Command Prompt, paste the following command and press Enter:
+`%localappdata%\SteamAchievementNotifier\SteamAchievementNotifier.exe`
+> - Any startup errors will then be logged to the Command Prompt window.
+</details>
+
+<details>
+<summary>
+    <h4>V1.85.3</h4>
 </summary>
 
 <h4><u>Updates:</u></h4>

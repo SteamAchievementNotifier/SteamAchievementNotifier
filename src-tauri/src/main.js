@@ -9,9 +9,9 @@ const { relaunch } = window.__TAURI__.process
 // Setting "id/undefined" here will default to the current user's Privacy Settings page in Steam
 const privacysettings = "steam://openurl/https://steamcommunity.com/id/undefined/edit/settings"
 
-function GetTabType() {
-    return document.querySelector(".mainwrapper").getAttribute("type")
-}
+// function GetTabType() {
+//     return document.querySelector(".mainwrapper").getAttribute("type")
+// }
 
 async function GetBaseDimensions() {
     const base = {}

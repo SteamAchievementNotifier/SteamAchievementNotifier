@@ -109,34 +109,34 @@ function SetIFrameDimensions(dim) {
     return Math.floor(base[config.customisation[GetTabType()].preset][dim] * (webviewrapper.clientWidth / base[config.customisation[GetTabType()].preset].width))
 }
 
-async function LoadIFrame() {
-    const type = GetTabType()
-    const iframe = document.getElementsByTagName("iframe")[0]
+// async function LoadIFrame() {
+//     const type = GetTabType()
+//     const iframe = document.getElementsByTagName("iframe")[0]
 
-    const { msg, custom } = await BuildNotify({type})
-    // const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
-    const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
+//     const { msg, custom } = await BuildNotify({type})
+//     // const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
+//     const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
 
-    const divs = ["mainwrapper","screenshotwrapper"]
-    divs.map(div => iframe.contentWindow.document.querySelector(`.${div}`).style.animation = "none")
+//     const divs = ["mainwrapper","screenshotwrapper"]
+//     divs.map(div => iframe.contentWindow.document.querySelector(`.${div}`).style.animation = "none")
 
-    // Triggers reflow
-    function Reflow(elem) {
-        elem.style.animation = "none"
-        elem.offsetHeight
-        elem.style.animation = null
-    }
+//     // Triggers reflow
+//     function Reflow(elem) {
+//         elem.style.animation = "none"
+//         elem.offsetHeight
+//         elem.style.animation = null
+//     }
 
-    iframe.contentWindow.document.querySelectorAll("*").forEach(elem => Reflow(elem))
-    iframe.contentWindow.postMessage({ msg: msg, optional: { custom: custom, html: html } })
+//     iframe.contentWindow.document.querySelectorAll("*").forEach(elem => Reflow(elem))
+//     iframe.contentWindow.postMessage({ msg: msg, optional: { custom: custom, html: html } })
     
-    CheckIfPortrait()
+//     CheckIfPortrait()
 
-    const elems = [iframe.contentWindow.document.body,document.getElementById("customiserplaystate")]
-    const states = ["paused","finish"]
+//     const elems = [iframe.contentWindow.document.body,document.getElementById("customiserplaystate")]
+//     const states = ["paused","finish"]
     
-    elems.forEach(elem => states.forEach(state => elem.removeAttribute(state)))
-}
+//     elems.forEach(elem => states.forEach(state => elem.removeAttribute(state)))
+// }
 
 function ToggleIFramePlayState() {
     const iframe = document.getElementsByTagName("iframe")[0].contentWindow
@@ -225,7 +225,7 @@ function CloseDialog(event) {
             "nott"
         ]
 
-        const wins = ["logwin","extwin","ss"]
+        const wins = ["logwin","ss"]
     
         attrs.forEach(attr => dialog.removeAttribute(attr))
         dialog.close()
@@ -451,7 +451,7 @@ const settings = {
     litemode: () => console.log("litemode"),
     soundonly: () => console.log("soundonly"),
     allpercent: () => console.log("allpercent"),
-    extwin: () => console.log("extwin"),
+    extwin: () => config.extwin ? CreateExtWin() : CloseWindowByLbl("extwin"),
     statwin: () => console.log("statwin"),
     track: () => console.log("track"),
     displayscreenshot: () => {
@@ -607,7 +607,13 @@ async function LoadConfig(menu) {
                                 sanhelper.write({config},!subkey ? [key] : [key,type,subkey],Number(elem.value))
                             }
 
-                            menu === "customiser" && elem.id !== "scale" ? elem.onchange = () => LoadIFrame() : null
+                            if (menu === "customiser") {
+                                elem.id !== "scale" ? elem.onchange = () => LoadIFrame() : elem.onchange = () => {
+                                    CloseWindowByLbl("extwin")
+                                    setTimeout(() => config.extwin && CreateExtWin(),100)
+                                }
+                            }
+                            
                             break
                         case "select-one":
                             if (menu === "settings" && elem.id === "lang") {
@@ -627,7 +633,13 @@ async function LoadConfig(menu) {
                                 if (menu === "customiser") {
                                     document.querySelector("#customiconbtn > img").src = config.customisation[type].customicon || (defaulticons[config.customisation[type].preset] || "../img/steamlogonew.svg")
                                     LoadIFrame()
-                                    elem.id === "preset" && CloseWindowByLbl("poswin")
+                                    
+                                    if (elem.id === "preset") {
+                                        const wins = ["poswin","extwin"]
+                                        wins.forEach(win => CloseWindowByLbl(win))
+
+                                        setTimeout(() => config.extwin && CreateExtWin(),100)
+                                    }
                                 }
                             }
                             break

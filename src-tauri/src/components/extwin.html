@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                user-select: none;
+            }
+
+            html,
+            body {
+                width: 100vw;
+                height: 100vh;
+                background-color: transparent;
+                overflow: hidden;
+                cursor: move;
+                transition: 0.2s;
+            }
+            
+            body {
+                border: dashed 2px rgba(138,43,226,0.75);
+            }
+
+            body[playing] {
+                background-color: transparent;
+                border: none;
+            }
+
+            iframe {
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
+            }
+        </style>
+        <script type="module">
+            const { GetTabType, LoadIFrame } = await import("../import.js")
+        </script>
+    </head>
+    <body data-tauri-drag-region>
+        <iframe src="../notify/base.html" frameborder="0" allowtransparency="true"></iframe>
+        <script>
+            const { invoke } = window.__TAURI__
+            const { listen } = window.__TAURI__.event
+
+            window.addEventListener("DOMContentLoaded", () => invoke("ipc", { eventname: "webviewready", payload: {} }), { once: true })
+
+            listen("notifyext", event => {
+                const { msg, optional: { custom, html } } = event.payload
+
+                LoadIFrame(msg,custom,html)
+            })
+        </script>
+    </body>
+</html>

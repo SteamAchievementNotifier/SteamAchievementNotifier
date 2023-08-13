@@ -114,11 +114,14 @@ async function CreateSSWin(event,msg,custom,html,preview) {
         url: "./notify/ss.html"
     })
 
-    msg.title += (msg.type === "rare" || msg.hasdata && config.allpercent) ? ` (${msg.percent}%)` : msg.type === "rare" ? ` (0.1%)` : (config.allpercent && msg.type !== "plat") ? ` (50%)` : ""
+    // Create a deep copy of the msg arg, due to object referencing overwriting the original object for all other functions
+    // TODO: Also need similiar behaviour when some presets (such as xQjan) have shorter notifications that don't show the `msg` element
+    const msgcopy = { ...msg }
+    msgcopy.title += (msgcopy.type === "rare" || msgcopy.hasdata && config.allpercent) ? ` (${msgcopy.percent}%)` : msgcopy.type === "rare" ? ` (0.1%)` : (config.allpercent && msgcopy.type !== "plat") ? ` (50%)` : ""
     
     ss.once("tauri://created", () => {
         ss.setIgnoreCursorEvents(!preview)
-        once("ssready", () => setTimeout(() => invoke("ipc", { eventname: "ss", payload: { msg: event.detail, optional: { msg: msg, custom: custom, html: html, preview: preview } } }),100))
+        once("ssready", () => setTimeout(() => invoke("ipc", { eventname: "ss", payload: { msg: event.detail, optional: { msg: msgcopy, custom: custom, html: html, preview: preview } } }),100))
     })
     ss.once("tauri://error", err => log.write("error",`"${err.windowLabel}" could not be created: ${err.payload}`))
 }
@@ -210,7 +213,6 @@ async function Notify(data) {
                             once("startprogress", () => {
                                 progresscircle.setAttribute("running","")
                                 progresscircle.style.animation = `fill ${config.customisation[queueobj.type].displaytime}s linear forwards`
-
                             })
 
                             queue.shift()
@@ -230,6 +232,7 @@ async function Notify(data) {
                             !queue[0].sslock ? await invoke("take_screenshot", { id: config.monitor }) : await invoke("ipc", { eventname: "ssready", payload: {} })
                         } else ShiftNotify()
 
+                        invoke("ipc", { eventname: "notifyext", payload: { msg: msg, optional: { custom: custom, html: html } } })
                     })
 
                     once("notifyclosed", () => {
@@ -277,3 +280,6 @@ async function ShowInfoNotify(gamename,gameicon,err) {
     })
     info.once("tauri://error", err => log.write("error",`"${err.windowLabel}" could not be created: ${err.payload}`))
 }
+
+// Check "extwin" state at launch
+settings.extwin()

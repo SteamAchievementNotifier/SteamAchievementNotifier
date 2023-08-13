@@ -154,10 +154,9 @@ if (window === window.top) {
         const msg = event.data.msg
         const { custom, html } = event.data.optional
 
-        !msg.overlay ? custom.scale = 100 : null
-        
-        !msg.overlay ? document.body.style.backgroundColor = "#101010" : document.body.setAttribute("noanim","")
-        // !msg.overlay ? document.body.style.zoom = 0.75 : null
+        !msg.overlay && !msg.extwin ? custom.scale = 100 : null
+        !msg.overlay ? (document.body.style.backgroundColor = msg.extwin ? "transparent" : "#101010") : document.body.setAttribute("noanim","")
+        msg.extwin && window.top.document.body.setAttribute("playing","")
 
         await SetNotifyContent(msg,custom,html)
         .catch(err => console.log(typeof err === "object" ? err.message : err))
@@ -168,7 +167,9 @@ if (window === window.top) {
                 divs.map(div => document.querySelector(`.${div}`).style.animation = "none")
 
                 const elems = [window.top.document.getElementById("customiserplaystate"),document.body]
-                elems.map(elem => elem.setAttribute("finish",""))
+                elems.map(elem => elem && elem.setAttribute("finish",""))
+
+                window.top.document.body.removeAttribute("playing")
             }
         })
     })

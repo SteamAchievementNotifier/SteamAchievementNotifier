@@ -471,7 +471,7 @@ fn main() {
     .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"])))
     .plugin(tauri_plugin_snapshot::init())
     .plugin(tauri_plugin_window_state::Builder::default()
-    .with_denylist(&[&"notify",&"info",&"ss",&"poswin"])
+    .with_denylist(&[&"notify",&"info",&"ss",&"poswin",&"extwin"])
     .build())
     .system_tray(tray)
     .on_system_tray_event(|app,event| match event {

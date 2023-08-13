@@ -156,3 +156,67 @@ function InitUI() {
         !config.noanim ? loadingdiv.addEventListener("animationend", event => event.animationName === "loadcomplete" && event.target.parentElement.remove(), { once: true }) : loadingdiv.parentElement.remove()
     },100)
 }
+
+export function GetTabType() {
+    return document.querySelector(".mainwrapper").getAttribute("type")
+}
+
+window.GetTabType = GetTabType
+
+export async function LoadIFrame(msg,custom,html) {
+    const type = !arguments.length ? GetTabType() : null
+    const iframe = document.getElementsByTagName("iframe")[0]
+    const divs = ["mainwrapper","screenshotwrapper"]
+
+    // Triggers reflow
+    function Reflow(elem) {
+        elem.style.animation = "none"
+        elem.offsetHeight
+        elem.style.animation = null
+    }
+
+    iframe.contentWindow.document.querySelectorAll("*").forEach(elem => Reflow(elem))
+    divs.forEach(div => iframe.contentWindow.document.querySelector(`.${div}`).style.animation = "none")
+
+    if (!arguments.length) {
+        const { msg, custom } = await BuildNotify({type})
+        const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
+
+        iframe.contentWindow.postMessage({ msg: msg, optional: { custom: custom, html: html } })
+
+        CheckIfPortrait()
+        
+        const elems = [iframe.contentWindow.document.body,document.getElementById("customiserplaystate")]
+        const states = ["paused","finish"]
+        
+        elems.forEach(elem => states.forEach(state => elem.removeAttribute(state)))
+    } else {
+        const msgcopy = { ...msg }
+        msgcopy.extwin = true
+
+        iframe.contentWindow.postMessage({ msg: msgcopy, optional: { custom: custom, html: html } })
+    }
+}
+
+window.LoadIFrame = LoadIFrame
+
+export async function CreateExtWin() {
+    const { width, height } = base[config.customisation[GetTabType()].preset]
+
+    const extwin = new WebviewWindow("extwin",{
+        width: width * (config.customisation[GetTabType()].scale / 100),
+        height: height * (config.customisation[GetTabType()].scale / 100),
+        alwaysOnTop: true,
+        fullscreen: false,
+        focus: false,
+        transparent: true,
+        resizable: false,
+        decorations: false,
+        url: "./components/extwin.html"
+    })
+
+    extwin.once("tauri://created", () => once("webviewready", () => setTimeout(() => invoke("ipc", { eventname: "ext", payload: {} }),100)))
+    extwin.once("tauri://error", err => console.log(err))
+}
+
+window.CreateExtWin = CreateExtWin

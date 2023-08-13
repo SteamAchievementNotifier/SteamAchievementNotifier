@@ -481,7 +481,7 @@ export const translations = () => {
                 elem: `Steam Achievement Notifier utilizza la <span class="link" onclick="shell.open('https://steamcommunity.com/dev')">Steam Web API</span> di Valve per recuperare e visualizzare dati relativi all'account Steam dell'utente, tramite la combinazione di chiave API Steam/ID Steam64 fornita all'applicazione dall'utente. Questi dati includono:`
             },
             ppstats: {
-                elem: "Statistiche per obiettivi completati e non completati"
+                elem: "Statistiche per achievement completati e non completati"
             },
             ppusername: {
                 elem: "Il tuo nome utente Steam"
@@ -499,7 +499,7 @@ export const translations = () => {
                 elem: "Steam Achievement Notifier richiede all'utente di inserire la combinazione di chiave API Steam/ID Steam64 per l'accesso autenticato alla Steam Web API."
             },
             ppnoauth: {
-                elem: "Senza queste informazioni, i collegamenti web (forniti da Valve per accedere alla Steam Web API) utilizzati per recuperare dati relativi all'account Steam dell'utente, inclusi i dati sugli obiettivi, non possono essere accessibili."
+                elem: "Senza queste informazioni, i collegamenti web (forniti da Valve per accedere alla Steam Web API) utilizzati per recuperare dati relativi all'account Steam dell'utente, inclusi i dati sugli achievement, non possono essere accessibili."
             },
             ppstoragetitle: {
                 elem: "ARCHIVIAZIONE DEI DATI DELLA STEAM WEB API"
@@ -587,10 +587,10 @@ export const translations = () => {
             soon: "Prossimamente!",
             gamecomplete: "Completamento al 100%",
             gametitle: "Titolo del Gioco",
-            achievementunlocked: "Obiettivo sbloccato",
-            achievementtitle: "Titolo dell'Obiettivo",
-            allachievements: "Hai sbloccato tutti gli obiettivi!",
-            achievementdesc: "Descrizione dell'Obiettivo",
+            achievementunlocked: "Achievement sbloccato",
+            achievementtitle: "Titolo dell'achievement",
+            allachievements: "Hai sbloccato tutti gli achievement!",
+            achievementdesc: "Descrizione dell'achievement",
             show: "Mostra",
             quit: "Esci",
             off: "Disattivato",
@@ -615,7 +615,7 @@ export const translations = () => {
         }
 
         const btns = ["soundfilelbl","searchbtn"]
-        btns.forEach(btn => translations[btn].tt = config.customisation[GetTabType()].mode === "file" ? "Seleziona un file audio da riprodurre quando viene sbloccato un obiettivo" : "Seleziona una cartella contenente file audio da riprodurre in modo casuale quando viene sbloccato un obiettivo");
+        btns.forEach(btn => translations[btn].tt = config.customisation[GetTabType()].mode === "file" ? "Seleziona un file audio da riprodurre quando viene sbloccato un achievement" : "Seleziona una cartella contenente file audio da riprodurre in modo casuale quando viene sbloccato un achievement");
     
         return translations
     } else {

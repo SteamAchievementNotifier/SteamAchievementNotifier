@@ -9,7 +9,7 @@
     },
     "package": {
         "productName": "SteamAchievementNotifier",
-        "version": "1.85.4"
+        "version": "1.85.5"
     },
     "tauri": {
         "allowlist": {

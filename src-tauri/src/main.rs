@@ -1,4 +1,4 @@
-// #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::{Manager,Window,SystemTray,SystemTrayMenu,SystemTrayEvent,CustomMenuItem};
 use std::{fs,path::{Path,PathBuf},time::{Duration,SystemTime,},thread::{sleep,spawn},process::Command,str,env,sync::{Arc,atomic::{AtomicBool,Ordering}}};
@@ -12,7 +12,7 @@ use log::{LevelFilter,error,warn,info};
 #[cfg(target_os="windows")]
 mod windows_module {
     pub use std::{io,os::windows::process::CommandExt};
-    pub use winreg::{enums::*, RegKey};
+    pub use winreg::{enums::*,RegKey};
     pub use mslnk::ShellLink;
 }
 
@@ -25,6 +25,12 @@ static mut STATUS: bool = false;
 struct Payload {
     msg: Option<serde_json::Value>,
     optional: Option<serde_json::Value>
+}
+
+#[derive(Clone, serde::Serialize)]
+struct InstancePayload {
+    args: Vec<String>,
+    cwd: String
 }
 
 #[cfg(target_os="windows")]
@@ -473,6 +479,11 @@ fn main() {
     .plugin(tauri_plugin_window_state::Builder::default()
     .with_denylist(&[&"notify",&"info",&"ss",&"poswin",&"extwin"])
     .build())
+    .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
+        info!("{}, {argv:?}, {cwd}", app.package_info().name);
+        warn!("Attempted to open app with another instance running!");
+        app.emit_all("single-instance", InstancePayload { args: argv, cwd }).unwrap();
+    }))
     .system_tray(tray)
     .on_system_tray_event(|app,event| match event {
         SystemTrayEvent::DoubleClick {..} => {

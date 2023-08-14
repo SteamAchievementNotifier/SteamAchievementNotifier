@@ -14,6 +14,8 @@ window.autostart = {
 import "./tippy.js/popper.min.js"
 import "./tippy.js/tippy-bundle.umd.min.js"
 
+const { register } = window.__TAURI__.globalShortcut
+
 const winlbl = window.__TAURI__.window.getCurrent().label
 
 async function LoadLang(lang) {
@@ -200,6 +202,9 @@ export async function LoadIFrame(msg,custom,html) {
 
 window.LoadIFrame = LoadIFrame
 
+// TODO:
+// - Register shortcut for showing "extwin" outline when button is held down
+// - Save window position when disabling option or closing app
 export async function CreateExtWin() {
     const { width, height } = base[config.customisation[GetTabType()].preset]
 
@@ -212,6 +217,7 @@ export async function CreateExtWin() {
         transparent: true,
         resizable: false,
         decorations: false,
+        skipTaskbar: true,
         url: "./components/extwin.html"
     })
 
@@ -220,3 +226,20 @@ export async function CreateExtWin() {
 }
 
 window.CreateExtWin = CreateExtWin
+
+// TODO:
+// - Allow setting custom shortcuts via config
+// - Possibly add a Settings option to enable/disable notification shortcuts, as these might be intrusive in-game
+const shortcuts = {
+    // e.g. main: config.customisation[key].shortcut,
+    main: "CommandOrControl+Shift+1",
+    rare: "CommandOrControl+Shift+2",
+    plat: "CommandOrControl+Shift+3"
+}
+
+for (const key in shortcuts) {
+    await register(shortcuts[key], async () => {
+        await new Promise(resolve => resolve(document.getElementById(`toggle${key}`).click()))
+        Notify()
+    })
+}

@@ -14,8 +14,6 @@ window.autostart = {
 import "./tippy.js/popper.min.js"
 import "./tippy.js/tippy-bundle.umd.min.js"
 
-const { register } = window.__TAURI__.globalShortcut
-
 const winlbl = window.__TAURI__.window.getCurrent().label
 
 async function LoadLang(lang) {
@@ -202,15 +200,45 @@ export async function LoadIFrame(msg,custom,html) {
 
 window.LoadIFrame = LoadIFrame
 
+const { isRegistered, register, unregister } = window.__TAURI__.globalShortcut
+
+window.onfocus = async () => !await isRegistered("CommandOrControl+Space") ? await register("CommandOrControl+Space", () => {
+    invoke("ipc", { eventname: "showextwin", payload: {} })
+    window.addEventListener("keyup", () => invoke("ipc", { eventname: "hideextwin", payload: {} }), { once: true })
+}) : null
+
+window.onblur = async () => {
+    await unregister("CommandOrControl+Space")
+    invoke("ipc", { eventname: "hideextwin", payload: {} })
+}
+
+const shortcuts = {
+    // e.g. main: config.customisation[key].shortcut,
+    main: "CommandOrControl+Shift+1",
+    rare: "CommandOrControl+Shift+2",
+    plat: "CommandOrControl+Shift+3"
+}
+
+window.shortcuts = shortcuts
+
 // TODO:
-// - Register shortcut for showing "extwin" outline when button is held down
-// - Save window position when disabling option or closing app
-export async function CreateExtWin() {
-    const { width, height } = base[config.customisation[GetTabType()].preset]
+// - Allow setting custom shortcuts via config
+// - Possibly add a Settings option to enable/disable notification shortcuts, as these might be intrusive in-game
+for (const key in shortcuts) {
+    !await isRegistered(shortcuts[key]) && await register(shortcuts[key], async () => {
+        await new Promise(resolve => resolve(document.getElementById(`toggle${key}`).click()))
+        Notify()
+    })
+}
+
+// TODO:
+// - Add "recenter" option
+export async function CreateExtWin(type = GetTabType()) {
+    const { width, height } = base[config.customisation[type].preset]
 
     const extwin = new WebviewWindow("extwin",{
-        width: width * (config.customisation[GetTabType()].scale / 100),
-        height: height * (config.customisation[GetTabType()].scale / 100),
+        width: width * (config.customisation[type].scale / 100),
+        height: height * (config.customisation[type].scale / 100),
         alwaysOnTop: true,
         fullscreen: false,
         focus: false,
@@ -221,25 +249,13 @@ export async function CreateExtWin() {
         url: "./components/extwin.html"
     })
 
+    window.extwin = extwin
+
     extwin.once("tauri://created", () => once("webviewready", () => setTimeout(() => invoke("ipc", { eventname: "ext", payload: {} }),100)))
-    extwin.once("tauri://error", err => console.log(err))
+    extwin.once("tauri://error", err => log.write("error",`${err.windowLabel}" could not be created: ${err.payload}`))
+    extwin.once("tauri://destroyed", async () => window.extwin = null)
+    extwin.listen("tauri://move", () => invoke("ipc", { eventname: "showextwin", payload: {} }))
 }
 
+window.extwin = null
 window.CreateExtWin = CreateExtWin
-
-// TODO:
-// - Allow setting custom shortcuts via config
-// - Possibly add a Settings option to enable/disable notification shortcuts, as these might be intrusive in-game
-const shortcuts = {
-    // e.g. main: config.customisation[key].shortcut,
-    main: "CommandOrControl+Shift+1",
-    rare: "CommandOrControl+Shift+2",
-    plat: "CommandOrControl+Shift+3"
-}
-
-for (const key in shortcuts) {
-    await register(shortcuts[key], async () => {
-        await new Promise(resolve => resolve(document.getElementById(`toggle${key}`).click()))
-        Notify()
-    })
-}

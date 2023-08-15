@@ -22,12 +22,12 @@
             }
             
             body {
-                border: dashed 2px rgba(138,43,226,0.75);
-            }
-
-            body[playing] {
                 background-color: transparent;
                 border: none;
+            }
+
+            body[show] {
+                border: dashed 2px rgba(138,43,226,0.75);
             }
 
             iframe {
@@ -47,6 +47,9 @@
             const { listen } = window.__TAURI__.event
 
             window.addEventListener("DOMContentLoaded", () => invoke("ipc", { eventname: "webviewready", payload: {} }), { once: true })
+
+            listen("showextwin", () => document.body.setAttribute("show",""))
+            listen("hideextwin", () => document.body.removeAttribute("show"))
 
             listen("notifyext", event => {
                 const { msg, optional: { custom, html } } = event.payload

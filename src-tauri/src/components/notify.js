@@ -232,6 +232,9 @@ async function Notify(data) {
                             !queue[0].sslock ? await invoke("take_screenshot", { id: config.monitor }) : await invoke("ipc", { eventname: "ssready", payload: {} })
                         } else ShiftNotify()
 
+                        const { width, height } = base[config.customisation[type].preset]
+                        extwin && await extwin.setSize(new LogicalSize(width * (config.customisation[type].scale / 100),height * (config.customisation[type].scale / 100)))
+
                         invoke("ipc", { eventname: "notifyext", payload: { msg: msg, optional: { custom: custom, html: html } } })
                     })
 
@@ -247,7 +250,7 @@ async function Notify(data) {
                 
                 notify.once("tauri://error", err => {
                     log.write("error",`"${err.windowLabel}" could not be created: ${err.payload}`)
-                    notify.close()
+                    CloseWindowByLbl("notify")
                 })
             }
         }

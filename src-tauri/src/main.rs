@@ -239,10 +239,16 @@ async fn is_steam_running(window: Window) -> Result<bool, String> {
 // 2.Once Rust receives the "webviewready" event from an external window, emit the "webviewready" event back to the main window 
 #[tauri::command]
 fn ipc(window: Window, eventname: &str, payload: Payload) {
-    // println!("Received event: \"{}\"", eventname);
-    info!("Received event: \"{}\"", eventname);
+    const IGNORED_EVENTS: [&str; 2] = ["showextwin", "hideextwin"];
+    
+    if !IGNORED_EVENTS.contains(&eventname) {
+        info!("Received event: \"{}\"", eventname);
+    }
+
     if eventname == "close" {
         window.close().unwrap();
+    } else if eventname == "save_state" {
+        save_state(&window.app_handle(),false)
     } else {
         if eventname == "startprogress" {
             if let Some(true) = payload.msg.clone().expect("Unable to clone \"payload.msg\"").as_bool() {
@@ -251,9 +257,6 @@ fn ipc(window: Window, eventname: &str, payload: Payload) {
         }
 
         window.emit(eventname,payload).unwrap();
-        // window.with_webview(|webview| {
-        //     webview.controller().remove_MoveFocusRequested(token)
-        // })
     }
 }
 
@@ -337,9 +340,9 @@ fn check_dir_for_file(file: &str) -> Result<String, String> {
     }
 }
 
-fn exit_app(handle: &tauri::AppHandle) {
+fn save_state(handle: &tauri::AppHandle,exit: bool) {
     handle.save_window_state(StateFlags::SIZE | StateFlags::POSITION).expect("Failed to save window state!");
-    handle.exit(0);
+    if exit { handle.exit(0); }
 }
 
 #[tauri::command]
@@ -474,10 +477,10 @@ fn main() {
     tauri::Builder::default()
     .plugin(tauri_plugin_fs_extra::init())
     .plugin(tauri_plugin_upload::init())
-    .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec!["--flag1", "--flag2"])))
+    .plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, None))
     .plugin(tauri_plugin_snapshot::init())
     .plugin(tauri_plugin_window_state::Builder::default()
-    .with_denylist(&[&"notify",&"info",&"ss",&"poswin",&"extwin"])
+    .with_denylist(&[&"notify",&"info",&"ss",&"poswin"])
     .build())
     .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
         info!("{}, {argv:?}, {cwd}", app.package_info().name);
@@ -488,16 +491,16 @@ fn main() {
     .on_system_tray_event(|app,event| match event {
         SystemTrayEvent::DoubleClick {..} => {
             let window = app.get_window("main").unwrap();
-            // window.show().unwrap();
+
             unsafe { WINSTATE = false; }
             close_window(window);
         },
         SystemTrayEvent::MenuItemClick { id, .. } => {
             match id.as_str() {
-                "quit" => { exit_app(app) }
+                "quit" => { save_state(app,true) }
                 "show" => {
                     let window = app.get_window("main").unwrap();
-                    // window.show().unwrap();
+
                     unsafe { WINSTATE = false; }
                     close_window(window);
                 }

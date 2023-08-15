@@ -31,8 +31,10 @@ const configtemplate = {
     }
 }
 
+let customisetemplate
+
 for (const type in configtemplate.customisation) {
-    const customisetemplate = {
+    customisetemplate = {
         mode: "file",
         soundfile: "",
         sounddir: "",
@@ -67,7 +69,8 @@ for (const type in configtemplate.customisation) {
         },
         animdir: "up",
         ovpos: "match",
-        alldetails: false
+        alldetails: false,
+        test: false
     }
 
     switch (type) {
@@ -119,6 +122,29 @@ const config = JSON.parse(localStorage.getItem("config"))
     
     localStorage.setItem("config",JSON.stringify(config))
 })
+
+for (const key in configtemplate) {
+    if (config[key] === undefined) {
+        log.write("info",`${key} not found in config!`)
+        sanhelper.write({config},[key],configtemplate[key])
+    }
+}
+
+const customiseignorelist = [
+    "useplaticon",
+    "platicon",
+    "iconanim"
+]
+
+// for (const type in configtemplate.customisation) {
+//     for (const key in customisetemplate) {
+//         if (!customisetemplate.includes(customiseignorelist) && config.customisation[type][key] === undefined) {
+//             console.log(type,key)
+//             // log.write("info",`${key} not found in config!`)
+//             // sanhelper.write({config},[key],configtemplate[key])
+//         }
+//     }
+// }
 
 async function ConnectToAPI(key,id,isDialog) {
     function GetCredentials() {

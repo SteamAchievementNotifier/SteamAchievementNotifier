@@ -156,7 +156,7 @@ if (window === window.top) {
 
         !msg.overlay && !msg.extwin ? custom.scale = 100 : null
         !msg.overlay ? (document.body.style.backgroundColor = msg.extwin ? "transparent" : "#101010") : document.body.setAttribute("noanim","")
-        msg.extwin && window.top.document.body.setAttribute("playing","")
+        // msg.extwin && window.top.document.body.setAttribute("playing","")
 
         await SetNotifyContent(msg,custom,html)
         .catch(err => console.log(typeof err === "object" ? err.message : err))
@@ -169,7 +169,7 @@ if (window === window.top) {
                 const elems = [window.top.document.getElementById("customiserplaystate"),document.body]
                 elems.map(elem => elem && elem.setAttribute("finish",""))
 
-                window.top.document.body.removeAttribute("playing")
+                // window.top.document.body.removeAttribute("playing")
             }
         })
     })

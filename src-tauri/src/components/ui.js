@@ -854,5 +854,7 @@ function CloseWindowByLbl(lbl) {
     const setcustompos = document.getElementById("setcustompos")
     setcustompos && setcustompos.removeAttribute("open")
 
+    extwin && invoke("ipc", { eventname: "save_state", payload: {} })
+
     getAll().forEach(win => win.label === lbl && win.close())
 }

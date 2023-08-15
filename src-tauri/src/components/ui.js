@@ -448,12 +448,12 @@ const settings = {
         await ToggleDataFile("hwa")
         relaunch()
     },
-    litemode: () => console.log("litemode"),
-    soundonly: () => console.log("soundonly"),
-    allpercent: () => console.log("allpercent"),
+    litemode: () => { return },
+    soundonly: () => { return },
+    allpercent: () => { return },
     extwin: () => config.extwin ? CreateExtWin() : CloseWindowByLbl("extwin"),
-    statwin: () => console.log("statwin"),
-    track: () => console.log("track"),
+    // statwin: () => console.log("statwin"),
+    track: () => { return },
     displayscreenshot: () => {
         document.getElementsByTagName("iframe")[0] && LoadIFrame()
         CloseWindowByLbl("poswin")
@@ -493,11 +493,11 @@ const settings = {
         })
     },
     noanim: elem => document.body.toggleAttribute("noanim",elem.checked),
-    nvda: () => console.log("nvda"),
+    nvda: () => { return },
     tooltips: () => LoadTooltips("settings"),
     debug: () => { return },
     ppbtn: () => ShowDialog(`pp`,`ppwin`),
-    betabtn: () => console.log("betabtn"),
+    betabtn: () => { return },
     resetbtn: async () => {
         await new Promise(resolve => {
             localStorage.clear()
@@ -514,7 +514,35 @@ const settings = {
         option.selected = config.monitor === monitor.id
         document.getElementById("monitor").appendChild(option)
     }),
-    showalldetails: () => console.log("showalldetails")
+    // showalldetails: () => console.log("showalldetails"),
+    shortcuts: () => window.dispatchEvent(new CustomEvent("config",{ detail: config })),
+    setshortcut: event => {
+        // !!! Move "PS" and Tauri keybind table to external module and import them
+        const label = document.querySelector(`#${event.target.id} > label`)
+        event.target.setAttribute("listen","")
+
+        // !!! FIX!
+        const time = () => {
+            return setTimeout(() => {
+                event.target.removeAttribute("listen")
+                window.removeEventListener("keydown", keydown)
+                return console.log("time finished")
+            },2000)
+        }
+        
+        const keydown = event => {
+            if (event) {
+                clearTimeout(time)
+                console.log("time extended")
+                time()
+            } else {
+                window.removeEventListener(keydown)
+            }
+        }
+        
+        window.addEventListener("keydown", keydown(event))
+        // !!! FIX!
+    }
 }
 
 function GetKeybindValue() {

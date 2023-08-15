@@ -28,13 +28,14 @@ const configtemplate = {
         main: {},
         rare: {},
         plat: {}
-    }
+    },
+    shortcuts: false
 }
 
-let customisetemplate
+// let customisetemplate
 
 for (const type in configtemplate.customisation) {
-    customisetemplate = {
+    const customisetemplate = {
         mode: "file",
         soundfile: "",
         sounddir: "",
@@ -69,24 +70,26 @@ for (const type in configtemplate.customisation) {
         },
         animdir: "up",
         ovpos: "match",
-        alldetails: false,
-        test: false
+        alldetails: false
     }
 
     switch (type) {
         case "main":
             customisetemplate.primarycolor = "#305cb8"
             customisetemplate.secondarycolor = "#132958"
+            customisetemplate.shortcut = "CommandOrControl+Shift+1"
             break
         case "rare":
             customisetemplate.primarycolor = "#9932cc"
             customisetemplate.secondarycolor = "#663399"
+            customisetemplate.shortcut = "CommandOrControl+Shift+2"
             break
         case "plat":
             customisetemplate.primarycolor = "#4e75c9"
             customisetemplate.secondarycolor = "#8a2be2"
             customisetemplate.useplaticon = false
             customisetemplate.platicon = ""
+            customisetemplate.shortcut = "CommandOrControl+Shift+3"
             break
     }
 
@@ -123,28 +126,36 @@ const config = JSON.parse(localStorage.getItem("config"))
     localStorage.setItem("config",JSON.stringify(config))
 })
 
-for (const key in configtemplate) {
-    if (config[key] === undefined) {
-        log.write("info",`${key} not found in config!`)
-        sanhelper.write({config},[key],configtemplate[key])
-    }
+function CheckNewConfigKeys() {
+    return new Promise(resolve => {
+        const customiseignorelist = [
+            "iconanim",
+            "useplaticon",
+            "platicon"
+        ]
+        
+        for (const key in configtemplate) {
+            if (config[key] === undefined && key !== "customisation") {
+                sanhelper.write({config},[key],configtemplate[key])
+                log.write("info",`New template key "${key}" was written to "config"`)
+            } else if (key === "customisation") {
+                for (const type in config[key]) {
+                    for (const tempkey in configtemplate.customisation[type]) {
+                        if (!customiseignorelist.includes(tempkey) && config[key][type][tempkey] === undefined) {
+                            sanhelper.write({config},["customisation",type,tempkey],configtemplate.customisation[type][tempkey])
+                            log.write("info",`New customisation template key "${tempkey}" was written to "config.customisation.${type}"`)
+                        }
+                    }
+                }
+            }
+        }
+
+        resolve()
+    })
 }
 
-const customiseignorelist = [
-    "useplaticon",
-    "platicon",
-    "iconanim"
-]
-
-// for (const type in configtemplate.customisation) {
-//     for (const key in customisetemplate) {
-//         if (!customisetemplate.includes(customiseignorelist) && config.customisation[type][key] === undefined) {
-//             console.log(type,key)
-//             // log.write("info",`${key} not found in config!`)
-//             // sanhelper.write({config},[key],configtemplate[key])
-//         }
-//     }
-// }
+CheckNewConfigKeys()
+.finally(() => window.dispatchEvent(new CustomEvent("config", { detail: config })))
 
 async function ConnectToAPI(key,id,isDialog) {
     function GetCredentials() {

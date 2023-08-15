@@ -212,24 +212,32 @@ window.onblur = async () => {
     invoke("ipc", { eventname: "hideextwin", payload: {} })
 }
 
-const shortcuts = {
-    // e.g. main: config.customisation[key].shortcut,
-    main: "CommandOrControl+Shift+1",
-    rare: "CommandOrControl+Shift+2",
-    plat: "CommandOrControl+Shift+3"
-}
+// Listens for "config" event sent from "config.js"/"ui.js" ("settings.shortcuts")
+// Prevents "config is undefined" errors on load
+window.addEventListener("config", async event => {
+    const config = event.detail
 
-window.shortcuts = shortcuts
+    const shortcuts = () => {
+        return {
+            main: config.customisation.main.shortcut,
+            rare: config.customisation.rare.shortcut,
+            plat: config.customisation.plat.shortcut,
+        }
+    }
+    
+    window.shortcuts = shortcuts
 
-// TODO:
-// - Allow setting custom shortcuts via config
-// - Possibly add a Settings option to enable/disable notification shortcuts, as these might be intrusive in-game
-for (const key in shortcuts) {
-    !await isRegistered(shortcuts[key]) && await register(shortcuts[key], async () => {
-        await new Promise(resolve => resolve(document.getElementById(`toggle${key}`).click()))
-        Notify()
-    })
-}
+    // TODO:
+    // - Allow setting custom shortcuts via config
+    for (const key in shortcuts()) {
+        !await isRegistered(shortcuts()[key]) && config.shortcuts ?
+        await register(shortcuts()[key], async () => {
+            await new Promise(resolve => resolve(document.getElementById(`toggle${key}`).click()))
+            Notify()
+        }) :
+        await unregister(shortcuts()[key])
+    }
+})
 
 // TODO:
 // - Add "recenter" option

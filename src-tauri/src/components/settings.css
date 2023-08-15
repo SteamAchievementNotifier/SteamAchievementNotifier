@@ -36,7 +36,7 @@ input[type="text"]:focus,
 input[type="number"]:hover,
 input[type="number"]:focus,
 select:hover,
-.sanboxoption > button:not(:has(img)):hover {
+.sanboxoption > button:not(:has(img),.inputbtn):hover {
     background-color: #3d3d3d;
 }
 
@@ -238,7 +238,7 @@ select:focus {
 }
 
 .sanboxcontent > button > span,
-#keybind > span {
+.sanboxoption > .inputbtn > span {
     position: absolute;
     translate: -150% 0;
     width: 100%;
@@ -248,7 +248,7 @@ select:focus {
 }
 
 .sanboxcontent > button:hover > span,
-#keybind:hover > span {
+.sanboxoption > .inputbtn:hover > span {
     translate: 0 0;
 }
 
@@ -433,13 +433,14 @@ button[soon],
     text-align: center;
 }
 
+.sanboxoption:has(#shortcuts:not(:checked)) + .ovtabwrapper:has(#sctabmain),
 #screenshots > .sanboxcontent:has(select > option[value="off"]:checked) > *:not(select),
 #screenshots > .sanboxcontent:has(select > option[value="steam"]:checked) > *[overlay]:not([steam][overlay]),
 #screenshots > .sanboxcontent:has(select > option[value="overlay"]:checked) > *[steam]:not([steam][overlay]) {
     display: none;
 }
 
-#keybind {
+.sanboxoption > .inputbtn {
     position: relative;
     background-color: var(--primary);
     overflow: hidden;
@@ -448,25 +449,25 @@ button[soon],
     text-transform: uppercase;
 }
 
-#keybind[listen] > label {
+.sanboxoption > .inputbtn[listen] > label {
     animation: fadein 0.5s alternate infinite;
 }
 
-#keybind[listen] > span {
+.sanboxoption > .inputbtn[listen] > span {
     translate: 0 !important;
 }
 
-#keybind > label,
-#keybind > span {
+.sanboxoption > .inputbtn > label,
+.sanboxoption > .inputbtn > span {
     transition: var(--transition);
 }
 
-#keybind > * {
+.sanboxoption > .inputbtn > * {
     pointer-events: none;
 }
 
-#keybind:hover > label,
-#keybind[listen] > label {
+.sanboxoption > .inputbtn:hover > label,
+.sanboxoption > .inputbtn[listen] > label {
     color: black;
 }
 
@@ -485,9 +486,9 @@ button[soon],
     background-color: var(--primary);
 }
 
-body:has(.mainwrapper[type="main"]) #ovtabmain,
-body:has(.mainwrapper[type="rare"]) #ovtabrare,
-body:has(.mainwrapper[type="plat"]) #ovtabplat {
+body:has(.mainwrapper[type="main"]) .ovtabwrapper > button[type="main"],
+body:has(.mainwrapper[type="rare"]) .ovtabwrapper > button[type="rare"],
+body:has(.mainwrapper[type="plat"]) .ovtabwrapper > button[type="plat"] {
     background-color: white;
     pointer-events: none;
 }

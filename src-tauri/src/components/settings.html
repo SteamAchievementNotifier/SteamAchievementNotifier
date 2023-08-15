@@ -147,6 +147,28 @@
                     <label class="sanboxlbl"></label>
                     <input type="checkbox" id="track">
                 </div>
+                <div class="sanboxoption">
+                    <label class="sanboxlbl"></label>
+                    <input type="checkbox" id="shortcuts">
+                </div>
+                <div class="ovtabwrapper">
+                    <button id="sctabmain" onclick="ToggleTab(event)" type="main">
+                        <img src="./icon/trophy_gold.svg" alt="">
+                    </button>
+                    <button id="sctabrare" onclick="ToggleTab(event)" type="rare">
+                        <img src="./icon/trophy_purple.svg" alt="">
+                    </button>
+                    <button id="sctabplat" onclick="ToggleTab(event)" type="plat">
+                        <img src="./icon/trophy_plat.svg" alt="">
+                    </button>
+                </div>
+                <div class="sanboxoption">
+                    <label class="sanboxlbl">Shortcut</label>
+                    <button class="inputbtn" id="scbtn" type="main" onclick="settings.setshortcut(event)">
+                        <label class="sanboxlbl">CTRL + Shift + 1</label>
+                        <span></span>
+                    </button>
+                </div>
             </div>
         </div>
         <div class="sanbox" id="screenshots">
@@ -180,7 +202,7 @@
                 </div>
                 <div class="sanboxoption" steam>
                     <label class="sanboxlbl"></label>
-                    <button id="keybind" onclick="settings.keybind(event)">
+                    <button class="inputbtn" id="keybind" onclick="settings.keybind(event)">
                         <label class="sanboxlbl">F12</label>
                         <span></span>
                     </button>

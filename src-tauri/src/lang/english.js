@@ -187,6 +187,11 @@ export const translations = () => {
                 tt: `Toggle the "Now Tracking" notification when launching a game`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: `Test Notification Shortcuts`,
+                tt: `Set a keyboard shortcut to trigger Test Notifications`,
+                query: ".sanboxlbl"
+            },
             screenshotmode: {
                 tt: "Choose the mode for automatic achievement screenshots"
             },

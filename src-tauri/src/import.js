@@ -14,6 +14,9 @@ window.autostart = {
 import "./tippy.js/popper.min.js"
 import "./tippy.js/tippy-bundle.umd.min.js"
 
+import { keys } from "./components/keys.js"
+window.keys = keys
+
 const winlbl = window.__TAURI__.window.getCurrent().label
 
 async function LoadLang(lang) {

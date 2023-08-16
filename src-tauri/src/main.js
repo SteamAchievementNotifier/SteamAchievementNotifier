@@ -5,6 +5,7 @@ const { WebviewWindow, LogicalPosition, LogicalSize, PhysicalPosition, available
 const { emit, listen, once } = window.__TAURI__.event
 const { fetch: http } = window.__TAURI__.http
 const { relaunch } = window.__TAURI__.process
+const { unregister } = window.__TAURI__.globalShortcut
 
 // Setting "id/undefined" here will default to the current user's Privacy Settings page in Steam
 const privacysettings = "steam://openurl/https://steamcommunity.com/id/undefined/edit/settings"

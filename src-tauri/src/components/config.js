@@ -77,19 +77,19 @@ for (const type in configtemplate.customisation) {
         case "main":
             customisetemplate.primarycolor = "#305cb8"
             customisetemplate.secondarycolor = "#132958"
-            customisetemplate.shortcut = "CommandOrControl+Shift+1"
+            customisetemplate.shortcut = "Ctrl + Shift + 1"
             break
         case "rare":
             customisetemplate.primarycolor = "#9932cc"
             customisetemplate.secondarycolor = "#663399"
-            customisetemplate.shortcut = "CommandOrControl+Shift+2"
+            customisetemplate.shortcut = "Ctrl + Shift + 2"
             break
         case "plat":
             customisetemplate.primarycolor = "#4e75c9"
             customisetemplate.secondarycolor = "#8a2be2"
             customisetemplate.useplaticon = false
             customisetemplate.platicon = ""
-            customisetemplate.shortcut = "CommandOrControl+Shift+3"
+            customisetemplate.shortcut = "Ctrl + Shift + 3"
             break
     }
 

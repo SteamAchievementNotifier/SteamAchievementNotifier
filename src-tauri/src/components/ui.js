@@ -172,6 +172,7 @@ function ToggleTab(event) {
     const volumeslider = document.getElementById("volumeslider")
     const overlaypos = document.getElementById("overlayposdropdown")
     const customiserwrapper = document.querySelector(".customiserwrapper")
+    const scbtnlbl = document.querySelector("#scbtn > label")
 
     document.querySelector(".mainwrapper").setAttribute("type",type)
     customiserwrapper && ToggleCustomiserTab(event)
@@ -182,6 +183,8 @@ function ToggleTab(event) {
     LoadLang(config.lang)
     SetSoundSrc()
     ResetAudio()
+
+    scbtnlbl ? scbtnlbl.textContent = config.customisation[type].shortcut : null
 }
 
 async function ShowDialog(file,elem,callback) {
@@ -334,112 +337,6 @@ async function ToggleDataFile(filename) {
     }
 }
 
-const ps = new Map([
-    ["Digit0","0"],
-    ["Digit1","1"],
-    ["Digit2","2"],
-    ["Digit3","3"],
-    ["Digit4","4"],
-    ["Digit5","5"],
-    ["Digit6","6"],
-    ["Digit7","7"],
-    ["Digit8","8"],
-    ["Digit9","9"],
-    ["Numpad0","0"],
-    ["Numpad1","1"],
-    ["Numpad2","2"],
-    ["Numpad3","3"],
-    ["Numpad4","4"],
-    ["Numpad5","5"],
-    ["Numpad6","6"],
-    ["Numpad7","7"],
-    ["Numpad8","8"],
-    ["Numpad9","9"],
-    ["NumpadEnter",["{ENTER}","enter"]],
-    ["KeyA","a"],
-    ["KeyB","b"],
-    ["KeyC","c"],
-    ["KeyD","d"],
-    ["KeyE","e"],
-    ["KeyF","f"],
-    ["KeyG","g"],
-    ["KeyH","h"],
-    ["KeyI","i"],
-    ["KeyJ","j"],
-    ["KeyK","k"],
-    ["KeyL","l"],
-    ["KeyM","m"],
-    ["KeyN","n"],
-    ["KeyO","o"],
-    ["KeyP","p"],
-    ["KeyQ","q"],
-    ["KeyR","r"],
-    ["KeyS","s"],
-    ["KeyT","t"],
-    ["KeyU","u"],
-    ["KeyV","v"],
-    ["KeyW","w"],
-    ["KeyX","x"],
-    ["KeyY","y"],
-    ["KeyZ","z"],
-    ["F1","{F1}"],
-    ["F2","{F2}"],
-    ["F3","{F3}"],
-    ["F4","{F4}"],
-    ["F5","{F5}"],
-    ["F6","{F6}"],
-    ["F7","{F7}"],
-    ["F8","{F8}"],
-    ["F9","{F9}"],
-    ["F10","{F10}"],
-    ["F11","{F11}"],
-    ["F12","{F12}"],
-    ["NumpadMultiply",["{MULTIPLY}","*"]],
-    ["NumpadAdd",["{ADD}","+"]],
-    ["NumpadSubtract",["{SUBTRACT}","-"]],
-    ["NumpadDivide",["{DIVIDE}","/"]],
-    ["NumpadDecimal","."],
-    ["Minus","-"],
-    ["Equal","="],
-    ["BracketLeft","["],
-    ["BracketRight","]"],
-    ["Backslash","#"],
-    ["IntlBackslash","\\"],
-    ["Semicolon",";"],
-    ["Quote","\'"],
-    ["Comma",","],
-    ["Period","."],
-    ["Slash","/"],
-    ["Backspace",["{BACKSPACE}","backsp"]],
-    ["Pause","{BREAK}"],
-    ["Tab","{TAB}"],
-    ["Enter","{ENTER}"],
-    ["Escape",["{ESC}","esc"]],
-    ["Delete",["{DELETE}","del"]],
-    ["Insert",["{INSERT}","ins"]],
-    ["Home","{HOME}"],
-    ["End","{END}"],
-    ["PageUp",["{PGUP}","pgup"]],
-    ["PageDown",["{PGDN}","pgdn"]],
-    ["ArrowUp",["{UP}","up"]],
-    ["ArrowDown",["{DOWN}","down"]],
-    ["ArrowLeft",["{LEFT}","left"]],
-    ["ArrowRight",["{RIGHT}","right"]],
-    ["CapsLock",["{CAPSLOCK}","caps"]],
-    ["ScrollLock",["{SCROLLLOCK}","scrlock"]],
-    ["NumLock","{NUMLOCK}"],
-    ["Space",[" ","space"]],
-    ["ShiftLeft",null],
-    ["ShiftRight",null],
-    ["ControlLeft",null],
-    ["ControlRight",null],
-    ["AltLeft",null],
-    ["AltRight",null],
-    ["MetaLeft",null],
-    ["MetaRight",null],
-    ["Backquote",null]
-])
-
 const settings = {
     desktop: async () => config.desktop ? !await exists(await sanhelper.shortcut()) && invoke("desktop_shortcut", { path: await sanhelper.shortcut() }) : await exists(await sanhelper.shortcut()) && removeFile(await sanhelper.shortcut()),
     startwin: async () => await autostart.isEnabled() ? autostart.disable() : autostart.enable(),
@@ -471,7 +368,7 @@ const settings = {
                 return label.textContent = GetKeybindValue()
             }
 
-            const code = ps.get(event.code) || event.code
+            const code = keys("ps").get(event.code) || event.code
             sanhelper.write({config},["keybind"],typeof code === "object" ? code[0] : code)
             
             const key = [...ps.entries()].find(([k,v]) => v === code)[0]
@@ -516,37 +413,59 @@ const settings = {
     }),
     // showalldetails: () => console.log("showalldetails"),
     shortcuts: () => window.dispatchEvent(new CustomEvent("config",{ detail: config })),
-    setshortcut: event => {
-        // !!! Move "PS" and Tauri keybind table to external module and import them
-        const label = document.querySelector(`#${event.target.id} > label`)
-        event.target.setAttribute("listen","")
+    setshortcut: async event => {
+        // Need to temporarily "unregister" the current shortcuts here to not interfere with the new shortcut
+        for (const type in config.customisation) {
+            await unregister(config.customisation[type].shortcut)
+        }
 
-        // !!! FIX!
-        const time = () => {
-            return setTimeout(() => {
+        const label = document.querySelector(`#${event.target.id} > label`)
+        let timeout
+        let hotkeys = ""
+        const keystate = {}
+    
+        const resettimeout = () => {
+            clearTimeout(timeout)
+            timeout = setTimeout(() => {
+                window.removeEventListener("keydown",keydownlistener)
+                window.removeEventListener("keyup",keyuplistener)
                 event.target.removeAttribute("listen")
-                window.removeEventListener("keydown", keydown)
-                return console.log("time finished")
-            },2000)
+
+                for (const type in config.customisation) {
+                    if (hotkeys === config.customisation[type].shortcut) {
+                        event.target.setAttribute("error","")
+                        log.write("info",`"${hotkeys}" already applied to ${type}`)
+
+                        setTimeout(() => event.target.removeAttribute("error"),750)
+                    }
+                }
+
+                hotkeys && sanhelper.write({config},["customisation",GetTabType(),"shortcut"],hotkeys)
+                label.textContent = config.customisation[GetTabType()].shortcut
+                window.dispatchEvent(new CustomEvent("config",{ detail: config }))
+            }, 2000)
         }
-        
-        const keydown = event => {
-            if (event) {
-                clearTimeout(time)
-                console.log("time extended")
-                time()
-            } else {
-                window.removeEventListener(keydown)
-            }
+    
+        const keydownlistener = event => {
+            if (keystate[event.code]) return
+
+            keystate[event.code] = true
+            hotkeys += (hotkeys.length > 0 ? " + " : "") + keys().get(event.code)
+            label.textContent = hotkeys
+            resettimeout()
         }
-        
-        window.addEventListener("keydown", keydown(event))
-        // !!! FIX!
+
+        const keyuplistener = event => keystate[event.code] = false
+    
+        event.target.setAttribute("listen","")
+        window.addEventListener("keydown",keydownlistener)
+    
+        resettimeout()
     }
 }
 
 function GetKeybindValue() {
-    for (const [key,value] of ps.entries()) {
+    for (const [key,value] of keys("ps").entries()) {
         if (!value) return
 
         if (typeof value === "object") {
@@ -583,6 +502,7 @@ async function LoadConfig(menu) {
         document.querySelectorAll(".marquee > label").forEach(lbl => lbl.textContent = config.ovpath.replace(/\\\\/g,"\\"))
         document.querySelector("#keybind > label").textContent = GetKeybindValue()
         document.getElementById("apprevnum").textContent = await getVersion()
+        document.querySelector("#scbtn > label").textContent = config.customisation[type].shortcut
     }
 
     if (menu === "customiser") {

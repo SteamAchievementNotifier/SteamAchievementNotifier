@@ -287,6 +287,10 @@ button[soon],
     cursor: pointer;
 }
 
+.sanboxoption > button > label {
+    pointer-events: none;
+}
+
 .sanboxoption:has(input[type="range"]) {
     grid-template-columns: repeat(2,1fr);
 }
@@ -434,6 +438,7 @@ button[soon],
 }
 
 .sanboxoption:has(#shortcuts:not(:checked)) + .ovtabwrapper:has(#sctabmain),
+.sanboxoption:has(#shortcuts:not(:checked)) ~ .sanboxoption:has(#scbtn),
 #screenshots > .sanboxcontent:has(select > option[value="off"]:checked) > *:not(select),
 #screenshots > .sanboxcontent:has(select > option[value="steam"]:checked) > *[overlay]:not([steam][overlay]),
 #screenshots > .sanboxcontent:has(select > option[value="overlay"]:checked) > *[steam]:not([steam][overlay]) {
@@ -451,6 +456,12 @@ button[soon],
 
 .sanboxoption > .inputbtn[listen] > label {
     animation: fadein 0.5s alternate infinite;
+}
+
+.sanboxoption > .inputbtn[error],
+.sanboxoption > .inputbtn[error] > span,
+.sanboxoption > .inputbtn[error]:hover > span {
+    background-color: red;
 }
 
 .sanboxoption > .inputbtn[listen] > span {

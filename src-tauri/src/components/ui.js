@@ -414,6 +414,12 @@ const settings = {
     // showalldetails: () => console.log("showalldetails"),
     shortcuts: () => window.dispatchEvent(new CustomEvent("config",{ detail: config })),
     setshortcut: async event => {
+        // TODO:
+        // - Cancel "keydown" event if Settings menu is closed
+        // - Notify user (via "error" handler) that modifiers without any other keys (CTRL,Shift,Alt etc) cannot be used
+        // - Along with the "CTRL+Space" shortcut due to being reserved for the "Duplicate Notifications to Window" option
+        // - Log "unhandled in promise" errors in "log"
+
         // Need to temporarily "unregister" the current shortcuts here to not interfere with the new shortcut
         for (const type in config.customisation) {
             await unregister(config.customisation[type].shortcut)

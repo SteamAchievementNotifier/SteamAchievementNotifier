@@ -205,13 +205,13 @@ window.LoadIFrame = LoadIFrame
 
 const { isRegistered, register, unregister } = window.__TAURI__.globalShortcut
 
-window.onfocus = async () => !await isRegistered("CommandOrControl+Space") ? await register("CommandOrControl+Space", () => {
+window.onfocus = async () => !await isRegistered("Ctrl+Space") ? await register("Ctrl+Space", () => {
     invoke("ipc", { eventname: "showextwin", payload: {} })
     window.addEventListener("keyup", () => invoke("ipc", { eventname: "hideextwin", payload: {} }), { once: true })
 }) : null
 
 window.onblur = async () => {
-    await unregister("CommandOrControl+Space")
+    await unregister("Ctrl+Space")
     invoke("ipc", { eventname: "hideextwin", payload: {} })
 }
 

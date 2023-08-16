@@ -188,9 +188,21 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             shortcuts: {
-                elem: `Test Notification Shortcuts`,
-                tt: `Set a keyboard shortcut to trigger Test Notifications`,
+                elem: "Notification Shortcuts",
+                tt: "Set a keyboard shortcut to trigger Test Notifications",
                 query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Set a shortcut to trigger a Test Notification for this type"
+            },
+            sctabmain: {
+                tt: "Main Notification Shortcut"
+            },
+            sctabrare: {
+                tt: "Rare Notification Shortcut"
+            },
+            sctabplat: {
+                tt: "100% Notification Shortcut"
             },
             screenshotmode: {
                 tt: "Choose the mode for automatic achievement screenshots"

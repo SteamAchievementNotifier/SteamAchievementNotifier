@@ -454,6 +454,10 @@ button[soon],
     text-transform: uppercase;
 }
 
+.sanboxoption > #scbtn {
+    background-color: #101010;
+}
+
 .sanboxoption > .inputbtn[listen] > label {
     animation: fadein 0.5s alternate infinite;
 }
@@ -473,7 +477,8 @@ button[soon],
     transition: var(--transition);
 }
 
-.sanboxoption > .inputbtn > * {
+.sanboxoption > .inputbtn > *,
+.settings:has(.inputbtn[listen],.inputbtn[error]) .ovtabwrapper > button {
     pointer-events: none;
 }
 

@@ -423,8 +423,7 @@ const settings = {
         const keystate = {}
         const promises = []
         let timeout
-        let hotkeys = ""
-        let hotkeyslength = 0
+        let hotkeys = []
         let inuse = false
 
         const invalid = [
@@ -444,12 +443,11 @@ const settings = {
                 for (const type in config.customisation) {
                     const promise = new Promise((resolve,reject) => {
                         // Returns if either only an accelerator key is entered, or a combination of only accelerator keys
-                        const parts = hotkeys.split(" + ")
-                        if ((parts.length === 1 && invalid.includes(parts[0])) || ((parts.length >= 2 && parts.every(part => invalid.includes(part))))) return reject(translations.invalidshortcut)
+                        if ((hotkeys.length === 1 && invalid.includes(hotkeys[0])) || ((hotkeys.length >= 2 && hotkeys.every(key => invalid.includes(key))))) return reject(translations.invalidshortcut)
 
-                        if (hotkeys === config.customisation[type].shortcut && type !== GetTabType()) {
+                        if (hotkeys.join(" + ") === config.customisation[type].shortcut && type !== GetTabType()) {
                             inuse = true
-                            log.write("info",`"${hotkeys}" already in use by ${type}`)
+                            log.write("info",`"${hotkeys.join(" + ")}" already in use by ${type}`)
                             reject(`${translations.inuse} ${translations[`toggle${type}`].elem}`)
                         } else {
                             resolve()
@@ -461,9 +459,8 @@ const settings = {
 
                 Promise.all(promises)
                 .then(() => {
-                    !inuse && hotkeys && sanhelper.write({config},["customisation",GetTabType(),"shortcut"],hotkeys)
+                    !inuse && hotkeys.length && sanhelper.write({config},["customisation",GetTabType(),"shortcut"],hotkeys.join(" + "))
                     label.textContent = config.customisation[GetTabType()].shortcut
-                    window.dispatchEvent(new CustomEvent("config",{ detail: config }))
                 })
                 .catch(err => {
                     label.textContent = err
@@ -476,18 +473,17 @@ const settings = {
                 .finally(() => {
                     inuse = false
                     promises.length = 0
-                    hotkeyslength = 0
+                    window.dispatchEvent(new CustomEvent("config",{ detail: config }))
                 })
             },2000)
         }
     
         const keydownlistener = event => {
-            if (keystate[event.code] || hotkeyslength === 3) return
+            if (keystate[event.code] || hotkeys.length === 3) return
 
             keystate[event.code] = true
-            hotkeys += (hotkeys.length > 0 ? " + " : "") + keys().get(event.code)
-            hotkeyslength += 1
-            label.textContent = hotkeys
+            hotkeys.push(keys().get(event.code))
+            label.textContent = hotkeys.join(" + ")
 
             resettimeout()
         }

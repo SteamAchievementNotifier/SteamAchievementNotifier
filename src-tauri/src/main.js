@@ -70,6 +70,7 @@ CreateTempDir()
 document.addEventListener("contextmenu", event => event.preventDefault())
 
 window.addEventListener("error",err => log.write("error",`${err.message}\n[LINE: ${err.lineno}]\n[FILE: ${err.filename}]`))
+window.addEventListener("unhandledrejection",err => log.write("error",err.reason))
 
 window.appid = null
 window.gameName = null

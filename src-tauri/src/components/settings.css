@@ -463,9 +463,16 @@ button[soon],
 }
 
 .sanboxoption > .inputbtn[error],
+.sanboxoption > #scbtn[error],
 .sanboxoption > .inputbtn[error] > span,
-.sanboxoption > .inputbtn[error]:hover > span {
+.sanboxoption > .inputbtn[error]:hover > span,
+.sanboxoption > #scbtn[error]:hover > span {
     background-color: red;
+}
+
+.sanboxoption > .inputbtn[error] > .sanboxlbl,
+.sanboxoption > .inputbtn[error]:hover > .sanboxlbl {
+    color: white;
 }
 
 .sanboxoption > .inputbtn[listen] > span {

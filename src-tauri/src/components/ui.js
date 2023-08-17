@@ -414,50 +414,81 @@ const settings = {
     // showalldetails: () => console.log("showalldetails"),
     shortcuts: () => window.dispatchEvent(new CustomEvent("config",{ detail: config })),
     setshortcut: async event => {
-        // TODO:
-        // - Cancel "keydown" event if Settings menu is closed
-        // - Notify user (via "error" handler) that modifiers without any other keys (CTRL,Shift,Alt etc) cannot be used
-        // - Along with the "CTRL+Space" shortcut due to being reserved for the "Duplicate Notifications to Window" option
-        // - Log "unhandled in promise" errors in "log"
-
         // Need to temporarily "unregister" the current shortcuts here to not interfere with the new shortcut
         for (const type in config.customisation) {
             await unregister(config.customisation[type].shortcut)
         }
 
         const label = document.querySelector(`#${event.target.id} > label`)
+        const keystate = {}
+        const promises = []
         let timeout
         let hotkeys = ""
-        const keystate = {}
+        let hotkeyslength = 0
+        let inuse = false
+
+        const invalid = [
+            "Ctrl",
+            "Shift",
+            "Alt",
+            "Super"
+        ]
     
         const resettimeout = () => {
             clearTimeout(timeout)
-            timeout = setTimeout(() => {
+            timeout = setTimeout(async () => {
                 window.removeEventListener("keydown",keydownlistener)
                 window.removeEventListener("keyup",keyuplistener)
                 event.target.removeAttribute("listen")
-
+                
                 for (const type in config.customisation) {
-                    if (hotkeys === config.customisation[type].shortcut) {
-                        event.target.setAttribute("error","")
-                        log.write("info",`"${hotkeys}" already applied to ${type}`)
+                    const promise = new Promise((resolve,reject) => {
+                        // Returns if either only an accelerator key is entered, or a combination of only accelerator keys
+                        const parts = hotkeys.split(" + ")
+                        if ((parts.length === 1 && invalid.includes(parts[0])) || ((parts.length >= 2 && parts.every(part => invalid.includes(part))))) return reject(translations.invalidshortcut)
 
-                        setTimeout(() => event.target.removeAttribute("error"),750)
-                    }
+                        if (hotkeys === config.customisation[type].shortcut && type !== GetTabType()) {
+                            inuse = true
+                            log.write("info",`"${hotkeys}" already in use by ${type}`)
+                            reject(`${translations.inuse} ${translations[`toggle${type}`].elem}`)
+                        } else {
+                            resolve()
+                        }
+                    })
+
+                    promises.push(promise)
                 }
 
-                hotkeys && sanhelper.write({config},["customisation",GetTabType(),"shortcut"],hotkeys)
-                label.textContent = config.customisation[GetTabType()].shortcut
-                window.dispatchEvent(new CustomEvent("config",{ detail: config }))
-            }, 2000)
+                Promise.all(promises)
+                .then(() => {
+                    !inuse && hotkeys && sanhelper.write({config},["customisation",GetTabType(),"shortcut"],hotkeys)
+                    label.textContent = config.customisation[GetTabType()].shortcut
+                    window.dispatchEvent(new CustomEvent("config",{ detail: config }))
+                })
+                .catch(err => {
+                    label.textContent = err
+                    event.target.setAttribute("error","")
+                    setTimeout(() => {
+                        event.target.removeAttribute("error")
+                        label.textContent = config.customisation[GetTabType()].shortcut
+                    },750)
+                })
+                .finally(() => {
+                    inuse = false
+                    promises.length = 0
+                    hotkeyslength = 0
+                })
+            },2000)
         }
     
         const keydownlistener = event => {
-            if (keystate[event.code]) return
+            if (keystate[event.code] || hotkeyslength === 3) return
 
             keystate[event.code] = true
             hotkeys += (hotkeys.length > 0 ? " + " : "") + keys().get(event.code)
+            hotkeyslength += 1
             label.textContent = hotkeys
+
             resettimeout()
         }
 

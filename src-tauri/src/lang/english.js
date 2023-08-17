@@ -629,7 +629,9 @@ export const translations = () => {
             down: "Down",
             left: "Left",
             right: "Right",
-            tracking: "Now Tracking"
+            tracking: "Now Tracking",
+            inuse: "In use by",
+            invalidshortcut: "Invalid shortcut"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

@@ -203,17 +203,10 @@ export async function LoadIFrame(msg,custom,html) {
 
 window.LoadIFrame = LoadIFrame
 
+window.addEventListener("keydown", event => event.key === "Control" && invoke("ipc", { eventname: "showextwin", payload: {} }))
+window.addEventListener("keyup", event => event.key === "Control" && invoke("ipc", { eventname: "hideextwin", payload: {} }))
+
 const { isRegistered, register, unregister } = window.__TAURI__.globalShortcut
-
-window.onfocus = async () => !await isRegistered("Ctrl+Space") ? await register("Ctrl+Space", () => {
-    invoke("ipc", { eventname: "showextwin", payload: {} })
-    window.addEventListener("keyup", () => invoke("ipc", { eventname: "hideextwin", payload: {} }), { once: true })
-}) : null
-
-window.onblur = async () => {
-    await unregister("Ctrl+Space")
-    invoke("ipc", { eventname: "hideextwin", payload: {} })
-}
 
 // Listens for "config" event sent from "config.js"/"ui.js" ("settings.shortcuts")
 // Prevents "config is undefined" errors on load
@@ -230,8 +223,6 @@ window.addEventListener("config", async event => {
     
     window.shortcuts = shortcuts
 
-    // TODO:
-    // - Allow setting custom shortcuts via config
     for (const key in shortcuts()) {
         !await isRegistered(shortcuts()[key]) && config.shortcuts ?
         await register(shortcuts()[key], async () => {

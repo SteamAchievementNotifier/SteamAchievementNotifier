@@ -9,7 +9,7 @@
 
 <p align="center"><img src="./src-tauri/src/img/santextlogo.png"></p>
 
-<p align="center"><b><i>Enhance your Steam achievement experience!</i></b></p>
+<h3 align="center"><b><i>Enhance your Steam achievement experience!</i></b></h3>
 
 **Steam Achievement Notifier** is a Tauri application that shows customisable notifications when you unlock any Steam Achievement!
 
@@ -80,7 +80,37 @@ Once an achievement is unlocked, a **notification** will display containing the 
 
 <details>
 <summary>
-    <h4>V1.85.4 [LATEST]</h4>
+    <h4>V1.85.5 [LATEST]</h4>
+</summary>
+
+<h4><u>Updates:</u></h4>
+
+- **Duplicate Notifications to Window**: *Now available again in **V1.85***! When enabled via the **Settings** menu, an external window will be created that duplicates all notifications spawned by the application, and will always stay open in the background. Useful for capturing notifications for use in streaming/screen capture software (*OBS/Twitch Studio/Streamlabs etc.*)!
+
+> - The window is fully transparent - as to not interfere with capturing software - so when the option is first enabled, **you won't see anything on screen!** To locate the current position of the window, press and hold the `Ctrl` key (*while the main app window is focused*) to display an outline around it!
+> - The window will now also reopen automatically when restarting the application if the option remains enabled when exiting.
+> - The last position of the window will also be saved any time you disable the option via the **Settings** menu, and will be recalled when enabling it again.
+
+- **Notification Shortcuts**: Trigger **Test Notifications** using the power of keyboard shortcuts! Enable the option via the **Settings** menu, and click the shortcut box to start listening for inputs. Once assigned, you'll be able to trigger a notification for each type using the shortcuts you've set!
+
+> - **Keycodes are *very* complex, so all buttons may not work correctly!** If you encounter a key that doesn't work with this option, please check the **App Log**, and [open a new issue](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/issues) or report it in the `#support` forum on [Discord](https://discord.gg/FxCFtpd3eu)!
+> - Accelerators - `Ctrl`/`Shift`/`Alt`/`Super` (or `WIN`) - cannot be used on their own (`Ctrl`), or as a combination of only accelerators (`Ctrl+Shift+Alt`).
+> - Shortcuts will only assign a maximum of 3 inputs per shortcut.
+> - **Shortcuts are GLOBAL!** This means that they will activate *everywhere* - including in-game - so be wary of assigning required in-game shortcuts to this option!
+
+- **Single Instance Lock**: Using the [Tauri single-instance plugin](https://github.com/tauri-apps/plugins-workspace/tree/v1/plugins/single-instance), the application will now prevent further instances being opened when attempting to run it again (via a Desktop shortcut or the EXE file) while an instance is already running.
+
+<h4><u>Bug Fixes:</u></h4>
+
+- Redesigned window contents for **"Use Custom Position" Customiser** option.
+- Fixed an issue where achievement percentages would be shown for multiple elements.
+- Updated code to properly close notification windows when errors are encountered.
+- Added `UnhandledRejection` errors to the **App Log** window.
+</details>
+
+<details>
+<summary>
+    <h4>V1.85.4</h4>
 </summary>
 
 <h4><u>Bug Fixes:</u></h4>

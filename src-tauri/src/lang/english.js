@@ -174,12 +174,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Duplicate to External Window",
-                tt: "Duplicate to External Window",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Show Achievement Stats Window",
-                tt: "Show Achievement Stats Window",
+                tt: `An external window that duplicates all notifications. Can be targeted by streaming/screen capture software.<div class="ttwarn">This window is <u>fully transparent</u>. To outline the window's current position, hold the <span class="ttcode">Ctrl</span> key.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

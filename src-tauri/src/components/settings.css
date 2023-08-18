@@ -319,7 +319,8 @@ button[soon],
     height: 0.85rem;
 }
 
-.sanboxlbl[star]::after {
+.sanboxlbl[star]::after,
+.ttwarn::before {
     content: "*";
     color: red;
 }
@@ -681,6 +682,21 @@ button[soon] > *,
 
 .settingsfooter > #apprevnum {
     margin-left: 0.2rem;
+}
+
+.ttwarn {
+    font-size: 0.65rem;
+    font-style: italic;
+    padding: 0.2rem;
+    margin-top: 1rem;
+    background-color: var(--primary);
+    border-radius: 0.35rem;
+}
+
+.ttcode {
+    padding-inline: 0.25rem 0.35rem;
+    background-color: #101010;
+    border-radius: 0.2rem;
 }
 
 @media (orientation: portrait),(aspect-ratio: 1/1),(width <= 400px) {

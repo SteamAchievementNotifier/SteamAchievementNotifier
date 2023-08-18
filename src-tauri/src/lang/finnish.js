@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Toista ulkoisessa ikkunassa",
-                tt: "Toista ulkoisessa ikkunassa",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Näytä saavutustilastot-ikkuna",
-                tt: "Näytä saavutustilastot-ikkuna",
+                tt: `Ulkoikkuna, joka kahdentaa kaikki ilmoitukset. Voidaan kohdistaa suoratoisto-/näytönkaappausohjelmilla.<div class="ttwarn">Tämä ikkuna on <u>täysin läpinäkyvä</u>. Ikkunan nykyisen sijainnin esittämiseksi pidä <span class="ttcode">Ctrl</span>-näppäin alhaalla.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

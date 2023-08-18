@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Duplizieren in externem Fenster",
-                tt: "In externem Fenster duplizieren",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Erfolgsstatistik-Fenster anzeigen",
-                tt: "Erfolgsstatistik-Fenster anzeigen",
+                tt: `Ein externes Fenster, das alle Benachrichtigungen dupliziert. Kann von Streaming-/Bildschirmaufnahmesoftware anvisiert werden.<div class="ttwarn">Dieses Fenster ist <u>vollständig transparent</u>. Um die aktuelle Position des Fensters hervorzuheben, halten Sie die <span class="ttcode">Ctrl</span>-Taste gedrückt.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

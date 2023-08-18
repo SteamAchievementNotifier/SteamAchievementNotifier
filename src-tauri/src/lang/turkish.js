@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Harici Pencereye Kopyala",
-                tt: "Harici bir pencereye kopyala",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Başarı İstatistikleri Penceresini Göster",
-                tt: "Başarı İstatistikleri Penceresini Göster",
+                tt: `Tüm bildirimleri çoğaltan harici bir pencere. Akış/yakalama yazılımları tarafından hedef alınabilir.<div class="ttwarn">Bu pencere <u>tamamen şeffaftır</u>. Pencerenin geçerli konumunu vurgulamak için <span class="ttcode">Ctrl</span> tuşuna basılı tutun.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

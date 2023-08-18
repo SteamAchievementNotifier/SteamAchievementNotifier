@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "외부 창에 복제",
-                tt: "외부 창에 복제",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "업적 통계 창 표시",
-                tt: "업적 통계 창 표시",
+                tt: `모든 알림을 복제하는 외부 창입니다. 스트리밍/화면 캡처 소프트웨어에서 대상으로 지정할 수 있습니다.<div class="ttwarn">이 창은 <u>완전히 투명</u>합니다. 창의 현재 위치를 강조하려면 <span class="ttcode">Ctrl</span> 키를 누르세요.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

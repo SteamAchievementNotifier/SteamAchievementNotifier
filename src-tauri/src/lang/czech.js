@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Duplikovat do externího okna",
-                tt: "Duplikovat do externího okna",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Zobrazit okno statistik dosažení",
-                tt: "Zobrazit okno statistik dosažení",
+                tt: `Externí okno, které zdvojí všechny oznámení. Lze jej zacílit pomocí softwaru pro streamování / zachycení obrazovky.<div class="ttwarn">Toto okno je <u>zcela průhledné</u>. Pro zvýraznění aktuální pozice okna podržte klávesu <span class="ttcode">Ctrl</span>.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

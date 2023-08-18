@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Duplicare în fereastră externă",
-                tt: "Duplică în fereastră externă",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Afișează fereastra de statistici",
-                tt: "Afișează fereastra de statistici a realizărilor",
+                tt: `O fereastră externă care duplică toate notificările. Poate fi vizată de software-ul de streaming/captură ecran.<div class="ttwarn">Această fereastră este <u>complet transparentă</u>. Pentru a evidenția poziția actuală a ferestrei, țineți apăsată tasta <span class="ttcode">Ctrl</span>.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

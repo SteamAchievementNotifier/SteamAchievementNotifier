@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Duplikuj do Zewnętrznego Okna",
-                tt: "Duplikuj do zewnętrznego okna",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Pokaż Okno Statystyk Osiągnięć",
-                tt: "Pokaż okno statystyk osiągnięć",
+                tt: `Zewnętrzne okno, które duplikuje wszystkie powiadomienia. Może być docelowo nagrywane przez oprogramowanie do streamingu/capture'u ekranu.<div class="ttwarn">To okno jest <u>całkowicie przezroczyste</u>. Aby zaznaczyć aktualne położenie okna, przytrzymaj klawisz <span class="ttcode">Ctrl</span>.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "外部ウィンドウに複製",
-                tt: "外部ウィンドウに複製します",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "実績統計ウィンドウの表示",
-                tt: "実績統計ウィンドウの表示",
+                tt: `すべての通知を複製する外部ウィンドウ。ストリーミング/画面キャプチャソフトウェアで対象にできます。<div class="ttwarn">このウィンドウは<u>完全に透明</u>です。ウィンドウの現在位置を強調表示するには、<span class="ttcode">Ctrl</span>キーを押し続けます。</div>`,
                 query: ".sanboxlbl"
             },
             track: {

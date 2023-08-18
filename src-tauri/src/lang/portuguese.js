@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Duplicar para Janela Externa",
-                tt: "Duplicar para Janela Externa",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Mostrar Janela de Estatísticas",
-                tt: "Mostrar Janela de Estatísticas de Conquistas",
+                tt: `Uma janela externa que duplica todas as notificações. Pode ser alvo de software de streaming/captura de ecrã.<div class="ttwarn">Esta janela é <u>totalmente transparente</u>. Para destacar a posição atual da janela, mantenha premida a tecla <span class="ttcode">Ctrl</span>.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

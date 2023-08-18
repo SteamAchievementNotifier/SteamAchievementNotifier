@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Képernyők duplikálása külső ablakban",
-                tt: "Képernyők duplikálása külső ablakban",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Teljesítmény statisztika ablak megjelenítése",
-                tt: "Teljesítmény statisztika ablak megjelenítése",
+                tt: `Egy külső ablak, amely megkettőzi az összes értesítést. Célba vehető streaming/képernyőfelvétel szoftverrel.<div class="ttwarn">Ez az ablak <u>teljesen átlátszó</u>. Az ablak aktuális pozíciójának kijelöléséhez tartsa lenyomva a <span class="ttcode">Ctrl</span> billentyűt.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

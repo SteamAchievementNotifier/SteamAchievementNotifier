@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Sao chép sang Cửa sổ Bên ngoài",
-                tt: "Sao chép sang Cửa sổ Bên ngoài",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Hiển thị Cửa sổ Thống kê Thành tựu",
-                tt: "Hiển thị Cửa sổ Thống kê Thành tựu",
+                tt: `Một cửa sổ bên ngoài sao chép tất cả thông báo. Có thể là mục tiêu của phần mềm thu phát sóng/chụp màn hình.<div class="ttwarn">Cửa sổ này là <u>hoàn toàn trong suốt</u>. Để làm nổi bật vị trí hiện tại của cửa sổ, giữ phím <span class="ttcode">Ctrl</span>.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

@@ -85,7 +85,7 @@ Once an achievement is unlocked, a **notification** will display containing the 
 
 <h4><u>Updates:</u></h4>
 
-- **Duplicate Notifications to Window**: *Now available again in **V1.85***! When enabled via the **Settings** menu, an external window will be created that duplicates all notifications spawned by the application, and will always stay open in the background. Useful for capturing notifications for use in streaming/screen capture software (*OBS/Twitch Studio/Streamlabs etc.*)!
+- **Duplicate to External Window**: *Now available again in **V1.85***! When enabled via the **Settings** menu, an external window will be created that duplicates all notifications spawned by the application, and will always stay open in the background. Useful for capturing notifications for use in streaming/screen capture software (*OBS/Twitch Studio/Streamlabs etc.*)!
 
 > - The window is fully transparent - as to not interfere with capturing software - so when the option is first enabled, **you won't see anything on screen!** To locate the current position of the window, press and hold the `Ctrl` key (*while the main app window is focused*) to display an outline around it!
 > - The window will now also reopen automatically when restarting the application if the option remains enabled when exiting.

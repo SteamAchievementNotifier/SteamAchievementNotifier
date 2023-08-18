@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Dupliceer naar extern venster",
-                tt: "Dupliceer naar extern venster",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Toon venster met prestatiegegevens",
-                tt: "Toon venster met prestatiegegevens",
+                tt: `Een extern venster dat alle meldingen dupliceert. Kan worden gericht door streaming/schermopnamesoftware.<div class="ttwarn">Dit venster is <u>volledig transparant</u>. Om de huidige positie van het venster aan te geven, houdt u de <span class="ttcode">Ctrl</span>-toets ingedrukt.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

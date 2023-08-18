@@ -24,6 +24,8 @@ function GetMonitorInfo() {
 
 GetMonitorInfo()
 
+// !!! "scale-change" event does not fire on resolution change ONLY if the monitor's Windows scaling is set to 100%.
+// This is because downscaling resolution (e.g. 1080p > 720p) auto-changes the scale factor back to 100%, so the event is only ever fired when the scaling changes, not the resolution itself.
 listen("tauri://scale-change", event => {
     const { size: { width, height }, scaleFactor } = event.payload
     log.write("info",`Scale Factor changed: ${width} x ${height} @ ${scaleFactor}x`)

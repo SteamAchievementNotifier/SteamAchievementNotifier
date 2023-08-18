@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Duplicar a ventana externa",
-                tt: "Duplicar a ventana externa",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Mostrar ventana de estadísticas",
-                tt: "Mostrar ventana de estadísticas de logros",
+                tt: `Una ventana externa que duplica todas las notificaciones. Puede ser objetivo de software de transmisión/captura de pantalla.<div class="ttwarn">Esta ventana es <u>totalmente transparente</u>. Para resaltar la posición actual de la ventana, mantén presionada la tecla <span class="ttcode">Ctrl</span>.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

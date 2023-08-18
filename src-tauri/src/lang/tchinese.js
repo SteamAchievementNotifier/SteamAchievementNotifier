@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "复制到外部窗口",
-                tt: "复制到外部窗口",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "显示成就统计窗口",
-                tt: "显示成就统计窗口",
+                tt: `外部視窗，複製所有通知。可以被流媒體/螢幕捕捉軟體定位。<div class="ttwarn">此視窗完全<u>透明</u>。若要標記視窗的目前位置，請按住<span class="ttcode">Ctrl</span>鍵。</div>`,
                 query: ".sanboxlbl"
             },
             track: {

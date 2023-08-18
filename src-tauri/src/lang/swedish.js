@@ -173,12 +173,7 @@ export const translations = () => {
             },
             extwin: {
                 elem: "Duplicera till externt fönster",
-                tt: "Duplicera till externt fönster",
-                query: ".sanboxlbl"
-            },
-            statwin: {
-                elem: "Visa prestationstatistikfönster",
-                tt: "Visa prestationstatistikfönster",
+                tt: `Ett externt fönster som duplicerar alla meddelanden. Kan vara målet för streaming/skärminspelningsprogram.<div class="ttwarn">Detta fönster är <u>helt transparent</u>. För att markera fönstrets nuvarande position, håll nere <span class="ttcode">Ctrl</span>-tangenten.</div>`,
                 query: ".sanboxlbl"
             },
             track: {

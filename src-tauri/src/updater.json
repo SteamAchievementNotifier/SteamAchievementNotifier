@@ -4,7 +4,7 @@
     "platforms": {
         "windows-x86_64": {
             "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZW4wbDZ1akkzcitkZTlXQTJSUGRqOVRDcHlIQm5SejB0M0dETFhJTHJQVnYzVHQyaWRDZDN2aVplM0NyVlB2U0tkOE5KU1pheUg0b2QzR0Z0YUxRQVhNbjJGN0JEaXc4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkyMzgzNDQzCWZpbGU6U3RlYW1BY2hpZXZlbWVudE5vdGlmaWVyXzEuODUuNV94NjQtc2V0dXAubnNpcy56aXAKNEtFYXdDMmhINnpTY3dTeGl4cG9DKzhQWGpWZTlzZWlScFlKM0tBUkRZbmdmZHRRVkdKSVUyN1o4UGoxelVZVlk5MzZFMDhIQnI2d2hVRTBpdHZ2Q1E9PQo=",
-            "url": "https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/alpha/SteamAchievementNotifier_1.85.4_x64-setup.nsis.zip"
+            "url": "https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/alpha/SteamAchievementNotifier_1.85.5_x64-setup.nsis.zip"
         }
     }
 }

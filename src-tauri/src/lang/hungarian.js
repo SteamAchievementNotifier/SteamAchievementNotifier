@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `A "Most követett" értesítés ki- vagy bekapcsolása, amikor elindítasz egy játékot`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Parancsikonok",
+                tt: "Állítson be egy billentyűparancsot a Teszt Értesítések kiváltásához",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Állítson be egy gyorsbillentyűt a Teszt Értesítés kiváltásához ehhez a típushoz"
+            },
+            sctabmain: {
+                tt: "Fő Értesítés Gyorsbillentyű"
+            },
+            sctabrare: {
+                tt: "Ritka Értesítés Gyorsbillentyű"
+            },
+            sctabplat: {
+                tt: "100% Értesítés Gyorsbillentyű"
+            },
             screenshotmode: {
                 tt: "Válassz módot az automatikus teljesítmény képernyőképekhez"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Le",
             left: "Balra",
             right: "Jobbra",
-            tracking: "Most Követés"
+            tracking: "Most Követés",
+            inuse: "Használja",
+            invalidshortcut: "Érvénytelen"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

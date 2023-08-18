@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Växla "Nu spåras" notifikation när du startar ett spel`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Meddelandesnabbval",
+                tt: "Ange en tangentbordsgenväg för att aktivera testmeddelanden",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Ange en genväg för att aktivera ett testmeddelande för denna typ"
+            },
+            sctabmain: {
+                tt: "Huvudmeddelandesnabbval"
+            },
+            sctabrare: {
+                tt: "Sällsynt meddelandesnabbval"
+            },
+            sctabplat: {
+                tt: "100 % meddelandesnabbval"
+            },
             screenshotmode: {
                 tt: "Välj läge för automatiska prestationsskärmdumpar"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Ner",
             left: "Vänster",
             right: "Höger",
-            tracking: "Spårar Nu"
+            tracking: "Spårar Nu",
+            inuse: "Används av",
+            invalidshortcut: "Ogiltigt snabbval"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `สลับการแจ้งเตือน "กำลังติดตาม" เมื่อเริ่มเกม`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "ทางลัดการแจ้งเตือน",
+                tt: "ตั้งค่าทางลัดบนแป้นพิมพ์เพื่อเรียกใช้การแจ้งเตือนทดสอบ",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "ตั้งค่าทางลัดเพื่อเรียกใช้การแจ้งเตือนทดสอบสำหรับประเภทนี้"
+            },
+            sctabmain: {
+                tt: "ทางลัดการแจ้งเตือนหลัก"
+            },
+            sctabrare: {
+                tt: "ทางลัดการแจ้งเตือนที่หายาก"
+            },
+            sctabplat: {
+                tt: "ทางลัดการแจ้งเตือน 100%"
+            },
             screenshotmode: {
                 tt: "เลือกโหมดสำหรับการรับภาพหน้าจอความสำเร็จอัตโนมัติ"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "ลง",
             left: "ซ้าย",
             right: "ขวา",
-            tracking: "กำลังติดตามอยู่"            
+            tracking: "กำลังติดตามอยู่",
+            inuse: "ใช้โดย",
+            invalidshortcut: "ทางลัดไม่ถูกต้อง"     
         }
 
         const btns = ["soundfilelbl","searchbtn"]

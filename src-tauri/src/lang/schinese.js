@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `启动游戏时切换“正在跟踪中”通知`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "通知快捷方式",
+                tt: "设置一个键盘快捷方式来触发测试通知",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "设置一个快捷方式来触发此类型的测试通知"
+            },
+            sctabmain: {
+                tt: "主要通知快捷方式"
+            },
+            sctabrare: {
+                tt: "稀有通知快捷方式"
+            },
+            sctabplat: {
+                tt: "100%通知快捷方式"
+            },
             screenshotmode: {
                 tt: "选择自动截图的模式"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "下",
             left: "左",
             right: "右",
-            tracking: "正在跟踪"
+            tracking: "正在跟踪",
+            inuse: "正在使用",
+            invalidshortcut: "无效的快捷方式"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

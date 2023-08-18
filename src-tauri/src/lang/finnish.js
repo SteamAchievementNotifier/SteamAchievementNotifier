@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Vaihda "Nyt seurataan"-ilmoitus, kun peli käynnistetään`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Ilmoituspikakuvakkeet",
+                tt: "Aseta näppäinpikanäppäin Testi-ilmoitusten laukaisemiseksi",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Aseta pikakuvake testi-ilmoituksen laukaisemiseksi tälle tyypille"
+            },
+            sctabmain: {
+                tt: "Pääilmoitus Pikakuvake"
+            },
+            sctabrare: {
+                tt: "Harvinainen ilmoitus Pikakuvake"
+            },
+            sctabplat: {
+                tt: "100 % ilmoitus Pikakuvake"
+            },
             screenshotmode: {
                 tt: "Valitse automaattisten saavutuskuvakaappausten tila"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Alas",
             left: "Vasemmalle",
             right: "Oikealle",
-            tracking: "Seurataan Nyt"
+            tracking: "Seurataan Nyt",
+            inuse: "Käytössä",
+            invalidshortcut: "Virheellinen pikakuvake"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

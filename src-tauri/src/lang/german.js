@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Aktivieren oder deaktivieren der Benachrichtigung "Jetzt verfolgen", wenn ein Spiel gestartet wird`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Tastatürkürzel",
+                tt: "Legen Sie eine Tastenkombination fest, um Testbenachrichtigungen auszulösen",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Legen Sie einen Kurzbefehl fest, um eine Testbenachrichtigung für diesen Typ auszulösen"
+            },
+            sctabmain: {
+                tt: "Hauptbenachrichtigungskurzbefehl"
+            },
+            sctabrare: {
+                tt: "Seltener Benachrichtigungskurzbefehl"
+            },
+            sctabplat: {
+                tt: "100 % Benachrichtigungskurzbefehl"
+            },
             screenshotmode: {
                 tt: "Modus für automatische Erfolgs-Bildschirmfoto auswählen"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Unten",
             left: "Links",
             right: "Rechts",
-            tracking: "Jetzt Verfolgen"
+            tracking: "Jetzt Verfolgen",
+            inuse: "Benutzt von",
+            invalidshortcut: "Ungültig"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

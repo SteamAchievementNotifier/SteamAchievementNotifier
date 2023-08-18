@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Veksle "Nå følger" varsel ved oppstart av et spill`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Varslingsgenveier",
+                tt: "Angi en tastatursnarvei for å utløse testvarsler",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Angi en snarvei for å utløse en testvarsel for denne typen"
+            },
+            sctabmain: {
+                tt: "Hovedvarslingssnarvei"
+            },
+            sctabrare: {
+                tt: "Sjelden varslingssnarvei"
+            },
+            sctabplat: {
+                tt: "100 % varslingssnarvei"
+            },
             screenshotmode: {
                 tt: "Velg modus for automatisk prestasjonskjermbilder"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Ned",
             left: "Venstre",
             right: "Høyre",
-            tracking: "Nå Sporing"
+            tracking: "Nå Sporing",
+            inuse: "I bruk av",
+            invalidshortcut: "Ugyldig snarvei"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

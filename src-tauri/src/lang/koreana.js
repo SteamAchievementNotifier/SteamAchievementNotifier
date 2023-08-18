@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `"현재 추적 중" 알림 토글. 게임 실행 시 표시됩니다.`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "알림 바로 가기",
+                tt: "테스트 알림을 트리거할 키보드 단축키 설정",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "이 유형의 테스트 알림을 트리거할 단축키 설정"
+            },
+            sctabmain: {
+                tt: "주요 알림 바로 가기"
+            },
+            sctabrare: {
+                tt: "희귀 알림 바로 가기"
+            },
+            sctabplat: {
+                tt: "100% 알림 바로 가기"
+            },
             screenshotmode: {
                 tt: "자동 업적 스크린샷 모드 선택"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "아래",
             left: "왼쪽",
             right: "오른쪽",
-            tracking: "현재 추적 중"
+            tracking: "현재 추적 중",
+            inuse: "사용 중인 곳",
+            invalidshortcut: "유효하지 않은 단축키"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

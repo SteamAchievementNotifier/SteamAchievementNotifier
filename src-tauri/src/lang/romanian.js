@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Comută notificarea "Urmărire în curs" la lansarea unui joc`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Scurtături Notificări",
+                tt: "Setați o tastă rapidă pentru a declanșa Notificări de Test",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Setați o scurtătură pentru a declanșa o Notificare de Test pentru acest tip"
+            },
+            sctabmain: {
+                tt: "Scurtătură Principală Notificare"
+            },
+            sctabrare: {
+                tt: "Scurtătură Rară Notificare"
+            },
+            sctabplat: {
+                tt: "Scurtătură Notificare 100%"
+            },
             screenshotmode: {
                 tt: "Alege modul pentru capturile de ecran automate ale realizărilor"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Jos",
             left: "Stânga",
             right: "Dreapta",  
-            tracking: "Urmărire în Curs"
+            tracking: "Urmărire în Curs",
+            inuse: "În uz de",
+            invalidshortcut: "Scurtătură nevalidă"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

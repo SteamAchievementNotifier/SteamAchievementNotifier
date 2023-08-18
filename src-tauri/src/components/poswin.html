@@ -11,6 +11,12 @@
                 user-select: none;
             }
 
+            :root {
+                --primary: #203e7a;
+                --opacity: rgba(32,62,122,0.5);
+                --transition: 0.2s;
+            }
+
             html, body {
                 width: 100vw;
                 height: 100vh;
@@ -20,42 +26,63 @@
 
             body {
                 display: grid;
-                place-content: center;
+                justify-content: end;
+                align-content: center;
+                padding-right: 1rem;
+                background-color: var(--opacity);
             }
             
             body[main] {
-                background-color: #203e7abf;
+                --primary: #203e7a;
+                --opacity: #203e7abf;
             }
-
+            
             body[rare] {
-                background-color: #663399bf;
+                --primary: #663399;
+                --opacity: #663399bf;
             }
 
             body[plat] {
-                background-color: #4e75c9bf;
+                --primary: #4e75c9;
+                --opacity: #4e75c9bf;
             }
 
             button {
                 appearance: none;
                 display: grid;
                 place-content: center;
-                min-width: 2rem;
-                background-color: #203e7a;
+                min-width: 1.5rem;
+                min-height: 1.5rem;
+                background-color: var(--primary);
                 border: none;
                 border-radius: 0.35rem;
-                opacity: 0.5;
+                transition: var(--transition), filter calc(var(--transition) * 2.5);
                 cursor: pointer;
+            }
+
+            button > img {
+                width: 0.75rem;
+                scale: 1;
+                opacity: 0.5;
+                transition: var(--transition);
+                will-change: contents, scale;
+                transform: translateZ(0);
             }
             
             button:hover {
+                background-color: #209520;
+                filter: drop-shadow(0 0 0.35rem #ffffffbf);
+            }
+
+            button:hover > img {
+                scale: 1.5;
                 opacity: 1;
-                transition: 0.2s;
             }
         </style>
     </head>
-    <body data-tauri-drag-region>
+    <body data-tauri-drag-region main></body>
         <button>
-            <img src="../icon/save_white.svg" alt="">
+            <img src="../icon/done.svg" alt="">
         </button>
         <script>
             const { invoke } = window.__TAURI__.tauri

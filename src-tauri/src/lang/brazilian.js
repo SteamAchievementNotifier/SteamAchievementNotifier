@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Alternar a notificação "Agora Rastreando" ao iniciar um jogo`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Atalhos de Notificação",
+                tt: "Defina um atalho de teclado para acionar Notificações de Teste",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Definir um atalho para acionar uma Notificação de Teste para este tipo"
+            },
+            sctabmain: {
+                tt: "Atalho de Notificação Principal"
+            },
+            sctabrare: {
+                tt: "Atalho de Notificação Rara"
+            },
+            sctabplat: {
+                tt: "Atalho de Notificação 100%"
+            },
             screenshotmode: {
                 tt: "Escolha o modo para capturas de tela automáticas de conquistas"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Baixo",
             left: "Esquerda",
             right: "Direita",
-            tracking: "Agora Rastreando"
+            tracking: "Agora Rastreando",
+            inuse: "Em uso por",
+            invalidshortcut: "Atalho inválido"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

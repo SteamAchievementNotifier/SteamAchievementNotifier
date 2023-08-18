@@ -185,7 +185,24 @@ export const translations = () => {
                 elem: `عرض إشعار "تتبع الآن"`,
                 tt: `تبديل إشعار "تتبع الآن" عند بدء تشغيل لعبة`,
                 query: ".sanboxlbl"
-            },            
+            },
+            shortcuts: {
+                elem: "اختصارات الإشعارات",
+                tt: "قم بتعيين اختصار لوحة المفاتيح لتنشيط إشعارات الاختبار",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "تعيين اختصار لتنشيط إشعار اختبار لهذا النوع"
+            },
+            sctabmain: {
+                tt: "اختصار إشعار رئيسي"
+            },
+            sctabrare: {
+                tt: "اختصار إشعار نادر"
+            },
+            sctabplat: {
+                tt: "اختصار إشعار 100٪"
+            },
             screenshotmode: {
                 tt: "اختر وضع اللقطات الشاشة التلقائي للإنجازات"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "أسفل",
             left: "يسار",
             right: "يمين",
-            tracking: "المتابعة الآن"
+            tracking: "المتابعة الآن",
+            inuse: "يستخدم بواسطة",
+            invalidshortcut: "اختصار غير صالح"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

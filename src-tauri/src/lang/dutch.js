@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Schakel de "Nu volgen" melding in/uit bij het starten van een spel`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Meldingskortcuts",
+                tt: "Stel een toetsenbordsnelkoppeling in om Testmeldingen te activeren",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Stel een snelkoppeling in om een testmelding voor dit type te activeren"
+            },
+            sctabmain: {
+                tt: "Hoofdmeldingskoppeling"
+            },
+            sctabrare: {
+                tt: "Zeldzame meldingskoppeling"
+            },
+            sctabplat: {
+                tt: "100% meldingskoppeling"
+            },
             screenshotmode: {
                 tt: "Kies de modus voor automatische prestatiescreenshots"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Omlaag",
             left: "Links",
             right: "Rechts",
-            tracking: "Nu Volgen"
+            tracking: "Nu Volgen",
+            inuse: "In gebruik door",
+            invalidshortcut: "Ongeldige snelkoppeling"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

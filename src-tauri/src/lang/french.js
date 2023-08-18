@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Activer/désactiver la notification "Suivi en cours" lors du lancement d'un jeu`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Raccourcis",
+                tt: "Définir un raccourci clavier pour déclencher des notifications de test",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Définir un raccourci pour déclencher une notification de test pour ce type"
+            },
+            sctabmain: {
+                tt: "Raccourci de notification principal"
+            },
+            sctabrare: {
+                tt: "Raccourci de notification rare"
+            },
+            sctabplat: {
+                tt: "Raccourci de notification à 100%"
+            },
             screenshotmode: {
                 tt: "Choisissez le mode pour les captures d'écran automatiques des réalisations"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Bas",
             left: "Gauche",
             right: "Droite",
-            tracking: "En Cours de Suivi"
+            tracking: "En Cours de Suivi",
+            inuse: "Utilisé par",
+            invalidshortcut: "Invalide"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

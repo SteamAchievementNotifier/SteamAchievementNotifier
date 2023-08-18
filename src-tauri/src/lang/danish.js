@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Skift "Nu Sporings" meddelelsen, når et spil startes`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Notifikationsgenveje",
+                tt: "Indstil en tastaturgenvej til at udløse testnotifikationer",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Indstil en genvej til at udløse en testnotifikation for denne type"
+            },
+            sctabmain: {
+                tt: "Hovednotifikationsgenvej"
+            },
+            sctabrare: {
+                tt: "Sjælden notifikationsgenvej"
+            },
+            sctabplat: {
+                tt: "100% notifikationsgenvej"
+            },
             screenshotmode: {
                 tt: "Vælg tilstanden for automatisk præstationsskærmbilleder"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Ned",
             left: "Venstre",
             right: "Højre",
-            tracking: "Nu Sporing"
+            tracking: "Nu Sporing",
+            inuse: "I brug af",
+            invalidshortcut: "Ugyldig genvej"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

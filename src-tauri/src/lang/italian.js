@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Attiva/disattiva la notifica "In monitoraggio" quando si avvia un gioco`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Scorciatoie Notifica",
+                tt: "Imposta una scorciatoia da tastiera per attivare le Notifiche di Test",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Imposta una scorciatoia per attivare una Notifica di Test per questo tipo"
+            },
+            sctabmain: {
+                tt: "Scorciatoia Notifica Principale"
+            },
+            sctabrare: {
+                tt: "Scorciatoio Notifica Rara"
+            },
+            sctabplat: {
+                tt: "Scorciatoia Notifica 100%"
+            },
             screenshotmode: {
                 tt: "Scegli la modalità per gli screenshot automatici degli achievement"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Giù",
             left: "Sinistra",
             right: "Destra",
-            tracking: "Monitoraggio"
+            tracking: "Monitoraggio",
+            inuse: "In uso da",
+            invalidshortcut: "Scorciatoia non valida"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

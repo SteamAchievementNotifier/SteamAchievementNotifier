@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `"Şu Anda Takip Ediliyor" bildirimini başlatırken aç/kapat`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Bildirim Kısayolları",
+                tt: "Test Bildirimlerini tetiklemek için bir klavye kısayolu belirleyin",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Bu tür için bir Test Bildirimi tetiklemek için bir kısayol belirleyin"
+            },
+            sctabmain: {
+                tt: "Ana Bildirim Kısayolu"
+            },
+            sctabrare: {
+                tt: "Nadir Bildirim Kısayolu"
+            },
+            sctabplat: {
+                tt: "100% Bildirim Kısayolu"
+            },
             screenshotmode: {
                 tt: "Otomatik başarı ekran görüntüleri için mod seçin"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Aşağı",
             left: "Sol",
             right: "Sağ",    
-            tracking: "Şimdi Takip"
+            tracking: "Şimdi Takip",
+            inuse: "Tarafından kullanılıyor",
+            invalidshortcut: "Geçersiz kısayol"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

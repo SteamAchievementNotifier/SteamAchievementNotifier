@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Bật/tắt thông báo "Đang Theo dõi" khi khởi động trò chơi`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Phím tắt thông báo",
+                tt: "Thiết lập phím tắt để kích hoạt Thông báo Kiểm tra",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Thiết lập phím tắt để kích hoạt Thông báo Kiểm tra cho loại này"
+            },
+            sctabmain: {
+                tt: "Phím tắt thông báo chính"
+            },
+            sctabrare: {
+                tt: "Phím tắt thông báo hiếm"
+            },
+            sctabplat: {
+                tt: "Phím tắt thông báo 100%"
+            },
             screenshotmode: {
                 tt: "Chọn chế độ chụp ảnh tự động khi mở khóa thành tựu"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Xuống",
             left: "Trái",
             right: "Phải",
-            tracking: "Đang theo dõi"            
+            tracking: "Đang theo dõi",
+            inuse: "Đang sử dụng bởi",
+            invalidshortcut: "Phím tắt không hợp lệ"      
         }
 
         const btns = ["soundfilelbl","searchbtn"]

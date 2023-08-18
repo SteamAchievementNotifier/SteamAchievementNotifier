@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Přepnout oznámení "Nyní sledování" při spuštění hry`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Zkratky oznámení",
+                tt: "Nastavit klávesovou zkratku pro spouštění testovacích oznámení",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Nastavit zkratku pro spuštění testovacího oznámení tohoto typu"
+            },
+            sctabmain: {
+                tt: "Hlavní zkratka oznámení"
+            },
+            sctabrare: {
+                tt: "Vzácná zkratka oznámení"
+            },
+            sctabplat: {
+                tt: "Zkratka oznámení 100%"
+            },
             screenshotmode: {
                 tt: "Vyberte režim pro automatické snímky obrazovky dosažení"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Dolů",
             left: "Doleva",
             right: "Doprava",
-            tracking: "Nyní Sledování"
+            tracking: "Nyní Sledování",
+            inuse: "Používá",
+            invalidshortcut: "Neplatná zkratka"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

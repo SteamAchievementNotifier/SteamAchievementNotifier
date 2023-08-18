@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `ゲームを起動する際に「現在追跡中」通知を切り替えます`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "通知ショートカット",
+                tt: "テスト通知をトリガーするキーボードショートカットを設定します",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "このタイプのテスト通知をトリガーするショートカットを設定します"
+            },
+            sctabmain: {
+                tt: "メイン通知ショートカット"
+            },
+            sctabrare: {
+                tt: "レア通知ショートカット"
+            },
+            sctabplat: {
+                tt: "100%通知ショートカット"
+            },
             screenshotmode: {
                 tt: "自動実績スクリーンショットのモードを選択します"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "下",
             left: "左",
             right: "右",
-            tracking: "現在の追跡"
+            tracking: "現在の追跡",
+            inuse: "使用中",
+            invalidshortcut: "無効なショートカット"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

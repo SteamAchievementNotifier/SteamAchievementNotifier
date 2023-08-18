@@ -186,6 +186,23 @@ export const translations = () => {
                 tt: `Przełącz powiadomienie "Śledzenie teraz" podczas uruchamiania gry`,
                 query: ".sanboxlbl"
             },
+            shortcuts: {
+                elem: "Skróty powiadomień",
+                tt: "Ustaw skrót klawiszowy, aby wywołać testowe powiadomienia",
+                query: ".sanboxlbl"
+            },
+            scbtn: {
+                tt: "Ustaw skrót, aby wywołać testowe powiadomienie tego typu"
+            },
+            sctabmain: {
+                tt: "Główny skrót powiadomienia"
+            },
+            sctabrare: {
+                tt: "Rzadki skrót powiadomienia"
+            },
+            sctabplat: {
+                tt: "Skrót powiadomienia 100%"
+            },
             screenshotmode: {
                 tt: "Wybierz tryb automatycznych zrzutów ekranu dla osiągnięć"
             },
@@ -611,7 +628,9 @@ export const translations = () => {
             down: "Dół",
             left: "Lewo",
             right: "Prawo",
-            tracking: "Obecnie śledzenie"        
+            tracking: "Obecnie śledzenie",
+            inuse: "W użyciu przez",
+            invalidshortcut: "Nieprawidłowy skrót"     
         }
 
         const btns = ["soundfilelbl","searchbtn"]

@@ -54,7 +54,7 @@ fn get_steam_path() -> serde_json::Value {
         let home = match env::var("HOME") {
             Ok(val) => val,
             Err(_) => {
-                return serde_json::Value::String(String::from("Unable to retrieve HOME environmental variable!"));
+                return serde_json::Value::String(String::from("Unable to resolve HOME environmental variable!"));
             }
         };
 
@@ -91,6 +91,7 @@ fn start_san(window: Window) {
     let mut pollrate: u64 = 1000;
     let should_break = Arc::new(AtomicBool::new(false));
     
+    #[cfg(target_os="windows")]
     spawn(move || {
         let mut fnappid: u32 = 0;
         let mut running = false;
@@ -113,7 +114,6 @@ fn start_san(window: Window) {
                 }
             });
 
-            #[cfg(target_os="windows")]
             match get_reg_value::<u32>("SOFTWARE\\Valve\\Steam","RunningAppID") {
                 Ok(appid) if appid != 0 => {
                     if !running {
@@ -171,6 +171,9 @@ fn start_san(window: Window) {
             window.unlisten(handler);
         }
     });
+
+    #[cfg(target_os="linux")]
+    println!("Linux");
 }
 
 static mut WINSTATE: bool = true;
@@ -323,15 +326,37 @@ fn desktop_shortcut(path: String) {
 }
 
 fn check_dir_for_file(file: &str) -> Result<String, String> {
-    #[cfg(target_os="windows")]
-    let localappdata = match env::var("LOCALAPPDATA") {
-        Ok(val) => val,
-        Err(_) => {
-            return Err(String::from("Unable to retrieve LOCALAPPDATA environmental variable!"));
-        }
-    };
+    let file_path;
 
-    let file_path = Path::new(&localappdata).join("com.steamachievementnotifier.jackson0ne").join(file);
+    #[cfg(target_os="windows")]
+    {
+        let localappdata = match env::var("LOCALAPPDATA") {
+            Ok(val) => val,
+            Err(_) => {
+                return Err(String::from("Unable to resolve LOCALAPPDATA environmental variable!"));
+            }
+        };
+
+        file_path = Path::new(&localappdata)
+        .join("com.steamachievementnotifier.jackson0ne")
+        .join(file);
+    }
+
+    #[cfg(target_os="linux")]
+    {
+        let home = match env::var("HOME") {
+            Ok(val) => val,
+            Err(_) => {
+                return Err(String::from("Unable to resolve HOME environmental variable!"));
+            }
+        };
+
+        file_path = Path::new(&home)
+        .join(".local")
+        .join("share")
+        .join("com.steamachievementnotifier.jackson0ne")
+        .join(file);
+    }
 
     if file_path.exists() {
         Ok(String::from(format!("{}",file_path.display())))
@@ -367,8 +392,8 @@ fn available_monitors() -> Vec<serde_json::Value> {
 
 #[tauri::command]
 fn take_screenshot(handle: tauri::AppHandle, window: Window, id: &str) {
-    let appcachedir = handle.path_resolver().app_cache_dir().expect("Unable to resolve app cache dir!");
-    let file_path = Path::new(&appcachedir).join("src.png");
+    let applocaldatadir = handle.path_resolver().app_local_data_dir().expect("Unable to resolve appLocalDataDir()!");
+    let file_path = Path::new(&applocaldatadir).join("src.png");
 
     let id: u32 = id.parse().expect("Unable to parse \"id\" &str!");
     let screens = Screen::all().unwrap();
@@ -420,8 +445,8 @@ fn press_key(key: &str) {
 }
 
 fn setup_logger(app: &tauri::App) -> Result<(), Box<dyn std::error::Error>> {
-    let appcachedir = app.path_resolver().app_cache_dir().expect("Unable to retrieve appCacheDir!");
-    let log_path = Path::new(&appcachedir).join("rust.log");
+    let applocaldatadir = app.path_resolver().app_local_data_dir().expect("Unable to resolve appLocalDataDir!");
+    let log_path = Path::new(&applocaldatadir).join("rust.log");
     let log_file = fs::File::create(log_path).expect("Failed to create log file");
     let logger_config = fern::Dispatch::new()
     .format(|out, message, record| {

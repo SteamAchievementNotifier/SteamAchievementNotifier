@@ -1,3 +1,5 @@
+// !!! TODO: Check whether changing the Product Name in "tauri.conf.json" breaks anything on current installs
+
 const { os, path, dialog, fs, shell } = window.__TAURI__
 const { invoke, convertFileSrc } = window.__TAURI__.tauri
 const { exists, readTextFile, removeFile, readDir, createDir, removeDir, writeTextFile, copyFile } = window.__TAURI__.fs
@@ -16,7 +18,6 @@ const privacysettings = "steam://openurl/https://steamcommunity.com/id/undefined
 
 async function GetBaseDimensions() {
     const base = {}
-    // const dir = await readDir(await path.join("SteamAchievementNotifier","src","notify","presets"), { dir: fs.BaseDirectory.LocalData })
     const dir = await readDir(await path.join("src","notify","presets"), { dir: fs.BaseDirectory.Resource })
 
     const filesarr = await Promise.all(dir.map(async subfolder => await readDir(await path.resolve(subfolder.path))))
@@ -49,8 +50,8 @@ GetBaseDimensions().then(base => window.base = base)
 
 async function CreateTempDir() {
     const san = {
-        cachepath: await path.join(await path.appCacheDir(),"cache"),
-        avatarpath: await path.join(await path.appCacheDir(),"avatars")
+        cachepath: await path.join(await path.appLocalDataDir(),"cache"),
+        avatarpath: await path.join(await path.appLocalDataDir(),"avatars")
     }
 
     window.cachepath = await san.cachepath
@@ -223,7 +224,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         log.write("error",event.payload.msg)
     })
 
-    listen("ssready", async () => window.dispatchEvent(new CustomEvent("ss", { detail: convertFileSrc(await path.join(await path.appCacheDir(),"src.png")) })))
+    listen("ssready", async () => window.dispatchEvent(new CustomEvent("ss", { detail: convertFileSrc(await path.join(await path.appLocalDataDir(),"src.png")) })))
 
     listen("coords", event => {
         const { x, y } = event.payload.msg

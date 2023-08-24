@@ -146,7 +146,6 @@ function GetSoundFile(type) {
         ValidateAudioFile(config.customisation[type][mode === "file" ? "soundfile" : "sounddir"],mode,translations.nolocate)
         .then(res => resolve(res))
         .catch(err => reject(err))
-        // : resolve([await path.resolve(await path.localDataDir(),"SteamAchievementNotifier","src","sound","notify.wav")])
         : resolve([await path.resolve(await path.resourceDir(),"src","sound","notify.wav")])
     })
 }
@@ -160,7 +159,7 @@ function PreviewSound() {
     
         previewbtn.setAttribute("state","stop")
         previewbtn.onclick = () => ResetAudio()
-    
+
         audio.src = convertFileSrc(res[sanhelper.random(res.length)])
         audio.volume = config.customisation[type].volume / 10
         audio.play()
@@ -171,7 +170,6 @@ function PreviewSound() {
     .then(res => PlaySound(res))
     .catch(async err => {
         log.write("error",`Unable to play "${err.path}": ${err.msg}`)
-        // PlaySound([await path.resolve(await path.localDataDir(),"SteamAchievementNotifier","src","sound","notify.wav")])
         PlaySound([await path.resolve(await path.resourceDir(),"src","sound","notify.wav")])
     })
 }

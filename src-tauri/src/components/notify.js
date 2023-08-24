@@ -86,7 +86,7 @@ async function BuildNotify({data,type,audio}) {
         desc: type === "plat" ? translations.allachievements : data?.desc || translations.achievementdesc,
         icon: (data && custom.usegameicon && convertFileSrc(gameicon)) || (data?.icon && convertFileSrc(data.icon) || (custom.usegameicon ? "../img/gameicon.png" : (type === "plat" ? custom.useplaticon && custom.platicon || "../img/ribbon.svg" : "../img/achicon.png"))),
         audio: data?.audio ?? audio ?? "",
-        screenshot: [config.screenshotmode !== "off" && config.displayscreenshot, data && convertFileSrc(await path.join(await path.appCacheDir(),"src.png")) || "../img/santextlogobg.png"],
+        screenshot: [config.screenshotmode !== "off" && config.displayscreenshot, data && convertFileSrc(await path.join(await path.appLocalDataDir(),"src.png")) || "../img/santextlogobg.png"],
         ovpath: user ? `${config.ovpath}\\${user.replace(/[\\/:"*?<>|]+/g,"_")}\\${gameName ? gameName.replace(/[\\/:"*?<>|]+/g,"_") : null}` : null,
         nvda: config.nvda,
         debug: config.debug,

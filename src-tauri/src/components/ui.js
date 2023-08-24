@@ -331,9 +331,9 @@ window.addEventListener("DOMContentLoaded", async () => config.desktop && !await
 
 async function ToggleDataFile(filename) {
     try {
-        return config[filename] ? await writeTextFile(await path.join(await path.appCacheDir(),filename),"") : await removeFile(await path.join(await path.appCacheDir(),filename))
+        return config[filename] ? await writeTextFile(await path.join(await path.appLocalDataDir(),filename),"") : await removeFile(await path.join(await path.appLocalDataDir(),filename))
     } catch (err) {
-        return log.write("error",`Error toggling "${filename}" in ${await path.appCacheDir()}: ${err}`)
+        return log.write("error",`Error toggling "${filename}" in ${await path.appLocalDataDir()}: ${err}`)
     }
 }
 

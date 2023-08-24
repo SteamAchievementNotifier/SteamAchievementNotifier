@@ -237,17 +237,20 @@ window.addEventListener("config", async event => {
 // - Add "recenter" option
 export async function CreateExtWin(type = GetTabType()) {
     const { width, height } = base[config.customisation[type].preset]
-
+    
+    // Removed "skipTaskbar", as this causes blank window capture in OBS
     const extwin = new WebviewWindow("extwin",{
         width: width * (config.customisation[type].scale / 100),
         height: height * (config.customisation[type].scale / 100),
+        title: `Steam Achievement Notifier (V${await sanhelper.version()}) - External Window`,
         alwaysOnTop: true,
         fullscreen: false,
         focus: false,
         transparent: true,
         resizable: false,
+        minimizable: false,
+        maximizable: false,
         decorations: false,
-        skipTaskbar: true,
         url: "./components/extwin.html"
     })
 

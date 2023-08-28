@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: "Noto Sans Medium";
     src: url("../../../fonts/NotoSans-Medium.ttf");
 }
@@ -6,7 +6,7 @@
 @font-face {
     font-family: "Noto Sans Light";
     src: url("../../../fonts/NotoSans-Light.ttf");
-}
+} */
 
 html {
     overflow: hidden;

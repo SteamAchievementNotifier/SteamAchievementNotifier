@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
     font-family: "Titillium Web Regular";
     src: url("../../../fonts/TitilliumWeb-Regular.ttf");
-}
+} */
 
 body {
     --dynbr: var(--br) !important;

@@ -166,7 +166,13 @@ export function GetTabType() {
 
 window.GetTabType = GetTabType
 
-export async function LoadIFrame(msg,custom,html) {
+export async function GetHREF(preset) {
+    return convertFileSrc(await path.join(await path.resourceDir(),"src","notify","presets",preset,"styles.css"))
+}
+
+window.GetHREF = GetHREF
+
+export async function LoadIFrame(msg,custom,html,href,fonts) {
     const type = !arguments.length ? GetTabType() : null
     const iframe = document.getElementsByTagName("iframe")[0]
     const divs = ["mainwrapper","screenshotwrapper"]
@@ -182,10 +188,10 @@ export async function LoadIFrame(msg,custom,html) {
     divs.forEach(div => iframe.contentWindow.document.querySelector(`.${div}`).style.animation = "none")
 
     if (!arguments.length) {
-        const { msg, custom } = await BuildNotify({type})
+        const { msg, custom, href, fonts } = await BuildNotify({type})
         const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
 
-        iframe.contentWindow.postMessage({ msg: msg, optional: { custom: custom, html: html } })
+        iframe.contentWindow.postMessage({ msg, optional: { custom, html, href, fonts } })
 
         CheckIfPortrait()
         
@@ -197,7 +203,7 @@ export async function LoadIFrame(msg,custom,html) {
         const msgcopy = { ...msg }
         msgcopy.extwin = true
 
-        iframe.contentWindow.postMessage({ msg: msgcopy, optional: { custom: custom, html: html } })
+        iframe.contentWindow.postMessage({ msg: msgcopy, optional: { custom, html, href, fonts } })
     }
 }
 

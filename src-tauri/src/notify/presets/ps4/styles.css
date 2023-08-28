@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: "Source Sans Pro Light";
     src: url("../../../fonts/SourceSansPro-Light.ttf");
 }
@@ -6,7 +6,7 @@
 @font-face {
     font-family: "Source Sans Pro ExtraLight";
     src: url("../../../fonts/SourceSansPro-ExtraLight.ttf");
-}
+} */
 
 body[noanim] > .notifywrapper,
 body[noanim] > .notifywrapper::before,
@@ -221,7 +221,7 @@ body[bottomright] .iconwrapper {
     grid-row-start: 1;
     width: calc(3vmax * var(--fontsize));
     height: calc(3vmax * var(--fontsize));
-    -webkit-mask-image: url("../../../img/sanlogotrophy.svg");
+    -webkit-mask-image: var(--sanlogotrophy);
     -webkit-mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
     background: linear-gradient(to right,var(--percentcolor) 30%,var(--percentaccent),var(--percentcolor) 70%);

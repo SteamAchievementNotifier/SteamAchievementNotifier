@@ -2,15 +2,25 @@ document.addEventListener("contextmenu", event => event.preventDefault())
 
 const transition = 100
 
-async function SetNotifyContent(msg,custom,html) {
+async function SetNotifyContent(msg,custom,html,href,fonts) {    
     return new Promise(async resolve => {
         document.querySelector(".mainwrapper").innerHTML = null
+
+        const fontface = fonts.map(font => {
+            return `@font-face { font-family: "${font.fontname}"; src: url("${font.fontfile}"); }`
+        })
+
+        const style = document.createElement("style")
+        style.textContent = fontface.join("\n")
+
+        document.head.appendChild(style)
 
         const link = document.createElement("link")
         link.id = "styles"
         link.rel = "stylesheet"
-        link.href = `./presets/${custom.preset}/styles.css`
-
+        // link.href = `./presets/${custom.preset}/styles.css`  
+        link.href = href
+        
         document.head.appendChild(link)
 
         document.querySelector(".mainwrapper").insertAdjacentHTML("beforeend",html)
@@ -92,7 +102,8 @@ async function SetNotifyContent(msg,custom,html) {
             ["--textoutline",textfx],
             ["--dropshadow",custom.textoutline ? (`drop-shadow(0 0 0.025rem ${custom.outlinecolor}) `).repeat(3) : custom.textshadow ? `drop-shadow(0 0 0.175rem ${custom.shadowcolor})` : `none`],
             ["--iconbr",`${custom.iconroundness * 12.5}%`],
-            ["--brightness",`${custom.brightness}%`]
+            ["--brightness",`${custom.brightness}%`],
+            ["--sanlogotrophy",`url("${convertFileSrc(await path.join(await path.resourceDir(),"src","img","sanlogotrophy.svg"))}"`]
         ])
         
         customisations.forEach((value,prop) => document.body.style.setProperty(prop,value))
@@ -114,17 +125,21 @@ async function SetNotifyContent(msg,custom,html) {
 }
 
 if (window === window.top) {
-    const { invoke } = window.__TAURI__.tauri
+    const { path } = window.__TAURI__
+    const { invoke, convertFileSrc } = window.__TAURI__.tauri
     const { listen } = window.__TAURI__.event
     const { writeText } = window.__TAURI__.clipboard
 
+    window.path = path
+    window.convertFileSrc = convertFileSrc
+    
     window.addEventListener("DOMContentLoaded", () => invoke("ipc", { eventname: "webviewready", payload: {} }), { once: true })
-
-    listen("achievement", event => {
+    
+    listen("achievement", async event => {
         const msg = event.payload.msg
-        const { custom, html } = event.payload.optional
+        const { custom, html, href, fonts } = event.payload.optional
 
-        SetNotifyContent(msg,custom,html)
+        await SetNotifyContent(msg,custom,html,href,fonts)
         .catch(err => invoke("ipc", { eventname: "notifyerror", payload: { msg: typeof err === "object" ? err.message : err } }))
         .finally(() => setTimeout(() => {
             msg.nvda && writeText(`${msg.unlockmsg}, ${msg.title}, ${msg.desc}`)
@@ -144,6 +159,12 @@ if (window === window.top) {
         }
     })
 } else {
+    const { path } = window.top.__TAURI__
+    const { convertFileSrc } = window.top.__TAURI__.tauri
+
+    window.path = path
+    window.convertFileSrc = convertFileSrc
+
     window.addEventListener("message", async event => {
         document.getElementById("styles") && await new Promise(resolve => {
             document.getElementById("styles").remove()
@@ -152,13 +173,13 @@ if (window === window.top) {
         })
 
         const msg = event.data.msg
-        const { custom, html } = event.data.optional
+        const { custom, html, href, fonts } = event.data.optional
 
         !msg.overlay && !msg.extwin ? custom.scale = 100 : null
         !msg.overlay ? (document.body.style.backgroundColor = msg.extwin ? "transparent" : "#101010") : document.body.setAttribute("noanim","")
         // msg.extwin && window.top.document.body.setAttribute("playing","")
 
-        await SetNotifyContent(msg,custom,html)
+        await SetNotifyContent(msg,custom,html,href,fonts)
         .catch(err => console.log(typeof err === "object" ? err.message : err))
 
         document.querySelector(".mainwrapper").addEventListener("animationend", event => {

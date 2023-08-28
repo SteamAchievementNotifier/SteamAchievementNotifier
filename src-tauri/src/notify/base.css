@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: "Titillium Web";
     src: url("../fonts/TitilliumWeb-SemiBold.ttf");
 }
@@ -6,7 +6,7 @@
 @font-face {
     font-family: "Roboto";
     src: url("../fonts/Roboto-Medium.ttf");
-}
+} */
 
 * {
     box-sizing: border-box;

@@ -12,10 +12,6 @@ const { unregister } = window.__TAURI__.globalShortcut
 // Setting "id/undefined" here will default to the current user's Privacy Settings page in Steam
 const privacysettings = "steam://openurl/https://steamcommunity.com/id/undefined/edit/settings"
 
-// function GetTabType() {
-//     return document.querySelector(".mainwrapper").getAttribute("type")
-// }
-
 async function GetBaseDimensions() {
     const base = {}
     const dir = await readDir(await path.join("src","notify","presets"), { dir: fs.BaseDirectory.Resource })
@@ -29,12 +25,27 @@ async function GetBaseDimensions() {
             function GetBaseValues(html) {
                 const parsed = new window.DOMParser().parseFromString(html,"text/html")
                 const basetag = parsed.querySelector("base")
+                const metatag = parsed.querySelector("meta.fonts")
 
                 base[dir[i].name].width = basetag ? parseInt(basetag.getAttribute("width")) : 300
                 base[dir[i].name].height = basetag ? parseInt(basetag.getAttribute("height")) : 50
                 basetag && basetag.hasAttribute("offset") ? base[dir[i].name].offset = parseInt(basetag.getAttribute("offset")) : null
 
                 !basetag && log.write("error",`"base" element for notification type "${dir[i].name}" not present in "${file.path}". Using default values [300(H) x 50(W)]`)
+
+                if (metatag) {
+                    const fonts = JSON.parse(metatag.getAttribute("data-fonts"))
+                    const fontsarr = []
+
+                    for (const font of fonts) {
+                        const { fontname, fontfile } = font
+                        fontsarr.push({ fontname, fontfile })
+                    }
+
+                    base[dir[i].name].fonts = fontsarr
+                } else {
+                    dir[i].name !== "[TEMPLATE]" && log.write("error",`"meta" tag not present in ${dir[i].name}`)
+                }
             }
 
             const ext = await path.extname(file.path)

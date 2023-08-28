@@ -84,9 +84,9 @@ async function BuildNotify({data,type,audio}) {
         unlockmsg: type === "plat" ? (custom.customtext || translations.gamecomplete) : `${custom.usegametitle ? gameName || translations.gametitle : custom.customtext || translations.achievementunlocked}${(data?.type === "rare" || data && config.allpercent) ? ` (${percentage}%)` : type === "rare" ? ` (0.1%)` : (config.allpercent && type !== "plat") ? ` (50%)` : ""}`,
         title: type !== "plat" ? data?.title || translations.achievementtitle : gameName || translations.gametitle,
         desc: type === "plat" ? translations.allachievements : data?.desc || translations.achievementdesc,
-        icon: (data && custom.usegameicon && convertFileSrc(gameicon)) || (data?.icon && convertFileSrc(data.icon) || (custom.usegameicon ? "../img/gameicon.png" : (type === "plat" ? custom.useplaticon && custom.platicon || "../img/ribbon.svg" : "../img/achicon.png"))),
+        icon: (data && custom.usegameicon && convertFileSrc(gameicon)) || (data?.icon && convertFileSrc(data.icon) || (custom.usegameicon ? convertFileSrc(await path.join(await path.resourceDir(),"src","img","gameicon.png")) : (type === "plat" ? custom.useplaticon && custom.platicon || convertFileSrc(await path.join(await path.resourceDir(),"src","img","ribbon.svg")) : convertFileSrc(await path.join(await path.resourceDir(),"src","img","achicon.png"))))),
         audio: data?.audio ?? audio ?? "",
-        screenshot: [config.screenshotmode !== "off" && config.displayscreenshot, data && convertFileSrc(await path.join(await path.appLocalDataDir(),"src.png")) || "../img/santextlogobg.png"],
+        screenshot: [config.screenshotmode !== "off" && config.displayscreenshot, data && convertFileSrc(await path.join(await path.appLocalDataDir(),"src.png")) || convertFileSrc(await path.join(await path.resourceDir(),"src","img","santextlogobg.png"))],
         ovpath: user ? `${config.ovpath}\\${user.replace(/[\\/:"*?<>|]+/g,"_")}\\${gameName ? gameName.replace(/[\\/:"*?<>|]+/g,"_") : null}` : null,
         nvda: config.nvda,
         debug: config.debug,
@@ -95,10 +95,43 @@ async function BuildNotify({data,type,audio}) {
         defaulticons: defaulticons
     }
 
-    return { msg, custom }
+    const href = await GetHREF(custom.preset)
+
+    let fonts = []
+
+    try {
+        async function ConvertFontSrc(font) {
+            return convertFileSrc(await path.join(await path.resourceDir(),"src","fonts",`${font}`))
+        }
+
+        const defaultfonts = [
+            { fontname: "Titillium Web", fontfile: await ConvertFontSrc("TitilliumWeb-SemiBold.ttf") },
+            { fontname: "Roboto", fontfile: await ConvertFontSrc("Roboto-Medium.ttf") }
+        ]
+
+        defaultfonts.forEach(font => fonts.push(font))
+
+        for (const font of base[custom.preset].fonts) {
+            const { fontname, fontfile } = font
+            fonts.push({
+                fontname: fontname,
+                fontfile: await ConvertFontSrc(fontfile)
+            })
+        }
+    } catch (err) {
+        log.write("error",`No font data found for ${custom.preset}: ${err}`)
+        fonts.push({
+            fontname: "Titillium Web SemiBold",
+            fontfile: convertFileSrc(await path.join(await path.resourceDir(),"src","fonts","TitilliumWeb-SemiBold.ttf"))
+        })
+    }
+
+    return { msg, custom, href, fonts }
 }
 
-async function CreateSSWin(event,msg,custom,html,preview) {
+async function CreateSSWin(event,msg,custom,html,href,fonts,preview) {
+    CloseWindowByLbl("ss")
+
     const monitor = monitors.find(monitor => monitor.id === config.monitor)
 
     const ss = new WebviewWindow("ss", {
@@ -119,21 +152,26 @@ async function CreateSSWin(event,msg,custom,html,preview) {
     // Create a deep copy of the msg arg, due to object referencing overwriting the original object for all other functions
     // TODO: Also need similiar behaviour when some presets (such as xQjan) have shorter notifications that don't show the `msg` element
     const msgcopy = { ...msg }
-    msgcopy.title += (msgcopy.type === "rare" || msgcopy.hasdata && config.allpercent) ? ` (${msgcopy.percent}%)` : msgcopy.type === "rare" ? ` (0.1%)` : (config.allpercent && msgcopy.type !== "plat") ? ` (50%)` : ""
+
+    function GetPercent() {
+        return (msgcopy.type === "rare") ? ` (${msgcopy.hasdata ? msgcopy.percent : 0.1}%)` : (msgcopy.type === "main" && config.allpercent) ? ` (${msgcopy.hasdata ? msgcopy.percent : 50}%)` : ""
+    }
+    
+    msgcopy.title += GetPercent()
     
     ss.once("tauri://created", () => {
         ss.setIgnoreCursorEvents(!preview)
-        once("ssready", () => setTimeout(() => invoke("ipc", { eventname: "ss", payload: { msg: event.detail, optional: { msg: msgcopy, custom: custom, html: html, preview: preview } } }),100))
+        once("ssready", () => setTimeout(() => invoke("ipc", { eventname: "ss", payload: { msg: event.detail, optional: { msg: msgcopy, custom, html, href, fonts, preview } } }),100))
     })
     ss.once("tauri://error", err => log.write("error",`"${err.windowLabel}" could not be created: ${err.payload}`))
 }
 
 async function ShowOvPreview() {
     const type = GetTabType()
-    const { msg, custom } = await BuildNotify({type})
+    const { msg, custom, href, fonts } = await BuildNotify({type})
     const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
 
-    CreateSSWin({ detail: "../img/santextlogobg.png" },msg,custom,html,true)
+    CreateSSWin({ detail: convertFileSrc(await path.join(await path.resourceDir(),"src","img","santextlogobg.png")) },msg,custom,html,href,fonts,true)
 }
 
 // !!! When moving the notification window to another monitor and setting "decorations: false", the extra space normally taken up by the now hidden title bar is added to the window, resulting in the notification area being bigger than intended
@@ -205,11 +243,11 @@ async function Notify(data) {
                         const res = await GetSoundFile(type)
                         const audio = convertFileSrc(res[sanhelper.random(res.length)])
 
-                        const { msg, custom } = await BuildNotify({data,type,audio})
+                        const { msg, custom, href, fonts } = await BuildNotify({data,type,audio})
                         const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
 
                         function ShiftNotify() {
-                            invoke("ipc", { eventname: "achievement", payload: { msg: msg, optional: { custom: custom, html: html } } })
+                            invoke("ipc", { eventname: "achievement", payload: { msg, optional: { custom, html, href, fonts } } })
                             NotifyPosition(notify,type,queue[0].offset)
 
                             once("startprogress", () => {
@@ -223,7 +261,7 @@ async function Notify(data) {
                         if (config.screenshotmode !== "off") {
                             window.addEventListener("ss", async event => {
                                 await new Promise(async resolve => {
-                                    config.screenshotmode === "overlay" ? CreateSSWin(event,msg,custom,html,false) : await invoke("press_key", { key: config.keybind })
+                                    config.screenshotmode === "overlay" ? CreateSSWin(event,msg,custom,html,href,fonts,false) : await invoke("press_key", { key: config.keybind })
                                     setTimeout(resolve,50)
                                 })
 
@@ -237,7 +275,7 @@ async function Notify(data) {
                         const { width, height } = base[config.customisation[type].preset]
                         extwin && await extwin.setSize(new LogicalSize(width * (config.customisation[type].scale / 100),height * (config.customisation[type].scale / 100)))
 
-                        invoke("ipc", { eventname: "notifyext", payload: { msg: msg, optional: { custom: custom, html: html } } })
+                        invoke("ipc", { eventname: "notifyext", payload: { msg, optional: { custom, html, href, fonts } } })
                     })
 
                     once("notifyclosed", () => {

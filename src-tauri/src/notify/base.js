@@ -2,18 +2,16 @@ document.addEventListener("contextmenu", event => event.preventDefault())
 
 const transition = 100
 
-async function SetNotifyContent(msg,custom,html,href,fonts) {    
+async function SetNotifyContent(msg,custom,html,href,fonts) {
     return new Promise(async resolve => {
         document.querySelector(".mainwrapper").innerHTML = null
 
         const fontface = fonts.map(font => {
-            return `@font-face { font-family: "${font.fontname}"; src: url("${font.fontfile}"); }`
+            return `@font-face { font-family: "${font.fontname}"; src: url("${convertFileSrc(font.fontfile)}"); }`
         })
 
-        const style = document.createElement("style")
+        let style = document.createElement("style")
         style.textContent = fontface.join("\n")
-
-        document.head.appendChild(style)
 
         const link = document.createElement("link")
         link.id = "styles"
@@ -103,9 +101,12 @@ async function SetNotifyContent(msg,custom,html,href,fonts) {
             ["--dropshadow",custom.textoutline ? (`drop-shadow(0 0 0.025rem ${custom.outlinecolor}) `).repeat(3) : custom.textshadow ? `drop-shadow(0 0 0.175rem ${custom.shadowcolor})` : `none`],
             ["--iconbr",`${custom.iconroundness * 12.5}%`],
             ["--brightness",`${custom.brightness}%`],
-            ["--sanlogotrophy",`url("${convertFileSrc(await path.join(await path.resourceDir(),"src","img","sanlogotrophy.svg"))}"`]
+            ["--sanlogotrophy",`url("${convertFileSrc(await path.join(await path.resourceDir(),"src","img","sanlogotrophy.svg"))}")`]
         ])
-        
+
+        custom.customfont ? fonts.forEach(font => font.fontfile === custom.customfont ? style.textContent += `\n#msg,#title,#desc { font-family: "${font.fontname}" !important; }` : null) : null
+        document.head.appendChild(style)
+
         customisations.forEach((value,prop) => document.body.style.setProperty(prop,value))
 
         document.body.toggleAttribute("maxrnd",custom.roundness === 4)

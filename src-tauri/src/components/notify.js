@@ -100,23 +100,33 @@ async function BuildNotify({data,type,audio}) {
     let fonts = []
 
     try {
-        async function ConvertFontSrc(font) {
-            return convertFileSrc(await path.join(await path.resourceDir(),"src","fonts",`${font}`))
+        async function SetFontSrc(font) {
+            return await path.join(await path.resourceDir(),"src","fonts",`${font}`)
         }
 
         const defaultfonts = [
-            { fontname: "Titillium Web", fontfile: await ConvertFontSrc("TitilliumWeb-SemiBold.ttf") },
-            { fontname: "Roboto", fontfile: await ConvertFontSrc("Roboto-Medium.ttf") }
+            { fontname: "Titillium Web", fontfile: await SetFontSrc("TitilliumWeb-SemiBold.ttf") },
+            { fontname: "Roboto", fontfile: await SetFontSrc("Roboto-Medium.ttf") }
         ]
 
         defaultfonts.forEach(font => fonts.push(font))
 
-        for (const font of base[custom.preset].fonts) {
-            const { fontname, fontfile } = font
+        if (custom.customfont) {
+            const basename = await path.basename(custom.customfont)
+            const ext = await path.extname(basename)
+
             fonts.push({
-                fontname: fontname,
-                fontfile: await ConvertFontSrc(fontfile)
+                fontname: basename.replace(`.${ext}`,""),
+                fontfile: custom.customfont
             })
+        } else {
+            for (const font of base[custom.preset].fonts) {
+                const { fontname, fontfile } = font
+                fonts.push({
+                    fontname: fontname,
+                    fontfile: await SetFontSrc(fontfile)
+                })
+            }
         }
     } catch (err) {
         log.write("error",`No font data found for ${custom.preset}: ${err}`)

@@ -50,6 +50,7 @@ for (const type in configtemplate.customisation) {
         bgimg: "",
         brightness: 100,
         roundness: 1,
+        customfont: "",
         fontsize: 100,
         opacity: 100,
         bgonly: false,

@@ -335,6 +335,14 @@ export const translations = () => {
                 tt: "Show the title of the current game in the notification",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Custom Font",
+                tt: "Load a custom font file to apply to all text elements within the notification",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Reset to default font"
+            },
             style: {
                 elem: "Style",
                 query: `.sanboxtitle > label`

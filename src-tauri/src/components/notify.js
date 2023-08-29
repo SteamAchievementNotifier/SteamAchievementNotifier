@@ -90,7 +90,7 @@ async function BuildNotify({data,type,audio}) {
         ovpath: user ? `${config.ovpath}\\${user.replace(/[\\/:"*?<>|]+/g,"_")}\\${gameName ? gameName.replace(/[\\/:"*?<>|]+/g,"_") : null}` : null,
         nvda: config.nvda,
         debug: config.debug,
-        percent: percentage || (GetTabType() === "main" ? 50 : 0.1),
+        percent: percentage || (type === "main" ? 50 : 0.1),
         rarity: config.rarity,
         defaulticons: defaulticons
     }
@@ -129,9 +129,9 @@ async function BuildNotify({data,type,audio}) {
             }
         }
     } catch (err) {
-        log.write("error",`No font data found for ${custom.preset}: ${err}`)
+        log.write("error",`Error loading font for "${custom.preset}": ${err}`)
         fonts.push({
-            fontname: "Titillium Web SemiBold",
+            fontname: "Titillium Web",
             fontfile: convertFileSrc(await path.join(await path.resourceDir(),"src","fonts","TitilliumWeb-SemiBold.ttf"))
         })
     }

@@ -73,9 +73,11 @@
                         <input type="checkbox" id="usegametitle">
                     </div>
                     <div class="sanboxoption">
-                        <button id="fontdeletebtn"></button>
+                        <button id="fontdeletebtn" onclick="DeleteFont()"></button>
                         <label class="sanboxlbl"></label>
-                        <button id="customfont">C:/Windows/SomeFont.ttf</button>
+                        <button id="customfont" onclick="SelectFont()">
+                            <label class="sanboxlbl"></label>
+                        </button>
                     </div>
                 </div>
             </div>

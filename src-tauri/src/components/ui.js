@@ -537,11 +537,12 @@ async function LoadConfig(menu) {
         document.getElementById("apprevnum").textContent = await getVersion()
         document.querySelector("#scbtn > label").textContent = config.customisation[type].shortcut
     }
-
+    
     if (menu === "customiser") {
         document.querySelector("#bgimgbtn > img").src = config.customisation[type].bgimg || "../img/sanimgbg.png"
         document.querySelector("#customiconbtn > img").src = config.customisation[type].customicon || (defaulticons[config.customisation[type].preset] || "../img/steamlogonew.svg")
         document.querySelector("#platiconbtn > img") ? document.querySelector("#platiconbtn > img").src = config.customisation[type].platicon || "../img/ribbon.svg" : null
+        document.querySelector("#customfont > label").textContent = config.customisation[type].customfont || translations.nofont
         LoadIFrame()
     }
 
@@ -838,4 +839,47 @@ function CloseWindowByLbl(lbl) {
     extwin && invoke("ipc", { eventname: "save_state", payload: {} })
 
     getAll().forEach(win => win.label === lbl && win.close())
+}
+
+const fontformats = ["ttf","otf","woff","woff2"]
+
+async function SelectFont() {
+    const type = GetTabType()
+    const customfontlbl = document.querySelector("#customfont > label")
+    
+    dialog.open({
+        directory: false,
+        title: `Steam Achievement Notifier (V${await sanhelper.version()}) - ${translations.fontselectdialog}`,
+        multiple: false,
+        filters: [{
+            name: "Font",
+            extensions: fontformats
+        }]
+    })
+    .then(res => {
+        if (res) {
+            return new Promise(async resolve => {
+                sanhelper.write({config},["customisation",type,"customfont"],res)
+                resolve()
+            })
+            .catch(err => {
+                sanhelper.write({config},["customisation",type,"customfont"],"")
+                throw new Error(err)
+            })
+            .finally(() => {
+                customfontlbl.textContent = config.customisation[type].customfont
+                LoadIFrame()
+            })
+        }
+    })
+    .catch(err => log.write("error",err))
+}
+
+function DeleteFont() {
+    const type = GetTabType()
+    const customfontlbl = document.querySelector("#customfont > label")
+
+    sanhelper.write({config},["customisation",type,"customfont"],"")
+    customfontlbl.textContent = config.customisation[type].customfont || translations.nofont
+    LoadIFrame()
 }

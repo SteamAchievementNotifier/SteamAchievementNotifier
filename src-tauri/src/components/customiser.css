@@ -33,7 +33,7 @@ input[type="number"] {
 
 .customisertab > .sanboxlbl,
 .sanboxtitle > label,
-.customiserwrapper .sanboxoption:has(input:not([type="checkbox"]),select,div > button) > label,
+.customiserwrapper .sanboxoption:has(input:not([type="checkbox"]),select,div > button,button:not(:nth-child(1))) > label,
 .sanboxoption:has(#overlayposdropdown,#ovpathbtn,#monitor) > label {
     cursor: default;
 }
@@ -83,15 +83,24 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 #fontdeletebtn {
-    background: url("../icon/delete.svg") center / contain no-repeat;
     grid-column-start: 2;
+    background: url("../icon/delete.svg") center / contain no-repeat;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    margin: 0;
     opacity: 0.5;
     transition: var(--transition);
     cursor: pointer;
+    z-index: 1;
 }
 
 #fontdeletebtn:hover {
     opacity: 1;
+}
+
+#customfont > label {
+    display: block;
 }
 
 .customiserwrapper select,
@@ -373,7 +382,6 @@ iframe > * {
     transition: var(--transition);
 }
 
-#fontdeletebtn,
 .customicon > .customicondeletebtn {
     width: 1rem;
     height: 1rem;

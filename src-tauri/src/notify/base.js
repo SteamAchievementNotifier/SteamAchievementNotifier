@@ -5,12 +5,14 @@ const transition = 100
 async function SetNotifyContent(msg,custom,html,href,fonts) {
     return new Promise(async resolve => {
         document.querySelector(".mainwrapper").innerHTML = null
+        document.getElementById("fontloader") && document.getElementById("fontloader").remove()
 
         const fontface = fonts.map(font => {
             return `@font-face { font-family: "${font.fontname}"; src: url("${convertFileSrc(font.fontfile)}"); }`
         })
 
         let style = document.createElement("style")
+        style.id = "fontloader"
         style.textContent = fontface.join("\n")
 
         const link = document.createElement("link")
@@ -62,8 +64,11 @@ async function SetNotifyContent(msg,custom,html,href,fonts) {
 
         document.body.toggleAttribute("alldetails",custom.alldetails)
 
-        const percentmsg = msg.type !== "plat" ? msg.percent : 100
-        document.getElementById("percent") && document.getElementById("percent").setAttribute("percent",`${percentmsg}%`)
+        function ConvertPercentToXP(percent) {
+            return Math.max(Math.min(Math.round((100 - percent) / 5) * 5,100),0)
+        }
+
+        document.getElementById("percent") && document.getElementById("percent").setAttribute("percent",`${msg.type !== "plat" ? ConvertPercentToXP(msg.percent) : 250}XP`)
 
         const percentattrs = ["bronze","silver","gold"]
         let percenttype = msg.percent > 25 && msg.percent !== 100 ? "bronze" : msg.percent <= 25 && msg.percent >= msg.rarity ? "silver" : "gold"

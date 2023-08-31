@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "通知内に現在のゲームのタイトルを表示します",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "カスタムフォント",
+                tt: "カスタムフォントファイルを読み込んで通知内のすべてのテキスト要素に適用します",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "デフォルトフォントにリセット"
+            },
             style: {
                 elem: "スタイル",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "右",
             tracking: "現在の追跡",
             inuse: "使用中",
-            invalidshortcut: "無効なショートカット"
+            invalidshortcut: "無効なショートカット",
+            nofont: "フォントが選択されていません",
+            fontselectdialog: "フォントファイルを選択"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

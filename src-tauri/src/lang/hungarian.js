@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "A jelenlegi játék címének megjelenítése az értesítésben",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Egyedi Betűtípus",
+                tt: "Egy egyedi betűtípus fájlt tölthetsz be, hogy alkalmazd az összes szöveges elemre az értesítésen belül",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Visszaállítás az alapértelmezett betűtípusra"
+            },
             style: {
                 elem: "Stílus",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Jobbra",
             tracking: "Most Követés",
             inuse: "Használja",
-            invalidshortcut: "Érvénytelen"
+            invalidshortcut: "Érvénytelen",
+            nofont: "Nincs Kiválasztva Betűtípus",
+            fontselectdialog: "Betűtípus Fájl Kiválasztása"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

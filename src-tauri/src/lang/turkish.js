@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Bildirimde mevcut oyunun başlığını göster",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Özel Yazı Tipi",
+                tt: "Bildirim içindeki tüm metin öğelerine uygulamak için özel bir yazı tipi dosyası yükleyin",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Varsayılan yazı tipine sıfırla"
+            },
             style: {
                 elem: "Stil",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Sağ",    
             tracking: "Şimdi Takip",
             inuse: "Tarafından kullanılıyor",
-            invalidshortcut: "Geçersiz kısayol"
+            invalidshortcut: "Geçersiz kısayol",
+            nofont: "Yazı Tipi Seçilmedi",
+            fontselectdialog: "Yazı Tipi Dosyası Seç"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

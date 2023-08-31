@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Hiển thị tiêu đề của trò chơi hiện tại trong thông báo",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Phông Chữ Tùy Chỉnh",
+                tt: "Tải lên tệp phông chữ tùy chỉnh để áp dụng cho tất cả các yếu tố văn bản trong thông báo",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Đặt lại thành phông chữ mặc định"
+            },
             style: {
                 elem: "Phong cách",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Phải",
             tracking: "Đang theo dõi",
             inuse: "Đang sử dụng bởi",
-            invalidshortcut: "Phím tắt không hợp lệ"      
+            invalidshortcut: "Phím tắt không hợp lệ",
+            nofont: "Không Chọn Phông Chữ",
+            fontselectdialog: "Chọn Tệp Phông Chữ"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

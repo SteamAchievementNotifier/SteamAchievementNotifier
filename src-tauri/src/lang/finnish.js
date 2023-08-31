@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Näytä nykyisen pelin nimi ilmoituksessa",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Mukautettu Fontti",
+                tt: "Lataa mukautettu fonttitiedosto sovellettavaksi kaikkiin tekstielementteihin ilmoituksessa",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Palauta oletusfontti"
+            },
             style: {
                 elem: "Tyyli",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Oikealle",
             tracking: "Seurataan Nyt",
             inuse: "Käytössä",
-            invalidshortcut: "Virheellinen pikakuvake"
+            invalidshortcut: "Virheellinen pikakuvake",
+            nofont: "Ei Valittua Fonttia",
+            fontselectdialog: "Valitse Fonttitiedosto"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

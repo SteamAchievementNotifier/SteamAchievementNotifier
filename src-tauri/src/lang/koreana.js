@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "알림에 현재 게임의 제목 표시",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "사용자 지정 글꼴",
+                tt: "사용자 지정 글꼴 파일을 불러와 알림 내의 모든 텍스트 요소에 적용합니다",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "기본 글꼴로 재설정"
+            },
             style: {
                 elem: "스타일",
                 query: `.sanboxtitle > label`
@@ -625,12 +633,13 @@ export const translations = () => {
             right: "오른쪽",
             tracking: "현재 추적 중",
             inuse: "사용 중인 곳",
-            invalidshortcut: "유효하지 않은 단축키"
+            invalidshortcut: "유효하지 않은 단축키",
+            nofont: "선택된 글꼴 없음",
+            fontselectdialog: "글꼴 파일 선택"
         }
 
         const btns = ["soundfilelbl","searchbtn"]
         btns.forEach(btn => translations[btn].tt = config.customisation[GetTabType()].mode === "file" ? "업적 해제 시 재생할 사운드 파일을 선택하세요" : "업적 해제 시 임의로 재생할 오디오 파일이 포함된 폴더를 선택하세요")
-
     
         return translations
     } else {

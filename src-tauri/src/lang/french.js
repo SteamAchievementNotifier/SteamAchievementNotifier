@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Afficher le titre du jeu en cours dans la notification",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Police Personnalisée",
+                tt: "Chargez un fichier de police personnalisée à appliquer à tous les éléments de texte dans la notification",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Réinitialiser à la police par défaut"
+            },
             style: {
                 elem: "Style",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Droite",
             tracking: "En Cours de Suivi",
             inuse: "Utilisé par",
-            invalidshortcut: "Invalide"
+            invalidshortcut: "Invalide",
+            nofont: "Aucune Police Sélectionnée",
+            fontselectdialog: "Sélectionner le Fichier de Police"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

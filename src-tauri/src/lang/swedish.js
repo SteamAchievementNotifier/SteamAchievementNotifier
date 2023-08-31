@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Visa namnet på det aktuella spelet i meddelandet",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Anpassad Teckensnitt",
+                tt: "Ladda upp en anpassad teckensnittsfil för att applicera på alla textelement inom meddelandet",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Återställ till standardteckensnitt"
+            },
             style: {
                 elem: "Stil",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Höger",
             tracking: "Spårar Nu",
             inuse: "Används av",
-            invalidshortcut: "Ogiltigt snabbval"
+            invalidshortcut: "Ogiltigt snabbval",
+            nofont: "Inget Teckensnitt Valt",
+            fontselectdialog: "Välj Teckensnittsfil"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

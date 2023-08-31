@@ -131,15 +131,8 @@ async function SetNotifyContent(msg,custom,html,href,fonts) {
 }
 
 if (window === window.top) {
-    const { path } = window.__TAURI__
-    const { invoke, convertFileSrc } = window.__TAURI__.tauri
     const { listen } = window.__TAURI__.event
     const { writeText } = window.__TAURI__.clipboard
-
-    window.path = path
-    window.convertFileSrc = convertFileSrc
-    
-    window.addEventListener("DOMContentLoaded", () => invoke("ipc", { eventname: "webviewready", payload: {} }), { once: true })
     
     listen("achievement", async event => {
         const msg = event.payload.msg

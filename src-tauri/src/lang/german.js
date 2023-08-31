@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Titel des aktuellen Spiels in der Benachrichtigung anzeigen",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Benutzerschriftart",
+                tt: "Laden Sie eine benutzerdefinierte Schriftdatei, um sie auf alle Textelemente in der Benachrichtigung anzuwenden",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Auf Standardschriftart zurücksetzen"
+            },
             style: {
                 elem: "Stil",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Rechts",
             tracking: "Jetzt Verfolgen",
             inuse: "Benutzt von",
-            invalidshortcut: "Ungültig"
+            invalidshortcut: "Ungültig",
+            nofont: "Keine Schriftart ausgewählt",
+            fontselectdialog: "Schriftart-Datei auswählen"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

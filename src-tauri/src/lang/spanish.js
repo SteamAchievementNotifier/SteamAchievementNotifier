@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Mostrar el título del juego actual en la notificación",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Fuente Personalizada",
+                tt: "Cargue un archivo de fuente personalizada para aplicar a todos los elementos de texto dentro de la notificación",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Restablecer a fuente predeterminada"
+            },
             style: {
                 elem: "Estilo",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Derecha",
             tracking: "Rastreando Ahora",
             inuse: "En uso por",
-            invalidshortcut: "Atajo no válido"
+            invalidshortcut: "Atajo no válido",
+            nofont: "Ninguna Fuente Seleccionada",
+            fontselectdialog: "Seleccionar Archivo de Fuente"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

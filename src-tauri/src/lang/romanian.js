@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Afișați titlul jocului curent în notificare",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Font Personalizat",
+                tt: "Încărcați un fișier de font personalizat pentru a fi aplicat tuturor elementelor de text din notificare",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Resetați la fontul implicit"
+            },
             style: {
                 elem: "Stil",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Dreapta",  
             tracking: "Urmărire în Curs",
             inuse: "În uz de",
-            invalidshortcut: "Scurtătură nevalidă"
+            invalidshortcut: "Scurtătură nevalidă",
+            nofont: "Niciun Font Selectat",
+            fontselectdialog: "Selectați Fișierul Fontului"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

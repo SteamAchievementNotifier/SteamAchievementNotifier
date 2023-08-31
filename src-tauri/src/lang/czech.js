@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Zobrazit název aktuální hry v oznámení",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Vlastní Písmo",
+                tt: "Načíst vlastní fontový soubor a aplikovat ho na všechny textové elementy v oznámení",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Obnovit výchozí písmo"
+            },
             style: {
                 elem: "Styl",
                 query: ".sanboxtitle > label"
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Doprava",
             tracking: "Nyní Sledování",
             inuse: "Používá",
-            invalidshortcut: "Neplatná zkratka"
+            invalidshortcut: "Neplatná zkratka",
+            nofont: "Není Vybrán Žádný Font",
+            fontselectdialog: "Vybrat Soubor s Fontem"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

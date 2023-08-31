@@ -3,8 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./base.css">
-        <script src="./base.js" defer></script>
+        <script type="module">
+            const { path, tauri: { invoke, convertFileSrc } } = window === window.top ? window.__TAURI__ : window.top.__TAURI__
+            
+            window.path = path
+            window.invoke = invoke
+            window.convertFileSrc = convertFileSrc
+
+            const link = document.createElement("link")
+            link.rel = "stylesheet"
+            link.href = convertFileSrc(await path.join(await path.resourceDir(),"src","notify","base.css"))
+
+            document.head.appendChild(link)
+
+            const script = document.createElement("script")
+            script.defer = true
+            script.src = convertFileSrc(await path.join(await path.resourceDir(),"src","notify","base.js"))
+            script.addEventListener("load", () => window.top && invoke("ipc", { eventname: "webviewready", payload: {} }), { once: true })
+            
+            document.head.appendChild(script)
+        </script>
     </head>
     <body>
         <audio src=""></audio>

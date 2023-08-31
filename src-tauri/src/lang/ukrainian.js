@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Показати назву поточної гри у сповіщенні",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Власний Шрифт",
+                tt: "Завантажте файл власного шрифту, щоб застосувати його до всіх елементів тексту в сповіщенні",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Скинути на шрифт за замовчуванням"
+            },
             style: {
                 elem: "Стиль",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Праворуч",
             tracking: "Зараз відстеження",
             inuse: "Використовується",
-            invalidshortcut: "Недійсне скорочення"
+            invalidshortcut: "Недійсне скорочення",
+            nofont: "Шрифт не вибрано",
+            fontselectdialog: "Вибрати файл шрифту"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Toon de titel van het huidige spel in de melding",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Aangepast Lettertype",
+                tt: "Laad een aangepast lettertypebestand om toe te passen op alle tekstelementen binnen de melding",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Terugzetten naar standaard lettertype"
+            },
             style: {
                 elem: "Stijl",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Rechts",
             tracking: "Nu Volgen",
             inuse: "In gebruik door",
-            invalidshortcut: "Ongeldige snelkoppeling"
+            invalidshortcut: "Ongeldige snelkoppeling",
+            nofont: "Geen Lettertype Geselecteerd",
+            fontselectdialog: "Selecteer Lettertype Bestand"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

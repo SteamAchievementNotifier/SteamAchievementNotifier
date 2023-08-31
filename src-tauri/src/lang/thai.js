@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "แสดงชื่อของเกมปัจจุบันในการแจ้งเตือน",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "แบบอักษรที่กำหนดเอง",
+                tt: "โหลดไฟล์แบบอักษรที่กำหนดเองเพื่อนำมาใช้กับองค์ประกอบข้อความทั้งหมดในการแจ้งเตือน",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "รีเซ็ตเป็นแบบอักษรเริ่มต้น"
+            },
             style: {
                 elem: "สไตล์",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "ขวา",
             tracking: "กำลังติดตามอยู่",
             inuse: "ใช้โดย",
-            invalidshortcut: "ทางลัดไม่ถูกต้อง"     
+            invalidshortcut: "ทางลัดไม่ถูกต้อง",
+            nofont: "ไม่ได้เลือกแบบอักษร",
+            fontselectdialog: "เลือกไฟล์แบบอักษร"  
         }
 
         const btns = ["soundfilelbl","searchbtn"]

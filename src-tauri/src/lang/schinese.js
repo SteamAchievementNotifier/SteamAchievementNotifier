@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "在通知中显示当前游戏的标题",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "自定义字体",
+                tt: "加载自定义字体文件，应用于通知内的所有文本元素",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "重置为默认字体"
+            },
             style: {
                 elem: "风格",
                 query: ".sanboxtitle > label"
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "右",
             tracking: "正在跟踪",
             inuse: "正在使用",
-            invalidshortcut: "无效的快捷方式"
+            invalidshortcut: "无效的快捷方式",
+            nofont: "未选择字体",
+            fontselectdialog: "选择字体文件"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

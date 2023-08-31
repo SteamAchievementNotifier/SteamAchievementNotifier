@@ -100,6 +100,7 @@ async function LoadLang(lang) {
 
                 if (id === "bgstyle" && elem) {
                     document.querySelector(".customisertab > .sanboxlbl").textContent = translations[`toggle${GetTabType()}`].elem
+                    document.querySelector("#customfont > label").textContent = config.customisation[GetTabType()].customfont || translations.nofont
                 }
             })
 

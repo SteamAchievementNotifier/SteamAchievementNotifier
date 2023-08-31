@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Vis titlen på det aktuelle spil i meddelelsen",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Brugerdefineret Skrifttype",
+                tt: "Indlæs en brugerdefineret skrifttypefil for at anvende den på alle tekstelementer inden for meddelelsen",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Nulstil til standard skrifttype"
+            },
             style: {
                 elem: "Stil",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Højre",
             tracking: "Nu Sporing",
             inuse: "I brug af",
-            invalidshortcut: "Ugyldig genvej"
+            invalidshortcut: "Ugyldig genvej",
+            nofont: "Ingen Skrifttype Valgt",
+            fontselectdialog: "Vælg Skrifttype Fil"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

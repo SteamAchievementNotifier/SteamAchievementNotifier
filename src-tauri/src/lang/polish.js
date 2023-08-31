@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Wyświetl tytuł bieżącej gry w powiadomieniu",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Niestandardowa Czcionka",
+                tt: "Załaduj niestandardowy plik czcionki, aby zastosować go do wszystkich elementów tekstowych w powiadomieniu",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Przywróć domyślną czcionkę"
+            },
             style: {
                 elem: "Styl",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Prawo",
             tracking: "Obecnie śledzenie",
             inuse: "W użyciu przez",
-            invalidshortcut: "Nieprawidłowy skrót"     
+            invalidshortcut: "Nieprawidłowy skrót",
+            nofont: "Nie Wybrano Czcionki",
+            fontselectdialog: "Wybierz Plik Czcionki" 
         }
 
         const btns = ["soundfilelbl","searchbtn"]

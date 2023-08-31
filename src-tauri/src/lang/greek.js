@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "Εμφάνιση του τίτλου του τρέχοντος παιχνιδιού στην ειδοποίηση",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "Προσαρμοσμένη Γραμματοσειρά",
+                tt: "Φορτώστε ένα προσαρμοσμένο αρχείο γραμματοσειράς για να εφαρμόσετε σε όλα τα στοιχεία κειμένου μέσα στην ειδοποίηση",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "Επαναφορά στην προεπιλεγμένη γραμματοσειρά"
+            },
             style: {
                 elem: "Στυλ",
                 query: `.sanboxtitle > label`
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "Δεξιά",
             tracking: "Παρακολούθηση τώρα",
             inuse: "Σε χρήση από",
-            invalidshortcut: "Μη έγκυρη συντόμευση"
+            invalidshortcut: "Μη έγκυρη συντόμευση",
+            nofont: "Δεν Έχει Επιλεγεί Γραμματοσειρά",
+            fontselectdialog: "Επιλογή Αρχείου Γραμματοσειράς"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

@@ -334,6 +334,14 @@ export const translations = () => {
                 tt: "عرض عنوان اللعبة الحالية في الإشعار",
                 query: ".sanboxlbl"
             },
+            customfont: {
+                elem: "خط مخصص",
+                tt: "تحميل ملف خط مخصص لتطبيقه على جميع عناصر النص داخل الإشعار",
+                query: ".sanboxlbl"
+            },
+            fontdeletebtn: {
+                tt: "إعادة تعيين الخط إلى الوضع الافتراضي"
+            },
             style: {
                 elem: "نمط",
                 query: ".sanboxtitle > label"
@@ -625,7 +633,9 @@ export const translations = () => {
             right: "يمين",
             tracking: "المتابعة الآن",
             inuse: "يستخدم بواسطة",
-            invalidshortcut: "اختصار غير صالح"
+            invalidshortcut: "اختصار غير صالح",
+            nofont: "لم يتم تحديد خط",
+            fontselectdialog: "اختيار ملف الخط"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

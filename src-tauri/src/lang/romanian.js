@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Deschide panoul DevTools pentru notificări când este declanșat",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Încărcare Fișiere",
+                tt: `Încărcați fișierele de notificare și resursele din directorul executabil al aplicației, în loc să le încărcați intern`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Vezi Politica de Confidențialitate",
                 tt: "Vezi Politica de confidențialitate a Steam Achievement Notifier",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Font Personalizat",
+                elem: "Font",
                 tt: "Încărcați un fișier de font personalizat pentru a fi aplicat tuturor elementelor de text din notificare",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Urmărire în Curs",
             inuse: "În uz de",
             invalidshortcut: "Scurtătură nevalidă",
-            nofont: "Niciun Font Selectat",
+            nofont: "Niciun Font",
             fontselectdialog: "Selectați Fișierul Fontului"
         }
 

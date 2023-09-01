@@ -29,10 +29,9 @@ const configtemplate = {
         rare: {},
         plat: {}
     },
-    shortcuts: false
+    shortcuts: false,
+    filesystem: false
 }
-
-// let customisetemplate
 
 for (const type in configtemplate.customisation) {
     const customisetemplate = {

@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Mở Bảng công cụ Phát triển Thông báo khi kích hoạt",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Tải Tệp",
+                tt: `Tải tệp thông báo và tài nguyên từ thư mục thực thi của ứng dụng thay vì tải nội bộ`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Xem Chính sách Bảo mật",
                 tt: "Xem Chính sách Bảo mật của Steam Achievement Notifier",

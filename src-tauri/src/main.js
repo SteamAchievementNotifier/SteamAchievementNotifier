@@ -250,5 +250,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         document.body.style.opacity = event.payload.msg ? 0 : 1
     })
 
+    // Prevents an issue where the iframe does not load the notification on script load, due to "postMessage" being fired before the script has loaded
+    // "event.windowLabel..." also prevents multiple reloads occurring when "Duplicate Notifications to Window" is enabled
+    listen("webviewready", event => document.querySelector(".customiserwrapper") && event.windowLabel === "main" ? LoadIFrame() : null)
+
     await invoke("is_steam_running")
 },{ once: true })

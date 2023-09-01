@@ -261,6 +261,11 @@ export const translations = () => {
                 tt: "Open the notification's DevTools Panel when triggered",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Enable Filesystem Loading",
+                tt: `Load notification files and assets from the application's executable directory, instead of internally`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "View Privacy Policy",
                 tt: "View Steam Achievement Notifier's Privacy Policy",

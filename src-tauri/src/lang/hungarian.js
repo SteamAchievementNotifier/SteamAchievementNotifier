@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Az értesítés fejlesztői eszköztárában történő megnyitása, amikor az triggerelődik",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Fájl betöltése",
+                tt: `Értesítési fájlok és erőforrások betöltése az alkalmazás végrehajtható könyvtárából, belső betöltés helyett`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Adatvédelmi irányelvek megtekintése",
                 tt: "Tekintsd meg a Steam Achievement Notifier adatvédelmi irányelveit",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Egyedi Betűtípus",
+                elem: "Betűtípus",
                 tt: "Egy egyedi betűtípus fájlt tölthetsz be, hogy alkalmazd az összes szöveges elemre az értesítésen belül",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Most Követés",
             inuse: "Használja",
             invalidshortcut: "Érvénytelen",
-            nofont: "Nincs Kiválasztva Betűtípus",
+            nofont: "Nincs Betűtípus",
             fontselectdialog: "Betűtípus Fájl Kiválasztása"
         }
 

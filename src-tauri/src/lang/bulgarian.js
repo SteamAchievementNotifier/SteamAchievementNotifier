@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Отваряне на панела с инструменти за разработчици на известията при задействане",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Зареждане на файл",
+                tt: `Зареждане на файлове с уведомления и активи от директорията с изпълнимия файл на приложението, вместо вътрешно`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Политика за поверителност",
                 tt: "Преглед на политиката за поверителност на Steam Achievement Notifier",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Персонализиран Шрифт",
+                elem: "Шрифт",
                 tt: "Заредете персонализиран файл с шрифт, за да се приложи към всички текстови елементи в известяването",
                 query: ".sanboxlbl"
             },
@@ -634,8 +639,8 @@ export const translations = () => {
             tracking: "В момента проследяване",
             inuse: "Използва се от",
             invalidshortcut: "Невалиден преки път",
-            nofont: "Няма избран шрифт",
-            fontselectdialog: "Избор на Файл с Шрифт"
+            nofont: "Без шрифт",
+            fontselectdialog: "Изберете Шрифт"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "触发时打开通知的开发工具面板",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "文件加载",
+                tt: `从应用程序的可执行目录加载通知文件和资源，而不是内部加载`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "查看隐私政策",
                 tt: "查看 Steam Achievement Notifier 的隐私政策",

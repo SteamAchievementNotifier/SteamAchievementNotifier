@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Avaa ilmoituksen kehittäjätyökalupaneeli laukaistessa",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Tiedostoa ladataan",
+                tt: `Lataa ilmoitus- ja resurssitiedostot sovelluksen suorituskansiosta sen sijaan, että ne olisivat sisäisesti`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Näytä tietosuojakäytäntö",
                 tt: "Näytä Steam Achievement Notifierin tietosuojakäytäntö",
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Seurataan Nyt",
             inuse: "Käytössä",
             invalidshortcut: "Virheellinen pikakuvake",
-            nofont: "Ei Valittua Fonttia",
+            nofont: "Ei Fonttia",
             fontselectdialog: "Valitse Fonttitiedosto"
         }
 

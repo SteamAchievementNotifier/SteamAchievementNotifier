@@ -192,7 +192,7 @@ body:has(.mainwrapper[ss]) > .screenshotwrapper {
 
 .iconwrapper[rare]:not([noanim]) > .rarewrapper {
     display: block;
-    -webkit-mask-image: url("../../../img/base64.png");
+    -webkit-mask-image: var(--base64);
     -webkit-mask-repeat: repeat;
     -webkit-mask-size: 100%;
     overflow: hidden;
@@ -202,7 +202,7 @@ body:has(.mainwrapper[ss]) > .screenshotwrapper {
 
 .rareL {
     animation: steamrotate 18s linear infinite reverse;
-    -webkit-mask-image: url("../../../img/base64.png");
+    -webkit-mask-image: var(--base64);
     -webkit-mask-repeat: repeat;
     -webkit-mask-size: 100%;
 }

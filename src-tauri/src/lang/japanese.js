@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "トリガされた時に通知のデバッグツールパネルを開きます",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "ファイルの読み込み",
+                tt: `アプリケーションの実行ディレクトリから通知ファイルとリソースを読み込む代わりに、内部的に読み込む`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "プライバシーポリシーの表示",
                 tt: "Steam Achievement Notifierのプライバシーポリシーを表示します",
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "現在の追跡",
             inuse: "使用中",
             invalidshortcut: "無効なショートカット",
-            nofont: "フォントが選択されていません",
+            nofont: "フォントなし",
             fontselectdialog: "フォントファイルを選択"
         }
 

@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Abrir o painel de DevTools de notificação ao ser acionado",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Carregamento de Arquivos",
+                tt: `Carregar arquivos de notificação e recursos a partir do diretório executável do aplicativo, em vez de internamente`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Visualizar Política de Privacidade",
                 tt: "Visualizar a Política de Privacidade do Steam Achievement Notifier",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Fonte Personalizada",
+                elem: "Fonte",
                 tt: "Carregue um arquivo de fonte personalizada para aplicar a todos os elementos de texto na notificação",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Agora em Rastreamento",
             inuse: "Em uso por",
             invalidshortcut: "Atalho inválido",
-            nofont: "Nenhuma Fonte Selecionada",
+            nofont: "Nenhuma Fonte",
             fontselectdialog: "Selecionar Arquivo de Fonte"
         }
 

@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Ouvrir le panneau des outils de développement de la notification lorsqu'il est déclenché",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Chargement de Fichiers",
+                tt: `Charger les fichiers de notification et les ressources à partir du répertoire exécutable de l'application, au lieu de le faire en interne`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Afficher la politique de confidentialité",
                 tt: "Afficher la politique de confidentialité de Steam Achievement Notifier",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Police Personnalisée",
+                elem: "Police personnalisée",
                 tt: "Chargez un fichier de police personnalisée à appliquer à tous les éléments de texte dans la notification",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "En Cours de Suivi",
             inuse: "Utilisé par",
             invalidshortcut: "Invalide",
-            nofont: "Aucune Police Sélectionnée",
+            nofont: "Aucune Police",
             fontselectdialog: "Sélectionner le Fichier de Police"
         }
 

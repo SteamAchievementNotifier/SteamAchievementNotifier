@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Åbn meddelelsens DevTools-panel, når det udløses",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Aktivér Filsystemindlæsning",
+                tt: `Indlæs notifikationsfiler og aktiver fra programmets eksekverbare mappe i stedet for internt`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Se privatlivspolitik",
                 tt: "Se Steam Achievement Notifiers privatlivspolitik",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Brugerdefineret Skrifttype",
+                elem: "Skrifttype",
                 tt: "Indlæs en brugerdefineret skrifttypefil for at anvende den på alle tekstelementer inden for meddelelsen",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Nu Sporing",
             inuse: "I brug af",
             invalidshortcut: "Ugyldig genvej",
-            nofont: "Ingen Skrifttype Valgt",
+            nofont: "Ingen Skrifttype",
             fontselectdialog: "Vælg Skrifttype Fil"
         }
 

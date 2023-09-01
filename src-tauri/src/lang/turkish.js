@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Tetiklendiğinde bildirim Geliştirici Araçları Panelini açar",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Dosya Yükleme",
+                tt: `Bildirim dosyalarını ve kaynakları uygulamanın yürütülebilir dizininden yükleyin, içsel olarak değil`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Gizlilik Politikasını Görüntüle",
                 tt: "Steam Achievement Notifier'ın Gizlilik Politikasını görüntüleyin",
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Şimdi Takip",
             inuse: "Tarafından kullanılıyor",
             invalidshortcut: "Geçersiz kısayol",
-            nofont: "Yazı Tipi Seçilmedi",
+            nofont: "Yazı Tipi Yok",
             fontselectdialog: "Yazı Tipi Dosyası Seç"
         }
 

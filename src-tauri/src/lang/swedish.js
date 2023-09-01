@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Öppna notifikationens utvecklarpanel när den aktiveras",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Filinläsning",
+                tt: `Ladda notifikationsfiler och tillgångar från programmets körkatalog istället för internt`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Visa sekretesspolicy",
                 tt: "Visa Steam Achievement Notifiers sekretesspolicy",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Anpassad Teckensnitt",
+                elem: "Teckensnitt",
                 tt: "Ladda upp en anpassad teckensnittsfil för att applicera på alla textelement inom meddelandet",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Spårar Nu",
             inuse: "Används av",
             invalidshortcut: "Ogiltigt snabbval",
-            nofont: "Inget Teckensnitt Valt",
+            nofont: "Inget Teckensnitt",
             fontselectdialog: "Välj Teckensnittsfil"
         }
 

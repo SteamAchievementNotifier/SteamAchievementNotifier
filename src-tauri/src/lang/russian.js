@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Открыть панель инструментов DevTools уведомления при срабатывании",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Загрузка Файлов",
+                tt: `Загрузка файлов уведомлений и ресурсов из каталога, содержащего исполняемый файл приложения, вместо внутренней загрузки`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Политика конфиденциальности",
                 tt: "Просмотреть политику конфиденциальности Steam Achievement Notifier",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Пользовательский Шрифт",
+                elem: "Шрифт",
                 tt: "Загрузите пользовательский файл шрифта, чтобы применить его ко всем текстовым элементам в уведомлении",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Сейчас отслеживание",
             inuse: "Используется",
             invalidshortcut: "Недопустимый ярлык",
-            nofont: "Шрифт не выбран",
+            nofont: "Нет шрифта",
             fontselectdialog: "Выбрать Файл Шрифта"
         }
 

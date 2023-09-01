@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Das DevTools-Panel der Benachrichtigung öffnen, wenn es ausgelöst wird",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Laden von Dateien",
+                tt: `Lade Benachrichtigungsdateien und Ressourcen aus dem Ausführungsverzeichnis der Anwendung anstelle von intern`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Datenschutzrichtlinie anzeigen",
                 tt: "Steam Achievement Notifier Datenschutzrichtlinie anzeigen",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Benutzerschriftart",
+                elem: "Schriftart",
                 tt: "Laden Sie eine benutzerdefinierte Schriftdatei, um sie auf alle Textelemente in der Benachrichtigung anzuwenden",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Jetzt Verfolgen",
             inuse: "Benutzt von",
             invalidshortcut: "Ungültig",
-            nofont: "Keine Schriftart ausgewählt",
+            nofont: "Keine Schriftart",
             fontselectdialog: "Schriftart-Datei auswählen"
         }
 

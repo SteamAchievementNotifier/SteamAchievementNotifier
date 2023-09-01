@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "فتح لوحة أدوات تطوير الإشعار عند التنشيط",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "تمكين تحميل النظام الملفي",
+                tt: `تحميل ملفات الإشعار والأصول من دليل التنفيذ التطبيقي للتطبيق، بدلاً من التنفيذ داخلياً`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "عرض سياسة الخصوصية",
                 tt: "عرض سياسة الخصوصية لتطبيق Steam Achievement Notifier",

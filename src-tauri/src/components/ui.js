@@ -109,35 +109,6 @@ function SetIFrameDimensions(dim) {
     return Math.floor(base[config.customisation[GetTabType()].preset][dim] * (webviewrapper.clientWidth / base[config.customisation[GetTabType()].preset].width))
 }
 
-// async function LoadIFrame() {
-//     const type = GetTabType()
-//     const iframe = document.getElementsByTagName("iframe")[0]
-
-//     const { msg, custom } = await BuildNotify({type})
-//     // const html = await readTextFile(await path.join("SteamAchievementNotifier","src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.LocalData })
-//     const html = await readTextFile(await path.join("src","notify","presets",custom.preset,"index.html"), { dir: fs.BaseDirectory.Resource })
-
-//     const divs = ["mainwrapper","screenshotwrapper"]
-//     divs.map(div => iframe.contentWindow.document.querySelector(`.${div}`).style.animation = "none")
-
-//     // Triggers reflow
-//     function Reflow(elem) {
-//         elem.style.animation = "none"
-//         elem.offsetHeight
-//         elem.style.animation = null
-//     }
-
-//     iframe.contentWindow.document.querySelectorAll("*").forEach(elem => Reflow(elem))
-//     iframe.contentWindow.postMessage({ msg: msg, optional: { custom: custom, html: html } })
-    
-//     CheckIfPortrait()
-
-//     const elems = [iframe.contentWindow.document.body,document.getElementById("customiserplaystate")]
-//     const states = ["paused","finish"]
-    
-//     elems.forEach(elem => states.forEach(state => elem.removeAttribute(state)))
-// }
-
 function ToggleIFramePlayState() {
     const iframe = document.getElementsByTagName("iframe")[0].contentWindow
     const elems = [iframe.document.body,document.getElementById("customiserplaystate")]
@@ -494,7 +465,8 @@ const settings = {
         window.addEventListener("keydown",keydownlistener)
     
         resettimeout()
-    }
+    },
+    filesystem: () => { return }
 }
 
 function GetKeybindValue() {

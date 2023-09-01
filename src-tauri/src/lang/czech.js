@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Otevřít panel DevTools oznámení při spuštění",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Načítání souboru",
+                tt: `Načítat soubory s oznámením a prostředky z adresáře s aplikací, místo vnitřně`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Zobrazit zásady ochrany osobních údajů",
                 tt: "Zobrazit zásady ochrany osobních údajů pro Steam Achievement Notifier",
@@ -634,8 +639,8 @@ export const translations = () => {
             tracking: "Nyní Sledování",
             inuse: "Používá",
             invalidshortcut: "Neplatná zkratka",
-            nofont: "Není Vybrán Žádný Font",
-            fontselectdialog: "Vybrat Soubor s Fontem"
+            nofont: "Žádné Písmo",
+            fontselectdialog: "Vyberte Písmo"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

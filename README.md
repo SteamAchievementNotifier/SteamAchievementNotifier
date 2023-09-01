@@ -80,7 +80,39 @@ Once an achievement is unlocked, a **notification** will display containing the 
 
 <details>
 <summary>
-    <h4>V1.85.5 [LATEST]</h4>
+    <h4>V1.85.6 [LATEST]</h4>
+</summary>
+
+<h4><u>Updates:</u></h4>
+
+- **Custom Fonts**: Load any `.ttf`, `.otf`, `.woff` or `.woff2` font file, which will convert all fonts in any notification type to use your selected font instead!
+
+> - Fonts are loaded individually per notification type, so this adds a whole host of new possibilities to enhance the look and feel of each type.
+
+- **Filesystem Asset Loading**: Assets (such as fonts, images and other previously internal files) can now be loaded from the files extracted on install. This means that the assets used in notifications can now be tweaked by more advanced users who want to really dig into customising stuff!
+
+> - ⚠ Tick the new **Enable Filesystem Loading** option in the **Settings** menu in order to activate this behaviour. Otherwise, notifications will use internal assets as normal!
+
+> - By default, files and assets are extracted to `C:\Users\%username%\AppData\Local\SteamAchievementNotifier\src`, but will be located wherever you have chosen to install the application!
+
+- **Epic Games Percent to XP Conversion**: Exclusive to the **Epic Games** preset, a new (*fake!*) XP value is based on the percentage of the achievement earned, but in *reverse* - the *lower* the achievement rarity, the *higher* the XP value - and will round up to the nearest division of `5`.
+
+> - e.g. `10.4%` will appear as `90XP`!
+
+<h4><u>Bug Fixes:</u></h4>
+
+- Fixed an issue where the **Duplicate to External Window** window could not be captured externally (*e.g. via OBS*).
+- Fixed an issue where a mock percentage would be incorrectly displayed on screenshots generated using the **Screenshot with Notification Overlay** option for the **100% notification type**.
+- Fixed an issue where screenshot preview windows could prevent screenshots from being taken, due to the window label already being in use.
+- Updated all instances of `appCacheDir` to `appLocalDataDir` (*as these resolve differently on Linux, and is resolved on both platforms by this change*).
+- Cleaned up commented code.
+- Updated `main.rs` for **Linux** port (*not yet active*).
+
+</details>
+
+<details>
+<summary>
+    <h4>V1.85.5</h4>
 </summary>
 
 <h4><u>Updates:</u></h4>

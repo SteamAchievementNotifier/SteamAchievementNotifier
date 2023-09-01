@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Open het DevTools-paneel voor meldingen wanneer het wordt geactiveerd",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Bestand laden",
+                tt: `Laad meldingsbestanden en middelen vanuit de uitvoermap van de toepassing in plaats van intern`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Privacybeleid bekijken",
                 tt: "Bekijk het privacybeleid van Steam Achievement Notifier",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Aangepast Lettertype",
+                elem: "Lettertype",
                 tt: "Laad een aangepast lettertypebestand om toe te passen op alle tekstelementen binnen de melding",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Nu Volgen",
             inuse: "In gebruik door",
             invalidshortcut: "Ongeldige snelkoppeling",
-            nofont: "Geen Lettertype Geselecteerd",
+            nofont: "Geen Lettertype",
             fontselectdialog: "Selecteer Lettertype Bestand"
         }
 

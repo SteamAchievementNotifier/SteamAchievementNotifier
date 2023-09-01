@@ -18,8 +18,7 @@ async function SetNotifyContent(msg,custom,html,href,fonts) {
         const link = document.createElement("link")
         link.id = "styles"
         link.rel = "stylesheet"
-        // link.href = `./presets/${custom.preset}/styles.css`  
-        link.href = href
+        link.href = !config.filesystem ? `./presets/${custom.preset}/styles.css` : href
         
         document.head.appendChild(link)
 
@@ -43,7 +42,8 @@ async function SetNotifyContent(msg,custom,html,href,fonts) {
         const bgtypes = {
             solid: `${custom.primarycolor}${hexopacity}`,
             gradient: `linear-gradient(${custom.angle}deg,${custom.primarycolor}${hexopacity},${custom.secondarycolor}${hexopacity})`,
-            bgimg: `url("${`${custom.bgimg}` || `../img/sanimgbg.png`}") center / cover no-repeat`,
+            // bgimg: `url("${`${custom.bgimg}` || `../img/sanimgbg.png`}") center / cover no-repeat`,
+            bgimg: `url("${custom.bgimg || convertFileSrc(await path.join(await path.resourceDir(),"src","img","sanimgbg.png"))}") center / cover no-repeat`,
             gameart: `url("${`${custom.gameart}`}") center / cover no-repeat`
         }
 
@@ -106,7 +106,8 @@ async function SetNotifyContent(msg,custom,html,href,fonts) {
             ["--dropshadow",custom.textoutline ? (`drop-shadow(0 0 0.025rem ${custom.outlinecolor}) `).repeat(3) : custom.textshadow ? `drop-shadow(0 0 0.175rem ${custom.shadowcolor})` : `none`],
             ["--iconbr",`${custom.iconroundness * 12.5}%`],
             ["--brightness",`${custom.brightness}%`],
-            ["--sanlogotrophy",`url("${convertFileSrc(await path.join(await path.resourceDir(),"src","img","sanlogotrophy.svg"))}")`]
+            ["--sanlogotrophy",`url("${convertFileSrc(await path.join(await path.resourceDir(),"src","img","sanlogotrophy.svg"))}")`],
+            ["--base64",`url("${convertFileSrc(await path.join(await path.resourceDir(),"src","img","base64.png"))}")`]
         ])
 
         custom.customfont ? fonts.forEach(font => font.fontfile === custom.customfont ? style.textContent += `\n#msg,#title,#desc { font-family: "${font.fontname}" !important; }` : null) : null
@@ -176,7 +177,6 @@ if (window === window.top) {
 
         !msg.overlay && !msg.extwin ? custom.scale = 100 : null
         !msg.overlay ? (document.body.style.backgroundColor = msg.extwin ? "transparent" : "#101010") : document.body.setAttribute("noanim","")
-        // msg.extwin && window.top.document.body.setAttribute("playing","")
 
         await SetNotifyContent(msg,custom,html,href,fonts)
         .catch(err => console.log(typeof err === "object" ? err.message : err))
@@ -188,8 +188,6 @@ if (window === window.top) {
 
                 const elems = [window.top.document.getElementById("customiserplaystate"),document.body]
                 elems.map(elem => elem && elem.setAttribute("finish",""))
-
-                // window.top.document.body.removeAttribute("playing")
             }
         })
     })

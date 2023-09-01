@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Otwórz panel narzędziowy powiadomień podczas wywoływania",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Ładowanie Plików",
+                tt: `Ładuje pliki powiadomień i zasoby z katalogu wykonywalnego aplikacji, zamiast wewnętrznie`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Zobacz Politykę Prywatności",
                 tt: "Zobacz Politykę Prywatności Steam Achievement Notifier",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Niestandardowa Czcionka",
+                elem: "Czcionka",
                 tt: "Załaduj niestandardowy plik czcionki, aby zastosować go do wszystkich elementów tekstowych w powiadomieniu",
                 query: ".sanboxlbl"
             },
@@ -634,8 +639,8 @@ export const translations = () => {
             tracking: "Obecnie śledzenie",
             inuse: "W użyciu przez",
             invalidshortcut: "Nieprawidłowy skrót",
-            nofont: "Nie Wybrano Czcionki",
-            fontselectdialog: "Wybierz Plik Czcionki" 
+            nofont: "Brak Czcionki",
+            fontselectdialog: "Wybierz Plik Czcionki"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

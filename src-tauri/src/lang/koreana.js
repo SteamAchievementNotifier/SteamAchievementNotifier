@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "알림이 트리거될 때 알림 개발 도구 패널 열기",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "파일 로딩",
+                tt: `애플리케이션 실행 디렉토리에서 알림 파일 및 에셋을 내부적으로 로드하는 대신 실행합니다`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "개인 정보 보호 정책 보기",
                 tt: "Steam Achievement Notifier의 개인 정보 보호 정책 보기",

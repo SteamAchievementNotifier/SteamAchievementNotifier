@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Åpne varselsens DevTools-panel når det utløses",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Filinnlasting",
+                tt: `Laster inn varslingfiler og ressurser fra programmets kjøredirectory i stedet for internt`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Vis personvernpolicy",
                 tt: "Vis Steam Achievement Notifier's personvernpolicy",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Egendefinert Skrifttype",
+                elem: "Skrifttype",
                 tt: "Last opp en egendefinert skriftfil for å bruke på alle tekstelementer i varselet",
                 query: ".sanboxlbl"
             },
@@ -634,7 +639,7 @@ export const translations = () => {
             tracking: "Nå Sporing",
             inuse: "I bruk av",
             invalidshortcut: "Ugyldig snarvei",
-            nofont: "Ingen Skrifttype Valgt",
+            nofont: "Ingen Skrifttype",
             fontselectdialog: "Velg Skrifttype Fil"
         }
 

@@ -260,6 +260,11 @@ export const translations = () => {
                 tt: "Abrir o Painel de Ferramentas do Desenvolvedor da Notificação quando acionado",
                 query: ".sanboxlbl"
             },
+            filesystem: {
+                elem: "Carregamento de Arquivos",
+                tt: `Carregar arquivos de notificação e recursos a partir do diretório executável do aplicativo, em vez de internamente`,
+                query: ".sanboxlbl"
+            },
             ppbtn: {
                 elem: "Ver Política de Privacidade",
                 tt: "Ver a Política de Privacidade do Steam Achievement Notifier",
@@ -335,7 +340,7 @@ export const translations = () => {
                 query: ".sanboxlbl"
             },
             customfont: {
-                elem: "Fonte Personalizada",
+                elem: "Fonte",
                 tt: "Carregue um arquivo de fonte personalizada para aplicar a todos os elementos de texto dentro da notificação",
                 query: ".sanboxlbl"
             },
@@ -634,8 +639,8 @@ export const translations = () => {
             tracking: "Agora Rastreando",
             inuse: "Em uso por",
             invalidshortcut: "Atalho inválido",
-            nofont: "Nenhuma Fonte Selecionada",
-            fontselectdialog: "Selecionar Arquivo de Fonte"
+            nofont: "Nenhuma Fonte",
+            fontselectdialog: "Selecionar Fonte"
         }
 
         const btns = ["soundfilelbl","searchbtn"]

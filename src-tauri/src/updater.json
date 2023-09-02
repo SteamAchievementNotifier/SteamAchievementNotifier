@@ -1,10 +1,10 @@
 {
-    "version": "1.85.5",
+    "version": "1.85.6",
     "notes": "See updates and bug fixes on GitHub and Discord!",
     "platforms": {
         "windows-x86_64": {
-            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZW4wbDZ1akkzcitkZTlXQTJSUGRqOVRDcHlIQm5SejB0M0dETFhJTHJQVnYzVHQyaWRDZDN2aVplM0NyVlB2U0tkOE5KU1pheUg0b2QzR0Z0YUxRQVhNbjJGN0JEaXc4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkyMzgzNDQzCWZpbGU6U3RlYW1BY2hpZXZlbWVudE5vdGlmaWVyXzEuODUuNV94NjQtc2V0dXAubnNpcy56aXAKNEtFYXdDMmhINnpTY3dTeGl4cG9DKzhQWGpWZTlzZWlScFlKM0tBUkRZbmdmZHRRVkdKSVUyN1o4UGoxelVZVlk5MzZFMDhIQnI2d2hVRTBpdHZ2Q1E9PQo=",
-            "url": "https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/alpha/SteamAchievementNotifier_1.85.5_x64-setup.nsis.zip"
+            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZW4wbDZ1akkzcjFqdEVJNjhndzhxWkV2TTlvTnh4M3ZjYXQ2bG05RnoraUE0TnBncXVIamVwTFd2T3plTm5Fak05WmZ3L0JKTS94V01TcW1CbXZ6VUZYLzlqb0hjM3dvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjkzNjYwNTc0CWZpbGU6U3RlYW1BY2hpZXZlbWVudE5vdGlmaWVyXzEuODUuNl94NjQtc2V0dXAubnNpcy56aXAKMjFzcXF2MFpuZGpzODdlRWZnTXFCQVNmb2lRdDRuT3F5TzhMUUFsNWNtNUFlcUxqcTFXcGpDTWtZOUNMcjByWCtNVVpIeTczYmJKWTdsOWtzd1p6Q1E9PQo=",
+            "url": "https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/alpha/SteamAchievementNotifier_1.85.6_x64-setup.nsis.zip"
         }
     }
 }

@@ -1,0 +1,549 @@
+body[customiser][soundonly] .wrapper#customiser > .wrapper#webview,
+body[customiser][soundonly] #customisercontent > #customiseropts > .cont:not(:has(.title#sound)) {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+body[customiser][opening] .wrapper#logo,
+body[customiser][closing] .wrapper#customiserlogo {
+    animation: customiserin var(--transition) cubic-bezier(0,-0.4,1,-0.5) forwards;
+}
+
+body[customiser][opening] .wrapper#maincontent,
+body[customiser][closing] .wrapper#customiser {
+    animation: customiserin var(--transition) cubic-bezier(1,0,1,0) forwards;
+}
+
+body[customiser][closing] .wrapper#logo,
+body[customiser][closing] .wrapper#maincontent {
+    scale: 0;
+    animation: customiserout var(--transition) var(--transition) cubic-bezier(1,0,1,0) forwards;
+}
+
+body[customiser]:not([opening],[closing]) .wrapper#customiserlogo,
+body[customiser]:not([opening],[closing]) .wrapper#customiser {
+    animation: customiserout var(--transition) cubic-bezier(1,0,1,0) forwards;
+}
+
+/* Using this instead of "display: none" prevents "#progresscircle" from resetting animation when opening/closing Customiser while running */
+body[customiser]:not([opening]) .wrapper#main > *:not(.wrapper#customiserlogo,.wrapper#customiser) {
+    scale: 0;
+    pointer-events: none;
+}
+
+body[main] .sub:has(#iconanim),
+.optcont:has(.opt > select#soundmode > option[value="file"]:not(:checked)) > .opt:has(#soundfile),
+.optcont:has(.opt > select#soundmode > option[value="folder"]:not(:checked)) > .opt:has(#sounddir),
+.optcont:has(.opt > select#bgstyle > option[value="gradient"]:not(:checked)) > .opt > .opt:has(#gradientangle),
+.optcont:has(.opt > select#bgstyle > option[value="bgimg"]:not(:checked)) > .opt > .opt:has(#bgimg),
+.optcont:has(.opt > select#bgstyle > option[value="bgimg"]:not(:checked)) > .opt > .opt:has(#bgimgbrightness),
+.optcont:has(.opt > select#bgstyle > option[value="gameart"]:not(:checked)) > .opt > .opt:has(#brightness),
+.optcont:has(.opt > input[type="checkbox"]#fontoutline:not(:checked)) > .opt:has(#fontoutline) > .opt:has(#fontoutlinecolor),
+.optcont:has(.opt > input[type="checkbox"]#fontshadow:not(:checked)) > .opt:has(#fontshadow) > .opt:has(#fontshadowcolor),
+.optcont:has(.opt > input[type="checkbox"]#usecustomicons:not(:checked)) > .opt:has(#usecustomicons) > .opt:has(.img#logo,.img#decoration,.customicon[id^="decoration"]),
+.optcont:has(.opt > input[type="checkbox"]#showhiddenicon:not(:checked)) > .opt:has(.img#hiddenicon),
+.optcont:has(.opt > input[type="checkbox"]#usecustompos:not(:checked)) > .opt#posbtns {
+    display: none;
+}
+
+.opt:has(#alldetails),
+.opt[nodecoration] {
+    display: none;
+}
+
+.opt:has(#usepercent),
+.opt:has(#tertiarycolor),
+#customiseropts:has(.opt > select#preset > option[value="steamdeck"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
+#customiseropts:has(.opt > select#preset > option[value="epicgames"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
+#customiseropts:has(.opt > select#preset > option[value="ps5"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
+#customiseropts:has(.opt > select#preset > option[value="ps4"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext) {
+    display: none;
+}
+
+#customiseropts:has(.opt > select#preset > option[value="xqjan"]:checked) .opt:has(#tertiarycolor),
+#customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#tertiarycolor),
+#customiseropts:has(.opt > select#preset > option[value="ps5"]:checked) .opt:has(#tertiarycolor),
+#customiseropts:has(.opt > select#preset > option[value="ps4"]:checked) .opt:has(#tertiarycolor),
+#customiseropts:has(.opt > select#preset > option[value="steamdeck"]:checked) .opt:has(#alldetails),
+#customiseropts:has(.opt > select#preset > option[value="epicgames"]:checked) .opt:has(#alldetails),
+#customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#alldetails),
+#customiseropts:has(.opt > select#preset > option[value="ps5"]:checked) .opt:has(#alldetails),
+#customiseropts:has(.opt > select#preset > option[value="ps4"]:checked) .opt:has(#alldetails),
+#customiseropts:has(.opt > select#preset > option[value="ps3"]:checked) .opt:has(#alldetails),
+#customiseropts:has(.opt > select#preset > option[value="epicgames"]:checked) .opt:has(#usepercent),
+#customiseropts:has(.opt > select#preset > option[value="xboxone"]:checked) .opt:has(#usepercent),
+#customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#usepercent) {
+    display: grid;
+}
+
+body[customiser][closing] .wrapper#main > *:not(.wrapper#customiserlogo,.wrapper#customiser) {
+    display: grid;
+}
+
+@keyframes customiserin {
+    from { scale: 1; }
+    to { scale: 0; }
+}
+
+@keyframes customiserout {
+    from { scale: 0; }
+    to { scale: 1; }
+}
+
+.wrapper#customiserlogo,
+.wrapper#customiser {
+    scale: 0;
+}
+
+.wrapper#customiser {
+    grid-template-columns: 1fr auto;
+    place-self: center;
+    gap: 1rem;
+    width: 75vw;
+    height: 100%;
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.wrapper#webview {
+    grid-template-rows: 1fr auto;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--darkgrey);
+    border-radius: var(--elembr);
+}
+
+.wrapper > .wrapper#webview > .wrapper:has(webview) {
+    --width: 300;
+    --height: 50;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    max-height: calc(var(--height) * 1px);
+    aspect-ratio: var(--width) / var(--height);
+}
+
+webview {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: calc(var(--transition) / 2);
+}
+
+#customiser:has(select#preset > option[value="xqjan"]:not(:checked)) webview {
+    scale: 0.85;
+}
+
+span#nopreview {
+    place-self: center;
+    color: #808080;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.wrapper#webview > .wrapper#webviewbtns {
+    grid-auto-flow: column;
+    place-content: center;
+    gap: 1rem;
+}
+
+.wrapper#webviewbtns > #playback {
+    --icon: url("../../icon/pause.svg");
+}
+
+.wrapper#webviewbtns > #playback[paused] {
+    --icon: url("../../icon/play.svg");
+}
+
+.wrapper#webviewbtns > #replay {
+    --icon: url("../../icon/replay.svg");
+}
+
+.wrapper#customisertabs {
+    position: sticky;
+    top: 0;
+    grid-template-columns: auto 1fr auto;
+    place-items: center;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+    font-size: 0.75rem;
+    background-color: #1b1b1b;
+    z-index: 1;
+}
+
+.wrapper#customisertabs > button {
+    display: grid;
+    place-items: center;
+    padding: 0.15rem;
+    background-color: transparent;
+    border-radius: var(--elembr);
+    transition:
+        background-color var(--transition),
+        filter var(--transition);
+}
+
+.wrapper#customisertabs > button:hover {
+    background-color: black;
+    filter: invert();
+}
+
+.wrapper#customisertabs > button::before {
+    content: "";
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background: url("../../icon/play.svg") center / contain no-repeat;
+}
+
+.wrapper#customisertabs > #customiserbackbtn::before {
+    rotate: 180deg;
+}
+
+.wrapper#customisertabs > .wrapper#customisertablbl::before {
+    content: "";
+    display: block;
+    justify-self: end;
+    width: 1rem;
+    height: 1rem;
+    background: var(--icon) center / contain no-repeat;
+}
+
+body[main] .wrapper#customisertabs > .wrapper#customisertablbl::before {
+    --icon: url("../../icon/trophy_gold.svg");
+}
+
+body[rare] .wrapper#customisertabs > .wrapper#customisertablbl::before {
+    --icon: url("../../icon/trophy_purple.svg");
+}
+
+body[plat] .wrapper#customisertabs > .wrapper#customisertablbl::before {
+    --icon: url("../../icon/trophy_plat.svg");
+}
+
+.wrapper#customisertabs > .wrapper#customisertablbl {
+    grid-template-columns: auto auto;
+    gap: 0.5rem;
+    justify-items: start;
+    align-items: center;
+    width: 100%;
+    padding: 0.15rem 0.25rem;
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+    transition: background-color var(--transition);
+}
+
+body[main] .wrapper#customisertabs > #customiserbackbtn,
+body[plat] .wrapper#customisertabs > #customisernextbtn,
+.opt:has(input[type="range"]#opacity)[value="100"] > .sub:has(input[type="checkbox"]#bgonly),
+.optcont > .opt[novalue],
+.optcont:has(input[type="checkbox"]#usegameicon:checked) > .opt:has(.optbtn#plat) {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.optcont > .opt[novalue] > input[type="checkbox"]:checked,
+.opt:has(input[type="range"]#opacity)[value="100"] input[type="checkbox"]#bgonly {
+    background-color: var(--darkgrey);
+}
+
+.opt:has(> .optbtn.img[novalue]) {
+    display: none;
+}
+
+#customisercontent {
+    position: relative;
+    min-width: 30vw;
+    padding-right: 1rem;
+    overflow: hidden scroll;
+}
+
+#customisercontent > #customiseropts {
+    position: absolute;
+    width: 100%;
+    padding-right: 1rem;
+}
+
+.cont:has(.title#preset) > .title::before {
+    --icon: url("../../icon/preset.svg");
+}
+
+.cont:has(.title#sound) > .title::before {
+    --icon: url("../../icon/musicnote.svg");
+}
+
+.cont:has(.title#style) > .title::before {
+    --icon: url("../../icon/style.svg");
+}
+
+.cont:has(.title#colors) > .title::before {
+    --icon: url("../../icon/colors.svg");
+}
+
+.cont:has(.title#icons) > .title::before {
+    --icon: url("../../icon/icon.svg");
+}
+
+.cont:has(.title#position) > .title::before {
+    --icon: url("../../icon/position.svg");
+}
+
+.cont:has(.title#theme) > .title::before {
+    --icon: url("../../icon/stars.svg");
+}
+
+.opt:has(> .lbl) {
+    grid-template-rows: auto auto;
+}
+
+.opt:first-child {
+    margin-top: 0;
+}
+
+.opt:last-child {
+    margin-bottom: 0;
+}
+
+.opt:has(select + .sub) > select,
+.opt:has(input[type="text"] + .sub) > input[type="text"],
+.opt:has(input[type="range"] + .sub) > input[type="range"],
+.opt:has(input[unit="percent"] + .sub) > .sub,
+.opt:has(> select#bgstyle) > .opt,
+input[type="range"][unit],
+.opt:has(input[type="checkbox"] + .opt) > .opt,
+.optbtn {
+    grid-column: 1 / -1;
+}
+
+.opt > .opt {
+    margin-top: 0.5rem;
+}
+
+.opt > .sub {
+    margin-top: 0.35rem;
+}
+
+.opt:has(> .opt:not(.sub)) {
+    gap: 0;
+}
+
+body[customiser] .opt:has(> .lbl):not(:first-child) {
+    margin-top: 0.5rem;
+}
+
+.lbl {
+    width: max-content;
+    padding: 0.2rem 0.35rem;
+    background-color: var(--primary);
+    border-radius: var(--elembr) var(--elembr) 0 0;
+    grid-column: 1 / -1;
+    grid-row-start: 1;
+    transition: background-color var(--transition);
+}
+
+.opt:has(> .lbl) > .lbl {
+    display: block;
+    cursor: default;
+    max-width: 10rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.opt:has(> .lbl) > :nth-child(2) {
+    border-radius: 0 var(--elembr) var(--elembr) var(--elembr);
+}
+
+.opt:has(> .lbl):has(> input[type="range"], > input[type="text"], > input[type="number"], > input[type="color"]) {
+    grid-template-columns: auto;
+    gap: 0;
+}
+
+.opt:has(> .lbl):has(input[type="range"][unit]),
+.opt:has(> .optbtn) {
+    grid-template-columns: auto auto;
+    gap: 0;
+}
+
+.opt:has(> .lbl):has(input[type="range"][unit])::before {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    justify-self: end;
+}
+
+.opt:has(> .lbl):has(> input[type="range"][unit="percent"])::before {
+    content: attr(value) "%";
+}
+
+.opt:has(> .lbl):has(.opt > input[type="number"][unit="degrees"]) > .opt:has(#gradientangle)::after {
+    content: "°";
+    margin-left: 0.25rem;
+}
+
+.opt:has(> .lbl):has(> input[type="range"][unit="seconds"])::before {
+    content: attr(value) "s";
+}
+
+.opt:has(> .lbl):has(> input[type="range"]) > :nth-child(2) {
+    border-radius: 0 0.15rem 0.15rem 0.15rem;
+}
+
+.optbtn {
+    min-height: 1.75rem;
+    padding: 0.35rem 0.7rem;
+    background-color: var(--darkgrey);
+    border-radius: 0 var(--elembr) var(--elembr) var(--elembr);
+    font-size: 0.7rem;
+    transition: background-color var(--transition);
+}
+
+.optbtn:not(.img):hover {
+    background-color: var(--lightgrey);
+}
+
+.optbtn.img {
+    background: var(--img) center / 100% no-repeat var(--darkgrey);
+    transition:
+        background-color var(--transition),
+        filter var(--transition);
+}
+
+.img#logo,
+.img[id^="decoration"],
+.img#plat,
+.img#hiddenicon {
+    min-height: 3.5rem;
+    background: var(--img) center / 25% no-repeat var(--darkgrey);
+}
+
+.optbtn.img:hover {
+    filter: brightness(75%);
+}
+
+.opt:has(> #gradientangle) {
+    grid-template-columns: 1fr auto auto;
+    gap: 0;
+}
+
+#posbtns {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 0.5rem;
+}
+
+.opt:has(#preview),
+.opt:has(#savetheme) {
+    grid-template-columns: 1fr;
+    gap: 0;
+}
+
+#preview,
+#savetheme,
+#posbtns > button {
+    grid-template-columns: auto auto;
+    justify-items: start;
+    align-items: center;
+    gap: 0.25rem;
+    width: 100%;
+    height: 100%;
+    font-size: 0.75rem;
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+}
+
+#preview::before,
+#savetheme::before,
+#posbtns > button::before {
+    content: "";
+    display: block;
+    justify-self: end;
+    width: 0.75rem;
+    height: 0.75rem;
+    background: var(--icon) center / contain no-repeat;
+    margin: 0;
+}
+
+#preview > span,
+#savetheme > span,
+#posbtns > button > span {
+    max-width: none;
+    padding: 0.25rem;
+}
+
+#preview {
+    --icon: url("../../icon/volume.svg");
+}
+
+#preview[playing]::before {
+    --icon: url("../../icon/stop.svg");
+}
+
+#preview[playing]::before,
+#preview[playing] > span {
+    filter: invert();
+}
+
+#preview[playing]::after {
+    translate: 0;
+}
+
+#savetheme {
+    --icon: url("../../icon/stars.svg");
+}
+
+#posbtns > #setcustompos {
+    --icon: url("../../icon/recenter.svg");
+}
+
+#posbtns > #resetcustompos {
+    --icon: url("../../icon/reset.svg");
+    background-color: #ff000080;
+}
+
+#customisercontent:has(input#showdecoration:not(:checked)) .opt:has(.optbtn[id^="decoration"]),
+#customiser[poswin] .sub:has(#usecustompos),
+#customiser[poswin] #posbtns > * {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.opt.visibility {
+    grid-template-columns: 1fr min-content min-content;
+    column-gap: 0.5rem;
+}
+
+.visibility > .img {
+    grid-column: 1 / span 3;
+}
+
+.visibility > .menubtn.visibilitybtn {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    width: 1rem;
+    height: 1rem;
+    background: var(--visibility) center / contain no-repeat;
+}
+
+.visibility > .delbtn {
+    grid-column-start: 3;
+}
+
+@media (orientation: portrait) or (width < 400px) {
+    .wrapper#customiser {
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content;
+    }
+    
+    .wrapper#webview {
+        grid-template-rows: repeat(2,min-content);
+    }
+
+    .contentsub {
+        grid-template-columns: 1fr;
+    }
+
+    .contentsub::before {
+        margin: 0;
+        padding: 0;
+    }
+}

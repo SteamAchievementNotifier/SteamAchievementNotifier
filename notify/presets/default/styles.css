@@ -1,0 +1,176 @@
+.wrapper#achcont {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: 16.6%;
+}
+
+.wrapper#bg {
+    width: 100%;
+}
+
+.wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) {
+    --move: calc(100vw - 100%);
+    --slidex: -100%;
+    --slidey: 0;
+    scale: 0;
+    animation:
+        popin calc(var(--transition) * 2) forwards,
+        move calc(var(--transition) * 2) calc(var(--transition) * 2) forwards,
+        expand calc(var(--transition) * 2) calc(var(--transition) * 4) forwards,
+        slide calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition) * 2)) forwards;
+}
+
+@keyframes popin {
+    to { scale: 1; }
+}
+
+@keyframes move {
+    to { translate: var(--move); }
+}
+
+@keyframes expandleft {
+    to { width: 100vw; }
+}
+
+.wrapper#achcont:has(.wrapper#achcontent > #desc) {
+    --move: 0;
+    --slidex: 0;
+    --slidey: -100%;
+    translate: 100vw;
+    animation:
+        move calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition) * 2)) forwards,
+        expand calc(var(--transition) * 2) calc(var(--displaytime) / 2) forwards,
+        shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 4)) forwards,
+        slide var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+#logo {
+    place-self: center;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: 85%;
+    height: 85%;
+    background: var(--logo) center / contain no-repeat;
+    border-radius: var(--iconroundness);
+}
+
+body[rare]:not([noiconanim]) .wrapper#achiconwrapper:has(#logo),
+body[plat]:not([noiconanim]) .wrapper#achiconwrapper:has(#logo) {
+    filter: drop-shadow(0 0 0.25rem #ffb84e99) drop-shadow(0 0 0.5rem #ffb84e66);
+}
+
+.wrapper#achcont:has(.wrapper#achcontent > #desc) > .wrapper#achiconwrapper {
+    grid-column-start: 2;
+    justify-self: end;
+}
+
+@keyframes expand {
+    to { width: 100vw; }
+}
+
+@keyframes shrink {
+    to { width: 16.6%; }
+}
+
+@keyframes slide {
+    to { translate: var(--slidex) var(--slidey); }
+}
+
+body[solid] .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg)  > #bg {
+    background-color: var(--primarycolor);
+}
+
+body[solid] .wrapper#achcont:has(.wrapper#achcontent > #desc) > #bg {
+    background-color: var(--secondarycolor);
+}
+
+.wrapper#achcontent {
+    padding: 0;
+    opacity: 0;
+}
+
+/* .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > .wrapper#achcontent {
+    grid-template-columns: calc(100vh - (10px * var(--scale))) 1fr calc(100vh - (10px * var(--scale)));
+    grid-column: 1 / -1;
+    place-self: center;
+    animation: fadein calc(var(--transition) * 2) calc(var(--transition) * 6) forwards;
+} */
+
+.wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > .wrapper#achcontent {
+    grid-template-columns: calc(100vh - (10px * var(--scale))) auto auto calc(100vh - (10px * var(--scale)));
+    grid-column: 1 / -1;
+    align-self: center;
+    align-items: center;
+    animation: fadein calc(var(
+    --transition) * 2) calc(var(--transition) * 6) forwards;
+    gap: 0;
+}
+
+.wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > #achcontent::before {
+    content: "";
+    display: inline-block;
+    width: calc(1rem * var(--fontsize));
+    height: calc(1rem * var(--fontsize));
+    background: var(--decoration) center / contain no-repeat;
+    margin-inline: calc(10px * var(--scale)) calc(5px * var(--scale));
+    justify-self: end;
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+
+.wrapper#achcont:has(.wrapper#achcontent > #desc) > .wrapper#achcontent {
+    grid-template-columns: calc(10px * var(--scale)) 1fr calc(100vh - (10px * var(--scale)));
+    grid-column: 1 / -1;
+    animation:
+        fadein calc(var(--transition) * 2) calc(var(--displaytime) / 2 + (var(--transition))) forwards,
+        fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 6)) forwards;
+}
+
+@keyframes fadein {
+    to { opacity: 1; }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}
+
+.wrapper#achcontent > #unlockmsg {
+    grid-column-start: 3;
+    justify-self: start;
+}
+
+.wrapper#achcontent > span {
+    font-family: "customfont", "Titillium Web", "Roboto";
+}
+
+body[nodecoration] .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > .wrapper#achcontent > #unlockmsg {
+    grid-column: 2 / span 2;
+    place-self: center;
+}
+
+body[nodecoration] .wrapper#achcontent > span {
+    grid-column: auto;
+    grid-column-start: 2;
+}
+
+#unlockmsg,
+#title {
+    grid-row-start: 1;
+}
+
+#desc {
+    font-size: calc(0.85rem * var(--fontsize));
+    grid-row-start: 2;
+}
+
+body[ss] .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) {
+    display: none;
+}
+
+body[ss] .wrapper#achcont:has(.wrapper#achcontent > #desc) {
+    translate: 0;
+}
+
+body[ss] .wrapper#achcont:has(.wrapper#achcontent > #desc) > #bg {
+    background-color: var(--primarycolor);
+}

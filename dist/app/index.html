@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./global.css">
+        <link rel="stylesheet" href="./dialog.css">
+        <link rel="stylesheet" href="./settings.css">
+        <link rel="stylesheet" href="./customiser.css">
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="./tooltips.css">
+        <script>const exports = {};</script>
+        <script type="module" src="./renderer.js"></script>
+    </head>
+    <body main>
+        <audio src=""></audio>
+        <div class="wrapper" id="body">
+            <div id="dragbar"></div>
+            <div class="wrapper" id="menu">
+                <button class="menubtn" id="settings"></button>
+                <div class="wrapper">
+                    <button class="menubtn" id="error"></button>
+                    <button class="menubtn" id="update"></button>
+                    <button class="menubtn" id="close" onclick="window.close()"></button>
+                </div>
+            </div>
+            <div class="wrapper" id="main">
+                <div class="wrapper logo" id="logo">
+                    <img src="../../img/santextlogo_mask.svg" alt="" draggable="false" id="mask">
+                    <img src="../../img/santextlogo_colors.svg" alt="" draggable="false" main>
+                    <img src="../../img/santextlogorare_colors.svg" alt="" draggable="false" rare>
+                    <img src="../../img/santextlogoplat_colors.svg" alt="" draggable="false" plat>
+                </div>
+                <div class="wrapper" id="maincontent">
+                    <div></div>
+                    <div class="rect" id="game" novalue>
+                        <span></span>
+                        <button id="link"></button>
+                    </div>
+                    <button class="rect" id="usertheme">
+                        <span></span>
+                    </button>
+                    <div class="wrapper" id="tabs">
+                        <button class="tab" main></button>
+                        <button class="tab" rare></button>
+                        <button class="tab" plat></button>
+                    </div>
+                    <button class="rect" id="customise">
+                        <span></span>
+                    </button>
+                    <div></div>
+                    <button class="rect" id="test">
+                        <div id="progresscircle"></div>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+            <div class="wrapper" id="footer">
+                <span id="version"></span>
+                <span id="copyright"></span>
+                <div class="wrapper" id="links">
+                    <button class="menubtn" id="kofi"></button>
+                    <button class="menubtn" id="discord"></button>
+                    <button class="menubtn" id="github"></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

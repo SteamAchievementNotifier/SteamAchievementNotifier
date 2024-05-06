@@ -1,0 +1,220 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    user-select: none;
+}
+
+:root {
+    --displaytime: 10s;
+    --scale: 1;
+    --primarycolor: #203e7a;
+    --secondarycolor: #0c2a66;
+    --tertiarycolor: #ffffff;
+    --fontcolor: #ffffff;
+    --gradientangle: 90deg;
+    --bgimg: "";
+    --gameart: "";
+    --gameicon: "";
+    --bgimgbrightness: 100%;
+    --brightness: 100%;
+    --roundness: 0px;
+    --fontsize: 1;
+    --opacity: 1;
+    --iconroundness: 0px;
+    --fontoutline: none;
+    --fontshadow: none;
+    --logo: "";
+    --decoration: "";
+    --base64: url("../img/base64.png");
+    --anim: 1s;
+    --bodyopacity: 0;
+    font-size: clamp(0.05rem,0.05rem + 3.5vmax,12.5rem);
+    line-height: 1;
+}
+
+html,
+body {
+    display: grid;
+    align-content: center;
+    background-color: transparent;
+}
+
+body {
+    opacity: var(--bodyopacity);
+    transition: opacity var(--transition);
+}
+
+body,
+.wrapper#achcont,
+.wrapper#bg {
+    width: 100vw;
+    height: 100vh;
+    /* Fixes blurriness in previews */
+    will-change: contents;
+    backface-visibility: hidden;
+    /* transform: perspective(0) translateZ(0); */
+}
+
+#achicon,
+#logo {
+    will-change: contents;
+    backface-visibility: hidden;
+    /* transform: perspective(0) translateZ(0); */
+}
+
+.wrapper#achcont {
+    grid-template-columns: auto 1fr;
+    align-self: center;
+    align-items: center;
+    align-content: center;
+    opacity: var(--opacity);
+    isolation: isolate;
+    border-radius: var(--roundness);
+    overflow: hidden;
+}
+
+body[bgonly] .wrapper#achcont {
+    opacity: 1;
+}
+
+.wrapper#bg {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-row-start: 1;
+    border-radius: var(--roundness);
+    opacity: var(--opacity);
+    transition: border-radius 0;
+    z-index: -1;
+}
+
+body[solid] .wrapper#bg {
+    background-color: var(--primarycolor);
+}
+
+body[gradient] .wrapper#bg {
+    background-image: linear-gradient(var(--gradientangle), var(--primarycolor), var(--secondarycolor));
+}
+
+body[bgimg] .wrapper#bg {
+    background: var(--bgimg) center / cover no-repeat;
+    filter: brightness(var(--bgimgbrightness));
+}
+
+body[gameart] .wrapper#bg {
+    background: var(--bgimg) center / cover no-repeat;
+    filter: brightness(var(--brightness));
+}
+
+.wrapper#achcont > * {
+    grid-row-start: 1;
+}
+
+.wrapper#achiconwrapper {
+    place-self: center;
+    width: calc(100vh - (10px * var(--scale)));
+    height: calc(100vh - (10px * var(--scale)));
+    grid-column-start: 1;
+    margin-inline: calc(5px * var(--scale));
+    isolation: isolate;
+    /* scale: 1.02; */
+}
+
+body[rare]:not([noiconanim]) .wrapper#achiconwrapper,
+body[plat]:not([noiconanim]) .wrapper#achiconwrapper {
+    filter: drop-shadow(0 0 0.25rem #ffb84e99) drop-shadow(0 0 0.5rem #ffb84e66);
+}
+
+.wrapper#achiconwrapper::before,
+.wrapper#achiconwrapper::after {
+    content: "";
+    display: none;
+    width: 100%;
+    height: 100%;
+    mask-image: var(--base64);
+    mask-repeat: repeat;
+    mask-size: 100%;
+    -webkit-mask-image: var(--base64);
+    -webkit-mask-repeat: repeat;
+    -webkit-mask-size: 100%;
+}
+
+body[rare]:not([noiconanim]) .wrapper#achiconwrapper::before,
+body[plat]:not([noiconanim]) .wrapper#achiconwrapper::before {
+    background-image: radial-gradient(circle, #ffb84e 10%, transparent);
+    overflow: hidden;
+    z-index: -1;
+    animation: steamrotate calc(var(--anim) * 18) linear infinite reverse;
+}
+
+body[rare]:not([noiconanim]) .wrapper#achiconwrapper::after,
+body[plat]:not([noiconanim]) .wrapper#achiconwrapper::after {
+    animation: steamrotate calc(var(--anim) * 6) linear infinite;
+    mix-blend-mode: overlay;
+    background: repeating-conic-gradient(rgba(255, 217, 0, 0.178) 0%, rgba(255, 184, 78, 0) 6%, rgba(255, 217, 0, 0.178) 10%, #ffb84e 26%, rgba(255, 217, 0, 0.178) 35%, #ffb84e 40%, rgba(255, 217, 0, 0.178) 60%, #ffb84e 82%, transparent 100%);
+    overflow: hidden;
+    z-index: -1;
+    filter: blur(1rem);
+}
+
+@keyframes steamrotate {
+    to { transform: rotate(1turn) }
+}
+
+#achicon {
+    width: 85%;
+    height: 85%;
+    border-radius: var(--iconroundness);
+}
+
+body[rare]:not([noiconanim]) .wrapper#achiconwrapper::before,
+body[plat]:not([noiconanim]) .wrapper#achiconwrapper::before,
+body[rare]:not([noiconanim]) .wrapper#achiconwrapper::after,
+body[plat]:not([noiconanim]) .wrapper#achiconwrapper::after,
+#achicon {
+    display: grid;
+    place-self: center;
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+body[nodecoration] > .wrapper#achcont > .wrapper#achcontent::before {
+    display: none !important;
+}
+
+body[nodecoration] .wrapper#achcontent > span {
+    grid-column: 1 / -1;
+}
+
+#achcontent {
+    grid-template-columns: 0fr 1fr 0fr;
+    column-gap: calc(10px * var(--scale));
+    align-items: center;
+    font-size: calc(1rem * var(--fontsize));
+    color: var(--fontcolor);
+    text-shadow: var(--fontoutline);
+    filter: var(--fontshadow);
+    grid-column-start: 2;
+}
+
+#achcontent > span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    grid-column-start: 2;
+    line-height: calc(1.2rem * var(--fontsize));
+    word-break: break-word;
+    -webkit-box-align: center;
+}
+
+#hiddenicon {
+    display: inline-block;
+    width: calc(0.85rem * var(--fontsize));
+    height: calc(0.85rem * var(--fontsize));
+    background: var(--hiddenicon) center / contain no-repeat;
+    margin-right: calc(0.25rem * var(--fontsize));
+    vertical-align: calc(-0.5px * var(--fontsize));
+}

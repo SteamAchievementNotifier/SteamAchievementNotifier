@@ -1,0 +1,97 @@
+{
+    "private": true,
+    "name": "steamachievementnotifier",
+    "author": "SteamAchievementNotifier",
+    "version": "1.9.0",
+    "description": "Steam Achievement Notifier (V1.9)",
+    "main": "dist/app/app.js",
+    "scripts": {
+        "dev": "npx tsc && electron ./dist/app/app.js",
+        "win": "npx tsc --build --clean && npx tsc && electron-builder --win=nsis --x64",
+        "linux": "npx tsc --build --clean && npx tsc && electron-builder --linux",
+        "publish": "npx tsc --build --clean && npx tsc && electron-builder -p always"
+    },
+    "repository": {
+        "url": "https://github.com/${author}/${name}"
+    },
+    "bugs": {
+        "url": "https://github.com/${author}/${name}/issues"
+    },
+    "homepage": "https://github.com/${author}/${name}#readme",
+    "devDependencies": {
+        "@types/fs-extra": "^11.0.4",
+        "electron": "^29.1.6",
+        "electron-builder": "^24.9.1",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "electron-log": "^4.4.8",
+        "electron-store": "^8.1.0",
+        "electron-updater": "^6.1.7",
+        "fs-extra": "^11.2.0",
+        "jpeg-js": "^0.4.4",
+        "sanhelper.rs": "./deps/sanhelper.rs",
+        "simple-vdf": "^1.1.1",
+        "steam-game-path": "^2.2.0",
+        "steamworks.js": "./deps/steamworks.js",
+        "tippy.js": "^6.3.7"
+    },
+    "build": {
+        "appId": "com.SteamAchievementNotifier.Jackson0ne",
+        "productName": "Steam Achievement Notifier (V1.9)",
+        "directories": {
+            "output": "_release"
+        },
+        "files": [
+            "deps/HackTimer.min.js",
+            "dist/**/*",
+            "fonts/**/*",
+            "icon/**/*",
+            "img/**/*",
+            "notify/**/*",
+            "sound/**/*",
+            {
+                "from": "img",
+                "to": "img",
+                "filter": [
+                    "**/*"
+                ]
+            }
+        ],
+        "extraResources": [
+            {
+                "from": "img",
+                "to": "img",
+                "filter": [
+                    "**/*"
+                ]
+            }
+        ],
+        "npmRebuild": false,
+        "publish": [
+            {
+                "provider": "github",
+                "owner": "${author}",
+                "repo": "${name}",
+                "vPrefixedTagName": false
+            }
+        ],
+        "win": {
+            "target": "nsis",
+            "icon": "img/sanlogo.ico"
+        },
+        "nsis": {
+            "oneClick": true,
+            "artifactName": "SteamAchievementNotifier_V${version}.exe",
+            "createDesktopShortcut": false,
+            "deleteAppDataOnUninstall": true,
+            "shortcutName": "Steam Achievement Notifier (V1.9)"
+        },
+        "linux": {
+            "target": "AppImage",
+            "artifactName": "SteamAchievementNotifier_V${version}.AppImage",
+            "icon": "img/sanlogo.png",
+            "category": "Utility"
+        }
+    }
+}

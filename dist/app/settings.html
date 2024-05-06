@@ -1,0 +1,248 @@
+<div id="content">
+    <div class="wrapper" id="settingsheader">
+        <span></span>
+        <button class="menubtn" id="settingsclose"></button>
+    </div>
+    <div id="settingscontent">
+        <div class="wrapper cont">
+            <span class="wrapper title" id="language"></span>
+            <div class="wrapper optcont">
+                <div class="wrapper opt">
+                    <select name="lang" id="lang">
+                        <option value="arabic">Arabic (العربية)</option>
+                        <option value="bulgarian">Bulgarian (български език)</option>
+                        <option value="czech">Czech (Český Jazyk)</option>
+                        <option value="danish">Danish (Dansk)</option>
+                        <option value="dutch">Dutch (Nederlands)</option>
+                        <option value="english">English</option>
+                        <option value="finnish">Finnish (Suomi)</option>
+                        <option value="french">French (Français)</option>
+                        <option value="german">German (Deutsch)</option>
+                        <option value="greek">Greek (Ελληνικά)</option>
+                        <option value="hungarian">Hungarian (Magyar)</option>
+                        <option value="italian">Italian (Italiano)</option>
+                        <option value="japanese">Japanese (日本語)</option>
+                        <option value="koreana">Korean (조선말)</option>
+                        <option value="norwegian">Norwegian (Norsk)</option>
+                        <option value="polish">Polish (Polski)</option>
+                        <option value="portuguese">Portuguese (Português)</option>
+                        <option value="brazilian">Portuguese-Brazilian (Português do Brasil)</option>
+                        <option value="romanian">Romanian (Română)</option>
+                        <option value="russian">Russian (Русский)</option>
+                        <option value="schinese">Simplified Chinese (中国人)</option>
+                        <option value="spanish">Spanish (Español)</option>
+                        <option value="swedish">Swedish (Svenska)</option>
+                        <option value="tchinese">Traditional Chinese (中國人)</option>
+                        <option value="thai">Thai (ภาษาไทย)</option>
+                        <option value="turkish">Turkish (Türkçe)</option>
+                        <option value="ukrainian">Ukrainian (Українська)</option>
+                        <option value="vietnamese">Vietnamese (Tiếng Việt Nam)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper cont">
+            <span class="wrapper title" id="os"></span>
+            <div class="wrapper optcont">
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="desktop">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="startwin">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="startmin">
+                </div>
+                <div class="wrapper opt" star>
+                    <span></span>
+                    <input type="checkbox" id="nohwa">
+                </div>
+                <div class="wrapper opt" soon>
+                    <span></span>
+                    <input type="checkbox" id="litemode">
+                </div>
+            </div>
+        </div>
+        <div class="wrapper cont">
+            <span class="wrapper title" id="notifications"></span>
+            <div class="wrapper optcont">
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="range" min="0.1" max="10.0" step="0.1" id="rarity">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <select name="showpercent" id="showpercent">
+                        <option value="rareonly"></option>
+                        <option value="all"></option>
+                        <option value="off"></option>
+                    </select>
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="soundonly">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="extwin">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <select name="audiosrc" id="audiosrc">
+                        <option value="notify"></option>
+                        <option value="app"></option>
+                        <option value="off"></option>
+                    </select>
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="nowtracking">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="range" min="50" max="150" step="10" id="nowtrackingscale">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="shortcuts">
+                </div>
+                <div class="wrapper">
+                    <div class="wrapper settingstabs" id="shortcuttabs">
+                        <button class="tab" main></button>
+                        <button class="tab" rare></button>
+                        <button class="tab" plat></button>
+                    </div>
+                    <div class="wrapper">
+                        <button id="shortcutbtn"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper cont">
+            <span class="wrapper title" id="media"></span>
+            <div class="wrapper optcont">
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="steamss">
+                </div>
+                <div class="wrapper opt">
+                    <span class="lbl"></span>
+                    <select name="screenshots" id="screenshots">
+                        <option value="off"></option>
+                        <option value="overlay"></option>
+                        <option value="notifyimg"></option>
+                    </select>
+                </div>
+                <div class="wrapper opt" overlay>
+                    <span class="lbl"></span>
+                    <select name="monitors" id="monitors"></select>
+                </div>
+                <div class="wrapper settingstabs" id="ovtabs" overlay notifyimg>
+                    <button class="tab" main></button>
+                    <button class="tab" rare></button>
+                    <button class="tab" plat></button>
+                </div>
+                <div class="wrapper opt" overlay customisation>
+                    <span class="lbl"></span>
+                    <select name="ovpos" id="ovpos">
+                        <option value="topleft"></option>
+                        <option value="topcenter"></option>
+                        <option value="topright"></option>
+                        <option value="bottomleft"></option>
+                        <option value="bottomcenter"></option>
+                        <option value="bottomright"></option>
+                    </select>
+                    <div class="wrapper opt sub" customisation>
+                        <span></span>
+                        <input type="checkbox" id="ovmatch">
+                    </div>
+                </div>
+                <div class="wrapper opt" overlay>
+                    <span class="lbl"></span>
+                    <button class="optbtn" id="ovpath" dir>
+                        <span></span>
+                    </button>
+                </div>
+                <div class="wrapper opt" notifyimg>
+                    <span class="lbl"></span>
+                    <button class="optbtn" id="imgpath" dir>
+                        <span></span>
+                    </button>
+                </div>
+                <div class="wrapper opt" overlay>
+                    <span class="lbl"></span>
+                    <input unit="seconds" type="range" min="0" max="5" step="0.5" id="ssdelay">
+                </div>
+                <div class="wrapper opt" overlay notifyimg>
+                    <button class="rect" id="sspreview">
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper cont">
+            <span class="wrapper title" id="accessibility"></span>
+            <div class="wrapper optcont">
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="noanim">
+                </div>
+                <div class="wrapper opt" star>
+                    <span></span>
+                    <input type="checkbox" id="nvda">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="tooltips">
+                </div>
+            </div>
+        </div>
+        <div class="wrapper cont">
+            <span class="wrapper title" id="advanced"></span>
+            <div class="wrapper optcont">
+                <div class="wrapper opt" star>
+                    <span></span>
+                    <input type="range" min="50" max="1000" step="50" id="pollrate">
+                </div>
+                <div class="wrapper opt" star>
+                    <span></span>
+                    <input type="range" min="0" max="10" step="1" id="releasedelay">
+                </div>
+                <div class="wrapper opt" star>
+                    <span></span>
+                    <select name="maxretries" id="maxretries">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="60">60</option>
+                    </select>
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="notifydebug">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="usecustomfiles">
+                </div>
+                <button class="wrapper" id="showcustomfiles"></button>
+            </div>
+        </div>
+        <div class="wrapper cont">
+            <span class="wrapper title" id="misc"></span>
+            <div class="wrapper optcont">
+                <button class="wrapper" id="checkforupdates"></button>
+                <button class="wrapper" id="log"></button>
+                <button class="wrapper" id="reset"></button>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper" id="settingsversion">
+        <span></span>
+        <span></span>
+    </div>
+</div>

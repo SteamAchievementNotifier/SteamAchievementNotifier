@@ -1,0 +1,387 @@
+export const translations = {
+    global: {
+        main: "메인",
+        rare: "희귀",
+        plat: "100%",
+        topleft: "왼쪽 상단",
+        topcenter: "상단 중앙",
+        topright: "오른쪽 상단",
+        bottomleft: "왼쪽 하단",
+        bottomcenter: "하단 중앙",
+        bottomright: "오른쪽 하단",
+        ok: "확인",
+        preview: "미리보기",
+        save: "저장",
+        back: "뒤로",
+        settings: "설정",
+        appversion: "앱 버전",
+        image: "이미지",
+        audio: "오디오",
+        folder: "폴더",
+        font: "폰트",
+        select: "선택",
+        gametitle: "게임 제목",
+        congrats: "축하합니다!",
+        achievementunlocked: "업적 잠금 해제됨",
+        gamecomplete: "100% 완료",
+        achievementdesc: "테스트 알림 버튼을 클릭했습니다",
+        gamecompletedesc: "모든 업적이 잠금 해제되었습니다!",
+        defaultcustomfont: "기본값 (선택된 폰트 없음)",
+        defaultsoundfile: "기본값 (선택된 파일 없음)",
+        defaultsounddir: "기본값 (선택된 폴더 없음)",
+        nowtracking: "현재 업적 추적 중:",
+        nopreview: "네이티브 OS에는 미리보기를 사용할 수 없습니다",
+        options: "옵션",
+        resetwindow: "창 초기화",
+        show: "보이기",
+        exit: "종료",
+        releasegame: "게임 릴리즈",
+        releasegamesub: [
+            `백그라운드 Worker 프로세스를 재시작하고 현재 게임의 추적을 해제합니다`,
+            `최근에 게임을 종료했지만 Steam이 여전히 실행 중으로 표시하거나, Steam Achievement Notifier가 이미 종료된 게임을 추적 중으로 표시하는 경우 이 옵션을 시도해보세요`
+        ],
+        noupdateavailable: "사용 가능한 업데이트가 없습니다",
+        latestversion: "최신 버전이 설치되어 있습니다",
+        missingdeps: "부족한 종속성",
+        missingdepssub: [
+            `스팀 스크린샷 옵션을 활성화하려고 합니다. 그러나 Linux에서는 <code class="dialogcode">xdotool</code> 패키지를 먼저 설치하지 않으면 스크린샷을 자동으로 트리거할 수 없습니다`,
+            `이 종속성을 설치하려면 <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> 명령을 실행하십시오. 이렇게하면이 장치에서 Steam 스크린샷을 촬영 할 수 있습니다`
+        ],
+        restartapp: "앱 다시 시작하기",
+        restartappsub: [
+            `만약 작동이 제대로 이루어지지 않는다면, 앱을 닫고 다시 열기 위해 이 옵션을 사용하세요`,
+            `앱을 다시 시작한 후에도 문제가 지속된다면, 홈 화면의 내부 링크를 사용하여 보고해 주시기 바랍니다`
+        ]
+    },
+    app: {
+        content: {
+            game: "게임이 감지되지 않았습니다",
+            customise: "사용자 정의",
+            test: "테스트 알림 표시"
+        }
+    },
+    settings: {
+        language: {
+            title: "언어"
+        },
+        os: {
+            title: "운영 체제",
+            content: {
+                desktop: "데스크톱 바로 가기 만들기",
+                startwin: "로그온 시 시작",
+                startmin: "최소화하여 시작",
+                nohwa: "하드웨어 가속 비활성화",
+                litemode: "라이트 모드"
+            }
+        },
+        notifications: {
+            title: "알림",
+            content: {
+                rarity: "희귀 비율",
+                rareonly: "희귀 항목만",
+                all: "모두",
+                off: "끔",
+                showpercent: "백분율 표시",
+                soundonly: "사운드만",
+                extwin: "스트림 알림",
+                audiosrc: "오디오 소스",
+                notify: "알림",
+                app: "앱",
+                nowtracking: "추적 알림 표시",
+                nowtrackingscale: "추적 스케일",
+                shortcuts: "알림 단축키"
+            }
+        },
+        media: {
+            title: "미디어",
+            content: {
+                steamss: "Steam 스크린 샷 찍기",
+                screenshots: "추가 미디어",
+                off: "끔",
+                overlay: "알림 오버레이가있는 스크린 샷",
+                monitors: "스크린 샷 소스",
+                ovpos: "오버레이 위치",
+                ovmatch: "맞춤 위치와 일치",
+                ovpath: "스크린 샷 경로",
+                ssdelay: "스크린 샷 지연",
+                notifyimg: "알림 이미지",
+                imgpath: "이미지 경로"
+            }
+        },
+        accessibility: {
+            title: "접근성",
+            content: {
+                noanim: "앱 창 애니메이션 비활성화",
+                nvda: "NVDA 지원 활성화",
+                tooltips: "도구 설명 표시"
+            }
+        },
+        advanced: {
+            title: "고급 설정",
+            content: {
+                pollrate: "폴링 속도",
+                releasedelay: "릴리스 지연",
+                maxretries: "최대 재시도 횟수",
+                notifydebug: "디버그 알림 표시",
+                usecustomfiles: "사용자 정의 앱 파일 사용",
+                showcustomfiles: "사용자 정의 앱 파일 표시"
+            }
+        },        
+        misc: {
+            title: "기타",
+            content: {
+                checkforupdates: "업데이트 확인",
+                log: "앱 로그",
+                reset: "앱 재설정"
+            }
+        }
+    },    
+    customiser: {
+        preset: {
+            title: "프리셋",
+            content: {
+                preset: "알림 프리셋",
+                iconanim: "희귀 아이콘 애니메이션",
+                alldetails: "모든 세부사항 표시",
+                usepercent: "백분율 사용",
+                displaytime: "표시 시간",
+                scale: "크기 조절",
+                customtext: "사용자 정의 텍스트",
+                usegametitle: "게임 제목 사용",
+                customfont: "사용자 정의 글꼴"
+            }
+        },
+        sound: {
+            title: "사운드",
+            content: {
+                soundmode: "사운드 모드",
+                file: "파일",
+                folder: "랜덤",
+                soundfile: "사운드 파일",
+                sounddir: "사운드 폴더",
+                volume: "볼륨"
+            }
+        },
+        style: {
+            title: "스타일",
+            content: {
+                bgstyle: "배경 스타일",
+                solid: "단색",
+                gradient: "그라데이션",
+                img: "이미지",
+                gameart: "게임 아트",
+                gradientangle: "그라데이션 각도",
+                bgimg: "배경 이미지",
+                bgimgbrightness: "밝기",
+                brightness: "밝기",
+                roundness: "둥근 모양",
+                fontsize: "글꼴 크기",
+                opacity: "불투명도",
+                bgonly: "배경만"
+            }
+        },
+        colors: {
+            title: "색상",
+            content: {
+                primarycolor: "기본 색상",
+                secondarycolor: "보조 색상",
+                tertiarycolor: "제3 색상",
+                fontcolor: "글꼴 색상",
+                fontoutline: "글꼴 외곽선",
+                fontoutlinecolor: "글꼴 외곽선 색상",
+                fontshadow: "글꼴 그림자",
+                fontshadowcolor: "글꼴 그림자 색상"
+            }
+        },
+        icons: {
+            title: "아이콘",
+            content: {
+                iconroundness: "아이콘 둥글기",
+                plat: "100% 로고",
+                usegameicon: "게임 아이콘 사용",
+                logo: "로고",
+                decoration: "장식",
+                showdecoration: "장식 표시",
+                rarity: "희귀도",
+                showhiddenicon: "숨은 아이콘 표시",
+                hiddenicon: "숨은 아이콘",
+            }
+        },
+        position: {
+            title: "위치",
+            content: {
+                pos: "화면 위치",
+                usecustompos: "사용자 정의 위치 사용",
+                setcustompos: "설정",
+                resetcustompos: "재설정"
+            }
+        },
+        theme: {
+            title: "테마",
+            content: {
+                savetheme: "테마 저장",
+                sub: [
+                    `저장된 <span class="hl">사용자 테마</span>는 홈 화면의 <span class="hl">테마 선택</span> 메뉴에서 선택할 수 있습니다.`,
+                    `테마 이름이 <u>고유해야</u>합니다. - 기존 테마와 일치하는 이름은 <u>이전 것을 덮어쓸 것</u>입니다!`
+                ],
+                placeholder: "테마 이름",
+                theme: "테마"
+            }
+        }
+    },
+    logwin: {
+        content: {
+            tagline: "앱을 시작한 이후에 발생한 사항은 다음과 같습니다",
+            copylog: "로그 내용 복사"
+        }
+    },
+    reset: {
+        content: {
+            sub: `
+                <div class="wrapper" id="resetsub">
+                    <span>정말로 확실합니까?</span>
+                    <span>이전에 구성된 모든 데이터, <u>사용자 정의를 포함한</u> 모두 기본값으로 재설정됩니다.</span>
+                    <span>🛑 이 작업은 취소할 수 없습니다!</span>
+                </div>
+            `,
+            reset: "재설정"
+        }
+    },
+    error: {
+        content: {
+            subtitle: "Steam Achievement Notifier에 문제가 발생하여 종료해야 합니다.",
+            details: "다음은 오류 세부 정보입니다:",
+            sub: "선호하는 플랫폼을 통해 이 문제를 보고하려면 아래 버튼을 클릭하십시오.",
+            report: "보고",
+            log: "앱 로그",
+            exit: "종료"
+        }
+    },    
+    tooltips: {
+        game: "현재 추적 중인 업적이 있는 게임",
+        usertheme: "이전에 저장된 테마 선택",
+        customise: "업적 알림 사용자 정의",
+        test: "테스트 알림 표시, 사용자 정의 포함",
+        kofi: "Ko-Fi에서 기부하기!",
+        discord: "Discord에 가입하기!",
+        github: "문제 보고",
+        lang: "앱에서 사용되는 UI 언어 선택",
+        desktop: "데스크톱에 앱 실행 바로 가기 전환",
+        startwin: "로그인 후 Steam Achievement Notifier 자동 시작",
+        startmin: "실행 후, 시스템 트레이에서 열릴 때까지 앱 UI 창 숨기기",
+        nohwa: `하드웨어 가속을 비활성화하면 리소스가 제한된 시스템이나 전용 GPU가없는 시스템의 성능을 향상시킬 수 있습니다<br><br><span class="ttdesc">이 옵션을 활성화/비활성화하면 응용 프로그램이 다시 시작됩니다</span>`,
+        litemode: "모든 상호 작용 UI 요소 비활성화, 시스템 트레이 아이콘을 통한 제한된 앱 기능만 제공. 앱이 사용하는 리소스 개선 가능",
+        rarity: "희귀 업적 알림이 트리거될 백분율. 이 값보다 높은 잠금 해제 백분율을 가진 업적은 주 알림으로 표시됨",
+        showpercent: "선택한 유형의 알림에 업적의 잠금 해제 백분율 표시",
+        soundonly: "알림 비활성화, Customiser에서 설정한 사운드만 재생",
+        extwin: "현재 화면에 표시되는 모든 알림을 복제하는 숨겨진 백그라운드 창 생성. 이 창은 OBS와 같은 스트리밍 소프트웨어에서 Window Capture 소스로 추가할 수 있음",
+        audiosrc: "앱에서 생성되는 오디오의 소스 선택(또는 비활성화)",
+        nowtracking: "실행 중인 게임의 업적이 추적되고 있음을 알리는 알림 표시",
+        nowtrackingscale: `추적 알림 크기 설정`,
+        shortcuts: "키보드 단축키를 통해 테스트 알림 트리거. 각 알림 유형에 대해 사용자 정의 가능한 단축키",
+        steamss: "업적이 잠금 해제될 때 Steam 스크린샷 찍기",
+        screenshots: "알림이 표시될 때 생성할 추가 미디어 유형 선택",
+        monitors: "스크린샷을 찍을 모니터 선택",
+        ovpos: "스크린샷 내 알림 오버레이 위치",
+        ovmatch: "Customiser에서 설정한 화면 위치와 일치",
+        ovpath: "이 옵션으로 생성된 스크린샷이 저장될 위치",
+        ssdelay: "알림이 발생한 후 스크린샷이 찍히기까지의 지연 시간 추가",
+        sspreview: "스크린샷이 저장될 때의 미리보기 표시",
+        noanim: "앱 창 애니메이션 및 전환 효과 비활성화",
+        nvda: "업적이 잠금 해제될 때 클립보드로 업적 정보 복사하여 NVDA와 같은 스크린 리더 소프트웨어에서 읽을 수 있도록 활성화",
+        tooltips: "특정 UI 요소 위에 마우스를 올렸을 때 도구 설명 표시",
+        pollrate: `게임 중 성취 데이터의 업데이트 간격을 설정합니다<br><br><span class="ttdesc">값이나 시스템 하드웨어에 따라 성능이 증가하거나 감소할 수 있습니다. 일반적으로 높은 값은 시스템 부하를 줄이지만 알림이 지연될 수 있습니다</span>`,
+        releasedelay: `현재 게임이 출시된 후 백그라운드 프로세스가 다시 시작하기까지 대기하는 시간을 설정합니다. 자동 프로세스 추적 및 수동으로 연결된 게임에 모두 영향을 줍니다.<br><br><span class="ttdesc">앱에서 Steamworks를 완전히 해제하는 데 더 긴 시간 프레임을 제공합니다. 이 값을 높이면 이전에 닫힌 게임 추적과 같은 이상한 동작을 방지할 수 있습니다.</span>`,
+        maxretries: `실행 중인 프로세스를 감지된 AppID에 연결하는 시도의 최대 횟수를 설정합니다. 자동 프로세스 추적 및 수동으로 연결된 게임에 모두 영향을 줍니다.<br><br><span class="ttdesc">연결 시도는 1초마다 수행됩니다. 이 횟수의 시도 후에 실행 중인 프로세스가 현재 AppID에 연결되지 않은 경우 무효한 프로세스가 반환됩니다. 이러한 경우에는 게임을 시스템 트레이 > 옵션 > 게임 릴리스로 수동으로 해제해야 합니다.</span>`,
+        notifydebug: "모든 알림에 대한 DevTools 창 생성. 알림 문제의 디버깅/문제 해결에 유용",
+        usecustomfiles: "사용자 정의 가능한 파일을 알림에로드 가능하게 함. 일반 사용자에게 주의가 필요",
+        showcustomfiles: "사용자 정의 파일의 위치 열기",
+        log: "앱 로그 창 열기, 프로세스 활동, 경고 및 오류에 대한 정보 표시",
+        reset: "모든 구성 데이터 제거 및 앱 재시작",
+        playback: "알림 미리보기 애니메이션 일시 중지/재개",
+        replay: "알림 미리보기 애니메이션 다시 시작",
+        preset: "사용자 정의할 알림 프리셋 선택",
+        iconanim: "희귀 아이콘 테두리 및 애니메이션 전환",
+        alldetails: "이 프리셋에 대해 기본적으로 숨겨진 모든 텍스트 요소를 알림에 표시",
+        usepercent: "XP/S 값 대신 업적의 잠금 해제 백분율 표시",
+        displaytime: "알림이 표시될 시간(초) 설정",
+        scale: "알림의 크기를 확대 또는 축소",
+        customtext: "알림 내에 표시될 사용자 정의 메시지 설정",
+        usegametitle: "알림 내에 현재 게임의 제목 표시",
+        customfont: "알림 내에서 사용할 사용자 정의 글꼴 로드",
+        soundmode: "알림이 발생할 때 단일 오디오 파일 또는 여러 오디오 파일이 포함된 폴더에서 무작위로 선택된 오디오 파일 중 하나 선택",
+        soundfile: "알림이 발생할 때 재생할 오디오 파일 선택",
+        sounddir: "알림이 발생할 때 무작위로 선택될 오디오 파일이 포함된 폴더 선택",
+        volume: "오디오 파일의 재생 볼륨 설정",
+        preview: "선택한 오디오 파일 또는 폴더에서 무작위로 선택된 오디오 파일 미리보기",
+        bgstyle: "알림 배경의 스타일 선택",
+        gradientangle: "그라디언트의 각도 설정",
+        bgimg: "알림 배경으로 사용할 이미지 파일 로드",
+        bgimgbrightness: "알림 배경으로 사용되는 이미지의 밝기 설정",
+        brightness: "알림 배경으로 사용되는 게임 아트의 밝기 설정",
+        roundness: "알림 모서리의 둥글기 설정",
+        fontsize: "알림에서 사용되는 글꼴 크기 설정",
+        opacity: "알림의 전체 투명도 설정",
+        bgonly: "알림 배경에만 투명도 설정, 다른 요소는 완전한 불투명도 유지",
+        primarycolor: "알림의 기본 색상 설정",
+        secondarycolor: "알림의 보조 색상 설정",
+        tertiarycolor: "알림의 제3 색상 설정",
+        fontcolor: "알림 내에 표시되는 모든 텍스트의 색상 설정",
+        fontoutline: "알림 내에 표시되는 모든 텍스트에 외곽선 추가",
+        fontoutlinecolor: "텍스트 외곽선의 색상 설정",
+        fontshadow: "알림 내에 표시되는 모든 텍스트에 그림자 추가",
+        fontshadowcolor: "텍스트 그림자의 색상 설정",
+        iconroundness: "알림 내에 표시되는 업적/게임 아이콘의 둥글기 설정",
+        plat: "100% 아이콘으로 사용할 이미지 파일 로드",
+        usegameicon: "기본 알림 아이콘을 현재 게임의 아이콘으로 대체",
+        showhiddenicon: "알림에 업적이 숨겨져 있음을 나타내는 이미지 표시",
+        hiddenicon: "숨은 업적 아이콘을 대체하기 위한 이미지 파일 로드",
+        logo: "로고 아이콘을 대체할 이미지 파일 로드",
+        decoration: "장식 아이콘을 대체할 이미지 파일 로드",
+        showdecoration: "장식 아이콘의 가시성 전환",
+        pos: "알림의 화면 위치 설정",
+        usecustompos: "알림에 대한 사용자 정의 위치 활성화",
+        setcustompos: "알림에 대한 사용자 정의 위치 설정",
+        resetcustompos: "알림의 위치를 기본 사용자 정의 위치로 재설정",
+        savetheme: "구성된 모든 사용자 정의 옵션을 새로운 테마로 저장",
+        visibilitybtn: "사용자 지정 미리보기 및 테스트 알림에서 요소의 가시성 전환",
+        delbtn: "요소를 기본값으로 재설정",
+        link: `열기 <span class="hl">연결된 게임 관리 메뉴</span>`,
+        imgpath: "이 옵션으로 생성된 알림 이미지가 저장되는 위치"
+    },
+    update: {
+        updateavailable: "업데이트 가능",
+        sub: [
+            `<span id="newversion"></span>`,
+            "Steam Achievement Notifier에 새로운 업데이트가 있습니다!",
+            `<span id="discordreleasenotes"></span> 및 <span id="githubreleasenotes"></span>에서 전체 릴리스 노트 확인 가능`
+        ],
+        update: "업데이트"
+    },
+    "linkgame": {
+        "content": {
+            "exepath": "실행 파일 경로",
+            "nodata": "데이터 없음",
+            "manage": "연결된 게임 관리",
+            "managesub": [
+                `게임의 <span class="hl">실행 파일</span>을 특정 <span class="hl">AppID</span>에 수동으로 연결하거나 기존 연결을 <span class="hl">해제</span>합니다`,
+                `Steam Achievement Notifier는 더 이상 어떤 <span class="hl">연결된 게임</span>에 대해 <span class="hl">자동 프로세스 추적</span>을 사용하지 않습니다. 대신, 연결된 <span class="hl">AppID</span>가 감지될 때마다 지정된 <span class="hl">실행 파일</span>이 추적됩니다`,
+                `<span class="hl" id="appidhelp"><u>Steam 게임의 AppID를 찾는 방법은?</u></span>`
+            ],
+            "new": "새로 만들기...",
+            "linknew": "새로운 연결된 게임",
+            "linknewsub": [
+                `게임의 <span class="hl">실행 파일</span>과 관련된 <span class="hl">AppID</span> 사이에 새로운 연결을 생성합니다`,
+                `생성된 후, 이전 <span class="hl">연결된 게임 관리</span> 대화 상자를 통해 연결을 <span class="hl">해제</span>할 수 있습니다`
+            ],
+            "link": "연결",
+            "findappid": "AppID 찾기",
+            "findappidsub": [
+                `모든 Steam 게임에는 고유한 번호가 있습니다. 이를 <span class="hl">AppID</span>라고 합니다. Steam 게임의 관련 AppID를 확인하려면 다음 중 하나를 확인하십시오.`,
+                `<span class="hl">Steam 클라이언트</span>에서 <span class="hl">라이브러리</span>에서 게임을 마우스 오른쪽 단추로 클릭하고 <i>속성</i> > <i>업데이트</i>를 선택합니다. 여기에 AppID가 나열됩니다`,
+                `게임의 <span class="hl">상점 페이지</span>의 <span class="hl">URL</span> - <span class="hl">app/</span> 뒤에 나열된 숫자입니다: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `<span class="hl">SteamDB</span>와 같은 웹 사이트 - <span class="hl">App Info</span> 섹션에 각 게임의 AppID가 나열됩니다`
+            ]
+        }
+    }
+}

@@ -1,0 +1,285 @@
+<div class="wrapper logo" id="customiserlogo">
+    <img src="../../img/sancustomiserlogo_mask.svg" alt="" draggable="false" id="mask">
+    <img src="../../img/sancustomiserlogo_colors.svg" alt="" draggable="false" main>
+    <img src="../../img/sancustomiserlogorare_colors.svg" alt="" draggable="false" rare>
+    <img src="../../img/sancustomiserlogoplat_colors.svg" alt="" draggable="false" plat>
+</div>
+<div class="wrapper" id="customiser">
+    <audio src=""></audio>
+    <div class="wrapper" id="webview">
+        <div class="wrapper"></div>
+        <div class="wrapper" id="webviewbtns">
+            <button class="menubtn" id="playback"></button>
+            <button class="menubtn" id="replay"></button>
+        </div>
+    </div>
+    <div id="customisercontent">
+        <div class="wrapper" id="customisertabs">
+            <button id="customiserbackbtn"></button>
+            <div class="wrapper" id="customisertablbl">
+                <span></span>
+            </div>
+            <button id="customisernextbtn"></button>
+        </div>
+        <div id="customiseropts">
+            <div class="wrapper cont">
+                <span class="wrapper title" id="preset"></span>
+                <div class="wrapper optcont">
+                    <div class="wrapper opt" nosubdisable>
+                        <span class="lbl"></span>
+                        <select name="preset" id="preset">
+                            <option value="default">Default</option>
+                            <option value="xqjan">xQjan</option>
+                            <option value="steamdeck">The Deck</option>
+                            <option value="epicgames">Epic</option>
+                            <option value="xboxone">XB Modern</option>
+                            <option value="xbox360">XB Classic</option>
+                            <option value="ps5">PS Modern</option>
+                            <option value="ps4">PS Classic</option>
+                            <option value="ps3">PS Retro</option>
+                            <option value="os">Native OS</option>
+                        </select>
+                        <div class="wrapper opt sub">
+                            <span></span>
+                            <input type="checkbox" id="iconanim">
+                        </div>
+                    </div>
+                    <div class="wrapper opt sub">
+                        <span></span>
+                        <input type="checkbox" id="alldetails">
+                    </div>
+                    <div class="wrapper opt sub">
+                        <span></span>
+                        <input type="checkbox" id="usepercent">
+                    </div>
+                    <div class="wrapper opt" value="10">
+                        <span class="lbl"></span>
+                        <input unit="seconds" type="range" min="5" max="25" step="1" value="10" id="displaytime">
+                    </div>
+                    <div class="wrapper opt" value="100">
+                        <span class="lbl"></span>
+                        <input unit="percent" type="range" min="50" max="250" step="10" value="100" id="scale">
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <input type="text" id="customtext">
+                        <div class="wrapper opt sub">
+                            <span></span>
+                            <input type="checkbox" id="usegametitle">
+                        </div>
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <button class="menubtn delbtn"></button>
+                        <button class="optbtn" id="customfont" font></button>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper cont">
+                <span class="wrapper title" id="sound"></span>
+                <div class="wrapper optcont">
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <select name="soundmode" id="soundmode">
+                            <option value="file"></option>
+                            <option value="folder"></option>
+                        </select>
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <button class="menubtn delbtn"></button>
+                        <button class="optbtn" id="soundfile" audio></button>
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <button class="menubtn delbtn"></button>
+                        <button class="optbtn" id="sounddir" dir></button>
+                    </div>
+                    <div class="wrapper opt" value="100">
+                        <span class="lbl"></span>
+                        <input unit="percent" type="range" min="10" max="100" step="5" value="100" id="volume">
+                    </div>
+                    <div class="wrapper opt">
+                        <button class="rect" id="preview">
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper cont">
+                <span class="wrapper title" id="style"></span>
+                <div class="wrapper optcont">
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <select name="bgstyle" id="bgstyle">
+                            <option value="solid"></option>
+                            <option value="gradient"></option>
+                            <option value="bgimg"></option>
+                            <option value="gameart"></option>
+                        </select>
+                        <div class="wrapper opt sub" value="90">
+                            <span></span>
+                            <input unit="degrees" type="number" value="90" id="gradientangle">
+                        </div>
+                        <div class="wrapper opt">
+                            <span class="lbl"></span>
+                            <button class="menubtn delbtn"></button>
+                            <button class="optbtn img" id="bgimg" img></button>
+                        </div>
+                        <div class="wrapper opt" value="100">
+                            <span class="lbl"></span>
+                            <input unit="percent" type="range" min="10" max="100" step="5" value="100" id="bgimgbrightness">
+                        </div>
+                        <div class="wrapper opt" value="100">
+                            <span class="lbl"></span>
+                            <input unit="percent" type="range" min="10" max="100" step="5" value="100" id="brightness">
+                        </div>
+                    </div>
+                    <div class="wrapper opt" value="100">
+                        <span class="lbl"></span>
+                        <input unit="percent" type="range" min="0" max="100" step="25" value="25" id="roundness">
+                    </div>
+                    <div class="wrapper opt" value="100">
+                        <span class="lbl"></span>
+                        <input unit="percent" type="range" min="50" max="100" step="5" value="100" id="fontsize">
+                    </div>
+                    <div class="wrapper opt" value="100" nosubdisable>
+                        <span class="lbl"></span>
+                        <input unit="percent" type="range" min="10" max="100" step="5" value="100" id="opacity">
+                        <div class="wrapper opt sub">
+                            <span></span>
+                            <input type="checkbox" id="bgonly">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper cont">
+                <span class="wrapper title" id="colors"></span>
+                <div class="wrapper optcont">
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <input type="color" id="primarycolor">
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <input type="color" id="secondarycolor">
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <input type="color" id="tertiarycolor">
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <input type="color" id="fontcolor">
+                    </div>
+                    <div class="wrapper opt">
+                        <span></span>
+                        <input type="checkbox" id="fontoutline">
+                        <div class="wrapper opt">
+                            <span class="lbl"></span>
+                            <input type="color" id="fontoutlinecolor">
+                        </div>
+                    </div>
+                    <div class="wrapper opt">
+                        <span></span>
+                        <input type="checkbox" id="fontshadow">
+                        <div class="wrapper opt">
+                            <span class="lbl"></span>
+                            <input type="color" id="fontshadowcolor">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper cont">
+                <span class="wrapper title" id="icons"></span>
+                <div class="wrapper optcont">
+                    <div class="wrapper opt" value="0">
+                        <span class="lbl"></span>
+                        <input unit="percent" type="range" min="0" max="100" step="25" value="0" id="iconroundness">
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <button class="menubtn delbtn"></button>
+                        <button class="optbtn img customicon" id="plat" img></button>
+                    </div>
+                    <div class="wrapper opt">
+                        <span></span>
+                        <input type="checkbox" id="usegameicon">
+                    </div>
+                    <div class="wrapper opt">
+                        <span></span>
+                        <input type="checkbox" id="showhiddenicon">
+                    </div>
+                    <div class="wrapper opt visibility">
+                        <span class="lbl"></span>
+                        <button class="menubtn visibilitybtn"></button>
+                        <button class="menubtn delbtn"></button>
+                        <button class="optbtn img" id="hiddenicon" img></button>
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <button class="menubtn delbtn"></button>
+                        <button class="optbtn img customicon" id="logo" img></button>
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <button class="menubtn delbtn"></button>
+                        <button class="optbtn img customicon" id="decoration1" img></button>
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <button class="menubtn delbtn"></button>
+                        <button class="optbtn img customicon" id="decoration2" img></button>
+                    </div>
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <button class="menubtn delbtn"></button>
+                        <button class="optbtn img customicon" id="decoration3" img></button>
+                    </div>
+                    <div class="wrapper opt">
+                        <span></span>
+                        <input type="checkbox" id="showdecoration">
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper cont">
+                <span class="wrapper title" id="position"></span>
+                <div class="wrapper optcont">
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <select name="pos" id="pos">
+                            <option value="topleft"></option>
+                            <option value="topcenter"></option>
+                            <option value="topright"></option>
+                            <option value="bottomleft"></option>
+                            <option value="bottomcenter"></option>
+                            <option value="bottomright"></option>
+                        </select>
+                        <div class="wrapper opt sub">
+                            <span></span>
+                            <input type="checkbox" id="usecustompos">
+                        </div>
+                    </div>
+                    <div class="wrapper opt" id="posbtns">
+                        <button class="rect" id="setcustompos">
+                            <span></span>
+                        </button>
+                        <button class="rect" id="resetcustompos">
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper cont">
+                <span class="wrapper title" id="theme"></span>
+                <div class="wrapper optcont">
+                    <div class="wrapper opt">
+                        <button class="rect" id="savetheme">
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+.tippy-box[data-theme~="default"] {
+    font-size: 0.65rem;
+    padding: 0.5rem;
+    background-color: var(--darkgrey);
+    color: white;
+    border-radius: var(--elembr);
+    text-align: center;
+    transition: calc(var(--transition) * 5);
+    line-height: 1.15;
+    text-wrap: balance;
+}
+
+.tippy-box[data-theme~="value"] {
+    min-width: 2.5rem;
+}
+
+.tippy-box[data-animation="scale"][data-state="hidden"] {
+    scale: 0;
+}
+
+.tippy-box[data-animation="scale"][data-state="visible"] {
+    scale: 1;
+}

@@ -1,0 +1,377 @@
+body[soundonly] #settingscontent > .cont:has(.title#notifications) > .optcont > .opt:not(:has(#soundonly,#nowtracking)),
+body[soundonly] #settingscontent > .cont:has(.title#media) > .optcont > .opt,
+body[soundonly] #settingscontent #ovtabs,
+body[muted] .cont:has(.title#sound) > .optcont > .opt,
+body[nativeos] #settingscontent .cont:has(.title#media) .opt:has(select#screenshots),
+body[nativeos] #settingscontent .cont:has(.title#media) .opt[overlay],
+body[nativeos] #ovtabs {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+body[soundonly] #settingscontent > .cont:has(.title#notifications) > .optcont > .opt:not(:has(#soundonly,#nowtracking)) > input[type="checkbox"] {
+    background-color: var(--darkgrey);
+}
+
+dialog[menu] > #content {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    place-self: start;
+    gap: 0.75rem;
+    height: 100vh;
+    width: 40%;
+    translate: -50vw 0;
+    scale: 1;
+    padding: 1.25rem 1.5rem 1rem;
+    transition:
+        translate var(--transition),
+        width var(--transition);
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+
+dialog[open][menu] > #content[open] {
+    translate: 0;
+    transition:
+        translate var(--transition),
+        width var(--transition);
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+
+dialog[menu] .contentwrapper > .wrapper#contentcontainer {
+    display: none;
+}
+
+#settingsheader > * {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    align-self: center;
+}
+
+#settingsheader > span {
+    justify-self: center;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+#settingsheader > .menubtn#settingsclose {
+    --icon: url("../../icon/close.svg");
+    justify-self: end;
+}
+
+#settingscontent {
+    --primary: #203e7a;
+    display: block;
+    padding-right: 1rem;
+    overflow: hidden scroll;
+}
+
+.cont {
+    height: fit-content;
+    font-size: 0.8rem;
+    background-color: #2b2b2b;
+    border-radius: var(--elembr);
+    overflow: hidden;
+}
+
+.cont:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.title {
+    grid-template-columns: auto auto;
+    justify-items: start;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    background-color: var(--primary);
+    transition: background-color var(--transition);
+    text-transform: uppercase;
+}
+
+.title:before {
+    content: "";
+    display: block;
+    background: var(--icon) center / contain no-repeat;
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-left: -0.85rem;
+    justify-self: end;
+}
+
+.cont:has(#language) > .title::before {
+    --icon: url("../../icon/language.svg");
+}
+
+.cont:has(#os) > .title::before {
+    --icon: url("../../icon/windows.svg");
+}
+
+.cont:has(#notifications) > .title::before {
+    --icon: url("../../icon/notifications.svg");
+}
+
+.cont:has(#media) > .title::before {
+    --icon: url("../../icon/camera.svg");
+}
+
+.cont:has(#accessibility) > .title::before {
+    --icon: url("../../icon/accessibility.svg");
+}
+
+.cont:has(#advanced) > .title::before {
+    --icon: url("../../icon/build.svg");
+}
+
+.cont:has(#misc) > .title::before {
+    --icon: url("../../icon/misc.svg");
+}
+
+.optcont {
+    padding: 0.7rem;
+    gap: 0.5rem;
+}
+
+.opt {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    font-size: 0.75rem;
+}
+
+.opt:has(input[type="range"]) {
+    grid-template-columns: auto auto;
+}
+
+.opt:has(select) {
+    gap: 0;
+}
+
+.opt > span {
+    justify-self: start;
+    text-wrap: balance;
+    word-break: break-word;
+    cursor: pointer;
+}
+
+.opt:has(span:hover) > input[type="checkbox"]:not(:checked) {
+    background-color: #3d3d3d;
+}
+.opt:has(#nowtracking:not(:checked)) + .wrapper:has(#nowtrackingscale),
+.opt:has(#shortcuts:not(:checked)) + .wrapper:has(#shortcuttabs) {
+    display: none;
+}
+
+#shortcutbtn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    background-color: #101010;
+    border-radius: 0 0 var(--elembr) var(--elembr);
+    transition: background-color var(--transition);
+    animation: none;
+}
+
+#shortcutbtn:hover {
+    background-color: #3d3d3d;
+}
+
+#shortcutbtn[set] {
+    animation: fadetoblue 0.5s alternate infinite forwards;
+    pointer-events: none;
+}
+
+@keyframes fadetoblue {
+    to { background-color: var(--primary); }
+}
+
+#shortcutbtn[error] {
+    background-color: red;
+    pointer-events: none;
+}
+
+#settingscontent .cont:has(.title#notifications,.title#advanced) .opt:has(input[type="range"],select) {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+#settingscontent .cont:has(.title#advanced) .opt:has(select#maxretries) {
+    grid-template-columns: 1fr auto;
+}
+
+#settingscontent .cont:has(.title#advanced) .opt:has(select#maxretries) > select#maxretries {
+    width: auto;
+    padding-right: 1rem;
+}
+
+.settingstabs {
+    --tabbr: var(--elembr);
+    grid-template-columns: repeat(3,auto);
+}
+
+.settingstabs > .tab:first-child {
+    border-radius: var(--elembr) 0 0 var(--tabbr);
+}
+
+.settingstabs > .tab:last-child {
+    border-radius: 0 var(--elembr) var(--tabbr) 0;
+}
+
+.settingstabs#shortcuttabs {
+    --tabbr: 0;
+}
+
+.settingstabs#ovtabs {
+    margin-block: 0.25rem;
+}
+
+.wrapper:has(#shortcutbtn[set]) > .wrapper#shortcuttabs > .tab,
+.wrapper:has(#shortcutbtn[error]) > .wrapper#shortcuttabs > .tab {
+    pointer-events: none;
+}
+
+.optcont > button {
+    grid-template-columns: auto auto;
+    justify-items: start;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    border-radius: var(--elembr);
+    transition: background-color var(--transition);
+}
+
+.optcont > button::before {
+    content: "";
+    display: block;
+    justify-self: right;
+    margin-left: -0.85rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    background: var(--icon) center / contain no-repeat;
+    transition: rotate calc(var(--transition) * 2);
+}
+
+dialog[menu]:has(#settingscontent) *[overlay],
+dialog[menu]:has(#settingscontent) *[notifyimg] {
+    display: none;
+}
+
+dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="overlay"]:checked) > *[overlay],
+dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="notifyimg"]:checked) > *[notifyimg] {
+    display: grid;
+}
+
+dialog[menu] #settingscontent .opt:has(button.rect) {
+    grid-template-columns: 1fr;
+    gap: 0;
+}
+
+dialog[menu] #settingscontent button.rect {
+    grid-template-columns: auto auto;
+    justify-items: start;
+    align-items: center;
+    gap: 0.25rem;
+    width: 100%;
+    height: 100%;
+    min-height: 1.5rem;
+    font-size: 0.75rem;
+    border-radius: var(--elembr);
+}
+
+dialog[menu] #settingscontent button.rect > span {
+    padding: 0;
+}
+
+dialog[menu] #settingscontent button.rect::before {
+    content: "";
+    display: block;
+    justify-self: end;
+    width: 1rem;
+    height: 1rem;
+    background: var(--icon) center / contain no-repeat;
+    margin: 0;
+}
+
+dialog[menu] #settingscontent button.rect:hover::before {
+    filter: none;
+}
+
+body[main] .rect#sspreview {
+    --icon: url("../../icon/trophy_gold.svg");
+}
+
+body[rare] .rect#sspreview {
+    --icon: url("../../icon/trophy_purple.svg");
+}
+
+body[plat] .rect#sspreview {
+    --icon: url("../../icon/trophy_plat.svg");
+}
+
+.opt:has(input#usecustomfiles:not(:checked)) + button#showcustomfiles {
+    display: none;
+}
+
+#showcustomfiles {
+    --icon: url("../../icon/customfiles.svg");
+    background-color: #5662f680;
+}
+
+#showcustomfiles:hover {
+    background-color: #5662f6;
+}
+
+#checkforupdates {
+    --icon: url("../../icon/update_white.svg");
+    background-color: #00b44580;
+}
+
+#checkforupdates:hover {
+    background-color: #00b445;
+}
+
+#log {
+    --icon: url("../../icon/clipboard.svg");
+    background-color: #50505080;
+}
+
+#log:hover {
+    background-color: #505050;
+}
+
+#reset {
+    --icon: url("../../icon/reset.svg");
+    background-color: #ff000080;
+}
+
+#reset:hover {
+    background-color: #ff0000;
+}
+
+#reset:hover::before {
+    rotate: 360deg;
+}
+
+.wrapper#settingsversion {
+    grid-template-columns: auto auto;
+    gap: 0.15rem;
+    font-size: 0.6rem;
+    opacity: 0.5;
+    align-items: center;
+}
+
+.wrapper#settingsversion > :nth-child(1) {
+    justify-self: end;
+}
+
+.wrapper#settingsversion > :nth-child(2) {
+    justify-self: start;
+}
+
+@media (orientation: portrait) {
+    dialog[menu] > #content {
+        width: 100%;
+    }
+}

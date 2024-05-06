@@ -1,0 +1,260 @@
+:root {
+    --ssicon: url("../../icon/tick.svg") center / contain no-repeat;
+}
+
+html,
+body {
+    place-items: center;
+}
+
+.contenttitle::before {
+    background: var(--dialogicon) center / contain no-repeat;
+}
+
+.wrapper#body {
+    width: 100vw;
+    height: 100vh;
+    grid-template-rows: auto 1fr auto;
+    gap: 1rem;
+    padding: 3rem;
+    background-color: var(--bggrey);
+    border-radius: var(--winbr);
+}
+
+.wrapper#body > div:not(.errorbox) {
+    width: 75vw;
+}
+
+.wrapper#body > div {
+    place-self: center;
+}
+
+.wrapper#dangbox {
+    display: grid;
+    grid-template-rows: repeat(3,auto);
+    gap: 0.75rem;
+    place-items: center;
+}
+
+.wrapper#dangbox > #title {
+    color: red;
+    font-size: 2.75rem;
+    line-height: 0.75;
+}
+
+.wrapper#dangbox > #dangflip {
+    font-size: 1.5rem;
+}
+
+.wrapper#dangbox > #subtitle {
+    font-size: 0.8rem;
+}
+
+.errorbox {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.65rem;
+    width: 75vw;
+}
+
+.errorbox > div {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto auto;
+    place-content: center;
+    gap: 0.35rem;
+    padding: 0.35rem;
+    background-color: var(--primary);
+    border-radius: 0.35rem 0.35rem 0 0;
+    text-align: center;
+}
+
+.errorbox > div::before {
+    content: "";
+    background: url("../../icon/info.svg") center / contain no-repeat;
+    place-self: center;
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-left: -0.85rem;
+}
+
+.errorbox > code {
+    height: 40vh;
+    padding: 0.35rem 0.75rem;
+    background-color: #101010;
+    border-radius: 0 0 0.35rem 0.35rem;
+    overflow: hidden scroll;
+    word-wrap: break-word;
+    text-wrap: balance;
+}
+
+#ss {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    translate: -50% -50%;
+    display: grid;
+    place-content: center;
+    width: 1rem;
+    height: 1rem;
+    scale: 0.85;
+    background: url("../../icon/camera.svg") center / contain no-repeat;
+    opacity: 0.75;
+    transition: var(--transition);
+}
+
+#ss:hover {
+    scale: 1;
+    opacity: 1;
+}
+
+#ss[copied],
+#ss[failed] {
+    scale: 1;
+    opacity: 1;
+    pointer-events: none;
+}
+
+#ss[copied] {
+    transition: none;
+    animation: ss var(--transition) cubic-bezier(0,0,1,-0.75) forwards;
+}
+
+#ss[failed] {
+    --ssicon: url("../../icon/cross.svg") center / contain no-repeat;
+    transition: none;
+    animation: ss var(--transition) cubic-bezier(0,0,1,-0.75) forwards;
+}
+
+@keyframes ss {
+    from {
+        background: url("../../icon/camera.svg") center / contain no-repeat;
+        scale: 1;
+    }
+    
+    49% {
+        background: url("../../icon/camera.svg") center / contain no-repeat;
+        scale: 0;
+    }
+
+    51% {
+        background: var(--ssicon);
+        scale: 0;
+    }
+
+    to {
+        background: var(--ssicon);
+        scale: 1;
+    }
+}
+
+.wrapper#btnwrapper {
+    grid-template-columns: repeat(4,1fr);
+    gap: 1rem;
+    height: 2rem;
+}
+
+.wrapper#btnwrapper > button > * {
+    grid-row-start: 1;
+}
+
+.wrapper#btnwrapper > button {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 1fr;
+    gap: 0.25rem;
+    justify-items: start;
+    align-items: center;
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+    transition: var(--transition);
+    line-height: 1;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.wrapper#btnwrapper > button > span {
+    grid-column-start: 2;
+}
+
+.wrapper#btnwrapper > button:not(#exitbtn):hover {
+    color: black;
+}
+
+.wrapper#btnwrapper > button::before {
+    content: "";
+    display: block;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    width: 1rem;
+    height: 1rem;
+    justify-self: end;
+    transition: var(--transition);
+}
+
+.wrapper#btnwrapper > button:not(#exitbtn):hover::before {
+    filter: invert();
+}
+
+.wrapper#btnwrapper > #resetbtn::before {
+    background: url("../../icon/reset.svg") center / contain no-repeat;
+}
+
+.wrapper#btnwrapper > #reportbtn::before {
+    background: url("../../icon/report.svg") center / contain no-repeat;
+}
+
+.wrapper#btnwrapper > #logbtn::before {
+    background: url("../../icon/clipboard.svg") center / contain no-repeat;
+}
+
+.wrapper#btnwrapper > #exitbtn::before {
+    background: url("../../icon/close.svg") center / contain no-repeat;
+}
+
+.wrapper#btnwrapper > button:not(#exitbtn)::after {
+    content: "";
+    display: grid;
+    place-self: center;
+    grid-column: 1 / -1;
+    grid-row-start: 1;
+    width: 100%;
+    height: 100%;
+    translate: -200%;
+    background-color: white;
+    transition: var(--transition);
+    z-index: -1;
+}
+
+.wrapper#btnwrapper > button:not(#exitbtn):hover::after {
+    translate: 0;
+}
+
+.wrapper#btnwrapper > #exitbtn {
+    background-color: #a00000;
+}
+
+.wrapper#btnwrapper > #exitbtn:hover {
+    background-color: #ff0000;
+}
+
+#discordbtn:hover,
+#githubbtn:hover {
+    filter: none;
+}
+
+#discordbtn:hover {
+    background-color: #5865f2;
+}
+
+#githubbtn:hover {
+    background-color: #808080;
+}
+
+#discordbtn::before {
+    background: url("../../icon/discord.svg") center / contain no-repeat;
+}
+
+#githubbtn::before {
+    background: url("../../icon/github.svg") center / contain no-repeat;
+}

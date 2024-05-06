@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+button {
+    -webkit-app-region: no-drag;   
+}
+
+.wrapper#body {
+    grid-template-rows: auto auto 1fr auto;
+    padding: 2.5rem;
+    -webkit-app-region: drag;
+}
+
+.wrapper#body > * {
+    grid-column-start: 1;
+}
+
+.wrapper#top {
+    grid-template-columns: 1fr max-content 1fr;
+}
+
+.menubtn#close {
+    justify-self: end;
+    grid-column-start: 3;
+}
+
+.logo {
+    grid-column-start: 2;
+}
+
+.menubtn#close,
+.logo {
+    grid-row-start: 1;
+}
+
+.wrapper#sub {
+    gap: 0.15rem;
+}
+
+.wrapper#sub > span {
+    font-size: 0.65rem;
+    font-style: italic;
+    text-wrap: balance;
+    text-align: center;
+    grid-row-start: 1;
+}
+
+#tagline {
+    justify-self: end;
+    grid-column-start: 1;
+}
+
+#starttime {
+    justify-self: start;
+    grid-column-start: 2;
+}
+
+#logcontents {
+    position: relative;
+    display: block;
+    background-color: var(--mediumgrey);
+    border-radius: var(--elembr);
+    padding: 1rem;
+    font-size: 0.85rem;
+    overflow: hidden scroll;
+    -webkit-app-region: no-drag;
+}
+
+#logcontents > code {
+    position: absolute;
+    word-break: break-word;
+    text-wrap: pretty;
+    -webkit-app-region: no-drag;
+}
+
+button.rect#copylog {
+    --icon: url("../../icon/clipboard.svg");
+    min-height: 2.5rem;
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+}
+
+.logo,
+.wrapper#sub,
+#logcontents,
+button.rect#copylog {
+    justify-self: center;
+    width: 100%;
+}

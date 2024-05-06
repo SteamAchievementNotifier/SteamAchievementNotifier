@@ -1,0 +1,437 @@
+body[soundonly] .rect#usertheme {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.wrapper#body {
+    grid-template-rows: auto 1fr auto;
+    background-color: var(--bggrey);
+    border-radius: var(--winbr);
+    gap: 3.5vh;
+    padding: 1.5rem;
+}
+
+div#dragbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 3.5vh;
+    max-height: 20px;
+    -webkit-app-region: drag;
+}
+
+.wrapper#menu {
+    grid-template-columns: repeat(2,1fr);
+    -webkit-app-region: drag;
+}
+
+.wrapper#menu > .wrapper {
+    grid-template-columns: repeat(auto-fit,1.25rem);
+    grid-template-rows: minmax(1.25rem,1fr);
+    gap: 0.5rem;
+}
+
+.wrapper#menu > .menubtn:first-child {
+    justify-self: start;
+}
+
+.wrapper#menu > .wrapper:last-child,
+.wrapper#links {
+    display: grid;
+    gap: 0.75rem;
+    justify-self: end;
+}
+
+.wrapper#menu > .wrapper:last-child > button {
+    grid-row-start: 1;
+}
+
+.menubtn#settings {
+    background: url("../../icon/settings.svg") center / contain no-repeat;
+}
+
+.menubtn#settings:hover {
+    rotate: 360deg;
+}
+
+.menubtn#update {
+    background: url("../../icon/update.svg") center / contain no-repeat;
+}
+
+.menubtn#error {
+    background: url("../../icon/error.svg") center / contain no-repeat;
+}
+
+.menubtn#error,
+.menubtn#update {
+    display: none;
+    transform: scale(0);
+    pointer-events: none;
+    animation: scaleup var(--transition) forwards;
+}
+
+/* Using "scale" property in animation overwrites hover transition */
+@keyframes scaleup {
+    to { transform: scale(1); }
+}
+
+body[error] .menubtn#error,
+body[update] .menubtn#update {
+    display: block;
+    pointer-events: auto;
+}
+
+.menubtn#close {
+    grid-column-start: -1;
+    background: url("../../icon/close.svg") center / contain no-repeat;
+}
+
+.wrapper#main {
+    grid-template-rows: auto 1fr;
+    gap: 3.5vh;
+    
+}
+
+.logo {
+    isolation: isolate;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    max-width: 60vw;
+    justify-self: center;
+    -webkit-app-region: drag;
+}
+
+.logo > #mask {
+    opacity: 1;
+    z-index: 100;
+}
+
+.logo > img {
+    width: 100%;
+    max-height: 20vh;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    place-self: center;
+    transition: opacity var(--transition);
+}
+
+.logo > img[main] {
+    opacity: 1;
+    z-index: 0;
+}
+
+.logo > img:not([main]) {
+    opacity: 0;
+}
+
+.logo > img[rare] {
+    z-index: 1;
+}
+
+.logo > img[plat] {
+    z-index: 2;
+}
+
+body[rare] .logo > img[rare],
+body[plat] .logo > img[plat] {
+    opacity: 1;
+}
+
+.logo::before {
+    display: none;
+}
+
+body[alpha] .logo::before,
+body[beta] .logo::before {
+    --bg: red;
+    display: grid;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    justify-self: end;
+    align-self: center;
+    width: min-content;
+    height: min-content;
+    rotate: 22deg;
+    font-family: "VT323";
+    font-weight: bold;
+    line-height: 0.95;
+    padding: 0.05rem 0.35rem;
+    margin-top: -0.75rem;
+    margin-right: -0.5rem;
+    background-color: var(--bg);
+    filter: drop-shadow(0 0 0.35rem var(--bg));
+    z-index: 101;
+    animation: bounce calc(var(--transition) * 2.5) ease-in-out alternate infinite;
+}
+
+@keyframes bounce {
+    to { scale: 1.2; }
+}
+
+body[alpha] .logo::before {
+    --bg: red;
+    content: "ALPHA";
+}
+
+body[beta] .logo::before {
+    --bg: blueviolet;
+    content: "BETA";
+}
+
+.wrapper#maincontent {
+    grid-template-rows: 0.05fr repeat(2,auto) 0.125fr auto 0.25fr auto;
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.wrapper#maincontent > .rect:not(:nth-child(2),:last-child) {
+    margin-top: 2.5vh;
+}
+
+.rect#customise,
+.rect#test {
+    text-transform: uppercase;
+}
+
+.rect[novalue] {
+    color: red;
+}
+
+.rect#game::before {
+    --icon: url("../../icon/game.svg");
+}
+
+.rect#game > button#link {
+    --icon: url("../../icon/link.svg");
+    content: "";
+    grid-column: 1 / -1;
+    justify-self: end;
+    margin-right: 1rem;
+    opacity: 0.5;
+    transition: opacity var(--transition);
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.rect#game > button#link:hover {
+    opacity: 1;
+}
+
+.rect#usertheme::before {
+    --icon: url("../../icon/stars.svg");
+}
+
+.rect#customise::before {
+    --icon: url("../../icon/customise.svg");
+}
+
+@property --circlepercentage {
+    initial-value: 100%;
+    inherits: false;
+    syntax: "<percentage>";
+}
+
+.rect#test::before {
+    --icon: none;
+}
+
+.rect#test:hover > #progresscircle {
+    filter: invert();
+}
+
+#progresscircle {
+    --icon: none;
+    background-image: conic-gradient(transparent var(--circlepercentage), transparent 0);
+    border-radius: 50%;
+    opacity: 0;
+    transition:
+        opacity var(--transition),
+        filter var(--transition);
+}
+
+#progresscircle[running] {
+    background-image: conic-gradient(white var(--circlepercentage), transparent 0);
+    animation: fill var(--displaytime) linear forwards;
+    opacity: 1;
+}
+
+@keyframes fill {
+    to {
+        --circlepercentage: 0%;
+    }
+}
+
+.rect#usertheme {
+    border-radius: var(--elembr) var(--elembr) 0 0;
+}
+
+.wrapper#tabs {
+    grid-template-columns: repeat(3,1fr);
+    justify-self: center;
+    width: 60vw;
+}
+
+.tab {
+    --tabicon: url("../../icon/trophy_gold.svg");
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-items: start;
+    align-items: center;
+    gap: 0.35rem;
+    padding-block: 0.25vh;
+    font-size: 0.8rem;
+    background-color: var(--primary);
+    transition: background-color var(--transition),
+        color var(--transition),
+        opacity var(--transition);
+    opacity: 0.5;
+}
+
+body[main] .wrapper > .tab[main],
+body[rare] .wrapper > .tab[rare],
+body[plat] .wrapper > .tab[plat] {
+    background-color: white;
+    color: black;
+    opacity: 1;
+    pointer-events: none;
+}
+
+.wrapper > .tab::before {
+    content: "";
+    background: var(--tabicon) center / contain no-repeat;
+    width: 1rem;
+    height: 1rem;
+    justify-self: right;
+}
+
+.wrapper#tabs > .tab:first-child {
+    border-radius: 0 0 0 var(--elembr);
+}
+
+.wrapper#tabs > .tab:last-child {
+    border-radius: 0 0 var(--elembr) 0;
+}
+
+.wrapper > .tab:hover {
+    opacity: 1;
+}
+
+.wrapper > .tab[main]::before {
+    --tabicon: url("../../icon/trophy_gold.svg");
+}
+
+.wrapper > .tab[rare]::before {
+    --tabicon: url("../../icon/trophy_purple.svg");
+}
+
+.wrapper > .tab[plat]::before {
+    --tabicon: url("../../icon/trophy_plat.svg");
+}
+
+.wrapper#footer {
+    grid-template-columns: 1fr 1fr;
+    font-size: 0.6rem;
+}
+
+.wrapper#footer > span {
+    opacity: 0.5;
+}
+
+#version {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    justify-self: start;
+    align-self: center;
+}
+
+#copyright {
+    grid-column: 1 / span 2;
+    grid-row-start: 1;
+    place-self: center;
+    padding-inline: 8.5rem;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.wrapper#links {
+    --glow: black;
+    grid-template-columns: repeat(3,auto);
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+
+.wrapper#links > .menubtn {
+    border-radius: 50%;
+    background-color: transparent;
+    box-shadow: 0 0 0 0 var(--glow);
+}
+
+.wrapper#links > .menubtn:hover {
+    background-color: var(--glow);
+    box-shadow: 0 0 0 0.15rem var(--glow);
+}
+
+#kofi {
+    background: url("../../icon/ko-fi.svg") center / contain no-repeat;
+}
+
+#kofi:hover {
+    --glow: #bea200;
+}
+
+#discord {
+    background: url("../../icon/discord.svg") center / contain no-repeat;
+}
+
+#discord:hover {
+    --glow: #5662f6;
+}
+
+#github {
+    background: url("../../icon/github.svg") center / contain no-repeat;
+}
+
+#github:hover {
+    --glow: #808080;
+}
+
+@media (orientation: portrait) {
+    .wrapper#footer {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3,auto);
+        gap: 0.5rem;
+    }
+
+    #version {
+        grid-column-start: 1;
+        grid-row-start: 1;
+        place-self: center;
+    }
+    
+    #copyright {
+        grid-column: 1;
+        grid-row-start: 2;
+        place-self: center;
+        padding: 0;
+    }
+    
+    .wrapper#links {
+        grid-column-start: 1;
+        grid-row-start: 3;
+        justify-self: center;
+    }
+}
+
+@media (width < 400px) or (height < 400px) {
+    .wrapper#tabs > .tab {
+        grid-template-columns: auto;
+        grid-template-rows: 1fr;
+        gap: 0;
+        font-size: 0;
+    }
+
+    .wrapper#tabs > .tab::before {
+        place-self: center;
+    } 
+}

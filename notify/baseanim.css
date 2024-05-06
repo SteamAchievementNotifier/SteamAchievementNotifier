@@ -1,0 +1,52 @@
+:root:has(body[ss]) {
+    --anim: 0s;
+}
+
+body[paused] .wrapper#achcont,
+body[paused] .wrapper#achcont > div,
+body[paused] .wrapper#achcont > div::before,
+body[paused] .wrapper#achcont > div::after,
+body[paused] .wrapper#achcont > div > *,
+body[paused] #achicon,
+body[paused] #logo,
+body[ss] .wrapper#achcont,
+body[ss] .wrapper#achcont > div,
+body[ss] .wrapper#achcont > div::before,
+body[ss] .wrapper#achcont > div::after,
+body[ss] .wrapper#achcont > div > *,
+body[ss] #achicon,
+body[ss] #logo {
+    animation-play-state: paused !important;
+}
+
+body[ss] .wrapper#achcont > .wrapper#achcontent {
+    opacity: 1 !important;
+}
+
+body[ss] .wrapper#achcont {
+    animation-play-state: paused !important;
+    width: 100% !important;
+    scale: 1 !important;
+}
+
+body[ss] .wrapper#bg {
+    border-radius: var(--roundness);
+}
+
+body[ss] .wrapper#logo {
+    display: none;
+}
+
+body[ss] .wrapper#achiconwrapper,
+body[ss] .wrapper#achcontent > #title,
+body[ss] .wrapper#achcontent > #desc {
+    opacity: 1;
+}
+
+body[ss] .wrapper#achcontent > #title {
+    grid-row-start: 1;
+}
+
+body[ss] .wrapper#achcontent > #desc {
+    grid-row-start: 2;
+}

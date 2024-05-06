@@ -1,0 +1,387 @@
+export const translations = {
+    global: {
+        main: "Principal",
+        rare: "Raro",
+        plat: "100%",
+        topleft: "Superior Esquerdo",
+        topcenter: "Superior Centro",
+        topright: "Superior Direito",
+        bottomleft: "Inferior Esquerdo",
+        bottomcenter: "Inferior Centro",
+        bottomright: "Inferior Direito",
+        ok: "OK",
+        preview: "Pré-visualização",
+        save: "Salvar",
+        back: "Voltar",
+        settings: "Configurações",
+        appversion: "Versão do Aplicativo",
+        image: "Imagem",
+        audio: "Áudio",
+        folder: "Pasta",
+        font: "Fonte",
+        select: "Selecionar",
+        gametitle: "Título do Jogo",
+        congrats: "Parabéns!",
+        achievementunlocked: "Conquista Desbloqueada",
+        gamecomplete: "100% Completo",
+        achievementdesc: "Clicou no botão para mostrar a notificação de teste",
+        gamecompletedesc: "Você desbloqueou todas as conquistas!",
+        defaultcustomfont: "Padrão (Nenhuma fonte selecionada)",
+        defaultsoundfile: "Padrão (Nenhum arquivo selecionado)",
+        defaultsounddir: "Padrão (Nenhuma pasta selecionada)",
+        nowtracking: "Acompanhando conquistas para:",
+        nopreview: "Pré-visualização não disponível para o sistema operacional nativo",
+        options: "Opções",
+        resetwindow: "Redefinir Janela",
+        show: "Mostrar",
+        exit: "Sair",
+        releasegame: "Liberar Jogo",
+        releasegamesub: [
+            `Reinicie o processo Worker em segundo plano e libere o jogo atual de ser rastreado`,
+            `Tente esta opção se você fechou recentemente um jogo, mas o Steam ainda mostra que está rodando, ou se o Steam Achievement Notifier ainda mostra como rastreando um jogo que já foi fechado`
+        ],
+        noupdateavailable: "Nenhuma atualização disponível",
+        latestversion: "Última versão instalada",
+        missingdeps: "Dependência Ausente",
+        missingdepssub: [
+            `Parece que está a tentar ativar a opção <span class="hl">Capturar Tela no Steam</span>. No entanto, no Linux, as capturas de tela não podem ser acionadas automaticamente sem primeiro instalar o pacote <code class="dialogcode">xdotool</code>`,
+            `Por favor, execute <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> para instalar esta dependência, o que garantirá que capturas de tela no Steam possam ser feitas neste dispositivo`
+        ],
+        restartapp: "Reiniciar Aplicativo",
+        restartappsub: [
+            `Se as coisas não estiverem funcionando corretamente, use esta opção para fechar e reabrir o aplicativo`,
+            `Se o problema persistir após reiniciar o aplicativo, considere relatá-lo usando os links no aplicativo na tela inicial`
+        ]
+    },
+    app: {
+        content: {
+            game: "Nenhum jogo detectado",
+            customise: "Personalizar",
+            test: "Mostrar Notificação de Teste"
+        }
+    },
+    settings: {
+        language: {
+            title: "Idioma"
+        },
+        os: {
+            title: "Sistema Operativo",
+            content: {
+                desktop: "Criar Atalho no Ambiente de Trabalho",
+                startwin: "Iniciar no login",
+                startmin: "Iniciar Minimizado",
+                nohwa: "Desativar Aceleração de Hardware",
+                litemode: "Modo Leve"
+            }
+        },
+        notifications: {
+            title: "Notificações",
+            content: {
+                rarity: "Percentagem de Raridade",
+                rareonly: "Apenas Raros",
+                all: "Tudo",
+                off: "Desligado",
+                showpercent: "Mostrar Percentagem",
+                soundonly: "Apenas Som",
+                extwin: "Notificações de Transmissão",
+                audiosrc: "Fonte de Áudio",
+                notify: "Notificar",
+                app: "Aplicativo",
+                nowtracking: "Mostrar Notificação de Rastreio",
+                nowtrackingscale: "Escala de Rastreio",
+                shortcuts: "Atalhos de Notificação"
+            }
+        },
+        media: {
+            title: "Mídia",
+            content: {
+                steamss: "Tirar Captura de Tela do Steam",
+                screenshots: "Mídia Adicional",
+                off: "Desligado",
+                overlay: "Captura de Tela com Overlay de Notificação",
+                monitors: "Fonte da Captura de Tela",
+                ovpos: "Posição da Overlay",
+                ovmatch: "Corresponder Posição Personalizada",
+                ovpath: "Caminho da Captura de Tela",
+                ssdelay: "Atraso na Captura de Tela",
+                notifyimg: "Imagem de Notificação",
+                imgpath: "Caminho da Imagem"
+            }
+        },
+        accessibility: {
+            title: "Acessibilidade",
+            content: {
+                noanim: "Desativar Animações da Janela do Aplicativo",
+                nvda: "Ativar Suporte NVDA",
+                tooltips: "Mostrar Dicas de Ferramentas"
+            }
+        },
+        advanced: {
+            title: "Avançado",
+            content: {
+                pollrate: "Taxa de Pesquisa",
+                releasedelay: "Atraso de Lançamento",
+                maxretries: "Tentativas Máximas de Processamento",
+                notifydebug: "Mostrar Notificações de Depuração",
+                usecustomfiles: "Utilizar Arquivos Personalizados da Aplicação",
+                showcustomfiles: "Mostrar Arquivos Personalizados da Aplicação"
+            }
+        },        
+        misc: {
+            title: "Diversos",
+            content: {
+                checkforupdates: "Verificar Atualizações",
+                log: "Registo da Aplicação",
+                reset: "Redefinir Aplicativo"
+            }
+        }
+    },    
+    customiser: {
+        preset: {
+            title: "Predefinições",
+            content: {
+                preset: "Predefinição de Notificação",
+                iconanim: "Animação de Ícone Raro",
+                alldetails: "Mostrar Todos os Detalhes",
+                usepercent: "Usar Percentagem",
+                displaytime: "Tempo de Exibição",
+                scale: "Escala",
+                customtext: "Texto Personalizado",
+                usegametitle: "Usar Título do Jogo",
+                customfont: "Fonte Personalizada"
+            }
+        },
+        sound: {
+            title: "Som",
+            content: {
+                soundmode: "Modo de Som",
+                file: "Arquivo",
+                folder: "Aleatório",
+                soundfile: "Arquivo de Som",
+                sounddir: "Pasta de Som",
+                volume: "Volume"
+            }
+        },
+        style: {
+            title: "Estilo",
+            content: {
+                bgstyle: "Estilo de Fundo",
+                solid: "Sólido",
+                gradient: "Gradiente",
+                img: "Imagem",
+                gameart: "Arte do Jogo",
+                gradientangle: "Ângulo do Gradiente",
+                bgimg: "Imagem de Fundo",
+                bgimgbrightness: "Brilho",
+                brightness: "Brilho",
+                roundness: "Arredondamento",
+                fontsize: "Tamanho da Fonte",
+                opacity: "Opacidade",
+                bgonly: "Somente Fundo"
+            }
+        },
+        colors: {
+            title: "Cores",
+            content: {
+                primarycolor: "Cor Primária",
+                secondarycolor: "Cor Secundária",
+                tertiarycolor: "Cor Terciária",
+                fontcolor: "Cor da Fonte",
+                fontoutline: "Contorno da Fonte",
+                fontoutlinecolor: "Cor do Contorno da Fonte",
+                fontshadow: "Sombra da Fonte",
+                fontshadowcolor: "Cor da Sombra da Fonte"
+            }
+        },
+        icons: {
+            title: "Ícones",
+            content: {
+                iconroundness: "Arredondamento do Ícone",
+                plat: "Logo 100%",
+                usegameicon: "Usar Ícone do Jogo",
+                logo: "Logo",
+                decoration: "Decoração",
+                showdecoration: "Mostrar Decoração",
+                rarity: "Raridade",
+                showhiddenicon: "Mostrar Ícone Oculto",
+                hiddenicon: "Ícone Oculto",
+            }
+        },
+        position: {
+            title: "Posição",
+            content: {
+                pos: "Posição na Tela",
+                usecustompos: "Usar Posição Personalizada",
+                setcustompos: "Definir",
+                resetcustompos: "Redefinir"
+            }
+        },
+        theme: {
+            title: "Tema",
+            content: {
+                savetheme: "Salvar Tema",
+                sub: [
+                    `Os <span class="hl">Temas do Usuário</span> salvos podem ser selecionados no menu <span class="hl">Selecionar Tema</span> na tela inicial.`,
+                    `Certifique-se de que o <span class="hl">Nome do Tema</span> seja <u>único</u> - um nome que corresponda a um tema existente <u>irá substituí-lo</u>!`
+                ],
+                placeholder: "Nome do Tema",
+                theme: "Tema"
+            }
+        }
+    },
+    logwin: {
+        content: {
+            tagline: "Aqui está o que aconteceu desde que o aplicativo foi iniciado",
+            copylog: "Copiar Conteúdo do Log"
+        }
+    },
+    reset: {
+        content: {
+            sub: `
+                <div class="wrapper" id="resetsub">
+                    <span>Tem certeza?</span>
+                    <span>Todos os dados previamente configurados, <u>incluindo Personalizações</u>, serão redefinidos para o padrão.</span>
+                    <span>🛑 Esta ação não pode ser desfeita!</span>
+                </div>
+            `,
+            reset: "Redefinir"
+        }
+    },
+    error: {
+        content: {
+            subtitle: "O Notificador de Conquistas Steam encontrou um problema e precisa ser fechado.",
+            details: "Aqui estão os detalhes do erro:",
+            sub: "Clique nos botões abaixo para relatar este problema através da sua plataforma preferida.",
+            report: "Relatório",
+            log: "Log do Aplicativo",
+            exit: "Sair"
+        }
+    },     
+    tooltips: {
+        game: "O jogo para o qual as conquistas estão sendo rastreadas atualmente",
+        usertheme: "Selecione um tema salvo anteriormente",
+        customise: "Personalizar notificações de conquistas",
+        test: "Mostrar uma notificação de teste, incluindo quaisquer personalizações",
+        kofi: "Faça uma doação no Ko-Fi!",
+        discord: "Junte-se ao Discord!",
+        github: "Reportar um problema",
+        lang: "Selecione o idioma da interface do usuário usado no aplicativo",
+        desktop: "Alternar um atalho na área de trabalho para executar o aplicativo",
+        startwin: "Iniciar o Steam Achievement Notifier automaticamente após fazer login",
+        startmin: "Após o lançamento, ocultar a janela da interface do aplicativo até ser aberta pela bandeja do sistema",
+        nohwa: `Desativar Aceleração de Hardware, o que pode melhorar o desempenho em sistemas com recursos limitados ou sistemas sem uma GPU dedicada<br><br><span class="ttdesc">O aplicativo será reiniciado após ativar/desativar esta opção</span>`,
+        litemode: "Desativar todos os elementos interativos da interface do usuário, fornecendo apenas funcionalidade limitada do aplicativo por meio do ícone da bandeja do sistema. Pode melhorar os recursos consumidos pelo aplicativo",
+        rarity: "A porcentagem em que as notificações de conquistas raras serão acionadas. Qualquer conquista com uma porcentagem de desbloqueio acima desse valor será exibida como uma notificação principal",
+        showpercent: "Exibir a porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
+        soundonly: "Desativar notificações, reproduzindo apenas sons definidos por meio do Personalizador",
+        extwin: "Criar uma janela de plano de fundo oculta que duplica quaisquer notificações atualmente sendo exibidas na tela. Essa janela pode ser adicionada como uma fonte de captura de janela para uso em software de streaming, como OBS",
+        audiosrc: "Selecionar a fonte (ou desativar) o áudio gerado pelo aplicativo",
+        nowtracking: "Exibir uma notificação informando ao usuário que as conquistas de um jogo em execução estão sendo rastreadas",
+        nowtrackingscale: `Defina o tamanho da notificação de rastreio`,
+        shortcuts: "Acionar uma notificação de teste por meio de um atalho de teclado. Os atalhos podem ser personalizados para cada tipo de notificação",
+        steamss: "Tirar uma captura de tela do Steam quando uma conquista for desbloqueada",
+        screenshots: "Selecionar o tipo de mídia adicional a ser criada quando uma notificação for exibida",
+        monitors: "O monitor que será capturado ao tirar a captura de tela",
+        ovpos: "A posição da sobreposição de notificação na captura de tela",
+        ovmatch: "Corresponder à posição da tela definida no Personalizador para este tipo de notificação",
+        ovpath: "O local onde as capturas de tela geradas por esta opção serão salvas",
+        ssdelay: "Adicionar um atraso desde o momento em que a notificação ocorre até o momento em que a captura de tela é tirada",
+        sspreview: "Mostrar uma prévia de como a captura de tela será exibida ao ser salva",
+        noanim: "Desativar todas as animações de janela do aplicativo e efeitos de transição",
+        nvda: "Habilitar a cópia de informações de conquista para a área de transferência quando uma conquista for desbloqueada, para ser lida por software de leitor de tela, como o NVDA",
+        tooltips: "Exibir dicas de ferramentas ao passar o mouse sobre determinados elementos da interface do usuário",
+        pollrate: `Defina o intervalo de atualização para dados de conquistas durante o jogo<br><br><span class="ttdesc">O desempenho pode aumentar/diminuir dependendo do valor ou dos recursos de hardware do sistema. Valores mais altos normalmente resultam em uma carga de sistema mais baixa, mas podem atrasar as notificações</span>`,
+        releasedelay: `Define quanto tempo o processo em segundo plano espera para reiniciar após o jogo atual ser lançado. Afeta tanto o rastreamento automático de processos quanto os jogos vinculados manualmente.<br><br><span class="ttdesc">Permite um período maior para que o Steamworks seja totalmente liberado do aplicativo. Aumentar esse valor pode prevenir comportamentos incomuns, como rastrear um jogo previamente fechado</span>`,
+        maxretries: `Define o número máximo de tentativas para vincular um processo em execução a um AppID detectado. Afeta tanto o rastreamento automático de processos quanto os jogos vinculados manualmente.<br><br><span class="ttdesc">As tentativas de vinculação são realizadas uma vez a cada segundo. Se um processo em execução não estiver vinculado ao AppID atual após esse número de tentativas, um processo inválido será retornado. Nessas situações, o jogo precisará ser liberado manualmente por meio da Bandeja do Sistema > Opções > Liberar Jogo</span>`,
+        notifydebug: "Criar uma janela DevTools para todas as notificações. Útil para depurar/solucionar problemas de notificação",
+        usecustomfiles: "Permite que as notificações carreguem arquivos personalizáveis pelo usuário. É recomendada cautela para usuários regulares",
+        showcustomfiles: "Abrir o local dos arquivos personalizados",
+        log: "Abrir a janela de log do aplicativo, que exibe informações sobre a atividade do processo, avisos e erros",
+        reset: "Remover todos os dados de configuração e reiniciar o aplicativo",
+        playback: "Pausar/continuar a animação da visualização da notificação",
+        replay: "Reiniciar a animação da visualização da notificação",
+        preset: "Selecionar o predefinição de notificação para personalizar",
+        iconanim: "Alternar a borda e a animação do ícone de conquista rara",
+        alldetails: "Exibir todos os elementos de texto dentro da notificação, incluindo aqueles ocultos por padrão para esta predefinição",
+        usepercent: "Mostrar a percentagem de desbloqueio da conquista, em vez do valor XP/S",
+        displaytime: "Definir o número de segundos que a notificação será exibida",
+        scale: "Aumentar ou diminuir o tamanho da notificação",
+        customtext: "Definir uma mensagem personalizada a ser exibida na notificação",
+        usegametitle: "Mostrar o título do jogo atual na notificação",
+        customfont: "Carregar uma fonte personalizada a ser usada na notificação",
+        soundmode: "Selecionar um único arquivo de áudio ou um arquivo de áudio selecionado aleatoriamente de uma pasta contendo vários arquivos de áudio, quando ocorrer uma notificação",
+        soundfile: "Selecionar um arquivo de áudio para reproduzir quando ocorrer uma notificação",
+        sounddir: "Selecionar uma pasta na qual um arquivo de áudio será selecionado aleatoriamente quando ocorrer uma notificação",
+        volume: "Definir o volume de reprodução do arquivo de áudio",
+        preview: "Visualizar o arquivo de áudio selecionado ou um arquivo de áudio selecionado aleatoriamente da pasta",
+        bgstyle: "Selecionar o estilo para o plano de fundo da notificação",
+        gradientangle: "Definir o ângulo do gradiente",
+        bgimg: "Carregar um arquivo de imagem para ser usado como plano de fundo da notificação",
+        bgimgbrightness: "Defina o brilho da imagem usada como plano de fundo da notificação",
+        brightness: "Definir o brilho da arte do jogo usada como plano de fundo da notificação",
+        roundness: "Definir a arredondamento das bordas da notificação",
+        fontsize: "Definir o tamanho da fonte usada na notificação",
+        opacity: "Definir a opacidade geral da notificação",
+        bgonly: "Definir apenas a opacidade para o plano de fundo da notificação, mantendo os outros elementos com opacidade total",
+        primarycolor: "Definir a cor primária da notificação",
+        secondarycolor: "Definir a cor secundária da notificação",
+        tertiarycolor: "Definir a cor terciária da notificação",
+        fontcolor: "Definir a cor de todo o texto exibido na notificação",
+        fontoutline: "Adicionar um contorno a todo o texto exibido na notificação",
+        fontoutlinecolor: "Definir a cor do contorno do texto",
+        fontshadow: "Adicionar uma sombra a todo o texto exibido na notificação",
+        fontshadowcolor: "Definir a cor da sombra do texto",
+        iconroundness: "Definir o arredondamento do ícone de conquista/jogo exibido na notificação",
+        plat: "Carregar um arquivo de imagem para ser usado como o ícone de 100%",
+        usegameicon: "Substituir o ícone de notificação padrão pelo ícone do jogo atual",
+        showhiddenicon: "Mostrar uma imagem indicando que a conquista está oculta na notificação",
+        hiddenicon: "Carregar um arquivo de imagem para substituir o ícone da conquista oculta",
+        logo: "Carregar um arquivo de imagem para substituir o ícone do Logotipo",
+        decoration: "Carregar um arquivo de imagem para substituir o ícone de Decoração",
+        showdecoration: "Alternar a visibilidade do ícone de Decoração",
+        pos: "Definir a posição na tela da notificação",
+        usecustompos: "Ativar o posicionamento personalizado para a notificação",
+        setcustompos: "Definir a posição personalizada para a notificação",
+        resetcustompos: "Redefinir a posição da notificação para a posição personalizada padrão",
+        savetheme: "Salvar todas as opções de personalização configuradas como um novo tema",
+        visibilitybtn: "Alternar a visibilidade do elemento em visualizações personalizadas e notificações de teste",
+        delbtn: "Redefinir o elemento para o padrão",
+        link: `Abrir <span class="hl">Menu de Gerenciamento de Jogos Vinculados</span>`,
+        imgpath: "O local onde as imagens de notificação geradas por esta opção serão salvas"
+    },
+    update: {
+        updateavailable: "Atualização disponível",
+        sub: [
+            `<span id="newversion"></span>`,
+            "Uma nova atualização para o Steam Achievement Notifier está disponível!",
+            `Notas de lançamento completas disponíveis em <span id="discordreleasenotes"></span> e <span id="githubreleasenotes"></span>`
+        ],
+        update: "Atualizar"
+    },
+    "linkgame": {
+        "content": {
+            "exepath": "Caminho do Executável",
+            "nodata": "Sem Dados",
+            "manage": "Gerenciar Jogos Associados",
+            "managesub": [
+                `Associe manualmente o <span class="hl">arquivo executável</span> de um jogo a um <span class="hl">AppID</span> específico, ou <span class="hl">desassocie</span> um existente`,
+                `O Steam Achievement Notifier não usará mais o <span class="hl">rastreamento automático de processos</span> para nenhum dos <span class="hl">jogos associados</span> - em vez disso, o <span class="hl">arquivo executável</span> especificado será rastreado sempre que o <span class="hl">AppID</span> associado for detectado`,
+                `<span class="hl" id="appidhelp"><u>Como encontrar o AppID de um jogo Steam?</u></span>`
+            ],
+            "new": "Novo...",
+            "linknew": "Novo Jogo Associado",
+            "linknewsub": [
+                `Crie um novo link entre um <span class="hl">arquivo executável do jogo</span> e o <span class="hl">AppID</span> associado`,
+                `Após criado, os links podem ser <span class="hl">desassociados</span> através da janela de <span class="hl">Gerenciar Jogos Associados</span>`
+            ],
+            "link": "Associar",
+            "findappid": "Encontrar AppID",
+            "findappidsub": [
+                `Cada jogo Steam tem um número único associado a ele - chamado de <span class="hl">AppID</span>. Você pode encontrar o AppID associado a qualquer jogo Steam verificando um dos seguintes:`,
+                `No <span class="hl">cliente Steam</span>, clique com o botão direito do mouse em um jogo na sua <span class="hl">Biblioteca</span> e selecione <i>Propriedades</i> > <i>Atualizações</i> - o AppID será listado aqui`,
+                `A <span class="hl">URL</span> da página da <span class="hl">loja</span> do jogo - será o número listado após <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Sites como o <span class="hl">SteamDB</span> - a seção de <span class="hl">Informações do App</span> listará o AppID para cada jogo`
+            ]
+        }
+    }
+}

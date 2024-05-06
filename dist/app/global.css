@@ -1,0 +1,510 @@
+@font-face {
+    font-family: "Titillium Web";
+    src: url("../../fonts/TitilliumWeb-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../../fonts/Roboto-Medium.ttf");
+}
+
+@font-face {
+    font-family: "VT323";
+    src: url("../../fonts/VT323-Regular.ttf");
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../../fonts/JetBrainsMono-Light.ttf");
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    user-select: none;
+}
+
+*[soon] {
+    display: none !important;
+}
+
+:root {
+    --primary: #203e7a;
+    --bggrey: #1b1b1b;
+    --darkgrey: #101010;
+    --mediumgrey: #2b2b2b;
+    --lightgrey: #3d3d3d;
+    --transition: 0.2s;
+    --winbr: 0.75rem;
+    --elembr: 0.35rem;
+    --columns: repeat(2,1fr);
+    --icon: url("../../img/sanlogotrophy.svg");
+    font-size: clamp(0.7rem,0.25rem + 1.5vmax,4vh);
+}
+
+body[noanim] {
+    --transition: 0s;
+}
+
+body[main] {
+    --primary: #203e7a;
+}
+
+body[rare] {
+    --primary: #663399;
+}
+
+body[plat] {
+    --primary: #4e75c9;
+}
+
+html,
+body {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Titillium Web","Roboto";
+    background-color: transparent;
+    color: white;
+    overflow: hidden;
+    color-scheme: dark;
+}
+
+button {
+    appearance: none;
+    border: none;
+    transform-origin: center;
+    font-family: "Titillium Web", "Roboto";
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+
+button > *,
+button::before,
+button::after {
+    pointer-events: none;
+}
+
+input[type="range"] {
+    appearance: none;
+    background-color: var(--darkgrey);
+    min-width: 30%;
+    height: 0.85rem;
+    border-radius: 0.15rem;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 0.85rem;
+    height: 0.85rem;
+    background-color: rgb(200,200,200);
+    border-radius: 0.15rem;
+    transition:
+        background-color var(--transition),
+        box-shadow var(--transition);
+    box-shadow: calc(-100vw - 0.15rem) 0 0 100vw var(--primary);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background-color: white;
+}
+
+::-webkit-scrollbar {
+    width: 1rem;
+    background-color: var(--darkgrey);
+    border-radius: var(--elembr);
+    -webkit-app-region: no-drag;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--lightgrey);
+    border-radius: var(--elembr);
+    -webkit-app-region: no-drag;
+}
+
+select {
+    appearance: none;
+    width: 100%;
+    padding-inline: var(--elembr);
+    font-family: "Titillium Web", "Roboto";
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    background: url("../../icon/expand.svg") 100% / 1rem no-repeat;
+    background-color: var(--darkgrey);
+    color: white;
+    border: none;
+    border-radius: var(--elembr);
+    transition: background-color var(--transition);
+    cursor: pointer;
+    outline: none;
+}
+
+select:hover {
+    background-color: var(--lightgrey);
+}
+
+option {
+    font-size: 0.65rem;
+}
+
+code {
+    font-family: "JetBrains Mono";
+}
+
+button {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    justify-self: end;
+    min-width: 1rem;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--darkgrey);
+    border: none;
+    border-radius: 0.15rem;
+    transition: background-color var(--transition);
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--primary);
+}
+
+input[type="checkbox"]:hover:not(:checked),
+input[type="text"]:hover,
+input[type="password"]:hover,
+input[type="number"]:hover {
+    background-color: var(--lightgrey);
+}
+
+input[type="number"] {
+    appearance: none;
+    border: none;
+    max-width: 2.5rem;
+    max-height: 2rem;
+    font-family: "Titillium Web", "Roboto";
+    font-size: 0.8rem;
+    padding: 0.15rem 0.35rem;
+    background-color: var(--darkgrey);
+    color: white;
+    border-radius: 0.35rem;
+    caret-color: rgba(255,255,255,0.25);
+    transition: background-color var(--transition);
+    cursor: pointer;
+    text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+}
+
+input[type="color"] {
+    background-color: transparent;
+    width: 100%;
+    height: 1.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 0 var(--elembr) var(--elembr) var(--elembr);
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 0.35rem 0.7rem;
+    font-family: "Titillium Web", "Roboto";
+    font-size: 0.7rem;
+    color: white;
+    border: none;
+    background-color: var(--darkgrey);
+    border-radius: var(--elembr);
+    caret-color: rgba(255,255,255,0.25);
+    transition: background-color var(--transition);
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+    min-width: 0;
+}
+
+.wrapper {
+    display: grid;
+}
+
+.opt[star] > span::after,
+.ttdesc::before {
+    content: "*";
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.ttdesc::before {
+    content: "* ";
+}
+
+.ttdesc {
+    color: lightgrey;
+    font-size: 0.5rem;
+    font-style: italic;
+}
+
+.opt:not([nosubdisable]):has(.sub > input[type="checkbox"]:checked) > *:not(.sub) {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.menubtn {
+    background: var(--icon) center / contain no-repeat;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: transparent;
+    scale: 1;
+    opacity: 0.5;
+    transition:
+        opacity var(--transition), 
+        scale var(--transition),
+        rotate var(--transition),
+        background-color var(--transition),
+        box-shadow var(--transition);
+    will-change: contents;
+}
+
+.menubtn:hover {
+    scale: 1.2;
+    opacity: 1;
+}
+
+.rect {
+    position: relative;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    place-items: center;
+    width: 60vw;
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+    transition: background-color var(--transition);
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.rect > *,
+.rect::before,
+.rect::after {
+    transition: filter var(--transition);
+    pointer-events: none;
+}
+
+.rect::before,
+.rect#game > button#link,
+#progresscircle {
+    content: "";
+    background: var(--icon) center / contain no-repeat;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: -3.5rem;
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.rect > span {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    max-width: 85%;
+    padding-inline: 3.5vmax;
+}
+
+button.rect::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    translate: -120%;
+    transition: translate var(--transition), background-color var(--transition);
+    grid-column: 1 / span 2;
+    grid-row-start: 1;
+    z-index: -1;
+}
+
+button.rect:hover::before,
+button.rect:hover > span {
+    filter: invert();
+}
+
+button.rect:hover::after {
+    translate: 0;
+}
+
+button.delbtn {
+    --icon: url("../../icon/delete.svg");
+    grid-column-start: 2;
+    grid-row-start: 1;
+    justify-self: end;
+    width: 1rem;
+    height: 1rem;
+}
+
+span.hl {
+    color: deepskyblue;
+}
+
+button.optbtn:not(.img) {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    direction: rtl;
+}
+
+button.optbtn:not(.img):hover {
+    white-space: normal;
+    overflow: auto;
+    word-break: break-all;
+    text-wrap: balance;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+}
+
+div:has(> table) {
+    max-height: 20vh;
+    overflow: hidden auto;
+}
+
+tr {
+    background-color: var(--mediumgrey);
+    transition: background-color var(--transition);
+}
+
+tr:has(> th) {
+    background-color: var(--primary);
+    position: sticky;
+    top: 0;
+}
+
+th,
+td {
+    text-align: center;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+    white-space: nowrap;
+    width: 20%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 70%;
+    padding-block: 0.15rem;
+    white-space: nowrap;
+    overflow: auto hidden;
+}
+
+td:nth-child(2) {
+    text-align: start;
+}
+
+tr:nth-child(even) {
+    background-color: var(--lightgrey);
+}
+
+td:nth-child(2)::-webkit-scrollbar {
+    height: 0.25rem;
+    margin-top: 0.25rem;
+}
+
+td:nth-child(2)::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 10%;
+}
+
+.wrapper.title {
+    position: relative;
+    cursor: pointer;
+}
+
+.wrapper.title::after {
+    content: "";
+    position: absolute;
+    background: url("../../icon/arrow.svg") center / contain no-repeat;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
+    justify-self: end;
+    rotate: 0deg;
+    transition: rotate var(--transition);
+}
+
+.wrapper.title[closed]::after {
+    rotate: -180deg;
+}
+
+.cont:has(.wrapper.title) > .optcont,
+.cont:has(.wrapper.title) > .optcont > .opt > span {
+    height: 100%;
+}
+
+.cont:has(.wrapper.title) > .optcont,
+.cont:has(.wrapper.title) > .optcont > .wrapper > *,
+.cont:has(.wrapper.title) > .optcont > .wrapper::before,
+.cont:has(.wrapper.title) > .optcont > .wrapper::after {
+    --closetransition: var(--transition);
+    transition:
+        background-color var(--transition),
+        opacity var(--closetransition);
+}
+
+.cont:has(.wrapper.title[closed]) > .optcont,
+.cont:has(.wrapper.title[closed]) > .optcont > .wrapper,
+.cont:has(.wrapper.title[closed]) > .optcont > button,
+.cont:has(.wrapper.title[closed]) > .optcont > .wrapper > *,
+.cont:has(.wrapper.title[closed]) > .optcont > .wrapper:has(button,input,select) > *,
+.cont:has(.wrapper.title[closed]) > .optcont > .wrapper::before,
+.cont:has(.wrapper.title[closed]) > .optcont > .wrapper::after {
+    height: 0;
+    min-height: 0;
+    padding-block: 0;
+    margin-top: 0;
+    gap: 0;
+    font-size: 0 !important;
+    opacity: 0 !important;
+    transition:
+        height var(--closetransition),
+        padding var(--closetransition),
+        margin-top var(--closetransition),
+        gap var(--closetransition),
+        font-size var(--closetransition),
+        opacity var(--closetransition);
+}
+
+.cont:has(.wrapper.title[notransition]) > .optcont {
+    transition: 0s !important;
+}

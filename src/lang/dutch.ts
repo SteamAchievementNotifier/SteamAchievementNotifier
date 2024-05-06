@@ -1,0 +1,387 @@
+export const translations = {
+    global: {
+        main: "Hoofd",
+        rare: "Zeldzaam",
+        plat: "100%",
+        topleft: "Linksboven",
+        topcenter: "Boven in het midden",
+        topright: "Rechtsboven",
+        bottomleft: "Linksonder",
+        bottomcenter: "Onder in het midden",
+        bottomright: "Rechtsonder",
+        ok: "OK",
+        preview: "Voorbeeld",
+        save: "Opslaan",
+        back: "Terug",
+        settings: "Instellingen",
+        appversion: "App-versie",
+        image: "Afbeelding",
+        audio: "Audio",
+        folder: "Map",
+        font: "Lettertype",
+        select: "Selecteren",
+        gametitle: "Speltitel",
+        congrats: "Gefeliciteerd!",
+        achievementunlocked: "Prestatie ontgrendeld",
+        gamecomplete: "100% Voltooid",
+        achievementdesc: "Klikte op de knop Testmelding weergeven",
+        gamecompletedesc: "Je hebt alle prestaties ontgrendeld!",
+        defaultcustomfont: "Standaard (Geen lettertype geselecteerd)",
+        defaultsoundfile: "Standaard (Geen bestand geselecteerd)",
+        defaultsounddir: "Standaard (Geen map geselecteerd)",
+        nowtracking: "Volgt nu prestaties voor:",
+        nopreview: "Voorbeeld niet beschikbaar voor het native besturingssysteem",
+        options: "Opties",
+        resetwindow: "Venster herstellen",
+        show: "Weergeven",
+        exit: "Afsluiten",
+        releasegame: "Spel vrijgeven",
+        releasegamesub: [
+            `Herstart het achtergrondproces van de Worker en geef het huidige spel vrij om te worden gevolgd`,
+            `Probeer deze optie als je onlangs een spel hebt gesloten, maar Steam toont het nog steeds als actief, of als Steam Achievement Notifier nog steeds een spel volgt dat al is gesloten`
+        ],
+        noupdateavailable: "Geen update beschikbaar",
+        latestversion: "Laatste versie geïnstalleerd",
+        missingdeps: "Ontbrekende afhankelijkheid",
+        missingdepssub: [
+            `Het lijkt erop dat je probeert de optie <span class="hl">Neem een Steam-screenshot</span> in te schakelen. Op Linux kunnen echter geen schermafbeeldingen automatisch worden geactiveerd zonder eerst het pakket <code class="dialogcode">xdotool</code> te installeren`,
+            `Voer alstublieft <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> uit om deze afhankelijkheid te installeren, waardoor Steam-schermafbeeldingen op dit apparaat kunnen worden gemaakt`
+        ],
+        restartapp: "App Herstarten",
+        restartappsub: [
+            `Als dingen niet goed werken, gebruik deze optie om de app te sluiten en opnieuw te openen`,
+            `Als het probleem aanhoudt na het herstarten van de app, overweeg dan om het te melden door de ingebouwde links op het startscherm te gebruiken`
+        ]
+    },
+    app: {
+        content: {
+            game: "Geen spel gedetecteerd",
+            customise: "Aanpassen",
+            test: "Toon testmelding"
+        }
+    },
+    settings: {
+        language: {
+            title: "Taal"
+        },
+        os: {
+            title: "Besturingssysteem",
+            content: {
+                desktop: "Maak bureaublad snelkoppeling",
+                startwin: "Starten bij aanmelden",
+                startmin: "Start geminimaliseerd",
+                nohwa: "Hardwareversnelling uitschakelen",
+                litemode: "Lite modus"
+            }
+        },
+        notifications: {
+            title: "Meldingen",
+            content: {
+                rarity: "Zeldzaamheidspercentage",
+                rareonly: "Alleen zeldzaam",
+                all: "Alle",
+                off: "Uit",
+                showpercent: "Percentage tonen",
+                soundonly: "Alleen geluid",
+                extwin: "Streammeldingen",
+                audiosrc: "Audiobron",
+                notify: "Melding",
+                app: "App",
+                nowtracking: "Toon volgwaarschuwing",
+                nowtrackingscale: "Volgschaal",
+                shortcuts: "Meldings snelkoppelingen"
+            }
+        },
+        media: {
+            title: "Media",
+            content: {
+                steamss: "Stoom screenshot nemen",
+                screenshots: "Extra media",
+                off: "Uit",
+                overlay: "Screenshot met meldingen-overlay",
+                monitors: "Screenshot bron",
+                ovpos: "Overlay positie",
+                ovmatch: "Pas aanpas positie toe",
+                ovpath: "Screenshot pad",
+                ssdelay: "Screenshot vertraging",
+                notifyimg: "Meldingsafbeelding",
+                imgpath: "Afbeeldingspad"
+            }
+        },
+        accessibility: {
+            title: "Toegankelijkheid",
+            content: {
+                noanim: "App-vensteranimaties uitschakelen",
+                nvda: "NVDA-ondersteuning inschakelen",
+                tooltips: "Tooltips weergeven"
+            }
+        },
+        advanced: {
+            title: "Geavanceerd",
+            content: {
+                pollrate: "Pollfrequentie",
+                releasedelay: "Uitgavevertraging",
+                maxretries: "Maximale Aantal Herpogingen",
+                notifydebug: "Melding Debugger Weergeven",
+                usecustomfiles: "Aangepaste App-bestanden Gebruiken",
+                showcustomfiles: "Aangepaste App-bestanden Weergeven"
+            }
+        },        
+        misc: {
+            title: "Diversen",
+            content: {
+                checkforupdates: "Controleren Op Updates",
+                log: "Applicatielog",
+                reset: "App resetten"
+            }
+        }
+    },
+    customiser: {
+        preset: {
+            title: "Voorinstelling",
+            content: {
+                preset: "Notificatie Voorinstelling",
+                iconanim: "Zeldzame Icoonanimatie",
+                alldetails: "Toon Alle Details",
+                usepercent: "Gebruik Percentage",
+                displaytime: "Weergavetijd",
+                scale: "Schaal",
+                customtext: "Aangepaste Tekst",
+                usegametitle: "Gebruik Speltitel",
+                customfont: "Aangepast Lettertype"
+            }
+        },
+        sound: {
+            title: "Geluid",
+            content: {
+                soundmode: "Geluidsmodus",
+                file: "Bestand",
+                folder: "Willekeurig",
+                soundfile: "Geluidsbestand",
+                sounddir: "Geluidmap",
+                volume: "Volume"
+            }
+        },
+        style: {
+            title: "Stijl",
+            content: {
+                bgstyle: "Achtergrondstijl",
+                solid: "Effen",
+                gradient: "Verloop",
+                img: "Afbeelding",
+                gameart: "Spelkunst",
+                gradientangle: "Verloop Hoek",
+                bgimg: "Achtergrondafbeelding",
+                bgimgbrightness: "Helderheid",
+                brightness: "Helderheid",
+                roundness: "Rondheid",
+                fontsize: "Lettergrootte",
+                opacity: "Doorzichtigheid",
+                bgonly: "Alleen Achtergrond"
+            }
+        },
+        colors: {
+            title: "Kleuren",
+            content: {
+                primarycolor: "Primaire Kleur",
+                secondarycolor: "Secundaire Kleur",
+                tertiarycolor: "Tertiaire Kleur",
+                fontcolor: "Letterkleur",
+                fontoutline: "Letteromlijning",
+                fontoutlinecolor: "Kleur Letteromlijning",
+                fontshadow: "Letter Schaduw",
+                fontshadowcolor: "Kleur Letter Schaduw"
+            }
+        },
+        icons: {
+            title: "Iconen",
+            content: {
+                iconroundness: "Icoon Ronding",
+                plat: "100% Logo",
+                usegameicon: "Gebruik Spelicoon",
+                logo: "Logo",
+                decoration: "Decoratie",
+                showdecoration: "Toon Decoratie",
+                rarity: "Zeldzaamheid",
+                showhiddenicon: "Toon Verborgen Pictogram",
+                hiddenicon: "Verborgen Pictogram",
+            }
+        },
+        position: {
+            title: "Positie",
+            content: {
+                pos: "Schermpositie",
+                usecustompos: "Gebruik Aangepaste Positie",
+                setcustompos: "Instellen",
+                resetcustompos: "Herstel"
+            }
+        },
+        theme: {
+            title: "Thema",
+            content: {
+                savetheme: "Thema Opslaan",
+                sub: [
+                    `Opgeslagen <span class="hl">Gebruikersthema's</span> kunnen worden geselecteerd uit het <span class="hl">Selecteer Thema</span> menu op het startscherm.`,
+                    `Zorg ervoor dat de <span class="hl">Thema Naam</span> <u>uniek</u> is - een naam die overeenkomt met een bestaand thema <u>zal het vorige overschrijven</u>!`
+                ],
+                placeholder: "Thema Naam",
+                theme: "Thema"
+            }
+        }
+    },
+    logwin: {
+        content: {
+            tagline: "Dit is er gebeurd sinds de app werd gestart om",
+            copylog: "Kopieer Log Inhoud"
+        }
+    },
+    reset: {
+        content: {
+            sub: `
+                <div class="wrapper" id="resetsub">
+                    <span>Weet u het zeker?</span>
+                    <span>Alle eerder geconfigureerde gegevens, <u>inclusief Aanpassingen</u>, worden teruggezet naar standaard.</span>
+                    <span>🛑 Dit kan niet ongedaan worden gemaakt!</span>
+                </div>
+            `,
+            reset: "Herstellen"
+        }
+    },
+    error: {
+        content: {
+            subtitle: "Steam Achievement Notifier is tegen een probleem aangelopen en moet worden gesloten.",
+            details: "Hier zijn de foutdetails:",
+            sub: "Klik op de knoppen hieronder om dit probleem te rapporteren via uw voorkeursplatform.",
+            report: "Rapport",
+            log: "App Log",
+            exit: "Afsluiten"
+        }
+    },    
+    tooltips: {
+        game: "Het spel waarvoor prestaties momenteel worden gevolgd",
+        usertheme: "Selecteer een eerder opgeslagen thema",
+        customise: "Pas prestatienotificaties aan",
+        test: "Toon een testmelding, inclusief eventuele aanpassingen",
+        kofi: "Doneer op Ko-Fi!",
+        discord: "Doe mee op Discord!",
+        github: "Meld een probleem",
+        lang: "Selecteer de UI-taal die in de app wordt gebruikt",
+        desktop: "Schakel een snelkoppeling op het bureaublad in om de app uit te voeren",
+        startwin: "Start Steam Achievement Notifier automatisch na het inloggen",
+        startmin: "Verberg het app-UI-venster na het starten totdat het wordt geopend vanuit het systeemvak",
+        nohwa: `Hardwareversnelling uitschakelen, wat de prestaties kan verbeteren op systemen met minder middelen of systemen zonder een toegewijde GPU<br><br><span class="ttdesc">De app wordt opnieuw opgestart na het inschakelen/uitschakelen van deze optie</span>`,
+        litemode: "Schakel alle interactieve UI-elementen uit en bied alleen beperkte app-functionaliteit via het systeemvakpictogram. Kan de bronnen die door de app worden verbruikt verbeteren",
+        rarity: "Het percentage waarbij zeldzame prestatienotificaties worden geactiveerd. Elke prestatie met een ontgrendelingspercentage hoger dan deze waarde wordt weergegeven als een hoofdmelding",
+        showpercent: "Toon het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
+        soundonly: "Schakel meldingen uit en speel alleen geluiden af die zijn ingesteld via de Customiser",
+        extwin: "Maak een verborgen achtergrondvenster dat duplicaten van alle meldingen weergeeft die momenteel op het scherm worden weergegeven. Dit venster kan vervolgens worden toegevoegd als een Window Capture-bron voor gebruik in streaming-software, zoals OBS",
+        audiosrc: "Selecteer de bron van (of schakel uit) audio die door de app wordt gegenereerd",
+        nowtracking: "Toon een melding waarin de gebruiker wordt geïnformeerd dat prestaties voor een actief spel worden gevolgd",
+        nowtrackingscale: `Stel de grootte van de volgwaarschuwing in`,
+        shortcuts: "Activeer een testmelding via een sneltoets. Sneltoetsen kunnen worden aangepast voor elk meldingstype",
+        steamss: "Maak een Steam-screenshot wanneer een prestatie wordt ontgrendeld",
+        screenshots: "Selecteer het type Extra Media dat moet worden gemaakt wanneer een melding wordt weergegeven",
+        monitors: "De monitor die wordt vastgelegd bij het maken van de screenshot",
+        ovpos: "De positie van de meldingen-overlay in de screenshot",
+        ovmatch: "Pas de schermpositie aan die is ingesteld in de Customiser voor dit meldingstype",
+        ovpath: "De locatie waar screenshots die door deze optie worden gegenereerd, worden opgeslagen",
+        ssdelay: "Voeg een vertraging toe vanaf het moment dat de melding optreedt tot het moment dat de screenshot wordt gemaakt",
+        sspreview: "Toon een voorbeeld van hoe de screenshot eruit zal zien wanneer deze is opgeslagen",
+        noanim: "Schakel alle vensteranimaties en overgangseffecten in de app uit",
+        nvda: "Schakel het kopiëren van prestatie-informatie naar het klembord in wanneer een prestatie wordt ontgrendeld, om te worden gelezen door schermlezer-software, zoals NVDA",
+        tooltips: "Toon tooltips bij het zweven over bepaalde UI-elementen",
+        pollrate: `Stel het update-interval in voor prestatiegegevens tijdens het spelen<br><br><span class="ttdesc">De prestaties kunnen toenemen/afnemen, afhankelijk van de waarde of de hardware van het systeem. Hogere waarden resulteren doorgaans in lagere systeembelasting, maar kunnen notificaties vertragen</span>`,
+        releasedelay: `Stel in hoelang het achtergrondproces moet wachten om opnieuw op te starten nadat het huidige spel is uitgebracht. Beïnvloedt zowel automatische procesbewaking als handmatig gekoppelde spellen.<br><br><span class="ttdesc">Biedt een langere tijdsperiode om Steamworks volledig vrij te geven van de app. Het verhogen van deze waarde kan ongebruikelijk gedrag voorkomen, zoals het volgen van een eerder gesloten spel</span>`,
+        maxretries: `Stel het maximale aantal pogingen in om een lopend proces te koppelen aan een gedetecteerde AppID. Beïnvloedt zowel automatische procesbewaking als handmatig gekoppelde spellen.<br><br><span class="ttdesc">Pogingen tot koppeling worden één keer per seconde uitgevoerd. Als een lopend proces niet is gekoppeld aan de huidige AppID na dit aantal pogingen, wordt een ongeldig proces geretourneerd. In dergelijke gevallen moet het spel handmatig worden vrijgegeven via Systeemvak > Opties > Spel Vrijgeven</span>`,
+        notifydebug: "Maak een DevTools-venster voor alle meldingen. Handig voor het oplossen van problemen met meldingen",
+        usecustomfiles: "Hiermee kunnen meldingen gebruikersaanpasbare bestanden laden. Voorzichtigheid is geboden voor reguliere gebruikers",
+        showcustomfiles: "Open de locatie van de aangepaste bestanden",
+        log: "Open het App-logvenster, waarin informatie wordt weergegeven over procesactiviteit, waarschuwingen en fouten",
+        reset: "Verwijder alle configuratiegegevens en start de app opnieuw",
+        playback: "Pauzeer/hervat de animatie van de meldingsvoorbeeld",
+        replay: "Start de animatie van de meldingsvoorbeeld opnieuw",
+        preset: "Selecteer het meldingsvoorinstelling om aan te passen",
+        iconanim: "Schakel de rand en animatie van het zeldzame pictogram in",
+        alldetails: "Toon alle tekstelementen in de melding, inclusief die standaard verborgen zijn voor deze voorinstelling",
+        usepercent: "Toon het ontgrendelingspercentage van de prestatie, in plaats van de XP/S-waarde",
+        displaytime: "Stel het aantal seconden in dat de melding wordt weergegeven",
+        scale: "Vergroot of verklein de grootte van de melding",
+        customtext: "Stel een aangepast bericht in dat binnen de melding wordt weergegeven",
+        usegametitle: "Toon de titel van het huidige spel in de melding",
+        customfont: "Laad een aangepast lettertype dat binnen de melding wordt gebruikt",
+        soundmode: "Selecteer een enkel audiobestand of een willekeurig geselecteerd audiobestand uit een map met meerdere audiobestanden wanneer een melding optreedt",
+        soundfile: "Selecteer een audiobestand dat wordt afgespeeld wanneer een melding optreedt",
+        sounddir: "Selecteer een map waaruit een audiobestand willekeurig wordt geselecteerd wanneer een melding optreedt",
+        volume: "Stel het afspeelvolume van het audiobestand in",
+        preview: "Bekijk het geselecteerde audiobestand of een willekeurig geselecteerd audiobestand uit de map",
+        bgstyle: "Selecteer de stijl voor de achtergrond van de melding",
+        gradientangle: "Stel de hoek van de gradiënt in",
+        bgimg: "Laad een afbeeldingsbestand om als achtergrond van de melding te gebruiken",
+        bgimgbrightness: "Stel de helderheid in van de afbeelding die als achtergrond voor de melding wordt gebruikt",
+        brightness: "Stel de helderheid in van de game-art die als achtergrond van de melding wordt gebruikt",
+        roundness: "Stel de rondheid van de meldingsranden in",
+        fontsize: "Stel de grootte van het lettertype in dat in de melding wordt gebruikt",
+        opacity: "Stel de algehele dekking van de melding in",
+        bgonly: "Stel alleen de dekking in voor de meldingsachtergrond en behoud andere elementen op volledige dekking",
+        primarycolor: "Stel de primaire kleur van de melding in",
+        secondarycolor: "Stel de secundaire kleur van de melding in",
+        tertiarycolor: "Stel de tertiaire kleur van de melding in",
+        fontcolor: "Stel de kleur in van alle tekst die binnen de melding wordt weergegeven",
+        fontoutline: "Voeg een contour toe aan alle tekst die binnen de melding wordt weergegeven",
+        fontoutlinecolor: "Stel de kleur in van de tekstcontour",
+        fontshadow: "Voeg een schaduw toe aan alle tekst die binnen de melding wordt weergegeven",
+        fontshadowcolor: "Stel de kleur in van de tekstschaduw",
+        iconroundness: "Stel de rondheid in van het prestatie-/spelpictogram dat binnen de melding wordt weergegeven",
+        plat: "Laad een afbeeldingsbestand om als 100% pictogram te gebruiken",
+        usegameicon: "Vervang het standaard meldingspictogram door het pictogram van het huidige spel",
+        showhiddenicon: "Toon een afbeelding die aangeeft dat de prestatie verborgen is in de melding",
+        hiddenicon: "Laad een afbeeldingsbestand om het verborgen prestatiepictogram te vervangen",
+        logo: "Laad een afbeeldingsbestand om het Logo-pictogram te vervangen",
+        decoration: "Laad een afbeeldingsbestand om het Decoration-pictogram te vervangen",
+        showdecoration: "Schakel de zichtbaarheid van het Decoration-pictogram in/uit",
+        pos: "Stel de on-screen positie van de melding in",
+        usecustompos: "Schakel aangepaste positionering in voor de melding",
+        setcustompos: "Stel de aangepaste positie voor de melding in",
+        resetcustompos: "Stel de positie van de melding opnieuw in op de standaard aangepaste positie",
+        savetheme: "Sla alle geconfigureerde aanpassingsopties op als een nieuw thema",
+        visibilitybtn: "Wijzig de zichtbaarheid van het element in Customiser-voorbeelden en Testmeldingen",
+        delbtn: "Stel het element terug naar de standaardwaarde",
+        link: `Open <span class="hl">Beheer Gekoppelde Spellen</span> Menu`,
+        imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen"
+    },
+    update: {
+        updateavailable: "Update beschikbaar",
+        sub: [
+            `<span id="newversion"></span>`,
+            "Er is een nieuwe update beschikbaar voor Steam Achievement Notifier!",
+            `Volledige release-opmerkingen beschikbaar op <span id="discordreleasenotes"></span> en <span id="githubreleasenotes"></span>`
+        ],
+        update: "Update"
+    },
+    "linkgame": {
+        "content": {
+            "exepath": "Pad naar uitvoerbaar bestand",
+            "nodata": "Geen gegevens",
+            "manage": "Beheer Gekoppelde Spellen",
+            "managesub": [
+                `Koppel handmatig het <span class="hl">uitvoerbare bestand</span> van een spel aan een specifieke <span class="hl">AppID</span>, of <span class="hl">ontkoppel</span> een bestaande`,
+                `Steam Achievement Notifier zal niet langer <span class="hl">automatisch proces tracking</span> gebruiken voor eventuele <span class="hl">gekoppelde spellen</span> - in plaats daarvan zal het gespecificeerde <span class="hl">uitvoerbare bestand</span> worden gevolgd wanneer de bijbehorende <span class="hl">AppID</span> wordt gedetecteerd`,
+                `<span class="hl" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-spel?</u></span>`
+            ],
+            "new": "Nieuw...",
+            "linknew": "Nieuw Gekoppeld Spel",
+            "linknewsub": [
+                `Maak een nieuwe koppeling tussen een <span class="hl">spel uitvoerbaar bestand</span> en de bijbehorende <span class="hl">AppID</span>`,
+                `Eenmaal gemaakt, kunnen koppelingen worden <span class="hl">ontkoppeld</span> via het vorige <span class="hl">Beheer Gekoppelde Spellen</span> dialoogvenster`
+            ],
+            "link": "Koppelen",
+            "findappid": "AppID vinden",
+            "findappidsub": [
+                `Elk Steam-spel heeft een uniek nummer - genaamd een <span class="hl">AppID</span>. U kunt de bijbehorende AppID van elk Steam-spel vinden door een van de volgende methoden te controleren:`,
+                `In de <span class="hl">Steam-client</span>, klik met de rechtermuisknop op een spel in uw <span class="hl">Bibliotheek</span> en selecteer <i>Eigenschappen</i> > <i>Updates</i> - de AppID wordt hier vermeld`,
+                `De <span class="hl">URL</span> van de <span class="hl">Winkel pagina</span> van het spel - het zal het nummer zijn dat na <span class="hl">app/</span> wordt vermeld: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Websites zoals <span class="hl">SteamDB</span> - de sectie <span class="hl">App Info</span> zal de AppID voor elk spel vermelden`
+            ]
+        }
+    }
+}

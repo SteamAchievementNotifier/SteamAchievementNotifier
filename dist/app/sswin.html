@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./global.css">
+        <script>const exports = {};</script>
+        <script src="./sswin.js"></script>
+        <style>
+            :root {
+                --x: center;
+                --y: end;
+                --opacity: 0;
+            }
+
+            body {
+                opacity: var(--opacity);
+                transition: var(--transition);
+            }
+
+            .menubtn#close {
+                --icon: url("../../icon/close.svg");
+                justify-self: end;
+                align-self: start;
+                width: 1rem;
+                height: 1rem;
+                margin: 1rem;
+            }
+
+            img {
+                place-self: center;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            img,
+            webview,
+            .menubtn#close {
+                display: grid;
+                grid-column-start: 1;
+                grid-row-start: 1;
+            }
+
+            webview {
+                --width: 300px;
+                --height: 50px;
+                --offset: 20px 20px 20px 20px;
+                margin: var(--offset);
+                justify-self: var(--x);
+                align-self: var(--y);
+                width: var(--width);
+                max-width: calc(100vw - 50px);
+                height: var(--height);
+                max-height: calc(var(--height) * 1px);
+                aspect-ratio: var(--width) / var(--height);
+                background-color: transparent;
+            }
+        </style>
+    </head>
+    <body>
+        <button class="menubtn" id="close" onclick="window.close()"></button>
+        <!-- <img src="../../img/santextlogobg.png" id="ss" draggable="false"> -->
+        <img src="" id="ss" draggable="false">
+        <webview webpreferences="nodeIntegration=true, contextIsolation=false"></webview>
+    </body>
+</html>

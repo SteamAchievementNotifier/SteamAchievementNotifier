@@ -1,0 +1,289 @@
+@font-face {
+    font-family: "Noto Sans";
+    src: url("../../../fonts/NotoSans-Light.ttf");
+}
+
+:root {
+    --s: url("../../../img/s.svg");
+}
+
+.wrapper#achcont {
+    --start: 16.8%;
+    --finish: shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--displaytime) / 4.5)) cubic-bezier(0.75, 0, 1, 1) forwards;
+    position: relative;
+    width: var(--start);
+    height: 99vh;
+    place-self: center;
+    opacity: var(--opacity);
+    animation:
+        expand var(--transition) calc(var(--displaytime) / 7) cubic-bezier(0, 0.5, 1, 1) forwards,
+        var(--finish);
+}
+
+body[fastanim] .wrapper#achcont {
+    --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+body[bgonly] .wrapper#achcont {
+    opacity: 1;
+}
+
+@keyframes expand {
+    to { width: 100vw; }
+}
+
+@keyframes shrink {
+    to { width: var(--start); }
+}
+
+.wrapper#bg {
+    --finish: scaledown calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 7)) cubic-bezier(0.75, 0, 1, 1) forwards;
+    --elemopacity: 1;
+    width: 100%;
+    opacity: 0;
+    overflow: hidden;
+    animation:
+        fadein var(--transition) calc(var(--displaytime) / 7 - var(--transition)) cubic-bezier(0, 0.5, 1, 1) forwards,
+        var(--finish);
+}
+
+body[fastanim] .wrapper#bg {
+    --finish: none;
+}
+
+body[bgonly] .wrapper#bg {
+    --elemopacity: var(--opacity);
+}
+
+#overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -150% -50%;
+    transform: skew(-30deg,0deg);
+    width: 30vw;
+    height: 200vh;
+    place-self: center;
+    background-color: white;
+    opacity: 0;
+    filter: blur(3rem);
+    z-index: 10;
+    animation:
+        overlay calc(var(--transition) * 10) calc(var(--displaytime) / 7 + (var(--transition) * 2.5)) linear,
+        overlay calc(var(--transition) * 10) calc(var(--displaytime) / 2 + calc(var(--transition)) * 2.5) linear forwards;
+}
+
+@keyframes overlay {
+    50% {
+        translate: 0 -50%;
+        opacity: 0.25;
+    }
+    
+    to {
+        translate: 100% -50%;
+        opacity: 0;
+    }
+}
+
+.wrapper#achiconwrapper {
+    isolation: isolate;
+}
+
+body:not([fastanim]) .wrapper#achiconwrapper {
+    animation: scaledown calc(var(--transition) * 2) calc(var(--displaytime) - calc(var(--transition) * 8)) cubic-bezier(1, 0, 1, 1) forwards;
+}
+
+.wrapper#achiconwrapper > * {
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+#iconbg {
+    --finish: scaledown calc(var(--transition) * 2) calc(var(--displaytime) - calc(var(--transition) * 8)) cubic-bezier(1, 0, 1, 1) forwards;
+    width: 100vh;
+    height: 100vh;
+    scale: 0;
+    border-radius: var(--roundness);
+    background-color: var(--secondarycolor);
+    grid-column-start: 1;
+    animation:
+        scaleup var(--transition) ease-in-out forwards,
+        var(--finish);
+}
+
+body[fastanim] #iconbg {
+    --finish: none;
+}
+
+body[bgonly] #iconbg {
+    opacity: var(--opacity);
+}
+
+@keyframes scaleup {
+    to { scale: 1; }
+}
+
+#achicon {
+    --finish: fadeout var(--transition) calc(var(--displaytime) - (var(--displaytime) / 4.5) + var(--transition)) forwards;
+    --elemopacity: 1;
+    opacity: 0;
+    z-index: 1;
+    animation:
+        fadein var(--transition) calc(var(--displaytime) / 9) forwards,
+        var(--finish);
+}
+
+body[fastanim] #achicon {
+    --finish: none;
+}
+
+#logo {
+    --elemopacity: 1;
+    width: 100%;
+    height: 100%;
+    scale: 0;
+    background: var(--logo) center / contain no-repeat;
+    place-self: center;
+    z-index: 0;
+    animation:
+        popin var(--transition) ease-in-out forwards,
+        fadeout var(--transition) calc(var(--displaytime) / 9) forwards,
+        fadein var(--transition) calc(var(--displaytime) - (var(--displaytime) / 5) + var(--transition)) forwards,
+        scaledown calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 9)) cubic-bezier(1, 0, 1, 1) forwards;
+}
+
+@keyframes popin {
+    50% { scale: 1; }
+    to { scale: 0.8; }
+}
+
+@keyframes scaledown {
+    to { scale: 0; }
+}
+
+.wrapper#achcontent {
+    --finish: removecolumngap calc(var(--transition) * 2) calc(var(--displaytime) - (var(--displaytime) / 4.5)) forwards;
+    column-gap: 0;
+    animation:
+        addcolumngap 1ms calc(var(--displaytime) / 6) forwards,
+        var(--finish);
+}
+
+body[fastanim] .wrapper#achcontent {
+    --finish: none;
+}
+
+@keyframes addcolumngap {
+    to { column-gap: calc(10px * var(--scale)); }
+}
+
+@keyframes removecolumngap {
+    to { column-gap: 0; }
+}
+
+.wrapper#achcontent > span {
+    font-family: "customfont", "Noto Sans", "Roboto";
+    opacity: 0;
+    line-height: calc(1.35rem * var(--fontsize));
+}
+
+body[nodecoration] .wrapper#achcontent > span {
+    grid-column: 2 / span 2;
+}
+
+#unlockmsg {
+    grid-row-start: 1;
+}
+
+#achcontent > #title {
+    position: relative;
+    grid-row-start: 2;
+    -webkit-line-clamp: 1;
+}
+
+body:not([nodecoration]) #title::before {
+    content: attr(gs) attr(unit) " - ";
+    margin-left: calc(1.175rem * var(--fontsize));
+}
+
+body:not([nodecoration]) #title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    translate: 0 -50%;
+    background: var(--s) center / contain no-repeat;
+    width: calc(0.825rem * var(--fontsize));
+    height: calc(0.825rem * var(--fontsize));
+}
+
+#unlockmsg,
+#title {
+    --finish: slideup calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition)) * 2) cubic-bezier(0.5, 0, 1, 1) forwards;
+    --elemopacity: 1;
+    --translate: -100vh;
+    animation:
+        fadein calc(var(--transition) * 2) calc(var(--displaytime) / 7 + (var(--transition) * 2.5)) forwards,
+        var(--finish);
+}
+
+body[fastanim] #unlockmsg,
+body[fastanim] #title {
+    --finish: slideup calc(var(--transition) * 2) calc(var(--displaytime) / 2) cubic-bezier(0.5, 0, 1, 1) forwards;
+}
+
+@keyframes fadein {
+    to { opacity: var(--elemopacity); }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}
+
+@keyframes slideup {
+    to { translate: 0 var(--translate); }
+}
+
+.wrapper#achcontent > #desc {
+    --start: slideup calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition)) * 2) cubic-bezier(0.5, 0, 1, 1) forwards;
+    --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--displaytime) / 4.25)) forwards;
+    --translate: 0;
+    align-self: center;
+    grid-row: 1 / span 2;
+    translate: 0 100vh;
+    opacity: 1;
+    animation:
+        var(--start),
+        var(--finish);
+}
+
+body[fastanim] .wrapper#achcontent > #desc {
+    --start: slideup calc(var(--transition) * 2) calc(var(--displaytime) / 2) cubic-bezier(0.5, 0, 1, 1) forwards;
+    --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+body[ss] #unlockmsg {
+    display: none;
+}
+
+body[ss] .wrapper#bg,
+body[ss] #iconbg {
+    scale: 1;
+    opacity: 1;
+}
+
+body[ss] #logo {
+    display: none;
+}
+
+body[ss] #achicon {
+    opacity: 1;
+}
+
+body[ss] .wrapper#achcontent {
+    column-gap: calc(10px * var(--scale));
+}
+
+body[ss] .wrapper#achcontent > #desc {
+    translate: 0 0;
+}

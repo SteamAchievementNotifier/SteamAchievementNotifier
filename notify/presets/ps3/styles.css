@@ -1,0 +1,91 @@
+@font-face {
+    font-family: "Mandali";
+    src: url("../../../fonts/Mandali-Regular.ttf");
+}
+
+.wrapper#achcont {
+    --achcontopacity: var(--opacity);
+    opacity: 0;
+    animation:
+        fadein var(--transition) forwards,
+        fadeout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+body[bgonly] .wrapper#achcont {
+    --achcontopacity: 1;
+}
+
+@keyframes fadein {
+    to { opacity: var(--achcontopacity); }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}
+
+#achicon {
+    border-radius: calc(var(--iconroundness) * 1.25);
+}
+
+.wrapper#achcontent::before {
+    content: "";
+    display: block;
+    width: calc(1.5rem * var(--fontsize));
+    height: calc(1.5rem * var(--fontsize));
+    grid-row-start: 2;
+    background: var(--decoration) center / contain no-repeat;
+}
+
+body[ss] .wrapper#achcontent::before {
+    grid-row-start: 1;
+}
+
+body[alldetails]:not([ss]) .wrapper#achcontent::before {
+    width: 1rem;
+    height: 1rem;
+}
+
+body[bgonly] .wrapper#bg {
+    opacity: var(--opacity);
+}
+
+.wrapper#achcontent {
+    grid-template-columns: 0fr 1fr calc(5px * var(--scale));
+    column-gap: 0.25rem;
+}
+
+.wrapper#achcontent > span {
+    font-family: "customfont", "Mandali", "Roboto";
+    font-size: calc(1.25rem * var(--fontsize));
+}
+
+.wrapper#achcontent > span:not(#title) {
+    grid-column: 1 / span 2;
+}
+
+body[alldetails]:not([ss]) .wrapper#achcontent > span {
+    font-size: calc(1rem * var(--fontsize));
+    -webkit-line-clamp: 1;
+}
+
+body:not([alldetails]) #desc {
+    display: none;
+}
+
+body[ss] .wrapper#achcont {
+    opacity: 1;
+}
+
+body[ss] .wrapper#achcontent > #unlockmsg,
+body[ss][alldetails] .wrapper#achcontent > #unlockmsg {
+    display: none;
+}
+
+body[ss] .wrapper#achcontent > #title {
+    grid-row-start: 1;
+}
+
+body[ss] .wrapper#achcontent > #desc {
+    display: -webkit-box;
+    grid-row-start: 2;
+}

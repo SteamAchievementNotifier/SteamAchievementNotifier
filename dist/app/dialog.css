@@ -1,0 +1,627 @@
+:root {
+    --dialogicon: url("../../icon/info.svg");
+}
+
+dialog,
+::backdrop {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    -webkit-app-region: no-drag;
+}
+
+::backdrop {
+    opacity: 0;
+}
+
+dialog {
+    border: none;
+    background-color: #000000d7;
+    opacity: 0;
+    border-radius: var(--winbr);
+}
+
+@keyframes dialogin {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes dialogout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+dialog[open] {
+    animation: dialogin calc(var(--transition) / 2) forwards;
+}
+
+dialog > #content {
+    display: flex;
+    place-self: center;
+    flex-direction: column;
+    scale: 0;
+    background-color: #1b1b1b;
+    color: white;
+    border-radius: var(--winbr);
+    width: 50%;
+    height: fit-content;
+    transition: scale var(--transition);
+    transition-timing-function: cubic-bezier(0,0,1,-0.75);
+    transition-delay: 0s;
+}
+
+dialog[open] > #content[open] {
+    scale: 1;
+    transition-timing-function: cubic-bezier(0,1.75,1,1);
+    transition-delay: calc(var(--transition) / 2);
+}
+
+.contentwrapper {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    place-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+    height: 100%;
+}
+
+dialog[selection] .contentwrapper {
+    grid-template-rows: auto auto;
+    gap: 0;
+}
+
+.contentwrapper > .wrapper#contentcontainer {
+    display: grid;
+    place-items: center;
+    width: 100%;
+}
+
+.contenttitle {
+    display: grid;
+    grid-template-columns: auto auto;
+    place-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.35rem;
+    background-color: var(--primary);
+    border-radius: var(--elembr) var(--elembr) 0 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.contenttitle::before {
+    content: "";
+    background: var(--dialogicon) center / contain no-repeat;
+    place-self: center;
+    width: 1rem;
+    height: 1rem;
+    margin-left: -1rem;
+}
+
+.contentsub {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #101010;
+    border-radius: 0 0 var(--elembr) var(--elembr);
+    font-size: 0.65rem;
+}
+
+dialog[selection] .contentwrapper .contentsub {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 0.7rem;
+    padding: 0.7rem 1rem;
+    overflow: hidden auto;
+    max-height: 30vh;
+    will-change: contents;
+}
+
+.contentsub::before {
+    content: "";
+    background: url("../../icon/info.svg") center / contain no-repeat;
+    width: 1rem;
+    height: 1rem;
+    padding-right: 1rem;
+    margin-right: 0.35rem;
+    place-self: center;
+}
+
+dialog[selection] .contentwrapper .contentsub::before {
+    display: none;
+}
+
+dialog[selection] .contentwrapper .contentsub > button.rect {
+    grid-template-columns: auto auto;
+    gap: 0.7rem;
+    width: 100%;
+    min-height: 8vh;
+}
+
+dialog[selection] .contentwrapper .contentsub > .rect::before {
+    justify-self: end;
+    margin-right: 0;
+}
+
+dialog[selection] .contentwrapper .contentsub > .rect > span {
+    justify-self: start;
+    padding-inline: 0;
+}
+
+.wrapper#contentsubitems {
+    gap: 0.25rem;
+}
+
+.wrapper#contentsubitems > div:has(.contentsubitem) {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    text-wrap: wrap;
+    column-gap: 0.25rem;
+}
+
+.contentsubitem::before {
+    content: "•";
+    margin-right: 0.25rem;
+}
+
+.wrapper#contentcontainer:has(.wrapper#resetsub) .contenttitle {
+    background-color: red;
+}
+
+.wrapper#resetsub {
+    gap: 0.25rem;
+}
+
+.wrapper#resetsub > span:nth-child(3) {
+    color: #ff000080;
+    animation: flash calc(var(--transition) * 2.5) alternate infinite;
+}
+
+@keyframes flash {
+    to { color: #ff0000; }
+}
+
+.btnwrapper {
+    display: grid;
+    grid-template-columns: var(--columns);
+    place-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    height: 100%;
+}
+
+dialog:not([default]) .btnwrapper {
+    display: none;
+}
+
+.btnwrapper > button {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    place-content: center;
+    height: 1.75rem;
+    padding: 0.25rem;
+    font-family: "Titillium Web","Roboto";
+    border-radius: var(--elembr);
+    background-color: var(--primary);
+    color: white;
+    transition:
+        background-color var(--transition),
+        opacity var(--transition);
+    text-transform: uppercase;
+    will-change: contents;
+}
+
+.btnwrapper > button:hover {
+    background-color: black;
+    color: white;
+    filter: invert();
+}
+
+.btnwrapper > button::before {
+    content: "";
+    background: var(--icon) center / contain no-repeat;
+    align-self: center;
+    width: 1rem;
+    height: 1rem;
+}
+
+#okbtn::before {
+    background: url("../../icon/tick.svg") center / contain no-repeat;
+}
+
+#backbtn::before {
+    background: url("../../icon/back.svg") center / contain no-repeat;
+}
+
+#okbtn:hover,
+#updatebtn:hover,
+#backbtn:hover {
+    filter: none;
+}
+
+#okbtn:hover,
+#updatebtn:hover {
+    background-color: limegreen;
+}
+
+div:has(> span.contentsubitem):has(#newversion) {
+    --args: 0 0;
+    grid-template-columns: 1fr !important;
+    place-self: center;
+    place-items: center;
+    padding-inline: 0.5rem;
+    margin-right: 2.35rem;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+    animation:
+        glow1 calc(var(--transition) * 12) linear alternate infinite,
+        glow2 calc(var(--transition) * 15) ease-in-out infinite;
+}
+
+@keyframes glow1 {
+    from { filter: drop-shadow(0 0 0.15rem #9e9eff); }
+    50% { filter: drop-shadow(0 0 0.2rem #00bfff); }
+    to { filter: drop-shadow(0 0 0.25rem #ffd700); }
+}
+
+@keyframes glow2 {
+    from { box-shadow: -0.5rem 0 0.35rem transparent; }
+    25% { box-shadow: 0 0 0.35rem #ffffff40; }
+    50% { box-shadow: 0.5rem 0 0.35rem transparent; }
+}
+
+span.contentsubitem:has(#newversion)::before {
+    display: none;
+}
+
+body[updating] dialog #updatebtn {
+    --icon: url("../../icon/reset.svg") !important;
+    background-color: limegreen;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+body[updating] dialog #updatebtn::before {
+    animation: spin calc(var(--transition) * 5) infinite;
+}
+
+@keyframes spin {
+    to { rotate: 360deg; }
+}
+
+dialog .wrapper:has(> #progressbar) {
+    --progress: 0%;
+    width: 100%;
+    display: grid;
+    border-radius: var(--elembr);
+    isolation: isolate;
+    overflow: hidden;
+}
+
+dialog .wrapper:has(> #progressbar)::before {
+    content: "";
+    justify-self: start;
+    width: var(--progress);
+    height: 100%;
+    background-color: #203e7a;
+    transition: var(--transition);
+    grid-column-start: 1;
+    grid-row-start: 1;
+    box-shadow: 0 0 0.5rem 0.15rem #1b1b1b40;
+}
+
+dialog #progressbar {
+    place-self: center;
+    background-color: var(--mediumgrey);
+    width: 100%;
+    height: 2rem;
+    z-index: -1;
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+#backbtn:hover {
+    background-color: red;
+}
+
+dialog[selection] .rect[enabled] {
+    pointer-events: none;
+}
+
+dialog[selection] .rect:not([enabled]) {
+    background-color: #2b2b2b;
+}
+
+dialog[selection] .rect[id^="usertheme"] > .userthemedelbtn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    translate: -50% -50%;
+    display: block;
+    scale: 1;
+    width: 1rem;
+    height: 1rem;
+    background-color: red;
+    -webkit-mask: url("../../icon/delete.svg") center / contain no-repeat;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+dialog[selection] .rect[id^="usertheme"]:not([enabled]) > .userthemedelbtn {
+    pointer-events: auto;
+}
+
+dialog[selection] .rect[id^="usertheme"]:not([enabled]):hover > .userthemedelbtn {
+    opacity: 0.75;
+}
+
+dialog[selection] .rect[id^="usertheme"]:not([enabled]) > .userthemedelbtn:hover {
+    scale: 1.2;
+    opacity: 1;
+}
+
+dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::before,
+dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect > span {
+    filter: none;
+}
+
+dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::after {
+    translate: -120%;
+}
+
+.addhtml {
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+    transition: margin-top var(--transition);
+}
+
+.addhtml[icons] {
+    margin-top: 0;
+}
+
+.wrapper#savethemeform {
+    grid-template-columns: min-content auto;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+    transition: border-radius var(--transition);
+}
+
+.wrapper#savethemeform > input:placeholder-shown {
+    outline: 0.1rem solid red;
+}
+
+.addhtml[icons] > .wrapper#savethemeform {
+    border-radius: var(--elembr) var(--elembr) 0 0;
+}
+
+.wrapper#savethemeform > button {
+    --icon: url("../../img/sanlogotrophy.svg");
+    display: grid;
+    grid-template-columns: auto min-content;
+    justify-items: start;
+    gap: 0.5rem;
+    width: 2.5rem;
+    background: var(--icon) left / 65% no-repeat;
+    background-color: transparent;
+    border-radius: var(--elembr);
+}
+
+.wrapper#savethemeform > button::after {
+    content: "";
+    width: 0.75rem;
+    height: 0.75rem;
+    background: url("../../icon/play.svg") center / contain no-repeat;
+    pointer-events: none;
+    grid-column-start: 2;
+    justify-self: end;
+    align-self: center;
+    rotate: 90deg;
+}
+
+.contentsub:has(.addhtml[icons]) > .wrapper#contentsubitems,
+.contentsub:has(.addhtml[icons]) > .wrapper#contentsubitems > *,
+.contentsub:has(.addhtml[icons])::before {
+    height: 0;
+}
+
+.contentsub > .wrapper#contentsubitems,
+.contentsub > .wrapper#contentsubitems > *,
+.contentsub::before {
+    transition: height var(--transition);
+}
+
+#savethemeicons {
+    display: block;
+    height: 0;
+    background-color: #2b2b2b;
+    border-radius: 0 0 var(--elembr) var(--elembr);
+    transition: height var(--transition);
+    overflow: hidden scroll;
+}
+
+.wrapper#savethemeiconbtns {
+    grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.addhtml[icons] > #savethemeicons {
+    height: 6rem;
+}
+
+.wrapper#savethemeiconbtns > button {
+    place-self: center;
+    width: 3rem;
+    height: 3rem;
+    background: var(--icon) center / 50% no-repeat;
+    background-color: transparent;
+    border-radius: var(--elembr);
+    transition:
+        background var(--transition);
+}
+
+.wrapper#savethemeiconbtns > button:hover {
+    background: var(--icon) center / 75% no-repeat var(--primary);
+}
+
+#themeiconcustom {
+    --icon: url("../../icon/add.svg");
+}
+
+#themeicon0 {
+    --icon: url("../../img/sanlogotrophy.svg");
+}
+
+#themeicon1 {
+    --icon: url("../../icon/trophy_gold.svg");
+}
+
+#themeicon2 {
+    --icon: url("../../icon/trophy_purple.svg");
+}
+
+#themeicon3 {
+    --icon: url("../../icon/trophy_plat.svg");
+}
+
+#themeicon4 {
+    --icon: url("../../icon/steam.svg");
+}
+
+#themeicon5 {
+    --icon: url("../../icon/controller.svg");
+}
+
+#themeicon6 {
+    --icon: url("../../icon/beta.svg");
+}
+
+.contentwrapper:has(.wrapper#savethemeform > input:placeholder-shown) > .btnwrapper > #okbtn,
+.contentwrapper:has(.addhtml[icons]) > .btnwrapper > #okbtn {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+button#linknewbtn:hover {
+    background-color: limegreen;
+    filter: none;
+}
+
+.hl#appidhelp {
+    transition: color var(--transition);
+    cursor: pointer;
+}
+
+.hl#appidhelp:hover {
+    color: blueviolet;
+}
+
+/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #appidhelp window) */
+.wrapper#contentcontainer:has(#linkgametablewrapper) {
+    --dialogicon: url("../../icon/link.svg");
+}
+
+.wrapper#contentcontainer:has(#linkgametablewrapper) + .btnwrapper {
+    grid-template-columns: repeat(2,1fr);
+}
+
+#linkgamenodata > td {
+    text-align: center;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#linkgametablewrapper > table > tr:not(#linkgameheaders):has(> td:nth-child(3):hover) {
+    background-color: red;
+    cursor: pointer;
+}
+
+input[type="number"]#linkgameappid {
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+    font-size: 0.65rem;
+    background-color: transparent;
+    border: none;
+}
+
+input[type="number"]#linkgameappid:hover {
+    background-color: transparent;
+}
+
+td:has(input[type="number"]#linkgameappid) {
+    min-width: 5rem;
+    padding: 0;
+}
+
+td#linkgameselect {
+    cursor: pointer;
+}
+
+td#linkgameselect:empty::before {
+    content: "...";
+}
+
+td#linkgameselect:empty {
+    text-align: center;
+    color: grey;
+}
+
+td:has(input[type="number"]#linkgameappid),
+td#linkgameselect {
+    background-color: var(--mediumgrey);
+    transition: background-color var(--transition);
+}
+
+td:has(input[type="number"]#linkgameappid):hover,
+td#linkgameselect:hover {
+    background-color: var(--lightgrey);
+}
+
+.contentwrapper:has(input[type="number"]:placeholder-shown, #linkgameselect:empty) > .btnwrapper > button#okbtn {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+dialog > #content:has(#linkgametablewrapper) {
+    width: 65%;
+}
+
+td:has(.unlinkbtn) > .unlinkbtn {
+    background: url("../../icon/unlink.svg") center / contain no-repeat;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: middle;
+}
+
+.appidhelpcode {
+    word-break: break-word;
+}
+
+.dialogcode {
+    background-color: var(--lightgrey);
+    padding: 0.1rem 0.25rem;
+    font-size: 0.55rem;
+    border-radius: var(--elembr);
+}
+
+@media (orientation: portrait) {
+    .contentwrapper > .btnwrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: var(--columns);
+    }
+
+    div:has(> span.contentsubitem):has(#newversion) {
+        margin-block: 0.5rem 0.25rem;
+        margin-right: 0;
+    }
+}

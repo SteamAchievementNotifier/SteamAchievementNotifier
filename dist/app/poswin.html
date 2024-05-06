@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./global.css">
+        <script>const exports = {};</script>
+        <script type="module" src="../notify/poswin.js"></script>
+        <style>
+            html, body {
+                place-items: center;
+                background-color: transparent;
+                color: white;
+                isolation: isolate;
+                overflow: hidden;
+                -webkit-app-region: drag;
+            }
+
+            body::before {
+                content: "";
+                width: 100vw;
+                height: 100vh;
+                background-color: var(--primary);
+                opacity: 0.75;
+                grid-column-start: 1;
+                grid-row-start: 1;
+                z-index: -1;
+            }
+
+            button {
+                display: grid;
+                width: 3rem;
+                height: 2rem;
+                background-color: transparent;
+                border-radius: var(--elembr);
+                transition: background-color var(--transition);
+                -webkit-app-region: no-drag;
+                grid-column-start: 1;
+                grid-row-start: 1;
+                z-index: 0;
+            }
+
+            button:hover {
+                background-color: limegreen;
+            }
+            
+            button::before {
+                content: "";
+                display: block;
+                place-self: center;
+                width: 2rem;
+                height: 2rem;
+                scale: 0.75;
+                background: url("../../icon/tick.svg") center / contain no-repeat;
+                transition: scale var(--transition);
+            }
+            
+            button:hover::before {
+                scale: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="okbtn"></button>
+    </body>
+</html>

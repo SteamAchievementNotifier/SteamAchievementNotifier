@@ -1,0 +1,250 @@
+@font-face {
+    font-family: "Titillium Web Regular";
+    src: url("../../../fonts/TitilliumWeb-Regular.ttf");
+}
+
+.wrapper#achcont {
+    --scale: 0.84;
+    --finish:
+        shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 12)) forwards,
+        popout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+    position: relative;
+    grid-template-columns: auto 1fr;
+    width: 16.8%;
+    place-self: center;
+    scale: 0;
+    animation:
+        popin calc(var(--transition) * 2) forwards,
+        expand calc(var(--transition) * 2) calc(var(--transition) * 10) forwards,
+        var(--finish);
+    will-change: contents;
+}
+
+body[fastanim] .wrapper#achcont {
+    --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+@keyframes popin {
+    50% { scale: 1; }
+    to { scale: var(--scale); }
+}
+
+@keyframes popout {
+    50% { scale: 1; }
+    to { scale: 0; }
+}
+
+@keyframes expand {
+    to { width: 100%; }
+}
+
+@keyframes shrink {
+    to { width: 16.8%; }
+}
+
+.wrapper#bg {
+    --finish: resetbr var(--transition) calc(var(--displaytime) - (var(--transition) * 10)) forwards;
+    width: 100%;
+    border-radius: 50%;
+    animation:
+        setbr var(--transition) calc(var(--transition) * 8) forwards,
+        var(--finish);
+}
+
+body[fastanim] .wrapper#bg {
+    --finish: none;
+}
+
+@keyframes setbr {
+    to { border-radius: calc(var(--roundness) * 1.15); }
+}
+
+@keyframes resetbr {
+    to { border-radius: 50%; }
+}
+
+.wrapper#logo,
+#bgelems {
+    place-self: center;
+    grid-column: 1 / -1;
+    border-radius: 50%;
+}
+
+.wrapper#logo {
+    --scale: 0.75;
+    --finish: popin calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 10)) forwards;
+    width: 100vh;
+    height: 100vh;
+    scale: var(--scale);
+    background: var(--logo) center / contain no-repeat;
+    z-index: 100;
+    animation:
+        popout calc(var(--transition) * 2) calc(var(--transition) * 8) forwards,
+        var(--finish);
+}
+
+body[fastanim] .wrapper#logo {
+    --finish: none;
+}
+
+#bgelems {
+    display: grid;
+    width: 100vh;
+    height: 100vh;
+    opacity: var(--opacity);
+}
+
+#bgelems > div {
+    --delay: 0;
+    --finish: none;
+    width: 100%;
+    height: 100%;
+    scale: 0;
+    border-radius: 50%;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    isolation: isolate;
+    z-index: -1;
+    animation:
+        scaleandfade calc(var(--transition) * 6) calc(var(--transition) * var(--delay)) forwards,
+        var(--finish);
+}
+
+@keyframes scaleandfade {
+    from {
+        scale: 0;
+        opacity: 1;
+    }
+
+    50% {
+        scale: 1;
+        opacity: 1;
+    }
+
+    85% {
+        scale: 1;
+        opacity: 1;
+    }
+
+    to {
+        scale: 0;
+        opacity: 0;
+    }
+}
+
+#bgelems > div:nth-child(1) {
+    --finish: scaleandfade calc(var(--transition) * 6) calc(var(--displaytime) - (var(--transition) * 10)) forwards;
+    background-color: var(--secondarycolor);
+}
+
+#bgelems > div:nth-child(2) {
+    --delay: 2;
+    --finish: scaleandfade calc(var(--transition) * 6) calc(var(--displaytime) - (var(--transition) * 8)) forwards;
+    background-color: var(--tertiarycolor);
+}
+
+#bgelems > div:nth-child(3) {
+    --delay: 4;
+    --finish: scaleandfade calc(var(--transition) * 6) calc(var(--displaytime) - (var(--transition) * 6)) forwards;
+    background-color: var(--primarycolor);
+}
+
+body[fastanim] .wrapper#achcont > #bgelems > div {
+    --finish: none;
+}
+
+.wrapper#achiconwrapper {
+    justify-self: start;
+    opacity: 0;
+}
+
+.wrapper#achcontent {
+    column-gap: 0;
+    position: absolute;
+    padding-inline: 0.25rem 0.75rem;
+}
+
+.wrapper#achcontent > span {
+    opacity: 0;
+}
+
+.wrapper#achiconwrapper,
+#unlockmsg,
+#title {
+    --finish: none;
+    animation:
+        fadein calc(var(--transition) * 2) calc(var(--transition) * 12) forwards,
+        var(--finish);
+}
+
+.wrapper#achiconwrapper {
+    --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 14)) forwards
+}
+
+#unlockmsg,
+#title {
+    --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) / 2 - (var(--transition) * 4)) forwards;
+}
+
+#unlockmsg {
+    grid-row-start: 1;
+}
+
+body[fastanim] .wrapper#achcontent > #unlockmsg {
+    display: none;
+}
+
+#title {
+    grid-row-start: 2;
+}
+
+body[fastanim] .wrapper#achcontent > #title {
+    grid-row: 1 / span 1;
+}
+
+#title,
+#desc {
+    font-family: "customfont", "Titillium Web Regular", "Roboto";
+}
+
+.wrapper#achcontent > #desc {
+    --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 14)) forwards;
+    grid-row: 1 / span 2;
+    align-self: center;
+    -webkit-line-clamp: 2;
+    font-size: calc(var(--fontsize) * 0.9);
+    line-height: calc(1.25rem * var(--fontsize));
+    animation:
+        fadein calc(var(--transition) * 2) calc(var(--displaytime) / 2 - (var(--transition) * 2)) forwards,
+        var(--finish);
+}
+
+body[fastanim] .wrapper#achcontent > #desc {
+    grid-row: 2 / span 1;
+    animation:
+        fadein calc(var(--transition) * 2) calc(var(--transition) * 12) forwards,
+        var(--finish);
+}
+
+body[fastanim] .wrapper#achcont > .wrapper#achiconwrapper,
+body[fastanim] .wrapper#achcont > .wrapper#achcontent > span {
+    --finish: none;
+}
+
+@keyframes fadein {
+    to { opacity: 1; }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}
+
+body[fastanim] .wrapper#achcontent > #title,
+body[ss] .wrapper#achcontent > #title {
+    font-family: "customfont", "Titillium Web", "Roboto";
+}
+
+body[ss] .wrapper#logo,
+body[ss] #bgelems {
+    display: none;
+}

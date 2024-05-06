@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./global.css">
+        <script>const exports = {};</script>
+        <script src="./trackwin.js"></script>
+        <style>
+            :root {
+                --primary: #203e7a;
+            }
+
+            body > .wrapper {
+                position: relative;
+                grid-template-columns: auto 1fr;
+                gap: 7.5vmax;
+                padding-inline: 7.5vmax;
+                background-color: var(--primary);
+                border-radius: 2.5vmax;
+                isolation: isolate;
+                opacity: 1;
+                animation: none;
+                overflow: hidden;
+            }
+
+            @keyframes fade {
+                to { opacity: 0; }
+            }
+
+            img#sanlogo {
+                position: absolute;
+                justify-self: center;
+                align-self: center;
+                height: 10vh;
+                scale: 1;
+                z-index: -1;
+                opacity: 0.1;
+                animation: grow 2.5s ease-in infinite;
+            }
+
+            @keyframes grow {
+                to {
+                    scale: 100;
+                    opacity: 0;
+                }
+            }
+
+            img#gamelogo {
+                width: 17.5vmax;
+                height: 17.5vmax;
+                place-self: center;
+                border-radius: var(--elembr);
+                filter: drop-shadow(0 0 0.25rem var(--darkgrey));
+            }
+
+            .wrapper#textcont {
+                justify-content: start;
+                align-content: center;
+                line-height: 1.25;
+                filter: drop-shadow(0 0 0.5px var(--darkgrey)) drop-shadow(0 0 0.5px var(--darkgrey)) drop-shadow(0 0 0.5px var(--darkgrey));
+            }
+            
+            .wrapper#textcont > span:first-child {
+                opacity: 0.75;
+                font-size: 4vmax;
+            }
+            
+            #gamename {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                font-size: 5.5vmax;
+                text-wrap: balance;
+                z-index: 10;
+            }
+
+            #header {
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                top: 0;
+                left: 0;
+                background: var(--header) center / cover no-repeat;
+                z-index: -1;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div id="header"></div>
+            <img src="../../img/sanlogotrophy.svg" id="sanlogo">
+            <img src="../../img/sanlogosquare.svg" id="gamelogo">
+            <div class="wrapper" id="textcont">
+                <span>Now tracking achievements for:</span>
+                <span id="gamename">¯\_(ツ)_/¯</span>
+            </div>
+        </div>
+    </body>
+</html>

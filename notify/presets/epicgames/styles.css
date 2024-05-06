@@ -1,0 +1,325 @@
+:root {
+    --addroundness: calc(var(--roundness) * 1.5);
+    --addiconroundness: calc(var(--iconroundness) * 2.25);
+}
+
+.wrapper#achcont {
+    --width: 30%;
+    --elemopacity: var(--opacity);
+    position: relative;
+    width: var(--width);
+    place-self: center;
+    scale: 0.65;
+    opacity: 0;
+    overflow: visible;
+    animation:
+        fadein calc(var(--transition) * 2) forwards,
+        expand calc(var(--transition) * 2) calc(var(--transition) * 3) forwards,
+        shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 5)) forwards,
+        fadeout var(--transition) calc(var(--displaytime) - var(--transition)) forwards,
+        scaleout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+body[bgonly] .wrapper#achcont {
+    --elemopacity: 1;
+}
+
+.wrapper#bg {
+    width: 100%;
+    opacity: 1;
+    border-radius: var(--addroundness);
+}
+
+body[bgonly] .wrapper#bg {
+    opacity: var(--opacity);
+}
+
+@keyframes fadein {
+    to { opacity: var(--elemopacity); }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}
+
+@keyframes expand {
+    to { width: calc(100% * 1.35); }
+}
+
+@keyframes shrink {
+    to { width: var(--width); }
+}
+
+@keyframes scaleout {
+    to { scale: 0; }
+}
+
+.wrapper#achcont::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 97.5%;
+    height: 95%;
+    border-radius: 25%;
+    background-color: var(--tertiarycolor);
+    filter: blur(1rem);
+    z-index: -1;
+}
+
+body[bgonly] .wrapper#achcont::before {
+    opacity: var(--opacity);
+}
+
+.shadow {
+    --translate: 100%;
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    width: 50%;
+    height: 100%;
+    background-color: var(--tertiarycolor);
+    border-radius: 50%;
+    filter: blur(1rem);
+    opacity: 0.5;
+    z-index: -1;
+    animation:
+        shadowmove calc(var(--transition) * 20) var(--delay) ease-in-out alternate infinite;
+}
+
+body[bgonly] .shadow {
+    opacity: calc(0.5 * var(--opacity));
+}
+
+@keyframes shadowmove {
+    to { translate: var(--translate) -50%; }
+}
+
+.shadow#shadow1 {
+    --delay: 0ms;
+    left: 0;
+}
+
+.shadow#shadow2 {
+    --delay: var(--transition);
+    --translate: -100%;
+    right: 0;
+}
+
+.wrapper#achiconwrapper {
+    width: 100vh;
+    height: 100vh;
+    margin: 0;
+    scale: 0;
+    border-radius: var(--addiconroundness);
+    overflow: hidden;
+    animation:
+        scaleup var(--transition) var(--transition) forwards,
+        scaledown var(--transition) calc(var(--transition) * 3) forwards,
+        scaleup var(--transition) calc(var(--displaytime) - (var(--transition) * 5)) forwards;
+}
+
+.wrapper#achcont,
+#achicon,
+.wrapper#xpwrapper::before {
+    backface-visibility: hidden;
+    transform: perspective(0) translateZ(0);
+    will-change: contents;
+}
+
+@keyframes scaleup {
+    to { scale: 1; }
+}
+
+@keyframes scaledown {
+    to { scale: 0.85; }
+}
+
+#overlay {
+    width: 20vh;
+    height: 200%;
+    translate: 0 50%;
+    transform: skew(45deg,0deg);
+    grid-column-start: 1;
+    grid-row-start: 1;
+    background-color: white;
+    opacity: 0.5;
+    filter: blur(0.5rem) drop-shadow(0 0 1rem white);
+    z-index: 10;
+    animation:
+        moveup calc(var(--transition) * 5) var(--transition) forwards;
+}
+
+@keyframes moveup {
+    to { translate: 0 -150%;}
+}
+
+#achicon {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--addiconroundness);
+}
+
+.wrapper#achcontent {
+    grid-template-columns: 0fr 1fr auto;
+    column-gap: 0;
+    width: 0;
+    line-height: calc(1.5rem * var(--fontsize));
+    animation:
+        setwidth 1ms calc(var(--transition) * 5) forwards,
+        resetwidth 1ms calc(var(--displaytime) - (var(--transition) * 5)) forwards;
+}
+
+@keyframes setwidth {
+    to { width: auto; }
+}
+
+@keyframes resetwidth {
+    to { width: 0; }
+}
+
+body:not([alldetails]) #unlockmsg,
+body[alldetails][ss] #unlockmsg,
+body:not([alldetails]) #desc {
+    display: none;
+}
+
+.wrapper#achcontent > span {
+    --margin: calc(10px * var(--scale));
+    text-align: center;
+    line-height: calc(2rem * var(--fontsize));
+}
+
+body[alldetails] .wrapper#achcontent {
+    row-gap: 0.15rem;
+}
+
+body[alldetails] .wrapper#achcontent > span {
+    font-size: calc(1.25rem * var(--fontsize));
+    line-height: calc(1.5rem * var(--fontsize));
+    -webkit-line-clamp: 1;
+}
+
+body[alldetails] .wrapper#achcontent > #unlockmsg {
+    grid-row-start: 1;
+}
+
+body[alldetails] .wrapper#achcontent > #title {
+    grid-row-start: 2;
+}
+
+body[alldetails][ss] .wrapper#achcontent > #title {
+    grid-row-start: 1;
+    -webkit-line-clamp: 2;
+}
+
+body[alldetails] .wrapper#achcontent > #desc {
+    grid-row-start: 3;
+    -webkit-line-clamp: 2;
+}
+
+body[alldetails][ss] .wrapper#achcontent > #desc {
+    grid-row-start: 2;
+    -webkit-line-clamp: 3;
+}
+
+body[nodecoration] .wrapper#achcontent > span {
+    grid-column: 2 / span 1;
+}
+
+.wrapper#achcontent > span,
+.wrapper#xpwrapper {
+    --elemopacity: 1;
+    place-self: center;
+    margin-inline: 0;
+    font-size: calc(1.75rem * var(--fontsize));
+    opacity: 0;
+    translate: calc(-10px * var(--scale)) 0;
+    animation:
+        fadein calc(var(--transition) * 2) calc(var(--transition) * 5) forwards,
+        setmargin 1ms calc(var(--transition) * 5) forwards,
+        resetmargin 1ms calc(var(--displaytime) - (var(--transition) * 5)) forwards,
+        slidein calc(var(--transition) * 2) calc(var(--transition) * 5) forwards,
+        fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 7)) forwards;
+}
+
+@keyframes setmargin {
+    to { margin-inline: var(--margin); }
+}
+
+@keyframes resetmargin {
+    to { margin-inline: 0; }
+}
+
+@keyframes slidein {
+    to { translate: 0 0; }
+}
+
+.wrapper#xpwrapper {
+    --gap: 0.5rem;
+    --margin: calc(10px * var(--scale)) calc(25px * var(--scale));
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-start: 3;
+    place-items: center;
+    gap: 0.5rem;
+}
+
+body[alldetails] .wrapper#xpwrapper {
+    grid-row: 1 / span 3;
+}
+
+body[alldetails][ss] .wrapper#xpwrapper {
+    grid-row: 1 / span 2;
+}
+
+.wrapper#xpwrapper::before,
+.wrapper#xpwrapper::after {
+    grid-row-start: 1;
+}
+
+body:not([nodecoration]) .wrapper#xpwrapper::before {
+    content: "";
+    display: block;
+    grid-column-start: 1;
+    width: calc(1.75rem * var(--fontsize));
+    height: calc(1.75rem * var(--fontsize));
+    background: var(--decoration) center / contain no-repeat;
+}
+
+.wrapper#xpwrapper::after {
+    content: attr(gs) attr(unit);
+    color: var(--raritycolor);
+    white-space: nowrap;
+}
+
+#hiddenicon {
+    width: calc(1.5rem * var(--fontsize));
+    height: calc(1.5rem * var(--fontsize));
+}
+
+body[ss] .wrapper#achcont {
+    scale: 0.65 !important;
+    width: calc(100% * 1.35) !important;
+    opacity: 1;
+}
+
+body[ss] .wrapper#achiconwrapper {
+    scale: 0.85 !important;
+}
+
+body[ss] .wrapper#achcontent {
+    width: auto;
+}
+
+body[ss] .wrapper#achcontent > span {
+    translate: 0 0;
+    margin-inline: calc(10px * var(--scale));
+    opacity: 1;
+}
+
+body[ss] .wrapper#xpwrapper {
+    margin-inline: calc(10px * var(--scale)) calc(25px * var(--scale));
+    opacity: 1;
+}

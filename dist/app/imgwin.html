@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./global.css">
+        <script>const exports = {};</script>
+        <script src="./imgwin.js"></script>
+        <style>
+            :root {
+                --opacity: 0;
+            }
+
+            body {
+                opacity: var(--opacity);
+            }
+
+            .menubtn#close {
+                --icon: url("../../icon/close.svg");
+                justify-self: end;
+                align-self: start;
+                width: 6.5vmax;
+                height: 6.5vmax;
+                margin: 1.5vmax;
+            }
+
+            webview,
+            .menubtn#close {
+                grid-column-start: 1;
+                grid-row-start: 1;
+            }
+
+            webview {
+                width: 100vw;
+                height: 100vh;
+                background-color: transparent;
+            }
+        </style>
+    </head>
+    <body>
+        <button class="menubtn" id="close" onclick="window.close()"></button>
+        <webview webpreferences="nodeIntegration=true, contextIsolation=false"></webview>
+    </body>
+</html>

@@ -1,0 +1,245 @@
+@font-face {
+    font-family: "Source Sans Pro Light";
+    src: url("../../../fonts/SourceSansPro-Light.ttf");
+}
+
+@font-face {
+    font-family: "Source Sans Pro ExtraLight";
+    src: url("../../../fonts/SourceSansPro-ExtraLight.ttf");
+}
+
+body {
+    --placement: center end;
+    place-content: var(--placement);
+}
+
+body[topleft],
+body[bottomleft] {
+    --placement: center start;
+}
+
+body[topcenter] {
+    --placement: start center;
+}
+
+body[bottomcenter] {
+    --placement: end center;
+}
+
+.wrapper#achcont {
+    --translate: 100vw 0;
+    --br: var(--roundness) 0 0 var(--roundness);
+    --height: 92.5vh;
+    --margin: calc(10px * var(--scale)) 12.5vw;
+    --achcontopacity: var(--opacity);
+    --achiconstart: 3;
+    --logostart: 1;
+    grid-template-columns: auto 1fr auto;
+    width: 97.5vw;
+    height: var(--height);
+    border-radius: var(--br);
+    box-shadow: 0 0 calc(5px * var(--scale)) #1010107f;
+    animation:
+        slidein var(--transition) forwards,
+        slideout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+body[ss] .wrapper#achcont {
+    width: 97.5vw !important;
+    height: var(--height) !important;
+}
+
+@keyframes slidein {
+    from { translate: var(--translate); }
+    to {
+        opacity: var(--achcontopacity);
+        translate: 0;
+    }
+}
+
+@keyframes slideout {
+    from { translate: 0; }
+    to {
+        opacity: 0;
+        translate: var(--translate);
+    }
+}
+
+body[bgonly] .wrapper#achcont {
+    --achcontopacity: 1;
+}
+
+body[bgonly] .wrapper#bg {
+    opacity: var(--opacity);
+}
+
+.wrapper#bg {
+    height: var(--height);
+    border-radius: var(--br) !important;
+}
+
+.wrapper#bg,
+.wrapper#achcontent {
+    width: 100%;
+}
+
+body[topleft] .wrapper#achcont,
+body[bottomleft] .wrapper#achcont {
+    --translate: -100vw 0;
+    --br: 0 var(--roundness) var(--roundness) 0;
+    --margin: 12.5vw calc(10px * var(--scale));
+    --achiconstart: 1;
+    --logostart: 3;
+}
+
+body[topcenter] .wrapper#achcont {
+    --translate: 0 -100vh;
+    --br: 0 0 var(--roundness) var(--roundness);
+    --margin: calc(10px * var(--scale));
+    --achiconstart: 1;
+    --logostart: 3;
+}
+
+body[bottomcenter] .wrapper#achcont {
+    --translate: 0 100vh;
+    --br: var(--roundness) var(--roundness) 0 0;
+    --margin: calc(10px * var(--scale));
+    --achiconstart: 1;
+    --logostart: 3;
+}
+
+.wrapper#achiconwrapper {
+    scale: 0.8;
+    margin-inline: var(--margin);
+    grid-column-start: var(--achiconstart);
+}
+
+@keyframes fadein {
+    to { opacity: 1; }
+}
+
+.wrapper#achcontent {
+    column-gap: calc(0.5rem * var(--fontsize));
+}
+
+.wrapper#achcontent::before {
+    content: "";
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    scale: calc(1.75 * var(--fontsize));
+    background: var(--decoration) center / contain no-repeat;
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.wrapper#logo {
+    display: grid;
+    grid-column-start: var(--logostart);
+    margin-inline: 1.5rem;
+    place-self: center;
+    isolation: isolate;
+}
+
+.wrapper#logo::before {
+    content: "";
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--logo) center / contain no-repeat;
+}
+
+.wrapper#logo::after {
+    content: "";
+    width: 2.5rem;
+    height: 2.5rem;
+    opacity: 0;
+    background-color: transparent;
+    outline: calc(1px * var(--scale)) solid var(--tertiarycolor);
+    border-radius: 50%;
+    filter: blur(calc(0.5px * var(--scale)));
+    z-index: -1;
+    animation: expandcircle calc(var(--transition) * 10) calc(var(--displaytime) / 4) linear forwards;
+}
+
+@keyframes expandcircle {
+    1% { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.wrapper#logo::before,
+.wrapper#logo::after {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    place-self: center;
+}
+
+body[alldetails]:not([ss]) .wrapper#achcontent::before {
+    scale: 1.35;
+}
+
+.wrapper#achcontent > span {
+    line-height: calc(1.05rem * var(--fontsize));
+}
+
+body[alldetails]:not([ss]) .wrapper#achcontent > span {
+    font-size: calc(0.85rem * var(--fontsize));
+    -webkit-line-clamp: 1;
+}
+
+body[alldetails]:not([ss]) .wrapper#achcontent > span:not(#title),
+body .wrapper#achcontent > span:not(#title) {
+    grid-column: 1 / span 2;
+}
+
+body:not([alldetails]) #desc,
+body[ss] #unlockmsg {
+    display: none;
+}
+
+#unlockmsg {
+    font-family: "customfont", "Source Sans Pro Light", "Roboto";
+    opacity: 1;
+}
+
+#title,
+#desc {
+    font-family: "customfont", "Source Sans Pro ExtraLight", "Roboto";
+    font-size: calc(0.9rem * var(--fontsize));
+    opacity: 0.85;
+}
+
+body[ss] > .wrapper#achcont,
+body[ss] .wrapper#achcontent {
+    --translate: 0 0;
+    opacity: 1;
+}
+
+body[ss] .wrapper#achcontent::before {
+    grid-row-start: 1;
+}
+
+/* body[ss][alldetails] .wrapper#achcontent::before {
+    grid-row-start: 2;
+} */
+
+body[ss] .wrapper#logo {
+    display: grid;
+    opacity: 1;
+}
+
+/* body[ss][alldetails] .wrapper#achcontent > #unlockmsg {
+    grid-row-start: 1;
+} */
+
+body[ss] .wrapper#achcontent > #desc {
+    display: -webkit-box;
+    grid-row-start: 2;
+}
+
+/* body[ss][alldetails] .wrapper#achcontent > #title {
+    grid-row-start: 2;
+}
+
+body[ss][alldetails] .wrapper#achcontent > #desc {
+    grid-row-start: 3;
+} */

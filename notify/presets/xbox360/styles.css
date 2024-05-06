@@ -1,0 +1,220 @@
+@font-face {
+    font-family: "Open Sans";
+    src: url("../../../fonts/OpenSans-Medium.ttf");
+}
+
+.wrapper#achcont {
+    width: 14%;
+    height: 99vh;
+    scale: 0;
+    animation:
+        scaleup var(--transition) forwards,
+        expand var(--transition) var(--transition) forwards,
+        shrink var(--transition) calc(var(--displaytime) - var(--transition)) forwards,
+        fadeout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+@keyframes scaleup {
+    to { scale: 1; }
+}
+
+@keyframes scaledown {
+    to { scale: 0 }
+}
+
+@keyframes expand {
+    to { width: 100vw; }
+}
+
+@keyframes shrink {
+    to { width: 14%; }
+}
+
+.wrapper#bg {
+    width: 100%;
+}
+
+.wrapper#achiconwrapper {
+    width: calc(100vh - (5px * var(--scale)));
+    height: calc(100vh - (5px * var(--scale)));
+    margin-inline: calc(2.5px * var(--scale));
+    justify-self: start;
+    animation: scaleout var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+.wrapper#achiconwrapper > *,
+.wrapper#sectors > *,
+.wrapper#innercircle > * {
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.wrapper#sectors {
+    border-radius: calc(var(--iconroundness) * 1.25);
+    isolation: isolate;
+    overflow: hidden;
+}
+
+@keyframes scaleout {
+    50% { scale: 1.1; }
+    to { scale: 0; }
+}
+
+.wrapper#outercircle {
+    /* width: 87.5%;
+    height: 87.5%; */
+    width: 100%;
+    height: 100%;
+    scale: 0.875;
+    place-self: center;
+    border-radius: calc(var(--iconroundness) * 1.25);
+    /* border-radius: var(--iconroundness); */
+    background-image: radial-gradient(circle,var(--mediumgrey) 40%,#757575);
+    overflow: hidden;
+    z-index: 0;
+}
+
+.sectorpost {
+    width: 10%;
+    height: 95%;
+    place-self: center;
+    z-index: 1;
+}
+
+.sectorpost#x {
+    rotate: 90deg;
+}
+
+#color {
+    width: 50%;
+    height: 50%;
+    background-color: var(--tertiarycolor);
+    place-self: start;
+    z-index: 0;
+}
+
+.wrapper#sectors,
+.sectorpost,
+.wrapper#innercircle {
+    background-color: var(--darkgrey);
+}
+
+.wrapper#innercircle {
+    /* width: 70%;
+    height: 70%; */
+    width: 100%;
+    height: 100%;
+    scale: 0.7;
+    padding: 0.15rem;
+    place-self: center;
+    border-radius: calc(var(--iconroundness) * 1.25);
+    /* border-radius: var(--iconroundness); */
+    overflow: hidden;
+    z-index: 2;
+}
+
+.wrapper#innercircle > #achicon,
+.wrapper#innercircle > #logo {
+    width: 100%;
+    height: 100%;
+    place-self: center;
+    scale: 0;
+    border-radius: calc(var(--iconroundness) * 1.15);
+}
+
+.wrapper#innercircle > #achicon {
+    animation: scaleboth calc(var(--transition) * 20)  calc(var(--transition) * 10) infinite;
+}
+
+.wrapper#innercircle > #logo {
+    background: var(--logo) center / contain no-repeat;
+    animation: scaleboth calc(var(--transition) * 20) infinite;
+}
+
+@keyframes scaleboth {
+    from { scale: 0; }
+    5% { scale: 1; }
+    45% { scale: 1; }
+    50% { scale: 0; }
+    to { scale: 0; }
+}
+
+.wrapper#achcontent {
+    grid-template-columns: calc(100vh + (5px * var(--scale))) 1fr 0fr;
+    grid-column: 1 / -1;
+    gap: 0;
+    line-height: 1.25;
+}
+
+.wrapper#achcontent > span {
+    font-family: "customfont", "Open Sans", "Roboto";
+    font-size: calc(1.05rem * var(--fontsize));
+    opacity: 0;
+    animation:
+        fadein var(--transition) calc(var(--transition) * 2) forwards,
+        fadeout var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+@keyframes fadein {
+    to { opacity: 1; }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
+}
+
+body[alldetails] .wrapper#achcontent > span {
+    font-size: calc(0.85rem * var(--fontsize));
+    line-height: calc(1rem * var(--fontsize));
+}
+
+body[nodecoration] .wrapper#achcontent > span {
+    grid-column: 2;
+}
+
+.wrapper#achcontent > #desc {
+    -webkit-line-clamp: 1;
+}
+
+body:not([alldetails]):not([ss]) .wrapper#achcontent > #desc {
+    display: none;
+}
+
+.wrapper#achcontent > #unlockmsg {
+    grid-row-start: 1;
+}
+
+body:not([nodecoration]) #title::before {
+    content: attr(gs) attr(unit) " - ";
+}
+
+body[ss] .wrapper#achcont {
+    width: 100vw;
+    scale: 1;
+}
+
+body[ss] .wrapper#innercircle > #achicon {
+    scale: 1 !important;
+}
+
+body[ss] .wrapper#innercircle > #logo {
+    scale: 0 !important;
+}
+
+body[ss] .wrapper#achcontent > #unlockmsg {
+    display: none;
+}
+
+body[ss][alldetails] .wrapper#achcontent > #title {
+    grid-row-start: 2;
+}
+
+body[ss][alldetails] .wrapper#achcontent > #desc {
+    grid-row-start: 3;
+}
+
+body[ss][alldetails] .wrapper#achcontent > #unlockmsg,
+body[ss] .wrapper#achcontent > #desc {
+    display: -webkit-box;
+    opacity: 1;
+}

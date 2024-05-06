@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "steamachievementnotifier",
+    "name": "steamachievementnotifierv1.9",
     "author": "SteamAchievementNotifier",
     "version": "1.9.0",
     "description": "Steam Achievement Notifier (V1.9)",
@@ -12,12 +12,12 @@
         "publish": "npx tsc --build --clean && npx tsc && electron-builder -p always"
     },
     "repository": {
-        "url": "https://github.com/${author}/${name}"
+        "url": "https://github.com/${author}/${author}"
     },
     "bugs": {
-        "url": "https://github.com/${author}/${name}/issues"
+        "url": "https://github.com/${author}/${author}/issues"
     },
-    "homepage": "https://github.com/${author}/${name}#readme",
+    "homepage": "https://github.com/${author}/${author}#readme",
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
         "electron": "^29.1.6",
@@ -71,8 +71,9 @@
         "publish": [
             {
                 "provider": "github",
+                "private": false,
                 "owner": "${author}",
-                "repo": "${name}",
+                "repo": "${author}",
                 "vPrefixedTagName": false
             }
         ],

@@ -71,7 +71,6 @@
         "publish": [
             {
                 "provider": "github",
-                "private": false,
                 "owner": "${author}",
                 "repo": "${author}",
                 "vPrefixedTagName": false

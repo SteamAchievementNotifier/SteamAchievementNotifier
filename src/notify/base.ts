@@ -105,6 +105,7 @@ const notifyhelper = {
             }
 
             const getcustomicon = (type: "logo" | "decoration"): string => {
+                if (customisation.replacelogowithdecoration) type = "decoration";
                 const icon = (customisation.customicons[customisation.preset] as CustomIcon)[type];
                 if (!icon) return "";
                 if (Array.isArray(icon)) return `url('${getpercent({ bronze: icon[0],silver: icon[1],gold: icon[2] })}')`;

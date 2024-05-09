@@ -204,6 +204,7 @@ export const translations = {
                 showdecoration: "Show Decoration",
                 rarity: "Rarity",
                 showhiddenicon: "Show Hidden Icon",
+                replacelogowithdecoration: "Replace Logo with Decoration",
                 hiddenicon: "Hidden Icon"
             }
         },
@@ -335,6 +336,7 @@ export const translations = {
         plat: "Load an image file to be used as the 100% icon",
         usegameicon: "Replace the default notification icon with the icon for the current game",
         showhiddenicon: `Display an image indicating the achievement is a Hidden achievement in the notification`,
+        replacelogowithdecoration: `Replaces the Logo icon in the achievement popup with the selected Decoration`,
         hiddenicon: "Load an image file to replace the Hidden achievement icon",
         logo: "Load an image file to replace the Logo icon",
         decoration: "Load an image file to replace the Decoration icon",

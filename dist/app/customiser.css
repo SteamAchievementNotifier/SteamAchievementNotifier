@@ -500,7 +500,8 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
     background-color: #ff000080;
 }
 
-#customisercontent:has(input#showdecoration:not(:checked)) .opt:has(.optbtn[id^="decoration"]),
+#customisercontent:has(input#showdecoration:not(:checked)):has(input#replacelogowithdecoration:not(:checked)) .opt:has(.optbtn[id^="decoration"]),
+#customisercontent:has(input#replacelogowithdecoration:checked) .opt:has(.optbtn[id="logo"]),
 #customiser[poswin] .sub:has(#usecustompos),
 #customiser[poswin] #posbtns > * {
     opacity: 0.5;

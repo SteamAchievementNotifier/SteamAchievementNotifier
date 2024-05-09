@@ -129,6 +129,7 @@ export const sanconfig = {
                 shortcut: "",
                 customfont: "",
                 showhiddenicon: true,
+                replacelogowithdecoration: false,
                 hiddenicon: "",
                 previewhiddenicon: false,
                 usepercent: false,

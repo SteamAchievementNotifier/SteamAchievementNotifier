@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "Noto Sans Medium";
+    src: url("../../../fonts/NotoSans-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Noto Sans Light";
+    src: url("../../../fonts/NotoSans-Light.ttf");
+}
+
+@font-face {
+    font-family: "Noto Sans ExtraLight";
+    src: url("../../../fonts/NotoSans-ExtraLight.ttf");
+}
+
+.wrapper#achcont {
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+}
+
+.wrapper#content {
+    width: 100%;
+    height: 100%;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    place-items: center;
+    gap: 0 0.5rem;
+    padding: 0.75rem 0.5rem;
+}
+
+.wrapper#header {
+    --headersize: 0.85rem;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    grid-column: 1 / span 2;
+    gap: 0.75rem;
+    justify-self: start;
+    font-family: "Noto Sans Light";
+}
+
+.wrapper#header > * {
+    grid-row-start: 1;
+}
+
+#unlockmsg {
+    font-size: var(--headersize);
+}
+
+.wrapper#header > .wrapper#logo {
+    background: var(--logo) center / contain no-repeat;
+    width: var(--headersize);
+    height: var(--headersize);
+}
+
+.wrapper#achiconwrapper {
+    max-width: 18vmax;
+    max-height: 18vmax;
+}
+
+.wrapper#achcontent {
+    column-gap: 0;
+    row-gap: 0.25rem;
+    justify-self: start;
+    font-family: "Noto Sans Light";
+    font-size: calc(1.1rem * var(--fontsize));
+}
+
+#title {
+    font-family: "Noto Sans Medium";
+}
+
+#desc {
+    opacity: 0.75;
+}

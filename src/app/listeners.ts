@@ -345,10 +345,7 @@ export const listeners = {
             }
 
             win.webContents.send("displaysupdated")
-            ipcMain.once("monitorsupdated", event => {
-                event.reply("monitorsupdated")
-                setwinsize()
-            })
+            ipcMain.once("monitorsupdated", event => event.reply("monitorsupdated"))
         }
 
         screen.on("display-added", (event,newdisplay) => displayschanged("added",newdisplay))

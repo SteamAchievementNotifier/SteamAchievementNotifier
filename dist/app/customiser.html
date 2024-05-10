@@ -27,7 +27,7 @@
                 <div class="wrapper optcont">
                     <div class="wrapper opt" nosubdisable>
                         <span class="lbl"></span>
-                        <select name="preset" id="preset">
+                        <select name="preset" id="preset" os>
                             <option value="default">Default</option>
                             <option value="xqjan">xQjan</option>
                             <option value="steamdeck">The Deck</option>
@@ -37,6 +37,7 @@
                             <option value="ps5">PS Modern</option>
                             <option value="ps4">PS Classic</option>
                             <option value="ps3">PS Retro</option>
+                            <option value="windows">Square</option>
                             <option value="os">Native OS</option>
                         </select>
                         <div class="wrapper opt sub">
@@ -54,7 +55,7 @@
                     </div>
                     <div class="wrapper opt" value="10">
                         <span class="lbl"></span>
-                        <input unit="seconds" type="range" min="5" max="25" step="1" value="10" id="displaytime">
+                        <input unit="seconds" type="range" min="5" max="25" step="1" value="10" id="displaytime" os>
                     </div>
                     <div class="wrapper opt" value="100">
                         <span class="lbl"></span>
@@ -62,10 +63,10 @@
                     </div>
                     <div class="wrapper opt">
                         <span class="lbl"></span>
-                        <input type="text" id="customtext">
+                        <input type="text" id="customtext" os>
                         <div class="wrapper opt sub">
                             <span></span>
-                            <input type="checkbox" id="usegametitle">
+                            <input type="checkbox" id="usegametitle" os>
                         </div>
                     </div>
                     <div class="wrapper opt">
@@ -80,7 +81,7 @@
                 <div class="wrapper optcont">
                     <div class="wrapper opt">
                         <span class="lbl"></span>
-                        <select name="soundmode" id="soundmode">
+                        <select name="soundmode" id="soundmode" os>
                             <option value="file"></option>
                             <option value="folder"></option>
                         </select>
@@ -88,19 +89,19 @@
                     <div class="wrapper opt">
                         <span class="lbl"></span>
                         <button class="menubtn delbtn"></button>
-                        <button class="optbtn" id="soundfile" audio></button>
+                        <button class="optbtn" id="soundfile" audio os></button>
                     </div>
-                    <div class="wrapper opt">
+                    <div class="wrapper opt" os>
                         <span class="lbl"></span>
                         <button class="menubtn delbtn"></button>
-                        <button class="optbtn" id="sounddir" dir></button>
+                        <button class="optbtn" id="sounddir" dir os></button>
                     </div>
                     <div class="wrapper opt" value="100">
                         <span class="lbl"></span>
-                        <input unit="percent" type="range" min="10" max="100" step="5" value="100" id="volume">
+                        <input unit="percent" type="range" min="10" max="100" step="5" value="100" id="volume" os>
                     </div>
                     <div class="wrapper opt">
-                        <button class="rect" id="preview">
+                        <button class="rect" id="preview" os>
                             <span></span>
                         </button>
                     </div>
@@ -195,16 +196,16 @@
                 <div class="wrapper optcont">
                     <div class="wrapper opt" value="0">
                         <span class="lbl"></span>
-                        <input unit="percent" type="range" min="0" max="100" step="25" value="0" id="iconroundness">
+                        <input unit="percent" type="range" min="0" max="100" step="25" value="0" id="iconroundness" os>
                     </div>
                     <div class="wrapper opt">
                         <span class="lbl"></span>
                         <button class="menubtn delbtn"></button>
-                        <button class="optbtn img customicon" id="plat" img></button>
+                        <button class="optbtn img customicon" id="plat" img os></button>
                     </div>
                     <div class="wrapper opt">
                         <span></span>
-                        <input type="checkbox" id="usegameicon">
+                        <input type="checkbox" id="usegameicon" os>
                     </div>
                     <div class="wrapper opt">
                         <span></span>
@@ -278,7 +279,7 @@
                 <span class="wrapper title" id="theme"></span>
                 <div class="wrapper optcont">
                     <div class="wrapper opt">
-                        <button class="rect" id="savetheme">
+                        <button class="rect" id="savetheme" os>
                             <span></span>
                         </button>
                     </div>

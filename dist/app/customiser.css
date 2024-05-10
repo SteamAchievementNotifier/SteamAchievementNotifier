@@ -502,10 +502,11 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
     background-color: #ff000080;
 }
 
+#customiser[poswin] .sub:has(#usecustompos),
+#customiser[poswin] #posbtns > *,
 #customisercontent:has(input#showdecoration:not(:checked)):has(input#replacelogo:not(:checked)) .opt:has(.optbtn[id^="decoration"]),
 #customisercontent:has(input#replacelogo:checked) .opt:has(.optbtn[id="logo"]),
-#customiser[poswin] .sub:has(#usecustompos),
-#customiser[poswin] #posbtns > * {
+#customiseropts:has(.opt > select#preset > option[value="os"]:checked) .opt:not(:has([os])) {
     opacity: 0.5;
     pointer-events: none;
 }

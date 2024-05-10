@@ -21,6 +21,7 @@ export const sanconfig = {
             ["ps5",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies }],
             ["ps4",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies }],
             ["ps3",{ logo: null, decoration: trophies }],
+            ["windows",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: null }],
             ["os",{ logo: null, decoration: null }],
         ])
     },

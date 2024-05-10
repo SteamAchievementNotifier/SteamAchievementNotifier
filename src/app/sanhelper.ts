@@ -42,7 +42,7 @@ export const sanhelper: SANHelper = {
     // `process.env.npm_package_version` is not available in the Renderer on build
     get version(): number { return parseFloat(sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion())) },
     get semver(): string | undefined { return sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion()) },
-    get appdata(): string { return path.join(process.platform === "linux" ? path.join(process.env.HOME!,".local","share") : process.env.localappdata!,`Steam Achievement Notifier (V${sanhelper.version})`) },
+    get appdata(): string { return path.join(process.platform === "linux" ? path.join(process.env.HOME!,".local","share") : process.env.localappdata!,`Steam Achievement Notifier (V${sanhelper.version})${sanhelper.devmode ? " [DEVMODE]" : ""}`) },
     get temp(): string { return sanhelper.devmode ? path.join(__root,"temp") : (process.platform === "linux" ? path.join(sanhelper.appdata,"resources","temp") : path.join(__root,"..","temp")) },
     get icon(): string {
         const iconfile = `sanlogo.${process.platform === "win32" ? "ico" : "png"}`
@@ -590,7 +590,12 @@ export const sanhelper: SANHelper = {
         sanhelper.createclosedstate()
         const closedstate: string[] = JSON.parse(localStorage.getItem("closedstate")!)
 
-        dialog.querySelectorAll(".wrapper.title")?.forEach(elem => {
+        if (!dialog) return
+
+        const dialogtitles = dialog.querySelectorAll(".wrapper.title")
+        const doctitles = document.querySelectorAll(".wrapper.title")
+
+        dialogtitles && dialogtitles.forEach(elem => {
             (elem as HTMLElement).onclick = () => {
                 elem.toggleAttribute("closed",!elem.hasAttribute("closed"))
 
@@ -600,7 +605,7 @@ export const sanhelper: SANHelper = {
                 localStorage.setItem("closedstate",JSON.stringify([...closedstate],null,4))
             }
 
-            document.querySelectorAll(".wrapper.title")?.forEach(elem => {
+            doctitles && doctitles.forEach(elem => {
                 elem.toggleAttribute("notransition",elem.hasAttribute("closed"))
                 elem.toggleAttribute("closed",closedstate.includes(elem.id))
 

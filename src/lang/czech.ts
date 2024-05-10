@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Vzácnost",
                 showhiddenicon: "Zobrazit skrytou ikonu",
                 hiddenicon: "Skrytá ikona",
+                replacelogo: "Nahradit logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Načíst obrázkový soubor pro nahrazení ikony loga",
         decoration: "Načíst obrázkový soubor pro nahrazení ikony dekorace",
         showdecoration: "Přepnout viditelnost ikony dekorace",
+        replacelogo: "Nahraďte ikonu loga v oznámení vybranou dekorací",
         pos: "Nastavit pozici oznámení na obrazovce",
         usecustompos: "Povolit vlastní umístění pro oznámení",
         setcustompos: "Nastavit vlastní pozici pro oznámení",

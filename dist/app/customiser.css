@@ -42,7 +42,9 @@ body[main] .sub:has(#iconanim),
 .optcont:has(.opt > input[type="checkbox"]#fontshadow:not(:checked)) > .opt:has(#fontshadow) > .opt:has(#fontshadowcolor),
 .optcont:has(.opt > input[type="checkbox"]#usecustomicons:not(:checked)) > .opt:has(#usecustomicons) > .opt:has(.img#logo,.img#decoration,.customicon[id^="decoration"]),
 .optcont:has(.opt > input[type="checkbox"]#showhiddenicon:not(:checked)) > .opt:has(.img#hiddenicon),
-.optcont:has(.opt > input[type="checkbox"]#usecustompos:not(:checked)) > .opt#posbtns {
+.optcont:has(.opt > input[type="checkbox"]#usecustompos:not(:checked)) > .opt#posbtns,
+.optcont:has(.opt > .img#logo[novalue]) > .opt:has(input#replacelogo),
+.optcont:has(.opt > .img[id="decoration1"][novalue]) > .opt:has(input#replacelogo) {
     display: none;
 }
 
@@ -500,8 +502,8 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
     background-color: #ff000080;
 }
 
-#customisercontent:has(input#showdecoration:not(:checked)):has(input#replacelogowithdecoration:not(:checked)) .opt:has(.optbtn[id^="decoration"]),
-#customisercontent:has(input#replacelogowithdecoration:checked) .opt:has(.optbtn[id="logo"]),
+#customisercontent:has(input#showdecoration:not(:checked)):has(input#replacelogo:not(:checked)) .opt:has(.optbtn[id^="decoration"]),
+#customisercontent:has(input#replacelogo:checked) .opt:has(.optbtn[id="logo"]),
 #customiser[poswin] .sub:has(#usecustompos),
 #customiser[poswin] #posbtns > * {
     opacity: 0.5;

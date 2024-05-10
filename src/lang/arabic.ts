@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "الندرة",
                 showhiddenicon: "عرض الرمز المخفي",
                 hiddenicon: "الرمز المخفي",
+                replacelogo: "استبدال الشعار"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "تحميل ملف صورة لاستبدال رمز الشعار",
         decoration: "تحميل ملف صورة لاستبدال رمز الزخرفة",
         showdecoration: "تبديل رؤية رمز الزخرفة",
+        replacelogo: "استبدال أيقونة الشعار في الإشعار بالزخرفة المحددة",
         pos: "تعيين موضع الإشعار على الشاشة",
         usecustompos: "تمكين التمرير المخصص للإشعار",
         setcustompos: "تعيين الموضع المخصص للإشعار",

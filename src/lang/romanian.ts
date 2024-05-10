@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Raritate",
                 showhiddenicon: "Afișare Pictogramă Ascunsă",
                 hiddenicon: "Pictogramă Ascunsă",
+                replacelogo: "Înlocuiți Logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Încărcați un fișier de imagine pentru a înlocui iconul Logo",
         decoration: "Încărcați un fișier de imagine pentru a înlocui iconul Decorare",
         showdecoration: "Comutați vizibilitatea iconului Decorare",
+        replacelogo: "Înlocuiți pictograma logo-ului în notificare cu decorația selectată",
         pos: "Setați poziția notificării pe ecran",
         usecustompos: "Activați poziționarea personalizată pentru notificare",
         setcustompos: "Setați poziția personalizată pentru notificare",

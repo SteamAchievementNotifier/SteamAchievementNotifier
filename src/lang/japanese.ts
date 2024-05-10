@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "希少度",
                 showhiddenicon: "隠しアイコンを表示",
                 hiddenicon: "隠しアイコン",
+                replacelogo: "ロゴの置換"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "ロゴアイコンを置き換える画像ファイルを読み込む",
         decoration: "装飾アイコンを置き換える画像ファイルを読み込む",
         showdecoration: "装飾アイコンの表示を切り替える",
+        replacelogo: "通知内のロゴアイコンを選択した装飾で置換する",
         pos: "通知の画面上の位置を設定する",
         usecustompos: "通知のカスタム位置を有効にする",
         setcustompos: "通知のカスタム位置を設定する",

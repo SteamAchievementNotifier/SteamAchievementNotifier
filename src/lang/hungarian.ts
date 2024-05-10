@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Ritkaság",
                 showhiddenicon: "Rejtett ikon megjelenítése",
                 hiddenicon: "Rejtett ikon",
+                replacelogo: "Logó cseréje"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Képfájl betöltése a Logó ikon cseréjéhez",
         decoration: "Képfájl betöltése a Díszítés ikon cseréjéhez",
         showdecoration: "A Díszítés ikon láthatóságának váltása",
+        replacelogo: "Cserélje le a logó ikont az értesítésben a kiválasztott dísszel",
         pos: "Állítsa be az értesítés képernyőn való pozícióját",
         usecustompos: "Egyéni pozícionálás engedélyezése az értesítéshez",
         setcustompos: "Egyéni pozíció beállítása az értesítéshez",

@@ -199,12 +199,13 @@ export const translations = {
                 iconroundness: "Arrondi de l'Icône",
                 plat: "Logo à 100%",
                 usegameicon: "Utiliser l'Icône du Jeu",
-                showhiddenicon: "Afficher l'Icône Masquée",
-                hiddenicon: "Icône Masquée",
                 logo: "Logo",
                 decoration: "Décoration",
                 showdecoration: "Afficher la Décoration",
                 rarity: "Rareté",
+                showhiddenicon: "Afficher l'Icône Masquée",
+                hiddenicon: "Icône Masquée",
+                replacelogo: "Remplacer le logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Charger un fichier image pour remplacer l'icône de Logo",
         decoration: "Charger un fichier image pour remplacer l'icône de Décoration",
         showdecoration: "Activer/désactiver la visibilité de l'icône de Décoration",
+        replacelogo: "Remplacez l'icône du logo dans la notification par la décoration sélectionnée",
         pos: "Définir la position à l'écran de la notification",
         usecustompos: "Activer le positionnement personnalisé pour la notification",
         setcustompos: "Définir la position personnalisée pour la notification",

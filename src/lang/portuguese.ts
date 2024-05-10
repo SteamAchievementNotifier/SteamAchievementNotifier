@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Raridade",
                 showhiddenicon: "Mostrar Ícone Oculto",
                 hiddenicon: "Ícone Oculto",
+                replacelogo: "Substituir Logo"
             }
         },
         position: {
@@ -336,6 +337,7 @@ export const translations = {
         usegameicon: "Substituir o ícone de notificação padrão pelo ícone do jogo atual",
         showhiddenicon: "Mostrar uma imagem indicando que a conquista está oculta na notificação",
         hiddenicon: "Carregar um arquivo de imagem para substituir o ícone da conquista oculta",
+        replacelogo: "Substituir o ícone do logotipo na notificação pela Decoração selecionada",
         logo: "Carregar um arquivo de imagem para substituir o ícone do Logotipo",
         decoration: "Carregar um arquivo de imagem para substituir o ícone de Decoração",
         showdecoration: "Alternar a visibilidade do ícone de Decoração",

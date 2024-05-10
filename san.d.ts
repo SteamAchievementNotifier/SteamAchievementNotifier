@@ -115,7 +115,7 @@ declare interface Customisation {
     customfont: string
     iconanim?: boolean,
     showhiddenicon: boolean,
-    replacelogowithdecoration: boolean,
+    replacelogo: boolean,
     hiddenicon: string,
     previewhiddenicon: boolean,
     usepercent: boolean,

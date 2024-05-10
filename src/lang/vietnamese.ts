@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Độ hiếm",
                 showhiddenicon: "Hiển thị biểu tượng ẩn",
                 hiddenicon: "Biểu tượng ẩn",
+                replacelogo: "Thay Đổi Logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Tải một tệp hình ảnh để thay thế biểu tượng Logo",
         decoration: "Tải một tệp hình ảnh để thay thế biểu tượng Trang trí",
         showdecoration: "Chuyển đổi tính hiển thị của biểu tượng Trang trí",
+        replacelogo: "Thay thế biểu tượng logo trong thông báo bằng trang trí đã chọn",
         pos: "Đặt vị trí trên màn hình của thông báo",
         usecustompos: "Bật tùy chỉnh vị trí cho thông báo",
         setcustompos: "Đặt vị trí tùy chỉnh cho thông báo",

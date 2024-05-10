@@ -203,8 +203,9 @@ export const translations = {
                 decoration: "Dekoracja",
                 showdecoration: "Pokaż Dekorację",
                 rarity: "Rzadkość",
-                showhiddenicon: "Pokaż ukrytą ikonę",
-                hiddenicon: "Ukryta ikona",
+                showhiddenicon: "Pokaż Ukrytą Ikonę",
+                hiddenicon: "Ukryta Ikona",
+                replacelogo: "Zmień Logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Wczytaj plik obrazu, aby zastąpić ikonę Logo",
         decoration: "Wczytaj plik obrazu, aby zastąpić ikonę Dekoracji",
         showdecoration: "Przełącz widoczność ikony Dekoracji",
+        replacelogo: "Zmień ikonę loga w powiadomieniu na wybraną dekorację",
         pos: "Ustaw pozycję powiadomienia na ekranie",
         usecustompos: "Włącz niestandardowe pozycjonowanie powiadomienia",
         setcustompos: "Ustaw niestandardową pozycję powiadomienia",

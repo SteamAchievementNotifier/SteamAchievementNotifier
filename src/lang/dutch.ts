@@ -204,8 +204,8 @@ export const translations = {
                 showdecoration: "Toon Decoratie",
                 rarity: "Zeldzaamheid",
                 showhiddenicon: "Toon Verborgen Pictogram",
-                replacelogowithdecoration: "Vervang Logo Met Decoratie",
                 hiddenicon: "Verborgen Pictogram",
+                replacelogo: "Vervang Logo"
             }
         },
         position: {
@@ -336,11 +336,11 @@ export const translations = {
         plat: "Laad een afbeeldingsbestand om als 100% pictogram te gebruiken",
         usegameicon: "Vervang het standaard meldingspictogram door het pictogram van het huidige spel",
         showhiddenicon: "Toon een afbeelding die aangeeft dat de prestatie verborgen is in de melding",
-        replacelogowithdecoration: `Vervangt het Logo icoon in de prestatie melding met de geselecteerde Decoratie`,
         hiddenicon: "Laad een afbeeldingsbestand om het verborgen prestatiepictogram te vervangen",
         logo: "Laad een afbeeldingsbestand om het Logo-pictogram te vervangen",
         decoration: "Laad een afbeeldingsbestand om de Decoratie te vervangen",
         showdecoration: "Schakel de zichtbaarheid van de Decoratie in/uit",
+        replacelogo: `Vervangt het Logo icoon in de prestatie melding met de geselecteerde Decoratie`,
         pos: "Stel de on-screen positie van de melding in",
         usecustompos: "Schakel aangepaste positionering in voor de melding",
         setcustompos: "Stel de aangepaste positie voor de melding in",

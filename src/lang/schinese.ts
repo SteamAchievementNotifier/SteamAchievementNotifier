@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "稀有度",
                 showhiddenicon: "显示隐藏图标",
                 hiddenicon: "隐藏图标",
+                replacelogo: "替换徽标"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "加载要替换Logo图标的图像文件",
         decoration: "加载要替换装饰图标的图像文件",
         showdecoration: "切换装饰图标的可见性",
+        replacelogo: "使用选定的装饰替换通知中的徽标图标",
         pos: "设置通知在屏幕上的位置",
         usecustompos: "启用通知的自定义定位",
         setcustompos: "设置通知的自定义位置",

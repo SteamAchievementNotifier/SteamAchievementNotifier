@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Sjeldenhet",
                 showhiddenicon: "Vis skjult ikon",
                 hiddenicon: "Skjult ikon",
+                replacelogo: "Erstatt Logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Last inn en bildefil for å erstatte logoikonet",
         decoration: "Last inn en bildefil for å erstatte dekorasjonsikonet",
         showdecoration: "Veksle synligheten til dekorasjonsikonet",
+        replacelogo: "Erstatt logoikonet i varselet med den valgte dekorasjonen",
         pos: "Angi skjermposisjonen til varslingen",
         usecustompos: "Aktiver tilpasset plassering for varslingen",
         setcustompos: "Angi tilpasset posisjon for varslingen",

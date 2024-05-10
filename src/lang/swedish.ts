@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Sällsynthet",
                 showhiddenicon: "Visa Dold ikon",
                 hiddenicon: "Dold ikon",
+                replacelogo: "Ersätt Logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Ladda en bildfil för att ersätta logotypen",
         decoration: "Ladda en bildfil för att ersätta dekorationsikonen",
         showdecoration: "Växla synligheten för dekorationsikonen",
+        replacelogo: "Ersätt logotypikonen i meddelandet med den valda dekorationen",
         pos: "Ställ in skärmläget för aviseringen",
         usecustompos: "Aktivera anpassad positionering för aviseringen",
         setcustompos: "Ställ in den anpassade positionen för aviseringen",

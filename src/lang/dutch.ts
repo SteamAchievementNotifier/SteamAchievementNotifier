@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Zeldzaamheid",
                 showhiddenicon: "Toon Verborgen Pictogram",
                 hiddenicon: "Verborgen Pictogram",
+                replacelogo: "Vervang Logo"
             }
         },
         position: {
@@ -337,8 +338,9 @@ export const translations = {
         showhiddenicon: "Toon een afbeelding die aangeeft dat de prestatie verborgen is in de melding",
         hiddenicon: "Laad een afbeeldingsbestand om het verborgen prestatiepictogram te vervangen",
         logo: "Laad een afbeeldingsbestand om het Logo-pictogram te vervangen",
-        decoration: "Laad een afbeeldingsbestand om het Decoration-pictogram te vervangen",
-        showdecoration: "Schakel de zichtbaarheid van het Decoration-pictogram in/uit",
+        decoration: "Laad een afbeeldingsbestand om de Decoratie te vervangen",
+        showdecoration: "Schakel de zichtbaarheid van de Decoratie in/uit",
+        replacelogo: `Vervangt het Logo icoon in de prestatie melding met de geselecteerde Decoratie`,
         pos: "Stel de on-screen positie van de melding in",
         usecustompos: "Schakel aangepaste positionering in voor de melding",
         setcustompos: "Stel de aangepaste positie voor de melding in",

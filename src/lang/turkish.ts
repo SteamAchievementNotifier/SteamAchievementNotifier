@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Nadirlik",
                 showhiddenicon: "Gizli Simgeleri Göster",
                 hiddenicon: "Gizli Simge",
+                replacelogo: "Logoyu Değiştir"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Logo ikonunu değiştirmek için bir resim dosyası yükleyin",
         decoration: "Süsleme ikonunu değiştirmek için bir resim dosyası yükleyin",
         showdecoration: "Süsleme ikonunun görünürlüğünü aç/kapat",
+        replacelogo: "Bildirimdeki Logoyu Seçilen Süsleme ile Değiştir",
         pos: "Bildirimin ekran üzerindeki konumunu ayarlayın",
         usecustompos: "Bildirim için özel konumlandırmayı etkinleştirin",
         setcustompos: "Bildirim için özel konumu ayarlayın",

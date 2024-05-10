@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Seltenheit",
                 showhiddenicon: "Verstecktes Symbol anzeigen",
                 hiddenicon: "Verstecktes Symbol",
+                replacelogo: "Logo Ersetzen",
             }
         },
         position: {
@@ -338,6 +339,7 @@ export const translations = {
         logo: "Laden Sie eine Bilddatei, um das Logo-Symbol zu ersetzen",
         decoration: "Laden Sie eine Bilddatei, um das Dekorationssymbol zu ersetzen",
         showdecoration: "Aktivieren/Deaktivieren der Sichtbarkeit des Dekorationssymbols",
+        replacelogo: "Ersetze das Logo-Symbol in der Benachrichtigung durch die ausgewählte Dekoration",
         pos: "Legen Sie die Bildschirmposition der Benachrichtigung fest",
         usecustompos: "Aktivieren Sie die benutzerdefinierte Positionierung für die Benachrichtigung",
         setcustompos: "Legen Sie die benutzerdefinierte Position für die Benachrichtigung fest",

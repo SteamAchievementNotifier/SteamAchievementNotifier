@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Sjældenhed",
                 showhiddenicon: "Vis Skjult Ikon",
                 hiddenicon: "Skjult Ikon",
+                replacelogo: "Erstat Logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Indlæs en billedfil for at erstatte Logo-ikonet",
         decoration: "Indlæs en billedfil for at erstatte Dekorationsikonet",
         showdecoration: "Skift synligheden af Dekorationsikonet",
+        replacelogo: "Erstat ikonet for logoet i meddelelsen med den valgte dekoration",
         pos: "Indstil skærmpositionen for meddelelsen",
         usecustompos: "Aktivér brugerdefineret placering for meddelelsen",
         setcustompos: "Indstil brugerdefineret position for meddelelsen",

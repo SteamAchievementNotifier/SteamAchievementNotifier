@@ -204,7 +204,8 @@ export const translations = {
                 showdecoration: "Show Decoration",
                 rarity: "Rarity",
                 showhiddenicon: "Show Hidden Icon",
-                hiddenicon: "Hidden Icon"
+                hiddenicon: "Hidden Icon",
+                replacelogo: "Replace Logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Load an image file to replace the Logo icon",
         decoration: "Load an image file to replace the Decoration icon",
         showdecoration: "Toggle the visibility of the Decoration icon",
+        replacelogo: "Replace the Logo icon in the notification with the selected Decoration",
         pos: "Set the on-screen position of the notification",
         usecustompos: "Enable custom positioning for the notification",
         setcustompos: "Set the custom position for the notification",

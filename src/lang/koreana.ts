@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "희귀도",
                 showhiddenicon: "숨은 아이콘 표시",
                 hiddenicon: "숨은 아이콘",
+                replacelogo: "로고 바꾸기"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "로고 아이콘을 대체할 이미지 파일 로드",
         decoration: "장식 아이콘을 대체할 이미지 파일 로드",
         showdecoration: "장식 아이콘의 가시성 전환",
+        replacelogo: "선택한 장식으로 알림 내 로고 아이콘을 바꿉니다",
         pos: "알림의 화면 위치 설정",
         usecustompos: "알림에 대한 사용자 정의 위치 활성화",
         setcustompos: "알림에 대한 사용자 정의 위치 설정",

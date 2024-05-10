@@ -205,6 +205,7 @@ export const translations = {
                 rarity: "Harvinaisuus",
                 showhiddenicon: "Näytä piilotettu kuvake",
                 hiddenicon: "Piilotettu kuvake",
+                replacelogo: "Korvaa logo"
             }
         },
         position: {
@@ -339,6 +340,7 @@ export const translations = {
         logo: "Lataa kuvatiedosto korvaamaan Logo-kuvake",
         decoration: "Lataa kuvatiedosto korvaamaan Decoration-kuvake",
         showdecoration: "Vaihda Decoration-kuvakkeen näkyvyys",
+        replacelogo: "Korvaa ilmoituksen logoikoni valitulla koristeella",
         pos: "Aseta ilmoituksen näytöllä oleva sijainti",
         usecustompos: "Ota käyttöön mukautettu sijainti ilmoitukselle",
         setcustompos: "Aseta mukautettu sijainti ilmoitukselle",

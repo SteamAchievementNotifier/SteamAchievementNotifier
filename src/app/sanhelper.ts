@@ -273,6 +273,7 @@ export const sanhelper: SANHelper = {
     shortcuts: (value: boolean) => ipcRenderer.send("shortcut",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
+    debug: (value: boolean) => ipcRenderer.send("debugwin",value),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     getcheckbox: (config: Store<Config>, elem: HTMLInputElement, keypath?: string) => elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean,
     setcheckbox: (config: Store<Config>, event: Event, keypath?: string) => {
@@ -632,5 +633,22 @@ export const sanhelper: SANHelper = {
         }
 
         return true
+    },
+    resetdebuginfo: async (debugwin?: Electron.BrowserWindow) => {
+        const config = (await import("./config")).sanconfig.get()
+
+        const debuginfo = {
+            username: "",
+            steam3id: 0,
+            steam64id: "0",
+            appid: 0,
+            gamename: "",
+            pollrate: 1000,
+            userust: config.get("userust"),
+            processes: []
+        }
+
+        const wintype = debugwin ? debugwin.webContents : ipcRenderer
+        wintype.send("debuginfoupdated",debuginfo)
     }
 }

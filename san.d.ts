@@ -62,6 +62,8 @@ declare interface Config {
     usecustomfiles: boolean,
     noreleasedialog: boolean,
     norestartdialog: boolean,
+    userust: boolean,
+    debug: boolean,
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -226,7 +228,20 @@ declare interface AppInfo {
     appid: number,
     gamename?: string | null
     pollrate?: number,
-    maxretries?: number
+    maxretries?: number,
+    userust?: boolean,
+    debug?: boolean
+}
+
+declare interface DebugInfo extends AppInfo {
+    username: string,
+    steam3id: number,
+    steam64id: string,
+    processes: ProcessInfo[] | DebugProcessInfo[]
+}
+
+declare interface DebugProcessInfo extends ProcessInfo {
+    active: boolean
 }
 
 declare interface AchievementIcon {

@@ -19,11 +19,12 @@ sanhelper.errorhandler(log)
 
 const startidle = () => {
     log.write("INFO","Idle loop started")
+    sanhelper.resetdebuginfo()
     
     const timer = setInterval(() => {
-        const { pollrate, maxretries } = sanconfig.get().store
-
+        const { pollrate, maxretries, userust, debug } = sanconfig.get().store
         const { appid, gamename } = sanhelper.gameinfo as AppInfo
+
         if (!appid) return
 
         clearInterval(timer)
@@ -32,7 +33,9 @@ const startidle = () => {
             appid: appid,
             gamename: gamename,
             pollrate: typeof pollrate !== "number" ? 250 : (pollrate < 50 ? 50 : pollrate),
-            maxretries: maxretries
+            maxretries: maxretries,
+            userust: userust,
+            debug: debug
         }
 
         typeof pollrate !== "number" && log.write("ERROR",`"pollrate" has invalid type of "${typeof pollrate}" - setting to default value (250ms)...`) 
@@ -52,7 +55,7 @@ const creategameinfo = (gamename: string, appid: number, exepath: string, pid: n
 ].join("\n-")
 
 const startsan = async (appinfo: AppInfo) => {
-    const { appid, gamename, pollrate, maxretries } = appinfo
+    const { appid, gamename, pollrate, maxretries, userust, debug } = appinfo
     const { init } = await import("steamworks.js")
 
     const client = init(appid)
@@ -61,7 +64,7 @@ const startsan = async (appinfo: AppInfo) => {
     const steam3id = client.localplayer.getSteamId().accountId
     const steam64id = client.localplayer.getSteamId().steamId64.toString().replace(/n$/,"")
 
-    const cachedicons = await cacheachievementicons(gamename || "???",steam64id,appid)
+    await cacheachievementicons(gamename || "???",steam64id,appid)
 
     const getprocessinfo = (sgpexe?: string): ProcessInfo[] => {
         const processinfo: ProcessInfo[] = []
@@ -79,6 +82,20 @@ const startsan = async (appinfo: AppInfo) => {
         return processinfo
     }
 
+    const isprocessrunning = (pid: number) => userust ? client.processes.isProcessRunning(pid) : sanhelper.isprocessrunning(pid)
+    const debuginfo = (debuginfo: DebugInfo) => {
+        return {
+            ...debuginfo,
+            processes: debuginfo.processes.map(({ exe, pid }: ProcessInfo) => {
+                return {
+                    exe: exe,
+                    pid: pid,
+                    active: isprocessrunning(pid)
+                } as DebugProcessInfo
+            })
+        } as DebugInfo
+    }
+
     const processes: ProcessInfo[] = []
 
     const initgameloop = () => {
@@ -91,12 +108,23 @@ const startsan = async (appinfo: AppInfo) => {
         let cache: Achievement[] = cachedata(client,apinames)
         
         const gameloop = () => {
-            if (processes.every(({ pid }: ProcessInfo) => pid !== -1 && !sanhelper.isprocessrunning(pid))) {
+            if (processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid))) {
                 clearInterval(timer!)
                 log.write("INFO","Game loop stopped")
     
                 ipcRenderer.send("validateworker")
             }
+
+            ipcRenderer.send("debuginfoupdated",debuginfo({
+                username: client.localplayer.getName(),
+                steam3id: steam3id,
+                steam64id: steam64id,
+                appid: appid,
+                gamename: gamename,
+                pollrate: pollrate,
+                userust: userust,
+                processes: processes
+            }))
     
             const live: Achievement[] = cachedata(client,apinames)
             const unlocked = checkunlockstatus(cache,live)

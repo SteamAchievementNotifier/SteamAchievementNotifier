@@ -18,3 +18,4 @@ notify/**/*.mp3
 **/*.old
 gh_token.txt
 deps/_linux/
+desktop.ini

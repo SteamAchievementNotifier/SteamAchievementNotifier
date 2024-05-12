@@ -72,6 +72,8 @@ export const sanconfig = {
             usecustomfiles: false,
             noreleasedialog: false,
             norestartdialog: false,
+            userust: false,
+            debug: false,
             customisation: {
                 main: {} as Customisation,
                 rare: {} as Customisation,

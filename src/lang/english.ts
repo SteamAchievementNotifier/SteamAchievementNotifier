@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Poll Rate",
                 releasedelay: "Release Delay",
                 maxretries: "Max Process Retries",
+                debug: "Debug Panel",
+                userust: "Use Rust for PID",
                 notifydebug: "Show Notification DevTools",
                 usecustomfiles: "Use Custom App Files",
                 showcustomfiles: "Show Custom App Files"

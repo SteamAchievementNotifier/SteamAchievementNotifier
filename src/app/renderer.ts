@@ -620,21 +620,29 @@ window.addEventListener("lang", async () => {
     ipcRenderer.send("lang",globalgamename)
 })
 
-ipcRenderer.on("releasegame", async () => dialog.open({
-    title: await language.get("releasegame"),
-    type: "default",
-    sub: await language.get("releasegamesub"),
-    icon: sanhelper.setfilepath("icon","donotdisturb.svg"),
-    buttons: [{
-        id: "ok",
-        label: await language.get("ok"),
-        icon: sanhelper.setfilepath("icon","tick.svg"),
-        click: () => {
-            ipcRenderer.send("validateworker")
-            dialog.close()
-        }
-    }]
-}))
+const checkdialogstatus = (input: HTMLInputElement) => config.set(input.id,input.checked)
+
+ipcRenderer.on("releasegame", async () => {
+    if (config.get("noreleasedialog")) return ipcRenderer.send("validateworker")
+
+    dialog.open({
+        title: await language.get("releasegame"),
+        type: "default",
+        sub: await language.get("releasegamesub"),
+        icon: sanhelper.setfilepath("icon","donotdisturb.svg"),
+        addHTML: `<div class="wrapper donotshowagain"><input type="checkbox" id="noreleasedialog"><span>Don't show this dialog again</span></div>`,
+        buttons: [{
+            id: "ok",
+            label: await language.get("ok"),
+            icon: sanhelper.setfilepath("icon","tick.svg"),
+            click: () => {
+                checkdialogstatus(document.getElementById("noreleasedialog") as HTMLInputElement)
+                ipcRenderer.send("validateworker")
+                dialog.close()
+            }
+        }]
+    })
+})
 
 ipcRenderer.on("notifyprogress", (event,displaytime: number,finish?: boolean) => {
     const progresscircle = document.querySelector(".rect#test > #progresscircle")! as HTMLElement
@@ -644,18 +652,41 @@ ipcRenderer.on("notifyprogress", (event,displaytime: number,finish?: boolean) =>
     progresscircle.setAttribute("running","")
 })
 
-ipcRenderer.on("restartapp", async () => dialog.open({
-    title: await language.get("restartapp"),
-    type: "default",
-    sub: await language.get("restartappsub"),
-    icon: sanhelper.setfilepath("icon","replay.svg"),
-    buttons: [{
-        id: "ok",
-        label: await language.get("ok"),
-        icon: sanhelper.setfilepath("icon","tick.svg"),
-        click: () => {
-            ipcRenderer.send("restart",`System Tray > "Options" > "Restart" selected by User`)
-            dialog.close()
-        }
-    }]
-}))
+ipcRenderer.on("restartapp", async () => {
+    if (config.get("norestartdialog")) return ipcRenderer.send("restart",`System Tray > "Options" > "Restart" selected by User`)
+
+    dialog.open({
+        title: await language.get("restartapp"),
+        type: "default",
+        sub: await language.get("restartappsub"),
+        icon: sanhelper.setfilepath("icon","replay.svg"),
+        addHTML: `<div class="wrapper donotshowagain"><input type="checkbox" id="norestartdialog"><span>Don't show this dialog again</span></div>`,
+        buttons: [{
+            id: "ok",
+            label: await language.get("ok"),
+            icon: sanhelper.setfilepath("icon","tick.svg"),
+            click: () => {
+                checkdialogstatus(document.getElementById("norestartdialog") as HTMLInputElement)
+                ipcRenderer.send("restart",`System Tray > "Options" > "Restart" selected by User`)
+                dialog.close()
+            }
+        }]
+    })
+})
+
+ipcRenderer.on("clearls", async () => {
+    try {
+        const msg = await new Promise<string>((resolve,reject) => {
+            try {
+                localStorage.clear()
+                resolve(`"localStorage" cleared successfully`)
+            } catch (err) {
+                reject(`Error clearing "localStorage": ${err}`)
+            }
+        })
+
+        ipcRenderer.send("clearls",msg)
+    } catch (err) {
+        ipcRenderer.send("clearls",err)
+    }
+})

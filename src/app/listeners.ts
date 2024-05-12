@@ -1,4 +1,4 @@
-import { app, ipcMain, BrowserWindow, Tray, Menu, nativeImage, dialog, Notification, screen, globalShortcut, BrowserWindowConstructorOptions, NotificationConstructorOptions, desktopCapturer, clipboard, shell } from "electron"
+import { app, ipcMain, BrowserWindow, Tray, Menu, nativeImage, dialog, Notification, screen, globalShortcut, BrowserWindowConstructorOptions, NotificationConstructorOptions, desktopCapturer, clipboard, shell, ipcRenderer } from "electron"
 import path from "path"
 import fs from "fs"
 import { sanhelper, __root } from "./sanhelper"
@@ -390,21 +390,38 @@ export const listeners = {
         })
 
         ipcMain.on("restart", (event,reason: string) => {
-            return new Promise((resolve,reject) => {
+            return new Promise(async (resolve,reject) => {
                 if (reason !== "Reset App confirmed by User") return resolve(reason)
+                    
+                await new Promise<void>(resolve => {
+                    ipcMain.once("clearls", (event,msg) => {
+                        log.write("INFO",msg as string)
+                        resolve()
+                    })
+
+                    win.webContents.send("clearls")
+                })
 
                 try {
-                    fs.rmSync(sanhelper.appdata, { recursive: true, force: true })
+                    fs.rmSync(path.join(sanhelper.appdata,"config.json"))
+                    fs.rmSync(path.join(sanhelper.appdata,"customfiles"), { recursive: true, force: true })
                     resolve(reason)
                 } catch (err) {
-                    reject(`Error removing "config.json": ${err}`)
+                    reject(`Error removing application data: ${err}`)
                 }
             })
             .then(msg => log.write("INFO",msg as string))
             .catch(err => log.write("ERROR",err as string))
-            .finally(() => {
+            .finally(async () => {
                 app.relaunch()
                 log.write("EXIT",`Exited due to "restart" event: ${reason || `No restart reason provided.`}`)
+
+                try {
+                    fs.renameSync(path.join(sanhelper.appdata,"logs","san.log"),path.join(sanhelper.appdata,"logs","san_reset.log"))
+                } catch (err) {
+                    console.log(err)
+                }
+
                 app.exit()
             })
         })
@@ -664,7 +681,7 @@ export const listeners = {
                     body: info.desc,
                     icon: info.icon,
                     toastXml: `
-                        <toast>
+                        <toast scenario="reminder">
                             <audio silent="true"></audio>
                             <visual>
                                 <binding template="ToastGeneric">
@@ -674,6 +691,9 @@ export const listeners = {
                                     <image placement="appLogoOverride" src="${info.icon}" alt="${info.apiname} Achievement Icon"/>
                                 </binding>
                             </visual>
+                            <actions>
+                                <action content="Dismiss" arguments="action=dismiss"/>
+                            </actions>
                         </toast>
                     `
                 })

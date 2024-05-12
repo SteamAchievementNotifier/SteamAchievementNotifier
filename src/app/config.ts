@@ -70,6 +70,8 @@ export const sanconfig = {
             x: (width / 2) - (target.width / 2),
             y: (height / 2) - (target.height / 2),
             usecustomfiles: false,
+            noreleasedialog: false,
+            norestartdialog: false,
             customisation: {
                 main: {} as Customisation,
                 rare: {} as Customisation,

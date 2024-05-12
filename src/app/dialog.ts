@@ -50,9 +50,12 @@ export const dialog = {
             }
 
             if (addHTML) {
+                const htmlstring = new DOMParser().parseFromString(addHTML,"text/html")
+                const isvalidhtml = Array.from(htmlstring.body.childNodes).some(node => node.nodeType === 1)
+
                 const div = document.createElement("div")
                 div.className = "addhtml"
-                div.innerHTML = fs.readFileSync(addHTML).toString()
+                div.innerHTML = isvalidhtml ? addHTML : fs.readFileSync(addHTML).toString()
 
                 document.querySelector(".contentsub")!.appendChild(div)
             }

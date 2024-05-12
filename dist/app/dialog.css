@@ -614,6 +614,26 @@ td:has(.unlinkbtn) > .unlinkbtn {
     border-radius: var(--elembr);
 }
 
+.donotshowagain {
+    grid-template-columns: auto auto;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    place-items: center;
+}
+
+.donotshowagain > input[type="checkbox"] {
+    justify-self: end;
+    border: 0.1rem solid var(--lightgrey);
+}
+
+.donotshowagain > input[type="checkbox"]:checked {
+    border: none;
+}
+
+.donotshowagain > span {
+    justify-self: start;
+}
+
 @media (orientation: portrait) {
     .contentwrapper > .btnwrapper {
         grid-template-columns: 1fr;

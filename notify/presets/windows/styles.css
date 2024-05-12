@@ -47,6 +47,9 @@
 
 #unlockmsg {
     font-size: var(--headersize);
+    color: var(--fontcolor);
+    text-shadow: var(--fontoutline);
+    filter: var(--fontshadow);
 }
 
 .wrapper#header > .wrapper#logo {
@@ -74,4 +77,8 @@
 
 #desc {
     opacity: 0.75;
+}
+
+body[ss] .wrapper#logo {
+    display: grid;
 }

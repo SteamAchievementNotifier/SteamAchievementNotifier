@@ -60,6 +60,8 @@ declare interface Config {
     x: number,
     y: number,
     usecustomfiles: boolean,
+    noreleasedialog: boolean,
+    norestartdialog: boolean,
     customisation: {
         main: Customisation,
         rare: Customisation,

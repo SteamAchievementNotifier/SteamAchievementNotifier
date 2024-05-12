@@ -3,17 +3,17 @@
 }
 
 body[paused] .wrapper#achcont,
-body[paused] .wrapper#achcont > div,
-body[paused] .wrapper#achcont > div::before,
-body[paused] .wrapper#achcont > div::after,
-body[paused] .wrapper#achcont > div > *,
+body[paused] .wrapper#achcont div,
+body[paused] .wrapper#achcont div::before,
+body[paused] .wrapper#achcont div::after,
+body[paused] .wrapper#achcont div > *,
 body[paused] #achicon,
 body[paused] #logo,
 body[ss] .wrapper#achcont,
-body[ss] .wrapper#achcont > div,
-body[ss] .wrapper#achcont > div::before,
-body[ss] .wrapper#achcont > div::after,
-body[ss] .wrapper#achcont > div > *,
+body[ss] .wrapper#achcont div,
+body[ss] .wrapper#achcont div::before,
+body[ss] .wrapper#achcont div::after,
+body[ss] .wrapper#achcont div > *,
 body[ss] #achicon,
 body[ss] #logo {
     animation-play-state: paused !important;

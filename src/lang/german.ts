@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Abfrageintervall",
                 releasedelay: "Veröffentlichungsverzögerung",
                 maxretries: "Maximale Wiederholungsversuche",
+                debug: "Debug-Panel",
+                userust: "Alternativer Verarbeitungsmodus",
                 notifydebug: "Debug-Benachrichtigungen Anzeigen",
                 usecustomfiles: "Benutzerdefinierte App-Dateien Verwenden",
                 showcustomfiles: "Benutzerdefinierte App-Dateien Anzeigen"
@@ -293,6 +295,8 @@ export const translations = {
         tooltips: "Zeigen Sie Tooltips an, wenn Sie über bestimmte UI-Elemente schweben",
         releasedelay: `Legt fest, wie lange der Hintergrundprozess warten soll, um nach der Veröffentlichung des aktuellen Spiels neu zu starten. Beeinflusst sowohl die automatische Prozessüberwachung als auch manuell verknüpfte Spiele.<br><br><span class="ttdesc">Ermöglicht einen längeren Zeitrahmen, um Steamworks vollständig von der App freizugeben. Eine Erhöhung dieses Werts kann ungewöhnliches Verhalten verhindern, wie z.B. das Verfolgen eines zuvor geschlossenen Spiels</span>`,
         maxretries: `Legt die maximale Anzahl von Versuchen fest, um einen laufenden Prozess mit einer erkannten AppID zu verknüpfen. Beeinflusst sowohl die automatische Prozessüberwachung als auch manuell verknüpfte Spiele.<br><br><span class="ttdesc">Verbindungsversuche werden einmal pro Sekunde durchgeführt. Wenn ein laufender Prozess nach dieser Anzahl von Versuchen nicht mit der aktuellen AppID verknüpft ist, wird ein ungültiger Prozess zurückgegeben. In solchen Fällen muss das Spiel manuell über das System-Tray > Optionen > Spiel freigeben freigegeben werden</span>`,
+        debug: "Öffnen Sie das Debug-Panel, das detaillierte Prozessverfolgungsinformationen anzeigt",
+        userust: "Verwenden Sie eine alternative Rust-basierte Funktion, um zu überprüfen, ob die verfolgten Spielprozesse derzeit auf dem System ausgeführt werden. Wenn nicht aktiviert, wird stattdessen die Standardprozessüberprüfung auf NodeJS-Basis verwendet.",
         notifydebug: "Erstellen Sie ein DevTools-Fenster für alle Benachrichtigungen. Nützlich zum Debuggen/Beheben von Benachrichtigungsproblemen",
         usecustomfiles: "Aktivieren Sie Benachrichtigungen, um benutzerdefinierbare Dateien zu laden. Vorsicht ist für normale Benutzer geboten",
         showcustomfiles: "Öffnen Sie den Speicherort der benutzerdefinierten Dateien",

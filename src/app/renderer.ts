@@ -690,3 +690,23 @@ ipcRenderer.on("clearls", async () => {
         ipcRenderer.send("clearls",err)
     }
 })
+
+ipcRenderer.on("updatemenu", (event,id) => {
+    if (id !== "debug") return
+
+    const settings = document.querySelector("dialog > #content > #settingscontent")
+
+    if (settings) {
+        const input = settings.querySelector(`input#${id}`) as HTMLInputElement
+        input && (input.checked = config.get(id) as boolean)
+    }
+
+    config.get("debug") && ipcRenderer.send("debuginfoupdated",{
+        pollrate: config.get("pollrate"),
+        releasedelay: config.get("releasedelay"),
+        maxretries: config.get("maxretries"),
+        userust: config.get("userust")
+    })
+})
+
+ipcRenderer.on("workeractive", (event,value: boolean) => document.body.toggleAttribute("active",value))

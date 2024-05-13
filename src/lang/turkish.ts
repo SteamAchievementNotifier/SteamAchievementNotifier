@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Anket Oranı",
                 releasedelay: "Yayımlama Gecikmesi",
                 maxretries: "Maksimum Yeniden Deneme Sayısı",
+                debug: "Hata Ayıkla Paneli",
+                userust: "Alternatif İşleme Modu",
                 notifydebug: "Hata Ayıklama Bildirimlerini Göster",
                 usecustomfiles: "Özel Uygulama Dosyalarını Kullan",
                 showcustomfiles: "Özel Uygulama Dosyalarını Göster"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Oyun sırasında başarı verileri için güncelleme aralığını ayarlayın<br><br><span class="ttdesc">Performans, değer veya sistem donanımına bağlı olarak artabilir/azalabilir. Daha yüksek değerler genellikle daha düşük sistem yüküne yol açar, ancak bildirimlerin gecikmesine neden olabilir</span>`,
         releasedelay: `Mevcut oyunun yayımlandıktan sonra arka plan işleminin ne kadar süre bekleyeceğini ayarlar. Hem otomatik işlem izleme hem de manuel olarak bağlanmış oyunları etkiler.<br><br><span class="ttdesc">Steamworks'in uygulamadan tamamen serbest bırakılması için daha uzun bir zaman aralığı sağlar. Bu değeri artırmak, önceki kapatılmış bir oyunun takibini engelleyebilecek anormal davranışları önleyebilir</span>`,
         maxretries: `Çalışan bir işlemi algılanan bir AppID'ye bağlama girişimlerinin maksimum sayısını ayarlar. Hem otomatik işlem izleme hem de manuel olarak bağlanmış oyunları etkiler.<br><br><span class="ttdesc">Bağlama denemeleri her saniye bir kez gerçekleştirilir. Bir çalışan işlem, bu denemelerin sayısından sonra geçerli AppID'ye bağlanmazsa, geçersiz bir işlem döndürülür. Bu durumlarda, oyunun Sistem Tepsisi > Ayarlar > Oyunu Serbest Bırak seçeneğiyle manuel olarak serbest bırakılması gerekir</span>`,
+        debug: "Hata Ayıkla Panelini açın, bu panel işlem takip bilgilerini detaylı bir şekilde gösterir",
+        userust: "Takip edilen oyun işlemlerinin şu anda sistemde çalışıp çalışmadığını kontrol etmek için Rust tabanlı alternatif bir işlev kullanın. İşaretlenmediğinde, varsayılan NodeJS tabanlı işlem kontrolü kullanılacaktır.",
         notifydebug: "Tüm bildirimler için bir DevTools penceresi oluştur. Bildirim sorunlarını gidermek/çözmek için kullanışlıdır",
         usecustomfiles: "Bildirimlerin kullanıcı tarafından özelleştirilebilir dosyaları yüklemesine izin verir. Düzenli kullanıcılar için dikkatli olunması önerilir",
         showcustomfiles: "Özel dosyaların konumunu aç",

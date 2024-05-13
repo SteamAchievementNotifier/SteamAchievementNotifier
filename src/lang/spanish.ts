@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Tasa de Encuestas",
                 releasedelay: "Retraso de Lanzamiento",
                 maxretries: "Número Máximo de Reintentos de Proceso",
+                debug: "Panel de Depuración",
+                userust: "Modo de Procesamiento Alternativo",
                 notifydebug: "Mostrar Notificaciones de Depuración",
                 usecustomfiles: "Utilizar Archivos de Aplicación Personalizados",
                 showcustomfiles: "Mostrar Archivos de Aplicación Personalizados"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Establecer el intervalo de actualización para los datos de logros durante el juego<br><br><span class="ttdesc">El rendimiento puede aumentar/disminuir dependiendo del valor o del hardware del sistema. Valores más altos suelen resultar en una carga del sistema más baja, pero pueden causar retrasos en las notificaciones</span>`,
         releasedelay: `Establece cuánto tiempo espera el proceso en segundo plano para reiniciarse después de que el juego actual haya sido lanzado. Afecta tanto al seguimiento automático de procesos como a los juegos vinculados manualmente.<br><br><span class="ttdesc">Proporciona un período más largo para liberar completamente Steamworks de la aplicación. Aumentar este valor puede prevenir comportamientos inusuales, como rastrear un juego previamente cerrado</span>`,
         maxretries: `Establece el número máximo de intentos para vincular un proceso en ejecución a un AppID detectado. Afecta tanto al seguimiento automático de procesos como a los juegos vinculados manualmente.<br><br><span class="ttdesc">Los intentos de vinculación se realizan una vez por segundo. Si un proceso en ejecución no está vinculado al AppID actual después de este número de intentos, se devolverá un proceso no válido. En tales casos, el juego deberá ser liberado manualmente a través del Área de notificación del sistema > Opciones > Liberar Juego</span>`,
+        debug: "Abre el Panel de Depuración, que muestra información detallada de seguimiento de procesos",
+        userust: "Utiliza una función alternativa basada en Rust para verificar si los procesos de juego rastreados están actualmente en ejecución en el sistema. Cuando no esté marcado, se utilizará en su lugar la comprobación de procesos predeterminada basada en NodeJS.",
         notifydebug: "Crear una ventana de herramientas de desarrollo para todas las notificaciones. Útil para depurar/solucionar problemas de notificación",
         usecustomfiles: "Permite que las notificaciones carguen archivos personalizables por el usuario. Se recomienda precaución para los usuarios regulares",
         showcustomfiles: "Abrir la ubicación de los archivos personalizados",

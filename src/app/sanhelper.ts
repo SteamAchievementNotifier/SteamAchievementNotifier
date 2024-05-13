@@ -290,6 +290,7 @@ export const sanhelper: SANHelper = {
             sanhelper[elem.id] && sanhelper[elem.id](config.get(elem.id) as boolean)
 
             sanhelper.updatetabs(noreload(elem) !== undefined)
+            config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
         })
     },
     setvalue: (config: Store<Config>, elem: (HTMLInputElement | HTMLSelectElement), keypath?: string) => {
@@ -334,6 +335,7 @@ export const sanhelper: SANHelper = {
             }
 
             elem.id === "audiosrc" && sanhelper.audiosrc(config.get("audiosrc"))
+            config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
         }
 
         if (elem.hasAttribute("unit")) {
@@ -639,16 +641,17 @@ export const sanhelper: SANHelper = {
 
         const debuginfo = {
             username: "",
-            steam3id: 0,
-            steam64id: "0",
             appid: 0,
+            status: "Released",
             gamename: "",
-            pollrate: 1000,
+            pollrate: config.get("pollrate"),
+            releasedelay: config.get("releasedelay"),
+            maxretries: config.get("maxretries"),
             userust: config.get("userust"),
             processes: []
-        }
+        } as DebugInfo
 
         const wintype = debugwin ? debugwin.webContents : ipcRenderer
-        wintype.send("debuginfoupdated",debuginfo)
+        wintype.send("debuginfoupdated",debuginfo,true)
     }
 }

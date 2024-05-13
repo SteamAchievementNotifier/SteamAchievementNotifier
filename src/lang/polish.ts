@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Częstotliwość odpytywania",
                 releasedelay: "Opóźnienie Wydania",
                 maxretries: "Maksymalna liczba prób przetwarzania",
+                debug: "Panel debugowania",
+                userust: "Alternatywny tryb przetwarzania",
                 notifydebug: "Pokaż powiadomienia debugowania",
                 usecustomfiles: "Użyj niestandardowych plików aplikacji",
                 showcustomfiles: "Pokaż niestandardowe pliki aplikacji"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Ustaw interwał aktualizacji danych o osiągnięciach podczas gry<br><br><span class="ttdesc">Wydajność może wzrosnąć/zmaleć w zależności od wartości lub sprzętu systemowego. Wyższe wartości zazwyczaj prowadzą do mniejszego obciążenia systemu, ale mogą opóźniać powiadomienia</span>`,
         releasedelay: `Ustawia, jak długo proces w tle ma czekać na ponowne uruchomienie po wydaniu obecnej gry. Wpływa zarówno na automatyczne śledzenie procesów, jak i gry ręcznie połączone.<br><br><span class="ttdesc">Umożliwia dłuższy okres na całkowite uwolnienie Steamworks od aplikacji. Zwiększenie tej wartości może zapobiec nietypowemu zachowaniu, takiemu jak śledzenie wcześniej zamkniętej gry</span>`,
         maxretries: `Ustawia maksymalną liczbę prób połączenia działającego procesu z wykrytym AppID. Wpływa zarówno na automatyczne śledzenie procesów, jak i gry ręcznie połączone.<br><br><span class="ttdesc">Próby połączenia są podejmowane raz na sekundę. Jeśli działający proces nie jest połączony z bieżącym AppID po tej liczbie prób, zostanie zwrócony błędny proces. W takich przypadkach grę należy uwolnić ręcznie za pomocą zasobnika systemowego > Opcje > Zwolnij grę</span>`,
+        debug: "Otwórz panel debugowania, który wyświetla szczegółowe informacje o śledzeniu procesów",
+        userust: "Użyj alternatywnej funkcji opartej na Rust, aby sprawdzić, czy śledzone procesy gry są obecnie uruchomione na systemie. Gdy nie jest zaznaczone, zostanie użyta domyślna kontrola procesów oparta na NodeJS.",
         notifydebug: "Utwórz okno narzędzi deweloperskich dla wszystkich powiadomień. Przydatne do debugowania/problemów z powiadomieniami",
         usecustomfiles: "Włącza ładowanie niestandardowych plików przez powiadomienia. Ostrożność jest zalecana dla zwykłych użytkowników",
         showcustomfiles: "Otwórz lokalizację niestandardowych plików",

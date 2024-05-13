@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "轮询速率",
                 releasedelay: "发布延迟",
                 maxretries: "最大重试次数",
+                debug: "调试面板",
+                userust: "替代处理模式",
                 notifydebug: "显示调试通知",
                 usecustomfiles: "使用自定义应用文件",
                 showcustomfiles: "显示自定义应用文件"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `设置游戏过程中成就数据的更新间隔<br><br><span class="ttdesc">性能可能会因系统值或硬件而增加/减少。更高的值通常会导致较低的系统负载，但可能会导致通知延迟</span>`,
         releasedelay: `设置当前游戏发布后，后台进程等待重新启动的时间。影响自动进程跟踪和手动链接的游戏。<br><br><span class="ttdesc">为完全释放 Steamworks 应用提供更长的时间间隔。增加此值可防止异常行为，如跟踪先前关闭的游戏</span>`,
         maxretries: `设置将运行中的进程链接到检测到的 AppID 的最大重试次数。影响自动进程跟踪和手动链接的游戏。<br><br><span class="ttdesc">链接重试每秒尝试一次。如果运行中的进程在此重试次数后未链接到当前 AppID，则将返回无效进程。在这种情况下，游戏需要通过系统托盘 > 选项 > 释放游戏来手动释放</span>`,
+        debug: "打开调试面板，显示详细的进程跟踪信息",
+        userust: "使用基于 Rust 的替代功能来检查系统上当前是否正在运行跟踪的游戏进程。未选中时，将使用基于 NodeJS 的默认进程检查。",
         notifydebug: "为所有通知创建一个DevTools窗口。用于调试/故障排除通知问题",
         usecustomfiles: "启用通知加载用户可自定义文件。对于常规用户，建议谨慎使用",
         showcustomfiles: "打开自定义文件的位置",

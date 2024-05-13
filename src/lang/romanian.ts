@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Rată de interogare",
                 releasedelay: "Întârziere Lansare",
                 maxretries: "Număr maxim de reîncercări de procesare",
+                debug: "Panou de Depanare",
+                userust: "Mod Alternativ de Procesare",
                 notifydebug: "Afișare Notificări de Depanare",
                 usecustomfiles: "Utilizare Fișiere de Aplicație Personalizate",
                 showcustomfiles: "Afișare Fișiere de Aplicație Personalizate"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Setați intervalul de actualizare pentru datele de realizare în timpul jocului<br><br><span class="ttdesc">Performanța poate crește/scădea în funcție de valoarea sau de resursele hardware ale sistemului. Valorile mai mari duc de obicei la o încărcare mai mică a sistemului, dar pot întârzia notificările</span>`,
         releasedelay: `Stabilește cât timp așteaptă procesul de fundal să se repornească după ce jocul curent a fost lansat. Afectează atât urmărirea automată a procesului, cât și jocurile legate manual.<br><br><span class="ttdesc">Permite un interval mai lung de timp pentru a elibera complet Steamworks de aplicație. Creșterea acestei valori poate preveni comportamente neobișnuite, cum ar fi urmărirea unui joc închis anterior</span>`,
         maxretries: `Stabilește numărul maxim de încercări de a lega un proces în execuție la un AppID detectat. Afectează atât urmărirea automată a procesului, cât și jocurile legate manual.<br><br><span class="ttdesc">Încercările de legare sunt efectuate o dată pe secundă. Dacă un proces în execuție nu este legat la AppID-ul curent după această numărătoare de încercări, un proces nevalid va fi returnat. În astfel de cazuri, jocul va trebui eliberat manual prin intermediul Tavă de Sistem > Opțiuni > Eliberează Joc</span>`,
+        debug: "Deschideți Panoul de Depanare, care afișează informații detaliate de urmărire a proceselor",
+        userust: "Utilizați o funcție alternativă bazată pe Rust pentru a verifica dacă procesele de joc urmărite rulează în prezent pe sistem. Atunci când nu este bifat, se va folosi în schimb verificarea procesului implicită bazată pe NodeJS.",
         notifydebug: "Creați o fereastră DevTools pentru toate notificările. Util pentru depanarea problemelor de notificare",
         usecustomfiles: "Permite notificărilor să încarce fișiere personalizabile de către utilizator. Se recomandă prudență pentru utilizatorii obișnuiți",
         showcustomfiles: "Deschideți locația fișierelor personalizate",

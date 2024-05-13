@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Afstemningshastighed",
                 releasedelay: "Udgivelsesforsinkelse",
                 maxretries: "Maksimalt antal genforsøg",
+                debug: "Fejlfindingspanel",
+                userust: "Alternativ procesbehandlingstilstand",
                 notifydebug: "Vis notifikationer for fejlfinding",
                 usecustomfiles: "Brug tilpassede app-filer",
                 showcustomfiles: "Vis tilpassede app-filer"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Indstil opdateringsintervallet for præstationsdata under spil<br><br><span class="ttdesc">Ydelsen kan stige/falde afhængigt af værdien eller systemets hardware. Højere værdier resulterer normalt i lavere systembelastning, men kan forsinke meddelelser</span>`,
         releasedelay: `Angiv, hvor længe baggrundprocessen venter med at genstarte efter den nuværende spil er udgivet. Påvirker både automatisk procesovervågning og manuelt tilknyttede spil.<br><br><span class="ttdesc">Tillader en længere tidsramme for at frigive Steamworks fuldstændigt fra appen. At øge denne værdi kan forhindre unormal adfærd, såsom sporing af et tidligere lukket spil</span>`,
         maxretries: `Angiv det maksimale antal forsøg på at linke en kørende proces til en påvist AppID. Påvirker både automatisk procesovervågning og manuelt tilknyttede spil.<br><br><span class="ttdesc">Forsøg på link gennemføres én gang hvert sekund. Hvis en kørende proces ikke er linket til den aktuelle AppID efter dette antal forsøg, returneres en ugyldig proces. I sådanne tilfælde skal spillet frigives manuelt via Systembakke > Indstillinger > Frigiv Spil</span>`,
+        debug: "Åbn fejlfindingspanelet, som viser detaljerede oplysninger om procesovervågning",
+        userust: "Brug en alternativ Rust-baseret funktion til at kontrollere, om de trackede spilprocesser i øjeblikket kører på systemet. Når det ikke er markeret, vil standard NodeJS-baseret proceskontrol blive brugt i stedet.",
         notifydebug: "Opret et DevTools-vindue for alle meddelelser. Nyttigt til fejlfinding af meddelelsesproblemer",
         usecustomfiles: "Aktiver indlæsning af brugerdefinerede filer til meddelelser. Forsigtighed anbefales for almindelige brugere",
         showcustomfiles: "Åbn placeringen af de brugerdefinerede filer",

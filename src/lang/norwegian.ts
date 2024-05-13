@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Avstemningsfrekvens",
                 releasedelay: "Utgivelsesforsinkelse",
                 maxretries: "Maksimalt antall forsøk på prosessering",
+                debug: "Feilsøkingspanel",
+                userust: "Alternativ prosessbehandlingmodus",
                 notifydebug: "Vis feilsøkingsvarsler",
                 usecustomfiles: "Bruk egendefinerte app-filer",
                 showcustomfiles: "Vis egendefinerte app-filer"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Sett oppdateringsintervallet for prestasjonsdata under spill<br><br><span class="ttdesc">Ytelsen kan øke/redusere avhengig av verdien eller systemets maskinvare. Høyere verdier fører vanligvis til lavere systembelastning, men kan forsinke varsler</span>`,
         releasedelay: `Angir hvor lenge bakgrunnsprosessen skal vente med å starte på nytt etter at det nåværende spillet er utgitt. Påvirker både automatisk prosessovervåking og manuelt tilknyttede spill.<br><br><span class="ttdesc">Gir en lengre tidsramme for å frigjøre Steamworks fullstendig fra appen. Å øke denne verdien kan forhindre unormal atferd, som sporing av et tidligere lukket spill</span>`,
         maxretries: `Angir det maksimale antallet forsøk på å koble en kjørende prosess til en oppdaget AppID. Påvirker både automatisk prosessovervåking og manuelt tilknyttede spill.<br><br><span class="ttdesc">Koblingsforsøk utføres én gang per sekund. Hvis en kjørende prosess ikke er koblet til gjeldende AppID etter dette antall forsøk, returneres en ugyldig prosess. I slike tilfeller må spillet frigjøres manuelt via systemstatusfeltet > Alternativer > Slipp spill</span>`,
+        debug: "Åpne feilsøkingspanelet, som viser detaljert prosessporingsinformasjon",
+        userust: "Bruk en alternativ Rust-basert funksjon for å sjekke om de sporede spillprosessene kjører på systemet for øyeblikket. Når ikke avmerket, vil standard NodeJS-basert prosesskontroll bli brukt i stedet.",
         notifydebug: "Opprett et DevTools-vindu for alle varsler. Nyttig for feilsøking av varslingproblemer",
         usecustomfiles: "Aktiver varsler for å laste brukertilpassede filer. Forsiktighet anbefales for vanlige brukere",
         showcustomfiles: "Åpne plasseringen av de tilpassede filene",

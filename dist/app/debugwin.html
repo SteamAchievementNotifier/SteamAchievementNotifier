@@ -3,31 +3,220 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./global.css">
         <script>const exports = {};</script>
         <script src="./debugwin.js"></script>
+        <style>
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+                user-select: none;
+            }
+
+            html,
+            body {
+                width: 100vw;
+                height: 100vh;
+                background-color: var(--bggrey);
+                color: white;
+                grid-template-columns: 1fr 3fr;
+                gap: 1.5rem;
+                font-size: 0.75rem;
+            }
+
+            body {
+                padding: 2rem;
+            }
+
+            body > .wrapper {
+                width: 100%;
+                transition: opacity var(--transition);
+            }
+
+            body > .wrapper > div {
+                align-content: center;
+            }
+
+            div > .key::after {
+                content: ":";
+            }
+
+            .wrapper#userinfo {
+                grid-column: 1 / span 2;
+                grid-template-columns: 1fr auto;
+                grid-template-rows: 1fr 1fr;
+                align-items: center;
+                padding: 0.5rem 2rem;
+                background-color: var(--primary);
+                border-radius: var(--elembr);
+            }
+
+            .wrapper#userinfo > #username {
+                grid-column-start: 1;
+                grid-row: 1 / span 2;
+                font-size: 1.5rem;
+            }
+
+            .wrapper#userinfo > #steam3id,
+            .wrapper#userinfo > #steam64id {
+                opacity: 0.75;
+                text-align: right;
+            }
+
+            .wrapper#userinfo > #steam3id {
+                align-self: end;
+            }
+
+            .wrapper#userinfo > #steam64id {
+                align-self: start;
+            }
+
+            #username > .key {
+                display: none;
+            }
+
+            .wrapper#userinfo:has(#username > .value:empty) > #username > .value::before {
+                content: "No User Detected";
+                color: red;
+            }
+
+            body:has(.wrapper#userinfo > #username > .value:empty) .wrapper#processes {
+                opacity: 0.5;
+            }
+
+            .wrapper#gameinfo:has(#appid > .value:empty) > #appid > .value::before,
+            .wrapper#appinfo:has(#releasedelay > .value:empty) > #releasedelay > .value::before {
+                content: "0";
+            }
+
+            .wrapper#userinfo:has(#steam3id > .value:empty) > #steam3id > .value::before,
+            .wrapper#userinfo:has(#steam64id > .value:empty) > #steam64id > .value::before,
+            .wrapper#gameinfo:has(#gamename > .value:empty) > #gamename > .value::before {
+                content: "None";
+            }
+
+            .wrapper#gameinfo,
+            .wrapper#appinfo {
+                grid-template-rows: auto 1fr;
+                gap: 0.25rem;
+                background-color: var(--mediumgrey);
+                border-radius: var(--elembr);
+                overflow: hidden;
+            }
+
+            .wrapper#gameinfo > span:nth-child(1),
+            .wrapper#appinfo > span:nth-child(1) {
+                width: 100%;
+                padding: 0.25rem;
+                text-align: center;
+                align-content: center;
+                background-color: var(--primary);
+            }
+
+            .wrapper#gameinfo > div:nth-child(2),
+            .wrapper#appinfo > div:nth-child(2) {
+                margin-inline: 1rem;
+                align-content: center;
+            }
+
+            .wrapper#gameinfo {
+                grid-row-start: 2;
+            }
+
+            .wrapper#appinfo {
+                grid-row-start: 3;
+            }
+
+            .wrapper#processes {
+                grid-row: 2 / span 2;
+                align-content: start;
+                overflow: hidden scroll;
+            }
+
+            .wrapper#processes {
+                gap: 1rem;
+            }
+
+            .process {
+                grid-template-columns: 1fr auto;
+                column-gap: 1rem;
+                padding: 0.5rem 1rem;
+                margin-right: 1rem;
+                font-size: 0.75rem;
+                background-color: var(--primary);
+                border-radius: var(--elembr);
+            }
+
+            code {
+                font-size: 0.7rem;
+            }
+
+            .process > code {
+                word-break: break-all;
+            }
+
+            .process > img {
+                grid-column-start: 2;
+                grid-row: 1 / span 3;
+                place-self: center;
+                width: 1rem;
+            }
+        </style>
     </head>
     <body>
-        <div id="username">
-            <span class="key">username</span>: <span class="value"></span>
+        <div class="wrapper" id="userinfo">
+            <div id="username">
+                <span class="key">username</span>
+                <span class="value"></span>
+            </div>
+            <div id="steam3id">
+                <span class="key">steam3id</span>
+                <code class="value"></code>
+            </div>
+            <div id="steam64id">
+                <span class="key">steam64id</span>
+                <code class="value"></code>
+            </div>
         </div>
-        <div id="steam3id">
-            <span class="key">steam3id</span>: <span class="value"></span>
+        <div class="wrapper" id="gameinfo">
+            <span>Game Info</span>
+            <div class="wrapper">
+                <div id="appid">
+                    <span class="key">AppID</span>
+                    <code class="value"></code>
+                </div>
+                <div id="status">
+                    <span class="key">Status</span>
+                    <code class="value"></code>
+                </div>
+                <div id="gamename">
+                    <span class="key">Name</span>
+                    <code class="value"></code>
+                </div>
+            </div>
         </div>
-        <div id="steam64id">
-            <span class="key">steam64id</span>: <span class="value"></span>
+        <div class="wrapper" id="appinfo">
+            <span>App Info</span>
+            <div class="wrapper">
+                <div id="pollrate">
+                    <span class="key">Poll Rate</span>
+                    <code class="value"></code>
+                </div>
+                <div id="releasedelay">
+                    <span class="key">Release Delay</span>
+                    <code class="value"></code>
+                </div>
+                <div id="maxretries">
+                    <span class="key">Max Retries</span>
+                    <code class="value"></code>
+                </div>
+                <div id="userust">
+                    <span class="key">Process Mode</span>
+                    <code class="value"></code>
+                </div>
+            </div>
         </div>
-        <div id="appid">
-            <span class="key">appid</span>: <span class="value">0</span>
-        </div>
-        <div id="gamename">
-            <span class="key">gamename</span>: <span class="value"></span>
-        </div>
-        <div id="pollrate">
-            <span class="key">pollrate</span>: <span class="value"></span>
-        </div>
-        <div id="userust">
-            <span class="key">userust</span>: <span class="value"></span>
-        </div>
-        <div id="processes"></div>
+        <div class="wrapper" id="processes"></div>
     </body>
 </html>

@@ -226,16 +226,20 @@ export const listeners = {
         let debugwin: BrowserWindow | null = null
 
         ipcMain.on("debugwinready", () => worker && worker.webContents.send("debugwinready"))
-        ipcMain.on("debuginfoupdated", (event,debuginfo: DebugInfo) => debugwin && debugwin.webContents.send("debuginfoupdated",debuginfo))
+        ipcMain.on("debuginfoupdated", (event,debuginfo: DebugInfo,reset?: boolean) => debugwin && debugwin.webContents.send("debuginfoupdated",debuginfo,reset))
 
         ipcMain.on("debugwin", (event,value: boolean) => {
             if (value && debugwin) return log.write("ERROR",`"debugwin" already active`)
             if (!value && debugwin) return debugwin.close()
 
             debugwin = new BrowserWindow({
+                title: `Steam Achievement Notifier (V${sanhelper.version}): Debug Panel`,
                 width: 500,
                 height: 300,
                 autoHideMenuBar: true,
+                resizable: false,
+                maximizable: false,
+                fullscreenable: false,
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
@@ -246,15 +250,23 @@ export const listeners = {
             debugwin.loadFile(path.join(__root,"dist","app","debugwin.html"))
             debugwin.once("ready-to-show", () => debugwin && sanhelper.resetdebuginfo(debugwin))
 
-            // !!! Fix issue where closing "debugwin" via the "X" button will keep the Settings checkbox checked (until Settings is closed and reopened)
             debugwin.once("closed", () => {
                 const config = sanconfig.get()
                 log.write("INFO",`"debugwin" closed`)
                 debugwin = null
 
                 config.set("debug",false)
+
+                // Catches "Object has been destroyed" error when window is closed via app exit
+                try {
+                    win.webContents.send("updatemenu","debug")
+                } catch (err) {
+                    log.write("ERROR",`Error sending "updatemenu" event to "win": ${err}`)
+                }
             })
         })
+
+        ipcMain.on("workeractive", (event,value: boolean) => win.webContents.send("workeractive",value))
 
         ipcMain.on("showtrack", (event,gamename: string) => {
             const config = sanconfig.get()

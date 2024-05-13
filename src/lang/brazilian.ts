@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Taxa de Pesquisa",
                 releasedelay: "Atraso no Lançamento",
                 maxretries: "Tentativas Máximas de Processamento",
+                debug: "Painel de Depuração",
+                userust: "Modo de Processamento Alternativo",
                 notifydebug: "Mostrar Notificação do Depurador",
                 usecustomfiles: "Usar Arquivos de Aplicativo Personalizados",
                 showcustomfiles: "Mostrar Arquivos de Aplicativo Personalizados"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Defina o intervalo de atualização para os dados de conquistas durante o jogo<br><br><span class="ttdesc">O desempenho pode aumentar/diminuir dependendo do valor ou dos recursos do sistema. Valores mais altos geralmente resultam em carga de sistema mais baixa, mas podem causar atrasos nas notificações</span>`,
         releasedelay: `Define por quanto tempo o processo de Fundo espera para reiniciar após o jogo atual ser lançado. Afeta tanto o rastreamento automático do processo quanto os jogos vinculados manualmente.<br><br><span class="ttdesc">Permite um período maior para que o Steamworks seja totalmente liberado do aplicativo. Aumentar esse valor pode prevenir comportamentos incomuns, como rastrear um jogo previamente fechado</span>`,
         maxretries: `Define o número máximo de tentativas para vincular um processo em execução a um AppID detectado. Afeta tanto o rastreamento automático do processo quanto os jogos vinculados manualmente.<br><br><span class="ttdesc">As tentativas de retenção são realizadas a cada segundo. Se um processo em execução não estiver vinculado ao AppID atual após esse número de tentativas, um processo inválido será retornado. Nesses casos, o jogo precisará ser lançado manualmente através de Bandeja do Sistema > Opções > Lançar o Jogo</span>`,
+        debug: "Abra o Painel de Depuração, que exibe informações detalhadas de rastreamento de processos",
+        userust: "Use uma função alternativa baseada em Rust para verificar se os processos de jogo rastreados estão atualmente em execução no sistema. Quando desmarcado, o processo de verificação padrão baseado em NodeJS será usado em vez disso.",
         notifydebug: "Criar uma janela DevTools para todas as notificações. Útil para depurar/solucionar problemas de notificação",
         usecustomfiles: "Permite que as notificações carreguem arquivos personalizáveis pelo usuário. É recomendada cautela para usuários regulares",
         showcustomfiles: "Abrir o local dos arquivos personalizados",

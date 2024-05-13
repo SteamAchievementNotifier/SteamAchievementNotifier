@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Undersökningsfrekvens",
                 releasedelay: "Utgivningsfördröjning",
                 maxretries: "Maximalt antal återförsök",
+                debug: "Debugpanel",
+                userust: "Alternativ bearbetningsläge",
                 notifydebug: "Visa felsökningsaviseringar",
                 usecustomfiles: "Använd anpassade appfiler",
                 showcustomfiles: "Visa anpassade appfiler"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Ställ in uppdateringsintervallet för prestationdata under spel<br><br><span class="ttdesc">Prestandan kan öka/minska beroende på värdet eller systemets maskinvara. Högre värden resulterar vanligtvis i lägre systembelastning, men kan orsaka fördröjningar i aviseringar</span>`,
         releasedelay: `Anger hur länge bakgrundsprocessen ska vänta innan den startar om efter att det aktuella spelet har släppts. Påverkar både automatisk processövervakning och manuellt länkade spel.<br><br><span class="ttdesc">Ger en längre tidsram för att helt frigöra Steamworks från appen. Att öka detta värde kan förhindra ovanligt beteende, som att spåra ett tidigare stängt spel</span>`,
         maxretries: `Anger det maximala antalet försök att länka en körande process till en upptäckt AppID. Påverkar både automatisk processövervakning och manuellt länkade spel.<br><br><span class="ttdesc">Försök att länka utförs en gång per sekund. Om en körande process inte är länkad till det aktuella AppID:et efter detta antal försök returneras en ogiltig process. I sådana fall måste spelet släppas manuellt via Systemfältet > Alternativ > Släpp Spel</span>`,
+        debug: "Öppna Debugpanelen, som visar detaljerad processpårningsinformation",
+        userust: "Använd en alternativ Rust-baserad funktion för att kontrollera om de spårade spelprocesserna för närvarande körs på systemet. När det inte är markerat kommer standardprocesskontrollen baserad på NodeJS att användas istället.",
         notifydebug: "Skapa ett DevTools-fönster för alla aviseringar. Användbart för felsökning av aviseringar",
         usecustomfiles: "Aktiverar aviseringar för att ladda användaranpassade filer. Försiktighet rekommenderas för vanliga användare",
         showcustomfiles: "Öppna platsen för de anpassade filerna",

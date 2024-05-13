@@ -226,17 +226,20 @@ declare interface ProcessInfo {
 
 declare interface AppInfo {
     appid: number,
+    status?: "Active" | "Released",
     gamename?: string | null
     pollrate?: number,
+    releasedelay?: number,
     maxretries?: number,
     userust?: boolean,
     debug?: boolean
 }
 
 declare interface DebugInfo extends AppInfo {
-    username: string,
-    steam3id: number,
-    steam64id: string,
+    username?: string,
+    steam3id?: number,
+    steam64id?: string,
+    releasedelay?: number,
     processes: ProcessInfo[] | DebugProcessInfo[]
 }
 

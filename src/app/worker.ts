@@ -20,9 +20,10 @@ sanhelper.errorhandler(log)
 const startidle = () => {
     log.write("INFO","Idle loop started")
     sanhelper.resetdebuginfo()
+    ipcRenderer.send("workeractive",false)
     
     const timer = setInterval(() => {
-        const { pollrate, maxretries, userust, debug } = sanconfig.get().store
+        const { pollrate, releasedelay, maxretries, userust, debug } = sanconfig.get().store
         const { appid, gamename } = sanhelper.gameinfo as AppInfo
 
         if (!appid) return
@@ -33,6 +34,7 @@ const startidle = () => {
             appid: appid,
             gamename: gamename,
             pollrate: typeof pollrate !== "number" ? 250 : (pollrate < 50 ? 50 : pollrate),
+            releasedelay: releasedelay,
             maxretries: maxretries,
             userust: userust,
             debug: debug
@@ -55,7 +57,7 @@ const creategameinfo = (gamename: string, appid: number, exepath: string, pid: n
 ].join("\n-")
 
 const startsan = async (appinfo: AppInfo) => {
-    const { appid, gamename, pollrate, maxretries, userust, debug } = appinfo
+    const { appid, gamename, pollrate, maxretries, userust } = appinfo
     const { init } = await import("steamworks.js")
 
     const client = init(appid)
@@ -83,29 +85,20 @@ const startsan = async (appinfo: AppInfo) => {
     }
 
     const isprocessrunning = (pid: number) => userust ? client.processes.isProcessRunning(pid) : sanhelper.isprocessrunning(pid)
-    const debuginfo = (debuginfo: DebugInfo) => {
-        return {
-            ...debuginfo,
-            processes: debuginfo.processes.map(({ exe, pid }: ProcessInfo) => {
-                return {
-                    exe: exe,
-                    pid: pid,
-                    active: isprocessrunning(pid)
-                } as DebugProcessInfo
-            })
-        } as DebugInfo
-    }
 
     const processes: ProcessInfo[] = []
 
     const initgameloop = () => {
         processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "",appid,exe,pid,pollrate || 250)))
-
+        
         ipcRenderer.send("appid",appid,gamename)
         ipcRenderer.on("steamss",() => ipcRenderer.send("steamss",steam3id))
+        ipcRenderer.send("workeractive",true)
     
         const apinames: string[] = client.achievement.getAchievementNames()
         let cache: Achievement[] = cachedata(client,apinames)
+
+        let lastlogtime = 0
         
         const gameloop = () => {
             if (processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid))) {
@@ -115,19 +108,33 @@ const startsan = async (appinfo: AppInfo) => {
                 ipcRenderer.send("validateworker")
             }
 
-            ipcRenderer.send("debuginfoupdated",debuginfo({
-                username: client.localplayer.getName(),
-                steam3id: steam3id,
-                steam64id: steam64id,
-                appid: appid,
-                gamename: gamename,
-                pollrate: pollrate,
-                userust: userust,
-                processes: processes
-            }))
+            const currenttime = Date.now()
+
+            if (currenttime - lastlogtime >= 1000) {
+                ipcRenderer.send("debuginfoupdated",{
+                    username: client.localplayer.getName(),
+                    steam3id: steam3id,
+                    steam64id: steam64id,
+                    appid: appid,
+                    gamename: gamename
+                })
+
+                lastlogtime = currenttime
+            }
+
+            ipcRenderer.send("debuginfoupdated", {
+                status: "Active",
+                processes: processes.map(({ exe, pid }: ProcessInfo) => {
+                    return {
+                        exe: exe,
+                        pid: pid,
+                        active: isprocessrunning(pid)
+                    } as DebugProcessInfo
+                })
+            })
     
             const live: Achievement[] = cachedata(client,apinames)
-            const unlocked = checkunlockstatus(cache,live)
+            const unlocked: Achievement[] = checkunlockstatus(cache,live)
             sanhelper.devmode && (window.cachedata = live)
         
             if (!unlocked.length) return

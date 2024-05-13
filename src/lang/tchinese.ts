@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "輪詢率",
                 releasedelay: "發布延遲",
                 maxretries: "最大重試次數",
+                debug: "除錯面板",
+                userust: "替代處理模式",
                 notifydebug: "顯示偵錯通知",
                 usecustomfiles: "使用自定義應用程式檔案",
                 showcustomfiles: "顯示自定義應用程式檔案"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `設定遊戲中成就資料的更新間隔<br><br><span class="ttdesc">效能可能會因系統值或硬體而增加/減少。較高的值通常會導致較低的系統負載，但可能會造成通知延遲</span>`,
         releasedelay: `設定背景處理程序在當前遊戲發布後重新啟動前等待的時間。影響自動處理追蹤和手動連結的遊戲。<br><br><span class="ttdesc">提供更長的時間間隔，完全從應用中釋放 Steamworks。增加此值可防止異常行為，例如追蹤先前關閉的遊戲</span>`,
         maxretries: `設定將運行中的處理程序連結到檢測到的 AppID 的最大重試次數。影響自動處理追蹤和手動連結的遊戲。<br><br><span class="ttdesc">連結嘗試每秒執行一次。如果運行中的處理程序在此重試次數後未連結到當前 AppID，將返回無效的處理程序。在這種情況下，需要通過系統托盤 > 選項 > 釋放遊戲來手動釋放遊戲</span>`,
+        debug: "打開除錯面板，顯示詳細的處理追蹤資訊",
+        userust: "使用基於 Rust 的替代功能來檢查系統上目前是否正在執行追蹤的遊戲處理。未選中時，將使用基於 NodeJS 的預設處理檢查。",
         notifydebug: "為所有通知創建 DevTools 視窗。用於調試/排除通知問題",
         usecustomfiles: "啟用通知加載用戶自定義文件。建議常規用戶謹慎使用",
         showcustomfiles: "打開自定義文件的位置",

@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Pollfrequentie",
                 releasedelay: "Uitgavevertraging",
                 maxretries: "Maximale Aantal Herpogingen",
+                debug: "Debugpaneel",
+                userust: "Alternatieve Verwerkingsmodus",
                 notifydebug: "Melding Debugger Weergeven",
                 usecustomfiles: "Aangepaste App-bestanden Gebruiken",
                 showcustomfiles: "Aangepaste App-bestanden Weergeven"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Stel het update-interval in voor prestatiegegevens tijdens het spelen<br><br><span class="ttdesc">De prestaties kunnen toenemen/afnemen, afhankelijk van de waarde of de hardware van het systeem. Hogere waarden resulteren doorgaans in lagere systeembelasting, maar kunnen notificaties vertragen</span>`,
         releasedelay: `Stel in hoelang het achtergrondproces moet wachten om opnieuw op te starten nadat het huidige spel is uitgebracht. Beïnvloedt zowel automatische procesbewaking als handmatig gekoppelde spellen.<br><br><span class="ttdesc">Biedt een langere tijdsperiode om Steamworks volledig vrij te geven van de app. Het verhogen van deze waarde kan ongebruikelijk gedrag voorkomen, zoals het volgen van een eerder gesloten spel</span>`,
         maxretries: `Stel het maximale aantal pogingen in om een lopend proces te koppelen aan een gedetecteerde AppID. Beïnvloedt zowel automatische procesbewaking als handmatig gekoppelde spellen.<br><br><span class="ttdesc">Pogingen tot koppeling worden één keer per seconde uitgevoerd. Als een lopend proces niet is gekoppeld aan de huidige AppID na dit aantal pogingen, wordt een ongeldig proces geretourneerd. In dergelijke gevallen moet het spel handmatig worden vrijgegeven via Systeemvak > Opties > Spel Vrijgeven</span>`,
+        debug: "Open het Debugpaneel, dat gedetailleerde procesvolginformatie weergeeft",
+        userust: "Gebruik een alternatieve Rust-gebaseerde functie om te controleren of de getrackte gameprocessen momenteel actief zijn op het systeem. Wanneer niet aangevinkt, zal de standaard NodeJS-gebaseerde procescontrole in plaats daarvan worden gebruikt.",
         notifydebug: "Maak een DevTools-venster voor alle meldingen. Handig voor het oplossen van problemen met meldingen",
         usecustomfiles: "Hiermee kunnen meldingen gebruikersaanpasbare bestanden laden. Voorzichtigheid is geboden voor reguliere gebruikers",
         showcustomfiles: "Open de locatie van de aangepaste bestanden",

@@ -123,7 +123,7 @@ export const translations = {
                 releasedelay: "Release Delay",
                 maxretries: "Max Process Retries",
                 debug: "Debug Panel",
-                userust: "Use Rust for PID",
+                userust: "Alt. Process Mode",
                 notifydebug: "Show Notification DevTools",
                 usecustomfiles: "Use Custom App Files",
                 showcustomfiles: "Show Custom App Files"
@@ -296,6 +296,8 @@ export const translations = {
         pollrate: `Set the update interval for achievement data during gameplay<br><br><span class="ttdesc">Performance may increase/decrease depending on the value or system hardware. Higher values typically result in lower system load, but may cause notifications to be more delayed</span>`,
         releasedelay: `Set how long the background Worker process waits to restart after the current game has been released. Affects both automatic process tracking and manually linked games<br><br><span class="ttdesc">Allows a longer timeframe for Steamworks to be fully released from the app. Increasing this value can prevent unusual behaviour, such as tracking a previously closed game</span>`,
         maxretries: `Set the maximum number of retries to link a running process to a detected AppID. Affects both automatic process tracking and manually linked games<br><br><span class="ttdesc">Retries are attempted once every second. If a running process is not linked to the current AppID after this number of retries, an invalid process will be returned. In such cases, the game will need to be manually released via System Tray > Options > Release Game</span>`,
+        debug: "Open the Debug Panel, which displays in-depth Process Tracking info",
+        userust: "Use an alternative Rust-based function to check whether tracked game processes are currently running on the system. When unchecked, the default NodeJS-based process check will be used instead.",
         notifydebug: "Create a DevTools window for all notifications. Useful for debugging/troubleshooting notification issues",
         usecustomfiles: "Enables notifications to load user-customisable files. Caution is advised for regular users",
         showcustomfiles: "Open the location of the custom files",

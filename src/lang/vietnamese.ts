@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Tần suất thăm dò",
                 releasedelay: "Độ trễ phát hành",
                 maxretries: "Số lần thử lại tối đa",
+                debug: "Bảng Gỡ lỗi",
+                userust: "Chế độ Xử lý Thay thế",
                 notifydebug: "Hiển thị thông báo gỡ lỗi",
                 usecustomfiles: "Sử dụng tập tin ứng dụng tùy chỉnh",
                 showcustomfiles: "Hiển thị tập tin ứng dụng tùy chỉnh"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Đặt khoảng thời gian cập nhật cho dữ liệu thành tựu trong khi chơi game<br><br><span class="ttdesc">Hiệu suất có thể tăng/giảm tùy thuộc vào giá trị hoặc phần cứng của hệ thống. Các giá trị cao thường dẫn đến tải hệ thống thấp hơn, nhưng có thể gây trễ trong thông báo</span>`,
         releasedelay: `Thiết lập thời gian chờ cho quá trình nền để khởi động lại sau khi trò chơi hiện tại đã được phát hành. Ảnh hưởng đến cả việc theo dõi quá trình tự động và các trò chơi được liên kết thủ công.<br><br><span class="ttdesc">Cung cấp một khoảng thời gian lâu hơn để hoàn toàn giải phóng Steamworks khỏi ứng dụng. Tăng giá trị này có thể ngăn ngừa hành vi bất thường, chẳng hạn như theo dõi một trò chơi trước đó đã đóng</span>`,
         maxretries: `Thiết lập số lần thử tối đa để liên kết một quá trình đang chạy với một AppID đã phát hiện. Ảnh hưởng đến cả việc theo dõi quá trình tự động và các trò chơi được liên kết thủ công.<br><br><span class="ttdesc">Các thử nghiệm liên kết được thực hiện mỗi giây một lần. Nếu một quá trình đang chạy không được liên kết với AppID hiện tại sau số lần thử này, một quá trình không hợp lệ sẽ được trả về. Trong trường hợp như vậy, trò chơi sẽ cần được phát hành thủ công thông qua Khay Hệ thống > Tùy chọn > Phát hành Trò chơi</span>`,
+        debug: "Mở Bảng Gỡ lỗi, hiển thị thông tin theo dõi quy trình chi tiết",
+        userust: "Sử dụng chức năng thay thế dựa trên Rust để kiểm tra xem các quy trình trò chơi đã được theo dõi có đang chạy trên hệ thống không. Khi không được đánh dấu, kiểm tra quy trình mặc định dựa trên NodeJS sẽ được sử dụng thay vào đó.",
         notifydebug: "Tạo một cửa sổ DevTools cho tất cả các thông báo. Hữu ích để gỡ lỗi/viết mã sửa lỗi vấn đề thông báo",
         usecustomfiles: "Cho phép thông báo tải tệp tùy chỉnh của người dùng. Cần thận trọng đối với người dùng thông thường",
         showcustomfiles: "Mở vị trí của các tệp tùy chỉnh",

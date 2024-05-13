@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Frequenza di interrogazione",
                 releasedelay: "Ritardo di Rilascio",
                 maxretries: "Numero massimo di nuovi tentativi",
+                debug: "Pannello di Debug",
+                userust: "Modalità di Elaborazione Alternativa",
                 notifydebug: "Mostra notifiche di debug",
                 usecustomfiles: "Utilizza file personalizzati dell'applicazione",
                 showcustomfiles: "Mostra file personalizzati dell'applicazione"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Imposta l'intervallo di aggiornamento per i dati sugli obiettivi durante il gioco<br><br><span class="ttdesc">Le prestazioni possono aumentare/diminuire a seconda del valore o dell'hardware del sistema. Valori più alti di solito comportano un carico di sistema inferiore, ma possono ritardare le notifiche</span>`,
         releasedelay: `Imposta quanto tempo il processo in background deve attendere per riavviarsi dopo che il gioco attuale è stato rilasciato. Influenza sia il monitoraggio automatico dei processi che i giochi collegati manualmente.<br><br><span class="ttdesc">Consente un periodo più lungo per il completo rilascio di Steamworks dall'applicazione. Aumentare questo valore può prevenire comportamenti insoliti, come il tracciamento di un gioco precedentemente chiuso</span>`,
         maxretries: `Imposta il numero massimo di tentativi per collegare un processo in esecuzione a un AppID rilevato. Influenza sia il monitoraggio automatico dei processi che i giochi collegati manualmente.<br><br><span class="ttdesc">I tentativi di collegamento vengono effettuati una volta al secondo. Se un processo in esecuzione non è collegato all'AppID corrente dopo questo numero di tentativi, verrà restituito un processo non valido. In tali casi, il gioco dovrà essere rilasciato manualmente tramite Tray di Sistema > Opzioni > Rilascia Gioco</span>`,
+        debug: "Apri il Pannello di Debug, che mostra informazioni dettagliate sul tracciamento dei processi",
+        userust: "Utilizza una funzione alternativa basata su Rust per verificare se i processi di gioco tracciati sono attualmente in esecuzione sul sistema. Quando non selezionato, verrà utilizzato invece il controllo dei processi predefinito basato su NodeJS.",
         notifydebug: "Crea una finestra DevTools per tutte le notifiche. Utile per il debug/risoluzione dei problemi delle notifiche",
         usecustomfiles: "Abilita le notifiche per caricare file personalizzabili dall'utente. Si consiglia cautela per gli utenti comuni",
         showcustomfiles: "Apri la posizione dei file personalizzati",

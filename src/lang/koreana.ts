@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "폴링 속도",
                 releasedelay: "릴리스 지연",
                 maxretries: "최대 재시도 횟수",
+                debug: "디버그 패널",
+                userust: "대체 처리 모드",
                 notifydebug: "디버그 알림 표시",
                 usecustomfiles: "사용자 정의 앱 파일 사용",
                 showcustomfiles: "사용자 정의 앱 파일 표시"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `게임 중 성취 데이터의 업데이트 간격을 설정합니다<br><br><span class="ttdesc">값이나 시스템 하드웨어에 따라 성능이 증가하거나 감소할 수 있습니다. 일반적으로 높은 값은 시스템 부하를 줄이지만 알림이 지연될 수 있습니다</span>`,
         releasedelay: `현재 게임이 출시된 후 백그라운드 프로세스가 다시 시작하기까지 대기하는 시간을 설정합니다. 자동 프로세스 추적 및 수동으로 연결된 게임에 모두 영향을 줍니다.<br><br><span class="ttdesc">앱에서 Steamworks를 완전히 해제하는 데 더 긴 시간 프레임을 제공합니다. 이 값을 높이면 이전에 닫힌 게임 추적과 같은 이상한 동작을 방지할 수 있습니다.</span>`,
         maxretries: `실행 중인 프로세스를 감지된 AppID에 연결하는 시도의 최대 횟수를 설정합니다. 자동 프로세스 추적 및 수동으로 연결된 게임에 모두 영향을 줍니다.<br><br><span class="ttdesc">연결 시도는 1초마다 수행됩니다. 이 횟수의 시도 후에 실행 중인 프로세스가 현재 AppID에 연결되지 않은 경우 무효한 프로세스가 반환됩니다. 이러한 경우에는 게임을 시스템 트레이 > 옵션 > 게임 릴리스로 수동으로 해제해야 합니다.</span>`,
+        debug: "디버그 패널을 열면 프로세스 추적 정보가 자세하게 표시됩니다.",
+        userust: "시스템에서 추적된 게임 프로세스가 현재 실행 중인지 확인하기 위해 Rust 기반의 대체 기능을 사용합니다. 체크를 해제하면 대신 기본 NodeJS 기반 프로세스 확인이 사용됩니다.",
         notifydebug: "모든 알림에 대한 DevTools 창 생성. 알림 문제의 디버깅/문제 해결에 유용",
         usecustomfiles: "사용자 정의 가능한 파일을 알림에로드 가능하게 함. 일반 사용자에게 주의가 필요",
         showcustomfiles: "사용자 정의 파일의 위치 열기",

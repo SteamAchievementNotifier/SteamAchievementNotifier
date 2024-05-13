@@ -122,6 +122,8 @@ export const translations = {
                 pollrate: "Frekvence dotazů",
                 releasedelay: "Zpoždění Vydání",
                 maxretries: "Maximální počet opakování procesu",
+                debug: "Panel Ladění",
+                userust: "Alternativní Režim Zpracování",
                 notifydebug: "Zobrazit oznámení nástrojů pro ladění",
                 usecustomfiles: "Použít vlastní soubory aplikace",
                 showcustomfiles: "Zobrazit vlastní soubory aplikace"
@@ -294,6 +296,8 @@ export const translations = {
         pollrate: `Nastavit interval aktualizace dat o úspěších během hry<br><br><span class="ttdesc">Výkon může stoupat/klesat v závislosti na hodnotě nebo hardwarových zdrojích systému. Vyšší hodnoty obvykle znamenají nižší zátěž systému, ale mohou způsobit zpoždění upozornění</span>`,
         releasedelay: `Nastavuje, jak dlouho bude proces pozadí čekat na restart po uvolnění aktuální hry. Ovlivňuje jak automatické sledování procesu, tak ručně propojené hry.<br><br><span class="ttdesc">Umožňuje delší časový rámec pro úplné uvolnění Steamworks z aplikace. Zvýšení této hodnoty může zabránit neobvyklému chování, jako je sledování dříve uzavřené hry</span>`,
         maxretries: `Nastavuje maximální počet pokusů o propojení běžícího procesu s detekovaným AppID. Ovlivňuje jak automatické sledování procesu, tak ručně propojené hry.<br><br><span class="ttdesc">Pokusy o propojení se provádějí každou sekundu. Pokud běžící proces není po tomto počtu pokusů propojen s aktuálním AppID, bude vrácen neplatný proces. V takových případech bude hra muset být uvolněna ručně pomocí Oznamovací oblasti systému > Možnosti > Uvolnit Hru</span>`,
+        debug: "Otevřete Panel Ladění, který zobrazuje podrobné informace o sledování procesů",
+        userust: "Použijte alternativní funkci založenou na Rust k ověření, zda jsou sledované herní procesy aktuálně spuštěny na systému. Když není zaškrtnuto, bude místo toho použita výchozí kontrola procesů založená na NodeJS.",
         notifydebug: "Vytvořit okno DevTools pro všechna oznámení. Užitečné pro ladění/problémování problémů s oznámeními",
         usecustomfiles: "Povoluje načítání uživatelsky přizpůsobitelných souborů pro oznámení. Běžným uživatelům se doporučuje opatrnost",
         showcustomfiles: "Otevřít umístění uživatelsky přizpůsobitelných souborů",

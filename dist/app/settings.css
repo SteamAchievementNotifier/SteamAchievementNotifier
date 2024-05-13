@@ -4,7 +4,8 @@ body[soundonly] #settingscontent #ovtabs,
 body[muted] .cont:has(.title#sound) > .optcont > .opt,
 body[nativeos] #settingscontent .cont:has(.title#media) .opt:has(select#screenshots),
 body[nativeos] #settingscontent .cont:has(.title#media) .opt[overlay],
-body[nativeos] #ovtabs {
+body[nativeos] #ovtabs,
+body[active] #settingscontent > .cont:has(.title#advanced) > .optcont > .opt:has(#pollrate,#maxretries,#userust) {
     opacity: 0.5;
     pointer-events: none;
 }

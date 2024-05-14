@@ -64,6 +64,7 @@ declare interface Config {
     norestartdialog: boolean,
     userust: boolean,
     debug: boolean,
+    noiconcache: boolean,
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -187,7 +188,6 @@ declare interface Info {
     info: BuildNotifyInfo,
     customisation: Customisation,
     iswebview: "customiser" | "sspreview" | "ss" | null,
-    // iswebview: "customiser" | "sspreview" | null,
     steampath: string | null,
     skipaudio?: boolean
 }
@@ -232,7 +232,8 @@ declare interface AppInfo {
     releasedelay?: number,
     maxretries?: number,
     userust?: boolean,
-    debug?: boolean
+    debug?: boolean,
+    noiconcache?: boolean
 }
 
 declare interface DebugInfo extends AppInfo {

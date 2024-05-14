@@ -45,6 +45,8 @@ export const listeners = {
         let tray: Tray | null = null
         tray = new Tray(path.join(__root,"img","sanlogo_idle.png"))
 
+        let suspended = false
+
         const updatetray = async (tray: Tray,gamename?: string | null) => {
             tray && tray.removeAllListeners()
 
@@ -85,6 +87,19 @@ export const listeners = {
                                 win.show()
                                 win.focus()
                                 win.webContents.send("releasegame")
+                            }
+                        },
+                        {
+                            label: await language.get(suspended ? "resume" : "suspend"),
+                            icon: nativeImage
+                                    .createFromPath(path.join(__root,"icon",`power_${suspended ? "on" : "off"}.png`))
+                                    .resize({ width: 16 }),
+                            click: () => {
+                                suspended ? ipcMain.emit("validateworker") : (worker && worker.close())
+                                suspended = !suspended
+
+                                log.write("INFO",`Worker ${suspended ? "suspended" : "resumed"}`)
+                                updatetray(tray)
                             }
                         },
                         {

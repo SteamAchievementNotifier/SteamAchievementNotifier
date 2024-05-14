@@ -74,6 +74,7 @@ export const sanconfig = {
             norestartdialog: false,
             userust: false,
             debug: false,
+            noiconcache: false,
             customisation: {
                 main: {} as Customisation,
                 rare: {} as Customisation,

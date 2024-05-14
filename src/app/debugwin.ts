@@ -3,8 +3,6 @@ import { ipcRenderer } from "electron"
 const getdebuginfo = (debuginfo: DebugInfo) => {
     const { appid, gamename, pollrate, releasedelay, maxretries, steam3id, steam64id, username, userust, status } = debuginfo
 
-    console.log(appid)
-
     const lbls = new Map<string,any>([
         ["username",username || ""],
         ["steam3id",steam3id || ""],
@@ -25,6 +23,8 @@ ipcRenderer.on("debuginfoupdated", (event,debuginfo: DebugInfo,reset?: boolean) 
     const { processes } = debuginfo
     const lbls = getdebuginfo(debuginfo)
 
+    if (reset) document.getElementById("processes")!.innerHTML = ""
+
     lbls.forEach((value,key) => {
         const elem = document.querySelector(`#${key} > .value`)!
         
@@ -41,9 +41,17 @@ ipcRenderer.on("debuginfoupdated", (event,debuginfo: DebugInfo,reset?: boolean) 
     const debugprocesses = processes as DebugProcessInfo[]
     if (!debugprocesses) return
 
+    const processeselem = document.getElementById("processes")!
+
     debugprocesses.forEach(({ exe, pid, active }: DebugProcessInfo,i) => {
-        const processeselem = document.getElementById("processes")!
-        processeselem.innerHTML = ""
+        const exeelem = document.getElementById(`exe_${i}`)
+        const imgelem = document.getElementById(`activity_${i}`)! as HTMLImageElement
+
+        if (exeelem) {
+            exeelem.textContent = exe
+            imgelem.src = `../../icon/dot_${active ? "green" : "red"}.png`
+            return
+        }
 
         const html = `
             <div class="wrapper process">
@@ -55,7 +63,7 @@ ipcRenderer.on("debuginfoupdated", (event,debuginfo: DebugInfo,reset?: boolean) 
                     <span class="key">PID</span>
                     <code class="value" id="pid_${i}">${pid}</code>
                 </div>
-                <img id="activity_1" src="../../icon/dot_${active ? "green" : "red"}.png">
+                <img id="activity_${i}" src="../../icon/dot_${active ? "green" : "red"}.png">
             </div>
         `
         processeselem.insertAdjacentHTML("beforeend",html)

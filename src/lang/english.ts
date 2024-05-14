@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `If things aren't working right, use this option to close and reopen the app`,
             `If the issue persists after restarting the app, please consider reporting it by using the in-app links on the Home Screen`
-        ]
+        ],
+        suspend: "Suspend",
+        resume: "Resume"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "App",
                 nowtracking: "Show Tracking Notification",
                 nowtrackingscale: "Tracking Scale",
-                shortcuts: "Notification Shortcuts"
+                shortcuts: "Notification Shortcuts",
+                noiconcache: "Disable Icon Caching"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Display a notification notifying the user that achievements for a running game are being tracked",
         nowtrackingscale: `Set the size of the tracking notification`,
         shortcuts: "Trigger a Test Notification via a keyboard shortcut. Shortcuts can be customised for each notification type",
+        noiconcache: `Disable caching achievement icons while launching games.<br><br><span class="ttdesc">This can greatly improve in-app performance when launching games, and may also resolve tracking issues with games that have a large number of achievements. However, in rare instances, disabling icon caching may result in missing achievement icons in notifications</span>`,
         steamss: "Take a Steam screenshot when an achievement is unlocked",
         screenshots: "Select the type of Additional Media to create when a notification is displayed",
         monitors: "The monitor that will be captured when taking the screenshot",

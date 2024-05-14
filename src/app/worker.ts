@@ -23,7 +23,7 @@ const startidle = () => {
     ipcRenderer.send("workeractive",false)
     
     const timer = setInterval(() => {
-        const { pollrate, releasedelay, maxretries, userust, debug } = sanconfig.get().store
+        const { pollrate, releasedelay, maxretries, userust, debug, noiconcache } = sanconfig.get().store
         const { appid, gamename } = sanhelper.gameinfo as AppInfo
 
         if (!appid) return
@@ -37,7 +37,8 @@ const startidle = () => {
             releasedelay: releasedelay,
             maxretries: maxretries,
             userust: userust,
-            debug: debug
+            debug: debug,
+            noiconcache: noiconcache
         }
 
         typeof pollrate !== "number" && log.write("ERROR",`"pollrate" has invalid type of "${typeof pollrate}" - setting to default value (250ms)...`) 
@@ -57,7 +58,7 @@ const creategameinfo = (gamename: string, appid: number, exepath: string, pid: n
 ].join("\n-")
 
 const startsan = async (appinfo: AppInfo) => {
-    const { appid, gamename, pollrate, maxretries, userust } = appinfo
+    const { appid, gamename, pollrate, maxretries, userust, noiconcache } = appinfo
     const { init } = await import("steamworks.js")
 
     const client = init(appid)
@@ -65,8 +66,7 @@ const startsan = async (appinfo: AppInfo) => {
 
     const steam3id = client.localplayer.getSteamId().accountId
     const steam64id = client.localplayer.getSteamId().steamId64.toString().replace(/n$/,"")
-
-    await cacheachievementicons(gamename || "???",steam64id,appid)
+    const username = client.localplayer.getName()
 
     const getprocessinfo = (sgpexe?: string): ProcessInfo[] => {
         const processinfo: ProcessInfo[] = []
@@ -97,8 +97,6 @@ const startsan = async (appinfo: AppInfo) => {
     
         const apinames: string[] = client.achievement.getAchievementNames()
         let cache: Achievement[] = cachedata(client,apinames)
-
-        let lastlogtime = 0
         
         const gameloop = () => {
             if (processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid))) {
@@ -108,21 +106,12 @@ const startsan = async (appinfo: AppInfo) => {
                 ipcRenderer.send("validateworker")
             }
 
-            const currenttime = Date.now()
-
-            if (currenttime - lastlogtime >= 1000) {
-                ipcRenderer.send("debuginfoupdated",{
-                    username: client.localplayer.getName(),
-                    steam3id: steam3id,
-                    steam64id: steam64id,
-                    appid: appid,
-                    gamename: gamename
-                })
-
-                lastlogtime = currenttime
-            }
-
             ipcRenderer.send("debuginfoupdated", {
+                username: username,
+                steam3id: steam3id,
+                steam64id: steam64id,
+                appid: appid,
+                gamename: gamename,
                 status: "Active",
                 processes: processes.map(({ exe, pid }: ProcessInfo) => {
                     return {
@@ -157,7 +146,7 @@ const startsan = async (appinfo: AppInfo) => {
                     const cachedicon = path.join(sanhelper.temp,`${achievement.apiname}.jpg`)
     
                     try {
-                        icon = existsSync(cachedicon) ? cachedicon : await getachievementicon(client,achievement)
+                        icon = (!noiconcache && existsSync(cachedicon)) ? cachedicon : await getachievementicon(client,achievement)
                         if (!icon) throw new Error(`Icon for ${achievement.apiname} is null. Retrying....`)
     
                         log.write("INFO",`Icon for ${achievement.apiname} saved successfully`)
@@ -258,6 +247,7 @@ const startsan = async (appinfo: AppInfo) => {
             processes.push(...processinfo)
         }
 
+        !noiconcache && await cacheachievementicons(gamename || "???",steam64id,appid)
         initgameloop()
     }
         

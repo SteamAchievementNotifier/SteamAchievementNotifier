@@ -473,7 +473,7 @@ export const listeners = {
             .then(msg => log.write("INFO",msg as string))
             .catch(err => log.write("ERROR",err as string))
             .finally(async () => {
-                app.relaunch()
+                app.relaunch(process.platform === "linux" && !sanhelper.devmode ? { execPath: process.env.APPIMAGE } : undefined)
                 log.write("EXIT",`Exited due to "restart" event: ${reason || `No restart reason provided.`}`)
 
                 try {

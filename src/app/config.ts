@@ -21,8 +21,8 @@ export const sanconfig = {
             ["ps5",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies }],
             ["ps4",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies }],
             ["ps3",{ logo: null, decoration: trophies }],
-            ["windows",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: null }],
-            ["os",{ logo: null, decoration: null }],
+            ["windows",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null }],
+            ["os",{ logo: null, decoration: null }]
         ])
     },
     create: (validate?: boolean): Config => {
@@ -147,6 +147,7 @@ export const sanconfig = {
                 const customobjkeys = Object.keys(customobj)
 
                 sanconfig.validateconfigkeys(configkeys,customobjkeys,customobj,type)
+                sanconfig.validatecustomicons(type as "main" | "rare" | "plat")
             }
 
             if (!validate) {
@@ -236,5 +237,50 @@ export const sanconfig = {
                 }
             }
         }
+    },
+    validatecustomicons: async (type: "main" | "rare" | "plat") => {
+        const config = sanconfig.get()
+        const log = (await import("./log")).log
+
+        const customicons = config.get(`customisation.${type}.customicons`) as { [key: string]: any }
+        const userthemes = config.get(`customisation.${type}.usertheme`) as Button[]
+
+        const defaulticonkeys = Array.from(sanconfig.defaulticons.keys())
+        const customiconkeys = Object.keys(customicons)
+
+        const filter = (objkeys: string[]) => defaulticonkeys.filter(key => !objkeys.includes(key))
+        const createnewkeys = (obj: { [key: string]: any },type: string) => {
+            return filter(customiconkeys).map(key => {
+                log.write("ERROR",`"${key}" preset missing from default icons for ${type}`)
+
+                return Object.assign(obj,{
+                    ...obj,
+                    [key]: sanconfig.defaulticons.get(key)
+                })
+            })
+        }
+
+        if (filter(customiconkeys).length) {
+            try {
+                config.set(`customisation.${type}.customicons`,createnewkeys(customicons,`"${type}" config`).find(obj => obj))
+                log.write("INFO",`Default icons for "${type}" updated successfully`)
+            } catch (err) {
+                log.write("ERROR",`Error updating default icons for "${type}": ${err}`)
+            }
+        }
+
+        userthemes.forEach((theme,i) => {
+            const userthemecustomicons = theme.customisation!.customicons
+            const userthemeiconkeys = Object.keys(userthemecustomicons)
+
+            if (filter(userthemeiconkeys).length) {
+                try {
+                    config.set(`customisation.${type}.usertheme.${i}.customisation.customicons`,createnewkeys(userthemecustomicons,`"${theme.label}" User Theme`).find(obj => obj))
+                    log.write("INFO",`Default icons for "${theme.label}" User Theme updated successfully`)
+                } catch (err) {
+                    log.write("ERROR",`Error updating default icons for "${theme.label}" User Theme: ${err}`)
+                }
+            }
+        })
     }
 }

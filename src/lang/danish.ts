@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Hvis tingene ikke fungerer korrekt, skal du bruge denne mulighed for at lukke og genåbne appen`,
             `Hvis problemet fortsætter efter genstart af appen, bør du overveje at rapportere det ved at bruge de indbyggede links på startsiden`
-        ]
+        ],
+        suspend: "Suspendér",
+        resume: "Genoptag"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "App",
                 nowtracking: "Vis sporingsmeddelelse",
                 nowtrackingscale: "Sporingsskala",
-                shortcuts: "Notifikationsgenveje"
+                shortcuts: "Notifikationsgenveje",
+                noiconcache: "Deaktivér ikon-cache"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Vis en meddelelse, der informerer brugeren om, at præstationer for et kørende spil spores",
         nowtrackingscale: `Indstil størrelsen af sporingsmeddelelsen`,
         shortcuts: "Udløs en testmeddelelse via en tastaturgenvej. Genveje kan tilpasses for hver meddelelsestype",
+        noiconcache: `Deaktiver ikon-cache under starten af spil.<br><br><span class="ttdesc">Dette kan markant forbedre ydeevnen i appen under opstart af spil og kan også løse sporingsproblemer med spil, der har et stort antal præstationer. Dog kan deaktivering af ikon-cache i sjældne tilfælde resultere i manglende præstationsikoner i meddelelser</span>`,
         steamss: "Tag et Steam-screenshot, når en præstation låses op",
         screenshots: "Vælg typen af yderligere medier, der skal oprettes, når en meddelelse vises",
         monitors: "Skærmen, der vil blive fanget, når skærmbilledet tages",

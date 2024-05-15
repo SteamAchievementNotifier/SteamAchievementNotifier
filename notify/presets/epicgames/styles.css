@@ -180,7 +180,6 @@ body[bgonly] .shadow {
 }
 
 body:not([alldetails]) #unlockmsg,
-body[alldetails][ss] #unlockmsg,
 body:not([alldetails]) #desc {
     display: none;
 }
@@ -209,19 +208,9 @@ body[alldetails] .wrapper#achcontent > #title {
     grid-row-start: 2;
 }
 
-body[alldetails][ss] .wrapper#achcontent > #title {
-    grid-row-start: 1;
-    -webkit-line-clamp: 2;
-}
-
 body[alldetails] .wrapper#achcontent > #desc {
     grid-row-start: 3;
     -webkit-line-clamp: 2;
-}
-
-body[alldetails][ss] .wrapper#achcontent > #desc {
-    grid-row-start: 2;
-    -webkit-line-clamp: 3;
 }
 
 body[nodecoration] .wrapper#achcontent > span {
@@ -268,10 +257,6 @@ body[nodecoration] .wrapper#achcontent > span {
 
 body[alldetails] .wrapper#xpwrapper {
     grid-row: 1 / span 3;
-}
-
-body[alldetails][ss] .wrapper#xpwrapper {
-    grid-row: 1 / span 2;
 }
 
 .wrapper#xpwrapper::before,

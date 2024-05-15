@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `如果事情没有正常工作，请使用此选项关闭并重新打开应用程序`,
             `如果重新启动应用后问题仍然存在，请考虑使用主屏幕上的内置链接报告问题`
-        ]
+        ],
+        suspend: "暂停",
+        resume: "恢复"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "应用",
                 nowtracking: "显示跟踪通知",
                 nowtrackingscale: "跟踪比例",
-                shortcuts: "通知快捷方式"
+                shortcuts: "通知快捷方式",
+                noiconcache: "禁用图标缓存"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "显示通知，通知用户正在跟踪运行中游戏的成就",
         nowtrackingscale: `设置跟踪通知的大小`,
         shortcuts: "通过键盘快捷键触发测试通知。可以为每种通知类型自定义快捷键",
+        noiconcache: `启动游戏时禁用成就图标缓存。<br><br><span class="ttdesc">这可以显著提高应用程序在启动游戏时的性能，并可能解决具有大量成就的游戏中的跟踪问题。然而，在罕见的情况下，禁用图标缓存可能导致通知中缺少成就图标</span>`,
         steamss: "在解锁成就时进行Steam截图",
         screenshots: "在显示通知时选择要创建的其他媒体类型",
         monitors: "在进行截图时要捕获的显示器",

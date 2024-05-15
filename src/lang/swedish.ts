@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Om sakerna inte fungerar korrekt, använd detta alternativ för att stänga och öppna appen igen`,
             `Om problemet kvarstår efter att ha startat om appen, överväg att rapportera det genom att använda de inbyggda länkarna på startsidan`
-        ]
+        ],
+        suspend: "Pausa",
+        resume: "Återuppta"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Applikation",
                 nowtracking: "Visa spårningsmeddelande",
                 nowtrackingscale: "Spårningsskala",
-                shortcuts: "Aviseringsgenvägar"
+                shortcuts: "Aviseringsgenvägar",
+                noiconcache: "Inaktivera ikoncache"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Visa en avisering som meddelar användaren att prestationer för ett körande spel spåras",
         nowtrackingscale: `Ange storleken på spårningsmeddelandet`,
         shortcuts: "Utlös ett testmeddelande via en tangentbordsgenväg. Genvägar kan anpassas för varje typ av avisering",
+        noiconcache: `Inaktiverar ikoncaching vid start av spel.<br><br><span class="ttdesc">Detta kan betydligt förbättra appens prestanda vid start av spel och lösa även spårningsproblem med spel som har ett stort antal prestationer. Dock kan inaktivering av ikoncaching i sällsynta fall leda till att prestationsikoner saknas i aviseringar</span>`,
         steamss: "Ta en Steam-skärmdump när en prestation låses upp",
         screenshots: "Välj typen av ytterligare media som ska skapas när en avisering visas",
         monitors: "Monitorn som kommer att fångas när skärmdumpen tas",

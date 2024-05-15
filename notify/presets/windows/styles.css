@@ -14,8 +14,39 @@
 }
 
 .wrapper#achcont {
+    --translate: 200% 0;
     grid-template-columns: auto;
     grid-template-rows: auto;
+    translate: var(--translate);
+    animation:
+        slidein var(--transition) forwards,
+        slideout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+body[topright] .wrapper#achcont,
+body[bottomright] .wrapper#achcont {
+    --translate: 200% 0;
+}
+
+body[topleft] .wrapper#achcont,
+body[bottomleft] .wrapper#achcont {
+    --translate: -200% 0;
+}
+
+body[topcenter] .wrapper#achcont {
+    --translate: 0 -200%;
+}
+
+body[bottomcenter] .wrapper#achcont {
+    --translate: 0 200%;
+}
+
+@keyframes slidein {
+    to { translate: 0 0; }
+}
+
+@keyframes slideout {
+    to { translate: var(--translate); }
 }
 
 .wrapper#content {
@@ -77,6 +108,10 @@
 
 #desc {
     opacity: 0.75;
+}
+
+body[ss] .wrapper#achcont {
+    translate: 0 0 !important;
 }
 
 body[ss] .wrapper#logo {

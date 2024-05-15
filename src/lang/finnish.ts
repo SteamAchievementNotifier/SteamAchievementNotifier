@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Jos asiat eivät toimi oikein, käytä tätä vaihtoehtoa sulkeaksesi ja avataksesi sovelluksen uudelleen`,
             `Jos ongelma jatkuu sovelluksen uudelleenkäynnistyksen jälkeen, harkitse sen raportoimista käyttämällä sisäänrakennettuja linkkejä aloitusnäytössä`
-        ]
+        ],
+        suspend: "Keskeytä",
+        resume: "Jatka"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Sovellus",
                 nowtracking: "Näytä seurantan ilmoitus",
                 nowtrackingscale: "Seurantamittakaava",
-                shortcuts: "Ilmoituspikakuvakkeet"
+                shortcuts: "Ilmoituspikakuvakkeet",
+                noiconcache: "Poista kuvakkeiden välimuisti käytöstä"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Näytä ilmoitus, joka ilmoittaa, että juoksevan pelin saavutuksia seurataan",
         nowtrackingscale: `Aseta seurantan ilmoituksen koko`,
         shortcuts: "Lähetä testi-ilmoitus näppäinkomennolla. Pikakuvakkeet voidaan mukauttaa kullekin ilmoitustyypille",
+        noiconcache: `Poistaa saavutuskuvakkeiden välimuistin käytöstä pelien käynnistyksen yhteydessä.<br><br><span class="ttdesc">Tämä voi parantaa huomattavasti sovelluksen suorituskykyä pelien käynnistyksen yhteydessä ja ratkaista myös seurantakysymykset peleissä, joissa on suuri määrä saavutuksia. Kuitenkin harvinaisissa tapauksissa kuvakkeiden välimuistin poistaminen käytöstä voi johtaa puuttuviin saavutuskuvakkeisiin ilmoituksissa</span>`,
         steamss: "Ota Steam-ruutukaappaus, kun saavutus avataan",
         screenshots: "Valitse lisämedian tyyppi, joka luodaan ilmoituksen näyttämisen yhteydessä",
         monitors: "Näyttö, joka tallennetaan ruutukaappauksessa",

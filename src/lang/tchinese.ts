@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `如果事情沒有正常運作，請使用此選項關閉並重新打開應用程式`,
             `如果重新啟動應用程式後問題仍然存在，請考慮使用主畫面上的內建連結回報問題`
-        ]
+        ],
+        suspend: "暫停",
+        resume: "恢復"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "應用程式",
                 nowtracking: "顯示追蹤通知",
                 nowtrackingscale: "追蹤比例",
-                shortcuts: "通知捷徑"
+                shortcuts: "通知捷徑",
+                noiconcache: "停用圖示快取"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "顯示通知，通知用戶正在追蹤運行中遊戲的成就",
         nowtrackingscale: `設置追蹤通知的大小`,
         shortcuts: "通過鍵盤快捷鍵觸發測試通知。可以為每種通知類型自定義快捷鍵",
+        noiconcache: `啟動遊戲時停用成就圖示快取。<br><br><span class="ttdesc">這可以顯著提升應用程式在啟動遊戲時的效能，也可能解決具有大量成就的遊戲中的追蹤問題。然而，在罕見的情況下，停用圖示快取可能導致通知中缺少成就圖示</span>`,
         steamss: "解鎖成就時拍攝 Steam 截圖",
         screenshots: "顯示通知時創建的其他媒體類型",
         monitors: "拍攝截圖的顯示器",

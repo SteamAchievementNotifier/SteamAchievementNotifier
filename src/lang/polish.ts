@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Jeśli coś nie działa prawidłowo, skorzystaj z tej opcji, aby zamknąć i ponownie otworzyć aplikację`,
             `Jeśli problem nadal występuje po ponownym uruchomieniu aplikacji, rozważ zgłoszenie go za pomocą wbudowanych linków na ekranie głównym`
-        ]
+        ],
+        suspend: "Wstrzymaj",
+        resume: "Wznów"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Aplikacja",
                 nowtracking: "Pokaż powiadomienie o śledzeniu",
                 nowtrackingscale: "Skala śledzenia",
-                shortcuts: "Skróty powiadomień"
+                shortcuts: "Skróty powiadomień",
+                noiconcache: "Wyłącz pamięć podręczną ikon"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Wyświetl powiadomienie informujące użytkownika, że śledzone są osiągnięcia dla uruchomionej gry",
         nowtrackingscale: `Ustaw rozmiar powiadomienia o śledzeniu`,
         shortcuts: "Wywołaj powiadomienie testowe za pomocą skrótu klawiaturowego. Skróty można dostosować dla każdego typu powiadomienia",
+        noiconcache: `Wyłącza buforowanie ikon osiągnięć podczas uruchamiania gier.<br><br><span class="ttdesc">Może to znacząco poprawić wydajność aplikacji podczas uruchamiania gier i rozwiązać problemy z śledzeniem gier, które mają dużą liczbę osiągnięć. Jednakże w rzadkich przypadkach wyłączenie buforowania ikon może skutkować brakiem ikon osiągnięć w powiadomieniach</span>`,
         steamss: "Zrób zrzut ekranu Steam po odblokowaniu osiągnięcia",
         screenshots: "Wybierz rodzaj dodatkowych mediów do utworzenia podczas wyświetlania powiadomienia",
         monitors: "Monitor, który zostanie przechwycony podczas robienia zrzutu ekranu",

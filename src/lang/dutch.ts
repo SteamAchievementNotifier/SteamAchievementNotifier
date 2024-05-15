@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Als dingen niet goed werken, gebruik deze optie om de app te sluiten en opnieuw te openen`,
             `Als het probleem aanhoudt na het herstarten van de app, overweeg dan om het te melden door de ingebouwde links op het startscherm te gebruiken`
-        ]
+        ],
+        suspend: "Onderbreken",
+        resume: "Hervatten"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "App",
                 nowtracking: "Toon volgwaarschuwing",
                 nowtrackingscale: "Volgschaal",
-                shortcuts: "Meldings snelkoppelingen"
+                shortcuts: "Meldings snelkoppelingen",
+                noiconcache: "Pictogramcache uitschakelen"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Toon een melding waarin de gebruiker wordt geïnformeerd dat prestaties voor een actief spel worden gevolgd",
         nowtrackingscale: `Stel de grootte van de volgwaarschuwing in`,
         shortcuts: "Activeer een testmelding via een sneltoets. Sneltoetsen kunnen worden aangepast voor elk meldingstype",
+        noiconcache: `Schakel het cachen van prestatiepictogrammen uit bij het starten van spellen.<br><br><span class="ttdesc">Dit kan de app-prestaties aanzienlijk verbeteren bij het starten van spellen en kan ook problemen met het volgen oplossen bij spellen met een groot aantal prestaties. Het uitschakelen van de pictogramcache kan echter in zeldzame gevallen leiden tot het ontbreken van prestatiepictogrammen in meldingen</span>`,
         steamss: "Maak een Steam-screenshot wanneer een prestatie wordt ontgrendeld",
         screenshots: "Selecteer het type Extra Media dat moet worden gemaakt wanneer een melding wordt weergegeven",
         monitors: "De monitor die wordt vastgelegd bij het maken van de screenshot",

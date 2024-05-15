@@ -159,13 +159,12 @@ body[alldetails] .wrapper#achcontent > span {
     -webkit-line-clamp: 1;
 }
 
-body[alldetails]:not([ss]) .wrapper#achcontent > span:not(#unlockmsg),
+body[alldetails] .wrapper#achcontent > span:not(#unlockmsg),
 body:not([alldetails]) .wrapper#achcontent > span:not(#title) {
     grid-column: 1 / span 2;
 }
 
-body:not([alldetails]) #unlockmsg,
-body[ss] #unlockmsg {
+body:not([alldetails]) #unlockmsg {
     display: none;
 }
 

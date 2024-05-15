@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Hvis ting ikke fungerer som de skal, bruk dette alternativet for å lukke og åpne appen på nytt`,
             `Hvis problemet vedvarer etter at appen er startet på nytt, vurder å rapportere det ved å bruke de innebygde lenkene på startskjermen`
-        ]
+        ],
+        suspend: "Suspendere",
+        resume: "Fortsette"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Applikasjon",
                 nowtracking: "Vis sporingsvarsel",
                 nowtrackingscale: "Sporingsskala",
-                shortcuts: "Varsel snarveier"
+                shortcuts: "Varsel snarveier",
+                noiconcache: "Deaktiver ikonbuffer"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Vis en varsling som informerer brukeren om at prestasjoner for et kjørende spill blir sporet",
         nowtrackingscale: `Angi størrelsen på sporingsvarslingen`,
         shortcuts: "Utløs en testvarsel via en tastatursnarvei. Snarveier kan tilpasses for hver varslingstype",
+        noiconcache: `Deaktiver ikonbuffer ved oppstart av spill.<br><br><span class="ttdesc">Dette kan betydelig forbedre appens ytelse ved oppstart av spill, og løse sporingsproblemer med spill som har et stort antall prestasjoner. Imidlertid kan deaktivering av ikonbuffer i sjeldne tilfeller føre til manglende prestasjonsikoner i varsler</span>`,
         steamss: "Ta et Steam-skjermbilde når en prestasjon blir låst opp",
         screenshots: "Velg typen ekstra medier som skal opprettes når en varsling vises",
         monitors: "Skjermen som vil bli fanget når skjermbildet tas",

@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Se le cose non funzionano correttamente, utilizza questa opzione per chiudere e riaprire l'applicazione`,
             `Se il problema persiste dopo aver riavviato l'applicazione, considera di segnalarlo utilizzando i collegamenti integrati nella schermata iniziale`
-        ]
+        ],
+        suspend: "Sospendi",
+        resume: "Riprendi"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Applicazione",
                 nowtracking: "Mostra notifica di tracciamento",
                 nowtrackingscale: "Scala di tracciamento",
-                shortcuts: "Scorciatoie notifica"
+                shortcuts: "Scorciatoie notifica",
+                noiconcache: "Disabilita la cache delle icone"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Mostra una notifica che informa l'utente che gli obiettivi per un gioco in esecuzione vengono tracciati",
         nowtrackingscale: `Imposta la dimensione della notifica di tracciamento`,
         shortcuts: "Attiva una notifica di prova tramite una scorciatoia da tastiera. Le scorciatoie possono essere personalizzate per ogni tipo di notifica",
+        noiconcache: `Disabilita la cache delle icone dei traguardi durante l'avvio dei giochi.<br><br><span class="ttdesc">Ciò può migliorare notevolmente le prestazioni dell'app durante l'avvio dei giochi e risolvere anche problemi di tracciamento con giochi che hanno un gran numero di traguardi. Tuttavia, in casi rari, disabilitare la cache delle icone può comportare la mancanza di icone di traguardi nelle notifiche</span>`,
         steamss: "Scatta uno screenshot di Steam quando viene sbloccato un obiettivo",
         screenshots: "Seleziona il tipo di media aggiuntivo da creare quando viene visualizzata una notifica",
         monitors: "Il monitor che verrà catturato durante la creazione dello screenshot",

@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Dacă lucrurile nu funcționează corect, utilizați această opțiune pentru a închide și a redeschide aplicația`,
             `Dacă problema persistă după repornirea aplicației, vă rugăm să luați în considerare raportarea ei folosind linkurile din aplicație de pe ecranul de start`
-        ]
+        ],
+        suspend: "Suspendă",
+        resume: "Reia"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Aplicație",
                 nowtracking: "Afișează Notificarea de Urmărire",
                 nowtrackingscale: "Scară de Urmărire",
-                shortcuts: "Scurtături Notificări"
+                shortcuts: "Scurtături Notificări",
+                noiconcache: "Dezactivează Cache-ul de Pictograme"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Afișați o notificare care anunță utilizatorul că se urmăresc realizările pentru un joc în execuție",
         nowtrackingscale: `Setați dimensiunea notificării de urmărire`,
         shortcuts: "Declanșați o notificare de test printr-o comandă rapidă de tastatură. Comenzile rapide pot fi personalizate pentru fiecare tip de notificare",
+        noiconcache: `Dezactivează cache-ul de pictograme pentru realizări la pornirea jocurilor.<br><br><span class="ttdesc">Acest lucru poate îmbunătăți semnificativ performanța aplicației la pornirea jocurilor și poate rezolva, de asemenea, problemele de urmărire cu jocurile care au un număr mare de realizări. Cu toate acestea, în cazuri rare, dezactivarea cache-ului de pictograme poate duce la lipsa pictogramelor de realizări în notificări</span>`,
         steamss: "Faceți o captură de ecran Steam atunci când se deblochează o realizare",
         screenshots: "Selectați tipul de Media suplimentară de creat atunci când se afișează o notificare",
         monitors: "Monitorul care va fi capturat atunci când se face captura de ecran",

@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Si las cosas no funcionan correctamente, utiliza esta opción para cerrar y volver a abrir la aplicación`,
             `Si el problema persiste después de reiniciar la aplicación, considera reportarlo usando los enlaces integrados en la pantalla de inicio`
-        ]
+        ],
+        suspend: "Suspender",
+        resume: "Reanudar"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Aplicación",
                 nowtracking: "Mostrar Notificación de Seguimiento",
                 nowtrackingscale: "Escala de Seguimiento",
-                shortcuts: "Accesos directos de notificación"
+                shortcuts: "Accesos directos de notificación",
+                noiconcache: "Desactivar caché de iconos"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Mostrar una notificación que informa al usuario que se están rastreando los logros de un juego en ejecución",
         nowtrackingscale: `Establecer el tamaño de la notificación de seguimiento`,
         shortcuts: "Activar una notificación de prueba a través de un acceso directo de teclado. Los accesos directos se pueden personalizar para cada tipo de notificación",
+        noiconcache: `Desactiva la caché de iconos de logros al iniciar los juegos.<br><br><span class="ttdesc">Esto puede mejorar significativamente el rendimiento de la aplicación al iniciar los juegos y también puede resolver problemas de seguimiento con juegos que tienen un gran número de logros. Sin embargo, en casos raros, desactivar la caché de iconos puede resultar en la ausencia de iconos de logros en las notificaciones</span>`,
         steamss: "Tomar una captura de pantalla de Steam cuando se desbloquee un logro",
         screenshots: "Seleccionar el tipo de medios adicionales que se crearán cuando se muestre una notificación",
         monitors: "El monitor que se capturará al tomar la captura de pantalla",

@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Pokud věci nefungují správně, použijte tuto možnost k uzavření a znovuotevření aplikace`,
             `Pokud problém přetrvává i po restartování aplikace, zvažte jeho nahlášení pomocí odkazů v aplikaci na domovské obrazovce`
-        ]
+        ],
+        suspend: "Pozastavit",
+        resume: "Obnovit"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Aplikace",
                 nowtracking: "Zobrazit Oznámení o Sledování",
                 nowtrackingscale: "Měřítko Sledování",
-                shortcuts: "Zkratky upozornění"
+                shortcuts: "Zkratky upozornění",
+                noiconcache: "Zakázat mezipaměť ikon"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Zobrazit oznámení upozorňující uživatele, že jsou sledovány achievementy pro běžící hru",
         nowtrackingscale: `Nastavte velikost upozornění na sledování`,
         shortcuts: "Spustit testovací oznámení pomocí klávesové zkratky. Zkratky lze přizpůsobit pro každý typ oznámení",
+        noiconcache: `Zakáže mezipaměť ikon úspěchů při spouštění her.<br><br><span class="ttdesc">To může výrazně zlepšit výkon aplikace při spouštění her a také vyřešit problémy s sledováním her, které mají velké množství úspěchů. Nicméně v ojedinělých případech může zakázání mezipaměti ikon způsobit, že ikony úspěchů v oznámeních chybí</span>`,
         steamss: "Po odemknutí achievementu pořídit snímek obrazovky ve službě Steam",
         screenshots: "Vyberte typ dalšího média, které se vytvoří při zobrazení oznámení",
         monitors: "Monitor, který bude zachycen při pořizování snímku obrazovky",

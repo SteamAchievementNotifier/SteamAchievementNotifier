@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Wenn die Dinge nicht richtig funktionieren, verwenden Sie diese Option, um die App zu schließen und neu zu öffnen`,
             `Wenn das Problem nach dem Neustart der App weiterhin besteht, erwägen Sie bitte, es über die integrierten Links auf dem Startbildschirm zu melden`
-        ]
+        ],
+        suspend: "Anhalten",
+        resume: "Fortsetzen"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Anwendung",
                 nowtracking: "Verfolgungshinweis anzeigen",
                 nowtrackingscale: "Verfolgungsskala",
-                shortcuts: "Benachrichtigungs-Verknüpfungen"
+                shortcuts: "Benachrichtigungs-Verknüpfungen",
+                noiconcache: "Icon-Cache deaktivieren"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Zeigen Sie eine Benachrichtigung an, die den Benutzer darüber informiert, dass Erfolge für ein laufendes Spiel verfolgt werden",
         nowtrackingscale: `Größe der Verfolgungshinweis festlegen`,
         shortcuts: "Lösen Sie eine Testbenachrichtigung über eine Tastenkombination aus. Die Tastenkombinationen können für jeden Benachrichtigungstyp angepasst werden",
+        noiconcache: `Deaktiviert das Zwischenspeichern von Erfolgsymbolen beim Starten von Spielen.<br><br><span class="ttdesc">Dies kann die Leistung der App beim Starten von Spielen erheblich verbessern und auch Probleme mit der Verfolgung von Spielen mit einer großen Anzahl von Erfolgen lösen. Die Deaktivierung des Icon-Caches kann jedoch in seltenen Fällen dazu führen, dass Erfolgssymbole in Benachrichtigungen fehlen</span>`,
         steamss: "Erstellen Sie einen Steam-Screenshot, wenn ein Erfolg freigeschaltet wird",
         screenshots: "Wählen Sie den Typ des zusätzlichen Mediums aus, das erstellt werden soll, wenn eine Benachrichtigung angezeigt wird",
         monitors: "Der Monitor, der erfasst wird, wenn der Screenshot aufgenommen wird",
@@ -293,6 +297,7 @@ export const translations = {
         noanim: "Deaktivieren Sie alle Fensteranimationen und Übergangseffekte in der App",
         nvda: "Aktivieren Sie das Kopieren von Erfolgsinformationen in die Zwischenablage, wenn ein Erfolg freigeschaltet wird, um von Bildschirmleseprogrammen wie NVDA gelesen zu werden",
         tooltips: "Zeigen Sie Tooltips an, wenn Sie über bestimmte UI-Elemente schweben",
+        pollrate: `Legen Sie das Aktualisierungsintervall für Erfolgsdaten während des Spiels fest<br><br><span class="ttdesc">Die Leistung kann je nach Wert oder Systemhardware steigen/abfallen. Höhere Werte führen normalerweise zu einer geringeren Systemlast, können aber auch zu einer stärkeren Verzögerung bei Benachrichtigungen führen</span>`,
         releasedelay: `Legt fest, wie lange der Hintergrundprozess warten soll, um nach der Veröffentlichung des aktuellen Spiels neu zu starten. Beeinflusst sowohl die automatische Prozessüberwachung als auch manuell verknüpfte Spiele.<br><br><span class="ttdesc">Ermöglicht einen längeren Zeitrahmen, um Steamworks vollständig von der App freizugeben. Eine Erhöhung dieses Werts kann ungewöhnliches Verhalten verhindern, wie z.B. das Verfolgen eines zuvor geschlossenen Spiels</span>`,
         maxretries: `Legt die maximale Anzahl von Versuchen fest, um einen laufenden Prozess mit einer erkannten AppID zu verknüpfen. Beeinflusst sowohl die automatische Prozessüberwachung als auch manuell verknüpfte Spiele.<br><br><span class="ttdesc">Verbindungsversuche werden einmal pro Sekunde durchgeführt. Wenn ein laufender Prozess nach dieser Anzahl von Versuchen nicht mit der aktuellen AppID verknüpft ist, wird ein ungültiger Prozess zurückgegeben. In solchen Fällen muss das Spiel manuell über das System-Tray > Optionen > Spiel freigeben freigegeben werden</span>`,
         debug: "Öffnen Sie das Debug-Panel, das detaillierte Prozessverfolgungsinformationen anzeigt",

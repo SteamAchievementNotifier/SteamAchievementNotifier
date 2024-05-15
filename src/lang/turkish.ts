@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Eğer işler düzgün çalışmıyorsa, uygulamayı kapatıp yeniden açmak için bu seçeneği kullanın`,
             `Uygulamayı yeniden başlattıktan sonra sorun devam ederse, lütfen ana ekrandaki yerleşik bağlantıları kullanarak bildirin`
-        ]
+        ],
+        suspend: "Askıya al",
+        resume: "Devam et"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Uygulama",
                 nowtracking: "Takip Bildirimini Göster",
                 nowtrackingscale: "Takip Ölçeği",
-                shortcuts: "Bildirim Kısayolları"
+                shortcuts: "Bildirim Kısayolları",
+                noiconcache: "Simge Önbelleğini Devre Dışı Bırak"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Çalışan bir oyun için başarımların takip edildiğini bildiren bir bildirim göster",
         nowtrackingscale: `Takip Bildiriminin Boyutunu Ayarlayın`,
         shortcuts: "Bir klavye kısayolu aracılığıyla bir Test Bildirimi tetikle. Her bildirim türü için özelleştirilebilir kısayollar",
+        noiconcache: `Oyunları başlatırken başarı simgelerinin önbelleğini devre dışı bırakır.<br><br><span class="ttdesc">Bu, uygulamanın oyunları başlatırken performansını önemli ölçüde artırabilir ve aynı zamanda büyük miktarda başarıya sahip oyunlardaki takip sorunlarını çözebilir. Ancak, simge önbelleğini devre dışı bırakma nadir durumlarda bildirimlerde başarı simgelerinin eksik olmasına neden olabilir</span>`,
         steamss: "Bir başarı kilidini açtığında Steam ekran görüntüsü al",
         screenshots: "Bir bildirim görüntülendiğinde oluşturulacak Ek Medya türünü seçin",
         monitors: "Ekran görüntüsü alınacak monitör",

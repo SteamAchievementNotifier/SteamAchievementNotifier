@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Ha a dolgok nem működnek megfelelően, használd ezt a lehetőséget az alkalmazás bezárásához és újraindításához`,
             `Ha a probléma továbbra is fennáll az alkalmazás újraindítása után, kérlek fontold meg, hogy jelented be azt a kezdőképernyőn található beépített linkeken keresztül`
-        ]
+        ],
+        suspend: "Felfüggesztés",
+        resume: "Folytatás"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Alkalmazás",
                 nowtracking: "Követési értesítés megjelenítése",
                 nowtrackingscale: "Követési skála",
-                shortcuts: "Értesítési gyorsbillentyűk"
+                shortcuts: "Értesítési gyorsbillentyűk",
+                noiconcache: "Ikon gyorsítótár kikapcsolása"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Értesítés megjelenítése arról, hogy egy futó játék eredményeit követi",
         nowtrackingscale: `Állítsa be a követési értesítés méretét`,
         shortcuts: "Teszt értesítés kiváltása billentyűparancs segítségével. A gyorsbillentyűk testreszabhatók minden értesítéstípushoz",
+        noiconcache: `Kikapcsolja az ikon gyorsítótárazást a játékok indításakor.<br><br><span class="ttdesc">Ez jelentősen javíthatja az alkalmazás teljesítményét a játékok indításakor, és megoldhatja a követési problémákat olyan játékoknál, amelyek nagyszámú teljesítményt tartalmaznak. Az ikon gyorsítótárazás kikapcsolása azonban ritka esetekben hiányzó teljesítmény ikonokhoz vezethet az értesítéseknél</span>`,
         steamss: "Steam képernyőkép készítése, amikor egy eredmény feloldódik",
         screenshots: "Válassza ki a további média típusát, amikor egy értesítés megjelenik",
         monitors: "A monitor, amelyet a képernyőkép készítésekor rögzít",

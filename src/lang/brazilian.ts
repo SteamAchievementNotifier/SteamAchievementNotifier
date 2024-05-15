@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Se as coisas não estiverem funcionando corretamente, use esta opção para fechar e reabrir o aplicativo`,
             `Se o problema persistir após reiniciar o aplicativo, considere relatá-lo usando os links no aplicativo na tela inicial`
-        ]
+        ],
+        suspend: "Suspender",
+        resume: "Retomar"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Aplicativo",
                 nowtracking: "Mostrar Notificação de Rastreamento",
                 nowtrackingscale: "Escala de Rastreamento",
-                shortcuts: "Atalhos de Notificação"
+                shortcuts: "Atalhos de Notificação",
+                noiconcache: "Desativar o Cache de Ícones"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Exibir uma notificação informando ao usuário que as conquistas de um jogo em execução estão sendo rastreadas",
         nowtrackingscale: `Defina o tamanho da notificação de rastreamento`,
         shortcuts: "Acionar uma Notificação de Teste por meio de um atalho de teclado. Os atalhos podem ser personalizados para cada tipo de notificação",
+        noiconcache: `Desativa o cache de ícones de conquistas ao iniciar os jogos.<br><br><span class="ttdesc">Isso pode melhorar bastante o desempenho do aplicativo ao iniciar os jogos e também pode resolver problemas de rastreamento com jogos que têm um grande número de conquistas. No entanto, em casos raros, desativar o cache de ícones pode resultar na ausência de ícones de conquistas nas notificações</span>`,
         steamss: "Tirar uma captura de tela do Steam quando uma conquista for desbloqueada",
         screenshots: "Selecionar o tipo de Mídia Adicional a ser criada quando uma notificação for exibida",
         monitors: "O monitor que será capturado ao tirar a captura de tela",

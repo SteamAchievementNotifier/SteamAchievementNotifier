@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `만약 작동이 제대로 이루어지지 않는다면, 앱을 닫고 다시 열기 위해 이 옵션을 사용하세요`,
             `앱을 다시 시작한 후에도 문제가 지속된다면, 홈 화면의 내부 링크를 사용하여 보고해 주시기 바랍니다`
-        ]
+        ],
+        suspend: "일시 중지",
+        resume: "다시 시작"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "앱",
                 nowtracking: "추적 알림 표시",
                 nowtrackingscale: "추적 스케일",
-                shortcuts: "알림 단축키"
+                shortcuts: "알림 단축키",
+                noiconcache: "아이콘 캐시 비활성화"
             }
         },
         media: {
@@ -283,6 +286,7 @@ export const translations = {
         nowtrackingscale: `추적 알림 크기 설정`,
         shortcuts: "키보드 단축키를 통해 테스트 알림 트리거. 각 알림 유형에 대해 사용자 정의 가능한 단축키",
         steamss: "업적이 잠금 해제될 때 Steam 스크린샷 찍기",
+        noiconcache: `게임 시작시 성취 아이콘 캐시를 비활성화합니다.<br><br><span class="ttdesc">이렇게 하면 게임을 시작할 때 앱 성능이 크게 향상되고 많은 성취가 있는 게임의 추적 문제도 해결될 수 있습니다. 그러나 아이콘 캐시를 비활성화하면 드물게 알림에서 성취 아이콘이 누락될 수 있습니다</span>`,
         screenshots: "알림이 표시될 때 생성할 추가 미디어 유형 선택",
         monitors: "스크린샷을 찍을 모니터 선택",
         ovpos: "스크린샷 내 알림 오버레이 위치",

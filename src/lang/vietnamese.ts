@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Nếu mọi thứ không hoạt động đúng cách, hãy sử dụng tùy chọn này để đóng và mở lại ứng dụng`,
             `Nếu vấn đề vẫn tiếp tục sau khi khởi động lại ứng dụng, xin vui lòng xem xét báo cáo nó bằng cách sử dụng các liên kết tích hợp trên màn hình chính`
-        ]
+        ],
+        suspend: "Tạm dừng",
+        resume: "Tiếp tục"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Ứng dụng",
                 nowtracking: "Hiển thị Thông báo Theo dõi",
                 nowtrackingscale: "Tỷ lệ Theo dõi",
-                shortcuts: "Phím tắt Thông báo"
+                shortcuts: "Phím tắt Thông báo",
+                noiconcache: "Tắt bộ nhớ cache biểu tượng"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Hiển thị một thông báo thông báo người dùng rằng thành tựu cho một trò chơi đang chạy đang được theo dõi",
         nowtrackingscale: `Đặt kích thước của Thông báo Theo dõi`,
         shortcuts: "Kích hoạt Thông báo Kiểm tra thông qua phím tắt bàn phím. Phím tắt có thể được tùy chỉnh cho mỗi loại thông báo",
+        noiconcache: `Tắt việc lưu cache biểu tượng thành tự động khi khởi động trò chơi.<br><br><span class="ttdesc">Điều này có thể cải thiện đáng kể hiệu suất ứng dụng khi khởi động trò chơi và cũng có thể giải quyết các vấn đề theo dõi trong các trò chơi có số lượng thành tựu lớn. Tuy nhiên, trong các trường hợp hiếm hoi, việc tắt bộ nhớ cache biểu tượng có thể dẫn đến việc thiếu biểu tượng thành tựu trong thông báo</span>`,
         steamss: "Chụp ảnh Màn hình Steam khi mở khóa thành tựu",
         screenshots: "Chọn loại Phương tiện Bổ sung để tạo khi hiển thị thông báo",
         monitors: "Màn hình sẽ được chụp ảnh khi chụp ảnh màn hình",

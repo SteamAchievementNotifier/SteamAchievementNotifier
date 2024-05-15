@@ -51,7 +51,9 @@ export const translations = {
         restartappsub: [
             `Si les choses ne fonctionnent pas correctement, utilisez cette option pour fermer et rouvrir l'application`,
             `Si le problème persiste après le redémarrage de l'application, veuillez envisager de le signaler en utilisant les liens intégrés sur l'écran d'accueil`
-        ]
+        ],
+        suspend: "Suspendre",
+        resume: "Reprendre"
     },
     app: {
         content: {
@@ -89,7 +91,8 @@ export const translations = {
                 app: "Application",
                 nowtracking: "Afficher la notification de suivi",
                 nowtrackingscale: "Échelle de suivi",
-                shortcuts: "Raccourcis de notification"
+                shortcuts: "Raccourcis de notification",
+                noiconcache: "Désactiver le cache des icônes"
             }
         },
         media: {
@@ -282,6 +285,7 @@ export const translations = {
         nowtracking: "Affiche une notification informant l'utilisateur que les succès pour un jeu en cours d'exécution sont suivis",
         nowtrackingscale: `Définir la taille de la notification de suivi`,
         shortcuts: "Déclenche une notification de test via un raccourci clavier. Les raccourcis peuvent être personnalisés pour chaque type de notification",
+        noiconcache: `Désactive le cache des icônes de succès lors du lancement des jeux.<br><br><span class="ttdesc">Cela peut grandement améliorer les performances de l'application lors du lancement des jeux et résoudre également les problèmes de suivi avec les jeux comportant un grand nombre de succès. Cependant, dans de rares cas, la désactivation du cache des icônes peut entraîner l'absence d'icônes de succès dans les notifications</span>`,
         steamss: "Prendre une capture d'écran Steam lorsqu'un succès est déverrouillé",
         screenshots: "Sélectionnez le type de média supplémentaire à créer lorsqu'une notification est affichée",
         monitors: "L'écran qui sera capturé lors de la prise de capture d'écran",

@@ -67,6 +67,7 @@ const startsan = async (appinfo: AppInfo) => {
     const steam3id = client.localplayer.getSteamId().accountId
     const steam64id = client.localplayer.getSteamId().steamId64.toString().replace(/n$/,"")
     const username = client.localplayer.getName()
+    const num = client.achievement.getNumAchievements()
 
     const getprocessinfo = (sgpexe?: string): ProcessInfo[] => {
         const processinfo: ProcessInfo[] = []
@@ -89,14 +90,16 @@ const startsan = async (appinfo: AppInfo) => {
     const processes: ProcessInfo[] = []
 
     const initgameloop = () => {
-        processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "",appid,exe,pid,pollrate || 250)))
+        processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
         
         ipcRenderer.send("appid",appid,gamename)
         ipcRenderer.on("steamss",() => ipcRenderer.send("steamss",steam3id))
         ipcRenderer.send("workeractive",true)
     
-        const apinames: string[] = client.achievement.getAchievementNames()
-        let cache: Achievement[] = cachedata(client,apinames)
+        const apinames: string[] = num ? client.achievement.getAchievementNames() : []
+        let cache: Achievement[] = num ? cachedata(client,apinames) : []
+
+        !num && log.write("INFO",`"${gamename}" has no achievements`)
         
         const gameloop = () => {
             if (processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid))) {
@@ -106,7 +109,9 @@ const startsan = async (appinfo: AppInfo) => {
                 ipcRenderer.send("validateworker")
             }
 
-            ipcRenderer.send("debuginfoupdated", {
+            const { debug } = sanconfig.get().store
+
+            debug && ipcRenderer.send("debuginfoupdated", {
                 username: username,
                 steam3id: steam3id,
                 steam64id: steam64id,
@@ -121,6 +126,8 @@ const startsan = async (appinfo: AppInfo) => {
                     } as DebugProcessInfo
                 })
             })
+
+            if (!num) return
     
             const live: Achievement[] = cachedata(client,apinames)
             const unlocked: Achievement[] = checkunlockstatus(cache,live)

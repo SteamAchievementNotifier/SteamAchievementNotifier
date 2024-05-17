@@ -92,14 +92,24 @@
 
             .wrapper#userinfo:has(#steam3id > .value:empty) > #steam3id > .value::before,
             .wrapper#userinfo:has(#steam64id > .value:empty) > #steam64id > .value::before,
-            .wrapper#gameinfo:has(#gamename > .value:empty) > #gamename > .value::before {
+            .wrapper#gameinfo:has(#gamename > .value:empty) > .wrapper > #gamename > .value::before {
                 content: "None";
+            }
+
+            .wrapper#processes:empty {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr;
+                place-items: center;
+            }
+
+            .wrapper#processes:empty::before {
+                content: "No game processes detected";
+                font-size: 1.25rem;
             }
 
             .wrapper#gameinfo,
             .wrapper#appinfo {
                 grid-template-rows: auto 1fr;
-                gap: 0.25rem;
                 background-color: var(--mediumgrey);
                 border-radius: var(--elembr);
                 overflow: hidden;
@@ -116,8 +126,10 @@
 
             .wrapper#gameinfo > div:nth-child(2),
             .wrapper#appinfo > div:nth-child(2) {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
                 margin-inline: 1rem;
-                align-content: center;
             }
 
             .wrapper#gameinfo {

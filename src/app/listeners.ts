@@ -84,9 +84,14 @@ export const listeners = {
                                     .createFromPath(path.join(__root,"icon","donotdisturb.png"))
                                     .resize({ width: 16 }),
                             click: () => {
-                                win.show()
-                                win.focus()
-                                win.webContents.send("releasegame")
+                                const { noreleasedialog } = sanconfig.get().store
+
+                                if (!noreleasedialog) {
+                                    win.show()
+                                    win.focus()
+                                }
+
+                                win.webContents.send("releasegame",noreleasedialog)
                             }
                         },
                         {

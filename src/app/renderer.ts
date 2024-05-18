@@ -622,8 +622,8 @@ window.addEventListener("lang", async () => {
 
 const checkdialogstatus = (input: HTMLInputElement) => config.set(input.id,input.checked)
 
-ipcRenderer.on("releasegame", async () => {
-    if (config.get("noreleasedialog")) return ipcRenderer.send("validateworker")
+ipcRenderer.on("releasegame", async (event,noreleasedialog: boolean) => {
+    if (noreleasedialog) return ipcRenderer.send("validateworker")
 
     dialog.open({
         title: await language.get("releasegame"),

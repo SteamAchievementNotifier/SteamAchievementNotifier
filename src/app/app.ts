@@ -1,5 +1,6 @@
 import { app } from "electron"
 import path from "path"
+
 if (process.platform === "win32" && process.env.npm_lifecycle_event !== "dev") {
     const appdir = path.join(process.env.localappdata!,"Programs",app.name)
     process.cwd() !== appdir && process.chdir(appdir)
@@ -12,6 +13,15 @@ import { sanconfig } from "./config"
 import { log } from "./log"
 import { error } from "./error"
 import { main } from "./main"
+
+if (app.commandLine.hasSwitch("clean")) {
+    try {
+        fs.existsSync(sanhelper.appdata) && fs.rmSync(path.join(sanhelper.appdata), { recursive: true, force: true })
+        console.log(`--clean: "${sanhelper.appdata}" removed successfully\n`)
+    } catch (err) {
+        console.log(`--clean: Error removing "${sanhelper.adddata}": ${err}\n`)
+    }
+}
 
 const lock = app.requestSingleInstanceLock()
 const checksingleinstance = (lock: boolean) => {

@@ -53,7 +53,16 @@ export const translations = {
             `Pokud problém přetrvává i po restartování aplikace, zvažte jeho nahlášení pomocí odkazů v aplikaci na domovské obrazovce`
         ],
         suspend: "Pozastavit",
-        resume: "Obnovit"
+        resume: "Obnovit",
+        new: "Nové...",
+        nodata: "Žádná data",
+        findappid: "Najít AppID",
+        findappidsub: [
+            `Každá hra ve službě Steam má unikátní číslo - nazývané <span class="hl">AppID</span>. AppID každé hry ve službě Steam můžete najít pomocí následujících metod:`,
+            `V <span class="hl">klientu Steam</span> klikněte pravým tlačítkem myši na hru ve vaší <span class="hl">knihovně</span> a vyberte <i>Vlastnosti</i> > <i>Aktualizace</i> - AppID bude zde uveden`,
+            `URL adresa stránky <span class="hl">obchodu</span> s hrou - číslo bude uvedeno za <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Webové stránky jako <span class="hl">SteamDB</span> - sekce <span class="hl">Informace o aplikaci</span> bude seznamovat AppID pro každou hru`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Zpoždění screenshotu",
                 notifyimg: "Obrázek oznámení",
                 imgpath: "Cesta k obrázku"
+            }
+        },
+        games: {
+            title: "Hry",
+            content: {
+                linkedgames: "Propojené hry",
+                exclusionlist: "Seznam vyloučení"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Přepnout viditelnost prvku v náhledech nastavení a testovacích oznámeních",
         delbtn: "Obnovit prvek na výchozí hodnoty",
         link: `Otevřít <span class="hl">Menu Správy Propojených Her</span>`,
-        imgpath: "Místo, kam budou uloženy obrázky oznámení generované touto možností"
+        imgpath: "Místo, kam budou uloženy obrázky oznámení generované touto možností",
+        linkedgames: `Přeskočit <span class="hl">automatické sledování procesů</span> pro konkrétní hry ve službě Steam<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`,
+        exclusionlist: `Zabránit sledování úspěchů v konkrétních hrách ve službě Steam aplikací<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Aktualizace"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Cesta k spustitelnému souboru",
-            "nodata": "Žádná data",
-            "manage": "Spravovat propojené hry",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Cesta k spustitelnému souboru",
+            managesub: [
                 `Ručně propojte <span class="hl">spustitelný soubor</span> hry s konkrétním <span class="hl">AppID</span> nebo <span class="hl">zrušte propojení</span> existujícího`,
                 `Steam Achievement Notifier již nebude používat <span class="hl">automatické sledování procesu</span> pro žádné <span class="hl">propojené hry</span> - místo toho bude sledován určený <span class="hl">spustitelný soubor</span>, pokud je zjištěn odpovídající <span class="hl">AppID</span>`,
                 `<span class="hl" id="appidhelp"><u>Jak najdu AppID hry ve službě Steam?</u></span>`
             ],
-            "new": "Nové...",
-            "linknew": "Nová propojená hra",
-            "linknewsub": [
+            linknew: "Nová propojená hra",
+            linknewsub: [
                 `Vytvořte nový odkaz mezi <span class="hl">spustitelným souborem hry</span> a příslušným <span class="hl">AppID</span>`,
                 `Po vytvoření mohou být odkazy <span class="hl">zrušeny</span> prostřednictvím předchozího dialogu <span class="hl">Spravovat propojené hry</span>`
             ],
-            "link": "Propojit",
-            "findappid": "Najít AppID",
-            "findappidsub": [
-                `Každá hra ve službě Steam má unikátní číslo - nazývané <span class="hl">AppID</span>. AppID každé hry ve službě Steam můžete najít pomocí následujících metod:`,
-                `V <span class="hl">klientu Steam</span> klikněte pravým tlačítkem myši na hru ve vaší <span class="hl">knihovně</span> a vyberte <i>Vlastnosti</i> > <i>Aktualizace</i> - AppID bude zde uveden`,
-                `URL adresa stránky <span class="hl">obchodu</span> s hrou - číslo bude uvedeno za <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Webové stránky jako <span class="hl">SteamDB</span> - sekce <span class="hl">Informace o aplikaci</span> bude seznamovat AppID pro každou hru`
+            link: "Propojit",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Přidat <span class="hl">AppID</span> jakékoli hry ve službě Steam do <span class="hl">seznamu vyloučení</span>`,
+                `Steam Achievement Notifier se nebude snažit sledovat údaje o úspěších pro jakékoli <span class="hl">AppID</span> hry přidané do <span class="hl">seznamu vyloučení</span>`,
+                `<span class="hl" id="appidhelp"><u>Jak najdu AppID hry ve službě Steam?</u></span>`
+            ],
+            exclusionnew: "Nové vyloučení",
+            exclusionnewsub: [
+                `Zadejte <span class="hl">AppID</span>, které chcete přidat do <span class="hl">seznamu vyloučení</span>`
             ]
         }
     }

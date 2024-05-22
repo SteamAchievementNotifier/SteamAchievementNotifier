@@ -53,7 +53,16 @@ export const translations = {
             `Dacă problema persistă după repornirea aplicației, vă rugăm să luați în considerare raportarea ei folosind linkurile din aplicație de pe ecranul de start`
         ],
         suspend: "Suspendă",
-        resume: "Reia"
+        resume: "Reia",
+        new: "Nou...",
+        nodata: "Fără Date",
+        findappid: "Găsește AppID",
+        findappidsub: [
+            `Fiecare joc Steam are un număr unic asociat - numit <span class="hl">AppID</span>. Puteți găsi AppID-ul asociat oricărui joc Steam verificând una dintre următoarele:`,
+            `În <span class="hl">clientul Steam</span>, faceți clic dreapta pe un joc din <span class="hl">Biblioteca</span> și selectați <i>Proprietăți</i> > <i>Actualizări</i> - AppID-ul va fi listat aici`,
+            `URL-ul paginii <span class="hl">magazinului</span> jocului - va fi numărul listat după <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Site-uri precum <span class="hl">SteamDB</span> - secțiunea de <span class="hl">Informații despre App</span> va lista AppID-ul pentru fiecare joc`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Întârziere Captură",
                 notifyimg: "Imagine Notificare",
                 imgpath: "Calea Imaginii"
+            }
+        },
+        games: {
+            title: "Jocuri",
+            content: {
+                linkedgames: "Jocuri Conectate",
+                exclusionlist: "Listă de Excludere"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Comutare vizibilitate element în previzualizări personalizate și notificări de test",
         delbtn: "Resetare element la valoarea implicită",
         link: `Deschide <span class="hl">Meniul de Administrare a Jocurilor Conectate</span>`,
-        imgpath: "Locația unde vor fi salvate imaginile de notificare generate de această opțiune"
+        imgpath: "Locația unde vor fi salvate imaginile de notificare generate de această opțiune",
+        linkedgames: `Ocolirea <span class="hl">urmaririi automate a proceselor</span> pentru anumite jocuri Steam<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`,
+        exclusionlist: `Prevenirea urmăririi realizărilor în anumite jocuri Steam de către aplicație<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Actualizare"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Calea către Executabil",
-            "nodata": "Fără Date",
-            "manage": "Administrare Jocuri Asociate",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Calea către Executabil",
+            managesub: [
                 `Asociați manual <span class="hl">fișierul executabil</span> al unui joc la un <span class="hl">AppID</span> specific sau <span class="hl">dezasociați</span> unul existent`,
                 `Steam Achievement Notifier nu va mai utiliza <span class="hl">urmarirea automată a proceselor</span> pentru niciunul dintre <span class="hl">jocurile asociate</span> - în schimb, fișierul executabil specificat va fi urmărit de fiecare dată când AppID-ul asociat este detectat`,
                 `<span class="hl" id="appidhelp"><u>Cum găsesc AppID-ul unui joc Steam?</u></span>`
             ],
-            "new": "Nou...",
-            "linknew": "Joc Nou Asociat",
-            "linknewsub": [
+            linknew: "Joc Nou Asociat",
+            linknewsub: [
                 `Creați o nouă legătură între un <span class="hl">fișier executabil al jocului</span> și <span class="hl">AppID</span>-ul asociat`,
                 `După ce este creat, legăturile pot fi <span class="hl">dezasociate</span> prin fereastra de <span class="hl">Administrare Jocuri Asociate</span>`
             ],
-            "link": "Asociază",
-            "findappid": "Găsește AppID",
-            "findappidsub": [
-                `Fiecare joc Steam are un număr unic asociat - numit <span class="hl">AppID</span>. Puteți găsi AppID-ul asociat oricărui joc Steam verificând una dintre următoarele:`,
-                `În <span class="hl">clientul Steam</span>, faceți clic dreapta pe un joc din <span class="hl">Biblioteca</span> și selectați <i>Proprietăți</i> > <i>Actualizări</i> - AppID-ul va fi listat aici`,
-                `URL-ul paginii <span class="hl">magazinului</span> jocului - va fi numărul listat după <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Site-uri precum <span class="hl">SteamDB</span> - secțiunea de <span class="hl">Informații despre App</span> va lista AppID-ul pentru fiecare joc`
+            link: "Asociază",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Adaugă <span class="hl">AppID</span>-ul oricărui joc Steam la <span class="hl">Lista de Excludere</span>`,
+                `Steam Achievement Notifier nu va încerca să urmărească datele de realizare pentru niciun joc al cărui <span class="hl">AppID</span> a fost adăugat la <span class="hl">Lista de Excludere</span>`,
+                `<span class="hl" id="appidhelp"><u>Cum găsesc AppID-ul unui joc Steam?</u></span>`
+            ],
+            exclusionnew: "Excludere Nouă",
+            exclusionnewsub: [
+                `Introduceți <span class="hl">AppID</span>-ul pentru a-l adăuga la <span class="hl">Lista de Excludere</span>`
             ]
         }
     }

@@ -53,7 +53,16 @@ export const translations = {
             `Nếu vấn đề vẫn tiếp tục sau khi khởi động lại ứng dụng, xin vui lòng xem xét báo cáo nó bằng cách sử dụng các liên kết tích hợp trên màn hình chính`
         ],
         suspend: "Tạm dừng",
-        resume: "Tiếp tục"
+        resume: "Tiếp tục",
+        new: "Mới...",
+        nodata: "Không có dữ liệu",
+        findappid: "Tìm AppID",
+        findappidsub: [
+            `Mỗi trò chơi Steam đều có một số duy nhất liên kết với nó - gọi là <span class="hl">AppID</span>. Bạn có thể tìm thấy AppID liên kết với bất kỳ trò chơi Steam nào bằng cách kiểm tra một trong các cách sau:`,
+            `Trong <span class="hl">khách hàng Steam</span>, nhấp chuột phải vào một trò chơi trong <span class="hl">Thư viện</span> của bạn và chọn <i>Thuộc tính</i> > <i>Cập nhật</i> - AppID sẽ được liệt kê ở đây`,
+            `URL của trang <span class="hl">Cửa hàng</span> của trò chơi - nó sẽ là số được liệt kê sau <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Các trang web như <span class="hl">SteamDB</span> - phần <span class="hl">Thông tin Ứng dụng</span> sẽ liệt kê AppID cho mỗi trò chơi`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Độ Trễ Chụp Ảnh Màn hình",
                 notifyimg: "Hình ảnh thông báo",
                 imgpath: "Đường dẫn hình ảnh"
+            }
+        },
+        games: {
+            title: "Trò chơi",
+            content: {
+                linkedgames: "Trò chơi Liên kết",
+                exclusionlist: "Danh sách Loại trừ"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Chuyển đổi tính hiển thị của phần tử trong xem trước tùy chỉnh và thông báo kiểm tra",
         delbtn: "Đặt lại phần tử về giá trị mặc định",
         link: `Mở <span class="hl">Menu Quản lý Trò chơi Liên kết</span>`,
-        imgpath: "Vị trí nơi hình ảnh thông báo được tạo ra bởi tùy chọn này sẽ được lưu trữ"
+        imgpath: "Vị trí nơi hình ảnh thông báo được tạo ra bởi tùy chọn này sẽ được lưu trữ",
+        linkedgames: `Bỏ qua <span class="hl">theo dõi tự động các quy trình</span> cho các trò chơi Steam cụ thể<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các tình huống rất cụ thể. Người dùng không nên cần phải sử dụng tùy chọn này trong điều kiện bình thường!</span>`,
+        exclusionlist: `Ngăn chặn ứng dụng theo dõi thành tích trong các trò chơi Steam cụ thể<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các tình huống rất cụ thể. Người dùng không nên cần phải sử dụng tùy chọn này trong điều kiện bình thường!</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Cập nhật"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Đường dẫn thực thi",
-            "nodata": "Không có dữ liệu",
-            "manage": "Quản lý Trò chơi Liên kết",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Đường dẫn thực thi",
+            managesub: [
                 `Liên kết thủ công <span class="hl">tệp thực thi</span> của một trò chơi với một <span class="hl">AppID</span> cụ thể, hoặc <span class="hl">hủy liên kết</span> một liên kết hiện có`,
                 `Steam Achievement Notifier sẽ không còn sử dụng <span class="hl">theo dõi quy trình tự động</span> cho bất kỳ <span class="hl">trò chơi liên kết</span> nào nữa - thay vào đó, tệp thực thi đã chỉ định sẽ được theo dõi mỗi khi <span class="hl">AppID</span> tương ứng được phát hiện`,
                 `<span class="hl" id="appidhelp"><u>Làm thế nào để tìm AppID của một trò chơi Steam?</u></span>`
             ],
-            "new": "Mới...",
-            "linknew": "Trò chơi Liên kết Mới",
-            "linknewsub": [
+            linknew: "Trò chơi Liên kết Mới",
+            linknewsub: [
                 `Tạo liên kết mới giữa <span class="hl">tệp thực thi của trò chơi</span> và <span class="hl">AppID</span> tương ứng`,
                 `Sau khi tạo, liên kết có thể được <span class="hl">hủy liên kết</span> thông qua hộp thoại <span class="hl">Quản lý Trò chơi Liên kết</span> trước đó`
             ],
-            "link": "Liên kết",
-            "findappid": "Tìm AppID",
-            "findappidsub": [
-                `Mỗi trò chơi Steam đều có một số duy nhất liên kết với nó - gọi là <span class="hl">AppID</span>. Bạn có thể tìm thấy AppID liên kết với bất kỳ trò chơi Steam nào bằng cách kiểm tra một trong các cách sau:`,
-                `Trong <span class="hl">khách hàng Steam</span>, nhấp chuột phải vào một trò chơi trong <span class="hl">Thư viện</span> của bạn và chọn <i>Thuộc tính</i> > <i>Cập nhật</i> - AppID sẽ được liệt kê ở đây`,
-                `URL của trang <span class="hl">Cửa hàng</span> của trò chơi - nó sẽ là số được liệt kê sau <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Các trang web như <span class="hl">SteamDB</span> - phần <span class="hl">Thông tin Ứng dụng</span> sẽ liệt kê AppID cho mỗi trò chơi`
+            link: "Liên kết",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Thêm <span class="hl">AppID</span> của bất kỳ trò chơi Steam nào vào <span class="hl">Danh sách Loại trừ</span>`,
+                `Steam Achievement Notifier sẽ không cố gắng theo dõi dữ liệu thành tích cho bất kỳ trò chơi nào mà có <span class="hl">AppID</span> đã được thêm vào <span class="hl">Danh sách Loại trừ</span>`,
+                `<span class="hl" id="appidhelp"><u>Làm thế nào để tìm AppID của một trò chơi Steam?</u></span>`
+            ],
+            exclusionnew: "Loại trừ Mới",
+            exclusionnewsub: [
+                `Nhập <span class="hl">AppID</span> để thêm vào <span class="hl">Danh sách Loại trừ</span>`
             ]
         }
     }

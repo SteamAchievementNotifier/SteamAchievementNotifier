@@ -53,7 +53,16 @@ export const translations = {
             `アプリを再起動しても問題が解決しない場合は、ホーム画面のアプリ内リンクを使用して報告してください`
         ],
         suspend: "一時停止",
-        resume: "再開"
+        resume: "再開",
+        new: "新規...",
+        nodata: "データがありません",
+        findappid: "AppIDを検索",
+        findappidsub: [
+            `各Steamゲームには固有の番号があります - これを <span class="hl">AppID</span> と呼びます。任意のSteamゲームの関連するAppIDを見つけるには、次のいずれかを確認してください：`,
+            ` <span class="hl">Steamクライアント</span> で、<span class="hl">ライブラリ</span>内のゲームを右クリックし、<i>プロパティ</i> > <i>更新</i> を選択します - ここにAppIDがリストされます`,
+            `ゲームの <span class="hl">ストアページ</span> の <span class="hl">URL</span> - <span class="hl">app/</span> の後にリストされる番号です： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `<span class="hl">SteamDB</span> のようなウェブサイト - 各ゲームのAppIDが <span class="hl">App Info</span> セクションにリストされます`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "スクリーンショットの遅延",
                 notifyimg: "通知画像",
                 imgpath: "画像のパス"
+            }
+        },
+        games: {
+            title: "ゲーム",
+            content: {
+                linkedgames: "リンクされたゲーム",
+                exclusionlist: "除外リスト"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "カスタマイザーのプレビューとテスト通知で要素の表示/非表示を切り替える",
         delbtn: "要素をデフォルトにリセット",
         link: `開く <span class="hl">リンクされたゲームの管理メニュー</span>`,
-        imgpath: "このオプションによって生成された通知画像が保存される場所"
+        imgpath: "このオプションによって生成された通知画像が保存される場所",
+        linkedgames: `特定のSteamゲームの<span class="hl">自動プロセス追跡</span>をバイパス<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`,
+        exclusionlist: `アプリによる特定のSteamゲームの実績の追跡を防止<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "アップデート"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "実行可能ファイルのパス",
-            "nodata": "データがありません",
-            "manage": "リンクされたゲームを管理",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "実行可能ファイルのパス",
+            managesub: [
                 `特定の <span class="hl">AppID</span> にゲームの <span class="hl">実行可能ファイル</span> を手動でリンクするか、既存のリンクを <span class="hl">解除</span> します`,
                 `Steam Achievement Notifier は <span class="hl">リンクされたゲーム</span> のいずれにも <span class="hl">自動プロセス追跡</span> を使用しなくなります - 代わりに、関連する <span class="hl">AppID</span> が検出されるたびに指定された <span class="hl">実行可能ファイル</span> が追跡されます`,
                 `<span class="hl" id="appidhelp"><u>SteamゲームのAppIDを見つける方法は？</u></span>`
             ],
-            "new": "新規...",
-            "linknew": "新しいリンクされたゲーム",
-            "linknewsub": [
+            linknew: "新しいリンクされたゲーム",
+            linknewsub: [
                 `ゲームの <span class="hl">実行可能ファイル</span> と関連する <span class="hl">AppID</span> の間に新しいリンクを作成します`,
                 `作成された後、リンクは以前の <span class="hl">リンクされたゲームを管理</span> ダイアログを介して <span class="hl">解除</span> できます`
             ],
-            "link": "リンク",
-            "findappid": "AppIDを検索",
-            "findappidsub": [
-                `各Steamゲームには固有の番号があります - これを <span class="hl">AppID</span> と呼びます。任意のSteamゲームの関連するAppIDを見つけるには、次のいずれかを確認してください：`,
-                ` <span class="hl">Steamクライアント</span> で、<span class="hl">ライブラリ</span>内のゲームを右クリックし、<i>プロパティ</i> > <i>更新</i> を選択します - ここにAppIDがリストされます`,
-                `ゲームの <span class="hl">ストアページ</span> の <span class="hl">URL</span> - <span class="hl">app/</span> の後にリストされる番号です： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `<span class="hl">SteamDB</span> のようなウェブサイト - 各ゲームのAppIDが <span class="hl">App Info</span> セクションにリストされます`
+            link: "リンク",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `任意のSteamゲームの<span class="hl">AppID</span>を<span class="hl">除外リスト</span>に追加`,
+                `Steam Achievement Notifierは、<span class="hl">除外リスト</span>に追加された任意のゲームの<span class="hl">AppID</span>に関して実績データを追跡しません`,
+                `<span class="hl" id="appidhelp"><u>SteamゲームのAppIDを見つける方法</u></span>`
+            ],
+            exclusionnew: "新しい除外",
+            exclusionnewsub: [
+                `<span class="hl">除外リスト</span>に追加する<span class="hl">AppID</span>を入力してください`
             ]
         }
     }

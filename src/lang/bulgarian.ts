@@ -53,7 +53,16 @@ export const translations = {
             `Ако проблемът продължава след рестартиране на приложението, моля, обмислете да го сигнализирате, като използвате вградените връзки на началния екран на приложението`
         ],
         suspend: "Приоставяне",
-        resume: "Възобновяване"
+        resume: "Възобновяване",
+        new: "Ново...",
+        nodata: "Няма данни",
+        findappid: "Намерете AppID",
+        findappidsub: [
+            `Всяка игра в Steam има уникален номер, наречен <span class="hl">AppID</span>. Можете да намерите съответният AppID на всяка игра в Steam, като проверите един от следните методи:`,
+            `В <span class="hl">клиента на Steam</span>, щракнете с десния бутон на мишката върху игра във вашата <span class="hl">библиотека</span> и изберете <i>Свойства</i> > <i>Актуализации</i> - AppID ще бъде изброен тук`,
+            `URL адресът на страницата на <span class="hl">магазина</span> на играта - това е числото, изброено след <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Уебсайтове като <span class="hl">SteamDB</span> - секцията <span class="hl">Информация за App</span> ще изброи AppID за всяка игра`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Забавяне на скрийншота",
                 notifyimg: "Изображение за известие",
                 imgpath: "Път на изображението"
+            }
+        },
+        games: {
+            title: "Игри",
+            content: {
+                linkedgames: "Свързани игри",
+                exclusionlist: "Списък за изключване"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Превключване на видимостта на елемента в персонализирани прегледи и тестови известия",
         delbtn: "Нулиране на елемента до стойността по подразбиране",
         link: `Отвори <span class="hl">Меню за Управление на Свързани Игри</span>`,
-        imgpath: "Местоположението, където ще се запазват изображенията за известия, генерирани от тази опция"
+        imgpath: "Местоположението, където ще се запазват изображенията за известия, генерирани от тази опция",
+        linkedgames: `Пропускане на <span class="hl">автоматично проследяване на процеса</span> за конкретни игри в Steam<br><br><span class="ttdesc">Тази опция трябва да се използва само за много специфични сценарии. Потребителите не трябва да използват тази опция при нормални обстоятелства!</span>`,
+        exclusionlist: `Предотвратяване на проследяването на постижения в конкретни игри в Steam от приложението<br><br><span class="ttdesc">Тази опция трябва да се използва само за много специфични сценарии. Потребителите не трябва да използват тази опция при нормални обстоятелства!</span>`
     },
     update: {
         updateavailable: "Налична е актуализация",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Актуализиране"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Път на изпълнимия файл",
-            "nodata": "Няма данни",
-            "manage": "Управление на свързаните игри",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Път на изпълнимия файл",
+            managesub: [
                 `Ръчно свържете <span class="hl">изпълнимия файл</span> на игра с конкретен <span class="hl">AppID</span>, или <span class="hl">разкачете</span> вече съществуващ`,
                 `Steam Achievement Notifier вече няма да използва <span class="hl">автоматичното проследяване на процеса</span> за нито една от <span class="hl">свързаните игри</span> - вместо това, указаният <span class="hl">изпълним файл</span> ще бъде проследен всеки път, когато се засече съответният <span class="hl">AppID</span>`,
                 `<span class="hl" id="appidhelp"><u>Как да намеря AppID на игра в Steam?</u></span>`
             ],
-            "new": "Ново...",
-            "linknew": "Нова свързана игра",
-            "linknewsub": [
+            linknew: "Нова свързана игра",
+            linknewsub: [
                 `Създайте нова връзка между <span class="hl">изпълнимия файл на игра</span> и съответният <span class="hl">AppID</span>`,
                 `Веднъж създадени, връзките могат да бъдат <span class="hl">разкачени</span> чрез предходния диалог за <span class="hl">управление на свързаните игри</span>`
             ],
-            "link": "Свързване",
-            "findappid": "Намерете AppID",
-            "findappidsub": [
-                `Всяка игра в Steam има уникален номер, наречен <span class="hl">AppID</span>. Можете да намерите съответният AppID на всяка игра в Steam, като проверите един от следните методи:`,
-                `В <span class="hl">клиента на Steam</span>, щракнете с десния бутон на мишката върху игра във вашата <span class="hl">библиотека</span> и изберете <i>Свойства</i> > <i>Актуализации</i> - AppID ще бъде изброен тук`,
-                `URL адресът на страницата на <span class="hl">магазина</span> на играта - това е числото, изброено след <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Уебсайтове като <span class="hl">SteamDB</span> - секцията <span class="hl">Информация за App</span> ще изброи AppID за всяка игра`
+            link: "Свързване",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Добавяне на <span class="hl">AppID</span> на всяка игра в Steam към <span class="hl">Списък за изключване</span>`,
+                `Steam Achievement Notifier няма да се опитва да проследява данни за постижения за всяка игра с добавен <span class="hl">AppID</span> към <span class="hl">Списък за изключване</span>`,
+                `<span class="hl" id="appidhelp"><u>Как да намеря AppID на игра в Steam?</u></span>`
+            ],
+            exclusionnew: "Ново изключване",
+            exclusionnewsub: [
+                `Въведете <span class="hl">AppID</span>, за да го добавите към <span class="hl">Списък за изключване</span>`
             ]
         }
     }

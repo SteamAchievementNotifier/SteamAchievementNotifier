@@ -53,7 +53,16 @@ export const translations = {
             `Uygulamayı yeniden başlattıktan sonra sorun devam ederse, lütfen ana ekrandaki yerleşik bağlantıları kullanarak bildirin`
         ],
         suspend: "Askıya al",
-        resume: "Devam et"
+        resume: "Devam et",
+        new: "Yeni...",
+        nodata: "Veri Yok",
+        findappid: "AppID Bul",
+        findappidsub: [
+            `Her Steam oyununun onunla ilişkili benzersiz bir numarası vardır - <span class="hl">AppID</span> olarak adlandırılır. Herhangi bir Steam oyununun ilişkili AppID'sini aşağıdakilerden birini kontrol ederek bulabilirsiniz:`,
+            `<span class="hl">Steam istemcisinde</span>, <i>Kütüphanem</i>'deki bir oyuna sağ tıklayın ve <i>Özellikler</i> > <i>Güncellemeler</i> - AppID burada listelenir`,
+            `Oyunun <span class="hl">Mağaza sayfasının URL</span>'si - <span class="hl">app/</span>'den sonraki listedir: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `<span class="hl">SteamDB</span> gibi web siteleri - <span class="hl">App Bilgisi</span> bölümü her oyun için AppID'yi listeleyecektir`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Görüntü Gecikmesi",
                 notifyimg: "Bildirim Görseli",
                 imgpath: "Görsel Yolu"
+            }
+        },
+        games: {
+            title: "Oyunlar",
+            content: {
+                linkedgames: "Bağlantılı Oyunlar",
+                exclusionlist: "Dışlama Listesi"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Özelleştirici önizlemelerinde ve test bildirimlerinde öğenin görünürlüğünü aç/kapat",
         delbtn: "Öğeyi varsayılan değere sıfırla",
         link: `Aç <span class="hl">Bağlı Oyunları Yönet Menüsü</span>`,
-        imgpath: "Bu seçenek tarafından oluşturulan bildirim görüntülerinin kaydedileceği konum"
+        imgpath: "Bu seçenek tarafından oluşturulan bildirim görüntülerinin kaydedileceği konum",
+        linkedgames: `Belirli Steam oyunları için <span class="hl">otomatik işlem takibini</span> atlayın<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`,
+        exclusionlist: `Uygulamanın belirli Steam oyunlarının başarılarını izlemesini engelleyin<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Güncelle"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Yürütülebilir Dosya Yolu",
-            "nodata": "Veri Yok",
-            "manage": "Bağlı Oyunları Yönet",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Yürütülebilir Dosya Yolu",
+            managesub: [
                 `Bir oyunun <span class="hl">yürütülebilir dosyasını</span> belirli bir <span class="hl">AppID</span>'ye manuel olarak bağlayın veya var olan bağlantıyı <span class="hl">bağlantısız</span> yapın`,
                 `Steam Başarı Bildirimi artık herhangi bir <span class="hl">bağlı oyun</span> için <span class="hl">otomatik işlem takibi</span> kullanmayacak - bunun yerine, belirtilen <span class="hl">yürütülebilir dosya</span>, ilişkili <span class="hl">AppID</span> algılandığında izlenecektir`,
                 `<span class="hl" id="appidhelp"><u>Bir Steam oyununun AppID'sini nasıl bulabilirim?</u></span>`
             ],
-            "new": "Yeni...",
-            "linknew": "Yeni Bağlı Oyun",
-            "linknewsub": [
+            linknew: "Yeni Bağlı Oyun",
+            linknewsub: [
                 `Bir <span class="hl">oyunun yürütülebilir dosyası</span> ile ilişkili <span class="hl">AppID</span> arasında yeni bir bağlantı oluşturun`,
                 `Oluşturulduktan sonra, bağlantılar önceki <span class="hl">Bağlı Oyunları Yönet</span> iletişim kutusu üzerinden <span class="hl">bağlantısız</span> yapılabilir`
             ],
-            "link": "Bağla",
-            "findappid": "AppID Bul",
-            "findappidsub": [
-                `Her Steam oyununun onunla ilişkili benzersiz bir numarası vardır - <span class="hl">AppID</span> olarak adlandırılır. Herhangi bir Steam oyununun ilişkili AppID'sini aşağıdakilerden birini kontrol ederek bulabilirsiniz:`,
-                `<span class="hl">Steam istemcisinde</span>, <i>Kütüphanem</i>'deki bir oyuna sağ tıklayın ve <i>Özellikler</i> > <i>Güncellemeler</i> - AppID burada listelenir`,
-                `Oyunun <span class="hl">Mağaza sayfasının URL</span>'si - <span class="hl">app/</span>'den sonraki listedir: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `<span class="hl">SteamDB</span> gibi web siteleri - <span class="hl">App Bilgisi</span> bölümü her oyun için AppID'yi listeleyecektir`
+            link: "Bağla",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Herhangi bir Steam oyununun <span class="hl">AppID</span>'sini <span class="hl">Dışlama Listesi</span>'ne ekleyin`,
+                `Steam Achievement Notifier, <span class="hl">Dışlama Listesi</span>'ne eklenen herhangi bir oyunun <span class="hl">AppID</span>'sini başarı verilerini izlemeye çalışmayacak`,
+                `<span class="hl" id="appidhelp"><u>Bir Steam oyununun AppID'sini nasıl bulabilirim?</u></span>`
+            ],
+            exclusionnew: "Yeni Dışlama",
+            exclusionnewsub: [
+                `<span class="hl">Dışlama Listesi</span>'ne eklemek için bir <span class="hl">AppID</span> girin`
             ]
         }
     }

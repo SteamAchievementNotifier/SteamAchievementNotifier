@@ -53,7 +53,16 @@ export const translations = {
             `Se o problema persistir após reiniciar o aplicativo, considere relatá-lo usando os links no aplicativo na tela inicial`
         ],
         suspend: "Suspender",
-        resume: "Retomar"
+        resume: "Retomar",
+        new: "Novo...",
+        nodata: "Sem Dados",
+        findappid: "Encontrar AppID",
+        findappidsub: [
+            `Cada jogo Steam tem um número único associado a ele - chamado de <span class="hl">AppID</span>. Você pode encontrar o AppID associado a qualquer jogo Steam verificando um dos seguintes:`,
+            `No <span class="hl">cliente Steam</span>, clique com o botão direito do mouse em um jogo na sua <span class="hl">Biblioteca</span> e selecione <i>Propriedades</i> > <i>Atualizações</i> - o AppID será listado aqui`,
+            `A <span class="hl">URL</span> da página da <span class="hl">loja</span> do jogo - será o número listado após <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Sites como o <span class="hl">SteamDB</span> - a seção de <span class="hl">Informações do App</span> listará o AppID para cada jogo`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Atraso na Captura de Tela",
                 notifyimg: "Imagem de Notificação",
                 imgpath: "Caminho da Imagem"
+            }
+        },
+        games: {
+            title: "Jogos",
+            content: {
+                linkedgames: "Jogos Associados",
+                exclusionlist: "Lista de Exclusão"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Alternar a visibilidade do elemento em visualizações personalizadas e notificações de teste",
         delbtn: "Redefinir o elemento para o padrão",
         link: `Abrir <span class="hl">Menu de Gerenciamento de Jogos Vinculados</span>`,
-        imgpath: "O local onde as imagens de notificação geradas por esta opção serão salvas"
+        imgpath: "O local onde as imagens de notificação geradas por esta opção serão salvas",
+        linkedgames: `Ignorar <span class="hl">rastreamento automático de processos</span> para jogos específicos da Steam<br><br><span class="ttdesc">Esta opção deve ser usada apenas em cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`,
+        exclusionlist: `Prevenir a rastreabilidade de conquistas em jogos específicos da Steam pela aplicação<br><br><span class="ttdesc">Esta opção deve ser usada apenas em cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`
     },
     update: {
         updateavailable: "Atualização disponível",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Atualizar"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Caminho do Executável",
-            "nodata": "Sem Dados",
-            "manage": "Gerenciar Jogos Associados",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Caminho do Executável",
+            managesub: [
                 `Associe manualmente o <span class="hl">arquivo executável</span> de um jogo a um <span class="hl">AppID</span> específico, ou <span class="hl">desassocie</span> um existente`,
                 `O Steam Achievement Notifier não usará mais o <span class="hl">rastreamento automático de processos</span> para nenhum dos <span class="hl">jogos associados</span> - em vez disso, o <span class="hl">arquivo executável</span> especificado será rastreado sempre que o <span class="hl">AppID</span> associado for detectado`,
                 `<span class="hl" id="appidhelp"><u>Como encontrar o AppID de um jogo Steam?</u></span>`
             ],
-            "new": "Novo...",
-            "linknew": "Novo Jogo Associado",
-            "linknewsub": [
+            linknew: "Novo Jogo Associado",
+            linknewsub: [
                 `Crie um novo link entre um <span class="hl">arquivo executável do jogo</span> e o <span class="hl">AppID</span> associado`,
                 `Após criado, os links podem ser <span class="hl">desassociados</span> através da janela de <span class="hl">Gerenciar Jogos Associados</span>`
             ],
-            "link": "Associar",
-            "findappid": "Encontrar AppID",
-            "findappidsub": [
-                `Cada jogo Steam tem um número único associado a ele - chamado de <span class="hl">AppID</span>. Você pode encontrar o AppID associado a qualquer jogo Steam verificando um dos seguintes:`,
-                `No <span class="hl">cliente Steam</span>, clique com o botão direito do mouse em um jogo na sua <span class="hl">Biblioteca</span> e selecione <i>Propriedades</i> > <i>Atualizações</i> - o AppID será listado aqui`,
-                `A <span class="hl">URL</span> da página da <span class="hl">loja</span> do jogo - será o número listado após <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Sites como o <span class="hl">SteamDB</span> - a seção de <span class="hl">Informações do App</span> listará o AppID para cada jogo`
+            link: "Associar",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Adicione o <span class="hl">AppID</span> de qualquer jogo da Steam à <span class="hl">Lista de Exclusão</span>`,
+                `O Steam Achievement Notifier não tentará rastrear dados de conquistas para nenhum jogo cujo <span class="hl">AppID</span> tenha sido adicionado à <span class="hl">Lista de Exclusão</span>`,
+                `<span class="hl" id="appidhelp"><u>Como encontrar o AppID de um jogo da Steam?</u></span>`
+            ],
+            exclusionnew: "Nova Exclusão",
+            exclusionnewsub: [
+                `Digite o <span class="hl">AppID</span> para adicionar à <span class="hl">Lista de Exclusão</span>`
             ]
         }
     }

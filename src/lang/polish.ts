@@ -53,7 +53,16 @@ export const translations = {
             `Jeśli problem nadal występuje po ponownym uruchomieniu aplikacji, rozważ zgłoszenie go za pomocą wbudowanych linków na ekranie głównym`
         ],
         suspend: "Wstrzymaj",
-        resume: "Wznów"
+        resume: "Wznów",
+        new: "Nowy...",
+        nodata: "Brak danych",
+        findappid: "Znajdź AppID",
+        findappidsub: [
+            `Każda gra Steam ma przypisany do niej unikalny numer - nazywany <span class="hl">AppID</span>. Możesz znaleźć AppID powiązane z dowolną grą Steam, sprawdzając jedną z poniższych metod:`,
+            `W <span class="hl">kliencie Steam</span>, kliknij prawym przyciskiem myszy grę w <span class="hl">bibliotece</span>, a następnie wybierz <i>Właściwości</i> > <i>Aktualizacje</i> - tutaj będzie wymieniony AppID`,
+            `URL do <span class="hl">strony sklepu</span> gry - będzie to liczba wymieniona po <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Strony internetowe takie jak <span class="hl">SteamDB</span> - sekcja <span class="hl">Informacje o aplikacji</span> wylistuje AppID dla każdej gry`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Opóźnienie zrzutu ekranu",
                 notifyimg: "Obrazek powiadomienia",
                 imgpath: "Ścieżka obrazu"
+            }
+        },
+        games: {
+            title: "Gry",
+            content: {
+                linkedgames: "Połączone gry",
+                exclusionlist: "Lista wyłączeń"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Przełącz widoczność elementu w niestandardowych podglądach i testowych powiadomieniach",
         delbtn: "Zresetuj element do domyślnej wartości",
         link: `Otwórz <span class="hl">Menu Zarządzania Połączonymi Grami</span>`,
-        imgpath: "Lokalizacja, w której będą przechowywane obrazy powiadomień generowane przez tę opcję"
+        imgpath: "Lokalizacja, w której będą przechowywane obrazy powiadomień generowane przez tę opcję",
+        linkedgames: `Ominięcie <span class="hl">automatycznego śledzenia procesów</span> dla konkretnych gier na platformie Steam<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`,
+        exclusionlist: `Zapobieganie śledzeniu osiągnięć w konkretnych grach na platformie Steam przez aplikację<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Aktualizuj"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Ścieżka do pliku wykonywalnego",
-            "nodata": "Brak danych",
-            "manage": "Zarządzaj połączonymi grami",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Ścieżka do pliku wykonywalnego",
+            managesub: [
                 `Ręcznie połącz plik <span class="hl">wykonywalny</span> gry z określonym <span class="hl">AppID</span>, lub <span class="hl">rozłącz</span> istniejący`,
                 `Steam Achievement Notifier nie będzie już używał <span class="hl">automatycznego śledzenia procesów</span> dla żadnej <span class="hl">połączonej gry</span> - zamiast tego określony <span class="hl">plik wykonywalny</span> będzie śledzony za każdym razem, gdy zostanie wykryte powiązane <span class="hl">AppID</span>`,
                 `<span class="hl" id="appidhelp"><u>Jak znaleźć AppID gry Steam?</u></span>`
             ],
-            "new": "Nowy...",
-            "linknew": "Nowa połączona gra",
-            "linknewsub": [
+            linknew: "Nowa połączona gra",
+            linknewsub: [
                 `Utwórz nowe połączenie między <span class="hl">plikiem wykonywalnym gry</span>, a powiązanym <span class="hl">AppID</span>`,
                 `Po utworzeniu połączenia można je <span class="hl">rozłączyć</span> za pomocą wcześniejszego okna dialogowego <span class="hl">Zarządzaj połączonymi grami</span>`
             ],
-            "link": "Połącz",
-            "findappid": "Znajdź AppID",
-            "findappidsub": [
-                `Każda gra Steam ma przypisany do niej unikalny numer - nazywany <span class="hl">AppID</span>. Możesz znaleźć AppID powiązane z dowolną grą Steam, sprawdzając jedną z poniższych metod:`,
-                `W <span class="hl">kliencie Steam</span>, kliknij prawym przyciskiem myszy grę w <span class="hl">bibliotece</span>, a następnie wybierz <i>Właściwości</i> > <i>Aktualizacje</i> - tutaj będzie wymieniony AppID`,
-                `URL do <span class="hl">strony sklepu</span> gry - będzie to liczba wymieniona po <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Strony internetowe takie jak <span class="hl">SteamDB</span> - sekcja <span class="hl">Informacje o aplikacji</span> wylistuje AppID dla każdej gry`
+            link: "Połącz",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Dodaj <span class="hl">AppID</span> dowolnej gry na platformie Steam do <span class="hl">listy wyłączeń</span>`,
+                `Steam Achievement Notifier nie będzie próbował śledzić danych dotyczących osiągnięć dla żadnej gry, której <span class="hl">AppID</span> zostało dodane do <span class="hl">listy wyłączeń</span>`,
+                `<span class="hl" id="appidhelp"><u>Jak znaleźć AppID gry na platformie Steam?</u></span>`
+            ],
+            exclusionnew: "Nowe wyłączenie",
+            exclusionnewsub: [
+                `Wpisz <span class="hl">AppID</span>, aby dodać go do <span class="hl">listy wyłączeń</span>`
             ]
         }
     }

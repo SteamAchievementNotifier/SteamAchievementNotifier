@@ -35,118 +35,6 @@ errorbtn.onclick = () => {
     sanhelper.createlogwin()
 }
 
-// Prevents "updategamelinks" function from including localStorage items with the given key
-const localstoragefilter = [
-    "closedstate"
-]
-
-const updategamelinks = async () => {
-    const table = document.querySelector(".addhtml > #linkgametablewrapper > table")! as HTMLTableElement
-    const links = Object.entries(localStorage).filter(item => !localstoragefilter.includes(item[0])).sort()
-
-    table.querySelectorAll("tr:not(#linkgameheaders)").forEach(item => item && item.remove())
-    table.querySelector("#linkgameheaders > th:nth-child(2)")!.textContent = await language.get("exepath",["linkgame","content"])
-
-    if (!links.length) {
-        const html = `
-            <tr id="linkgamenodata">
-                <td>&lt;${await language.get("nodata",["linkgame","content"])}&gt;</td>
-                <td>&lt;${await language.get("nodata",["linkgame","content"])}&gt;</td>
-                <td></td>
-            </tr>
-        `
-
-        return table.insertAdjacentHTML("beforeend",html)
-    }
-
-    links.forEach(entry => {
-        const tr = document.createElement("tr")
-
-        const appid = document.createElement("td")
-        appid.textContent = entry[0]
-        tr.appendChild(appid)
-
-        const exepath = document.createElement("td")
-        exepath.textContent = entry[1]
-        tr.appendChild(exepath)
-
-        const unlinktd = document.createElement("td")
-        const unlinkbtn = document.createElement("button")
-
-        unlinkbtn.className = "unlinkbtn"
-        unlinktd.appendChild(unlinkbtn)
-
-        tr.appendChild(unlinktd)
-
-        table.appendChild(tr)
-    })
-
-    const unlinkbtns = document.querySelectorAll(".unlinkbtn")
-    unlinkbtns.forEach(btn => {
-        btn && ((btn as HTMLButtonElement).onclick = () => {
-            const appid = btn.parentElement!.parentElement!.querySelector("td:nth-child(1)")!.textContent
-            appid && localStorage.removeItem(appid)
-            updategamelinks()
-        })
-    })
-}
-
-const linkbtn = document.querySelector(".rect#game > button#link")! as HTMLButtonElement
-linkbtn.onclick = async () => {
-    dialog.open({
-        title: await language.get("manage",["linkgame","content"]),
-        type: "default",
-        icon: sanhelper.setfilepath("icon","link.svg"),
-        sub: await language.get("managesub",["linkgame","content"]),
-        buttons: [{
-            id: "linknew",
-            label: await language.get("new",["linkgame","content"]),
-            icon: sanhelper.setfilepath("icon","newlink.svg"),
-            click: async () => {
-                dialog.open({
-                    title: await language.get("linknew",["linkgame","content"]),
-                    type: "default",
-                    icon: sanhelper.setfilepath("icon","newlink.svg"),
-                    sub: await language.get("linknewsub",["linkgame","content"]),
-                    addHTML: path.join(__dirname,"linkgamenew.html"),
-                    buttons: [{
-                        id: "ok",
-                        label: await language.get("link",["linkgame","content"]),
-                        icon: "",
-                        click: () => {
-                            localStorage.setItem(linkgameappid.value,linkgameselect.innerText)
-                            updategamelinks()
-                            dialog.close()
-                        }
-                    }]
-                })
-
-                const table = document.querySelector("#linkgamenewtablewrapper > table")! as HTMLTableElement
-                table.querySelector("#linkgamenewheaders > th:nth-child(2)")!.textContent = await language.get("exepath",["linkgame","content"])
-
-                const linkgameappid = document.getElementById("linkgameappid")! as HTMLInputElement
-                const linkgameselect = document.getElementById("linkgameselect")! as HTMLTableCellElement
-
-                linkgameselect.onclick = () => {
-                    ipcRenderer.once("loadfile", (event,file) => file && (linkgameselect.textContent = file[0].replace(/\\/g,"/")))
-                    ipcRenderer.send("loadfile","exe")
-                }
-            }
-        }],
-        addHTML: path.join(__dirname,"linkgame.html")
-    })
-
-    const appidhelp = document.getElementById("appidhelp")! as HTMLSpanElement
-    appidhelp.onclick = async () => dialog.open({
-        title: await language.get("findappid",["linkgame","content"]),
-        type: "default",
-        icon: sanhelper.setfilepath("icon","question.svg"),
-        sub: await language.get("findappidsub",["linkgame","content"])
-    })
-
-    updategamelinks()
-}
-
 sanhelper.errorhandler(log)
 
 const gpu = () => ipcRenderer.send("gpu")
@@ -258,7 +146,6 @@ const loadwebview = () => {
     document.querySelector("#webviewbtns > #playback")!.toggleAttribute("paused",pause)
 
     const type = sanhelper.type
-    // ipcRenderer.removeListener("customisernotifydisplaytime",setwebviewopacity)
 
     return new Promise<void>(resolve => {
         removeelems([webview,nopreview])
@@ -313,6 +200,7 @@ const handleaudio = (keypath: string,audio: HTMLAudioElement,elem?: HTMLElement)
     const soundmode = config.get(`${keypath}.soundmode`) as "file" | "folder"
     audio.src = getaudiofile(soundmode,config.get(`${keypath}.sound${soundmode === "file" ? "file" : "dir"}`) as string) || sanhelper.setfilepath("sound","notify.wav")
     audio.volume = (config.get(`${keypath}.volume`) as number) / 100
+
     // Add transition time when `config.audiosrc` is set to "app" to prevent sound playing before notification appears
     setTimeout(() => audio.play(),!webview ? 250 : 0)
 

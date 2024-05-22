@@ -53,7 +53,16 @@ export const translations = {
             `Hvis problemet vedvarer etter at appen er startet på nytt, vurder å rapportere det ved å bruke de innebygde lenkene på startskjermen`
         ],
         suspend: "Suspendere",
-        resume: "Fortsette"
+        resume: "Fortsette",
+        new: "Ny...",
+        nodata: "Ingen data",
+        findappid: "Finn AppID",
+        findappidsub: [
+            `Hvert Steam-spill har et unikt nummer knyttet til det - kalt en <span class="hl">AppID</span>. Du kan finne AppID-en til ethvert Steam-spill ved å sjekke en av følgende:`,
+            `I <span class="hl">Steam-klienten</span>, høyreklikk på et spill i <span class="hl">Biblioteket</span> ditt og velg <i>Egenskaper</i> > <i>Oppdateringer</i> - AppID-en vil bli oppført her`,
+            `URL-en til spillets <span class="hl">butikkside</span> - det vil være nummeret som er oppført etter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Nettsteder som <span class="hl">SteamDB</span> - seksjonen <span class="hl">App Info</span> vil liste opp AppID-en for hvert spill`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Skjermbilde forsinkelse",
                 notifyimg: "Varslingsbilde",
                 imgpath: "Bildesti"
+            }
+        },
+        games: {
+            title: "Spill",
+            content: {
+                linkedgames: "Lenkede spill",
+                exclusionlist: "Unntaksliste"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Bytt synligheten til elementet i tilpassede forhåndsvisninger og testvarsler",
         delbtn: "Tilbakestill elementet til standard",
         link: `Åpne <span class="hl">Administrer Lenkede Spillmenyen</span>`,
-        imgpath: "Stedet hvor varsler bilder generert av dette alternativet vil bli lagret"
+        imgpath: "Stedet hvor varsler bilder generert av dette alternativet vil bli lagret",
+        linkedgames: `Bypass <span class="hl">automatisk prosesssporing</span> for bestemte Steam-spill<br><br><span class="ttdesc">Denne opsjonen bør kun brukes i svært spesifikke scenarioer. Brukere bør ikke trenge å bruke denne opsjonen under normale omstendigheter!</span>`,
+        exclusionlist: `Forhindre prestasjoner i bestemte Steam-spill fra å bli sporet av appen<br><br><span class="ttdesc">Denne opsjonen bør kun brukes i svært spesifikke scenarioer. Brukere bør ikke trenge å bruke denne opsjonen under normale omstendigheter!</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Oppdater"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Utførbar filbane",
-            "nodata": "Ingen data",
-            "manage": "Administrer tilknyttede spill",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Utførbar filbane",
+            managesub: [
                 `Koble manuelt et spill sin <span class="hl">utførbare fil</span> til en spesifikk <span class="hl">AppID</span>, eller <span class="hl">koble fra</span> en eksisterende`,
                 `Steam Achievement Notifier vil ikke lenger bruke <span class="hl">automatisk prosessporing</span> for noen <span class="hl">tilknyttede spill</span> - i stedet vil den angitte <span class="hl">utførbare filen</span> bli sporet hver gang den tilhørende <span class="hl">AppID</span> oppdages`,
                 `<span class="hl" id="appidhelp"><u>Hvordan finner jeg AppID-en til et Steam-spill?</u></span>`
             ],
-            "new": "Ny...",
-            "linknew": "Nytt tilknyttet spill",
-            "linknewsub": [
+            linknew: "Nytt tilknyttet spill",
+            linknewsub: [
                 `Opprett en ny kobling mellom et <span class="hl">spills utførbare fil</span> og den tilknyttede <span class="hl">AppID</span>`,
                 `Etter opprettelsen kan koblingene <span class="hl">kobles fra</span> via den forrige <span class="hl">Administrer tilknyttede spill</span> dialogboksen`
             ],
-            "link": "Koble",
-            "findappid": "Finn AppID",
-            "findappidsub": [
-                `Hvert Steam-spill har et unikt nummer knyttet til det - kalt en <span class="hl">AppID</span>. Du kan finne AppID-en til ethvert Steam-spill ved å sjekke en av følgende:`,
-                `I <span class="hl">Steam-klienten</span>, høyreklikk på et spill i <span class="hl">Biblioteket</span> ditt og velg <i>Egenskaper</i> > <i>Oppdateringer</i> - AppID-en vil bli oppført her`,
-                `URL-en til spillets <span class="hl">butikkside</span> - det vil være nummeret som er oppført etter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Nettsteder som <span class="hl">SteamDB</span> - seksjonen <span class="hl">App Info</span> vil liste opp AppID-en for hvert spill`
+            link: "Koble",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Legg til hvilket som helst Steam-spills <span class="hl">AppID</span> til <span class="hl">unntakslisten</span>`,
+                `Steam Achievement Notifier vil ikke prøve å spore prestasjonsdata for noen spill med <span class="hl">AppID</span> lagt til <span class="hl">unntakslisten</span>`,
+                `<span class="hl" id="appidhelp"><u>Hvordan finner jeg et Steam-spills AppID?</u></span>`
+            ],
+            exclusionnew: "Ny ekskludering",
+            exclusionnewsub: [
+                `Skriv inn <span class="hl">AppID</span> for å legge til i <span class="hl">unntakslisten</span>`
             ]
         }
     }

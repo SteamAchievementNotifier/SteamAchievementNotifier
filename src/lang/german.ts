@@ -53,7 +53,16 @@ export const translations = {
             `Wenn das Problem nach dem Neustart der App weiterhin besteht, erwägen Sie bitte, es über die integrierten Links auf dem Startbildschirm zu melden`
         ],
         suspend: "Anhalten",
-        resume: "Fortsetzen"
+        resume: "Fortsetzen",
+        new: "Neu...",
+        nodata: "Keine Daten",
+        findappid: "AppID finden",
+        findappidsub: [
+            `Jedes Steam-Spiel hat eine eindeutige Nummer - die <span class="hl">AppID</span>. Sie können die zugehörige AppID eines beliebigen Steam-Spiels finden, indem Sie eines der folgenden überprüfen:`,
+            `Im <span class="hl">Steam-Client</span> mit der rechten Maustaste auf ein Spiel in Ihrer <span class="hl">Bibliothek</span> klicken und <i>Eigenschaften</i> > <i>Updates</i> auswählen - die AppID wird hier aufgelistet`,
+            `Die <span class="hl">URL</span> der <span class="hl">Shop-Seite</span> des Spiels - es handelt sich um die Zahl, die nach <span class="hl">app/</span> aufgelistet ist: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Websites wie <span class="hl">SteamDB</span> - der Abschnitt <span class="hl">App-Informationen</span> listet die AppID für jedes Spiel auf`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Screenshot-Verzögerung",
                 notifyimg: "Benachrichtigungsbild",
                 imgpath: "Bildpfad"
+            }
+        },
+        games: {
+            title: "Spiele",
+            content: {
+                linkedgames: "Verknüpfte Spiele",
+                exclusionlist: "Ausschlussliste"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Die Sichtbarkeit des Elements in benutzerdefinierten Vorschauen und Testbenachrichtigungen umschalten",
         delbtn: "Das Element auf den Standardwert zurücksetzen",
         link: `Öffne <span class="hl">Menü für verknüpfte Spiele verwalten</span>`,
-        imgpath: "Der Speicherort, an dem Benachrichtigungsbilder, die von dieser Option generiert wurden, gespeichert werden"
+        imgpath: "Der Speicherort, an dem Benachrichtigungsbilder, die von dieser Option generiert wurden, gespeichert werden",
+        linkedgames: `Umgehen Sie das <span class="hl">automatische Prozess-Tracking</span> für bestimmte Steam-Spiele<br><br><span class="ttdesc">Diese Option sollte nur in sehr spezifischen Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`,
+        exclusionlist: `Verhindern Sie, dass Errungenschaften in bestimmten Steam-Spielen von der App verfolgt werden<br><br><span class="ttdesc">Diese Option sollte nur in sehr spezifischen Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`
     },
     update: {
         updateavailable: "Update verfügbar",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Update"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Ausführungspfad",
-            "nodata": "Keine Daten",
-            "manage": "Verknüpfte Spiele verwalten",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Ausführungspfad",
+            managesub: [
                 `Verknüpfen Sie manuell die <span class="hl">Ausführungsdatei</span> eines Spiels mit einer bestimmten <span class="hl">AppID</span> oder <span class="hl">heben Sie eine bestehende Verknüpfung auf</span>`,
                 `Steam Achievement Notifier wird nicht mehr den <span class="hl">automatischen Prozess-Tracking</span> für irgendwelche <span class="hl">verknüpften Spiele</span> verwenden - stattdessen wird die angegebene <span class="hl">Ausführungsdatei</span> verfolgt, sobald die zugehörige <span class="hl">AppID</span> erkannt wird`,
                 `<span class="hl" id="appidhelp"><u>Wie finde ich eine AppID für ein Steam-Spiel?</u></span>`
             ],
-            "new": "Neu...",
-            "linknew": "Neues verknüpftes Spiel",
-            "linknewsub": [
+            linknew: "Neues verknüpftes Spiel",
+            linknewsub: [
                 `Erstellen Sie eine neue Verknüpfung zwischen einer <span class="hl">Spiel-Ausführungsdatei</span> und der zugehörigen <span class="hl">AppID</span>`,
                 `Nachdem sie erstellt wurden, können Verknüpfungen über den vorherigen <span class="hl">Dialog „Verknüpfte Spiele verwalten“</span> <span class="hl">aufgehoben</span> werden`
             ],
-            "link": "Verknüpfen",
-            "findappid": "AppID finden",
-            "findappidsub": [
-                `Jedes Steam-Spiel hat eine eindeutige Nummer - die <span class="hl">AppID</span>. Sie können die zugehörige AppID eines beliebigen Steam-Spiels finden, indem Sie eines der folgenden überprüfen:`,
-                `Im <span class="hl">Steam-Client</span> mit der rechten Maustaste auf ein Spiel in Ihrer <span class="hl">Bibliothek</span> klicken und <i>Eigenschaften</i> > <i>Updates</i> auswählen - die AppID wird hier aufgelistet`,
-                `Die <span class="hl">URL</span> der <span class="hl">Shop-Seite</span> des Spiels - es handelt sich um die Zahl, die nach <span class="hl">app/</span> aufgelistet ist: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Websites wie <span class="hl">SteamDB</span> - der Abschnitt <span class="hl">App-Informationen</span> listet die AppID für jedes Spiel auf`
+            link: "Verknüpfen",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Fügen Sie die <span class="hl">AppID</span> eines beliebigen Steam-Spiels der <span class="hl">Ausschlussliste</span> hinzu`,
+                `Steam Achievement Notifier wird nicht versuchen, Erfolgsdaten für jedes Spiel zu verfolgen, dessen <span class="hl">AppID</span> der <span class="hl">Ausschlussliste</span> hinzugefügt wurde`,
+                `<span class="hl" id="appidhelp"><u>Wie finde ich die AppID eines Steam-Spiels?</u></span>`
+            ],
+            exclusionnew: "Neuer Ausschluss",
+            exclusionnewsub: [
+                `Geben Sie die <span class="hl">AppID</span> ein, um sie der <span class="hl">Ausschlussliste</span> hinzuzufügen`
             ]
         }
     }

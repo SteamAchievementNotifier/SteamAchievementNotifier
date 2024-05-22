@@ -65,6 +65,7 @@ declare interface Config {
     userust: boolean,
     debug: boolean,
     noiconcache: boolean,
+    exclusions: number[],
     customisation: {
         main: Customisation,
         rare: Customisation,

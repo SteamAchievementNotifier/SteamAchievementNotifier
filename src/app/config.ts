@@ -75,6 +75,7 @@ export const sanconfig = {
             userust: false,
             debug: false,
             noiconcache: false,
+            exclusions: [],
             customisation: {
                 main: {} as Customisation,
                 rare: {} as Customisation,

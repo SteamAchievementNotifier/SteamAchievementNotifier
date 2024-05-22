@@ -53,7 +53,16 @@ export const translations = {
             `Si le problème persiste après le redémarrage de l'application, veuillez envisager de le signaler en utilisant les liens intégrés sur l'écran d'accueil`
         ],
         suspend: "Suspendre",
-        resume: "Reprendre"
+        resume: "Reprendre",
+        new: "Nouveau...",
+        nodata: "Aucune donnée",
+        findappid: "Trouver l'AppID",
+        findappidsub: [
+            `Chaque jeu Steam a un numéro unique associé - appelé <span class="hl">AppID</span>. Vous pouvez trouver l'AppID associé à n'importe quel jeu Steam en vérifiant l'une des méthodes suivantes :`,
+            `Dans le <span class="hl">client Steam</span>, faites un clic droit sur un jeu dans votre <span class="hl">Bibliothèque</span> et sélectionnez <i>Propriétés</i> > <i>Mises à jour</i> - l'AppID sera listé ici`,
+            `L' <span class="hl">URL</span> de la page <span class="hl">Store</span> du jeu - ce sera le numéro indiqué après <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Des sites Web tels que <span class="hl">SteamDB</span> - la section <span class="hl">Infos App</span> listera l'AppID de chaque jeu`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Délai de capture d'écran",
                 notifyimg: "Image de notification",
                 imgpath: "Chemin de l'image"
+            }
+        },
+        games: {
+            title: "Jeux",
+            content: {
+                linkedgames: "Jeux liés",
+                exclusionlist: "Liste d'exclusion"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Basculer la visibilité de l'élément dans les prévisualisations personnalisées et les notifications de test",
         delbtn: "Réinitialiser l'élément par défaut",
         link: `Ouvrir <span class="hl">Menu de Gestion des Jeux Liés</span>`,
-        imgpath: "L'emplacement où les images de notification générées par cette option seront enregistrées"
+        imgpath: "L'emplacement où les images de notification générées par cette option seront enregistrées",
+        linkedgames: `Contourner le <span class="hl">suivi automatique des processus</span> pour des jeux Steam spécifiques<br><br><span class="ttdesc">Cette option ne devrait être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`,
+        exclusionlist: `Empêcher le suivi des réalisations dans des jeux Steam spécifiques par l'application<br><br><span class="ttdesc">Cette option ne devrait être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Mise à jour"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Chemin du fichier exécutable",
-            "nodata": "Aucune donnée",
-            "manage": "Gérer les jeux liés",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Chemin du fichier exécutable",
+            managesub: [
                 `Lie manuellement le <span class="hl">fichier exécutable</span> d'un jeu à un <span class="hl">AppID</span> spécifique, ou <span class="hl">dissociez</span> un existant`,
                 `Steam Achievement Notifier n'utilisera plus le <span class="hl">suivi automatique des processus</span> pour aucun des <span class="hl">jeux liés</span> - à la place, le fichier exécutable spécifié sera suivi chaque fois que l'ID d'application associé est détecté`,
                 `<span class="hl" id="appidhelp"><u>Comment trouver l'AppID d'un jeu Steam ?</u></span>`
             ],
-            "new": "Nouveau...",
-            "linknew": "Nouveau jeu lié",
-            "linknewsub": [
+            linknew: "Nouveau jeu lié",
+            linknewsub: [
                 `Créez un nouveau lien entre un <span class="hl">fichier exécutable de jeu</span> et l' <span class="hl">AppID</span> associé`,
                 `Une fois créés, les liens peuvent être <span class="hl">dissociés</span> via la boîte de dialogue <span class="hl">Gérer les jeux liés</span> précédente`
             ],
-            "link": "Lier",
-            "findappid": "Trouver l'AppID",
-            "findappidsub": [
-                `Chaque jeu Steam a un numéro unique associé - appelé <span class="hl">AppID</span>. Vous pouvez trouver l'AppID associé à n'importe quel jeu Steam en vérifiant l'une des méthodes suivantes :`,
-                `Dans le <span class="hl">client Steam</span>, faites un clic droit sur un jeu dans votre <span class="hl">Bibliothèque</span> et sélectionnez <i>Propriétés</i> > <i>Mises à jour</i> - l'AppID sera listé ici`,
-                `L' <span class="hl">URL</span> de la page <span class="hl">Store</span> du jeu - ce sera le numéro indiqué après <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Des sites Web tels que <span class="hl">SteamDB</span> - la section <span class="hl">Infos App</span> listera l'AppID de chaque jeu`
+            link: "Lier",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Ajouter l'<span class="hl">AppID</span> de n'importe quel jeu Steam à la <span class="hl">liste d'exclusion</span>`,
+                `Steam Achievement Notifier ne tentera pas de suivre les données de réalisation pour n'importe quel <span class="hl">AppID</span> de jeu ajouté à la <span class="hl">liste d'exclusion</span>`,
+                `<span class="hl" id="appidhelp"><u>Comment trouver l'AppID d'un jeu Steam ?</u></span>`
+            ],
+            exclusionnew: "Nouvelle exclusion",
+            exclusionnewsub: [
+                `Entrez l'<span class="hl">AppID</span> à ajouter à la <span class="hl">liste d'exclusion</span>`
             ]
         }
     }

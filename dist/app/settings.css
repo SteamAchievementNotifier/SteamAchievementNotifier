@@ -98,7 +98,6 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
     background: var(--icon) center / contain no-repeat;
     width: 0.85rem;
     height: 0.85rem;
-    margin-left: -0.85rem;
     justify-self: end;
 }
 
@@ -116,6 +115,10 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 
 .cont:has(#media) > .title::before {
     --icon: url("../../icon/camera.svg");
+}
+
+.cont:has(#games) > .title::before {
+    --icon: url("../../icon/controller.svg");
 }
 
 .cont:has(#accessibility) > .title::before {
@@ -248,7 +251,6 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
     content: "";
     display: block;
     justify-self: right;
-    margin-left: -0.85rem;
     width: 0.85rem;
     height: 0.85rem;
     background: var(--icon) center / contain no-repeat;
@@ -310,6 +312,24 @@ body[rare] .rect#sspreview {
 
 body[plat] .rect#sspreview {
     --icon: url("../../icon/trophy_plat.svg");
+}
+
+#linkedgames {
+    --icon: url("../../icon/link.svg");
+    background-color: #00bfff80;
+}
+
+#linkedgames:hover {
+    background-color: #00bfff;
+}
+
+#exclusionlist {
+    --icon: url("../../icon/exclusion.svg");
+    background-color: #00000080;
+}
+
+#exclusionlist:hover {
+    background-color: #000000;
 }
 
 .opt:has(input#usecustomfiles:not(:checked)) + button#showcustomfiles {

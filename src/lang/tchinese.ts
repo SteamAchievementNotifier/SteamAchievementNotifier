@@ -53,7 +53,16 @@ export const translations = {
             `如果重新啟動應用程式後問題仍然存在，請考慮使用主畫面上的內建連結回報問題`
         ],
         suspend: "暫停",
-        resume: "恢復"
+        resume: "恢復",
+        new: "新增...",
+        nodata: "無資料",
+        findappid: "尋找 AppID",
+        findappidsub: [
+            `每個 Steam 遊戲都有一個唯一的數字與之關聯 - 稱為 <span class="hl">AppID</span>。您可以通過以下任一方法找到任何 Steam 遊戲的關聯 AppID：`,
+            `在 <span class="hl">Steam 客戶端</span> 中，右鍵點擊您的 <span class="hl">遊戲庫</span> 中的遊戲，然後選擇 <i>屬性</i> > <i>更新</i> - 這裡將列出 AppID`,
+            `遊戲的 <span class="hl">商店頁面</span> 的 <span class="hl">URL</span> - 這將是 <span class="hl">app/</span> 之後列出的數字： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `像 <span class="hl">SteamDB</span> 這樣的網站 - <span class="hl">應用程式資訊</span> 部分將列出每個遊戲的 AppID`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "截圖延遲",
                 notifyimg: "通知圖片",
                 imgpath: "圖片路徑"
+            }
+        },
+        games: {
+            title: "遊戲",
+            content: {
+                linkedgames: "已連結的遊戲",
+                exclusionlist: "排除清單"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "在自訂預覽和測試通知中切換元素的可見性",
         delbtn: "將元素重置為默認值",
         link: `開啟 <span class="hl">管理已連結遊戲選單</span>`,
-        imgpath: "這個選項生成的通知圖像將保存在的位置"
+        imgpath: "這個選項生成的通知圖像將保存在的位置",
+        linkedgames: `為特定的Steam遊戲<span class="hl">繞過自動進程追蹤</span><br><br><span class="ttdesc">此選項應僅在非常特定的情況下使用。使用者不應該在正常情況下使用此選項！</span>`,
+        exclusionlist: `防止應用程式追蹤特定Steam遊戲的成就<br><br><span class="ttdesc">此選項應僅在非常特定的情況下使用。使用者不應該在正常情況下使用此選項！</span>`
     },
     update: {
         updateavailable: "有可用更新",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "更新"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "執行檔路徑",
-            "nodata": "無資料",
-            "manage": "管理已關聯的遊戲",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "執行檔路徑",
+            managesub: [
                 `手動將遊戲的 <span class="hl">執行檔</span> 關聯至特定的 <span class="hl">AppID</span>，或 <span class="hl">取消關聯</span> 一個現有的`,
                 `Steam 成就通知器將不再對任何 <span class="hl">已關聯的遊戲</span> 使用 <span class="hl">自動進程追蹤</span> - 取而代之的是，指定的 <span class="hl">執行檔</span> 將在檢測到相應的 <span class="hl">AppID</span> 時被追蹤`,
                 `<span class="hl" id="appidhelp"><u>如何找到 Steam 遊戲的 AppID？</u></span>`
             ],
-            "new": "新增...",
-            "linknew": "新增關聯遊戲",
-            "linknewsub": [
+            linknew: "新增關聯遊戲",
+            linknewsub: [
                 `創建一個新的連結，將遊戲的 <span class="hl">執行檔</span> 與關聯的 <span class="hl">AppID</span> 連接`,
                 `創建後，這些連結可以通過之前的 <span class="hl">管理已關聯的遊戲</span> 對話框進行 <span class="hl">取消關聯</span>`
             ],
-            "link": "關聯",
-            "findappid": "尋找 AppID",
-            "findappidsub": [
-                `每個 Steam 遊戲都有一個唯一的數字與之關聯 - 稱為 <span class="hl">AppID</span>。您可以通過以下任一方法找到任何 Steam 遊戲的關聯 AppID：`,
-                `在 <span class="hl">Steam 客戶端</span> 中，右鍵點擊您的 <span class="hl">遊戲庫</span> 中的遊戲，然後選擇 <i>屬性</i> > <i>更新</i> - 這裡將列出 AppID`,
-                `遊戲的 <span class="hl">商店頁面</span> 的 <span class="hl">URL</span> - 這將是 <span class="hl">app/</span> 之後列出的數字： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `像 <span class="hl">SteamDB</span> 這樣的網站 - <span class="hl">應用程式資訊</span> 部分將列出每個遊戲的 AppID`
+            link: "關聯",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `將任何Steam遊戲的<span class="hl">AppID</span>新增至<span class="hl">排除清單</span>`,
+                `Steam成就通知器不會嘗試追蹤已新增至<span class="hl">排除清單</span>的任何遊戲的成就資料`,
+                `<span class="hl" id="appidhelp"><u>如何找到Steam遊戲的AppID？</u></span>`
+            ],
+            exclusionnew: "新增排除",
+            exclusionnewsub: [
+                `輸入要新增至<span class="hl">排除清單</span>的<span class="hl">AppID</span>`
             ]
         }
     }

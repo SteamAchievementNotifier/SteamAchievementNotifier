@@ -437,8 +437,6 @@ export const sanhelper: SANHelper = {
             "link"
         ]
 
-        const gamedisplay = document.querySelector(".rect#game") as any
-
         elems.forEach(async elem => {
             const parent = document.querySelector(`.rect:has(> #${elem})`) as any
             
@@ -449,7 +447,6 @@ export const sanhelper: SANHelper = {
                     inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
 
                     parent?.querySelector("button") && parent._tippy.hide()
-                    elem === "link" && setTimeout(() => gamedisplay._tippy.hide(),1000)
                 }
             }) as Instance<Props>[]
 
@@ -479,6 +476,7 @@ export const sanhelper: SANHelper = {
         })
 
         const settings = document.querySelector(`dialog[menu] #settingscontent`)
+        const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id).map(btn => btn.id)
 
         if (settings) {
             document.querySelectorAll(`
@@ -486,19 +484,11 @@ export const sanhelper: SANHelper = {
                 #settingscontent .optbtn,
                 #settingscontent select,
                 #settingscontent .rect,
-                #settingscontent button#showcustomfiles,
-                #settingscontent button#log,
-                #settingscontent button#reset
+                #settingscontent > .cont:has(button${settingsbtns.map(id => `#${id}`).join(",")}) > .optcont > button
             `)!.forEach(async elem => {
                 if (!elem) return
 
-                const btns = [
-                    "showcustomfiles",
-                    "log",
-                    "reset"
-                ]
-
-                const tt = tippy(btns.includes(elem.id) ? `#${elem.id}` : `
+                const tt = tippy(settingsbtns.includes(elem.id) ? `#${elem.id}` : `
                     .opt:not(:has(> .sub, > .opt)):has(#${elem.id}),
                     .opt:has(> .sub, > .opt):has(> #${elem.id}) > #${elem.id},
                     .opt:has(> .sub, > .opt):has(> #${elem.id}) > span

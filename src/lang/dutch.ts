@@ -53,7 +53,16 @@ export const translations = {
             `Als het probleem aanhoudt na het herstarten van de app, overweeg dan om het te melden door de ingebouwde links op het startscherm te gebruiken`
         ],
         suspend: "Onderbreken",
-        resume: "Hervatten"
+        resume: "Hervatten",
+        new: "Nieuw...",
+        nodata: "Geen gegevens",
+        findappid: "AppID vinden",
+        findappidsub: [
+            `Elk Steam-spel heeft een uniek nummer - genaamd een <span class="hl">AppID</span>. U kunt de bijbehorende AppID van elk Steam-spel vinden door een van de volgende methoden te controleren:`,
+            `In de <span class="hl">Steam-client</span>, klik met de rechtermuisknop op een spel in uw <span class="hl">Bibliotheek</span> en selecteer <i>Eigenschappen</i> > <i>Updates</i> - de AppID wordt hier vermeld`,
+            `De <span class="hl">URL</span> van de <span class="hl">Winkel pagina</span> van het spel - het zal het nummer zijn dat na <span class="hl">app/</span> wordt vermeld: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Websites zoals <span class="hl">SteamDB</span> - de sectie <span class="hl">App Info</span> zal de AppID voor elk spel vermelden`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Screenshot vertraging",
                 notifyimg: "Meldingsafbeelding",
                 imgpath: "Afbeeldingspad"
+            }
+        },
+        games: {
+            title: "Spellen",
+            content: {
+                linkedgames: "Gekoppelde spellen",
+                exclusionlist: "Uitsluitingslijst"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Wijzig de zichtbaarheid van het element in Customiser-voorbeelden en Testmeldingen",
         delbtn: "Stel het element terug naar de standaardwaarde",
         link: `Open <span class="hl">Beheer Gekoppelde Spellen</span> Menu`,
-        imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen"
+        imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen",
+        linkedgames: `Omzeil <span class="hl">automatische procestracking</span> voor specifieke Steam-spellen<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`,
+        exclusionlist: `Voorkom dat prestaties in specifieke Steam-spellen door de app worden gevolgd<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Update"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Pad naar uitvoerbaar bestand",
-            "nodata": "Geen gegevens",
-            "manage": "Beheer Gekoppelde Spellen",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Pad naar uitvoerbaar bestand",
+            managesub: [
                 `Koppel handmatig het <span class="hl">uitvoerbare bestand</span> van een spel aan een specifieke <span class="hl">AppID</span>, of <span class="hl">ontkoppel</span> een bestaande`,
                 `Steam Achievement Notifier zal niet langer <span class="hl">automatisch proces tracking</span> gebruiken voor eventuele <span class="hl">gekoppelde spellen</span> - in plaats daarvan zal het gespecificeerde <span class="hl">uitvoerbare bestand</span> worden gevolgd wanneer de bijbehorende <span class="hl">AppID</span> wordt gedetecteerd`,
                 `<span class="hl" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-spel?</u></span>`
             ],
-            "new": "Nieuw...",
-            "linknew": "Nieuw Gekoppeld Spel",
-            "linknewsub": [
+            linknew: "Nieuw Gekoppeld Spel",
+            linknewsub: [
                 `Maak een nieuwe koppeling tussen een <span class="hl">spel uitvoerbaar bestand</span> en de bijbehorende <span class="hl">AppID</span>`,
                 `Eenmaal gemaakt, kunnen koppelingen worden <span class="hl">ontkoppeld</span> via het vorige <span class="hl">Beheer Gekoppelde Spellen</span> dialoogvenster`
             ],
-            "link": "Koppelen",
-            "findappid": "AppID vinden",
-            "findappidsub": [
-                `Elk Steam-spel heeft een uniek nummer - genaamd een <span class="hl">AppID</span>. U kunt de bijbehorende AppID van elk Steam-spel vinden door een van de volgende methoden te controleren:`,
-                `In de <span class="hl">Steam-client</span>, klik met de rechtermuisknop op een spel in uw <span class="hl">Bibliotheek</span> en selecteer <i>Eigenschappen</i> > <i>Updates</i> - de AppID wordt hier vermeld`,
-                `De <span class="hl">URL</span> van de <span class="hl">Winkel pagina</span> van het spel - het zal het nummer zijn dat na <span class="hl">app/</span> wordt vermeld: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Websites zoals <span class="hl">SteamDB</span> - de sectie <span class="hl">App Info</span> zal de AppID voor elk spel vermelden`
+            link: "Koppelen"
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Voeg de <span class="hl">AppID</span> van elk Steam-spel toe aan de <span class="hl">uitsluitingslijst</span>`,
+                `Steam Achievement Notifier zal niet proberen prestatiegegevens te volgen voor elk spel waarvan de <span class="hl">AppID</span> is toegevoegd aan de <span class="hl">uitsluitingslijst</span>`,
+                `<span class="hl" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-spel?</u></span>`
+            ],
+            exclusionnew: "Nieuwe uitsluiting",
+            exclusionnewsub: [
+                `Voer de <span class="hl">AppID</span> in om deze toe te voegen aan de <span class="hl">uitsluitingslijst</span>`
             ]
         }
     }

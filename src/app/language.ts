@@ -40,15 +40,7 @@ export const language = {
                     langmap.set(settingsheader.querySelector(`span`)!,global.settings)
                     langmap.set(settingsversion.querySelector(`span:first-child`)!,`${global.appversion}:`)
 
-                    const settingstitles = [
-                        "language",
-                        "os",
-                        "notifications",
-                        "media",
-                        "accessibility",
-                        "advanced",
-                        "misc"
-                    ]
+                    const settingstitles = Array.from(settingscontent.querySelectorAll(`.cont > .title`)).map(title => title.id)
 
                     const selectignore = [
                         "lang",
@@ -64,20 +56,12 @@ export const language = {
                         settingscontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(button) > button`).forEach(btn => btn.parentElement!.querySelector(`span`) && langmap.set(btn.parentElement!.querySelector(`span`)!,btn.id === "sspreview" ? global.preview : settings[title].content[btn.id]))
                     })
 
-                    const settingsbtns = [
-                        "showcustomfiles",
-                        "checkforupdates",
-                        "log",
-                        "reset"
-                    ]
-
-                    const continclude = [
-                        "advanced",
-                        "misc"
-                    ]
+                    const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id).map(btn => btn.id)!
 
                     settingsbtns.forEach(id => {
-                        const elem = settingscontent.querySelector(`.cont:has(${continclude.map(select => `.title#${select}`).join(",")}) button.wrapper#${id}`)! as HTMLElement
+                        const elem = settingscontent.querySelector(`button.wrapper#${id}`)! as HTMLElement
+                        if (!elem) return
+
                         const title = elem.parentElement!.parentElement!.querySelector(".title")!.id
 
                         langmap.set(elem,settings[title].content[id])
@@ -90,16 +74,7 @@ export const language = {
             const customiserelem = document.querySelector(".wrapper#customiser")
             if (customiserelem) {
                 const customisercontent = document.getElementById("customisercontent")!
-
-                const customisertitles = [
-                    "preset",
-                    "sound",
-                    "style",
-                    "colors",
-                    "icons",
-                    "position",
-                    "theme"
-                ]
+                const customisertitles = Array.from(customisercontent.querySelectorAll(`#customiseropts > .cont > .title`)).map(title => title.id)!
 
                 customisertitles.forEach(title => {
                     langmap.set(customisercontent.querySelector(`span.title#${title}`)!,customiser[title].title)

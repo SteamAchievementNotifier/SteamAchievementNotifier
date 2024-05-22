@@ -53,7 +53,16 @@ export const translations = {
             `如果重新启动应用后问题仍然存在，请考虑使用主屏幕上的内置链接报告问题`
         ],
         suspend: "暂停",
-        resume: "恢复"
+        resume: "恢复",
+        new: "新建...",
+        nodata: "无数据",
+        findappid: "查找 AppID",
+        findappidsub: [
+            `每个 Steam 游戏都有一个唯一的数字与之关联 - 称为 <span class="hl">AppID</span>。您可以通过以下任一方法找到任何 Steam 游戏的关联 AppID：`,
+            `在 <span class="hl">Steam 客户端</span> 中，右键单击 <span class="hl">库</span> 中的游戏，然后选择 <i>属性</i> > <i>更新</i> - 这里将列出 AppID`,
+            `游戏的 <span class="hl">商店页面</span> 的 <span class="hl">URL</span> - 它将在 <span class="hl">app/</span> 之后列出的数字： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `诸如 <span class="hl">SteamDB</span> 之类的网站 - <span class="hl">App 信息</span> 部分将列出每个游戏的 AppID`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "截图延迟",
                 notifyimg: "通知图片",
                 imgpath: "图片路径"
+            }
+        },
+        games: {
+            title: "游戏",
+            content: {
+                linkedgames: "已连接的游戏",
+                exclusionlist: "排除列表"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "在自定义预览和测试通知中切换元素的可见性",
         delbtn: "将元素重置为默认值",
         link: `打开 <span class="hl">管理链接游戏菜单</span>`,
-        imgpath: "此选项生成的通知图像将保存在的位置"
+        imgpath: "此选项生成的通知图像将保存在的位置",
+        linkedgames: `针对特定的Steam游戏绕过<span class="hl">自动进程跟踪</span><br><br><span class="ttdesc">此选项仅应在非常特定的情况下使用。用户不应在正常情况下使用此选项！</span>`,
+        exclusionlist: `防止应用程序跟踪特定Steam游戏中的成就<br><br><span class="ttdesc">此选项仅应在非常特定的情况下使用。用户不应在正常情况下使用此选项！</span>`
     },
     update: {
         updateavailable: "有可用更新",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "更新"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "可执行文件路径",
-            "nodata": "无数据",
-            "manage": "管理关联游戏",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "可执行文件路径",
+            managesub: [
                 `手动将游戏的 <span class="hl">可执行文件</span> 关联到特定的 <span class="hl">AppID</span>，或者 <span class="hl">取消关联</span> 现有的关联`,
                 `Steam 成就通知器将不再对任何 <span class="hl">关联游戏</span> 使用 <span class="hl">自动进程跟踪</span> - 取而代之的是，指定的 <span class="hl">可执行文件</span> 将在检测到关联的 <span class="hl">AppID</span> 时被跟踪`,
                 `<span class="hl" id="appidhelp"><u>如何找到 Steam 游戏的 AppID？</u></span>`
             ],
-            "new": "新建...",
-            "linknew": "新建关联游戏",
-            "linknewsub": [
+            linknew: "新建关联游戏",
+            linknewsub: [
                 `创建游戏的 <span class="hl">可执行文件</span> 与关联的 <span class="hl">AppID</span> 之间的新关联`,
                 `创建后，可以通过先前的 <span class="hl">管理关联游戏</span> 对话框 <span class="hl">取消关联</span>`
             ],
-            "link": "关联",
-            "findappid": "查找 AppID",
-            "findappidsub": [
-                `每个 Steam 游戏都有一个唯一的数字与之关联 - 称为 <span class="hl">AppID</span>。您可以通过以下任一方法找到任何 Steam 游戏的关联 AppID：`,
-                `在 <span class="hl">Steam 客户端</span> 中，右键单击 <span class="hl">库</span> 中的游戏，然后选择 <i>属性</i> > <i>更新</i> - 这里将列出 AppID`,
-                `游戏的 <span class="hl">商店页面</span> 的 <span class="hl">URL</span> - 它将在 <span class="hl">app/</span> 之后列出的数字： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `诸如 <span class="hl">SteamDB</span> 之类的网站 - <span class="hl">App 信息</span> 部分将列出每个游戏的 AppID`
+            link: "关联",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `将任何Steam游戏的<span class="hl">AppID</span>添加到<span class="hl">排除列表</span>`,
+                `Steam成就通知器将不会尝试跟踪任何添加到<span class="hl">排除列表</span>的游戏的成就数据`,
+                `<span class="hl" id="appidhelp"><u>如何找到Steam游戏的AppID？</u></span>`
+            ],
+            exclusionnew: "新排除",
+            exclusionnewsub: [
+                `输入要添加到<span class="hl">排除列表</span>的<span class="hl">AppID</span>`
             ]
         }
     }

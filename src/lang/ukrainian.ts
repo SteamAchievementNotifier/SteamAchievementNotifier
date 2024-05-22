@@ -53,7 +53,16 @@ export const translations = {
             `Якщо проблема залишається після перезапуску додатка, будь ласка, подумайте про повідомлення про неї, використовуючи вбудовані посилання на домашньому екрані`
         ],
         suspend: "Призупинити",
-        resume: "Продовжити"
+        resume: "Продовжити",
+        new: "Новий...",
+        nodata: "Немає даних",
+        findappid: "Знайти AppID",
+        findappidsub: [
+            `Кожна гра Steam має унікальний номер, пов'язаний з нею - називається <span class="hl">AppID</span>. Ви можете знайти AppID, пов'язаний з будь-якою грою Steam, перевіривши один із наступних способів:`,
+            `У <span class="hl">клієнті Steam</span>, клацніть правою кнопкою миші на гру у своїй <span class="hl">бібліотеці</span> та виберіть <i>Властивості</i> > <i>Оновлення</i> - тут буде перелічено AppID`,
+            `URL сторінки <span class="hl">магазину</span> гри - це буде номер, вказаний після <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Веб-сайти, такі як <span class="hl">SteamDB</span> - розділ <span class="hl">Інформація про Додаток</span> буде перелічувати AppID для кожної гри`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Затримка знімка екрана",
                 notifyimg: "Зображення повідомлення",
                 imgpath: "Шлях до зображення"
+            }
+        },
+        games: {
+            title: "Ігри",
+            content: {
+                linkedgames: "Пов’язані ігри",
+                exclusionlist: "Список виключень"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Перемикання видимості елемента в персоналізованих переглядах та тестових сповіщеннях",
         delbtn: "Скидання елемента до значення за замовчуванням",
         link: `Відкрити <span class="hl">Меню управління пов’язаними іграми</span>`,
-        imgpath: "Місце, де будуть збережені зображення сповіщень, згенеровані цією опцією"
+        imgpath: "Місце, де будуть збережені зображення сповіщень, згенеровані цією опцією",
+        linkedgames: `Обійти <span class="hl">автоматичне відстеження процесів</span> для конкретних ігор Steam<br><br><span class="ttdesc">Ця опція повинна використовуватися лише у дуже конкретних сценаріях. Користувачі не повинні потребувати використання цієї опції в звичайних обставинах!</span>`,
+        exclusionlist: `Запобігти відстеженню досягнень в конкретних іграх Steam за допомогою додатку<br><br><span class="ttdesc">Ця опція повинна використовуватися лише у дуже конкретних сценаріях. Користувачі не повинні потребувати використання цієї опції в звичайних обставинах!</span>`
     },
     update: {
         updateavailable: "Доступне оновлення",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Оновити"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Шлях до виконуваного файлу",
-            "nodata": "Немає даних",
-            "manage": "Керування Пов'язаними Іграми",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Шлях до виконуваного файлу",
+            managesub: [
                 `Вручну зв'яжіть <span class="hl">виконуваний файл</span> гри з певним <span class="hl">AppID</span>, або <span class="hl">від'єднайте</span> існуючий`,
                 `Steam Achievement Notifier більше не буде використовувати <span class="hl">автоматичне відстеження процесів</span> для будь-яких <span class="hl">пов'язаних ігор</span> - замість цього, вказаний <span class="hl">виконуваний файл</span> буде відстежуватися, коли буде виявлено відповідний <span class="hl">AppID</span>`,
                 `<span class="hl" id="appidhelp"><u>Як знайти AppID гри Steam?</u></span>`
             ],
-            "new": "Новий...",
-            "linknew": "Нова Пов'язана Гра",
-            "linknewsub": [
+            linknew: "Нова Пов'язана Гра",
+            linknewsub: [
                 `Створіть нове посилання між <span class="hl">виконуваним файлом гри</span> та пов'язаним <span class="hl">AppID</span>`,
                 `Після створення посилання можна <span class="hl">від'єднати</span> його через попереднє вікно <span class="hl">Керування Пов'язаними Іграми</span>`
             ],
-            "link": "Посилання",
-            "findappid": "Знайти AppID",
-            "findappidsub": [
-                `Кожна гра Steam має унікальний номер, пов'язаний з нею - називається <span class="hl">AppID</span>. Ви можете знайти AppID, пов'язаний з будь-якою грою Steam, перевіривши один із наступних способів:`,
-                `У <span class="hl">клієнті Steam</span>, клацніть правою кнопкою миші на гру у своїй <span class="hl">бібліотеці</span> та виберіть <i>Властивості</i> > <i>Оновлення</i> - тут буде перелічено AppID`,
-                `URL сторінки <span class="hl">магазину</span> гри - це буде номер, вказаний після <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Веб-сайти, такі як <span class="hl">SteamDB</span> - розділ <span class="hl">Інформація про Додаток</span> буде перелічувати AppID для кожної гри`
+            link: "Посилання",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Додайте <span class="hl">AppID</span> будь-якої гри Steam до <span class="hl">Списку виключень</span>`,
+                `Steam Achievement Notifier не буде намагатися відстежувати дані досягнень для жодної гри, якщо її <span class="hl">AppID</span> додано до <span class="hl">Списку виключень</span>`,
+                `<span class="hl" id="appidhelp"><u>Як знайти AppID гри Steam?</u></span>`
+            ],
+            exclusionnew: "Нове виключення",
+            exclusionnewsub: [
+                `Введіть <span class="hl">AppID</span>, щоб додати до <span class="hl">Списку виключень</span>`
             ]
         }
     }

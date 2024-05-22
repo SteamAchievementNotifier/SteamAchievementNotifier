@@ -53,7 +53,16 @@ export const translations = {
             `앱을 다시 시작한 후에도 문제가 지속된다면, 홈 화면의 내부 링크를 사용하여 보고해 주시기 바랍니다`
         ],
         suspend: "일시 중지",
-        resume: "다시 시작"
+        resume: "다시 시작",
+        new: "새로 만들기...",
+        nodata: "데이터 없음",
+        findappid: "AppID 찾기",
+        findappidsub: [
+            `모든 Steam 게임에는 고유한 번호가 있습니다. 이를 <span class="hl">AppID</span>라고 합니다. Steam 게임의 관련 AppID를 확인하려면 다음 중 하나를 확인하십시오.`,
+            `<span class="hl">Steam 클라이언트</span>에서 <span class="hl">라이브러리</span>에서 게임을 마우스 오른쪽 단추로 클릭하고 <i>속성</i> > <i>업데이트</i>를 선택합니다. 여기에 AppID가 나열됩니다`,
+            `게임의 <span class="hl">상점 페이지</span>의 <span class="hl">URL</span> - <span class="hl">app/</span> 뒤에 나열된 숫자입니다: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `<span class="hl">SteamDB</span>와 같은 웹 사이트 - <span class="hl">App Info</span> 섹션에 각 게임의 AppID가 나열됩니다`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "스크린 샷 지연",
                 notifyimg: "알림 이미지",
                 imgpath: "이미지 경로"
+            }
+        },
+        games: {
+            title: "게임",
+            content: {
+                linkedgames: "연결된 게임",
+                exclusionlist: "제외 목록"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "사용자 지정 미리보기 및 테스트 알림에서 요소의 가시성 전환",
         delbtn: "요소를 기본값으로 재설정",
         link: `열기 <span class="hl">연결된 게임 관리 메뉴</span>`,
-        imgpath: "이 옵션으로 생성된 알림 이미지가 저장되는 위치"
+        imgpath: "이 옵션으로 생성된 알림 이미지가 저장되는 위치",
+        linkedgames: `특정 Steam 게임의 <span class="hl">자동 프로세스 추적</span> 우회<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`,
+        exclusionlist: `앱에서 특정 Steam 게임의 업적 추적 방지<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`
     },
     update: {
         updateavailable: "업데이트 가능",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "업데이트"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "실행 파일 경로",
-            "nodata": "데이터 없음",
-            "manage": "연결된 게임 관리",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "실행 파일 경로",
+            managesub: [
                 `게임의 <span class="hl">실행 파일</span>을 특정 <span class="hl">AppID</span>에 수동으로 연결하거나 기존 연결을 <span class="hl">해제</span>합니다`,
                 `Steam Achievement Notifier는 더 이상 어떤 <span class="hl">연결된 게임</span>에 대해 <span class="hl">자동 프로세스 추적</span>을 사용하지 않습니다. 대신, 연결된 <span class="hl">AppID</span>가 감지될 때마다 지정된 <span class="hl">실행 파일</span>이 추적됩니다`,
                 `<span class="hl" id="appidhelp"><u>Steam 게임의 AppID를 찾는 방법은?</u></span>`
             ],
-            "new": "새로 만들기...",
-            "linknew": "새로운 연결된 게임",
-            "linknewsub": [
+            linknew: "새로운 연결된 게임",
+            linknewsub: [
                 `게임의 <span class="hl">실행 파일</span>과 관련된 <span class="hl">AppID</span> 사이에 새로운 연결을 생성합니다`,
                 `생성된 후, 이전 <span class="hl">연결된 게임 관리</span> 대화 상자를 통해 연결을 <span class="hl">해제</span>할 수 있습니다`
             ],
-            "link": "연결",
-            "findappid": "AppID 찾기",
-            "findappidsub": [
-                `모든 Steam 게임에는 고유한 번호가 있습니다. 이를 <span class="hl">AppID</span>라고 합니다. Steam 게임의 관련 AppID를 확인하려면 다음 중 하나를 확인하십시오.`,
-                `<span class="hl">Steam 클라이언트</span>에서 <span class="hl">라이브러리</span>에서 게임을 마우스 오른쪽 단추로 클릭하고 <i>속성</i> > <i>업데이트</i>를 선택합니다. 여기에 AppID가 나열됩니다`,
-                `게임의 <span class="hl">상점 페이지</span>의 <span class="hl">URL</span> - <span class="hl">app/</span> 뒤에 나열된 숫자입니다: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `<span class="hl">SteamDB</span>와 같은 웹 사이트 - <span class="hl">App Info</span> 섹션에 각 게임의 AppID가 나열됩니다`
+            link: "연결",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `어떤 Steam 게임의 <span class="hl">AppID</span>를 <span class="hl">제외 목록</span>에 추가합니다`,
+                `Steam Achievement Notifier는 <span class="hl">제외 목록</span>에 추가된 어떤 게임의 <span class="hl">AppID</span>에 대한 업적 데이터를 추적하지 않습니다`,
+                `<span class="hl" id="appidhelp"><u>Steam 게임의 AppID를 찾는 방법</u></span>`
+            ],
+            exclusionnew: "새로운 제외",
+            exclusionnewsub: [
+                `<span class="hl">제외 목록</span>에 추가할 <span class="hl">AppID</span>를 입력하세요`
             ]
         }
     }

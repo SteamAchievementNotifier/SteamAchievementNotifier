@@ -53,7 +53,16 @@ export const translations = {
             `إذا استمرت المشكلة بعد إعادة تشغيل التطبيق، يرجى النظر في الإبلاغ عنها باستخدام الروابط داخل التطبيق على شاشة الصفحة الرئيسية`
         ],
         suspend: "تعليق",
-        resume: "استئناف"
+        resume: "استئناف",
+        new: "جديد...",
+        nodata: "لا توجد بيانات",
+        findappid: "العثور على AppID",
+        findappidsub: [
+            `كل لعبة Steam لها رقم فريد مرتبط بها - يُسمى <span class="hl">AppID</span>. يمكنك العثور على AppID المرتبط بأي لعبة Steam عن طريق التحقق من أحد الآتي:`,
+            `في <span class="hl">عميل Steam</span>، انقر بزر الماوس الأيمن على لعبة في <span class="hl">المكتبة</span> الخاصة بك وحدد <i>الخصائص</i> > <i>التحديثات</i> - سيتم سرد AppID هنا`,
+            `عنوان <span class="hl">URL</span> لصفحة <span class="hl">المتجر</span> الخاصة باللعبة - سيكون الرقم المدرج بعد <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `مواقع الويب مثل <span class="hl">SteamDB</span> - سيقوم القسم <span class="hl">معلومات الأطباق</span> بسرد AppID لكل لعبة`
+        ],
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "تأخير اللقطة الشاشة",
                 notifyimg: "صورة الإشعار",
                 imgpath: "مسار الصورة"
+            }
+        },
+        games: {
+            title: "الألعاب",
+            content: {
+                linkedgames: "الألعاب المرتبطة",
+                exclusionlist: "قائمة الاستبعاد"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "تبديل رؤية العنصر في المعاينات المخصصة والإشعارات التجريبية",
         delbtn: "إعادة تعيين العنصر إلى الافتراضي",
         link: `افتح <span class="hl">قائمة إدارة الألعاب المرتبطة</span>`,
-        imgpath: "الموقع الذي ستحفظ فيه صور الإشعارات التي تم إنشاؤها بهذا الخيار"
+        imgpath: "الموقع الذي ستحفظ فيه صور الإشعارات التي تم إنشاؤها بهذا الخيار",
+        linkedgames: `تخطي <span class="hl">تتبع العملية التلقائية</span> لألعاب Steam محددة<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط لحالات محددة جدًا. يجب ألا يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`,
+        exclusionlist: `منع تتبع الإنجازات في ألعاب Steam محددة بواسطة التطبيق<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط لحالات محددة جدًا. يجب ألا يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`
     },
     update: {
         updateavailable: "تحديث متاح",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "تحديث"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "مسار التنفيذ",
-            "nodata": "لا توجد بيانات",
-            "manage": "إدارة الألعاب المرتبطة",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "مسار التنفيذ",
+            managesub: [
                 `ربط ملف تنفيذ لعبة يدويًا بـ <span class="hl">AppID</span> محدد، أو <span class="hl">إلغاء الربط</span> للملف الموجود بالفعل`,
                 `لن يستخدم Steam Achievement Notifier تتبع العملية <span class="hl">التلقائي</span> لأي <span class="hl">الألعاب المرتبطة</span> - بدلاً من ذلك، سيتم تتبع الملف التنفيذي المحدد عندما يتم الكشف عن <span class="hl">AppID</span> المقترن`,
                 `<span class="hl" id="appidhelp"><u>كيف يمكنني العثور على AppID لعبة Steam؟</u></span>`
             ],
-            "new": "جديد...",
-            "linknew": "لعبة جديدة مرتبطة",
-            "linknewsub": [
+            linknew: "لعبة جديدة مرتبطة",
+            linknewsub: [
                 `إنشاء رابط جديد بين <span class="hl">ملف تنفيذ اللعبة</span> والـ <span class="hl">AppID</span> المرتبط به`,
                 `بمجرد الإنشاء، يمكن <span class="hl">إلغاء الربط</span> عبر الحوار السابق <span class="hl">إدارة الألعاب المرتبطة</span>`
             ],
             "link": "ربط",
-            "findappid": "العثور على AppID",
-            "findappidsub": [
-                `كل لعبة Steam لها رقم فريد مرتبط بها - يُسمى <span class="hl">AppID</span>. يمكنك العثور على AppID المرتبط بأي لعبة Steam عن طريق التحقق من أحد الآتي:`,
-                `في <span class="hl">عميل Steam</span>، انقر بزر الماوس الأيمن على لعبة في <span class="hl">المكتبة</span> الخاصة بك وحدد <i>الخصائص</i> > <i>التحديثات</i> - سيتم سرد AppID هنا`,
-                `عنوان <span class="hl">URL</span> لصفحة <span class="hl">المتجر</span> الخاصة باللعبة - سيكون الرقم المدرج بعد <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `مواقع الويب مثل <span class="hl">SteamDB</span> - سيقوم القسم <span class="hl">معلومات الأطباق</span> بسرد AppID لكل لعبة`
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `أضف <span class="hl">AppID</span> لأي لعبة Steam إلى <span class="hl">قائمة الاستبعاد</span>`,
+                `لن يحاول Steam Achievement Notifier تتبع بيانات الإنجازات لأي <span class="hl">AppID</span> لعبة تمت إضافتها إلى <span class="hl">قائمة الاستبعاد</span>`,
+                `<span class="hl" id="appidhelp"><u>كيف يمكنني العثور على AppID لعبة Steam؟</u></span>`
+            ],
+            exclusionnew: "استبعاد جديد",
+            exclusionnewsub: [
+                `أدخل <span class="hl">AppID</span> لإضافته إلى <span class="hl">قائمة الاستبعاد</span>`
             ]
         }
     }

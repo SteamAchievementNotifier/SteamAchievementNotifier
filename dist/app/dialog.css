@@ -98,7 +98,6 @@ dialog[selection] .contentwrapper {
     place-self: center;
     width: 1rem;
     height: 1rem;
-    margin-left: -1rem;
 }
 
 .contentsub {
@@ -511,7 +510,8 @@ dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::after {
     pointer-events: none;
 }
 
-button#linknewbtn:hover {
+button#linknewbtn:hover,
+button#exclusionnewbtn:hover {
     background-color: limegreen;
     filter: none;
 }
@@ -526,26 +526,32 @@ button#linknewbtn:hover {
 }
 
 /* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #appidhelp window) */
-.wrapper#contentcontainer:has(#linkgametablewrapper) {
+.wrapper#contentcontainer:has(.tbl#linkgametablewrapper) {
     --dialogicon: url("../../icon/link.svg");
 }
 
-.wrapper#contentcontainer:has(#linkgametablewrapper) + .btnwrapper {
+/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #appidhelp window) */
+.wrapper#contentcontainer:has(.tbl#exclusionlisttablewrapper) {
+    --dialogicon: url("../../icon/exclusion.svg");
+}
+
+.wrapper#contentcontainer:has(.tbl) + .btnwrapper {
     grid-template-columns: repeat(2,1fr);
 }
 
-#linkgamenodata > td {
+.nodata > td {
     text-align: center;
     opacity: 0.5;
     pointer-events: none;
 }
 
-#linkgametablewrapper > table > tr:not(#linkgameheaders):has(> td:nth-child(3):hover) {
+#linkgametablewrapper > table > tr:not(#linkgameheaders):has(> td:nth-child(3):hover),
+#exclusionlisttablewrapper > table > tr:not(#exclusionlistheaders):has(> td:nth-child(2):hover) {
     background-color: red;
     cursor: pointer;
 }
 
-input[type="number"]#linkgameappid {
+input[type="number"].appidinput {
     width: 100%;
     max-width: none;
     border-radius: 0;
@@ -554,11 +560,20 @@ input[type="number"]#linkgameappid {
     border: none;
 }
 
-input[type="number"]#linkgameappid:hover {
+input[type="number"].appidinput#exclusionappid {
+    background-color: var(--mediumgrey);
+    border-radius: var(--elembr);
+}
+
+input[type="number"].appidinput:hover {
     background-color: transparent;
 }
 
-td:has(input[type="number"]#linkgameappid) {
+input[type="number"].appidinput#exclusionappid:hover {
+    background-color: var(--lightgrey);
+}
+
+td:has(input[type="number"].appidinput) {
     min-width: 5rem;
     padding: 0;
 }
@@ -576,13 +591,13 @@ td#linkgameselect:empty {
     color: grey;
 }
 
-td:has(input[type="number"]#linkgameappid),
+td:has(input[type="number"].appidinput),
 td#linkgameselect {
     background-color: var(--mediumgrey);
     transition: background-color var(--transition);
 }
 
-td:has(input[type="number"]#linkgameappid):hover,
+td:has(input[type="number"].appidinput):hover,
 td#linkgameselect:hover {
     background-color: var(--lightgrey);
 }
@@ -592,7 +607,7 @@ td#linkgameselect:hover {
     pointer-events: none;
 }
 
-dialog > #content:has(#linkgametablewrapper) {
+dialog > #content:has(.tbl) {
     width: 65%;
 }
 
@@ -601,6 +616,18 @@ td:has(.unlinkbtn) > .unlinkbtn {
     width: 1rem;
     height: 1rem;
     vertical-align: middle;
+}
+
+#exclusionlistheaders > th:nth-child(1) {
+    width: 90%;
+}
+
+#exclusionlistheaders > th:nth-child(2) {
+    width: 10%;
+}
+
+#exclusionlisttablewrapper td {
+    text-align: center;
 }
 
 .appidhelpcode {

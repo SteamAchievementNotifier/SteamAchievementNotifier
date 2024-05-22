@@ -73,8 +73,168 @@ export const dialog = {
             }))
 
             document.getElementById("shortcutbtn")!.onclick = event => sanhelper.setshortcut(config,event)
+
+            // Prevents "updategamelinks" function from including localStorage items with the given key
+            const localstoragefilter = [
+                "closedstate"
+            ]
+
+            const setappidhelpdialog = (span: HTMLSpanElement) => span.onclick = async () => dialog.open({
+                title: await language.get("findappid"),
+                type: "default",
+                icon: sanhelper.setfilepath("icon","question.svg"),
+                sub: await language.get("findappidsub")
+            })
+
+            const updatetables = async (type: "linkgame" | "exclusionlist") => {
+                const table = document.querySelector(`.addhtml > .tbl#${type}tablewrapper > table`)! as HTMLTableElement
+                const entries = type === "linkgame" ? Object.entries(localStorage).filter(item => !localstoragefilter.includes(item[0])).sort() : config.get("exclusions")
+
+                table.querySelectorAll(`tr:not(#${type}headers)`).forEach(item => item && item.remove())
+                type === "linkgame" && (table.querySelector(`#${type}headers > th:nth-child(2)`)!.textContent = await language.get("exepath",["linkgame","content"]))
+
+                if (!entries.length) {
+                    const html = `
+                        <tr class="nodata">
+                            <td>&lt;${await language.get("nodata")}&gt;</td>
+                            ${type === "linkgame" ? `<td>&lt;${await language.get("nodata")}&gt;</td>` : ""}
+                            <td></td>
+                        </tr>
+                    `
+
+                    return table.insertAdjacentHTML("beforeend",html)
+                }
+
+                entries.forEach((entry: any) => {
+                    const tr = document.createElement("tr")
+
+                    const appid = document.createElement("td")
+                    appid.textContent = type === "linkgame" ? entry[0] : entry
+                    tr.appendChild(appid)
+
+                    if (type === "linkgame") {
+                        const exepath = document.createElement("td")
+                        exepath.textContent = entry[1]
+                        tr.appendChild(exepath)
+                    }
+
+                    const unlinktd = document.createElement("td")
+                    const unlinkbtn = document.createElement("button")
+
+                    unlinkbtn.className = "unlinkbtn"
+                    unlinktd.appendChild(unlinkbtn)
+
+                    tr.appendChild(unlinktd)
+
+                    table.appendChild(tr)
+                })
+
+                const unlinkbtns = document.querySelectorAll(".unlinkbtn")
+                unlinkbtns.forEach(btn => {
+                    btn && ((btn as HTMLButtonElement).onclick = () => {
+                        const appid = btn.parentElement!.parentElement!.querySelector("td:nth-child(1)")!.textContent
+
+                        if (type === "linkgame") {
+                            appid && localStorage.removeItem(appid)
+                        } else if (type === "exclusionlist") {
+                            const exclusions = config.get("exclusions")
+                            appid && config.set("exclusions",exclusions.filter(id => id !== parseInt(appid)))
+                        }
+
+                        updatetables(type)
+                    })
+                })
+            }
+
+            document.getElementById("linkedgames")!.onclick = async () => {
+                dialog.open({
+                    title: await language.get("linkedgames",["settings","games","content"]),
+                    type: "default",
+                    icon: sanhelper.setfilepath("icon","link.svg"),
+                    sub: await language.get("managesub",["linkgame","content"]),
+                    buttons: [{
+                        id: "linknew",
+                        label: await language.get("new"),
+                        icon: sanhelper.setfilepath("icon","newlink.svg"),
+                        click: async () => {
+                            dialog.open({
+                                title: await language.get("linknew",["linkgame","content"]),
+                                type: "default",
+                                icon: sanhelper.setfilepath("icon","newlink.svg"),
+                                sub: await language.get("linknewsub",["linkgame","content"]),
+                                addHTML: path.join(__dirname,"linkgamenew.html"),
+                                buttons: [{
+                                    id: "ok",
+                                    label: await language.get("link",["linkgame","content"]),
+                                    icon: "",
+                                    click: () => {
+                                        localStorage.setItem(linkgameappid.value,linkgameselect.innerText)
+                                        updatetables("linkgame")
+                                        dialog.close()
+                                    }
+                                }]
+                            })
+
+                            document.querySelector("#linkgamenewheaders > th:nth-child(2)")!.textContent = await language.get("exepath",["linkgame","content"])
+
+                            const linkgameappid = document.getElementById("linkgameappid")! as HTMLInputElement
+                            const linkgameselect = document.getElementById("linkgameselect")! as HTMLTableCellElement
+
+                            linkgameselect.onclick = () => {
+                                ipcRenderer.once("loadfile", (event,file) => file && (linkgameselect.textContent = file[0].replace(/\\/g,"/")))
+                                ipcRenderer.send("loadfile","exe")
+                            }
+                        }
+                    }],
+                    addHTML: path.join(__dirname,"linkgame.html")
+                })
+
+                setappidhelpdialog(document.getElementById("appidhelp")!)
+                updatetables("linkgame")
+            }
+            
+            document.getElementById("exclusionlist")!.onclick = async () => {
+                dialog.open({
+                    title: await language.get("exclusionlist",["settings","games","content"]),
+                    type: "default",
+                    icon: sanhelper.setfilepath("icon","exclusion.svg"),
+                    sub: await language.get("managesub",["exclusions","content"]),
+                    buttons: [{
+                        id: "exclusionnew",
+                        label: await language.get("new"),
+                        icon: sanhelper.setfilepath("icon","newexclusion.svg"),
+                        click: async () => dialog.open({
+                            title: await language.get("exclusionnew",["exclusions","content"]),
+                            type: "default",
+                            icon: sanhelper.setfilepath("icon","newexclusion.svg"),
+                            sub: await language.get("exclusionnewsub",["exclusions","content"]),
+                            addHTML: `<input type="number" class="appidinput" id="exclusionappid" placeholder="...">`,
+                            buttons: [{
+                                id: "ok",
+                                label: await language.get("ok"),
+                                icon: "",
+                                click: () => {
+                                    const exclusions = config.get("exclusions")
+                                    exclusions.push(parseInt((document.getElementById("exclusionappid")! as HTMLInputElement).value))
+
+                                    config.set("exclusions",exclusions)
+                                    updatetables("exclusionlist")
+                                    dialog.close()
+                                }
+                            }]
+                        })
+                    }],
+                    addHTML: path.join(__dirname,"exclusionlist.html"),
+                })
+
+                setappidhelpdialog(document.getElementById("appidhelp")!)
+                updatetables("exclusionlist")
+            }
+
             document.getElementById("showcustomfiles")!.onclick = () => sanhelper.showcustomfiles()
+
             document.getElementById("log")!.onclick = () => sanhelper.createlogwin()
+
             document.getElementById("reset")!.onclick = async () => dialog.open({
                 title: await language.get("reset",["settings","misc","content"]),
                 type: "default",
@@ -129,7 +289,10 @@ export const dialog = {
                     btn.appendChild(delbtn)
                 }
 
-                document.querySelector(".contentsub")!.appendChild(btn)
+                requestAnimationFrame(() => {
+                    btn.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue("--primary")
+                    document.querySelector(".contentsub")!.appendChild(btn)
+                })
             }
         })
 
@@ -149,7 +312,7 @@ export const dialog = {
 
         showdialog()
     },
-    close: () => {
+    close: (skipanim?: boolean) => {
         ipcRenderer.send("sswin")
 
         const attrs = [
@@ -162,7 +325,7 @@ export const dialog = {
         const dialog = document.querySelector("dialog")!
         const content = document.getElementById("content")!
         const menutype = attrs.find(attr => dialog.hasAttribute(attr))
-        const noanim = document.body.hasAttribute("noanim")
+        const noanim = skipanim || document.body.hasAttribute("noanim")
 
         const settransitionlistener = (): void => content.addEventListener(`transition${menutype === "menu" ? "start" : "end"}`, ({ propertyName }: TransitionEvent) => propertyName === `${menutype === "menu" ? "translate" : "scale"}` ? (dialog.style.animation = `dialogout var(--transition) forwards`) : settransitionlistener(), { once: true })
         const resetdialog = () => {

@@ -53,7 +53,16 @@ export const translations = {
             `Jos ongelma jatkuu sovelluksen uudelleenkäynnistyksen jälkeen, harkitse sen raportoimista käyttämällä sisäänrakennettuja linkkejä aloitusnäytössä`
         ],
         suspend: "Keskeytä",
-        resume: "Jatka"
+        resume: "Jatka",
+        new: "Uusi...",
+        nodata: "Ei tietoja",
+        findappid: "Etsi AppID",
+        findappidsub: [
+            `Jokaisella Steam-pelillä on siihen liittyvä yksilöllinen numero - kutsutaan <span class="hl">AppID:ksi</span>. Voit löytää minkä tahansa Steam-pelin AppID:n tarkistamalla yhden seuraavista tavoista:`,
+            `Steam-asiakkaassa, napsauta hiiren kakkospainikkeella peliä <span class="hl">Kirjastossa</span> ja valitse <i>Ominaisuudet</i> > <i>Päivitykset</i> - AppID näkyy täällä`,
+            `Pelin <span class="hl">Kaupan sivun URL-osoite</span> - se on numero, joka on listattu <span class="hl">app/</span> -jälkeen: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Verkkosivustot kuten <span class="hl">SteamDB</span> - <span class="hl">App-tiedot</span> -osio listaa AppID:n jokaiselle pelille`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Ruutukaappauksen viive",
                 notifyimg: "Ilmoituskuva",
                 imgpath: "Kuvan polku"
+            }
+        },
+        games: {
+            title: "Pelit",
+            content: {
+                linkedgames: "Linkitetyt pelit",
+                exclusionlist: "Poissulkemislista"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Vaihda elementin näkyvyys mukautettuihin esikatseluihin ja testi-ilmoituksiin",
         delbtn: "Palauta elementti oletusarvoon",
         link: `Avaa <span class="hl">Hallinnoi Liitettyjen Pelien Valikko</span>`,
-        imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen"
+        imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen",
+        linkedgames: `Ohita <span class="hl">automaattinen prosessin seuranta</span> tietyille Steam-peleille<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`,
+        exclusionlist: `Estä saavutusten seuranta tietyissä Steam-peleissä sovelluksen avulla<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Päivitä"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Suoritettavan tiedoston polku",
-            "nodata": "Ei tietoja",
-            "manage": "Hallinnoi liitettyjä pelejä",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Suoritettavan tiedoston polku",
+            managesub: [
                 `Liitä pelin <span class="hl">suoritettava tiedosto</span> tiettyyn <span class="hl">AppID</span>:hen manuaalisesti tai <span class="hl">poista liitos</span> olemassa olevalta`,
                 `Steam Achievement Notifier ei enää käytä <span class="hl">automaattista prosessiseurantaa</span> millekään <span class="hl">liitetyille peleille</span> - sen sijaan määritettyä <span class="hl">suoritettavaa tiedostoa</span> seurataan aina, kun vastaava <span class="hl">AppID</span> havaitaan`,
                 `<span class="hl" id="appidhelp"><u>Kuinka löydän Steam-pelin AppID:n?</u></span>`
             ],
-            "new": "Uusi...",
-            "linknew": "Uusi liitetty peli",
-            "linknewsub": [
+            linknew: "Uusi liitetty peli",
+            linknewsub: [
                 `Luo uusi linkki <span class="hl">pelinsuoritettavan tiedoston</span> ja siihen liittyvän <span class="hl">AppID:n</span> välille`,
                 `Luotuaan linkkejä ne voidaan <span class="hl">poistaa</span> aikaisemman <span class="hl">Hallinnoi liitettyjä pelejä</span> -valintaikkunan kautta`
             ],
-            "link": "Linkitä",
-            "findappid": "Etsi AppID",
-            "findappidsub": [
-                `Jokaisella Steam-pelillä on siihen liittyvä yksilöllinen numero - kutsutaan <span class="hl">AppID:ksi</span>. Voit löytää minkä tahansa Steam-pelin AppID:n tarkistamalla yhden seuraavista tavoista:`,
-                `Steam-asiakkaassa, napsauta hiiren kakkospainikkeella peliä <span class="hl">Kirjastossa</span> ja valitse <i>Ominaisuudet</i> > <i>Päivitykset</i> - AppID näkyy täällä`,
-                `Pelin <span class="hl">Kaupan sivun URL-osoite</span> - se on numero, joka on listattu <span class="hl">app/</span> -jälkeen: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Verkkosivustot kuten <span class="hl">SteamDB</span> - <span class="hl">App-tiedot</span> -osio listaa AppID:n jokaiselle pelille`
+            link: "Linkitä",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Lisää minkä tahansa Steam-pelin <span class="hl">AppID</span> <span class="hl">poissulkemislistaan</span>`,
+                `Steam Achievement Notifier ei yritä seurata saavutusdataa millekään pelille, jonka <span class="hl">AppID</span> on lisätty <span class="hl">poissulkemislistaan</span>`,
+                `<span class="hl" id="appidhelp"><u>Kuinka löydän Steam-pelin AppID:n?</u></span>`
+            ],
+            exclusionnew: "Uusi poissulkeminen",
+            exclusionnewsub: [
+                `Syötä <span class="hl">AppID</span> lisätäksesi sen <span class="hl">poissulkemislistaan</span>`
             ]
         }
     }

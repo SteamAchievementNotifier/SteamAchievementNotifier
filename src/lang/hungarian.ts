@@ -53,7 +53,16 @@ export const translations = {
             `Ha a probléma továbbra is fennáll az alkalmazás újraindítása után, kérlek fontold meg, hogy jelented be azt a kezdőképernyőn található beépített linkeken keresztül`
         ],
         suspend: "Felfüggesztés",
-        resume: "Folytatás"
+        resume: "Folytatás",
+        new: "Új...",
+        nodata: "Nincsenek adatok",
+        findappid: "AppID keresése",
+        findappidsub: [
+            `Minden Steam-játékhoz egyedi szám tartozik - ezt nevezzük <span class="hl">AppID</span>-nek. Bármely Steam-játékhoz tartozó AppID-t bármelyik következő módszerrel megtalálhatja:`,
+            `A <span class="hl">Steam kliensben</span> kattintson jobb gombbal egy játékra a <span class="hl">könyvtárában</span>, majd válassza az <i>Ingatlanok</i> > <i>Frissítések</i> lehetőséget - az AppID itt lesz felsorolva`,
+            `A játék <span class="hl">Bolt oldalának URL-címe</span> - ez lesz az a szám, amely az <span class="hl">app/</span> után következik: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `Olyan webhelyek, mint a <span class="hl">SteamDB</span> - az <span class="hl">App Info</span> szakasz felsorolja az AppID-t minden játékhoz`
+        ]
     },
     app: {
         content: {
@@ -109,6 +118,13 @@ export const translations = {
                 ssdelay: "Képernyőkép késleltetés",
                 notifyimg: "Értesítési kép",
                 imgpath: "Kép elérési útvonala"
+            }
+        },
+        games: {
+            title: "Játékok",
+            content: {
+                linkedgames: "Kapcsolt játékok",
+                exclusionlist: "Kizárások listája"
             }
         },
         accessibility: {
@@ -357,7 +373,9 @@ export const translations = {
         visibilitybtn: "Az elem láthatóságának váltása az egyéni előnézetekben és tesztértesítésekben",
         delbtn: "Az elem visszaállítása az alapértelmezett értékre",
         link: `Megnyitás <span class="hl">Kapcsolt Játékok Kezelése Menüben</span>`,
-        imgpath: "Az a hely, ahol ezen beállítás által generált értesítési képek lesznek mentve"
+        imgpath: "Az a hely, ahol ezen beállítás által generált értesítési képek lesznek mentve",
+        linkedgames: `Kerüld meg a <span class="hl">automatikus folyamatkövetést</span> bizonyos Steam-játékokhoz<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`,
+        exclusionlist: `Akadályozd meg a Steam-játékok bizonyos teljesítményeinek követését az alkalmazásban<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",
@@ -368,29 +386,32 @@ export const translations = {
         ],
         update: "Frissítés"
     },
-    "linkgame": {
-        "content": {
-            "exepath": "Végrehajtható fájl elérési útja",
-            "nodata": "Nincsenek adatok",
-            "manage": "Csatlakoztatott játékok kezelése",
-            "managesub": [
+    linkgame: {
+        content: {
+            exepath: "Végrehajtható fájl elérési útja",
+            managesub: [
                 `Kézzel csatlakoztassa a játék <span class="hl">végrehajtható fájlját</span> egy adott <span class="hl">AppID</span>-hoz, vagy <span class="hl">szakítsa meg</span> egy meglévő kapcsolatot`,
                 `A Steam Achievement Notifier már nem fog <span class="hl">automatikus folyamatkövetést</span> használni bármely <span class="hl">csatlakoztatott játékhoz</span> - ehelyett a megadott <span class="hl">végrehajtható fájl</span> követése történik, amikor a kapcsolódó <span class="hl">AppID</span> észlelhető`,
                 `<span class="hl" id="appidhelp"><u>Hogyan találom meg a Steam-játék AppID-jét?</u></span>`
             ],
-            "new": "Új...",
-            "linknew": "Új csatlakoztatott játék",
-            "linknewsub": [
+            linknew: "Új csatlakoztatott játék",
+            linknewsub: [
                 `Hozzon létre egy új kapcsolatot egy <span class="hl">játék végrehajtható fájlja</span> és az azt kísérő <span class="hl">AppID</span> között`,
                 `Létrehozás után a kapcsolatokat a korábbi <span class="hl">Csatlakoztatott játékok kezelése</span> párbeszédpanelen lehet <span class="hl">szakítani</span>`
             ],
-            "link": "Csatlakozás",
-            "findappid": "AppID keresése",
-            "findappidsub": [
-                `Minden Steam-játékhoz egyedi szám tartozik - ezt nevezzük <span class="hl">AppID</span>-nek. Bármely Steam-játékhoz tartozó AppID-t bármelyik következő módszerrel megtalálhatja:`,
-                `A <span class="hl">Steam kliensben</span> kattintson jobb gombbal egy játékra a <span class="hl">könyvtárában</span>, majd válassza az <i>Ingatlanok</i> > <i>Frissítések</i> lehetőséget - az AppID itt lesz felsorolva`,
-                `A játék <span class="hl">Bolt oldalának URL-címe</span> - ez lesz az a szám, amely az <span class="hl">app/</span> után következik: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Olyan webhelyek, mint a <span class="hl">SteamDB</span> - az <span class="hl">App Info</span> szakasz felsorolja az AppID-t minden játékhoz`
+            link: "Csatlakozás",
+        }
+    },
+    exclusions: {
+        content: {
+            managesub: [
+                `Add hozzá bármely Steam-játék <span class="hl">AppID</span>-jét a <span class="hl">kizárások listájához</span>`,
+                `A Steam Achievement Notifier nem fogja megpróbálni követni a teljesítményadatokat bármely játékhoz, amelynek az <span class="hl">AppID</span>-je hozzá lett adva a <span class="hl">kizárások listájához</span>`,
+                `<span class="hl" id="appidhelp"><u>Hogyan találom meg egy Steam-játék AppID-jét?</u></span>`
+            ],
+            exclusionnew: "Új kizárás",
+            exclusionnewsub: [
+                `Írd be az <span class="hl">AppID</span>-t a <span class="hl">kizárások listájához</span> való hozzáadáshoz`
             ]
         }
     }

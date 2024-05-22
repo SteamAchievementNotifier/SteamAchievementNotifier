@@ -21,12 +21,23 @@ const startidle = () => {
     log.write("INFO","Idle loop started")
     sanhelper.resetdebuginfo()
     ipcRenderer.send("workeractive",false)
+
+    let exclusionlogged = false
     
     const timer = setInterval(() => {
-        const { pollrate, releasedelay, maxretries, userust, debug, noiconcache } = sanconfig.get().store
+        const { pollrate, releasedelay, maxretries, userust, debug, noiconcache, exclusions } = sanconfig.get().store
         const { appid, gamename } = sanhelper.gameinfo as AppInfo
 
         if (!appid) return
+
+        if (exclusions.find(id => appid === id)) {
+            if (!exclusionlogged) {
+                log.write("INFO",`AppID ${appid} in Exclusion List`)
+                exclusionlogged = true
+            }
+
+            return
+        }
 
         clearInterval(timer)
 

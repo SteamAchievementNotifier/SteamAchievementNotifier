@@ -261,7 +261,16 @@ export const sanhelper: SANHelper = {
 
         return fs.rmSync(shortcutpath)
     },
-    desktop: (value: boolean) => sanhelper.createshortcut(value,path.join(process.env[process.platform === "linux" ? "HOME" : "userprofile"]!,"Desktop",`Steam Achievement Notifier (V${sanhelper.version}).${process.platform === "linux" ? "desktop" : "lnk"}`)),
+    desktop: (value: boolean) => {
+        const shortcutpath = (platform: string) => {
+            if (platform !== "win32" && platform !== "linux") return ""
+            const xdgdesktop = fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))!.match(/"([^"]+)"/)![1] || ""
+            return xdgdesktop || path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
+        }
+
+        const shortcutdir = shortcutpath(process.platform)
+        shortcutdir && sanhelper.createshortcut(value,path.join(shortcutdir,`Steam Achievement Notifier (V${sanhelper.version}).${process.platform === "linux" ? "desktop" : "lnk"}`))
+    },
     startwin: (value: boolean) => ipcRenderer.send("startwin",value),
     nohwa: (value: boolean) => ipcRenderer.send("restart",`"nohwa" Settings option toggled to ${value}.`),
     soundonly: (value: boolean) => {

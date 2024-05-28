@@ -264,8 +264,12 @@ export const sanhelper: SANHelper = {
     desktop: (value: boolean) => {
         const shortcutpath = (platform: string) => {
             if (platform !== "win32" && platform !== "linux") return ""
-            const xdgdesktop = fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))!.match(/"([^"]+)"/)![1] || ""
-            return xdgdesktop || path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
+
+            try {
+                return fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))!.match(/"([^"]+)"/)![1]
+            } catch {
+                return path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
+            }
         }
 
         const shortcutdir = shortcutpath(process.platform)

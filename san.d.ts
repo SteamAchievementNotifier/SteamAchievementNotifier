@@ -158,7 +158,8 @@ declare interface Notify extends Achievement {
     type: "main" | "rare" | "plat",
     customisation: Customisation,
     icon: string,
-    gamename: string | null
+    gamename: string | null,
+    steam3id: number
 }
 
 declare interface Dialog {
@@ -197,6 +198,7 @@ declare interface BuildNotifyInfo {
     id: number,
     type: "main" | "rare" | "plat",
     gamename: string | null,
+    steam3id: number,
     appid: number,
     apiname: string,
     unlockmsg: string,

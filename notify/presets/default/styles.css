@@ -9,7 +9,7 @@
 }
 
 .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) {
-    --move: calc(100vw - 100%);
+    --move: calc(var(--notifywidth) - 100%);
     --slidex: -100%;
     --slidey: 0;
     scale: 0;
@@ -29,19 +29,24 @@
 }
 
 @keyframes expandleft {
-    to { width: 100vw; }
+    to { width: var(--notifywidth); }
 }
 
 .wrapper#achcont:has(.wrapper#achcontent > #desc) {
     --move: 0;
     --slidex: 0;
     --slidey: -100%;
-    translate: 100vw;
+    translate: var(--notifywidth);
     animation:
         move calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition) * 2)) forwards,
         expand calc(var(--transition) * 2) calc(var(--displaytime) / 2) forwards,
         shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 4)) forwards,
         slide var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+.wrapper#achiconwrapper {
+    grid-column: 1 / -1;
+    justify-self: start;
 }
 
 #logo {
@@ -65,7 +70,7 @@ body[plat]:not([noiconanim]) .wrapper#achiconwrapper:has(#logo) {
 }
 
 @keyframes expand {
-    to { width: 100vw; }
+    to { width: var(--notifywidth); }
 }
 
 @keyframes shrink {
@@ -89,20 +94,12 @@ body[solid] .wrapper#achcont:has(.wrapper#achcontent > #desc) > #bg {
     opacity: 0;
 }
 
-/* .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > .wrapper#achcontent {
-    grid-template-columns: calc(100vh - (10px * var(--scale))) 1fr calc(100vh - (10px * var(--scale)));
-    grid-column: 1 / -1;
-    place-self: center;
-    animation: fadein calc(var(--transition) * 2) calc(var(--transition) * 6) forwards;
-} */
-
 .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > .wrapper#achcontent {
-    grid-template-columns: calc(100vh - (10px * var(--scale))) auto auto calc(100vh - (10px * var(--scale)));
+    grid-template-columns: calc(var(--notifyheight) - (10px * var(--scale))) auto auto calc(var(--notifyheight) - (10px * var(--scale)));
     grid-column: 1 / -1;
     align-self: center;
     align-items: center;
-    animation: fadein calc(var(
-    --transition) * 2) calc(var(--transition) * 6) forwards;
+    animation: fadein calc(var(--transition) * 2) calc(var(--transition) * 6) forwards;
     gap: 0;
 }
 
@@ -119,7 +116,7 @@ body[solid] .wrapper#achcont:has(.wrapper#achcontent > #desc) > #bg {
 }
 
 .wrapper#achcont:has(.wrapper#achcontent > #desc) > .wrapper#achcontent {
-    grid-template-columns: calc(10px * var(--scale)) 1fr calc(100vh - (10px * var(--scale)));
+    grid-template-columns: calc(10px * var(--scale)) 1fr calc(var(--notifyheight) - (10px * var(--scale)));
     grid-column: 1 / -1;
     animation:
         fadein calc(var(--transition) * 2) calc(var(--displaytime) / 2 + (var(--transition))) forwards,

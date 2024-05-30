@@ -8,8 +8,12 @@
     src: url("../../../fonts/SourceSansPro-ExtraLight.ttf");
 }
 
+.wrapper#outerwrapper {
+    overflow: visible;
+}
+
 .wrapper#achcont {
-    --translate: 10vw 0;
+    --translate: calc(var(--notifywidth) / 8.5) 0;
     --achcontopacity: var(--opacity);
     grid-template-columns: auto 1fr auto;
     opacity: 0;
@@ -44,15 +48,15 @@ body[bgonly] .wrapper#bg {
 
 body[topleft] .wrapper#achcont,
 body[bottomleft] .wrapper#achcont {
-    --translate: -10vw 0;
+    --translate: calc((var(--notifywidth) / 8.5) * -1) 0;
 }
 
 body[topcenter] .wrapper#achcont {
-    --translate: 0 -10vh;
+    --translate: 0 calc((var(--notifyheight) / 8.5) * -1);
 }
 
 body[bottomcenter] .wrapper#achcont {
-    --translate: 0 10vh;
+    --translate: 0 calc(var(--notifyheight) / 8.5);
 }
 
 .wrapper#achiconwrapper {
@@ -69,6 +73,11 @@ body[bottomcenter] .wrapper#achcont {
     translate: var(--translate);
     column-gap: calc(0.5rem * var(--fontsize));
     animation: textslide calc(var(--transition) * 2) linear forwards;
+}
+
+body[topleft] .wrapper#achcontent,
+body[bottomleft] .wrapper#achcontent {
+    --translate: -5% 0;
 }
 
 @keyframes textslide {
@@ -178,7 +187,7 @@ body:not([alldetails]) #unlockmsg {
     font-size: calc(0.9rem * var(--fontsize));
 }
 
-body[ss] > .wrapper#achcont,
+body[ss] .wrapper#achcont,
 body[ss] .wrapper#achcontent {
     --translate: 0 0;
     opacity: 1;

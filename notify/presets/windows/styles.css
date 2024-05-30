@@ -13,6 +13,10 @@
     src: url("../../../fonts/NotoSans-ExtraLight.ttf");
 }
 
+.wrapper#outerwrapper {
+    overflow: visible;
+}
+
 .wrapper#achcont {
     --translate: 200% 0;
     grid-template-columns: auto;
@@ -90,8 +94,8 @@ body[bottomcenter] .wrapper#achcont {
 }
 
 .wrapper#achiconwrapper {
-    max-width: 18vmax;
-    max-height: 18vmax;
+    max-width: 15vmax;
+    max-height: 15vmax;
 }
 
 .wrapper#achcontent {

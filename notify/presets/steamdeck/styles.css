@@ -4,7 +4,7 @@
 }
 
 .wrapper#achcont {
-    --translate: 100vw 0;
+    --translate: var(--notifywidth) 0;
     animation:
         slidein var(--transition) forwards,
         slideout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
@@ -22,15 +22,15 @@
 
 body[topleft] .wrapper#achcont,
 body[bottomleft] .wrapper#achcont {
-    --translate: -100vw 0;
+    --translate: calc(var(--notifywidth) * -1) 0;
 }
 
 body[topcenter] .wrapper#achcont {
-    --translate: 0 -100vh;
+    --translate: 0 calc(var(--notifyheight) * -1);
 }
 
 body[bottomcenter] .wrapper#achcont {
-    --translate: 0 100vh;
+    --translate: 0 var(--notifyheight);
 }
 
 .wrapper#achiconwrapper {

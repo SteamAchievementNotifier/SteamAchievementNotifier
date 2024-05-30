@@ -4,7 +4,7 @@
 }
 
 .wrapper#achcont {
-    --width: 30%;
+    --width: 30.77%;
     --elemopacity: var(--opacity);
     position: relative;
     width: var(--width);
@@ -84,8 +84,7 @@ body[bgonly] .wrapper#achcont::before {
     filter: blur(1rem);
     opacity: 0.5;
     z-index: -1;
-    animation:
-        shadowmove calc(var(--transition) * 20) var(--delay) ease-in-out alternate infinite;
+    animation: shadowmove calc(var(--transition) * 20) var(--delay) ease-in-out alternate infinite;
 }
 
 body[bgonly] .shadow {
@@ -108,8 +107,8 @@ body[bgonly] .shadow {
 }
 
 .wrapper#achiconwrapper {
-    width: 100vh;
-    height: 100vh;
+    width: var(--notifyheight);
+    height: var(--notifyheight);
     margin: 0;
     scale: 0;
     border-radius: var(--addiconroundness);

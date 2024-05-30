@@ -26,27 +26,29 @@ body[bottomcenter] {
     --placement: end center;
 }
 
+.wrapper#outerwrapper {
+    border-radius: 0;
+}
+
 .wrapper#achcont {
-    --translate: 100vw 0;
+    --translate: var(--notifywidth) 0;
     --br: var(--roundness) 0 0 var(--roundness);
-    --height: 92.5vh;
-    --margin: calc(10px * var(--scale)) 12.5vw;
+    --height: var(--notifyheight);
+    --margin: calc(10px * var(--scale)) calc(var(--notifywidth) / 8);
     --achcontopacity: var(--opacity);
     --achiconstart: 3;
     --logostart: 1;
     grid-template-columns: auto 1fr auto;
-    width: 97.5vw;
+    width: var(--notifywidth);
     height: var(--height);
     border-radius: var(--br);
-    box-shadow: 0 0 calc(5px * var(--scale)) #1010107f;
     animation:
         slidein var(--transition) forwards,
         slideout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
 }
 
 body[ss] .wrapper#achcont {
-    width: 97.5vw !important;
-    height: var(--height) !important;
+    --translate: 0 0 !important;
 }
 
 @keyframes slidein {
@@ -74,6 +76,7 @@ body[bgonly] .wrapper#bg {
 }
 
 .wrapper#bg {
+    width: var(--notifywidth);
     height: var(--height);
     border-radius: var(--br) !important;
 }
@@ -85,15 +88,15 @@ body[bgonly] .wrapper#bg {
 
 body[topleft] .wrapper#achcont,
 body[bottomleft] .wrapper#achcont {
-    --translate: -100vw 0;
+    --translate: calc(var(--notifywidth) * -1) 0;
     --br: 0 var(--roundness) var(--roundness) 0;
-    --margin: 12.5vw calc(10px * var(--scale));
+    --margin: calc(var(--notifywidth) / 8) calc(10px * var(--scale));
     --achiconstart: 1;
     --logostart: 3;
 }
 
 body[topcenter] .wrapper#achcont {
-    --translate: 0 -100vh;
+    --translate: 0 calc(var(--notifyheight) * -1);
     --br: 0 0 var(--roundness) var(--roundness);
     --margin: calc(10px * var(--scale));
     --achiconstart: 1;
@@ -101,7 +104,7 @@ body[topcenter] .wrapper#achcont {
 }
 
 body[bottomcenter] .wrapper#achcont {
-    --translate: 0 100vh;
+    --translate: 0 var(--notifywidth);
     --br: var(--roundness) var(--roundness) 0 0;
     --margin: calc(10px * var(--scale));
     --achiconstart: 1;
@@ -213,32 +216,7 @@ body[ss] .wrapper#achcontent {
     opacity: 1;
 }
 
-/* body[ss] .wrapper#achcontent::before {
-    grid-row-start: 1;
-} */
-
-/* body[ss][alldetails] .wrapper#achcontent::before {
-    grid-row-start: 2;
-} */
-
 body[ss] .wrapper#logo {
     display: grid;
     opacity: 1;
 }
-
-/* body[ss][alldetails] .wrapper#achcontent > #unlockmsg {
-    grid-row-start: 1;
-} */
-
-/* body[ss] .wrapper#achcontent > #desc {
-    display: -webkit-box;
-    grid-row-start: 2;
-} */
-
-/* body[ss][alldetails] .wrapper#achcontent > #title {
-    grid-row-start: 2;
-}
-
-body[ss][alldetails] .wrapper#achcontent > #desc {
-    grid-row-start: 3;
-} */

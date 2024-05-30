@@ -706,8 +706,8 @@ export const listeners = {
             const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? (config.get(`customisation.${type}.usecustompos`) ? config.get(`customisation.${type}.custompos`) as { x: number, y: number } : positions[config.get(`customisation.${type}.pos`) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"] as { x: number, y: number }) : positions["bottomright"])
 
             return {
-                width: notifywidth,
-                height: notifyheight,
+                width: notifywidth + 50,
+                height: notifyheight + 50,
                 x: x,
                 y: y
             }
@@ -780,8 +780,9 @@ export const listeners = {
                         customisation: customisation,
                         iswebview: null,
                         steampath: sanhelper.steampath,
-                        skipaudio: isextwin || config.get("audiosrc") !== "notify"
-                    }
+                        skipaudio: isextwin || config.get("audiosrc") !== "notify",
+                        steam3id: info.steam3id
+                    } as Info
                 }
 
                 notifywin.once("ready-to-show", async () => {

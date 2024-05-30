@@ -6,6 +6,8 @@
 }
 
 :root {
+    --notifywidth: 300px;
+    --notifyheight: 50px;
     --displaytime: 10s;
     --scale: 1;
     --primarycolor: #203e7a;
@@ -29,7 +31,7 @@
     --base64: url("../img/base64.png");
     --anim: 1s;
     --bodyopacity: 0;
-    font-size: clamp(0.05rem,0.05rem + 3.5vmax,12.5rem);
+    font-size: clamp(0.05rem,0.05rem + 3vmax,12.5rem);
     line-height: 1;
 }
 
@@ -43,28 +45,38 @@ body {
 body {
     opacity: var(--bodyopacity);
     transition: opacity var(--transition);
+    width: 100vw;
+    height: 100vh;
+}
+
+.wrapper#outerwrapper {
+    position: relative;
+    width: var(--notifywidth);
+    height: var(--notifyheight);
+    place-self: center;
+    /* border-radius: var(--roundness); */
+    overflow: hidden;
+    filter: drop-shadow(0 0 1.25rem blueviolet);
 }
 
 body,
 .wrapper#achcont,
 .wrapper#bg {
-    width: 100vw;
-    height: 100vh;
     /* Fixes blurriness in previews */
     will-change: contents;
     backface-visibility: hidden;
-    /* transform: perspective(0) translateZ(0); */
 }
 
 #achicon,
 #logo {
     will-change: contents;
     backface-visibility: hidden;
-    /* transform: perspective(0) translateZ(0); */
 }
 
 .wrapper#achcont {
+    position: absolute;
     grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
     align-self: center;
     align-items: center;
     align-content: center;
@@ -84,8 +96,13 @@ body[bgonly] .wrapper#achcont {
     grid-row-start: 1;
     border-radius: var(--roundness);
     opacity: var(--opacity);
-    transition: border-radius 0;
     z-index: -1;
+}
+
+.wrapper#achcont,
+.wrapper#bg {
+    width: 100%;
+    height: 100%;
 }
 
 body[solid] .wrapper#bg {
@@ -112,12 +129,11 @@ body[gameart] .wrapper#bg {
 
 .wrapper#achiconwrapper {
     place-self: center;
-    width: calc(100vh - (10px * var(--scale)));
-    height: calc(100vh - (10px * var(--scale)));
+    width: calc(var(--notifyheight) - (10px * var(--scale)));
+    height: calc(var(--notifyheight) - (10px * var(--scale)));
     grid-column-start: 1;
     margin-inline: calc(5px * var(--scale));
     isolation: isolate;
-    /* scale: 1.02; */
 }
 
 body[rare]:not([noiconanim]) .wrapper#achiconwrapper,

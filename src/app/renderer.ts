@@ -413,6 +413,7 @@ const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisatio
         id: Math.round(Date.now() / Math.random() * 1000),
         customisation: customisation,
         gamename: null,
+        steam3id: 0,
         type: type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
         name: type === "plat" ? "" : `Steam Achievement Notifier`,

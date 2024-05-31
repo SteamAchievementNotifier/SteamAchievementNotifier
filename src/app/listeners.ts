@@ -237,9 +237,9 @@ export const listeners = {
             }
         })
 
-        ipcMain.on("appid", (event,id,gamename) => {
+        ipcMain.on("appid", (event,id,gamename,steam3id) => {
             appid = id
-            win.webContents.send("appid",appid,gamename)
+            win.webContents.send("appid",appid,gamename,steam3id)
             updatetray(tray!,gamename)
         })
 
@@ -318,16 +318,26 @@ export const listeners = {
             trackwin.setAlwaysOnTop(true,"screen-saver")
             sanhelper.devmode && sanhelper.setdevtools(trackwin)
 
-            trackwin.loadFile(path.join(__root,"dist","app","trackwin.html"))
+            trackwin.loadFile(config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","dist","app","trackwin.html") : path.join(__root,"dist","app","trackwin.html"))
 
             ipcMain.once("trackwinready", () => {
                 const { width, height } = trackwin.getBounds()
                 const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
 
-                trackwin.webContents.send("gamename",gamename,appid,sanhelper.steampath)
-                shownotify(trackwin,bounds)
+                const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id?: number) => {
+                    trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id)
+                    shownotify(trackwin,bounds)
+    
+                    return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
+                }
 
-                return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
+                try {
+                    worker && worker.webContents.send("steam3id")
+                    ipcMain.once("steam3id", (event,steam3id: number) => sendtrackinfo(gamename,appid,sanhelper.steampath,steam3id))
+                } catch (err) {
+                    log.write("ERROR",`Error sending tracking info to Worker: ${err}`)
+                    sendtrackinfo(gamename,appid,sanhelper.steampath)
+                }
             })
 
             ipcMain.once("trackwinclose", () => trackwin.destroy())
@@ -647,10 +657,11 @@ export const listeners = {
                 info: info,
                 customisation: notify.customisation,
                 iswebview: iswebview,
-                steampath: sanhelper.steampath
+                steampath: sanhelper.steampath,
+                steam3id: notify.steam3id
             } as Info)
 
-            config.get("steamss") && worker && worker.webContents.send("steamss")
+            worker && worker.webContents.send("steam3id")
             preset !== "os" && capturesrc(notify.id,() => createsswin("ss",notify))
 
             win.webContents.send("queue",queue)
@@ -659,13 +670,14 @@ export const listeners = {
 
         const buildnotify = async (notify: Notify): Promise<BuildNotifyInfo> => {
             const config = sanconfig.get()
-            const { customisation, gamename } = notify
+            const { customisation, gamename, steam3id } = notify
             
             return {
                 id: notify.id,
                 type: notify.type,
-                gamename: gamename,
                 appid: appid,
+                gamename: gamename,
+                steam3id: steam3id,
                 apiname: notify.apiname,
                 unlockmsg: `${(customisation.usegametitle && (gamename || await language.get("gametitle"))) || customisation.customtext || (notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked"))}`,
                 title: notify.type === "plat" ? await language.get("gamecomplete") : notify.name,
@@ -680,34 +692,36 @@ export const listeners = {
             } as BuildNotifyInfo
         }
 
-        const setnotifybounds = (notify: { width: number, height: number, x?: number, y?: number },type: "main" | "rare" | "plat" | null,offset = 20,isextwin?: boolean) => {
+        const setnotifybounds = (notify: { width: number, height: number, x?: number, y?: number }, type: "main" | "rare" | "plat" | null, offset = 0, isextwin?: boolean) => {
             const config = sanconfig.get()
             if (config.get("soundonly")) return
-
+        
             const custompos = config.get(`customisation.${type}.custompos`) as { x: number, y: number }
             const monitor = (notify.x !== undefined && notify.y !== undefined) ? screen.getDisplayNearestPoint({ x: notify.x, y: notify.y }) : (config.get(`customisation.${type}.usecustompos`) ? screen.getDisplayNearestPoint({ x: custompos.x, y: custompos.y }) : screen.getPrimaryDisplay())
             const scale = type ? (config.get(`customisation.${type}.scale`) as number) / 100 : 1
-
+        
             // "screenwidth"/"screenheight" already have scaleFactor applied when returned as Electron.Display
             const screenwidth = monitor.bounds.width
             const screenheight = monitor.bounds.height
             const notifywidth = notify.width * scale
             const notifyheight = notify.height * scale
-
+        
+            const glowsize = type ? 50 * scale : 0
+        
             const positions = {
-                topleft: { x: offset, y: 20 },
-                topcenter: { x: (screenwidth / 2) - (notifywidth / 2), y: offset },
-                topright: { x: (screenwidth - notifywidth) - offset, y: 20 },
-                bottomleft: { x: offset, y: (screenheight - notifyheight) - 20 },
-                bottomcenter: { x: (screenwidth / 2) - (notifywidth / 2), y: (screenheight - notifyheight) - offset },
-                bottomright: { x: (screenwidth - notifywidth) - offset, y: (screenheight - notifyheight) - 20 }
+                topleft: { x: 0, y: 0 },
+                topcenter: { x: (screenwidth / 2) - ((notifywidth + glowsize) / 2), y: 0 },
+                topright: { x: (screenwidth - (notifywidth + glowsize)), y: 0 },
+                bottomleft: { x: 0, y: (screenheight - (notifyheight + glowsize)) },
+                bottomcenter: { x: (screenwidth / 2) - ((notifywidth + glowsize) / 2), y: (screenheight - (notifyheight + glowsize)) },
+                bottomright: { x: (screenwidth - (notifywidth + glowsize)), y: (screenheight - (notifyheight + glowsize)) }
             } as Positions
-
-            const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? (config.get(`customisation.${type}.usecustompos`) ? config.get(`customisation.${type}.custompos`) as { x: number, y: number } : positions[config.get(`customisation.${type}.pos`) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"] as { x: number, y: number }) : positions["bottomright"])
-
+        
+            const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? (config.get(`customisation.${type}.usecustompos`) ? custompos : positions[config.get(`customisation.${type}.pos`) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"]) : positions["bottomright"])
+        
             return {
-                width: notifywidth + 50,
-                height: notifyheight + 50,
+                width: notifywidth + glowsize,
+                height: notifyheight + glowsize,
                 x: x,
                 y: y
             }
@@ -978,7 +992,9 @@ export const listeners = {
             })
         })
 
-        ipcMain.on("steamss", async (event,steam3id) => {
+        ipcMain.on("steam3id", async (event,steam3id) => {
+            if (!sanconfig.get().store.steamss) return log.write("INFO",`"steamss" not active`)
+
             try {
                 const VDF = await import("simple-vdf")
                 const localconfig = fs.readFileSync(path.join(sanhelper.steampath,"userdata",`${steam3id}`,"config","localconfig.vdf")).toString()
@@ -1121,7 +1137,7 @@ export const listeners = {
                     skipaudio: true
                 } as Info)
 
-                ipcMain.once("ssdims", (event,dims: { width: number, height: number, offset: number }) => {
+                ipcMain.once("dims", (event,dims: { width: number, height: number, offset: number }) => {
                     if (!sswin) return log.write("ERROR",`Error setting "sswin" dimensions: "sswin" not found`)
 
                     if (type === "img") {
@@ -1130,7 +1146,7 @@ export const listeners = {
                         sswin.setResizable(false)
                     }
 
-                    sswin.webContents.send("ssdims",dims)
+                    sswin.webContents.send("dims",dims)
                 })
 
                 !ispreview && ipcMain.once("sscapture", () => {

@@ -19,8 +19,8 @@
 
 .wrapper#achcont {
     --translate: 200% 0;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     translate: var(--translate);
     animation:
         slidein var(--transition) forwards,

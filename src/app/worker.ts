@@ -103,8 +103,8 @@ const startsan = async (appinfo: AppInfo) => {
     const initgameloop = () => {
         processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
         
-        ipcRenderer.send("appid",appid,gamename)
-        ipcRenderer.on("steamss",() => ipcRenderer.send("steamss",steam3id))
+        ipcRenderer.send("appid",appid,gamename,steam3id)
+        ipcRenderer.on("steam3id",() => ipcRenderer.send("steam3id",steam3id))
         ipcRenderer.send("workeractive",true)
     
         const apinames: string[] = num ? client.achievement.getAchievementNames() : []

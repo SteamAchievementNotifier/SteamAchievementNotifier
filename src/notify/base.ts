@@ -38,17 +38,18 @@ const notifyhelper = {
     ]},
     getgameart: (type: "icon" | "library_hero",appid: number,steampath: string,steam3id: number): Promise<string> => {
         const heropath = (steam3id: number) => {
-            const heroimgpath = `${steampath}/userdata/${steam3id}/config/grid/${appid}_hero`
+            const heroimgpath = path.join(steampath,"userdata",`${steam3id}`,"config","grid",`${appid}_hero`).replace(/\\/g,"/")
             const exts = ["jpg","png"]
-
+    
             for (const ext of exts) {
                 if (fs.existsSync(`${heroimgpath}.${ext}`)) return `${heroimgpath}.${ext}`
             }
-
+    
             return null
         }
 
-        const imgpath = heropath(steam3id) || `${steampath}/appcache/librarycache/${appid}_${type}.jpg`
+        const imgpath = heropath(steam3id) || path.join(steampath,"appcache","librarycache",`${appid}_${type}.jpg`).replace(/\\/g,"/")
+        console.log(imgpath)
         return new Promise((resolve,reject) => fs.existsSync(imgpath) ? resolve(imgpath) : reject(type === "icon" ? "../img/gameicon.png" : (`../img/gameart/${appid}_${type}.jpg` || "../img/sanimgbg.png")))
     },
     getaudiofile: (mode: "file" | "folder",filepath: string) => {
@@ -249,8 +250,11 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
             height: parseInt(meta.getAttribute("height") as string),
             offset: meta.getAttribute("offset") !== null ? parseInt(meta.getAttribute("offset") as string) : 20
         }
+        
+        document.documentElement.style.setProperty("--notifywidth",`${dims.width * (iswebview !== "customiser" ? customisation.scale / 100 : 1)}px`)
+        document.documentElement.style.setProperty("--notifyheight",`${dims.height * (iswebview !== "customiser" ? customisation.scale / 100 : 1)}px`)
 
-        iswebview !== "customiser" && ipcRenderer.send("ssdims",dims)
+        iswebview !== "customiser" && ipcRenderer.send("dims",dims)
 
         const res = await new Promise<Res>(resolve => {
             document.head.appendChild(notifyhelper.appendcss(customisation.preset))

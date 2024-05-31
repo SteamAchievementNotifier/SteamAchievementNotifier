@@ -57,7 +57,7 @@ ipcRenderer.once("sswinready", (event,obj: Info) => {
 
     downscale.forEach((value,key) => customisation.preset === key && (webview.style.scale = value.toString()))
 
-    ipcRenderer.once("ssdims", (event,dims: { width: number, height: number, offset: number }) => {
+    ipcRenderer.once("dims", (event,dims: { width: number, height: number, offset: number }) => {
         const { width, height, offset } = dims
         webview.shadowRoot!.querySelector("iframe")!.style.height = `${height * (customisation.scale / 100)}px`
     

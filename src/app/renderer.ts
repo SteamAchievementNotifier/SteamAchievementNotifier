@@ -16,6 +16,7 @@ declare global {
         gpu: Function
         monitors: Monitor[],
         appid: number,
+        steam3id: number,
         update: Function,
         availabletest: Function
     }
@@ -165,6 +166,15 @@ const loadwebview = () => {
         webview.webpreferences = "nodeIntegration=true, contextIsolation=false"
         webview.src = config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html");
         webview.style.opacity = "0"
+        webview.shadowRoot!.querySelector("iframe")!.style.width = "auto"
+
+        const cmds = [
+            `document.documentElement.style.scale = "0.75"`,
+            `document.documentElement.style.overflow = "visible"`,
+            `document.documentElement.style.fontSize = "clamp(0.05rem,0.05rem + 3.5vmax,12.5rem)"`
+        ]
+
+        webview.addEventListener("dom-ready", () => cmds.forEach(cmd => webview!.executeJavaScript(cmd)))
     })
     .finally(() => {
         document.querySelector(".wrapper#webview > .wrapper")!.appendChild(webview || nopreview!)
@@ -413,7 +423,7 @@ const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisatio
         id: Math.round(Date.now() / Math.random() * 1000),
         customisation: customisation,
         gamename: null,
-        steam3id: 0,
+        steam3id: window.steam3id,
         type: type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
         name: type === "plat" ? "" : `Steam Achievement Notifier`,
@@ -458,8 +468,8 @@ ipcRenderer.on("customisernotify", (event,obj: Info) => {
     const { width, height } = sanhelper.getpresetbounds(obj.customisation.preset)
     !width && !height && log.write("ERROR",`Error parsing "width"/"height" values for "${obj.customisation.preset}" preset: No <meta> tag found in body`)
 
-    wrapper.style.setProperty("--width",`${width}`)
-    wrapper.style.setProperty("--height",`${height}`)
+    wrapper.style.setProperty("--width",`${width + 50}`)
+    wrapper.style.setProperty("--height",`${height + 50}`)
 
     webview && webview.send("notify",obj)
 })
@@ -480,9 +490,12 @@ const gamelbl =  document.querySelector(`.rect#game > span`)!
 gamelbl.addEventListener("updategamelbl", async () => await sanhelper.updategamelbl(globalgamename))
 
 window.appid = 0
-ipcRenderer.on("appid", async (event,appid,gamename) => {
+window.steam3id = 0
+
+ipcRenderer.on("appid", async (event,appid,gamename,steam3id) => {
     (config.get("nowtracking") && !config.get("soundonly") && appid !== 0 && gamename) && sanhelper.showtrack(gamename)
     window.appid = appid || 0
+    window.steam3id = steam3id || 0
 
     // Fixes issue where gamename is reset to default upon opening a dialog
     globalgamename = gamename || null

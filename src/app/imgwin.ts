@@ -8,7 +8,7 @@ ipcRenderer.once("imgwinready", (event,obj: Info) => {
     !iswebview || iswebview === "ss" && (document.querySelector(".menubtn#close") as HTMLButtonElement)!.remove()
 
     // Nothing is actually done here, but is used to signify that the notification window is ready to be shown
-    ipcRenderer.once("ssdims", () => {
+    ipcRenderer.once("dims", () => {
         document.documentElement.style.setProperty("--opacity","1")
         obj.skipaudio = true
     })

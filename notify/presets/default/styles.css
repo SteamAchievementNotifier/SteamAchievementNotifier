@@ -1,3 +1,7 @@
+.wrapper#outerwrapper {
+    overflow: hidden;
+}
+
 .wrapper#achcont {
     grid-column-start: 1;
     grid-row-start: 1;

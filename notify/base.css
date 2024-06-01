@@ -31,6 +31,9 @@
     --base64: url("../img/base64.png");
     --anim: 1s;
     --bodyopacity: 0;
+    --glowcolor: #8a2be2;
+    --glowsize: 0.75rem;
+    --glow: none;
     font-size: clamp(0.05rem,0.05rem + 3vmax,12.5rem);
     line-height: 1;
 }
@@ -40,6 +43,7 @@ body {
     display: grid;
     align-content: center;
     background-color: transparent;
+    place-content: center;
 }
 
 body {
@@ -50,14 +54,14 @@ body {
 }
 
 .wrapper#outerwrapper {
-    --glow: drop-shadow(0 0 0.75rem blueviolet);
+    --filter: var(--glow);
     position: relative;
     width: var(--notifywidth);
     height: var(--notifyheight);
     place-self: center;
     filter:
-        var(--glow)
-        var(--glow);
+        var(--filter)
+        var(--filter);
 }
 
 body,

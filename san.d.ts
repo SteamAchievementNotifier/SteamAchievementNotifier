@@ -116,6 +116,9 @@ declare interface Customisation {
     primarycolor: string,
     secondarycolor: string,
     tertiarycolor: string,
+    glow: boolean,
+    glowcolor: string,
+    glowsize: number,
     gameart: string,
     shortcut: string,
     customfont: string

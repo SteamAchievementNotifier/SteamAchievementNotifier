@@ -4,13 +4,13 @@
 }
 
 .wrapper#achcont {
-    --scale: 0.84;
+    --scale: 0.85;
     --finish:
         shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 12)) forwards,
         popout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
     position: relative;
     grid-template-columns: auto 1fr;
-    width: 16.8%;
+    width: 16.6%;
     place-self: center;
     scale: 0;
     animation:
@@ -18,6 +18,7 @@
         expand calc(var(--transition) * 2) calc(var(--transition) * 10) forwards,
         var(--finish);
     will-change: contents;
+    overflow: visible;
 }
 
 body[fastanim] .wrapper#achcont {
@@ -39,7 +40,7 @@ body[fastanim] .wrapper#achcont {
 }
 
 @keyframes shrink {
-    to { width: 16.8%; }
+    to { width: 16.6%; }
 }
 
 .wrapper#bg {
@@ -73,8 +74,8 @@ body[fastanim] .wrapper#bg {
 .wrapper#logo {
     --scale: 0.75;
     --finish: popin calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 10)) forwards;
-    width: 100vh;
-    height: 100vh;
+    width: var(--notifyheight);
+    height: var(--notifyheight);
     scale: var(--scale);
     background: var(--logo) center / contain no-repeat;
     z-index: 100;
@@ -89,8 +90,8 @@ body[fastanim] .wrapper#logo {
 
 #bgelems {
     display: grid;
-    width: 100vh;
-    height: 100vh;
+    width: var(--notifyheight);
+    height: var(--notifyheight);
     opacity: var(--opacity);
 }
 
@@ -198,8 +199,9 @@ body[fastanim] .wrapper#achcontent > #unlockmsg {
     grid-row-start: 2;
 }
 
-body[fastanim] .wrapper#achcontent > #title {
-    grid-row: 1 / span 1;
+body[fastanim] .wrapper#achcontent > #title,
+body[ss] .wrapper#achcontent > #title {
+    grid-row-start: 1;
 }
 
 #title,
@@ -220,10 +222,14 @@ body[fastanim] .wrapper#achcontent > #title {
 }
 
 body[fastanim] .wrapper#achcontent > #desc {
-    grid-row: 2 / span 1;
     animation:
         fadein calc(var(--transition) * 2) calc(var(--transition) * 12) forwards,
         var(--finish);
+}
+
+body[fastanim] .wrapper#achcontent > #desc,
+body[ss] .wrapper#achcontent > #desc {
+    grid-row-start: 2;
 }
 
 body[fastanim] .wrapper#achcont > .wrapper#achiconwrapper,
@@ -245,6 +251,7 @@ body[ss] .wrapper#achcontent > #title {
 }
 
 body[ss] .wrapper#logo,
-body[ss] #bgelems {
+body[ss] #bgelems,
+body[ss] #unlockmsg {
     display: none;
 }

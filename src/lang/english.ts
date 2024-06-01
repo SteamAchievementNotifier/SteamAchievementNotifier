@@ -211,7 +211,10 @@ export const translations = {
                 fontoutline: "Font Outline",
                 fontoutlinecolor: "Font Outline Color",
                 fontshadow: "Font Shadow",
-                fontshadowcolor: "Font Shadow Color"
+                fontshadowcolor: "Font Shadow Color",
+                glow: "Glow",
+                glowcolor: "Glow Color",
+                glowsize: "Glow Size"
             }
         },
         icons: {

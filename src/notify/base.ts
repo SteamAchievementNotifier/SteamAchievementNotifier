@@ -170,7 +170,10 @@ const notifyhelper = {
                 ["--gs",customisation.usepercent ? `${percent.value.toFixed(1)}` : `${getpercent()}`],
                 ["--unit",customisation.usepercent ? "%" : (customisation.preset === "epicgames" ? " XP" : (customisation.preset === "xbox360" ? "G" : ""))],
                 ["--raritycolor",`${percent.value >= 50 ? "#a05526" : (percent.value < 50 && percent.value > percent.rarity ? "#828282" : "#b4904a")}`],
-                ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`]
+                ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`],
+                ["--glowcolor",customisation.glowcolor],
+                ["--glowsize",`${customisation.glowsize / 100}rem`],
+                ["--glow",customisation.glow ? `drop-shadow(0 0 var(--glowsize) var(--glowcolor))` : "none"]
             ])
 
             const gselem = document.getElementById("xpwrapper") || ((customisation.preset === "xboxone" || customisation.preset === "xbox360") ? document.getElementById("title") : null)

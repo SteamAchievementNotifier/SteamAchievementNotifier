@@ -8,11 +8,11 @@
 }
 
 .wrapper#achcont {
-    --start: 16.8%;
+    --start: 16.6%;
     --finish: shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--displaytime) / 4.5)) cubic-bezier(0.75, 0, 1, 1) forwards;
     position: relative;
     width: var(--start);
-    height: 99vh;
+    height: var(--notifyheight);
     place-self: center;
     opacity: var(--opacity);
     animation:
@@ -29,7 +29,7 @@ body[bgonly] .wrapper#achcont {
 }
 
 @keyframes expand {
-    to { width: 100vw; }
+    to { width: var(--notifywidth); }
 }
 
 @keyframes shrink {
@@ -62,7 +62,7 @@ body[bgonly] .wrapper#bg {
     translate: -150% -50%;
     transform: skew(-30deg,0deg);
     width: 30vw;
-    height: 200vh;
+    height: calc(var(--notifyheight) * 2);
     place-self: center;
     background-color: white;
     opacity: 0;
@@ -100,8 +100,8 @@ body:not([fastanim]) .wrapper#achiconwrapper {
 
 #iconbg {
     --finish: scaledown calc(var(--transition) * 2) calc(var(--displaytime) - calc(var(--transition) * 8)) cubic-bezier(1, 0, 1, 1) forwards;
-    width: 100vh;
-    height: 100vh;
+    width: var(--notifyheight);
+    height: var(--notifyheight);
     scale: 0;
     border-radius: var(--roundness);
     background-color: var(--secondarycolor);

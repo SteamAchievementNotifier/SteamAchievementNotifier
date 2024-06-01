@@ -126,6 +126,7 @@ body[customiser][closing] .wrapper#main > *:not(.wrapper#customiserlogo,.wrapper
     min-width: 0;
     min-height: 0;
     aspect-ratio: var(--width) / var(--height);
+    overflow: hidden;
 }
 
 webview {
@@ -136,11 +137,21 @@ webview {
     min-width: 0;
     min-height: 0;
     transition: calc(var(--transition) / 2);
+    width: var(--width);
+    height: var(--height);
+    aspect-ratio: var(--width) / var(--height);
 }
 
 /* #customiser:has(select#preset > option[value="xqjan"]:not(:checked)) webview {
     scale: 0.85;
 } */
+
+#customiser:has(select#preset > option[value="xqjan"]:checked) webview {
+    --scale: 0.85;
+    width: calc(var(--width) * var(--scale));
+    height: calc(var(--height) * var(--scale));
+    aspect-ratio: calc(var(--width) * var(--scale)) / calc(var(--height) / var(--scale));
+}
 
 span#nopreview {
     place-self: center;

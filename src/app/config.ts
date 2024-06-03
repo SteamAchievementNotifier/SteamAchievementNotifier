@@ -106,6 +106,7 @@ export const sanconfig = {
                 bgimg: "",
                 bgimgbrightness: 100,
                 brightness: 100,
+                blur: 10,
                 roundness: 25,
                 fontsize: 100,
                 opacity: 100,

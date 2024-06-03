@@ -38,6 +38,8 @@ body[main] .sub:has(#iconanim),
 .optcont:has(.opt > select#bgstyle > option[value="bgimg"]:not(:checked)) > .opt > .opt:has(#bgimg),
 .optcont:has(.opt > select#bgstyle > option[value="bgimg"]:not(:checked)) > .opt > .opt:has(#bgimgbrightness),
 .optcont:has(.opt > select#bgstyle > option[value="gameart"]:not(:checked)) > .opt > .opt:has(#brightness),
+.optcont:has(.opt > select#bgstyle > option[value="bgimg"]:not(:checked)) > .opt > .opt:has(#blur),
+.optcont:has(.opt > select#bgstyle > option[value="gameart"]:not(:checked)) > .opt > .opt:has(#blur),
 .optcont:has(.opt > input[type="checkbox"]#fontoutline:not(:checked)) > .opt:has(#fontoutline) > .opt:has(#fontoutlinecolor),
 .optcont:has(.opt > input[type="checkbox"]#fontshadow:not(:checked)) > .opt:has(#fontshadow) > .opt:has(#fontshadowcolor),
 .optcont:has(.opt > input[type="checkbox"]#glow:not(:checked)) > .opt:has(#glow) > .opt:has(#glowcolor,#glowsize),
@@ -75,7 +77,9 @@ body[main] .sub:has(#iconanim),
 #customiseropts:has(.opt > select#preset > option[value="ps3"]:checked) .opt:has(#alldetails),
 #customiseropts:has(.opt > select#preset > option[value="epicgames"]:checked) .opt:has(#usepercent),
 #customiseropts:has(.opt > select#preset > option[value="xboxone"]:checked) .opt:has(#usepercent),
-#customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#usepercent) {
+#customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#usepercent),
+.optcont:has(.opt > select#bgstyle > option[value="bgimg"]:checked) > .opt > .opt:has(#blur),
+.optcont:has(.opt > select#bgstyle > option[value="gameart"]:checked) > .opt > .opt:has(#blur) {
     display: grid;
 }
 

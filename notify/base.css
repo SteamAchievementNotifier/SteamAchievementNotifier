@@ -34,6 +34,7 @@
     --glowcolor: #8a2be2;
     --glowsize: 0.75rem;
     --glow: none;
+    --blur: 0px;
     font-size: clamp(0.05rem,0.05rem + 3vmax,12.5rem);
     line-height: 1;
 }
@@ -119,13 +120,23 @@ body[gradient] .wrapper#bg {
 }
 
 body[bgimg] .wrapper#bg {
-    background: var(--bgimg) center / cover no-repeat;
     filter: brightness(var(--bgimgbrightness));
 }
 
 body[gameart] .wrapper#bg {
-    background: var(--bgimg) center / cover no-repeat;
     filter: brightness(var(--brightness));
+}
+
+body[bgimg] .wrapper#bg,
+body[gameart] .wrapper#bg {
+    overflow: hidden;
+}
+
+body[bgimg] .wrapper#bg::after,
+body[gameart] .wrapper#bg::after {
+    content: "";
+    background: var(--bgimg) center / cover no-repeat;
+    filter: blur(var(--blur));
 }
 
 .wrapper#achcont > * {

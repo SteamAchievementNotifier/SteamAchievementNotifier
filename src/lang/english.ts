@@ -195,6 +195,7 @@ export const translations = {
                 bgimg: "Background Image",
                 bgimgbrightness: "Brightness",
                 brightness: "Brightness",
+                blur: "Blur",
                 roundness: "Roundness",
                 fontsize: "Font Size",
                 opacity: "Opacity",

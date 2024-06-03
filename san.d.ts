@@ -90,6 +90,7 @@ declare interface Customisation {
     bgimg: string,
     bgimgbrightness: number,
     brightness: number,
+    blur: number,
     roundness: number,
     fontsize: number,
     opacity: number,

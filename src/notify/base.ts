@@ -49,7 +49,6 @@ const notifyhelper = {
         }
 
         const imgpath = heropath(steam3id) || path.join(steampath,"appcache","librarycache",`${appid}_${type}.jpg`).replace(/\\/g,"/")
-        console.log(imgpath)
         return new Promise((resolve,reject) => fs.existsSync(imgpath) ? resolve(imgpath) : reject(type === "icon" ? "../img/gameicon.png" : (`../img/gameart/${appid}_${type}.jpg` || "../img/sanimgbg.png")))
     },
     getaudiofile: (mode: "file" | "folder",filepath: string) => {
@@ -173,7 +172,8 @@ const notifyhelper = {
                 ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`],
                 ["--glowcolor",customisation.glowcolor],
                 ["--glowsize",`${customisation.glowsize / 100}rem`],
-                ["--glow",customisation.glow ? `drop-shadow(0 0 var(--glowsize) var(--glowcolor))` : "none"]
+                ["--glow",customisation.glow ? `drop-shadow(0 0 var(--glowsize) var(--glowcolor))` : "none"],
+                ["--blur",`${customisation.blur * (iswebview === "customiser" ? 1 : customisation.scale / 100) / 50}px`]
             ])
 
             const gselem = document.getElementById("xpwrapper") || ((customisation.preset === "xboxone" || customisation.preset === "xbox360") ? document.getElementById("title") : null)

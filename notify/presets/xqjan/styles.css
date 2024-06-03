@@ -90,8 +90,8 @@ body[fastanim] .wrapper#logo {
 
 #bgelems {
     display: grid;
-    width: var(--notifyheight);
-    height: var(--notifyheight);
+    width: 100%;
+    height: 100%;
     opacity: var(--opacity);
 }
 

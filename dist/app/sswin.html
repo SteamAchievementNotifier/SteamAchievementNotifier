@@ -44,7 +44,9 @@
             webview {
                 --width: 300px;
                 --height: 50px;
-                --offset: 20px 20px 20px 20px;
+                --offset: 0 0 20px 0;
+                display: grid;
+                place-content: center;
                 margin: var(--offset);
                 justify-self: var(--x);
                 align-self: var(--y);
@@ -59,7 +61,6 @@
     </head>
     <body>
         <button class="menubtn" id="close" onclick="window.close()"></button>
-        <!-- <img src="../../img/santextlogobg.png" id="ss" draggable="false"> -->
         <img src="" id="ss" draggable="false">
         <webview webpreferences="nodeIntegration=true, contextIsolation=false"></webview>
     </body>

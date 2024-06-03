@@ -141,12 +141,25 @@ const removeelems = (elems: (Electron.WebviewTag | HTMLSpanElement | null)[]) =>
     })
 }
 
+const defaults = {
+    width: 700,
+    height: 500
+}
+
+const resizewebview = () => {
+    if (!webview) return
+
+    const { innerWidth: width, innerHeight: height } = window
+    const scale = Math.max(Math.min(width / defaults.width,height / defaults.height),0.75)
+    return webview.shadowRoot!.querySelector("iframe")!.style.scale = `${scale}`
+}
+
 const loadwebview = () => {
     (sanhelper.devmode && webview) && webview.closeDevTools()
     pause = false
     document.querySelector("#webviewbtns > #playback")!.toggleAttribute("paused",pause)
 
-    const type = sanhelper.type
+    const type = sanhelper.type as "main" | "rare" | "plat"
 
     return new Promise<void>(resolve => {
         removeelems([webview,nopreview])
@@ -168,13 +181,18 @@ const loadwebview = () => {
         webview.style.opacity = "0"
         webview.shadowRoot!.querySelector("iframe")!.style.width = "auto"
 
-        const cmds = [
-            `document.documentElement.style.scale = "0.75"`,
-            `document.documentElement.style.overflow = "visible"`,
-            `document.documentElement.style.fontSize = "clamp(0.05rem,0.05rem + 3.5vmax,12.5rem)"`
-        ]
+        window.addEventListener("resize",resizewebview)
 
-        webview.addEventListener("dom-ready", () => cmds.forEach(cmd => webview!.executeJavaScript(cmd)))
+        const cmds = new Map<string,string>([
+            ["scale",`"0.75"`],
+            ["overflow",`"visible"`],
+            ["fontSize",`"clamp(0.05rem,0.05rem + 3.5vmax,12.5rem)"`]
+        ])
+
+        webview.addEventListener("dom-ready", () => {
+            resizewebview()
+            cmds.forEach((value,key) => webview!.executeJavaScript(`document.documentElement.style.${key} = ${value}`))
+        })
     })
     .finally(() => {
         document.querySelector(".wrapper#webview > .wrapper")!.appendChild(webview || nopreview!)
@@ -331,6 +349,8 @@ const resetwin = (attrs: string[], animationName?: string) => {
 
     webview && webview.remove()
     webview = null
+
+    window.removeEventListener("resize",resizewebview)
 }
 
 const closecustomiser = () => {

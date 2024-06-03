@@ -692,7 +692,7 @@ export const listeners = {
             } as BuildNotifyInfo
         }
 
-        const setnotifybounds = (notify: { width: number, height: number, x?: number, y?: number }, type: "main" | "rare" | "plat" | null, offset = 0, isextwin?: boolean) => {
+        const setnotifybounds = (notify: { width: number, height: number, x?: number, y?: number }, type: "main" | "rare" | "plat" | null, offset = 20, isextwin?: boolean) => {
             const config = sanconfig.get()
             if (config.get("soundonly")) return
         
@@ -706,15 +706,18 @@ export const listeners = {
             const notifywidth = notify.width * scale
             const notifyheight = notify.height * scale
         
-            const glowsize = type ? 50 * scale : 0
+            const bordersize = 50
+            const glowsize = type ? bordersize * scale : 0
+            const top = ((glowsize / 2) * -1) + (bordersize / 2)
+            const bottom = (glowsize / 2) - (bordersize / 2)
         
             const positions = {
-                topleft: { x: 0, y: 0 },
-                topcenter: { x: (screenwidth / 2) - ((notifywidth + glowsize) / 2), y: 0 },
-                topright: { x: (screenwidth - (notifywidth + glowsize)), y: 0 },
-                bottomleft: { x: 0, y: (screenheight - (notifyheight + glowsize)) },
-                bottomcenter: { x: (screenwidth / 2) - ((notifywidth + glowsize) / 2), y: (screenheight - (notifyheight + glowsize)) },
-                bottomright: { x: (screenwidth - (notifywidth + glowsize)), y: (screenheight - (notifyheight + glowsize)) }
+                topleft: { x: top, y: top },
+                topcenter: { x: (screenwidth / 2) - ((notifywidth + glowsize) / 2), y: top },
+                topright: { x: (screenwidth - (notifywidth + glowsize) - top), y: top },
+                bottomleft: { x: top, y: (screenheight - (notifyheight + glowsize) + bottom) },
+                bottomcenter: { x: (screenwidth / 2) - ((notifywidth + glowsize) / 2), y: (screenheight - (notifyheight + glowsize) + bottom) },
+                bottomright: { x: (screenwidth - (notifywidth + glowsize) + bottom), y: (screenheight - (notifyheight + glowsize) + bottom) }
             } as Positions
         
             const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? (config.get(`customisation.${type}.usecustompos`) ? custompos : positions[config.get(`customisation.${type}.pos`) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"]) : positions["bottomright"])
@@ -1140,13 +1143,15 @@ export const listeners = {
                 ipcMain.once("dims", (event,dims: { width: number, height: number, offset: number }) => {
                     if (!sswin) return log.write("ERROR",`Error setting "sswin" dimensions: "sswin" not found`)
 
+                    const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,false) as { width: number, height: number, x: number, y: number }
+
                     if (type === "img") {
-                        sswin.setSize(Math.round(dims.width * (notify.customisation.scale / 100)),Math.round(dims.height * (notify.customisation.scale / 100)))
+                        sswin.setSize(Math.round(width),Math.round(height))
                         sswin.center()
-                        sswin.setResizable(false)
                     }
 
-                    sswin.webContents.send("dims",dims)
+                    sswin.setResizable(false)
+                    sswin.webContents.send("dims",{ width, height })
                 })
 
                 !ispreview && ipcMain.once("sscapture", () => {

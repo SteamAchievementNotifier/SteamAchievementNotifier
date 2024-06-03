@@ -57,21 +57,27 @@ ipcRenderer.once("sswinready", (event,obj: Info) => {
 
     downscale.forEach((value,key) => customisation.preset === key && (webview.style.scale = value.toString()))
 
-    ipcRenderer.once("dims", (event,dims: { width: number, height: number, offset: number }) => {
-        const { width, height, offset } = dims
-        webview.shadowRoot!.querySelector("iframe")!.style.height = `${height * (customisation.scale / 100)}px`
+    ipcRenderer.once("dims", (event,dims: { width: number, height: number }) => {
+        const { width, height } = dims
+        webview.shadowRoot!.querySelector("iframe")!.style.width = `${width}px`
+        webview.shadowRoot!.querySelector("iframe")!.style.height = `${height}px`
     
         document.documentElement.style.setProperty("--opacity","1")
-        webview.style.setProperty("--width",`${width * (customisation.scale / 100)}px`)
-        webview.style.setProperty("--height",`${height * (customisation.scale / 100)}px`)
+        webview.style.setProperty("--width",`${width}px`)
+        webview.style.setProperty("--height",`${height}px`)
+
+        const bordersize = 50
+        const glowsize = bordersize * customisation.scale / 100
+        const top = `${((glowsize / 2) * -1) + (bordersize / 2)}px`
+        const bottom = `${(glowsize / 2) - (bordersize / 2)}px`
 
         const offsetmap = new Map<string,string>([
-            ["topleft",`20px 20px 20px ${offset}px`],
-            ["topcenter",`${offset}px 20px 20px 20px`],
-            ["topright",`20px ${offset}px 20px 20px`],
-            ["bottomleft",`20px 20px 20px ${offset}px`],
-            ["bottomcenter",`20px 20px ${offset}px 20px`],
-            ["bottomright",`20px ${offset}px 20px 20px`],
+            ["topleft",top],
+            ["topcenter",top],
+            ["topright",top],
+            ["bottomleft",bottom],
+            ["bottomcenter",bottom],
+            ["bottomright",bottom],
         ])
 
         webview.style.setProperty("--offset",offsetmap.get(customisation.ovpos)!)

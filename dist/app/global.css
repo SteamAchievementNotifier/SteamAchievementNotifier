@@ -508,3 +508,9 @@ td:nth-child(3) {
 .cont:has(.wrapper.title[notransition]) > .optcont {
     transition: 0s !important;
 }
+
+.ttcode {
+    background-color: var(--lightgrey);
+    padding-inline: 0.2rem;
+    border-radius: calc(var(--elembr) / 2);
+}

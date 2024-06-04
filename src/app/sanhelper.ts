@@ -352,8 +352,8 @@ export const sanhelper: SANHelper = {
         }
 
         if (elem.hasAttribute("unit")) {
-            elem.parentElement!.setAttribute("value",elem.value)
-            elem.oninput = ({ target }: Event) => (elem as HTMLInputElement).parentElement!.setAttribute("value",(target as HTMLInputElement).value)
+            elem.parentElement!.setAttribute("value",elem.id === "glowspeed" ? `${parseInt(elem.value) * 0.2}` : elem.value)
+            elem.oninput = ({ target }: Event) => (elem as HTMLInputElement).parentElement!.setAttribute("value",(target as HTMLInputElement).id === "glowspeed" ? `${parseInt((target as HTMLInputElement).value) * 0.2}` : (target as HTMLInputElement).value)
         }
     },
     setbtn: async (config: Store<Config>, elem: HTMLButtonElement, keypath?: string) => {

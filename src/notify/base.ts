@@ -170,10 +170,13 @@ const notifyhelper = {
                 ["--unit",customisation.usepercent ? "%" : (customisation.preset === "epicgames" ? " XP" : (customisation.preset === "xbox360" ? "G" : ""))],
                 ["--raritycolor",`${percent.value >= 50 ? "#a05526" : (percent.value < 50 && percent.value > percent.rarity ? "#828282" : "#b4904a")}`],
                 ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`],
-                ["--glowcolor",customisation.glowcolor],
-                ["--glowsize",`${customisation.glowsize / 100}rem`],
                 ["--glow",customisation.glow ? `drop-shadow(0 0 var(--glowsize) var(--glowcolor))` : "none"],
-                ["--blur",`${customisation.blur * (iswebview === "customiser" ? 1 : customisation.scale / 100) / 50}px`]
+                ["--glowsize",`${(customisation.glowsize / 100) * 0.6}rem`],
+                ["--glowcolor",customisation.glowcolor],
+                ["--glowanim",customisation.glow && customisation.glowanim !== "off" ? `${customisation.glowanim} calc(var(--transition) * var(--glowspeed)) linear infinite` : "none"],
+                ["--glowspeed",`${customisation.glowspeed}`],
+                ["--blur",`${customisation.blur * (iswebview === "customiser" ? 1 : customisation.scale / 100) / 50}px`],
+                ["--mask",customisation.mask ? `url('${customisation.maskimg}') center / cover no-repeat` : "none"]
             ])
 
             const gselem = document.getElementById("xpwrapper") || ((customisation.preset === "xboxone" || customisation.preset === "xbox360") ? document.getElementById("title") : null)

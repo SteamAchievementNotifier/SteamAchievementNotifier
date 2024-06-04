@@ -185,8 +185,7 @@ const loadwebview = () => {
 
         const cmds = new Map<string,string>([
             ["scale",`"0.75"`],
-            ["overflow",`"visible"`],
-            ["fontSize",`"clamp(0.05rem,0.05rem + 3.5vmax,12.5rem)"`]
+            ["overflow",`"visible"`]
         ])
 
         webview.addEventListener("dom-ready", () => {
@@ -283,6 +282,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             const customiconkey = (): string => Array.isArray(key) ? key[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1] as string : key as string
             const defaultvalue = (): string => {
                 if (optbtn.id === "plat") return sanhelper.setfilepath("img","ribbon.svg")
+                if (optbtn.id === "maskimg") return sanhelper.setfilepath("img","san_trophy_mask.png")
                 if (optbtn.id !== "logo" && !optbtn.id.includes("decoration")) return ""
 
                 if (optbtn.id === "logo") return sanconfig.defaulticons.get(preset)!["logo"] as string

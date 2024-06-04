@@ -156,6 +156,39 @@
                             <input type="checkbox" id="bgonly">
                         </div>
                     </div>
+                    <div class="wrapper opt">
+                        <span></span>
+                        <input type="checkbox" id="glow">
+                        <div class="wrapper opt" value="100">
+                            <span class="lbl"></span>
+                            <input unit="percent" type="range" min="5" max="100" step="5" value="10" id="glowsize">
+                        </div>
+                        <div class="wrapper opt">
+                            <span class="lbl"></span>
+                            <input type="color" id="glowcolor">
+                        </div>
+                        <div class="wrapper opt">
+                            <span class="lbl"></span>
+                            <select name="glowanim" id="glowanim">
+                                <option value="off"></option>
+                                <option value="pulse"></option>
+                                <option value="rainbow"></option>
+                            </select>
+                        </div>
+                        <div class="wrapper opt" value="20">
+                            <span class="lbl"></span>
+                            <input unit="seconds" type="range" min="5" max="125" step="5" value="50" id="glowspeed">
+                        </div>
+                    </div>
+                    <div class="wrapper opt">
+                        <span></span>
+                        <input type="checkbox" id="mask">
+                        <div class="wrapper opt">
+                            <span class="lbl"></span>
+                            <button class="menubtn delbtn"></button>
+                            <button class="optbtn img" id="maskimg" img></button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="wrapper cont">
@@ -191,18 +224,6 @@
                         <div class="wrapper opt">
                             <span class="lbl"></span>
                             <input type="color" id="fontshadowcolor">
-                        </div>
-                    </div>
-                    <div class="wrapper opt">
-                        <span></span>
-                        <input type="checkbox" id="glow">
-                        <div class="wrapper opt">
-                            <span class="lbl"></span>
-                            <input type="color" id="glowcolor">
-                        </div>
-                        <div class="wrapper opt" value="100">
-                            <span class="lbl"></span>
-                            <input unit="percent" type="range" min="5" max="60" step="5" value="10" id="glowsize">
                         </div>
                     </div>
                 </div>

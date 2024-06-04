@@ -40,9 +40,11 @@ body[main] .sub:has(#iconanim),
 .optcont:has(.opt > select#bgstyle > option[value="gameart"]:not(:checked)) > .opt > .opt:has(#brightness),
 .optcont:has(.opt > select#bgstyle > option[value="bgimg"]:not(:checked)) > .opt > .opt:has(#blur),
 .optcont:has(.opt > select#bgstyle > option[value="gameart"]:not(:checked)) > .opt > .opt:has(#blur),
+.optcont:has(.opt > input[type="checkbox"]#glow:not(:checked)) > .opt:has(#glow) > .opt:has(#glowcolor,#glowsize,#glowanim,#glowspeed),
+.optcont:has(.opt > select#glowanim > option[value="off"]:checked) > .opt > .opt:has(#glowspeed),
+.optcont:has(.opt > input[type="checkbox"]#mask:not(:checked)) > .opt:has(#mask) > .opt:has(#maskimg),
 .optcont:has(.opt > input[type="checkbox"]#fontoutline:not(:checked)) > .opt:has(#fontoutline) > .opt:has(#fontoutlinecolor),
 .optcont:has(.opt > input[type="checkbox"]#fontshadow:not(:checked)) > .opt:has(#fontshadow) > .opt:has(#fontshadowcolor),
-.optcont:has(.opt > input[type="checkbox"]#glow:not(:checked)) > .opt:has(#glow) > .opt:has(#glowcolor,#glowsize),
 .optcont:has(.opt > input[type="checkbox"]#usecustomicons:not(:checked)) > .opt:has(#usecustomicons) > .opt:has(.img#logo,.img#decoration,.customicon[id^="decoration"]),
 .optcont:has(.opt > input[type="checkbox"]#showhiddenicon:not(:checked)) > .opt:has(.img#hiddenicon),
 .optcont:has(.opt > input[type="checkbox"]#usecustompos:not(:checked)) > .opt#posbtns,
@@ -142,8 +144,8 @@ webview {
     min-width: 0;
     min-height: 0;
     transition: calc(var(--transition) / 2);
-    width: var(--width);
-    height: var(--height);
+    width: calc(var(--width) * 1px);
+    height: calc(var(--height) * 1px);
     aspect-ratio: var(--width) / var(--height);
 }
 

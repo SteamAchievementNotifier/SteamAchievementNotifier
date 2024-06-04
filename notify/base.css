@@ -31,10 +31,13 @@
     --base64: url("../img/base64.png");
     --anim: 1s;
     --bodyopacity: 0;
-    --glowcolor: #8a2be2;
-    --glowsize: 0.75rem;
     --glow: none;
+    --glowsize: 0.75rem;
+    --glowcolor: #8a2be2;
+    --glowanim: none;
+    --glowspeed: 5;
     --blur: 0px;
+    --mask: none;
     font-size: clamp(0.05rem,0.05rem + 3vmax,12.5rem);
     line-height: 1;
 }
@@ -52,6 +55,7 @@ body {
     transition: opacity var(--transition);
     width: 100vw;
     height: 100vh;
+    mask: var(--mask);
 }
 
 .wrapper#outerwrapper {
@@ -63,6 +67,18 @@ body {
     filter:
         var(--filter)
         var(--filter);
+    animation: var(--glowanim);
+}
+
+@keyframes pulse {
+    from { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) }
+    50% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)) }
+    to { filter: drop-shadow(0 0 calc(var(--glowsize) * 2) transparent) drop-shadow(0 0 calc(var(--glowsize) * 2) transparent) }
+}
+
+@keyframes rainbow {
+    from { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)) hue-rotate(0deg); }
+    to { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)) hue-rotate(360deg); }
 }
 
 body,

@@ -199,7 +199,17 @@ export const translations = {
                 roundness: "Roundness",
                 fontsize: "Font Size",
                 opacity: "Opacity",
-                bgonly: "Background Only"
+                bgonly: "Background Only",
+                glow: "Glow",
+                glowcolor: "Color",
+                glowsize: "Size",
+                glowanim: "Animation",
+                glowspeed: "Speed",
+                off: "None",
+                pulse: "Pulse",
+                rainbow: "Rainbow",
+                mask: "Mask",
+                maskimg: "Mask Image"
             }
         },
         colors: {
@@ -212,10 +222,7 @@ export const translations = {
                 fontoutline: "Font Outline",
                 fontoutlinecolor: "Font Outline Color",
                 fontshadow: "Font Shadow",
-                fontshadowcolor: "Font Shadow Color",
-                glow: "Glow",
-                glowcolor: "Glow Color",
-                glowsize: "Glow Size"
+                fontshadowcolor: "Font Shadow Color"
             }
         },
         icons: {
@@ -348,10 +355,18 @@ export const translations = {
         bgimg: "Load an image file to be used as the notification background",
         bgimgbrightness: "Set the brightness of the image used as the notification background",
         brightness: "Set the brightness of the game art used as the notification background",
+        blur: "Set the level of blur applied to the background of the notification",
         roundness: "Set the roundness of the notification edges",
         fontsize: "Set the size of the font used in the notification",
         opacity: "Set the overall opacity of the notification",
         bgonly: "Only set the opacity for the notification background, keeping other elements at full opacity",
+        glow: "Enable a glow effect that surrounds the notification",
+        glowcolor: "Set the color of the glow efefct",
+        glowsize: "Set the size of the glow effect",
+        glowanim: "Select a preset animation to be applied to the glow effect",
+        glowspeed: "Set the speed of the animation applied to the glow effect",
+        mask: "Enable masking parts of the notification with a custom image",
+        maskimg: `Load an image file to be used as the mask<br><br><span class="ttdesc">In CSS, <code class="ttcode">mask-mode: alpha</code> operates in the opposite way to what is usually expected - areas of transparency in the image file will be obscured, and areas of black/grey will allow the elements below to be visible</span>`,
         primarycolor: "Set the primary color of the notification",
         secondarycolor: "Set the secondary color of the notification",
         tertiarycolor: "Set the tertiary color of the notification",

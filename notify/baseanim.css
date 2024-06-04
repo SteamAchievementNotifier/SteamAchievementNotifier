@@ -2,6 +2,7 @@
     --anim: 0s;
 }
 
+body[paused] .wrapper#outerwrapper,
 body[paused] .wrapper#achcont,
 body[paused] .wrapper#achcont div,
 body[paused] .wrapper#achcont div::before,

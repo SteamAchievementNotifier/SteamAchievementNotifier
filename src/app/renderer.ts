@@ -188,6 +188,8 @@ const loadwebview = () => {
             ["overflow",`"visible"`]
         ])
 
+        config.get(`customisation.${type}.preset`) === "xqjan" && cmds.set("fontSize",`"clamp(0.05rem,0.05rem + 4vmax,12.5rem)"`)
+
         webview.addEventListener("dom-ready", () => {
             resizewebview()
             cmds.forEach((value,key) => webview!.executeJavaScript(`document.documentElement.style.${key} = ${value}`))

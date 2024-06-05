@@ -51,7 +51,7 @@ export const listeners = {
             tray && tray.removeAllListeners()
 
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
-            tray.setImage(path.join(__root,"img",`sanlogo_${gamename ? "active" : "idle"}.png`))
+            tray.setImage(path.join(__root,"img",`sanlogo_${gamename ? "active" : "idle"}.${process.platform === "win32" ? "ico" : "png"}`))
 
             const template: Electron.MenuItemConstructorOptions[] = [
                 {

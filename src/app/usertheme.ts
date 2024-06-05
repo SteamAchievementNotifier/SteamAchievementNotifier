@@ -5,31 +5,37 @@ import { sanconfig } from "./config"
 export const usertheme = {
     data: () => {
         const config = sanconfig.get()
-
-        const type = sanhelper.type
+        const type = sanhelper.type as "main" | "rare" | "plat"
         const userthemes = config.get(`customisation.${type}.usertheme`) as Button[]
 
         return { config, type, userthemes }
     },
     update: () => {
-        const { config, type, userthemes } = usertheme.data()
-        const enabled: number | undefined = userthemes.find(theme => theme.enabled)?.id as number || undefined
+        let { config, type, userthemes } = usertheme.data()
+        let enabled: number | undefined = userthemes.find(theme => theme.enabled)?.id as number || undefined
 
         // If no theme is enabled, enable the first one
-        !enabled && config.set(`customisation.${type}.usertheme.0.enabled`,true)
+        if (!enabled) {
+            config.set(`customisation.${type}.usertheme.0.enabled`,true)
 
-        if (!document.querySelector("dialog[selection]")) return document.querySelector(`#usertheme > span`)!.textContent = userthemes[enabled || 0].label
+            ;({ config, type, userthemes } = usertheme.data())
+            enabled = userthemes.find(theme => theme.enabled)?.id as number || undefined
+        }
 
-        document.querySelectorAll(`dialog[selection] .contentsub > .rect`)!.forEach(btn => {
-            const id = parseInt(btn.id.replace(/[^\d]+/g, ""))
-            const exists = userthemes.some(theme => id === theme.id)
-            
-            if (!exists) return btn.remove()
-
-            document.querySelector(`#${btn.id} > span`)!.textContent = userthemes[id].label
-            document.querySelector(`#usertheme > span`)!.textContent = userthemes[enabled || 0].label
-
-            btn.toggleAttribute("enabled",btn.id === `usertheme${enabled || 0}`)
+        requestAnimationFrame(() => {
+            if (!document.querySelector("dialog[selection]")) return document.querySelector(`#usertheme > span`)!.textContent = userthemes[enabled || 0].label
+    
+            document.querySelectorAll(`dialog[selection] .contentsub > .rect`)!.forEach(btn => {
+                const id = parseInt(btn.id.replace(/[^\d]+/g, ""))
+                const exists = userthemes.some(theme => id === theme.id)
+                
+                if (!exists) return btn.remove()
+    
+                document.querySelector(`#${btn.id} > span`)!.textContent = userthemes[id].label
+                document.querySelector(`#usertheme > span`)!.textContent = userthemes[enabled || 0].label
+    
+                btn.toggleAttribute("enabled",btn.id === `usertheme${enabled || 0}`)
+            })
         })
     },
     set: ({ target }: Event, id: number) => {
@@ -52,6 +58,7 @@ export const usertheme = {
         })
 
         config.set(`customisation.${type}`,customisation)
+        dialog.close()
         usertheme.update()
     },
     create: (name: string, icon: string) => {

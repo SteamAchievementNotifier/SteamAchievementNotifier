@@ -17,6 +17,7 @@ dialog,
 }
 
 dialog {
+    --primary: #203e7a;
     border: none;
     background-color: #000000d7;
     opacity: 0;
@@ -330,7 +331,20 @@ dialog #progressbar {
     background-color: red;
 }
 
+body[main] dialog:has([id*="theme"]) {
+    --primary: #203e7a;
+}
+
+body[rare] dialog:has([id*="theme"]) {
+    --primary: #663399;
+}
+
+body[plat] dialog:has([id*="theme"]) {
+    --primary: #4e75c9;
+}
+
 dialog[selection] .rect[enabled] {
+    background-color: var(--primary);
     pointer-events: none;
 }
 

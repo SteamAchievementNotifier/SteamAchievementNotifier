@@ -289,10 +289,7 @@ export const dialog = {
                     btn.appendChild(delbtn)
                 }
 
-                requestAnimationFrame(() => {
-                    btn.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue("--primary")
-                    document.querySelector(".contentsub")!.appendChild(btn)
-                })
+                requestAnimationFrame(() => document.querySelector(".contentsub")!.appendChild(btn))
             }
         })
 

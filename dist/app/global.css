@@ -351,6 +351,10 @@ button.rect:hover > span {
     filter: invert();
 }
 
+dialog[selection] button.rect:hover::before {
+    filter: drop-shadow(0 0 0 black);
+}
+
 button.rect:hover::after {
     translate: 0;
 }

@@ -116,9 +116,10 @@ const notifyhelper = {
             }
 
             const getcustomicon = (type: "logo" | "decoration"): string => {
-                if (customisation.replacelogo) type = "decoration"
+                const preseticons = customisation.customicons[customisation.preset] as CustomIcon
+                if (preseticons.decoration && customisation.replacelogo) type = "decoration"
 
-                const icon = (customisation.customicons[customisation.preset] as CustomIcon)[type]
+                const icon = preseticons[type]
                 if (!icon) return ""
 
                 if (Array.isArray(icon)) return `url('${getpercent({ bronze: icon[0],silver: icon[1],gold: icon[2] })}')`

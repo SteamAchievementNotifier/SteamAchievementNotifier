@@ -188,11 +188,19 @@ const loadwebview = () => {
             ["overflow",`"visible"`]
         ])
 
-        config.get(`customisation.${type}.preset`) === "xqjan" && cmds.set("fontSize",`"clamp(0.05rem,0.05rem + 4vmax,12.5rem)"`)
+        const scaledpresets = [
+            "xqjan"
+        ]
+
+        // Fixes an issue where the font size is displayed smaller in Customiser Previews, due to scaling used on these presets
+        scaledpresets.forEach(preset => config.get(`customisation.${type}.preset`) === preset && cmds.set("fontSize",`"clamp(0.05rem,0.05rem + 4.25vmax,12.5rem)"`))
 
         webview.addEventListener("dom-ready", () => {
             resizewebview()
             cmds.forEach((value,key) => webview!.executeJavaScript(`document.documentElement.style.${key} = ${value}`))
+
+            // Fixes an issue where the "Glow" effect gets cut off in Customiser Previews when used in conjunction with the "Mask" option, due to scaling used on these presets
+            scaledpresets.forEach(preset => config.get(`customisation.${type}.preset`) === preset && webview!.executeJavaScript(`document.body.style.width = "calc(100vw + 50px)"`))
         })
     })
     .finally(() => {

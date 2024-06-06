@@ -352,7 +352,7 @@ button.rect:hover > span {
 }
 
 dialog[selection] button.rect:hover::before {
-    filter: drop-shadow(0 0 0 black);
+    filter: drop-shadow(0 0 0.25rem black);
 }
 
 button.rect:hover::after {

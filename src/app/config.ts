@@ -106,7 +106,7 @@ export const sanconfig = {
                 bgimg: "",
                 bgimgbrightness: 100,
                 brightness: 100,
-                blur: 10,
+                blur: 0,
                 roundness: 25,
                 fontsize: 100,
                 opacity: 100,
@@ -278,6 +278,9 @@ export const sanconfig = {
             }
         }
 
+        const { customisation } = sanconfig.create()
+        const defaultkeys = Object.keys(customisation[type]).filter(key => key !== "usertheme")
+
         userthemes.forEach((theme,i) => {
             const userthemecustomicons = theme.customisation!.customicons
             const userthemeiconkeys = Object.keys(userthemecustomicons)
@@ -290,6 +293,10 @@ export const sanconfig = {
                     log.write("ERROR",`Error updating default icons for "${theme.label}" User Theme: ${err}`)
                 }
             }
+
+            // Validate all previously saved User Themes, and add new keys with default values if missing
+            const themekeys = Object.keys(theme.customisation!)
+            sanconfig.validateconfigkeys(themekeys,defaultkeys,customisation[type],`${type}.usertheme.${i}.customisation`)
         })
     }
 }

@@ -226,7 +226,7 @@ body[plat]:not([noiconanim]) .wrapper#achiconwrapper::after,
     grid-row-start: 1;
 }
 
-body[nodecoration] > .wrapper#achcont > .wrapper#achcontent::before {
+body[nodecoration] .wrapper#achcont > .wrapper#achcontent::before {
     display: none !important;
 }
 

@@ -45,7 +45,7 @@ ipcRenderer.once("src",(event,path: string) => {
 })
 
 ipcRenderer.once("sswinready", (event,obj: Info) => {
-    const { customisation, iswebview } = obj
+    const { customisation, iswebview, info: { type } } = obj
     const webview = document.querySelector("webview")! as Electron.WebviewTag
 
     webview.src = "../../notify/base.html"
@@ -57,8 +57,15 @@ ipcRenderer.once("sswinready", (event,obj: Info) => {
 
     downscale.forEach((value,key) => customisation.preset === key && (webview.style.scale = value.toString()))
 
-    ipcRenderer.once("dims", (event,dims: { width: number, height: number }) => {
-        const { width, height } = dims
+    ipcRenderer.once("dims", (event,dims: { width: number, height: number, offset: number, scalefactor: number }) => {
+        // Updates the placement of the "ss" notification when changed without closing
+        // (async () => {
+        //     const config = (await (import("./config"))).sanconfig.get(true)
+        //     config.onDidChange(`customisation.${type}.ovoffset`,(value: any) => setwebviewpos(margin,value))
+        //     config.onDidChange(`customisation.${type}.ovpos`,() => setwebviewpos(margin,customisation.ovoffset))
+        // })()
+
+        const { width, height, offset, scalefactor } = dims
         webview.shadowRoot!.querySelector("iframe")!.style.width = `${width}px`
         webview.shadowRoot!.querySelector("iframe")!.style.height = `${height}px`
     
@@ -66,23 +73,23 @@ ipcRenderer.once("sswinready", (event,obj: Info) => {
         webview.style.setProperty("--width",`${width}px`)
         webview.style.setProperty("--height",`${height}px`)
 
-        const bordersize = 50
-        const glowsize = bordersize * customisation.scale / 100
-        const top = `${((glowsize / 2) * -1) + (bordersize / 2)}px`
-        const bottom = `${(glowsize / 2) - (bordersize / 2)}px`
+        // Looks dumb, but if `offset` is 0, it is obviously falsy. So, an OR operator (`offset || 25`) would always be coerced to 25. Don't @ me
+        // Also, `25 * (customisation.scale)` references the base value of 50 added to the notification size - not a magic number
+        // This puts the notification at the edge of the screen, so we can then translate it by a fixed value (`translate` value) for each scale setting
+        const margin = `${(!offset ? 0 : 25 * (customisation.scale / 100)) * -1}px`
+        const translate = !offset ? 0 : 40 / scalefactor
 
-        const offsetmap = new Map<string,string>([
-            ["topleft",top],
-            ["topcenter",top],
-            ["topright",top],
-            ["bottomleft",bottom],
-            ["bottomcenter",bottom],
-            ["bottomright",bottom],
-        ])
+        const postype = !customisation.ovmatch ? "ovpos" : "pos"
+        const setoffset = (axis: number,plusdir: string) => axis + translate * (customisation[postype].includes(plusdir) ? 1 : -1)
 
-        webview.style.setProperty("--offset",offsetmap.get(customisation.ovpos)!)
-    
-        setnotifypos(customisation).forEach((value,key) => document.documentElement.style.setProperty(key,value))
+        const setwebviewpos = (margin: string,offset: { x: number, y: number }) => {
+            webview.style.setProperty("--margin",margin)
+            webview.style.setProperty("--offset",`${customisation[postype].includes("center") ? 0 : setoffset(offset.x,"left")}px ${setoffset(offset.y,"top")}px`)
+        
+            setnotifypos(customisation).forEach((value,key) => document.documentElement.style.setProperty(key,value))
+        }
+
+        setwebviewpos(margin,{ x: customisation.ovx, y: customisation.ovy })
     
         obj.skipaudio = true
     })

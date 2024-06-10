@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Screenshot Source",
                 ovpos: "Overlay Position",
                 ovmatch: "Match Customiser Position",
+                ovx: "Horizontal Offset",
+                ovy: "Vertical Offset",
                 ovpath: "Screenshot Path",
                 ssdelay: "Screenshot Delay",
                 notifyimg: "Notification Image",

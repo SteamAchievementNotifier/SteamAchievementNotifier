@@ -120,6 +120,8 @@ declare interface Customisation {
     animdir: "up" | "down" | "left" | "right",
     ovpos: "bottomcenter" | "topcenter" | "topleft" | "topright" | "bottomleft" | "bottomright",
     ovmatch: boolean,
+    ovx: number,
+    ovy: number,
     alldetails: boolean,
     primarycolor: string,
     secondarycolor: string,

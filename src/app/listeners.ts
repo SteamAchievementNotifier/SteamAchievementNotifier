@@ -1150,8 +1150,10 @@ export const listeners = {
                         sswin.center()
                     }
 
+                    const monitor = screen.getAllDisplays().find(monitor => monitor.id === config.get("monitor")) || screen.getPrimaryDisplay()
+
                     sswin.setResizable(false)
-                    sswin.webContents.send("dims",{ width, height })
+                    sswin.webContents.send("dims",{ width, height, offset: dims.offset, scalefactor: monitor.scaleFactor })
                 })
 
                 !ispreview && ipcMain.once("sscapture", () => {

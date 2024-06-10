@@ -11,13 +11,27 @@
 }
 
 @keyframes slidein {
-    from { translate: var(--translate); }
-    to { translate: 0; }
+    from {
+        opacity: 0;
+        translate: var(--translate);
+    }
+
+    to {
+        opacity: var(--opacity);
+        translate: 0;
+    }
 }
 
 @keyframes slideout {
-    from { translate: 0; }
-    to { translate: var(--translate); }
+    from {
+        opacity: var(--opacity);
+        translate: 0;
+    }
+
+    to {
+        opacity: 0;
+        translate: var(--translate);
+    }
 }
 
 body[topleft] .wrapper#achcont,
@@ -83,6 +97,6 @@ body[alldetails] #achcontent > #desc {
     -webkit-line-clamp: 1;
 }
 
-body[ss] > .wrapper#achcont {
+body[ss] .wrapper#achcont {
     --translate: 0 0;
 }

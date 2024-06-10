@@ -25,12 +25,14 @@
                 width: 1rem;
                 height: 1rem;
                 margin: 1rem;
+                z-index: 100;
             }
 
             img {
                 place-self: center;
                 width: 100vw;
                 height: 100vh;
+                z-index: 1;
             }
 
             img,
@@ -44,10 +46,11 @@
             webview {
                 --width: 300px;
                 --height: 50px;
-                --offset: 0 0 20px 0;
+                --margin: 0 0 -25px 0;
+                --offset: 0px 0px;
                 display: grid;
                 place-content: center;
-                margin: var(--offset);
+                margin: var(--margin);
                 justify-self: var(--x);
                 align-self: var(--y);
                 width: var(--width);
@@ -56,6 +59,8 @@
                 max-height: calc(var(--height) * 1px);
                 aspect-ratio: var(--width) / var(--height);
                 background-color: transparent;
+                translate: var(--offset);
+                z-index: 1;
             }
         </style>
     </head>

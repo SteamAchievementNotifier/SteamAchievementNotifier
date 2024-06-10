@@ -136,6 +136,8 @@ export const sanconfig = {
                 animdir: "up",
                 ovpos: "bottomcenter",
                 ovmatch: false,
+                ovx: 0,
+                ovy: 0,
                 alldetails: false,
                 primarycolor: "",
                 secondarycolor: "",

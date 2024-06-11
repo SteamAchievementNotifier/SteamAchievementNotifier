@@ -7,7 +7,13 @@
         <script>const exports = {};</script>
         <script type="module" src="../notify/poswin.js"></script>
         <style>
-            html, body {
+            :root {
+                --width: 300px;
+                --height: 50px;
+            }
+
+            html,
+            body {
                 place-items: center;
                 background-color: transparent;
                 color: white;
@@ -16,10 +22,14 @@
                 -webkit-app-region: drag;
             }
 
+            body {
+                border: 0.15rem dashed var(--primary);
+            }
+
             body::before {
                 content: "";
-                width: 100vw;
-                height: 100vh;
+                width: var(--width);
+                height: var(--height);
                 background-color: var(--primary);
                 opacity: 0.75;
                 grid-column-start: 1;

@@ -59,11 +59,17 @@ ipcRenderer.once("sswinready", (event,obj: Info) => {
 
     ipcRenderer.once("dims", (event,dims: { width: number, height: number, offset: number, scalefactor: number }) => {
         // Updates the placement of the "ss" notification when changed without closing
-        // (async () => {
-        //     const config = (await (import("./config"))).sanconfig.get(true)
-        //     config.onDidChange(`customisation.${type}.ovoffset`,(value: any) => setwebviewpos(margin,value))
-        //     config.onDidChange(`customisation.${type}.ovpos`,() => setwebviewpos(margin,customisation.ovoffset))
-        // })()
+        (async () => {
+            const offsets = ["ovx","ovy"] as const
+            const ovs = ["ovpos","ovmatch"] as const
+            const config = (await (import("./config"))).sanconfig.get(true)
+
+            offsets.forEach(offset => config.onDidChange(`customisation.${type}.${offset}`, (value: any) => setwebviewpos(margin,offset === "ovx" ? { x: value, y: customisation.ovy } : { x: customisation.ovx, y: value })))
+            ovs.forEach(ov => config.onDidChange(`customisation.${type}.${ov}`,(value: any) => {
+                ov === "ovpos" ? customisation[ov] = value as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright" : customisation[ov] = value as boolean
+                setwebviewpos(margin,{ x: customisation.ovx, y: customisation.ovy })
+            }))
+        })()
 
         const { width, height, offset, scalefactor } = dims
         webview.shadowRoot!.querySelector("iframe")!.style.width = `${width}px`
@@ -73,18 +79,17 @@ ipcRenderer.once("sswinready", (event,obj: Info) => {
         webview.style.setProperty("--width",`${width}px`)
         webview.style.setProperty("--height",`${height}px`)
 
-        // Looks dumb, but if `offset` is 0, it is obviously falsy. So, an OR operator (`offset || 25`) would always be coerced to 25. Don't @ me
-        // Also, `25 * (customisation.scale)` references the base value of 50 added to the notification size - not a magic number
+        // `25 * (customisation.scale)` references the base value of 50 added to the notification size divided by 2 - not a magic number
         // This puts the notification at the edge of the screen, so we can then translate it by a fixed value (`translate` value) for each scale setting
         const margin = `${(!offset ? 0 : 25 * (customisation.scale / 100)) * -1}px`
         const translate = !offset ? 0 : 40 / scalefactor
 
-        const postype = !customisation.ovmatch ? "ovpos" : "pos"
-        const setoffset = (axis: number,plusdir: string) => axis + translate * (customisation[postype].includes(plusdir) ? 1 : -1)
-
         const setwebviewpos = (margin: string,offset: { x: number, y: number }) => {
+            const postype = !customisation.ovmatch ? "ovpos" : "pos"
+            const setoffset = (axis: number,plusdir: string) => axis + (customisation[postype].includes("center") && plusdir === "left" ? 0 : translate) * (customisation[postype].includes(plusdir) ? 1 : -1)
+
             webview.style.setProperty("--margin",margin)
-            webview.style.setProperty("--offset",`${customisation[postype].includes("center") ? 0 : setoffset(offset.x,"left")}px ${setoffset(offset.y,"top")}px`)
+            webview.style.setProperty("--offset",`${setoffset(offset.x,"left")}px ${setoffset(offset.y,"top")}px`)
         
             setnotifypos(customisation).forEach((value,key) => document.documentElement.style.setProperty(key,value))
         }
@@ -94,7 +99,6 @@ ipcRenderer.once("sswinready", (event,obj: Info) => {
         obj.skipaudio = true
     })
 
-    // V1.9.1 - Testing with longer timeout to ensure webview has loaded. Not an ideal solution, but will do for now
     webview.addEventListener("ipc-message", event => setTimeout(() => ipcRenderer.send(event.channel),2000))
 
     webview.addEventListener("dom-ready", () => {

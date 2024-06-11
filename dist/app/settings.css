@@ -262,9 +262,18 @@ dialog[menu]:has(#settingscontent) *[notifyimg] {
     display: none;
 }
 
-dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="overlay"]:checked) > *[overlay],
-dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="notifyimg"]:checked) > *[notifyimg] {
+dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="overlay"]:checked) *[overlay],
+dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="notifyimg"]:checked) *[notifyimg] {
     display: grid;
+}
+
+.wrapper[overlay]:has(> .wrapper[overlay]):has(#ovx) {
+    gap: 0.5rem;
+    margin-block: 0.5rem;
+}
+
+dialog[menu]:has(#settingscontent) .optcont:has(.wrapper[overlay]) > .opt:last-child {
+    margin-top: 0.5rem;
 }
 
 dialog[menu] #settingscontent .opt:has(button.rect) {

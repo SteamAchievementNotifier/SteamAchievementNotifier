@@ -99,4 +99,5 @@ body[alldetails] #achcontent > #desc {
 
 body[ss] .wrapper#achcont {
     --translate: 0 0;
+    opacity: var(--opacity) !important;
 }

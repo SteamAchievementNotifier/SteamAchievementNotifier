@@ -25,6 +25,7 @@
         "typescript": "^5.2.2"
     },
     "dependencies": {
+        "adm-zip": "^0.5.14",
         "electron-log": "^4.4.8",
         "electron-store": "^8.1.0",
         "electron-updater": "^6.1.7",

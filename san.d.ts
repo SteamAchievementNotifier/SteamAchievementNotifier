@@ -187,7 +187,8 @@ declare interface Button {
     icon: string,
     customisation?: Customisation,
     click?: Function,
-    enabled?: boolean
+    enabled?: boolean,
+    version?: string
 }
 
 declare interface WinType {
@@ -268,3 +269,4 @@ declare interface AchievementIcon {
 }
 
 declare module "simple-vdf"
+declare module "adm-zip"

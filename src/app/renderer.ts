@@ -430,6 +430,9 @@ document.getElementById("customise")!.onclick = () => {
         })
     }
 
+    document.getElementById("importtheme")!.onclick = () => usertheme.import()
+    document.getElementById("exporttheme")!.onclick = () => usertheme.export()
+
     sanhelper.updatetabs()
     sanhelper.audiosrc(config.get("audiosrc"))
     sanhelper.tooltips(config.get("tooltips"))

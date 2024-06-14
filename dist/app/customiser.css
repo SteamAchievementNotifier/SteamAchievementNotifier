@@ -349,13 +349,13 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 }
 
 .opt:has(#preview),
-.opt:has(#savetheme) {
+.opt:has(#savetheme,#importtheme,#exporttheme) {
     grid-template-columns: 1fr;
     gap: 0;
 }
 
 #preview,
-#savetheme,
+.cont:has(.wrapper#theme) button.rect,
 #posbtns > button {
     grid-template-columns: auto auto;
     justify-items: start;
@@ -369,7 +369,7 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 }
 
 #preview::before,
-#savetheme::before,
+.cont:has(.title#theme) button.rect::before,
 #posbtns > button::before {
     content: "";
     display: block;
@@ -381,7 +381,7 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 }
 
 #preview > span,
-#savetheme > span,
+.cont:has(.title#theme) button.rect > span,
 #posbtns > button > span {
     max-width: none;
     padding: 0.25rem;
@@ -445,6 +445,19 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 
 .visibility > .delbtn {
     grid-column-start: 3;
+}
+
+.opt:has(#importtheme,#exporttheme) > button::before {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
+button#importtheme {
+    --icon: url("../../icon/import.svg");
+}
+
+button#exporttheme {
+    --icon: url("../../icon/export.svg");
 }
 
 @media (orientation: portrait) or (width < 400px) {

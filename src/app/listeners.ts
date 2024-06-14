@@ -583,7 +583,7 @@ export const listeners = {
             ])
 
             const filedialog = dialog.showOpenDialogSync({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): ${await language.get("select")} ${type.get(filetype)!.name}`,
+                title: `Steam Achievement Notifier (V${sanhelper.version}): Select ${type.get(filetype)!.name}`,
                 buttonLabel: await language.get("select"),
                 properties: [
                     filetype === "dir" ? "openDirectory" : "openFile",
@@ -1239,6 +1239,40 @@ export const listeners = {
             })
 
             gpu.loadURL("chrome://gpu")
+        })
+
+        ipcMain.on("importtheme", async event => {
+            const impdialog = dialog.showOpenDialogSync({
+                title: `Steam Achievement Notifier (V1.9): Import Theme`,
+                properties: [
+                    "dontAddToRecent",
+                    "openFile"
+                ],
+                buttonLabel: await language.get("importtheme",["customiser","theme","content"]),
+                filters: [{
+                    "name": `Steam Achievement Notifier (V${sanhelper.version}) File`,
+                    extensions: ["san"]
+                }]
+            })
+
+            event.reply("importtheme",impdialog)
+        })
+
+        ipcMain.on("exporttheme", async event => {
+            const expdialog = dialog.showSaveDialogSync({
+                title: `Steam Achievement Notifier (V1.9): Export Theme`,
+                properties: [
+                    "showOverwriteConfirmation",
+                    "dontAddToRecent"
+                ],
+                buttonLabel: await language.get("exporttheme",["customiser","theme","content"]),
+                filters: [{
+                    "name": "ZIP Archive",
+                    extensions: ["zip"]
+                }]
+            })
+
+            event.reply("exporttheme",expdialog)
         })
 
         return

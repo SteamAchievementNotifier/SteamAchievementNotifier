@@ -260,7 +260,9 @@ export const translations = {
                     `Make sure the <span class="hl">Theme Name</span> is <u>unique</u> - a name matching an existing theme <u>will overwrite the previous one</u>!`
                 ],
                 placeholder: "Theme Name",
-                theme: "Theme"
+                theme: "Theme",
+                importtheme: "Import Theme",
+                exporttheme: "Export Theme"
             }
         }
     },

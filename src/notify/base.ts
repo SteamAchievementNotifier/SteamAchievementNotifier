@@ -269,7 +269,7 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
             const achicons = document.querySelectorAll("#achicon")!
             achicons.forEach(achicon => (achicon as HTMLImageElement)!.src = icon)
 
-            const percentstr = `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${percent.value.toFixed(1)}%)` : ""}`
+            const percentstr = `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${Math.max(parseFloat(percent.value.toFixed(1)),0.1)}%)` : ""}`
 
             document.getElementById("unlockmsg")!.textContent = `${unlockmsg}${customisation.alldetails && customisation.preset === "epicgames" ? "" : percentstr}`
             document.getElementById("title")![customisation.showhiddenicon && hidden ? "innerHTML" : "textContent"] = `${customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""}${title}${document.body.hasAttribute("ss") && !customisation.alldetails && customisation.preset !== "windows" ? percentstr : ""}`

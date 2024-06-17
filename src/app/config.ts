@@ -26,9 +26,19 @@ export const sanconfig = {
         ])
     },
     create: (validate?: boolean): Config => {
-        Store.initRenderer()
+        // When calling from renderer, it cannot access the `screen` API - so create a dummy object to bypass
+        const dummyscreen: DefaultBounds = {
+            id: 0,
+            bounds: {
+                width: 1050,
+                height: 750
+            },
+            scaleFactor: 1
+        }
+
+        process.type === "browser" && Store.initRenderer()
         
-        const { id, bounds: { width, height }, scaleFactor } = screen.getPrimaryDisplay()
+        const { id, bounds: { width, height }, scaleFactor }: Electron.Display | DefaultBounds = process.type === "browser" ? screen.getPrimaryDisplay() : dummyscreen
         const target = {
             width: 1050 / scaleFactor,
             height: 750 / scaleFactor

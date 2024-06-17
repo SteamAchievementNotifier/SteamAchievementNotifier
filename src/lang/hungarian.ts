@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Képernyőkép forrás",
                 ovpos: "Átfedés pozíció",
                 ovmatch: "Pozíció igazítása",
+                ovx: "Vízszintes eltolás",
+                ovy: "Függőleges eltolás",                
                 ovpath: "Képernyőkép útvonal",
                 ssdelay: "Képernyőkép késleltetés",
                 notifyimg: "Értesítési kép",
@@ -258,7 +260,24 @@ export const translations = {
                     `Győződjön meg róla, hogy a <span class="hl">Téma neve</span> <u>egyedülálló</u> - egy már létező téma neve <u>felülírja az előzőt</u>!`
                 ],
                 placeholder: "Téma neve",
-                theme: "Téma"
+                theme: "Téma",
+                importtheme: "Téma importálása",
+                import: "Importálás",
+                importsub: [
+                    `Felhasználó által létrehozott <span class="hl">témafájl</span> importálása`,
+                    `Az <span class="hl">importált témák</span> sikeres importálás után automatikusan betöltődnek, és kiválaszthatók a <span class="hl">Téma kiválasztása</span> menüből`,
+                ],
+                importidle: `Válasszon ki egy <span class="hl">témafájlt</span> importáláshoz`,
+                importcopied: `Téma sikeresen másolva`,
+                importrenamed: `Téma sikeresen átnevezve`,
+                importextracted: `Téma sikeresen kicsomagolva`,
+                importrewriting: `Témafájl útvonalainak újraírása...`,
+                importconverting: `Téma konvertálása...`,
+                importcreating: `Téma létrehozása...`,
+                importdone: `Téma sikeresen importálva`,
+                importfailed: `Hiba történt a kiválasztott témafájl importálásakor!`,
+                exporttheme: "Téma exportálása",
+                export: "Exportálás"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Megnyitás <span class="hl">Kapcsolt Játékok Kezelése Menüben</span>`,
         imgpath: "Az a hely, ahol ezen beállítás által generált értesítési képek lesznek mentve",
         linkedgames: `Kerüld meg a <span class="hl">automatikus folyamatkövetést</span> bizonyos Steam-játékokhoz<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`,
-        exclusionlist: `Akadályozd meg a Steam-játékok bizonyos teljesítményeinek követését az alkalmazásban<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`
+        exclusionlist: `Akadályozd meg a Steam-játékok bizonyos teljesítményeinek követését az alkalmazásban<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`,
+        ovx: "A képernyőképen megjelenő értesítés vízszintes eltolása",
+        ovy: "A képernyőképen megjelenő értesítés függőleges eltolása",
+        importtheme: `Testreszabások importálása egy felhasználó által létrehozott <span class="hl">témafájl</span> segítségével`,
+        exporttheme: `Az aktuálisan kiválasztott <span class="hl">téma</span> exportálása megosztáshoz<br><br><span class="ttdesc">Az exportálás előtt győződjön meg róla, hogy az kívánt <span class="hl">téma</span> van kiválasztva (a <span class="hl">Téma kiválasztása</span> menüponton keresztül). Továbbá, győződjön meg róla, hogy a testreszabások el vannak mentve az kiválasztott <span class="hl">témában</span> (a <span class="hl">Téma mentése</span> menüponton keresztül)<br><br><u>Bármilyen testreszabás, amely még nem lett elmentve az aktuális <span class="hl">témába</span>, nem fog exportálódni!</u></span>`        
     },
     update: {
         updateavailable: "Frissítés elérhető",

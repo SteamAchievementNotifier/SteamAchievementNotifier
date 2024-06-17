@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Nguồn Chụp Ảnh Màn hình",
                 ovpos: "Vị trí Chồng Lên",
                 ovmatch: "Phù hợp với Vị trí Tùy chỉnh",
+                ovx: "Lệch Ngang",
+                ovy: "Lệch Dọc",                
                 ovpath: "Đường dẫn Chụp Ảnh Màn hình",
                 ssdelay: "Độ Trễ Chụp Ảnh Màn hình",
                 notifyimg: "Hình ảnh thông báo",
@@ -258,7 +260,24 @@ export const translations = {
                     `Đảm bảo rằng <span class="hl">Tên chủ đề</span> là <u>duy nhất</u> - một tên trùng khớp với một chủ đề hiện tại <u>sẽ ghi đè lên chủ đề trước đó</u>!`
                 ],
                 placeholder: "Tên chủ đề",
-                theme: "Chủ đề"
+                theme: "Chủ đề",
+                importtheme: "Nhập Tema",
+                import: "Nhập",
+                importsub: [
+                    `Nhập một <span class="hl">tệp Tema</span> do người dùng tạo ra`,
+                    `Các <span class="hl">Tema đã nhập</span> sẽ được tải tự động sau khi nhập thành công và có thể được chọn từ menu <span class="hl">Chọn Tema</span>`,
+                ],
+                importidle: `Chọn một <span class="hl">tệp Tema</span> để nhập`,
+                importcopied: `Sao chép Tema thành công`,
+                importrenamed: `Đổi tên Tema thành công`,
+                importextracted: `Trích xuất Tema thành công`,
+                importrewriting: `Đổi lại đường dẫn tệp Tema...`,
+                importconverting: `Chuyển đổi Tema...`,
+                importcreating: `Tạo Tema...`,
+                importdone: `Nhập Tema thành công`,
+                importfailed: `Lỗi khi nhập tệp Tema đã chọn!`,
+                exporttheme: "Xuất Tema",
+                export: "Xuất"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Mở <span class="hl">Menu Quản lý Trò chơi Liên kết</span>`,
         imgpath: "Vị trí nơi hình ảnh thông báo được tạo ra bởi tùy chọn này sẽ được lưu trữ",
         linkedgames: `Bỏ qua <span class="hl">theo dõi tự động các quy trình</span> cho các trò chơi Steam cụ thể<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các tình huống rất cụ thể. Người dùng không nên cần phải sử dụng tùy chọn này trong điều kiện bình thường!</span>`,
-        exclusionlist: `Ngăn chặn ứng dụng theo dõi thành tích trong các trò chơi Steam cụ thể<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các tình huống rất cụ thể. Người dùng không nên cần phải sử dụng tùy chọn này trong điều kiện bình thường!</span>`
+        exclusionlist: `Ngăn chặn ứng dụng theo dõi thành tích trong các trò chơi Steam cụ thể<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các tình huống rất cụ thể. Người dùng không nên cần phải sử dụng tùy chọn này trong điều kiện bình thường!</span>`,
+        ovx: "Lệch thông báo hiển thị trên ảnh chụp màn hình theo chiều ngang",
+        ovy: "Lệch thông báo hiển thị trên ảnh chụp màn hình theo chiều dọc",
+        importtheme: `Nhập các tùy chỉnh thông qua một <span class="hl">tệp Tema</span> do người dùng tạo ra`,
+        exporttheme: `Xuất <span class="hl">Tema</span> hiện tại đang chọn để chia sẻ<br><br><span class="ttdesc">Trước khi thử xuất, hãy đảm bảo rằng <span class="hl">Tema</span> mong muốn đã được chọn (qua menu <span class="hl">Chọn Tema</span>). Hãy đảm bảo rằng các tùy chỉnh đã được lưu vào <span class="hl">Tema</span> đã chọn (qua menu <span class="hl">Lưu Tema</span>)<br><br><u>Bất kỳ tùy chỉnh nào chưa được lưu vào <span class="hl">Tema</span> hiện tại sẽ không được xuất!</u></span>`        
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

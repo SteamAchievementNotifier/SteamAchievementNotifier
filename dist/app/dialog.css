@@ -525,7 +525,8 @@ dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::after {
 }
 
 button#linknewbtn:hover,
-button#exclusionnewbtn:hover {
+button#exclusionnewbtn:hover,
+button#importbtn:hover {
     background-color: limegreen;
     filter: none;
 }
@@ -673,6 +674,24 @@ td:has(.unlinkbtn) > .unlinkbtn {
 
 .donotshowagain > span {
     justify-self: start;
+}
+
+.addhtml > #importlog {
+    place-items: center;
+    font-style: italic;
+    background-color: var(--mediumgrey);
+    border-radius: var(--elembr);
+    padding: 0.25rem;
+}
+
+.addhtml > #importlog[error] {
+    color: red;
+}
+
+.contentwrapper:has(.addhtml > #importlog) .contenttitle::before,
+#importbtn::before {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 @media (orientation: portrait) {

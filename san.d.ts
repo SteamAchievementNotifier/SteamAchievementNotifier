@@ -268,5 +268,14 @@ declare interface AchievementIcon {
     height: number
 }
 
+declare interface DefaultBounds {
+    id: number,
+    bounds: {
+        width: number,
+        height: number
+    },
+    scaleFactor: number
+}
+
 declare module "simple-vdf"
 declare module "adm-zip"

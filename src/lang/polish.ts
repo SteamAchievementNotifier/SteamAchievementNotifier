@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Źródło zrzutu ekranu",
                 ovpos: "Pozycja nakładki",
                 ovmatch: "Dopasuj pozycję dostosowania",
+                ovx: "Przesunięcie poziome",
+                ovy: "Przesunięcie pionowe",                
                 ovpath: "Ścieżka zrzutu ekranu",
                 ssdelay: "Opóźnienie zrzutu ekranu",
                 notifyimg: "Obrazek powiadomienia",
@@ -258,7 +260,24 @@ export const translations = {
                     `Upewnij się, że <span class="hl">Nazwa Motywu</span> jest <u>unikalna</u> - nazwa pasująca do istniejącego motywu <u>zastąpi poprzedni</u>!`
                 ],
                 placeholder: "Nazwa Motywu",
-                theme: "Motyw"
+                theme: "Motyw",
+                importtheme: "Importuj motyw",
+                import: "Importuj",
+                importsub: [
+                    `Importuj <span class="hl">plik motywu</span> stworzony przez użytkownika`,
+                    `Importowane <span class="hl">motywy</span> zostaną automatycznie załadowane po pomyślnym imporcie i mogą być wybrane z menu <span class="hl">Wybierz motyw</span>`,
+                ],
+                importidle: `Wybierz <span class="hl">plik motywu</span> do zaimportowania`,
+                importcopied: `Motyw został pomyślnie skopiowany`,
+                importrenamed: `Motyw został pomyślnie zmieniony nazwę`,
+                importextracted: `Motyw został pomyślnie rozpakowany`,
+                importrewriting: `Przepisywanie ścieżek plików motywu...`,
+                importconverting: `Konwertowanie motywu...`,
+                importcreating: `Tworzenie motywu...`,
+                importdone: `Motyw został pomyślnie zaimportowany`,
+                importfailed: `Błąd podczas importowania wybranego pliku motywu!`,
+                exporttheme: "Eksportuj motyw",
+                export: "Eksportuj"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Otwórz <span class="hl">Menu Zarządzania Połączonymi Grami</span>`,
         imgpath: "Lokalizacja, w której będą przechowywane obrazy powiadomień generowane przez tę opcję",
         linkedgames: `Ominięcie <span class="hl">automatycznego śledzenia procesów</span> dla konkretnych gier na platformie Steam<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`,
-        exclusionlist: `Zapobieganie śledzeniu osiągnięć w konkretnych grach na platformie Steam przez aplikację<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`
+        exclusionlist: `Zapobieganie śledzeniu osiągnięć w konkretnych grach na platformie Steam przez aplikację<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`,
+        ovx: "Przesuń powiadomienie wyświetlane na zrzucie ekranu poziomo",
+        ovy: "Przesuń powiadomienie wyświetlane na zrzucie ekranu pionowo",
+        importtheme: `Importuj dostosowania za pomocą <span class="hl">pliku motywu</span> stworzonego przez użytkownika`,
+        exporttheme: `Eksportuj aktualnie wybrany <span class="hl">motyw</span> w celu udostępnienia<br><br><span class="ttdesc">Przed próbą eksportu upewnij się, że wybrany <span class="hl">motyw</span> jest zaznaczony (za pomocą menu <span class="hl">Wybierz motyw</span>). Upewnij się również, że dostosowania zostały zapisane w wybranym <span class="hl">motywie</span> (za pomocą menu <span class="hl">Zapisz motyw</span>)<br><br><u>Wszelkie dostosowania niezapisane w bieżącym <span class="hl">motywie</span> nie zostaną wyeksportowane!</u></span>`        
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

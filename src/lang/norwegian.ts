@@ -115,6 +115,8 @@ export const translations = {
                 ovpos: "Overlay posisjon",
                 ovmatch: "Match tilpasser posisjon",
                 ovpath: "Skjermbilde sti",
+                ovx: "Horisontal forskyvning",
+                ovy: "Vertikal forskyvning",                
                 ssdelay: "Skjermbilde forsinkelse",
                 notifyimg: "Varslingsbilde",
                 imgpath: "Bildesti"
@@ -258,7 +260,24 @@ export const translations = {
                     `Sørg for at <span class="hl">Temnavn</span> er <u>unikt</u> - et navn som matcher et eksisterende tema <u>vil overskrive det forrige</u>!`
                 ],
                 placeholder: "Temnavn",
-                theme: "Tema"
+                theme: "Tema",
+                importtheme: "Importer tema",
+                import: "Importer",
+                importsub: [
+                    `Importer en brukerskapt <span class="hl">temafil</span>`,
+                    `<span class="hl">Importerte temaer</span> blir lastet automatisk når de er importert med suksess, og kan velges fra <span class="hl">Tema velg</span> menyen`,
+                ],
+                importidle: `Velg en <span class="hl">temafil</span> for å importere`,
+                importcopied: `Tema kopiert vellykket`,
+                importrenamed: `Tema omdøpt vellykket`,
+                importextracted: `Tema ekstrahert vellykket`,
+                importrewriting: `Omskriver temafilbaner...`,
+                importconverting: `Konverterer tema...`,
+                importcreating: `Oppretter tema...`,
+                importdone: `Tema importert vellykket`,
+                importfailed: `Feil ved import av valgt temafil!`,
+                exporttheme: "Eksporter tema",
+                export: "Eksporter"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Åpne <span class="hl">Administrer Lenkede Spillmenyen</span>`,
         imgpath: "Stedet hvor varsler bilder generert av dette alternativet vil bli lagret",
         linkedgames: `Bypass <span class="hl">automatisk prosesssporing</span> for bestemte Steam-spill<br><br><span class="ttdesc">Denne opsjonen bør kun brukes i svært spesifikke scenarioer. Brukere bør ikke trenge å bruke denne opsjonen under normale omstendigheter!</span>`,
-        exclusionlist: `Forhindre prestasjoner i bestemte Steam-spill fra å bli sporet av appen<br><br><span class="ttdesc">Denne opsjonen bør kun brukes i svært spesifikke scenarioer. Brukere bør ikke trenge å bruke denne opsjonen under normale omstendigheter!</span>`
+        exclusionlist: `Forhindre prestasjoner i bestemte Steam-spill fra å bli sporet av appen<br><br><span class="ttdesc">Denne opsjonen bør kun brukes i svært spesifikke scenarioer. Brukere bør ikke trenge å bruke denne opsjonen under normale omstendigheter!</span>`,
+        ovx: "Forskyvning av varsling som vises i skjermbildet horisontalt",
+        ovy: "Forskyvning av varsling som vises i skjermbildet vertikalt",
+        importtheme: `Importer tilpasninger via en brukerskapt <span class="hl">temafil</span>`,
+        exporttheme: `Eksporter det aktuelt valgte <span class="hl">temaet</span> for deling<br><br><span class="ttdesc">Før du prøver å eksportere, sørg for at ønsket <span class="hl">tema</span> er valgt (via <span class="hl">Tema velg</span> menyen). Sørg også for at tilpasninger er lagret i det valgte <span class="hl">temaet</span> (via <span class="hl">Lagre tema</span> menyen)<br><br><u>Eventuelle tilpasninger som ikke er lagret i gjeldende <span class="hl">tema</span> vil ikke bli eksportert!</u></span>`        
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

@@ -115,6 +115,8 @@ export const translations = {
                 ovpos: "Overlejringsposition",
                 ovmatch: "Match tilpasningsposition",
                 ovpath: "Screenshot-sti",
+                ovx: "Horisontal forskydning",
+                ovy: "Vertikal forskydning",                
                 ssdelay: "Screenshot-forsinkelse",
                 notifyimg: "Notifikationsbillede",
                 imgpath: "Billedsti"
@@ -258,7 +260,24 @@ export const translations = {
                     `Sørg for, at <span class="hl">Temanavn</span> er <u>unik</u> - et navn, der matcher et eksisterende tema, <u>vil overskrive det tidligere</u>!`
                 ],
                 placeholder: "Temanavn",
-                theme: "Tema"
+                theme: "Tema",
+                importtheme: "Importer Tema",
+                import: "Importer",
+                importsub: [
+                    `Importer en brugeroprettet <span class="hl">temafil</span>`,
+                    `<span class="hl">Importerede temaer</span> vil automatisk blive indlæst, når de er importeret med succes, og kan vælges fra menuen <span class="hl">Vælg Tema</span>`,
+                ],
+                importidle: `Vælg en <span class="hl">temafil</span> til import`,
+                importcopied: `Tema kopieret med succes`,
+                importrenamed: `Tema omdøbt med succes`,
+                importextracted: `Tema udtrukket med succes`,
+                importrewriting: `Omskriver temafilstier...`,
+                importconverting: `Konverterer tema...`,
+                importcreating: `Opretter tema...`,
+                importdone: `Tema importeret med succes`,
+                importfailed: `Fejl ved import af valgt temafil!`,
+                exporttheme: "Eksporter Tema",
+                export: "Eksporter"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Åbn <span class="hl">Administrer Tilsluttede Spil Menu</span>`,
         imgpath: "Stedet, hvor notifikationsbilleder genereret af denne indstilling vil blive gemt",
         linkedgames: `Omgå <span class="hl">automatisk procesregistrering</span> for specifikke Steam-spil<br><br><span class="ttdesc">Denne mulighed bør kun bruges i meget specifikke scenarier. Brugere bør ikke have brug for at bruge denne mulighed under normale omstændigheder!</span>`,
-        exclusionlist: `Forhindre præstationer i specifikke Steam-spil i at blive sporet af appen<br><br><span class="ttdesc">Denne mulighed bør kun bruges i meget specifikke scenarier. Brugere bør ikke have brug for at bruge denne mulighed under normale omstændigheder!</span>`
+        exclusionlist: `Forhindre præstationer i specifikke Steam-spil i at blive sporet af appen<br><br><span class="ttdesc">Denne mulighed bør kun bruges i meget specifikke scenarier. Brugere bør ikke have brug for at bruge denne mulighed under normale omstændigheder!</span>`,
+        ovx: "Forskyd meddelelsen vist på skærmbilledet horisontalt",
+        ovy: "Forskyd meddelelsen vist på skærmbilledet vertikalt",
+        importtheme: `Importer tilpasninger via en brugeroprettet <span class="hl">temafil</span>`,
+        exporttheme: `Eksporter det aktuelt valgte <span class="hl">tema</span> til deling<br><br><span class="ttdesc">Før du forsøger at eksportere, skal du sikre dig, at det ønskede <span class="hl">tema</span> er valgt (via menuen <span class="hl">Vælg Tema</span>). Sørg også for, at tilpasninger er gemt til det valgte <span class="hl">tema</span> (via menuen <span class="hl">Gem Tema</span>)<br><br><u>Enhver tilpasning, der endnu ikke er gemt til det aktuelle <span class="hl">tema</span>, vil ikke blive eksporteret!</u></span>`        
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

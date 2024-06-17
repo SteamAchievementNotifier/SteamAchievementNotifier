@@ -105,9 +105,9 @@ export const usertheme = {
             })
         })
     },
-    set: ({ target }: Event, id: number) => {
+    set: (id: number,event?: Event) => {
         const { config, type, userthemes } = usertheme.data()
-        if ((target as HTMLElement).classList.contains(`userthemedelbtn`)) return usertheme.delete(type,target!)
+        if (event && (event.target as HTMLElement).classList.contains(`userthemedelbtn`)) return usertheme.delete(type,event.target!)
         
         const updatedthemes = userthemes.map(theme => {
             theme.enabled = theme.id === id
@@ -125,6 +125,17 @@ export const usertheme = {
         })
 
         config.set(`customisation.${type}`,customisation)
+
+        ;(async () => {
+            if (!event) {
+                const importlog = document.querySelector(".wrapper#importlog")
+                if (!importlog) return
+
+                const { language } = await import("./language")
+                importlog.innerHTML = await language.get("importdone",["customiser","theme","content"])
+            }
+        })()
+
         dialog.close()
         usertheme.update()
     },
@@ -155,42 +166,77 @@ export const usertheme = {
         userthemes.forEach((theme,i) => config.set(`customisation.${type}.usertheme.${i}.enabled`,false))
         config.set(`customisation.${type}.usertheme.${newid}`,theme)
 
-        // !!! Does not set as "enabled", reload webview or change currently enabled Theme!
-        if (customobj) return window.dispatchEvent(new CustomEvent("tabchanged",{ detail: { type: sanhelper.type } }))
-            
+        if (customobj) {
+            (async () => await sanconfig.validatecustomicons(type))()
+            usertheme.set(theme.id as number)
+            return window.dispatchEvent(new CustomEvent("tabchanged",{ detail: { type: type } }))
+        }
+
         usertheme.update()
         dialog.close()
     },
-    // !!! Add function to delete `sanhelper.appdata/usertheme/<themename>` created via imported Themes
-    delete: (type: string, target: EventTarget) => {
+    delete: (type: string,target: EventTarget) => {
         const { config } = usertheme.data()
         let { userthemes } = usertheme.data()
-        const id = parseInt((target as HTMLElement).id.replace(/[^\d]+/g, ""))
+        const id = parseInt((target as HTMLElement).id.replace(/[^\d]+/g,""))
         const remaining: Button[] = []
         
-        userthemes.forEach(theme => theme.id !== id && remaining.push(theme))
+        userthemes.forEach(theme => {
+            if (theme.id !== id) return remaining.push(theme)
+            
+            try {
+                const userthemedir = path.join(sanhelper.appdata,"userthemes")
+                if (!fs.existsSync(userthemedir)) return
+
+                const subdirs = fs.readdirSync(userthemedir)
+                let match = null
+
+                for (const dirname of subdirs) {
+                    const filepath = path.join(userthemedir,dirname,"usertheme.json")
+                    if (!fs.existsSync(filepath)) throw new Error(`No "usertheme.json" file found in "${path.join(userthemedir,dirname)}"`)
+
+                    const json = JSON.parse(fs.readFileSync(filepath).toString())
+                    if (json.label === theme.label) {
+                        match = dirname
+                        break
+                    }
+                }
+
+                if (!match) return log.write("INFO",`No imported theme labels matching "${theme.label}" found in "${userthemedir}"`)
+
+                fs.rmSync(path.join(userthemedir,match),{ recursive: true, force: true })
+                log.write("INFO",`"${path.join(userthemedir,match)}" removed successfully`)
+            } catch (err) {
+                log.write("ERROR",`Error removing "${theme.label}" dir: ${(err as Error).stack}`)
+            }
+        })
+
         if (!remaining.length) return
       
         config.set(`customisation.${type}.usertheme`,remaining)
 
-        // Update the current userthemes list (after deleting theme),
-        // and reset each object's `id` to be zero indexed
+        // Update the current userthemes list (after deleting theme), and reset each object's `id` to be zero indexed
         userthemes = config.get(`customisation.${type}.usertheme`) as Button[]
-        userthemes.forEach((theme,i) => config.set(`customisation.${type}.usertheme.${i}.id`,i))
+        userthemes.forEach((theme,i) => {
+            config.set(`customisation.${type}.usertheme.${i}.id`,i)
+            document.getElementById(`usertheme${i}`)!.style.setProperty("--icon",`url('${theme.icon}')`)
+        })
 
         const enabled = userthemes.find(theme => theme.enabled)
         !enabled && (config.set(`customisation.${type}.usertheme.0.enabled`,true))
 
         usertheme.update()
     },
-    import: () => {
-        ipcRenderer.once("importtheme", async (event,file: string) => {
+    import: async () => {
+        const { language } = await import("./language")
+        const importhandler = () => ipcRenderer.once("importtheme", async (event,file: string) => {
             if (!file) return
             if (path.extname(file[0]) !== ".san") return log.write("ERROR",`"${file[0]}" is not a valid import file`)
 
             const destpath = path.join(sanhelper.appdata,"userthemes")
             const dest = path.join(destpath,path.basename(file[0]))
             const parsed = path.parse(dest)
+            const importlog = document.querySelector(".wrapper#importlog > span")!
 
             parsed.ext = ".zip"
             parsed.base = `${parsed.name}${parsed.ext}`
@@ -199,11 +245,13 @@ export const usertheme = {
                 !fs.existsSync(destpath) && fs.mkdirSync(destpath,{ recursive: true })
                 fs.copyFileSync(file[0],dest)
                 log.write("INFO",`"${file[0]}" copied to "${dest}" successfully`)
+                importlog.innerHTML = await language.get("importcopied",["customiser","theme","content"])
 
                 const zipdest = path.format(parsed)
 
                 fs.renameSync(dest,zipdest)
                 log.write("INFO",`"${zipdest}" renamed successfully`)
+                importlog.innerHTML = await language.get("importrenamed",["customiser","theme","content"])
 
                 const { default: AdmZip } = await import("adm-zip")
                 const zip = new AdmZip(zipdest)
@@ -216,6 +264,7 @@ export const usertheme = {
                 zip.extractAllTo(themedir,true)
                 fs.rmSync(zipdest,{ recursive: true, force: true })
                 log.write("INFO",`"${zipdest}" dir extracted and cleaned up successfully`)
+                importlog.innerHTML = await language.get("importextracted",["customiser","theme","content"])
 
                 const importtheme: Button = JSON.parse(fs.readFileSync(path.join(themedir,"usertheme.json")).toString())
                 const { customisation } = importtheme as Button
@@ -231,6 +280,8 @@ export const usertheme = {
                 })
         
                 if (!contentmap.size) throw new Error(`No keys found in "contentmap"`)
+
+                importlog.innerHTML = await language.get("importrewriting",["customiser","theme","content"])
         
                 contentmap.forEach((value,key) => {
                     if (!value) return
@@ -239,6 +290,8 @@ export const usertheme = {
         
                 const newcustomisation = { ...customisation }
                 const newkeys = converttoobject(Object.fromEntries(contentmap))
+
+                importlog.innerHTML = await language.get("importconverting",["customiser","theme","content"])
         
                 for (const [newkey,newvalue] of Object.entries(newkeys)) {
                     for (const [key,value] of Object.entries(customisation)) {
@@ -246,13 +299,37 @@ export const usertheme = {
                     }
                 }
 
+                importlog.innerHTML = await language.get("importcreating",["customiser","theme","content"])
                 usertheme.create(importtheme.label,importtheme.icon,newcustomisation)
             } catch (err) {
-                log.write("ERROR",`Error importing Theme: ${err}`)
+                log.write("ERROR",`Error importing Theme: ${(err as Error).stack}`)
+                importlog.parentElement!.setAttribute("error","")
+                importlog.innerHTML = await language.get("importfailed",["customiser","theme","content"])
+
+                // importhandler()
             }
         })
-        
-        ipcRenderer.send("importtheme")
+
+        dialog.open({
+            title: await language.get("importtheme",["customiser","theme","content"]),
+            type: "default",
+            icon: sanhelper.setfilepath("icon","import.svg"),
+            sub: await language.get("importsub",["customiser","theme","content"]),
+            addHTML: `<div class="wrapper" id="importlog"><span>${await language.get("importidle",["customiser","theme","content"])}</span></div>`,
+            buttons: [{
+                id: "import",
+                label: await language.get("import",["customiser","theme","content"]),
+                icon: sanhelper.setfilepath("icon","import.svg"),
+                click: async () => {
+                    const importlog = document.querySelector(".wrapper#importlog > span")!
+                    importlog.parentElement!.removeAttribute("error")
+                    importlog.innerHTML = await language.get("importidle",["customiser","theme","content"])
+
+                    importhandler()
+                    ipcRenderer.send("importtheme")
+                }
+            }]
+        })
     },
     export: () => {
         ipcRenderer.once("exporttheme", async (event,dest: string | undefined) => {
@@ -286,6 +363,8 @@ export const usertheme = {
 
                 theme.icon = (!path.isAbsolute(theme.icon) ? path.join(__root,"img",path.basename(theme.icon)) : theme.icon).replace(/\\/g,"/")
                 fs.copyFileSync(theme.icon,path.join(src,"assets",path.basename(theme.icon)))
+
+                theme.version = sanhelper.semver
 
                 contentmap.forEach(value => {
                     if (!value) return

@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Origen de la captura de pantalla",
                 ovpos: "Posición de superposición",
                 ovmatch: "Coincidir con la posición personalizada",
+                ovx: "Desplazamiento Horizontal",
+                ovy: "Desplazamiento Vertical",                
                 ovpath: "Ruta de la captura de pantalla",
                 ssdelay: "Retraso de la captura de pantalla",
                 notifyimg: "Imagen de Notificación",
@@ -258,7 +260,24 @@ export const translations = {
                     `¡Asegúrese de que el <span class="hl">Nombre del Tema</span> sea <u>único</u> - un nombre que coincida con un tema existente <u>sobrescribirá el anterior</u>!`
                 ],
                 placeholder: "Nombre del Tema",
-                theme: "Tema"
+                theme: "Tema",
+                importtheme: "Importar Tema",
+                import: "Importar",
+                importsub: [
+                    `Importar un archivo de <span class="hl">tema creado por el usuario</span>`,
+                    `Los <span class="hl">temas importados</span> se cargarán automáticamente una vez importados correctamente y se pueden seleccionar desde el menú <span class="hl">Seleccionar Tema</span>`,
+                ],
+                importidle: `Seleccione un archivo de <span class="hl">tema para importar</span>`,
+                importcopied: `Tema copiado correctamente`,
+                importrenamed: `Tema renombrado correctamente`,
+                importextracted: `Tema extraído correctamente`,
+                importrewriting: `Reescribiendo rutas de archivos del tema...`,
+                importconverting: `Convirtiendo tema...`,
+                importcreating: `Creando tema...`,
+                importdone: `Tema importado correctamente`,
+                importfailed: `Error al importar el archivo de tema seleccionado!`,
+                exporttheme: "Exportar Tema",
+                export: "Exportar"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Abrir <span class="hl">Menú de Administración de Juegos Vinculados</span>`,
         imgpath: "La ubicación donde se guardarán las imágenes de notificación generadas por esta opción",
         linkedgames: `Evitar el <span class="hl">seguimiento automático de procesos</span> para juegos específicos de Steam<br><br><span class="ttdesc">Esta opción debería utilizarse solo en escenarios muy específicos. Los usuarios no deberían necesitar usar esta opción en circunstancias normales.</span>`,
-        exclusionlist: `Prevenir que la aplicación rastree los logros en juegos específicos de Steam<br><br><span class="ttdesc">Esta opción debería utilizarse solo en escenarios muy específicos. Los usuarios no deberían necesitar usar esta opción en circunstancias normales.</span>`
+        exclusionlist: `Prevenir que la aplicación rastree los logros en juegos específicos de Steam<br><br><span class="ttdesc">Esta opción debería utilizarse solo en escenarios muy específicos. Los usuarios no deberían necesitar usar esta opción en circunstancias normales.</span>`,
+        ovx: "Desplazar la notificación mostrada en la captura de pantalla horizontalmente",
+        ovy: "Desplazar la notificación mostrada en la captura de pantalla verticalmente",
+        importtheme: `Importar personalizaciones mediante un archivo de <span class="hl">tema creado por el usuario</span>`,
+        exporttheme: `Exportar el <span class="hl">tema</span> seleccionado actualmente para compartir<br><br><span class="ttdesc">Antes de intentar exportar, asegúrese de que el <span class="hl">tema</span> deseado esté seleccionado (a través del menú <span class="hl">Seleccionar Tema</span>). También asegúrese de que las personalizaciones hayan sido guardadas en el <span class="hl">tema</span> seleccionado (a través del menú <span class="hl">Guardar Tema</span>)<br><br><u>Cualquier personalización no guardada en el <span class="hl">tema</span> actual no será exportada!</u></span>`        
     },
     update: {
         updateavailable: "Actualización disponible",

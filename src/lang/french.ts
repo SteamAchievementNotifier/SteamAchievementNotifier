@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Source de capture d'écran",
                 ovpos: "Position de superposition",
                 ovmatch: "Correspondance de la position personnalisée",
+                ovx: "Décalage horizontal",
+                ovy: "Décalage vertical",                
                 ovpath: "Chemin de la capture d'écran",
                 ssdelay: "Délai de capture d'écran",
                 notifyimg: "Image de notification",
@@ -258,7 +260,24 @@ export const translations = {
                     `Assurez-vous que le <span class="hl">Nom du Thème</span> est <u>unique</u> - un nom correspondant à un thème existant <u>écrasera le précédent</u> !`
                 ],
                 placeholder: "Nom du Thème",
-                theme: "Thème"
+                theme: "Thème",
+                importtheme: "Importer un thème",
+                import: "Importer",
+                importsub: [
+                    `Importer un <span class="hl">fichier de thème</span> créé par l'utilisateur`,
+                    `<span class="hl">Les thèmes importés</span> seront chargés automatiquement une fois importés avec succès et peuvent être sélectionnés depuis le menu <span class="hl">Sélection du thème</span>`,
+                ],
+                importidle: `Sélectionnez un <span class="hl">fichier de thème</span> à importer`,
+                importcopied: `Thème copié avec succès`,
+                importrenamed: `Thème renommé avec succès`,
+                importextracted: `Thème extrait avec succès`,
+                importrewriting: `Réécriture des chemins de fichiers du thème...`,
+                importconverting: `Conversion du thème...`,
+                importcreating: `Création du thème...`,
+                importdone: `Thème importé avec succès`,
+                importfailed: `Erreur lors de l'importation du fichier de thème sélectionné !`,
+                exporttheme: "Exporter le thème",
+                export: "Exporter"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Ouvrir <span class="hl">Menu de Gestion des Jeux Liés</span>`,
         imgpath: "L'emplacement où les images de notification générées par cette option seront enregistrées",
         linkedgames: `Contourner le <span class="hl">suivi automatique des processus</span> pour des jeux Steam spécifiques<br><br><span class="ttdesc">Cette option ne devrait être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`,
-        exclusionlist: `Empêcher le suivi des réalisations dans des jeux Steam spécifiques par l'application<br><br><span class="ttdesc">Cette option ne devrait être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`
+        exclusionlist: `Empêcher le suivi des réalisations dans des jeux Steam spécifiques par l'application<br><br><span class="ttdesc">Cette option ne devrait être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`,
+        ovx: "Décalez la notification affichée dans la capture d'écran horizontalement",
+        ovy: "Décalez la notification affichée dans la capture d'écran verticalement",
+        importtheme: `Importez des personnalisations via un <span class="hl">fichier de thème</span> créé par l'utilisateur`,
+        exporttheme: `Exportez le <span class="hl">thème</span> actuellement sélectionné pour le partage<br><br><span class="ttdesc">Avant de tenter l'exportation, veuillez vous assurer que le <span class="hl">thème</span> souhaité est sélectionné (via le menu <span class="hl">Sélection du thème</span>). Assurez-vous également que les personnalisations ont été enregistrées dans le <span class="hl">thème</span> sélectionné (via le menu <span class="hl">Enregistrer le thème</span>)<br><br><u>Toutes les personnalisations qui ne sont pas encore enregistrées dans le <span class="hl">thème</span> actuel ne seront pas exportées !</u></span>`        
     },
     update: {
         updateavailable: "Mise à jour disponible",

@@ -270,7 +270,7 @@ export const dialog = {
             const btn = document.createElement("button")
             btn.className = menutype === "selection" ? "rect" : ""
             btn.id = !isTheme ? `${id}btn` : `usertheme${id}`
-            btn.onclick = (event: Event) => !isTheme ? (click && click()) : usertheme.set(event, id as number)
+            btn.onclick = (event: Event) => !isTheme ? (click && click()) : usertheme.set(id as number,event)
 
             btn.style.setProperty("--icon",`url('${icon}')`)
 

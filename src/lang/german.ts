@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Screenshot-Quelle",
                 ovpos: "Overlay-Position",
                 ovmatch: "Anpassungsposition Anpassen",
+                ovx: "Horizontaler Versatz",
+                ovy: "Vertikaler Versatz",                
                 ovpath: "Screenshot-Pfad",
                 ssdelay: "Screenshot-Verzögerung",
                 notifyimg: "Benachrichtigungsbild",
@@ -258,7 +260,24 @@ export const translations = {
                     `Stellen Sie sicher, dass der <span class="hl">Themenname</span> <u>eindeutig</u> ist - ein Name, der mit einem vorhandenen Thema übereinstimmt, <u>überschreibt das vorherige</u>!`
                 ],
                 placeholder: "Themenname",
-                theme: "Thema"
+                theme: "Thema",
+                importtheme: "Thema importieren",
+                import: "Importieren",
+                importsub: [
+                    `Importieren einer vom Benutzer erstellten <span class="hl">Themendatei</span>`,
+                    `<span class="hl">Importierte Themen</span> werden nach erfolgreichem Import automatisch geladen und können im Menü <span class="hl">Thema auswählen</span> ausgewählt werden`,
+                ],
+                importidle: `Wählen Sie eine <span class="hl">Themendatei</span> zum Importieren`,
+                importcopied: `Thema erfolgreich kopiert`,
+                importrenamed: `Thema erfolgreich umbenannt`,
+                importextracted: `Thema erfolgreich extrahiert`,
+                importrewriting: `Schreibe Themendateipfade neu...`,
+                importconverting: `Konvertiere Thema...`,
+                importcreating: `Erstelle Thema...`,
+                importdone: `Thema erfolgreich importiert`,
+                importfailed: `Fehler beim Importieren der ausgewählten Themendatei!`,
+                exporttheme: "Thema exportieren",
+                export: "Exportieren"                
             }
         }        
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Öffne <span class="hl">Menü für verknüpfte Spiele verwalten</span>`,
         imgpath: "Der Speicherort, an dem Benachrichtigungsbilder, die von dieser Option generiert wurden, gespeichert werden",
         linkedgames: `Umgehen Sie das <span class="hl">automatische Prozess-Tracking</span> für bestimmte Steam-Spiele<br><br><span class="ttdesc">Diese Option sollte nur in sehr spezifischen Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`,
-        exclusionlist: `Verhindern Sie, dass Errungenschaften in bestimmten Steam-Spielen von der App verfolgt werden<br><br><span class="ttdesc">Diese Option sollte nur in sehr spezifischen Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`
+        exclusionlist: `Verhindern Sie, dass Errungenschaften in bestimmten Steam-Spielen von der App verfolgt werden<br><br><span class="ttdesc">Diese Option sollte nur in sehr spezifischen Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`,
+        ovx: "Verschieben Sie die Benachrichtigung, die im Screenshot angezeigt wird, horizontal",
+        ovy: "Verschieben Sie die Benachrichtigung, die im Screenshot angezeigt wird, vertikal",
+        importtheme: `Importieren Sie Anpassungen über eine vom Benutzer erstellte <span class="hl">Themendatei</span>`,
+        exporttheme: `Exportieren Sie das aktuell ausgewählte <span class="hl">Thema</span> zum Teilen<br><br><span class="ttdesc">Bevor Sie exportieren, stellen Sie bitte sicher, dass das gewünschte <span class="hl">Thema</span> ausgewählt ist (über das Menü <span class="hl">Thema auswählen</span>). Stellen Sie auch sicher, dass Anpassungen in das ausgewählte <span class="hl">Thema</span> gespeichert wurden (über das Menü <span class="hl">Thema speichern</span>)<br><br><u>Anpassungen, die noch nicht im aktuellen <span class="hl">Thema</span> gespeichert wurden, werden nicht exportiert!</u></span>`        
     },
     update: {
         updateavailable: "Update verfügbar",

@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "스크린 샷 소스",
                 ovpos: "오버레이 위치",
                 ovmatch: "맞춤 위치와 일치",
+                ovx: "수평 오프셋",
+                ovy: "수직 오프셋",                
                 ovpath: "스크린 샷 경로",
                 ssdelay: "스크린 샷 지연",
                 notifyimg: "알림 이미지",
@@ -258,7 +260,24 @@ export const translations = {
                     `테마 이름이 <u>고유해야</u>합니다. - 기존 테마와 일치하는 이름은 <u>이전 것을 덮어쓸 것</u>입니다!`
                 ],
                 placeholder: "테마 이름",
-                theme: "테마"
+                theme: "테마",
+                importtheme: "테마 가져오기",
+                import: "가져오기",
+                importsub: [
+                    `사용자가 생성한 <span class="hl">테마 파일</span>을 가져옵니다`,
+                    `<span class="hl">가져온 테마</span>는 성공적으로 가져온 후 자동으로 로드되며, <span class="hl">테마 선택</span> 메뉴에서 선택할 수 있습니다`,
+                ],
+                importidle: `가져올 <span class="hl">테마 파일</span>을 선택하세요`,
+                importcopied: `테마가 성공적으로 복사되었습니다`,
+                importrenamed: `테마 이름이 성공적으로 변경되었습니다`,
+                importextracted: `테마가 성공적으로 추출되었습니다`,
+                importrewriting: `테마 파일 경로를 다시 작성 중입니다...`,
+                importconverting: `테마를 변환 중입니다...`,
+                importcreating: `테마를 생성 중입니다...`,
+                importdone: `테마가 성공적으로 가져왔습니다`,
+                importfailed: `선택한 테마 파일을 가져오는 중 오류가 발생했습니다!`,
+                exporttheme: "테마 내보내기",
+                export: "내보내기"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `열기 <span class="hl">연결된 게임 관리 메뉴</span>`,
         imgpath: "이 옵션으로 생성된 알림 이미지가 저장되는 위치",
         linkedgames: `특정 Steam 게임의 <span class="hl">자동 프로세스 추적</span> 우회<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`,
-        exclusionlist: `앱에서 특정 Steam 게임의 업적 추적 방지<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`
+        exclusionlist: `앱에서 특정 Steam 게임의 업적 추적 방지<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`,
+        ovx: "스크린샷에 표시된 알림을 수평으로 오프셋합니다",
+        ovy: "스크린샷에 표시된 알림을 수직으로 오프셋합니다",
+        importtheme: `사용자가 생성한 <span class="hl">테마 파일</span>을 통해 맞춤 설정을 가져옵니다`,
+        exporttheme: `현재 선택한 <span class="hl">테마</span>를 공유할 수 있도록 내보냅니다<br><br><span class="ttdesc">내보내기 전에 원하는 <span class="hl">테마</span>가 선택되었는지 확인하십시오 (<span class="hl">테마 선택</span> 메뉴를 통해). 또한 선택한 <span class="hl">테마</span>에 맞춤 설정이 저장되어 있는지 확인하십시오 (<span class="hl">테마 저장</span> 메뉴를 통해)<br><br><u>현재 <span class="hl">테마</span>에 저장되지 않은 모든 맞춤 설정은 내보내지 않습니다!</u></span>`        
     },
     update: {
         updateavailable: "업데이트 가능",

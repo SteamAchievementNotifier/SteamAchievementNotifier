@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Zdroj screenshotu",
                 ovpos: "Pozice překryvu",
                 ovmatch: "Shodovat pozici přizpůsobení",
+                ovx: "Horizontální posun",
+                ovy: "Vertikální posun",
                 ovpath: "Cesta screenshotu",
                 ssdelay: "Zpoždění screenshotu",
                 notifyimg: "Obrázek oznámení",
@@ -258,7 +260,24 @@ export const translations = {
                     `Ujistěte se, že <span class="hl">Název tématu</span> je <u>jedinečný</u> - název, který odpovídá existujícímu tématu <u>přepíše předchozí</u>!`
                 ],
                 placeholder: "Název tématu",
-                theme: "Téma"
+                theme: "Téma",
+                importtheme: "Importovat téma",
+                import: "Importovat",
+                importsub: [
+                    `Importovat uživatelem vytvořený <span class="hl">soubor tématu</span>`,
+                    `<span class="hl">Importovaná témata</span> budou automaticky načtena po úspěšném importu a mohou být vybrána z nabídky <span class="hl">Výběr tématu</span>`,
+                ],
+                importidle: `Vyberte <span class="hl">soubor tématu</span> k importu`,
+                importcopied: `Téma úspěšně zkopírováno`,
+                importrenamed: `Téma úspěšně přejmenováno`,
+                importextracted: `Téma úspěšně extrahováno`,
+                importrewriting: `Přepisování cest k souborům tématu...`,
+                importconverting: `Konverze tématu...`,
+                importcreating: `Vytváření tématu...`,
+                importdone: `Téma úspěšně importováno`,
+                importfailed: `Chyba při importu vybraného souboru tématu!`,
+                exporttheme: "Exportovat téma",
+                export: "Exportovat"
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Otevřít <span class="hl">Menu Správy Propojených Her</span>`,
         imgpath: "Místo, kam budou uloženy obrázky oznámení generované touto možností",
         linkedgames: `Přeskočit <span class="hl">automatické sledování procesů</span> pro konkrétní hry ve službě Steam<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`,
-        exclusionlist: `Zabránit sledování úspěchů v konkrétních hrách ve službě Steam aplikací<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`
+        exclusionlist: `Zabránit sledování úspěchů v konkrétních hrách ve službě Steam aplikací<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`,
+        ovx: "Posunout upozornění zobrazené na snímku obrazovky horizontálně",
+        ovy: "Posunout upozornění zobrazené na snímku obrazovky vertikálně",
+        importtheme: `Importovat úpravy prostřednictvím uživatelem vytvořeného <span class="hl">souboru tématu</span>`,
+        exporttheme: `Exportovat aktuálně vybrané <span class="hl">téma</span> k sdílení<br><br><span class="ttdesc">Před pokusem o export si prosím ověřte, že je vybráno požadované <span class="hl">téma</span> (pomocí nabídky <span class="hl">Výběr tématu</span>). Ujistěte se také, že byly úpravy uloženy ve vybraném <span class="hl">tématu</span> (pomocí nabídky <span class="hl">Uložit téma</span>)<br><br><u>Veškeré úpravy, které nebyly dosud uloženy v aktuálním <span class="hl">tématu</span>, nebudou exportovány!</u></span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

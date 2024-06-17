@@ -20,7 +20,7 @@
     "homepage": "https://github.com/${author}/${author}#readme",
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
-        "electron": "^30.0.9",
+        "electron": "^31.0.1",
         "electron-builder": "^24.9.1",
         "typescript": "^5.2.2"
     },

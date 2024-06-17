@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Görüntü Kaynağı",
                 ovpos: "Üzerine Yerleştirme Konumu",
                 ovmatch: "Özel Konumu Eşleştir",
+                ovx: "Yatay Kaydırma",
+                ovy: "Dikey Kaydırma",                
                 ovpath: "Görüntü Yolu",
                 ssdelay: "Görüntü Gecikmesi",
                 notifyimg: "Bildirim Görseli",
@@ -258,7 +260,24 @@ export const translations = {
                     `<span class="hl">Tema Adı</span>'nın <u>benzersiz</u> olduğundan emin olun - mevcut bir tema ile eşleşen bir isim önceki temayı <u>üzerine yazacaktır</u>!`
                 ],
                 placeholder: "Tema Adı",
-                theme: "Tema"
+                theme: "Tema",
+                importtheme: "Tema İçe Aktar",
+                import: "İçe Aktar",
+                importsub: [
+                    `Kullanıcı tarafından oluşturulan bir <span class="hl">tema dosyasını</span> içe aktarın`,
+                    `<span class="hl">İçe aktarılan temalar</span>, başarıyla içe aktarıldıktan sonra otomatik olarak yüklenecek ve <span class="hl">Tema Seç</span> menüsünden seçilebilir`,
+                ],
+                importidle: `İçe aktarmak için bir <span class="hl">tema dosyası</span> seçin`,
+                importcopied: `Tema başarıyla kopyalandı`,
+                importrenamed: `Tema başarıyla yeniden adlandırıldı`,
+                importextracted: `Tema başarıyla çıkartıldı`,
+                importrewriting: `Tema dosya yolları yeniden yazılıyor...`,
+                importconverting: `Tema dönüştürülüyor...`,
+                importcreating: `Tema oluşturuluyor...`,
+                importdone: `Tema başarıyla içe aktarıldı`,
+                importfailed: `Seçilen tema dosyasını içe aktarma hatası!`,
+                exporttheme: "Tema Dışa Aktar",
+                export: "Dışa Aktar"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Aç <span class="hl">Bağlı Oyunları Yönet Menüsü</span>`,
         imgpath: "Bu seçenek tarafından oluşturulan bildirim görüntülerinin kaydedileceği konum",
         linkedgames: `Belirli Steam oyunları için <span class="hl">otomatik işlem takibini</span> atlayın<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`,
-        exclusionlist: `Uygulamanın belirli Steam oyunlarının başarılarını izlemesini engelleyin<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`
+        exclusionlist: `Uygulamanın belirli Steam oyunlarının başarılarını izlemesini engelleyin<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`,
+        ovx: "Ekran görüntüsünde gösterilen bildirimi yatay olarak kaydırma",
+        ovy: "Ekran görüntüsünde gösterilen bildirimi dikey olarak kaydırma",
+        importtheme: `Kullanıcı tarafından oluşturulan <span class="hl">tema dosyası</span> aracılığıyla özelleştirmeleri içe aktarın`,
+        exporttheme: `Paylaşmak için şu anda seçili olan <span class="hl">temayı</span> dışa aktarın<br><br><span class="ttdesc">Dışa aktarmadan önce lütfen istenen <span class="hl">temanın</span> seçildiğinden (<span class="hl">Tema Seç</span> menüsü üzerinden) emin olun. Ayrıca özelleştirmelerin seçilen <span class="hl">temaya</span> kaydedilmiş olmasından (<span class="hl">Tema Kaydet</span> menüsü üzerinden) emin olun<br><br><u>Mevcut <span class="hl">temada</span> henüz kaydedilmemiş herhangi bir özelleştirme dışa aktarılmayacaktır!</u></span>`        
     },
     update: {
         updateavailable: "Güncelleme mevcut",

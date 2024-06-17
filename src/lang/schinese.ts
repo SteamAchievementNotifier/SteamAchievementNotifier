@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "截图来源",
                 ovpos: "叠加位置",
                 ovmatch: "与自定义位置匹配",
+                ovx: "水平偏移",
+                ovy: "垂直偏移",                
                 ovpath: "截图路径",
                 ssdelay: "截图延迟",
                 notifyimg: "通知图片",
@@ -258,7 +260,24 @@ export const translations = {
                     `确保 <span class="hl">主题名称</span> 是 <u>唯一</u> 的 - 与现有主题匹配的名称 <u>将覆盖先前的</u>！`
                 ],
                 placeholder: "主题名称",
-                theme: "主题"
+                theme: "主题",
+                importtheme: "导入主题",
+                import: "导入",
+                importsub: [
+                    `导入用户创建的<span class="hl">主题文件</span>`,
+                    `成功导入后，<span class="hl">导入的主题</span>将自动加载，并可从<span class="hl">主题选择</span>菜单中选择`,
+                ],
+                importidle: `选择要导入的<span class="hl">主题文件</span>`,
+                importcopied: `主题复制成功`,
+                importrenamed: `主题重命名成功`,
+                importextracted: `主题提取成功`,
+                importrewriting: `正在重写主题文件路径...`,
+                importconverting: `正在转换主题...`,
+                importcreating: `正在创建主题...`,
+                importdone: `主题导入成功`,
+                importfailed: `导入选定的主题文件时出错！`,
+                exporttheme: "导出主题",
+                export: "导出"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `打开 <span class="hl">管理链接游戏菜单</span>`,
         imgpath: "此选项生成的通知图像将保存在的位置",
         linkedgames: `针对特定的Steam游戏绕过<span class="hl">自动进程跟踪</span><br><br><span class="ttdesc">此选项仅应在非常特定的情况下使用。用户不应在正常情况下使用此选项！</span>`,
-        exclusionlist: `防止应用程序跟踪特定Steam游戏中的成就<br><br><span class="ttdesc">此选项仅应在非常特定的情况下使用。用户不应在正常情况下使用此选项！</span>`
+        exclusionlist: `防止应用程序跟踪特定Steam游戏中的成就<br><br><span class="ttdesc">此选项仅应在非常特定的情况下使用。用户不应在正常情况下使用此选项！</span>`,
+        ovx: "水平偏移屏幕截图中显示的通知",
+        ovy: "垂直偏移屏幕截图中显示的通知",
+        importtheme: `通过用户创建的<span class="hl">主题文件</span>导入自定义设置`,
+        exporttheme: `导出当前选择的<span class="hl">主题</span>以供分享<br><br><span class="ttdesc">在尝试导出之前，请确保选择了所需的<span class="hl">主题</span>（通过<span class="hl">主题选择</span>菜单）。还请确保将自定义保存到所选<span class="hl">主题</span>中（通过<span class="hl">保存主题</span>菜单）<br><br><u>尚未保存到当前<span class="hl">主题</span>的任何自定义设置将不会被导出！</u></span>`        
     },
     update: {
         updateavailable: "有可用更新",

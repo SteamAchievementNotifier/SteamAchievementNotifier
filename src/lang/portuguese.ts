@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Fonte da Captura de Tela",
                 ovpos: "Posição da Overlay",
                 ovmatch: "Corresponder Posição Personalizada",
+                ovx: "Deslocamento Horizontal",
+                ovy: "Deslocamento Vertical",                
                 ovpath: "Caminho da Captura de Tela",
                 ssdelay: "Atraso na Captura de Tela",
                 notifyimg: "Imagem de Notificação",
@@ -258,7 +260,24 @@ export const translations = {
                     `Certifique-se de que o <span class="hl">Nome do Tema</span> seja <u>único</u> - um nome que corresponda a um tema existente <u>irá substituí-lo</u>!`
                 ],
                 placeholder: "Nome do Tema",
-                theme: "Tema"
+                theme: "Tema",
+                importtheme: "Importar Tema",
+                import: "Importar",
+                importsub: [
+                    `Importar um <span class="hl">arquivo de tema</span> criado pelo usuário`,
+                    `Os <span class="hl">temas importados</span> serão carregados automaticamente após a importação bem-sucedida e podem ser selecionados no menu <span class="hl">Selecionar Tema</span>`,
+                ],
+                importidle: `Selecione um <span class="hl">arquivo de tema</span> para importar`,
+                importcopied: `Tema copiado com sucesso`,
+                importrenamed: `Tema renomeado com sucesso`,
+                importextracted: `Tema extraído com sucesso`,
+                importrewriting: `Reescrevendo caminhos de arquivo do tema...`,
+                importconverting: `Convertendo tema...`,
+                importcreating: `Criando tema...`,
+                importdone: `Tema importado com sucesso`,
+                importfailed: `Erro ao importar o arquivo de tema selecionado!`,
+                exporttheme: "Exportar Tema",
+                export: "Exportar"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Abrir <span class="hl">Menu de Gerenciamento de Jogos Vinculados</span>`,
         imgpath: "O local onde as imagens de notificação geradas por esta opção serão salvas",
         linkedgames: `Ignorar <span class="hl">rastreamento automático de processos</span> para jogos específicos da Steam<br><br><span class="ttdesc">Esta opção deve ser usada apenas em cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`,
-        exclusionlist: `Prevenir a rastreabilidade de conquistas em jogos específicos da Steam pela aplicação<br><br><span class="ttdesc">Esta opção deve ser usada apenas em cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`
+        exclusionlist: `Prevenir a rastreabilidade de conquistas em jogos específicos da Steam pela aplicação<br><br><span class="ttdesc">Esta opção deve ser usada apenas em cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`,
+        ovx: "Desloque o aviso exibido na captura de tela horizontalmente",
+        ovy: "Desloque o aviso exibido na captura de tela verticalmente",
+        importtheme: `Importar personalizações através de um <span class="hl">arquivo de tema</span> criado pelo usuário`,
+        exporttheme: `Exportar o <span class="hl">tema</span> atualmente selecionado para compartilhamento<br><br><span class="ttdesc">Antes de tentar exportar, certifique-se de que o <span class="hl">tema</span> desejado esteja selecionado (através do menu <span class="hl">Selecionar Tema</span>). Certifique-se também de que as personalizações tenham sido salvas no <span class="hl">tema</span> selecionado (através do menu <span class="hl">Salvar Tema</span>)<br><br><u>Quaisquer personalizações ainda não salvas no <span class="hl">tema</span> atual não serão exportadas!</u></span>`        
     },
     update: {
         updateavailable: "Atualização disponível",

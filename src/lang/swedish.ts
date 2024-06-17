@@ -115,6 +115,8 @@ export const translations = {
                 ovpos: "Överlagringsposition",
                 ovmatch: "Matcha anpassad position",
                 ovpath: "Skärmdumpssökväg",
+                ovx: "Horisontellt förskjutning",
+                ovy: "Vertikalt förskjutning",                
                 ssdelay: "Skärmdumpsfördröjning",
                 notifyimg: "Meddelandebild",
                 imgpath: "Bildsökväg"
@@ -258,7 +260,24 @@ export const translations = {
                     `Se till att <span class="hl">Temans namn</span> är <u>unikt</u> - ett namn som matchar ett befintligt tema <u>kommer att skriva över det föregående</u>!`
                 ],
                 placeholder: "Temans namn",
-                theme: "Tema"
+                theme: "Tema",
+                importtheme: "Importera Tema",
+                import: "Importera",
+                importsub: [
+                    `Importera en användarskapad <span class="hl">temafil</span>`,
+                    `<span class="hl">Importerade teman</span> kommer att laddas automatiskt när de har importerats framgångsrikt och kan väljas från menyn <span class="hl">Välj tema</span>`,
+                ],
+                importidle: `Välj en <span class="hl">temafil</span> att importera`,
+                importcopied: `Tema kopierat framgångsrikt`,
+                importrenamed: `Tema omdöpt framgångsrikt`,
+                importextracted: `Tema extraherat framgångsrikt`,
+                importrewriting: `Omskrivning av temafilvägar...`,
+                importconverting: `Konverterar tema...`,
+                importcreating: `Skapar tema...`,
+                importdone: `Tema importerat framgångsrikt`,
+                importfailed: `Fel vid import av vald temafil!`,
+                exporttheme: "Exportera Tema",
+                export: "Exportera"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Öppna <span class="hl">Menyn för hantering av länkade spel</span>`,
         imgpath: "Platsen där meddelandebilder genererade av detta alternativ kommer att sparas",
         linkedgames: `Bypassa <span class="hl">automatisk processpårning</span> för specifika Steam-spel<br><br><span class="ttdesc">Denna alternativ bör endast användas i mycket specifika scenarier. Användare bör inte behöva använda detta alternativ under normala omständigheter!</span>`,
-        exclusionlist: `Förhindra att prestationer i specifika Steam-spel spåras av appen<br><br><span class="ttdesc">Denna alternativ bör endast användas i mycket specifika scenarier. Användare bör inte behöva använda detta alternativ under normala omständigheter!</span>`
+        exclusionlist: `Förhindra att prestationer i specifika Steam-spel spåras av appen<br><br><span class="ttdesc">Denna alternativ bör endast användas i mycket specifika scenarier. Användare bör inte behöva använda detta alternativ under normala omständigheter!</span>`,
+        ovx: "Förskjutning av meddelandet som visas i skärmdumpen horisontellt",
+        ovy: "Förskjutning av meddelandet som visas i skärmdumpen vertikalt",
+        importtheme: `Importera anpassningar via en användarskapad <span class="hl">temafil</span>`,
+        exporttheme: `Exportera det aktuellt valda <span class="hl">temat</span> för delning<br><br><span class="ttdesc">Innan du försöker exportera, se till att det önskade <span class="hl">temat</span> är valt (via menyn <span class="hl">Välj tema</span>). Kontrollera också att anpassningar har sparats i det valda <span class="hl">temat</span> (via menyn <span class="hl">Spara tema</span>)<br><br><u>Alla anpassningar som inte har sparats i det aktuella <span class="hl">temat</span> kommer inte att exporteras!</u></span>`        
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

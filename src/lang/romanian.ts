@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Sursă Captură",
                 ovpos: "Poziție Suprapunere",
                 ovmatch: "Potrivire Poziție Personalizată",
+                ovx: "Deplasare Orizontală",
+                ovy: "Deplasare Verticală",                
                 ovpath: "Cale Captură",
                 ssdelay: "Întârziere Captură",
                 notifyimg: "Imagine Notificare",
@@ -258,7 +260,24 @@ export const translations = {
                     `Asigurați-vă că <span class="hl">Numele Tema</span> este <u>unic</u> - un nume care se potrivește cu o temă existentă <u>va suprascrie tema precedentă</u>!`
                 ],
                 placeholder: "Nume Temă",
-                theme: "Temă"
+                theme: "Temă",
+                importtheme: "Importare Temă",
+                import: "Importare",
+                importsub: [
+                    `Importați un <span class="hl">fișier temă</span> creat de utilizator`,
+                    `Temele <span class="hl">importate</span> vor fi încărcate automat după importare cu succes și pot fi selectate din meniul <span class="hl">Selectare Temă</span>`,
+                ],
+                importidle: `Selectați un <span class="hl">fișier temă</span> pentru a-l importa`,
+                importcopied: `Temă copiată cu succes`,
+                importrenamed: `Temă redenumită cu succes`,
+                importextracted: `Temă extrasă cu succes`,
+                importrewriting: `Se reînnoiesc căile fișierelor temei...`,
+                importconverting: `Se convertește tema...`,
+                importcreating: `Se creează tema...`,
+                importdone: `Temă importată cu succes`,
+                importfailed: `Eroare la importarea fișierului temei selectate!`,
+                exporttheme: "Exportare Temă",
+                export: "Exportare"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Deschide <span class="hl">Meniul de Administrare a Jocurilor Conectate</span>`,
         imgpath: "Locația unde vor fi salvate imaginile de notificare generate de această opțiune",
         linkedgames: `Ocolirea <span class="hl">urmaririi automate a proceselor</span> pentru anumite jocuri Steam<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`,
-        exclusionlist: `Prevenirea urmăririi realizărilor în anumite jocuri Steam de către aplicație<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`
+        exclusionlist: `Prevenirea urmăririi realizărilor în anumite jocuri Steam de către aplicație<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`,
+        ovx: "Deplasați notificarea afișată în captura de ecran pe orizontală",
+        ovy: "Deplasați notificarea afișată în captura de ecran pe verticală",
+        importtheme: `Importați personalizările printr-un <span class="hl">fișier temă</span> creat de utilizator`,
+        exporttheme: `Exportați <span class="hl">tema</span> selectată curent pentru partajare<br><br><span class="ttdesc">Înainte de a încerca să exportați, asigurați-vă că <span class="hl">tema</span> dorită este selectată (prin meniul <span class="hl">Selectare Temă</span>). Asigurați-vă și că personalizările au fost salvate în <span class="hl">tema</span> selectată (prin meniul <span class="hl">Salvare Temă</span>)<br><br><u>Orice personalizări nesalvate în <span class="hl">tema</span> curent nu vor fi exportate!</u></span>`        
     },
     update: {
         updateavailable: "Actualizare disponibilă",

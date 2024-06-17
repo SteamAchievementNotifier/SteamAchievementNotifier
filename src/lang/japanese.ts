@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "スクリーンショットのソース",
                 ovpos: "オーバーレイの位置",
                 ovmatch: "カスタマイズ位置と一致",
+                ovx: "水平オフセット",
+                ovy: "垂直オフセット",                
                 ovpath: "スクリーンショットのパス",
                 ssdelay: "スクリーンショットの遅延",
                 notifyimg: "通知画像",
@@ -258,7 +260,24 @@ export const translations = {
                     `テーマ名が<u>一意</u>であることを確認してください - 既存のテーマと一致する名前は、<u>前のテーマを上書き</u>します！`
                 ],
                 placeholder: "テーマ名",
-                theme: "テーマ"
+                theme: "テーマ",
+                importtheme: "テーマのインポート",
+                import: "インポート",
+                importsub: [
+                    `ユーザーが作成した<span class="hl">テーマファイル</span>をインポートします`,
+                    `<span class="hl">インポートされたテーマ</span>は、正常にインポートされると自動的に読み込まれ、<span class="hl">テーマ選択</span>メニューから選択できます`,
+                ],
+                importidle: `インポートする<span class="hl">テーマファイル</span>を選択してください`,
+                importcopied: `テーマが正常にコピーされました`,
+                importrenamed: `テーマが正常に名前変更されました`,
+                importextracted: `テーマが正常に抽出されました`,
+                importrewriting: `テーマファイルのパスを書き換えています...`,
+                importconverting: `テーマを変換しています...`,
+                importcreating: `テーマを作成しています...`,
+                importdone: `テーマが正常にインポートされました`,
+                importfailed: `選択したテーマファイルのインポート中にエラーが発生しました！`,
+                exporttheme: "テーマのエクスポート",
+                export: "エクスポート"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `開く <span class="hl">リンクされたゲームの管理メニュー</span>`,
         imgpath: "このオプションによって生成された通知画像が保存される場所",
         linkedgames: `特定のSteamゲームの<span class="hl">自動プロセス追跡</span>をバイパス<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`,
-        exclusionlist: `アプリによる特定のSteamゲームの実績の追跡を防止<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`
+        exclusionlist: `アプリによる特定のSteamゲームの実績の追跡を防止<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`,
+        ovx: "スクリーンショットに表示される通知を水平方向にオフセットします",
+        ovy: "スクリーンショットに表示される通知を垂直方向にオフセットします",
+        importtheme: `ユーザーが作成した<span class="hl">テーマファイル</span>を通じてカスタマイズをインポートします`,
+        exporttheme: `現在選択されている<span class="hl">テーマ</span>を共有するためにエクスポートします<br><br><span class="ttdesc">エクスポートを試みる前に、選択した<span class="hl">テーマ</span>が正しく選択されていることを確認してください（<span class="hl">テーマ選択</span>メニューを使用して）。また、カスタマイズが選択した<span class="hl">テーマ</span>に保存されていることを確認してください（<span class="hl">テーマ保存</span>メニューを使用して）<br><br><u>現在の<span class="hl">テーマ</span>にまだ保存されていないカスタマイズはエクスポートされません！</u></span>`        
     },
     update: {
         updateavailable: "アップデートが利用可能です",

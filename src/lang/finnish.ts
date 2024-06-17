@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Ruutukaappauksen lähde",
                 ovpos: "Päällekkäisyyden sijainti",
                 ovmatch: "Vastaava mukautuksen sijainti",
+                ovx: "Vaakasuuntainen siirto",
+                ovy: "Pystysuuntainen siirto",                
                 ovpath: "Ruutukaappauksen polku",
                 ssdelay: "Ruutukaappauksen viive",
                 notifyimg: "Ilmoituskuva",
@@ -258,7 +260,24 @@ export const translations = {
                     `Varmista, että <span class="hl">Teeman Nimi</span> on <u>yksilöllinen</u> - nimi, joka vastaa olemassa olevaa teemaa, <u>korvaa aiemman</u>!`
                 ],
                 placeholder: "Teeman Nimi",
-                theme: "Teema"
+                theme: "Teema",
+                importtheme: "Tuo teema",
+                import: "Tuo",
+                importsub: [
+                    `Tuo käyttäjän luoma <span class="hl">teematiedosto</span>`,
+                    `<span class="hl">Tuodut teemat</span> ladataan automaattisesti onnistuneen tuonnin jälkeen, ja ne voidaan valita <span class="hl">Teeman valinta</span> -valikosta`,
+                ],
+                importidle: `Valitse <span class="hl">teematiedosto</span> tuodaksesi`,
+                importcopied: `Teema kopioitu onnistuneesti`,
+                importrenamed: `Teema nimetty uudelleen onnistuneesti`,
+                importextracted: `Teema purettu onnistuneesti`,
+                importrewriting: `Kirjoitetaan teematiedoston polkuja uudelleen...`,
+                importconverting: `Muunnetaan teemaa...`,
+                importcreating: `Luodaan teemaa...`,
+                importdone: `Teema tuotu onnistuneesti`,
+                importfailed: `Virhe valitun teematiedoston tuonnissa!`,
+                exporttheme: "Vie teema",
+                export: "Vie"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Avaa <span class="hl">Hallinnoi Liitettyjen Pelien Valikko</span>`,
         imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen",
         linkedgames: `Ohita <span class="hl">automaattinen prosessin seuranta</span> tietyille Steam-peleille<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`,
-        exclusionlist: `Estä saavutusten seuranta tietyissä Steam-peleissä sovelluksen avulla<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`
+        exclusionlist: `Estä saavutusten seuranta tietyissä Steam-peleissä sovelluksen avulla<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`,
+        ovx: "Siirrä ilmoitusta, joka näkyy kuvakaappauksessa, vaakasuunnassa",
+        ovy: "Siirrä ilmoitusta, joka näkyy kuvakaappauksessa, pystysuunnassa",
+        importtheme: `Tuo mukautuksia käyttäjän luoman <span class="hl">teematiedoston</span> kautta`,
+        exporttheme: `Vie tällä hetkellä valittu <span class="hl">teema</span> jakamista varten<br><br><span class="ttdesc">Ennen vientiä varmista, että haluttu <span class="hl">teema</span> on valittu (valikon <span class="hl">Teeman valinta</span> kautta). Varmista myös, että mukautukset on tallennettu valittuun <span class="hl">teemaan</span> (valikon <span class="hl">Tallenna teema</span> kautta)<br><br><u>Mukautukset, joita ei ole vielä tallennettu nykyiseen <span class="hl">teemaan</span>, eivät tule mukaan vientiin!</u></span>`        
     },
     update: {
         updateavailable: "Päivitys saatavilla",

@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Sorgente screenshot",
                 ovpos: "Posizione sovrapposizione",
                 ovmatch: "Corrispondenza posizione personalizzata",
+                ovx: "Spostamento orizzontale",
+                ovy: "Spostamento verticale",                
                 ovpath: "Percorso screenshot",
                 ssdelay: "Ritardo screenshot",
                 notifyimg: "Immagine notifica",
@@ -258,7 +260,24 @@ export const translations = {
                     `Assicurati che il <span class="hl">Nome Tema</span> sia <u>unico</u> - un nome che corrisponde a un tema esistente <u>sovrascriverà il precedente</u>!`
                 ],
                 placeholder: "Nome Tema",
-                theme: "Tema"
+                theme: "Tema",
+                importtheme: "Importa Tema",
+                import: "Importa",
+                importsub: [
+                    `Importa un <span class="hl">file del tema</span> creato dall'utente`,
+                    `I <span class="hl">temi importati</span> verranno caricati automaticamente una volta importati con successo e potranno essere selezionati dal menu <span class="hl">Seleziona tema</span>`,
+                ],
+                importidle: `Seleziona un <span class="hl">file del tema</span> da importare`,
+                importcopied: `Tema copiato con successo`,
+                importrenamed: `Tema rinominato con successo`,
+                importextracted: `Tema estratto con successo`,
+                importrewriting: `Riscrittura dei percorsi del file del tema...`,
+                importconverting: `Conversione del tema...`,
+                importcreating: `Creazione del tema...`,
+                importdone: `Tema importato con successo`,
+                importfailed: `Errore durante l'importazione del file del tema selezionato!`,
+                exporttheme: "Esporta Tema",
+                export: "Esporta"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Apri <span class="hl">Menu Gestione Giochi Collegati</span>`,
         imgpath: "Il luogo in cui verranno salvate le immagini di notifica generate da questa opzione",
         linkedgames: `Evita il <span class="hl">tracciamento automatico dei processi</span> per giochi Steam specifici<br><br><span class="ttdesc">Questa opzione dovrebbe essere utilizzata solo in scenari molto specifici. Gli utenti non dovrebbero avere bisogno di utilizzare questa opzione in circostanze normali!</span>`,
-        exclusionlist: `Impedisci il tracciamento degli obiettivi in giochi Steam specifici dall'applicazione<br><br><span class="ttdesc">Questa opzione dovrebbe essere utilizzata solo in scenari molto specifici. Gli utenti non dovrebbero avere bisogno di utilizzare questa opzione in circostanze normali!</span>`
+        exclusionlist: `Impedisci il tracciamento degli obiettivi in giochi Steam specifici dall'applicazione<br><br><span class="ttdesc">Questa opzione dovrebbe essere utilizzata solo in scenari molto specifici. Gli utenti non dovrebbero avere bisogno di utilizzare questa opzione in circostanze normali!</span>`,
+        ovx: "Sposta la notifica visualizzata nello screenshot in orizzontale",
+        ovy: "Sposta la notifica visualizzata nello screenshot in verticale",
+        importtheme: `Importa personalizzazioni tramite un <span class="hl">file del tema</span> creato dall'utente`,
+        exporttheme: `Esporta il <span class="hl">tema</span> attualmente selezionato per la condivisione<br><br><span class="ttdesc">Prima di procedere con l'esportazione, assicurati che il <span class="hl">tema</span> desiderato sia stato selezionato (tramite il menu <span class="hl">Seleziona tema</span>). Assicurati inoltre che le personalizzazioni siano state salvate nel <span class="hl">tema</span> selezionato (tramite il menu <span class="hl">Salva tema</span>)<br><br><u>Eventuali personalizzazioni non ancora salvate nel <span class="hl">tema</span> corrente non saranno esportate!</u></span>`        
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

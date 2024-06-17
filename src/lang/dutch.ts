@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "Screenshot bron",
                 ovpos: "Overlay positie",
                 ovmatch: "Pas aanpas positie toe",
+                ovx: "Horizontale verplaatsing",
+                ovy: "Verticale verplaatsing",                
                 ovpath: "Screenshot pad",
                 ssdelay: "Screenshot vertraging",
                 notifyimg: "Meldingsafbeelding",
@@ -258,7 +260,24 @@ export const translations = {
                     `Zorg ervoor dat de <span class="hl">Thema Naam</span> <u>uniek</u> is - een naam die overeenkomt met een bestaand thema <u>zal het vorige overschrijven</u>!`
                 ],
                 placeholder: "Thema Naam",
-                theme: "Thema"
+                theme: "Thema",
+                importtheme: "Thema importeren",
+                import: "Importeren",
+                importsub: [
+                    `Importeer een door de gebruiker aangemaakt <span class="hl">themabestand</span>`,
+                    `<span class="hl">Geïmporteerde thema's</span> worden automatisch geladen zodra ze succesvol zijn geïmporteerd en kunnen worden geselecteerd in het <span class="hl">Thema selecteren</span> menu`,
+                ],
+                importidle: `Selecteer een <span class="hl">themabestand</span> om te importeren`,
+                importcopied: `Thema succesvol gekopieerd`,
+                importrenamed: `Thema succesvol hernoemd`,
+                importextracted: `Thema succesvol uitgepakt`,
+                importrewriting: `Themapad herschrijven...`,
+                importconverting: `Thema converteren...`,
+                importcreating: `Thema maken...`,
+                importdone: `Thema succesvol geïmporteerd`,
+                importfailed: `Fout bij het importeren van het geselecteerde themabestand!`,
+                exporttheme: "Thema exporteren",
+                export: "Exporteren"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `Open <span class="hl">Beheer Gekoppelde Spellen</span> Menu`,
         imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen",
         linkedgames: `Omzeil <span class="hl">automatische procestracking</span> voor specifieke Steam-spellen<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`,
-        exclusionlist: `Voorkom dat prestaties in specifieke Steam-spellen door de app worden gevolgd<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`
+        exclusionlist: `Voorkom dat prestaties in specifieke Steam-spellen door de app worden gevolgd<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`,
+        ovx: "Verplaats de melding die op de schermafbeelding wordt weergegeven horizontaal",
+        ovy: "Verplaats de melding die op de schermafbeelding wordt weergegeven verticaal",
+        importtheme: `Importeer aanpassingen via een door de gebruiker aangemaakt <span class="hl">themabestand</span>`,
+        exporttheme: `Exporteer het momenteel geselecteerde <span class="hl">thema</span> voor delen<br><br><span class="ttdesc">Controleer voor het exporteren of het gewenste <span class="hl">thema</span> is geselecteerd (via het menu <span class="hl">Thema selecteren</span>). Zorg er ook voor dat aanpassingen zijn opgeslagen in het geselecteerde <span class="hl">thema</span> (via het menu <span class="hl">Thema opslaan</span>)<br><br><u>Eventuele aanpassingen die nog niet zijn opgeslagen in het huidige <span class="hl">thema</span> worden niet geëxporteerd!</u></span>`        
     },
     update: {
         updateavailable: "Update beschikbaar",

@@ -114,6 +114,8 @@ export const translations = {
                 monitors: "截圖來源",
                 ovpos: "疊加位置",
                 ovmatch: "符合自訂位置",
+                ovx: "水平偏移",
+                ovy: "垂直偏移",                
                 ovpath: "截圖路徑",
                 ssdelay: "截圖延遲",
                 notifyimg: "通知圖片",
@@ -258,7 +260,24 @@ export const translations = {
                     `請確保 <span class="hl">主題名稱</span> 是 <u>唯一</u> 的 - 若名稱與現有主題重複 <u>將覆寫之前的</u>！`
                 ],
                 placeholder: "主題名稱",
-                theme: "主題"
+                theme: "主題",
+                importtheme: "匯入主題",
+                import: "匯入",
+                importsub: [
+                    `匯入使用者建立的 <span class="hl">主題檔案</span>`,
+                    `成功匯入後，<span class="hl">匯入的主題</span> 將自動載入並可從 <span class="hl">主題選擇</span> 選單中選擇`,
+                ],
+                importidle: `選擇要匯入的 <span class="hl">主題檔案</span>`,
+                importcopied: `主題複製成功`,
+                importrenamed: `主題重新命名成功`,
+                importextracted: `主題成功提取`,
+                importrewriting: `重新撰寫主題檔案路徑中...`,
+                importconverting: `轉換主題中...`,
+                importcreating: `建立主題中...`,
+                importdone: `主題匯入成功`,
+                importfailed: `匯入選定的主題檔案時發生錯誤！`,
+                exporttheme: "匯出主題",
+                export: "匯出"                
             }
         }
     },
@@ -394,7 +413,11 @@ export const translations = {
         link: `開啟 <span class="hl">管理已連結遊戲選單</span>`,
         imgpath: "這個選項生成的通知圖像將保存在的位置",
         linkedgames: `為特定的Steam遊戲<span class="hl">繞過自動進程追蹤</span><br><br><span class="ttdesc">此選項應僅在非常特定的情況下使用。使用者不應該在正常情況下使用此選項！</span>`,
-        exclusionlist: `防止應用程式追蹤特定Steam遊戲的成就<br><br><span class="ttdesc">此選項應僅在非常特定的情況下使用。使用者不應該在正常情況下使用此選項！</span>`
+        exclusionlist: `防止應用程式追蹤特定Steam遊戲的成就<br><br><span class="ttdesc">此選項應僅在非常特定的情況下使用。使用者不應該在正常情況下使用此選項！</span>`,
+        ovx: "水平偏移在螢幕截圖中顯示的通知",
+        ovy: "垂直偏移在螢幕截圖中顯示的通知",
+        importtheme: `透過使用者建立的 <span class="hl">主題檔案</span> 匯入自訂設置`,
+        exporttheme: `匯出當前選取的 <span class="hl">主題</span> 以供分享<br><br><span class="ttdesc">在嘗試匯出之前，請確保已選取所需的 <span class="hl">主題</span>（透過 <span class="hl">主題選擇</span> 選單）。同時確保已將自訂設置保存到選取的 <span class="hl">主題</span>（透過 <span class="hl">儲存主題</span> 選單）<br><br><u>未保存到當前 <span class="hl">主題</span> 的任何自訂設置將不會匯出！</u></span>`        
     },
     update: {
         updateavailable: "有可用更新",

@@ -1,6 +1,7 @@
 import { ipcRenderer } from "electron"
 import path from "path"
 import fs from "fs"
+import fsextra from "fs-extra"
 import { sanhelper, __root } from "./sanhelper"
 import { dialog } from "./dialog"
 import { sanconfig } from "./config"
@@ -266,6 +267,17 @@ export const usertheme = {
                 log.write("INFO",`"${zipdest}" dir extracted and cleaned up successfully`)
                 importlog.innerHTML = await language.get("importextracted",["customiser","theme","content"])
 
+                const presetsdir = path.join(themedir,"presets")
+                if (fs.existsSync(presetsdir)) {
+                    const custompresetdirs = fs.readdirSync(presetsdir).filter(dir => dir !== "presets.json")
+                    custompresetdirs.forEach(dir => fsextra.copySync(path.join(presetsdir,dir),path.join(sanhelper.appdata,"customfiles","notify","presets",dir)))
+
+                    const presetsjson = path.join(themedir,"presets","presets.json")
+                    fs.existsSync(presetsjson) && fs.copyFileSync(presetsjson,path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json"))
+                    log.write("INFO",`"${presetsjson}" extracted successfully`)
+                }
+
+
                 const importtheme: Button = JSON.parse(fs.readFileSync(path.join(themedir,"usertheme.json")).toString())
                 const { customisation } = importtheme as Button
                 importtheme.icon = path.join(themedir,"assets",path.basename(importtheme.icon)).replace(/\\/g,"/")
@@ -305,8 +317,6 @@ export const usertheme = {
                 log.write("ERROR",`Error importing Theme: ${(err as Error).stack}`)
                 importlog.parentElement!.setAttribute("error","")
                 importlog.innerHTML = await language.get("importfailed",["customiser","theme","content"])
-
-                // importhandler()
             }
         })
 
@@ -361,10 +371,29 @@ export const usertheme = {
 
                 if (!contentmap.size) throw new Error(`No keys found in "contentmap"`)
 
-                theme.icon = (!path.isAbsolute(theme.icon) ? path.join(__root,"img",path.basename(theme.icon)) : theme.icon).replace(/\\/g,"/")
+                const icondir = fs.existsSync(path.join(__root,"img",path.basename(theme.icon))) ? "img" : "icon"
+                theme.icon = (!path.isAbsolute(theme.icon) ? path.join(__root,icondir,path.basename(theme.icon)) : theme.icon).replace(/\\/g,"/")
                 fs.copyFileSync(theme.icon,path.join(src,"assets",path.basename(theme.icon)))
 
                 theme.version = sanhelper.semver
+
+                const defaultpresets = Array.from(sanconfig.defaulticons.keys()).filter(dir => dir !== "os")
+                const custompresetdirs = fs.readdirSync(path.join(sanhelper.appdata,"customfiles","notify","presets")).filter(dir => !defaultpresets.includes(dir) && dir !== "presets.json")
+                const presetsdir = path.join(src,"presets")
+
+                if (custompresetdirs.length) {
+                    !fs.existsSync(presetsdir) && fs.mkdirSync(presetsdir)
+
+                    const presetsjson = path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json")
+                    fs.copyFileSync(presetsjson,path.join(src,"presets","presets.json"))
+                    log.write("INFO",`"${presetsjson}" copied successfully`)
+                    
+                    custompresetdirs.forEach(dir => {
+                        !fs.existsSync(path.join(presetsdir,dir)) && fs.mkdirSync(path.join(presetsdir,dir))
+                        fsextra.copySync(path.join(sanhelper.appdata,"customfiles","notify","presets",dir),path.join(presetsdir,dir))
+                        log.write("INFO",`"${path.join(sanhelper.appdata,"customfiles","notify","presets",dir)}" dir copied successfully`)
+                    })
+                }
 
                 contentmap.forEach(value => {
                     if (!value) return
@@ -387,7 +416,7 @@ export const usertheme = {
                 fs.rmSync(src,{ recursive: true, force: true })
                 log.write("INFO",`"${src}" removed successfully`)
             } catch (err) {
-                log.write("ERROR",`Error exporting Theme: ${err}`)
+                log.write("ERROR",`Error exporting Theme: ${(err as Error).stack}`)
             }
         })
 

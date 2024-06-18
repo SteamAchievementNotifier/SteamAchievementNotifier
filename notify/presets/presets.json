@@ -1,0 +1,13 @@
+{
+    "default": "Default",
+    "xqjan": "xQjan",
+    "steamdeck": "The Deck",
+    "epicgames": "Epic",
+    "xboxone": "XB Modern",
+    "xbox360": "XB Classic",
+    "ps5": "PS Modern",
+    "ps4": "PS Classic",
+    "ps3": "PS Retro",
+    "windows": "Square",
+    "os": "Native OS"
+}

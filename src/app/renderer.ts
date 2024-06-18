@@ -175,6 +175,22 @@ const loadwebview = () => {
             return webview = null
         }
 
+        if (config.get("usecustomfiles")) {
+            const presetsdir = fs.readdirSync(path.join(sanhelper.appdata,"customfiles","notify","presets")).filter(file => file !== "presets.json")
+            const presetnames = JSON.parse(fs.readFileSync(path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json")).toString())
+            const ordered = Object.keys(presetnames).filter(preset => presetsdir.includes(preset))
+            const presetbox = document.querySelector("select#preset")! as HTMLSelectElement
+
+            presetbox.innerHTML = ""
+
+            ordered.forEach(preset => {
+                const opt = document.createElement("option")
+                opt.value = preset
+                opt.textContent = presetnames[preset] || preset
+                presetbox.appendChild(opt)
+            })
+        }
+
         webview = document.createElement("webview") as Electron.WebviewTag
         webview.webpreferences = "nodeIntegration=true, contextIsolation=false"
         webview.src = config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html");

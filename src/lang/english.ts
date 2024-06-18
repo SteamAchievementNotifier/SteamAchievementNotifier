@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Theme",
             content: {
+                updatetheme: "Update Theme",
                 savetheme: "Save Theme",
                 sub: [
                     `Saved <span class="hl">User Themes</span> can be selected from the <span class="hl">Select Theme</span> menu on the Home screen.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Enable custom positioning for the notification",
         setcustompos: "Set the custom position for the notification",
         resetcustompos: "Reset the position of the notification to the default custom position",
+        updatetheme: "Update the current Theme with the selected customisation options",
         savetheme: "Save all configured customisation options as a new Theme",
         visibilitybtn: "Toggle the visibility of the element in Customiser previews and Test Notifications",
         delbtn: "Reset the element to default",

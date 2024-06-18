@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Teema",
             content: {
+                updatetheme: "Päivitä Teema",
                 savetheme: "Tallenna Teema",
                 sub: [
                     `Tallennetut <span class="hl">Käyttäjän Teemat</span> voidaan valita <span class="hl">Valitse Teema</span> -valikosta Aloitusnäytössä.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Ota käyttöön mukautettu sijainti ilmoitukselle",
         setcustompos: "Aseta mukautettu sijainti ilmoitukselle",
         resetcustompos: "Palauta ilmoituksen sijainti oletusmukautettuun sijaintiin",
+        updatetheme: "Päivitä nykyinen Teema valituilla mukautusasetuksilla",
         savetheme: "Tallenna kaikki mukauttamisasetukset uutena teemana",
         visibilitybtn: "Vaihda elementin näkyvyys mukautettuihin esikatseluihin ja testi-ilmoituksiin",
         delbtn: "Palauta elementti oletusarvoon",

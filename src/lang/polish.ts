@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Motyw",
             content: {
+                updatetheme: "Aktualizuj Motyw",
                 savetheme: "Zapisz Motyw",
                 sub: [
                     `Zapisane <span class="hl">Motywy Użytkownika</span> można wybrać z menu <span class="hl">Wybierz Motyw</span> na ekranie głównym.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Włącz niestandardowe pozycjonowanie powiadomienia",
         setcustompos: "Ustaw niestandardową pozycję powiadomienia",
         resetcustompos: "Zresetuj pozycję powiadomienia do domyślnej niestandardowej pozycji",
+        updatetheme: "Aktualizuj bieżący Motyw z wybranymi opcjami dostosowania",
         savetheme: "Zapisz wszystkie skonfigurowane opcje dostosowania jako nowy motyw",
         visibilitybtn: "Przełącz widoczność elementu w niestandardowych podglądach i testowych powiadomieniach",
         delbtn: "Zresetuj element do domyślnej wartości",

@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Tematică",
             content: {
+                updatetheme: "Actualizare Temă",
                 savetheme: "Salvare Temă",
                 sub: [
                     `Temele de utilizator <span class="hl">salvate</span> pot fi selectate din meniul <span class="hl">Selectare Temă</span> de pe ecranul de start.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Activați poziționarea personalizată pentru notificare",
         setcustompos: "Setați poziția personalizată pentru notificare",
         resetcustompos: "Resetați poziția notificării la poziția personalizată implicită",
+        updatetheme: "Actualizați Tema curentă cu opțiunile de personalizare selectate",
         savetheme: "Salvați toate opțiunile de personalizare configurate ca o nouă Temă",
         visibilitybtn: "Comutare vizibilitate element în previzualizări personalizate și notificări de test",
         delbtn: "Resetare element la valoarea implicită",

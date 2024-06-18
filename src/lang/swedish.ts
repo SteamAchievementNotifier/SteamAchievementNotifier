@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Tema",
             content: {
+                updatetheme: "Uppdatera Tema",
                 savetheme: "Spara tema",
                 sub: [
                     `Sparade <span class="hl">Användarteman</span> kan väljas från menyn <span class="hl">Välj tema</span> på startskärmen.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Aktivera anpassad positionering för aviseringen",
         setcustompos: "Ställ in den anpassade positionen för aviseringen",
         resetcustompos: "Återställ aviseringens position till standardanpassad position",
+        updatetheme: "Uppdatera det aktuella temat med de valda anpassningsalternativen",
         savetheme: "Spara alla konfigurerade anpassningsalternativ som ett nytt tema",
         visibilitybtn: "Växla synligheten för elementet i anpassade förhandsvisningar och testmeddelanden",
         delbtn: "Återställ elementet till standardvärdet",

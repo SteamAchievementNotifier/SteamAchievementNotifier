@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "テーマ",
             content: {
+                updatetheme: "テーマを更新する",
                 savetheme: "テーマを保存",
                 sub: [
                     `保存された<span class="hl">ユーザーテーマ</span>は、ホーム画面の<span class="hl">テーマ選択</span>メニューから選択できます。`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "通知のカスタム位置を有効にする",
         setcustompos: "通知のカスタム位置を設定する",
         resetcustompos: "通知の位置をデフォルトのカスタム位置にリセットする",
+        updatetheme: "選択したカスタマイズオプションで現在のテーマを更新する",
         savetheme: "すべての設定されたカスタマイズオプションを新しいテーマとして保存する",
         visibilitybtn: "カスタマイザーのプレビューとテスト通知で要素の表示/非表示を切り替える",
         delbtn: "要素をデフォルトにリセット",

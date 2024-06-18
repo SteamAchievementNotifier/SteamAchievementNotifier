@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "主題",
             content: {
+                updatetheme: "更新主題",
                 savetheme: "儲存主題",
                 sub: [
                     `儲存的 <span class="hl">用戶主題</span> 可以從主畫面的 <span class="hl">選擇主題</span> 選單中選擇。`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "啟用通知的自定義定位",
         setcustompos: "設置通知的自定義位置",
         resetcustompos: "將通知的位置重置為默認的自定義位置",
+        updatetheme: "使用選擇的自定義選項更新當前主題",
         savetheme: "將所有配置的自定義選項保存為新主題",
         visibilitybtn: "在自訂預覽和測試通知中切換元素的可見性",
         delbtn: "將元素重置為默認值",

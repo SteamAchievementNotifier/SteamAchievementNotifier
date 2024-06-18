@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Tema",
             content: {
+                updatetheme: "Aggiorna Tema",
                 savetheme: "Salva Tema",
                 sub: [
                     `I <span class="hl">Temi Utente</span> salvati possono essere selezionati dal menu <span class="hl">Seleziona Tema</span> nella schermata Home.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Abilita il posizionamento personalizzato per la notifica",
         setcustompos: "Imposta la posizione personalizzata per la notifica",
         resetcustompos: "Reimposta la posizione della notifica alla posizione personalizzata predefinita",
+        updatetheme: "Aggiorna il Tema attuale con le opzioni di personalizzazione selezionate",
         savetheme: "Salva tutte le opzioni di personalizzazione configurate come un nuovo tema",
         visibilitybtn: "Attiva/disattiva la visibilità dell'elemento nelle anteprime personalizzate e nelle notifiche di test",
         delbtn: "Ripristina l'elemento al valore predefinito",

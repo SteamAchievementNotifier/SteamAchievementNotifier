@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "테마",
             content: {
+                updatetheme: "테마 업데이트",
                 savetheme: "테마 저장",
                 sub: [
                     `저장된 <span class="hl">사용자 테마</span>는 홈 화면의 <span class="hl">테마 선택</span> 메뉴에서 선택할 수 있습니다.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "알림에 대한 사용자 정의 위치 활성화",
         setcustompos: "알림에 대한 사용자 정의 위치 설정",
         resetcustompos: "알림의 위치를 기본 사용자 정의 위치로 재설정",
+        updatetheme: "선택한 사용자 정의 옵션으로 현재 테마를 업데이트합니다",
         savetheme: "구성된 모든 사용자 정의 옵션을 새로운 테마로 저장",
         visibilitybtn: "사용자 지정 미리보기 및 테스트 알림에서 요소의 가시성 전환",
         delbtn: "요소를 기본값으로 재설정",

@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "السمة",
             content: {
+                updatetheme: "تحديث الثيم",
                 savetheme: "حفظ السمة",
                 sub: [
                     `يمكن اختيار <span class="hl">سمات المستخدم المحفوظة</span> من قائمة <span class="hl">تحديد السمة</span> على شاشة الصفحة الرئيسية.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "تمكين التمرير المخصص للإشعار",
         setcustompos: "تعيين الموضع المخصص للإشعار",
         resetcustompos: "إعادة تعيين موضع الإشعار إلى الموضع المخصص الافتراضي",
+        updatetheme: "تحديث الثيم الحالي مع الخيارات المخصصة المختارة",
         savetheme: "حفظ كل الخيارات المكونة للتخصيص كسمة جديدة",
         visibilitybtn: "تبديل رؤية العنصر في المعاينات المخصصة والإشعارات التجريبية",
         delbtn: "إعادة تعيين العنصر إلى الافتراضي",

@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Thema",
             content: {
+                updatetheme: "Thema Bijwerken",
                 savetheme: "Thema Opslaan",
                 sub: [
                     `Opgeslagen <span class="hl">Gebruikersthema's</span> kunnen worden geselecteerd uit het <span class="hl">Selecteer Thema</span> menu op het startscherm.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Schakel aangepaste positionering in voor de melding",
         setcustompos: "Stel de aangepaste positie voor de melding in",
         resetcustompos: "Stel de positie van de melding opnieuw in op de standaard aangepaste positie",
+        updatetheme: "Het huidige Thema bijwerken met de geselecteerde aanpassingsopties",
         savetheme: "Sla alle geconfigureerde aanpassingsopties op als een nieuw thema",
         visibilitybtn: "Wijzig de zichtbaarheid van het element in Customiser-voorbeelden en Testmeldingen",
         delbtn: "Stel het element terug naar de standaardwaarde",

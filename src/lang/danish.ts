@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Tema",
             content: {
+                updatetheme: "Opdater Tema",
                 savetheme: "Gem tema",
                 sub: [
                     `Gemte <span class="hl">Brugertemaer</span> kan vælges fra <span class="hl">Vælg tema</span> menuen på startsiden.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Aktivér brugerdefineret placering for meddelelsen",
         setcustompos: "Indstil brugerdefineret position for meddelelsen",
         resetcustompos: "Nulstil positionen for meddelelsen til standard brugerdefineret position",
+        updatetheme: "Opdater det aktuelle Tema med de valgte tilpasningsmuligheder",
         savetheme: "Gem alle konfigurerede tilpasningsindstillinger som et nyt tema",
         visibilitybtn: "Skift synligheden af elementet i Tilpas previews og Testmeddelelser",
         delbtn: "Nulstil elementet til standard",

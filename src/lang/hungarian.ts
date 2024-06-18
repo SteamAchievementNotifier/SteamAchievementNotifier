@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Téma",
             content: {
+                updatetheme: "Téma Frissítése",
                 savetheme: "Téma mentése",
                 sub: [
                     `A mentett <span class="hl">Felhasználói Témák</span> kiválaszthatók a <span class="hl">Téma kiválasztása</span> menüből a Kezdőképernyőn.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Egyéni pozícionálás engedélyezése az értesítéshez",
         setcustompos: "Egyéni pozíció beállítása az értesítéshez",
         resetcustompos: "Az értesítés pozíciójának visszaállítása az alapértelmezett egyéni pozícióra",
+        updatetheme: "Frissítsd a jelenlegi témát a kiválasztott testreszabási lehetőségekkel",
         savetheme: "Mentse el az összes konfigurált testreszabási beállítást új témaként",
         visibilitybtn: "Az elem láthatóságának váltása az egyéni előnézetekben és tesztértesítésekben",
         delbtn: "Az elem visszaállítása az alapértelmezett értékre",

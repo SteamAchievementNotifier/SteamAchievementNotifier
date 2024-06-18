@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Tema",
             content: {
+                updatetheme: "Tema Güncelle",
                 savetheme: "Temayı Kaydet",
                 sub: [
                     `Kaydedilen <span class="hl">Kullanıcı Temaları</span>, Ana Ekran'daki <span class="hl">Tema Seçimi</span> menüsünden seçilebilir.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Bildirim için özel konumlandırmayı etkinleştirin",
         setcustompos: "Bildirim için özel konumu ayarlayın",
         resetcustompos: "Bildirim konumunu varsayılan özel konuma sıfırlayın",
+        updatetheme: "Seçilen özelleştirme seçenekleriyle mevcut Temayı güncelle",
         savetheme: "Tüm yapılandırılmış özelleştirme seçeneklerini yeni bir Tema olarak kaydedin",
         visibilitybtn: "Özelleştirici önizlemelerinde ve test bildirimlerinde öğenin görünürlüğünü aç/kapat",
         delbtn: "Öğeyi varsayılan değere sıfırla",

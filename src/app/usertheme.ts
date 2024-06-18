@@ -140,7 +140,7 @@ export const usertheme = {
         dialog.close()
         usertheme.update()
     },
-    create: (name: string,icon: string,customobj?: Customisation) => {
+    create: (name: string,icon: string,customobj?: Customisation,update?: string,) => {
         const { config, type, userthemes } = usertheme.data()
         const ids = userthemes.map(theme => theme.id)
         const labelmatch = userthemes.find(theme => theme.label === name)
@@ -174,7 +174,16 @@ export const usertheme = {
         }
 
         usertheme.update()
-        dialog.close()
+        !update && dialog.close()
+
+        if (update) {
+            const updatedbtn = document.getElementById(update)
+
+            if (updatedbtn) {
+                updatedbtn.removeAttribute("updated")
+                requestAnimationFrame(() => updatedbtn.setAttribute("updated",""))
+            }
+        }
     },
     delete: (type: string,target: EventTarget) => {
         const { config } = usertheme.data()

@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Téma",
             content: {
+                updatetheme: "Aktualizovat Téma",
                 savetheme: "Uložit téma",
                 sub: [
                     `Uložená <span class="hl">Uživatelská témata</span> mohou být vybrána z nabídky <span class="hl">Vybrat téma</span> na domovské obrazovce.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Povolit vlastní umístění pro oznámení",
         setcustompos: "Nastavit vlastní pozici pro oznámení",
         resetcustompos: "Obnovit pozici oznámení na výchozí vlastní pozici",
+        updatetheme: "Aktualizovat aktuální Téma s vybranými možnostmi přizpůsobení",
         savetheme: "Uložit všechny nakonfigurované možnosti přizpůsobení jako nové téma",
         visibilitybtn: "Přepnout viditelnost prvku v náhledech nastavení a testovacích oznámeních",
         delbtn: "Obnovit prvek na výchozí hodnoty",

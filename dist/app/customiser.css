@@ -349,7 +349,7 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 }
 
 .opt:has(#preview),
-.opt:has(#savetheme,#importtheme,#exporttheme) {
+.opt:has(#updatetheme,#savetheme,#importtheme,#exporttheme) {
     grid-template-columns: 1fr;
     gap: 0;
 }
@@ -404,8 +404,23 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
     translate: 0;
 }
 
+#updatetheme {
+    --icon: url("../../icon/reset.svg");
+}
+
+button[updated] {
+    animation: updated calc(var(--transition) * 3) ease-in-out forwards;
+}
+
+@keyframes updated {
+    from { filter: drop-shadow(0 0 0 transparent) }
+    25% { filter: drop-shadow(0 0 0.15rem limegreen) }
+    75% { filter: drop-shadow(0 0 0.15rem limegreen) }
+    to { filter: drop-shadow(0 0 0.5rem transparent) }
+}
+
 #savetheme {
-    --icon: url("../../icon/stars.svg");
+    --icon: url("../../icon/update_white.svg");
 }
 
 #posbtns > #setcustompos {
@@ -445,6 +460,10 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 
 .visibility > .delbtn {
     grid-column-start: 3;
+}
+
+.opt:has(#importtheme) {
+    margin-top: 0.5rem;
 }
 
 .opt:has(#importtheme,#exporttheme) > button::before {

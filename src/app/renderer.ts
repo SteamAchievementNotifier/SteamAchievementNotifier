@@ -409,11 +409,20 @@ document.getElementById("customise")!.onclick = () => {
     document.body.setAttribute("customiser","")
 
     document.querySelectorAll("#customiser #customisertabs > button").forEach(btn => (btn as HTMLElement).onclick = (event: Event) => sanhelper.switchcustomisertab(event))
+
+    document.getElementById("updatetheme")!.onclick = async () => {
+        const { userthemes } = usertheme.data()
+        const currenttheme = userthemes.find(theme => theme.enabled)
+
+        if (!currenttheme) return log.write("ERROR",`Error updating Theme: No "enabled" Theme found`)
+        usertheme.create(currenttheme.label,currenttheme.icon,undefined,"updatetheme")
+    }
+
     document.getElementById("savetheme")!.onclick = async () => {
         dialog.open({
             title: await language.get("savetheme",["customiser","theme","content"]),
             type: "default",
-            icon: sanhelper.setfilepath("icon","stars.svg"),
+            icon: sanhelper.setfilepath("icon","update_white.svg"),
             sub: await language.get("sub",["customiser","theme","content"]),
             addHTML: path.join(__dirname,"savetheme.html"),
             buttons: [{

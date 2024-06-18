@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Thema",
             content: {
+                updatetheme: "Thema Aktualisieren",
                 savetheme: "Thema speichern",
                 sub: [
                     `Gespeicherte <span class="hl">Benutzerthemen</span> können im Menü <span class="hl">Thema auswählen</span> auf dem Startbildschirm ausgewählt werden.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Aktivieren Sie die benutzerdefinierte Positionierung für die Benachrichtigung",
         setcustompos: "Legen Sie die benutzerdefinierte Position für die Benachrichtigung fest",
         resetcustompos: "Setzen Sie die Position der Benachrichtigung auf die Standardbenutzerposition zurück",
+        updatetheme: "Das aktuelle Thema mit den ausgewählten Anpassungsoptionen aktualisieren",
         savetheme: "Speichern Sie alle konfigurierten Anpassungsoptionen als neues Design",
         visibilitybtn: "Die Sichtbarkeit des Elements in benutzerdefinierten Vorschauen und Testbenachrichtigungen umschalten",
         delbtn: "Das Element auf den Standardwert zurücksetzen",

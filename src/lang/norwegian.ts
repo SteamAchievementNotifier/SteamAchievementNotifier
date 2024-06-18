@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Tema",
             content: {
+                updatetheme: "Oppdater Tema",
                 savetheme: "Lagre Tema",
                 sub: [
                     `Lagrede <span class="hl">Brukertemaer</span> kan velges fra <span class="hl">Velg Tema</span> -menyen på Hjem-skjermen.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Aktiver tilpasset plassering for varslingen",
         setcustompos: "Angi tilpasset posisjon for varslingen",
         resetcustompos: "Tilbakestill posisjonen til varslingen til standard tilpasset posisjon",
+        updatetheme: "Oppdater gjeldende tema med valgte tilpasningsalternativer",
         savetheme: "Lagre alle konfigurerte tilpasningsalternativer som et nytt tema",
         visibilitybtn: "Bytt synligheten til elementet i tilpassede forhåndsvisninger og testvarsler",
         delbtn: "Tilbakestill elementet til standard",

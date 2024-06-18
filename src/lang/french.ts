@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Thème",
             content: {
+                updatetheme: "Mettre à jour le Thème",
                 savetheme: "Enregistrer le Thème",
                 sub: [
                     `Les <span class="hl">Thèmes Utilisateur</span> enregistrés peuvent être sélectionnés dans le menu <span class="hl">Sélectionner Thème</span> sur l'écran d'accueil.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Activer le positionnement personnalisé pour la notification",
         setcustompos: "Définir la position personnalisée pour la notification",
         resetcustompos: "Réinitialiser la position de la notification à la position personnalisée par défaut",
+        updatetheme: "Mettre à jour le Thème actuel avec les options de personnalisation sélectionnées",
         savetheme: "Enregistrer toutes les options de personnalisation configurées en tant que nouveau thème",
         visibilitybtn: "Basculer la visibilité de l'élément dans les prévisualisations personnalisées et les notifications de test",
         delbtn: "Réinitialiser l'élément par défaut",

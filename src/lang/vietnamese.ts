@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "Chủ đề",
             content: {
+                updatetheme: "Cập Nhật Chủ Đề",
                 savetheme: "Lưu chủ đề",
                 sub: [
                     `Các <span class="hl">Chủ đề người dùng đã lưu</span> có thể được chọn từ menu <span class="hl">Chọn chủ đề</span> trên màn hình chính.`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "Bật tùy chỉnh vị trí cho thông báo",
         setcustompos: "Đặt vị trí tùy chỉnh cho thông báo",
         resetcustompos: "Đặt lại vị trí của thông báo về vị trí tùy chỉnh mặc định",
+        updatetheme: "Cập nhật Chủ đề hiện tại với các tùy chọn tùy chỉnh đã chọn",
         savetheme: "Lưu tất cả các tùy chọn tùy chỉnh cấu hình như một Chủ đề mới",
         visibilitybtn: "Chuyển đổi tính hiển thị của phần tử trong xem trước tùy chỉnh và thông báo kiểm tra",
         delbtn: "Đặt lại phần tử về giá trị mặc định",

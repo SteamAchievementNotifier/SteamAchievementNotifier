@@ -254,6 +254,7 @@ export const translations = {
         theme: {
             title: "主题",
             content: {
+                updatetheme: "更新主题",
                 savetheme: "保存主题",
                 sub: [
                     `保存的 <span class="hl">用户主题</span> 可以从主屏幕的 <span class="hl">选择主题</span> 菜单中选择。`,
@@ -407,6 +408,7 @@ export const translations = {
         usecustompos: "启用通知的自定义定位",
         setcustompos: "设置通知的自定义位置",
         resetcustompos: "将通知的位置重置为默认的自定义位置",
+        updatetheme: "使用选择的自定义选项更新当前主题",
         savetheme: "将所有配置的自定义选项保存为新主题",
         visibilitybtn: "在自定义预览和测试通知中切换元素的可见性",
         delbtn: "将元素重置为默认值",

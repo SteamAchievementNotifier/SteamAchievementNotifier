@@ -48,7 +48,7 @@ const notifyhelper = {
             return null
         }
 
-        const imgpath = heropath(steam3id) || path.join(steampath,"appcache","librarycache",`${appid}_${type}.jpg`).replace(/\\/g,"/")
+        const imgpath = type === "library_hero" && heropath(steam3id) || path.join(steampath,"appcache","librarycache",`${appid}_${type}.jpg`).replace(/\\/g,"/")
         return new Promise((resolve,reject) => fs.existsSync(imgpath) ? resolve(imgpath) : reject(type === "icon" ? "../img/gameicon.png" : (`../img/gameart/${appid}_${type}.jpg` || "../img/sanimgbg.png")))
     },
     getaudiofile: (mode: "file" | "folder",filepath: string) => {

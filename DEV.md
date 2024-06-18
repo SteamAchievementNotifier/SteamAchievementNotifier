@@ -12,6 +12,14 @@ Make sure the following programs are installed:
 2. [Rust](https://www.rust-lang.org/tools/install) (*Optional - only required if editing `steamworks-rs`/`steamworks.js` dependencies*)
 3. [git](https://git-scm.com/) (*Optional*)
 
+> 🐧 On Linux, the `build-essential` package must be installed to build Rust native addons:
+> 
+> ```shell
+> sudo apt-get install build-essential
+> ```
+
+> ℹ Builds tested and verified as working on Windows 10/Ubuntu 22.04
+
 <h2 align="center">BASIC INSTALLATION</h2>
 
 > ℹ Rust is not required for basic installation
@@ -36,16 +44,17 @@ npm i
 npm run dev
 ```
 
-4. On Windows, run the following command to build the executable:
+4. Run the following command to build the executable:
 
 ```npm
+// Windows
 npm run win
+
+// Linux
+npm run linux
 ```
 
-> 🐧 *Linux coming soon!*
-
-The output directory for executables is `_release`.
-
+> ℹ The output directory for executables is `_release`.
 
 <h2 align="center">PROJECT STRUCTURE</h2>
 
@@ -154,7 +163,7 @@ A better way to do this is to just include the required dependencies for `steamw
 ```
 
 #### Method
-1. Go into `./deps/san_steamworks.js` and copy the following:
+1. Go to `./deps/san_steamworks.js` and copy the following:
 - `dist` folder (*and all contents*)
 - `callback.d.ts`
 - `client.d.ts`

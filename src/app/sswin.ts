@@ -1,4 +1,5 @@
 import { ipcRenderer } from "electron"
+import path from "path"
 
 const checkimgload = (img: HTMLImageElement): boolean => {
     if (!img.complete) return false
@@ -45,10 +46,10 @@ ipcRenderer.once("src",(event,path: string) => {
 })
 
 ipcRenderer.once("sswinready", (event,obj: Info) => {
-    const { customisation, iswebview, info: { type } } = obj
+    const { customisation, iswebview, info: { type }, customfiles } = obj
     const webview = document.querySelector("webview")! as Electron.WebviewTag
 
-    webview.src = "../../notify/base.html"
+    webview.src = customfiles || "../../notify/base.html"
     !iswebview || iswebview === "ss" && (document.querySelector(".menubtn#close") as HTMLButtonElement)!.remove()
 
     const downscale = new Map<string,number>([

@@ -1138,7 +1138,8 @@ export const listeners = {
                     customisation: notify.customisation,
                     iswebview: ispreview ? "sspreview" : "ss",
                     steampath: sanhelper.steampath,
-                    skipaudio: true
+                    skipaudio: true,
+                    customfiles: config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined
                 } as Info)
 
                 ipcMain.once("dims", (event,dims: { width: number, height: number, offset: number }) => {

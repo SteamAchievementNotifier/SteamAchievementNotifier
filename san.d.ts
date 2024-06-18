@@ -188,7 +188,9 @@ declare interface Button {
     customisation?: Customisation,
     click?: Function,
     enabled?: boolean,
-    version?: string
+    version?: string,
+    dir?: string,
+    preset?: string
 }
 
 declare interface WinType {
@@ -202,7 +204,8 @@ declare interface Info {
     customisation: Customisation,
     iswebview: "customiser" | "sspreview" | "ss" | null,
     steampath: string | null,
-    skipaudio?: boolean
+    skipaudio?: boolean,
+    customfiles?: string
 }
 
 declare interface BuildNotifyInfo {

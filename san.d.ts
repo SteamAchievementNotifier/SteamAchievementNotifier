@@ -189,8 +189,8 @@ declare interface Button {
     click?: Function,
     enabled?: boolean,
     version?: string,
-    dir?: string,
-    preset?: string
+    userthemedir?: string,
+    customfilesdir?: string
 }
 
 declare interface WinType {

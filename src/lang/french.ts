@@ -22,7 +22,7 @@ export const translations = {
         select: "Sélectionner",
         gametitle: "Titre du jeu",
         congrats: "Félicitations!",
-        achievementunlocked: "Réussite débloquée",
+        achievementunlocked: "Succès déverrouillé",
         gamecomplete: "100% Terminé",
         achievementdesc: "Cliqué sur le bouton Afficher la notification de test",
         gamecompletedesc: "Vous avez débloqué tous les succès !",

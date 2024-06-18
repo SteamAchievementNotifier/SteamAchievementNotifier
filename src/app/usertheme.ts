@@ -207,13 +207,26 @@ export const usertheme = {
 
                 if (!match) return log.write("INFO",`No imported theme labels matching "${theme.label}" found in "${userthemedir}"`)
 
-                const userthemepath = path.join(sanhelper.appdata,"userthemes",match,"usertheme.json")
-                const userthemejson = fs.existsSync(userthemepath) ? JSON.parse(fs.readFileSync(userthemepath).toString()) as Button : null
+                const handlecustomfiles = (customfiles: boolean,dir: string,theme: Button) => {
+                    if (!customfiles) return log.write("INFO",`"customfiles" not active`)
 
-                if (!userthemejson) throw new Error(`No "userthemes.json" file found for "${theme.label}" Imported Theme files cannot be removed`)
-                if (!userthemejson.dir || !userthemejson.preset) throw new Error(`No "${!userthemejson.dir ? "dir" : "preset"}" key found for "${theme.label}" in "usertheme.json". Imported Theme files cannot be removed`)
+                    const userthemepath = path.join(sanhelper.appdata,"userthemes",dir,"usertheme.json")
+                    const userthemejson = fs.existsSync(userthemepath) ? JSON.parse(fs.readFileSync(userthemepath).toString()) as Button : null
+    
+                    if (!userthemejson) throw new Error(`No "userthemes.json" file found for "${theme.label}". Imported Theme files cannot be removed`)
+                    if (!userthemejson.customfilesdir) return log.write("INFO",`No "customfilesdir" key found for "${theme.label}" in "usertheme.json"`)
+    
+                    const { customfilesdir } = userthemejson
+    
+                    const filepath = path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json")
+                    const presetsjson = JSON.parse(fs.readFileSync(filepath).toString()) as { [key: string]: string }
+    
+                    delete (presetsjson as any)[customfilesdir]
+                    fs.writeFileSync(filepath,JSON.stringify(presetsjson,null,4))
+                    log.write("INFO",`"presets.json" updated successfully`)
+                }
 
-                const { dir, preset } = userthemejson
+                handlecustomfiles(config.get("usecustomfiles"),match,theme)
 
                 const removeimportdir = (dir: string): boolean => {
                     if (!fs.existsSync(dir)) return false
@@ -224,18 +237,11 @@ export const usertheme = {
                     return true
                 }
 
-                const userthemespresetdir = path.join(sanhelper.appdata,"userthemes",dir)
+                const userthemespresetdir = path.join(sanhelper.appdata,"userthemes",match)
                 const res = removeimportdir(userthemespresetdir)
                 if (!res) throw new Error(`"${userthemespresetdir}" does not exist`)
-
-                const filepath = path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json")
-                const presetsjson = JSON.parse(fs.readFileSync(filepath).toString()) as { [key: string]: string }
-
-                delete (presetsjson as any)[preset]
-                fs.writeFileSync(filepath,JSON.stringify(presetsjson,null,4))
-                log.write("INFO",`"presets.json" updated successfully`)
             } catch (err) {
-                log.write("ERROR",`Error removing "${theme.label}" dir: ${(err as Error).stack}`)
+                log.write("ERROR",`Error removing "${theme.label}": ${(err as Error).stack}`)
             }
         })
 
@@ -409,10 +415,10 @@ export const usertheme = {
                 theme.version = sanhelper.semver
 
                 const config = sanconfig.get()
-                const preset = config.get(`customisation.${sanhelper.type as "main" | "rare" | "plat"}.preset`) as string
+                const preset = config.get("usecustomfiles") ? config.get(`customisation.${sanhelper.type as "main" | "rare" | "plat"}.preset`) as string : null
                 const defaultpresets = Array.from(sanconfig.defaulticons.keys()).filter(dir => dir !== "os")
 
-                if (!defaultpresets.includes(preset)) {
+                if (preset && !defaultpresets.includes(preset)) {
                     const presetdir = path.join(src,"presets",preset)
                     const customfilesdir = path.join(sanhelper.appdata,"customfiles","notify","presets",preset)
     
@@ -422,14 +428,14 @@ export const usertheme = {
                     fsextra.copySync(path.join(sanhelper.appdata,"customfiles","notify","presets",preset),presetdir)
                     log.write("INFO",`"${path.join(sanhelper.appdata,"customfiles","notify","presets",preset)}" dir copied successfully`)
 
-                    // Writes the ZIP filename to the Theme - required when deleting leftover files from imported Themes
-                    theme.dir = parsed.name
-                    theme.preset = preset
-
                     const presetsjson = path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json")
                     fs.copyFileSync(presetsjson,path.join(src,"presets","presets.json"))
                     log.write("INFO",`"${presetsjson}" copied successfully`)
                 }
+
+                // Writes the `userthemes`/`customfiles` dirnames to the Theme - required when deleting leftover files from imported Themes
+                theme.userthemedir = parsed.name
+                preset && (theme.customfilesdir = preset)
 
                 contentmap.forEach(value => {
                     if (!value) return

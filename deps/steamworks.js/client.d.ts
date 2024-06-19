@@ -76,3 +76,7 @@ export namespace processes {
   export function getGameProcesses(appid: number, linkedgame?: string | undefined | null): Array<ProcessInfo>
   export function isProcessRunning(pid: number): boolean
 }
+export namespace log {
+  export function initLogger(appData: string): string
+  export function testPanic(): void
+}

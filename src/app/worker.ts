@@ -75,6 +75,9 @@ const startsan = async (appinfo: AppInfo) => {
     const client = init(appid)
     sanhelper.devmode && (window.client = client)
 
+    const rustlog = client.log.initLogger(path.join(sanhelper.appdata,"logs"))
+    log.write("INFO",rustlog)
+
     const steam3id = client.localplayer.getSteamId().accountId
     const steam64id = client.localplayer.getSteamId().steamId64.toString().replace(/n$/,"")
     const username = client.localplayer.getName()

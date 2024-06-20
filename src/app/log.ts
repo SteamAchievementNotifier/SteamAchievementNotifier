@@ -1,4 +1,5 @@
 import { shell } from "electron"
+import fs from "fs"
 import path from "path"
 import electronlog, { transports, catchErrors } from "electron-log"
 import { sanhelper } from "./sanhelper"
@@ -16,7 +17,18 @@ export const log = {
     clear: () => transports.file.getFile().clear(),
     init: (process: "APP" | "MAIN" | "RENDERER" | "WORKER" | "ERROR") => {
         log.create(process)
-        process === "APP" && log.clear()
+
+        if (process === "APP") {
+            log.clear()
+
+            try {
+                fs.writeFileSync(path.join(sanhelper.appdata,"logs","rust.log"),"")
+                log.write("INFO",`"rust.log" created successfully`)
+            } catch (err) {
+                log.write("ERROR",`Error creating "rust.log": ${(err as Error).stack}`)
+            }
+        }
+
         log.write("INFO",`"${process}" process created`)
     },
     write: (event: "INFO" | "ERROR" | "EXIT", msg: Error | string) => {

@@ -1254,8 +1254,8 @@ export const listeners = {
             const impdialog = dialog.showOpenDialogSync({
                 title: `Steam Achievement Notifier (V1.9): Import Theme`,
                 properties: [
-                    "dontAddToRecent",
-                    "openFile"
+                    "openFile",
+                    "dontAddToRecent"
                 ],
                 buttonLabel: await language.get("importtheme",["customiser","theme","content"]),
                 filters: [{
@@ -1268,8 +1268,8 @@ export const listeners = {
         })
 
         ipcMain.on("exporttheme", async event => {
-            const expdialog = dialog.showSaveDialogSync({
-                title: `Steam Achievement Notifier (V1.9): Export Theme`,
+            const { filePath: expdialog } = await dialog.showSaveDialog({
+                title: `Steam Achievement Notifier (V${sanhelper.version}): Export Theme`,
                 properties: [
                     "showOverwriteConfirmation",
                     "dontAddToRecent"

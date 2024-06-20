@@ -5,8 +5,9 @@
     user-select: none;
 }
 
-button {
-    -webkit-app-region: no-drag;   
+button,
+select {
+    -webkit-app-region: no-drag !important;   
 }
 
 .wrapper#body {
@@ -21,6 +22,10 @@ button {
 
 .wrapper#top {
     grid-template-columns: 1fr max-content 1fr;
+}
+
+.wrapper#top > .wrapper#logo {
+    -webkit-app-region: drag;
 }
 
 .menubtn#close {
@@ -39,6 +44,20 @@ button {
 
 .wrapper#sub {
     gap: 0.15rem;
+}
+
+.wrapper#sub > select#logtype {
+    grid-column: 1 / span 2;
+    width: 100%;
+    justify-self: center;
+    margin-block: 0.5rem -0.25rem;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.wrapper#sub > select#logtype,
+option {
+    font-size: 0.75rem;
 }
 
 .wrapper#sub > span {

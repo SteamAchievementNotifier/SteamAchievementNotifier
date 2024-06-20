@@ -9,7 +9,10 @@ document.getElementById("copylog")!.onclick = () => clipboard.writeText(`\`${doc
 
 window.addEventListener("DOMContentLoaded", () => {
     ipcRenderer.send("logwinready")
-    ipcRenderer.once("logwinready", (event,logcontents) => document.querySelector("#logcontents > code")!.innerHTML = logcontents)
+    ipcRenderer.on("updatelogwin", (event,logcontents,logtype) => {
+        (document.getElementById("logtype")! as HTMLSelectElement).value = logtype
+        document.querySelector("#logcontents > code")!.innerHTML = logcontents
+    })
     
     ipcRenderer.send("starttime")
     ipcRenderer.once("starttime", async (event,starttime) => {
@@ -17,4 +20,6 @@ window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("starttime")!.textContent = starttime
         document.querySelector(".rect#copylog > span")!.textContent = await language.get("copylog",["logwin","content"])
     })
+
+    document.getElementById("logtype")!.onchange = event => ipcRenderer.send("updatelogtype",(event.target as HTMLSelectElement).value)
 })

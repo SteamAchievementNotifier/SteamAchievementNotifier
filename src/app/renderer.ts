@@ -33,7 +33,7 @@ window.onkeydown = event => ((event.code === "Minus" || event.code === "Equal") 
 const errorbtn = document.querySelector(`.menubtn#error`)! as HTMLButtonElement
 errorbtn.onclick = () => {
     document.body.removeAttribute("error")
-    sanhelper.createlogwin()
+    sanhelper.updatelogwin(config.get("logtype"))
 }
 
 sanhelper.errorhandler(log)
@@ -670,3 +670,4 @@ ipcRenderer.on("updatemenu", (event,id) => {
 })
 
 ipcRenderer.on("workeractive", (event,value: boolean) => document.body.toggleAttribute("active",value))
+ipcRenderer.on("updatelogtype", (event,logtype) => sanhelper.updatelogwin(logtype))

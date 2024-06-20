@@ -86,6 +86,7 @@ export const sanconfig = {
             debug: false,
             noiconcache: false,
             exclusions: [],
+            logtype: "san",
             customisation: {
                 main: {} as Customisation,
                 rare: {} as Customisation,

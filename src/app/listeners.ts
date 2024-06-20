@@ -965,18 +965,20 @@ export const listeners = {
 
         let logwin: BrowserWindow | null = null
 
-        ipcMain.on("logwin", (event,logcontents: string) => {
+        ipcMain.on("logwin", (event,logcontents: string,logtype: string) => {
             if (logwin) return
 
             logwin = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): App Log`,
                 width: 300,
+                minWidth: 300,
                 height: 400,
+                minHeight: 400,
                 center: true,
                 autoHideMenuBar: true,
                 fullscreen: false,
                 fullscreenable: false,
-                resizable: false,
+                resizable: true,
                 frame: false,
                 transparent: true,
                 webPreferences: {
@@ -989,11 +991,17 @@ export const listeners = {
             logwin.loadFile(path.join(__root,"dist","app","logwin.html"))
             sanhelper.devmode && sanhelper.setdevtools(logwin)
 
-            ipcMain.once("logwinready", event => event.reply("logwinready",logcontents))
+            ipcMain.once("logwinready", event => event.reply("updatelogwin",logcontents,logtype))
             logwin.once("closed", () => {
                 log.write("EXIT",`"App Log" window closed`)
                 logwin = null
             })
+        })
+
+        ipcMain.on("updatelogwin", (event,logcontents: string,logtype: "san" | "rust") => logwin && logwin.webContents.send("updatelogwin",logcontents,logtype))
+        ipcMain.on("updatelogtype", (event,logtype) => {
+            sanconfig.get().set("logtype",logtype)
+            win.webContents.send("updatelogtype",logtype)
         })
 
         ipcMain.on("steam3id", async (event,steam3id) => {

@@ -66,6 +66,7 @@ declare interface Config {
     debug: boolean,
     noiconcache: boolean,
     exclusions: number[],
+    logtype: "san" | "rust",
     customisation: {
         main: Customisation,
         rare: Customisation,

@@ -233,7 +233,7 @@ export const dialog = {
 
             document.getElementById("showcustomfiles")!.onclick = () => sanhelper.showcustomfiles()
 
-            document.getElementById("log")!.onclick = () => sanhelper.createlogwin()
+            document.getElementById("log")!.onclick = () => sanhelper.createlogwin(config.get("logtype"))
 
             document.getElementById("reset")!.onclick = async () => dialog.open({
                 title: await language.get("reset",["settings","misc","content"]),

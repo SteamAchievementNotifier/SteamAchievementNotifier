@@ -136,7 +136,9 @@ export const sanhelper: SANHelper = {
         return
     },
     get type(): "main" | "rare" | "plat" { return ["main","rare","plat"].find(attr => document.body.hasAttribute(attr))! as "main" | "rare" | "plat" },
-    createlogwin: () => ipcRenderer.send("logwin",fs.readFileSync(path.join(sanhelper.appdata,"logs","san.log"), "utf-8").replace(/(\r\n|\n|\r)/g,"<br>")),
+    logcontents: (logtype: "san" | "rust") => fs.readFileSync(path.join(sanhelper.appdata,"logs",`${logtype}.log`),"utf-8").replace(/(\r\n|\n|\r)/g,"<br>"),
+    createlogwin:(logtype: "san" | "rust") => ipcRenderer.send("logwin",sanhelper.logcontents(logtype),logtype),
+    updatelogwin: (logtype: "san" | "rust") => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype),logtype),
     showcustomfiles: () => shell.openPath(path.join(sanhelper.appdata,"customfiles")),
     switchtab: ({ target }: Event) => {
         target instanceof HTMLElement && ["main","rare","plat"].forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))

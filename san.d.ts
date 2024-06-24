@@ -136,7 +136,7 @@ declare interface Customisation {
     hiddenicon: string,
     previewhiddenicon: boolean,
     usepercent: boolean,
-    usertheme: Button[],
+    usertheme: UserTheme[],
     [key: string]: string | number | boolean | object
 }
 
@@ -186,12 +186,13 @@ declare interface Button {
     id: string | number,
     label: string,
     icon: string,
-    customisation?: Customisation,
     click?: Function,
-    enabled?: boolean,
-    version?: string,
-    userthemedir?: string,
-    customfilesdir?: string
+}
+
+declare interface UserTheme extends Button {
+    customisation: Customisation,
+    enabled: boolean,
+    version?: string
 }
 
 declare interface WinType {

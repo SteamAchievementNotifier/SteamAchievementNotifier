@@ -41,6 +41,7 @@ const getkeyvalue = (value: any, key: string, map = new Map<string, any>()): Map
 }
 
 const rewritepath = (themedir: string,value: string) => {
+    if (!value) return log.write("ERROR",`Received ${typeof value} - skipping...`)
     const valuepath = (value: string) => path.join(themedir,"assets",path.basename(value)).replace(/\\/g,"/")
 
     if (Array.isArray(value)) return value.map(subvalue => subvalue = valuepath(subvalue))
@@ -74,7 +75,7 @@ export const usertheme = {
     data: () => {
         const config = sanconfig.get()
         const type = sanhelper.type as "main" | "rare" | "plat"
-        const userthemes = config.get(`customisation.${type}.usertheme`) as Button[]
+        const userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
 
         return { config, type, userthemes }
     },
@@ -120,7 +121,7 @@ export const usertheme = {
 
         customisation.usertheme = []
 
-        updatedthemes.forEach((theme: Button) => {
+        updatedthemes.forEach((theme: UserTheme) => {
             delete (theme.customisation as any).usertheme
             customisation.usertheme.push(theme)
         })
@@ -140,7 +141,7 @@ export const usertheme = {
         dialog.close()
         usertheme.update()
     },
-    create: (name: string,icon: string,customobj?: Customisation,update?: string,) => {
+    create: (name: string,icon: string,customobj?: Customisation,update?: string) => {
         const { config, type, userthemes } = usertheme.data()
         const ids = userthemes.map(theme => theme.id)
         const labelmatch = userthemes.find(theme => theme.label === name)
@@ -156,7 +157,7 @@ export const usertheme = {
         const customisation: Customisation = customobj || config.get(`customisation.${type}`) as Customisation
         delete (customisation as any).usertheme
 
-        const theme: Button = {
+        const theme: UserTheme = {
             id: newid,
             label: name,
             icon: icon.replace(/^(url\(["']?)|(["']?\))$/g,""),
@@ -190,7 +191,7 @@ export const usertheme = {
         let { userthemes } = usertheme.data()
         const id = parseInt((target as HTMLElement).id.replace(/[^\d]+/g,""))
 
-        const remaining: Button[] = []
+        const remaining: UserTheme[] = []
         
         userthemes.forEach(theme => {
             if (theme.id !== id) return remaining.push(theme)
@@ -216,27 +217,6 @@ export const usertheme = {
 
                 if (!match) return log.write("INFO",`No imported theme labels matching "${theme.label}" found in "${userthemedir}"`)
 
-                const handlecustomfiles = (customfiles: boolean,dir: string,theme: Button) => {
-                    if (!customfiles) return log.write("INFO",`"customfiles" not active`)
-
-                    const userthemepath = path.join(sanhelper.appdata,"userthemes",dir,"usertheme.json")
-                    const userthemejson = fs.existsSync(userthemepath) ? JSON.parse(fs.readFileSync(userthemepath).toString()) as Button : null
-    
-                    if (!userthemejson) throw new Error(`No "userthemes.json" file found for "${theme.label}". Imported Theme files cannot be removed`)
-                    if (!userthemejson.customfilesdir) return log.write("INFO",`No "customfilesdir" key found for "${theme.label}" in "usertheme.json"`)
-    
-                    const { customfilesdir } = userthemejson
-    
-                    const filepath = path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json")
-                    const presetsjson = JSON.parse(fs.readFileSync(filepath).toString()) as { [key: string]: string }
-    
-                    delete (presetsjson as any)[customfilesdir]
-                    fs.writeFileSync(filepath,JSON.stringify(presetsjson,null,4))
-                    log.write("INFO",`"presets.json" updated successfully`)
-                }
-
-                handlecustomfiles(config.get("usecustomfiles"),match,theme)
-
                 const removeimportdir = (dir: string): boolean => {
                     if (!fs.existsSync(dir)) return false
 
@@ -259,7 +239,7 @@ export const usertheme = {
         config.set(`customisation.${type}.usertheme`,remaining)
 
         // Update the current userthemes list (after deleting theme), and reset each object's `id` to be zero indexed
-        userthemes = config.get(`customisation.${type}.usertheme`) as Button[]
+        userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
         userthemes.forEach((theme,i) => {
             config.set(`customisation.${type}.usertheme.${i}.id`,i)
             document.getElementById(`usertheme${i}`)!.style.setProperty("--icon",`url('${theme.icon}')`)
@@ -309,26 +289,11 @@ export const usertheme = {
                 log.write("INFO",`"${zipdest}" dir extracted and cleaned up successfully`)
                 importlog.innerHTML = await language.get("importextracted",["customiser","theme","content"])
 
-                const importtheme: Button = JSON.parse(fs.readFileSync(path.join(themedir,"usertheme.json")).toString())
-                const { customisation } = importtheme as Button
+                const importtheme: UserTheme = JSON.parse(fs.readFileSync(path.join(themedir,"usertheme.json")).toString())
+                const { customisation } = importtheme as UserTheme
                 importtheme.icon = path.join(themedir,"assets",path.basename(importtheme.icon)).replace(/\\/g,"/")
                 
                 if (!customisation) throw new Error(`Error loading imported usertheme: "customisation" missing from object`)
-                const presetsdir = path.join(themedir,"presets")
-
-                if (fs.existsSync(presetsdir)) {
-                    const preset = customisation.preset
-
-                    fsextra.copySync(path.join(presetsdir,preset),path.join(sanhelper.appdata,"customfiles","notify","presets",preset))
-                    log.write("INFO",`"${preset}" dir copied successfully`)
-                    
-                    const presetsjson = path.join(themedir,"presets","presets.json")
-                    fs.existsSync(presetsjson) && fs.copyFileSync(presetsjson,path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json"))
-                    log.write("INFO",`"${presetsjson}" extracted successfully`)
-
-                    // Enable "usecustomfiles" automatically if a user-created preset is detected
-                    sanconfig.get().set("usecustomfiles",true)
-                }
     
                 const contentmap = new Map<string,any>()
         
@@ -353,7 +318,15 @@ export const usertheme = {
         
                 for (const [newkey,newvalue] of Object.entries(newkeys)) {
                     for (const [key,value] of Object.entries(customisation)) {
-                        (newkey === key && newvalue !== value) && Object.assign(newcustomisation,{ [key]: newvalue })
+                        if (newkey === key && newvalue !== value) {
+                            if (key === "customicons") {
+                                for (const [subkey,subvalue] of Object.entries(newvalue)) {
+                                    subvalue === "" && (newvalue[subkey] = sanconfig.defaulticons.get(subkey))
+                                }
+                            }
+
+                            Object.assign(newcustomisation,{ [key]: newvalue })
+                        }
                     }
                 }
 
@@ -388,6 +361,8 @@ export const usertheme = {
         })
     },
     export: () => {
+        const src = path.join(sanhelper.appdata,"temp","exporttheme")
+
         ipcRenderer.once("exporttheme", async (event,dest: string | undefined) => {
             if (!dest) return
 
@@ -403,7 +378,7 @@ export const usertheme = {
                 fs.mkdirSync(path.join(src,"assets"),{ recursive: true })
                 log.write("INFO",`"${src}" dir created successfully`)
 
-                const theme = usertheme.data().userthemes.find(theme => theme.enabled) as Button
+                const theme = usertheme.data().userthemes.find(theme => theme.enabled) as UserTheme
                 const { customisation } = theme
 
                 if (!customisation) throw new Error("Error loading current usertheme")
@@ -423,37 +398,26 @@ export const usertheme = {
 
                 theme.version = sanhelper.semver
 
-                const config = sanconfig.get()
-                const preset = config.get("usecustomfiles") ? config.get(`customisation.${sanhelper.type as "main" | "rare" | "plat"}.preset`) as string : null
-                const defaultpresets = Array.from(sanconfig.defaulticons.keys()).filter(dir => dir !== "os")
+                // const config = sanconfig.get()
 
-                if (preset && !defaultpresets.includes(preset)) {
-                    const presetdir = path.join(src,"presets",preset)
-                    const customfilesdir = path.join(sanhelper.appdata,"customfiles","notify","presets",preset)
-    
-                    if (!fs.existsSync(customfilesdir)) throw new Error(`"${preset}" is invalid - expected Preset dir "${customfilesdir}" does not exist`)
-                    
-                    !fs.existsSync(presetdir) && fs.mkdirSync(presetdir,{ recursive: true })
-                    fsextra.copySync(path.join(sanhelper.appdata,"customfiles","notify","presets",preset),presetdir)
-                    log.write("INFO",`"${path.join(sanhelper.appdata,"customfiles","notify","presets",preset)}" dir copied successfully`)
+                // if (config.get("usecustomfiles")) {
+                //     const base = path.join(sanhelper.appdata,"customfiles","dist","notify","base.js")
+                //     fsextra.copySync(base,path.join(src,"assets","base.js"))
+                //     log.write("INFO",`"${base}" dir copied successfully`)
 
-                    const presetsjson = path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json")
-                    fs.copyFileSync(presetsjson,path.join(src,"presets","presets.json"))
-                    log.write("INFO",`"${presetsjson}" copied successfully`)
-                }
+                //     config.set(`customisation.usecustomfiles`,true)
+                // }
 
-                // Writes the `userthemes`/`customfiles` dirnames to the Theme - required when deleting leftover files from imported Themes
-                theme.userthemedir = parsed.name
-                preset && (theme.customfilesdir = preset)
-
-                contentmap.forEach(value => {
+                contentmap.forEach((value,key) => {
                     if (!value) return
 
-                    if (Array.isArray(value)) {
-                        value.forEach(subvalue => fs.copyFileSync(subvalue,path.join(src,"assets",path.basename(subvalue))))
-                    } else {
-                        fs.copyFileSync(value,path.join(src,"assets",path.basename(value)))
-                    }
+                    // [keypaths[0]] = "customicons" / [keypaths[1]] = <Preset name> / [keypaths[2]] = "logo"/"decoration"
+                    // If "value" is populated but is not used in the current preset, reset it to "" in the `theme` object that will be written to `usertheme.json`
+                    // This can then be set back to the user's `sanconfig.defaulticons[customisation.preset]["logo"/"decoration"] value on import - i.e. when `usertheme.json` is read and encounters a "" value in "customfiles", it'll know to reset to default (`null` cannot be used as it is an actual used value in these objects)
+                    const keypaths = key.split(".")
+                    if (keypaths[0] === "customicons" && keypaths[1] !== customisation.preset) return theme.customisation![keypaths[0]][keypaths[1]] = ""
+
+                    Array.isArray(value) ? value.forEach(subvalue => fs.copyFileSync(subvalue,path.join(src,"assets",path.basename(subvalue)))) : fs.copyFileSync(value,path.join(src,"assets",path.basename(value)))
                 })
 
                 const json = JSON.stringify(theme,null,4)
@@ -470,8 +434,6 @@ export const usertheme = {
                 log.write("ERROR",`Error exporting Theme: ${(err as Error).stack}`)
             }
         })
-
-        const src = path.join(sanhelper.appdata,"temp","exporttheme")
 
         ipcRenderer.send("exporttheme")
     }

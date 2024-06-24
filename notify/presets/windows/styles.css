@@ -73,7 +73,7 @@ body[bottomcenter] .wrapper#achcont {
     grid-column: 1 / span 2;
     gap: 0.75rem;
     justify-self: start;
-    font-family: "Noto Sans Light";
+    font-family: "customfont", "Noto Sans Light", "Roboto";
 }
 
 .wrapper#header > * {
@@ -102,12 +102,12 @@ body[bottomcenter] .wrapper#achcont {
     column-gap: 0;
     row-gap: 0.25rem;
     justify-self: start;
-    font-family: "Noto Sans Light";
+    font-family: "customfont", "Noto Sans Light", "Roboto";
     font-size: calc(1.1rem * var(--fontsize));
 }
 
 #title {
-    font-family: "Noto Sans Medium";
+    font-family: "customfont", "Noto Sans Medium", "Roboto";
 }
 
 #desc {

@@ -161,7 +161,7 @@ export const sanconfig = {
                 hiddenicon: "",
                 previewhiddenicon: false,
                 usepercent: false,
-                usertheme: [] as Button[]
+                usertheme: [] as UserTheme[]
             }
 
             if (validate) {
@@ -192,7 +192,7 @@ export const sanconfig = {
                                 icon: sanlogotrophy,
                                 customisation: {} as Customisation,
                                 enabled: true
-                            }] as Button[]
+                            }] as UserTheme[]
                         })
     
                         break
@@ -208,7 +208,7 @@ export const sanconfig = {
                                 icon: sanlogotrophy,
                                 customisation: {} as Customisation,
                                 enabled: true
-                            }] as Button[]
+                            }] as UserTheme[]
                         })
     
                         break
@@ -224,7 +224,7 @@ export const sanconfig = {
                                 icon: sanlogotrophy,
                                 customisation: {} as Customisation,
                                 enabled: true
-                            }] as Button[]
+                            }] as UserTheme[]
                         })
                         
                         break
@@ -265,7 +265,7 @@ export const sanconfig = {
         const log = (await import("./log")).log
 
         const customicons = config.get(`customisation.${type}.customicons`) as { [key: string]: any }
-        const userthemes = config.get(`customisation.${type}.usertheme`) as Button[]
+        const userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
 
         const defaulticonkeys = Array.from(sanconfig.defaulticons.keys())
         const customiconkeys = Object.keys(customicons)

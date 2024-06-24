@@ -192,7 +192,9 @@ declare interface Button {
 declare interface UserTheme extends Button {
     customisation: Customisation,
     enabled: boolean,
-    version?: string
+    version?: string,
+    userthemedir?: string,
+    usecustomfiles?: boolean
 }
 
 declare interface WinType {

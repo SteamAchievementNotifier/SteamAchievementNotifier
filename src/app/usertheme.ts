@@ -141,7 +141,7 @@ export const usertheme = {
         dialog.close()
         usertheme.update()
     },
-    create: (name: string,icon: string,customobj?: Customisation,update?: string) => {
+    create: (name: string,icon: string,customobj?: Customisation,update?: string,userthemedir?: string,usecustomfiles?: boolean) => {
         const { config, type, userthemes } = usertheme.data()
         const ids = userthemes.map(theme => theme.id)
         const labelmatch = userthemes.find(theme => theme.label === name)
@@ -164,6 +164,9 @@ export const usertheme = {
             customisation: customisation,
             enabled: true
         }
+
+        userthemedir && (theme.userthemedir = userthemedir.replace(/\\/g,"/"))
+        usecustomfiles && (theme.usecustomfiles = true)
 
         userthemes.forEach((theme,i) => config.set(`customisation.${type}.usertheme.${i}.enabled`,false))
         config.set(`customisation.${type}.usertheme.${newid}`,theme)
@@ -265,8 +268,7 @@ export const usertheme = {
             parsed.base = `${parsed.name}${parsed.ext}`
 
             try {
-                !fs.existsSync(destpath) && fs.mkdirSync(destpath,{ recursive: true })
-                fs.copyFileSync(file[0],dest)
+                fsextra.copySync(file[0],dest)
                 log.write("INFO",`"${file[0]}" copied to "${dest}" successfully`)
                 importlog.innerHTML = await language.get("importcopied",["customiser","theme","content"])
 
@@ -330,8 +332,12 @@ export const usertheme = {
                     }
                 }
 
+                const config = sanconfig.get()
+                // Do not disable `usecustomfiles` if false, in case user had it enabled before importing
+                importtheme.usecustomfiles && config.set("usecustomfiles",true)
+
                 importlog.innerHTML = await language.get("importcreating",["customiser","theme","content"])
-                usertheme.create(importtheme.label,importtheme.icon,newcustomisation)
+                usertheme.create(importtheme.label,importtheme.icon,newcustomisation,undefined,themedir,importtheme.usecustomfiles)
             } catch (err) {
                 log.write("ERROR",`Error importing Theme: ${(err as Error).stack}`)
                 importlog.parentElement!.setAttribute("error","")
@@ -394,30 +400,40 @@ export const usertheme = {
 
                 const icondir = fs.existsSync(path.join(__root,"img",path.basename(theme.icon))) ? "img" : "icon"
                 theme.icon = (!path.isAbsolute(theme.icon) ? path.join(__root,icondir,path.basename(theme.icon)) : theme.icon).replace(/\\/g,"/")
-                fs.copyFileSync(theme.icon,path.join(src,"assets",path.basename(theme.icon)))
+                fsextra.copySync(theme.icon,path.join(src,"assets",path.basename(theme.icon)))
 
                 theme.version = sanhelper.semver
+                theme.userthemedir = parsed.name
+                theme.usecustomfiles = false
 
-                // const config = sanconfig.get()
+                const config = sanconfig.get()
 
-                // if (config.get("usecustomfiles")) {
-                //     const base = path.join(sanhelper.appdata,"customfiles","dist","notify","base.js")
-                //     fsextra.copySync(base,path.join(src,"assets","base.js"))
-                //     log.write("INFO",`"${base}" dir copied successfully`)
+                if (config.get("usecustomfiles")) {
+                    const core = [
+                        path.join("notify","base.html"),
+                        path.join("notify","base.css"),
+                        path.join("notify","baseanim.css"),
+                        path.join("dist","notify","base.js")
+                    ]
 
-                //     config.set(`customisation.usecustomfiles`,true)
-                // }
+                    core.forEach(filepath => {
+                        const customfilespath = path.join(sanhelper.appdata,"customfiles",filepath)
+                        if (!fs.existsSync(customfilespath)) throw new Error(`"${path.basename(filepath)}" does not exist in "${customfilespath.replace(path.basename(filepath),"")}"`)
+
+                        fsextra.copySync(customfilespath,path.join(src,"customfiles",filepath))
+                        log.write("INFO",`"${customfilespath}" copied successfully`)
+                    })
+
+                    theme.usecustomfiles = true
+                }
 
                 contentmap.forEach((value,key) => {
                     if (!value) return
 
-                    // [keypaths[0]] = "customicons" / [keypaths[1]] = <Preset name> / [keypaths[2]] = "logo"/"decoration"
-                    // If "value" is populated but is not used in the current preset, reset it to "" in the `theme` object that will be written to `usertheme.json`
-                    // This can then be set back to the user's `sanconfig.defaulticons[customisation.preset]["logo"/"decoration"] value on import - i.e. when `usertheme.json` is read and encounters a "" value in "customfiles", it'll know to reset to default (`null` cannot be used as it is an actual used value in these objects)
                     const keypaths = key.split(".")
                     if (keypaths[0] === "customicons" && keypaths[1] !== customisation.preset) return theme.customisation![keypaths[0]][keypaths[1]] = ""
 
-                    Array.isArray(value) ? value.forEach(subvalue => fs.copyFileSync(subvalue,path.join(src,"assets",path.basename(subvalue)))) : fs.copyFileSync(value,path.join(src,"assets",path.basename(value)))
+                    Array.isArray(value) ? value.forEach(subvalue => fsextra.copySync(subvalue,path.join(src,"assets",path.basename(subvalue)))) : fsextra.copySync(value,path.join(src,"assets",path.basename(value)))
                 })
 
                 const json = JSON.stringify(theme,null,4)

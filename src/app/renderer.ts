@@ -101,6 +101,7 @@ const setmonitors = async () => {
 }
 
 window.addEventListener("DOMContentLoaded", () => setTimeout(setmonitors,100))
+
 ipcRenderer.on("displaysupdated", () => {
     setmonitors()
     ipcRenderer.send("monitorsupdated")

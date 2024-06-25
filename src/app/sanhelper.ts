@@ -6,7 +6,8 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKey, depsInstalled } from "sanhelper.rs"
+import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog } from "sanhelper.rs"
+const { initLogger, testPanic } = sanhelperrslog
 
 export const __root: string = path.resolve(__dirname,"..","..")
 const tippies: Instance<Props>[][] = []
@@ -67,6 +68,9 @@ export const sanhelper: SANHelper = {
     },
     get steampath(): string { return getSteamPath() },
     get gameinfo(): AppInfo { return getAppInfo()[0] },
+    gethqicon: (appid: number) => getHqIcon(appid),
+    initlogger: (appdata: string) => initLogger(appdata),
+    testpanic: () => testPanic(),
     isprocessrunning: (pid: number) => {
         try {
             process.kill(pid,0)

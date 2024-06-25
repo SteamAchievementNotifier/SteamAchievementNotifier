@@ -22,6 +22,9 @@ declare global {
     }
 }
 
+const sanhelperlog = sanhelper.initlogger(path.join(sanhelper.appdata,"logs"))
+log.write("INFO",sanhelperlog)
+
 log.init("RENDERER")
 dialog.init()
 

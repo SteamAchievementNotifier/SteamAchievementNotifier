@@ -64,9 +64,7 @@ body {
     width: var(--notifywidth);
     height: var(--notifyheight);
     place-self: center;
-    filter:
-        var(--filter)
-        var(--filter);
+    filter: var(--filter);
     animation: var(--glowanim);
 }
 

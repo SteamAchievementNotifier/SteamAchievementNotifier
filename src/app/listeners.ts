@@ -324,19 +324,22 @@ export const listeners = {
                 const { width, height } = trackwin.getBounds()
                 const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
 
-                const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id?: number) => {
-                    trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id)
+                const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id: number,hqicon: string) => {
+                    trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id,hqicon)
                     shownotify(trackwin,bounds)
     
                     return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
                 }
 
+                const steampath = sanhelper.steampath
+                const hqicon = sanhelper.gethqicon(appid)
+
                 try {
                     worker && worker.webContents.send("steam3id")
-                    ipcMain.once("steam3id", (event,steam3id: number) => sendtrackinfo(gamename,appid,sanhelper.steampath,steam3id))
+                    ipcMain.once("steam3id", (event,steam3id: number = 0) => sendtrackinfo(gamename,appid,steampath,steam3id,hqicon))
                 } catch (err) {
                     log.write("ERROR",`Error sending tracking info to Worker: ${err}`)
-                    sendtrackinfo(gamename,appid,sanhelper.steampath)
+                    sendtrackinfo(gamename,appid,steampath,0,hqicon)
                 }
             })
 
@@ -658,7 +661,8 @@ export const listeners = {
                 customisation: notify.customisation,
                 iswebview: iswebview,
                 steampath: sanhelper.steampath,
-                steam3id: notify.steam3id
+                steam3id: notify.steam3id,
+                hqicon: sanhelper.gethqicon(appid)
             } as Info)
 
             worker && worker.webContents.send("steam3id")
@@ -720,7 +724,7 @@ export const listeners = {
                 bottomright: { x: (screenwidth - (notifywidth + glowsize) + bottom), y: (screenheight - (notifyheight + glowsize) + bottom) }
             } as Positions
         
-            const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? (config.get(`customisation.${type}.usecustompos`) ? custompos : positions[config.get(`customisation.${type}.pos`) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"]) : positions["bottomright"])
+            const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? ((config.get(`customisation.${type}.usecustompos`) ? custompos : positions[config.get(`customisation.${type}.pos`) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"])) : positions[config.get("nowtrackingpos")])
         
             return {
                 width: notifywidth + glowsize,
@@ -798,7 +802,8 @@ export const listeners = {
                         iswebview: null,
                         steampath: sanhelper.steampath,
                         skipaudio: isextwin || config.get("audiosrc") !== "notify",
-                        steam3id: info.steam3id
+                        steam3id: info.steam3id,
+                        hqicon: sanhelper.gethqicon(appid)
                     } as Info
                 }
 

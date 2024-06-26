@@ -40,6 +40,7 @@ declare interface Config {
     audiosrc: "notify" | "app" | "off",
     nowtracking: boolean,
     nowtrackingscale: number,
+    nowtrackingpos: "bottomcenter" | "topcenter" | "topleft" | "topright" | "bottomleft" | "bottomright",
     shortcuts: boolean,
     steamss: boolean,
     screenshots: "off" | "overlay" | "notifyimg",
@@ -212,7 +213,8 @@ declare interface Info {
     iswebview: "customiser" | "sspreview" | "ss" | null,
     steampath: string | null,
     skipaudio?: boolean,
-    customfiles?: string
+    customfiles?: string,
+    hqicon: string
 }
 
 declare interface BuildNotifyInfo {

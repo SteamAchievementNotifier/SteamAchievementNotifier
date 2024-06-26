@@ -36,7 +36,7 @@ const notifyhelper = {
         ".ogg",
         ".aac"
     ]},
-    getgameart: (type: "icon" | "library_hero",appid: number,steampath: string,steam3id: number): Promise<string> => {
+    getgameart: (type: "icon" | "library_hero",appid: number,steampath: string,steam3id: number,hqicon: string): Promise<string> => {
         const heropath = (steam3id: number) => {
             const heroimgpath = path.join(steampath,"userdata",`${steam3id}`,"config","grid",`${appid}_hero`).replace(/\\/g,"/")
             const exts = ["jpg","png"]
@@ -48,7 +48,7 @@ const notifyhelper = {
             return null
         }
 
-        const imgpath = type === "library_hero" && heropath(steam3id) || path.join(steampath,"appcache","librarycache",`${appid}_${type}.jpg`).replace(/\\/g,"/")
+        const imgpath = type === "library_hero" && heropath(steam3id) || (type === "icon" && hqicon || path.join(steampath,"appcache","librarycache",`${appid}_${type}.jpg`)).replace(/\\/g,"/")
         return new Promise((resolve,reject) => fs.existsSync(imgpath) ? resolve(imgpath) : reject(type === "icon" ? "../img/gameicon.png" : (`../img/gameart/${appid}_${type}.jpg` || "../img/sanimgbg.png")))
     },
     getaudiofile: (mode: "file" | "folder",filepath: string) => {
@@ -96,7 +96,7 @@ const notifyhelper = {
     
         return notifyhelper.playaudio(customisation,iswebview,skipaudio)
     },
-    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number): Promise<HTMLImageElement[] | null> => {
+    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string): Promise<HTMLImageElement[] | null> => {
         return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {
             const gameartappid = !appid ? notifyhelper.appids[Math.floor(Math.random() * notifyhelper.appids.length)] : appid
     
@@ -134,10 +134,12 @@ const notifyhelper = {
     
             const getpreloadimgurl = async (type: "bgstyle" | "usegameicon") => {
                 const preloadimg = document.createElement("img")
-                const url = customisation.bgstyle === "bgimg" ? (customisation.bgimg || "../img/sanimgbg.png") : await notifyhelper.getgameart(type === "bgstyle" ? "library_hero" : "icon",gameartappid,steampath,steam3id).catch(fallback => {
+                const url = customisation.bgstyle === "bgimg" ? (customisation.bgimg || "../img/sanimgbg.png") : await notifyhelper.getgameart(type === "bgstyle" ? "library_hero" : "icon",gameartappid,steampath,steam3id,hqicon).catch(fallback => {
                     imgerrors.push(type)
                     return fallback as string
                 })
+
+                console.log(url)
     
                 preloadimg.id = `${type}url`
                 preloadimg.src = url
@@ -221,7 +223,7 @@ const notifyhelper = {
 }
 
 ipcRenderer.on("notify", async (event,obj: Info) => {
-    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath } = obj
+    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon } = obj
 
     try {
         document.body.setAttribute(type,"")
@@ -277,7 +279,7 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
             
             if (!steampath) throw new Error(`Steam installation path not found!`)
 
-            notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id)
+            notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id,hqicon)
             .then(preloadimgs => {
                 preloadimgs && preloadimgs.forEach(img => imgs.push(img))
                 resolve({

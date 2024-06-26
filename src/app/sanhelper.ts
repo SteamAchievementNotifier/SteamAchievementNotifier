@@ -68,7 +68,7 @@ export const sanhelper: SANHelper = {
     },
     get steampath(): string { return getSteamPath() },
     get gameinfo(): AppInfo { return getAppInfo()[0] },
-    gethqicon: (appid: number) => getHqIcon(appid),
+    gethqicon: (appid: number = 0) => getHqIcon(appid),
     initlogger: (appdata: string) => initLogger(appdata),
     testpanic: () => testPanic(),
     isprocessrunning: (pid: number) => {

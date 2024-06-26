@@ -60,6 +60,7 @@ export const sanconfig = {
             audiosrc: "notify",
             nowtracking: true,
             nowtrackingscale: 100,
+            nowtrackingpos: "bottomright",
             shortcuts: false,
             steamss: false,
             screenshots: "off",

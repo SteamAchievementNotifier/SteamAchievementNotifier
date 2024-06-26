@@ -164,9 +164,15 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 .opt:has(span:hover) > input[type="checkbox"]:not(:checked) {
     background-color: #3d3d3d;
 }
-.opt:has(#nowtracking:not(:checked)) + .wrapper:has(#nowtrackingscale),
+.opt:has(#nowtracking:not(:checked)) ~ .wrapper:has(#nowtrackingscale,#nowtrackingpos),
 .opt:has(#shortcuts:not(:checked)) + .wrapper:has(#shortcuttabs) {
     display: none;
+}
+
+dialog[menu] #settingscontent .opt:has(select) > span {
+    display: flex;
+    align-items: center;
+    line-height: 1;
 }
 
 #shortcutbtn {

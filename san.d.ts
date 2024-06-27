@@ -44,6 +44,7 @@ declare interface Config {
     shortcuts: boolean,
     steamss: boolean,
     screenshots: "off" | "overlay" | "notifyimg",
+    hdrmode: boolean,
     monitor: number,
     monitors: Monitor[],
     ssdelay: number,

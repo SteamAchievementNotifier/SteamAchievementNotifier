@@ -64,6 +64,7 @@ export const sanconfig = {
             shortcuts: false,
             steamss: false,
             screenshots: "off",
+            hdrmode: false,
             monitor: id,
             monitors: [] as Monitor[],
             ssdelay: 0,

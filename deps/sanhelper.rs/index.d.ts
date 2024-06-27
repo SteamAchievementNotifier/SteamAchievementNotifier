@@ -10,8 +10,9 @@ export interface AppInfo {
 }
 export function getAppInfo(): Array<AppInfo>
 export function pressKey(key: number): void
-export function depsInstalled(): boolean
+export function depsInstalled(lib: string): boolean
 export function getHqIcon(appid: number): string
+export function hdrScreenshot(monitorId: number, sspath: string): string
 export namespace log {
   export function initLogger(appData: string): string
   export function testPanic(): void

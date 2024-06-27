@@ -6,7 +6,7 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog } from "sanhelper.rs"
+import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot } from "sanhelper.rs"
 const { initLogger, testPanic } = sanhelperrslog
 
 export const __root: string = path.resolve(__dirname,"..","..")
@@ -70,6 +70,7 @@ export const sanhelper: SANHelper = {
     get gameinfo(): AppInfo { return getAppInfo()[0] },
     gethqicon: (appid: number = 0) => getHqIcon(appid),
     initlogger: (appdata: string) => initLogger(appdata),
+    hdrscreenshot: (monitorid: number,sspath: string) => hdrScreenshot(monitorid,sspath),
     testpanic: () => testPanic(),
     isprocessrunning: (pid: number) => {
         try {
@@ -627,8 +628,9 @@ export const sanhelper: SANHelper = {
         })
     },
     presskey: (key: number) => setTimeout(() => pressKey(key),100),
-    depsinstalled: (): boolean => {        
-        if (!depsInstalled()) {
+    // !!! May need to return a string from sanhelper.rs's `depsInstalled()` function to return the missing dep instead of bool
+    depsinstalled: (lib: "keypress" | "hdr"): boolean => {
+        if (!depsInstalled(lib)) {
             (async () => {
                 const { dialog } = await import("./dialog")
 

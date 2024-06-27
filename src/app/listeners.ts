@@ -1098,6 +1098,12 @@ export const listeners = {
             })
         
             const capture = () => {
+                if (config.get("hdrmode")) {
+                    const msg: string = sanhelper.hdrscreenshot(monitor.id,sspath)
+                    log.write("INFO",msg)
+                    return
+                }
+
                 desktopCapturer.getSources({
                     types: ["screen"],
                     thumbnailSize: { width: width, height: height }
@@ -1288,6 +1294,8 @@ export const listeners = {
 
             event.reply("exporttheme",expdialog)
         })
+
+        screen.getAllDisplays().forEach(disp => console.log(disp))
 
         return
     }

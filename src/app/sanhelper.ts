@@ -300,7 +300,7 @@ export const sanhelper: SANHelper = {
         event.preventDefault()
         const elem = (event.target instanceof HTMLSpanElement ? event.target.parentElement!.querySelector(`input[type="checkbox"]`)! : event.target!) as HTMLInputElement
 
-        if (elem.id === "steamss" && !sanhelper.depsinstalled()) return
+        if (elem.id === "steamss" && sanhelper.depsinstalled("keypress")) return
 
         config.set((keypath ? `${keypath}.` : "") + elem.id,!config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean)
         
@@ -628,24 +628,29 @@ export const sanhelper: SANHelper = {
         })
     },
     presskey: (key: number) => setTimeout(() => pressKey(key),100),
-    // !!! May need to return a string from sanhelper.rs's `depsInstalled()` function to return the missing dep instead of bool
-    depsinstalled: (lib: "keypress" | "hdr"): boolean => {
-        if (!depsInstalled(lib)) {
+    depsinstalled: (lib: "keypress" | "hdr"): String => {
+        const installed = "All required dependencies installed"
+        if (process.platform !== "linux") return installed
+        const missinglib = depsInstalled(lib)
+
+        if (missinglib) {
             (async () => {
                 const { dialog } = await import("./dialog")
+                const lang = (await import("./config")).sanconfig.get().store.lang
+                const { missingdepssub } = await import(`../lang/${lang}`)
 
                 dialog.open({
-                    title: `${await language.get("missingdeps")}: xdotool`,
+                    title: `${await language.get("missingdeps")}: ${missinglib}`,
                     type: "default",
                     icon: sanhelper.setfilepath("icon","error.svg"),
-                    sub: await language.get("missingdepssub")
+                    sub: missingdepssub(await language.get(lib === "keypress" ? "steamss" : "hdrmode",["settings","media","content"]),missinglib)
                 })
             })()
 
-            return false
+            return missinglib
         }
 
-        return true
+        return installed
     },
     resetdebuginfo: async (debugwin?: Electron.BrowserWindow) => {
         const config = (await import("./config")).sanconfig.get()

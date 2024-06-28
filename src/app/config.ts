@@ -84,6 +84,7 @@ export const sanconfig = {
             usecustomfiles: false,
             noreleasedialog: false,
             norestartdialog: false,
+            noupdatedialog: false,
             userust: false,
             debug: false,
             noiconcache: false,

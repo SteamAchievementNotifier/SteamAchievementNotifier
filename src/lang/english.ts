@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "No Update Available",
         latestversion: "Latest version installed",
         missingdeps: "Missing dependency",
-        missingdepssub: [
-            `Looks like you're trying to enable the <span class="hl">Take Steam Screenshot</span> option. However, on Linux, screenshots cannot be automatically triggered without installing the <code class="dialogcode">xdotool</code> package first`,
-            `Please run <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> in order to install this dependency, which will ensure Steam screenshots can be taken on this device`
-        ],
         restartapp: "Restart App",
         restartappsub: [
             `If things aren't working right, use this option to close and reopen the app`,
@@ -135,6 +131,7 @@ export const translations = {
             title: "Accessibility",
             content: {
                 noanim: "Disable App Window Animations",
+                noupdatedialog: "Disable Update Dialog",
                 nvda: "Enable NVDA Support",
                 tooltips: "Show Tooltips"
             }
@@ -349,6 +346,7 @@ export const translations = {
         ssdelay: "Add a delay from when the notification occurs to when the screenshot is taken",
         sspreview: "Show a preview of how the screenshot will appear when saved",
         noanim: "Disable all in-app window animations and transition effects",
+        noupdatedialog: `Prevent the <span class="hl">Update Available</span> dialog from showing and focusing automatically<br><br><span class="ttdesc">The dialog can still be accessed by clicking the update button when available</span>`,
         nvda: "Enable copying achievement information to the clipboard when an achievement is unlocked, in order to be read by screen-reader software, such as NVDA",
         tooltips: "Display tooltips when hovering over certain UI elements",
         pollrate: `Set the update interval for achievement data during gameplay<br><br><span class="ttdesc">Performance may increase/decrease depending on the value or system hardware. Higher values typically result in lower system load, but may cause notifications to be more delayed</span>`,
@@ -470,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string,dep: string) => [
+    `Looks like you're trying to enable the <span class="hl">${opt}</span> option. However, on Linux, screenshots cannot be enabled without installing the <code class="dialogcode">${dep}</code> package first`,
+    `Please run <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> in order to install this dependency. This will ensure screenshots can be taken on this device`
+]

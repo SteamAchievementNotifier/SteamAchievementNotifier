@@ -64,6 +64,7 @@ declare interface Config {
     usecustomfiles: boolean,
     noreleasedialog: boolean,
     norestartdialog: boolean,
+    noupdatedialog: boolean,
     userust: boolean,
     debug: boolean,
     noiconcache: boolean,

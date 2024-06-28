@@ -41,6 +41,7 @@ div#dragbar {
     display: grid;
     gap: 0.75rem;
     justify-self: end;
+    -webkit-app-region: no-drag !important;
 }
 
 .wrapper#menu > .wrapper:last-child > button {
@@ -65,10 +66,9 @@ div#dragbar {
 
 .menubtn#error,
 .menubtn#update {
-    display: none;
+    grid-column-start: 2;
     transform: scale(0);
     pointer-events: none;
-    animation: scaleup var(--transition) forwards;
 }
 
 /* Using "scale" property in animation overwrites hover transition */
@@ -78,12 +78,16 @@ div#dragbar {
 
 body[error] .menubtn#error,
 body[update] .menubtn#update {
-    display: block;
     pointer-events: auto;
+    animation: scaleup var(--transition) forwards;
+}
+
+body[error] .menubtn#update {
+    grid-column-start: 1;
 }
 
 .menubtn#close {
-    grid-column-start: -1;
+    grid-column-start: 3;
     background: url("../../icon/close.svg") center / contain no-repeat;
 }
 

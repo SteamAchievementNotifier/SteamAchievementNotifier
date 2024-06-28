@@ -82,7 +82,11 @@ export const update = {
         ipcRenderer.on("updateavailable", (event,newversion: string) => {
             (document.querySelector(".menubtn#update") as HTMLButtonElement)!.onclick = () => updatemsg(newversion)
             document.body.setAttribute("update","")
-            updatemsg(newversion)
+
+            ;(async () => {
+                const config = (await import("./config")).sanconfig.get()
+                !config.get("noupdatedialog") && updatemsg(newversion)
+            })()
         })
         
         ipcRenderer.on("updateprogress", (event,progress: number) => {

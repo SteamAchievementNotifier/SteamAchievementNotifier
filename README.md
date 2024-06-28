@@ -50,9 +50,9 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 
 - 📷 **Additional Media Options**: Includes options to automatically take a Steam screenshot when any achievement is unlocked, as well as generating a **Screenshot with Notification Overlay** (*by selecting the dropdown option under **Settings** > **Additional Media***), which takes a screenshot of your chosen monitor, and overlays an image of the achievement notification - including all customisations! Also new to V1.9, the **Notification Image** option generates an image of the notification itself, which can then be directly shared or added as an overlay elsewhere!
 
-> ⚠ *Note: HDR is not supported by Additional Media options*
-
 > 🐧 In order to enable the **Take Steam Screenshot** option on Linux, `xdotool` must be installed on the system
+
+> 🐧 In order to enable the **HDR Mode** option on Linux, `libxcb1`, `libxrandr2` and `libdbus-1-3` must be installed on the system
 
 - 🎥 **Stream Notifications**: Building on the foundations of the **Duplicate Notification to Window** option available in previous versions, **Stream Notifications** creates a hidden background window that duplicates all on-screen notifications - including all customisations - which is targetable as a window source within streaming software, such as OBS/Streamlabs/Twitch Studio etc. By setting this window as your source, you can overlay all achievement notifications directly in your streams!
 
@@ -71,20 +71,26 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 - **Customise Menu**: The **Customise** button is now shown more prominently on the Home screen
 - **Select Theme**: Custom **User Themes** can be recalled via the new **Select Theme** menu on the Home screen
 - **Collapsible Menu Sections**: All sections within both the **Settings**/**Customiser** menus are now collapsible by clicking on the section's title
-- **Reset Window**: When right-clicking the system tray icon, the window size can be reset to default by selecting **Options** > **Reset Window**
-- **Manage Linked Games**: Associate a game (via it's **AppId**) with a specific executable file on your system. **Linked Games** added via this menu will bypass <a href="#automaticprocesstracking">**automatic process tracking**</a>, so only the specified executable will be checked when the associated game's **AppID** is detected as running by Steam Achievement Notifier.
+
+<h3>System Tray Menu</h3>
+
+- **Reset Window**: When right-clicking the system tray icon, the window size and position can be reset to default by selecting **Options** > **Reset Window**
+- **Release Game**: 
+- **Suspend**/**Resume**: 
 
 <h3>Settings</h3>
 
-- **Notification Shortcuts**: Set keyboard shortcuts to trigger a **Test Notification** for each notification type. Useful when testing compatibility with in-game display settings!
 - **Show Percentage**: Choose whether to show achievement percentages for **All** (*all notification types*), **Rare Only** (*only **Rare** notification types*) or **Off** (*hide for all notification types*)
 - **Tracking Scale**: Increase/decrease the scale of the **Now Tracking** notification
+- **Notification Shortcuts**: Set keyboard shortcuts to trigger a **Test Notification** for each notification type. Useful when testing compatibility with in-game display settings!
 - **Additional Media**: Various options for generating additional media achievements are unlocked - such as **Take Steam Screenshot**, **Screenshot with Notification Overlay** and **Notification Image**
 - <span id="audiosrc">**Audio Source**:</span> As audio is generated from within notifications by default, a new **Settings** option has been added for **V1.9** - setting **Audio Source** to **App** will ensure that notification audio can be captured by streaming software via the app window itself (*Or, if sounds aren't your thing, mute all in-app audio by selecting the **Off** option*)
 - **Screenshot Delay**: Add a delay of up to 5 seconds before taking a screenshot when using the **Screenshot with Notification Overlay** option. Useful when achievements usually unlock at inopportune times, such as during cutscene transitions!
-- **Poll Rate**: Increase/decrease the interval in which updates to achievement data is checked. Increasing this value may allow achievement unlock notifications to spawn faster, at the cost of slightly increased system load. Conversely, decreasing this value will reduce system load, but may cause achievement unlock notifications to spawn fractionally later
+- **Manage Linked Games**: Associate a game (via it's **AppId**) with a specific executable file on your system. **Linked Games** added via this menu will bypass <a href="#automaticprocesstracking">**automatic process tracking**</a>, so only the specified executable will be checked when the associated game's **AppID** is detected as running by Steam Achievement Notifier
+- **Exclusion List**: Any AppID added to the **Exclusion List** won't be tracked for achievements while Steam Achievement Notifier is active
 - **Disable App Window Animations**: For those sensitive to animations/movement (*or just if it's a preference*), you can remove all app window transition effects for all UI elements
 - **Show Tooltips**: Toggle whether to show tooltip hints when hovering over UI elements
+- **Poll Rate**: Increase/decrease the interval in which updates to achievement data is checked. Increasing this value may allow achievement unlock notifications to spawn faster, at the cost of slightly increased system load. Conversely, decreasing this value will reduce system load, but may cause achievement unlock notifications to spawn fractionally later
 - **Check for Updates**: Check for updates to **Steam Achievement Notifier** without having to restart the application
 - **App Log**: All events and errors that happen within the application from startup will now be shown in the dedicated **App Log** window
 - **Use Custom App Files**: For those who love to tinker beyond what the app already provides, enable the **Use Custom App Files** option to load customisable HTML/CSS/JS files, which will then be used for notifications instead of the built-in ones! Click the **Show Custom App Files** button to open the directory where the custom files are stored, then get creative!
@@ -93,7 +99,6 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 
 <h3>Customiser</h3>
 
-- **Sound Menu**: The **Sound** menu has been moved from the Home screen into the **Customiser** menu
 - **Custom Text**/**Use Game Title**: Set a custom unlock message for each notification of this type, or **Use Game Title** to show the game name instead
 - **Custom Font**: Load a custom `.ttf`/`.otf` font file to use within the notification, instead of the default font
 - **Opacity** > **Background Only**: Enable transparency only for the background of the notification, leaving all other elements at full opacity
@@ -150,3 +155,4 @@ Additionally, there are several in-app options to control various aspects of **a
 - [Tippy.js](https://atomiks.github.io/tippyjs/)
 - [jpeg-js](https://github.com/jpeg-js/jpeg-js)
 - [steam-game-path](https://github.com/osztenkurden/steam-game-path) by [osztenkurden](https://github.com/osztenkurden)
+- Custom forks of [screenshots (xcap)](https://github.com/nashaofu/xcap)/[display-info](https://github.com/nashaofu/display-info) by [nashaofu](https://github.com/nashaofu)

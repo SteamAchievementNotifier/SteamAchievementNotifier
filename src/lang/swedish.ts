@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Inga uppdateringar tillgängliga",
         latestversion: "Senaste versionen installerad",
         missingdeps: "Saknad beroende",
-        missingdepssub: [
-            `Det verkar som att du försöker aktivera alternativet <span class="hl">Ta Steam-skärmbild</span>. Dock kan skärmbilder inte aktiveras automatiskt på Linux utan att först installera paketet <code class="dialogcode">xdotool</code>`,
-            `Kör <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> för att installera detta beroende, vilket kommer att säkerställa att Steam-skärmbilder kan tas på denna enhet`
-        ],
         restartapp: "Starta om appen",
         restartappsub: [
             `Om sakerna inte fungerar korrekt, använd detta alternativ för att stänga och öppna appen igen`,
@@ -113,11 +109,12 @@ export const translations = {
                 off: "Av",
                 overlay: "Skärmdump med aviseringens överlagring",
                 monitors: "Skärmdumpskälla",
+                hdrmode: "HDR-läge",
                 ovpos: "Överlagringsposition",
                 ovmatch: "Matcha anpassad position",
-                ovpath: "Skärmdumpssökväg",
                 ovx: "Horisontellt förskjutning",
                 ovy: "Vertikalt förskjutning",                
+                ovpath: "Skärmdumpssökväg",
                 ssdelay: "Skärmdumpsfördröjning",
                 notifyimg: "Meddelandebild",
                 imgpath: "Bildsökväg"
@@ -134,6 +131,7 @@ export const translations = {
             title: "Tillgänglighet",
             content: {
                 noanim: "Inaktivera appfönsteranimationer",
+                noupdatedialog: "Inaktivera uppdateringsdialog",
                 nvda: "Aktivera NVDA-stöd",
                 tooltips: "Visa verktygstips"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Ta en Steam-skärmdump när en prestation låses upp",
         screenshots: "Välj typen av ytterligare media som ska skapas när en avisering visas",
         monitors: "Monitorn som kommer att fångas när skärmdumpen tas",
+        hdrmode: `Ta skärmbilder med en metod som är kompatibel med skärmar som använder High Dynamic Range (HDR)`,
         ovpos: "Positionen för aviseringens överlagring i skärmdumpen",
         ovmatch: "Matcha skärmläget som är inställt i anpassaren för denna typ av avisering",
         ovpath: "Platsen där skärmdumpar som genereras av detta alternativ kommer att sparas",
         ssdelay: "Lägg till en fördröjning från när aviseringen inträffar till när skärmdumpen tas",
         sspreview: "Visa en förhandsgranskning av hur skärmdumpen kommer att se ut när den sparas",
         noanim: "Inaktivera alla fönsteranimationer och övergångseffekter i appen",
+        noupdatedialog: `Förhindrar att dialogrutan <span class="hl">Uppdatering tillgänglig</span> visas automatiskt och får fokus<br><br><span class="ttdesc">Dialogrutan kan fortfarande öppnas genom att klicka på uppdateringsknappen när den är tillgänglig</span>`,
         nvda: "Aktivera kopiering av prestationinformation till urklipp när en prestation låses upp, för att läsas av skärmläsarprogramvara, som NVDA",
         tooltips: "Visa verktygstips när du håller musen över vissa användargränssnittselement",
         pollrate: `Ställ in uppdateringsintervallet för prestationdata under spel<br><br><span class="ttdesc">Prestandan kan öka/minska beroende på värdet eller systemets maskinvara. Högre värden resulterar vanligtvis i lägre systembelastning, men kan orsaka fördröjningar i aviseringar</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Det verkar som att du försöker aktivera alternativet <span class="hl">${opt}</span>. Dock kan inte skärmbilder aktiveras på Linux-system utan att först installera paketet <code class="dialogcode">${dep}</code>`,
+    `Kör <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> för att installera denna beroendet. Detta kommer att säkerställa att skärmbilder kan tas på denna enhet`
+]

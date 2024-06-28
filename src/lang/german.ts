@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Kein Update Verfügbar",
         latestversion: "Neueste Version Installiert",
         missingdeps: "Fehlende Abhängigkeit",
-        missingdepssub: [
-            `Es scheint, dass Sie versuchen, die Option <span class="hl">Steam-Screenshot aufnehmen</span> zu aktivieren. Auf Linux können jedoch keine Bildschirmfotos automatisch ausgelöst werden, ohne zuerst das Paket <code class="dialogcode">xdotool</code> zu installieren`,
-            `Bitte führen Sie <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> aus, um diese Abhängigkeit zu installieren, damit Steam-Screenshots auf diesem Gerät gemacht werden können`
-        ],
         restartapp: "App Neu Starten",
         restartappsub: [
             `Wenn die Dinge nicht richtig funktionieren, verwenden Sie diese Option, um die App zu schließen und neu zu öffnen`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Aus",
                 overlay: "Screenshot mit Benachrichtigungs-Overlay",
                 monitors: "Screenshot-Quelle",
+                hdrmode: "HDR-Modus",
                 ovpos: "Overlay-Position",
                 ovmatch: "Anpassungsposition Anpassen",
                 ovx: "Horizontaler Versatz",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Barrierefreiheit",
             content: {
                 noanim: "App-Fensteranimationen Deaktivieren",
+                noupdatedialog: "Update-Dialog deaktivieren",
                 nvda: "NVDA-Unterstützung Aktivieren",
                 tooltips: "Tooltips Anzeigen"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Erstellen Sie einen Steam-Screenshot, wenn ein Erfolg freigeschaltet wird",
         screenshots: "Wählen Sie den Typ des zusätzlichen Mediums aus, das erstellt werden soll, wenn eine Benachrichtigung angezeigt wird",
         monitors: "Der Monitor, der erfasst wird, wenn der Screenshot aufgenommen wird",
+        hdrmode: `Screenshots aufnehmen mit einer Methode, die mit Monitoren kompatibel ist, die High Dynamic Range (HDR) verwenden`,
         ovpos: "Die Position der Benachrichtigungsüberlagerung im Screenshot",
         ovmatch: "Übereinstimmung mit der im Customiser festgelegten Bildschirmposition für diesen Benachrichtigungstyp",
         ovpath: "Der Speicherort, an dem Screenshots gespeichert werden, die von dieser Option generiert werden",
         ssdelay: "Fügen Sie eine Verzögerung von der Benachrichtigung bis zur Aufnahme des Screenshots hinzu",
         sspreview: "Zeigen Sie eine Vorschau an, wie der Screenshot gespeichert wird",
         noanim: "Deaktivieren Sie alle Fensteranimationen und Übergangseffekte in der App",
+        noupdatedialog: `Verhindert das automatische Anzeigen und Fokussieren des <span class="hl">Verfügbare Updates</span>-Dialogs<br><br><span class="ttdesc">Der Dialog kann weiterhin durch Klicken auf die Update-Schaltfläche geöffnet werden, wenn verfügbar</span>`,
         nvda: "Aktivieren Sie das Kopieren von Erfolgsinformationen in die Zwischenablage, wenn ein Erfolg freigeschaltet wird, um von Bildschirmleseprogrammen wie NVDA gelesen zu werden",
         tooltips: "Zeigen Sie Tooltips an, wenn Sie über bestimmte UI-Elemente schweben",
         pollrate: `Legen Sie das Aktualisierungsintervall für Erfolgsdaten während des Spiels fest<br><br><span class="ttdesc">Die Leistung kann je nach Wert oder Systemhardware steigen/abfallen. Höhere Werte führen normalerweise zu einer geringeren Systemlast, können aber auch zu einer stärkeren Verzögerung bei Benachrichtigungen führen</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Es scheint, dass Sie versuchen, die Option <span class="hl">${opt}</span> zu aktivieren. Auf Linux-Systemen können jedoch keine Screenshots gemacht werden, ohne zuerst das Paket <code class="dialogcode">${dep}</code> zu installieren`,
+    `Bitte führen Sie <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> aus, um diese Abhängigkeit zu installieren. Dadurch können Screenshots auf diesem Gerät gemacht werden`
+]

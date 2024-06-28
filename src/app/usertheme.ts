@@ -185,6 +185,10 @@ export const usertheme = {
 
             if (updatedbtn) {
                 updatedbtn.removeAttribute("updated")
+                updatedbtn.addEventListener("animationend",({ animationName }: AnimationEvent) => {
+                    if (!config.get("noanim")) return updatedbtn.removeAttribute("updated")
+                    animationName === "updated" && updatedbtn.removeAttribute("updated")
+                },{ once: true })
                 requestAnimationFrame(() => updatedbtn.setAttribute("updated",""))
             }
         }

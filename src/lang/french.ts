@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Aucune mise à jour disponible",
         latestversion: "Dernière version installée",
         missingdeps: "Dépendance manquante",
-        missingdepssub: [
-            `Il semble que vous essayez d'activer l'option <span class="hl">Prendre une capture d'écran Steam</span>. Cependant, sur Linux, les captures d'écran ne peuvent pas être déclenchées automatiquement sans d'abord installer le paquet <code class="dialogcode">xdotool</code>`,
-            `Veuillez exécuter <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> pour installer cette dépendance, ce qui permettra de prendre des captures d'écran Steam sur cet appareil`
-        ],
         restartapp: "Redémarrer l'Application",
         restartappsub: [
             `Si les choses ne fonctionnent pas correctement, utilisez cette option pour fermer et rouvrir l'application`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Désactivé",
                 overlay: "Capture d'écran avec superposition de notification",
                 monitors: "Source de capture d'écran",
+                hdrmode: "Mode HDR",
                 ovpos: "Position de superposition",
                 ovmatch: "Correspondance de la position personnalisée",
                 ovx: "Décalage horizontal",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Accessibilité",
             content: {
                 noanim: "Désactiver les animations de fenêtre d'application",
+                noupdatedialog: "Désactiver la boîte de dialogue de mise à jour",
                 nvda: "Activer le support NVDA",
                 tooltips: "Afficher les info-bulles"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Prendre une capture d'écran Steam lorsqu'un succès est déverrouillé",
         screenshots: "Sélectionnez le type de média supplémentaire à créer lorsqu'une notification est affichée",
         monitors: "L'écran qui sera capturé lors de la prise de capture d'écran",
+        hdrmode: `Prendre des captures d'écran en utilisant une méthode compatible avec les moniteurs utilisant la plage dynamique élevée (HDR)`,
         ovpos: "La position de la superposition de notification dans la capture d'écran",
         ovmatch: "Correspond à la position d'écran définie dans le Personnaliseur pour ce type de notification",
         ovpath: "L'emplacement où les captures d'écran générées par cette option seront enregistrées",
         ssdelay: "Ajoute un délai entre l'apparition de la notification et la prise de la capture d'écran",
         sspreview: "Affiche un aperçu de l'apparence de la capture d'écran lorsqu'elle est enregistrée",
         noanim: "Désactive toutes les animations de fenêtre de l'application et les effets de transition",
+        noupdatedialog: `Empêcher l'affichage automatique et la mise au premier plan de la boîte de dialogue <span class="hl">Mise à jour disponible</span><br><br><span class="ttdesc">La boîte de dialogue peut toujours être ouverte en cliquant sur le bouton de mise à jour lorsque disponible</span>`,
         nvda: "Active la copie des informations de succès dans le presse-papiers lorsqu'un succès est déverrouillé, afin d'être lu par un logiciel de lecteur d'écran, tel que NVDA",
         tooltips: "Affiche des info-bulles lors du survol de certains éléments de l'interface utilisateur",
         pollrate: `Définir l'intervalle de mise à jour des données de réalisation pendant le jeu<br><br><span class="ttdesc">Les performances peuvent augmenter/diminuer en fonction de la valeur ou du matériel du système. Les valeurs plus élevées entraînent généralement une charge système plus faible, mais peuvent retarder les notifications</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Il semble que vous essayez d'activer l'option <span class="hl">${opt}</span>. Cependant, sur les systèmes Linux, les captures d'écran ne peuvent pas être activées sans installer d'abord le paquet <code class="dialogcode">${dep}</code>`,
+    `Veuillez exécuter <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> pour installer cette dépendance. Cela permettra de prendre des captures d'écran sur cet appareil`
+]

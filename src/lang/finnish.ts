@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Ei päivityksiä saatavilla",
         latestversion: "Uusin versio asennettu",
         missingdeps: "Puuttuva riippuvuus",
-        missingdepssub: [
-            `Näyttää siltä, että yrität ottaa käyttöön vaihtoehdon <span class="hl">Ota Steam-näyttökuva</span>. Kuitenkin Linuxissa näyttökuvia ei voida laukaista automaattisesti ilman ensin asentamalla paketti <code class="dialogcode">xdotool</code>`,
-            `Suorita <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> asentaaksesi tämän riippuvuuden, mikä mahdollistaa Steam-näyttökuvien ottamisen tällä laitteella`
-        ],
         restartapp: "Käynnistä sovellus uudelleen",
         restartappsub: [
             `Jos asiat eivät toimi oikein, käytä tätä vaihtoehtoa sulkeaksesi ja avataksesi sovelluksen uudelleen`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Pois päältä",
                 overlay: "Ruutukaappaus ilmoituksen päällekkäisyydellä",
                 monitors: "Ruutukaappauksen lähde",
+                hdrmode: "HDR-tila",
                 ovpos: "Päällekkäisyyden sijainti",
                 ovmatch: "Vastaava mukautuksen sijainti",
                 ovx: "Vaakasuuntainen siirto",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Saatavuus",
             content: {
                 noanim: "Poista sovellusikkunan animaatiot käytöstä",
+                noupdatedialog: "Poista päivitysikkuna käytöstä",
                 nvda: "Ota NVDA-tuki käyttöön",
                 tooltips: "Näytä työkaluvihjeet"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Ota Steam-ruutukaappaus, kun saavutus avataan",
         screenshots: "Valitse lisämedian tyyppi, joka luodaan ilmoituksen näyttämisen yhteydessä",
         monitors: "Näyttö, joka tallennetaan ruutukaappauksessa",
+        hdrmode: `Ota näyttökuvia käyttäen menetelmää, joka on yhteensopiva HDR-näyttöjä käyttävien monitorien kanssa`,
         ovpos: "Ilmoituksen päällekkäisyyden sijainti ruutukaappauksessa",
         ovmatch: "Vastaava näytön sijainti Mukauttajassa tälle ilmoitustyypille",
         ovpath: "Polku, johon tämän asetuksen avulla luodut ruutukaappaukset tallennetaan",
         ssdelay: "Viive ilmoituksen näyttämisestä ruutukaappauksen ottamiseen",
         sspreview: "Näytä esikatselu, miten ruutukaappaus näyttää tallennettaessa",
         noanim: "Poista sovellusikkunan kaikki animaatiot ja siirtymäefektit käytöstä",
+        noupdatedialog: `Estä <span class="hl">Päivitys saatavilla</span> -dialogin automaattinen näyttäminen ja fokusoituminen<br><br><span class="ttdesc">Dialogi on edelleen saatavilla klikkaamalla päivityspainiketta, kun se on saatavilla</span>`,
         nvda: "Kopioi saavutustiedot leikepöydälle, kun saavutus avataan, jotta ne voidaan lukea näytönlukijasovelluksella, kuten NVDA",
         tooltips: "Näytä työkaluvihjeet, kun hiiren kohdistin on tiettyjen käyttöliittymäelementtien päällä",
         pollrate: `Aseta päivitysväli saavutustietojen aikana pelattaessa<br><br><span class="ttdesc">Suorituskyky voi lisääntyä/vähentyä arvon tai järjestelmän laitteiston mukaan. Korkeammat arvot johtavat yleensä pienempään järjestelmän kuormitukseen, mutta voivat viivästyttää ilmoituksia</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Näyttää siltä, että yrität ottaa käyttöön asetuksen <span class="hl">${opt}</span>. Linux-järjestelmissä näyttökuvia ei kuitenkaan voi ottaa käyttöön ilman ensin asentamalla paketin <code class="dialogcode">${dep}</code>`,
+    `Suorita <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> asentaaksesi tämän riippuvuuden. Tämä varmistaa, että näyttökuvia voidaan ottaa tällä laitteella`
+]

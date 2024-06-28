@@ -353,6 +353,8 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             setvisibilityicon("previewhiddenicon")
             sanhelper.updatetabs()
         }
+
+        document.getElementById("customiser")!.toggleAttribute("customfiles",config.get("usecustomfiles"))
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")

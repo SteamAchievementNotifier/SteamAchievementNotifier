@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "利用可能な更新はありません",
         latestversion: "最新バージョンがインストールされています",
         missingdeps: "依存関係が不足しています",
-        missingdepssub: [
-            `Steam スクリーンショットを有効にしようとしているようです。ただし、Linux 上では、<code class="dialogcode">xdotool</code> パッケージを先にインストールしないとスクリーンショットを自動的にトリガーすることはできません`,
-            `この依存関係をインストールするには、<code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> を実行してください。これにより、このデバイスで Steam スクリーンショットを撮影できるようになります`
-        ],
         restartapp: "アプリを再起動する",
         restartappsub: [
             `もし何かが正常に動作していない場合は、このオプションを使ってアプリを閉じて再度開いてください`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "オフ",
                 overlay: "通知オーバーレイ付きスクリーンショット",
                 monitors: "スクリーンショットのソース",
+                hdrmode: "HDRモード",
                 ovpos: "オーバーレイの位置",
                 ovmatch: "カスタマイズ位置と一致",
                 ovx: "水平オフセット",
@@ -134,6 +131,7 @@ export const translations = {
             title: "アクセシビリティ",
             content: {
                 noanim: "アプリウィンドウのアニメーションを無効にする",
+                noupdatedialog: "更新ダイアログを無効にする",
                 nvda: "NVDAサポートを有効にする",
                 tooltips: "ツールチップを表示"
             }
@@ -337,16 +335,18 @@ export const translations = {
         nowtrackingscale: `トラッキング通知のサイズを設定する`,
         nowtrackingpos: `追跡通知の位置を設定します`,
         shortcuts: "キーボードショートカットを使用してテスト通知をトリガーします。各通知タイプごとにショートカットをカスタマイズできます",
-        steamss: "実績がアンロックされたときにSteamスクリーンショットを撮影する",
         noiconcache: `ゲームの起動時に実績アイコンのキャッシュを無効にします。<br><br><span class="ttdesc">これにより、ゲームの起動時にアプリのパフォーマンスが大幅に向上し、多くの実績を持つゲームのトラッキング問題も解消される場合があります。ただし、アイコンキャッシュを無効にすると、稀に通知で実績アイコンが表示されなくなる場合があります</span>`,
+        steamss: "実績がアンロックされたときにSteamスクリーンショットを撮影する",
         screenshots: "通知が表示されるときに作成する追加メディアのタイプを選択します",
         monitors: "スクリーンショットを撮影するモニター",
+        hdrmode: `HDR（High Dynamic Range）モニターを使用する方法と互換性のある方法でスクリーンショットを撮影する`,
         ovpos: "スクリーンショット内の通知オーバーレイの位置",
         ovmatch: "この通知タイプのカスタマイザで設定された画面位置に一致させる",
         ovpath: "このオプションで生成されたスクリーンショットの保存場所",
         ssdelay: "通知が発生してからスクリーンショットが撮影されるまでの遅延を追加",
         sspreview: "スクリーンショットが保存されるときの表示プレビューを表示",
         noanim: "アプリ内のすべてのウィンドウアニメーションとトランジション効果を無効にする",
+        noupdatedialog: `自動的に表示され、フォーカスされる <span class="hl">更新可能</span> ダイアログを防止します<br><br><span class="ttdesc">更新ボタンをクリックして、ダイアログにアクセスすることができます</span>`,
         nvda: "実績がアンロックされたときにクリップボードに実績情報をコピーして、NVDAなどのスクリーンリーダーソフトウェアで読み取ることを有効にする",
         tooltips: "特定のUI要素にマウスオーバーしたときにツールチップを表示する",
         pollrate: `ゲームプレイ中の実績データの更新間隔を設定します<br><br><span class="ttdesc">値やシステムのハードウェアに応じて、パフォーマンスが向上または低下することがあります。通常、高い値はシステム負荷を低減させますが、通知の遅延を引き起こす可能性があります</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `現在、<span class="hl">${opt}</span> オプションを有効にしようとしています。ただし、Linuxシステムでは、<code class="dialogcode">${dep}</code> パッケージをインストールせずにスクリーンショットを有効にすることはできません`,
+    `この依存関係をインストールするには、<code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> を実行してください。これにより、このデバイスでスクリーンショットを撮影できるようになります`
+]

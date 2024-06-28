@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "No hay actualizaciones disponibles",
         latestversion: "Última versión instalada",
         missingdeps: "Dependencia faltante",
-        missingdepssub: [
-            `Parece que estás intentando habilitar la opción <span class="hl">Tomar Captura de Pantalla en Steam</span>. Sin embargo, en Linux, las capturas de pantalla no pueden ser activadas automáticamente sin antes instalar el paquete <code class="dialogcode">xdotool</code>`,
-            `Por favor, ejecuta <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> para instalar esta dependencia, lo que garantizará que las capturas de pantalla en Steam puedan ser realizadas en este dispositivo`
-        ],
         restartapp: "Reiniciar Aplicación",
         restartappsub: [
             `Si las cosas no funcionan correctamente, utiliza esta opción para cerrar y volver a abrir la aplicación`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Apagado",
                 overlay: "Captura de pantalla con superposición de notificación",
                 monitors: "Origen de la captura de pantalla",
+                hdrmode: "Modo HDR",
                 ovpos: "Posición de superposición",
                 ovmatch: "Coincidir con la posición personalizada",
                 ovx: "Desplazamiento Horizontal",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Accesibilidad",
             content: {
                 noanim: "Desactivar animaciones de la ventana de la aplicación",
+                noupdatedialog: "Desactivar diálogo de actualización",
                 nvda: "Activar soporte de NVDA",
                 tooltips: "Mostrar consejos de herramientas"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Tomar una captura de pantalla de Steam cuando se desbloquee un logro",
         screenshots: "Seleccionar el tipo de medios adicionales que se crearán cuando se muestre una notificación",
         monitors: "El monitor que se capturará al tomar la captura de pantalla",
+        hdrmode: `Captura de pantalla utilizando un método compatible con monitores que utilizan High Dynamic Range (HDR)`,
         ovpos: "La posición de la superposición de notificación dentro de la captura de pantalla",
         ovmatch: "Coincidir con la posición de pantalla establecida en el Personalizador para este tipo de notificación",
         ovpath: "La ubicación donde se guardarán las capturas de pantalla generadas por esta opción",
         ssdelay: "Agregar un retraso desde que ocurre la notificación hasta que se toma la captura de pantalla",
         sspreview: "Mostrar una vista previa de cómo se verá la captura de pantalla al guardarla",
         noanim: "Desactivar todas las animaciones y efectos de transición de ventanas en la aplicación",
+        noupdatedialog: `Evita que el diálogo <span class="hl">Actualización disponible</span> se muestre automáticamente y obtenga el enfoque<br><br><span class="ttdesc">El diálogo aún se puede abrir haciendo clic en el botón de actualización cuando esté disponible</span>`,
         nvda: "Habilitar la copia de información de logros al portapapeles cuando se desbloquea un logro, para que pueda ser leída por software de lectura de pantalla, como NVDA",
         tooltips: "Mostrar consejos de herramientas al pasar el cursor sobre ciertos elementos de la interfaz de usuario",
         pollrate: `Establecer el intervalo de actualización para los datos de logros durante el juego<br><br><span class="ttdesc">El rendimiento puede aumentar/disminuir dependiendo del valor o del hardware del sistema. Valores más altos suelen resultar en una carga del sistema más baja, pero pueden causar retrasos en las notificaciones</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Parece que estás intentando activar la opción <span class="hl">${opt}</span>. Sin embargo, en sistemas Linux, no se pueden habilitar las capturas de pantalla sin instalar primero el paquete <code class="dialogcode">${dep}</code>`,
+    `Por favor, ejecuta <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> para instalar esta dependencia. Esto asegurará que se puedan tomar capturas de pantalla en este dispositivo`
+]

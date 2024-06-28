@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Güncelleme Yok",
         latestversion: "En Son Sürüm Yüklü",
         missingdeps: "Eksik Bağımlılık",
-        missingdepssub: [
-            `Sanırım <span class="hl">Steam Ekran Görüntüsü Al</span> seçeneğini etkinleştirmeye çalışıyorsunuz. Ancak, Linux'ta ekran görüntüleri <code class="dialogcode">xdotool</code> paketi yüklenmeden otomatik olarak tetiklenemez`,
-            `Bu bağımlılığı kurmak için lütfen <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> komutunu çalıştırın, bu da Steam ekran görüntülerinin bu cihazda alınabilmesini sağlar`
-        ],
         restartapp: "Uygulamayı Yeniden Başlat",
         restartappsub: [
             `Eğer işler düzgün çalışmıyorsa, uygulamayı kapatıp yeniden açmak için bu seçeneği kullanın`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Kapalı",
                 overlay: "Bildirim Üzerine Ekran Görüntüsü",
                 monitors: "Görüntü Kaynağı",
+                hdrmode: "HDR Modu",
                 ovpos: "Üzerine Yerleştirme Konumu",
                 ovmatch: "Özel Konumu Eşleştir",
                 ovx: "Yatay Kaydırma",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Erişilebilirlik",
             content: {
                 noanim: "Uygulama Pencere Animasyonlarını Devre Dışı Bırak",
+                noupdatedialog: "Güncelleme İletişim Kutusunu Devre Dışı Bırak",
                 nvda: "NVDA Desteğini Etkinleştir",
                 tooltips: "İpuçlarını Göster"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Bir başarı kilidini açtığında Steam ekran görüntüsü al",
         screenshots: "Bir bildirim görüntülendiğinde oluşturulacak Ek Medya türünü seçin",
         monitors: "Ekran görüntüsü alınacak monitör",
+        hdrmode: `Yüksek Dinamik Aralık (HDR) destekleyen monitörlerle uyumlu bir yöntem kullanarak ekran görüntüsü al`,
         ovpos: "Ekran görüntüsü içindeki bildirim yerleşimini belirleyin",
         ovmatch: "Bu bildirim türü için Customiser'da belirtilen Ekran Konumu ile eşleştir",
         ovpath: "Bu seçenekle oluşturulan ekran görüntülerinin kaydedileceği konum",
         ssdelay: "Bildirimin gerçekleştiği zamandan ekran görüntüsünün alınması arasında bir gecikme ekleyin",
         sspreview: "Kaydedildiğinde ekran görüntüsünün nasıl görüneceğini önizleyin",
         noanim: "Uygulama pencere animasyonlarını ve geçiş efektlerini devre dışı bırak",
+        noupdatedialog: `Otomatik olarak gösterilen ve odaklanan <span class="hl">Güncelleme Mevcut</span> iletişim kutusunu engeller<br><br><span class="ttdesc">İletişim kutusu, güncelleme mevcut olduğunda hala kullanılabilir durumdaysa, güncelleme düğmesine tıklayarak açılabilir</span>`,
         nvda: "Bir başarı kilidini açtığında başarı bilgilerini panoya kopyalayarak, NVDA gibi ekran okuyucu yazılımlar tarafından okunmasını sağlayın",
         tooltips: "Belirli UI öğelerinin üzerine gelindiğinde ipuçlarını göster",
         pollrate: `Oyun sırasında başarı verileri için güncelleme aralığını ayarlayın<br><br><span class="ttdesc">Performans, değer veya sistem donanımına bağlı olarak artabilir/azalabilir. Daha yüksek değerler genellikle daha düşük sistem yüküne yol açar, ancak bildirimlerin gecikmesine neden olabilir</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Görünüşe göre <span class="hl">${opt}</span> seçeneğini etkinleştirmeye çalışıyorsunuz. Ancak Linux sistemlerinde, <code class="dialogcode">${dep}</code> paketini önce yüklemeden ekran görüntüsü alamazsınız`,
+    `Bu bağımlılığı yüklemek için lütfen <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> komutunu çalıştırın. Bu, bu cihazda ekran görüntüsü alınabilmesini sağlayacaktır`
+]

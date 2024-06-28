@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Nenhuma atualização disponível",
         latestversion: "Última versão instalada",
         missingdeps: "Dependência Ausente",
-        missingdepssub: [
-            `Parece que está a tentar ativar a opção <span class="hl">Capturar Tela no Steam</span>. No entanto, no Linux, as capturas de tela não podem ser acionadas automaticamente sem primeiro instalar o pacote <code class="dialogcode">xdotool</code>`,
-            `Por favor, execute <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> para instalar esta dependência, o que garantirá que capturas de tela no Steam possam ser feitas neste dispositivo`
-        ],
         restartapp: "Reiniciar Aplicativo",
         restartappsub: [
             `Se as coisas não estiverem funcionando corretamente, use esta opção para fechar e reabrir o aplicativo`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Desligado",
                 overlay: "Captura de Tela com Overlay de Notificação",
                 monitors: "Fonte da Captura de Tela",
+                hdrmode: "Modo HDR",
                 ovpos: "Posição da Overlay",
                 ovmatch: "Corresponder Posição Personalizada",
                 ovx: "Deslocamento Horizontal",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Acessibilidade",
             content: {
                 noanim: "Desativar Animações da Janela do Aplicativo",
+                noupdatedialog: "Desativar diálogo de atualização",
                 nvda: "Ativar Suporte NVDA",
                 tooltips: "Mostrar Dicas de Ferramentas"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Tirar uma captura de tela do Steam quando uma conquista for desbloqueada",
         screenshots: "Selecionar o tipo de mídia adicional a ser criada quando uma notificação for exibida",
         monitors: "O monitor que será capturado ao tirar a captura de tela",
+        hdrmode: `Captura de tela utilizando um método compatível com monitores que utilizam High Dynamic Range (HDR)`,
         ovpos: "A posição da sobreposição de notificação na captura de tela",
         ovmatch: "Corresponder à posição da tela definida no Personalizador para este tipo de notificação",
         ovpath: "O local onde as capturas de tela geradas por esta opção serão salvas",
         ssdelay: "Adicionar um atraso desde o momento em que a notificação ocorre até o momento em que a captura de tela é tirada",
         sspreview: "Mostrar uma prévia de como a captura de tela será exibida ao ser salva",
         noanim: "Desativar todas as animações de janela do aplicativo e efeitos de transição",
+        noupdatedialog: `Impede que o diálogo <span class="hl">Atualização Disponível</span> seja exibido automaticamente e receba foco<br><br><span class="ttdesc">O diálogo ainda pode ser acessado clicando no botão de atualização quando estiver disponível</span>`,
         nvda: "Habilitar a cópia de informações de conquista para a área de transferência quando uma conquista for desbloqueada, para ser lida por software de leitor de tela, como o NVDA",
         tooltips: "Exibir dicas de ferramentas ao passar o mouse sobre determinados elementos da interface do usuário",
         pollrate: `Defina o intervalo de atualização para dados de conquistas durante o jogo<br><br><span class="ttdesc">O desempenho pode aumentar/diminuir dependendo do valor ou dos recursos de hardware do sistema. Valores mais altos normalmente resultam em uma carga de sistema mais baixa, mas podem atrasar as notificações</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Parece que você está tentando habilitar a opção <span class="hl">${opt}</span>. No entanto, em sistemas Linux, não é possível habilitar capturas de tela sem instalar primeiro o pacote <code class="dialogcode">${dep}</code>`,
+    `Por favor, execute <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> para instalar esta dependência. Isso garantirá que capturas de tela possam ser feitas neste dispositivo`
+]

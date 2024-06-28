@@ -1,5 +1,6 @@
 body[customiser][soundonly] .wrapper#customiser > .wrapper#webview,
-body[customiser][soundonly] #customisercontent > #customiseropts > .cont:not(:has(.title#sound)) {
+body[customiser][soundonly] #customisercontent > #customiseropts > .cont:not(:has(.title#sound)),
+#customiser[customfiles] .opt:has(#importtheme,#exporttheme) {
     opacity: 0.5;
     pointer-events: none;
 }
@@ -408,15 +409,42 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
     --icon: url("../../icon/reset.svg");
 }
 
-button[updated] {
-    animation: updated calc(var(--transition) * 3) ease-in-out forwards;
+button[updated] > span,
+button[updated]::before {
+    scale: 0;
 }
 
+button[updated]::after {
+    translate: 0;
+}
+
+button:has(#confirm) {
+    position: relative;
+    transition: scale var(--transition);
+}
+
+button > #confirm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    scale: 0;
+    background: url("../../icon/thumbsup.svg") center / contain no-repeat;
+    width: 1rem;
+    height: 1rem;
+    transition: scale 0s;
+    filter: invert();
+}
+
+button[updated] > #confirm {
+    scale: 1;
+    transition: scale var(--transition);
+    animation: updated calc(var(--transition) * 3) forwards;
+}
+
+/* Dummy animation to trigger "animationend" event in TS */
 @keyframes updated {
-    from { filter: drop-shadow(0 0 0 transparent) }
-    25% { filter: drop-shadow(0 0 0.15rem limegreen) }
-    75% { filter: drop-shadow(0 0 0.15rem limegreen) }
-    to { filter: drop-shadow(0 0 0.5rem transparent) }
+    to { color: transparent }
 }
 
 #savetheme {

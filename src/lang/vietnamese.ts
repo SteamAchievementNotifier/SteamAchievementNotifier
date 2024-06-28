@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Không có bản cập nhật nào khả dụng",
         latestversion: "Phiên bản mới nhất đã được cài đặt",
         missingdeps: "Thiếu phụ thuộc",
-        missingdepssub: [
-            `Dường như bạn đang cố gắng kích hoạt tùy chọn <span class="hl">Chụp ảnh màn hình trên Steam</span>. Tuy nhiên, trên Linux, các ảnh chụp màn hình không thể được kích hoạt tự động mà không cài đặt trước gói <code class="dialogcode">xdotool</code>`,
-            `Vui lòng chạy <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> để cài đặt phụ thuộc này, điều này sẽ đảm bảo rằng ảnh chụp màn hình trên Steam có thể được thực hiện trên thiết bị này`
-        ],
         restartapp: "Khởi động lại ứng dụng",
         restartappsub: [
             `Nếu mọi thứ không hoạt động đúng cách, hãy sử dụng tùy chọn này để đóng và mở lại ứng dụng`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Tắt",
                 overlay: "Chụp Ảnh Màn hình với Chồng Lên Thông báo",
                 monitors: "Nguồn Chụp Ảnh Màn hình",
+                hdrmode: "Chế độ HDR",
                 ovpos: "Vị trí Chồng Lên",
                 ovmatch: "Phù hợp với Vị trí Tùy chỉnh",
                 ovx: "Lệch Ngang",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Tiện ích Truy cập",
             content: {
                 noanim: "Vô hiệu hóa Hiệu ứng Cửa sổ Ứng dụng",
+                noupdatedialog: "Vô hiệu hóa hộp thoại Cập nhật",
                 nvda: "Bật hỗ trợ NVDA",
                 tooltips: "Hiển thị Chú giải Công cụ"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Chụp ảnh Màn hình Steam khi mở khóa thành tựu",
         screenshots: "Chọn loại Phương tiện Bổ sung để tạo khi hiển thị thông báo",
         monitors: "Màn hình sẽ được chụp ảnh khi chụp ảnh màn hình",
+        hdrmode: `Chụp ảnh màn hình bằng phương pháp tương thích với các màn hình sử dụng công nghệ High Dynamic Range (HDR)`,
         ovpos: "Vị trí của lớp chồng thông báo trong ảnh chụp màn hình",
         ovmatch: "Phù hợp với Vị trí Màn hình được thiết lập trong Tùy chỉnh cho loại thông báo này",
         ovpath: "Vị trí nơi ảnh chụp được tạo bởi tùy chọn này sẽ được lưu",
         ssdelay: "Thêm một độ trễ từ khi thông báo xuất hiện đến khi chụp ảnh màn hình",
         sspreview: "Hiển thị một bản xem trước về cách ảnh chụp màn hình sẽ xuất hiện khi được lưu",
         noanim: "Vô hiệu hóa tất cả các hiệu ứng cửa sổ và hiệu ứng chuyển tiếp trong ứng dụng",
+        noupdatedialog: `Ngăn chặn hiển thị tự động và tập trung vào hộp thoại <span class="hl">Cập nhật có sẵn</span><br><br><span class="ttdesc">Hộp thoại vẫn có thể truy cập bằng cách nhấp vào nút cập nhật khi có sẵn</span>`,
         nvda: "Bật sao chép thông tin thành tựu vào clipboard khi mở khóa thành tựu, để đọc bằng phần mềm đọc màn hình, chẳng hạn như NVDA",
         tooltips: "Hiển thị gợi ý khi di chuột qua các yếu tố giao diện người dùng cụ thể",
         pollrate: `Đặt khoảng thời gian cập nhật cho dữ liệu thành tựu trong khi chơi game<br><br><span class="ttdesc">Hiệu suất có thể tăng/giảm tùy thuộc vào giá trị hoặc phần cứng của hệ thống. Các giá trị cao thường dẫn đến tải hệ thống thấp hơn, nhưng có thể gây trễ trong thông báo</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Dường như bạn đang cố gắng bật tùy chọn <span class="hl">${opt}</span>. Tuy nhiên, trên các hệ thống Linux, không thể kích hoạt chụp màn hình mà không cài đặt trước gói <code class="dialogcode">${dep}</code>`,
+    `Vui lòng chạy lệnh <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> để cài đặt phụ thuộc này. Điều này sẽ đảm bảo bạn có thể chụp màn hình trên thiết bị này`
+]

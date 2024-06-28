@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Nincs frissítés elérhető",
         latestversion: "Legújabb verzió telepítve",
         missingdeps: "Hiányzó függőség",
-        missingdepssub: [
-            `Úgy tűnik, hogy aktiválni próbálod a <span class="hl">Steam képernyőkép készítése</span> lehetőséget. Azonban Linuxon nem lehet automatikusan képernyőképeket készíteni anélkül, hogy először telepítenéd a <code class="dialogcode">xdotool</code> csomagot`,
-            `Kérlek, futtasd a <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> parancsot ennek a függőségnek a telepítéséhez, ami biztosítja, hogy a Steam képernyőképeket készíthess ezen az eszközön`
-        ],
         restartapp: "Alkalmazás újraindítása",
         restartappsub: [
             `Ha a dolgok nem működnek megfelelően, használd ezt a lehetőséget az alkalmazás bezárásához és újraindításához`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Ki",
                 overlay: "Képernyőkép értesítési átfedéssel",
                 monitors: "Képernyőkép forrás",
+                hdrmode: "HDR mód",
                 ovpos: "Átfedés pozíció",
                 ovmatch: "Pozíció igazítása",
                 ovx: "Vízszintes eltolás",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Hozzáférhetőség",
             content: {
                 noanim: "Alkalmazás ablakanimációk kikapcsolása",
+                noupdatedialog: "Frissítési párbeszédpanel kikapcsolása",
                 nvda: "NVDA támogatás engedélyezése",
                 tooltips: "Eszközleírások megjelenítése"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Steam képernyőkép készítése, amikor egy eredmény feloldódik",
         screenshots: "Válassza ki a további média típusát, amikor egy értesítés megjelenik",
         monitors: "A monitor, amelyet a képernyőkép készítésekor rögzít",
+        hdrmode: `Képernyőképek készítése olyan módszerrel, amely kompatibilis a HDR (High Dynamic Range) monitorokkal`,
         ovpos: "Az értesítés átfedésének pozíciója a képernyőképen",
         ovmatch: "A Customiserben beállított képernyőpozíció igazítása ehhez az értesítéstípushoz",
         ovpath: "Az ezen opció által generált képernyőképek mentési helye",
         ssdelay: "Késleltetés hozzáadása az értesítés megjelenése és a képernyőkép készítése között",
         sspreview: "Előnézet megjelenítése, hogyan fog kinézni a képernyőkép mentésekor",
         noanim: "Az alkalmazás ablakanimációinak és átmeneti effektjeinek letiltása",
+        noupdatedialog: `Megakadályozza, hogy az <span class="hl">Elérhető frissítés</span> párbeszédpanel automatikusan megjelenjen és előtérbe kerüljön<br><br><span class="ttdesc">A párbeszédpanel továbbra is elérhető marad a frissítés gombra kattintva, ha az elérhető</span>`,
         nvda: "Engedélyezze az eredmény információinak másolását a vágólapra, amikor egy eredmény feloldódik, hogy képernyőolvasó szoftverek, például az NVDA által olvasható legyen",
         tooltips: "Eszközleírások megjelenítése bizonyos felhasználói felületi elemek fölé húzva",
         pollrate: `Állítsa be a teljesítményadatok frissítési intervallumát játék közben<br><br><span class="ttdesc">A teljesítmény növekedhet/csökkenhet az érték vagy a rendszer hardverének függvényében. A magasabb értékek általában alacsonyabb rendszerterhelést eredményeznek, de késleltethetik az értesítéseket</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Úgy tűnik, hogy megpróbálja engedélyezni a <span class="hl">${opt}</span> beállítást. Azonban Linux rendszereken nem lehet képernyőképeket készíteni anélkül, hogy először telepítené a(z) <code class="dialogcode">${dep}</code> csomagot`,
+    `Kérjük, futtassa a <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> parancsot, hogy telepítse ezt a függőséget. Ez biztosítja, hogy képernyőképeket lehessen készíteni ezen eszközön`
+]

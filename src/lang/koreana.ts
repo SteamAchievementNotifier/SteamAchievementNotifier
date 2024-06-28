@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "사용 가능한 업데이트가 없습니다",
         latestversion: "최신 버전이 설치되어 있습니다",
         missingdeps: "부족한 종속성",
-        missingdepssub: [
-            `스팀 스크린샷 옵션을 활성화하려고 합니다. 그러나 Linux에서는 <code class="dialogcode">xdotool</code> 패키지를 먼저 설치하지 않으면 스크린샷을 자동으로 트리거할 수 없습니다`,
-            `이 종속성을 설치하려면 <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> 명령을 실행하십시오. 이렇게하면이 장치에서 Steam 스크린샷을 촬영 할 수 있습니다`
-        ],
         restartapp: "앱 다시 시작하기",
         restartappsub: [
             `만약 작동이 제대로 이루어지지 않는다면, 앱을 닫고 다시 열기 위해 이 옵션을 사용하세요`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "끔",
                 overlay: "알림 오버레이가있는 스크린 샷",
                 monitors: "스크린 샷 소스",
+                hdrmode: "HDR 모드",
                 ovpos: "오버레이 위치",
                 ovmatch: "맞춤 위치와 일치",
                 ovx: "수평 오프셋",
@@ -134,6 +131,7 @@ export const translations = {
             title: "접근성",
             content: {
                 noanim: "앱 창 애니메이션 비활성화",
+                noupdatedialog: "업데이트 대화상자 비활성화",
                 nvda: "NVDA 지원 활성화",
                 tooltips: "도구 설명 표시"
             }
@@ -337,16 +335,18 @@ export const translations = {
         nowtrackingscale: `추적 알림 크기 설정`,
         nowtrackingpos: `추적 알림 위치 설정`,
         shortcuts: "키보드 단축키를 통해 테스트 알림 트리거. 각 알림 유형에 대해 사용자 정의 가능한 단축키",
-        steamss: "업적이 잠금 해제될 때 Steam 스크린샷 찍기",
         noiconcache: `게임 시작시 성취 아이콘 캐시를 비활성화합니다.<br><br><span class="ttdesc">이렇게 하면 게임을 시작할 때 앱 성능이 크게 향상되고 많은 성취가 있는 게임의 추적 문제도 해결될 수 있습니다. 그러나 아이콘 캐시를 비활성화하면 드물게 알림에서 성취 아이콘이 누락될 수 있습니다</span>`,
+        steamss: "업적이 잠금 해제될 때 Steam 스크린샷 찍기",
         screenshots: "알림이 표시될 때 생성할 추가 미디어 유형 선택",
         monitors: "스크린샷을 찍을 모니터 선택",
+        hdrmode: `고 다이내믹 레인지 (HDR) 모니터와 호환되는 방법으로 스크린샷을 촬영합니다`,
         ovpos: "스크린샷 내 알림 오버레이 위치",
         ovmatch: "Customiser에서 설정한 화면 위치와 일치",
         ovpath: "이 옵션으로 생성된 스크린샷이 저장될 위치",
         ssdelay: "알림이 발생한 후 스크린샷이 찍히기까지의 지연 시간 추가",
         sspreview: "스크린샷이 저장될 때의 미리보기 표시",
         noanim: "앱 창 애니메이션 및 전환 효과 비활성화",
+        noupdatedialog: `자동으로 표시되고 초점이 맞춰지는 <span class="hl">업데이트 가능</span> 대화상자를 방지합니다<br><br><span class="ttdesc">업데이트 버튼을 클릭하여 여전히 대화상자에 접근할 수 있습니다</span>`,
         nvda: "업적이 잠금 해제될 때 클립보드로 업적 정보 복사하여 NVDA와 같은 스크린 리더 소프트웨어에서 읽을 수 있도록 활성화",
         tooltips: "특정 UI 요소 위에 마우스를 올렸을 때 도구 설명 표시",
         pollrate: `게임 중 성취 데이터의 업데이트 간격을 설정합니다<br><br><span class="ttdesc">값이나 시스템 하드웨어에 따라 성능이 증가하거나 감소할 수 있습니다. 일반적으로 높은 값은 시스템 부하를 줄이지만 알림이 지연될 수 있습니다</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `<span class="hl">${opt}</span> 옵션을 활성화하려고 시도하는 것으로 보입니다. 그러나 Linux 시스템에서는 <code class="dialogcode">${dep}</code> 패키지를 설치하지 않으면 스크린샷을 활성화할 수 없습니다`,
+    `이 종속성을 설치하려면 <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code>을 실행하십시오. 이를 통해 이 장치에서 스크린샷을 촬영할 수 있게 됩니다`
+]

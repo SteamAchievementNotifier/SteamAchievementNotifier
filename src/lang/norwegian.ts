@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Ingen oppdateringer tilgjengelig",
         latestversion: "Siste versjon er installert",
         missingdeps: "Manglende avhengighet",
-        missingdepssub: [
-            `Det virker som om du prøver å aktivere alternativet <span class="hl">Ta Steam skjermbilde</span>. Imidlertid kan ikke skjermbilder automatisk utløses på Linux uten å først installere pakken <code class="dialogcode">xdotool</code>`,
-            `Vennligst kjør <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> for å installere denne avhengigheten, som vil sikre at Steam skjermbilder kan tas på denne enheten`
-        ],
         restartapp: "Start appen på nytt",
         restartappsub: [
             `Hvis ting ikke fungerer som de skal, bruk dette alternativet for å lukke og åpne appen på nytt`,
@@ -113,11 +109,12 @@ export const translations = {
                 off: "Av",
                 overlay: "Skjermbilde med varsel overlay",
                 monitors: "Skjermbilde kilde",
+                hdrmode: "HDR-modus",
                 ovpos: "Overlay posisjon",
                 ovmatch: "Match tilpasser posisjon",
-                ovpath: "Skjermbilde sti",
                 ovx: "Horisontal forskyvning",
                 ovy: "Vertikal forskyvning",                
+                ovpath: "Skjermbilde sti",
                 ssdelay: "Skjermbilde forsinkelse",
                 notifyimg: "Varslingsbilde",
                 imgpath: "Bildesti"
@@ -134,6 +131,7 @@ export const translations = {
             title: "Tilgjengelighet",
             content: {
                 noanim: "Deaktiver App-vindu-animasjoner",
+                noupdatedialog: "Deaktiver oppdateringsdialog",
                 nvda: "Aktiver NVDA-støtte",
                 tooltips: "Vis verktøytips"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Ta et Steam-skjermbilde når en prestasjon blir låst opp",
         screenshots: "Velg typen ekstra medier som skal opprettes når en varsling vises",
         monitors: "Skjermen som vil bli fanget når skjermbildet tas",
+        hdrmode: `Ta skjermbilder ved hjelp av en metode som er kompatibel med skjermer som bruker High Dynamic Range (HDR)`,
         ovpos: "Posisjonen til varslingsoverlegget i skjermbildet",
         ovmatch: "Samsvare med skjermposisjonen som er satt i Tilpasseren for denne varslingstypen",
         ovpath: "Plasseringen der skjermbilder generert av denne opsjonen vil bli lagret",
         ssdelay: "Legg til en forsinkelse fra når varslingen oppstår til når skjermbildet tas",
         sspreview: "Vis en forhåndsvisning av hvordan skjermbildet vil se ut når det lagres",
         noanim: "Deaktiver alle animasjoner og overgangseffekter for appvinduer",
+        noupdatedialog: `Forhindrer automatisk visning og fokus på <span class="hl">Oppdatering tilgjengelig</span>-dialogen<br><br><span class="ttdesc">Dialogen kan fortsatt åpnes ved å klikke på oppdateringsknappen når den er tilgjengelig</span>`,
         nvda: "Aktiver kopiering av prestasjonsinformasjon til utklippstavlen når en prestasjon blir låst opp, for å bli lest av skjermleserprogramvare, for eksempel NVDA",
         tooltips: "Vis verktøytips når du holder musepekeren over visse brukergrensesnittelementer",
         pollrate: `Sett oppdateringsintervallet for prestasjonsdata under spill<br><br><span class="ttdesc">Ytelsen kan øke/redusere avhengig av verdien eller systemets maskinvare. Høyere verdier fører vanligvis til lavere systembelastning, men kan forsinke varsler</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Det virker som du prøver å aktivere <span class="hl">${opt}</span>-alternativet. Imidlertid kan ikke skjermbilder aktiveres på Linux-systemer uten å installere pakken <code class="dialogcode">${dep}</code> først`,
+    `Vennligst kjør <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> for å installere denne avhengigheten. Dette vil sikre at skjermbilder kan tas på denne enheten`
+]

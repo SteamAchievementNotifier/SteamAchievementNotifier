@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Nessun aggiornamento disponibile",
         latestversion: "Ultima versione installata",
         missingdeps: "Dipendenza mancante",
-        missingdepssub: [
-            `Sembra che tu stia cercando di abilitare l'opzione <span class="hl">Cattura schermata Steam</span>. Tuttavia, su Linux le schermate non possono essere attivate automaticamente senza prima installare il pacchetto <code class="dialogcode">xdotool</code>`,
-            `Esegui il comando <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> per installare questa dipendenza, che permetterà di catturare le schermate su Steam su questo dispositivo`
-        ],
         restartapp: "Riavvia App",
         restartappsub: [
             `Se le cose non funzionano correttamente, utilizza questa opzione per chiudere e riaprire l'applicazione`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Spento",
                 overlay: "Screenshot con sovrapposizione notifica",
                 monitors: "Sorgente screenshot",
+                hdrmode: "Modalità HDR",
                 ovpos: "Posizione sovrapposizione",
                 ovmatch: "Corrispondenza posizione personalizzata",
                 ovx: "Spostamento orizzontale",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Accessibilità",
             content: {
                 noanim: "Disabilita animazioni finestra app",
+                noupdatedialog: "Disabilita il dialogo degli aggiornamenti",
                 nvda: "Abilita supporto NVDA",
                 tooltips: "Mostra suggerimenti"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Scatta uno screenshot di Steam quando viene sbloccato un obiettivo",
         screenshots: "Seleziona il tipo di media aggiuntivo da creare quando viene visualizzata una notifica",
         monitors: "Il monitor che verrà catturato durante la creazione dello screenshot",
+        hdrmode: `Scatta screenshot utilizzando un metodo compatibile con i monitor che utilizzano l'High Dynamic Range (HDR)`,
         ovpos: "La posizione dell'overlay della notifica nello screenshot",
         ovmatch: "Corrispondi alla posizione dello schermo impostata nel Personalizzatore per questo tipo di notifica",
         ovpath: "La posizione in cui verranno salvati gli screenshot generati da questa opzione",
         ssdelay: "Aggiungi un ritardo tra l'occorrenza della notifica e la creazione dello screenshot",
         sspreview: "Mostra un'anteprima di come apparirà lo screenshot quando viene salvato",
         noanim: "Disabilita tutte le animazioni delle finestre dell'app e gli effetti di transizione",
+        noupdatedialog: `Impedisce che il dialogo <span class="hl">Aggiornamento disponibile</span> venga visualizzato e messo automaticamente in primo piano<br><br><span class="ttdesc">Il dialogo può comunque essere aperto cliccando sul pulsante di aggiornamento quando disponibile</span>`,
         nvda: "Abilita la copia delle informazioni sugli obiettivi negli appunti quando viene sbloccato un obiettivo, in modo da poter essere letto da software di lettura dello schermo, come NVDA",
         tooltips: "Mostra le descrizioni comandi quando si passa il mouse su determinati elementi dell'interfaccia utente",
         pollrate: `Imposta l'intervallo di aggiornamento per i dati sugli obiettivi durante il gioco<br><br><span class="ttdesc">Le prestazioni possono aumentare/diminuire a seconda del valore o dell'hardware del sistema. Valori più alti di solito comportano un carico di sistema inferiore, ma possono ritardare le notifiche</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Sembra che stai cercando di attivare l'opzione <span class="hl">${opt}</span>. Tuttavia, su sistemi Linux, non è possibile abilitare gli screenshot senza prima installare il pacchetto <code class="dialogcode">${dep}</code>`,
+    `Si prega di eseguire <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> per installare questa dipendenza. Questo assicurerà che gli screenshot possano essere presi su questo dispositivo`
+]

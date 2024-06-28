@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Nicio actualizare disponibilă",
         latestversion: "Ultima versiune instalată",
         missingdeps: "Dependență lipsă",
-        missingdepssub: [
-            `Se pare că încercați să activați opțiunea <span class="hl">Fă captură de ecran în Steam</span>. Cu toate acestea, pe Linux, capturile de ecran nu pot fi declanșate automat fără să instalați mai întâi pachetul <code class="dialogcode">xdotool</code>`,
-            `Vă rugăm să rulați <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> pentru a instala această dependență, ceea ce va asigura că capturile de ecran în Steam pot fi făcute pe acest dispozitiv`
-        ],
         restartapp: "Reporniți Aplicația",
         restartappsub: [
             `Dacă lucrurile nu funcționează corect, utilizați această opțiune pentru a închide și a redeschide aplicația`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Oprit",
                 overlay: "Captură cu Suprapunere Notificare",
                 monitors: "Sursă Captură",
+                hdrmode: "Mod HDR",
                 ovpos: "Poziție Suprapunere",
                 ovmatch: "Potrivire Poziție Personalizată",
                 ovx: "Deplasare Orizontală",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Accesibilitate",
             content: {
                 noanim: "Dezactivează Animații Fereastră Aplicație",
+                noupdatedialog: "Dezactivați dialogul de actualizare",
                 nvda: "Activează Suport NVDA",
                 tooltips: "Afișare Sfaturi Instrumente"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Faceți o captură de ecran Steam atunci când se deblochează o realizare",
         screenshots: "Selectați tipul de Media suplimentară de creat atunci când se afișează o notificare",
         monitors: "Monitorul care va fi capturat atunci când se face captura de ecran",
+        hdrmode: `Captură de ecran utilizând o metodă compatibilă cu monitoarele care folosesc High Dynamic Range (HDR)`,
         ovpos: "Poziția suprapunerii notificării în captura de ecran",
         ovmatch: "Potrivirea poziției ecranului setată în Personalizator pentru acest tip de notificare",
         ovpath: "Locația în care vor fi salvate capturile de ecran generate de această opțiune",
         ssdelay: "Adăugați o întârziere de la momentul în care apare notificarea până la momentul în care se face captura de ecran",
         sspreview: "Afișați o previzualizare a modului în care va apărea captura de ecran când este salvată",
         noanim: "Dezactivați toate animațiile ferestrei în aplicație și efectele de tranziție",
+        noupdatedialog: `Previne afișarea automată și focalizarea dialogului <span class="hl">Actualizare disponibilă</span><br><br><span class="ttdesc">Dialogul poate fi totuși accesat prin clic pe butonul de actualizare când este disponibil</span>`,
         nvda: "Permiteți copierea informațiilor despre realizare în clipboard atunci când se deblochează o realizare, pentru a fi citite de software-ul de citire a ecranului, cum ar fi NVDA",
         tooltips: "Afișați sfaturi instrumente atunci când plasați cursorul pe anumite elemente UI",
         pollrate: `Setați intervalul de actualizare pentru datele de realizare în timpul jocului<br><br><span class="ttdesc">Performanța poate crește/scădea în funcție de valoarea sau de resursele hardware ale sistemului. Valorile mai mari duc de obicei la o încărcare mai mică a sistemului, dar pot întârzia notificările</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Se pare că încercați să activați opțiunea <span class="hl">${opt}</span>. Cu toate acestea, pe sistemele Linux, capturile de ecran nu pot fi activate fără a instala mai întâi pachetul <code class="dialogcode">${dep}</code>`,
+    `Vă rugăm să rulați <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> pentru a instala această dependență. Acest lucru va asigura că capturile de ecran pot fi făcute pe acest dispozitiv`
+]

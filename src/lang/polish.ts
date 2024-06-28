@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Brak dostępnych aktualizacji",
         latestversion: "Najnowsza wersja zainstalowana",
         missingdeps: "Brakujące zależności",
-        missingdepssub: [
-            `Wygląda na to, że próbujesz włączyć opcję <span class="hl">Zrób zrzut ekranu Steam</span>. Jednak na systemie Linux zrzuty ekranu nie mogą być automatycznie wyzwalane bez wcześniejszej instalacji pakietu <code class="dialogcode">xdotool</code>`,
-            `Proszę uruchom <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code>, aby zainstalować tę zależność, co zapewni możliwość robienia zrzutów ekranu Steam na tym urządzeniu`
-        ],
         restartapp: "Uruchom ponownie aplikację",
         restartappsub: [
             `Jeśli coś nie działa prawidłowo, skorzystaj z tej opcji, aby zamknąć i ponownie otworzyć aplikację`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Wyłączone",
                 overlay: "Zrzut ekranu z nakładką powiadomienia",
                 monitors: "Źródło zrzutu ekranu",
+                hdrmode: "Tryb HDR",
                 ovpos: "Pozycja nakładki",
                 ovmatch: "Dopasuj pozycję dostosowania",
                 ovx: "Przesunięcie poziome",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Dostępność",
             content: {
                 noanim: "Wyłącz animacje okna aplikacji",
+                noupdatedialog: "Wyłącz okno aktualizacji",
                 nvda: "Włącz obsługę NVDA",
                 tooltips: "Pokaż etykiety narzędzi"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Zrób zrzut ekranu Steam po odblokowaniu osiągnięcia",
         screenshots: "Wybierz rodzaj dodatkowych mediów do utworzenia podczas wyświetlania powiadomienia",
         monitors: "Monitor, który zostanie przechwycony podczas robienia zrzutu ekranu",
+        hdrmode: `Wykonuj zrzuty ekranu za pomocą metody kompatybilnej z monitorami obsługującymi technologię High Dynamic Range (HDR)`,
         ovpos: "Pozycja nakładki powiadomienia na zrzucie ekranu",
         ovmatch: "Dopasuj pozycję ekranu ustawioną w Customiser dla tego typu powiadomienia",
         ovpath: "Lokalizacja, w której będą zapisywane zrzuty ekranu generowane przez tę opcję",
         ssdelay: "Dodaj opóźnienie od wystąpienia powiadomienia do wykonania zrzutu ekranu",
         sspreview: "Pokaż podgląd, jak będzie wyglądał zapisany zrzut ekranu",
         noanim: "Wyłącz wszystkie animacje okna aplikacji i efekty przejścia",
+        noupdatedialog: `Uniemożliwia automatyczne wyświetlanie i ustawienie w trybie pierwszoplanowym okna dialogowego <span class="hl">Dostępna aktualizacja</span><br><br><span class="ttdesc">Okno dialogowe nadal można otworzyć, klikając przycisk aktualizacji, gdy jest dostępny</span>`,
         nvda: "Włącz kopiowanie informacji o osiągnięciu do schowka po odblokowaniu osiągnięcia, aby można je było odczytać za pomocą oprogramowania czytnika ekranu, takiego jak NVDA",
         tooltips: "Wyświetl podpowiedzi po najechaniu na określone elementy interfejsu użytkownika",
         pollrate: `Ustaw interwał aktualizacji danych o osiągnięciach podczas gry<br><br><span class="ttdesc">Wydajność może wzrosnąć/zmaleć w zależności od wartości lub sprzętu systemowego. Wyższe wartości zazwyczaj prowadzą do mniejszego obciążenia systemu, ale mogą opóźniać powiadomienia</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Wygląda na to, że próbujesz włączyć opcję <span class="hl">${opt}</span>. Jednakże na systemach Linux nie można włączyć zrzutów ekranu bez wcześniejszej instalacji pakietu <code class="dialogcode">${dep}</code>`,
+    `Proszę uruchomić <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code>, aby zainstalować tę zależność. Zapewni to możliwość robienia zrzutów ekranu na tym urządzeniu`
+]

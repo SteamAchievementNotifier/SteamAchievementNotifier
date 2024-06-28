@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "沒有可用的更新",
         latestversion: "最新版本已安裝",
         missingdeps: "缺少依賴",
-        missingdepssub: [
-            `看起來您正嘗試啟用 <span class="hl">在 Steam 上截圖</span> 的選項。但是，在 Linux 上，若沒有先安裝 <code class="dialogcode">xdotool</code> 套件，截圖將無法自動觸發`,
-            `請執行 <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> 以安裝此依賴，這將確保在此設備上能夠進行 Steam 截圖`
-        ],
         restartapp: "重新啟動應用程式",
         restartappsub: [
             `如果事情沒有正常運作，請使用此選項關閉並重新打開應用程式`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "關閉",
                 overlay: "帶通知疊加的截圖",
                 monitors: "截圖來源",
+                hdrmode: "HDR 模式",
                 ovpos: "疊加位置",
                 ovmatch: "符合自訂位置",
                 ovx: "水平偏移",
@@ -134,6 +131,7 @@ export const translations = {
             title: "可及性",
             content: {
                 noanim: "停用應用程式視窗動畫",
+                noupdatedialog: "停用更新對話框",
                 nvda: "啟用 NVDA 支援",
                 tooltips: "顯示工具提示"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "解鎖成就時拍攝 Steam 截圖",
         screenshots: "顯示通知時創建的其他媒體類型",
         monitors: "拍攝截圖的顯示器",
+        hdrmode: `使用與支援高動態範圍（HDR）顯示器兼容的方法進行截圖`,
         ovpos: "通知疊加在截圖中的位置",
         ovmatch: "與自訂器中設定的屏幕位置匹配",
         ovpath: "此選項生成的截圖的保存位置",
         ssdelay: "通知發生後到拍攝截圖之間的延遲時間",
         sspreview: "顯示截圖保存時的預覽",
         noanim: "停用應用程式窗口的所有動畫和過渡效果",
+        noupdatedialog: `防止自動顯示並將焦點放在 <span class="hl">更新可用</span> 對話框上<br><br><span class="ttdesc">仍可透過點擊更新按鈕開啟對話框</span>`,
         nvda: "解鎖成就時將成就信息複製到剪貼板，以便屏幕閱讀器軟體（如 NVDA）讀取",
         tooltips: "在應用程式的某些 UI 元素上懸停時顯示工具提示",
         pollrate: `設定遊戲中成就資料的更新間隔<br><br><span class="ttdesc">效能可能會因系統值或硬體而增加/減少。較高的值通常會導致較低的系統負載，但可能會造成通知延遲</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `似乎您正試圖啟用 <span class="hl">${opt}</span> 選項。但在 Linux 系統上，若未先安裝 <code class="dialogcode">${dep}</code> 套件，將無法啟用螢幕截圖功能`,
+    `請執行 <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> 以安裝此相依性。這將確保能在此裝置上進行螢幕截圖`
+]

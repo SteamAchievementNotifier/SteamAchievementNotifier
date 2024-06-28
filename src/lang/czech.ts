@@ -36,10 +36,6 @@ export const translations = {
         show: "Zobrazit",
         exit: "Ukončit",
         releasegame: "Uvolnit hru",
-        releasegamesub: [
-            `Restartujte proces Worker na pozadí a uvolněte aktuální hru z sledování`,
-            `Vyzkoušejte tuto možnost, pokud jste nedávno zavřeli hru, ale Steam ji stále ukazuje jako spuštěnou, nebo pokud Steam Achievement Notifier stále ukazuje sledování hry, která už byla zavřena`
-        ],
         noupdateavailable: "Žádná aktualizace není k dispozici",
         latestversion: "Nejnovější verze je nainstalována",
         missingdeps: "Chybějící závislost",
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Vypnuto",
                 overlay: "Screenshot s překryvem upozornění",
                 monitors: "Zdroj screenshotu",
+                hdrmode: "Režim HDR",
                 ovpos: "Pozice překryvu",
                 ovmatch: "Shodovat pozici přizpůsobení",
                 ovx: "Horizontální posun",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Přístupnost",
             content: {
                 noanim: "Vypnout animace okna aplikace",
+                noupdatedialog: "Deaktivovat dialog Aktualizace",
                 nvda: "Povolit podporu NVDA",
                 tooltips: "Zobrazit tooltipy"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Po odemknutí achievementu pořídit snímek obrazovky ve službě Steam",
         screenshots: "Vyberte typ dalšího média, které se vytvoří při zobrazení oznámení",
         monitors: "Monitor, který bude zachycen při pořizování snímku obrazovky",
+        hdrmode: `Pořizování snímků obrazovky pomocí metody kompatibilní s monitory používajícími High Dynamic Range (HDR)`,
         ovpos: "Pozice překryvu oznámení ve snímku obrazovky",
         ovmatch: "Shoduje se s pozicí na obrazovce nastavenou v přizpůsobovači pro tento typ oznámení",
         ovpath: "Umístění, kam budou uloženy snímky obrazovky generované touto možností",
         ssdelay: "Přidat prodlevu od okamžiku, kdy dojde k oznámení, do okamžiku, kdy je pořízen snímek obrazovky",
         sspreview: "Zobrazit náhled, jak bude snímek obrazovky vypadat po uložení",
         noanim: "Vypnout všechny animace oken a přechodové efekty v aplikaci",
+        noupdatedialog: `Zabraňte automatickému zobrazení a zaměření dialogu <span class="hl">Dostupná aktualizace</span><br><br><span class="ttdesc">Dialog stále můžete zobrazit kliknutím na tlačítko aktualizace, pokud je k dispozici</span>`,
         nvda: "Povolit kopírování informací o achievementu do schránky při odemknutí achievementu, aby je bylo možné číst pomocí čtečky obrazovky, například NVDA",
         tooltips: "Zobrazit popisky při najetí myší na určité prvky uživatelského rozhraní",
         pollrate: `Nastavit interval aktualizace dat o úspěších během hry<br><br><span class="ttdesc">Výkon může stoupat/klesat v závislosti na hodnotě nebo hardwarových zdrojích systému. Vyšší hodnoty obvykle znamenají nižší zátěž systému, ale mohou způsobit zpoždění upozornění</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Zdá se, že se snažíte povolit možnost <span class="hl">${opt}</span>. Nicméně v systému Linux nelze povolit pořizování snímků obrazovky bez předchozí instalace balíčku <code class="dialogcode">${dep}</code>`,
+    `Prosím spusťte <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> pro instalaci této závislosti. Tím zajistíte možnost pořizování snímků obrazovky na tomto zařízení`
+]

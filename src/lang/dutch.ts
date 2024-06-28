@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Geen update beschikbaar",
         latestversion: "Laatste versie geïnstalleerd",
         missingdeps: "Ontbrekende afhankelijkheid",
-        missingdepssub: [
-            `Het lijkt erop dat je probeert de optie <span class="hl">Neem een Steam-screenshot</span> in te schakelen. Op Linux kunnen echter geen schermafbeeldingen automatisch worden geactiveerd zonder eerst het pakket <code class="dialogcode">xdotool</code> te installeren`,
-            `Voer alstublieft <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> uit om deze afhankelijkheid te installeren, waardoor Steam-schermafbeeldingen op dit apparaat kunnen worden gemaakt`
-        ],
         restartapp: "App Herstarten",
         restartappsub: [
             `Als dingen niet goed werken, gebruik deze optie om de app te sluiten en opnieuw te openen`,
@@ -113,6 +109,7 @@ export const translations = {
                 off: "Uit",
                 overlay: "Screenshot met meldingen-overlay",
                 monitors: "Screenshot bron",
+                hdrmode: "HDR-modus",
                 ovpos: "Overlay positie",
                 ovmatch: "Pas aanpas positie toe",
                 ovx: "Horizontale verplaatsing",
@@ -134,6 +131,7 @@ export const translations = {
             title: "Toegankelijkheid",
             content: {
                 noanim: "App-vensteranimaties uitschakelen",
+                noupdatedialog: "Updatevenster uitschakelen",
                 nvda: "NVDA-ondersteuning inschakelen",
                 tooltips: "Tooltips weergeven"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Maak een Steam-screenshot wanneer een prestatie wordt ontgrendeld",
         screenshots: "Selecteer het type Extra Media dat moet worden gemaakt wanneer een melding wordt weergegeven",
         monitors: "De monitor die wordt vastgelegd bij het maken van de screenshot",
+        hdrmode: `Maak screenshots met een methode die compatibel is met monitoren die High Dynamic Range (HDR) gebruiken`,
         ovpos: "De positie van de meldingen-overlay in de screenshot",
         ovmatch: "Pas de schermpositie aan die is ingesteld in de Customiser voor dit meldingstype",
         ovpath: "De locatie waar screenshots die door deze optie worden gegenereerd, worden opgeslagen",
         ssdelay: "Voeg een vertraging toe vanaf het moment dat de melding optreedt tot het moment dat de screenshot wordt gemaakt",
         sspreview: "Toon een voorbeeld van hoe de screenshot eruit zal zien wanneer deze is opgeslagen",
         noanim: "Schakel alle vensteranimaties en overgangseffecten in de app uit",
+        noupdatedialog: `Voorkom dat het <span class="hl">Beschikbare update</span>-venster automatisch wordt weergegeven en gefocust<br><br><span class="ttdesc">Het venster kan nog steeds worden geopend door op de updateknop te klikken wanneer deze beschikbaar is</span>`,
         nvda: "Schakel het kopiëren van prestatie-informatie naar het klembord in wanneer een prestatie wordt ontgrendeld, om te worden gelezen door schermlezer-software, zoals NVDA",
         tooltips: "Toon tooltips bij het zweven over bepaalde UI-elementen",
         pollrate: `Stel het update-interval in voor prestatiegegevens tijdens het spelen<br><br><span class="ttdesc">De prestaties kunnen toenemen/afnemen, afhankelijk van de waarde of de hardware van het systeem. Hogere waarden resulteren doorgaans in lagere systeembelasting, maar kunnen notificaties vertragen</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Het lijkt erop dat je probeert de optie <span class="hl">${opt}</span> in te schakelen. Op Linux-systemen kunnen screenshots echter niet worden ingeschakeld zonder eerst het pakket <code class="dialogcode">${dep}</code> te installeren`,
+    `Voer alstublieft <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> uit om deze afhankelijkheid te installeren. Dit zorgt ervoor dat screenshots kunnen worden gemaakt op dit apparaat`
+]

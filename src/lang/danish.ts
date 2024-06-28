@@ -43,10 +43,6 @@ export const translations = {
         noupdateavailable: "Ingen opdatering tilgængelig",
         latestversion: "Seneste version installeret",
         missingdeps: "Manglende afhængighed",
-        missingdepssub: [
-            `Det ser ud til, at du forsøger at aktivere muligheden <span class="hl">Tag Steam skærmbillede</span>. Dog kan skærmbilleder ikke automatisk udløses på Linux uden først at installere pakken <code class="dialogcode">xdotool</code>`,
-            `Kør venligst <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> for at installere denne afhængighed, hvilket vil sikre, at Steam skærmbilleder kan tages på denne enhed`
-        ],
         restartapp: "Genstart App",
         restartappsub: [
             `Hvis tingene ikke fungerer korrekt, skal du bruge denne mulighed for at lukke og genåbne appen`,
@@ -113,11 +109,12 @@ export const translations = {
                 off: "Fra",
                 overlay: "Screenshot med notifikationsoverlejring",
                 monitors: "Screenshot-kilde",
+                hdrmode: "HDR-tilstand",
                 ovpos: "Overlejringsposition",
                 ovmatch: "Match tilpasningsposition",
-                ovpath: "Screenshot-sti",
                 ovx: "Horisontal forskydning",
-                ovy: "Vertikal forskydning",                
+                ovy: "Vertikal forskydning",
+                ovpath: "Screenshot-sti",
                 ssdelay: "Screenshot-forsinkelse",
                 notifyimg: "Notifikationsbillede",
                 imgpath: "Billedsti"
@@ -134,6 +131,7 @@ export const translations = {
             title: "Tilgængelighed",
             content: {
                 noanim: "Deaktiver app-vinduesanimationer",
+                noupdatedialog: "Deaktivér opdateringsdialog",
                 nvda: "Aktivér NVDA-support",
                 tooltips: "Vis tooltips"
             }
@@ -341,12 +339,14 @@ export const translations = {
         steamss: "Tag et Steam-screenshot, når en præstation låses op",
         screenshots: "Vælg typen af yderligere medier, der skal oprettes, når en meddelelse vises",
         monitors: "Skærmen, der vil blive fanget, når skærmbilledet tages",
+        hdrmode: `Tag skærmbilleder ved hjælp af en metode, der er kompatibel med skærme, der bruger High Dynamic Range (HDR)`,
         ovpos: "Positionen for meddelelsesoverlejringen inden for skærmbilledet",
         ovmatch: "Match skærmpositionen indstillet i Tilpasning for denne meddelelsestype",
         ovpath: "Stien, hvor skærmbilleder genereret af denne indstilling vil blive gemt",
         ssdelay: "Tilføj en forsinkelse fra meddelelsen vises, til skærmbilledet tages",
         sspreview: "Vis en forhåndsvisning af, hvordan skærmbilledet vil se ud, når det gemmes",
         noanim: "Deaktiver alle vinduesanimationer og overgangseffekter i appen",
+        noupdatedialog: `Forhindrer automatisk visning og fokus af dialogen <span class="hl">Opdatering tilgængelig</span><br><br><span class="ttdesc">Dialogen kan stadig åbnes ved at klikke på opdateringsknappen, når den er tilgængelig</span>`,
         nvda: "Aktivér kopiering af præstationsoplysninger til udklipsholderen, når en præstation låses op, for at blive læst af skærmlæser-software som NVDA",
         tooltips: "Vis værktøjstip, når du holder markøren over visse brugergrænsefladeelementer",
         pollrate: `Indstil opdateringsintervallet for præstationsdata under spil<br><br><span class="ttdesc">Ydelsen kan stige/falde afhængigt af værdien eller systemets hardware. Højere værdier resulterer normalt i lavere systembelastning, men kan forsinke meddelelser</span>`,
@@ -468,3 +468,8 @@ export const translations = {
         }
     }
 }
+
+export const missingdepssub = (opt: string, dep: string) => [
+    `Det ser ud til, at du forsøger at aktivere indstillingen <span class="hl">${opt}</span>. På Linux-systemer kan skærmbilleder ikke aktiveres uden først at installere pakken <code class="dialogcode">${dep}</code>`,
+    `Kør venligst <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> for at installere denne afhængighed. Dette sikrer, at skærmbilleder kan tages på denne enhed`
+]

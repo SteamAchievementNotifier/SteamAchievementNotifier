@@ -300,7 +300,16 @@ export const sanhelper: SANHelper = {
         event.preventDefault()
         const elem = (event.target instanceof HTMLSpanElement ? event.target.parentElement!.querySelector(`input[type="checkbox"]`)! : event.target!) as HTMLInputElement
 
-        if (elem.id === "steamss" && sanhelper.depsinstalled("keypress")) return
+        if (process.platform === "linux") {
+            const deps = new Map<string,string>([
+                ["steamss","keypressrs"],
+                ["hdrmode","hdr"]
+            ])
+    
+            for (const [key,value] of deps) {
+                if (elem.id === key && sanhelper.depsinstalled(value)) return
+            }
+        }
 
         config.set((keypath ? `${keypath}.` : "") + elem.id,!config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean)
         
@@ -628,12 +637,10 @@ export const sanhelper: SANHelper = {
         })
     },
     presskey: (key: number) => setTimeout(() => pressKey(key),100),
-    depsinstalled: (lib: "keypress" | "hdr"): String => {
-        const installed = "All required dependencies installed"
-        if (process.platform !== "linux") return installed
+    depsinstalled: (lib: "keypressrs" | "hdr"): String => {
         const missinglib = depsInstalled(lib)
 
-        if (missinglib) {
+        if (process.platform === "linux" && missinglib) {
             (async () => {
                 const { dialog } = await import("./dialog")
                 const lang = (await import("./config")).sanconfig.get().store.lang
@@ -643,14 +650,14 @@ export const sanhelper: SANHelper = {
                     title: `${await language.get("missingdeps")}: ${missinglib}`,
                     type: "default",
                     icon: sanhelper.setfilepath("icon","error.svg"),
-                    sub: missingdepssub(await language.get(lib === "keypress" ? "steamss" : "hdrmode",["settings","media","content"]),missinglib)
+                    sub: missingdepssub(await language.get(lib === "keypressrs" ? "steamss" : "hdrmode",["settings","media","content"]),missinglib)
                 })
             })()
 
             return missinglib
         }
 
-        return installed
+        return ""
     },
     resetdebuginfo: async (debugwin?: Electron.BrowserWindow) => {
         const config = (await import("./config")).sanconfig.get()

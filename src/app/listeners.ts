@@ -904,13 +904,13 @@ export const listeners = {
             if (shouldreset) return config.set(`customisation.${type}.custompos`,{ x: 0, y: 0 })
 
             const { width: notifywidth, height: notifyheight } = sanhelper.getpresetbounds(`customisation.${type}.preset`)
-            const { width, height } = setnotifybounds({ width: notifywidth, height: notifyheight },type) as { width: number, height: number }
+            const { width, height } = setnotifybounds({ width: Math.round(notifywidth), height: Math.round(notifyheight) },type) as { width: number, height: number }
             const customisation = config.get(`customisation.${type}`) as Customisation
             
             poswin = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): Notification Position`,
-                width: width,
-                height: height,
+                width: Math.round(width),
+                height: Math.round(height),
                 x: config.get(`customisation.${type}.custompos.x`) as number,
                 y: config.get(`customisation.${type}.custompos.y`) as number,
                 show: false,
@@ -934,7 +934,7 @@ export const listeners = {
 
             poswin.loadFile(path.join(__root,"dist","app","poswin.html"))
             sanhelper.devmode && sanhelper.setdevtools(poswin)
-            poswin.on("ready-to-show", () => poswin!.webContents.send("poswin",type,{ width: notifywidth * (customisation.scale / 100), height: notifyheight * (customisation.scale / 100) }))
+            poswin.on("ready-to-show", () => poswin!.webContents.send("poswin",type,{ width: Math.round(notifywidth * (customisation.scale / 100)), height: Math.round(notifyheight * (customisation.scale / 100)) }))
 
             ipcMain.once("poswinready", () => poswin!.show())
             ipcMain.once("poswincoords", () => {

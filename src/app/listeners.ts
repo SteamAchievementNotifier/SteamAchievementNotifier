@@ -218,6 +218,9 @@ export const listeners = {
                     reject(`Existing "Worker" process destroyed.`)
                 }
 
+                const gameicon = path.join(sanhelper.temp,"gameicon.png")
+                fs.existsSync(gameicon) && fs.rmSync(gameicon,{ force: true })
+
                 resolve(`No running game or "Worker" processes found. Restarting "Worker" process...`)
             })
         }
@@ -324,8 +327,8 @@ export const listeners = {
                 const { width, height } = trackwin.getBounds()
                 const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
 
-                const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id: number,hqicon: string) => {
-                    trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id,hqicon)
+                const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id: number,hqicon: string,tempdir: string) => {
+                    trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id,hqicon,tempdir)
                     shownotify(trackwin,bounds)
     
                     return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
@@ -333,13 +336,14 @@ export const listeners = {
 
                 const steampath = sanhelper.steampath
                 const hqicon = sanhelper.gethqicon(appid)
+                const temp = sanhelper.temp
 
                 try {
                     worker && worker.webContents.send("steam3id")
-                    ipcMain.once("steam3id", (event,steam3id: number = 0) => sendtrackinfo(gamename,appid,steampath,steam3id,hqicon))
+                    ipcMain.once("steam3id", (event,steam3id: number = 0) => sendtrackinfo(gamename,appid,steampath,steam3id,hqicon,temp))
                 } catch (err) {
                     log.write("ERROR",`Error sending tracking info to Worker: ${err}`)
-                    sendtrackinfo(gamename,appid,steampath,0,hqicon)
+                    sendtrackinfo(gamename,appid,steampath,0,hqicon,temp)
                 }
             })
 
@@ -662,7 +666,8 @@ export const listeners = {
                 iswebview: iswebview,
                 steampath: sanhelper.steampath,
                 steam3id: notify.steam3id,
-                hqicon: sanhelper.gethqicon(appid)
+                hqicon: sanhelper.gethqicon(appid),
+                temp: sanhelper.temp
             } as Info)
 
             worker && worker.webContents.send("steam3id")
@@ -803,7 +808,8 @@ export const listeners = {
                         steampath: sanhelper.steampath,
                         skipaudio: isextwin || config.get("audiosrc") !== "notify",
                         steam3id: info.steam3id,
-                        hqicon: sanhelper.gethqicon(appid)
+                        hqicon: sanhelper.gethqicon(appid),
+                        temp: sanhelper.temp
                     } as Info
                 }
 
@@ -1158,7 +1164,9 @@ export const listeners = {
                     iswebview: ispreview ? "sspreview" : "ss",
                     steampath: sanhelper.steampath,
                     skipaudio: true,
-                    customfiles: config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined
+                    customfiles: config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
+                    hqicon: sanhelper.gethqicon(appid),
+                    temp: sanhelper.temp
                 } as Info)
 
                 ipcMain.once("dims", (event,dims: { width: number, height: number, offset: number }) => {
@@ -1294,8 +1302,6 @@ export const listeners = {
 
             event.reply("exporttheme",expdialog)
         })
-
-        screen.getAllDisplays().forEach(disp => console.log(disp))
 
         return
     }

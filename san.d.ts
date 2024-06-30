@@ -69,7 +69,7 @@ declare interface Config {
     debug: boolean,
     noiconcache: boolean,
     exclusions: number[],
-    logtype: "san" | "rust",
+    logtype: "san" | "rust" | "sanhelperrs",
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -216,7 +216,8 @@ declare interface Info {
     steampath: string | null,
     skipaudio?: boolean,
     customfiles?: string,
-    hqicon: string
+    hqicon: string,
+    temp: string
 }
 
 declare interface BuildNotifyInfo {

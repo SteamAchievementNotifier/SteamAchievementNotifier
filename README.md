@@ -142,6 +142,29 @@ Additionally, there are several in-app options to control various aspects of **a
 <h3 align="center">🏆 Happy Achievement Hunting! 🏆</h3>
 <hr>
 
+<h2 align="center" id="knownissues">Known Issues</h2>
+
+- ⚠ **"Now Tracking" notification spawns repeatedly**
+
+> ℹ When encountering this issue, try running **Steam Achievement Notifier (V1.9)** as Administrator:
+> 
+> - *Open the **Start Menu***
+> - *Type `Steam Achievement Notifier (V1.9)`*
+> - *Right-click*
+> - *Select **Run as Administrator***
+> 
+> If running as Administrator still does not resolve the issue, try enabling **Settings** > **Alt. Process Mode**
+
+- ⚠ **Achievement titles/descriptions are shown in English when Steam is set to use a different language**
+
+> ℹ Try manually specifying the **Language** setting for the current game:
+> 
+> - *Open **Steam** > **Library***
+> - *Right-click the game > Properties*
+> - *On the **General** tab (selected by default), select your desired language from the **Language** dropdown menu*
+> 
+> This may also be caused by [adding a game to the Library while Steam's language is set to **English**](https://github.com/ceifa/steamworks.js/issues/141#issuecomment-2168689532)
+
 <h2 align="center" id="credits">Credits</h2>
 
 **Steam Achievement Notifier** uses (*and thanks!*) the following projects:
@@ -155,4 +178,6 @@ Additionally, there are several in-app options to control various aspects of **a
 - [Tippy.js](https://atomiks.github.io/tippyjs/)
 - [jpeg-js](https://github.com/jpeg-js/jpeg-js)
 - [steam-game-path](https://github.com/osztenkurden/steam-game-path) by [osztenkurden](https://github.com/osztenkurden)
+- [vdf-rs](https://github.com/CosmicHorrorDev/vdf-rs) by [CosmicHorrorDev](https://github.com/CosmicHorrorDev)
 - Custom forks of [screenshots (xcap)](https://github.com/nashaofu/xcap)/[display-info](https://github.com/nashaofu/display-info) by [nashaofu](https://github.com/nashaofu)
+- [icojs](https://github.com/egy186/icojs) by [egy186](https://github.com/egy186)

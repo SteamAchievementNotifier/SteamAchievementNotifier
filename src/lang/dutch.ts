@@ -140,6 +140,7 @@ export const translations = {
             title: "Geavanceerd",
             content: {
                 pollrate: "Pollfrequentie",
+                initdelay: "Vertragingsbewaking",
                 releasedelay: "Uitgavevertraging",
                 maxretries: "Maximale Aantal Herpogingen",
                 debug: "Debugpaneel",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Schakel het kopiëren van prestatie-informatie naar het klembord in wanneer een prestatie wordt ontgrendeld, om te worden gelezen door schermlezer-software, zoals NVDA",
         tooltips: "Toon tooltips bij het zweven over bepaalde UI-elementen",
         pollrate: `Stel het update-interval in voor prestatiegegevens tijdens het spelen<br><br><span class="ttdesc">De prestaties kunnen toenemen/afnemen, afhankelijk van de waarde of de hardware van het systeem. Hogere waarden resulteren doorgaans in lagere systeembelasting, maar kunnen notificaties vertragen</span>`,
+        initdelay: `Stel de vertraging in tussen de detectie van de huidige <span class="hl">AppID</span> en wanneer het volgen van processen/prestaties begint<br><br><span class="ttdesc">Het verhogen van deze waarde kan scenario's voorkomen waarin Steam niet in staat is om het huidige spel te starten (doordat de app Steamworks initialiseert voordat het spel is gestart)</span><br><br><span class="ttdesc">Als alternatief kan het verhogen van deze waarde ook worden gebruikt om onjuiste detectie van pre-game launcher-processen te omzeilen</span>`,
         releasedelay: `Stel in hoelang het achtergrondproces moet wachten om opnieuw op te starten nadat het huidige spel is uitgebracht. Beïnvloedt zowel automatische procesbewaking als handmatig gekoppelde spellen.<br><br><span class="ttdesc">Biedt een langere tijdsperiode om Steamworks volledig vrij te geven van de app. Het verhogen van deze waarde kan ongebruikelijk gedrag voorkomen, zoals het volgen van een eerder gesloten spel</span>`,
         maxretries: `Stel het maximale aantal pogingen in om een lopend proces te koppelen aan een gedetecteerde AppID. Beïnvloedt zowel automatische procesbewaking als handmatig gekoppelde spellen.<br><br><span class="ttdesc">Pogingen tot koppeling worden één keer per seconde uitgevoerd. Als een lopend proces niet is gekoppeld aan de huidige AppID na dit aantal pogingen, wordt een ongeldig proces geretourneerd. In dergelijke gevallen moet het spel handmatig worden vrijgegeven via Systeemvak > Opties > Spel Vrijgeven</span>`,
         debug: "Open het Debugpaneel, dat gedetailleerde procesvolginformatie weergeeft",

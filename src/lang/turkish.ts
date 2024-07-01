@@ -140,6 +140,7 @@ export const translations = {
             title: "Gelişmiş",
             content: {
                 pollrate: "Anket Oranı",
+                initdelay: "İzleme Gecikmesi",
                 releasedelay: "Yayımlama Gecikmesi",
                 maxretries: "Maksimum Yeniden Deneme Sayısı",
                 debug: "Hata Ayıkla Paneli",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Bir başarı kilidini açtığında başarı bilgilerini panoya kopyalayarak, NVDA gibi ekran okuyucu yazılımlar tarafından okunmasını sağlayın",
         tooltips: "Belirli UI öğelerinin üzerine gelindiğinde ipuçlarını göster",
         pollrate: `Oyun sırasında başarı verileri için güncelleme aralığını ayarlayın<br><br><span class="ttdesc">Performans, değer veya sistem donanımına bağlı olarak artabilir/azalabilir. Daha yüksek değerler genellikle daha düşük sistem yüküne yol açar, ancak bildirimlerin gecikmesine neden olabilir</span>`,
+        initdelay: `Mevcut <span class="hl">AppID</span> tespiti ile işlem/başarı takibinin başlaması arasındaki gecikmeyi ayarlayın<br><br><span class="ttdesc">Bu değeri artırmak, Steam'in mevcut oyunu başlatamama senaryolarını önleyebilir (oyun başlatılmadan önce Steamworks uygulamasını başlatma nedeniyle)</span><br><br><span class="ttdesc">Alternatif olarak, bu değerin artırılması aynı zamanda oyun öncesi başlatıcı işlemlerin yanlış tespitini geçersiz kılma amacıyla da kullanılabilir</span>`,
         releasedelay: `Mevcut oyunun yayımlandıktan sonra arka plan işleminin ne kadar süre bekleyeceğini ayarlar. Hem otomatik işlem izleme hem de manuel olarak bağlanmış oyunları etkiler.<br><br><span class="ttdesc">Steamworks'in uygulamadan tamamen serbest bırakılması için daha uzun bir zaman aralığı sağlar. Bu değeri artırmak, önceki kapatılmış bir oyunun takibini engelleyebilecek anormal davranışları önleyebilir</span>`,
         maxretries: `Çalışan bir işlemi algılanan bir AppID'ye bağlama girişimlerinin maksimum sayısını ayarlar. Hem otomatik işlem izleme hem de manuel olarak bağlanmış oyunları etkiler.<br><br><span class="ttdesc">Bağlama denemeleri her saniye bir kez gerçekleştirilir. Bir çalışan işlem, bu denemelerin sayısından sonra geçerli AppID'ye bağlanmazsa, geçersiz bir işlem döndürülür. Bu durumlarda, oyunun Sistem Tepsisi > Ayarlar > Oyunu Serbest Bırak seçeneğiyle manuel olarak serbest bırakılması gerekir</span>`,
         debug: "Hata Ayıkla Panelini açın, bu panel işlem takip bilgilerini detaylı bir şekilde gösterir",

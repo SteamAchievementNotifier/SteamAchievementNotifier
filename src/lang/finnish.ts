@@ -140,6 +140,7 @@ export const translations = {
             title: "Edistynyt",
             content: {
                 pollrate: "Kyselytaajuus",
+                initdelay: "Seurannan viive",
                 releasedelay: "Julkaisuviive",
                 maxretries: "Maksimi Uudelleenyritysmäärä",
                 debug: "Vianetsintäpaneeli",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Kopioi saavutustiedot leikepöydälle, kun saavutus avataan, jotta ne voidaan lukea näytönlukijasovelluksella, kuten NVDA",
         tooltips: "Näytä työkaluvihjeet, kun hiiren kohdistin on tiettyjen käyttöliittymäelementtien päällä",
         pollrate: `Aseta päivitysväli saavutustietojen aikana pelattaessa<br><br><span class="ttdesc">Suorituskyky voi lisääntyä/vähentyä arvon tai järjestelmän laitteiston mukaan. Korkeammat arvot johtavat yleensä pienempään järjestelmän kuormitukseen, mutta voivat viivästyttää ilmoituksia</span>`,
+        initdelay: `Aseta viive nykyisen <span class="hl">AppID</span>-tunnuksen havaitsemisen ja prosessin/saavutusten seurannan aloittamisen välillä<br><br><span class="ttdesc">Tämän arvon suurentaminen voi estää tilanteita, joissa Steam ei pysty käynnistämään nykyistä peliä (koska sovellus käynnistää Steamworksin ennen kuin peli on käynnistynyt)</span><br><br><span class="ttdesc">Vaihtoehtoisesti tämän arvon suurentamista voidaan myös käyttää ohittamaan esipelin käynnistysprosessien virheellinen havaitseminen</span>`,
         releasedelay: `Aseta kuinka kauan taustaprosessin on odotettava uudelleenkäynnistymistä sen jälkeen, kun nykyinen peli on julkaistu. Vaikuttaa sekä automaattiseen prosessin seurantaan että manuaalisesti linkitettyihin peleihin.<br><br><span class="ttdesc">Mahdollistaa pidemmän aikajakson Steamworksin täydelliseen vapauttamiseen sovelluksesta. Tämän arvon lisääminen voi estää epätavallista käyttäytymistä, kuten aiemmin suljetun pelin seurannan</span>`,
         maxretries: `Aseta enimmäismäärä uudelleenyrittämisiä linkittää käynnissä oleva prosessi havaittuun AppID:hun. Vaikuttaa sekä automaattiseen prosessin seurantaan että manuaalisesti linkitettyihin peleihin.<br><br><span class="ttdesc">Yrityksiä linkittää suoritetaan kerran sekunnissa. Jos käynnissä oleva prosessi ei ole linkitetty nykyiseen AppID:hun tämän yritysmäärän jälkeen, palautetaan virheellinen prosessi. Tällaisissa tapauksissa peli on vapautettava manuaalisesti Järjestelmälokero > Asetukset > Vapauta peli -välilehdellä</span>`,
         debug: "Avaa Vianetsintäpaneeli, joka näyttää yksityiskohtaiset prosessiseurantatiedot",

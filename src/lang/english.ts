@@ -140,6 +140,7 @@ export const translations = {
             title: "Advanced",
             content: {
                 pollrate: "Poll Rate",
+                initdelay: "Tracking Delay",
                 releasedelay: "Release Delay",
                 maxretries: "Max Process Retries",
                 debug: "Debug Panel",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Enable copying achievement information to the clipboard when an achievement is unlocked, in order to be read by screen-reader software, such as NVDA",
         tooltips: "Display tooltips when hovering over certain UI elements",
         pollrate: `Set the update interval for achievement data during gameplay<br><br><span class="ttdesc">Performance may increase/decrease depending on the value or system hardware. Higher values typically result in lower system load, but may cause notifications to be more delayed</span>`,
+        initdelay: `Set the delay between detection of the current <span class="hl">AppID</span> and when process/achievement tracking starts<br><br><span class="ttdesc">Increasing this value can prevent scenarios where Steam is unable to launch the current game (due to the app initialising Steamworks before the game has launched)</span><br><br><span class="ttdesc">Alternatively, increasing this value can also be used to bypass incorrect detection of pre-game launcher processes</span>`,
         releasedelay: `Set how long the background Worker process waits to restart after the current game has been released. Affects both automatic process tracking and manually linked games<br><br><span class="ttdesc">Allows a longer timeframe for Steamworks to be fully released from the app. Increasing this value can prevent unusual behaviour, such as tracking a previously closed game</span>`,
         maxretries: `Set the maximum number of retries to link a running process to a detected AppID. Affects both automatic process tracking and manually linked games<br><br><span class="ttdesc">Retries are attempted once every second. If a running process is not linked to the current AppID after this number of retries, an invalid process will be returned. In such cases, the game will need to be manually released via System Tray > Options > Release Game</span>`,
         debug: "Open the Debug Panel, which displays in-depth Process Tracking info",

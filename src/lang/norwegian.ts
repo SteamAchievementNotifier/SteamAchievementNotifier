@@ -140,6 +140,7 @@ export const translations = {
             title: "Avansert",
             content: {
                 pollrate: "Avstemningsfrekvens",
+                initdelay: "Sporing forsinkelse",
                 releasedelay: "Utgivelsesforsinkelse",
                 maxretries: "Maksimalt antall forsøk på prosessering",
                 debug: "Feilsøkingspanel",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Aktiver kopiering av prestasjonsinformasjon til utklippstavlen når en prestasjon blir låst opp, for å bli lest av skjermleserprogramvare, for eksempel NVDA",
         tooltips: "Vis verktøytips når du holder musepekeren over visse brukergrensesnittelementer",
         pollrate: `Sett oppdateringsintervallet for prestasjonsdata under spill<br><br><span class="ttdesc">Ytelsen kan øke/redusere avhengig av verdien eller systemets maskinvare. Høyere verdier fører vanligvis til lavere systembelastning, men kan forsinke varsler</span>`,
+        initdelay: `Sett forsinkelsen mellom deteksjon av gjeldende <span class="hl">AppID</span> og når prosess-/prestasjesporing starter<br><br><span class="ttdesc">Øke denne verdien kan forhindre scenarier der Steam ikke klarer å starte gjeldende spill (på grunn av initialisering av applikasjonen i Steamworks før spillet har startet)</span><br><br><span class="ttdesc">Alternativt kan økning av denne verdien også brukes til å omgå feilaktig deteksjon av forhåndslanseringsprosesser</span>`,
         releasedelay: `Angir hvor lenge bakgrunnsprosessen skal vente med å starte på nytt etter at det nåværende spillet er utgitt. Påvirker både automatisk prosessovervåking og manuelt tilknyttede spill.<br><br><span class="ttdesc">Gir en lengre tidsramme for å frigjøre Steamworks fullstendig fra appen. Å øke denne verdien kan forhindre unormal atferd, som sporing av et tidligere lukket spill</span>`,
         maxretries: `Angir det maksimale antallet forsøk på å koble en kjørende prosess til en oppdaget AppID. Påvirker både automatisk prosessovervåking og manuelt tilknyttede spill.<br><br><span class="ttdesc">Koblingsforsøk utføres én gang per sekund. Hvis en kjørende prosess ikke er koblet til gjeldende AppID etter dette antall forsøk, returneres en ugyldig prosess. I slike tilfeller må spillet frigjøres manuelt via systemstatusfeltet > Alternativer > Slipp spill</span>`,
         debug: "Åpne feilsøkingspanelet, som viser detaljert prosessporingsinformasjon",

@@ -140,6 +140,7 @@ export const translations = {
             title: "Nâng cao",
             content: {
                 pollrate: "Tần suất thăm dò",
+                initdelay: "Độ trễ theo dõi",
                 releasedelay: "Độ trễ phát hành",
                 maxretries: "Số lần thử lại tối đa",
                 debug: "Bảng Gỡ lỗi",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Bật sao chép thông tin thành tựu vào clipboard khi mở khóa thành tựu, để đọc bằng phần mềm đọc màn hình, chẳng hạn như NVDA",
         tooltips: "Hiển thị gợi ý khi di chuột qua các yếu tố giao diện người dùng cụ thể",
         pollrate: `Đặt khoảng thời gian cập nhật cho dữ liệu thành tựu trong khi chơi game<br><br><span class="ttdesc">Hiệu suất có thể tăng/giảm tùy thuộc vào giá trị hoặc phần cứng của hệ thống. Các giá trị cao thường dẫn đến tải hệ thống thấp hơn, nhưng có thể gây trễ trong thông báo</span>`,
+        initdelay: `Đặt thời gian chờ giữa khi phát hiện <span class="hl">AppID</span> hiện tại và khi bắt đầu theo dõi quy trình/thành tựu<br><br><span class="ttdesc">Tăng giá trị này có thể ngăn ngừa những tình huống khi Steam không thể khởi động trò chơi hiện tại (do việc khởi tạo ứng dụng trong Steamworks trước khi trò chơi được khởi động)</span><br><br><span class="ttdesc">Hoặc có thể sử dụng giá trị này để tránh phát hiện không chính xác các quy trình khởi động trước trò chơi</span>`,
         releasedelay: `Thiết lập thời gian chờ cho quá trình nền để khởi động lại sau khi trò chơi hiện tại đã được phát hành. Ảnh hưởng đến cả việc theo dõi quá trình tự động và các trò chơi được liên kết thủ công.<br><br><span class="ttdesc">Cung cấp một khoảng thời gian lâu hơn để hoàn toàn giải phóng Steamworks khỏi ứng dụng. Tăng giá trị này có thể ngăn ngừa hành vi bất thường, chẳng hạn như theo dõi một trò chơi trước đó đã đóng</span>`,
         maxretries: `Thiết lập số lần thử tối đa để liên kết một quá trình đang chạy với một AppID đã phát hiện. Ảnh hưởng đến cả việc theo dõi quá trình tự động và các trò chơi được liên kết thủ công.<br><br><span class="ttdesc">Các thử nghiệm liên kết được thực hiện mỗi giây một lần. Nếu một quá trình đang chạy không được liên kết với AppID hiện tại sau số lần thử này, một quá trình không hợp lệ sẽ được trả về. Trong trường hợp như vậy, trò chơi sẽ cần được phát hành thủ công thông qua Khay Hệ thống > Tùy chọn > Phát hành Trò chơi</span>`,
         debug: "Mở Bảng Gỡ lỗi, hiển thị thông tin theo dõi quy trình chi tiết",

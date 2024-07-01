@@ -140,6 +140,7 @@ export const translations = {
             title: "Pokročilé",
             content: {
                 pollrate: "Frekvence dotazů",
+                initdelay: "Zpoždění sledování",
                 releasedelay: "Zpoždění Vydání",
                 maxretries: "Maximální počet opakování procesu",
                 debug: "Panel Ladění",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Povolit kopírování informací o achievementu do schránky při odemknutí achievementu, aby je bylo možné číst pomocí čtečky obrazovky, například NVDA",
         tooltips: "Zobrazit popisky při najetí myší na určité prvky uživatelského rozhraní",
         pollrate: `Nastavit interval aktualizace dat o úspěších během hry<br><br><span class="ttdesc">Výkon může stoupat/klesat v závislosti na hodnotě nebo hardwarových zdrojích systému. Vyšší hodnoty obvykle znamenají nižší zátěž systému, ale mohou způsobit zpoždění upozornění</span>`,
+        initdelay: `Nastavte zpoždění mezi detekcí aktuálního <span class="hl">AppID</span> a zahájením sledování procesů/úspěchů<br><br><span class="ttdesc">Zvýšení této hodnoty může zabránit scénářům, kdy Steam není schopen spustit aktuální hru (kvůli inicializaci aplikace ve Steamworks před spuštěním hry)</span><br><br><span class="ttdesc">Alternativně lze zvýšení této hodnoty také použít k obejití nesprávné detekce procesů spouštění před hrou</span>`,
         releasedelay: `Nastavuje, jak dlouho bude proces pozadí čekat na restart po uvolnění aktuální hry. Ovlivňuje jak automatické sledování procesu, tak ručně propojené hry.<br><br><span class="ttdesc">Umožňuje delší časový rámec pro úplné uvolnění Steamworks z aplikace. Zvýšení této hodnoty může zabránit neobvyklému chování, jako je sledování dříve uzavřené hry</span>`,
         maxretries: `Nastavuje maximální počet pokusů o propojení běžícího procesu s detekovaným AppID. Ovlivňuje jak automatické sledování procesu, tak ručně propojené hry.<br><br><span class="ttdesc">Pokusy o propojení se provádějí každou sekundu. Pokud běžící proces není po tomto počtu pokusů propojen s aktuálním AppID, bude vrácen neplatný proces. V takových případech bude hra muset být uvolněna ručně pomocí Oznamovací oblasti systému > Možnosti > Uvolnit Hru</span>`,
         debug: "Otevřete Panel Ladění, který zobrazuje podrobné informace o sledování procesů",

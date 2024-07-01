@@ -140,7 +140,8 @@ export const translations = {
             title: "Avanzate",
             content: {
                 pollrate: "Frequenza di interrogazione",
-                releasedelay: "Ritardo di Rilascio",
+                initdelay: "Ritardo di tracciamento",
+                releasedelay: "Ritardo di rilascio",
                 maxretries: "Numero massimo di nuovi tentativi",
                 debug: "Pannello di Debug",
                 userust: "Modalità di Elaborazione Alternativa",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Abilita la copia delle informazioni sugli obiettivi negli appunti quando viene sbloccato un obiettivo, in modo da poter essere letto da software di lettura dello schermo, come NVDA",
         tooltips: "Mostra le descrizioni comandi quando si passa il mouse su determinati elementi dell'interfaccia utente",
         pollrate: `Imposta l'intervallo di aggiornamento per i dati sugli obiettivi durante il gioco<br><br><span class="ttdesc">Le prestazioni possono aumentare/diminuire a seconda del valore o dell'hardware del sistema. Valori più alti di solito comportano un carico di sistema inferiore, ma possono ritardare le notifiche</span>`,
+        initdelay: `Imposta il ritardo tra il rilevamento dell'attuale <span class="hl">AppID</span> e l'avvio del tracciamento dei processi/conquiste<br><br><span class="ttdesc">Aumentando questo valore è possibile evitare scenari in cui Steam non riesce a avviare il gioco corrente (a causa dell'inizializzazione dell'applicazione in Steamworks prima del lancio del gioco)</span><br><br><span class="ttdesc">In alternativa, aumentare questo valore può anche essere utilizzato per evitare la rilevazione errata dei processi di avvio pre-gioco</span>`,
         releasedelay: `Imposta quanto tempo il processo in background deve attendere per riavviarsi dopo che il gioco attuale è stato rilasciato. Influenza sia il monitoraggio automatico dei processi che i giochi collegati manualmente.<br><br><span class="ttdesc">Consente un periodo più lungo per il completo rilascio di Steamworks dall'applicazione. Aumentare questo valore può prevenire comportamenti insoliti, come il tracciamento di un gioco precedentemente chiuso</span>`,
         maxretries: `Imposta il numero massimo di tentativi per collegare un processo in esecuzione a un AppID rilevato. Influenza sia il monitoraggio automatico dei processi che i giochi collegati manualmente.<br><br><span class="ttdesc">I tentativi di collegamento vengono effettuati una volta al secondo. Se un processo in esecuzione non è collegato all'AppID corrente dopo questo numero di tentativi, verrà restituito un processo non valido. In tali casi, il gioco dovrà essere rilasciato manualmente tramite Tray di Sistema > Opzioni > Rilascia Gioco</span>`,
         debug: "Apri il Pannello di Debug, che mostra informazioni dettagliate sul tracciamento dei processi",

@@ -140,6 +140,7 @@ export const translations = {
             title: "高级",
             content: {
                 pollrate: "轮询速率",
+                initdelay: "跟踪延迟",
                 releasedelay: "发布延迟",
                 maxretries: "最大重试次数",
                 debug: "调试面板",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "在解锁成就时将成就信息复制到剪贴板，以供屏幕阅读器软件（如NVDA）阅读",
         tooltips: "在悬停在某些UI元素上时显示工具提示",
         pollrate: `设置游戏过程中成就数据的更新间隔<br><br><span class="ttdesc">性能可能会因系统值或硬件而增加/减少。更高的值通常会导致较低的系统负载，但可能会导致通知延迟</span>`,
+        initdelay: `设置当前 <span class="hl">AppID</span> 检测和进程/成就跟踪开始之间的延迟<br><br><span class="ttdesc">增加此值可以避免 Steam 无法启动当前游戏的情况（因为在游戏启动之前 Steamworks 初始化应用程序）</span><br><br><span class="ttdesc">另外，增加此值也可以用于绕过游戏前启动进程错误检测</span>`,
         releasedelay: `设置当前游戏发布后，后台进程等待重新启动的时间。影响自动进程跟踪和手动链接的游戏。<br><br><span class="ttdesc">为完全释放 Steamworks 应用提供更长的时间间隔。增加此值可防止异常行为，如跟踪先前关闭的游戏</span>`,
         maxretries: `设置将运行中的进程链接到检测到的 AppID 的最大重试次数。影响自动进程跟踪和手动链接的游戏。<br><br><span class="ttdesc">链接重试每秒尝试一次。如果运行中的进程在此重试次数后未链接到当前 AppID，则将返回无效进程。在这种情况下，游戏需要通过系统托盘 > 选项 > 释放游戏来手动释放</span>`,
         debug: "打开调试面板，显示详细的进程跟踪信息",

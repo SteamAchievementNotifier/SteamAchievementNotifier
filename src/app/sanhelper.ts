@@ -429,6 +429,7 @@ export const sanhelper: SANHelper = {
             ["rarity","%"],
             ["nowtrackingscale","%"],
             ["pollrate","ms"],
+            ["initdelay","s"],
             ["releasedelay","s"]
         ])
 

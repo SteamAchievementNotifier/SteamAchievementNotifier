@@ -76,6 +76,7 @@ export const sanconfig = {
             notifydebug: false,
             pollrate: 250,
             maxretries: 10,
+            initdelay: 0,
             releasedelay: 0,
             width: target.width,
             height: target.height,

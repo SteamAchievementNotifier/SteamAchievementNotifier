@@ -140,6 +140,7 @@ export const translations = {
             title: "進階",
             content: {
                 pollrate: "輪詢率",
+                initdelay: "追踪延迟",
                 releasedelay: "發布延遲",
                 maxretries: "最大重試次數",
                 debug: "除錯面板",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "解鎖成就時將成就信息複製到剪貼板，以便屏幕閱讀器軟體（如 NVDA）讀取",
         tooltips: "在應用程式的某些 UI 元素上懸停時顯示工具提示",
         pollrate: `設定遊戲中成就資料的更新間隔<br><br><span class="ttdesc">效能可能會因系統值或硬體而增加/減少。較高的值通常會導致較低的系統負載，但可能會造成通知延遲</span>`,
+        initdelay: `設定當前 <span class="hl">AppID</span> 檢測與進程/成就追踪開始之間的延遲<br><br><span class="ttdesc">增加此值可以避免 Steam 無法啟動當前遊戲的情況（因為在遊戲啟動之前 Steamworks 初始化應用程序）</span><br><br><span class="ttdesc">另外，增加此值也可以用於繞過遊戲前啟動進程錯誤檢測</span>`,
         releasedelay: `設定背景處理程序在當前遊戲發布後重新啟動前等待的時間。影響自動處理追蹤和手動連結的遊戲。<br><br><span class="ttdesc">提供更長的時間間隔，完全從應用中釋放 Steamworks。增加此值可防止異常行為，例如追蹤先前關閉的遊戲</span>`,
         maxretries: `設定將運行中的處理程序連結到檢測到的 AppID 的最大重試次數。影響自動處理追蹤和手動連結的遊戲。<br><br><span class="ttdesc">連結嘗試每秒執行一次。如果運行中的處理程序在此重試次數後未連結到當前 AppID，將返回無效的處理程序。在這種情況下，需要通過系統托盤 > 選項 > 釋放遊戲來手動釋放遊戲</span>`,
         debug: "打開除錯面板，顯示詳細的處理追蹤資訊",

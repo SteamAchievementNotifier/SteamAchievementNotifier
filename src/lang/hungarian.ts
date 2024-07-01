@@ -140,6 +140,7 @@ export const translations = {
             title: "Haladó",
             content: {
                 pollrate: "Szavazási ráta",
+                initdelay: "Követési késleltetés",
                 releasedelay: "Kiadási késleltetés",
                 maxretries: "Maximális újrapróbálkozások száma",
                 debug: "Hibakereső panel",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Engedélyezze az eredmény információinak másolását a vágólapra, amikor egy eredmény feloldódik, hogy képernyőolvasó szoftverek, például az NVDA által olvasható legyen",
         tooltips: "Eszközleírások megjelenítése bizonyos felhasználói felületi elemek fölé húzva",
         pollrate: `Állítsa be a teljesítményadatok frissítési intervallumát játék közben<br><br><span class="ttdesc">A teljesítmény növekedhet/csökkenhet az érték vagy a rendszer hardverének függvényében. A magasabb értékek általában alacsonyabb rendszerterhelést eredményeznek, de késleltethetik az értesítéseket</span>`,
+        initdelay: `Állítsa be a késleltetést a jelenlegi <span class="hl">AppID</span> érzékelése és a folyamat-/teljesítménykövetés kezdete között<br><br><span class="ttdesc">Ennek az értéknek a növelése megakadályozhatja azokat a helyzeteket, amikor a Steam nem tudja elindítani a jelenlegi játékot (a Steamworks alkalmazás inicializálása miatt, mielőtt a játék elindulna)</span><br><br><span class="ttdesc">Alternatívaként ennek az értéknek a növelése használható arra is, hogy kijavítsuk a játék előtti indítófolyamatok hibás érzékelését</span>`,
         releasedelay: `Állítsa be, hogy a háttér folyamat mennyi ideig várjon a jelenlegi játék kiadása után a újraindításra. Mind az automatikus folyamatkövetést, mind a kézi kapcsolt játékokat érinti.<br><br><span class="ttdesc">Lehetőséget biztosít a Steamworks teljes felszabadítására az alkalmazástól. Ennek az értéknek a növelése megakadályozhatja az szokatlan viselkedést, mint például egy korábban bezárt játék követését</span>`,
         maxretries: `Állítsa be a maximális újrapróbálkozások számát egy futó folyamat kapcsolásához egy érzékelt AppID-hoz. Mind az automatikus folyamatkövetést, mind a kézi kapcsolt játékokat érinti.<br><br><span class="ttdesc">A kapcsolódási kísérleteket másodpercenként egyszer végzik el. Ha egy futó folyamat nem kapcsolódik az aktuális AppID-hez ezen kísérletek számát követően, egy érvénytelen folyamatot ad vissza. Ilyen esetekben a játékot kézzel ki kell adni a Rendszertálca > Beállítások > Játék kiadása menüponton keresztül</span>`,
         debug: "Nyissa meg a Hibakereső panelt, amely részletes folyamatkövetési információkat jelenít meg",

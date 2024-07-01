@@ -140,6 +140,7 @@ export const translations = {
             title: "Zaawansowane",
             content: {
                 pollrate: "Częstotliwość odpytywania",
+                initdelay: "Opóźnienie śledzenia",
                 releasedelay: "Opóźnienie Wydania",
                 maxretries: "Maksymalna liczba prób przetwarzania",
                 debug: "Panel debugowania",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Włącz kopiowanie informacji o osiągnięciu do schowka po odblokowaniu osiągnięcia, aby można je było odczytać za pomocą oprogramowania czytnika ekranu, takiego jak NVDA",
         tooltips: "Wyświetl podpowiedzi po najechaniu na określone elementy interfejsu użytkownika",
         pollrate: `Ustaw interwał aktualizacji danych o osiągnięciach podczas gry<br><br><span class="ttdesc">Wydajność może wzrosnąć/zmaleć w zależności od wartości lub sprzętu systemowego. Wyższe wartości zazwyczaj prowadzą do mniejszego obciążenia systemu, ale mogą opóźniać powiadomienia</span>`,
+        initdelay: `Ustaw opóźnienie między wykryciem bieżącego <span class="hl">AppID</span> a rozpoczęciem śledzenia procesów/osiągnięć<br><br><span class="ttdesc">Zwiększenie tej wartości może zapobiec sytuacjom, w których Steam nie może uruchomić aktualnej gry (ze względu na inicjalizację aplikacji w Steamworks przed uruchomieniem gry)</span><br><br><span class="ttdesc">Alternatywnie, zwiększenie tej wartości może być również używane do pominięcia nieprawidłowego wykrywania procesów przed uruchomieniem gry</span>`,
         releasedelay: `Ustawia, jak długo proces w tle ma czekać na ponowne uruchomienie po wydaniu obecnej gry. Wpływa zarówno na automatyczne śledzenie procesów, jak i gry ręcznie połączone.<br><br><span class="ttdesc">Umożliwia dłuższy okres na całkowite uwolnienie Steamworks od aplikacji. Zwiększenie tej wartości może zapobiec nietypowemu zachowaniu, takiemu jak śledzenie wcześniej zamkniętej gry</span>`,
         maxretries: `Ustawia maksymalną liczbę prób połączenia działającego procesu z wykrytym AppID. Wpływa zarówno na automatyczne śledzenie procesów, jak i gry ręcznie połączone.<br><br><span class="ttdesc">Próby połączenia są podejmowane raz na sekundę. Jeśli działający proces nie jest połączony z bieżącym AppID po tej liczbie prób, zostanie zwrócony błędny proces. W takich przypadkach grę należy uwolnić ręcznie za pomocą zasobnika systemowego > Opcje > Zwolnij grę</span>`,
         debug: "Otwórz panel debugowania, który wyświetla szczegółowe informacje o śledzeniu procesów",

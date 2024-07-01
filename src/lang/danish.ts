@@ -140,6 +140,7 @@ export const translations = {
             title: "Avanceret",
             content: {
                 pollrate: "Afstemningshastighed",
+                initdelay: "Forsinkelse på sporing",
                 releasedelay: "Udgivelsesforsinkelse",
                 maxretries: "Maksimalt antal genforsøg",
                 debug: "Fejlfindingspanel",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Aktivér kopiering af præstationsoplysninger til udklipsholderen, når en præstation låses op, for at blive læst af skærmlæser-software som NVDA",
         tooltips: "Vis værktøjstip, når du holder markøren over visse brugergrænsefladeelementer",
         pollrate: `Indstil opdateringsintervallet for præstationsdata under spil<br><br><span class="ttdesc">Ydelsen kan stige/falde afhængigt af værdien eller systemets hardware. Højere værdier resulterer normalt i lavere systembelastning, men kan forsinke meddelelser</span>`,
+        initdelay: `Indstil forsinkelsen mellem detektion af det aktuelle <span class="hl">AppID</span> og når sporing af proces/bedrift starter<br><br><span class="ttdesc">Øgning af denne værdi kan forhindre scenarier, hvor Steam ikke kan starte det aktuelle spil (på grund af at appen initialiserer Steamworks, før spillet er startet)</span><br><br><span class="ttdesc">Alternativt kan øgning af denne værdi også bruges til at omgå forkert detektion af processer før spillet</span>`,
         releasedelay: `Angiv, hvor længe baggrundprocessen venter med at genstarte efter den nuværende spil er udgivet. Påvirker både automatisk procesovervågning og manuelt tilknyttede spil.<br><br><span class="ttdesc">Tillader en længere tidsramme for at frigive Steamworks fuldstændigt fra appen. At øge denne værdi kan forhindre unormal adfærd, såsom sporing af et tidligere lukket spil</span>`,
         maxretries: `Angiv det maksimale antal forsøg på at linke en kørende proces til en påvist AppID. Påvirker både automatisk procesovervågning og manuelt tilknyttede spil.<br><br><span class="ttdesc">Forsøg på link gennemføres én gang hvert sekund. Hvis en kørende proces ikke er linket til den aktuelle AppID efter dette antal forsøg, returneres en ugyldig proces. I sådanne tilfælde skal spillet frigives manuelt via Systembakke > Indstillinger > Frigiv Spil</span>`,
         debug: "Åbn fejlfindingspanelet, som viser detaljerede oplysninger om procesovervågning",

@@ -140,6 +140,7 @@ export const translations = {
             title: "Erweitert",
             content: {
                 pollrate: "Abfrageintervall",
+                initdelay: "Verzögerungsverfolgung",
                 releasedelay: "Veröffentlichungsverzögerung",
                 maxretries: "Maximale Wiederholungsversuche",
                 debug: "Debug-Panel",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Aktivieren Sie das Kopieren von Erfolgsinformationen in die Zwischenablage, wenn ein Erfolg freigeschaltet wird, um von Bildschirmleseprogrammen wie NVDA gelesen zu werden",
         tooltips: "Zeigen Sie Tooltips an, wenn Sie über bestimmte UI-Elemente schweben",
         pollrate: `Legen Sie das Aktualisierungsintervall für Erfolgsdaten während des Spiels fest<br><br><span class="ttdesc">Die Leistung kann je nach Wert oder Systemhardware steigen/abfallen. Höhere Werte führen normalerweise zu einer geringeren Systemlast, können aber auch zu einer stärkeren Verzögerung bei Benachrichtigungen führen</span>`,
+        initdelay: `Legen Sie die Verzögerung zwischen der Erkennung der aktuellen <span class="hl">AppID</span> und dem Beginn der Prozess-/Erfolgsverfolgung fest<br><br><span class="ttdesc">Durch Erhöhen dieses Werts können Szenarien vermieden werden, in denen Steam das aktuelle Spiel nicht starten kann (aufgrund der Initialisierung der Anwendung in Steamworks, bevor das Spiel gestartet wurde)</span><br><br><span class="ttdesc">Alternativ kann das Erhöhen dieses Werts auch verwendet werden, um eine falsche Erkennung von Vor-Spielstart-Prozessen zu umgehen</span>`,
         releasedelay: `Legt fest, wie lange der Hintergrundprozess warten soll, um nach der Veröffentlichung des aktuellen Spiels neu zu starten. Beeinflusst sowohl die automatische Prozessüberwachung als auch manuell verknüpfte Spiele.<br><br><span class="ttdesc">Ermöglicht einen längeren Zeitrahmen, um Steamworks vollständig von der App freizugeben. Eine Erhöhung dieses Werts kann ungewöhnliches Verhalten verhindern, wie z.B. das Verfolgen eines zuvor geschlossenen Spiels</span>`,
         maxretries: `Legt die maximale Anzahl von Versuchen fest, um einen laufenden Prozess mit einer erkannten AppID zu verknüpfen. Beeinflusst sowohl die automatische Prozessüberwachung als auch manuell verknüpfte Spiele.<br><br><span class="ttdesc">Verbindungsversuche werden einmal pro Sekunde durchgeführt. Wenn ein laufender Prozess nach dieser Anzahl von Versuchen nicht mit der aktuellen AppID verknüpft ist, wird ein ungültiger Prozess zurückgegeben. In solchen Fällen muss das Spiel manuell über das System-Tray > Optionen > Spiel freigeben freigegeben werden</span>`,
         debug: "Öffnen Sie das Debug-Panel, das detaillierte Prozessverfolgungsinformationen anzeigt",

@@ -140,6 +140,7 @@ export const translations = {
             title: "Avancé",
             content: {
                 pollrate: "Taux de Sondage",
+                initdelay: "Délai de Suivi",
                 releasedelay: "Délai de Sortie",
                 maxretries: "Nombre maximal de tentatives de traitement",
                 debug: "Panneau de débogage",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Active la copie des informations de succès dans le presse-papiers lorsqu'un succès est déverrouillé, afin d'être lu par un logiciel de lecteur d'écran, tel que NVDA",
         tooltips: "Affiche des info-bulles lors du survol de certains éléments de l'interface utilisateur",
         pollrate: `Définir l'intervalle de mise à jour des données de réalisation pendant le jeu<br><br><span class="ttdesc">Les performances peuvent augmenter/diminuer en fonction de la valeur ou du matériel du système. Les valeurs plus élevées entraînent généralement une charge système plus faible, mais peuvent retarder les notifications</span>`,
+        initdelay: `Définissez le délai entre la détection de l'<span class="hl">AppID</span> actuel et le début du suivi des processus/réalisations<br><br><span class="ttdesc">Augmenter cette valeur peut empêcher des scénarios où Steam ne peut pas lancer le jeu actuel (en raison de l'initialisation de l'application dans Steamworks avant le lancement du jeu)</span><br><br><span class="ttdesc">Alternativement, augmenter cette valeur peut également être utilisé pour contourner la détection incorrecte des processus de pré-lancement du jeu</span>`,
         releasedelay: `Définit pendant combien de temps le processus d'arrière-plan attend de redémarrer après que le jeu actuel a été publié. Affecte à la fois le suivi automatique des processus et les jeux liés manuellement.<br><br><span class="ttdesc">Permet une période plus longue pour que Steamworks soit entièrement libéré de l'application. Augmenter cette valeur peut prévenir les comportements inhabituels, tels que le suivi d'un jeu précédemment fermé</span>`,
         maxretries: `Définit le nombre maximal de tentatives pour lier un processus en cours à un AppID détecté. Affecte à la fois le suivi automatique des processus et les jeux liés manuellement.<br><br><span class="ttdesc">Les tentatives de liaison sont effectuées une fois par seconde. Si un processus en cours n'est pas lié à l'AppID actuel après ce nombre de tentatives, un processus non valide sera renvoyé. Dans de tels cas, le jeu devra être libéré manuellement via la zone de notification système > Options > Libérer le Jeu</span>`,
         debug: "Ouvrez le panneau de débogage, qui affiche des informations détaillées de suivi des processus",

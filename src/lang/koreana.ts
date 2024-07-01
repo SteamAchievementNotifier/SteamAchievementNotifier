@@ -140,6 +140,7 @@ export const translations = {
             title: "고급 설정",
             content: {
                 pollrate: "폴링 속도",
+                initdelay: "추적 지연",
                 releasedelay: "릴리스 지연",
                 maxretries: "최대 재시도 횟수",
                 debug: "디버그 패널",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "업적이 잠금 해제될 때 클립보드로 업적 정보 복사하여 NVDA와 같은 스크린 리더 소프트웨어에서 읽을 수 있도록 활성화",
         tooltips: "특정 UI 요소 위에 마우스를 올렸을 때 도구 설명 표시",
         pollrate: `게임 중 성취 데이터의 업데이트 간격을 설정합니다<br><br><span class="ttdesc">값이나 시스템 하드웨어에 따라 성능이 증가하거나 감소할 수 있습니다. 일반적으로 높은 값은 시스템 부하를 줄이지만 알림이 지연될 수 있습니다</span>`,
+        initdelay: `현재 <span class="hl">AppID</span> 감지와 프로세스/성취 추적 시작 사이의 지연을 설정합니다<br><br><span class="ttdesc">이 값을 증가시키면 Steam이 현재 게임을 시작할 수 없는 시나리오를 방지할 수 있습니다 (게임이 시작되기 전에 Steamworks가 애플리케이션을 초기화하는 경우)</span><br><br><span class="ttdesc">또한 이 값을 증가시켜 게임 전 시작 프로세스의 잘못된 감지를 우회하는 데 사용할 수도 있습니다</span>`,
         releasedelay: `현재 게임이 출시된 후 백그라운드 프로세스가 다시 시작하기까지 대기하는 시간을 설정합니다. 자동 프로세스 추적 및 수동으로 연결된 게임에 모두 영향을 줍니다.<br><br><span class="ttdesc">앱에서 Steamworks를 완전히 해제하는 데 더 긴 시간 프레임을 제공합니다. 이 값을 높이면 이전에 닫힌 게임 추적과 같은 이상한 동작을 방지할 수 있습니다.</span>`,
         maxretries: `실행 중인 프로세스를 감지된 AppID에 연결하는 시도의 최대 횟수를 설정합니다. 자동 프로세스 추적 및 수동으로 연결된 게임에 모두 영향을 줍니다.<br><br><span class="ttdesc">연결 시도는 1초마다 수행됩니다. 이 횟수의 시도 후에 실행 중인 프로세스가 현재 AppID에 연결되지 않은 경우 무효한 프로세스가 반환됩니다. 이러한 경우에는 게임을 시스템 트레이 > 옵션 > 게임 릴리스로 수동으로 해제해야 합니다.</span>`,
         debug: "디버그 패널을 열면 프로세스 추적 정보가 자세하게 표시됩니다.",

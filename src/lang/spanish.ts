@@ -140,6 +140,7 @@ export const translations = {
             title: "Avanzado",
             content: {
                 pollrate: "Tasa de Encuestas",
+                initdelay: "Retraso de seguimiento",
                 releasedelay: "Retraso de Lanzamiento",
                 maxretries: "Número Máximo de Reintentos de Proceso",
                 debug: "Panel de Depuración",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Habilitar la copia de información de logros al portapapeles cuando se desbloquea un logro, para que pueda ser leída por software de lectura de pantalla, como NVDA",
         tooltips: "Mostrar consejos de herramientas al pasar el cursor sobre ciertos elementos de la interfaz de usuario",
         pollrate: `Establecer el intervalo de actualización para los datos de logros durante el juego<br><br><span class="ttdesc">El rendimiento puede aumentar/disminuir dependiendo del valor o del hardware del sistema. Valores más altos suelen resultar en una carga del sistema más baja, pero pueden causar retrasos en las notificaciones</span>`,
+        initdelay: `Establece el retraso entre la detección del <span class="hl">AppID</span> actual y el inicio del seguimiento de procesos/logros<br><br><span class="ttdesc">Aumentar este valor puede evitar escenarios en los que Steam no puede iniciar el juego actual (debido a la inicialización de la aplicación en Steamworks antes de que se inicie el juego)</span><br><br><span class="ttdesc">Alternativamente, aumentar este valor también puede utilizarse para evitar la detección incorrecta de procesos de prelanzamiento del juego</span>`,
         releasedelay: `Establece cuánto tiempo espera el proceso en segundo plano para reiniciarse después de que el juego actual haya sido lanzado. Afecta tanto al seguimiento automático de procesos como a los juegos vinculados manualmente.<br><br><span class="ttdesc">Proporciona un período más largo para liberar completamente Steamworks de la aplicación. Aumentar este valor puede prevenir comportamientos inusuales, como rastrear un juego previamente cerrado</span>`,
         maxretries: `Establece el número máximo de intentos para vincular un proceso en ejecución a un AppID detectado. Afecta tanto al seguimiento automático de procesos como a los juegos vinculados manualmente.<br><br><span class="ttdesc">Los intentos de vinculación se realizan una vez por segundo. Si un proceso en ejecución no está vinculado al AppID actual después de este número de intentos, se devolverá un proceso no válido. En tales casos, el juego deberá ser liberado manualmente a través del Área de notificación del sistema > Opciones > Liberar Juego</span>`,
         debug: "Abre el Panel de Depuración, que muestra información detallada de seguimiento de procesos",

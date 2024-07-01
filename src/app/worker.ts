@@ -25,7 +25,7 @@ const startidle = () => {
     let exclusionlogged = false
     
     const timer = setInterval(() => {
-        const { pollrate, releasedelay, maxretries, userust, debug, noiconcache, exclusions } = sanconfig.get().store
+        const { pollrate, initdelay, releasedelay, maxretries, userust, debug, noiconcache, exclusions } = sanconfig.get().store
         const { appid, gamename } = sanhelper.gameinfo as AppInfo
 
         if (!appid) return
@@ -55,7 +55,8 @@ const startidle = () => {
         typeof pollrate !== "number" && log.write("ERROR",`"pollrate" has invalid type of "${typeof pollrate}" - setting to default value (250ms)...`) 
         pollrate < 50 && log.write("ERROR",`Minimum "pollrate" exceeded (${pollrate}ms) - setting to default value (50ms)`)
 
-        startsan(appinfo)
+        initdelay && log.write("INFO",`Tracking process delayed by ${initdelay} seconds`)
+        setTimeout(() => startsan(appinfo),initdelay * 1000)
     },1000)
 }
 

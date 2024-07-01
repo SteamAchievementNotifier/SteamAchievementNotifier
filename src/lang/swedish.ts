@@ -140,6 +140,7 @@ export const translations = {
             title: "Avancerad",
             content: {
                 pollrate: "Undersökningsfrekvens",
+                initdelay: "Försening spårning",
                 releasedelay: "Utgivningsfördröjning",
                 maxretries: "Maximalt antal återförsök",
                 debug: "Debugpanel",
@@ -350,6 +351,7 @@ export const translations = {
         nvda: "Aktivera kopiering av prestationinformation till urklipp när en prestation låses upp, för att läsas av skärmläsarprogramvara, som NVDA",
         tooltips: "Visa verktygstips när du håller musen över vissa användargränssnittselement",
         pollrate: `Ställ in uppdateringsintervallet för prestationdata under spel<br><br><span class="ttdesc">Prestandan kan öka/minska beroende på värdet eller systemets maskinvara. Högre värden resulterar vanligtvis i lägre systembelastning, men kan orsaka fördröjningar i aviseringar</span>`,
+        initdelay: `Ställ in förseningen mellan upptäckten av aktuellt <span class="hl">AppID</span> och när process-/prestations-spårning börjar<br><br><span class="ttdesc">Att öka detta värde kan förhindra scenarier där Steam inte kan starta det aktuella spelet (på grund av att applikationen initialiserar Steamworks innan spelet har startats)</span><br><br><span class="ttdesc">Alternativt kan ökning av detta värde också användas för att kringgå felaktig upptäckt av för-spelsstart-processer</span>`,
         releasedelay: `Anger hur länge bakgrundsprocessen ska vänta innan den startar om efter att det aktuella spelet har släppts. Påverkar både automatisk processövervakning och manuellt länkade spel.<br><br><span class="ttdesc">Ger en längre tidsram för att helt frigöra Steamworks från appen. Att öka detta värde kan förhindra ovanligt beteende, som att spåra ett tidigare stängt spel</span>`,
         maxretries: `Anger det maximala antalet försök att länka en körande process till en upptäckt AppID. Påverkar både automatisk processövervakning och manuellt länkade spel.<br><br><span class="ttdesc">Försök att länka utförs en gång per sekund. Om en körande process inte är länkad till det aktuella AppID:et efter detta antal försök returneras en ogiltig process. I sådana fall måste spelet släppas manuellt via Systemfältet > Alternativ > Släpp Spel</span>`,
         debug: "Öppna Debugpanelen, som visar detaljerad processpårningsinformation",

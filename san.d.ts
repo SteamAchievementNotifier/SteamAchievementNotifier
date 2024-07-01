@@ -56,6 +56,7 @@ declare interface Config {
     notifydebug: boolean,
     pollrate: number,
     maxretries: number,
+    initdelay: number,
     releasedelay: number,
     width: number,
     height: number,

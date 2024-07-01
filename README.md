@@ -128,6 +128,10 @@ Additionally, there are several in-app options to control various aspects of **a
 
 > - **Release Game**: If Steam still reports the user as "**Playing**" the game as after closing the game window, or if Steam Achievement Notifier still displays the previously closed game in the **Game Display** box/system tray menu, the game can be manually "*released*" via **System Tray** > *Right-click* > **Options** > **Release Game** option.
 
+> - **Tracking Delay**: If Steam does not allow the game to be launched (*stating **`Game already running - <AppID>`***), try increasing the value of **Settings** > **Advanced** > **Tracking Delay**. This will increase the time between the current **AppID** being detected as running, and when **Steam Achievement Notifier** begins process/achievement tracking.
+>
+>   - Alternatively, increasing this value can be useful if **Steam Achievement Notifier** is detecting a **pre-game launcher** process, instead of the actual game
+
 > - **Release Delay**: If **Steam Achievement Notifier** shows the **Now Tracking** notification for a game that has been recently closed, try increasing the value of the **Settings** > **Advanced** > **Release Delay** option to a higher value.
 
 > - **Max Process Retries**: If the current game takes a long time to start (*and subsquently misses the initial window to locate the running exectuable - default: 10 retries at 1 retry per second*), try increasing the **Settings** > **Advanced** > **Max Process Retries** option to a higher value.

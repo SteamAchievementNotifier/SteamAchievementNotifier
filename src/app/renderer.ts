@@ -233,7 +233,8 @@ const audioextensions = [
     ".wav",
     ".mp3",
     ".ogg",
-    ".aac"
+    ".aac",
+    ".m4a"
 ]
 
 const getaudiofile = (mode: "file" | "folder",filepath: string) => {

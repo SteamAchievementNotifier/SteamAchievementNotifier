@@ -640,9 +640,24 @@ input[type="range"][unit],
     padding: 0.35rem;
     border-radius: 0 var(--elembr) var(--elembr) var(--elembr);
     background-color: #101010;
-    gap: 0.35rem;
+    gap: 0.15rem;
 }
 
 .wrapper#elemselector > .wrapper > .wrapper {
     margin: 0;
+    transition: var(--transition);
+}
+
+.wrapper#elemselector > .wrapper > .wrapper > select {
+    min-width: 2.5rem;
+    padding: 0 0.35rem;
+    background-color: var(--primary);
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(select > option[value="off"]:checked) {
+    opacity: 0.5;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(select > option[value="off"]:checked) > select {
+    background-color: var(--darkgrey);
 }

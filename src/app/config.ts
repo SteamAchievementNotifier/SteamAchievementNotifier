@@ -144,7 +144,11 @@ export const sanconfig = {
                 iconroundness: 0,
                 usegameicon: false,
                 customicons: {},
-                elems: [],
+                elems: [
+                    "unlockmsg",
+                    "title",
+                    "desc"
+                ],
                 showdecoration: true,
                 pos: "bottomcenter",
                 usecustompos: false,
@@ -179,9 +183,6 @@ export const sanconfig = {
 
                 sanconfig.validateconfigkeys(configkeys,customobjkeys,customobj,type)
                 sanconfig.validatecustomicons(type as "main" | "rare" | "plat")
-
-                const elems = config.get(`customisation.${type}.elems`) as ("unlockmsg" | "title" | "desc")[]
-                !elems.length && config.set(`customisation.${type}.elems`,sanconfig.defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.elems)
             }
 
             if (!validate) {

@@ -350,6 +350,9 @@ export const sanhelper: SANHelper = {
 
         const selectinputtype = (target: EventTarget) => ((target instanceof HTMLSelectElement ? target as HTMLSelectElement : target as HTMLInputElement)).value
 
+        // Fixes issue where switching Customiser tabs causes an error on next line
+        if (elem.id === "unlockmsg" || elem.id === "title" || elem.id === "desc") return
+
         elem.value = key.toString()
         elem.onchange = ({ target }: Event) => {
             config.set((keypath ? `${keypath}.` : "") + elem.id, (target instanceof HTMLInputElement && (target.type === "range" || target.type === "number")) ? parseFloat(target.value) : (typeof key === "number" ? parseInt(selectinputtype(target!)) : selectinputtype(target!)))

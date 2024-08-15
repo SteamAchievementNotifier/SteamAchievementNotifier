@@ -2,14 +2,22 @@ import ElectronStore from "electron-store"
 import { sanconfig } from "./config"
 import { sanhelper } from "./sanhelper"
 
-const togglelem = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",elems: string[],input: HTMLInputElement) => {
-    const i = elems.indexOf(input.id)
+const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
+
+const updateelems = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",elems: string[],select: HTMLSelectElement) => {
     const key = `customisation.${type}.elems`
+    let i = elems.indexOf(select.id)
+    let newelems = elems.slice()
 
-    i > -1 ? (elems.length > 1 && elems.splice(i,1)) : elems.push(input.id)
-    config.set(key,elems)
+    if (select.value !== "off") {
+        i !== -1 ? (newelems = moveelem(newelems,i,parseInt(select.value) - 1)) : newelems.splice(parseInt(select.value) - 1,0,select.id)
+    } else {
+        (i !== -1 && newelems.length > 1) && newelems.splice(i,1)
+    }
 
-    input.checked = (config.get(key) as string[]).includes(input.id)
+    config.set(key,newelems)
+    select.value = newelems.indexOf(select.id) > -1 ? (newelems.indexOf(select.id) + 1).toString() : "off"
+
     sanhelper.updatetabs()
 }
 
@@ -27,15 +35,30 @@ export const elemselector = async (elem: HTMLElement) => {
             <div class="wrapper opt">
                 <div class="wrapper opt">
                     <span></span>
-                    <input type="checkbox" id="unlockmsg">
+                    <select name="unlockmsg" id="unlockmsg">
+                        <option value="off">🚫</option>
+                        <option value="1">1st</option>
+                        <option value="2">2nd</option>
+                        <option value="3">3rd</option>
+                    </select>
                 </div>
                 <div class="wrapper opt">
                     <span></span>
-                    <input type="checkbox" id="title">
+                    <select name="title" id="title">
+                        <option value="off">🚫</option>
+                        <option value="1">1st</option>
+                        <option value="2">2nd</option>
+                        <option value="3">3rd</option>
+                    </select>
                 </div>
                 <div class="wrapper opt">
                     <span></span>
-                    <input type="checkbox" id="desc">
+                    <select name="desc" id="desc">
+                        <option value="off">🚫</option>
+                        <option value="1">1st</option>
+                        <option value="2">2nd</option>
+                        <option value="3">3rd</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -48,21 +71,14 @@ export const elemselector = async (elem: HTMLElement) => {
     const type = sanhelper.type
     const elems = config.get(`customisation.${type}.elems`) as string[]
 
-    const lbls = document.querySelectorAll(`#elemselector > .opt > .opt:has(input[type="checkbox"]) > span`)
-    lbls.forEach(lbl => {
-        (lbl as HTMLSpanElement).onclick = () => togglelem(config,type,elems,lbl.nextElementSibling! as HTMLInputElement)
-        lbl.textContent = global[lbl.nextElementSibling!.id]
-    })
-    
-    const inputs = document.querySelectorAll(`#elemselector > .opt > .opt:has(input[type="checkbox"]) > input`)
+    document.querySelectorAll(`#elemselector > .opt > .opt:has(select) > span`).forEach(lbl => lbl.textContent = global[lbl.nextElementSibling!.id])
 
-    inputs.forEach(i => {
-        const input = i as HTMLInputElement
-        input.checked = elems.includes(input.id)
+    if (!elems) return
 
-        input.onclick = event => {
-            event.preventDefault()
-            requestAnimationFrame(() => togglelem(config,type,elems,input))
-        }
+    document.querySelectorAll(`#elemselector > .opt > .opt:has(select) > select`).forEach(s => {
+        const select = s as HTMLSelectElement
+        select.onchange = null
+        select.value = elems.indexOf(select.id) > -1 ? (elems.indexOf(select.id) + 1).toString() : "off"
+        select.onchange = () => updateelems(config,type,elems,select)
     })
 }

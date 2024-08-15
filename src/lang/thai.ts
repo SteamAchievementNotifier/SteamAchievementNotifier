@@ -58,7 +58,11 @@ export const translations = {
             `ใน <span class="hl">ไคลเอนต์ Steam</span> คลิกขวาที่เกมใน <span class="hl">คลัง</span> ของคุณและเลือก <i>คุณสมบัติ</i> > <i>อัพเดท</i> - AppID จะถูกแสดงที่นี่`,
             `ที่ <span class="hl">URL</span> ของ <span class="hl">หน้าร้านของเกม</span> - จะเป็นตัวเลขที่ระบุหลังจาก <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `เว็บไซต์เช่น <span class="hl">SteamDB</span> - ส่วนข้อมูลเกี่ยวกับ <span class="hl">App</span> จะระบุ AppID สำหรับแต่ละเกม`
-        ]
+        ],
+        elemselector: "องค์ประกอบการแจ้งเตือน",
+        unlockmsg: "ข้อความปลดล็อก",
+        title: "ชื่อความสำเร็จ",
+        desc: "คำอธิบายความสำเร็จ"
     },
     app: {
         content: {

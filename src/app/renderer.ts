@@ -355,6 +355,9 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             sanhelper.updatetabs()
         }
 
+        const { elemselector } = await import("./elemselector")
+        elemselector(document.querySelector("#customisercontent .wrapper:has(> select#preset)")!)
+
         document.getElementById("customiser")!.toggleAttribute("customfiles",config.get("usecustomfiles"))
     }
 

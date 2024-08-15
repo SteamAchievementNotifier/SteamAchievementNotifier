@@ -59,6 +59,10 @@ export const translations = {
             `عنوان <span class="hl">URL</span> لصفحة <span class="hl">المتجر</span> الخاصة باللعبة - سيكون الرقم المدرج بعد <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `مواقع الويب مثل <span class="hl">SteamDB</span> - سيقوم القسم <span class="hl">معلومات الأطباق</span> بسرد AppID لكل لعبة`
         ],
+        elemselector: "عناصر الإشعارات",
+        unlockmsg: "رسالة الفتح",
+        title: "عنوان الإنجاز",
+        desc: "وصف الإنجاز"
     },
     app: {
         content: {

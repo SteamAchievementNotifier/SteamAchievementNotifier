@@ -12,17 +12,17 @@ export const sanconfig = {
         ]
 
         return new Map<string,CustomIcon>([
-            ["default",{ logo: sanhelper.setfilepath("img","sanlogosquare.svg"), decoration: sanhelper.setfilepath("img","sanlogotrophy.svg") }],
-            ["xqjan",{ logo: sanhelper.setfilepath("img","steamlogonew.svg"), decoration: null }],
-            ["steamdeck",{ logo: null, decoration: sanhelper.setfilepath("img","ribbonbw.svg") }],
-            ["epicgames",{ logo: null, decoration: trophies }],
-            ["xboxone",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null }],
-            ["xbox360",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null }],
-            ["ps5",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies }],
-            ["ps4",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies }],
-            ["ps3",{ logo: null, decoration: trophies }],
-            ["windows",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null }],
-            ["os",{ logo: null, decoration: null }]
+            ["default",{ logo: sanhelper.setfilepath("img","sanlogosquare.svg"), decoration: sanhelper.setfilepath("img","sanlogotrophy.svg"), elems: ["unlockmsg","title","desc"] }],
+            ["xqjan",{ logo: sanhelper.setfilepath("img","steamlogonew.svg"), decoration: null, elems: ["unlockmsg","title","desc"] }],
+            ["steamdeck",{ logo: null, decoration: sanhelper.setfilepath("img","ribbonbw.svg"), elems: ["title","desc"]  }],
+            ["epicgames",{ logo: null, decoration: trophies, elems: ["title"] }],
+            ["xboxone",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null, elems: ["unlockmsg","title","desc"] }],
+            ["xbox360",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null, elems: ["unlockmsg","title"] }],
+            ["ps5",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies, elems: ["title","desc"] }],
+            ["ps4",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies, elems: ["unlockmsg","title"] }],
+            ["ps3",{ logo: null, decoration: trophies, elems: ["unlockmsg","title"] }],
+            ["windows",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null, elems: ["unlockmsg","title","desc"] }],
+            ["os",{ logo: null, decoration: null, elems: null }]
         ])
     },
     create: (validate?: boolean): Config => {
@@ -144,6 +144,7 @@ export const sanconfig = {
                 iconroundness: 0,
                 usegameicon: false,
                 customicons: {},
+                elems: [],
                 showdecoration: true,
                 pos: "bottomcenter",
                 usecustompos: false,
@@ -172,11 +173,15 @@ export const sanconfig = {
             }
 
             if (validate) {
-                const configkeys = Object.keys(sanconfig.get().store.customisation[type])
+                const config = sanconfig.get()
+                const configkeys = Object.keys(config.get(`customisation.${type}`))
                 const customobjkeys = Object.keys(customobj)
 
                 sanconfig.validateconfigkeys(configkeys,customobjkeys,customobj,type)
                 sanconfig.validatecustomicons(type as "main" | "rare" | "plat")
+
+                const elems = config.get(`customisation.${type}.elems`) as ("unlockmsg" | "title" | "desc")[]
+                !elems.length && config.set(`customisation.${type}.elems`,sanconfig.defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.elems)
             }
 
             if (!validate) {
@@ -193,6 +198,7 @@ export const sanconfig = {
                             primarycolor: "#203e7a",
                             secondarycolor: "#0c2a66",
                             shortcut: "CTRL+SHIFT+1",
+                            elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
                             usertheme: [{
                                 id: 0,
                                 label: "Default Main",
@@ -208,6 +214,7 @@ export const sanconfig = {
                             primarycolor: "#663399",
                             secondarycolor: "#521f85",
                             shortcut: "CTRL+SHIFT+2",
+                            elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
                             iconanim: true,
                             usertheme: [{
                                 id: 0,
@@ -224,6 +231,7 @@ export const sanconfig = {
                             primarycolor: "#4e75c9",
                             secondarycolor: "#3a61b5",
                             shortcut: "CTRL+SHIFT+3",
+                            elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
                             iconanim: true,
                             usertheme: [{
                                 id: 0,

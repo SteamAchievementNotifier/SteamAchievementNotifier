@@ -58,7 +58,11 @@ export const translations = {
             `Trong <span class="hl">khách hàng Steam</span>, nhấp chuột phải vào một trò chơi trong <span class="hl">Thư viện</span> của bạn và chọn <i>Thuộc tính</i> > <i>Cập nhật</i> - AppID sẽ được liệt kê ở đây`,
             `URL của trang <span class="hl">Cửa hàng</span> của trò chơi - nó sẽ là số được liệt kê sau <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Các trang web như <span class="hl">SteamDB</span> - phần <span class="hl">Thông tin Ứng dụng</span> sẽ liệt kê AppID cho mỗi trò chơi`
-        ]
+        ],
+        elemselector: "Các yếu tố thông báo",
+        unlockmsg: "Tin nhắn mở khóa",
+        title: "Tiêu đề thành tựu",
+        desc: "Mô tả thành tựu"
     },
     app: {
         content: {

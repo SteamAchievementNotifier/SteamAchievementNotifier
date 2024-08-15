@@ -58,7 +58,11 @@ export const translations = {
             `В <span class="hl">клиента на Steam</span>, щракнете с десния бутон на мишката върху игра във вашата <span class="hl">библиотека</span> и изберете <i>Свойства</i> > <i>Актуализации</i> - AppID ще бъде изброен тук`,
             `URL адресът на страницата на <span class="hl">магазина</span> на играта - това е числото, изброено след <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Уебсайтове като <span class="hl">SteamDB</span> - секцията <span class="hl">Информация за App</span> ще изброи AppID за всяка игра`
-        ]
+        ],
+        elemselector: "Елементи за уведомяване",
+        unlockmsg: "Съобщение за отключване",
+        title: "Заглавие на постижението",
+        desc: "Описание на постижението"
     },
     app: {
         content: {

@@ -58,7 +58,11 @@ export const translations = {
             `В <span class="hl">клиенте Steam</span> щелкните правой кнопкой мыши по игре в вашей <span class="hl">Библиотеке</span> и выберите <i>Свойства</i> > <i>Обновления</i> - здесь будет перечислен AppID`,
             `URL-адрес <span class="hl">страницы магазина</span> игры - это число, указанное после <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Сайты, такие как <span class="hl">SteamDB</span> - раздел <span class="hl">Информация об App</span> перечислит AppID для каждой игры`
-        ]
+        ],
+        elemselector: "Элементы уведомлений",
+        unlockmsg: "Сообщение об разблокировке",
+        title: "Название достижения",
+        desc: "Описание достижения"
     },
     app: {
         content: {

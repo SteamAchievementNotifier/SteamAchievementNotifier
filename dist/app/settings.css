@@ -144,7 +144,7 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
     grid-template-rows: 1fr;
     align-items: center;
     gap: 0.5rem 1rem;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 .opt:has(input[type="range"]) {
@@ -249,7 +249,7 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     align-items: center;
     gap: 0.5rem;
     padding: 0.25rem;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     border-radius: var(--elembr);
     transition: background-color var(--transition);
 }

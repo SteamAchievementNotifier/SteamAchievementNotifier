@@ -58,7 +58,11 @@ export const translations = {
             `În <span class="hl">clientul Steam</span>, faceți clic dreapta pe un joc din <span class="hl">Biblioteca</span> și selectați <i>Proprietăți</i> > <i>Actualizări</i> - AppID-ul va fi listat aici`,
             `URL-ul paginii <span class="hl">magazinului</span> jocului - va fi numărul listat după <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Site-uri precum <span class="hl">SteamDB</span> - secțiunea de <span class="hl">Informații despre App</span> va lista AppID-ul pentru fiecare joc`
-        ]
+        ],
+        elemselector: "Elemente de notificare",
+        unlockmsg: "Mesaj de deblocare",
+        title: "Titlu realizare",
+        desc: "Descriere realizare"
     },
     app: {
         content: {

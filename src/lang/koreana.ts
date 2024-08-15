@@ -58,7 +58,11 @@ export const translations = {
             `<span class="hl">Steam 클라이언트</span>에서 <span class="hl">라이브러리</span>에서 게임을 마우스 오른쪽 단추로 클릭하고 <i>속성</i> > <i>업데이트</i>를 선택합니다. 여기에 AppID가 나열됩니다`,
             `게임의 <span class="hl">상점 페이지</span>의 <span class="hl">URL</span> - <span class="hl">app/</span> 뒤에 나열된 숫자입니다: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `<span class="hl">SteamDB</span>와 같은 웹 사이트 - <span class="hl">App Info</span> 섹션에 각 게임의 AppID가 나열됩니다`
-        ]
+        ],
+        elemselector: "알림 요소",
+        unlockmsg: "잠금 해제 메시지",
+        title: "업적 제목",
+        desc: "업적 설명"
     },
     app: {
         content: {

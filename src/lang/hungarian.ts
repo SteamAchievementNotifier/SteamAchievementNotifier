@@ -58,7 +58,11 @@ export const translations = {
             `A <span class="hl">Steam kliensben</span> kattintson jobb gombbal egy játékra a <span class="hl">könyvtárában</span>, majd válassza az <i>Ingatlanok</i> > <i>Frissítések</i> lehetőséget - az AppID itt lesz felsorolva`,
             `A játék <span class="hl">Bolt oldalának URL-címe</span> - ez lesz az a szám, amely az <span class="hl">app/</span> után következik: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Olyan webhelyek, mint a <span class="hl">SteamDB</span> - az <span class="hl">App Info</span> szakasz felsorolja az AppID-t minden játékhoz`
-        ]
+        ],
+        elemselector: "Értesítési elemek",
+        unlockmsg: "Feloldási üzenet",
+        title: "Teljesítmény címe",
+        desc: "Teljesítmény leírása"
     },
     app: {
         content: {

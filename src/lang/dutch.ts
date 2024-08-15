@@ -58,7 +58,11 @@ export const translations = {
             `In de <span class="hl">Steam-client</span>, klik met de rechtermuisknop op een spel in uw <span class="hl">Bibliotheek</span> en selecteer <i>Eigenschappen</i> > <i>Updates</i> - de AppID wordt hier vermeld`,
             `De <span class="hl">URL</span> van de <span class="hl">Winkel pagina</span> van het spel - het zal het nummer zijn dat na <span class="hl">app/</span> wordt vermeld: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Websites zoals <span class="hl">SteamDB</span> - de sectie <span class="hl">App Info</span> zal de AppID voor elk spel vermelden`
-        ]
+        ],
+        elemselector: "Meldingselementen",
+        unlockmsg: "Ontgrendelingsbericht",
+        title: "Prestatie Titel",
+        desc: "Prestatie Beschrijving"
     },
     app: {
         content: {

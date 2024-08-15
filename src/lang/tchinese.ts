@@ -58,7 +58,11 @@ export const translations = {
             `在 <span class="hl">Steam 客戶端</span> 中，右鍵點擊您的 <span class="hl">遊戲庫</span> 中的遊戲，然後選擇 <i>屬性</i> > <i>更新</i> - 這裡將列出 AppID`,
             `遊戲的 <span class="hl">商店頁面</span> 的 <span class="hl">URL</span> - 這將是 <span class="hl">app/</span> 之後列出的數字： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `像 <span class="hl">SteamDB</span> 這樣的網站 - <span class="hl">應用程式資訊</span> 部分將列出每個遊戲的 AppID`
-        ]
+        ],
+        elemselector: "通知元素",
+        unlockmsg: "解鎖消息",
+        title: "成就標題",
+        desc: "成就描述"
     },
     app: {
         content: {

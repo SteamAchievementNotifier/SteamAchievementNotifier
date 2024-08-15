@@ -58,7 +58,11 @@ export const translations = {
             `V <span class="hl">klientu Steam</span> klikněte pravým tlačítkem myši na hru ve vaší <span class="hl">knihovně</span> a vyberte <i>Vlastnosti</i> > <i>Aktualizace</i> - AppID bude zde uveden`,
             `URL adresa stránky <span class="hl">obchodu</span> s hrou - číslo bude uvedeno za <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Webové stránky jako <span class="hl">SteamDB</span> - sekce <span class="hl">Informace o aplikaci</span> bude seznamovat AppID pro každou hru`
-        ]
+        ],
+        elemselector: "Prvky oznámení",
+        unlockmsg: "Zpráva o odemknutí",
+        title: "Název úspěchu",
+        desc: "Popis úspěchu"
     },
     app: {
         content: {

@@ -58,7 +58,11 @@ export const translations = {
             ` <span class="hl">Steamクライアント</span> で、<span class="hl">ライブラリ</span>内のゲームを右クリックし、<i>プロパティ</i> > <i>更新</i> を選択します - ここにAppIDがリストされます`,
             `ゲームの <span class="hl">ストアページ</span> の <span class="hl">URL</span> - <span class="hl">app/</span> の後にリストされる番号です： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `<span class="hl">SteamDB</span> のようなウェブサイト - 各ゲームのAppIDが <span class="hl">App Info</span> セクションにリストされます`
-        ]
+        ],
+        elemselector: "通知要素",
+        unlockmsg: "解除メッセージ",
+        title: "達成タイトル",
+        desc: "達成説明"
     },
     app: {
         content: {

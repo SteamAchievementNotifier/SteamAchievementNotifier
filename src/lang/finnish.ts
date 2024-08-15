@@ -58,7 +58,11 @@ export const translations = {
             `Steam-asiakkaassa, napsauta hiiren kakkospainikkeella peliä <span class="hl">Kirjastossa</span> ja valitse <i>Ominaisuudet</i> > <i>Päivitykset</i> - AppID näkyy täällä`,
             `Pelin <span class="hl">Kaupan sivun URL-osoite</span> - se on numero, joka on listattu <span class="hl">app/</span> -jälkeen: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Verkkosivustot kuten <span class="hl">SteamDB</span> - <span class="hl">App-tiedot</span> -osio listaa AppID:n jokaiselle pelille`
-        ]
+        ],
+        elemselector: "Ilmoituselementit",
+        unlockmsg: "Lukituksen avausviesti",
+        title: "Saavutuksen nimi",
+        desc: "Saavutuksen kuvaus"
     },
     app: {
         content: {

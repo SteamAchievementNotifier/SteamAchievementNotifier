@@ -363,6 +363,15 @@ export const sanhelper: SANHelper = {
                 sanhelper.tooltips(config.get("tooltips"))
             }
 
+            if (elem.id === "preset") {
+                (async () => {
+                    const { sanconfig: { defaulticons } } = await import("./config")
+                    const type = sanhelper.type
+
+                    config.set(`customisation.${type}.elems`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.elems)
+                })()
+            }
+
             elem.id === "audiosrc" && sanhelper.audiosrc(config.get("audiosrc"))
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
         }

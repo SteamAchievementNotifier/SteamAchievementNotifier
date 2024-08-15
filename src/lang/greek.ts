@@ -58,7 +58,11 @@ export const translations = {
             `Στον <span class="hl">πελάτη Steam</span>, κάντε δεξί κλικ σε ένα παιχνίδι στην <span class="hl">Βιβλιοθήκη</span> σας και επιλέξτε <i>Ιδιότητες</i> > <i>Ενημερώσεις</i> - το AppID θα εμφανιστεί εδώ`,
             `Η <span class="hl">URL</span> της σελίδας του <span class="hl">Καταστήματος</span> του παιχνιδιού - θα είναι το νούμερο που ακολουθεί μετά το <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Ιστότοποι όπως ο <span class="hl">SteamDB</span> - η ενότητα <span class="hl">Πληροφορίες App</span> θα καταχωρίσει το AppID για κάθε παιχνίδι`
-        ]
+        ],
+        elemselector: "Στοιχεία ειδοποίησης",
+        unlockmsg: "Μήνυμα ξεκλειδώματος",
+        title: "Τίτλος επίτευξης",
+        desc: "Περιγραφή επίτευξης"
     },
     app: {
         content: {

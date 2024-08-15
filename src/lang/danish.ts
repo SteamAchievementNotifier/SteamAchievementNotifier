@@ -58,7 +58,11 @@ export const translations = {
             `I <span class="hl">Steam-klienten</span>, højreklik på et spil i din <span class="hl">Bibliotek</span> og vælg <i>Egenskaber</i> > <i>Opdateringer</i> - AppID'en vil blive angivet her`,
             `URL'en til spillets <span class="hl">Butiks side</span> - det vil være tallet efter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Websites som <span class="hl">SteamDB</span> - sektionen <span class="hl">App Info</span> vil liste AppID for hvert spil`
-        ]
+        ],
+        elemselector: "Meddelelseselementer",
+        unlockmsg: "Oplåsningsbesked",
+        title: "Præstationstitel",
+        desc: "Præstationsbeskrivelse"
     },
     app: {
         content: {

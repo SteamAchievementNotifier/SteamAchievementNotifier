@@ -38,6 +38,11 @@ log.init("APP")
 
 sanconfig.get().store.nohwa && app.disableHardwareAcceleration()
 
+// Reset legacy "alldetails" key for each type
+for (const type in sanconfig.get().store.customisation) {
+    (sanconfig.get().set(`customisation.${type}.alldetails`,false))
+}
+
 const getcustomfilesversion = (packagepath: string): string => {
     try {
         return fs.existsSync(packagepath) ? (JSON.parse(fs.readFileSync(packagepath).toString())).version : sanhelper.semver

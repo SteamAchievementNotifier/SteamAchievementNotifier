@@ -633,3 +633,16 @@ input[type="range"][unit],
         background-color var(--transition),
         filter var(--transition);
 }
+
+.wrapper#elemselector > .wrapper {
+    grid-template-columns: 1fr;
+    margin: 0;
+    padding: 0.35rem;
+    border-radius: 0 var(--elembr) var(--elembr) var(--elembr);
+    background-color: #101010;
+    gap: 0.35rem;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper {
+    margin: 0;
+}

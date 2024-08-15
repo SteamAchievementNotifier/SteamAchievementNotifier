@@ -284,6 +284,8 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
             document.getElementById("unlockmsg")!.textContent = `${unlockmsg}${customisation.alldetails && customisation.preset === "epicgames" ? "" : percentstr}`
             document.getElementById("title")![customisation.showhiddenicon && hidden ? "innerHTML" : "textContent"] = `${customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""}${title}${document.body.hasAttribute("ss") && !customisation.alldetails && customisation.preset !== "windows" ? percentstr : ""}`
             document.getElementById("desc")!.textContent = desc
+
+            document.querySelectorAll(`#unlockmsg, #title, #desc`).forEach(elem => !customisation.elems!.includes(elem.id as "unlockmsg" | "title" | "desc") && ((elem as HTMLElement).style.display = "none"))
             
             if (!steampath) throw new Error(`Steam installation path not found!`)
 

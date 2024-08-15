@@ -118,6 +118,7 @@ declare interface Customisation {
     iconroundness: number,
     usegameicon: boolean,
     customicons: { [key: string]: CustomIcon | string },
+    elems: ("unlockmsg" | "title" | "desc")[] | null,
     showdecoration: boolean,
     pos: "bottomcenter" | "topcenter" | "topleft" | "topright" | "bottomleft" | "bottomright",
     usecustompos: boolean,
@@ -148,10 +149,11 @@ declare interface Customisation {
 }
 
 declare interface CustomIcon {
-    [key: string]: string,
+    [key: string]: string | string[] | null | ("unlockmsg" | "title" | "desc")[],
     logo: string | string[] | null,
     decoration: string | string[] | null,
     plat?: string | string[] | null,
+    elems: ("unlockmsg" | "title" | "desc")[] | null
 }
 
 declare interface GameData {

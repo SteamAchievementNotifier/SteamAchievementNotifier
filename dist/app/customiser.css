@@ -150,10 +150,6 @@ webview {
     aspect-ratio: var(--width) / var(--height);
 }
 
-/* #customiser:has(select#preset > option[value="xqjan"]:not(:checked)) webview {
-    scale: 0.85;
-} */
-
 #customiser:has(select#preset > option[value="xqjan"]:checked) webview {
     --scale: 0.85;
     width: calc(var(--width) * var(--scale));
@@ -364,7 +360,7 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
     gap: 0.25rem;
     width: 100%;
     height: 100%;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     background-color: var(--primary);
     border-radius: var(--elembr);
 }

@@ -58,7 +58,11 @@ export const translations = {
             `Nel <span class="hl">client Steam</span>, fai clic con il pulsante destro del mouse su un gioco nella tua <span class="hl">Biblioteca</span> e seleziona <i>Proprietà</i> > <i>Aggiornamenti</i> - l'AppID verrà elencato qui`,
             `L' <span class="hl">URL</span> della pagina del <span class="hl">Negozio</span> del gioco - sarà il numero elencato dopo <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Siti web come <span class="hl">SteamDB</span> - la sezione <span class="hl">Info App</span> elencherà l'AppID per ogni gioco`
-        ]
+        ],
+        elemselector: "Elementi di notifica",
+        unlockmsg: "Messaggio di sblocco",
+        title: "Titolo del traguardo",
+        desc: "Descrizione del traguardo"
     },
     app: {
         content: {

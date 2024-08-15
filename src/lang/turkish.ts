@@ -58,7 +58,11 @@ export const translations = {
             `<span class="hl">Steam istemcisinde</span>, <i>Kütüphanem</i>'deki bir oyuna sağ tıklayın ve <i>Özellikler</i> > <i>Güncellemeler</i> - AppID burada listelenir`,
             `Oyunun <span class="hl">Mağaza sayfasının URL</span>'si - <span class="hl">app/</span>'den sonraki listedir: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `<span class="hl">SteamDB</span> gibi web siteleri - <span class="hl">App Bilgisi</span> bölümü her oyun için AppID'yi listeleyecektir`
-        ]
+        ],
+        elemselector: "Bildirim Öğeleri",
+        unlockmsg: "Kilidi Açma Mesajı",
+        title: "Başarı Başlığı",
+        desc: "Başarı Açıklaması"
     },
     app: {
         content: {

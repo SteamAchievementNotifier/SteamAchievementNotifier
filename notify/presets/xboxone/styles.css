@@ -201,6 +201,11 @@ body[nodecoration] .wrapper#achcontent > span {
     -webkit-line-clamp: 1;
 }
 
+#title:empty::before,
+#title:empty::after {
+    display: none;
+}
+
 body:not([nodecoration]) #title::before {
     content: attr(gs) attr(unit) " - ";
     margin-left: calc(1.175rem * var(--fontsize));

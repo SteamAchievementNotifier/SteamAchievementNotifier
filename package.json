@@ -2,7 +2,7 @@
     "private": true,
     "name": "steamachievementnotifierv1.9",
     "author": "SteamAchievementNotifier",
-    "version": "1.9.7",
+    "version": "1.9.8",
     "description": "Steam Achievement Notifier (V1.9)",
     "main": "dist/app/app.js",
     "scripts": {

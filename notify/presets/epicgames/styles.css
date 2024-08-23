@@ -178,8 +178,9 @@ body[bgonly] .shadow {
     to { width: 0; }
 }
 
-body:not([alldetails]) #unlockmsg,
-body:not([alldetails]) #desc {
+/* body:not([alldetails]) #unlockmsg,
+body:not([alldetails]) #desc { */
+body:not([alldetails]) #unlockmsg {
     display: none;
 }
 
@@ -250,6 +251,7 @@ body[nodecoration] .wrapper#achcontent > span {
     display: grid;
     grid-template-columns: auto auto;
     grid-column-start: 3;
+    grid-row: 1 / 3; /* !!! Not working when 2 elements are displayed */
     place-items: center;
     gap: 0.5rem;
 }

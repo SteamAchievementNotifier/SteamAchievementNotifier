@@ -208,7 +208,7 @@ const notifyhelper = {
             const attrs = [
                 "bgstyle",
                 "bgonly",
-                "alldetails",
+                // "alldetails",
                 iswebview === "sspreview" || iswebview === "ss" ? "ovpos" : "pos"
             ]
     
@@ -236,7 +236,7 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
     try {
         document.body.setAttribute(type,"")
         !customisation.iconanim && document.body.setAttribute("noiconanim","")
-        document.body.toggleAttribute("alldetails",customisation.alldetails)
+        // document.body.toggleAttribute("alldetails",customisation.alldetails)
         document.body.toggleAttribute("nodecoration",!customisation.showdecoration)
 
         const fastanimmap = new Map<string,number>([
@@ -281,9 +281,31 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
 
             const percentstr = `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${Math.max(parseFloat(percent.value.toFixed(1)),0.1)}%)` : ""}`
 
-            document.getElementById("unlockmsg")!.textContent = `${unlockmsg}${customisation.alldetails && customisation.preset === "epicgames" ? "" : percentstr}`
-            document.getElementById("title")![customisation.showhiddenicon && hidden ? "innerHTML" : "textContent"] = `${customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""}${title}${document.body.hasAttribute("ss") && !customisation.alldetails && customisation.preset !== "windows" ? percentstr : ""}`
-            document.getElementById("desc")!.textContent = desc
+            const str = {
+                unlockmsg: unlockmsg,
+                title: title,
+                desc: desc
+            }
+
+            const hiddenelems = [
+                "steamdeck",
+                "epicgames",
+                "ps5"
+            ]
+
+            if (customisation.elems) {
+                document.body.toggleAttribute("alldetails",customisation.elems.filter(elem => elem !== null).length === 3)
+
+                const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
+
+                document.getElementById("unlockmsg")!.textContent = str[customisation.elems[0]]
+                document.getElementById("title")!.textContent = str[customisation.elems[1 - offset]]
+                document.getElementById("desc")!.textContent = str[customisation.elems[2 - offset]]
+            }
+
+            // document.getElementById("unlockmsg")!.textContent = `${unlockmsg}${customisation.alldetails && customisation.preset === "epicgames" ? "" : percentstr}`
+            // document.getElementById("title")![customisation.showhiddenicon && hidden ? "innerHTML" : "textContent"] = `${customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""}${title}${document.body.hasAttribute("ss") && !customisation.alldetails && customisation.preset !== "windows" ? percentstr : ""}`
+            // document.getElementById("desc")!.textContent = desc
 
             // document.querySelectorAll(`#unlockmsg, #title, #desc`).forEach(elem => !customisation.elems!.includes(elem.id as "unlockmsg" | "title" | "desc") && ((elem as HTMLElement).style.display = "none"))
             

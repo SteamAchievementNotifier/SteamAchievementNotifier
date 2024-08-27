@@ -290,6 +290,9 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         document.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.getElementById("sspreview")!.onclick = async () => sendsswin(type,keypath)
+
+        const { elemselector } = await import("./elemselector")
+        elemselector(document.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
     }
 
     if (document.querySelector("body[customiser]")) {
@@ -356,7 +359,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         }
 
         const { elemselector } = await import("./elemselector")
-        elemselector(document.querySelector("#customisercontent .wrapper:has(> select#preset)")!)
+        elemselector(document.querySelector("#customisercontent .wrapper:has(> select#preset)")!,"elems")
 
         document.getElementById("customiser")!.toggleAttribute("customfiles",config.get("usecustomfiles"))
     }

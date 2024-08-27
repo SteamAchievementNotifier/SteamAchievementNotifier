@@ -161,6 +161,10 @@ export const sanconfig = {
                 ovmatch: false,
                 ovx: 0,
                 ovy: 0,
+                sselems: [
+                    "title",
+                    "desc"
+                ],
                 alldetails: false,
                 primarycolor: "",
                 secondarycolor: "",

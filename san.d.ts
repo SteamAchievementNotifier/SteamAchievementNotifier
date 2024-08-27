@@ -131,6 +131,7 @@ declare interface Customisation {
     ovmatch: boolean,
     ovx: number,
     ovy: number,
+    sselems: ("unlockmsg" | "title" | "desc")[] | null,
     alldetails: boolean,
     primarycolor: string,
     secondarycolor: string,

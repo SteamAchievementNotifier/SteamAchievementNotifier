@@ -293,14 +293,17 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
                 "ps5"
             ]
 
-            if (customisation.elems) {
-                document.body.toggleAttribute("alldetails",customisation.elems.filter(elem => elem !== null).length === 3)
+            const elems = customisation[`${iswebview !== "customiser" ? "ss" : ""}elems`]
+
+            if (elems) {
+                const filter = elems.filter(elem => elem !== null)
+                document.body.toggleAttribute("alldetails",filter.length === 3)
 
                 const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
 
-                document.getElementById("unlockmsg")!.textContent = str[customisation.elems[0]]
-                document.getElementById("title")!.textContent = str[customisation.elems[1 - offset]]
-                document.getElementById("desc")!.textContent = str[customisation.elems[2 - offset]]
+                document.getElementById("unlockmsg")!.textContent = str[filter[0]]
+                document.getElementById("title")!.textContent = str[filter[1 - offset]]
+                document.getElementById("desc")!.textContent = str[filter[2 - offset]]
             }
 
             // document.getElementById("unlockmsg")!.textContent = `${unlockmsg}${customisation.alldetails && customisation.preset === "epicgames" ? "" : percentstr}`

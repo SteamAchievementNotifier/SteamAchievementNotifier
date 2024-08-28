@@ -294,6 +294,9 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
             ]
 
             const elems = customisation[`${iswebview !== "customiser" ? "ss" : ""}elems`]
+            const elemtype = `${iswebview !== "customiser" ? "ss" : ""}elems`
+
+            const ssnodetails = elemtype === "sselems" && !(customisation.ssalldetails as string[]).includes(customisation.preset)
 
             if (elems) {
                 const filter = elems.filter(elem => elem !== null)
@@ -301,9 +304,10 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
 
                 const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
 
-                document.getElementById("unlockmsg")!.textContent = str[filter[0]]
-                document.getElementById("title")!.textContent = str[filter[1 - offset]]
-                document.getElementById("desc")!.textContent = str[filter[2 - offset]]
+                // !!! Add percentages/hidden icon
+                document.getElementById("unlockmsg")!.textContent = ssnodetails ? "" : str[filter[0]]
+                document.getElementById("title")!.textContent = str[filter[ssnodetails ? 0 : 1 - offset]]
+                document.getElementById("desc")!.textContent = str[filter[ssnodetails ? 1 : 2 - offset]]
             }
 
             // document.getElementById("unlockmsg")!.textContent = `${unlockmsg}${customisation.alldetails && customisation.preset === "epicgames" ? "" : percentstr}`

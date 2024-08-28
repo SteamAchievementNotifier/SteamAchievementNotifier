@@ -91,6 +91,15 @@ export const sanconfig = {
             noiconcache: false,
             exclusions: [],
             logtype: "san",
+            ssalldetails: [
+                "steamdeck",
+                "epicgames",
+                "xbox360",
+                "ps5",
+                "ps4",
+                "ps3",
+                "windows"
+            ],
             customisation: {
                 main: {} as Customisation,
                 rare: {} as Customisation,

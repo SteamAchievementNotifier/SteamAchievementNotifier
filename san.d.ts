@@ -70,6 +70,7 @@ declare interface Config {
     debug: boolean,
     noiconcache: boolean,
     exclusions: number[],
+    ssalldetails: string[],
     logtype: "san" | "rust" | "sanhelperrs",
     customisation: {
         main: Customisation,

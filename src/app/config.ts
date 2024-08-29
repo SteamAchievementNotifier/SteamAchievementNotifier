@@ -158,6 +158,8 @@ export const sanconfig = {
                     "title",
                     "desc"
                 ],
+                hiddeniconpos: 2,
+                decorationpos: 1,
                 showdecoration: true,
                 pos: "bottomcenter",
                 usecustompos: false,
@@ -174,6 +176,8 @@ export const sanconfig = {
                     "title",
                     "desc"
                 ],
+                sshiddeniconpos: 2,
+                ssdecorationpos: 1,
                 alldetails: false,
                 primarycolor: "",
                 secondarycolor: "",

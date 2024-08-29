@@ -120,6 +120,8 @@ declare interface Customisation {
     usegameicon: boolean,
     customicons: { [key: string]: CustomIcon | string },
     elems: ("unlockmsg" | "title" | "desc")[] | null,
+    hiddeniconpos: number,
+    decorationpos: number
     showdecoration: boolean,
     pos: "bottomcenter" | "topcenter" | "topleft" | "topright" | "bottomleft" | "bottomright",
     usecustompos: boolean,
@@ -133,6 +135,8 @@ declare interface Customisation {
     ovx: number,
     ovy: number,
     sselems: ("unlockmsg" | "title" | "desc")[] | null,
+    sshiddeniconpos: number,
+    ssdecorationpos: number,
     alldetails: boolean,
     primarycolor: string,
     secondarycolor: string,

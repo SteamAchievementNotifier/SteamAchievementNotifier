@@ -62,7 +62,11 @@ export const translations = {
         elemselector: "Notification Elements",
         unlockmsg: "Unlock Message",
         title: "Achievement Title",
-        desc: "Achievement Description"
+        desc: "Achievement Description",
+        hiddeniconpos: "Hidden Icon",
+        decorationpos: "Decoration",
+        sshiddeniconpos: "Hidden Icon",
+        ssdecorationpos: "Decoration"
     },
     app: {
         content: {

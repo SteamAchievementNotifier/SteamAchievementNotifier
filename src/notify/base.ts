@@ -304,10 +304,23 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
 
                 const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
 
-                // !!! Add percentages/hidden icon
-                document.getElementById("unlockmsg")!.textContent = ssnodetails ? "" : str[filter[0]]
-                document.getElementById("title")!.textContent = str[filter[ssnodetails ? 0 : 1 - offset]]
-                document.getElementById("desc")!.textContent = str[filter[ssnodetails ? 1 : 2 - offset]]
+                const addelem = (type: "percent" | "hiddenicon" | "decoration",pos: number) => {
+                    const ss = elemtype === "sselems" ? "ss" : ""
+                    if (!customisation[`${ss}${type}pos`] || customisation[`${ss}${type}pos`] !== pos) return ""
+                    
+                    switch (type) {
+                        case "percent": return ` ${percentstr}`
+                        case "hiddenicon": return customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""
+                        // !!! Prevent "decoration" element from being shown if `decoration: null` for preset in `sanconfig.defaulticons`
+                        case "decoration": return `<span id="decoration"></span>`
+                        default: ""
+                    }
+                }
+
+                // !!! Fix issue where `span` elements returned from `addelem()` are still shown when element contains no text content
+                document.getElementById("unlockmsg")!.innerHTML = `${addelem("decoration",1)}${addelem("hiddenicon",1)}${(ssnodetails ? "" : str[filter[0]] || "")}${addelem("percent",1)}`
+                document.getElementById("title")!.innerHTML = `${addelem("decoration",2 - offset)}${addelem("hiddenicon",2 - offset)}${str[filter[ssnodetails ? 0 : 1 - offset]] || ""}${addelem("percent",2 - offset)}`
+                document.getElementById("desc")!.innerHTML = `${addelem("decoration",3 - offset)}${addelem("hiddenicon",3 - offset)}${str[filter[ssnodetails ? 1 : 2 - offset]] || ""}${addelem("percent",3 - offset)}`
             }
 
             // document.getElementById("unlockmsg")!.textContent = `${unlockmsg}${customisation.alldetails && customisation.preset === "epicgames" ? "" : percentstr}`

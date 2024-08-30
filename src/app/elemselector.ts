@@ -39,9 +39,17 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     const type = sanhelper.type
     const max = elemtype === "sselems" && !(config.get("ssalldetails") as string[]).includes(config.get(`customisation.${type}.preset`) as string) ? 2 : 3
+    const elems = config.get(`customisation.${type}.${elemtype}`) as string[]
+
+    const posids = [
+        "hiddeniconpos",
+        "decorationpos",
+        "percentpos"
+    ]
+    .map(id => `${elemtype === "sselems" ? "ss" : ""}${id}`)
 
     const html = `
-        <div class="wrapper opt" id="elemselector">
+        <div class="wrapper opt" id="elemselector"${elemtype === "sselems" ? " overlay notifyimg" : ""}>
             <span class="lbl"></span>
             <div class="wrapper opt">
                 <div class="wrapper opt">
@@ -73,6 +81,15 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
                 </div>
                 <div class="wrapper opt">
                     <span></span>
+                    <select name="percentpos" id="percentpos">
+                        <option value="off">🚫</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
                     <select name="hiddeniconpos" id="hiddeniconpos">
                         <option value="off">🚫</option>
                         <option value="1">1</option>
@@ -94,12 +111,9 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     `
 
     elem.insertAdjacentHTML("afterend",html)
-
-    menutype.querySelectorAll(`select#hiddeniconpos,select#customiconpos`).forEach(select => elemtype === "sselems" && (select.id = `ss${select.id}`))
+    
+    posids.forEach(id => menutype.querySelector(`#${id.replace("ss","")}`)!.id = id)
     menutype.querySelector(`#elemselector > span.lbl`)!.textContent = global["elemselector"]
-
-    const elems = config.get(`customisation.${type}.${elemtype}`) as string[]
-
     menutype.querySelectorAll(`#elemselector > .opt > .opt:has(select) > span`).forEach(lbl => lbl.textContent = global[lbl.nextElementSibling!.id])
 
     if (!elems) return
@@ -108,22 +122,16 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         const select = s as HTMLSelectElement
         select.onchange = null
 
-        const iconids = [
-            "hiddeniconpos",
-            "decorationpos"
-        ]
-        .map(id => `${elemtype === "sselems" ? "ss" : ""}${id}`)
+        const id = posids.find(id => select.id.includes(id))
+        
+        if (id) {
+            if (id.includes("decorationpos") && (!sanconfig.defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.decoration || config.get(`customisation.${type}.preset`) === "epicgames")) return select.parentElement!.remove()
 
-        const iconid = iconids.find(id => select.id.includes(id))
-
-        if (iconid) {
-            if (iconid === "decorationpos" && !sanconfig.defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.decoration) return select.parentElement!.remove()
-
-            const iconpos = config.get(`customisation.${type}.${iconid}`) as number
-            select.value = iconpos > 0 ? iconpos.toString() : "off"
+            const pos = config.get(`customisation.${type}.${id}`) as number
+            select.value = pos > 0 ? pos.toString() : "off"
             select.onchange = event => {
                 const value = (event.target as HTMLSelectElement).value
-                config.set(`customisation.${type}.${iconid}`,value !== "off" ? parseInt(value) : 0)
+                config.set(`customisation.${type}.${id}`,value !== "off" ? parseInt(value) : 0)
 
                 sanhelper.updatetabs()
             }

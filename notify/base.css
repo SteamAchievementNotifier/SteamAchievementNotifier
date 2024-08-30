@@ -264,3 +264,18 @@ body[nodecoration] .wrapper#achcontent > span {
     margin-right: calc(0.25rem * var(--fontsize));
     vertical-align: calc(-0.5px * var(--fontsize));
 }
+
+body .wrapper#achcont > .wrapper#achcontent::before {
+    display: none !important;
+}
+
+#decoration {
+    display: inline-block;
+    width: calc(1rem * var(--fontsize));
+    height: calc(1rem * var(--fontsize));
+    background: var(--decoration) center / contain no-repeat;
+    /* margin-inline: calc(10px * var(--scale)) calc(5px * var(--scale)); */
+    justify-self: end;
+    grid-column-start: 2;
+    grid-row-start: 1;
+}

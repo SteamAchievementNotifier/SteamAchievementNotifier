@@ -150,6 +150,8 @@ declare interface Customisation {
     hiddenicon: string,
     previewhiddenicon: boolean,
     usepercent: boolean,
+    percentpos: number,
+    sspercentpos: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object
 }

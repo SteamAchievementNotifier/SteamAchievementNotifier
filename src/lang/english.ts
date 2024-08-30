@@ -64,9 +64,11 @@ export const translations = {
         title: "Achievement Title",
         desc: "Achievement Description",
         hiddeniconpos: "Hidden Icon",
-        decorationpos: "Decoration",
         sshiddeniconpos: "Hidden Icon",
-        ssdecorationpos: "Decoration"
+        decorationpos: "Decoration",
+        ssdecorationpos: "Decoration",
+        percentpos: "Rarity Percentage",
+        sspercentpos: "Rarity Percentage"
     },
     app: {
         content: {

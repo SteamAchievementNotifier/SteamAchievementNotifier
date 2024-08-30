@@ -190,6 +190,8 @@ export const sanconfig = {
                 hiddenicon: "",
                 previewhiddenicon: false,
                 usepercent: false,
+                percentpos: 1,
+                sspercentpos: 1,
                 usertheme: [] as UserTheme[]
             }
 

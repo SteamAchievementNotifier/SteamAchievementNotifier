@@ -29,22 +29,24 @@ const updateelems = (config: ElectronStore<Config>,type: "main" | "rare" | "plat
 }
 
 export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselems") => {
+    const config = sanconfig.get()
+    if (elemtype === "sselems" && config.get("screenshots") === "off") return
+
+    const lang = config.get("lang")
+    const { translations: { global } } = await import(`../lang/${lang}`)
+
     const menutype = document.getElementById(elemtype === "elems" ? "customiser" : "settingscontent")!
     const elemselector = menutype.querySelector("#elemselector")
     elemselector && elemselector.remove()
-
-    const config = sanconfig.get()
-    const lang = config.get("lang")
-    const { translations: { global } } = await import(`../lang/${lang}`)
 
     const type = sanhelper.type
     const max = elemtype === "sselems" && !(config.get("ssalldetails") as string[]).includes(config.get(`customisation.${type}.preset`) as string) ? 2 : 3
     const elems = config.get(`customisation.${type}.${elemtype}`) as string[]
 
     const posids = [
+        "percentpos",
         "hiddeniconpos",
-        "decorationpos",
-        "percentpos"
+        "decorationpos"
     ]
     .map(id => `${elemtype === "sselems" ? "ss" : ""}${id}`)
 

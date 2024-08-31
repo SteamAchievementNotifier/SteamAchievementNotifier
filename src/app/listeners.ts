@@ -667,7 +667,8 @@ export const listeners = {
                 steampath: sanhelper.steampath,
                 steam3id: notify.steam3id,
                 hqicon: sanhelper.gethqicon(appid),
-                temp: sanhelper.temp
+                temp: sanhelper.temp,
+                ssalldetails: config.get("ssalldetails")
             } as Info)
 
             worker && worker.webContents.send("steam3id")
@@ -809,7 +810,8 @@ export const listeners = {
                         skipaudio: isextwin || config.get("audiosrc") !== "notify",
                         steam3id: info.steam3id,
                         hqicon: sanhelper.gethqicon(appid),
-                        temp: sanhelper.temp
+                        temp: sanhelper.temp,
+                        ssalldetails: config.get("ssalldetails")
                     } as Info
                 }
 
@@ -1166,7 +1168,8 @@ export const listeners = {
                     skipaudio: true,
                     customfiles: config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
                     hqicon: sanhelper.gethqicon(appid),
-                    temp: sanhelper.temp
+                    temp: sanhelper.temp,
+                    ssalldetails: config.get("ssalldetails")
                 } as Info)
 
                 ipcMain.once("dims", (event,dims: { width: number, height: number, offset: number }) => {

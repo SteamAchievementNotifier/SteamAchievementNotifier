@@ -661,3 +661,7 @@ input[type="range"][unit],
 .wrapper#elemselector > .wrapper > .wrapper:has(select > option[value="off"]:checked) > select {
     background-color: var(--darkgrey);
 }
+
+.wrapper#elemselector > .wrapper > .wrapper:has(select#desc) {
+    margin-bottom: 0.5rem;
+}

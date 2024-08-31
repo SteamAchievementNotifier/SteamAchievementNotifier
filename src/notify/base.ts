@@ -4,6 +4,12 @@ import fs from "fs"
 
 const imgs = [document.getElementById("achicon")] as HTMLImageElement[]
 
+const hiddenelems = [
+    "steamdeck",
+    "epicgames",
+    "ps5"
+]
+
 const notifyhelper = {
     appendcss: (preset: string) => {
         document.querySelector(`link#${preset}css`)! && document.querySelector(`link#${preset}css`)!.remove()
@@ -231,7 +237,7 @@ const notifyhelper = {
 }
 
 ipcRenderer.on("notify", async (event,obj: Info) => {
-    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp } = obj
+    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails } = obj
 
     try {
         document.body.setAttribute(type,"")
@@ -287,16 +293,10 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
                 desc: desc
             }
 
-            const hiddenelems = [
-                "steamdeck",
-                "epicgames",
-                "ps5"
-            ]
-
-            const elems = customisation[`${iswebview !== "customiser" ? "ss" : ""}elems`]
-            const elemtype = `${iswebview !== "customiser" ? "ss" : ""}elems`
-
-            const ssnodetails = elemtype === "sselems" && !(customisation.ssalldetails as string[]).includes(customisation.preset)
+            const ss = iswebview && iswebview.includes("ss") ? "ss" : ""
+            const elemtype = `${ss}elems`
+            const elems = customisation[elemtype] as ("unlockmsg" | "title" | "desc")[]
+            const ssnodetails = elemtype === "sselems" && !(ssalldetails as string[]).includes(customisation.preset)
 
             if (elems) {
                 const filter = elems.filter(elem => elem !== null)

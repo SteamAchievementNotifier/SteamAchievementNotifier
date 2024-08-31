@@ -228,7 +228,8 @@ declare interface Info {
     skipaudio?: boolean,
     customfiles?: string,
     hqicon: string,
-    temp: string
+    temp: string,
+    ssalldetails: string[]
 }
 
 declare interface BuildNotifyInfo {

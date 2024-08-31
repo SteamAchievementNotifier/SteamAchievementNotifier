@@ -349,9 +349,19 @@ export const sanhelper: SANHelper = {
         }
 
         const selectinputtype = (target: EventTarget) => ((target instanceof HTMLSelectElement ? target as HTMLSelectElement : target as HTMLInputElement)).value
-
-        // Fixes issue where switching Customiser tabs causes an error on next line
-        if (elem.id === "unlockmsg" || elem.id === "title" || elem.id === "desc") return
+        
+        // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
+        if ([
+            "unlockmsg",
+            "title",
+            "desc",
+            "percentpos",
+            "hiddeniconpos",
+            "decorationpos",
+            "sspercentpos",
+            "sshiddeniconpos",
+            "ssdecorationpos"
+        ].find(id => elem.id === id)) return
 
         elem.value = key.toString()
         elem.onchange = ({ target }: Event) => {

@@ -311,7 +311,6 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
                     switch (type) {
                         case "percent": return ` ${percentstr}`
                         case "hiddenicon": return customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""
-                        // !!! Prevent "decoration" element from being shown if `decoration: null` for preset in `sanconfig.defaulticons`
                         case "decoration": return customisation[`${ss}decorationpos`] ? `<span id="decoration"></span>` : ""
                         default: ""
                     }

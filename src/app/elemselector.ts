@@ -6,7 +6,7 @@ import fs from "fs"
 
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
 
-const updateelems = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",elems: string[],select: HTMLSelectElement,elemtype: "elems" | "sselems",max: number) => {
+const updateelems = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",elems: string[],select: HTMLSelectElement,elemtype: "elems" | "sselems",max: number,posids: string[]) => {
     const key = `customisation.${type}.${elemtype}`
     let i = elems.indexOf(select.id)
     let newelems = elems.slice()
@@ -27,6 +27,13 @@ const updateelems = (config: ElectronStore<Config>,type: "main" | "rare" | "plat
     config.set(key,newelems)
     select.value = newelems.indexOf(select.id) > -1 ? (newelems.indexOf(select.id) + 1).toString() : "off"
 
+    ;(async () => {
+        // `config`/`elems` need to be refreshed, due to being updated by `config.set()` above
+        const { sanconfig } = await import("./config")
+        const config = sanconfig.get()
+        posids.forEach(id => adjustpos(config,type,id,config.get(`customisation.${type}.${elemtype}`) as string[]))
+    })()
+
     sanhelper.updatetabs()
 }
 
@@ -35,6 +42,8 @@ const updateopts = (select: HTMLSelectElement,elems: string[],max: number) => se
     select.value !== "off" && i > elems.length && opt.setAttribute("disabled","")
     i > max && opt.remove()
 })
+
+const adjustpos = (config: ElectronStore<Config>, type: "main" | "rare" | "plat", id: string, elems: string[]) => config.get(`customisation.${type}.${id}`) as number > elems.length && config.set(`customisation.${type}.${id}`, elems.length > 0 ? elems.length : 0)
 
 export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselems") => {
     const config = sanconfig.get()
@@ -92,7 +101,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         }
 
         select.value = elems.indexOf(select.id) > -1 ? (elems.indexOf(select.id) + 1).toString() : "off"
-        select.onchange = () => updateelems(config,type,elems,select,elemtype,max)
+        select.onchange = () => updateelems(config,type,elems,select,elemtype,max,posids)
 
         updateopts(select,elems,max)
     })

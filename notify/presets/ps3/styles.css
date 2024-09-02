@@ -29,11 +29,12 @@ body[bgonly] .wrapper#achcont {
 
 .wrapper#achcontent::before {
     content: "";
-    display: block;
+    display: var(--decorationdisplaytype);
     width: calc(1.5rem * var(--fontsize));
     height: calc(1.5rem * var(--fontsize));
-    grid-row-start: 2;
     background: var(--decoration) center / contain no-repeat;
+    grid-column-start: 1;
+    grid-row-start: var(--decorationindex);
 }
 
 body[alldetails] .wrapper#achcontent::before {
@@ -55,8 +56,16 @@ body[bgonly] .wrapper#bg {
     font-size: calc(1.25rem * var(--fontsize));
 }
 
-.wrapper#achcontent > span:not(#title) {
+/* .wrapper#achcontent > span:not(#title) {
     grid-column: 1 / span 2;
+} */
+
+.wrapper#achcontent > span {
+    grid-column: 1 / -1;
+}
+
+.wrapper#achcontent > span:has(#decoration) {
+    grid-column: 2 / -1;
 }
 
 body[alldetails] .wrapper#achcontent > span {

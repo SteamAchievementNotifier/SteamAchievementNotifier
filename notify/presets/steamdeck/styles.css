@@ -57,28 +57,37 @@ body[bottomcenter] .wrapper#achcont {
 
 .wrapper#achcontent::before {
     content: "";
-    display: block;
+    display: var(--decorationdisplaytype);
     width: 0.5rem;
     height: 0.5rem;
     scale: calc(2.5 * var(--fontsize));
-    margin-inline: calc(0.15rem * var(--fontsize)) calc(0.25rem * var(--fontsize));
+    margin-inline: calc(0.15rem * var(--fontsize));
     background: var(--decoration) center / contain no-repeat;
     grid-column-start: 1;
-    grid-row-start: 1;
+    grid-row-start: var(--decorationindex);
+}
+
+#decoration {
+    width: 0;
 }
 
 .wrapper#achcontent > span {
     font-family: "customfont", "Mandali", "Roboto";
+    grid-column: 1 / -1;
+}
+
+.wrapper#achcontent > span:has(#decoration) {
+    grid-column: 2 / -1;
 }
 
 body[alldetails] .wrapper#achcontent > span {
     font-size: calc(0.85rem * var(--fontsize));
 }
 
-body[alldetails] .wrapper#achcontent > span:not(#unlockmsg),
+/* body[alldetails] .wrapper#achcontent > span:not(#unlockmsg),
 body:not([alldetails]) .wrapper#achcontent > span:not(#title) {
     grid-column: 1 / span 2;
-}
+} */
 
 body:not([alldetails]) #unlockmsg {
     display: none;

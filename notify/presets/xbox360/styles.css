@@ -136,13 +136,20 @@
 .wrapper#achcontent {
     grid-template-columns: calc(var(--notifyheight) + (5px * var(--scale))) 1fr 0fr;
     grid-column: 1 / -1;
-    gap: 0;
+    /* gap: 0; */
+    column-gap: 0;
+    row-gap: 0.35rem;
     line-height: 1.25;
+}
+
+body[alldetails] .wrapper#achcontent {
+    gap: 0;
 }
 
 .wrapper#achcontent > span {
     font-family: "customfont", "Open Sans", "Roboto";
-    font-size: calc(1.05rem * var(--fontsize));
+    /* font-size: calc(1.05rem * var(--fontsize)); */
+    font-size: calc(1.25rem * var(--fontsize));
     opacity: 0;
     animation:
         fadein var(--transition) calc(var(--transition) * 2) forwards,
@@ -158,8 +165,9 @@
 }
 
 body[alldetails] .wrapper#achcontent > span {
-    font-size: calc(0.85rem * var(--fontsize));
-    line-height: calc(1rem * var(--fontsize));
+    /* font-size: calc(0.85rem * var(--fontsize)); */
+    font-size: calc(0.95rem * var(--fontsize));
+    line-height: calc(1.1rem * var(--fontsize));
 }
 
 body[nodecoration] .wrapper#achcontent > span {

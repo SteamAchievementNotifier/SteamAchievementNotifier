@@ -127,13 +127,13 @@ body[bottomcenter] .wrapper#achcont {
 
 .wrapper#achcontent::before {
     content: "";
-    display: block;
+    display: var(--decorationdisplaytype);
     width: 0.5rem;
     height: 0.5rem;
     scale: calc(1.75 * var(--fontsize));
     background: var(--decoration) center / contain no-repeat;
     grid-column-start: 1;
-    grid-row-start: 2;
+    grid-row-start: var(--decorationindex);
 }
 
 .wrapper#logo {
@@ -189,9 +189,17 @@ body[alldetails] .wrapper#achcontent > span {
     -webkit-line-clamp: 1;
 }
 
-body[alldetails] .wrapper#achcontent > span:not(#title),
+/* body[alldetails] .wrapper#achcontent > span:not(#title),
 body .wrapper#achcontent > span:not(#title) {
     grid-column: 1 / span 2;
+} */
+
+.wrapper#achcontent > span {
+    grid-column: 1 / -1;
+}
+
+.wrapper#achcontent > span:has(#decoration) {
+    grid-column: 2 / -1;
 }
 
 body:not([alldetails]) #desc {

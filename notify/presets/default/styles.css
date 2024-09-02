@@ -107,19 +107,15 @@ body[solid] .wrapper#achcont:has(.wrapper#achcontent > #desc) > #bg {
     gap: 0;
 }
 
-/* .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > #achcontent::before { */
 #decoration {
     content: "";
     display: inline-block;
     width: calc(1rem * var(--fontsize));
     height: calc(1rem * var(--fontsize));
     background: var(--decoration) center / contain no-repeat;
-    /* margin-inline: calc(10px * var(--scale)) calc(5px * var(--scale)); */
     margin-inline: 0 calc(5px * var(--scale));
     vertical-align: calc(-2px * var(--scale));
-    /* justify-self: end; */
     grid-column-start: 2;
-    /* grid-row-start: 1; */
 }
 
 .wrapper#achcont:has(.wrapper#achcontent > #desc) > .wrapper#achcontent {

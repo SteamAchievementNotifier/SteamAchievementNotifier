@@ -12,17 +12,110 @@ export const sanconfig = {
         ]
 
         return new Map<string,CustomIcon>([
-            ["default",{ logo: sanhelper.setfilepath("img","sanlogosquare.svg"), decoration: sanhelper.setfilepath("img","sanlogotrophy.svg"), elems: ["unlockmsg","title","desc"] }],
-            ["xqjan",{ logo: sanhelper.setfilepath("img","steamlogonew.svg"), decoration: null, elems: ["unlockmsg","title","desc"] }],
-            ["steamdeck",{ logo: null, decoration: sanhelper.setfilepath("img","ribbonbw.svg"), elems: ["title","desc"]  }],
-            ["epicgames",{ logo: null, decoration: trophies, elems: ["title"] }],
-            ["xboxone",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null, elems: ["unlockmsg","title","desc"] }],
-            ["xbox360",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null, elems: ["unlockmsg","title"] }],
-            ["ps5",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies, elems: ["title","desc"] }],
-            ["ps4",{ logo: sanhelper.setfilepath("img","sanlogo.svg"), decoration: trophies, elems: ["unlockmsg","title"] }],
-            ["ps3",{ logo: null, decoration: trophies, elems: ["unlockmsg","title"] }],
-            ["windows",{ logo: sanhelper.setfilepath("img","sanlogotrophy.svg"), decoration: null, elems: ["unlockmsg","title","desc"] }],
-            ["os",{ logo: null, decoration: null, elems: null }]
+            ["default",{
+                logo: sanhelper.setfilepath("img","sanlogosquare.svg"),
+                index: {
+                    percent: 1,
+                    hiddenicon: 2,
+                    decoration: 1
+                } as Index,
+                decoration: sanhelper.setfilepath("img","sanlogotrophy.svg"),
+                elems: ["unlockmsg","title","desc"]
+            }],
+            ["xqjan",{
+                logo: sanhelper.setfilepath("img","steamlogonew.svg"),
+                index: {
+                    percent: 1,
+                    hiddenicon: 2,
+                    decoration: 0
+                } as Index,
+                decoration: null,
+                elems: ["unlockmsg","title","desc"]
+            }],
+            ["steamdeck",{
+                logo: null,
+                decoration: sanhelper.setfilepath("img","ribbonbw.svg"),
+                index: {
+                    percent: 1,
+                    hiddenicon: 1,
+                    decoration: 1
+                } as Index,
+                elems: ["title","desc"] 
+            }],
+            ["epicgames",{
+                logo: null,
+                decoration: trophies,
+                index: {
+                    percent: 1,
+                    hiddenicon: 1,
+                    decoration: 1
+                } as Index,
+                elems: ["title"] }],
+            ["xboxone",{
+                logo: sanhelper.setfilepath("img","sanlogotrophy.svg"),
+                decoration: null,
+                index: {
+                    percent: 1,
+                    hiddenicon: 1,
+                    decoration: 0
+                },
+                elems: ["unlockmsg","title","desc"]
+            }],
+            ["xbox360",{
+                logo: sanhelper.setfilepath("img","sanlogotrophy.svg"),
+                decoration: null,
+                index: {
+                    percent: 1,
+                    hiddenicon: 1,
+                    decoration: 0
+                } as Index,
+                elems: ["unlockmsg","title"]
+            }],
+            ["ps5",{
+                logo: sanhelper.setfilepath("img","sanlogo.svg"),
+                decoration: trophies,
+                index: {
+                    percent: 1,
+                    hiddenicon: 1,
+                    decoration: 1
+                } as Index,
+                elems: ["title","desc"]
+            }],
+            ["ps4",{
+                logo: sanhelper.setfilepath("img","sanlogo.svg"),
+                decoration: trophies,
+                index: {
+                    percent: 1,
+                    hiddenicon: 1,
+                    decoration: 2
+                } as Index,
+                elems: ["unlockmsg","title"]
+            }],
+            ["ps3",{
+                logo: null, decoration: trophies,
+                index: {
+                    percent: 1,
+                    hiddenicon: 1,
+                    decoration: 2
+                } as Index,
+                elems: ["unlockmsg","title"]
+            }],
+            ["windows",{
+                logo: sanhelper.setfilepath("img","sanlogotrophy.svg"),
+                decoration: null,
+                index: {
+                    percent: 2,
+                    hiddenicon: 2,
+                    decoration: 1
+                } as Index,
+                elems: ["unlockmsg","title","desc"]
+            }],
+            ["os",{
+                logo: null,
+                decoration: null,
+                index: null,
+                elems: null
+            }]
         ])
     },
     create: (validate?: boolean): Config => {

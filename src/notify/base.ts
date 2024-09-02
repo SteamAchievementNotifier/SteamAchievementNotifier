@@ -183,6 +183,7 @@ const notifyhelper = {
                 ["--fontshadow",customisation.fontshadow ? `drop-shadow(0 0 ${1.5 * customisation.scale / 100}px ${customisation.fontshadowcolor}) `.repeat(3) : "none"],
                 ["--logo",getcustomicon("logo")],
                 ["--decoration",getcustomicon("decoration")],
+                ["--decorationdisplaytype","block"],
                 ["--gs",customisation.usepercent ? `${percent.value.toFixed(1)}` : `${getpercent()}`],
                 ["--unit",customisation.usepercent ? "%" : (customisation.preset === "epicgames" ? " XP" : (customisation.preset === "xbox360" ? "G" : ""))],
                 ["--raritycolor",`${percent.value >= 50 ? "#a05526" : (percent.value < 50 && percent.value > percent.rarity ? "#828282" : "#b4904a")}`],
@@ -305,29 +306,32 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
                 const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
 
                 const addelem = (type: "percent" | "hiddenicon" | "decoration",pos: number) => {
-                    const ss = elemtype === "sselems" ? "ss" : ""
                     if (!customisation[`${ss}${type}pos`] || customisation[`${ss}${type}pos`] !== pos) return ""
                     
                     switch (type) {
                         case "percent": return ` ${percentstr}`
                         case "hiddenicon": return customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""
                         // !!! Prevent "decoration" element from being shown if `decoration: null` for preset in `sanconfig.defaulticons`
-                        case "decoration": return `<span id="decoration"></span>`
+                        case "decoration": return customisation[`${ss}decorationpos`] ? `<span id="decoration"></span>` : ""
                         default: ""
                     }
                 }
 
-                // !!! Fix issue where `span` elements returned from `addelem()` are still shown when element contains no text content
-                document.getElementById("unlockmsg")!.innerHTML = `${addelem("decoration",1)}${addelem("hiddenicon",1)}${(ssnodetails ? "" : str[filter[0]] || "")}${addelem("percent",1)}`
-                document.getElementById("title")!.innerHTML = `${addelem("decoration",2 - offset)}${addelem("hiddenicon",2 - offset)}${str[filter[ssnodetails ? 0 : 1 - offset]] || ""}${addelem("percent",2 - offset)}`
-                document.getElementById("desc")!.innerHTML = `${addelem("decoration",3 - offset)}${addelem("hiddenicon",3 - offset)}${str[filter[ssnodetails ? 1 : 2 - offset]] || ""}${addelem("percent",3 - offset)}`
+                new Map<string,number[]>([
+                    ["unlockmsg",[1,0]],
+                    ["title",[2 - offset,ssnodetails ? 0 : 1 - offset]],
+                    ["desc",[3 - offset,ssnodetails ? 1 : 2 - offset]]
+                ])
+                .forEach((value,key) => {
+                    const elem = document.getElementById(key)!
+                    elem.innerHTML = `${addelem("decoration",value[0])}${addelem("hiddenicon",value[0])}${key === "unlockmsg" && ssnodetails ? "" : str[filter[value[1]]] || ""}${addelem("percent",value[0])}`
+                    // Once `innerHTML` has been added, see if it has any `textContent`. If not, remove the element's `innerHTML`
+                    // Not ideal, but "hiddenicon"/"decoration" elements aren't added until the text is, so checking for `textContent` beforehand added won't work
+                    !elem.textContent && (elem.innerHTML = "")
+                })
+
+                document.documentElement.style.setProperty("--decorationindex",(customisation[`${ss}decorationpos`]).toString())
             }
-
-            // document.getElementById("unlockmsg")!.textContent = `${unlockmsg}${customisation.alldetails && customisation.preset === "epicgames" ? "" : percentstr}`
-            // document.getElementById("title")![customisation.showhiddenicon && hidden ? "innerHTML" : "textContent"] = `${customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""}${title}${document.body.hasAttribute("ss") && !customisation.alldetails && customisation.preset !== "windows" ? percentstr : ""}`
-            // document.getElementById("desc")!.textContent = desc
-
-            // document.querySelectorAll(`#unlockmsg, #title, #desc`).forEach(elem => !customisation.elems!.includes(elem.id as "unlockmsg" | "title" | "desc") && ((elem as HTMLElement).style.display = "none"))
             
             if (!steampath) throw new Error(`Steam installation path not found!`)
 
@@ -346,6 +350,7 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
                     dims: dims
                 } as Res)
             })
+            .finally(() => !customisation[`${ss}decorationpos`] && customisation.preset !== "epicgames" && ["","displaytype"].forEach(prop => document.documentElement.style.setProperty(`--decoration${prop}`,"none")))
         })
 
         notifyhelper.checkreadystate("ready",obj,imgs,res)

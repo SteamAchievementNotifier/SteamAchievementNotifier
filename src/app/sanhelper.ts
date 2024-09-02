@@ -351,7 +351,7 @@ export const sanhelper: SANHelper = {
         const selectinputtype = (target: EventTarget) => ((target instanceof HTMLSelectElement ? target as HTMLSelectElement : target as HTMLInputElement)).value
         
         // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
-        if ([
+        const selectorelems = [
             "unlockmsg",
             "title",
             "desc",
@@ -361,7 +361,9 @@ export const sanhelper: SANHelper = {
             "sspercentpos",
             "sshiddeniconpos",
             "ssdecorationpos"
-        ].find(id => elem.id === id)) return
+        ]
+
+        if (selectorelems.find(id => elem.id === id)) return
 
         elem.value = key.toString()
         elem.onchange = ({ target }: Event) => {
@@ -381,7 +383,10 @@ export const sanhelper: SANHelper = {
                     const { sanconfig: { defaulticons } } = await import("./config")
                     const type = sanhelper.type
 
+                    // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
                     config.set(`customisation.${type}.elems`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.elems)
+                    const index = defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.index
+                    selectorelems.filter(id => ["percent","hiddenicon","decoration"].find(elemid => id === `${elemid}pos`)).forEach(id => [id,`ss${id}`].forEach(key => index && config.set(`customisation.${type}.${key}`,index[`${key.replace(/^ss/,"").replace(/pos$/,"")}`])))
                 })()
             }
 

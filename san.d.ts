@@ -157,11 +157,19 @@ declare interface Customisation {
 }
 
 declare interface CustomIcon {
-    [key: string]: string | string[] | null | ("unlockmsg" | "title" | "desc")[],
+    [key: string]: string | string[] | Index | null | ("unlockmsg" | "title" | "desc")[],
     logo: string | string[] | null,
     decoration: string | string[] | null,
+    index: Index | null,
     plat?: string | string[] | null,
     elems: ("unlockmsg" | "title" | "desc")[] | null
+}
+
+declare interface Index {
+    [key: string]: number
+    percent: number,
+    hiddenicon: number,
+    decoration: number
 }
 
 declare interface GameData {

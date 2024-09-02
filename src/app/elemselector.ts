@@ -1,6 +1,8 @@
 import ElectronStore from "electron-store"
 import { sanconfig } from "./config"
-import { sanhelper } from "./sanhelper"
+import { __root, sanhelper } from "./sanhelper"
+import path from "path"
+import fs from "fs"
 
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
 
@@ -28,6 +30,12 @@ const updateelems = (config: ElectronStore<Config>,type: "main" | "rare" | "plat
     sanhelper.updatetabs()
 }
 
+const updateopts = (select: HTMLSelectElement,elems: string[],max: number) => select.querySelectorAll("option").forEach((opt,i) => {
+    opt.removeAttribute("disabled")
+    select.value !== "off" && i > elems.length && opt.setAttribute("disabled","")
+    i > max && opt.remove()
+})
+
 export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselems") => {
     const config = sanconfig.get()
     if (elemtype === "sselems" && config.get("screenshots") === "off") return
@@ -44,77 +52,16 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     const elems = config.get(`customisation.${type}.${elemtype}`) as string[]
 
     const posids = [
-        "percentpos",
-        "hiddeniconpos",
-        "decorationpos"
+        "percent",
+        "hiddenicon",
+        "decoration"
     ]
-    .map(id => `${elemtype === "sselems" ? "ss" : ""}${id}`)
+    .map(id => `${elemtype === "sselems" ? "ss" : ""}${id}pos`)
 
-    const html = `
-        <div class="wrapper opt" id="elemselector"${elemtype === "sselems" ? " overlay notifyimg" : ""}>
-            <span class="lbl"></span>
-            <div class="wrapper opt">
-                <div class="wrapper opt">
-                    <span></span>
-                    <select name="unlockmsg" id="unlockmsg">
-                        <option value="off">🚫</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
-                    <select name="title" id="title">
-                        <option value="off">🚫</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
-                    <select name="desc" id="desc">
-                        <option value="off">🚫</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
-                    <select name="percentpos" id="percentpos">
-                        <option value="off">🚫</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
-                    <select name="hiddeniconpos" id="hiddeniconpos">
-                        <option value="off">🚫</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
-                    <select name="decorationpos" id="decorationpos">
-                        <option value="off">🚫</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    `
-
+    const html = fs.readFileSync(path.join(__root,"dist","app","elemselector.html")).toString()
     elem.insertAdjacentHTML("afterend",html)
     
-    posids.forEach(id => menutype.querySelector(`#${id.replace("ss","")}`)!.id = id)
+    posids.forEach(id => menutype.querySelector(`#${id.replace(/^ss/,"")}`)!.id = id)
     menutype.querySelector(`#elemselector > span.lbl`)!.textContent = global["elemselector"]
     menutype.querySelectorAll(`#elemselector > .opt > .opt:has(select) > span`).forEach(lbl => lbl.textContent = global[lbl.nextElementSibling!.id])
 
@@ -125,7 +72,8 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         select.onchange = null
 
         const id = posids.find(id => select.id.includes(id))
-        
+
+        // !!! Fix issue where setting percent/hiddenicon/decoration to a first/last index, then removing that index from displaying, causes the element to still appear on the line of the hidden index
         if (id) {
             if (id.includes("decorationpos") && (!sanconfig.defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.decoration || config.get(`customisation.${type}.preset`) === "epicgames")) return select.parentElement!.remove()
 
@@ -138,16 +86,14 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
                 sanhelper.updatetabs()
             }
 
+            updateopts(select,elems,max)
+
             return
         }
 
         select.value = elems.indexOf(select.id) > -1 ? (elems.indexOf(select.id) + 1).toString() : "off"
         select.onchange = () => updateelems(config,type,elems,select,elemtype,max)
 
-        select.querySelectorAll("option").forEach((opt,i) => {
-            opt.removeAttribute("disabled")
-            select.value !== "off" && i > elems.length && opt.setAttribute("disabled","")
-            i > max && opt.remove()
-        })
+        updateopts(select,elems,max)
     })
 }

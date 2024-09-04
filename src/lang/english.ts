@@ -68,7 +68,9 @@ export const translations = {
         decorationpos: "Decoration",
         ssdecorationpos: "Decoration",
         percentpos: "Rarity Percentage",
-        sspercentpos: "Rarity Percentage"
+        sspercentpos: "Rarity Percentage",
+        noexe: "Game EXE not found!",
+        noexesub: `Select <span id="bold">Options > Release Game</span> from the System Tray to quit`
     },
     app: {
         content: {

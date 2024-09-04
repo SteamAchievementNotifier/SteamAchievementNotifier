@@ -149,7 +149,7 @@ const notifyhelper = {
     
             const getpreloadimgurl = async (type: "bgstyle" | "usegameicon") => {
                 const preloadimg = document.createElement("img")
-                const url = customisation.bgstyle === "bgimg" ? (customisation.bgimg || "../img/sanimgbg.png") : await notifyhelper.getgameart(type === "bgstyle" ? "library_hero" : "icon",gameartappid,steampath,steam3id,hqicon).catch(fallback => {
+                const url = (type === "bgstyle" && customisation.bgstyle === "bgimg") ? (customisation.bgimg || "../img/sanimgbg.png") : await notifyhelper.getgameart(type === "bgstyle" ? "library_hero" : "icon",gameartappid,steampath,steam3id,hqicon).catch(fallback => {
                     imgerrors.push(type)
                     return fallback as string
                 })

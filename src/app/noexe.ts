@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     ipcRenderer.once("noexeready", (event,noexe: string,noexesub: string) => {
         document.getElementById("title")!.textContent = noexe
-        document.getElementById("sub")!.innerHTML = noexesub
+        document.getElementById("sub")!.textContent = noexesub
     })
 
     ipcRenderer.once("noexeclose", () => wrapper.style.animation = "fade 0.5s forwards")

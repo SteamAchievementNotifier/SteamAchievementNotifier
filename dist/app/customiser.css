@@ -65,7 +65,8 @@ body[main] .sub:has(#iconanim),
 #customiseropts:has(.opt > select#preset > option[value="steamdeck"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
 #customiseropts:has(.opt > select#preset > option[value="epicgames"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
 #customiseropts:has(.opt > select#preset > option[value="ps5"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
-#customiseropts:has(.opt > select#preset > option[value="ps4"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext) {
+#customiseropts:has(.opt > select#preset > option[value="ps4"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
+.opt:has(select#outline > option[value="off"]:checked) > .opt {
     display: none;
 }
 
@@ -315,7 +316,9 @@ body[plat] .wrapper#customisertabs > #customisernextbtn,
     --icon: url("../../icon/stars.svg");
 }
 
-.opt:has(> select#bgstyle) > .opt {
+.opt:has(> select#bgstyle) > .opt,
+.opt:has(> select#outline) > select#outline,
+.opt:has(> select#outline) > .opt {
     grid-column: 1 / -1;
 }
 

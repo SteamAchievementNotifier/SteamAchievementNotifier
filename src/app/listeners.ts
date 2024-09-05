@@ -184,48 +184,51 @@ export const listeners = {
 
         ipcMain.on("worker",(event,args) => console.log(JSON.parse(args)))
         ipcMain.on("noexe",() => {
-            const config = sanconfig.get()
-            const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
-
-            const noexewin = new BrowserWindow({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): No Game EXE`,
-                width: Math.round((375 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
-                height: Math.round((112.5 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
-                autoHideMenuBar: true,
-                frame: false,
-                transparent: true,
-                focusable: false,
-                minimizable: false,
-                maximizable: false,
-                fullscreen: false,
-                fullscreenable: false,
-                skipTaskbar: sanhelper.devmode,
-                movable: false,
-                resizable: false,
-                show: false,
-                webPreferences: {
-                    nodeIntegration: true,
-                    contextIsolation: false
-                }
-            })
-
-            noexewin.setIgnoreMouseEvents(true)
-            noexewin.setAlwaysOnTop(true,"screen-saver")
-            sanhelper.devmode && sanhelper.setdevtools(noexewin)
-
-            noexewin.loadFile(path.join(__root,"dist","app","noexe.html"))
-
-            ipcMain.once("noexeready", async () => {
-                const { width, height } = noexewin.getBounds()
-                const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
-
-                noexewin.webContents.send("noexeready",await language.get("noexe"),await language.get("noexesub"))
-                shownotify(noexewin,bounds)
-        
-                return setTimeout(() => noexewin.webContents.send("noexeclose"),4500)
-            })
-
-            ipcMain.once("noexeclose", () => noexewin.destroy())
+            // Delay to prevent overlapping with trackwin
+            setTimeout(() => {
+                const config = sanconfig.get()
+                const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
+    
+                const noexewin = new BrowserWindow({
+                    title: `Steam Achievement Notifier (V${sanhelper.version}): No Game EXE`,
+                    width: Math.round((375 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
+                    height: Math.round((112.5 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
+                    autoHideMenuBar: true,
+                    frame: false,
+                    transparent: true,
+                    focusable: false,
+                    minimizable: false,
+                    maximizable: false,
+                    fullscreen: false,
+                    fullscreenable: false,
+                    skipTaskbar: sanhelper.devmode,
+                    movable: false,
+                    resizable: false,
+                    show: false,
+                    webPreferences: {
+                        nodeIntegration: true,
+                        contextIsolation: false
+                    }
+                })
+    
+                noexewin.setIgnoreMouseEvents(true)
+                noexewin.setAlwaysOnTop(true,"screen-saver")
+                sanhelper.devmode && sanhelper.setdevtools(noexewin)
+    
+                noexewin.loadFile(path.join(__root,"dist","app","noexe.html"))
+    
+                ipcMain.once("noexeready", async () => {
+                    const { width, height } = noexewin.getBounds()
+                    const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
+    
+                    noexewin.webContents.send("noexeready",await language.get("noexe"),await language.get("noexesub"))
+                    shownotify(noexewin,bounds)
+            
+                    return setTimeout(() => noexewin.webContents.send("noexeclose"),7500)
+                })
+    
+                ipcMain.once("noexeclose", () => noexewin.destroy())
+            },6500)
         })
 
         // Emitted from `main.ts`

@@ -70,7 +70,7 @@ export const translations = {
         percentpos: "Rarity Percentage",
         sspercentpos: "Rarity Percentage",
         noexe: "Game EXE not found!",
-        noexesub: `Select <span id="bold">Options > Release Game</span> from the System Tray to quit`
+        noexesub: `Select Options > Release Game from the System Tray to quit`
     },
     app: {
         content: {
@@ -226,7 +226,12 @@ export const translations = {
                 pulse: "Pulse",
                 rainbow: "Rainbow",
                 mask: "Mask",
-                maskimg: "Mask Image"
+                maskimg: "Mask Image",
+                outline: "Outline",
+                outlinecolor: "Outline Color",
+                outlinewidth: "Outline Width",
+                dashed: "Dashed",
+                dotted: "Dotted"
             }
         },
         colors: {
@@ -409,6 +414,9 @@ export const translations = {
         glowspeed: "Set the speed of the animation applied to the glow effect",
         mask: "Enable masking parts of the notification with a custom image",
         maskimg: `Load an image file to be used as the mask<br><br><span class="ttdesc">In CSS, <code class="ttcode">mask-mode: alpha</code> operates in the opposite way to what is usually expected - areas of transparency in the image file will be obscured, and areas of black/grey will allow the elements below to be visible</span>`,
+        outline: "Select the type of outline to show around the notification",
+        outlinecolor: "Set the color of the outline around the notification",
+        outlinewidth: "Set the width of the outline around the notification",
         primarycolor: "Set the primary color of the notification",
         secondarycolor: "Set the secondary color of the notification",
         tertiarycolor: "Set the tertiary color of the notification",

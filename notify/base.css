@@ -117,6 +117,7 @@ body[bgonly] .wrapper#achcont {
     border-radius: var(--roundness);
     opacity: var(--opacity);
     z-index: -1;
+    border: var(--outlinewidth) var(--outline) var(--outlinecolor);
 }
 
 .wrapper#achcont,

@@ -166,7 +166,8 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
     background-color: #3d3d3d;
 }
 .opt:has(#nowtracking:not(:checked)) ~ .wrapper:has(#nowtrackingscale,#nowtrackingpos),
-.opt:has(#shortcuts:not(:checked)) + .wrapper:has(#shortcuttabs) {
+.opt:has(#shortcuts:not(:checked)) + .wrapper:has(#shortcuttabs),
+.opt:has(#webhooks:not(:checked)) + .wrapper#webhookwrapper {
     display: none;
 }
 
@@ -406,6 +407,59 @@ body[plat] .rect#sspreview {
 
 .wrapper#settingsversion > :nth-child(2) {
     justify-self: start;
+}
+
+.wrapper#webhookwrapper {
+    margin-top: 0.25rem;
+    gap: 0.5rem;
+}
+
+span#webhookcaution {
+    font-size: 0.5rem;
+    background-color: var(--primary);
+    padding: 0.5rem 0.75rem;
+    outline: 0.1rem solid red;
+    border-radius: var(--elembr);
+    text-wrap: pretty;
+    margin-bottom: 0.25rem;
+}
+
+span#webhookcaution,
+span#webhookcaution > * {
+    user-select: all;
+}
+
+.wrapper:has(> #webhooklaststatus) {
+    grid-template-columns: max-content 1fr;
+    gap: 0;
+    place-content: center;
+    margin-top: 0.15rem;
+    pointer-events: none;
+}
+
+.wrapper:has(> #webhooklaststatus) > span:first-child,
+#webhooklaststatus {
+    padding: 0.1rem 0.25rem;
+}
+
+.wrapper:has(> #webhooklaststatus) > span:first-child {
+    background-color: var(--primary);
+    border-radius: var(--elembr) 0 0 var(--elembr);
+}
+
+#webhooklaststatus {
+    width: 100%;
+    background-color: var(--darkgrey);
+    border-radius: 0 var(--elembr) var(--elembr) 0;
+    text-align: center;
+}
+
+#webhooklaststatus[ok] {
+    background-color: limegreen;
+}
+
+#webhooklaststatus[error] {
+    background-color: red;
 }
 
 @media (orientation: portrait) {

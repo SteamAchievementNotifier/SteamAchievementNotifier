@@ -289,6 +289,7 @@ export const sanhelper: SANHelper = {
         window.dispatchEvent(new Event("soundonly"))
     },
     extwin: (value: boolean) => ipcRenderer.send("extwin",value),
+    // extwinshow: () => ipcRenderer.send("extwinshow"),
     audiosrc: (value: "notify" | "app" | "off") => document.body.toggleAttribute("muted",value === "off"),
     shortcuts: (value: boolean) => ipcRenderer.send("shortcut",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
@@ -384,7 +385,7 @@ export const sanhelper: SANHelper = {
                     const type = sanhelper.type
 
                     // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
-                    config.set(`customisation.${type}.elems`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.elems)
+                    ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype]))
                     const index = defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.index
                     selectorelems.filter(id => ["percent","hiddenicon","decoration"].find(elemid => id === `${elemid}pos`)).forEach(id => [id,`ss${id}`].forEach(key => index && config.set(`customisation.${type}.${key}`,index[`${key.replace(/^ss/,"").replace(/pos$/,"")}`])))
                 })()

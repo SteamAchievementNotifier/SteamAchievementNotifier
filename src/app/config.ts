@@ -20,7 +20,8 @@ export const sanconfig = {
                     decoration: 1
                 } as Index,
                 decoration: sanhelper.setfilepath("img","sanlogotrophy.svg"),
-                elems: ["unlockmsg","title","desc"]
+                elems: ["unlockmsg","title","desc"],
+                sselems: ["title","desc"]
             }],
             ["xqjan",{
                 logo: sanhelper.setfilepath("img","steamlogonew.svg"),
@@ -30,7 +31,8 @@ export const sanconfig = {
                     decoration: 0
                 } as Index,
                 decoration: null,
-                elems: ["unlockmsg","title","desc"]
+                elems: ["unlockmsg","title","desc"],
+                sselems: ["title","desc"]
             }],
             ["steamdeck",{
                 logo: null,
@@ -40,7 +42,8 @@ export const sanconfig = {
                     hiddenicon: 1,
                     decoration: 1
                 } as Index,
-                elems: ["title","desc"] 
+                elems: ["title","desc"],
+                sselems: ["title","desc"]
             }],
             ["epicgames",{
                 logo: null,
@@ -50,7 +53,9 @@ export const sanconfig = {
                     hiddenicon: 1,
                     decoration: 1
                 } as Index,
-                elems: ["title"] }],
+                elems: ["title"],
+                sselems: ["title"]
+            }],
             ["xboxone",{
                 logo: sanhelper.setfilepath("img","sanlogotrophy.svg"),
                 decoration: null,
@@ -59,7 +64,8 @@ export const sanconfig = {
                     hiddenicon: 1,
                     decoration: 0
                 },
-                elems: ["unlockmsg","title","desc"]
+                elems: ["unlockmsg","title","desc"],
+                sselems: ["unlockmsg","title"]
             }],
             ["xbox360",{
                 logo: sanhelper.setfilepath("img","sanlogotrophy.svg"),
@@ -69,7 +75,8 @@ export const sanconfig = {
                     hiddenicon: 1,
                     decoration: 0
                 } as Index,
-                elems: ["unlockmsg","title"]
+                elems: ["unlockmsg","title"],
+                sselems: ["unlockmsg","title"]
             }],
             ["ps5",{
                 logo: sanhelper.setfilepath("img","sanlogo.svg"),
@@ -79,7 +86,8 @@ export const sanconfig = {
                     hiddenicon: 1,
                     decoration: 1
                 } as Index,
-                elems: ["title","desc"]
+                elems: ["title","desc"],
+                sselems: ["title","desc"]
             }],
             ["ps4",{
                 logo: sanhelper.setfilepath("img","sanlogo.svg"),
@@ -89,7 +97,8 @@ export const sanconfig = {
                     hiddenicon: 1,
                     decoration: 2
                 } as Index,
-                elems: ["unlockmsg","title"]
+                elems: ["unlockmsg","title"],
+                sselems: ["unlockmsg","title"]
             }],
             ["ps3",{
                 logo: null, decoration: trophies,
@@ -98,7 +107,8 @@ export const sanconfig = {
                     hiddenicon: 1,
                     decoration: 2
                 } as Index,
-                elems: ["unlockmsg","title"]
+                elems: ["unlockmsg","title"],
+                sselems: ["unlockmsg","title"]
             }],
             ["windows",{
                 logo: sanhelper.setfilepath("img","sanlogotrophy.svg"),
@@ -108,13 +118,15 @@ export const sanconfig = {
                     hiddenicon: 2,
                     decoration: 1
                 } as Index,
-                elems: ["unlockmsg","title","desc"]
+                elems: ["unlockmsg","title","desc"],
+                sselems: ["unlockmsg","title","desc"]
             }],
             ["os",{
                 logo: null,
                 decoration: null,
                 index: null,
-                elems: null
+                elems: null,
+                sselems: null
             }]
         ])
     },
@@ -133,8 +145,8 @@ export const sanconfig = {
         
         const { id, bounds: { width, height }, scaleFactor }: Electron.Display | DefaultBounds = process.type === "browser" ? screen.getPrimaryDisplay() : dummyscreen
         const target = {
-            width: 1050 / scaleFactor,
-            height: 750 / scaleFactor
+            width: Math.round(1050 / scaleFactor),
+            height: Math.round(750 / scaleFactor)
         }
 
         const imgpath = path.join(process.env[process.platform === "linux" ? "HOME" : "userprofile"]!,"Pictures",`Steam Achievement Notifier (V${sanhelper.version})`).replace(/\\/g,"/")
@@ -150,6 +162,11 @@ export const sanconfig = {
             soundonly: false,
             showpercent: "rareonly",
             extwin: false,
+            // extwinshow: false,
+            // extwinpos: {
+            //     x: 0,
+            //     y: 0
+            // },
             audiosrc: "notify",
             nowtracking: true,
             nowtrackingscale: 100,
@@ -173,8 +190,8 @@ export const sanconfig = {
             releasedelay: 0,
             width: target.width,
             height: target.height,
-            x: (width / 2) - (target.width / 2),
-            y: (height / 2) - (target.height / 2),
+            x: Math.round((width / 2) - (target.width / 2)),
+            y: Math.round((height / 2) - (target.height / 2)),
             usecustomfiles: false,
             noreleasedialog: false,
             norestartdialog: false,
@@ -193,6 +210,14 @@ export const sanconfig = {
                 "ps3",
                 "windows"
             ],
+            webhooks: false,
+            webhookurl: "",
+            webhooklaststatus: "",
+            // discord: {
+            //     userid: "",
+            //     avatarurl: "",
+            //     webhookurl: ""
+            // },
             customisation: {
                 main: {} as Customisation,
                 rare: {} as Customisation,

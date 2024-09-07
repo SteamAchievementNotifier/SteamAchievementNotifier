@@ -309,7 +309,7 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
                 const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
 
                 const addelem = (type: "percent" | "hiddenicon" | "decoration",pos: number) => {
-                    if (!customisation[`${ss}${type}pos`] || customisation[`${ss}${type}pos`] !== pos) return ""
+                    if (!customisation[`${ss}${type}pos`] || customisation[`${ss}${type}pos`] + (ssnodetails ? 1 : 0) !== pos) return ""
                     
                     switch (type) {
                         case "percent": return ` ${percentstr}`

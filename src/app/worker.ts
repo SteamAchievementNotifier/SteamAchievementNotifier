@@ -204,8 +204,8 @@ const startsan = async (appinfo: AppInfo) => {
                         percent: achievement.percent,
                         icon: icon || sanhelper.setfilepath("img","sanlogosquare.svg")
                     }
-        
-                    ipcRenderer.send("notify",notify)
+
+                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify))
         
                     if (live.every(ach => ach.unlocked) && !hasshown) {
                         const { plat } = (config.get(`customisation.plat`) as Customisation).customicons as CustomIcon

@@ -70,7 +70,9 @@ export const translations = {
         percentpos: "Rarity Percentage",
         sspercentpos: "Rarity Percentage",
         noexe: "Game EXE not found!",
-        noexesub: `Select Options > Release Game from the System Tray to quit`
+        noexesub: `Select Options > Release Game from the System Tray to quit`,
+        webhookunlockmsg: "$user unlocked an achievement",
+        webhookingame: "in $gamename"
     },
     app: {
         content: {
@@ -103,6 +105,7 @@ export const translations = {
                 showpercent: "Show Percentage",
                 soundonly: "Sound-Only Mode",
                 extwin: "Stream Notifications",
+                // extwinshow: "Show Window",
                 audiosrc: "Audio Source",
                 notify: "Notification",
                 app: "App",
@@ -110,7 +113,13 @@ export const translations = {
                 nowtrackingscale: "Tracking Scale",
                 nowtrackingpos: "Tracking Position",
                 shortcuts: "Notification Shortcuts",
-                noiconcache: "Disable Icon Caching"
+                noiconcache: "Disable Icon Caching",
+                webhooks: "Post to Discord Server",
+                // userid: `User ID <i style="font-size: 0.5rem; color: deepskyblue;">(Optional)</i>`,
+                // avatarurl: `Avatar URL <i style="font-size: 0.5rem; color: deepskyblue;">(Optional)</i>`,
+                webhookurl: `Webhook URL`,
+                webhookcaution: `By enabling this option and providing a valid Discord Webhook link, you agree that you understand that <u>all achievement and game information for the current Steam user</u> will be posted to the specified Discord server via the Webhook link provided.<br><br>If you do not wish for Steam Achievement Notifier to post this information on your behalf, please disable this option.`,
+                webhooklaststatus: "Last Status"
             }
         },
         media: {
@@ -449,7 +458,8 @@ export const translations = {
         ovx: "Offset the notification displayed in the screenshot horizontally",
         ovy: "Offset the notification displayed in the screenshot vertically",
         importtheme: `Import customisations via a user-created <span class="hl">Theme file</span>`,
-        exporttheme: `Export the currently selected <span class="hl">Theme</span> for sharing<br><br><span class="ttdesc">Before attempting to export, please ensure the desired <span class="hl">Theme</span> has been selected (via the <span class="hl">Theme Select</span> menu). Please also ensure that customisations have been saved to the selected <span class="hl">Theme</span> (via the <span class="hl">Save Theme</span> menu)<br><br><u>Any customisations not yet saved to the current <span class="hl">Theme</span> will not be exported!</u></span>`
+        exporttheme: `Export the currently selected <span class="hl">Theme</span> for sharing<br><br><span class="ttdesc">Before attempting to export, please ensure the desired <span class="hl">Theme</span> has been selected (via the <span class="hl">Theme Select</span> menu). Please also ensure that customisations have been saved to the selected <span class="hl">Theme</span> (via the <span class="hl">Save Theme</span> menu)<br><br><u>Any customisations not yet saved to the current <span class="hl">Theme</span> will not be exported!</u></span>`,
+        webhooks: "Use a webhook to post in a Discord server whenever an achievement is unlocked"
     },
     update: {
         updateavailable: "Update available",

@@ -28,19 +28,24 @@ export const listeners = {
 
         app.on("second-instance", () => win.show())
 
-        const savewindowstate = () => {
+        const savewindowstate = (wintype: BrowserWindow,key?: string) => {
             const config = sanconfig.get()
-            const { width, height, x, y } = win.getBounds()
+            const { width, height, x, y } = wintype.getBounds()
 
-            config.set({
-                width: width,
-                height: height,
+            const bounds = {
                 x: x,
                 y: y
-            })
+            } as { x: number, y: number, width?: number, height?: number }
+
+            if (wintype === win) {
+                bounds.width = width
+                bounds.height = height
+            }
+
+            return key ? config.set(key,bounds) : config.set(bounds)
         }
 
-        win.on("close",savewindowstate)
+        win.on("close", () => savewindowstate(win))
 
         let tray: Tray | null = null
         tray = new Tray(path.join(__root,"img","sanlogo_idle.png"))
@@ -126,7 +131,7 @@ export const listeners = {
                             .createFromPath(path.join(__root,"icon","close.png"))
                             .resize({ width: 16 }),
                     click: () => {
-                        savewindowstate()
+                        savewindowstate(win)
                         ipcMain.emit("exit",null,`App exited via System Tray.`)
                     }
                 }
@@ -433,12 +438,13 @@ export const listeners = {
 
         const setwinsize = () => {
             const config = sanconfig.get()
+            const { scaleFactor } = config.get("monitors").find(monitor => monitor.primary) || screen.getPrimaryDisplay()
 
             // Default Target Resolution:
             // 700 (1050 / 1.5x) x 500 (750 / 1.5x) @ 1.5x scaleFactor
             const windefault = {
-                width: 1050,
-                height: 750
+                width: Math.round(1050 / scaleFactor),
+                height: Math.round(750 / scaleFactor)
             }
 
             const { width, height } = windefault
@@ -448,10 +454,7 @@ export const listeners = {
                 win.setPosition(0,0)
                 resolve()
             })
-            .then(() => {
-                const { scaleFactor } = config.get("monitors").find(monitor => monitor.primary) || screen.getPrimaryDisplay()
-                win.setSize(Math.round(width / scaleFactor),Math.round(height / scaleFactor))
-            })
+            .then(() => win.setSize(width,height))
             .finally(() => {
                 win.center()
                 win.show()
@@ -491,7 +494,7 @@ export const listeners = {
             .finally(() => displayschanged("updated"))
         })
 
-        ipcMain.on("resetwin",() => setwinsize())
+        ipcMain.on("resetwin",setwinsize)
 
         ipcMain.on("startwin", (event,value: boolean) => {
             if (process.platform === "linux") {
@@ -555,6 +558,8 @@ export const listeners = {
             })
         })
 
+        // const extwinmoved = () => extwin && savewindowstate(extwin,"extwinpos")
+
         ipcMain.on("extwin", (event,value: boolean) => {
             const config = sanconfig.get()
             // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
@@ -576,10 +581,14 @@ export const listeners = {
                 minimizable: false,
                 maximizable: false,
                 resizable: false,
+                // frame: config.get("extwinshow"),
                 frame: false,
+                // transparent: !config.get("extwinshow"),
                 transparent: true,
+                // opacity: config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0),
                 opacity: sanhelper.devmode ? 0.5 : 0,
                 skipTaskbar: false,
+                useContentSize: true,
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
@@ -588,11 +597,24 @@ export const listeners = {
                 }
             })
 
+            // const { x, y } = ["x","y"].reduce((key,value) => {
+            //     key[value as "x" | "y"] = config.get("extwinshow") ? config.get("extwinpos")[value as "x" | "y"] : 0
+            //     return key
+            // }, {} as { x: number; y: number })
+
+            // extwin.setPosition(x,y)
+
+            // extwin.setIgnoreMouseEvents(!config.get("extwinshow"))
             extwin.setIgnoreMouseEvents(true)
             extwin.loadFile(config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html"))
             sanhelper.devmode && sanhelper.setdevtools(extwin)
 
-            extwin.once("close", () => reopenonlaunch = false)
+            // extwin.on("moved",extwinmoved)
+
+            extwin.once("close", () => {
+                // extwin && extwin.removeListener("moved",extwinmoved)
+                reopenonlaunch = false
+            })
 
             extwin.once("closed", () => {
                 log.write("EXIT",`"Stream Notification" window ${reopenonlaunch ? "destroyed" : "closed"}.`)
@@ -600,6 +622,15 @@ export const listeners = {
                 ipcMain.emit("configupdated",null,config.store)
             })
         })
+
+        // ipcMain.on("extwinshow", () => {
+        //     if (extwin) {
+        //         extwin.destroy()
+        //         extwin = null
+        //     }
+
+        //     setTimeout(() => ipcMain.emit("extwin",null,true),1000)
+        // })
 
         ipcMain.on("closeopenwins", () => {
             if (!poswin) return
@@ -652,8 +683,9 @@ export const listeners = {
         const queue: WinType[] = []
         let running: boolean = false
 
-        ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null) => {
+        ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null) => {            
             const config = sanconfig.get()
+            
             if (config.get("soundonly")) {
                 if (!iswebview) {
                     win.webContents.send("soundonly",notify.type)
@@ -950,6 +982,8 @@ export const listeners = {
 
         // Prevents "Object has been destroyed" error if `extwin` is closed before `setTimeout` has occurred
         ipcMain.on("notifyclosed", (event,isextwin?: boolean,preset?: string) => (isextwin && extwin) && extwin.webContents.send("notifyclosed",preset))
+
+        ipcMain.on("sendwebhook", (event,notify: Notify) => win.webContents.send("sendwebhook",notify))
 
         let poswin: BrowserWindow | null = null
 

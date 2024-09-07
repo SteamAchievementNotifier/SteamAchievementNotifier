@@ -8,6 +8,7 @@ import { sanconfig } from "./config"
 import { usertheme } from "./usertheme"
 import { language } from "./language"
 import { update } from "./update"
+import { sendwebhook } from "./webhook"
 
 declare global {
     interface Window {
@@ -293,6 +294,9 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
 
         const { elemselector } = await import("./elemselector")
         elemselector(document.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
+
+        const { webhookwrapper } = await import("./webhook")
+        webhookwrapper(document.querySelector(`#settingscontent .wrapper:has(> #webhooks)`)!)
     }
 
     if (document.querySelector("body[customiser]")) {
@@ -534,6 +538,7 @@ ipcRenderer.on("appaudio", (event,type) => {
 })
 
 document.getElementById("test")!.onclick = sendtestnotify
+
 ipcRenderer.on("customisernotify", (event,obj: Info) => {
     const wrapper = (document.querySelector(".wrapper:has(> webview)") as Electron.WebviewTag)!
     const { width, height } = sanhelper.getpresetbounds(obj.customisation.preset)
@@ -684,3 +689,43 @@ ipcRenderer.on("updatemenu", (event,id) => {
 
 ipcRenderer.on("workeractive", (event,value: boolean) => document.body.toggleAttribute("active",value))
 ipcRenderer.on("updatelogtype", (event,logtype) => sanhelper.updatelogwin(logtype))
+
+const getsteamuser = async (): Promise<string | null> => {
+    const VDF = await import("simple-vdf")
+    const loginusers = fs.readFileSync(path.join(sanhelper.steampath,"config","loginusers.vdf")).toString()
+    const users = VDF.parse(loginusers).users
+
+    for (const user in users) {
+        if (parseInt(users[user].MostRecent) === 1) return users[user].PersonaName
+    }
+
+    return null
+}
+
+const unlockstr = async (user: string,gamename: string) => `${(await language.get("webhookunlockmsg")).replace(/\$user/,user)}${gamename ? ` ${(await language.get("webhookingame")).replace(/\$gamename/,gamename)}` : ""}`
+
+const embeds = async (notify: Notify) => {
+    const { type, gamename, name, desc, icon: achicon, percent, hidden } = notify
+    const user = await getsteamuser()
+    const icon = notify.type === "plat" ? config.get(`customisation.plat.customicons.plat`) as string : achicon
+
+    return {
+        color: type === "main" ? 2123412 : (type === "rare" ? 7419530 : 12370112),
+        author: {
+            name: await unlockstr(user || "???",gamename || "")
+        },
+        title: `${hidden ? "||" : ""}${type === "plat" && !name ? await language.get("gamecomplete") : name}${hidden ? "||" : ""}${type === "plat" ? "" : ` (${Math.max(parseFloat(percent.toFixed(1)),0.1)}%)`}`,
+        description: `${hidden ? "||" : ""}${type === "plat" ? await language.get("gamecompletedesc") : desc}${hidden ? "||" : ""}`,
+        thumbnail: {
+            url: `attachment://${path.basename(icon)}`
+        },
+        timestamp: new Date()
+    }
+}
+
+ipcRenderer.on("sendwebhook", async (event,notify: Notify) => {
+    const config = sanconfig.get()
+    const icon = notify.type === "plat" ? config.get(`customisation.plat.customicons.plat`) as string : notify.icon
+
+    config.get("webhooks") && sendwebhook(config.get("webhookurl"),await embeds(notify),icon)
+})

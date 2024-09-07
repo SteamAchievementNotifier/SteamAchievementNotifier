@@ -576,7 +576,7 @@ input[type="range"][unit],
     border-radius: 0 var(--elembr) var(--elembr) var(--elembr);
 }
 
-.opt:has(> .lbl):has(> input[type="range"], > input[type="text"], > input[type="number"], > input[type="color"]) {
+.opt:has(> .lbl):has(> input[type="range"], > input[type="text"], > input[type="password"], > input[type="number"], > input[type="color"]) {
     grid-template-columns: auto;
     gap: 0;
 }

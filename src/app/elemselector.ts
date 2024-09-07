@@ -82,7 +82,6 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
         const id = posids.find(id => select.id.includes(id))
 
-        // !!! Fix issue where setting percent/hiddenicon/decoration to a first/last index, then removing that index from displaying, causes the element to still appear on the line of the hidden index
         if (id) {
             if (id.includes("decorationpos") && (!sanconfig.defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.decoration || config.get(`customisation.${type}.preset`) === "epicgames")) return select.parentElement!.remove()
 

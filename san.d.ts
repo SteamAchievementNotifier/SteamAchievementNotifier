@@ -37,6 +37,11 @@ declare interface Config {
     soundonly: boolean,
     showpercent: "rareonly" | "all" | "off",
     extwin: boolean,
+    // extwinshow: boolean,
+    // extwinpos: {
+    //     x: number,
+    //     y: number
+    // },
     audiosrc: "notify" | "app" | "off",
     nowtracking: boolean,
     nowtrackingscale: number,
@@ -70,8 +75,17 @@ declare interface Config {
     debug: boolean,
     noiconcache: boolean,
     exclusions: number[],
-    ssalldetails: string[],
     logtype: "san" | "rust" | "sanhelperrs",
+    ssalldetails: string[],
+    webhooks: boolean,
+    webhookurl: string,
+    webhooklaststatus: string,
+    // discord: {
+    //     [key: string]: string,
+    //     userid: string,
+    //     avatarurl: string,
+    //     webhookurl: string
+    // },
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -165,7 +179,8 @@ declare interface CustomIcon {
     decoration: string | string[] | null,
     index: Index | null,
     plat?: string | string[] | null,
-    elems: ("unlockmsg" | "title" | "desc")[] | null
+    elems: ("unlockmsg" | "title" | "desc")[] | null,
+    sselems: ("unlockmsg" | "title" | "desc")[] | null
 }
 
 declare interface Index {

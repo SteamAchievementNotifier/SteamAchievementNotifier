@@ -62,7 +62,17 @@ export const translations = {
         elemselector: "Bildirim Öğeleri",
         unlockmsg: "Kilidi Açma Mesajı",
         title: "Başarı Başlığı",
-        desc: "Başarı Açıklaması"
+        desc: "Başarı Açıklaması",
+        hiddeniconpos: "Gizli İkon",
+        sshiddeniconpos: "Gizli İkon",
+        decorationpos: "Süsleme",
+        ssdecorationpos: "Süsleme",
+        percentpos: "Nadirlik Yüzdesi",
+        sspercentpos: "Nadirlik Yüzdesi",
+        noexe: "Oyun EXE dosyası bulunamadı!",
+        noexesub: `Çıkmak için Seçenekler > Sistem Tepsisinden Oyunu Kapatı seçin`,
+        webhookunlockmsg: "$user bir başarıyı kilidini açtı",
+        webhookingame: "$gamename'de"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Takip Ölçeği",
                 nowtrackingpos: "Takip Konumu",
                 shortcuts: "Bildirim Kısayolları",
-                noiconcache: "Simge Önbelleğini Devre Dışı Bırak"
+                noiconcache: "Simge Önbelleğini Devre Dışı Bırak",
+                webhooks: "Discord Sunucusuna Gönder",
+                webhookurl: `Webhook URL`,
+                webhookcaution: `Bu seçeneği etkinleştirip geçerli bir Discord Webhook bağlantısı sağladığınızda, <u>mevcut Steam kullanıcısının tüm başarı ve oyun bilgilerini</u> belirtilen Discord sunucusuna Webhook bağlantısı aracılığıyla göndereceğinizi kabul etmiş olursunuz.<br><br>Bu bilgilerin sizin adınıza gönderilmesini istemiyorsanız, bu seçeneği devre dışı bırakın.`,
+                webhooklaststatus: "Son Durum"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Nabız",
                 rainbow: "Gökkuşağı",
                 mask: "Maske",
-                maskimg: "Maske Resmi"
+                maskimg: "Maske Resmi",
+                outline: "Çerçeve",
+                outlinecolor: "Çerçeve Rengi",
+                outlinewidth: "Çerçeve Genişliği",
+                dashed: "Kesik Çizgi",
+                dotted: "Noktalı"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Parıltı efektine uygulanan animasyonun hızını ayarlayın",
         mask: "Bildirimin belirli bölümlerini özel bir resimle maskelemeyi etkinleştirin",
         maskimg: `Maske olarak kullanılacak bir resim dosyası yükleyin<br><br><span class="ttdesc">CSS'de <code class="ttcode">mask-mode: alpha</code>, genellikle beklenenin tam tersi şekilde çalışır - resim dosyasındaki şeffaflık alanları gizlenirken, siyah/grinin alanları alttaki öğelerin görünmesine izin verir</span>`,
+        outline: "Bildirim etrafında gösterilecek çerçeve türünü seçin",
+        outlinecolor: "Bildirim etrafındaki çerçevenin rengini ayarlayın",
+        outlinewidth: "Bildirim etrafındaki çerçevenin genişliğini ayarlayın",
         primarycolor: "Bildirimin birincil rengini ayarlayın",
         secondarycolor: "Bildirimin ikincil rengini ayarlayın",
         tertiarycolor: "Bildirimin üçüncül rengini ayarlayın",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Ekran görüntüsünde gösterilen bildirimi yatay olarak kaydırma",
         ovy: "Ekran görüntüsünde gösterilen bildirimi dikey olarak kaydırma",
         importtheme: `Kullanıcı tarafından oluşturulan <span class="hl">tema dosyası</span> aracılığıyla özelleştirmeleri içe aktarın`,
-        exporttheme: `Paylaşmak için şu anda seçili olan <span class="hl">temayı</span> dışa aktarın<br><br><span class="ttdesc">Dışa aktarmadan önce lütfen istenen <span class="hl">temanın</span> seçildiğinden (<span class="hl">Tema Seç</span> menüsü üzerinden) emin olun. Ayrıca özelleştirmelerin seçilen <span class="hl">temaya</span> kaydedilmiş olmasından (<span class="hl">Tema Kaydet</span> menüsü üzerinden) emin olun<br><br><u>Mevcut <span class="hl">temada</span> henüz kaydedilmemiş herhangi bir özelleştirme dışa aktarılmayacaktır!</u></span>`        
+        exporttheme: `Paylaşmak için şu anda seçili olan <span class="hl">temayı</span> dışa aktarın<br><br><span class="ttdesc">Dışa aktarmadan önce lütfen istenen <span class="hl">temanın</span> seçildiğinden (<span class="hl">Tema Seç</span> menüsü üzerinden) emin olun. Ayrıca özelleştirmelerin seçilen <span class="hl">temaya</span> kaydedilmiş olmasından (<span class="hl">Tema Kaydet</span> menüsü üzerinden) emin olun<br><br><u>Mevcut <span class="hl">temada</span> henüz kaydedilmemiş herhangi bir özelleştirme dışa aktarılmayacaktır!</u></span>`,
+        webhooks: "Bir başarı kilidini açıldığında Discord sunucusunda paylaşmak için Webhook URL kullanın",
+        webhookurl: `İstenilen Discord sunucusu için <span class="hl">Webhook URL</span> ayarlayın<br><br><span class="ttdesc"><span class="hl">Webhook URL</span>, bir kullanıcı veya uygulama adına Discord sunucusunda/kanalında paylaşım yapmak için kullanılır. Bir Discord sunucusu için yeni bir Webhook ayarlamak için kullanıcı, Webhooks oluşturulmasına izin veren bir role sahip olmalıdır<br><br><u>Bu seçeneği kullanırken Webhook URL gereklidir</u><br><br>Daha fazla bilgi için Discord'un resmi belgelerine başvurun</span>`,
+        unlockmsg: "$type içindeki kilidi açma mesajının/özelleştirilmiş metnin konumunu ayarlayın",
+        title: "$type içindeki başarı başlığının konumunu ayarlayın",
+        desc: "$type içindeki başarı açıklamasının konumunu ayarlayın",
+        notification: "bildirim",
+        screenshot: "ekran görüntüsü",
+        percentpos: "$type içindeki nadirlik yüzdesinin konumunu ayarlayın",
+        sspercentpos: "$type içindeki nadirlik yüzdesinin konumunu ayarlayın",
+        hiddeniconpos: "$type içindeki gizli/özel başarı ikonunun konumunu ayarlayın",
+        sshiddeniconpos: "$type içindeki gizli/özel başarı ikonunun konumunu ayarlayın",
+        decorationpos: "$type içindeki süsleme öğesinin konumunu ayarlayın",
+        ssdecorationpos: "$type içindeki süsleme öğesinin konumunu ayarlayın"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

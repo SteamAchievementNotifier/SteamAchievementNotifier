@@ -60,9 +60,19 @@ export const translations = {
             `Olyan webhelyek, mint a <span class="hl">SteamDB</span> - az <span class="hl">App Info</span> szakasz felsorolja az AppID-t minden játékhoz`
         ],
         elemselector: "Értesítési elemek",
-        unlockmsg: "Feloldási üzenet",
-        title: "Teljesítmény címe",
-        desc: "Teljesítmény leírása"
+        unlockmsg: "Feloldó Üzenet",
+        title: "Teljesítmény Cím",
+        desc: "Teljesítmény Leírás",
+        hiddeniconpos: "Rejtett Ikon",
+        sshiddeniconpos: "Rejtett Ikon",
+        decorationpos: "Díszítés",
+        ssdecorationpos: "Díszítés",
+        percentpos: "Ritkasági Százalék",
+        sspercentpos: "Ritkasági Százalék",
+        noexe: "A játék EXE fájlja nem található!",
+        noexesub: `Válassza az Opciók > Játék Kilépés lehetőséget a Rendszertálcáról a kilépéshez`,
+        webhookunlockmsg: "$user teljesítményt oldott fel",
+        webhookingame: "a $gamename játékban"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Követési skála",
                 nowtrackingpos: "Követési Pozíció",
                 shortcuts: "Értesítési gyorsbillentyűk",
-                noiconcache: "Ikon gyorsítótár kikapcsolása"
+                noiconcache: "Ikon gyorsítótár kikapcsolása",
+                webhooks: "Postázás Discord szerverre",
+                webhookurl: `Webhook URL`,
+                webhookcaution: `Ezeket a beállításokat aktiválva és érvényes Discord Webhook linket adva meg, elfogadja, hogy megérti, hogy <u>minden jelenlegi Steam felhasználóra vonatkozó teljesítmény- és játékadat</u> közzétételre kerül az adott Discord szerveren a megadott Webhook linken keresztül.<br><br>Ha nem szeretné, hogy a Steam Achievement Notifier közzétegye ezeket az információkat az Ön nevében, kérjük, tiltsa le ezt az opciót.`,
+                webhooklaststatus: "Utolsó Állapot"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Pulzus",
                 rainbow: "Szivárvány",
                 mask: "Maszk",
-                maskimg: "Maszk kép"
+                maskimg: "Maszk kép",
+                outline: "Kontúr",
+                outlinecolor: "Kontúr Szín",
+                outlinewidth: "Kontúr Szélesség",
+                dashed: "Szakaszos",
+                dotted: "Pontozott"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Állítsa be a fényeffektusra alkalmazott animáció sebességét",
         mask: "Engedélyezze az értesítés egyes részeinek maszkolását egyéni képpel",
         maskimg: `Töltsön be egy képfájlt, amelyet maszkként szeretne használni<br><br><span class="ttdesc">A CSS-ben a <code class="ttcode">mask-mode: alpha</code> ellentétesen működik a megszokott módon - a képfájl átlátszó területei el lesznek rejtve, és a fekete/szürke területek engedélyezik a alatti elemek láthatóságát</span>`,
+        outline: "Válassza ki a kontúr típusát, amely megjelenik az értesítés körül",
+        outlinecolor: "Állítsa be a kontúr színét az értesítés körül",
+        outlinewidth: "Állítsa be a kontúr szélességét az értesítés körül",
         primarycolor: "Állítsa be az értesítés elsődleges színét",
         secondarycolor: "Állítsa be az értesítés másodlagos színét",
         tertiarycolor: "Állítsa be az értesítés harmadlagos színét",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "A képernyőképen megjelenő értesítés vízszintes eltolása",
         ovy: "A képernyőképen megjelenő értesítés függőleges eltolása",
         importtheme: `Testreszabások importálása egy felhasználó által létrehozott <span class="hl">témafájl</span> segítségével`,
-        exporttheme: `Az aktuálisan kiválasztott <span class="hl">téma</span> exportálása megosztáshoz<br><br><span class="ttdesc">Az exportálás előtt győződjön meg róla, hogy az kívánt <span class="hl">téma</span> van kiválasztva (a <span class="hl">Téma kiválasztása</span> menüponton keresztül). Továbbá, győződjön meg róla, hogy a testreszabások el vannak mentve az kiválasztott <span class="hl">témában</span> (a <span class="hl">Téma mentése</span> menüponton keresztül)<br><br><u>Bármilyen testreszabás, amely még nem lett elmentve az aktuális <span class="hl">témába</span>, nem fog exportálódni!</u></span>`        
+        exporttheme: `Az aktuálisan kiválasztott <span class="hl">téma</span> exportálása megosztáshoz<br><br><span class="ttdesc">Az exportálás előtt győződjön meg róla, hogy az kívánt <span class="hl">téma</span> van kiválasztva (a <span class="hl">Téma kiválasztása</span> menüponton keresztül). Továbbá, győződjön meg róla, hogy a testreszabások el vannak mentve az kiválasztott <span class="hl">témában</span> (a <span class="hl">Téma mentése</span> menüponton keresztül)<br><br><u>Bármilyen testreszabás, amely még nem lett elmentve az aktuális <span class="hl">témába</span>, nem fog exportálódni!</u></span>`,
+        webhooks: "Használjon Webhook URL-t, hogy egy Discord szerveren tegyen közzé egy üzenetet, amikor egy teljesítmény feloldódik",
+        webhookurl: `Állítsa be a <span class="hl">Webhook URL</span> a kívánt Discord szerverhez<br><br><span class="ttdesc">Egy <span class="hl">Webhook URL</span> arra szolgál, hogy közzétegyen egy üzenetet egy Discord szerveren/csatornán felhasználó vagy alkalmazás nevében. Új Webhook beállításához egy Discord szerveren, a felhasználónak szerepet kell vállalnia a kívánt szerveren, amely engedélyezi a Webhook-ok létrehozását<br><br><u>Webhook URL szükséges ezen opció használatához</u><br><br>További információkért nézze meg a Discord hivatalos dokumentációját</span>`,
+        unlockmsg: "Állítsa be a feloldó üzenet/személyre szabott szöveg helyét a $type-ban",
+        title: "Állítsa be a teljesítmény címének helyét a $type-ban",
+        desc: "Állítsa be a teljesítmény leírásának helyét a $type-ban",
+        notification: "értesítés",
+        screenshot: "képernyőkép",
+        percentpos: "Állítsa be a ritkasági százalék helyét a $type-ban",
+        sspercentpos: "Állítsa be a ritkasági százalék helyét a $type-ban",
+        hiddeniconpos: "Állítsa be a rejtett/titkos teljesítmény ikon helyét a $type-ban",
+        sshiddeniconpos: "Állítsa be a rejtett/titkos teljesítmény ikon helyét a $type-ban",
+        decorationpos: "Állítsa be a díszítő elem helyét a $type-ban",
+        ssdecorationpos: "Állítsa be a díszítő elem helyét a $type-ban"
     },
     update: {
         updateavailable: "Frissítés elérhető",

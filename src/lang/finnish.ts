@@ -60,9 +60,19 @@ export const translations = {
             `Verkkosivustot kuten <span class="hl">SteamDB</span> - <span class="hl">App-tiedot</span> -osio listaa AppID:n jokaiselle pelille`
         ],
         elemselector: "Ilmoituselementit",
-        unlockmsg: "Lukituksen avausviesti",
-        title: "Saavutuksen nimi",
-        desc: "Saavutuksen kuvaus"
+        unlockmsg: "Avauksen Viesti",
+        title: "Saavutuksen Otsikko",
+        desc: "Saavutuksen Kuvaus",
+        hiddeniconpos: "Piilotettu Kuvake",
+        sshiddeniconpos: "Piilotettu Kuvake",
+        decorationpos: "Koriste",
+        ssdecorationpos: "Koriste",
+        percentpos: "Harvinaisuusprosentti",
+        sspercentpos: "Harvinaisuusprosentti",
+        noexe: "Pelin EXE:tä ei löydy!",
+        noexesub: `Valitse Asetukset > Vapauta Peli järjestelmäpalkista lopettaaksesi`,
+        webhookunlockmsg: "$user avasi saavutuksen",
+        webhookingame: "pelissä $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Seurantamittakaava",
                 nowtrackingpos: "Seurannan Sijainti",
                 shortcuts: "Ilmoituspikakuvakkeet",
-                noiconcache: "Poista kuvakkeiden välimuisti käytöstä"
+                noiconcache: "Poista kuvakkeiden välimuisti käytöstä",
+                webhooks: "Lähetä Discord-palvelimelle",
+                webhookurl: `Webhook-URL`,
+                webhookcaution: `Ottamalla tämän asetuksen käyttöön ja antamalla kelvollisen Discord-webhook-linkin, hyväksyt, että ymmärrät <u>kaiken nykyisen Steam-käyttäjän saavutuksiin ja peleihin liittyvän tiedon</u> julkaistavan määritettyyn Discord-palvelimeen annetun webhook-linkin kautta.<br><br>Jos et halua, että Steam Achievement Notifier julkaisee näitä tietoja puolestasi, poista tämä asetus käytöstä.`,
+                webhooklaststatus: "Viimeinen Tila"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Pulssi",
                 rainbow: "Sateenkaari",
                 mask: "Maski",
-                maskimg: "Maskin kuva"
+                maskimg: "Maskin kuva",
+                outline: "Reunus",
+                outlinecolor: "Reunuksen Väri",
+                outlinewidth: "Reunuksen Leveys",
+                dashed: "Katkoviiva",
+                dotted: "Pisteviiva"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Aseta animaation nopeus, joka lisätään hehkuefektiin",
         mask: "Ota käyttöön osien peittäminen mukautetulla kuvalla",
         maskimg: `Lataa kuvatiedosto, jota käytetään naamiona<br><br><span class="ttdesc">CSS:ssä <code class="ttcode">mask-mode: alpha</code> toimii päinvastaisesti kuin yleensä odotetaan - kuvatiedoston läpinäkyvyysalueet piilotetaan ja mustat/harmaat alueet sallivat alla olevien elementtien näkymisen</span>`,
+        outline: "Valitse reunustyyppi, joka näkyy ilmoituksen ympärillä",
+        outlinecolor: "Aseta reunuksen väri ilmoituksen ympärille",
+        outlinewidth: "Aseta reunuksen leveys ilmoituksen ympärille",
         primarycolor: "Aseta ilmoituksen ensisijainen väri",
         secondarycolor: "Aseta ilmoituksen toissijainen väri",
         tertiarycolor: "Aseta ilmoituksen kolmas väri",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Siirrä ilmoitusta, joka näkyy kuvakaappauksessa, vaakasuunnassa",
         ovy: "Siirrä ilmoitusta, joka näkyy kuvakaappauksessa, pystysuunnassa",
         importtheme: `Tuo mukautuksia käyttäjän luoman <span class="hl">teematiedoston</span> kautta`,
-        exporttheme: `Vie tällä hetkellä valittu <span class="hl">teema</span> jakamista varten<br><br><span class="ttdesc">Ennen vientiä varmista, että haluttu <span class="hl">teema</span> on valittu (valikon <span class="hl">Teeman valinta</span> kautta). Varmista myös, että mukautukset on tallennettu valittuun <span class="hl">teemaan</span> (valikon <span class="hl">Tallenna teema</span> kautta)<br><br><u>Mukautukset, joita ei ole vielä tallennettu nykyiseen <span class="hl">teemaan</span>, eivät tule mukaan vientiin!</u></span>`        
+        exporttheme: `Vie tällä hetkellä valittu <span class="hl">teema</span> jakamista varten<br><br><span class="ttdesc">Ennen vientiä varmista, että haluttu <span class="hl">teema</span> on valittu (valikon <span class="hl">Teeman valinta</span> kautta). Varmista myös, että mukautukset on tallennettu valittuun <span class="hl">teemaan</span> (valikon <span class="hl">Tallenna teema</span> kautta)<br><br><u>Mukautukset, joita ei ole vielä tallennettu nykyiseen <span class="hl">teemaan</span>, eivät tule mukaan vientiin!</u></span>`,
+        webhooks: "Käytä Webhook-URL:ia julkaistaksesi viestin Discord-palvelimella, kun saavutus on avattu",
+        webhookurl: `Aseta <span class="hl">Webhook-URL</span> halutulle Discord-palvelimelle<br><br><span class="ttdesc"><span class="hl">Webhook-URL</span> käytetään julkaisemaan viesti Discord-palvelimelle/kanavalle käyttäjän tai sovelluksen puolesta. Jos haluat asettaa uuden Webhookin Discord-palvelimelle, käyttäjällä on oltava rooli palvelimella, joka sallii Webhookien luomisen<br><br><u>Webhook-URL vaaditaan tämän asetuksen käyttämiseen</u><br><br>Katso lisätietoja Discordin virallisesta dokumentaatiosta</span>`,
+        unlockmsg: "Aseta avausviestin/mukautetun tekstin sijainti $type:ssa",
+        title: "Aseta saavutuksen otsikon sijainti $type:ssa",
+        desc: "Aseta saavutuksen kuvauksen sijainti $type:ssa",
+        notification: "ilmoitus",
+        screenshot: "kuvakaappaus",
+        percentpos: "Aseta harvinaisuusprosentin sijainti $type:ssa",
+        sspercentpos: "Aseta harvinaisuusprosentin sijainti $type:ssa",
+        hiddeniconpos: "Aseta piilotetun/salaisen saavutuksen kuvakkeen sijainti $type:ssa",
+        sshiddeniconpos: "Aseta piilotetun/salaisen saavutuksen kuvakkeen sijainti $type:ssa",
+        decorationpos: "Aseta koristeluelementin sijainti $type:ssa",
+        ssdecorationpos: "Aseta koristeluelementin sijainti $type:ssa"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

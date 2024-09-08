@@ -21,9 +21,9 @@ export const translations = {
         font: "字體",
         select: "選擇",
         gametitle: "遊戲標題",
+        congrats: "恭喜！",
         achievementunlocked: "成就解鎖",
         gamecomplete: "100% 完成",
-        congrats: "恭喜！",
         achievementdesc: "點擊按鈕以顯示測試通知",
         gamecompletedesc: "您已解鎖所有成就！",
         defaultcustomfont: "默認（未選擇字體）",
@@ -62,7 +62,17 @@ export const translations = {
         elemselector: "通知元素",
         unlockmsg: "解鎖消息",
         title: "成就標題",
-        desc: "成就描述"
+        desc: "成就描述",
+        hiddeniconpos: "隱藏圖標",
+        sshiddeniconpos: "隱藏圖標",
+        decorationpos: "裝飾",
+        ssdecorationpos: "裝飾",
+        percentpos: "稀有度百分比",
+        sspercentpos: "稀有度百分比",
+        noexe: "找不到遊戲的 EXE 文件！",
+        noexesub: `選擇選項 > 從系統托盤退出遊戲`,
+        webhookunlockmsg: "$user 解鎖了一個成就",
+        webhookingame: "在 $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "追蹤比例",
                 nowtrackingpos: "追蹤位置",
                 shortcuts: "通知捷徑",
-                noiconcache: "停用圖示快取"
+                noiconcache: "停用圖示快取",
+                webhooks: "發布到 Discord 伺服器",
+                webhookurl: `Webhook URL`,
+                webhookcaution: `啟用此選項並提供有效的 Discord Webhook 連結，即表示您同意您了解 <u>當前 Steam 用戶的所有成就和遊戲信息</u> 將通過提供的 Webhook 連結發佈到指定的 Discord 伺服器。<br><br>如果您不希望 Steam Achievement Notifier 代表您發佈這些信息，請禁用此選項。`,
+                webhooklaststatus: "最後狀態"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "脈動",
                 rainbow: "彩虹",
                 mask: "遮罩",
-                maskimg: "遮罩圖片"
+                maskimg: "遮罩圖片",
+                outline: "輪廓",
+                outlinecolor: "輪廓顏色",
+                outlinewidth: "輪廓寬度",
+                dashed: "虛線",
+                dotted: "點線"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "設定套用於發光效果的動畫速度",
         mask: "使用自訂圖像啟用通知部分的遮罩",
         maskimg: `上傳要用作遮罩的圖像檔案<br><br><span class="ttdesc">在 CSS 中，<code class="ttcode">mask-mode: alpha</code> 的工作方式與通常預期的相反 - 圖像檔案中的透明區域將被隱藏，而黑色/灰色區域將允許下方元素可見</span>`,
+        outline: "選擇顯示在通知周圍的輪廓類型",
+        outlinecolor: "設置通知周圍輪廓的顏色",
+        outlinewidth: "設置通知周圍輪廓的寬度",
         primarycolor: "設置通知的主要顏色",
         secondarycolor: "設置通知的次要顏色",
         tertiarycolor: "設置通知的第三顏色",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "水平偏移在螢幕截圖中顯示的通知",
         ovy: "垂直偏移在螢幕截圖中顯示的通知",
         importtheme: `透過使用者建立的 <span class="hl">主題檔案</span> 匯入自訂設置`,
-        exporttheme: `匯出當前選取的 <span class="hl">主題</span> 以供分享<br><br><span class="ttdesc">在嘗試匯出之前，請確保已選取所需的 <span class="hl">主題</span>（透過 <span class="hl">主題選擇</span> 選單）。同時確保已將自訂設置保存到選取的 <span class="hl">主題</span>（透過 <span class="hl">儲存主題</span> 選單）<br><br><u>未保存到當前 <span class="hl">主題</span> 的任何自訂設置將不會匯出！</u></span>`        
+        exporttheme: `匯出當前選取的 <span class="hl">主題</span> 以供分享<br><br><span class="ttdesc">在嘗試匯出之前，請確保已選取所需的 <span class="hl">主題</span>（透過 <span class="hl">主題選擇</span> 選單）。同時確保已將自訂設置保存到選取的 <span class="hl">主題</span>（透過 <span class="hl">儲存主題</span> 選單）<br><br><u>未保存到當前 <span class="hl">主題</span> 的任何自訂設置將不會匯出！</u></span>`,
+        webhooks: "使用 Webhook URL 在每次解鎖成就時發布到 Discord 伺服器",
+        webhookurl: `設置所需 Discord 伺服器的 <span class="hl">Webhook URL</span><br><br><span class="ttdesc">Webhook URL 用於代表用戶或應用程序在 Discord 伺服器/頻道上發布。要為 Discord 伺服器設置新的 Webhook，用戶必須在所需伺服器上擁有允許創建 Webhook 的角色<br><br><u>使用此選項時需要 Webhook URL</u><br><br>詳情請參閱 Discord 的官方文檔</span>`,
+        unlockmsg: "設置 $type 內解鎖消息/自定義文本的位置",
+        title: "設置 $type 內成就標題的位置",
+        desc: "設置 $type 內成就描述的位置",
+        notification: "通知",
+        screenshot: "截圖",
+        percentpos: "設置 $type 內稀有度百分比的位置",
+        sspercentpos: "設置 $type 內稀有度百分比的位置",
+        hiddeniconpos: "設置 $type 內隱藏/秘密成就圖標的位置",
+        sshiddeniconpos: "設置 $type 內隱藏/秘密成就圖標的位置",
+        decorationpos: "設置 $type 內裝飾元素的位置",
+        ssdecorationpos: "設置 $type 內裝飾元素的位置"
     },
     update: {
         updateavailable: "有可用更新",

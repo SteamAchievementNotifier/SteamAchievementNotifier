@@ -62,7 +62,17 @@ export const translations = {
         elemselector: "Elementy powiadomień",
         unlockmsg: "Wiadomość odblokowania",
         title: "Tytuł osiągnięcia",
-        desc: "Opis osiągnięcia"
+        desc: "Opis osiągnięcia",
+        hiddeniconpos: "Ukryta ikona",
+        sshiddeniconpos: "Ukryta ikona",
+        decorationpos: "Dekoracja",
+        ssdecorationpos: "Dekoracja",
+        percentpos: "Procent rzadkości",
+        sspercentpos: "Procent rzadkości",
+        noexe: "Nie znaleziono pliku EXE gry!",
+        noexesub: `Wybierz Opcje > Zakończ grę z Paska zadań, aby zamknąć`,
+        webhookunlockmsg: "$user odblokował osiągnięcie",
+        webhookingame: "w $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Skala śledzenia",
                 nowtrackingpos: "Śledzenie pozycji",
                 shortcuts: "Skróty powiadomień",
-                noiconcache: "Wyłącz pamięć podręczną ikon"
+                noiconcache: "Wyłącz pamięć podręczną ikon",
+                webhooks: "Post na serwer Discord",
+                webhookurl: `URL Webhook`,
+                webhookcaution: `Włączając tę opcję i podając ważny link Webhook Discord, zgadzasz się zrozumieć, że <u>wszystkie informacje o osiągnięciach i grach dla bieżącego użytkownika Steam</u> zostaną opublikowane na wskazanym serwerze Discord za pośrednictwem podanego linku Webhook.<br><br>Jeśli nie chcesz, aby Steam Achievement Notifier publikował te informacje w Twoim imieniu, wyłącz tę opcję.`,
+                webhooklaststatus: "Ostatni status"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Puls",
                 rainbow: "Tęcza",
                 mask: "Maska",
-                maskimg: "Obraz maski"
+                maskimg: "Obraz maski",
+                outline: "Kontur",
+                outlinecolor: "Kolor konturu",
+                outlinewidth: "Szerokość konturu",
+                dashed: "Kreskowany",
+                dotted: "Kropkowany"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Ustaw prędkość animacji stosowanej do efektu poświaty",
         mask: "Włącz maskowanie części powiadomienia za pomocą niestandardowego obrazu",
         maskimg: `Załaduj plik obrazu, który ma być używany jako maska<br><br><span class="ttdesc">W CSS, <code class="ttcode">mask-mode: alpha</code> działa w sposób przeciwny do oczekiwanego - obszary przezroczystości w pliku obrazu zostaną ukryte, a obszary czarne/szare pozwolą na widoczność elementów poniżej</span>`,
+        outline: "Wybierz typ konturu, który ma być wyświetlany wokół powiadomienia",
+        outlinecolor: "Ustaw kolor konturu wokół powiadomienia",
+        outlinewidth: "Ustaw szerokość konturu wokół powiadomienia",
         primarycolor: "Ustaw główny kolor powiadomienia",
         secondarycolor: "Ustaw drugi kolor powiadomienia",
         tertiarycolor: "Ustaw trzeci kolor powiadomienia",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Przesuń powiadomienie wyświetlane na zrzucie ekranu poziomo",
         ovy: "Przesuń powiadomienie wyświetlane na zrzucie ekranu pionowo",
         importtheme: `Importuj dostosowania za pomocą <span class="hl">pliku motywu</span> stworzonego przez użytkownika`,
-        exporttheme: `Eksportuj aktualnie wybrany <span class="hl">motyw</span> w celu udostępnienia<br><br><span class="ttdesc">Przed próbą eksportu upewnij się, że wybrany <span class="hl">motyw</span> jest zaznaczony (za pomocą menu <span class="hl">Wybierz motyw</span>). Upewnij się również, że dostosowania zostały zapisane w wybranym <span class="hl">motywie</span> (za pomocą menu <span class="hl">Zapisz motyw</span>)<br><br><u>Wszelkie dostosowania niezapisane w bieżącym <span class="hl">motywie</span> nie zostaną wyeksportowane!</u></span>`        
+        exporttheme: `Eksportuj aktualnie wybrany <span class="hl">motyw</span> w celu udostępnienia<br><br><span class="ttdesc">Przed próbą eksportu upewnij się, że wybrany <span class="hl">motyw</span> jest zaznaczony (za pomocą menu <span class="hl">Wybierz motyw</span>). Upewnij się również, że dostosowania zostały zapisane w wybranym <span class="hl">motywie</span> (za pomocą menu <span class="hl">Zapisz motyw</span>)<br><br><u>Wszelkie dostosowania niezapisane w bieżącym <span class="hl">motywie</span> nie zostaną wyeksportowane!</u></span>`,
+        webhooks: "Użyj URL Webhook, aby publikować na serwerze Discord za każdym razem, gdy osiągnięcie zostanie odblokowane",
+        webhookurl: `Ustaw <span class="hl">URL Webhook</span> dla wybranego serwera Discord<br><br><span class="ttdesc">URL Webhook służy do publikowania na serwerze/kanale Discord w imieniu użytkownika lub aplikacji. Aby skonfigurować nowy Webhook dla serwera Discord, użytkownik musi mieć rolę na wybranym serwerze, która pozwala na tworzenie Webhooków<br><br><u>URL Webhook jest wymagany do korzystania z tej opcji</u><br><br>Więcej informacji znajdziesz w oficjalnej dokumentacji Discorda</span>`,
+        unlockmsg: "Ustaw położenie wiadomości odblokowania/tekstów niestandardowych w $type",
+        title: "Ustaw położenie tytułu osiągnięcia w $type",
+        desc: "Ustaw położenie opisu osiągnięcia w $type",
+        notification: "powiadomienie",
+        screenshot: "zrzut ekranu",
+        percentpos: "Ustaw położenie procentu rzadkości w $type",
+        sspercentpos: "Ustaw położenie procentu rzadkości w $type",
+        hiddeniconpos: "Ustaw położenie ikony ukrytego/tajnego osiągnięcia w $type",
+        sshiddeniconpos: "Ustaw położenie ikony ukrytego/tajnego osiągnięcia w $type",
+        decorationpos: "Ustaw położenie elementu dekoracyjnego w $type",
+        ssdecorationpos: "Ustaw położenie elementu dekoracyjnego w $type"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

@@ -7,6 +7,7 @@ import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
 import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot } from "sanhelper.rs"
+import { selectorelems } from "./elemselector"
 const { initLogger, testPanic } = sanhelperrslog
 
 export const __root: string = path.resolve(__dirname,"..","..")
@@ -148,6 +149,16 @@ export const sanhelper: SANHelper = {
     switchtab: ({ target }: Event) => {
         target instanceof HTMLElement && ["main","rare","plat"].forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
         usertheme.update()
+        
+        ;(async () => {
+            const menutype = document.getElementById("settingscontent") || document.getElementById("customiser")
+            if (!menutype) return
+
+            const settings = menutype.id === "settingscontent"
+
+            const { elemselector } = await import("./elemselector")
+            elemselector(document.querySelector(`#${settings ? "settings" : "customiser"}content .wrapper:has(> ${settings ? "input#ovmatch" : "select#preset"})`)!,`${settings ? "ss" : ""}elems`)
+        })()
     },
     switchcustomisertab: ({ target }: Event) => {
         const attrs = ["main","rare","plat"]
@@ -352,18 +363,6 @@ export const sanhelper: SANHelper = {
         const selectinputtype = (target: EventTarget) => ((target instanceof HTMLSelectElement ? target as HTMLSelectElement : target as HTMLInputElement)).value
         
         // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
-        const selectorelems = [
-            "unlockmsg",
-            "title",
-            "desc",
-            "percentpos",
-            "hiddeniconpos",
-            "decorationpos",
-            "sspercentpos",
-            "sshiddeniconpos",
-            "ssdecorationpos"
-        ]
-
         if (selectorelems.find(id => elem.id === id)) return
 
         elem.value = key.toString()
@@ -376,23 +375,14 @@ export const sanhelper: SANHelper = {
                     await language.load()
                     window.dispatchEvent(new Event("lang"))
                 })()
+
                 sanhelper.tooltips(config.get("tooltips"))
             }
 
-            if (elem.id === "preset") {
-                (async () => {
-                    const { sanconfig: { defaulticons } } = await import("./config")
-                    const type = sanhelper.type
-
-                    // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
-                    ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype]))
-                    const index = defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.index
-                    selectorelems.filter(id => ["percent","hiddenicon","decoration"].find(elemid => id === `${elemid}pos`)).forEach(id => [id,`ss${id}`].forEach(key => index && config.set(`customisation.${type}.${key}`,index[`${key.replace(/^ss/,"").replace(/pos$/,"")}`])))
-                })()
-            }
-
+            elem.id === "preset" && (async () => await sanhelper.resetelemselector())()
             elem.id === "audiosrc" && sanhelper.audiosrc(config.get("audiosrc"))
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
+            elem.id === "screenshots" && sanhelper.loadadditonaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
         }
 
         if (elem.hasAttribute("unit")) {
@@ -449,6 +439,25 @@ export const sanhelper: SANHelper = {
         }
     },
     updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: ["main","rare","plat"].find(attr => document.body.hasAttribute(attr)), noreload: noreload } })),
+    loadadditonaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
+        if (!menuelem) return
+
+        menuelem.querySelectorAll(`
+            #elemselector select,
+            #webhookwrapper input
+        `)!.forEach(async elem => {
+            const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})`,{
+                ...defaulttippy,
+                appendTo: "parent",
+                content: (await language.get(elem.id,["tooltips"])).replace(/\$type/,await language.get(menuelem.id === "settingscontent" ? "screenshot" : "notification",["tooltips"])),
+                onTrigger(inst) {
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                }
+            }) as Instance<Props>[]
+            
+            tippies.push(tt)
+        })
+    }),
     settooltips: (value: boolean) => {
         tippies.forEach(tt => tt[0]?.destroy())
         tippies.length = 0
@@ -537,7 +546,7 @@ export const sanhelper: SANHelper = {
         const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id).map(btn => btn.id)
 
         if (settings) {
-            document.querySelectorAll(`
+            settings.querySelectorAll(`
                 #settingscontent input,
                 #settingscontent .optbtn,
                 #settingscontent select,
@@ -561,12 +570,14 @@ export const sanhelper: SANHelper = {
         
                 tippies.push(tt)
             })
+
+            sanhelper.loadadditonaltooltips(settings)
         }
 
         const customiser = document.querySelector("#customiser")
 
         if (customiser) {
-            document.querySelectorAll(`
+            customiser.querySelectorAll(`
                 #customisercontent input,
                 #customisercontent .optbtn,
                 #customisercontent select,
@@ -590,7 +601,7 @@ export const sanhelper: SANHelper = {
                 tippies.push(tt)
             })
 
-            document.querySelectorAll(
+            customiser.querySelectorAll(
                 `.wrapper#webviewbtns > .menubtn`
             )!.forEach(async elem => {
                 const tt = tippy(`#${elem.id}`,{
@@ -604,7 +615,7 @@ export const sanhelper: SANHelper = {
                 tippies.push(tt)
             })
 
-            document.querySelectorAll(`
+            customiser.querySelectorAll(`
                 .opt:has(.menubtn.delbtn) > .delbtn,
                 .opt:has(.menubtn.visibilitybtn) > .visibilitybtn
             `)
@@ -619,6 +630,8 @@ export const sanhelper: SANHelper = {
 
                 tippies.push(tt)
             })
+
+            sanhelper.loadadditonaltooltips(customiser)
         }
     },
     getpresetbounds: (preset: string) => {
@@ -705,5 +718,15 @@ export const sanhelper: SANHelper = {
 
         const wintype = debugwin ? debugwin.webContents : ipcRenderer
         wintype.send("debuginfoupdated",debuginfo,true)
+    },
+    resetelemselector: async () => {
+        const { sanconfig: { defaulticons, get } } = await import("./config")
+        const config = get()
+        const type = sanhelper.type
+
+        // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
+        ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype]))
+        const index = defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.index
+        selectorelems.filter(id => ["percent","hiddenicon","decoration"].find(elemid => id === `${elemid}pos`)).forEach(id => [id,`ss${id}`].forEach(key => index && config.set(`customisation.${type}.${key}`,index[`${key.replace(/^ss/,"").replace(/pos$/,"")}`])))
     }
 }

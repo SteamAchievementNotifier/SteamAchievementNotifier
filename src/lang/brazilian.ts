@@ -59,10 +59,20 @@ export const translations = {
             `A <span class="hl">URL</span> da página da <span class="hl">loja</span> do jogo - será o número listado após <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Websites como <span class="hl">SteamDB</span> - a seção <span class="hl">Informações do App</span> listará o AppID para cada jogo`
         ],
-        elemselector: "Elementos de Notificação",
+        elemselector: "Elementos da Notificação",
         unlockmsg: "Mensagem de Desbloqueio",
         title: "Título da Conquista",
-        desc: "Descrição da Conquista"
+        desc: "Descrição da Conquista",
+        hiddeniconpos: "Ícone Oculto",
+        sshiddeniconpos: "Ícone Oculto",
+        decorationpos: "Decoração",
+        ssdecorationpos: "Decoração",
+        percentpos: "Porcentagem de Raridade",
+        sspercentpos: "Porcentagem de Raridade",
+        noexe: "Arquivo EXE do jogo não encontrado!",
+        noexesub: `Selecione Opções > Liberar Jogo na Bandeja do Sistema para sair`,
+        webhookunlockmsg: "$user desbloqueou uma conquista",
+        webhookingame: "em $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Escala de Rastreamento",
                 nowtrackingpos: "Rastreamento de Posição",
                 shortcuts: "Atalhos de Notificação",
-                noiconcache: "Desativar o Cache de Ícones"
+                noiconcache: "Desativar o Cache de Ícones",
+                webhooks: "Postar no Servidor Discord",
+                webhookurl: `URL do Webhook`,
+                webhookcaution: `Ao habilitar esta opção e fornecer um link de Webhook do Discord válido, você concorda que entende que <u>todas as informações de conquistas e jogos para o usuário atual do Steam</u> serão postadas no servidor Discord especificado através do link de Webhook fornecido.<br><br>Se você não deseja que o Steam Achievement Notifier poste essas informações em seu nome, desative esta opção.`,
+                webhooklaststatus: "Último Status"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Pulso",
                 rainbow: "Arco-íris",
                 mask: "Máscara",
-                maskimg: "Imagem da Máscara"
+                maskimg: "Imagem da Máscara",
+                outline: "Contorno",
+                outlinecolor: "Cor do Contorno",
+                outlinewidth: "Largura do Contorno",
+                dashed: "Tracejado",
+                dotted: "Pontilhado"
             }
         },
         colors: {
@@ -394,13 +413,16 @@ export const translations = {
         glow: "Ativar um efeito de brilho que envolve o aviso",
         glowcolor: "Defina a cor do efeito de brilho",
         glowsize: "Defina o tamanho do efeito de brilho",
-        glowanim: "Selecione uma animação predefinida para ser aplicada ao efeito de brilho",
         glowx: "Desloque a posição do efeito de brilho horizontalmente",
         glowy: "Desloque a posição do efeito de brilho verticalmente",
         glowopacity: "Defina a opacidade do efeito de brilho",
+        glowanim: "Selecione uma animação predefinida para ser aplicada ao efeito de brilho",
         glowspeed: "Defina a velocidade da animação aplicada ao efeito de brilho",
         mask: "Ativar a máscara de partes do aviso com uma imagem personalizada",
         maskimg: `Carregar um arquivo de imagem para ser usado como máscara<br><br><span class="ttdesc">No CSS, <code class="ttcode">mask-mode: alpha</code> opera de forma oposta ao que é geralmente esperado - áreas de transparência no arquivo de imagem serão obscurecidas, e áreas pretas/cinzentas permitirão que os elementos abaixo sejam visíveis</span>`,
+        outline: "Selecione o tipo de contorno a ser mostrado ao redor da notificação",
+        outlinecolor: "Defina a cor do contorno ao redor da notificação",
+        outlinewidth: "Defina a largura do contorno ao redor da notificação",
         primarycolor: "Definir a cor primária da notificação",
         secondarycolor: "Definir a cor secundária da notificação",
         tertiarycolor: "Definir a cor terciária da notificação",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Deslocar a notificação exibida na captura de tela horizontalmente",
         ovy: "Deslocar a notificação exibida na captura de tela verticalmente",
         importtheme: `Importar personalizações via um <span class="hl">arquivo de Tema</span> criado pelo usuário`,
-        exporttheme: `Exportar o <span class="hl">Tema</span> atualmente selecionado para compartilhamento<br><br><span class="ttdesc">Antes de tentar exportar, por favor, certifique-se de que o <span class="hl">Tema</span> desejado foi selecionado (via o menu <span class="hl">Selecionar Tema</span>). Certifique-se também de que as personalizações foram salvas no <span class="hl">Tema</span> selecionado (via o menu <span class="hl">Salvar Tema</span>)<br><br><u>Quaisquer personalizações que ainda não foram salvas no <span class="hl">Tema</span> atual não serão exportadas!</u></span>`
+        exporttheme: `Exportar o <span class="hl">Tema</span> atualmente selecionado para compartilhamento<br><br><span class="ttdesc">Antes de tentar exportar, por favor, certifique-se de que o <span class="hl">Tema</span> desejado foi selecionado (via o menu <span class="hl">Selecionar Tema</span>). Certifique-se também de que as personalizações foram salvas no <span class="hl">Tema</span> selecionado (via o menu <span class="hl">Salvar Tema</span>)<br><br><u>Quaisquer personalizações que ainda não foram salvas no <span class="hl">Tema</span> atual não serão exportadas!</u></span>`,
+        webhooks: "Use uma URL de Webhook para postar em um servidor Discord sempre que uma conquista for desbloqueada",
+        webhookurl: `Defina a <span class="hl">URL do Webhook</span> para o servidor Discord desejado<br><br><span class="ttdesc">Uma <span class="hl">URL do Webhook</span> é usada para postar em um servidor/canal Discord em nome de um usuário ou aplicativo. Para configurar um novo Webhook para um servidor Discord, o usuário deve ter um papel dentro do servidor desejado que permita a criação de Webhooks<br><br><u>Uma URL do Webhook é necessária ao usar esta opção</u><br><br>Consulte a documentação oficial do Discord para mais informações</span>`,
+        unlockmsg: "Defina a posição da mensagem de desbloqueio/texto personalizado dentro do $type",
+        title: "Defina a posição do título da conquista dentro do $type",
+        desc: "Defina a posição da descrição da conquista dentro do $type",
+        notification: "notificação",
+        screenshot: "captura de tela",
+        percentpos: "Defina a posição da porcentagem de raridade dentro do $type",
+        sspercentpos: "Defina a posição da porcentagem de raridade dentro do $type",
+        hiddeniconpos: "Defina a posição do ícone de conquista oculta/secreta dentro do $type",
+        sshiddeniconpos: "Defina a posição do ícone de conquista oculta/secreta dentro do $type",
+        decorationpos: "Defina a posição do elemento de decoração dentro do $type",
+        ssdecorationpos: "Defina a posição do elemento de decoração dentro do $type"
     },
     update: {
         updateavailable: "Atualização disponível",

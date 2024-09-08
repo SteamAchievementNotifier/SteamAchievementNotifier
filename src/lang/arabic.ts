@@ -59,10 +59,20 @@ export const translations = {
             `عنوان <span class="hl">URL</span> لصفحة <span class="hl">المتجر</span> الخاصة باللعبة - سيكون الرقم المدرج بعد <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `مواقع الويب مثل <span class="hl">SteamDB</span> - سيقوم القسم <span class="hl">معلومات الأطباق</span> بسرد AppID لكل لعبة`
         ],
-        elemselector: "عناصر الإشعارات",
+        elemselector: "عناصر الإشعار",
         unlockmsg: "رسالة الفتح",
         title: "عنوان الإنجاز",
-        desc: "وصف الإنجاز"
+        desc: "وصف الإنجاز",
+        hiddeniconpos: "رمز مخفي",
+        sshiddeniconpos: "رمز مخفي",
+        decorationpos: "زخرفة",
+        ssdecorationpos: "زخرفة",
+        percentpos: "نسبة الندرة",
+        sspercentpos: "نسبة الندرة",
+        noexe: "لم يتم العثور على ملف اللعبة التنفيذي!",
+        noexesub: `حدد الخيارات > إصدار اللعبة من شريط النظام للخروج`,
+        webhookunlockmsg: "$user فتح إنجازًا",
+        webhookingame: "في $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "مقياس التتبع",
                 nowtrackingpos: "تتبع الموقع",
                 shortcuts: "اختصارات الإشعار",
-                noiconcache: "تعطيل ذاكرة التخزين المؤقت للرموز"
+                noiconcache: "تعطيل ذاكرة التخزين المؤقت للرموز",
+                webhooks: "نشر في خادم ديسكورد",
+                webhookurl: `عنوان URL للويب هوك`,
+                webhookcaution: `بتمكين هذا الخيار وتوفير رابط ويب هوك صالح لديسكورد، فإنك توافق على أنك تفهم أن <u>جميع معلومات الإنجاز واللعبة للمستخدم الحالي لستيم</u> سيتم نشرها في خادم ديسكورد المحدد عبر رابط الويب هوك المقدم.<br><br>إذا كنت لا ترغب في أن يقوم Steam Achievement Notifier بنشر هذه المعلومات نيابة عنك، يرجى تعطيل هذا الخيار.`,
+                webhooklaststatus: "آخر حالة"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "نبض",
                 rainbow: "قوس قزح",
                 mask: "قناع",
-                maskimg: "صورة القناع"
+                maskimg: "صورة القناع",
+                outline: "الحدود",
+                outlinecolor: "لون الحدود",
+                outlinewidth: "عرض الحدود",
+                dashed: "متقطع",
+                dotted: "منقط"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "تعيين سرعة الرسم المتحرك المطبق على تأثير السطوع",
         mask: "تمكين تقنية الإخفاء لأجزاء من الإشعار باستخدام صورة مخصصة",
         maskimg: `تحميل ملف صورة لاستخدامه كإخفاء<br><br><span class="ttdesc">في CSS، <code class="ttcode">mask-mode: alpha</code> تعمل بالطريقة المعاكسة لما يتوقع عادة - ستُخفى مناطق الشفافية في ملف الصورة، وستسمح مناطق اللون الأسود / الرمادي بظهور العناصر أدناه</span>`,
+        outline: "اختر نوع الحدود التي ستظهر حول الإشعار",
+        outlinecolor: "حدد لون الحدود حول الإشعار",
+        outlinewidth: "حدد عرض الحدود حول الإشعار",
         primarycolor: "تعيين اللون الأساسي للإشعار",
         secondarycolor: "تعيين اللون الثانوي للإشعار",
         tertiarycolor: "تعيين اللون الثالثي للإشعار",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "إزاحة الإشعار المعروض في لقطة الشاشة أفقيًا",
         ovy: "إزاحة الإشعار المعروض في لقطة الشاشة عموديًا",
         importtheme: `استيراد التخصيصات عبر <span class="hl">ملف سمة</span> أنشأه المستخدم`,
-        exporttheme: `تصدير <span class="hl">السمة</span> المحددة حاليًا للمشاركة<br><br><span class="ttdesc">قبل محاولة التصدير، يرجى التأكد من اختيار <span class="hl">السمة</span> المطلوبة (من قائمة <span class="hl">اختيار السمة</span>). يرجى أيضًا التأكد من حفظ التخصيصات على <span class="hl">السمة</span> المحددة (من قائمة <span class="hl">حفظ السمة</span>)<br><br><u>أي تخصيصات لم يتم حفظها بعد على <span class="hl">السمة</span> الحالية لن يتم تصديرها!</u></span>`
+        exporttheme: `تصدير <span class="hl">السمة</span> المحددة حاليًا للمشاركة<br><br><span class="ttdesc">قبل محاولة التصدير، يرجى التأكد من اختيار <span class="hl">السمة</span> المطلوبة (من قائمة <span class="hl">اختيار السمة</span>). يرجى أيضًا التأكد من حفظ التخصيصات على <span class="hl">السمة</span> المحددة (من قائمة <span class="hl">حفظ السمة</span>)<br><br><u>أي تخصيصات لم يتم حفظها بعد على <span class="hl">السمة</span> الحالية لن يتم تصديرها!</u></span>`,
+        webhooks: "استخدم عنوان ويب هوك لنشره في خادم ديسكورد كلما تم فتح إنجاز",
+        webhookurl: `قم بتعيين <span class="hl">عنوان URL للويب هوك</span> للخادم المطلوب<br><br><span class="ttdesc">يستخدم <span class="hl">عنوان URL للويب هوك</span> للنشر في خادم/قناة ديسكورد نيابة عن المستخدم أو التطبيق. لتكوين ويب هوك جديد لخادم ديسكورد، يجب أن يكون لدى المستخدم دور داخل الخادم المطلوب يسمح بإنشاء ويب هوك<br><br><u>عنوان URL للويب هوك مطلوب عند استخدام هذا الخيار</u><br><br>يرجى الرجوع إلى وثائق ديسكورد الرسمية لمزيد من المعلومات</span>`,
+        unlockmsg: "حدد موضع رسالة الفتح/النص المخصص داخل $type",
+        title: "حدد موضع عنوان الإنجاز داخل $type",
+        desc: "حدد موضع وصف الإنجاز داخل $type",
+        notification: "الإشعار",
+        screenshot: "لقطة الشاشة",
+        percentpos: "حدد موضع نسبة الندرة داخل $type",
+        sspercentpos: "حدد موضع نسبة الندرة داخل $type",
+        hiddeniconpos: "حدد موضع رمز الإنجاز المخفي/السري داخل $type",
+        sshiddeniconpos: "حدد موضع رمز الإنجاز المخفي/السري داخل $type",
+        decorationpos: "حدد موضع عنصر الزخرفة داخل $type",
+        ssdecorationpos: "حدد موضع عنصر الزخرفة داخل $type"
     },
     update: {
         updateavailable: "تحديث متاح",

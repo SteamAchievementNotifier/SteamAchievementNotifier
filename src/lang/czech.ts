@@ -62,7 +62,17 @@ export const translations = {
         elemselector: "Prvky oznámení",
         unlockmsg: "Zpráva o odemknutí",
         title: "Název úspěchu",
-        desc: "Popis úspěchu"
+        desc: "Popis úspěchu",
+        hiddeniconpos: "Skrytá ikona",
+        sshiddeniconpos: "Skrytá ikona",
+        decorationpos: "Dekorace",
+        ssdecorationpos: "Dekorace",
+        percentpos: "Procento vzácnosti",
+        sspercentpos: "Procento vzácnosti",
+        noexe: "Soubor EXE hry nebyl nalezen!",
+        noexesub: `Vyberte Možnosti > Uvolnit hru z hlavního panelu pro ukončení`,
+        webhookunlockmsg: "$user odemkl úspěch",
+        webhookingame: "ve $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Měřítko Sledování",
                 nowtrackingpos: "Sledování Pozice",
                 shortcuts: "Zkratky upozornění",
-                noiconcache: "Zakázat mezipaměť ikon"
+                noiconcache: "Zakázat mezipaměť ikon",
+                webhooks: "Odeslat na Discord server",
+                webhookurl: `URL Webhooku`,
+                webhookcaution: `Povolením této možnosti a poskytnutím platného odkazu na Webhook Discordu souhlasíte s tím, že rozumíte, že <u>veškeré informace o úspěších a hrách aktuálního uživatele Steamu</u> budou odeslány na určený server Discord prostřednictvím poskytnutého odkazu Webhooku.<br><br>Pokud nechcete, aby Steam Achievement Notifier odesílal tyto informace vaším jménem, prosím deaktivujte tuto možnost.`,
+                webhooklaststatus: "Poslední stav"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Puls",
                 rainbow: "Duha",
                 mask: "Maska",
-                maskimg: "Obrázek masky"
+                maskimg: "Obrázek masky",
+                outline: "Obrys",
+                outlinecolor: "Barva obrysu",
+                outlinewidth: "Šířka obrysu",
+                dashed: "Čárkovaný",
+                dotted: "Tečkovaný"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Nastavte rychlost animace aplikované na efekt záření",
         mask: "Povolit maskování částí oznámení vlastním obrázkem",
         maskimg: `Načíst soubor s obrázkem, který se má použít jako maska<br><br><span class="ttdesc">V CSS, <code class="ttcode">mask-mode: alpha</code> pracuje opačným způsobem, než je obvykle očekáváno - oblasti průhlednosti v souboru s obrázkem budou zastíněny a černé/šedé oblasti umožní viditelnost prvků pod nimi</span>`,
+        outline: "Vyberte typ obrysu, který se zobrazí kolem oznámení",
+        outlinecolor: "Nastavte barvu obrysu kolem oznámení",
+        outlinewidth: "Nastavte šířku obrysu kolem oznámení",
         primarycolor: "Nastavit primární barvu oznámení",
         secondarycolor: "Nastavit sekundární barvu oznámení",
         tertiarycolor: "Nastavit terciární barvu oznámení",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Posunout upozornění zobrazené na snímku obrazovky horizontálně",
         ovy: "Posunout upozornění zobrazené na snímku obrazovky vertikálně",
         importtheme: `Importovat úpravy prostřednictvím uživatelem vytvořeného <span class="hl">souboru tématu</span>`,
-        exporttheme: `Exportovat aktuálně vybrané <span class="hl">téma</span> k sdílení<br><br><span class="ttdesc">Před pokusem o export si prosím ověřte, že je vybráno požadované <span class="hl">téma</span> (pomocí nabídky <span class="hl">Výběr tématu</span>). Ujistěte se také, že byly úpravy uloženy ve vybraném <span class="hl">tématu</span> (pomocí nabídky <span class="hl">Uložit téma</span>)<br><br><u>Veškeré úpravy, které nebyly dosud uloženy v aktuálním <span class="hl">tématu</span>, nebudou exportovány!</u></span>`
+        exporttheme: `Exportovat aktuálně vybrané <span class="hl">téma</span> k sdílení<br><br><span class="ttdesc">Před pokusem o export si prosím ověřte, že je vybráno požadované <span class="hl">téma</span> (pomocí nabídky <span class="hl">Výběr tématu</span>). Ujistěte se také, že byly úpravy uloženy ve vybraném <span class="hl">tématu</span> (pomocí nabídky <span class="hl">Uložit téma</span>)<br><br><u>Veškeré úpravy, které nebyly dosud uloženy v aktuálním <span class="hl">tématu</span>, nebudou exportovány!</u></span>`,
+        webhooks: "Použijte URL Webhooku k odesílání na Discord server při každém odemknutí úspěchu",
+        webhookurl: `Nastavte <span class="hl">URL Webhooku</span> pro požadovaný Discord server<br><br><span class="ttdesc"> <span class="hl">URL Webhooku</span> slouží k odesílání na Discord server/kanál jménem uživatele nebo aplikace. Aby bylo možné nastavit nový Webhook pro Discord server, uživatel musí mít v požadovaném serveru roli, která umožňuje vytváření Webhooků<br><br><u>Při použití této možnosti je vyžadována URL Webhooku</u><br><br>Pro více informací se podívejte do oficiální dokumentace Discordu</span>`,
+        unlockmsg: "Nastavte polohu zprávy o odemknutí/vlastního textu v $type",
+        title: "Nastavte polohu názvu úspěchu v $type",
+        desc: "Nastavte polohu popisu úspěchu v $type",
+        notification: "oznámení",
+        screenshot: "snímek obrazovky",
+        percentpos: "Nastavte polohu procenta vzácnosti v $type",
+        sspercentpos: "Nastavte polohu procenta vzácnosti v $type",
+        hiddeniconpos: "Nastavte polohu ikony skrytého/tajného úspěchu v $type",
+        sshiddeniconpos: "Nastavte polohu ikony skrytého/tajného úspěchu v $type",
+        decorationpos: "Nastavte polohu dekorativního prvku v $type",
+        ssdecorationpos: "Nastavte polohu dekorativního prvku v $type"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

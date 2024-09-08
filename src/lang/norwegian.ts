@@ -60,9 +60,19 @@ export const translations = {
             `Nettsteder som <span class="hl">SteamDB</span> - seksjonen <span class="hl">App Info</span> vil liste opp AppID-en for hvert spill`
         ],
         elemselector: "Varslingselementer",
-        unlockmsg: "Opplåsningsmelding",
+        unlockmsg: "Låse opp-melding",
         title: "Prestasjonstittel",
-        desc: "Prestasjonsbeskrivelse"
+        desc: "Prestasjonens beskrivelse",
+        hiddeniconpos: "Skjult ikon",
+        sshiddeniconpos: "Skjult ikon",
+        decorationpos: "Dekorasjon",
+        ssdecorationpos: "Dekorasjon",
+        percentpos: "Raritet prosentandel",
+        sspercentpos: "Raritet prosentandel",
+        noexe: "Spillets EXE-fil ble ikke funnet!",
+        noexesub: `Velg Alternativer > Avslutt spill fra systemstatusfeltet for å avslutte`,
+        webhookunlockmsg: "$user har låst opp en prestasjon",
+        webhookingame: "i $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Sporingsskala",
                 nowtrackingpos: "Sporingsposisjon",
                 shortcuts: "Varsel snarveier",
-                noiconcache: "Deaktiver ikonbuffer"
+                noiconcache: "Deaktiver ikonbuffer",
+                webhooks: "Post til Discord-server",
+                webhookurl: `Webhook URL`,
+                webhookcaution: `Ved å aktivere dette alternativet og oppgi en gyldig Discord Webhook-lenke, samtykker du i å forstå at <u>all prestasjons- og spillinformasjon for den nåværende Steam-brukeren</u> vil bli postet til den angitte Discord-serveren via den oppgitte Webhook-lenken.<br><br>Hvis du ikke ønsker at Steam Achievement Notifier skal poste denne informasjonen på dine vegne, vennligst deaktiver dette alternativet.`,
+                webhooklaststatus: "Siste status"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Puls",
                 rainbow: "Regnbue",
                 mask: "Maske",
-                maskimg: "Maskebilde"
+                maskimg: "Maskebilde",
+                outline: "Kontur",
+                outlinecolor: "Konturfarge",
+                outlinewidth: "Konturbredde",
+                dashed: "Stiplet",
+                dotted: "Prikket"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Sett hastigheten på animasjonen som brukes på glødende effekt",
         mask: "Aktiver maske av deler av varselet med et tilpasset bilde",
         maskimg: `Last opp et bildefil som skal brukes som maske<br><br><span class="ttdesc">I CSS fungerer <code class="ttcode">mask-mode: alpha</code> på en motsatt måte enn hva som vanligvis forventes - områder med gjennomsiktighet i bildefilen vil bli skjult, og områder med svart/grå vil tillate elementene under å være synlige</span>`,
+        outline: "Velg typen kontur som skal vises rundt varslingen",
+        outlinecolor: "Angi fargen på konturen rundt varslingen",
+        outlinewidth: "Angi bredden på konturen rundt varslingen",
         primarycolor: "Angi primærfargen til varslingen",
         secondarycolor: "Angi sekundærfargen til varslingen",
         tertiarycolor: "Angi tertiærfargen til varslingen",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Forskyvning av varsling som vises i skjermbildet horisontalt",
         ovy: "Forskyvning av varsling som vises i skjermbildet vertikalt",
         importtheme: `Importer tilpasninger via en brukerskapt <span class="hl">temafil</span>`,
-        exporttheme: `Eksporter det aktuelt valgte <span class="hl">temaet</span> for deling<br><br><span class="ttdesc">Før du prøver å eksportere, sørg for at ønsket <span class="hl">tema</span> er valgt (via <span class="hl">Tema velg</span> menyen). Sørg også for at tilpasninger er lagret i det valgte <span class="hl">temaet</span> (via <span class="hl">Lagre tema</span> menyen)<br><br><u>Eventuelle tilpasninger som ikke er lagret i gjeldende <span class="hl">tema</span> vil ikke bli eksportert!</u></span>`        
+        exporttheme: `Eksporter det aktuelt valgte <span class="hl">temaet</span> for deling<br><br><span class="ttdesc">Før du prøver å eksportere, sørg for at ønsket <span class="hl">tema</span> er valgt (via <span class="hl">Tema velg</span> menyen). Sørg også for at tilpasninger er lagret i det valgte <span class="hl">temaet</span> (via <span class="hl">Lagre tema</span> menyen)<br><br><u>Eventuelle tilpasninger som ikke er lagret i gjeldende <span class="hl">tema</span> vil ikke bli eksportert!</u></span>`,
+        webhooks: "Bruk en Webhook URL for å poste til en Discord-server hver gang en prestasjon låses opp",
+        webhookurl: `Angi <span class="hl">Webhook URL</span> for den ønskede Discord-serveren<br><br><span class="ttdesc">En <span class="hl">Webhook URL</span> brukes til å poste til en Discord-server/kanal på vegne av en bruker eller applikasjon. For å sette opp en ny Webhook for en Discord-server, må brukeren ha en rolle på den ønskede serveren som tillater opprettelse av Webhooks<br><br><u>En Webhook URL er nødvendig når du bruker dette alternativet</u><br><br>Se Discsd’s offisielle dokumentasjon for mer informasjon</span>`,
+        unlockmsg: "Angi plasseringen av låse opp-meldingen/tilpasset tekst innenfor $type",
+        title: "Angi plasseringen av prestasjonstittelen innenfor $type",
+        desc: "Angi plasseringen av prestasjonsbeskrivelsen innenfor $type",
+        notification: "varsling",
+        screenshot: "skjermbilde",
+        percentpos: "Angi plasseringen av sjeldenhetsprosenten innenfor $type",
+        sspercentpos: "Angi plasseringen av sjeldenhetsprosenten innenfor $type",
+        hiddeniconpos: "Angi plasseringen av det skjulte/hemmelige prestasjonsikonet innenfor $type",
+        sshiddeniconpos: "Angi plasseringen av det skjulte/hemmelige prestasjonsikonet innenfor $type",
+        decorationpos: "Angi plasseringen av dekorasjonselementet innenfor $type",
+        ssdecorationpos: "Angi plasseringen av dekorasjonselementet innenfor $type"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

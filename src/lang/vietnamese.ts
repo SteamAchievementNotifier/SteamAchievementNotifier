@@ -60,9 +60,19 @@ export const translations = {
             `Các trang web như <span class="hl">SteamDB</span> - phần <span class="hl">Thông tin Ứng dụng</span> sẽ liệt kê AppID cho mỗi trò chơi`
         ],
         elemselector: "Các yếu tố thông báo",
-        unlockmsg: "Tin nhắn mở khóa",
+        unlockmsg: "Thông báo mở khóa",
         title: "Tiêu đề thành tựu",
-        desc: "Mô tả thành tựu"
+        desc: "Mô tả thành tựu",
+        hiddeniconpos: "Biểu tượng ẩn",
+        sshiddeniconpos: "Biểu tượng ẩn",
+        decorationpos: "Trang trí",
+        ssdecorationpos: "Trang trí",
+        percentpos: "Tỷ lệ hiếm có",
+        sspercentpos: "Tỷ lệ hiếm có",
+        noexe: "Không tìm thấy tệp EXE của trò chơi!",
+        noexesub: `Chọn Tùy chọn > Thoát trò chơi từ khay hệ thống để thoát`,
+        webhookunlockmsg: "$user đã mở khóa một thành tựu",
+        webhookingame: "trong $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Tỷ lệ Theo dõi",
                 nowtrackingpos: "Vị trí Theo dõi",
                 shortcuts: "Phím tắt Thông báo",
-                noiconcache: "Tắt bộ nhớ cache biểu tượng"
+                noiconcache: "Tắt bộ nhớ cache biểu tượng",
+                webhooks: "Đăng lên máy chủ Discord",
+                webhookurl: `URL Webhook`,
+                webhookcaution: `Bằng cách kích hoạt tùy chọn này và cung cấp liên kết Webhook Discord hợp lệ, bạn đồng ý rằng bạn hiểu rằng <u>tất cả thông tin thành tựu và trò chơi của người dùng Steam hiện tại</u> sẽ được đăng lên máy chủ Discord đã chỉ định thông qua liên kết Webhook được cung cấp.<br><br>Nếu bạn không muốn Steam Achievement Notifier đăng thông tin này thay cho bạn, hãy tắt tùy chọn này.`,
+                webhooklaststatus: "Trạng thái cuối cùng"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Nhịp tim",
                 rainbow: "Cầu vồng",
                 mask: "Mặt nạ",
-                maskimg: "Hình ảnh mặt nạ"
+                maskimg: "Hình ảnh mặt nạ",
+                outline: "Đường viền",
+                outlinecolor: "Màu đường viền",
+                outlinewidth: "Độ rộng đường viền",
+                dashed: "Gạch chéo",
+                dotted: "Chấm chấm"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Đặt tốc độ của hoạt hình được áp dụng vào hiệu ứng phát sáng",
         mask: "Bật mặt nạ cho các phần của thông báo với một hình ảnh tùy chỉnh",
         maskimg: `Tải lên một tập tin hình ảnh để sử dụng làm mặt nạ<br><br><span class="ttdesc">Trong CSS, <code class="ttcode">mask-mode: alpha</code> hoạt động ngược lại với những gì thường được mong đợi - các vùng trong suốt trong tập tin hình ảnh sẽ bị che khuất và các vùng đen/xám sẽ cho phép các yếu tố phía dưới trở nên hiển thị</span>`,
+        outline: "Chọn loại đường viền để hiển thị xung quanh thông báo",
+        outlinecolor: "Cài đặt màu đường viền xung quanh thông báo",
+        outlinewidth: "Cài đặt độ rộng của đường viền xung quanh thông báo",
         primarycolor: "Đặt màu chính của thông báo",
         secondarycolor: "Đặt màu phụ của thông báo",
         tertiarycolor: "Đặt màu thứ cấp của thông báo",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Lệch thông báo hiển thị trên ảnh chụp màn hình theo chiều ngang",
         ovy: "Lệch thông báo hiển thị trên ảnh chụp màn hình theo chiều dọc",
         importtheme: `Nhập các tùy chỉnh thông qua một <span class="hl">tệp Tema</span> do người dùng tạo ra`,
-        exporttheme: `Xuất <span class="hl">Tema</span> hiện tại đang chọn để chia sẻ<br><br><span class="ttdesc">Trước khi thử xuất, hãy đảm bảo rằng <span class="hl">Tema</span> mong muốn đã được chọn (qua menu <span class="hl">Chọn Tema</span>). Hãy đảm bảo rằng các tùy chỉnh đã được lưu vào <span class="hl">Tema</span> đã chọn (qua menu <span class="hl">Lưu Tema</span>)<br><br><u>Bất kỳ tùy chỉnh nào chưa được lưu vào <span class="hl">Tema</span> hiện tại sẽ không được xuất!</u></span>`        
+        exporttheme: `Xuất <span class="hl">Tema</span> hiện tại đang chọn để chia sẻ<br><br><span class="ttdesc">Trước khi thử xuất, hãy đảm bảo rằng <span class="hl">Tema</span> mong muốn đã được chọn (qua menu <span class="hl">Chọn Tema</span>). Hãy đảm bảo rằng các tùy chỉnh đã được lưu vào <span class="hl">Tema</span> đã chọn (qua menu <span class="hl">Lưu Tema</span>)<br><br><u>Bất kỳ tùy chỉnh nào chưa được lưu vào <span class="hl">Tema</span> hiện tại sẽ không được xuất!</u></span>`,
+        webhooks: "Sử dụng URL Webhook để đăng lên máy chủ Discord mỗi khi một thành tựu được mở khóa",
+        webhookurl: `Cài đặt <span class="hl">URL Webhook</span> cho máy chủ Discord mong muốn<br><br><span class="ttdesc">URL Webhook được sử dụng để đăng lên máy chủ/kanal Discord thay mặt cho người dùng hoặc ứng dụng. Để thiết lập một Webhook mới cho máy chủ Discord, người dùng phải có một vai trò trên máy chủ mong muốn cho phép tạo Webhooks<br><br><u>URL Webhook là cần thiết khi sử dụng tùy chọn này</u><br><br>Xem tài liệu chính thức của Discord để biết thêm thông tin</span>`,
+        unlockmsg: "Cài đặt vị trí của thông báo mở khóa/ văn bản tùy chỉnh trong $type",
+        title: "Cài đặt vị trí của tiêu đề thành tựu trong $type",
+        desc: "Cài đặt vị trí của mô tả thành tựu trong $type",
+        notification: "thông báo",
+        screenshot: "ảnh chụp màn hình",
+        percentpos: "Cài đặt vị trí của tỷ lệ hiếm có trong $type",
+        sspercentpos: "Cài đặt vị trí của tỷ lệ hiếm có trong $type",
+        hiddeniconpos: "Cài đặt vị trí của biểu tượng thành tựu ẩn/bí mật trong $type",
+        sshiddeniconpos: "Cài đặt vị trí của biểu tượng thành tựu ẩn/bí mật trong $type",
+        decorationpos: "Cài đặt vị trí của yếu tố trang trí trong $type",
+        ssdecorationpos: "Cài đặt vị trí của yếu tố trang trí trong $type"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

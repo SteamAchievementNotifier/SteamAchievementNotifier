@@ -62,7 +62,17 @@ export const translations = {
         elemselector: "Elementos de Notificación",
         unlockmsg: "Mensaje de Desbloqueo",
         title: "Título del Logro",
-        desc: "Descripción del Logro"
+        desc: "Descripción del Logro",
+        hiddeniconpos: "Ícono Oculto",
+        sshiddeniconpos: "Ícono Oculto",
+        decorationpos: "Decoración",
+        ssdecorationpos: "Decoración",
+        percentpos: "Porcentaje de Rareza",
+        sspercentpos: "Porcentaje de Rareza",
+        noexe: "¡Archivo EXE del juego no encontrado!",
+        noexesub: `Selecciona Opciones > Salir del Juego en la Bandeja del Sistema para salir`,
+        webhookunlockmsg: "$user desbloqueó un logro",
+        webhookingame: "en $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Escala de Seguimiento",
                 nowtrackingpos: "Posición de Seguimiento",
                 shortcuts: "Accesos directos de notificación",
-                noiconcache: "Desactivar caché de iconos"
+                noiconcache: "Desactivar caché de iconos",
+                webhooks: "Publicar en el servidor de Discord",
+                webhookurl: `URL del Webhook`,
+                webhookcaution: `Al habilitar esta opción y proporcionar un enlace válido de Webhook de Discord, aceptas que entiendes que <u>toda la información sobre logros y juegos del usuario actual de Steam</u> será publicada en el servidor de Discord especificado a través del enlace de Webhook proporcionado.<br><br>Si no deseas que Steam Achievement Notifier publique esta información en tu nombre, desactiva esta opción.`,
+                webhooklaststatus: "Último Estado"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Pulso",
                 rainbow: "Arcoíris",
                 mask: "Máscara",
-                maskimg: "Imagen de máscara"
+                maskimg: "Imagen de máscara",
+                outline: "Contorno",
+                outlinecolor: "Color del Contorno",
+                outlinewidth: "Ancho del Contorno",
+                dashed: "Rayado",
+                dotted: "Punteado"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Establecer la velocidad de la animación aplicada al efecto de resplandor",
         mask: "Activar el enmascaramiento de partes de la notificación con una imagen personalizada",
         maskimg: `Cargar un archivo de imagen para usar como máscara<br><br><span class="ttdesc">En CSS, <code class="ttcode">mask-mode: alpha</code> funciona de manera opuesta a lo que generalmente se espera: las áreas de transparencia en el archivo de imagen serán oscurecidas, y las áreas negras/grises permitirán que los elementos debajo sean visibles</span>`,
+        outline: "Selecciona el tipo de contorno que se mostrará alrededor de la notificación",
+        outlinecolor: "Establece el color del contorno alrededor de la notificación",
+        outlinewidth: "Establece el ancho del contorno alrededor de la notificación",
         primarycolor: "Establecer el color primario de la notificación",
         secondarycolor: "Establecer el color secundario de la notificación",
         tertiarycolor: "Establecer el color terciario de la notificación",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Desplazar la notificación mostrada en la captura de pantalla horizontalmente",
         ovy: "Desplazar la notificación mostrada en la captura de pantalla verticalmente",
         importtheme: `Importar personalizaciones mediante un archivo de <span class="hl">tema creado por el usuario</span>`,
-        exporttheme: `Exportar el <span class="hl">tema</span> seleccionado actualmente para compartir<br><br><span class="ttdesc">Antes de intentar exportar, asegúrese de que el <span class="hl">tema</span> deseado esté seleccionado (a través del menú <span class="hl">Seleccionar Tema</span>). También asegúrese de que las personalizaciones hayan sido guardadas en el <span class="hl">tema</span> seleccionado (a través del menú <span class="hl">Guardar Tema</span>)<br><br><u>Cualquier personalización no guardada en el <span class="hl">tema</span> actual no será exportada!</u></span>`        
+        exporttheme: `Exportar el <span class="hl">tema</span> seleccionado actualmente para compartir<br><br><span class="ttdesc">Antes de intentar exportar, asegúrese de que el <span class="hl">tema</span> deseado esté seleccionado (a través del menú <span class="hl">Seleccionar Tema</span>). También asegúrese de que las personalizaciones hayan sido guardadas en el <span class="hl">tema</span> seleccionado (a través del menú <span class="hl">Guardar Tema</span>)<br><br><u>Cualquier personalización no guardada en el <span class="hl">tema</span> actual no será exportada!</u></span>`,
+        webhooks: "Usa una URL de Webhook para publicar en un servidor de Discord cada vez que se desbloquee un logro",
+        webhookurl: `Establece la <span class="hl">URL del Webhook</span> para el servidor de Discord deseado<br><br><span class="ttdesc">Una <span class="hl">URL del Webhook</span> se usa para publicar en un servidor/canal de Discord en nombre de un usuario o aplicación. Para configurar un nuevo Webhook para un servidor de Discord, el usuario debe tener un rol en el servidor deseado que permita la creación de Webhooks<br><br><u>Una URL de Webhook es necesaria al usar esta opción</u><br><br>Consulta la documentación oficial de Discord para obtener más información</span>`,
+        unlockmsg: "Establece la posición del mensaje de desbloqueo/texto personalizado dentro del $type",
+        title: "Establece la posición del título del logro dentro del $type",
+        desc: "Establece la posición de la descripción del logro dentro del $type",
+        notification: "notificación",
+        screenshot: "captura de pantalla",
+        percentpos: "Establece la posición del porcentaje de rareza dentro del $type",
+        sspercentpos: "Establece la posición del porcentaje de rareza dentro del $type",
+        hiddeniconpos: "Establece la posición del ícono de logro oculto/secreto dentro del $type",
+        sshiddeniconpos: "Establece la posición del ícono de logro oculto/secreto dentro del $type",
+        decorationpos: "Establece la posición del elemento decorativo dentro del $type",
+        ssdecorationpos: "Establece la posición del elemento decorativo dentro del $type" 
     },
     update: {
         updateavailable: "Actualización disponible",

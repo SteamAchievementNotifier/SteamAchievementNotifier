@@ -59,10 +59,20 @@ export const translations = {
             `URL'en til spillets <span class="hl">Butiks side</span> - det vil være tallet efter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Websites som <span class="hl">SteamDB</span> - sektionen <span class="hl">App Info</span> vil liste AppID for hvert spil`
         ],
-        elemselector: "Meddelelseselementer",
+        elemselector: "Notifikationselementer",
         unlockmsg: "Oplåsningsbesked",
-        title: "Præstationstitel",
-        desc: "Præstationsbeskrivelse"
+        title: "Præstationsnavn",
+        desc: "Præstationsbeskrivelse",
+        hiddeniconpos: "Skjult ikon",
+        sshiddeniconpos: "Skjult ikon",
+        decorationpos: "Dekoration",
+        ssdecorationpos: "Dekoration",
+        percentpos: "Sjældenhedsprocent",
+        sspercentpos: "Sjældenhedsprocent",
+        noexe: "Spil-EXE ikke fundet!",
+        noexesub: `Vælg Indstillinger > Frigør spil fra systembakken for at afslutte`,
+        webhookunlockmsg: "$user låste op for en præstation",
+        webhookingame: "i $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Sporingsskala",
                 nowtrackingpos: "Sporingsposition",
                 shortcuts: "Notifikationsgenveje",
-                noiconcache: "Deaktivér ikon-cache"
+                noiconcache: "Deaktivér ikon-cache",
+                webhooks: "Send til Discord-server",
+                webhookurl: `Webhook-URL`,
+                webhookcaution: `Ved at aktivere denne mulighed og angive et gyldigt Discord-webhook-link, accepterer du, at du forstår, at <u>al præstations- og spilinformations for den nuværende Steam-bruger</u> vil blive sendt til den angivne Discord-server via det angivne webhook-link.<br><br>Hvis du ikke ønsker, at Steam Achievement Notifier skal sende disse oplysninger på dine vegne, skal du deaktivere denne mulighed.`,
+                webhooklaststatus: "Sidste status"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Puls",
                 rainbow: "Regnbue",
                 mask: "Maske",
-                maskimg: "Maske billede"
+                maskimg: "Maske billede",
+                outline: "Kontur",
+                outlinecolor: "Konturfarve",
+                outlinewidth: "Konturbredde",
+                dashed: "Stiplet",
+                dotted: "Prikket"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Indstil hastigheden af animationen, der anvendes på glødeeffekten",
         mask: "Aktiver maske af dele af meddelelsen med et brugerdefineret billede",
         maskimg: `Indlæs en billedfil, der skal bruges som maske<br><br><span class="ttdesc">I CSS fungerer <code class="ttcode">mask-mode: alpha</code> på en modsat måde end forventet - områder med gennemsigtighed i billedfilen vil blive skjult, og områder af sort/grå vil tillade elementerne nedenfor at være synlige</span>`,
+        outline: "Vælg den type kontur, der skal vises omkring notifikationen",
+        outlinecolor: "Indstil konturens farve omkring notifikationen",
+        outlinewidth: "Indstil konturens bredde omkring notifikationen",
         primarycolor: "Indstil primærfarven for meddelelsen",
         secondarycolor: "Indstil sekundærfarven for meddelelsen",
         tertiarycolor: "Indstil tertiærfarven for meddelelsen",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Forskyd meddelelsen vist på skærmbilledet horisontalt",
         ovy: "Forskyd meddelelsen vist på skærmbilledet vertikalt",
         importtheme: `Importer tilpasninger via en brugeroprettet <span class="hl">temafil</span>`,
-        exporttheme: `Eksporter det aktuelt valgte <span class="hl">tema</span> til deling<br><br><span class="ttdesc">Før du forsøger at eksportere, skal du sikre dig, at det ønskede <span class="hl">tema</span> er valgt (via menuen <span class="hl">Vælg Tema</span>). Sørg også for, at tilpasninger er gemt til det valgte <span class="hl">tema</span> (via menuen <span class="hl">Gem Tema</span>)<br><br><u>Enhver tilpasning, der endnu ikke er gemt til det aktuelle <span class="hl">tema</span>, vil ikke blive eksporteret!</u></span>`        
+        exporttheme: `Eksporter det aktuelt valgte <span class="hl">tema</span> til deling<br><br><span class="ttdesc">Før du forsøger at eksportere, skal du sikre dig, at det ønskede <span class="hl">tema</span> er valgt (via menuen <span class="hl">Vælg Tema</span>). Sørg også for, at tilpasninger er gemt til det valgte <span class="hl">tema</span> (via menuen <span class="hl">Gem Tema</span>)<br><br><u>Enhver tilpasning, der endnu ikke er gemt til det aktuelle <span class="hl">tema</span>, vil ikke blive eksporteret!</u></span>`,
+        webhooks: "Brug en webhook-URL til at sende beskeder til en Discord-server, hver gang en præstation låses op",
+        webhookurl: `Indstil <span class="hl">webhook-URL'en</span> for den ønskede Discord-server<br><br><span class="ttdesc">En <span class="hl">webhook-URL</span> bruges til at sende beskeder til en Discord-server/kanal på vegne af en bruger eller applikation. For at opsætte en ny webhook til en Discord-server, skal brugeren have en rolle på den ønskede server, der tillader oprettelse af webhooks<br><br><u>En webhook-URL er påkrævet, når du bruger denne mulighed</u><br><br>Se Discords officielle dokumentation for flere oplysninger</span>`,
+        unlockmsg: "Indstil positionen for oplåsningsbeskeden/tilpasset tekst inden i $type",
+        title: "Indstil positionen for præstationsnavnet inden i $type",
+        desc: "Indstil positionen for præstationsbeskrivelsen inden i $type",
+        notification: "notifikation",
+        screenshot: "skærmbillede",
+        percentpos: "Indstil positionen for sjældenhedsprocenten inden i $type",
+        sspercentpos: "Indstil positionen for sjældenhedsprocenten inden i $type",
+        hiddeniconpos: "Indstil positionen for ikonet for skjult/hemmelig præstation inden i $type",
+        sshiddeniconpos: "Indstil positionen for ikonet for skjult/hemmelig præstation inden i $type",
+        decorationpos: "Indstil positionen for dekorationselementet inden i $type",
+        ssdecorationpos: "Indstil positionen for dekorationselementet inden i $type"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

@@ -60,9 +60,19 @@ export const translations = {
             `Websites zoals <span class="hl">SteamDB</span> - de sectie <span class="hl">App Info</span> zal de AppID voor elk spel vermelden`
         ],
         elemselector: "Meldingselementen",
-        unlockmsg: "Ontgrendelingsbericht",
+        unlockmsg: "Ontgrendelbericht",
         title: "Prestatie Titel",
-        desc: "Prestatie Beschrijving"
+        desc: "Prestatie Beschrijving",
+        hiddeniconpos: "Verborgen Icoon",
+        sshiddeniconpos: "Verborgen Icoon",
+        decorationpos: "Decoratie",
+        ssdecorationpos: "Decoratie",
+        percentpos: "Zeldzaamheidspercentage",
+        sspercentpos: "Zeldzaamheidspercentage",
+        noexe: "Spel-EXE niet gevonden!",
+        noexesub: `Selecteer Opties > Spel Ontkoppelen uit de Systeemvak om te afsluiten`,
+        webhookunlockmsg: "$user heeft een prestatie ontgrendeld",
+        webhookingame: "in $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Volgschaal",
                 nowtrackingpos: "Volgpositie",
                 shortcuts: "Meldings snelkoppelingen",
-                noiconcache: "Pictogramcache uitschakelen"
+                noiconcache: "Pictogramcache uitschakelen",
+                webhooks: "Plaatsen op Discord-server",
+                webhookurl: `Webhook URL`,
+                webhookcaution: `Door deze optie in te schakelen en een geldige Discord-webhook-link op te geven, ga je ermee akkoord dat je begrijpt dat <u>alle prestatie- en spelinformatie voor de huidige Steam-gebruiker</u> zal worden geplaatst op de opgegeven Discord-server via de verstrekte webhook-link.<br><br>Als je niet wilt dat Steam Achievement Notifier deze informatie namens jou plaatst, schakel dan deze optie uit.`,
+                webhooklaststatus: "Laatste Status"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Puls",
                 rainbow: "Regenboog",
                 mask: "Masker",
-                maskimg: "Masker afbeelding"
+                maskimg: "Masker afbeelding",
+                outline: "Omlijning",
+                outlinecolor: "Kleur van Omlijning",
+                outlinewidth: "Breedte van Omlijning",
+                dashed: "Gestreept",
+                dotted: "Gestippeld"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Stel de snelheid van de animatie in die wordt toegepast op het gloei-effect",
         mask: "Activeer het maskeren van delen van de melding met een aangepaste afbeelding",
         maskimg: `Laad een afbeeldingsbestand om te gebruiken als masker<br><br><span class="ttdesc">In CSS werkt <code class="ttcode">mask-mode: alpha</code> op een tegenovergestelde manier dan verwacht - gebieden van transparantie in het afbeeldingsbestand worden verborgen en gebieden van zwart/grijs laten de elementen eronder zichtbaar zijn</span>`,
+        outline: "Selecteer het type omlijning om rond de melding te tonen",
+        outlinecolor: "Stel de kleur in van de omlijning rond de melding",
+        outlinewidth: "Stel de breedte in van de omlijning rond de melding",
         primarycolor: "Stel de primaire kleur van de melding in",
         secondarycolor: "Stel de secundaire kleur van de melding in",
         tertiarycolor: "Stel de tertiaire kleur van de melding in",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Verplaats de melding die op de schermafbeelding wordt weergegeven horizontaal",
         ovy: "Verplaats de melding die op de schermafbeelding wordt weergegeven verticaal",
         importtheme: `Importeer aanpassingen via een door de gebruiker aangemaakt <span class="hl">themabestand</span>`,
-        exporttheme: `Exporteer het momenteel geselecteerde <span class="hl">thema</span> voor delen<br><br><span class="ttdesc">Controleer voor het exporteren of het gewenste <span class="hl">thema</span> is geselecteerd (via het menu <span class="hl">Thema selecteren</span>). Zorg er ook voor dat aanpassingen zijn opgeslagen in het geselecteerde <span class="hl">thema</span> (via het menu <span class="hl">Thema opslaan</span>)<br><br><u>Eventuele aanpassingen die nog niet zijn opgeslagen in het huidige <span class="hl">thema</span> worden niet geëxporteerd!</u></span>`        
+        exporttheme: `Exporteer het momenteel geselecteerde <span class="hl">thema</span> voor delen<br><br><span class="ttdesc">Controleer voor het exporteren of het gewenste <span class="hl">thema</span> is geselecteerd (via het menu <span class="hl">Thema selecteren</span>). Zorg er ook voor dat aanpassingen zijn opgeslagen in het geselecteerde <span class="hl">thema</span> (via het menu <span class="hl">Thema opslaan</span>)<br><br><u>Eventuele aanpassingen die nog niet zijn opgeslagen in het huidige <span class="hl">thema</span> worden niet geëxporteerd!</u></span>`,
+        webhooks: "Gebruik een webhook-URL om een bericht te plaatsen in een Discord-server wanneer een prestatie is ontgrendeld",
+        webhookurl: `Stel de <span class="hl">webhook-URL</span> in voor de gewenste Discord-server<br><br><span class="ttdesc">Een <span class="hl">webhook-URL</span> wordt gebruikt om namens een gebruiker of applicatie te plaatsen in een Discord-server/kanaal. Om een nieuwe webhook in te stellen voor een Discord-server, moet de gebruiker een rol hebben binnen de gewenste server die het maken van webhooks toestaat<br><br><u>Een webhook-URL is vereist bij gebruik van deze optie</u><br><br>Raadpleeg de officiële documentatie van Discord voor meer informatie</span>`,
+        unlockmsg: "Stel de positie in van het ontgrendelbericht/aangepaste tekst binnen de $type",
+        title: "Stel de positie in van de prestatie titel binnen de $type",
+        desc: "Stel de positie in van de prestatie beschrijving binnen de $type",
+        notification: "melding",
+        screenshot: "screenshot",
+        percentpos: "Stel de positie in van het zeldzaamheidspercentage binnen de $type",
+        sspercentpos: "Stel de positie in van het zeldzaamheidspercentage binnen de $type",
+        hiddeniconpos: "Stel de positie in van het verborgen/geheime prestatie-icoon binnen de $type",
+        sshiddeniconpos: "Stel de positie in van het verborgen/geheime prestatie-icoon binnen de $type",
+        decorationpos: "Stel de positie in van het decoratie-element binnen de $type",
+        ssdecorationpos: "Stel de positie in van het decoratie-element binnen de $type"
     },
     update: {
         updateavailable: "Update beschikbaar",

@@ -60,9 +60,19 @@ export const translations = {
             `Siti web come <span class="hl">SteamDB</span> - la sezione <span class="hl">Info App</span> elencherà l'AppID per ogni gioco`
         ],
         elemselector: "Elementi di notifica",
-        unlockmsg: "Messaggio di sblocco",
-        title: "Titolo del traguardo",
-        desc: "Descrizione del traguardo"
+        unlockmsg: "Messaggio di Sblocco",
+        title: "Titolo del Successo",
+        desc: "Descrizione del Successo",
+        hiddeniconpos: "Icona Nascosta",
+        sshiddeniconpos: "Icona Nascosta",
+        decorationpos: "Decorazione",
+        ssdecorationpos: "Decorazione",
+        percentpos: "Percentuale di Rarità",
+        sspercentpos: "Percentuale di Rarità",
+        noexe: "File EXE del gioco non trovato!",
+        noexesub: `Seleziona Opzioni > Rilascia Gioco dalla Barra delle Applicazioni per uscire`,
+        webhookunlockmsg: "$user ha sbloccato un successo",
+        webhookingame: "in $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Scala di tracciamento",
                 nowtrackingpos: "Posizione di tracciamento",
                 shortcuts: "Scorciatoie notifica",
-                noiconcache: "Disabilita la cache delle icone"
+                noiconcache: "Disabilita la cache delle icone",
+                webhooks: "Pubblica sul server Discord",
+                webhookurl: `URL del Webhook`,
+                webhookcaution: `Abilitando questa opzione e fornendo un link Webhook Discord valido, accetti di comprendere che <u>tutte le informazioni sui successi e sui giochi per l'attuale utente Steam</u> saranno pubblicate sul server Discord specificato tramite il link Webhook fornito.<br><br>Se non desideri che Steam Achievement Notifier pubblichi queste informazioni per tuo conto, disabilita questa opzione.`,
+                webhooklaststatus: "Ultimo Stato"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Impulso",
                 rainbow: "Arcobaleno",
                 mask: "Maschera",
-                maskimg: "Immagine della maschera"
+                maskimg: "Immagine della maschera",
+                outline: "Contorno",
+                outlinecolor: "Colore del Contorno",
+                outlinewidth: "Larghezza del Contorno",
+                dashed: "Tratteggiato",
+                dotted: "Puntinato"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Imposta la velocità dell'animazione applicata all'effetto glow",
         mask: "Abilita la mascheratura di parti della notifica con un'immagine personalizzata",
         maskimg: `Carica un file immagine da utilizzare come maschera<br><br><span class="ttdesc">In CSS, <code class="ttcode">mask-mode: alpha</code> funziona in modo opposto a quanto ci si aspetta di solito: le aree di trasparenza nel file immagine verranno oscurate, mentre le aree nere/grigie permetteranno agli elementi sottostanti di essere visibili</span>`,
+        outline: "Seleziona il tipo di contorno da mostrare attorno alla notifica",
+        outlinecolor: "Imposta il colore del contorno attorno alla notifica",
+        outlinewidth: "Imposta la larghezza del contorno attorno alla notifica",
         primarycolor: "Imposta il colore primario della notifica",
         secondarycolor: "Imposta il colore secondario della notifica",
         tertiarycolor: "Imposta il colore terziario della notifica",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Sposta la notifica visualizzata nello screenshot in orizzontale",
         ovy: "Sposta la notifica visualizzata nello screenshot in verticale",
         importtheme: `Importa personalizzazioni tramite un <span class="hl">file del tema</span> creato dall'utente`,
-        exporttheme: `Esporta il <span class="hl">tema</span> attualmente selezionato per la condivisione<br><br><span class="ttdesc">Prima di procedere con l'esportazione, assicurati che il <span class="hl">tema</span> desiderato sia stato selezionato (tramite il menu <span class="hl">Seleziona tema</span>). Assicurati inoltre che le personalizzazioni siano state salvate nel <span class="hl">tema</span> selezionato (tramite il menu <span class="hl">Salva tema</span>)<br><br><u>Eventuali personalizzazioni non ancora salvate nel <span class="hl">tema</span> corrente non saranno esportate!</u></span>`        
+        exporttheme: `Esporta il <span class="hl">tema</span> attualmente selezionato per la condivisione<br><br><span class="ttdesc">Prima di procedere con l'esportazione, assicurati che il <span class="hl">tema</span> desiderato sia stato selezionato (tramite il menu <span class="hl">Seleziona tema</span>). Assicurati inoltre che le personalizzazioni siano state salvate nel <span class="hl">tema</span> selezionato (tramite il menu <span class="hl">Salva tema</span>)<br><br><u>Eventuali personalizzazioni non ancora salvate nel <span class="hl">tema</span> corrente non saranno esportate!</u></span>`,
+        webhooks: "Utilizza un URL Webhook per pubblicare su un server Discord ogni volta che un successo viene sbloccato",
+        webhookurl: `Imposta la <span class="hl">URL del Webhook</span> per il server Discord desiderato<br><br><span class="ttdesc">Una <span class="hl">URL del Webhook</span> viene utilizzata per pubblicare su un server/canale Discord per conto di un utente o di un'applicazione. Per impostare un nuovo Webhook per un server Discord, l'utente deve avere un ruolo nel server desiderato che consenta la creazione di Webhook<br><br><u>Un URL del Webhook è necessario quando si utilizza questa opzione</u><br><br>Consulta la documentazione ufficiale di Discord per ulteriori informazioni</span>`,
+        unlockmsg: "Imposta la posizione del messaggio di sblocco/testo personalizzato all'interno del $type",
+        title: "Imposta la posizione del titolo del successo all'interno del $type",
+        desc: "Imposta la posizione della descrizione del successo all'interno del $type",
+        notification: "notifica",
+        screenshot: "screenshot",
+        percentpos: "Imposta la posizione della percentuale di rarità all'interno del $type",
+        sspercentpos: "Imposta la posizione della percentuale di rarità all'interno del $type",
+        hiddeniconpos: "Imposta la posizione dell'icona del successo nascosto/segreto all'interno del $type",
+        sshiddeniconpos: "Imposta la posizione dell'icona del successo nascosto/segreto all'interno del $type",
+        decorationpos: "Imposta la posizione dell'elemento decorativo all'interno del $type",
+        ssdecorationpos: "Imposta la posizione dell'elemento decorativo all'interno del $type"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

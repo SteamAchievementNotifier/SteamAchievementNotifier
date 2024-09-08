@@ -61,8 +61,18 @@ export const translations = {
         ],
         elemselector: "通知要素",
         unlockmsg: "解除メッセージ",
-        title: "達成タイトル",
-        desc: "達成説明"
+        title: "アチーブメントタイトル",
+        desc: "アチーブメントの説明",
+        hiddeniconpos: "隠しアイコン",
+        sshiddeniconpos: "隠しアイコン",
+        decorationpos: "装飾",
+        ssdecorationpos: "装飾",
+        percentpos: "レアリティパーセンテージ",
+        sspercentpos: "レアリティパーセンテージ",
+        noexe: "ゲームのEXEファイルが見つかりません！",
+        noexesub: `システムトレイから「オプション > ゲームを終了」を選択して終了してください`,
+        webhookunlockmsg: "$user がアチーブメントを解除しました",
+        webhookingame: "$gamename で"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "トラッキングスケール",
                 nowtrackingpos: "追跡位置",
                 shortcuts: "通知ショートカット",
-                noiconcache: "アイコンキャッシュの無効化"
+                noiconcache: "アイコンキャッシュの無効化",
+                webhooks: "Discordサーバーに投稿",
+                webhookurl: `Webhook URL`,
+                webhookcaution: `このオプションを有効にし、正しいDiscord Webhookリンクを提供することで、<u>現在のSteamユーザーのすべてのアチーブメントおよびゲーム情報</u>が指定されたDiscordサーバーにWebhookリンクを通じて投稿されることを理解していることに同意します。<br><br>Steam Achievement Notifierがあなたの代わりにこの情報を投稿することを望まない場合は、このオプションを無効にしてください。`,
+                webhooklaststatus: "最後のステータス"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "パルス",
                 rainbow: "虹",
                 mask: "マスク",
-                maskimg: "マスク画像"
+                maskimg: "マスク画像",
+                outline: "アウトライン",
+                outlinecolor: "アウトラインの色",
+                outlinewidth: "アウトラインの幅",
+                dashed: "破線",
+                dotted: "点線"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "グローエフェクトに適用されるアニメーションの速度を設定します",
         mask: "カスタム画像で通知の一部をマスキングします",
         maskimg: `マスクとして使用する画像ファイルを読み込みます<br><br><span class="ttdesc">CSSでは、<code class="ttcode">mask-mode: alpha</code> は通常の期待とは逆に機能します。画像ファイルの透明な領域は非表示になり、黒/グレーの領域は下の要素を表示します</span>`,
+        outline: "通知の周りに表示するアウトラインの種類を選択してください",
+        outlinecolor: "通知の周りのアウトラインの色を設定します",
+        outlinewidth: "通知の周りのアウトラインの幅を設定します",
         primarycolor: "通知のプライマリカラーを設定する",
         secondarycolor: "通知のセカンダリカラーを設定する",
         tertiarycolor: "通知の第三カラーを設定する",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "スクリーンショットに表示される通知を水平方向にオフセットします",
         ovy: "スクリーンショットに表示される通知を垂直方向にオフセットします",
         importtheme: `ユーザーが作成した<span class="hl">テーマファイル</span>を通じてカスタマイズをインポートします`,
-        exporttheme: `現在選択されている<span class="hl">テーマ</span>を共有するためにエクスポートします<br><br><span class="ttdesc">エクスポートを試みる前に、選択した<span class="hl">テーマ</span>が正しく選択されていることを確認してください（<span class="hl">テーマ選択</span>メニューを使用して）。また、カスタマイズが選択した<span class="hl">テーマ</span>に保存されていることを確認してください（<span class="hl">テーマ保存</span>メニューを使用して）<br><br><u>現在の<span class="hl">テーマ</span>にまだ保存されていないカスタマイズはエクスポートされません！</u></span>`        
+        exporttheme: `現在選択されている<span class="hl">テーマ</span>を共有するためにエクスポートします<br><br><span class="ttdesc">エクスポートを試みる前に、選択した<span class="hl">テーマ</span>が正しく選択されていることを確認してください（<span class="hl">テーマ選択</span>メニューを使用して）。また、カスタマイズが選択した<span class="hl">テーマ</span>に保存されていることを確認してください（<span class="hl">テーマ保存</span>メニューを使用して）<br><br><u>現在の<span class="hl">テーマ</span>にまだ保存されていないカスタマイズはエクスポートされません！</u></span>`,
+        webhooks: "アチーブメントが解除されるたびにDiscordサーバーに投稿するためにWebhook URLを使用します",
+        webhookurl: `希望するDiscordサーバーのために<span class="hl">Webhook URL</span>を設定してください<br><br><span class="ttdesc">WebHook URLは、ユーザーまたはアプリケーションの代理でDiscordサーバー/チャンネルに投稿するために使用されます。Discordサーバーの新しいWebhookを設定するには、ユーザーがWebhookの作成を許可された役割を持っている必要があります<br><br><u>このオプションを使用するにはWebhook URLが必要です</u><br><br>詳細はDiscordの公式ドキュメントを参照してください</span>`,
+        unlockmsg: "$type 内の解除メッセージ/カスタムテキストの位置を設定します",
+        title: "$type 内のアチーブメントタイトルの位置を設定します",
+        desc: "$type 内のアチーブメントの説明の位置を設定します",
+        notification: "通知",
+        screenshot: "スクリーンショット",
+        percentpos: "$type 内のレアリティパーセンテージの位置を設定します",
+        sspercentpos: "$type 内のレアリティパーセンテージの位置を設定します",
+        hiddeniconpos: "$type 内の隠し/秘密のアチーブメントアイコンの位置を設定します",
+        sshiddeniconpos: "$type 内の隠し/秘密のアチーブメントアイコンの位置を設定します",
+        decorationpos: "$type 内の装飾要素の位置を設定します",
+        ssdecorationpos: "$type 内の装飾要素の位置を設定します"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

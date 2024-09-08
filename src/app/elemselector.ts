@@ -4,6 +4,18 @@ import { __root, sanhelper } from "./sanhelper"
 import path from "path"
 import fs from "fs"
 
+export const selectorelems = [
+    "unlockmsg",
+    "title",
+    "desc",
+    "percentpos",
+    "hiddeniconpos",
+    "decorationpos",
+    "sspercentpos",
+    "sshiddeniconpos",
+    "ssdecorationpos"
+]
+
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
 
 const updateelems = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",elems: string[],select: HTMLSelectElement,elemtype: "elems" | "sselems",max: number,posids: string[]) => {
@@ -69,6 +81,8 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     const html = fs.readFileSync(path.join(__root,"dist","app","elemselector.html")).toString()
     elem.insertAdjacentHTML("afterend",html)
+
+    ;["overlay","notifyimg"].forEach(id => elemtype === "sselems" && menutype.querySelector("#elemselector")!.setAttribute(id,""))
     
     posids.forEach(id => menutype.querySelector(`#${id.replace(/^ss/,"")}`)!.id = id)
     menutype.querySelector(`#elemselector > span.lbl`)!.textContent = global["elemselector"]

@@ -60,9 +60,19 @@ export const translations = {
             `Websites wie <span class="hl">SteamDB</span> - der Abschnitt <span class="hl">App-Informationen</span> listet die AppID für jedes Spiel auf`
         ],
         elemselector: "Benachrichtigungselemente",
-        unlockmsg: "Freischaltnachricht",
+        unlockmsg: "Freischalt-Nachricht",
         title: "Erfolgstitel",
-        desc: "Erfolgsbeschreibung"
+        desc: "Erfolgsbeschreibung",
+        hiddeniconpos: "Verstecktes Symbol",
+        sshiddeniconpos: "Verstecktes Symbol",
+        decorationpos: "Dekoration",
+        ssdecorationpos: "Dekoration",
+        percentpos: "Seltenheitsprozentsatz",
+        sspercentpos: "Seltenheitsprozentsatz",
+        noexe: "Spiel-EXE nicht gefunden!",
+        noexesub: `Wählen Sie Optionen > Spiel freigeben aus dem Systemtray, um zu beenden`,
+        webhookunlockmsg: "$user hat einen Erfolg freigeschaltet",
+        webhookingame: "in $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Verfolgungsskala",
                 nowtrackingpos: "Position verfolgen",
                 shortcuts: "Benachrichtigungs-Verknüpfungen",
-                noiconcache: "Icon-Cache deaktivieren"
+                noiconcache: "Icon-Cache deaktivieren",
+                webhooks: "Auf Discord-Server posten",
+                webhookurl: `Webhook-URL`,
+                webhookcaution: `Indem Sie diese Option aktivieren und einen gültigen Discord-Webhook-Link angeben, erklären Sie sich damit einverstanden, dass Sie verstehen, dass <u>alle Erfolgs- und Spieledaten des aktuellen Steam-Benutzers</u> über den angegebenen Discord-Server-Link gepostet werden.<br><br>Wenn Sie nicht möchten, dass der Steam Achievement Notifier diese Informationen in Ihrem Namen veröffentlicht, deaktivieren Sie bitte diese Option.`,
+                webhooklaststatus: "Letzter Status"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Pulsieren",
                 rainbow: "Regenbogen",
                 mask: "Maske",
-                maskimg: "Maskenbild"
+                maskimg: "Maskenbild",
+                outline: "Umriss",
+                outlinecolor: "Umrissfarbe",
+                outlinewidth: "Umrissbreite",
+                dashed: "Gestrichelt",
+                dotted: "Gepunktet"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Legen Sie die Geschwindigkeit der Animation fest, die auf den Leuchteffekt angewendet wird",
         mask: "Aktivieren Sie das Maskieren von Teilen der Benachrichtigung mit einem benutzerdefinierten Bild",
         maskimg: `Laden Sie eine Bilddatei hoch, die als Maske verwendet werden soll<br><br><span class="ttdesc">In CSS funktioniert <code class="ttcode">mask-mode: alpha</code> entgegen der üblichen Erwartung - Bereiche der Transparenz in der Bilddatei werden verdeckt, und schwarze/graue Bereiche lassen die darunterliegenden Elemente sichtbar werden</span>`,
+        outline: "Wählen Sie den Typ des Umrisses aus, der um die Benachrichtigung angezeigt werden soll",
+        outlinecolor: "Stellen Sie die Farbe des Umrisses um die Benachrichtigung ein",
+        outlinewidth: "Stellen Sie die Breite des Umrisses um die Benachrichtigung ein",
         primarycolor: "Legen Sie die Primärfarbe der Benachrichtigung fest",
         secondarycolor: "Legen Sie die Sekundärfarbe der Benachrichtigung fest",
         tertiarycolor: "Legen Sie die Tertiärfarbe der Benachrichtigung fest",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Verschieben Sie die Benachrichtigung, die im Screenshot angezeigt wird, horizontal",
         ovy: "Verschieben Sie die Benachrichtigung, die im Screenshot angezeigt wird, vertikal",
         importtheme: `Importieren Sie Anpassungen über eine vom Benutzer erstellte <span class="hl">Themendatei</span>`,
-        exporttheme: `Exportieren Sie das aktuell ausgewählte <span class="hl">Thema</span> zum Teilen<br><br><span class="ttdesc">Bevor Sie exportieren, stellen Sie bitte sicher, dass das gewünschte <span class="hl">Thema</span> ausgewählt ist (über das Menü <span class="hl">Thema auswählen</span>). Stellen Sie auch sicher, dass Anpassungen in das ausgewählte <span class="hl">Thema</span> gespeichert wurden (über das Menü <span class="hl">Thema speichern</span>)<br><br><u>Anpassungen, die noch nicht im aktuellen <span class="hl">Thema</span> gespeichert wurden, werden nicht exportiert!</u></span>`        
+        exporttheme: `Exportieren Sie das aktuell ausgewählte <span class="hl">Thema</span> zum Teilen<br><br><span class="ttdesc">Bevor Sie exportieren, stellen Sie bitte sicher, dass das gewünschte <span class="hl">Thema</span> ausgewählt ist (über das Menü <span class="hl">Thema auswählen</span>). Stellen Sie auch sicher, dass Anpassungen in das ausgewählte <span class="hl">Thema</span> gespeichert wurden (über das Menü <span class="hl">Thema speichern</span>)<br><br><u>Anpassungen, die noch nicht im aktuellen <span class="hl">Thema</span> gespeichert wurden, werden nicht exportiert!</u></span>`,
+        webhooks: "Verwenden Sie eine Webhook-URL, um in einem Discord-Server eine Nachricht zu posten, wenn ein Erfolg freigeschaltet wird",
+        webhookurl: `Stellen Sie die <span class="hl">Webhook-URL</span> für den gewünschten Discord-Server ein<br><br><span class="ttdesc">Eine <span class="hl">Webhook-URL</span> wird verwendet, um im Namen eines Benutzers oder einer Anwendung auf einem Discord-Server/Kanal zu posten. Um einen neuen Webhook für einen Discord-Server einzurichten, muss der Benutzer eine Rolle im gewünschten Server haben, die das Erstellen von Webhooks erlaubt<br><br><u>Eine Webhook-URL ist erforderlich, wenn Sie diese Option verwenden</u><br><br>Weitere Informationen finden Sie in der offiziellen Discord-Dokumentation</span>`,
+        unlockmsg: "Stellen Sie die Position der Freischalt-Nachricht/des benutzerdefinierten Textes im $type ein",
+        title: "Stellen Sie die Position des Erfolgstitels im $type ein",
+        desc: "Stellen Sie die Position der Erfolgsbeschreibung im $type ein",
+        notification: "Benachrichtigung",
+        screenshot: "Screenshot",
+        percentpos: "Stellen Sie die Position des Seltenheitsprozentsatzes im $type ein",
+        sspercentpos: "Stellen Sie die Position des Seltenheitsprozentsatzes im $type ein",
+        hiddeniconpos: "Stellen Sie die Position des versteckten/geheimen Erfolgssymbols im $type ein",
+        sshiddeniconpos: "Stellen Sie die Position des versteckten/geheimen Erfolgssymbols im $type ein",
+        decorationpos: "Stellen Sie die Position des Dekorationselements im $type ein",
+        ssdecorationpos: "Stellen Sie die Position des Dekorationselements im $type ein"
     },
     update: {
         updateavailable: "Update verfügbar",

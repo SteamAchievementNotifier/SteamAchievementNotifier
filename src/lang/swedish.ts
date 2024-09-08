@@ -59,10 +59,20 @@ export const translations = {
             `URL:en till spelets <span class="hl">Butikssida</span> - det kommer att vara numret listat efter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Webbplatser som <span class="hl">SteamDB</span> - avsnittet <span class="hl">App Info</span> kommer att lista AppID för varje spel`
         ],
-        elemselector: "Notifieringselement",
-        unlockmsg: "Upplåsningsmeddelande",
-        title: "Prestationstitel",
-        desc: "Prestationsbeskrivning"
+        elemselector: "Notifikationselement",
+        unlockmsg: "Upplåsningmeddelande",
+        title: "Prestationsrubrik",
+        desc: "Prestationsbeskrivning",
+        hiddeniconpos: "Dold ikon",
+        sshiddeniconpos: "Dold ikon",
+        decorationpos: "Dekoration",
+        ssdecorationpos: "Dekoration",
+        percentpos: "Sällsynthetsprocent",
+        sspercentpos: "Sällsynthetsprocent",
+        noexe: "Spelets EXE-fil hittades inte!",
+        noexesub: `Välj Alternativ > Avsluta spelet från systemfältet för att avsluta`,
+        webhookunlockmsg: "$user har låst upp en prestation",
+        webhookingame: "i $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Spårningsskala",
                 nowtrackingpos: "Spårningsposition",
                 shortcuts: "Aviseringsgenvägar",
-                noiconcache: "Inaktivera ikoncache"
+                noiconcache: "Inaktivera ikoncache",
+                webhooks: "Posta till Discord-server",
+                webhookurl: `Webhook-URL`,
+                webhookcaution: `Genom att aktivera det här alternativet och tillhandahålla en giltig Discord Webhook-länk godkänner du att du förstår att <u>all prestation och spelinformation för den aktuella Steam-användaren</u> kommer att publiceras på den angivna Discord-servern via den angivna Webhook-länken.<br><br>Om du inte vill att Steam Achievement Notifier ska posta den här informationen å dina vägnar, inaktivera det här alternativet.`,
+                webhooklaststatus: "Senaste status"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Puls",
                 rainbow: "Regnbåge",
                 mask: "Mask",
-                maskimg: "Maskbild"
+                maskimg: "Maskbild",
+                outline: "Kontur",
+                outlinecolor: "Konturens färg",
+                outlinewidth: "Konturens bredd",
+                dashed: "Streckad",
+                dotted: "Prickad"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Ställ in hastigheten på animationen som tillämpas på glödeffekten",
         mask: "Aktivera maskering av delar av meddelandet med en anpassad bild",
         maskimg: `Ladda en bildfil som ska användas som mask<br><br><span class="ttdesc">I CSS fungerar <code class="ttcode">mask-mode: alpha</code> på ett motsatt sätt än vad som vanligtvis förväntas - områden med genomskinlighet i bildfilen kommer att förbli osynliga, medan svarta/grå områden tillåter de underliggande elementen att vara synliga</span>`,
+        outline: "Välj typen av kontur som ska visas runt notifikationen",
+        outlinecolor: "Ställ in färgen på konturen runt notifikationen",
+        outlinewidth: "Ställ in bredden på konturen runt notifikationen",
         primarycolor: "Ställ in primärfärgen för aviseringen",
         secondarycolor: "Ställ in sekundärfärgen för aviseringen",
         tertiarycolor: "Ställ in tertiärfärgen för aviseringen",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Förskjutning av meddelandet som visas i skärmdumpen horisontellt",
         ovy: "Förskjutning av meddelandet som visas i skärmdumpen vertikalt",
         importtheme: `Importera anpassningar via en användarskapad <span class="hl">temafil</span>`,
-        exporttheme: `Exportera det aktuellt valda <span class="hl">temat</span> för delning<br><br><span class="ttdesc">Innan du försöker exportera, se till att det önskade <span class="hl">temat</span> är valt (via menyn <span class="hl">Välj tema</span>). Kontrollera också att anpassningar har sparats i det valda <span class="hl">temat</span> (via menyn <span class="hl">Spara tema</span>)<br><br><u>Alla anpassningar som inte har sparats i det aktuella <span class="hl">temat</span> kommer inte att exporteras!</u></span>`        
+        exporttheme: `Exportera det aktuellt valda <span class="hl">temat</span> för delning<br><br><span class="ttdesc">Innan du försöker exportera, se till att det önskade <span class="hl">temat</span> är valt (via menyn <span class="hl">Välj tema</span>). Kontrollera också att anpassningar har sparats i det valda <span class="hl">temat</span> (via menyn <span class="hl">Spara tema</span>)<br><br><u>Alla anpassningar som inte har sparats i det aktuella <span class="hl">temat</span> kommer inte att exporteras!</u></span>`,
+        webhooks: "Använd en Webhook-URL för att posta på en Discord-server varje gång en prestation låses upp",
+        webhookurl: `Ställ in <span class="hl">Webhook-URL</span> för den önskade Discord-servern<br><br><span class="ttdesc">En <span class="hl">Webhook-URL</span> används för att posta på en Discord-server/kanal på uppdrag av en användare eller applikation. För att konfigurera en ny Webhook för en Discord-server måste användaren ha en roll på den önskade servern som tillåter skapande av Webhooks<br><br><u>En Webhook-URL är nödvändig när du använder det här alternativet</u><br><br>Se Dischords officiella dokumentation för mer information</span>`,
+        unlockmsg: "Ställ in positionen för upplåsningmeddelandet/anpassad text inom $type",
+        title: "Ställ in positionen för prestationstiteln inom $type",
+        desc: "Ställ in positionen för prestationsbeskrivningen inom $type",
+        notification: "notifikation",
+        screenshot: "skärmbild",
+        percentpos: "Ställ in positionen för sällsynthetsprocenten inom $type",
+        sspercentpos: "Ställ in positionen för sällsynthetsprocenten inom $type",
+        hiddeniconpos: "Ställ in positionen för den dolda/hemliga prestationikonen inom $type",
+        sshiddeniconpos: "Ställ in positionen för den dolda/hemliga prestationikonen inom $type",
+        decorationpos: "Ställ in positionen för dekorationselementet inom $type",
+        ssdecorationpos: "Ställ in positionen för dekorationselementet inom $type" 
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

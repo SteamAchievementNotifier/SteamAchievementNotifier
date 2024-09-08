@@ -459,7 +459,19 @@ export const translations = {
         ovy: "Offset the notification displayed in the screenshot vertically",
         importtheme: `Import customisations via a user-created <span class="hl">Theme file</span>`,
         exporttheme: `Export the currently selected <span class="hl">Theme</span> for sharing<br><br><span class="ttdesc">Before attempting to export, please ensure the desired <span class="hl">Theme</span> has been selected (via the <span class="hl">Theme Select</span> menu). Please also ensure that customisations have been saved to the selected <span class="hl">Theme</span> (via the <span class="hl">Save Theme</span> menu)<br><br><u>Any customisations not yet saved to the current <span class="hl">Theme</span> will not be exported!</u></span>`,
-        webhooks: "Use a webhook to post in a Discord server whenever an achievement is unlocked"
+        webhooks: "Use a Webhook URL to post in a Discord server whenever an achievement is unlocked",
+        webhookurl: `Set the <span class="hl">Webhook URL</span> for the desired Discord server<br><br><span class="ttdesc">A <span class="hl">Webhook URL</span> is used to post to a Discord server/channel on behalf of a user or application. In order to set up a new Webhook for a Discord server, the user must have a role within the desired server that allows the creation of Webhooks<br><br><u>A Webhook URL is required when using this option</u><br><br>Refer to Discord's official documentation for more information</span>`,
+        unlockmsg: "Set the position of the unlock message/custom text within the $type",
+        title: "Set the position of the achievement title within the $type",
+        desc: "Set the position of the achievement description within the $type",
+        notification: "notification",
+        screenshot: "screenshot",
+        percentpos: "Set the position of the rarity percentage within the $type",
+        sspercentpos: "Set the position of the rarity percentage within the $type",
+        hiddeniconpos: "Set the position of the hidden/secret achievement icon within the $type",
+        sshiddeniconpos: "Set the position of the hidden/secret achievement icon within the $type",
+        decorationpos: "Set the position of the decoration element within the $type",
+        ssdecorationpos: "Set the position of the decoration element within the $type"
     },
     update: {
         updateavailable: "Update available",

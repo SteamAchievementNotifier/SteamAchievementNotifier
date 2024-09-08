@@ -59,10 +59,20 @@ export const translations = {
             `URL-ul paginii <span class="hl">magazinului</span> jocului - va fi numărul listat după <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Site-uri precum <span class="hl">SteamDB</span> - secțiunea de <span class="hl">Informații despre App</span> va lista AppID-ul pentru fiecare joc`
         ],
-        elemselector: "Elemente de notificare",
-        unlockmsg: "Mesaj de deblocare",
-        title: "Titlu realizare",
-        desc: "Descriere realizare"
+        elemselector: "Elemente de Notificare",
+        unlockmsg: "Mesaj de Deblocare",
+        title: "Titlu Realizare",
+        desc: "Descriere Realizare",
+        hiddeniconpos: "Iconiță Ascunsă",
+        sshiddeniconpos: "Iconiță Ascunsă",
+        decorationpos: "Decorație",
+        ssdecorationpos: "Decorație",
+        percentpos: "Procent Raritate",
+        sspercentpos: "Procent Raritate",
+        noexe: "Fișierul EXE al jocului nu a fost găsit!",
+        noexesub: `Selectați Opțiuni > Ieșire din joc din Bara de Sistem pentru a ieși`,
+        webhookunlockmsg: "$user a deblocat o realizare",
+        webhookingame: "în $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Scară de Urmărire",
                 nowtrackingpos: "Poziționare Urmărire",
                 shortcuts: "Scurtături Notificări",
-                noiconcache: "Dezactivează Cache-ul de Pictograme"
+                noiconcache: "Dezactivează Cache-ul de Pictograme",
+                webhooks: "Postează pe serverul Discord",
+                webhookurl: `URL Webhook`,
+                webhookcaution: `Activând această opțiune și furnizând un link valid Webhook Discord, accepți că înțelegi că <u>toate informațiile despre realizări și jocuri pentru utilizatorul Steam actual</u> vor fi postate pe serverul Discord specificat prin intermediul linkului Webhook furnizat.<br><br>Dacă nu dorești ca Steam Achievement Notifier să posteze aceste informații în numele tău, dezactivează această opțiune.`,
+                webhooklaststatus: "Ultimul Statut"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Puls",
                 rainbow: "Curcubeu",
                 mask: "Mască",
-                maskimg: "Imaginea măștii"
+                maskimg: "Imaginea măștii",
+                outline: "Contur",
+                outlinecolor: "Culoarea Conturului",
+                outlinewidth: "Lățimea Conturului",
+                dashed: "Liniuțat",
+                dotted: "Punctat"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Setați viteza animației aplicată efectului de sclipire",
         mask: "Activați mascațiunea părților notificării cu o imagine personalizată",
         maskimg: `Încărcați un fișier de imagine care să fie utilizat ca mască<br><br><span class="ttdesc">În CSS, <code class="ttcode">mask-mode: alpha</code> funcționează în mod invers față de ceea ce se așteaptă în mod normal - zonele de transparență din fișierul de imagine vor fi acoperite, iar zonele negre/cenușii vor permite elementelor de sub ele să fie vizibile</span>`,
+        outline: "Selectează tipul de contur care va fi afișat în jurul notificării",
+        outlinecolor: "Setează culoarea conturului din jurul notificării",
+        outlinewidth: "Setează lățimea conturului din jurul notificării",
         primarycolor: "Setați culoarea primară a notificării",
         secondarycolor: "Setați culoarea secundară a notificării",
         tertiarycolor: "Setați culoarea terțiară a notificării",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Deplasați notificarea afișată în captura de ecran pe orizontală",
         ovy: "Deplasați notificarea afișată în captura de ecran pe verticală",
         importtheme: `Importați personalizările printr-un <span class="hl">fișier temă</span> creat de utilizator`,
-        exporttheme: `Exportați <span class="hl">tema</span> selectată curent pentru partajare<br><br><span class="ttdesc">Înainte de a încerca să exportați, asigurați-vă că <span class="hl">tema</span> dorită este selectată (prin meniul <span class="hl">Selectare Temă</span>). Asigurați-vă și că personalizările au fost salvate în <span class="hl">tema</span> selectată (prin meniul <span class="hl">Salvare Temă</span>)<br><br><u>Orice personalizări nesalvate în <span class="hl">tema</span> curent nu vor fi exportate!</u></span>`        
+        exporttheme: `Exportați <span class="hl">tema</span> selectată curent pentru partajare<br><br><span class="ttdesc">Înainte de a încerca să exportați, asigurați-vă că <span class="hl">tema</span> dorită este selectată (prin meniul <span class="hl">Selectare Temă</span>). Asigurați-vă și că personalizările au fost salvate în <span class="hl">tema</span> selectată (prin meniul <span class="hl">Salvare Temă</span>)<br><br><u>Orice personalizări nesalvate în <span class="hl">tema</span> curent nu vor fi exportate!</u></span>`,
+        webhooks: "Folosește un URL Webhook pentru a posta pe un server Discord de fiecare dată când o realizare este deblocat",
+        webhookurl: `Setează <span class="hl">URL Webhook</span> pentru serverul Discord dorit<br><br><span class="ttdesc">Un <span class="hl">URL Webhook</span> este folosit pentru a posta pe un server/canal Discord în numele unui utilizator sau aplicație. Pentru a configura un nou Webhook pentru un server Discord, utilizatorul trebuie să aibă un rol pe serverul dorit care permite crearea de Webhook-uri<br><br><u>Un URL Webhook este necesar atunci când folosești această opțiune</u><br><br>Consultă documentația oficială Discord pentru mai multe informații</span>`,
+        unlockmsg: "Setează poziția mesajului de deblocare/textului personalizat în $type",
+        title: "Setează poziția titlului realizării în $type",
+        desc: "Setează poziția descrierii realizării în $type",
+        notification: "notificare",
+        screenshot: "captură de ecran",
+        percentpos: "Setează poziția procentului de raritate în $type",
+        sspercentpos: "Setează poziția procentului de raritate în $type",
+        hiddeniconpos: "Setează poziția iconiței de realizare ascunsă/secretă în $type",
+        sshiddeniconpos: "Setează poziția iconiței de realizare ascunsă/secretă în $type",
+        decorationpos: "Setează poziția elementului de decorație în $type",
+        ssdecorationpos: "Setează poziția elementului de decorație în $type" 
     },
     update: {
         updateavailable: "Actualizare disponibilă",

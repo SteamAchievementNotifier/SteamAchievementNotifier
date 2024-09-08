@@ -61,8 +61,18 @@ export const translations = {
         ],
         elemselector: "Elementos de Notificação",
         unlockmsg: "Mensagem de Desbloqueio",
-        title: "Título da Conquista",
-        desc: "Descrição da Conquista"
+        title: "Título do Conquista",
+        desc: "Descrição da Conquista",
+        hiddeniconpos: "Ícone Oculto",
+        sshiddeniconpos: "Ícone Oculto",
+        decorationpos: "Decoração",
+        ssdecorationpos: "Decoração",
+        percentpos: "Percentual de Raridade",
+        sspercentpos: "Percentual de Raridade",
+        noexe: "Arquivo EXE do jogo não encontrado!",
+        noexesub: `Selecione Opções > Sair do Jogo na Bandeja do Sistema para sair`,
+        webhookunlockmsg: "$user desbloqueou uma conquista",
+        webhookingame: "em $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "Escala de Rastreio",
                 nowtrackingpos: "Posição de Rastreio",
                 shortcuts: "Atalhos de Notificação",
-                noiconcache: "Desativar o Cache de Ícones"
+                noiconcache: "Desativar o Cache de Ícones",
+                webhooks: "Postar no servidor Discord",
+                webhookurl: `URL do Webhook`,
+                webhookcaution: `Ao habilitar esta opção e fornecer um link de Webhook do Discord válido, você concorda que entende que <u>todas as informações sobre conquistas e jogos para o usuário Steam atual</u> serão postadas no servidor Discord especificado através do link de Webhook fornecido.<br><br>Se você não deseja que o Steam Achievement Notifier publique essas informações em seu nome, desative esta opção.`,
+                webhooklaststatus: "Último Status"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "Pulso",
                 rainbow: "Arco-íris",
                 mask: "Máscara",
-                maskimg: "Imagem da Máscara"
+                maskimg: "Imagem da Máscara",
+                outline: "Contorno",
+                outlinecolor: "Cor do Contorno",
+                outlinewidth: "Largura do Contorno",
+                dashed: "Tracejado",
+                dotted: "Pontilhado"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "Definir a velocidade da animação aplicada ao efeito de brilho",
         mask: "Ativar a máscara de partes da notificação com uma imagem personalizada",
         maskimg: `Carregar um arquivo de imagem para ser usado como máscara<br><br><span class="ttdesc">No CSS, <code class="ttcode">mask-mode: alpha</code> funciona de forma oposta ao que é normalmente esperado - áreas de transparência no arquivo de imagem serão obscurecidas e áreas pretas/cinzentas permitirão que os elementos abaixo sejam visíveis</span>`,
+        outline: "Escolha o tipo de contorno a ser exibido ao redor da notificação",
+        outlinecolor: "Defina a cor do contorno ao redor da notificação",
+        outlinewidth: "Defina a largura do contorno ao redor da notificação",
         primarycolor: "Definir a cor primária da notificação",
         secondarycolor: "Definir a cor secundária da notificação",
         tertiarycolor: "Definir a cor terciária da notificação",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "Desloque o aviso exibido na captura de tela horizontalmente",
         ovy: "Desloque o aviso exibido na captura de tela verticalmente",
         importtheme: `Importar personalizações através de um <span class="hl">arquivo de tema</span> criado pelo usuário`,
-        exporttheme: `Exportar o <span class="hl">tema</span> atualmente selecionado para compartilhamento<br><br><span class="ttdesc">Antes de tentar exportar, certifique-se de que o <span class="hl">tema</span> desejado esteja selecionado (através do menu <span class="hl">Selecionar Tema</span>). Certifique-se também de que as personalizações tenham sido salvas no <span class="hl">tema</span> selecionado (através do menu <span class="hl">Salvar Tema</span>)<br><br><u>Quaisquer personalizações ainda não salvas no <span class="hl">tema</span> atual não serão exportadas!</u></span>`        
+        exporttheme: `Exportar o <span class="hl">tema</span> atualmente selecionado para compartilhamento<br><br><span class="ttdesc">Antes de tentar exportar, certifique-se de que o <span class="hl">tema</span> desejado esteja selecionado (através do menu <span class="hl">Selecionar Tema</span>). Certifique-se também de que as personalizações tenham sido salvas no <span class="hl">tema</span> selecionado (através do menu <span class="hl">Salvar Tema</span>)<br><br><u>Quaisquer personalizações ainda não salvas no <span class="hl">tema</span> atual não serão exportadas!</u></span>`,
+        webhooks: "Use um URL de Webhook para postar em um servidor Discord sempre que uma conquista for desbloqueada",
+        webhookurl: `Defina o <span class="hl">URL do Webhook</span> para o servidor Discord desejado<br><br><span class="ttdesc">Um <span class="hl">URL do Webhook</span> é usado para postar em um servidor/canal Discord em nome de um usuário ou aplicativo. Para configurar um novo Webhook para um servidor Discord, o usuário deve ter um cargo no servidor desejado que permita a criação de Webhooks<br><br><u>Um URL de Webhook é necessário ao usar esta opção</u><br><br>Consulte a documentação oficial do Discord para mais informações</span>`,
+        unlockmsg: "Defina a posição da mensagem de desbloqueio/texto personalizado dentro do $type",
+        title: "Defina a posição do título da conquista dentro do $type",
+        desc: "Defina a posição da descrição da conquista dentro do $type",
+        notification: "notificação",
+        screenshot: "captura de tela",
+        percentpos: "Defina a posição da porcentagem de raridade dentro do $type",
+        sspercentpos: "Defina a posição da porcentagem de raridade dentro do $type",
+        hiddeniconpos: "Defina a posição do ícone de conquista oculta/secreta dentro do $type",
+        sshiddeniconpos: "Defina a posição do ícone de conquista oculta/secreta dentro do $type",
+        decorationpos: "Defina a posição do elemento decorativo dentro do $type",
+        ssdecorationpos: "Defina a posição do elemento decorativo dentro do $type"
     },
     update: {
         updateavailable: "Atualização disponível",

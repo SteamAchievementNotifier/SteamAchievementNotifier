@@ -62,7 +62,17 @@ export const translations = {
         elemselector: "通知元素",
         unlockmsg: "解锁消息",
         title: "成就标题",
-        desc: "成就描述"
+        desc: "成就描述",
+        hiddeniconpos: "隐藏图标",
+        sshiddeniconpos: "隐藏图标",
+        decorationpos: "装饰",
+        ssdecorationpos: "装饰",
+        percentpos: "稀有度百分比",
+        sspercentpos: "稀有度百分比",
+        noexe: "未找到游戏的 EXE 文件！",
+        noexesub: `选择选项 > 从系统托盘退出游戏`,
+        webhookunlockmsg: "$user 解锁了一个成就",
+        webhookingame: "在 $gamename"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "跟踪比例",
                 nowtrackingpos: "跟踪位置",
                 shortcuts: "通知快捷方式",
-                noiconcache: "禁用图标缓存"
+                noiconcache: "禁用图标缓存",
+                webhooks: "发布到 Discord 服务器",
+                webhookurl: `Webhook URL`,
+                webhookcaution: `启用此选项并提供有效的 Discord Webhook 链接即表示您同意，您了解 <u>当前 Steam 用户的所有成就和游戏信息</u> 将通过提供的 Webhook 链接发布到指定的 Discord 服务器。<br><br>如果您不希望 Steam Achievement Notifier 代表您发布这些信息，请禁用此选项。`,
+                webhooklaststatus: "最后状态"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "脉动",
                 rainbow: "彩虹",
                 mask: "蒙版",
-                maskimg: "蒙版图像"
+                maskimg: "蒙版图像",
+                outline: "轮廓",
+                outlinecolor: "轮廓颜色",
+                outlinewidth: "轮廓宽度",
+                dashed: "虚线",
+                dotted: "点线"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "设置应用于发光效果的动画速度",
         mask: "使用自定义图像启用通知部分的遮罩",
         maskimg: `加载图像文件以用作蒙版<br><br><span class="ttdesc">在 CSS 中，<code class="ttcode">mask-mode: alpha</code> 的工作方式与通常预期的相反 - 图像文件中的透明区域将被隐藏，而黑色/灰色区域将允许下面的元素可见</span>`,
+        outline: "选择显示在通知周围的轮廓类型",
+        outlinecolor: "设置通知周围轮廓的颜色",
+        outlinewidth: "设置通知周围轮廓的宽度",
         primarycolor: "设置通知的主要颜色",
         secondarycolor: "设置通知的次要颜色",
         tertiarycolor: "设置通知的第三颜色",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "水平偏移屏幕截图中显示的通知",
         ovy: "垂直偏移屏幕截图中显示的通知",
         importtheme: `通过用户创建的<span class="hl">主题文件</span>导入自定义设置`,
-        exporttheme: `导出当前选择的<span class="hl">主题</span>以供分享<br><br><span class="ttdesc">在尝试导出之前，请确保选择了所需的<span class="hl">主题</span>（通过<span class="hl">主题选择</span>菜单）。还请确保将自定义保存到所选<span class="hl">主题</span>中（通过<span class="hl">保存主题</span>菜单）<br><br><u>尚未保存到当前<span class="hl">主题</span>的任何自定义设置将不会被导出！</u></span>`        
+        exporttheme: `导出当前选择的<span class="hl">主题</span>以供分享<br><br><span class="ttdesc">在尝试导出之前，请确保选择了所需的<span class="hl">主题</span>（通过<span class="hl">主题选择</span>菜单）。还请确保将自定义保存到所选<span class="hl">主题</span>中（通过<span class="hl">保存主题</span>菜单）<br><br><u>尚未保存到当前<span class="hl">主题</span>的任何自定义设置将不会被导出！</u></span>`,
+        webhooks: "使用 Webhook URL 每当解锁成就时在 Discord 服务器上发布",
+        webhookurl: `设置所需 Discord 服务器的 <span class="hl">Webhook URL</span><br><br><span class="ttdesc">Webhook URL 用于代表用户或应用程序在 Discord 服务器/频道上发布。要为 Discord 服务器设置新的 Webhook，用户必须在所需服务器上拥有允许创建 Webhook 的角色<br><br><u>使用此选项时需要 Webhook URL</u><br><br>有关更多信息，请参阅 Discord 的官方文档</span>`,
+        unlockmsg: "设置 $type 内解锁消息/自定义文本的位置",
+        title: "设置 $type 内成就标题的位置",
+        desc: "设置 $type 内成就描述的位置",
+        notification: "通知",
+        screenshot: "截图",
+        percentpos: "设置 $type 内稀有度百分比的位置",
+        sspercentpos: "设置 $type 内稀有度百分比的位置",
+        hiddeniconpos: "设置 $type 内隐藏/秘密成就图标的位置",
+        sshiddeniconpos: "设置 $type 内隐藏/秘密成就图标的位置",
+        decorationpos: "设置 $type 内装饰元素的位置",
+        ssdecorationpos: "设置 $type 内装饰元素的位置"
     },
     update: {
         updateavailable: "有可用更新",

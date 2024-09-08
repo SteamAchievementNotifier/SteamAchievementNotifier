@@ -313,7 +313,7 @@ export const usertheme = {
                 importlog.innerHTML = await language.get("importrewriting",["customiser","theme","content"])
         
                 contentmap.forEach((value,key) => {
-                    if (!value) return
+                    if (!value || typeof value !== "string") return
                     contentmap.set(key,rewritepath(themedir,value))
                 })
         
@@ -432,7 +432,7 @@ export const usertheme = {
                 }
 
                 contentmap.forEach((value,key) => {
-                    if (!value) return
+                    if (!value || typeof value !== "string" && (!Array.isArray(value) || !value.every(item => typeof item === "string" && ["unlockmsg", "title", "desc"].every(elem => item !== elem)))) return
 
                     const keypaths = key.split(".")
                     if (keypaths[0] === "customicons" && keypaths[1] !== customisation.preset) return theme.customisation![keypaths[0]][keypaths[1]] = ""

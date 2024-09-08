@@ -62,7 +62,17 @@ export const translations = {
         elemselector: "알림 요소",
         unlockmsg: "잠금 해제 메시지",
         title: "업적 제목",
-        desc: "업적 설명"
+        desc: "업적 설명",
+        hiddeniconpos: "숨겨진 아이콘",
+        sshiddeniconpos: "숨겨진 아이콘",
+        decorationpos: "장식",
+        ssdecorationpos: "장식",
+        percentpos: "희귀도 백분율",
+        sspercentpos: "희귀도 백분율",
+        noexe: "게임 EXE 파일을 찾을 수 없습니다!",
+        noexesub: `시스템 트레이에서 옵션 > 게임 종료를 선택하여 종료하세요`,
+        webhookunlockmsg: "$user가 업적을 잠금 해제했습니다",
+        webhookingame: "$gamename에서"
     },
     app: {
         content: {
@@ -102,7 +112,11 @@ export const translations = {
                 nowtrackingscale: "추적 스케일",
                 nowtrackingpos: "추적 위치",
                 shortcuts: "알림 단축키",
-                noiconcache: "아이콘 캐시 비활성화"
+                noiconcache: "아이콘 캐시 비활성화",
+                webhooks: "Discord 서버에 게시",
+                webhookurl: `Webhook URL`,
+                webhookcaution: `이 옵션을 활성화하고 유효한 Discord Webhook 링크를 제공함으로써 <u>현재 Steam 사용자에 대한 모든 업적 및 게임 정보</u>가 제공된 Webhook 링크를 통해 지정된 Discord 서버에 게시될 것임을 이해하는 데 동의합니다.<br><br>Steam Achievement Notifier가 이 정보를 대신 게시하는 것을 원하지 않는 경우, 이 옵션을 비활성화해 주세요.`,
+                webhooklaststatus: "최종 상태"
             }
         },
         media: {
@@ -218,7 +232,12 @@ export const translations = {
                 pulse: "맥박",
                 rainbow: "무지개",
                 mask: "마스크",
-                maskimg: "마스크 이미지"
+                maskimg: "마스크 이미지",
+                outline: "윤곽선",
+                outlinecolor: "윤곽선 색상",
+                outlinewidth: "윤곽선 너비",
+                dashed: "점선",
+                dotted: "점선"
             }
         },
         colors: {
@@ -401,6 +420,9 @@ export const translations = {
         glowspeed: "발광 효과에 적용되는 애니메이션 속도를 설정합니다",
         mask: "사용자 지정 이미지로 알림의 일부를 마스킹합니다",
         maskimg: `마스크로 사용할 이미지 파일을 로드합니다<br><br><span class="ttdesc">CSS에서 <code class="ttcode">mask-mode: alpha</code>는 일반적으로 기대하는 것과 반대로 작동합니다. 이미지 파일의 투명 영역은 숨겨지고, 검은/회색 영역은 아래의 요소를 표시합니다</span>`,
+        outline: "알림 주위에 표시할 윤곽선 유형을 선택하세요",
+        outlinecolor: "알림 주위의 윤곽선 색상을 설정하세요",
+        outlinewidth: "알림 주위의 윤곽선 너비를 설정하세요",
         primarycolor: "알림의 기본 색상 설정",
         secondarycolor: "알림의 보조 색상 설정",
         tertiarycolor: "알림의 제3 색상 설정",
@@ -433,7 +455,20 @@ export const translations = {
         ovx: "스크린샷에 표시된 알림을 수평으로 오프셋합니다",
         ovy: "스크린샷에 표시된 알림을 수직으로 오프셋합니다",
         importtheme: `사용자가 생성한 <span class="hl">테마 파일</span>을 통해 맞춤 설정을 가져옵니다`,
-        exporttheme: `현재 선택한 <span class="hl">테마</span>를 공유할 수 있도록 내보냅니다<br><br><span class="ttdesc">내보내기 전에 원하는 <span class="hl">테마</span>가 선택되었는지 확인하십시오 (<span class="hl">테마 선택</span> 메뉴를 통해). 또한 선택한 <span class="hl">테마</span>에 맞춤 설정이 저장되어 있는지 확인하십시오 (<span class="hl">테마 저장</span> 메뉴를 통해)<br><br><u>현재 <span class="hl">테마</span>에 저장되지 않은 모든 맞춤 설정은 내보내지 않습니다!</u></span>`        
+        exporttheme: `현재 선택한 <span class="hl">테마</span>를 공유할 수 있도록 내보냅니다<br><br><span class="ttdesc">내보내기 전에 원하는 <span class="hl">테마</span>가 선택되었는지 확인하십시오 (<span class="hl">테마 선택</span> 메뉴를 통해). 또한 선택한 <span class="hl">테마</span>에 맞춤 설정이 저장되어 있는지 확인하십시오 (<span class="hl">테마 저장</span> 메뉴를 통해)<br><br><u>현재 <span class="hl">테마</span>에 저장되지 않은 모든 맞춤 설정은 내보내지 않습니다!</u></span>`,
+        webhooks: "업적이 잠금 해제될 때마다 Discord 서버에 게시하기 위해 Webhook URL을 사용하세요",
+        webhookurl: `원하는 Discord 서버를 위한 <span class="hl">Webhook URL</span>을 설정하세요<br><br><span class="ttdesc">Webhook URL은 사용자 또는 애플리케이션을 대신하여 Discord 서버/채널에 게시하는 데 사용됩니다. Discord 서버에 새로운 Webhook을 설정하려면 사용자가 Webhook 생성을 허용하는 역할을 가진 서버의 멤버여야 합니다<br><br><u>이 옵션을 사용하려면 Webhook URL이 필요합니다</u><br><br>자세한 내용은 Discord의 공식 문서를 참조하세요</span>`,
+        unlockmsg: "$type 내에서 잠금 해제 메시지/맞춤 텍스트의 위치를 설정하세요",
+        title: "$type 내에서 업적 제목의 위치를 설정하세요",
+        desc: "$type 내에서 업적 설명의 위치를 설정하세요",
+        notification: "알림",
+        screenshot: "스크린샷",
+        percentpos: "$type 내에서 희귀도 백분율의 위치를 설정하세요",
+        sspercentpos: "$type 내에서 희귀도 백분율의 위치를 설정하세요",
+        hiddeniconpos: "$type 내에서 숨겨진/비밀 업적 아이콘의 위치를 설정하세요",
+        sshiddeniconpos: "$type 내에서 숨겨진/비밀 업적 아이콘의 위치를 설정하세요",
+        decorationpos: "$type 내에서 장식 요소의 위치를 설정하세요",
+        ssdecorationpos: "$type 내에서 장식 요소의 위치를 설정하세요"
     },
     update: {
         updateavailable: "업데이트 가능",

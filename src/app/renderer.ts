@@ -259,7 +259,9 @@ const getaudiofile = (mode: "file" | "folder",filepath: string) => {
 
 const handleaudio = (keypath: string,audio: HTMLAudioElement,elem?: HTMLElement) => {
     const soundmode = config.get(`${keypath}.soundmode`) as "file" | "folder"
-    audio.src = getaudiofile(soundmode,config.get(`${keypath}.sound${soundmode === "file" ? "file" : "dir"}`) as string) || sanhelper.setfilepath("sound","notify.wav")
+    const type = keypath.replace(/^customisation\./,"") as "main" | "rare" | "plat"
+
+    audio.src = getaudiofile(soundmode,config.get(`${keypath}.sound${soundmode === "file" ? "file" : "dir"}`) as string) || sanhelper.setfilepath("sound",`notify${type !== "main" ? `_${type}` : ""}.wav`)
     audio.volume = (config.get(`${keypath}.volume`) as number) / 100
 
     // Add transition time when `config.audiosrc` is set to "app" to prevent sound playing before notification appears
@@ -586,7 +588,7 @@ sanhelper.soundonly(config.get("soundonly"))
 
 ipcRenderer.on("soundonly", (event,type: "main" | "rare" | "plat") => {
     const audio = document.querySelector("audio")!
-    audio.src = config.get(`customisation.${type}.soundfile`) as string || sanhelper.setfilepath("sound","notify.wav")
+    audio.src = config.get(`customisation.${type}.soundfile`) as string || sanhelper.setfilepath("sound",`notify${type !== "main" ? `_${type}` : ""}.wav`)
     audio.play()
 })
 

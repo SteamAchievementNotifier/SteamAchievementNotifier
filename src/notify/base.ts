@@ -73,11 +73,11 @@ const notifyhelper = {
     
         return valid[Math.floor(Math.random() * valid.length)]
     },
-    playaudio: (customisation: Customisation, iswebview: "customiser" | "sspreview" | "ss" | null, skipaudio: boolean | undefined) => {
+    playaudio: (customisation: Customisation, iswebview: "customiser" | "sspreview" | "ss" | null, skipaudio: boolean | undefined, type: "main" | "rare" | "plat") => {
         if (iswebview || skipaudio) return
     
         const audio = document.querySelector("audio")!
-        audio.src = notifyhelper.getaudiofile(customisation.soundmode,customisation[`sound${customisation.soundmode === "file" ? "file" : "dir"}`]) || "../sound/notify.wav"
+        audio.src = notifyhelper.getaudiofile(customisation.soundmode,customisation[`sound${customisation.soundmode === "file" ? "file" : "dir"}`]) || `../sound/notify${type !== "main" ? `_${type}` : ""}.wav`
         audio.volume = customisation.volume / 100
         audio.play()
     },
@@ -103,13 +103,13 @@ const notifyhelper = {
         if (document.readyState !== "complete") return setTimeout(() => notifyhelper.checkreadystate(status,obj,imgs,res),250)
         if (!notifyhelper.checkimgload(imgs)) return setTimeout(() => notifyhelper.checkreadystate(status,obj,imgs,res),250)
 
-        const { customisation, iswebview, skipaudio } = obj
+        const { customisation, iswebview, skipaudio, info: { type } } = obj
         if (iswebview === "customiser" || iswebview === "sspreview") return
         
         ipcRenderer.send(`notify${status}`,res)
         status === "ready" && ipcRenderer.sendToHost("sscapture")
     
-        return notifyhelper.playaudio(customisation,iswebview,skipaudio)
+        return notifyhelper.playaudio(customisation,iswebview,skipaudio,type)
     },
     setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string): Promise<HTMLImageElement[] | null> => {
         return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {

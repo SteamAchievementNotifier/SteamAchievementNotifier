@@ -37,7 +37,9 @@ window.onkeydown = event => ((event.code === "Minus" || event.code === "Equal") 
 const errorbtn = document.querySelector(`.menubtn#error`)! as HTMLButtonElement
 errorbtn.onclick = () => {
     document.body.removeAttribute("error")
-    sanhelper.updatelogwin(config.get("logtype"))
+
+    const logtype = config.get("logtype")
+    ipcRenderer.send("logwin",sanhelper.logcontents(logtype),logtype)
 }
 
 sanhelper.errorhandler(log)

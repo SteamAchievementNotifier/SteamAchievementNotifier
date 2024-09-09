@@ -28,18 +28,24 @@ export const listeners = {
 
         app.on("second-instance", () => win.show())
 
+        // Fixes issue where non-standard Windows scaling values - e.g. 149% - causes window to grow larger each time `savewindowstate()` is called
+        const roundbounds = (value: number,type: "size" | "pos") => {
+            const factor = type === "size" ? 10 : 5
+            return Math[type === "size" ? "floor" : "round"](value / factor) * factor
+        }
+
         const savewindowstate = (wintype: BrowserWindow,key?: string) => {
             const config = sanconfig.get()
             const { width, height, x, y } = wintype.getBounds()
 
             const bounds = {
-                x: x,
-                y: y
+                x: roundbounds(x,"pos"),
+                y: roundbounds(y,"pos")
             } as { x: number, y: number, width?: number, height?: number }
 
             if (wintype === win) {
-                bounds.width = width
-                bounds.height = height
+                bounds.width = roundbounds(width,"size")
+                bounds.height = roundbounds(height,"size")
             }
 
             return key ? config.set(key,bounds) : config.set(bounds)

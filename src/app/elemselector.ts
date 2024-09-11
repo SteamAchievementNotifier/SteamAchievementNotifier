@@ -97,7 +97,24 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         const id = posids.find(id => select.id.includes(id))
 
         if (id) {
-            if (id.includes("decorationpos") && (!sanconfig.defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.decoration || config.get(`customisation.${type}.preset`) === "epicgames")) return select.parentElement!.remove()
+            // if (id.includes("decorationpos") && (!sanconfig.defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.decoration || config.get(`customisation.${type}.preset`) === "epicgames")) return select.parentElement!.remove()
+            const preset = config.get(`customisation.${type}.preset`) as string
+            // !!! Fix tooltips not showing on these presets
+            const usedecoration = [
+                "epicgames",
+                "xboxone",
+                "xbox360"
+            ]
+
+            if (id.includes("decorationpos")) {
+                // Note: `defaulticons.epicgames.decoration` is NOT null in config, hence the equality check
+                if (!sanconfig.defaulticons.get(preset)!.decoration || preset === "epicgames") {
+                    // Dynamically removes the `select` element if `defaulticons.<preset>.decoration` is null
+                    if (!usedecoration.includes(preset)) return select.parentElement!.remove()
+                    // Dynamically removes any `option` elements greater than 1 for any preset in the `usedecoration` array (replaces legacy "Show Decoration" option)
+                    menutype.querySelectorAll(`#${id} > option:not([value="off"],[value="1"])`).forEach(elem => elem.remove())
+                }
+            }
 
             const pos = config.get(`customisation.${type}.${id}`) as number
             select.value = pos > 0 ? pos.toString() : "off"

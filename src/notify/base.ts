@@ -200,11 +200,10 @@ const notifyhelper = {
                 ["--outlinewidth",`${(customisation.outlinewidth / 25) * (customisation.scale / 100)}px`]
             ])
 
-            const gselem = document.getElementById("xpwrapper") || ((customisation.preset === "xboxone" || customisation.preset === "xbox360") ? document.getElementById("title") : null)
-            if (gselem) {
-                gselem.setAttribute("gs",properties.get("--gs")!)
-                gselem.setAttribute("unit",properties.get("--unit")!)
-            }
+            const xpwrapper = document.getElementById("xpwrapper")
+            const gselems = xpwrapper ? [xpwrapper] : ((customisation.preset === "xboxone" || customisation.preset === "xbox360") ? ["title","desc"].map(id => document.getElementById(id)) : [null])
+
+            gselems.every(elem => elem !== null) && gselems.forEach(elem => ["gs","unit"].forEach(prop => elem!.setAttribute(prop,properties.get(`--${prop}`)!)))
 
             const colors = [
                 "primarycolor",
@@ -247,7 +246,7 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
         document.body.setAttribute(type,"")
         !customisation.iconanim && document.body.setAttribute("noiconanim","")
         // document.body.toggleAttribute("alldetails",customisation.alldetails)
-        document.body.toggleAttribute("nodecoration",!customisation.showdecoration)
+        // document.body.toggleAttribute("nodecoration",!customisation.showdecoration)
 
         const fastanimmap = new Map<string,number>([
             ["xqjan",8],

@@ -418,12 +418,12 @@ export const sanhelper: SANHelper = {
         if (!customiconkey() || (type !== "plat" && elem.id === "plat") || (elem.id.includes("decoration") && (!Array.isArray(key) && elem.id !== "decoration1"))) {
             // Does not add the `nodecoration` attribute to hide "Show Decoration" in Customiser for these presets, despite the `decoration` key being `null`
             // Used to toggle visibility of `::before` elements in notifications
-            const usedecoration = [
-                "xboxone",
-                "xbox360"
-            ]
+            // const usedecoration = [
+            //     "xboxone",
+            //     "xbox360"
+            // ]
 
-            document.querySelector(".opt:has(#showdecoration)")!.toggleAttribute("nodecoration",(elem.id.includes("decoration") && key === null) && (!usedecoration.includes(config.get(`customisation.${type}.preset`) as string)))
+            // document.querySelector(".opt:has(#showdecoration)")!.toggleAttribute("nodecoration",(elem.id.includes("decoration") && key === null) && (!usedecoration.includes(config.get(`customisation.${type}.preset`) as string)))
             return elem.setAttribute("novalue","")
         }
 
@@ -433,7 +433,9 @@ export const sanhelper: SANHelper = {
             const raritylbl = i === 1 ? "> 50%" : (i === 2 ? `< 50% & > ${config.get("rarity")}%` : `< ${config.get("rarity")}%`)
 
             // Only bronze/silver icons should appear for "main" type, and gold for "rare"/"plat"
-            if (Array.isArray(key)) if ((type === "main" && (i - 1) > 1) || (type !== "main" && (i - 1) < 2)) return elem.setAttribute("novalue","")
+            if (Array.isArray(key)) {
+                if ((type === "main" && (i - 1) > 1) || (type !== "main" && (i - 1) < 2)) return elem.setAttribute("novalue","")
+            }
             
             elem.parentElement!.querySelector("span")!.textContent = `${await language.get(Array.isArray(key) ? "rarity" : "decoration",["customiser","icons","content"])}${Array.isArray(key) ? `: ${raritylbl}` : ""}`
         }

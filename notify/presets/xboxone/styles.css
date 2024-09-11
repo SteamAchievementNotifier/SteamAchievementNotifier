@@ -187,7 +187,8 @@ body[fastanim] .wrapper#achcontent {
     line-height: calc(1.35rem * var(--fontsize));
 }
 
-body[nodecoration] .wrapper#achcontent > span {
+/* body[nodecoration] .wrapper#achcontent > span { */
+.wrapper#achcontent:has(#unlockmsg):has(#decoration) > span {
     grid-column: 2 / span 2;
 }
 
@@ -206,12 +207,17 @@ body[nodecoration] .wrapper#achcontent > span {
     display: none;
 }
 
-body:not([nodecoration]) #title::before {
+/* body:not([nodecoration]) #title::before { */
+body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::before,
+body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::before {
     content: attr(gs) attr(unit) " - ";
     margin-left: calc(1.175rem * var(--fontsize));
 }
 
-body:not([nodecoration]) #title::after {
+/* !!! Fix issue where decoration position is incorrect when line count is > 1 */
+/* body:not([nodecoration]) #title::after { */
+body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::after,
+body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::after {
     content: "";
     position: absolute;
     left: 0;

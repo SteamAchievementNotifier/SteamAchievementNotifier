@@ -170,7 +170,8 @@ body[alldetails] .wrapper#achcontent > span {
     line-height: calc(1.1rem * var(--fontsize));
 }
 
-body[nodecoration] .wrapper#achcontent > span {
+/* body[nodecoration] .wrapper#achcontent > span { */
+.wrapper#achcontent:has(#unlockmsg):has(#decoration) > span {
     grid-column: 2;
 }
 
@@ -190,7 +191,8 @@ body:not([alldetails]) .wrapper#achcontent > #desc {
     display: none;
 }
 
-body:not([nodecoration]) #title::before {
+/* body:not([nodecoration]) #title::before { */
+.wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::before {
     content: attr(gs) attr(unit) " - ";
 }
 

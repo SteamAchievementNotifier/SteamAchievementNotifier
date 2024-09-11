@@ -62,7 +62,7 @@ export const sanconfig = {
                 index: {
                     percent: 1,
                     hiddenicon: 1,
-                    decoration: 0
+                    decoration: 1
                 },
                 elems: ["unlockmsg","title","desc"],
                 sselems: ["unlockmsg","title"]
@@ -73,7 +73,7 @@ export const sanconfig = {
                 index: {
                     percent: 1,
                     hiddenicon: 1,
-                    decoration: 0
+                    decoration: 1
                 } as Index,
                 elems: ["unlockmsg","title"],
                 sselems: ["unlockmsg","title"]

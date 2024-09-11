@@ -38,9 +38,18 @@ log.init("APP")
 
 sanconfig.get().store.nohwa && app.disableHardwareAcceleration()
 
-// Reset legacy "alldetails" key for each type
+// Reset legacy "alldetails" key for each type/reset "previewhiddenicon" key for 100%
 for (const type in sanconfig.get().store.customisation) {
-    (sanconfig.get().set(`customisation.${type}.alldetails`,false))
+    const config = sanconfig.get()
+    const { usertheme } = config.get(`customisation.${type}`) as Customisation
+
+    config.set(`customisation.${type}.alldetails`,false)
+    type === "plat" && config.set(`customisation.${type}.previewhiddenicon`,false)
+
+    for (const i in usertheme) {
+        config.set(`customisation.${type}.usertheme.${i}.customisation.alldetails`,false)
+        type === "plat" && config.set(`customisation.${type}.usertheme.${i}.customisation.previewhiddenicon`,false)
+    }
 }
 
 const getcustomfilesversion = (packagepath: string): string => {

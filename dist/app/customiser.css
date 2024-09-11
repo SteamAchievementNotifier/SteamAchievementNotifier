@@ -51,7 +51,9 @@ body[main] .sub:has(#iconanim),
 .optcont:has(.opt > input[type="checkbox"]#usecustompos:not(:checked)) > .opt#posbtns,
 .optcont:has(.opt > .img#logo[novalue]) > .opt:has(input#replacelogo),
 .optcont:has(.opt > .img[id="decoration1"][novalue]):has(.opt > .img[id="decoration2"][novalue]):has(.opt > .img[id="decoration3"][novalue]) > .opt:has(input#replacelogo),
-#customiseropts:has(.wrapper#elemselector > .wrapper > .wrapper > select#unlockmsg > option[value="off"]:checked) > .wrapper:has(.title#preset) > .optcont > .opt:has(#customtext) {
+#customiseropts:has(.wrapper#elemselector > .wrapper > .wrapper > select#unlockmsg > option[value="off"]:checked) > .wrapper:has(.title#preset) > .optcont > .opt:has(#customtext),
+body[plat] #customisercontent .wrapper:has(> #showhiddenicon),
+body[plat] #customisercontent .wrapper:has(> .img#hiddenicon) {
     display: none;
 }
 

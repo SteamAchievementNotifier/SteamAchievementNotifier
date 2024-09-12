@@ -51,7 +51,11 @@ const updateelems = (config: ElectronStore<Config>,type: "main" | "rare" | "plat
 
 const updateopts = (select: HTMLSelectElement,elems: string[],max: number) => select.querySelectorAll("option").forEach((opt,i) => {
     opt.removeAttribute("disabled")
-    select.value !== "off" && i > elems.length && opt.setAttribute("disabled","")
+
+    const istext = ["unlockmsg","title","desc"].some(id => select.id.includes(id))
+    const selecttype = (istext && select.value !== "off") || !istext
+
+    selecttype && i > elems.length && opt.setAttribute("disabled","")
     i > max && opt.remove()
 })
 
@@ -123,16 +127,20 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
                 config.set(`customisation.${type}.${id}`,value !== "off" ? parseInt(value) : 0)
 
                 sanhelper.updatetabs()
+                sanhelper.loadadditionaltooltips(menutype)
             }
 
             updateopts(select,elems,max)
-
+            
             return
         }
-
+        
         select.value = elems.indexOf(select.id) > -1 ? (elems.indexOf(select.id) + 1).toString() : "off"
-        select.onchange = () => updateelems(config,type,elems,select,elemtype,max,posids)
-
+        select.onchange = () => {
+            updateelems(config,type,elems,select,elemtype,max,posids)
+            sanhelper.loadadditionaltooltips(menutype)
+        }
+        
         updateopts(select,elems,max)
     })
 }

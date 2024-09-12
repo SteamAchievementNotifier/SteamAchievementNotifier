@@ -38,19 +38,27 @@ log.init("APP")
 
 sanconfig.get().store.nohwa && app.disableHardwareAcceleration()
 
-// Reset legacy "alldetails" key for each type/reset "previewhiddenicon" key for 100%
-for (const type in sanconfig.get().store.customisation) {
+const resetlegacykey = (key: string,limittype?: "main" | "rare" | "plat") => {
     const config = sanconfig.get()
-    const { usertheme } = config.get(`customisation.${type}`) as Customisation
 
-    config.set(`customisation.${type}.alldetails`,false)
-    type === "plat" && config.set(`customisation.${type}.previewhiddenicon`,false)
+    for (const type in config.get("customisation")) {
+        const { usertheme } = config.get(`customisation.${type}`) as Customisation
 
-    for (const i in usertheme) {
-        config.set(`customisation.${type}.usertheme.${i}.customisation.alldetails`,false)
-        type === "plat" && config.set(`customisation.${type}.usertheme.${i}.customisation.previewhiddenicon`,false)
+        (!limittype || limittype === type) && config.set(`customisation.${type}.${key}`,false)
+
+        for (const i in usertheme) {
+            (!limittype || limittype === type) && config.set(`customisation.${type}.usertheme.${i}.customisation.${key}`,false)
+        }
     }
 }
+
+// Reset legacy "alldetails"/"showdecoration" keys for each type, and reset "previewhiddenicon" key for 100%
+new Map<string,"main" | "rare" | "plat" | undefined>([
+    ["alldetails",undefined],
+    ["showdecoration",undefined],
+    ["previewhiddenicon","plat"]
+])
+.forEach((value,key) => resetlegacykey(key,value))
 
 const getcustomfilesversion = (packagepath: string): string => {
     try {

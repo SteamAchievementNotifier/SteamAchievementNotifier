@@ -281,7 +281,7 @@ export const sanconfig = {
                 ],
                 hiddeniconpos: 2,
                 decorationpos: 1,
-                showdecoration: true,
+                showdecoration: false,
                 pos: "bottomcenter",
                 usecustompos: false,
                 custompos: {

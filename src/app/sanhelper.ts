@@ -149,16 +149,7 @@ export const sanhelper: SANHelper = {
     switchtab: ({ target }: Event) => {
         target instanceof HTMLElement && ["main","rare","plat"].forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
         usertheme.update()
-        
-        ;(async () => {
-            const menutype = document.getElementById("settingscontent") || document.getElementById("customiser")
-            if (!menutype) return
-
-            const settings = menutype.id === "settingscontent"
-
-            const { elemselector } = await import("./elemselector")
-            elemselector(document.querySelector(`#${settings ? "settings" : "customiser"}content .wrapper:has(> ${settings ? "input#ovmatch" : "select#preset"})`)!,`${settings ? "ss" : ""}elems`)
-        })()
+        sanhelper.reloadelemselector()
     },
     switchcustomisertab: ({ target }: Event) => {
         const attrs = ["main","rare","plat"]
@@ -183,6 +174,7 @@ export const sanhelper: SANHelper = {
         }
 
         usertheme.update()
+        sanhelper.reloadelemselector()
     },
     getshortcut: (config: Store<Config>, target: HTMLElement) => {
         const type = ["main","rare","plat"].find(attr => (target as HTMLElement).hasAttribute(attr))
@@ -379,10 +371,10 @@ export const sanhelper: SANHelper = {
                 sanhelper.tooltips(config.get("tooltips"))
             }
 
-            elem.id === "preset" && (async () => await sanhelper.resetelemselector())()
+            elem.id === "preset" && (async () => await sanhelper.resetelemselector(document.querySelector("#customiser")))()
             elem.id === "audiosrc" && sanhelper.audiosrc(config.get("audiosrc"))
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
-            elem.id === "screenshots" && sanhelper.loadadditonaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
+            elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
         }
 
         if (elem.hasAttribute("unit")) {
@@ -415,19 +407,10 @@ export const sanhelper: SANHelper = {
         if (!elem.classList.contains("customicon")) return elem.style.setProperty("--img",`url('${key ? key : sanhelper.setfilepath(elem.id === "hiddenicon" ? "icon" : "img",`${elem.id === "hiddenicon" ? (key || "lock.svg") : "sanimgbg.png"}`)}')`)
 
         const customiconkey = (): string | null => Array.isArray(key) ? key[parseInt(elem.id.replace(/[^\d]/g,"")) - 1] as string : key as string || null
-        if (!customiconkey() || (type !== "plat" && elem.id === "plat") || (elem.id.includes("decoration") && (!Array.isArray(key) && elem.id !== "decoration1"))) {
-            // Does not add the `nodecoration` attribute to hide "Show Decoration" in Customiser for these presets, despite the `decoration` key being `null`
-            // Used to toggle visibility of `::before` elements in notifications
-            // const usedecoration = [
-            //     "xboxone",
-            //     "xbox360"
-            // ]
-
-            // document.querySelector(".opt:has(#showdecoration)")!.toggleAttribute("nodecoration",(elem.id.includes("decoration") && key === null) && (!usedecoration.includes(config.get(`customisation.${type}.preset`) as string)))
-            return elem.setAttribute("novalue","")
-        }
+        if (!customiconkey() || (type !== "plat" && elem.id === "plat") || (elem.id.includes("decoration") && (!Array.isArray(key) && elem.id !== "decoration1"))) return elem.setAttribute("novalue","")
 
         elem.style.setProperty("--img",`url('${customiconkey()}')`)
+
         if (elem.id.includes("decoration")) {
             const i = parseInt(elem.id.replace(/[^\d]/g,""))
             const raritylbl = i === 1 ? "> 50%" : (i === 2 ? `< 50% & > ${config.get("rarity")}%` : `< ${config.get("rarity")}%`)
@@ -441,7 +424,7 @@ export const sanhelper: SANHelper = {
         }
     },
     updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: ["main","rare","plat"].find(attr => document.body.hasAttribute(attr)), noreload: noreload } })),
-    loadadditonaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
+    loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
         if (!menuelem) return
 
         menuelem.querySelectorAll(`
@@ -573,7 +556,7 @@ export const sanhelper: SANHelper = {
                 tippies.push(tt)
             })
 
-            sanhelper.loadadditonaltooltips(settings)
+            sanhelper.loadadditionaltooltips(settings)
         }
 
         const customiser = document.querySelector("#customiser")
@@ -633,7 +616,7 @@ export const sanhelper: SANHelper = {
                 tippies.push(tt)
             })
 
-            sanhelper.loadadditonaltooltips(customiser)
+            sanhelper.loadadditionaltooltips(customiser)
         }
     },
     getpresetbounds: (preset: string) => {
@@ -721,7 +704,7 @@ export const sanhelper: SANHelper = {
         const wintype = debugwin ? debugwin.webContents : ipcRenderer
         wintype.send("debuginfoupdated",debuginfo,true)
     },
-    resetelemselector: async () => {
+    resetelemselector: async (menuelem: HTMLElement) => {
         const { sanconfig: { defaulticons, get } } = await import("./config")
         const config = get()
         const type = sanhelper.type
@@ -730,5 +713,18 @@ export const sanhelper: SANHelper = {
         ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype]))
         const index = defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.index
         selectorelems.filter(id => ["percent","hiddenicon","decoration"].find(elemid => id === `${elemid}pos`)).forEach(id => [id,`ss${id}`].forEach(key => index && config.set(`customisation.${type}.${key}`,index[`${key.replace(/^ss/,"").replace(/pos$/,"")}`])))
+
+        sanhelper.loadadditionaltooltips(menuelem)
+    },
+    reloadelemselector: async () => {
+        const menutype = document.getElementById("settingscontent") || document.getElementById("customiser")
+        if (!menutype) return
+
+        const settings = menutype.id === "settingscontent"
+
+        const { elemselector } = await import("./elemselector")
+        elemselector(document.querySelector(`#${settings ? "settings" : "customiser"}content .wrapper:has(> ${settings ? "input#ovmatch" : "select#preset"})`)!,`${settings ? "ss" : ""}elems`)
+
+        sanhelper.loadadditionaltooltips(menutype)
     }
 }

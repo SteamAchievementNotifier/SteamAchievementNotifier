@@ -120,6 +120,8 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
                 }
             }
 
+            if (type === "plat" && id.includes("hiddeniconpos")) return select.parentElement!.remove()
+
             const pos = config.get(`customisation.${type}.${id}`) as number
             select.value = pos > 0 ? pos.toString() : "off"
             select.onchange = event => {

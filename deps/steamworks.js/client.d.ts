@@ -50,7 +50,6 @@ export namespace callback {
     GameLobbyJoinRequested = 8,
     MicroTxnAuthorizationResponse = 9
   }
-  export function register<C extends keyof import('./callbacks').CallbackReturns>(steamCallback: C, handler: (value: import('./callbacks').CallbackReturns[C]) => void): Handle
   export class Handle {
     disconnect(): void
   }
@@ -63,10 +62,16 @@ export namespace localplayer {
   export function getIpCountry(): string
   export function setRichPresence(key: string, value?: string | undefined | null): void
 }
+export namespace log {
+  export function initLogger(appData: string): string
+  export function testPanic(): void
+}
 export namespace utils {
   export function getAppId(): number
+  export function ipCountry(): string
   export function getServerRealTime(): number
   export function isSteamRunningOnSteamDeck(): boolean
+  export function uiLanguage(): string
 }
 export namespace processes {
   export interface ProcessInfo {
@@ -75,8 +80,4 @@ export namespace processes {
   }
   export function getGameProcesses(appid: number, linkedgame?: string | undefined | null): Array<ProcessInfo>
   export function isProcessRunning(pid: number): boolean
-}
-export namespace log {
-  export function initLogger(appData: string): string
-  export function testPanic(): void
 }

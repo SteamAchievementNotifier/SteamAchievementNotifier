@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Język"
+            title: "Język",
+            content: {
+                steamlang: "Przetłumacz osiągnięcia na język Steam",
+                maxsteamlangretries: "Maksymalna liczba prób tłumaczenia"
+            }
         },
         os: {
             title: "System operacyjny",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Dołącz na Discord!",
         github: "Zgłoś problem",
         lang: "Wybierz język interfejsu użytkownika używany w aplikacji",
+        steamlang: `Spróbuj załadować tłumaczenia znajdujące się w plikach aplikacji Steam, aby wyświetlić informacje o osiągnięciach w języku wybranym przez użytkownika w kliencie Steam<br><br><span class="ttdesc">Ta opcja próbuje znaleźć tłumaczenia w pliku JSON przechowywanym w danych aplikacji Steam. Jeśli nie można znaleźć tłumaczenia dla aktualnego osiągnięcia, zostaną wyświetlone informacje o osiągnięciu pobrane z Steamworks.</span>`,
+        maxsteamlangretries: `Liczba prób (co 100 ms) w celu znalezienia ważnych tłumaczeń dla aktualnego osiągnięcia<br><br><span class="ttdesc">Steam obecnie przechowuje tylko niewielką ilość danych o osiągnięciach w pliku JSON powiązanym z każdą grą. Wszystkie osiągnięcia, które nie znajdują się w tym pliku, zostaną dodane po odblokowaniu osiągnięcia.<br><br>Ponieważ dodanie nowych danych może zająć trochę czasu, zwiększenie tej wartości zwiększy prawdopodobieństwo znalezienia danych tłumaczenia dla aktualnego osiągnięcia, ale może również opóźnić wyświetlanie powiadomienia na ekranie o czas określony przez to ustawienie.<br><br>Jeśli nie można znaleźć ważnych danych tłumaczenia dla aktualnego osiągnięcia, tłumaczenie powróci do języka określonego w Steamworks.</span>`,
         desktop: "Przełącz skrót na pulpicie, aby uruchomić aplikację",
         startwin: "Uruchom Steam Achievement Notifier automatycznie po zalogowaniu",
         startmin: "Po uruchomieniu ukryj okno interfejsu użytkownika aplikacji, aż zostanie otwarte z System Tray",

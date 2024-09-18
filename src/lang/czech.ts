@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Jazyk"
+            title: "Jazyk",
+            content: {
+                steamlang: "Přeložit úspěchy do jazyka Steamu",
+                maxsteamlangretries: "Maximální počet pokusů o překlad"
+            }
         },
         os: {
             title: "Operační systém",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Připojte se na Discord!",
         github: "Nahlásit problém",
         lang: "Vyberte jazyk uživatelského rozhraní používaný v aplikaci",
+        steamlang: `Pokuste se načíst překlady umístěné v aplikačních souborech Steamu, aby se zobrazily informace o úspěších ve zvoleném jazyce uživatele v klientu Steamu<br><br><span class="ttdesc">Tato možnost se pokusí najít překlady v souboru JSON uloženém v aplikačních datech Steamu. Pokud nelze najít překlad pro aktuální úspěch, místo toho se zobrazí informace o úspěchu získané ze Steamworks.</span>`,
+        maxsteamlangretries: `Počet pokusů (za každých 100 ms) o nalezení platných překladů pro aktuální úspěch<br><br><span class="ttdesc">Steam aktuálně ukládá jen malé množství dat o úspěších do souboru JSON spojeného s každou hrou. Jakékoliv úspěchy, které nejsou v tomto souboru, budou přidány po jejich odemčení.<br><br>Vzhledem k tomu, že přidání nových dat může nějaký čas trvat, zvýšení této hodnoty zvýší pravděpodobnost, že se najdou překlady pro aktuální úspěch, ale může to také zpozdit zobrazení oznámení na obrazovce o čas vypočítaný tímto nastavením.<br><br>Pokud se nepodaří najít platné překlady pro aktuální úspěch, překládání se vrátí na jazyk určený ve Steamworks.</span>`,
         desktop: "Přepnout zástupce na ploše pro spuštění aplikace",
         startwin: "Spustit Steam Achievement Notifier automaticky po přihlášení",
         startmin: "Po spuštění skrýt okno aplikace v uživatelském rozhraní, dokud není otevřeno z lišty systému",

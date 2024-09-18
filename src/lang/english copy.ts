@@ -109,7 +109,6 @@ export const translations = {
                 showpercent: "Show Percentage",
                 soundonly: "Sound-Only Mode",
                 extwin: "Stream Notifications",
-                // extwinshow: "Show Window",
                 audiosrc: "Audio Source",
                 notify: "Notification",
                 app: "App",
@@ -119,8 +118,6 @@ export const translations = {
                 shortcuts: "Notification Shortcuts",
                 noiconcache: "Disable Icon Caching",
                 webhooks: "Post to Discord Server",
-                // userid: `User ID <i style="font-size: 0.5rem; color: deepskyblue;">(Optional)</i>`,
-                // avatarurl: `Avatar URL <i style="font-size: 0.5rem; color: deepskyblue;">(Optional)</i>`,
                 webhookurl: `Webhook URL`,
                 webhookcaution: `By enabling this option and providing a valid Discord Webhook link, you agree that you understand that <u>all achievement and game information for the current Steam user</u> will be posted to the specified Discord server via the Webhook link provided.<br><br>If you do not wish for Steam Achievement Notifier to post this information on your behalf, please disable this option.`,
                 webhooklaststatus: "Last Status"

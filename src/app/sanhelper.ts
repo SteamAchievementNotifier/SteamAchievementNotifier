@@ -452,7 +452,9 @@ export const sanhelper: SANHelper = {
             ["nowtrackingscale","%"],
             ["pollrate","ms"],
             ["initdelay","s"],
-            ["releasedelay","s"]
+            ["releasedelay","s"],
+            ["maxretries",""],
+            ["maxsteamlangretries",""]
         ])
 
         range.forEach((value,key) => {

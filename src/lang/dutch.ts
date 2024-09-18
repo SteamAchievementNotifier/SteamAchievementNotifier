@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Taal"
+            title: "Taal",
+            content: {
+                steamlang: "Vertaal prestaties naar de taal van Steam",
+                maxsteamlangretries: "Maximaal aantal vertaalpogingen"
+            }
         },
         os: {
             title: "Besturingssysteem",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Doe mee op Discord!",
         github: "Meld een probleem",
         lang: "Selecteer de UI-taal die in de app wordt gebruikt",
+        steamlang: `Probeer vertalingen te laden die zich in de applicatiebestanden van Steam bevinden om prestatie-informatie weer te geven in de door de gebruiker gekozen taal van de Steam-client<br><br><span class="ttdesc">Deze optie probeert vertalingen te vinden in een JSON-bestand dat is opgeslagen in de applicatiegegevens van Steam. Als er geen vertaling voor de huidige prestatie kan worden gevonden, wordt in plaats daarvan prestatie-informatie weergegeven die is opgehaald uit Steamworks.</span>`,
+        maxsteamlangretries: `Het aantal pogingen (per 100ms) om geldige vertalingen voor de huidige prestatie te vinden<br><br><span class="ttdesc">Steam slaat momenteel slechts een kleine hoeveelheid prestatiegegevens op in het bijbehorende JSON-bestand van elke game. Eventuele prestaties die niet in dit bestand aanwezig zijn, worden toegevoegd nadat de prestatie is ontgrendeld.<br><br>Aangezien het toevoegen van nieuwe gegevens tijd kan kosten, zal het verhogen van deze waarde de kans vergroten dat vertaalgegevens voor de huidige prestatie worden gevonden, maar het kan ook de melding op het scherm vertragen met de tijd die door deze instelling wordt berekend.<br><br>Als er geen geldige vertaalgegevens voor de huidige prestatie kunnen worden gevonden, wordt de vertaling teruggezet naar de taal die is gespecificeerd in Steamworks.</span>`,
         desktop: "Schakel een snelkoppeling op het bureaublad in om de app uit te voeren",
         startwin: "Start Steam Achievement Notifier automatisch na het inloggen",
         startmin: "Verberg het app-UI-venster na het starten totdat het wordt geopend vanuit het systeemvak",

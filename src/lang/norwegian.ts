@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Språk"
+            title: "Språk",
+            content: {
+                steamlang: "Oversett prestasjoner til Steam-språk",
+                maxsteamlangretries: "Maksimalt antall oversettelsesforsøk"
+            }
         },
         os: {
             title: "Operativsystem",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Bli med på Discord!",
         github: "Rapporter et problem",
         lang: "Velg språket som brukes i appen",
+        steamlang: `Forsøk å laste oversettelser som ligger i Steams applikasjonsfiler for å vise prestasjonsinformasjon på brukerens valgte språk i Steam-klienten<br><br><span class="ttdesc">Dette alternativet prøver å finne oversettelser i en JSON-fil lagret i Steams applikasjonsdata. Hvis det ikke finnes noen oversettelse for den nåværende prestasjonen, vil informasjon om prestasjonen hentet fra Steamworks bli vist i stedet.</span>`,
+        maxsteamlangretries: `Antall forsøk (per 100 ms) for å finne gyldige oversettelser for den nåværende prestasjonen<br><br><span class="ttdesc">Steam lagrer for øyeblikket bare en liten mengde prestasjonsdata i JSON-filen knyttet til hvert spill. Eventuelle prestasjoner som ikke er til stede i denne filen, vil bli lagt til etter at prestasjonen er låst opp.<br><br>Siden det kan ta tid å legge til nye data, vil økning av denne verdien øke sjansen for å finne oversettelsesdata for den nåværende prestasjonen, men det kan også forsinke visningen av varslingen på skjermen med den tiden som beregnes av denne innstillingen.<br><br>Hvis ingen gyldige oversettelsesdata kan finnes for den nåværende prestasjonen, vil oversettelsen gå tilbake til språket spesifisert i Steamworks.</span>`,
         desktop: "Veksle en snarvei på skrivebordet for å kjøre appen",
         startwin: "Start Steam Achievement Notifier automatisk etter pålogging",
         startmin: "Etter oppstart, skjul appens brukergrensesnittvindu til det åpnes fra systemstatusfeltet",

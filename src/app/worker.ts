@@ -4,7 +4,7 @@ import { existsSync } from "fs"
 import { sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { sanconfig } from "./config"
-import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons } from "./achievement"
+import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
 
 declare global {
@@ -189,6 +189,14 @@ const startsan = async (appinfo: AppInfo) => {
                     }
         
                     const icon = config.get(`customisation.${type}.usegameicon`) ? path.join(await sanhelper.steampath,"appcache","librarycache",`${appid}_icon.jpg`) : await achievementicon()
+
+                    const steamlang = config.get("steamlang")
+                    const maxlang = config.get("maxsteamlangretries")
+
+                    const localised = {
+                        name: steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,"name",maxlang) : null,
+                        desc: steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,"description",maxlang) : null
+                    }
         
                     const notify: Notify = {
                         id: Math.round(Date.now() / Math.random() * 1000),
@@ -197,8 +205,8 @@ const startsan = async (appinfo: AppInfo) => {
                         gamename: gamename || "???",
                         steam3id: steam3id,
                         apiname: achievement.apiname,
-                        name: achievement.name,
-                        desc: achievement.desc,
+                        name: localised.name || achievement.name,
+                        desc: localised.desc || achievement.desc,
                         unlocked: achievement.unlocked,
                         hidden: achievement.hidden,
                         percent: achievement.percent,

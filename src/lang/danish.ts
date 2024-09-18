@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Sprog"
+            title: "Sprog",
+            content: {
+                steamlang: "Oversæt præstationer til Steams sprog",
+                maxsteamlangretries: "Maksimalt antal forsøg på oversættelse"
+            }
         },
         os: {
             title: "Operativsystem",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Deltag på Discord!",
         github: "Rapporter et problem",
         lang: "Vælg det sprog, der bruges i appen",
+        steamlang: `Forsøg at indlæse oversættelser placeret i Steams applikationsfiler for at vise præstationsinformation på brugerens valgte sprog i Steam-klienten<br><br><span class="ttdesc">Denne mulighed forsøger at finde oversættelser i en JSON-fil, der er gemt i Steams applikationsdata. Hvis en oversættelse for den aktuelle præstation ikke kan findes, vil præstationsinformation hentet fra Steamworks blive vist i stedet.</span>`,
+        maxsteamlangretries: `Antallet af gange (pr. 100ms), der forsøges at finde gyldige oversættelser for den aktuelle præstation<br><br><span class="ttdesc">Steam gemmer i øjeblikket kun en lille mængde præstationsdata i hver spils tilknyttede JSON-fil. Eventuelle præstationer, der ikke er til stede i denne fil, vil blive tilføjet, når præstationen er låst op.<br><br>Da tilføjelse af nye data kan tage tid, vil en forøgelse af denne værdi øge sandsynligheden for, at der findes oversættelsesdata for den aktuelle præstation, men det kan også forsinke notifikationen, der vises på skærmen, med den tid, der beregnes af denne indstilling.<br><br>Hvis der ikke kan findes gyldige oversættelsesdata for den aktuelle præstation, vil oversættelsen falde tilbage til det sprog, der er angivet i Steamworks.</span>`,
         desktop: "Skift en genvej på skrivebordet for at køre appen",
         startwin: "Start Steam Achievement Notifier automatisk efter login",
         startmin: "Efter lancering skjul appens brugergrænsefladevindue, indtil det åbnes fra systembakken",

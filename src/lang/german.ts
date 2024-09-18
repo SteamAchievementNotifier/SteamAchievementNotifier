@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Sprache"
+            title: "Sprache",
+            content: {
+                steamlang: "Erfolge in die Steam-Sprache übersetzen",
+                maxsteamlangretries: "Maximale Anzahl an Übersetzungsversuchen"
+            }
         },
         os: {
             title: "Betriebssystem",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Treten Sie dem Discord bei!",
         github: "Melden Sie ein Problem",
         lang: "Wählen Sie die UI-Sprache, die in der App verwendet wird",
+        steamlang: `Versuchen Sie, Übersetzungen aus den Anwendungsdateien von Steam zu laden, um Erfolgsinformationen in der vom Benutzer gewählten Sprache des Steam-Clients anzuzeigen<br><br><span class="ttdesc">Diese Option versucht, Übersetzungen in einer JSON-Datei zu finden, die in den Anwendungsdaten von Steam gespeichert ist. Wenn keine Übersetzung für den aktuellen Erfolg gefunden werden kann, werden stattdessen die von Steamworks abgerufenen Erfolgsinformationen angezeigt.</span>`,
+        maxsteamlangretries: `Die Anzahl der Versuche (alle 100ms), um gültige Übersetzungen für den aktuellen Erfolg zu finden<br><br><span class="ttdesc">Steam speichert derzeit nur eine kleine Menge an Erfolgsdaten in der mit jedem Spiel verbundenen JSON-Datei. Alle Erfolge, die nicht in dieser Datei enthalten sind, werden hinzugefügt, nachdem der Erfolg freigeschaltet wurde.<br><br>Da das Hinzufügen neuer Daten Zeit in Anspruch nehmen kann, erhöht eine Erhöhung dieses Werts die Wahrscheinlichkeit, dass Übersetzungsdaten für den aktuellen Erfolg gefunden werden, kann jedoch auch die Anzeige der Benachrichtigung auf dem Bildschirm um die durch diese Einstellung berechnete Zeit verzögern.<br><br>Wenn keine gültigen Übersetzungsdaten für den aktuellen Erfolg gefunden werden können, wird die Übersetzung auf die in Steamworks festgelegte Sprache zurückgesetzt.</span>`,
         desktop: "Schalten Sie eine Verknüpfung auf dem Desktop ein, um die App auszuführen",
         startwin: "Starten Sie Steam Achievement Notifier automatisch nach dem Anmelden",
         startmin: "Nach dem Starten die App-Benutzeroberfläche ausblenden, bis sie aus dem System Tray geöffnet wird",

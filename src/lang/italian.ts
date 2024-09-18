@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Lingua"
+            title: "Lingua",
+            content: {
+                steamlang: "Traduci i successi nella lingua di Steam",
+                maxsteamlangretries: "Numero massimo di tentativi di traduzione"
+            }
         },
         os: {
             title: "Sistema operativo",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Unisciti su Discord!",
         github: "Segnala un problema",
         lang: "Seleziona la lingua dell'interfaccia utente utilizzata nell'app",
+        steamlang: `Prova a caricare le traduzioni presenti nei file dell'applicazione di Steam per visualizzare le informazioni sui successi nella lingua scelta dall'utente nel client Steam<br><br><span class="ttdesc">Questa opzione tenta di trovare le traduzioni in un file JSON memorizzato nei dati dell'applicazione di Steam. Se non è possibile trovare una traduzione per il successo attuale, verranno invece mostrate le informazioni sui successi recuperate da Steamworks.</span>`,
+        maxsteamlangretries: `Il numero di tentativi (ogni 100 ms) per trovare traduzioni valide per il successo attuale<br><br><span class="ttdesc">Attualmente, Steam memorizza solo una piccola quantità di dati sui successi nel file JSON associato a ciascun gioco. Qualsiasi successo non presente in questo file sarà aggiunto dopo il sblocco del successo.<br><br>Poiché l'aggiunta di nuovi dati può richiedere tempo, aumentare questo valore aumenterà la probabilità di trovare i dati di traduzione per il successo attuale, ma potrebbe anche ritardare la visualizzazione della notifica sullo schermo di quanto calcolato da questa impostazione.<br><br>Se non è possibile trovare dati di traduzione validi per il successo attuale, la traduzione tornerà alla lingua specificata in Steamworks.</span>`,
         desktop: "Attiva o disattiva una scorciatoia sul desktop per avviare l'app",
         startwin: "Avvia Steam Achievement Notifier automaticamente dopo l'accesso",
         startmin: "Dopo il lancio, nascondi la finestra dell'interfaccia utente dell'app fino a quando non viene aperta dalla barra delle applicazioni",

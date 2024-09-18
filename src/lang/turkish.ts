@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Dil"
+            title: "Dil",
+            content: {
+                steamlang: "Başarıları Steam diline çevir",
+                maxsteamlangretries: "Maksimum Çeviri Deneme Sayısı"
+            }
         },
         os: {
             title: "İşletim Sistemi",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Discord'a Katıl!",
         github: "Bir sorun bildir",
         lang: "Uygulama içinde kullanılan UI dilini seçin",
+        steamlang: `Steam uygulama dosyalarında bulunan çevirileri yüklemeyi deneyin ve başarı bilgilerini kullanıcının seçtiği Steam istemci dilinde görüntüleyin<br><br><span class="ttdesc">Bu seçenek, Steam uygulama verilerinde saklanan JSON dosyasında çevirileri bulmayı dener. Mevcut başarı için bir çeviri bulunamazsa, Steamworks'ten alınan başarı bilgileri görüntülenecektir.</span>`,
+        maxsteamlangretries: `Mevcut başarı için geçerli çevirileri bulmak amacıyla yapılan deneme sayısı (her 100 ms’de bir)<br><br><span class="ttdesc">Steam şu anda her oyuna bağlı JSON dosyasında yalnızca küçük bir miktarda başarı verisi saklamaktadır. Bu dosyada bulunmayan herhangi bir başarı, başarı kilidi açıldığında eklenecektir.<br><br>Yeni verilerin eklenmesi zaman alabileceğinden, bu değeri artırmak, mevcut başarı için çeviri verilerini bulma olasılığını artıracaktır ancak bu ayar tarafından hesaplanan süre kadar ekran üzerindeki bildirimlerin görünmesini da geciktirebilir.<br><br>Mevcut başarı için geçerli çeviri verileri bulunamazsa, çeviri Steamworks'te belirtilen dile geri dönecektir.</span>`,
         desktop: "Uygulamayı çalıştırmak için Masaüstünde bir kısayol aç/kapat",
         startwin: "Oturum açtıktan sonra Steam Achievement Notifier'ı otomatik olarak başlat",
         startmin: "Başlatıldıktan sonra, uygulama arayüz penceresini Sistem Tepsisi'nden açılmadıkça gizle",

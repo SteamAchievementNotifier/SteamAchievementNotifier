@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Nyelv"
+            title: "Nyelv",
+            content: {
+                steamlang: "Fordítsd az eredményeket a Steam nyelvére",
+                maxsteamlangretries: "Maximális fordítási kísérletek száma"
+            }
         },
         os: {
             title: "Operációs rendszer",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Csatlakozzon a Discordhoz!",
         github: "Probléma jelentése",
         lang: "Válassza ki az alkalmazásban használt felhasználói felület nyelvét",
+        steamlang: `Próbálj meg betölteni fordításokat a Steam alkalmazásfájljaiból, hogy az eredményinformációkat a felhasználó által választott nyelven jelenítse meg a Steam kliensben<br><br><span class="ttdesc">Ez a lehetőség megpróbálja megtalálni a fordításokat egy JSON fájlban, amely a Steam alkalmazásadataiban van tárolva. Ha nem található fordítás a jelenlegi eredményhez, akkor a Steamworks-ból lekért eredményinformációk jelennek meg helyette.</span>`,
+        maxsteamlangretries: `Az érvényes fordítások keresési kísérleteinek száma (100 ms-onként) az aktuális eredményhez<br><br><span class="ttdesc">A Steam jelenleg csak egy kis mennyiségű eredményadatot tárol minden játékhoz tartozó JSON fájlban. Minden olyan eredményt, amely nem található ebben a fájlban, hozzáadnak az eredmény feloldása után.<br><br>Mivel az új adatok hozzáadása időt vehet igénybe, ennek az értéknek a növelése növeli annak esélyét, hogy megtalálhatók a fordítási adatok a jelenlegi eredményhez, de ez késleltetheti az értesítés megjelenését a képernyőn a beállítás szerint kiszámított idővel.<br><br>Ha nem találhatók érvényes fordítási adatok a jelenlegi eredményhez, a fordítás visszaáll a Steamworks-ben megadott nyelvre.</span>`,
         desktop: "Parancsikon váltása az asztalon az alkalmazás futtatásához",
         startwin: "Az Steam Achievement Notifier automatikus indítása bejelentkezés után",
         startmin: "Indítás után elrejti az alkalmazás felhasználói felületét, amíg a rendszertálcáról meg nem nyitják",

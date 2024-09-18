@@ -167,7 +167,8 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 }
 .opt:has(#nowtracking:not(:checked)) ~ .wrapper:has(#nowtrackingscale,#nowtrackingpos),
 .opt:has(#shortcuts:not(:checked)) + .wrapper:has(#shortcuttabs),
-.opt:has(#webhooks:not(:checked)) + .wrapper#webhookwrapper {
+.opt:has(#webhooks:not(:checked)) + .wrapper#webhookwrapper,
+.opt:has(#steamlang:not(:checked)) + .wrapper:has(#maxsteamlangretries) {
     display: none;
 }
 
@@ -207,15 +208,6 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
 #settingscontent .cont:has(.title#notifications,.title#advanced) .opt:has(input[type="range"],select) {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-}
-
-#settingscontent .cont:has(.title#advanced) .opt:has(select#maxretries) {
-    grid-template-columns: 1fr auto;
-}
-
-#settingscontent .cont:has(.title#advanced) .opt:has(select#maxretries) > select#maxretries {
-    width: auto;
-    padding-right: 1rem;
 }
 
 .settingstabs {

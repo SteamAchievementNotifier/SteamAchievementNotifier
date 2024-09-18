@@ -14,7 +14,7 @@ export const language = {
             const appelems = [
                 "game",
                 "customise",
-                "test",
+                "test"
             ]
 
             appelems.forEach(id => langmap.set(maincontent.querySelector(`.rect#${id} > span`)!,app.content[id]))
@@ -44,8 +44,7 @@ export const language = {
 
                     const selectignore = [
                         "lang",
-                        "monitors",
-                        "maxretries"
+                        "monitors"
                     ].map(select => `#${select}`).join(",")
 
                     const posselect = [
@@ -107,7 +106,7 @@ export const language = {
 
             return
         } catch (err) {
-            log.write("ERROR",`Error loading language file "${lang}.js": ${err}`)
+            log.write("ERROR",`Error loading language file "${lang}.js": ${(err as Error).stack || (err as Error).message}`)
         }
     },
     getkeypath: (obj: any,keys: string[]): any => keys.reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined),obj),

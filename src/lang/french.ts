@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Langue"
+            title: "Langue",
+            content: {
+                steamlang: "Traduire les succès dans la langue de Steam",
+                maxsteamlangretries: "Nombre maximum de tentatives de traduction"
+            }
         },
         os: {
             title: "Système d'exploitation",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Rejoindre sur Discord !",
         github: "Signaler un problème",
         lang: "Sélectionnez la langue de l'interface utilisateur utilisée dans l'application",
+        steamlang: `Tenter de charger les traductions situées dans les fichiers de l'application Steam afin d'afficher les informations des succès dans la langue choisie par l'utilisateur dans le client Steam<br><br><span class="ttdesc">Cette option tente de localiser les traductions dans un fichier JSON stocké dans les données de l'application Steam. Si une traduction pour le succès actuel ne peut pas être trouvée, les informations du succès récupérées depuis Steamworks seront affichées à la place.</span>`,
+        maxsteamlangretries: `Le nombre de tentatives (toutes les 100 ms) pour trouver des traductions valides pour le succès actuel<br><br><span class="ttdesc">Actuellement, Steam ne stocke qu'une petite quantité de données sur les succès dans le fichier JSON associé à chaque jeu. Tous les succès qui ne sont pas présents dans ce fichier seront ajoutés après le déverrouillage du succès.<br><br>Étant donné que l'ajout de nouvelles données peut prendre du temps, augmenter cette valeur augmentera la probabilité de trouver des données de traduction pour le succès actuel, mais cela peut également retarder l'apparition de la notification à l'écran du temps calculé par ce paramètre.<br><br>Si aucune donnée de traduction valide ne peut être trouvée pour le succès actuel, la traduction reviendra à la langue spécifiée dans Steamworks.</span>`,
         desktop: "Activez un raccourci sur le bureau pour exécuter l'application",
         startwin: "Démarrer Steam Achievement Notifier automatiquement après la connexion",
         startmin: "Après le lancement, masquez la fenêtre de l'interface utilisateur de l'application jusqu'à son ouverture depuis la barre d'état système",

@@ -218,6 +218,8 @@ export const sanconfig = {
             //     avatarurl: "",
             //     webhookurl: ""
             // },
+            steamlang: false,
+            maxsteamlangretries: 10,
             customisation: {
                 main: {} as Customisation,
                 rare: {} as Customisation,

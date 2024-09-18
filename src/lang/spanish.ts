@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Idioma"
+            title: "Idioma",
+            content: {
+                steamlang: "Traducir logros al idioma de Steam",
+                maxsteamlangretries: "Número máximo de intentos de traducción"
+            }
         },
         os: {
             title: "Sistema operativo",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "¡Unirse a Discord!",
         github: "Informar un problema",
         lang: "Seleccionar el idioma de la interfaz de usuario utilizado en la aplicación",
+        steamlang: `Intenta cargar las traducciones ubicadas en los archivos de la aplicación Steam para mostrar la información de logros en el idioma elegido por el usuario en el cliente de Steam<br><br><span class="ttdesc">Esta opción intenta localizar las traducciones en un archivo JSON almacenado en los datos de la aplicación Steam. Si no se puede encontrar una traducción para el logro actual, se mostrarán en su lugar las información de logros recuperada de Steamworks.</span>`,
+        maxsteamlangretries: `El número de intentos (cada 100 ms) para encontrar traducciones válidas para el logro actual<br><br><span class="ttdesc">Steam actualmente solo almacena una pequeña cantidad de datos sobre logros en el archivo JSON asociado a cada juego. Cualquier logro que no esté presente en este archivo se añadirá después de que se desbloquee el logro.<br><br>Dado que agregar nuevos datos puede llevar tiempo, aumentar este valor incrementará la probabilidad de encontrar datos de traducción para el logro actual, pero también puede retrasar la aparición de la notificación en pantalla durante el tiempo calculado por esta configuración.<br><br>Si no se pueden encontrar datos de traducción válidos para el logro actual, la traducción volverá al idioma especificado en Steamworks.</span>`,
         desktop: "Alternar un acceso directo en el escritorio para ejecutar la aplicación",
         startwin: "Iniciar Steam Achievement Notifier automáticamente después de iniciar sesión",
         startmin: "Después de iniciar, ocultar la ventana de la interfaz de usuario de la aplicación hasta que se abra desde la bandeja del sistema",

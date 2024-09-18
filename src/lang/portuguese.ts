@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Idioma"
+            title: "Idioma",
+            content: {
+                steamlang: "Traduzir conquistas para o idioma do Steam",
+                maxsteamlangretries: "Número máximo de tentativas de tradução"
+            }
         },
         os: {
             title: "Sistema Operativo",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Junte-se ao Discord!",
         github: "Reportar um problema",
         lang: "Selecione o idioma da interface do usuário usado no aplicativo",
+        steamlang: `Tente carregar traduções localizadas nos arquivos do aplicativo Steam para exibir informações sobre conquistas no idioma escolhido pelo usuário no cliente Steam<br><br><span class="ttdesc">Esta opção tenta localizar traduções em um arquivo JSON armazenado nos dados do aplicativo Steam. Se uma tradução para a conquista atual não puder ser encontrada, serão exibidas as informações sobre a conquista recuperadas do Steamworks.</span>`,
+        maxsteamlangretries: `O número de tentativas (a cada 100 ms) para encontrar traduções válidas para a conquista atual<br><br><span class="ttdesc">O Steam atualmente armazena apenas uma pequena quantidade de dados sobre conquistas no arquivo JSON associado a cada jogo. Quaisquer conquistas que não estejam presentes neste arquivo serão adicionadas após a conquista ser desbloqueada.<br><br>Como a adição de novos dados pode levar tempo, aumentar este valor aumentará a probabilidade de encontrar dados de tradução para a conquista atual, mas também pode atrasar a exibição da notificação na tela pelo tempo calculado por esta configuração.<br><br>Se não for possível encontrar dados de tradução válidos para a conquista atual, a tradução reverterá para o idioma especificado no Steamworks.</span>`,
         desktop: "Alternar um atalho na área de trabalho para executar o aplicativo",
         startwin: "Iniciar o Steam Achievement Notifier automaticamente após fazer login",
         startmin: "Após o lançamento, ocultar a janela da interface do aplicativo até ser aberta pela bandeja do sistema",

@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Ngôn ngữ"
+            title: "Ngôn ngữ",
+            content: {
+                steamlang: "Dịch thành tích sang ngôn ngữ Steam",
+                maxsteamlangretries: "Số lần thử dịch tối đa"
+            }
         },
         os: {
             title: "Hệ điều hành",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Tham gia trên Discord!",
         github: "Báo cáo sự cố",
         lang: "Chọn ngôn ngữ giao diện người dùng được sử dụng trong ứng dụng",
+        steamlang: `Cố gắng tải các bản dịch nằm trong các tệp ứng dụng Steam để hiển thị thông tin thành tích bằng ngôn ngữ mà người dùng đã chọn trong ứng dụng Steam<br><br><span class="ttdesc">Tùy chọn này cố gắng tìm các bản dịch trong một tệp JSON lưu trữ trong dữ liệu ứng dụng Steam. Nếu không thể tìm thấy bản dịch cho thành tích hiện tại, thông tin về thành tích sẽ được hiển thị từ Steamworks thay thế.</span>`,
+        maxsteamlangretries: `Số lần thử (mỗi 100 ms) để tìm các bản dịch hợp lệ cho thành tích hiện tại<br><br><span class="ttdesc">Steam hiện chỉ lưu trữ một lượng nhỏ dữ liệu thành tích trong tệp JSON liên kết với mỗi trò chơi. Các thành tích không có trong tệp này sẽ được thêm vào sau khi thành tích được mở khóa.<br><br>Vì việc thêm dữ liệu mới có thể mất thời gian, việc tăng giá trị này sẽ làm tăng khả năng tìm thấy dữ liệu dịch cho thành tích hiện tại, nhưng cũng có thể làm chậm việc hiển thị thông báo trên màn hình theo thời gian tính toán bởi cài đặt này.<br><br>Nếu không thể tìm thấy dữ liệu dịch hợp lệ cho thành tích hiện tại, bản dịch sẽ quay lại ngôn ngữ được chỉ định trong Steamworks.</span>`,
         desktop: "Chuyển đổi một phím tắt trên Màn hình để chạy ứng dụng",
         startwin: "Khởi động Steam Achievement Notifier tự động sau khi đăng nhập",
         startmin: "Sau khi khởi chạy, ẩn cửa sổ giao diện người dùng của ứng dụng cho đến khi mở từ Khay hệ thống",

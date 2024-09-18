@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "言語"
+            title: "言語",
+            content: {
+                steamlang: "Steamの言語に成果を翻訳する",
+                maxsteamlangretries: "最大翻訳試行回数"
+            }
         },
         os: {
             title: "オペレーティングシステム",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Discordに参加する！",
         github: "問題を報告する",
         lang: "アプリ内で使用するUI言語を選択",
+        steamlang: `Steamのアプリケーションファイルにある翻訳を読み込んで、ユーザーが選択した言語で成果情報を表示しようとします<br><br><span class="ttdesc">このオプションは、Steamのアプリケーションデータに保存されているJSONファイル内で翻訳を探そうとします。現在の成果の翻訳が見つからない場合は、代わりにSteamworksから取得した成果情報が表示されます。</span>`,
+        maxsteamlangretries: `現在の成果の有効な翻訳を見つけるための試行回数（100msごと）<br><br><span class="ttdesc">Steamは現在、各ゲームに関連付けられたJSONファイルに少量の成果データしか保存していません。このファイルに存在しない成果は、成果がアンロックされた後に追加されます。<br><br>新しいデータの追加には時間がかかる可能性があるため、この値を増やすことで現在の成果の翻訳データが見つかる可能性が高くなりますが、この設定によって計算された時間だけ画面上に通知が表示されるのが遅れる可能性もあります。<br><br>現在の成果に対して有効な翻訳データが見つからない場合は、Steamworksで指定された言語に戻ります。</span>`,
         desktop: "アプリを実行するためのデスクトップショートカットを切り替える",
         startwin: "ログイン後にSteam Achievement Notifierを自動的に開始する",
         startmin: "起動後、システムトレイから開かれるまでアプリUIウィンドウを非表示にする",

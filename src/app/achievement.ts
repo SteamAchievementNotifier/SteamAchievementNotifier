@@ -1,5 +1,5 @@
 import path from "path"
-import { createWriteStream } from "fs"
+import { readFileSync, createWriteStream } from "fs"
 import { get } from "https"
 import { sanhelper, __root } from "./sanhelper"
 import { log } from "./log"
@@ -142,4 +142,46 @@ export const cacheachievementicons = async (gamename: string, steam64id: string,
     log.write("INFO",`Cached ${icons.length}/${total} achievement icons for "${gamename}"`)
 
     return icons
+}
+
+const getlocalisedachievementdata = (jsonpath: string,steam3id: number,apiname: string) => {
+    const { data } = JSON.parse(readFileSync(jsonpath).toString())[0][1]
+    const vecs: any[] = []
+
+    for (const vec in data) {
+        if (vec.startsWith("vec")) vecs.push(data[vec])
+    }
+
+    if (!vecs.length) return null
+
+    return vecs.flat().find(ach => ach.strID === apiname)
+}
+
+export const getlocalisedachievementinfo = async (steam3id: number,apiname: string,key: "name" | "description",maxretries: number): Promise<string | null> => {
+    // JSON file only has a certain number of pre-added achievement objects (usually only 12 for...some reason).
+    // Any missing achievements are added to this file only after they are unlocked, which is why we need a "retries" system
+    let retries = 0
+    const jsonpath = path.join(sanhelper.steampath, "userdata", `${steam3id}`, "config", "librarycache", `${sanhelper.gameinfo.appid}.json`)
+    const retryerr = `Unable to locate "${key}" for "${apiname}" in "${jsonpath}"`
+
+    try {
+        let achinfo = getlocalisedachievementdata(jsonpath,steam3id,apiname);
+
+        while (!achinfo && retries < maxretries) {
+            retries++
+            log.write("ERROR",`${retryerr} - retrying (${retries}/${maxretries})...`)
+
+            await new Promise(resolve => setTimeout(resolve,100))
+            achinfo = getlocalisedachievementdata(jsonpath,steam3id,apiname)
+        }
+
+        if (achinfo) return achinfo[`str${key.replace(key[0],key[0].toUpperCase())}`]
+
+        log.write("ERROR",`${retryerr} - falling back to Steamworks...`)
+        return null
+
+    } catch (err) {
+        log.write("ERROR",`Error parsing "${jsonpath}": ${(err as Error).stack || (err as Error).message}`)
+        return null
+    }
 }

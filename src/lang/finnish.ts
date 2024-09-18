@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Kieli"
+            title: "Kieli",
+            content: {
+                steamlang: "Käännä saavutukset Steamin kielelle",
+                maxsteamlangretries: "Maksimi määrä käännösyrityksiä"
+            }
         },
         os: {
             title: "Käyttöjärjestelmä",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Liity Discordiin!",
         github: "Ilmoita ongelmasta",
         lang: "Valitse sovelluksen käyttöliittymän kieli",
+        steamlang: `Yritä ladata käännöksiä Steamin sovellustiedostoista näyttääksesi saavutustiedot käyttäjän valitsemalla kielellä Steam-asiakasohjelmassa<br><br><span class="ttdesc">Tämä asetus yrittää löytää käännöksiä Steam-sovelluksen tiedoissa tallennetusta JSON-tiedostosta. Jos nykyiselle saavutukselle ei löydy käännöstä, näytetään sen sijaan Steamworksistä haetut saavutustiedot.</span>`,
+        maxsteamlangretries: `Nykyisen saavutuksen käännösten etsimisyritysten määrä (100 ms välein)<br><br><span class="ttdesc">Steam tallentaa tällä hetkellä vain pienen määrän saavutustietoja jokaisen pelin yhteydessä olevaan JSON-tiedostoon. Kaikki saavutukset, jotka eivät ole tässä tiedostossa, lisätään, kun saavutus on avattu.<br><br>Koska uusien tietojen lisääminen voi kestää, tämän arvon nostaminen lisää todennäköisyyttä, että käännöstiedot löydetään, mutta se voi myös viivästyttää näytöllä näkyvää ilmoitusta asetuksen mukaisella ajalla.<br><br>Jos saavutukselle ei löydy kelvollisia käännöstietoja, käännös palaa Steamworksissä määritettyyn kieleen.</span>`,
         desktop: "Vaihda työpöydän pikakuvaketta sovelluksen käynnistämiseksi",
         startwin: "Käynnistä Steam Achievement Notifier automaattisesti kirjautumisen jälkeen",
         startmin: "Piilota sovelluksen käyttöliittymäikkuna käynnistyksen jälkeen, kunnes se avataan järjestelmälokista",

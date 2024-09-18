@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Språk"
+            title: "Språk",
+            content: {
+                steamlang: "Översätt prestationer till Steam-språk",
+                maxsteamlangretries: "Maximalt antal översättningsförsök"
+            }
         },
         os: {
             title: "Operativsystem",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Gå med på Discord!",
         github: "Rapportera ett problem",
         lang: "Välj det användargränssnittsspråk som används i appen",
+        steamlang: `Försök att ladda översättningar som finns i Steam-applikationsfilerna för att visa prestationer på det språk som användaren valt i Steam-klienten<br><br><span class="ttdesc">Detta alternativ försöker hitta översättningar i en JSON-fil som lagras i Steam-applikationsdata. Om en översättning för den aktuella prestationen inte kan hittas, visas istället information om prestationen som hämtas från Steamworks.</span>`,
+        maxsteamlangretries: `Antal försök (per 100 ms) för att hitta giltiga översättningar för den aktuella prestationen<br><br><span class="ttdesc">Steam lagrar för närvarande endast en liten mängd prestationsdata i JSON-filen som är kopplad till varje spel. Eventuella prestationer som inte finns i denna fil kommer att läggas till efter att prestationen har upplåsts.<br><br>Eftersom det kan ta tid att lägga till nya data, kommer en ökning av detta värde att öka chansen att hitta översättningsdata för den aktuella prestationen, men kan också fördröja visningen av meddelandet på skärmen med den tid som beräknas av denna inställning.<br><br>Om inga giltiga översättningsdata kan hittas för den aktuella prestationen, kommer översättningen att återgå till det språk som anges i Steamworks.</span>`,
         desktop: "Växla en genväg på skrivbordet för att köra appen",
         startwin: "Starta Steam Achievement Notifier automatiskt efter inloggning",
         startmin: "Efter starten dölj appens användargränssnittsfönster tills det öppnas från systemfältet",

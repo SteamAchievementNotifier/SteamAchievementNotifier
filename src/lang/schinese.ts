@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "语言"
+            title: "语言",
+            content: {
+                steamlang: "将成就翻译为 Steam 语言",
+                maxsteamlangretries: "最大翻译尝试次数"
+            }
         },
         os: {
             title: "操作系统",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "加入Discord！",
         github: "报告问题",
         lang: "选择应用程序中使用的UI语言",
+        steamlang: `尝试加载位于 Steam 应用程序文件中的翻译，以在用户选择的 Steam 客户端语言中显示成就信息<br><br><span class="ttdesc">此选项尝试在 Steam 应用程序数据中存储的 JSON 文件中查找翻译。如果找不到当前成就的翻译，则会显示从 Steamworks 获取的成就信息。</span>`,
+        maxsteamlangretries: `查找当前成就有效翻译的尝试次数（每 100 毫秒一次）<br><br><span class="ttdesc">Steam 当前仅在与每个游戏关联的 JSON 文件中存储少量的成就数据。该文件中未包含的任何成就将在成就解锁后添加。<br><br>由于添加新数据可能需要时间，增加此值将提高找到当前成就翻译数据的可能性，但也可能会延迟通知在屏幕上出现的时间，具体取决于此设置计算的时间。<br><br>如果无法找到当前成就的有效翻译数据，翻译将回退到 Steamworks 中指定的语言。</span>`,
         desktop: "在桌面上切换运行应用程序的快捷方式",
         startwin: "登录后自动启动Steam Achievement Notifier",
         startmin: "启动后，隐藏应用程序UI窗口，直到从系统托盘中打开",

@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "Limba"
+            title: "Limba",
+            content: {
+                steamlang: "Tradu realizările în limba Steam",
+                maxsteamlangretries: "Număr maxim de încercări de traducere"
+            }
         },
         os: {
             title: "Sistem de operare",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Alăturați-vă pe Discord!",
         github: "Raportați o problemă",
         lang: "Selectați limba UI utilizată în aplicație",
+        steamlang: `Încercați să încărcați traduceri aflate în fișierele aplicației Steam pentru a afișa informațiile despre realizări în limba aleasă de utilizator în clientul Steam<br><br><span class="ttdesc">Această opțiune încearcă să găsească traduceri într-un fișier JSON stocat în datele aplicației Steam. Dacă nu se găsește o traducere pentru realizarea curentă, vor fi afișate informațiile despre realizare recuperate din Steamworks.</span>`,
+        maxsteamlangretries: `Numărul de încercări (la fiecare 100 ms) pentru a găsi traduceri valide pentru realizarea curentă<br><br><span class="ttdesc">Steam stochează în prezent doar o mică cantitate de date despre realizări în fișierul JSON asociat fiecărui joc. Orice realizări care nu sunt prezente în acest fișier vor fi adăugate după ce realizarea este deblocată.<br><br>Deoarece adăugarea de noi date poate dura, creșterea acestei valori va crește șansele de a găsi datele de traducere pentru realizarea curentă, dar poate întârzia, de asemenea, apariția notificării pe ecran cu timpul calculat de această setare.<br><br>Dacă nu se găsesc date valide de traducere pentru realizarea curentă, traducerea va reveni la limba specificată în Steamworks.</span>`,
         desktop: "Comutați o scurtătură pe Desktop pentru a rula aplicația",
         startwin: "Porniți Steam Achievement Notifier automat după autentificare",
         startmin: "După lansare, ascundeți fereastra UI a aplicației până când este deschisă din Tava de sistem",

@@ -86,6 +86,8 @@ declare interface Config {
     //     avatarurl: string,
     //     webhookurl: string
     // },
+    steamlang: boolean,
+    maxsteamlangretries: number,
     customisation: {
         main: Customisation,
         rare: Customisation,

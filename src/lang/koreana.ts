@@ -83,7 +83,11 @@ export const translations = {
     },
     settings: {
         language: {
-            title: "언어"
+            title: "언어",
+            content: {
+                steamlang: "성취를 Steam 언어로 번역하기",
+                maxsteamlangretries: "최대 번역 시도 횟수"
+            }
         },
         os: {
             title: "운영 체제",
@@ -345,6 +349,8 @@ export const translations = {
         discord: "Discord에 가입하기!",
         github: "문제 보고",
         lang: "앱에서 사용되는 UI 언어 선택",
+        steamlang: `Steam의 애플리케이션 파일에 있는 번역을 로드하여 사용자가 선택한 언어로 성취 정보를 표시하려고 시도합니다<br><br><span class="ttdesc">이 옵션은 Steam의 애플리케이션 데이터에 저장된 JSON 파일에서 번역을 찾으려고 시도합니다. 현재 성취의 번역을 찾을 수 없는 경우, 대신 Steamworks에서 가져온 성취 정보가 표시됩니다.</span>`,
+        maxsteamlangretries: `현재 성취에 대한 유효한 번역을 찾기 위한 시도 횟수 (100ms마다)<br><br><span class="ttdesc">Steam은 현재 각 게임과 연결된 JSON 파일에 적은 양의 성취 데이터만 저장합니다. 이 파일에 없는 성취는 성취가 잠금 해제된 후에 추가됩니다.<br><br>새로운 데이터를 추가하는 데 시간이 걸릴 수 있으므로 이 값을 높이면 현재 성취에 대한 번역 데이터를 찾을 가능성이 높아지지만, 이 설정에 의해 계산된 시간만큼 화면에 알림이 표시되는 것이 지연될 수도 있습니다.<br><br>현재 성취에 대한 유효한 번역 데이터를 찾을 수 없는 경우, 번역은 Steamworks에서 지정한 언어로 돌아갑니다.</span>`,
         desktop: "데스크톱에 앱 실행 바로 가기 전환",
         startwin: "로그인 후 Steam Achievement Notifier 자동 시작",
         startmin: "실행 후, 시스템 트레이에서 열릴 때까지 앱 UI 창 숨기기",

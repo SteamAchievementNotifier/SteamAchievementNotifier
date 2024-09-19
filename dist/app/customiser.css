@@ -76,6 +76,7 @@ body[plat] #customisercontent .wrapper:has(> .img#hiddenicon) {
 #customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#tertiarycolor),
 #customiseropts:has(.opt > select#preset > option[value="ps5"]:checked) .opt:has(#tertiarycolor),
 #customiseropts:has(.opt > select#preset > option[value="ps4"]:checked) .opt:has(#tertiarycolor),
+#customiseropts:has(.opt > select#preset > option[value="gfwl"]:checked) .opt:has(#tertiarycolor),
 #customiseropts:has(.opt > select#preset > option[value="steamdeck"]:checked) .opt:has(#alldetails),
 #customiseropts:has(.opt > select#preset > option[value="epicgames"]:checked) .opt:has(#alldetails),
 #customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#alldetails),

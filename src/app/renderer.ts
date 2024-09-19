@@ -162,74 +162,79 @@ const resizewebview = () => {
 }
 
 const loadwebview = () => {
-    (sanhelper.devmode && webview) && webview.closeDevTools()
-    pause = false
-    document.querySelector("#webviewbtns > #playback")!.toggleAttribute("paused",pause)
-
-    const type = sanhelper.type as "main" | "rare" | "plat"
-
-    return new Promise<void>(resolve => {
-        removeelems([webview,nopreview])
-        resolve()
-    })
-    .then(async () => {
-        const os = config.get(`customisation.${type}.preset`) === "os"
-
-        if (os) {
-            nopreview = document.createElement("span")
-            nopreview.id = "nopreview"
-            nopreview.textContent = await language.get("nopreview")
-            return webview = null
-        }
-
-        if (config.get("usecustomfiles")) {
-            const presetsdir = fs.readdirSync(path.join(sanhelper.appdata,"customfiles","notify","presets")).filter(file => file !== "presets.json")
-            const presetnames = JSON.parse(fs.readFileSync(path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json")).toString())
-            const ordered = Object.keys(presetnames).filter(preset => presetsdir.includes(preset))
-            const presetbox = document.querySelector("select#preset")! as HTMLSelectElement
-
-            presetbox.innerHTML = ""
-
-            ordered.forEach(preset => {
-                const opt = document.createElement("option")
-                opt.value = preset
-                opt.textContent = presetnames[preset] || preset
-                presetbox.appendChild(opt)
-            })
-        }
-
-        webview = document.createElement("webview") as Electron.WebviewTag
-        webview.webpreferences = "nodeIntegration=true, contextIsolation=false"
-        webview.src = config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html");
-        webview.style.opacity = "0"
-        webview.shadowRoot!.querySelector("iframe")!.style.width = "auto"
-
-        window.addEventListener("resize",resizewebview)
-
-        const cmds = new Map<string,string>([
-            ["scale",`"0.75"`],
-            ["overflow",`"visible"`]
-        ])
-
-        const scaledpresets = [
-            "xqjan"
-        ]
-
-        // Fixes an issue where the font size is displayed smaller in Customiser Previews, due to scaling used on these presets
-        scaledpresets.forEach(preset => config.get(`customisation.${type}.preset`) === preset && cmds.set("fontSize",`"clamp(0.05rem,0.05rem + 4.25vmax,12.5rem)"`))
-
-        webview.addEventListener("dom-ready", () => {
-            resizewebview()
-            cmds.forEach((value,key) => webview!.executeJavaScript(`document.documentElement.style.${key} = ${value}`))
-
-            // Fixes an issue where the "Glow" effect gets cut off in Customiser Previews when used in conjunction with the "Mask" option, due to scaling used on these presets
-            scaledpresets.forEach(preset => config.get(`customisation.${type}.preset`) === preset && webview!.executeJavaScript(`document.body.style.width = "calc(100vw + 50px)"`))
+    try {
+        (sanhelper.devmode && webview) && webview.closeDevTools()
+        pause = false
+        document.querySelector("#webviewbtns > #playback")!.toggleAttribute("paused",pause)
+    
+        const type = sanhelper.type as "main" | "rare" | "plat"
+    
+        return new Promise<void>(resolve => {
+            removeelems([webview,nopreview])
+            resolve()
         })
-    })
-    .finally(() => {
-        document.querySelector(".wrapper#webview > .wrapper")!.appendChild(webview || nopreview!)
-        webview && webview.addEventListener("dom-ready",sendtestnotify)
-    })
+        .then(async () => {
+            const os = config.get(`customisation.${type}.preset`) === "os"
+    
+            if (os) {
+                nopreview = document.createElement("span")
+                nopreview.id = "nopreview"
+                nopreview.textContent = await language.get("nopreview")
+                return webview = null
+            }
+    
+            if (config.get("usecustomfiles")) {
+                const presetsdir = fs.readdirSync(path.join(sanhelper.appdata,"customfiles","notify","presets")).filter(file => file !== "presets.json")
+                const presetnames = JSON.parse(fs.readFileSync(path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json")).toString())
+                const ordered = Object.keys(presetnames).filter(preset => presetsdir.includes(preset))
+                const presetbox = document.querySelector("select#preset")! as HTMLSelectElement
+    
+                presetbox.innerHTML = ""
+    
+                ordered.forEach(preset => {
+                    const opt = document.createElement("option")
+                    opt.value = preset
+                    opt.textContent = presetnames[preset] || preset
+                    presetbox.appendChild(opt)
+                })
+            }
+    
+            webview = document.createElement("webview") as Electron.WebviewTag
+            webview.webpreferences = "nodeIntegration=true, contextIsolation=false"
+            webview.src = config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html");
+            webview.style.opacity = "0"
+            webview.shadowRoot!.querySelector("iframe")!.style.width = "auto"
+    
+            window.addEventListener("resize",resizewebview)
+    
+            const cmds = new Map<string,string>([
+                ["scale",`"0.75"`],
+                ["overflow",`"visible"`]
+            ])
+    
+            const scaledpresets = [
+                "xqjan"
+            ]
+    
+            // Fixes an issue where the font size is displayed smaller in Customiser Previews, due to scaling used on these presets
+            scaledpresets.forEach(preset => config.get(`customisation.${type}.preset`) === preset && cmds.set("fontSize",`"clamp(0.05rem,0.05rem + 4.25vmax,12.5rem)"`))
+    
+            webview.addEventListener("dom-ready", () => {
+                resizewebview()
+                cmds.forEach((value,key) => webview!.executeJavaScript(`document.documentElement.style.${key} = ${value}`))
+    
+                // Fixes an issue where the "Glow" effect gets cut off in Customiser Previews when used in conjunction with the "Mask" option, due to scaling used on these presets
+                scaledpresets.forEach(preset => config.get(`customisation.${type}.preset`) === preset && webview!.executeJavaScript(`document.body.style.width = "calc(100vw + 50px)"`))
+            })
+        })
+        .catch(err => log.write("ERROR",(err as Error).stack || (err as Error).message))
+        .finally(() => {
+            document.querySelector(".wrapper#webview > .wrapper")!.appendChild(webview || nopreview!)
+            webview && webview.addEventListener("dom-ready",sendtestnotify)
+        })
+    } catch (err) {
+        log.write("ERROR",(err as Error).stack || (err as Error).message)
+    }
 }
 
 const audioextensions = [

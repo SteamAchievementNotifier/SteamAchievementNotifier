@@ -107,7 +107,8 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
             const usedecoration = [
                 "epicgames",
                 "xboxone",
-                "xbox360"
+                "xbox360",
+                "gfwl"
             ]
 
             if (id.includes("decorationpos")) {

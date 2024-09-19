@@ -121,6 +121,17 @@ export const sanconfig = {
                 elems: ["unlockmsg","title","desc"],
                 sselems: ["unlockmsg","title","desc"]
             }],
+            ["gfwl",{
+                logo: sanhelper.setfilepath("img","sanlogotrophy_small.svg"),
+                decoration: null,
+                index: {
+                    percent: 2,
+                    hiddenicon: 2,
+                    decoration: 1
+                } as Index,
+                elems: ["unlockmsg","title"],
+                sselems: ["unlockmsg","title"]
+            }],
             ["os",{
                 logo: null,
                 decoration: null,
@@ -208,7 +219,8 @@ export const sanconfig = {
                 "ps5",
                 "ps4",
                 "ps3",
-                "windows"
+                "windows",
+                "gfwl"
             ],
             webhooks: false,
             webhookurl: "",

@@ -185,7 +185,7 @@ const notifyhelper = {
                 ["--decoration",getcustomicon("decoration")],
                 ["--decorationdisplaytype","block"],
                 ["--gs",customisation.usepercent ? `${percent.value.toFixed(1)}` : `${getpercent()}`],
-                ["--unit",customisation.usepercent ? "%" : (customisation.preset === "epicgames" ? " XP" : (customisation.preset === "xbox360" ? "G" : ""))],
+                ["--unit",customisation.usepercent ? "%" : (customisation.preset === "epicgames" ? " XP" : (customisation.preset === "xbox360" || customisation.preset === "gfwl" ? "G" : ""))],
                 ["--raritycolor",`${percent.value >= 50 ? "#a05526" : (percent.value < 50 && percent.value > percent.rarity ? "#828282" : "#b4904a")}`],
                 ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`],
                 ["--glow",customisation.glow ? `drop-shadow(${(customisation.glowx * (customisation.scale / 100)) / 10}px ${(customisation.glowy * (customisation.scale / 100)) / 10}px var(--glowsize) var(--glowcolor))` : "none"],
@@ -201,7 +201,7 @@ const notifyhelper = {
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")
-            const gselems = xpwrapper ? [xpwrapper] : ((customisation.preset === "xboxone" || customisation.preset === "xbox360") ? ["title","desc"].map(id => document.getElementById(id)) : [null])
+            const gselems = xpwrapper ? [xpwrapper] : ((customisation.preset === "xboxone" || customisation.preset === "xbox360" || customisation.preset === "gfwl") ? ["title","desc"].map(id => document.getElementById(id)) : [null])
 
             gselems.every(elem => elem !== null) && gselems.forEach(elem => ["gs","unit"].forEach(prop => elem!.setAttribute(prop,properties.get(`--${prop}`)!)))
 

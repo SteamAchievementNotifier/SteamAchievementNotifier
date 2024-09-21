@@ -636,6 +636,7 @@ input[type="range"][unit],
 
 .wrapper#elemselector > .wrapper {
     grid-template-columns: 1fr;
+    grid-column: 1 / -1;
     margin: 0;
     padding: 0.35rem;
     border-radius: 0 var(--elembr) var(--elembr) var(--elembr);
@@ -662,6 +663,37 @@ input[type="range"][unit],
     background-color: var(--darkgrey);
 }
 
-.wrapper#elemselector > .wrapper > .wrapper:has(select#desc) {
+.wrapper#elemselector > .wrapper > .wrapper:has(select#desc,select#decorationpos,select#ssdecorationpos),
+.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:checked) {
     margin-bottom: 0.5rem;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:not(:checked)) {
+    opacity: 0.5;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:not(:checked,:hover)) > .wrapper > input {
+    background-color: var(--mediumgrey);
+}
+
+.wrapper#elemselector > .wrapper:has(input[id$="percentbadge"]:not(:checked)) > .wrapper:has(select[id$="percentbadgepos"],input[id*="percentbadge"]:not(input#percentbadge,input#sspercentbadge)) {
+    display: none;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(> [id*="percentbadge"]:not(input#percentbadge,input#sspercentbadge)) {
+    grid-template-columns: 2fr 1fr;
+    gap: 0.5rem;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(input[type="color"]) > input {
+    width: 100%;
+    height: 1rem;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(input[type="color"]) > input[type="color"]::-webkit-color-swatch {
+    border-radius: 0.15rem;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(input[type="range"]) {
+    grid-template-columns: 1fr 1fr;
 }

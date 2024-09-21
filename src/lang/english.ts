@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Game EXE not found!",
         noexesub: `Select Options > Release Game from the System Tray to quit`,
         webhookunlockmsg: "$user unlocked an achievement",
-        webhookingame: "in $gamename"
+        webhookingame: "in $gamename",
+        percentbadge: "Percentage Badge",
+        sspercentbadge: "Percentage Badge",
+        percentbadgepos: "Badge Position",
+        sspercentbadgepos: "Badge Position",
+        percentbadgecolor: "Badge Color",
+        sspercentbadgecolor: "Badge Color",
+        percentbadgefontsize: "Badge Size",
+        sspercentbadgefontsize: "Badge Size",
+        percentbadgeroundness: "Badge Roundness",
+        sspercentbadgeroundness: "Badge Roundness",
+        "top": "Top",
+        "bottom": "Bottom"
     },
     app: {
         content: {
@@ -477,7 +489,17 @@ export const translations = {
         hiddeniconpos: "Set the position of the hidden/secret achievement icon within the $type",
         sshiddeniconpos: "Set the position of the hidden/secret achievement icon within the $type",
         decorationpos: "Set the position of the decoration element within the $type",
-        ssdecorationpos: "Set the position of the decoration element within the $type"
+        ssdecorationpos: "Set the position of the decoration element within the $type",
+        percentbadge: "",
+        sspercentbadge: "",
+        percentbadgepos: "",
+        sspercentbadgepos: "",
+        percentbadgecolor: "",
+        sspercentbadgecolor: "",
+        percentbadgefontsize: "",
+        sspercentbadgefontsize: "",
+        percentbadgeroundness: "",
+        sspercentbadgeroundness: ""
     },
     update: {
         updateavailable: "Update available",

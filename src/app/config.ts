@@ -68,7 +68,7 @@ export const sanconfig = {
                 sselems: ["unlockmsg","title"]
             }],
             ["xbox360",{
-                logo: sanhelper.setfilepath("img","sanlogotrophy.svg"),
+                logo: sanhelper.setfilepath("img","sanlogotrophy_small.svg"),
                 decoration: null,
                 index: {
                     percent: 1,
@@ -125,8 +125,8 @@ export const sanconfig = {
                 logo: sanhelper.setfilepath("img","sanlogotrophy_small.svg"),
                 decoration: null,
                 index: {
-                    percent: 2,
-                    hiddenicon: 2,
+                    percent: 1,
+                    hiddenicon: 1,
                     decoration: 1
                 } as Index,
                 elems: ["unlockmsg","title"],
@@ -327,6 +327,16 @@ export const sanconfig = {
                 usepercent: false,
                 percentpos: 1,
                 sspercentpos: 1,
+                percentbadge: false,
+                sspercentbadge: false,
+                percentbadgepos: "bottom",
+                sspercentbadgepos: "bottom",
+                percentbadgecolor: `#${type === "main" ? "203e7a" : (type === "rare" ? "663399" : "4e75c9")}`,
+                sspercentbadgecolor: `#${type === "main" ? "203e7a" : (type === "rare" ? "663399" : "4e75c9")}`,
+                percentbadgefontsize: 100,
+                sspercentbadgefontsize: 100,
+                percentbadgeroundness: 50,
+                sspercentbadgeroundness: 50,
                 usertheme: [] as UserTheme[]
             }
 
@@ -426,6 +436,23 @@ export const sanconfig = {
                     log.write("INFO",`"${key}" written to ${type ? `"customisation.${type}"` : "config"} successfully`)
                 } catch (err) {
                     log.write("ERROR",`Error writing missing "${key}" key to config: ${err as Error}`)
+                }
+            }
+
+            const ssalldetails = "ssalldetails"
+
+            if (!type && key === ssalldetails) {
+                for (const id of obj[key] as any) {
+                    if (!config.get(key).includes(id)) {
+                        log.write("ERROR",`"${id}" missing in "config.${ssalldetails}"`)
+                        
+                        try {
+                            config.set(ssalldetails,obj[key as string])
+                            log.write("INFO",`"${id}" written to "config.${ssalldetails}" successfully`)
+                        } catch (err) {
+                            log.write("ERROR",`Error writing missing "${id}" key to "config.${ssalldetails}": ${err as Error}`)
+                        }
+                    }
                 }
             }
         }

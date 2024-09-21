@@ -12,34 +12,39 @@
 }
 
 .wrapper#bg {
-    opacity: 0;
     width: 0%;
+    opacity: 0;
     animation:
         grow calc(var(--transition) * 2) calc(var(--transition) / 2) forwards,
         shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 2.5)) forwards;
 }
 
+body[ss] .wrapper#bg {
+    width: 100%;
+    opacity: var(--opacity);
+}
+
 @keyframes grow {
     from {
-        opacity: 0;
         width: 0%;
+        opacity: 0;
     }
 
     to {
-        opacity: 1;
         width: 100%;
+        opacity: var(--opacity);
     }
 }
 
 @keyframes shrink {
     from {
-        opacity: 1;
         width: 100%;
+        opacity: var(--opacity);
     }
 
     to {
-        opacity: 0;
         width: 0%;
+        opacity: 0;
     }
 }
 
@@ -51,6 +56,12 @@
     outline: var(--inset);
     outline-offset: calc((2px * var(--scale)) * -1);
     border-radius: var(--roundness);
+}
+
+.wrapper#bg > div,
+.wrapper#bg::after {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
 }
 
 #bg > div::before,
@@ -78,6 +89,7 @@
 }
 
 .wrapper#achiconwrapper {
+    --op: var(--opacity);
     position: relative;
     outline: var(--outset);
     border-radius: var(--iconroundness);
@@ -87,37 +99,48 @@
     overflow: hidden;
     background-color: var(--primarycolor);
     filter: drop-shadow(0 0 0.25rem var(--bgshadowcolor));
+    scale: 0;
+    opacity: 0;
     animation:
         popin calc(var(--transition) * 2) forwards,
         popout calc(var(--transition) * 2) calc(var(--displaytime) - calc(var(--transition) * 2)) forwards;
 }
 
+body[bgonly] .wrapper#achiconwrapper {
+    --op: 1;
+}
+
+body[ss] .wrapper#achiconwrapper {
+    scale: 1 !important;
+    opacity: 1 !important;
+}
+
 @keyframes popin {
     from {
-        opacity: 0;
         scale: 0;
+        opacity: 0;
     }
 
     50% {
-        opacity: 0.75;
         scale: 1.2;
+        opacity: calc(var(--op) * 0.75);
     }
 
     to {
-        opacity: 1;
         scale: 1;
+        opacity: var(--op);
     }
 }
 
 @keyframes popout {
     from {
-        opacity: 1;
         scale: 1;
+        opacity: var(--op);
     }
 
     50% {
-        opacity: 0.75;
         scale: 1.2;
+        opacity: calc(var(--op) * 0.75);
     }
 
     to {
@@ -154,12 +177,12 @@
     grid-column-start: 1;
     grid-row-start: 1;
     width: 100%;
-    height: 85%;
+    height: 100%;
     align-self: end;
-    margin-bottom: 0.25rem;
-    background-image: linear-gradient(180deg,transparent 5%,var(--tertiarycolor) 50%,var(--tertiarycolor) 65%,transparent 100%);
+    background-image: linear-gradient(180deg,transparent 15%,var(--tertiarycolor) 50%,var(--tertiarycolor) 65%,transparent 100%);
     filter: brightness(0.75);
     mix-blend-mode: multiply;
+    border-radius: var(--iconroundness);
     z-index: 1;
 }
 
@@ -173,17 +196,17 @@
     grid-row-start: 1;
     border-radius: var(--iconroundness);
     z-index: 1;
-    opacity: 1;
+    opacity: var(--opacity);
     animation: altfade calc(var(--transition) * 20) calc(var(--transition) * 5) infinite;
 }
 
 @keyframes altfade {
-    from { opacity: 1; }
-    20% { opacity: 1; }
+    from { opacity: var(--opacity); }
+    20% { opacity: var(--opacity); }
     30% { opacity: 0; }
     45% { opacity: 0; }
-    55% { opacity: 1; }
-    to { opacity: 1; }
+    55% { opacity: var(--opacity); }
+    to { opacity: var(--opacity); }
 }
 
 #achicon {
@@ -194,45 +217,49 @@
     z-index: 10;
 }
 
+body[ss] #achicon {
+    opacity: 1;
+}
+
 @keyframes altbounce {
     from {
-        opacity: 0;
         scale: 1;
+        opacity: 0;
     }
 
     15% {
-        opacity: 1;
         scale: 1;
+        opacity: var(--opacity);
     }
 
     20% {
-        opacity: 1;
         scale: 1;
+        opacity: var(--opacity);
     }
 
     25% {
-        opacity: 1;
         scale: 0.8;
+        opacity: var(--opacity);
     }
 
     30% {
-        opacity: 1;
         scale: 1;
+        opacity: var(--opacity);
     }
 
     35% {
-        opacity: 1;
         scale: 1;
+        opacity: var(--opacity);
     }
 
     50% {
-        opacity: 0;
         scale: 1;
+        opacity: 0;
     }
 
     to {
-        opacity: 0;
         scale: 1;
+        opacity: 0;
     }
 }
 
@@ -254,15 +281,15 @@
 
 .wrapper#achcontent > span {
     font-family: "customfont","Source Sans Pro Light";
-    font-size: 1.6rem;
+    font-size: calc(1.6rem * var(--fontsize));
     font-weight: bold;
-    line-height: 1.05;
+    line-height: 1.25;
     letter-spacing: 0.025rem;
     -webkit-line-clamp: 1;
 }
 
 body:not([alldetails]) .wrapper#achcontent > span:not(:empty,:first-child) {
-    margin-top: 0.55rem;
+    margin-top: 0.4rem;
 }
 
 .wrapper#achcontent > #unlockmsg:has(> #decoration) + #title:not(:empty)::before {

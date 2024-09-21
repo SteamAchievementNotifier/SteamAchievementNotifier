@@ -168,6 +168,8 @@ const notifyhelper = {
     
             gameiconurl && ((document.getElementById("achicon")! as HTMLImageElement)!.src = gameiconurl)
 
+            const ss = iswebview && iswebview.startsWith("ss") ? "ss" : ""
+
             const properties = new Map<string,string>([
                 ["--displaytime",`${customisation.displaytime}s`],
                 ["--scale",`${customisation.scale / 100}`],
@@ -197,7 +199,11 @@ const notifyhelper = {
                 ["--mask",customisation.mask ? `url('${customisation.maskimg}') center / cover no-repeat` : "none"],
                 ["--outline",customisation.outline !== "off" ? customisation.outline : "none"],
                 ["--outlinecolor",customisation.outlinecolor],
-                ["--outlinewidth",`${(customisation.outlinewidth / 25) * (customisation.scale / 100)}px`]
+                ["--outlinewidth",`${(customisation.outlinewidth / 25) * (customisation.scale / 100)}px`],
+                ["--badgepos",customisation[`${ss}percentbadgepos`] === "top" ? "start" : "end"],
+                ["--badgecolor",customisation[`${ss}percentbadgecolor`]],
+                ["--badgesize",`${(customisation[`${ss}percentbadgefontsize`] / 10) * (customisation.scale / 100)}px`],
+                ["--badgeroundness",customisation[`${ss}percentbadgeroundness`] === 100 ? "50%" : `${(customisation[`${ss}percentbadgefontsize`] / 4) / (customisation[`${ss}percentbadgeroundness`] / 10)}px`]
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")
@@ -217,7 +223,6 @@ const notifyhelper = {
             const attrs = [
                 "bgstyle",
                 "bgonly",
-                // "alldetails",
                 iswebview === "sspreview" || iswebview === "ss" ? "ovpos" : "pos"
             ]
     
@@ -245,8 +250,6 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
     try {
         document.body.setAttribute(type,"")
         !customisation.iconanim && document.body.setAttribute("noiconanim","")
-        // document.body.toggleAttribute("alldetails",customisation.alldetails)
-        // document.body.toggleAttribute("nodecoration",!customisation.showdecoration)
 
         const fastanimmap = new Map<string,number>([
             ["xqjan",8],
@@ -288,7 +291,10 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
             const achicons = document.querySelectorAll("#achicon")!
             achicons.forEach(achicon => (achicon as HTMLImageElement)!.src = icon)
 
-            const percentstr = `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${Math.max(parseFloat(percent.value.toFixed(1)),0.1)}%)` : ""}`
+            const percentvalue = Math.max(parseFloat(percent.value.toFixed(1)),0.1)
+            const percentstr = customisation.percentbadge ? "" : `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${percentvalue}%)` : ""}`
+
+            customisation[`${iswebview && iswebview.startsWith("ss") ? "ss" : ""}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge">${percentvalue}%</span>`))
 
             const str = {
                 unlockmsg: unlockmsg,

@@ -310,3 +310,7 @@ body[ss] .wrapper#xpwrapper {
     margin-inline: calc(10px * var(--scale)) calc(25px * var(--scale));
     opacity: 1;
 }
+
+#badge {
+    font-size: calc(var(--badgesize) * 1.5);
+}

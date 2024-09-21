@@ -13,7 +13,17 @@ export const selectorelems = [
     "decorationpos",
     "sspercentpos",
     "sshiddeniconpos",
-    "ssdecorationpos"
+    "ssdecorationpos",
+    "percentbadge",
+    "sspercentbadge",
+    "percentbadgepos",
+    "sspercentbadgepos",
+    "percentbadgecolor",
+    "sspercentbadgecolor",
+    "percentbadgefontsize",
+    "sspercentbadgefontsize",
+    "percentbadgeroundness",
+    "sspercentbadgeroundness"
 ]
 
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
@@ -86,7 +96,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     const html = fs.readFileSync(path.join(__root,"dist","app","elemselector.html")).toString()
     elem.insertAdjacentHTML("afterend",html)
 
-    ;["overlay","notifyimg"].forEach(id => elemtype === "sselems" && menutype.querySelector("#elemselector")!.setAttribute(id,""))
+    ;["overlay","notifyimg"].forEach(attr => elemtype === "sselems" && menutype.querySelector("#elemselector")!.setAttribute(attr,""))
     
     posids.forEach(id => menutype.querySelector(`#${id.replace(/^ss/,"")}`)!.id = id)
     menutype.querySelector(`#elemselector > span.lbl`)!.textContent = global["elemselector"]
@@ -94,16 +104,15 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     if (!elems) return
 
-    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(select) > select`).forEach(s => {
+    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(select) > select:not(select[id*="percentbadge"])`).forEach(s => {
         const select = s as HTMLSelectElement
         select.onchange = null
 
         const id = posids.find(id => select.id.includes(id))
 
         if (id) {
-            // if (id.includes("decorationpos") && (!sanconfig.defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.decoration || config.get(`customisation.${type}.preset`) === "epicgames")) return select.parentElement!.remove()
             const preset = config.get(`customisation.${type}.preset`) as string
-            // !!! Fix tooltips not showing on these presets
+
             const usedecoration = [
                 "epicgames",
                 "xboxone",
@@ -121,7 +130,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
                 }
             }
 
-            if (type === "plat" && id.includes("hiddeniconpos")) return select.parentElement!.remove()
+            if ((type === "plat" && id.includes("hiddeniconpos")) || (config.get(`customisation.${type}.${elemtype === "sselems" ? "ss" : ""}percentbadge`) && id.includes("percentpos"))) return select.parentElement!.remove()
 
             const pos = config.get(`customisation.${type}.${id}`) as number
             select.value = pos > 0 ? pos.toString() : "off"
@@ -145,5 +154,49 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         }
         
         updateopts(select,elems,max)
+    })
+
+    const inputids = [
+        "percentbadge",
+        "percentbadgepos",
+        "percentbadgecolor",
+        "percentbadgefontsize",
+        "percentbadgeroundness"
+    ].map(id => `${elemtype === "sselems" ? "ss" : ""}${id}`)
+
+    inputids.forEach(id => menutype.querySelector(`#${id.replace(/^ss/,"")}`)!.id = id)
+
+    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(input) > input`)!.forEach(i => {
+        const input = i as HTMLInputElement
+        input.parentElement!.querySelector("span")!.textContent = global[input.id]
+
+        if (input.type === "checkbox") {
+            input.checked = config.get(`customisation.${type}.${input.id}`) as boolean
+        } else {
+            input.value = config.get(`customisation.${type}.${input.id}`).toString() as string
+        }
+
+        input.onchange = event => {
+            const elem = event.target as HTMLInputElement
+            config.set(`customisation.${type}.${elem.id}`,elem.type === "checkbox" ? elem.checked : (elem.type === "color" ? elem.value : parseInt(elem.value)))
+
+            sanhelper.updatetabs()
+            sanhelper.loadadditionaltooltips(menutype)
+        }
+    })
+
+    menutype.querySelectorAll(`select[id*="percentbadge"]`).forEach(s => {
+        const select = s as HTMLSelectElement
+
+        select.value = config.get(`customisation.${type}.${select.id}`) as string
+        select.querySelectorAll("option").forEach(opt => opt.textContent = global[opt.value])
+
+        select.onchange = event => {
+            const elem = event.target as HTMLSelectElement
+            config.set(`customisation.${type}.${elem.id}`,elem.value)
+
+            sanhelper.updatetabs()
+            sanhelper.loadadditionaltooltips(menutype)
+        }
     })
 }

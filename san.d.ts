@@ -171,6 +171,16 @@ declare interface Customisation {
     usepercent: boolean,
     percentpos: number,
     sspercentpos: number,
+    percentbadge: boolean,
+    sspercentbadge: boolean,
+    percentbadgepos: "top" | "bottom",
+    sspercentbadgepos: "top" | "bottom",
+    percentbadgecolor: string,
+    sspercentbadgecolor: string,
+    percentbadgefontsize: number,
+    sspercentbadgefontsize: number,
+    percentbadgeroundness: number,
+    sspercentbadgeroundness: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object
 }

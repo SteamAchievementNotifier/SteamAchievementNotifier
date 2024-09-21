@@ -38,6 +38,10 @@
     --glowspeed: 5;
     --blur: 0px;
     --mask: none;
+    --badgepos: "end";
+    --badgecolor: #203e7a;
+    --badgesize: 1rem;
+    --badgeroundness: 5px;
     font-size: clamp(0.05rem,0.05rem + 3vmax,12.5rem);
     line-height: 1;
 }
@@ -264,4 +268,19 @@ body[nodecoration] .wrapper#achcontent > span {
     background: var(--hiddenicon) center / contain no-repeat;
     margin-right: calc(0.25rem * var(--fontsize));
     vertical-align: calc(-0.5px * var(--fontsize));
+}
+
+#badge {
+    display: grid;
+    text-align: center;
+    justify-self: center;
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    align-self: var(--badgepos);
+    background-color: var(--badgecolor);
+    font-size: var(--badgesize);
+    border-radius: var(--badgeroundness);
+    padding: calc(var(--badgesize) / 4) calc(var(--badgesize) / 3);
+    filter: drop-shadow(0 0 0.15rem var(--mediumgrey));
+    z-index: 100;
 }

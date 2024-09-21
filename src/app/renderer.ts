@@ -227,13 +227,13 @@ const loadwebview = () => {
                 scaledpresets.forEach(preset => config.get(`customisation.${type}.preset`) === preset && webview!.executeJavaScript(`document.body.style.width = "calc(100vw + 50px)"`))
             })
         })
-        .catch(err => log.write("ERROR",(err as Error).stack || (err as Error).message))
+        .catch(err => log.write("ERROR",err as Error))
         .finally(() => {
             document.querySelector(".wrapper#webview > .wrapper")!.appendChild(webview || nopreview!)
             webview && webview.addEventListener("dom-ready",sendtestnotify)
         })
     } catch (err) {
-        log.write("ERROR",(err as Error).stack || (err as Error).message)
+        log.write("ERROR",err as Error)
     }
 }
 

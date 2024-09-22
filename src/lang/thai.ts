@@ -72,7 +72,19 @@ export const translations = {
         noexe: "ไม่พบไฟล์ EXE ของเกม!",
         noexesub: `เลือกตัวเลือก > ออกจากเกมจาก System Tray เพื่อออก`,
         webhookunlockmsg: "$user ได้ปลดล็อกความสำเร็จ",
-        webhookingame: "ใน $gamename"
+        webhookingame: "ใน $gamename",
+        percentbadge: "ตราสัญลักษณ์เปอร์เซ็นต์",
+        sspercentbadge: "ตราสัญลักษณ์เปอร์เซ็นต์",
+        percentbadgepos: "ตำแหน่งตราสัญลักษณ์",
+        sspercentbadgepos: "ตำแหน่งตราสัญลักษณ์",
+        percentbadgecolor: "สีตราสัญลักษณ์",
+        sspercentbadgecolor: "สีตราสัญลักษณ์",
+        percentbadgefontsize: "ขนาดตราสัญลักษณ์",
+        sspercentbadgefontsize: "ขนาดตราสัญลักษณ์",
+        percentbadgeroundness: "ความโค้งของตราสัญลักษณ์",
+        sspercentbadgeroundness: "ความโค้งของตราสัญลักษณ์",
+        top: "บน",
+        bottom: "ล่าง"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "ตั้งค่าตำแหน่งของไอคอนความสำเร็จที่ซ่อน/ลับภายใน $type",
         sshiddeniconpos: "ตั้งค่าตำแหน่งของไอคอนความสำเร็จที่ซ่อน/ลับภายใน $type",
         decorationpos: "ตั้งค่าตำแหน่งขององค์ประกอบการตกแต่งภายใน $type",
-        ssdecorationpos: "ตั้งค่าตำแหน่งขององค์ประกอบการตกแต่งภายใน $type"
+        ssdecorationpos: "ตั้งค่าตำแหน่งขององค์ประกอบการตกแต่งภายใน $type",
+        percentbadge: "แสดงเปอร์เซ็นต์การปลดล็อคภายในตราสัญลักษณ์ที่ตั้งอยู่เหนือไอคอนความสำเร็จ/เกม",
+        sspercentbadge: "แสดงเปอร์เซ็นต์การปลดล็อคภายในตราสัญลักษณ์ที่ตั้งอยู่เหนือไอคอนความสำเร็จ/เกม",
+        percentbadgepos: "ตั้งค่าตำแหน่งตราสัญลักษณ์",
+        sspercentbadgepos: "ตั้งค่าตำแหน่งตราสัญลักษณ์",
+        percentbadgecolor: "ตั้งค่าสีพื้นหลังของตราสัญลักษณ์",
+        sspercentbadgecolor: "ตั้งค่าสีพื้นหลังของตราสัญลักษณ์",
+        percentbadgefontsize: "ตั้งค่าขนาดตราสัญลักษณ์",
+        sspercentbadgefontsize: "ตั้งค่าขนาดตราสัญลักษณ์",
+        percentbadgeroundness: "ตั้งค่าความโค้งของตราสัญลักษณ์",
+        sspercentbadgeroundness: "ตั้งค่าความโค้งของตราสัญลักษณ์"
     },
     update: {
         updateavailable: "มีการอัปเดตใหม่",

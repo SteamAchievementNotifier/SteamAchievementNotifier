@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Spil-EXE ikke fundet!",
         noexesub: `Vælg Indstillinger > Frigør spil fra systembakken for at afslutte`,
         webhookunlockmsg: "$user låste op for en præstation",
-        webhookingame: "i $gamename"
+        webhookingame: "i $gamename",
+        percentbadge: "Procentbadge",
+        sspercentbadge: "Procentbadge",
+        percentbadgepos: "Badgeposition",
+        sspercentbadgepos: "Badgeposition",
+        percentbadgecolor: "Badgefarve",
+        sspercentbadgecolor: "Badgefarve",
+        percentbadgefontsize: "Badgestørrelse",
+        sspercentbadgefontsize: "Badgestørrelse",
+        percentbadgeroundness: "Badgeafrunde",
+        sspercentbadgeroundness: "Badgeafrunde",
+        top: "Øverst",
+        bottom: "Nederst"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Indstil positionen for ikonet for skjult/hemmelig præstation inden i $type",
         sshiddeniconpos: "Indstil positionen for ikonet for skjult/hemmelig præstation inden i $type",
         decorationpos: "Indstil positionen for dekorationselementet inden i $type",
-        ssdecorationpos: "Indstil positionen for dekorationselementet inden i $type"
+        ssdecorationpos: "Indstil positionen for dekorationselementet inden i $type",
+        percentbadge: "Vis procentdelen af låsningen inden i et badge placeret over ikonet for præstationen/spillet",
+        sspercentbadge: "Vis procentdelen af låsningen inden i et badge placeret over ikonet for præstationen/spillet",
+        percentbadgepos: "Indstil badgepositionen",
+        sspercentbadgepos: "Indstil badgepositionen",
+        percentbadgecolor: "Indstil baggrundsfarven for badgen",
+        sspercentbadgecolor: "Indstil baggrundsfarven for badgen",
+        percentbadgefontsize: "Indstil størrelsen på badgen",
+        sspercentbadgefontsize: "Indstil størrelsen på badgen",
+        percentbadgeroundness: "Indstil rundheden af badgen",
+        sspercentbadgeroundness: "Indstil rundheden af badgen"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

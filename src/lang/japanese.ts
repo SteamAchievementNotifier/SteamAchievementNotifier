@@ -72,7 +72,19 @@ export const translations = {
         noexe: "ゲームのEXEファイルが見つかりません！",
         noexesub: `システムトレイから「オプション > ゲームを終了」を選択して終了してください`,
         webhookunlockmsg: "$user がアチーブメントを解除しました",
-        webhookingame: "$gamename で"
+        webhookingame: "$gamename で",
+        percentbadge: "パーセントバッジ",
+        sspercentbadge: "パーセントバッジ",
+        percentbadgepos: "バッジの位置",
+        sspercentbadgepos: "バッジの位置",
+        percentbadgecolor: "バッジの色",
+        sspercentbadgecolor: "バッジの色",
+        percentbadgefontsize: "バッジのサイズ",
+        sspercentbadgefontsize: "バッジのサイズ",
+        percentbadgeroundness: "バッジの丸み",
+        sspercentbadgeroundness: "バッジの丸み",
+        top: "上",
+        bottom: "下"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "$type 内の隠し/秘密のアチーブメントアイコンの位置を設定します",
         sshiddeniconpos: "$type 内の隠し/秘密のアチーブメントアイコンの位置を設定します",
         decorationpos: "$type 内の装飾要素の位置を設定します",
-        ssdecorationpos: "$type 内の装飾要素の位置を設定します"
+        ssdecorationpos: "$type 内の装飾要素の位置を設定します",
+        percentbadge: "達成/ゲームアイコンの上に配置されたバッジ内にロック解除のパーセンテージを表示",
+        sspercentbadge: "達成/ゲームアイコンの上に配置されたバッジ内にロック解除のパーセンテージを表示",
+        percentbadgepos: "バッジの位置を設定",
+        sspercentbadgepos: "バッジの位置を設定",
+        percentbadgecolor: "バッジの背景色を設定",
+        sspercentbadgecolor: "バッジの背景色を設定",
+        percentbadgefontsize: "バッジのサイズを設定",
+        sspercentbadgefontsize: "バッジのサイズを設定",
+        percentbadgeroundness: "バッジの丸みを設定",
+        sspercentbadgeroundness: "バッジの丸みを設定"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

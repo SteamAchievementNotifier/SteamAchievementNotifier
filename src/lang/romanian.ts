@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Fișierul EXE al jocului nu a fost găsit!",
         noexesub: `Selectați Opțiuni > Ieșire din joc din Bara de Sistem pentru a ieși`,
         webhookunlockmsg: "$user a deblocat o realizare",
-        webhookingame: "în $gamename"
+        webhookingame: "în $gamename",
+        percentbadge: "Badge de Procent",
+        sspercentbadge: "Badge de Procent",
+        percentbadgepos: "Poziția Badge-ului",
+        sspercentbadgepos: "Poziția Badge-ului",
+        percentbadgecolor: "Culoarea Badge-ului",
+        sspercentbadgecolor: "Culoarea Badge-ului",
+        percentbadgefontsize: "Dimensiunea Badge-ului",
+        sspercentbadgefontsize: "Dimensiunea Badge-ului",
+        percentbadgeroundness: "Rotunjirea Badge-ului",
+        sspercentbadgeroundness: "Rotunjirea Badge-ului",
+        top: "Sus",
+        bottom: "Jos"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Setează poziția iconiței de realizare ascunsă/secretă în $type",
         sshiddeniconpos: "Setează poziția iconiței de realizare ascunsă/secretă în $type",
         decorationpos: "Setează poziția elementului de decorație în $type",
-        ssdecorationpos: "Setează poziția elementului de decorație în $type" 
+        ssdecorationpos: "Setează poziția elementului de decorație în $type",
+        percentbadge: "Afișează procentul de deblocare într-un badge plasat deasupra pictogramei realizării/jocului",
+        sspercentbadge: "Afișează procentul de deblocare într-un badge plasat deasupra pictogramei realizării/jocului",
+        percentbadgepos: "Setează poziția badge-ului",
+        sspercentbadgepos: "Setează poziția badge-ului",
+        percentbadgecolor: "Setează culoarea de fundal a badge-ului",
+        sspercentbadgecolor: "Setează culoarea de fundal a badge-ului",
+        percentbadgefontsize: "Setează dimensiunea badge-ului",
+        sspercentbadgefontsize: "Setează dimensiunea badge-ului",
+        percentbadgeroundness: "Setează rotunjirea badge-ului",
+        sspercentbadgeroundness: "Setează rotunjirea badge-ului"
     },
     update: {
         updateavailable: "Actualizare disponibilă",

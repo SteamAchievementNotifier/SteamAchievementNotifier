@@ -72,7 +72,19 @@ export const translations = {
         noexe: "File EXE del gioco non trovato!",
         noexesub: `Seleziona Opzioni > Rilascia Gioco dalla Barra delle Applicazioni per uscire`,
         webhookunlockmsg: "$user ha sbloccato un successo",
-        webhookingame: "in $gamename"
+        webhookingame: "in $gamename",
+        percentbadge: "Badge Percentuale",
+        sspercentbadge: "Badge Percentuale",
+        percentbadgepos: "Posizione del Badge",
+        sspercentbadgepos: "Posizione del Badge",
+        percentbadgecolor: "Colore del Badge",
+        sspercentbadgecolor: "Colore del Badge",
+        percentbadgefontsize: "Dimensione del Badge",
+        sspercentbadgefontsize: "Dimensione del Badge",
+        percentbadgeroundness: "Rondità del Badge",
+        sspercentbadgeroundness: "Rondità del Badge",
+        top: "Alto",
+        bottom: "Basso"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Imposta la posizione dell'icona del successo nascosto/segreto all'interno del $type",
         sshiddeniconpos: "Imposta la posizione dell'icona del successo nascosto/segreto all'interno del $type",
         decorationpos: "Imposta la posizione dell'elemento decorativo all'interno del $type",
-        ssdecorationpos: "Imposta la posizione dell'elemento decorativo all'interno del $type"
+        ssdecorationpos: "Imposta la posizione dell'elemento decorativo all'interno del $type",
+        percentbadge: "Mostra la percentuale di sblocco all'interno di un badge posizionato sopra l'icona del traguardo/gioco",
+        sspercentbadge: "Mostra la percentuale di sblocco all'interno di un badge posizionato sopra l'icona del traguardo/gioco",
+        percentbadgepos: "Imposta la posizione del badge",
+        sspercentbadgepos: "Imposta la posizione del badge",
+        percentbadgecolor: "Imposta il colore di sfondo del badge",
+        sspercentbadgecolor: "Imposta il colore di sfondo del badge",
+        percentbadgefontsize: "Imposta la dimensione del badge",
+        sspercentbadgefontsize: "Imposta la dimensione del badge",
+        percentbadgeroundness: "Imposta la rondità del badge",
+        sspercentbadgeroundness: "Imposta la rondità del badge"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

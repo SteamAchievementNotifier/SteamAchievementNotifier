@@ -72,7 +72,19 @@ export const translations = {
         noexe: "未找到游戏的 EXE 文件！",
         noexesub: `选择选项 > 从系统托盘退出游戏`,
         webhookunlockmsg: "$user 解锁了一个成就",
-        webhookingame: "在 $gamename"
+        webhookingame: "在 $gamename",
+        percentbadge: "百分比徽章",
+        sspercentbadge: "百分比徽章",
+        percentbadgepos: "徽章位置",
+        sspercentbadgepos: "徽章位置",
+        percentbadgecolor: "徽章颜色",
+        sspercentbadgecolor: "徽章颜色",
+        percentbadgefontsize: "徽章大小",
+        sspercentbadgefontsize: "徽章大小",
+        percentbadgeroundness: "徽章圆角",
+        sspercentbadgeroundness: "徽章圆角",
+        top: "上",
+        bottom: "下"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "设置 $type 内隐藏/秘密成就图标的位置",
         sshiddeniconpos: "设置 $type 内隐藏/秘密成就图标的位置",
         decorationpos: "设置 $type 内装饰元素的位置",
-        ssdecorationpos: "设置 $type 内装饰元素的位置"
+        ssdecorationpos: "设置 $type 内装饰元素的位置",
+        percentbadge: "在放置于成就/游戏图标上方的徽章内显示解锁百分比",
+        sspercentbadge: "在放置于成就/游戏图标上方的徽章内显示解锁百分比",
+        percentbadgepos: "设置徽章位置",
+        sspercentbadgepos: "设置徽章位置",
+        percentbadgecolor: "设置徽章背景颜色",
+        sspercentbadgecolor: "设置徽章背景颜色",
+        percentbadgefontsize: "设置徽章大小",
+        sspercentbadgefontsize: "设置徽章大小",
+        percentbadgeroundness: "设置徽章圆角",
+        sspercentbadgeroundness: "设置徽章圆角"
     },
     update: {
         updateavailable: "有可用更新",

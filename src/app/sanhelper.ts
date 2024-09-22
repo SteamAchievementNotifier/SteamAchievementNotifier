@@ -429,6 +429,7 @@ export const sanhelper: SANHelper = {
 
         menuelem.querySelectorAll(`
             #elemselector select,
+            #elemselector input,
             #webhookwrapper input
         `)!.forEach(async elem => {
             const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})`,{
@@ -441,6 +442,37 @@ export const sanhelper: SANHelper = {
             }) as Instance<Props>[]
             
             tippies.push(tt)
+        })
+
+        const range = new Map<string,string>([
+            ["percentbadgefontsize","%"],
+            ["sspercentbadgefontsize","%"],
+            ["percentbadgeroundness","%"],
+            ["sspercentbadgeroundness","%"]
+        ])
+
+        range.forEach((value,key) => {
+            const elem = document.getElementById(key)
+
+            if (elem) {
+                const tt = tippy(`#${key}`,{
+                    ...defaulttippy,
+                    content: `${(elem as HTMLInputElement).value}${value}`,
+                    appendTo: "parent",
+                    hideOnClick: false,
+                    placement: "top",
+                    followCursor: false,
+                    offset: [0,5],
+                    delay: [0,10],
+                    theme: "default value",
+                    onTrigger(inst) {
+                        (elem as HTMLInputElement).oninput = () => inst.setProps({ content: `${(elem as HTMLInputElement).value}${value}` })
+                        inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                    }
+                })
+    
+                tippies.push(tt)
+            }
         })
     }),
     settooltips: (value: boolean) => {

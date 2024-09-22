@@ -312,5 +312,5 @@ body[ss] .wrapper#xpwrapper {
 }
 
 #badge {
-    font-size: calc(var(--badgesize) * 1.5);
+    font-size: calc(var(--badgesize) * 2.5);
 }

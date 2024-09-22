@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Spillets EXE-fil ble ikke funnet!",
         noexesub: `Velg Alternativer > Avslutt spill fra systemstatusfeltet for å avslutte`,
         webhookunlockmsg: "$user har låst opp en prestasjon",
-        webhookingame: "i $gamename"
+        webhookingame: "i $gamename",
+        percentbadge: "Prosentmerke",
+        sspercentbadge: "Prosentmerke",
+        percentbadgepos: "Merkeplassering",
+        sspercentbadgepos: "Merkeplassering",
+        percentbadgecolor: "Farge på merke",
+        sspercentbadgecolor: "Farge på merke",
+        percentbadgefontsize: "Størrelse på merke",
+        sspercentbadgefontsize: "Størrelse på merke",
+        percentbadgeroundness: "Runding av merke",
+        sspercentbadgeroundness: "Runding av merke",
+        top: "Topp",
+        bottom: "Bunn"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Angi plasseringen av det skjulte/hemmelige prestasjonsikonet innenfor $type",
         sshiddeniconpos: "Angi plasseringen av det skjulte/hemmelige prestasjonsikonet innenfor $type",
         decorationpos: "Angi plasseringen av dekorasjonselementet innenfor $type",
-        ssdecorationpos: "Angi plasseringen av dekorasjonselementet innenfor $type"
+        ssdecorationpos: "Angi plasseringen av dekorasjonselementet innenfor $type",
+        percentbadge: "Vis prosentandelen for opplåsning inne i et merke plassert over ikonet for prestasjonen/spillet",
+        sspercentbadge: "Vis prosentandelen for opplåsning inne i et merke plassert over ikonet for prestasjonen/spillet",
+        percentbadgepos: "Sett merkeplasseringen",
+        sspercentbadgepos: "Sett merkeplasseringen",
+        percentbadgecolor: "Sett bakgrunnsfargen til merket",
+        sspercentbadgecolor: "Sett bakgrunnsfargen til merket",
+        percentbadgefontsize: "Sett størrelsen på merket",
+        sspercentbadgefontsize: "Sett størrelsen på merket",
+        percentbadgeroundness: "Sett rundingen av merket",
+        sspercentbadgeroundness: "Sett rundingen av merket"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

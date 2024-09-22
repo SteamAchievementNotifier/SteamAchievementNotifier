@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Spelets EXE-fil hittades inte!",
         noexesub: `Välj Alternativ > Avsluta spelet från systemfältet för att avsluta`,
         webhookunlockmsg: "$user har låst upp en prestation",
-        webhookingame: "i $gamename"
+        webhookingame: "i $gamename",
+        percentbadge: "Procentbadge",
+        sspercentbadge: "Procentbadge",
+        percentbadgepos: "Badgeposition",
+        sspercentbadgepos: "Badgeposition",
+        percentbadgecolor: "Badgefärg",
+        sspercentbadgecolor: "Badgefärg",
+        percentbadgefontsize: "Badge storlek",
+        sspercentbadgefontsize: "Badge storlek",
+        percentbadgeroundness: "Badge rundhet",
+        sspercentbadgeroundness: "Badge rundhet",
+        top: "Topp",
+        bottom: "Botten"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Ställ in positionen för den dolda/hemliga prestationikonen inom $type",
         sshiddeniconpos: "Ställ in positionen för den dolda/hemliga prestationikonen inom $type",
         decorationpos: "Ställ in positionen för dekorationselementet inom $type",
-        ssdecorationpos: "Ställ in positionen för dekorationselementet inom $type" 
+        ssdecorationpos: "Ställ in positionen för dekorationselementet inom $type",
+        percentbadge: "Visa låsningsprocenten inuti en badge som är placerad ovanför ikonen för prestation/spel",
+        sspercentbadge: "Visa låsningsprocenten inuti en badge som är placerad ovanför ikonen för prestation/spel",
+        percentbadgepos: "Ställ in badgepositionen",
+        sspercentbadgepos: "Ställ in badgepositionen",
+        percentbadgecolor: "Ställ in bakgrundsfärgen på badge",
+        sspercentbadgecolor: "Ställ in bakgrundsfärgen på badge",
+        percentbadgefontsize: "Ställ in storleken på badge",
+        sspercentbadgefontsize: "Ställ in storleken på badge",
+        percentbadgeroundness: "Ställ in rundheten på badge",
+        sspercentbadgeroundness: "Ställ in rundheten på badge"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

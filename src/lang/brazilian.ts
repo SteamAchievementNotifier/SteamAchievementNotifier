@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Arquivo EXE do jogo não encontrado!",
         noexesub: `Selecione Opções > Liberar Jogo na Bandeja do Sistema para sair`,
         webhookunlockmsg: "$user desbloqueou uma conquista",
-        webhookingame: "em $gamename"
+        webhookingame: "em $gamename",
+        percentbadge: "Insígnia de Percentagem",
+        sspercentbadge: "Insígnia de Percentagem",
+        percentbadgepos: "Posição da Insígnia",
+        sspercentbadgepos: "Posição da Insígnia",
+        percentbadgecolor: "Cor da Insígnia",
+        sspercentbadgecolor: "Cor da Insígnia",
+        percentbadgefontsize: "Tamanho da Insígnia",
+        sspercentbadgefontsize: "Tamanho da Insígnia",
+        percentbadgeroundness: "Arredondamento da Insígnia",
+        sspercentbadgeroundness: "Arredondamento da Insígnia",
+        top: "Superior",
+        bottom: "Inferior"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Defina a posição do ícone de conquista oculta/secreta dentro do $type",
         sshiddeniconpos: "Defina a posição do ícone de conquista oculta/secreta dentro do $type",
         decorationpos: "Defina a posição do elemento de decoração dentro do $type",
-        ssdecorationpos: "Defina a posição do elemento de decoração dentro do $type"
+        ssdecorationpos: "Defina a posição do elemento de decoração dentro do $type",
+        percentbadge: "Exibir a percentagem de desbloqueio dentro de uma insígnia posicionada acima do ícone da conquista/jogo",
+        sspercentbadge: "Exibir a percentagem de desbloqueio dentro de uma insígnia posicionada acima do ícone da conquista/jogo",
+        percentbadgepos: "Definir a posição da insígnia",
+        sspercentbadgepos: "Definir a posição da insígnia",
+        percentbadgecolor: "Definir a cor de fundo da insígnia",
+        sspercentbadgecolor: "Definir a cor de fundo da insígnia",
+        percentbadgefontsize: "Definir o tamanho da insígnia",
+        sspercentbadgefontsize: "Definir o tamanho da insígnia",
+        percentbadgeroundness: "Definir o arredondamento da insígnia",
+        sspercentbadgeroundness: "Definir o arredondamento da insígnia"
     },
     update: {
         updateavailable: "Atualização disponível",

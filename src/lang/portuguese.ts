@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Arquivo EXE do jogo não encontrado!",
         noexesub: `Selecione Opções > Sair do Jogo na Bandeja do Sistema para sair`,
         webhookunlockmsg: "$user desbloqueou uma conquista",
-        webhookingame: "em $gamename"
+        webhookingame: "em $gamename",
+        percentbadge: "Badge de Porcentagem",
+        sspercentbadge: "Badge de Porcentagem",
+        percentbadgepos: "Posição do Badge",
+        sspercentbadgepos: "Posição do Badge",
+        percentbadgecolor: "Cor do Badge",
+        sspercentbadgecolor: "Cor do Badge",
+        percentbadgefontsize: "Tamanho do Badge",
+        sspercentbadgefontsize: "Tamanho do Badge",
+        percentbadgeroundness: "Arredondamento do Badge",
+        sspercentbadgeroundness: "Arredondamento do Badge",
+        top: "Cima",
+        bottom: "Baixo"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Defina a posição do ícone de conquista oculta/secreta dentro do $type",
         sshiddeniconpos: "Defina a posição do ícone de conquista oculta/secreta dentro do $type",
         decorationpos: "Defina a posição do elemento decorativo dentro do $type",
-        ssdecorationpos: "Defina a posição do elemento decorativo dentro do $type"
+        ssdecorationpos: "Defina a posição do elemento decorativo dentro do $type",
+        percentbadge: "Exibir a porcentagem de desbloqueio dentro de um badge colocado acima do ícone de conquista/jogo",
+        sspercentbadge: "Exibir a porcentagem de desbloqueio dentro de um badge colocado acima do ícone de conquista/jogo",
+        percentbadgepos: "Definir a posição do badge",
+        sspercentbadgepos: "Definir a posição do badge",
+        percentbadgecolor: "Definir a cor de fundo do badge",
+        sspercentbadgecolor: "Definir a cor de fundo do badge",
+        percentbadgefontsize: "Definir o tamanho do badge",
+        sspercentbadgefontsize: "Definir o tamanho do badge",
+        percentbadgeroundness: "Definir o arredondamento do badge",
+        sspercentbadgeroundness: "Definir o arredondamento do badge"
     },
     update: {
         updateavailable: "Atualização disponível",

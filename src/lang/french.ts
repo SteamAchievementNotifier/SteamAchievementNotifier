@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Fichier EXE du jeu non trouvé !",
         noexesub: `Sélectionnez Options > Libérer le jeu depuis la barre des tâches pour quitter`,
         webhookunlockmsg: "$user a débloqué un succès",
-        webhookingame: "dans $gamename"
+        webhookingame: "dans $gamename",
+        percentbadge: "Insigne de pourcentage",
+        sspercentbadge: "Insigne de pourcentage",
+        percentbadgepos: "Position de l'insigne",
+        sspercentbadgepos: "Position de l'insigne",
+        percentbadgecolor: "Couleur de l'insigne",
+        sspercentbadgecolor: "Couleur de l'insigne",
+        percentbadgefontsize: "Taille de l'insigne",
+        sspercentbadgefontsize: "Taille de l'insigne",
+        percentbadgeroundness: "Arrondi de l'insigne",
+        sspercentbadgeroundness: "Arrondi de l'insigne",
+        top: "Haut",
+        bottom: "Bas"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Définissez la position de l'icône de succès caché/secrète dans le $type",
         sshiddeniconpos: "Définissez la position de l'icône de succès caché/secrète dans le $type",
         decorationpos: "Définissez la position de l'élément de décoration dans le $type",
-        ssdecorationpos: "Définissez la position de l'élément de décoration dans le $type"
+        ssdecorationpos: "Définissez la position de l'élément de décoration dans le $type",
+        percentbadge: "Afficher le pourcentage de déverrouillage à l'intérieur d'un insigne placé au-dessus de l'icône de la réussite/du jeu",
+        sspercentbadge: "Afficher le pourcentage de déverrouillage à l'intérieur d'un insigne placé au-dessus de l'icône de la réussite/du jeu",
+        percentbadgepos: "Définir la position de l'insigne",
+        sspercentbadgepos: "Définir la position de l'insigne",
+        percentbadgecolor: "Définir la couleur de fond de l'insigne",
+        sspercentbadgecolor: "Définir la couleur de fond de l'insigne",
+        percentbadgefontsize: "Définir la taille de l'insigne",
+        sspercentbadgefontsize: "Définir la taille de l'insigne",
+        percentbadgeroundness: "Définir l'arrondi de l'insigne",
+        sspercentbadgeroundness: "Définir l'arrondi de l'insigne"
     },
     update: {
         updateavailable: "Mise à jour disponible",

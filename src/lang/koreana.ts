@@ -72,7 +72,19 @@ export const translations = {
         noexe: "게임 EXE 파일을 찾을 수 없습니다!",
         noexesub: `시스템 트레이에서 옵션 > 게임 종료를 선택하여 종료하세요`,
         webhookunlockmsg: "$user가 업적을 잠금 해제했습니다",
-        webhookingame: "$gamename에서"
+        webhookingame: "$gamename에서",
+        percentbadge: "퍼센트 배지",
+        sspercentbadge: "퍼센트 배지",
+        percentbadgepos: "배지 위치",
+        sspercentbadgepos: "배지 위치",
+        percentbadgecolor: "배지 색상",
+        sspercentbadgecolor: "배지 색상",
+        percentbadgefontsize: "배지 크기",
+        sspercentbadgefontsize: "배지 크기",
+        percentbadgeroundness: "배지 둥글기",
+        sspercentbadgeroundness: "배지 둥글기",
+        top: "위",
+        bottom: "아래"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "$type 내에서 숨겨진/비밀 업적 아이콘의 위치를 설정하세요",
         sshiddeniconpos: "$type 내에서 숨겨진/비밀 업적 아이콘의 위치를 설정하세요",
         decorationpos: "$type 내에서 장식 요소의 위치를 설정하세요",
-        ssdecorationpos: "$type 내에서 장식 요소의 위치를 설정하세요"
+        ssdecorationpos: "$type 내에서 장식 요소의 위치를 설정하세요",
+        percentbadge: "업적/게임 아이콘 위에 위치한 배지 안에 잠금 해제 비율 표시",
+        sspercentbadge: "업적/게임 아이콘 위에 위치한 배지 안에 잠금 해제 비율 표시",
+        percentbadgepos: "배지 위치 설정",
+        sspercentbadgepos: "배지 위치 설정",
+        percentbadgecolor: "배지 배경색 설정",
+        sspercentbadgecolor: "배지 배경색 설정",
+        percentbadgefontsize: "배지 크기 설정",
+        sspercentbadgefontsize: "배지 크기 설정",
+        percentbadgeroundness: "배지 둥글기 설정",
+        sspercentbadgeroundness: "배지 둥글기 설정"
     },
     update: {
         updateavailable: "업데이트 가능",

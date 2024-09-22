@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Nie znaleziono pliku EXE gry!",
         noexesub: `Wybierz Opcje > Zakończ grę z Paska zadań, aby zamknąć`,
         webhookunlockmsg: "$user odblokował osiągnięcie",
-        webhookingame: "w $gamename"
+        webhookingame: "w $gamename",
+        percentbadge: "Odznaka procentowa",
+        sspercentbadge: "Odznaka procentowa",
+        percentbadgepos: "Pozycja odznaki",
+        sspercentbadgepos: "Pozycja odznaki",
+        percentbadgecolor: "Kolor odznaki",
+        sspercentbadgecolor: "Kolor odznaki",
+        percentbadgefontsize: "Rozmiar odznaki",
+        sspercentbadgefontsize: "Rozmiar odznaki",
+        percentbadgeroundness: "Zaokrąglenie odznaki",
+        sspercentbadgeroundness: "Zaokrąglenie odznaki",
+        top: "Góra",
+        bottom: "Dół"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Ustaw położenie ikony ukrytego/tajnego osiągnięcia w $type",
         sshiddeniconpos: "Ustaw położenie ikony ukrytego/tajnego osiągnięcia w $type",
         decorationpos: "Ustaw położenie elementu dekoracyjnego w $type",
-        ssdecorationpos: "Ustaw położenie elementu dekoracyjnego w $type"
+        ssdecorationpos: "Ustaw położenie elementu dekoracyjnego w $type",
+        percentbadge: "Wyświetl procent odblokowania w odznace umieszczonej nad ikoną osiągnięcia/gry",
+        sspercentbadge: "Wyświetl procent odblokowania w odznace umieszczonej nad ikoną osiągnięcia/gry",
+        percentbadgepos: "Ustaw pozycję odznaki",
+        sspercentbadgepos: "Ustaw pozycję odznaki",
+        percentbadgecolor: "Ustaw kolor tła odznaki",
+        sspercentbadgecolor: "Ustaw kolor tła odznaki",
+        percentbadgefontsize: "Ustaw rozmiar odznaki",
+        sspercentbadgefontsize: "Ustaw rozmiar odznaki",
+        percentbadgeroundness: "Ustaw zaokrąglenie odznaki",
+        sspercentbadgeroundness: "Ustaw zaokrąglenie odznaki"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

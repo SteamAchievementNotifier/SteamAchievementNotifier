@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Soubor EXE hry nebyl nalezen!",
         noexesub: `Vyberte Možnosti > Uvolnit hru z hlavního panelu pro ukončení`,
         webhookunlockmsg: "$user odemkl úspěch",
-        webhookingame: "ve $gamename"
+        webhookingame: "ve $gamename",
+        percentbadge: "Procentuální odznak",
+        sspercentbadge: "Procentuální odznak",
+        percentbadgepos: "Pozice odznaku",
+        sspercentbadgepos: "Pozice odznaku",
+        percentbadgecolor: "Barva odznaku",
+        sspercentbadgecolor: "Barva odznaku",
+        percentbadgefontsize: "Velikost odznaku",
+        sspercentbadgefontsize: "Velikost odznaku",
+        percentbadgeroundness: "Zaoblení odznaku",
+        sspercentbadgeroundness: "Zaoblení odznaku",
+        top: "Nahoře",
+        bottom: "Dole"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Nastavte polohu ikony skrytého/tajného úspěchu v $type",
         sshiddeniconpos: "Nastavte polohu ikony skrytého/tajného úspěchu v $type",
         decorationpos: "Nastavte polohu dekorativního prvku v $type",
-        ssdecorationpos: "Nastavte polohu dekorativního prvku v $type"
+        ssdecorationpos: "Nastavte polohu dekorativního prvku v $type",
+        percentbadge: "Zobrazit procento odemknutí v odznaku umístěném nad ikonou úspěchu/hry",
+        sspercentbadge: "Zobrazit procento odemknutí v odznaku umístěném nad ikonou úspěchu/hry",
+        percentbadgepos: "Nastavit pozici odznaku",
+        sspercentbadgepos: "Nastavit pozici odznaku",
+        percentbadgecolor: "Nastavit barvu pozadí odznaku",
+        sspercentbadgecolor: "Nastavit barvu pozadí odznaku",
+        percentbadgefontsize: "Nastavit velikost odznaku",
+        sspercentbadgefontsize: "Nastavit velikost odznaku",
+        percentbadgeroundness: "Nastavit zaoblení odznaku",
+        sspercentbadgeroundness: "Nastavit zaoblení odznaku"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

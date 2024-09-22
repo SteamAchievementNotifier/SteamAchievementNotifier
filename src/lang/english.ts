@@ -83,8 +83,8 @@ export const translations = {
         sspercentbadgefontsize: "Badge Size",
         percentbadgeroundness: "Badge Roundness",
         sspercentbadgeroundness: "Badge Roundness",
-        "top": "Top",
-        "bottom": "Bottom"
+        top: "Top",
+        bottom: "Bottom"
     },
     app: {
         content: {
@@ -490,16 +490,16 @@ export const translations = {
         sshiddeniconpos: "Set the position of the hidden/secret achievement icon within the $type",
         decorationpos: "Set the position of the decoration element within the $type",
         ssdecorationpos: "Set the position of the decoration element within the $type",
-        percentbadge: "",
-        sspercentbadge: "",
-        percentbadgepos: "",
-        sspercentbadgepos: "",
-        percentbadgecolor: "",
-        sspercentbadgecolor: "",
-        percentbadgefontsize: "",
-        sspercentbadgefontsize: "",
-        percentbadgeroundness: "",
-        sspercentbadgeroundness: ""
+        percentbadge: "Display the unlock percentage inside a badge placed above the achievement/game icon",
+        sspercentbadge: "Display the unlock percentage inside a badge placed above the achievement/game icon",
+        percentbadgepos: "Set the position of the badge",
+        sspercentbadgepos: "Set the position of the badge",
+        percentbadgecolor: "Set the background color of the badge",
+        sspercentbadgecolor: "Set the background color of the badge",
+        percentbadgefontsize: "Set the size of the badge",
+        sspercentbadgefontsize: "Set the size of the badge",
+        percentbadgeroundness: "Set the roundness of the badge",
+        sspercentbadgeroundness: "Set the roundness of the badge"
     },
     update: {
         updateavailable: "Update available",

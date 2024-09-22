@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Không tìm thấy tệp EXE của trò chơi!",
         noexesub: `Chọn Tùy chọn > Thoát trò chơi từ khay hệ thống để thoát`,
         webhookunlockmsg: "$user đã mở khóa một thành tựu",
-        webhookingame: "trong $gamename"
+        webhookingame: "trong $gamename",
+        percentbadge: "Huy hiệu Phần trăm",
+        sspercentbadge: "Huy hiệu Phần trăm",
+        percentbadgepos: "Vị trí Huy hiệu",
+        sspercentbadgepos: "Vị trí Huy hiệu",
+        percentbadgecolor: "Màu Huy hiệu",
+        sspercentbadgecolor: "Màu Huy hiệu",
+        percentbadgefontsize: "Kích thước Huy hiệu",
+        sspercentbadgefontsize: "Kích thước Huy hiệu",
+        percentbadgeroundness: "Độ Bo của Huy hiệu",
+        sspercentbadgeroundness: "Độ Bo của Huy hiệu",
+        top: "Trên",
+        bottom: "Dưới"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Cài đặt vị trí của biểu tượng thành tựu ẩn/bí mật trong $type",
         sshiddeniconpos: "Cài đặt vị trí của biểu tượng thành tựu ẩn/bí mật trong $type",
         decorationpos: "Cài đặt vị trí của yếu tố trang trí trong $type",
-        ssdecorationpos: "Cài đặt vị trí của yếu tố trang trí trong $type"
+        ssdecorationpos: "Cài đặt vị trí của yếu tố trang trí trong $type",
+        percentbadge: "Hiển thị tỷ lệ mở khóa bên trong huy hiệu đặt trên biểu tượng thành tích/trò chơi",
+        sspercentbadge: "Hiển thị tỷ lệ mở khóa bên trong huy hiệu đặt trên biểu tượng thành tích/trò chơi",
+        percentbadgepos: "Đặt vị trí của huy hiệu",
+        sspercentbadgepos: "Đặt vị trí của huy hiệu",
+        percentbadgecolor: "Đặt màu nền của huy hiệu",
+        sspercentbadgecolor: "Đặt màu nền của huy hiệu",
+        percentbadgefontsize: "Đặt kích thước của huy hiệu",
+        sspercentbadgefontsize: "Đặt kích thước của huy hiệu",
+        percentbadgeroundness: "Đặt độ bo của huy hiệu",
+        sspercentbadgeroundness: "Đặt độ bo của huy hiệu"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

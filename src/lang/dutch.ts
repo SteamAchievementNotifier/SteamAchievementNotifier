@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Spel-EXE niet gevonden!",
         noexesub: `Selecteer Opties > Spel Ontkoppelen uit de Systeemvak om te afsluiten`,
         webhookunlockmsg: "$user heeft een prestatie ontgrendeld",
-        webhookingame: "in $gamename"
+        webhookingame: "in $gamename",
+        percentbadge: "Percentage Badge",
+        sspercentbadge: "Percentage Badge",
+        percentbadgepos: "Badgepositie",
+        sspercentbadgepos: "Badgepositie",
+        percentbadgecolor: "Badgekleur",
+        sspercentbadgecolor: "Badgekleur",
+        percentbadgefontsize: "Badgrootte",
+        sspercentbadgefontsize: "Badgrootte",
+        percentbadgeroundness: "Badge-afgerondheid",
+        sspercentbadgeroundness: "Badge-afgerondheid",
+        top: "Boven",
+        bottom: "Onder"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Stel de positie in van het verborgen/geheime prestatie-icoon binnen de $type",
         sshiddeniconpos: "Stel de positie in van het verborgen/geheime prestatie-icoon binnen de $type",
         decorationpos: "Stel de positie in van het decoratie-element binnen de $type",
-        ssdecorationpos: "Stel de positie in van het decoratie-element binnen de $type"
+        ssdecorationpos: "Stel de positie in van het decoratie-element binnen de $type",
+        percentbadge: "Toon het ontgrendelpercentage binnen een badge boven het pictogram van de prestatie/het spel",
+        sspercentbadge: "Toon het ontgrendelpercentage binnen een badge boven het pictogram van de prestatie/het spel",
+        percentbadgepos: "Stel de positie van de badge in",
+        sspercentbadgepos: "Stel de positie van de badge in",
+        percentbadgecolor: "Stel de achtergrondkleur van de badge in",
+        sspercentbadgecolor: "Stel de achtergrondkleur van de badge in",
+        percentbadgefontsize: "Stel de grootte van de badge in",
+        sspercentbadgefontsize: "Stel de grootte van de badge in",
+        percentbadgeroundness: "Stel de afgerondheid van de badge in",
+        sspercentbadgeroundness: "Stel de afgerondheid van de badge in"
     },
     update: {
         updateavailable: "Update beschikbaar",

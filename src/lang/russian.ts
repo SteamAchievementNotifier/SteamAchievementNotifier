@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Файл EXE игры не найден!",
         noexesub: `Выберите Опции > Завершить игру в области уведомлений для выхода`,
         webhookunlockmsg: "$user разблокировал достижение",
-        webhookingame: "в $gamename"
+        webhookingame: "в $gamename",
+        percentbadge: "Процентный значок",
+        sspercentbadge: "Процентный значок",
+        percentbadgepos: "Позиция значка",
+        sspercentbadgepos: "Позиция значка",
+        percentbadgecolor: "Цвет значка",
+        sspercentbadgecolor: "Цвет значка",
+        percentbadgefontsize: "Размер значка",
+        sspercentbadgefontsize: "Размер значка",
+        percentbadgeroundness: "Закругление значка",
+        sspercentbadgeroundness: "Закругление значка",
+        top: "Вверху",
+        bottom: "Внизу"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Установите расположение иконки скрытого/секретного достижения внутри $type",
         sshiddeniconpos: "Установите расположение иконки скрытого/секретного достижения внутри $type",
         decorationpos: "Установите расположение элемента декорации внутри $type",
-        ssdecorationpos: "Установите расположение элемента декорации внутри $type"
+        ssdecorationpos: "Установите расположение элемента декорации внутри $type",
+        percentbadge: "Отобразить процент разблокировки внутри значка, расположенного над иконкой достижения/игры",
+        sspercentbadge: "Отобразить процент разблокировки внутри значка, расположенного над иконкой достижения/игры",
+        percentbadgepos: "Установить позицию значка",
+        sspercentbadgepos: "Установить позицию значка",
+        percentbadgecolor: "Установить цвет фона значка",
+        sspercentbadgecolor: "Установить цвет фона значка",
+        percentbadgefontsize: "Установить размер значка",
+        sspercentbadgefontsize: "Установить размер значка",
+        percentbadgeroundness: "Установить закругление значка",
+        sspercentbadgeroundness: "Установить закругление значка"
     },
     update: {
         updateavailable: "Доступно обновление",

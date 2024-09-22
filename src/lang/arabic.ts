@@ -72,7 +72,19 @@ export const translations = {
         noexe: "لم يتم العثور على ملف اللعبة التنفيذي!",
         noexesub: `حدد الخيارات > إصدار اللعبة من شريط النظام للخروج`,
         webhookunlockmsg: "$user فتح إنجازًا",
-        webhookingame: "في $gamename"
+        webhookingame: "في $gamename",
+        percentbadge: "شارة النسبة المئوية",
+        sspercentbadge: "شارة النسبة المئوية",
+        percentbadgepos: "موقع الشارة",
+        sspercentbadgepos: "موقع الشارة",
+        percentbadgecolor: "لون الشارة",
+        sspercentbadgecolor: "لون الشارة",
+        percentbadgefontsize: "حجم الشارة",
+        sspercentbadgefontsize: "حجم الشارة",
+        percentbadgeroundness: "استدارة الشارة",
+        sspercentbadgeroundness: "استدارة الشارة",
+        top: "أعلى",
+        bottom: "أسفل"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "حدد موضع رمز الإنجاز المخفي/السري داخل $type",
         sshiddeniconpos: "حدد موضع رمز الإنجاز المخفي/السري داخل $type",
         decorationpos: "حدد موضع عنصر الزخرفة داخل $type",
-        ssdecorationpos: "حدد موضع عنصر الزخرفة داخل $type"
+        ssdecorationpos: "حدد موضع عنصر الزخرفة داخل $type",
+        percentbadge: "عرض النسبة المئوية للفتح داخل شارة موضوعة فوق أيقونة الإنجاز/اللعبة",
+        sspercentbadge: "عرض النسبة المئوية للفتح داخل شارة موضوعة فوق أيقونة الإنجاز/اللعبة",
+        percentbadgepos: "تحديد موقع الشارة",
+        sspercentbadgepos: "تحديد موقع الشارة",
+        percentbadgecolor: "تحديد لون خلفية الشارة",
+        sspercentbadgecolor: "تحديد لون خلفية الشارة",
+        percentbadgefontsize: "تحديد حجم الشارة",
+        sspercentbadgefontsize: "تحديد حجم الشارة",
+        percentbadgeroundness: "تحديد استدارة الشارة",
+        sspercentbadgeroundness: "تحديد استدارة الشارة"
     },
     update: {
         updateavailable: "تحديث متاح",

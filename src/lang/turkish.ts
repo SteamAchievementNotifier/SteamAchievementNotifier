@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Oyun EXE dosyası bulunamadı!",
         noexesub: `Çıkmak için Seçenekler > Sistem Tepsisinden Oyunu Kapatı seçin`,
         webhookunlockmsg: "$user bir başarıyı kilidini açtı",
-        webhookingame: "$gamename'de"
+        webhookingame: "$gamename'de",
+        percentbadge: "Yüzde Rozeti",
+        sspercentbadge: "Yüzde Rozeti",
+        percentbadgepos: "Rozet Pozisyonu",
+        sspercentbadgepos: "Rozet Pozisyonu",
+        percentbadgecolor: "Rozet Rengi",
+        sspercentbadgecolor: "Rozet Rengi",
+        percentbadgefontsize: "Rozet Boyutu",
+        sspercentbadgefontsize: "Rozet Boyutu",
+        percentbadgeroundness: "Rozet Kenar Yuvarlaklığı",
+        sspercentbadgeroundness: "Rozet Kenar Yuvarlaklığı",
+        top: "Üst",
+        bottom: "Alt"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "$type içindeki gizli/özel başarı ikonunun konumunu ayarlayın",
         sshiddeniconpos: "$type içindeki gizli/özel başarı ikonunun konumunu ayarlayın",
         decorationpos: "$type içindeki süsleme öğesinin konumunu ayarlayın",
-        ssdecorationpos: "$type içindeki süsleme öğesinin konumunu ayarlayın"
+        ssdecorationpos: "$type içindeki süsleme öğesinin konumunu ayarlayın",
+        percentbadge: "Başarı/oyun simgesinin üstünde bulunan bir rozette kilit açma yüzdesini göster",
+        sspercentbadge: "Başarı/oyun simgesinin üstünde bulunan bir rozette kilit açma yüzdesini göster",
+        percentbadgepos: "Rozet pozisyonunu ayarla",
+        sspercentbadgepos: "Rozet pozisyonunu ayarla",
+        percentbadgecolor: "Rozetin arka plan rengini ayarla",
+        sspercentbadgecolor: "Rozetin arka plan rengini ayarla",
+        percentbadgefontsize: "Rozet boyutunu ayarla",
+        sspercentbadgefontsize: "Rozet boyutunu ayarla",
+        percentbadgeroundness: "Rozetin kenar yuvarlaklığını ayarla",
+        sspercentbadgeroundness: "Rozetin kenar yuvarlaklığını ayarla"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

@@ -72,7 +72,19 @@ export const translations = {
         noexe: "EXE файлът на играта не е намерен!",
         noexesub: `Изберете Опции > Освободи играта от системната лента, за да излезете`,
         webhookunlockmsg: "$user отключи постижение",
-        webhookingame: "в $gamename"
+        webhookingame: "в $gamename",
+        percentbadge: "Значка за процент",
+        sspercentbadge: "Значка за процент",
+        percentbadgepos: "Позиция на значката",
+        sspercentbadgepos: "Позиция на значката",
+        percentbadgecolor: "Цвят на значката",
+        sspercentbadgecolor: "Цвят на значката",
+        percentbadgefontsize: "Размер на значката",
+        sspercentbadgefontsize: "Размер на значката",
+        percentbadgeroundness: "Закръгленост на значката",
+        sspercentbadgeroundness: "Закръгленост на значката",
+        top: "Горе",
+        bottom: "Долу"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Задайте позицията на иконата на скритото/тайното постижение в $type",
         sshiddeniconpos: "Задайте позицията на иконата на скритото/тайното постижение в $type",
         decorationpos: "Задайте позицията на елемента на декорацията в $type",
-        ssdecorationpos: "Задайте позицията на елемента на декорацията в $type"
+        ssdecorationpos: "Задайте позицията на елемента на декорацията в $type",
+        percentbadge: "Показване на процентното отключване в значка, разположена над иконата на постижението/играта",
+        sspercentbadge: "Показване на процентното отключване в значка, разположена над иконата на постижението/играта",
+        percentbadgepos: "Задаване на позицията на значката",
+        sspercentbadgepos: "Задаване на позицията на значката",
+        percentbadgecolor: "Задаване на цвета на фона на значката",
+        sspercentbadgecolor: "Задаване на цвета на фона на значката",
+        percentbadgefontsize: "Задаване на размера на значката",
+        sspercentbadgefontsize: "Задаване на размера на значката",
+        percentbadgeroundness: "Задаване на закръглеността на значката",
+        sspercentbadgeroundness: "Задаване на закръглеността на значката"
     },
     update: {
         updateavailable: "Налична е актуализация",

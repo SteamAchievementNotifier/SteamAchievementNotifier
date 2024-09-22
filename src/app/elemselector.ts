@@ -69,7 +69,14 @@ const updateopts = (select: HTMLSelectElement,elems: string[],max: number) => se
     i > max && opt.remove()
 })
 
-const adjustpos = (config: ElectronStore<Config>, type: "main" | "rare" | "plat", id: string, elems: string[]) => config.get(`customisation.${type}.${id}`) as number > elems.length && config.set(`customisation.${type}.${id}`, elems.length > 0 ? elems.length : 0)
+const adjustpos = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",id: string,elems: string[]) =>config.get(`customisation.${type}.${id}`) as number > elems.length && config.set(`customisation.${type}.${id}`, elems.length > 0 ? elems.length : 0)
+
+const updateinput = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",elem: HTMLInputElement,value: boolean | string,menutype: HTMLElement) => {
+    config.set(`customisation.${type}.${elem.id}`,elem.type === "checkbox" ? value as boolean : (elem.type === "color" ? value as string : parseInt(value as string)))
+
+    sanhelper.updatetabs()
+    sanhelper.loadadditionaltooltips(menutype)
+}
 
 export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselems") => {
     const config = sanconfig.get()
@@ -170,20 +177,20 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         const input = i as HTMLInputElement
         input.parentElement!.querySelector("span")!.textContent = global[input.id]
 
-        if (input.type === "checkbox") {
-            input.checked = config.get(`customisation.${type}.${input.id}`) as boolean
-        } else {
-            input.value = config.get(`customisation.${type}.${input.id}`).toString() as string
-        }
+        const value = config.get(`customisation.${type}.${input.id}`)
+        input.type === "checkbox" ? (input.checked = value as boolean) : (input.value = value.toString())
 
         input.onchange = event => {
             const elem = event.target as HTMLInputElement
-            config.set(`customisation.${type}.${elem.id}`,elem.type === "checkbox" ? elem.checked : (elem.type === "color" ? elem.value : parseInt(elem.value)))
-
-            sanhelper.updatetabs()
-            sanhelper.loadadditionaltooltips(menutype)
+            updateinput(config,type,elem,elem.type === "checkbox" ? elem.checked : elem.value,menutype)
         }
     })
+
+    const pblbl = menutype.querySelector(`#elemselector > .opt > .opt:has(input#${elemtype === "sselems" ? "ss" : ""}percentbadge) > span`) as HTMLSpanElement
+    pblbl.onclick = () => {
+        const elem = pblbl.nextElementSibling! as HTMLInputElement
+        updateinput(config,type,elem,!config.get(`customisation.${type}.${elem.id}`) as boolean,menutype)
+    }
 
     menutype.querySelectorAll(`select[id*="percentbadge"]`).forEach(s => {
         const select = s as HTMLSelectElement

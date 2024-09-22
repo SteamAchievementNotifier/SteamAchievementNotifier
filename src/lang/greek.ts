@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Δεν βρέθηκε το EXE του παιχνιδιού!",
         noexesub: `Επιλέξτε Επιλογές > Απελευθερώστε το παιχνίδι από την περιοχή ειδοποιήσεων για να κλείσετε`,
         webhookunlockmsg: "$user ξεκλείδωσε ένα επίτευγμα",
-        webhookingame: "στο $gamename"
+        webhookingame: "στο $gamename",
+        percentbadge: "Ετικέτα Ποσοστού",
+        sspercentbadge: "Ετικέτα Ποσοστού",
+        percentbadgepos: "Θέση Ετικέτας",
+        sspercentbadgepos: "Θέση Ετικέτας",
+        percentbadgecolor: "Χρώμα Ετικέτας",
+        sspercentbadgecolor: "Χρώμα Ετικέτας",
+        percentbadgefontsize: "Μέγεθος Ετικέτας",
+        sspercentbadgefontsize: "Μέγεθος Ετικέτας",
+        percentbadgeroundness: "Στρογγυλότητα Ετικέτας",
+        sspercentbadgeroundness: "Στρογγυλότητα Ετικέτας",
+        top: "Επάνω",
+        bottom: "Κάτω"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Ορίστε τη θέση του κρυφού/μυστικού εικονιδίου επιτεύγματος μέσα στο $type",
         sshiddeniconpos: "Ορίστε τη θέση του κρυφού/μυστικού εικονιδίου επιτεύγματος μέσα στο $type",
         decorationpos: "Ορίστε τη θέση του στοιχείου διακόσμησης μέσα στο $type",
-        ssdecorationpos: "Ορίστε τη θέση του στοιχείου διακόσμησης μέσα στο $type"
+        ssdecorationpos: "Ορίστε τη θέση του στοιχείου διακόσμησης μέσα στο $type",
+        percentbadge: "Εμφάνιση του ποσοστού ξεκλειδώματος μέσα σε μια ετικέτα τοποθετημένη πάνω από το εικονίδιο της επίτευξης/παιχνιδιού",
+        sspercentbadge: "Εμφάνιση του ποσοστού ξεκλειδώματος μέσα σε μια ετικέτα τοποθετημένη πάνω από το εικονίδιο της επίτευξης/παιχνιδιού",
+        percentbadgepos: "Ρύθμιση της θέσης της ετικέτας",
+        sspercentbadgepos: "Ρύθμιση της θέσης της ετικέτας",
+        percentbadgecolor: "Ρύθμιση του χρώματος φόντου της ετικέτας",
+        sspercentbadgecolor: "Ρύθμιση του χρώματος φόντου της ετικέτας",
+        percentbadgefontsize: "Ρύθμιση του μεγέθους της ετικέτας",
+        sspercentbadgefontsize: "Ρύθμιση του μεγέθους της ετικέτας",
+        percentbadgeroundness: "Ρύθμιση της στρογγυλότητας της ετικέτας",
+        sspercentbadgeroundness: "Ρύθμιση της στρογγυλότητας της ετικέτας"
     },
     update: {
         updateavailable: "Διαθέσιμη ενημέρωση",

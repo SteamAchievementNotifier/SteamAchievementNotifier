@@ -1,7 +1,10 @@
 import { screen } from "electron"
+import fs from "fs"
 import path from "path"
 import Store from "electron-store"
 import { __root, sanhelper } from "./sanhelper"
+
+const defaultfiles: { [key: string]: any } = {}
 
 export const sanconfig = {
     get defaulticons(): Map<string,CustomIcon> {
@@ -242,8 +245,9 @@ export const sanconfig = {
         if (validate) {
             const configkeys = Object.keys(sanconfig.get().store)
             const objkeys = Object.keys(obj)
+            ;["ovpath","imgpath"].forEach(key => defaultfiles[key] = obj[key])
 
-            sanconfig.validateconfigkeys(configkeys,objkeys,obj)
+            sanconfig.validateconfigkeys(configkeys,objkeys,obj,defaultfiles)
         }
 
         for (const type in obj.customisation) {
@@ -345,7 +349,9 @@ export const sanconfig = {
                 const configkeys = Object.keys(config.get(`customisation.${type}`))
                 const customobjkeys = Object.keys(customobj)
 
-                sanconfig.validateconfigkeys(configkeys,customobjkeys,customobj,type)
+                ;["soundfile","sounddir","bgimg","maskimg","customfont","hiddenicon"].forEach(key => defaultfiles[key] = customobj[key])
+
+                sanconfig.validateconfigkeys(configkeys,customobjkeys,customobj,defaultfiles,type)
                 sanconfig.validatecustomicons(type as "main" | "rare" | "plat")
             }
 
@@ -423,7 +429,7 @@ export const sanconfig = {
         cwd: sanhelper.appdata,
         watch: watch || false
     }),
-    validateconfigkeys: async (configkeys: string[],objkeys: string[],obj: Config | Customisation,type?: string) => {
+    validateconfigkeys: async (configkeys: string[],objkeys: string[],obj: Config | Customisation,defaultfiles: { [key: string]: string },type?: string) => {
         const config = sanconfig.get()
         const log = (await import("./log")).log
         
@@ -456,6 +462,9 @@ export const sanconfig = {
                 }
             }
         }
+
+        const missingfiles = await sanconfig.validatefiles(config,objkeys,type as "main" | "rare" | "plat" | undefined)
+        missingfiles.size && sanconfig.resetmissingfiles(missingfiles,config,log)
     },
     validatecustomicons: async (type: "main" | "rare" | "plat") => {
         const config = sanconfig.get()
@@ -488,6 +497,12 @@ export const sanconfig = {
             }
         }
 
+        defaultfiles.customicons = Object.fromEntries(sanconfig.defaulticons)
+        defaultfiles.customicons.plat = sanhelper.setfilepath("img","ribbon.svg")
+
+        const missingfiles = await sanconfig.validatefiles(config,["customicons"],type as "main" | "rare" | "plat" | undefined)
+        missingfiles.size && sanconfig.resetmissingfiles(missingfiles,config,log)
+
         const { customisation } = sanconfig.create()
         const defaultkeys = Object.keys(customisation[type]).filter(key => key !== "usertheme")
 
@@ -506,7 +521,50 @@ export const sanconfig = {
 
             // Validate all previously saved User Themes, and add new keys with default values if missing
             const themekeys = Object.keys(theme.customisation!)
-            sanconfig.validateconfigkeys(themekeys,defaultkeys,customisation[type],`${type}.usertheme.${i}.customisation`)
+            sanconfig.validateconfigkeys(themekeys,defaultkeys,customisation[type],defaultfiles,`${type}.usertheme.${i}.customisation`)
         })
-    }
+    },
+    validatefiles: async (config: Store<Config>,keys: string[],type?: "main" | "rare" | "plat") => {
+        const files = new Map<string[],string>([])
+
+        for (const key of keys) {
+            if ((defaultfiles as Object).hasOwnProperty(key)) {
+                const value = config.get(type ? `customisation.${type}.${key}` : key)
+    
+                if (value) {
+                    if (typeof value === "object" && key === "customicons") {
+                        const valueobj = value as { [key: string]: any }
+    
+                        for (const preset in valueobj) {
+                            const presetobj = valueobj[preset] as { [key: string]: any }
+
+                            if (typeof presetobj === "string") {
+                                preset === "plat" && files.set([`${key}.${preset}`,`customisation.${type}.${key}.${preset}`],presetobj)
+                            } else {
+                                for (const icontype in presetobj) {
+                                    ["logo","decoration"].forEach(id => icontype === id && valueobj[preset][icontype] && files.set([`${key}.${preset}.${icontype}`,`customisation.${type}.${key}.${preset}.${icontype}`],valueobj[preset][icontype]))
+                                }
+                            }
+                        }
+                    } else {
+                        files.set([key,type ? `customisation.${type}.${key}` : key],value as string)
+                    }
+                }
+            }
+        }
+
+        // If the value is an Array, return the key plus the index of the missing file appended to the key string. If it's a string, just return as normal
+        return new Map(Array.from(files).flatMap(([key,value]) => Array.isArray(value) ? value.map((file,i) => !fs.existsSync(file) ? [[`${key[0]}.${i}`,`${key[1]}.${i}`],file] : null).filter((entry): entry is [string[],string] => Boolean(entry)) : !fs.existsSync(value) ? [[key,value]] : []))
+    },
+    resetmissingfiles: (files: Map<string[],string>,config: Store<Config>,log: any) => files.forEach((value,key) => {
+        log.write("ERROR",`"${value}" does not exist, but is currently in use by "${key[1]}" - resetting to default...`)
+
+        try {
+            const defaultfile = key[0].split(".").map(key => isNaN(Number(key)) ? key : Number(key)).reduce((acc:any,key) => acc[key],defaultfiles)
+            config.set(key[1],defaultfile)
+            log.write("INFO",`"${key[1]}" reset to "${defaultfile}" successfully`)
+        } catch (err) {
+            log.write("ERROR",`Unable to reset "${key}" to default value: ${err as Error}`)
+        }
+    })
 }

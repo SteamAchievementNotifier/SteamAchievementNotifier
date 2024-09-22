@@ -72,7 +72,19 @@ export const translations = {
         noexe: "A játék EXE fájlja nem található!",
         noexesub: `Válassza az Opciók > Játék Kilépés lehetőséget a Rendszertálcáról a kilépéshez`,
         webhookunlockmsg: "$user teljesítményt oldott fel",
-        webhookingame: "a $gamename játékban"
+        webhookingame: "a $gamename játékban",
+        percentbadge: "Százalékos jelvény",
+        sspercentbadge: "Százalékos jelvény",
+        percentbadgepos: "Jelvény pozíciója",
+        sspercentbadgepos: "Jelvény pozíciója",
+        percentbadgecolor: "Jelvény színe",
+        sspercentbadgecolor: "Jelvény színe",
+        percentbadgefontsize: "Jelvény mérete",
+        sspercentbadgefontsize: "Jelvény mérete",
+        percentbadgeroundness: "Jelvény lekerekítettsége",
+        sspercentbadgeroundness: "Jelvény lekerekítettsége",
+        top: "Fent",
+        bottom: "Lent"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Állítsa be a rejtett/titkos teljesítmény ikon helyét a $type-ban",
         sshiddeniconpos: "Állítsa be a rejtett/titkos teljesítmény ikon helyét a $type-ban",
         decorationpos: "Állítsa be a díszítő elem helyét a $type-ban",
-        ssdecorationpos: "Állítsa be a díszítő elem helyét a $type-ban"
+        ssdecorationpos: "Állítsa be a díszítő elem helyét a $type-ban",
+        percentbadge: "A zárolási százalék megjelenítése egy jelvényben, amely a teljesítmény/játék ikonja fölött helyezkedik el",
+        sspercentbadge: "A zárolási százalék megjelenítése egy jelvényben, amely a teljesítmény/játék ikonja fölött helyezkedik el",
+        percentbadgepos: "A jelvény pozíciójának beállítása",
+        sspercentbadgepos: "A jelvény pozíciójának beállítása",
+        percentbadgecolor: "A jelvény háttérszínének beállítása",
+        sspercentbadgecolor: "A jelvény háttérszínének beállítása",
+        percentbadgefontsize: "A jelvény méretének beállítása",
+        sspercentbadgefontsize: "A jelvény méretének beállítása",
+        percentbadgeroundness: "A jelvény lekerekítettségének beállítása",
+        sspercentbadgeroundness: "A jelvény lekerekítettségének beállítása"
     },
     update: {
         updateavailable: "Frissítés elérhető",

@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Файл EXE гри не знайдено!",
         noexesub: `Виберіть Опції > Вийти з гри з системного лотка`,
         webhookunlockmsg: "$user розблокував досягнення",
-        webhookingame: "в $gamename"
+        webhookingame: "в $gamename",
+        percentbadge: "Відсотковий значок",
+        sspercentbadge: "Відсотковий значок",
+        percentbadgepos: "Позиція значка",
+        sspercentbadgepos: "Позиція значка",
+        percentbadgecolor: "Колір значка",
+        sspercentbadgecolor: "Колір значка",
+        percentbadgefontsize: "Розмір значка",
+        sspercentbadgefontsize: "Розмір значка",
+        percentbadgeroundness: "Округленість значка",
+        sspercentbadgeroundness: "Округленість значка",
+        top: "Вгорі",
+        bottom: "Внизу"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Встановіть розташування прихованого/таємного значка досягнення всередині $type",
         sshiddeniconpos: "Встановіть розташування прихованого/таємного значка досягнення всередині $type",
         decorationpos: "Встановіть розташування елемента оздоблення всередині $type",
-        ssdecorationpos: "Встановіть розташування елемента оздоблення всередині $type"
+        ssdecorationpos: "Встановіть розташування елемента оздоблення всередині $type",
+        percentbadge: "Показати відсоток розблокування всередині значка, розташованого над іконкою досягнення/гри",
+        sspercentbadge: "Показати відсоток розблокування всередині значка, розташованого над іконкою досягнення/гри",
+        percentbadgepos: "Встановити позицію значка",
+        sspercentbadgepos: "Встановити позицію значка",
+        percentbadgecolor: "Встановити колір фону значка",
+        sspercentbadgecolor: "Встановити колір фону значка",
+        percentbadgefontsize: "Встановити розмір значка",
+        sspercentbadgefontsize: "Встановити розмір значка",
+        percentbadgeroundness: "Встановити округленість значка",
+        sspercentbadgeroundness: "Встановити округленість значка"
     },
     update: {
         updateavailable: "Доступне оновлення",

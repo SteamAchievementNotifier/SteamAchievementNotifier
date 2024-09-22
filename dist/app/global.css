@@ -663,9 +663,13 @@ input[type="range"][unit],
     background-color: var(--darkgrey);
 }
 
-.wrapper#elemselector > .wrapper > .wrapper:has(select#desc,select#decorationpos,select#ssdecorationpos),
+.wrapper#elemselector > .wrapper > .wrapper:has(select#desc),
 .wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:checked) {
     margin-bottom: 0.5rem;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(input#percentbadge,input#sspercentbadge) {
+    margin-top: 0.5rem;
 }
 
 .wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:not(:checked)) {

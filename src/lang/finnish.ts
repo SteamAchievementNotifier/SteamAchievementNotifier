@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Pelin EXE:tä ei löydy!",
         noexesub: `Valitse Asetukset > Vapauta Peli järjestelmäpalkista lopettaaksesi`,
         webhookunlockmsg: "$user avasi saavutuksen",
-        webhookingame: "pelissä $gamename"
+        webhookingame: "pelissä $gamename",
+        percentbadge: "Prosenttimerkki",
+        sspercentbadge: "Prosenttimerkki",
+        percentbadgepos: "Merkin sijainti",
+        sspercentbadgepos: "Merkin sijainti",
+        percentbadgecolor: "Merkin väri",
+        sspercentbadgecolor: "Merkin väri",
+        percentbadgefontsize: "Merkin koko",
+        sspercentbadgefontsize: "Merkin koko",
+        percentbadgeroundness: "Merkin pyöristys",
+        sspercentbadgeroundness: "Merkin pyöristys",
+        top: "Ylhäällä",
+        bottom: "Alhaalla"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Aseta piilotetun/salaisen saavutuksen kuvakkeen sijainti $type:ssa",
         sshiddeniconpos: "Aseta piilotetun/salaisen saavutuksen kuvakkeen sijainti $type:ssa",
         decorationpos: "Aseta koristeluelementin sijainti $type:ssa",
-        ssdecorationpos: "Aseta koristeluelementin sijainti $type:ssa"
+        ssdecorationpos: "Aseta koristeluelementin sijainti $type:ssa",
+        percentbadge: "Näytä avautumisprosentti merkillä, joka on sijoitettu saavutuksen/pelin kuvakkeen ylle",
+        sspercentbadge: "Näytä avautumisprosentti merkillä, joka on sijoitettu saavutuksen/pelin kuvakkeen ylle",
+        percentbadgepos: "Aseta merkin sijainti",
+        sspercentbadgepos: "Aseta merkin sijainti",
+        percentbadgecolor: "Aseta merkin taustaväri",
+        sspercentbadgecolor: "Aseta merkin taustaväri",
+        percentbadgefontsize: "Aseta merkin koko",
+        sspercentbadgefontsize: "Aseta merkin koko",
+        percentbadgeroundness: "Aseta merkin pyöristyminen",
+        sspercentbadgeroundness: "Aseta merkin pyöristyminen"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

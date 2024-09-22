@@ -72,7 +72,19 @@ export const translations = {
         noexe: "Spiel-EXE nicht gefunden!",
         noexesub: `Wählen Sie Optionen > Spiel freigeben aus dem Systemtray, um zu beenden`,
         webhookunlockmsg: "$user hat einen Erfolg freigeschaltet",
-        webhookingame: "in $gamename"
+        webhookingame: "in $gamename",
+        percentbadge: "Prozentabzeichen",
+        sspercentbadge: "Prozentabzeichen",
+        percentbadgepos: "Position des Abzeichens",
+        sspercentbadgepos: "Position des Abzeichens",
+        percentbadgecolor: "Farbe des Abzeichens",
+        sspercentbadgecolor: "Farbe des Abzeichens",
+        percentbadgefontsize: "Größe des Abzeichens",
+        sspercentbadgefontsize: "Größe des Abzeichens",
+        percentbadgeroundness: "Rundheit des Abzeichens",
+        sspercentbadgeroundness: "Rundheit des Abzeichens",
+        top: "Oben",
+        bottom: "Unten"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Stellen Sie die Position des versteckten/geheimen Erfolgssymbols im $type ein",
         sshiddeniconpos: "Stellen Sie die Position des versteckten/geheimen Erfolgssymbols im $type ein",
         decorationpos: "Stellen Sie die Position des Dekorationselements im $type ein",
-        ssdecorationpos: "Stellen Sie die Position des Dekorationselements im $type ein"
+        ssdecorationpos: "Stellen Sie die Position des Dekorationselements im $type ein",
+        percentbadge: "Zeige den Freischaltungsprozentsatz in einem Abzeichen, das über dem Symbol der Errungenschaft/des Spiels platziert ist",
+        sspercentbadge: "Zeige den Freischaltungsprozentsatz in einem Abzeichen, das über dem Symbol der Errungenschaft/des Spiels platziert ist",
+        percentbadgepos: "Position des Abzeichens festlegen",
+        sspercentbadgepos: "Position des Abzeichens festlegen",
+        percentbadgecolor: "Hintergrundfarbe des Abzeichens festlegen",
+        sspercentbadgecolor: "Hintergrundfarbe des Abzeichens festlegen",
+        percentbadgefontsize: "Größe des Abzeichens festlegen",
+        sspercentbadgefontsize: "Größe des Abzeichens festlegen",
+        percentbadgeroundness: "Rundheit des Abzeichens festlegen",
+        sspercentbadgeroundness: "Rundheit des Abzeichens festlegen"
     },
     update: {
         updateavailable: "Update verfügbar",

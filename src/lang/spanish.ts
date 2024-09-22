@@ -72,7 +72,19 @@ export const translations = {
         noexe: "¡Archivo EXE del juego no encontrado!",
         noexesub: `Selecciona Opciones > Salir del Juego en la Bandeja del Sistema para salir`,
         webhookunlockmsg: "$user desbloqueó un logro",
-        webhookingame: "en $gamename"
+        webhookingame: "en $gamename",
+        percentbadge: "Insignia de Porcentaje",
+        sspercentbadge: "Insignia de Porcentaje",
+        percentbadgepos: "Posición de la Insignia",
+        sspercentbadgepos: "Posición de la Insignia",
+        percentbadgecolor: "Color de la Insignia",
+        sspercentbadgecolor: "Color de la Insignia",
+        percentbadgefontsize: "Tamaño de la Insignia",
+        sspercentbadgefontsize: "Tamaño de la Insignia",
+        percentbadgeroundness: "Redondez de la Insignia",
+        sspercentbadgeroundness: "Redondez de la Insignia",
+        top: "Arriba",
+        bottom: "Abajo"
     },
     app: {
         content: {
@@ -474,7 +486,17 @@ export const translations = {
         hiddeniconpos: "Establece la posición del ícono de logro oculto/secreto dentro del $type",
         sshiddeniconpos: "Establece la posición del ícono de logro oculto/secreto dentro del $type",
         decorationpos: "Establece la posición del elemento decorativo dentro del $type",
-        ssdecorationpos: "Establece la posición del elemento decorativo dentro del $type" 
+        ssdecorationpos: "Establece la posición del elemento decorativo dentro del $type",
+        percentbadge: "Mostrar el porcentaje de desbloqueo dentro de una insignia colocada sobre el ícono de logro/juego",
+        sspercentbadge: "Mostrar el porcentaje de desbloqueo dentro de una insignia colocada sobre el ícono de logro/juego",
+        percentbadgepos: "Establecer la posición de la insignia",
+        sspercentbadgepos: "Establecer la posición de la insignia",
+        percentbadgecolor: "Establecer el color de fondo de la insignia",
+        sspercentbadgecolor: "Establecer el color de fondo de la insignia",
+        percentbadgefontsize: "Establecer el tamaño de la insignia",
+        sspercentbadgefontsize: "Establecer el tamaño de la insignia",
+        percentbadgeroundness: "Establecer la redondez de la insignia",
+        sspercentbadgeroundness: "Establecer la redondez de la insignia"
     },
     update: {
         updateavailable: "Actualización disponible",

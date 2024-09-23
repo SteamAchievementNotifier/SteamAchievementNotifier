@@ -12,6 +12,17 @@ body:
       options:
         - label: This issue has not been previously reported
           required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: false
+      options:
+        - ''
+        - Windows
+        - Linux
+    validations:
+      required: true
   - type: input
     id: version
     attributes:

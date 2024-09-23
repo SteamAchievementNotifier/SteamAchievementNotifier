@@ -1,0 +1,28 @@
+name: ❓ Question
+description: Ask a question about Steam Achievement Notifier
+labels: ["question"]
+assignees:
+  - SteamAchievementNotifier
+body:
+  - type: dropdown
+    id: subject
+    attributes:
+      label: What is your question regarding?
+      multiple: false
+      options:
+        - ''
+        - How to do something
+        - What something means
+        - How something works
+        - If a specific action is supported
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What would you like to know?
+      placeholder: Ask a question...
+    validations:
+      required: true

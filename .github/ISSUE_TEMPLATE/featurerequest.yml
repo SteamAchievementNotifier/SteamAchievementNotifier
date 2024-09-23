@@ -1,0 +1,30 @@
+name: ✨ Feature Request
+description: Suggest a new feature you would like to see added to Steam Achievement Notifier
+labels: ["feature-request"]
+assignees:
+  - SteamAchievementNotifier
+body:
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Has this feature previously been requested?
+      description: Please ensure you have searched for [previously submitted issues](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/issues?q=label%3Afeature-request+) for related features that may have been already been suggested.
+      options:
+        - label: This feature has not been previously requested
+          required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Feature Details
+      description: Provide as much detailed information as you can regarding the suggested feature. Screenshots/images can also be provided for further context.
+      placeholder: Describe the feature...
+    validations:
+      required: true
+  - type: checkboxes
+    id: agree
+    attributes:
+      label: Feature requests are considered, but not guaranteed
+      description: Suggestions for new features are welcomed and will be considered, but ultimately, may not be suitable to include within the application due to implementation time, complexity or otherwise.<br><br>Additionally, if a suggested feature is initially agreed upon for inclusion, no implementation timeframe will be given, and is also subject to change at any time.
+      options:
+        - label: I understand that by requesting this feature for implementation within Steam Achievement Notifier, its inclusion will be considered, but not guaranteed
+          required: true

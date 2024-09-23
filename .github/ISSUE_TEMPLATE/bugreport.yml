@@ -1,0 +1,34 @@
+name: 🦠 Bug Report
+description: Report a bug found in Steam Achievement Notifier
+labels: ["bug"]
+assignees:
+  - SteamAchievementNotifier
+body:
+  - type: checkboxes
+    id: search
+    attributes:
+      label: Has this issue previously been reported?
+      description: Please ensure you have searched for [previously submitted issues](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/issues?q=is%3Aissue+) for related issues that may have been already been reported or solved.
+      options:
+        - label: This issue has not been previously reported
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The version of the app currently installed. The full version number can be found at the bottom of the **Settings** menu.
+      placeholder: 1.9.x
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Bug Details
+      description: Provide as much detailed information as you can regarding the bug you have encountered. Screenshots can also be provided for further context.
+      placeholder: Describe the bug...
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: If possible, provide steps to reproduce the bug

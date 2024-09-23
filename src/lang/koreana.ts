@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `테마가 성공적으로 가져왔습니다`,
                 importfailed: `선택한 테마 파일을 가져오는 중 오류가 발생했습니다!`,
                 exporttheme: "테마 내보내기",
-                export: "내보내기"                
+                export: "내보내기",
+                exporterrortitle: "내보내기 오류",
+                exporterrorsub: [
+                    "선택한 테마를 내보내는 동안 오류가 발생했습니다",
+                    `현재 테마를 저장해 보세요 (<i><span class="hl">테마 저장</span></i>를 통해) 그리고 다시 내보내기를 시도해 보세요`,
+                    `문제가 지속되면 아래의 오류를 복사하고 <span class="hl">홈 화면</span>의 링크 버튼을 통해 신고해 주세요`
+                ]
             }
         }
     },

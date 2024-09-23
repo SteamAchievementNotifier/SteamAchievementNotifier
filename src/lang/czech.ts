@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Téma úspěšně importováno`,
                 importfailed: `Chyba při importu vybraného souboru tématu!`,
                 exporttheme: "Exportovat téma",
-                export: "Exportovat"
+                export: "Exportovat",
+                exporterrortitle: "Chyba při exportu",
+                exporterrorsub: [
+                    "Při pokusu o export vybraného motivu došlo k chybě",
+                    `Zkuste uložit aktuální motiv (<i>pomocí <span class="hl">Uložit motiv</span></i>) a zkuste export znovu`,
+                    `Pokud problém přetrvává, zkopírujte chybu níže a nahlaste ji pomocí odkazových tlačítek na <span class="hl">Domovské obrazovce</span>`
+                ]
             }
         }
     },

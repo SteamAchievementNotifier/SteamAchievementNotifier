@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `テーマが正常にインポートされました`,
                 importfailed: `選択したテーマファイルのインポート中にエラーが発生しました！`,
                 exporttheme: "テーマのエクスポート",
-                export: "エクスポート"                
+                export: "エクスポート",
+                exporterrortitle: "エクスポートエラー",
+                exporterrorsub: [
+                    "選択したテーマのエクスポート中にエラーが発生しました",
+                    `現在のテーマを保存して (<i><span class="hl">テーマを保存</span></i> から) 再度エクスポートを試みてください`,
+                    `問題が解決しない場合は、下記のエラーをコピーし、<span class="hl">ホーム画面</span>のリンクボタンから報告してください`
+                ]
             }
         }
     },

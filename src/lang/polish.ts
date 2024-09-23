@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Motyw został pomyślnie zaimportowany`,
                 importfailed: `Błąd podczas importowania wybranego pliku motywu!`,
                 exporttheme: "Eksportuj motyw",
-                export: "Eksportuj"                
+                export: "Eksportuj",
+                exporterrortitle: "Błąd eksportu",
+                exporterrorsub: [
+                    "Wystąpił błąd podczas próby eksportu wybranego motywu",
+                    `Spróbuj zapisać bieżący motyw (<i>poprzez <span class="hl">Zapisz motyw</span></i>) i spróbuj ponownie eksportować`,
+                    `Jeśli problem nadal występuje, skopiuj poniższy błąd i zgłoś go za pomocą przycisków linków na <span class="hl">Ekranie głównym</span>`
+                ]
             }
         }
     },

@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Thema succesvol geïmporteerd`,
                 importfailed: `Fout bij het importeren van het geselecteerde themabestand!`,
                 exporttheme: "Thema exporteren",
-                export: "Exporteren"                
+                export: "Exporteren",
+                exporterrortitle: "Exportfout",
+                exporterrorsub: [
+                    "Er is een fout opgetreden bij het proberen het geselecteerde thema te exporteren",
+                    `Probeer het huidige thema op te slaan (<i>via <span class="hl">Thema opslaan</span></i>) en probeer opnieuw te exporteren`,
+                    `Als het probleem aanhoudt, kopieer dan de fout hieronder en rapporteer deze via de linkknoppen op het <span class="hl">Startscherm</span>`
+                ]        
             }
         }
     },

@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Thema erfolgreich importiert`,
                 importfailed: `Fehler beim Importieren der ausgewählten Themendatei!`,
                 exporttheme: "Thema exportieren",
-                export: "Exportieren"                
+                export: "Exportieren",
+                exporterrortitle: "Exportfehler",
+                exporterrorsub: [
+                    "Beim Versuch, das ausgewählte Thema zu exportieren, ist ein Fehler aufgetreten",
+                    `Versuchen Sie, das aktuelle Thema (<i>über <span class="hl">Thema speichern</span></i>) zu speichern, und versuchen Sie erneut zu exportieren`,
+                    `Wenn das Problem weiterhin besteht, kopieren Sie bitte den Fehler unten und melden Sie ihn über die Linkschaltflächen auf dem <span class="hl">Startbildschirm</span>`
+                ]
             }
         }        
     },

@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Nhập Tema thành công`,
                 importfailed: `Lỗi khi nhập tệp Tema đã chọn!`,
                 exporttheme: "Xuất Tema",
-                export: "Xuất"                
+                export: "Xuất",
+                exporterrortitle: "Lỗi Xuất",
+                exporterrorsub: [
+                    "Đã xảy ra lỗi khi cố gắng xuất chủ đề đã chọn",
+                    `Hãy thử lưu chủ đề hiện tại (<i>thông qua <span class="hl">Lưu Chủ Đề</span></i>) và thử xuất lại`,
+                    `Nếu vấn đề vẫn tiếp diễn, vui lòng sao chép lỗi bên dưới và báo cáo qua các nút liên kết trên <span class="hl">Màn Hình Chính</span>`
+                ]   
             }
         }
     },

@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Temă importată cu succes`,
                 importfailed: `Eroare la importarea fișierului temei selectate!`,
                 exporttheme: "Exportare Temă",
-                export: "Exportare"                
+                export: "Exportare",
+                exporterrortitle: "Eroare de Exportare",
+                exporterrorsub: [
+                    "A apărut o eroare în timpul încercării de a exporta tema selectată",
+                    `Încercați să salvați tema curentă (<i>prin <span class="hl">Salvează Tema</span></i>) și încercați din nou să exportați`,
+                    `Dacă problema persistă, vă rugăm să copiați eroarea de mai jos și să o raportați prin butoanele de link de pe <span class="hl">Ecranul Principal</span>`
+                ]      
             }
         }
     },

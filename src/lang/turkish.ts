@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Tema başarıyla içe aktarıldı`,
                 importfailed: `Seçilen tema dosyasını içe aktarma hatası!`,
                 exporttheme: "Tema Dışa Aktar",
-                export: "Dışa Aktar"                
+                export: "Dışa Aktar",
+                exporterrortitle: "Dışa Aktarma Hatası",
+                exporterrorsub: [
+                    "Seçilen temayı dışa aktarmaya çalışırken bir hata oluştu",
+                    `Mevcut temayı kaydetmeyi deneyin (<i><span class="hl">Temayı Kaydet</span></i> aracılığıyla) ve tekrar dışa aktarmayı deneyin`,
+                    `Sorun devam ederse, lütfen aşağıdaki hatayı kopyalayın ve <span class="hl">Ana Ekran</span>'daki bağlantı düğmeleri aracılığıyla bildirin`
+                ]       
             }
         }
     },

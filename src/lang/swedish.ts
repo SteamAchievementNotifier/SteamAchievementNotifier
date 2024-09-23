@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Tema importerat framgångsrikt`,
                 importfailed: `Fel vid import av vald temafil!`,
                 exporttheme: "Exportera Tema",
-                export: "Exportera"                
+                export: "Exportera",
+                exporterrortitle: "Exportfel",
+                exporterrorsub: [
+                    "Ett fel uppstod vid försök att exportera det valda temat",
+                    `Försök att spara det aktuella temat (<i>via <span class="hl">Spara Tema</span></i>) och försök att exportera igen`,
+                    `Om problemet kvarstår, vänligen kopiera felet nedan och rapportera det via länkknapparna på <span class="hl">Startsidan</span>`
+                ] 
             }
         }
     },

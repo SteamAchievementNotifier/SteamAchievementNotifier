@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Téma sikeresen importálva`,
                 importfailed: `Hiba történt a kiválasztott témafájl importálásakor!`,
                 exporttheme: "Téma exportálása",
-                export: "Exportálás"                
+                export: "Exportálás",
+                exporterrortitle: "Exportálási hiba",
+                exporterrorsub: [
+                    "Hiba történt a kiválasztott téma exportálása közben",
+                    `Próbálja meg elmenteni a jelenlegi témát (<i>a <span class="hl">Téma mentése</span></i> lehetőséggel), és próbálja meg újra exportálni`,
+                    `Ha a probléma továbbra is fennáll, kérjük, másolja ki az alábbi hibát, majd jelentsen be a <span class="hl">Kezdőképernyő</span> hivatkozásgombjaival`
+                ]
             }
         }
     },

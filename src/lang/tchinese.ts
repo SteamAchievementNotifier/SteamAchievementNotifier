@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `主題匯入成功`,
                 importfailed: `匯入選定的主題檔案時發生錯誤！`,
                 exporttheme: "匯出主題",
-                export: "匯出"                
+                export: "匯出",
+                exporterrortitle: "匯出錯誤",
+                exporterrorsub: [
+                    "嘗試匯出選定主題時發生錯誤",
+                    `請嘗試保存當前主題 (<i>透過 <span class="hl">保存主題</span></i>)，然後再次嘗試匯出`,
+                    `如果問題仍然存在，請複製下面的錯誤，並透過<span class="hl">主畫面</span>上的連結按鈕進行報告`
+                ]     
             }
         }
     },

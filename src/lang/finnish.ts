@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Teema tuotu onnistuneesti`,
                 importfailed: `Virhe valitun teematiedoston tuonnissa!`,
                 exporttheme: "Vie teema",
-                export: "Vie"                
+                export: "Vie",
+                exporterrortitle: "Vienti virhe",
+                exporterrorsub: [
+                    "Virhe tapahtui yritettäessä viedä valittua teemaa",
+                    `Yritä tallentaa nykyinen teema (<i>käyttämällä <span class="hl">Tallenna teema</span></i>) ja yritä viedä uudelleen`,
+                    `Jos ongelma jatkuu, kopioi alla oleva virhe ja raportoi se linkkinäppäimillä <span class="hl">Aloitusnäytöllä</span>`
+                ]
             }
         }
     },

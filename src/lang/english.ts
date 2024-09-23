@@ -323,7 +323,13 @@ export const translations = {
                 importdone: `Theme imported successfully`,
                 importfailed: `Error importing selected Theme file!`,
                 exporttheme: "Export Theme",
-                export: "Export"
+                export: "Export",
+                exporterrortitle: "Error exporting Theme",
+                exporterrorsub: [
+                    "An error occurred while attempting to export the selected Theme",
+                    `Try saving the current Theme (<i>via <span class="hl">Save Theme</span></i>) and attempt to export again`,
+                    `If the issue persists, please copy the error below, then report via the link buttons on the <span class="hl">Home Screen</span>`
+                ]
             }
         }
     },

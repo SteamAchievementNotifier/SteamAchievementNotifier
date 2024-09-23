@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `Tema importato con successo`,
                 importfailed: `Errore durante l'importazione del file del tema selezionato!`,
                 exporttheme: "Esporta Tema",
-                export: "Esporta"                
+                export: "Esporta",
+                exporterrortitle: "Errore di Esportazione",
+                exporterrorsub: [
+                    "Si è verificato un errore durante il tentativo di esportare il tema selezionato",
+                    `Prova a salvare il tema attuale (<i>tramite <span class="hl">Salva Tema</span></i>) e riprova a esportare`,
+                    `Se il problema persiste, copia l'errore qui sotto e riportalo tramite i pulsanti di collegamento nella <span class="hl">Schermata Iniziale</span>`
+                ]
             }
         }
     },

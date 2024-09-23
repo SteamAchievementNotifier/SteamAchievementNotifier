@@ -320,7 +320,13 @@ export const translations = {
                 importdone: `主题导入成功`,
                 importfailed: `导入选定的主题文件时出错！`,
                 exporttheme: "导出主题",
-                export: "导出"                
+                export: "导出",
+                exporterrortitle: "导出错误",
+                exporterrorsub: [
+                    "尝试导出选定主题时发生错误",
+                    `请尝试保存当前主题 (<i>通过 <span class="hl">保存主题</span></i>)，然后再次尝试导出`,
+                    `如果问题仍然存在，请复制下面的错误，并通过 <span class="hl">主屏幕</span> 上的链接按钮进行报告`
+                ]
             }
         }
     },

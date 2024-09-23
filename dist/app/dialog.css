@@ -676,7 +676,8 @@ td:has(.unlinkbtn) > .unlinkbtn {
     justify-self: start;
 }
 
-.addhtml > #importlog {
+.addhtml > #importlog,
+.wrapper#exportthemeerror {
     place-items: center;
     font-style: italic;
     background-color: var(--mediumgrey);
@@ -692,6 +693,10 @@ td:has(.unlinkbtn) > .unlinkbtn {
 #importbtn::before {
     width: 1.5rem;
     height: 1.5rem;
+}
+
+.wrapper#exportthemeerror > code {
+    user-select: all;
 }
 
 @media (orientation: portrait) {

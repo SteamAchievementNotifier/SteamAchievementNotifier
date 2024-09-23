@@ -452,6 +452,18 @@ export const usertheme = {
                 log.write("INFO",`"${src}" removed successfully`)
             } catch (err) {
                 log.write("ERROR",`Error exporting Theme: ${(err as Error).stack}`)
+
+                ;(async () => {
+                    const { language } = await import("./language")
+
+                    dialog.open({
+                        title: await language.get("exporterrortitle",["customiser","theme","content"]),
+                        type: "default",
+                        icon: sanhelper.setfilepath("icon","error.svg"),
+                        sub: await language.get("exporterrorsub",["customiser","theme","content"]),
+                        addHTML: `<div class="wrapper" id="exportthemeerror"><code>${err as Error}</code></div>`
+                    })
+                })()
             }
         })
 

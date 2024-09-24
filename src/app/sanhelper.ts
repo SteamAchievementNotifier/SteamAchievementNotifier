@@ -430,17 +430,33 @@ export const sanhelper: SANHelper = {
         menuelem.querySelectorAll(`
             #elemselector select,
             #elemselector input,
+            #elemselector button,
             #webhookwrapper input
         `)!.forEach(async elem => {
+            const trophies = [
+                "bronze",
+                "silver",
+                "gold"
+            ]
+
+            let content = (await language.get(elem.id,["tooltips"])).replace(/\$type/,await language.get(menuelem.id === "settingscontent" ? "screenshot" : "notification",["tooltips"]))
+
+            for (const id of trophies) {
+                if (elem.id.endsWith(id)) {
+                    const config = (await import("./config")).sanconfig.get()
+                    content = content.replace(/\$rarity/,`${config.get("rarity")}%`)
+                }
+            }
+
             const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})`,{
                 ...defaulttippy,
                 appendTo: "parent",
-                content: (await language.get(elem.id,["tooltips"])).replace(/\$type/,await language.get(menuelem.id === "settingscontent" ? "screenshot" : "notification",["tooltips"])),
+                content: content,
                 onTrigger(inst) {
                     inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
                 }
             }) as Instance<Props>[]
-            
+
             tippies.push(tt)
         })
 

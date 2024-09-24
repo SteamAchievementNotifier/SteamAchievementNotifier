@@ -341,6 +341,11 @@ export const sanconfig = {
                 sspercentbadgefontsize: 100,
                 percentbadgeroundness: 50,
                 sspercentbadgeroundness: 50,
+                percentbadgeimg: false,
+                sspercentbadgeimg: false,
+                percentbadgeimgbronze: sanhelper.setfilepath("img","sanlogotrophy_bronze.svg"),
+                percentbadgeimgsilver: sanhelper.setfilepath("img","sanlogotrophy_silver.svg"),
+                percentbadgeimggold: sanhelper.setfilepath("img","sanlogotrophy_gold.svg"),
                 usertheme: [] as UserTheme[]
             }
 

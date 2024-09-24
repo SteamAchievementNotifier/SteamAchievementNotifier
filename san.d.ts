@@ -181,6 +181,11 @@ declare interface Customisation {
     sspercentbadgefontsize: number,
     percentbadgeroundness: number,
     sspercentbadgeroundness: number,
+    percentbadgeimg: boolean,
+    sspercentbadgeimg: boolean,
+    percentbadgeimgbronze: string,
+    percentbadgeimgsilver: string,
+    percentbadgeimggold: string,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object
 }

@@ -111,7 +111,7 @@ const notifyhelper = {
     
         return notifyhelper.playaudio(customisation,iswebview,skipaudio,type)
     },
-    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string): Promise<HTMLImageElement[] | null> => {
+    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold"): Promise<HTMLImageElement[] | null> => {
         return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {
             const gameartappid = !appid ? notifyhelper.appids[Math.floor(Math.random() * notifyhelper.appids.length)] : appid
     
@@ -203,7 +203,8 @@ const notifyhelper = {
                 ["--badgepos",customisation[`${ss}percentbadgepos`] === "top" ? "start" : "end"],
                 ["--badgecolor",customisation[`${ss}percentbadgecolor`]],
                 ["--badgesize",`${(customisation[`${ss}percentbadgefontsize`] / 10) * (customisation.scale / 100)}px`],
-                ["--badgeroundness",customisation[`${ss}percentbadgeroundness`] === 100 ? "50%" : `${(customisation[`${ss}percentbadgefontsize`] / 4) / (customisation[`${ss}percentbadgeroundness`] / 10)}px`]
+                ["--badgeroundness",customisation[`${ss}percentbadgeroundness`] === 100 ? "50%" : `${(customisation[`${ss}percentbadgefontsize`] / 4) / (customisation[`${ss}percentbadgeroundness`] / 10)}px`],
+                ["--badgeimg",customisation[`${ss}percentbadgeimg`] ? (`url('${customisation[`percentbadgeimg${percentimg}`]}')` || `url('../img/sanlogotrophy.svg')`) : "none"]
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")
@@ -293,8 +294,10 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
 
             const percentvalue = Math.max(parseFloat(percent.value.toFixed(1)),0.1)
             const percentstr = customisation.percentbadge ? "" : `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${percentvalue}%)` : ""}`
+            const percentimg = percentvalue <= percent.rarity ? "gold" : ((percentvalue < 50 && percentvalue > percent.rarity) ? "silver" : "bronze")
 
-            customisation[`${iswebview && iswebview.startsWith("ss") ? "ss" : ""}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge">${percentvalue}%</span>`))
+            const ss = iswebview && iswebview.startsWith("ss") ? "ss" : ""
+            customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : `${percentvalue}%`}</span>`))
 
             const str = {
                 unlockmsg: unlockmsg,
@@ -302,7 +305,6 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
                 desc: desc
             }
 
-            const ss = iswebview && iswebview.includes("ss") ? "ss" : ""
             const elemtype = `${ss}elems`
             const elems = customisation[elemtype] as ("unlockmsg" | "title" | "desc")[]
             const ssnodetails = elemtype === "sselems" && !(ssalldetails as string[]).includes(customisation.preset)
@@ -342,7 +344,7 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
             
             if (!steampath) throw new Error(`Steam installation path not found!`)
 
-            notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id,hqicon,temp)
+            notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id,hqicon,temp,percentimg)
             .then(preloadimgs => {
                 preloadimgs && preloadimgs.forEach(img => imgs.push(img))
                 resolve({

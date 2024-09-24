@@ -83,6 +83,11 @@ export const translations = {
         sspercentbadgefontsize: "Badge Size",
         percentbadgeroundness: "Badge Roundness",
         sspercentbadgeroundness: "Badge Roundness",
+        percentbadgeimg: "Use Image",
+        sspercentbadgeimg: "Use Image",
+        percentbadgeimgbronze: "Rarity: > 50%",
+        percentbadgeimgsilver: "Rarity: < 50% & > $rarity%",
+        percentbadgeimggold: "Rarity: < $rarity%",
         top: "Top",
         bottom: "Bottom"
     },
@@ -505,7 +510,12 @@ export const translations = {
         percentbadgefontsize: "Set the size of the badge",
         sspercentbadgefontsize: "Set the size of the badge",
         percentbadgeroundness: "Set the roundness of the badge",
-        sspercentbadgeroundness: "Set the roundness of the badge"
+        sspercentbadgeroundness: "Set the roundness of the badge",
+        percentbadgeimg: "Display a rarity-based image as the badge element",
+        sspercentbadgeimg: "Display a rarity-based image as the badge element",
+        percentbadgeimgbronze: `Set the image to be displayed when the achievement unlock percentage is > 50%`,
+        percentbadgeimgsilver: `Set the image to be displayed when the achievement unlock percentage is < 50% and > $rarity`,
+        percentbadgeimggold: `Set the image to be displayed when the achievement unlock percentage is < $rarity`
     },
     update: {
         updateavailable: "Update available",

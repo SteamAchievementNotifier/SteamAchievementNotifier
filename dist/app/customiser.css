@@ -332,7 +332,8 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 .img#logo,
 .img[id^="decoration"],
 .img#plat,
-.img#hiddenicon {
+.img#hiddenicon,
+.img[id*="percentbadgeimg"] {
     min-height: 3.5rem;
     background: var(--img) center / 25% no-repeat var(--darkgrey);
 }
@@ -466,7 +467,7 @@ button[updated] > #confirm {
 #customiser[poswin] .sub:has(#usecustompos),
 #customiser[poswin] #posbtns > *,
 #customisercontent:has(input#showdecoration:not(:checked)):has(input#replacelogo:not(:checked)) .opt:has(.optbtn[id^="decoration"]),
-#customisercontent:has(input#replacelogo:checked) .opt:has(.optbtn[id="logo"]),
+#customisercontent:has([id^="decoration"]:not(#decorationpos,[novalue])) #customiseropts:has(input#replacelogo:checked) .opt:has(.optbtn[id="logo"]),
 #customiseropts:has(.opt > select#preset > option[value="os"]:checked) .opt:not(:has([os])) {
     opacity: 0.5;
     pointer-events: none;

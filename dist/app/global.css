@@ -655,7 +655,12 @@ input[type="range"][unit],
     background-color: var(--primary);
 }
 
-.wrapper#elemselector > .wrapper > .wrapper:has(select > option[value="off"]:checked) {
+.wrapper#elemselector > .wrapper > .wrapper:not(:has(input[type="checkbox"])) > span {
+    cursor: auto;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(select > option[value="off"]:checked),
+.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:not(:checked)) {
     opacity: 0.5;
 }
 
@@ -664,23 +669,31 @@ input[type="range"][unit],
 }
 
 .wrapper#elemselector > .wrapper > .wrapper:has(select#desc),
-.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:checked) {
+.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:checked),
+.wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimg"]:checked) {
     margin-bottom: 0.5rem;
 }
 
-.wrapper#elemselector > .wrapper > .wrapper:has(input#percentbadge,input#sspercentbadge) {
+.wrapper#elemselector > .wrapper > .wrapper:has(input#percentbadge,input#sspercentbadge),
+.wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimg"]) {
     margin-top: 0.5rem;
 }
 
-.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:not(:checked)) {
-    opacity: 0.5;
-}
-
-.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:not(:checked,:hover)) > .wrapper > input {
+.wrapper#elemselector input[type="checkbox"]:not(:checked,:hover) {
     background-color: var(--mediumgrey);
 }
 
-.wrapper#elemselector > .wrapper:has(input[id$="percentbadge"]:not(:checked)) > .wrapper:has(select[id$="percentbadgepos"],input[id*="percentbadge"]:not(input#percentbadge,input#sspercentbadge)) {
+.wrapper#elemselector > .wrapper > .wrapper:has(span:hover) > input:not(:checked) {
+    background-color: var(--lightgrey);
+} 
+
+.wrapper#elemselector > .wrapper:has(input[id$="percentbadge"]:not(:checked)) > .wrapper:has(select[id$="percentbadgepos"],input[id*="percentbadge"]:not(input#percentbadge,input#sspercentbadge),button[id^="percentbadgeimg"]),
+.wrapper#elemselector > .wrapper:has([id$="percentbadgeimg"]:not(:checked)) > .wrapper:has(#percentbadgeimgbronze,#percentbadgeimgsilver,#percentbadgeimggold),
+.wrapper#elemselector > .wrapper:has([id$="percentbadgeimg"]:checked) > .wrapper:has(input[type="color"][id$="percentbadgecolor"],input[type="range"][id$="percentbadgeroundness"]),
+body[main] .wrapper#elemselector > .wrapper > .wrapper:has(#percentbadgeimggold),
+body[rare] .wrapper#elemselector > .wrapper > .wrapper:has(#percentbadgeimgbronze,#percentbadgeimgsilver),
+body[plat] .wrapper#elemselector > .wrapper > .wrapper:has(#percentbadgeimgbronze,#percentbadgeimgsilver),
+.wrapper#elemselector > .wrapper:has(input[id$="percentbadgeimg"]:not(:checked)) > .wrapper:has(#percentbadgeimgbronze,#percentbadgeimgsilver,#percentbadgeimggold) {
     display: none;
 }
 
@@ -700,4 +713,13 @@ input[type="range"][unit],
 
 .wrapper#elemselector > .wrapper > .wrapper:has(input[type="range"]) {
     grid-template-columns: 1fr 1fr;
+}
+
+.wrapper#elemselector > .wrapper > .wrapper:has(#percentbadgeimgbronze,#percentbadgeimgsilver,#percentbadgeimggold) > button {
+    --img: url("../../img/sanlogotrophy.svg");
+    width: 1rem;
+    height: 1rem;
+    background: var(--img) center / contain no-repeat;
+    justify-self: end;
+    cursor: pointer;
 }

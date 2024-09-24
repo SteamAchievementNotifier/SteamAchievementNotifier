@@ -284,3 +284,10 @@ body[nodecoration] .wrapper#achcontent > span {
     filter: drop-shadow(0 0 0.15rem var(--mediumgrey));
     z-index: 100;
 }
+
+#badge[badgeimg] {
+    width: calc(var(--badgesize) * 1.5);
+    height: calc(var(--badgesize) * 1.5);
+    background: var(--badgeimg) center / contain no-repeat;
+    background-color: transparent;
+}

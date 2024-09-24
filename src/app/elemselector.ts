@@ -23,7 +23,12 @@ export const selectorelems = [
     "percentbadgefontsize",
     "sspercentbadgefontsize",
     "percentbadgeroundness",
-    "sspercentbadgeroundness"
+    "sspercentbadgeroundness",
+    "percentbadgeimg",
+    "sspercentbadgeimg",
+    "percentbadgeimgbronze",
+    "percentbadgeimgsilver",
+    "percentbadgeimggold"
 ]
 
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
@@ -186,11 +191,26 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         }
     })
 
-    const pblbl = menutype.querySelector(`#elemselector > .opt > .opt:has(input#${elemtype === "sselems" ? "ss" : ""}percentbadge) > span`) as HTMLSpanElement
-    pblbl.onclick = () => {
-        const elem = pblbl.nextElementSibling! as HTMLInputElement
-        updateinput(config,type,elem,!config.get(`customisation.${type}.${elem.id}`) as boolean,menutype)
-    }
+    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(input[type="checkbox"]) > span`).forEach(s => {
+        const span = s as HTMLSpanElement
+        span.onclick = () => {
+            const elem = span.nextElementSibling! as HTMLInputElement
+            updateinput(config,type,elem,!config.get(`customisation.${type}.${elem.id}`) as boolean,menutype)
+        }
+    })
+
+    // const pblbl = menutype.querySelector(`#elemselector > .opt > .opt:has(input#${elemtype === "sselems" ? "ss" : ""}percentbadge) > span`) as HTMLSpanElement
+    // pblbl.onclick = () => {
+    //     const elem = pblbl.nextElementSibling! as HTMLInputElement
+    //     updateinput(config,type,elem,!config.get(`customisation.${type}.${elem.id}`) as boolean,menutype)
+    // }
+
+    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(button[id^="percentbadgeimg"]) > button`)!.forEach(b => {
+        const btn = b as HTMLImageElement
+        btn.parentElement!.querySelector("span")!.textContent = global[btn.id].replace(/\$rarity/,config.get("rarity"))
+
+        btn.style.setProperty("--img",`url('${config.get(`customisation.${type}.${btn.id}`)}')`)
+    })
 
     menutype.querySelectorAll(`select[id*="percentbadge"]`).forEach(s => {
         const select = s as HTMLSelectElement

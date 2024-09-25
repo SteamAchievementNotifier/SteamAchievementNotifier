@@ -144,113 +144,89 @@ export const sanconfig = {
             }]
         ])
     },
-    create: (validate?: boolean): Config => {
-        // When calling from renderer, it cannot access the `screen` API - so create a dummy object to bypass
-        const dummyscreen: DefaultBounds = {
-            id: 0,
-            bounds: {
-                width: 1050,
-                height: 750
-            },
-            scaleFactor: 1
-        }
+    defaultobj: (objtype: "config" | "customisation",props?: { id: number, imgpath: string, target: { width: number, height: number }, width: number, height: number } | "main" | "rare" | "plat"): Config | Customisation => {
+        if (objtype === "config" && typeof props === "object") {
+            const { id, imgpath, target, width, height } = props!
 
-        process.type === "browser" && Store.initRenderer()
-        
-        const { id, bounds: { width, height }, scaleFactor }: Electron.Display | DefaultBounds = process.type === "browser" ? screen.getPrimaryDisplay() : dummyscreen
-        const target = {
-            width: Math.round(1050 / scaleFactor),
-            height: Math.round(750 / scaleFactor)
-        }
-
-        const imgpath = path.join(process.env[process.platform === "linux" ? "HOME" : "userprofile"]!,"Pictures",`Steam Achievement Notifier (V${sanhelper.version})`).replace(/\\/g,"/")
-
-        const obj: Config = {
-            lang: "english",
-            desktop: false,
-            startwin: false,
-            startmin: false,
-            nohwa: false,
-            litemode: false,
-            rarity: 10,
-            soundonly: false,
-            showpercent: "rareonly",
-            extwin: false,
-            // extwinshow: false,
-            // extwinpos: {
-            //     x: 0,
-            //     y: 0
-            // },
-            audiosrc: "notify",
-            nowtracking: true,
-            nowtrackingscale: 100,
-            nowtrackingpos: "bottomright",
-            shortcuts: false,
-            steamss: false,
-            screenshots: "off",
-            hdrmode: false,
-            monitor: id,
-            monitors: [] as Monitor[],
-            ssdelay: 0,
-            ovpath: imgpath,
-            imgpath: imgpath,
-            noanim: false,
-            nvda: false,
-            tooltips: true,
-            notifydebug: false,
-            pollrate: 250,
-            maxretries: 10,
-            initdelay: 0,
-            releasedelay: 0,
-            width: target.width,
-            height: target.height,
-            x: Math.round((width / 2) - (target.width / 2)),
-            y: Math.round((height / 2) - (target.height / 2)),
-            usecustomfiles: false,
-            noreleasedialog: false,
-            norestartdialog: false,
-            noupdatedialog: false,
-            userust: false,
-            debug: false,
-            noiconcache: false,
-            exclusions: [],
-            logtype: "san",
-            ssalldetails: [
-                "steamdeck",
-                "epicgames",
-                "xbox360",
-                "ps5",
-                "ps4",
-                "ps3",
-                "windows",
-                "gfwl"
-            ],
-            webhooks: false,
-            webhookurl: "",
-            webhooklaststatus: "",
-            // discord: {
-            //     userid: "",
-            //     avatarurl: "",
-            //     webhookurl: ""
-            // },
-            steamlang: false,
-            maxsteamlangretries: 10,
-            customisation: {
-                main: {} as Customisation,
-                rare: {} as Customisation,
-                plat: {} as Customisation
+            const obj: Config = {
+                lang: "english",
+                desktop: false,
+                startwin: false,
+                startmin: false,
+                nohwa: false,
+                litemode: false,
+                rarity: 10,
+                soundonly: false,
+                showpercent: "rareonly",
+                extwin: false,
+                // extwinshow: false,
+                // extwinpos: {
+                //     x: 0,
+                //     y: 0
+                // },
+                audiosrc: "notify",
+                nowtracking: true,
+                nowtrackingscale: 100,
+                nowtrackingpos: "bottomright",
+                shortcuts: false,
+                steamss: false,
+                screenshots: "off",
+                hdrmode: false,
+                monitor: id,
+                monitors: [] as Monitor[],
+                ssdelay: 0,
+                ovpath: imgpath,
+                imgpath: imgpath,
+                noanim: false,
+                nvda: false,
+                tooltips: true,
+                notifydebug: false,
+                pollrate: 250,
+                maxretries: 10,
+                initdelay: 0,
+                releasedelay: 0,
+                width: target.width,
+                height: target.height,
+                x: Math.round((width / 2) - (target.width / 2)),
+                y: Math.round((height / 2) - (target.height / 2)),
+                usecustomfiles: false,
+                noreleasedialog: false,
+                norestartdialog: false,
+                noupdatedialog: false,
+                userust: false,
+                debug: false,
+                noiconcache: false,
+                exclusions: [],
+                logtype: "san",
+                ssalldetails: [
+                    "steamdeck",
+                    "epicgames",
+                    "xbox360",
+                    "ps5",
+                    "ps4",
+                    "ps3",
+                    "windows",
+                    "gfwl"
+                ],
+                webhooks: false,
+                webhookurl: "",
+                webhooklaststatus: "",
+                // discord: {
+                //     userid: "",
+                //     avatarurl: "",
+                //     webhookurl: ""
+                // },
+                steamlang: false,
+                maxsteamlangretries: 10,
+                customisation: {
+                    main: {} as Customisation,
+                    rare: {} as Customisation,
+                    plat: {} as Customisation
+                }
             }
-        }
 
-        if (validate) {
-            const configkeys = Object.keys(sanconfig.get().store)
-            const objkeys = Object.keys(obj)
-            ;["ovpath","imgpath"].forEach(key => defaultfiles[key] = obj[key])
-
-            sanconfig.validateconfigkeys(configkeys,objkeys,obj,defaultfiles)
-        }
-
-        for (const type in obj.customisation) {
+            return obj
+        } else {
             const customobj: Customisation = {
                 soundmode: "file",
                 soundfile: "",
@@ -333,31 +309,65 @@ export const sanconfig = {
                 sspercentpos: 1,
                 percentbadge: false,
                 sspercentbadge: false,
-                percentbadgepos: "bottom",
-                sspercentbadgepos: "bottom",
-                percentbadgecolor: `#${type === "main" ? "203e7a" : (type === "rare" ? "663399" : "4e75c9")}`,
-                sspercentbadgecolor: `#${type === "main" ? "203e7a" : (type === "rare" ? "663399" : "4e75c9")}`,
+                percentbadgepos: "bottomcenter",
+                sspercentbadgepos: "bottomcenter",
+                percentbadgecolor: `#${props === "main" ? "203e7a" : (props === "rare" ? "663399" : "4e75c9")}`,
+                sspercentbadgecolor: `#${props === "main" ? "203e7a" : (props === "rare" ? "663399" : "4e75c9")}`,
                 percentbadgefontsize: 100,
                 sspercentbadgefontsize: 100,
                 percentbadgeroundness: 50,
                 sspercentbadgeroundness: 50,
+                percentbadgex: 0,
+                sspercentbadgex: 0,
+                percentbadgey: 0,
+                sspercentbadgey: 0,
                 percentbadgeimg: false,
                 sspercentbadgeimg: false,
                 percentbadgeimgbronze: sanhelper.setfilepath("img","sanlogotrophy_bronze.svg"),
+                sspercentbadgeimgbronze: sanhelper.setfilepath("img","sanlogotrophy_bronze.svg"),
                 percentbadgeimgsilver: sanhelper.setfilepath("img","sanlogotrophy_silver.svg"),
+                sspercentbadgeimgsilver: sanhelper.setfilepath("img","sanlogotrophy_silver.svg"),
                 percentbadgeimggold: sanhelper.setfilepath("img","sanlogotrophy_gold.svg"),
+                sspercentbadgeimggold: sanhelper.setfilepath("img","sanlogotrophy_gold.svg"),
                 usertheme: [] as UserTheme[]
             }
 
+            return customobj
+        }
+    },
+    create: (validate?: boolean): Config => {
+        // When calling from renderer, it cannot access the `screen` API - so create a dummy object to bypass
+        const dummyscreen: DefaultBounds = {
+            id: 0,
+            bounds: {
+                width: 1050,
+                height: 750
+            },
+            scaleFactor: 1
+        }
+
+        process.type === "browser" && Store.initRenderer()
+        
+        const { id, bounds: { width, height }, scaleFactor }: Electron.Display | DefaultBounds = process.type === "browser" ? screen.getPrimaryDisplay() : dummyscreen
+        const target = {
+            width: Math.round(1050 / scaleFactor),
+            height: Math.round(750 / scaleFactor)
+        }
+
+        const imgpath = path.join(process.env[process.platform === "linux" ? "HOME" : "userprofile"]!,"Pictures",`Steam Achievement Notifier (V${sanhelper.version})`).replace(/\\/g,"/")
+
+        const props = { id, imgpath, target, width, height }
+        const obj = sanconfig.defaultobj("config",props) as Config
+
+        if (validate) {
+            sanconfig.validateconfigobj(obj)
+        }
+
+        for (const type in obj.customisation) {
+            const customobj = sanconfig.defaultobj("customisation",type as "main" | "rare" | "plat") as Customisation
+
             if (validate) {
-                const config = sanconfig.get()
-                const configkeys = Object.keys(config.get(`customisation.${type}`))
-                const customobjkeys = Object.keys(customobj)
-
-                ;["soundfile","sounddir","bgimg","maskimg","customfont","hiddenicon"].forEach(key => defaultfiles[key] = customobj[key])
-
-                sanconfig.validateconfigkeys(configkeys,customobjkeys,customobj,defaultfiles,type)
-                sanconfig.validatecustomicons(type as "main" | "rare" | "plat")
+                sanconfig.validateconfigobj(customobj,type as "main" | "rare" | "plat")
             }
 
             if (!validate) {
@@ -434,7 +444,7 @@ export const sanconfig = {
         cwd: sanhelper.appdata,
         watch: watch || false
     }),
-    validateconfigkeys: async (configkeys: string[],objkeys: string[],obj: Config | Customisation,defaultfiles: { [key: string]: string },type?: string) => {
+    validateconfigkeys: async (configkeys: string[],objkeys: string[],obj: Config | Customisation,type?: string) => {
         const config = sanconfig.get()
         const log = (await import("./log")).log
         
@@ -474,11 +484,14 @@ export const sanconfig = {
     validatecustomicons: async (type: "main" | "rare" | "plat") => {
         const config = sanconfig.get()
         const log = (await import("./log")).log
+        const defaulticons = sanconfig.defaulticons
 
         const customicons = config.get(`customisation.${type}.customicons`) as { [key: string]: any }
         const userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
 
-        const defaulticonkeys = Array.from(sanconfig.defaulticons.keys())
+        type === "plat" && defaulticons.set("plat",sanhelper.setfilepath("img","ribbon.svg"))
+
+        const defaulticonkeys = Array.from(defaulticons.keys())
         const customiconkeys = Object.keys(customicons)
 
         const filter = (objkeys: string[]) => defaulticonkeys.filter(key => !objkeys.includes(key))
@@ -488,7 +501,7 @@ export const sanconfig = {
 
                 return Object.assign(obj,{
                     ...obj,
-                    [key]: sanconfig.defaulticons.get(key)
+                    [key]: defaulticons.get(key)
                 })
             })
         }
@@ -526,7 +539,7 @@ export const sanconfig = {
 
             // Validate all previously saved User Themes, and add new keys with default values if missing
             const themekeys = Object.keys(theme.customisation!)
-            sanconfig.validateconfigkeys(themekeys,defaultkeys,customisation[type],defaultfiles,`${type}.usertheme.${i}.customisation`)
+            sanconfig.validateconfigkeys(themekeys,defaultkeys,customisation[type],`${type}.usertheme.${i}.customisation`)
         })
     },
     validatefiles: async (config: Store<Config>,keys: string[],type?: "main" | "rare" | "plat") => {
@@ -571,5 +584,16 @@ export const sanconfig = {
         } catch (err) {
             log.write("ERROR",`Unable to reset "${key}" to default value: ${err as Error}`)
         }
-    })
+    }),
+    validateconfigobj: async (obj: Config | Customisation,type?: "main" | "rare" | "plat") => {
+        const config = sanconfig.get()
+        const configkeys = Object.keys(!type ? config.store : config.get(`customisation.${type}`))
+        const objkeys = Object.keys(obj)
+
+        const keys = !type ? ["ovpath","imgpath"] : ["soundfile","sounddir","bgimg","maskimg","customfont","hiddenicon"]
+        keys.forEach(key => defaultfiles[key] = obj[key])
+
+        await sanconfig.validateconfigkeys(configkeys,objkeys,obj,type)
+        type && await sanconfig.validatecustomicons(type as "main" | "rare" | "plat")
+    }
 }

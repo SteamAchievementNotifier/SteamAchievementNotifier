@@ -119,6 +119,13 @@ export const usertheme = {
         const selected = updatedthemes.find(theme => theme.enabled)!
         const customisation = { ...selected.customisation as Customisation }
 
+        // Checks all keys in current type on import and adds defaults if missing
+        ;(async () => {
+            const { sanconfig } = await import("./config")
+            const customobj = sanconfig.defaultobj("customisation",type) as Customisation
+            await sanconfig.validateconfigobj(customobj,type)
+        })()
+
         customisation.usertheme = []
 
         updatedthemes.forEach((theme: UserTheme) => {

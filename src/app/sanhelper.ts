@@ -391,7 +391,6 @@ export const sanhelper: SANHelper = {
         elem.onclick = () => {
             const attr = ["img","audio","dir","font"].find(attr => elem.hasAttribute(attr))
 
-            ipcRenderer.send("loadfile",attr)
             ipcRenderer.once("loadfile", (event,path) => {
                 if (!path) return
 
@@ -401,6 +400,8 @@ export const sanhelper: SANHelper = {
                 config.set(newkeypath,path[0].replace(/\\/g,"/"))
                 sanhelper.updatetabs(noreload(elem) !== undefined)
             })
+
+            ipcRenderer.send("loadfile",attr)
         }
 
         if (!elem.classList.contains("img")) return elem.textContent = key ? key.toString().replace(/\\/g,"/") : (await language.get(`default${elem.id}`) || "MISSING!!!")
@@ -448,7 +449,7 @@ export const sanhelper: SANHelper = {
                 }
             }
 
-            const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})`,{
+            const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})${elem.classList.contains("rect") ? ` > #${elem.id}` : ""}`,{
                 ...defaulttippy,
                 appendTo: "parent",
                 content: content,
@@ -464,7 +465,11 @@ export const sanhelper: SANHelper = {
             ["percentbadgefontsize","%"],
             ["sspercentbadgefontsize","%"],
             ["percentbadgeroundness","%"],
-            ["sspercentbadgeroundness","%"]
+            ["sspercentbadgeroundness","%"],
+            ["percentbadgex","px"],
+            ["sspercentbadgex","px"],
+            ["percentbadgey","px"],
+            ["sspercentbadgey","px"],
         ])
 
         range.forEach((value,key) => {
@@ -691,25 +696,29 @@ export const sanhelper: SANHelper = {
 
         if (!dialog) return
 
-        const dialogtitles = dialog.querySelectorAll(".wrapper.title")
-        const doctitles = document.querySelectorAll(".wrapper.title")
+        // !!! #elemselector > span does not get saved for recall on opening menu, due to no "id"
+        // Both parentelement ids are also the same (Settings/Customiser), so can't use those to differentiate
+        requestAnimationFrame(() => {
+            const dialogtitles = dialog.querySelectorAll(".wrapper.title, .wrapper#elemselector > span.lbl")
+            const doctitles = document.querySelectorAll(".wrapper.title, .wrapper#elemselector > span.lbl")
 
-        dialogtitles && dialogtitles.forEach(elem => {
-            (elem as HTMLElement).onclick = () => {
-                elem.toggleAttribute("closed",!elem.hasAttribute("closed"))
-
-                elem.hasAttribute("closed") && !closedstate.includes(elem.id) && closedstate.push(elem.id)
-                !elem.hasAttribute("closed") && closedstate.includes(elem.id) && closedstate.splice(closedstate.indexOf(elem.id),1)
-
-                localStorage.setItem("closedstate",JSON.stringify([...closedstate],null,4))
-            }
-
-            doctitles && doctitles.forEach(elem => {
-                elem.toggleAttribute("notransition",elem.hasAttribute("closed"))
-                elem.toggleAttribute("closed",closedstate.includes(elem.id))
-
-                // Remove "notransition" attribute after transition duration to prevent elements from playing transition animation when opening menu
-                setTimeout(() => elem.removeAttribute("notransition"),200)
+            dialogtitles && dialogtitles.forEach(elem => {
+                (elem as HTMLElement).onclick = () => {
+                    elem.toggleAttribute("closed",!elem.hasAttribute("closed"))
+    
+                    elem.hasAttribute("closed") && !closedstate.includes(elem.id) && closedstate.push(elem.id)
+                    !elem.hasAttribute("closed") && closedstate.includes(elem.id) && closedstate.splice(closedstate.indexOf(elem.id),1)
+    
+                    localStorage.setItem("closedstate",JSON.stringify([...closedstate],null,4))
+                }
+    
+                doctitles && doctitles.forEach(elem => {
+                    elem.toggleAttribute("notransition",elem.hasAttribute("closed"))
+                    elem.toggleAttribute("closed",closedstate.includes(elem.id))
+    
+                    // Remove "notransition" attribute after transition duration to prevent elements from playing transition animation when opening menu
+                    setTimeout(() => elem.removeAttribute("notransition"),200)
+                })
             })
         })
     },

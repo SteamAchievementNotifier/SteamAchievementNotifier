@@ -60,13 +60,14 @@
             <input type="checkbox" id="percentbadge">
         </div>
         <div class="wrapper opt">
-            
-        </div>
-        <div class="wrapper opt">
             <span></span>
             <select name="percentbadgepos" id="percentbadgepos">
-                <option value="top"></option>
-                <option value="bottom"></option>
+                <option value="topleft"></option>
+                <option value="topcenter"></option>
+                <option value="topright"></option>
+                <option value="bottomleft"></option>
+                <option value="bottomcenter"></option>
+                <option value="bottomright"></option>
             </select>
         </div>
         <div class="wrapper opt">
@@ -80,6 +81,14 @@
         <div class="wrapper opt">
             <span></span>
             <input type="range" min="0" max="100" step="50" id="percentbadgeroundness">
+        </div>
+        <div class="wrapper opt">
+            <span></span>
+            <input type="range" min="-5" max="5" step="1" id="percentbadgex">
+        </div>
+        <div class="wrapper opt">
+            <span></span>
+            <input type="range" min="-5" max="5" step="1" id="percentbadgey">
         </div>
         <div class="wrapper opt">
             <span></span>
@@ -97,5 +106,8 @@
             <span></span>
             <button id="percentbadgeimggold"></button>
         </div>
+        <button class="rect" id="resetpbimgs">
+            <span></span>
+        </button>
     </div>
 </div>

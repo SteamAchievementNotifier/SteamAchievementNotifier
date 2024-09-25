@@ -169,6 +169,23 @@ const notifyhelper = {
             gameiconurl && ((document.getElementById("achicon")! as HTMLImageElement)!.src = gameiconurl)
 
             const ss = iswebview && iswebview.startsWith("ss") ? "ss" : ""
+            const badgepos = (pos: string) => {
+                const scale = customisation.scale / 100
+                const badge = {
+                    x: customisation[`${ss}percentbadgex`] * scale,
+                    y: customisation[`${ss}percentbadgey`] * scale
+                }
+
+                switch (pos) {
+                    case "topleft": return { x: `calc(20% + ${badge.x}px) calc(80% - ${badge.x}px)`, y: `calc(10% + ${badge.y}px) 0` }
+                    case "topcenter": return { x: `calc(50% + ${badge.x}px) calc(50% - ${badge.x}px)`, y: `calc(10% + ${badge.y}px) 0` }
+                    case "topright": return { x: `calc(80% + ${badge.x}px) calc(20% - ${badge.x}px)`, y: `calc(10% + ${badge.y}px) 0` }
+                    case "bottomleft": return { x: `calc(20% + ${badge.x}px) calc(80% - ${badge.x}px)`, y: `calc(90% + ${badge.y}px) 0` }
+                    case "bottomcenter": return { x: `calc(50% + ${badge.x}px) calc(50% - ${badge.x}px)`, y: `calc(90% + ${badge.y}px) 0` }
+                    case "bottomright": return { x: `calc(80% + ${badge.x}px) calc(20% - ${badge.x}px)`, y: `calc(90% + ${badge.y}px) 0` }
+                    default: return { x: `calc(50% + ${badge.x}px) calc(50% - ${badge.x}px)`,y: `calc(90% + ${badge.y}px) 0` }
+                }
+            }
 
             const properties = new Map<string,string>([
                 ["--displaytime",`${customisation.displaytime}s`],
@@ -200,7 +217,8 @@ const notifyhelper = {
                 ["--outline",customisation.outline !== "off" ? customisation.outline : "none"],
                 ["--outlinecolor",customisation.outlinecolor],
                 ["--outlinewidth",`${(customisation.outlinewidth / 25) * (customisation.scale / 100)}px`],
-                ["--badgepos",customisation[`${ss}percentbadgepos`] === "top" ? "start" : "end"],
+                ["--badgeposx",badgepos(customisation[`${ss}percentbadgepos`]).x],
+                ["--badgeposy",badgepos(customisation[`${ss}percentbadgepos`]).y],
                 ["--badgecolor",customisation[`${ss}percentbadgecolor`]],
                 ["--badgesize",`${(customisation[`${ss}percentbadgefontsize`] / 10) * (customisation.scale / 100)}px`],
                 ["--badgeroundness",customisation[`${ss}percentbadgeroundness`] === 100 ? "50%" : `${(customisation[`${ss}percentbadgefontsize`] / 4) / (customisation[`${ss}percentbadgeroundness`] / 10)}px`],

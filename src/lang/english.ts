@@ -83,13 +83,19 @@ export const translations = {
         sspercentbadgefontsize: "Badge Size",
         percentbadgeroundness: "Badge Roundness",
         sspercentbadgeroundness: "Badge Roundness",
-        percentbadgeimg: "Use Image",
-        sspercentbadgeimg: "Use Image",
+        percentbadgex: "Horizontal Offset",
+        sspercentbadgex: "Horizontal Offset",
+        percentbadgey: "Vertical Offset",
+        sspercentbadgey: "Vertical Offset",
+        percentbadgeimg: "Use Icon",
+        sspercentbadgeimg: "Use Icon",
         percentbadgeimgbronze: "Rarity: > 50%",
+        sspercentbadgeimgbronze: "Rarity: > 50%",
         percentbadgeimgsilver: "Rarity: < 50% & > $rarity%",
+        sspercentbadgeimgsilver: "Rarity: < 50% & > $rarity%",
         percentbadgeimggold: "Rarity: < $rarity%",
-        top: "Top",
-        bottom: "Bottom"
+        sspercentbadgeimggold: "Rarity: < $rarity%",
+        resetpbimgs: "Reset Badge Icons"
     },
     app: {
         content: {
@@ -511,11 +517,19 @@ export const translations = {
         sspercentbadgefontsize: "Set the size of the badge",
         percentbadgeroundness: "Set the roundness of the badge",
         sspercentbadgeroundness: "Set the roundness of the badge",
-        percentbadgeimg: "Display a rarity-based image as the badge element",
-        sspercentbadgeimg: "Display a rarity-based image as the badge element",
-        percentbadgeimgbronze: `Set the image to be displayed when the achievement unlock percentage is > 50%`,
-        percentbadgeimgsilver: `Set the image to be displayed when the achievement unlock percentage is < 50% and > $rarity`,
-        percentbadgeimggold: `Set the image to be displayed when the achievement unlock percentage is < $rarity`
+        percentbadgex: "Offset the position of the badge element horizontally",
+        sspercentbadgex: "Offset the position of the badge element horizontally",
+        percentbadgey: "Offset the position of the badge element vertically",
+        sspercentbadgey: "Offset the position of the badge element vertically",
+        percentbadgeimg: "Display a rarity-based icon as the badge element",
+        sspercentbadgeimg: "Display a rarity-based icon as the badge element",
+        percentbadgeimgbronze: "The badge icon to be displayed when the achievement unlock percentage is > 50%",
+        sspercentbadgeimgbronze: "The badge icon displayed when the achievement unlock percentage is > 50%",
+        percentbadgeimgsilver: "The badge icon displayed when the achievement unlock percentage is < 50% and > $rarity",
+        sspercentbadgeimgsilver: "The badge icon displayed when the achievement unlock percentage is < 50% and > $rarity",
+        percentbadgeimggold: "The badge icon displayed when the achievement unlock percentage is < $rarity",
+        sspercentbadgeimggold: "The badge icon displayed when the achievement unlock percentage is < $rarity",
+        resetpbimgs: "Reset all badge icons to default"
     },
     update: {
         updateavailable: "Update available",

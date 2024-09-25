@@ -163,6 +163,7 @@ body[gameart] .wrapper#bg::after {
 }
 
 .wrapper#achiconwrapper {
+    position: relative;
     place-self: center;
     width: calc(var(--notifyheight) - (10px * var(--scale)));
     height: calc(var(--notifyheight) - (10px * var(--scale)));
@@ -271,18 +272,25 @@ body[nodecoration] .wrapper#achcontent > span {
 }
 
 #badge {
+    position: absolute;
+    inset-inline: var(--badgeposx);
+    inset-block: var(--badgeposy);
+    translate: 0 -50%;
     display: grid;
     text-align: center;
     justify-self: center;
     grid-column: 1 / -1;
     grid-row: 1 / -1;
-    align-self: var(--badgepos);
     background-color: var(--badgecolor);
     font-size: var(--badgesize);
     border-radius: var(--badgeroundness);
     padding: calc(var(--badgesize) / 4) calc(var(--badgesize) / 3);
     filter: drop-shadow(0 0 0.15rem var(--mediumgrey));
     z-index: 100;
+}
+
+#badge:not([badgeimg]) {
+    height: calc(var(--badgesize) * 1.5);
 }
 
 #badge[badgeimg] {

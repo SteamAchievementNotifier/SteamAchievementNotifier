@@ -1,3 +1,4 @@
+import { ipcRenderer } from "electron"
 import ElectronStore from "electron-store"
 import { sanconfig } from "./config"
 import { __root, sanhelper } from "./sanhelper"
@@ -24,11 +25,18 @@ export const selectorelems = [
     "sspercentbadgefontsize",
     "percentbadgeroundness",
     "sspercentbadgeroundness",
+    "percentbadgex",
+    "sspercentbadgex",
+    "percentbadgey",
+    "sspercentbadgey",
     "percentbadgeimg",
     "sspercentbadgeimg",
     "percentbadgeimgbronze",
+    "sspercentbadgeimgbronze",
     "percentbadgeimgsilver",
-    "percentbadgeimggold"
+    "sspercentbadgeimgsilver",
+    "percentbadgeimggold",
+    "sspercentbadgeimggold"
 ]
 
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
@@ -173,7 +181,13 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         "percentbadgepos",
         "percentbadgecolor",
         "percentbadgefontsize",
-        "percentbadgeroundness"
+        "percentbadgeroundness",
+        "percentbadgex",
+        "percentbadgey",
+        "percentbadgeimg",
+        "percentbadgeimgbronze",
+        "percentbadgeimgsilver",
+        "percentbadgeimggold"
     ].map(id => `${elemtype === "sselems" ? "ss" : ""}${id}`)
 
     inputids.forEach(id => menutype.querySelector(`#${id.replace(/^ss/,"")}`)!.id = id)
@@ -199,17 +213,36 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         }
     })
 
-    // const pblbl = menutype.querySelector(`#elemselector > .opt > .opt:has(input#${elemtype === "sselems" ? "ss" : ""}percentbadge) > span`) as HTMLSpanElement
-    // pblbl.onclick = () => {
-    //     const elem = pblbl.nextElementSibling! as HTMLInputElement
-    //     updateinput(config,type,elem,!config.get(`customisation.${type}.${elem.id}`) as boolean,menutype)
-    // }
-
-    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(button[id^="percentbadgeimg"]) > button`)!.forEach(b => {
+    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(button[id*="percentbadgeimg"]) > button`)!.forEach(b => {
         const btn = b as HTMLImageElement
         btn.parentElement!.querySelector("span")!.textContent = global[btn.id].replace(/\$rarity/,config.get("rarity"))
 
         btn.style.setProperty("--img",`url('${config.get(`customisation.${type}.${btn.id}`)}')`)
+
+        btn.onclick = event => {
+            const elem = (event.target) as HTMLButtonElement
+
+            ipcRenderer.once("loadfile", (event,path) => {
+                if (!path) return
+
+                config.set(`customisation.${type}.${elem.id}`,path[0].replace(/\\/g,"/"))
+                sanhelper.updatetabs()
+                sanhelper.loadadditionaltooltips(menutype)
+            })
+
+            ipcRenderer.send("loadfile","img")
+        }
+    })
+
+    menutype.querySelectorAll(`#elemselector > .opt > button.rect`)!.forEach(b => {
+        const btn = b as HTMLButtonElement
+        btn.querySelector("span")!.textContent = global[btn.id]
+
+        btn.onclick = () => {
+            btn.id === "resetpbimgs" && ["bronze","silver","gold"].forEach(id => config.set(`customisation.${type}.${elemtype === "sselems" ? "ss" : ""}percentbadgeimg${id}`,sanhelper.setfilepath("img",`sanlogotrophy_${id}.svg`)))
+            sanhelper.updatetabs()
+            sanhelper.loadadditionaltooltips(menutype)
+        }
     })
 
     menutype.querySelectorAll(`select[id*="percentbadge"]`).forEach(s => {

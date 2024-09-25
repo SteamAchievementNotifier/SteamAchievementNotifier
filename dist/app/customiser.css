@@ -361,7 +361,8 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 
 #preview,
 .cont:has(.wrapper#theme) button.rect,
-#posbtns > button {
+#posbtns > button,
+.wrapper#elemselector button.rect {
     grid-template-columns: auto auto;
     justify-items: start;
     align-items: center;
@@ -375,7 +376,8 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 
 #preview::before,
 .cont:has(.title#theme) button.rect::before,
-#posbtns > button::before {
+#posbtns > button::before,
+.wrapper#elemselector button.rect::before {
     content: "";
     display: block;
     justify-self: end;
@@ -387,7 +389,8 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 
 #preview > span,
 .cont:has(.title#theme) button.rect > span,
-#posbtns > button > span {
+#posbtns > button > span,
+.wrapper#elemselector button.rect > span {
     max-width: none;
     padding: 0.25rem;
 }

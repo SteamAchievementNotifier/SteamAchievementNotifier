@@ -696,8 +696,6 @@ export const sanhelper: SANHelper = {
 
         if (!dialog) return
 
-        // !!! #elemselector > span does not get saved for recall on opening menu, due to no "id"
-        // Both parentelement ids are also the same (Settings/Customiser), so can't use those to differentiate
         requestAnimationFrame(() => {
             const dialogtitles = dialog.querySelectorAll(".wrapper.title, .wrapper#elemselector > span.lbl")
             const doctitles = document.querySelectorAll(".wrapper.title, .wrapper#elemselector > span.lbl")

@@ -169,6 +169,7 @@ const notifyhelper = {
             gameiconurl && ((document.getElementById("achicon")! as HTMLImageElement)!.src = gameiconurl)
 
             const ss = iswebview && iswebview.startsWith("ss") ? "ss" : ""
+
             const badgepos = (pos: string) => {
                 const scale = customisation.scale / 100
                 const badge = {
@@ -176,14 +177,20 @@ const notifyhelper = {
                     y: customisation[`${ss}percentbadgey`] * scale
                 }
 
-                switch (pos) {
-                    case "topleft": return { x: `calc(20% + ${badge.x}px) calc(80% - ${badge.x}px)`, y: `calc(10% + ${badge.y}px) 0` }
-                    case "topcenter": return { x: `calc(50% + ${badge.x}px) calc(50% - ${badge.x}px)`, y: `calc(10% + ${badge.y}px) 0` }
-                    case "topright": return { x: `calc(80% + ${badge.x}px) calc(20% - ${badge.x}px)`, y: `calc(10% + ${badge.y}px) 0` }
-                    case "bottomleft": return { x: `calc(20% + ${badge.x}px) calc(80% - ${badge.x}px)`, y: `calc(90% + ${badge.y}px) 0` }
-                    case "bottomcenter": return { x: `calc(50% + ${badge.x}px) calc(50% - ${badge.x}px)`, y: `calc(90% + ${badge.y}px) 0` }
-                    case "bottomright": return { x: `calc(80% + ${badge.x}px) calc(20% - ${badge.x}px)`, y: `calc(90% + ${badge.y}px) 0` }
-                    default: return { x: `calc(50% + ${badge.x}px) calc(50% - ${badge.x}px)`,y: `calc(90% + ${badge.y}px) 0` }
+                const positions: { [key: string]: { x: string, y: string } } = {
+                    "topleft": { x: "20%", y: "10%" },
+                    "topcenter": { x: "50%", y: "10%" },
+                    "topright": { x: "80%", y: "10%" },
+                    "bottomleft": { x: "20%", y: "90%" },
+                    "bottomcenter": { x: "50%", y: "90%" },
+                    "bottomright": { x: "80%", y: "90%" }
+                }
+
+                const { x, y } = positions[pos] || positions["bottomcenter"]
+
+                return {
+                    x: `calc(${x} + ${badge.x}px) calc(${100 - parseInt(x)}% - ${badge.x}px)`,
+                    y: `calc(${y} + ${badge.y}px) 0`
                 }
             }
 

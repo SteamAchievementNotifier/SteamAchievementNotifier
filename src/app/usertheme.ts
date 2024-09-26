@@ -81,14 +81,15 @@ export const usertheme = {
     },
     update: () => {
         let { config, type, userthemes } = usertheme.data()
-        let enabled: number | undefined = userthemes.find(theme => theme.enabled)?.id as number || undefined
+        // let enabled: number | undefined = userthemes.find(theme => theme.enabled)?.id as number || undefined
+        let enabled = userthemes.find(theme => theme.enabled)?.id as number
 
         // If no theme is enabled, enable the first one
         if (!enabled) {
             config.set(`customisation.${type}.usertheme.0.enabled`,true)
 
             ;({ config, type, userthemes } = usertheme.data())
-            enabled = userthemes.find(theme => theme.enabled)?.id as number || undefined
+            enabled = userthemes.find(theme => theme.enabled)?.id as number
         }
 
         requestAnimationFrame(() => {
@@ -105,6 +106,21 @@ export const usertheme = {
     
                 btn.toggleAttribute("enabled",btn.id === `usertheme${enabled || 0}`)
             })
+
+            const themeselect = document.querySelector(`dialog[selection]:has([id^="usertheme"])`)
+
+            if (themeselect) {
+                if (themeselect.querySelector("button#userthemesync")) return
+
+                const btnwrapper = document.querySelector(`dialog[selection] .btnwrapper`)!
+
+                const sync = document.createElement("button")
+                sync.id = "userthemesync"
+                sync.textContent = "Sync Theme"
+                sync.onclick = event => usertheme.sync(event.target as HTMLButtonElement,type,enabled)
+
+                btnwrapper.appendChild(sync)
+            }
         })
     },
     set: (id: number,event?: Event) => {
@@ -475,5 +491,8 @@ export const usertheme = {
         })
 
         ipcRenderer.send("exporttheme")
+    },
+    sync: (btn: HTMLButtonElement,type: "main" | "rare" | "plat",themeid: number) => {
+        btn.toggleAttribute("sync",!btn.hasAttribute("sync"))
     }
 }

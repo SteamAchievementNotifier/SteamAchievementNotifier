@@ -70,7 +70,6 @@
 
 .wrapper#elemselector > .wrapper > .wrapper:has(select#desc),
 .wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:checked),
-.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadgeroundness"]),
 .wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimg"]:checked),
 .wrapper#elemselector > .wrapper:has(input[id$="percentbadge"]:checked):has([id$="percentbadgeimg"]:checked) > .wrapper:has([id$="percentbadgeimgsilver"]),
 .wrapper#elemselector > .wrapper:has(input[id$="percentbadge"]:checked):has([id$="percentbadgeimg"]:checked) > .wrapper:has([id$="percentbadgeimggold"]) {
@@ -78,7 +77,8 @@
 }
 
 .wrapper#elemselector > .wrapper > .wrapper:has(input#percentbadge,input#sspercentbadge),
-.wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimg"]) {
+.wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimg"]),
+.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadgex"]) {
     margin-top: 0.5rem;
 }
 
@@ -99,7 +99,9 @@ body[rare] .wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimg
 body[plat] .wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimgbronze"],[id$="percentbadgeimgsilver"]),
 .wrapper#elemselector > .wrapper:has(input[id$="percentbadgeimg"]:not(:checked)) > .wrapper:has([id$="percentbadgeimgbronze"],[id$="percentbadgeimgsilver"],[id$="percentbadgeimggold"]),
 .wrapper#elemselector > .wrapper:has(input[id$="percentbadge"]:not(:checked)) > button.rect#resetpbimgs,
-.wrapper#elemselector > .wrapper:has(input[id$="percentbadgeimg"]:not(:checked)) > button.rect#resetpbimgs {
+.wrapper#elemselector > .wrapper:has(input[id$="percentbadgeimg"]:not(:checked)) > button.rect#resetpbimgs,
+.wrapper#elemselector[nopercent] > .wrapper > .wrapper:has(select[id$="percentpos"]),
+.wrapper#elemselector[nohiddenicon] > .wrapper > .wrapper:has(select[id$="hiddeniconpos"]) {
     display: none;
 }
 

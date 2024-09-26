@@ -12,32 +12,18 @@ export const selectorelems = [
     "percentpos",
     "hiddeniconpos",
     "decorationpos",
-    "sspercentpos",
-    "sshiddeniconpos",
-    "ssdecorationpos",
     "percentbadge",
-    "sspercentbadge",
     "percentbadgepos",
-    "sspercentbadgepos",
     "percentbadgecolor",
-    "sspercentbadgecolor",
     "percentbadgefontsize",
-    "sspercentbadgefontsize",
     "percentbadgeroundness",
-    "sspercentbadgeroundness",
     "percentbadgex",
-    "sspercentbadgex",
     "percentbadgey",
-    "sspercentbadgey",
     "percentbadgeimg",
-    "sspercentbadgeimg",
     "percentbadgeimgbronze",
-    "sspercentbadgeimgbronze",
     "percentbadgeimgsilver",
-    "sspercentbadgeimgsilver",
     "percentbadgeimggold",
-    "sspercentbadgeimggold"
-]
+].flatMap(id => ["unlockmsg","title","desc"].includes(id) ? [id] : [id,`ss${id}`])
 
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
 
@@ -96,7 +82,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     if (elemtype === "sselems" && config.get("screenshots") === "off") return
 
     const lang = config.get("lang")
-    const { translations: { global } } = await import(`../lang/${lang}`)
+    const { translations: { global, notificationelems } } = await import(`../lang/${lang}`)
 
     const menutype = document.getElementById(elemtype === "elems" ? "customiser" : "settingscontent")!
     const elemselector = menutype.querySelector("#elemselector")
@@ -119,8 +105,15 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     ;["overlay","notifyimg"].forEach(attr => elemtype === "sselems" && menutype.querySelector("#elemselector")!.setAttribute(attr,""))
     
     posids.forEach(id => menutype.querySelector(`#${id.replace(/^ss/,"")}`)!.id = id)
-    menutype.querySelector(`#elemselector > span.lbl`)!.textContent = global["elemselector"]
-    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(select) > span`).forEach(lbl => lbl.textContent = global[lbl.nextElementSibling!.id])
+
+    ;(config.get("showpercent") === "off" || type !== "rare" && config.get("showpercent") === "rareonly") && menutype.querySelector("#elemselector")!.setAttribute("nopercent","")
+    ;!config.get(`customisation.${type}.showhiddenicon`) && menutype.querySelector("#elemselector")!.setAttribute("nohiddenicon","")
+
+    const title = menutype.querySelector(`#elemselector > span.lbl`)! as HTMLSpanElement
+    title.textContent = notificationelems["title"]
+    title.id = `${elemtype === "sselems" ? "ss" : ""}elemselectorlbl`
+
+    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(select) > span`).forEach(lbl => lbl.textContent = notificationelems.content[lbl.nextElementSibling!.id])
 
     if (!elems) return
 
@@ -194,7 +187,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     menutype.querySelectorAll(`#elemselector > .opt > .opt:has(input) > input`)!.forEach(i => {
         const input = i as HTMLInputElement
-        input.parentElement!.querySelector("span")!.textContent = global[input.id]
+        input.parentElement!.querySelector("span")!.textContent = notificationelems.content[input.id]
 
         const value = config.get(`customisation.${type}.${input.id}`)
         input.type === "checkbox" ? (input.checked = value as boolean) : (input.value = value.toString())
@@ -215,7 +208,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     menutype.querySelectorAll(`#elemselector > .opt > .opt:has(button[id*="percentbadgeimg"]) > button`)!.forEach(b => {
         const btn = b as HTMLImageElement
-        btn.parentElement!.querySelector("span")!.textContent = global[btn.id].replace(/\$rarity/,config.get("rarity"))
+        btn.parentElement!.querySelector("span")!.textContent = notificationelems.content[btn.id].replace(/\$rarity/,config.get("rarity"))
 
         btn.style.setProperty("--img",`url('${config.get(`customisation.${type}.${btn.id}`)}')`)
 
@@ -236,7 +229,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     menutype.querySelectorAll(`#elemselector > .opt > button.rect`)!.forEach(b => {
         const btn = b as HTMLButtonElement
-        btn.querySelector("span")!.textContent = global[btn.id]
+        btn.querySelector("span")!.textContent = notificationelems.content[btn.id]
 
         btn.onclick = () => {
             btn.id === "resetpbimgs" && ["bronze","silver","gold"].forEach(id => config.set(`customisation.${type}.${elemtype === "sselems" ? "ss" : ""}percentbadgeimg${id}`,sanhelper.setfilepath("img",`sanlogotrophy_${id}.svg`)))

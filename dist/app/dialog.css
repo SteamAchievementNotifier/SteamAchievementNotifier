@@ -194,7 +194,7 @@ dialog[selection] .contentwrapper .contentsub > .rect > span {
     height: 100%;
 }
 
-dialog:not([default]) .btnwrapper {
+dialog:not([default]):not(:has(button#userthemesync)) .btnwrapper {
     display: none;
 }
 
@@ -240,7 +240,8 @@ dialog:not([default]) .btnwrapper {
 
 #okbtn:hover,
 #updatebtn:hover,
-#backbtn:hover {
+#backbtn:hover,
+#userthemesync:hover {
     filter: none;
 }
 
@@ -697,6 +698,58 @@ td:has(.unlinkbtn) > .unlinkbtn {
 
 .wrapper#exportthemeerror > code {
     user-select: all;
+}
+
+dialog[selection] .btnwrapper:has(button#userthemesync) > button#backbtn {
+    display: none;
+}
+
+body[main] button#userthemesync:not(:hover) {
+    background-color: #203e7a80;
+}
+
+body[rare] button#userthemesync:not(:hover) {
+    background-color: #66339980;
+}
+
+body[plat] button#userthemesync:not(:hover) {
+    background-color: #4e75c980;
+}
+
+.contentwrapper:has(button#userthemesync) .contentsub {
+    border-radius: 0;
+}
+
+button#userthemesync {
+    --icon: url("../../icon/stars.svg");
+    grid-column: 1 / -1;
+    font-size: 0.75rem;
+    text-transform: none;
+    border-radius: 0 0 var(--elembr) var(--elembr);
+}
+
+@property --rotate {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+button#userthemesync::before {
+    width: 1rem;
+    height: 1rem;
+    background: none;
+    mask: var(--icon) center / contain no-repeat;
+    background-image: conic-gradient(from var(--rotate) at 62.5% 37.5%,#2b52a1,#8040bf,#7694d5,#2b52a1);
+    animation: sync calc(var(--transition) * 10) linear infinite;
+}
+
+@keyframes sync {
+    from { --rotate: 0deg; }
+    to { --rotate: 360deg; }
+}
+
+button#userthemesync:hover {
+    background-color: var(--primary);
 }
 
 @media (orientation: portrait) {

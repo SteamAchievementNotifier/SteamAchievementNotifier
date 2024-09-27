@@ -375,6 +375,15 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         elemselector(document.querySelector("#customisercontent .wrapper:has(> select#preset)")!,"elems")
 
         document.getElementById("customiser")!.toggleAttribute("customfiles",config.get("usecustomfiles"))
+
+        for (const type in config.get("customisation")) {
+            const synced = config.get(`customisation.${type}.synctheme`) as boolean
+
+            if (synced) {
+                document.querySelector(".cont:has(.title#theme)")!.setAttribute("sync","")
+                break
+            }
+        }
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")

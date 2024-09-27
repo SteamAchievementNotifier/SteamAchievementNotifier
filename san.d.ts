@@ -193,8 +193,10 @@ declare interface Customisation {
     sspercentbadgeimgsilver: string,
     percentbadgeimggold: string,
     sspercentbadgeimggold: string,
+    synctheme: boolean,
+    previousthemeid: number | null,
     usertheme: UserTheme[],
-    [key: string]: string | number | boolean | object
+    [key: string]: string | number | boolean | object | null
 }
 
 declare interface CustomIcon {

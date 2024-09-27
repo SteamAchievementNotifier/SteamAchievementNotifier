@@ -514,6 +514,11 @@ button#exporttheme {
     --icon: url("../../icon/export.svg");
 }
 
+.cont[sync] button {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 @media (orientation: portrait) or (width < 400px) {
     .wrapper#customiser {
         grid-template-columns: 1fr;

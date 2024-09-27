@@ -1,4 +1,5 @@
 import { ipcRenderer } from "electron"
+import Store from "electron-store"
 import path from "path"
 import fs from "fs"
 import fsextra from "fs-extra"
@@ -81,8 +82,7 @@ export const usertheme = {
     },
     update: () => {
         let { config, type, userthemes } = usertheme.data()
-        // let enabled: number | undefined = userthemes.find(theme => theme.enabled)?.id as number || undefined
-        let enabled = userthemes.find(theme => theme.enabled)?.id as number
+        let enabled = userthemes.find(theme => theme.enabled)!.id as number
 
         // If no theme is enabled, enable the first one
         if (!enabled) {
@@ -90,6 +90,13 @@ export const usertheme = {
 
             ;({ config, type, userthemes } = usertheme.data())
             enabled = userthemes.find(theme => theme.enabled)?.id as number
+        }
+
+        let synced: "main" | "rare" | "plat" | null = null
+        const customisation = config.get("customisation")
+
+        for (const type in customisation) {
+            (customisation[type] as Customisation).synctheme && (synced = type as "main" | "rare" | "plat")
         }
 
         requestAnimationFrame(() => {
@@ -114,10 +121,33 @@ export const usertheme = {
 
                 const btnwrapper = document.querySelector(`dialog[selection] .btnwrapper`)!
 
-                const sync = document.createElement("button")
-                sync.id = "userthemesync"
-                sync.textContent = "Sync Theme"
-                sync.onclick = event => usertheme.sync(event.target as HTMLButtonElement,type,enabled)
+                const html = `
+                    <button id="userthemesync">
+                        <div id="userthemesyncstars">
+                            <span></span>
+                        </div>
+                        <span></span>
+                    </button>
+                `
+
+                btnwrapper.insertAdjacentHTML("beforeend",html)
+
+                const sync = btnwrapper.querySelector("button#userthemesync")! as HTMLButtonElement
+                sync.onclick = event => usertheme.sync(config,event.target as HTMLButtonElement,type,enabled)
+
+                const span = sync.querySelector("button#userthemesync > span")!
+
+                sync.toggleAttribute("sync",(synced && synced === type) as boolean)
+                ;(synced && synced !== type) && themeselect.setAttribute("synced",synced)
+
+                ;(async () => {
+                    const { language } = await import("./language")
+                    const syncstr = await language.get("synctheme",["customiser","theme","content"])
+                    const typestr = synced ? await language.get(synced) : ""
+                    const syncedwithstr = `${await language.get("syncedwith",["customiser","theme","content"])} ${typestr}`
+
+                    span.textContent = !synced ? syncstr : (synced !== type ? syncedwithstr : syncstr)
+                })()
 
                 btnwrapper.appendChild(sync)
             }
@@ -492,7 +522,32 @@ export const usertheme = {
 
         ipcRenderer.send("exporttheme")
     },
-    sync: (btn: HTMLButtonElement,type: "main" | "rare" | "plat",themeid: number) => {
-        btn.toggleAttribute("sync",!btn.hasAttribute("sync"))
+    sync: (config: Store<Config>,btn: HTMLButtonElement,elemtype: "main" | "rare" | "plat",themeid: number) => {
+        const key = `customisation.${elemtype}.synctheme`
+        const value = !config.get(key) as boolean
+        const customisation = config.get("customisation")
+
+        config.set(key,value)
+        btn.toggleAttribute("sync",value)
+
+        for (const type in customisation) {
+            const selectedtheme = (customisation[elemtype] as Customisation).usertheme[themeid].customisation
+
+            if (type !== elemtype) {
+                const previoustheme = customisation[type] as Customisation
+                const { id: previousthemeid } = (customisation[type] as Customisation).usertheme.find(theme => theme.enabled)!
+                const { usertheme } = previoustheme
+
+                if (value) {                    
+                    config.set(`customisation.${type}`,{ ...selectedtheme, usertheme })
+                    config.set(`customisation.${type}.previousthemeid`,previousthemeid as number)
+                    
+                    ;(async () => await sanconfig.validateconfigobj(customisation[type] as Customisation,type as "main" | "rare" | "plat"))()
+                } else {
+                    config.set(`customisation.${type}`,{ ...usertheme[previousthemeid as number].customisation, usertheme })
+                    config.set(`customisation.${type}.previousthemeid`,null)
+                }
+            }
+        }
     }
 }

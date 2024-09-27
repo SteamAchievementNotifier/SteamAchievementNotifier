@@ -140,6 +140,7 @@ dialog[selection] .contentwrapper .contentsub > button.rect {
     gap: 0.7rem;
     width: 100%;
     min-height: 8vh;
+    transition: opacity var(--transition);
 }
 
 dialog[selection] .contentwrapper .contentsub > .rect::before {
@@ -704,52 +705,136 @@ dialog[selection] .btnwrapper:has(button#userthemesync) > button#backbtn {
     display: none;
 }
 
-body[main] button#userthemesync:not(:hover) {
-    background-color: #203e7a80;
-}
-
-body[rare] button#userthemesync:not(:hover) {
-    background-color: #66339980;
-}
-
-body[plat] button#userthemesync:not(:hover) {
-    background-color: #4e75c980;
-}
-
 .contentwrapper:has(button#userthemesync) .contentsub {
     border-radius: 0;
 }
 
 button#userthemesync {
-    --icon: url("../../icon/stars.svg");
     grid-column: 1 / -1;
     font-size: 0.75rem;
     text-transform: none;
     border-radius: 0 0 var(--elembr) var(--elembr);
-}
-
-@property --rotate {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 0deg;
+    background-color: var(--primary);
 }
 
 button#userthemesync::before {
+    content: none;
+}
+
+div#userthemesyncstars {
+    position: relative;
+    display: grid;
+    place-content: center;
     width: 1rem;
     height: 1rem;
-    background: none;
-    mask: var(--icon) center / contain no-repeat;
-    background-image: conic-gradient(from var(--rotate) at 62.5% 37.5%,#2b52a1,#8040bf,#7694d5,#2b52a1);
-    animation: sync calc(var(--transition) * 10) linear infinite;
+    transition: calc(var(--transition) * 2);
 }
 
-@keyframes sync {
-    from { --rotate: 0deg; }
-    to { --rotate: 360deg; }
+body[main] dialog[selection]:not([synced]) {
+    --star1: #ffc400;
+    --star2: #9a31cd;
+    --star3: #5082f0;
 }
 
-button#userthemesync:hover {
-    background-color: var(--primary);
+body[rare] dialog[selection]:not([synced]) {
+    --star1: #9a31cd;
+    --star2: #ffc400;
+    --star3: #5082f0;
+}
+
+body[plat] dialog[selection]:not([synced]) {
+    --star1: #5082f0;
+    --star2: #ffc400;
+    --star3: #9a31cd;
+}
+
+dialog[selection][synced="main"] {
+    --star1: #ffc400;
+}
+
+dialog[selection][synced="rare"] {
+    --star1: #9a31cd;
+}
+
+dialog[selection][synced="plat"] {
+    --star1: #5082f0;
+}
+
+div#userthemesyncstars::before {
+    background-color: var(--star2);
+    z-index: 1;
+}
+
+div#userthemesyncstars > span {
+    background-color: var(--star1);
+    z-index: 10;
+}
+
+div#userthemesyncstars::after {
+    background-color: var(--star3);
+    z-index: 0;
+}
+
+div#userthemesyncstars::before,
+div#userthemesyncstars::after {
+    content: "";
+    opacity: 0;
+}
+
+div#userthemesyncstars::before,
+div#userthemesyncstars::after,
+div#userthemesyncstars > span {
+    --animation: starbounce calc(var(--transition) * 10) var(--offset) infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 1rem;
+    height: 1rem;
+    mask: url("../../icon/star.svg") center / contain no-repeat;
+    transition: calc(var(--transition) * 2);
+}
+
+button#userthemesync:hover > div#userthemesyncstars::before,
+button#userthemesync:hover > div#userthemesyncstars::after,
+button#userthemesync:hover > div#userthemesyncstars > span {
+    opacity: 1;
+    animation: var(--animation);
+}
+
+button#userthemesync:hover > div#userthemesyncstars::before {
+    --offset: 0.33s;
+}
+
+button#userthemesync:hover > div#userthemesyncstars > span {
+    --offset: 0s;
+    translate: calc(-50% - 2px) calc(-50% + 2px);
+}
+
+button#userthemesync:hover > div#userthemesyncstars::after {
+    --offset: 0.66s;
+    translate: calc(-50% + 2px) calc(-50% - 2px);
+}
+
+@keyframes starbounce {
+    from { scale: 1; }
+    15% { scale: 1.25; }
+    30% { scale: 1; }
+    to { scale: 1; }
+}
+
+button#userthemesync[sync] {
+    background-color: limegreen !important;
+}
+
+dialog[selection]:has(button#userthemesync[sync]) .contentsub > button.rect,
+dialog[selection][synced] .contentsub > button.rect {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+dialog[selection][synced] .btnwrapper > button#userthemesync {
+    pointer-events: none;
 }
 
 @media (orientation: portrait) {

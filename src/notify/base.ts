@@ -168,7 +168,7 @@ const notifyhelper = {
     
             gameiconurl && ((document.getElementById("achicon")! as HTMLImageElement)!.src = gameiconurl)
 
-            const ss = iswebview && iswebview.startsWith("ss") ? "ss" : ""
+            const ss = (iswebview && !customisation.elemsmatch && iswebview.startsWith("ss")) ? "ss" : ""
 
             const badgepos = (pos: string) => {
                 const scale = customisation.scale / 100
@@ -321,7 +321,7 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
             const percentstr = customisation.percentbadge ? "" : `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${percentvalue}%)` : ""}`
             const percentimg = percentvalue <= percent.rarity ? "gold" : ((percentvalue < 50 && percentvalue > percent.rarity) ? "silver" : "bronze")
 
-            const ss = iswebview && iswebview.startsWith("ss") ? "ss" : ""
+            const ss = iswebview && !customisation.elemsmatch && iswebview.startsWith("ss") ? "ss" : ""
             customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : `${percentvalue}%`}</span>`))
 
             const str = {

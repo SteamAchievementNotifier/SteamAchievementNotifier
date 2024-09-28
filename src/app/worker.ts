@@ -91,7 +91,7 @@ const startsan = async (appinfo: AppInfo) => {
     
         const getprocessinfo = (sgpexe?: string): ProcessInfo[] => {
             const processinfo: ProcessInfo[] = []
-            const linkedgame: string | undefined = sgpexe || Object.entries(localStorage).find(item => parseInt(item[0]) === appid)?.[1]
+            const linkedgame: string | undefined = sgpexe || Object.entries(JSON.parse(localStorage.getItem("linkgame")!)).find(item => parseInt(item[0]) === appid)?.[1] as string
     
             linkedgame && log.write("INFO",`${sgpexe ? `"steam-game-path"` : "Linked Game"} executable found for AppID "${appid}": "${linkedgame}"`)
     

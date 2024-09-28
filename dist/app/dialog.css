@@ -247,7 +247,9 @@ dialog:not([default]):not(:has(button#userthemesync)) .btnwrapper {
 }
 
 #okbtn:hover,
-#updatebtn:hover {
+#okbtn:focus,
+#updatebtn:hover,
+#updatebtn:focus {
     background-color: limegreen;
 }
 
@@ -329,7 +331,8 @@ dialog #progressbar {
     grid-row-start: 1;
 }
 
-#backbtn:hover {
+#backbtn:hover,
+#backbtn:focus {
     background-color: red;
 }
 
@@ -354,7 +357,9 @@ dialog[selection] .rect:not([enabled]) {
     background-color: #2b2b2b;
 }
 
-dialog[selection] .rect[id^="usertheme"] > .userthemedelbtn {
+dialog[selection] .rect[id^="usertheme"] > [class$="btn"] {
+    --btnmask: url("../../img/sanlogotrophy.svg") center / contain no-repeat;
+    --btncolor: white;
     position: absolute;
     top: 50%;
     right: 0;
@@ -363,10 +368,15 @@ dialog[selection] .rect[id^="usertheme"] > .userthemedelbtn {
     scale: 1;
     width: 1rem;
     height: 1rem;
-    background-color: red;
-    -webkit-mask: url("../../icon/delete.svg") center / contain no-repeat;
+    background-color: var(--btncolor);
+    mask: var(--btnmask);
     opacity: 0;
     transition: var(--transition);
+}
+
+dialog[selection] .rect[id^="usertheme"] > .userthemedelbtn {
+    --btnmask: url("../../icon/delete.svg") center / contain no-repeat;
+    --btncolor: red;
 }
 
 dialog[selection] .rect[id^="usertheme"]:not([enabled]) > .userthemedelbtn {
@@ -526,8 +536,7 @@ dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::after {
     pointer-events: none;
 }
 
-button#linknewbtn:hover,
-button#exclusionnewbtn:hover,
+button[id$="newbtn"]:hover,
 button#importbtn:hover {
     background-color: limegreen;
     filter: none;
@@ -552,6 +561,11 @@ button#importbtn:hover {
     --dialogicon: url("../../icon/exclusion.svg");
 }
 
+/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #appidhelp window) */
+.wrapper#contentcontainer:has(.tbl#themeswitchtablewrapper) {
+    --dialogicon: url("../../icon/autoswitchtheme.svg");
+}
+
 .wrapper#contentcontainer:has(.tbl) + .btnwrapper {
     grid-template-columns: repeat(2,1fr);
 }
@@ -562,8 +576,7 @@ button#importbtn:hover {
     pointer-events: none;
 }
 
-#linkgametablewrapper > table > tr:not(#linkgameheaders):has(> td:nth-child(3):hover),
-#exclusionlisttablewrapper > table > tr:not(#exclusionlistheaders):has(> td:nth-child(2):hover) {
+[id$="tablewrapper"] > table > tr:not([id$="headers"]):has(> td:last-child:hover) {
     background-color: red;
     cursor: pointer;
 }
@@ -577,7 +590,7 @@ input[type="number"].appidinput {
     border: none;
 }
 
-input[type="number"].appidinput#exclusionappid {
+input[type="number"].appidinput[id$="appid"] {
     background-color: var(--mediumgrey);
     border-radius: var(--elembr);
 }
@@ -586,7 +599,7 @@ input[type="number"].appidinput:hover {
     background-color: transparent;
 }
 
-input[type="number"].appidinput#exclusionappid:hover {
+input[type="number"].appidinput[id$="appid"]:hover {
     background-color: var(--lightgrey);
 }
 
@@ -595,15 +608,15 @@ td:has(input[type="number"].appidinput) {
     padding: 0;
 }
 
-td#linkgameselect {
+td[id$="select"] {
     cursor: pointer;
 }
 
-td#linkgameselect:empty::before {
+td[id$="select"]:empty::before {
     content: "...";
 }
 
-td#linkgameselect:empty {
+td[id$="select"]:empty {
     text-align: center;
     color: grey;
 }
@@ -639,12 +652,62 @@ td:has(.unlinkbtn) > .unlinkbtn {
     width: 90%;
 }
 
-#exclusionlistheaders > th:nth-child(2) {
-    width: 10%;
-}
-
 #exclusionlisttablewrapper td {
     text-align: center;
+}
+
+div[id^="themeswitch"] select {
+    background-color: var(--mediumgrey);
+    border-radius: 0;
+}
+
+div[id^="themeswitch"] select:hover {
+    background-color: var(--lightgrey);
+}
+
+div[id^="themeswitch"] select:focus {
+    outline: auto;
+}
+
+div[id^="themeswitchtable"] th:not(:last-child),
+div[id^="themeswitchtable"] td:not(:last-child) {
+    width: fit-content;
+    padding: 0;
+}
+
+div[id$="newtablewrapper"] th,
+div[id$="newtablewrapper"] td {
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+}
+
+#themeswitchnewselectwrapper {
+    display: grid;
+    gap: 0.25rem;
+    margin-top: 1rem;
+}
+
+#themeswitchnewselectwrapper select,
+#themeswitchnewselectwrapper select:hover,
+#themeswitchnewselectwrapper select:focus {
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+}
+
+#themeswitchnewselectwrapper span {
+    place-self: center;
+}
+
+div[id^="themeswitch"] div:has(> select) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem;
+}
+
+div#linkgamenewtablewrapper th:first-child,
+div#linkgamenewtablewrapper td:first-child {
+    width: 30%;
 }
 
 .appidhelpcode {

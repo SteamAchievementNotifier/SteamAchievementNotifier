@@ -268,13 +268,6 @@ export const sanconfig = {
                 iconroundness: 0,
                 usegameicon: false,
                 customicons: {},
-                elems: [
-                    "unlockmsg",
-                    "title",
-                    "desc"
-                ],
-                hiddeniconpos: 2,
-                decorationpos: 1,
                 showdecoration: false,
                 pos: "bottomcenter",
                 usecustompos: false,
@@ -287,12 +280,6 @@ export const sanconfig = {
                 ovmatch: false,
                 ovx: 0,
                 ovy: 0,
-                sselems: [
-                    "title",
-                    "desc"
-                ],
-                sshiddeniconpos: 2,
-                ssdecorationpos: 1,
                 alldetails: false,
                 primarycolor: "",
                 secondarycolor: "",
@@ -305,6 +292,20 @@ export const sanconfig = {
                 hiddenicon: "",
                 previewhiddenicon: false,
                 usepercent: false,
+                elems: [
+                    "unlockmsg",
+                    "title",
+                    "desc"
+                ],
+                sselems: [
+                    "title",
+                    "desc"
+                ],
+                elemsmatch: false,
+                hiddeniconpos: 2,
+                sshiddeniconpos: 2,
+                decorationpos: 1,
+                ssdecorationpos: 1,
                 percentpos: 1,
                 sspercentpos: 1,
                 percentbadge: false,

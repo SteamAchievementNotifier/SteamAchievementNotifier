@@ -747,3 +747,5 @@ ipcRenderer.on("sendwebhook", async (event,notify: Notify) => {
 
     config.get("webhooks") && sendwebhook(config.get("webhookurl"),await embeds(notify),icon)
 })
+
+;["linkgame","themeswitch"].forEach(id => !localStorage.getItem(id) && localStorage.setItem(id,JSON.stringify({})))

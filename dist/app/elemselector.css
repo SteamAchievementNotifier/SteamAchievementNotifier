@@ -46,7 +46,7 @@
 
 .wrapper#elemselector > .wrapper > .wrapper {
     margin: 0;
-    transition: var(--transition);
+    transition: opacity var(--transition);
 }
 
 .wrapper#elemselector > .wrapper > .wrapper > select {
@@ -60,8 +60,13 @@
 }
 
 .wrapper#elemselector > .wrapper > .wrapper:has(select > option[value="off"]:checked),
-.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:not(:checked)) {
+.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:not(:checked)),
+.wrapper#elemselector:has(input#elemsmatch:checked) > .wrapper > .wrapper:not(:has(input#elemsmatch:checked)) {
     opacity: 0.5;
+}
+
+.wrapper#elemselector:has(input#elemsmatch:checked) > .wrapper > .wrapper:not(:has(input#elemsmatch:checked)) {
+    pointer-events: none;
 }
 
 .wrapper#elemselector > .wrapper > .wrapper:has(select > option[value="off"]:checked) > select {
@@ -78,7 +83,8 @@
 
 .wrapper#elemselector > .wrapper > .wrapper:has(input#percentbadge,input#sspercentbadge),
 .wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimg"]),
-.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadgex"]) {
+.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadgex"]),
+.wrapper#elemselector > .wrapper > .wrapper:has(input#elemsmatch) {
     margin-top: 0.5rem;
 }
 

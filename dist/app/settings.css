@@ -325,11 +325,11 @@ body[plat] .rect#sspreview {
 
 #linkedgames {
     --icon: url("../../icon/link.svg");
-    background-color: #00bfff80;
+    background-color: #1e90ff80;
 }
 
 #linkedgames:hover {
-    background-color: #00bfff;
+    background-color: #1e90ff;
 }
 
 #exclusionlist {
@@ -339,6 +339,15 @@ body[plat] .rect#sspreview {
 
 #exclusionlist:hover {
     background-color: #000000;
+}
+
+#themeswitch {
+    --icon: url("../../icon/autoswitchtheme.svg");
+    background-color: #ff149380;
+}
+
+#themeswitch:hover {
+    background-color: #ff1493;
 }
 
 .opt:has(input#usecustomfiles:not(:checked)) + button#showcustomfiles {

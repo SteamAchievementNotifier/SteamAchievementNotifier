@@ -414,8 +414,8 @@ td {
     text-align: center;
 }
 
-th:nth-child(1),
-td:nth-child(1) {
+th:first-child,
+td:first-child {
     white-space: nowrap;
     width: 20%;
 }
@@ -445,8 +445,8 @@ td:nth-child(2)::-webkit-scrollbar-thumb {
     background-color: var(--primary);
 }
 
-th:nth-child(3),
-td:nth-child(3) {
+th:last-child,
+td:last-child {
     width: 10%;
 }
 

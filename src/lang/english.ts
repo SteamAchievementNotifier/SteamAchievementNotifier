@@ -99,7 +99,6 @@ export const translations = {
                 showpercent: "Show Percentage",
                 soundonly: "Sound-Only Mode",
                 extwin: "Stream Notifications",
-                // extwinshow: "Show Window",
                 audiosrc: "Audio Source",
                 notify: "Notification",
                 app: "App",
@@ -109,8 +108,6 @@ export const translations = {
                 shortcuts: "Notification Shortcuts",
                 noiconcache: "Disable Icon Caching",
                 webhooks: "Post to Discord Server",
-                // userid: `User ID <i style="font-size: 0.5rem; color: deepskyblue;">(Optional)</i>`,
-                // avatarurl: `Avatar URL <i style="font-size: 0.5rem; color: deepskyblue;">(Optional)</i>`,
                 webhookurl: `Webhook URL`,
                 webhookcaution: `By enabling this option and providing a valid Discord Webhook link, you agree that you understand that <u>all achievement and game information for the current Steam user</u> will be posted to the specified Discord server via the Webhook link provided.<br><br>If you do not wish for Steam Achievement Notifier to post this information on your behalf, please disable this option.`,
                 webhooklaststatus: "Last Status"
@@ -139,6 +136,7 @@ export const translations = {
             title: "Games",
             content: {
                 linkedgames: "Linked Games",
+                themeswitch: "Auto-Switch Themes",
                 exclusionlist: "Exclusion List"
             }
         },
@@ -498,7 +496,9 @@ export const translations = {
         sspercentbadgeimgsilver: "The badge icon displayed when the unlock percentage is < 50% and > $rarity",
         percentbadgeimggold: "The badge icon displayed when the unlock percentage is < $rarity",
         sspercentbadgeimggold: "The badge icon displayed when the unlock percentage is < $rarity",
-        resetpbimgs: "Reset all badge icons to default"
+        resetpbimgs: "Reset all badge icons to default",
+        elemsmatch: `Match the Notification Elements settings set in the Customiser for this notification type<br><br><span class="ttdesc">Some Notification Presets cannot fully match Customiser settings, due to differences between on-screen and screenshot-based notification layouts</span>`,
+        themeswitch: `Automatically switch to any saved <span class="hl">Theme</span> when a specific game is detected`
     },
     update: {
         updateavailable: "Update available",
@@ -572,7 +572,23 @@ export const translations = {
             sspercentbadgeimgsilver: "Rarity: < 50% & > $rarity%",
             percentbadgeimggold: "Rarity: < $rarity%",
             sspercentbadgeimggold: "Rarity: < $rarity%",
-            resetpbimgs: "Reset Badge Icons"
+            resetpbimgs: "Reset Badge Icons",
+            elemsmatch: "Match Customiser Settings"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                "Test",
+                `<span class="hl" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
+            ],
+            "themeswitchnew": "New Auto-Switch",
+            "themeswitchnewsub": "New test",
+            "themes": "Themes",
+            "src": "Screenshot Source",
+            "main": "Main Theme",
+            "rare": "Rare Theme",
+            "plat": "100% Theme"
         }
     }
 }

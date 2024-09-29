@@ -197,10 +197,12 @@ const startsan = async (appinfo: AppInfo) => {
                         name: steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,"name",maxlang) : null,
                         desc: steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,"description",maxlang) : null
                     }
+
+                    const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!) as ThemeSwitch).find(item => parseInt(item[0]) === appid)
         
                     const notify: Notify = {
                         id: Math.round(Date.now() / Math.random() * 1000),
-                        customisation: config.get(`customisation.${type}`) as Customisation,
+                        customisation: (themeswitch ? (config.get(`customisation.${type}.usertheme.${themeswitch[1].themes[type]}`) as UserTheme).customisation : config.get(`customisation.${type}`)) as Customisation,
                         type: type,
                         gamename: gamename || "???",
                         steam3id: steam3id,
@@ -213,14 +215,14 @@ const startsan = async (appinfo: AppInfo) => {
                         icon: icon || sanhelper.setfilepath("img","sanlogosquare.svg")
                     }
 
-                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify))
+                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
         
                     if (live.every(ach => ach.unlocked) && !hasshown) {
                         const { plat } = (config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
         
                         const platnotify: Notify = {
                             id: Date.now(),
-                            customisation: config.get(`customisation.plat`) as Customisation,
+                            customisation: themeswitch ? (config.get(`customisation.plat.usertheme.${themeswitch[1].themes.plat}`) as UserTheme).customisation : config.get(`customisation.plat`) as Customisation,
                             type: "plat",
                             gamename: gamename || "???",
                             steam3id: steam3id,
@@ -233,7 +235,7 @@ const startsan = async (appinfo: AppInfo) => {
                             icon: plat || sanhelper.setfilepath("img","ribbon.svg")
                         }
         
-                        ipcRenderer.send("notify",platnotify)
+                        ipcRenderer.send("notify",platnotify,undefined,themeswitch?.[1].src)
                         hasshown = true
                     }
                 })

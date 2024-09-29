@@ -689,7 +689,7 @@ export const listeners = {
         const queue: WinType[] = []
         let running: boolean = false
 
-        ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null) => {            
+        ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null,src?: number) => {            
             const config = sanconfig.get()
             
             if (config.get("soundonly")) {
@@ -699,6 +699,30 @@ export const listeners = {
                 }
 
                 return
+            }
+
+            // Syncs the Theme over all notification types if `customsiation.${type}.synctheme` is enabled
+            const customisation = config.get(`customisation`)
+
+            for (const type in customisation) {
+                const customobj = customisation[type] as Customisation
+                const ignore = [
+                    "primarycolor",
+                    "secondarycolor",
+                    "tertiarycolor"
+                ]
+
+                if (customobj.synctheme) {
+                    notify.customisation = {
+                        ...notify.customisation,
+                        ...Object.keys(notify.customisation).reduce((acc,key) => {
+                            acc[key] = (key in customobj && !ignore.includes(key)) ? customobj[key] : notify.customisation[key]
+                            return acc
+                        },{} as Customisation)
+                    }
+
+                    break
+                }
             }
 
             const { preset } = notify.customisation
@@ -757,7 +781,7 @@ export const listeners = {
             } as Info)
 
             worker && worker.webContents.send("steam3id")
-            preset !== "os" && capturesrc(notify.id,() => createsswin("ss",notify))
+            preset !== "os" && capturesrc(notify.id,() => createsswin("ss",notify,undefined,src),src)
 
             win.webContents.send("queue",queue)
             checkifrunning(info)
@@ -1143,10 +1167,10 @@ export const listeners = {
             createsswin(config.get("screenshots") === "notifyimg" ? "img" : "ss",notify,true)
         })
 
-        const getssmonitor = (): { monitor: Monitor | Electron.Display | null, display: Electron.Display | null } => {
+        const getssmonitor = (src?: number): { monitor: Monitor | Electron.Display | null, display: Electron.Display | null } => {
             const config = sanconfig.get()
 
-            let monitor: Monitor | Electron.Display | undefined = config.get("monitors").find(monitor => config.get("monitor") === monitor.id)
+            let monitor: Monitor | Electron.Display | undefined = config.get("monitors").find(monitor => (src || config.get("monitor")) === monitor.id)
             if (!monitor) {
                 log.write("ERROR",`Monitor id "${config.get("monitor")}" could not be found in "config.monitors" - Reverting to primary display...`)
                 monitor = screen.getPrimaryDisplay()
@@ -1160,7 +1184,7 @@ export const listeners = {
 
         const getsspath = (id: number) => path.join(sanhelper.temp,`${id}.png`)
 
-        const capturesrc = (notifyid: number, callback: () => void): void => {
+        const capturesrc = (notifyid: number,callback: () => void,src?: number): void => {
             const config = sanconfig.get()
             if (config.get("screenshots") !== "overlay") return
             
@@ -1182,7 +1206,7 @@ export const listeners = {
             const delay = config.get("ssdelay")
             const sspath = getsspath(notifyid)
 
-            const { monitor } = getssmonitor()
+            const { monitor } = getssmonitor(src)
             if (!monitor) return log.write("ERROR",`Error configuring screenshot src: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
 
             const { id, label, bounds: { width, height } } = monitor
@@ -1227,7 +1251,7 @@ export const listeners = {
             }
         }
 
-        const createsswin = async (type: "ss" | "img",notify: Notify,ispreview?: boolean) => {
+        const createsswin = async (type: "ss" | "img",notify: Notify,ispreview?: boolean,src?: number) => {
             const config = sanconfig.get()
 
             const imgpath: string = config.get(`${type === "ss" ? "ov" : "img"}path`) as string
@@ -1310,7 +1334,7 @@ export const listeners = {
                 })
             })
 
-            const { monitor, display } = getssmonitor()
+            const { monitor, display } = getssmonitor(src)
 
             if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
             if (!display) return log.write("ERROR",`Error configuring screenshot: No Display matches Monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
@@ -1391,6 +1415,23 @@ export const listeners = {
             })
 
             event.reply("exporttheme",expdialog)
+        })
+
+        ipcMain.on("montest", (event,monitor: Monitor,str: string,parseint: number) => {
+            try {
+                screen.getAllDisplays().forEach(d => {
+                    d.id === monitor.id && console.log({
+                        mainlabel: d.label,
+                        mainid: d.id,
+                        renlabel: monitor.label,
+                        renid: monitor.id,
+                        renidstr: str,
+                        renelemparseint: parseint
+                    })
+                })
+            } catch (err) {
+                dialog.showErrorBox(`"montest" Failed!`,(err as Error).stack || (err as Error).message)
+            }
         })
 
         return

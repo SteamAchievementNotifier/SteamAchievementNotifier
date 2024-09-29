@@ -133,7 +133,7 @@ export const usertheme = {
                 btnwrapper.insertAdjacentHTML("beforeend",html)
 
                 const sync = btnwrapper.querySelector("button#userthemesync")! as HTMLButtonElement
-                sync.onclick = event => usertheme.sync(config,event.target as HTMLButtonElement,type,enabled)
+                sync.onclick = event => usertheme.sync(config,event.target as HTMLButtonElement,type)
 
                 const span = sync.querySelector("button#userthemesync > span")!
 
@@ -522,32 +522,11 @@ export const usertheme = {
 
         ipcRenderer.send("exporttheme")
     },
-    sync: (config: Store<Config>,btn: HTMLButtonElement,elemtype: "main" | "rare" | "plat",themeid: number) => {
+    sync: (config: Store<Config>,btn: HTMLButtonElement,elemtype: "main" | "rare" | "plat") => {
         const key = `customisation.${elemtype}.synctheme`
         const value = !config.get(key) as boolean
-        const customisation = config.get("customisation")
 
         config.set(key,value)
         btn.toggleAttribute("sync",value)
-
-        for (const type in customisation) {
-            const selectedtheme = (customisation[elemtype] as Customisation).usertheme[themeid].customisation
-
-            if (type !== elemtype) {
-                const previoustheme = customisation[type] as Customisation
-                const { id: previousthemeid } = (customisation[type] as Customisation).usertheme.find(theme => theme.enabled)!
-                const { usertheme } = previoustheme
-
-                if (value) {                    
-                    config.set(`customisation.${type}`,{ ...selectedtheme, usertheme })
-                    config.set(`customisation.${type}.previousthemeid`,previousthemeid as number)
-                    
-                    ;(async () => await sanconfig.validateconfigobj(customisation[type] as Customisation,type as "main" | "rare" | "plat"))()
-                } else {
-                    config.set(`customisation.${type}`,{ ...usertheme[previousthemeid as number].customisation, usertheme })
-                    config.set(`customisation.${type}.previousthemeid`,null)
-                }
-            }
-        }
     }
 }

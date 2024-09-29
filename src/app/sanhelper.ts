@@ -345,8 +345,9 @@ export const sanhelper: SANHelper = {
 
             elem.value = currentmonitor.id.toString()
             elem.onchange = ({ target }: Event) => {
-                const currentmonitor = parseInt((target as HTMLOptionElement).value)
-                config.set("monitor",currentmonitor)
+                const id = parseInt((target as HTMLOptionElement).value)
+                config.set("monitor",id)
+                sanhelper.devmode && ipcRenderer.send("montest",currentmonitor,currentmonitor.id.toString(),id)
             }
 
             return

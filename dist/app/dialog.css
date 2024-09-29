@@ -642,10 +642,23 @@ dialog > #content:has(.tbl) {
 }
 
 td:has(.unlinkbtn) > .unlinkbtn {
-    background: url("../../icon/unlink.svg") center / contain no-repeat;
+    --menuicon: url("../../icon/unlink.svg");
+    background: var(--menuicon) center / contain no-repeat;
     width: 1rem;
     height: 1rem;
     vertical-align: middle;
+}
+
+dialog:has(#linkgametablewrapper) td:has(.unlinkbtn) > .unlinkbtn {
+    --menuicon: url("../../icon/unlink.svg");
+}
+
+dialog:has(#exclusionlisttablewrapper) td:has(.unlinkbtn) > .unlinkbtn {
+    --menuicon: url("../../icon/unexclusion.svg");
+}
+
+dialog:has(#themeswitchtablewrapper) td:has(.unlinkbtn) > .unlinkbtn {
+    --menuicon: url("../../icon/unautoswitchtheme.svg");
 }
 
 #exclusionlistheaders > th:nth-child(1) {
@@ -669,40 +682,67 @@ div[id^="themeswitch"] select:focus {
     outline: auto;
 }
 
-div[id^="themeswitchtable"] th:not(:last-child),
-div[id^="themeswitchtable"] td:not(:last-child) {
+div[id^="themeswitchtable"] th:not(:first-child,:last-child),
+div[id^="themeswitchtable"] td:not(:first-child,:last-child) {
     width: fit-content;
     padding: 0;
+    text-align: center;
 }
 
 div[id$="newtablewrapper"] th,
-div[id$="newtablewrapper"] td {
+div[id$="newtablewrapper"] td,
+div[id$="newselectwrapper"] th,
+div[id$="newselectwrapper"] td {
     width: 100%;
     padding: 0;
     overflow: hidden;
 }
 
+td > span {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    vertical-align: -2px;
+    margin-right: 0.25rem;
+    background: var(--trophy) center / contain no-repeat;
+}
+
+td > span[main] {
+    --trophy: url("../../icon/trophy_gold.svg");
+}
+
+td > span[rare] {
+    --trophy: url("../../icon/trophy_purple.svg");
+}
+
+td > span[plat] {
+    --trophy: url("../../icon/trophy_plat.svg");
+}
+
 #themeswitchnewselectwrapper {
-    display: grid;
-    gap: 0.25rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 }
 
-#themeswitchnewselectwrapper select,
-#themeswitchnewselectwrapper select:hover,
-#themeswitchnewselectwrapper select:focus {
-    background-color: var(--primary);
-    border-radius: var(--elembr);
+#themeswitchnewselectwrapper th::before {
+    content: "";
+    display: inline-block;
+    background: var(--trophy) center / contain no-repeat;
+    width: 0.75rem;
+    height: 0.75rem;
+    vertical-align: -2px;
+    margin-right: 0.25rem;
 }
 
-#themeswitchnewselectwrapper span {
-    place-self: center;
+#themeswitchnewselectwrapper th:first-child::before {
+    --trophy: url("../../icon/trophy_gold.svg");
 }
 
-div[id^="themeswitch"] div:has(> select) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.25rem;
+#themeswitchnewselectwrapper th:nth-child(2) {
+    --trophy: url("../../icon/trophy_purple.svg");
+}
+
+#themeswitchnewselectwrapper th:last-child {
+    --trophy: url("../../icon/trophy_plat.svg");
 }
 
 div#linkgamenewtablewrapper th:first-child,
@@ -903,7 +943,6 @@ dialog[selection][synced] .btnwrapper > button#userthemesync {
 @media (orientation: portrait) {
     .contentwrapper > .btnwrapper {
         grid-template-columns: 1fr;
-        grid-template-rows: var(--columns);
     }
 
     div:has(> span.contentsubitem):has(#newversion) {

@@ -59,8 +59,6 @@ export const dialog = {
 
                 document.querySelector(".contentsub")!.appendChild(div)
             }
-
-            menutype === "default" && document.documentElement.style.setProperty("--columns",`repeat(${buttons ? buttons.length + 1 : 1},1fr)`)
         } else {
             sanhelper.updatetabs()
 
@@ -73,11 +71,6 @@ export const dialog = {
             }))
 
             document.getElementById("shortcutbtn")!.onclick = event => sanhelper.setshortcut(config,event)
-
-            // Prevents "updategamelinks" function from including localStorage items with the given key
-            const localstoragefilter = [
-                "closedstate"
-            ]
 
             const setappidhelpdialog = (span: HTMLSpanElement) => span.onclick = async () => dialog.open({
                 title: await language.get("findappid"),
@@ -117,10 +110,24 @@ export const dialog = {
                     appid.textContent = type !== "exclusionlist" ? entry[0] : entry
                     tr.appendChild(appid)
 
+                    const gettheme = (type: "main" | "rare" | "plat",id: number): string => (config.get(`customisation.${type}.usertheme.${id}`) as UserTheme).label
+
                     if (type !== "exclusionlist") {
-                        const td = document.createElement("td")
-                        td.textContent = entry[1]
-                        tr.appendChild(td)
+                        if (typeof entry[1] === "object") {
+                            for (const i in entry[1]) {
+                                const entryvalue = entry[1][i]
+                                const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).map(key => `<span ${key}></span>${gettheme(key as "main" | "rare" | "plat",entryvalue[key])}`) : Object.values(entryvalue)).join("<br>")
+                                const strvalue = type === "themeswitch" && i === "src" ? config.get("monitors").find(monitor => monitor.id === entryvalue)!.label : entryvalue
+
+                                const td = document.createElement("td")
+                                td.innerHTML = typeof entryvalue === "object" ? objvalue : strvalue
+                                tr.appendChild(td)
+                            }
+                        } else {
+                            const td = document.createElement("td")
+                            td.textContent = entry[1]
+                            tr.appendChild(td)
+                        }
                     }
 
                     const unlinktd = document.createElement("td")
@@ -279,12 +286,12 @@ export const dialog = {
                     buttons: [{
                         id: "themeswitchnew",
                         label: await language.get("new"),
-                        icon: sanhelper.setfilepath("icon","autoswitchtheme.svg"),
+                        icon: sanhelper.setfilepath("icon","newautoswitchtheme.svg"),
                         click: async () => {
                             dialog.open({
                                 title: await language.get("themeswitchnew",["themeswitch","content"]),
                                 type: "default",
-                                icon: sanhelper.setfilepath("icon","autoswitchtheme.svg"),
+                                icon: sanhelper.setfilepath("icon","newautoswitchtheme.svg"),
                                 sub: await language.get("themeswitchnewsub",["themeswitch","content"]),
                                 addHTML: path.join(__dirname,"themeswitchnew.html"),
                                 buttons: [{
@@ -292,17 +299,12 @@ export const dialog = {
                                     label: await language.get("ok"),
                                     icon: "",
                                     click: () => {
-                                        const data = {
-                                            [themeswitchappid.value]: {
-                                                // type: themeselect.type,
-                                                // id: themeselect.value,
-                                                // sssrc: srcselect.value
-                                            }
-                                        }
-
                                         const entries = {
                                             ...JSON.parse(localStorage.getItem("themeswitch")!),
-                                            ...data
+                                            [themeswitchappid.value]: {
+                                                themes: Object.fromEntries(["main","rare","plat"].map(type => [type,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${type}`)! as HTMLSelectElement).value)])),
+                                                src: parseInt(srcselect.value)
+                                            }
                                         }
 
                                         localStorage.setItem("themeswitch",JSON.stringify(entries))
@@ -319,7 +321,7 @@ export const dialog = {
                             okbtn.tabIndex = -1
 
                             const themeswitchappid = document.getElementById("themeswitchappid")! as HTMLInputElement
-                            const themeswitchselects = document.querySelectorAll("#themeswitchnewselectwrapper")!
+                            const themeswitchselects = document.querySelector("#themeswitchnewselectwrapper")!
                             const srcselect = document.getElementById("themeswitchsrc")! as HTMLSelectElement
 
                             themeswitchappid.onfocus = () => settabindex(okbtn,[themeswitchappid.value])
@@ -330,21 +332,22 @@ export const dialog = {
 
                             const customisation = config.get(`customisation`)
 
-                            themeswitchselects.forEach(elem => elem.querySelectorAll("div:has(> select)")!.forEach(async div => {
+                            ;(async () => {
                                 const { language } = await import("./language")
-                                const select = div.querySelector("select")! as HTMLSelectElement
-                                const themes = new Map<string,(string | number)[]>([])
+                                ;["main","rare","plat"].forEach(async (id,i) => themeswitchselects.querySelector(`th:nth-child(${i + 1})`)!.textContent = await language.get(id))
+                            })()
+
+                            themeswitchselects.querySelectorAll("select")!.forEach(s => {
+                                const select = s as HTMLSelectElement
+                                const themes = new Map<number,(string | number)[]>([])
                                 const userthemes = (customisation[select.id] as Customisation).usertheme
-                                
-                                const span = div.querySelector("span")! as HTMLSpanElement
-                                span.textContent = await language.get(select.id,["themeswitch","content"])
 
                                 for (const theme in userthemes) {
-                                    themes.set(select.id,[userthemes[theme].id,userthemes[theme].label])
+                                    themes.set(userthemes[theme].id as number,[userthemes[theme].id,userthemes[theme].label])
                                 }
 
-                                themes.forEach((value,key) => select.insertAdjacentHTML("beforeend",`<option value="${key}.${value[0]}">${value[1]}</option>`))
-                            }))
+                                themes.forEach(value => select.insertAdjacentHTML("beforeend",`<option value="${value[0]}">${value[1]}</option>`))
+                            })
                         }
                     }]
                 })

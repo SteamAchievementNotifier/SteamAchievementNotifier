@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.1"
+   id="Capa_1"
+   x="0px"
+   y="0px"
+   width="24"
+   height="24"
+   viewBox="0 0 24.000001 24"
+   xml:space="preserve"
+   sodipodi:docname="newautoswitchtheme.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs16"><inkscape:path-effect
+     effect="powerclip"
+     id="path-effect8"
+     is_visible="true"
+     lpeversion="1"
+     inverse="true"
+     flatten="false"
+     hide_clip="false"
+     message="Use fill-rule evenodd on &lt;b&gt;fill and stroke&lt;/b&gt; dialog if no flatten result after convert clip to paths." /><inkscape:path-effect
+     effect="fill_between_many"
+     method="originald"
+     linkedpaths="#path4,0,1"
+     id="path-effect4"
+     is_visible="true"
+     lpeversion="0"
+     join="true"
+     close="true"
+     autoreverse="true" /><inkscape:path-effect
+     effect="fill_between_many"
+     method="originald"
+     linkedpaths="#path4,0,1"
+     id="path-effect5"
+     is_visible="true"
+     lpeversion="0"
+     join="true"
+     close="true"
+     autoreverse="true" /><clipPath
+     clipPathUnits="userSpaceOnUse"
+     id="clipPath8"><path
+       id="path8"
+       style="display:none;fill:#ff0000;fill-rule:evenodd;stroke-width:0.219705"
+       d="M 14.69959,9.17078 V 14.7118 H 9.15857 v 4.12304 h 5.54102 v 5.35157 h 4.12304 v -5.35157 h 5.35352 V 14.7118 H 18.82263 V 9.17078 Z" /><path
+       id="lpe_path-effect8"
+       style="display:inline;fill:#ff0000;fill-rule:evenodd;stroke-width:0.219705"
+       class="powerclip"
+       d="M -5,-5 H 29 V 29 H -5 Z M 14.69959,9.17078 V 14.7118 H 9.15857 v 4.12304 h 5.54102 v 5.35157 h 4.12304 v -5.35157 h 5.35352 V 14.7118 H 18.82263 V 9.17078 Z" /></clipPath></defs><sodipodi:namedview
+   id="namedview16"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="16"
+   inkscape:cx="11.84375"
+   inkscape:cy="20.28125"
+   inkscape:window-width="1920"
+   inkscape:window-height="986"
+   inkscape:window-x="1070"
+   inkscape:window-y="831"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Capa_1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<g
+   style="display:inline;fill:#ffffff"
+   id="g2"
+   transform="translate(0,-0.003405)"
+   clip-path="url(#clipPath8)"
+   inkscape:path-effect="#path-effect8"><g
+     id="g1"><path
+       fill="none"
+       height="24"
+       width="24"
+       id="rect1"
+       x="0"
+       y="0"
+       sodipodi:type="rect"
+       d="M 0,0 H 24 V 24 H 0 Z" /></g><g
+     id="g6"><g
+       id="g5"><path
+         d="M 19.03,3.56 C 17.36,2.17 15.29,1.26 13,1.05 v 2.01 c 1.73,0.19 3.31,0.88 4.61,1.92 z"
+         id="path1-7"
+         inkscape:original-d="M 19.03,3.56 C 17.36,2.17 15.29,1.26 13,1.05 v 2.01 c 1.73,0.19 3.31,0.88 4.61,1.92 z" /><path
+         d="M 11,3.06 V 1.05 C 8.71,1.25 6.64,2.17 4.97,3.56 L 6.39,4.98 C 7.69,3.94 9.27,3.25 11,3.06 Z"
+         id="path2"
+         inkscape:original-d="M 11,3.06 V 1.05 C 8.71,1.25 6.64,2.17 4.97,3.56 L 6.39,4.98 C 7.69,3.94 9.27,3.25 11,3.06 Z" /><path
+         d="M 4.98,6.39 3.56,4.97 C 2.17,6.64 1.26,8.71 1.05,11 H 3.06 C 3.25,9.27 3.94,7.69 4.98,6.39 Z"
+         id="path3"
+         inkscape:original-d="M 4.98,6.39 3.56,4.97 C 2.17,6.64 1.26,8.71 1.05,11 H 3.06 C 3.25,9.27 3.94,7.69 4.98,6.39 Z" /><path
+         d="m 20.94,11 h 2.01 C 22.74,8.71 21.83,6.64 20.44,4.97 l -1.42,1.42 c 1.04,1.3 1.73,2.88 1.92,4.61 z"
+         id="path4"
+         inkscape:original-d="m 20.94,11 h 2.01 C 22.74,8.71 21.83,6.64 20.44,4.97 l -1.42,1.42 c 1.04,1.3 1.73,2.88 1.92,4.61 z" /><polygon
+         points="10.44,10.44 7,12 10.44,13.56 12,17 13.56,13.56 17,12 13.56,10.44 12,7 "
+         id="polygon4"
+         d="M 12,7 10.44,10.44 7,12 10.44,13.56 12,17 13.56,13.56 17,12 13.56,10.44 Z" /><path
+         d="M 12,21 C 8.89,21 6.15,19.41 4.54,17 H 7 V 15 H 1 v 6 h 2 v -2.7 c 1.99,2.84 5.27,4.7 9,4.7 4.87,0 9,-3.17 10.44,-7.56 L 20.48,14.99 C 19.25,18.48 15.92,21 12,21 Z"
+         id="path5"
+         inkscape:original-d="M 12,21 C 8.89,21 6.15,19.41 4.54,17 H 7 V 15 H 1 v 6 h 2 v -2.7 c 1.99,2.84 5.27,4.7 9,4.7 4.87,0 9,-3.17 10.44,-7.56 L 20.48,14.99 C 19.25,18.48 15.92,21 12,21 Z" /></g></g></g><path
+   id="path6"
+   style="display:inline;fill:#00ff00;stroke-width:0.723213"
+   d="m 24,15.066235 v 3.39882 H 9.52448 v -3.39882 z m -8.93717,-5.53835 h 3.39882 v 14.47552 h -3.39882 z" /></svg>

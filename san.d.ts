@@ -195,7 +195,6 @@ declare interface Customisation {
     percentbadgeimggold: string,
     sspercentbadgeimggold: string,
     synctheme: boolean,
-    previousthemeid: number | null,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }
@@ -355,6 +354,15 @@ declare interface DefaultBounds {
         height: number
     },
     scaleFactor: number
+}
+
+declare interface ThemeSwitch {
+    themes: {
+        main: number,
+        rare: number,
+        plat: number
+    },
+    src: number
 }
 
 declare module "simple-vdf"

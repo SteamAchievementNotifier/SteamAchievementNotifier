@@ -90,6 +90,8 @@ const getmonitors = async () => {
     
         config.set("monitors",monitors)
         window.monitors = monitors
+
+        sanhelper.devmode && ipcRenderer.send("montest",monitors)
     
         return `Successfully updated "monitors" array`
     } catch (err) {

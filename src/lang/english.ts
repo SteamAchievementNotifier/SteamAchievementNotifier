@@ -579,16 +579,17 @@ export const translations = {
     themeswitch: {
         content: {
             "managesub": [
-                "Test",
+                `Add any game's <span class="hl">AppID</span> to automatically switch <span class="hl">Themes</span> when detected`,
+                `Any saved <span class="hl">Theme</span> can be selected for each notification type, along with the desired monitor to use as a <span class="hl">Screenshot Source</span>`,
                 `<span class="hl" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
             ],
             "themeswitchnew": "New Auto-Switch",
-            "themeswitchnewsub": "New test",
+            "themeswitchnewsub": [
+                `Enter the game's <span class="hl">AppID</span>, along with the desired monitor to use as a <span class="hl">Screenshot Source</span>`,
+                `Select which <span class="hl">Theme</span> to switch to for each notification type when this game's <span class="hl">AppID</span> is detected`
+            ],
             "themes": "Themes",
-            "src": "Screenshot Source",
-            "main": "Main Theme",
-            "rare": "Rare Theme",
-            "plat": "100% Theme"
+            "src": "Screenshot Source"
         }
     }
 }

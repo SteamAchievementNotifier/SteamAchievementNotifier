@@ -331,7 +331,6 @@ export const sanconfig = {
                 percentbadgeimggold: sanhelper.setfilepath("img","sanlogotrophy_gold.svg"),
                 sspercentbadgeimggold: sanhelper.setfilepath("img","sanlogotrophy_gold.svg"),
                 synctheme: false,
-                previousthemeid: null,
                 usertheme: [] as UserTheme[]
             }
 

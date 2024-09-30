@@ -81,7 +81,7 @@ export const dialog = {
 
             const updatetables = async (type: "linkgame" | "exclusionlist" | "themeswitch") => {
                 const table = document.querySelector(`.addhtml > .tbl#${type}tablewrapper > table`)! as HTMLTableElement
-                const entries = type !== "exclusionlist" ? Object.entries(JSON.parse(localStorage.getItem(type)!)).sort() : config.get("exclusions")
+                const entries = type !== "exclusionlist" ? Object.entries(JSON.parse(localStorage.getItem(type)!)).sort() as [string,any][] : config.get("exclusions") as number[]
 
                 table.querySelectorAll(`tr:not(#${type}headers)`).forEach(item => item && item.remove())
 
@@ -103,7 +103,7 @@ export const dialog = {
                     return table.insertAdjacentHTML("beforeend",html)
                 }
 
-                entries.forEach((entry: any) => {
+                entries.forEach(async (entry: any) => {
                     const tr = document.createElement("tr")
 
                     const appid = document.createElement("td")
@@ -116,8 +116,9 @@ export const dialog = {
                         if (typeof entry[1] === "object") {
                             for (const i in entry[1]) {
                                 const entryvalue = entry[1][i]
+
                                 const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).map(key => `<span ${key}></span>${gettheme(key as "main" | "rare" | "plat",entryvalue[key])}`) : Object.values(entryvalue)).join("<br>")
-                                const strvalue = type === "themeswitch" && i === "src" ? config.get("monitors").find(monitor => monitor.id === entryvalue)!.label : entryvalue
+                                const strvalue = type === "themeswitch" && i === "src" ? (config.get("monitors").find(monitor => monitor.id === entryvalue)?.label || `<i style="font-size: 0.5rem; color: red;">❗ ${await language.get("notconnected")}</i>`) : entryvalue
 
                                 const td = document.createElement("td")
                                 td.innerHTML = typeof entryvalue === "object" ? objvalue : strvalue
@@ -357,6 +358,13 @@ export const dialog = {
             }
 
             document.getElementById("showcustomfiles")!.onclick = () => sanhelper.showcustomfiles()
+
+            ;[
+                "resetwindow",
+                "releasegame",
+                "suspendresume",
+                "restartapp"
+            ].forEach(id => document.getElementById(id)!.onclick = () => ipcRenderer.send(id.replace(/window$/,"win")))
 
             document.getElementById("log")!.onclick = () => sanhelper.createlogwin(config.get("logtype"))
 

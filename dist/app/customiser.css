@@ -514,7 +514,7 @@ button#exporttheme {
     --icon: url("../../icon/export.svg");
 }
 
-.cont[sync] button {
+#customiser[synced] .cont:has(.title) > .wrapper {
     opacity: 0.5;
     pointer-events: none;
 }

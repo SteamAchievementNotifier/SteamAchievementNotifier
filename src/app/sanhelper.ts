@@ -347,7 +347,7 @@ export const sanhelper: SANHelper = {
             elem.onchange = ({ target }: Event) => {
                 const id = parseInt((target as HTMLOptionElement).value)
                 config.set("monitor",id)
-                sanhelper.devmode && ipcRenderer.send("montest",currentmonitor,currentmonitor.id.toString(),id)
+                sanhelper.devmode && ipcRenderer.send("montest",id)
             }
 
             return
@@ -673,6 +673,27 @@ export const sanhelper: SANHelper = {
             })
 
             sanhelper.loadadditionaltooltips(customiser)
+        }
+
+        const selection = document.querySelector("dialog[selection]")
+
+        if (selection) {
+            requestAnimationFrame(() => {
+                selection.querySelectorAll(
+                    `button#userthemesync`
+                )!.forEach(async elem => {
+                    const tt = tippy(`#${elem.id}`,{
+                        ...defaulttippy,
+                        content: await language.get(elem.id,["tooltips"]),
+                        appendTo: "parent",
+                        onTrigger(inst) {
+                            inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                        }
+                    })
+
+                    tippies.push(tt)
+                })
+            })
         }
     },
     getpresetbounds: (preset: string) => {

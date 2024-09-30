@@ -188,11 +188,30 @@ dialog[selection] .contentwrapper .contentsub > .rect > span {
 
 .btnwrapper {
     display: grid;
-    grid-template-columns: var(--columns);
-    place-content: center;
+    grid-template-columns: repeat(var(--columns),1fr);
     gap: 0.75rem;
     width: 100%;
     height: 100%;
+}
+
+.btnwrapper:has(> button:nth-child(1)) {
+    --columns: 1;
+}
+
+.btnwrapper:has(> button:nth-child(2)) {
+    --columns: 2;
+}
+
+.btnwrapper > button:nth-child(1) {
+    grid-column-start: 1;
+}
+
+.btnwrapper > button:nth-child(2) {
+    grid-column-start: 2;
+}
+
+.btnwrapper:has(button#userthemesync) {
+    justify-content: stretch;
 }
 
 dialog:not([default]):not(:has(button#userthemesync)) .btnwrapper {
@@ -247,9 +266,9 @@ dialog:not([default]):not(:has(button#userthemesync)) .btnwrapper {
 }
 
 #okbtn:hover,
-#okbtn:focus,
+#okbtn:focus-visible,
 #updatebtn:hover,
-#updatebtn:focus {
+#updatebtn:focus-visible {
     background-color: limegreen;
 }
 
@@ -332,7 +351,7 @@ dialog #progressbar {
 }
 
 #backbtn:hover,
-#backbtn:focus {
+#backbtn:focus-visible {
     background-color: red;
 }
 
@@ -537,7 +556,9 @@ dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::after {
 }
 
 button[id$="newbtn"]:hover,
-button#importbtn:hover {
+button[id$="newbtn"]:focus-visible,
+button#importbtn:hover,
+button#importbtn:focus-visible {
     background-color: limegreen;
     filter: none;
 }
@@ -566,9 +587,9 @@ button#importbtn:hover {
     --dialogicon: url("../../icon/autoswitchtheme.svg");
 }
 
-.wrapper#contentcontainer:has(.tbl) + .btnwrapper {
+/* .wrapper#contentcontainer:has(.tbl) + .btnwrapper {
     grid-template-columns: repeat(2,1fr);
-}
+} */
 
 .nodata > td {
     text-align: center;
@@ -678,7 +699,7 @@ div[id^="themeswitch"] select:hover {
     background-color: var(--lightgrey);
 }
 
-div[id^="themeswitch"] select:focus {
+div[id^="themeswitch"] select:focus-visible {
     outline: auto;
 }
 
@@ -941,6 +962,18 @@ dialog[selection][synced] .btnwrapper > button#userthemesync {
 }
 
 @media (orientation: portrait) {
+    .contentwrapper > .btnwrapper > button {
+        grid-column: 1 / -1;
+    }
+
+    .btnwrapper > button:nth-child(1) {
+        grid-row-start: 1;
+    }
+    
+    .btnwrapper > button:nth-child(2) {
+        grid-row-start: 2;
+    }
+
     .contentwrapper > .btnwrapper {
         grid-template-columns: 1fr;
     }

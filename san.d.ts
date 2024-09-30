@@ -88,6 +88,7 @@ declare interface Config {
     // },
     steamlang: boolean,
     maxsteamlangretries: number,
+    showsystrayopts: boolean,
     customisation: {
         main: Customisation,
         rare: Customisation,

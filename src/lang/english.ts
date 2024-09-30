@@ -62,7 +62,8 @@ export const translations = {
         noexe: "Game EXE not found!",
         noexesub: `Select Options > Release Game from the System Tray to quit`,
         webhookunlockmsg: "$user unlocked an achievement",
-        webhookingame: "in $gamename"
+        webhookingame: "in $gamename",
+        notconnected: "Not connected"
     },
     app: {
         content: {
@@ -146,7 +147,8 @@ export const translations = {
                 noanim: "Disable App Window Animations",
                 noupdatedialog: "Disable Update Dialog",
                 nvda: "Enable NVDA Support",
-                tooltips: "Show Tooltips"
+                tooltips: "Show Tooltips",
+                showsystrayopts: "Show System Tray Options"
             }
         },
         advanced: {
@@ -498,7 +500,9 @@ export const translations = {
         sspercentbadgeimggold: "The badge icon displayed when the unlock percentage is < $rarity",
         resetpbimgs: "Reset all badge icons to default",
         elemsmatch: `Match the Notification Elements settings set in the Customiser for this notification type<br><br><span class="ttdesc">Some Notification Presets cannot fully match Customiser settings, due to differences between on-screen and screenshot-based notification layouts</span>`,
-        themeswitch: `Automatically switch to any saved <span class="hl">Theme</span> when a specific game is detected`
+        themeswitch: `Automatically switch to any saved <span class="hl">Theme</span> when a specific game is detected`,
+        userthemesync: `Sync customisations in the selected <span class="hl">Theme</span> to all other notification types`,
+        showsystrayopts: `Display all options usually located under <span class="hl">System Tray</span> > <span class="hl">Options</span> in <span class="hl">Settings</span> > <span class="hl">Misc.</span>`
     },
     update: {
         updateavailable: "Update available",

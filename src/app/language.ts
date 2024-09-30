@@ -67,8 +67,9 @@ export const language = {
                         if (!elem) return
 
                         const title = elem.parentElement!.parentElement!.querySelector(".title")!.id
+                        const systray = global[elem.id === "suspendresume" ? (!elem.hasAttribute("suspend") ? "suspend" : "resume") : elem.id]
 
-                        langmap.set(elem,settings[title].content[id])
+                        langmap.set(elem,elem.hasAttribute("systray") ? systray : settings[title].content[id])
                     })
                 }
 

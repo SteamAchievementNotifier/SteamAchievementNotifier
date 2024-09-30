@@ -92,12 +92,7 @@ export const usertheme = {
             enabled = userthemes.find(theme => theme.enabled)?.id as number
         }
 
-        let synced: "main" | "rare" | "plat" | null = null
-        const customisation = config.get("customisation")
-
-        for (const type in customisation) {
-            (customisation[type] as Customisation).synctheme && (synced = type as "main" | "rare" | "plat")
-        }
+        const synced = usertheme.issynced(config)
 
         requestAnimationFrame(() => {
             if (!document.querySelector("dialog[selection]")) return document.querySelector(`#usertheme > span`)!.textContent = userthemes[enabled || 0].label
@@ -120,6 +115,7 @@ export const usertheme = {
                 if (themeselect.querySelector("button#userthemesync")) return
 
                 const btnwrapper = document.querySelector(`dialog[selection] .btnwrapper`)!
+                btnwrapper.querySelector("button#backbtn")!.remove()
 
                 const html = `
                     <button id="userthemesync">
@@ -152,6 +148,16 @@ export const usertheme = {
                 btnwrapper.appendChild(sync)
             }
         })
+    },
+    issynced: (config: Store<Config>) => {
+        let synced: "main" | "rare" | "plat" | null = null
+        const customisation = config.get("customisation")
+
+        for (const type in customisation) {
+            (customisation[type] as Customisation).synctheme && (synced = type as "main" | "rare" | "plat")
+        }
+
+        return synced
     },
     set: (id: number,event?: Event) => {
         const { config, type, userthemes } = usertheme.data()
@@ -528,5 +534,32 @@ export const usertheme = {
 
         config.set(key,value)
         btn.toggleAttribute("sync",value)
+    },
+    syncedtheme: (config: Store<Config>,syncobj: Customisation) => {
+        // Syncs the Theme over all notification types if `customisation.${type}.synctheme` is enabled
+        const customisation = config.get(`customisation`)
+
+        for (const type in customisation) {
+            const customobj = customisation[type] as Customisation
+            const ignore = [
+                "primarycolor",
+                "secondarycolor",
+                "tertiarycolor"
+            ]
+
+            if (customobj.synctheme) {
+                syncobj = {
+                    ...syncobj,
+                    ...Object.keys(syncobj).reduce((acc,key) => {
+                        acc[key] = (key in customobj && !ignore.includes(key)) ? customobj[key] : syncobj[key]
+                        return acc
+                    },{} as Customisation)
+                }
+
+                break
+            }
+        }
+
+        return syncobj
     }
 }

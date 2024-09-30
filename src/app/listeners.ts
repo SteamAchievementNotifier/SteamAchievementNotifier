@@ -12,7 +12,7 @@ let appid: number = 0
 let extwin: BrowserWindow | null = null
 
 export const listeners = {
-    setexit: () => {
+    setexit: (win?: BrowserWindow) => {
         ipcMain.on("exit",(event,reason) => {
             if (extwin) {
                 extwin.destroy()
@@ -20,11 +20,22 @@ export const listeners = {
             }
 
             log.write("EXIT",reason || `No exit reason provided.`)
-            app.exit()
+
+            // Stores last known monitor IDs in localStorage to compare against, as new monitor IDs are generated on restart due to Electron bug
+            if (win) {
+                ipcMain.on("storemonitors", () => {
+                    log.write("INFO",`"monitors" localStorage object updated`)
+                    app.exit()
+                })
+
+                win.webContents.send("storemonitors")
+            } else {
+                app.exit()
+            }
         })
     },
     set: (win: BrowserWindow): void => {
-        listeners.setexit()
+        listeners.setexit(win)
 
         app.on("second-instance", () => win.show())
 
@@ -94,40 +105,21 @@ export const listeners = {
                             icon: nativeImage
                                     .createFromPath(path.join(__root,"icon","donotdisturb.png"))
                                     .resize({ width: 16 }),
-                            click: () => {
-                                const { noreleasedialog } = sanconfig.get().store
-
-                                if (!noreleasedialog) {
-                                    win.show()
-                                    win.focus()
-                                }
-
-                                win.webContents.send("releasegame",noreleasedialog)
-                            }
+                            click: () => ipcMain.emit("releasegame")
                         },
                         {
                             label: await language.get(suspended ? "resume" : "suspend"),
                             icon: nativeImage
                                     .createFromPath(path.join(__root,"icon",`power_${suspended ? "on" : "off"}.png`))
                                     .resize({ width: 16 }),
-                            click: () => {
-                                suspended ? ipcMain.emit("validateworker") : (worker && worker.close())
-                                suspended = !suspended
-
-                                log.write("INFO",`Worker ${suspended ? "suspended" : "resumed"}`)
-                                updatetray(tray)
-                            }
+                            click: () => ipcMain.emit("suspendresume")
                         },
                         {
                             label: await language.get("restartapp"),
                             icon: nativeImage
                                     .createFromPath(path.join(__root,"icon","replay.png"))
                                     .resize({ width: 16 }),
-                            click: () => {
-                                win.show()
-                                win.focus()
-                                win.webContents.send("restartapp")
-                            }
+                            click: () => ipcMain.emit("restartapp")
                         }
                     ]
                 },
@@ -502,6 +494,32 @@ export const listeners = {
 
         ipcMain.on("resetwin",setwinsize)
 
+        ipcMain.on("releasegame", () => {
+            const { noreleasedialog } = sanconfig.get().store
+
+            if (!noreleasedialog) {
+                win.show()
+                win.focus()
+            }
+
+            win.webContents.send("releasegame",noreleasedialog)
+        })
+
+        ipcMain.on("suspendresume", () => {
+            suspended ? ipcMain.emit("validateworker") : (worker && worker.close())
+            suspended = !suspended
+
+            log.write("INFO",`Worker ${suspended ? "suspended" : "resumed"}`)
+            win.webContents.send("suspendresume",suspended)
+            updatetray(tray)
+        })
+
+        ipcMain.on("restartapp", () => {
+            win.show()
+            win.focus()
+            win.webContents.send("restartapp")
+        })
+
         ipcMain.on("startwin", (event,value: boolean) => {
             if (process.platform === "linux") {
                 const autostartpath = path.join(process.env.HOME!,".config","autostart")
@@ -701,29 +719,8 @@ export const listeners = {
                 return
             }
 
-            // Syncs the Theme over all notification types if `customsiation.${type}.synctheme` is enabled
-            const customisation = config.get(`customisation`)
-
-            for (const type in customisation) {
-                const customobj = customisation[type] as Customisation
-                const ignore = [
-                    "primarycolor",
-                    "secondarycolor",
-                    "tertiarycolor"
-                ]
-
-                if (customobj.synctheme) {
-                    notify.customisation = {
-                        ...notify.customisation,
-                        ...Object.keys(notify.customisation).reduce((acc,key) => {
-                            acc[key] = (key in customobj && !ignore.includes(key)) ? customobj[key] : notify.customisation[key]
-                            return acc
-                        },{} as Customisation)
-                    }
-
-                    break
-                }
-            }
+            const { syncedtheme } = (await import("./usertheme")).usertheme
+            notify.customisation = syncedtheme(config,notify.customisation)
 
             const { preset } = notify.customisation
 
@@ -1417,20 +1414,18 @@ export const listeners = {
             event.reply("exporttheme",expdialog)
         })
 
-        ipcMain.on("montest", (event,monitor: Monitor,str: string,parseint: number) => {
+        ipcMain.on("montest", (event,id: number) => {
+            const config = sanconfig.get()
+
             try {
-                screen.getAllDisplays().forEach(d => {
-                    d.id === monitor.id && console.log({
-                        mainlabel: d.label,
-                        mainid: d.id,
-                        renlabel: monitor.label,
-                        renid: monitor.id,
-                        renidstr: str,
-                        renelemparseint: parseint
-                    })
-                })
+                const screens = screen.getAllDisplays()
+                for (const screen of screens) {
+                    screen.id === id && log.write("INFO",`Monitor Info: mainlabel: ${screen.label} | mainid: ${screen.id} | rendererid: ${id}${config.get("monitor") === id ? " (Current)" : ""}`)
+                }
+
+                if (!screens.find(screen => screen.id === id)) throw new Error(`Display "id" ${id} not found in current monitors`)
             } catch (err) {
-                dialog.showErrorBox(`"montest" Failed!`,(err as Error).stack || (err as Error).message)
+                dialog.showErrorBox(`Monitor Test Failed!`,(err as Error).stack || (err as Error).message)
             }
         })
 

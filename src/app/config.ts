@@ -218,6 +218,7 @@ export const sanconfig = {
                 // },
                 steamlang: false,
                 maxsteamlangretries: 10,
+                showsystrayopts: false,
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

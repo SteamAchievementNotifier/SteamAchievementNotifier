@@ -374,11 +374,11 @@ body[plat] .rect#sspreview {
 
 #log {
     --icon: url("../../icon/clipboard.svg");
-    background-color: #50505080;
+    background-color: #006e8b80;
 }
 
 #log:hover {
-    background-color: #505050;
+    background-color: #006e8b;
 }
 
 #reset {
@@ -392,6 +392,44 @@ body[plat] .rect#sspreview {
 
 #reset:hover::before {
     rotate: 360deg;
+}
+
+#settingscontent:has(#showsystrayopts:not(:checked)) .cont:has(.title#misc) button[systray] {
+    display: none;
+}
+
+button[systray] {
+    background-color: #50505080;
+}
+
+button[systray]:hover {
+    background-color: #505050;
+}
+
+#resetwindow {
+    --icon: url("../../icon/resetwin.png");
+}
+
+#releasegame {
+    --icon: url("../../icon/donotdisturb.svg");
+}
+
+#suspendresume {
+    --icon: url("../../icon/power.svg");
+}
+
+#suspendresume::before {
+    mask: var(--icon) center / contain no-repeat;
+    background: red;
+}
+
+#suspendresume[suspend]::before {
+    background: limegreen;
+}
+
+#restartapp {
+    --icon: url("../../icon/replay.svg");
+    margin-bottom: 1rem;
 }
 
 .wrapper#settingsversion {

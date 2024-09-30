@@ -71,9 +71,13 @@ btns.forEach((value,key) => (document.getElementById(key) as HTMLButtonElement)!
 sanhelper.noanim(config.get("noanim"))
 sanhelper.createclosedstate()
 
+;["linkgame","themeswitch"].forEach(id => !localStorage.getItem(id) && localStorage.setItem(id,JSON.stringify({})))
+
 const getmonitors = async () => {
     try {
         const displays: Display[] = await sanhelper.getdisplays()
+        const lsmons = localStorage.getItem("monitors")
+        const prevmons: Monitor[] = lsmons ? JSON.parse(lsmons) : null
     
         const monitors: Monitor[] = displays.map(display => {
             return {
@@ -87,11 +91,12 @@ const getmonitors = async () => {
                 scaleFactor: display.scaleFactor
             } as Monitor
         })
-    
+
         config.set("monitors",monitors)
         window.monitors = monitors
 
-        sanhelper.devmode && ipcRenderer.send("montest",monitors)
+        refreshmonitors(monitors,prevmons)
+        sanhelper.devmode && monitors.forEach(monitor => ipcRenderer.send("montest",monitor.id))
     
         return `Successfully updated "monitors" array`
     } catch (err) {
@@ -107,6 +112,58 @@ const setmonitors = async () => {
         log.write("ERROR",err as string)
     }
 }
+
+const refreshmonitors = (monitors: Monitor[], prevmons: Monitor[]) => {
+    const getmonid = (type: "id" | "themeswitch",id: number,str: string) => {str
+        try {
+            const match = monitors.find(monitor => monitor.id === id)
+            if (match) {
+                log.write("INFO", `Monitor found in "monitors" array for "${match.label}" (${match.id}) used as ${str}`)
+                return match.id
+            }
+    
+            const prevmon = prevmons.find(prevmon => prevmon.id === id)
+            if (!prevmon) throw new Error(`Monitor "id" (${id}) not found in previous "monitors" object for ${str}`)
+            const newmon = monitors.find(monitor => monitor.label === prevmon.label)
+            if (!newmon) throw new Error(`No monitor matching "${prevmon.label}" found in "monitors" array`)
+    
+            if (prevmon.id !== newmon.id) {
+                log.write("INFO", `"id" for "${prevmon.label}" updated from "${prevmon.id}" to "${newmon.id}" for ${str}`)
+                return newmon.id
+            }
+
+            return id
+        } catch (err) {
+            log.write("ERROR", (err as Error).message)
+            return type === "id" ? -1 : id
+        }
+    }
+
+    const checkmonitor = (id: number) => getmonid("id",id,`"monitor" in config`)
+
+    const checkthemeswitch = (themeswitch: { [key: string]: ThemeSwitch }) => {    
+        return Object.fromEntries(Object.entries(themeswitch).map(([key, value]) => {
+            const src = getmonid("themeswitch",value.src,`"src" in "themeswitch" for AppID ${key}`)
+            
+            if (src !== value.src) return [key,{ themes: { ...value.themes }, src } as ThemeSwitch]
+            return [key,value]
+        }))
+    }
+
+    const newmon = checkmonitor(config.get("monitor"))
+    newmon !== -1 && config.set("monitor",newmon)
+
+    const newswitchmon = checkthemeswitch(JSON.parse(localStorage.getItem("themeswitch")!) as { [key: string]: ThemeSwitch })
+    localStorage.setItem("themeswitch",JSON.stringify(newswitchmon))
+}
+
+const storemonitors = (monitors: Monitor[]) => {
+    localStorage.setItem("monitors",JSON.stringify(monitors))
+    ipcRenderer.send("storemonitors")
+}
+
+// Stores last known monitor ids to compare against in `refreshmonitors()` on launch
+ipcRenderer.on("storemonitors", () => storemonitors(config.get("monitors")))
 
 window.addEventListener("DOMContentLoaded", () => setTimeout(setmonitors,100))
 
@@ -290,9 +347,10 @@ const playback = () => {
     webview && webview.send("playback",pause)
 }
 
-const sendsswin = async (type: "main" | "rare" | "plat", keypath: string) => ipcRenderer.send("sswin",await notifyinfo(type,config.get(keypath) as Customisation))
+const sendsswin = async (type: "main" | "rare" | "plat",customisation: Customisation) => ipcRenderer.send("sswin",await notifyinfo(type,customisation))
 
 window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
+    const synced = usertheme.issynced(config)
     const type = detail.type as "main" | "rare" | "plat"
     const keypath = `customisation.${type}`
 
@@ -301,7 +359,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         document.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
-        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,keypath)
+        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : config.get(keypath)) as Customisation)
 
         const { elemselector } = await import("./elemselector")
         elemselector(document.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
@@ -378,14 +436,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
 
         document.getElementById("customiser")!.toggleAttribute("customfiles",config.get("usecustomfiles"))
 
-        for (const type in config.get("customisation")) {
-            const synced = config.get(`customisation.${type}.synctheme`) as boolean
-
-            if (synced) {
-                document.querySelector(".cont:has(.title#theme)")!.setAttribute("sync","")
-                break
-            }
-        }
+        synced && document.getElementById("customiser")!.setAttribute("synced",synced)
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")
@@ -750,4 +801,11 @@ ipcRenderer.on("sendwebhook", async (event,notify: Notify) => {
     config.get("webhooks") && sendwebhook(config.get("webhookurl"),await embeds(notify),icon)
 })
 
-;["linkgame","themeswitch"].forEach(id => !localStorage.getItem(id) && localStorage.setItem(id,JSON.stringify({})))
+ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
+    const settings = document.querySelector("dialog:has(#settingscontent)")
+    if (settings) {
+        const elem = settings.querySelector("button#suspendresume")! as HTMLButtonElement
+        elem.toggleAttribute("suspend",suspended)
+        elem.textContent = await language.get(!elem.hasAttribute("suspend") ? "suspend" : "resume")
+    }
+})

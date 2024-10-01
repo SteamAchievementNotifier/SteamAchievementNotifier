@@ -308,7 +308,7 @@ export const usertheme = {
         userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
         userthemes.forEach((theme,i) => {
             config.set(`customisation.${type}.usertheme.${i}.id`,i)
-            document.getElementById(`usertheme${i}`)!.style.setProperty("--icon",`url('${theme.icon}')`)
+            document.getElementById(`usertheme${i}`)!.style.setProperty("--icon",`url('${fs.existsSync(theme.icon) ? theme.icon : "../../img/sanlogotrophy.svg"}')`)
         })
 
         const enabled = userthemes.find(theme => theme.enabled)

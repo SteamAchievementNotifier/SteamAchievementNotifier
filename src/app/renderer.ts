@@ -292,7 +292,7 @@ const loadwebview = () => {
             webview && webview.addEventListener("dom-ready",sendtestnotify)
         })
     } catch (err) {
-        log.write("ERROR",err as Error)
+        !(err as Error).message.startsWith("The WebView must be attached to the DOM") && log.write("ERROR",err as Error)
     }
 }
 

@@ -59,32 +59,11 @@ export const translations = {
             `ゲームの <span class="hl">ストアページ</span> の <span class="hl">URL</span> - <span class="hl">app/</span> の後にリストされる番号です： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `<span class="hl">SteamDB</span> のようなウェブサイト - 各ゲームのAppIDが <span class="hl">App Info</span> セクションにリストされます`
         ],
-        elemselector: "通知要素",
-        unlockmsg: "解除メッセージ",
-        title: "アチーブメントタイトル",
-        desc: "アチーブメントの説明",
-        hiddeniconpos: "隠しアイコン",
-        sshiddeniconpos: "隠しアイコン",
-        decorationpos: "装飾",
-        ssdecorationpos: "装飾",
-        percentpos: "レアリティパーセンテージ",
-        sspercentpos: "レアリティパーセンテージ",
         noexe: "ゲームのEXEファイルが見つかりません！",
         noexesub: `システムトレイから「オプション > ゲームを終了」を選択して終了してください`,
         webhookunlockmsg: "$user がアチーブメントを解除しました",
         webhookingame: "$gamename で",
-        percentbadge: "パーセントバッジ",
-        sspercentbadge: "パーセントバッジ",
-        percentbadgepos: "バッジの位置",
-        sspercentbadgepos: "バッジの位置",
-        percentbadgecolor: "バッジの色",
-        sspercentbadgecolor: "バッジの色",
-        percentbadgefontsize: "バッジのサイズ",
-        sspercentbadgefontsize: "バッジのサイズ",
-        percentbadgeroundness: "バッジの丸み",
-        sspercentbadgeroundness: "バッジの丸み",
-        top: "上",
-        bottom: "下"
+        notconnected: "接続されていません"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "ゲーム",
             content: {
                 linkedgames: "リンクされたゲーム",
+                themeswitch: "テーマを自動切替",
                 exclusionlist: "除外リスト"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "アプリウィンドウのアニメーションを無効にする",
                 noupdatedialog: "更新ダイアログを無効にする",
                 nvda: "NVDAサポートを有効にする",
-                tooltips: "ツールチップを表示"
+                tooltips: "ツールチップを表示",
+                showsystrayopts: "システムトレイオプションを表示"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "選択したテーマのエクスポート中にエラーが発生しました",
                     `現在のテーマを保存して (<i><span class="hl">テーマを保存</span></i> から) 再度エクスポートを試みてください`,
                     `問題が解決しない場合は、下記のエラーをコピーし、<span class="hl">ホーム画面</span>のリンクボタンから報告してください`
-                ]
+                ],
+                synctheme: "テーマを同期",
+                syncedwith: "同期中"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "すべての設定されたカスタマイズオプションを新しいテーマとして保存する",
         visibilitybtn: "カスタマイザーのプレビューとテスト通知で要素の表示/非表示を切り替える",
         delbtn: "要素をデフォルトにリセット",
-        link: `開く <span class="hl">リンクされたゲームの管理メニュー</span>`,
         imgpath: "このオプションによって生成された通知画像が保存される場所",
+        checkforupdates: `GitHubに新しいアプリのバージョンがリリースされたか確認します。更新が利用可能な場合は、<span class="hl">更新可能</span>ダイアログを介して確認されると、自動的にダウンロードされ、インストールされます`,
         linkedgames: `特定のSteamゲームの<span class="hl">自動プロセス追跡</span>をバイパス<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`,
         exclusionlist: `アプリによる特定のSteamゲームの実績の追跡を防止<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`,
         ovx: "スクリーンショットに表示される通知を水平方向にオフセットします",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "バッジのサイズを設定",
         sspercentbadgefontsize: "バッジのサイズを設定",
         percentbadgeroundness: "バッジの丸みを設定",
-        sspercentbadgeroundness: "バッジの丸みを設定"
+        sspercentbadgeroundness: "バッジの丸みを設定",
+        percentbadgex: "バッジ要素の水平方向の位置をオフセット",
+        sspercentbadgex: "バッジ要素の水平方向の位置をオフセット",
+        percentbadgey: "バッジ要素の垂直方向の位置をオフセット",
+        sspercentbadgey: "バッジ要素の垂直方向の位置をオフセット",
+        percentbadgeimg: "バッジ要素として希少性に基づいたアイコンを表示",
+        sspercentbadgeimg: "バッジ要素として希少性に基づいたアイコンを表示",
+        percentbadgeimgbronze: "アンロック率が > 50% の場合に表示されるバッジアイコン",
+        sspercentbadgeimgbronze: "アンロック率が > 50% の場合に表示されるバッジアイコン",
+        percentbadgeimgsilver: "アンロック率が < 50% かつ > $rarity の場合に表示されるバッジアイコン",
+        sspercentbadgeimgsilver: "アンロック率が < 50% かつ > $rarity の場合に表示されるバッジアイコン",
+        percentbadgeimggold: "アンロック率が < $rarity の場合に表示されるバッジアイコン",
+        sspercentbadgeimggold: "アンロック率が < $rarity の場合に表示されるバッジアイコン",
+        resetpbimgs: "すべてのバッジアイコンをデフォルトにリセット",
+        elemsmatch: `この通知タイプのためにカスタマイザーで設定された通知要素の設定を一致させる<br><br><span class="ttdesc">一部の通知プリセットは、画面上の通知レイアウトとスクリーンショットベースの通知レイアウトの違いのために、カスタマイザー設定と完全に一致できない場合があります。</span>`,
+        themeswitch: `特定のゲームが検出されたときに保存された <span class="hl">テーマ</span> に自動的に切り替え`,
+        userthemesync: `選択した <span class="hl">テーマ</span> のカスタマイズをすべての他の通知タイプに同期`,
+        showsystrayopts: `通常 <span class="hl">システムトレイ</span> > <span class="hl">オプション</span> に位置するすべてのオプションを表示 <span class="hl">設定</span> > <span class="hl">その他</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `<span class="hl">除外リスト</span>に追加する<span class="hl">AppID</span>を入力してください`
             ]
+        }
+    },
+    notificationelems: {
+        title: "通知要素",
+        content: {
+            unlockmsg: "解除メッセージ",
+            title: "アチーブメントタイトル",
+            desc: "アチーブメントの説明",
+            hiddeniconpos: "隠しアイコン",
+            sshiddeniconpos: "隠しアイコン",
+            decorationpos: "装飾",
+            ssdecorationpos: "装飾",
+            percentpos: "レアリティパーセンテージ",
+            sspercentpos: "レアリティパーセンテージ",
+            percentbadge: "パーセントバッジ",
+            sspercentbadge: "パーセントバッジ",
+            percentbadgepos: "バッジの位置",
+            sspercentbadgepos: "バッジの位置",
+            percentbadgecolor: "バッジの色",
+            sspercentbadgecolor: "バッジの色",
+            percentbadgefontsize: "バッジのサイズ",
+            sspercentbadgefontsize: "バッジのサイズ",
+            percentbadgeroundness: "バッジの丸み",
+            sspercentbadgeroundness: "バッジの丸み",  
+            percentbadgex: "水平方向のオフセット",
+            sspercentbadgex: "水平方向のオフセット",
+            percentbadgey: "垂直方向のオフセット",
+            sspercentbadgey: "垂直方向のオフセット",
+            percentbadgeimg: "アイコンを使用",
+            sspercentbadgeimg: "アイコンを使用",
+            percentbadgeimgbronze: "希少性: > 50%",
+            sspercentbadgeimgbronze: "希少性: > 50%",
+            percentbadgeimgsilver: "希少性: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "希少性: < 50% & > $rarity%",
+            percentbadgeimggold: "希少性: < $rarity%",
+            sspercentbadgeimggold: "希少性: < $rarity%",
+            resetpbimgs: "バッジアイコンをリセット",
+            elemsmatch: "カスタマイザー設定を一致させる"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `任意のゲームの <span class="hl">AppID</span> を追加して、検出されたときに <span class="hl">テーマ</span> を自動的に切り替え`,
+                `保存された任意の <span class="hl">テーマ</span> を各通知タイプに選択でき、使用する希望のモニターを <span class="hl">スクリーンショットソース</span> として指定できます`,
+                `<span class="hl" id="appidhelp"><u>SteamゲームのAppIDはどのように見つけることができますか？</u></span>`
+            ],
+            "themeswitchnew": "新しい自動切替",
+            "themeswitchnewsub": [
+                `ゲームの <span class="hl">AppID</span> と、希望のモニターを <span class="hl">スクリーンショットソース</span> として指定してください`,
+                `このゲームの <span class="hl">AppID</span> が検出されたときに各通知タイプのために切り替える <span class="hl">テーマ</span> を選択`
+            ],
+            "themes": "テーマ",
+            "src": "スクリーンショットソース"
         }
     }
 }

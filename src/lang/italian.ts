@@ -59,32 +59,11 @@ export const translations = {
             `L' <span class="hl">URL</span> della pagina del <span class="hl">Negozio</span> del gioco - sarà il numero elencato dopo <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Siti web come <span class="hl">SteamDB</span> - la sezione <span class="hl">Info App</span> elencherà l'AppID per ogni gioco`
         ],
-        elemselector: "Elementi di notifica",
-        unlockmsg: "Messaggio di Sblocco",
-        title: "Titolo del Successo",
-        desc: "Descrizione del Successo",
-        hiddeniconpos: "Icona Nascosta",
-        sshiddeniconpos: "Icona Nascosta",
-        decorationpos: "Decorazione",
-        ssdecorationpos: "Decorazione",
-        percentpos: "Percentuale di Rarità",
-        sspercentpos: "Percentuale di Rarità",
         noexe: "File EXE del gioco non trovato!",
         noexesub: `Seleziona Opzioni > Rilascia Gioco dalla Barra delle Applicazioni per uscire`,
         webhookunlockmsg: "$user ha sbloccato un successo",
         webhookingame: "in $gamename",
-        percentbadge: "Badge Percentuale",
-        sspercentbadge: "Badge Percentuale",
-        percentbadgepos: "Posizione del Badge",
-        sspercentbadgepos: "Posizione del Badge",
-        percentbadgecolor: "Colore del Badge",
-        sspercentbadgecolor: "Colore del Badge",
-        percentbadgefontsize: "Dimensione del Badge",
-        sspercentbadgefontsize: "Dimensione del Badge",
-        percentbadgeroundness: "Rondità del Badge",
-        sspercentbadgeroundness: "Rondità del Badge",
-        top: "Alto",
-        bottom: "Basso"
+        notconnected: "Non connesso"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Giochi",
             content: {
                 linkedgames: "Giochi collegati",
+                themeswitch: "Cambia tema automaticamente",
                 exclusionlist: "Lista di esclusione"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Disabilita animazioni finestra app",
                 noupdatedialog: "Disabilita il dialogo degli aggiornamenti",
                 nvda: "Abilita supporto NVDA",
-                tooltips: "Mostra suggerimenti"
+                tooltips: "Mostra suggerimenti",
+                showsystrayopts: "Mostra opzioni della barra di sistema"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Si è verificato un errore durante il tentativo di esportare il tema selezionato",
                     `Prova a salvare il tema attuale (<i>tramite <span class="hl">Salva Tema</span></i>) e riprova a esportare`,
                     `Se il problema persiste, copia l'errore qui sotto e riportalo tramite i pulsanti di collegamento nella <span class="hl">Schermata Iniziale</span>`
-                ]
+                ],
+                synctheme: "Sincronizza tema",
+                syncedwith: "Sincronizzato con"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Salva tutte le opzioni di personalizzazione configurate come un nuovo tema",
         visibilitybtn: "Attiva/disattiva la visibilità dell'elemento nelle anteprime personalizzate e nelle notifiche di test",
         delbtn: "Ripristina l'elemento al valore predefinito",
-        link: `Apri <span class="hl">Menu Gestione Giochi Collegati</span>`,
         imgpath: "Il luogo in cui verranno salvate le immagini di notifica generate da questa opzione",
+        checkforupdates: `Controlla se è stata rilasciata una nuova versione dell'app su GitHub. Se è disponibile un aggiornamento, verrà scaricato e installato automaticamente una volta confermato tramite la finestra di dialogo <span class="hl">Aggiornamento disponibile</span>`,
         linkedgames: `Evita il <span class="hl">tracciamento automatico dei processi</span> per giochi Steam specifici<br><br><span class="ttdesc">Questa opzione dovrebbe essere utilizzata solo in scenari molto specifici. Gli utenti non dovrebbero avere bisogno di utilizzare questa opzione in circostanze normali!</span>`,
         exclusionlist: `Impedisci il tracciamento degli obiettivi in giochi Steam specifici dall'applicazione<br><br><span class="ttdesc">Questa opzione dovrebbe essere utilizzata solo in scenari molto specifici. Gli utenti non dovrebbero avere bisogno di utilizzare questa opzione in circostanze normali!</span>`,
         ovx: "Sposta la notifica visualizzata nello screenshot in orizzontale",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Imposta la dimensione del badge",
         sspercentbadgefontsize: "Imposta la dimensione del badge",
         percentbadgeroundness: "Imposta la rondità del badge",
-        sspercentbadgeroundness: "Imposta la rondità del badge"
+        sspercentbadgeroundness: "Imposta la rondità del badge",
+        percentbadgex: "Sposta orizzontalmente l'elemento badge",
+        sspercentbadgex: "Sposta orizzontalmente l'elemento badge",
+        percentbadgey: "Sposta verticalmente l'elemento badge",
+        sspercentbadgey: "Sposta verticalmente l'elemento badge",
+        percentbadgeimg: "Mostra un'icona basata sulla rarità come elemento badge",
+        sspercentbadgeimg: "Mostra un'icona basata sulla rarità come elemento badge",
+        percentbadgeimgbronze: "L'icona badge da visualizzare quando la percentuale di sblocco è > 50%",
+        sspercentbadgeimgbronze: "L'icona badge visualizzata quando la percentuale di sblocco è > 50%",
+        percentbadgeimgsilver: "L'icona badge visualizzata quando la percentuale di sblocco è < 50% e > $rarity",
+        sspercentbadgeimgsilver: "L'icona badge visualizzata quando la percentuale di sblocco è < 50% e > $rarity",
+        percentbadgeimggold: "L'icona badge visualizzata quando la percentuale di sblocco è < $rarity",
+        sspercentbadgeimggold: "L'icona badge visualizzata quando la percentuale di sblocco è < $rarity",
+        resetpbimgs: "Ripristina tutte le icone badge ai valori predefiniti",
+        elemsmatch: `Corrispondenza delle impostazioni degli elementi di notifica impostate nel personalizzatore per questo tipo di notifica<br><br><span class="ttdesc">Alcuni preset di notifica non possono corrispondere completamente alle impostazioni del personalizzatore, a causa delle differenze tra i layout delle notifiche su schermo e basati su screenshot</span>`,
+        themeswitch: `Cambia automaticamente a qualsiasi <span class="hl">Tema</span> salvato quando viene rilevato un gioco specifico`,
+        userthemesync: `Sincronizza le personalizzazioni nel <span class="hl">Tema</span> selezionato a tutti gli altri tipi di notifica`,
+        showsystrayopts: `Mostra tutte le opzioni di solito situate sotto <span class="hl">Barra di sistema</span> > <span class="hl">Opzioni</span> in <span class="hl">Impostazioni</span> > <span class="hl">Vari</span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Inserisci l'<span class="hl">AppID</span> da aggiungere alla <span class="hl">lista di esclusione</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Elementi di notifica",
+        content: {
+            unlockmsg: "Messaggio di Sblocco",
+            title: "Titolo del Successo",
+            desc: "Descrizione del Successo",
+            hiddeniconpos: "Icona Nascosta",
+            sshiddeniconpos: "Icona Nascosta",
+            decorationpos: "Decorazione",
+            ssdecorationpos: "Decorazione",
+            percentpos: "Percentuale di Rarità",
+            sspercentpos: "Percentuale di Rarità",
+            percentbadge: "Badge Percentuale",
+            sspercentbadge: "Badge Percentuale",
+            percentbadgepos: "Posizione del Badge",
+            sspercentbadgepos: "Posizione del Badge",
+            percentbadgecolor: "Colore del Badge",
+            sspercentbadgecolor: "Colore del Badge",
+            percentbadgefontsize: "Dimensione del Badge",
+            sspercentbadgefontsize: "Dimensione del Badge",
+            percentbadgeroundness: "Rondità del Badge",
+            sspercentbadgeroundness: "Rondità del Badge",
+            percentbadgex: "Offset orizzontale",
+            sspercentbadgex: "Offset orizzontale",
+            percentbadgey: "Offset verticale",
+            sspercentbadgey: "Offset verticale",
+            percentbadgeimg: "Usa icona",
+            sspercentbadgeimg: "Usa icona",
+            percentbadgeimgbronze: "Rarità: > 50%",
+            sspercentbadgeimgbronze: "Rarità: > 50%",
+            percentbadgeimgsilver: "Rarità: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Rarità: < 50% & > $rarity%",
+            percentbadgeimggold: "Rarità: < $rarity%",
+            sspercentbadgeimggold: "Rarità: < $rarity%",
+            resetpbimgs: "Ripristina icone badge",
+            elemsmatch: "Corrispondenza impostazioni personalizzatore"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Aggiungi l'<span class="hl">AppID</span> di qualsiasi gioco per cambiare automaticamente <span class="hl">Temi</span> quando viene rilevato`,
+                `Qualsiasi <span class="hl">Tema</span> salvato può essere selezionato per ciascun tipo di notifica, insieme al monitor desiderato da usare come <span class="hl">Sorgente Screenshot</span>`,
+                `<span class="hl" id="appidhelp"><u>Come posso trovare l'AppID di un gioco Steam?</u></span>`
+            ],
+            "themeswitchnew": "Nuova auto-cambio",
+            "themeswitchnewsub": [
+                `Inserisci l'<span class="hl">AppID</span> del gioco, insieme al monitor desiderato da usare come <span class="hl">Sorgente Screenshot</span>`,
+                `Seleziona quale <span class="hl">Tema</span> cambiare per ciascun tipo di notifica quando viene rilevato l'<span class="hl">AppID</span> di questo gioco`
+            ],
+            "themes": "Temi",
+            "src": "Sorgente Screenshot"
         }
     }
 }

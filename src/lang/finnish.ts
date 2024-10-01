@@ -59,32 +59,11 @@ export const translations = {
             `Pelin <span class="hl">Kaupan sivun URL-osoite</span> - se on numero, joka on listattu <span class="hl">app/</span> -jälkeen: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Verkkosivustot kuten <span class="hl">SteamDB</span> - <span class="hl">App-tiedot</span> -osio listaa AppID:n jokaiselle pelille`
         ],
-        elemselector: "Ilmoituselementit",
-        unlockmsg: "Avauksen Viesti",
-        title: "Saavutuksen Otsikko",
-        desc: "Saavutuksen Kuvaus",
-        hiddeniconpos: "Piilotettu Kuvake",
-        sshiddeniconpos: "Piilotettu Kuvake",
-        decorationpos: "Koriste",
-        ssdecorationpos: "Koriste",
-        percentpos: "Harvinaisuusprosentti",
-        sspercentpos: "Harvinaisuusprosentti",
         noexe: "Pelin EXE:tä ei löydy!",
         noexesub: `Valitse Asetukset > Vapauta Peli järjestelmäpalkista lopettaaksesi`,
         webhookunlockmsg: "$user avasi saavutuksen",
         webhookingame: "pelissä $gamename",
-        percentbadge: "Prosenttimerkki",
-        sspercentbadge: "Prosenttimerkki",
-        percentbadgepos: "Merkin sijainti",
-        sspercentbadgepos: "Merkin sijainti",
-        percentbadgecolor: "Merkin väri",
-        sspercentbadgecolor: "Merkin väri",
-        percentbadgefontsize: "Merkin koko",
-        sspercentbadgefontsize: "Merkin koko",
-        percentbadgeroundness: "Merkin pyöristys",
-        sspercentbadgeroundness: "Merkin pyöristys",
-        top: "Ylhäällä",
-        bottom: "Alhaalla"
+        notconnected: "Ei yhdistetty"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Pelit",
             content: {
                 linkedgames: "Linkitetyt pelit",
+                themeswitch: "Vaihda teemoja automaattisesti",
                 exclusionlist: "Poissulkemislista"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Poista sovellusikkunan animaatiot käytöstä",
                 noupdatedialog: "Poista päivitysikkuna käytöstä",
                 nvda: "Ota NVDA-tuki käyttöön",
-                tooltips: "Näytä työkaluvihjeet"
+                tooltips: "Näytä työkaluvihjeet",
+                showsystrayopts: "Näytä järjestelmäpalkin asetukset"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Virhe tapahtui yritettäessä viedä valittua teemaa",
                     `Yritä tallentaa nykyinen teema (<i>käyttämällä <span class="hl">Tallenna teema</span></i>) ja yritä viedä uudelleen`,
                     `Jos ongelma jatkuu, kopioi alla oleva virhe ja raportoi se linkkinäppäimillä <span class="hl">Aloitusnäytöllä</span>`
-                ]
+                ],
+                synctheme: "Synkronoi teema",
+                syncedwith: "Synkronoitu kanssa"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Tallenna kaikki mukauttamisasetukset uutena teemana",
         visibilitybtn: "Vaihda elementin näkyvyys mukautettuihin esikatseluihin ja testi-ilmoituksiin",
         delbtn: "Palauta elementti oletusarvoon",
-        link: `Avaa <span class="hl">Hallinnoi Liitettyjen Pelien Valikko</span>`,
         imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen",
+        checkforupdates: `Tarkista, onko GitHubissa julkaistu uusi sovellusversio. Jos päivitys on saatavilla, se ladataan ja asennetaan automaattisesti, kun se on vahvistettu <span class="hl">Päivitys saatavilla</span> -valintaikkunassa`,
         linkedgames: `Ohita <span class="hl">automaattinen prosessin seuranta</span> tietyille Steam-peleille<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`,
         exclusionlist: `Estä saavutusten seuranta tietyissä Steam-peleissä sovelluksen avulla<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`,
         ovx: "Siirrä ilmoitusta, joka näkyy kuvakaappauksessa, vaakasuunnassa",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Aseta merkin koko",
         sspercentbadgefontsize: "Aseta merkin koko",
         percentbadgeroundness: "Aseta merkin pyöristyminen",
-        sspercentbadgeroundness: "Aseta merkin pyöristyminen"
+        sspercentbadgeroundness: "Aseta merkin pyöristyminen",
+        percentbadgex: "Siirrä merkkielementtiä vaakasuunnassa",
+        sspercentbadgex: "Siirrä merkkielementtiä vaakasuunnassa",
+        percentbadgey: "Siirrä merkkielementtiä pystysuunnassa",
+        sspercentbadgey: "Siirrä merkkielementtiä pystysuunnassa",
+        percentbadgeimg: "Näytä harvinaisuuteen perustuva kuvake merkkielementtinä",
+        sspercentbadgeimg: "Näytä harvinaisuuteen perustuva kuvake merkkielementtinä",
+        percentbadgeimgbronze: "Merkin kuvake, joka näytetään, kun avaamisprosentti on > 50%",
+        sspercentbadgeimgbronze: "Merkin kuvake, joka näytetään, kun avaamisprosentti on > 50%",
+        percentbadgeimgsilver: "Merkin kuvake, joka näytetään, kun avaamisprosentti on < 50% ja > $rarity",
+        sspercentbadgeimgsilver: "Merkin kuvake, joka näytetään, kun avaamisprosentti on < 50% ja > $rarity",
+        percentbadgeimggold: "Merkin kuvake, joka näytetään, kun avaamisprosentti on < $rarity",
+        sspercentbadgeimggold: "Merkin kuvake, joka näytetään, kun avaamisprosentti on < $rarity",
+        resetpbimgs: "Palauta kaikki merkkikuvakkeet oletukseksi",
+        elemsmatch: `Vastaa ilmoituselementtien asetukset, jotka on määritetty mukauttajassa tätä ilmoitustyyppiä varten<br><br><span class="ttdesc">Jotkin ilmoitusmallit eivät voi täysin vastata mukauttajan asetuksia erojen vuoksi ruutu- ja kuvakaappauspohjaisten ilmoitusten välillä</span>`,
+        themeswitch: `Vaihda automaattisesti tallennettuun <span class="hl">Teemaan</span> kun tietty peli havaitaan`,
+        userthemesync: `Synkronoi mukautukset valitussa <span class="hl">Teemassa</span> kaikkiin muihin ilmoitustyyppeihin`,
+        showsystrayopts: `Näytä kaikki vaihtoehdot, jotka sijaitsevat yleensä kohdassa <span class="hl">Järjestelmäpalkki</span> > <span class="hl">Asetukset</span> kohdassa <span class="hl">Asetukset</span> > <span class="hl">Sekalaiset</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Syötä <span class="hl">AppID</span> lisätäksesi sen <span class="hl">poissulkemislistaan</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Ilmoituselementit",
+        content: {
+            unlockmsg: "Avauksen Viesti",
+            title: "Saavutuksen Otsikko",
+            desc: "Saavutuksen Kuvaus",
+            hiddeniconpos: "Piilotettu Kuvake",
+            sshiddeniconpos: "Piilotettu Kuvake",
+            decorationpos: "Koriste",
+            ssdecorationpos: "Koriste",
+            percentpos: "Harvinaisuusprosentti",
+            sspercentpos: "Harvinaisuusprosentti",
+            percentbadge: "Prosenttimerkki",
+            sspercentbadge: "Prosenttimerkki",
+            percentbadgepos: "Merkin sijainti",
+            sspercentbadgepos: "Merkin sijainti",
+            percentbadgecolor: "Merkin väri",
+            sspercentbadgecolor: "Merkin väri",
+            percentbadgefontsize: "Merkin koko",
+            sspercentbadgefontsize: "Merkin koko",
+            percentbadgeroundness: "Merkin pyöristys",
+            sspercentbadgeroundness: "Merkin pyöristys",
+            percentbadgex: "Vaakasiirto",
+            sspercentbadgex: "Vaakasiirto",
+            percentbadgey: "Pystysiirto",
+            sspercentbadgey: "Pystysiirto",
+            percentbadgeimg: "Käytä kuvaketta",
+            sspercentbadgeimg: "Käytä kuvaketta",
+            percentbadgeimgbronze: "Harvinaisuus: > 50%",
+            sspercentbadgeimgbronze: "Harvinaisuus: > 50%",
+            percentbadgeimgsilver: "Harvinaisuus: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Harvinaisuus: < 50% & > $rarity%",
+            percentbadgeimggold: "Harvinaisuus: < $rarity%",
+            sspercentbadgeimggold: "Harvinaisuus: < $rarity%",
+            resetpbimgs: "Palauta merkkikuvakkeet",
+            elemsmatch: "Vastaa mukauttajien asetuksia"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Lisää minkä tahansa pelin <span class="hl">AppID</span> vaihtaaksesi automaattisesti <span class="hl">Teemaa</span> kun se havaitaan`,
+                `Kaikki tallennetut <span class="hl">Teemat</span> voidaan valita jokaista ilmoitustyyppiä varten, yhdessä halutun näytön kanssa käytettäväksi <span class="hl">Kuvakaappausten lähteenä</span>`,
+                `<span class="hl" id="appidhelp"><u>Miten löydän Steam-pelin AppID:n?</u></span>`
+            ],
+            "themeswitchnew": "Uusi Automaattinen Vaihto",
+            "themeswitchnewsub": [
+                `Anna pelin <span class="hl">AppID</span>, sekä haluttu näyttö käytettäväksi <span class="hl">Kuvakaappausten lähteenä</span>`,
+                `Valitse mikä <span class="hl">Teema</span> vaihtuu kullekin ilmoitustyypille, kun tämän pelin <span class="hl">AppID</span> havaitaan`
+            ],
+            "themes": "Teemat",
+            "src": "Kuvakaappausten lähde"
         }
     }
 }

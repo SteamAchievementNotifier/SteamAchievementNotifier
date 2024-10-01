@@ -59,32 +59,11 @@ export const translations = {
             `URL-en til spillets <span class="hl">butikkside</span> - det vil være nummeret som er oppført etter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Nettsteder som <span class="hl">SteamDB</span> - seksjonen <span class="hl">App Info</span> vil liste opp AppID-en for hvert spill`
         ],
-        elemselector: "Varslingselementer",
-        unlockmsg: "Låse opp-melding",
-        title: "Prestasjonstittel",
-        desc: "Prestasjonens beskrivelse",
-        hiddeniconpos: "Skjult ikon",
-        sshiddeniconpos: "Skjult ikon",
-        decorationpos: "Dekorasjon",
-        ssdecorationpos: "Dekorasjon",
-        percentpos: "Raritet prosentandel",
-        sspercentpos: "Raritet prosentandel",
         noexe: "Spillets EXE-fil ble ikke funnet!",
         noexesub: `Velg Alternativer > Avslutt spill fra systemstatusfeltet for å avslutte`,
         webhookunlockmsg: "$user har låst opp en prestasjon",
         webhookingame: "i $gamename",
-        percentbadge: "Prosentmerke",
-        sspercentbadge: "Prosentmerke",
-        percentbadgepos: "Merkeplassering",
-        sspercentbadgepos: "Merkeplassering",
-        percentbadgecolor: "Farge på merke",
-        sspercentbadgecolor: "Farge på merke",
-        percentbadgefontsize: "Størrelse på merke",
-        sspercentbadgefontsize: "Størrelse på merke",
-        percentbadgeroundness: "Runding av merke",
-        sspercentbadgeroundness: "Runding av merke",
-        top: "Topp",
-        bottom: "Bunn"
+        notconnected: "Ikke tilkoblet"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Spill",
             content: {
                 linkedgames: "Lenkede spill",
+                themeswitch: "Automatisk bytte av temaer",
                 exclusionlist: "Unntaksliste"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Deaktiver App-vindu-animasjoner",
                 noupdatedialog: "Deaktiver oppdateringsdialog",
                 nvda: "Aktiver NVDA-støtte",
-                tooltips: "Vis verktøytips"
+                tooltips: "Vis verktøytips",
+                showsystrayopts: "Vis systemstatusalternativer"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Det oppstod en feil under forsøk på å eksportere det valgte temaet",
                     `Prøv å lagre det nåværende temaet (<i>via <span class="hl">Lagre tema</span></i>) og prøv å eksportere på nytt`,
                     `Hvis problemet vedvarer, vennligst kopier feilmeldingen nedenfor, og rapporter via lenkeknappene på <span class="hl">Hjemmeskjermen</span>`
-                ]
+                ],
+                synctheme: "Synkroniser tema",
+                syncedwith: "Synkronisert med"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Lagre alle konfigurerte tilpasningsalternativer som et nytt tema",
         visibilitybtn: "Bytt synligheten til elementet i tilpassede forhåndsvisninger og testvarsler",
         delbtn: "Tilbakestill elementet til standard",
-        link: `Åpne <span class="hl">Administrer Lenkede Spillmenyen</span>`,
         imgpath: "Stedet hvor varsler bilder generert av dette alternativet vil bli lagret",
+        checkforupdates: `Sjekk om en ny app-versjon har blitt utgitt på GitHub. Hvis en oppdatering er tilgjengelig, vil den automatisk bli lastet ned og installert når den er bekreftet via dialogvinduet <span class="hl">Oppdatering tilgjengelig</span>`,
         linkedgames: `Bypass <span class="hl">automatisk prosesssporing</span> for bestemte Steam-spill<br><br><span class="ttdesc">Denne opsjonen bør kun brukes i svært spesifikke scenarioer. Brukere bør ikke trenge å bruke denne opsjonen under normale omstendigheter!</span>`,
         exclusionlist: `Forhindre prestasjoner i bestemte Steam-spill fra å bli sporet av appen<br><br><span class="ttdesc">Denne opsjonen bør kun brukes i svært spesifikke scenarioer. Brukere bør ikke trenge å bruke denne opsjonen under normale omstendigheter!</span>`,
         ovx: "Forskyvning av varsling som vises i skjermbildet horisontalt",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Sett størrelsen på merket",
         sspercentbadgefontsize: "Sett størrelsen på merket",
         percentbadgeroundness: "Sett rundingen av merket",
-        sspercentbadgeroundness: "Sett rundingen av merket"
+        sspercentbadgeroundness: "Sett rundingen av merket",
+        percentbadgex: "Forskyv posisjonen til badge-elementet horisontalt",
+        sspercentbadgex: "Forskyv posisjonen til badge-elementet horisontalt",
+        percentbadgey: "Forskyv posisjonen til badge-elementet vertikalt",
+        sspercentbadgey: "Forskyv posisjonen til badge-elementet vertikalt",
+        percentbadgeimg: "Vis et ikonsymbol basert på sjeldenhet som badge-element",
+        sspercentbadgeimg: "Vis et ikonsymbol basert på sjeldenhet som badge-element",
+        percentbadgeimgbronze: "Ikonet for badge som skal vises når opplåsningsprosenten er > 50%",
+        sspercentbadgeimgbronze: "Ikonet for badge som vises når opplåsningsprosenten er > 50%",
+        percentbadgeimgsilver: "Ikonet for badge som vises når opplåsningsprosenten er < 50% og > $rarity",
+        sspercentbadgeimgsilver: "Ikonet for badge som vises når opplåsningsprosenten er < 50% og > $rarity",
+        percentbadgeimggold: "Ikonet for badge som vises når opplåsningsprosenten er < $rarity",
+        sspercentbadgeimggold: "Ikonet for badge som vises når opplåsningsprosenten er < $rarity",
+        resetpbimgs: "Tilbakestill alle badge-ikoner til standard",
+        elemsmatch: `Match innstillingsalternativene for varslingselementene satt i tilpasseren for denne varslingskategorien<br><br><span class="ttdesc">Noen varslingspresets kan ikke fullstendig matche tilpasserinnstillinger på grunn av forskjeller mellom skjermbaserte og skjermbilde-baserte varslingsoppsett</span>`,
+        themeswitch: `Bytt automatisk til et lagret <span class="hl">tema</span> når et spesifikt spill oppdages`,
+        userthemesync: `Synkroniser tilpasninger i det valgte <span class="hl">tema</span> til alle andre varslingskategorier`,
+        showsystrayopts: `Vis alle alternativer som vanligvis ligger under <span class="hl">Systemstatus</span> > <span class="hl">Alternativer</span> i <span class="hl">Innstillinger</span> > <span class="hl">Diverse</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Skriv inn <span class="hl">AppID</span> for å legge til i <span class="hl">unntakslisten</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Varslingselementer",
+        content: {
+            unlockmsg: "Låse opp-melding",
+            title: "Prestasjonstittel",
+            desc: "Prestasjonens beskrivelse",
+            hiddeniconpos: "Skjult ikon",
+            sshiddeniconpos: "Skjult ikon",
+            decorationpos: "Dekorasjon",
+            ssdecorationpos: "Dekorasjon",
+            percentpos: "Raritet prosentandel",
+            sspercentpos: "Raritet prosentandel",
+            percentbadge: "Prosentmerke",
+            sspercentbadge: "Prosentmerke",
+            percentbadgepos: "Merkeplassering",
+            sspercentbadgepos: "Merkeplassering",
+            percentbadgecolor: "Farge på merke",
+            sspercentbadgecolor: "Farge på merke",
+            percentbadgefontsize: "Størrelse på merke",
+            sspercentbadgefontsize: "Størrelse på merke",
+            percentbadgeroundness: "Runding av merke",
+            sspercentbadgeroundness: "Runding av merke",
+            percentbadgex: "Horisontal Offset",
+            sspercentbadgex: "Horisontal Offset",
+            percentbadgey: "Vertikal Offset",
+            sspercentbadgey: "Vertikal Offset",
+            percentbadgeimg: "Bruk ikon",
+            sspercentbadgeimg: "Bruk ikon",
+            percentbadgeimgbronze: "Sjeldenhet: > 50%",
+            sspercentbadgeimgbronze: "Sjeldenhet: > 50%",
+            percentbadgeimgsilver: "Sjeldenhet: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Sjeldenhet: < 50% & > $rarity%",
+            percentbadgeimggold: "Sjeldenhet: < $rarity%",
+            sspercentbadgeimggold: "Sjeldenhet: < $rarity%",
+            resetpbimgs: "Tilbakestill badge-ikoner",
+            elemsmatch: "Match tilpasserinnstillinger"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Legg til hvilken som helst spill <span class="hl">AppID</span> for automatisk å bytte <span class="hl">temaer</span> når de oppdages`,
+                `Ethvert lagret <span class="hl">tema</span> kan velges for hver varslingskategori, sammen med ønsket skjerm som skal brukes som <span class="hl">Skjermbildekilde</span>`,
+                `<span class="hl" id="appidhelp"><u>Hvordan finner jeg en Steam-spills AppID?</u></span>`
+            ],
+            "themeswitchnew": "Nytt automatisk bytte",
+            "themeswitchnewsub": [
+                `Skriv inn spillets <span class="hl">AppID</span>, sammen med ønsket skjerm som skal brukes som <span class="hl">Skjermbildekilde</span>`,
+                `Velg hvilket <span class="hl">tema</span> som skal byttes til for hver varslingskategori når dette spillets <span class="hl">AppID</span> oppdages`
+            ],
+            "themes": "Temaer",
+            "src": "Skjermbildekilde"
         }
     }
 }

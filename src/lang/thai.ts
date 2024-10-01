@@ -59,32 +59,11 @@ export const translations = {
             `ที่ <span class="hl">URL</span> ของ <span class="hl">หน้าร้านของเกม</span> - จะเป็นตัวเลขที่ระบุหลังจาก <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `เว็บไซต์เช่น <span class="hl">SteamDB</span> - ส่วนข้อมูลเกี่ยวกับ <span class="hl">App</span> จะระบุ AppID สำหรับแต่ละเกม`
         ],
-        elemselector: "องค์ประกอบการแจ้งเตือน",
-        unlockmsg: "ข้อความปลดล็อก",
-        title: "ชื่อความสำเร็จ",
-        desc: "คำอธิบายความสำเร็จ",
-        hiddeniconpos: "ไอคอนที่ซ่อนอยู่",
-        sshiddeniconpos: "ไอคอนที่ซ่อนอยู่",
-        decorationpos: "การตกแต่ง",
-        ssdecorationpos: "การตกแต่ง",
-        percentpos: "เปอร์เซ็นต์ความหายาก",
-        sspercentpos: "เปอร์เซ็นต์ความหายาก",
         noexe: "ไม่พบไฟล์ EXE ของเกม!",
         noexesub: `เลือกตัวเลือก > ออกจากเกมจาก System Tray เพื่อออก`,
         webhookunlockmsg: "$user ได้ปลดล็อกความสำเร็จ",
         webhookingame: "ใน $gamename",
-        percentbadge: "ตราสัญลักษณ์เปอร์เซ็นต์",
-        sspercentbadge: "ตราสัญลักษณ์เปอร์เซ็นต์",
-        percentbadgepos: "ตำแหน่งตราสัญลักษณ์",
-        sspercentbadgepos: "ตำแหน่งตราสัญลักษณ์",
-        percentbadgecolor: "สีตราสัญลักษณ์",
-        sspercentbadgecolor: "สีตราสัญลักษณ์",
-        percentbadgefontsize: "ขนาดตราสัญลักษณ์",
-        sspercentbadgefontsize: "ขนาดตราสัญลักษณ์",
-        percentbadgeroundness: "ความโค้งของตราสัญลักษณ์",
-        sspercentbadgeroundness: "ความโค้งของตราสัญลักษณ์",
-        top: "บน",
-        bottom: "ล่าง"
+        notconnected: "ไม่เชื่อมต่อ"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "เกม",
             content: {
                 linkedgames: "เกมที่เชื่อมโยง",
+                themeswitch: "เปลี่ยนธีมอัตโนมัติ",
                 exclusionlist: "รายการยกเว้น"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "ปิดใช้งานการเคลื่อนไหวของหน้าต่างแอปพลิเคชัน",
                 noupdatedialog: "ปิดการใช้งานกล่องโต้ตอบการอัปเดต",
                 nvda: "เปิดใช้งานการสนับสนุน NVDA",
-                tooltips: "แสดงเคล็ดลับเครื่องมือ"
+                tooltips: "แสดงเคล็ดลับเครื่องมือ",
+                showsystrayopts: "แสดงตัวเลือกในถาดระบบ"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "เกิดข้อผิดพลาดระหว่างการพยายามส่งออกธีมที่เลือก",
                     `โปรดลองบันทึกธีมปัจจุบัน (<i>ผ่าน <span class="hl">บันทึกธีม</span></i>) และลองส่งออกอีกครั้ง`,
                     `หากปัญหายังคงอยู่ โปรดคัดลอกข้อผิดพลาดด้านล่างและรายงานผ่านปุ่มลิงก์ที่อยู่ใน <span class="hl">หน้าหลัก</span>`
-                ]  
+                ],
+                synctheme: "ซิงค์ธีม",
+                syncedwith: "ซิงค์กับ"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "บันทึกตัวเลือกการปรับแต่งทั้งหมดเป็นธีมใหม่",
         visibilitybtn: "สลับความเป็นปกติขององค์ประกอบในการแสดงตัวอย่างและการแจ้งเตือนทดสอบ",
         delbtn: "รีเซ็ตองค์ประกอบเป็นค่าเริ่มต้น",
-        link: `เปิด <span class="hl">เมนูจัดการเกมที่เชื่อมโยง</span>`,
         imgpath: "สถานที่ที่รูปภาพการแจ้งเตือนที่สร้างขึ้นโดยตัวเลือกนี้จะถูกบันทึก",
+        checkforupdates: `ตรวจสอบว่าได้มีการปล่อยเวอร์ชันใหม่ของแอปบน GitHub หรือไม่ หากมีการอัปเดตให้ดาวน์โหลดและติดตั้งโดยอัตโนมัติเมื่อได้รับการยืนยันผ่านกล่องโต้ตอบ <span class="hl">อัปเดตที่มีอยู่</span>`,
         linkedgames: `หลีกเลี่ยง <span class="hl">การติดตามกระบวนการอัตโนมัติ</span> สำหรับเกม Steam ที่เฉพาะเจาะจง<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในสถานการณ์ที่เฉพาะเจาะจงมากๆ เราไม่ควรจะต้องใช้ตัวเลือกนี้ในสถานการณ์ปกติ!</span>`,
         exclusionlist: `ป้องกันไม่ให้แอปติดตามความสำเร็จในเกม Steam ที่ระบุไว้<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในสถานการณ์ที่เฉพาะเจาะจงมากๆ เราไม่ควรจะต้องใช้ตัวเลือกนี้ในสถานการณ์ปกติ!</span>`,
         ovx: "เลื่อนการแจ้งเตือนที่แสดงในภาพหน้าจอตามแนวนอน",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "ตั้งค่าขนาดตราสัญลักษณ์",
         sspercentbadgefontsize: "ตั้งค่าขนาดตราสัญลักษณ์",
         percentbadgeroundness: "ตั้งค่าความโค้งของตราสัญลักษณ์",
-        sspercentbadgeroundness: "ตั้งค่าความโค้งของตราสัญลักษณ์"
+        sspercentbadgeroundness: "ตั้งค่าความโค้งของตราสัญลักษณ์",
+        percentbadgex: "เลื่อนตำแหน่งขององค์ประกอบเหรียญในแนวนอน",
+        sspercentbadgex: "เลื่อนตำแหน่งขององค์ประกอบเหรียญในแนวนอน",
+        percentbadgey: "เลื่อนตำแหน่งขององค์ประกอบเหรียญในแนวตั้ง",
+        sspercentbadgey: "เลื่อนตำแหน่งขององค์ประกอบเหรียญในแนวตั้ง",
+        percentbadgeimg: "แสดงไอคอนตามความหายากเป็นองค์ประกอบเหรียญ",
+        sspercentbadgeimg: "แสดงไอคอนตามความหายากเป็นองค์ประกอบเหรียญ",
+        percentbadgeimgbronze: "ไอคอนเหรียญที่จะแสดงเมื่อเปอร์เซ็นต์การปลดล็อก > 50%",
+        sspercentbadgeimgbronze: "ไอคอนเหรียญที่แสดงเมื่อเปอร์เซ็นต์การปลดล็อก > 50%",
+        percentbadgeimgsilver: "ไอคอนเหรียญที่แสดงเมื่อเปอร์เซ็นต์การปลดล็อก < 50% และ > $rarity",
+        sspercentbadgeimgsilver: "ไอคอนเหรียญที่แสดงเมื่อเปอร์เซ็นต์การปลดล็อก < 50% และ > $rarity",
+        percentbadgeimggold: "ไอคอนเหรียญที่แสดงเมื่อเปอร์เซ็นต์การปลดล็อก < $rarity",
+        sspercentbadgeimggold: "ไอคอนเหรียญที่แสดงเมื่อเปอร์เซ็นต์การปลดล็อก < $rarity",
+        resetpbimgs: "รีเซ็ตไอคอนเหรียญทั้งหมดเป็นค่าเริ่มต้น",
+        elemsmatch: `ตรงตามการตั้งค่าองค์ประกอบการแจ้งเตือนที่ตั้งไว้ในตัวปรับแต่งสำหรับประเภทการแจ้งเตือนนี้<br><br><span class="ttdesc">บางพรีเซ็ตการแจ้งเตือนอาจไม่สามารถตรงตามการตั้งค่าตัวปรับแต่งได้อย่างสมบูรณ์ เนื่องจากความแตกต่างระหว่างการแจ้งเตือนบนหน้าจอกับเลย์เอาต์การแจ้งเตือนที่เป็นภาพหน้าจอ</span>`,
+        themeswitch: `เปลี่ยนไปยัง <span class="hl">ธีม</span> ที่บันทึกไว้เมื่อมีการตรวจพบเกมเฉพาะ`,
+        userthemesync: `ซิงค์การปรับแต่งใน <span class="hl">ธีม</span> ที่เลือกไปยังประเภทการแจ้งเตือนอื่นทั้งหมด`,
+        showsystrayopts: `แสดงตัวเลือกทั้งหมดที่มักอยู่ภายใต้ <span class="hl">ถาดระบบ</span> > <span class="hl">ตัวเลือก</span> ใน <span class="hl">การตั้งค่า</span> > <span class="hl">อื่นๆ</span>`
     },
     update: {
         updateavailable: "มีการอัปเดตใหม่",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `ป้อน <span class="hl">AppID</span> เพื่อเพิ่มลงใน <span class="hl">รายการยกเว้น</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "องค์ประกอบการแจ้งเตือน",
+        content: {
+            unlockmsg: "ข้อความปลดล็อก",
+            title: "ชื่อความสำเร็จ",
+            desc: "คำอธิบายความสำเร็จ",
+            hiddeniconpos: "ไอคอนที่ซ่อนอยู่",
+            sshiddeniconpos: "ไอคอนที่ซ่อนอยู่",
+            decorationpos: "การตกแต่ง",
+            ssdecorationpos: "การตกแต่ง",
+            percentpos: "เปอร์เซ็นต์ความหายาก",
+            sspercentpos: "เปอร์เซ็นต์ความหายาก",
+            percentbadge: "ตราสัญลักษณ์เปอร์เซ็นต์",
+            sspercentbadge: "ตราสัญลักษณ์เปอร์เซ็นต์",
+            percentbadgepos: "ตำแหน่งตราสัญลักษณ์",
+            sspercentbadgepos: "ตำแหน่งตราสัญลักษณ์",
+            percentbadgecolor: "สีตราสัญลักษณ์",
+            sspercentbadgecolor: "สีตราสัญลักษณ์",
+            percentbadgefontsize: "ขนาดตราสัญลักษณ์",
+            sspercentbadgefontsize: "ขนาดตราสัญลักษณ์",
+            percentbadgeroundness: "ความโค้งของตราสัญลักษณ์",
+            sspercentbadgeroundness: "ความโค้งของตราสัญลักษณ์",
+            percentbadgex: "การเลื่อนในแนวนอน",
+            sspercentbadgex: "การเลื่อนในแนวนอน",
+            percentbadgey: "การเลื่อนในแนวตั้ง",
+            sspercentbadgey: "การเลื่อนในแนวตั้ง",
+            percentbadgeimg: "ใช้ไอคอน",
+            sspercentbadgeimg: "ใช้ไอคอน",
+            percentbadgeimgbronze: "ความหายาก: > 50%",
+            sspercentbadgeimgbronze: "ความหายาก: > 50%",
+            percentbadgeimgsilver: "ความหายาก: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "ความหายาก: < 50% & > $rarity%",
+            percentbadgeimggold: "ความหายาก: < $rarity%",
+            sspercentbadgeimggold: "ความหายาก: < $rarity%",
+            resetpbimgs: "รีเซ็ตไอคอนเหรียญ",
+            elemsmatch: "ตรงตามการตั้งค่าตัวปรับแต่ง"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `เพิ่ม <span class="hl">AppID</span> ของเกมใด ๆ เพื่อเปลี่ยน <span class="hl">ธีม</span> โดยอัตโนมัติเมื่อถูกตรวจพบ`,
+                `สามารถเลือก <span class="hl">ธีม</span> ที่บันทึกไว้สำหรับแต่ละประเภทการแจ้งเตือน พร้อมกับจอแสดงผลที่ต้องการใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
+                `<span class="hl" id="appidhelp"><u>ฉันจะหาข้อมูล AppID ของเกม Steam ได้อย่างไร?</u></span>`
+            ],
+            "themeswitchnew": "การเปลี่ยนแปลงอัตโนมัติใหม่",
+            "themeswitchnewsub": [
+                `ป้อน <span class="hl">AppID</span> ของเกม พร้อมกับจอแสดงผลที่ต้องการใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
+                `เลือก <span class="hl">ธีม</span> ที่จะเปลี่ยนไปยังสำหรับแต่ละประเภทการแจ้งเตือนเมื่อตรวจพบ <span class="hl">AppID</span> ของเกมนี้`
+            ],
+            "themes": "ธีม",
+            "src": "แหล่งภาพหน้าจอ"
         }
     }
 }

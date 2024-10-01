@@ -354,18 +354,37 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
     const type = detail.type as "main" | "rare" | "plat"
     const keypath = `customisation.${type}`
 
+    let customisation = config.get(keypath) as Customisation
+
+    if (window.appid) {
+        const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!) as ThemeSwitch).find(item => parseInt(item[0]) === window.appid)
+        themeswitch && (customisation = (config.get(`customisation.${type}.usertheme.${themeswitch[1].themes[type]}`) as UserTheme).customisation)
+    }
+
     if (document.querySelector("dialog[menu] #settingscontent")) {
         document.querySelectorAll(`#settingscontent .opt > input[type="checkbox"], #settingscontent .opt > .sub > input[type="checkbox"]`).forEach(opt => sanhelper.getcheckbox(config,opt,(opt as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
-        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : config.get(keypath)) as Customisation)
+        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation)
 
         const { elemselector } = await import("./elemselector")
         elemselector(document.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
 
         const { webhookwrapper } = await import("./webhook")
-        webhookwrapper(document.querySelector(`#settingscontent .wrapper:has(> #webhooks)`)!)
+        const setwebhookwrapper = () => {
+            const wrapper = document.getElementById("webhookwrapper")
+            if (wrapper) return
+
+            config.get("webhooks") && webhookwrapper(document.querySelector(`#settingscontent .wrapper:has(> #webhooks)`)!)
+        }
+
+        setwebhookwrapper()
+
+        synced && document.getElementById("settingscontent")!.setAttribute("synced",synced)
+        
+        const synclbl = document.querySelector("#settingscontent .synclbl")
+        synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
     }
 
     if (document.querySelector("body[customiser]")) {
@@ -437,6 +456,9 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         document.getElementById("customiser")!.toggleAttribute("customfiles",config.get("usecustomfiles"))
 
         synced && document.getElementById("customiser")!.setAttribute("synced",synced)
+
+        const synclbl = document.querySelector("#customiser .synclbl")
+        synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")
@@ -598,6 +620,11 @@ const sendtestnotify = async () => {
 
         sanhelper.devmode && webview.openDevTools()
     }
+
+    if (window.appid) {
+        const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!) as ThemeSwitch).find(item => parseInt(item[0]) === window.appid)
+        themeswitch && (notify.customisation = (config.get(`customisation.${notify.type}.usertheme.${themeswitch[1].themes[notify.type]}`) as UserTheme).customisation)
+    }
     
     ipcRenderer.send("notify",notify,webview !== null && "customiser")
     globaltype && (globaltype = null)
@@ -617,6 +644,11 @@ ipcRenderer.on("customisernotify", (event,obj: Info) => {
 
     wrapper.style.setProperty("--width",`${width + 50}`)
     wrapper.style.setProperty("--height",`${height + 50}`)
+
+    if (window.appid) {
+        const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!) as ThemeSwitch).find(item => parseInt(item[0]) === window.appid)
+        themeswitch && (obj.customisation = (config.get(`customisation.${obj.info.type}.usertheme.${themeswitch[1].themes[obj.info.type]}`) as UserTheme).customisation)
+    }
 
     webview && webview.send("notify",obj)
 })

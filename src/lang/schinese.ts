@@ -59,32 +59,11 @@ export const translations = {
             `游戏的 <span class="hl">商店页面</span> 的 <span class="hl">URL</span> - 它将在 <span class="hl">app/</span> 之后列出的数字： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `诸如 <span class="hl">SteamDB</span> 之类的网站 - <span class="hl">App 信息</span> 部分将列出每个游戏的 AppID`
         ],
-        elemselector: "通知元素",
-        unlockmsg: "解锁消息",
-        title: "成就标题",
-        desc: "成就描述",
-        hiddeniconpos: "隐藏图标",
-        sshiddeniconpos: "隐藏图标",
-        decorationpos: "装饰",
-        ssdecorationpos: "装饰",
-        percentpos: "稀有度百分比",
-        sspercentpos: "稀有度百分比",
         noexe: "未找到游戏的 EXE 文件！",
         noexesub: `选择选项 > 从系统托盘退出游戏`,
         webhookunlockmsg: "$user 解锁了一个成就",
         webhookingame: "在 $gamename",
-        percentbadge: "百分比徽章",
-        sspercentbadge: "百分比徽章",
-        percentbadgepos: "徽章位置",
-        sspercentbadgepos: "徽章位置",
-        percentbadgecolor: "徽章颜色",
-        sspercentbadgecolor: "徽章颜色",
-        percentbadgefontsize: "徽章大小",
-        sspercentbadgefontsize: "徽章大小",
-        percentbadgeroundness: "徽章圆角",
-        sspercentbadgeroundness: "徽章圆角",
-        top: "上",
-        bottom: "下"
+        notconnected: "未连接"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "游戏",
             content: {
                 linkedgames: "已连接的游戏",
+                themeswitch: "自动切换主题",
                 exclusionlist: "排除列表"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "禁用应用程序窗口动画",
                 noupdatedialog: "禁用更新对话框",
                 nvda: "启用NVDA支持",
-                tooltips: "显示工具提示"
+                tooltips: "显示工具提示",
+                showsystrayopts: "显示系统托盘选项"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "尝试导出选定主题时发生错误",
                     `请尝试保存当前主题 (<i>通过 <span class="hl">保存主题</span></i>)，然后再次尝试导出`,
                     `如果问题仍然存在，请复制下面的错误，并通过 <span class="hl">主屏幕</span> 上的链接按钮进行报告`
-                ]
+                ],
+                synctheme: "同步主题",
+                syncedwith: "已同步至"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "将所有配置的自定义选项保存为新主题",
         visibilitybtn: "在自定义预览和测试通知中切换元素的可见性",
         delbtn: "将元素重置为默认值",
-        link: `打开 <span class="hl">管理链接游戏菜单</span>`,
         imgpath: "此选项生成的通知图像将保存在的位置",
+        checkforupdates: `检查是否在GitHub上发布了新的应用版本。如果有可用的更新，将在通过<span class="hl">更新可用</span>对话框确认后自动下载并安装，`,
         linkedgames: `针对特定的Steam游戏绕过<span class="hl">自动进程跟踪</span><br><br><span class="ttdesc">此选项仅应在非常特定的情况下使用。用户不应在正常情况下使用此选项！</span>`,
         exclusionlist: `防止应用程序跟踪特定Steam游戏中的成就<br><br><span class="ttdesc">此选项仅应在非常特定的情况下使用。用户不应在正常情况下使用此选项！</span>`,
         ovx: "水平偏移屏幕截图中显示的通知",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "设置徽章大小",
         sspercentbadgefontsize: "设置徽章大小",
         percentbadgeroundness: "设置徽章圆角",
-        sspercentbadgeroundness: "设置徽章圆角"
+        sspercentbadgeroundness: "设置徽章圆角",
+        percentbadgex: "水平偏移徽章元素的位置",
+        sspercentbadgex: "水平偏移徽章元素的位置",
+        percentbadgey: "垂直偏移徽章元素的位置",
+        sspercentbadgey: "垂直偏移徽章元素的位置",
+        percentbadgeimg: "将基于稀有度的图标显示为徽章元素",
+        sspercentbadgeimg: "将基于稀有度的图标显示为徽章元素",
+        percentbadgeimgbronze: "当解锁百分比 > 50% 时显示的徽章图标",
+        sspercentbadgeimgbronze: "当解锁百分比 > 50% 时显示的徽章图标",
+        percentbadgeimgsilver: "当解锁百分比 < 50% 且 > $rarity 时显示的徽章图标",
+        sspercentbadgeimgsilver: "当解锁百分比 < 50% 且 > $rarity 时显示的徽章图标",
+        percentbadgeimggold: "当解锁百分比 < $rarity 时显示的徽章图标",
+        sspercentbadgeimggold: "当解锁百分比 < $rarity 时显示的徽章图标",
+        resetpbimgs: "将所有徽章图标重置为默认值",
+        elemsmatch: `匹配为此通知类型在自定义设置中设置的通知元素设置<br><br><span class="ttdesc">某些通知预设可能无法完全匹配自定义设置，因为屏幕和基于截图的通知布局之间存在差异</span>`,
+        themeswitch: `当检测到特定游戏时自动切换到任何保存的 <span class="hl">主题</span>`,
+        userthemesync: `将选定的 <span class="hl">主题</span> 中的自定义同步到所有其他通知类型`,
+        showsystrayopts: `显示通常位于 <span class="hl">系统托盘</span> > <span class="hl">选项</span> 下的所有选项，在 <span class="hl">设置</span> > <span class="hl">其他</span>`
     },
     update: {
         updateavailable: "有可用更新",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `输入要添加到<span class="hl">排除列表</span>的<span class="hl">AppID</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "通知元素",
+        content: {
+            unlockmsg: "解锁消息",
+            title: "成就标题",
+            desc: "成就描述",
+            hiddeniconpos: "隐藏图标",
+            sshiddeniconpos: "隐藏图标",
+            decorationpos: "装饰",
+            ssdecorationpos: "装饰",
+            percentpos: "稀有度百分比",
+            sspercentpos: "稀有度百分比",
+            percentbadge: "百分比徽章",
+            sspercentbadge: "百分比徽章",
+            percentbadgepos: "徽章位置",
+            sspercentbadgepos: "徽章位置",
+            percentbadgecolor: "徽章颜色",
+            sspercentbadgecolor: "徽章颜色",
+            percentbadgefontsize: "徽章大小",
+            sspercentbadgefontsize: "徽章大小",
+            percentbadgeroundness: "徽章圆角",
+            sspercentbadgeroundness: "徽章圆角",
+            percentbadgex: "水平偏移",
+            sspercentbadgex: "水平偏移",
+            percentbadgey: "垂直偏移",
+            sspercentbadgey: "垂直偏移",
+            percentbadgeimg: "使用图标",
+            sspercentbadgeimg: "使用图标",
+            percentbadgeimgbronze: "稀有度: > 50%",
+            sspercentbadgeimgbronze: "稀有度: > 50%",
+            percentbadgeimgsilver: "稀有度: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "稀有度: < 50% & > $rarity%",
+            percentbadgeimggold: "稀有度: < $rarity%",
+            sspercentbadgeimggold: "稀有度: < $rarity%",
+            resetpbimgs: "重置徽章图标",
+            elemsmatch: "匹配自定义设置"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `将任何游戏的 <span class="hl">AppID</span> 添加到自动切换 <span class="hl">主题</span> 时`,
+                `可以为每种通知类型选择任何保存的 <span class="hl">主题</span>，以及所需的显示器作为 <span class="hl">截图源</span>`,
+                `<span class="hl" id="appidhelp"><u>我如何找到 Steam 游戏的 AppID？</u></span>`
+            ],
+            "themeswitchnew": "新自动切换",
+            "themeswitchnewsub": [
+                `输入游戏的 <span class="hl">AppID</span>，以及所需的显示器作为 <span class="hl">截图源</span>`,
+                `选择在检测到该游戏的 <span class="hl">AppID</span> 时为每种通知类型切换到哪个 <span class="hl">主题</span>`
+            ],
+            "themes": "主题",
+            "src": "截图源"
         }
     }
 }

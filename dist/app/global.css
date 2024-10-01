@@ -633,3 +633,54 @@ input[type="range"][unit],
         background-color var(--transition),
         filter var(--transition);
 }
+
+.synclbl {
+    --star: white;
+    display: none;
+    grid-template-columns: repeat(2,auto);
+    gap: 0.25rem;
+    justify-items: start;
+    align-items: center;
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 0.15rem;
+    font-size: 0.65rem;
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+    text-align: center;
+}
+
+.synclbl::before {
+    content: "";
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    mask: url("../../icon/star.svg") center / contain no-repeat;
+    background-color: var(--star);
+    justify-self: end;
+}
+
+#settingscontent[synced] .synclbl,
+#customiser[synced] .synclbl {
+    display: grid;
+}
+
+#settingscontent[synced] .synclbl,
+#customiser[synced] .synclbl {
+    margin-top: 0.5rem;
+}
+
+#settingscontent[synced="main"] .synclbl,
+#customiser[synced="main"] .synclbl {
+    --star: #ffc400;
+}
+
+#settingscontent[synced="rare"] .synclbl,
+#customiser[synced="rare"] .synclbl {
+    --star: #9a31cd;
+}
+
+#settingscontent[synced="plat"] .synclbl,
+#customiser[synced="plat"] .synclbl {
+    --star: #5082f0;
+}

@@ -59,32 +59,11 @@ export const translations = {
             `URL-адрес <span class="hl">страницы магазина</span> игры - это число, указанное после <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Сайты, такие как <span class="hl">SteamDB</span> - раздел <span class="hl">Информация об App</span> перечислит AppID для каждой игры`
         ],
-        elemselector: "Элементы уведомления",
-        unlockmsg: "Сообщение об разблокировке",
-        title: "Название достижения",
-        desc: "Описание достижения",
-        hiddeniconpos: "Скрытая иконка",
-        sshiddeniconpos: "Скрытая иконка",
-        decorationpos: "Декорация",
-        ssdecorationpos: "Декорация",
-        percentpos: "Процент редкости",
-        sspercentpos: "Процент редкости",
         noexe: "Файл EXE игры не найден!",
         noexesub: `Выберите Опции > Завершить игру в области уведомлений для выхода`,
         webhookunlockmsg: "$user разблокировал достижение",
         webhookingame: "в $gamename",
-        percentbadge: "Процентный значок",
-        sspercentbadge: "Процентный значок",
-        percentbadgepos: "Позиция значка",
-        sspercentbadgepos: "Позиция значка",
-        percentbadgecolor: "Цвет значка",
-        sspercentbadgecolor: "Цвет значка",
-        percentbadgefontsize: "Размер значка",
-        sspercentbadgefontsize: "Размер значка",
-        percentbadgeroundness: "Закругление значка",
-        sspercentbadgeroundness: "Закругление значка",
-        top: "Вверху",
-        bottom: "Внизу"
+        notconnected: "Не подключен"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Игры",
             content: {
                 linkedgames: "Связанные игры",
+                themeswitch: "Авто-смена тем",
                 exclusionlist: "Список исключений"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Отключить анимацию окна приложения",
                 noupdatedialog: "Отключить диалог обновления",
                 nvda: "Включить поддержку NVDA",
-                tooltips: "Показать подсказки"
+                tooltips: "Показать подсказки",
+                showsystrayopts: "Показать параметры системного трея"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Произошла ошибка при попытке экспортировать выбранную тему",
                     `Попробуйте сохранить текущую тему (<i>через <span class="hl">Сохранить тему</span></i>) и попробуйте экспортировать снова`,
                     `Если проблема не исчезнет, скопируйте ошибку ниже и сообщите о ней через кнопки ссылок на <span class="hl">Главном экране</span>`
-                ]
+                ],
+                synctheme: "Синхронизировать тему",
+                syncedwith: "Синхронизировано с"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Сохранить все настроенные параметры настройки как новую тему",
         visibilitybtn: "Переключить видимость элемента в пользовательских предпросмотрах и тестовых уведомлениях",
         delbtn: "Сбросить элемент на значение по умолчанию",
-        link: `Открыть <span class="hl">Меню Управления Связанными Играми</span>`,
         imgpath: "Место, где будут сохранены изображения уведомлений, сгенерированные этой опцией",
+        checkforupdates: `Проверьте, была ли выпущена новая версия приложения на GitHub. Если обновление доступно, оно будет автоматически загружено и установлено после подтверждения через диалоговое окно <span class="hl">Доступно обновление</span>`,
         linkedgames: `Обход <span class="hl">автоматического отслеживания процессов</span> для определенных игр Steam<br><br><span class="ttdesc">Этот параметр следует использовать только в очень специфических сценариях. Пользователям не следует использовать этот параметр в обычных условиях!</span>`,
         exclusionlist: `Предотвращение отслеживания достижений в определенных играх Steam приложением<br><br><span class="ttdesc">Этот параметр следует использовать только в очень специфических сценариях. Пользователям не следует использовать этот параметр в обычных условиях!</span>`,
         ovx: "Горизонтальное смещение уведомления на экране",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Установить размер значка",
         sspercentbadgefontsize: "Установить размер значка",
         percentbadgeroundness: "Установить закругление значка",
-        sspercentbadgeroundness: "Установить закругление значка"
+        sspercentbadgeroundness: "Установить закругление значка",
+        percentbadgex: "Смещение позиции значка по горизонтали",
+        sspercentbadgex: "Смещение позиции значка по горизонтали",
+        percentbadgey: "Смещение позиции значка по вертикали",
+        sspercentbadgey: "Смещение позиции значка по вертикали",
+        percentbadgeimg: "Отобразить значок на основе редкости в качестве элемента значка",
+        sspercentbadgeimg: "Отобразить значок на основе редкости в качестве элемента значка",
+        percentbadgeimgbronze: "Значок, отображаемый, когда процент разблокировки > 50%",
+        sspercentbadgeimgbronze: "Значок, отображаемый, когда процент разблокировки > 50%",
+        percentbadgeimgsilver: "Значок, отображаемый, когда процент разблокировки < 50% и > $rarity",
+        sspercentbadgeimgsilver: "Значок, отображаемый, когда процент разблокировки < 50% и > $rarity",
+        percentbadgeimggold: "Значок, отображаемый, когда процент разблокировки < $rarity",
+        sspercentbadgeimggold: "Значок, отображаемый, когда процент разблокировки < $rarity",
+        resetpbimgs: "Сбросить все значки до значений по умолчанию",
+        elemsmatch: `Совпадение настроек элементов уведомления, установленных в персонализаторе для этого типа уведомления<br><br><span class="ttdesc">Некоторые предустановки уведомлений не могут полностью соответствовать настройкам персонализатора из-за различий между макетами уведомлений на экране и на основе скриншотов</span>`,
+        themeswitch: `Автоматически переключаться на любую сохраненную <span class="hl">Тему</span>, когда обнаруживается конкретная игра`,
+        userthemesync: `Синхронизировать настройки в выбранной <span class="hl">Теме</span> для всех других типов уведомлений`,
+        showsystrayopts: `Показать все параметры, которые обычно находятся в <span class="hl">Системном Трее</span> > <span class="hl">Опции</span> в <span class="hl">Настройках</span> > <span class="hl">Разное</span>`
     },
     update: {
         updateavailable: "Доступно обновление",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Введите <span class="hl">AppID</span>, чтобы добавить его в <span class="hl">Список исключений</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Элементы уведомления",
+        content: {
+            unlockmsg: "Сообщение об разблокировке",
+            title: "Название достижения",
+            desc: "Описание достижения",
+            hiddeniconpos: "Скрытая иконка",
+            sshiddeniconpos: "Скрытая иконка",
+            decorationpos: "Декорация",
+            ssdecorationpos: "Декорация",
+            percentpos: "Процент редкости",
+            sspercentpos: "Процент редкости",
+            percentbadge: "Процентный значок",
+            sspercentbadge: "Процентный значок",
+            percentbadgepos: "Позиция значка",
+            sspercentbadgepos: "Позиция значка",
+            percentbadgecolor: "Цвет значка",
+            sspercentbadgecolor: "Цвет значка",
+            percentbadgefontsize: "Размер значка",
+            sspercentbadgefontsize: "Размер значка",
+            percentbadgeroundness: "Закругление значка",
+            sspercentbadgeroundness: "Закругление значка",      
+            percentbadgex: "Горизонтальное смещение",
+            sspercentbadgex: "Горизонтальное смещение",
+            percentbadgey: "Вертикальное смещение",
+            sspercentbadgey: "Вертикальное смещение",
+            percentbadgeimg: "Использовать значок",
+            sspercentbadgeimg: "Использовать значок",
+            percentbadgeimgbronze: "Редкость: > 50%",
+            sspercentbadgeimgbronze: "Редкость: > 50%",
+            percentbadgeimgsilver: "Редкость: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Редкость: < 50% & > $rarity%",
+            percentbadgeimggold: "Редкость: < $rarity%",
+            sspercentbadgeimggold: "Редкость: < $rarity%",
+            resetpbimgs: "Сбросить значки",
+            elemsmatch: "Совпадение настроек персонализатора"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Добавьте <span class="hl">AppID</span> любой игры, чтобы автоматически переключать <span class="hl">Темы</span> при обнаружении`,
+                `Любая сохраненная <span class="hl">Тема</span> может быть выбрана для каждого типа уведомления, вместе с желаемым монитором для использования в качестве <span class="hl">Источник Скриншотов</span>`,
+                `<span class="hl" id="appidhelp"><u>Как найти AppID игры в Steam?</u></span>`
+            ],
+            "themeswitchnew": "Новая авто-смена",
+            "themeswitchnewsub": [
+                `Введите <span class="hl">AppID</span> игры вместе с желаемым монитором для использования в качестве <span class="hl">Источник Скриншотов</span>`,
+                `Выберите, какая <span class="hl">Тема</span> должна быть переключена для каждого типа уведомления, когда обнаруживается <span class="hl">AppID</span> этой игры`
+            ],
+            "themes": "Темы",
+            "src": "Источник Скриншотов"
         }
     }
 }

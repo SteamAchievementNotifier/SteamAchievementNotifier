@@ -59,32 +59,11 @@ export const translations = {
             `La <span class="hl">URL</span> de la página de la <span class="hl">tienda</span> del juego - será el número listado después de <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Sitios web como <span class="hl">SteamDB</span> - la sección de <span class="hl">Información de la Aplicación</span> listará el AppID para cada juego`
         ],
-        elemselector: "Elementos de Notificación",
-        unlockmsg: "Mensaje de Desbloqueo",
-        title: "Título del Logro",
-        desc: "Descripción del Logro",
-        hiddeniconpos: "Ícono Oculto",
-        sshiddeniconpos: "Ícono Oculto",
-        decorationpos: "Decoración",
-        ssdecorationpos: "Decoración",
-        percentpos: "Porcentaje de Rareza",
-        sspercentpos: "Porcentaje de Rareza",
         noexe: "¡Archivo EXE del juego no encontrado!",
         noexesub: `Selecciona Opciones > Salir del Juego en la Bandeja del Sistema para salir`,
         webhookunlockmsg: "$user desbloqueó un logro",
         webhookingame: "en $gamename",
-        percentbadge: "Insignia de Porcentaje",
-        sspercentbadge: "Insignia de Porcentaje",
-        percentbadgepos: "Posición de la Insignia",
-        sspercentbadgepos: "Posición de la Insignia",
-        percentbadgecolor: "Color de la Insignia",
-        sspercentbadgecolor: "Color de la Insignia",
-        percentbadgefontsize: "Tamaño de la Insignia",
-        sspercentbadgefontsize: "Tamaño de la Insignia",
-        percentbadgeroundness: "Redondez de la Insignia",
-        sspercentbadgeroundness: "Redondez de la Insignia",
-        top: "Arriba",
-        bottom: "Abajo"
+        notconnected: "No conectado"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Juegos",
             content: {
                 linkedgames: "Juegos Enlazados",
+                themeswitch: "Cambio automático de temas",
                 exclusionlist: "Lista de Exclusión"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Desactivar animaciones de la ventana de la aplicación",
                 noupdatedialog: "Desactivar diálogo de actualización",
                 nvda: "Activar soporte de NVDA",
-                tooltips: "Mostrar consejos de herramientas"
+                tooltips: "Mostrar consejos de herramientas",
+                showsystrayopts: "Mostrar opciones de la bandeja del sistema"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Ocurrió un error al intentar exportar el tema seleccionado",
                     `Intenta guardar el tema actual (<i>a través de <span class="hl">Guardar Tema</span></i>) y vuelve a intentar exportar`,
                     `Si el problema persiste, copia el error a continuación y repórtalo a través de los botones de enlace en la <span class="hl">Pantalla Principal</span>`
-                ]    
+                ],
+                synctheme: "Sincronizar tema",
+                syncedwith: "Sincronizado con"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Guardar todas las opciones de personalización configuradas como un nuevo tema",
         visibilitybtn: "Alternar la visibilidad del elemento en las vistas previas personalizadas y las notificaciones de prueba",
         delbtn: "Restablecer el elemento al valor predeterminado",
-        link: `Abrir <span class="hl">Menú de Administración de Juegos Vinculados</span>`,
         imgpath: "La ubicación donde se guardarán las imágenes de notificación generadas por esta opción",
+        checkforupdates: `Verifique si se ha lanzado una nueva versión de la aplicación en GitHub. Si hay una actualización disponible, se descargará e instalará automáticamente una vez confirmada a través del cuadro de diálogo <span class="hl">Actualización disponible</span>`,
         linkedgames: `Evitar el <span class="hl">seguimiento automático de procesos</span> para juegos específicos de Steam<br><br><span class="ttdesc">Esta opción debería utilizarse solo en escenarios muy específicos. Los usuarios no deberían necesitar usar esta opción en circunstancias normales.</span>`,
         exclusionlist: `Prevenir que la aplicación rastree los logros en juegos específicos de Steam<br><br><span class="ttdesc">Esta opción debería utilizarse solo en escenarios muy específicos. Los usuarios no deberían necesitar usar esta opción en circunstancias normales.</span>`,
         ovx: "Desplazar la notificación mostrada en la captura de pantalla horizontalmente",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Establecer el tamaño de la insignia",
         sspercentbadgefontsize: "Establecer el tamaño de la insignia",
         percentbadgeroundness: "Establecer la redondez de la insignia",
-        sspercentbadgeroundness: "Establecer la redondez de la insignia"
+        sspercentbadgeroundness: "Establecer la redondez de la insignia",
+        percentbadgex: "Desplazar la posición del elemento de la insignia horizontalmente",
+        sspercentbadgex: "Desplazar la posición del elemento de la insignia horizontalmente",
+        percentbadgey: "Desplazar la posición del elemento de la insignia verticalmente",
+        sspercentbadgey: "Desplazar la posición del elemento de la insignia verticalmente",
+        percentbadgeimg: "Mostrar un icono basado en la rareza como el elemento de la insignia",
+        sspercentbadgeimg: "Mostrar un icono basado en la rareza como el elemento de la insignia",
+        percentbadgeimgbronze: "El icono de la insignia que se mostrará cuando el porcentaje de desbloqueo sea > 50%",
+        sspercentbadgeimgbronze: "El icono de la insignia mostrado cuando el porcentaje de desbloqueo es > 50%",
+        percentbadgeimgsilver: "El icono de la insignia mostrado cuando el porcentaje de desbloqueo es < 50% y > $rarity",
+        sspercentbadgeimgsilver: "El icono de la insignia mostrado cuando el porcentaje de desbloqueo es < 50% y > $rarity",
+        percentbadgeimggold: "El icono de la insignia mostrado cuando el porcentaje de desbloqueo es < $rarity",
+        sspercentbadgeimggold: "El icono de la insignia mostrado cuando el porcentaje de desbloqueo es < $rarity",
+        resetpbimgs: "Restablecer todos los iconos de insignia a los predeterminados",
+        elemsmatch: `Coincidir con la configuración de los elementos de notificación establecidos en el personalizador para este tipo de notificación<br><br><span class="ttdesc">Algunos preajustes de notificación pueden no coincidir completamente con la configuración del personalizador, debido a las diferencias entre los diseños de notificación en pantalla y basados en capturas de pantalla</span>`,
+        themeswitch: `Cambiar automáticamente a cualquier <span class="hl">Tema</span> guardado cuando se detecta un juego específico`,
+        userthemesync: `Sincronizar personalizaciones en el <span class="hl">Tema</span> seleccionado a todos los demás tipos de notificación`,
+        showsystrayopts: `Mostrar todas las opciones que normalmente se encuentran bajo <span class="hl">Bandeja del sistema</span> > <span class="hl">Opciones</span> en <span class="hl">Configuraciones</span> > <span class="hl">Varios</span>`
     },
     update: {
         updateavailable: "Actualización disponible",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Ingrese el <span class="hl">AppID</span> para agregar a la <span class="hl">Lista de Exclusión</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Elementos de Notificación",
+        content: {
+            unlockmsg: "Mensaje de Desbloqueo",
+            title: "Título del Logro",
+            desc: "Descripción del Logro",
+            hiddeniconpos: "Ícono Oculto",
+            sshiddeniconpos: "Ícono Oculto",
+            decorationpos: "Decoración",
+            ssdecorationpos: "Decoración",
+            percentpos: "Porcentaje de Rareza",
+            sspercentpos: "Porcentaje de Rareza",
+            percentbadge: "Insignia de Porcentaje",
+            sspercentbadge: "Insignia de Porcentaje",
+            percentbadgepos: "Posición de la Insignia",
+            sspercentbadgepos: "Posición de la Insignia",
+            percentbadgecolor: "Color de la Insignia",
+            sspercentbadgecolor: "Color de la Insignia",
+            percentbadgefontsize: "Tamaño de la Insignia",
+            sspercentbadgefontsize: "Tamaño de la Insignia",
+            percentbadgeroundness: "Redondez de la Insignia",
+            sspercentbadgeroundness: "Redondez de la Insignia",
+            percentbadgex: "Desplazamiento horizontal",
+            sspercentbadgex: "Desplazamiento horizontal",
+            percentbadgey: "Desplazamiento vertical",
+            sspercentbadgey: "Desplazamiento vertical",
+            percentbadgeimg: "Usar icono",
+            sspercentbadgeimg: "Usar icono",
+            percentbadgeimgbronze: "Rareza: > 50%",
+            sspercentbadgeimgbronze: "Rareza: > 50%",
+            percentbadgeimgsilver: "Rareza: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Rareza: < 50% & > $rarity%",
+            percentbadgeimggold: "Rareza: < $rarity%",
+            sspercentbadgeimggold: "Rareza: < $rarity%",
+            resetpbimgs: "Restablecer iconos de insignias",
+            elemsmatch: "Coincidir con la configuración del personalizador"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Agregar el <span class="hl">AppID</span> de cualquier juego para cambiar automáticamente <span class="hl">Temas</span> cuando se detecte`,
+                `Cualquier <span class="hl">Tema</span> guardado puede seleccionarse para cada tipo de notificación, junto con el monitor deseado para usar como <span class="hl">Fuente de captura de pantalla</span>`,
+                `<span class="hl" id="appidhelp"><u>¿Cómo encuentro el AppID de un juego de Steam?</u></span>`
+            ],
+            "themeswitchnew": "Nuevo cambio automático",
+            "themeswitchnewsub": [
+                `Ingrese el <span class="hl">AppID</span> del juego, junto con el monitor deseado para usar como <span class="hl">Fuente de captura de pantalla</span>`,
+                `Seleccione qué <span class="hl">Tema</span> cambiar para cada tipo de notificación cuando se detecte el <span class="hl">AppID</span> de este juego`
+            ],
+            "themes": "Temas",
+            "src": "Fuente de captura de pantalla"
         }
     }
 }

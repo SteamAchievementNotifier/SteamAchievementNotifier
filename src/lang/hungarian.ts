@@ -59,32 +59,11 @@ export const translations = {
             `A játék <span class="hl">Bolt oldalának URL-címe</span> - ez lesz az a szám, amely az <span class="hl">app/</span> után következik: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Olyan webhelyek, mint a <span class="hl">SteamDB</span> - az <span class="hl">App Info</span> szakasz felsorolja az AppID-t minden játékhoz`
         ],
-        elemselector: "Értesítési elemek",
-        unlockmsg: "Feloldó Üzenet",
-        title: "Teljesítmény Cím",
-        desc: "Teljesítmény Leírás",
-        hiddeniconpos: "Rejtett Ikon",
-        sshiddeniconpos: "Rejtett Ikon",
-        decorationpos: "Díszítés",
-        ssdecorationpos: "Díszítés",
-        percentpos: "Ritkasági Százalék",
-        sspercentpos: "Ritkasági Százalék",
         noexe: "A játék EXE fájlja nem található!",
         noexesub: `Válassza az Opciók > Játék Kilépés lehetőséget a Rendszertálcáról a kilépéshez`,
         webhookunlockmsg: "$user teljesítményt oldott fel",
         webhookingame: "a $gamename játékban",
-        percentbadge: "Százalékos jelvény",
-        sspercentbadge: "Százalékos jelvény",
-        percentbadgepos: "Jelvény pozíciója",
-        sspercentbadgepos: "Jelvény pozíciója",
-        percentbadgecolor: "Jelvény színe",
-        sspercentbadgecolor: "Jelvény színe",
-        percentbadgefontsize: "Jelvény mérete",
-        sspercentbadgefontsize: "Jelvény mérete",
-        percentbadgeroundness: "Jelvény lekerekítettsége",
-        sspercentbadgeroundness: "Jelvény lekerekítettsége",
-        top: "Fent",
-        bottom: "Lent"
+        notconnected: "Nincs csatlakoztatva"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Játékok",
             content: {
                 linkedgames: "Kapcsolt játékok",
+                themeswitch: "Automatikus téma váltás",
                 exclusionlist: "Kizárások listája"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Alkalmazás ablakanimációk kikapcsolása",
                 noupdatedialog: "Frissítési párbeszédpanel kikapcsolása",
                 nvda: "NVDA támogatás engedélyezése",
-                tooltips: "Eszközleírások megjelenítése"
+                tooltips: "Eszközleírások megjelenítése",
+                showsystrayopts: "Rendszer tálca opciók megjelenítése"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Hiba történt a kiválasztott téma exportálása közben",
                     `Próbálja meg elmenteni a jelenlegi témát (<i>a <span class="hl">Téma mentése</span></i> lehetőséggel), és próbálja meg újra exportálni`,
                     `Ha a probléma továbbra is fennáll, kérjük, másolja ki az alábbi hibát, majd jelentsen be a <span class="hl">Kezdőképernyő</span> hivatkozásgombjaival`
-                ]
+                ],
+                synctheme: "Téma szinkronizálása",
+                syncedwith: "Szinkronizálva ezzel:"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Mentse el az összes konfigurált testreszabási beállítást új témaként",
         visibilitybtn: "Az elem láthatóságának váltása az egyéni előnézetekben és tesztértesítésekben",
         delbtn: "Az elem visszaállítása az alapértelmezett értékre",
-        link: `Megnyitás <span class="hl">Kapcsolt Játékok Kezelése Menüben</span>`,
         imgpath: "Az a hely, ahol ezen beállítás által generált értesítési képek lesznek mentve",
+        checkforupdates: `Ellenőrizze, hogy megjelent-e új verzió az alkalmazásból a GitHubon. Ha elérhető frissítés van, az automatikusan letöltésre és telepítésre kerül, miután megerősítette a <span class="hl">Frissítés elérhető</span> párbeszédablakban`,
         linkedgames: `Kerüld meg a <span class="hl">automatikus folyamatkövetést</span> bizonyos Steam-játékokhoz<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`,
         exclusionlist: `Akadályozd meg a Steam-játékok bizonyos teljesítményeinek követését az alkalmazásban<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`,
         ovx: "A képernyőképen megjelenő értesítés vízszintes eltolása",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "A jelvény méretének beállítása",
         sspercentbadgefontsize: "A jelvény méretének beállítása",
         percentbadgeroundness: "A jelvény lekerekítettségének beállítása",
-        sspercentbadgeroundness: "A jelvény lekerekítettségének beállítása"
+        sspercentbadgeroundness: "A jelvény lekerekítettségének beállítása",
+        percentbadgex: "A jelvény elem vízszintes eltolása",
+        sspercentbadgex: "A jelvény elem vízszintes eltolása",
+        percentbadgey: "A jelvény elem függőleges eltolása",
+        sspercentbadgey: "A jelvény elem függőleges eltolása",
+        percentbadgeimg: "Raritás-alapú ikon megjelenítése jelvény elemként",
+        sspercentbadgeimg: "Raritás-alapú ikon megjelenítése jelvény elemként",
+        percentbadgeimgbronze: "A jelvény ikon, amely akkor jelenik meg, amikor a feloldási százalék > 50%",
+        sspercentbadgeimgbronze: "A jelvény ikon, amely akkor jelenik meg, amikor a feloldási százalék > 50%",
+        percentbadgeimgsilver: "A jelvény ikon, amely akkor jelenik meg, amikor a feloldási százalék < 50% és > $rarity",
+        sspercentbadgeimgsilver: "A jelvény ikon, amely akkor jelenik meg, amikor a feloldási százalék < 50% és > $rarity",
+        percentbadgeimggold: "A jelvény ikon, amely akkor jelenik meg, amikor a feloldási százalék < $rarity",
+        sspercentbadgeimggold: "A jelvény ikon, amely akkor jelenik meg, amikor a feloldási százalék < $rarity",
+        resetpbimgs: "Az összes jelvény ikont alapértelmezett értékre állítja vissza",
+        elemsmatch: `A figyelmeztető elemek beállításainak egyeztetése a testreszabóban ennek a figyelmeztetési típusnak<br><br><span class="ttdesc">Néhány figyelmeztetési előre beállított beállítás nem tud teljesen megfelelni a testreszabó beállításainak, a képernyőn megjelenő és a képernyőképen alapuló figyelmeztetési elrendezések közötti eltérések miatt</span>`,
+        themeswitch: `Automatikusan váltson bármely mentett <span class="hl">Témára</span>, amikor egy adott játékot észlel`,
+        userthemesync: `Szinkronizálja a testreszabásokat a kiválasztott <span class="hl">Témában</span> minden más figyelmeztetési típushoz`,
+        showsystrayopts: `Az összes lehetőség megjelenítése, amely általában a <span class="hl">Rendszer tálca</span> > <span class="hl">Opciók</span> alatt található a <span class="hl">Beállítások</span> > <span class="hl">Vegyesek</span> részen`
     },
     update: {
         updateavailable: "Frissítés elérhető",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Írd be az <span class="hl">AppID</span>-t a <span class="hl">kizárások listájához</span> való hozzáadáshoz`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Értesítési elemek",
+        content: {
+            unlockmsg: "Feloldó Üzenet",
+            title: "Teljesítmény Cím",
+            desc: "Teljesítmény Leírás",
+            hiddeniconpos: "Rejtett Ikon",
+            sshiddeniconpos: "Rejtett Ikon",
+            decorationpos: "Díszítés",
+            ssdecorationpos: "Díszítés",
+            percentpos: "Ritkasági Százalék",
+            sspercentpos: "Ritkasági Százalék",
+            percentbadge: "Százalékos jelvény",
+            sspercentbadge: "Százalékos jelvény",
+            percentbadgepos: "Jelvény pozíciója",
+            sspercentbadgepos: "Jelvény pozíciója",
+            percentbadgecolor: "Jelvény színe",
+            sspercentbadgecolor: "Jelvény színe",
+            percentbadgefontsize: "Jelvény mérete",
+            sspercentbadgefontsize: "Jelvény mérete",
+            percentbadgeroundness: "Jelvény lekerekítettsége",
+            sspercentbadgeroundness: "Jelvény lekerekítettsége",   
+            percentbadgex: "Vízszintes eltolás",
+            sspercentbadgex: "Vízszintes eltolás",
+            percentbadgey: "Függőleges eltolás",
+            sspercentbadgey: "Függőleges eltolás",
+            percentbadgeimg: "Ikon használata",
+            sspercentbadgeimg: "Ikon használata",
+            percentbadgeimgbronze: "Raritás: > 50%",
+            sspercentbadgeimgbronze: "Raritás: > 50%",
+            percentbadgeimgsilver: "Raritás: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Raritás: < 50% & > $rarity%",
+            percentbadgeimggold: "Raritás: < $rarity%",
+            sspercentbadgeimggold: "Raritás: < $rarity%",
+            resetpbimgs: "Jelvény ikonok visszaállítása",
+            elemsmatch: "A testreszabó beállításainak egyeztetése"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Adja hozzá bármely játék <span class="hl">AppID</span>-ját, hogy automatikusan válthasson <span class="hl">Témákra</span>, amikor észlelik`,
+                `Bármely mentett <span class="hl">Téma</span> választható minden figyelmeztetési típushoz, valamint a kívánt monitor kiválasztható, amelyet <span class="hl">Képernyőkép forrásként</span> szeretne használni`,
+                `<span class="hl" id="appidhelp"><u>Hogyan találom meg egy Steam játék AppID-ját?</u></span>`
+            ],
+            "themeswitchnew": "Új automatikus váltás",
+            "themeswitchnewsub": [
+                `Adja meg a játék <span class="hl">AppID</span>-ját, valamint a kívánt monitort, amelyet <span class="hl">Képernyőkép forrásként</span> szeretne használni`,
+                `Válassza ki, hogy melyik <span class="hl">Témára</span> szeretne váltani minden figyelmeztetési típushoz, amikor a játék <span class="hl">AppID</span>-ját észlelik`
+            ],
+            "themes": "Témák",
+            "src": "Képernyőkép forrás"
         }
     }
 }

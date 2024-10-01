@@ -59,32 +59,11 @@ export const translations = {
             `عنوان <span class="hl">URL</span> لصفحة <span class="hl">المتجر</span> الخاصة باللعبة - سيكون الرقم المدرج بعد <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `مواقع الويب مثل <span class="hl">SteamDB</span> - سيقوم القسم <span class="hl">معلومات الأطباق</span> بسرد AppID لكل لعبة`
         ],
-        elemselector: "عناصر الإشعار",
-        unlockmsg: "رسالة الفتح",
-        title: "عنوان الإنجاز",
-        desc: "وصف الإنجاز",
-        hiddeniconpos: "رمز مخفي",
-        sshiddeniconpos: "رمز مخفي",
-        decorationpos: "زخرفة",
-        ssdecorationpos: "زخرفة",
-        percentpos: "نسبة الندرة",
-        sspercentpos: "نسبة الندرة",
         noexe: "لم يتم العثور على ملف اللعبة التنفيذي!",
         noexesub: `حدد الخيارات > إصدار اللعبة من شريط النظام للخروج`,
         webhookunlockmsg: "$user فتح إنجازًا",
         webhookingame: "في $gamename",
-        percentbadge: "شارة النسبة المئوية",
-        sspercentbadge: "شارة النسبة المئوية",
-        percentbadgepos: "موقع الشارة",
-        sspercentbadgepos: "موقع الشارة",
-        percentbadgecolor: "لون الشارة",
-        sspercentbadgecolor: "لون الشارة",
-        percentbadgefontsize: "حجم الشارة",
-        sspercentbadgefontsize: "حجم الشارة",
-        percentbadgeroundness: "استدارة الشارة",
-        sspercentbadgeroundness: "استدارة الشارة",
-        top: "أعلى",
-        bottom: "أسفل"
+        notconnected: "غير متصل"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "الألعاب",
             content: {
                 linkedgames: "الألعاب المرتبطة",
+                themeswitch: "التبديل التلقائي للثيمات",
                 exclusionlist: "قائمة الاستبعاد"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "تعطيل الرسوم المتحركة لنافذة التطبيق",
                 noupdatedialog: "تعطيل مربع حوار التحديث",
                 nvda: "تمكين دعم NVDA",
-                tooltips: "إظهار تلميحات الأدوات"
+                tooltips: "إظهار تلميحات الأدوات",
+                showsystrayopts: "إظهار خيارات علبة النظام"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "حدث خطأ أثناء محاولة تصدير السمة المحددة",
                     `حاول حفظ السمة الحالية (<i>عن طريق <span class="hl">حفظ السمة</span></i>) وحاول التصدير مرة أخرى`,
                     `إذا استمرت المشكلة، يرجى نسخ الخطأ أدناه، ثم الإبلاغ عبر أزرار الرابط في <span class="hl">شاشة البداية</span>`
-                ]
+                ],
+                synctheme: "مزامنة الثيم",
+                syncedwith: "مزامن مع"
             }
         }
     },
@@ -429,18 +412,18 @@ export const translations = {
         bgimg: "تحميل ملف صورة لاستخدامه كخلفية للإشعار",
         bgimgbrightness: "تعيين سطوع الصورة المستخدمة كخلفية الإشعار",
         brightness: "تعيين سطوع فن اللعبة المستخدم كخلفية للإشعار",
-        roundness: "تعيين الدوران لحواف الإشعار",
         blur: "تعيين مستوى الضبابية المطبقة على خلفية الإشعار",
+        roundness: "تعيين الدوران لحواف الإشعار",
         fontsize: "تعيين حجم الخط المستخدم في الإشعار",
         opacity: "تعيين شفافية الإشعار بشكل عام",
         bgonly: "تعيين الشفافية فقط لخلفية الإشعار، مع الاحتفاظ ببقية العناصر على شفافية كاملة",
         glow: "تمكين تأثير السطوع الذي يحيط بالإشعار",
         glowcolor: "تعيين لون تأثير السطوع",
         glowsize: "تعيين حجم تأثير السطوع",
-        glowanim: "تحديد رسم متحرك مُعدّ مسبقًا لتطبيقه على تأثير السطوع",
         glowx: "إزاحة موقع تأثير التوهج أفقياً",
         glowy: "إزاحة موقع تأثير التوهج رأسياً",
         glowopacity: "تعيين تعتيم تأثير التوهج",
+        glowanim: "تحديد رسم متحرك مُعدّ مسبقًا لتطبيقه على تأثير السطوع",
         glowspeed: "تعيين سرعة الرسم المتحرك المطبق على تأثير السطوع",
         mask: "تمكين تقنية الإخفاء لأجزاء من الإشعار باستخدام صورة مخصصة",
         maskimg: `تحميل ملف صورة لاستخدامه كإخفاء<br><br><span class="ttdesc">في CSS، <code class="ttcode">mask-mode: alpha</code> تعمل بالطريقة المعاكسة لما يتوقع عادة - ستُخفى مناطق الشفافية في ملف الصورة، وستسمح مناطق اللون الأسود / الرمادي بظهور العناصر أدناه</span>`,
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "حفظ كل الخيارات المكونة للتخصيص كسمة جديدة",
         visibilitybtn: "تبديل رؤية العنصر في المعاينات المخصصة والإشعارات التجريبية",
         delbtn: "إعادة تعيين العنصر إلى الافتراضي",
-        link: `افتح <span class="hl">قائمة إدارة الألعاب المرتبطة</span>`,
         imgpath: "الموقع الذي ستحفظ فيه صور الإشعارات التي تم إنشاؤها بهذا الخيار",
+        checkforupdates: `تحقق مما إذا كان هناك إصدار تطبيق جديد قد تم إصداره على GitHub. إذا كان هناك تحديث متاح، سيتم تنزيله وتثبيته تلقائيًا بمجرد تأكيده عبر نافذة <span class="hl">تحديث متاح</span>`,
         linkedgames: `تخطي <span class="hl">تتبع العملية التلقائية</span> لألعاب Steam محددة<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط لحالات محددة جدًا. يجب ألا يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`,
         exclusionlist: `منع تتبع الإنجازات في ألعاب Steam محددة بواسطة التطبيق<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط لحالات محددة جدًا. يجب ألا يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`,
         ovx: "إزاحة الإشعار المعروض في لقطة الشاشة أفقيًا",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "تحديد حجم الشارة",
         sspercentbadgefontsize: "تحديد حجم الشارة",
         percentbadgeroundness: "تحديد استدارة الشارة",
-        sspercentbadgeroundness: "تحديد استدارة الشارة"
+        sspercentbadgeroundness: "تحديد استدارة الشارة",
+        percentbadgex: "إزاحة موضع عنصر الشارة أفقياً",
+        sspercentbadgex: "إزاحة موضع عنصر الشارة أفقياً",
+        percentbadgey: "إزاحة موضع عنصر الشارة عمودياً",
+        sspercentbadgey: "إزاحة موضع عنصر الشارة عمودياً",
+        percentbadgeimg: "عرض أيقونة بناءً على النسبة",
+        sspercentbadgeimg: "عرض أيقونة بناءً على النسبة",
+        percentbadgeimgbronze: "أيقونة الشارة التي تُعرض عندما تكون نسبة الفتح > 50%",
+        sspercentbadgeimgbronze: "أيقونة الشارة التي تُعرض عندما تكون نسبة الفتح > 50%",
+        percentbadgeimgsilver: "أيقونة الشارة التي تُعرض عندما تكون نسبة الفتح < 50% و > $rarity",
+        sspercentbadgeimgsilver: "أيقونة الشارة التي تُعرض عندما تكون نسبة الفتح < 50% و > $rarity",
+        percentbadgeimggold: "أيقونة الشارة التي تُعرض عندما تكون نسبة الفتح < $rarity",
+        sspercentbadgeimggold: "أيقونة الشارة التي تُعرض عندما تكون نسبة الفتح < $rarity",
+        resetpbimgs: "إعادة تعيين جميع أيقونات الشارة إلى الافتراضي",
+        elemsmatch: `مطابقة إعدادات عناصر الإشعارات المضبوطة في المخصص لهذا النوع من الإشعارات<br><br><span class="ttdesc">لا يمكن لبعض الإعدادات المسبقة للإشعارات مطابقة إعدادات المخصص بشكل كامل، بسبب الاختلافات بين إشعارات الشاشة والإشعارات المستندة إلى اللقطات</span>`,
+        themeswitch: `التبديل تلقائيًا إلى أي <span class="hl">ثيم</span> محفوظ عند اكتشاف لعبة معينة`,
+        userthemesync: `مزامنة التخصيصات في <span class="hl">الثيم</span> المحدد لجميع أنواع الإشعارات الأخرى`,
+        showsystrayopts: `عرض جميع الخيارات الموجودة عادةً تحت <span class="hl">علبة النظام</span> > <span class="hl">الخيارات</span> في <span class="hl">الإعدادات</span> > <span class="hl">متنوعة</span>`
     },
     update: {
         updateavailable: "تحديث متاح",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `أدخل <span class="hl">AppID</span> لإضافته إلى <span class="hl">قائمة الاستبعاد</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "عناصر الإشعار",
+        content: {
+            unlockmsg: "رسالة الفتح",
+            title: "عنوان الإنجاز",
+            desc: "وصف الإنجاز",
+            hiddeniconpos: "رمز مخفي",
+            sshiddeniconpos: "رمز مخفي",
+            decorationpos: "زخرفة",
+            ssdecorationpos: "زخرفة",
+            percentpos: "نسبة الندرة",
+            sspercentpos: "نسبة الندرة",
+            percentbadge: "شارة النسبة المئوية",
+            sspercentbadge: "شارة النسبة المئوية",
+            percentbadgepos: "موقع الشارة",
+            sspercentbadgepos: "موقع الشارة",
+            percentbadgecolor: "لون الشارة",
+            sspercentbadgecolor: "لون الشارة",
+            percentbadgefontsize: "حجم الشارة",
+            sspercentbadgefontsize: "حجم الشارة",
+            percentbadgeroundness: "استدارة الشارة",
+            sspercentbadgeroundness: "استدارة الشارة",
+            percentbadgex: "إزاحة أفقية",
+            sspercentbadgex: "إزاحة أفقية",
+            percentbadgey: "إزاحة عمودية",
+            sspercentbadgey: "إزاحة عمودية",
+            percentbadgeimg: "استخدام أيقونة",
+            sspercentbadgeimg: "استخدام أيقونة",
+            percentbadgeimgbronze: "الندرة: > 50%",
+            sspercentbadgeimgbronze: "الندرة: > 50%",
+            percentbadgeimgsilver: "الندرة: < 50% و > $rarity%",
+            sspercentbadgeimgsilver: "الندرة: < 50% و > $rarity%",
+            percentbadgeimggold: "الندرة: < $rarity%",
+            sspercentbadgeimggold: "الندرة: < $rarity%",
+            resetpbimgs: "إعادة تعيين أيقونات الشارة",
+            elemsmatch: "مطابقة إعدادات المخصص"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `أضف <span class="hl">AppID</span> لأي لعبة للتبديل تلقائيًا إلى <span class="hl">الثيمات</span> عند اكتشافها`,
+                `يمكن اختيار أي <span class="hl">ثيم</span> محفوظ لكل نوع من الإشعارات، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطة الشاشة</span>`,
+                `<span class="hl" id="appidhelp"><u>كيف أجد معرف تطبيق لعبة Steam؟</u></span>`
+            ],
+            "themeswitchnew": "تبديل تلقائي جديد",
+            "themeswitchnewsub": [
+                `أدخل <span class="hl">AppID</span> الخاص باللعبة، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطة الشاشة</span>`,
+                `اختر أي <span class="hl">ثيم</span> للتبديل إليه لكل نوع من الإشعارات عند اكتشاف <span class="hl">AppID</span> الخاص بهذه اللعبة`
+            ],
+            "themes": "الثيمات",
+            "src": "مصدر لقطة الشاشة"
         }
     }
 }

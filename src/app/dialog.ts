@@ -72,12 +72,16 @@ export const dialog = {
 
             document.getElementById("shortcutbtn")!.onclick = event => sanhelper.setshortcut(config,event)
 
-            const setappidhelpdialog = (span: HTMLSpanElement) => span.onclick = async () => dialog.open({
-                title: await language.get("findappid"),
-                type: "default",
-                icon: sanhelper.setfilepath("icon","question.svg"),
-                sub: await language.get("findappidsub")
-            })
+            const setappidhelpdialog = (span: HTMLSpanElement) => span.onclick = async () => {
+                dialog.open({
+                    title: await language.get("findappid"),
+                    type: "default",
+                    icon: sanhelper.setfilepath("icon","question.svg"),
+                    sub: await language.get("findappidsub")
+                })
+
+                document.querySelector("dialog[default] .contentsubitem:first-child")!.setAttribute("nobefore","")
+            }
 
             const updatetables = async (type: "linkgame" | "exclusionlist" | "themeswitch") => {
                 const table = document.querySelector(`.addhtml > .tbl#${type}tablewrapper > table`)! as HTMLTableElement

@@ -58,9 +58,6 @@ export const sendwebhook = async (webhookurl: string,content: object,icon: strin
 }
 
 export const webhookwrapper = async (elem: HTMLElement) => {
-    const wrapper = document.getElementById("webhookwrapper")
-    wrapper && wrapper.remove()
-
     const { language } = await import("./language")
     const config = sanconfig.get()
     

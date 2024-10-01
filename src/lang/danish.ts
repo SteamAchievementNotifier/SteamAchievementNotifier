@@ -59,32 +59,11 @@ export const translations = {
             `URL'en til spillets <span class="hl">Butiks side</span> - det vil være tallet efter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Websites som <span class="hl">SteamDB</span> - sektionen <span class="hl">App Info</span> vil liste AppID for hvert spil`
         ],
-        elemselector: "Notifikationselementer",
-        unlockmsg: "Oplåsningsbesked",
-        title: "Præstationsnavn",
-        desc: "Præstationsbeskrivelse",
-        hiddeniconpos: "Skjult ikon",
-        sshiddeniconpos: "Skjult ikon",
-        decorationpos: "Dekoration",
-        ssdecorationpos: "Dekoration",
-        percentpos: "Sjældenhedsprocent",
-        sspercentpos: "Sjældenhedsprocent",
         noexe: "Spil-EXE ikke fundet!",
         noexesub: `Vælg Indstillinger > Frigør spil fra systembakken for at afslutte`,
         webhookunlockmsg: "$user låste op for en præstation",
         webhookingame: "i $gamename",
-        percentbadge: "Procentbadge",
-        sspercentbadge: "Procentbadge",
-        percentbadgepos: "Badgeposition",
-        sspercentbadgepos: "Badgeposition",
-        percentbadgecolor: "Badgefarve",
-        sspercentbadgecolor: "Badgefarve",
-        percentbadgefontsize: "Badgestørrelse",
-        sspercentbadgefontsize: "Badgestørrelse",
-        percentbadgeroundness: "Badgeafrunde",
-        sspercentbadgeroundness: "Badgeafrunde",
-        top: "Øverst",
-        bottom: "Nederst"
+        notconnected: "Ikke forbundet"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Spil",
             content: {
                 linkedgames: "Forbundne spil",
+                themeswitch: "Automatisk skift af tema",
                 exclusionlist: "Udelukkelsesliste"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Deaktiver app-vinduesanimationer",
                 noupdatedialog: "Deaktivér opdateringsdialog",
                 nvda: "Aktivér NVDA-support",
-                tooltips: "Vis tooltips"
+                tooltips: "Vis tooltips",
+                showsystrayopts: "Vis systembakke-indstillinger"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Der opstod en fejl under forsøg på at eksportere det valgte tema",
                     `Prøv at gemme det aktuelle tema (<i>via <span class="hl">Gem tema</span></i>) og prøv at eksportere igen`,
                     `Hvis problemet fortsætter, skal du kopiere fejlen nedenfor og rapportere det via linkknapperne på <span class="hl">Hjemmeskærmen</span>`
-                ]        
+                ],
+                synctheme: "Synkroniser tema",
+                syncedwith: "Synkroniseret med"  
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Gem alle konfigurerede tilpasningsindstillinger som et nyt tema",
         visibilitybtn: "Skift synligheden af elementet i Tilpas previews og Testmeddelelser",
         delbtn: "Nulstil elementet til standard",
-        link: `Åbn <span class="hl">Administrer Tilsluttede Spil Menu</span>`,
         imgpath: "Stedet, hvor notifikationsbilleder genereret af denne indstilling vil blive gemt",
+        checkforupdates: `Tjek om en ny app-version er blevet udgivet på GitHub. Hvis der er en opdatering tilgængelig, vil den automatisk blive downloadet og installeret, når den er bekræftet via dialogvinduet <span class="hl">Opdatering tilgængelig</span>`,
         linkedgames: `Omgå <span class="hl">automatisk procesregistrering</span> for specifikke Steam-spil<br><br><span class="ttdesc">Denne mulighed bør kun bruges i meget specifikke scenarier. Brugere bør ikke have brug for at bruge denne mulighed under normale omstændigheder!</span>`,
         exclusionlist: `Forhindre præstationer i specifikke Steam-spil i at blive sporet af appen<br><br><span class="ttdesc">Denne mulighed bør kun bruges i meget specifikke scenarier. Brugere bør ikke have brug for at bruge denne mulighed under normale omstændigheder!</span>`,
         ovx: "Forskyd meddelelsen vist på skærmbilledet horisontalt",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Indstil størrelsen på badgen",
         sspercentbadgefontsize: "Indstil størrelsen på badgen",
         percentbadgeroundness: "Indstil rundheden af badgen",
-        sspercentbadgeroundness: "Indstil rundheden af badgen"
+        sspercentbadgeroundness: "Indstil rundheden af badgen",
+        percentbadgex: "Forskyd positionen af badge-elementet horisontalt",
+        sspercentbadgex: "Forskyd positionen af badge-elementet horisontalt",
+        percentbadgey: "Forskyd positionen af badge-elementet vertikalt",
+        sspercentbadgey: "Forskyd positionen af badge-elementet vertikalt",
+        percentbadgeimg: "Vis et sjældenhedsbaseret ikon som badge-element",
+        sspercentbadgeimg: "Vis et sjældenhedsbaseret ikon som badge-element",
+        percentbadgeimgbronze: "Badge-ikonet, der vises, når oplåsningsprocenten er > 50%",
+        sspercentbadgeimgbronze: "Badge-ikonet, der vises, når oplåsningsprocenten er > 50%",
+        percentbadgeimgsilver: "Badge-ikonet, der vises, når oplåsningsprocenten er < 50% og > $rarity",
+        sspercentbadgeimgsilver: "Badge-ikonet, der vises, når oplåsningsprocenten er < 50% og > $rarity",
+        percentbadgeimggold: "Badge-ikonet, der vises, når oplåsningsprocenten er < $rarity",
+        sspercentbadgeimggold: "Badge-ikonet, der vises, når oplåsningsprocenten er < $rarity",
+        resetpbimgs: "Nulstil alle badge-ikoner til standard",
+        elemsmatch: `Matcher indstillingerne for meddelelser, der er angivet i tilpasseren for denne meddelelsestype<br><br><span class="ttdesc">Nogle meddelelsespræferencer kan ikke fuldt ud matche tilpasserens indstillinger på grund af forskelle mellem layout på skærmen og meddelelser baseret på skærmbilleder</span>`,
+        themeswitch: `Skift automatisk til ethvert gemt <span class="hl">Tema</span>, når et bestemt spil opdages`,
+        userthemesync: `Synkroniser tilpasninger i det valgte <span class="hl">Tema</span> til alle andre meddelelsestyper`,
+        showsystrayopts: `Vis alle muligheder, der normalt findes under <span class="hl">Systembakke</span> > <span class="hl">Indstillinger</span> i <span class="hl">Indstillinger</span> > <span class="hl">Diverse</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Indtast <span class="hl">AppID</span> for at tilføje det til <span class="hl">udelukkelseslisten</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Notifikationselementer",
+        content: {
+            unlockmsg: "Oplåsningsbesked",
+            title: "Præstationsnavn",
+            desc: "Præstationsbeskrivelse",
+            hiddeniconpos: "Skjult ikon",
+            sshiddeniconpos: "Skjult ikon",
+            decorationpos: "Dekoration",
+            ssdecorationpos: "Dekoration",
+            percentpos: "Sjældenhedsprocent",
+            sspercentpos: "Sjældenhedsprocent",
+            percentbadge: "Procentbadge",
+            sspercentbadge: "Procentbadge",
+            percentbadgepos: "Badgeposition",
+            sspercentbadgepos: "Badgeposition",
+            percentbadgecolor: "Badgefarve",
+            sspercentbadgecolor: "Badgefarve",
+            percentbadgefontsize: "Badgestørrelse",
+            sspercentbadgefontsize: "Badgestørrelse",
+            percentbadgeroundness: "Badgeafrunde",
+            sspercentbadgeroundness: "Badgeafrunde",
+            percentbadgex: "Horisontal forskydning",
+            sspercentbadgex: "Horisontal forskydning",
+            percentbadgey: "Vertikal forskydning",
+            sspercentbadgey: "Vertikal forskydning",
+            percentbadgeimg: "Brug ikon",
+            sspercentbadgeimg: "Brug ikon",
+            percentbadgeimgbronze: "Sjældenhed: > 50%",
+            sspercentbadgeimgbronze: "Sjældenhed: > 50%",
+            percentbadgeimgsilver: "Sjældenhed: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Sjældenhed: < 50% & > $rarity%",
+            percentbadgeimggold: "Sjældenhed: < $rarity%",
+            sspercentbadgeimggold: "Sjældenhed: < $rarity%",
+            resetpbimgs: "Nulstil badge-ikoner",
+            elemsmatch: "Matcher tilpasserens indstillinger"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Tilføj et spils <span class="hl">AppID</span> for automatisk at skifte <span class="hl">Temaer</span>, når det opdages`,
+                `Ethvert gemt <span class="hl">Tema</span> kan vælges for hver meddelelsestype sammen med den ønskede skærm, der skal bruges som <span class="hl">Skærmbilledkilde</span>`,
+                `<span class="hl" id="appidhelp"><u>Hvordan finder jeg AppID for et Steam-spil?</u></span>`
+            ],
+            "themeswitchnew": "Ny automatisk skift",
+            "themeswitchnewsub": [
+                `Indtast spillets <span class="hl">AppID</span> sammen med den ønskede skærm, der skal bruges som <span class="hl">Skærmbilledkilde</span>`,
+                `Vælg hvilket <span class="hl">Tema</span> der skal skiftes til for hver meddelelsestype, når dette spils <span class="hl">AppID</span> opdages`
+            ],
+            "themes": "Temaer",
+            "src": "Skærmbilledkilde"
         }
     }
 }

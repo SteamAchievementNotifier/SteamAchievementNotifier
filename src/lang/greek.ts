@@ -59,32 +59,11 @@ export const translations = {
             `Η <span class="hl">URL</span> της σελίδας του <span class="hl">Καταστήματος</span> του παιχνιδιού - θα είναι το νούμερο που ακολουθεί μετά το <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Ιστότοποι όπως ο <span class="hl">SteamDB</span> - η ενότητα <span class="hl">Πληροφορίες App</span> θα καταχωρίσει το AppID για κάθε παιχνίδι`
         ],
-        elemselector: "Στοιχεία ειδοποιήσεων",
-        unlockmsg: "Μήνυμα Ξεκλειδώματος",
-        title: "Τίτλος Επίτευξης",
-        desc: "Περιγραφή Επίτευξης",
-        hiddeniconpos: "Κρυφό Εικονίδιο",
-        sshiddeniconpos: "Κρυφό Εικονίδιο",
-        decorationpos: "Διακόσμηση",
-        ssdecorationpos: "Διακόσμηση",
-        percentpos: "Ποσοστό Σπανιότητας",
-        sspercentpos: "Ποσοστό Σπανιότητας",
         noexe: "Δεν βρέθηκε το EXE του παιχνιδιού!",
         noexesub: `Επιλέξτε Επιλογές > Απελευθερώστε το παιχνίδι από την περιοχή ειδοποιήσεων για να κλείσετε`,
         webhookunlockmsg: "$user ξεκλείδωσε ένα επίτευγμα",
         webhookingame: "στο $gamename",
-        percentbadge: "Ετικέτα Ποσοστού",
-        sspercentbadge: "Ετικέτα Ποσοστού",
-        percentbadgepos: "Θέση Ετικέτας",
-        sspercentbadgepos: "Θέση Ετικέτας",
-        percentbadgecolor: "Χρώμα Ετικέτας",
-        sspercentbadgecolor: "Χρώμα Ετικέτας",
-        percentbadgefontsize: "Μέγεθος Ετικέτας",
-        sspercentbadgefontsize: "Μέγεθος Ετικέτας",
-        percentbadgeroundness: "Στρογγυλότητα Ετικέτας",
-        sspercentbadgeroundness: "Στρογγυλότητα Ετικέτας",
-        top: "Επάνω",
-        bottom: "Κάτω"
+        notconnected: "Δεν είναι συνδεδεμένο"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Παιχνίδια",
             content: {
                 linkedgames: "Συνδεδεμένα παιχνίδια",
+                themeswitch: "Αυτόματος αλλαγή θεμάτων",
                 exclusionlist: "Λίστα αποκλεισμού"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Απενεργοποίηση κινήσεων παραθύρου εφαρμογής",
                 noupdatedialog: "Απενεργοποίηση διαλόγου ενημέρωσης",
                 nvda: "Ενεργοποίηση υποστήριξης NVDA",
-                tooltips: "Εμφάνιση εργαλειοθηκών"
+                tooltips: "Εμφάνιση εργαλειοθηκών",
+                showsystrayopts: "Εμφάνιση επιλογών συστήματος"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Παρουσιάστηκε σφάλμα κατά την προσπάθεια εξαγωγής του επιλεγμένου θέματος",
                     `Δοκιμάστε να αποθηκεύσετε το τρέχον θέμα (<i>μέσω <span class="hl">Αποθήκευση Θέματος</span></i>) και δοκιμάστε να εξάγετε ξανά`,
                     `Αν το πρόβλημα συνεχίζεται, παρακαλώ αντιγράψτε το σφάλμα παρακάτω και αναφέρετε μέσω των κουμπιών συνδέσμου στην <span class="hl">Αρχική Οθόνη</span>`
-                ]
+                ],
+                synctheme: "Συγχρονισμός θέματος",
+                syncedwith: "Συγχρονισμένο με"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Αποθήκευση όλων των προσαρμοσμένων επιλογών προσαρμογής ως νέο θέμα",
         visibilitybtn: "Εναλλαγή της ορατότητας του στοιχείου σε προεπισκοπήσεις προσαρμογέα και δοκιμαστικές ειδοποιήσεις",
         delbtn: "Επαναφορά του στοιχείου στην προεπιλογή",
-        link: `Ανοίξτε <span class="hl">Μενού Διαχείρισης Συνδεδεμένων Παιχνιδιών</span>`,
         imgpath: "Η τοποθεσία όπου θα αποθηκευτούν οι εικόνες ειδοποιήσεων που δημιουργήθηκαν από αυτήν την επιλογή",
+        checkforupdates: `Ελέγξτε εάν έχει κυκλοφορήσει νέα έκδοση της εφαρμογής στο GitHub. Αν υπάρχει διαθέσιμη ενημέρωση, θα κατεβεί και θα εγκατασταθεί αυτόματα μόλις επιβεβαιωθεί μέσω του παραθύρου διαλόγου <span class="hl">Διαθέσιμη Ενημέρωση</span>`,
         linkedgames: `Παράκαμψη της <span class="hl">αυτόματης παρακολούθησης διεργασιών</span> για συγκεκριμένα παιχνίδια Steam<br><br><span class="ttdesc">Αυτή η επιλογή πρέπει να χρησιμοποιείται μόνο σε πολύ συγκεκριμένες περιπτώσεις. Οι χρήστες δεν θα πρέπει να χρειάζεται να χρησιμοποιούν αυτή την επιλογή υπό κανονικές συνθήκες!</span>`,
         exclusionlist: `Αποτροπή του παρακολούθησης επιτευγμάτων σε συγκεκριμένα παιχνίδια Steam από την εφαρμογή<br><br><span class="ttdesc">Αυτή η επιλογή πρέπει να χρησιμοποιείται μόνο σε πολύ συγκεκριμένες περιπτώσεις. Οι χρήστες δεν θα πρέπει να χρειάζεται να χρησιμοποιούν αυτή την επιλογή υπό κανονικές συνθήκες!</span>`,
         ovx: "Μετακινήστε την ειδοποίηση που εμφανίζεται στο στιγμιότυπο οθόνης οριζόντια",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Ρύθμιση του μεγέθους της ετικέτας",
         sspercentbadgefontsize: "Ρύθμιση του μεγέθους της ετικέτας",
         percentbadgeroundness: "Ρύθμιση της στρογγυλότητας της ετικέτας",
-        sspercentbadgeroundness: "Ρύθμιση της στρογγυλότητας της ετικέτας"
+        sspercentbadgeroundness: "Ρύθμιση της στρογγυλότητας της ετικέτας",
+        percentbadgex: "Μετατόπιση της θέσης του στοιχείου badge οριζόντια",
+        sspercentbadgex: "Μετατόπιση της θέσης του στοιχείου badge οριζόντια",
+        percentbadgey: "Μετατόπιση της θέσης του στοιχείου badge κάθετα",
+        sspercentbadgey: "Μετατόπιση της θέσης του στοιχείου badge κάθετα",
+        percentbadgeimg: "Εμφάνιση εικονιδίου βάσει σπανιότητας ως στοιχείο badge",
+        sspercentbadgeimg: "Εμφάνιση εικονιδίου βάσει σπανιότητας ως στοιχείο badge",
+        percentbadgeimgbronze: "Το εικονίδιο badge που θα εμφανιστεί όταν το ποσοστό ξεκλειδώματος είναι > 50%",
+        sspercentbadgeimgbronze: "Το εικονίδιο badge που εμφανίζεται όταν το ποσοστό ξεκλειδώματος είναι > 50%",
+        percentbadgeimgsilver: "Το εικονίδιο badge που εμφανίζεται όταν το ποσοστό ξεκλειδώματος είναι < 50% και > $rarity",
+        sspercentbadgeimgsilver: "Το εικονίδιο badge που εμφανίζεται όταν το ποσοστό ξεκλειδώματος είναι < 50% και > $rarity",
+        percentbadgeimggold: "Το εικονίδιο badge που εμφανίζεται όταν το ποσοστό ξεκλειδώματος είναι < $rarity",
+        sspercentbadgeimggold: "Το εικονίδιο badge που εμφανίζεται όταν το ποσοστό ξεκλειδώματος είναι < $rarity",
+        resetpbimgs: "Επαναφορά όλων των εικονιδίων badge στις προεπιλογές",
+        elemsmatch: `Ταίριασμα με τις ρυθμίσεις στοιχείων ειδοποίησης που ορίζονται στον Customiser για αυτόν τον τύπο ειδοποίησης<br><br><span class="ttdesc">Ορισμένα προεπιλεγμένα προγράμματα ειδοποίησης δεν μπορούν να ταιριάξουν πλήρως τις ρυθμίσεις του Customiser, λόγω διαφορών μεταξύ των ρυθμίσεων ειδοποίησης που βασίζονται στην οθόνη και στη λήψη οθόνης</span>`,
+        themeswitch: `Αυτόματη εναλλαγή σε οποιοδήποτε αποθηκευμένο <span class="hl">Θέμα</span> όταν ανιχνευτεί συγκεκριμένο παιχνίδι`,
+        userthemesync: `Συγχρονισμός προσαρμογών στο επιλεγμένο <span class="hl">Θέμα</span> σε όλους τους άλλους τύπους ειδοποιήσεων`,
+        showsystrayopts: `Εμφάνιση όλων των επιλογών που συνήθως βρίσκονται κάτω από <span class="hl">System Tray</span> > <span class="hl">Options</span> στις <span class="hl">Ρυθμίσεις</span> > <span class="hl">Διάφορα</span>`
     },
     update: {
         updateavailable: "Διαθέσιμη ενημέρωση",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Εισαγάγετε την <span class="hl">AppID</span> για προσθήκη στη <span class="hl">λίστα αποκλεισμού</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Στοιχεία ειδοποιήσεων",
+        content: {
+            unlockmsg: "Μήνυμα Ξεκλειδώματος",
+            title: "Τίτλος Επίτευξης",
+            desc: "Περιγραφή Επίτευξης",
+            hiddeniconpos: "Κρυφό Εικονίδιο",
+            sshiddeniconpos: "Κρυφό Εικονίδιο",
+            decorationpos: "Διακόσμηση",
+            ssdecorationpos: "Διακόσμηση",
+            percentpos: "Ποσοστό Σπανιότητας",
+            sspercentpos: "Ποσοστό Σπανιότητας",
+            percentbadge: "Ετικέτα Ποσοστού",
+            sspercentbadge: "Ετικέτα Ποσοστού",
+            percentbadgepos: "Θέση Ετικέτας",
+            sspercentbadgepos: "Θέση Ετικέτας",
+            percentbadgecolor: "Χρώμα Ετικέτας",
+            sspercentbadgecolor: "Χρώμα Ετικέτας",
+            percentbadgefontsize: "Μέγεθος Ετικέτας",
+            sspercentbadgefontsize: "Μέγεθος Ετικέτας",
+            percentbadgeroundness: "Στρογγυλότητα Ετικέτας",
+            sspercentbadgeroundness: "Στρογγυλότητα Ετικέτας",
+            percentbadgex: "Οριζόντια Μετατόπιση",
+            sspercentbadgex: "Οριζόντια Μετατόπιση",
+            percentbadgey: "Κάθετη Μετατόπιση",
+            sspercentbadgey: "Κάθετη Μετατόπιση",
+            percentbadgeimg: "Χρήση Εικονιδίου",
+            sspercentbadgeimg: "Χρήση Εικονιδίου",
+            percentbadgeimgbronze: "Σπανιότητα: > 50%",
+            sspercentbadgeimgbronze: "Σπανιότητα: > 50%",
+            percentbadgeimgsilver: "Σπανιότητα: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Σπανιότητα: < 50% & > $rarity%",
+            percentbadgeimggold: "Σπανιότητα: < $rarity%",
+            sspercentbadgeimggold: "Σπανιότητα: < $rarity%",
+            resetpbimgs: "Επαναφορά Εικονιδίων Badge",
+            elemsmatch: "Ταίριασμα με τις Ρυθμίσεις του Customiser"     
+        },
+        themeswitch: {
+            content: {
+                "managesub": [
+                    `Προσθέστε την <span class="hl">AppID</span> οποιουδήποτε παιχνιδιού για να αλλάξετε αυτόματα <span class="hl">Θέματα</span> όταν ανιχνευτεί`,
+                    `Οποιοδήποτε αποθηκευμένο <span class="hl">Θέμα</span> μπορεί να επιλεγεί για κάθε τύπο ειδοποίησης, μαζί με τον επιθυμητό υπολογιστή για να χρησιμοποιηθεί ως <span class="hl">Πηγή Στιγμιότυπου</span>`,
+                    `<span class="hl" id="appidhelp"><u>Πώς μπορώ να βρω την AppID ενός παιχνιδιού στο Steam;</u></span>`
+                ],
+                "themeswitchnew": "Νέος Αυτόματος Αλλαγής",
+                "themeswitchnewsub": [
+                    `Εισαγάγετε την <span class="hl">AppID</span> του παιχνιδιού, μαζί με τον επιθυμητό υπολογιστή για να χρησιμοποιηθεί ως <span class="hl">Πηγή Στιγμιότυπου</span>`,
+                    `Επιλέξτε ποιο <span class="hl">Θέμα</span> να αλλάξει για κάθε τύπο ειδοποίησης όταν ανιχνευτεί η <span class="hl">AppID</span> αυτού του παιχνιδιού`
+                ],
+                "themes": "Θέματα",
+                "src": "Πηγή Στιγμιότυπου"
+            }
         }
     }
 }

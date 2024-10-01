@@ -59,32 +59,11 @@ export const translations = {
             `URL сторінки <span class="hl">магазину</span> гри - це буде номер, вказаний після <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Веб-сайти, такі як <span class="hl">SteamDB</span> - розділ <span class="hl">Інформація про Додаток</span> буде перелічувати AppID для кожної гри`
         ],
-        elemselector: "Елементи сповіщення",
-        unlockmsg: "Повідомлення про розблокування",
-        title: "Назва досягнення",
-        desc: "Опис досягнення",
-        hiddeniconpos: "Схований значок",
-        sshiddeniconpos: "Схований значок",
-        decorationpos: "Оздоблення",
-        ssdecorationpos: "Оздоблення",
-        percentpos: "Відсоток рідкісності",
-        sspercentpos: "Відсоток рідкісності",
         noexe: "Файл EXE гри не знайдено!",
         noexesub: `Виберіть Опції > Вийти з гри з системного лотка`,
         webhookunlockmsg: "$user розблокував досягнення",
         webhookingame: "в $gamename",
-        percentbadge: "Відсотковий значок",
-        sspercentbadge: "Відсотковий значок",
-        percentbadgepos: "Позиція значка",
-        sspercentbadgepos: "Позиція значка",
-        percentbadgecolor: "Колір значка",
-        sspercentbadgecolor: "Колір значка",
-        percentbadgefontsize: "Розмір значка",
-        sspercentbadgefontsize: "Розмір значка",
-        percentbadgeroundness: "Округленість значка",
-        sspercentbadgeroundness: "Округленість значка",
-        top: "Вгорі",
-        bottom: "Внизу"
+        notconnected: "Не підключено"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Ігри",
             content: {
                 linkedgames: "Пов’язані ігри",
+                themeswitch: "Автоматично перемикати теми",
                 exclusionlist: "Список виключень"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Вимкнути анімацію вікна додатка",
                 noupdatedialog: "Вимкнути діалогове вікно оновлення",
                 nvda: "Увімкнути підтримку NVDA",
-                tooltips: "Показати підказки"
+                tooltips: "Показати підказки",
+                showsystrayopts: "Показати параметри системного лотка"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Виникла помилка під час спроби експорту вибраної теми",
                     `Спробуйте зберегти поточну тему (<i>через <span class="hl">Зберегти тему</span></i>) і спробуйте експортувати знову`,
                     `Якщо проблема не зникне, будь ласка, скопіюйте помилку нижче та повідомте про неї через кнопки посилання на <span class="hl">Головному екрані</span>`
-                ]     
+                ],
+                synctheme: "Синхронізація теми",
+                syncedwith: "Синхронізовано з"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Зберегти всі налаштовані параметри налаштування як нову тему",
         visibilitybtn: "Перемикання видимості елемента в персоналізованих переглядах та тестових сповіщеннях",
         delbtn: "Скидання елемента до значення за замовчуванням",
-        link: `Відкрити <span class="hl">Меню управління пов’язаними іграми</span>`,
         imgpath: "Місце, де будуть збережені зображення сповіщень, згенеровані цією опцією",
+        checkforupdates: `Перевірте, чи була випущена нова версія програми на GitHub. Якщо оновлення доступне, воно буде автоматично завантажене та встановлене після підтвердження через діалогове вікно <span class="hl">Оновлення доступне</span>`,
         linkedgames: `Обійти <span class="hl">автоматичне відстеження процесів</span> для конкретних ігор Steam<br><br><span class="ttdesc">Ця опція повинна використовуватися лише у дуже конкретних сценаріях. Користувачі не повинні потребувати використання цієї опції в звичайних обставинах!</span>`,
         exclusionlist: `Запобігти відстеженню досягнень в конкретних іграх Steam за допомогою додатку<br><br><span class="ttdesc">Ця опція повинна використовуватися лише у дуже конкретних сценаріях. Користувачі не повинні потребувати використання цієї опції в звичайних обставинах!</span>`,
         ovx: "Горизонтальне зміщення сповіщення, відображеного на знімку екрану",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Встановити розмір значка",
         sspercentbadgefontsize: "Встановити розмір значка",
         percentbadgeroundness: "Встановити округленість значка",
-        sspercentbadgeroundness: "Встановити округленість значка"
+        sspercentbadgeroundness: "Встановити округленість значка",
+        percentbadgex: "Змістити положення елемента значка по горизонталі",
+        sspercentbadgex: "Змістити положення елемента значка по горизонталі",
+        percentbadgey: "Змістити положення елемента значка по вертикалі",
+        sspercentbadgey: "Змістити положення елемента значка по вертикалі",
+        percentbadgeimg: "Відобразити значок на основі рідкості як елемент значка",
+        sspercentbadgeimg: "Відобразити значок на основі рідкості як елемент значка",
+        percentbadgeimgbronze: "Значок, який буде відображено, коли відсоток розблокування > 50%",
+        sspercentbadgeimgbronze: "Значок, який відображається, коли відсоток розблокування > 50%",
+        percentbadgeimgsilver: "Значок, який відображається, коли відсоток розблокування < 50% і > $rarity",
+        sspercentbadgeimgsilver: "Значок, який відображається, коли відсоток розблокування < 50% і > $rarity",
+        percentbadgeimggold: "Значок, який відображається, коли відсоток розблокування < $rarity",
+        sspercentbadgeimggold: "Значок, який відображається, коли відсоток розблокування < $rarity",
+        resetpbimgs: "Скинути всі значки до значень за замовчуванням",
+        elemsmatch: `Відповідає налаштуванням елементів сповіщень, встановленим у Налаштувальнику для цього типу сповіщення<br><br><span class="ttdesc">Деякі попередньо налаштовані сповіщення не можуть повністю відповідати налаштуванням Налаштувальника через відмінності між сповіщеннями на екрані та на основі скріншотів</span>`,
+        themeswitch: `Автоматично переключитися на будь-яку збережену <span class="hl">Тему</span> при виявленні певної гри`,
+        userthemesync: `Синхронізувати налаштування в обраній <span class="hl">Темі</span> з усіма іншими типами сповіщень`,
+        showsystrayopts: `Відобразити всі параметри, які зазвичай знаходяться під <span class="hl">Системний Лоток</span> > <span class="hl">Параметри</span> у <span class="hl">Налаштуваннях</span> > <span class="hl">Інше.</span>`
     },
     update: {
         updateavailable: "Доступне оновлення",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Введіть <span class="hl">AppID</span>, щоб додати до <span class="hl">Списку виключень</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Елементи сповіщення",
+        content: {
+            unlockmsg: "Повідомлення про розблокування",
+            title: "Назва досягнення",
+            desc: "Опис досягнення",
+            hiddeniconpos: "Схований значок",
+            sshiddeniconpos: "Схований значок",
+            decorationpos: "Оздоблення",
+            ssdecorationpos: "Оздоблення",
+            percentpos: "Відсоток рідкісності",
+            sspercentpos: "Відсоток рідкісності",
+            percentbadge: "Відсотковий значок",
+            sspercentbadge: "Відсотковий значок",
+            percentbadgepos: "Позиція значка",
+            sspercentbadgepos: "Позиція значка",
+            percentbadgecolor: "Колір значка",
+            sspercentbadgecolor: "Колір значка",
+            percentbadgefontsize: "Розмір значка",
+            sspercentbadgefontsize: "Розмір значка",
+            percentbadgeroundness: "Округленість значка",
+            sspercentbadgeroundness: "Округленість значка",
+            percentbadgex: "Горизонтальне зміщення",
+            sspercentbadgex: "Горизонтальне зміщення",
+            percentbadgey: "Вертикальне зміщення",
+            sspercentbadgey: "Вертикальне зміщення",
+            percentbadgeimg: "Використовувати значок",
+            sspercentbadgeimg: "Використовувати значок",
+            percentbadgeimgbronze: "Рідкість: > 50%",
+            sspercentbadgeimgbronze: "Рідкість: > 50%",
+            percentbadgeimgsilver: "Рідкість: < 50% і > $rarity%",
+            sspercentbadgeimgsilver: "Рідкість: < 50% і > $rarity%",
+            percentbadgeimggold: "Рідкість: < $rarity%",
+            sspercentbadgeimggold: "Рідкість: < $rarity%",
+            resetpbimgs: "Скинути значки",
+            elemsmatch: "Відповідність налаштуванням Налаштувальника"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Додайте <span class="hl">AppID</span> будь-якої гри, щоб автоматично перемикати <span class="hl">Темы</span> при виявленні`,
+                `Для кожного типу сповіщення можна вибрати будь-яку збережену <span class="hl">Тему</span>, а також бажаний монітор, який буде використовуватися як <span class="hl">Джерело Скріншоту</span>`,
+                `<span class="hl" id="appidhelp"><u>Як знайти AppID гри Steam?</u></span>`
+            ],
+            "themeswitchnew": "Нова автоматична зміна",
+            "themeswitchnewsub": [
+                `Введіть <span class="hl">AppID</span> гри разом із бажаним монітором, який буде використовуватися як <span class="hl">Джерело Скріншоту</span>`,
+                `Виберіть, на яку <span class="hl">Тему</span> перемикатися для кожного типу сповіщення, коли виявлено <span class="hl">AppID</span> цієї гри`
+            ],
+            "themes": "Темы",
+            "src": "Джерело Скріншоту"
         }
     }
 }

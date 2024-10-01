@@ -59,32 +59,11 @@ export const translations = {
             `URL do <span class="hl">strony sklepu</span> gry - będzie to liczba wymieniona po <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Strony internetowe takie jak <span class="hl">SteamDB</span> - sekcja <span class="hl">Informacje o aplikacji</span> wylistuje AppID dla każdej gry`
         ],
-        elemselector: "Elementy powiadomień",
-        unlockmsg: "Wiadomość odblokowania",
-        title: "Tytuł osiągnięcia",
-        desc: "Opis osiągnięcia",
-        hiddeniconpos: "Ukryta ikona",
-        sshiddeniconpos: "Ukryta ikona",
-        decorationpos: "Dekoracja",
-        ssdecorationpos: "Dekoracja",
-        percentpos: "Procent rzadkości",
-        sspercentpos: "Procent rzadkości",
         noexe: "Nie znaleziono pliku EXE gry!",
         noexesub: `Wybierz Opcje > Zakończ grę z Paska zadań, aby zamknąć`,
         webhookunlockmsg: "$user odblokował osiągnięcie",
         webhookingame: "w $gamename",
-        percentbadge: "Odznaka procentowa",
-        sspercentbadge: "Odznaka procentowa",
-        percentbadgepos: "Pozycja odznaki",
-        sspercentbadgepos: "Pozycja odznaki",
-        percentbadgecolor: "Kolor odznaki",
-        sspercentbadgecolor: "Kolor odznaki",
-        percentbadgefontsize: "Rozmiar odznaki",
-        sspercentbadgefontsize: "Rozmiar odznaki",
-        percentbadgeroundness: "Zaokrąglenie odznaki",
-        sspercentbadgeroundness: "Zaokrąglenie odznaki",
-        top: "Góra",
-        bottom: "Dół"
+        notconnected: "Niepołączony"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Gry",
             content: {
                 linkedgames: "Połączone gry",
+                themeswitch: "Automatyczna zmiana motywów",
                 exclusionlist: "Lista wyłączeń"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Wyłącz animacje okna aplikacji",
                 noupdatedialog: "Wyłącz okno aktualizacji",
                 nvda: "Włącz obsługę NVDA",
-                tooltips: "Pokaż etykiety narzędzi"
+                tooltips: "Pokaż etykiety narzędzi",
+                showsystrayopts: "Pokaż opcje w zasobniku systemowym"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Wystąpił błąd podczas próby eksportu wybranego motywu",
                     `Spróbuj zapisać bieżący motyw (<i>poprzez <span class="hl">Zapisz motyw</span></i>) i spróbuj ponownie eksportować`,
                     `Jeśli problem nadal występuje, skopiuj poniższy błąd i zgłoś go za pomocą przycisków linków na <span class="hl">Ekranie głównym</span>`
-                ]
+                ],
+                synctheme: "Synchronizuj motyw",
+                syncedwith: "Synchronizowane z"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Zapisz wszystkie skonfigurowane opcje dostosowania jako nowy motyw",
         visibilitybtn: "Przełącz widoczność elementu w niestandardowych podglądach i testowych powiadomieniach",
         delbtn: "Zresetuj element do domyślnej wartości",
-        link: `Otwórz <span class="hl">Menu Zarządzania Połączonymi Grami</span>`,
         imgpath: "Lokalizacja, w której będą przechowywane obrazy powiadomień generowane przez tę opcję",
+        checkforupdates: `Sprawdź, czy na GitHubie została wydana nowa wersja aplikacji. Jeśli aktualizacja jest dostępna, zostanie automatycznie pobrana i zainstalowana po potwierdzeniu w oknie dialogowym <span class="hl">Aktualizacja dostępna</span>`,
         linkedgames: `Ominięcie <span class="hl">automatycznego śledzenia procesów</span> dla konkretnych gier na platformie Steam<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`,
         exclusionlist: `Zapobieganie śledzeniu osiągnięć w konkretnych grach na platformie Steam przez aplikację<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`,
         ovx: "Przesuń powiadomienie wyświetlane na zrzucie ekranu poziomo",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Ustaw rozmiar odznaki",
         sspercentbadgefontsize: "Ustaw rozmiar odznaki",
         percentbadgeroundness: "Ustaw zaokrąglenie odznaki",
-        sspercentbadgeroundness: "Ustaw zaokrąglenie odznaki"
+        sspercentbadgeroundness: "Ustaw zaokrąglenie odznaki",
+        percentbadgex: "Przesuń pozycję elementu odznaki w poziomie",
+        sspercentbadgex: "Przesuń pozycję elementu odznaki w poziomie",
+        percentbadgey: "Przesuń pozycję elementu odznaki w pionie",
+        sspercentbadgey: "Przesuń pozycję elementu odznaki w pionie",
+        percentbadgeimg: "Wyświetl ikonę opartą na rzadkości jako element odznaki",
+        sspercentbadgeimg: "Wyświetl ikonę opartą na rzadkości jako element odznaki",
+        percentbadgeimgbronze: "Ikona odznaki, która ma być wyświetlana, gdy procent odblokowania jest > 50%",
+        sspercentbadgeimgbronze: "Ikona odznaki wyświetlana, gdy procent odblokowania jest > 50%",
+        percentbadgeimgsilver: "Ikona odznaki wyświetlana, gdy procent odblokowania jest < 50% i > $rarity",
+        sspercentbadgeimgsilver: "Ikona odznaki wyświetlana, gdy procent odblokowania jest < 50% i > $rarity",
+        percentbadgeimggold: "Ikona odznaki wyświetlana, gdy procent odblokowania jest < $rarity",
+        sspercentbadgeimggold: "Ikona odznaki wyświetlana, gdy procent odblokowania jest < $rarity",
+        resetpbimgs: "Przywróć wszystkie ikony odznak do domyślnych",
+        elemsmatch: `Dopasuj ustawienia elementów powiadomienia ustawione w dostosowywaczu dla tego typu powiadomienia<br><br><span class="ttdesc">Niektóre domyślne powiadomienia mogą nie być w stanie w pełni dopasować ustawień dostosowywacza z powodu różnic między układami powiadomień opartymi na ekranie i zrzutach ekranu</span>`,
+        themeswitch: `Automatycznie przełączaj się na dowolny zapisany <span class="hl">motyw</span>, gdy wykryte jest konkretne gra`,
+        userthemesync: `Synchronizuj dostosowania w wybranym <span class="hl">motywie</span> dla wszystkich innych typów powiadomień`,
+        showsystrayopts: `Wyświetl wszystkie opcje zazwyczaj znajdujące się w <span class="hl">Zasobniku systemowym</span> > <span class="hl">Opcje</span> w <span class="hl">Ustawieniach</span> > <span class="hl">Różne</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Wpisz <span class="hl">AppID</span>, aby dodać go do <span class="hl">listy wyłączeń</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Elementy powiadomień",
+        content: {
+            unlockmsg: "Wiadomość odblokowania",
+            title: "Tytuł osiągnięcia",
+            desc: "Opis osiągnięcia",
+            hiddeniconpos: "Ukryta ikona",
+            sshiddeniconpos: "Ukryta ikona",
+            decorationpos: "Dekoracja",
+            ssdecorationpos: "Dekoracja",
+            percentpos: "Procent rzadkości",
+            sspercentpos: "Procent rzadkości",
+            percentbadge: "Odznaka procentowa",
+            sspercentbadge: "Odznaka procentowa",
+            percentbadgepos: "Pozycja odznaki",
+            sspercentbadgepos: "Pozycja odznaki",
+            percentbadgecolor: "Kolor odznaki",
+            sspercentbadgecolor: "Kolor odznaki",
+            percentbadgefontsize: "Rozmiar odznaki",
+            sspercentbadgefontsize: "Rozmiar odznaki",
+            percentbadgeroundness: "Zaokrąglenie odznaki",
+            sspercentbadgeroundness: "Zaokrąglenie odznaki",    
+            percentbadgex: "Poziomy przesunięcie",
+            sspercentbadgex: "Poziomy przesunięcie",
+            percentbadgey: "Pionowe przesunięcie",
+            sspercentbadgey: "Pionowe przesunięcie",
+            percentbadgeimg: "Użyj ikony",
+            sspercentbadgeimg: "Użyj ikony",
+            percentbadgeimgbronze: "Rzadkość: > 50%",
+            sspercentbadgeimgbronze: "Rzadkość: > 50%",
+            percentbadgeimgsilver: "Rzadkość: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Rzadkość: < 50% & > $rarity%",
+            percentbadgeimggold: "Rzadkość: < $rarity%",
+            sspercentbadgeimggold: "Rzadkość: < $rarity%",
+            resetpbimgs: "Przywróć ikony odznak",
+            elemsmatch: "Dopasuj ustawienia dostosowywacza"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Dodaj <span class="hl">AppID</span> dowolnej gry, aby automatycznie przełączać <span class="hl">motywy</span> po wykryciu`,
+                `Dowolny zapisany <span class="hl">motyw</span> można wybrać dla każdego typu powiadomienia, razem z żądaną monitorem, który ma być używany jako <span class="hl">Źródło zrzutu ekranu</span>`,
+                `<span class="hl" id="appidhelp"><u>Jak znaleźć AppID gry na Steamie?</u></span>`
+            ],
+            "themeswitchnew": "Nowe automatyczne przełączanie",
+            "themeswitchnewsub": [
+                `Wprowadź <span class="hl">AppID</span> gry, razem z żądaną monitorem, który ma być używany jako <span class="hl">Źródło zrzutu ekranu</span>`,
+                `Wybierz, który <span class="hl">motyw</span> ma być używany dla każdego typu powiadomienia, gdy AppID tej gry zostanie wykryty`
+            ],
+            "themes": "Motywy",
+            "src": "Źródło zrzutu ekranu"
         }
     }
 }

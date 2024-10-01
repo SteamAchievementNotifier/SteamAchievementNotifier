@@ -169,6 +169,14 @@ dialog[selection] .contentwrapper .contentsub > .rect > span {
     margin-right: 0.25rem;
 }
 
+div:has(> .contentsubitem[nobefore]) {
+    margin-bottom: 1rem;
+}
+
+.contentsubitem[nobefore]::before {
+    content: none;
+}
+
 .wrapper#contentcontainer:has(.wrapper#resetsub) .contenttitle {
     background-color: red;
 }
@@ -707,7 +715,6 @@ div[id^="themeswitchtable"] th:not(:first-child,:last-child),
 div[id^="themeswitchtable"] td:not(:first-child,:last-child) {
     width: fit-content;
     padding: 0;
-    text-align: center;
 }
 
 div[id$="newtablewrapper"] th,

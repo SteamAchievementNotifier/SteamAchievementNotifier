@@ -71,6 +71,18 @@
     pointer-events: none;
 }
 
+body:not([main]) #settingscontent[synced="main"] .wrapper:has(> select#ovpos,> input#ovmatch,> input#ovx,> input#ovy),
+body:not([rare]) #settingscontent[synced="rare"] .wrapper:has(> select#ovpos,> input#ovmatch,> input#ovx,> input#ovy),
+body:not([plat]) #settingscontent[synced="plat"] .wrapper:has(> select#ovpos,> input#ovmatch,> input#ovx,> input#ovy),
+body:not([main]) #settingscontent[synced="main"] .wrapper#elemselector,
+body:not([rare]) #settingscontent[synced="rare"] .wrapper#elemselector,
+body:not([plat]) #settingscontent[synced="plat"] .wrapper#elemselector,
+body:not([main]) #settingscontent[synced="main"] .cont:has(.title#media) > .optcont > .wrapper:has(input#ovx),
+body:not([rare]) #settingscontent[synced="rare"] .cont:has(.title#media) > .optcont > .wrapper:has(input#ovx),
+body:not([plat]) #settingscontent[synced="plat"] .cont:has(.title#media) > .optcont > .wrapper:has(input#ovx) {
+    display: none !important;
+}
+
 .wrapper#elemselector > .wrapper > .wrapper:has(select > option[value="off"]:checked) > select {
     background-color: var(--darkgrey);
 }

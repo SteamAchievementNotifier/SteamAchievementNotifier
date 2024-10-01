@@ -59,32 +59,11 @@ export const translations = {
             `De <span class="hl">URL</span> van de <span class="hl">Winkel pagina</span> van het spel - het zal het nummer zijn dat na <span class="hl">app/</span> wordt vermeld: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Websites zoals <span class="hl">SteamDB</span> - de sectie <span class="hl">App Info</span> zal de AppID voor elk spel vermelden`
         ],
-        elemselector: "Meldingselementen",
-        unlockmsg: "Ontgrendelbericht",
-        title: "Prestatie Titel",
-        desc: "Prestatie Beschrijving",
-        hiddeniconpos: "Verborgen Icoon",
-        sshiddeniconpos: "Verborgen Icoon",
-        decorationpos: "Decoratie",
-        ssdecorationpos: "Decoratie",
-        percentpos: "Zeldzaamheidspercentage",
-        sspercentpos: "Zeldzaamheidspercentage",
         noexe: "Spel-EXE niet gevonden!",
         noexesub: `Selecteer Opties > Spel Ontkoppelen uit de Systeemvak om te afsluiten`,
         webhookunlockmsg: "$user heeft een prestatie ontgrendeld",
         webhookingame: "in $gamename",
-        percentbadge: "Percentage Badge",
-        sspercentbadge: "Percentage Badge",
-        percentbadgepos: "Badgepositie",
-        sspercentbadgepos: "Badgepositie",
-        percentbadgecolor: "Badgekleur",
-        sspercentbadgecolor: "Badgekleur",
-        percentbadgefontsize: "Badgrootte",
-        sspercentbadgefontsize: "Badgrootte",
-        percentbadgeroundness: "Badge-afgerondheid",
-        sspercentbadgeroundness: "Badge-afgerondheid",
-        top: "Boven",
-        bottom: "Onder"
+        notconnected: "Niet verbonden"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Spellen",
             content: {
                 linkedgames: "Gekoppelde spellen",
+                themeswitch: "Automatisch Thema's Wisselen",
                 exclusionlist: "Uitsluitingslijst"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "App-vensteranimaties uitschakelen",
                 noupdatedialog: "Updatevenster uitschakelen",
                 nvda: "NVDA-ondersteuning inschakelen",
-                tooltips: "Tooltips weergeven"
+                tooltips: "Tooltips weergeven",
+                showsystrayopts: "Systeemvakopties Weergeven"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Er is een fout opgetreden bij het proberen het geselecteerde thema te exporteren",
                     `Probeer het huidige thema op te slaan (<i>via <span class="hl">Thema opslaan</span></i>) en probeer opnieuw te exporteren`,
                     `Als het probleem aanhoudt, kopieer dan de fout hieronder en rapporteer deze via de linkknoppen op het <span class="hl">Startscherm</span>`
-                ]        
+                ],  
+                synctheme: "Thema Synchroniseren",
+                syncedwith: "Gesynchroniseerd met"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Sla alle geconfigureerde aanpassingsopties op als een nieuw thema",
         visibilitybtn: "Wijzig de zichtbaarheid van het element in Customiser-voorbeelden en Testmeldingen",
         delbtn: "Stel het element terug naar de standaardwaarde",
-        link: `Open <span class="hl">Beheer Gekoppelde Spellen</span> Menu`,
         imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen",
+        checkforupdates: `Controleer of er een nieuwe app-versie is uitgebracht op GitHub. Als er een update beschikbaar is, wordt deze automatisch gedownload en geïnstalleerd zodra deze is bevestigd via de <span class="hl">Update Beschikbaar</span> dialoog`,
         linkedgames: `Omzeil <span class="hl">automatische procestracking</span> voor specifieke Steam-spellen<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`,
         exclusionlist: `Voorkom dat prestaties in specifieke Steam-spellen door de app worden gevolgd<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`,
         ovx: "Verplaats de melding die op de schermafbeelding wordt weergegeven horizontaal",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Stel de grootte van de badge in",
         sspercentbadgefontsize: "Stel de grootte van de badge in",
         percentbadgeroundness: "Stel de afgerondheid van de badge in",
-        sspercentbadgeroundness: "Stel de afgerondheid van de badge in"
+        sspercentbadgeroundness: "Stel de afgerondheid van de badge in",
+        percentbadgex: "Verplaats de positie van het badge-element horizontaal",
+        sspercentbadgex: "Verplaats de positie van het badge-element horizontaal",
+        percentbadgey: "Verplaats de positie van het badge-element verticaal",
+        sspercentbadgey: "Verplaats de positie van het badge-element verticaal",
+        percentbadgeimg: "Toon een op zeldzaamheid gebaseerd pictogram als badge-element",
+        sspercentbadgeimg: "Toon een op zeldzaamheid gebaseerd pictogram als badge-element",
+        percentbadgeimgbronze: "Het badge-pictogram dat wordt weergegeven wanneer het ontgrendelingspercentage > 50% is",
+        sspercentbadgeimgbronze: "Het badge-pictogram dat wordt weergegeven wanneer het ontgrendelingspercentage > 50% is",
+        percentbadgeimgsilver: "Het badge-pictogram dat wordt weergegeven wanneer het ontgrendelingspercentage < 50% en > $rarity is",
+        sspercentbadgeimgsilver: "Het badge-pictogram dat wordt weergegeven wanneer het ontgrendelingspercentage < 50% en > $rarity is",
+        percentbadgeimggold: "Het badge-pictogram dat wordt weergegeven wanneer het ontgrendelingspercentage < $rarity is",
+        sspercentbadgeimggold: "Het badge-pictogram dat wordt weergegeven wanneer het ontgrendelingspercentage < $rarity is",
+        resetpbimgs: "Alle badge-pictogrammen terugzetten naar standaard",
+        elemsmatch: `Stem de instellingen van de meldingelementen af op die in de Customiser voor dit meldingstype<br><br><span class="ttdesc">Sommige meldingssjablonen kunnen niet volledig overeenkomen met de Customiser-instellingen vanwege verschillen tussen scherm- en schermafbeelding-gebaseerde meldingen</span>`,
+        themeswitch: `Wissel automatisch naar een opgeslagen <span class="hl">Thema</span> wanneer een specifiek spel wordt gedetecteerd`,
+        userthemesync: `Synchroniseer aanpassingen in het geselecteerde <span class="hl">Thema</span> naar alle andere meldingstypen`,
+        showsystrayopts: `Weergeef alle opties die normaal te vinden zijn onder <span class="hl">Systeemvak</span> > <span class="hl">Opties</span> in <span class="hl">Instellingen</span> > <span class="hl">Diversen</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Voer de <span class="hl">AppID</span> in om deze toe te voegen aan de <span class="hl">uitsluitingslijst</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Meldingselementen",
+        content: {
+            unlockmsg: "Ontgrendelbericht",
+            title: "Prestatie Titel",
+            desc: "Prestatie Beschrijving",
+            hiddeniconpos: "Verborgen Icoon",
+            sshiddeniconpos: "Verborgen Icoon",
+            decorationpos: "Decoratie",
+            ssdecorationpos: "Decoratie",
+            percentpos: "Zeldzaamheidspercentage",
+            sspercentpos: "Zeldzaamheidspercentage",
+            percentbadge: "Percentage Badge",
+            sspercentbadge: "Percentage Badge",
+            percentbadgepos: "Badgepositie",
+            sspercentbadgepos: "Badgepositie",
+            percentbadgecolor: "Badgekleur",
+            sspercentbadgecolor: "Badgekleur",
+            percentbadgefontsize: "Badgrootte",
+            sspercentbadgefontsize: "Badgrootte",
+            percentbadgeroundness: "Badge-afgerondheid",
+            sspercentbadgeroundness: "Badge-afgerondheid",
+            percentbadgex: "Horizontale Verplaatsing",
+            sspercentbadgex: "Horizontale Verplaatsing",
+            percentbadgey: "Verticale Verplaatsing",
+            sspercentbadgey: "Verticale Verplaatsing",
+            percentbadgeimg: "Gebruik Pictogram",
+            sspercentbadgeimg: "Gebruik Pictogram",
+            percentbadgeimgbronze: "Zeldzaamheid: > 50%",
+            sspercentbadgeimgbronze: "Zeldzaamheid: > 50%",
+            percentbadgeimgsilver: "Zeldzaamheid: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Zeldzaamheid: < 50% & > $rarity%",
+            percentbadgeimggold: "Zeldzaamheid: < $rarity%",
+            sspercentbadgeimggold: "Zeldzaamheid: < $rarity%",
+            resetpbimgs: "Badge-pictogrammen Terugzetten",
+            elemsmatch: "Customiser-instellingen Overeenstemmen"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Voeg de <span class="hl">AppID</span> van een spel toe om automatisch <span class="hl">Thema's</span> te wisselen wanneer het wordt gedetecteerd`,
+                `Elk opgeslagen <span class="hl">Thema</span> kan worden geselecteerd voor elk meldingstype, samen met de gewenste monitor om te gebruiken als <span class="hl">Schermafbeeldingsbron</span>`,
+                `<span class="hl" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-spel?</u></span>`
+            ],
+            "themeswitchnew": "Nieuwe Automatische Wissel",
+            "themeswitchnewsub": [
+                `Voer de <span class="hl">AppID</span> van het spel in, samen met de gewenste monitor om te gebruiken als <span class="hl">Schermafbeeldingsbron</span>`,
+                `Selecteer welk <span class="hl">Thema</span> moet worden gewisseld voor elk meldingstype wanneer de <span class="hl">AppID</span> van dit spel wordt gedetecteerd`
+            ],
+            "themes": "Thema's",
+            "src": "Schermafbeeldingsbron"
         }
     }
 }

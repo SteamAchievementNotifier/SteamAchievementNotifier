@@ -59,32 +59,11 @@ export const translations = {
             `URL adresa stránky <span class="hl">obchodu</span> s hrou - číslo bude uvedeno za <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Webové stránky jako <span class="hl">SteamDB</span> - sekce <span class="hl">Informace o aplikaci</span> bude seznamovat AppID pro každou hru`
         ],
-        elemselector: "Prvky oznámení",
-        unlockmsg: "Zpráva o odemknutí",
-        title: "Název úspěchu",
-        desc: "Popis úspěchu",
-        hiddeniconpos: "Skrytá ikona",
-        sshiddeniconpos: "Skrytá ikona",
-        decorationpos: "Dekorace",
-        ssdecorationpos: "Dekorace",
-        percentpos: "Procento vzácnosti",
-        sspercentpos: "Procento vzácnosti",
         noexe: "Soubor EXE hry nebyl nalezen!",
         noexesub: `Vyberte Možnosti > Uvolnit hru z hlavního panelu pro ukončení`,
         webhookunlockmsg: "$user odemkl úspěch",
         webhookingame: "ve $gamename",
-        percentbadge: "Procentuální odznak",
-        sspercentbadge: "Procentuální odznak",
-        percentbadgepos: "Pozice odznaku",
-        sspercentbadgepos: "Pozice odznaku",
-        percentbadgecolor: "Barva odznaku",
-        sspercentbadgecolor: "Barva odznaku",
-        percentbadgefontsize: "Velikost odznaku",
-        sspercentbadgefontsize: "Velikost odznaku",
-        percentbadgeroundness: "Zaoblení odznaku",
-        sspercentbadgeroundness: "Zaoblení odznaku",
-        top: "Nahoře",
-        bottom: "Dole"
+        notconnected: "Nepřipojeno"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Hry",
             content: {
                 linkedgames: "Propojené hry",
+                themeswitch: "Automatické přepínání témat",
                 exclusionlist: "Seznam vyloučení"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Vypnout animace okna aplikace",
                 noupdatedialog: "Deaktivovat dialog Aktualizace",
                 nvda: "Povolit podporu NVDA",
-                tooltips: "Zobrazit tooltipy"
+                tooltips: "Zobrazit tooltipy",
+                showsystrayopts: "Zobrazit možnosti systémové lišty"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Při pokusu o export vybraného motivu došlo k chybě",
                     `Zkuste uložit aktuální motiv (<i>pomocí <span class="hl">Uložit motiv</span></i>) a zkuste export znovu`,
                     `Pokud problém přetrvává, zkopírujte chybu níže a nahlaste ji pomocí odkazových tlačítek na <span class="hl">Domovské obrazovce</span>`
-                ]
+                ],
+                synctheme: "Synchronizace tématu",
+                syncedwith: "Synchronizováno s"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Uložit všechny nakonfigurované možnosti přizpůsobení jako nové téma",
         visibilitybtn: "Přepnout viditelnost prvku v náhledech nastavení a testovacích oznámeních",
         delbtn: "Obnovit prvek na výchozí hodnoty",
-        link: `Otevřít <span class="hl">Menu Správy Propojených Her</span>`,
         imgpath: "Místo, kam budou uloženy obrázky oznámení generované touto možností",
+        checkforupdates: `Zkontrolujte, zda byla na GitHubu vydána nová verze aplikace. Pokud je k dispozici aktualizace, bude automaticky stažena a nainstalována po potvrzení v dialogovém okně <span class="hl">Aktualizace k dispozici</span>`,
         linkedgames: `Přeskočit <span class="hl">automatické sledování procesů</span> pro konkrétní hry ve službě Steam<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`,
         exclusionlist: `Zabránit sledování úspěchů v konkrétních hrách ve službě Steam aplikací<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`,
         ovx: "Posunout upozornění zobrazené na snímku obrazovky horizontálně",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Nastavit velikost odznaku",
         sspercentbadgefontsize: "Nastavit velikost odznaku",
         percentbadgeroundness: "Nastavit zaoblení odznaku",
-        sspercentbadgeroundness: "Nastavit zaoblení odznaku"
+        sspercentbadgeroundness: "Nastavit zaoblení odznaku",
+        percentbadgex: "Posun prvku odznaku horizontálně",
+        sspercentbadgex: "Posun prvku odznaku horizontálně",
+        percentbadgey: "Posun prvku odznaku vertikálně",
+        sspercentbadgey: "Posun prvku odznaku vertikálně",
+        percentbadgeimg: "Zobrazit ikonu založenou na vzácnosti jako prvek odznaku",
+        sspercentbadgeimg: "Zobrazit ikonu založenou na vzácnosti jako prvek odznaku",
+        percentbadgeimgbronze: "Ikona odznaku, která se zobrazí, když je procento odemčení > 50%",
+        sspercentbadgeimgbronze: "Ikona odznaku, která se zobrazí, když je procento odemčení > 50%",
+        percentbadgeimgsilver: "Ikona odznaku, která se zobrazí, když je procento odemčení < 50% a > $rarity",
+        sspercentbadgeimgsilver: "Ikona odznaku, která se zobrazí, když je procento odemčení < 50% a > $rarity",
+        percentbadgeimggold: "Ikona odznaku, která se zobrazí, když je procento odemčení < $rarity",
+        sspercentbadgeimggold: "Ikona odznaku, která se zobrazí, když je procento odemčení < $rarity",
+        resetpbimgs: "Obnovit všechny ikony odznaků na výchozí",
+        elemsmatch: `Odpovídá nastavení prvků oznámení zadaných v přizpůsobení pro tento typ oznámení<br><br><span class="ttdesc">Některé přednastavení oznámení nemohou plně odpovídat nastavení přizpůsobení, kvůli rozdílům mezi rozvržením oznámení na obrazovce a oznámením založeným na snímcích obrazovky</span>`,
+        themeswitch: `Automaticky přepněte na jakékoli uložené <span class="hl">Téma</span>, když je detekována určitá hra`,
+        userthemesync: `Synchronizujte přizpůsobení v vybraném <span class="hl">Téma</span> se všemi ostatními typy oznámení`,
+        showsystrayopts: `Zobrazit všechny možnosti obvykle umístěné pod <span class="hl">Systémová lišta</span> > <span class="hl">Možnosti</span> v <span class="hl">Nastavení</span> > <span class="hl">Různé</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Zadejte <span class="hl">AppID</span>, které chcete přidat do <span class="hl">seznamu vyloučení</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Prvky oznámení",
+        content: {
+            unlockmsg: "Zpráva o odemknutí",
+            title: "Název úspěchu",
+            desc: "Popis úspěchu",
+            hiddeniconpos: "Skrytá ikona",
+            sshiddeniconpos: "Skrytá ikona",
+            decorationpos: "Dekorace",
+            ssdecorationpos: "Dekorace",
+            percentpos: "Procento vzácnosti",
+            sspercentpos: "Procento vzácnosti",
+            percentbadge: "Procentuální odznak",
+            sspercentbadge: "Procentuální odznak",
+            percentbadgepos: "Pozice odznaku",
+            sspercentbadgepos: "Pozice odznaku",
+            percentbadgecolor: "Barva odznaku",
+            sspercentbadgecolor: "Barva odznaku",
+            percentbadgefontsize: "Velikost odznaku",
+            sspercentbadgefontsize: "Velikost odznaku",
+            percentbadgeroundness: "Zaoblení odznaku",
+            sspercentbadgeroundness: "Zaoblení odznaku",
+            percentbadgex: "Horizontální posun",
+            sspercentbadgex: "Horizontální posun",
+            percentbadgey: "Vertikální posun",
+            sspercentbadgey: "Vertikální posun",
+            percentbadgeimg: "Použít ikonu",
+            sspercentbadgeimg: "Použít ikonu",
+            percentbadgeimgbronze: "Vzácnost: > 50%",
+            sspercentbadgeimgbronze: "Vzácnost: > 50%",
+            percentbadgeimgsilver: "Vzácnost: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Vzácnost: < 50% & > $rarity%",
+            percentbadgeimggold: "Vzácnost: < $rarity%",
+            sspercentbadgeimggold: "Vzácnost: < $rarity%",
+            resetpbimgs: "Obnovit ikony odznaků",
+            elemsmatch: "Odpovídá nastavení přizpůsobení"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Přidejte jakékoliv <span class="hl">AppID</span> hry pro automatické přepínání <span class="hl">Témat</span>, když je detekována`,
+                `Každé uložené <span class="hl">Téma</span> může být vybráno pro každý typ oznámení, spolu s požadovaným monitorem pro použití jako <span class="hl">Zdroj snímku obrazovky</span>`,
+                `<span class="hl" id="appidhelp"><u>Jak najdu AppID hry ve Steamu?</u></span>`
+            ],
+            "themeswitchnew": "Nové automatické přepínání",
+            "themeswitchnewsub": [
+                `Zadejte <span class="hl">AppID</span> hry, spolu s požadovaným monitorem pro použití jako <span class="hl">Zdroj snímku obrazovky</span>`,
+                `Vyberte, které <span class="hl">Téma</span> se má přepnout pro každý typ oznámení, když je detekováno <span class="hl">AppID</span> této hry`
+            ],
+            "themes": "Témata",
+            "src": "Zdroj snímku obrazovky"
         }
     }
 }

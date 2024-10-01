@@ -59,32 +59,11 @@ export const translations = {
             `Oyunun <span class="hl">Mağaza sayfasının URL</span>'si - <span class="hl">app/</span>'den sonraki listedir: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `<span class="hl">SteamDB</span> gibi web siteleri - <span class="hl">App Bilgisi</span> bölümü her oyun için AppID'yi listeleyecektir`
         ],
-        elemselector: "Bildirim Öğeleri",
-        unlockmsg: "Kilidi Açma Mesajı",
-        title: "Başarı Başlığı",
-        desc: "Başarı Açıklaması",
-        hiddeniconpos: "Gizli İkon",
-        sshiddeniconpos: "Gizli İkon",
-        decorationpos: "Süsleme",
-        ssdecorationpos: "Süsleme",
-        percentpos: "Nadirlik Yüzdesi",
-        sspercentpos: "Nadirlik Yüzdesi",
         noexe: "Oyun EXE dosyası bulunamadı!",
         noexesub: `Çıkmak için Seçenekler > Sistem Tepsisinden Oyunu Kapatı seçin`,
         webhookunlockmsg: "$user bir başarıyı kilidini açtı",
         webhookingame: "$gamename'de",
-        percentbadge: "Yüzde Rozeti",
-        sspercentbadge: "Yüzde Rozeti",
-        percentbadgepos: "Rozet Pozisyonu",
-        sspercentbadgepos: "Rozet Pozisyonu",
-        percentbadgecolor: "Rozet Rengi",
-        sspercentbadgecolor: "Rozet Rengi",
-        percentbadgefontsize: "Rozet Boyutu",
-        sspercentbadgefontsize: "Rozet Boyutu",
-        percentbadgeroundness: "Rozet Kenar Yuvarlaklığı",
-        sspercentbadgeroundness: "Rozet Kenar Yuvarlaklığı",
-        top: "Üst",
-        bottom: "Alt"
+        notconnected: "Bağlantı yok"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Oyunlar",
             content: {
                 linkedgames: "Bağlantılı Oyunlar",
+                themeswitch: "Tema Değişimini Otomatik Yap",
                 exclusionlist: "Dışlama Listesi"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Uygulama Pencere Animasyonlarını Devre Dışı Bırak",
                 noupdatedialog: "Güncelleme İletişim Kutusunu Devre Dışı Bırak",
                 nvda: "NVDA Desteğini Etkinleştir",
-                tooltips: "İpuçlarını Göster"
+                tooltips: "İpuçlarını Göster",
+                showsystrayopts: "Sistem Tepsisi Seçeneklerini Göster"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Seçilen temayı dışa aktarmaya çalışırken bir hata oluştu",
                     `Mevcut temayı kaydetmeyi deneyin (<i><span class="hl">Temayı Kaydet</span></i> aracılığıyla) ve tekrar dışa aktarmayı deneyin`,
                     `Sorun devam ederse, lütfen aşağıdaki hatayı kopyalayın ve <span class="hl">Ana Ekran</span>'daki bağlantı düğmeleri aracılığıyla bildirin`
-                ]       
+                ],
+                synctheme: "Tema Senkronizasyonu",
+                syncedwith: "Şu ile senkronize"    
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Tüm yapılandırılmış özelleştirme seçeneklerini yeni bir Tema olarak kaydedin",
         visibilitybtn: "Özelleştirici önizlemelerinde ve test bildirimlerinde öğenin görünürlüğünü aç/kapat",
         delbtn: "Öğeyi varsayılan değere sıfırla",
-        link: `Aç <span class="hl">Bağlı Oyunları Yönet Menüsü</span>`,
         imgpath: "Bu seçenek tarafından oluşturulan bildirim görüntülerinin kaydedileceği konum",
+        checkforupdates: `GitHub'da yeni bir uygulama sürümünün yayımlanıp yayımlanmadığını kontrol edin. Bir güncelleme mevcutsa, <span class="hl">Güncelleme Mevcut</span> iletişim kutusu aracılığıyla onaylandıktan sonra otomatik olarak indirilecek ve yüklenecektir,`,
         linkedgames: `Belirli Steam oyunları için <span class="hl">otomatik işlem takibini</span> atlayın<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`,
         exclusionlist: `Uygulamanın belirli Steam oyunlarının başarılarını izlemesini engelleyin<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`,
         ovx: "Ekran görüntüsünde gösterilen bildirimi yatay olarak kaydırma",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Rozet boyutunu ayarla",
         sspercentbadgefontsize: "Rozet boyutunu ayarla",
         percentbadgeroundness: "Rozetin kenar yuvarlaklığını ayarla",
-        sspercentbadgeroundness: "Rozetin kenar yuvarlaklığını ayarla"
+        sspercentbadgeroundness: "Rozetin kenar yuvarlaklığını ayarla",
+        percentbadgex: "Rozet öğesinin yatay konumunu kaydır",
+        sspercentbadgex: "Rozet öğesinin yatay konumunu kaydır",
+        percentbadgey: "Rozet öğesinin dikey konumunu kaydır",
+        sspercentbadgey: "Rozet öğesinin dikey konumunu kaydır",
+        percentbadgeimg: "Rozet öğesi olarak nadirlik tabanlı bir simge göster",
+        sspercentbadgeimg: "Rozet öğesi olarak nadirlik tabanlı bir simge göster",
+        percentbadgeimgbronze: "Kilitleme yüzdesi > %50 olduğunda gösterilecek rozet simgesi",
+        sspercentbadgeimgbronze: "Kilitleme yüzdesi > %50 olduğunda gösterilecek rozet simgesi",
+        percentbadgeimgsilver: "Kilitleme yüzdesi < %50 ve > $rarity olduğunda gösterilecek rozet simgesi",
+        sspercentbadgeimgsilver: "Kilitleme yüzdesi < %50 ve > $rarity olduğunda gösterilecek rozet simgesi",
+        percentbadgeimggold: "Kilitleme yüzdesi < $rarity olduğunda gösterilecek rozet simgesi",
+        sspercentbadgeimggold: "Kilitleme yüzdesi < $rarity olduğunda gösterilecek rozet simgesi",
+        resetpbimgs: "Tüm rozet simgelerini varsayılan ayarlara sıfırla",
+        elemsmatch: `Bu bildirim türü için özelleştiricide ayarlanan Bildirim Öğeleri ayarlarıyla eşleşir<br><br><span class="ttdesc">Bazı Bildirim Ön Ayarları, ekran üzerindeki ve ekran görüntüsü tabanlı bildirim düzenleri arasındaki farklılıklar nedeniyle özelleştirici ayarlarıyla tam olarak eşleşemez</span>`,
+        themeswitch: `Belirli bir oyun tespit edildiğinde herhangi bir kaydedilmiş <span class="hl">Temaya</span> otomatik olarak geçiş yap`,
+        userthemesync: `Seçilen <span class="hl">Tema</span> üzerindeki özelleştirmeleri tüm diğer bildirim türlerine senkronize et`,
+        showsystrayopts: `Genellikle <span class="hl">Sistem Tepsisi</span> > <span class="hl">Seçenekler</span> altında yer alan tüm seçenekleri <span class="hl">Ayarlar</span> > <span class="hl">Diğer</span> kısmında göster`
     },
     update: {
         updateavailable: "Güncelleme mevcut",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `<span class="hl">Dışlama Listesi</span>'ne eklemek için bir <span class="hl">AppID</span> girin`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Bildirim Öğeleri",
+        content: {
+            unlockmsg: "Kilidi Açma Mesajı",
+            title: "Başarı Başlığı",
+            desc: "Başarı Açıklaması",
+            hiddeniconpos: "Gizli İkon",
+            sshiddeniconpos: "Gizli İkon",
+            decorationpos: "Süsleme",
+            ssdecorationpos: "Süsleme",
+            percentpos: "Nadirlik Yüzdesi",
+            sspercentpos: "Nadirlik Yüzdesi",
+            percentbadge: "Yüzde Rozeti",
+            sspercentbadge: "Yüzde Rozeti",
+            percentbadgepos: "Rozet Pozisyonu",
+            sspercentbadgepos: "Rozet Pozisyonu",
+            percentbadgecolor: "Rozet Rengi",
+            sspercentbadgecolor: "Rozet Rengi",
+            percentbadgefontsize: "Rozet Boyutu",
+            sspercentbadgefontsize: "Rozet Boyutu",
+            percentbadgeroundness: "Rozet Kenar Yuvarlaklığı",
+            sspercentbadgeroundness: "Rozet Kenar Yuvarlaklığı",
+            percentbadgex: "Yatay Kaydırma",
+            sspercentbadgex: "Yatay Kaydırma",
+            percentbadgey: "Dikey Kaydırma",
+            sspercentbadgey: "Dikey Kaydırma",
+            percentbadgeimg: "Simge Kullan",
+            sspercentbadgeimg: "Simge Kullan",
+            percentbadgeimgbronze: "Nadirlik: > %50",
+            sspercentbadgeimgbronze: "Nadirlik: > %50",
+            percentbadgeimgsilver: "Nadirlik: < %50 & > $rarity%",
+            sspercentbadgeimgsilver: "Nadirlik: < %50 & > $rarity%",
+            percentbadgeimggold: "Nadirlik: < $rarity%",
+            sspercentbadgeimggold: "Nadirlik: < $rarity%",
+            resetpbimgs: "Rozet Simgelerini Sıfırla",
+            elemsmatch: "Özelleştirici Ayarlarıyla Eşleş"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Herhangi bir oyunun <span class="hl">AppID</span>'sini ekleyin, tespit edildiğinde otomatik olarak <span class="hl">Temaları</span> değiştirmek için`,
+                `Her bildirim türü için seçilecek kaydedilmiş <span class="hl">Tema</span> ile birlikte kullanılacak <span class="hl">Ekran Görüntüsü Kaynağı</span> olarak istenen monitör seçilebilir`,
+                `<span class="hl" id="appidhelp"><u>Bir Steam oyununun AppID'sini nasıl bulabilirim?</u></span>`
+            ],
+            "themeswitchnew": "Yeni Otomatik Değişim",
+            "themeswitchnewsub": [
+                `Oyunun <span class="hl">AppID</span>'sini girin, ayrıca kullanılacak monitörü <span class="hl">Ekran Görüntüsü Kaynağı</span> olarak belirtin`,
+                `Bu oyunun <span class="hl">AppID</span>'si tespit edildiğinde her bildirim türü için hangi <span class="hl">Temaya</span> geçileceğini seçin`
+            ],
+            "themes": "Temalar",
+            "src": "Ekran Görüntüsü Kaynağı"
         }
     }
 }

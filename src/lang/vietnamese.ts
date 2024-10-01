@@ -59,32 +59,11 @@ export const translations = {
             `URL của trang <span class="hl">Cửa hàng</span> của trò chơi - nó sẽ là số được liệt kê sau <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Các trang web như <span class="hl">SteamDB</span> - phần <span class="hl">Thông tin Ứng dụng</span> sẽ liệt kê AppID cho mỗi trò chơi`
         ],
-        elemselector: "Các yếu tố thông báo",
-        unlockmsg: "Thông báo mở khóa",
-        title: "Tiêu đề thành tựu",
-        desc: "Mô tả thành tựu",
-        hiddeniconpos: "Biểu tượng ẩn",
-        sshiddeniconpos: "Biểu tượng ẩn",
-        decorationpos: "Trang trí",
-        ssdecorationpos: "Trang trí",
-        percentpos: "Tỷ lệ hiếm có",
-        sspercentpos: "Tỷ lệ hiếm có",
         noexe: "Không tìm thấy tệp EXE của trò chơi!",
         noexesub: `Chọn Tùy chọn > Thoát trò chơi từ khay hệ thống để thoát`,
         webhookunlockmsg: "$user đã mở khóa một thành tựu",
         webhookingame: "trong $gamename",
-        percentbadge: "Huy hiệu Phần trăm",
-        sspercentbadge: "Huy hiệu Phần trăm",
-        percentbadgepos: "Vị trí Huy hiệu",
-        sspercentbadgepos: "Vị trí Huy hiệu",
-        percentbadgecolor: "Màu Huy hiệu",
-        sspercentbadgecolor: "Màu Huy hiệu",
-        percentbadgefontsize: "Kích thước Huy hiệu",
-        sspercentbadgefontsize: "Kích thước Huy hiệu",
-        percentbadgeroundness: "Độ Bo của Huy hiệu",
-        sspercentbadgeroundness: "Độ Bo của Huy hiệu",
-        top: "Trên",
-        bottom: "Dưới"
+        notconnected: "Chưa kết nối"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Trò chơi",
             content: {
                 linkedgames: "Trò chơi Liên kết",
+                themeswitch: "Tự động chuyển đổi chủ đề",
                 exclusionlist: "Danh sách Loại trừ"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Vô hiệu hóa Hiệu ứng Cửa sổ Ứng dụng",
                 noupdatedialog: "Vô hiệu hóa hộp thoại Cập nhật",
                 nvda: "Bật hỗ trợ NVDA",
-                tooltips: "Hiển thị Chú giải Công cụ"
+                tooltips: "Hiển thị Chú giải Công cụ",
+                showsystrayopts: "Hiện tùy chọn khay hệ thống"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Đã xảy ra lỗi khi cố gắng xuất chủ đề đã chọn",
                     `Hãy thử lưu chủ đề hiện tại (<i>thông qua <span class="hl">Lưu Chủ Đề</span></i>) và thử xuất lại`,
                     `Nếu vấn đề vẫn tiếp diễn, vui lòng sao chép lỗi bên dưới và báo cáo qua các nút liên kết trên <span class="hl">Màn Hình Chính</span>`
-                ]   
+                ],
+                synctheme: "Đồng bộ chủ đề",
+                syncedwith: "Đã đồng bộ với"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Lưu tất cả các tùy chọn tùy chỉnh cấu hình như một Chủ đề mới",
         visibilitybtn: "Chuyển đổi tính hiển thị của phần tử trong xem trước tùy chỉnh và thông báo kiểm tra",
         delbtn: "Đặt lại phần tử về giá trị mặc định",
-        link: `Mở <span class="hl">Menu Quản lý Trò chơi Liên kết</span>`,
         imgpath: "Vị trí nơi hình ảnh thông báo được tạo ra bởi tùy chọn này sẽ được lưu trữ",
+        checkforupdates: `Kiểm tra xem có phiên bản ứng dụng mới nào đã được phát hành trên GitHub không. Nếu có bản cập nhật, nó sẽ được tải xuống và cài đặt tự động sau khi được xác nhận qua hộp thoại <span class="hl">Cập nhật có sẵn</span>`,
         linkedgames: `Bỏ qua <span class="hl">theo dõi tự động các quy trình</span> cho các trò chơi Steam cụ thể<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các tình huống rất cụ thể. Người dùng không nên cần phải sử dụng tùy chọn này trong điều kiện bình thường!</span>`,
         exclusionlist: `Ngăn chặn ứng dụng theo dõi thành tích trong các trò chơi Steam cụ thể<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các tình huống rất cụ thể. Người dùng không nên cần phải sử dụng tùy chọn này trong điều kiện bình thường!</span>`,
         ovx: "Lệch thông báo hiển thị trên ảnh chụp màn hình theo chiều ngang",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Đặt kích thước của huy hiệu",
         sspercentbadgefontsize: "Đặt kích thước của huy hiệu",
         percentbadgeroundness: "Đặt độ bo của huy hiệu",
-        sspercentbadgeroundness: "Đặt độ bo của huy hiệu"
+        sspercentbadgeroundness: "Đặt độ bo của huy hiệu",
+        percentbadgex: "Đưa vị trí của phần tử huy hiệu theo chiều ngang",
+        sspercentbadgex: "Đưa vị trí của phần tử huy hiệu theo chiều ngang",
+        percentbadgey: "Đưa vị trí của phần tử huy hiệu theo chiều dọc",
+        sspercentbadgey: "Đưa vị trí của phần tử huy hiệu theo chiều dọc",
+        percentbadgeimg: "Hiển thị biểu tượng dựa trên độ hiếm như một phần tử huy hiệu",
+        sspercentbadgeimg: "Hiển thị biểu tượng dựa trên độ hiếm như một phần tử huy hiệu",
+        percentbadgeimgbronze: "Biểu tượng huy hiệu sẽ được hiển thị khi tỷ lệ mở khóa > 50%",
+        sspercentbadgeimgbronze: "Biểu tượng huy hiệu hiển thị khi tỷ lệ mở khóa > 50%",
+        percentbadgeimgsilver: "Biểu tượng huy hiệu hiển thị khi tỷ lệ mở khóa < 50% và > $rarity",
+        sspercentbadgeimgsilver: "Biểu tượng huy hiệu hiển thị khi tỷ lệ mở khóa < 50% và > $rarity",
+        percentbadgeimggold: "Biểu tượng huy hiệu hiển thị khi tỷ lệ mở khóa < $rarity",
+        sspercentbadgeimggold: "Biểu tượng huy hiệu hiển thị khi tỷ lệ mở khóa < $rarity",
+        resetpbimgs: "Đặt lại tất cả biểu tượng huy hiệu về mặc định",
+        elemsmatch: `Khớp với cài đặt Các yếu tố thông báo đã đặt trong Trình tùy chỉnh cho loại thông báo này<br><br><span class="ttdesc">Một số cài đặt thông báo không thể hoàn toàn khớp với cài đặt Trình tùy chỉnh, do sự khác biệt giữa thông báo trên màn hình và thông báo dựa trên ảnh chụp màn hình</span>`,
+        themeswitch: `Tự động chuyển sang bất kỳ <span class="hl">Chủ đề</span> nào đã lưu khi phát hiện một trò chơi cụ thể`,
+        userthemesync: `Đồng bộ tùy chỉnh trong <span class="hl">Chủ đề</span> đã chọn với tất cả các loại thông báo khác`,
+        showsystrayopts: `Hiển thị tất cả các tùy chọn thường nằm dưới <span class="hl">Khay Hệ thống</span> > <span class="hl">Tùy chọn</span> trong <span class="hl">Cài đặt</span> > <span class="hl">Khác.</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Nhập <span class="hl">AppID</span> để thêm vào <span class="hl">Danh sách Loại trừ</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Các yếu tố thông báo",
+        content: {
+            unlockmsg: "Thông báo mở khóa",
+            title: "Tiêu đề thành tựu",
+            desc: "Mô tả thành tựu",
+            hiddeniconpos: "Biểu tượng ẩn",
+            sshiddeniconpos: "Biểu tượng ẩn",
+            decorationpos: "Trang trí",
+            ssdecorationpos: "Trang trí",
+            percentpos: "Tỷ lệ hiếm có",
+            sspercentpos: "Tỷ lệ hiếm có",
+            percentbadge: "Huy hiệu Phần trăm",
+            sspercentbadge: "Huy hiệu Phần trăm",
+            percentbadgepos: "Vị trí Huy hiệu",
+            sspercentbadgepos: "Vị trí Huy hiệu",
+            percentbadgecolor: "Màu Huy hiệu",
+            sspercentbadgecolor: "Màu Huy hiệu",
+            percentbadgefontsize: "Kích thước Huy hiệu",
+            sspercentbadgefontsize: "Kích thước Huy hiệu",
+            percentbadgeroundness: "Độ Bo của Huy hiệu",
+            sspercentbadgeroundness: "Độ Bo của Huy hiệu",
+            percentbadgex: "Offset theo chiều ngang",
+            sspercentbadgex: "Offset theo chiều ngang",
+            percentbadgey: "Offset theo chiều dọc",
+            sspercentbadgey: "Offset theo chiều dọc",
+            percentbadgeimg: "Sử dụng Biểu tượng",
+            sspercentbadgeimg: "Sử dụng Biểu tượng",
+            percentbadgeimgbronze: "Độ hiếm: > 50%",
+            sspercentbadgeimgbronze: "Độ hiếm: > 50%",
+            percentbadgeimgsilver: "Độ hiếm: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Độ hiếm: < 50% & > $rarity%",
+            percentbadgeimggold: "Độ hiếm: < $rarity%",
+            sspercentbadgeimggold: "Độ hiếm: < $rarity%",
+            resetpbimgs: "Đặt lại Biểu tượng Huy hiệu",
+            elemsmatch: "Khớp với Cài đặt Trình tùy chỉnh"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Thêm <span class="hl">AppID</span> của bất kỳ trò chơi nào để tự động chuyển đổi <span class="hl">Chủ đề</span> khi phát hiện`,
+                `Bất kỳ <span class="hl">Chủ đề</span> nào đã lưu có thể được chọn cho mỗi loại thông báo, cùng với màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp màn hình</span>`,
+                `<span class="hl" id="appidhelp"><u>Làm thế nào để tìm AppID của một trò chơi Steam?</u></span>`
+            ],
+            "themeswitchnew": "Chuyển đổi Tự động Mới",
+            "themeswitchnewsub": [
+                `Nhập <span class="hl">AppID</span> của trò chơi, cùng với màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp màn hình</span>`,
+                `Chọn <span class="hl">Chủ đề</span> nào để chuyển đổi cho mỗi loại thông báo khi phát hiện <span class="hl">AppID</span> của trò chơi này`
+            ],
+            "themes": "Chủ đề",
+            "src": "Nguồn Ảnh chụp màn hình"
         }
     }
 }

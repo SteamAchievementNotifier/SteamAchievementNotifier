@@ -219,7 +219,7 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     border-radius: var(--elembr) 0 0 var(--tabbr);
 }
 
-.settingstabs > .tab:last-child {
+.settingstabs > .tab:nth-child(3) {
     border-radius: 0 var(--elembr) var(--tabbr) 0;
 }
 
@@ -257,13 +257,13 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     transition: rotate calc(var(--transition) * 2);
 }
 
-dialog[menu]:has(#settingscontent) *[overlay],
-dialog[menu]:has(#settingscontent) *[notifyimg] {
+dialog[menu]:has(#settingscontent) *[overlay]:not(.synclbl),
+dialog[menu]:has(#settingscontent) *[notifyimg]:not(.synclbl) {
     display: none;
 }
 
-dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="overlay"]:checked) *[overlay],
-dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="notifyimg"]:checked) *[notifyimg] {
+dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="overlay"]:checked) *[overlay]:not(.synclbl),
+dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="notifyimg"]:checked) *[notifyimg]:not(.synclbl) {
     display: grid;
 }
 
@@ -343,11 +343,11 @@ body[plat] .rect#sspreview {
 
 #themeswitch {
     --icon: url("../../icon/autoswitchtheme.svg");
-    background-color: #ff149380;
+    background-color: #7830ad80;
 }
 
 #themeswitch:hover {
-    background-color: #ff1493;
+    background-color: #7830ad;
 }
 
 .opt:has(input#usecustomfiles:not(:checked)) + button#showcustomfiles {

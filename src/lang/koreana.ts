@@ -59,32 +59,11 @@ export const translations = {
             `게임의 <span class="hl">상점 페이지</span>의 <span class="hl">URL</span> - <span class="hl">app/</span> 뒤에 나열된 숫자입니다: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `<span class="hl">SteamDB</span>와 같은 웹 사이트 - <span class="hl">App Info</span> 섹션에 각 게임의 AppID가 나열됩니다`
         ],
-        elemselector: "알림 요소",
-        unlockmsg: "잠금 해제 메시지",
-        title: "업적 제목",
-        desc: "업적 설명",
-        hiddeniconpos: "숨겨진 아이콘",
-        sshiddeniconpos: "숨겨진 아이콘",
-        decorationpos: "장식",
-        ssdecorationpos: "장식",
-        percentpos: "희귀도 백분율",
-        sspercentpos: "희귀도 백분율",
         noexe: "게임 EXE 파일을 찾을 수 없습니다!",
         noexesub: `시스템 트레이에서 옵션 > 게임 종료를 선택하여 종료하세요`,
         webhookunlockmsg: "$user가 업적을 잠금 해제했습니다",
         webhookingame: "$gamename에서",
-        percentbadge: "퍼센트 배지",
-        sspercentbadge: "퍼센트 배지",
-        percentbadgepos: "배지 위치",
-        sspercentbadgepos: "배지 위치",
-        percentbadgecolor: "배지 색상",
-        sspercentbadgecolor: "배지 색상",
-        percentbadgefontsize: "배지 크기",
-        sspercentbadgefontsize: "배지 크기",
-        percentbadgeroundness: "배지 둥글기",
-        sspercentbadgeroundness: "배지 둥글기",
-        top: "위",
-        bottom: "아래"
+        notconnected: "연결되지 않음"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "게임",
             content: {
                 linkedgames: "연결된 게임",
+                themeswitch: "테마 자동 전환",
                 exclusionlist: "제외 목록"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "앱 창 애니메이션 비활성화",
                 noupdatedialog: "업데이트 대화상자 비활성화",
                 nvda: "NVDA 지원 활성화",
-                tooltips: "도구 설명 표시"
+                tooltips: "도구 설명 표시",
+                showsystrayopts: "시스템 트레이 옵션 표시"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "선택한 테마를 내보내는 동안 오류가 발생했습니다",
                     `현재 테마를 저장해 보세요 (<i><span class="hl">테마 저장</span></i>를 통해) 그리고 다시 내보내기를 시도해 보세요`,
                     `문제가 지속되면 아래의 오류를 복사하고 <span class="hl">홈 화면</span>의 링크 버튼을 통해 신고해 주세요`
-                ]
+                ],
+                synctheme: "테마 동기화",
+                syncedwith: "동기화됨"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "구성된 모든 사용자 정의 옵션을 새로운 테마로 저장",
         visibilitybtn: "사용자 지정 미리보기 및 테스트 알림에서 요소의 가시성 전환",
         delbtn: "요소를 기본값으로 재설정",
-        link: `열기 <span class="hl">연결된 게임 관리 메뉴</span>`,
         imgpath: "이 옵션으로 생성된 알림 이미지가 저장되는 위치",
+        checkforupdates: `GitHub에 새 앱 버전이 출시되었는지 확인합니다. 업데이트가 가능한 경우, <span class="hl">업데이트 가능</span> 대화 상자를 통해 확인된 후 자동으로 다운로드 및 설치됩니다`,
         linkedgames: `특정 Steam 게임의 <span class="hl">자동 프로세스 추적</span> 우회<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`,
         exclusionlist: `앱에서 특정 Steam 게임의 업적 추적 방지<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`,
         ovx: "스크린샷에 표시된 알림을 수평으로 오프셋합니다",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "배지 크기 설정",
         sspercentbadgefontsize: "배지 크기 설정",
         percentbadgeroundness: "배지 둥글기 설정",
-        sspercentbadgeroundness: "배지 둥글기 설정"
+        sspercentbadgeroundness: "배지 둥글기 설정",
+        percentbadgex: "배지 요소의 수평 위치 오프셋",
+        sspercentbadgex: "배지 요소의 수평 위치 오프셋",
+        percentbadgey: "배지 요소의 수직 위치 오프셋",
+        sspercentbadgey: "배지 요소의 수직 위치 오프셋",
+        percentbadgeimg: "배지 요소로 희귀도 기반 아이콘 표시",
+        sspercentbadgeimg: "배지 요소로 희귀도 기반 아이콘 표시",
+        percentbadgeimgbronze: "잠금 비율이 > 50%일 때 표시되는 배지 아이콘",
+        sspercentbadgeimgbronze: "잠금 비율이 > 50%일 때 표시되는 배지 아이콘",
+        percentbadgeimgsilver: "잠금 비율이 < 50% 및 > $rarity일 때 표시되는 배지 아이콘",
+        sspercentbadgeimgsilver: "잠금 비율이 < 50% 및 > $rarity일 때 표시되는 배지 아이콘",
+        percentbadgeimggold: "잠금 비율이 < $rarity일 때 표시되는 배지 아이콘",
+        sspercentbadgeimggold: "잠금 비율이 < $rarity일 때 표시되는 배지 아이콘",
+        resetpbimgs: "모든 배지 아이콘을 기본값으로 재설정",
+        elemsmatch: `이 알림 유형에 대해 커스터마이저에서 설정한 알림 요소 설정을 일치시킵니다.<br><br><span class="ttdesc">일부 알림 프리셋은 화면 기반 알림 레이아웃과 스크린샷 기반 알림 레이아웃 간의 차이로 인해 커스터마이저 설정과 완전히 일치하지 않을 수 있습니다.</span>`,
+        themeswitch: `특정 게임이 감지될 때 저장된 <span class="hl">테마</span>로 자동 전환`,
+        userthemesync: `선택한 <span class="hl">테마</span>의 사용자 정의를 모든 다른 알림 유형에 동기화`,
+        showsystrayopts: `보통 <span class="hl">시스템 트레이</span> > <span class="hl">옵션</span> 아래에 위치하는 모든 옵션을 표시 <span class="hl">설정</span> > <span class="hl">기타</span>`
     },
     update: {
         updateavailable: "업데이트 가능",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `<span class="hl">제외 목록</span>에 추가할 <span class="hl">AppID</span>를 입력하세요`
             ]
+        }
+    },
+    notificationelems: {
+        title: "알림 요소",
+        content: {
+            unlockmsg: "잠금 해제 메시지",
+            title: "업적 제목",
+            desc: "업적 설명",
+            hiddeniconpos: "숨겨진 아이콘",
+            sshiddeniconpos: "숨겨진 아이콘",
+            decorationpos: "장식",
+            ssdecorationpos: "장식",
+            percentpos: "희귀도 백분율",
+            sspercentpos: "희귀도 백분율",
+            percentbadge: "퍼센트 배지",
+            sspercentbadge: "퍼센트 배지",
+            percentbadgepos: "배지 위치",
+            sspercentbadgepos: "배지 위치",
+            percentbadgecolor: "배지 색상",
+            sspercentbadgecolor: "배지 색상",
+            percentbadgefontsize: "배지 크기",
+            sspercentbadgefontsize: "배지 크기",
+            percentbadgeroundness: "배지 둥글기",
+            sspercentbadgeroundness: "배지 둥글기",
+            percentbadgex: "수평 오프셋",
+            sspercentbadgex: "수평 오프셋",
+            percentbadgey: "수직 오프셋",
+            sspercentbadgey: "수직 오프셋",
+            percentbadgeimg: "아이콘 사용",
+            sspercentbadgeimg: "아이콘 사용",
+            percentbadgeimgbronze: "희귀도: > 50%",
+            sspercentbadgeimgbronze: "희귀도: > 50%",
+            percentbadgeimgsilver: "희귀도: < 50% 및 > $rarity%",
+            sspercentbadgeimgsilver: "희귀도: < 50% 및 > $rarity%",
+            percentbadgeimggold: "희귀도: < $rarity%",
+            sspercentbadgeimggold: "희귀도: < $rarity%",
+            resetpbimgs: "배지 아이콘 재설정",
+            elemsmatch: "커스터마이저 설정 일치" 
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `任意 게임의 <span class="hl">AppID</span>를 추가하여 감지될 때 <span class="hl">테마</span>를 자동으로 전환`,
+                `저장된 모든 <span class="hl">테마</span>를 각 알림 유형에 선택할 수 있으며, 사용할 모니터를 <span class="hl">스크린샷 소스</span>로 지정할 수 있습니다.`,
+                `<span class="hl" id="appidhelp"><u>Steam 게임의 AppID는 어떻게 찾나요?</u></span>`
+            ],
+            "themeswitchnew": "새 자동 전환",
+            "themeswitchnewsub": [
+                `게임의 <span class="hl">AppID</span>와 사용할 모니터를 <span class="hl">스크린샷 소스</span>로 지정하세요.`,
+                `이 게임의 <span class="hl">AppID</span>가 감지될 때 각 알림 유형에 전환할 <span class="hl">테마</span>를 선택하세요.`
+            ],
+            "themes": "테마",
+            "src": "스크린샷 소스"
         }
     }
 }

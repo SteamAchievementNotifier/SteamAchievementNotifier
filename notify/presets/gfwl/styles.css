@@ -172,6 +172,10 @@ body[ss] .wrapper#achiconwrapper {
     outline: var(--inset);
 }
 
+body[ss] .wrapper#logo {
+    display: grid;
+}
+
 .wrapper#logo::before {
     content: "";
     grid-column-start: 1;
@@ -207,6 +211,10 @@ body[ss] .wrapper#achiconwrapper {
     45% { opacity: 0; }
     55% { opacity: var(--opacity); }
     to { opacity: var(--opacity); }
+}
+
+body[ss] .wrapper#logo::after {
+    display: none;
 }
 
 #achicon {

@@ -59,32 +59,11 @@ export const translations = {
             `URL:en till spelets <span class="hl">Butikssida</span> - det kommer att vara numret listat efter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Webbplatser som <span class="hl">SteamDB</span> - avsnittet <span class="hl">App Info</span> kommer att lista AppID för varje spel`
         ],
-        elemselector: "Notifikationselement",
-        unlockmsg: "Upplåsningmeddelande",
-        title: "Prestationsrubrik",
-        desc: "Prestationsbeskrivning",
-        hiddeniconpos: "Dold ikon",
-        sshiddeniconpos: "Dold ikon",
-        decorationpos: "Dekoration",
-        ssdecorationpos: "Dekoration",
-        percentpos: "Sällsynthetsprocent",
-        sspercentpos: "Sällsynthetsprocent",
         noexe: "Spelets EXE-fil hittades inte!",
         noexesub: `Välj Alternativ > Avsluta spelet från systemfältet för att avsluta`,
         webhookunlockmsg: "$user har låst upp en prestation",
         webhookingame: "i $gamename",
-        percentbadge: "Procentbadge",
-        sspercentbadge: "Procentbadge",
-        percentbadgepos: "Badgeposition",
-        sspercentbadgepos: "Badgeposition",
-        percentbadgecolor: "Badgefärg",
-        sspercentbadgecolor: "Badgefärg",
-        percentbadgefontsize: "Badge storlek",
-        sspercentbadgefontsize: "Badge storlek",
-        percentbadgeroundness: "Badge rundhet",
-        sspercentbadgeroundness: "Badge rundhet",
-        top: "Topp",
-        bottom: "Botten"
+        notconnected: "Inte ansluten"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Spel",
             content: {
                 linkedgames: "Länkade spel",
+                themeswitch: "Automatisk byte av teman",
                 exclusionlist: "Undantagslista"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Inaktivera appfönsteranimationer",
                 noupdatedialog: "Inaktivera uppdateringsdialog",
                 nvda: "Aktivera NVDA-stöd",
-                tooltips: "Visa verktygstips"
+                tooltips: "Visa verktygstips",
+                showsystrayopts: "Visa systemfältalternativ"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "Ett fel uppstod vid försök att exportera det valda temat",
                     `Försök att spara det aktuella temat (<i>via <span class="hl">Spara Tema</span></i>) och försök att exportera igen`,
                     `Om problemet kvarstår, vänligen kopiera felet nedan och rapportera det via länkknapparna på <span class="hl">Startsidan</span>`
-                ] 
+                ],
+                synctheme: "Synkronisera tema",
+                syncedwith: "Synkroniserad med"
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Spara alla konfigurerade anpassningsalternativ som ett nytt tema",
         visibilitybtn: "Växla synligheten för elementet i anpassade förhandsvisningar och testmeddelanden",
         delbtn: "Återställ elementet till standardvärdet",
-        link: `Öppna <span class="hl">Menyn för hantering av länkade spel</span>`,
         imgpath: "Platsen där meddelandebilder genererade av detta alternativ kommer att sparas",
+        checkforupdates: `Kontrollera om en ny appversion har släppts på GitHub. Om en uppdatering är tillgänglig kommer den automatiskt att laddas ner och installeras när den bekräftas via dialogrutan <span class="hl">Uppdatering tillgänglig</span>`,
         linkedgames: `Bypassa <span class="hl">automatisk processpårning</span> för specifika Steam-spel<br><br><span class="ttdesc">Denna alternativ bör endast användas i mycket specifika scenarier. Användare bör inte behöva använda detta alternativ under normala omständigheter!</span>`,
         exclusionlist: `Förhindra att prestationer i specifika Steam-spel spåras av appen<br><br><span class="ttdesc">Denna alternativ bör endast användas i mycket specifika scenarier. Användare bör inte behöva använda detta alternativ under normala omständigheter!</span>`,
         ovx: "Förskjutning av meddelandet som visas i skärmdumpen horisontellt",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Ställ in storleken på badge",
         sspercentbadgefontsize: "Ställ in storleken på badge",
         percentbadgeroundness: "Ställ in rundheten på badge",
-        sspercentbadgeroundness: "Ställ in rundheten på badge"
+        sspercentbadgeroundness: "Ställ in rundheten på badge",
+        percentbadgex: "Justera positionen för badge-elementet horisontellt",
+        sspercentbadgex: "Justera positionen för badge-elementet horisontellt",
+        percentbadgey: "Justera positionen för badge-elementet vertikalt",
+        sspercentbadgey: "Justera positionen för badge-elementet vertikalt",
+        percentbadgeimg: "Visa en ikon baserad på sällsynthet som badge-element",
+        sspercentbadgeimg: "Visa en ikon baserad på sällsynthet som badge-element",
+        percentbadgeimgbronze: "Ikonen för badge som ska visas när upplåsningsprocenten är > 50%",
+        sspercentbadgeimgbronze: "Ikonen för badge som visas när upplåsningsprocenten är > 50%",
+        percentbadgeimgsilver: "Ikonen för badge som visas när upplåsningsprocenten är < 50% och > $rarity",
+        sspercentbadgeimgsilver: "Ikonen för badge som visas när upplåsningsprocenten är < 50% och > $rarity",
+        percentbadgeimggold: "Ikonen för badge som visas när upplåsningsprocenten är < $rarity",
+        sspercentbadgeimggold: "Ikonen för badge som visas när upplåsningsprocenten är < $rarity",
+        resetpbimgs: "Återställ alla badge-ikoner till standard",
+        elemsmatch: `Matcha inställningarna för notifieringselement som ställts in i anpassaren för den här typen av notifiering<br><br><span class="ttdesc">Vissa notifieringsförinställningar kan inte helt matcha anpassarinställningar, på grund av skillnader mellan skärmbaserade och skärmdumpbaserade notifieringslayouter</span>`,
+        themeswitch: `Automatiskt byta till vilket <span class="hl">Tema</span> som helst som sparats när ett specifikt spel upptäcks`,
+        userthemesync: `Synkronisera anpassningar i det valda <span class="hl">Temat</span> till alla andra notifieringstyper`,
+        showsystrayopts: `Visa alla alternativ som vanligtvis finns under <span class="hl">Systemfält</span> > <span class="hl">Alternativ</span> i <span class="hl">Inställningar</span> > <span class="hl">Övrigt</span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Ange <span class="hl">AppID</span> för att lägga till i <span class="hl">Undantagslistan</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Notifikationselement",
+        content: {
+            unlockmsg: "Upplåsningmeddelande",
+            title: "Prestationsrubrik",
+            desc: "Prestationsbeskrivning",
+            hiddeniconpos: "Dold ikon",
+            sshiddeniconpos: "Dold ikon",
+            decorationpos: "Dekoration",
+            ssdecorationpos: "Dekoration",
+            percentpos: "Sällsynthetsprocent",
+            sspercentpos: "Sällsynthetsprocent",
+            percentbadge: "Procentbadge",
+            sspercentbadge: "Procentbadge",
+            percentbadgepos: "Badgeposition",
+            sspercentbadgepos: "Badgeposition",
+            percentbadgecolor: "Badgefärg",
+            sspercentbadgecolor: "Badgefärg",
+            percentbadgefontsize: "Badge storlek",
+            sspercentbadgefontsize: "Badge storlek",
+            percentbadgeroundness: "Badge rundhet",
+            sspercentbadgeroundness: "Badge rundhet",
+            percentbadgex: "Horisontell förskjutning",
+            sspercentbadgex: "Horisontell förskjutning",
+            percentbadgey: "Vertikal förskjutning",
+            sspercentbadgey: "Vertikal förskjutning",
+            percentbadgeimg: "Använd ikon",
+            sspercentbadgeimg: "Använd ikon",
+            percentbadgeimgbronze: "Sällsynthet: > 50%",
+            sspercentbadgeimgbronze: "Sällsynthet: > 50%",
+            percentbadgeimgsilver: "Sällsynthet: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Sällsynthet: < 50% & > $rarity%",
+            percentbadgeimggold: "Sällsynthet: < $rarity%",
+            sspercentbadgeimggold: "Sällsynthet: < $rarity%",
+            resetpbimgs: "Återställ badge-ikoner",
+            elemsmatch: "Matcha anpassarinställningar"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Lägg till vilket spels <span class="hl">AppID</span> som helst för att automatiskt byta <span class="hl">Teman</span> när det upptäcks`,
+                `Vilket sparat <span class="hl">Tema</span> som helst kan väljas för varje notifieringstyp, tillsammans med den önskade monitorn som ska användas som <span class="hl">Skärmdumpkälla</span>`,
+                `<span class="hl" id="appidhelp"><u>Hur hittar jag ett Steam-spels AppID?</u></span>`
+            ],
+            "themeswitchnew": "Nytt automatiskt byte",
+            "themeswitchnewsub": [
+                `Ange spelets <span class="hl">AppID</span>, tillsammans med den önskade monitorn som ska användas som <span class="hl">Skärmdumpkälla</span>`,
+                `Välj vilket <span class="hl">Tema</span> som ska bytas till för varje notifieringstyp när detta spels <span class="hl">AppID</span> upptäcks`
+            ],
+            "themes": "Teman",
+            "src": "Skärmdumpkälla"
         }
     }
 }

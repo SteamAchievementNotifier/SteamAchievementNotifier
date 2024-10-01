@@ -59,32 +59,11 @@ export const translations = {
             `URL-ul paginii <span class="hl">magazinului</span> jocului - va fi numărul listat după <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Site-uri precum <span class="hl">SteamDB</span> - secțiunea de <span class="hl">Informații despre App</span> va lista AppID-ul pentru fiecare joc`
         ],
-        elemselector: "Elemente de Notificare",
-        unlockmsg: "Mesaj de Deblocare",
-        title: "Titlu Realizare",
-        desc: "Descriere Realizare",
-        hiddeniconpos: "Iconiță Ascunsă",
-        sshiddeniconpos: "Iconiță Ascunsă",
-        decorationpos: "Decorație",
-        ssdecorationpos: "Decorație",
-        percentpos: "Procent Raritate",
-        sspercentpos: "Procent Raritate",
         noexe: "Fișierul EXE al jocului nu a fost găsit!",
         noexesub: `Selectați Opțiuni > Ieșire din joc din Bara de Sistem pentru a ieși`,
         webhookunlockmsg: "$user a deblocat o realizare",
         webhookingame: "în $gamename",
-        percentbadge: "Badge de Procent",
-        sspercentbadge: "Badge de Procent",
-        percentbadgepos: "Poziția Badge-ului",
-        sspercentbadgepos: "Poziția Badge-ului",
-        percentbadgecolor: "Culoarea Badge-ului",
-        sspercentbadgecolor: "Culoarea Badge-ului",
-        percentbadgefontsize: "Dimensiunea Badge-ului",
-        sspercentbadgefontsize: "Dimensiunea Badge-ului",
-        percentbadgeroundness: "Rotunjirea Badge-ului",
-        sspercentbadgeroundness: "Rotunjirea Badge-ului",
-        top: "Sus",
-        bottom: "Jos"
+        notconnected: "Nu este conectat"
     },
     app: {
         content: {
@@ -158,6 +137,7 @@ export const translations = {
             title: "Jocuri",
             content: {
                 linkedgames: "Jocuri Conectate",
+                themeswitch: "Comutare automată a temelor",
                 exclusionlist: "Listă de Excludere"
             }
         },
@@ -167,7 +147,8 @@ export const translations = {
                 noanim: "Dezactivează Animații Fereastră Aplicație",
                 noupdatedialog: "Dezactivați dialogul de actualizare",
                 nvda: "Activează Suport NVDA",
-                tooltips: "Afișare Sfaturi Instrumente"
+                tooltips: "Afișare Sfaturi Instrumente",
+                showsystrayopts: "Afișează opțiunile din zona de notificare"
             }
         },
         advanced: {
@@ -326,7 +307,9 @@ export const translations = {
                     "A apărut o eroare în timpul încercării de a exporta tema selectată",
                     `Încercați să salvați tema curentă (<i>prin <span class="hl">Salvează Tema</span></i>) și încercați din nou să exportați`,
                     `Dacă problema persistă, vă rugăm să copiați eroarea de mai jos și să o raportați prin butoanele de link de pe <span class="hl">Ecranul Principal</span>`
-                ]      
+                ],
+                synctheme: "Sincronizează tema",
+                syncedwith: "Sincronizat cu"  
             }
         }
     },
@@ -472,8 +455,8 @@ export const translations = {
         savetheme: "Salvați toate opțiunile de personalizare configurate ca o nouă Temă",
         visibilitybtn: "Comutare vizibilitate element în previzualizări personalizate și notificări de test",
         delbtn: "Resetare element la valoarea implicită",
-        link: `Deschide <span class="hl">Meniul de Administrare a Jocurilor Conectate</span>`,
         imgpath: "Locația unde vor fi salvate imaginile de notificare generate de această opțiune",
+        checkforupdates: `Verificați dacă a fost lansată o nouă versiune a aplicației pe GitHub. Dacă este disponibilă o actualizare, aceasta va fi descărcată și instalată automat odată ce a fost confirmată prin fereastra de dialog <span class="hl">Actualizare disponibilă</span>`,
         linkedgames: `Ocolirea <span class="hl">urmaririi automate a proceselor</span> pentru anumite jocuri Steam<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`,
         exclusionlist: `Prevenirea urmăririi realizărilor în anumite jocuri Steam de către aplicație<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`,
         ovx: "Deplasați notificarea afișată în captura de ecran pe orizontală",
@@ -502,7 +485,24 @@ export const translations = {
         percentbadgefontsize: "Setează dimensiunea badge-ului",
         sspercentbadgefontsize: "Setează dimensiunea badge-ului",
         percentbadgeroundness: "Setează rotunjirea badge-ului",
-        sspercentbadgeroundness: "Setează rotunjirea badge-ului"
+        sspercentbadgeroundness: "Setează rotunjirea badge-ului",
+        percentbadgex: "Săgeată poziția elementului badge orizontal",
+        sspercentbadgex: "Săgeată poziția elementului badge orizontal",
+        percentbadgey: "Săgeată poziția elementului badge vertical",
+        sspercentbadgey: "Săgeată poziția elementului badge vertical",
+        percentbadgeimg: "Afișează un icon bazat pe raritate ca element badge",
+        sspercentbadgeimg: "Afișează un icon bazat pe raritate ca element badge",
+        percentbadgeimgbronze: "Iconița badge care se va afișa când procentajul de deblocare este > 50%",
+        sspercentbadgeimgbronze: "Iconița badge care se va afișa când procentajul de deblocare este > 50%",
+        percentbadgeimgsilver: "Iconița badge care se va afișa când procentajul de deblocare este < 50% și > $rarity",
+        sspercentbadgeimgsilver: "Iconița badge care se va afișa când procentajul de deblocare este < 50% și > $rarity",
+        percentbadgeimggold: "Iconița badge care se va afișa când procentajul de deblocare este < $rarity",
+        sspercentbadgeimggold: "Iconița badge care se va afișa când procentajul de deblocare este < $rarity",
+        resetpbimgs: "Resetare toate iconițele badge la valorile implicite",
+        elemsmatch: `Se potrivesc setările Elementelor de Notificare stabilite în Personalizator pentru acest tip de notificare<br><br><span class="ttdesc">Unele Predefiniri de Notificare nu pot corespunde pe deplin setărilor Personalizatorului, din cauza diferențelor între layout-urile de notificare pe ecran și cele bazate pe capturi de ecran</span>`,
+        themeswitch: `Comutare automată la orice <span class="hl">Temă</span> salvată atunci când un joc specific este detectat`,
+        userthemesync: `Sincronizează personalizările din <span class="hl">Tema</span> selectată pentru toate celelalte tipuri de notificări`,
+        showsystrayopts: `Afișează toate opțiunile de obicei localizate sub <span class="hl">Zona de Notificare</span> > <span class="hl">Opțiuni</span> în <span class="hl">Setări</span> > <span class="hl">Diverse</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",
@@ -540,6 +540,60 @@ export const translations = {
             exclusionnewsub: [
                 `Introduceți <span class="hl">AppID</span>-ul pentru a-l adăuga la <span class="hl">Lista de Excludere</span>`
             ]
+        }
+    },
+    notificationelems: {
+        title: "Elemente de Notificare",
+        content: {
+            unlockmsg: "Mesaj de Deblocare",
+            title: "Titlu Realizare",
+            desc: "Descriere Realizare",
+            hiddeniconpos: "Iconiță Ascunsă",
+            sshiddeniconpos: "Iconiță Ascunsă",
+            decorationpos: "Decorație",
+            ssdecorationpos: "Decorație",
+            percentpos: "Procent Raritate",
+            sspercentpos: "Procent Raritate",
+            percentbadge: "Badge de Procent",
+            sspercentbadge: "Badge de Procent",
+            percentbadgepos: "Poziția Badge-ului",
+            sspercentbadgepos: "Poziția Badge-ului",
+            percentbadgecolor: "Culoarea Badge-ului",
+            sspercentbadgecolor: "Culoarea Badge-ului",
+            percentbadgefontsize: "Dimensiunea Badge-ului",
+            sspercentbadgefontsize: "Dimensiunea Badge-ului",
+            percentbadgeroundness: "Rotunjirea Badge-ului",
+            sspercentbadgeroundness: "Rotunjirea Badge-ului",
+            percentbadgex: "Offset orizontal",
+            sspercentbadgex: "Offset orizontal",
+            percentbadgey: "Offset vertical",
+            sspercentbadgey: "Offset vertical",
+            percentbadgeimg: "Folosește iconiță",
+            sspercentbadgeimg: "Folosește iconiță",
+            percentbadgeimgbronze: "Raritate: > 50%",
+            sspercentbadgeimgbronze: "Raritate: > 50%",
+            percentbadgeimgsilver: "Raritate: < 50% & > $rarity%",
+            sspercentbadgeimgsilver: "Raritate: < 50% & > $rarity%",
+            percentbadgeimggold: "Raritate: < $rarity%",
+            sspercentbadgeimggold: "Raritate: < $rarity%",
+            resetpbimgs: "Resetare iconițe badge",
+            elemsmatch: "Potrivire setări Personalizator"
+        }
+    },
+    themeswitch: {
+        content: {
+            "managesub": [
+                `Adaugă <span class="hl">AppID</span> al oricărui joc pentru a comuta automat <span class="hl">Temele</span> când este detectat`,
+                `Orice <span class="hl">Temă</span> salvată poate fi selectată pentru fiecare tip de notificare, împreună cu monitorul dorit de utilizat ca <span class="hl">Sursă de Captură de Ecran</span>`,
+                `<span class="hl" id="appidhelp"><u>Cum găsesc AppID-ul unui joc Steam?</u></span>`
+            ],
+            "themeswitchnew": "Nouă comutare automată",
+            "themeswitchnewsub": [
+                `Introdu <span class="hl">AppID</span> al jocului, împreună cu monitorul dorit de utilizat ca <span class="hl">Sursă de Captură de Ecran</span>`,
+                `Selectează care <span class="hl">Temă</span> să comute pentru fiecare tip de notificare atunci când <span class="hl">AppID</span> al acestui joc este detectat`
+            ],
+            "themes": "Teme",
+            "src": "Sursă de Captură de Ecran"
         }
     }
 }

@@ -808,19 +808,19 @@ export const listeners = {
             } as BuildNotifyInfo
         }
 
-        const setnotifybounds = (notify: { width: number, height: number, x?: number, y?: number }, type: "main" | "rare" | "plat" | null, offset = 20, isextwin?: boolean) => {
+        const setnotifybounds = (dims: { width: number, height: number, x?: number, y?: number },type: "main" | "rare" | "plat" | null,offset = 20,isextwin?: boolean,customisation?: Customisation) => {
             const config = sanconfig.get()
             if (config.get("soundonly")) return
         
-            const custompos = config.get(`customisation.${type}.custompos`) as { x: number, y: number }
-            const monitor = (notify.x !== undefined && notify.y !== undefined) ? screen.getDisplayNearestPoint({ x: notify.x, y: notify.y }) : (config.get(`customisation.${type}.usecustompos`) ? screen.getDisplayNearestPoint({ x: custompos.x, y: custompos.y }) : screen.getPrimaryDisplay())
-            const scale = type ? (config.get(`customisation.${type}.scale`) as number) / 100 : 1
+            const custompos = customisation?.custompos || config.get(`customisation.${type}.custompos`) as { x: number, y: number }
+            const monitor = (dims.x !== undefined && dims.y !== undefined) ? screen.getDisplayNearestPoint({ x: dims.x, y: dims.y }) : ((customisation?.usecustompos || (config.get(`customisation.${type}.usecustompos`))) ? screen.getDisplayNearestPoint({ x: custompos.x, y: custompos.y }) : screen.getPrimaryDisplay())
+            const scale = type ? (customisation?.scale || config.get(`customisation.${type}.scale`) as number) / 100 : 1
         
             // "screenwidth"/"screenheight" already have scaleFactor applied when returned as Electron.Display
             const screenwidth = monitor.bounds.width
             const screenheight = monitor.bounds.height
-            const notifywidth = notify.width * scale
-            const notifyheight = notify.height * scale
+            const notifywidth = dims.width * scale
+            const notifyheight = dims.height * scale
         
             const bordersize = 50
             const glowsize = type ? bordersize * scale : 0
@@ -836,7 +836,7 @@ export const listeners = {
                 bottomright: { x: (screenwidth - (notifywidth + glowsize) + bottom), y: (screenheight - (notifyheight + glowsize) + bottom) }
             } as Positions
         
-            const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? ((config.get(`customisation.${type}.usecustompos`) ? custompos : positions[config.get(`customisation.${type}.pos`) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"])) : positions[config.get("nowtrackingpos")])
+            const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? (((customisation?.usecustompos || config.get(`customisation.${type}.usecustompos`)) ? custompos : positions[(customisation?.pos || config.get(`customisation.${type}.pos`)) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"])) : positions[config.get("nowtrackingpos")])
         
             return {
                 width: notifywidth + glowsize,
@@ -937,7 +937,7 @@ export const listeners = {
 
                         // Set as <meta> tag dimensions, then send to `setnotifybounds` to calculate actual size
                         win.setSize(dims.width,dims.height)
-                        const bounds = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,isextwin) as { width: number, height: number, x: number, y: number }
+                        const bounds = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,isextwin,notify.customisation) as { width: number, height: number, x: number, y: number }
                         log.write("INFO",msg)
 
                         shownotify(win,bounds,isextwin)
@@ -1147,7 +1147,7 @@ export const listeners = {
         let sswin: Electron.BrowserWindow | null = null
 
         // Used in `dialog.ts`/`renderer.ts` to close "sswin", and in `renderer.ts` to spawn the Preview window
-        ipcMain.on("sswin", (event,notify?: Notify) => {
+        ipcMain.on("sswin", (event,notify?: Notify,src?: number) => {
             const config = sanconfig.get()
 
             if (!notify) {
@@ -1161,7 +1161,7 @@ export const listeners = {
                 sswin = null
             }
 
-            createsswin(config.get("screenshots") === "notifyimg" ? "img" : "ss",notify,true)
+            createsswin(config.get("screenshots") === "notifyimg" ? "img" : "ss",notify,true,src)
         })
 
         const getssmonitor = (src?: number): { monitor: Monitor | Electron.Display | null, display: Electron.Display | null } => {
@@ -1283,14 +1283,14 @@ export const listeners = {
                 ipcMain.once("dims", (event,dims: { width: number, height: number, offset: number }) => {
                     if (!sswin) return log.write("ERROR",`Error setting "sswin" dimensions: "sswin" not found`)
 
-                    const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,false) as { width: number, height: number, x: number, y: number }
+                    const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,false,notify.customisation) as { width: number, height: number, x: number, y: number }
 
                     if (type === "img") {
                         sswin.setSize(Math.round(width),Math.round(height))
                         sswin.center()
                     }
 
-                    const monitor = screen.getAllDisplays().find(monitor => monitor.id === config.get("monitor")) || screen.getPrimaryDisplay()
+                    const monitor = (type !== "img" && screen.getAllDisplays().find(monitor => monitor.id === (src || config.get("monitor")))) || screen.getPrimaryDisplay()
 
                     sswin.setResizable(false)
                     sswin.webContents.send("dims",{ width, height, offset: dims.offset, scalefactor: monitor.scaleFactor })

@@ -198,6 +198,10 @@ body[beta] .logo::before {
     text-transform: uppercase;
 }
 
+.rect#customise[active] {
+    pointer-events: none;
+}
+
 .rect[novalue] {
     color: red;
 }

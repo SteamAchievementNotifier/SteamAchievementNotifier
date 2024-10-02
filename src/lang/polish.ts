@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Dodaj <span class="hl">AppID</span> dowolnej gry, aby automatycznie przełączać <span class="hl">motywy</span> po wykryciu`,
                 `Dowolny zapisany <span class="hl">motyw</span> można wybrać dla każdego typu powiadomienia, razem z żądaną monitorem, który ma być używany jako <span class="hl">Źródło zrzutu ekranu</span>`,
                 `<span class="hl" id="appidhelp"><u>Jak znaleźć AppID gry na Steamie?</u></span>`
             ],
-            "themeswitchnew": "Nowe automatyczne przełączanie",
-            "themeswitchnewsub": [
+            themeswitchnew: "Nowe automatyczne przełączanie",
+            themeswitchnewsub: [
                 `Wprowadź <span class="hl">AppID</span> gry, razem z żądaną monitorem, który ma być używany jako <span class="hl">Źródło zrzutu ekranu</span>`,
                 `Wybierz, który <span class="hl">motyw</span> ma być używany dla każdego typu powiadomienia, gdy AppID tej gry zostanie wykryty`
             ],
-            "themes": "Motywy",
-            "src": "Źródło zrzutu ekranu"
+            themes: "Motywy",
+            src: "Źródło zrzutu ekranu",
+            themedeleted: "Motyw usunięty"
         }
     }
 }

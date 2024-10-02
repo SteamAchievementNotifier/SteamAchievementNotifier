@@ -343,11 +343,22 @@ body[plat] .rect#sspreview {
 
 #themeswitch {
     --icon: url("../../icon/autoswitchtheme.svg");
+    position: relative;
     background-color: #7830ad80;
 }
 
 #themeswitch:hover {
     background-color: #7830ad;
+}
+
+body[themeswitch] #themeswitch::after {
+    content: "";
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    position: absolute;
+    right: 0.5rem;
+    background: url("../../icon/dot_green.png") center / contain no-repeat;
 }
 
 .opt:has(input#usecustomfiles:not(:checked)) + button#showcustomfiles {

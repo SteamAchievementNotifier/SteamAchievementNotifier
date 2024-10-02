@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `任意 게임의 <span class="hl">AppID</span>를 추가하여 감지될 때 <span class="hl">테마</span>를 자동으로 전환`,
                 `저장된 모든 <span class="hl">테마</span>를 각 알림 유형에 선택할 수 있으며, 사용할 모니터를 <span class="hl">스크린샷 소스</span>로 지정할 수 있습니다.`,
                 `<span class="hl" id="appidhelp"><u>Steam 게임의 AppID는 어떻게 찾나요?</u></span>`
             ],
-            "themeswitchnew": "새 자동 전환",
-            "themeswitchnewsub": [
+            themeswitchnew: "새 자동 전환",
+            themeswitchnewsub: [
                 `게임의 <span class="hl">AppID</span>와 사용할 모니터를 <span class="hl">스크린샷 소스</span>로 지정하세요.`,
                 `이 게임의 <span class="hl">AppID</span>가 감지될 때 각 알림 유형에 전환할 <span class="hl">테마</span>를 선택하세요.`
             ],
-            "themes": "테마",
-            "src": "스크린샷 소스"
+            themes: "테마",
+            src: "스크린샷 소스",
+            themedeleted: "테마가 삭제되었습니다"
         }
     }
 }

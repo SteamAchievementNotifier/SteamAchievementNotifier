@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Adaugă <span class="hl">AppID</span> al oricărui joc pentru a comuta automat <span class="hl">Temele</span> când este detectat`,
                 `Orice <span class="hl">Temă</span> salvată poate fi selectată pentru fiecare tip de notificare, împreună cu monitorul dorit de utilizat ca <span class="hl">Sursă de Captură de Ecran</span>`,
                 `<span class="hl" id="appidhelp"><u>Cum găsesc AppID-ul unui joc Steam?</u></span>`
             ],
-            "themeswitchnew": "Nouă comutare automată",
-            "themeswitchnewsub": [
+            themeswitchnew: "Nouă comutare automată",
+            themeswitchnewsub: [
                 `Introdu <span class="hl">AppID</span> al jocului, împreună cu monitorul dorit de utilizat ca <span class="hl">Sursă de Captură de Ecran</span>`,
                 `Selectează care <span class="hl">Temă</span> să comute pentru fiecare tip de notificare atunci când <span class="hl">AppID</span> al acestui joc este detectat`
             ],
-            "themes": "Teme",
-            "src": "Sursă de Captură de Ecran"
+            themes: "Teme",
+            src: "Sursă de Captură de Ecran",
+            themedeleted: "Tema șters"
         }
     }
 }

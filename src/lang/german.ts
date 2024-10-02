@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Füge die <span class="hl">AppID</span> eines Spiels hinzu, um automatisch die <span class="hl">Themen</span> zu wechseln, wenn es erkannt wird`,
                 `Jedes gespeicherte <span class="hl">Thema</span> kann für jeden Benachrichtigungstyp ausgewählt werden, zusammen mit dem gewünschten Monitor, der als <span class="hl">Screenshot-Quelle</span> verwendet wird`,
                 `<span class="hl" id="appidhelp"><u>Wie finde ich die AppID eines Steam-Spiels?</u></span>`
             ],
-            "themeswitchnew": "Neuer automatischer Wechsel",
-            "themeswitchnewsub": [
+            themeswitchnew: "Neuer automatischer Wechsel",
+            themeswitchnewsub: [
                 `Geben Sie die <span class="hl">AppID</span> des Spiels ein, zusammen mit dem gewünschten Monitor, der als <span class="hl">Screenshot-Quelle</span> verwendet wird`,
                 `Wählen Sie das <span class="hl">Thema</span>, zu dem für jeden Benachrichtigungstyp gewechselt werden soll, wenn die <span class="hl">AppID</span> dieses Spiels erkannt wird`
             ],
-            "themes": "Themen",
-            "src": "Screenshot-Quelle"
+            themes: "Themen",
+            src: "Screenshot-Quelle",
+            themedeleted: "Thema gelöscht"
         }
     }
 }

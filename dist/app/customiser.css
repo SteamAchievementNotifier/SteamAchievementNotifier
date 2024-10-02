@@ -517,6 +517,7 @@ button#exporttheme {
 body:not([main]) #customiser[synced="main"] .cont:has(.title) > .wrapper,
 body:not([rare]) #customiser[synced="rare"] .cont:has(.title) > .wrapper,
 body:not([plat]) #customiser[synced="plat"] .cont:has(.title) > .wrapper,
+body[themeswitch] #customiser .cont:has(.title) > .wrapper,
 #customiser[synced] .cont:has(.title#theme) button {
     opacity: 0.5;
     pointer-events: none;

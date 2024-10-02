@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Přidejte jakékoliv <span class="hl">AppID</span> hry pro automatické přepínání <span class="hl">Témat</span>, když je detekována`,
                 `Každé uložené <span class="hl">Téma</span> může být vybráno pro každý typ oznámení, spolu s požadovaným monitorem pro použití jako <span class="hl">Zdroj snímku obrazovky</span>`,
                 `<span class="hl" id="appidhelp"><u>Jak najdu AppID hry ve Steamu?</u></span>`
             ],
-            "themeswitchnew": "Nové automatické přepínání",
-            "themeswitchnewsub": [
+            themeswitchnew: "Nové automatické přepínání",
+            themeswitchnewsub: [
                 `Zadejte <span class="hl">AppID</span> hry, spolu s požadovaným monitorem pro použití jako <span class="hl">Zdroj snímku obrazovky</span>`,
                 `Vyberte, které <span class="hl">Téma</span> se má přepnout pro každý typ oznámení, když je detekováno <span class="hl">AppID</span> této hry`
             ],
-            "themes": "Témata",
-            "src": "Zdroj snímku obrazovky"
+            themes: "Témata",
+            src: "Zdroj snímku obrazovky",
+            themedeleted: "Téma bylo smazáno"
         }
     }
 }

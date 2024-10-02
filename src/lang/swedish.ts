@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Lägg till vilket spels <span class="hl">AppID</span> som helst för att automatiskt byta <span class="hl">Teman</span> när det upptäcks`,
                 `Vilket sparat <span class="hl">Tema</span> som helst kan väljas för varje notifieringstyp, tillsammans med den önskade monitorn som ska användas som <span class="hl">Skärmdumpkälla</span>`,
                 `<span class="hl" id="appidhelp"><u>Hur hittar jag ett Steam-spels AppID?</u></span>`
             ],
-            "themeswitchnew": "Nytt automatiskt byte",
-            "themeswitchnewsub": [
+            themeswitchnew: "Nytt automatiskt byte",
+            themeswitchnewsub: [
                 `Ange spelets <span class="hl">AppID</span>, tillsammans med den önskade monitorn som ska användas som <span class="hl">Skärmdumpkälla</span>`,
                 `Välj vilket <span class="hl">Tema</span> som ska bytas till för varje notifieringstyp när detta spels <span class="hl">AppID</span> upptäcks`
             ],
-            "themes": "Teman",
-            "src": "Skärmdumpkälla"
+            themes: "Teman",
+            src: "Skärmdumpkälla",
+            themedeleted: "Tema raderat"
         }
     }
 }

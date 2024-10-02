@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Добавете <span class="hl">AppID</span> на която и да е игра, за да превключите автоматично на <span class="hl">Теми</span>, когато бъде открита`,
                 `Всяка запазена <span class="hl">Тема</span> може да бъде избрана за всеки тип известие, заедно с желания монитор за използване като <span class="hl">Източник на екранна снимка</span>`,
                 `<span class="hl" id="appidhelp"><u>Как да намеря AppID на игра в Steam?</u></span>`
             ],
-            "themeswitchnew": "Нова автоматична смяна",
-            "themeswitchnewsub": [
+            themeswitchnew: "Нова автоматична смяна",
+            themeswitchnewsub: [
                 `Въведете <span class="hl">AppID</span> на играта, заедно с желания монитор за използване като <span class="hl">Източник на екранна снимка</span>`,
                 `Изберете коя <span class="hl">Тема</span> да се превключи за всеки тип известие, когато бъде открит <span class="hl">AppID</span> на тази игра`
             ],
-            "themes": "Теми",
-            "src": "Източник на екранна снимка"
+            themes: "Теми",
+            src: "Източник на екранна снимка",
+            themedeleted: "Тема изтрита"
         }
     }
 }

@@ -23,13 +23,6 @@ export const log = {
             log.clear()
 
             try {
-                Store.initRenderer()
-                log.write("INFO",`"Store.initRenderer()" called successfully`)
-            } catch (err) {
-                log.write("ERROR",`Error calling "Store.initRenderer()": ${err as Error}`)
-            }
-
-            try {
                 fs.writeFileSync(path.join(sanhelper.appdata,"logs","rust.log"),"")
                 log.write("INFO",`"rust.log" created successfully`)
             } catch (err) {

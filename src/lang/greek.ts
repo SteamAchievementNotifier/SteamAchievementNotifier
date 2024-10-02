@@ -581,18 +581,19 @@ export const translations = {
         },
         themeswitch: {
             content: {
-                "managesub": [
+                managesub: [
                     `Προσθέστε την <span class="hl">AppID</span> οποιουδήποτε παιχνιδιού για να αλλάξετε αυτόματα <span class="hl">Θέματα</span> όταν ανιχνευτεί`,
                     `Οποιοδήποτε αποθηκευμένο <span class="hl">Θέμα</span> μπορεί να επιλεγεί για κάθε τύπο ειδοποίησης, μαζί με τον επιθυμητό υπολογιστή για να χρησιμοποιηθεί ως <span class="hl">Πηγή Στιγμιότυπου</span>`,
                     `<span class="hl" id="appidhelp"><u>Πώς μπορώ να βρω την AppID ενός παιχνιδιού στο Steam;</u></span>`
                 ],
-                "themeswitchnew": "Νέος Αυτόματος Αλλαγής",
-                "themeswitchnewsub": [
+                themeswitchnew: "Νέος Αυτόματος Αλλαγής",
+                themeswitchnewsub: [
                     `Εισαγάγετε την <span class="hl">AppID</span> του παιχνιδιού, μαζί με τον επιθυμητό υπολογιστή για να χρησιμοποιηθεί ως <span class="hl">Πηγή Στιγμιότυπου</span>`,
                     `Επιλέξτε ποιο <span class="hl">Θέμα</span> να αλλάξει για κάθε τύπο ειδοποίησης όταν ανιχνευτεί η <span class="hl">AppID</span> αυτού του παιχνιδιού`
                 ],
-                "themes": "Θέματα",
-                "src": "Πηγή Στιγμιότυπου"
+                themes: "Θέματα",
+                src: "Πηγή Στιγμιότυπου",
+                themedeleted: "Το θέμα διαγράφηκε"
             }
         }
     }

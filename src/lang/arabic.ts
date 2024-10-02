@@ -526,7 +526,7 @@ export const translations = {
                 `إنشاء رابط جديد بين <span class="hl">ملف تنفيذ اللعبة</span> والـ <span class="hl">AppID</span> المرتبط به`,
                 `بمجرد الإنشاء، يمكن <span class="hl">إلغاء الربط</span> عبر الحوار السابق <span class="hl">إدارة الألعاب المرتبطة</span>`
             ],
-            "link": "ربط",
+            link: "ربط",
         }
     },
     exclusions: {
@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `أضف <span class="hl">AppID</span> لأي لعبة للتبديل تلقائيًا إلى <span class="hl">الثيمات</span> عند اكتشافها`,
                 `يمكن اختيار أي <span class="hl">ثيم</span> محفوظ لكل نوع من الإشعارات، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطة الشاشة</span>`,
                 `<span class="hl" id="appidhelp"><u>كيف أجد معرف تطبيق لعبة Steam؟</u></span>`
             ],
-            "themeswitchnew": "تبديل تلقائي جديد",
-            "themeswitchnewsub": [
+            themeswitchnew: "تبديل تلقائي جديد",
+            themeswitchnewsub: [
                 `أدخل <span class="hl">AppID</span> الخاص باللعبة، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطة الشاشة</span>`,
                 `اختر أي <span class="hl">ثيم</span> للتبديل إليه لكل نوع من الإشعارات عند اكتشاف <span class="hl">AppID</span> الخاص بهذه اللعبة`
             ],
-            "themes": "الثيمات",
-            "src": "مصدر لقطة الشاشة"
+            themes: "الثيمات",
+            src: "مصدر لقطة الشاشة",
+            themedeleted: "تم حذف السمة"
         }
     }
 }

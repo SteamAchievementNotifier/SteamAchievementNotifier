@@ -561,5 +561,21 @@ export const usertheme = {
         }
 
         return syncobj
+    },
+    themeswitchinfo: (config: Store<Config>,appid: number,notify?: { customisation: Customisation,type: "main" | "rare" | "plat",getsrc?: boolean }) => {
+        const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch]
+        if (!notify) return { themeswitchcustomisation: null, themeswitchsrc: null, enabled: Boolean(themeswitch) }
+
+        const { customisation, type, getsrc } = notify
+
+        let customobj = customisation
+        let src = config.get("monitor")
+
+        if (themeswitch) {
+            customobj = (config.get(`customisation.${type}.usertheme.${themeswitch[1].themes[type]}`) as UserTheme).customisation
+            getsrc && (src = themeswitch[1].src)
+        }
+        
+        return { themeswitchcustomisation: customobj, themeswitchsrc: src, enabled: Boolean(themeswitch) }
     }
 }

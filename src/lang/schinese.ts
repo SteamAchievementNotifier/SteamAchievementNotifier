@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `将任何游戏的 <span class="hl">AppID</span> 添加到自动切换 <span class="hl">主题</span> 时`,
                 `可以为每种通知类型选择任何保存的 <span class="hl">主题</span>，以及所需的显示器作为 <span class="hl">截图源</span>`,
                 `<span class="hl" id="appidhelp"><u>我如何找到 Steam 游戏的 AppID？</u></span>`
             ],
-            "themeswitchnew": "新自动切换",
-            "themeswitchnewsub": [
+            themeswitchnew: "新自动切换",
+            themeswitchnewsub: [
                 `输入游戏的 <span class="hl">AppID</span>，以及所需的显示器作为 <span class="hl">截图源</span>`,
                 `选择在检测到该游戏的 <span class="hl">AppID</span> 时为每种通知类型切换到哪个 <span class="hl">主题</span>`
             ],
-            "themes": "主题",
-            "src": "截图源"
+            themes: "主题",
+            src: "截图源",
+            themedeleted: "主题已删除"
         }
     }
 }

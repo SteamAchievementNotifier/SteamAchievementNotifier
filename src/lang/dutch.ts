@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Voeg de <span class="hl">AppID</span> van een spel toe om automatisch <span class="hl">Thema's</span> te wisselen wanneer het wordt gedetecteerd`,
                 `Elk opgeslagen <span class="hl">Thema</span> kan worden geselecteerd voor elk meldingstype, samen met de gewenste monitor om te gebruiken als <span class="hl">Schermafbeeldingsbron</span>`,
                 `<span class="hl" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-spel?</u></span>`
             ],
-            "themeswitchnew": "Nieuwe Automatische Wissel",
-            "themeswitchnewsub": [
+            themeswitchnew: "Nieuwe Automatische Wissel",
+            themeswitchnewsub: [
                 `Voer de <span class="hl">AppID</span> van het spel in, samen met de gewenste monitor om te gebruiken als <span class="hl">Schermafbeeldingsbron</span>`,
                 `Selecteer welk <span class="hl">Thema</span> moet worden gewisseld voor elk meldingstype wanneer de <span class="hl">AppID</span> van dit spel wordt gedetecteerd`
             ],
-            "themes": "Thema's",
-            "src": "Schermafbeeldingsbron"
+            themes: "Thema's",
+            src: "Schermafbeeldingsbron",
+            themedeleted: "Thema verwijderd"
         }
     }
 }

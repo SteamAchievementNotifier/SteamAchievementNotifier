@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Herhangi bir oyunun <span class="hl">AppID</span>'sini ekleyin, tespit edildiğinde otomatik olarak <span class="hl">Temaları</span> değiştirmek için`,
                 `Her bildirim türü için seçilecek kaydedilmiş <span class="hl">Tema</span> ile birlikte kullanılacak <span class="hl">Ekran Görüntüsü Kaynağı</span> olarak istenen monitör seçilebilir`,
                 `<span class="hl" id="appidhelp"><u>Bir Steam oyununun AppID'sini nasıl bulabilirim?</u></span>`
             ],
-            "themeswitchnew": "Yeni Otomatik Değişim",
-            "themeswitchnewsub": [
+            themeswitchnew: "Yeni Otomatik Değişim",
+            themeswitchnewsub: [
                 `Oyunun <span class="hl">AppID</span>'sini girin, ayrıca kullanılacak monitörü <span class="hl">Ekran Görüntüsü Kaynağı</span> olarak belirtin`,
                 `Bu oyunun <span class="hl">AppID</span>'si tespit edildiğinde her bildirim türü için hangi <span class="hl">Temaya</span> geçileceğini seçin`
             ],
-            "themes": "Temalar",
-            "src": "Ekran Görüntüsü Kaynağı"
+            themes: "Temalar",
+            src: "Ekran Görüntüsü Kaynağı",
+            themedeleted: "Tema silindi"
         }
     }
 }

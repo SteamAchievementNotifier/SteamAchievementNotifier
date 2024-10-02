@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Добавьте <span class="hl">AppID</span> любой игры, чтобы автоматически переключать <span class="hl">Темы</span> при обнаружении`,
                 `Любая сохраненная <span class="hl">Тема</span> может быть выбрана для каждого типа уведомления, вместе с желаемым монитором для использования в качестве <span class="hl">Источник Скриншотов</span>`,
                 `<span class="hl" id="appidhelp"><u>Как найти AppID игры в Steam?</u></span>`
             ],
-            "themeswitchnew": "Новая авто-смена",
-            "themeswitchnewsub": [
+            themeswitchnew: "Новая авто-смена",
+            themeswitchnewsub: [
                 `Введите <span class="hl">AppID</span> игры вместе с желаемым монитором для использования в качестве <span class="hl">Источник Скриншотов</span>`,
                 `Выберите, какая <span class="hl">Тема</span> должна быть переключена для каждого типа уведомления, когда обнаруживается <span class="hl">AppID</span> этой игры`
             ],
-            "themes": "Темы",
-            "src": "Источник Скриншотов"
+            themes: "Темы",
+            src: "Источник Скриншотов",
+            themedeleted: "Тема удалена"
         }
     }
 }

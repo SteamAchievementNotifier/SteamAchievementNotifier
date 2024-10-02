@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `將任何遊戲的 <span class="hl">AppID</span> 添加到自動切換 <span class="hl">主題</span> 當檢測到時`,
                 `可以為每個通知類型選擇任何已保存的 <span class="hl">主題</span>，以及用作 <span class="hl">截圖來源</span> 的所需顯示器`,
                 `<span class="hl" id="appidhelp"><u>我該如何找到Steam遊戲的AppID?</u></span>`
             ],
-            "themeswitchnew": "新自動切換",
-            "themeswitchnewsub": [
+            themeswitchnew: "新自動切換",
+            themeswitchnewsub: [
                 `輸入遊戲的 <span class="hl">AppID</span>，以及用作 <span class="hl">截圖來源</span> 的所需顯示器`,
                 `選擇當檢測到此遊戲的 <span class="hl">AppID</span> 時，要為每個通知類型切換到哪個 <span class="hl">主題</span>`
             ],
-            "themes": "主題",
-            "src": "截圖來源"
+            themes: "主題",
+            src: "截圖來源",
+            themedeleted: "主題已刪除"
         }
     }
 }

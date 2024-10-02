@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Agregar el <span class="hl">AppID</span> de cualquier juego para cambiar automáticamente <span class="hl">Temas</span> cuando se detecte`,
                 `Cualquier <span class="hl">Tema</span> guardado puede seleccionarse para cada tipo de notificación, junto con el monitor deseado para usar como <span class="hl">Fuente de captura de pantalla</span>`,
                 `<span class="hl" id="appidhelp"><u>¿Cómo encuentro el AppID de un juego de Steam?</u></span>`
             ],
-            "themeswitchnew": "Nuevo cambio automático",
-            "themeswitchnewsub": [
+            themeswitchnew: "Nuevo cambio automático",
+            themeswitchnewsub: [
                 `Ingrese el <span class="hl">AppID</span> del juego, junto con el monitor deseado para usar como <span class="hl">Fuente de captura de pantalla</span>`,
                 `Seleccione qué <span class="hl">Tema</span> cambiar para cada tipo de notificación cuando se detecte el <span class="hl">AppID</span> de este juego`
             ],
-            "themes": "Temas",
-            "src": "Fuente de captura de pantalla"
+            themes: "Temas",
+            src: "Fuente de captura de pantalla",
+            themedeleted: "Tema eliminado"
         }
     }
 }

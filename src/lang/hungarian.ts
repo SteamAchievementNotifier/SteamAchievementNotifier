@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Adja hozzá bármely játék <span class="hl">AppID</span>-ját, hogy automatikusan válthasson <span class="hl">Témákra</span>, amikor észlelik`,
                 `Bármely mentett <span class="hl">Téma</span> választható minden figyelmeztetési típushoz, valamint a kívánt monitor kiválasztható, amelyet <span class="hl">Képernyőkép forrásként</span> szeretne használni`,
                 `<span class="hl" id="appidhelp"><u>Hogyan találom meg egy Steam játék AppID-ját?</u></span>`
             ],
-            "themeswitchnew": "Új automatikus váltás",
-            "themeswitchnewsub": [
+            themeswitchnew: "Új automatikus váltás",
+            themeswitchnewsub: [
                 `Adja meg a játék <span class="hl">AppID</span>-ját, valamint a kívánt monitort, amelyet <span class="hl">Képernyőkép forrásként</span> szeretne használni`,
                 `Válassza ki, hogy melyik <span class="hl">Témára</span> szeretne váltani minden figyelmeztetési típushoz, amikor a játék <span class="hl">AppID</span>-ját észlelik`
             ],
-            "themes": "Témák",
-            "src": "Képernyőkép forrás"
+            themes: "Témák",
+            src: "Képernyőkép forrás",
+            themedeleted: "Téma törölve"
         }
     }
 }

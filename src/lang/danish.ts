@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Tilføj et spils <span class="hl">AppID</span> for automatisk at skifte <span class="hl">Temaer</span>, når det opdages`,
                 `Ethvert gemt <span class="hl">Tema</span> kan vælges for hver meddelelsestype sammen med den ønskede skærm, der skal bruges som <span class="hl">Skærmbilledkilde</span>`,
                 `<span class="hl" id="appidhelp"><u>Hvordan finder jeg AppID for et Steam-spil?</u></span>`
             ],
-            "themeswitchnew": "Ny automatisk skift",
-            "themeswitchnewsub": [
+            themeswitchnew: "Ny automatisk skift",
+            themeswitchnewsub: [
                 `Indtast spillets <span class="hl">AppID</span> sammen med den ønskede skærm, der skal bruges som <span class="hl">Skærmbilledkilde</span>`,
                 `Vælg hvilket <span class="hl">Tema</span> der skal skiftes til for hver meddelelsestype, når dette spils <span class="hl">AppID</span> opdages`
             ],
-            "themes": "Temaer",
-            "src": "Skærmbilledkilde"
+            themes: "Temaer",
+            src: "Skærmbilledkilde",
+            themedeleted: "Tema slettet"
         }
     }
 }

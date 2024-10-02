@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Lisää minkä tahansa pelin <span class="hl">AppID</span> vaihtaaksesi automaattisesti <span class="hl">Teemaa</span> kun se havaitaan`,
                 `Kaikki tallennetut <span class="hl">Teemat</span> voidaan valita jokaista ilmoitustyyppiä varten, yhdessä halutun näytön kanssa käytettäväksi <span class="hl">Kuvakaappausten lähteenä</span>`,
                 `<span class="hl" id="appidhelp"><u>Miten löydän Steam-pelin AppID:n?</u></span>`
             ],
-            "themeswitchnew": "Uusi Automaattinen Vaihto",
-            "themeswitchnewsub": [
+            themeswitchnew: "Uusi Automaattinen Vaihto",
+            themeswitchnewsub: [
                 `Anna pelin <span class="hl">AppID</span>, sekä haluttu näyttö käytettäväksi <span class="hl">Kuvakaappausten lähteenä</span>`,
                 `Valitse mikä <span class="hl">Teema</span> vaihtuu kullekin ilmoitustyypille, kun tämän pelin <span class="hl">AppID</span> havaitaan`
             ],
-            "themes": "Teemat",
-            "src": "Kuvakaappausten lähde"
+            themes: "Teemat",
+            src: "Kuvakaappausten lähde",
+            themedeleted: "Teema poistettu"
         }
     }
 }

@@ -114,14 +114,16 @@ export const dialog = {
                     appid.textContent = type !== "exclusionlist" ? entry[0] : entry
                     tr.appendChild(appid)
 
-                    const gettheme = (type: "main" | "rare" | "plat",id: number): string => (config.get(`customisation.${type}.usertheme.${id}`) as UserTheme).label
+                    const gettheme = (type: "main" | "rare" | "plat",id: number) => (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === id)?.label
 
                     if (type !== "exclusionlist") {
                         if (typeof entry[1] === "object") {
+                            const themedeleted = await language.get("themedeleted",["themeswitch","content"])
+
                             for (const i in entry[1]) {
                                 const entryvalue = entry[1][i]
 
-                                const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).map(key => `<span ${key}></span>${gettheme(key as "main" | "rare" | "plat",entryvalue[key])}`) : Object.values(entryvalue)).join("<br>")
+                                const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).map(key => `<span ${key}></span>${gettheme(key as "main" | "rare" | "plat",entryvalue[key]) || `<i style="color: red;">❗ ${themedeleted}</i>`}`) : Object.values(entryvalue)).join("<br>")
                                 const strvalue = type === "themeswitch" && i === "src" ? (config.get("monitors").find(monitor => monitor.id === entryvalue)?.label || `<i style="font-size: 0.5rem; color: red;">❗ ${await language.get("notconnected")}</i>`) : entryvalue
 
                                 const td = document.createElement("td")
@@ -146,24 +148,26 @@ export const dialog = {
                     table.appendChild(tr)
                 })
 
-                const unlinkbtns = document.querySelectorAll(".unlinkbtn")
-                unlinkbtns.forEach(btn => {
-                    btn && ((btn as HTMLButtonElement).onclick = () => {
-                        const appid = btn.parentElement!.parentElement!.querySelector("td:first-child")!.textContent
-
-                        if (type !== "exclusionlist") {
-                            const entries = JSON.parse(localStorage.getItem(type)!)
-
-                            if (appid && appid in entries) {
-                                delete entries[appid]
-                                localStorage.setItem(type,JSON.stringify(entries))
+                requestAnimationFrame(() => {
+                    const unlinkbtns = document.querySelectorAll(".unlinkbtn")
+                    unlinkbtns.forEach(btn => {
+                        btn && ((btn as HTMLButtonElement).onclick = () => {
+                            const appid = btn.parentElement!.parentElement!.querySelector("td:first-child")!.textContent
+    
+                            if (type !== "exclusionlist") {
+                                const entries = JSON.parse(localStorage.getItem(type)!)
+    
+                                if (appid && appid in entries) {
+                                    delete entries[appid]
+                                    localStorage.setItem(type,JSON.stringify(entries))
+                                }
+                            } else {
+                                const exclusions = config.get("exclusions")
+                                appid && config.set("exclusions",exclusions.filter(id => id !== parseInt(appid)))
                             }
-                        } else {
-                            const exclusions = config.get("exclusions")
-                            appid && config.set("exclusions",exclusions.filter(id => id !== parseInt(appid)))
-                        }
-
-                        updatetables(type)
+    
+                            updatetables(type)
+                        })
                     })
                 })
             }

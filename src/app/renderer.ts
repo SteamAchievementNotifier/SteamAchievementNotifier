@@ -347,7 +347,7 @@ const playback = () => {
     webview && webview.send("playback",pause)
 }
 
-const sendsswin = async (type: "main" | "rare" | "plat",customisation: Customisation) => ipcRenderer.send("sswin",await notifyinfo(type,customisation))
+const sendsswin = async (type: "main" | "rare" | "plat",customisation: Customisation,src: number) => ipcRenderer.send("sswin",await notifyinfo(type,customisation),src)
 
 window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
     const synced = usertheme.issynced(config)
@@ -355,10 +355,12 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
     const keypath = `customisation.${type}`
 
     let customisation = config.get(keypath) as Customisation
+    let src = config.get("monitor")
 
     if (window.appid) {
-        const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!) as ThemeSwitch).find(item => parseInt(item[0]) === window.appid)
-        themeswitch && (customisation = (config.get(`customisation.${type}.usertheme.${themeswitch[1].themes[type]}`) as UserTheme).customisation)
+        const { themeswitchcustomisation, themeswitchsrc } = usertheme.themeswitchinfo(config,window.appid,{ customisation, type, getsrc: true })
+        customisation = themeswitchcustomisation || customisation
+        src = themeswitchsrc || src
     }
 
     if (document.querySelector("dialog[menu] #settingscontent")) {
@@ -366,7 +368,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         document.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
-        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation)
+        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
 
         const { elemselector } = await import("./elemselector")
         elemselector(document.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
@@ -489,6 +491,8 @@ const resetwin = (attrs: string[], animationName?: string) => {
     window.removeEventListener("resize",resizewebview)
 }
 
+const customisebtn = document.getElementById("customise")! as HTMLButtonElement
+
 const closecustomiser = () => {
     (sanhelper.devmode && webview) && webview.closeDevTools()
 
@@ -505,10 +509,14 @@ const closecustomiser = () => {
 
     document.body.setAttribute("closing","")
     !noanim ? document.getElementById("maincontent")!.addEventListener("animationend", ({ animationName }) => resetwin(attrs,animationName),{ once: true }) : resetwin(attrs)
+
+    customisebtn.removeAttribute("active")
 }
 
-document.getElementById("customise")!.onclick = () => {
-    (async () => {
+const opencustomiser = () => {
+    customisebtn.setAttribute("active","")
+
+    ;(async () => {
         await language.load()
         await sanhelper.updategamelbl(globalgamename)
     })()
@@ -575,6 +583,8 @@ document.getElementById("customise")!.onclick = () => {
     document.getElementById("close")!.onclick = closecustomiser
 }
 
+customisebtn.onclick = opencustomiser
+
 // Closes "extwin" if "config.soundonly" is true
 window.addEventListener("soundonly", () => ipcRenderer.send("closeopenwins"))
 
@@ -585,7 +595,8 @@ const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisatio
     const customisation = { ...customobj }
     delete (customisation as any).usertheme
 
-    const { plat } = (config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
+    const { themeswitchcustomisation } = usertheme.themeswitchinfo(config,window.appid,{ customisation, type })
+    const { plat } = (themeswitchcustomisation || config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
 
     const notify: Notify = {
         id: Math.round(Date.now() / Math.random() * 1000),
@@ -610,10 +621,13 @@ let globaltype: "main" | "rare" | "plat" | null = null
 // This needs to have no parameters to use in "removeEventListener"
 const sendtestnotify = async () => {
     const type = globaltype || sanhelper.type
-    const customisation: Customisation = { ...config.get(`customisation.${type}`) as Customisation }
+    const customobj: Customisation = { ...config.get(`customisation.${type}`) as Customisation }
+    
+    const notify = await notifyinfo(type,customobj)
 
-    const notify = await notifyinfo(type,customisation)
-
+    let { customisation } = notify
+    let src = config.get("monitor")
+    
     if (webview) {
         webview.style.opacity = "1"
         webview.removeEventListener("dom-ready",sendtestnotify)
@@ -622,11 +636,14 @@ const sendtestnotify = async () => {
     }
 
     if (window.appid) {
-        const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!) as ThemeSwitch).find(item => parseInt(item[0]) === window.appid)
-        themeswitch && (notify.customisation = (config.get(`customisation.${notify.type}.usertheme.${themeswitch[1].themes[notify.type]}`) as UserTheme).customisation)
+        const { themeswitchcustomisation, themeswitchsrc } = usertheme.themeswitchinfo(config,window.appid,{ customisation: notify.customisation, type: notify.type, getsrc: true })
+        customisation = themeswitchcustomisation || customisation
+        src = themeswitchsrc || src
     }
+
+    notify.customisation = customisation
     
-    ipcRenderer.send("notify",notify,webview !== null && "customiser")
+    ipcRenderer.send("notify",notify,webview !== null && "customiser",src)
     globaltype && (globaltype = null)
 }
 
@@ -646,8 +663,8 @@ ipcRenderer.on("customisernotify", (event,obj: Info) => {
     wrapper.style.setProperty("--height",`${height + 50}`)
 
     if (window.appid) {
-        const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!) as ThemeSwitch).find(item => parseInt(item[0]) === window.appid)
-        themeswitch && (obj.customisation = (config.get(`customisation.${obj.info.type}.usertheme.${themeswitch[1].themes[obj.info.type]}`) as UserTheme).customisation)
+        const { themeswitchcustomisation } = usertheme.themeswitchinfo(config,window.appid,{ customisation: obj.customisation, type: obj.info.type })
+        obj.customisation = themeswitchcustomisation || obj.customisation
     }
 
     webview && webview.send("notify",obj)
@@ -681,6 +698,9 @@ ipcRenderer.on("appid", async (event,appid,gamename,steam3id) => {
     
     gamelbl.parentElement!.toggleAttribute("novalue",!gamename)
     sanhelper.updategamelbl(gamename)
+
+    const enabled = appid ? usertheme.themeswitchinfo(config,appid).enabled : false
+    enabled ? document.body.setAttribute("themeswitch",appid) : document.body.removeAttribute("themeswitch")
 })
 
 sanhelper.soundonly(config.get("soundonly"))

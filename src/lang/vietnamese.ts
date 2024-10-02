@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `Thêm <span class="hl">AppID</span> của bất kỳ trò chơi nào để tự động chuyển đổi <span class="hl">Chủ đề</span> khi phát hiện`,
                 `Bất kỳ <span class="hl">Chủ đề</span> nào đã lưu có thể được chọn cho mỗi loại thông báo, cùng với màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp màn hình</span>`,
                 `<span class="hl" id="appidhelp"><u>Làm thế nào để tìm AppID của một trò chơi Steam?</u></span>`
             ],
-            "themeswitchnew": "Chuyển đổi Tự động Mới",
-            "themeswitchnewsub": [
+            themeswitchnew: "Chuyển đổi Tự động Mới",
+            themeswitchnewsub: [
                 `Nhập <span class="hl">AppID</span> của trò chơi, cùng với màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp màn hình</span>`,
                 `Chọn <span class="hl">Chủ đề</span> nào để chuyển đổi cho mỗi loại thông báo khi phát hiện <span class="hl">AppID</span> của trò chơi này`
             ],
-            "themes": "Chủ đề",
-            "src": "Nguồn Ảnh chụp màn hình"
+            themes: "Chủ đề",
+            src: "Nguồn Ảnh chụp màn hình",
+            themedeleted: "Chủ đề đã bị xóa"
         }
     }
 }

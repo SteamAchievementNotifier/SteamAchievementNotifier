@@ -582,18 +582,19 @@ export const translations = {
     },
     themeswitch: {
         content: {
-            "managesub": [
+            managesub: [
                 `任意のゲームの <span class="hl">AppID</span> を追加して、検出されたときに <span class="hl">テーマ</span> を自動的に切り替え`,
                 `保存された任意の <span class="hl">テーマ</span> を各通知タイプに選択でき、使用する希望のモニターを <span class="hl">スクリーンショットソース</span> として指定できます`,
                 `<span class="hl" id="appidhelp"><u>SteamゲームのAppIDはどのように見つけることができますか？</u></span>`
             ],
-            "themeswitchnew": "新しい自動切替",
-            "themeswitchnewsub": [
+            themeswitchnew: "新しい自動切替",
+            themeswitchnewsub: [
                 `ゲームの <span class="hl">AppID</span> と、希望のモニターを <span class="hl">スクリーンショットソース</span> として指定してください`,
                 `このゲームの <span class="hl">AppID</span> が検出されたときに各通知タイプのために切り替える <span class="hl">テーマ</span> を選択`
             ],
-            "themes": "テーマ",
-            "src": "スクリーンショットソース"
+            themes: "テーマ",
+            src: "スクリーンショットソース",
+            themedeleted: "テーマが削除されました"
         }
     }
 }

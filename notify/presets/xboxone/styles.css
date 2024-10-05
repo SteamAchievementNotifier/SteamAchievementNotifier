@@ -9,14 +9,14 @@
 
 .wrapper#achcont {
     --start: 16.6%;
-    --finish: shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--displaytime) / 4.5)) cubic-bezier(0.75, 0, 1, 1) forwards;
+    --finish: shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 11.5)) cubic-bezier(0.75,0,1,1) forwards;
     position: relative;
     width: var(--start);
     height: var(--notifyheight);
     place-self: center;
     opacity: var(--opacity);
     animation:
-        expand var(--transition) calc(var(--displaytime) / 7) cubic-bezier(0, 0.5, 1, 1) forwards,
+        expand var(--transition) calc(var(--transition) * 7) cubic-bezier(0,0.5,1,1) forwards,
         var(--finish);
 }
 
@@ -43,7 +43,7 @@ body[bgonly] .wrapper#achcont {
     opacity: 0;
     overflow: hidden;
     animation:
-        fadein var(--transition) calc(var(--displaytime) / 7 - var(--transition)) cubic-bezier(0, 0.5, 1, 1) forwards,
+        fadein var(--transition) calc(var(--transition) * 5) cubic-bezier(0, 0.5, 1, 1) forwards,
         var(--finish);
 }
 
@@ -124,12 +124,12 @@ body[bgonly] #iconbg {
 }
 
 #achicon {
-    --finish: fadeout var(--transition) calc(var(--displaytime) - (var(--displaytime) / 4.5) + var(--transition)) forwards;
+    --finish: fadeout var(--transition) calc(var(--displaytime) - (var(--transition) * 10.5)) forwards;
     --elemopacity: 1;
     opacity: 0;
     z-index: 1;
     animation:
-        fadein var(--transition) calc(var(--displaytime) / 9) forwards,
+        fadein var(--transition) calc(var(--transition) * 5) forwards,
         var(--finish);
 }
 
@@ -147,8 +147,8 @@ body[fastanim] #achicon {
     z-index: 0;
     animation:
         popin var(--transition) ease-in-out forwards,
-        fadeout var(--transition) calc(var(--displaytime) / 9) forwards,
-        fadein var(--transition) calc(var(--displaytime) - (var(--displaytime) / 5) + var(--transition)) forwards,
+        fadeout var(--transition) calc(var(--transition) * 5) forwards,
+        fadein var(--transition) calc(var(--displaytime) - (var(--transition) * 10)) forwards,
         scaledown calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 9)) cubic-bezier(1, 0, 1, 1) forwards;
 }
 
@@ -162,10 +162,10 @@ body[fastanim] #achicon {
 }
 
 .wrapper#achcontent {
-    --finish: removecolumngap calc(var(--transition) * 2) calc(var(--displaytime) - (var(--displaytime) / 4.5)) forwards;
+    --finish: removecolumngap calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 11.5)) forwards;
     column-gap: 0;
     animation:
-        addcolumngap 1ms calc(var(--displaytime) / 6) forwards,
+        addcolumngap 1ms calc(var(--transition) * 5) forwards,
         var(--finish);
 }
 
@@ -187,7 +187,6 @@ body[fastanim] .wrapper#achcontent {
     line-height: calc(1.35rem * var(--fontsize));
 }
 
-/* body[nodecoration] .wrapper#achcontent > span { */
 .wrapper#achcontent:has(#unlockmsg):has(#decoration) > span {
     grid-column: 2 / span 2;
 }
@@ -207,14 +206,12 @@ body[fastanim] .wrapper#achcontent {
     display: none;
 }
 
-/* body:not([nodecoration]) #title::before { */
 body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::before,
 body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::before {
     content: attr(gs) attr(unit) " - ";
     margin-left: calc(1.175rem * var(--fontsize));
 }
 
-/* body:not([nodecoration]) #title::after { */
 body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::after,
 body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::after {
     content: "";
@@ -232,7 +229,7 @@ body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::after {
     --elemopacity: 1;
     --translate: -100vh;
     animation:
-        fadein calc(var(--transition) * 2) calc(var(--displaytime) / 7 + (var(--transition) * 2.5)) forwards,
+        fadein calc(var(--transition) * 2) calc((var(--transition) * 8.5)) forwards,
         var(--finish);
 }
 
@@ -255,7 +252,7 @@ body[fastanim] #title {
 
 .wrapper#achcontent > #desc {
     --start: slideup calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition)) * 2) cubic-bezier(0.5, 0, 1, 1) forwards;
-    --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--displaytime) / 4.25)) forwards;
+    --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 12.5)) forwards;
     --translate: 0;
     align-self: center;
     grid-row: 1 / span 2;

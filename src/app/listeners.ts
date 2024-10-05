@@ -389,8 +389,8 @@ export const listeners = {
                 const temp = sanhelper.temp
 
                 try {
-                    worker && worker.webContents.send("steam3id")
-                    ipcMain.once("steam3id", (event,steam3id: number = 0) => sendtrackinfo(gamename,appid,steampath,steam3id,hqicon,temp))
+                    worker && worker.webContents.send("steam3id",true)
+                    ipcMain.once("steam3id",(event,steam3id: number = 0,skipss?: boolean) => skipss && sendtrackinfo(gamename,appid,steampath,steam3id,hqicon,temp))
                 } catch (err) {
                     log.write("ERROR",`Error sending tracking info to Worker: ${err}`)
                     sendtrackinfo(gamename,appid,steampath,0,hqicon,temp)
@@ -1125,7 +1125,8 @@ export const listeners = {
             win.webContents.send("updatelogtype",logtype)
         })
 
-        ipcMain.on("steam3id", async (event,steam3id) => {
+        ipcMain.on("steam3id", async (event,steam3id: number,skipss?: boolean) => {
+            if (skipss) return log.write("INFO",`"skipss" received - skipping screenshot...`)
             if (!sanconfig.get().store.steamss) return log.write("INFO",`"steamss" not active`)
 
             try {

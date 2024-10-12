@@ -16,6 +16,7 @@ export const selectorelems = [
     "percentbadgepos",
     "percentbadgecolor",
     "percentbadgefontsize",
+    "percentbadgefontcolor",
     "percentbadgeroundness",
     "percentbadgex",
     "percentbadgey",
@@ -71,10 +72,8 @@ const updateopts = (select: HTMLSelectElement,elems: string[],max: number) => se
 const adjustpos = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",id: string,elems: string[]) =>config.get(`customisation.${type}.${id}`) as number > elems.length && config.set(`customisation.${type}.${id}`, elems.length > 0 ? elems.length : 0)
 
 const updateinput = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",elem: HTMLInputElement,value: boolean | string,menutype: HTMLElement) => {
-    config.set(`customisation.${type}.${elem.id}`,elem.type === "checkbox" ? value as boolean : (elem.type === "color" ? value as string : parseInt(value as string)))
-
+    config.set(`customisation.${type}.${elem.id}`,elem.type === "checkbox" ? value as boolean : parseInt(value as string))
     sanhelper.updatetabs()
-    requestAnimationFrame(() => sanhelper.loadadditionaltooltips(menutype))
 }
 
 export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselems") => {
@@ -161,7 +160,6 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
                 config.set(`customisation.${type}.${id}`,value !== "off" ? parseInt(value) : 0)
 
                 sanhelper.updatetabs()
-                requestAnimationFrame(() => sanhelper.loadadditionaltooltips(menutype))
             }
 
             updateopts(select,elems,max)
@@ -183,6 +181,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         "percentbadgepos",
         "percentbadgecolor",
         "percentbadgefontsize",
+        "percentbadgefontcolor",
         "percentbadgeroundness",
         "percentbadgex",
         "percentbadgey",
@@ -197,6 +196,8 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     menutype.querySelectorAll(`#elemselector > .opt > .opt:has(input) > input`)!.forEach(i => {
         const input = i as HTMLInputElement
         input.parentElement!.querySelector("span")!.textContent = notificationelems.content[input.id]
+
+        if (input.type === "color") return input.onclick = event => event.preventDefault()
 
         const value = config.get(`customisation.${type}.${input.id}`)
         input.type === "checkbox" ? (input.checked = value as boolean) : (input.value = value.toString())
@@ -229,7 +230,6 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
                 config.set(`customisation.${type}.${elem.id}`,path[0].replace(/\\/g,"/"))
                 sanhelper.updatetabs()
-                requestAnimationFrame(() => sanhelper.loadadditionaltooltips(menutype))
             })
 
             ipcRenderer.send("loadfile","img")
@@ -243,7 +243,6 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         btn.onclick = () => {
             btn.id === "resetpbimgs" && ["bronze","silver","gold"].forEach(id => config.set(`customisation.${type}.${elemtype === "sselems" ? "ss" : ""}percentbadgeimg${id}`,sanhelper.setfilepath("img",`sanlogotrophy_${id}.svg`)))
             sanhelper.updatetabs()
-            requestAnimationFrame(() => sanhelper.loadadditionaltooltips(menutype))
         }
     })
 
@@ -258,7 +257,6 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
             config.set(`customisation.${type}.${elem.id}`,elem.value)
 
             sanhelper.updatetabs()
-            requestAnimationFrame(() => sanhelper.loadadditionaltooltips(menutype))
         }
     })
 }

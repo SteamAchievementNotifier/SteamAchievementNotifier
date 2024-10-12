@@ -20,11 +20,12 @@
     "homepage": "https://github.com/${author}/${author}#readme",
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
-        "electron": "^32.1.2",
+        "electron": "^32.2.0",
         "electron-builder": "^24.9.1",
         "typescript": "^5.2.2"
     },
     "dependencies": {
+        "@jaames/iro": "^5.5.2",
         "adm-zip": "^0.5.14",
         "electron-log": "^4.4.8",
         "electron-store": "^8.1.0",

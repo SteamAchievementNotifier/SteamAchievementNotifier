@@ -467,6 +467,11 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
 
     const dialog = document.querySelector("dialog") || document.getElementById("customiser")
     sanhelper.loadclosedstate(dialog)
+
+    ;["settingscontent","customiser"].forEach(id => {
+        const menuelem = document.getElementById(id)
+        menuelem && sanhelper.loadadditionaltooltips(menuelem)
+    })
 })
 
 const seticon = (icon: string) => {

@@ -219,11 +219,18 @@ input[type="color"] {
 
 input[type="color"]::-webkit-color-swatch-wrapper {
     padding: 0;
+    background: repeating-conic-gradient(#808080 0% 25%, transparent 0% 50%) center / 1rem 1rem;
 }
 
 input[type="color"]::-webkit-color-swatch {
     border: none;
     border-radius: 0 var(--elembr) var(--elembr) var(--elembr);
+    background-color: var(--configcolor) !important;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper,
+input[type="color"]::-webkit-color-swatch {
+    pointer-events: none;
 }
 
 input[type="text"],

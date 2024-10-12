@@ -317,6 +317,8 @@ export const sanconfig = {
                 sspercentbadgecolor: `#${props === "main" ? "203e7a" : (props === "rare" ? "663399" : "4e75c9")}`,
                 percentbadgefontsize: 100,
                 sspercentbadgefontsize: 100,
+                percentbadgefontcolor: "#ffffff",
+                sspercentbadgefontcolor: "#ffffff",
                 percentbadgeroundness: 50,
                 sspercentbadgeroundness: 50,
                 percentbadgex: 0,

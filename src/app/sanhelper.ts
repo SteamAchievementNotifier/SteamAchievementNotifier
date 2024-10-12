@@ -8,6 +8,7 @@ import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
 import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
+import { createcolorpicker } from "./colorpicker"
 const { initLogger, testPanic } = sanhelperrslog
 
 export const __root: string = path.resolve(__dirname,"..","..")
@@ -25,6 +26,8 @@ const defaulttippy = {
     theme: "default",
     plugins: [followCursor]
 } as Props
+
+let currenttippy: any = null
 
 // Element ids that should not reload the Customiser webview
 const noreload = (elem: HTMLElement) => {
@@ -359,6 +362,9 @@ export const sanhelper: SANHelper = {
         if (selectorelems.find(id => elem.id === id)) return
 
         elem.value = key.toString()
+
+        if (elem instanceof HTMLInputElement && elem.type === "color") return elem.onclick = event => event.preventDefault()
+
         elem.onchange = ({ target }: Event) => {
             config.set((keypath ? `${keypath}.` : "") + elem.id, (target instanceof HTMLInputElement && (target.type === "range" || target.type === "number")) ? parseFloat(target.value) : (typeof key === "number" ? parseInt(selectinputtype(target!)) : selectinputtype(target!)))
             sanhelper.updatetabs(noreload(elem) !== undefined)
@@ -495,6 +501,53 @@ export const sanhelper: SANHelper = {
     
                 tippies.push(tt)
             }
+        })
+
+        // Changing `menuelem` to `#customisercontent` would be easier, but stops displaying tooltips when changed for some reason
+        const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`) as HTMLElement
+        const dialog = document.querySelector(`dialog[menu]:has(#${menu.id})`) as HTMLDialogElement
+
+        console.log("YOU MUST CONSTRUCT ADDITIONAL TOOLTIPS")
+
+        menu.querySelectorAll(`input[type="color"]`).forEach(async clr => {
+            const { sanconfig } = await import("./config")
+            const config = sanconfig.get()
+            const color = clr as HTMLInputElement
+
+            color.style.setProperty("--configcolor",config.get(`customisation.${sanhelper.type}.${color.id}`) as string)
+    
+            const tt = tippy(`#${color.id}`,{
+                allowHTML: true,
+                appendTo: dialog || document.body,
+                interactive: true,
+                maxWidth: "none",
+                trigger: "click",
+                offset: [0,20],
+                placement: menuelem.id === "customiser" ? "left" : "right",
+                onTrigger: inst => {
+                    currenttippy && currenttippy !== inst && currenttippy.hide()
+                    currenttippy = inst
+
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                },
+                onMount: inst => {
+                    menu.addEventListener("scroll",() => inst.hide(),{ once: true })
+    
+                    const html = `
+                        <span id="colorcode"></span>
+                        <div id="picker"></div>
+                    `
+        
+                    inst.setContent(html)
+                    createcolorpicker(inst,color,menuelem)
+                },
+                onHidden: inst => {
+                    inst.setContent("")
+                    currenttippy === inst && (currenttippy = null)
+                }
+            })
+    
+            tippies.push(tt)
         })
     }),
     settooltips: (value: boolean) => {
@@ -695,6 +748,8 @@ export const sanhelper: SANHelper = {
                 })
             })
         }
+
+        console.log(tippies)
     },
     getpresetbounds: (preset: string) => {
         const meta = () => {

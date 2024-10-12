@@ -40,6 +40,7 @@
     --mask: none;
     --badgepos: "end";
     --badgecolor: #203e7a;
+    --badgefontcolor: #ffffff;
     --badgesize: 1rem;
     --badgeroundness: 5px;
     font-size: clamp(0.05rem,0.05rem + 3vmax,12.5rem);
@@ -282,6 +283,7 @@ body[nodecoration] .wrapper#achcontent > span {
     grid-column: 1 / -1;
     grid-row: 1 / -1;
     background-color: var(--badgecolor);
+    color: var(--badgefontcolor);
     font-size: var(--badgesize);
     border-radius: var(--badgeroundness);
     padding: calc(var(--badgesize) / 4) calc(var(--badgesize) / 3);

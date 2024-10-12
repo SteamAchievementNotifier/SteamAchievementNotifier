@@ -1,0 +1,50 @@
+.IroBox,
+.IroSlider,
+.IroSliderGradient {
+    border-radius: 0 !important;
+}
+
+.IroHandle {
+    cursor: pointer;
+}
+
+.tippy-content:has(#picker) {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 0.25rem;
+    place-items: center;
+    background-color: #101010f2;
+    border: 0.05rem solid var(--configcolor);
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+}
+
+div#picker {
+    transition: 0s;
+}
+
+input[type="color"]#picker::-webkit-color-swatch-wrapper {
+    padding: 0;
+    background: repeating-conic-gradient(#808080 0% 25%, transparent 0% 50%) 50% / 0.5rem 0.5rem !important;
+}
+
+input[type="color"]#picker::-webkit-color-swatch {
+    background-color: var(--configcolor) !important;
+    border-radius: 0.15rem;
+}
+
+span#colorcode {
+    display: grid;
+    grid-template-columns: 1fr 2.5rem;
+    width: 100%;
+    padding: 0.15rem;
+    font-family: "JetBrains Mono";
+    font-size: 0.7rem;
+    transition: 0s;
+}
+
+span#colorcode::after {
+    content: "";
+    background-color: var(--configcolor);
+    border-radius: 0.15rem;
+}

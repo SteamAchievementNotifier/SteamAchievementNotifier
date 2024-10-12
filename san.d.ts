@@ -181,6 +181,8 @@ declare interface Customisation {
     sspercentbadgecolor: string,
     percentbadgefontsize: number,
     sspercentbadgefontsize: number,
+    percentbadgefontcolor: string,
+    sspercentbadgefontcolor: string,
     percentbadgeroundness: number,
     sspercentbadgeroundness: number,
     percentbadgex: number,

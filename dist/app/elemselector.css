@@ -135,6 +135,7 @@ body[plat] .wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimg
     height: 1rem;
 }
 
+.wrapper#elemselector > .wrapper > .wrapper:has(input[type="color"]) > input[type="color"]::-webkit-color-swatch-wrapper,
 .wrapper#elemselector > .wrapper > .wrapper:has(input[type="color"]) > input[type="color"]::-webkit-color-swatch {
     border-radius: 0.15rem;
 }

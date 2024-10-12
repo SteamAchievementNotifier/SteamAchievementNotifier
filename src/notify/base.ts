@@ -227,6 +227,7 @@ const notifyhelper = {
                 ["--badgeposx",badgepos(customisation[`${ss}percentbadgepos`]).x],
                 ["--badgeposy",badgepos(customisation[`${ss}percentbadgepos`]).y],
                 ["--badgecolor",customisation[`${ss}percentbadgecolor`]],
+                ["--badgefontcolor",customisation[`${ss}percentbadgefontcolor`]],
                 ["--badgesize",`${(customisation[`${ss}percentbadgefontsize`] / 10) * (customisation.scale / 100)}px`],
                 ["--badgeroundness",customisation[`${ss}percentbadgeroundness`] === 100 ? "50%" : `${(customisation[`${ss}percentbadgefontsize`] / 4) / (customisation[`${ss}percentbadgeroundness`] / 10)}px`],
                 ["--badgeimg",customisation[`${ss}percentbadgeimg`] ? (`url('${customisation[`percentbadgeimg${percentimg}`]}')` || `url('../img/sanlogotrophy.svg')`) : "none"]

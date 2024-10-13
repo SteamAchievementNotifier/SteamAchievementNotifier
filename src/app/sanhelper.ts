@@ -507,8 +507,6 @@ export const sanhelper: SANHelper = {
         const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`) as HTMLElement
         const dialog = document.querySelector(`dialog[menu]:has(#${menu.id})`) as HTMLDialogElement
 
-        console.log("YOU MUST CONSTRUCT ADDITIONAL TOOLTIPS")
-
         menu.querySelectorAll(`input[type="color"]`).forEach(async clr => {
             const { sanconfig } = await import("./config")
             const config = sanconfig.get()
@@ -636,7 +634,7 @@ export const sanhelper: SANHelper = {
             tippies.push(tt)
         })
 
-        const settings = document.querySelector(`dialog[menu] #settingscontent`)
+        const settings = document.querySelector(`dialog[menu] #settingscontent`) as HTMLElement
         const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id).map(btn => btn.id)
 
         if (settings) {
@@ -668,7 +666,7 @@ export const sanhelper: SANHelper = {
             sanhelper.loadadditionaltooltips(settings)
         }
 
-        const customiser = document.querySelector("#customiser")
+        const customiser = document.querySelector("#customiser") as HTMLElement
 
         if (customiser) {
             customiser.querySelectorAll(`
@@ -748,8 +746,6 @@ export const sanhelper: SANHelper = {
                 })
             })
         }
-
-        console.log(tippies)
     },
     getpresetbounds: (preset: string) => {
         const meta = () => {
@@ -851,7 +847,7 @@ export const sanhelper: SANHelper = {
         sanhelper.loadadditionaltooltips(menuelem)
     },
     reloadelemselector: async () => {
-        const menutype = document.getElementById("settingscontent") || document.getElementById("customiser")
+        const menutype = document.getElementById("settingscontent") || document.getElementById("customiser") as HTMLElement
         if (!menutype) return
 
         const settings = menutype.id === "settingscontent"

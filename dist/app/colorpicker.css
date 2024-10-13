@@ -1,7 +1,11 @@
+:root {
+    --colorpickerbr: 0.15rem;
+}
+
 .IroBox,
 .IroSlider,
 .IroSliderGradient {
-    border-radius: 0 !important;
+    border-radius: var(--colorpickerbr) !important;
 }
 
 .IroHandle {
@@ -30,14 +34,14 @@ input[type="color"]#picker::-webkit-color-swatch-wrapper {
 
 input[type="color"]#picker::-webkit-color-swatch {
     background-color: var(--configcolor) !important;
-    border-radius: 0.15rem;
+    border-radius: var(--colorpickerbr);
 }
 
 span#colorcode {
     display: grid;
     grid-template-columns: 1fr 2.5rem;
     width: 100%;
-    padding: 0.15rem;
+    padding: var(--colorpickerbr);
     font-family: "JetBrains Mono";
     font-size: 0.7rem;
     transition: 0s;
@@ -46,5 +50,5 @@ span#colorcode {
 span#colorcode::after {
     content: "";
     background-color: var(--configcolor);
-    border-radius: 0.15rem;
+    border-radius: var(--colorpickerbr);
 }

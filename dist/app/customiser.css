@@ -53,16 +53,11 @@ body[main] .sub:has(#iconanim),
 .optcont:has(.opt > .img[id="decoration1"][novalue]):has(.opt > .img[id="decoration2"][novalue]):has(.opt > .img[id="decoration3"][novalue]) > .opt:has(input#replacelogo),
 #customiseropts:has(.wrapper#elemselector > .wrapper > .wrapper > select#unlockmsg > option[value="off"]:checked) > .wrapper:has(.title#preset) > .optcont > .opt:has(#customtext),
 body[plat] #customisercontent .wrapper:has(> #showhiddenicon),
-body[plat] #customisercontent .wrapper:has(> .img#hiddenicon) {
-    display: none;
-}
-
+body[plat] #customisercontent .wrapper:has(> .img#hiddenicon),
 .opt:has(#alldetails),
-.opt[nodecoration] {
-    display: none;
-}
-
+.opt[nodecoration],
 .opt:has(#usepercent),
+#customiseropts:has(.opt > select#bgstyle > option[value="solid"]:checked) .opt:has(#secondarycolor),
 .opt:has(#tertiarycolor),
 #customiseropts:has(.opt > select#preset > option[value="steamdeck"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
 #customiseropts:has(.opt > select#preset > option[value="epicgames"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
@@ -72,6 +67,9 @@ body[plat] #customisercontent .wrapper:has(> .img#hiddenicon) {
     display: none;
 }
 
+#customiseropts:has(.opt > select#preset > option[value="default"]:checked) > .cont:has(.title#colors) > .optcont > .opt:has(#secondarycolor),
+#customiseropts:has(.opt > select#preset > option[value="xqjan"]:checked) > .cont:has(.title#colors) > .optcont > .opt:has(#secondarycolor),
+#customiseropts:has(.opt > select#preset > option[value="xboxone"]:checked) > .cont:has(.title#colors) > .optcont > .opt:has(#secondarycolor),
 #customiseropts:has(.opt > select#preset > option[value="xqjan"]:checked) .opt:has(#tertiarycolor),
 #customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#tertiarycolor),
 #customiseropts:has(.opt > select#preset > option[value="ps5"]:checked) .opt:has(#tertiarycolor),

@@ -112,11 +112,20 @@ body[bgonly] .shadow {
     margin: 0;
     scale: 0;
     border-radius: var(--addiconroundness);
-    overflow: hidden;
     animation:
         scaleup var(--transition) var(--transition) forwards,
         scaledown var(--transition) calc(var(--transition) * 3) forwards,
         scaleup var(--transition) calc(var(--displaytime) - (var(--transition) * 5)) forwards;
+}
+
+.wrapper#achiconwrapper::before {
+    scale: 1.1;
+}
+
+.wrapper#achiconinnerwrapper {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    overflow: hidden;
 }
 
 .wrapper#achcont,
@@ -178,8 +187,6 @@ body[bgonly] .shadow {
     to { width: 0; }
 }
 
-/* body:not([alldetails]) #unlockmsg,
-body:not([alldetails]) #desc { */
 body:not([alldetails]) #unlockmsg {
     display: none;
 }
@@ -265,7 +272,6 @@ body[alldetails] .wrapper#xpwrapper {
     grid-row-start: 1;
 }
 
-/* body:not([nodecoration]) .wrapper#xpwrapper::before { */
 .wrapper#achcontent:has(#unlockmsg):has(#decoration) .wrapper#xpwrapper::before {
     content: "";
     display: block;
@@ -312,5 +318,6 @@ body[ss] .wrapper#xpwrapper {
 }
 
 #badge {
-    font-size: calc(var(--badgesize) * 2.5);
+    font-size: calc(var(--badgesize) * 2);
+    height: max-content !important;
 }

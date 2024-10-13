@@ -113,7 +113,7 @@ body:not([plat]) #settingscontent[synced="plat"] .cont:has(.title#media) > .optc
 
 .wrapper#elemselector > .wrapper:has(input[id$="percentbadge"]:not(:checked)) > .wrapper:has(select[id$="percentbadgepos"],input[id*="percentbadge"]:not(input#percentbadge,input#sspercentbadge),button[id*="percentbadgeimg"]),
 .wrapper#elemselector > .wrapper:has([id$="percentbadgeimg"]:not(:checked)) > .wrapper:has([id$="percentbadgeimgbronze"],[id$="percentbadgeimgsilver"],[id$="percentbadgeimggold"]),
-.wrapper#elemselector > .wrapper:has([id$="percentbadgeimg"]:checked) > .wrapper:has(input[type="color"][id$="percentbadgecolor"],input[type="range"][id$="percentbadgeroundness"]),
+.wrapper#elemselector > .wrapper:has([id$="percentbadgeimg"]:checked) > .wrapper:has(input[type="color"][id$="percentbadgecolor"],input[type="color"][id$="percentbadgefontcolor"],input[type="range"][id$="percentbadgeroundness"]),
 body[main] .wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimggold"]),
 body[rare] .wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimgbronze"],[id$="percentbadgeimgsilver"]),
 body[plat] .wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimgbronze"],[id$="percentbadgeimgsilver"]),

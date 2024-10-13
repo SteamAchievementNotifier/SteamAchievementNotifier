@@ -1300,8 +1300,8 @@ export const listeners = {
                 !ispreview && ipcMain.once("sscapture", () => {
                     if (!sswin) return log.write("ERROR",`"${type}win" was closed before image file could be written to "${imgpath}"`)
                     
-                    const ssdir = `${imgpath}/${(info.gamename || "Steam Achievement Notifier").replace(/[<>":\\/|?*\x00-\x1F]/g,"_").trim()}`
-                    const ssimg = `${ssdir}/${info.title.replace(/[<>":\\/|?*\x00-\x1F]/g,"_").trim()}${type === "img" ? "_notification" : ""}.png`
+                    const ssdir = `${imgpath}/${(info.gamename || "Steam Achievement Notifier").replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}`
+                    const ssimg = `${ssdir}/${info.title.replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}${type === "img" ? " - Notification" : ""}.png`
 
                     sswin.webContents.capturePage()
                     .then(img => {

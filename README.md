@@ -185,3 +185,4 @@ Additionally, there are several in-app options to control various aspects of **a
 - [vdf-rs](https://github.com/CosmicHorrorDev/vdf-rs) by [CosmicHorrorDev](https://github.com/CosmicHorrorDev)
 - Custom forks of [screenshots (xcap)](https://github.com/nashaofu/xcap)/[display-info](https://github.com/nashaofu/display-info) by [nashaofu](https://github.com/nashaofu)
 - [icojs](https://github.com/egy186/icojs) by [egy186](https://github.com/egy186)
+- [iro.js](https://github.com/jaames/iro.js) by [jaames](https://github.com/jaames)

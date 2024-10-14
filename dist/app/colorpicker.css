@@ -14,8 +14,9 @@
 
 .tippy-content:has(#picker) {
     display: grid;
+    grid-template-columns: 1fr 2rem;
     grid-template-rows: auto 1fr;
-    row-gap: 0.5rem;
+    gap: 0.5rem;
     place-items: center;
     background-color: #101010f2;
     border: 0.05rem solid var(--configcolor);
@@ -24,6 +25,7 @@
 }
 
 div#picker {
+    grid-column: 1 / -1;
     transition: 0s;
 }
 
@@ -37,32 +39,23 @@ input[type="color"]#picker::-webkit-color-swatch {
     border-radius: var(--colorpickerbr);
 }
 
-div#colorcode {
-    display: grid;
-    grid-template-columns: 1fr 2.5rem;
-    column-gap: 0.5rem;
+span#colorcode {
     width: 100%;
-    padding: var(--colorpickerbr) 0;
-    transition: 0s;
+    height: 100%;
+    background-color: var(--configcolor);
+    border-radius: var(--colorpickerbr);
 }
 
-div#colorcode > input {
+.tippy-content > input[type="text"] {
     font-family: "JetBrains Mono";
     font-size: 0.7rem;
     max-width: calc(9ch + 0.7rem);
-    padding: 0 0.35rem;
+    padding: 0;
     background-color: transparent;
     border-radius: var(--colorpickerbr);
-    text-align: start;
 }
 
-div#colorcode > input:hover,
-div#colorcode > input:focus {
+.tippy-content > input[type="text"]:hover,
+.tippy-content > input[type="text"]:focus {
     background-color: var(--lightgrey);
-}
-
-div#colorcode::after {
-    content: "";
-    background-color: var(--configcolor);
-    border-radius: var(--colorpickerbr);
 }

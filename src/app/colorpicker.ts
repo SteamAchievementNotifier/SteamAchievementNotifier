@@ -18,7 +18,7 @@ export const createcolorpicker = (instance: Instance<Props>,input: HTMLInputElem
 
     picker.parentElement!.style.setProperty("--configcolor",currentcolor)
 
-    const colorcode = instance.popper.querySelector(`div#colorcode > input[type="text"]`) as HTMLInputElement
+    const colorcode = instance.popper.querySelector(`input[type="text"]`) as HTMLInputElement
     colorcode.value = currentcolor
     
     const colorpicker = iro.ColorPicker(picker,{

@@ -504,12 +504,12 @@ export const sanhelper: SANHelper = {
         })
 
         // Changing `menuelem` to `#customisercontent` would be easier, but stops displaying tooltips when changed for some reason
-        const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`) as HTMLElement
-        const dialog = document.querySelector(`dialog[menu]:has(#${menu.id})`) as HTMLDialogElement
+        const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`)
 
-        menu.querySelectorAll(`input[type="color"]`).forEach(async clr => {
+        menu?.querySelectorAll(`input[type="color"]`)?.forEach(async clr => {
             const { sanconfig } = await import("./config")
             const config = sanconfig.get()
+            const dialog = document.querySelector(`dialog[menu]:has(#${menu?.id})`)
             const color = clr as HTMLInputElement
 
             color.style.setProperty("--configcolor",config.get(`customisation.${sanhelper.type}.${color.id}`) as string)
@@ -532,9 +532,8 @@ export const sanhelper: SANHelper = {
                     menu.addEventListener("scroll",() => inst.hide(),{ once: true })
     
                     const html = `
-                        <div id="colorcode">
-                            <input type="text" spellcheck="false" maxlength="9">
-                        </div>
+                        <input type="text" spellcheck="false" maxlength="9">
+                        <span id="colorcode"></span>
                         <div id="picker"></div>
                     `
         

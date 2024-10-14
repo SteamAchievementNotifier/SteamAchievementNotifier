@@ -148,26 +148,7 @@ Additionally, there are several in-app options to control various aspects of **a
 
 <h2 align="center" id="knownissues">Known Issues</h2>
 
-- ⚠ **"Now Tracking" notification spawns repeatedly**
-
-> ℹ When encountering this issue, try running **Steam Achievement Notifier (V1.9)** as Administrator:
-> 
-> - *Open the **Start Menu***
-> - *Type `Steam Achievement Notifier (V1.9)`*
-> - *Right-click*
-> - *Select **Run as Administrator***
-> 
-> If running as Administrator still does not resolve the issue, try enabling **Settings** > **Alt. Process Mode**
-
-- ⚠ **Achievement titles/descriptions are shown in English when Steam is set to use a different language**
-
-> ℹ Try manually specifying the **Language** setting for the current game:
-> 
-> - *Open **Steam** > **Library***
-> - *Right-click the game > Properties*
-> - *On the **General** tab (selected by default), select your desired language from the **Language** dropdown menu*
-> 
-> This may also be caused by [adding a game to the Library while Steam's language is set to **English**](https://github.com/ceifa/steamworks.js/issues/141#issuecomment-2168689532)
+For details on known issues when installing or running the app, see the [Known Issues](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/blob/master/KNOWNISSUES.md) section.
 
 <h2 align="center" id="credits">Credits</h2>
 

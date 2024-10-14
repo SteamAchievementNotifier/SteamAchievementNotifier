@@ -32,6 +32,11 @@ body[customiser]:not([opening]) .wrapper#main > *:not(.wrapper#customiserlogo,.w
     pointer-events: none;
 }
 
+/* Prevents ability to register a double-click on close button */
+body[customiser][closing] button.menubtn#close {
+    pointer-events: none;
+}
+
 body[main] .sub:has(#iconanim),
 .optcont:has(.opt > select#soundmode > option[value="file"]:not(:checked)) > .opt:has(#soundfile),
 .optcont:has(.opt > select#soundmode > option[value="folder"]:not(:checked)) > .opt:has(#sounddir),

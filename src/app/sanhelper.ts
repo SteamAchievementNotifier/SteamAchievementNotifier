@@ -532,7 +532,9 @@ export const sanhelper: SANHelper = {
                     menu.addEventListener("scroll",() => inst.hide(),{ once: true })
     
                     const html = `
-                        <span id="colorcode"></span>
+                        <div id="colorcode">
+                            <input type="text" spellcheck="false" maxlength="9">
+                        </div>
                         <div id="picker"></div>
                     `
         

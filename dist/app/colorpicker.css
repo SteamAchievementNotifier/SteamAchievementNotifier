@@ -15,7 +15,7 @@
 .tippy-content:has(#picker) {
     display: grid;
     grid-template-rows: auto 1fr;
-    gap: 0.25rem;
+    row-gap: 0.5rem;
     place-items: center;
     background-color: #101010f2;
     border: 0.05rem solid var(--configcolor);
@@ -37,17 +37,31 @@ input[type="color"]#picker::-webkit-color-swatch {
     border-radius: var(--colorpickerbr);
 }
 
-span#colorcode {
+div#colorcode {
     display: grid;
     grid-template-columns: 1fr 2.5rem;
+    column-gap: 0.5rem;
     width: 100%;
-    padding: var(--colorpickerbr);
-    font-family: "JetBrains Mono";
-    font-size: 0.7rem;
+    padding: var(--colorpickerbr) 0;
     transition: 0s;
 }
 
-span#colorcode::after {
+div#colorcode > input {
+    font-family: "JetBrains Mono";
+    font-size: 0.7rem;
+    max-width: calc(9ch + 0.7rem);
+    padding: 0 0.35rem;
+    background-color: transparent;
+    border-radius: var(--colorpickerbr);
+    text-align: start;
+}
+
+div#colorcode > input:hover,
+div#colorcode > input:focus {
+    background-color: var(--lightgrey);
+}
+
+div#colorcode::after {
     content: "";
     background-color: var(--configcolor);
     border-radius: var(--colorpickerbr);

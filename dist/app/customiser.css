@@ -357,7 +357,7 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 }
 
 .opt:has(#preview),
-.opt:has(#updatetheme,#savetheme,#importtheme,#exporttheme) {
+.opt:has([id$="theme"],[id$="themes"]) {
     grid-template-columns: 1fr;
     gap: 0;
 }
@@ -415,8 +415,16 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
     translate: 0;
 }
 
+select#themeselect {
+    margin-bottom: 0.5rem;
+}
+
 #updatetheme {
     --icon: url("../../icon/reset.svg");
+}
+
+button[updated] {
+    pointer-events: none;
 }
 
 button[updated] > span,
@@ -430,7 +438,7 @@ button[updated]::after {
 
 button:has(#confirm) {
     position: relative;
-    transition: scale var(--transition);
+    transition: background-color var(--transition), scale var(--transition);
 }
 
 button > #confirm {
@@ -504,7 +512,7 @@ button[updated] > #confirm {
     margin-top: 0.5rem;
 }
 
-.opt:has(#importtheme,#exporttheme) > button::before {
+.opt:has(#importtheme,#exporttheme,#exportlegacythemes) > button::before {
     width: 1.5rem !important;
     height: 1.5rem !important;
 }
@@ -513,8 +521,13 @@ button#importtheme {
     --icon: url("../../icon/import.svg");
 }
 
-button#exporttheme {
+button#exporttheme,
+button#exportlegacythemes {
     --icon: url("../../icon/export.svg");
+}
+
+.opt:has(button#exportlegacythemes) {
+    margin-top: 0.5rem;
 }
 
 body:not([main]) #customiser[synced="main"] .cont:has(.title) > .wrapper,

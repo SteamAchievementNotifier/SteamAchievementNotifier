@@ -384,7 +384,7 @@ dialog[selection] .rect:not([enabled]) {
     background-color: #2b2b2b;
 }
 
-dialog[selection] .rect[id^="usertheme"] > [class$="btn"] {
+dialog[selection] .rect[id^="theme"] > [class$="btn"] {
     --btnmask: url("../../img/sanlogotrophy.svg") center / contain no-repeat;
     --btncolor: white;
     position: absolute;
@@ -401,30 +401,39 @@ dialog[selection] .rect[id^="usertheme"] > [class$="btn"] {
     transition: var(--transition);
 }
 
-dialog[selection] .rect[id^="usertheme"] > .userthemedelbtn {
+dialog[selection] .rect[id^="theme"] > .userthemedelbtn {
     --btnmask: url("../../icon/delete.svg") center / contain no-repeat;
     --btncolor: red;
 }
 
-dialog[selection] .rect[id^="usertheme"]:not([enabled]) > .userthemedelbtn {
+/* dialog[selection] .rect[id^="theme"] > .userthemeeditbtn {
+    --btnmask: url("../../icon/customise.svg") center / contain no-repeat;
+    right: 1.25rem;
+}
+
+dialog[selection] .rect[id^="theme"]:not(:has([class$="btn"]:hover)) > .userthemeeditbtn:not(:hover) {
+    --btncolor: black;
+} */
+
+dialog[selection] .rect[id^="theme"]:not([enabled]) > [class$="btn"] {
     pointer-events: auto;
 }
 
-dialog[selection] .rect[id^="usertheme"]:not([enabled]):hover > .userthemedelbtn {
+dialog[selection] .rect[id^="theme"]:not([enabled]):hover > [class$="btn"] {
     opacity: 0.75;
 }
 
-dialog[selection] .rect[id^="usertheme"]:not([enabled]) > .userthemedelbtn:hover {
+dialog[selection] .rect[id^="theme"]:not([enabled]) > [class$="btn"]:hover {
     scale: 1.2;
     opacity: 1;
 }
 
-dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::before,
-dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect > span {
+dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::before,
+dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect > span {
     filter: none;
 }
 
-dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::after {
+dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::after {
     translate: -120%;
 }
 

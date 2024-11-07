@@ -198,13 +198,8 @@ const startsan = async (appinfo: AppInfo) => {
                         desc: steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,"description",maxlang) : null
                     }
 
-                    const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch] | undefined
-                    const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
-                    
-                    if (themeswitch) {
-                        log.write("INFO",`Auto-switch entry detected for ${appid}`)
-                        sanhelper.devmode && console.log(customisation)
-                    }
+                    const customisation = config.get(`customisation.${type}`) as Customisation
+
         
                     const notify: Notify = {
                         id: Math.round(Date.now() / Math.random() * 1000),
@@ -221,11 +216,11 @@ const startsan = async (appinfo: AppInfo) => {
                         icon: icon || sanhelper.setfilepath("img","sanlogosquare.svg")
                     }
 
-                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
+                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify))
         
                     if (live.every(ach => ach.unlocked) && !hasshown) {
-                        const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon
-                        const customisation = config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation
+                        const { plat: platicon } = (config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
+                        const customisation = config.get(`customisation.plat`) as Customisation
         
                         const platnotify: Notify = {
                             id: Date.now(),
@@ -242,7 +237,7 @@ const startsan = async (appinfo: AppInfo) => {
                             icon: platicon || sanhelper.setfilepath("img","ribbon.svg")
                         }
         
-                        ipcRenderer.send("notify",platnotify,undefined,themeswitch?.[1].src)
+                        ipcRenderer.send("notify",platnotify)
                         hasshown = true
                     }
                 })

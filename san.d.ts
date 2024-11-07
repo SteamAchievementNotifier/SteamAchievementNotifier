@@ -123,7 +123,6 @@ declare interface Customisation {
     glowsize: number,
     glowx: number,
     glowy: number,
-    glowopacity: number,
     glowanim: "off" | "pulse" | "rainbow",
     glowspeed: number,
     mask: boolean,
@@ -198,7 +197,11 @@ declare interface Customisation {
     percentbadgeimggold: string,
     sspercentbadgeimggold: string,
     synctheme: boolean,
-    usertheme: UserTheme[],
+    // usertheme: UserTheme[],
+    id: number,
+    label: string,
+    icon: string,
+    enabled: boolean,
     [key: string]: string | number | boolean | object | null
 }
 
@@ -259,9 +262,11 @@ declare interface Button {
     label: string,
     icon: string,
     click?: Function,
+    istheme?: boolean,
+    enabled?: boolean
 }
 
-declare interface UserTheme extends Button {
+declare interface LegacyUserTheme extends Button {
     customisation: Customisation,
     enabled: boolean,
     version?: string,

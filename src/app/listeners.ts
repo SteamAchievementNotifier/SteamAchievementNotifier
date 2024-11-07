@@ -719,9 +719,6 @@ export const listeners = {
                 return
             }
 
-            const { syncedtheme } = (await import("./usertheme")).usertheme
-            notify.customisation = syncedtheme(config,notify.customisation)
-
             const { preset } = notify.customisation
 
             if (!iswebview) {
@@ -1413,6 +1410,19 @@ export const listeners = {
             })
 
             event.reply("exporttheme",expdialog)
+        })
+
+        ipcMain.on("exportlegacythemes", async event => {
+            const { filePaths: expdialog } = await dialog.showOpenDialog({
+                title: `Steam Achievement Notifier (V${sanhelper.version}): Export Legacy Themes`,
+                properties: [
+                    "openDirectory",
+                    "dontAddToRecent"
+                ],
+                buttonLabel: await language.get("exporttheme",["customiser","theme","content"])
+            })
+
+            event.reply("exportlegacythemes",expdialog)
         })
 
         ipcMain.on("montest", (event,id: number) => {

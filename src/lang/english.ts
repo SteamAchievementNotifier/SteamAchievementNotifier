@@ -168,6 +168,7 @@ export const translations = {
         misc: {
             title: "Misc",
             content: {
+                importlegacythemes: "Import Legacy Themes",
                 checkforupdates: "Check For Updates",
                 log: "App Log",
                 reset: "Reset App"
@@ -309,7 +310,14 @@ export const translations = {
                     `If the issue persists, please copy the error below, then report via the link buttons on the <span class="hl">Home Screen</span>`
                 ],
                 synctheme: "Sync Theme",
-                syncedwith: "Synced with"
+                syncedwith: "Synced with",
+                themeselect: "Selected Theme",
+                exportlegacythemes: "Export Legacy Themes",
+                exportlegacythemessub: [
+                    `Legacy <span class="hl">Themes</span> created prior to <span class="hl">V1.9.15</span> have been detected`,
+                    `Due to changes made in <span class="hl">V1.9.15</span>, any legacy <span class="hl">Themes</span> must be converted into a format used by the new <span class="hl">Themes</span> system`,
+                    `Click the <span class="hl">Export</span> button to export all detected legacy <span class="hl">Themes</span> to the specified folder. Each <span class="hl">Theme's</span> converted <code style="font-style: italic;">.san</code> file can then be re-imported via the <span class="hl">Import Theme</span> option`
+                ]
             }
         }
     },
@@ -504,7 +512,9 @@ export const translations = {
         elemsmatch: `Match the Notification Elements settings set in the Customiser for this notification type<br><br><span class="ttdesc">Some Notification Presets cannot fully match Customiser settings, due to differences between on-screen and screenshot-based notification layouts</span>`,
         themeswitch: `Automatically switch to any saved <span class="hl">Theme</span> when a specific game is detected`,
         userthemesync: `Sync customisations in the selected <span class="hl">Theme</span> to all other notification types`,
-        showsystrayopts: `Display all options usually located under <span class="hl">System Tray</span> > <span class="hl">Options</span> in <span class="hl">Settings</span> > <span class="hl">Misc.</span>`
+        showsystrayopts: `Display all options usually located under <span class="hl">System Tray</span> > <span class="hl">Options</span> in <span class="hl">Settings</span> > <span class="hl">Misc.</span>`,
+        themeselect: `Switch the currently selected <span class="hl">Theme</span>`,
+        importlegacythemes: `Import all legacy <span class="hl">Themes</span> from config, created prior to <span class="hl">V1.9.15</span>`
     },
     update: {
         updateavailable: "Update available",

@@ -2,13 +2,13 @@ import { app, ipcRenderer, shell } from "electron"
 import path from "path"
 import fs from "fs"
 import Store from "electron-store"
-import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
 import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
+import { themes } from "./themes"
 const { initLogger, testPanic } = sanhelperrslog
 
 export const __root: string = path.resolve(__dirname,"..","..")
@@ -96,6 +96,7 @@ export const sanhelper: SANHelper = {
         process.on("uncaughtException", (err: Error) => handleerr(`${err.stack}`))
         process.on("unhandledRejection", (err: Error) => handleerr(`${err.stack}`))
     },
+    settypevalue: <T>(type: "main" | "rare" | "plat",values: { main: T,rare: T,plat: T }) => type === "plat" ? values.plat : (type === "rare" ? values.rare : values.main),
     // On build, the Notifications API cannot access the `img` files within the asar
     setfilepath: (dir: "img" | "icon" | "sound",filename: string) => path.join((dir === "img" && !sanhelper.devmode) ? (process.platform === "linux" ? path.join(sanhelper.appdata,"resources") : process.resourcesPath) : __root,dir,filename).replace(/\\/g,"/"),
     showtrack: (gamename: string) => ipcRenderer.send("showtrack",gamename),
@@ -150,13 +151,18 @@ export const sanhelper: SANHelper = {
     updatelogwin: (logtype: "san" | "rust" | "sanhelperrs") => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype),logtype),
     showcustomfiles: () => shell.openPath(path.join(sanhelper.appdata,"customfiles")),
     switchtab: ({ target }: Event) => {
-        target instanceof HTMLElement && ["main","rare","plat"].forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
-        usertheme.update()
+        target instanceof HTMLElement && ["main","rare","plat"].forEach(type => {
+            const match = target.hasAttribute(type)
+            document.body.toggleAttribute(type,match)
+            match && themes.update(type as "main" | "rare" | "plat")
+        })
+
         sanhelper.reloadelemselector()
     },
     switchcustomisertab: ({ target }: Event) => {
         const attrs = ["main","rare","plat"]
-        const i = attrs.indexOf(attrs.find(attr => document.body.hasAttribute(attr))!)
+        const type = attrs.find(attr => document.body.hasAttribute(attr))! as "main" | "rare" | "plat"
+        const i = attrs.indexOf(type)
         
         if (i === -1) return
         switch ((target as HTMLElement)!.id) {
@@ -176,7 +182,7 @@ export const sanhelper: SANHelper = {
                 break
         }
 
-        usertheme.update()
+        // themes.update(type)
         sanhelper.reloadelemselector()
     },
     getshortcut: (config: Store<Config>, target: HTMLElement) => {
@@ -329,7 +335,7 @@ export const sanhelper: SANHelper = {
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
         })
     },
-    setvalue: (config: Store<Config>, elem: (HTMLInputElement | HTMLSelectElement), keypath?: string) => {
+    setvalue: (config: Store<Config>,elem: (HTMLInputElement | HTMLSelectElement),keypath?: string) => {
         const key = config.get((keypath ? `${keypath}.` : "") + elem.id)
 
         if (elem.id === "monitors" && elem instanceof HTMLSelectElement) {
@@ -356,10 +362,26 @@ export const sanhelper: SANHelper = {
             return
         }
 
+        if (elem.id === "themeselect") {
+            const type = sanhelper.type
+            const themeselect = elem as HTMLSelectElement
+            const typethemes = themes.load().get(type)
+            if (!typethemes) throw new Error(`No Themes found for "${type}" type`)
+
+            themeselect.innerHTML = ""
+            typethemes.sort((a,b) => a.store.id - b.store.id).map(({ store: theme }) => `<option value="theme${theme.id}" ${theme.enabled ? "selected" : ""}>${theme.label}</option>`).forEach(opt => themeselect.insertAdjacentHTML("beforeend",opt))
+
+            themeselect.onchange = event => {
+                themes.update(type,parseInt((event.target as HTMLOptionElement).value.replace(/^theme/,"")))
+                sanhelper.updatetabs()
+                ;(async () => await sanhelper.resetelemselector(document.querySelector("#customiser")))()
+            }
+        }
+
         const selectinputtype = (target: EventTarget) => ((target instanceof HTMLSelectElement ? target as HTMLSelectElement : target as HTMLInputElement)).value
         
         // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
-        if (selectorelems.find(id => elem.id === id)) return
+        if (selectorelems.find(id => elem.id === id) || !key) return
 
         elem.value = key.toString()
 

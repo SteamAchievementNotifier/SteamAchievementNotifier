@@ -719,6 +719,9 @@ export const listeners = {
                 return
             }
 
+            const { syncedtheme } = (await import("./themes")).themes
+            notify.customisation = syncedtheme(config,notify.customisation)
+
             const { preset } = notify.customisation
 
             if (!iswebview) {

@@ -376,12 +376,14 @@ export const sanhelper: SANHelper = {
                 sanhelper.updatetabs()
                 ;(async () => await sanhelper.resetelemselector(document.querySelector("#customiser")))()
             }
+
+            return
         }
 
         const selectinputtype = (target: EventTarget) => ((target instanceof HTMLSelectElement ? target as HTMLSelectElement : target as HTMLInputElement)).value
-        
+
         // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
-        if (selectorelems.find(id => elem.id === id) || !key) return
+        if (selectorelems.find(id => elem.id === id)) return
 
         elem.value = key.toString()
 

@@ -114,10 +114,32 @@ export const dialog = {
                     appid.textContent = type !== "exclusionlist" ? entry[0] : entry
                     tr.appendChild(appid)
 
+                    const gettheme = (type: "main" | "rare" | "plat",id: number) => {
+                        const typethemes = themes.load().get(type)
+                        if (!typethemes || !typethemes.length) throw new Error(`Error getting Themes for "${type}": Themes for this type may be missing or corrupted`)
+
+                        return typethemes.find(({ store: theme }) => theme.id === id)?.get("label")
+                    }
+
                     if (type !== "exclusionlist") {
-                        const td = document.createElement("td")
-                        td.textContent = entry[1]
-                        tr.appendChild(td)
+                        if (typeof entry[1] === "object") {
+                            const themedeleted = await language.get("themedeleted",["themeswitch","content"])
+
+                            for (const i in entry[1]) {
+                                const entryvalue = entry[1][i]
+
+                                const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).map(key => `<span ${key}></span>${gettheme(key as "main" | "rare" | "plat",entryvalue[key]) || `<i style="color: red;">❗ ${themedeleted}</i>`}`) : Object.values(entryvalue)).join("<br>")
+                                const strvalue = type === "themeswitch" && i === "src" ? (config.get("monitors").find(monitor => monitor.id === entryvalue)?.label || `<i style="font-size: 0.5rem; color: red;">❗ ${await language.get("notconnected")}</i>`) : entryvalue
+
+                                const td = document.createElement("td")
+                                td.innerHTML = typeof entryvalue === "object" ? objvalue : strvalue
+                                tr.appendChild(td)
+                            }
+                        } else {
+                            const td = document.createElement("td")
+                            td.textContent = entry[1]
+                            tr.appendChild(td)
+                        }
                     }
 
                     const unlinktd = document.createElement("td")
@@ -268,6 +290,82 @@ export const dialog = {
                 updatetables("exclusionlist")
             }
 
+            document.getElementById("themeswitch")!.onclick = async () => {
+                dialog.open({
+                    title: await language.get("themeswitch",["settings","games","content"]),
+                    type: "default",
+                    icon: sanhelper.setfilepath("icon","autoswitchtheme.svg"),
+                    sub: await language.get("managesub",["themeswitch","content"]),
+                    addHTML: path.join(__dirname,"themeswitch.html"),
+                    buttons: [{
+                        id: "themeswitchnew",
+                        label: await language.get("new"),
+                        icon: sanhelper.setfilepath("icon","newautoswitchtheme.svg"),
+                        click: async () => {
+                            dialog.open({
+                                title: await language.get("themeswitchnew",["themeswitch","content"]),
+                                type: "default",
+                                icon: sanhelper.setfilepath("icon","newautoswitchtheme.svg"),
+                                sub: await language.get("themeswitchnewsub",["themeswitch","content"]),
+                                addHTML: path.join(__dirname,"themeswitchnew.html"),
+                                buttons: [{
+                                    id: "ok",
+                                    label: await language.get("ok"),
+                                    icon: "",
+                                    click: () => {
+                                        const entries = {
+                                            ...JSON.parse(localStorage.getItem("themeswitch")!),
+                                            [themeswitchappid.value]: {
+                                                themes: Object.fromEntries(["main","rare","plat"].map(type => [type,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${type}`)! as HTMLSelectElement).value)])),
+                                                src: parseInt(srcselect.value)
+                                            }
+                                        }
+
+                                        localStorage.setItem("themeswitch",JSON.stringify(entries))
+
+                                        updatetables("themeswitch")
+                                        dialog.close()
+                                    }
+                                }]
+                            })
+
+                            document.querySelector("#themeswitchnewheaders > th:nth-child(2)")!.textContent = await language.get("src",["themeswitch","content"])
+
+                            const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
+                            okbtn.tabIndex = -1
+
+                            const themeswitchappid = document.getElementById("themeswitchappid")! as HTMLInputElement
+                            const themeswitchselects = document.querySelector("#themeswitchnewselectwrapper")!
+                            const srcselect = document.getElementById("themeswitchsrc")! as HTMLSelectElement
+
+                            themeswitchappid.onfocus = () => settabindex(okbtn,[themeswitchappid.value])
+                            themeswitchappid.onblur = () => settabindex(okbtn,[themeswitchappid.value])
+                            themeswitchappid.onkeydown = () => settabindex(okbtn,[themeswitchappid.value])
+
+                            config.get("monitors").forEach(monitor => srcselect.insertAdjacentHTML("beforeend",`<option value="${monitor.id}">${monitor.label}</option>`))
+
+                            ;(async () => {
+                                const { language } = await import("./language")
+                                ;["main","rare","plat"].forEach(async (id,i) => themeswitchselects.querySelector(`th:nth-child(${i + 1})`)!.textContent = await language.get(id))
+                            })()
+
+                            themeswitchselects.querySelectorAll("select")!.forEach(s => {
+                                const select = s as HTMLSelectElement
+                                const typethemes = themes.load().get(select.id as "main" | "rare" | "plat")
+                                if (!typethemes || !typethemes.length) throw new Error(`Error getting Themes for "${select.id}": Themes for this type may be missing or corrupted`)
+
+                                for (const { store: theme } of typethemes) {
+                                    select.insertAdjacentHTML("beforeend",`<option value="${theme.id}">${theme.label}</option>`)
+                                }
+                            })
+                        }
+                    }]
+                })
+
+                setappidhelpdialog(document.getElementById("appidhelp")!)
+                updatetables("themeswitch")
+            }
+
             document.getElementById("showcustomfiles")!.onclick = () => sanhelper.showcustomfiles()
 
             ;[
@@ -358,14 +456,54 @@ export const dialog = {
             }
         })
 
-        // Sort buttons in list based on `id`
         const contentsub = document.querySelector(".contentsub")!
         const themeidnum = (btn: HTMLButtonElement) => parseInt(btn.id.replace(/^theme/,""))
-        requestAnimationFrame(() => themebtns.sort((a,b) => themeidnum(a as HTMLButtonElement) - themeidnum(b as HTMLButtonElement)).forEach(btn => contentsub.appendChild(btn)))
+        
+        requestAnimationFrame(() => {
+            // Sort buttons in Theme Select dialog based on `id`
+            themebtns.sort((a,b) => themeidnum(a as HTMLButtonElement) - themeidnum(b as HTMLButtonElement)).forEach(btn => contentsub.appendChild(btn))
+        
+            // Dynamically create "Sync Theme" button in Theme Select dialog
+            const type = sanhelper.type
+            const synced = themes.issynced()
+            const themeselect = document.querySelector(`dialog[selection]:has([id^="theme"])`)
+            if (!themeselect || themeselect.querySelector("button#themesync")) return
 
-        if (!errwin) {
-            sanhelper.tooltips(config.get("tooltips"))
-        }
+            const btnwrapper = document.querySelector(`dialog[selection] .btnwrapper`)!
+            btnwrapper.querySelector("button#backbtn")!.remove()
+
+            const html = `
+                <button id="themesync">
+                    <div id="themesyncstars">
+                        <span></span>
+                    </div>
+                    <span></span>
+                </button>
+            `
+
+            btnwrapper.insertAdjacentHTML("beforeend",html)
+
+            const sync = btnwrapper.querySelector("button#themesync")! as HTMLButtonElement
+            sync.onclick = event => themes.sync(type,config,event.target as HTMLButtonElement)
+
+            const span = sync.querySelector("button#themesync > span")!
+
+            sync.toggleAttribute("sync",(synced && synced === type) as boolean)
+            ;(synced && synced !== type) && themeselect.setAttribute("synced",synced)
+
+            ;(async () => {
+                const { language } = await import("./language")
+                const syncstr = await language.get("synctheme",["customiser","theme","content"])
+                const typestr = synced ? await language.get(synced) : ""
+                const syncedwithstr = `${await language.get("syncedwith",["customiser","theme","content"])} ${typestr}`
+
+                span.textContent = !synced ? syncstr : (synced !== type ? syncedwithstr : syncstr)
+            })()
+
+            btnwrapper.appendChild(sync)
+        })
+
+        if (!errwin) sanhelper.tooltips(config.get("tooltips"))
 
         const showdialog = () => {
             const dialog = document.querySelector("dialog")!

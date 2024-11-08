@@ -218,11 +218,11 @@ div:has(> .contentsubitem[nobefore]) {
     grid-column-start: 2;
 }
 
-.btnwrapper:has(button#userthemesync) {
+.btnwrapper:has(button#themesync) {
     justify-content: stretch;
 }
 
-dialog:not([default]):not(:has(button#userthemesync)) .btnwrapper {
+dialog:not([default]):not(:has(button#themesync)) .btnwrapper {
     display: none;
 }
 
@@ -269,7 +269,7 @@ dialog:not([default]):not(:has(button#userthemesync)) .btnwrapper {
 #okbtn:hover,
 #updatebtn:hover,
 #backbtn:hover,
-#userthemesync:hover {
+#themesync:hover {
     filter: none;
 }
 
@@ -841,15 +841,15 @@ div#linkgamenewtablewrapper td:first-child {
     user-select: all;
 }
 
-dialog[selection] .btnwrapper:has(button#userthemesync) > button#backbtn {
+dialog[selection] .btnwrapper:has(button#themesync) > button#backbtn {
     display: none;
 }
 
-.contentwrapper:has(button#userthemesync) .contentsub {
+.contentwrapper:has(button#themesync) .contentsub {
     border-radius: 0;
 }
 
-button#userthemesync {
+button#themesync {
     grid-column: 1 / -1;
     font-size: 0.75rem;
     text-transform: none;
@@ -857,11 +857,11 @@ button#userthemesync {
     background-color: var(--primary);
 }
 
-button#userthemesync::before {
+button#themesync::before {
     content: none;
 }
 
-div#userthemesyncstars {
+div#themesyncstars {
     position: relative;
     display: grid;
     place-content: center;
@@ -900,30 +900,30 @@ dialog[selection][synced="plat"] {
     --star1: #5082f0;
 }
 
-div#userthemesyncstars::before {
+div#themesyncstars::before {
     background-color: var(--star2);
     z-index: 1;
 }
 
-div#userthemesyncstars > span {
+div#themesyncstars > span {
     background-color: var(--star1);
     z-index: 10;
 }
 
-div#userthemesyncstars::after {
+div#themesyncstars::after {
     background-color: var(--star3);
     z-index: 0;
 }
 
-div#userthemesyncstars::before,
-div#userthemesyncstars::after {
+div#themesyncstars::before,
+div#themesyncstars::after {
     content: "";
     opacity: 0;
 }
 
-div#userthemesyncstars::before,
-div#userthemesyncstars::after,
-div#userthemesyncstars > span {
+div#themesyncstars::before,
+div#themesyncstars::after,
+div#themesyncstars > span {
     --animation: starbounce calc(var(--transition) * 10) var(--offset) infinite;
     position: absolute;
     top: 50%;
@@ -935,23 +935,23 @@ div#userthemesyncstars > span {
     transition: calc(var(--transition) * 2);
 }
 
-button#userthemesync:hover > div#userthemesyncstars::before,
-button#userthemesync:hover > div#userthemesyncstars::after,
-button#userthemesync:hover > div#userthemesyncstars > span {
+button#themesync:hover > div#themesyncstars::before,
+button#themesync:hover > div#themesyncstars::after,
+button#themesync:hover > div#themesyncstars > span {
     opacity: 1;
     animation: var(--animation);
 }
 
-button#userthemesync:hover > div#userthemesyncstars::before {
+button#themesync:hover > div#themesyncstars::before {
     --offset: 0.33s;
 }
 
-button#userthemesync:hover > div#userthemesyncstars > span {
+button#themesync:hover > div#themesyncstars > span {
     --offset: 0s;
     translate: calc(-50% - 2px) calc(-50% + 2px);
 }
 
-button#userthemesync:hover > div#userthemesyncstars::after {
+button#themesync:hover > div#themesyncstars::after {
     --offset: 0.66s;
     translate: calc(-50% + 2px) calc(-50% - 2px);
 }
@@ -963,17 +963,17 @@ button#userthemesync:hover > div#userthemesyncstars::after {
     to { scale: 1; }
 }
 
-button#userthemesync[sync] {
+button#themesync[sync] {
     background-color: limegreen !important;
 }
 
-dialog[selection]:has(button#userthemesync[sync]) .contentsub > button.rect,
+dialog[selection]:has(button#themesync[sync]) .contentsub > button.rect,
 dialog[selection][synced] .contentsub > button.rect {
     opacity: 0.5;
     pointer-events: none;
 }
 
-dialog[selection][synced] .btnwrapper > button#userthemesync {
+dialog[selection][synced] .btnwrapper > button#themesync {
     pointer-events: none;
 }
 

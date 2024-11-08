@@ -6,6 +6,7 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
+import { themes } from "./themes"
 
 declare global {
     interface Window {
@@ -108,6 +109,15 @@ const startsan = async (appinfo: AppInfo) => {
         const isprocessrunning = (pid: number) => userust ? client.processes.isProcessRunning(pid) : sanhelper.isprocessrunning(pid)
     
         const processes: ProcessInfo[] = []
+
+        const config = sanconfig.get()
+        const { customobj, autoswitchobj } = themes.autoswitch(config,appid)
+        const autoswitch = Object.keys(autoswitchobj).length > 0
+
+        if (autoswitch) {
+            config.set("customisation",autoswitchobj)
+            log.write("INFO",`"themeswitch" entry detected for AppID ${appid}: "config.customisation" updated`)
+        }
     
         const initgameloop = () => {
             processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
@@ -126,6 +136,11 @@ const startsan = async (appinfo: AppInfo) => {
                     clearInterval(timer!)
                     log.write("INFO","Game loop stopped")
         
+                    if (autoswitch) {
+                        config.set("customisation",customobj)
+                        log.write("INFO",`"themeswitch" entry detected for AppID ${appid}: "config.customisation" reset`)
+                    }
+
                     ipcRenderer.send("validateworker")
                 }
     

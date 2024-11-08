@@ -64,7 +64,7 @@ export const themes = {
                     log.write("INFO",`"${assetspath}" dir created successfully`)
                 }
 
-                const assets = updateassets(customobj,assetspath,customfilekeys)
+                const assets = themes.updateassets(customobj,assetspath,customfilekeys)
                 log.write(assets.length ? "INFO" : "ERROR",assets.length ? `Exported the following assets to "${assetspath}":\n\n- ${assets.join("\n- ")}` : `No assets were exported to "${assetspath}"`)
             } else {
                 // If `importdir` is specified, copy the temp dir's "assets" folder contents, then delete the temp dir
@@ -183,6 +183,25 @@ export const themes = {
             return config.get("customisation")
         }
     },
+    setid: (type: "main" | "rare" | "plat") => {
+        const themesmap = themes.load()
+        const typethemes = themesmap.get(type)
+        if (!typethemes || !typethemes.length) throw new Error(`Error getting Themes for "${type}": Themes for this type may be missing or corrupted`)
+    
+        const ids = new Set<number>()
+    
+        for (const { store: theme } of typethemes) {
+            ids.add(theme.id)
+        }
+    
+        let availableid = 0
+    
+        while (ids.has(availableid)) {
+            availableid++
+        }
+    
+        return availableid
+    },
     delete: (type: "main" | "rare" | "plat",id: number) => {
         try {
             const themesmap = themes.load()
@@ -296,7 +315,7 @@ export const themes = {
                 const theme: Customisation | LegacyUserTheme = JSON.parse(fs.readFileSync(jsonpath).toString())
 
                 // Convert legacy keys into new format, and rewrite all paths to use assets in `sanhelper.appdata/themes/<type>/<Theme label>`
-                const importobj = createimportobj(type,theme)
+                const importobj = themes.createimportobj(type,theme)
 
                 const store = themes.create(type,importobj,importdir)
                 rmdir = path.dirname(store.path)
@@ -383,7 +402,7 @@ export const themes = {
 
                 if (!exportdest) {
                     // Check all filepaths specified in `customfilekeys` and copies assets to export dir
-                    const assets = updateassets(theme,assetspath,customfilekeys)
+                    const assets = themes.updateassets(theme,assetspath,customfilekeys)
                     log.write(assets.length ? "INFO" : "ERROR",assets.length ? `Exported the following assets to "${src}":\n\n- ${assets.join("\n- ")}` : `No assets were exported to "${src}"`)
                 } else {
                     const exportassetspath = path.join(exportdestdir as string,"assets")
@@ -459,6 +478,137 @@ export const themes = {
 
         exporthandler(exportdest)
     },
+    updateassets: (customobj: Customisation,assetspath: string,filekeys: string[]) => {
+        const copiedfiles = []
+        const files = new Set<string>()
+    
+        const filtered = Object.fromEntries(Object.entries(customobj).filter(([key]) => filekeys.includes(key)))
+    
+        // Generates an array of filepath values found in root `Customisation` object
+        const rootfiles = Object.entries(filtered)
+            .filter(([key]) => key !== "customicons")
+            .flatMap(([_,value]) => (value && typeof value === "string") ? [value] : [])
+    
+        // Generates an array of filepath values found in `customicons` sub-objects
+        const customiconsfiles = Object.entries(filtered)
+            .filter(([key]) => key === "customicons")
+            .flatMap(([_,icons]) => Object.entries(icons as Record<string,CustomIcon | string>)
+                .flatMap(([preset,icon]) => {
+                    if (typeof icon === "string") return preset === "plat" ? [icon] : []
+                    if (preset !== customobj.preset) return []
+    
+                    const logo = icon.logo
+                    const decoration = icon.decoration
+    
+                    const logopaths = typeof logo === "string" ? [logo] : Array.isArray(logo) ? logo : []
+                    const decorationpaths = typeof decoration === "string" ? [decoration] : Array.isArray(decoration) ? decoration : []
+    
+                    return [...logopaths, ...decorationpaths]
+                })
+            )
+    
+        // Creates an array of all existing filepaths in `customobj`
+        const customobjfiles = [
+            ...rootfiles,
+            ...customiconsfiles
+        ]
+    
+        // Copies each non-existent file from disk to `assetspath`, and adds to `files` Set
+        for (const srcpath of customobjfiles) {
+            const destpath = path.join(assetspath,path.basename(srcpath))
+            files.add(destpath)
+    
+            if (!fs.existsSync(destpath)) {
+                if (!fs.existsSync(srcpath)) throw new Error(`Error copying "${srcpath}": File does not exist`)
+    
+                fs.copyFileSync(srcpath,destpath)
+                log.write("INFO",`"${srcpath}" copied to "${destpath}" successfully`)
+    
+                copiedfiles.push(destpath)
+            }
+        }
+    
+        // Creates an array of all files in `asetspath`
+        const existingfiles = fs.readdirSync(assetspath).map(file => path.join(assetspath,file))
+        
+        // Deletes any files present in `assetspath` that are not specified in `files` Set
+        for (const filepath of existingfiles) {
+            if (!files.has(filepath)) {
+                fs.rmSync(filepath,{ force: true })
+                log.write("INFO", `"${filepath}" removed from "${assetspath}"`)
+            }
+        }
+    
+        return copiedfiles
+    },
+    updateimportobj: (customobj: Customisation,filekeys: string[],destdir: string) => {
+        const formatpath = (filepath: string) => filepath.replace(/\\/g,"/")
+    
+        for (const [key,value] of Object.entries(customobj)) {
+            if (value && filekeys.includes(key)) {
+                if (typeof value === "object" && key === "customicons") {
+                    for (const preset in value) {
+                        const presetvalue = customobj[key][preset] as CustomIcon | string
+    
+                        if (typeof presetvalue === "string") {
+                            customobj[key][preset] = presetvalue ? formatpath(path.join(destdir,path.basename(presetvalue))) : sanconfig.defaulticons.get(preset)!
+                        } else if (typeof presetvalue === "object") {
+                            for (const iconkey in presetvalue) {
+                                ["logo", "decoration"].forEach(id => {
+                                    if (presetvalue[iconkey] && iconkey === id) {
+                                        const iconvalue = (customobj[key][preset] as CustomIcon)[iconkey]
+                                        ;(customobj[key][preset] as CustomIcon)[iconkey] = (Array.isArray(iconvalue) && iconvalue.every(subvalue => typeof subvalue === "string")) ? iconvalue.map(subvalue => formatpath(path.join(destdir,path.basename(subvalue as string)))) : formatpath(path.join(destdir,path.basename(iconvalue as string)))
+                                    }
+                                })
+                            }
+                        } else {
+                            log.write("ERROR",`Unexpected type for "${preset}"`)
+                        }
+                    }
+                }
+    
+                if (typeof value === "string") customobj[key] = formatpath(path.join(destdir,path.basename(value)))
+            }
+        }
+    
+        return customobj
+    },
+    createimportobj: (type: "main" | "rare" | "plat",theme: Customisation | LegacyUserTheme,srcpath?: string): Customisation => {               
+        const themesdir = path.join(sanhelper.appdata,"themes",type)
+        const islegacytheme = "customisation" in theme
+        const customisation = islegacytheme ? theme.customisation as Customisation : theme
+        const { icon, label } = islegacytheme ? theme : customisation
+    
+        const id = themes.setid(type)
+    
+        const importobj = {
+            ...customisation,
+            id,
+            icon,
+            label,
+            enabled: true
+        } as Customisation
+    
+        const assetspath = path.join(themesdir,label,"assets")
+        let srcassetspath = null
+    
+        if (srcpath) {
+            srcassetspath = path.join(srcpath,"assets")
+    
+            if (fs.existsSync(srcpath)) {
+                fs.rmSync(srcpath,{ recursive: true, force: true })
+                log.write("INFO",`Existing Legacy Theme export dir "${srcpath}" removed successfully`)
+            }
+    
+            fs.mkdirSync(srcassetspath,{ recursive: true })
+            log.write("INFO",`Legacy Theme export dir "${srcpath}" created successfully`)
+            
+            const assets = themes.updateassets(importobj,srcassetspath,customfilekeys)
+            log.write("INFO",`Exported the following assets to "${srcpath}":\n\n- ${assets.join("\n- ")}`)
+        }
+    
+        return themes.updateimportobj(importobj,customfilekeys,srcassetspath || assetspath)
+    },
     createbtns: (type: "main" | "rare" | "plat"): Button[] => {
         const themesmap = themes.load()
         const storesarr: Store<Customisation>[] = []
@@ -477,275 +627,93 @@ export const themes = {
             return { id, label, icon, enabled, click: () => themes.update(type,id), istheme: true } as Button
         })
     },
-    exportlegacythemes: async (type: "main" | "rare" | "plat") => {
-        const typethemes = checkforlegacythemes(type)
-        let legacythemesbtn = document.querySelector("button.rect#exportlegacythemes")
-        !typethemes && legacythemesbtn?.parentElement!.remove()
-        
-        if (typethemes) {
-            if (legacythemesbtn) return
-            const themescont = document.querySelector(".cont:has(.title#theme) > .optcont") as HTMLElement
+    issynced: () => {
+        let synced: "main" | "rare" | "plat" | null = null
+        const config = sanconfig.get()
+        const customisation = config.get("customisation")
 
-            const html = `
-                <div class="wrapper opt">
-                    <button class="rect" id="exportlegacythemes">
-                        <span>${await language.get("exportlegacythemes",["customiser","theme","content"])}</span>
-                    </button>
-                </div>
-            `
-
-            themescont.insertAdjacentHTML("beforeend",html)
-
-            ;(document.querySelector("button.rect#exportlegacythemes") as HTMLButtonElement).onclick = async () => dialog.open({
-                title: await language.get("exportlegacythemes",["customiser","theme","content"]),
-                type: "default",
-                icon: sanhelper.setfilepath("icon","stars.svg"),
-                sub: await language.get("exportlegacythemessub",["customiser","theme","content"]),
-                buttons: [{
-                    label: await language.get("export",["customiser","theme","content"]),
-                    id: "ok",
-                    icon: "",
-                    click: () => {
-                        const convertedthemes: Store<Customisation>[] = []
-
-                        ipcRenderer.once("exportlegacythemes",async (event,dir: string[]) => {
-                            if (!dir[0]) return
-
-                            for (const legacytheme of typethemes) {
-                                try {
-                                    const res = await convertlegacytheme(type,legacytheme,dir[0])
-                                    if (res instanceof Error) throw res
-                                    log.write("INFO",`Legacy Theme "${legacytheme.label}" converted and exported successfully`)
-    
-                                    convertedthemes.push(res)
-                                } catch (err) {
-                                    log.write("ERROR",`Error converting "${legacytheme.label}" legacy Theme: ${err as Error}`)
-                                }
-                            }
-
-                            for (const store of convertedthemes) {
-                                themes.export(store,path.join(`${path.dirname(store.path)}.zip`))
-
-                                const { store: theme } = store
-                                const json = path.join(sanhelper.appdata,"legacythemes.json")
-                                const legacythemesmap = getlegacythemes()
-                                const typelegacythemes = legacythemesmap.get(type)
-                                if (!typelegacythemes) throw new Error(`No legacy Themes found in "${json}" for "${type}"`)
-
-                                legacythemesmap.set(type,typelegacythemes.filter(legacytheme => legacytheme.label !== theme.label))
-                                fs.writeFileSync(json,JSON.stringify(Object.fromEntries(legacythemesmap),null,4))
-                                log.write("INFO",`"legacythemes.json" updated`)
-                            }
-    
-                            dialog.close()
-                        })
-
-                        ipcRenderer.send("exportlegacythemes")
-                    }
-                }]
-            })
+        for (const type in customisation) {
+            (customisation[type] as Customisation).synctheme && (synced = type as "main" | "rare" | "plat")
         }
-    }
-}
 
-const getlegacythemes = () => {
-    const legacythemejson = path.join(sanhelper.appdata,"legacythemes.json")
-    
-    try {
-        if (!fs.existsSync(legacythemejson)) throw new Error(`"${legacythemejson}" does not exist`)
+        return synced
+    },
+    sync: (type: "main" | "rare" | "plat",config: Store<Config>,btn: HTMLButtonElement) => {
+        const key = `customisation.${type}.synctheme`
+        const value = !config.get(key) as boolean
 
-        const json = JSON.parse(fs.readFileSync(legacythemejson).toString()) as { [key: string]: LegacyUserTheme[] }
-        return new Map((["main","rare","plat"] as const).map(type => [type,json[type] as LegacyUserTheme[] || []]))
-    } catch (err) {
-        log.write("ERROR",`Error getting legacy Themes: ${err as Error}`)
-        return new Map((["main","rare","plat"] as const).map(type => [type,[]]))
-    }
-}
+        config.set(key,value)
+        btn.toggleAttribute("sync",value)
 
-const checkforlegacythemes = (type: "main" | "rare" | "plat") => {
-    const legacythemesmap = getlegacythemes()
-    const typethemes = legacythemesmap.get(type) as LegacyUserTheme[] || []
+        const customobj = config.get(`customisation.${type}`) as Customisation
+        console.log(themes.syncedtheme(config,customobj))
+    },
+    syncedtheme: (config: Store<Config>,syncobj: Customisation) => {
+        // Syncs the Theme over all notification types if `customisation.${type}.synctheme` is enabled
+        const customisation = config.get(`customisation`)
 
-    return typethemes.length ? typethemes : null
-}
+        for (const type in customisation) {
+            const customobj = customisation[type] as Customisation
+            const ignore = [
+                "primarycolor",
+                "secondarycolor",
+                "tertiarycolor"
+            ]
 
-const convertlegacytheme = async (type: "main" | "rare" | "plat",legacytheme: LegacyUserTheme,tempdir: string) => {    
-    return new Promise<Store<Customisation> | Error>((resolve,reject) => {
-        try {
-            // Remove all unsupported OS characters and spaces from label
-            const sanitisedlabel = `${legacytheme.label}_${type}`.replace(/[\s<>":\\/|?*\x00-\x1F]/g,"").trim().toLowerCase()
-            const dest = path.join(tempdir,`legacytheme_${sanitisedlabel}`)
-        
-            // Create import object with format converted from `LegacyUserTheme` to `Customisation`
-            const importobj = createimportobj(type,legacytheme,dest)
-        
-            // Create `theme.json` in converted Theme dir
-            const store = new Store<Customisation>({
-                name: "theme",
-                cwd: dest
-            })
-        
-            // Update `theme.json` with contents of converted `Customisation` object
-            store.set(importobj)
-
-            // Return the `theme.json` `Store` object
-            resolve(store)
-        } catch (err) {
-            reject(err as Error)
-        }
-    })
-}
-
-const updateassets = (customobj: Customisation,assetspath: string,filekeys: string[]) => {
-    const copiedfiles = []
-    const files = new Set<string>()
-
-    const filtered = Object.fromEntries(Object.entries(customobj).filter(([key]) => filekeys.includes(key)))
-
-    // Generates an array of filepath values found in root `Customisation` object
-    const rootfiles = Object.entries(filtered)
-        .filter(([key]) => key !== "customicons")
-        .flatMap(([_,value]) => (value && typeof value === "string") ? [value] : [])
-
-    // Generates an array of filepath values found in `customicons` sub-objects
-    const customiconsfiles = Object.entries(filtered)
-        .filter(([key]) => key === "customicons")
-        .flatMap(([_,icons]) => Object.entries(icons as Record<string,CustomIcon | string>)
-            .flatMap(([preset,icon]) => {
-                if (typeof icon === "string") return preset === "plat" ? [icon] : []
-                if (preset !== customobj.preset) return []
-
-                const logo = icon.logo
-                const decoration = icon.decoration
-
-                const logopaths = typeof logo === "string" ? [logo] : Array.isArray(logo) ? logo : []
-                const decorationpaths = typeof decoration === "string" ? [decoration] : Array.isArray(decoration) ? decoration : []
-
-                return [...logopaths, ...decorationpaths]
-            })
-        )
-
-    // Creates an array of all existing filepaths in `customobj`
-    const customobjfiles = [
-        ...rootfiles,
-        ...customiconsfiles
-    ]
-
-    // Copies each non-existent file from disk to `assetspath`, and adds to `files` Set
-    for (const srcpath of customobjfiles) {
-        const destpath = path.join(assetspath,path.basename(srcpath))
-        files.add(destpath)
-
-        if (!fs.existsSync(destpath)) {
-            if (!fs.existsSync(srcpath)) throw new Error(`Error copying "${srcpath}": File does not exist`)
-
-            fs.copyFileSync(srcpath,destpath)
-            log.write("INFO",`"${srcpath}" copied to "${destpath}" successfully`)
-
-            copiedfiles.push(destpath)
-        }
-    }
-
-    // Creates an array of all files in `asetspath`
-    const existingfiles = fs.readdirSync(assetspath).map(file => path.join(assetspath,file))
-    
-    // Deletes any files present in `assetspath` that are not specified in `files` Set
-    for (const filepath of existingfiles) {
-        if (!files.has(filepath)) {
-            fs.rmSync(filepath,{ force: true })
-            log.write("INFO", `"${filepath}" removed from "${assetspath}"`)
-        }
-    }
-
-    return copiedfiles
-}
-
-const updateimportobj = (customobj: Customisation,filekeys: string[],destdir: string) => {
-    const formatpath = (filepath: string) => filepath.replace(/\\/g,"/")
-
-    for (const [key,value] of Object.entries(customobj)) {
-        if (value && filekeys.includes(key)) {
-            if (typeof value === "object" && key === "customicons") {
-                for (const preset in value) {
-                    const presetvalue = customobj[key][preset] as CustomIcon | string
-
-                    if (typeof presetvalue === "string") {
-                        customobj[key][preset] = presetvalue ? formatpath(path.join(destdir,path.basename(presetvalue))) : sanconfig.defaulticons.get(preset)!
-                    } else if (typeof presetvalue === "object") {
-                        for (const iconkey in presetvalue) {
-                            ["logo", "decoration"].forEach(id => {
-                                if (presetvalue[iconkey] && iconkey === id) {
-                                    const iconvalue = (customobj[key][preset] as CustomIcon)[iconkey]
-                                    ;(customobj[key][preset] as CustomIcon)[iconkey] = (Array.isArray(iconvalue) && iconvalue.every(subvalue => typeof subvalue === "string")) ? iconvalue.map(subvalue => formatpath(path.join(destdir,path.basename(subvalue as string)))) : formatpath(path.join(destdir,path.basename(iconvalue as string)))
-                                }
-                            })
-                        }
-                    } else {
-                        log.write("ERROR",`Unexpected type for "${preset}"`)
-                    }
+            if (customobj.synctheme) {
+                syncobj = {
+                    ...syncobj,
+                    ...Object.keys(syncobj).reduce((acc,key) => {
+                        acc[key] = (key in customobj && !ignore.includes(key)) ? customobj[key] : syncobj[key]
+                        return acc
+                    },{} as Customisation)
                 }
+
+                break
             }
-
-            if (typeof value === "string") customobj[key] = formatpath(path.join(destdir,path.basename(value)))
-        }
-    }
-
-    return customobj
-}
-
-const createimportobj = (type: "main" | "rare" | "plat",theme: Customisation | LegacyUserTheme,srcpath?: string): Customisation => {               
-    const themesdir = path.join(sanhelper.appdata,"themes",type)
-    const islegacytheme = "customisation" in theme
-    const customisation = islegacytheme ? theme.customisation as Customisation : theme
-    const { icon, label } = islegacytheme ? theme : customisation
-
-    const id = setthemeid(type)
-
-    const importobj = {
-        ...customisation,
-        id,
-        icon,
-        label,
-        enabled: true
-    } as Customisation
-
-    const assetspath = path.join(themesdir,label,"assets")
-    let srcassetspath = null
-
-    if (srcpath) {
-        srcassetspath = path.join(srcpath,"assets")
-
-        if (fs.existsSync(srcpath)) {
-            fs.rmSync(srcpath,{ recursive: true, force: true })
-            log.write("INFO",`Existing Legacy Theme export dir "${srcpath}" removed successfully`)
         }
 
-        fs.mkdirSync(srcassetspath,{ recursive: true })
-        log.write("INFO",`Legacy Theme export dir "${srcpath}" created successfully`)
+        return syncobj
+    },
+    autoswitch: (config: Store<Config>,appid: number) => {
+        const themeswitch = JSON.parse(localStorage.getItem("themeswitch")!) as { [key: string]: ThemeSwitch }
+        const customisation = config.get("customisation")
+        const autoswitch: any = {}
+        let res: ThemeSwitch | null = null
         
-        const assets = updateassets(importobj,srcassetspath,customfilekeys)
-        log.write("INFO",`Exported the following assets to "${srcpath}":\n\n- ${assets.join("\n- ")}`)
+        for (const key in themeswitch) {
+            if (parseInt(key) !== appid) continue
+            res = themeswitch[key]
+            break
+        }
+
+        if (!res) {
+            log.write("ERROR",`"${appid}" not found in localStorage "themeswitch" object`)
+
+            return {
+                customobj: customisation,
+                autoswitchobj: autoswitch
+            }
+        }
+
+        const themesmap = themes.load()
+
+        for (const [type,stores] of themesmap) {
+            const id = res.themes[type]
+            const match = stores.find(({ store: theme }) => theme.id === id)
+
+            if (!match) {
+                log.write("ERROR",`Theme id ${res.themes[type]} not found for "${type}" type`)
+                continue
+            }
+            
+            const { store: theme } = match
+            autoswitch[type] = theme
+        }
+
+        return {
+            customobj: customisation,
+            autoswitchobj: autoswitch
+        }
     }
-
-    return updateimportobj(importobj,customfilekeys,srcassetspath || assetspath)
-}
-
-const setthemeid = (type: "main" | "rare" | "plat") => {
-    const themesmap = themes.load()
-    const typethemes = themesmap.get(type)
-    if (!typethemes || !typethemes.length) throw new Error(`Error getting Themes for "${type}": Themes for this type may be missing or corrupted`)
-
-    const ids = new Set<number>()
-
-    for (const { store: theme } of typethemes) {
-        ids.add(theme.id)
-    }
-
-    let availableid = 0
-
-    while (ids.has(availableid)) {
-        availableid++
-    }
-
-    return availableid
 }

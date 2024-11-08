@@ -6,10 +6,11 @@ import { __root, sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { dialog } from "./dialog"
 import { sanconfig } from "./config"
+import { themes } from "./themes"
 import { language } from "./language"
 import { update } from "./update"
 import { sendwebhook } from "./webhook"
-import { themes } from "./themes"
+import { legacythemes } from "./legacythemes"
 
 declare global {
     interface Window {
@@ -348,6 +349,7 @@ const playback = () => {
 const sendsswin = async (type: "main" | "rare" | "plat",customisation: Customisation,src: number) => ipcRenderer.send("sswin",await notifyinfo(type,customisation),src)
 
 window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
+    const synced = themes.issynced()
     const type = detail.type as "main" | "rare" | "plat"
     const keypath = `customisation.${type}`
 
@@ -359,7 +361,8 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         document.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
-        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,customisation as Customisation,src)
+        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? themes.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
+        // document.getElementById("sspreview")!.onclick = async () => sendsswin(type,customisation as Customisation,src)
 
         const { elemselector } = await import("./elemselector")
         elemselector(document.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
@@ -373,6 +376,11 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         }
 
         setwebhookwrapper()
+        
+        synced && document.getElementById("settingscontent")!.setAttribute("synced",synced)
+        
+        const synclbl = document.querySelector("#settingscontent .synclbl")
+        synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
     }
 
     if (document.querySelector("body[customiser]")) {
@@ -442,7 +450,13 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         elemselector(document.querySelector("#customisercontent .wrapper:has(> select#preset)")!,"elems")
 
         document.getElementById("customiser")!.toggleAttribute("customfiles",config.get("usecustomfiles"))
-        themes.exportlegacythemes(sanhelper.type)
+
+        synced && document.getElementById("customiser")!.setAttribute("synced",synced)
+        
+        const synclbl = document.querySelector("#customiser .synclbl")
+        synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
+
+        legacythemes.export(sanhelper.type)
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")

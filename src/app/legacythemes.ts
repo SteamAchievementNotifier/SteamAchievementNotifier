@@ -9,7 +9,7 @@ import { log } from "./log"
 import { themes } from "./themes"
 
 export const legacythemes = {
-    export: async (type: "main" | "rare" | "plat") => {
+    convertavailable: async (type: "main" | "rare" | "plat") => {
         const typethemes = legacythemes.check(type)
         let legacythemesbtn = document.querySelector("button.rect#exportlegacythemes")
         !typethemes && legacythemesbtn?.parentElement!.remove()
@@ -41,11 +41,11 @@ export const legacythemes = {
                         const convertedthemes: Store<Customisation>[] = []
 
                         ipcRenderer.once("exportlegacythemes",async (event,dir: string[]) => {
-                            if (!dir[0]) return
+                            if (!dir[0] || dir[0].startsWith(path.join(sanhelper.appdata,"temp"))) return
 
                             for (const legacytheme of typethemes) {
                                 try {
-                                    const res = await legacythemes.convertlegacytheme(type,legacytheme,dir[0])
+                                    const res = await legacythemes.convert(type,legacytheme,dir[0])
                                     if (res instanceof Error) throw res
                                     log.write("INFO",`Legacy Theme "${legacytheme.label}" converted and exported successfully`)
     
@@ -56,14 +56,17 @@ export const legacythemes = {
                             }
 
                             for (const store of convertedthemes) {
-                                themes.export(store,path.join(`${path.dirname(store.path)}.zip`))
+                                // Ensure the exported file exists before removing from "legacythemes.json"
+                                const sanfile = await themes.export(store,path.join(`${path.dirname(store.path)}.zip`)) as string
+                                if (!fs.existsSync(sanfile)) throw new Error(`Exported legacy Theme "${sanfile}" not found`)
 
                                 const { store: theme } = store
                                 const json = path.join(sanhelper.appdata,"legacythemes.json")
-                                const legacythemesmap = legacythemes.get()
+                                const legacythemesmap = legacythemes.json()
                                 const typelegacythemes = legacythemesmap.get(type)
                                 if (!typelegacythemes) throw new Error(`No legacy Themes found in "${json}" for "${type}"`)
 
+                                // Find exported Theme in "legacythemes.json" and remove
                                 legacythemesmap.set(type,typelegacythemes.filter(legacytheme => legacytheme.label !== theme.label))
                                 fs.writeFileSync(json,JSON.stringify(Object.fromEntries(legacythemesmap),null,4))
                                 log.write("INFO",`"legacythemes.json" updated`)
@@ -78,7 +81,13 @@ export const legacythemes = {
             })
         }
     },
-    get: () => {
+    check: (type: "main" | "rare" | "plat") => {
+        const legacythemesmap = legacythemes.json()
+        const typethemes = legacythemesmap.get(type) as LegacyUserTheme[] || []
+    
+        return typethemes.length ? typethemes : null
+    },
+    json: () => {
         const legacythemejson = path.join(sanhelper.appdata,"legacythemes.json")
         
         try {
@@ -91,13 +100,7 @@ export const legacythemes = {
             return new Map((["main","rare","plat"] as const).map(type => [type,[]]))
         }
     },
-    check: (type: "main" | "rare" | "plat") => {
-        const legacythemesmap = legacythemes.get()
-        const typethemes = legacythemesmap.get(type) as LegacyUserTheme[] || []
-    
-        return typethemes.length ? typethemes : null
-    },
-    convertlegacytheme: async (type: "main" | "rare" | "plat",legacytheme: LegacyUserTheme,tempdir: string) => {    
+    convert: async (type: "main" | "rare" | "plat",legacytheme: LegacyUserTheme,tempdir: string) => {    
         return new Promise<Store<Customisation> | Error>((resolve,reject) => {
             try {
                 // Remove all unsupported OS characters and spaces from label

@@ -10,6 +10,24 @@ import { language } from "./language"
 import fsextra from "fs-extra"
 
 export const themes = {
+    validatedir: (type: "main" | "rare" | "plat",config: Store<Config>) => {
+        const themesdir = path.join(sanhelper.appdata,"themes")
+        const typedir = path.join(themesdir,type)
+
+        if (!fs.existsSync(themesdir) || !fs.readdirSync(themesdir).length) return false
+        if (!fs.existsSync(typedir) || !fs.readdirSync(typedir).length) return false
+
+        const customisation = config.get(`customisation.${type}`) as Customisation | LegacyUserTheme
+        const islegacytheme = "usertheme" in customisation
+
+        // !!! Ensure legacy Themes are exported properly
+        // !!! Ensure loaded config on launch is not overwritten by default config if `config.json` exists and current customisations are not saved to a Theme
+
+        // !!! Create "legacythemes.json" here and add "userthemes" array for each found type
+        console.log(islegacytheme)
+
+        return true
+    },
     load: () => {
         const themesmap = new Map<"main" | "rare" | "plat",Store<Customisation>[]>()
         const types = ["main","rare","plat"] as ("main" | "rare" | "plat")[]
@@ -82,9 +100,9 @@ export const themes = {
                 fsextra.copySync(importassetspath,assetspath)
                 log.write("INFO",`"${importassetspath}" copied to "${assetspath}" successfully`)
                 
-                // Remove the extracted dir to ensure `id` is set correctly from `destpath` length
-                fs.rmSync(importdir,{ recursive: true, force: true })
-                log.write("INFO",`"${importdir}" cleaned up successfully`)
+                // // Remove the extracted dir to ensure `id` is set correctly from `destpath` length
+                // fs.rmSync(importdir,{ recursive: true, force: true })
+                // log.write("INFO",`"${importdir}" cleaned up successfully`)
             }
 
             // Create `theme.json` in `sanhelper.appdata/themes/<type>/<Theme label>` dir
@@ -254,10 +272,10 @@ export const themes = {
     
         log.write("INFO",`"${type}" Themes re-indexed successfully`)
     },
-    import: async (type: "main" | "rare" | "plat") => {
+    import: async (type: "main" | "rare" | "plat",importdest?: string) => {
         let rmdir: string | null = null
 
-        const importhandler = async (file: string[],importlog: HTMLSpanElement) => {
+        const importhandler = async (file: string[],importlog?: HTMLSpanElement) => {
             try {
                 // Return if dialog is cancelled, or if file does not have a `.san` extension
                 if (!file) return
@@ -331,6 +349,8 @@ export const themes = {
                     // Needs re-updating after validation, as object is written to `theme.json`, but not yet to `config.json`
                     themes.update(type,customobj.id)
                 }
+
+                return path.dirname(store.path)
             } catch (err) {
                 log.write("ERROR",`Error importing Theme: ${(err as Error).stack}`)
 
@@ -347,7 +367,7 @@ export const themes = {
             }
         }
 
-        return dialog.open({
+        if (!importdest) return dialog.open({
             title: await language.get("importtheme",["customiser","theme","content"]),
             type: "default",
             icon: sanhelper.setfilepath("icon","import.svg"),
@@ -372,6 +392,8 @@ export const themes = {
                 }
             }]
         })
+
+        return importhandler([importdest])
     },
     export: (store: Store<Customisation>,exportdest?: string) => {
         let rmdir: string | null = null
@@ -444,6 +466,8 @@ export const themes = {
                 // Delete `sanhelper.appdata/temp` dir
                 fs.existsSync(tempdir) && fs.rmSync(tempdir,{ recursive: true, force: true })
                 log.write("INFO",`"${path.format(parsed)}" Theme exported successfully`)
+
+                return `${exportdestdir}.san`
             } catch (err) {
                 log.write("ERROR",`Error exporting Theme: ${(err as Error).stack}`)
 
@@ -476,7 +500,7 @@ export const themes = {
             return ipcRenderer.send("exporttheme")
         }
 
-        exporthandler(exportdest)
+        return exporthandler(exportdest)
     },
     updateassets: (customobj: Customisation,assetspath: string,filekeys: string[]) => {
         const copiedfiles = []
@@ -675,17 +699,11 @@ export const themes = {
 
         return syncobj
     },
-    autoswitch: (config: Store<Config>,appid: number) => {
+    autoswitch: (config: Store<Config>, appid: number) => {
         const themeswitch = JSON.parse(localStorage.getItem("themeswitch")!) as { [key: string]: ThemeSwitch }
         const customisation = config.get("customisation")
-        const autoswitch: any = {}
-        let res: ThemeSwitch | null = null
-        
-        for (const key in themeswitch) {
-            if (parseInt(key) !== appid) continue
-            res = themeswitch[key]
-            break
-        }
+        const autoswitch = { ...customisation }
+        const res = themeswitch[appid]
 
         if (!res) {
             log.write("ERROR",`"${appid}" not found in localStorage "themeswitch" object`)
@@ -695,22 +713,22 @@ export const themes = {
                 autoswitchobj: autoswitch
             }
         }
-
+    
         const themesmap = themes.load()
-
-        for (const [type,stores] of themesmap) {
+    
+        for (const [type, stores] of themesmap) {
             const id = res.themes[type]
             const match = stores.find(({ store: theme }) => theme.id === id)
-
+    
             if (!match) {
-                log.write("ERROR",`Theme id ${res.themes[type]} not found for "${type}" type`)
+                log.write("ERROR",`Theme id ${id} not found for "${type}" type`)
                 continue
             }
-            
+
             const { store: theme } = match
             autoswitch[type] = theme
         }
-
+    
         return {
             customobj: customisation,
             autoswitchobj: autoswitch

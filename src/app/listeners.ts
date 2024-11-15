@@ -11,6 +11,16 @@ let appid: number = 0
 
 let extwin: BrowserWindow | null = null
 
+type CustomisationObj = {
+    [type: string]: {
+        main: Customisation,
+        rare: Customisation,
+        plat: Customisation
+    }
+}
+
+let enabledthemes: CustomisationObj | null = null
+
 export const listeners = {
     setexit: (win?: BrowserWindow) => {
         ipcMain.on("exit",(event,reason) => {
@@ -29,6 +39,13 @@ export const listeners = {
                 })
 
                 win.webContents.send("storemonitors")
+
+                if (enabledthemes) {
+                    const config = sanconfig.get()
+                    config.set("customisation",enabledthemes)
+
+                    log.write("INFO",`Auto-Switch Themes values reset successfully`)
+                }
             } else {
                 app.exit()
             }
@@ -38,6 +55,29 @@ export const listeners = {
         listeners.setexit(win)
 
         app.on("second-instance", () => win.show())
+
+        const checkthemedir = async (type: "main" | "rare" | "plat") => {
+            const config = sanconfig.get()
+            const { themes } = await import("./themes")
+
+            if (!themes.validatedir(type,config)) {
+                log.write("ERROR",`"${type}" Themes corrupted or missing - resetting to default...`)
+
+                try {
+                    const { customisation } = sanconfig.create()
+                    config.set(`customisation.${type}`,customisation[type])
+
+                    log.write("INFO",`"${type}" Themes reset to default successfully`)
+                    win.webContents.send("themesreset")
+                } catch (err) {
+                    throw new Error(`Error resetting "${type}" Themes to default: ${err as Error}`)
+                }
+            }
+        }
+
+        for (const type of ["main","rare","plat"] as const) {
+            checkthemedir(type)
+        }
 
         // Fixes issue where non-standard Windows scaling values - e.g. 149% - causes window to grow larger each time `savewindowstate()` is called
         const roundbounds = (value: number,type: "size" | "pos") => {
@@ -69,17 +109,17 @@ export const listeners = {
 
         let suspended = false
 
-        const updatetray = async (tray: Tray,gamename?: string | null) => {
+        const updatetray = async (tray: Tray,gamename?: string | null,num?: number) => {
             tray && tray.removeAllListeners()
 
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
-            tray.setImage(path.join(__root,"img",`sanlogo_${gamename ? "active" : "idle"}.${process.platform === "win32" ? "ico" : "png"}`))
+            tray.setImage(path.join(__root,"img",`sanlogo_${num === 0 ? "inactive" : (gamename ? "active" : "idle")}.${process.platform === "win32" ? "ico" : "png"}`))
 
             const template: Electron.MenuItemConstructorOptions[] = [
                 {
                     label: gamename || await language.get("game",["app","content"]),
                     icon: nativeImage
-                            .createFromPath(path.join(__root,"icon",`dot_${gamename ? "green" : "red"}.png`))
+                            .createFromPath(path.join(__root,"icon",`dot_${num === 0 ? "yellow" : (gamename ? "green" : "red")}.png`))
                             .resize({ width: 10 }),
                     enabled: false
                 },
@@ -152,7 +192,7 @@ export const listeners = {
         }
 
         updatetray(tray)
-        ipcMain.on("lang", (event,gamename: string | null) => updatetray(tray!,gamename))
+        ipcMain.on("lang", (event,gamename: string | null,num: number) => updatetray(tray!,gamename,num))
 
         let worker: BrowserWindow | null = null
 
@@ -290,10 +330,10 @@ export const listeners = {
             }
         })
 
-        ipcMain.on("appid", (event,id,gamename,steam3id) => {
+        ipcMain.on("appid", (event,id,gamename,steam3id,num) => {
             appid = id
-            win.webContents.send("appid",appid,gamename,steam3id)
-            updatetray(tray!,gamename)
+            win.webContents.send("appid",appid,gamename,steam3id,num)
+            updatetray(tray!,gamename,num)
         })
 
         let debugwin: BrowserWindow | null = null
@@ -1441,6 +1481,11 @@ export const listeners = {
             } catch (err) {
                 dialog.showErrorBox(`Monitor Test Failed!`,(err as Error).stack || (err as Error).message)
             }
+        })
+
+        ipcMain.on("autoswitch", (event,active: boolean,ogthemes?: CustomisationObj) => {
+            enabledthemes = ogthemes || null
+            win.webContents.send("autoswitch",active)
         })
 
         return

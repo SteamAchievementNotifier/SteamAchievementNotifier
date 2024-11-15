@@ -112,23 +112,26 @@ const startsan = async (appinfo: AppInfo) => {
 
         const config = sanconfig.get()
         const { customobj, autoswitchobj } = themes.autoswitch(config,appid)
-        const autoswitch = Object.keys(autoswitchobj).length > 0
+        const autoswitch = !!JSON.parse(localStorage.getItem("themeswitch")!)[appid]
 
         if (autoswitch) {
+            ipcRenderer.once("ogthemes",() => ipcRenderer.send("ogthemes",customobj))
+
             config.set("customisation",autoswitchobj)
             log.write("INFO",`"themeswitch" entry detected for AppID ${appid}: "config.customisation" updated`)
+            ipcRenderer.send("autoswitch",true,customobj)
         }
     
         const initgameloop = () => {
             processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
             
-            ipcRenderer.send("appid",appid,gamename,steam3id)
+            ipcRenderer.send("appid",appid,gamename,steam3id,num)
             ipcRenderer.on("steam3id",(event,skipss?: boolean) => ipcRenderer.send("steam3id",steam3id,skipss))
             ipcRenderer.send("workeractive",true)
         
             const apinames: string[] = num ? client.achievement.getAchievementNames() : []
             let cache: Achievement[] = num ? cachedata(client,apinames) : []
-    
+
             !num && log.write("INFO",`"${gamename}" has no achievements`)
             
             const gameloop = () => {
@@ -139,6 +142,7 @@ const startsan = async (appinfo: AppInfo) => {
                     if (autoswitch) {
                         config.set("customisation",customobj)
                         log.write("INFO",`"themeswitch" entry detected for AppID ${appid}: "config.customisation" reset`)
+                        ipcRenderer.send("autoswitch",false)
                     }
 
                     ipcRenderer.send("validateworker")

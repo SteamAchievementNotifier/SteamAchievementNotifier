@@ -456,7 +456,8 @@ dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::after {
     transition: border-radius var(--transition);
 }
 
-.wrapper#savethemeform > input:placeholder-shown {
+.wrapper#savethemeform > input:placeholder-shown,
+.wrapper#savethemeform > input[invalid] {
     outline: 0.1rem solid red;
 }
 
@@ -567,6 +568,7 @@ dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::after {
 }
 
 .contentwrapper:has(.wrapper#savethemeform > input:placeholder-shown) > .btnwrapper > #okbtn,
+.contentwrapper:has(.wrapper#savethemeform > input[invalid]) > .btnwrapper > #okbtn,
 .contentwrapper:has(.addhtml[icons]) > .btnwrapper > #okbtn {
     opacity: 0.5;
     pointer-events: none;
@@ -968,7 +970,8 @@ button#themesync[sync] {
 }
 
 dialog[selection]:has(button#themesync[sync]) .contentsub > button.rect,
-dialog[selection][synced] .contentsub > button.rect {
+dialog[selection][synced] .contentsub > button.rect,
+body[autoswitch] dialog[selection] .contentsub > button.rect {
     opacity: 0.5;
     pointer-events: none;
 }

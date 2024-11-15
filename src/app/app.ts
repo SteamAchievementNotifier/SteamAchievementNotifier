@@ -145,18 +145,17 @@ const createdir = (dirpath: string,src?: string,destdir?: string) => {
     process.platform === "linux" && fs.chmod(dest,0o777, err => log.write(err ? "ERROR" : "INFO",err ? `Error setting folder permissions for "${dest}": ${err}` : `Folder permissions for "${dest}" set successfully`))
 }
 
-const storelegacythemes = () => {
-    const legacythemesjson = path.join(sanhelper.appdata,"legacythemes.json")
-    if (fs.existsSync(legacythemesjson)) return log.write("INFO",`"${legacythemesjson}" already exists`)
+// const storelegacythemes = () => {
+//     const legacythemesjson = path.join(sanhelper.appdata,"legacythemes.json")
+//     if (fs.existsSync(legacythemesjson)) return log.write("INFO",`"${legacythemesjson}" already exists`)
 
-    const config = sanconfig.get()
-    const legacyuserthemes = Object.fromEntries(new Map((["main","rare","plat"] as const).map(type => [type,config.get(`customisation.${type}.usertheme`) as LegacyUserTheme[] || []])))
+//     const config = sanconfig.get()
+//     const legacyuserthemes = Object.fromEntries(new Map((["main","rare","plat"] as const).map(type => [type,config.get(`customisation.${type}.usertheme`) as LegacyUserTheme[] || []])))
 
-    fs.writeFileSync(legacythemesjson,JSON.stringify(legacyuserthemes,null,4))
-    log.write("INFO",`"${legacythemesjson}" created successfully`)
-}
+//     fs.writeFileSync(legacythemesjson,JSON.stringify(legacyuserthemes,null,4))
+//     log.write("INFO",`"${legacythemesjson}" created successfully`)
+// }
 
-// !!! We want to backup the previous version on launch, not the current one
 const backupconfig = (semver: string) => {
     const json = path.join(sanhelper.appdata,"config.json")
     if (!fs.existsSync(json)) return log.write("INFO",`"${json}" could not be located for backup`)
@@ -190,7 +189,8 @@ app
     
     createdir(sanhelper.appdata,__root,"customfiles")
     createdir(path.join(sanhelper.appdata,"themes"))
-    storelegacythemes()
+
+    // storelegacythemes()
     backupconfig(sanhelper.semver)
 
     main(starttime)

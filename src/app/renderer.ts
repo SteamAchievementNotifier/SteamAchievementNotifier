@@ -167,7 +167,7 @@ const storemonitors = (monitors: Monitor[]) => {
 // Stores last known monitor ids to compare against in `refreshmonitors()` on launch
 ipcRenderer.on("storemonitors", () => storemonitors(config.get("monitors")))
 
-window.addEventListener("DOMContentLoaded", () => setTimeout(setmonitors,100))
+window.addEventListener("DOMContentLoaded",() => setTimeout(setmonitors,100))
 
 ipcRenderer.on("displaysupdated", () => {
     setmonitors()
@@ -181,6 +181,7 @@ config.onDidAnyChange((newobj: any) => {
 })
 
 themes.update(sanhelper.type)
+ipcRenderer.on("themesreset",() => themes.update(sanhelper.type))
 
 document.getElementById("usertheme")!.onclick = async () => dialog.open({
     type: "selection",
@@ -456,7 +457,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         const synclbl = document.querySelector("#customiser .synclbl")
         synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
 
-        legacythemes.export(sanhelper.type)
+        legacythemes.convertavailable(sanhelper.type)
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")
@@ -583,6 +584,13 @@ const opencustomiser = () => {
         const themename = document.getElementById("savethemename")! as HTMLInputElement
         themename.placeholder = await language.get("placeholder",["customiser","theme","content"])
 
+        themename.oninput = ({ target }: Event) => {
+            const input = (target as HTMLInputElement)
+            const invalidchars = /[<>":\\/|?*\x00-\x1F]/g.test(input.value)
+
+            input.toggleAttribute("invalid",invalidchars)
+        }
+
         document.getElementById("savethemeiconbtn")!.onclick = () => document.querySelector(`.addhtml`)!.toggleAttribute(`icons`, !document.querySelector(`.addhtml`)!.hasAttribute(`icons`))
         document.querySelectorAll(`.wrapper#savethemeiconbtns > button`)!.forEach(btn => (btn as HTMLButtonElement).onclick = ({ target }: Event) => {
             const elem = target as HTMLElement
@@ -706,6 +714,7 @@ ipcRenderer.on("poswinclosed", () => {
 })
 
 let globalgamename: string | null = null
+let achnum = 0
 const gamelbl =  document.querySelector(`.rect#game > span`)!
 
 gamelbl.addEventListener("updategamelbl", async () => await sanhelper.updategamelbl(globalgamename))
@@ -713,10 +722,11 @@ gamelbl.addEventListener("updategamelbl", async () => await sanhelper.updategame
 window.appid = 0
 window.steam3id = 0
 
-ipcRenderer.on("appid", async (event,appid,gamename,steam3id) => {
+ipcRenderer.on("appid", async (event,appid,gamename,steam3id,num) => {
     (config.get("nowtracking") && !config.get("soundonly") && appid !== 0 && gamename) && sanhelper.showtrack(gamename)
     window.appid = appid || 0
     window.steam3id = steam3id || 0
+    achnum = num
 
     // Fixes issue where gamename is reset to default upon opening a dialog
     globalgamename = gamename || null
@@ -740,7 +750,7 @@ ipcRenderer.on("shortcut", async (event,type) => {
 
 window.addEventListener("lang", async () => {
     document.querySelector(".rect#game > span")!.textContent = globalgamename || await language.get("game",["app","content"])
-    ipcRenderer.send("lang",globalgamename)
+    ipcRenderer.send("lang",globalgamename,achnum)
 })
 
 const checkdialogstatus = (input: HTMLInputElement) => config.set(input.id,input.checked)
@@ -883,3 +893,5 @@ ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
         elem.textContent = await language.get(!elem.hasAttribute("suspend") ? "suspend" : "resume")
     }
 })
+
+ipcRenderer.on("autoswitch", (event,active: boolean) => document.body.toggleAttribute("autoswitch",active))

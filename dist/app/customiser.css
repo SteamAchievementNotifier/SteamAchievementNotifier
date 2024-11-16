@@ -357,7 +357,7 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 }
 
 .opt:has(#preview),
-.opt:has([id$="theme"],[id$="themes"]) {
+.opt:has(#updatetheme,#savetheme,#importtheme,#exporttheme) {
     grid-template-columns: 1fr;
     gap: 0;
 }
@@ -512,7 +512,7 @@ button[updated] > #confirm {
     margin-top: 0.5rem;
 }
 
-.opt:has(#importtheme,#exporttheme,#exportlegacythemes) > button::before {
+.opt:has(#importtheme,#exporttheme) > button::before {
     width: 1.5rem !important;
     height: 1.5rem !important;
 }
@@ -521,21 +521,15 @@ button#importtheme {
     --icon: url("../../icon/import.svg");
 }
 
-button#exporttheme,
-button#exportlegacythemes {
+button#exporttheme {
     --icon: url("../../icon/export.svg");
-}
-
-.opt:has(button#exportlegacythemes) {
-    margin-top: 0.5rem;
 }
 
 body:not([main]) #customiser[synced="main"] .cont:has(.title) > .wrapper,
 body:not([rare]) #customiser[synced="rare"] .cont:has(.title) > .wrapper,
 body:not([plat]) #customiser[synced="plat"] .cont:has(.title) > .wrapper,
-body[autoswitch] #customiser .cont:has(.title) > .wrapper,
-#customiser[synced] .cont:has(.title#theme) button,
-#customiser[synced] .cont:has(.title#theme) .opt:has(#themeselect) {
+body[themeswitch] #customiser .cont:has(.title) > .wrapper,
+#customiser[synced] .cont:has(.title#theme) button {
     opacity: 0.5;
     pointer-events: none;
 }

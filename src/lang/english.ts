@@ -56,11 +56,21 @@ export const translations = {
         findappidsub: [
             `Each Steam game has a unique number associated with it - called an <span class="hl">AppID</span>. You can find any Steam game's associated AppID by checking one of the following:`,
             `In the <span class="hl">Steam client</span>, <i>right-click</i> a game in your <span class="hl">Library</span> and select <i>Properties</i> > <i>Updates</i> - the AppID will be listed here`,
-            `The <span class="hl">URL</span> of the game's <span class="hl">Store page</span> - it will be the number listed after <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+            `The <span class="hl">URL</span> of the game's <span class="hl">Store page</span> - it will be the number listed after <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Websites such as <span class="hl">SteamDB</span> - the <span class="hl">App Info</span> section will list the AppID for each game`
         ],
         noexe: "Game EXE not found!",
-        noexesub: `Select Options > Release Game from the System Tray to quit`,
+        noexesub: "Click here to troubleshoot",
+        noexedialogsub: [
+            `Steam Achievement Notifier was unable to locate the exectuable file for this game automatically. The location of the game's executable file is required in order to "release" the game`,
+            `To manually release the game, <i>right-click</i> the <span class="hl">System Tray icon</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>, or use the <span class="hl">Release Game Shortcut</span>`,
+            `Alternatively, click the <span class="hl">Link</span> button below to add any focused window's associated executable file to the <span class="hl">Linked Games</span> menu when this <span class="hl">AppID</span> is detected`,
+            `<span class="hl help" id="linkgamehelp"><u>What happens when I click the Link button?</u></span>`
+        ],
+        linkgamehelp: "LINK GAME HELP",
+        linkgamehelpsub: [
+            "LINK GAME HELP SUB"
+        ],
         webhookunlockmsg: "$user unlocked an achievement",
         webhookingame: "in $gamename",
         notconnected: "Not connected"
@@ -109,6 +119,7 @@ export const translations = {
                 shortcuts: "Notification Shortcuts",
                 noiconcache: "Disable Icon Caching",
                 webhooks: "Post to Discord Server",
+                webhooktypes: "Webhook Types",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `By enabling this option and providing a valid Discord Webhook link, you agree that you understand that <u>all achievement and game information for the current Steam user</u> will be posted to the specified Discord server via the Webhook link provided.<br><br>If you do not wish for Steam Achievement Notifier to post this information on your behalf, please disable this option.`,
                 webhooklaststatus: "Last Status"
@@ -148,7 +159,8 @@ export const translations = {
                 noupdatedialog: "Disable Update Dialog",
                 nvda: "Enable NVDA Support",
                 tooltips: "Show Tooltips",
-                showsystrayopts: "Show System Tray Options"
+                showsystrayopts: "Show System Tray Options",
+                releaseshortcut: "Release Game Shortcut"
             }
         },
         advanced: {
@@ -168,7 +180,6 @@ export const translations = {
         misc: {
             title: "Misc",
             content: {
-                importlegacythemes: "Import Legacy Themes",
                 checkforupdates: "Check For Updates",
                 log: "App Log",
                 reset: "Reset App"
@@ -311,13 +322,7 @@ export const translations = {
                 ],
                 synctheme: "Sync Theme",
                 syncedwith: "Synced with",
-                themeselect: "Selected Theme",
-                exportlegacythemes: "Export Legacy Themes",
-                exportlegacythemessub: [
-                    `Legacy <span class="hl">Themes</span> created prior to <span class="hl">V1.9.15</span> have been detected`,
-                    `Due to changes made in <span class="hl">V1.9.15</span>, any legacy <span class="hl">Themes</span> must be converted into a format used by the new <span class="hl">Themes</span> system`,
-                    `Click the <span class="hl">Export</span> button to export all detected legacy <span class="hl">Themes</span> to the specified folder. Each <span class="hl">Theme's</span> converted <code style="font-style: italic;">.san</code> file can then be re-imported via the <span class="hl">Import Theme</span> option`
-                ]
+                themeselect: "Selected Theme"
             }
         }
     },
@@ -472,6 +477,9 @@ export const translations = {
         importtheme: `Import customisations via a user-created <span class="hl">Theme file</span>`,
         exporttheme: `Export the currently selected <span class="hl">Theme</span> for sharing<br><br><span class="ttdesc">Before attempting to export, please ensure the desired <span class="hl">Theme</span> has been selected (via the <span class="hl">Theme Select</span> menu). Please also ensure that customisations have been saved to the selected <span class="hl">Theme</span> (via the <span class="hl">Save Theme</span> menu)<br><br><u>Any customisations not yet saved to the current <span class="hl">Theme</span> will not be exported!</u></span>`,
         webhooks: "Use a Webhook URL to post in a Discord server whenever an achievement is unlocked",
+        webhooktypesmain: `Toggle whether to post achievement information to a Discord server when a Main achievement is unlocked`,
+        webhooktypesrare: "Toggle whether to post achievement information to a Discord server when a Rare achievement is unlocked",
+        webhooktypesplat: "Toggle whether to post achievement information to a Discord server when a 100% achievement is unlocked",
         webhookurl: `Set the <span class="hl">Webhook URL</span> for the desired Discord server<br><br><span class="ttdesc">A <span class="hl">Webhook URL</span> is used to post to a Discord server/channel on behalf of a user or application. In order to set up a new Webhook for a Discord server, the user must have a role within the desired server that allows the creation of Webhooks<br><br><u>A Webhook URL is required when using this option</u><br><br>Refer to Discord's official documentation for more information</span>`,
         unlockmsg: "Set the position of the unlock message/custom text within the $type",
         title: "Set the position of the achievement title within the $type",
@@ -513,8 +521,7 @@ export const translations = {
         themeswitch: `Automatically switch to any saved <span class="hl">Theme</span> when a specific game is detected`,
         userthemesync: `Sync customisations in the selected <span class="hl">Theme</span> to all other notification types`,
         showsystrayopts: `Display all options usually located under <span class="hl">System Tray</span> > <span class="hl">Options</span> in <span class="hl">Settings</span> > <span class="hl">Misc.</span>`,
-        themeselect: `Switch the currently selected <span class="hl">Theme</span>`,
-        importlegacythemes: `Import all legacy <span class="hl">Themes</span> from config, created prior to <span class="hl">V1.9.15</span>`
+        releaseshortcut: "Release Game Shortcut"
     },
     update: {
         updateavailable: "Update available",
@@ -531,7 +538,7 @@ export const translations = {
             managesub: [
                 `Manually link a game's <span class="hl">executable file</span> to a specific <span class="hl">AppID</span>, or <span class="hl">unlink</span> an existing one`,
                 `Steam Achievement Notifier will no longer use <span class="hl">automatic process tracking</span> for any <span class="hl">linked games</span> - instead, the specified <span class="hl">executable file</span> will be tracked whenever the associated <span class="hl">AppID</span> is detected`,
-                `<span class="hl" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
+                `<span class="hl help" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
             ],
             linknew: "New Linked Game",
             linknewsub: [
@@ -546,7 +553,7 @@ export const translations = {
             managesub: [
                 `Add any Steam game's <span class="hl">AppID</span> to the <span class="hl">Exclusion List</span>`,
                 `Steam Achievement Notifier will not attempt to track achievement data for any game's <span class="hl">AppID</span> added to the <span class="hl">Exclusion List</span>`,
-                `<span class="hl" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
+                `<span class="hl help" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
             ],
             exclusionnew: "New Exclusion",
             exclusionnewsub: [
@@ -599,7 +606,7 @@ export const translations = {
             managesub: [
                 `Add any game's <span class="hl">AppID</span> to automatically switch <span class="hl">Themes</span> when detected`,
                 `Any saved <span class="hl">Theme</span> can be selected for each notification type, along with the desired monitor to use as a <span class="hl">Screenshot Source</span>`,
-                `<span class="hl" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
+                `<span class="hl help" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
             ],
             themeswitchnew: "New Auto-Switch",
             themeswitchnewsub: [

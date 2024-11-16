@@ -309,7 +309,8 @@ export const translations = {
                     `如果問題仍然存在，請複製下面的錯誤，並透過<span class="hl">主畫面</span>上的連結按鈕進行報告`
                 ],
                 synctheme: "同步主題",
-                syncedwith: "已同步至"
+                syncedwith: "已同步至",
+                themeselect: "已選擇的主題"
             }
         }
     },

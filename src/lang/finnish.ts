@@ -309,7 +309,8 @@ export const translations = {
                     `Jos ongelma jatkuu, kopioi alla oleva virhe ja raportoi se linkkinäppäimillä <span class="hl">Aloitusnäytöllä</span>`
                 ],
                 synctheme: "Synkronoi teema",
-                syncedwith: "Synkronoitu kanssa"
+                syncedwith: "Synkronoitu kanssa",
+                themeselect: "Valittu teema"
             }
         }
     },

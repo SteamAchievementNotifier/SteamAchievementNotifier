@@ -3,8 +3,8 @@ import fs from "fs"
 import path from "path"
 import { sanhelper } from "./sanhelper"
 import { sanconfig } from "./config"
+import { usertheme } from "./usertheme"
 import { language } from "./language"
-import { themes } from "./themes"
 
 export const dialog = {
     init: (error?: "ERROR") => {
@@ -72,16 +72,9 @@ export const dialog = {
 
             document.getElementById("shortcutbtn")!.onclick = event => sanhelper.setshortcut(config,event)
 
-            const setappidhelpdialog = (span: HTMLSpanElement) => span.onclick = async () => {
-                dialog.open({
-                    title: await language.get("findappid"),
-                    type: "default",
-                    icon: sanhelper.setfilepath("icon","question.svg"),
-                    sub: await language.get("findappidsub")
-                })
-
-                document.querySelector("dialog[default] .contentsubitem:first-child")!.setAttribute("nobefore","")
-            }
+            const releaseshortcutbtn = document.getElementById("releaseshortcut")! as HTMLButtonElement
+            releaseshortcutbtn.textContent = sanhelper.getshortcut(config,releaseshortcutbtn.id,releaseshortcutbtn.id)
+            releaseshortcutbtn.onclick = event => sanhelper.setshortcut(config,event,(event.target as HTMLButtonElement).id)
 
             const updatetables = async (type: "linkgame" | "exclusionlist" | "themeswitch") => {
                 const table = document.querySelector(`.addhtml > .tbl#${type}tablewrapper > table`)! as HTMLTableElement
@@ -114,12 +107,7 @@ export const dialog = {
                     appid.textContent = type !== "exclusionlist" ? entry[0] : entry
                     tr.appendChild(appid)
 
-                    const gettheme = (type: "main" | "rare" | "plat",id: number) => {
-                        const typethemes = themes.load().get(type)
-                        if (!typethemes || !typethemes.length) throw new Error(`Error getting Themes for "${type}": Themes for this type may be missing or corrupted`)
-
-                        return typethemes.find(({ store: theme }) => theme.id === id)?.get("label")
-                    }
+                    const gettheme = (type: "main" | "rare" | "plat",id: number) => (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === id)?.label
 
                     if (type !== "exclusionlist") {
                         if (typeof entry[1] === "object") {
@@ -237,7 +225,7 @@ export const dialog = {
                     }]
                 })
 
-                setappidhelpdialog(document.getElementById("appidhelp")!)
+                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid")
                 updatetables("linkgame")
             }
             
@@ -286,7 +274,7 @@ export const dialog = {
                     }]
                 })
 
-                setappidhelpdialog(document.getElementById("appidhelp")!)
+                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid")
                 updatetables("exclusionlist")
             }
 
@@ -344,6 +332,8 @@ export const dialog = {
 
                             config.get("monitors").forEach(monitor => srcselect.insertAdjacentHTML("beforeend",`<option value="${monitor.id}">${monitor.label}</option>`))
 
+                            const customisation = config.get(`customisation`)
+
                             ;(async () => {
                                 const { language } = await import("./language")
                                 ;["main","rare","plat"].forEach(async (id,i) => themeswitchselects.querySelector(`th:nth-child(${i + 1})`)!.textContent = await language.get(id))
@@ -351,18 +341,20 @@ export const dialog = {
 
                             themeswitchselects.querySelectorAll("select")!.forEach(s => {
                                 const select = s as HTMLSelectElement
-                                const typethemes = themes.load().get(select.id as "main" | "rare" | "plat")
-                                if (!typethemes || !typethemes.length) throw new Error(`Error getting Themes for "${select.id}": Themes for this type may be missing or corrupted`)
+                                const themes = new Map<number,(string | number)[]>([])
+                                const userthemes = (customisation[select.id] as Customisation).usertheme
 
-                                for (const { store: theme } of typethemes) {
-                                    select.insertAdjacentHTML("beforeend",`<option value="${theme.id}">${theme.label}</option>`)
+                                for (const theme in userthemes) {
+                                    themes.set(userthemes[theme].id as number,[userthemes[theme].id,userthemes[theme].label])
                                 }
+
+                                themes.forEach(value => select.insertAdjacentHTML("beforeend",`<option value="${value[0]}">${value[1]}</option>`))
                             })
                         }
                     }]
                 })
 
-                setappidhelpdialog(document.getElementById("appidhelp")!)
+                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid")
                 updatetables("themeswitch")
             }
 
@@ -405,28 +397,16 @@ export const dialog = {
             document.querySelector(`#settingsversion > span:last-child`)!.textContent = sanhelper.semver
         }
 
-        const themebtns: HTMLButtonElement[] = []
-
         buttons?.forEach((obj: Button) => {
-            const { id, label, icon, click, istheme, enabled } = obj
+            const { id, label, icon, click } = obj
+            const isTheme = "customisation" in obj
 
             const btn = document.createElement("button")
             btn.className = menutype === "selection" ? "rect" : ""
-            btn.id = istheme ? `theme${id}` : `${id}btn`
-            btn.onclick = event => {
-                if (event && (event.target as HTMLElement).classList.contains(`userthemedelbtn`)) {
-                    const type = sanhelper.type
-                    const { id: parentid } = (event.target as HTMLButtonElement).parentElement!
-                    const id = parseInt(parentid.replace(/^theme/,""))
-
-                    return themes.delete(type,id)
-                }
-
-                click && click()
-            }
+            btn.id = !isTheme ? `${id}btn` : `usertheme${id}`
+            btn.onclick = (event: Event) => !isTheme ? (click && click()) : usertheme.set(id as number,event)
 
             btn.style.setProperty("--icon",`url('${fs.existsSync(icon) ? icon : "../../img/sanlogotrophy.svg"}')`)
-            btn.toggleAttribute("enabled",enabled)
 
             if (menutype === "default") {
                 btn.textContent = label
@@ -436,74 +416,21 @@ export const dialog = {
                 span.textContent = label
                 btn.appendChild(span)
 
-                if (istheme) {
-                    const themebtns = [
-                        "del",
-                        // "edit"
-                    ].map(btntype => {
-                        const themebtn = document.createElement("button")
-                        themebtn.className = `usertheme${btntype}btn`
-                        themebtn.id = `usertheme${btntype}btn${id}`
-                        return themebtn
-                    })
-
-                    for (const themebtn of themebtns) {
-                        btn.appendChild(themebtn)
-                    }
+                if (isTheme) {
+                    const delbtn = document.createElement("button")
+                    delbtn.className = "userthemedelbtn"
+                    delbtn.id = `userthemedelbtn${id}`
+                    btn.appendChild(delbtn)
                 }
 
-                themebtns.push(btn)
+                requestAnimationFrame(() => document.querySelector(".contentsub")!.appendChild(btn))
             }
         })
 
-        const contentsub = document.querySelector(".contentsub")!
-        const themeidnum = (btn: HTMLButtonElement) => parseInt(btn.id.replace(/^theme/,""))
-        
-        requestAnimationFrame(() => {
-            // Sort buttons in Theme Select dialog based on `id`
-            themebtns.sort((a,b) => themeidnum(a as HTMLButtonElement) - themeidnum(b as HTMLButtonElement)).forEach(btn => contentsub.appendChild(btn))
-        
-            // Dynamically create "Sync Theme" button in Theme Select dialog
-            const type = sanhelper.type
-            const synced = themes.issynced()
-            const themeselect = document.querySelector(`dialog[selection]:has([id^="theme"])`)
-            if (!themeselect || themeselect.querySelector("button#themesync")) return
-
-            const btnwrapper = document.querySelector(`dialog[selection] .btnwrapper`)!
-            btnwrapper.querySelector("button#backbtn")!.remove()
-
-            const html = `
-                <button id="themesync">
-                    <div id="themesyncstars">
-                        <span></span>
-                    </div>
-                    <span></span>
-                </button>
-            `
-
-            btnwrapper.insertAdjacentHTML("beforeend",html)
-
-            const sync = btnwrapper.querySelector("button#themesync")! as HTMLButtonElement
-            sync.onclick = event => themes.sync(type,config,event.target as HTMLButtonElement)
-
-            const span = sync.querySelector("button#themesync > span")!
-
-            sync.toggleAttribute("sync",(synced && synced === type) as boolean)
-            ;(synced && synced !== type) && themeselect.setAttribute("synced",synced)
-
-            ;(async () => {
-                const { language } = await import("./language")
-                const syncstr = await language.get("synctheme",["customiser","theme","content"])
-                const typestr = synced ? await language.get(synced) : ""
-                const syncedwithstr = `${await language.get("syncedwith",["customiser","theme","content"])} ${typestr}`
-
-                span.textContent = !synced ? syncstr : (synced !== type ? syncedwithstr : syncstr)
-            })()
-
-            btnwrapper.appendChild(sync)
-        })
-
-        if (!errwin) sanhelper.tooltips(config.get("tooltips"))
+        if (!errwin) {
+            usertheme.update()
+            sanhelper.tooltips(config.get("tooltips"))
+        }
 
         const showdialog = () => {
             const dialog = document.querySelector("dialog")!

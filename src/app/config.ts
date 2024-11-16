@@ -3,7 +3,6 @@ import fs from "fs"
 import path from "path"
 import Store from "electron-store"
 import { __root, sanhelper } from "./sanhelper"
-import { themes } from "./themes"
 
 // Contains keys whose values are filepaths in "config"
 const configfilekeys = [
@@ -30,7 +29,10 @@ export const customfilekeys = [
 export const sanconfig = {
     get defaultfiles(): { [key: string]: any } {
         const customobj = sanconfig.defaultobj("customisation")
+
         customobj.customicons = Object.fromEntries(sanconfig.defaulticons)
+        ;(customobj.customicons as CustomIcon).plat = sanhelper.setfilepath("img","ribbon.svg")
+
         return Object.fromEntries(Object.entries(customobj).filter(([key]) => customfilekeys.includes(key)))
     },
     get defaulticons(): Map<string,CustomIcon> {
@@ -167,8 +169,7 @@ export const sanconfig = {
                 index: null,
                 elems: null,
                 sselems: null
-            }],
-            ["plat",sanhelper.setfilepath("img","ribbon.svg")]
+            }]
         ])
     },
     defaultobj: (objtype: "config" | "customisation",props?: { id: number, imgpath: string, target: { width: number, height: number }, width: number, height: number } | "main" | "rare" | "plat"): Config | Customisation => {
@@ -236,6 +237,11 @@ export const sanconfig = {
                     "gfwl"
                 ],
                 webhooks: false,
+                webhooktypes: {
+                    main: true,
+                    rare: true,
+                    plat: true
+                },
                 webhookurl: "",
                 webhooklaststatus: "",
                 // discord: {
@@ -246,6 +252,7 @@ export const sanconfig = {
                 steamlang: false,
                 maxsteamlangretries: 10,
                 showsystrayopts: false,
+                releaseshortcut: "CTRL+ALT+R",
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,
@@ -360,11 +367,7 @@ export const sanconfig = {
                 percentbadgeimggold: sanhelper.setfilepath("img","sanlogotrophy_gold.svg"),
                 sspercentbadgeimggold: sanhelper.setfilepath("img","sanlogotrophy_gold.svg"),
                 synctheme: false,
-                iconanim: props !== "main",
-                id: 0,
-                label: `Default ${sanhelper.settypevalue(props,{ main: "Main", rare: "Rare", plat: "100%" })}`,
-                icon: sanhelper.setfilepath("img","sanlogotrophy.svg"),
-                enabled: true
+                usertheme: [] as UserTheme[]
             }
 
             return customobj
@@ -394,35 +397,44 @@ export const sanconfig = {
         const props = { id, imgpath, target, width, height }
         const obj = sanconfig.defaultobj("config",props) as Config
 
-        validate && sanconfig.validateconfigobj(obj)
+        if (validate) {
+            sanconfig.validateconfigobj(obj)
+        }
 
-        for (const t in obj.customisation) {
-            const type = t as "main" | "rare" | "plat"
-            const customobj = sanconfig.createcustomisation(type)
-            validate && sanconfig.validateconfigobj(customobj,type)
+        for (const type in obj.customisation) {
+            const customobj = sanconfig.defaultobj("customisation",type as "main" | "rare" | "plat") as Customisation
+            validate && sanconfig.validateconfigobj(customobj,type as "main" | "rare" | "plat")
 
             if (!validate) {
-                const { store: theme } = themes.create(type,customobj)
-                obj.customisation[type] = theme
+                sanconfig.defaulticons.forEach((value: CustomIcon,key: string) => {
+                    customobj.customicons[key] = value
+                    type === "plat" && (customobj.customicons.plat = sanhelper.setfilepath("img","ribbon.svg"))
+                })
+                
+                const sanlogotrophy = sanhelper.setfilepath("img","sanlogotrophy.svg")
+
+                Object.assign(customobj,{
+                    primarycolor: `#${sanhelper.settypevalue(type,{ main: "203e7a", rare: "663399", plat: "4e75c9" })}`,
+                    secondarycolor: `#${sanhelper.settypevalue(type,{ main: "0c2a66", rare: "521f85", plat: "3a61b5" })}`,
+                    shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, rare: 2, plat: 3 })}`,
+                    elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
+                    usertheme: [{
+                        id: 0,
+                        label: `Default ${sanhelper.settypevalue(type,{ main: "Main", rare: "Rare", plat: "100%" })}`,
+                        icon: sanlogotrophy,
+                        customisation: {} as Customisation,
+                        enabled: true
+                    }] as UserTheme[]
+                })
+    
+                customobj.usertheme[0].customisation = { ...customobj as any }
+                delete (customobj.usertheme[0].customisation as any).usertheme
+    
+                obj.customisation[type] = customobj
             }
         }
 
         return obj
-    },
-    createcustomisation: (type: "main" | "rare" | "plat"): Customisation => {
-        const customobj = sanconfig.defaultobj("customisation",type as "main" | "rare" | "plat") as Customisation
-
-        sanconfig.defaulticons.forEach((value: CustomIcon,key: string) => customobj.customicons[key] = value)
-        customobj.customicons.plat = sanhelper.setfilepath("img","ribbon.svg")
-
-        Object.assign(customobj,{
-            primarycolor: `#${sanhelper.settypevalue(type,{ main: "203e7a", rare: "663399", plat: "4e75c9"})}`,
-            secondarycolor: `#${sanhelper.settypevalue(type,{ main: "0c2a66", rare: "521f85", plat: "3a61b5"})}`,
-            shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, rare: 2, plat: 3 })}`,
-            elems: sanconfig.defaulticons.get(customobj.preset)!.elems
-        })
-
-        return customobj
     },
     get: (watch?: boolean): Store<Config> => new Store<Config>({
         cwd: sanhelper.appdata,
@@ -463,16 +475,17 @@ export const sanconfig = {
         }
 
         const missingfiles = await sanconfig.validatefiles(config,objkeys,type as "main" | "rare" | "plat" | undefined)
-        // if (missingfiles.size) return sanconfig.resetmissingfiles(missingfiles,config,log)
-        return sanconfig.resetmissingfiles(missingfiles,config,log)
+        missingfiles.size && sanconfig.resetmissingfiles(missingfiles,config,log)
     },
-    validatecustomicons: async (type: "main" | "rare" | "plat",customobj?: Customisation) => {
+    validatecustomicons: async (type: "main" | "rare" | "plat") => {
         const config = sanconfig.get()
         const log = (await import("./log")).log
         const defaulticons = sanconfig.defaulticons
-        const customicons = customobj ? customobj.customicons : config.get(`customisation.${type}.customicons`) as { [key: string]: any }
 
-        defaulticons.set("plat",sanhelper.setfilepath("img","ribbon.svg"))
+        const customicons = config.get(`customisation.${type}.customicons`) as { [key: string]: any }
+        const userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
+
+        type === "plat" && defaulticons.set("plat",sanhelper.setfilepath("img","ribbon.svg"))
 
         const defaulticonkeys = Array.from(defaulticons.keys())
         const customiconkeys = Object.keys(customicons)
@@ -498,12 +511,29 @@ export const sanconfig = {
             }
         }
 
-        // defaultfiles.customicons = Object.fromEntries(sanconfig.defaulticons)
-        // defaultfiles.customicons.plat = sanhelper.setfilepath("img","ribbon.svg")
-
         const missingfiles = await sanconfig.validatefiles(config,["customicons"],type as "main" | "rare" | "plat" | undefined)
-        // if (missingfiles.size) return sanconfig.resetmissingfiles(missingfiles,config,log)
-        return sanconfig.resetmissingfiles(missingfiles,config,log)
+        missingfiles.size && sanconfig.resetmissingfiles(missingfiles,config,log)
+
+        const { customisation } = sanconfig.create()
+        const defaultkeys = Object.keys(customisation[type]).filter(key => key !== "usertheme")
+
+        userthemes.forEach((theme,i) => {
+            const userthemecustomicons = theme.customisation!.customicons
+            const userthemeiconkeys = Object.keys(userthemecustomicons)
+
+            if (filter(userthemeiconkeys).length) {
+                try {
+                    config.set(`customisation.${type}.usertheme.${i}.customisation.customicons`,createnewkeys(userthemecustomicons,`"${theme.label}" User Theme`).find(obj => obj))
+                    log.write("INFO",`Default icons for "${theme.label}" User Theme updated successfully`)
+                } catch (err) {
+                    log.write("ERROR",`Error updating default icons for "${theme.label}" User Theme: ${err}`)
+                }
+            }
+
+            // Validate all previously saved User Themes, and add new keys with default values if missing
+            const themekeys = Object.keys(theme.customisation!)
+            sanconfig.validateconfigkeys(themekeys,defaultkeys,customisation[type],`${type}.usertheme.${i}.customisation`)
+        })
     },
     validatefiles: async (config: Store<Config>,keys: string[],type?: "main" | "rare" | "plat") => {
         const files = new Map<string[],string>([])
@@ -537,21 +567,17 @@ export const sanconfig = {
         // If the value is an Array, return the key plus the index of the missing file appended to the key string. If it's a string, just return as normal
         return new Map(Array.from(files).flatMap(([key,value]) => Array.isArray(value) ? value.map((file,i) => !fs.existsSync(file) ? [[`${key[0]}.${i}`,`${key[1]}.${i}`],file] : null).filter((entry): entry is [string[],string] => Boolean(entry)) : !fs.existsSync(value) ? [[key,value]] : []))
     },
-    resetmissingfiles: (files: Map<string[],string>,config: Store<Config>,log: any) => {
-        files.forEach((value,key) => {
-            log.write("ERROR",`"${value}" does not exist, but is currently in use by "${key[1]}" - resetting to default...`)
+    resetmissingfiles: (files: Map<string[],string>,config: Store<Config>,log: any) => files.forEach((value,key) => {
+        log.write("ERROR",`"${value}" does not exist, but is currently in use by "${key[1]}" - resetting to default...`)
 
-            try {
-                const defaultfile = key[0].split(".").map(key => isNaN(Number(key)) ? key : Number(key)).reduce((acc:any,key) => acc[key],sanconfig.defaultfiles)
-                config.set(key[1],defaultfile)
-                log.write("INFO",`"${key[1]}" reset to "${defaultfile}" successfully`)
-            } catch (err) {
-                log.write("ERROR",`Unable to reset "${key}" to default value: ${err as Error}`)
-            }
-        })
-
-        return config
-    },
+        try {
+            const defaultfile = key[0].split(".").map(key => isNaN(Number(key)) ? key : Number(key)).reduce((acc:any,key) => acc[key],sanconfig.defaultfiles)
+            config.set(key[1],defaultfile)
+            log.write("INFO",`"${key[1]}" reset to "${defaultfile}" successfully`)
+        } catch (err) {
+            log.write("ERROR",`Unable to reset "${key}" to default value: ${err as Error}`)
+        }
+    }),
     validateconfigobj: async (obj: Config | Customisation,type?: "main" | "rare" | "plat") => {
         const config = sanconfig.get()
         const configkeys = Object.keys(!type ? config.store : config.get(`customisation.${type}`))
@@ -561,6 +587,6 @@ export const sanconfig = {
         keys.forEach(key => sanconfig.defaultfiles[key] = obj[key])
 
         await sanconfig.validateconfigkeys(configkeys,objkeys,obj,type)
-        if (type) return await sanconfig.validatecustomicons(type as "main" | "rare" | "plat")
+        type && await sanconfig.validatecustomicons(type as "main" | "rare" | "plat")
     }
 }

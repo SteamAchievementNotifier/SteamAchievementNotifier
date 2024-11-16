@@ -11,6 +11,15 @@
                 --primary: #203e7a;
             }
 
+            body {
+                cursor: pointer;
+                transition: calc(var(--transition) * 5);
+            }
+
+            body:hover {
+                filter: hue-rotate(-25deg);
+            }
+
             body > .wrapper {
                 position: relative;
                 grid-template-columns: auto 1fr;

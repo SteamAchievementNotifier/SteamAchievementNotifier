@@ -1,16 +1,14 @@
 import { ipcRenderer, shell } from "electron"
 import path from "path"
 import fs from "fs"
-import Store from "electron-store"
 import { __root, sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { dialog } from "./dialog"
 import { sanconfig } from "./config"
-import { themes } from "./themes"
+import { usertheme } from "./usertheme"
 import { language } from "./language"
 import { update } from "./update"
 import { sendwebhook } from "./webhook"
-import { legacythemes } from "./legacythemes"
 
 declare global {
     interface Window {
@@ -32,9 +30,6 @@ log.init("RENDERER")
 dialog.init()
 
 update.renderer()
-
-// Prevent page zoom
-window.onkeydown = event => ((event.code === "Minus" || event.code === "Equal") && (event.ctrlKey || event.metaKey)) ? event.preventDefault() : null
 
 const errorbtn = document.querySelector(`.menubtn#error`)! as HTMLButtonElement
 errorbtn.onclick = () => {
@@ -167,7 +162,7 @@ const storemonitors = (monitors: Monitor[]) => {
 // Stores last known monitor ids to compare against in `refreshmonitors()` on launch
 ipcRenderer.on("storemonitors", () => storemonitors(config.get("monitors")))
 
-window.addEventListener("DOMContentLoaded",() => setTimeout(setmonitors,100))
+window.addEventListener("DOMContentLoaded", () => setTimeout(setmonitors,100))
 
 ipcRenderer.on("displaysupdated", () => {
     setmonitors()
@@ -180,15 +175,17 @@ config.onDidAnyChange((newobj: any) => {
     ipcRenderer.send("configupdated",newobj)
 })
 
-themes.update(sanhelper.type)
-ipcRenderer.on("themesreset",() => themes.update(sanhelper.type))
+usertheme.update()
 
-document.getElementById("usertheme")!.onclick = async () => dialog.open({
-    type: "selection",
-    title: `${await language.get("select")} ${await language.get(`${sanhelper.type}`)} ${await language.get("theme",["customiser","theme","content"])}`,
-    icon: sanhelper.setfilepath("icon","stars.svg"),
-    buttons: themes.createbtns(sanhelper.type)
-})
+document.getElementById("usertheme")!.onclick = async () => {
+    const type = sanhelper.type
+    dialog.open({
+        type: "selection",
+        title: `${await language.get("select")} ${await language.get(`${type}`)} ${await language.get("theme",["customiser","theme","content"])}`,
+        icon: sanhelper.setfilepath("icon","stars.svg"),
+        buttons: config.get(`customisation.${type}.usertheme`) as Button[]
+    })
+}
 
 document.getElementById("settings")!.onclick = () => dialog.open({
     type: "menu",
@@ -350,20 +347,25 @@ const playback = () => {
 const sendsswin = async (type: "main" | "rare" | "plat",customisation: Customisation,src: number) => ipcRenderer.send("sswin",await notifyinfo(type,customisation),src)
 
 window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
-    const synced = themes.issynced()
+    const synced = usertheme.issynced(config)
     const type = detail.type as "main" | "rare" | "plat"
     const keypath = `customisation.${type}`
 
     let customisation = config.get(keypath) as Customisation
     let src = config.get("monitor")
 
+    if (window.appid) {
+        const { themeswitchcustomisation, themeswitchsrc } = usertheme.themeswitchinfo(config,window.appid,{ customisation, type, getsrc: true })
+        customisation = themeswitchcustomisation || customisation
+        src = themeswitchsrc || src
+    }
+
     if (document.querySelector("dialog[menu] #settingscontent")) {
         document.querySelectorAll(`#settingscontent .opt > input[type="checkbox"], #settingscontent .opt > .sub > input[type="checkbox"]`).forEach(opt => sanhelper.getcheckbox(config,opt,(opt as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
-        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? themes.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
-        // document.getElementById("sspreview")!.onclick = async () => sendsswin(type,customisation as Customisation,src)
+        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
 
         const { elemselector } = await import("./elemselector")
         elemselector(document.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
@@ -377,7 +379,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         }
 
         setwebhookwrapper()
-        
+
         synced && document.getElementById("settingscontent")!.setAttribute("synced",synced)
         
         const synclbl = document.querySelector("#settingscontent .synclbl")
@@ -453,11 +455,9 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         document.getElementById("customiser")!.toggleAttribute("customfiles",config.get("usecustomfiles"))
 
         synced && document.getElementById("customiser")!.setAttribute("synced",synced)
-        
+
         const synclbl = document.querySelector("#customiser .synclbl")
         synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
-
-        legacythemes.convertavailable(sanhelper.type)
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")
@@ -530,20 +530,15 @@ const opencustomiser = () => {
 
     document.querySelectorAll("#customiser #customisertabs > button").forEach(btn => (btn as HTMLElement).onclick = (event: Event) => sanhelper.switchcustomisertab(event))
 
-    document.getElementById("updatetheme")!.onclick = event => {
-        const btn = event.target as HTMLButtonElement
-        btn.setAttribute("updated","")
-        setTimeout(() => btn.removeAttribute("updated"),1000)
+    document.getElementById("updatetheme")!.onclick = async () => {
+        const { userthemes } = usertheme.data()
+        const currenttheme = userthemes.find(theme => theme.enabled)
 
-        const type = sanhelper.type
-        const { store: theme } = themes.create(type,config.get(`customisation.${type}`) as Customisation)
-
-        log.write("INFO",`"${theme.label}" updated successfully`)
+        if (!currenttheme) return log.write("ERROR",`Error updating Theme: No "enabled" Theme found`)
+        usertheme.create(currenttheme.label,currenttheme.icon,undefined,"updatetheme")
     }
 
     document.getElementById("savetheme")!.onclick = async () => {
-        const type = sanhelper.type
-
         dialog.open({
             title: await language.get("savetheme",["customiser","theme","content"]),
             type: "default",
@@ -555,28 +550,10 @@ const opencustomiser = () => {
                 label: await language.get("save"),
                 icon: sanhelper.setfilepath("icon","tick.svg"),
                 click: () => {
-                    const customobj = config.get(`customisation.${type}`) as Customisation
+                    const name = (document.getElementById("savethemename")! as HTMLInputElement).value
+                    const icon = getComputedStyle(document.getElementById("savethemeiconbtn")!)!.getPropertyValue("--icon")
 
-                    customobj.label = (document.getElementById("savethemename")! as HTMLInputElement).value
-
-                    const geticon = () => {
-                        const match = getComputedStyle(document.getElementById("savethemeiconbtn")!)!.getPropertyValue("--icon").match(/^url\(["']?(.*?)["']?\)$/)
-
-                        if (match) {
-                            const filepath = match[1]
-                            if (path.isAbsolute(filepath)) return filepath
-
-                            const [dirname,basename] = filepath.replace(/\.\.\//g,"").split("/")
-                            return sanhelper.setfilepath(dirname,basename) as string
-                        }
-
-                        return sanhelper.setfilepath("img","sanlogotrophy.svg") as string
-                    }
-                    
-                    customobj.icon = geticon()
-
-                    const { store: theme } = themes.create(type,customobj)
-                    themes.update(type,theme.id)
+                    usertheme.create(name,icon)
                 }
             }]
         })
@@ -604,23 +581,8 @@ const opencustomiser = () => {
         })
     }
 
-    document.getElementById("importtheme")!.onclick = () => themes.import(sanhelper.type)
-    document.getElementById("exporttheme")!.onclick = () => {
-        try {
-            const type = sanhelper.type
-            const themesmap = themes.load()
-            const typethemes = themesmap.get(type)
-            if (!typethemes) throw new Error(`"${typethemes}" contains no Themes`)
-    
-            const enabled = typethemes.filter(theme => theme.store.enabled)
-            if (!enabled.length) throw new Error(`No enabled Themes found for "${type}"`)
-            if (enabled.length > 1) throw new Error(`Multiple Themes currently enabled for "${type}"`)
-
-            themes.export(enabled[0])
-        } catch (err) {
-            log.write("ERROR",err as Error)
-        }
-    }
+    document.getElementById("importtheme")!.onclick = () => usertheme.import()
+    document.getElementById("exporttheme")!.onclick = () => usertheme.export()
 
     sanhelper.updatetabs()
     sanhelper.audiosrc(config.get("audiosrc"))
@@ -637,15 +599,17 @@ window.addEventListener("soundonly", () => ipcRenderer.send("closeopenwins"))
 document.getElementById("maincontent")!.addEventListener("animationend", ({ animationName }) => animationName === "customiserin" && document.body.removeAttribute("opening"))
 document.querySelectorAll(".wrapper#tabs > .tab").forEach(btn => btn instanceof HTMLButtonElement && (btn!.onclick = (event: MouseEvent) => sanhelper.switchtab(event)))
 
-const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisation) => {
+const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisation,gamename?: string) => {
     const customisation = { ...customobj }
+    delete (customisation as any).usertheme
 
-    const { plat } = (config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
+    const { themeswitchcustomisation } = usertheme.themeswitchinfo(config,window.appid,{ customisation, type })
+    const { plat } = (themeswitchcustomisation || config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
 
     const notify: Notify = {
         id: Math.round(Date.now() / Math.random() * 1000),
         customisation: customisation,
-        gamename: null,
+        gamename: globalgamename || null,
         steam3id: window.steam3id,
         type: type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
@@ -679,6 +643,12 @@ const sendtestnotify = async () => {
         sanhelper.devmode && webview.openDevTools()
     }
 
+    if (window.appid) {
+        const { themeswitchcustomisation, themeswitchsrc } = usertheme.themeswitchinfo(config,window.appid,{ customisation: notify.customisation, type: notify.type, getsrc: true })
+        customisation = themeswitchcustomisation || customisation
+        src = themeswitchsrc || src
+    }
+
     notify.customisation = customisation
     
     ipcRenderer.send("notify",notify,webview !== null && "customiser",src)
@@ -699,6 +669,11 @@ ipcRenderer.on("customisernotify", (event,obj: Info) => {
 
     wrapper.style.setProperty("--width",`${width + 50}`)
     wrapper.style.setProperty("--height",`${height + 50}`)
+
+    if (window.appid) {
+        const { themeswitchcustomisation } = usertheme.themeswitchinfo(config,window.appid,{ customisation: obj.customisation, type: obj.info.type })
+        obj.customisation = themeswitchcustomisation || obj.customisation
+    }
 
     webview && webview.send("notify",obj)
 })
@@ -733,6 +708,9 @@ ipcRenderer.on("appid", async (event,appid,gamename,steam3id,num) => {
     
     gamelbl.parentElement!.toggleAttribute("novalue",!gamename)
     sanhelper.updategamelbl(gamename)
+
+    const enabled = appid ? usertheme.themeswitchinfo(config,appid).enabled : false
+    enabled ? document.body.setAttribute("themeswitch",appid) : document.body.removeAttribute("themeswitch")
 })
 
 sanhelper.soundonly(config.get("soundonly"))
@@ -882,7 +860,7 @@ ipcRenderer.on("sendwebhook", async (event,notify: Notify) => {
     const config = sanconfig.get()
     const icon = notify.type === "plat" ? config.get(`customisation.plat.customicons.plat`) as string : notify.icon
 
-    config.get("webhooks") && sendwebhook(config.get("webhookurl"),await embeds(notify),icon)
+    config.get("webhooks") && sendwebhook(notify.type,config.get("webhookurl"),await embeds(notify),icon)
 })
 
 ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
@@ -894,4 +872,22 @@ ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
     }
 })
 
-ipcRenderer.on("autoswitch", (event,active: boolean) => document.body.toggleAttribute("autoswitch",active))
+ipcRenderer.on("noexeclick",async () => {
+    ipcRenderer.send("noexeclose")
+
+    dialog.open({
+        title: await language.get("noexe"),
+        type: "default",
+        icon: sanhelper.setfilepath("icon","error.svg"),
+        sub: await language.get("noexedialogsub"),
+        addHTML: `<span id="noexeclick"></span>`,
+        buttons: [{
+            id: "addlink",
+            label: await language.get("link",["linkgame","content"]),
+            icon: sanhelper.setfilepath("icon","newlink.svg"),
+            click: () => { console.log("LINK VIA WINDOW") }
+        }]
+    })
+
+    sanhelper.sethelpdialog(document.getElementById("linkgamehelp")!,"linkgamehelp")
+})

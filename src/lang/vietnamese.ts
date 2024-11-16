@@ -309,7 +309,8 @@ export const translations = {
                     `Nếu vấn đề vẫn tiếp diễn, vui lòng sao chép lỗi bên dưới và báo cáo qua các nút liên kết trên <span class="hl">Màn Hình Chính</span>`
                 ],
                 synctheme: "Đồng bộ chủ đề",
-                syncedwith: "Đã đồng bộ với"
+                syncedwith: "Đã đồng bộ với",
+                themeselect: "Chủ đề đã chọn"
             }
         }
     },

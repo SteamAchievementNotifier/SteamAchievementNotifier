@@ -309,7 +309,8 @@ export const translations = {
                     `หากปัญหายังคงอยู่ โปรดคัดลอกข้อผิดพลาดด้านล่างและรายงานผ่านปุ่มลิงก์ที่อยู่ใน <span class="hl">หน้าหลัก</span>`
                 ],
                 synctheme: "ซิงค์ธีม",
-                syncedwith: "ซิงค์กับ"
+                syncedwith: "ซิงค์กับ",
+                themeselect: "ธีมที่เลือก"
             }
         }
     },

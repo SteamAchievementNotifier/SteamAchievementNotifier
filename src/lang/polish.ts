@@ -309,7 +309,8 @@ export const translations = {
                     `Jeśli problem nadal występuje, skopiuj poniższy błąd i zgłoś go za pomocą przycisków linków na <span class="hl">Ekranie głównym</span>`
                 ],
                 synctheme: "Synchronizuj motyw",
-                syncedwith: "Synchronizowane z"
+                syncedwith: "Synchronizowane z",
+                themeselect: "Wybrany motyw"
             }
         }
     },

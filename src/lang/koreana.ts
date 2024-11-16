@@ -309,7 +309,8 @@ export const translations = {
                     `문제가 지속되면 아래의 오류를 복사하고 <span class="hl">홈 화면</span>의 링크 버튼을 통해 신고해 주세요`
                 ],
                 synctheme: "테마 동기화",
-                syncedwith: "동기화됨"
+                syncedwith: "동기화됨",
+                themeselect: "선택된 테마"
             }
         }
     },

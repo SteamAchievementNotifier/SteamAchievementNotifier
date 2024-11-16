@@ -11,16 +11,6 @@ let appid: number = 0
 
 let extwin: BrowserWindow | null = null
 
-type CustomisationObj = {
-    [type: string]: {
-        main: Customisation,
-        rare: Customisation,
-        plat: Customisation
-    }
-}
-
-let enabledthemes: CustomisationObj | null = null
-
 export const listeners = {
     setexit: (win?: BrowserWindow) => {
         ipcMain.on("exit",(event,reason) => {
@@ -39,13 +29,6 @@ export const listeners = {
                 })
 
                 win.webContents.send("storemonitors")
-
-                if (enabledthemes) {
-                    const config = sanconfig.get()
-                    config.set("customisation",enabledthemes)
-
-                    log.write("INFO",`Auto-Switch Themes values reset successfully`)
-                }
             } else {
                 app.exit()
             }
@@ -56,28 +39,8 @@ export const listeners = {
 
         app.on("second-instance", () => win.show())
 
-        const checkthemedir = async (type: "main" | "rare" | "plat") => {
-            const config = sanconfig.get()
-            const { themes } = await import("./themes")
-
-            if (!themes.validatedir(type,config)) {
-                log.write("ERROR",`"${type}" Themes corrupted or missing - resetting to default...`)
-
-                try {
-                    const { customisation } = sanconfig.create()
-                    config.set(`customisation.${type}`,customisation[type])
-
-                    log.write("INFO",`"${type}" Themes reset to default successfully`)
-                    win.webContents.send("themesreset")
-                } catch (err) {
-                    throw new Error(`Error resetting "${type}" Themes to default: ${err as Error}`)
-                }
-            }
-        }
-
-        for (const type of ["main","rare","plat"] as const) {
-            checkthemedir(type)
-        }
+        // Prevent page zoom
+        win.webContents.on("before-input-event",(event,input) => ((input.code === "Minus" || input.code === "Equal") && (input.control || input.meta)) && event.preventDefault())
 
         // Fixes issue where non-standard Windows scaling values - e.g. 149% - causes window to grow larger each time `savewindowstate()` is called
         const roundbounds = (value: number,type: "size" | "pos") => {
@@ -227,12 +190,14 @@ export const listeners = {
 
         ipcMain.on("worker",(event,args) => console.log(JSON.parse(args)))
         ipcMain.on("noexe",() => {
+            const config = sanconfig.get()
+            let noexewin: BrowserWindow | null = null
+
             // Delay to prevent overlapping with trackwin
             setTimeout(() => {
-                const config = sanconfig.get()
                 const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
     
-                const noexewin = new BrowserWindow({
+                noexewin = new BrowserWindow({
                     title: `Steam Achievement Notifier (V${sanhelper.version}): No Game EXE`,
                     width: Math.round((375 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
                     height: Math.round((112.5 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
@@ -254,24 +219,36 @@ export const listeners = {
                     }
                 })
     
-                noexewin.setIgnoreMouseEvents(true)
                 noexewin.setAlwaysOnTop(true,"screen-saver")
                 sanhelper.devmode && sanhelper.setdevtools(noexewin)
     
                 noexewin.loadFile(path.join(__root,"dist","app","noexe.html"))
     
                 ipcMain.once("noexeready", async () => {
+                    if (!noexewin) return
+
                     const { width, height } = noexewin.getBounds()
                     const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
     
                     noexewin.webContents.send("noexeready",await language.get("noexe"),await language.get("noexesub"))
                     shownotify(noexewin,bounds)
             
-                    return setTimeout(() => noexewin.webContents.send("noexeclose"),7500)
+                    return setTimeout(() => noexewin && noexewin.webContents.send("noexeclose"),7500)
                 })
     
-                ipcMain.once("noexeclose", () => noexewin.destroy())
-            },6500)
+                ipcMain.once("noexeclose", () => {
+                    if (!noexewin) return
+
+                    noexewin.destroy()
+                    noexewin = null
+                })
+
+                ipcMain.once("noexeclick",() => {
+                    win.show()
+                    win.focus()
+                    win.webContents.send("noexeclick")
+                })
+            },config.get("nowtracking") ? 6500 : 0)
         })
 
         // Emitted from `main.ts`
@@ -713,13 +690,14 @@ export const listeners = {
 
         ipcMain.on("closeextwin",closeextwin)
 
-        ipcMain.on("shortcut", (event,shouldregister) => {
+        ipcMain.on("shortcut", (event,shouldregister,id?: string) => {
             globalShortcut.unregisterAll()
 
             if (!shouldregister) return
 
             const config = sanconfig.get()
             config.get("shortcuts") && ["main","rare","plat"].forEach(type => globalShortcut.register(config.get(`customisation.${type}.shortcut`) as string, () => win.webContents.send("shortcut",type)))
+            globalShortcut.register(config.get("releaseshortcut") as string,() => ipcMain.emit("releasegame"))
         })
 
         ipcMain.on("loadfile", async (event,filetype) => {
@@ -759,7 +737,7 @@ export const listeners = {
                 return
             }
 
-            const { syncedtheme } = (await import("./themes")).themes
+            const { syncedtheme } = (await import("./usertheme")).usertheme
             notify.customisation = syncedtheme(config,notify.customisation)
 
             const { preset } = notify.customisation
@@ -876,7 +854,7 @@ export const listeners = {
                 bottomright: { x: (screenwidth - (notifywidth + glowsize) + bottom), y: (screenheight - (notifyheight + glowsize) + bottom) }
             } as Positions
         
-            const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? (((customisation?.usecustompos || config.get(`customisation.${type}.usecustompos`)) ? custompos : positions[(customisation?.pos || config.get(`customisation.${type}.pos`)) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"])) : positions[config.get("nowtrackingpos")])
+            const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? (((customisation ? customisation.usecustompos : config.get(`customisation.${type}.usecustompos`)) ? custompos : positions[(customisation?.pos || config.get(`customisation.${type}.pos`)) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"])) : positions[config.get("nowtrackingpos")])
         
             return {
                 width: notifywidth + glowsize,
@@ -1455,19 +1433,6 @@ export const listeners = {
             event.reply("exporttheme",expdialog)
         })
 
-        ipcMain.on("exportlegacythemes", async event => {
-            const { filePaths: expdialog } = await dialog.showOpenDialog({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): Export Legacy Themes`,
-                properties: [
-                    "openDirectory",
-                    "dontAddToRecent"
-                ],
-                buttonLabel: await language.get("exporttheme",["customiser","theme","content"])
-            })
-
-            event.reply("exportlegacythemes",expdialog)
-        })
-
         ipcMain.on("montest", (event,id: number) => {
             const config = sanconfig.get()
 
@@ -1481,11 +1446,6 @@ export const listeners = {
             } catch (err) {
                 dialog.showErrorBox(`Monitor Test Failed!`,(err as Error).stack || (err as Error).message)
             }
-        })
-
-        ipcMain.on("autoswitch", (event,active: boolean,ogthemes?: CustomisationObj) => {
-            enabledthemes = ogthemes || null
-            win.webContents.send("autoswitch",active)
         })
 
         return

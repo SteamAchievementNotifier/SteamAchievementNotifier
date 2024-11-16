@@ -218,11 +218,11 @@ div:has(> .contentsubitem[nobefore]) {
     grid-column-start: 2;
 }
 
-.btnwrapper:has(button#themesync) {
+.btnwrapper:has(button#userthemesync) {
     justify-content: stretch;
 }
 
-dialog:not([default]):not(:has(button#themesync)) .btnwrapper {
+dialog:not([default]):not(:has(button#userthemesync)) .btnwrapper {
     display: none;
 }
 
@@ -269,7 +269,7 @@ dialog:not([default]):not(:has(button#themesync)) .btnwrapper {
 #okbtn:hover,
 #updatebtn:hover,
 #backbtn:hover,
-#themesync:hover {
+#userthemesync:hover {
     filter: none;
 }
 
@@ -384,7 +384,7 @@ dialog[selection] .rect:not([enabled]) {
     background-color: #2b2b2b;
 }
 
-dialog[selection] .rect[id^="theme"] > [class$="btn"] {
+dialog[selection] .rect[id^="usertheme"] > [class$="btn"] {
     --btnmask: url("../../img/sanlogotrophy.svg") center / contain no-repeat;
     --btncolor: white;
     position: absolute;
@@ -401,39 +401,30 @@ dialog[selection] .rect[id^="theme"] > [class$="btn"] {
     transition: var(--transition);
 }
 
-dialog[selection] .rect[id^="theme"] > .userthemedelbtn {
+dialog[selection] .rect[id^="usertheme"] > .userthemedelbtn {
     --btnmask: url("../../icon/delete.svg") center / contain no-repeat;
     --btncolor: red;
 }
 
-/* dialog[selection] .rect[id^="theme"] > .userthemeeditbtn {
-    --btnmask: url("../../icon/customise.svg") center / contain no-repeat;
-    right: 1.25rem;
-}
-
-dialog[selection] .rect[id^="theme"]:not(:has([class$="btn"]:hover)) > .userthemeeditbtn:not(:hover) {
-    --btncolor: black;
-} */
-
-dialog[selection] .rect[id^="theme"]:not([enabled]) > [class$="btn"] {
+dialog[selection] .rect[id^="usertheme"]:not([enabled]) > .userthemedelbtn {
     pointer-events: auto;
 }
 
-dialog[selection] .rect[id^="theme"]:not([enabled]):hover > [class$="btn"] {
+dialog[selection] .rect[id^="usertheme"]:not([enabled]):hover > .userthemedelbtn {
     opacity: 0.75;
 }
 
-dialog[selection] .rect[id^="theme"]:not([enabled]) > [class$="btn"]:hover {
+dialog[selection] .rect[id^="usertheme"]:not([enabled]) > .userthemedelbtn:hover {
     scale: 1.2;
     opacity: 1;
 }
 
-dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::before,
-dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect > span {
+dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::before,
+dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect > span {
     filter: none;
 }
 
-dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::after {
+dialog[selection] .contentsub:has(.userthemedelbtn:hover) > .rect::after {
     translate: -120%;
 }
 
@@ -447,6 +438,10 @@ dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::after {
     margin-top: 0;
 }
 
+.addhtml:has(> #noexeclick) {
+    margin: 0;
+}
+
 .wrapper#savethemeform {
     grid-template-columns: min-content auto;
     gap: 0.5rem;
@@ -456,8 +451,7 @@ dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::after {
     transition: border-radius var(--transition);
 }
 
-.wrapper#savethemeform > input:placeholder-shown,
-.wrapper#savethemeform > input[invalid] {
+.wrapper#savethemeform > input:placeholder-shown {
     outline: 0.1rem solid red;
 }
 
@@ -568,7 +562,6 @@ dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::after {
 }
 
 .contentwrapper:has(.wrapper#savethemeform > input:placeholder-shown) > .btnwrapper > #okbtn,
-.contentwrapper:has(.wrapper#savethemeform > input[invalid]) > .btnwrapper > #okbtn,
 .contentwrapper:has(.addhtml[icons]) > .btnwrapper > #okbtn {
     opacity: 0.5;
     pointer-events: none;
@@ -576,34 +569,41 @@ dialog[selection] .contentsub:has([class$="btn"]:hover) > .rect::after {
 
 button[id$="newbtn"]:hover,
 button[id$="newbtn"]:focus-visible,
+button#addlinkbtn:hover,
+button#addlinkbtn:focus-visible,
 button#importbtn:hover,
 button#importbtn:focus-visible {
     background-color: limegreen;
     filter: none;
 }
 
-.hl#appidhelp {
+.help {
     transition: color var(--transition);
     cursor: pointer;
 }
 
-.hl#appidhelp:hover {
+.help:hover {
     color: blueviolet;
 }
 
-/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #appidhelp window) */
+/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
 .wrapper#contentcontainer:has(.tbl#linkgametablewrapper) {
     --dialogicon: url("../../icon/link.svg");
 }
 
-/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #appidhelp window) */
+/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
 .wrapper#contentcontainer:has(.tbl#exclusionlisttablewrapper) {
     --dialogicon: url("../../icon/exclusion.svg");
 }
 
-/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #appidhelp window) */
+/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
 .wrapper#contentcontainer:has(.tbl#themeswitchtablewrapper) {
     --dialogicon: url("../../icon/autoswitchtheme.svg");
+}
+
+/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
+.wrapper#contentcontainer:has(#noexeclick) {
+    --dialogicon: url("../../icon/error.svg");
 }
 
 /* .wrapper#contentcontainer:has(.tbl) + .btnwrapper {
@@ -789,7 +789,7 @@ div#linkgamenewtablewrapper td:first-child {
     width: 30%;
 }
 
-.appidhelpcode {
+.helpcode {
     word-break: break-word;
 }
 
@@ -843,15 +843,15 @@ div#linkgamenewtablewrapper td:first-child {
     user-select: all;
 }
 
-dialog[selection] .btnwrapper:has(button#themesync) > button#backbtn {
+dialog[selection] .btnwrapper:has(button#userthemesync) > button#backbtn {
     display: none;
 }
 
-.contentwrapper:has(button#themesync) .contentsub {
+.contentwrapper:has(button#userthemesync) .contentsub {
     border-radius: 0;
 }
 
-button#themesync {
+button#userthemesync {
     grid-column: 1 / -1;
     font-size: 0.75rem;
     text-transform: none;
@@ -859,11 +859,11 @@ button#themesync {
     background-color: var(--primary);
 }
 
-button#themesync::before {
+button#userthemesync::before {
     content: none;
 }
 
-div#themesyncstars {
+div#userthemesyncstars {
     position: relative;
     display: grid;
     place-content: center;
@@ -902,30 +902,30 @@ dialog[selection][synced="plat"] {
     --star1: #5082f0;
 }
 
-div#themesyncstars::before {
+div#userthemesyncstars::before {
     background-color: var(--star2);
     z-index: 1;
 }
 
-div#themesyncstars > span {
+div#userthemesyncstars > span {
     background-color: var(--star1);
     z-index: 10;
 }
 
-div#themesyncstars::after {
+div#userthemesyncstars::after {
     background-color: var(--star3);
     z-index: 0;
 }
 
-div#themesyncstars::before,
-div#themesyncstars::after {
+div#userthemesyncstars::before,
+div#userthemesyncstars::after {
     content: "";
     opacity: 0;
 }
 
-div#themesyncstars::before,
-div#themesyncstars::after,
-div#themesyncstars > span {
+div#userthemesyncstars::before,
+div#userthemesyncstars::after,
+div#userthemesyncstars > span {
     --animation: starbounce calc(var(--transition) * 10) var(--offset) infinite;
     position: absolute;
     top: 50%;
@@ -937,23 +937,23 @@ div#themesyncstars > span {
     transition: calc(var(--transition) * 2);
 }
 
-button#themesync:hover > div#themesyncstars::before,
-button#themesync:hover > div#themesyncstars::after,
-button#themesync:hover > div#themesyncstars > span {
+button#userthemesync:hover > div#userthemesyncstars::before,
+button#userthemesync:hover > div#userthemesyncstars::after,
+button#userthemesync:hover > div#userthemesyncstars > span {
     opacity: 1;
     animation: var(--animation);
 }
 
-button#themesync:hover > div#themesyncstars::before {
+button#userthemesync:hover > div#userthemesyncstars::before {
     --offset: 0.33s;
 }
 
-button#themesync:hover > div#themesyncstars > span {
+button#userthemesync:hover > div#userthemesyncstars > span {
     --offset: 0s;
     translate: calc(-50% - 2px) calc(-50% + 2px);
 }
 
-button#themesync:hover > div#themesyncstars::after {
+button#userthemesync:hover > div#userthemesyncstars::after {
     --offset: 0.66s;
     translate: calc(-50% + 2px) calc(-50% - 2px);
 }
@@ -965,18 +965,18 @@ button#themesync:hover > div#themesyncstars::after {
     to { scale: 1; }
 }
 
-button#themesync[sync] {
+button#userthemesync[sync] {
     background-color: limegreen !important;
 }
 
-dialog[selection]:has(button#themesync[sync]) .contentsub > button.rect,
+dialog[selection]:has(button#userthemesync[sync]) .contentsub > button.rect,
 dialog[selection][synced] .contentsub > button.rect,
-body[autoswitch] dialog[selection] .contentsub > button.rect {
+body[themeswitch] dialog[selection] .contentsub > button.rect{
     opacity: 0.5;
     pointer-events: none;
 }
 
-dialog[selection][synced] .btnwrapper > button#themesync {
+dialog[selection][synced] .btnwrapper > button#userthemesync {
     pointer-events: none;
 }
 

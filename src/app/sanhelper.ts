@@ -2,13 +2,13 @@ import { app, ipcRenderer, shell } from "electron"
 import path from "path"
 import fs from "fs"
 import Store from "electron-store"
+import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
 import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
-import { themes } from "./themes"
 const { initLogger, testPanic } = sanhelperrslog
 
 export const __root: string = path.resolve(__dirname,"..","..")
@@ -151,18 +151,13 @@ export const sanhelper: SANHelper = {
     updatelogwin: (logtype: "san" | "rust" | "sanhelperrs") => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype),logtype),
     showcustomfiles: () => shell.openPath(path.join(sanhelper.appdata,"customfiles")),
     switchtab: ({ target }: Event) => {
-        target instanceof HTMLElement && ["main","rare","plat"].forEach(type => {
-            const match = target.hasAttribute(type)
-            document.body.toggleAttribute(type,match)
-            match && themes.update(type as "main" | "rare" | "plat")
-        })
-
+        target instanceof HTMLElement && ["main","rare","plat"].forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
+        usertheme.update()
         sanhelper.reloadelemselector()
     },
     switchcustomisertab: ({ target }: Event) => {
         const attrs = ["main","rare","plat"]
-        const type = attrs.find(attr => document.body.hasAttribute(attr))! as "main" | "rare" | "plat"
-        const i = attrs.indexOf(type)
+        const i = attrs.indexOf(attrs.find(attr => document.body.hasAttribute(attr))!)
         
         if (i === -1) return
         switch ((target as HTMLElement)!.id) {
@@ -182,18 +177,21 @@ export const sanhelper: SANHelper = {
                 break
         }
 
-        // themes.update(type)
+        usertheme.update()
         sanhelper.reloadelemselector()
     },
-    getshortcut: (config: Store<Config>, target: HTMLElement) => {
-        const type = ["main","rare","plat"].find(attr => (target as HTMLElement).hasAttribute(attr))
-        const keys = (config.get(`customisation.${type}.shortcut`) as string)
-        document.getElementById("shortcutbtn")!.textContent = keys.replace(/\+/g," + ")
+    getshortcut: (config: Store<Config>, target: HTMLElement, id?: string) => {
+        const btn = document.getElementById(id || "shortcutbtn")! as HTMLButtonElement
+        const type = !id ? ["main","rare","plat"].find(attr => (target as HTMLElement).hasAttribute(attr)) : null
+        const keys = config.get(id || `customisation.${type}.shortcut`) as string
+
+        return btn.textContent = keys.replace(/\+/g," + ")
     },
-    setshortcut: (config: Store<Config>, event: Event) => {
+    setshortcut: (config: Store<Config>, event: Event, id?: string) => {
         const target = event.target as HTMLElement
         const type = sanhelper.type
         const keys: string[] = []
+        const shortcutbtn = document.getElementById(id ? id : "shortcutbtn")! as HTMLButtonElement
         let count: number = 0
         let pressed: string[] = []
 
@@ -212,7 +210,7 @@ export const sanhelper: SANHelper = {
             count === 3 && stop()
         }
 
-        const stop = () => {
+        const stop = async () => {
             target.removeAttribute("set")
 
             window.removeEventListener("keydown",keydown)
@@ -225,21 +223,26 @@ export const sanhelper: SANHelper = {
                 const shortcut = replaced.join("+")
                 const exists = ["main","rare","plat"].find(type => config.get(`customisation.${type}.shortcut`) === shortcut)
 
-                if (exists) {
+                const configshortcuts = Object.keys(config.store)
+                    .filter(key => /^[A-Za-z0-9]+shortcut$/.test(key))
+                    .map(key => config.get(key))
+                    .filter(value => value === shortcut)
+
+                if (exists || configshortcuts.includes(shortcut)) {
                     target.setAttribute("error","")
-                    document.getElementById("shortcutbtn")!.textContent = `In use by ${exists === "plat" ? "100%" : exists}!`.toUpperCase()
+                    shortcutbtn.textContent = `In use${exists ? ` by ${(exists === "plat" ? "100%" : exists)}` : ""}!`.toUpperCase()
 
                     return sctimer = setTimeout(() => {
                         target.removeAttribute("error")
-                        sanhelper.getshortcut(config,document.body)
+                        sanhelper.getshortcut(config,document.body,id)
                         ipcRenderer.send("shortcut",true)
                     },1500)
                 }
 
-                config.set(`customisation.${type}.shortcut`,shortcut)
+                config.set(id ? id : `customisation.${type}.shortcut`,shortcut)
             }
 
-            !sctimer && sanhelper.getshortcut(config,document.body)
+            !sctimer && sanhelper.getshortcut(config,document.body,id)
             ipcRenderer.send("shortcut",true)
         }
 
@@ -310,7 +313,7 @@ export const sanhelper: SANHelper = {
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     getcheckbox: (config: Store<Config>, elem: HTMLInputElement, keypath?: string) => elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean,
     setcheckbox: (config: Store<Config>, event: Event, keypath?: string) => {
-        event.preventDefault()
+        // event.preventDefault()
         const elem = (event.target instanceof HTMLSpanElement ? event.target.parentElement!.querySelector(`input[type="checkbox"]`)! : event.target!) as HTMLInputElement
 
         if (process.platform === "linux") {
@@ -335,7 +338,7 @@ export const sanhelper: SANHelper = {
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
         })
     },
-    setvalue: (config: Store<Config>,elem: (HTMLInputElement | HTMLSelectElement),keypath?: string) => {
+    setvalue: (config: Store<Config>, elem: (HTMLInputElement | HTMLSelectElement), keypath?: string) => {
         const key = config.get((keypath ? `${keypath}.` : "") + elem.id)
 
         if (elem.id === "monitors" && elem instanceof HTMLSelectElement) {
@@ -363,16 +366,14 @@ export const sanhelper: SANHelper = {
         }
 
         if (elem.id === "themeselect") {
-            const type = sanhelper.type
+            const typethemes = config.get(`customisation.${sanhelper.type}.usertheme`) as UserTheme[]
             const themeselect = elem as HTMLSelectElement
-            const typethemes = themes.load().get(type)
-            if (!typethemes) throw new Error(`No Themes found for "${type}" type`)
 
             themeselect.innerHTML = ""
-            typethemes.sort((a,b) => a.store.id - b.store.id).map(({ store: theme }) => `<option value="theme${theme.id}" ${theme.enabled ? "selected" : ""}>${theme.label}</option>`).forEach(opt => themeselect.insertAdjacentHTML("beforeend",opt))
+            typethemes.sort((a,b) => (a.id as number) - (b.id as number)).map(theme => `<option value="theme${theme.id}" ${theme.enabled ? "selected" : ""}>${theme.label}</option>`).forEach(opt => themeselect.insertAdjacentHTML("beforeend",opt))
 
             themeselect.onchange = event => {
-                themes.update(type,parseInt((event.target as HTMLOptionElement).value.replace(/^theme/,"")))
+                usertheme.set(parseInt((event.target as HTMLOptionElement).value.replace(/^theme/,"")),event)
                 sanhelper.updatetabs()
                 ;(async () => await sanhelper.resetelemselector(document.querySelector("#customiser")))()
             }
@@ -381,7 +382,7 @@ export const sanhelper: SANHelper = {
         }
 
         const selectinputtype = (target: EventTarget) => ((target instanceof HTMLSelectElement ? target as HTMLSelectElement : target as HTMLInputElement)).value
-
+        
         // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
         if (selectorelems.find(id => elem.id === id)) return
 
@@ -881,5 +882,17 @@ export const sanhelper: SANHelper = {
         elemselector(document.querySelector(`#${settings ? "settings" : "customiser"}content .wrapper:has(> ${settings ? "input#ovmatch" : "select#preset"})`)!,`${settings ? "ss" : ""}elems`)
 
         sanhelper.loadadditionaltooltips(menutype)
+    },
+    sethelpdialog: (span: HTMLSpanElement,langid: string) => span.onclick = async () => {
+        const { dialog } = await import("./dialog")
+
+        dialog.open({
+            title: await language.get(langid),
+            type: "default",
+            icon: sanhelper.setfilepath("icon","question.svg"),
+            sub: await language.get(`${langid}sub`)
+        })
+
+        document.querySelector("dialog[default] .contentsubitem:first-child")!.setAttribute("nobefore","")
     }
 }

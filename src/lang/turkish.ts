@@ -309,7 +309,8 @@ export const translations = {
                     `Sorun devam ederse, lütfen aşağıdaki hatayı kopyalayın ve <span class="hl">Ana Ekran</span>'daki bağlantı düğmeleri aracılığıyla bildirin`
                 ],
                 synctheme: "Tema Senkronizasyonu",
-                syncedwith: "Şu ile senkronize"    
+                syncedwith: "Şu ile senkronize",
+                themeselect: "Seçilen Tema"
             }
         }
     },

@@ -71,6 +71,11 @@ export const language = {
 
                         langmap.set(elem,elem.hasAttribute("systray") ? systray : settings[title].content[id])
                     })
+
+                    const releaseshortcutlbl = settingscontent.querySelector(".wrapper:has(> button#releaseshortcut) > span")! as HTMLSpanElement
+                    const releaseshortcuttitle = releaseshortcutlbl.parentElement!.parentElement!.parentElement!.querySelector(".title")!.id
+                    
+                    langmap.set(releaseshortcutlbl,settings[releaseshortcuttitle].content["releaseshortcut"])
                 }
 
                 (type === "selection" && backbtn) && (backbtn.textContent = global.back)

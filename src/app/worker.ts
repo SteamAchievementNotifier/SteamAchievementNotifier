@@ -6,7 +6,6 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
-import { themes } from "./themes"
 
 declare global {
     interface Window {
@@ -109,18 +108,6 @@ const startsan = async (appinfo: AppInfo) => {
         const isprocessrunning = (pid: number) => userust ? client.processes.isProcessRunning(pid) : sanhelper.isprocessrunning(pid)
     
         const processes: ProcessInfo[] = []
-
-        const config = sanconfig.get()
-        const { customobj, autoswitchobj } = themes.autoswitch(config,appid)
-        const autoswitch = !!JSON.parse(localStorage.getItem("themeswitch")!)[appid]
-
-        if (autoswitch) {
-            ipcRenderer.once("ogthemes",() => ipcRenderer.send("ogthemes",customobj))
-
-            config.set("customisation",autoswitchobj)
-            log.write("INFO",`"themeswitch" entry detected for AppID ${appid}: "config.customisation" updated`)
-            ipcRenderer.send("autoswitch",true,customobj)
-        }
     
         const initgameloop = () => {
             processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
@@ -131,7 +118,7 @@ const startsan = async (appinfo: AppInfo) => {
         
             const apinames: string[] = num ? client.achievement.getAchievementNames() : []
             let cache: Achievement[] = num ? cachedata(client,apinames) : []
-
+    
             !num && log.write("INFO",`"${gamename}" has no achievements`)
             
             const gameloop = () => {
@@ -139,12 +126,6 @@ const startsan = async (appinfo: AppInfo) => {
                     clearInterval(timer!)
                     log.write("INFO","Game loop stopped")
         
-                    if (autoswitch) {
-                        config.set("customisation",customobj)
-                        log.write("INFO",`"themeswitch" entry detected for AppID ${appid}: "config.customisation" reset`)
-                        ipcRenderer.send("autoswitch",false)
-                    }
-
                     ipcRenderer.send("validateworker")
                 }
     
@@ -217,8 +198,13 @@ const startsan = async (appinfo: AppInfo) => {
                         desc: steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,"description",maxlang) : null
                     }
 
-                    const customisation = config.get(`customisation.${type}`) as Customisation
-
+                    const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch] | undefined
+                    const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
+                    
+                    if (themeswitch) {
+                        log.write("INFO",`Auto-switch entry detected for ${appid}`)
+                        sanhelper.devmode && console.log(customisation)
+                    }
         
                     const notify: Notify = {
                         id: Math.round(Date.now() / Math.random() * 1000),
@@ -235,11 +221,11 @@ const startsan = async (appinfo: AppInfo) => {
                         icon: icon || sanhelper.setfilepath("img","sanlogosquare.svg")
                     }
 
-                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify))
+                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
         
                     if (live.every(ach => ach.unlocked) && !hasshown) {
-                        const { plat: platicon } = (config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
-                        const customisation = config.get(`customisation.plat`) as Customisation
+                        const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon
+                        const customisation = config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation
         
                         const platnotify: Notify = {
                             id: Date.now(),
@@ -256,7 +242,7 @@ const startsan = async (appinfo: AppInfo) => {
                             icon: platicon || sanhelper.setfilepath("img","ribbon.svg")
                         }
         
-                        ipcRenderer.send("notify",platnotify)
+                        ipcRenderer.send("notify",platnotify,undefined,themeswitch?.[1].src)
                         hasshown = true
                     }
                 })
@@ -282,16 +268,16 @@ const startsan = async (appinfo: AppInfo) => {
                 } else {
                     // If no processes are found by automatic process tracking or by manually adding a Linked Game, use "steam-game-path" as a last resort fallback
                     // This could potentially replace the `get_game_exes()` Rust function if it turns out to be more accurate, but is a lot slower, due to waiting for the `SteamUser` dependency of `steam-game-path` to parse `appinfo.vdf`
-                    log.write("ERROR",`No matching game processes found via automatic process tracking or Linked Games. Checking for executable using "steam-game-path"...`)
+                    // log.write("ERROR",`No matching game processes found via automatic process tracking or Linked Games. Checking for executable using "steam-game-path"...`)
     
-                    const exes = async () => (await (getGamePath(appid,true)?.game)?.executable as any[]).filter(({ executable }: any) => path.extname(executable) === (process.platform === "win32" ? ".exe" : ""))    
+                    // const exes = async () => (await (getGamePath(appid,true)?.game)?.executable as any[]).filter(({ executable }: any) => path.extname(executable) === (process.platform === "win32" ? ".exe" : ""))    
     
-                    for (const exe of await exes()) {
-                        await (async () => {
-                            const processinfo: ProcessInfo[] = getprocessinfo(exe.executable)
-                            processinfo.length && processes.push(...processinfo)
-                        })()
-                    }
+                    // for (const exe of await exes()) {
+                    //     await (async () => {
+                    //         const processinfo: ProcessInfo[] = getprocessinfo(exe.executable)
+                    //         processinfo.length && processes.push(...processinfo)
+                    //     })()
+                    // }
     
                     // If an EXE is still not found, push an invalid process. The user will then need to manually release the game
                     if (!processes.length) {

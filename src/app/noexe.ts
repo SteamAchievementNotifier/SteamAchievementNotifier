@@ -1,6 +1,8 @@
 import { ipcRenderer } from "electron"
 
 window.addEventListener("DOMContentLoaded", () => {
+    document.body.onclick = () => ipcRenderer.send("noexeclick")
+
     const wrapper = document.querySelector("body > .wrapper")! as HTMLElement
     wrapper.addEventListener("animationend", (event: AnimationEvent) => event.animationName === "fade" && ipcRenderer.send("noexeclose"),{ once: true })
 

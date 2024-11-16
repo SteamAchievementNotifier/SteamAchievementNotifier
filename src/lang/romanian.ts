@@ -309,7 +309,8 @@ export const translations = {
                     `Dacă problema persistă, vă rugăm să copiați eroarea de mai jos și să o raportați prin butoanele de link de pe <span class="hl">Ecranul Principal</span>`
                 ],
                 synctheme: "Sincronizează tema",
-                syncedwith: "Sincronizat cu"  
+                syncedwith: "Sincronizat cu",
+                themeselect: "Tema selectată"
             }
         }
     },

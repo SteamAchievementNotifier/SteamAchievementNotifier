@@ -309,7 +309,8 @@ export const translations = {
                     `Pokud problém přetrvává, zkopírujte chybu níže a nahlaste ji pomocí odkazových tlačítek na <span class="hl">Domovské obrazovce</span>`
                 ],
                 synctheme: "Synchronizace tématu",
-                syncedwith: "Synchronizováno s"
+                syncedwith: "Synchronizováno s",
+                themeselect: "Vybrané téma"
             }
         }
     },

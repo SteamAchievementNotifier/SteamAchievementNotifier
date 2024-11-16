@@ -309,7 +309,8 @@ export const translations = {
                     `Si le problème persiste, veuillez copier l'erreur ci-dessous, puis signaler via les boutons de lien sur l'<span class="hl">Écran d'accueil</span>`
                 ],
                 synctheme: "Synchroniser le thème",
-                syncedwith: "Synchronisé avec"
+                syncedwith: "Synchronisé avec",
+                themeselect: "Thème sélectionné"
             }
         }
     },

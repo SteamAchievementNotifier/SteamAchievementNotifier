@@ -309,7 +309,8 @@ export const translations = {
                     `問題が解決しない場合は、下記のエラーをコピーし、<span class="hl">ホーム画面</span>のリンクボタンから報告してください`
                 ],
                 synctheme: "テーマを同期",
-                syncedwith: "同期中"
+                syncedwith: "同期中",
+                themeselect: "選択されたテーマ"
             }
         }
     },

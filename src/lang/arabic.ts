@@ -309,7 +309,8 @@ export const translations = {
                     `إذا استمرت المشكلة، يرجى نسخ الخطأ أدناه، ثم الإبلاغ عبر أزرار الرابط في <span class="hl">شاشة البداية</span>`
                 ],
                 synctheme: "مزامنة الثيم",
-                syncedwith: "مزامن مع"
+                syncedwith: "مزامن مع",
+                themeselect: "الثيم المختار"
             }
         }
     },

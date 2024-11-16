@@ -78,6 +78,11 @@ declare interface Config {
     logtype: "san" | "rust" | "sanhelperrs",
     ssalldetails: string[],
     webhooks: boolean,
+    webhooktypes: {
+        main: boolean,
+        rare: boolean,
+        plat: boolean
+    },
     webhookurl: string,
     webhooklaststatus: string,
     // discord: {
@@ -89,6 +94,7 @@ declare interface Config {
     steamlang: boolean,
     maxsteamlangretries: number,
     showsystrayopts: boolean,
+    releaseshortcut: string,
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -197,11 +203,7 @@ declare interface Customisation {
     percentbadgeimggold: string,
     sspercentbadgeimggold: string,
     synctheme: boolean,
-    // usertheme: UserTheme[],
-    id: number,
-    label: string,
-    icon: string,
-    enabled: boolean,
+    usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }
 
@@ -262,11 +264,9 @@ declare interface Button {
     label: string,
     icon: string,
     click?: Function,
-    istheme?: boolean,
-    enabled?: boolean
 }
 
-declare interface LegacyUserTheme extends Button {
+declare interface UserTheme extends Button {
     customisation: Customisation,
     enabled: boolean,
     version?: string,

@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 import { log } from "./log"
 import { sanconfig } from "./config"
-import { __root, sanhelper } from "./sanhelper"
+import { __root } from "./sanhelper"
 
 const setlaststatus = (statuscode?: string) => {
     const webhooklaststatus = document.getElementById("webhooklaststatus") as HTMLElement
@@ -16,8 +16,10 @@ const setlaststatus = (statuscode?: string) => {
     webhooklaststatus.textContent = statuscode || "N/A"
 }
 
-export const sendwebhook = async (webhookurl: string,content: object,icon: string,userid?: string,avatarurl?: string) => {
+export const sendwebhook = async (type: "main" | "rare" | "plat",webhookurl: string,content: object,icon: string,userid?: string,avatarurl?: string) => {
     const config = sanconfig.get()
+    if (!config.get(`webhooktypes.${type}`)) return log.write("INFO",`"${type}" not active in "config.webhooktypes" - skipping...`) 
+
     const webhooklaststatus = document.getElementById("webhooklaststatus")
     let status = "ERROR"
 
@@ -86,6 +88,26 @@ export const webhookwrapper = async (elem: HTMLElement) => {
 
     const caution = document.getElementById("webhookcaution")! as HTMLSpanElement
     caution.innerHTML = `❗ ${await language.get("webhookcaution",["settings","notifications","content"])}`
+
+    const typeswrapper = document.querySelector(".wrapper:has(> #webhooktypes)")! as HTMLElement
+    const typeslbl = typeswrapper.querySelector("span.lbl#webhooktypes")! as HTMLSpanElement
+    typeslbl.textContent = `${await language.get("webhooktypes",["settings","notifications","content"])}`
+
+    typeswrapper.querySelectorAll(`.wrapper#webhooktypeswrapper > .wrapper:has(> input)`).forEach(async wrapper => {
+        const span = wrapper.querySelector("span") as HTMLSpanElement
+        const input = wrapper.querySelector("input") as HTMLInputElement
+        const type = ["main","rare","plat"].find(type => input.hasAttribute(type)) as "main" | "rare" | "plat"
+
+        span.textContent = await language.get(type)
+
+        input.checked = config.get(`webhooktypes.${type}`) as boolean
+
+        ;[span,input].forEach(elem => elem.onclick = () => {
+            const value = !config.get(`webhooktypes.${type}`) as boolean
+            config.set(`webhooktypes.${type}`,value)
+            input.checked = value
+        })
+    })
 
     const laststatus = document.getElementById("webhooklaststatus")!
     const lslbl = laststatus.parentElement!.querySelector("span:first-child") as HTMLSpanElement

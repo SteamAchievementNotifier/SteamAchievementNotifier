@@ -42,12 +42,18 @@ const resetlegacykey = (key: string,limittype?: "main" | "rare" | "plat") => {
     const config = sanconfig.get()
 
     for (const type in config.get("customisation")) {
+        const { usertheme } = config.get(`customisation.${type}`) as Customisation
+
         (!limittype || limittype === type) && config.set(`customisation.${type}.${key}`,false)
+
+        for (const i in usertheme) {
+            (!limittype || limittype === type) && config.set(`customisation.${type}.usertheme.${i}.customisation.${key}`,false)
+        }
     }
 }
 
 // Reset legacy "alldetails"/"showdecoration" keys for each type, and reset "previewhiddenicon" key for 100%
-export const resetlegacykeys = () => new Map<string,"main" | "rare" | "plat" | undefined>([
+new Map<string,"main" | "rare" | "plat" | undefined>([
     ["alldetails",undefined],
     ["showdecoration",undefined],
     ["previewhiddenicon","plat"]
@@ -145,39 +151,6 @@ const createdir = (dirpath: string,src?: string,destdir?: string) => {
     process.platform === "linux" && fs.chmod(dest,0o777, err => log.write(err ? "ERROR" : "INFO",err ? `Error setting folder permissions for "${dest}": ${err}` : `Folder permissions for "${dest}" set successfully`))
 }
 
-// const storelegacythemes = () => {
-//     const legacythemesjson = path.join(sanhelper.appdata,"legacythemes.json")
-//     if (fs.existsSync(legacythemesjson)) return log.write("INFO",`"${legacythemesjson}" already exists`)
-
-//     const config = sanconfig.get()
-//     const legacyuserthemes = Object.fromEntries(new Map((["main","rare","plat"] as const).map(type => [type,config.get(`customisation.${type}.usertheme`) as LegacyUserTheme[] || []])))
-
-//     fs.writeFileSync(legacythemesjson,JSON.stringify(legacyuserthemes,null,4))
-//     log.write("INFO",`"${legacythemesjson}" created successfully`)
-// }
-
-const backupconfig = (semver: string) => {
-    const json = path.join(sanhelper.appdata,"config.json")
-    if (!fs.existsSync(json)) return log.write("INFO",`"${json}" could not be located for backup`)
-
-    const version = parseInt(semver.split(".")[2])
-    const previous = version - 1
-    const bak = (version: number) => path.join(sanhelper.appdata,`V1.9.${version}.bak`)
-    
-    const currentbak = bak(version)
-    const previousbak = bak(previous)
-
-    if (fs.existsSync(currentbak)) return log.write("INFO",`"${currentbak}" backup up to date`)
-
-    if (fs.existsSync(previousbak)) {
-        fs.rmSync(previousbak)
-        log.write("INFO",`"${previousbak}" removed successfully`)
-    }
-
-    fs.copyFileSync(json,currentbak)
-    log.write("INFO",`"${currentbak}" backup created successfully`)
-}
-
 app
 .whenReady()
 .then(() => {
@@ -186,13 +159,8 @@ app
         !fs.existsSync(tempdir) && fs.mkdirSync(tempdir, { recursive: true })
         createdir(path.join(sanhelper.appdata,"resources"),path.join(__root,"img"),"img")
     }
-    
+
     createdir(sanhelper.appdata,__root,"customfiles")
-    createdir(path.join(sanhelper.appdata,"themes"))
-
-    // storelegacythemes()
-    backupconfig(sanhelper.semver)
-
     main(starttime)
 })
 .catch(async err => await error.createwin(err))

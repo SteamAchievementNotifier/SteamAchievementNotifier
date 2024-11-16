@@ -178,7 +178,7 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     line-height: 1;
 }
 
-#shortcutbtn {
+.shortcutbtn {
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
     background-color: #101010;
@@ -187,11 +187,11 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     animation: none;
 }
 
-#shortcutbtn:hover {
+.shortcutbtn:hover {
     background-color: #3d3d3d;
 }
 
-#shortcutbtn[set] {
+.shortcutbtn[set] {
     animation: fadetoblue 0.5s alternate infinite forwards;
     pointer-events: none;
 }
@@ -200,9 +200,13 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     to { background-color: var(--primary); }
 }
 
-#shortcutbtn[error] {
+.shortcutbtn[error] {
     background-color: red;
     pointer-events: none;
+}
+
+.opt:has(> button#releaseshortcut) {
+    gap: 0;
 }
 
 #settingscontent .cont:has(.title#notifications,.title#advanced) .opt:has(input[type="range"],select) {
@@ -231,8 +235,8 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     margin-block: 0.25rem;
 }
 
-.wrapper:has(#shortcutbtn[set]) > .wrapper#shortcuttabs > .tab,
-.wrapper:has(#shortcutbtn[error]) > .wrapper#shortcuttabs > .tab {
+.wrapper:has(.shortcutbtn[set]) > .wrapper#shortcuttabs > .tab,
+.wrapper:has(.shortcutbtn[error]) > .wrapper#shortcuttabs > .tab {
     pointer-events: none;
 }
 
@@ -477,6 +481,47 @@ span#webhookcaution {
 span#webhookcaution,
 span#webhookcaution > * {
     user-select: all;
+}
+
+.wrapper:has(> span.lbl#webhooktypes) > .wrapper#webhooktypeswrapper {
+    grid-template-columns: 1fr;
+}
+
+.wrapper#webhooktypeswrapper {
+    margin: 0;
+    padding: 0.35rem 0.5rem;
+    background-color: var(--darkgrey);
+}
+
+.wrapper#webhooktypeswrapper > .wrapper:first-child {
+    margin: 0;
+}
+
+.wrapper#webhooktypeswrapper > .wrapper {
+    margin-top: 0.35rem;
+}
+
+.wrapper#webhooktypeswrapper > .wrapper:has(> input) > input:not(:checked) {
+    background-color: var(--lightgrey);
+}
+
+.wrapper#webhooktypeswrapper .wrapper:has(> input) > span::before {
+    --trophy: url("../../icon/trophy_gold.svg");
+    content: "";
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    margin-right: 0.25rem;
+    background: var(--trophy) center / contain no-repeat;
+    vertical-align: -0.1rem;
+}
+
+.wrapper#webhooktypeswrapper .wrapper:has(> input[rare]) > span::before {
+    --trophy: url("../../icon/trophy_purple.svg");
+}
+
+.wrapper#webhooktypeswrapper .wrapper:has(> input[plat]) > span::before {
+    --trophy: url("../../icon/trophy_plat.svg");
 }
 
 .wrapper:has(> #webhooklaststatus) {

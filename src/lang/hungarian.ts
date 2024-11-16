@@ -309,7 +309,8 @@ export const translations = {
                     `Ha a probléma továbbra is fennáll, kérjük, másolja ki az alábbi hibát, majd jelentsen be a <span class="hl">Kezdőképernyő</span> hivatkozásgombjaival`
                 ],
                 synctheme: "Téma szinkronizálása",
-                syncedwith: "Szinkronizálva ezzel:"
+                syncedwith: "Szinkronizálva ezzel:",
+                themeselect: "Kiválasztott téma"
             }
         }
     },

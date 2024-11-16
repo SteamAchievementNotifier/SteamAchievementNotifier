@@ -309,7 +309,8 @@ export const translations = {
                     `Hvis problemet fortsætter, skal du kopiere fejlen nedenfor og rapportere det via linkknapperne på <span class="hl">Hjemmeskærmen</span>`
                 ],
                 synctheme: "Synkroniser tema",
-                syncedwith: "Synkroniseret med"  
+                syncedwith: "Synkroniseret med",
+                themeselect: "Valgt tema"
             }
         }
     },

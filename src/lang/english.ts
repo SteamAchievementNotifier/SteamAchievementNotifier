@@ -64,12 +64,16 @@ export const translations = {
         noexedialogsub: [
             `Steam Achievement Notifier was unable to locate the exectuable file for this game automatically. The location of the game's executable file is required in order to "release" the game`,
             `To manually release the game, <i>right-click</i> the <span class="hl">System Tray icon</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>, or use the <span class="hl">Release Game Shortcut</span>`,
-            `Alternatively, click the <span class="hl">Link</span> button below to add any focused window's associated executable file to the <span class="hl">Linked Games</span> menu when this <span class="hl">AppID</span> is detected`,
+            `Alternatively, click the <span class="hl">Link</span> button below to add any focused window's associated executable file to the <span class="hl">Linked Games</span> menu`,
             `<span class="hl help" id="linkgamehelp"><u>What happens when I click the Link button?</u></span>`
         ],
-        linkgamehelp: "LINK GAME HELP",
+        linkgamehelp: "Link Game via Window",
         linkgamehelpsub: [
-            "LINK GAME HELP SUB"
+            `Clicking the <span class="hl">Link</span> button will automatically add a new entry to the <span class="hl">Settings</span> > <span class="hl">Linked Games</span> menu, using information from the currently focused window.`,
+            `After clicking the <span class="hl">Link</span> button, a 5-second timer will begin`,
+            `Before the timer ends, focus the game window`,
+            `Once the timer has ended, a new entry for the current <span class="hl">AppID</span> will be added to the <span class="hl">Settings</span> > <span class="hl">Linked Games</span> menu, using the focused window's associated executable file`,
+            `If you need to try again, remove the entry via <span class="hl">Settings</span> > <span class="hl">Linked Games</span> by clicking the <span id="linkhelpunlink"></span> button`
         ],
         webhookunlockmsg: "$user unlocked an achievement",
         webhookingame: "in $gamename",

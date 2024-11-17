@@ -586,6 +586,50 @@ button#importbtn:focus-visible {
     color: blueviolet;
 }
 
+#linkhelpunlink {
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    background: url("../../icon/unlink.svg") center / contain no-repeat;
+    vertical-align: middle;
+}
+
+#addlinkbtn {
+    position: relative;
+    transition:
+        background-color var(--transition),
+        font-size var(--transition),
+        scale var(--transition);
+}
+
+#addlinkbtn[timer]::before {
+    scale: 0;
+}
+
+#addlinkbtn[timer] {
+    font-size: 0 !important;
+    animation: fadetodarkblue 0.5s alternate infinite forwards;;
+    pointer-events: none;
+}
+
+#addlinkbtn::after {
+    content: "";
+    position: absolute;
+    scale: 0;
+    width: 100%;
+    transition: scale var(--transition) var(--transition);
+}
+
+#addlinkbtn[timer]::after {
+    content: attr(timer);
+    font-size: 1rem !important;
+    scale: 1;
+}
+
+@keyframes fadetodarkblue {
+    to { background-color: #0c2a66; };
+}
+
 /* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
 .wrapper#contentcontainer:has(.tbl#linkgametablewrapper) {
     --dialogicon: url("../../icon/link.svg");
@@ -981,6 +1025,10 @@ dialog[selection][synced] .btnwrapper > button#userthemesync {
 }
 
 @media (orientation: portrait) {
+    dialog[default] > #content {
+        width: 75%;
+    }
+
     .contentwrapper > .btnwrapper > button {
         grid-column: 1 / -1;
     }

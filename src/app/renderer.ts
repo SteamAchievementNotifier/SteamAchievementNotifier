@@ -885,7 +885,24 @@ ipcRenderer.on("noexeclick",async () => {
             id: "addlink",
             label: await language.get("link",["linkgame","content"]),
             icon: sanhelper.setfilepath("icon","newlink.svg"),
-            click: () => { console.log("LINK VIA WINDOW") }
+            click: async () => {
+                // !!! TODO: Add Rust function to find active window
+                let count = 5
+                const addlinkbtn = document.getElementById("addlinkbtn") as HTMLButtonElement
+            
+                addlinkbtn.setAttribute("timer",`${count}`)
+
+                const timer: NodeJS.Timeout = setInterval(() => {
+                    count--
+
+                    if (!count) {
+                        addlinkbtn.removeAttribute("timer")
+                        return clearInterval(timer)
+                    }
+
+                    addlinkbtn.setAttribute("timer",`${count}`)
+                },1000)
+            }
         }]
     })
 

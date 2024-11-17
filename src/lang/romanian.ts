@@ -60,7 +60,23 @@ export const translations = {
             `Site-uri precum <span class="hl">SteamDB</span> - secțiunea de <span class="hl">Informații despre App</span> va lista AppID-ul pentru fiecare joc`
         ],
         noexe: "Fișierul EXE al jocului nu a fost găsit!",
-        noexesub: `Selectați Opțiuni > Ieșire din joc din Bara de Sistem pentru a ieși`,
+        noexesub: "Apasă aici pentru mai multe informații",
+        noexedialogsub: [
+            `Steam Achievement Notifier nu a reușit să localizeze automat fișierul executabil al acestui joc. Locatia fișierului executabil al jocului este necesară pentru a "lansa" jocul`,
+            `Pentru a lansa jocul manual, <i>clic dreapta</i> pe <span class="hl">icoana din bara de sistem</span> > <span class="hl">Opțiuni</span> > <span class="hl">Lansează jocul</span>, sau folosește <span class="hl">Scurtătura pentru lansarea jocului</span>`,
+            `Alternativ, apasă pe butonul <span class="hl">Link</span> de mai jos pentru a adăuga fișierul executabil asociat ferestrei în focus în meniul <span class="hl">Jocuri conectate</span>`,
+            `<span class="hl help" id="linkgamehelp"><u>Ce se întâmplă când apas pe butonul Link?</u></span>`
+        ],
+        linkgamehelp: "Conectează joc prin fereastră",
+        linkgamehelpsub: [
+            `Apăsând butonul <span class="hl">Link</span>, o nouă intrare va fi adăugată automat în meniul <span class="hl">Setări</span> > <span class="hl">Jocuri conectate</span>, folosind informațiile din fereastra activă.`,
+            `După ce apeși pe butonul <span class="hl">Link</span>, un cronometru de 5 secunde va începe`,
+            `Înainte ca cronometru să se termine, focalizează fereastra jocului`,
+            `Când cronometru se va termina, o nouă intrare pentru <span class="hl">AppID</span> va fi adăugată în meniul <span class="hl">Setări</span> > <span class="hl">Jocuri conectate</span>, folosind fișierul executabil asociat ferestrei active`,
+            `Dacă trebuie să încerci din nou, elimină intrarea din <span class="hl">Setări</span> > <span class="hl">Jocuri conectate</span> făcând clic pe butonul <span id="linkhelpunlink"></span>`
+        ],
+        addlinkfailed: "Nu s-a putut conecta fereastra",
+        addlinkfailedsub: `Apasă pe butonul <span class="hl">Link</span> pentru a încerca din nou`,
         webhookunlockmsg: "$user a deblocat o realizare",
         webhookingame: "în $gamename",
         notconnected: "Nu este conectat"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Afișare Procentaj",
                 soundonly: "Doar Sunet",
                 extwin: "Notificări de Streaming",
+                extwinframerate: "Rata cadrelor",
+                extwinshow: "Arată fereastra",
                 audiosrc: "Sursă Audio",
                 notify: "Notificare",
                 app: "Aplicație",
@@ -110,6 +128,7 @@ export const translations = {
                 noiconcache: "Dezactivează Cache-ul de Pictograme",
                 webhooks: "Postează pe serverul Discord",
                 webhookurl: `URL Webhook`,
+                webhooktypes: "Tipuri de Webhook",
                 webhookcaution: `Activând această opțiune și furnizând un link valid Webhook Discord, accepți că înțelegi că <u>toate informațiile despre realizări și jocuri pentru utilizatorul Steam actual</u> vor fi postate pe serverul Discord specificat prin intermediul linkului Webhook furnizat.<br><br>Dacă nu dorești ca Steam Achievement Notifier să posteze aceste informații în numele tău, dezactivează această opțiune.`,
                 webhooklaststatus: "Ultimul Statut"
             }
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Dezactivați dialogul de actualizare",
                 nvda: "Activează Suport NVDA",
                 tooltips: "Afișare Sfaturi Instrumente",
-                showsystrayopts: "Afișează opțiunile din zona de notificare"
+                showsystrayopts: "Afișează opțiunile din zona de notificare",
+                releaseshortcut: "Scurtătură pentru a lansa jocul"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Afișați procentajul de deblocare al realizării în notificare pentru tipurile selectate",
         soundonly: "Dezactivați notificările, redând doar sunetele setate prin Personalizator",
         extwin: "Creați o fereastră de fundal ascunsă care duplică orice notificări afișate în prezent pe ecran. Această fereastră poate fi apoi adăugată ca sursă de captură a ferestrei pentru utilizarea în software-ul de streaming, cum ar fi OBS",
+        extwinframerate: "Setează rata cadrelor țintă pentru notificările de flux",
+        extwinshow: "Comută vizibilitatea ferestrei notificărilor de flux",
         audiosrc: "Selectați sursa (sau dezactivați) audio generat de aplicație",
         nowtracking: "Afișați o notificare care anunță utilizatorul că se urmăresc realizările pentru un joc în execuție",
         nowtrackingscale: `Setați dimensiunea notificării de urmărire`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importați personalizările printr-un <span class="hl">fișier temă</span> creat de utilizator`,
         exporttheme: `Exportați <span class="hl">tema</span> selectată curent pentru partajare<br><br><span class="ttdesc">Înainte de a încerca să exportați, asigurați-vă că <span class="hl">tema</span> dorită este selectată (prin meniul <span class="hl">Selectare Temă</span>). Asigurați-vă și că personalizările au fost salvate în <span class="hl">tema</span> selectată (prin meniul <span class="hl">Salvare Temă</span>)<br><br><u>Orice personalizări nesalvate în <span class="hl">tema</span> curent nu vor fi exportate!</u></span>`,
         webhooks: "Folosește un URL Webhook pentru a posta pe un server Discord de fiecare dată când o realizare este deblocat",
+        webhooktypesmain: `Comută dacă trebuie sau nu să postezi informații despre realizări pe un server Discord când o realizare principală este deblocată`,
+        webhooktypesrare: "Comută dacă trebuie sau nu să postezi informații despre realizări pe un server Discord când o realizare rară este deblocată",
+        webhooktypesplat: "Comută dacă trebuie sau nu să postezi informații despre realizări pe un server Discord când o realizare de 100% este deblocată",
         webhookurl: `Setează <span class="hl">URL Webhook</span> pentru serverul Discord dorit<br><br><span class="ttdesc">Un <span class="hl">URL Webhook</span> este folosit pentru a posta pe un server/canal Discord în numele unui utilizator sau aplicație. Pentru a configura un nou Webhook pentru un server Discord, utilizatorul trebuie să aibă un rol pe serverul dorit care permite crearea de Webhook-uri<br><br><u>Un URL Webhook este necesar atunci când folosești această opțiune</u><br><br>Consultă documentația oficială Discord pentru mai multe informații</span>`,
         unlockmsg: "Setează poziția mesajului de deblocare/textului personalizat în $type",
         title: "Setează poziția titlului realizării în $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Se potrivesc setările Elementelor de Notificare stabilite în Personalizator pentru acest tip de notificare<br><br><span class="ttdesc">Unele Predefiniri de Notificare nu pot corespunde pe deplin setărilor Personalizatorului, din cauza diferențelor între layout-urile de notificare pe ecran și cele bazate pe capturi de ecran</span>`,
         themeswitch: `Comutare automată la orice <span class="hl">Temă</span> salvată atunci când un joc specific este detectat`,
         userthemesync: `Sincronizează personalizările din <span class="hl">Tema</span> selectată pentru toate celelalte tipuri de notificări`,
-        showsystrayopts: `Afișează toate opțiunile de obicei localizate sub <span class="hl">Zona de Notificare</span> > <span class="hl">Opțiuni</span> în <span class="hl">Setări</span> > <span class="hl">Diverse</span>`
+        showsystrayopts: `Afișează toate opțiunile de obicei localizate sub <span class="hl">Zona de Notificare</span> > <span class="hl">Opțiuni</span> în <span class="hl">Setări</span> > <span class="hl">Diverse</span>`,
+        releaseshortcut: "Lansează jocul activ urmărit folosind scurtătura de tastatură specificată"
     },
     update: {
         updateavailable: "Actualizare disponibilă",

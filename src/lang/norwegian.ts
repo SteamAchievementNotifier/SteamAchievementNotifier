@@ -60,7 +60,23 @@ export const translations = {
             `Nettsteder som <span class="hl">SteamDB</span> - seksjonen <span class="hl">App Info</span> vil liste opp AppID-en for hvert spill`
         ],
         noexe: "Spillets EXE-fil ble ikke funnet!",
-        noexesub: `Velg Alternativer > Avslutt spill fra systemstatusfeltet for å avslutte`,
+        noexesub: "Klikk her for mer informasjon",
+        noexedialogsub: [
+            `Steam Achievement Notifier klarte ikke å finne den eksekverbare filen for dette spillet automatisk. Plasseringen av den eksekverbare filen er nødvendig for å "frigjøre" spillet`,
+            `For å frigjøre spillet manuelt, <i>høyreklikk</i> på <span class="hl">systemstatusikonet</span> > <span class="hl">Alternativer</span> > <span class="hl">Frigjør spill</span>, eller bruk <span class="hl">Frigjør spill hurtigtasten</span>`,
+            `Alternativt kan du klikke på <span class="hl">Lenk</span> knappen nedenfor for å legge til den tilknyttede eksekverbare filen til det fokuserte vinduet i <span class="hl">Koblede spill</span> menyen`,
+            `<span class="hl help" id="linkgamehelp"><u>Hva skjer når jeg klikker på Lenke-knappen?</u></span>`
+        ],
+        linkgamehelp: "Koble spill via vindu",
+        linkgamehelpsub: [
+            `Når du klikker på <span class="hl">Lenk</span> knappen, vil en ny oppføring automatisk bli lagt til i <span class="hl">Innstillinger</span> > <span class="hl">Koblede spill</span> menyen, ved å bruke informasjon fra det nåværende fokuserte vinduet.`,
+            `Etter å ha klikket på <span class="hl">Lenk</span> knappen, vil en 5 sekunders timer begynne`,
+            `Før timeren er ute, fokuser på spillvinduet`,
+            `Når timeren er ute, vil en ny oppføring for gjeldende <span class="hl">AppID</span> bli lagt til i <span class="hl">Innstillinger</span> > <span class="hl">Koblede spill</span> menyen, ved å bruke den fokuserte vinduets tilknyttede eksekverbare fil`,
+            `Hvis du trenger å prøve igjen, fjern oppføringen via <span class="hl">Innstillinger</span> > <span class="hl">Koblede spill</span> ved å klikke på <span id="linkhelpunlink"></span> knappen`
+        ],
+        addlinkfailed: "Kunne ikke koble vinduet",
+        addlinkfailedsub: `Klikk på <span class="hl">Lenk</span> knappen for å prøve igjen`,
         webhookunlockmsg: "$user har låst opp en prestasjon",
         webhookingame: "i $gamename",
         notconnected: "Ikke tilkoblet"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Vis prosent",
                 soundonly: "Bare lyd",
                 extwin: "Strømvarsler",
+                extwinframerate: "Bilderate",
+                extwinshow: "Vis vindu",
                 audiosrc: "Lyd kilde",
                 notify: "Varsel",
                 app: "Applikasjon",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "Varsel snarveier",
                 noiconcache: "Deaktiver ikonbuffer",
                 webhooks: "Post til Discord-server",
+                webhooktypes: "Webhook typer",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Ved å aktivere dette alternativet og oppgi en gyldig Discord Webhook-lenke, samtykker du i å forstå at <u>all prestasjons- og spillinformasjon for den nåværende Steam-brukeren</u> vil bli postet til den angitte Discord-serveren via den oppgitte Webhook-lenken.<br><br>Hvis du ikke ønsker at Steam Achievement Notifier skal poste denne informasjonen på dine vegne, vennligst deaktiver dette alternativet.`,
                 webhooklaststatus: "Siste status"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Deaktiver oppdateringsdialog",
                 nvda: "Aktiver NVDA-støtte",
                 tooltips: "Vis verktøytips",
-                showsystrayopts: "Vis systemstatusalternativer"
+                showsystrayopts: "Vis systemstatusalternativer",
+                releaseshortcut: "Frigjør spill hurtigtast"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Vis låseprosenten for prestasjonen i varslingen for de valgte typene",
         soundonly: "Deaktiver varsler, og spill bare av lyder som er satt via Tilpasseren",
         extwin: "Opprett et skjult bakgrunnsvindu som dupliserer eventuelle varsler som for øyeblikket vises på skjermen. Dette vinduet kan deretter legges til som en vinduskilde for strømmingsprogramvare, for eksempel OBS",
+        extwinframerate: "Sett målbildesatsen for strømvarsler",
+        extwinshow: "Bytt synlighet for strømvinduet",
         audiosrc: "Velg kilden til (eller deaktiver) lyd generert av appen",
         nowtracking: "Vis en varsling som informerer brukeren om at prestasjoner for et kjørende spill blir sporet",
         nowtrackingscale: `Angi størrelsen på sporingsvarslingen`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importer tilpasninger via en brukerskapt <span class="hl">temafil</span>`,
         exporttheme: `Eksporter det aktuelt valgte <span class="hl">temaet</span> for deling<br><br><span class="ttdesc">Før du prøver å eksportere, sørg for at ønsket <span class="hl">tema</span> er valgt (via <span class="hl">Tema velg</span> menyen). Sørg også for at tilpasninger er lagret i det valgte <span class="hl">temaet</span> (via <span class="hl">Lagre tema</span> menyen)<br><br><u>Eventuelle tilpasninger som ikke er lagret i gjeldende <span class="hl">tema</span> vil ikke bli eksportert!</u></span>`,
         webhooks: "Bruk en Webhook URL for å poste til en Discord-server hver gang en prestasjon låses opp",
+        webhooktypesmain: `Veksle om å poste prestasjonsinformasjon til en Discord-server når en hovedprestasjon er låst opp`,
+        webhooktypesrare: "Veksle om å poste prestasjonsinformasjon til en Discord-server når en sjelden prestasjon er låst opp",
+        webhooktypesplat: "Veksle om å poste prestasjonsinformasjon til en Discord-server når en 100% prestasjon er låst opp",
         webhookurl: `Angi <span class="hl">Webhook URL</span> for den ønskede Discord-serveren<br><br><span class="ttdesc">En <span class="hl">Webhook URL</span> brukes til å poste til en Discord-server/kanal på vegne av en bruker eller applikasjon. For å sette opp en ny Webhook for en Discord-server, må brukeren ha en rolle på den ønskede serveren som tillater opprettelse av Webhooks<br><br><u>En Webhook URL er nødvendig når du bruker dette alternativet</u><br><br>Se Discsd’s offisielle dokumentasjon for mer informasjon</span>`,
         unlockmsg: "Angi plasseringen av låse opp-meldingen/tilpasset tekst innenfor $type",
         title: "Angi plasseringen av prestasjonstittelen innenfor $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Match innstillingsalternativene for varslingselementene satt i tilpasseren for denne varslingskategorien<br><br><span class="ttdesc">Noen varslingspresets kan ikke fullstendig matche tilpasserinnstillinger på grunn av forskjeller mellom skjermbaserte og skjermbilde-baserte varslingsoppsett</span>`,
         themeswitch: `Bytt automatisk til et lagret <span class="hl">tema</span> når et spesifikt spill oppdages`,
         userthemesync: `Synkroniser tilpasninger i det valgte <span class="hl">tema</span> til alle andre varslingskategorier`,
-        showsystrayopts: `Vis alle alternativer som vanligvis ligger under <span class="hl">Systemstatus</span> > <span class="hl">Alternativer</span> i <span class="hl">Innstillinger</span> > <span class="hl">Diverse</span>`
+        showsystrayopts: `Vis alle alternativer som vanligvis ligger under <span class="hl">Systemstatus</span> > <span class="hl">Alternativer</span> i <span class="hl">Innstillinger</span> > <span class="hl">Diverse</span>`,
+        releaseshortcut: "Frigjør det nåværende sporet spillet ved å bruke den angitte hurtigtasten"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

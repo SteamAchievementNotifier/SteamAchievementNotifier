@@ -60,7 +60,23 @@ export const translations = {
             `<span class="hl">SteamDB</span>와 같은 웹 사이트 - <span class="hl">App Info</span> 섹션에 각 게임의 AppID가 나열됩니다`
         ],
         noexe: "게임 EXE 파일을 찾을 수 없습니다!",
-        noexesub: `시스템 트레이에서 옵션 > 게임 종료를 선택하여 종료하세요`,
+        noexesub: "자세한 정보를 보려면 여기를 클릭하세요",
+        noexedialogsub: [
+            `Steam Achievement Notifier는 이 게임의 실행 파일을 자동으로 찾을 수 없습니다. 게임을 "릴리스"하려면 게임 실행 파일의 위치가 필요합니다`,
+            `게임을 수동으로 릴리스하려면 <i>우클릭</i>하여 <span class="hl">시스템 트레이 아이콘</span> > <span class="hl">옵션</span> > <span class="hl">게임 릴리스</span>를 선택하거나 <span class="hl">게임 릴리스 단축키</span>를 사용하세요`,
+            `또는 아래의 <span class="hl">링크</span> 버튼을 클릭하여 현재 포커스된 윈도우와 관련된 실행 파일을 <span class="hl">링크된 게임</span> 메뉴에 추가할 수 있습니다`,
+            `<span class="hl help" id="linkgamehelp"><u>링크 버튼을 클릭하면 무엇이 발생하나요?</u></span>`
+        ],
+        linkgamehelp: "윈도우를 통해 게임 링크하기",
+        linkgamehelpsub: [
+            `<span class="hl">링크</span> 버튼을 클릭하면 현재 포커스된 윈도우의 정보를 사용하여 <span class="hl">설정</span> > <span class="hl">링크된 게임</span> 메뉴에 새 항목이 자동으로 추가됩니다.`,
+            `<span class="hl">링크</span> 버튼을 클릭하면 5초 타이머가 시작됩니다`,
+            `타이머가 끝나기 전에 게임 윈도우에 포커스를 맞추세요`,
+            `타이머가 끝나면, 현재 <span class="hl">AppID</span>에 대한 새 항목이 포커스된 윈도우의 실행 파일을 사용하여 <span class="hl">설정</span> > <span class="hl">링크된 게임</span> 메뉴에 추가됩니다`,
+            `다시 시도해야 하는 경우, <span class="hl">설정</span> > <span class="hl">링크된 게임</span>에서 항목을 삭제하고 <span id="linkhelpunlink"></span> 버튼을 클릭하세요`
+        ],
+        addlinkfailed: "윈도우 링크에 실패했습니다",
+        addlinkfailedsub: `다시 시도하려면 <span class="hl">링크</span> 버튼을 클릭하세요`,
         webhookunlockmsg: "$user가 업적을 잠금 해제했습니다",
         webhookingame: "$gamename에서",
         notconnected: "연결되지 않음"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "백분율 표시",
                 soundonly: "사운드만",
                 extwin: "스트림 알림",
+                extwinframerate: "프레임 속도",
+                extwinshow: "창 표시",
                 audiosrc: "오디오 소스",
                 notify: "알림",
                 app: "앱",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "알림 단축키",
                 noiconcache: "아이콘 캐시 비활성화",
                 webhooks: "Discord 서버에 게시",
+                webhooktypes: "Webhook 종류",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `이 옵션을 활성화하고 유효한 Discord Webhook 링크를 제공함으로써 <u>현재 Steam 사용자에 대한 모든 업적 및 게임 정보</u>가 제공된 Webhook 링크를 통해 지정된 Discord 서버에 게시될 것임을 이해하는 데 동의합니다.<br><br>Steam Achievement Notifier가 이 정보를 대신 게시하는 것을 원하지 않는 경우, 이 옵션을 비활성화해 주세요.`,
                 webhooklaststatus: "최종 상태"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "업데이트 대화상자 비활성화",
                 nvda: "NVDA 지원 활성화",
                 tooltips: "도구 설명 표시",
-                showsystrayopts: "시스템 트레이 옵션 표시"
+                showsystrayopts: "시스템 트레이 옵션 표시",
+                releaseshortcut: "게임 릴리스 단축키"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "선택한 유형의 알림에 업적의 잠금 해제 백분율 표시",
         soundonly: "알림 비활성화, Customiser에서 설정한 사운드만 재생",
         extwin: "현재 화면에 표시되는 모든 알림을 복제하는 숨겨진 백그라운드 창 생성. 이 창은 OBS와 같은 스트리밍 소프트웨어에서 Window Capture 소스로 추가할 수 있음",
+        extwinframerate: "스트림 알림을 위한 목표 프레임 속도 설정",
+        extwinshow: "스트림 알림 창의 표시/숨기기 전환",
         audiosrc: "앱에서 생성되는 오디오의 소스 선택(또는 비활성화)",
         nowtracking: "실행 중인 게임의 업적이 추적되고 있음을 알리는 알림 표시",
         nowtrackingscale: `추적 알림 크기 설정`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `사용자가 생성한 <span class="hl">테마 파일</span>을 통해 맞춤 설정을 가져옵니다`,
         exporttheme: `현재 선택한 <span class="hl">테마</span>를 공유할 수 있도록 내보냅니다<br><br><span class="ttdesc">내보내기 전에 원하는 <span class="hl">테마</span>가 선택되었는지 확인하십시오 (<span class="hl">테마 선택</span> 메뉴를 통해). 또한 선택한 <span class="hl">테마</span>에 맞춤 설정이 저장되어 있는지 확인하십시오 (<span class="hl">테마 저장</span> 메뉴를 통해)<br><br><u>현재 <span class="hl">테마</span>에 저장되지 않은 모든 맞춤 설정은 내보내지 않습니다!</u></span>`,
         webhooks: "업적이 잠금 해제될 때마다 Discord 서버에 게시하기 위해 Webhook URL을 사용하세요",
+        webhooktypesmain: `메인 성취가 달성되었을 때 Discord 서버에 성취 정보를 게시할지 여부를 전환합니다`,
+        webhooktypesrare: "희귀 성취가 달성되었을 때 Discord 서버에 성취 정보를 게시할지 여부를 전환합니다",
+        webhooktypesplat: "100% 성취가 달성되었을 때 Discord 서버에 성취 정보를 게시할지 여부를 전환합니다",
         webhookurl: `원하는 Discord 서버를 위한 <span class="hl">Webhook URL</span>을 설정하세요<br><br><span class="ttdesc">Webhook URL은 사용자 또는 애플리케이션을 대신하여 Discord 서버/채널에 게시하는 데 사용됩니다. Discord 서버에 새로운 Webhook을 설정하려면 사용자가 Webhook 생성을 허용하는 역할을 가진 서버의 멤버여야 합니다<br><br><u>이 옵션을 사용하려면 Webhook URL이 필요합니다</u><br><br>자세한 내용은 Discord의 공식 문서를 참조하세요</span>`,
         unlockmsg: "$type 내에서 잠금 해제 메시지/맞춤 텍스트의 위치를 설정하세요",
         title: "$type 내에서 업적 제목의 위치를 설정하세요",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `이 알림 유형에 대해 커스터마이저에서 설정한 알림 요소 설정을 일치시킵니다.<br><br><span class="ttdesc">일부 알림 프리셋은 화면 기반 알림 레이아웃과 스크린샷 기반 알림 레이아웃 간의 차이로 인해 커스터마이저 설정과 완전히 일치하지 않을 수 있습니다.</span>`,
         themeswitch: `특정 게임이 감지될 때 저장된 <span class="hl">테마</span>로 자동 전환`,
         userthemesync: `선택한 <span class="hl">테마</span>의 사용자 정의를 모든 다른 알림 유형에 동기화`,
-        showsystrayopts: `보통 <span class="hl">시스템 트레이</span> > <span class="hl">옵션</span> 아래에 위치하는 모든 옵션을 표시 <span class="hl">설정</span> > <span class="hl">기타</span>`
+        showsystrayopts: `보통 <span class="hl">시스템 트레이</span> > <span class="hl">옵션</span> 아래에 위치하는 모든 옵션을 표시 <span class="hl">설정</span> > <span class="hl">기타</span>`,
+        releaseshortcut: "지정된 키보드 단축키를 사용하여 현재 추적 중인 게임을 릴리스합니다"
     },
     update: {
         updateavailable: "업데이트 가능",

@@ -60,7 +60,23 @@ export const translations = {
             `Webbplatser som <span class="hl">SteamDB</span> - avsnittet <span class="hl">App Info</span> kommer att lista AppID för varje spel`
         ],
         noexe: "Spelets EXE-fil hittades inte!",
-        noexesub: `Välj Alternativ > Avsluta spelet från systemfältet för att avsluta`,
+        noexesub: "Klicka här för mer information",
+        noexedialogsub: [
+            `Steam Achievement Notifier kunde inte automatiskt hitta den körbara filen för detta spel. Platsen för spelets körbara fil krävs för att "frigöra" spelet`,
+            `För att manuellt frigöra spelet, <i>högerklicka</i> på <span class="hl">systemfältikonen</span> > <span class="hl">Alternativ</span> > <span class="hl">Frigör spel</span>, eller använd <span class="hl">genvägen för att frigöra spel</span>`,
+            `Alternativt, klicka på <span class="hl">Link</span>-knappen nedan för att lägga till den associerade körbara filen för det fokuserade fönstret i <span class="hl">Länkade spel</span>-menyn`,
+            `<span class="hl help" id="linkgamehelp"><u>Vad händer när jag klickar på Link-knappen?</u></span>`
+        ],
+        linkgamehelp: "Länka spel via fönster",
+        linkgamehelpsub: [
+            `Genom att klicka på <span class="hl">Link</span>-knappen läggs automatiskt en ny post till i <span class="hl">Inställningar</span> > <span class="hl">Länkade spel</span>-menyn, med information från det nuvarande fokuserade fönstret.`,
+            `Efter att du har klickat på <span class="hl">Link</span>-knappen startar en 5 sekunders timer`,
+            `Innan timern löper ut, fokusera på spelvinduet`,
+            `När timern har gått ut, läggs en ny post för den aktuella <span class="hl">AppID</span> till i <span class="hl">Inställningar</span> > <span class="hl">Länkade spel</span>-menyn, med den fokuserade fönstrets associerade körbara fil`,
+            `Om du behöver försöka igen, ta bort posten via <span class="hl">Inställningar</span> > <span class="hl">Länkade spel</span> genom att klicka på <span id="linkhelpunlink"></span>-knappen`
+        ],
+        addlinkfailed: "Det gick inte att länka fönstret",
+        addlinkfailedsub: `Klicka på <span class="hl">Link</span>-knappen för att försöka igen`,
         webhookunlockmsg: "$user har låst upp en prestation",
         webhookingame: "i $gamename",
         notconnected: "Inte ansluten"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Visa procent",
                 soundonly: "Endast ljud",
                 extwin: "Strömma aviseringar",
+                extwinframerate: "Bildfrekvens",
+                extwinshow: "Visa fönster",
                 audiosrc: "Ljudkälla",
                 notify: "Avisera",
                 app: "Applikation",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "Aviseringsgenvägar",
                 noiconcache: "Inaktivera ikoncache",
                 webhooks: "Posta till Discord-server",
+                webhooktypes: "Webhook-typer",
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Genom att aktivera det här alternativet och tillhandahålla en giltig Discord Webhook-länk godkänner du att du förstår att <u>all prestation och spelinformation för den aktuella Steam-användaren</u> kommer att publiceras på den angivna Discord-servern via den angivna Webhook-länken.<br><br>Om du inte vill att Steam Achievement Notifier ska posta den här informationen å dina vägnar, inaktivera det här alternativet.`,
                 webhooklaststatus: "Senaste status"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Inaktivera uppdateringsdialog",
                 nvda: "Aktivera NVDA-stöd",
                 tooltips: "Visa verktygstips",
-                showsystrayopts: "Visa systemfältalternativ"
+                showsystrayopts: "Visa systemfältalternativ",
+                releaseshortcut: "Genväg för att frigöra spel"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Visa upplåsningsprocenten för prestationen i aviseringen för de valda typerna",
         soundonly: "Inaktivera aviseringar och spela endast ljud som är inställt via anpassaren",
         extwin: "Skapa ett dolt bakgrundsfönster som duplicerar alla aviseringar som för närvarande visas på skärmen. Detta fönster kan sedan läggas till som en Window Capture-källa för användning i streamingprogramvara, som OBS",
+        extwinframerate: "Ställ in målbilder för strömnotifikationer",
+        extwinshow: "Växla synlighet för strömnotifikationsfönstret",
         audiosrc: "Välj källan för (eller inaktivera) ljud som genereras av appen",
         nowtracking: "Visa en avisering som meddelar användaren att prestationer för ett körande spel spåras",
         nowtrackingscale: `Ange storleken på spårningsmeddelandet`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importera anpassningar via en användarskapad <span class="hl">temafil</span>`,
         exporttheme: `Exportera det aktuellt valda <span class="hl">temat</span> för delning<br><br><span class="ttdesc">Innan du försöker exportera, se till att det önskade <span class="hl">temat</span> är valt (via menyn <span class="hl">Välj tema</span>). Kontrollera också att anpassningar har sparats i det valda <span class="hl">temat</span> (via menyn <span class="hl">Spara tema</span>)<br><br><u>Alla anpassningar som inte har sparats i det aktuella <span class="hl">temat</span> kommer inte att exporteras!</u></span>`,
         webhooks: "Använd en Webhook-URL för att posta på en Discord-server varje gång en prestation låses upp",
+        webhooktypesmain: `Växla om achievement-information ska publiceras på en Discord-server när ett huvud-beslut uppnås`,
+        webhooktypesrare: "Växla om achievement-information ska publiceras på en Discord-server när ett sällsynt achievement uppnås",
+        webhooktypesplat: "Växla om achievement-information ska publiceras på en Discord-server när ett 100%-achievement uppnås",
         webhookurl: `Ställ in <span class="hl">Webhook-URL</span> för den önskade Discord-servern<br><br><span class="ttdesc">En <span class="hl">Webhook-URL</span> används för att posta på en Discord-server/kanal på uppdrag av en användare eller applikation. För att konfigurera en ny Webhook för en Discord-server måste användaren ha en roll på den önskade servern som tillåter skapande av Webhooks<br><br><u>En Webhook-URL är nödvändig när du använder det här alternativet</u><br><br>Se Dischords officiella dokumentation för mer information</span>`,
         unlockmsg: "Ställ in positionen för upplåsningmeddelandet/anpassad text inom $type",
         title: "Ställ in positionen för prestationstiteln inom $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Matcha inställningarna för notifieringselement som ställts in i anpassaren för den här typen av notifiering<br><br><span class="ttdesc">Vissa notifieringsförinställningar kan inte helt matcha anpassarinställningar, på grund av skillnader mellan skärmbaserade och skärmdumpbaserade notifieringslayouter</span>`,
         themeswitch: `Automatiskt byta till vilket <span class="hl">Tema</span> som helst som sparats när ett specifikt spel upptäcks`,
         userthemesync: `Synkronisera anpassningar i det valda <span class="hl">Temat</span> till alla andra notifieringstyper`,
-        showsystrayopts: `Visa alla alternativ som vanligtvis finns under <span class="hl">Systemfält</span> > <span class="hl">Alternativ</span> i <span class="hl">Inställningar</span> > <span class="hl">Övrigt</span>`
+        showsystrayopts: `Visa alla alternativ som vanligtvis finns under <span class="hl">Systemfält</span> > <span class="hl">Alternativ</span> i <span class="hl">Inställningar</span> > <span class="hl">Övrigt</span>`,
+        releaseshortcut: "Frigör det nuvarande spårade spelet med den angivna tangentbordsgenvägen"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

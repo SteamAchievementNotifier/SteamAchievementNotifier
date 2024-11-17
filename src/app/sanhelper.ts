@@ -304,7 +304,7 @@ export const sanhelper: SANHelper = {
         window.dispatchEvent(new Event("soundonly"))
     },
     extwin: (value: boolean) => ipcRenderer.send("extwin",value),
-    // extwinshow: () => ipcRenderer.send("extwinshow"),
+    extwinshow: (value: boolean) => ipcRenderer.send("extwinshow",value),
     audiosrc: (value: "notify" | "app" | "off") => document.body.toggleAttribute("muted",value === "off"),
     shortcuts: (value: boolean) => ipcRenderer.send("shortcut",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
@@ -464,7 +464,8 @@ export const sanhelper: SANHelper = {
             #elemselector select,
             #elemselector input,
             #elemselector button,
-            #webhookwrapper input
+            #webhookwrapper input,
+            button#releaseshortcut
         `)!.forEach(async elem => {
             const trophies = [
                 "bronze",
@@ -585,7 +586,8 @@ export const sanhelper: SANHelper = {
             ["initdelay","s"],
             ["releasedelay","s"],
             ["maxretries",""],
-            ["maxsteamlangretries",""]
+            ["maxsteamlangretries",""],
+            ["extwinframerate","FPS"]
         ])
 
         range.forEach((value,key) => {

@@ -60,7 +60,23 @@ export const translations = {
             `Siti web come <span class="hl">SteamDB</span> - la sezione <span class="hl">Info App</span> elencherà l'AppID per ogni gioco`
         ],
         noexe: "File EXE del gioco non trovato!",
-        noexesub: `Seleziona Opzioni > Rilascia Gioco dalla Barra delle Applicazioni per uscire`,
+        noexesub: "Clicca qui per maggiori informazioni",
+        noexedialogsub: [
+            `Steam Achievement Notifier non è riuscito a trovare automaticamente il file eseguibile per questo gioco. È necessaria la posizione del file eseguibile per "rilasciare" il gioco`,
+            `Per rilasciare il gioco manualmente, <i>clicca con il tasto destro</i> sull'icona della <span class="hl">barra delle applicazioni</span> > <span class="hl">Opzioni</span> > <span class="hl">Rilascia gioco</span>, oppure usa la <span class="hl">Scorciatoia per Rilasciare il Gioco</span>`,
+            `In alternativa, clicca sul pulsante <span class="hl">Collega</span> qui sotto per aggiungere il file eseguibile associato alla finestra attiva al menu <span class="hl">Giochi collegati</span>`,
+            `<span class="hl help" id="linkgamehelp"><u>Cosa succede quando clicco sul pulsante Collega?</u></span>`
+        ],
+        linkgamehelp: "Collega il gioco tramite la finestra",
+        linkgamehelpsub: [
+            `Cliccando sul pulsante <span class="hl">Collega</span> verrà automaticamente aggiunta una nuova voce al menu <span class="hl">Impostazioni</span> > <span class="hl">Giochi collegati</span>, utilizzando le informazioni dalla finestra attiva.`,
+            `Dopo aver cliccato sul pulsante <span class="hl">Collega</span>, verrà avviato un timer di 5 secondi`,
+            `Prima che il timer scada, concentra la finestra del gioco`,
+            `Quando il timer sarà scaduto, verrà aggiunta una nuova voce per l'attuale <span class="hl">AppID</span> nel menu <span class="hl">Impostazioni</span> > <span class="hl">Giochi collegati</span>, utilizzando il file eseguibile della finestra attiva`,
+            `Se hai bisogno di riprovare, rimuovi la voce da <span class="hl">Impostazioni</span> > <span class="hl">Giochi collegati</span> cliccando sul pulsante <span id="linkhelpunlink"></span>`
+        ],
+        addlinkfailed: "Impossibile collegare la finestra",
+        addlinkfailedsub: `Clicca sul pulsante <span class="hl">Collega</span> per riprovare`,
         webhookunlockmsg: "$user ha sbloccato un successo",
         webhookingame: "in $gamename",
         notconnected: "Non connesso"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Mostra percentuale",
                 soundonly: "Solo audio",
                 extwin: "Notifiche di streaming",
+                extwinframerate: "Frequenza dei fotogrammi",
+                extwinshow: "Mostra finestra",
                 audiosrc: "Sorgente audio",
                 notify: "Notifica",
                 app: "Applicazione",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "Scorciatoie notifica",
                 noiconcache: "Disabilita la cache delle icone",
                 webhooks: "Pubblica sul server Discord",
+                webhooktypes: "Tipi di Webhook",
                 webhookurl: `URL del Webhook`,
                 webhookcaution: `Abilitando questa opzione e fornendo un link Webhook Discord valido, accetti di comprendere che <u>tutte le informazioni sui successi e sui giochi per l'attuale utente Steam</u> saranno pubblicate sul server Discord specificato tramite il link Webhook fornito.<br><br>Se non desideri che Steam Achievement Notifier pubblichi queste informazioni per tuo conto, disabilita questa opzione.`,
                 webhooklaststatus: "Ultimo Stato"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Disabilita il dialogo degli aggiornamenti",
                 nvda: "Abilita supporto NVDA",
                 tooltips: "Mostra suggerimenti",
-                showsystrayopts: "Mostra opzioni della barra di sistema"
+                showsystrayopts: "Mostra opzioni della barra di sistema",
+                releaseshortcut: "Scorciatoia per Rilasciare il Gioco"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Mostra la percentuale di sblocco dell'obiettivo nella notifica per i tipi selezionati",
         soundonly: "Disabilita le notifiche, riproducendo solo i suoni impostati tramite il Personalizzatore",
         extwin: "Crea una finestra di sfondo nascosta che duplica qualsiasi notifica attualmente visualizzata sullo schermo. Questa finestra può quindi essere aggiunta come sorgente di cattura finestra per l'utilizzo in software di streaming, come OBS",
+        extwinframerate: "Imposta la frequenza dei fotogrammi di destinazione per le notifiche di streaming",
+        extwinshow: "Attiva/disattiva la visibilità della finestra delle notifiche di streaming",
         audiosrc: "Seleziona la sorgente (o disabilita) l'audio generato dall'app",
         nowtracking: "Mostra una notifica che informa l'utente che gli obiettivi per un gioco in esecuzione vengono tracciati",
         nowtrackingscale: `Imposta la dimensione della notifica di tracciamento`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importa personalizzazioni tramite un <span class="hl">file del tema</span> creato dall'utente`,
         exporttheme: `Esporta il <span class="hl">tema</span> attualmente selezionato per la condivisione<br><br><span class="ttdesc">Prima di procedere con l'esportazione, assicurati che il <span class="hl">tema</span> desiderato sia stato selezionato (tramite il menu <span class="hl">Seleziona tema</span>). Assicurati inoltre che le personalizzazioni siano state salvate nel <span class="hl">tema</span> selezionato (tramite il menu <span class="hl">Salva tema</span>)<br><br><u>Eventuali personalizzazioni non ancora salvate nel <span class="hl">tema</span> corrente non saranno esportate!</u></span>`,
         webhooks: "Utilizza un URL Webhook per pubblicare su un server Discord ogni volta che un successo viene sbloccato",
+        webhooktypesmain: `Attiva/disattiva l'invio delle informazioni sugli achievement a un server Discord quando viene sbloccato un achievement principale`,
+        webhooktypesrare: "Attiva/disattiva l'invio delle informazioni sugli achievement a un server Discord quando viene sbloccato un achievement raro",
+        webhooktypesplat: "Attiva/disattiva l'invio delle informazioni sugli achievement a un server Discord quando viene sbloccato un achievement al 100%",
         webhookurl: `Imposta la <span class="hl">URL del Webhook</span> per il server Discord desiderato<br><br><span class="ttdesc">Una <span class="hl">URL del Webhook</span> viene utilizzata per pubblicare su un server/canale Discord per conto di un utente o di un'applicazione. Per impostare un nuovo Webhook per un server Discord, l'utente deve avere un ruolo nel server desiderato che consenta la creazione di Webhook<br><br><u>Un URL del Webhook è necessario quando si utilizza questa opzione</u><br><br>Consulta la documentazione ufficiale di Discord per ulteriori informazioni</span>`,
         unlockmsg: "Imposta la posizione del messaggio di sblocco/testo personalizzato all'interno del $type",
         title: "Imposta la posizione del titolo del successo all'interno del $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Corrispondenza delle impostazioni degli elementi di notifica impostate nel personalizzatore per questo tipo di notifica<br><br><span class="ttdesc">Alcuni preset di notifica non possono corrispondere completamente alle impostazioni del personalizzatore, a causa delle differenze tra i layout delle notifiche su schermo e basati su screenshot</span>`,
         themeswitch: `Cambia automaticamente a qualsiasi <span class="hl">Tema</span> salvato quando viene rilevato un gioco specifico`,
         userthemesync: `Sincronizza le personalizzazioni nel <span class="hl">Tema</span> selezionato a tutti gli altri tipi di notifica`,
-        showsystrayopts: `Mostra tutte le opzioni di solito situate sotto <span class="hl">Barra di sistema</span> > <span class="hl">Opzioni</span> in <span class="hl">Impostazioni</span> > <span class="hl">Vari</span>`
+        showsystrayopts: `Mostra tutte le opzioni di solito situate sotto <span class="hl">Barra di sistema</span> > <span class="hl">Opzioni</span> in <span class="hl">Impostazioni</span> > <span class="hl">Vari</span>`,
+        releaseshortcut: "Rilascia il gioco attualmente tracciato utilizzando la scorciatoia da tastiera specificata"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

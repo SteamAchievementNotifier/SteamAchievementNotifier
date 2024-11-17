@@ -60,7 +60,23 @@ export const translations = {
             `Websites wie <span class="hl">SteamDB</span> - der Abschnitt <span class="hl">App-Informationen</span> listet die AppID für jedes Spiel auf`
         ],
         noexe: "Spiel-EXE nicht gefunden!",
-        noexesub: `Wählen Sie Optionen > Spiel freigeben aus dem Systemtray, um zu beenden`,
+        noexesub: "Klicken Sie hier für mehr Informationen",
+        noexedialogsub: [
+            `Steam Achievement Notifier konnte die ausführbare Datei für dieses Spiel nicht automatisch finden. Der Speicherort der ausführbaren Datei ist erforderlich, um das Spiel "freizugeben"`,
+            `Um das Spiel manuell freizugeben, <i>klicken Sie mit der rechten Maustaste</i> auf das <span class="hl">Systemtray-Symbol</span> > <span class="hl">Optionen</span> > <span class="hl">Spiel freigeben</span>, oder verwenden Sie die <span class="hl">Spiel-Freigabe-Verknüpfung</span>`,
+            `Alternativ können Sie auf die <span class="hl">Link</span>-Schaltfläche unten klicken, um die zugehörige ausführbare Datei des fokussierten Fensters zum <span class="hl">Verbundene Spiele</span>-Menü hinzuzufügen`,
+            `<span class="hl help" id="linkgamehelp"><u>Was passiert, wenn ich auf die Link-Schaltfläche klicke?</u></span>`
+        ],
+        linkgamehelp: "Spiel über Fenster verbinden",
+        linkgamehelpsub: [
+            `Durch Klicken auf die <span class="hl">Link</span>-Schaltfläche wird automatisch ein neuer Eintrag im <span class="hl">Einstellungen</span> > <span class="hl">Verbundene Spiele</span>-Menü hinzugefügt, der Informationen aus dem aktuell fokussierten Fenster verwendet.`,
+            `Nachdem Sie auf die <span class="hl">Link</span>-Schaltfläche geklickt haben, wird ein 5-Sekunden-Timer gestartet`,
+            `Bevor der Timer abläuft, fokussieren Sie das Spiel-Fenster`,
+            `Sobald der Timer abgelaufen ist, wird ein neuer Eintrag für die aktuelle <span class="hl">AppID</span> im <span class="hl">Einstellungen</span> > <span class="hl">Verbundene Spiele</span>-Menü hinzugefügt, wobei die ausführbare Datei des fokussierten Fensters verwendet wird`,
+            `Wenn Sie es erneut versuchen müssen, entfernen Sie den Eintrag über <span class="hl">Einstellungen</span> > <span class="hl">Verbundene Spiele</span> durch Klicken auf die Schaltfläche <span id="linkhelpunlink"></span>`
+        ],
+        addlinkfailed: "Fenster konnte nicht verbunden werden",
+        addlinkfailedsub: `Klicken Sie auf die Schaltfläche <span class="hl">Link</span>, um es erneut zu versuchen`,
         webhookunlockmsg: "$user hat einen Erfolg freigeschaltet",
         webhookingame: "in $gamename",
         notconnected: "Nicht verbunden"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Prozentsatz Anzeigen",
                 soundonly: "Nur Ton",
                 extwin: "Stream-Benachrichtigungen",
+                extwinframerate: "Bildrate",
+                extwinshow: "Fenster anzeigen",
                 audiosrc: "Audioquelle",
                 notify: "Benachrichtigung",
                 app: "Anwendung",
@@ -110,6 +128,7 @@ export const translations = {
                 noiconcache: "Icon-Cache deaktivieren",
                 webhooks: "Auf Discord-Server posten",
                 webhookurl: `Webhook-URL`,
+                webhooktypes: "Webhook-Typen",
                 webhookcaution: `Indem Sie diese Option aktivieren und einen gültigen Discord-Webhook-Link angeben, erklären Sie sich damit einverstanden, dass Sie verstehen, dass <u>alle Erfolgs- und Spieledaten des aktuellen Steam-Benutzers</u> über den angegebenen Discord-Server-Link gepostet werden.<br><br>Wenn Sie nicht möchten, dass der Steam Achievement Notifier diese Informationen in Ihrem Namen veröffentlicht, deaktivieren Sie bitte diese Option.`,
                 webhooklaststatus: "Letzter Status"
             }
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Update-Dialog deaktivieren",
                 nvda: "NVDA-Unterstützung Aktivieren",
                 tooltips: "Tooltips Anzeigen",
-                showsystrayopts: "System-Tray-Optionen anzeigen"
+                showsystrayopts: "System-Tray-Optionen anzeigen",
+                releaseshortcut: "Spiel-Freigabe-Verknüpfung"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Zeigen Sie den Freischaltungsprozentsatz des Erfolgs in der Benachrichtigung für die ausgewählten Typen an",
         soundonly: "Deaktivieren Sie Benachrichtigungen und spielen Sie nur Sounds ab, die über den Customiser festgelegt wurden",
         extwin: "Erstellen Sie ein verstecktes Hintergrundfenster, das alle derzeit angezeigten Benachrichtigungen dupliziert. Dieses Fenster kann dann als Fenstererfassungsquelle für Streaming-Software wie OBS hinzugefügt werden",
+        extwinframerate: "Ziel-Bildrate für Stream-Benachrichtigungen festlegen",
+        extwinshow: "Sichtbarkeit des Stream-Benachrichtigungsfensters umschalten",
         audiosrc: "Wählen Sie die Quelle des vom Programm generierten Audios aus (oder deaktivieren Sie es)",
         nowtracking: "Zeigen Sie eine Benachrichtigung an, die den Benutzer darüber informiert, dass Erfolge für ein laufendes Spiel verfolgt werden",
         nowtrackingscale: `Größe der Verfolgungshinweis festlegen`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importieren Sie Anpassungen über eine vom Benutzer erstellte <span class="hl">Themendatei</span>`,
         exporttheme: `Exportieren Sie das aktuell ausgewählte <span class="hl">Thema</span> zum Teilen<br><br><span class="ttdesc">Bevor Sie exportieren, stellen Sie bitte sicher, dass das gewünschte <span class="hl">Thema</span> ausgewählt ist (über das Menü <span class="hl">Thema auswählen</span>). Stellen Sie auch sicher, dass Anpassungen in das ausgewählte <span class="hl">Thema</span> gespeichert wurden (über das Menü <span class="hl">Thema speichern</span>)<br><br><u>Anpassungen, die noch nicht im aktuellen <span class="hl">Thema</span> gespeichert wurden, werden nicht exportiert!</u></span>`,
         webhooks: "Verwenden Sie eine Webhook-URL, um in einem Discord-Server eine Nachricht zu posten, wenn ein Erfolg freigeschaltet wird",
+        webhooktypesmain: `Umschalten, ob Achievements-Informationen an einen Discord-Server gesendet werden, wenn ein Hauptachievement freigeschaltet wird`,
+        webhooktypesrare: "Umschalten, ob Achievements-Informationen an einen Discord-Server gesendet werden, wenn ein seltenes Achievement freigeschaltet wird",
+        webhooktypesplat: "Umschalten, ob Achievements-Informationen an einen Discord-Server gesendet werden, wenn ein 100%-Achievement freigeschaltet wird",
         webhookurl: `Stellen Sie die <span class="hl">Webhook-URL</span> für den gewünschten Discord-Server ein<br><br><span class="ttdesc">Eine <span class="hl">Webhook-URL</span> wird verwendet, um im Namen eines Benutzers oder einer Anwendung auf einem Discord-Server/Kanal zu posten. Um einen neuen Webhook für einen Discord-Server einzurichten, muss der Benutzer eine Rolle im gewünschten Server haben, die das Erstellen von Webhooks erlaubt<br><br><u>Eine Webhook-URL ist erforderlich, wenn Sie diese Option verwenden</u><br><br>Weitere Informationen finden Sie in der offiziellen Discord-Dokumentation</span>`,
         unlockmsg: "Stellen Sie die Position der Freischalt-Nachricht/des benutzerdefinierten Textes im $type ein",
         title: "Stellen Sie die Position des Erfolgstitels im $type ein",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Übereinstimmen mit den Benachrichtigungselement-Einstellungen im Customiser für diesen Benachrichtigungstyp<br><br><span class="ttdesc">Einige Benachrichtigungsvoreinstellungen können aufgrund von Unterschieden zwischen Bildschirm- und Screenshot-basierter Benachrichtigungslayouts nicht vollständig mit den Customiser-Einstellungen übereinstimmen</span>`,
         themeswitch: `Automatisch auf ein gespeichertes <span class="hl">Thema</span> wechseln, wenn ein bestimmtes Spiel erkannt wird`,
         userthemesync: `Synchronisiere Anpassungen im ausgewählten <span class="hl">Thema</span> mit allen anderen Benachrichtigungstypen`,
-        showsystrayopts: `Zeigt alle Optionen an, die normalerweise unter <span class="hl">System Tray</span> > <span class="hl">Optionen</span> in <span class="hl">Einstellungen</span> > <span class="hl">Verschiedenes</span> zu finden sind`
+        showsystrayopts: `Zeigt alle Optionen an, die normalerweise unter <span class="hl">System Tray</span> > <span class="hl">Optionen</span> in <span class="hl">Einstellungen</span> > <span class="hl">Verschiedenes</span> zu finden sind`,
+        releaseshortcut: "Das aktuell verfolgte Spiel mit der angegebenen Tastenkombination freigeben"
     },
     update: {
         updateavailable: "Update verfügbar",

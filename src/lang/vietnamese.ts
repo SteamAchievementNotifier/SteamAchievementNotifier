@@ -59,8 +59,24 @@ export const translations = {
             `URL của trang <span class="hl">Cửa hàng</span> của trò chơi - nó sẽ là số được liệt kê sau <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Các trang web như <span class="hl">SteamDB</span> - phần <span class="hl">Thông tin Ứng dụng</span> sẽ liệt kê AppID cho mỗi trò chơi`
         ],
-        noexe: "Không tìm thấy tệp EXE của trò chơi!",
-        noexesub: `Chọn Tùy chọn > Thoát trò chơi từ khay hệ thống để thoát`,
+        noexe: "Không tìm thấy file EXE của trò chơi!",
+        noexesub: "Nhấp vào đây để biết thêm thông tin",
+        noexedialogsub: [
+            `Steam Achievement Notifier không thể tự động tìm thấy file thực thi của trò chơi này. Vị trí của file thực thi trò chơi là cần thiết để "phát hành" trò chơi`,
+            `Để phát hành trò chơi thủ công, <i>nhấp chuột phải</i> vào <span class="hl">biểu tượng khay hệ thống</span> > <span class="hl">Tùy chọn</span> > <span class="hl">Phát hành trò chơi</span>, hoặc sử dụng <span class="hl">Phím tắt phát hành trò chơi</span>`,
+            `Ngoài ra, nhấp vào nút <span class="hl">Link</span> bên dưới để thêm file thực thi liên kết với cửa sổ đang tập trung vào menu <span class="hl">Trò chơi liên kết</span>`,
+            `<span class="hl help" id="linkgamehelp"><u>Chuyện gì xảy ra khi tôi nhấp vào nút Link?</u></span>`
+        ],
+        linkgamehelp: "Liên kết trò chơi qua cửa sổ",
+        linkgamehelpsub: [
+            `Nhấp vào nút <span class="hl">Link</span> sẽ tự động thêm một mục mới vào menu <span class="hl">Cài đặt</span> > <span class="hl">Trò chơi liên kết</span>, sử dụng thông tin từ cửa sổ đang tập trung.`,
+            `Sau khi nhấp vào nút <span class="hl">Link</span>, một bộ đếm thời gian 5 giây sẽ bắt đầu`,
+            `Trước khi bộ đếm thời gian kết thúc, hãy tập trung vào cửa sổ trò chơi`,
+            `Khi bộ đếm thời gian kết thúc, một mục mới cho <span class="hl">AppID</span> hiện tại sẽ được thêm vào menu <span class="hl">Cài đặt</span> > <span class="hl">Trò chơi liên kết</span>, sử dụng file thực thi của cửa sổ đang tập trung`,
+            `Nếu bạn cần thử lại, hãy xóa mục qua <span class="hl">Cài đặt</span> > <span class="hl">Trò chơi liên kết</span> bằng cách nhấp vào nút <span id="linkhelpunlink"></span>`
+        ],
+        addlinkfailed: "Không thể liên kết cửa sổ",
+        addlinkfailedsub: `Nhấp vào nút <span class="hl">Link</span> để thử lại`,
         webhookunlockmsg: "$user đã mở khóa một thành tựu",
         webhookingame: "trong $gamename",
         notconnected: "Chưa kết nối"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Hiển thị Phần trăm",
                 soundonly: "Chỉ Âm thanh",
                 extwin: "Thông báo Luồng",
+                extwinframerate: "Tốc độ khung hình",
+                extwinshow: "Hiển thị cửa sổ",
                 audiosrc: "Nguồn Âm thanh",
                 notify: "Thông báo",
                 app: "Ứng dụng",
@@ -110,6 +128,7 @@ export const translations = {
                 noiconcache: "Tắt bộ nhớ cache biểu tượng",
                 webhooks: "Đăng lên máy chủ Discord",
                 webhookurl: `URL Webhook`,
+                webhooktypes: "Loại Webhook",
                 webhookcaution: `Bằng cách kích hoạt tùy chọn này và cung cấp liên kết Webhook Discord hợp lệ, bạn đồng ý rằng bạn hiểu rằng <u>tất cả thông tin thành tựu và trò chơi của người dùng Steam hiện tại</u> sẽ được đăng lên máy chủ Discord đã chỉ định thông qua liên kết Webhook được cung cấp.<br><br>Nếu bạn không muốn Steam Achievement Notifier đăng thông tin này thay cho bạn, hãy tắt tùy chọn này.`,
                 webhooklaststatus: "Trạng thái cuối cùng"
             }
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Vô hiệu hóa hộp thoại Cập nhật",
                 nvda: "Bật hỗ trợ NVDA",
                 tooltips: "Hiển thị Chú giải Công cụ",
-                showsystrayopts: "Hiện tùy chọn khay hệ thống"
+                showsystrayopts: "Hiện tùy chọn khay hệ thống",
+                releaseshortcut: "Phím tắt phát hành trò chơi"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Hiển thị phần trăm mở khóa của thành tựu trong thông báo cho các loại đã chọn",
         soundonly: "Vô hiệu hóa thông báo, chỉ phát âm thanh được thiết lập qua Tùy chỉnh",
         extwin: "Tạo một cửa sổ nền ẩn hiện thị bất kỳ thông báo nào đang hiển thị trên màn hình. Cửa sổ này sau đó có thể được thêm làm nguồn Chụp Ảnh Màn hình cho phần mềm phát trực tiếp, chẳng hạn như OBS",
+        extwinframerate: "Đặt tốc độ khung hình mục tiêu cho thông báo phát trực tuyến",
+        extwinshow: "Chuyển đổi khả năng hiển thị cửa sổ thông báo phát trực tuyến",
         audiosrc: "Chọn nguồn âm thanh (hoặc vô hiệu hóa) được tạo bởi ứng dụng",
         nowtracking: "Hiển thị một thông báo thông báo người dùng rằng thành tựu cho một trò chơi đang chạy đang được theo dõi",
         nowtrackingscale: `Đặt kích thước của Thông báo Theo dõi`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Nhập các tùy chỉnh thông qua một <span class="hl">tệp Tema</span> do người dùng tạo ra`,
         exporttheme: `Xuất <span class="hl">Tema</span> hiện tại đang chọn để chia sẻ<br><br><span class="ttdesc">Trước khi thử xuất, hãy đảm bảo rằng <span class="hl">Tema</span> mong muốn đã được chọn (qua menu <span class="hl">Chọn Tema</span>). Hãy đảm bảo rằng các tùy chỉnh đã được lưu vào <span class="hl">Tema</span> đã chọn (qua menu <span class="hl">Lưu Tema</span>)<br><br><u>Bất kỳ tùy chỉnh nào chưa được lưu vào <span class="hl">Tema</span> hiện tại sẽ không được xuất!</u></span>`,
         webhooks: "Sử dụng URL Webhook để đăng lên máy chủ Discord mỗi khi một thành tựu được mở khóa",
+        webhooktypesmain: `Chuyển đổi việc gửi thông tin thành tích chính lên máy chủ Discord khi đạt được thành tích chính`,
+        webhooktypesrare: "Chuyển đổi việc gửi thông tin thành tích hiếm lên máy chủ Discord khi đạt được thành tích hiếm",
+        webhooktypesplat: "Chuyển đổi việc gửi thông tin thành tích 100% lên máy chủ Discord khi đạt được thành tích 100%",
         webhookurl: `Cài đặt <span class="hl">URL Webhook</span> cho máy chủ Discord mong muốn<br><br><span class="ttdesc">URL Webhook được sử dụng để đăng lên máy chủ/kanal Discord thay mặt cho người dùng hoặc ứng dụng. Để thiết lập một Webhook mới cho máy chủ Discord, người dùng phải có một vai trò trên máy chủ mong muốn cho phép tạo Webhooks<br><br><u>URL Webhook là cần thiết khi sử dụng tùy chọn này</u><br><br>Xem tài liệu chính thức của Discord để biết thêm thông tin</span>`,
         unlockmsg: "Cài đặt vị trí của thông báo mở khóa/ văn bản tùy chỉnh trong $type",
         title: "Cài đặt vị trí của tiêu đề thành tựu trong $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Khớp với cài đặt Các yếu tố thông báo đã đặt trong Trình tùy chỉnh cho loại thông báo này<br><br><span class="ttdesc">Một số cài đặt thông báo không thể hoàn toàn khớp với cài đặt Trình tùy chỉnh, do sự khác biệt giữa thông báo trên màn hình và thông báo dựa trên ảnh chụp màn hình</span>`,
         themeswitch: `Tự động chuyển sang bất kỳ <span class="hl">Chủ đề</span> nào đã lưu khi phát hiện một trò chơi cụ thể`,
         userthemesync: `Đồng bộ tùy chỉnh trong <span class="hl">Chủ đề</span> đã chọn với tất cả các loại thông báo khác`,
-        showsystrayopts: `Hiển thị tất cả các tùy chọn thường nằm dưới <span class="hl">Khay Hệ thống</span> > <span class="hl">Tùy chọn</span> trong <span class="hl">Cài đặt</span> > <span class="hl">Khác.</span>`
+        showsystrayopts: `Hiển thị tất cả các tùy chọn thường nằm dưới <span class="hl">Khay Hệ thống</span> > <span class="hl">Tùy chọn</span> trong <span class="hl">Cài đặt</span> > <span class="hl">Khác.</span>`,
+        releaseshortcut: "Sử dụng phím tắt đã chỉ định để phát hành trò chơi đang theo dõi"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

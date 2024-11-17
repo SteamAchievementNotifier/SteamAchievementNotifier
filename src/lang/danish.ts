@@ -59,8 +59,24 @@ export const translations = {
             `URL'en til spillets <span class="hl">Butiks side</span> - det vil være tallet efter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Websites som <span class="hl">SteamDB</span> - sektionen <span class="hl">App Info</span> vil liste AppID for hvert spil`
         ],
-        noexe: "Spil-EXE ikke fundet!",
-        noexesub: `Vælg Indstillinger > Frigør spil fra systembakken for at afslutte`,
+        noexe: "Spillets EXE-fil blev ikke fundet!",
+        noexesub: "Klik her for mere information",
+        noexedialogsub: [
+            `Steam Achievement Notifier kunne ikke automatisk finde spillets eksekverbare fil. Placeringen af den eksekverbare fil er nødvendig for at "frigive" spillet`,
+            `For at frigive spillet manuelt skal du <i>højreklikke</i> på <span class="hl">systembakke-ikonet</span> > <span class="hl">Indstillinger</span> > <span class="hl">Frigiv spil</span>, eller bruge <span class="hl">Genvej til frigivelse af spil</span>`,
+            `Alternativt kan du klikke på knappen <span class="hl">Link</span> nedenfor for at tilføje den eksekverbare fil, der er forbundet med det aktive vindue, til menuen <span class="hl">Linkede spil</span>`,
+            `<span class="hl help" id="linkgamehelp"><u>Hvad sker der, når jeg klikker på Link-knappen?</u></span>`
+        ],
+        linkgamehelp: "Link spil via vindue",
+        linkgamehelpsub: [
+            `Ved at klikke på knappen <span class="hl">Link</span> tilføjes en ny post automatisk til menuen <span class="hl">Indstillinger</span> > <span class="hl">Linkede spil</span> med oplysninger fra det aktuelt aktive vindue.`,
+            `Efter du har klikket på knappen <span class="hl">Link</span>, starter en nedtælling på 5 sekunder`,
+            `Før nedtællingen slutter, skal du fokusere på spilvinduet`,
+            `Når nedtællingen er slut, tilføjes en ny post for den aktuelle <span class="hl">AppID</span> til menuen <span class="hl">Indstillinger</span> > <span class="hl">Linkede spil</span> med den eksekverbare fil, der er forbundet med det aktive vindue`,
+            `Hvis du har brug for at prøve igen, skal du fjerne posten via <span class="hl">Indstillinger</span> > <span class="hl">Linkede spil</span> ved at klikke på knappen <span id="linkhelpunlink"></span>`
+        ],
+        addlinkfailed: "Kunne ikke linke vindue",
+        addlinkfailedsub: `Klik på knappen <span class="hl">Link</span> for at prøve igen`,
         webhookunlockmsg: "$user låste op for en præstation",
         webhookingame: "i $gamename",
         notconnected: "Ikke forbundet"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Vis procent",
                 soundonly: "Lyd kun",
                 extwin: "Stream-notifikationer",
+                extwinframerate: "Billedhastighed",
+                extwinshow: "Vis vindue",
                 audiosrc: "Lyd-kilde",
                 notify: "Notifikation",
                 app: "App",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "Notifikationsgenveje",
                 noiconcache: "Deaktivér ikon-cache",
                 webhooks: "Send til Discord-server",
+                webhooktypes: "Webhook-typer",
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Ved at aktivere denne mulighed og angive et gyldigt Discord-webhook-link, accepterer du, at du forstår, at <u>al præstations- og spilinformations for den nuværende Steam-bruger</u> vil blive sendt til den angivne Discord-server via det angivne webhook-link.<br><br>Hvis du ikke ønsker, at Steam Achievement Notifier skal sende disse oplysninger på dine vegne, skal du deaktivere denne mulighed.`,
                 webhooklaststatus: "Sidste status"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Deaktivér opdateringsdialog",
                 nvda: "Aktivér NVDA-support",
                 tooltips: "Vis tooltips",
-                showsystrayopts: "Vis systembakke-indstillinger"
+                showsystrayopts: "Vis systembakke-indstillinger",
+                releaseshortcut: "Genvej til frigivelse af spil"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Vis låseprocenten af præstationen i meddelelsen for de valgte typer",
         soundonly: "Deaktiver meddelelser og afspil kun lyde, der er indstillet via Tilpasning",
         extwin: "Opret et skjult baggrundsvindue, der kopierer eventuelle meddelelser, der i øjeblikket vises på skærmen. Dette vindue kan derefter tilføjes som en Window Capture-kilde til brug i streaming-software som OBS",
+        extwinframerate: "Indstil den målrettede billedhastighed for stream-notifikationer",
+        extwinshow: "Skift synlighed af vinduet for stream-notifikationer",
         audiosrc: "Vælg lydkilden til (eller deaktiver) lyd genereret af appen",
         nowtracking: "Vis en meddelelse, der informerer brugeren om, at præstationer for et kørende spil spores",
         nowtrackingscale: `Indstil størrelsen af sporingsmeddelelsen`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importer tilpasninger via en brugeroprettet <span class="hl">temafil</span>`,
         exporttheme: `Eksporter det aktuelt valgte <span class="hl">tema</span> til deling<br><br><span class="ttdesc">Før du forsøger at eksportere, skal du sikre dig, at det ønskede <span class="hl">tema</span> er valgt (via menuen <span class="hl">Vælg Tema</span>). Sørg også for, at tilpasninger er gemt til det valgte <span class="hl">tema</span> (via menuen <span class="hl">Gem Tema</span>)<br><br><u>Enhver tilpasning, der endnu ikke er gemt til det aktuelle <span class="hl">tema</span>, vil ikke blive eksporteret!</u></span>`,
         webhooks: "Brug en webhook-URL til at sende beskeder til en Discord-server, hver gang en præstation låses op",
+        webhooktypesmain: `Skift, om oplysninger om præstationer skal sendes til en Discord-server, når en hovedpræstation låses op`,
+        webhooktypesrare: "Skift, om oplysninger om præstationer skal sendes til en Discord-server, når en sjælden præstation låses op",
+        webhooktypesplat: "Skift, om oplysninger om præstationer skal sendes til en Discord-server, når en 100% præstation låses op",
         webhookurl: `Indstil <span class="hl">webhook-URL'en</span> for den ønskede Discord-server<br><br><span class="ttdesc">En <span class="hl">webhook-URL</span> bruges til at sende beskeder til en Discord-server/kanal på vegne af en bruger eller applikation. For at opsætte en ny webhook til en Discord-server, skal brugeren have en rolle på den ønskede server, der tillader oprettelse af webhooks<br><br><u>En webhook-URL er påkrævet, når du bruger denne mulighed</u><br><br>Se Discords officielle dokumentation for flere oplysninger</span>`,
         unlockmsg: "Indstil positionen for oplåsningsbeskeden/tilpasset tekst inden i $type",
         title: "Indstil positionen for præstationsnavnet inden i $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Matcher indstillingerne for meddelelser, der er angivet i tilpasseren for denne meddelelsestype<br><br><span class="ttdesc">Nogle meddelelsespræferencer kan ikke fuldt ud matche tilpasserens indstillinger på grund af forskelle mellem layout på skærmen og meddelelser baseret på skærmbilleder</span>`,
         themeswitch: `Skift automatisk til ethvert gemt <span class="hl">Tema</span>, når et bestemt spil opdages`,
         userthemesync: `Synkroniser tilpasninger i det valgte <span class="hl">Tema</span> til alle andre meddelelsestyper`,
-        showsystrayopts: `Vis alle muligheder, der normalt findes under <span class="hl">Systembakke</span> > <span class="hl">Indstillinger</span> i <span class="hl">Indstillinger</span> > <span class="hl">Diverse</span>`
+        showsystrayopts: `Vis alle muligheder, der normalt findes under <span class="hl">Systembakke</span> > <span class="hl">Indstillinger</span> i <span class="hl">Indstillinger</span> > <span class="hl">Diverse</span>`,
+        releaseshortcut: "Frigiv det aktuelt overvågede spil ved hjælp af den angivne tastaturgenvej"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

@@ -37,11 +37,12 @@ declare interface Config {
     soundonly: boolean,
     showpercent: "rareonly" | "all" | "off",
     extwin: boolean,
-    // extwinshow: boolean,
-    // extwinpos: {
-    //     x: number,
-    //     y: number
-    // },
+    extwinframerate: number,
+    extwinshow: boolean,
+    extwinpos: {
+        x: number,
+        y: number
+    },
     audiosrc: "notify" | "app" | "off",
     nowtracking: boolean,
     nowtrackingscale: number,

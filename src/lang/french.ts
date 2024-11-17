@@ -60,7 +60,23 @@ export const translations = {
             `Des sites Web tels que <span class="hl">SteamDB</span> - la section <span class="hl">Infos App</span> listera l'AppID de chaque jeu`
         ],
         noexe: "Fichier EXE du jeu non trouvé !",
-        noexesub: `Sélectionnez Options > Libérer le jeu depuis la barre des tâches pour quitter`,
+        noexesub: "Cliquez ici pour plus d'informations",
+        noexedialogsub: [
+            `Steam Achievement Notifier n'a pas pu localiser automatiquement le fichier exécutable de ce jeu. L'emplacement du fichier exécutable est nécessaire pour "libérer" le jeu`,
+            `Pour libérer manuellement le jeu, <i>clic droit</i> sur l'<span class="hl">icône de la barre d'état système</span> > <span class="hl">Options</span> > <span class="hl">Libérer le jeu</span>, ou utilisez le <span class="hl">Raccourci Libérer le Jeu</span>`,
+            `Sinon, cliquez sur le bouton <span class="hl">Lier</span> ci-dessous pour ajouter le fichier exécutable associé à la fenêtre active au menu <span class="hl">Jeux Liés</span>`,
+            `<span class="hl help" id="linkgamehelp"><u>Que se passe-t-il lorsque je clique sur le bouton Lier ?</u></span>`
+        ],
+        linkgamehelp: "Lier le jeu via la fenêtre",
+        linkgamehelpsub: [
+            `En cliquant sur le bouton <span class="hl">Lier</span>, une nouvelle entrée sera automatiquement ajoutée au menu <span class="hl">Paramètres</span> > <span class="hl">Jeux Liés</span> en utilisant les informations de la fenêtre active.`,
+            `Après avoir cliqué sur le bouton <span class="hl">Lier</span>, un compte à rebours de 5 secondes commencera`,
+            `Avant la fin du compte à rebours, focalisez-vous sur la fenêtre du jeu`,
+            `Une fois le compte à rebours terminé, une nouvelle entrée pour l'<span class="hl">AppID</span> actuel sera ajoutée au menu <span class="hl">Paramètres</span> > <span class="hl">Jeux Liés</span>, en utilisant le fichier exécutable associé à la fenêtre active`,
+            `Si vous devez réessayer, supprimez l'entrée via <span class="hl">Paramètres</span> > <span class="hl">Jeux Liés</span> en cliquant sur le bouton <span id="linkhelpunlink"></span>`
+        ],
+        addlinkfailed: "Impossible de lier la fenêtre",
+        addlinkfailedsub: `Cliquez sur le bouton <span class="hl">Lier</span> pour réessayer`,
         webhookunlockmsg: "$user a débloqué un succès",
         webhookingame: "dans $gamename",
         notconnected: "Non connecté"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Afficher le pourcentage",
                 soundonly: "Mode son uniquement",
                 extwin: "Notifications de flux",
+                extwinframerate: "Taux de trame",
+                extwinshow: "Afficher la fenêtre",
                 audiosrc: "Source audio",
                 notify: "Notification",
                 app: "Application",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "Raccourcis de notification",
                 noiconcache: "Désactiver le cache des icônes",
                 webhooks: "Publier sur le serveur Discord",
+                webhooktypes: "Types de Webhook",
                 webhookurl: `URL du Webhook`,
                 webhookcaution: `En activant cette option et en fournissant un lien Webhook Discord valide, vous acceptez que vous comprenez que <u>toutes les informations sur les succès et les jeux pour l'utilisateur Steam actuel</u> seront publiées sur le serveur Discord spécifié via le lien Webhook fourni.<br><br>Si vous ne souhaitez pas que Steam Achievement Notifier publie ces informations en votre nom, veuillez désactiver cette option.`,
                 webhooklaststatus: "Dernier statut"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Désactiver la boîte de dialogue de mise à jour",
                 nvda: "Activer le support NVDA",
                 tooltips: "Afficher les info-bulles",
-                showsystrayopts: "Afficher les options de la barre système"
+                showsystrayopts: "Afficher les options de la barre système",
+                releaseshortcut: "Raccourci Libérer le Jeu"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Affiche le pourcentage de déverrouillage du succès dans la notification pour le(s) type(s) sélectionné(s)",
         soundonly: "Désactive les notifications, en jouant uniquement les sons définis via le Personnaliseur",
         extwin: "Crée une fenêtre de fond cachée qui duplique toutes les notifications actuellement affichées à l'écran. Cette fenêtre peut ensuite être ajoutée en tant que source de capture de fenêtre pour une utilisation dans un logiciel de streaming, tel que OBS",
+        extwinframerate: "Définir le taux de trame cible pour les notifications de diffusion",
+        extwinshow: "Basculer la visibilité de la fenêtre des notifications de diffusion",
         audiosrc: "Sélectionnez la source du son généré par l'application (ou désactivez-le)",
         nowtracking: "Affiche une notification informant l'utilisateur que les succès pour un jeu en cours d'exécution sont suivis",
         nowtrackingpos: `Définissez la position de la notification de suivi`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importez des personnalisations via un <span class="hl">fichier de thème</span> créé par l'utilisateur`,
         exporttheme: `Exportez le <span class="hl">thème</span> actuellement sélectionné pour le partage<br><br><span class="ttdesc">Avant de tenter l'exportation, veuillez vous assurer que le <span class="hl">thème</span> souhaité est sélectionné (via le menu <span class="hl">Sélection du thème</span>). Assurez-vous également que les personnalisations ont été enregistrées dans le <span class="hl">thème</span> sélectionné (via le menu <span class="hl">Enregistrer le thème</span>)<br><br><u>Toutes les personnalisations qui ne sont pas encore enregistrées dans le <span class="hl">thème</span> actuel ne seront pas exportées !</u></span>`,
         webhooks: "Utilisez une URL de Webhook pour publier sur un serveur Discord chaque fois qu'un succès est débloqué",
+        webhooktypesmain: `Basculer pour savoir si les informations sur les succès doivent être envoyées à un serveur Discord lorsqu'un succès principal est débloqué`,
+        webhooktypesrare: "Basculer pour savoir si les informations sur les succès doivent être envoyées à un serveur Discord lorsqu'un succès rare est débloqué",
+        webhooktypesplat: "Basculer pour savoir si les informations sur les succès doivent être envoyées à un serveur Discord lorsqu'un succès à 100% est débloqué",
         webhookurl: `Définissez la <span class="hl">URL du Webhook</span> pour le serveur Discord souhaité<br><br><span class="ttdesc">Une <span class="hl">URL de Webhook</span> est utilisée pour publier sur un serveur/kanal Discord au nom d'un utilisateur ou d'une application. Pour configurer un nouveau Webhook pour un serveur Discord, l'utilisateur doit avoir un rôle dans le serveur souhaité qui autorise la création de Webhooks<br><br><u>Une URL de Webhook est requise lorsque vous utilisez cette option</u><br><br>Consultez la documentation officielle de Discord pour plus d'informations</span>`,
         unlockmsg: "Définissez la position du message de déverrouillage/texte personnalisé dans le $type",
         title: "Définissez la position du titre du succès dans le $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Correspondre aux paramètres des éléments de notification définis dans le personnalisateur pour ce type de notification<br><br><span class="ttdesc">Certains préréglages de notification ne peuvent pas entièrement correspondre aux paramètres du personnalisateur en raison des différences entre les notifications à l'écran et celles basées sur les captures d'écran</span>`,
         themeswitch: `Changer automatiquement pour tout <span class="hl">Thème</span> enregistré lorsqu'un jeu spécifique est détecté`,
         userthemesync: `Synchroniser les personnalisations du <span class="hl">Thème</span> sélectionné avec tous les autres types de notification`,
-        showsystrayopts: `Afficher toutes les options généralement situées sous <span class="hl">Barre système</span> > <span class="hl">Options</span> dans <span class="hl">Paramètres</span> > <span class="hl">Divers</span>`
+        showsystrayopts: `Afficher toutes les options généralement situées sous <span class="hl">Barre système</span> > <span class="hl">Options</span> dans <span class="hl">Paramètres</span> > <span class="hl">Divers</span>`,
+        releaseshortcut: "Libérer le jeu actuellement suivi à l'aide du raccourci clavier spécifié"
     },
     update: {
         updateavailable: "Mise à jour disponible",

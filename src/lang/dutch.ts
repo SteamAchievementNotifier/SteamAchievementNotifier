@@ -59,8 +59,24 @@ export const translations = {
             `De <span class="hl">URL</span> van de <span class="hl">Winkel pagina</span> van het spel - het zal het nummer zijn dat na <span class="hl">app/</span> wordt vermeld: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Websites zoals <span class="hl">SteamDB</span> - de sectie <span class="hl">App Info</span> zal de AppID voor elk spel vermelden`
         ],
-        noexe: "Spel-EXE niet gevonden!",
-        noexesub: `Selecteer Opties > Spel Ontkoppelen uit de Systeemvak om te afsluiten`,
+        noexe: "EXE-bestand van het spel niet gevonden!",
+        noexesub: "Klik hier voor meer informatie",
+        noexedialogsub: [
+            `Steam Achievement Notifier kon het uitvoerbare bestand van dit spel niet automatisch vinden. De locatie van het uitvoerbare bestand is vereist om het spel te "vrijgeven"`,
+            `Om het spel handmatig vrij te geven, <i>klik met de rechtermuisknop</i> op het <span class="hl">Systeemvakpictogram</span> > <span class="hl">Opties</span> > <span class="hl">Spel vrijgeven</span>, of gebruik de <span class="hl">Sneltoets voor Spel Vrijgeven</span>`,
+            `Klik anders op de knop <span class="hl">Koppelen</span> hieronder om het uitvoerbare bestand van het actieve venster toe te voegen aan het menu <span class="hl">Gekoppelde Spellen</span>`,
+            `<span class="hl help" id="linkgamehelp"><u>Wat gebeurt er als ik op de knop Koppelen klik?</u></span>`
+        ],
+        linkgamehelp: "Koppel spel via venster",
+        linkgamehelpsub: [
+            `Door op de knop <span class="hl">Koppelen</span> te klikken, wordt automatisch een nieuw item toegevoegd aan het menu <span class="hl">Instellingen</span> > <span class="hl">Gekoppelde Spellen</span>, met informatie van het huidige actieve venster.`,
+            `Na het klikken op de knop <span class="hl">Koppelen</span> start een timer van 5 seconden`,
+            `Zorg ervoor dat het spelvenster gefocust is voordat de timer afloopt`,
+            `Wanneer de timer afloopt, wordt een nieuw item voor de huidige <span class="hl">AppID</span> toegevoegd aan het menu <span class="hl">Instellingen</span> > <span class="hl">Gekoppelde Spellen</span>, met het uitvoerbare bestand van het actieve venster`,
+            `Als je het opnieuw wilt proberen, verwijder dan het item via <span class="hl">Instellingen</span> > <span class="hl">Gekoppelde Spellen</span> door op de knop <span id="linkhelpunlink"></span> te klikken`
+        ],
+        addlinkfailed: "Kan venster niet koppelen",
+        addlinkfailedsub: `Klik op de knop <span class="hl">Koppelen</span> om opnieuw te proberen`,
         webhookunlockmsg: "$user heeft een prestatie ontgrendeld",
         webhookingame: "in $gamename",
         notconnected: "Niet verbonden"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Percentage tonen",
                 soundonly: "Alleen geluid",
                 extwin: "Streammeldingen",
+                extwinframerate: "Beeldsnelheid",
+                extwinshow: "Venster weergeven",
                 audiosrc: "Audiobron",
                 notify: "Melding",
                 app: "App",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "Meldings snelkoppelingen",
                 noiconcache: "Pictogramcache uitschakelen",
                 webhooks: "Plaatsen op Discord-server",
+                webhooktypes: "Webhooktypes",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Door deze optie in te schakelen en een geldige Discord-webhook-link op te geven, ga je ermee akkoord dat je begrijpt dat <u>alle prestatie- en spelinformatie voor de huidige Steam-gebruiker</u> zal worden geplaatst op de opgegeven Discord-server via de verstrekte webhook-link.<br><br>Als je niet wilt dat Steam Achievement Notifier deze informatie namens jou plaatst, schakel dan deze optie uit.`,
                 webhooklaststatus: "Laatste Status"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Updatevenster uitschakelen",
                 nvda: "NVDA-ondersteuning inschakelen",
                 tooltips: "Tooltips weergeven",
-                showsystrayopts: "Systeemvakopties Weergeven"
+                showsystrayopts: "Systeemvakopties Weergeven",
+                releaseshortcut: "Sneltoets voor Spel Vrijgeven"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Toon het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
         soundonly: "Schakel meldingen uit en speel alleen geluiden af die zijn ingesteld via de Customiser",
         extwin: "Maak een verborgen achtergrondvenster dat duplicaten van alle meldingen weergeeft die momenteel op het scherm worden weergegeven. Dit venster kan vervolgens worden toegevoegd als een Window Capture-bron voor gebruik in streaming-software, zoals OBS",
+        extwinframerate: "Stel de doelbeeldsnelheid in voor streammeldingen",
+        extwinshow: "Zichtbaarheid van het venster voor streammeldingen aanpassen",
         audiosrc: "Selecteer de bron van (of schakel uit) audio die door de app wordt gegenereerd",
         nowtracking: "Toon een melding waarin de gebruiker wordt geïnformeerd dat prestaties voor een actief spel worden gevolgd",
         nowtrackingscale: `Stel de grootte van de volgwaarschuwing in`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importeer aanpassingen via een door de gebruiker aangemaakt <span class="hl">themabestand</span>`,
         exporttheme: `Exporteer het momenteel geselecteerde <span class="hl">thema</span> voor delen<br><br><span class="ttdesc">Controleer voor het exporteren of het gewenste <span class="hl">thema</span> is geselecteerd (via het menu <span class="hl">Thema selecteren</span>). Zorg er ook voor dat aanpassingen zijn opgeslagen in het geselecteerde <span class="hl">thema</span> (via het menu <span class="hl">Thema opslaan</span>)<br><br><u>Eventuele aanpassingen die nog niet zijn opgeslagen in het huidige <span class="hl">thema</span> worden niet geëxporteerd!</u></span>`,
         webhooks: "Gebruik een webhook-URL om een bericht te plaatsen in een Discord-server wanneer een prestatie is ontgrendeld",
+        webhooktypesmain: `Schakel in of informatie over prestaties naar een Discord-server moet worden verzonden wanneer een hoofdprestatie wordt ontgrendeld`,
+        webhooktypesrare: "Schakel in of informatie over prestaties naar een Discord-server moet worden verzonden wanneer een zeldzame prestatie wordt ontgrendeld",
+        webhooktypesplat: "Schakel in of informatie over prestaties naar een Discord-server moet worden verzonden wanneer een 100%-prestatie wordt ontgrendeld",
         webhookurl: `Stel de <span class="hl">webhook-URL</span> in voor de gewenste Discord-server<br><br><span class="ttdesc">Een <span class="hl">webhook-URL</span> wordt gebruikt om namens een gebruiker of applicatie te plaatsen in een Discord-server/kanaal. Om een nieuwe webhook in te stellen voor een Discord-server, moet de gebruiker een rol hebben binnen de gewenste server die het maken van webhooks toestaat<br><br><u>Een webhook-URL is vereist bij gebruik van deze optie</u><br><br>Raadpleeg de officiële documentatie van Discord voor meer informatie</span>`,
         unlockmsg: "Stel de positie in van het ontgrendelbericht/aangepaste tekst binnen de $type",
         title: "Stel de positie in van de prestatie titel binnen de $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Stem de instellingen van de meldingelementen af op die in de Customiser voor dit meldingstype<br><br><span class="ttdesc">Sommige meldingssjablonen kunnen niet volledig overeenkomen met de Customiser-instellingen vanwege verschillen tussen scherm- en schermafbeelding-gebaseerde meldingen</span>`,
         themeswitch: `Wissel automatisch naar een opgeslagen <span class="hl">Thema</span> wanneer een specifiek spel wordt gedetecteerd`,
         userthemesync: `Synchroniseer aanpassingen in het geselecteerde <span class="hl">Thema</span> naar alle andere meldingstypen`,
-        showsystrayopts: `Weergeef alle opties die normaal te vinden zijn onder <span class="hl">Systeemvak</span> > <span class="hl">Opties</span> in <span class="hl">Instellingen</span> > <span class="hl">Diversen</span>`
+        showsystrayopts: `Weergeef alle opties die normaal te vinden zijn onder <span class="hl">Systeemvak</span> > <span class="hl">Opties</span> in <span class="hl">Instellingen</span> > <span class="hl">Diversen</span>`,
+        releaseshortcut: "Geef het momenteel gevolgde spel vrij met de opgegeven sneltoets"
     },
     update: {
         updateavailable: "Update beschikbaar",

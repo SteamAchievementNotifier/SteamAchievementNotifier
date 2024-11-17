@@ -187,11 +187,12 @@ export const sanconfig = {
                 soundonly: false,
                 showpercent: "rareonly",
                 extwin: false,
-                // extwinshow: false,
-                // extwinpos: {
-                //     x: 0,
-                //     y: 0
-                // },
+                extwinframerate: 60,
+                extwinshow: true,
+                extwinpos: {
+                    x: 0,
+                    y: 0
+                },
                 audiosrc: "notify",
                 nowtracking: true,
                 nowtrackingscale: 100,

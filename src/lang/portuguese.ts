@@ -60,7 +60,23 @@ export const translations = {
             `Sites como o <span class="hl">SteamDB</span> - a seção de <span class="hl">Informações do App</span> listará o AppID para cada jogo`
         ],
         noexe: "Arquivo EXE do jogo não encontrado!",
-        noexesub: `Selecione Opções > Sair do Jogo na Bandeja do Sistema para sair`,
+        noexesub: "Clique aqui para mais informações",
+        noexedialogsub: [
+            `O Steam Achievement Notifier não conseguiu localizar automaticamente o arquivo executável deste jogo. A localização do arquivo executável do jogo é necessária para "liberar" o jogo`,
+            `Para liberar o jogo manualmente, <i>clique com o botão direito</i> no <span class="hl">ícone da bandeja do sistema</span> > <span class="hl">Opções</span> > <span class="hl">Liberar Jogo</span>, ou use o <span class="hl">Atalho para Liberar Jogo</span>`,
+            `Alternativamente, clique no botão <span class="hl">Link</span> abaixo para adicionar o arquivo executável associado à janela em foco ao menu <span class="hl">Jogos Vinculados</span>`,
+            `<span class="hl help" id="linkgamehelp"><u>O que acontece quando eu clico no botão Link?</u></span>`
+        ],
+        linkgamehelp: "Linkar Jogo via Janela",
+        linkgamehelpsub: [
+            `Ao clicar no botão <span class="hl">Link</span>, uma nova entrada será adicionada automaticamente ao menu <span class="hl">Configurações</span> > <span class="hl">Jogos Vinculados</span>, usando informações da janela em foco.`,
+            `Após clicar no botão <span class="hl">Link</span>, um timer de 5 segundos começará`,
+            `Antes que o timer termine, foque na janela do jogo`,
+            `Quando o timer terminar, uma nova entrada para o <span class="hl">AppID</span> atual será adicionada ao menu <span class="hl">Configurações</span> > <span class="hl">Jogos Vinculados</span>, usando o arquivo executável associado à janela em foco`,
+            `Se precisar tentar novamente, remova a entrada via <span class="hl">Configurações</span> > <span class="hl">Jogos Vinculados</span> clicando no botão <span id="linkhelpunlink"></span>`
+        ],
+        addlinkfailed: "Não foi possível vincular a janela",
+        addlinkfailedsub: `Clique no botão <span class="hl">Link</span> para tentar novamente`,
         webhookunlockmsg: "$user desbloqueou uma conquista",
         webhookingame: "em $gamename",
         notconnected: "Não conectado"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Mostrar Percentagem",
                 soundonly: "Apenas Som",
                 extwin: "Notificações de Transmissão",
+                extwinframerate: "Taxa de quadros",
+                extwinshow: "Mostrar janela",
                 audiosrc: "Fonte de Áudio",
                 notify: "Notificar",
                 app: "Aplicativo",
@@ -110,6 +128,7 @@ export const translations = {
                 noiconcache: "Desativar o Cache de Ícones",
                 webhooks: "Postar no servidor Discord",
                 webhookurl: `URL do Webhook`,
+                webhooktypes: "Tipos de Webhook",
                 webhookcaution: `Ao habilitar esta opção e fornecer um link de Webhook do Discord válido, você concorda que entende que <u>todas as informações sobre conquistas e jogos para o usuário Steam atual</u> serão postadas no servidor Discord especificado através do link de Webhook fornecido.<br><br>Se você não deseja que o Steam Achievement Notifier publique essas informações em seu nome, desative esta opção.`,
                 webhooklaststatus: "Último Status"
             }
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Desativar diálogo de atualização",
                 nvda: "Ativar Suporte NVDA",
                 tooltips: "Mostrar Dicas de Ferramentas",
-                showsystrayopts: "Mostrar opções da área de notificação"
+                showsystrayopts: "Mostrar opções da área de notificação",
+                releaseshortcut: "Atalho para Liberar Jogo"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Exibir a porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
         soundonly: "Desativar notificações, reproduzindo apenas sons definidos por meio do Personalizador",
         extwin: "Criar uma janela de plano de fundo oculta que duplica quaisquer notificações atualmente sendo exibidas na tela. Essa janela pode ser adicionada como uma fonte de captura de janela para uso em software de streaming, como OBS",
+        extwinframerate: "Definir a taxa de quadros alvo para notificações de transmissão",
+        extwinshow: "Alternar visibilidade da janela de notificações de transmissão",
         audiosrc: "Selecionar a fonte (ou desativar) o áudio gerado pelo aplicativo",
         nowtracking: "Exibir uma notificação informando ao usuário que as conquistas de um jogo em execução estão sendo rastreadas",
         nowtrackingscale: `Defina o tamanho da notificação de rastreio`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importar personalizações através de um <span class="hl">arquivo de tema</span> criado pelo usuário`,
         exporttheme: `Exportar o <span class="hl">tema</span> atualmente selecionado para compartilhamento<br><br><span class="ttdesc">Antes de tentar exportar, certifique-se de que o <span class="hl">tema</span> desejado esteja selecionado (através do menu <span class="hl">Selecionar Tema</span>). Certifique-se também de que as personalizações tenham sido salvas no <span class="hl">tema</span> selecionado (através do menu <span class="hl">Salvar Tema</span>)<br><br><u>Quaisquer personalizações ainda não salvas no <span class="hl">tema</span> atual não serão exportadas!</u></span>`,
         webhooks: "Use um URL de Webhook para postar em um servidor Discord sempre que uma conquista for desbloqueada",
+        webhooktypesmain: `Alternar se deve ou não publicar informações sobre conquistas em um servidor Discord quando uma conquista principal for desbloqueada`,
+        webhooktypesrare: "Alternar se deve ou não publicar informações sobre conquistas em um servidor Discord quando uma conquista rara for desbloqueada",
+        webhooktypesplat: "Alternar se deve ou não publicar informações sobre conquistas em um servidor Discord quando uma conquista de 100% for desbloqueada",
         webhookurl: `Defina o <span class="hl">URL do Webhook</span> para o servidor Discord desejado<br><br><span class="ttdesc">Um <span class="hl">URL do Webhook</span> é usado para postar em um servidor/canal Discord em nome de um usuário ou aplicativo. Para configurar um novo Webhook para um servidor Discord, o usuário deve ter um cargo no servidor desejado que permita a criação de Webhooks<br><br><u>Um URL de Webhook é necessário ao usar esta opção</u><br><br>Consulte a documentação oficial do Discord para mais informações</span>`,
         unlockmsg: "Defina a posição da mensagem de desbloqueio/texto personalizado dentro do $type",
         title: "Defina a posição do título da conquista dentro do $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Correspondência das configurações dos Elementos de Notificação definidas no Personalizador para este tipo de notificação<br><br><span class="ttdesc">Algumas Predefinições de Notificação podem não corresponder totalmente às configurações do Personalizador, devido a diferenças entre os layouts de notificação na tela e baseados em captura de tela</span>`,
         themeswitch: `Alternar automaticamente para qualquer <span class="hl">Tema</span> salvo quando um jogo específico for detectado`,
         userthemesync: `Sincronizar personalizações no <span class="hl">Tema</span> selecionado para todos os outros tipos de notificação`,
-        showsystrayopts: `Exibir todas as opções geralmente localizadas em <span class="hl">Área de Notificação</span> > <span class="hl">Opções</span> em <span class="hl">Configurações</span> > <span class="hl">Diversos</span>`
+        showsystrayopts: `Exibir todas as opções geralmente localizadas em <span class="hl">Área de Notificação</span> > <span class="hl">Opções</span> em <span class="hl">Configurações</span> > <span class="hl">Diversos</span>`,
+        releaseshortcut: "Liberar o jogo atualmente rastreado usando o atalho de teclado especificado"
     },
     update: {
         updateavailable: "Atualização disponível",

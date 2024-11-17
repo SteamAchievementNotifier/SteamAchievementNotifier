@@ -60,7 +60,23 @@ export const translations = {
             `<span class="hl">SteamDB</span> のようなウェブサイト - 各ゲームのAppIDが <span class="hl">App Info</span> セクションにリストされます`
         ],
         noexe: "ゲームのEXEファイルが見つかりません！",
-        noexesub: `システムトレイから「オプション > ゲームを終了」を選択して終了してください`,
+        noexesub: "詳細についてはここをクリックしてください",
+        noexedialogsub: [
+            `Steam Achievement Notifierは、このゲームの実行可能ファイルを自動的に見つけることができませんでした。ゲームを「リリース」するためには、ゲームの実行可能ファイルの場所が必要です`,
+            `ゲームを手動でリリースするには、<i>右クリック</i>して、<span class="hl">システムトレイアイコン</span> > <span class="hl">オプション</span> > <span class="hl">ゲームをリリース</span>を選択するか、<span class="hl">ゲームリリースショートカット</span>を使用してください`,
+            `または、下の<span class="hl">リンク</span>ボタンをクリックして、現在フォーカスされているウィンドウに関連する実行可能ファイルを<span class="hl">リンクされたゲーム</span>メニューに追加してください`,
+            `<span class="hl help" id="linkgamehelp"><u>リンクボタンをクリックするとどうなりますか？</u></span>`
+        ],
+        linkgamehelp: "ウィンドウを通じてゲームをリンク",
+        linkgamehelpsub: [
+            `<span class="hl">リンク</span>ボタンをクリックすると、現在フォーカスされているウィンドウの情報を使用して、<span class="hl">設定</span> > <span class="hl">リンクされたゲーム</span>メニューに新しいエントリが自動的に追加されます。`,
+            `<span class="hl">リンク</span>ボタンをクリックすると、5秒のタイマーが始まります`,
+            `タイマーが終了する前に、ゲームウィンドウにフォーカスを合わせてください`,
+            `タイマーが終了すると、現在の<span class="hl">AppID</span>の新しいエントリが、フォーカスされたウィンドウの実行可能ファイルを使用して、<span class="hl">設定</span> > <span class="hl">リンクされたゲーム</span>メニューに追加されます`,
+            `再試行が必要な場合は、<span class="hl">設定</span> > <span class="hl">リンクされたゲーム</span>からエントリを削除し、<span id="linkhelpunlink"></span>ボタンをクリックしてください`
+        ],
+        addlinkfailed: "ウィンドウのリンクに失敗しました",
+        addlinkfailedsub: `再試行するには、<span class="hl">リンク</span>ボタンをクリックしてください`,
         webhookunlockmsg: "$user がアチーブメントを解除しました",
         webhookingame: "$gamename で",
         notconnected: "接続されていません"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "パーセンテージを表示",
                 soundonly: "サウンドのみ",
                 extwin: "ストリーム通知",
+                extwinframerate: "フレームレート",
+                extwinshow: "ウィンドウを表示",
                 audiosrc: "オーディオソース",
                 notify: "通知",
                 app: "アプリ",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "通知ショートカット",
                 noiconcache: "アイコンキャッシュの無効化",
                 webhooks: "Discordサーバーに投稿",
+                webhooktypes: "Webhookの種類",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `このオプションを有効にし、正しいDiscord Webhookリンクを提供することで、<u>現在のSteamユーザーのすべてのアチーブメントおよびゲーム情報</u>が指定されたDiscordサーバーにWebhookリンクを通じて投稿されることを理解していることに同意します。<br><br>Steam Achievement Notifierがあなたの代わりにこの情報を投稿することを望まない場合は、このオプションを無効にしてください。`,
                 webhooklaststatus: "最後のステータス"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "更新ダイアログを無効にする",
                 nvda: "NVDAサポートを有効にする",
                 tooltips: "ツールチップを表示",
-                showsystrayopts: "システムトレイオプションを表示"
+                showsystrayopts: "システムトレイオプションを表示",
+                releaseshortcut: "ゲームリリースショートカット"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "選択したタイプの通知に実績のアンロックパーセンテージを表示する",
         soundonly: "通知を無効にし、カスタマイザで設定されたサウンドのみ再生する",
         extwin: "現在表示されている通知を重複させる非表示のバックグラウンドウィンドウを作成します。このウィンドウは、OBSなどのストリーミングソフトウェアで使用するためのウィンドウキャプチャソースとして追加できます",
+        extwinframerate: "ストリーム通知の目標フレームレートを設定",
+        extwinshow: "ストリーム通知ウィンドウの表示/非表示を切り替え",
         audiosrc: "アプリによって生成されるオーディオのソースを選択（または無効化）します",
         nowtracking: "実行中のゲームの実績が追跡されていることをユーザーに通知する",
         nowtrackingscale: `トラッキング通知のサイズを設定する`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `ユーザーが作成した<span class="hl">テーマファイル</span>を通じてカスタマイズをインポートします`,
         exporttheme: `現在選択されている<span class="hl">テーマ</span>を共有するためにエクスポートします<br><br><span class="ttdesc">エクスポートを試みる前に、選択した<span class="hl">テーマ</span>が正しく選択されていることを確認してください（<span class="hl">テーマ選択</span>メニューを使用して）。また、カスタマイズが選択した<span class="hl">テーマ</span>に保存されていることを確認してください（<span class="hl">テーマ保存</span>メニューを使用して）<br><br><u>現在の<span class="hl">テーマ</span>にまだ保存されていないカスタマイズはエクスポートされません！</u></span>`,
         webhooks: "アチーブメントが解除されるたびにDiscordサーバーに投稿するためにWebhook URLを使用します",
+        webhooktypesmain: `メインの実績が解除されたときに、Discordサーバーに実績情報を投稿するかどうかを切り替えます`,
+        webhooktypesrare: "レア実績が解除されたときに、Discordサーバーに実績情報を投稿するかどうかを切り替えます",
+        webhooktypesplat: "100%の実績が解除されたときに、Discordサーバーに実績情報を投稿するかどうかを切り替えます",
         webhookurl: `希望するDiscordサーバーのために<span class="hl">Webhook URL</span>を設定してください<br><br><span class="ttdesc">WebHook URLは、ユーザーまたはアプリケーションの代理でDiscordサーバー/チャンネルに投稿するために使用されます。Discordサーバーの新しいWebhookを設定するには、ユーザーがWebhookの作成を許可された役割を持っている必要があります<br><br><u>このオプションを使用するにはWebhook URLが必要です</u><br><br>詳細はDiscordの公式ドキュメントを参照してください</span>`,
         unlockmsg: "$type 内の解除メッセージ/カスタムテキストの位置を設定します",
         title: "$type 内のアチーブメントタイトルの位置を設定します",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `この通知タイプのためにカスタマイザーで設定された通知要素の設定を一致させる<br><br><span class="ttdesc">一部の通知プリセットは、画面上の通知レイアウトとスクリーンショットベースの通知レイアウトの違いのために、カスタマイザー設定と完全に一致できない場合があります。</span>`,
         themeswitch: `特定のゲームが検出されたときに保存された <span class="hl">テーマ</span> に自動的に切り替え`,
         userthemesync: `選択した <span class="hl">テーマ</span> のカスタマイズをすべての他の通知タイプに同期`,
-        showsystrayopts: `通常 <span class="hl">システムトレイ</span> > <span class="hl">オプション</span> に位置するすべてのオプションを表示 <span class="hl">設定</span> > <span class="hl">その他</span>`
+        showsystrayopts: `通常 <span class="hl">システムトレイ</span> > <span class="hl">オプション</span> に位置するすべてのオプションを表示 <span class="hl">設定</span> > <span class="hl">その他</span>`,
+        releaseshortcut: "指定されたキーボードショートカットを使用して、現在追跡中のゲームをリリースします"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

@@ -59,8 +59,24 @@ export const translations = {
             `Oyunun <span class="hl">Mağaza sayfasının URL</span>'si - <span class="hl">app/</span>'den sonraki listedir: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `<span class="hl">SteamDB</span> gibi web siteleri - <span class="hl">App Bilgisi</span> bölümü her oyun için AppID'yi listeleyecektir`
         ],
-        noexe: "Oyun EXE dosyası bulunamadı!",
-        noexesub: `Çıkmak için Seçenekler > Sistem Tepsisinden Oyunu Kapatı seçin`,
+        noexe: "Oyunun EXE dosyası bulunamadı!",
+        noexesub: "Daha fazla bilgi için buraya tıklayın",
+        noexedialogsub: [
+            `Steam Achievement Notifier, bu oyunun çalıştırılabilir dosyasını otomatik olarak bulamadı. Oyunun çalıştırılabilir dosyasının yeri, oyunu "yayınlamak" için gereklidir`,
+            `Oyunu manuel olarak yayınlamak için, <i>sağa tıklayın</i> <span class="hl">Sistem tepsisi simgesi</span> > <span class="hl">Seçenekler</span> > <span class="hl">Oyunu Yayınla</span>, veya <span class="hl">Oyunu Yayınla Kısayolu</span>nu kullanın`,
+            `Alternatif olarak, aşağıdaki <span class="hl">Link</span> butonuna tıklayarak odaklanmış pencerenin ilişkilendirilmiş çalıştırılabilir dosyasını <span class="hl">Bağlantılı Oyunlar</span> menüsüne ekleyin`,
+            `<span class="hl help" id="linkgamehelp"><u>Link butonuna tıkladığımda ne olur?</u></span>`
+        ],
+        linkgamehelp: "Pencere ile Oyunu Bağla",
+        linkgamehelpsub: [
+            `<span class="hl">Link</span> butonuna tıkladığınızda, mevcut odaklanmış pencereden alınan bilgilerle <span class="hl">Ayarlar</span> > <span class="hl">Bağlantılı Oyunlar</span> menüsüne yeni bir giriş otomatik olarak eklenir.`,
+            `<span class="hl">Link</span> butonuna tıkladıktan sonra 5 saniyelik bir zamanlayıcı başlar`,
+            `Zamanlayıcı bitmeden önce, oyun penceresini odaklayın`,
+            `Zamanlayıcı sona erdiğinde, mevcut <span class="hl">AppID</span> için yeni bir giriş <span class="hl">Ayarlar</span> > <span class="hl">Bağlantılı Oyunlar</span> menüsüne eklenir, odaklanmış pencerenin ilişkilendirilmiş çalıştırılabilir dosyasını kullanarak`,
+            `Tekrar denemeniz gerekiyorsa, <span class="hl">Ayarlar</span> > <span class="hl">Bağlantılı Oyunlar</span> üzerinden girişi kaldırarak <span id="linkhelpunlink"></span> butonuna tıklayın`
+        ],
+        addlinkfailed: "Pencere bağlantısı kurulamadı",
+        addlinkfailedsub: `Yeniden denemek için <span class="hl">Link</span> butonuna tıklayın`,
         webhookunlockmsg: "$user bir başarıyı kilidini açtı",
         webhookingame: "$gamename'de",
         notconnected: "Bağlantı yok"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Yüzdeyi Göster",
                 soundonly: "Sesli Bildirim",
                 extwin: "Akış Bildirimleri",
+                extwinframerate: "Kare Hızı",
+                extwinshow: "Pencereyi Göster",
                 audiosrc: "Ses Kaynağı",
                 notify: "Bildir",
                 app: "Uygulama",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "Bildirim Kısayolları",
                 noiconcache: "Simge Önbelleğini Devre Dışı Bırak",
                 webhooks: "Discord Sunucusuna Gönder",
+                webhooktypes: "Webhook Türleri",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Bu seçeneği etkinleştirip geçerli bir Discord Webhook bağlantısı sağladığınızda, <u>mevcut Steam kullanıcısının tüm başarı ve oyun bilgilerini</u> belirtilen Discord sunucusuna Webhook bağlantısı aracılığıyla göndereceğinizi kabul etmiş olursunuz.<br><br>Bu bilgilerin sizin adınıza gönderilmesini istemiyorsanız, bu seçeneği devre dışı bırakın.`,
                 webhooklaststatus: "Son Durum"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Güncelleme İletişim Kutusunu Devre Dışı Bırak",
                 nvda: "NVDA Desteğini Etkinleştir",
                 tooltips: "İpuçlarını Göster",
-                showsystrayopts: "Sistem Tepsisi Seçeneklerini Göster"
+                showsystrayopts: "Sistem Tepsisi Seçeneklerini Göster",
+                releaseshortcut: "Oyunu Yayınlama Kısayolu"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Seçilen tür(ler) için bildirimde başarının kilitleme yüzdesini göster",
         soundonly: "Bildirimleri devre dışı bırakır, yalnızca Customiser tarafından ayarlanan sesleri çalar",
         extwin: "Mevcut ekranda görüntülenen bildirimleri çoğaltan gizli bir arka plan penceresi oluşturur. Bu pencere daha sonra OBS gibi yayın yazılımlarında bir Pencere Yakalama kaynağı olarak eklenir",
+        extwinframerate: "Yayın Bildirimleri için hedef kare hızını ayarla",
+        extwinshow: "Yayın Bildirimleri penceresinin görünürlüğünü geçiş yap",
         audiosrc: "Uygulama tarafından üretilen sesin kaynağını seçin (veya devre dışı bırakın)",
         nowtracking: "Çalışan bir oyun için başarımların takip edildiğini bildiren bir bildirim göster",
         nowtrackingscale: `Takip Bildiriminin Boyutunu Ayarlayın`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Kullanıcı tarafından oluşturulan <span class="hl">tema dosyası</span> aracılığıyla özelleştirmeleri içe aktarın`,
         exporttheme: `Paylaşmak için şu anda seçili olan <span class="hl">temayı</span> dışa aktarın<br><br><span class="ttdesc">Dışa aktarmadan önce lütfen istenen <span class="hl">temanın</span> seçildiğinden (<span class="hl">Tema Seç</span> menüsü üzerinden) emin olun. Ayrıca özelleştirmelerin seçilen <span class="hl">temaya</span> kaydedilmiş olmasından (<span class="hl">Tema Kaydet</span> menüsü üzerinden) emin olun<br><br><u>Mevcut <span class="hl">temada</span> henüz kaydedilmemiş herhangi bir özelleştirme dışa aktarılmayacaktır!</u></span>`,
         webhooks: "Bir başarı kilidini açıldığında Discord sunucusunda paylaşmak için Webhook URL kullanın",
+        webhooktypesmain: `Ana başarımların kilidi açıldığında Discord sunucusuna başarımları gönderip göndermemeyi açın`,
+        webhooktypesrare: "Nadir başarımların kilidi açıldığında Discord sunucusuna başarımları gönderip göndermemeyi açın",
+        webhooktypesplat: "100% başarımı açıldığında Discord sunucusuna başarımları gönderip göndermemeyi açın",
         webhookurl: `İstenilen Discord sunucusu için <span class="hl">Webhook URL</span> ayarlayın<br><br><span class="ttdesc"><span class="hl">Webhook URL</span>, bir kullanıcı veya uygulama adına Discord sunucusunda/kanalında paylaşım yapmak için kullanılır. Bir Discord sunucusu için yeni bir Webhook ayarlamak için kullanıcı, Webhooks oluşturulmasına izin veren bir role sahip olmalıdır<br><br><u>Bu seçeneği kullanırken Webhook URL gereklidir</u><br><br>Daha fazla bilgi için Discord'un resmi belgelerine başvurun</span>`,
         unlockmsg: "$type içindeki kilidi açma mesajının/özelleştirilmiş metnin konumunu ayarlayın",
         title: "$type içindeki başarı başlığının konumunu ayarlayın",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Bu bildirim türü için özelleştiricide ayarlanan Bildirim Öğeleri ayarlarıyla eşleşir<br><br><span class="ttdesc">Bazı Bildirim Ön Ayarları, ekran üzerindeki ve ekran görüntüsü tabanlı bildirim düzenleri arasındaki farklılıklar nedeniyle özelleştirici ayarlarıyla tam olarak eşleşemez</span>`,
         themeswitch: `Belirli bir oyun tespit edildiğinde herhangi bir kaydedilmiş <span class="hl">Temaya</span> otomatik olarak geçiş yap`,
         userthemesync: `Seçilen <span class="hl">Tema</span> üzerindeki özelleştirmeleri tüm diğer bildirim türlerine senkronize et`,
-        showsystrayopts: `Genellikle <span class="hl">Sistem Tepsisi</span> > <span class="hl">Seçenekler</span> altında yer alan tüm seçenekleri <span class="hl">Ayarlar</span> > <span class="hl">Diğer</span> kısmında göster`
+        showsystrayopts: `Genellikle <span class="hl">Sistem Tepsisi</span> > <span class="hl">Seçenekler</span> altında yer alan tüm seçenekleri <span class="hl">Ayarlar</span> > <span class="hl">Diğer</span> kısmında göster`,
+        releaseshortcut: "Belirtilen klavye kısayolunu kullanarak şu anda izlenen oyunu yayınlayın"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

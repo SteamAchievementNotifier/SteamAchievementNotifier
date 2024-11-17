@@ -60,7 +60,23 @@ export const translations = {
             `Verkkosivustot kuten <span class="hl">SteamDB</span> - <span class="hl">App-tiedot</span> -osio listaa AppID:n jokaiselle pelille`
         ],
         noexe: "Pelin EXE:tä ei löydy!",
-        noexesub: `Valitse Asetukset > Vapauta Peli järjestelmäpalkista lopettaaksesi`,
+        noexesub: "Klikkaa tästä saadaksesi lisätietoja",
+        noexedialogsub: [
+            `Steam Achievement Notifier ei onnistunut löytämään pelin suoritettavaa tiedostoa automaattisesti. Pelin suoritettavan tiedoston sijainti on tarpeen, jotta peli voidaan "vapauttaa"`,
+            `Vapauttaaksesi pelin manuaalisesti, <i>napsauta hiiren oikealla</i> <span class="hl">järjestelmäpalkin kuvaketta</span> > <span class="hl">Asetukset</span> > <span class="hl">Vapauta peli</span>, tai käytä <span class="hl">Pelin vapautuksen pikanäppäintä</span>`,
+            `Vaihtoehtoisesti, napsauta alla olevaa <span class="hl">Linkitä</span>-painiketta lisätäksesi aktiivisen ikkunan liitetyn suoritettavan tiedoston <span class="hl">Linkitetyt pelit</span> -valikkoon`,
+            `<span class="hl help" id="linkgamehelp"><u>Mitä tapahtuu, kun klikkaan Linkitä-painiketta?</u></span>`
+        ],
+        linkgamehelp: "Linkitä peli ikkunan kautta",
+        linkgamehelpsub: [
+            `Klikkaamalla <span class="hl">Linkitä</span>-painiketta, uusi syöte lisätään automaattisesti <span class="hl">Asetukset</span> > <span class="hl">Linkitetyt pelit</span> -valikkoon käyttäen nykyisen aktiivisen ikkunan tietoja.`,
+            `Linkitä-painikkeen klikkaamisen jälkeen alkaa 5 sekunnin ajastin`,
+            `Ennen ajastimen loppumista, siirrä pelin ikkuna aktiiviseksi`,
+            `Kun ajastin päättyy, uusi syöte nykyisestä <span class="hl">AppID</span>:stä lisätään <span class="hl">Asetukset</span> > <span class="hl">Linkitetyt pelit</span> -valikkoon käyttäen aktiivisen ikkunan suoritettavaa tiedostoa`,
+            `Jos haluat yrittää uudelleen, poista syöte <span class="hl">Asetukset</span> > <span class="hl">Linkitetyt pelit</span> -valikosta napsauttamalla <span id="linkhelpunlink"></span>-painiketta`
+        ],
+        addlinkfailed: "Ikkunan linkittäminen epäonnistui",
+        addlinkfailedsub: `Klikkaa <span class="hl">Linkitä</span>-painiketta yrittääksesi uudelleen`,
         webhookunlockmsg: "$user avasi saavutuksen",
         webhookingame: "pelissä $gamename",
         notconnected: "Ei yhdistetty"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Näytä prosenttiosuus",
                 soundonly: "Vain ääni",
                 extwin: "Virtailmoitukset",
+                extwinframerate: "Kuvataajuus",
+                extwinshow: "Näytä ikkuna",
                 audiosrc: "Äänilähde",
                 notify: "Ilmoitus",
                 app: "Sovellus",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "Ilmoituspikakuvakkeet",
                 noiconcache: "Poista kuvakkeiden välimuisti käytöstä",
                 webhooks: "Lähetä Discord-palvelimelle",
+                webhooktypes: "Webhook-tyypit",
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Ottamalla tämän asetuksen käyttöön ja antamalla kelvollisen Discord-webhook-linkin, hyväksyt, että ymmärrät <u>kaiken nykyisen Steam-käyttäjän saavutuksiin ja peleihin liittyvän tiedon</u> julkaistavan määritettyyn Discord-palvelimeen annetun webhook-linkin kautta.<br><br>Jos et halua, että Steam Achievement Notifier julkaisee näitä tietoja puolestasi, poista tämä asetus käytöstä.`,
                 webhooklaststatus: "Viimeinen Tila"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Poista päivitysikkuna käytöstä",
                 nvda: "Ota NVDA-tuki käyttöön",
                 tooltips: "Näytä työkaluvihjeet",
-                showsystrayopts: "Näytä järjestelmäpalkin asetukset"
+                showsystrayopts: "Näytä järjestelmäpalkin asetukset",
+                releaseshortcut: "Pelin vapautuksen pikanäppäin"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Näytä saavutuksen lukitusprosentti ilmoituksessa valituille tyypeille",
         soundonly: "Poista ilmoitukset käytöstä ja toista vain äänet, jotka on määritetty Mukauttajassa",
         extwin: "Luo piilotettu taustailmoitusikkuna, joka kuvaa parhaillaan näytöllä näkyviä ilmoituksia. Tämä ikkuna voidaan lisätä ikkunan kaappaussisällöksi suoratoistosovelluksissa, kuten OBS",
+        extwinframerate: "Aseta tavoitekuvataajuus suoratoistoilmoituksille",
+        extwinshow: "Vaihda suoratoistoilmoitusikkunan näkyvyyttä",
         audiosrc: "Valitse äänilähde (tai poista käytöstä), jota sovellus tuottaa",
         nowtracking: "Näytä ilmoitus, joka ilmoittaa, että juoksevan pelin saavutuksia seurataan",
         nowtrackingscale: `Aseta seurantan ilmoituksen koko`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Tuo mukautuksia käyttäjän luoman <span class="hl">teematiedoston</span> kautta`,
         exporttheme: `Vie tällä hetkellä valittu <span class="hl">teema</span> jakamista varten<br><br><span class="ttdesc">Ennen vientiä varmista, että haluttu <span class="hl">teema</span> on valittu (valikon <span class="hl">Teeman valinta</span> kautta). Varmista myös, että mukautukset on tallennettu valittuun <span class="hl">teemaan</span> (valikon <span class="hl">Tallenna teema</span> kautta)<br><br><u>Mukautukset, joita ei ole vielä tallennettu nykyiseen <span class="hl">teemaan</span>, eivät tule mukaan vientiin!</u></span>`,
         webhooks: "Käytä Webhook-URL:ia julkaistaksesi viestin Discord-palvelimella, kun saavutus on avattu",
+        webhooktypesmain: `Vaihtaa, lähetetäänkö saavutustiedot Discord-palvelimelle, kun pääsaavutus avataan`,
+        webhooktypesrare: "Vaihtaa, lähetetäänkö saavutustiedot Discord-palvelimelle, kun harvinainen saavutus avataan",
+        webhooktypesplat: "Vaihtaa, lähetetäänkö saavutustiedot Discord-palvelimelle, kun 100% saavutus avataan",
         webhookurl: `Aseta <span class="hl">Webhook-URL</span> halutulle Discord-palvelimelle<br><br><span class="ttdesc"><span class="hl">Webhook-URL</span> käytetään julkaisemaan viesti Discord-palvelimelle/kanavalle käyttäjän tai sovelluksen puolesta. Jos haluat asettaa uuden Webhookin Discord-palvelimelle, käyttäjällä on oltava rooli palvelimella, joka sallii Webhookien luomisen<br><br><u>Webhook-URL vaaditaan tämän asetuksen käyttämiseen</u><br><br>Katso lisätietoja Discordin virallisesta dokumentaatiosta</span>`,
         unlockmsg: "Aseta avausviestin/mukautetun tekstin sijainti $type:ssa",
         title: "Aseta saavutuksen otsikon sijainti $type:ssa",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Vastaa ilmoituselementtien asetukset, jotka on määritetty mukauttajassa tätä ilmoitustyyppiä varten<br><br><span class="ttdesc">Jotkin ilmoitusmallit eivät voi täysin vastata mukauttajan asetuksia erojen vuoksi ruutu- ja kuvakaappauspohjaisten ilmoitusten välillä</span>`,
         themeswitch: `Vaihda automaattisesti tallennettuun <span class="hl">Teemaan</span> kun tietty peli havaitaan`,
         userthemesync: `Synkronoi mukautukset valitussa <span class="hl">Teemassa</span> kaikkiin muihin ilmoitustyyppeihin`,
-        showsystrayopts: `Näytä kaikki vaihtoehdot, jotka sijaitsevat yleensä kohdassa <span class="hl">Järjestelmäpalkki</span> > <span class="hl">Asetukset</span> kohdassa <span class="hl">Asetukset</span> > <span class="hl">Sekalaiset</span>`
+        showsystrayopts: `Näytä kaikki vaihtoehdot, jotka sijaitsevat yleensä kohdassa <span class="hl">Järjestelmäpalkki</span> > <span class="hl">Asetukset</span> kohdassa <span class="hl">Asetukset</span> > <span class="hl">Sekalaiset</span>`,
+        releaseshortcut: "Vapauta tällä hetkellä seurattava peli määritetyllä pikanäppäimellä"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

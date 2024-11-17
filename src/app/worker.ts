@@ -268,16 +268,16 @@ const startsan = async (appinfo: AppInfo) => {
                 } else {
                     // If no processes are found by automatic process tracking or by manually adding a Linked Game, use "steam-game-path" as a last resort fallback
                     // This could potentially replace the `get_game_exes()` Rust function if it turns out to be more accurate, but is a lot slower, due to waiting for the `SteamUser` dependency of `steam-game-path` to parse `appinfo.vdf`
-                    // log.write("ERROR",`No matching game processes found via automatic process tracking or Linked Games. Checking for executable using "steam-game-path"...`)
+                    log.write("ERROR",`No matching game processes found via automatic process tracking or Linked Games. Checking for executable using "steam-game-path"...`)
     
-                    // const exes = async () => (await (getGamePath(appid,true)?.game)?.executable as any[]).filter(({ executable }: any) => path.extname(executable) === (process.platform === "win32" ? ".exe" : ""))    
+                    const exes = async () => (await (getGamePath(appid,true)?.game)?.executable as any[]).filter(({ executable }: any) => path.extname(executable) === (process.platform === "win32" ? ".exe" : ""))    
     
-                    // for (const exe of await exes()) {
-                    //     await (async () => {
-                    //         const processinfo: ProcessInfo[] = getprocessinfo(exe.executable)
-                    //         processinfo.length && processes.push(...processinfo)
-                    //     })()
-                    // }
+                    for (const exe of await exes()) {
+                        await (async () => {
+                            const processinfo: ProcessInfo[] = getprocessinfo(exe.executable)
+                            processinfo.length && processes.push(...processinfo)
+                        })()
+                    }
     
                     // If an EXE is still not found, push an invalid process. The user will then need to manually release the game
                     if (!processes.length) {

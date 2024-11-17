@@ -59,8 +59,24 @@ export const translations = {
             `A játék <span class="hl">Bolt oldalának URL-címe</span> - ez lesz az a szám, amely az <span class="hl">app/</span> után következik: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `Olyan webhelyek, mint a <span class="hl">SteamDB</span> - az <span class="hl">App Info</span> szakasz felsorolja az AppID-t minden játékhoz`
         ],
-        noexe: "A játék EXE fájlja nem található!",
-        noexesub: `Válassza az Opciók > Játék Kilépés lehetőséget a Rendszertálcáról a kilépéshez`,
+        noexe: "A játék EXE fájl nem található!",
+        noexesub: "Kattints ide a további információkért",
+        noexedialogsub: [
+            `A Steam Achievement Notifier nem találta meg automatikusan a játék végrehajtható fájlját. A végrehajtható fájl elérhetősége szükséges a játék "felszabadításához"`,
+            `A játék kézi felszabadításához <i>jobb kattintás</i> a <span class="hl">rendszertálca ikonra</span> > <span class="hl">Beállítások</span> > <span class="hl">Játék felszabadítása</span>, vagy használja a <span class="hl">Játék felszabadítása billentyűparancsot</span>`,
+            `Alternatívaként kattintson az alábbi <span class="hl">Linkelés</span> gombra, hogy hozzáadja az aktív ablakhoz tartozó végrehajtható fájlt a <span class="hl">Kapcsolt játékok</span> menühöz`,
+            `<span class="hl help" id="linkgamehelp"><u>Mi történik, ha rákattintok a Linkelés gombra?</u></span>`
+        ],
+        linkgamehelp: "Játék csatlakoztatása ablakon keresztül",
+        linkgamehelpsub: [
+            `A <span class="hl">Linkelés</span> gombra kattintva automatikusan hozzáadódik egy új bejegyzés a <span class="hl">Beállítások</span> > <span class="hl">Kapcsolt játékok</span> menübe az aktuálisan fókuszált ablak információi alapján.`,
+            `A <span class="hl">Linkelés</span> gombra kattintás után elindul egy 5 másodperces visszaszámlálás`,
+            `A visszaszámlálás lejárta előtt fókuszáljon a játék ablakára`,
+            `Miután lejárt a visszaszámlálás, egy új bejegyzés kerül hozzáadásra az aktuális <span class="hl">AppID</span> számára a <span class="hl">Beállítások</span> > <span class="hl">Kapcsolt játékok</span> menübe, az aktív ablak végrehajtható fájljának használatával`,
+            `Ha újra meg kell próbálnia, távolítsa el a bejegyzést a <span class="hl">Beállítások</span> > <span class="hl">Kapcsolt játékok</span> menüből, a <span id="linkhelpunlink"></span> gombra kattintva`
+        ],
+        addlinkfailed: "Nem sikerült csatlakoztatni az ablakot",
+        addlinkfailedsub: `Kattintson a <span class="hl">Linkelés</span> gombra a próbálkozáshoz`,
         webhookunlockmsg: "$user teljesítményt oldott fel",
         webhookingame: "a $gamename játékban",
         notconnected: "Nincs csatlakoztatva"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Százalék megjelenítése",
                 soundonly: "Csak hang",
                 extwin: "Stream értesítések",
+                extwinframerate: "Képfrissítési sebesség",
+                extwinshow: "Ablak megjelenítése",
                 audiosrc: "Hangforrás",
                 notify: "Értesítés",
                 app: "Alkalmazás",
@@ -110,6 +128,7 @@ export const translations = {
                 noiconcache: "Ikon gyorsítótár kikapcsolása",
                 webhooks: "Postázás Discord szerverre",
                 webhookurl: `Webhook URL`,
+                webhooktypes: "Webhook típusok",
                 webhookcaution: `Ezeket a beállításokat aktiválva és érvényes Discord Webhook linket adva meg, elfogadja, hogy megérti, hogy <u>minden jelenlegi Steam felhasználóra vonatkozó teljesítmény- és játékadat</u> közzétételre kerül az adott Discord szerveren a megadott Webhook linken keresztül.<br><br>Ha nem szeretné, hogy a Steam Achievement Notifier közzétegye ezeket az információkat az Ön nevében, kérjük, tiltsa le ezt az opciót.`,
                 webhooklaststatus: "Utolsó Állapot"
             }
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Frissítési párbeszédpanel kikapcsolása",
                 nvda: "NVDA támogatás engedélyezése",
                 tooltips: "Eszközleírások megjelenítése",
-                showsystrayopts: "Rendszer tálca opciók megjelenítése"
+                showsystrayopts: "Rendszer tálca opciók megjelenítése",
+                releaseshortcut: "Játék felszabadítása billentyűparancs"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Az eredmény feloldási százalékának megjelenítése az értesítésben a kiválasztott típusokhoz",
         soundonly: "Értesítések letiltása, csak a Customiser által beállított hangok lejátszása",
         extwin: "Létrehoz egy rejtett háttérablakot, amely megduplázza a jelenleg képernyőn megjelenő értesítéseket. Ez az ablak hozzáadható egy ablakrögzítési forrásként a streaming szoftverekhez, például az OBS-hez",
+        extwinframerate: "Cél képfrissítési sebesség beállítása a stream értesítésekhez",
+        extwinshow: "A stream értesítési ablak láthatóságának váltása",
         audiosrc: "Hangforrás kiválasztása (vagy letiltása), amelyet az alkalmazás generál",
         nowtracking: "Értesítés megjelenítése arról, hogy egy futó játék eredményeit követi",
         nowtrackingscale: `Állítsa be a követési értesítés méretét`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Testreszabások importálása egy felhasználó által létrehozott <span class="hl">témafájl</span> segítségével`,
         exporttheme: `Az aktuálisan kiválasztott <span class="hl">téma</span> exportálása megosztáshoz<br><br><span class="ttdesc">Az exportálás előtt győződjön meg róla, hogy az kívánt <span class="hl">téma</span> van kiválasztva (a <span class="hl">Téma kiválasztása</span> menüponton keresztül). Továbbá, győződjön meg róla, hogy a testreszabások el vannak mentve az kiválasztott <span class="hl">témában</span> (a <span class="hl">Téma mentése</span> menüponton keresztül)<br><br><u>Bármilyen testreszabás, amely még nem lett elmentve az aktuális <span class="hl">témába</span>, nem fog exportálódni!</u></span>`,
         webhooks: "Használjon Webhook URL-t, hogy egy Discord szerveren tegyen közzé egy üzenetet, amikor egy teljesítmény feloldódik",
+        webhooktypesmain: `Váltás, hogy küldjenek-e teljesítményinformációkat egy Discord szerverre, amikor egy fő teljesítmény elérhető`,
+        webhooktypesrare: "Váltás, hogy küldjenek-e teljesítményinformációkat egy Discord szerverre, amikor egy ritka teljesítmény elérhető",
+        webhooktypesplat: "Váltás, hogy küldjenek-e teljesítményinformációkat egy Discord szerverre, amikor egy 100%-os teljesítmény elérhető",
         webhookurl: `Állítsa be a <span class="hl">Webhook URL</span> a kívánt Discord szerverhez<br><br><span class="ttdesc">Egy <span class="hl">Webhook URL</span> arra szolgál, hogy közzétegyen egy üzenetet egy Discord szerveren/csatornán felhasználó vagy alkalmazás nevében. Új Webhook beállításához egy Discord szerveren, a felhasználónak szerepet kell vállalnia a kívánt szerveren, amely engedélyezi a Webhook-ok létrehozását<br><br><u>Webhook URL szükséges ezen opció használatához</u><br><br>További információkért nézze meg a Discord hivatalos dokumentációját</span>`,
         unlockmsg: "Állítsa be a feloldó üzenet/személyre szabott szöveg helyét a $type-ban",
         title: "Állítsa be a teljesítmény címének helyét a $type-ban",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `A figyelmeztető elemek beállításainak egyeztetése a testreszabóban ennek a figyelmeztetési típusnak<br><br><span class="ttdesc">Néhány figyelmeztetési előre beállított beállítás nem tud teljesen megfelelni a testreszabó beállításainak, a képernyőn megjelenő és a képernyőképen alapuló figyelmeztetési elrendezések közötti eltérések miatt</span>`,
         themeswitch: `Automatikusan váltson bármely mentett <span class="hl">Témára</span>, amikor egy adott játékot észlel`,
         userthemesync: `Szinkronizálja a testreszabásokat a kiválasztott <span class="hl">Témában</span> minden más figyelmeztetési típushoz`,
-        showsystrayopts: `Az összes lehetőség megjelenítése, amely általában a <span class="hl">Rendszer tálca</span> > <span class="hl">Opciók</span> alatt található a <span class="hl">Beállítások</span> > <span class="hl">Vegyesek</span> részen`
+        showsystrayopts: `Az összes lehetőség megjelenítése, amely általában a <span class="hl">Rendszer tálca</span> > <span class="hl">Opciók</span> alatt található a <span class="hl">Beállítások</span> > <span class="hl">Vegyesek</span> részen`,
+        releaseshortcut: "A jelenleg nyomon követett játék felszabadítása a megadott billentyűparanccsal"
     },
     update: {
         updateavailable: "Frissítés elérhető",

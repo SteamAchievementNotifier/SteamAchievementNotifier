@@ -8,7 +8,6 @@ import { language } from "./language"
 import { update } from "./update"
 
 let appid: number = 0
-
 let extwin: BrowserWindow | null = null
 
 export const listeners = {
@@ -189,16 +188,17 @@ export const listeners = {
         })
 
         ipcMain.on("worker",(event,args) => console.log(JSON.parse(args)))
-        ipcMain.on("noexe",() => {
+        ipcMain.on("noexe",(event,addlinkfailed?: boolean) => {
             const config = sanconfig.get()
-            let noexewin: BrowserWindow | null = null
+            let notifywin: BrowserWindow | null = null
+            const ipctype = !addlinkfailed ? "noexe" : "addlinkfailed"
 
             // Delay to prevent overlapping with trackwin
             setTimeout(() => {
                 const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
     
-                noexewin = new BrowserWindow({
-                    title: `Steam Achievement Notifier (V${sanhelper.version}): No Game EXE`,
+                notifywin = new BrowserWindow({
+                    title: `Steam Achievement Notifier (V${sanhelper.version}): ${!addlinkfailed ? "No Game EXE" : "Add Link Failed"}`,
                     width: Math.round((375 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
                     height: Math.round((112.5 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
                     autoHideMenuBar: true,
@@ -209,7 +209,7 @@ export const listeners = {
                     maximizable: false,
                     fullscreen: false,
                     fullscreenable: false,
-                    skipTaskbar: sanhelper.devmode,
+                    skipTaskbar: true,
                     movable: false,
                     resizable: false,
                     show: false,
@@ -219,34 +219,35 @@ export const listeners = {
                     }
                 })
     
-                noexewin.setAlwaysOnTop(true,"screen-saver")
-                sanhelper.devmode && sanhelper.setdevtools(noexewin)
+                addlinkfailed && notifywin.setIgnoreMouseEvents(true)
+                notifywin.setAlwaysOnTop(true,"screen-saver")
+                sanhelper.devmode && sanhelper.setdevtools(notifywin)
     
-                noexewin.loadFile(path.join(__root,"dist","app","noexe.html"))
+                notifywin.loadFile(path.join(__root,"dist","app",`${ipctype}.html`))
     
-                ipcMain.once("noexeready", async () => {
-                    if (!noexewin) return
+                ipcMain.once(`${ipctype}ready`, async () => {
+                    if (!notifywin) return
 
-                    const { width, height } = noexewin.getBounds()
+                    const { width, height } = notifywin.getBounds()
                     const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
     
-                    noexewin.webContents.send("noexeready",await language.get("noexe"),await language.get("noexesub"))
-                    shownotify(noexewin,bounds)
+                    notifywin.webContents.send(`${ipctype}ready`,await language.get(ipctype),await language.get(`${ipctype}sub`))
+                    shownotify(notifywin,bounds)
             
-                    return setTimeout(() => noexewin && noexewin.webContents.send("noexeclose"),7500)
+                    return setTimeout(() => notifywin && notifywin.webContents.send(`${ipctype}close`),!addlinkfailed ? 7500 : 5000)
                 })
     
-                ipcMain.once("noexeclose", () => {
-                    if (!noexewin) return
+                ipcMain.once(`${ipctype}close`, () => {
+                    if (!notifywin) return
 
-                    noexewin.destroy()
-                    noexewin = null
+                    notifywin.destroy()
+                    notifywin = null
                 })
 
-                ipcMain.once("noexeclick",() => {
+                !addlinkfailed && ipcMain.once(`${ipctype}click`,() => {
                     win.show()
                     win.focus()
-                    win.webContents.send("noexeclick")
+                    win.webContents.send(`${ipctype}click`,appid)
                 })
             },config.get("nowtracking") ? 6500 : 0)
         })
@@ -511,15 +512,15 @@ export const listeners = {
 
         ipcMain.on("resetwin",setwinsize)
 
-        ipcMain.on("releasegame", () => {
+        ipcMain.on("releasegame", (event,skipdialog?: boolean) => {
             const { noreleasedialog } = sanconfig.get().store
 
-            if (!noreleasedialog) {
+            if (!skipdialog || !noreleasedialog) {
                 win.show()
                 win.focus()
             }
 
-            win.webContents.send("releasegame",noreleasedialog)
+            win.webContents.send("releasegame",skipdialog || noreleasedialog)
         })
 
         ipcMain.on("suspendresume", () => {
@@ -599,8 +600,6 @@ export const listeners = {
             })
         })
 
-        // const extwinmoved = () => extwin && savewindowstate(extwin,"extwinpos")
-
         ipcMain.on("extwin", (event,value: boolean) => {
             const config = sanconfig.get()
             // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
@@ -608,52 +607,43 @@ export const listeners = {
 
             if (!value) return closeextwin()
 
+            const { x, y } = config.get("extwinpos")
+
             extwin = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): Stream Notification`,
                 width: 300,
                 height: 50,
                 minWidth: 125,
                 minHeight: 50,
-                x: 0,
-                y: 0,
+                x: x,
+                y: y,
                 autoHideMenuBar: true,
                 fullscreen: false,
                 fullscreenable: false,
                 minimizable: false,
                 maximizable: false,
                 resizable: false,
-                // frame: config.get("extwinshow"),
+                movable: true,
                 frame: false,
-                // transparent: !config.get("extwinshow"),
                 transparent: true,
-                // opacity: config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0),
-                opacity: sanhelper.devmode ? 0.5 : 0,
                 skipTaskbar: false,
-                useContentSize: true,
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
-                    backgroundThrottling: false,
-                    webviewTag: true
+                    backgroundThrottling: false
                 }
             })
 
-            // const { x, y } = ["x","y"].reduce((key,value) => {
-            //     key[value as "x" | "y"] = config.get("extwinshow") ? config.get("extwinpos")[value as "x" | "y"] : 0
-            //     return key
-            // }, {} as { x: number; y: number })
+            // `extwin` does not render content if transparency is set while HWA is disabled
+            !config.get("nohwa") && extwin.setOpacity(config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0))
 
-            // extwin.setPosition(x,y)
-
-            // extwin.setIgnoreMouseEvents(!config.get("extwinshow"))
-            extwin.setIgnoreMouseEvents(true)
-            extwin.loadFile(config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html"))
+            extwin.loadFile(path.join(__root,"dist","app","extwin.html"))
             sanhelper.devmode && sanhelper.setdevtools(extwin)
 
-            // extwin.on("moved",extwinmoved)
-
             extwin.once("close", () => {
-                // extwin && extwin.removeListener("moved",extwinmoved)
+                const { x, y } = extwin!.getBounds()
+                config.set("extwinpos",{ x: x, y: y })
+
                 reopenonlaunch = false
             })
 
@@ -664,14 +654,7 @@ export const listeners = {
             })
         })
 
-        // ipcMain.on("extwinshow", () => {
-        //     if (extwin) {
-        //         extwin.destroy()
-        //         extwin = null
-        //     }
-
-        //     setTimeout(() => ipcMain.emit("extwin",null,true),1000)
-        // })
+        ipcMain.on("extwinshow",(event,show: boolean) => extwin && extwin.setOpacity(show ? 1 : (sanhelper.devmode ? 0.5 : 0)))
 
         ipcMain.on("closeopenwins", () => {
             if (!poswin) return
@@ -877,6 +860,7 @@ export const listeners = {
         }
 
         let notifywin: BrowserWindow | Notification | null = null
+        let offscreenwin: BrowserWindow | null = null
         let notifyfailed: boolean = false
 
         const checkifrunning = (info: BuildNotifyInfo): any => {
@@ -917,13 +901,37 @@ export const listeners = {
                 notifywin.show()
             } else {
                 notifywin = new BrowserWindow(options)
+                offscreenwin = !extwin ? null : new BrowserWindow({
+                    ...options,
+                    title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
+                    x: 0,
+                    y: 0,
+                    webPreferences: {
+                        nodeIntegration: true,
+                        contextIsolation: false,
+                        backgroundThrottling: false,
+                        offscreen: true
+                    }
+                })
+
+                offscreenwin?.webContents.setFrameRate(config.get("extwinframerate"))
             }
 
             if (notifywin instanceof BrowserWindow) {
-                notifywin.loadFile(config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html"))
+                const basehtml = config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html")
+
+                notifywin.loadFile(basehtml)
                 config.get("screenshots") !== "off" && config.get("ssdelay") > 0 && notifywin.setContentProtection(true)
                 notifywin.setIgnoreMouseEvents(true)
                 notifywin.setAlwaysOnTop(true,"screen-saver",1000)
+
+                if (extwin && offscreenwin instanceof BrowserWindow) {
+                    offscreenwin.loadFile(basehtml)
+                    offscreenwin.setIgnoreMouseEvents(true)
+
+                    // Send img data to offscreen window if `extwin` is active
+                    offscreenwin.webContents.on("paint",(event,_,img) => extwin && extwin.webContents.send("imgdata",img.toDataURL()))
+                }
 
                 const notifyinfo = async (isextwin?: boolean) => {
                     return {
@@ -941,7 +949,11 @@ export const listeners = {
 
                 notifywin.once("ready-to-show", async () => {
                     (notifywin as BrowserWindow).webContents.send("notify",await notifyinfo())
-                    extwin && extwin.webContents.send("notify",await notifyinfo(true))
+
+                    if (extwin) {
+                        if (!offscreenwin) return log.write("ERROR",`"offscreenwin" not found - cannot send "notify" ipc event`)
+                        offscreenwin.webContents.send("notify",await notifyinfo(true))
+                    }
                 })
     
                 config.get("notifydebug") && sanhelper.setdevtools(notifywin)
@@ -959,15 +971,10 @@ export const listeners = {
                         log.write("INFO",msg)
 
                         shownotify(win,bounds,isextwin)
-
-                        if (isextwin) {
-                            win.setResizable(false)
-                            setTimeout(() => extwin ? extwin.webContents.send("notifyfinished",true,customisation.preset) : log.write("ERROR",`"extwin" destroyed before finishing timeout`),displaytime * 1000)
-                        }
                     }
                     
                     preparewin(notifywin as BrowserWindow)
-                    extwin && preparewin(extwin,true)
+                    extwin && [(offscreenwin as BrowserWindow),extwin].forEach(win => preparewin(win,true))
                 })
             }
 
@@ -986,6 +993,7 @@ export const listeners = {
             return setTimeout(() => {
                 if (notifyfailed) {
                     notifywin = null
+                    offscreenwin = null
                     running = false
 
                     log.write("ERROR",`Notification window failed for "${notify.apiname}" - Check log for details`)
@@ -996,10 +1004,17 @@ export const listeners = {
                 ipcMain.once("notifyfinished", async () => {
                     try {
                         const msg = await new Promise<string>(async resolve => {
-                            if (!notifywin) return log.write("ERROR",`"notifywin" not found`)
+                            if (!notifywin) log.write("ERROR",`"notifywin" not found - cannot close window`)
 
-                            notifywin.close()
+                            notifywin && notifywin.close()
                             notifywin = null
+
+                            if (extwin) {
+                                if (!offscreenwin) log.write("ERROR",`"offscreenwin" not found - cannot close window`)
+
+                                offscreenwin && offscreenwin.close()
+                                offscreenwin = null
+                            }
 
                             resolve(`Notification window for "${notify.apiname}" closed successfully`)
                         })
@@ -1016,6 +1031,11 @@ export const listeners = {
                 })
 
                 notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished") : ipcMain.emit("notifyfinished")
+                
+                if (extwin) {
+                    if (!offscreenwin) return log.write("ERROR",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
+                    offscreenwin.webContents.send("notifyfinished")
+                }
             },displaytime * 1000)
         }
 
@@ -1024,9 +1044,6 @@ export const listeners = {
             log.write("ERROR",err.msg)
             win.webContents.send("notifyprogress",0,true)
         })
-
-        // Prevents "Object has been destroyed" error if `extwin` is closed before `setTimeout` has occurred
-        ipcMain.on("notifyclosed", (event,isextwin?: boolean,preset?: string) => (isextwin && extwin) && extwin.webContents.send("notifyclosed",preset))
 
         ipcMain.on("sendwebhook", (event,notify: Notify) => win.webContents.send("sendwebhook",notify))
 

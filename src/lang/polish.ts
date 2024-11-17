@@ -60,7 +60,23 @@ export const translations = {
             `Strony internetowe takie jak <span class="hl">SteamDB</span> - sekcja <span class="hl">Informacje o aplikacji</span> wylistuje AppID dla każdej gry`
         ],
         noexe: "Nie znaleziono pliku EXE gry!",
-        noexesub: `Wybierz Opcje > Zakończ grę z Paska zadań, aby zamknąć`,
+        noexesub: "Kliknij tutaj, aby uzyskać więcej informacji",
+        noexedialogsub: [
+            `Steam Achievement Notifier nie udało się automatycznie znaleźć pliku wykonywalnego dla tej gry. Lokalizacja pliku wykonywalnego gry jest wymagana, aby "uwolnić" grę`,
+            `Aby ręcznie uwolnić grę, <i>kliknij prawym przyciskiem</i> na <span class="hl">ikonie w zasobniku systemowym</span> > <span class="hl">Opcje</span> > <span class="hl">Uwolnij grę</span>, lub użyj <span class="hl">Skrótu do uwolnienia gry</span>`,
+            `Alternatywnie, kliknij przycisk <span class="hl">Link</span> poniżej, aby dodać powiązany plik wykonywalny aktywnego okna do menu <span class="hl">Powiązane gry</span>`,
+            `<span class="hl help" id="linkgamehelp"><u>Co się stanie, gdy kliknę przycisk Link?</u></span>`
+        ],
+        linkgamehelp: "Linkowanie gry przez okno",
+        linkgamehelpsub: [
+            `Klikając przycisk <span class="hl">Link</span>, automatycznie zostanie dodany nowy wpis do menu <span class="hl">Ustawienia</span> > <span class="hl">Powiązane gry</span>, korzystając z informacji z aktualnie aktywnego okna.`,
+            `Po kliknięciu przycisku <span class="hl">Link</span>, rozpocznie się 5-sekundowy timer`,
+            `Zanim timer wygaśnie, skup uwagę na oknie gry`,
+            `Po zakończeniu timera, nowy wpis dla aktualnego <span class="hl">AppID</span> zostanie dodany do menu <span class="hl">Ustawienia</span> > <span class="hl">Powiązane gry</span>, używając powiązanego pliku wykonywalnego aktywnego okna`,
+            `Jeśli musisz spróbować ponownie, usuń wpis z <span class="hl">Ustawienia</span> > <span class="hl">Powiązane gry</span>, klikając przycisk <span id="linkhelpunlink"></span>`
+        ],
+        addlinkfailed: "Nie udało się połączyć okna",
+        addlinkfailedsub: `Kliknij przycisk <span class="hl">Link</span>, aby spróbować ponownie`,
         webhookunlockmsg: "$user odblokował osiągnięcie",
         webhookingame: "w $gamename",
         notconnected: "Niepołączony"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Pokaż procent",
                 soundonly: "Tylko dźwięk",
                 extwin: "Powiadomienia strumieniowe",
+                extwinframerate: "Częstotliwość klatek",
+                extwinshow: "Pokaż okno",
                 audiosrc: "Źródło dźwięku",
                 notify: "Powiadomienie",
                 app: "Aplikacja",
@@ -110,6 +128,7 @@ export const translations = {
                 noiconcache: "Wyłącz pamięć podręczną ikon",
                 webhooks: "Post na serwer Discord",
                 webhookurl: `URL Webhook`,
+                webhooktypes: "Rodzaje Webhook",
                 webhookcaution: `Włączając tę opcję i podając ważny link Webhook Discord, zgadzasz się zrozumieć, że <u>wszystkie informacje o osiągnięciach i grach dla bieżącego użytkownika Steam</u> zostaną opublikowane na wskazanym serwerze Discord za pośrednictwem podanego linku Webhook.<br><br>Jeśli nie chcesz, aby Steam Achievement Notifier publikował te informacje w Twoim imieniu, wyłącz tę opcję.`,
                 webhooklaststatus: "Ostatni status"
             }
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Wyłącz okno aktualizacji",
                 nvda: "Włącz obsługę NVDA",
                 tooltips: "Pokaż etykiety narzędzi",
-                showsystrayopts: "Pokaż opcje w zasobniku systemowym"
+                showsystrayopts: "Pokaż opcje w zasobniku systemowym",
+                releaseshortcut: "Skrót do uwolnienia gry"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Wyświetl procent odblokowania osiągnięcia w powiadomieniu dla wybranych typów",
         soundonly: "Wyłącz powiadomienia, odtwarzając tylko dźwięki ustawione za pomocą Customiser",
         extwin: "Utwórz ukryte tło, które duplikuje wszelkie aktualnie wyświetlane powiadomienia na ekranie. To okno można następnie dodać jako źródło przechwytywania okna do oprogramowania do strumieniowania, takiego jak OBS",
+        extwinframerate: "Ustaw docelową częstotliwość klatek dla powiadomień strumieniowych",
+        extwinshow: "Przełącz widoczność okna powiadomień strumieniowych",
         audiosrc: "Wybierz źródło dźwięku generowanego przez aplikację (lub wyłącz)",
         nowtracking: "Wyświetl powiadomienie informujące użytkownika, że śledzone są osiągnięcia dla uruchomionej gry",
         nowtrackingscale: `Ustaw rozmiar powiadomienia o śledzeniu`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importuj dostosowania za pomocą <span class="hl">pliku motywu</span> stworzonego przez użytkownika`,
         exporttheme: `Eksportuj aktualnie wybrany <span class="hl">motyw</span> w celu udostępnienia<br><br><span class="ttdesc">Przed próbą eksportu upewnij się, że wybrany <span class="hl">motyw</span> jest zaznaczony (za pomocą menu <span class="hl">Wybierz motyw</span>). Upewnij się również, że dostosowania zostały zapisane w wybranym <span class="hl">motywie</span> (za pomocą menu <span class="hl">Zapisz motyw</span>)<br><br><u>Wszelkie dostosowania niezapisane w bieżącym <span class="hl">motywie</span> nie zostaną wyeksportowane!</u></span>`,
         webhooks: "Użyj URL Webhook, aby publikować na serwerze Discord za każdym razem, gdy osiągnięcie zostanie odblokowane",
+        webhooktypesmain: `Przełącz, czy publikować informacje o osiągnięciach na serwerze Discord, gdy główne osiągnięcie zostanie odblokowane`,
+        webhooktypesrare: "Przełącz, czy publikować informacje o osiągnięciach na serwerze Discord, gdy rzadkie osiągnięcie zostanie odblokowane",
+        webhooktypesplat: "Przełącz, czy publikować informacje o osiągnięciach na serwerze Discord, gdy osiągnięcie 100% zostanie odblokowane",
         webhookurl: `Ustaw <span class="hl">URL Webhook</span> dla wybranego serwera Discord<br><br><span class="ttdesc">URL Webhook służy do publikowania na serwerze/kanale Discord w imieniu użytkownika lub aplikacji. Aby skonfigurować nowy Webhook dla serwera Discord, użytkownik musi mieć rolę na wybranym serwerze, która pozwala na tworzenie Webhooków<br><br><u>URL Webhook jest wymagany do korzystania z tej opcji</u><br><br>Więcej informacji znajdziesz w oficjalnej dokumentacji Discorda</span>`,
         unlockmsg: "Ustaw położenie wiadomości odblokowania/tekstów niestandardowych w $type",
         title: "Ustaw położenie tytułu osiągnięcia w $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Dopasuj ustawienia elementów powiadomienia ustawione w dostosowywaczu dla tego typu powiadomienia<br><br><span class="ttdesc">Niektóre domyślne powiadomienia mogą nie być w stanie w pełni dopasować ustawień dostosowywacza z powodu różnic między układami powiadomień opartymi na ekranie i zrzutach ekranu</span>`,
         themeswitch: `Automatycznie przełączaj się na dowolny zapisany <span class="hl">motyw</span>, gdy wykryte jest konkretne gra`,
         userthemesync: `Synchronizuj dostosowania w wybranym <span class="hl">motywie</span> dla wszystkich innych typów powiadomień`,
-        showsystrayopts: `Wyświetl wszystkie opcje zazwyczaj znajdujące się w <span class="hl">Zasobniku systemowym</span> > <span class="hl">Opcje</span> w <span class="hl">Ustawieniach</span> > <span class="hl">Różne</span>`
+        showsystrayopts: `Wyświetl wszystkie opcje zazwyczaj znajdujące się w <span class="hl">Zasobniku systemowym</span> > <span class="hl">Opcje</span> w <span class="hl">Ustawieniach</span> > <span class="hl">Różne</span>`,
+        releaseshortcut: "Uwolnij aktualnie śledzoną grę za pomocą określonego skrótu klawiaturowego"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

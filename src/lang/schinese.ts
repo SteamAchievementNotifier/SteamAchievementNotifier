@@ -60,7 +60,23 @@ export const translations = {
             `诸如 <span class="hl">SteamDB</span> 之类的网站 - <span class="hl">App 信息</span> 部分将列出每个游戏的 AppID`
         ],
         noexe: "未找到游戏的 EXE 文件！",
-        noexesub: `选择选项 > 从系统托盘退出游戏`,
+        noexesub: "点击这里获取更多信息",
+        noexedialogsub: [
+            `Steam Achievement Notifier 无法自动找到此游戏的可执行文件。游戏的可执行文件位置是释放游戏所必需的`,
+            `要手动释放游戏，<i>右键点击</i> <span class="hl">系统托盘图标</span> > <span class="hl">选项</span> > <span class="hl">释放游戏</span>，或使用 <span class="hl">释放游戏快捷键</span>`,
+            `另外，点击下面的 <span class="hl">链接</span> 按钮，将焦点窗口的相关可执行文件添加到 <span class="hl">已链接游戏</span> 菜单中`,
+            `<span class="hl help" id="linkgamehelp"><u>点击链接按钮会发生什么？</u></span>`
+        ],
+        linkgamehelp: "通过窗口链接游戏",
+        linkgamehelpsub: [
+            `点击 <span class="hl">链接</span> 按钮将自动将一个新条目添加到 <span class="hl">设置</span> > <span class="hl">已链接游戏</span> 菜单中，使用当前焦点窗口的信息。`,
+            `点击 <span class="hl">链接</span> 按钮后，会启动一个 5 秒钟的计时器`,
+            `在计时器结束前，聚焦到游戏窗口`,
+            `计时器结束后，当前 <span class="hl">AppID</span> 的新条目将被添加到 <span class="hl">设置</span> > <span class="hl">已链接游戏</span> 菜单中，使用焦点窗口的可执行文件`,
+            `如果需要重试，可以通过 <span class="hl">设置</span> > <span class="hl">已链接游戏</span> 删除该条目，点击 <span id="linkhelpunlink"></span> 按钮`
+        ],
+        addlinkfailed: "无法链接窗口",
+        addlinkfailedsub: `点击 <span class="hl">链接</span> 按钮重试`,
         webhookunlockmsg: "$user 解锁了一个成就",
         webhookingame: "在 $gamename",
         notconnected: "未连接"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "显示百分比",
                 soundonly: "仅声音模式",
                 extwin: "流通知",
+                extwinframerate: "帧率",
+                extwinshow: "显示窗口",
                 audiosrc: "音频来源",
                 notify: "通知",
                 app: "应用",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "通知快捷方式",
                 noiconcache: "禁用图标缓存",
                 webhooks: "发布到 Discord 服务器",
+                webhooktypes: "Webhook 类型",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `启用此选项并提供有效的 Discord Webhook 链接即表示您同意，您了解 <u>当前 Steam 用户的所有成就和游戏信息</u> 将通过提供的 Webhook 链接发布到指定的 Discord 服务器。<br><br>如果您不希望 Steam Achievement Notifier 代表您发布这些信息，请禁用此选项。`,
                 webhooklaststatus: "最后状态"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "禁用更新对话框",
                 nvda: "启用NVDA支持",
                 tooltips: "显示工具提示",
-                showsystrayopts: "显示系统托盘选项"
+                showsystrayopts: "显示系统托盘选项",
+                releaseshortcut: "释放游戏快捷键"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "在所选类型的通知中显示成就的解锁百分比",
         soundonly: "禁用通知，仅播放通过Customiser设置的声音",
         extwin: "创建一个隐藏的后台窗口，复制当前正在显示的任何通知。然后可以将此窗口添加为窗口捕获源，用于流媒体软件（如OBS）",
+        extwinframerate: "设置流通知的目标帧率",
+        extwinshow: "切换流通知窗口的可见性",
         audiosrc: "选择（或禁用）应用程序生成的音频的来源",
         nowtracking: "显示通知，通知用户正在跟踪运行中游戏的成就",
         nowtrackingscale: `设置跟踪通知的大小`,
@@ -466,6 +488,9 @@ export const translations = {
         exporttheme: `导出当前选择的<span class="hl">主题</span>以供分享<br><br><span class="ttdesc">在尝试导出之前，请确保选择了所需的<span class="hl">主题</span>（通过<span class="hl">主题选择</span>菜单）。还请确保将自定义保存到所选<span class="hl">主题</span>中（通过<span class="hl">保存主题</span>菜单）<br><br><u>尚未保存到当前<span class="hl">主题</span>的任何自定义设置将不会被导出！</u></span>`,
         webhooks: "使用 Webhook URL 每当解锁成就时在 Discord 服务器上发布",
         webhookurl: `设置所需 Discord 服务器的 <span class="hl">Webhook URL</span><br><br><span class="ttdesc">Webhook URL 用于代表用户或应用程序在 Discord 服务器/频道上发布。要为 Discord 服务器设置新的 Webhook，用户必须在所需服务器上拥有允许创建 Webhook 的角色<br><br><u>使用此选项时需要 Webhook URL</u><br><br>有关更多信息，请参阅 Discord 的官方文档</span>`,
+        webhooktypesmain: `切换是否在 Discord 服务器发布主成就解锁信息`,
+        webhooktypesrare: "切换是否在 Discord 服务器发布稀有成就解锁信息",
+        webhooktypesplat: "切换是否在 Discord 服务器发布 100% 成就解锁信息",
         unlockmsg: "设置 $type 内解锁消息/自定义文本的位置",
         title: "设置 $type 内成就标题的位置",
         desc: "设置 $type 内成就描述的位置",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `匹配为此通知类型在自定义设置中设置的通知元素设置<br><br><span class="ttdesc">某些通知预设可能无法完全匹配自定义设置，因为屏幕和基于截图的通知布局之间存在差异</span>`,
         themeswitch: `当检测到特定游戏时自动切换到任何保存的 <span class="hl">主题</span>`,
         userthemesync: `将选定的 <span class="hl">主题</span> 中的自定义同步到所有其他通知类型`,
-        showsystrayopts: `显示通常位于 <span class="hl">系统托盘</span> > <span class="hl">选项</span> 下的所有选项，在 <span class="hl">设置</span> > <span class="hl">其他</span>`
+        showsystrayopts: `显示通常位于 <span class="hl">系统托盘</span> > <span class="hl">选项</span> 下的所有选项，在 <span class="hl">设置</span> > <span class="hl">其他</span>`,
+        releaseshortcut: "使用指定的快捷键释放当前跟踪的游戏"
     },
     update: {
         updateavailable: "有可用更新",

@@ -59,8 +59,24 @@ export const translations = {
             `遊戲的 <span class="hl">商店頁面</span> 的 <span class="hl">URL</span> - 這將是 <span class="hl">app/</span> 之後列出的數字： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
             `像 <span class="hl">SteamDB</span> 這樣的網站 - <span class="hl">應用程式資訊</span> 部分將列出每個遊戲的 AppID`
         ],
-        noexe: "找不到遊戲的 EXE 文件！",
-        noexesub: `選擇選項 > 從系統托盤退出遊戲`,
+        noexe: "未找到遊戲的 EXE 檔案！",
+        noexesub: "點擊這裡了解更多資訊",
+        noexedialogsub: [
+            `Steam Achievement Notifier 無法自動找到此遊戲的可執行檔案。遊戲的可執行檔案位置是「釋放」遊戲所必須的`,
+            `要手動釋放遊戲，<i>右鍵點擊</i> <span class="hl">系統匣圖示</span> > <span class="hl">選項</span> > <span class="hl">釋放遊戲</span>，或使用 <span class="hl">釋放遊戲快捷鍵</span>`,
+            `另外，點擊下面的 <span class="hl">Link</span> 按鈕將焦點視窗的相關可執行檔案添加到 <span class="hl">已連結遊戲</span> 菜單`,
+            `<span class="hl help" id="linkgamehelp"><u>點擊 Link 按鈕會發生什麼？</u></span>`
+        ],
+        linkgamehelp: "通過視窗連結遊戲",
+        linkgamehelpsub: [
+            `點擊 <span class="hl">Link</span> 按鈕將會自動將新條目添加至 <span class="hl">設定</span> > <span class="hl">已連結遊戲</span> 菜單，並使用當前焦點視窗的資訊`,
+            `點擊 <span class="hl">Link</span> 按鈕後，會開始 5 秒計時器`,
+            `在計時器結束前，請將焦點放到遊戲視窗`,
+            `計時器結束後，會將當前 <span class="hl">AppID</span> 的新條目添加至 <span class="hl">設定</span> > <span class="hl">已連結遊戲</span> 菜單，並使用焦點視窗的可執行檔案`,
+            `如果需要重試，請透過 <span class="hl">設定</span> > <span class="hl">已連結遊戲</span> 刪除該條目，並點擊 <span id="linkhelpunlink"></span> 按鈕`
+        ],
+        addlinkfailed: "無法連結視窗",
+        addlinkfailedsub: `點擊 <span class="hl">Link</span> 按鈕重試`,
         webhookunlockmsg: "$user 解鎖了一個成就",
         webhookingame: "在 $gamename",
         notconnected: "未連接"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "顯示百分比",
                 soundonly: "僅聲音",
                 extwin: "流通知",
+                extwinframerate: "幀率",
+                extwinshow: "顯示視窗",
                 audiosrc: "音訊來源",
                 notify: "通知",
                 app: "應用程式",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "通知捷徑",
                 noiconcache: "停用圖示快取",
                 webhooks: "發布到 Discord 伺服器",
+                webhooktypes: "Webhook 類型",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `啟用此選項並提供有效的 Discord Webhook 連結，即表示您同意您了解 <u>當前 Steam 用戶的所有成就和遊戲信息</u> 將通過提供的 Webhook 連結發佈到指定的 Discord 伺服器。<br><br>如果您不希望 Steam Achievement Notifier 代表您發佈這些信息，請禁用此選項。`,
                 webhooklaststatus: "最後狀態"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "停用更新對話框",
                 nvda: "啟用 NVDA 支援",
                 tooltips: "顯示工具提示",
-                showsystrayopts: "顯示系統托盤選項"
+                showsystrayopts: "顯示系統托盤選項",
+                releaseshortcut: "釋放遊戲快捷鍵"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "在所選類型的通知中顯示成就的解鎖百分比",
         soundonly: "僅播放通過自訂器設置的聲音，禁用通知",
         extwin: "創建一個隱藏的背景視窗，複製當前正在顯示的任何通知。然後，可以將此視窗添加為流媒體軟體（如 OBS）中的視窗捕獲來源",
+        extwinframerate: "設置流通知的目標幀率",
+        extwinshow: "切換流通知視窗的可見性",
         audiosrc: "選擇應用程式生成的音訊來源（或禁用音訊）",
         nowtracking: "顯示通知，通知用戶正在追蹤運行中遊戲的成就",
         nowtrackingscale: `設置追蹤通知的大小`,
@@ -466,6 +488,9 @@ export const translations = {
         exporttheme: `匯出當前選取的 <span class="hl">主題</span> 以供分享<br><br><span class="ttdesc">在嘗試匯出之前，請確保已選取所需的 <span class="hl">主題</span>（透過 <span class="hl">主題選擇</span> 選單）。同時確保已將自訂設置保存到選取的 <span class="hl">主題</span>（透過 <span class="hl">儲存主題</span> 選單）<br><br><u>未保存到當前 <span class="hl">主題</span> 的任何自訂設置將不會匯出！</u></span>`,
         webhooks: "使用 Webhook URL 在每次解鎖成就時發布到 Discord 伺服器",
         webhookurl: `設置所需 Discord 伺服器的 <span class="hl">Webhook URL</span><br><br><span class="ttdesc">Webhook URL 用於代表用戶或應用程序在 Discord 伺服器/頻道上發布。要為 Discord 伺服器設置新的 Webhook，用戶必須在所需伺服器上擁有允許創建 Webhook 的角色<br><br><u>使用此選項時需要 Webhook URL</u><br><br>詳情請參閱 Discord 的官方文檔</span>`,
+        webhooktypesmain: `切換是否在 Discord 伺服器上發佈主要成就解鎖資訊`,
+        webhooktypesrare: "切換是否在 Discord 伺服器上發佈稀有成就解鎖資訊",
+        webhooktypesplat: "切換是否在 Discord 伺服器上發佈 100% 成就解鎖資訊",
         unlockmsg: "設置 $type 內解鎖消息/自定義文本的位置",
         title: "設置 $type 內成就標題的位置",
         desc: "設置 $type 內成就描述的位置",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `與自定義器為此通知類型設置的通知元素設置匹配<br><br><span class="ttdesc">某些通知預設無法完全匹配自定義器設置，因為屏幕通知與截圖通知佈局之間存在差異</span>`,
         themeswitch: `當檢測到特定遊戲時，自動切換到任何已保存的 <span class="hl">主題</span>`,
         userthemesync: `將所選 <span class="hl">主題</span> 中的自定義同步到所有其他通知類型`,
-        showsystrayopts: `顯示通常位於 <span class="hl">系統托盤</span> > <span class="hl">選項</span> 下的所有選項，在 <span class="hl">設置</span> > <span class="hl">其他</span>`
+        showsystrayopts: `顯示通常位於 <span class="hl">系統托盤</span> > <span class="hl">選項</span> 下的所有選項，在 <span class="hl">設置</span> > <span class="hl">其他</span>`,
+        releaseshortcut: "使用指定的鍵盤快捷鍵釋放當前跟蹤的遊戲"
     },
     update: {
         updateavailable: "有可用更新",

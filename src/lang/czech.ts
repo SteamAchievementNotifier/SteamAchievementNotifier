@@ -60,7 +60,23 @@ export const translations = {
             `Webové stránky jako <span class="hl">SteamDB</span> - sekce <span class="hl">Informace o aplikaci</span> bude seznamovat AppID pro každou hru`
         ],
         noexe: "Soubor EXE hry nebyl nalezen!",
-        noexesub: `Vyberte Možnosti > Uvolnit hru z hlavního panelu pro ukončení`,
+        noexesub: "Klikněte zde pro více informací",
+        noexedialogsub: [
+            `Steam Achievement Notifier nedokázal automaticky najít spustitelný soubor této hry. Umístění spustitelného souboru je nutné k "uvolnění" hry`,
+            `Pro manuální uvolnění hry <i>klikněte pravým tlačítkem</i> na <span class="hl">ikonu v systémové liště</span> > <span class="hl">Možnosti</span> > <span class="hl">Uvolnit hru</span>, nebo použijte <span class="hl">Klávesovou zkratku pro uvolnění hry</span>`,
+            `Alternativně klikněte na tlačítko <span class="hl">Propojit</span> níže a přidejte spustitelný soubor asociovaný s aktuálně aktivním oknem do nabídky <span class="hl">Propojené hry</span>`,
+            `<span class="hl help" id="linkgamehelp"><u>Co se stane, když kliknu na tlačítko Propojit?</u></span>`
+        ],
+        linkgamehelp: "Propojení hry přes okno",
+        linkgamehelpsub: [
+            `Kliknutím na tlačítko <span class="hl">Propojit</span> se automaticky přidá nový záznam do nabídky <span class="hl">Nastavení</span> > <span class="hl">Propojené hry</span> s využitím informací z aktuálně aktivního okna.`,
+            `Po kliknutí na tlačítko <span class="hl">Propojit</span> začne odpočítávání 5 sekund`,
+            `Před koncem odpočítávání aktivujte okno hry`,
+            `Po skončení odpočítávání bude do nabídky <span class="hl">Nastavení</span> > <span class="hl">Propojené hry</span> přidán nový záznam pro aktuální <span class="hl">AppID</span> s využitím spustitelného souboru asociovaného s aktivním oknem`,
+            `Pokud potřebujete zkusit znovu, odstraňte záznam prostřednictvím <span class="hl">Nastavení</span> > <span class="hl">Propojené hry</span> kliknutím na tlačítko <span id="linkhelpunlink"></span>`
+        ],
+        addlinkfailed: "Nelze propojit okno",
+        addlinkfailedsub: `Klikněte na tlačítko <span class="hl">Propojit</span> a zkuste to znovu`,
         webhookunlockmsg: "$user odemkl úspěch",
         webhookingame: "ve $gamename",
         notconnected: "Nepřipojeno"
@@ -100,6 +116,8 @@ export const translations = {
                 showpercent: "Zobrazit procenta",
                 soundonly: "Pouze zvuk",
                 extwin: "Upozornění na stream",
+                extwinframerate: "Snímková frekvence",
+                extwinshow: "Zobrazit okno",
                 audiosrc: "Zdroj zvuku",
                 notify: "Upozornění",
                 app: "Aplikace",
@@ -109,6 +127,7 @@ export const translations = {
                 shortcuts: "Zkratky upozornění",
                 noiconcache: "Zakázat mezipaměť ikon",
                 webhooks: "Odeslat na Discord server",
+                webhooktypes: "Typy webhooků",
                 webhookurl: `URL Webhooku`,
                 webhookcaution: `Povolením této možnosti a poskytnutím platného odkazu na Webhook Discordu souhlasíte s tím, že rozumíte, že <u>veškeré informace o úspěších a hrách aktuálního uživatele Steamu</u> budou odeslány na určený server Discord prostřednictvím poskytnutého odkazu Webhooku.<br><br>Pokud nechcete, aby Steam Achievement Notifier odesílal tyto informace vaším jménem, prosím deaktivujte tuto možnost.`,
                 webhooklaststatus: "Poslední stav"
@@ -148,7 +167,8 @@ export const translations = {
                 noupdatedialog: "Deaktivovat dialog Aktualizace",
                 nvda: "Povolit podporu NVDA",
                 tooltips: "Zobrazit tooltipy",
-                showsystrayopts: "Zobrazit možnosti systémové lišty"
+                showsystrayopts: "Zobrazit možnosti systémové lišty",
+                releaseshortcut: "Klávesová zkratka pro uvolnění hry"
             }
         },
         advanced: {
@@ -362,6 +382,8 @@ export const translations = {
         showpercent: "Zobrazit procento odemknutí achievementu v oznámení pro vybrané typy",
         soundonly: "Vypnout oznámení a pouze přehrát zvuky nastavené pomocí přizpůsobovače",
         extwin: "Vytvořit skryté pozadí okna, které duplikuje všechna aktuálně zobrazená oznámení na obrazovce. Toto okno lze pak přidat jako zdroj pro zachycení okna do streamovacího softwaru, například OBS",
+        extwinframerate: "Nastavit cílovou snímkovou frekvenci pro oznámení streamu",
+        extwinshow: "Přepnout viditelnost okna oznámení streamu",
         audiosrc: "Vyberte zdroj (nebo vypněte) zvuk generovaný aplikací",
         nowtracking: "Zobrazit oznámení upozorňující uživatele, že jsou sledovány achievementy pro běžící hru",
         nowtrackingscale: `Nastavte velikost upozornění na sledování`,
@@ -465,6 +487,9 @@ export const translations = {
         importtheme: `Importovat úpravy prostřednictvím uživatelem vytvořeného <span class="hl">souboru tématu</span>`,
         exporttheme: `Exportovat aktuálně vybrané <span class="hl">téma</span> k sdílení<br><br><span class="ttdesc">Před pokusem o export si prosím ověřte, že je vybráno požadované <span class="hl">téma</span> (pomocí nabídky <span class="hl">Výběr tématu</span>). Ujistěte se také, že byly úpravy uloženy ve vybraném <span class="hl">tématu</span> (pomocí nabídky <span class="hl">Uložit téma</span>)<br><br><u>Veškeré úpravy, které nebyly dosud uloženy v aktuálním <span class="hl">tématu</span>, nebudou exportovány!</u></span>`,
         webhooks: "Použijte URL Webhooku k odesílání na Discord server při každém odemknutí úspěchu",
+        webhooktypesmain: `Přepnout, zda se informace o dosažení mají poslat na Discord server při odemčení hlavního úspěchu`,
+        webhooktypesrare: "Přepnout, zda se informace o dosažení mají poslat na Discord server při odemčení vzácného úspěchu",
+        webhooktypesplat: "Přepnout, zda se informace o dosažení mají poslat na Discord server při odemčení 100% úspěchu",
         webhookurl: `Nastavte <span class="hl">URL Webhooku</span> pro požadovaný Discord server<br><br><span class="ttdesc"> <span class="hl">URL Webhooku</span> slouží k odesílání na Discord server/kanál jménem uživatele nebo aplikace. Aby bylo možné nastavit nový Webhook pro Discord server, uživatel musí mít v požadovaném serveru roli, která umožňuje vytváření Webhooků<br><br><u>Při použití této možnosti je vyžadována URL Webhooku</u><br><br>Pro více informací se podívejte do oficiální dokumentace Discordu</span>`,
         unlockmsg: "Nastavte polohu zprávy o odemknutí/vlastního textu v $type",
         title: "Nastavte polohu názvu úspěchu v $type",
@@ -505,7 +530,8 @@ export const translations = {
         elemsmatch: `Odpovídá nastavení prvků oznámení zadaných v přizpůsobení pro tento typ oznámení<br><br><span class="ttdesc">Některé přednastavení oznámení nemohou plně odpovídat nastavení přizpůsobení, kvůli rozdílům mezi rozvržením oznámení na obrazovce a oznámením založeným na snímcích obrazovky</span>`,
         themeswitch: `Automaticky přepněte na jakékoli uložené <span class="hl">Téma</span>, když je detekována určitá hra`,
         userthemesync: `Synchronizujte přizpůsobení v vybraném <span class="hl">Téma</span> se všemi ostatními typy oznámení`,
-        showsystrayopts: `Zobrazit všechny možnosti obvykle umístěné pod <span class="hl">Systémová lišta</span> > <span class="hl">Možnosti</span> v <span class="hl">Nastavení</span> > <span class="hl">Různé</span>`
+        showsystrayopts: `Zobrazit všechny možnosti obvykle umístěné pod <span class="hl">Systémová lišta</span> > <span class="hl">Možnosti</span> v <span class="hl">Nastavení</span> > <span class="hl">Různé</span>`,
+        releaseshortcut: "Uvolnění aktuálně sledované hry pomocí zadané klávesové zkratky"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

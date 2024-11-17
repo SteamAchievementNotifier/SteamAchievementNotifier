@@ -346,6 +346,11 @@ const playback = () => {
 
 const sendsswin = async (type: "main" | "rare" | "plat",customisation: Customisation,src: number) => ipcRenderer.send("sswin",await notifyinfo(type,customisation),src)
 
+// Array of option ids to disable when `config.nohwa` is enabled
+const nohwa = [
+    "extwinshow"
+]
+
 window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
     const synced = usertheme.issynced(config)
     const type = detail.type as "main" | "rare" | "plat"
@@ -384,6 +389,9 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         
         const synclbl = document.querySelector("#settingscontent .synclbl")
         synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
+
+        // Adds "soon" attribute to all ids in `nohwa` array when `config.nohwa` is enabled
+        requestAnimationFrame(() => nohwa.forEach(id => document.querySelector(`.opt:has(#${id})`)!.toggleAttribute("soon",config.get("nohwa"))))
     }
 
     if (document.querySelector("body[customiser]")) {
@@ -873,6 +881,7 @@ ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
 })
 
 ipcRenderer.on("noexeclick",async () => {
+    if (!window.appid) return log.write("INFO",`Failed to init Add Link dialog - AppID is 0`)
     ipcRenderer.send("noexeclose")
 
     dialog.open({
@@ -886,7 +895,7 @@ ipcRenderer.on("noexeclick",async () => {
             label: await language.get("link",["linkgame","content"]),
             icon: sanhelper.setfilepath("icon","newlink.svg"),
             click: async () => {
-                // !!! TODO: Add Rust function to find active window
+                const { getFocusedWinPath } = await import("sanhelper.rs")
                 let count = 5
                 const addlinkbtn = document.getElementById("addlinkbtn") as HTMLButtonElement
             
@@ -896,8 +905,29 @@ ipcRenderer.on("noexeclick",async () => {
                     count--
 
                     if (!count) {
+                        const winpath = getFocusedWinPath().replace(/\\/g,"/")
+                        // const winpath = ""
+
+                        // Re-check `window.appid` is not 0 (i.e. game is still open) before writing to localStorage
+                        if (!winpath || !window.appid) {
+                            ipcRenderer.send("noexe",true)
+                        } else {
+                            const lsobj = JSON.parse(localStorage.getItem("linkgame")!)
+                            lsobj[window.appid] = winpath
+
+                            localStorage.setItem("linkgame",JSON.stringify(lsobj,null,4))
+                            log.write("INFO",`"${window.appid}" written to "linkgame" localStorage object successfully`)
+                        }
+
                         addlinkbtn.removeAttribute("timer")
-                        return clearInterval(timer)
+                        clearInterval(timer)
+                        
+                        if (winpath && window.appid) {
+                            dialog.close()
+                            ipcRenderer.send("releasegame",true)
+                        }
+
+                        return
                     }
 
                     addlinkbtn.setAttribute("timer",`${count}`)

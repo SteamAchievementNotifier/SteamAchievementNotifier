@@ -253,7 +253,7 @@ export const sanconfig = {
                 steamlang: false,
                 maxsteamlangretries: 10,
                 showsystrayopts: false,
-                releaseshortcut: "CTRL+ALT+R",
+                releaseshortcut: "CTRL+Shift+Q",
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

@@ -55,3 +55,7 @@
 > 9. Exit the app via **System Tray** > **Options** > **Exit**, then relaunch. Games should now be detected as normal!
 > 
 > If any other errors are appearing in `san.log`/`rust.log`/`sanhelper.log`, please report the issue via [GitHub](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/issues/new/choose) or [Discord](https://discord.gg/FxCFtpd3eu).
+> 
+> ℹ If the above does not solve the issue, you may be missing the [Latest Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version) (`VCRUNTIME140.dll`) on your system, as advised in [this GitHub Issue](https://github.com/ceifa/steamworks.js/issues/75#issuecomment-1497289791).
+> 
+> To install, click the above link, then try installing both the `x86` and `x64` versions. Once complete, restart the application and re-test.

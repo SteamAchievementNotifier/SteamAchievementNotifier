@@ -673,7 +673,7 @@ export const listeners = {
 
         ipcMain.on("closeextwin",closeextwin)
 
-        ipcMain.on("shortcut", (event,shouldregister,id?: string) => {
+        ipcMain.on("shortcut", (event,shouldregister) => {
             globalShortcut.unregisterAll()
 
             if (!shouldregister) return

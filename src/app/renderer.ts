@@ -162,7 +162,12 @@ const storemonitors = (monitors: Monitor[]) => {
 // Stores last known monitor ids to compare against in `refreshmonitors()` on launch
 ipcRenderer.on("storemonitors", () => storemonitors(config.get("monitors")))
 
-window.addEventListener("DOMContentLoaded", () => setTimeout(setmonitors,100))
+window.addEventListener("DOMContentLoaded", () => setTimeout(() => {
+    setmonitors()
+
+    // Init "Release Game Shortcut"
+    ipcRenderer.send("shortcut",true)
+},100))
 
 ipcRenderer.on("displaysupdated", () => {
     setmonitors()

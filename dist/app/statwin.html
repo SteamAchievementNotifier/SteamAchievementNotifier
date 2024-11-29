@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./global.css">
+        <script>const exports = {};</script>
+        <script src="./statwin.js"></script>
+        <style>
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+                user-select: none;
+            }
+
+            :root {
+                --unlocked: 0;
+                --total: 0;
+                --primary: #203e7a;
+                --main: #203e7a;
+                --rare: #663399;
+                --plat: #4e75c9;
+            }
+
+            html,
+            body {
+                width: 100vw;
+                height: 100vh;
+                background-color: transparent;
+                color: white;
+            }
+
+            #dragbar {
+                grid-column-start: 1;
+                grid-row-start: 1;
+                width: 100vw;
+                z-index: 10;
+                -webkit-app-region: drag;
+            }
+
+            .wrapper#cont {
+                grid-template-rows: 1.5rem auto auto 4fr;
+                grid-column-start: 1;
+                grid-row: 1 / -1;
+                gap: 1rem;
+                background-color: var(--darkgrey);
+                border-radius: var(--winbr);
+                overflow: hidden;
+            }
+
+            .wrapper#cont > .wrapper {
+                display: grid;
+                justify-items: center;
+                gap: 0.75rem;
+                margin: 1rem 1.5rem;
+            }
+
+            .wrapper#cont > .wrapper:not(#achievements) {
+                align-items: center;
+            }
+
+            .wrapper#gamename {
+                font-size: 1.35rem;
+            }
+
+            .wrapper#gamename:not([appid]) {
+                color: red;
+            }
+
+            .wrapper#gamename[appid] {
+                color: white;
+            }
+
+            .wrapper#progressbar {
+                background-color: var(--lightgrey);
+                border-radius: var(--elembr);
+                isolation: isolate;
+                overflow: hidden;
+            }
+
+            .wrapper#progressbar::before {
+                counter-reset: unlocked var(--unlocked) total var(--total);
+                content: counter(unlocked) "/" counter(total);
+                display: grid;
+                grid-column: 1 / -1;
+                grid-row-start: 1;
+                place-items: center;
+                width: 85%;
+                padding: 0.25rem 1rem;
+                overflow: hidden;
+            }
+
+            .wrapper#progressbar::after {
+                content: "";
+                display: grid;
+                grid-column: 1 / -1;
+                grid-row-start: 1;
+                justify-self: start;
+                background-color: var(--primary);
+                width: calc(var(--unlocked) * 1%);
+                height: 100%;
+                transition:
+                    width var(--transition),
+                    background-color var(--transition);
+                z-index: -1;
+            }
+
+            .wrapper#cont > .wrapper#achievements {
+                place-items: start;
+                overflow: hidden overlay;
+            }
+
+            .wrapper#gamename[appid] ~ .wrapper#achievements > .achievement#placeholder {
+                display: none;
+            }
+
+            .achievement#placeholder {
+                width: 100%;
+            }
+
+            .handle {
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .achievement:has(> .handle:hover) {
+                filter: none;
+            }
+
+            .achievement {
+                --icon: url("../../img/sanlogosquare.svg");
+                --rarity: var(--main);
+                position: relative;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                grid-template-rows: 1fr;
+                align-items: center;
+                gap: 1rem;
+                width: 95%;
+                padding: 0.75rem;
+                font-size: 0.85rem;
+                background-color: var(--rarity);
+                border-radius: var(--elembr);
+                transition:
+                    filter calc(var(--transition) * 2),
+                    background-color var(--transition);
+                animation:
+                    unlocked calc(var(--transition) * 20) linear forwards,
+                    shift calc(var(--transition) * 5) calc(var(--transition) * 10) linear forwards;
+            }
+
+            .achievement[rarity="rare"] {
+                --rarity: var(--rare);
+            }
+
+            @keyframes unlocked {
+                from {
+                    background-color: #ffffff;
+                    scale: 1.015;
+                }
+
+                5% {
+                    scale: 1;
+                }
+
+                10% {
+                    background-color: var(--rarity);
+                }
+            }
+
+            @keyframes shift {
+                to { translate: -1000% 0; }
+            }
+
+            .achievement[unlocked="false"] {
+                filter: grayscale();
+                opacity: 0.75;
+                animation: none;
+            }
+
+            .achievement[unlocked="true"]::before {
+                content: "";
+                position: absolute;
+                right: 100%;
+                width: 20%;
+                height: 200%;
+                background-color: white;
+                transform: skewX(-45deg);
+                filter: blur(5rem);
+                z-index: 10;
+                opacity: 0;
+                animation: glow calc(var(--transition) * 10) ease-out infinite;
+            }
+
+            @keyframes glow {
+                from {
+                    opacity: 0;
+                }
+
+                25% {
+                    opacity: 0.85;
+                }
+
+                to {
+                    opacity: 0;
+                    right: -100%;
+                }
+            }
+
+            .achievement[unlocked="true"]::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                translate: -50% -50%;
+                width: 5rem;
+                height: 5rem;
+                scale: 0;
+                opacity: 1;
+                background-color: var(--rarity);
+                mask: url("../../icon/star.svg") center / contain no-repeat;
+                animation: stargrow calc(var(--transition) * 5) forwards;
+            }
+
+            @keyframes stargrow {
+                to {
+                    scale: 10;
+                    opacity: 0;
+                }
+            }
+
+            .icon,
+            .text {
+                pointer-events: none;
+            }
+
+            .achievement > .icon {
+                grid-column-start: 1;
+                grid-row: 1 / -1;
+                display: grid;
+                place-content: center;
+                width: 2.5rem;
+                height: 2.5rem;
+                background: var(--icon) center / contain no-repeat;
+            }
+
+            .achievement > .text > span {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                max-width: 100%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper" id="cont">
+            <div id="dragbar"></div>
+            <div class="wrapper" id="gamename">...</div>
+            <div class="wrapper" id="progressbar" unlocked="50" total="100"></div>
+            <div class="wrapper" id="achievements">
+                <div class="wrapper achievement" id="placeholder" unlocked="false" rarity="main">
+                    <div class="wrapper icon"></div>
+                    <div class="wrapper text">
+                        <span>...</span>
+                        <span>...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

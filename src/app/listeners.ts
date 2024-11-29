@@ -1,6 +1,7 @@
 import { app, ipcMain, BrowserWindow, Tray, Menu, nativeImage, dialog, Notification, screen, globalShortcut, BrowserWindowConstructorOptions, NotificationConstructorOptions, desktopCapturer, clipboard, shell, ipcRenderer } from "electron"
 import path from "path"
 import fs from "fs"
+import Store from "electron-store"
 import { sanhelper, __root } from "./sanhelper"
 import { log } from "./log"
 import { sanconfig } from "./config"
@@ -9,6 +10,7 @@ import { update } from "./update"
 
 let appid: number = 0
 let extwin: BrowserWindow | null = null
+let statwin: BrowserWindow | null = null
 
 export const listeners = {
     setexit: (win?: BrowserWindow) => {
@@ -154,7 +156,10 @@ export const listeners = {
         }
 
         updatetray(tray)
-        ipcMain.on("lang", (event,gamename: string | null,num: number) => updatetray(tray!,gamename,num))
+        ipcMain.on("lang", (event,gamename: string | null,num: number) => {
+            updatetray(tray!,gamename,num)
+            statwin && worker && worker.webContents.send("stats")
+        })
 
         let worker: BrowserWindow | null = null
 
@@ -600,21 +605,28 @@ export const listeners = {
             })
         })
 
-        ipcMain.on("extwin", (event,value: boolean) => {
-            const config = sanconfig.get()
-            // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
-            let reopenonlaunch = true
+        const createextwin = (config: Store<Config>,type: "ext" | "stat",value: boolean) => {
+            if (!value) {
+                closewin(type === "ext" ? extwin : statwin,type)
+                return null
+            }
 
-            if (!value) return closeextwin()
+            const { x, y } = config.get(`${type}winpos`)
+            const { width, height, minWidth, minHeight } = {
+                width: type === "ext" ? 300 : 250,
+                height: type === "ext" ? 50 : 500,
+                minWidth: type === "ext" ? 125 : 200,
+                minHeight: type === "ext" ? 50 : 300
+            }
 
-            const { x, y } = config.get("extwinpos")
+            const wintitle = type === "ext" ? "Stream Notification" : "Achievement Stats Overlay"
 
-            extwin = new BrowserWindow({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): Stream Notification`,
-                width: 300,
-                height: 50,
-                minWidth: 125,
-                minHeight: 50,
+            const win = new BrowserWindow({
+                title: `Steam Achievement Notifier (V${sanhelper.version}): ${wintitle}`,
+                width,
+                height,
+                minWidth,
+                minHeight,
                 x: x,
                 y: y,
                 autoHideMenuBar: true,
@@ -622,7 +634,7 @@ export const listeners = {
                 fullscreenable: false,
                 minimizable: false,
                 maximizable: false,
-                resizable: false,
+                resizable: type === "stat",
                 movable: true,
                 frame: false,
                 transparent: true,
@@ -635,43 +647,86 @@ export const listeners = {
             })
 
             // `extwin` does not render content if transparency is set while HWA is disabled
-            !config.get("nohwa") && extwin.setOpacity(config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0))
+            type === "ext" && !config.get("nohwa") && win.setOpacity(config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0))
 
-            extwin.loadFile(path.join(__root,"dist","app","extwin.html"))
-            sanhelper.devmode && sanhelper.setdevtools(extwin)
+            win.loadFile(path.join(__root,"dist","app",`${type}win.html`))
+            sanhelper.devmode && sanhelper.setdevtools(win)
+
+            return win
+        }
+
+        const closewin = (win: BrowserWindow | null,type: string) => {
+            if (!win) return log.write("ERROR",`"${type}win" not found`)
+
+            win.close()
+            win = null
+        }
+
+        const setwinbounds = (config: Store<Config>,type: "ext" | "stat",win: BrowserWindow) => {
+            const { x, y } = win.getBounds()
+            config.set(`${type}winpos`,{ x: x, y: y })
+        }
+
+        const setwinclosevalue = (config: Store<Config>,type: "ext" | "stat",reopenonlaunch: boolean) => {
+            log.write("EXIT",`"${type === "ext" ? "Stream Notification" : "Achievement Stats Overlay"}" window ${reopenonlaunch ? "destroyed" : "closed"}.`)
+            config.set("statwin",reopenonlaunch)
+            ipcMain.emit("configupdated",null,config.store)
+        }
+
+        ipcMain.on("extwin", (event,value: boolean) => {
+            const config = sanconfig.get()
+
+            // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
+            let reopenonlaunch = true
+
+            extwin = createextwin(config,"ext",value)
+            if (!extwin) return
+
+            extwin.on("moved",() => setwinbounds(config,"ext",extwin!))
 
             extwin.once("close", () => {
-                const { x, y } = extwin!.getBounds()
-                config.set("extwinpos",{ x: x, y: y })
-
+                setwinbounds(config,"ext",extwin!)
                 reopenonlaunch = false
             })
 
-            extwin.once("closed", () => {
-                log.write("EXIT",`"Stream Notification" window ${reopenonlaunch ? "destroyed" : "closed"}.`)
-                config.set("extwin",reopenonlaunch)
-                ipcMain.emit("configupdated",null,config.store)
-            })
+            extwin.once("closed", () => setwinclosevalue(config,"ext",reopenonlaunch))
         })
 
         ipcMain.on("extwinshow",(event,show: boolean) => extwin && extwin.setOpacity(show ? 1 : (sanhelper.devmode ? 0.5 : 0)))
+        ipcMain.on("closeextwin",() => closewin(extwin,"ext"))
 
-        ipcMain.on("closeopenwins", () => {
-            if (!poswin) return
+        ipcMain.on("statwin", (event,value: boolean) => {
+            const config = sanconfig.get()
 
-            poswin.destroy()
-            poswin = null
-            log.write("EXIT",`"Notification Position" window closed due to Customiser being closed while open`)
+            // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
+            let reopenonlaunch = true
+            
+            statwin = createextwin(config,"stat",value)
+            if (!statwin) return
+
+            ipcMain.once("statwinready",() => worker && worker.webContents.send("stats"))
+
+            statwin.on("moved",() => setwinbounds(config,"stat",statwin!))
+
+            statwin.once("close", () => {
+                setwinbounds(config,"stat",statwin!)
+                reopenonlaunch = false
+            })
+
+            statwin.once("closed", () => setwinclosevalue(config,"stat",reopenonlaunch))
         })
 
-        const closeextwin = () => {
-            if (!extwin) return log.write("ERROR",`"extwin" not found`)
+        ipcMain.on("stats", async (event,statsobj: StatsObj) => {
+            if (statwin) {
+                const translations = {
+                    nogame: await language.get("game",["app","content"]),
+                    noachievements: await language.get("noachievements",["settings","media","content"]),
+                    startgame: await language.get("startgame",["settings","media","content"])
+                }
 
-            extwin.close()
-            extwin = null
-        }
-
-        ipcMain.on("closeextwin",closeextwin)
+                statwin.webContents.send("stats",statsobj,translations)
+            }
+        })
 
         ipcMain.on("shortcut", (event,shouldregister) => {
             globalShortcut.unregisterAll()
@@ -1100,6 +1155,14 @@ export const listeners = {
             })
         })
 
+        ipcMain.on("closeopenwins", () => {
+            if (!poswin) return
+
+            poswin.destroy()
+            poswin = null
+            log.write("EXIT",`"Notification Position" window closed due to Customiser being closed while open`)
+        })
+
         ipcMain.on("themeiconcustom", event => {
             const themedialog = dialog.showOpenDialogSync({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): Select Theme Icon`,
@@ -1383,7 +1446,6 @@ export const listeners = {
                 frame: false,
                 transparent: true,
                 focusable: ispreview,
-                opacity: sanhelper.devmode || ispreview ? 1 : 0,
                 movable: false,
                 maximizable: false,
                 minimizable: false,
@@ -1396,6 +1458,7 @@ export const listeners = {
                 }
             })
 
+            !ispreview && sswin.setOpacity(0)
             sswin.setIgnoreMouseEvents(!ispreview)
             sswin.loadFile(path.join(__root,"dist","app",`${type}win.html`))
             sanhelper.devmode && sanhelper.setdevtools(sswin)

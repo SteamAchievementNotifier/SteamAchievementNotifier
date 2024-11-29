@@ -307,6 +307,7 @@ export const sanhelper: SANHelper = {
     extwinshow: (value: boolean) => ipcRenderer.send("extwinshow",value),
     audiosrc: (value: "notify" | "app" | "off") => document.body.toggleAttribute("muted",value === "off"),
     shortcuts: (value: boolean) => ipcRenderer.send("shortcut",value),
+    statwin: (value: boolean) => ipcRenderer.send("statwin",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
@@ -375,7 +376,7 @@ export const sanhelper: SANHelper = {
             themeselect.onchange = event => {
                 usertheme.set(parseInt((event.target as HTMLOptionElement).value.replace(/^theme/,"")),event)
                 sanhelper.updatetabs()
-                ;(async () => await sanhelper.resetelemselector(document.querySelector("#customiser")))()
+                sanhelper.reloadelemselector()
             }
 
             return

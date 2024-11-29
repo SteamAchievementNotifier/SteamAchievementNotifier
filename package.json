@@ -2,7 +2,7 @@
     "private": true,
     "name": "steamachievementnotifierv1.9",
     "author": "SteamAchievementNotifier",
-    "version": "1.9.15",
+    "version": "1.9.16",
     "description": "Steam Achievement Notifier (V1.9)",
     "main": "dist/app/app.js",
     "scripts": {
@@ -20,7 +20,8 @@
     "homepage": "https://github.com/${author}/${author}#readme",
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
-        "electron": "^33.2.0",
+        "@types/sortablejs": "^1.15.8",
+        "electron": "^33.2.1",
         "electron-builder": "^24.9.1",
         "typescript": "^5.2.2"
     },
@@ -35,6 +36,7 @@
         "jpeg-js": "^0.4.4",
         "sanhelper.rs": "./deps/sanhelper.rs",
         "simple-vdf": "^1.1.1",
+        "sortablejs": "^1.15.6",
         "steam-game-path": "^2.2.0",
         "steamworks.js": "./deps/steamworks.js",
         "tippy.js": "^6.3.7"

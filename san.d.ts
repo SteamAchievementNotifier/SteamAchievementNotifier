@@ -96,6 +96,11 @@ declare interface Config {
     maxsteamlangretries: number,
     showsystrayopts: boolean,
     releaseshortcut: string,
+    statwin: boolean,
+    statwinpos: {
+        x: number,
+        y: number
+    },
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -239,7 +244,8 @@ declare interface Achievement {
     name: string,
     desc: string,
     percent: number,
-    hidden: boolean
+    hidden: boolean,
+    icon?: string
 }
 
 declare interface Notify extends Achievement {
@@ -249,6 +255,12 @@ declare interface Notify extends Achievement {
     icon: string,
     gamename: string | null,
     steam3id: number
+}
+
+declare interface StatsObj {
+    appid: number,
+    gamename: string | null,
+    achievements?: Achievement[]
 }
 
 declare interface Dialog {

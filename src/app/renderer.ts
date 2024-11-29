@@ -68,7 +68,7 @@ btns.forEach((value,key) => (document.getElementById(key) as HTMLButtonElement)!
 sanhelper.noanim(config.get("noanim"))
 sanhelper.createclosedstate()
 
-;["linkgame","themeswitch"].forEach(id => !localStorage.getItem(id) && localStorage.setItem(id,JSON.stringify({})))
+;["linkgame","themeswitch","statwin"].forEach(id => !localStorage.getItem(id) && localStorage.setItem(id,JSON.stringify({})))
 
 const getmonitors = async () => {
     try {

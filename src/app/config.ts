@@ -254,6 +254,11 @@ export const sanconfig = {
                 maxsteamlangretries: 10,
                 showsystrayopts: false,
                 releaseshortcut: "CTRL+SHIFT+Q",
+                statwin: false,
+                statwinpos: {
+                    x: 0,
+                    y: 0
+                },
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

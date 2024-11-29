@@ -149,7 +149,10 @@ export const translations = {
                 ovpath: "Screenshot Path",
                 ssdelay: "Screenshot Delay",
                 notifyimg: "Notification Image",
-                imgpath: "Image Path"
+                imgpath: "Image Path",
+                statwin: "Achievement Stats Overlay",
+                noachievements: "No achievements to display",
+                startgame: "Start a game to show achievements!"
             }
         },
         games: {
@@ -532,6 +535,7 @@ export const translations = {
         userthemesync: `Sync customisations in the selected <span class="hl">Theme</span> to all other notification types`,
         showsystrayopts: `Display all options usually located under <span class="hl">System Tray</span> > <span class="hl">Options</span> in <span class="hl">Settings</span> > <span class="hl">Misc.</span>`,
         releaseshortcut: "Release the currently tracked game using the specified keyboard shortcut",
+        statwin: "Display configurable achievement stats for the current game in an external window"
     },
     update: {
         updateavailable: "Update available",

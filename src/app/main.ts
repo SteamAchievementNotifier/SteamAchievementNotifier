@@ -78,7 +78,7 @@ export const main = async (starttime: string) => {
         win.once("ready-to-show", () => {
             listeners.set(win)
             ipcMain.emit("validateworker")
-            config.get("extwin") && ipcMain.emit("extwin",null,true)
+            ;["ext","stat"].forEach(type => config.get(`${type}win`) && ipcMain.emit(`${type}win`,null,true))
             ipcMain.emit("shortcut",null,config.get("shortcuts"))
         })
 

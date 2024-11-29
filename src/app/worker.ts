@@ -17,6 +17,13 @@ declare global {
 log.init("WORKER")
 sanhelper.errorhandler(log)
 
+const statsobj: StatsObj = {
+    appid: 0,
+    gamename: null
+}
+
+ipcRenderer.on("stats",() => ipcRenderer.send("stats",statsobj))
+
 const startidle = () => {
     try {
         log.write("INFO","Idle loop started")
@@ -118,6 +125,12 @@ const startsan = async (appinfo: AppInfo) => {
         
             const apinames: string[] = num ? client.achievement.getAchievementNames() : []
             let cache: Achievement[] = num ? cachedata(client,apinames) : []
+
+            statsobj.appid = appid
+            statsobj.gamename = gamename as string
+            statsobj.achievements = cache
+
+            ipcRenderer.send("stats",statsobj)
     
             !num && log.write("INFO",`"${gamename}" has no achievements`)
             
@@ -127,6 +140,12 @@ const startsan = async (appinfo: AppInfo) => {
                     log.write("INFO","Game loop stopped")
         
                     ipcRenderer.send("validateworker")
+
+                    statsobj.appid = 0
+                    statsobj.gamename = null
+                    statsobj.achievements = undefined
+
+                    ipcRenderer.send("stats",statsobj)
                 }
     
                 const { debug } = sanconfig.get().store
@@ -222,6 +241,9 @@ const startsan = async (appinfo: AppInfo) => {
                     }
 
                     ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
+
+                    statsobj.achievements = live
+                    ipcRenderer.send("stats",statsobj)
         
                     if (live.every(ach => ach.unlocked) && !hasshown) {
                         const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon

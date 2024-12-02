@@ -256,9 +256,14 @@ export const sanconfig = {
                 releaseshortcut: "CTRL+SHIFT+Q",
                 statwin: false,
                 statwinpos: {
+                    width: 250,
+                    height: 500,
                     x: 0,
                     y: 0
                 },
+                statwinmaxdisplay: "max",
+                statwinmaxcustom: 1,
+                statwinnospoilers: true,
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

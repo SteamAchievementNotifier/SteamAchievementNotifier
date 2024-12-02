@@ -98,9 +98,14 @@ declare interface Config {
     releaseshortcut: string,
     statwin: boolean,
     statwinpos: {
+        width: number,
+        height: number,
         x: number,
         y: number
     },
+    statwinmaxdisplay: 3 | 5 | 10 | "max" | "custom",
+    statwinmaxcustom: number,
+    statwinnospoilers: boolean,
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -384,6 +389,16 @@ declare interface ThemeSwitch {
         plat: number
     },
     src: number
+}
+
+declare interface StatsObjTranslations {
+    nogame: string,
+    noachievements: string,
+    startgame: string,
+    max: string,
+    custom: string,
+    congrats: string,
+    gamecompletedesc: string
 }
 
 declare module "simple-vdf"

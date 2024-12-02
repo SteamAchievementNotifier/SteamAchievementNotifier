@@ -23,37 +23,72 @@
                 --plat: #4e75c9;
             }
 
+            ::-webkit-scrollbar,
+            ::-webkit-scrollbar-button {
+                display: none;
+            }
+
             html,
             body {
                 width: 100vw;
                 height: 100vh;
                 background-color: transparent;
+                border-radius: var(--winbr);
                 color: white;
+                overflow: hidden;
+            }
+
+            body {
+                grid-template-rows: 1fr auto;
+            }
+
+            .wrapper#cont > .wrapper#controls {
+                grid-template-columns: 1fr auto;
+                margin: 0;
             }
 
             #dragbar {
                 grid-column-start: 1;
                 grid-row-start: 1;
-                width: 100vw;
-                z-index: 10;
+                width: 100%;
+                height: 100%;
                 -webkit-app-region: drag;
             }
 
+            .menubtn#close {
+                grid-column-start: 2;
+                grid-row-start: 1;
+                margin-top: 1rem;
+                margin-right: 1rem;
+                background: url("../../icon/close.svg") center / contain no-repeat;
+                -webkit-app-region: no-drag;
+            }
+
+            body[hidden] .menubtn#close {
+                opacity: 0;
+                pointer-events: none;
+            }
+
             .wrapper#cont {
-                grid-template-rows: 1.5rem auto auto 4fr;
+                grid-template-rows: 1.5rem repeat(2,auto) 4fr;
                 grid-column-start: 1;
                 grid-row: 1 / -1;
                 gap: 1rem;
-                background-color: var(--darkgrey);
-                border-radius: var(--winbr);
+                background-color: var(--bggrey);
+                transition: background-color var(--transition);
                 overflow: hidden;
+                -webkit-app-region: no-drag;
+            }
+
+            body[hidden] .wrapper#cont {
+                background-color: transparent;
+                -webkit-app-region: drag;
             }
 
             .wrapper#cont > .wrapper {
-                display: grid;
                 justify-items: center;
                 gap: 0.75rem;
-                margin: 1rem 1.5rem;
+                margin: 0.5rem 1.5rem;
             }
 
             .wrapper#cont > .wrapper:not(#achievements) {
@@ -62,6 +97,7 @@
 
             .wrapper#gamename {
                 font-size: 1.35rem;
+                -webkit-app-region: drag;
             }
 
             .wrapper#gamename:not([appid]) {
@@ -75,8 +111,13 @@
             .wrapper#progressbar {
                 background-color: var(--lightgrey);
                 border-radius: var(--elembr);
+                transition: filter var(--transition);
                 isolation: isolate;
                 overflow: hidden;
+            }
+
+            .wrapper#progressbar[complete] {
+                filter: drop-shadow(0 0 0.25rem #e1c56b);
             }
 
             .wrapper#progressbar::before {
@@ -98,7 +139,7 @@
                 grid-row-start: 1;
                 justify-self: start;
                 background-color: var(--primary);
-                width: calc(var(--unlocked) * 1%);
+                width: calc(var(--unlocked) / var(--total) * 100%);
                 height: 100%;
                 transition:
                     width var(--transition),
@@ -106,38 +147,40 @@
                 z-index: -1;
             }
 
+            .wrapper#progressbar[complete]::after {
+                background-color: var(--plat);
+            }
+
             .wrapper#cont > .wrapper#achievements {
                 place-items: start;
+                align-content: start;
+                margin-block: 1rem;
                 overflow: hidden overlay;
             }
 
-            .wrapper#gamename[appid] ~ .wrapper#achievements > .achievement#placeholder {
+            .wrapper#gamename[appid] ~ .wrapper#achievements > .achievement#placeholder,
+            /* .wrapper#progressbar:not([complete]) ~ .wrapper#achievements > .achievement#complete, */
+            .achievement[nodisplay],
+            body:not([reorder]) .handle {
                 display: none;
-            }
-
-            .achievement#placeholder {
-                width: 100%;
-            }
-
-            .handle {
-                font-size: 1.5rem;
-                cursor: pointer;
-            }
-
-            .achievement:has(> .handle:hover) {
-                filter: none;
             }
 
             .achievement {
                 --icon: url("../../img/sanlogosquare.svg");
                 --rarity: var(--main);
+                width: 100%;
+            }
+
+            .achievement > .inner {
                 position: relative;
                 display: grid;
                 grid-template-columns: auto 1fr auto;
                 grid-template-rows: 1fr;
+                grid-column: 1 / -1;
+                grid-row: 1 / -1;
                 align-items: center;
                 gap: 1rem;
-                width: 95%;
+                width: 100%;
                 padding: 0.75rem;
                 font-size: 0.85rem;
                 background-color: var(--rarity);
@@ -145,6 +188,7 @@
                 transition:
                     filter calc(var(--transition) * 2),
                     background-color var(--transition);
+                overflow: hidden;
                 animation:
                     unlocked calc(var(--transition) * 20) linear forwards,
                     shift calc(var(--transition) * 5) calc(var(--transition) * 10) linear forwards;
@@ -152,6 +196,15 @@
 
             .achievement[rarity="rare"] {
                 --rarity: var(--rare);
+            }
+
+            .handle {
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .achievement:has(> .handle:hover) > .inner {
+                filter: none;
             }
 
             @keyframes unlocked {
@@ -170,16 +223,44 @@
             }
 
             @keyframes shift {
-                to { translate: -1000% 0; }
+                99% { translate: -1000% 0; }
+                to { display: none; }
             }
 
-            .achievement[unlocked="false"] {
+            .achievement[unlocked="false"] > .inner {
                 filter: grayscale();
-                opacity: 0.75;
+                background-color: var(--lightgrey);
                 animation: none;
             }
 
-            .achievement[unlocked="true"]::before {
+            body[nospoilers] .achievement[hidden]::before {
+                content: "🔒";
+                grid-column: 1 / -1;
+                grid-row: 1 / -1;
+                z-index: 10;
+                place-self: center;
+            }
+
+            body[nospoilers] .achievement[unlocked="false"][hidden] > .inner > .text,
+            body[nospoilers] .achievement[unlocked="false"][hidden] > .inner > .icon {
+                filter: blur(5px);
+            }
+
+            /* .achievement#complete[unlocked="false"] {
+                filter: none;
+                background-color: var(--plat);
+            }
+            
+            .achievement#complete > .icon {
+                --icon: url("../../img/sanlogotrophy_gold.svg");
+            } */
+
+            .achievement[unlocked="true"]:not([playing]) {
+                display: none;
+                translate: -1000% 0;
+            }
+
+            .achievement[unlocked="true"][playing] > .inner::before {
                 content: "";
                 position: absolute;
                 right: 100%;
@@ -208,7 +289,7 @@
                 }
             }
 
-            .achievement[unlocked="true"]::after {
+            .achievement[unlocked="true"][playing] > .inner::after {
                 content: "";
                 position: absolute;
                 top: 50%;
@@ -218,8 +299,7 @@
                 height: 5rem;
                 scale: 0;
                 opacity: 1;
-                background-color: var(--rarity);
-                mask: url("../../icon/star.svg") center / contain no-repeat;
+                background: url("../../icon/star.svg") center / contain no-repeat;
                 animation: stargrow calc(var(--transition) * 5) forwards;
             }
 
@@ -235,7 +315,7 @@
                 pointer-events: none;
             }
 
-            .achievement > .icon {
+            .achievement > .inner > .icon {
                 grid-column-start: 1;
                 grid-row: 1 / -1;
                 display: grid;
@@ -245,7 +325,7 @@
                 background: var(--icon) center / contain no-repeat;
             }
 
-            .achievement > .text > span {
+            .achievement > .inner > .text > span {
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 2;
@@ -253,22 +333,128 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
             }
+
+            .wrapper#btnwrapper {
+                grid-template-columns: repeat(2,auto) 1fr repeat(2,auto);
+                justify-items: stretch;
+                align-items: center;
+                gap: 0.5rem;
+                width: 100%;
+                padding: 0.5rem;
+                margin: 0;
+                background-color: var(--primary);
+                transition: var(--transition);
+            }
+
+            body[hidden] .wrapper#btnwrapper {
+                background-color: transparent;
+            }
+
+            body[hidden] .wrapper#btnwrapper > *:not(button#winopacity) {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .wrapper#btnwrapper > select {
+                width: max-content;
+                padding-right: 1rem;
+            }
+
+            input#maxcustom {
+                transition: opacity var(--transition);
+            }
+
+            .wrapper#btnwrapper:has(select#maxdisplay > option[value="custom"]:not(:checked)) > input[type="number"]#maxcustom {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .wrapper#btnwrapper > button {
+                display: grid;
+                width: 1.25rem;
+                height: 1.25rem;
+                justify-self: right;
+            }
+
+            button#winopacity {
+                --icon: url("../../icon/visibility_off.svg");
+                grid-column-start: -1;
+            }
+
+            button#reorder {
+                --icon: url("../../icon/reorder.svg");
+                grid-column-start: -2;
+            }
+
+            body[reorder] button#reorder {
+                background: none;
+                mask: var(--icon) center / contain no-repeat;
+                background-color: white;
+                opacity: 1;
+                animation: bounce calc(var(--transition) * 2.5) alternate infinite;
+            }
+
+            @keyframes bounce {
+                to {
+                    scale: 1.1;
+                    background-color: red;
+                }
+            }
+
+            button#spoilers {
+                --icon: url("../../icon/lock.svg");
+                grid-column-start: -3;
+            }
+
+            body[nospoilers] button#spoilers {
+                --icon: url("../../icon/unlock.svg");
+            }
+
+            body:has(.wrapper#gamename:not([appid])) button#reorder,
+            body:has(.wrapper#gamename:not([appid])) button#spoilers {
+                display: none;
+            }
         </style>
     </head>
     <body>
         <div class="wrapper" id="cont">
-            <div id="dragbar"></div>
+            <div class="wrapper" id="controls">
+                <div id="dragbar"></div>
+                <button class="menubtn" id="close"></button>
+            </div>
             <div class="wrapper" id="gamename">...</div>
-            <div class="wrapper" id="progressbar" unlocked="50" total="100"></div>
+            <div class="wrapper" id="progressbar"></div>
             <div class="wrapper" id="achievements">
                 <div class="wrapper achievement" id="placeholder" unlocked="false" rarity="main">
-                    <div class="wrapper icon"></div>
-                    <div class="wrapper text">
-                        <span>...</span>
-                        <span>...</span>
+                    <div class="inner">
+                        <div class="wrapper icon"></div>
+                        <div class="wrapper text">
+                            <span></span>
+                            <span></span>
+                        </div>
                     </div>
                 </div>
+                <!-- <div class="wrapper achievement" id="complete" unlocked="false" rarity="plat">
+                    <div class="wrapper icon"></div>
+                    <div class="wrapper text">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div> -->
             </div>
+        </div>
+        <div class="wrapper" id="btnwrapper">
+            <select name="maxdisplay" id="maxdisplay">
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="max" selected></option>
+                <option value="custom"></option>
+            </select>
+            <input type="number" id="maxcustom" value="1" min="1" max="1">
+            <button class="menubtn" id="spoilers"></button>
+            <button class="menubtn" id="reorder"></button>
+            <button class="menubtn" id="winopacity"></button>
         </div>
     </body>
 </html>

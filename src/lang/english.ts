@@ -152,7 +152,9 @@ export const translations = {
                 imgpath: "Image Path",
                 statwin: "Achievement Stats Overlay",
                 noachievements: "No achievements to display",
-                startgame: "Start a game to show achievements!"
+                startgame: "Start a game to show achievements!",
+                max: "Max",
+                custom: "Custom..."
             }
         },
         games: {

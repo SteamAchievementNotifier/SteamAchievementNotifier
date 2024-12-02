@@ -607,14 +607,14 @@ export const listeners = {
 
         const createextwin = (config: Store<Config>,type: "ext" | "stat",value: boolean) => {
             if (!value) {
-                closewin(type === "ext" ? extwin : statwin,type)
+                closewin(type)
                 return null
             }
 
             const { x, y } = config.get(`${type}winpos`)
             const { width, height, minWidth, minHeight } = {
-                width: type === "ext" ? 300 : 250,
-                height: type === "ext" ? 50 : 500,
+                width: type === "ext" ? 300 : config.get("statwinpos").width,
+                height: type === "ext" ? 50 : config.get("statwinpos").height,
                 minWidth: type === "ext" ? 125 : 200,
                 minHeight: type === "ext" ? 50 : 300
             }
@@ -642,7 +642,8 @@ export const listeners = {
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
-                    backgroundThrottling: false
+                    backgroundThrottling: false,
+                    // webviewTag: type === "stat"
                 }
             })
 
@@ -655,21 +656,39 @@ export const listeners = {
             return win
         }
 
-        const closewin = (win: BrowserWindow | null,type: string) => {
-            if (!win) return log.write("ERROR",`"${type}win" not found`)
+        const closewin = (type: string) => {
+            // Needs explicit assignment to avoid "Object has been destroyed" error
+            if (type === "ext") {
+                if (!extwin) return log.write("ERROR",`"${type}win" not found`)
 
-            win.close()
-            win = null
+                extwin.close()
+                extwin = null
+            } else {
+                if (!statwin) return log.write("ERROR",`"${type}win" not found`)
+
+                statwin && statwin.close()
+                statwin = null
+            }
         }
 
         const setwinbounds = (config: Store<Config>,type: "ext" | "stat",win: BrowserWindow) => {
-            const { x, y } = win.getBounds()
-            config.set(`${type}winpos`,{ x: x, y: y })
+            const { x, y, width, height } = win.getBounds()
+            const bounds: { x: number, y: number, width?: number, height?: number } = {
+                x: x,
+                y: y
+            }
+
+            if (type === "stat") {
+                bounds.width = width
+                bounds.height = height
+            }
+
+            config.set(`${type}winpos`,bounds)
         }
 
         const setwinclosevalue = (config: Store<Config>,type: "ext" | "stat",reopenonlaunch: boolean) => {
             log.write("EXIT",`"${type === "ext" ? "Stream Notification" : "Achievement Stats Overlay"}" window ${reopenonlaunch ? "destroyed" : "closed"}.`)
-            config.set("statwin",reopenonlaunch)
+            config.set(`${type}win`,reopenonlaunch)
             ipcMain.emit("configupdated",null,config.store)
         }
 
@@ -689,11 +708,14 @@ export const listeners = {
                 reopenonlaunch = false
             })
 
-            extwin.once("closed", () => setwinclosevalue(config,"ext",reopenonlaunch))
+            extwin.once("closed", () => {
+                setwinclosevalue(config,"ext",reopenonlaunch)
+                extwin = null
+            })
         })
 
         ipcMain.on("extwinshow",(event,show: boolean) => extwin && extwin.setOpacity(show ? 1 : (sanhelper.devmode ? 0.5 : 0)))
-        ipcMain.on("closeextwin",() => closewin(extwin,"ext"))
+        ipcMain.on("closeextwin",() => closewin("ext"))
 
         ipcMain.on("statwin", (event,value: boolean) => {
             const config = sanconfig.get()
@@ -713,19 +735,35 @@ export const listeners = {
                 reopenonlaunch = false
             })
 
-            statwin.once("closed", () => setwinclosevalue(config,"stat",reopenonlaunch))
+            statwin.once("closed", () => {
+                setwinclosevalue(config,"stat",reopenonlaunch)
+                statwin = null
+            })
         })
 
         ipcMain.on("stats", async (event,statsobj: StatsObj) => {
             if (statwin) {
-                const translations = {
+                const translations: StatsObjTranslations = {
                     nogame: await language.get("game",["app","content"]),
                     noachievements: await language.get("noachievements",["settings","media","content"]),
-                    startgame: await language.get("startgame",["settings","media","content"])
+                    startgame: await language.get("startgame",["settings","media","content"]),
+                    max: await language.get("max",["settings","media","content"]),
+                    custom: await language.get("custom",["settings","media","content"]),
+                    congrats: await language.get("congrats"),
+                    gamecompletedesc: await language.get("gamecompletedesc"),
                 }
 
                 statwin.webContents.send("stats",statsobj,translations)
             }
+        })
+
+        ipcMain.on("statsunlock",(event,achievement: Achievement,statsobj: StatsObj) => statwin && statwin.webContents.send("statsunlock",achievement,statsobj))
+
+        ipcMain.on("statwinicon",(event,achievement: Achievement) => {
+            if (!worker) return statwin && statwin.webContents.send("statwinicon",null)
+
+            ipcMain.once(`iconpath_${achievement.apiname}`,(event,iconpath: string | null) => statwin && statwin.webContents.send(`iconpath_${achievement.apiname}`,iconpath))
+            worker.webContents.send("statwinicon",achievement)
         })
 
         ipcMain.on("shortcut", (event,shouldregister) => {

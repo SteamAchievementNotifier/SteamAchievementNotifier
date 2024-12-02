@@ -178,6 +178,7 @@ ipcRenderer.on("displaysupdated", () => {
 config.onDidAnyChange((newobj: any) => {
     config.store = newobj
     ipcRenderer.send("configupdated",newobj)
+    document.querySelector("dialog") && sanhelper.updatetabs()
 })
 
 usertheme.update()

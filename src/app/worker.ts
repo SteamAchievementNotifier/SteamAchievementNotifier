@@ -87,6 +87,11 @@ const startsan = async (appinfo: AppInfo) => {
     
         const client = init(appid)
         sanhelper.devmode && (window.client = client)
+
+        ipcRenderer.on("statwinicon",async (event,achievement: Achievement) => {
+            const icon = await getachievementicon(client,achievement)
+            ipcRenderer.send(`iconpath_${achievement.apiname}`,icon)
+        })
     
         const rustlog = client.log.initLogger(path.join(sanhelper.appdata,"logs"))
         log.write("INFO",rustlog)
@@ -243,7 +248,7 @@ const startsan = async (appinfo: AppInfo) => {
                     ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
 
                     statsobj.achievements = live
-                    ipcRenderer.send("stats",statsobj)
+                    ipcRenderer.send("statsunlock",achievement,statsobj)
         
                     if (live.every(ach => ach.unlocked) && !hasshown) {
                         const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon

@@ -10,19 +10,13 @@ import { getGamePath } from "steam-game-path"
 declare global {
     interface Window {
         client: any
-        cachedata: any
+        cachedata: any,
+        globallocalised: any
     }
 }
 
 log.init("WORKER")
 sanhelper.errorhandler(log)
-
-const statsobj: StatsObj = {
-    appid: 0,
-    gamename: null
-}
-
-ipcRenderer.on("stats",() => ipcRenderer.send("stats",statsobj))
 
 const startidle = () => {
     try {
@@ -71,6 +65,13 @@ const startidle = () => {
     }
 }
 
+const statsobj: StatsObj = {
+    appid: 0,
+    gamename: null
+}
+
+ipcRenderer.on("stats",() => ipcRenderer.send("stats",statsobj))
+
 const creategameinfo = (gamename: string, appid: number, exepath: string, pid: number, pollrate: number) => [
     "Game process started:",
     `gamename: ${gamename}`,
@@ -80,8 +81,61 @@ const creategameinfo = (gamename: string, appid: number, exepath: string, pid: n
     `pollrate: ${pollrate}ms`
 ].join("\n-")
 
+type LocalisedObj = {
+    name: string | null,
+    desc: string | null
+}
+
+const globallocalised = new Map<string,LocalisedObj>()
+window.globallocalised = globallocalised
+
+const localisedobj = async (steam3id: number,achievement: Achievement) => {
+    const config = sanconfig.get()
+    const steamlang = config.get("steamlang")
+    const maxlang = config.get("maxsteamlangretries")
+
+    const obj: LocalisedObj = {
+        name: null,
+        desc: null
+    }
+
+    for (const prop of (["name","description"] as const)) {
+        const key = prop === "name" ? "name" : "desc"
+        obj[key] = steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,prop,maxlang) : null
+    }
+
+    globallocalised.set(achievement.apiname,obj)
+    window.globallocalised = globallocalised
+
+    return obj
+}
+
+const updatestats = async (appid: number,gamename: string,cache: Achievement[],steam3id: number) => {
+    const { steamlang } = sanconfig.get().store
+    statsobj.appid = appid
+    statsobj.gamename = gamename as string
+    statsobj.achievements = !steamlang ? cache : await Promise.all(
+        cache.map(async achievement => {
+            const achievementcopy = { ...achievement }
+            const localised = await localisedobj(steam3id,achievementcopy)
+
+            for (const key of Object.keys(localised)) {
+                achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]
+            }
+
+            return achievementcopy
+        })
+    )
+
+    console.log(steamlang,statsobj)
+
+    ipcRenderer.send("stats",statsobj)
+}
+
 const startsan = async (appinfo: AppInfo) => {
     try {
+        globallocalised.clear()
+
         const { appid, gamename, pollrate, maxretries, userust, noiconcache } = appinfo
         const { init } = await import("steamworks.js")
     
@@ -131,11 +185,8 @@ const startsan = async (appinfo: AppInfo) => {
             const apinames: string[] = num ? client.achievement.getAchievementNames() : []
             let cache: Achievement[] = num ? cachedata(client,apinames) : []
 
-            statsobj.appid = appid
-            statsobj.gamename = gamename as string
-            statsobj.achievements = cache
-
-            ipcRenderer.send("stats",statsobj)
+            ;(async () => await updatestats(appid,gamename || "???",cache,steam3id))()
+            ipcRenderer.on("steamlang",async () => await updatestats(appid,gamename || "???",cache,steam3id))
     
             !num && log.write("INFO",`"${gamename}" has no achievements`)
             
@@ -213,15 +264,7 @@ const startsan = async (appinfo: AppInfo) => {
                     }
         
                     const icon = config.get(`customisation.${type}.usegameicon`) ? path.join(await sanhelper.steampath,"appcache","librarycache",`${appid}_icon.jpg`) : await achievementicon()
-
-                    const steamlang = config.get("steamlang")
-                    const maxlang = config.get("maxsteamlangretries")
-
-                    const localised = {
-                        name: steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,"name",maxlang) : null,
-                        desc: steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,"description",maxlang) : null
-                    }
-
+                    const localised = await localisedobj(steam3id,achievement)
                     const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch] | undefined
                     const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
                     
@@ -247,8 +290,22 @@ const startsan = async (appinfo: AppInfo) => {
 
                     ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
 
-                    statsobj.achievements = live
-                    ipcRenderer.send("statsunlock",achievement,statsobj)
+                    ;(async () => {
+                        statsobj.achievements = !config.get("steamlang") ? live : await Promise.all(
+                            live.map(async achievement => {
+                                const achievementcopy = { ...achievement }
+                                const localised = globallocalised.get(achievementcopy.apiname) || await localisedobj(steam3id,achievementcopy)
+        
+                                for (const key of Object.keys(localised)) {
+                                    achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]
+                                }
+                
+                                return achievementcopy
+                            })
+                        )
+
+                        ipcRenderer.send("statsunlock",achievement,statsobj)
+                    })()
         
                     if (live.every(ach => ach.unlocked) && !hasshown) {
                         const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon

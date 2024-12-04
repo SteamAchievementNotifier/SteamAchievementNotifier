@@ -4,6 +4,7 @@ import path from "path"
 import { sanconfig } from "./config"
 import { sanhelper } from "./sanhelper"
 import { log } from "./log"
+import { cssreplacemap, cssrevreplacemap } from "./keycodes"
 import Sortable from "sortablejs"
 
 // Placeholder elements to ignore
@@ -14,7 +15,7 @@ const ignore = [
 
 let globalappid = 0
 
-const getapiname = (elem: Element) => elem.id.replace(/^ACH\_/,"")
+const getapiname = (elem: Element) => esc(elem.id.replace(/^ACH\_/,""),true)
 
 const maxdisplay = (appid: number,max: number,filter: Element[]) => {
     const achievements: string[] = JSON.parse(localStorage.getItem("statwin")!)[appid]
@@ -76,7 +77,18 @@ const updateprogressbar = (achievements: Achievement[],progressbar: HTMLElement)
     progressbar.toggleAttribute("complete",unlocked === total)
 }
 
-// Send achievement translations when "Use Steam UI Language" option is enabled
+const esc = (str: string,unesc?: boolean,iconpath?: boolean): string => {
+    if (unesc) {
+        for (const [value,key] of cssrevreplacemap) {
+            str = str.replace(new RegExp(value,"g"), key)
+        }
+
+        return str
+    }
+
+    return str.replace(/([\s!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~])/g,match => !iconpath ? (cssreplacemap.get(match) || match) : `\\${match}`)
+}
+
 // Test adding `ss` versions of used notifications instead of generic achievement (using `base.ts`/`sselems` from config)
 ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslations) => {
     const { appid, gamename, achievements } = statsobj
@@ -147,7 +159,7 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
     .sort((a,b) => lsitem[appid].indexOf(a.apiname) - lsitem[appid].indexOf(b.apiname))
     .forEach(async achievement => {
         const html = `
-            <div class="wrapper achievement" id="ACH_${achievement.apiname}" unlocked="${achievement.unlocked}" rarity="${parseFloat(achievement.percent.toFixed(1)) <= rarity ? "rare" : "main"}" ${achievement.hidden ? "hidden" : ""}>
+            <div class="wrapper achievement" id="ACH_${esc(achievement.apiname)}" unlocked="${achievement.unlocked}" rarity="${parseFloat(achievement.percent.toFixed(1)) <= rarity ? "rare" : "main"}" ${achievement.hidden ? "hidden" : ""}>
                 <div class="inner">
                     <div class="wrapper icon"></div>
                     <div class="wrapper text">
@@ -161,7 +173,7 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
 
         achievementswrapper.insertAdjacentHTML("beforeend",html)
 
-        const achelem = achievementswrapper.querySelector(`.achievement#ACH_${achievement.apiname}`) as HTMLElement
+        const achelem = achievementswrapper.querySelector(`.achievement#ACH_${esc(achievement.apiname)}`) as HTMLElement
 
         // Move unlocked achievement to the top of the list
         achelem.addEventListener("animationstart",event => {
@@ -171,7 +183,7 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
         })
 
         // If icon does not exist in `temp` dir, cache it
-        achelem.style.setProperty("--icon",`url('${isiconcached(achievement) || await cacheicon(achievement)}')`)
+        achelem.style.setProperty("--icon",`url('${esc(isiconcached(achievement) || await cacheicon(achievement),false,true)}')`)
     })
 
     Sortable.create(achievementswrapper,{
@@ -193,7 +205,7 @@ ipcRenderer.on("statsunlock", async (event,achievement: Achievement,statsobj: St
     const achievementswrapper = document.getElementById("achievements")!
     const progressbar = document.getElementById("progressbar")!
 
-    const achelem = achievementswrapper.querySelector(`.achievement#ACH_${achievement.apiname}`) as HTMLElement | null
+    const achelem = achievementswrapper.querySelector(`.achievement#ACH_${esc(achievement.apiname)}`) as HTMLElement | null
     if (!achelem) return ipcRenderer.send("stats",statsobj)
 
     const sendipc = (event: AnimationEvent) => {
@@ -209,7 +221,7 @@ ipcRenderer.on("statsunlock", async (event,achievement: Achievement,statsobj: St
     achelem.addEventListener("animationend",sendipc)
 
     // Re-cache color icon if `grey` version is already present in `temp` dir
-    achelem.style.setProperty("--icon",`url('${`${isiconcached(achievement,noiconcache) || await cacheicon(achievement)}?v=${Date.now()}`}')`)
+    achelem.style.setProperty("--icon",`url('${`${esc(isiconcached(achievement,noiconcache) || await cacheicon(achievement),false,true)}?v=${Date.now()}`}')`)
 
     achelem.setAttribute("unlocked",`${achievement.unlocked}`)
     achelem.toggleAttribute("playing",achievement.unlocked)

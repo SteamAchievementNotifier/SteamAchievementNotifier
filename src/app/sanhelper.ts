@@ -263,6 +263,7 @@ export const sanhelper: SANHelper = {
             "Categories=Utility;"
         ].join("\n")
     },
+    steamlang: () => ipcRenderer.send("steamlang"),
     createshortcut: (value: boolean,shortcutpath: string) => {
         if ((!value && !fs.existsSync(shortcutpath)) || (value && fs.existsSync(shortcutpath))) return
 

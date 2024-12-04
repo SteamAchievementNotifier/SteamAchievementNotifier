@@ -123,3 +123,40 @@ export const steamkeycodes = new Map<string, number | null>([
     ["KEY_PAD_PLUS",0x6B],
     ["KEY_PAD_DECIMAL",0x6E]
 ])
+
+export const cssreplacemap = new Map<string, string>([
+    ["'","QUOTE"],
+    ['"',"DBLQUOTE"],
+    ["\\","BACKSLASH"],
+    ["`","BACKTICK"],
+    [" ","SPACE"],
+    ["!","EXCL"],
+    ["#","HASH"],
+    ["$","DOLLAR"],
+    ["%","PERCENT"],
+    ["&","AMPERSAND"],
+    ["*","STAR"],
+    ["+","PLUS"],
+    [",","COMMA"],
+    ["-","MINUS"],
+    [".","PERIOD"],
+    ["/","SLASH"],
+    [":","COLON"],
+    [";","SEMICOLON"],
+    ["<","LT"],
+    [">","GT"],
+    ["=","EQUALS"],
+    ["?","QUESTION"],
+    ["@","AT"],
+    ["^","CARET"],
+    ["|","PIPE"],
+    ["~","TILDE"],
+    ["(","LBRACKET"],
+    [")","RBRACKET"],
+    ["[","LSQBRACKET"],
+    ["]","RSQBRACKET"],
+    ["{","LCURBRACKET"],
+    ["}","RCURBRACKET"]
+])
+
+export const cssrevreplacemap = new Map<string,string>([...cssreplacemap].map(([key,value]) => [value,key]))

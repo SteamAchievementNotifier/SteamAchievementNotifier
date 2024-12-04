@@ -259,7 +259,8 @@ declare interface Notify extends Achievement {
     customisation: Customisation,
     icon: string,
     gamename: string | null,
-    steam3id: number
+    steam3id: number,
+    istestnotification?: boolean
 }
 
 declare interface StatsObj {

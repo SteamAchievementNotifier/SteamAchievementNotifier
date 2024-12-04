@@ -161,6 +161,8 @@ export const listeners = {
             statwin && worker && worker.webContents.send("stats")
         })
 
+        ipcMain.on("steamlang",() => statwin && worker && worker.webContents.send("stats"))
+
         let worker: BrowserWindow | null = null
 
         ipcMain.on("createworker",() => {
@@ -741,7 +743,7 @@ export const listeners = {
             })
         })
 
-        ipcMain.on("stats", async (event,statsobj: StatsObj) => {
+        ipcMain.on("stats",async (event,statsobj: StatsObj) => {
             if (statwin) {
                 const translations: StatsObjTranslations = {
                     nogame: await language.get("game",["app","content"]),
@@ -765,6 +767,8 @@ export const listeners = {
             ipcMain.once(`iconpath_${achievement.apiname}`,(event,iconpath: string | null) => statwin && statwin.webContents.send(`iconpath_${achievement.apiname}`,iconpath))
             worker.webContents.send("statwinicon",achievement)
         })
+
+        ipcMain.on("steamlang",() => statwin && worker && worker.webContents.send("steamlang"))
 
         ipcMain.on("shortcut", (event,shouldregister) => {
             globalShortcut.unregisterAll()
@@ -834,7 +838,7 @@ export const listeners = {
                         notify: notify,
                         options: {
                             title: `Steam Achievement Notifier (V${sanhelper.version}): Notification`,
-                            show: false,
+                            // show: false,
                             alwaysOnTop: true,
                             frame: false,
                             transparent: true,
@@ -948,7 +952,7 @@ export const listeners = {
 
             if (!isextwin) {
                 win.setPosition(Math.round(x as number),Math.round(y as number))
-                win.show()
+                // win.show()
             }
         }
 
@@ -1439,8 +1443,8 @@ export const listeners = {
 
                 !ispreview && ipcMain.once("sscapture", () => {
                     if (!sswin) return log.write("ERROR",`"${type}win" was closed before image file could be written to "${imgpath}"`)
-                    
-                    const ssdir = `${imgpath}/${(info.gamename || "Steam Achievement Notifier").replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}`
+
+                    const ssdir = `${imgpath}/${(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}`
                     const ssimg = `${ssdir}/${info.title.replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}${type === "img" ? " - Notification" : ""}.png`
 
                     sswin.webContents.capturePage()

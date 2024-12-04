@@ -651,7 +651,8 @@ const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisatio
         unlocked: true,
         hidden: customisation.previewhiddenicon,
         percent: type !== "plat" ? (type === "rare" ? 10.0 : 50.0) : 0,
-        icon: type !== "plat" ? sanhelper.setfilepath("img",`${customisation.usegameicon ? "game" : "ach"}icon.png`) : plat || sanhelper.setfilepath("img","ribbon.svg")
+        icon: type !== "plat" ? sanhelper.setfilepath("img",`${customisation.usegameicon ? "game" : "ach"}icon.png`) : plat || sanhelper.setfilepath("img","ribbon.svg"),
+        istestnotification: true
     }
 
     return notify

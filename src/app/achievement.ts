@@ -144,42 +144,69 @@ export const cacheachievementicons = async (gamename: string, steam64id: string,
     return icons
 }
 
-const getlocalisedachievementdata = (jsonpath: string,steam3id: number,apiname: string) => {
-    const { data } = JSON.parse(readFileSync(jsonpath).toString())[0][1]
-    const vecs: any[] = []
+const getlocalisedachievementdata = (jsonpath: string,apiname: string) => {
+    try {
+        const data = JSON.parse(readFileSync(jsonpath).toString())
+        const achentry = data.find((entry: any[]) => entry[0] === "achievements")
+        const achmapentry = data.find((entry: any[]) => entry[0] === "achievementmap")
 
-    for (const vec in data) {
-        if (vec.startsWith("vec")) vecs.push(data[vec])
+        const achievementsdata = achentry?.[1]?.data || null
+        const achievementmapdata = achmapentry?.[1]?.data || null
+        const vecs: any[] = []
+    
+        if (achievementsdata) {
+            for (const vec in achievementsdata) {
+                vec.startsWith("vec") && vecs.push(achievementsdata[vec])
+            }
+        }
+    
+        if (vecs.length) {
+            for (const vec of vecs) {
+                if (vec.length) {
+                    const vecdata = vecs.flat().find(ach => ach.strID === apiname)
+                    if (vecdata) return vecdata
+                }
+            }
+        }
+    
+        if (achievementmapdata) {
+            const mapdata = JSON.parse(achievementmapdata)
+        
+            for (const [_,achievements] of mapdata) {
+                const match = achievements.find(([achname]: [string,any]) => achname === apiname)
+                if (match) return match[1]
+            }
+        }
+    
+        return null
+    } catch (err) {
+        log.write("ERROR",`Error parsing "${jsonpath}": ${(err as Error).stack!}`)
+        return null
     }
-
-    if (!vecs.length) return null
-
-    return vecs.flat().find(ach => ach.strID === apiname)
 }
 
 export const getlocalisedachievementinfo = async (steam3id: number,apiname: string,key: "name" | "description",maxretries: number): Promise<string | null> => {
     // JSON file only has a certain number of pre-added achievement objects (usually only 12 for...some reason).
     // Any missing achievements are added to this file only after they are unlocked, which is why we need a "retries" system
     let retries = 0
-    const jsonpath = path.join(sanhelper.steampath, "userdata", `${steam3id}`, "config", "librarycache", `${sanhelper.gameinfo.appid}.json`)
+    const jsonpath = path.join(sanhelper.steampath,"userdata",`${steam3id}`,"config","librarycache",`${sanhelper.gameinfo.appid}.json`)
     const retryerr = `Unable to locate "${key}" for "${apiname}" in "${jsonpath}"`
 
     try {
-        let achinfo = getlocalisedachievementdata(jsonpath,steam3id,apiname);
+        let achinfo = getlocalisedachievementdata(jsonpath,apiname);
 
         while (!achinfo && retries < maxretries) {
             retries++
             log.write("ERROR",`${retryerr} - retrying (${retries}/${maxretries})...`)
 
             await new Promise(resolve => setTimeout(resolve,100))
-            achinfo = getlocalisedachievementdata(jsonpath,steam3id,apiname)
+            achinfo = getlocalisedachievementdata(jsonpath,apiname)
         }
 
         if (achinfo) return achinfo[`str${key.replace(key[0],key[0].toUpperCase())}`]
 
         log.write("ERROR",`${retryerr} - falling back to Steamworks...`)
         return null
-
     } catch (err) {
         log.write("ERROR",`Error parsing "${jsonpath}": ${(err as Error).stack || (err as Error).message}`)
         return null

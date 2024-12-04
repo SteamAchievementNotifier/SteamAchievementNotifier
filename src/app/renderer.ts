@@ -68,7 +68,12 @@ btns.forEach((value,key) => (document.getElementById(key) as HTMLButtonElement)!
 sanhelper.noanim(config.get("noanim"))
 sanhelper.createclosedstate()
 
-;["linkgame","themeswitch","statwin"].forEach(id => !localStorage.getItem(id) && localStorage.setItem(id,JSON.stringify({})))
+;([
+    "linkgame",
+    "themeswitch",
+    "statwin",
+    "pinned"
+] as const).forEach(id => !localStorage.getItem(id) && localStorage.setItem(id,JSON.stringify(id === "pinned" ? [] : {})))
 
 const getmonitors = async () => {
     try {
@@ -435,6 +440,20 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             log.write("INFO",`"${customiconkey()}" reset`)
             sanhelper.updatetabs(optbtn.id === "soundfile" || optbtn.id === "sounddir")
         })
+
+        const pinbtn = document.querySelector(`#customisercontent > #customiseropts .pinbtn`)! as HTMLButtonElement
+        pinbtn.parentElement!.toggleAttribute("sticky",(JSON.parse(localStorage.getItem("pinned")!) as string[]).includes(pinbtn.nextElementSibling!.id))
+
+        pinbtn.onclick = event => {
+            const pinned = JSON.parse(localStorage.getItem("pinned")!) as string[]
+
+            const parent = (event.target as HTMLButtonElement).parentElement!
+            const elem = pinbtn.nextElementSibling!
+            const value = !pinned.includes(elem.id)
+            parent.toggleAttribute("sticky",value)
+
+            localStorage.setItem("pinned",JSON.stringify(value ? [...pinned,elem.id] : pinned.filter(id => id !== elem.id),null,4))
+        }
 
         const soundpreviewbtn = document.querySelector("#customisercontent button.rect#preview")! as HTMLButtonElement
         const audio = document.querySelector("audio")!

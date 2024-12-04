@@ -366,13 +366,21 @@ button.rect:hover::after {
     translate: 0;
 }
 
-button.delbtn {
-    --icon: url("../../icon/delete.svg");
+button.delbtn,
+button.pinbtn {
     grid-column-start: 2;
     grid-row-start: 1;
     justify-self: end;
     width: 1rem;
     height: 1rem;
+}
+
+button.delbtn {
+    --icon: url("../../icon/delete.svg");
+}
+
+button.pinbtn {
+    --icon: url("../../icon/pin.svg");
 }
 
 span.hl {
@@ -579,7 +587,8 @@ input[type="range"][unit],
     overflow: hidden;
 }
 
-.opt:has(> .lbl) > :nth-child(2) {
+.opt:has(> .lbl) > :nth-child(2),
+select#themeselect {
     border-radius: 0 var(--elembr) var(--elembr) var(--elembr);
 }
 

@@ -1044,6 +1044,8 @@ export const listeners = {
                     (notifywin as BrowserWindow).webContents.send("notify",await notifyinfo())
 
                     if (extwin) {
+                        extwin.webContents.send("notify")
+
                         if (!offscreenwin) return log.write("ERROR",`"offscreenwin" not found - cannot send "notify" ipc event`)
                         offscreenwin.webContents.send("notify",await notifyinfo(true))
                     }
@@ -1103,6 +1105,8 @@ export const listeners = {
                             notifywin = null
 
                             if (extwin) {
+                                extwin.webContents.send("notifyfinished")
+
                                 if (!offscreenwin) log.write("ERROR",`"offscreenwin" not found - cannot close window`)
 
                                 offscreenwin && offscreenwin.close()

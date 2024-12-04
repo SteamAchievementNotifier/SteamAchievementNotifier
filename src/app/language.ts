@@ -99,6 +99,9 @@ export const language = {
                         btn.parentElement!.querySelector(`span`) && langmap.set(btn.parentElement!.querySelector(`span`)!,btn.id === "preview" ? global.preview : customiser[title].content[btn.id])
                     })
                 })
+
+                const themeselect = customisercontent.querySelector(`#customiseropts > .opt:has(select) > select`)!
+                langmap.set(themeselect.parentElement!.querySelector(`span`)!,customiser.theme.content[themeselect.id])
             }
 
             langmap.forEach((value,elem) => {

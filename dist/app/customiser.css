@@ -290,6 +290,7 @@ body[plat] .wrapper#customisertabs > #customisernextbtn,
 
 #customisercontent > #customiseropts {
     position: absolute;
+    display: grid;
     width: 100%;
     padding-right: 1rem;
 }
@@ -415,8 +416,34 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
     translate: 0;
 }
 
-select#themeselect {
+#customiseropts > .cont:has(+ .opt) {
     margin-bottom: 0.5rem;
+}
+
+.opt:has(select#themeselect) {
+    grid-template-columns: auto auto;
+    background-color: var(--bggrey);
+    padding-top: 0.5rem;
+    margin: 0;
+    z-index: 10;
+}
+
+select#themeselect {
+    grid-column: 1 / -1;
+}
+
+.opt:has(select#themeselect)[sticky] {
+    position: sticky;
+    bottom: 0;
+}
+
+.opt:has(select#themeselect)[sticky] > .pinbtn {
+    rotate: -45deg;
+    opacity: 1;
+}
+
+#customiseropts > .opt:has(select#themeselect) + .cont {
+    margin-top: 1rem;
 }
 
 #updatetheme {

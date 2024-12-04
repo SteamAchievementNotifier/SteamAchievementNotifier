@@ -13,6 +13,10 @@
                 user-select: none;
             }
 
+            :root {
+                --transition: 0.2s;
+            }
+
             html,
             body {
                 display: grid;
@@ -20,23 +24,49 @@
                 width: 100vw;
                 height: 100vh;
                 background-color: transparent;
+                isolation: isolate;
                 overflow: hidden;
             }
             
             body {
-                outline: 0.15rem dashed limegreen;
-                outline-offset: -0.25rem;
                 -webkit-app-region: drag;
+            }
+
+            #overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: transparent;
+                transition: background-color var(--transition);
+                z-index: -1;
+                -webkit-app-region: drag;
+            }
+
+            body[show] #overlay {
+                display: block;
+                background-color: #ffffff50;
+            }
+
+            @keyframes show {
+                to { opacity: 0.85; }
             }
             
             img {
                 width: 100%;
                 height: 100%;
+                opacity: 0;
                 pointer-events: none;
+            }
+
+            body[notify] img {
+                opacity: 1;
             }
         </style>
     </head>
     <body>
+        <div id="overlay"></div>
         <img src="../../img/transparent.png" draggable="false">
     </body>
 </html>

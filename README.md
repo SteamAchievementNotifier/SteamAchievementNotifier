@@ -167,3 +167,4 @@ For details on known issues when installing or running the app, see the [Known I
 - Custom forks of [screenshots (xcap)](https://github.com/nashaofu/xcap)/[display-info](https://github.com/nashaofu/display-info) by [nashaofu](https://github.com/nashaofu)
 - [icojs](https://github.com/egy186/icojs) by [egy186](https://github.com/egy186)
 - [iro.js](https://github.com/jaames/iro.js) by [jaames](https://github.com/jaames)
+- [sortable](https://github.com/SortableJS/Sortable) by [SortableJS](https://github.com/SortableJS)

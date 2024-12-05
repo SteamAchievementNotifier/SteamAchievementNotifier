@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Cesta screenshotu",
                 ssdelay: "Zpoždění screenshotu",
                 notifyimg: "Obrázek oznámení",
-                imgpath: "Cesta k obrázku"
+                imgpath: "Cesta k obrázku",
+                statwin: "Přehled statistik úspěchů",
+                noachievements: "Žádné úspěchy k zobrazení",
+                startgame: "Spusťte hru pro zobrazení úspěchů!",
+                max: "Maximum",
+                custom: "Vlastní..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Automaticky přepněte na jakékoli uložené <span class="hl">Téma</span>, když je detekována určitá hra`,
         userthemesync: `Synchronizujte přizpůsobení v vybraném <span class="hl">Téma</span> se všemi ostatními typy oznámení`,
         showsystrayopts: `Zobrazit všechny možnosti obvykle umístěné pod <span class="hl">Systémová lišta</span> > <span class="hl">Možnosti</span> v <span class="hl">Nastavení</span> > <span class="hl">Různé</span>`,
-        releaseshortcut: "Uvolnění aktuálně sledované hry pomocí zadané klávesové zkratky"
+        releaseshortcut: "Uvolnění aktuálně sledované hry pomocí zadané klávesové zkratky",
+        themeselect: "Vyberte dříve uložené téma",
+        statwin: `Zobrazte přizpůsobitelné statistiky úspěchů pro aktuální hru v externím okně<br><br><span class="ttdesc">Při použití společně s možností <span class="hl">Přeložit úspěchy do jazyka služby Steam</span> nemusí být některé překlady dostupné, dokud nebude daný úspěch odemčen</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

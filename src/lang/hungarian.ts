@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Képernyőkép útvonal",
                 ssdelay: "Képernyőkép késleltetés",
                 notifyimg: "Értesítési kép",
-                imgpath: "Kép elérési útvonala"
+                imgpath: "Kép elérési útvonala",
+                statwin: "Eredménystatisztika ablak",
+                noachievements: "Nincsenek eredmények megjelenítésre",
+                startgame: "Indíts el egy játékot az eredmények megjelenítéséhez!",
+                max: "Max",
+                custom: "Egyedi..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Automatikusan váltson bármely mentett <span class="hl">Témára</span>, amikor egy adott játékot észlel`,
         userthemesync: `Szinkronizálja a testreszabásokat a kiválasztott <span class="hl">Témában</span> minden más figyelmeztetési típushoz`,
         showsystrayopts: `Az összes lehetőség megjelenítése, amely általában a <span class="hl">Rendszer tálca</span> > <span class="hl">Opciók</span> alatt található a <span class="hl">Beállítások</span> > <span class="hl">Vegyesek</span> részen`,
-        releaseshortcut: "A jelenleg nyomon követett játék felszabadítása a megadott billentyűparanccsal"
+        releaseshortcut: "A jelenleg nyomon követett játék felszabadítása a megadott billentyűparanccsal",
+        themeselect: "Válassz egy korábban mentett témát",
+        statwin: `Konfigurálható eredmény statisztikák megjelenítése az aktuális játékhoz egy külön ablakban<br><br><span class="ttdesc">Amikor a <span class="hl">Eredmények fordítása Steam nyelvre</span> opción keresztül használod, egyes fordítások csak akkor lesznek elérhetők, ha a megfelelő eredmény feloldódik</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

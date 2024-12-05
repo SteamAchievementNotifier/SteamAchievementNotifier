@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Caminho da Captura de Tela",
                 ssdelay: "Atraso na Captura de Tela",
                 notifyimg: "Imagem de Notificação",
-                imgpath: "Caminho da Imagem"
+                imgpath: "Caminho da Imagem",
+                statwin: "Janela de Estatísticas de Conquistas",
+                noachievements: "Nenhuma conquista para exibir",
+                startgame: "Inicie um jogo para mostrar conquistas!",
+                max: "Máximo",
+                custom: "Personalizado..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Alternar automaticamente para qualquer <span class="hl">Tema</span> salvo quando um jogo específico for detectado`,
         userthemesync: `Sincronizar personalizações no <span class="hl">Tema</span> selecionado para todos os outros tipos de notificação`,
         showsystrayopts: `Exibir todas as opções geralmente localizadas em <span class="hl">Área de Notificação</span> > <span class="hl">Opções</span> em <span class="hl">Configurações</span> > <span class="hl">Diversos</span>`,
-        releaseshortcut: "Liberar o jogo atualmente rastreado usando o atalho de teclado especificado"
+        releaseshortcut: "Liberar o jogo atualmente rastreado usando o atalho de teclado especificado",
+        themeselect: "Selecione um Tema salvo anteriormente",
+        statwin: `Exibir estatísticas de conquistas configuráveis para o jogo atual em uma janela externa<br><br><span class="ttdesc">Quando usado em conjunto com a opção <span class="hl">Traduzir Conquistas para o Idioma do Steam</span>, algumas traduções podem não estar disponíveis até que a conquista especificada seja desbloqueada</span>`
     },
     update: {
         updateavailable: "Atualização disponível",

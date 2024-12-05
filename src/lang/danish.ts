@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Screenshot-sti",
                 ssdelay: "Screenshot-forsinkelse",
                 notifyimg: "Notifikationsbillede",
-                imgpath: "Billedsti"
+                imgpath: "Billedsti",
+                statwin: "Statistik for Præstationsvindue",
+                noachievements: "Ingen præstationer at vise",
+                startgame: "Start et spil for at vise præstationer!",
+                max: "Maks",
+                custom: "Brugerdefineret..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Skift automatisk til ethvert gemt <span class="hl">Tema</span>, når et bestemt spil opdages`,
         userthemesync: `Synkroniser tilpasninger i det valgte <span class="hl">Tema</span> til alle andre meddelelsestyper`,
         showsystrayopts: `Vis alle muligheder, der normalt findes under <span class="hl">Systembakke</span> > <span class="hl">Indstillinger</span> i <span class="hl">Indstillinger</span> > <span class="hl">Diverse</span>`,
-        releaseshortcut: "Frigiv det aktuelt overvågede spil ved hjælp af den angivne tastaturgenvej"
+        releaseshortcut: "Frigiv det aktuelt overvågede spil ved hjælp af den angivne tastaturgenvej",
+        themeselect: "Vælg et tidligere gemt Tema",
+        statwin: `Vis konfigurerbare præstationsstatistikker for det aktuelle spil i et eksternt vindue<br><br><span class="ttdesc">Når det bruges sammen med indstillingen <span class="hl">Oversæt Præstationer til Steam-sprog</span>, kan nogle oversættelser være utilgængelige, indtil den specifikke præstation er låst op</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

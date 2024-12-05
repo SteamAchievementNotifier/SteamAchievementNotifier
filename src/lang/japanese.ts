@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "スクリーンショットのパス",
                 ssdelay: "スクリーンショットの遅延",
                 notifyimg: "通知画像",
-                imgpath: "画像のパス"
+                imgpath: "画像のパス",
+                statwin: "実績統計ウィンドウ",
+                noachievements: "表示する実績はありません",
+                startgame: "実績を表示するにはゲームを開始してください！",
+                max: "最大",
+                custom: "カスタム..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `特定のゲームが検出されたときに保存された <span class="hl">テーマ</span> に自動的に切り替え`,
         userthemesync: `選択した <span class="hl">テーマ</span> のカスタマイズをすべての他の通知タイプに同期`,
         showsystrayopts: `通常 <span class="hl">システムトレイ</span> > <span class="hl">オプション</span> に位置するすべてのオプションを表示 <span class="hl">設定</span> > <span class="hl">その他</span>`,
-        releaseshortcut: "指定されたキーボードショートカットを使用して、現在追跡中のゲームをリリースします"
+        releaseshortcut: "指定されたキーボードショートカットを使用して、現在追跡中のゲームをリリースします",
+        themeselect: "以前に保存したテーマを選択",
+        statwin: `現在のゲームの実績統計を外部ウィンドウで表示<br><br><span class="ttdesc">「<span class="hl">Steamの言語に実績を翻訳</span>」オプションと併用すると、特定の実績が解除されるまで一部の翻訳が利用できない場合があります</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

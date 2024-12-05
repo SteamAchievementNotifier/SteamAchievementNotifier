@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Ruutukaappauksen polku",
                 ssdelay: "Ruutukaappauksen viive",
                 notifyimg: "Ilmoituskuva",
-                imgpath: "Kuvan polku"
+                imgpath: "Kuvan polku",
+                statwin: "Saavutustilastojen ikkuna",
+                noachievements: "Ei saavutuksia näytettäväksi",
+                startgame: "Aloita peli näyttääksesi saavutukset!",
+                max: "Maksimi",
+                custom: "Mukautettu..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Vaihda automaattisesti tallennettuun <span class="hl">Teemaan</span> kun tietty peli havaitaan`,
         userthemesync: `Synkronoi mukautukset valitussa <span class="hl">Teemassa</span> kaikkiin muihin ilmoitustyyppeihin`,
         showsystrayopts: `Näytä kaikki vaihtoehdot, jotka sijaitsevat yleensä kohdassa <span class="hl">Järjestelmäpalkki</span> > <span class="hl">Asetukset</span> kohdassa <span class="hl">Asetukset</span> > <span class="hl">Sekalaiset</span>`,
-        releaseshortcut: "Vapauta tällä hetkellä seurattava peli määritetyllä pikanäppäimellä"
+        releaseshortcut: "Vapauta tällä hetkellä seurattava peli määritetyllä pikanäppäimellä",
+        themeselect: "Valitse aiemmin tallennettu Teema",
+        statwin: `Näytä mukautettavat saavutustilastot nykyiselle pelille ulkoisessa ikkunassa<br><br><span class="ttdesc">Kun käytetään yhdessä <span class="hl">Käännä saavutukset Steamin kielelle</span> -vaihtoehdon kanssa, jotkin käännökset saattavat olla saatavilla vasta, kun kyseinen saavutus on avattu</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

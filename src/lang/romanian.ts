@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Cale Captură",
                 ssdelay: "Întârziere Captură",
                 notifyimg: "Imagine Notificare",
-                imgpath: "Calea Imaginii"
+                imgpath: "Calea Imaginii",
+                statwin: "Fereastră cu statistici despre realizări",
+                noachievements: "Nu există realizări de afișat",
+                startgame: "Pornește un joc pentru a arăta realizările!",
+                max: "Maxim",
+                custom: "Personalizat..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Comutare automată la orice <span class="hl">Temă</span> salvată atunci când un joc specific este detectat`,
         userthemesync: `Sincronizează personalizările din <span class="hl">Tema</span> selectată pentru toate celelalte tipuri de notificări`,
         showsystrayopts: `Afișează toate opțiunile de obicei localizate sub <span class="hl">Zona de Notificare</span> > <span class="hl">Opțiuni</span> în <span class="hl">Setări</span> > <span class="hl">Diverse</span>`,
-        releaseshortcut: "Lansează jocul activ urmărit folosind scurtătura de tastatură specificată"
+        releaseshortcut: "Lansează jocul activ urmărit folosind scurtătura de tastatură specificată",
+        themeselect: "Selectează un Tema salvat anterior",
+        statwin: `Afișează statistici configurabile ale realizărilor pentru jocul curent într-o fereastră externă<br><br><span class="ttdesc">Atunci când este folosit împreună cu opțiunea <span class="hl">Tradu realizările în limba Steam</span>, anumite traduceri pot să nu fie disponibile până când realizarea specifică nu este deblocată</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Đường dẫn Chụp Ảnh Màn hình",
                 ssdelay: "Độ Trễ Chụp Ảnh Màn hình",
                 notifyimg: "Hình ảnh thông báo",
-                imgpath: "Đường dẫn hình ảnh"
+                imgpath: "Đường dẫn hình ảnh",
+                statwin: "Cửa sổ thống kê thành tích",
+                noachievements: "Không có thành tích để hiển thị",
+                startgame: "Bắt đầu một trò chơi để hiển thị thành tích!",
+                max: "Tối đa",
+                custom: "Tùy chỉnh..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Tự động chuyển sang bất kỳ <span class="hl">Chủ đề</span> nào đã lưu khi phát hiện một trò chơi cụ thể`,
         userthemesync: `Đồng bộ tùy chỉnh trong <span class="hl">Chủ đề</span> đã chọn với tất cả các loại thông báo khác`,
         showsystrayopts: `Hiển thị tất cả các tùy chọn thường nằm dưới <span class="hl">Khay Hệ thống</span> > <span class="hl">Tùy chọn</span> trong <span class="hl">Cài đặt</span> > <span class="hl">Khác.</span>`,
-        releaseshortcut: "Sử dụng phím tắt đã chỉ định để phát hành trò chơi đang theo dõi"
+        releaseshortcut: "Sử dụng phím tắt đã chỉ định để phát hành trò chơi đang theo dõi",
+        themeselect: "Chọn một chủ đề đã lưu trước đó",
+        statwin: `Hiển thị thống kê thành tích có thể cấu hình cho trò chơi hiện tại trong cửa sổ ngoài<br><br><span class="ttdesc">Khi sử dụng cùng với tùy chọn <span class="hl">Dịch thành tích sang ngôn ngữ Steam</span>, một số bản dịch có thể không khả dụng cho đến khi thành tích cụ thể được mở khóa</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

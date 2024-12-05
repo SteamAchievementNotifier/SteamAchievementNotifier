@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "مسار اللقطة الشاشة",
                 ssdelay: "تأخير اللقطة الشاشة",
                 notifyimg: "صورة الإشعار",
-                imgpath: "مسار الصورة"
+                imgpath: "مسار الصورة",
+                statwin: "نافذة إحصائيات الإنجازات",
+                noachievements: "لا توجد إنجازات لعرضها",
+                startgame: "ابدأ لعبة لعرض الإنجازات!",
+                max: "الحد الأقصى",
+                custom: "مخصص..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `التبديل تلقائيًا إلى أي <span class="hl">ثيم</span> محفوظ عند اكتشاف لعبة معينة`,
         userthemesync: `مزامنة التخصيصات في <span class="hl">الثيم</span> المحدد لجميع أنواع الإشعارات الأخرى`,
         showsystrayopts: `عرض جميع الخيارات الموجودة عادةً تحت <span class="hl">علبة النظام</span> > <span class="hl">الخيارات</span> في <span class="hl">الإعدادات</span> > <span class="hl">متنوعة</span>`,
-        releaseshortcut: "إطلاق اللعبة المتتبعة حاليًا باستخدام اختصار لوحة المفاتيح المحدد"
+        releaseshortcut: "إطلاق اللعبة المتتبعة حاليًا باستخدام اختصار لوحة المفاتيح المحدد",
+        themeselect: "اختر سمة محفوظة مسبقًا",
+        statwin: `عرض إحصائيات الإنجازات القابلة للتخصيص للعبة الحالية في نافذة خارجية<br><br><span class="ttdesc">عند استخدامها مع خيار <span class="hl">ترجمة الإنجازات إلى لغة Steam</span>، قد لا تكون بعض الترجمات متاحة حتى يتم فتح الإنجاز المحدد</span>`
     },
     update: {
         updateavailable: "تحديث متاح",

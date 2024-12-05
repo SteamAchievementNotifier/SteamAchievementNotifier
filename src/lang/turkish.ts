@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Görüntü Yolu",
                 ssdelay: "Görüntü Gecikmesi",
                 notifyimg: "Bildirim Görseli",
-                imgpath: "Görsel Yolu"
+                imgpath: "Görsel Yolu",
+                statwin: "Başarı İstatistikleri Penceresi",
+                noachievements: "Gösterilecek başarı yok",
+                startgame: "Başarıları göstermek için bir oyun başlatın!",
+                max: "Maksimum",
+                custom: "Özel..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Belirli bir oyun tespit edildiğinde herhangi bir kaydedilmiş <span class="hl">Temaya</span> otomatik olarak geçiş yap`,
         userthemesync: `Seçilen <span class="hl">Tema</span> üzerindeki özelleştirmeleri tüm diğer bildirim türlerine senkronize et`,
         showsystrayopts: `Genellikle <span class="hl">Sistem Tepsisi</span> > <span class="hl">Seçenekler</span> altında yer alan tüm seçenekleri <span class="hl">Ayarlar</span> > <span class="hl">Diğer</span> kısmında göster`,
-        releaseshortcut: "Belirtilen klavye kısayolunu kullanarak şu anda izlenen oyunu yayınlayın"
+        releaseshortcut: "Belirtilen klavye kısayolunu kullanarak şu anda izlenen oyunu yayınlayın",
+        themeselect: "Önceden kaydedilmiş bir Tema seçin",
+        statwin: `Geçerli oyun için yapılandırılabilir başarı istatistiklerini dış bir pencerede görüntüle<br><br><span class="ttdesc">"<span class="hl">Başarıları Steam diline çevir</span>" seçeneğiyle birlikte kullanıldığında, belirli bir başarı açılana kadar bazı çeviriler kullanılamayabilir</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

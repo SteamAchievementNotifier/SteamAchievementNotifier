@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Ścieżka zrzutu ekranu",
                 ssdelay: "Opóźnienie zrzutu ekranu",
                 notifyimg: "Obrazek powiadomienia",
-                imgpath: "Ścieżka obrazu"
+                imgpath: "Ścieżka obrazu",
+                statwin: "Okno statystyk osiągnięć",
+                noachievements: "Brak osiągnięć do wyświetlenia",
+                startgame: "Rozpocznij grę, aby wyświetlić osiągnięcia!",
+                max: "Maksimum",
+                custom: "Niestandardowe..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Automatycznie przełączaj się na dowolny zapisany <span class="hl">motyw</span>, gdy wykryte jest konkretne gra`,
         userthemesync: `Synchronizuj dostosowania w wybranym <span class="hl">motywie</span> dla wszystkich innych typów powiadomień`,
         showsystrayopts: `Wyświetl wszystkie opcje zazwyczaj znajdujące się w <span class="hl">Zasobniku systemowym</span> > <span class="hl">Opcje</span> w <span class="hl">Ustawieniach</span> > <span class="hl">Różne</span>`,
-        releaseshortcut: "Uwolnij aktualnie śledzoną grę za pomocą określonego skrótu klawiaturowego"
+        releaseshortcut: "Uwolnij aktualnie śledzoną grę za pomocą określonego skrótu klawiaturowego",
+        themeselect: "Wybierz wcześniej zapisany motyw",
+        statwin: `Wyświetl konfigurowalne statystyki osiągnięć dla bieżącej gry w zewnętrznym oknie<br><br><span class="ttdesc">Używając opcji <span class="hl">Tłumaczenie osiągnięć na język Steam</span>, niektóre tłumaczenia mogą być niedostępne, dopóki konkretne osiągnięcie nie zostanie odblokowane</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

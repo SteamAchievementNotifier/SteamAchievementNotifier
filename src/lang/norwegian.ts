@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Skjermbilde sti",
                 ssdelay: "Skjermbilde forsinkelse",
                 notifyimg: "Varslingsbilde",
-                imgpath: "Bildesti"
+                imgpath: "Bildesti",
+                statwin: "Prestasjonstatistikkvindu",
+                noachievements: "Ingen prestasjoner å vise",
+                startgame: "Start et spill for å vise prestasjoner!",
+                max: "Maks",
+                custom: "Egendefinert..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Bytt automatisk til et lagret <span class="hl">tema</span> når et spesifikt spill oppdages`,
         userthemesync: `Synkroniser tilpasninger i det valgte <span class="hl">tema</span> til alle andre varslingskategorier`,
         showsystrayopts: `Vis alle alternativer som vanligvis ligger under <span class="hl">Systemstatus</span> > <span class="hl">Alternativer</span> i <span class="hl">Innstillinger</span> > <span class="hl">Diverse</span>`,
-        releaseshortcut: "Frigjør det nåværende sporet spillet ved å bruke den angitte hurtigtasten"
+        releaseshortcut: "Frigjør det nåværende sporet spillet ved å bruke den angitte hurtigtasten",
+        themeselect: "Velg et tidligere lagret Tema",
+        statwin: `Vis konfigurerbare prestasjonstatistikker for det nåværende spillet i et eksternt vindu<br><br><span class="ttdesc">Når det brukes sammen med alternativet <span class="hl">Oversett prestasjoner til Steam-språk</span>, kan noen oversettelser ikke være tilgjengelige før den spesifikke prestasjonen er låst opp</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

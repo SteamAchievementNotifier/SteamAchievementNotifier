@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Chemin de la capture d'écran",
                 ssdelay: "Délai de capture d'écran",
                 notifyimg: "Image de notification",
-                imgpath: "Chemin de l'image"
+                imgpath: "Chemin de l'image",
+                statwin: "Fenêtre des Statistiques de Succès",
+                noachievements: "Aucun succès à afficher",
+                startgame: "Lancez une partie pour afficher les succès !",
+                max: "Max",
+                custom: "Personnalisé..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Changer automatiquement pour tout <span class="hl">Thème</span> enregistré lorsqu'un jeu spécifique est détecté`,
         userthemesync: `Synchroniser les personnalisations du <span class="hl">Thème</span> sélectionné avec tous les autres types de notification`,
         showsystrayopts: `Afficher toutes les options généralement situées sous <span class="hl">Barre système</span> > <span class="hl">Options</span> dans <span class="hl">Paramètres</span> > <span class="hl">Divers</span>`,
-        releaseshortcut: "Libérer le jeu actuellement suivi à l'aide du raccourci clavier spécifié"
+        releaseshortcut: "Libérer le jeu actuellement suivi à l'aide du raccourci clavier spécifié",
+        themeselect: "Sélectionnez un Thème enregistré précédemment",
+        statwin: `Affichez des statistiques de succès configurables pour le jeu en cours dans une fenêtre externe<br><br><span class="ttdesc">Lorsqu'elle est utilisée avec l'option <span class="hl">Traduire les succès dans la langue de Steam</span>, certaines traductions peuvent ne pas être disponibles tant que le succès spécifié n'est pas débloqué</span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",

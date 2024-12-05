@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Skärmdumpssökväg",
                 ssdelay: "Skärmdumpsfördröjning",
                 notifyimg: "Meddelandebild",
-                imgpath: "Bildsökväg"
+                imgpath: "Bildsökväg",
+                statwin: "Prestationstatistikfönster",
+                noachievements: "Inga prestationer att visa",
+                startgame: "Starta ett spel för att visa prestationer!",
+                max: "Max",
+                custom: "Anpassad..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Automatiskt byta till vilket <span class="hl">Tema</span> som helst som sparats när ett specifikt spel upptäcks`,
         userthemesync: `Synkronisera anpassningar i det valda <span class="hl">Temat</span> till alla andra notifieringstyper`,
         showsystrayopts: `Visa alla alternativ som vanligtvis finns under <span class="hl">Systemfält</span> > <span class="hl">Alternativ</span> i <span class="hl">Inställningar</span> > <span class="hl">Övrigt</span>`,
-        releaseshortcut: "Frigör det nuvarande spårade spelet med den angivna tangentbordsgenvägen"
+        releaseshortcut: "Frigör det nuvarande spårade spelet med den angivna tangentbordsgenvägen",
+        themeselect: "Välj ett tidigare sparat tema",
+        statwin: `Visa konfigurerbara prestationstatistik för det aktuella spelet i ett externt fönster<br><br><span class="ttdesc">När den används tillsammans med alternativet <span class="hl">Översätt prestationer till Steam-språk</span> kan vissa översättningar vara otillgängliga tills den specifika prestationen är upplåst</span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

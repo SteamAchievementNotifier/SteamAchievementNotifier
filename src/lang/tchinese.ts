@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "截圖路徑",
                 ssdelay: "截圖延遲",
                 notifyimg: "通知圖片",
-                imgpath: "圖片路徑"
+                imgpath: "圖片路徑",
+                statwin: "成就統計窗口",
+                noachievements: "沒有成就可顯示",
+                startgame: "啟動遊戲以顯示成就！",
+                max: "最大值",
+                custom: "自定義..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `當檢測到特定遊戲時，自動切換到任何已保存的 <span class="hl">主題</span>`,
         userthemesync: `將所選 <span class="hl">主題</span> 中的自定義同步到所有其他通知類型`,
         showsystrayopts: `顯示通常位於 <span class="hl">系統托盤</span> > <span class="hl">選項</span> 下的所有選項，在 <span class="hl">設置</span> > <span class="hl">其他</span>`,
-        releaseshortcut: "使用指定的鍵盤快捷鍵釋放當前跟蹤的遊戲"
+        releaseshortcut: "使用指定的鍵盤快捷鍵釋放當前跟蹤的遊戲",
+        themeselect: "選擇之前保存的主題",
+        statwin: `在外部窗口中顯示當前遊戲的可配置成就統計<br><br><span class="ttdesc">當與“<span class="hl">將成就翻譯為 Steam 語言</span>”選項一起使用時，某些翻譯可能在解鎖特定成就之前無法使用</span>`
     },
     update: {
         updateavailable: "有可用更新",

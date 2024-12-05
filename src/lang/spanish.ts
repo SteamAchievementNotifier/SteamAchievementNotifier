@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Ruta de la captura de pantalla",
                 ssdelay: "Retraso de la captura de pantalla",
                 notifyimg: "Imagen de Notificación",
-                imgpath: "Ruta de la Imagen"
+                imgpath: "Ruta de la Imagen",
+                statwin: "Ventana de estadísticas de logros",
+                noachievements: "No hay logros para mostrar",
+                startgame: "¡Inicia un juego para mostrar los logros!",
+                max: "Máximo",
+                custom: "Personalizado..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Cambiar automáticamente a cualquier <span class="hl">Tema</span> guardado cuando se detecta un juego específico`,
         userthemesync: `Sincronizar personalizaciones en el <span class="hl">Tema</span> seleccionado a todos los demás tipos de notificación`,
         showsystrayopts: `Mostrar todas las opciones que normalmente se encuentran bajo <span class="hl">Bandeja del sistema</span> > <span class="hl">Opciones</span> en <span class="hl">Configuraciones</span> > <span class="hl">Varios</span>`,
-        releaseshortcut: "Liberar el juego actualmente rastreado usando el acceso directo de teclado especificado"
+        releaseshortcut: "Liberar el juego actualmente rastreado usando el acceso directo de teclado especificado",
+        themeselect: "Selecciona un tema guardado previamente",
+        statwin: `Mostrar estadísticas configurables de logros para el juego actual en una ventana externa<br><br><span class="ttdesc">Cuando se usa junto con la opción <span class="hl">Traducir logros al idioma de Steam</span>, algunas traducciones pueden no estar disponibles hasta que se desbloquee el logro específico</span>`
     },
     update: {
         updateavailable: "Actualización disponible",

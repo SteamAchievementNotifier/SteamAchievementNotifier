@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Screenshot-Pfad",
                 ssdelay: "Screenshot-Verzögerung",
                 notifyimg: "Benachrichtigungsbild",
-                imgpath: "Bildpfad"
+                imgpath: "Bildpfad",
+                statwin: "Statistikfenster für Erfolge",
+                noachievements: "Keine Erfolge zum Anzeigen",
+                startgame: "Starte ein Spiel, um Erfolge anzuzeigen!",
+                max: "Max",
+                custom: "Benutzerdefiniert..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Automatisch auf ein gespeichertes <span class="hl">Thema</span> wechseln, wenn ein bestimmtes Spiel erkannt wird`,
         userthemesync: `Synchronisiere Anpassungen im ausgewählten <span class="hl">Thema</span> mit allen anderen Benachrichtigungstypen`,
         showsystrayopts: `Zeigt alle Optionen an, die normalerweise unter <span class="hl">System Tray</span> > <span class="hl">Optionen</span> in <span class="hl">Einstellungen</span> > <span class="hl">Verschiedenes</span> zu finden sind`,
-        releaseshortcut: "Das aktuell verfolgte Spiel mit der angegebenen Tastenkombination freigeben"
+        releaseshortcut: "Das aktuell verfolgte Spiel mit der angegebenen Tastenkombination freigeben",
+        themeselect: "Wählen Sie ein zuvor gespeichertes Thema",
+        statwin: `Konfigurierbare Erfolgsstatistiken für das aktuelle Spiel in einem externen Fenster anzeigen<br><br><span class="ttdesc">Bei Verwendung in Kombination mit der Option <span class="hl">Erfolge in die Steam-Sprache übersetzen</span> können einige Übersetzungen erst verfügbar sein, wenn der entsprechende Erfolg freigeschaltet wurde</span>`
     },
     update: {
         updateavailable: "Update verfügbar",

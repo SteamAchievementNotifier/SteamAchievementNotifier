@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "스크린 샷 경로",
                 ssdelay: "스크린 샷 지연",
                 notifyimg: "알림 이미지",
-                imgpath: "이미지 경로"
+                imgpath: "이미지 경로",
+                statwin: "업적 통계 창",
+                noachievements: "표시할 업적이 없습니다",
+                startgame: "업적을 표시하려면 게임을 시작하세요!",
+                max: "최대",
+                custom: "사용자 정의..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `특정 게임이 감지될 때 저장된 <span class="hl">테마</span>로 자동 전환`,
         userthemesync: `선택한 <span class="hl">테마</span>의 사용자 정의를 모든 다른 알림 유형에 동기화`,
         showsystrayopts: `보통 <span class="hl">시스템 트레이</span> > <span class="hl">옵션</span> 아래에 위치하는 모든 옵션을 표시 <span class="hl">설정</span> > <span class="hl">기타</span>`,
-        releaseshortcut: "지정된 키보드 단축키를 사용하여 현재 추적 중인 게임을 릴리스합니다"
+        releaseshortcut: "지정된 키보드 단축키를 사용하여 현재 추적 중인 게임을 릴리스합니다",
+        themeselect: "이전에 저장된 테마 선택",
+        statwin: `현재 게임에 대한 구성 가능한 업적 통계를 외부 창에 표시<br><br><span class="ttdesc">"<span class="hl">Steam 언어로 업적 번역</span>" 옵션과 함께 사용 시, 특정 업적이 잠금 해제될 때까지 일부 번역이 제공되지 않을 수 있습니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",

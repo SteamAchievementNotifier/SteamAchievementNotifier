@@ -149,7 +149,12 @@ export const translations = {
                 ovpath: "Screenshot pad",
                 ssdelay: "Screenshot vertraging",
                 notifyimg: "Meldingsafbeelding",
-                imgpath: "Afbeeldingspad"
+                imgpath: "Afbeeldingspad",
+                statwin: "Prestatiestatistiekenvenster",
+                noachievements: "Geen prestaties om weer te geven",
+                startgame: "Start een spel om prestaties te tonen!",
+                max: "Max",
+                custom: "Aangepast..."
             }
         },
         games: {
@@ -531,7 +536,9 @@ export const translations = {
         themeswitch: `Wissel automatisch naar een opgeslagen <span class="hl">Thema</span> wanneer een specifiek spel wordt gedetecteerd`,
         userthemesync: `Synchroniseer aanpassingen in het geselecteerde <span class="hl">Thema</span> naar alle andere meldingstypen`,
         showsystrayopts: `Weergeef alle opties die normaal te vinden zijn onder <span class="hl">Systeemvak</span> > <span class="hl">Opties</span> in <span class="hl">Instellingen</span> > <span class="hl">Diversen</span>`,
-        releaseshortcut: "Geef het momenteel gevolgde spel vrij met de opgegeven sneltoets"
+        releaseshortcut: "Geef het momenteel gevolgde spel vrij met de opgegeven sneltoets",
+        themeselect: "Selecteer een eerder opgeslagen Thema",
+        statwin: `Toon configureerbare prestatiestatistieken voor het huidige spel in een extern venster<br><br><span class="ttdesc">Wanneer gebruikt in combinatie met de optie <span class="hl">Vertaal Prestaties naar de Steam-taal</span>, kunnen sommige vertalingen pas beschikbaar zijn zodra de specifieke prestatie is ontgrendeld</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

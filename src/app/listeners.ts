@@ -385,6 +385,7 @@ export const listeners = {
                 skipTaskbar: sanhelper.devmode,
                 movable: false,
                 resizable: false,
+                show: false,
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false
@@ -403,7 +404,7 @@ export const listeners = {
 
                 const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id: number,hqicon: string,tempdir: string,__root: string) => {
                     trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id,hqicon,tempdir,__root)
-                    shownotify(trackwin,bounds)
+                    shownotify(trackwin,bounds,false,true)
     
                     return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
                 }
@@ -943,7 +944,7 @@ export const listeners = {
             }
         }
 
-        const shownotify = (win: BrowserWindow,bounds: { width: number, height: number, x: number, y: number },isextwin?: boolean) => {
+        const shownotify = (win: BrowserWindow,bounds: { width: number, height: number, x: number, y: number },isextwin?: boolean,istrackwin?: boolean) => {
             const { width, height, x, y } = bounds
 
             isextwin && win.setResizable(true)
@@ -953,6 +954,8 @@ export const listeners = {
                 win.setPosition(Math.round(x as number),Math.round(y as number))
                 // win.show()
             }
+
+            istrackwin && win.show()
         }
 
         let notifywin: BrowserWindow | Notification | null = null

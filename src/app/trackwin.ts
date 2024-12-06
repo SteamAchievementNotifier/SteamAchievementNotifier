@@ -25,16 +25,18 @@ const getgameart = (gamename: string,type: "icon" | "library_hero",appid: number
     }
 }
 
-const convertICO = async (file: string,tempdir: string) => {
+const convertICO = async (file: string,tempdir: string,__root: string) => {
     if (path.extname(file) !== ".ico") return file
 
     const iconpng = path.join(tempdir,"gameicon.png")
     if (fs.existsSync(iconpng)) return iconpng
 
-    const { parse } = await import("icojs")
-
+    const { parse } = await import(`${__root}/node_modules/icojs`)
+    
     const buffer = fs.readFileSync(file)
     const layers = await parse(buffer,"image/png")
+    
+    // @ts-ignore
     const hq = layers.reduce((max,current) => (current.width > max.width) ? current : max)
 
     try {
@@ -43,15 +45,13 @@ const convertICO = async (file: string,tempdir: string) => {
     } catch (err) {
         return null
     }
-
-    // return `data:img/png;base64,${Buffer.from(hq.buffer).toString("base64")}`
 }
 
 window.addEventListener("DOMContentLoaded", async () => {
     const wrapper = document.querySelector("body > .wrapper")! as HTMLElement
     wrapper.addEventListener("animationend", (event: AnimationEvent) => event.animationName === "fade" && ipcRenderer.send("trackwinclose"),{ once: true })
 
-    ipcRenderer.once("gamename", async (event,text: string,gamename: string,appid: number,steampath: string,steam3id: number = 0,hqicon: string,tempdir: string) => {
+    ipcRenderer.once("gamename", async (event,text: string,gamename: string,appid: number,steampath: string,steam3id: number = 0,hqicon: string,tempdir: string,__root: string) => {
         document.querySelector(".wrapper#textcont > span")!.textContent = text
 
         if (gamename) {
@@ -61,7 +61,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 const icon = (hqicon?: string) => getgameart(gamename,"icon",appid,steampath,steam3id,hqicon || "")
                 const hero = getgameart(gamename,"library_hero",appid,steampath,steam3id,hqicon)
 
-                icon && ((document.getElementById("gamelogo")! as HTMLImageElement).src = await convertICO(icon(hqicon),tempdir) || icon())
+                icon && ((document.getElementById("gamelogo")! as HTMLImageElement).src = await convertICO(icon(hqicon),tempdir,__root) || icon())
                 if (hero) {
                     document.documentElement.style.setProperty("--primary","transparent")
                     document.documentElement.style.setProperty("--header",`url('${hero}')`)

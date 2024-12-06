@@ -71,6 +71,8 @@ const statsobj: StatsObj = {
 }
 
 ipcRenderer.on("stats",() => ipcRenderer.send("stats",statsobj))
+// Send to `listeners.ts` on spawn, in case `statwin` spawned between worker respawns and did not receive "stats" IPC event
+ipcRenderer.send("stats",statsobj)
 
 const creategameinfo = (gamename: string, appid: number, exepath: string, pid: number, pollrate: number) => [
     "Game process started:",

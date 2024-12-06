@@ -385,7 +385,6 @@ export const listeners = {
                 skipTaskbar: sanhelper.devmode,
                 movable: false,
                 resizable: false,
-                show: false,
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false
@@ -402,11 +401,11 @@ export const listeners = {
                 const { width, height } = trackwin.getBounds()
                 const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
 
-                const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id: number,hqicon: string,tempdir: string) => {
-                    trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id,hqicon,tempdir)
+                const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id: number,hqicon: string,tempdir: string,__root: string) => {
+                    trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id,hqicon,tempdir,__root)
                     shownotify(trackwin,bounds)
     
-                    return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
+                    // return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
                 }
 
                 const steampath = sanhelper.steampath
@@ -415,10 +414,10 @@ export const listeners = {
 
                 try {
                     worker && worker.webContents.send("steam3id",true)
-                    ipcMain.once("steam3id",(event,steam3id: number = 0,skipss?: boolean) => skipss && sendtrackinfo(gamename,appid,steampath,steam3id,hqicon,temp))
+                    ipcMain.once("steam3id",(event,steam3id: number = 0,skipss?: boolean) => skipss && sendtrackinfo(gamename,appid,steampath,steam3id,hqicon,temp,__root))
                 } catch (err) {
                     log.write("ERROR",`Error sending tracking info to Worker: ${err}`)
-                    sendtrackinfo(gamename,appid,steampath,0,hqicon,temp)
+                    sendtrackinfo(gamename,appid,steampath,0,hqicon,temp,__root)
                 }
             })
 
@@ -1003,6 +1002,7 @@ export const listeners = {
                     title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
                     x: 0,
                     y: 0,
+                    show: false,
                     webPreferences: {
                         nodeIntegration: true,
                         contextIsolation: false,

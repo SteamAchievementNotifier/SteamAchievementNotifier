@@ -3,7 +3,6 @@ import fs from "fs"
 import path from "path"
 import electronlog, { transports, catchErrors } from "electron-log"
 import { sanhelper } from "./sanhelper"
-import Store from "electron-store"
 
 export const log = {
     create: (process: "APP" | "MAIN" | "RENDERER" | "WORKER" | "ERROR") => {
@@ -26,7 +25,16 @@ export const log = {
                 fs.writeFileSync(path.join(sanhelper.appdata,"logs","rust.log"),"")
                 log.write("INFO",`"rust.log" created successfully`)
             } catch (err) {
-                log.write("ERROR",`Error creating "rust.log": ${(err as Error).stack}`)
+                log.write("ERROR",`Error creating "rust.log": ${(err as Error).stack || (err as Error).message}`)
+            }
+        } else if (process === "RENDERER") {
+            const vnan = path.join(sanhelper.appdata,"..","Steam Achievement Notifier (VNaN)")
+
+            try {
+                fs.existsSync(vnan) && fs.rmSync(vnan,{ recursive: true, force: true })
+                log.write("INFO",`"VNaN" dir detected and removed successfully`)
+            } catch (err) {
+                log.write("ERROR",`Error removing "VNaN" dir: ${(err as Error).stack || (err as Error).message}`)
             }
         }
 

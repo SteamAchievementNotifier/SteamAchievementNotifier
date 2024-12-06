@@ -405,7 +405,7 @@ export const listeners = {
                     trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id,hqicon,tempdir,__root)
                     shownotify(trackwin,bounds)
     
-                    // return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
+                    return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
                 }
 
                 const steampath = sanhelper.steampath

@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "ウィンドウのリンクに失敗しました",
         addlinkfailedsub: `再試行するには、<span class="hl">リンク</span>ボタンをクリックしてください`,
         webhookunlockmsg: "$user がアチーブメントを解除しました",
+        webhookunlockmsgplat: "$user がすべての実績を解除しました",
         webhookingame: "$gamename で",
         notconnected: "接続されていません"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "オフ",
                 showpercent: "パーセンテージを表示",
                 soundonly: "サウンドのみ",
-                extwin: "ストリーム通知",
-                extwinframerate: "フレームレート",
-                extwinshow: "ウィンドウを表示",
-                audiosrc: "オーディオソース",
-                notify: "通知",
-                app: "アプリ",
                 nowtracking: "トラッキング通知を表示する",
                 nowtrackingscale: "トラッキングスケール",
                 nowtrackingpos: "追跡位置",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `このオプションを有効にし、正しいDiscord Webhookリンクを提供することで、<u>現在のSteamユーザーのすべてのアチーブメントおよびゲーム情報</u>が指定されたDiscordサーバーにWebhookリンクを通じて投稿されることを理解していることに同意します。<br><br>Steam Achievement Notifierがあなたの代わりにこの情報を投稿することを望まない場合は、このオプションを無効にしてください。`,
                 webhooklaststatus: "最後のステータス"
+            }
+        },
+        games: {
+            title: "ゲーム",
+            content: {
+                linkedgames: "リンクされたゲーム",
+                themeswitch: "テーマを自動切替",
+                exclusionlist: "除外リスト"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "スクリーンショットのパス",
                 ssdelay: "スクリーンショットの遅延",
                 notifyimg: "通知画像",
-                imgpath: "画像のパス",
+                imgpath: "画像のパス"
+            }
+        },
+        streaming: {
+            title: "ストリーミング",
+            content: {
+                extwin: "ストリーム通知",
+                extwinframerate: "フレームレート",
+                extwinshow: "ウィンドウを表示",
+                audiosrc: "オーディオソース",
+                notify: "通知",
+                app: "アプリ",
+                off: "ミュート",
                 statwin: "実績統計ウィンドウ",
                 noachievements: "表示する実績はありません",
                 startgame: "実績を表示するにはゲームを開始してください！",
                 max: "最大",
-                custom: "カスタム..."
-            }
-        },
-        games: {
-            title: "ゲーム",
-            content: {
-                linkedgames: "リンクされたゲーム",
-                themeswitch: "テーマを自動切替",
-                exclusionlist: "除外リスト"
+                custom: "カスタム...",
+                statwinshortcut: "オーバーレイのショートカット",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "レアな実績通知がトリガーされるパーセンテージ。この値を超えるアンロックパーセンテージを持つ実績はメイン通知として表示されます",
         showpercent: "選択したタイプの通知に実績のアンロックパーセンテージを表示する",
         soundonly: "通知を無効にし、カスタマイザで設定されたサウンドのみ再生する",
-        extwin: "現在表示されている通知を重複させる非表示のバックグラウンドウィンドウを作成します。このウィンドウは、OBSなどのストリーミングソフトウェアで使用するためのウィンドウキャプチャソースとして追加できます",
+        extwin: "画面に現在表示されているすべての通知を複製するウィンドウを作成します。このウィンドウは、OBSなどのストリーミングソフトウェアでウィンドウキャプチャソースとして追加できます",
         extwinframerate: "ストリーム通知の目標フレームレートを設定",
-        extwinshow: "ストリーム通知ウィンドウの表示/非表示を切り替え",
+        extwinshow: `ストリーム通知ウィンドウの表示/非表示を切り替えます<br><br><span class="ttdesc">タスクバーでフォーカスされている場合は、<code class="ttcode">Ctrl</code>キーを押し続けるとウィンドウの現在位置が表示されます</span>`,
         audiosrc: "アプリによって生成されるオーディオのソースを選択（または無効化）します",
         nowtracking: "実行中のゲームの実績が追跡されていることをユーザーに通知する",
         nowtrackingscale: `トラッキング通知のサイズを設定する`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `通常 <span class="hl">システムトレイ</span> > <span class="hl">オプション</span> に位置するすべてのオプションを表示 <span class="hl">設定</span> > <span class="hl">その他</span>`,
         releaseshortcut: "指定されたキーボードショートカットを使用して、現在追跡中のゲームをリリースします",
         themeselect: "以前に保存したテーマを選択",
-        statwin: `現在のゲームの実績統計を外部ウィンドウで表示<br><br><span class="ttdesc">「<span class="hl">Steamの言語に実績を翻訳</span>」オプションと併用すると、特定の実績が解除されるまで一部の翻訳が利用できない場合があります</span>`
+        statwin: `現在のゲームの実績統計を外部ウィンドウで表示<br><br><span class="ttdesc">「<span class="hl">Steamの言語に実績を翻訳</span>」オプションと併用すると、特定の実績が解除されるまで一部の翻訳が利用できない場合があります</span>`,
+        statwinshortcut: "指定されたキーボードショートカットを使用して実績統計オーバーレイを切り替えます"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

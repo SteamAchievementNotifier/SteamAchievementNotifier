@@ -95,26 +95,6 @@
                 </div>
                 <div class="wrapper opt">
                     <span></span>
-                    <input type="checkbox" id="extwin">
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
-                    <input type="range" id="extwinframerate" min="5" max="240" step="1" value="60">
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
-                    <input type="checkbox" id="extwinshow">
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
-                    <select name="audiosrc" id="audiosrc">
-                        <option value="notify"></option>
-                        <option value="app"></option>
-                        <option value="off"></option>
-                    </select>
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
                     <input type="checkbox" id="nowtracking">
                 </div>
                 <div class="wrapper opt">
@@ -157,12 +137,16 @@
             </div>
         </div>
         <div class="wrapper cont">
+            <span class="wrapper title" id="games"></span>
+            <div class="wrapper optcont">
+                <button class="wrapper" id="linkedgames"></button>
+                <button class="wrapper" id="themeswitch"></button>
+                <button class="wrapper" id="exclusionlist"></button>
+            </div>
+        </div>
+        <div class="wrapper cont">
             <span class="wrapper title" id="media"></span>
             <div class="wrapper optcont">
-                <div class="wrapper opt">
-                    <span></span>
-                    <input type="checkbox" id="statwin">
-                </div>
                 <div class="wrapper opt">
                     <span></span>
                     <input type="checkbox" id="steamss">
@@ -238,11 +222,36 @@
             </div>
         </div>
         <div class="wrapper cont">
-            <span class="wrapper title" id="games"></span>
+            <span class="wrapper title" id="streaming"></span>
             <div class="wrapper optcont">
-                <button class="wrapper" id="linkedgames"></button>
-                <button class="wrapper" id="themeswitch"></button>
-                <button class="wrapper" id="exclusionlist"></button>
+                <div class="wrapper opt">
+                    <span></span>
+                    <select name="audiosrc" id="audiosrc">
+                        <option value="notify"></option>
+                        <option value="app"></option>
+                        <option value="off"></option>
+                    </select>
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="extwin">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="extwinshow">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="range" id="extwinframerate" min="5" max="240" step="1" value="60">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="statwin">
+                </div>
+                <div class="wrapper opt">
+                    <span class="lbl"></span>
+                    <button class="shortcutbtn" id="statwinshortcut"></button>
+                </div>
             </div>
         </div>
         <div class="wrapper cont">

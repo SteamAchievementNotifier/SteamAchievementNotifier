@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "No se pudo vincular la ventana",
         addlinkfailedsub: `Haz clic en el botón <span class="hl">Link</span> para intentar de nuevo`,
         webhookunlockmsg: "$user desbloqueó un logro",
+        webhookunlockmsgplat: "$user desbloqueó todos los logros",
         webhookingame: "en $gamename",
         notconnected: "No conectado"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Apagado",
                 showpercent: "Mostrar porcentaje",
                 soundonly: "Solo sonido",
-                extwin: "Notificaciones de transmisión",
-                extwinframerate: "Tasa de fotogramas",
-                extwinshow: "Mostrar ventana",
-                audiosrc: "Fuente de audio",
-                notify: "Notificar",
-                app: "Aplicación",
                 nowtracking: "Mostrar Notificación de Seguimiento",
                 nowtrackingscale: "Escala de Seguimiento",
                 nowtrackingpos: "Posición de Seguimiento",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `URL del Webhook`,
                 webhookcaution: `Al habilitar esta opción y proporcionar un enlace válido de Webhook de Discord, aceptas que entiendes que <u>toda la información sobre logros y juegos del usuario actual de Steam</u> será publicada en el servidor de Discord especificado a través del enlace de Webhook proporcionado.<br><br>Si no deseas que Steam Achievement Notifier publique esta información en tu nombre, desactiva esta opción.`,
                 webhooklaststatus: "Último Estado"
+            }
+        },
+        games: {
+            title: "Juegos",
+            content: {
+                linkedgames: "Juegos Enlazados",
+                themeswitch: "Cambio automático de temas",
+                exclusionlist: "Lista de Exclusión"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Ruta de la captura de pantalla",
                 ssdelay: "Retraso de la captura de pantalla",
                 notifyimg: "Imagen de Notificación",
-                imgpath: "Ruta de la Imagen",
+                imgpath: "Ruta de la Imagen"
+            }
+        },
+        streaming: {
+            title: "Transmisión",
+            content: {
+                extwin: "Notificaciones de transmisión",
+                extwinframerate: "Tasa de fotogramas",
+                extwinshow: "Mostrar ventana",
+                audiosrc: "Fuente de audio",
+                notify: "Notificar",
+                app: "Aplicación",
+                off: "Silenciado",
                 statwin: "Ventana de estadísticas de logros",
                 noachievements: "No hay logros para mostrar",
                 startgame: "¡Inicia un juego para mostrar los logros!",
                 max: "Máximo",
-                custom: "Personalizado..."
-            }
-        },
-        games: {
-            title: "Juegos",
-            content: {
-                linkedgames: "Juegos Enlazados",
-                themeswitch: "Cambio automático de temas",
-                exclusionlist: "Lista de Exclusión"
+                custom: "Personalizado...",
+                statwinshortcut: "Acceso directo de superposición",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "El porcentaje en el cual se activarán las notificaciones de logros raros. Cualquier logro con un porcentaje de desbloqueo superior a este valor se mostrará como una notificación principal",
         showpercent: "Mostrar el porcentaje de desbloqueo del logro en la notificación para el/los tipo(s) seleccionado(s)",
         soundonly: "Desactivar las notificaciones, reproduciendo solo los sonidos establecidos a través del Personalizador",
-        extwin: "Crear una ventana de fondo oculta que duplica cualquier notificación que se esté mostrando actualmente en pantalla. Esta ventana se puede agregar como una fuente de captura de ventana para su uso en software de transmisión, como OBS",
+        extwin: "Crea una ventana que duplique todas las notificaciones que se están mostrando en la pantalla. Luego, esta ventana se puede agregar como fuente de captura de ventana para usarla en software de transmisión, como OBS",
         extwinframerate: "Establecer la tasa de fotogramas objetivo para las notificaciones de transmisión",
-        extwinshow: "Alternar visibilidad de la ventana de notificaciones de transmisión",
+        extwinshow: `Alternar la visibilidad de la ventana de Notificaciones de Transmisión<br><br><span class="ttdesc">Cuando está enfocada en la barra de tareas, mantén presionada la tecla <code class="ttcode">Ctrl</code> para mostrar la ubicación actual de la ventana</span>`,
         audiosrc: "Seleccionar la fuente de (o desactivar) el audio generado por la aplicación",
         nowtracking: "Mostrar una notificación que informa al usuario que se están rastreando los logros de un juego en ejecución",
         nowtrackingscale: `Establecer el tamaño de la notificación de seguimiento`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Mostrar todas las opciones que normalmente se encuentran bajo <span class="hl">Bandeja del sistema</span> > <span class="hl">Opciones</span> en <span class="hl">Configuraciones</span> > <span class="hl">Varios</span>`,
         releaseshortcut: "Liberar el juego actualmente rastreado usando el acceso directo de teclado especificado",
         themeselect: "Selecciona un tema guardado previamente",
-        statwin: `Mostrar estadísticas configurables de logros para el juego actual en una ventana externa<br><br><span class="ttdesc">Cuando se usa junto con la opción <span class="hl">Traducir logros al idioma de Steam</span>, algunas traducciones pueden no estar disponibles hasta que se desbloquee el logro específico</span>`
+        statwin: `Mostrar estadísticas configurables de logros para el juego actual en una ventana externa<br><br><span class="ttdesc">Cuando se usa junto con la opción <span class="hl">Traducir logros al idioma de Steam</span>, algunas traducciones pueden no estar disponibles hasta que se desbloquee el logro específico</span>`,
+        statwinshortcut: "Alternar la superposición de estadísticas de logros usando el acceso directo de teclado especificado"
     },
     update: {
         updateavailable: "Actualización disponible",

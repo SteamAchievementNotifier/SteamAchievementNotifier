@@ -2,7 +2,7 @@ import { ipcRenderer } from "electron"
 import fs from "fs"
 import path from "path"
 import { sanhelper } from "./sanhelper"
-import { sanconfig } from "./config"
+import { sanconfig, shortcutkeys } from "./config"
 import { usertheme } from "./usertheme"
 import { language } from "./language"
 
@@ -72,9 +72,11 @@ export const dialog = {
 
             document.getElementById("shortcutbtn")!.onclick = event => sanhelper.setshortcut(config,event)
 
-            const releaseshortcutbtn = document.getElementById("releaseshortcut")! as HTMLButtonElement
-            releaseshortcutbtn.textContent = sanhelper.getshortcut(config,releaseshortcutbtn.id,releaseshortcutbtn.id)
-            releaseshortcutbtn.onclick = event => sanhelper.setshortcut(config,event,(event.target as HTMLButtonElement).id)
+            shortcutkeys.forEach(key => {
+                const btn = document.getElementById(`${key}shortcut`)! as HTMLButtonElement
+                btn.textContent = sanhelper.getshortcut(config,btn.id,btn.id)
+                btn.onclick = event => sanhelper.setshortcut(config,event,(event.target as HTMLButtonElement).id)
+            })
 
             const updatetables = async (type: "linkgame" | "exclusionlist" | "themeswitch") => {
                 const table = document.querySelector(`.addhtml > .tbl#${type}tablewrapper > table`)! as HTMLTableElement

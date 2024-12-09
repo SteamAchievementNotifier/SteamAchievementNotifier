@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Impossibile collegare la finestra",
         addlinkfailedsub: `Clicca sul pulsante <span class="hl">Collega</span> per riprovare`,
         webhookunlockmsg: "$user ha sbloccato un successo",
+        webhookunlockmsgplat: "$user ha sbloccato tutti i successi",
         webhookingame: "in $gamename",
         notconnected: "Non connesso"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Spento",
                 showpercent: "Mostra percentuale",
                 soundonly: "Solo audio",
-                extwin: "Notifiche di streaming",
-                extwinframerate: "Frequenza dei fotogrammi",
-                extwinshow: "Mostra finestra",
-                audiosrc: "Sorgente audio",
-                notify: "Notifica",
-                app: "Applicazione",
                 nowtracking: "Mostra notifica di tracciamento",
                 nowtrackingscale: "Scala di tracciamento",
                 nowtrackingpos: "Posizione di tracciamento",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `URL del Webhook`,
                 webhookcaution: `Abilitando questa opzione e fornendo un link Webhook Discord valido, accetti di comprendere che <u>tutte le informazioni sui successi e sui giochi per l'attuale utente Steam</u> saranno pubblicate sul server Discord specificato tramite il link Webhook fornito.<br><br>Se non desideri che Steam Achievement Notifier pubblichi queste informazioni per tuo conto, disabilita questa opzione.`,
                 webhooklaststatus: "Ultimo Stato"
+            }
+        },
+        games: {
+            title: "Giochi",
+            content: {
+                linkedgames: "Giochi collegati",
+                themeswitch: "Cambia tema automaticamente",
+                exclusionlist: "Lista di esclusione"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Percorso screenshot",
                 ssdelay: "Ritardo screenshot",
                 notifyimg: "Immagine notifica",
-                imgpath: "Percorso dell'immagine",
+                imgpath: "Percorso dell'immagine"
+            }
+        },
+        streaming: {
+            title: "Streaming",
+            content: {
+                extwin: "Notifiche di streaming",
+                extwinframerate: "Frequenza dei fotogrammi",
+                extwinshow: "Mostra finestra",
+                audiosrc: "Sorgente audio",
+                notify: "Notifica",
+                app: "Applicazione",
+                off: "Disattivato",
                 statwin: "Finestra delle statistiche dei successi",
                 noachievements: "Nessun successo da visualizzare",
                 startgame: "Avvia una partita per visualizzare i successi!",
                 max: "Massimo",
-                custom: "Personalizzato..."
-            }
-        },
-        games: {
-            title: "Giochi",
-            content: {
-                linkedgames: "Giochi collegati",
-                themeswitch: "Cambia tema automaticamente",
-                exclusionlist: "Lista di esclusione"
+                custom: "Personalizzato...",
+                statwinshortcut: "Scorciatoia Overlay",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "La percentuale a cui verranno attivate le notifiche per gli obiettivi rari. Qualsiasi obiettivo con una percentuale di sblocco superiore a questo valore verrà visualizzato come notifica principale",
         showpercent: "Mostra la percentuale di sblocco dell'obiettivo nella notifica per i tipi selezionati",
         soundonly: "Disabilita le notifiche, riproducendo solo i suoni impostati tramite il Personalizzatore",
-        extwin: "Crea una finestra di sfondo nascosta che duplica qualsiasi notifica attualmente visualizzata sullo schermo. Questa finestra può quindi essere aggiunta come sorgente di cattura finestra per l'utilizzo in software di streaming, come OBS",
+        extwin: "Crea una finestra che duplica tutte le notifiche attualmente visualizzate sullo schermo. Questa finestra può quindi essere aggiunta come sorgente di acquisizione finestra per l'uso in software di streaming come OBS",
         extwinframerate: "Imposta la frequenza dei fotogrammi di destinazione per le notifiche di streaming",
-        extwinshow: "Attiva/disattiva la visibilità della finestra delle notifiche di streaming",
+        extwinshow: `Attiva o disattiva la visibilità della finestra delle notifiche di streaming<br><br><span class="ttdesc">Quando è focalizzata nella barra delle applicazioni, tieni premuto il tasto <code class="ttcode">Ctrl</code> per visualizzare la posizione attuale della finestra</span>`,
         audiosrc: "Seleziona la sorgente (o disabilita) l'audio generato dall'app",
         nowtracking: "Mostra una notifica che informa l'utente che gli obiettivi per un gioco in esecuzione vengono tracciati",
         nowtrackingscale: `Imposta la dimensione della notifica di tracciamento`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Mostra tutte le opzioni di solito situate sotto <span class="hl">Barra di sistema</span> > <span class="hl">Opzioni</span> in <span class="hl">Impostazioni</span> > <span class="hl">Vari</span>`,
         releaseshortcut: "Rilascia il gioco attualmente tracciato utilizzando la scorciatoia da tastiera specificata",
         themeselect: "Seleziona un tema salvato precedentemente",
-        statwin: `Visualizza statistiche configurabili dei successi per il gioco attuale in una finestra esterna<br><br><span class="ttdesc">Quando utilizzato in combinazione con l'opzione <span class="hl">Traduci i successi nella lingua di Steam</span>, alcune traduzioni potrebbero non essere disponibili finché il successo specifico non viene sbloccato</span>`
+        statwin: `Visualizza statistiche configurabili dei successi per il gioco attuale in una finestra esterna<br><br><span class="ttdesc">Quando utilizzato in combinazione con l'opzione <span class="hl">Traduci i successi nella lingua di Steam</span>, alcune traduzioni potrebbero non essere disponibili finché il successo specifico non viene sbloccato</span>`,
+        statwinshortcut: "Attiva o disattiva l'Overlay delle Statistiche dei Successi utilizzando la scorciatoia da tastiera specificata"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

@@ -26,6 +26,12 @@ export const customfilekeys = [
     return ["bronze","silver","gold"].flatMap(type => [`${id}${type}`,`ss${id}${type}`])
 })
 
+// Contains non-"shortcut" suffixed key names for all options that are assigned a `globalShortcut`
+export const shortcutkeys = [
+    "release",
+    "statwin"
+]
+
 export const sanconfig = {
     get defaultfiles(): { [key: string]: any } {
         const customobj = sanconfig.defaultobj("customisation")
@@ -264,6 +270,7 @@ export const sanconfig = {
                 statwinmaxdisplay: "max",
                 statwinmaxcustom: 1,
                 statwinnospoilers: true,
+                statwinshortcut: "CTRL+SHIFT+O",
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

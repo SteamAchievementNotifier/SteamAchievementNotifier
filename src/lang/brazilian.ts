@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Não foi possível vincular a janela",
         addlinkfailedsub: `Clique no botão <span class="hl">Vincular</span> para tentar novamente`,
         webhookunlockmsg: "$user desbloqueou uma conquista",
+        webhookunlockmsgplat: "$user desbloqueou todas as conquistas",
         webhookingame: "em $gamename",
         notconnected: "Não conectado"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Desativado",
                 showpercent: "Mostrar Porcentagem",
                 soundonly: "Modo Somente Som",
-                extwin: "Notificações de Transmissão",
-                extwinframerate: "Taxa de Quadros",
-                extwinshow: "Mostrar Janela",
-                audiosrc: "Fonte de Áudio",
-                notify: "Notificação",
-                app: "Aplicativo",
                 nowtracking: "Mostrar Notificação de Rastreamento",
                 nowtrackingscale: "Escala de Rastreamento",
                 nowtrackingpos: "Rastreamento de Posição",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `URL do Webhook`,
                 webhookcaution: `Ao habilitar esta opção e fornecer um link de Webhook do Discord válido, você concorda que entende que <u>todas as informações de conquistas e jogos para o usuário atual do Steam</u> serão postadas no servidor Discord especificado através do link de Webhook fornecido.<br><br>Se você não deseja que o Steam Achievement Notifier poste essas informações em seu nome, desative esta opção.`,
                 webhooklaststatus: "Último Status"
+            }
+        },
+        games: {
+            title: "Jogos",
+            content: {
+                linkedgames: "Jogos Vinculados",
+                themeswitch: "Trocar Temas Automaticamente",
+                exclusionlist: "Lista de Exclusão"
             }
         },
         media: {
@@ -150,19 +153,24 @@ export const translations = {
                 ssdelay: "Atraso da Captura de Tela",
                 notifyimg: "Imagem de Notificação",
                 imgpath: "Caminho da Imagem",
+            }
+        },
+        streaming: {
+            title: "Transmissão",
+            content: {
+                extwin: "Notificações de Transmissão",
+                extwinframerate: "Taxa de Quadros",
+                extwinshow: "Mostrar Janela",
+                audiosrc: "Fonte de Áudio",
+                notify: "Notificação",
+                app: "Aplicativo",
+                off: "Silenciado",
                 statwin: "Janela de Estatísticas de Conquistas",
                 noachievements: "Nenhuma conquista para exibir",
                 startgame: "Inicie um jogo para mostrar conquistas!",
                 max: "Máximo",
-                custom: "Personalizado..."
-            }
-        },
-        games: {
-            title: "Jogos",
-            content: {
-                linkedgames: "Jogos Vinculados",
-                themeswitch: "Trocar Temas Automaticamente",
-                exclusionlist: "Lista de Exclusão"
+                custom: "Personalizado...",
+                statwinshortcut: "Atalho do Sobrepor"
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "A porcentagem em que as notificações de conquistas raras serão acionadas. Qualquer conquista com uma porcentagem de desbloqueio acima desse valor será exibida como uma notificação principal",
         showpercent: "Exibir a porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
         soundonly: "Desativar notificações, reproduzindo apenas sons definidos pelo Personalizador",
-        extwin: "Criar uma janela de plano de fundo oculta que duplica quaisquer notificações atualmente sendo exibidas na tela. Essa janela pode ser adicionada como uma fonte de Captura de Janela para uso em software de streaming, como o OBS",
+        extwin: "Crie uma janela que duplica quaisquer notificações exibidas atualmente na tela. Esta janela pode então ser adicionada como uma fonte de Captura de Janela para uso em softwares de transmissão, como o OBS",
         extwinframerate: "Definir a taxa de quadros alvo para Notificações de Transmissão",
-        extwinshow: "Alternar visibilidade da janela de Notificações de Transmissão",
+        extwinshow: `Alternar a visibilidade da janela de Notificações de Transmissão<br><br><span class="ttdesc">Quando focado na barra de tarefas, pressione e segure a tecla <code class="ttcode">Ctrl</code> para exibir a localização atual da janela</span>`,
         audiosrc: "Selecionar a origem (ou desativar) o áudio gerado pelo aplicativo",
         nowtracking: "Exibir uma notificação informando ao usuário que as conquistas de um jogo em execução estão sendo rastreadas",
         nowtrackingscale: `Defina o tamanho da notificação de rastreamento`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Exibir todas as opções geralmente localizadas em <span class="hl">Bandeja do Sistema</span> > <span class="hl">Opções</span> em <span class="hl">Configurações</span> > <span class="hl">Diversos</span>`,
         releaseshortcut: "Liberar o jogo atualmente monitorado usando o atalho de teclado especificado",
         themeselect: "Selecione um Tema salvo anteriormente",
-        statwin: `Exibir estatísticas de conquistas configuráveis para o jogo atual em uma janela externa<br><br><span class="ttdesc">Quando usado em conjunto com a opção <span class="hl">Traduzir Conquistas para o Idioma do Steam</span>, algumas traduções podem não estar disponíveis até que a conquista especificada seja desbloqueada</span>` 
+        statwin: `Exibir estatísticas de conquistas configuráveis para o jogo atual em uma janela externa<br><br><span class="ttdesc">Quando usado em conjunto com a opção <span class="hl">Traduzir Conquistas para o Idioma do Steam</span>, algumas traduções podem não estar disponíveis até que a conquista especificada seja desbloqueada</span>`,
+        statwinshortcut: "Alternar a Sobreposição de Estatísticas de Conquistas usando o atalho de teclado especificado"
     },
     update: {
         updateavailable: "Atualização disponível",

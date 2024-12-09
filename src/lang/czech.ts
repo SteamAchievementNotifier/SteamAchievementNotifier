@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Nelze propojit okno",
         addlinkfailedsub: `Klikněte na tlačítko <span class="hl">Propojit</span> a zkuste to znovu`,
         webhookunlockmsg: "$user odemkl úspěch",
+        webhookunlockmsgplat: "$user odemkl všechny úspěchy",
         webhookingame: "ve $gamename",
         notconnected: "Nepřipojeno"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Vypnuto",
                 showpercent: "Zobrazit procenta",
                 soundonly: "Pouze zvuk",
-                extwin: "Upozornění na stream",
-                extwinframerate: "Snímková frekvence",
-                extwinshow: "Zobrazit okno",
-                audiosrc: "Zdroj zvuku",
-                notify: "Upozornění",
-                app: "Aplikace",
                 nowtracking: "Zobrazit Oznámení o Sledování",
                 nowtrackingscale: "Měřítko Sledování",
                 nowtrackingpos: "Sledování Pozice",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `URL Webhooku`,
                 webhookcaution: `Povolením této možnosti a poskytnutím platného odkazu na Webhook Discordu souhlasíte s tím, že rozumíte, že <u>veškeré informace o úspěších a hrách aktuálního uživatele Steamu</u> budou odeslány na určený server Discord prostřednictvím poskytnutého odkazu Webhooku.<br><br>Pokud nechcete, aby Steam Achievement Notifier odesílal tyto informace vaším jménem, prosím deaktivujte tuto možnost.`,
                 webhooklaststatus: "Poslední stav"
+            }
+        },
+        games: {
+            title: "Hry",
+            content: {
+                linkedgames: "Propojené hry",
+                themeswitch: "Automatické přepínání témat",
+                exclusionlist: "Seznam vyloučení"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Cesta screenshotu",
                 ssdelay: "Zpoždění screenshotu",
                 notifyimg: "Obrázek oznámení",
-                imgpath: "Cesta k obrázku",
+                imgpath: "Cesta k obrázku"
+            }
+        },
+        streaming: {
+            title: "Streamování",
+            content: {
+                extwin: "Upozornění na stream",
+                extwinframerate: "Snímková frekvence",
+                extwinshow: "Zobrazit okno",
+                audiosrc: "Zdroj zvuku",
+                notify: "Upozornění",
+                app: "Aplikace",
+                off: "Ztlumeno",
                 statwin: "Přehled statistik úspěchů",
                 noachievements: "Žádné úspěchy k zobrazení",
                 startgame: "Spusťte hru pro zobrazení úspěchů!",
                 max: "Maximum",
-                custom: "Vlastní..."
-            }
-        },
-        games: {
-            title: "Hry",
-            content: {
-                linkedgames: "Propojené hry",
-                themeswitch: "Automatické přepínání témat",
-                exclusionlist: "Seznam vyloučení"
+                custom: "Vlastní...",
+                statwinshortcut: "Zkratka pro překrytí",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Procento, při kterém budou spouštěna oznámení o vzácných achievementech. Jakýkoli achievement s procentem odemknutí vyšším než tato hodnota bude zobrazen jako hlavní oznámení",
         showpercent: "Zobrazit procento odemknutí achievementu v oznámení pro vybrané typy",
         soundonly: "Vypnout oznámení a pouze přehrát zvuky nastavené pomocí přizpůsobovače",
-        extwin: "Vytvořit skryté pozadí okna, které duplikuje všechna aktuálně zobrazená oznámení na obrazovce. Toto okno lze pak přidat jako zdroj pro zachycení okna do streamovacího softwaru, například OBS",
+        extwin: "Vytvořte okno, které duplikuje všechna oznámení momentálně zobrazená na obrazovce. Toto okno může být následně přidáno jako zdroj zachytávání okna pro použití v softwaru pro streamování, jako je OBS",
         extwinframerate: "Nastavit cílovou snímkovou frekvenci pro oznámení streamu",
-        extwinshow: "Přepnout viditelnost okna oznámení streamu",
+        extwinshow: `Přepnout viditelnost okna Oznámení pro streamování<br><br><span class="ttdesc">Pokud je okno zaměřeno na lištu úloh, stiskněte a držte klávesu <code class="ttcode">Ctrl</code>, abyste zobrazili aktuální polohu okna</span>`,
         audiosrc: "Vyberte zdroj (nebo vypněte) zvuk generovaný aplikací",
         nowtracking: "Zobrazit oznámení upozorňující uživatele, že jsou sledovány achievementy pro běžící hru",
         nowtrackingscale: `Nastavte velikost upozornění na sledování`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Zobrazit všechny možnosti obvykle umístěné pod <span class="hl">Systémová lišta</span> > <span class="hl">Možnosti</span> v <span class="hl">Nastavení</span> > <span class="hl">Různé</span>`,
         releaseshortcut: "Uvolnění aktuálně sledované hry pomocí zadané klávesové zkratky",
         themeselect: "Vyberte dříve uložené téma",
-        statwin: `Zobrazte přizpůsobitelné statistiky úspěchů pro aktuální hru v externím okně<br><br><span class="ttdesc">Při použití společně s možností <span class="hl">Přeložit úspěchy do jazyka služby Steam</span> nemusí být některé překlady dostupné, dokud nebude daný úspěch odemčen</span>`
+        statwin: `Zobrazte přizpůsobitelné statistiky úspěchů pro aktuální hru v externím okně<br><br><span class="ttdesc">Při použití společně s možností <span class="hl">Přeložit úspěchy do jazyka služby Steam</span> nemusí být některé překlady dostupné, dokud nebude daný úspěch odemčen</span>`,
+        statwinshortcut: "Přepnout překrytí statistik úspěchů pomocí specifikované klávesové zkratky"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

@@ -776,8 +776,16 @@ export const listeners = {
             if (!shouldregister) return
 
             const config = sanconfig.get()
+
             config.get("shortcuts") && ["main","rare","plat"].forEach(type => globalShortcut.register(config.get(`customisation.${type}.shortcut`) as string, () => win.webContents.send("shortcut",type)))
+
             globalShortcut.register(config.get("releaseshortcut") as string,() => ipcMain.emit("releasegame"))
+
+            globalShortcut.register(config.get("statwinshortcut") as string,() => {
+                const value = config.get("statwin")
+                config.set("statwin",!value)
+                ipcMain.emit("statwin",null,!value)
+            })
         })
 
         ipcMain.on("loadfile", async (event,filetype) => {
@@ -789,14 +797,16 @@ export const listeners = {
                 ["exe",{ name: await language.get("exepath",["linkgame","content"]), extensions: [ process.platform === "win32" ? "exe" : "*" ] }]
             ])
 
+            const isfile = filetype !== "dir"
+
             const filedialog = dialog.showOpenDialogSync({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): Select ${type.get(filetype)!.name}`,
+                title: `Steam Achievement Notifier (V${sanhelper.version}): ${await language.get("select")} ${type.get(filetype)!.name}`,
                 buttonLabel: await language.get("select"),
                 properties: [
-                    filetype === "dir" ? "openDirectory" : "openFile",
+                    `open${isfile ? "File" : "Directory" }`,
                     "dontAddToRecent"
                 ],
-                filters: [type.get(filetype)!]
+                ...(isfile && { filters: [type.get(filetype)!] })
             })
 
             event.reply("loadfile",filedialog)

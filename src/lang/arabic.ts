@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "تعذر ربط النافذة",
         addlinkfailedsub: `انقر على زر <span class="hl">رابط</span> للمحاولة مرة أخرى`,
         webhookunlockmsg: "$user فتح إنجازًا",
+        webhookunlockmsgplat: "$user فتح جميع الإنجازات",
         webhookingame: "في $gamename",
         notconnected: "غير متصل"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "إيقاف",
                 showpercent: "إظهار النسبة المئوية",
                 soundonly: "وضع الصوت فقط",
-                extwin: "إشعارات البث",
-                extwinframerate: "معدل الإطارات",
-                extwinshow: "إظهار النافذة",
-                audiosrc: "مصدر الصوت",
-                notify: "الإشعار",
-                app: "التطبيق",
                 nowtracking: "عرض إشعار التتبع",
                 nowtrackingscale: "مقياس التتبع",
                 nowtrackingpos: "تتبع الموقع",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `عنوان URL للويب هوك`,
                 webhookcaution: `بتمكين هذا الخيار وتوفير رابط ويب هوك صالح لديسكورد، فإنك توافق على أنك تفهم أن <u>جميع معلومات الإنجاز واللعبة للمستخدم الحالي لستيم</u> سيتم نشرها في خادم ديسكورد المحدد عبر رابط الويب هوك المقدم.<br><br>إذا كنت لا ترغب في أن يقوم Steam Achievement Notifier بنشر هذه المعلومات نيابة عنك، يرجى تعطيل هذا الخيار.`,
                 webhooklaststatus: "آخر حالة"
+            }
+        },
+        games: {
+            title: "الألعاب",
+            content: {
+                linkedgames: "الألعاب المرتبطة",
+                themeswitch: "التبديل التلقائي للثيمات",
+                exclusionlist: "قائمة الاستبعاد"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "مسار اللقطة الشاشة",
                 ssdelay: "تأخير اللقطة الشاشة",
                 notifyimg: "صورة الإشعار",
-                imgpath: "مسار الصورة",
+                imgpath: "مسار الصورة"
+            }
+        },
+        streaming: {
+            title: "البث",
+            content: {
+                extwin: "إشعارات البث",
+                extwinframerate: "معدل الإطارات",
+                extwinshow: "إظهار النافذة",
+                audiosrc: "مصدر الصوت",
+                notify: "الإشعار",
+                app: "التطبيق",
+                off: "مكتوم",
                 statwin: "نافذة إحصائيات الإنجازات",
                 noachievements: "لا توجد إنجازات لعرضها",
                 startgame: "ابدأ لعبة لعرض الإنجازات!",
                 max: "الحد الأقصى",
-                custom: "مخصص..."
-            }
-        },
-        games: {
-            title: "الألعاب",
-            content: {
-                linkedgames: "الألعاب المرتبطة",
-                themeswitch: "التبديل التلقائي للثيمات",
-                exclusionlist: "قائمة الاستبعاد"
+                custom: "مخصص...",
+                statwinshortcut: "اختصار التراكب",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "النسبة المئوية التي سيتم فيها تشغيل إشعارات الإنجازات النادرة. سيتم عرض أي إنجاز يتجاوز هذه القيمة كإشعار رئيسي",
         showpercent: "عرض نسبة فتح الإنجاز في الإشعار لأنواع محددة",
         soundonly: "تعطيل الإشعارات، وتشغيل الأصوات فقط المضبوطة عبر مخصص الإشعارات",
-        extwin: "إنشاء نافذة خلفية مخفية تكرر أي إشعارات يتم عرضها حاليًا على الشاشة. يمكن بعد ذلك إضافة هذه النافذة كمصدر لالتقاط النافذة لاستخدامه في برامج البث مثل OBS",
+        extwin: "إنشاء نافذة تكرر أي إشعارات معروضة حاليًا على الشاشة. يمكن بعد ذلك إضافة هذه النافذة كمصدر التقاط نافذة لاستخدامها في برامج البث، مثل OBS",
         extwinframerate: "تعيين معدل الإطارات المستهدف لإشعارات البث",
-        extwinshow: "تبديل رؤية نافذة إشعارات البث",
+        extwinshow: `تبديل عرض نافذة إشعارات البث<br><br><span class="ttdesc">عند التركيز في شريط المهام، اضغط مع الاستمرار على <code class="ttcode">Ctrl</code> لعرض الموقع الحالي للنافذة</span>`,
         audiosrc: "حدد مصدر الصوت (أو تعطيله) الذي يتم إنشاؤه بواسطة التطبيق",
         nowtracking: "عرض إشعار يخطر المستخدم بأن الإنجازات للعبة قيد التشغيل يتم تتبعها",
         nowtrackingscale: `تعيين حجم إشعار التتبع`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `عرض جميع الخيارات الموجودة عادةً تحت <span class="hl">علبة النظام</span> > <span class="hl">الخيارات</span> في <span class="hl">الإعدادات</span> > <span class="hl">متنوعة</span>`,
         releaseshortcut: "إطلاق اللعبة المتتبعة حاليًا باستخدام اختصار لوحة المفاتيح المحدد",
         themeselect: "اختر سمة محفوظة مسبقًا",
-        statwin: `عرض إحصائيات الإنجازات القابلة للتخصيص للعبة الحالية في نافذة خارجية<br><br><span class="ttdesc">عند استخدامها مع خيار <span class="hl">ترجمة الإنجازات إلى لغة Steam</span>، قد لا تكون بعض الترجمات متاحة حتى يتم فتح الإنجاز المحدد</span>`
+        statwin: `عرض إحصائيات الإنجازات القابلة للتخصيص للعبة الحالية في نافذة خارجية<br><br><span class="ttdesc">عند استخدامها مع خيار <span class="hl">ترجمة الإنجازات إلى لغة Steam</span>، قد لا تكون بعض الترجمات متاحة حتى يتم فتح الإنجاز المحدد</span>`,
+        statwinshortcut: "تبديل تراكب إحصائيات الإنجازات باستخدام اختصار لوحة المفاتيح المحدد"
     },
     update: {
         updateavailable: "تحديث متاح",

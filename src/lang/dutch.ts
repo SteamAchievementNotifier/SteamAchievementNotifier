@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Kan venster niet koppelen",
         addlinkfailedsub: `Klik op de knop <span class="hl">Koppelen</span> om opnieuw te proberen`,
         webhookunlockmsg: "$user heeft een prestatie ontgrendeld",
+        webhookunlockmsgplat: "$user ontgrendelde alle prestaties",
         webhookingame: "in $gamename",
         notconnected: "Niet verbonden"
     },
@@ -115,13 +116,6 @@ export const translations = {
                 off: "Uit",
                 showpercent: "Percentage tonen",
                 soundonly: "Alleen geluid",
-                extwin: "Streammeldingen",
-                extwinframerate: "Beeldsnelheid",
-                extwinshow: "Venster weergeven",
-                audiosrc: "Audiobron",
-                notify: "Melding",
-                app: "App",
-                nowtracking: "Toon volgwaarschuwing",
                 nowtrackingscale: "Volgschaal",
                 nowtrackingpos: "Volgpositie",
                 shortcuts: "Meldings snelkoppelingen",
@@ -131,6 +125,14 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Door deze optie in te schakelen en een geldige Discord-webhook-link op te geven, ga je ermee akkoord dat je begrijpt dat <u>alle prestatie- en spelinformatie voor de huidige Steam-gebruiker</u> zal worden geplaatst op de opgegeven Discord-server via de verstrekte webhook-link.<br><br>Als je niet wilt dat Steam Achievement Notifier deze informatie namens jou plaatst, schakel dan deze optie uit.`,
                 webhooklaststatus: "Laatste Status"
+            }
+        },
+        games: {
+            title: "Spellen",
+            content: {
+                linkedgames: "Gekoppelde spellen",
+                themeswitch: "Automatisch Thema's Wisselen",
+                exclusionlist: "Uitsluitingslijst"
             }
         },
         media: {
@@ -149,20 +151,26 @@ export const translations = {
                 ovpath: "Screenshot pad",
                 ssdelay: "Screenshot vertraging",
                 notifyimg: "Meldingsafbeelding",
-                imgpath: "Afbeeldingspad",
+                imgpath: "Afbeeldingspad"
+            }
+        },
+        streaming: {
+            title: "Streaming",
+            content: {
+                extwin: "Streammeldingen",
+                extwinframerate: "Beeldsnelheid",
+                extwinshow: "Venster weergeven",
+                audiosrc: "Audiobron",
+                notify: "Melding",
+                app: "App",
+                nowtracking: "Toon volgwaarschuwing",
+                off: "Gedempt",
                 statwin: "Prestatiestatistiekenvenster",
                 noachievements: "Geen prestaties om weer te geven",
                 startgame: "Start een spel om prestaties te tonen!",
                 max: "Max",
-                custom: "Aangepast..."
-            }
-        },
-        games: {
-            title: "Spellen",
-            content: {
-                linkedgames: "Gekoppelde spellen",
-                themeswitch: "Automatisch Thema's Wisselen",
-                exclusionlist: "Uitsluitingslijst"
+                custom: "Aangepast...",
+                statwinshortcut: "Overlay Snelkoppeling",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Het percentage waarbij zeldzame prestatienotificaties worden geactiveerd. Elke prestatie met een ontgrendelingspercentage hoger dan deze waarde wordt weergegeven als een hoofdmelding",
         showpercent: "Toon het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
         soundonly: "Schakel meldingen uit en speel alleen geluiden af die zijn ingesteld via de Customiser",
-        extwin: "Maak een verborgen achtergrondvenster dat duplicaten van alle meldingen weergeeft die momenteel op het scherm worden weergegeven. Dit venster kan vervolgens worden toegevoegd als een Window Capture-bron voor gebruik in streaming-software, zoals OBS",
+        extwin: "Maak een venster dat alle meldingen dupliceert die momenteel op het scherm worden weergegeven. Dit venster kan vervolgens worden toegevoegd als een Window Capture-bron voor gebruik in streamingsoftware, zoals OBS",
         extwinframerate: "Stel de doelbeeldsnelheid in voor streammeldingen",
-        extwinshow: "Zichtbaarheid van het venster voor streammeldingen aanpassen",
+        extwinshow: `Schakel de zichtbaarheid van het Stream Notifications-venster in of uit<br><br><span class="ttdesc">Wanneer gefocust op de taakbalk, houd de <code class="ttcode">Ctrl</code>-toets ingedrukt om de huidige locatie van het venster weer te geven</span>`,
         audiosrc: "Selecteer de bron van (of schakel uit) audio die door de app wordt gegenereerd",
         nowtracking: "Toon een melding waarin de gebruiker wordt geïnformeerd dat prestaties voor een actief spel worden gevolgd",
         nowtrackingscale: `Stel de grootte van de volgwaarschuwing in`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Weergeef alle opties die normaal te vinden zijn onder <span class="hl">Systeemvak</span> > <span class="hl">Opties</span> in <span class="hl">Instellingen</span> > <span class="hl">Diversen</span>`,
         releaseshortcut: "Geef het momenteel gevolgde spel vrij met de opgegeven sneltoets",
         themeselect: "Selecteer een eerder opgeslagen Thema",
-        statwin: `Toon configureerbare prestatiestatistieken voor het huidige spel in een extern venster<br><br><span class="ttdesc">Wanneer gebruikt in combinatie met de optie <span class="hl">Vertaal Prestaties naar de Steam-taal</span>, kunnen sommige vertalingen pas beschikbaar zijn zodra de specifieke prestatie is ontgrendeld</span>`
+        statwin: `Toon configureerbare prestatiestatistieken voor het huidige spel in een extern venster<br><br><span class="ttdesc">Wanneer gebruikt in combinatie met de optie <span class="hl">Vertaal Prestaties naar de Steam-taal</span>, kunnen sommige vertalingen pas beschikbaar zijn zodra de specifieke prestatie is ontgrendeld</span>`,
+        statwinshortcut: "Schakel de Achievement Stats Overlay in met de opgegeven sneltoets"
     },
     update: {
         updateavailable: "Update beschikbaar",

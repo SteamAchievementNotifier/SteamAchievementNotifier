@@ -106,6 +106,7 @@ declare interface Config {
     statwinmaxdisplay: 3 | 5 | 10 | "max" | "custom",
     statwinmaxcustom: number,
     statwinnospoilers: boolean,
+    statwinshortcut: string,
     customisation: {
         main: Customisation,
         rare: Customisation,

@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Không thể liên kết cửa sổ",
         addlinkfailedsub: `Nhấp vào nút <span class="hl">Link</span> để thử lại`,
         webhookunlockmsg: "$user đã mở khóa một thành tựu",
+        webhookunlockmsgplat: "$user đã mở khóa tất cả thành tích",
         webhookingame: "trong $gamename",
         notconnected: "Chưa kết nối"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Tắt",
                 showpercent: "Hiển thị Phần trăm",
                 soundonly: "Chỉ Âm thanh",
-                extwin: "Thông báo Luồng",
-                extwinframerate: "Tốc độ khung hình",
-                extwinshow: "Hiển thị cửa sổ",
-                audiosrc: "Nguồn Âm thanh",
-                notify: "Thông báo",
-                app: "Ứng dụng",
                 nowtracking: "Hiển thị Thông báo Theo dõi",
                 nowtrackingscale: "Tỷ lệ Theo dõi",
                 nowtrackingpos: "Vị trí Theo dõi",
@@ -131,6 +126,14 @@ export const translations = {
                 webhooktypes: "Loại Webhook",
                 webhookcaution: `Bằng cách kích hoạt tùy chọn này và cung cấp liên kết Webhook Discord hợp lệ, bạn đồng ý rằng bạn hiểu rằng <u>tất cả thông tin thành tựu và trò chơi của người dùng Steam hiện tại</u> sẽ được đăng lên máy chủ Discord đã chỉ định thông qua liên kết Webhook được cung cấp.<br><br>Nếu bạn không muốn Steam Achievement Notifier đăng thông tin này thay cho bạn, hãy tắt tùy chọn này.`,
                 webhooklaststatus: "Trạng thái cuối cùng"
+            }
+        },
+        games: {
+            title: "Trò chơi",
+            content: {
+                linkedgames: "Trò chơi Liên kết",
+                themeswitch: "Tự động chuyển đổi chủ đề",
+                exclusionlist: "Danh sách Loại trừ"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Đường dẫn Chụp Ảnh Màn hình",
                 ssdelay: "Độ Trễ Chụp Ảnh Màn hình",
                 notifyimg: "Hình ảnh thông báo",
-                imgpath: "Đường dẫn hình ảnh",
+                imgpath: "Đường dẫn hình ảnh"
+            }
+        },
+        streaming: {
+            title: "Phát sóng",
+            content: {
+                extwin: "Thông báo Luồng",
+                extwinframerate: "Tốc độ khung hình",
+                extwinshow: "Hiển thị cửa sổ",
+                audiosrc: "Nguồn Âm thanh",
+                notify: "Thông báo",
+                app: "Ứng dụng",
+                off: "Tắt tiếng",
                 statwin: "Cửa sổ thống kê thành tích",
                 noachievements: "Không có thành tích để hiển thị",
                 startgame: "Bắt đầu một trò chơi để hiển thị thành tích!",
                 max: "Tối đa",
-                custom: "Tùy chỉnh..."
-            }
-        },
-        games: {
-            title: "Trò chơi",
-            content: {
-                linkedgames: "Trò chơi Liên kết",
-                themeswitch: "Tự động chuyển đổi chủ đề",
-                exclusionlist: "Danh sách Loại trừ"
+                custom: "Tùy chỉnh...",
+                statwinshortcut: "Phím tắt Overlay",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Phần trăm mà Thông báo thành tựu Hiếm sẽ được kích hoạt. Bất kỳ thành tựu nào có tỷ lệ mở khóa cao hơn giá trị này sẽ được hiển thị như một Thông báo chính",
         showpercent: "Hiển thị phần trăm mở khóa của thành tựu trong thông báo cho các loại đã chọn",
         soundonly: "Vô hiệu hóa thông báo, chỉ phát âm thanh được thiết lập qua Tùy chỉnh",
-        extwin: "Tạo một cửa sổ nền ẩn hiện thị bất kỳ thông báo nào đang hiển thị trên màn hình. Cửa sổ này sau đó có thể được thêm làm nguồn Chụp Ảnh Màn hình cho phần mềm phát trực tiếp, chẳng hạn như OBS",
+        extwin: "Tạo một cửa sổ sao chép tất cả thông báo hiện đang hiển thị trên màn hình. Cửa sổ này có thể được thêm vào làm nguồn bắt cửa sổ để sử dụng trong phần mềm phát sóng, chẳng hạn như OBS",
         extwinframerate: "Đặt tốc độ khung hình mục tiêu cho thông báo phát trực tuyến",
-        extwinshow: "Chuyển đổi khả năng hiển thị cửa sổ thông báo phát trực tuyến",
+        extwinshow: `Chuyển đổi tính năng hiển thị cửa sổ Thông báo Phát sóng<br><br><span class="ttdesc">Khi nó được chọn trên thanh tác vụ, giữ phím <code class="ttcode">Ctrl</code> để hiển thị vị trí hiện tại của cửa sổ</span>`,
         audiosrc: "Chọn nguồn âm thanh (hoặc vô hiệu hóa) được tạo bởi ứng dụng",
         nowtracking: "Hiển thị một thông báo thông báo người dùng rằng thành tựu cho một trò chơi đang chạy đang được theo dõi",
         nowtrackingscale: `Đặt kích thước của Thông báo Theo dõi`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Hiển thị tất cả các tùy chọn thường nằm dưới <span class="hl">Khay Hệ thống</span> > <span class="hl">Tùy chọn</span> trong <span class="hl">Cài đặt</span> > <span class="hl">Khác.</span>`,
         releaseshortcut: "Sử dụng phím tắt đã chỉ định để phát hành trò chơi đang theo dõi",
         themeselect: "Chọn một chủ đề đã lưu trước đó",
-        statwin: `Hiển thị thống kê thành tích có thể cấu hình cho trò chơi hiện tại trong cửa sổ ngoài<br><br><span class="ttdesc">Khi sử dụng cùng với tùy chọn <span class="hl">Dịch thành tích sang ngôn ngữ Steam</span>, một số bản dịch có thể không khả dụng cho đến khi thành tích cụ thể được mở khóa</span>`
+        statwin: `Hiển thị thống kê thành tích có thể cấu hình cho trò chơi hiện tại trong cửa sổ ngoài<br><br><span class="ttdesc">Khi sử dụng cùng với tùy chọn <span class="hl">Dịch thành tích sang ngôn ngữ Steam</span>, một số bản dịch có thể không khả dụng cho đến khi thành tích cụ thể được mở khóa</span>`,
+        statwinshortcut: "Chuyển đổi Overlay Thống kê Thành tích bằng phím tắt bàn phím đã chỉ định"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

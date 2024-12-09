@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "윈도우 링크에 실패했습니다",
         addlinkfailedsub: `다시 시도하려면 <span class="hl">링크</span> 버튼을 클릭하세요`,
         webhookunlockmsg: "$user가 업적을 잠금 해제했습니다",
+        webhookunlockmsgplat: "$user 님이 모든 업적을 해제했습니다",
         webhookingame: "$gamename에서",
         notconnected: "연결되지 않음"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "끔",
                 showpercent: "백분율 표시",
                 soundonly: "사운드만",
-                extwin: "스트림 알림",
-                extwinframerate: "프레임 속도",
-                extwinshow: "창 표시",
-                audiosrc: "오디오 소스",
-                notify: "알림",
-                app: "앱",
                 nowtracking: "추적 알림 표시",
                 nowtrackingscale: "추적 스케일",
                 nowtrackingpos: "추적 위치",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `이 옵션을 활성화하고 유효한 Discord Webhook 링크를 제공함으로써 <u>현재 Steam 사용자에 대한 모든 업적 및 게임 정보</u>가 제공된 Webhook 링크를 통해 지정된 Discord 서버에 게시될 것임을 이해하는 데 동의합니다.<br><br>Steam Achievement Notifier가 이 정보를 대신 게시하는 것을 원하지 않는 경우, 이 옵션을 비활성화해 주세요.`,
                 webhooklaststatus: "최종 상태"
+            }
+        },
+        games: {
+            title: "게임",
+            content: {
+                linkedgames: "연결된 게임",
+                themeswitch: "테마 자동 전환",
+                exclusionlist: "제외 목록"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "스크린 샷 경로",
                 ssdelay: "스크린 샷 지연",
                 notifyimg: "알림 이미지",
-                imgpath: "이미지 경로",
+                imgpath: "이미지 경로"
+            }
+        },
+        streaming: {
+            title: "스트리밍",
+            content: {
+                extwin: "스트림 알림",
+                extwinframerate: "프레임 속도",
+                extwinshow: "창 표시",
+                audiosrc: "오디오 소스",
+                notify: "알림",
+                app: "앱",
+                off: "음소거됨",
                 statwin: "업적 통계 창",
                 noachievements: "표시할 업적이 없습니다",
                 startgame: "업적을 표시하려면 게임을 시작하세요!",
                 max: "최대",
-                custom: "사용자 정의..."
-            }
-        },
-        games: {
-            title: "게임",
-            content: {
-                linkedgames: "연결된 게임",
-                themeswitch: "테마 자동 전환",
-                exclusionlist: "제외 목록"
+                custom: "사용자 정의...",
+                statwinshortcut: "오버레이 단축키",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "희귀 업적 알림이 트리거될 백분율. 이 값보다 높은 잠금 해제 백분율을 가진 업적은 주 알림으로 표시됨",
         showpercent: "선택한 유형의 알림에 업적의 잠금 해제 백분율 표시",
         soundonly: "알림 비활성화, Customiser에서 설정한 사운드만 재생",
-        extwin: "현재 화면에 표시되는 모든 알림을 복제하는 숨겨진 백그라운드 창 생성. 이 창은 OBS와 같은 스트리밍 소프트웨어에서 Window Capture 소스로 추가할 수 있음",
+        extwin: "현재 화면에 표시되는 모든 알림을 복제하는 창을 생성합니다. 이 창은 OBS와 같은 스트리밍 소프트웨어에서 창 캡처 소스로 추가할 수 있습니다",
         extwinframerate: "스트림 알림을 위한 목표 프레임 속도 설정",
-        extwinshow: "스트림 알림 창의 표시/숨기기 전환",
+        extwinshow: `스트림 알림 창의 가시성을 전환합니다<br><br><span class="ttdesc">작업 표시줄에서 포커스가 있는 경우 <code class="ttcode">Ctrl</code> 키를 누르고 있으면 창의 현재 위치가 표시됩니다</span>`,
         audiosrc: "앱에서 생성되는 오디오의 소스 선택(또는 비활성화)",
         nowtracking: "실행 중인 게임의 업적이 추적되고 있음을 알리는 알림 표시",
         nowtrackingscale: `추적 알림 크기 설정`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `보통 <span class="hl">시스템 트레이</span> > <span class="hl">옵션</span> 아래에 위치하는 모든 옵션을 표시 <span class="hl">설정</span> > <span class="hl">기타</span>`,
         releaseshortcut: "지정된 키보드 단축키를 사용하여 현재 추적 중인 게임을 릴리스합니다",
         themeselect: "이전에 저장된 테마 선택",
-        statwin: `현재 게임에 대한 구성 가능한 업적 통계를 외부 창에 표시<br><br><span class="ttdesc">"<span class="hl">Steam 언어로 업적 번역</span>" 옵션과 함께 사용 시, 특정 업적이 잠금 해제될 때까지 일부 번역이 제공되지 않을 수 있습니다</span>`
+        statwin: `현재 게임에 대한 구성 가능한 업적 통계를 외부 창에 표시<br><br><span class="ttdesc">"<span class="hl">Steam 언어로 업적 번역</span>" 옵션과 함께 사용 시, 특정 업적이 잠금 해제될 때까지 일부 번역이 제공되지 않을 수 있습니다</span>`,
+        statwinshortcut: "지정된 키보드 단축키를 사용하여 업적 통계 오버레이를 전환합니다"
     },
     update: {
         updateavailable: "업데이트 가능",

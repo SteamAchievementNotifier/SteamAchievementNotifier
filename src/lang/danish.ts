@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Kunne ikke linke vindue",
         addlinkfailedsub: `Klik på knappen <span class="hl">Link</span> for at prøve igen`,
         webhookunlockmsg: "$user låste op for en præstation",
+        webhookunlockmsgplat: "$user låste op for alle præstationer",
         webhookingame: "i $gamename",
         notconnected: "Ikke forbundet"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Fra",
                 showpercent: "Vis procent",
                 soundonly: "Lyd kun",
-                extwin: "Stream-notifikationer",
-                extwinframerate: "Billedhastighed",
-                extwinshow: "Vis vindue",
-                audiosrc: "Lyd-kilde",
-                notify: "Notifikation",
-                app: "App",
                 nowtracking: "Vis sporingsmeddelelse",
                 nowtrackingscale: "Sporingsskala",
                 nowtrackingpos: "Sporingsposition",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Ved at aktivere denne mulighed og angive et gyldigt Discord-webhook-link, accepterer du, at du forstår, at <u>al præstations- og spilinformations for den nuværende Steam-bruger</u> vil blive sendt til den angivne Discord-server via det angivne webhook-link.<br><br>Hvis du ikke ønsker, at Steam Achievement Notifier skal sende disse oplysninger på dine vegne, skal du deaktivere denne mulighed.`,
                 webhooklaststatus: "Sidste status"
+            }
+        },
+        games: {
+            title: "Spil",
+            content: {
+                linkedgames: "Forbundne spil",
+                themeswitch: "Automatisk skift af tema",
+                exclusionlist: "Udelukkelsesliste"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Screenshot-sti",
                 ssdelay: "Screenshot-forsinkelse",
                 notifyimg: "Notifikationsbillede",
-                imgpath: "Billedsti",
+                imgpath: "Billedsti"
+            }
+        },
+        streaming: {
+            title: "Streaming",
+            content: {
+                extwin: "Stream-notifikationer",
+                extwinframerate: "Billedhastighed",
+                extwinshow: "Vis vindue",
+                audiosrc: "Lyd-kilde",
+                notify: "Notifikation",
+                app: "App",
+                off: "Dæmpet",
                 statwin: "Statistik for Præstationsvindue",
                 noachievements: "Ingen præstationer at vise",
                 startgame: "Start et spil for at vise præstationer!",
                 max: "Maks",
-                custom: "Brugerdefineret..."
-            }
-        },
-        games: {
-            title: "Spil",
-            content: {
-                linkedgames: "Forbundne spil",
-                themeswitch: "Automatisk skift af tema",
-                exclusionlist: "Udelukkelsesliste"
+                custom: "Brugerdefineret...",
+                statwinshortcut: "Overlay Genvejstast",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Procentdelen, hvor sjældne præstationsmeddelelser udløses. Enhver præstation med en låseprocent over denne værdi vises som en hovedmeddelelse",
         showpercent: "Vis låseprocenten af præstationen i meddelelsen for de valgte typer",
         soundonly: "Deaktiver meddelelser og afspil kun lyde, der er indstillet via Tilpasning",
-        extwin: "Opret et skjult baggrundsvindue, der kopierer eventuelle meddelelser, der i øjeblikket vises på skærmen. Dette vindue kan derefter tilføjes som en Window Capture-kilde til brug i streaming-software som OBS",
+        extwin: "Opret et vindue, der duplicerer alle meddelelser, der i øjeblikket vises på skærmen. Dette vindue kan derefter tilføjes som en vinduesoptagelseskilde til brug i streaming-software som OBS",
         extwinframerate: "Indstil den målrettede billedhastighed for stream-notifikationer",
-        extwinshow: "Skift synlighed af vinduet for stream-notifikationer",
+        extwinshow: `Skift synlighed af Stream Notifications-vinduet<br><br><span class="ttdesc">Når det er fokuseret på proceslinjen, skal du trykke og holde <code class="ttcode">Ctrl</code>-tasten nede for at vise vinduets aktuelle placering</span>`,
         audiosrc: "Vælg lydkilden til (eller deaktiver) lyd genereret af appen",
         nowtracking: "Vis en meddelelse, der informerer brugeren om, at præstationer for et kørende spil spores",
         nowtrackingscale: `Indstil størrelsen af sporingsmeddelelsen`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Vis alle muligheder, der normalt findes under <span class="hl">Systembakke</span> > <span class="hl">Indstillinger</span> i <span class="hl">Indstillinger</span> > <span class="hl">Diverse</span>`,
         releaseshortcut: "Frigiv det aktuelt overvågede spil ved hjælp af den angivne tastaturgenvej",
         themeselect: "Vælg et tidligere gemt Tema",
-        statwin: `Vis konfigurerbare præstationsstatistikker for det aktuelle spil i et eksternt vindue<br><br><span class="ttdesc">Når det bruges sammen med indstillingen <span class="hl">Oversæt Præstationer til Steam-sprog</span>, kan nogle oversættelser være utilgængelige, indtil den specifikke præstation er låst op</span>`
+        statwin: `Vis konfigurerbare præstationsstatistikker for det aktuelle spil i et eksternt vindue<br><br><span class="ttdesc">Når det bruges sammen med indstillingen <span class="hl">Oversæt Præstationer til Steam-sprog</span>, kan nogle oversættelser være utilgængelige, indtil den specifikke præstation er låst op</span>`,
+        statwinshortcut: "Skift Achievement Stats Overlay ved hjælp af den angivne genvejstast"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

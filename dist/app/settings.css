@@ -114,12 +114,16 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
     --icon: url("../../icon/notifications.svg");
 }
 
+.cont:has(#games) > .title::before {
+    --icon: url("../../icon/controller.svg");
+}
+
 .cont:has(#media) > .title::before {
     --icon: url("../../icon/camera.svg");
 }
 
-.cont:has(#games) > .title::before {
-    --icon: url("../../icon/controller.svg");
+.cont:has(#streaming) > .title::before {
+    --icon: url("../../icon/videocam.svg");
 }
 
 .cont:has(#accessibility) > .title::before {
@@ -207,11 +211,11 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     pointer-events: none;
 }
 
-.opt:has(> button#releaseshortcut) {
+.opt:has(> button[id$="shortcut"]) {
     gap: 0;
 }
 
-#settingscontent .cont:has(.title#notifications,.title#advanced) .opt:has(input[type="range"],select) {
+#settingscontent .cont:has(.title#notifications,.title#streaming,.title#advanced) .opt:has(input[type="range"],select) {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }

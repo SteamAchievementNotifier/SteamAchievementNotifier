@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Kunne ikke koble vinduet",
         addlinkfailedsub: `Klikk på <span class="hl">Lenk</span> knappen for å prøve igjen`,
         webhookunlockmsg: "$user har låst opp en prestasjon",
+        webhookunlockmsgplat: "$user låste opp alle prestasjoner",
         webhookingame: "i $gamename",
         notconnected: "Ikke tilkoblet"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Av",
                 showpercent: "Vis prosent",
                 soundonly: "Bare lyd",
-                extwin: "Strømvarsler",
-                extwinframerate: "Bilderate",
-                extwinshow: "Vis vindu",
-                audiosrc: "Lyd kilde",
-                notify: "Varsel",
-                app: "Applikasjon",
                 nowtracking: "Vis sporingsvarsel",
                 nowtrackingscale: "Sporingsskala",
                 nowtrackingpos: "Sporingsposisjon",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Ved å aktivere dette alternativet og oppgi en gyldig Discord Webhook-lenke, samtykker du i å forstå at <u>all prestasjons- og spillinformasjon for den nåværende Steam-brukeren</u> vil bli postet til den angitte Discord-serveren via den oppgitte Webhook-lenken.<br><br>Hvis du ikke ønsker at Steam Achievement Notifier skal poste denne informasjonen på dine vegne, vennligst deaktiver dette alternativet.`,
                 webhooklaststatus: "Siste status"
+            }
+        },
+        games: {
+            title: "Spill",
+            content: {
+                linkedgames: "Lenkede spill",
+                themeswitch: "Automatisk bytte av temaer",
+                exclusionlist: "Unntaksliste"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Skjermbilde sti",
                 ssdelay: "Skjermbilde forsinkelse",
                 notifyimg: "Varslingsbilde",
-                imgpath: "Bildesti",
+                imgpath: "Bildesti"
+            }
+        },
+        streaming: {
+            title: "Strømming",
+            content: {
+                extwin: "Strømvarsler",
+                extwinframerate: "Bilderate",
+                extwinshow: "Vis vindu",
+                audiosrc: "Lyd kilde",
+                notify: "Varsel",
+                app: "Applikasjon",
+                off: "Dempet",
                 statwin: "Prestasjonstatistikkvindu",
                 noachievements: "Ingen prestasjoner å vise",
                 startgame: "Start et spill for å vise prestasjoner!",
                 max: "Maks",
-                custom: "Egendefinert..."
-            }
-        },
-        games: {
-            title: "Spill",
-            content: {
-                linkedgames: "Lenkede spill",
-                themeswitch: "Automatisk bytte av temaer",
-                exclusionlist: "Unntaksliste"
+                custom: "Egendefinert...",
+                statwinshortcut: "Snarvei for overlegg",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Prosentandelen der sjeldne prestasjonsvarsler vil bli utløst. Enhver prestasjon med en låseprosent over denne verdien vil bli vist som en hovedvarsling",
         showpercent: "Vis låseprosenten for prestasjonen i varslingen for de valgte typene",
         soundonly: "Deaktiver varsler, og spill bare av lyder som er satt via Tilpasseren",
-        extwin: "Opprett et skjult bakgrunnsvindu som dupliserer eventuelle varsler som for øyeblikket vises på skjermen. Dette vinduet kan deretter legges til som en vinduskilde for strømmingsprogramvare, for eksempel OBS",
+        extwin: "Opprett et vindu som dupliserer alle varsler som for øyeblikket vises på skjermen. Dette vinduet kan deretter legges til som en vindusfangstkilde for bruk i strømmeprogramvare som OBS",
         extwinframerate: "Sett målbildesatsen for strømvarsler",
-        extwinshow: "Bytt synlighet for strømvinduet",
+        extwinshow: `Veksle synligheten til vinduet for strømmingsvarsler<br><br><span class="ttdesc">Når det er fokusert på oppgavelinjen, hold nede <code class="ttcode">Ctrl</code>-tasten for å vise vinduets gjeldende plassering</span>`,
         audiosrc: "Velg kilden til (eller deaktiver) lyd generert av appen",
         nowtracking: "Vis en varsling som informerer brukeren om at prestasjoner for et kjørende spill blir sporet",
         nowtrackingscale: `Angi størrelsen på sporingsvarslingen`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Vis alle alternativer som vanligvis ligger under <span class="hl">Systemstatus</span> > <span class="hl">Alternativer</span> i <span class="hl">Innstillinger</span> > <span class="hl">Diverse</span>`,
         releaseshortcut: "Frigjør det nåværende sporet spillet ved å bruke den angitte hurtigtasten",
         themeselect: "Velg et tidligere lagret Tema",
-        statwin: `Vis konfigurerbare prestasjonstatistikker for det nåværende spillet i et eksternt vindu<br><br><span class="ttdesc">Når det brukes sammen med alternativet <span class="hl">Oversett prestasjoner til Steam-språk</span>, kan noen oversettelser ikke være tilgjengelige før den spesifikke prestasjonen er låst opp</span>`
+        statwin: `Vis konfigurerbare prestasjonstatistikker for det nåværende spillet i et eksternt vindu<br><br><span class="ttdesc">Når det brukes sammen med alternativet <span class="hl">Oversett prestasjoner til Steam-språk</span>, kan noen oversettelser ikke være tilgjengelige før den spesifikke prestasjonen er låst opp</span>`,
+        statwinshortcut: "Veksle prestasjonsstatistikk-overlegget ved hjelp av den angitte hurtigtasten"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

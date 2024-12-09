@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Ikkunan linkittäminen epäonnistui",
         addlinkfailedsub: `Klikkaa <span class="hl">Linkitä</span>-painiketta yrittääksesi uudelleen`,
         webhookunlockmsg: "$user avasi saavutuksen",
+        webhookunlockmsgplat: "$user avasi kaikki saavutukset",
         webhookingame: "pelissä $gamename",
         notconnected: "Ei yhdistetty"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Pois päältä",
                 showpercent: "Näytä prosenttiosuus",
                 soundonly: "Vain ääni",
-                extwin: "Virtailmoitukset",
-                extwinframerate: "Kuvataajuus",
-                extwinshow: "Näytä ikkuna",
-                audiosrc: "Äänilähde",
-                notify: "Ilmoitus",
-                app: "Sovellus",
                 nowtracking: "Näytä seurantan ilmoitus",
                 nowtrackingscale: "Seurantamittakaava",
                 nowtrackingpos: "Seurannan Sijainti",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Ottamalla tämän asetuksen käyttöön ja antamalla kelvollisen Discord-webhook-linkin, hyväksyt, että ymmärrät <u>kaiken nykyisen Steam-käyttäjän saavutuksiin ja peleihin liittyvän tiedon</u> julkaistavan määritettyyn Discord-palvelimeen annetun webhook-linkin kautta.<br><br>Jos et halua, että Steam Achievement Notifier julkaisee näitä tietoja puolestasi, poista tämä asetus käytöstä.`,
                 webhooklaststatus: "Viimeinen Tila"
+            }
+        },
+        games: {
+            title: "Pelit",
+            content: {
+                linkedgames: "Linkitetyt pelit",
+                themeswitch: "Vaihda teemoja automaattisesti",
+                exclusionlist: "Poissulkemislista"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Ruutukaappauksen polku",
                 ssdelay: "Ruutukaappauksen viive",
                 notifyimg: "Ilmoituskuva",
-                imgpath: "Kuvan polku",
+                imgpath: "Kuvan polku"
+            }
+        },
+        streaming: {
+            title: "Suoratoisto",
+            content: {
+                extwin: "Virtailmoitukset",
+                extwinframerate: "Kuvataajuus",
+                extwinshow: "Näytä ikkuna",
+                audiosrc: "Äänilähde",
+                notify: "Ilmoitus",
+                app: "Sovellus",
+                off: "Mykistetty",
                 statwin: "Saavutustilastojen ikkuna",
                 noachievements: "Ei saavutuksia näytettäväksi",
                 startgame: "Aloita peli näyttääksesi saavutukset!",
                 max: "Maksimi",
-                custom: "Mukautettu..."
-            }
-        },
-        games: {
-            title: "Pelit",
-            content: {
-                linkedgames: "Linkitetyt pelit",
-                themeswitch: "Vaihda teemoja automaattisesti",
-                exclusionlist: "Poissulkemislista"
+                custom: "Mukautettu...",
+                statwinshortcut: "Pikapainike Overlaylle",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Prosenttiosuus, jolla harvinaiset saavutusilmoitukset laukaistaan. Kaikki saavutukset, joiden lukitusprosentti on tämän arvon yläpuolella, näytetään pääilmoituksena",
         showpercent: "Näytä saavutuksen lukitusprosentti ilmoituksessa valituille tyypeille",
         soundonly: "Poista ilmoitukset käytöstä ja toista vain äänet, jotka on määritetty Mukauttajassa",
-        extwin: "Luo piilotettu taustailmoitusikkuna, joka kuvaa parhaillaan näytöllä näkyviä ilmoituksia. Tämä ikkuna voidaan lisätä ikkunan kaappaussisällöksi suoratoistosovelluksissa, kuten OBS",
+        extwin: "Luo ikkuna, joka toistaa kaikki näytöllä tällä hetkellä näkyvät ilmoitukset. Tämä ikkuna voidaan sitten lisätä Ikkunan kaappauksen lähteeksi suoratoisto-ohjelmissa, kuten OBS:ssä",
         extwinframerate: "Aseta tavoitekuvataajuus suoratoistoilmoituksille",
-        extwinshow: "Vaihda suoratoistoilmoitusikkunan näkyvyyttä",
+        extwinshow: `Vaihda suoratoistoilmoitusten ikkunan näkyvyyttä<br><br><span class="ttdesc">Kun ikkuna on valittuna tehtäväpalkissa, pidä <code class="ttcode">Ctrl</code>-näppäintä alhaalla nähdäksesi ikkunan nykyisen sijainnin</span>`,
         audiosrc: "Valitse äänilähde (tai poista käytöstä), jota sovellus tuottaa",
         nowtracking: "Näytä ilmoitus, joka ilmoittaa, että juoksevan pelin saavutuksia seurataan",
         nowtrackingscale: `Aseta seurantan ilmoituksen koko`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Näytä kaikki vaihtoehdot, jotka sijaitsevat yleensä kohdassa <span class="hl">Järjestelmäpalkki</span> > <span class="hl">Asetukset</span> kohdassa <span class="hl">Asetukset</span> > <span class="hl">Sekalaiset</span>`,
         releaseshortcut: "Vapauta tällä hetkellä seurattava peli määritetyllä pikanäppäimellä",
         themeselect: "Valitse aiemmin tallennettu Teema",
-        statwin: `Näytä mukautettavat saavutustilastot nykyiselle pelille ulkoisessa ikkunassa<br><br><span class="ttdesc">Kun käytetään yhdessä <span class="hl">Käännä saavutukset Steamin kielelle</span> -vaihtoehdon kanssa, jotkin käännökset saattavat olla saatavilla vasta, kun kyseinen saavutus on avattu</span>`
+        statwin: `Näytä mukautettavat saavutustilastot nykyiselle pelille ulkoisessa ikkunassa<br><br><span class="ttdesc">Kun käytetään yhdessä <span class="hl">Käännä saavutukset Steamin kielelle</span> -vaihtoehdon kanssa, jotkin käännökset saattavat olla saatavilla vasta, kun kyseinen saavutus on avattu</span>`,
+        statwinshortcut: "Vaihda Achievement Stats Overlay käyttämällä määritettyä pikanäppäintä"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

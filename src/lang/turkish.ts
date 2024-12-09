@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Pencere bağlantısı kurulamadı",
         addlinkfailedsub: `Yeniden denemek için <span class="hl">Link</span> butonuna tıklayın`,
         webhookunlockmsg: "$user bir başarıyı kilidini açtı",
+        webhookunlockmsgplat: "$user tüm başarıları açtı",
         webhookingame: "$gamename'de",
         notconnected: "Bağlantı yok"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Kapalı",
                 showpercent: "Yüzdeyi Göster",
                 soundonly: "Sesli Bildirim",
-                extwin: "Akış Bildirimleri",
-                extwinframerate: "Kare Hızı",
-                extwinshow: "Pencereyi Göster",
-                audiosrc: "Ses Kaynağı",
-                notify: "Bildir",
-                app: "Uygulama",
                 nowtracking: "Takip Bildirimini Göster",
                 nowtrackingscale: "Takip Ölçeği",
                 nowtrackingpos: "Takip Konumu",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Bu seçeneği etkinleştirip geçerli bir Discord Webhook bağlantısı sağladığınızda, <u>mevcut Steam kullanıcısının tüm başarı ve oyun bilgilerini</u> belirtilen Discord sunucusuna Webhook bağlantısı aracılığıyla göndereceğinizi kabul etmiş olursunuz.<br><br>Bu bilgilerin sizin adınıza gönderilmesini istemiyorsanız, bu seçeneği devre dışı bırakın.`,
                 webhooklaststatus: "Son Durum"
+            }
+        },
+        games: {
+            title: "Oyunlar",
+            content: {
+                linkedgames: "Bağlantılı Oyunlar",
+                themeswitch: "Tema Değişimini Otomatik Yap",
+                exclusionlist: "Dışlama Listesi"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Görüntü Yolu",
                 ssdelay: "Görüntü Gecikmesi",
                 notifyimg: "Bildirim Görseli",
-                imgpath: "Görsel Yolu",
+                imgpath: "Görsel Yolu"
+            }
+        },
+        streaming: {
+            title: "Yayın",
+            content: {
+                extwin: "Akış Bildirimleri",
+                extwinframerate: "Kare Hızı",
+                extwinshow: "Pencereyi Göster",
+                audiosrc: "Ses Kaynağı",
+                notify: "Bildir",
+                app: "Uygulama",
+                off: "Susturuldu",
                 statwin: "Başarı İstatistikleri Penceresi",
                 noachievements: "Gösterilecek başarı yok",
                 startgame: "Başarıları göstermek için bir oyun başlatın!",
                 max: "Maksimum",
-                custom: "Özel..."
-            }
-        },
-        games: {
-            title: "Oyunlar",
-            content: {
-                linkedgames: "Bağlantılı Oyunlar",
-                themeswitch: "Tema Değişimini Otomatik Yap",
-                exclusionlist: "Dışlama Listesi"
+                custom: "Özel...",
+                statwinshortcut: "Örtü Kısayolu",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Nadir başarı bildirimlerinin tetikleneceği yüzde. Bu değerin üzerinde bir kilitleme yüzdesine sahip olan her başarı Ana bir bildirim olarak görüntülenir",
         showpercent: "Seçilen tür(ler) için bildirimde başarının kilitleme yüzdesini göster",
         soundonly: "Bildirimleri devre dışı bırakır, yalnızca Customiser tarafından ayarlanan sesleri çalar",
-        extwin: "Mevcut ekranda görüntülenen bildirimleri çoğaltan gizli bir arka plan penceresi oluşturur. Bu pencere daha sonra OBS gibi yayın yazılımlarında bir Pencere Yakalama kaynağı olarak eklenir",
+        extwin: "Ekranda şu anda görüntülenen tüm bildirimleri kopyalayan bir pencere oluşturun. Bu pencere, OBS gibi yayın yazılımlarında pencere yakalama kaynağı olarak eklenebilir",
         extwinframerate: "Yayın Bildirimleri için hedef kare hızını ayarla",
-        extwinshow: "Yayın Bildirimleri penceresinin görünürlüğünü geçiş yap",
+        extwinshow: `Yayın Bildirimleri penceresinin görünürlüğünü geçiş yap<br><br><span class="ttdesc">Görev çubuğunda odaklandığında, <code class="ttcode">Ctrl</code> tuşuna basılı tutarak pencerenin mevcut konumunu görüntüleyebilirsiniz</span>`,
         audiosrc: "Uygulama tarafından üretilen sesin kaynağını seçin (veya devre dışı bırakın)",
         nowtracking: "Çalışan bir oyun için başarımların takip edildiğini bildiren bir bildirim göster",
         nowtrackingscale: `Takip Bildiriminin Boyutunu Ayarlayın`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Genellikle <span class="hl">Sistem Tepsisi</span> > <span class="hl">Seçenekler</span> altında yer alan tüm seçenekleri <span class="hl">Ayarlar</span> > <span class="hl">Diğer</span> kısmında göster`,
         releaseshortcut: "Belirtilen klavye kısayolunu kullanarak şu anda izlenen oyunu yayınlayın",
         themeselect: "Önceden kaydedilmiş bir Tema seçin",
-        statwin: `Geçerli oyun için yapılandırılabilir başarı istatistiklerini dış bir pencerede görüntüle<br><br><span class="ttdesc">"<span class="hl">Başarıları Steam diline çevir</span>" seçeneğiyle birlikte kullanıldığında, belirli bir başarı açılana kadar bazı çeviriler kullanılamayabilir</span>`
+        statwin: `Geçerli oyun için yapılandırılabilir başarı istatistiklerini dış bir pencerede görüntüle<br><br><span class="ttdesc">"<span class="hl">Başarıları Steam diline çevir</span>" seçeneğiyle birlikte kullanıldığında, belirli bir başarı açılana kadar bazı çeviriler kullanılamayabilir</span>`,
+        statwinshortcut: "Belirtilen klavye kısayolunu kullanarak Başarı İstatistikleri Örtüsünü geçiş yap"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Det gick inte att länka fönstret",
         addlinkfailedsub: `Klicka på <span class="hl">Link</span>-knappen för att försöka igen`,
         webhookunlockmsg: "$user har låst upp en prestation",
+        webhookunlockmsgplat: "$user har låst upp alla prestationer",
         webhookingame: "i $gamename",
         notconnected: "Inte ansluten"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Av",
                 showpercent: "Visa procent",
                 soundonly: "Endast ljud",
-                extwin: "Strömma aviseringar",
-                extwinframerate: "Bildfrekvens",
-                extwinshow: "Visa fönster",
-                audiosrc: "Ljudkälla",
-                notify: "Avisera",
-                app: "Applikation",
                 nowtracking: "Visa spårningsmeddelande",
                 nowtrackingscale: "Spårningsskala",
                 nowtrackingpos: "Spårningsposition",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Genom att aktivera det här alternativet och tillhandahålla en giltig Discord Webhook-länk godkänner du att du förstår att <u>all prestation och spelinformation för den aktuella Steam-användaren</u> kommer att publiceras på den angivna Discord-servern via den angivna Webhook-länken.<br><br>Om du inte vill att Steam Achievement Notifier ska posta den här informationen å dina vägnar, inaktivera det här alternativet.`,
                 webhooklaststatus: "Senaste status"
+            }
+        },
+        games: {
+            title: "Spel",
+            content: {
+                linkedgames: "Länkade spel",
+                themeswitch: "Automatisk byte av teman",
+                exclusionlist: "Undantagslista"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Skärmdumpssökväg",
                 ssdelay: "Skärmdumpsfördröjning",
                 notifyimg: "Meddelandebild",
-                imgpath: "Bildsökväg",
+                imgpath: "Bildsökväg"
+            }
+        },
+        streaming: {
+            title: "Streaming",
+            content: {
+                extwin: "Strömma aviseringar",
+                extwinframerate: "Bildfrekvens",
+                extwinshow: "Visa fönster",
+                audiosrc: "Ljudkälla",
+                notify: "Avisera",
+                app: "Applikation",
+                off: "Avstängt",
                 statwin: "Prestationstatistikfönster",
                 noachievements: "Inga prestationer att visa",
                 startgame: "Starta ett spel för att visa prestationer!",
                 max: "Max",
-                custom: "Anpassad..."
-            }
-        },
-        games: {
-            title: "Spel",
-            content: {
-                linkedgames: "Länkade spel",
-                themeswitch: "Automatisk byte av teman",
-                exclusionlist: "Undantagslista"
+                custom: "Anpassad...",
+                statwinshortcut: "Snarväg för överlägg",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Procentandelen vid vilken sällsynta prestationaviseringar kommer att utlösas. Alla prestationer med en upplåsningsprocent över detta värde visas som huvudaviseringar",
         showpercent: "Visa upplåsningsprocenten för prestationen i aviseringen för de valda typerna",
         soundonly: "Inaktivera aviseringar och spela endast ljud som är inställt via anpassaren",
-        extwin: "Skapa ett dolt bakgrundsfönster som duplicerar alla aviseringar som för närvarande visas på skärmen. Detta fönster kan sedan läggas till som en Window Capture-källa för användning i streamingprogramvara, som OBS",
+        extwin: "Skapa ett fönster som duplicerar alla meddelanden som för närvarande visas på skärmen. Detta fönster kan sedan läggas till som en fönsterkälla för användning i streamingsprogramvara som OBS",
         extwinframerate: "Ställ in målbilder för strömnotifikationer",
-        extwinshow: "Växla synlighet för strömnotifikationsfönstret",
+        extwinshow: `Växla synligheten för streammeddelandefönstret<br><br><span class="ttdesc">När det är fokuserat i aktivitetsfältet, håll ned <code class="ttcode">Ctrl</code>-tangenten för att visa fönstrets aktuella position</span>`,
         audiosrc: "Välj källan för (eller inaktivera) ljud som genereras av appen",
         nowtracking: "Visa en avisering som meddelar användaren att prestationer för ett körande spel spåras",
         nowtrackingscale: `Ange storleken på spårningsmeddelandet`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Visa alla alternativ som vanligtvis finns under <span class="hl">Systemfält</span> > <span class="hl">Alternativ</span> i <span class="hl">Inställningar</span> > <span class="hl">Övrigt</span>`,
         releaseshortcut: "Frigör det nuvarande spårade spelet med den angivna tangentbordsgenvägen",
         themeselect: "Välj ett tidigare sparat tema",
-        statwin: `Visa konfigurerbara prestationstatistik för det aktuella spelet i ett externt fönster<br><br><span class="ttdesc">När den används tillsammans med alternativet <span class="hl">Översätt prestationer till Steam-språk</span> kan vissa översättningar vara otillgängliga tills den specifika prestationen är upplåst</span>`
+        statwin: `Visa konfigurerbara prestationstatistik för det aktuella spelet i ett externt fönster<br><br><span class="ttdesc">När den används tillsammans med alternativet <span class="hl">Översätt prestationer till Steam-språk</span> kan vissa översättningar vara otillgängliga tills den specifika prestationen är upplåst</span>`,
+        statwinshortcut: "Växla prestationstatistiköverlägget med den angivna tangentbordsgenvägen"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

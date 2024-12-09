@@ -328,7 +328,7 @@ const startsan = async (appinfo: AppInfo) => {
                             icon: platicon || sanhelper.setfilepath("img","ribbon.svg")
                         }
         
-                        ipcRenderer.send("notify",platnotify,undefined,themeswitch?.[1].src)
+                        ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,themeswitch?.[1].src))
                         hasshown = true
                     }
                 })

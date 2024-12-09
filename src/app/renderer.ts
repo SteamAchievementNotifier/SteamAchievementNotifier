@@ -170,7 +170,7 @@ ipcRenderer.on("storemonitors", () => storemonitors(config.get("monitors")))
 window.addEventListener("DOMContentLoaded", () => setTimeout(() => {
     setmonitors()
 
-    // Init "Release Game Shortcut"
+    // Init renderer shortcuts on launch
     ipcRenderer.send("shortcut",true)
 },100))
 
@@ -869,17 +869,16 @@ const getsteamuser = async (): Promise<string | null> => {
     return null
 }
 
-const unlockstr = async (user: string,gamename: string) => `${(await language.get("webhookunlockmsg")).replace(/\$user/,user)}${gamename ? ` ${(await language.get("webhookingame")).replace(/\$gamename/,gamename)}` : ""}`
+const unlockstr = async (user: string,gamename: string,type: "main" | "rare" | "plat") => `${(await language.get(`webhookunlockmsg${type === "plat" ? "plat" : ""}`)).replace(/\$user/,user)}${gamename ? ` ${(await language.get("webhookingame")).replace(/\$gamename/,gamename)}` : ""}`
 
 const embeds = async (notify: Notify) => {
-    const { type, gamename, name, desc, icon: achicon, percent, hidden } = notify
+    const { type, gamename, name, desc, icon, percent, hidden } = notify
     const user = await getsteamuser()
-    const icon = notify.type === "plat" ? config.get(`customisation.plat.customicons.plat`) as string : achicon
 
     return {
         color: type === "main" ? 2123412 : (type === "rare" ? 7419530 : 12370112),
         author: {
-            name: await unlockstr(user || "???",gamename || "")
+            name: await unlockstr(user || "???",gamename || "",notify.type)
         },
         title: `${hidden ? "||" : ""}${type === "plat" && !name ? await language.get("gamecomplete") : name}${hidden ? "||" : ""}${type === "plat" ? "" : ` (${Math.max(parseFloat(percent.toFixed(1)),0.1)}%)`}`,
         description: `${hidden ? "||" : ""}${type === "plat" ? await language.get("gamecompletedesc") : desc}${hidden ? "||" : ""}`,
@@ -892,9 +891,14 @@ const embeds = async (notify: Notify) => {
 
 ipcRenderer.on("sendwebhook", async (event,notify: Notify) => {
     const config = sanconfig.get()
-    const icon = notify.type === "plat" ? config.get(`customisation.plat.customicons.plat`) as string : notify.icon
 
-    config.get("webhooks") && sendwebhook(notify.type,config.get("webhookurl"),await embeds(notify),icon)
+    if (notify.type === "plat") {
+        notify.name = await language.get("gamecomplete")
+        // Discord Webhooks only support JPG/JPEG
+        notify.icon = ["jpg","jpeg"].map(ext => `.${ext}`).includes(path.extname(notify.icon)) ? notify.icon : sanhelper.setfilepath("img","ribbon.jpg")
+    }
+
+    config.get("webhooks") && sendwebhook(notify.type,config.get("webhookurl"),await embeds(notify),notify.icon)
 })
 
 ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
@@ -932,7 +936,6 @@ ipcRenderer.on("noexeclick",async () => {
 
                     if (!count) {
                         const winpath = getFocusedWinPath().replace(/\\/g,"/")
-                        // const winpath = ""
 
                         // Re-check `window.appid` is not 0 (i.e. game is still open) before writing to localStorage
                         if (!winpath || !window.appid) {

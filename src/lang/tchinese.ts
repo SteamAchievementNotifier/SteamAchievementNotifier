@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "無法連結視窗",
         addlinkfailedsub: `點擊 <span class="hl">Link</span> 按鈕重試`,
         webhookunlockmsg: "$user 解鎖了一個成就",
+        webhookunlockmsgplat: "$user 解鎖了所有成就",
         webhookingame: "在 $gamename",
         notconnected: "未連接"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "關閉",
                 showpercent: "顯示百分比",
                 soundonly: "僅聲音",
-                extwin: "流通知",
-                extwinframerate: "幀率",
-                extwinshow: "顯示視窗",
-                audiosrc: "音訊來源",
-                notify: "通知",
-                app: "應用程式",
                 nowtracking: "顯示追蹤通知",
                 nowtrackingscale: "追蹤比例",
                 nowtrackingpos: "追蹤位置",
@@ -131,6 +126,14 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `啟用此選項並提供有效的 Discord Webhook 連結，即表示您同意您了解 <u>當前 Steam 用戶的所有成就和遊戲信息</u> 將通過提供的 Webhook 連結發佈到指定的 Discord 伺服器。<br><br>如果您不希望 Steam Achievement Notifier 代表您發佈這些信息，請禁用此選項。`,
                 webhooklaststatus: "最後狀態"
+            }
+        },
+        games: {
+            title: "遊戲",
+            content: {
+                linkedgames: "已連結的遊戲",
+                themeswitch: "自動切換主題",
+                exclusionlist: "排除清單"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "截圖路徑",
                 ssdelay: "截圖延遲",
                 notifyimg: "通知圖片",
-                imgpath: "圖片路徑",
+                imgpath: "圖片路徑"
+            }
+        },
+        streaming: {
+            title: "直播",
+            content: {
+                extwin: "流通知",
+                extwinframerate: "幀率",
+                extwinshow: "顯示視窗",
+                audiosrc: "音訊來源",
+                notify: "通知",
+                app: "應用程式",
+                off: "靜音",
                 statwin: "成就統計窗口",
                 noachievements: "沒有成就可顯示",
                 startgame: "啟動遊戲以顯示成就！",
                 max: "最大值",
-                custom: "自定義..."
-            }
-        },
-        games: {
-            title: "遊戲",
-            content: {
-                linkedgames: "已連結的遊戲",
-                themeswitch: "自動切換主題",
-                exclusionlist: "排除清單"
+                custom: "自定義...",
+                statwinshortcut: "疊加層快捷鍵",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "稀有成就通知觸發的百分比。任何解鎖百分比高於此值的成就將顯示為主要通知",
         showpercent: "在所選類型的通知中顯示成就的解鎖百分比",
         soundonly: "僅播放通過自訂器設置的聲音，禁用通知",
-        extwin: "創建一個隱藏的背景視窗，複製當前正在顯示的任何通知。然後，可以將此視窗添加為流媒體軟體（如 OBS）中的視窗捕獲來源",
+        extwin: "創建一個窗口，複製當前屏幕上顯示的所有通知。然後，可以將該窗口作為窗口捕捉源添加到流媒體軟體中，如 OBS",
         extwinframerate: "設置流通知的目標幀率",
-        extwinshow: "切換流通知視窗的可見性",
+        extwinshow: `切換流通知窗口的可見性<br><br><span class="ttdesc">當它在任務欄中獲得焦點時，按住 <code class="ttcode">Ctrl</code> 鍵可以顯示窗口的當前位置</span>`,
         audiosrc: "選擇應用程式生成的音訊來源（或禁用音訊）",
         nowtracking: "顯示通知，通知用戶正在追蹤運行中遊戲的成就",
         nowtrackingscale: `設置追蹤通知的大小`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `顯示通常位於 <span class="hl">系統托盤</span> > <span class="hl">選項</span> 下的所有選項，在 <span class="hl">設置</span> > <span class="hl">其他</span>`,
         releaseshortcut: "使用指定的鍵盤快捷鍵釋放當前跟蹤的遊戲",
         themeselect: "選擇之前保存的主題",
-        statwin: `在外部窗口中顯示當前遊戲的可配置成就統計<br><br><span class="ttdesc">當與“<span class="hl">將成就翻譯為 Steam 語言</span>”選項一起使用時，某些翻譯可能在解鎖特定成就之前無法使用</span>`
+        statwin: `在外部窗口中顯示當前遊戲的可配置成就統計<br><br><span class="ttdesc">當與“<span class="hl">將成就翻譯為 Steam 語言</span>”選項一起使用時，某些翻譯可能在解鎖特定成就之前無法使用</span>`,
+        statwinshortcut: "使用指定的快捷鍵切換成就統計疊加層"
     },
     update: {
         updateavailable: "有可用更新",

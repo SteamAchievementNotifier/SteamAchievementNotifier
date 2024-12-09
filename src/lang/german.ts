@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Fenster konnte nicht verbunden werden",
         addlinkfailedsub: `Klicken Sie auf die Schaltfläche <span class="hl">Link</span>, um es erneut zu versuchen`,
         webhookunlockmsg: "$user hat einen Erfolg freigeschaltet",
+        webhookunlockmsgplat: "$user hat alle Erfolge freigeschaltet",
         webhookingame: "in $gamename",
         notconnected: "Nicht verbunden"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Aus",
                 showpercent: "Prozentsatz Anzeigen",
                 soundonly: "Nur Ton",
-                extwin: "Stream-Benachrichtigungen",
-                extwinframerate: "Bildrate",
-                extwinshow: "Fenster anzeigen",
-                audiosrc: "Audioquelle",
-                notify: "Benachrichtigung",
-                app: "Anwendung",
                 nowtracking: "Verfolgungshinweis anzeigen",
                 nowtrackingscale: "Verfolgungsskala",
                 nowtrackingpos: "Position verfolgen",
@@ -131,6 +126,14 @@ export const translations = {
                 webhooktypes: "Webhook-Typen",
                 webhookcaution: `Indem Sie diese Option aktivieren und einen gültigen Discord-Webhook-Link angeben, erklären Sie sich damit einverstanden, dass Sie verstehen, dass <u>alle Erfolgs- und Spieledaten des aktuellen Steam-Benutzers</u> über den angegebenen Discord-Server-Link gepostet werden.<br><br>Wenn Sie nicht möchten, dass der Steam Achievement Notifier diese Informationen in Ihrem Namen veröffentlicht, deaktivieren Sie bitte diese Option.`,
                 webhooklaststatus: "Letzter Status"
+            }
+        },
+        games: {
+            title: "Spiele",
+            content: {
+                linkedgames: "Verknüpfte Spiele",
+                themeswitch: "Automatischer Themenwechsel",
+                exclusionlist: "Ausschlussliste"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Screenshot-Pfad",
                 ssdelay: "Screenshot-Verzögerung",
                 notifyimg: "Benachrichtigungsbild",
-                imgpath: "Bildpfad",
+                imgpath: "Bildpfad"
+            }
+        },
+        streaming: {
+            title: "Streaming",
+            content: {
+                extwin: "Stream-Benachrichtigungen",
+                extwinframerate: "Bildrate",
+                extwinshow: "Fenster anzeigen",
+                audiosrc: "Audioquelle",
+                notify: "Benachrichtigung",
+                app: "Anwendung",
+                off: "Stummgeschaltet",
                 statwin: "Statistikfenster für Erfolge",
                 noachievements: "Keine Erfolge zum Anzeigen",
                 startgame: "Starte ein Spiel, um Erfolge anzuzeigen!",
                 max: "Max",
-                custom: "Benutzerdefiniert..."
-            }
-        },
-        games: {
-            title: "Spiele",
-            content: {
-                linkedgames: "Verknüpfte Spiele",
-                themeswitch: "Automatischer Themenwechsel",
-                exclusionlist: "Ausschlussliste"
+                custom: "Benutzerdefiniert...",
+                statwinshortcut: "Overlay-Verknüpfung",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Der Prozentsatz, bei dem seltene Erfolgsmeldungen ausgelöst werden. Jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert wird als Hauptbenachrichtigung angezeigt",
         showpercent: "Zeigen Sie den Freischaltungsprozentsatz des Erfolgs in der Benachrichtigung für die ausgewählten Typen an",
         soundonly: "Deaktivieren Sie Benachrichtigungen und spielen Sie nur Sounds ab, die über den Customiser festgelegt wurden",
-        extwin: "Erstellen Sie ein verstecktes Hintergrundfenster, das alle derzeit angezeigten Benachrichtigungen dupliziert. Dieses Fenster kann dann als Fenstererfassungsquelle für Streaming-Software wie OBS hinzugefügt werden",
+        extwin: "Erstellen Sie ein Fenster, das alle derzeit auf dem Bildschirm angezeigten Benachrichtigungen dupliziert. Dieses Fenster kann dann als Fensteraufnahmequelle für Streaming-Software wie OBS hinzugefügt werden",
         extwinframerate: "Ziel-Bildrate für Stream-Benachrichtigungen festlegen",
-        extwinshow: "Sichtbarkeit des Stream-Benachrichtigungsfensters umschalten",
+        extwinshow: `Sichtbarkeit des Stream-Benachrichtigungsfensters umschalten<br><br><span class="ttdesc">Wenn es in der Taskleiste fokussiert ist, halten Sie die <code class="ttcode">Strg</code>-Taste gedrückt, um den aktuellen Standort des Fensters anzuzeigen</span>`,
         audiosrc: "Wählen Sie die Quelle des vom Programm generierten Audios aus (oder deaktivieren Sie es)",
         nowtracking: "Zeigen Sie eine Benachrichtigung an, die den Benutzer darüber informiert, dass Erfolge für ein laufendes Spiel verfolgt werden",
         nowtrackingscale: `Größe der Verfolgungshinweis festlegen`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Zeigt alle Optionen an, die normalerweise unter <span class="hl">System Tray</span> > <span class="hl">Optionen</span> in <span class="hl">Einstellungen</span> > <span class="hl">Verschiedenes</span> zu finden sind`,
         releaseshortcut: "Das aktuell verfolgte Spiel mit der angegebenen Tastenkombination freigeben",
         themeselect: "Wählen Sie ein zuvor gespeichertes Thema",
-        statwin: `Konfigurierbare Erfolgsstatistiken für das aktuelle Spiel in einem externen Fenster anzeigen<br><br><span class="ttdesc">Bei Verwendung in Kombination mit der Option <span class="hl">Erfolge in die Steam-Sprache übersetzen</span> können einige Übersetzungen erst verfügbar sein, wenn der entsprechende Erfolg freigeschaltet wurde</span>`
+        statwin: `Konfigurierbare Erfolgsstatistiken für das aktuelle Spiel in einem externen Fenster anzeigen<br><br><span class="ttdesc">Bei Verwendung in Kombination mit der Option <span class="hl">Erfolge in die Steam-Sprache übersetzen</span> können einige Übersetzungen erst verfügbar sein, wenn der entsprechende Erfolg freigeschaltet wurde</span>`,
+        statwinshortcut: "Die Erfolgsstatistik-Überlagerung mit der angegebenen Tastenkombination umschalten",
     },
     update: {
         updateavailable: "Update verfügbar",

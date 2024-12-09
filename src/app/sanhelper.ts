@@ -462,11 +462,13 @@ export const sanhelper: SANHelper = {
     loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
         if (!menuelem) return
 
+        // !!! TODO: Fix issue where using `button[id$="shortcut"]` causes multiple Tippy instances to spawn
         menuelem.querySelectorAll(`
             #elemselector select,
             #elemselector input,
             #elemselector button,
             #webhookwrapper input,
+            button#statwinshortcut,
             button#releaseshortcut
         `)!.forEach(async elem => {
             const trophies = [

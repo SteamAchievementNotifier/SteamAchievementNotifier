@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Nu s-a putut conecta fereastra",
         addlinkfailedsub: `Apasă pe butonul <span class="hl">Link</span> pentru a încerca din nou`,
         webhookunlockmsg: "$user a deblocat o realizare",
+        webhookunlockmsgplat: "$user a deblocat toate realizările",
         webhookingame: "în $gamename",
         notconnected: "Nu este conectat"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Oprit",
                 showpercent: "Afișare Procentaj",
                 soundonly: "Doar Sunet",
-                extwin: "Notificări de Streaming",
-                extwinframerate: "Rata cadrelor",
-                extwinshow: "Arată fereastra",
-                audiosrc: "Sursă Audio",
-                notify: "Notificare",
-                app: "Aplicație",
                 nowtracking: "Afișează Notificarea de Urmărire",
                 nowtrackingscale: "Scară de Urmărire",
                 nowtrackingpos: "Poziționare Urmărire",
@@ -131,6 +126,14 @@ export const translations = {
                 webhooktypes: "Tipuri de Webhook",
                 webhookcaution: `Activând această opțiune și furnizând un link valid Webhook Discord, accepți că înțelegi că <u>toate informațiile despre realizări și jocuri pentru utilizatorul Steam actual</u> vor fi postate pe serverul Discord specificat prin intermediul linkului Webhook furnizat.<br><br>Dacă nu dorești ca Steam Achievement Notifier să posteze aceste informații în numele tău, dezactivează această opțiune.`,
                 webhooklaststatus: "Ultimul Statut"
+            }
+        },
+        games: {
+            title: "Jocuri",
+            content: {
+                linkedgames: "Jocuri Conectate",
+                themeswitch: "Comutare automată a temelor",
+                exclusionlist: "Listă de Excludere"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Cale Captură",
                 ssdelay: "Întârziere Captură",
                 notifyimg: "Imagine Notificare",
-                imgpath: "Calea Imaginii",
+                imgpath: "Calea Imaginii"
+            }
+        },
+        streaming: {
+            title: "Streaming",
+            content: {
+                extwin: "Notificări de Streaming",
+                extwinframerate: "Rata cadrelor",
+                extwinshow: "Arată fereastra",
+                audiosrc: "Sursă Audio",
+                notify: "Notificare",
+                app: "Aplicație",
+                off: "Redus",
                 statwin: "Fereastră cu statistici despre realizări",
                 noachievements: "Nu există realizări de afișat",
                 startgame: "Pornește un joc pentru a arăta realizările!",
                 max: "Maxim",
-                custom: "Personalizat..."
-            }
-        },
-        games: {
-            title: "Jocuri",
-            content: {
-                linkedgames: "Jocuri Conectate",
-                themeswitch: "Comutare automată a temelor",
-                exclusionlist: "Listă de Excludere"
+                custom: "Personalizat...",
+                statwinshortcut: "Scurtătură Overlay",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Procentajul la care notificările de realizare rară vor fi declanșate. Orice realizare cu un procentaj de deblocare mai mare decât această valoare va fi afișată ca o notificare principală",
         showpercent: "Afișați procentajul de deblocare al realizării în notificare pentru tipurile selectate",
         soundonly: "Dezactivați notificările, redând doar sunetele setate prin Personalizator",
-        extwin: "Creați o fereastră de fundal ascunsă care duplică orice notificări afișate în prezent pe ecran. Această fereastră poate fi apoi adăugată ca sursă de captură a ferestrei pentru utilizarea în software-ul de streaming, cum ar fi OBS",
+        extwin: "Creează o fereastră care duplică toate notificările afișate pe ecran. Această fereastră poate fi adăugată ulterior ca sursă de captură de fereastră pentru utilizare în software-ul de streaming, cum ar fi OBS",
         extwinframerate: "Setează rata cadrelor țintă pentru notificările de flux",
-        extwinshow: "Comută vizibilitatea ferestrei notificărilor de flux",
+        extwinshow: `Comută vizibilitatea ferestrei de Notificări de Streaming<br><br><span class="ttdesc">Când este focalizată în bara de activități, ține apăsată tasta <code class="ttcode">Ctrl</code> pentru a afișa locația actuală a ferestrei</span>`,
         audiosrc: "Selectați sursa (sau dezactivați) audio generat de aplicație",
         nowtracking: "Afișați o notificare care anunță utilizatorul că se urmăresc realizările pentru un joc în execuție",
         nowtrackingscale: `Setați dimensiunea notificării de urmărire`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Afișează toate opțiunile de obicei localizate sub <span class="hl">Zona de Notificare</span> > <span class="hl">Opțiuni</span> în <span class="hl">Setări</span> > <span class="hl">Diverse</span>`,
         releaseshortcut: "Lansează jocul activ urmărit folosind scurtătura de tastatură specificată",
         themeselect: "Selectează un Tema salvat anterior",
-        statwin: `Afișează statistici configurabile ale realizărilor pentru jocul curent într-o fereastră externă<br><br><span class="ttdesc">Atunci când este folosit împreună cu opțiunea <span class="hl">Tradu realizările în limba Steam</span>, anumite traduceri pot să nu fie disponibile până când realizarea specifică nu este deblocată</span>`
+        statwin: `Afișează statistici configurabile ale realizărilor pentru jocul curent într-o fereastră externă<br><br><span class="ttdesc">Atunci când este folosit împreună cu opțiunea <span class="hl">Tradu realizările în limba Steam</span>, anumite traduceri pot să nu fie disponibile până când realizarea specifică nu este deblocată</span>`,
+        statwinshortcut: "Comută Overlay-ul de Statistici ale Realizărilor folosind scurtătura de tastatură specificată"
     },
     update: {
         updateavailable: "Actualizare disponibilă",

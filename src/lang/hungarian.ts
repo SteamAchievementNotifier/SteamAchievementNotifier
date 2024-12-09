@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Nem sikerült csatlakoztatni az ablakot",
         addlinkfailedsub: `Kattintson a <span class="hl">Linkelés</span> gombra a próbálkozáshoz`,
         webhookunlockmsg: "$user teljesítményt oldott fel",
+        webhookunlockmsgplat: "$user feloldotta az összes teljesítményt",
         webhookingame: "a $gamename játékban",
         notconnected: "Nincs csatlakoztatva"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Ki",
                 showpercent: "Százalék megjelenítése",
                 soundonly: "Csak hang",
-                extwin: "Stream értesítések",
-                extwinframerate: "Képfrissítési sebesség",
-                extwinshow: "Ablak megjelenítése",
-                audiosrc: "Hangforrás",
-                notify: "Értesítés",
-                app: "Alkalmazás",
                 nowtracking: "Követési értesítés megjelenítése",
                 nowtrackingscale: "Követési skála",
                 nowtrackingpos: "Követési Pozíció",
@@ -131,6 +126,14 @@ export const translations = {
                 webhooktypes: "Webhook típusok",
                 webhookcaution: `Ezeket a beállításokat aktiválva és érvényes Discord Webhook linket adva meg, elfogadja, hogy megérti, hogy <u>minden jelenlegi Steam felhasználóra vonatkozó teljesítmény- és játékadat</u> közzétételre kerül az adott Discord szerveren a megadott Webhook linken keresztül.<br><br>Ha nem szeretné, hogy a Steam Achievement Notifier közzétegye ezeket az információkat az Ön nevében, kérjük, tiltsa le ezt az opciót.`,
                 webhooklaststatus: "Utolsó Állapot"
+            }
+        },
+        games: {
+            title: "Játékok",
+            content: {
+                linkedgames: "Kapcsolt játékok",
+                themeswitch: "Automatikus téma váltás",
+                exclusionlist: "Kizárások listája"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Képernyőkép útvonal",
                 ssdelay: "Képernyőkép késleltetés",
                 notifyimg: "Értesítési kép",
-                imgpath: "Kép elérési útvonala",
+                imgpath: "Kép elérési útvonala"
+            }
+        },
+        streaming: {
+            title: "Közvetítés",
+            content: {
+                extwin: "Stream értesítések",
+                extwinframerate: "Képfrissítési sebesség",
+                extwinshow: "Ablak megjelenítése",
+                audiosrc: "Hangforrás",
+                notify: "Értesítés",
+                app: "Alkalmazás",
+                off: "Némítva",
                 statwin: "Eredménystatisztika ablak",
                 noachievements: "Nincsenek eredmények megjelenítésre",
                 startgame: "Indíts el egy játékot az eredmények megjelenítéséhez!",
                 max: "Max",
-                custom: "Egyedi..."
-            }
-        },
-        games: {
-            title: "Játékok",
-            content: {
-                linkedgames: "Kapcsolt játékok",
-                themeswitch: "Automatikus téma váltás",
-                exclusionlist: "Kizárások listája"
+                custom: "Egyedi...",
+                statwinshortcut: "Átfedés gyorsbillentyű",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "A ritka eredmények értesítésének százaléka. Azok az eredmények, amelyeknek feloldási aránya meghaladja ezt az értéket, fő értesítésként jelennek meg",
         showpercent: "Az eredmény feloldási százalékának megjelenítése az értesítésben a kiválasztott típusokhoz",
         soundonly: "Értesítések letiltása, csak a Customiser által beállított hangok lejátszása",
-        extwin: "Létrehoz egy rejtett háttérablakot, amely megduplázza a jelenleg képernyőn megjelenő értesítéseket. Ez az ablak hozzáadható egy ablakrögzítési forrásként a streaming szoftverekhez, például az OBS-hez",
+        extwin: "Hozzon létre egy ablakot, amely megkettőzi a képernyőn jelenleg megjelenő értesítéseket. Ez az ablak ezután hozzáadható ablakrögzítési forrásként a közvetítőszoftverekhez, például az OBS-hez",
         extwinframerate: "Cél képfrissítési sebesség beállítása a stream értesítésekhez",
-        extwinshow: "A stream értesítési ablak láthatóságának váltása",
+        extwinshow: `A Közvetítési Értesítések ablak láthatóságának váltása<br><br><span class="ttdesc">Amikor a tálcán van a fókuszban, tartsa lenyomva a <code class="ttcode">Ctrl</code> billentyűt az ablak aktuális helyének megjelenítéséhez</span>`,
         audiosrc: "Hangforrás kiválasztása (vagy letiltása), amelyet az alkalmazás generál",
         nowtracking: "Értesítés megjelenítése arról, hogy egy futó játék eredményeit követi",
         nowtrackingscale: `Állítsa be a követési értesítés méretét`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Az összes lehetőség megjelenítése, amely általában a <span class="hl">Rendszer tálca</span> > <span class="hl">Opciók</span> alatt található a <span class="hl">Beállítások</span> > <span class="hl">Vegyesek</span> részen`,
         releaseshortcut: "A jelenleg nyomon követett játék felszabadítása a megadott billentyűparanccsal",
         themeselect: "Válassz egy korábban mentett témát",
-        statwin: `Konfigurálható eredmény statisztikák megjelenítése az aktuális játékhoz egy külön ablakban<br><br><span class="ttdesc">Amikor a <span class="hl">Eredmények fordítása Steam nyelvre</span> opción keresztül használod, egyes fordítások csak akkor lesznek elérhetők, ha a megfelelő eredmény feloldódik</span>`
+        statwin: `Konfigurálható eredmény statisztikák megjelenítése az aktuális játékhoz egy külön ablakban<br><br><span class="ttdesc">Amikor a <span class="hl">Eredmények fordítása Steam nyelvre</span> opción keresztül használod, egyes fordítások csak akkor lesznek elérhetők, ha a megfelelő eredmény feloldódik</span>`,
+        statwinshortcut: "A Teljesítmény Statisztikák Átfedésének váltása a megadott billentyűparancs használatával"
     },
     update: {
         updateavailable: "Frissítés elérhető",

@@ -78,6 +78,7 @@ export const translations = {
         addlinkfailed: "Nie udało się połączyć okna",
         addlinkfailedsub: `Kliknij przycisk <span class="hl">Link</span>, aby spróbować ponownie`,
         webhookunlockmsg: "$user odblokował osiągnięcie",
+        webhookunlockmsgplat: "$user odblokował wszystkie osiągnięcia",
         webhookingame: "w $gamename",
         notconnected: "Niepołączony"
     },
@@ -115,12 +116,6 @@ export const translations = {
                 off: "Wyłączone",
                 showpercent: "Pokaż procent",
                 soundonly: "Tylko dźwięk",
-                extwin: "Powiadomienia strumieniowe",
-                extwinframerate: "Częstotliwość klatek",
-                extwinshow: "Pokaż okno",
-                audiosrc: "Źródło dźwięku",
-                notify: "Powiadomienie",
-                app: "Aplikacja",
                 nowtracking: "Pokaż powiadomienie o śledzeniu",
                 nowtrackingscale: "Skala śledzenia",
                 nowtrackingpos: "Śledzenie pozycji",
@@ -131,6 +126,14 @@ export const translations = {
                 webhooktypes: "Rodzaje Webhook",
                 webhookcaution: `Włączając tę opcję i podając ważny link Webhook Discord, zgadzasz się zrozumieć, że <u>wszystkie informacje o osiągnięciach i grach dla bieżącego użytkownika Steam</u> zostaną opublikowane na wskazanym serwerze Discord za pośrednictwem podanego linku Webhook.<br><br>Jeśli nie chcesz, aby Steam Achievement Notifier publikował te informacje w Twoim imieniu, wyłącz tę opcję.`,
                 webhooklaststatus: "Ostatni status"
+            }
+        },
+        games: {
+            title: "Gry",
+            content: {
+                linkedgames: "Połączone gry",
+                themeswitch: "Automatyczna zmiana motywów",
+                exclusionlist: "Lista wyłączeń"
             }
         },
         media: {
@@ -149,20 +152,25 @@ export const translations = {
                 ovpath: "Ścieżka zrzutu ekranu",
                 ssdelay: "Opóźnienie zrzutu ekranu",
                 notifyimg: "Obrazek powiadomienia",
-                imgpath: "Ścieżka obrazu",
+                imgpath: "Ścieżka obrazu"
+            }
+        },
+        streaming: {
+            title: "Streaming",
+            content: {
+                extwin: "Powiadomienia strumieniowe",
+                extwinframerate: "Częstotliwość klatek",
+                extwinshow: "Pokaż okno",
+                audiosrc: "Źródło dźwięku",
+                notify: "Powiadomienie",
+                app: "Aplikacja",
+                off: "Wyciszony",
                 statwin: "Okno statystyk osiągnięć",
                 noachievements: "Brak osiągnięć do wyświetlenia",
                 startgame: "Rozpocznij grę, aby wyświetlić osiągnięcia!",
                 max: "Maksimum",
-                custom: "Niestandardowe..."
-            }
-        },
-        games: {
-            title: "Gry",
-            content: {
-                linkedgames: "Połączone gry",
-                themeswitch: "Automatyczna zmiana motywów",
-                exclusionlist: "Lista wyłączeń"
+                custom: "Niestandardowe...",
+                statwinshortcut: "Skrót Nakładki",
             }
         },
         accessibility: {
@@ -386,9 +394,9 @@ export const translations = {
         rarity: "Procent, przy którym będą wyświetlane powiadomienia o rzadkich osiągnięciach. Każde osiągnięcie o wartości odblokowania powyżej tej wartości będzie wyświetlane jako główne powiadomienie",
         showpercent: "Wyświetl procent odblokowania osiągnięcia w powiadomieniu dla wybranych typów",
         soundonly: "Wyłącz powiadomienia, odtwarzając tylko dźwięki ustawione za pomocą Customiser",
-        extwin: "Utwórz ukryte tło, które duplikuje wszelkie aktualnie wyświetlane powiadomienia na ekranie. To okno można następnie dodać jako źródło przechwytywania okna do oprogramowania do strumieniowania, takiego jak OBS",
+        extwin: "Utwórz okno, które duplikuje wszystkie powiadomienia aktualnie wyświetlane na ekranie. To okno może zostać dodane jako źródło przechwytywania okna do użycia w oprogramowaniu do streamingu, takim jak OBS",
         extwinframerate: "Ustaw docelową częstotliwość klatek dla powiadomień strumieniowych",
-        extwinshow: "Przełącz widoczność okna powiadomień strumieniowych",
+        extwinshow: `Przełącz widoczność okna Powiadomień Streamingu<br><br><span class="ttdesc">Gdy okno jest aktywne na pasku zadań, przytrzymaj klawisz <code class="ttcode">Ctrl</code>, aby wyświetlić jego aktualną lokalizację</span>`,
         audiosrc: "Wybierz źródło dźwięku generowanego przez aplikację (lub wyłącz)",
         nowtracking: "Wyświetl powiadomienie informujące użytkownika, że śledzone są osiągnięcia dla uruchomionej gry",
         nowtrackingscale: `Ustaw rozmiar powiadomienia o śledzeniu`,
@@ -538,7 +546,8 @@ export const translations = {
         showsystrayopts: `Wyświetl wszystkie opcje zazwyczaj znajdujące się w <span class="hl">Zasobniku systemowym</span> > <span class="hl">Opcje</span> w <span class="hl">Ustawieniach</span> > <span class="hl">Różne</span>`,
         releaseshortcut: "Uwolnij aktualnie śledzoną grę za pomocą określonego skrótu klawiaturowego",
         themeselect: "Wybierz wcześniej zapisany motyw",
-        statwin: `Wyświetl konfigurowalne statystyki osiągnięć dla bieżącej gry w zewnętrznym oknie<br><br><span class="ttdesc">Używając opcji <span class="hl">Tłumaczenie osiągnięć na język Steam</span>, niektóre tłumaczenia mogą być niedostępne, dopóki konkretne osiągnięcie nie zostanie odblokowane</span>`
+        statwin: `Wyświetl konfigurowalne statystyki osiągnięć dla bieżącej gry w zewnętrznym oknie<br><br><span class="ttdesc">Używając opcji <span class="hl">Tłumaczenie osiągnięć na język Steam</span>, niektóre tłumaczenia mogą być niedostępne, dopóki konkretne osiągnięcie nie zostanie odblokowane</span>`,
+        statwinshortcut: "Przełącz Nakładkę Statystyk Osiągnięć za pomocą określonego skrótu klawiaturowego"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

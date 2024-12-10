@@ -547,7 +547,8 @@ export const translations = {
         releaseshortcut: "Release the currently tracked game using the specified keyboard shortcut",
         themeselect: "Select a previously saved Theme",
         statwin: `Display configurable achievement stats for the current game in an external window<br><br><span class="ttdesc">When used in conjunction with the <span class="hl">Translate Achievements to Steam Language</span> option, some translations may not be available until the specified achievement is unlocked</span>`,
-        statwinshortcut: "Toggle the Achievement Stats Overlay using the specified keyboard shortcut"
+        statwinshortcut: "Toggle the Achievement Stats Overlay using the specified keyboard shortcut",
+        ssdisplay: "Display a preview of the captured screenshot within the notification"
     },
     update: {
         updateavailable: "Update available",
@@ -624,7 +625,8 @@ export const translations = {
             percentbadgeimggold: "Rarity: < $rarity%",
             sspercentbadgeimggold: "Rarity: < $rarity%",
             resetpbimgs: "Reset Badge Icons",
-            elemsmatch: "Match Customiser Settings"
+            elemsmatch: "Match Customiser Settings",
+            ssdisplay: "Show Screenshot Preview"
         }
     },
     themeswitch: {

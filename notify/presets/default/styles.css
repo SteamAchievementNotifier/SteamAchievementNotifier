@@ -174,3 +174,38 @@ body[ss] .wrapper#achcont:has(.wrapper#achcontent > #desc) {
 body[ss] .wrapper#achcont:has(.wrapper#achcontent > #desc) > #bg {
     background-color: var(--primarycolor);
 }
+
+.wrapper#ssdisplay::before {
+    translate: 0 var(--y);
+    animation:
+        ssslidein calc(var(--transition) * 2) calc(var(--transition) * 6) forwards,
+        ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 6)) forwards;
+}
+
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) {
+    animation:
+        popin calc(var(--transition) * 2) forwards,
+        move calc(var(--transition) * 2) calc(var(--transition) * 2) forwards,
+        expand calc(var(--transition) * 2) calc(var(--transition) * 4) forwards,
+        ssbrin calc(var(--transition) * 2) calc(var(--transition) * 6) forwards,
+        slide calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition) * 2)) forwards;
+}
+
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > .wrapper#bg {
+    animation: ssbrin calc(var(--transition) * 2) calc(var(--transition) * 6) forwards;
+}
+
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont:has(.wrapper#achcontent > #desc) {
+    border-radius: var(--ssbr);
+    animation:
+        move calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition) * 2)) forwards,
+        expand calc(var(--transition) * 2) calc(var(--displaytime) / 2) forwards,
+        ssbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 6)) forwards,
+        shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 4)) forwards,
+        slide var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont:has(.wrapper#achcontent > #desc) > .wrapper#bg {
+    border-radius: var(--ssbr);
+    animation: ssbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 6)) forwards;
+}

@@ -1,6 +1,7 @@
 :root {
     --addroundness: calc(var(--roundness) * 1.5);
     --addiconroundness: calc(var(--iconroundness) * 2.25);
+    --ssbr: var(--addroundness);
 }
 
 .wrapper#achcont {
@@ -320,4 +321,51 @@ body[ss] .wrapper#xpwrapper {
 #badge {
     font-size: calc(var(--badgesize) * 2);
     height: max-content !important;
+}
+
+body[ss] .wrapper#ssdisplay {
+    display: grid;
+}
+
+.wrapper#ssdisplay {
+    position: relative;
+    height: calc(var(--notifyheight) * 1.75);
+    top: calc((var(--notifyheight) / 3.5) * var(--calc));
+    scale: 0.875;
+    z-index: 10;
+}
+
+.wrapper#ssdisplay::before {
+    translate: 0 var(--y);
+    animation:
+        ssslidein calc(var(--transition) * 2) calc(var(--transition) * 5) forwards,
+        ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 7)) forwards;
+}
+
+body:not([ss])[ssdisplay][bottomleft] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomleft] .wrapper#bg,
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#bg,
+body:not([ss])[ssdisplay][bottomright] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomright] .wrapper#bg {
+    --ssbr: 0 0 var(--addroundness) var(--addroundness);
+}
+
+body:not([ss])[ssdisplay][topleft] .wrapper#achcont,
+body:not([ss])[ssdisplay][topleft] .wrapper#bg,
+body:not([ss])[ssdisplay][topcenter] .wrapper#achcont,
+body:not([ss])[ssdisplay][topcenter] .wrapper#bg,
+body:not([ss])[ssdisplay][topright] .wrapper#achcont,
+body:not([ss])[ssdisplay][topright] .wrapper#bg {
+    --ssbr: var(--addroundness) var(--addroundness) 0 0;
+}
+
+body:not([ss])[ssdisplay] .wrapper#bg {
+    animation:
+        ssbrin calc(var(--transition) * 2) calc(var(--transition) * 5) forwards,
+        ssbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 7)) forwards;
+}
+
+@keyframes ssbrout {
+    to { border-radius: var(--addroundness); }
 }

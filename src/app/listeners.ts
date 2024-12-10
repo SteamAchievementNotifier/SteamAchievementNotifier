@@ -876,16 +876,22 @@ export const listeners = {
 
             const info = await buildnotify(notify)
 
-            if (iswebview === "customiser") return win.webContents.send("customisernotify",{
-                info: info,
-                customisation: notify.customisation,
-                iswebview: iswebview,
-                steampath: sanhelper.steampath,
-                steam3id: notify.steam3id,
-                hqicon: sanhelper.gethqicon(appid),
-                temp: sanhelper.temp,
-                ssalldetails: config.get("ssalldetails")
-            } as Info)
+            
+            if (iswebview === "customiser") {
+                const { ssalldetails, screenshots } = config.store
+
+                return win.webContents.send("customisernotify",{
+                    info: info,
+                    customisation: notify.customisation,
+                    iswebview: iswebview,
+                    steampath: sanhelper.steampath,
+                    steam3id: notify.steam3id,
+                    hqicon: sanhelper.gethqicon(appid),
+                    temp: sanhelper.temp,
+                    ssalldetails: ssalldetails,
+                    screenshots: screenshots
+                } as Info)
+            }
 
             worker && worker.webContents.send("steam3id")
             preset !== "os" && capturesrc(notify.id,() => createsswin("ss",notify,undefined,src),src)
@@ -930,7 +936,7 @@ export const listeners = {
             const screenwidth = monitor.bounds.width
             const screenheight = monitor.bounds.height
             const notifywidth = dims.width * scale
-            const notifyheight = dims.height * scale
+            const notifyheight = (dims.height + (customisation && customisation.ssdisplay ? 175 : 0)) * scale
         
             const bordersize = 50
             const glowsize = type ? bordersize * scale : 0
@@ -1046,16 +1052,19 @@ export const listeners = {
                 }
 
                 const notifyinfo = async (isextwin?: boolean) => {
+                    const { audiosrc, ssalldetails, screenshots } = config.store
+
                     return {
                         info: info,
                         customisation: customisation,
                         iswebview: null,
                         steampath: sanhelper.steampath,
-                        skipaudio: isextwin || config.get("audiosrc") !== "notify",
+                        skipaudio: isextwin || audiosrc !== "notify",
                         steam3id: info.steam3id,
                         hqicon: sanhelper.gethqicon(appid),
                         temp: sanhelper.temp,
-                        ssalldetails: config.get("ssalldetails")
+                        ssalldetails: ssalldetails,
+                        screenshots: screenshots
                     } as Info
                 }
 

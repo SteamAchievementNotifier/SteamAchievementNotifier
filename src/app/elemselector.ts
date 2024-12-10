@@ -24,7 +24,8 @@ export const selectorelems = [
     "percentbadgeimgbronze",
     "percentbadgeimgsilver",
     "percentbadgeimggold",
-].flatMap(id => ["unlockmsg","title","desc"].includes(id) ? [id] : [id,`ss${id}`])
+    "ssdisplay"
+].flatMap(id => ["unlockmsg","title","desc","ssdisplay"].includes(id) ? [id] : [id,`ss${id}`])
 
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
 
@@ -102,7 +103,9 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     elem.insertAdjacentHTML("afterend",html)
 
     ;["overlay","notifyimg"].forEach(attr => elemtype === "sselems" && menutype.querySelector("#elemselector")!.setAttribute(attr,""))
-    
+    ;(menutype.id === "customiser" && config.get("screenshots") === "overlay") && menutype.querySelector(`#elemselector > .wrapper > .wrapper:has(input#ssdisplay)`)!.removeAttribute("soon")
+    // menutype.querySelector(`#elemselector > .wrapper > .wrapper:has(input#ssdisplay)`)!.removeAttribute("soon")
+
     posids.forEach(id => menutype.querySelector(`#${id.replace(/^ss/,"")}`)!.id = id)
 
     const elemsmatchhtml = `

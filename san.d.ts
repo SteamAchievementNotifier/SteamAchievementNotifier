@@ -215,6 +215,7 @@ declare interface Customisation {
     percentbadgeimggold: string,
     sspercentbadgeimggold: string,
     synctheme: boolean,
+    ssdisplay: boolean,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }
@@ -309,7 +310,8 @@ declare interface Info {
     customfiles?: string,
     hqicon: string,
     temp: string,
-    ssalldetails: string[]
+    ssalldetails: string[],
+    screenshots: "overlay" | "notifyimg" | "off"
 }
 
 declare interface BuildNotifyInfo {

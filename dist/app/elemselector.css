@@ -168,3 +168,7 @@ body[plat] .wrapper#elemselector > .wrapper > .wrapper:has([id$="percentbadgeimg
     width: 0.75rem;
     height: 0.75rem;
 }
+
+.wrapper#elemselector > .wrapper > .wrapper:has(input#ssdisplay) {
+    margin-bottom: 0.5rem;
+}

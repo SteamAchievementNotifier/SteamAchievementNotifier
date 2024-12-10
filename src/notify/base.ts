@@ -272,11 +272,13 @@ const notifyhelper = {
 }
 
 ipcRenderer.on("notify", async (event,obj: Info) => {
-    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails } = obj
+    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots } = obj
 
     try {
         document.body.setAttribute(type,"")
-        !customisation.iconanim && document.body.setAttribute("noiconanim","")
+        document.body.toggleAttribute("ssdisplay",screenshots === "overlay" && customisation.ssdisplay)
+        // document.body.toggleAttribute("ssdisplay",customisation.ssdisplay)
+        document.body.toggleAttribute("noiconanim",!!customisation.iconanim)
 
         const fastanimmap = new Map<string,number>([
             ["xqjan",8],

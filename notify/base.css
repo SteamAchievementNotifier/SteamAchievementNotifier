@@ -43,6 +43,7 @@
     --badgefontcolor: #ffffff;
     --badgesize: 1rem;
     --badgeroundness: 5px;
+    --ssimg: url("../img/santextlogobg.png");
     font-size: clamp(0.05rem,0.05rem + 3vmax,12.5rem);
     line-height: 1;
 }
@@ -300,4 +301,92 @@ body[nodecoration] .wrapper#achcontent > span {
     height: calc(var(--badgesize) * 1.5);
     background: var(--badgeimg) center / contain no-repeat;
     background-color: transparent;
+}
+
+.wrapper#ssdisplay {
+    --y: 100%;
+    --calc: 1;
+    display: none;
+    width: var(--notifywidth);
+    height: calc(var(--notifyheight) * 3.5);
+    background-color: transparent;
+    overflow: hidden;
+}
+
+body:not([ss])[ssdisplay] .wrapper#ssdisplay {
+    display: grid;
+}
+
+body[bottomleft] .wrapper#ssdisplay,
+body[bottomleft] .wrapper#ssdisplay::before,
+body[bottomcenter] .wrapper#ssdisplay,
+body[bottomcenter] .wrapper#ssdisplay::before,
+body[bottomright] .wrapper#ssdisplay,
+body[bottomright] .wrapper#ssdisplay::before {
+    border-radius: var(--roundness) var(--roundness) 0 0;
+}
+
+body[topleft] .wrapper#ssdisplay,
+body[topleft] .wrapper#ssdisplay::before,
+body[topcenter] .wrapper#ssdisplay,
+body[topcenter] .wrapper#ssdisplay::before,
+body[topright] .wrapper#ssdisplay,
+body[topright] .wrapper#ssdisplay::before {
+    border-radius: 0 0 var(--roundness) var(--roundness);
+}
+
+body[bottomleft] .wrapper#ssdisplay,
+body[bottomcenter] .wrapper#ssdisplay,
+body[bottomright] .wrapper#ssdisplay {
+    grid-row-start: 1;
+}
+
+body[topleft] .wrapper#ssdisplay,
+body[topcenter] .wrapper#ssdisplay,
+body[topright] .wrapper#ssdisplay {
+    --y: -150%;
+    --calc: -1;
+    grid-row-start: 2;
+}
+
+.wrapper#ssdisplay::before {
+    content: "";
+    place-self: center;
+    width: 100%;
+    height: 100%;
+    background: var(--ssimg) center / cover no-repeat;
+}
+
+body:not([ss])[ssdisplay][bottomleft] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomleft] .wrapper#bg,
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#bg,
+body:not([ss])[ssdisplay][bottomright] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomright] .wrapper#bg {
+    --ssbr: 0 0 var(--roundness) var(--roundness);
+}
+
+body:not([ss])[ssdisplay][topleft] .wrapper#achcont,
+body:not([ss])[ssdisplay][topleft] .wrapper#bg,
+body:not([ss])[ssdisplay][topcenter] .wrapper#achcont,
+body:not([ss])[ssdisplay][topcenter] .wrapper#bg,
+body:not([ss])[ssdisplay][topright] .wrapper#achcont,
+body:not([ss])[ssdisplay][topright] .wrapper#bg {
+    --ssbr: var(--roundness) var(--roundness) 0 0;
+}
+
+@keyframes ssslidein {
+    to { translate: 0 0; }
+}
+
+@keyframes ssslideout {    
+    to { translate: 0 var(--y); }
+}
+
+@keyframes ssbrin {
+    to { border-radius: var(--ssbr); }
+}
+
+@keyframes ssbrout {
+    to { border-radius: var(--roundness); }
 }

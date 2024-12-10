@@ -745,12 +745,14 @@ export const listeners = {
 
         ipcMain.on("stats",async (event,statsobj: StatsObj) => {
             if (statwin) {
+                const section = ["settings","streaming","content"]
+
                 const translations: StatsObjTranslations = {
                     nogame: await language.get("game",["app","content"]),
-                    noachievements: await language.get("noachievements",["settings","media","content"]),
-                    startgame: await language.get("startgame",["settings","media","content"]),
-                    max: await language.get("max",["settings","media","content"]),
-                    custom: await language.get("custom",["settings","media","content"]),
+                    noachievements: await language.get("noachievements",[...section]),
+                    startgame: await language.get("startgame",[...section]),
+                    max: await language.get("max",[...section]),
+                    custom: await language.get("custom",[...section]),
                     congrats: await language.get("congrats"),
                     gamecompletedesc: await language.get("gamecompletedesc"),
                 }

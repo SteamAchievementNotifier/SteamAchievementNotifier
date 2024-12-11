@@ -298,3 +298,59 @@ body[ss] .wrapper#achcontent > #desc {
     translate: 0 0;
     grid-row: 2 / span 1;
 }
+
+.wrapper#ssdisplay::before {
+    animation:
+        ssslidein calc(var(--transition) * 2) calc((var(--transition) * 8.5)) forwards,
+        ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 13.5)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#achcont {
+    --ssbrin: ssbrin calc(var(--transition) * 2) calc((var(--transition) * 7)) forwards;
+    --ssbrout: ssbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 12.25)) forwards;
+    animation:
+        expand var(--transition) calc(var(--transition) * 6) cubic-bezier(0,0.5,1,1) forwards,
+        var(--ssbrin),
+        var(--ssbrout),
+        var(--finish);
+}
+
+body:not([ss])[ssdisplay] .wrapper#bg {
+    animation:
+        fadein var(--transition) calc(var(--transition) * 6) cubic-bezier(0, 0.5, 1, 1) forwards,
+        var(--ssbrin),
+        var(--ssbrout),
+        var(--finish);
+}
+
+/* !!! Removes `border-radius` from the corner of `#iconbg` - not currently required */
+
+/* body[topleft] #iconbg,
+body[topcenter] #iconbg,
+body[topright] #iconbg {
+    --iconbgbr: var(--roundness) var(--roundness) var(--roundness) 0;
+}
+
+body[bottomleft] #iconbg,
+body[bottomcenter] #iconbg,
+body[bottomright] #iconbg {
+    --iconbgbr: 0 var(--roundness) var(--roundness) var(--roundness);
+}
+
+body:not([ss])[ssdisplay] #iconbg {
+    --iconbgbrin: iconbgbrin calc(var(--transition) * 2) calc((var(--transition) * 7)) forwards;
+    --iconbgbrout: iconbgbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 12.25)) forwards;
+    animation:
+        scaleup var(--transition) ease-in-out forwards,
+        var(--iconbgbrin),
+        var(--iconbgbrout),
+        var(--finish);
+}
+
+@keyframes iconbgbrin {
+    to { border-radius: var(--iconbgbr); }
+}
+
+@keyframes iconbgbrout {
+    to { border-radius: var(--iconroundness); }
+} */

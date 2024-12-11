@@ -167,6 +167,7 @@ body[fastanim] .wrapper#achcont > #bgelems > div {
 
 .wrapper#achcontent > span {
     opacity: 0;
+    line-height: calc(1.25rem * var(--fontsize));
 }
 
 .wrapper#achiconwrapper,
@@ -215,7 +216,6 @@ body[ss] .wrapper#achcontent > #title {
     align-self: center;
     -webkit-line-clamp: 2;
     font-size: calc(var(--fontsize) * 0.9);
-    line-height: calc(1.25rem * var(--fontsize));
     animation:
         fadein calc(var(--transition) * 2) calc(var(--displaytime) / 2 - (var(--transition) * 2)) forwards,
         var(--finish);
@@ -254,4 +254,27 @@ body[ss] .wrapper#logo,
 body[ss] #bgelems,
 body[ss] #unlockmsg {
     display: none;
+}
+
+.wrapper#ssdisplay {
+    position: relative;
+    height: calc(var(--notifyheight) * 3.01725);
+    top: calc((var(--notifyheight) / 3.25) * var(--calc));
+    scale: 0.85;
+}
+
+.wrapper#ssdisplay::before {
+    animation:
+        ssslidein calc(var(--transition) * 2) calc(var(--transition) * 12) forwards,
+        ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 14)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#bg {
+    --ssbrin: ssbrin calc(var(--transition) * 2) calc(var(--transition) * 11) forwards;
+    --ssbrout: ssbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 13)) forwards;
+    animation:
+        setbr var(--transition) calc(var(--transition) * 8) forwards,
+        var(--ssbrin),
+        var(--ssbrout),
+        var(--finish);
 }

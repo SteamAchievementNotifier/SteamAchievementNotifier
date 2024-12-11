@@ -17,8 +17,12 @@
     overflow: visible;
 }
 
-.wrapper#achcont {
+.wrapper#achcont,
+.wrapper#ssdisplay {
     --translate: 200% 0;
+}
+
+.wrapper#achcont {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     translate: var(--translate);
@@ -28,20 +32,26 @@
 }
 
 body[topright] .wrapper#achcont,
-body[bottomright] .wrapper#achcont {
+body[bottomright] .wrapper#achcont,
+body[topright] .wrapper#ssdisplay,
+body[bottomright] .wrapper#ssdisplay {
     --translate: 200% 0;
 }
 
 body[topleft] .wrapper#achcont,
-body[bottomleft] .wrapper#achcont {
+body[bottomleft] .wrapper#achcont,
+body[topleft] .wrapper#ssdisplay,
+body[bottomleft] .wrapper#ssdisplay {
     --translate: -200% 0;
 }
 
-body[topcenter] .wrapper#achcont {
+body[topcenter] .wrapper#achcont,
+body[topcenter] .wrapper#ssdisplay {
     --translate: 0 -200%;
 }
 
-body[bottomcenter] .wrapper#achcont {
+body[bottomcenter] .wrapper#achcont,
+body[bottomcenter] .wrapper#ssdisplay {
     --translate: 0 200%;
 }
 
@@ -106,6 +116,10 @@ body[bottomcenter] .wrapper#achcont {
     font-size: calc(1.1rem * var(--fontsize));
 }
 
+.wrapper#achcontent > span {
+    line-height: calc(1.5rem * var(--fontsize));
+}
+
 #title {
     font-family: "customfont", "Noto Sans Medium", "Roboto";
 }
@@ -120,4 +134,21 @@ body[ss] .wrapper#achcont {
 
 body[ss] .wrapper#logo {
     display: grid;
+}
+
+.wrapper#ssdisplay::before {
+    translate: 0 0;
+}
+
+.wrapper#ssdisplay {
+    translate: var(--translate);
+    height: calc(var(--notifyheight) * 1.75);
+    animation:
+        slidein var(--transition) forwards,
+        slideout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#achcont,
+body:not([ss])[ssdisplay] .wrapper#bg {
+    border-radius: var(--ssbr);
 }

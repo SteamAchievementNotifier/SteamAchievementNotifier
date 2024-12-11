@@ -110,3 +110,23 @@ body[ss] .wrapper#achcont {
     --translate: 0 0;
     opacity: var(--opacity) !important;
 }
+
+.wrapper#ssdisplay::before {
+    animation:
+        ssslidein var(--transition) var(--transition) forwards,
+        ssslideout var(--transition) calc(var(--displaytime) - (var(--transition) * 2.5)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#achcont {
+    animation:
+        slidein var(--transition) forwards,
+        ssbrin var(--transition) calc(var(--transition) / 1.5) forwards,
+        ssbrout var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards,
+        slideout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#bg {
+    animation:
+        ssbrin var(--transition) calc(var(--transition) / 1.5) forwards,
+        ssbrout var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}

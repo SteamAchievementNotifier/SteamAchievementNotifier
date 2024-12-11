@@ -150,6 +150,8 @@ body[alldetails] .wrapper#achcontent {
     font-family: "customfont", "Open Sans", "Roboto";
     /* font-size: calc(1.05rem * var(--fontsize)); */
     font-size: calc(1.25rem * var(--fontsize));
+    line-height: calc(1.55rem * var(--fontsize));
+    -webkit-line-clamp: 1;
     opacity: 0;
     animation:
         fadein var(--transition) calc(var(--transition) * 2) forwards,
@@ -167,16 +169,12 @@ body[alldetails] .wrapper#achcontent {
 body[alldetails] .wrapper#achcontent > span {
     /* font-size: calc(0.85rem * var(--fontsize)); */
     font-size: calc(0.95rem * var(--fontsize));
-    line-height: calc(1.1rem * var(--fontsize));
+    line-height: calc(1.2rem * var(--fontsize));
 }
 
 /* body[nodecoration] .wrapper#achcontent > span { */
 .wrapper#achcontent:has(#unlockmsg):has(#decoration) > span {
     grid-column: 2;
-}
-
-.wrapper#achcontent > #desc {
-    -webkit-line-clamp: 1;
 }
 
 body:not([alldetails]) .wrapper#achcontent > #desc {
@@ -224,4 +222,31 @@ body[ss][alldetails] .wrapper#achcontent > #desc {
 body[ss][alldetails] .wrapper#achcontent > #unlockmsg {
     display: -webkit-box;
     opacity: 1;
+}
+
+.wrapper#ssdisplay {
+    height: calc(var(--notifyheight) * 3.88888);
+}
+
+.wrapper#ssdisplay::before {
+    animation:
+        ssslidein var(--transition) calc(var(--transition) * 2) forwards,
+        ssslideout var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#achcont {
+    --ssbrin: ssbrin var(--transition) calc(var(--transition) * 2) forwards;
+    --ssbrout: ssbrout var(--transition) calc(var(--displaytime) - (var(--transition) * 1.5)) forwards;
+    animation:
+        scaleup var(--transition) forwards,
+        expand var(--transition) var(--transition) forwards,
+        var(--ssbrin),
+        var(--ssbrout),
+        fadeout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#bg {
+    animation:
+        var(--ssbrin),
+        var(--ssbrout);
 }

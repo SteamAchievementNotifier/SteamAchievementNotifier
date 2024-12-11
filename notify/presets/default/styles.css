@@ -176,7 +176,6 @@ body[ss] .wrapper#achcont:has(.wrapper#achcontent > #desc) > #bg {
 }
 
 .wrapper#ssdisplay::before {
-    translate: 0 var(--y);
     animation:
         ssslidein calc(var(--transition) * 2) calc(var(--transition) * 6) forwards,
         ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 6)) forwards;

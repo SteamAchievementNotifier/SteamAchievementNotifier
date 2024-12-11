@@ -210,3 +210,25 @@ body[ss] .wrapper#logo {
 /* body[ss] .wrapper#achcontent > #desc {
     grid-column: 1 / -1;
 } */
+
+.wrapper#ssdisplay::before {
+    animation:
+        ssslidein var(--transition) calc(var(--transition) * 2) forwards,
+        ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - calc(var(--transition) * 4)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#achcont {
+    --ssbrin: ssbrin var(--transition) calc(var(--transition) * 2) forwards;
+    --ssbrout: ssbrout calc(var(--transition) * 2) calc(var(--displaytime) - calc(var(--transition) * 3.5)) forwards;
+    animation:
+        slidein calc(var(--transition) * 2) forwards,
+        var(--ssbrin),
+        var(--ssbrout),
+        slideout calc(var(--transition) * 2) calc(var(--displaytime) - calc(var(--transition) * 2)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#bg {
+    animation:
+        var(--ssbrin),
+        var(--ssbrout);
+}

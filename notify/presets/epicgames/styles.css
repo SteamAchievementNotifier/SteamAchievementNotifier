@@ -323,20 +323,15 @@ body[ss] .wrapper#xpwrapper {
     height: max-content !important;
 }
 
-body[ss] .wrapper#ssdisplay {
-    display: grid;
-}
-
 .wrapper#ssdisplay {
     position: relative;
     height: calc(var(--notifyheight) * 1.75);
     top: calc((var(--notifyheight) / 3.5) * var(--calc));
     scale: 0.875;
-    z-index: 10;
+    /* z-index: 10; */
 }
 
 .wrapper#ssdisplay::before {
-    translate: 0 var(--y);
     animation:
         ssslidein calc(var(--transition) * 2) calc(var(--transition) * 5) forwards,
         ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 7)) forwards;

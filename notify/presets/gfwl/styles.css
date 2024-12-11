@@ -303,3 +303,25 @@ body:not([alldetails]) .wrapper#achcontent > span:not(:empty,:first-child) {
 .wrapper#achcontent > #unlockmsg:has(> #decoration) + #title:not(:empty)::before {
     content: attr(gs) attr(unit) " - ";
 }
+
+.wrapper#ssdisplay {
+    height: calc(var(--notifyheight) * 2.3333);
+}
+
+body:not([ss])[ssdisplay] .wrapper#ssdisplay::before {
+    animation:
+        ssslidein calc(var(--transition) * 2) calc(var(--transition) * 2.5) forwards,
+        ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 5)) forwards;
+}
+
+body:not([ss])[ssdisplay] .wrapper#achcont {
+    border-radius: var(--ssbr);
+}
+
+body:not([ss])[ssdisplay] .wrapper#bg {
+    animation:
+        grow calc(var(--transition) * 2) calc(var(--transition) / 2) forwards,
+        ssbrin calc(var(--transition) * 2) calc(var(--transition) * 2) forwards,
+        ssbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 4)) forwards,
+        shrink calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 2.5)) forwards;
+}

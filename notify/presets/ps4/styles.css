@@ -75,10 +75,10 @@ body[bgonly] .wrapper#bg {
     opacity: var(--opacity);
 }
 
-.wrapper#bg {
+.wrapper#achcont > .wrapper#bg {
     width: var(--notifywidth);
     height: var(--height);
-    border-radius: var(--br) !important;
+    border-radius: var(--br);
 }
 
 .wrapper#bg,
@@ -181,7 +181,11 @@ body[alldetails] .wrapper#achcontent::before {
 }
 
 .wrapper#achcontent > span {
-    line-height: calc(1.05rem * var(--fontsize));
+    line-height: calc(1.1rem * var(--fontsize));
+}
+
+body:not([alldetails]) .wrapper#achcontent > #unlockmsg {
+    line-height: calc(1.12rem * var(--fontsize));
 }
 
 body[alldetails] .wrapper#achcontent > span {
@@ -227,4 +231,74 @@ body[ss] .wrapper#achcontent {
 body[ss] .wrapper#logo {
     display: grid;
     opacity: 1;
+}
+
+.wrapper#ssdisplay {
+    height: calc(var(--notifyheight) * 3.88888);
+}
+
+body[bottomleft] .wrapper#ssdisplay,
+body[bottomleft] .wrapper#ssdisplay::before {
+    border-radius: 0 var(--roundness) 0 0;
+}
+
+body[bottomright] .wrapper#ssdisplay,
+body[bottomright] .wrapper#ssdisplay::before {
+    border-radius: var(--roundness) 0 0 0;
+}
+
+body[topleft] .wrapper#ssdisplay,
+body[topleft] .wrapper#ssdisplay::before {
+    border-radius: 0 0 var(--roundness) 0;
+}
+
+body[topright] .wrapper#ssdisplay,
+body[topright] .wrapper#ssdisplay::before {
+    border-radius: 0 0 0 var(--roundness);
+}
+
+body:not([ss])[ssdisplay] .wrapper#ssdisplay::before {
+    animation:
+        ssslidein var(--transition) calc(var(--transition) * 2) forwards,
+        ssslideout var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
+}
+
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#bg,
+body:not([ss])[ssdisplay][topcenter] .wrapper#achcont,
+body:not([ss])[ssdisplay][topcenter] .wrapper#bg {
+    --ssbr: 0;
+}
+
+body:not([ss])[ssdisplay][bottomleft] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomleft] .wrapper#bg {
+    --ssbr: 0 0 var(--roundness) 0;
+}
+
+body:not([ss])[ssdisplay][bottomright] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomright] .wrapper#bg {
+    --ssbr: 0 0 0 var(--roundness);
+}
+
+body:not([ss])[ssdisplay][topleft] .wrapper#achcont,
+body:not([ss])[ssdisplay][topleft] .wrapper#bg {
+    --ssbr: 0 var(--roundness) 0 0;
+}
+
+body:not([ss])[ssdisplay][topright] .wrapper#achcont,
+body:not([ss])[ssdisplay][topright] .wrapper#bg {
+    --ssbr: var(--roundness) 0 0 0;
+}
+
+body:not([ss])[ssdisplay] .wrapper#achcont,
+body:not([ss])[ssdisplay] .wrapper#bg {
+    animation:
+        slidein var(--transition) forwards,
+        ssbrin var(--transition) calc(var(--transition) * 2) forwards,
+        ssbrout var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards,
+        slideout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+@keyframes ssbrout {
+    to { border-radius: var(--br); }
 }

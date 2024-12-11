@@ -54,6 +54,7 @@ body[bgonly] .wrapper#bg {
 .wrapper#achcontent > span {
     font-family: "customfont", "Mandali", "Roboto";
     font-size: calc(1.25rem * var(--fontsize));
+    line-height: calc(1.5rem * var(--fontsize));
 }
 
 /* .wrapper#achcontent > span:not(#title) {
@@ -79,4 +80,21 @@ body:not([alldetails]) #desc {
 
 body[ss] .wrapper#achcont {
     opacity: 1;
+}
+
+.wrapper#ssdisplay {
+    height: calc(var(--notifyheight) * 2.6923);
+    opacity: 0;
+    animation:
+        fadein var(--transition) forwards,
+        fadeout var(--transition) calc(var(--displaytime) - var(--transition)) forwards;
+}
+
+.wrapper#ssdisplay::before {
+    translate: 0 0;
+}
+
+body:not([ss])[ssdisplay] .wrapper#achcont,
+body:not([ss])[ssdisplay] .wrapper#bg {
+    border-radius: var(--ssbr);
 }

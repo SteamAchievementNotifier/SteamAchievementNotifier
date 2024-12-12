@@ -104,7 +104,6 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     ;["overlay","notifyimg"].forEach(attr => elemtype === "sselems" && menutype.querySelector("#elemselector")!.setAttribute(attr,""))
     ;(menutype.id === "customiser" && config.get("screenshots") === "overlay") && menutype.querySelector(`#elemselector > .wrapper > .wrapper:has(input#ssdisplay)`)!.removeAttribute("soon")
-    // menutype.querySelector(`#elemselector > .wrapper > .wrapper:has(input#ssdisplay)`)!.removeAttribute("soon")
 
     posids.forEach(id => menutype.querySelector(`#${id.replace(/^ss/,"")}`)!.id = id)
 

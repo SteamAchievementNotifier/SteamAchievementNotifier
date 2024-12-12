@@ -924,7 +924,7 @@ export const listeners = {
             } as BuildNotifyInfo
         }
 
-        const setnotifybounds = (dims: { width: number, height: number, x?: number, y?: number },type: "main" | "rare" | "plat" | null,offset = 20,isextwin?: boolean,customisation?: Customisation) => {
+        const setnotifybounds = (dims: { width: number, height: number, x?: number, y?: number },type: "main" | "rare" | "plat" | null,offset = 20,wintype?: "extwin" | "sswin",customisation?: Customisation) => {
             const config = sanconfig.get()
             if (config.get("soundonly")) return
         
@@ -936,12 +936,15 @@ export const listeners = {
             const screenwidth = monitor.bounds.width
             const screenheight = monitor.bounds.height
             const notifywidth = dims.width * scale
-            const notifyheight = (dims.height + (customisation && customisation.ssdisplay ? 175 : 0)) * scale
+            const ssheight = (type && wintype !== "sswin" && config.get("screenshots") === "overlay" && customisation && customisation.ssdisplay) ? 175 : 0
+            const notifyheight = (dims.height + ssheight) * scale
         
             const bordersize = 50
             const glowsize = type ? bordersize * scale : 0
-            const top = ((glowsize / 2) * -1) + (bordersize / 2)
-            const bottom = (glowsize / 2) - (bordersize / 2)
+
+            // `!offset ? 0 : ...` fixes issue where presets containing HTML with a `meta` tag "offset" attribute value of 0 would still be assigned an offset, causing incorrect placement
+            const top = !offset ? 0 : ((glowsize / 2) * -1) + (bordersize / 2)
+            const bottom = !offset ? 0 : (glowsize / 2) - (bordersize / 2)
         
             const positions = {
                 topleft: { x: top, y: top },
@@ -952,7 +955,7 @@ export const listeners = {
                 bottomright: { x: (screenwidth - (notifywidth + glowsize) + bottom), y: (screenheight - (notifyheight + glowsize) + bottom) }
             } as Positions
         
-            const { x, y } = (type && isextwin) ? { x: 0, y: 0 } : (type ? (((customisation ? customisation.usecustompos : config.get(`customisation.${type}.usecustompos`)) ? custompos : positions[(customisation?.pos || config.get(`customisation.${type}.pos`)) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"])) : positions[config.get("nowtrackingpos")])
+            const { x, y } = (type && wintype === "extwin") ? { x: 0, y: 0 } : (type ? (((customisation ? customisation.usecustompos : config.get(`customisation.${type}.usecustompos`)) ? custompos : positions[(customisation?.pos || config.get(`customisation.${type}.pos`)) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"])) : positions[config.get("nowtrackingpos")])
         
             return {
                 width: notifywidth + glowsize,
@@ -1090,7 +1093,7 @@ export const listeners = {
 
                         // Set as <meta> tag dimensions, then send to `setnotifybounds` to calculate actual size
                         win.setSize(dims.width,dims.height)
-                        const bounds = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,isextwin,notify.customisation) as { width: number, height: number, x: number, y: number }
+                        const bounds = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,isextwin ? "extwin" : undefined,notify.customisation) as { width: number, height: number, x: number, y: number }
                         log.write("INFO",msg)
 
                         shownotify(win,bounds,isextwin)
@@ -1452,7 +1455,7 @@ export const listeners = {
                 ipcMain.once("dims", (event,dims: { width: number, height: number, offset: number }) => {
                     if (!sswin) return log.write("ERROR",`Error setting "sswin" dimensions: "sswin" not found`)
 
-                    const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,false,notify.customisation) as { width: number, height: number, x: number, y: number }
+                    const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,"sswin",notify.customisation) as { width: number, height: number, x: number, y: number }
 
                     if (type === "img") {
                         sswin.setSize(Math.round(width),Math.round(height))

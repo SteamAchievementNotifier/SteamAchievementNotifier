@@ -152,6 +152,7 @@ webview {
     translate: -50% -50%;
     min-width: 0;
     min-height: 0;
+    place-content: center;
     transition: calc(var(--transition) / 2);
     width: calc(var(--width) * 1px);
     height: calc(var(--height) * 1px);

@@ -310,6 +310,7 @@ body[nodecoration] .wrapper#achcontent > span {
     width: var(--notifywidth);
     height: calc(var(--notifyheight) * 3.5);
     background-color: transparent;
+    opacity: var(--opacity);
     overflow: hidden;
 }
 

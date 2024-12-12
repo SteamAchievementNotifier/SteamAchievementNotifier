@@ -277,8 +277,13 @@ ipcRenderer.on("notify", async (event,obj: Info) => {
     try {
         document.body.setAttribute(type,"")
         document.body.toggleAttribute("ssdisplay",screenshots === "overlay" && customisation.ssdisplay)
-        // document.body.toggleAttribute("ssdisplay",customisation.ssdisplay)
         document.body.toggleAttribute("noiconanim",!!customisation.iconanim)
+
+        if (iswebview === "customiser") {
+            document.documentElement.style.scale = `0.${document.body.hasAttribute("ssdisplay") ? "" : 7}5`
+            // Fixes issue on "PS Classic" preset where preview is not centered in the Customiser
+            customisation.preset === "ps4" && document.body.style.setProperty("--placement","center")
+        }
 
         const fastanimmap = new Map<string,number>([
             ["xqjan",8],

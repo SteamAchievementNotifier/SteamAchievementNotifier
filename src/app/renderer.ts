@@ -697,9 +697,24 @@ ipcRenderer.on("appaudio", (event,type) => {
 document.getElementById("test")!.onclick = sendtestnotify
 
 ipcRenderer.on("customisernotify", (event,obj: Info) => {
-    const wrapper = (document.querySelector(".wrapper:has(> webview)") as Electron.WebviewTag)!
-    const { width, height } = sanhelper.getpresetbounds(obj.customisation.preset)
+    const wrapper = document.querySelector(".wrapper:has(> webview)")! as HTMLElement
+    let { width, height } = sanhelper.getpresetbounds(obj.customisation.preset)
     !width && !height && log.write("ERROR",`Error parsing "width"/"height" values for "${obj.customisation.preset}" preset: No <meta> tag found in body`)
+
+    if (obj.screenshots === "overlay" && obj.customisation.ssdisplay) {
+        const webview = wrapper.querySelector("webview") as Electron.WebviewTag
+        const calc = (varname: "width" | "height",factor: number) => `calc(var(--${varname}) / ${factor} * 1px)`
+
+        height += 175
+
+        new Map<{ elem: CSSStyleDeclaration, key: "width" | "height" | "maxHeight" },["width" | "height",number]>([
+            [{ elem: wrapper.style, key: "width" }, ["width",2]],
+            [{ elem: wrapper.style, key: "height" }, ["height",2]],
+            [{ elem: wrapper.style, key: "maxHeight" }, ["height",3]],
+            [{ elem: webview.style, key: "height" }, ["height",2]],
+        ])
+        .forEach(([varname,factor],{ elem,key }) => elem[key] = calc(varname,factor))
+    }
 
     wrapper.style.setProperty("--width",`${width + 50}`)
     wrapper.style.setProperty("--height",`${height + 50}`)

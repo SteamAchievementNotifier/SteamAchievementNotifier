@@ -875,7 +875,6 @@ export const listeners = {
             }
 
             const info = await buildnotify(notify)
-
             
             if (iswebview === "customiser") {
                 const { ssalldetails, screenshots } = config.store
@@ -1072,7 +1071,7 @@ export const listeners = {
                 }
 
                 notifywin.once("ready-to-show", async () => {
-                    (notifywin as BrowserWindow).webContents.send("notify",await notifyinfo())
+                    (notifywin as BrowserWindow).webContents.send("notify",await notifyinfo(),notify.id)
 
                     if (extwin) {
                         extwin.webContents.send("notify")
@@ -1122,6 +1121,8 @@ export const listeners = {
                     offscreenwin = null
                     running = false
 
+                    removesrcimg(notify.id)
+
                     log.write("ERROR",`Notification window failed for "${notify.apiname}" - Check log for details`)
                     return ipcMain.emit("notifyclosed",null,true,customisation.preset)
                 }
@@ -1155,6 +1156,7 @@ export const listeners = {
                         log.write("ERROR",`Error closing notification window for "${notify.apiname}": ${err}`)
                     } finally {
                         win.webContents.send("notifyprogress",0,true)
+                        removesrcimg(notify.id)
                     }
                 })
 
@@ -1420,6 +1422,18 @@ export const listeners = {
             }
         }
 
+        const removesrcimg = (id: number) => {
+            const srcimg = getsspath(id)
+            if (!fs.existsSync(srcimg)) return log.write("INFO",`Unable to remove "src" image: "${srcimg}" - not found`)
+
+            try {
+                fs.rmSync(srcimg)
+                log.write("INFO",`Removed "src" image: "${srcimg}"`)
+            } catch (err) {
+                log.write("ERROR",`Error removing "src" image "${srcimg}": ${err as Error}`)
+            }
+        }
+
         const createsswin = async (type: "ss" | "img",notify: Notify,ispreview?: boolean,src?: number) => {
             const config = sanconfig.get()
 
@@ -1483,17 +1497,6 @@ export const listeners = {
                             log.write("INFO",`Screenshot written to "${ssimg}" successfully`)
                         } catch (err) {
                             log.write("ERROR",`Error writing screenshot for "${info.apiname}": ${err}`)
-                        }
-                    })
-                    .then(() => {
-                        if (type !== "ss") return
-                        const temp = getsspath(notify.id)
-
-                        try {
-                            fs.rmSync(temp)
-                            log.write("INFO",`Removed "src" image: "${temp}"`)
-                        } catch (err) {
-                            log.write("ERROR",`Error removing "src" image "${temp}": ${err as Error}`)
                         }
                     })
                     .finally(() => {

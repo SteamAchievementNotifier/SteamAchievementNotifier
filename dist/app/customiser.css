@@ -139,9 +139,9 @@ body[customiser][closing] .wrapper#main > *:not(.wrapper#customiserlogo,.wrapper
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    max-height: calc(var(--height) * 1px);
-    min-width: 0;
-    min-height: 0;
+    /* Workaround: Setting `wrapper`'s width/height to `0` ensures all previews are centered in the Customiser while still displaying content */
+    width: 0;
+    height: 0;
     aspect-ratio: var(--width) / var(--height);
 }
 

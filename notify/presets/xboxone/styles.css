@@ -20,7 +20,8 @@
         var(--finish);
 }
 
-body[fastanim] .wrapper#achcont {
+body[fastanim] .wrapper#achcont,
+body[fastanim] .wrapper#ssdisplay::before {
     --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
 }
 
@@ -300,9 +301,10 @@ body[ss] .wrapper#achcontent > #desc {
 }
 
 .wrapper#ssdisplay::before {
+    --finish: ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 13.5)) forwards;
     animation:
         ssslidein calc(var(--transition) * 2) calc((var(--transition) * 8.5)) forwards,
-        ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 13.5)) forwards;
+        var(--finish);
 }
 
 body:not([ss])[ssdisplay] .wrapper#achcont {
@@ -321,6 +323,11 @@ body:not([ss])[ssdisplay] .wrapper#bg {
         var(--ssbrin),
         var(--ssbrout),
         var(--finish);
+}
+
+body:not([ss])[ssdisplay][fastanim] .wrapper#achcont,
+body:not([ss])[ssdisplay][fastanim] .wrapper#bg {
+    --ssbrout: none;
 }
 
 /* !!! Removes `border-radius` from the corner of `#iconbg` - not currently required */

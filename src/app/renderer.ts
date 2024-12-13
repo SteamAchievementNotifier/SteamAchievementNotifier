@@ -702,18 +702,10 @@ ipcRenderer.on("customisernotify", (event,obj: Info) => {
     !width && !height && log.write("ERROR",`Error parsing "width"/"height" values for "${obj.customisation.preset}" preset: No <meta> tag found in body`)
 
     if (obj.screenshots === "overlay" && obj.customisation.ssdisplay) {
-        const webview = wrapper.querySelector("webview") as Electron.WebviewTag
-        const calc = (varname: "width" | "height",factor: number) => `calc(var(--${varname}) / ${factor} * 1px)`
-
         height += 175
 
-        new Map<{ elem: CSSStyleDeclaration, key: "width" | "height" | "maxHeight" },["width" | "height",number]>([
-            [{ elem: wrapper.style, key: "width" }, ["width",2]],
-            [{ elem: wrapper.style, key: "height" }, ["height",2]],
-            [{ elem: wrapper.style, key: "maxHeight" }, ["height",3]],
-            [{ elem: webview.style, key: "height" }, ["height",2]],
-        ])
-        .forEach(([varname,factor],{ elem,key }) => elem[key] = calc(varname,factor))
+        const webview = wrapper.querySelector("webview") as Electron.WebviewTag
+        webview.style.height = `calc(var(--height) / 2 * 1px)`
     }
 
     wrapper.style.setProperty("--width",`${width + 50}`)

@@ -34,7 +34,7 @@ export const main = async (starttime: string) => {
             title: `Steam Achievement Notifier (V${parseFloat(app.getVersion())})`,
             icon: path.join(__root,"img",`sanlogo.${process.platform === "linux" ? "png" : "ico"}`),
             width: config.get("width"),
-            minWidth: 400,
+            minWidth: 300,
             height: config.get("height"),
             minHeight: 450,
             frame: false,

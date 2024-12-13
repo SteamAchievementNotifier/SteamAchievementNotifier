@@ -271,18 +271,25 @@ const notifyhelper = {
     }
 }
 
-ipcRenderer.on("notify", async (event,obj: Info) => {
+ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
     const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots } = obj
 
     try {
         document.body.setAttribute(type,"")
-        document.body.toggleAttribute("ssdisplay",screenshots === "overlay" && customisation.ssdisplay)
         document.body.toggleAttribute("noiconanim",!!customisation.iconanim)
 
+        const ssdisplay = screenshots === "overlay" && customisation.ssdisplay
+        document.body.toggleAttribute("ssdisplay",ssdisplay)
+
         if (iswebview === "customiser") {
-            document.documentElement.style.scale = `0.${document.body.hasAttribute("ssdisplay") ? "" : 7}5`
+            document.documentElement.style.scale = `0.${ssdisplay ? "" : 7}5`
             // Fixes issue on "PS Classic" preset where preview is not centered in the Customiser
             customisation.preset === "ps4" && document.body.style.setProperty("--placement","center")
+        }
+
+        if (iswebview !== "customiser" && ssdisplay) {
+            const sspath = path.join(temp,`${id}.png`).replace(/\\/g,"/")
+            fs.existsSync(sspath) && document.documentElement.style.setProperty("--ssimg",`url('${sspath}')`)   
         }
 
         const fastanimmap = new Map<string,number>([

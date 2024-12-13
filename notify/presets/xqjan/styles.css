@@ -1,3 +1,7 @@
+:root {
+    --addroundness: calc(var(--roundness) * 1.15);
+}
+
 @font-face {
     font-family: "Titillium Web Regular";
     src: url("../../../fonts/TitilliumWeb-Regular.ttf");
@@ -21,7 +25,8 @@
     overflow: visible;
 }
 
-body[fastanim] .wrapper#achcont {
+body[fastanim] .wrapper#achcont,
+body[fastanim] .wrapper#ssdisplay::before {
     --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
 }
 
@@ -57,7 +62,7 @@ body[fastanim] .wrapper#bg {
 }
 
 @keyframes setbr {
-    to { border-radius: calc(var(--roundness) * 1.15); }
+    to { border-radius: var(--addroundness); }
 }
 
 @keyframes resetbr {
@@ -264,9 +269,28 @@ body[ss] #unlockmsg {
 }
 
 .wrapper#ssdisplay::before {
+    --finish: ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 14)) forwards;
     animation:
         ssslidein calc(var(--transition) * 2) calc(var(--transition) * 12) forwards,
-        ssslideout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 14)) forwards;
+        var(--finish);
+}
+
+body:not([ss])[ssdisplay][bottomleft] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomleft] .wrapper#bg,
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomcenter] .wrapper#bg,
+body:not([ss])[ssdisplay][bottomright] .wrapper#achcont,
+body:not([ss])[ssdisplay][bottomright] .wrapper#bg {
+    --ssbr: 0 0 var(--addroundness) var(--addroundness);
+}
+
+body:not([ss])[ssdisplay][topleft] .wrapper#achcont,
+body:not([ss])[ssdisplay][topleft] .wrapper#bg,
+body:not([ss])[ssdisplay][topcenter] .wrapper#achcont,
+body:not([ss])[ssdisplay][topcenter] .wrapper#bg,
+body:not([ss])[ssdisplay][topright] .wrapper#achcont,
+body:not([ss])[ssdisplay][topright] .wrapper#bg {
+    --ssbr: var(--addroundness) var(--addroundness) 0 0;
 }
 
 body:not([ss])[ssdisplay] .wrapper#bg {
@@ -277,4 +301,8 @@ body:not([ss])[ssdisplay] .wrapper#bg {
         var(--ssbrin),
         var(--ssbrout),
         var(--finish);
+}
+
+body:not([ss])[ssdisplay][fastanim] .wrapper#bg {
+    --ssbrout: none;
 }

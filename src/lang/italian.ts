@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Tipi di Webhook",
                 webhookurl: `URL del Webhook`,
                 webhookcaution: `Abilitando questa opzione e fornendo un link Webhook Discord valido, accetti di comprendere che <u>tutte le informazioni sui successi e sui giochi per l'attuale utente Steam</u> saranno pubblicate sul server Discord specificato tramite il link Webhook fornito.<br><br>Se non desideri che Steam Achievement Notifier pubblichi queste informazioni per tuo conto, disabilita questa opzione.`,
-                webhooklaststatus: "Ultimo Stato"
+                webhooklaststatus: "Ultimo Stato",
+                webhookspoilers: `Aggiungi tag spoiler`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importa personalizzazioni tramite un <span class="hl">file del tema</span> creato dall'utente`,
         exporttheme: `Esporta il <span class="hl">tema</span> attualmente selezionato per la condivisione<br><br><span class="ttdesc">Prima di procedere con l'esportazione, assicurati che il <span class="hl">tema</span> desiderato sia stato selezionato (tramite il menu <span class="hl">Seleziona tema</span>). Assicurati inoltre che le personalizzazioni siano state salvate nel <span class="hl">tema</span> selezionato (tramite il menu <span class="hl">Salva tema</span>)<br><br><u>Eventuali personalizzazioni non ancora salvate nel <span class="hl">tema</span> corrente non saranno esportate!</u></span>`,
         webhooks: "Utilizza un URL Webhook per pubblicare su un server Discord ogni volta che un successo viene sbloccato",
-        webhooktypesmain: `Attiva/disattiva l'invio delle informazioni sugli achievement a un server Discord quando viene sbloccato un achievement principale`,
-        webhooktypesrare: "Attiva/disattiva l'invio delle informazioni sugli achievement a un server Discord quando viene sbloccato un achievement raro",
-        webhooktypesplat: "Attiva/disattiva l'invio delle informazioni sugli achievement a un server Discord quando viene sbloccato un achievement al 100%",
+        webhookmain: `Attiva/disattiva l'invio delle informazioni sugli achievement a un server Discord quando viene sbloccato un achievement principale`,
+        webhookrare: "Attiva/disattiva l'invio delle informazioni sugli achievement a un server Discord quando viene sbloccato un achievement raro",
+        webhookplat: "Attiva/disattiva l'invio delle informazioni sugli achievement a un server Discord quando viene sbloccato un achievement al 100%",
         webhookurl: `Imposta la <span class="hl">URL del Webhook</span> per il server Discord desiderato<br><br><span class="ttdesc">Una <span class="hl">URL del Webhook</span> viene utilizzata per pubblicare su un server/canale Discord per conto di un utente o di un'applicazione. Per impostare un nuovo Webhook per un server Discord, l'utente deve avere un ruolo nel server desiderato che consenta la creazione di Webhook<br><br><u>Un URL del Webhook è necessario quando si utilizza questa opzione</u><br><br>Consulta la documentazione ufficiale di Discord per ulteriori informazioni</span>`,
+        webhookspoilers: `Aggiungi un tag spoiler alle "Realizzazioni Nascoste" quando vengono pubblicate su Discord`,
         unlockmsg: "Imposta la posizione del messaggio di sblocco/testo personalizzato all'interno del $type",
         title: "Imposta la posizione del titolo del successo all'interno del $type",
         desc: "Imposta la posizione della descrizione del successo all'interno del $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Rilascia il gioco attualmente tracciato utilizzando la scorciatoia da tastiera specificata",
         themeselect: "Seleziona un tema salvato precedentemente",
         statwin: `Visualizza statistiche configurabili dei successi per il gioco attuale in una finestra esterna<br><br><span class="ttdesc">Quando utilizzato in combinazione con l'opzione <span class="hl">Traduci i successi nella lingua di Steam</span>, alcune traduzioni potrebbero non essere disponibili finché il successo specifico non viene sbloccato</span>`,
-        statwinshortcut: "Attiva o disattiva l'Overlay delle Statistiche dei Successi utilizzando la scorciatoia da tastiera specificata"
+        statwinshortcut: "Attiva o disattiva l'Overlay delle Statistiche dei Successi utilizzando la scorciatoia da tastiera specificata",
+        ssdisplay: "Mostra un'anteprima dello screenshot catturato nella notifica"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Rarità: < $rarity%",
             sspercentbadgeimggold: "Rarità: < $rarity%",
             resetpbimgs: "Ripristina icone badge",
-            elemsmatch: "Corrispondenza impostazioni personalizzatore"
+            elemsmatch: "Corrispondenza impostazioni personalizzatore",
+            ssdisplay: "Anteprima Screenshot"
         }
     },
     themeswitch: {

@@ -125,7 +125,8 @@ export const translations = {
                 webhookurl: `URL Webhook`,
                 webhooktypes: "Loại Webhook",
                 webhookcaution: `Bằng cách kích hoạt tùy chọn này và cung cấp liên kết Webhook Discord hợp lệ, bạn đồng ý rằng bạn hiểu rằng <u>tất cả thông tin thành tựu và trò chơi của người dùng Steam hiện tại</u> sẽ được đăng lên máy chủ Discord đã chỉ định thông qua liên kết Webhook được cung cấp.<br><br>Nếu bạn không muốn Steam Achievement Notifier đăng thông tin này thay cho bạn, hãy tắt tùy chọn này.`,
-                webhooklaststatus: "Trạng thái cuối cùng"
+                webhooklaststatus: "Trạng thái cuối cùng",
+                webhookspoilers: `Thêm thẻ spoiler`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Nhập các tùy chỉnh thông qua một <span class="hl">tệp Tema</span> do người dùng tạo ra`,
         exporttheme: `Xuất <span class="hl">Tema</span> hiện tại đang chọn để chia sẻ<br><br><span class="ttdesc">Trước khi thử xuất, hãy đảm bảo rằng <span class="hl">Tema</span> mong muốn đã được chọn (qua menu <span class="hl">Chọn Tema</span>). Hãy đảm bảo rằng các tùy chỉnh đã được lưu vào <span class="hl">Tema</span> đã chọn (qua menu <span class="hl">Lưu Tema</span>)<br><br><u>Bất kỳ tùy chỉnh nào chưa được lưu vào <span class="hl">Tema</span> hiện tại sẽ không được xuất!</u></span>`,
         webhooks: "Sử dụng URL Webhook để đăng lên máy chủ Discord mỗi khi một thành tựu được mở khóa",
-        webhooktypesmain: `Chuyển đổi việc gửi thông tin thành tích chính lên máy chủ Discord khi đạt được thành tích chính`,
-        webhooktypesrare: "Chuyển đổi việc gửi thông tin thành tích hiếm lên máy chủ Discord khi đạt được thành tích hiếm",
-        webhooktypesplat: "Chuyển đổi việc gửi thông tin thành tích 100% lên máy chủ Discord khi đạt được thành tích 100%",
+        webhookmain: `Chuyển đổi việc gửi thông tin thành tích chính lên máy chủ Discord khi đạt được thành tích chính`,
+        webhookrare: "Chuyển đổi việc gửi thông tin thành tích hiếm lên máy chủ Discord khi đạt được thành tích hiếm",
+        webhookplat: "Chuyển đổi việc gửi thông tin thành tích 100% lên máy chủ Discord khi đạt được thành tích 100%",
         webhookurl: `Cài đặt <span class="hl">URL Webhook</span> cho máy chủ Discord mong muốn<br><br><span class="ttdesc">URL Webhook được sử dụng để đăng lên máy chủ/kanal Discord thay mặt cho người dùng hoặc ứng dụng. Để thiết lập một Webhook mới cho máy chủ Discord, người dùng phải có một vai trò trên máy chủ mong muốn cho phép tạo Webhooks<br><br><u>URL Webhook là cần thiết khi sử dụng tùy chọn này</u><br><br>Xem tài liệu chính thức của Discord để biết thêm thông tin</span>`,
+        webhookspoilers: `Thêm thẻ spoiler cho các thành tích "Ẩn" khi đăng lên Discord`,
         unlockmsg: "Cài đặt vị trí của thông báo mở khóa/ văn bản tùy chỉnh trong $type",
         title: "Cài đặt vị trí của tiêu đề thành tựu trong $type",
         desc: "Cài đặt vị trí của mô tả thành tựu trong $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Sử dụng phím tắt đã chỉ định để phát hành trò chơi đang theo dõi",
         themeselect: "Chọn một chủ đề đã lưu trước đó",
         statwin: `Hiển thị thống kê thành tích có thể cấu hình cho trò chơi hiện tại trong cửa sổ ngoài<br><br><span class="ttdesc">Khi sử dụng cùng với tùy chọn <span class="hl">Dịch thành tích sang ngôn ngữ Steam</span>, một số bản dịch có thể không khả dụng cho đến khi thành tích cụ thể được mở khóa</span>`,
-        statwinshortcut: "Chuyển đổi Overlay Thống kê Thành tích bằng phím tắt bàn phím đã chỉ định"
+        statwinshortcut: "Chuyển đổi Overlay Thống kê Thành tích bằng phím tắt bàn phím đã chỉ định",
+        ssdisplay: "Hiển thị bản xem trước ảnh chụp màn hình trong thông báo"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Độ hiếm: < $rarity%",
             sspercentbadgeimggold: "Độ hiếm: < $rarity%",
             resetpbimgs: "Đặt lại Biểu tượng Huy hiệu",
-            elemsmatch: "Khớp với Cài đặt Trình tùy chỉnh"
+            elemsmatch: "Khớp với Cài đặt Trình tùy chỉnh",
+            ssdisplay: "Bản xem trước ảnh chụp màn hình"
         }
     },
     themeswitch: {

@@ -125,7 +125,8 @@ export const translations = {
                 webhookurl: `URL Webhook`,
                 webhooktypes: "Rodzaje Webhook",
                 webhookcaution: `Włączając tę opcję i podając ważny link Webhook Discord, zgadzasz się zrozumieć, że <u>wszystkie informacje o osiągnięciach i grach dla bieżącego użytkownika Steam</u> zostaną opublikowane na wskazanym serwerze Discord za pośrednictwem podanego linku Webhook.<br><br>Jeśli nie chcesz, aby Steam Achievement Notifier publikował te informacje w Twoim imieniu, wyłącz tę opcję.`,
-                webhooklaststatus: "Ostatni status"
+                webhooklaststatus: "Ostatni status",
+                webhookspoilers: `Dodaj tag spoiler`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importuj dostosowania za pomocą <span class="hl">pliku motywu</span> stworzonego przez użytkownika`,
         exporttheme: `Eksportuj aktualnie wybrany <span class="hl">motyw</span> w celu udostępnienia<br><br><span class="ttdesc">Przed próbą eksportu upewnij się, że wybrany <span class="hl">motyw</span> jest zaznaczony (za pomocą menu <span class="hl">Wybierz motyw</span>). Upewnij się również, że dostosowania zostały zapisane w wybranym <span class="hl">motywie</span> (za pomocą menu <span class="hl">Zapisz motyw</span>)<br><br><u>Wszelkie dostosowania niezapisane w bieżącym <span class="hl">motywie</span> nie zostaną wyeksportowane!</u></span>`,
         webhooks: "Użyj URL Webhook, aby publikować na serwerze Discord za każdym razem, gdy osiągnięcie zostanie odblokowane",
-        webhooktypesmain: `Przełącz, czy publikować informacje o osiągnięciach na serwerze Discord, gdy główne osiągnięcie zostanie odblokowane`,
-        webhooktypesrare: "Przełącz, czy publikować informacje o osiągnięciach na serwerze Discord, gdy rzadkie osiągnięcie zostanie odblokowane",
-        webhooktypesplat: "Przełącz, czy publikować informacje o osiągnięciach na serwerze Discord, gdy osiągnięcie 100% zostanie odblokowane",
+        webhookmain: `Przełącz, czy publikować informacje o osiągnięciach na serwerze Discord, gdy główne osiągnięcie zostanie odblokowane`,
+        webhookrare: "Przełącz, czy publikować informacje o osiągnięciach na serwerze Discord, gdy rzadkie osiągnięcie zostanie odblokowane",
+        webhookplat: "Przełącz, czy publikować informacje o osiągnięciach na serwerze Discord, gdy osiągnięcie 100% zostanie odblokowane",
         webhookurl: `Ustaw <span class="hl">URL Webhook</span> dla wybranego serwera Discord<br><br><span class="ttdesc">URL Webhook służy do publikowania na serwerze/kanale Discord w imieniu użytkownika lub aplikacji. Aby skonfigurować nowy Webhook dla serwera Discord, użytkownik musi mieć rolę na wybranym serwerze, która pozwala na tworzenie Webhooków<br><br><u>URL Webhook jest wymagany do korzystania z tej opcji</u><br><br>Więcej informacji znajdziesz w oficjalnej dokumentacji Discorda</span>`,
+        webhookspoilers: `Dodaj tag spoiler do "Ukrytych" osiągnięć podczas publikowania na Discordzie`,
         unlockmsg: "Ustaw położenie wiadomości odblokowania/tekstów niestandardowych w $type",
         title: "Ustaw położenie tytułu osiągnięcia w $type",
         desc: "Ustaw położenie opisu osiągnięcia w $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Uwolnij aktualnie śledzoną grę za pomocą określonego skrótu klawiaturowego",
         themeselect: "Wybierz wcześniej zapisany motyw",
         statwin: `Wyświetl konfigurowalne statystyki osiągnięć dla bieżącej gry w zewnętrznym oknie<br><br><span class="ttdesc">Używając opcji <span class="hl">Tłumaczenie osiągnięć na język Steam</span>, niektóre tłumaczenia mogą być niedostępne, dopóki konkretne osiągnięcie nie zostanie odblokowane</span>`,
-        statwinshortcut: "Przełącz Nakładkę Statystyk Osiągnięć za pomocą określonego skrótu klawiaturowego"
+        statwinshortcut: "Przełącz Nakładkę Statystyk Osiągnięć za pomocą określonego skrótu klawiaturowego",
+        ssdisplay: "Wyświetl podgląd zrzutu ekranu w powiadomieniu"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Rzadkość: < $rarity%",
             sspercentbadgeimggold: "Rzadkość: < $rarity%",
             resetpbimgs: "Przywróć ikony odznak",
-            elemsmatch: "Dopasuj ustawienia dostosowywacza"
+            elemsmatch: "Dopasuj ustawienia dostosowywacza",
+            ssdisplay: "Podgląd zrzutu ekranu"
         }
     },
     themeswitch: {

@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhook Türleri",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Bu seçeneği etkinleştirip geçerli bir Discord Webhook bağlantısı sağladığınızda, <u>mevcut Steam kullanıcısının tüm başarı ve oyun bilgilerini</u> belirtilen Discord sunucusuna Webhook bağlantısı aracılığıyla göndereceğinizi kabul etmiş olursunuz.<br><br>Bu bilgilerin sizin adınıza gönderilmesini istemiyorsanız, bu seçeneği devre dışı bırakın.`,
-                webhooklaststatus: "Son Durum"
+                webhooklaststatus: "Son Durum",
+                webhookspoilers: `Spoiler etiketi ekle`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Kullanıcı tarafından oluşturulan <span class="hl">tema dosyası</span> aracılığıyla özelleştirmeleri içe aktarın`,
         exporttheme: `Paylaşmak için şu anda seçili olan <span class="hl">temayı</span> dışa aktarın<br><br><span class="ttdesc">Dışa aktarmadan önce lütfen istenen <span class="hl">temanın</span> seçildiğinden (<span class="hl">Tema Seç</span> menüsü üzerinden) emin olun. Ayrıca özelleştirmelerin seçilen <span class="hl">temaya</span> kaydedilmiş olmasından (<span class="hl">Tema Kaydet</span> menüsü üzerinden) emin olun<br><br><u>Mevcut <span class="hl">temada</span> henüz kaydedilmemiş herhangi bir özelleştirme dışa aktarılmayacaktır!</u></span>`,
         webhooks: "Bir başarı kilidini açıldığında Discord sunucusunda paylaşmak için Webhook URL kullanın",
-        webhooktypesmain: `Ana başarımların kilidi açıldığında Discord sunucusuna başarımları gönderip göndermemeyi açın`,
-        webhooktypesrare: "Nadir başarımların kilidi açıldığında Discord sunucusuna başarımları gönderip göndermemeyi açın",
-        webhooktypesplat: "100% başarımı açıldığında Discord sunucusuna başarımları gönderip göndermemeyi açın",
+        webhookmain: `Ana başarımların kilidi açıldığında Discord sunucusuna başarımları gönderip göndermemeyi açın`,
+        webhookrare: "Nadir başarımların kilidi açıldığında Discord sunucusuna başarımları gönderip göndermemeyi açın",
+        webhookplat: "100% başarımı açıldığında Discord sunucusuna başarımları gönderip göndermemeyi açın",
         webhookurl: `İstenilen Discord sunucusu için <span class="hl">Webhook URL</span> ayarlayın<br><br><span class="ttdesc"><span class="hl">Webhook URL</span>, bir kullanıcı veya uygulama adına Discord sunucusunda/kanalında paylaşım yapmak için kullanılır. Bir Discord sunucusu için yeni bir Webhook ayarlamak için kullanıcı, Webhooks oluşturulmasına izin veren bir role sahip olmalıdır<br><br><u>Bu seçeneği kullanırken Webhook URL gereklidir</u><br><br>Daha fazla bilgi için Discord'un resmi belgelerine başvurun</span>`,
+        webhookspoilers: `Discord'a gönderildiğinde "Gizli" başarılarına spoiler etiketi ekle`,
         unlockmsg: "$type içindeki kilidi açma mesajının/özelleştirilmiş metnin konumunu ayarlayın",
         title: "$type içindeki başarı başlığının konumunu ayarlayın",
         desc: "$type içindeki başarı açıklamasının konumunu ayarlayın",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Belirtilen klavye kısayolunu kullanarak şu anda izlenen oyunu yayınlayın",
         themeselect: "Önceden kaydedilmiş bir Tema seçin",
         statwin: `Geçerli oyun için yapılandırılabilir başarı istatistiklerini dış bir pencerede görüntüle<br><br><span class="ttdesc">"<span class="hl">Başarıları Steam diline çevir</span>" seçeneğiyle birlikte kullanıldığında, belirli bir başarı açılana kadar bazı çeviriler kullanılamayabilir</span>`,
-        statwinshortcut: "Belirtilen klavye kısayolunu kullanarak Başarı İstatistikleri Örtüsünü geçiş yap"
+        statwinshortcut: "Belirtilen klavye kısayolunu kullanarak Başarı İstatistikleri Örtüsünü geçiş yap",
+        ssdisplay: "Bildirimde yakalanan ekran görüntüsünün önizlemesini göster"
     },
     update: {
         updateavailable: "Güncelleme mevcut",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Nadirlik: < $rarity%",
             sspercentbadgeimggold: "Nadirlik: < $rarity%",
             resetpbimgs: "Rozet Simgelerini Sıfırla",
-            elemsmatch: "Özelleştirici Ayarlarıyla Eşleş"
+            elemsmatch: "Özelleştirici Ayarlarıyla Eşleş",
+            ssdisplay: "Ekran görüntüsü önizlemesi"
         }
     },
     themeswitch: {

@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhook 종류",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `이 옵션을 활성화하고 유효한 Discord Webhook 링크를 제공함으로써 <u>현재 Steam 사용자에 대한 모든 업적 및 게임 정보</u>가 제공된 Webhook 링크를 통해 지정된 Discord 서버에 게시될 것임을 이해하는 데 동의합니다.<br><br>Steam Achievement Notifier가 이 정보를 대신 게시하는 것을 원하지 않는 경우, 이 옵션을 비활성화해 주세요.`,
-                webhooklaststatus: "최종 상태"
+                webhooklaststatus: "최종 상태",
+                webhookspoilers: `스포일러 태그 추가`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `사용자가 생성한 <span class="hl">테마 파일</span>을 통해 맞춤 설정을 가져옵니다`,
         exporttheme: `현재 선택한 <span class="hl">테마</span>를 공유할 수 있도록 내보냅니다<br><br><span class="ttdesc">내보내기 전에 원하는 <span class="hl">테마</span>가 선택되었는지 확인하십시오 (<span class="hl">테마 선택</span> 메뉴를 통해). 또한 선택한 <span class="hl">테마</span>에 맞춤 설정이 저장되어 있는지 확인하십시오 (<span class="hl">테마 저장</span> 메뉴를 통해)<br><br><u>현재 <span class="hl">테마</span>에 저장되지 않은 모든 맞춤 설정은 내보내지 않습니다!</u></span>`,
         webhooks: "업적이 잠금 해제될 때마다 Discord 서버에 게시하기 위해 Webhook URL을 사용하세요",
-        webhooktypesmain: `메인 성취가 달성되었을 때 Discord 서버에 성취 정보를 게시할지 여부를 전환합니다`,
-        webhooktypesrare: "희귀 성취가 달성되었을 때 Discord 서버에 성취 정보를 게시할지 여부를 전환합니다",
-        webhooktypesplat: "100% 성취가 달성되었을 때 Discord 서버에 성취 정보를 게시할지 여부를 전환합니다",
+        webhookmain: `메인 성취가 달성되었을 때 Discord 서버에 성취 정보를 게시할지 여부를 전환합니다`,
+        webhookrare: "희귀 성취가 달성되었을 때 Discord 서버에 성취 정보를 게시할지 여부를 전환합니다",
+        webhookplat: "100% 성취가 달성되었을 때 Discord 서버에 성취 정보를 게시할지 여부를 전환합니다",
         webhookurl: `원하는 Discord 서버를 위한 <span class="hl">Webhook URL</span>을 설정하세요<br><br><span class="ttdesc">Webhook URL은 사용자 또는 애플리케이션을 대신하여 Discord 서버/채널에 게시하는 데 사용됩니다. Discord 서버에 새로운 Webhook을 설정하려면 사용자가 Webhook 생성을 허용하는 역할을 가진 서버의 멤버여야 합니다<br><br><u>이 옵션을 사용하려면 Webhook URL이 필요합니다</u><br><br>자세한 내용은 Discord의 공식 문서를 참조하세요</span>`,
+        webhookspoilers: `Discord에 게시할 때 "숨겨진" 업적에 스포일러 태그 추가`,
         unlockmsg: "$type 내에서 잠금 해제 메시지/맞춤 텍스트의 위치를 설정하세요",
         title: "$type 내에서 업적 제목의 위치를 설정하세요",
         desc: "$type 내에서 업적 설명의 위치를 설정하세요",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "지정된 키보드 단축키를 사용하여 현재 추적 중인 게임을 릴리스합니다",
         themeselect: "이전에 저장된 테마 선택",
         statwin: `현재 게임에 대한 구성 가능한 업적 통계를 외부 창에 표시<br><br><span class="ttdesc">"<span class="hl">Steam 언어로 업적 번역</span>" 옵션과 함께 사용 시, 특정 업적이 잠금 해제될 때까지 일부 번역이 제공되지 않을 수 있습니다</span>`,
-        statwinshortcut: "지정된 키보드 단축키를 사용하여 업적 통계 오버레이를 전환합니다"
+        statwinshortcut: "지정된 키보드 단축키를 사용하여 업적 통계 오버레이를 전환합니다",
+        ssdisplay: "알림 내에 캡처한 스크린샷 미리보기 표시"
     },
     update: {
         updateavailable: "업데이트 가능",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "희귀도: < $rarity%",
             sspercentbadgeimggold: "희귀도: < $rarity%",
             resetpbimgs: "배지 아이콘 재설정",
-            elemsmatch: "커스터마이저 설정 일치" 
+            elemsmatch: "커스터마이저 설정 일치",
+            ssdisplay: "스크린샷 미리보기"
         }
     },
     themeswitch: {

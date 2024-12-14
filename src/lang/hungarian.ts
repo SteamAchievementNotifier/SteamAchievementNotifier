@@ -122,10 +122,11 @@ export const translations = {
                 shortcuts: "Értesítési gyorsbillentyűk",
                 noiconcache: "Ikon gyorsítótár kikapcsolása",
                 webhooks: "Postázás Discord szerverre",
-                webhookurl: `Webhook URL`,
                 webhooktypes: "Webhook típusok",
+                webhookurl: `Webhook URL`,
                 webhookcaution: `Ezeket a beállításokat aktiválva és érvényes Discord Webhook linket adva meg, elfogadja, hogy megérti, hogy <u>minden jelenlegi Steam felhasználóra vonatkozó teljesítmény- és játékadat</u> közzétételre kerül az adott Discord szerveren a megadott Webhook linken keresztül.<br><br>Ha nem szeretné, hogy a Steam Achievement Notifier közzétegye ezeket az információkat az Ön nevében, kérjük, tiltsa le ezt az opciót.`,
-                webhooklaststatus: "Utolsó Állapot"
+                webhooklaststatus: "Utolsó Állapot",
+                webhookspoilers: `Spoiler címke hozzáadása`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Testreszabások importálása egy felhasználó által létrehozott <span class="hl">témafájl</span> segítségével`,
         exporttheme: `Az aktuálisan kiválasztott <span class="hl">téma</span> exportálása megosztáshoz<br><br><span class="ttdesc">Az exportálás előtt győződjön meg róla, hogy az kívánt <span class="hl">téma</span> van kiválasztva (a <span class="hl">Téma kiválasztása</span> menüponton keresztül). Továbbá, győződjön meg róla, hogy a testreszabások el vannak mentve az kiválasztott <span class="hl">témában</span> (a <span class="hl">Téma mentése</span> menüponton keresztül)<br><br><u>Bármilyen testreszabás, amely még nem lett elmentve az aktuális <span class="hl">témába</span>, nem fog exportálódni!</u></span>`,
         webhooks: "Használjon Webhook URL-t, hogy egy Discord szerveren tegyen közzé egy üzenetet, amikor egy teljesítmény feloldódik",
-        webhooktypesmain: `Váltás, hogy küldjenek-e teljesítményinformációkat egy Discord szerverre, amikor egy fő teljesítmény elérhető`,
-        webhooktypesrare: "Váltás, hogy küldjenek-e teljesítményinformációkat egy Discord szerverre, amikor egy ritka teljesítmény elérhető",
-        webhooktypesplat: "Váltás, hogy küldjenek-e teljesítményinformációkat egy Discord szerverre, amikor egy 100%-os teljesítmény elérhető",
+        webhookmain: `Váltás, hogy küldjenek-e teljesítményinformációkat egy Discord szerverre, amikor egy fő teljesítmény elérhető`,
+        webhookrare: "Váltás, hogy küldjenek-e teljesítményinformációkat egy Discord szerverre, amikor egy ritka teljesítmény elérhető",
+        webhookplat: "Váltás, hogy küldjenek-e teljesítményinformációkat egy Discord szerverre, amikor egy 100%-os teljesítmény elérhető",
         webhookurl: `Állítsa be a <span class="hl">Webhook URL</span> a kívánt Discord szerverhez<br><br><span class="ttdesc">Egy <span class="hl">Webhook URL</span> arra szolgál, hogy közzétegyen egy üzenetet egy Discord szerveren/csatornán felhasználó vagy alkalmazás nevében. Új Webhook beállításához egy Discord szerveren, a felhasználónak szerepet kell vállalnia a kívánt szerveren, amely engedélyezi a Webhook-ok létrehozását<br><br><u>Webhook URL szükséges ezen opció használatához</u><br><br>További információkért nézze meg a Discord hivatalos dokumentációját</span>`,
+        webhookspoilers: `Spoiler címke hozzáadása a "Rejtett" eredményekhez, amikor azok a Discordra kerülnek`,
         unlockmsg: "Állítsa be a feloldó üzenet/személyre szabott szöveg helyét a $type-ban",
         title: "Állítsa be a teljesítmény címének helyét a $type-ban",
         desc: "Állítsa be a teljesítmény leírásának helyét a $type-ban",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "A jelenleg nyomon követett játék felszabadítása a megadott billentyűparanccsal",
         themeselect: "Válassz egy korábban mentett témát",
         statwin: `Konfigurálható eredmény statisztikák megjelenítése az aktuális játékhoz egy külön ablakban<br><br><span class="ttdesc">Amikor a <span class="hl">Eredmények fordítása Steam nyelvre</span> opción keresztül használod, egyes fordítások csak akkor lesznek elérhetők, ha a megfelelő eredmény feloldódik</span>`,
-        statwinshortcut: "A Teljesítmény Statisztikák Átfedésének váltása a megadott billentyűparancs használatával"
+        statwinshortcut: "A Teljesítmény Statisztikák Átfedésének váltása a megadott billentyűparancs használatával",
+        ssdisplay: "A készített képernyőkép előnézete az értesítésben"
     },
     update: {
         updateavailable: "Frissítés elérhető",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Raritás: < $rarity%",
             sspercentbadgeimggold: "Raritás: < $rarity%",
             resetpbimgs: "Jelvény ikonok visszaállítása",
-            elemsmatch: "A testreszabó beállításainak egyeztetése"
+            elemsmatch: "A testreszabó beállításainak egyeztetése",
+            ssdisplay: "Képernyőkép előnézet"
         }
     },
     themeswitch: {

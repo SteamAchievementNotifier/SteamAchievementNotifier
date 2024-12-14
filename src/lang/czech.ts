@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Typy webhooků",
                 webhookurl: `URL Webhooku`,
                 webhookcaution: `Povolením této možnosti a poskytnutím platného odkazu na Webhook Discordu souhlasíte s tím, že rozumíte, že <u>veškeré informace o úspěších a hrách aktuálního uživatele Steamu</u> budou odeslány na určený server Discord prostřednictvím poskytnutého odkazu Webhooku.<br><br>Pokud nechcete, aby Steam Achievement Notifier odesílal tyto informace vaším jménem, prosím deaktivujte tuto možnost.`,
-                webhooklaststatus: "Poslední stav"
+                webhooklaststatus: "Poslední stav",
+                webhookspoilers: `Přidat označení spoileru`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importovat úpravy prostřednictvím uživatelem vytvořeného <span class="hl">souboru tématu</span>`,
         exporttheme: `Exportovat aktuálně vybrané <span class="hl">téma</span> k sdílení<br><br><span class="ttdesc">Před pokusem o export si prosím ověřte, že je vybráno požadované <span class="hl">téma</span> (pomocí nabídky <span class="hl">Výběr tématu</span>). Ujistěte se také, že byly úpravy uloženy ve vybraném <span class="hl">tématu</span> (pomocí nabídky <span class="hl">Uložit téma</span>)<br><br><u>Veškeré úpravy, které nebyly dosud uloženy v aktuálním <span class="hl">tématu</span>, nebudou exportovány!</u></span>`,
         webhooks: "Použijte URL Webhooku k odesílání na Discord server při každém odemknutí úspěchu",
-        webhooktypesmain: `Přepnout, zda se informace o dosažení mají poslat na Discord server při odemčení hlavního úspěchu`,
-        webhooktypesrare: "Přepnout, zda se informace o dosažení mají poslat na Discord server při odemčení vzácného úspěchu",
-        webhooktypesplat: "Přepnout, zda se informace o dosažení mají poslat na Discord server při odemčení 100% úspěchu",
+        webhookmain: `Přepnout, zda se informace o dosažení mají poslat na Discord server při odemčení hlavního úspěchu`,
+        webhookrare: "Přepnout, zda se informace o dosažení mají poslat na Discord server při odemčení vzácného úspěchu",
+        webhookplat: "Přepnout, zda se informace o dosažení mají poslat na Discord server při odemčení 100% úspěchu",
         webhookurl: `Nastavte <span class="hl">URL Webhooku</span> pro požadovaný Discord server<br><br><span class="ttdesc"> <span class="hl">URL Webhooku</span> slouží k odesílání na Discord server/kanál jménem uživatele nebo aplikace. Aby bylo možné nastavit nový Webhook pro Discord server, uživatel musí mít v požadovaném serveru roli, která umožňuje vytváření Webhooků<br><br><u>Při použití této možnosti je vyžadována URL Webhooku</u><br><br>Pro více informací se podívejte do oficiální dokumentace Discordu</span>`,
+        webhookspoilers: `Přidat označení spoileru ke "Skrytým" úspěchům při zveřejnění na Discordu`,
         unlockmsg: "Nastavte polohu zprávy o odemknutí/vlastního textu v $type",
         title: "Nastavte polohu názvu úspěchu v $type",
         desc: "Nastavte polohu popisu úspěchu v $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Uvolnění aktuálně sledované hry pomocí zadané klávesové zkratky",
         themeselect: "Vyberte dříve uložené téma",
         statwin: `Zobrazte přizpůsobitelné statistiky úspěchů pro aktuální hru v externím okně<br><br><span class="ttdesc">Při použití společně s možností <span class="hl">Přeložit úspěchy do jazyka služby Steam</span> nemusí být některé překlady dostupné, dokud nebude daný úspěch odemčen</span>`,
-        statwinshortcut: "Přepnout překrytí statistik úspěchů pomocí specifikované klávesové zkratky"
+        statwinshortcut: "Přepnout překrytí statistik úspěchů pomocí specifikované klávesové zkratky",
+        ssdisplay: "Zobrazit náhled zachycené obrazovky v oznámení"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Vzácnost: < $rarity%",
             sspercentbadgeimggold: "Vzácnost: < $rarity%",
             resetpbimgs: "Obnovit ikony odznaků",
-            elemsmatch: "Odpovídá nastavení přizpůsobení"
+            elemsmatch: "Odpovídá nastavení přizpůsobení",
+            ssdisplay: "Náhled obrazovky"
         }
     },
     themeswitch: {

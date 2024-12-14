@@ -125,7 +125,8 @@ export const translations = {
                 webhookurl: `URL Webhook`,
                 webhooktypes: "Tipuri de Webhook",
                 webhookcaution: `Activând această opțiune și furnizând un link valid Webhook Discord, accepți că înțelegi că <u>toate informațiile despre realizări și jocuri pentru utilizatorul Steam actual</u> vor fi postate pe serverul Discord specificat prin intermediul linkului Webhook furnizat.<br><br>Dacă nu dorești ca Steam Achievement Notifier să posteze aceste informații în numele tău, dezactivează această opțiune.`,
-                webhooklaststatus: "Ultimul Statut"
+                webhooklaststatus: "Ultimul Statut",
+                webhookspoilers: `Adaugă etichetă spoiler`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importați personalizările printr-un <span class="hl">fișier temă</span> creat de utilizator`,
         exporttheme: `Exportați <span class="hl">tema</span> selectată curent pentru partajare<br><br><span class="ttdesc">Înainte de a încerca să exportați, asigurați-vă că <span class="hl">tema</span> dorită este selectată (prin meniul <span class="hl">Selectare Temă</span>). Asigurați-vă și că personalizările au fost salvate în <span class="hl">tema</span> selectată (prin meniul <span class="hl">Salvare Temă</span>)<br><br><u>Orice personalizări nesalvate în <span class="hl">tema</span> curent nu vor fi exportate!</u></span>`,
         webhooks: "Folosește un URL Webhook pentru a posta pe un server Discord de fiecare dată când o realizare este deblocat",
-        webhooktypesmain: `Comută dacă trebuie sau nu să postezi informații despre realizări pe un server Discord când o realizare principală este deblocată`,
-        webhooktypesrare: "Comută dacă trebuie sau nu să postezi informații despre realizări pe un server Discord când o realizare rară este deblocată",
-        webhooktypesplat: "Comută dacă trebuie sau nu să postezi informații despre realizări pe un server Discord când o realizare de 100% este deblocată",
+        webhookmain: `Comută dacă trebuie sau nu să postezi informații despre realizări pe un server Discord când o realizare principală este deblocată`,
+        webhookrare: "Comută dacă trebuie sau nu să postezi informații despre realizări pe un server Discord când o realizare rară este deblocată",
+        webhookplat: "Comută dacă trebuie sau nu să postezi informații despre realizări pe un server Discord când o realizare de 100% este deblocată",
         webhookurl: `Setează <span class="hl">URL Webhook</span> pentru serverul Discord dorit<br><br><span class="ttdesc">Un <span class="hl">URL Webhook</span> este folosit pentru a posta pe un server/canal Discord în numele unui utilizator sau aplicație. Pentru a configura un nou Webhook pentru un server Discord, utilizatorul trebuie să aibă un rol pe serverul dorit care permite crearea de Webhook-uri<br><br><u>Un URL Webhook este necesar atunci când folosești această opțiune</u><br><br>Consultă documentația oficială Discord pentru mai multe informații</span>`,
+        webhookspoilers: `Adaugă o etichetă spoiler pentru "Realizări ascunse" atunci când sunt postate pe Discord`,
         unlockmsg: "Setează poziția mesajului de deblocare/textului personalizat în $type",
         title: "Setează poziția titlului realizării în $type",
         desc: "Setează poziția descrierii realizării în $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Lansează jocul activ urmărit folosind scurtătura de tastatură specificată",
         themeselect: "Selectează un Tema salvat anterior",
         statwin: `Afișează statistici configurabile ale realizărilor pentru jocul curent într-o fereastră externă<br><br><span class="ttdesc">Atunci când este folosit împreună cu opțiunea <span class="hl">Tradu realizările în limba Steam</span>, anumite traduceri pot să nu fie disponibile până când realizarea specifică nu este deblocată</span>`,
-        statwinshortcut: "Comută Overlay-ul de Statistici ale Realizărilor folosind scurtătura de tastatură specificată"
+        statwinshortcut: "Comută Overlay-ul de Statistici ale Realizărilor folosind scurtătura de tastatură specificată",
+        ssdisplay: "Afișează o previzualizare a capturii de ecran în notificare"
     },
     update: {
         updateavailable: "Actualizare disponibilă",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Raritate: < $rarity%",
             sspercentbadgeimggold: "Raritate: < $rarity%",
             resetpbimgs: "Resetare iconițe badge",
-            elemsmatch: "Potrivire setări Personalizator"
+            elemsmatch: "Potrivire setări Personalizator",
+            ssdisplay: "Previzualizare captură de ecran"
         }
     },
     themeswitch: {

@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhook typer",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Ved å aktivere dette alternativet og oppgi en gyldig Discord Webhook-lenke, samtykker du i å forstå at <u>all prestasjons- og spillinformasjon for den nåværende Steam-brukeren</u> vil bli postet til den angitte Discord-serveren via den oppgitte Webhook-lenken.<br><br>Hvis du ikke ønsker at Steam Achievement Notifier skal poste denne informasjonen på dine vegne, vennligst deaktiver dette alternativet.`,
-                webhooklaststatus: "Siste status"
+                webhooklaststatus: "Siste status",
+                webhookspoilers: `Legg til spoiler-merke`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importer tilpasninger via en brukerskapt <span class="hl">temafil</span>`,
         exporttheme: `Eksporter det aktuelt valgte <span class="hl">temaet</span> for deling<br><br><span class="ttdesc">Før du prøver å eksportere, sørg for at ønsket <span class="hl">tema</span> er valgt (via <span class="hl">Tema velg</span> menyen). Sørg også for at tilpasninger er lagret i det valgte <span class="hl">temaet</span> (via <span class="hl">Lagre tema</span> menyen)<br><br><u>Eventuelle tilpasninger som ikke er lagret i gjeldende <span class="hl">tema</span> vil ikke bli eksportert!</u></span>`,
         webhooks: "Bruk en Webhook URL for å poste til en Discord-server hver gang en prestasjon låses opp",
-        webhooktypesmain: `Veksle om å poste prestasjonsinformasjon til en Discord-server når en hovedprestasjon er låst opp`,
-        webhooktypesrare: "Veksle om å poste prestasjonsinformasjon til en Discord-server når en sjelden prestasjon er låst opp",
-        webhooktypesplat: "Veksle om å poste prestasjonsinformasjon til en Discord-server når en 100% prestasjon er låst opp",
+        webhookmain: `Veksle om å poste prestasjonsinformasjon til en Discord-server når en hovedprestasjon er låst opp`,
+        webhookrare: "Veksle om å poste prestasjonsinformasjon til en Discord-server når en sjelden prestasjon er låst opp",
+        webhookplat: "Veksle om å poste prestasjonsinformasjon til en Discord-server når en 100% prestasjon er låst opp",
         webhookurl: `Angi <span class="hl">Webhook URL</span> for den ønskede Discord-serveren<br><br><span class="ttdesc">En <span class="hl">Webhook URL</span> brukes til å poste til en Discord-server/kanal på vegne av en bruker eller applikasjon. For å sette opp en ny Webhook for en Discord-server, må brukeren ha en rolle på den ønskede serveren som tillater opprettelse av Webhooks<br><br><u>En Webhook URL er nødvendig når du bruker dette alternativet</u><br><br>Se Discsd’s offisielle dokumentasjon for mer informasjon</span>`,
+        webhookspoilers: `Legg til et spoiler-merke til "Skjulte" prestasjoner når de legges ut på Discord`,
         unlockmsg: "Angi plasseringen av låse opp-meldingen/tilpasset tekst innenfor $type",
         title: "Angi plasseringen av prestasjonstittelen innenfor $type",
         desc: "Angi plasseringen av prestasjonsbeskrivelsen innenfor $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Frigjør det nåværende sporet spillet ved å bruke den angitte hurtigtasten",
         themeselect: "Velg et tidligere lagret Tema",
         statwin: `Vis konfigurerbare prestasjonstatistikker for det nåværende spillet i et eksternt vindu<br><br><span class="ttdesc">Når det brukes sammen med alternativet <span class="hl">Oversett prestasjoner til Steam-språk</span>, kan noen oversettelser ikke være tilgjengelige før den spesifikke prestasjonen er låst opp</span>`,
-        statwinshortcut: "Veksle prestasjonsstatistikk-overlegget ved hjelp av den angitte hurtigtasten"
+        statwinshortcut: "Veksle prestasjonsstatistikk-overlegget ved hjelp av den angitte hurtigtasten",
+        ssdisplay: "Vis forhåndsvisning av skjermbildet i varslingen"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Sjeldenhet: < $rarity%",
             sspercentbadgeimggold: "Sjeldenhet: < $rarity%",
             resetpbimgs: "Tilbakestill badge-ikoner",
-            elemsmatch: "Match tilpasserinnstillinger"
+            elemsmatch: "Match tilpasserinnstillinger",
+            ssdisplay: "Skjermbilde Forhåndsvisning"
         }
     },
     themeswitch: {

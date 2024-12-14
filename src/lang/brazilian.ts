@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Tipos de Webhook",
                 webhookurl: `URL do Webhook`,
                 webhookcaution: `Ao habilitar esta opção e fornecer um link de Webhook do Discord válido, você concorda que entende que <u>todas as informações de conquistas e jogos para o usuário atual do Steam</u> serão postadas no servidor Discord especificado através do link de Webhook fornecido.<br><br>Se você não deseja que o Steam Achievement Notifier poste essas informações em seu nome, desative esta opção.`,
-                webhooklaststatus: "Último Status"
+                webhooklaststatus: "Último Status",
+                webhookspoilers: `Adicionar Tag de Spoiler`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importar personalizações via um <span class="hl">arquivo de Tema</span> criado pelo usuário`,
         exporttheme: `Exportar o <span class="hl">Tema</span> atualmente selecionado para compartilhamento<br><br><span class="ttdesc">Antes de tentar exportar, por favor, certifique-se de que o <span class="hl">Tema</span> desejado foi selecionado (via o menu <span class="hl">Selecionar Tema</span>). Certifique-se também de que as personalizações foram salvas no <span class="hl">Tema</span> selecionado (via o menu <span class="hl">Salvar Tema</span>)<br><br><u>Quaisquer personalizações que ainda não foram salvas no <span class="hl">Tema</span> atual não serão exportadas!</u></span>`,
         webhooks: "Use uma URL de Webhook para postar em um servidor Discord sempre que uma conquista for desbloqueada",
-        webhooktypesmain: `Alternar se as informações de conquistas serão enviadas para um servidor Discord ao desbloquear uma conquista principal`,
-        webhooktypesrare: "Alternar se as informações de conquistas serão enviadas para um servidor Discord ao desbloquear uma conquista rara",
-        webhooktypesplat: "Alternar se as informações de conquistas serão enviadas para um servidor Discord ao desbloquear uma conquista de 100%",
+        webhookmain: `Alternar se as informações de conquistas serão enviadas para um servidor Discord ao desbloquear uma conquista principal`,
+        webhookrare: "Alternar se as informações de conquistas serão enviadas para um servidor Discord ao desbloquear uma conquista rara",
+        webhookplat: "Alternar se as informações de conquistas serão enviadas para um servidor Discord ao desbloquear uma conquista de 100%",
         webhookurl: `Defina a <span class="hl">URL do Webhook</span> para o servidor Discord desejado<br><br><span class="ttdesc">Uma <span class="hl">URL do Webhook</span> é usada para postar em um servidor/canal Discord em nome de um usuário ou aplicativo. Para configurar um novo Webhook para um servidor Discord, o usuário deve ter um papel dentro do servidor desejado que permita a criação de Webhooks<br><br><u>Uma URL do Webhook é necessária ao usar esta opção</u><br><br>Consulte a documentação oficial do Discord para mais informações</span>`,
+        webhookspoilers: `Adicionar uma tag de spoiler para conquistas "Ocultas" ao postar no Discord`,
         unlockmsg: "Defina a posição da mensagem de desbloqueio/texto personalizado dentro do $type",
         title: "Defina a posição do título da conquista dentro do $type",
         desc: "Defina a posição da descrição da conquista dentro do $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Liberar o jogo atualmente monitorado usando o atalho de teclado especificado",
         themeselect: "Selecione um Tema salvo anteriormente",
         statwin: `Exibir estatísticas de conquistas configuráveis para o jogo atual em uma janela externa<br><br><span class="ttdesc">Quando usado em conjunto com a opção <span class="hl">Traduzir Conquistas para o Idioma do Steam</span>, algumas traduções podem não estar disponíveis até que a conquista especificada seja desbloqueada</span>`,
-        statwinshortcut: "Alternar a Sobreposição de Estatísticas de Conquistas usando o atalho de teclado especificado"
+        statwinshortcut: "Alternar a Sobreposição de Estatísticas de Conquistas usando o atalho de teclado especificado",
+        ssdisplay: "Exibir uma prévia da captura de tela dentro da notificação"
     },
     update: {
         updateavailable: "Atualização disponível",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Raridade: < $rarity%",
             sspercentbadgeimggold: "Raridade: < $rarity%",
             resetpbimgs: "Redefinir Ícones de Emblema",
-            elemsmatch: "Corresponder às Configurações do Personalizador"
+            elemsmatch: "Corresponder às Configurações do Personalizador",
+            ssdisplay: "Prévia da Captura de Tela"
         }
     },
     themeswitch: {

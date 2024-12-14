@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhookの種類",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `このオプションを有効にし、正しいDiscord Webhookリンクを提供することで、<u>現在のSteamユーザーのすべてのアチーブメントおよびゲーム情報</u>が指定されたDiscordサーバーにWebhookリンクを通じて投稿されることを理解していることに同意します。<br><br>Steam Achievement Notifierがあなたの代わりにこの情報を投稿することを望まない場合は、このオプションを無効にしてください。`,
-                webhooklaststatus: "最後のステータス"
+                webhooklaststatus: "最後のステータス",
+                webhookspoilers: `ネタバレタグを追加`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `ユーザーが作成した<span class="hl">テーマファイル</span>を通じてカスタマイズをインポートします`,
         exporttheme: `現在選択されている<span class="hl">テーマ</span>を共有するためにエクスポートします<br><br><span class="ttdesc">エクスポートを試みる前に、選択した<span class="hl">テーマ</span>が正しく選択されていることを確認してください（<span class="hl">テーマ選択</span>メニューを使用して）。また、カスタマイズが選択した<span class="hl">テーマ</span>に保存されていることを確認してください（<span class="hl">テーマ保存</span>メニューを使用して）<br><br><u>現在の<span class="hl">テーマ</span>にまだ保存されていないカスタマイズはエクスポートされません！</u></span>`,
         webhooks: "アチーブメントが解除されるたびにDiscordサーバーに投稿するためにWebhook URLを使用します",
-        webhooktypesmain: `メインの実績が解除されたときに、Discordサーバーに実績情報を投稿するかどうかを切り替えます`,
-        webhooktypesrare: "レア実績が解除されたときに、Discordサーバーに実績情報を投稿するかどうかを切り替えます",
-        webhooktypesplat: "100%の実績が解除されたときに、Discordサーバーに実績情報を投稿するかどうかを切り替えます",
+        webhookmain: `メインの実績が解除されたときに、Discordサーバーに実績情報を投稿するかどうかを切り替えます`,
+        webhookrare: "レア実績が解除されたときに、Discordサーバーに実績情報を投稿するかどうかを切り替えます",
+        webhookplat: "100%の実績が解除されたときに、Discordサーバーに実績情報を投稿するかどうかを切り替えます",
         webhookurl: `希望するDiscordサーバーのために<span class="hl">Webhook URL</span>を設定してください<br><br><span class="ttdesc">WebHook URLは、ユーザーまたはアプリケーションの代理でDiscordサーバー/チャンネルに投稿するために使用されます。Discordサーバーの新しいWebhookを設定するには、ユーザーがWebhookの作成を許可された役割を持っている必要があります<br><br><u>このオプションを使用するにはWebhook URLが必要です</u><br><br>詳細はDiscordの公式ドキュメントを参照してください</span>`,
+        webhookspoilers: `Discordに投稿する際に「隠し」実績にネタバレタグを追加`,
         unlockmsg: "$type 内の解除メッセージ/カスタムテキストの位置を設定します",
         title: "$type 内のアチーブメントタイトルの位置を設定します",
         desc: "$type 内のアチーブメントの説明の位置を設定します",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "指定されたキーボードショートカットを使用して、現在追跡中のゲームをリリースします",
         themeselect: "以前に保存したテーマを選択",
         statwin: `現在のゲームの実績統計を外部ウィンドウで表示<br><br><span class="ttdesc">「<span class="hl">Steamの言語に実績を翻訳</span>」オプションと併用すると、特定の実績が解除されるまで一部の翻訳が利用できない場合があります</span>`,
-        statwinshortcut: "指定されたキーボードショートカットを使用して実績統計オーバーレイを切り替えます"
+        statwinshortcut: "指定されたキーボードショートカットを使用して実績統計オーバーレイを切り替えます",
+        ssdisplay: "通知内にキャプチャしたスクリーンショットのプレビューを表示"
     },
     update: {
         updateavailable: "アップデートが利用可能です",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "希少性: < $rarity%",
             sspercentbadgeimggold: "希少性: < $rarity%",
             resetpbimgs: "バッジアイコンをリセット",
-            elemsmatch: "カスタマイザー設定を一致させる"
+            elemsmatch: "カスタマイザー設定を一致させる",
+            ssdisplay: "スクリーンショットのプレビュー"
         }
     },
     themeswitch: {

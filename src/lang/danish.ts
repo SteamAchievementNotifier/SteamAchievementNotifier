@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhook-typer",
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Ved at aktivere denne mulighed og angive et gyldigt Discord-webhook-link, accepterer du, at du forstår, at <u>al præstations- og spilinformations for den nuværende Steam-bruger</u> vil blive sendt til den angivne Discord-server via det angivne webhook-link.<br><br>Hvis du ikke ønsker, at Steam Achievement Notifier skal sende disse oplysninger på dine vegne, skal du deaktivere denne mulighed.`,
-                webhooklaststatus: "Sidste status"
+                webhooklaststatus: "Sidste status",
+                webhookspoilers: `Tilføj spoiler-mærke`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importer tilpasninger via en brugeroprettet <span class="hl">temafil</span>`,
         exporttheme: `Eksporter det aktuelt valgte <span class="hl">tema</span> til deling<br><br><span class="ttdesc">Før du forsøger at eksportere, skal du sikre dig, at det ønskede <span class="hl">tema</span> er valgt (via menuen <span class="hl">Vælg Tema</span>). Sørg også for, at tilpasninger er gemt til det valgte <span class="hl">tema</span> (via menuen <span class="hl">Gem Tema</span>)<br><br><u>Enhver tilpasning, der endnu ikke er gemt til det aktuelle <span class="hl">tema</span>, vil ikke blive eksporteret!</u></span>`,
         webhooks: "Brug en webhook-URL til at sende beskeder til en Discord-server, hver gang en præstation låses op",
-        webhooktypesmain: `Skift, om oplysninger om præstationer skal sendes til en Discord-server, når en hovedpræstation låses op`,
-        webhooktypesrare: "Skift, om oplysninger om præstationer skal sendes til en Discord-server, når en sjælden præstation låses op",
-        webhooktypesplat: "Skift, om oplysninger om præstationer skal sendes til en Discord-server, når en 100% præstation låses op",
+        webhookmain: `Skift, om oplysninger om præstationer skal sendes til en Discord-server, når en hovedpræstation låses op`,
+        webhookrare: "Skift, om oplysninger om præstationer skal sendes til en Discord-server, når en sjælden præstation låses op",
+        webhookplat: "Skift, om oplysninger om præstationer skal sendes til en Discord-server, når en 100% præstation låses op",
         webhookurl: `Indstil <span class="hl">webhook-URL'en</span> for den ønskede Discord-server<br><br><span class="ttdesc">En <span class="hl">webhook-URL</span> bruges til at sende beskeder til en Discord-server/kanal på vegne af en bruger eller applikation. For at opsætte en ny webhook til en Discord-server, skal brugeren have en rolle på den ønskede server, der tillader oprettelse af webhooks<br><br><u>En webhook-URL er påkrævet, når du bruger denne mulighed</u><br><br>Se Discords officielle dokumentation for flere oplysninger</span>`,
+        webhookspoilers: `Tilføj et spoiler-mærke til "Skjulte" præstationer, når de bliver delt på Discord`,
         unlockmsg: "Indstil positionen for oplåsningsbeskeden/tilpasset tekst inden i $type",
         title: "Indstil positionen for præstationsnavnet inden i $type",
         desc: "Indstil positionen for præstationsbeskrivelsen inden i $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Frigiv det aktuelt overvågede spil ved hjælp af den angivne tastaturgenvej",
         themeselect: "Vælg et tidligere gemt Tema",
         statwin: `Vis konfigurerbare præstationsstatistikker for det aktuelle spil i et eksternt vindue<br><br><span class="ttdesc">Når det bruges sammen med indstillingen <span class="hl">Oversæt Præstationer til Steam-sprog</span>, kan nogle oversættelser være utilgængelige, indtil den specifikke præstation er låst op</span>`,
-        statwinshortcut: "Skift Achievement Stats Overlay ved hjælp af den angivne genvejstast"
+        statwinshortcut: "Skift Achievement Stats Overlay ved hjælp af den angivne genvejstast",
+        ssdisplay: "Vis en forhåndsvisning af det optagede skærmbillede i meddelelsen"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Sjældenhed: < $rarity%",
             sspercentbadgeimggold: "Sjældenhed: < $rarity%",
             resetpbimgs: "Nulstil badge-ikoner",
-            elemsmatch: "Matcher tilpasserens indstillinger"
+            elemsmatch: "Matcher tilpasserens indstillinger",
+            ssdisplay: "Skærmbillede Forhåndsvisning"
         }
     },
     themeswitch: {

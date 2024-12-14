@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhook-tyypit",
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Ottamalla tämän asetuksen käyttöön ja antamalla kelvollisen Discord-webhook-linkin, hyväksyt, että ymmärrät <u>kaiken nykyisen Steam-käyttäjän saavutuksiin ja peleihin liittyvän tiedon</u> julkaistavan määritettyyn Discord-palvelimeen annetun webhook-linkin kautta.<br><br>Jos et halua, että Steam Achievement Notifier julkaisee näitä tietoja puolestasi, poista tämä asetus käytöstä.`,
-                webhooklaststatus: "Viimeinen Tila"
+                webhooklaststatus: "Viimeinen Tila",
+                webhookspoilers: `Lisää spoiler-tunniste`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Tuo mukautuksia käyttäjän luoman <span class="hl">teematiedoston</span> kautta`,
         exporttheme: `Vie tällä hetkellä valittu <span class="hl">teema</span> jakamista varten<br><br><span class="ttdesc">Ennen vientiä varmista, että haluttu <span class="hl">teema</span> on valittu (valikon <span class="hl">Teeman valinta</span> kautta). Varmista myös, että mukautukset on tallennettu valittuun <span class="hl">teemaan</span> (valikon <span class="hl">Tallenna teema</span> kautta)<br><br><u>Mukautukset, joita ei ole vielä tallennettu nykyiseen <span class="hl">teemaan</span>, eivät tule mukaan vientiin!</u></span>`,
         webhooks: "Käytä Webhook-URL:ia julkaistaksesi viestin Discord-palvelimella, kun saavutus on avattu",
-        webhooktypesmain: `Vaihtaa, lähetetäänkö saavutustiedot Discord-palvelimelle, kun pääsaavutus avataan`,
-        webhooktypesrare: "Vaihtaa, lähetetäänkö saavutustiedot Discord-palvelimelle, kun harvinainen saavutus avataan",
-        webhooktypesplat: "Vaihtaa, lähetetäänkö saavutustiedot Discord-palvelimelle, kun 100% saavutus avataan",
+        webhookmain: `Vaihtaa, lähetetäänkö saavutustiedot Discord-palvelimelle, kun pääsaavutus avataan`,
+        webhookrare: "Vaihtaa, lähetetäänkö saavutustiedot Discord-palvelimelle, kun harvinainen saavutus avataan",
+        webhookplat: "Vaihtaa, lähetetäänkö saavutustiedot Discord-palvelimelle, kun 100% saavutus avataan",
         webhookurl: `Aseta <span class="hl">Webhook-URL</span> halutulle Discord-palvelimelle<br><br><span class="ttdesc"><span class="hl">Webhook-URL</span> käytetään julkaisemaan viesti Discord-palvelimelle/kanavalle käyttäjän tai sovelluksen puolesta. Jos haluat asettaa uuden Webhookin Discord-palvelimelle, käyttäjällä on oltava rooli palvelimella, joka sallii Webhookien luomisen<br><br><u>Webhook-URL vaaditaan tämän asetuksen käyttämiseen</u><br><br>Katso lisätietoja Discordin virallisesta dokumentaatiosta</span>`,
+        webhookspoilers: `Lisää spoiler-tunniste "Piilotetuille" saavutuksille, kun ne julkaistaan Discordissa`,
         unlockmsg: "Aseta avausviestin/mukautetun tekstin sijainti $type:ssa",
         title: "Aseta saavutuksen otsikon sijainti $type:ssa",
         desc: "Aseta saavutuksen kuvauksen sijainti $type:ssa",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Vapauta tällä hetkellä seurattava peli määritetyllä pikanäppäimellä",
         themeselect: "Valitse aiemmin tallennettu Teema",
         statwin: `Näytä mukautettavat saavutustilastot nykyiselle pelille ulkoisessa ikkunassa<br><br><span class="ttdesc">Kun käytetään yhdessä <span class="hl">Käännä saavutukset Steamin kielelle</span> -vaihtoehdon kanssa, jotkin käännökset saattavat olla saatavilla vasta, kun kyseinen saavutus on avattu</span>`,
-        statwinshortcut: "Vaihda Achievement Stats Overlay käyttämällä määritettyä pikanäppäintä"
+        statwinshortcut: "Vaihda Saavutustilastojen ikkuna käyttämällä määritettyä pikanäppäintä",
+        ssdisplay: "Näytä otetun ruutukaappauksen esikatselu ilmoituksessa"
     },
     update: {
         updateavailable: "Päivitys saatavilla",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Harvinaisuus: < $rarity%",
             sspercentbadgeimggold: "Harvinaisuus: < $rarity%",
             resetpbimgs: "Palauta merkkikuvakkeet",
-            elemsmatch: "Vastaa mukauttajien asetuksia"
+            elemsmatch: "Vastaa mukauttajien asetuksia",
+            ssdisplay: "Ruutukaappauksen esikatselu"
         }
     },
     themeswitch: {

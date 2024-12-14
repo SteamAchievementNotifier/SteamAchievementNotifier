@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhook 類型",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `啟用此選項並提供有效的 Discord Webhook 連結，即表示您同意您了解 <u>當前 Steam 用戶的所有成就和遊戲信息</u> 將通過提供的 Webhook 連結發佈到指定的 Discord 伺服器。<br><br>如果您不希望 Steam Achievement Notifier 代表您發佈這些信息，請禁用此選項。`,
-                webhooklaststatus: "最後狀態"
+                webhooklaststatus: "最後狀態",
+                webhookspoilers: `添加劇透標籤`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `透過使用者建立的 <span class="hl">主題檔案</span> 匯入自訂設置`,
         exporttheme: `匯出當前選取的 <span class="hl">主題</span> 以供分享<br><br><span class="ttdesc">在嘗試匯出之前，請確保已選取所需的 <span class="hl">主題</span>（透過 <span class="hl">主題選擇</span> 選單）。同時確保已將自訂設置保存到選取的 <span class="hl">主題</span>（透過 <span class="hl">儲存主題</span> 選單）<br><br><u>未保存到當前 <span class="hl">主題</span> 的任何自訂設置將不會匯出！</u></span>`,
         webhooks: "使用 Webhook URL 在每次解鎖成就時發布到 Discord 伺服器",
+        webhookmain: `切換是否在 Discord 伺服器上發佈主要成就解鎖資訊`,
+        webhookrare: "切換是否在 Discord 伺服器上發佈稀有成就解鎖資訊",
+        webhookplat: "切換是否在 Discord 伺服器上發佈 100% 成就解鎖資訊",
         webhookurl: `設置所需 Discord 伺服器的 <span class="hl">Webhook URL</span><br><br><span class="ttdesc">Webhook URL 用於代表用戶或應用程序在 Discord 伺服器/頻道上發布。要為 Discord 伺服器設置新的 Webhook，用戶必須在所需伺服器上擁有允許創建 Webhook 的角色<br><br><u>使用此選項時需要 Webhook URL</u><br><br>詳情請參閱 Discord 的官方文檔</span>`,
-        webhooktypesmain: `切換是否在 Discord 伺服器上發佈主要成就解鎖資訊`,
-        webhooktypesrare: "切換是否在 Discord 伺服器上發佈稀有成就解鎖資訊",
-        webhooktypesplat: "切換是否在 Discord 伺服器上發佈 100% 成就解鎖資訊",
+        webhookspoilers: `在發布到Discord時，為「隱藏」成就添加劇透標籤`,
         unlockmsg: "設置 $type 內解鎖消息/自定義文本的位置",
         title: "設置 $type 內成就標題的位置",
         desc: "設置 $type 內成就描述的位置",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "使用指定的鍵盤快捷鍵釋放當前跟蹤的遊戲",
         themeselect: "選擇之前保存的主題",
         statwin: `在外部窗口中顯示當前遊戲的可配置成就統計<br><br><span class="ttdesc">當與“<span class="hl">將成就翻譯為 Steam 語言</span>”選項一起使用時，某些翻譯可能在解鎖特定成就之前無法使用</span>`,
-        statwinshortcut: "使用指定的快捷鍵切換成就統計疊加層"
+        statwinshortcut: "使用指定的快捷鍵切換成就統計疊加層",
+        ssdisplay: "在通知中顯示截取的螢幕截圖預覽"
     },
     update: {
         updateavailable: "有可用更新",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "稀有度: < $rarity%",
             sspercentbadgeimggold: "稀有度: < $rarity%",
             resetpbimgs: "重置徽章圖示",
-            elemsmatch: "匹配自定義器設置"
+            elemsmatch: "匹配自定義器設置",
+            ssdisplay: "螢幕截圖預覽"
         }
     },
     themeswitch: {

@@ -125,7 +125,8 @@ export const translations = {
                 webhookurl: `Webhook-URL`,
                 webhooktypes: "Webhook-Typen",
                 webhookcaution: `Indem Sie diese Option aktivieren und einen gültigen Discord-Webhook-Link angeben, erklären Sie sich damit einverstanden, dass Sie verstehen, dass <u>alle Erfolgs- und Spieledaten des aktuellen Steam-Benutzers</u> über den angegebenen Discord-Server-Link gepostet werden.<br><br>Wenn Sie nicht möchten, dass der Steam Achievement Notifier diese Informationen in Ihrem Namen veröffentlicht, deaktivieren Sie bitte diese Option.`,
-                webhooklaststatus: "Letzter Status"
+                webhooklaststatus: "Letzter Status",
+                webhookspoilers: `Spoiler-Tag hinzufügen`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importieren Sie Anpassungen über eine vom Benutzer erstellte <span class="hl">Themendatei</span>`,
         exporttheme: `Exportieren Sie das aktuell ausgewählte <span class="hl">Thema</span> zum Teilen<br><br><span class="ttdesc">Bevor Sie exportieren, stellen Sie bitte sicher, dass das gewünschte <span class="hl">Thema</span> ausgewählt ist (über das Menü <span class="hl">Thema auswählen</span>). Stellen Sie auch sicher, dass Anpassungen in das ausgewählte <span class="hl">Thema</span> gespeichert wurden (über das Menü <span class="hl">Thema speichern</span>)<br><br><u>Anpassungen, die noch nicht im aktuellen <span class="hl">Thema</span> gespeichert wurden, werden nicht exportiert!</u></span>`,
         webhooks: "Verwenden Sie eine Webhook-URL, um in einem Discord-Server eine Nachricht zu posten, wenn ein Erfolg freigeschaltet wird",
-        webhooktypesmain: `Umschalten, ob Achievements-Informationen an einen Discord-Server gesendet werden, wenn ein Hauptachievement freigeschaltet wird`,
-        webhooktypesrare: "Umschalten, ob Achievements-Informationen an einen Discord-Server gesendet werden, wenn ein seltenes Achievement freigeschaltet wird",
-        webhooktypesplat: "Umschalten, ob Achievements-Informationen an einen Discord-Server gesendet werden, wenn ein 100%-Achievement freigeschaltet wird",
+        webhookmain: `Umschalten, ob Achievements-Informationen an einen Discord-Server gesendet werden, wenn ein Hauptachievement freigeschaltet wird`,
+        webhookrare: "Umschalten, ob Achievements-Informationen an einen Discord-Server gesendet werden, wenn ein seltenes Achievement freigeschaltet wird",
+        webhookplat: "Umschalten, ob Achievements-Informationen an einen Discord-Server gesendet werden, wenn ein 100%-Achievement freigeschaltet wird",
         webhookurl: `Stellen Sie die <span class="hl">Webhook-URL</span> für den gewünschten Discord-Server ein<br><br><span class="ttdesc">Eine <span class="hl">Webhook-URL</span> wird verwendet, um im Namen eines Benutzers oder einer Anwendung auf einem Discord-Server/Kanal zu posten. Um einen neuen Webhook für einen Discord-Server einzurichten, muss der Benutzer eine Rolle im gewünschten Server haben, die das Erstellen von Webhooks erlaubt<br><br><u>Eine Webhook-URL ist erforderlich, wenn Sie diese Option verwenden</u><br><br>Weitere Informationen finden Sie in der offiziellen Discord-Dokumentation</span>`,
+        webhookspoilers: `Füge einen Spoiler-Tag zu "Versteckten" Erfolgen hinzu, wenn sie auf Discord gepostet werden`,
         unlockmsg: "Stellen Sie die Position der Freischalt-Nachricht/des benutzerdefinierten Textes im $type ein",
         title: "Stellen Sie die Position des Erfolgstitels im $type ein",
         desc: "Stellen Sie die Position der Erfolgsbeschreibung im $type ein",
@@ -548,6 +550,7 @@ export const translations = {
         themeselect: "Wählen Sie ein zuvor gespeichertes Thema",
         statwin: `Konfigurierbare Erfolgsstatistiken für das aktuelle Spiel in einem externen Fenster anzeigen<br><br><span class="ttdesc">Bei Verwendung in Kombination mit der Option <span class="hl">Erfolge in die Steam-Sprache übersetzen</span> können einige Übersetzungen erst verfügbar sein, wenn der entsprechende Erfolg freigeschaltet wurde</span>`,
         statwinshortcut: "Die Erfolgsstatistik-Überlagerung mit der angegebenen Tastenkombination umschalten",
+        ssdisplay: "Zeige eine Vorschau des aufgenommenen Screenshots in der Benachrichtigung an"
     },
     update: {
         updateavailable: "Update verfügbar",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Seltenheit: < $rarity%",
             sspercentbadgeimggold: "Seltenheit: < $rarity%",
             resetpbimgs: "Badge-Symbole zurücksetzen",
-            elemsmatch: "Customiser-Einstellungen übereinstimmen"
+            elemsmatch: "Customiser-Einstellungen übereinstimmen",
+            ssdisplay: "Screenshot-Vorschau"
         }
     },
     themeswitch: {

@@ -124,7 +124,8 @@ export const translations = {
                 webhooktypes: "Webhooktypes",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Door deze optie in te schakelen en een geldige Discord-webhook-link op te geven, ga je ermee akkoord dat je begrijpt dat <u>alle prestatie- en spelinformatie voor de huidige Steam-gebruiker</u> zal worden geplaatst op de opgegeven Discord-server via de verstrekte webhook-link.<br><br>Als je niet wilt dat Steam Achievement Notifier deze informatie namens jou plaatst, schakel dan deze optie uit.`,
-                webhooklaststatus: "Laatste Status"
+                webhooklaststatus: "Laatste Status",
+                webhookspoilers: `Spoilerlabel toevoegen`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importeer aanpassingen via een door de gebruiker aangemaakt <span class="hl">themabestand</span>`,
         exporttheme: `Exporteer het momenteel geselecteerde <span class="hl">thema</span> voor delen<br><br><span class="ttdesc">Controleer voor het exporteren of het gewenste <span class="hl">thema</span> is geselecteerd (via het menu <span class="hl">Thema selecteren</span>). Zorg er ook voor dat aanpassingen zijn opgeslagen in het geselecteerde <span class="hl">thema</span> (via het menu <span class="hl">Thema opslaan</span>)<br><br><u>Eventuele aanpassingen die nog niet zijn opgeslagen in het huidige <span class="hl">thema</span> worden niet geëxporteerd!</u></span>`,
         webhooks: "Gebruik een webhook-URL om een bericht te plaatsen in een Discord-server wanneer een prestatie is ontgrendeld",
-        webhooktypesmain: `Schakel in of informatie over prestaties naar een Discord-server moet worden verzonden wanneer een hoofdprestatie wordt ontgrendeld`,
-        webhooktypesrare: "Schakel in of informatie over prestaties naar een Discord-server moet worden verzonden wanneer een zeldzame prestatie wordt ontgrendeld",
-        webhooktypesplat: "Schakel in of informatie over prestaties naar een Discord-server moet worden verzonden wanneer een 100%-prestatie wordt ontgrendeld",
+        webhookmain: `Schakel in of informatie over prestaties naar een Discord-server moet worden verzonden wanneer een hoofdprestatie wordt ontgrendeld`,
+        webhookrare: "Schakel in of informatie over prestaties naar een Discord-server moet worden verzonden wanneer een zeldzame prestatie wordt ontgrendeld",
+        webhookplat: "Schakel in of informatie over prestaties naar een Discord-server moet worden verzonden wanneer een 100%-prestatie wordt ontgrendeld",
         webhookurl: `Stel de <span class="hl">webhook-URL</span> in voor de gewenste Discord-server<br><br><span class="ttdesc">Een <span class="hl">webhook-URL</span> wordt gebruikt om namens een gebruiker of applicatie te plaatsen in een Discord-server/kanaal. Om een nieuwe webhook in te stellen voor een Discord-server, moet de gebruiker een rol hebben binnen de gewenste server die het maken van webhooks toestaat<br><br><u>Een webhook-URL is vereist bij gebruik van deze optie</u><br><br>Raadpleeg de officiële documentatie van Discord voor meer informatie</span>`,
+        webhookspoilers: `Voeg een spoilerlabel toe aan "Verborgen" prestaties bij het posten naar Discord`,
         unlockmsg: "Stel de positie in van het ontgrendelbericht/aangepaste tekst binnen de $type",
         title: "Stel de positie in van de prestatie titel binnen de $type",
         desc: "Stel de positie in van de prestatie beschrijving binnen de $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Geef het momenteel gevolgde spel vrij met de opgegeven sneltoets",
         themeselect: "Selecteer een eerder opgeslagen Thema",
         statwin: `Toon configureerbare prestatiestatistieken voor het huidige spel in een extern venster<br><br><span class="ttdesc">Wanneer gebruikt in combinatie met de optie <span class="hl">Vertaal Prestaties naar de Steam-taal</span>, kunnen sommige vertalingen pas beschikbaar zijn zodra de specifieke prestatie is ontgrendeld</span>`,
-        statwinshortcut: "Schakel de Achievement Stats Overlay in met de opgegeven sneltoets"
+        statwinshortcut: "Schakel de Achievement Stats Overlay in met de opgegeven sneltoets",
+        ssdisplay: "Toon een voorbeeld van de vastgelegde schermafbeelding in de melding"
     },
     update: {
         updateavailable: "Update beschikbaar",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Zeldzaamheid: < $rarity%",
             sspercentbadgeimggold: "Zeldzaamheid: < $rarity%",
             resetpbimgs: "Badge-pictogrammen Terugzetten",
-            elemsmatch: "Customiser-instellingen Overeenstemmen"
+            elemsmatch: "Customiser-instellingen Overeenstemmen",
+            ssdisplay: "Schermafbeelding Voorbeeld"
         }
     },
     themeswitch: {

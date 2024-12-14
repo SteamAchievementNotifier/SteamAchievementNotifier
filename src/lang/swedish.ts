@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhook-typer",
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Genom att aktivera det här alternativet och tillhandahålla en giltig Discord Webhook-länk godkänner du att du förstår att <u>all prestation och spelinformation för den aktuella Steam-användaren</u> kommer att publiceras på den angivna Discord-servern via den angivna Webhook-länken.<br><br>Om du inte vill att Steam Achievement Notifier ska posta den här informationen å dina vägnar, inaktivera det här alternativet.`,
-                webhooklaststatus: "Senaste status"
+                webhooklaststatus: "Senaste status",
+                webhookspoilers: `Lägg till spoiler-tag`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importera anpassningar via en användarskapad <span class="hl">temafil</span>`,
         exporttheme: `Exportera det aktuellt valda <span class="hl">temat</span> för delning<br><br><span class="ttdesc">Innan du försöker exportera, se till att det önskade <span class="hl">temat</span> är valt (via menyn <span class="hl">Välj tema</span>). Kontrollera också att anpassningar har sparats i det valda <span class="hl">temat</span> (via menyn <span class="hl">Spara tema</span>)<br><br><u>Alla anpassningar som inte har sparats i det aktuella <span class="hl">temat</span> kommer inte att exporteras!</u></span>`,
         webhooks: "Använd en Webhook-URL för att posta på en Discord-server varje gång en prestation låses upp",
-        webhooktypesmain: `Växla om achievement-information ska publiceras på en Discord-server när ett huvud-beslut uppnås`,
-        webhooktypesrare: "Växla om achievement-information ska publiceras på en Discord-server när ett sällsynt achievement uppnås",
-        webhooktypesplat: "Växla om achievement-information ska publiceras på en Discord-server när ett 100%-achievement uppnås",
+        webhookmain: `Växla om achievement-information ska publiceras på en Discord-server när ett huvud-beslut uppnås`,
+        webhookrare: "Växla om achievement-information ska publiceras på en Discord-server när ett sällsynt achievement uppnås",
+        webhookplat: "Växla om achievement-information ska publiceras på en Discord-server när ett 100%-achievement uppnås",
         webhookurl: `Ställ in <span class="hl">Webhook-URL</span> för den önskade Discord-servern<br><br><span class="ttdesc">En <span class="hl">Webhook-URL</span> används för att posta på en Discord-server/kanal på uppdrag av en användare eller applikation. För att konfigurera en ny Webhook för en Discord-server måste användaren ha en roll på den önskade servern som tillåter skapande av Webhooks<br><br><u>En Webhook-URL är nödvändig när du använder det här alternativet</u><br><br>Se Dischords officiella dokumentation för mer information</span>`,
+        webhookspoilers: `Lägg till en spoiler-tag till "Dolda" prestationer när de postas på Discord`,
         unlockmsg: "Ställ in positionen för upplåsningmeddelandet/anpassad text inom $type",
         title: "Ställ in positionen för prestationstiteln inom $type",
         desc: "Ställ in positionen för prestationsbeskrivningen inom $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Frigör det nuvarande spårade spelet med den angivna tangentbordsgenvägen",
         themeselect: "Välj ett tidigare sparat tema",
         statwin: `Visa konfigurerbara prestationstatistik för det aktuella spelet i ett externt fönster<br><br><span class="ttdesc">När den används tillsammans med alternativet <span class="hl">Översätt prestationer till Steam-språk</span> kan vissa översättningar vara otillgängliga tills den specifika prestationen är upplåst</span>`,
-        statwinshortcut: "Växla prestationstatistiköverlägget med den angivna tangentbordsgenvägen"
+        statwinshortcut: "Växla prestationstatistiköverlägget med den angivna tangentbordsgenvägen",
+        ssdisplay: "Visa en förhandsvisning av den fångade skärmbilden i meddelandet"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Sällsynthet: < $rarity%",
             sspercentbadgeimggold: "Sällsynthet: < $rarity%",
             resetpbimgs: "Återställ badge-ikoner",
-            elemsmatch: "Matcha anpassarinställningar"
+            elemsmatch: "Matcha anpassarinställningar",
+            ssdisplay: "Skärmbildsförhandsvisning"
         }
     },
     themeswitch: {

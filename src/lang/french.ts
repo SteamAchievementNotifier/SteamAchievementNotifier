@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Types de Webhook",
                 webhookurl: `URL du Webhook`,
                 webhookcaution: `En activant cette option et en fournissant un lien Webhook Discord valide, vous acceptez que vous comprenez que <u>toutes les informations sur les succès et les jeux pour l'utilisateur Steam actuel</u> seront publiées sur le serveur Discord spécifié via le lien Webhook fourni.<br><br>Si vous ne souhaitez pas que Steam Achievement Notifier publie ces informations en votre nom, veuillez désactiver cette option.`,
-                webhooklaststatus: "Dernier statut"
+                webhooklaststatus: "Dernier statut",
+                webhookspoilers: `Ajouter un tag spoiler`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importez des personnalisations via un <span class="hl">fichier de thème</span> créé par l'utilisateur`,
         exporttheme: `Exportez le <span class="hl">thème</span> actuellement sélectionné pour le partage<br><br><span class="ttdesc">Avant de tenter l'exportation, veuillez vous assurer que le <span class="hl">thème</span> souhaité est sélectionné (via le menu <span class="hl">Sélection du thème</span>). Assurez-vous également que les personnalisations ont été enregistrées dans le <span class="hl">thème</span> sélectionné (via le menu <span class="hl">Enregistrer le thème</span>)<br><br><u>Toutes les personnalisations qui ne sont pas encore enregistrées dans le <span class="hl">thème</span> actuel ne seront pas exportées !</u></span>`,
         webhooks: "Utilisez une URL de Webhook pour publier sur un serveur Discord chaque fois qu'un succès est débloqué",
-        webhooktypesmain: `Basculer pour savoir si les informations sur les succès doivent être envoyées à un serveur Discord lorsqu'un succès principal est débloqué`,
-        webhooktypesrare: "Basculer pour savoir si les informations sur les succès doivent être envoyées à un serveur Discord lorsqu'un succès rare est débloqué",
-        webhooktypesplat: "Basculer pour savoir si les informations sur les succès doivent être envoyées à un serveur Discord lorsqu'un succès à 100% est débloqué",
+        webhookmain: `Basculer pour savoir si les informations sur les succès doivent être envoyées à un serveur Discord lorsqu'un succès principal est débloqué`,
+        webhookrare: "Basculer pour savoir si les informations sur les succès doivent être envoyées à un serveur Discord lorsqu'un succès rare est débloqué",
+        webhookplat: "Basculer pour savoir si les informations sur les succès doivent être envoyées à un serveur Discord lorsqu'un succès à 100% est débloqué",
         webhookurl: `Définissez la <span class="hl">URL du Webhook</span> pour le serveur Discord souhaité<br><br><span class="ttdesc">Une <span class="hl">URL de Webhook</span> est utilisée pour publier sur un serveur/kanal Discord au nom d'un utilisateur ou d'une application. Pour configurer un nouveau Webhook pour un serveur Discord, l'utilisateur doit avoir un rôle dans le serveur souhaité qui autorise la création de Webhooks<br><br><u>Une URL de Webhook est requise lorsque vous utilisez cette option</u><br><br>Consultez la documentation officielle de Discord pour plus d'informations</span>`,
+        webhookspoilers: `Ajouter un tag spoiler aux réalisations "Cachées" lors de leur publication sur Discord`,
         unlockmsg: "Définissez la position du message de déverrouillage/texte personnalisé dans le $type",
         title: "Définissez la position du titre du succès dans le $type",
         desc: "Définissez la position de la description du succès dans le $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Libérer le jeu actuellement suivi à l'aide du raccourci clavier spécifié",
         themeselect: "Sélectionnez un Thème enregistré précédemment",
         statwin: `Affichez des statistiques de succès configurables pour le jeu en cours dans une fenêtre externe<br><br><span class="ttdesc">Lorsqu'elle est utilisée avec l'option <span class="hl">Traduire les succès dans la langue de Steam</span>, certaines traductions peuvent ne pas être disponibles tant que le succès spécifié n'est pas débloqué</span>`,
-        statwinshortcut: "Basculer la superposition des statistiques de succès à l'aide du raccourci clavier spécifié"
+        statwinshortcut: "Basculer la superposition des statistiques de succès à l'aide du raccourci clavier spécifié",
+        ssdisplay: "Afficher un aperçu de la capture d'écran dans la notification"
     },
     update: {
         updateavailable: "Mise à jour disponible",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Rareté : < $rarity%",
             sspercentbadgeimggold: "Rareté : < $rarity%",
             resetpbimgs: "Réinitialiser les icônes de badge",
-            elemsmatch: "Correspondre aux paramètres du personnalisateur"     
+            elemsmatch: "Correspondre aux paramètres du personnalisateur",
+            ssdisplay: "Aperçu de la capture d'écran"     
         }
     },
     themeswitch: {

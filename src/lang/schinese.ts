@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhook 类型",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `启用此选项并提供有效的 Discord Webhook 链接即表示您同意，您了解 <u>当前 Steam 用户的所有成就和游戏信息</u> 将通过提供的 Webhook 链接发布到指定的 Discord 服务器。<br><br>如果您不希望 Steam Achievement Notifier 代表您发布这些信息，请禁用此选项。`,
-                webhooklaststatus: "最后状态"
+                webhooklaststatus: "最后状态",
+                webhookspoilers: `添加剧透标签`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `通过用户创建的<span class="hl">主题文件</span>导入自定义设置`,
         exporttheme: `导出当前选择的<span class="hl">主题</span>以供分享<br><br><span class="ttdesc">在尝试导出之前，请确保选择了所需的<span class="hl">主题</span>（通过<span class="hl">主题选择</span>菜单）。还请确保将自定义保存到所选<span class="hl">主题</span>中（通过<span class="hl">保存主题</span>菜单）<br><br><u>尚未保存到当前<span class="hl">主题</span>的任何自定义设置将不会被导出！</u></span>`,
         webhooks: "使用 Webhook URL 每当解锁成就时在 Discord 服务器上发布",
+        webhookmain: `切换是否在 Discord 服务器发布主成就解锁信息`,
+        webhookrare: "切换是否在 Discord 服务器发布稀有成就解锁信息",
+        webhookplat: "切换是否在 Discord 服务器发布 100% 成就解锁信息",
         webhookurl: `设置所需 Discord 服务器的 <span class="hl">Webhook URL</span><br><br><span class="ttdesc">Webhook URL 用于代表用户或应用程序在 Discord 服务器/频道上发布。要为 Discord 服务器设置新的 Webhook，用户必须在所需服务器上拥有允许创建 Webhook 的角色<br><br><u>使用此选项时需要 Webhook URL</u><br><br>有关更多信息，请参阅 Discord 的官方文档</span>`,
-        webhooktypesmain: `切换是否在 Discord 服务器发布主成就解锁信息`,
-        webhooktypesrare: "切换是否在 Discord 服务器发布稀有成就解锁信息",
-        webhooktypesplat: "切换是否在 Discord 服务器发布 100% 成就解锁信息",
+        webhookspoilers: `在发布到Discord时，为“隐藏”成就添加剧透标签`,
         unlockmsg: "设置 $type 内解锁消息/自定义文本的位置",
         title: "设置 $type 内成就标题的位置",
         desc: "设置 $type 内成就描述的位置",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "使用指定的快捷键释放当前跟踪的游戏",
         themeselect: "选择之前保存的主题",
         statwin: `在外部窗口中显示当前游戏的可配置成就统计<br><br><span class="ttdesc">与“<span class="hl">将成就翻译为 Steam 语言</span>”选项一起使用时，某些翻译可能在解锁特定成就之前不可用</span>`,
-        statwinshortcut: "使用指定的快捷键切换成就统计覆盖层"
+        statwinshortcut: "使用指定的快捷键切换成就统计覆盖层",
+        ssdisplay: "在通知中显示捕获的截图预览"
     },
     update: {
         updateavailable: "有可用更新",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "稀有度: < $rarity%",
             sspercentbadgeimggold: "稀有度: < $rarity%",
             resetpbimgs: "重置徽章图标",
-            elemsmatch: "匹配自定义设置"
+            elemsmatch: "匹配自定义设置",
+            ssdisplay: "截图预览"
         }
     },
     themeswitch: {

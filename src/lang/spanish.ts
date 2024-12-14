@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Tipos de Webhook",
                 webhookurl: `URL del Webhook`,
                 webhookcaution: `Al habilitar esta opción y proporcionar un enlace válido de Webhook de Discord, aceptas que entiendes que <u>toda la información sobre logros y juegos del usuario actual de Steam</u> será publicada en el servidor de Discord especificado a través del enlace de Webhook proporcionado.<br><br>Si no deseas que Steam Achievement Notifier publique esta información en tu nombre, desactiva esta opción.`,
-                webhooklaststatus: "Último Estado"
+                webhooklaststatus: "Último Estado",
+                webhookspoilers: `Agregar etiqueta de spoiler`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Importar personalizaciones mediante un archivo de <span class="hl">tema creado por el usuario</span>`,
         exporttheme: `Exportar el <span class="hl">tema</span> seleccionado actualmente para compartir<br><br><span class="ttdesc">Antes de intentar exportar, asegúrese de que el <span class="hl">tema</span> deseado esté seleccionado (a través del menú <span class="hl">Seleccionar Tema</span>). También asegúrese de que las personalizaciones hayan sido guardadas en el <span class="hl">tema</span> seleccionado (a través del menú <span class="hl">Guardar Tema</span>)<br><br><u>Cualquier personalización no guardada en el <span class="hl">tema</span> actual no será exportada!</u></span>`,
         webhooks: "Usa una URL de Webhook para publicar en un servidor de Discord cada vez que se desbloquee un logro",
-        webhooktypesmain: `Alternar si se debe o no publicar información sobre logros en un servidor de Discord cuando se desbloquee un logro principal`,
-        webhooktypesrare: "Alternar si se debe o no publicar información sobre logros en un servidor de Discord cuando se desbloquee un logro raro",
-        webhooktypesplat: "Alternar si se debe o no publicar información sobre logros en un servidor de Discord cuando se desbloquee un logro del 100%",
+        webhookmain: `Alternar si se debe o no publicar información sobre logros en un servidor de Discord cuando se desbloquee un logro principal`,
+        webhookrare: "Alternar si se debe o no publicar información sobre logros en un servidor de Discord cuando se desbloquee un logro raro",
+        webhookplat: "Alternar si se debe o no publicar información sobre logros en un servidor de Discord cuando se desbloquee un logro del 100%",
         webhookurl: `Establece la <span class="hl">URL del Webhook</span> para el servidor de Discord deseado<br><br><span class="ttdesc">Una <span class="hl">URL del Webhook</span> se usa para publicar en un servidor/canal de Discord en nombre de un usuario o aplicación. Para configurar un nuevo Webhook para un servidor de Discord, el usuario debe tener un rol en el servidor deseado que permita la creación de Webhooks<br><br><u>Una URL de Webhook es necesaria al usar esta opción</u><br><br>Consulta la documentación oficial de Discord para obtener más información</span>`,
+        webhookspoilers: `Agregar una etiqueta de spoiler a los logros "Ocultos" cuando se publiquen en Discord`,
         unlockmsg: "Establece la posición del mensaje de desbloqueo/texto personalizado dentro del $type",
         title: "Establece la posición del título del logro dentro del $type",
         desc: "Establece la posición de la descripción del logro dentro del $type",
@@ -547,7 +549,8 @@ export const translations = {
         releaseshortcut: "Liberar el juego actualmente rastreado usando el acceso directo de teclado especificado",
         themeselect: "Selecciona un tema guardado previamente",
         statwin: `Mostrar estadísticas configurables de logros para el juego actual en una ventana externa<br><br><span class="ttdesc">Cuando se usa junto con la opción <span class="hl">Traducir logros al idioma de Steam</span>, algunas traducciones pueden no estar disponibles hasta que se desbloquee el logro específico</span>`,
-        statwinshortcut: "Alternar la superposición de estadísticas de logros usando el acceso directo de teclado especificado"
+        statwinshortcut: "Alternar la superposición de estadísticas de logros usando el acceso directo de teclado especificado",
+        ssdisplay: "Mostrar una vista previa de la captura de pantalla en la notificación"
     },
     update: {
         updateavailable: "Actualización disponible",
@@ -624,7 +627,8 @@ export const translations = {
             percentbadgeimggold: "Rareza: < $rarity%",
             sspercentbadgeimggold: "Rareza: < $rarity%",
             resetpbimgs: "Restablecer iconos de insignias",
-            elemsmatch: "Coincidir con la configuración del personalizador"
+            elemsmatch: "Coincidir con la configuración del personalizador",
+            ssdisplay: "Vista previa de la captura de pantalla"
         }
     },
     themeswitch: {

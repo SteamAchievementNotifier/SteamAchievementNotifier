@@ -8,13 +8,40 @@ const getgameart = (gamename: string,type: "icon" | "library_hero",appid: number
         const exts = ["jpg","png"]
 
         for (const ext of exts) {
-            if (fs.existsSync(`${heroimgpath}.${ext}`)) return `${heroimgpath}.${ext}`
+            const heropath = `${heroimgpath}.${ext}`
+            if (fs.existsSync(heropath)) return heropath
         }
 
         return null
     }
 
-    const gameart = type === "library_hero" && heropath(steam3id) || (type === "icon" && hqicon || path.join(steampath,"appcache","librarycache",`${appid}_${type}.jpg`)).replace(/\\/g,"/")
+    const libcache = path.join(steampath,"appcache","librarycache")
+    const files = [
+        `${appid}_${type}.jpg`,
+        `${type}.jpg`
+    ] as const
+
+    for (const file of files) {
+        const filepaths: string[] = []
+
+        const appiddir = path.join(libcache,`${appid}`)
+        if (fs.existsSync(appiddir) && fs.statSync(appiddir).isDirectory()) {
+            filepaths.push(path.join(appiddir,file))
+
+            const subdirs = fs.readdirSync(appiddir).filter((subdir) => fs.statSync(path.join(appiddir, subdir)).isDirectory())
+
+            for (const subdir of subdirs) {
+                filepaths.push(path.join(appiddir, subdir, `${appid}_${type}.jpg`))
+            }
+        }
+
+        for (const filepath of filepaths) {
+            if (fs.existsSync(filepath)) return filepath.replace(/\\/g,"/")
+        }
+    }
+
+    const defaultheropath = path.join(libcache,`${appid}_${type}.jpg`).replace(/\\/g,"/")
+    const gameart = type === "library_hero" && heropath(steam3id) || type === "icon" && hqicon || defaultheropath
 
     try {
         if (!fs.existsSync(gameart)) throw new Error(`"${gameart}" not found`)

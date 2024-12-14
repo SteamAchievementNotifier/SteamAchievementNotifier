@@ -54,8 +54,34 @@ const notifyhelper = {
             return null
         }
 
-        const imgpath = type === "library_hero" && heropath(steam3id) || (type === "icon" && hqicon || path.join(steampath,"appcache","librarycache",`${appid}_${type}.jpg`)).replace(/\\/g,"/")
-        return new Promise((resolve,reject) => fs.existsSync(imgpath) ? resolve(imgpath) : reject(type === "icon" ? "../img/gameicon.png" : (`../img/gameart/${appid}_${type}.jpg` || "../img/sanimgbg.png")))
+        const libcache = path.join(steampath,"appcache","librarycache")
+        const filepaths: string[] = []
+        const files = [
+            `${appid}_${type}.jpg`,
+            `${type}.jpg`
+        ] as const
+    
+        for (const file of files) {
+            const appiddir = path.join(libcache, `${appid}`)
+            if (fs.existsSync(appiddir) && fs.statSync(appiddir).isDirectory()) {
+                filepaths.push(path.join(appiddir,file))
+    
+                const subdirs = fs.readdirSync(appiddir).filter((subdir) => fs.statSync(path.join(appiddir,subdir)).isDirectory())
+    
+                for (const subdir of subdirs) {
+                    filepaths.push(path.join(appiddir,subdir,`${appid}_${type}.jpg`))
+                }
+            }
+    
+            for (const filepath of filepaths) {
+                if (fs.existsSync(filepath)) return Promise.resolve(filepath.replace(/\\/g, "/"))
+            }
+        }
+
+        const defaultheropath = path.join(libcache,`${appid}_${type}.jpg`)
+        const imgpath = type === "library_hero" && heropath(steam3id) || (type === "icon" && hqicon || defaultheropath).replace(/\\/g,"/")
+
+        return fs.existsSync(imgpath) ? Promise.resolve(imgpath) : Promise.reject(type === "icon" ? "../img/gameicon.png" : (`../img/gameart/${appid}_${type}.jpg` || "../img/sanimgbg.png"))
     },
     getaudiofile: (mode: "file" | "folder",filepath: string) => {
         if (mode === "file") return filepath

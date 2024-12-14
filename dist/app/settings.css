@@ -522,11 +522,11 @@ span#webhookcaution > * {
     vertical-align: -0.1rem;
 }
 
-.wrapper#webhooktypeswrapper .wrapper:has(> input[rare]) > span::before {
+.wrapper#webhooktypeswrapper .wrapper:has(> input[id$="rare"]) > span::before {
     --trophy: url("../../icon/trophy_purple.svg");
 }
 
-.wrapper#webhooktypeswrapper .wrapper:has(> input[plat]) > span::before {
+.wrapper#webhooktypeswrapper .wrapper:has(> input[id$="plat"]) > span::before {
     --trophy: url("../../icon/trophy_plat.svg");
 }
 

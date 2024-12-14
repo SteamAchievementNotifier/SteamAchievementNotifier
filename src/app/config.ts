@@ -244,13 +244,12 @@ export const sanconfig = {
                     "gfwl"
                 ],
                 webhooks: false,
-                webhooktypes: {
-                    main: true,
-                    rare: true,
-                    plat: true
-                },
+                webhookmain: true,
+                webhookrare: true,
+                webhookplat: true,
                 webhookurl: "",
                 webhooklaststatus: "",
+                webhookspoilers: false,
                 // discord: {
                 //     userid: "",
                 //     avatarurl: "",

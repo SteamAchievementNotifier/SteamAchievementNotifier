@@ -79,13 +79,12 @@ declare interface Config {
     logtype: "san" | "rust" | "sanhelperrs",
     ssalldetails: string[],
     webhooks: boolean,
-    webhooktypes: {
-        main: boolean,
-        rare: boolean,
-        plat: boolean
-    },
+    webhookmain: boolean,
+    webhookrare: boolean,
+    webhookplat: boolean,
     webhookurl: string,
     webhooklaststatus: string,
+    webhookspoilers: boolean,
     // discord: {
     //     [key: string]: string,
     //     userid: string,

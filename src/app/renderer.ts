@@ -881,14 +881,15 @@ const unlockstr = async (user: string,gamename: string,type: "main" | "rare" | "
 const embeds = async (notify: Notify) => {
     const { type, gamename, name, desc, icon, percent, hidden } = notify
     const user = await getsteamuser()
+    const nospoilers = hidden && config.get("webhookspoilers")
 
     return {
         color: type === "main" ? 2123412 : (type === "rare" ? 7419530 : 12370112),
         author: {
             name: await unlockstr(user || "???",gamename || "",notify.type)
         },
-        title: `${hidden ? "||" : ""}${type === "plat" && !name ? await language.get("gamecomplete") : name}${hidden ? "||" : ""}${type === "plat" ? "" : ` (${Math.max(parseFloat(percent.toFixed(1)),0.1)}%)`}`,
-        description: `${hidden ? "||" : ""}${type === "plat" ? await language.get("gamecompletedesc") : desc}${hidden ? "||" : ""}`,
+        title: `${nospoilers ? "||" : ""}${type === "plat" && !name ? await language.get("gamecomplete") : name}${nospoilers ? "||" : ""}${type === "plat" ? "" : ` (${Math.max(parseFloat(percent.toFixed(1)),0.1)}%)`}`,
+        description: `${nospoilers ? "||" : ""}${type === "plat" ? await language.get("gamecompletedesc") : desc}${nospoilers ? "||" : ""}`,
         thumbnail: {
             url: `attachment://${path.basename(icon)}`
         },

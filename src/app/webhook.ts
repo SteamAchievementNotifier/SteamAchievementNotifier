@@ -91,22 +91,36 @@ export const webhookwrapper = async (elem: HTMLElement) => {
 
     const typeswrapper = document.querySelector(".wrapper:has(> #webhooktypes)")! as HTMLElement
     const typeslbl = typeswrapper.querySelector("span.lbl#webhooktypes")! as HTMLSpanElement
-    typeslbl.textContent = `${await language.get("webhooktypes",["settings","notifications","content"])}`
+    typeslbl.textContent = await language.get("webhooktypes",["settings","notifications","content"])
 
     typeswrapper.querySelectorAll(`.wrapper#webhooktypeswrapper > .wrapper:has(> input)`).forEach(async wrapper => {
         const span = wrapper.querySelector("span") as HTMLSpanElement
         const input = wrapper.querySelector("input") as HTMLInputElement
-        const type = ["main","rare","plat"].find(type => input.hasAttribute(type)) as "main" | "rare" | "plat"
+        const type = ["main","rare","plat"].find(type => input.id.endsWith(type)) as "main" | "rare" | "plat"
 
         span.textContent = await language.get(type)
 
-        input.checked = config.get(`webhooktypes.${type}`) as boolean
+        input.checked = config.get(`webhook${type}`) as boolean
 
         ;[span,input].forEach(elem => elem.onclick = () => {
-            const value = !config.get(`webhooktypes.${type}`) as boolean
-            config.set(`webhooktypes.${type}`,value)
+            const value = !input.checked
+            config.set(`webhook${type}`,value)
             input.checked = value
         })
+    })
+
+    const spoilers = document.querySelector(`.wrapper:has(> input#webhookspoilers)`)!
+    const spoilersspan = spoilers.querySelector("span") as HTMLSpanElement
+    const spoilersinput = spoilers.querySelector("input") as HTMLInputElement
+
+    spoilersspan.textContent = await language.get("webhookspoilers",["settings","notifications","content"])
+    spoilersinput.checked = config.get("webhookspoilers")
+
+    ;[spoilersspan,spoilersinput].forEach(elem => elem.onclick = event => {
+        const input = (event.target as HTMLSpanElement | HTMLInputElement).parentElement!.querySelector("input")!
+        const value = !input.checked
+        config.set("webhookspoilers",value)
+        input.checked = value
     })
 
     const laststatus = document.getElementById("webhooklaststatus")!

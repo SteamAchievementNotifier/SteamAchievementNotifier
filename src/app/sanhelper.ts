@@ -468,6 +468,7 @@ export const sanhelper: SANHelper = {
             #elemselector input,
             #elemselector button,
             #webhookwrapper input,
+            #webhookwrapper input#webhookspoilers,
             button#statwinshortcut,
             button#releaseshortcut
         `)!.forEach(async elem => {

@@ -125,7 +125,8 @@ export const translations = {
                 webhooktypes: "Webhook Types",
                 webhookurl: `Webhook URL`,
                 webhookcaution: `By enabling this option and providing a valid Discord Webhook link, you agree that you understand that <u>all achievement and game information for the current Steam user</u> will be posted to the specified Discord server via the Webhook link provided.<br><br>If you do not wish for Steam Achievement Notifier to post this information on your behalf, please disable this option.`,
-                webhooklaststatus: "Last Status"
+                webhooklaststatus: "Last Status",
+                webhookspoilers: `Add Spoiler Tag`
             }
         },
         games: {
@@ -500,10 +501,11 @@ export const translations = {
         importtheme: `Import customisations via a user-created <span class="hl">Theme file</span>`,
         exporttheme: `Export the currently selected <span class="hl">Theme</span> for sharing<br><br><span class="ttdesc">Before attempting to export, please ensure the desired <span class="hl">Theme</span> has been selected (via the <span class="hl">Theme Select</span> menu). Please also ensure that customisations have been saved to the selected <span class="hl">Theme</span> (via the <span class="hl">Save Theme</span> menu)<br><br><u>Any customisations not yet saved to the current <span class="hl">Theme</span> will not be exported!</u></span>`,
         webhooks: "Use a Webhook URL to post in a Discord server whenever an achievement is unlocked",
-        webhooktypesmain: `Toggle whether to post achievement information to a Discord server when a Main achievement is unlocked`,
-        webhooktypesrare: "Toggle whether to post achievement information to a Discord server when a Rare achievement is unlocked",
-        webhooktypesplat: "Toggle whether to post achievement information to a Discord server when a 100% achievement is unlocked",
+        webhookmain: `Toggle whether to post achievement information to a Discord server when a Main achievement is unlocked`,
+        webhookrare: "Toggle whether to post achievement information to a Discord server when a Rare achievement is unlocked",
+        webhookplat: "Toggle whether to post achievement information to a Discord server when a 100% achievement is unlocked",
         webhookurl: `Set the <span class="hl">Webhook URL</span> for the desired Discord server<br><br><span class="ttdesc">A <span class="hl">Webhook URL</span> is used to post to a Discord server/channel on behalf of a user or application. In order to set up a new Webhook for a Discord server, the user must have a role within the desired server that allows the creation of Webhooks<br><br><u>A Webhook URL is required when using this option</u><br><br>Refer to Discord's official documentation for more information</span>`,
+        webhookspoilers: `Add a spoiler tag to "Hidden" achievements when posted to Discord`,
         unlockmsg: "Set the position of the unlock message/custom text within the $type",
         title: "Set the position of the achievement title within the $type",
         desc: "Set the position of the achievement description within the $type",

@@ -4,7 +4,7 @@
 
 <h1 align="center">V1.9: Developer Guide</h1>
 
-<h2 align="center">PREREQUISITES</h2>
+<h2 align="center" id="prerequisites">PREREQUISITES</h2>
 
 Make sure the following programs are installed:
 
@@ -20,7 +20,22 @@ Make sure the following programs are installed:
 
 > ℹ Builds tested and verified as working on Windows 10/Ubuntu 22.04
 
-<h2 align="center">BASIC INSTALLATION</h2>
+<details>
+    <summary>
+    <h4>🛑 <code>node-gyp</code> errors on <code>npm i</code></h4>
+    </summary>
+
+> :window: When using the latest LTS versions of NodeJS on Windows, an NPM bug exists where the `registry-js` dependency (*used by the `node-addon-api` package*) will throw an error when reaching the `node-gyp rebuild` step.
+> 
+> To bypass this:
+> 
+> - If you currently have the latest LTS release of NodeJS installed, temporarily uninstall it
+> - Download version `14.16.0` of NodeJS (*[Direct download link](https://nodejs.org/dist/v14.16.0/)*)
+> - Run through the installer with default options
+> - Once ***Step 2*** of the [Basic Installation](#basic-installation) section is complete, reinstall the latest LTS version of NodeJS
+</details>
+
+<h2 align="center" id="basic-installation">BASIC INSTALLATION</h2>
 
 > ℹ Rust is not required for basic installation
 
@@ -56,7 +71,7 @@ npm run linux
 
 > ℹ The output directory for executables is `_release`.
 
-<h2 align="center">PROJECT STRUCTURE</h2>
+<h2 align="center" id="project-structure">PROJECT STRUCTURE</h2>
 
 The project follows a standard TS structure:
 
@@ -78,7 +93,7 @@ Within `src`/`dist`, there are several subfolders to separate core app functiona
 
 - `notify`: Contains `.ts`/`.js` to control `BrowserWindow` instances that are used by notification windows
 
-<h2 align="center">STEAMWORKS OVERVIEW</h2>
+<h2 align="center" id="steamworks-overview">STEAMWORKS OVERVIEW</h2>
 
 In Steam Achievement Notifier (V1.9), there are two projects that provide Steamworks integration via Rust - [steamworks-rs](https://github.com/SteamAchievementNotifier/san_steamworks-rs) and [steamworks.js](https://github.com/SteamAchievementNotifier/san_steamworks.js).
 
@@ -90,7 +105,7 @@ Both of these projects have been customised specifically for use within Steam Ac
 
 > ⚠ Under normal circumstances, if you only want to edit Steam Achievement Notifier itself, you **will not** need to install the Steamworks dependencies outlined below - the **Basic Installation** section will be enough!
 
-<h2 align="center">ADVANCED INSTALLATION: STEAMWORKS</h2>
+<h2 align="center" id="advanced-installation">ADVANCED INSTALLATION: STEAMWORKS</h2>
 
 Clone both the `steamworks-rs` and `steamworks.js` repositories into `./deps`:
 

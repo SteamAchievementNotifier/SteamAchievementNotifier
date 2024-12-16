@@ -302,7 +302,7 @@ ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
 
     try {
         document.body.setAttribute(type,"")
-        document.body.toggleAttribute("noiconanim",!!customisation.iconanim)
+        document.body.toggleAttribute("noiconanim",!!!customisation.iconanim)
 
         const ssdisplay = screenshots === "overlay" && customisation.ssdisplay
         document.body.toggleAttribute("ssdisplay",ssdisplay)

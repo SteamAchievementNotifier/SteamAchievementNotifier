@@ -167,6 +167,7 @@ export const translations = {
                 app: "Applikasjon",
                 off: "Dempet",
                 statwin: "Prestasjonstatistikkvindu",
+                statwinaot: "Alltid på toppen",
                 noachievements: "Ingen prestasjoner å vise",
                 startgame: "Start et spill for å vise prestasjoner!",
                 max: "Maks",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Frigjør det nåværende sporet spillet ved å bruke den angitte hurtigtasten",
         themeselect: "Velg et tidligere lagret Tema",
         statwin: `Vis konfigurerbare prestasjonstatistikker for det nåværende spillet i et eksternt vindu<br><br><span class="ttdesc">Når det brukes sammen med alternativet <span class="hl">Oversett prestasjoner til Steam-språk</span>, kan noen oversettelser ikke være tilgjengelige før den spesifikke prestasjonen er låst opp</span>`,
+        statwinaot: `Sett Prestasjonsstatistikkvinduet til "Alltid på toppen"-modus, slik at vinduet vises over spillvinduet<br><br><span class="ttdesc">Når dette er aktivert, vil Prestasjonsstatistikkvinduet ikke registrere brukerinteraksjoner, som for eksempel "klikk"-hendelser. For å aktivere interaksjon med vinduet igjen, må dette alternativet deaktiveres</span>`,
         statwinshortcut: "Veksle prestasjonsstatistikk-overlegget ved hjelp av den angitte hurtigtasten",
         ssdisplay: "Vis forhåndsvisning av skjermbildet i varslingen"
     },

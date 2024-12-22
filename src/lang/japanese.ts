@@ -167,6 +167,7 @@ export const translations = {
                 app: "アプリ",
                 off: "ミュート",
                 statwin: "実績統計ウィンドウ",
+                statwinaot: "常に最前面",
                 noachievements: "表示する実績はありません",
                 startgame: "実績を表示するにはゲームを開始してください！",
                 max: "最大",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "指定されたキーボードショートカットを使用して、現在追跡中のゲームをリリースします",
         themeselect: "以前に保存したテーマを選択",
         statwin: `現在のゲームの実績統計を外部ウィンドウで表示<br><br><span class="ttdesc">「<span class="hl">Steamの言語に実績を翻訳</span>」オプションと併用すると、特定の実績が解除されるまで一部の翻訳が利用できない場合があります</span>`,
+        statwinaot: `「常に最前面」モードに設定することで、実績統計オーバーレイをゲームウィンドウの上に表示できます<br><br><span class="ttdesc">有効にすると、実績統計オーバーレイはユーザーの操作（「クリック」イベントなど）を登録しなくなります。ウィンドウとのインタラクションを再度有効にするには、このオプションを無効にする必要があります</span>`,
         statwinshortcut: "指定されたキーボードショートカットを使用して実績統計オーバーレイを切り替えます",
         ssdisplay: "通知内にキャプチャしたスクリーンショットのプレビューを表示"
     },

@@ -174,7 +174,8 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 .opt:has(#shortcuts:not(:checked)) + .wrapper:has(#shortcuttabs),
 .opt:has(#webhooks:not(:checked)) + .wrapper#webhookwrapper,
 .opt:has(#steamlang:not(:checked)) + .wrapper:has(#maxsteamlangretries),
-.opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow) {
+.opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow),
+.opt:has(#statwin:not(:checked)) + .wrapper:has(#statwinaot) {
     display: none;
 }
 

@@ -309,6 +309,7 @@ export const sanhelper: SANHelper = {
     audiosrc: (value: "notify" | "app" | "off") => document.body.toggleAttribute("muted",value === "off"),
     shortcuts: (value: boolean) => ipcRenderer.send("shortcut",value),
     statwin: (value: boolean) => ipcRenderer.send("statwin",value),
+    statwinaot: (value: boolean) => ipcRenderer.send("statwinaot",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
@@ -462,20 +463,24 @@ export const sanhelper: SANHelper = {
     loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
         if (!menuelem) return
 
-        // !!! TODO: Fix issue where using `button[id$="shortcut"]` causes multiple Tippy instances to spawn
-        menuelem.querySelectorAll(`
-            #elemselector select,
-            #elemselector input,
-            #elemselector button,
-            #webhookwrapper input,
-            button#statwinshortcut,
-            button#releaseshortcut
-        `)!.forEach(async elem => {
+        const elems = [
+            `#elemselector select`,
+            `#elemselector input`,
+            `#elemselector button`,
+            `#webhookwrapper input`,
+            `button[id$="shortcut"]`
+        ].join(",")
+
+        menuelem.querySelectorAll(elems)!.forEach(async elem => {
+            // Removes previous tooltips from `tippies` array when present
+            const prevtt = tippies.find(tt => tt[0]?.reference === elem.parentElement)
+            prevtt && tippies.splice(tippies.indexOf(prevtt,1)).forEach(tt => tt[0]?.destroy())
+
             const trophies = [
                 "bronze",
                 "silver",
                 "gold"
-            ]
+            ] as const
 
             let content = (await language.get(elem.id,["tooltips"])).replace(/\$type/,await language.get(menuelem.id === "settingscontent" ? "screenshot" : "notification",["tooltips"]))
 

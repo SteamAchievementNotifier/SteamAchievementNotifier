@@ -167,6 +167,7 @@ export const translations = {
                 app: "應用程式",
                 off: "靜音",
                 statwin: "成就統計窗口",
+                statwinaot: "始終置於最前面",
                 noachievements: "沒有成就可顯示",
                 startgame: "啟動遊戲以顯示成就！",
                 max: "最大值",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "使用指定的鍵盤快捷鍵釋放當前跟蹤的遊戲",
         themeselect: "選擇之前保存的主題",
         statwin: `在外部窗口中顯示當前遊戲的可配置成就統計<br><br><span class="ttdesc">當與“<span class="hl">將成就翻譯為 Steam 語言</span>”選項一起使用時，某些翻譯可能在解鎖特定成就之前無法使用</span>`,
+        statwinaot: `將成就統計覆蓋層設置為「始終置於最前面」模式，讓視窗顯示在遊戲視窗的上方<br><br><span class="ttdesc">啟用後，成就統計覆蓋層將不再註冊用戶互動，例如「點擊」事件。要重新啟用與視窗的互動，必須禁用此選項</span>`,
         statwinshortcut: "使用指定的快捷鍵切換成就統計疊加層",
         ssdisplay: "在通知中顯示截取的螢幕截圖預覽"
     },

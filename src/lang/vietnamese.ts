@@ -167,6 +167,7 @@ export const translations = {
                 app: "Ứng dụng",
                 off: "Tắt tiếng",
                 statwin: "Cửa sổ thống kê thành tích",
+                statwinaot: "Luôn ở trên cùng",
                 noachievements: "Không có thành tích để hiển thị",
                 startgame: "Bắt đầu một trò chơi để hiển thị thành tích!",
                 max: "Tối đa",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Sử dụng phím tắt đã chỉ định để phát hành trò chơi đang theo dõi",
         themeselect: "Chọn một chủ đề đã lưu trước đó",
         statwin: `Hiển thị thống kê thành tích có thể cấu hình cho trò chơi hiện tại trong cửa sổ ngoài<br><br><span class="ttdesc">Khi sử dụng cùng với tùy chọn <span class="hl">Dịch thành tích sang ngôn ngữ Steam</span>, một số bản dịch có thể không khả dụng cho đến khi thành tích cụ thể được mở khóa</span>`,
+        statwinaot: `Đặt cửa sổ Thống kê Thành tích vào chế độ "Luôn ở trên cùng", cho phép cửa sổ hiển thị trên cửa sổ game<br><br><span class="ttdesc">Khi bật, cửa sổ Thống kê Thành tích sẽ không còn ghi nhận các tương tác của người dùng, như các sự kiện "click". Để kích hoạt lại tương tác với cửa sổ, tùy chọn này phải được tắt</span>`,
         statwinshortcut: "Chuyển đổi Overlay Thống kê Thành tích bằng phím tắt bàn phím đã chỉ định",
         ssdisplay: "Hiển thị bản xem trước ảnh chụp màn hình trong thông báo"
     },

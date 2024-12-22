@@ -167,6 +167,7 @@ export const translations = {
                 app: "앱",
                 off: "음소거됨",
                 statwin: "업적 통계 창",
+                statwinaot: "항상 위에",
                 noachievements: "표시할 업적이 없습니다",
                 startgame: "업적을 표시하려면 게임을 시작하세요!",
                 max: "최대",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "지정된 키보드 단축키를 사용하여 현재 추적 중인 게임을 릴리스합니다",
         themeselect: "이전에 저장된 테마 선택",
         statwin: `현재 게임에 대한 구성 가능한 업적 통계를 외부 창에 표시<br><br><span class="ttdesc">"<span class="hl">Steam 언어로 업적 번역</span>" 옵션과 함께 사용 시, 특정 업적이 잠금 해제될 때까지 일부 번역이 제공되지 않을 수 있습니다</span>`,
+        statwinaot: `성취 통계 오버레이를 "항상 위에" 모드로 설정하여 게임 창 위에 표시되도록 합니다<br><br><span class="ttdesc">이 옵션이 활성화되면 성취 통계 오버레이는 더 이상 사용자 상호작용(예: "클릭" 이벤트)을 등록하지 않습니다. 창과의 상호작용을 다시 활성화하려면 이 옵션을 비활성화해야 합니다</span>`,
         statwinshortcut: "지정된 키보드 단축키를 사용하여 업적 통계 오버레이를 전환합니다",
         ssdisplay: "알림 내에 캡처한 스크린샷 미리보기 표시"
     },

@@ -167,6 +167,7 @@ export const translations = {
                 app: "App",
                 off: "Dæmpet",
                 statwin: "Statistik for Præstationsvindue",
+                statwinaot: "Altid øverst",
                 noachievements: "Ingen præstationer at vise",
                 startgame: "Start et spil for at vise præstationer!",
                 max: "Maks",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Frigiv det aktuelt overvågede spil ved hjælp af den angivne tastaturgenvej",
         themeselect: "Vælg et tidligere gemt Tema",
         statwin: `Vis konfigurerbare præstationsstatistikker for det aktuelle spil i et eksternt vindue<br><br><span class="ttdesc">Når det bruges sammen med indstillingen <span class="hl">Oversæt Præstationer til Steam-sprog</span>, kan nogle oversættelser være utilgængelige, indtil den specifikke præstation er låst op</span>`,
+        statwinaot: `Indstil vinduet for præstationsstatistik til tilstanden "Altid øverst", så vinduet vises over spilvinduet<br><br><span class="ttdesc">Når denne mulighed er aktiveret, vil vinduet for præstationsstatistik ikke længere registrere brugerinteraktioner, såsom "klik"-hændelser. For at genaktivere interaktion med vinduet skal denne mulighed deaktiveres</span>`,
         statwinshortcut: "Skift Achievement Stats Overlay ved hjælp af den angivne genvejstast",
         ssdisplay: "Vis en forhåndsvisning af det optagede skærmbillede i meddelelsen"
     },

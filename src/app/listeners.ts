@@ -641,6 +641,7 @@ export const listeners = {
                 frame: false,
                 transparent: true,
                 skipTaskbar: false,
+                alwaysOnTop: type === "stat" && config.get("statwinaot"),
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
@@ -651,6 +652,7 @@ export const listeners = {
 
             // `extwin` does not render content if transparency is set while HWA is disabled
             type === "ext" && !config.get("nohwa") && win.setOpacity(config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0))
+            type === "stat" && win.setIgnoreMouseEvents(config.get("statwinaot"))
 
             win.loadFile(path.join(__root,"dist","app",`${type}win.html`))
             sanhelper.devmode && sanhelper.setdevtools(win)
@@ -681,8 +683,8 @@ export const listeners = {
             }
 
             if (type === "stat") {
-                bounds.width = width
-                bounds.height = height
+                bounds.width = roundbounds(width,"size")
+                bounds.height = roundbounds(height,"size")
             }
 
             config.set(`${type}winpos`,bounds)
@@ -728,7 +730,12 @@ export const listeners = {
             statwin = createextwin(config,"stat",value)
             if (!statwin) return
 
-            ipcMain.once("statwinready",() => worker && worker.webContents.send("stats"))
+            ipcMain.once("statwinready",() => {
+                const value = config.get("statwinaot")
+                value && statwin!.webContents.send("statwinaot",value)
+
+                worker && worker.webContents.send("stats")
+            })
 
             statwin.on("moved",() => setwinbounds(config,"stat",statwin!))
 
@@ -741,6 +748,15 @@ export const listeners = {
                 setwinclosevalue(config,"stat",reopenonlaunch)
                 statwin = null
             })
+        })
+
+        ipcMain.on("statwinaot",(event,value: boolean) => {
+            if (!statwin) return
+
+            statwin.setAlwaysOnTop(value)
+            statwin.setIgnoreMouseEvents(value)
+
+            statwin.webContents.send("statwinaot",value)
         })
 
         ipcMain.on("stats",async (event,statsobj: StatsObj) => {

@@ -270,6 +270,7 @@ export const sanconfig = {
                 statwinmaxcustom: 1,
                 statwinnospoilers: true,
                 statwinshortcut: "CTRL+SHIFT+O",
+                statwinaot: false,
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,
@@ -385,6 +386,7 @@ export const sanconfig = {
                 sspercentbadgeimggold: sanhelper.setfilepath("img","sanlogotrophy_gold.svg"),
                 synctheme: false,
                 ssdisplay: false,
+                iconanim: props !== "main",
                 usertheme: [] as UserTheme[]
             }
 

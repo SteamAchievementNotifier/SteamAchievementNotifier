@@ -167,6 +167,7 @@ export const translations = {
                 app: "Application",
                 off: "Muet",
                 statwin: "Fenêtre des Statistiques de Succès",
+                statwinaot: "Toujours au premier plan",
                 noachievements: "Aucun succès à afficher",
                 startgame: "Lancez une partie pour afficher les succès !",
                 max: "Max",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Libérer le jeu actuellement suivi à l'aide du raccourci clavier spécifié",
         themeselect: "Sélectionnez un Thème enregistré précédemment",
         statwin: `Affichez des statistiques de succès configurables pour le jeu en cours dans une fenêtre externe<br><br><span class="ttdesc">Lorsqu'elle est utilisée avec l'option <span class="hl">Traduire les succès dans la langue de Steam</span>, certaines traductions peuvent ne pas être disponibles tant que le succès spécifié n'est pas débloqué</span>`,
+        statwinaot: `Activez le mode "Toujours au premier plan" pour la fenêtre des statistiques de succès, permettant à la fenêtre d'apparaître au-dessus de la fenêtre du jeu<br><br><span class="ttdesc">Lorsqu'elle est activée, la fenêtre des statistiques de succès ne prendra plus en compte les interactions de l'utilisateur, telles que les événements de "clic". Pour réactiver les interactions avec la fenêtre, cette option doit être désactivée</span>`,
         statwinshortcut: "Basculer la superposition des statistiques de succès à l'aide du raccourci clavier spécifié",
         ssdisplay: "Afficher un aperçu de la capture d'écran dans la notification"
     },

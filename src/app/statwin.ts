@@ -74,7 +74,7 @@ const updateprogressbar = (achievements: Achievement[],progressbar: HTMLElement)
 
     document.documentElement.style.setProperty("--unlocked",`${unlocked}`)
     document.documentElement.style.setProperty("--total",`${total}`)
-    progressbar.toggleAttribute("complete",unlocked === total)
+    progressbar.toggleAttribute("complete",total !== 0 && unlocked === total)
 }
 
 const esc = (str: string,unesc?: boolean,iconpath?: boolean): string => {
@@ -217,7 +217,6 @@ ipcRenderer.on("statsunlock", async (event,achievement: Achievement,statsobj: St
     }
 
     // Reorder after unlocked achievement is set to `display: none` at end of animation
-    // achelem.addEventListener("animationend",event => event.animationName === "shift" && ipcRenderer.send("stats",statsobj))
     achelem.addEventListener("animationend",sendipc)
 
     // Re-cache color icon if `grey` version is already present in `temp` dir
@@ -232,6 +231,8 @@ ipcRenderer.on("statsunlock", async (event,achievement: Achievement,statsobj: St
     // Update the progress bar before sending stats
     statsobj.achievements && updateprogressbar(statsobj.achievements,progressbar)
 })
+
+ipcRenderer.on("statwinaot",(event,value: boolean) => document.body.toggleAttribute("aot",value))
 
 window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("close")!.onclick = () => window.close()

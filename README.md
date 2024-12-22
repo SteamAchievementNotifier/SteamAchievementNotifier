@@ -54,18 +54,24 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 
 > 🐧 In order to enable the **HDR Mode** option on Linux, `libxcb1`, `libxrandr2` and `libdbus-1-3` must be installed on the system
 
-- 🎥 **Stream Notifications**: Building on the foundations of the **Duplicate Notification to Window** option available in previous versions, **Stream Notifications** creates a hidden background window that duplicates all on-screen notifications - including all customisations - which is targetable as a window source within streaming software, such as OBS/Streamlabs/Twitch Studio etc. By setting this window as your source, you can overlay all achievement notifications directly in your streams!
+- 🎥 **Stream Notifications**: Building on the foundations of the **Duplicate Notification to Window** option available in previous versions, **Stream Notifications** creates a background window that duplicates all on-screen notifications - including all customisations - which is targetable as a window source within streaming software, such as OBS/Streamlabs/Twitch Studio etc. By setting this window as your source, you can overlay all achievement notifications directly in your streams!
 
-- 💬 **Native OS Preset**: **V1.9** adds a new **Notification Preset** type - **Native OS**\*\* shows a real OS notification containing the unlock message, achievement title and description, along with the achievement icon!
+- 📊 **Achievement Stats Overlay**: Display a configurable list of locked achievements and a completion progress bar for the current game in a window targetable by streaming software.  Configure the order of the list, limit the number of displayed achievements, the opacity of the window and more! Additionally, any unlocked achievements will be moved to the top of the list (regardless of the display limit set), play an unlock animation and update the progress bar in real-time!
 
-> ⚠ *Note: Some app features are not supported when this type is selected*
+- 💬 **Native OS Preset**: **V1.9** adds a new **Notification Preset** type - **Native OS**\* shows a real OS notification containing the unlock message, achievement title and description, along with the achievement icon!
 
-- 🌍 **Localisation Support**: All UI and notification elements have been translated into most Steam-supported languages - select your preferred language from the **Settings** menu!
+> ⚠ *\*Some features are not supported and will be made unavailable when this Notification Preset is selected*
+
+- 🌍 **Localisation Support**: All UI and notification elements have been translated into most Steam-supported languages - select your preferred language from the **Settings** menu! Additionally, the new **Translate Achievements to Steam Language**\* option displays achievement information in the user's chosen Steam UI language!
+
+> ⚠ \**Some translated achievement information will only be locally available after unlocking the achievement. The **Max Translation Retries** option controls how many times a missing translation will be searched for (repeated once per second) before using the default achievement information provided by Steamworks instead*
 
 - 📡 **Auto Updater**: Using [electron-builder's autoUpdater](https://www.electron.build/auto-update.html), users will now be notified if a new update is available - if so, downloading/installation of the new version will all be handled automatically by the app!
 
 <h2 align="center" id="updates">Updates</h2>
 
+> ℹ *This is not a full changelog - only updates added since **V1.9** which are not present in previous releases (or options that have since undergone significant changes) will be listed*
+ 
 <h3>UI</h3>
 
 - **Customise Menu**: The **Customise** button is now shown more prominently on the Home screen
@@ -75,42 +81,77 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 <h3>System Tray Menu</h3>
 
 - **Reset Window**: When right-clicking the system tray icon, the window size and position can be reset to default by selecting **Options** > **Reset Window**
-- **Release Game**: 
-- **Suspend**/**Resume**: 
+- **Release Game**: Manually release the app's running instance of Steamworks for the current game (*see <a href="#automaticprocesstracking">automatic process tracking</a> for more information*)
+- **Suspend**/**Resume**: Once suspended, games will no longer be tracked by the app until manually resumed
 
 <h3>Settings</h3>
 
-- **Show Percentage**: Choose whether to show achievement percentages for **All** (*all notification types*), **Rare Only** (*only **Rare** notification types*) or **Off** (*hide for all notification types*)
-- **Tracking Scale**: Increase/decrease the scale of the **Now Tracking** notification
-- **Notification Shortcuts**: Set keyboard shortcuts to trigger a **Test Notification** for each notification type. Useful when testing compatibility with in-game display settings!
+- **Notifications**
+    - **Show Percentage**: Choose whether to show achievement percentages for **All** (*all notification types*), **Rare Only** (*only **Rare** notification types*) or **Off** (*hide for all notification types*)
+    - **Tracking Scale**: Increase/decrease the scale of the **Now Tracking** notification
+    - **Notification Shortcuts**: Set keyboard shortcuts to trigger a **Test Notification** for each notification type. Useful when testing compatibility with in-game display settings!
+    - **Disable Icon Caching**: By default, all achievement icons will be cached from the game's Steam Community page. Enable this option to prevent this behaviour - and revert to icons provided by Steamworks upon unlocking the achievement - which will greatly improve performance for games with a large number of achievements
+    - **Post to Discord Server**: Post unlocked achievement information for all games to a specified Discord server via a webhook
+- **Games**
+    - **Linked Games**: Associate a game (via its **AppID**) with a specific executable file on your system. **Linked Games** added via this menu will bypass <a href="#automaticprocesstracking">**automatic process tracking**</a>, so only the specified executable will be checked when the associated game's **AppID** is detected as running by Steam Achievement Notifier
+    - **Auto-Switch Themes**: Add any game's **AppID** and select any previously saved **Theme** to automatically switch to the chosen **Theme** when the game is detected. Additionally, an independent **Screenshot Source** can be selected for each entry
+    - **Exclusion List**: Any AppID added to the **Exclusion List** won't be tracked for achievements while Steam Achievement Notifier is active
 - **Additional Media**: Various options for generating additional media achievements are unlocked - such as **Take Steam Screenshot**, **Screenshot with Notification Overlay** and **Notification Image**
-- <span id="audiosrc">**Audio Source**:</span> As audio is generated from within notifications by default, a new **Settings** option has been added for **V1.9** - setting **Audio Source** to **App** will ensure that notification audio can be captured by streaming software via the app window itself (*Or, if sounds aren't your thing, mute all in-app audio by selecting the **Off** option*)
-- **Screenshot Delay**: Add a delay of up to 5 seconds before taking a screenshot when using the **Screenshot with Notification Overlay** option. Useful when achievements usually unlock at inopportune times, such as during cutscene transitions!
-- **Manage Linked Games**: Associate a game (via it's **AppId**) with a specific executable file on your system. **Linked Games** added via this menu will bypass <a href="#automaticprocesstracking">**automatic process tracking**</a>, so only the specified executable will be checked when the associated game's **AppID** is detected as running by Steam Achievement Notifier
-- **Exclusion List**: Any AppID added to the **Exclusion List** won't be tracked for achievements while Steam Achievement Notifier is active
-- **Disable App Window Animations**: For those sensitive to animations/movement (*or just if it's a preference*), you can remove all app window transition effects for all UI elements
-- **Show Tooltips**: Toggle whether to show tooltip hints when hovering over UI elements
-- **Poll Rate**: Increase/decrease the interval in which updates to achievement data is checked. Increasing this value may allow achievement unlock notifications to spawn faster, at the cost of slightly increased system load. Conversely, decreasing this value will reduce system load, but may cause achievement unlock notifications to spawn fractionally later
-- **Check for Updates**: Check for updates to **Steam Achievement Notifier** without having to restart the application
-- **App Log**: All events and errors that happen within the application from startup will now be shown in the dedicated **App Log** window
-- **Use Custom App Files**: For those who love to tinker beyond what the app already provides, enable the **Use Custom App Files** option to load customisable HTML/CSS/JS files, which will then be used for notifications instead of the built-in ones! Click the **Show Custom App Files** button to open the directory where the custom files are stored, then get creative!
+    - **Screenshot with Notification Overlay**
+        - **HDR Mode**: Take screenshots using a method compatible with monitors using High Dynamic Range (HDR)
+        - **Screenshot Delay**: Add a delay of up to 5 seconds before taking a screenshot when using the **Screenshot with Notification Overlay** option. Useful when achievements usually unlock at inopportune times, such as during cutscene transitions!
+- **Streaming**
+    - <span id="audiosrc">**Audio Source**:</span> As audio is generated from within notifications by default, a new **Settings** option has been added for **V1.9** - setting **Audio Source** to **App** will ensure that notification audio can be captured by streaming software via the app window itself (*Or, if sounds aren't your thing, mute all in-app audio by selecting the **Off** option*)
+    - **Achievement Stats Overlay** > **Always on Top**: Sets the Achievement Stats Overlay to "Always on Top" mode, allowing the window to be displayed above the game window (instead of being used as a streaming source)
+    - **Overlay Shortcut**: Set a keyboard shortcut to open/close the **Achievement Stats Overlay**
+- **Accessibility**
+    - **Disable App Window Animations**: For those sensitive to animations/movement (*or just if it's a preference*), you can remove all app window transition effects for all UI elements
+    - **Disable Update Dialog**: Prevent the **Update Available** dialog from automatically showing
+    - **Enable NVDA Support**: Enable copying achievement information to the clipboard when an achievement is unlocked, in order to be read by screen-reader software, such as NVDA
+    - **Show Tooltips**: Toggle whether to show tooltip hints when hovering over UI elements
+    - **Show System Tray Options**: Display all options usually accessed via **System Tray** > *Right-click* > **Options** under **Settings** > **Misc.** as well
+    - **Release Game Shortcut**: Set a keyboard shortcut to <a href="#automaticprocesstracking">release the current game</a>
+- **Advanced**
+    - **Poll Rate**: Increase/decrease the interval in which updates to achievement data is checked. Increasing this value may allow achievement unlock notifications to spawn faster, at the cost of slightly increased system load. Conversely, decreasing this value will reduce system load, but may cause achievement unlock notifications to spawn fractionally later
+    - **Alt. Process Mode**: Use an alternative Rust-based function to check whether tracked game processes are currently running on the system. When unchecked, the default Node JS-based process check will be used instead
+    - **Debug Panel**: Displays in-depth Process Tracking info for troubleshooting purposes
+    - **Show Notification DevTools**: Spawns a DevTools window for each on-screen notification
+    - **Use Custom App Files**: For those who love to tinker beyond what the app already provides, enable the **Use Custom App Files** option to load customisable HTML/CSS/JS files, which will then be used for notifications instead of the built-in ones! Click the **Show Custom App Files** button to open the directory where the custom files are stored, then get creative!
 
 > *⚠ Caution is advised for casual users when editing notification files!*
 
+> ℹ For additional information on other **Advanced** options, see <a href="#automaticprocesstracking">automatic process tracking</a>
+
+- **Misc.**
+    - **Check for Updates**: Check for updates to **Steam Achievement Notifier** without having to restart the application
+    - **App Log**: All events and errors that happen within the application from startup will now be shown in the dedicated **App Log** window
+
 <h3>Customiser</h3>
 
-- **Custom Text**/**Use Game Title**: Set a custom unlock message for each notification of this type, or **Use Game Title** to show the game name instead
-- **Custom Font**: Load a custom `.ttf`/`.otf` font file to use within the notification, instead of the default font
-- **Opacity** > **Background Only**: Enable transparency only for the background of the notification, leaving all other elements at full opacity
-- **Tertiary Color**: Set the color of extra elements only present in certain Notification Presets
-- **Customisable Logo**/**Decoration**/**Rarity Elements**: Customise (*or completely remove*) any image element in any notification type - logos, icons, rarity indicators, XP elements etc.
-- **100% Icon**: Set a custom **100% Icon** to show for all completed games
-- **Save Theme**: Once your notification is looking the way that you want it, save it as a **Theme**, which can be loaded or changed from the **Theme Select** window on the Home screen
-- **Hidden Icon**: Set a custom icon to indicate an achievement is a **Hidden** achievement
+- **Preset**
+    - **Notification Elements**: Choose which elements to display within the notification, along with the position of the element
+        - **Rarity Badge**: Add a **Rarity Badge** to display the unlocked achievement's rarity percentage above the achievement icon
+    - **Use Percent**: To simulate values provided by various other achievement ecosystems, some Notification Presets will calculate an **XP**/**Score** value to display in the notification to depict the look and feel of various achievement styles as accurately as possible. If preferred, this option will display the actual achievement unlock percentage instead
+    - **Custom Text**/**Use Game Title**: Set a custom unlock message for each notification of this type, or **Use Game Title** to show the game name instead
+    - **Custom Font**: Load a custom `.ttf`/`.otf` font file to use within the notification, instead of the default font
+- **Style**
+    - **Opacity** > **Background Only**: Enable transparency only for the background of the notification, leaving all other elements at full opacity
+    - **Outline**: Display an outline around the edge of the notification
+    - **Glow**: Add a glow effect around the outside of the notification
+    - **Mask**: Add a custom image mask to overlay on top of the notification
+- **Colors**
+    - **Tertiary Color**: Set the color of extra elements only present in certain Notification Presets
+- **Icons**
+    - **Logo**/**Decoration**/**Rarity Elements**: Customise (*or completely remove*) any image element in any notification type - logos, icons, rarity indicators, XP elements etc.
+    - **Replace Logo**: Replace any instances of the **Logo** element with the **Decoration** element
+    - **100% Icon**: Set a custom **100% Icon** to show for all completed games
+    - **Hidden Icon**: Set a custom icon to indicate an achievement is a **Hidden** achievement
 
 > ℹ *The **Hidden Icon** can be completely hidden from each notification type by unticking the **Show Hidden Icon** option. Additionally, it can be toggled in **Customiser Previews**/**Test Notifications** by clicking the <img width="2%" src="./icon/visibility.svg">/<img width="2%" src="./icon/visibility_off.svg"> icons*
 
-- **Use Percent**: To simulate values provided by various other achievement ecosystems, some Notification Presets will calculate an **XP**/**Score** value to display in the notification to depict the look and feel of various achievement styles as accurately as possible. If preferred, this option will display the actual achievement unlock percentage instead
+- **Themes**
+    - **Save Theme**: Once your notification is looking the way that you want it, save it as a **Theme**, which can be loaded or changed from either the pinnnable **Selected Theme** dropdown in the **Customiser**, or via the **Theme Select** window on the Home screen
+    - **Import/Export Theme**: Import/export your saved **Themes** as `.san` files, which can then be shared with other users!
 
 <h3 id="automaticprocesstracking">Automatic Process Tracking</h3>
 
@@ -126,15 +167,15 @@ To resolve this issue, **V1.9** implements **automatic process tracking** - a se
 
 Additionally, there are several in-app options to control various aspects of **automatic process tracking**:
 
-> - **Release Game**: If Steam still reports the user as "**Playing**" the game as after closing the game window, or if Steam Achievement Notifier still displays the previously closed game in the **Game Display** box/system tray menu, the game can be manually "*released*" via **System Tray** > *Right-click* > **Options** > **Release Game** option.
+- **Release Game**: If Steam still reports the user as "**Playing**" the game as after closing the game window, or if Steam Achievement Notifier still displays the previously closed game in the **Game Display** box/system tray menu, the game can be manually "*released*" via **System Tray** > *Right-click* > **Options** > **Release Game** option.
 
-> - **Tracking Delay**: If Steam does not allow the game to be launched (*stating **`Game already running - <AppID>`***), try increasing the value of **Settings** > **Advanced** > **Tracking Delay**. This will increase the time between the current **AppID** being detected as running, and when **Steam Achievement Notifier** begins process/achievement tracking.
->
->   - Alternatively, increasing this value can be useful if **Steam Achievement Notifier** is detecting a **pre-game launcher** process, instead of the actual game
+- **Tracking Delay**: If Steam does not allow the game to be launched (*stating **`Game already running - <AppID>`***), try increasing the value of **Settings** > **Advanced** > **Tracking Delay**. This will increase the time between the current **AppID** being detected as running, and when **Steam Achievement Notifier** begins process/achievement tracking.
 
-> - **Release Delay**: If **Steam Achievement Notifier** shows the **Now Tracking** notification for a game that has been recently closed, try increasing the value of the **Settings** > **Advanced** > **Release Delay** option to a higher value.
+    - Alternatively, increasing this value can be useful if **Steam Achievement Notifier** is detecting a **pre-game launcher** process, instead of the actual game
 
-> - **Max Process Retries**: If the current game takes a long time to start (*and subsquently misses the initial window to locate the running exectuable - default: 10 retries at 1 retry per second*), try increasing the **Settings** > **Advanced** > **Max Process Retries** option to a higher value.
+- **Release Delay**: If **Steam Achievement Notifier** shows the **Now Tracking** notification for a game that has been recently closed, try increasing the value of the **Settings** > **Advanced** > **Release Delay** option to a higher value.
+
+- **Max Process Retries**: If the current game takes a long time to start (*and subsquently misses the initial window to locate the running exectuable - default: 10 retries at 1 retry per second*), try increasing the **Settings** > **Advanced** > **Max Process Retries** option to a higher value.
 
 <h2 align="center" id="installation">Installation</h2>
 

@@ -167,6 +167,7 @@ export const translations = {
                 app: "Aplicativo",
                 off: "Silenciado",
                 statwin: "Janela de Estatísticas de Conquistas",
+                statwinaot: "Sempre no Topo",
                 noachievements: "Nenhuma conquista para exibir",
                 startgame: "Inicie um jogo para mostrar conquistas!",
                 max: "Máximo",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Liberar o jogo atualmente monitorado usando o atalho de teclado especificado",
         themeselect: "Selecione um Tema salvo anteriormente",
         statwin: `Exibir estatísticas de conquistas configuráveis para o jogo atual em uma janela externa<br><br><span class="ttdesc">Quando usado em conjunto com a opção <span class="hl">Traduzir Conquistas para o Idioma do Steam</span>, algumas traduções podem não estar disponíveis até que a conquista especificada seja desbloqueada</span>`,
+        statwinaot: `Defina a Janela de Estatísticas de Conquistas para o modo "Sempre no Topo", permitindo que a janela seja exibida acima da janela do jogo<br><br><span class="ttdesc">Quando ativado, a Janela de Estatísticas de Conquistas não registrará interações do usuário, como eventos de "clique". Para reativar a interação com a janela, essa opção deve ser desativada</span>`,
         statwinshortcut: "Alternar a Sobreposição de Estatísticas de Conquistas usando o atalho de teclado especificado",
         ssdisplay: "Exibir uma prévia da captura de tela dentro da notificação"
     },

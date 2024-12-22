@@ -167,6 +167,7 @@ export const translations = {
                 app: "Aplikacja",
                 off: "Wyciszony",
                 statwin: "Okno statystyk osiągnięć",
+                statwinaot: "Zawsze na wierzchu",
                 noachievements: "Brak osiągnięć do wyświetlenia",
                 startgame: "Rozpocznij grę, aby wyświetlić osiągnięcia!",
                 max: "Maksimum",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Uwolnij aktualnie śledzoną grę za pomocą określonego skrótu klawiaturowego",
         themeselect: "Wybierz wcześniej zapisany motyw",
         statwin: `Wyświetl konfigurowalne statystyki osiągnięć dla bieżącej gry w zewnętrznym oknie<br><br><span class="ttdesc">Używając opcji <span class="hl">Tłumaczenie osiągnięć na język Steam</span>, niektóre tłumaczenia mogą być niedostępne, dopóki konkretne osiągnięcie nie zostanie odblokowane</span>`,
+        statwinaot: `Ustaw nakładkę statystyk osiągnięć na tryb "Zawsze na wierzchu", co pozwala na wyświetlanie okna nad oknem gry<br><br><span class="ttdesc">Gdy ta opcja jest włączona, nakładka statystyk osiągnięć nie będzie rejestrować interakcji użytkownika, takich jak zdarzenia "kliknięcia". Aby ponownie włączyć interakcję z oknem, ta opcja musi zostać wyłączona</span>`,
         statwinshortcut: "Przełącz Nakładkę Statystyk Osiągnięć za pomocą określonego skrótu klawiaturowego",
         ssdisplay: "Wyświetl podgląd zrzutu ekranu w powiadomieniu"
     },

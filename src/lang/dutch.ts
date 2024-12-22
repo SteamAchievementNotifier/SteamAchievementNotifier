@@ -167,6 +167,7 @@ export const translations = {
                 nowtracking: "Toon volgwaarschuwing",
                 off: "Gedempt",
                 statwin: "Prestatiestatistiekenvenster",
+                statwinaot: "Altijd bovenaan",
                 noachievements: "Geen prestaties om weer te geven",
                 startgame: "Start een spel om prestaties te tonen!",
                 max: "Max",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Geef het momenteel gevolgde spel vrij met de opgegeven sneltoets",
         themeselect: "Selecteer een eerder opgeslagen Thema",
         statwin: `Toon configureerbare prestatiestatistieken voor het huidige spel in een extern venster<br><br><span class="ttdesc">Wanneer gebruikt in combinatie met de optie <span class="hl">Vertaal Prestaties naar de Steam-taal</span>, kunnen sommige vertalingen pas beschikbaar zijn zodra de specifieke prestatie is ontgrendeld</span>`,
+        statwinaot: `Stel het venster voor Prestatiestatistieken in op de modus "Altijd bovenaan", zodat het venster boven het spelvenster wordt weergegeven<br><br><span class="ttdesc">Wanneer deze optie is ingeschakeld, registreert het venster voor Prestatiestatistieken geen gebruikersinteracties meer, zoals "klik"-gebeurtenissen. Om interactie met het venster opnieuw in te schakelen, moet deze optie worden uitgeschakeld</span>`,
         statwinshortcut: "Schakel de Achievement Stats Overlay in met de opgegeven sneltoets",
         ssdisplay: "Toon een voorbeeld van de vastgelegde schermafbeelding in de melding"
     },

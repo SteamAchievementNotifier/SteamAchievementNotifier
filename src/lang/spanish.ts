@@ -167,6 +167,7 @@ export const translations = {
                 app: "Aplicación",
                 off: "Silenciado",
                 statwin: "Ventana de estadísticas de logros",
+                statwinaot: "Siempre en primer plano",
                 noachievements: "No hay logros para mostrar",
                 startgame: "¡Inicia un juego para mostrar los logros!",
                 max: "Máximo",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Liberar el juego actualmente rastreado usando el acceso directo de teclado especificado",
         themeselect: "Selecciona un tema guardado previamente",
         statwin: `Mostrar estadísticas configurables de logros para el juego actual en una ventana externa<br><br><span class="ttdesc">Cuando se usa junto con la opción <span class="hl">Traducir logros al idioma de Steam</span>, algunas traducciones pueden no estar disponibles hasta que se desbloquee el logro específico</span>`,
+        statwinaot: `Establezca la superposición de estadísticas de logros en modo "Siempre en primer plano", permitiendo que la ventana se muestre por encima de la ventana del juego<br><br><span class="ttdesc">Cuando está habilitado, la superposición de estadísticas de logros ya no registrará interacciones del usuario, como eventos de "clic". Para volver a habilitar la interacción con la ventana, esta opción debe desactivarse</span>`,
         statwinshortcut: "Alternar la superposición de estadísticas de logros usando el acceso directo de teclado especificado",
         ssdisplay: "Mostrar una vista previa de la captura de pantalla en la notificación"
     },

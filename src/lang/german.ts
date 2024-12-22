@@ -167,6 +167,7 @@ export const translations = {
                 app: "Anwendung",
                 off: "Stummgeschaltet",
                 statwin: "Statistikfenster für Erfolge",
+                statwinaot: "Immer im Vordergrund",
                 noachievements: "Keine Erfolge zum Anzeigen",
                 startgame: "Starte ein Spiel, um Erfolge anzuzeigen!",
                 max: "Max",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Das aktuell verfolgte Spiel mit der angegebenen Tastenkombination freigeben",
         themeselect: "Wählen Sie ein zuvor gespeichertes Thema",
         statwin: `Konfigurierbare Erfolgsstatistiken für das aktuelle Spiel in einem externen Fenster anzeigen<br><br><span class="ttdesc">Bei Verwendung in Kombination mit der Option <span class="hl">Erfolge in die Steam-Sprache übersetzen</span> können einige Übersetzungen erst verfügbar sein, wenn der entsprechende Erfolg freigeschaltet wurde</span>`,
+        statwinaot: `Setzen Sie das Fenster für Erfolgsstatistiken in den Modus "Immer im Vordergrund", sodass das Fenster über dem Spiel angezeigt wird<br><br><span class="ttdesc">Wenn diese Option aktiviert ist, reagiert das Fenster für Erfolgsstatistiken nicht mehr auf Benutzerinteraktionen wie "Klick"-Ereignisse. Um die Interaktion mit dem Fenster wieder zu aktivieren, muss diese Option deaktiviert werden</span>`,
         statwinshortcut: "Die Erfolgsstatistik-Überlagerung mit der angegebenen Tastenkombination umschalten",
         ssdisplay: "Zeige eine Vorschau des aufgenommenen Screenshots in der Benachrichtigung an"
     },

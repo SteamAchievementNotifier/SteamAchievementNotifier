@@ -167,6 +167,7 @@ export const translations = {
                 app: "Applicazione",
                 off: "Disattivato",
                 statwin: "Finestra delle statistiche dei successi",
+                statwinaot: "Sempre in primo piano",
                 noachievements: "Nessun successo da visualizzare",
                 startgame: "Avvia una partita per visualizzare i successi!",
                 max: "Massimo",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Rilascia il gioco attualmente tracciato utilizzando la scorciatoia da tastiera specificata",
         themeselect: "Seleziona un tema salvato precedentemente",
         statwin: `Visualizza statistiche configurabili dei successi per il gioco attuale in una finestra esterna<br><br><span class="ttdesc">Quando utilizzato in combinazione con l'opzione <span class="hl">Traduci i successi nella lingua di Steam</span>, alcune traduzioni potrebbero non essere disponibili finché il successo specifico non viene sbloccato</span>`,
+        statwinaot: `Imposta la sovrapposizione delle statistiche dei traguardi in modalità "Sempre in primo piano", consentendo alla finestra di essere visualizzata sopra la finestra del gioco<br><br><span class="ttdesc">Quando è attivato, la sovrapposizione delle statistiche dei traguardi non registrerà più le interazioni dell'utente, come gli eventi di "clic". Per riabilitare l'interazione con la finestra, questa opzione deve essere disabilitata</span>`,
         statwinshortcut: "Attiva o disattiva l'Overlay delle Statistiche dei Successi utilizzando la scorciatoia da tastiera specificata",
         ssdisplay: "Mostra un'anteprima dello screenshot catturato nella notifica"
     },

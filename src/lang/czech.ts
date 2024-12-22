@@ -167,6 +167,7 @@ export const translations = {
                 app: "Aplikace",
                 off: "Ztlumeno",
                 statwin: "Přehled statistik úspěchů",
+                statwinaot: "Vždy navrchu",
                 noachievements: "Žádné úspěchy k zobrazení",
                 startgame: "Spusťte hru pro zobrazení úspěchů!",
                 max: "Maximum",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Uvolnění aktuálně sledované hry pomocí zadané klávesové zkratky",
         themeselect: "Vyberte dříve uložené téma",
         statwin: `Zobrazte přizpůsobitelné statistiky úspěchů pro aktuální hru v externím okně<br><br><span class="ttdesc">Při použití společně s možností <span class="hl">Přeložit úspěchy do jazyka služby Steam</span> nemusí být některé překlady dostupné, dokud nebude daný úspěch odemčen</span>`,
+        statwinaot: `Nastavte okno Statistik úspěchů do režimu "Vždy navrchu", což umožní zobrazit okno nad oknem hry<br><br><span class="ttdesc">Když je tato možnost povolena, okno Statistik úspěchů již nebude registrovat uživatelské interakce, jako jsou události "kliknutí". Pro opětovné povolení interakce s oknem musí být tato možnost zakázána</span>`,
         statwinshortcut: "Přepnout překrytí statistik úspěchů pomocí specifikované klávesové zkratky",
         ssdisplay: "Zobrazit náhled zachycené obrazovky v oznámení"
     },

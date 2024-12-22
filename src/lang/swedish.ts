@@ -167,6 +167,7 @@ export const translations = {
                 app: "Applikation",
                 off: "Avstängt",
                 statwin: "Prestationstatistikfönster",
+                statwinaot: "Alltid överst",
                 noachievements: "Inga prestationer att visa",
                 startgame: "Starta ett spel för att visa prestationer!",
                 max: "Max",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Frigör det nuvarande spårade spelet med den angivna tangentbordsgenvägen",
         themeselect: "Välj ett tidigare sparat tema",
         statwin: `Visa konfigurerbara prestationstatistik för det aktuella spelet i ett externt fönster<br><br><span class="ttdesc">När den används tillsammans med alternativet <span class="hl">Översätt prestationer till Steam-språk</span> kan vissa översättningar vara otillgängliga tills den specifika prestationen är upplåst</span>`,
+        statwinaot: `Ställ in prestationsstatistikfönstret till "Alltid överst"-läge, så att fönstret visas ovanför spelfönstret<br><br><span class="ttdesc">När detta alternativ är aktiverat kommer prestationsstatistikfönstret inte längre registrera användarinteraktioner, som till exempel "klick"-händelser. För att återaktivera interaktion med fönstret måste detta alternativ inaktiveras</span>`,
         statwinshortcut: "Växla prestationstatistiköverlägget med den angivna tangentbordsgenvägen",
         ssdisplay: "Visa en förhandsvisning av den fångade skärmbilden i meddelandet"
     },

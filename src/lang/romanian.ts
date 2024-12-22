@@ -167,6 +167,7 @@ export const translations = {
                 app: "Aplicație",
                 off: "Redus",
                 statwin: "Fereastră cu statistici despre realizări",
+                statwinaot: "Întotdeauna în față",
                 noachievements: "Nu există realizări de afișat",
                 startgame: "Pornește un joc pentru a arăta realizările!",
                 max: "Maxim",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Lansează jocul activ urmărit folosind scurtătura de tastatură specificată",
         themeselect: "Selectează un Tema salvat anterior",
         statwin: `Afișează statistici configurabile ale realizărilor pentru jocul curent într-o fereastră externă<br><br><span class="ttdesc">Atunci când este folosit împreună cu opțiunea <span class="hl">Tradu realizările în limba Steam</span>, anumite traduceri pot să nu fie disponibile până când realizarea specifică nu este deblocată</span>`,
+        statwinaot: `Setează fereastra de Statistici ale Realizărilor în modul "Întotdeauna în față", permițându-i să fie afișată deasupra ferestrei jocului<br><br><span class="ttdesc">Când este activată, fereastra de Statistici ale Realizărilor nu va mai înregistra interacțiuni cu utilizatorul, cum ar fi evenimentele de "click". Pentru a reactiva interacțiunea cu fereastra, această opțiune trebuie dezactivată</span>`,
         statwinshortcut: "Comută Overlay-ul de Statistici ale Realizărilor folosind scurtătura de tastatură specificată",
         ssdisplay: "Afișează o previzualizare a capturii de ecran în notificare"
     },

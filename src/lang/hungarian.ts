@@ -167,6 +167,7 @@ export const translations = {
                 app: "Alkalmazás",
                 off: "Némítva",
                 statwin: "Eredménystatisztika ablak",
+                statwinaot: "Mindig a tetején",
                 noachievements: "Nincsenek eredmények megjelenítésre",
                 startgame: "Indíts el egy játékot az eredmények megjelenítéséhez!",
                 max: "Max",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "A jelenleg nyomon követett játék felszabadítása a megadott billentyűparanccsal",
         themeselect: "Válassz egy korábban mentett témát",
         statwin: `Konfigurálható eredmény statisztikák megjelenítése az aktuális játékhoz egy külön ablakban<br><br><span class="ttdesc">Amikor a <span class="hl">Eredmények fordítása Steam nyelvre</span> opción keresztül használod, egyes fordítások csak akkor lesznek elérhetők, ha a megfelelő eredmény feloldódik</span>`,
+        statwinaot: `Állítsa be az Elért statisztikák ablakát "Mindig a tetején" módba, lehetővé téve az ablak megjelenítését a játék ablakán felül<br><br><span class="ttdesc">Ha engedélyezve van, az Elért statisztikák ablak már nem regisztrálja a felhasználói interakciókat, például a "kattintás" eseményeket. Az ablak interakcióinak újbóli engedélyezéséhez ezt az opciót le kell tiltani</span>`,
         statwinshortcut: "A Teljesítmény Statisztikák Átfedésének váltása a megadott billentyűparancs használatával",
         ssdisplay: "A készített képernyőkép előnézete az értesítésben"
     },

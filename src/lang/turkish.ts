@@ -167,6 +167,7 @@ export const translations = {
                 app: "Uygulama",
                 off: "Susturuldu",
                 statwin: "Başarı İstatistikleri Penceresi",
+                statwinaot: "Her Zaman Üstte",
                 noachievements: "Gösterilecek başarı yok",
                 startgame: "Başarıları göstermek için bir oyun başlatın!",
                 max: "Maksimum",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Belirtilen klavye kısayolunu kullanarak şu anda izlenen oyunu yayınlayın",
         themeselect: "Önceden kaydedilmiş bir Tema seçin",
         statwin: `Geçerli oyun için yapılandırılabilir başarı istatistiklerini dış bir pencerede görüntüle<br><br><span class="ttdesc">"<span class="hl">Başarıları Steam diline çevir</span>" seçeneğiyle birlikte kullanıldığında, belirli bir başarı açılana kadar bazı çeviriler kullanılamayabilir</span>`,
+        statwinaot: `Başarı İstatistikleri penceresini "Her Zaman Üstte" moduna ayarlayarak, pencerenin oyun penceresinin üzerinde görüntülenmesini sağlar<br><br><span class="ttdesc">Bu seçenek etkinleştirildiğinde, Başarı İstatistikleri penceresi kullanıcı etkileşimlerini, örneğin "tıklama" olaylarını kaydetmeyecek. Pencereyle etkileşimi yeniden etkinleştirmek için bu seçenek devre dışı bırakılmalıdır</span>`,
         statwinshortcut: "Belirtilen klavye kısayolunu kullanarak Başarı İstatistikleri Örtüsünü geçiş yap",
         ssdisplay: "Bildirimde yakalanan ekran görüntüsünün önizlemesini göster"
     },

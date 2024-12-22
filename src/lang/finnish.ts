@@ -167,6 +167,7 @@ export const translations = {
                 app: "Sovellus",
                 off: "Mykistetty",
                 statwin: "Saavutustilastojen ikkuna",
+                statwinaot: "Aina päällimmäisenä",
                 noachievements: "Ei saavutuksia näytettäväksi",
                 startgame: "Aloita peli näyttääksesi saavutukset!",
                 max: "Maksimi",
@@ -549,6 +550,7 @@ export const translations = {
         releaseshortcut: "Vapauta tällä hetkellä seurattava peli määritetyllä pikanäppäimellä",
         themeselect: "Valitse aiemmin tallennettu Teema",
         statwin: `Näytä mukautettavat saavutustilastot nykyiselle pelille ulkoisessa ikkunassa<br><br><span class="ttdesc">Kun käytetään yhdessä <span class="hl">Käännä saavutukset Steamin kielelle</span> -vaihtoehdon kanssa, jotkin käännökset saattavat olla saatavilla vasta, kun kyseinen saavutus on avattu</span>`,
+        statwinaot: `Aseta Saavutustilastot-ikkuna "Aina päällimmäisenä" -tilaan, jolloin ikkuna pysyy pelin ikkunan yläpuolella<br><br><span class="ttdesc">Kun tämä asetus on käytössä, Saavutustilastot-ikkuna ei enää rekisteröi käyttäjän toimintoja, kuten "klikkaus"-tapahtumia. Ottaaksesi vuorovaikutuksen uudelleen käyttöön, tämä asetus on poistettava käytöstä</span>`,
         statwinshortcut: "Vaihda Saavutustilastojen ikkuna käyttämällä määritettyä pikanäppäintä",
         ssdisplay: "Näytä otetun ruutukaappauksen esikatselu ilmoituksessa"
     },

@@ -64,7 +64,9 @@
                 -webkit-app-region: no-drag;
             }
 
-            body[hidden] .menubtn#close {
+            body[hidden] .menubtn#close,
+            body[aot] .menubtn#close,
+            body[aot] .menubtn#winopacity {
                 opacity: 0;
                 pointer-events: none;
             }
@@ -80,7 +82,8 @@
                 -webkit-app-region: no-drag;
             }
 
-            body[hidden] .wrapper#cont {
+            body[hidden] .wrapper#cont,
+            body[aot] .wrapper#cont {
                 background-color: transparent;
                 -webkit-app-region: drag;
             }
@@ -346,11 +349,13 @@
                 transition: var(--transition);
             }
 
-            body[hidden] .wrapper#btnwrapper {
+            body[hidden] .wrapper#btnwrapper,
+            body[aot] .wrapper#btnwrapper {
                 background-color: transparent;
             }
 
-            body[hidden] .wrapper#btnwrapper > *:not(button#winopacity) {
+            body[hidden] .wrapper#btnwrapper > *:not(button#winopacity),
+            body[aot] .wrapper#btnwrapper > *:not(button#winopacity) {
                 opacity: 0;
                 pointer-events: none;
             }

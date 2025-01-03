@@ -531,6 +531,10 @@ span#webhookcaution > * {
     --trophy: url("../../icon/trophy_plat.svg");
 }
 
+.wrapper#webhooktypeswrapper .wrapper:has(> input[id$="test"]) > span::before {
+    --trophy: url("../../icon/beta.svg");
+}
+
 .wrapper:has(> #webhooklaststatus) {
     grid-template-columns: max-content 1fr;
     gap: 0;

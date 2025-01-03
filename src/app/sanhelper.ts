@@ -63,7 +63,7 @@ export const sanhelper: SANHelper = {
                     return log.write("ERROR",`Error copying "${iconfile}" to "${localicon}": ${err as Error}`)
                 }
             } else {
-                return log.write("INFO",`"${iconfile}" already exists in "${localicon}"`)
+                return log.write("WARN",`"${iconfile}" already exists in "${localicon}"`)
             }
         }
 

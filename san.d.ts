@@ -82,6 +82,7 @@ declare interface Config {
     webhookmain: boolean,
     webhookrare: boolean,
     webhookplat: boolean,
+    webhooktest: boolean,
     webhookurl: string,
     webhooklaststatus: string,
     webhookspoilers: boolean,
@@ -262,7 +263,8 @@ declare interface Notify extends Achievement {
     icon: string,
     gamename: string | null,
     steam3id: number,
-    istestnotification?: boolean
+    gameicon: string | null,
+    istestnotification?: boolean,
 }
 
 declare interface StatsObj {

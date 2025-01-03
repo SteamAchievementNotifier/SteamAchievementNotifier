@@ -32,7 +32,7 @@ const getkeyvalue = (value: any, key: string, map = new Map<string, any>()): Map
 }
 
 const rewritepath = (themedir: string,value: string) => {
-    if (!value) return log.write("ERROR",`Received ${typeof value} - skipping...`)
+    if (!value) return log.write("WARN",`Received ${typeof value} - skipping...`)
     const valuepath = (value: string) => path.join(themedir,"assets",path.basename(value)).replace(/\\/g,"/")
 
     if (Array.isArray(value)) return value.map(subvalue => subvalue = valuepath(subvalue))
@@ -311,7 +311,7 @@ export const usertheme = {
         const { language } = await import("./language")
         const importhandler = () => ipcRenderer.once("importtheme", async (event,file: string) => {
             if (!file) return
-            if (path.extname(file[0]) !== ".san") return log.write("ERROR",`"${file[0]}" is not a valid import file`)
+            if (path.extname(file[0]) !== ".san") return log.write("WARN",`"${file[0]}" is not a valid import file`)
 
             const destpath = path.join(sanhelper.appdata,"userthemes")
             const dest = path.join(destpath,path.basename(file[0]))
@@ -354,7 +354,7 @@ export const usertheme = {
                 const customfilesmap = new Map<string,any>()
         
                 customfilekeys.forEach(key => {
-                    if (customisation[key] === undefined) return log.write("ERROR",`"customisation.${sanhelper.type}.${key}" does not exist`)
+                    if (customisation[key] === undefined) return log.write("WARN",`"customisation.${sanhelper.type}.${key}" does not exist`)
                     getkeyvalue(customisation[key],key,customfilesmap)
                 })
         
@@ -446,7 +446,7 @@ export const usertheme = {
                 const contentmap = new Map<string,any>()
 
                 customfilekeys.forEach(key => {
-                    if (customisation[key] === undefined) return log.write("ERROR",`"customisation.${sanhelper.type}.${key}" does not exist`)
+                    if (customisation[key] === undefined) return log.write("WARN",`"customisation.${sanhelper.type}.${key}" does not exist`)
                     getkeyvalue(customisation[key],key,contentmap)
                 })
 

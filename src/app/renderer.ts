@@ -111,7 +111,7 @@ const setmonitors = async () => {
         const msg = await getmonitors()
         log.write("INFO",msg)
     } catch (err) {
-        log.write("ERROR",err as string)
+        log.write("WARN",err as string)
     }
 }
 
@@ -300,7 +300,7 @@ const loadwebview = () => {
             webview && webview.addEventListener("dom-ready",sendtestnotify)
         })
     } catch (err) {
-        !(err as Error).message.startsWith("The WebView must be attached to the DOM") && log.write("ERROR",err as Error)
+        !(err as Error).message.startsWith("The WebView must be attached to the DOM") && log.write("WARN",err as Error)
     }
 }
 
@@ -567,7 +567,7 @@ const opencustomiser = () => {
         const { userthemes } = usertheme.data()
         const currenttheme = userthemes.find(theme => theme.enabled)
 
-        if (!currenttheme) return log.write("ERROR",`Error updating Theme: No "enabled" Theme found`)
+        if (!currenttheme) return log.write("WARN",`Error updating Theme: No "enabled" Theme found`)
         usertheme.create(currenttheme.label,currenttheme.icon,undefined,"updatetheme")
     }
 
@@ -632,12 +632,15 @@ window.addEventListener("soundonly", () => ipcRenderer.send("closeopenwins"))
 document.getElementById("maincontent")!.addEventListener("animationend", ({ animationName }) => animationName === "customiserin" && document.body.removeAttribute("opening"))
 document.querySelectorAll(".wrapper#tabs > .tab").forEach(btn => btn instanceof HTMLButtonElement && (btn!.onclick = (event: MouseEvent) => sanhelper.switchtab(event)))
 
-const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisation,gamename?: string) => {
+const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisation) => {
     const customisation = { ...customobj }
     delete (customisation as any).usertheme
 
     const { themeswitchcustomisation } = usertheme.themeswitchinfo(config,window.appid,{ customisation, type })
     const { plat } = (themeswitchcustomisation || config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
+
+    const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
+    const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
 
     const notify: Notify = {
         id: Math.round(Date.now() / Math.random() * 1000),
@@ -651,7 +654,8 @@ const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisatio
         unlocked: true,
         hidden: customisation.previewhiddenicon,
         percent: type !== "plat" ? (type === "rare" ? 10.0 : 50.0) : 0,
-        icon: type !== "plat" ? sanhelper.setfilepath("img",`${customisation.usegameicon ? "game" : "ach"}icon.png`) : plat || sanhelper.setfilepath("img","ribbon.svg"),
+        icon: type !== "plat" ? sanhelper.setfilepath("img",`achicon.png`) : plat || sanhelper.setfilepath("img","ribbon.svg"),
+        gameicon: gameicon || sanhelper.setfilepath("img","gameicon.png"),
         istestnotification: true
     }
 
@@ -686,6 +690,7 @@ const sendtestnotify = async () => {
     notify.customisation = customisation
     
     ipcRenderer.send("notify",notify,webview !== null && "customiser",src)
+    config.get("webhooktest") && !webview && ipcRenderer.emit("sendwebhook",null,notify)
     globaltype && (globaltype = null)
 }
 
@@ -699,7 +704,7 @@ document.getElementById("test")!.onclick = sendtestnotify
 ipcRenderer.on("customisernotify", (event,obj: Info) => {
     const wrapper = document.querySelector(".wrapper:has(> webview)")! as HTMLElement
     let { width, height } = sanhelper.getpresetbounds(obj.customisation.preset)
-    !width && !height && log.write("ERROR",`Error parsing "width"/"height" values for "${obj.customisation.preset}" preset: No <meta> tag found in body`)
+    !width && !height && log.write("WARN",`Error parsing "width"/"height" values for "${obj.customisation.preset}" preset: No <meta> tag found in body`)
 
     if (obj.screenshots === "overlay" && obj.customisation.ssdisplay) {
         height += 175
@@ -733,13 +738,14 @@ let globalgamename: string | null = null
 let achnum = 0
 const gamelbl =  document.querySelector(`.rect#game > span`)!
 
-gamelbl.addEventListener("updategamelbl", async () => await sanhelper.updategamelbl(globalgamename))
+gamelbl.addEventListener("updategamelbl",async () => await sanhelper.updategamelbl(globalgamename))
 
 window.appid = 0
 window.steam3id = 0
 
-ipcRenderer.on("appid", async (event,appid,gamename,steam3id,num) => {
-    (config.get("nowtracking") && !config.get("soundonly") && appid !== 0 && gamename) && sanhelper.showtrack(gamename)
+ipcRenderer.on("appid",async (event,appid,gamename,steam3id,num) => {
+    // (config.get("nowtracking") && !config.get("soundonly") && appid !== 0 && gamename) && sanhelper.showtrack(gamename)
+    (!config.get("soundonly") && appid !== 0 && gamename) && sanhelper.showtrack(gamename)
     window.appid = appid || 0
     window.steam3id = steam3id || 0
     achnum = num

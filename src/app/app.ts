@@ -26,7 +26,7 @@ if (app.commandLine.hasSwitch("clean")) {
 const lock = app.requestSingleInstanceLock()
 const checksingleinstance = (lock: boolean) => {
     if (!lock) {
-        log.write("ERROR",`Steam Achievement Notifier (V${sanhelper.version}) is already running!`)
+        log.write("WARN",`Steam Achievement Notifier (V${sanhelper.version}) is already running!`)
         return app.exit()
     }
 }
@@ -37,6 +37,21 @@ const starttime = new Date().toLocaleTimeString()
 log.init("APP")
 
 sanconfig.get().store.nohwa && app.disableHardwareAcceleration()
+
+// Legacy keys required to be removed if existing in config
+;([
+    "webhooktypes"
+] as const).forEach(key => {
+    const config = sanconfig.get()
+    if (!config.has(key)) return
+
+    try {
+        config.delete(key)
+        log.write("INFO",`Legacy "${key}" key removed from config successfully`)
+    } catch (err) {
+        log.write("ERROR",`Unable to remove legacy "${key}" key: ${err}`)
+    }
+})
 
 const resetlegacykey = (key: string,limittype?: "main" | "rare" | "plat") => {
     const config = sanconfig.get()

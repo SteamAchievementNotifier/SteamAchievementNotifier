@@ -108,7 +108,7 @@ export const language = {
 
             langmap.forEach((value,elem) => {
                 if (!elem) {
-                    log.write("ERROR",`Error loading element "${elem}" in language file "${lang}.js"`)
+                    log.write("WARN",`Error loading element "${elem}" in language file "${lang}.js"`)
                     return console.log(elem)
                 }
 

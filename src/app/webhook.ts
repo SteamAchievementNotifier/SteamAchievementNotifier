@@ -18,7 +18,7 @@ const setlaststatus = (statuscode?: string) => {
 
 export const sendwebhook = async (type: "main" | "rare" | "plat",webhookurl: string,content: object,icon: string,userid?: string,avatarurl?: string) => {
     const config = sanconfig.get()
-    if (!config.get(`webhooktypes.${type}`)) return log.write("INFO",`"${type}" not active in "config.webhooktypes" - skipping...`) 
+    if (!config.get(`webhook${type}`)) return log.write("INFO",`"webhook${type}" not active in config - skipping...`)
 
     const webhooklaststatus = document.getElementById("webhooklaststatus")
     let status = "ERROR"
@@ -96,7 +96,7 @@ export const webhookwrapper = async (elem: HTMLElement) => {
     typeswrapper.querySelectorAll(`.wrapper#webhooktypeswrapper > .wrapper:has(> input)`).forEach(async wrapper => {
         const span = wrapper.querySelector("span") as HTMLSpanElement
         const input = wrapper.querySelector("input") as HTMLInputElement
-        const type = ["main","rare","plat"].find(type => input.id.endsWith(type)) as "main" | "rare" | "plat"
+        const type = (["main","rare","plat","test"] as const).find(type => input.id.endsWith(type)) as "main" | "rare" | "plat" | "test"
 
         span.textContent = await language.get(type)
 

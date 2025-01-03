@@ -45,7 +45,7 @@ const setmaxachievements = (elem: HTMLSelectElement | HTMLInputElement,order: st
         const config = sanconfig.get()
         config.set(`statwin${elem.id}`,elem.value)
     } catch (err) {
-        log.write("ERROR",err as Error)
+        log.write("WARN",err as Error)
     }
 }
 
@@ -60,7 +60,7 @@ const cacheicon = async (achievement: Achievement) => {
         ipcRenderer.once(`iconpath_${achievement.apiname}`, (event,iconpath: string | null) => {
             if (iconpath) return resolve(iconpath.replace(/\\/g,"/"))
 
-            log.write("ERROR",`Unable to get achievement icon for "${achievement.apiname}"`)
+            log.write("WARN",`Unable to get achievement icon for "${achievement.apiname}"`)
             resolve(sanhelper.setfilepath("img","sanlogosquare.svg"))
         })
 

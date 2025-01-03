@@ -1,5 +1,6 @@
 import { ipcRenderer } from "electron"
 import path from "path"
+import fs from "fs"
 import { existsSync } from "fs"
 import { sanhelper } from "./sanhelper"
 import { log } from "./log"
@@ -54,8 +55,8 @@ const startidle = () => {
                 noiconcache: noiconcache
             }
     
-            typeof pollrate !== "number" && log.write("ERROR",`"pollrate" has invalid type of "${typeof pollrate}" - setting to default value (250ms)...`) 
-            pollrate < 50 && log.write("ERROR",`Minimum "pollrate" exceeded (${pollrate}ms) - setting to default value (50ms)`)
+            typeof pollrate !== "number" && log.write("WARN",`"pollrate" has invalid type of "${typeof pollrate}" - setting to default value (250ms)...`) 
+            pollrate < 50 && log.write("WARN",`Minimum "pollrate" exceeded (${pollrate}ms) - setting to default value (50ms)`)
     
             initdelay && log.write("INFO",`Tracking process delayed by ${initdelay} seconds`)
             setTimeout(() => startsan(appinfo),initdelay * 1000)
@@ -128,8 +129,6 @@ const updatestats = async (appid: number,gamename: string,cache: Achievement[],s
             return achievementcopy
         })
     )
-
-    console.log(steamlang,statsobj)
 
     ipcRenderer.send("stats",statsobj)
 }
@@ -256,7 +255,7 @@ const startsan = async (appinfo: AppInfo) => {
                             log.write("INFO",`Icon for ${achievement.apiname} saved successfully`)
                             return icon.replace(/\\/g,"/")
                         } catch (err) {
-                            log.write("ERROR",err as string)
+                            log.write("WARN",err as string)
         
                             retries++
                             retries < 5 ? setTimeout(() => achievementicon(),100) : log.write("ERROR",`Failed to fetch icon for ${achievement.apiname}`)
@@ -265,7 +264,8 @@ const startsan = async (appinfo: AppInfo) => {
                         }
                     }
         
-                    const icon = config.get(`customisation.${type}.usegameicon`) ? path.join(await sanhelper.steampath,"appcache","librarycache",`${appid}_icon.jpg`) : await achievementicon()
+                    const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
+                    const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
                     const localised = await localisedobj(steam3id,achievement)
                     const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch] | undefined
                     const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
@@ -287,7 +287,8 @@ const startsan = async (appinfo: AppInfo) => {
                         unlocked: achievement.unlocked,
                         hidden: achievement.hidden,
                         percent: achievement.percent,
-                        icon: icon || sanhelper.setfilepath("img","sanlogosquare.svg")
+                        icon: await achievementicon() || sanhelper.setfilepath("img","sanlogosquare.svg"),
+                        gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg")
                     }
 
                     ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
@@ -325,7 +326,8 @@ const startsan = async (appinfo: AppInfo) => {
                             unlocked: true,
                             hidden: false,
                             percent: 0,
-                            icon: platicon || sanhelper.setfilepath("img","ribbon.svg")
+                            icon: platicon || sanhelper.setfilepath("img","ribbon.svg"),
+                            gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg")
                         }
         
                         ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,themeswitch?.[1].src))
@@ -346,7 +348,7 @@ const startsan = async (appinfo: AppInfo) => {
     
             if (!processinfo.length) {
                 if (retries < (maxretries || 10)) {
-                    log.write("ERROR",`No running processes found for "${gamename}" - Retrying...`)
+                    log.write("WARN",`No running processes found for "${gamename}" - Retrying...`)
                     retries++
     
                     setTimeout(getrunninggameprocesses,1000)
@@ -354,7 +356,7 @@ const startsan = async (appinfo: AppInfo) => {
                 } else {
                     // If no processes are found by automatic process tracking or by manually adding a Linked Game, use "steam-game-path" as a last resort fallback
                     // This could potentially replace the `get_game_exes()` Rust function if it turns out to be more accurate, but is a lot slower, due to waiting for the `SteamUser` dependency of `steam-game-path` to parse `appinfo.vdf`
-                    log.write("ERROR",`No matching game processes found via automatic process tracking or Linked Games. Checking for executable using "steam-game-path"...`)
+                    log.write("WARN",`No matching game processes found via automatic process tracking or Linked Games. Checking for executable using "steam-game-path"...`)
     
                     const exes = async () => (await (getGamePath(appid,true)?.game)?.executable as any[]).filter(({ executable }: any) => path.extname(executable) === (process.platform === "win32" ? ".exe" : ""))    
     
@@ -367,7 +369,7 @@ const startsan = async (appinfo: AppInfo) => {
     
                     // If an EXE is still not found, push an invalid process. The user will then need to manually release the game
                     if (!processes.length) {
-                        log.write("ERROR",`Unable to find running game process for "${gamename}": Game will not be able to quit automatically!`)
+                        log.write("WARN",`Unable to find running game process for "${gamename}": Game will not be able to quit automatically!`)
                         ipcRenderer.send("noexe")
                         
                         processes.push({

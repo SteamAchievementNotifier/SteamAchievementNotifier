@@ -247,6 +247,7 @@ export const sanconfig = {
                 webhookmain: true,
                 webhookrare: true,
                 webhookplat: true,
+                webhooktest: false,
                 webhookurl: "",
                 webhooklaststatus: "",
                 webhookspoilers: false,
@@ -466,7 +467,7 @@ export const sanconfig = {
         
         for (const key of objkeys) {
             if (!configkeys.includes(key)) {
-                log.write("ERROR",`"${key}" missing in ${type ? `"customisation.${type}"` : "config"}`)
+                log.write("WARN",`"${key}" missing in ${type ? `"customisation.${type}"` : "config"}`)
 
                 try {
                     config.set(type ? `customisation.${type}.${key}` : key,obj[key as string])
@@ -481,7 +482,7 @@ export const sanconfig = {
             if (!type && key === ssalldetails) {
                 for (const id of obj[key] as any) {
                     if (!config.get(key).includes(id)) {
-                        log.write("ERROR",`"${id}" missing in "config.${ssalldetails}"`)
+                        log.write("WARN",`"${id}" missing in "config.${ssalldetails}"`)
                         
                         try {
                             config.set(ssalldetails,obj[key as string])
@@ -513,7 +514,7 @@ export const sanconfig = {
         const filter = (objkeys: string[]) => defaulticonkeys.filter(key => !objkeys.includes(key))
         const createnewkeys = (obj: { [key: string]: any },type: string) => {
             return filter(customiconkeys).map(key => {
-                log.write("ERROR",`"${key}" preset missing from default icons for ${type}`)
+                log.write("WARN",`"${key}" preset missing from default icons for ${type}`)
 
                 return Object.assign(obj,{
                     ...obj,
@@ -588,7 +589,7 @@ export const sanconfig = {
         return new Map(Array.from(files).flatMap(([key,value]) => Array.isArray(value) ? value.map((file,i) => !fs.existsSync(file) ? [[`${key[0]}.${i}`,`${key[1]}.${i}`],file] : null).filter((entry): entry is [string[],string] => Boolean(entry)) : !fs.existsSync(value) ? [[key,value]] : []))
     },
     resetmissingfiles: (files: Map<string[],string>,config: Store<Config>,log: any) => files.forEach((value,key) => {
-        log.write("ERROR",`"${value}" does not exist, but is currently in use by "${key[1]}" - resetting to default...`)
+        log.write("WARN",`"${value}" does not exist, but is currently in use by "${key[1]}" - resetting to default...`)
 
         try {
             const defaultfile = key[0].split(".").map(key => isNaN(Number(key)) ? key : Number(key)).reduce((acc:any,key) => acc[key],sanconfig.defaultfiles)

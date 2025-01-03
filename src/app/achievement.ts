@@ -197,7 +197,7 @@ export const getlocalisedachievementinfo = async (steam3id: number,apiname: stri
 
         while (!achinfo && retries < maxretries) {
             retries++
-            log.write("ERROR",`${retryerr} - retrying (${retries}/${maxretries})...`)
+            log.write("WARN",`${retryerr} - retrying (${retries}/${maxretries})...`)
 
             await new Promise(resolve => setTimeout(resolve,100))
             achinfo = getlocalisedachievementdata(jsonpath,apiname)

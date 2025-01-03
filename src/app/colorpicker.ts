@@ -6,7 +6,7 @@ import { log } from "./log"
 
 export const createcolorpicker = (instance: Instance<Props>,input: HTMLInputElement,menutype: HTMLElement) => {
     for (const [name,parameter] of Object.entries({ instance, input, menutype })) {
-        if (!parameter) return log.write("ERROR",`"${name}" parameter not supplied`)
+        if (!parameter) return log.write("WARN",`"${name}" parameter not supplied`)
     }
 
     const picker = instance.popper.querySelector("div#picker") as HTMLElement

@@ -279,7 +279,7 @@ export const listeners = {
                 fs.mkdirSync(sanhelper.temp)
                 return log.write("INFO",`"${sanhelper.temp}" directory cleared successfully`)
             } catch (err) {
-                return log.write("ERROR",`Error cleared "${sanhelper.temp}" directory: ${err as Error}`)
+                return log.write("ERROR",`Error clearing "${sanhelper.temp}" directory: ${err as Error}`)
             }
         }
 
@@ -310,7 +310,7 @@ export const listeners = {
                 log.write("INFO",msg)
                 setTimeout(() => ipcMain.emit("createworker"),releasedelay * 1000)
             } catch (err) {
-                log.write("INFO",err as Error)
+                log.write("WARN",err as Error)
                 setTimeout(() => ipcMain.emit("validateworker"),1000)
             }
         })
@@ -327,7 +327,7 @@ export const listeners = {
         ipcMain.on("debuginfoupdated", (event,debuginfo: DebugInfo,reset?: boolean) => debugwin && debugwin.webContents.send("debuginfoupdated",debuginfo,reset))
 
         ipcMain.on("debugwin", (event,value: boolean) => {
-            if (value && debugwin) return log.write("ERROR",`"debugwin" already active`)
+            if (value && debugwin) return log.write("WARN",`"debugwin" already active`)
             if (!value && debugwin) return debugwin.close()
 
             debugwin = new BrowserWindow({
@@ -404,7 +404,7 @@ export const listeners = {
 
                 const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id: number,hqicon: string,tempdir: string,__root: string) => {
                     trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id,hqicon,tempdir,__root)
-                    shownotify(trackwin,bounds,false,true)
+                    shownotify(trackwin,bounds,false,config.get("nowtracking"))
     
                     return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
                 }
@@ -663,12 +663,12 @@ export const listeners = {
         const closewin = (type: string) => {
             // Needs explicit assignment to avoid "Object has been destroyed" error
             if (type === "ext") {
-                if (!extwin) return log.write("ERROR",`"${type}win" not found`)
+                if (!extwin) return log.write("WARN",`"${type}win" not found`)
 
                 extwin.close()
                 extwin = null
             } else {
-                if (!statwin) return log.write("ERROR",`"${type}win" not found`)
+                if (!statwin) return log.write("WARN",`"${type}win" not found`)
 
                 statwin && statwin.close()
                 statwin = null
@@ -943,9 +943,9 @@ export const listeners = {
             const config = sanconfig.get()
             if (config.get("soundonly")) return
         
-            const custompos = customisation?.custompos || config.get(`customisation.${type}.custompos`) as { x: number, y: number }
-            const monitor = (dims.x !== undefined && dims.y !== undefined) ? screen.getDisplayNearestPoint({ x: dims.x, y: dims.y }) : ((customisation?.usecustompos || (config.get(`customisation.${type}.usecustompos`))) ? screen.getDisplayNearestPoint({ x: custompos.x, y: custompos.y }) : screen.getPrimaryDisplay())
-            const scale = type ? (customisation?.scale || config.get(`customisation.${type}.scale`) as number) / 100 : 1
+            const custompos = customisation ? customisation.custompos : config.get(`customisation.${type}.custompos`) as { x: number, y: number }
+            const monitor = (dims.x !== undefined && dims.y !== undefined) ? screen.getDisplayNearestPoint({ x: dims.x, y: dims.y }) : ((customisation ? customisation.usecustompos : (config.get(`customisation.${type}.usecustompos`))) ? screen.getDisplayNearestPoint({ x: custompos.x, y: custompos.y }) : screen.getPrimaryDisplay())
+            const scale = type ? (customisation ? customisation.scale : config.get(`customisation.${type}.scale`) as number) / 100 : 1
         
             // "screenwidth"/"screenheight" already have scaleFactor applied when returned as Electron.Display
             const screenwidth = monitor.bounds.width
@@ -970,7 +970,7 @@ export const listeners = {
                 bottomright: { x: (screenwidth - (notifywidth + glowsize) + bottom), y: (screenheight - (notifyheight + glowsize) + bottom) }
             } as Positions
         
-            const { x, y } = (type && wintype === "extwin") ? { x: 0, y: 0 } : (type ? (((customisation ? customisation.usecustompos : config.get(`customisation.${type}.usecustompos`)) ? custompos : positions[(customisation?.pos || config.get(`customisation.${type}.pos`)) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"])) : positions[config.get("nowtrackingpos")])
+            const { x, y } = (type && wintype === "extwin") ? { x: 0, y: 0 } : (type ? (((customisation ? customisation.usecustompos : config.get(`customisation.${type}.usecustompos`)) ? custompos : positions[(customisation ? customisation.pos : config.get(`customisation.${type}.pos`)) as "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright"])) : positions[config.get("nowtrackingpos")])
         
             return {
                 width: notifywidth + glowsize,
@@ -1092,7 +1092,7 @@ export const listeners = {
                     if (extwin) {
                         extwin.webContents.send("notify")
 
-                        if (!offscreenwin) return log.write("ERROR",`"offscreenwin" not found - cannot send "notify" ipc event`)
+                        if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notify" ipc event`)
                         offscreenwin.webContents.send("notify",await notifyinfo(true))
                     }
                 })
@@ -1104,7 +1104,7 @@ export const listeners = {
                     const { msg, dims } = res
 
                     const preparewin = (win: BrowserWindow | null,isextwin?: boolean) => {
-                        if (!win) return log.write("ERROR",`Error preparing ${isextwin ? "extwin" : "notifywin"}: Window was not found`)
+                        if (!win) return log.write("WARN",`Error preparing ${isextwin ? "extwin" : "notifywin"}: Window was not found`)
 
                         // Set as <meta> tag dimensions, then send to `setnotifybounds` to calculate actual size
                         win.setSize(dims.width,dims.height)
@@ -1147,7 +1147,7 @@ export const listeners = {
                 ipcMain.once("notifyfinished", async () => {
                     try {
                         const msg = await new Promise<string>(async resolve => {
-                            if (!notifywin) log.write("ERROR",`"notifywin" not found - cannot close window`)
+                            if (!notifywin) log.write("WARN",`"notifywin" not found - cannot close window`)
 
                             notifywin && notifywin.close()
                             notifywin = null
@@ -1155,7 +1155,7 @@ export const listeners = {
                             if (extwin) {
                                 extwin.webContents.send("notifyfinished")
 
-                                if (!offscreenwin) log.write("ERROR",`"offscreenwin" not found - cannot close window`)
+                                if (!offscreenwin) log.write("WARN",`"offscreenwin" not found - cannot close window`)
 
                                 offscreenwin && offscreenwin.close()
                                 offscreenwin = null
@@ -1179,7 +1179,7 @@ export const listeners = {
                 notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished") : ipcMain.emit("notifyfinished")
                 
                 if (extwin) {
-                    if (!offscreenwin) return log.write("ERROR",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
+                    if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
                     offscreenwin.webContents.send("notifyfinished")
                 }
             },displaytime * 1000)
@@ -1326,7 +1326,7 @@ export const listeners = {
                 const { steamkeycodes } = await import("./keycodes")
                 const { sanhelper: { presskey, depsinstalled } } = await import("./sanhelper")
 
-                if (process.platform === "linux" && !depsinstalled) return log.write("ERROR",`Error triggering Steam screenshot: "xdotool" dependency not installed`)
+                if (process.platform === "linux" && !depsinstalled) return log.write("WARN",`Error triggering Steam screenshot: "xdotool" dependency not installed`)
     
                 steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? presskey(steamkeycodes.get(hotkey)) : log.write("ERROR",`Error triggering Steam screenshot: Key "${hotkey}" does not exist in steamkeycodes Map`)
             } catch (err) {
@@ -1359,7 +1359,7 @@ export const listeners = {
 
             let monitor: Monitor | Electron.Display | undefined = config.get("monitors").find(monitor => (src || config.get("monitor")) === monitor.id)
             if (!monitor) {
-                log.write("ERROR",`Monitor id "${config.get("monitor")}" could not be found in "config.monitors" - Reverting to primary display...`)
+                log.write("WARN",`Monitor id "${config.get("monitor")}" could not be found in "config.monitors" - Reverting to primary display...`)
                 monitor = screen.getPrimaryDisplay()
             }
 
@@ -1377,7 +1377,7 @@ export const listeners = {
             
             const checksrc = (src: string) =>  {
                 if (!fs.existsSync(src)) {
-                    log.write("ERROR",`"${notifyid}.png" src file not present in "${sanhelper.temp}" - retrying...`)
+                    log.write("WARN",`"${notifyid}.png" src file not present in "${sanhelper.temp}" - retrying...`)
                     setTimeout(() => checksrc(src),250)
                     return
                 }
@@ -1440,11 +1440,12 @@ export const listeners = {
 
         const removesrcimg = (id: number) => {
             const srcimg = getsspath(id)
-            if (!fs.existsSync(srcimg)) return log.write("INFO",`Unable to remove "src" image: "${srcimg}" - not found`)
 
             try {
-                fs.rmSync(srcimg)
-                log.write("INFO",`Removed "src" image: "${srcimg}"`)
+                if (fs.existsSync(srcimg)) {
+                    fs.rmSync(srcimg)
+                    log.write("INFO",`Removed "src" image: "${srcimg}"`)
+                }
             } catch (err) {
                 log.write("ERROR",`Error removing "src" image "${srcimg}": ${err as Error}`)
             }
@@ -1461,7 +1462,7 @@ export const listeners = {
             const info = await buildnotify(notify)
 
             ipcMain.once(`${type}winready`, async event => {
-                if (!sswin) return log.write("ERROR",`Error sending ${type === "ss" ? `screenshot "src"` : "notification data"}: "${type}win" not found`)
+                if (!sswin) return log.write("WARN",`Error sending ${type === "ss" ? `screenshot "src"` : "notification data"}: "${type}win" not found`)
 
                 if (type === "ss") {
                     log.write("INFO",!ispreview ? `Sending "src" for id: ${notify.id}` : "Screenshot not taken for preview")
@@ -1483,7 +1484,7 @@ export const listeners = {
                 } as Info)
 
                 ipcMain.once("dims", (event,dims: { width: number, height: number, offset: number }) => {
-                    if (!sswin) return log.write("ERROR",`Error setting "sswin" dimensions: "sswin" not found`)
+                    if (!sswin) return log.write("WARN",`Error setting "sswin" dimensions: "sswin" not found`)
 
                     const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,"sswin",notify.customisation) as { width: number, height: number, x: number, y: number }
 
@@ -1499,7 +1500,7 @@ export const listeners = {
                 })
 
                 !ispreview && ipcMain.once("sscapture", () => {
-                    if (!sswin) return log.write("ERROR",`"${type}win" was closed before image file could be written to "${imgpath}"`)
+                    if (!sswin) return log.write("WARN",`"${type}win" was closed before image file could be written to "${imgpath}"`)
 
                     const ssdir = `${imgpath}/${(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}`
                     const ssimg = `${ssdir}/${info.title.replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}${type === "img" ? " - Notification" : ""}.png`

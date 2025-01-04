@@ -4,7 +4,7 @@ import path from "path"
 
 const getgameart = (gamename: string,type: "icon" | "library_hero",appid: number,steampath: string,steam3id: number,hqicon: string): string => {
     const heropath = (steam3id: number) => {
-        const heroimgpath = path.join(steampath,"userdata",`${steam3id}`,"config","grid",`${appid}_hero`).replace(/\\/g,"/")
+        const heroimgpath = path.join(steampath,"userdata",`${steam3id}`,"config","grid",`${appid}_hero`)
         const exts = ["jpg","png"]
 
         for (const ext of exts) {
@@ -39,14 +39,14 @@ const getgameart = (gamename: string,type: "icon" | "library_hero",appid: number
 
         for (const filepath of filepaths) {
             if (fs.existsSync(filepath)) {
-                libcachefilepath = filepath.replace(/\\/g,"/")
+                libcachefilepath = filepath
                 break
             }
         }
     }
 
-    const defaultheropath = path.join(libcache,`${appid}_${type}.jpg`).replace(/\\/g,"/")
-    const gameart = type === "library_hero" && heropath(steam3id) || type === "icon" && hqicon || libcachefilepath || defaultheropath
+    const defaultheropath = path.join(libcache,`${appid}_${type}.jpg`)
+    const gameart = (type === "library_hero" && heropath(steam3id) || type === "icon" && hqicon || libcachefilepath || defaultheropath).replace(/\\/g,"/")
 
     try {
         if (!fs.existsSync(gameart)) throw new Error(`"${gameart}" not found`)

@@ -21,30 +21,34 @@ const notifyhelper = {
     
         return link
     },
-    get appids(): number[] { return [
-        361420,
-        1091500,
-        22300,
-        285900,
-        4000,
-        1659040,
-        613100,
-        1149460,
-        582010,
-        620,
-        1564220,
-        257510,
-        835960
-    ]},
-    get audioextensions(): string[] { return [
-        ".wav",
-        ".mp3",
-        ".ogg",
-        ".aac"
-    ]},
+    get appids(): number[] {
+        return [
+            620,
+            4000,
+            22300,
+            257510,
+            285900,
+            361420,
+            582010,
+            613100,
+            835960,
+            1091500,
+            1149460,
+            1564220,
+            1659040
+        ]
+    },
+    get audioextensions(): string[] {
+        return [
+            ".wav",
+            ".mp3",
+            ".ogg",
+            ".aac"
+        ]
+    },
     getgameart: (type: "icon" | "library_hero",appid: number,steampath: string,steam3id: number,hqicon: string): Promise<string> => {
         const heropath = (steam3id: number) => {
-            const heroimgpath = path.join(steampath,"userdata",`${steam3id}`,"config","grid",`${appid}_hero`).replace(/\\/g,"/")
+            const heroimgpath = path.join(steampath,"userdata",`${steam3id}`,"config","grid",`${appid}_hero`)
             const exts = ["jpg","png"]
     
             for (const ext of exts) {
@@ -53,6 +57,8 @@ const notifyhelper = {
     
             return null
         }
+
+        let libcachefilepath: string | null = null
 
         const libcache = path.join(steampath,"appcache","librarycache")
         const filepaths: string[] = []
@@ -74,12 +80,15 @@ const notifyhelper = {
             }
     
             for (const filepath of filepaths) {
-                if (fs.existsSync(filepath)) return Promise.resolve(filepath.replace(/\\/g, "/"))
+                if (fs.existsSync(filepath)) {
+                    libcachefilepath = filepath
+                    break
+                }
             }
         }
 
         const defaultheropath = path.join(libcache,`${appid}_${type}.jpg`)
-        const imgpath = type === "library_hero" && heropath(steam3id) || (type === "icon" && hqicon || defaultheropath).replace(/\\/g,"/")
+        const imgpath = (type === "library_hero" && heropath(steam3id) || type === "icon" && hqicon || libcachefilepath || defaultheropath).replace(/\\/g,"/")
 
         return fs.existsSync(imgpath) ? Promise.resolve(imgpath) : Promise.reject(type === "icon" ? "../img/gameicon.png" : (`../img/gameart/${appid}_${type}.jpg` || "../img/sanimgbg.png"))
     },

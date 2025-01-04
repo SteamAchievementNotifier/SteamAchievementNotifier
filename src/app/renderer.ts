@@ -529,7 +529,13 @@ const resetwin = (attrs: string[], animationName?: string) => {
 const customisebtn = document.getElementById("customise")! as HTMLButtonElement
 
 const closecustomiser = () => {
-    (sanhelper.devmode && webview) && webview.closeDevTools()
+    if (sanhelper.devmode && webview) {
+        try {
+            webview.closeDevTools()
+        } catch (err) {
+            log.write("WARN",err as Error)
+        }
+    }
 
     // Closes "poswin" instances
     ipcRenderer.send("closeopenwins")

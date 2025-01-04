@@ -58,8 +58,6 @@
     cursor: auto;
 }
 
-.wrapper#elemselector > .wrapper > .wrapper:has(select > option[value="off"]:checked),
-.wrapper#elemselector > .wrapper > .wrapper:has(input[id$="percentbadge"]:not(:checked)),
 .wrapper#elemselector:has(input#elemsmatch:checked) > .wrapper > .wrapper:not(:has(input#elemsmatch:checked)),
 .wrapper#elemselector:has(input#elemsmatch:checked) > .wrapper > button.rect#resetpbimgs {
     opacity: 0.5;

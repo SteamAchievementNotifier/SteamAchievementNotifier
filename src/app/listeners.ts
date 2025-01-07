@@ -519,15 +519,15 @@ export const listeners = {
 
         ipcMain.on("resetwin",setwinsize)
 
-        ipcMain.on("releasegame", (event,skipdialog?: boolean) => {
+        ipcMain.on("releasegame", () => {
             const { noreleasedialog } = sanconfig.get().store
 
-            if (!skipdialog || !noreleasedialog) {
+            if (!noreleasedialog) {
                 win.show()
                 win.focus()
             }
 
-            win.webContents.send("releasegame",skipdialog || noreleasedialog)
+            win.webContents.send("releasegame",noreleasedialog)
         })
 
         ipcMain.on("suspendresume", () => {

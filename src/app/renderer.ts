@@ -176,8 +176,11 @@ window.addEventListener("DOMContentLoaded", () => setTimeout(() => {
 
 ipcRenderer.on("displaysupdated", () => {
     setmonitors()
-    ipcRenderer.send("monitorsupdated")
+
     ipcRenderer.once("monitorsupdated", () => sanhelper.updatetabs())
+    ipcRenderer.send("monitorsupdated")
+
+    document.getElementById("webhookwrapper")?.remove()
 })
 
 config.onDidAnyChange((newobj: any) => {
@@ -389,9 +392,9 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         const { webhookwrapper } = await import("./webhook")
         const setwebhookwrapper = () => {
             const wrapper = document.getElementById("webhookwrapper")
-            if (wrapper) return
+            wrapper && wrapper.remove()
 
-            config.get("webhooks") && webhookwrapper(document.querySelector(`#settingscontent .wrapper:has(> #webhooks)`)!)
+            return config.get("webhooks") && webhookwrapper(document.querySelector(`#settingscontent .wrapper:has(> #webhooks)`)!)
         }
 
         setwebhookwrapper()
@@ -782,6 +785,7 @@ ipcRenderer.on("shortcut", async (event,type) => {
 window.addEventListener("lang", async () => {
     document.querySelector(".rect#game > span")!.textContent = globalgamename || await language.get("game",["app","content"])
     ipcRenderer.send("lang",globalgamename,achnum)
+    document.getElementById("webhookwrapper")?.remove()
 })
 
 const checkdialogstatus = (input: HTMLInputElement) => config.set(input.id,input.checked)
@@ -973,7 +977,7 @@ ipcRenderer.on("noexeclick",async () => {
                         
                         if (winpath && window.appid) {
                             dialog.close()
-                            ipcRenderer.send("releasegame",true)
+                            ipcRenderer.send("releasegame")
                         }
 
                         return

@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 import { log } from "./log"
 import { sanconfig } from "./config"
-import { __root } from "./sanhelper"
+import { __root, sanhelper } from "./sanhelper"
 
 const setlaststatus = (statuscode?: string) => {
     const webhooklaststatus = document.getElementById("webhooklaststatus") as HTMLElement
@@ -99,14 +99,10 @@ export const webhookwrapper = async (elem: HTMLElement) => {
         const type = (["main","rare","plat","test"] as const).find(type => input.id.endsWith(type)) as "main" | "rare" | "plat" | "test"
 
         span.textContent = await language.get(type)
-
         input.checked = config.get(`webhook${type}`) as boolean
+        sanhelper.getcheckbox(config,input)
 
-        ;[span,input].forEach(elem => elem.onclick = () => {
-            const value = !input.checked
-            config.set(`webhook${type}`,value)
-            input.checked = value
-        })
+        ;[span,input].forEach(elem => elem.onclick = event => sanhelper.setcheckbox(config,event))
     })
 
     const spoilers = document.querySelector(`.wrapper:has(> input#webhookspoilers)`)!
@@ -114,14 +110,9 @@ export const webhookwrapper = async (elem: HTMLElement) => {
     const spoilersinput = spoilers.querySelector("input") as HTMLInputElement
 
     spoilersspan.textContent = await language.get("webhookspoilers",["settings","notifications","content"])
-    spoilersinput.checked = config.get("webhookspoilers")
+    sanhelper.getcheckbox(config,spoilersinput)
 
-    ;[spoilersspan,spoilersinput].forEach(elem => elem.onclick = event => {
-        const input = (event.target as HTMLSpanElement | HTMLInputElement).parentElement!.querySelector("input")!
-        const value = !input.checked
-        config.set("webhookspoilers",value)
-        input.checked = value
-    })
+    ;[spoilersspan,spoilersinput].forEach(elem => elem.onclick = event => sanhelper.setcheckbox(config,event))
 
     const laststatus = document.getElementById("webhooklaststatus")!
     const lslbl = laststatus.parentElement!.querySelector("span:first-child") as HTMLSpanElement

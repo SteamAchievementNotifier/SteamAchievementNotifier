@@ -475,9 +475,16 @@ export const listeners = {
             return new Promise<void>(resolve => {
                 win.hide()
                 win.setPosition(0,0)
+
+                extwin && extwin.setPosition(0,0)
+                statwin && statwin.setPosition(0,0)
+
                 resolve()
             })
-            .then(() => win.setSize(width,height))
+            .then(() => {
+                win.setSize(width,height)
+                statwin && statwin.setSize(250,500)
+            })
             .finally(() => {
                 win.center()
                 win.show()

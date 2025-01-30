@@ -3,6 +3,7 @@ import path from "path"
 import fs from "fs"
 
 const imgs = [document.getElementById("achicon")] as HTMLImageElement[]
+const files: string[] = []
 
 const hiddenelems = [
     "steamdeck",
@@ -21,23 +22,6 @@ const notifyhelper = {
     
         return link
     },
-    get appids(): number[] {
-        return [
-            620,
-            4000,
-            22300,
-            257510,
-            285900,
-            361420,
-            582010,
-            613100,
-            835960,
-            1091500,
-            1149460,
-            1564220,
-            1659040
-        ]
-    },
     get audioextensions(): string[] {
         return [
             ".wav",
@@ -45,52 +29,6 @@ const notifyhelper = {
             ".ogg",
             ".aac"
         ]
-    },
-    getgameart: (type: "icon" | "library_hero",appid: number,steampath: string,steam3id: number,hqicon: string): Promise<string> => {
-        const heropath = (steam3id: number) => {
-            const heroimgpath = path.join(steampath,"userdata",`${steam3id}`,"config","grid",`${appid}_hero`)
-            const exts = ["jpg","png"]
-    
-            for (const ext of exts) {
-                if (fs.existsSync(`${heroimgpath}.${ext}`)) return `${heroimgpath}.${ext}`
-            }
-    
-            return null
-        }
-
-        let libcachefilepath: string | null = null
-
-        const libcache = path.join(steampath,"appcache","librarycache")
-        const filepaths: string[] = []
-        const files = [
-            `${appid}_${type}.jpg`,
-            `${type}.jpg`
-        ] as const
-    
-        for (const file of files) {
-            const appiddir = path.join(libcache, `${appid}`)
-            if (fs.existsSync(appiddir) && fs.statSync(appiddir).isDirectory()) {
-                filepaths.push(path.join(appiddir,file))
-    
-                const subdirs = fs.readdirSync(appiddir).filter((subdir) => fs.statSync(path.join(appiddir,subdir)).isDirectory())
-    
-                for (const subdir of subdirs) {
-                    filepaths.push(path.join(appiddir,subdir,`${appid}_${type}.jpg`))
-                }
-            }
-    
-            for (const filepath of filepaths) {
-                if (fs.existsSync(filepath)) {
-                    libcachefilepath = filepath
-                    break
-                }
-            }
-        }
-
-        const defaultheropath = path.join(libcache,`${appid}_${type}.jpg`)
-        const imgpath = (type === "library_hero" && heropath(steam3id) || type === "icon" && hqicon || libcachefilepath || defaultheropath).replace(/\\/g,"/")
-
-        return fs.existsSync(imgpath) ? Promise.resolve(imgpath) : Promise.reject(type === "icon" ? "../img/gameicon.png" : (`../img/gameart/${appid}_${type}.jpg` || "../img/sanimgbg.png"))
     },
     getaudiofile: (mode: "file" | "folder",filepath: string) => {
         if (mode === "file") return filepath
@@ -146,10 +84,8 @@ const notifyhelper = {
     
         return notifyhelper.playaudio(customisation,iswebview,skipaudio,type)
     },
-    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold"): Promise<HTMLImageElement[] | null> => {
-        return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {
-            const gameartappid = !appid ? notifyhelper.appids[Math.floor(Math.random() * notifyhelper.appids.length)] : appid
-    
+    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string): Promise<HTMLImageElement[] | null> => {
+        return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {    
             const fontloader = document.getElementById("fontloader")
             fontloader && fontloader.remove()
             
@@ -182,14 +118,11 @@ const notifyhelper = {
             const preloadimgs: HTMLImageElement[] = []
             const imgerrors: string[] = []
     
-            const getpreloadimgurl = async (type: "bgstyle" | "usegameicon") => {
+            const getpreloadimgurl = async (type: "bgstyle" | "usegameicon",icon: string,libhero: string) => {
                 const preloadimg = document.createElement("img")
-                const url = (type === "bgstyle" && customisation.bgstyle === "bgimg") ? (customisation.bgimg || "../img/sanimgbg.png") : await notifyhelper.getgameart(type === "bgstyle" ? "library_hero" : "icon",gameartappid,steampath,steam3id,hqicon).catch(fallback => {
-                    imgerrors.push(type)
-                    return fallback as string
-                })
+                const url = (type === "bgstyle" && customisation.bgstyle === "bgimg") ? (customisation.bgimg || "../img/sanimgbg.png") : type === "bgstyle" ? libhero : icon
                 
-                const convertedicon = await notifyhelper.convertICO(url,temp) || await notifyhelper.getgameart(type === "bgstyle" ? "library_hero" : "icon",gameartappid,steampath,steam3id,"")
+                const convertedicon = (await notifyhelper.convertICO(url,temp)) || (type === "bgstyle" ? libhero : icon)
                 preloadimg.id = `${type}url`
                 preloadimg.src = convertedicon
     
@@ -197,9 +130,9 @@ const notifyhelper = {
     
                 return convertedicon
             }
-     
-            const gamearturl: string | null = (customisation.bgstyle === "gameart" || customisation.bgstyle === "bgimg") ? await getpreloadimgurl("bgstyle") : null
-            const gameiconurl: string | null = customisation.usegameicon ? (appid ? await getpreloadimgurl("usegameicon") : "../img/gameicon.png") : null
+
+            const gamearturl: string | null = (customisation.bgstyle === "gameart" || customisation.bgstyle === "bgimg") ? await getpreloadimgurl("bgstyle",gamearticon,gameartlibhero) : null
+            const gameiconurl: string | null = customisation.usegameicon ? (appid ? await getpreloadimgurl("usegameicon",gamearticon,gameartlibhero) : "../img/gameicon.png") : null
     
             gameiconurl && ((document.getElementById("achicon")! as HTMLImageElement)!.src = gameiconurl)
 
@@ -307,7 +240,9 @@ const notifyhelper = {
 }
 
 ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
-    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots } = obj
+    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero } = obj
+
+    console.log(appid,gamearticon,gameartlibhero)
 
     try {
         document.body.setAttribute(type,"")
@@ -419,7 +354,7 @@ ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
             
             if (!steampath) throw new Error(`Steam installation path not found!`)
 
-            notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id,hqicon,temp,percentimg)
+            notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id,hqicon,temp,percentimg,gamearticon,gameartlibhero)
             .then(preloadimgs => {
                 preloadimgs && preloadimgs.forEach(img => imgs.push(img))
                 resolve({

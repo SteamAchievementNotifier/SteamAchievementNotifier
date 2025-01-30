@@ -7,10 +7,12 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { language } from "./language"
 import { update } from "./update"
+import { gameart } from "./gameart"
 
 let appid: number = 0
 let extwin: BrowserWindow | null = null
 let statwin: BrowserWindow | null = null
+const gameartfiles: string[] = []
 
 export const listeners = {
     setexit: (win?: BrowserWindow) => {
@@ -398,12 +400,12 @@ export const listeners = {
 
             trackwin.loadFile(config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","dist","app","trackwin.html") : path.join(__root,"dist","app","trackwin.html"))
 
-            ipcMain.once("trackwinready", () => {
+            ipcMain.once("trackwinready",async () => {
                 const { width, height } = trackwin.getBounds()
                 const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
 
-                const sendtrackinfo = async (gamename: string,appid: number,steampath: string,steam3id: number,hqicon: string,tempdir: string,__root: string) => {
-                    trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,appid,steampath,steam3id,hqicon,tempdir,__root)
+                const sendtrackinfo = async (gamename: string,gamearticon: string,gameartlibhero: string) => {
+                    trackwin.webContents.send("gamename",await language.get("nowtracking"),gamename,gamearticon,gameartlibhero)
                     shownotify(trackwin,bounds,false,config.get("nowtracking"))
     
                     return setTimeout(() => trackwin.webContents.send("trackwinclose"),4500)
@@ -411,14 +413,39 @@ export const listeners = {
 
                 const steampath = sanhelper.steampath
                 const hqicon = sanhelper.gethqicon(appid)
-                const temp = sanhelper.temp
+                const tempdir = sanhelper.temp
+                
+                const gameartobj = {
+                    appid,
+                    hqicon,
+                    steam3id: 0,
+                    steampath,
+                    gamename
+                }
+
+                const getgameartimgs = async (obj: object,files: string[]): Promise<{ icon: string, gameartlibhero: string }> => {
+                    return {
+                        icon: await gameart.get({ ...obj, type: "icon" } as GameArt,files).then(res => res).catch(fallback => fallback),
+                        gameartlibhero: await gameart.get({ ...obj, type: "library_hero" } as GameArt,files).then(res => res).catch(fallback => fallback)
+                    }
+                }
 
                 try {
                     worker && worker.webContents.send("steam3id",true)
-                    ipcMain.once("steam3id",(event,steam3id: number = 0,skipss?: boolean) => skipss && sendtrackinfo(gamename,appid,steampath,steam3id,hqicon,temp,__root))
+
+                    ipcMain.once("steam3id",async (event,steam3id: number = 0,skipss?: boolean) => {
+                        const { icon, gameartlibhero } = await getgameartimgs({ ...gameartobj, steam3id },gameartfiles)
+                        const gamearticon = await gameart.convertICO(icon,tempdir,__root)
+
+                        skipss && sendtrackinfo(gamename,gamearticon || icon,gameartlibhero)
+                    })
                 } catch (err) {
                     log.write("ERROR",`Error sending tracking info to Worker: ${err}`)
-                    sendtrackinfo(gamename,appid,steampath,0,hqicon,temp,__root)
+                    
+                    const { icon, gameartlibhero } = await getgameartimgs(gameartobj,gameartfiles)
+                    const gamearticon = await gameart.convertICO(icon,tempdir,__root)
+
+                    sendtrackinfo(gamename,gamearticon || icon,gameartlibhero)
                 }
             })
 
@@ -901,17 +928,33 @@ export const listeners = {
             
             if (iswebview === "customiser") {
                 const { ssalldetails, screenshots } = config.store
+                const steampath = sanhelper.steampath
+                const steam3id = notify.steam3id
+                const hqicon = sanhelper.gethqicon(appid)
+    
+                const gameartobj = {
+                    appid,
+                    hqicon,
+                    steam3id,
+                    steampath
+                }
+
+                const icon = await gameart.get({ ...gameartobj, type: "icon" } as GameArt,gameartfiles).then(res => res).catch(fallback => fallback)
+                const gamearticon = await gameart.convertICO(icon,sanhelper.temp,__root)
+                const gameartlibhero = await gameart.get({ ...gameartobj, type: "library_hero" } as GameArt,gameartfiles).then(res => res).catch(fallback => fallback)
 
                 return win.webContents.send("customisernotify",{
                     info: info,
                     customisation: notify.customisation,
                     iswebview: iswebview,
-                    steampath: sanhelper.steampath,
+                    steampath,
                     steam3id: notify.steam3id,
-                    hqicon: sanhelper.gethqicon(appid),
+                    hqicon,
                     temp: sanhelper.temp,
                     ssalldetails: ssalldetails,
-                    screenshots: screenshots
+                    screenshots: screenshots,
+                    gamearticon: config.get(`customisation.${notify.type}.usegameicon`) ? gamearticon || icon : "../img/gameicon.png",
+                    gameartlibhero: config.get(`customisation.${notify.type}.bgstyle`) === "gameart" ? gameartlibhero : "../img/sanimgbg.png"
                 } as Info)
             }
 
@@ -924,25 +967,25 @@ export const listeners = {
 
         const buildnotify = async (notify: Notify): Promise<BuildNotifyInfo> => {
             const config = sanconfig.get()
-            const { customisation, gamename, steam3id } = notify
+            const { id, type, customisation, gamename, steam3id, apiname, icon, percent, hidden } = notify
             
             return {
-                id: notify.id,
-                type: notify.type,
-                appid: appid,
-                gamename: gamename,
-                steam3id: steam3id,
-                apiname: notify.apiname,
+                id,
+                type,
+                appid,
+                gamename,
+                steam3id,
+                apiname,
                 unlockmsg: `${(customisation.usegametitle && (gamename || await language.get("gametitle"))) || customisation.customtext || (notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked"))}`,
-                title: notify.type === "plat" ? await language.get("gamecomplete") : notify.name,
-                desc: notify.type === "plat" ? await language.get("gamecompletedesc") : notify.desc,
-                icon: notify.icon,
+                title: type === "plat" ? await language.get("gamecomplete") : notify.name,
+                desc: type === "plat" ? await language.get("gamecompletedesc") : notify.desc,
+                icon,
                 percent: {
-                    value: notify.percent,
+                    value: percent,
                     rarity: config.get("rarity"),
                     showpercent: config.get("showpercent")
                 },
-                hidden: notify.hidden
+                hidden
             } as BuildNotifyInfo
         }
 
@@ -1078,18 +1121,30 @@ export const listeners = {
 
                 const notifyinfo = async (isextwin?: boolean) => {
                     const { audiosrc, ssalldetails, screenshots } = config.store
+                    const { appid, steam3id } = info
+                    const steampath = sanhelper.steampath
+                    const hqicon = sanhelper.gethqicon(appid)
+        
+                    const gameartobj = {
+                        appid,
+                        hqicon,
+                        steam3id,
+                        steampath
+                    }
 
                     return {
                         info: info,
                         customisation: customisation,
                         iswebview: null,
-                        steampath: sanhelper.steampath,
+                        steampath,
                         skipaudio: isextwin || audiosrc !== "notify",
-                        steam3id: info.steam3id,
-                        hqicon: sanhelper.gethqicon(appid),
+                        steam3id,
+                        hqicon,
                         temp: sanhelper.temp,
                         ssalldetails: ssalldetails,
-                        screenshots: screenshots
+                        screenshots: screenshots,
+                        gamearticon: config.get(`customisation.${notify.type}.usegameicon`) ? await gameart.get({ ...gameartobj, type: "icon" } as GameArt,gameartfiles).then(res => res).catch(fallback => fallback) : "../img/gameicon.png",
+                        gameartlibhero: config.get(`customisation.${notify.type}.bgstyle`) === "gameart" ? await gameart.get({ ...gameartobj, type: "library_hero" } as GameArt,gameartfiles).then(res => res).catch(fallback => fallback) : "../img/sanimgbg.png"
                     } as Info
                 }
 

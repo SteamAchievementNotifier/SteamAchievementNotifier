@@ -313,7 +313,9 @@ declare interface Info {
     hqicon: string,
     temp: string,
     ssalldetails: string[],
-    screenshots: "overlay" | "notifyimg" | "off"
+    screenshots: "overlay" | "notifyimg" | "off",
+    gamearticon: string,
+    gameartlibhero: string
 }
 
 declare interface BuildNotifyInfo {
@@ -405,6 +407,22 @@ declare interface StatsObjTranslations {
     custom: string,
     congrats: string,
     gamecompletedesc: string
+}
+
+declare interface GameArt {
+    type: "icon" | "library_hero" | "logo",
+    appid: number,
+    steampath: string,
+    steam3id: number,
+    hqicon: string,
+    gamename?: string
+}
+
+declare interface RandomDirInfo {
+    randomdir: number,
+    i: number,
+    validdirs: number[],
+    max: number
 }
 
 declare module "simple-vdf"

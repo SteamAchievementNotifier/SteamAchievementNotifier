@@ -20,8 +20,17 @@ declare global {
         steam3id: number,
         update: Function,
         availabletest: Function,
-        gamearttest: Function
+        userdirs: Function
     }
+}
+
+window.userdirs = async () => {
+    const { gameart } = await import("./gameart")
+    const steampath = sanhelper.steampath
+    const randomdirinfo = gameart.getrandomdir(steampath,5)
+    const hqicon = sanhelper.gethqicon(randomdirinfo.randomdir)
+
+    return await gameart.getusergameart(randomdirinfo,steampath,hqicon)
 }
 
 const sanhelperlog = sanhelper.initlogger(path.join(sanhelper.appdata,"logs"))
@@ -992,73 +1001,3 @@ ipcRenderer.on("noexeclick",async () => {
 
     sanhelper.sethelpdialog(document.getElementById("linkgamehelp")!,"linkgamehelp")
 })
-
-window.gamearttest = async () => (type: "icon" | "library_hero" | "logo",appid: number,steam3id?: number,hqicon?: string) => {
-    const steampath = sanhelper.steampath
-
-    const heropath = (steam3id: number) => {
-        if (!steam3id) return null
-
-        const heroimgpath = path.join(steampath,"userdata",`${steam3id}`,"config","grid",`${appid}_hero`)
-        const exts = ["jpg","png"]
-
-        for (const ext of exts) {
-            if (fs.existsSync(`${heroimgpath}.${ext}`)) return `${heroimgpath}.${ext}`
-        }
-
-        return null
-    }
-
-    let libcachefilepath: string | null = null
-
-    const imgnames = [
-        `${appid}_${type}`,
-        `${type}`
-    ].flatMap(img => (["jpg","png"] as const).map(ext => `${img}.${ext}`))
-
-    const libcache = path.join(steampath,"appcache","librarycache")
-    const files: string[] = []
-
-    const appiddir = path.join(libcache,`${appid}`)
-
-    const getgameartfiles = (dir: string) => {
-        for (const file of fs.readdirSync(dir)) {
-            const entrypath = path.join(dir,file)
-
-            if (fs.statSync(entrypath).isDirectory()) {
-               getgameartfiles(entrypath)
-            } else {
-                files.push(entrypath)
-            }
-        }
-    }
-
-    if (fs.existsSync(appiddir)) {
-        getgameartfiles(appiddir)
-
-        for (const filename of imgnames) {
-            const file = files.find(file => path.basename(file) == filename) || null
-
-            if (file && fs.existsSync(file)) {
-                libcachefilepath = file.replace(/\\/g,"/")
-                break
-            } else {
-                log.write("WARN",`😬 Unable to locate "${path.join(appiddir,filename).replace(/\\/g,"/")}" for Game Art "${type}" - skipping...`)
-            }
-        }
-    }
-
-    const defaultpath = path.join(libcache,`${appid}_${type}.jpg`)
-    const imgpath = (type === "library_hero" && steam3id && heropath(steam3id) || type === "icon" && hqicon || libcachefilepath || defaultpath).replace(/\\/g,"/")
-    const herofallback = `../img/gameart/${appid}_${type}.jpg`
-
-    if (!fs.existsSync(imgpath)) {
-        log.write("ERROR",`💥 Unable to locate Game Art "${type}"${type === "icon" ? ` - Retrying with "logo" instead of "icon"...` : ""}`)
-        if (type === "icon") return window.gamearttest("logo",appid,hqicon)
-
-        return Promise.reject(type === "logo" ? "../img/gameicon.png" : (fs.existsSync(herofallback) ? herofallback : "../img/sanimgbg.png"))
-    }
-    
-    log.write("INFO",`🎉 Located "${imgpath}" for Game Art "${type}"`)
-    return Promise.resolve(imgpath)
-}

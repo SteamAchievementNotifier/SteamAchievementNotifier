@@ -559,14 +559,22 @@ export const usertheme = {
 
         const { customisation, type, getsrc } = notify
 
-        let customobj = customisation
+        let customobj = { ...customisation }
         let src = config.get("monitor")
 
+        delete (customobj as any).usertheme
+
         if (themeswitch) {
-            customobj = (config.get(`customisation.${type}.usertheme.${themeswitch[1].themes[type]}`) as UserTheme).customisation
-            getsrc && (src = themeswitch[1].src)
+            const theme = config.get(`customisation.${type}.usertheme.${themeswitch[1].themes[type]}`) as UserTheme
+
+            if (theme && "customisation" in theme) {
+                customobj = theme.customisation
+                getsrc && (src = themeswitch[1].src)
+            } else {
+                log.write("ERROR",`Unable to load Theme for AppID "${appid}" via Auto-Switch Themes - assigned Theme may have been deleted`)
+            }
         }
-        
+
         return { themeswitchcustomisation: customobj, themeswitchsrc: src, enabled: Boolean(themeswitch) }
     }
 }

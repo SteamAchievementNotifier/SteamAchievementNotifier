@@ -939,9 +939,12 @@ export const listeners = {
                     steampath
                 }
 
-                const icon = await gameart.get({ ...gameartobj, type: "icon" } as GameArt,gameartfiles).then(res => res).catch(fallback => fallback)
-                const gamearticon = await gameart.convertICO(icon,sanhelper.temp,__root)
-                const gameartlibhero = await gameart.get({ ...gameartobj, type: "library_hero" } as GameArt,gameartfiles).then(res => res).catch(fallback => fallback)
+                const res = await gameart.getall(
+                    gameartobj,
+                    gameartfiles,
+                    sanhelper.temp,
+                    __root
+                )
 
                 return win.webContents.send("customisernotify",{
                     info: info,
@@ -953,8 +956,8 @@ export const listeners = {
                     temp: sanhelper.temp,
                     ssalldetails: ssalldetails,
                     screenshots: screenshots,
-                    gamearticon: config.get(`customisation.${notify.type}.usegameicon`) ? gamearticon || icon : "../img/gameicon.png",
-                    gameartlibhero: config.get(`customisation.${notify.type}.bgstyle`) === "gameart" ? gameartlibhero : "../img/sanimgbg.png"
+                    gamearticon: res.icon,
+                    gameartlibhero: res.libhero
                 } as Info)
             }
 
@@ -1132,6 +1135,13 @@ export const listeners = {
                         steampath
                     }
 
+                    const res = await gameart.getall(
+                        gameartobj,
+                        gameartfiles,
+                        sanhelper.temp,
+                        __root
+                    )
+
                     return {
                         info: info,
                         customisation: customisation,
@@ -1143,8 +1153,8 @@ export const listeners = {
                         temp: sanhelper.temp,
                         ssalldetails: ssalldetails,
                         screenshots: screenshots,
-                        gamearticon: config.get(`customisation.${notify.type}.usegameicon`) ? await gameart.get({ ...gameartobj, type: "icon" } as GameArt,gameartfiles).then(res => res).catch(fallback => fallback) : "../img/gameicon.png",
-                        gameartlibhero: config.get(`customisation.${notify.type}.bgstyle`) === "gameart" ? await gameart.get({ ...gameartobj, type: "library_hero" } as GameArt,gameartfiles).then(res => res).catch(fallback => fallback) : "../img/sanimgbg.png"
+                        gamearticon: res.icon,
+                        gameartlibhero: res.libhero
                     } as Info
                 }
 

@@ -20,18 +20,18 @@ declare global {
         steam3id: number,
         update: Function,
         availabletest: Function,
-        userdirs: Function
+        // userdirs: Function
     }
 }
 
-window.userdirs = async () => {
-    const { gameart } = await import("./gameart")
-    const steampath = sanhelper.steampath
-    const randomdirinfo = gameart.getrandomdir(steampath,5)
-    const hqicon = sanhelper.gethqicon(randomdirinfo.randomdir)
+// window.userdirs = async () => {
+//     const { gameart } = await import("./gameart")
+//     const steampath = sanhelper.steampath
+//     const randomdirinfo = gameart.getrandomdir(steampath,5)
+//     const hqicon = sanhelper.gethqicon(randomdirinfo.randomdir)
 
-    return await gameart.getusergameart(randomdirinfo,steampath,hqicon)
-}
+//     return await gameart.getusergameart(randomdirinfo,steampath,hqicon)
+// }
 
 const sanhelperlog = sanhelper.initlogger(path.join(sanhelper.appdata,"logs"))
 log.write("INFO",sanhelperlog)

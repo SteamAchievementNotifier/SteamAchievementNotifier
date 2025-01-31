@@ -10,14 +10,14 @@ import { log } from "./log"
 
 const isobject = (item: any): item is Record<string,any> => typeof item === "object" && item !== null && !Array.isArray(item)
 
-const getkeyvalue = (value: any,key: string,map = new Map<string, any>()): Map<string, any> => {
+const getkeyvalue = (value: any,key: string,map = new Map<string,any>()): Map<string,any> => {
     if (!isobject(value)) {
         map.set(key,value)
         return map
     }
 
     for (const subkey in value) {
-        if (Object.prototype.hasOwnProperty.call(value, subkey)) {
+        if (Object.prototype.hasOwnProperty.call(value,subkey)) {
             const keypath = key ? `${key}.${subkey}` : subkey
 
             if (!isobject(value[subkey])) {
@@ -31,7 +31,7 @@ const getkeyvalue = (value: any,key: string,map = new Map<string, any>()): Map<s
     return map
 }
 
-const rewritepath = (themedir: string,value: string) => {
+const rewritepath = (themedir: string,value: string | string[]) => {
     if (!value) return log.write("WARN",`Received ${typeof value} - skipping...`)
     const valuepath = (value: string) => path.join(themedir,"assets",path.basename(value)).replace(/\\/g,"/")
 
@@ -191,10 +191,10 @@ export const usertheme = {
         dialogelem && dialog.close()
         usertheme.update()
     },
-    create: (name: string,icon: string,customobj?: Customisation,update?: string,userthemedir?: string,usecustomfiles?: boolean) => {
+    create: (label: string,icon: string,customobj?: Customisation,update?: string,userthemedir?: string,usecustomfiles?: boolean) => {
         const { config, type, userthemes } = usertheme.data()
         const ids = userthemes.map(theme => theme.id)
-        const labelmatch = userthemes.find(theme => theme.label === name)
+        const labelmatch = userthemes.find(theme => theme.label === label)
 
         let newid = 0
 
@@ -209,13 +209,13 @@ export const usertheme = {
 
         const theme: UserTheme = {
             id: newid,
-            label: name,
+            label,
             icon: icon.replace(/^(url\(["']?)|(["']?\))$/g,""),
             customisation: customisation,
-            enabled: true
+            enabled: true,
+            userthemedir: (userthemedir || "").replace(/\\/g,"/")
         }
 
-        userthemedir && (theme.userthemedir = userthemedir.replace(/\\/g,"/"))
         usecustomfiles && (theme.usecustomfiles = true)
 
         userthemes.forEach((theme,i) => config.set(`customisation.${type}.usertheme.${i}.enabled`,false))
@@ -266,13 +266,13 @@ export const usertheme = {
 
                     const json = JSON.parse(fs.readFileSync(filepath).toString())
 
-                    if (json.label === theme.label) {
+                    if (json.userthemedir === theme.userthemedir) {
                         match = dirname
                         break
                     }
                 }
 
-                if (!match) return log.write("INFO",`No imported theme labels matching "${theme.label}" found in "${userthemedir}"`)
+                if (!match) return log.write("INFO",`No imported Theme dirs matching "${theme.userthemedir}" found in "${userthemedir}"`)
 
                 const removeimportdir = (dir: string): boolean => {
                     if (!fs.existsSync(dir)) return false
@@ -318,9 +318,10 @@ export const usertheme = {
             const parsed = path.parse(dest)
             const importlog = document.querySelector(".wrapper#importlog > span")!
 
+            parsed.name = `${parsed.name}_${sanhelper.type}`
             parsed.ext = ".zip"
             parsed.base = `${parsed.name}${parsed.ext}`
-
+            
             try {
                 fsextra.copySync(file[0],dest)
                 log.write("INFO",`"${file[0]}" copied to "${dest}" successfully`)
@@ -345,11 +346,14 @@ export const usertheme = {
                 log.write("INFO",`"${zipdest}" dir extracted and cleaned up successfully`)
                 importlog.innerHTML = await language.get("importextracted",["customiser","theme","content"])
 
-                const importtheme: UserTheme = JSON.parse(fs.readFileSync(path.join(themedir,"usertheme.json")).toString())
+                const json = path.join(themedir,"usertheme.json")
+                const importtheme: UserTheme = JSON.parse(fs.readFileSync(json).toString())
                 const { customisation } = importtheme as UserTheme
-                importtheme.icon = path.join(themedir,"assets",path.basename(importtheme.icon)).replace(/\\/g,"/")
-                
+
                 if (!customisation) throw new Error(`Error loading imported usertheme: "customisation" missing from object`)
+
+                importtheme.icon = path.join(themedir,"assets",path.basename(importtheme.icon)).replace(/\\/g,"/")
+                importtheme.userthemedir = parsed.name
     
                 const customfilesmap = new Map<string,any>()
         
@@ -357,43 +361,43 @@ export const usertheme = {
                     if (customisation[key] === undefined) return log.write("WARN",`"customisation.${sanhelper.type}.${key}" does not exist`)
                     getkeyvalue(customisation[key],key,customfilesmap)
                 })
-        
+
                 if (!customfilesmap.size) throw new Error(`No keys found in "contentmap"`)
 
                 importlog.innerHTML = await language.get("importrewriting",["customiser","theme","content"])
         
                 customfilesmap.forEach((value,key) => {
-                    if (!value || typeof value !== "string") return
+                    if (!value || (typeof value !== "string" && !Array.isArray(value)) || key.endsWith("elems")) return
                     customfilesmap.set(key,rewritepath(themedir,value))
                 })
-        
-                const newcustomisation = { ...customisation }
+
+                const config = sanconfig.get()
                 const newkeys = converttoobject(Object.fromEntries(customfilesmap))
 
-                importlog.innerHTML = await language.get("importconverting",["customiser","theme","content"])
-        
-                for (const [newkey,newvalue] of Object.entries(newkeys)) {
-                    for (const [key,value] of Object.entries(customisation)) {
-                        if (newkey === key && newvalue !== value) {
-                            if (key === "customicons") {
-                                for (const [subkey,subvalue] of Object.entries(newvalue)) {
-                                    subvalue === "" && (newvalue[subkey] = sanconfig.defaulticons.get(subkey))
-                                }
-                            }
-
-                            Object.assign(newcustomisation,{ [key]: newvalue })
+                // Populate all empty, non-exported `customicons` keys with default values
+                for (const [preset,value] of Object.entries(newkeys.customicons)) {
+                    if (value === "") {
+                        if (sanconfig.defaulticons.has(preset)) {
+                            newkeys.customicons[preset] = sanconfig.defaulticons.get(preset)
+                        } else {
+                            log.write("ERROR",`Unable to find "${preset}" in "sanconfig.defaulticons" - skipping...`)
                         }
                     }
                 }
 
-                const config = sanconfig.get()
-                // Do not disable `usecustomfiles` if false, in case user had it enabled before importing
-                importtheme.usecustomfiles && config.set("usecustomfiles",true)
+                importlog.innerHTML = await language.get("importconverting",["customiser","theme","content"])
+                
+                const newcustomisation = { ...customisation, ...newkeys }
+
+                // Update `usertheme.json()` with converted values
+                importtheme.customisation = { ...newcustomisation }
+                fs.writeFileSync(json,JSON.stringify(importtheme,null,4))
 
                 importlog.innerHTML = await language.get("importcreating",["customiser","theme","content"])
-                usertheme.create(importtheme.label,importtheme.icon,newcustomisation,undefined,themedir,importtheme.usecustomfiles)
+
+                usertheme.create(importtheme.label,importtheme.icon,newcustomisation,undefined,parsed.name,config.get("usecustomfiles"))
             } catch (err) {
-                log.write("ERROR",`Error importing Theme: ${(err as Error).stack}`)
+                log.write("ERROR",`Error importing Theme: ${err as Error}`)
                 importlog.parentElement!.setAttribute("error","")
                 importlog.innerHTML = await language.get("importfailed",["customiser","theme","content"])
             }
@@ -452,6 +456,7 @@ export const usertheme = {
 
                     if (key === "customicons") {
                         for (const preset in customicons) {
+                            if (!("plat" in customicons)) customicons.plat = sanhelper.setfilepath("img","ribbon.svg")
                             if (preset !== customisation.preset && preset !== "plat") (customicons as any)[preset] = ""
                         }
 
@@ -536,7 +541,9 @@ export const usertheme = {
             const ignore = [
                 "primarycolor",
                 "secondarycolor",
-                "tertiarycolor"
+                "tertiarycolor",
+                "percentbadgecolor",
+                "sspercentbadgecolor"
             ]
 
             if (customobj.synctheme) {

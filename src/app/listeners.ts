@@ -1500,11 +1500,7 @@ export const listeners = {
                     log.write("INFO",`[Selected Monitor ID]:\n- ${id}\n\n[Available Screen Sources]:\n- ${srcs.map(src => `${src.display_id} (Parsed id: ${parseInt(src.display_id)} | Match?: ${parseInt(src.display_id) === id})`).join("\n- ")}`)
 
                     const src = srcs.find(src => parseInt(src.display_id) === id || screen.getPrimaryDisplay().id === id)
-
-                    if (!src) {
-                        ssfailed = true
-                        throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${id} ("${label}")`)
-                    }
+                    if (!src) throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${id} ("${label}")`)
                     
                     fs.writeFileSync(sspath,src.thumbnail.toPNG())
                 } catch (err) {
@@ -1540,114 +1536,125 @@ export const listeners = {
         }
 
         const createsswin = async (type: "ss" | "img",notify: Notify,ispreview?: boolean,src?: number) => {
-            const config = sanconfig.get()
-
-            const imgpath: string = config.get(`${type === "ss" ? "ov" : "img"}path`) as string
-            const sspath: string | null = type === "ss" ? (!ispreview ? getsspath(notify.id) : sanhelper.setfilepath("img","santextlogobg.png")) : null
-
-            createimgpathdir(imgpath)
-
-            const info = await buildnotify(notify)
-
-            ipcMain.once(`${type}winready`, async event => {
-                if (!sswin) return log.write("WARN",`Error sending ${type === "ss" ? `screenshot "src"` : "notification data"}: "${type}win" not found`)
-
-                if (type === "ss") {
-                    log.write("INFO",!ispreview ? `Sending "src" for id: ${notify.id}` : "Screenshot not taken for preview")
-                    sswin.webContents.send("src",sspath)
-                }
-
-                sswin.show()
-        
-                event.reply(`${type}winready`,{
-                    info: info,
-                    customisation: notify.customisation,
-                    iswebview: ispreview ? "sspreview" : "ss",
-                    steampath: sanhelper.steampath,
-                    skipaudio: true,
-                    customfiles: config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
-                    hqicon: sanhelper.gethqicon(appid),
-                    temp: sanhelper.temp,
-                    ssalldetails: config.get("ssalldetails")
-                } as Info)
-
-                ipcMain.once("dims", (event,dims: { width: number, height: number, offset: number }) => {
-                    if (!sswin) return log.write("WARN",`Error setting "sswin" dimensions: "sswin" not found`)
-
-                    const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,"sswin",notify.customisation) as { width: number, height: number, x: number, y: number }
-
-                    if (type === "img") {
-                        sswin.setSize(Math.round(width),Math.round(height))
-                        sswin.center()
-                    }
-
-                    const monitor = (type !== "img" && screen.getAllDisplays().find(monitor => monitor.id === (src || config.get("monitor")))) || screen.getPrimaryDisplay()
-
-                    sswin.setResizable(false)
-                    sswin.webContents.send("dims",{ width, height, offset: dims.offset, scalefactor: monitor.scaleFactor })
-                })
-
-                !ispreview && ipcMain.once("sscapture", () => {
-                    if (!sswin) return log.write("WARN",`"${type}win" was closed before image file could be written to "${imgpath}"`)
-
-                    const ssdir = `${imgpath}/${(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}`
-                    const ssimg = `${ssdir}/${info.title.replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}${type === "img" ? " - Notification" : ""}.png`
-
-                    sswin.webContents.capturePage()
-                    .then(img => {
-                        try {
-                            !fs.existsSync(ssimg) && fs.mkdirSync(ssdir,{ recursive: true })
-                            fs.writeFileSync(ssimg,img.toPNG())
+            try {
+                const config = sanconfig.get()
     
-                            log.write("INFO",`Screenshot written to "${ssimg}" successfully`)
+                const imgpath: string = config.get(`${type === "ss" ? "ov" : "img"}path`) as string
+                const sspath: string | null = type === "ss" ? (!ispreview ? getsspath(notify.id) : sanhelper.setfilepath("img","santextlogobg.png")) : null
+    
+                createimgpathdir(imgpath)
+    
+                const info = await buildnotify(notify)
+    
+                ipcMain.once(`${type}winready`, async event => {
+                    if (!sswin) return log.write("WARN",`Error sending ${type === "ss" ? `screenshot "src"` : "notification data"}: "${type}win" not found`)
+    
+                    if (type === "ss") {
+                        log.write("INFO",!ispreview ? `Sending "src" for id: ${notify.id}` : "Screenshot not taken for preview")
+                        sswin.webContents.send("src",sspath)
+                    }
+    
+                    sswin.show()
+            
+                    event.reply(`${type}winready`,{
+                        info: info,
+                        customisation: notify.customisation,
+                        iswebview: ispreview ? "sspreview" : "ss",
+                        steampath: sanhelper.steampath,
+                        skipaudio: true,
+                        customfiles: config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
+                        hqicon: sanhelper.gethqicon(appid),
+                        temp: sanhelper.temp,
+                        ssalldetails: config.get("ssalldetails")
+                    } as Info)
+    
+                    ipcMain.once("dims",(event,dims: { width: number, height: number, offset: number }) => {
+                        try {
+                            if (!sswin) return log.write("WARN",`Error setting "sswin" dimensions: "sswin" not found`)
+        
+                            const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,"sswin",notify.customisation) as { width: number, height: number, x: number, y: number }
+        
+                            if (type === "img") {
+                                sswin.setSize(Math.round(width),Math.round(height))
+                                sswin.center()
+                            }
+        
+                            const monitor = (type !== "img" && screen.getAllDisplays().find(monitor => monitor.id === (src || config.get("monitor")))) || screen.getPrimaryDisplay()
+        
+                            sswin.setResizable(false)
+                            sswin.webContents.send("dims",{ width, height, offset: dims.offset, scalefactor: monitor.scaleFactor })
                         } catch (err) {
-                            log.write("ERROR",`Error writing screenshot for "${info.apiname}": ${err}`)
+                            log.write("ERROR",`Error creating "sswin" in "dims" event: ${err as Error}`)
+                            ssfailed = true
                         }
                     })
-                    .finally(() => {
-                        sswin && sswin.destroy()
-                        sswin = null
+    
+                    !ispreview && ipcMain.once("sscapture", () => {
+                        if (!sswin) return log.write("WARN",`"${type}win" was closed before image file could be written to "${imgpath}"`)
+    
+                        const ssdir = `${imgpath}/${(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}`
+                        const ssimg = `${ssdir}/${info.title.replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}${type === "img" ? " - Notification" : ""}.png`
+    
+                        sswin.webContents.capturePage()
+                        .then(img => {
+                            try {
+                                !fs.existsSync(ssimg) && fs.mkdirSync(ssdir,{ recursive: true })
+                                fs.writeFileSync(ssimg,img.toPNG())
+        
+                                log.write("INFO",`Screenshot written to "${ssimg}" successfully`)
+                            } catch (err) {
+                                log.write("ERROR",`Error writing screenshot for "${info.apiname}": ${err as Error}`)
+                            }
+                        })
+                        .catch(err => log.write("ERROR",`Error capturing screenshot for "${info.apiname}": ${err as Error}`))
+                        .finally(() => {
+                            sswin && sswin.destroy()
+                            sswin = null
+                        })
                     })
                 })
-            })
-
-            const { monitor, display } = getssmonitor(src)
-
-            if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
-            if (!display) return log.write("ERROR",`Error configuring screenshot: No Display matches Monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
-
-            const { x, y } = display.bounds
-
-            sswin = new BrowserWindow({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): ${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}`,
-                fullscreen: type === "ss",
-                x: type === "ss" ? x : undefined,
-                y: type === "ss" ? y : undefined,
-                autoHideMenuBar: true,
-                frame: false,
-                transparent: true,
-                focusable: ispreview,
-                movable: false,
-                maximizable: false,
-                minimizable: false,
-                skipTaskbar: !sanhelper.devmode,
-                show: false,
-                webPreferences: {
-                    nodeIntegration: true,
-                    contextIsolation: false,
-                    webviewTag: true
-                }
-            })
-
-            !ispreview && sswin.setOpacity(0)
-            sswin.setIgnoreMouseEvents(!ispreview)
-            sswin.loadFile(path.join(__root,"dist","app",`${type}win.html`))
-            sanhelper.devmode && sanhelper.setdevtools(sswin)
-
-            sswin.once("closed", () => {
-                log.write("INFO",`"${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}" closed`)
-                sswin = null
-            })
+    
+                const { monitor, display } = getssmonitor(src)
+    
+                if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
+                if (!display) return log.write("ERROR",`Error configuring screenshot: No Display matches Monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
+    
+                const { x, y } = display.bounds
+    
+                sswin = new BrowserWindow({
+                    title: `Steam Achievement Notifier (V${sanhelper.version}): ${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}`,
+                    fullscreen: type === "ss",
+                    x: type === "ss" ? x : undefined,
+                    y: type === "ss" ? y : undefined,
+                    autoHideMenuBar: true,
+                    frame: false,
+                    transparent: true,
+                    focusable: ispreview,
+                    movable: false,
+                    maximizable: false,
+                    minimizable: false,
+                    skipTaskbar: !sanhelper.devmode,
+                    show: false,
+                    webPreferences: {
+                        nodeIntegration: true,
+                        contextIsolation: false,
+                        webviewTag: true
+                    }
+                })
+    
+                !ispreview && sswin.setOpacity(0)
+                sswin.setIgnoreMouseEvents(!ispreview)
+                sswin.loadFile(path.join(__root,"dist","app",`${type}win.html`))
+                sanhelper.devmode && sanhelper.setdevtools(sswin)
+    
+                sswin.once("closed", () => {
+                    log.write("INFO",`"${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}" closed`)
+                    sswin = null
+                })
+            } catch (err) {
+                log.write("ERROR",err as Error)
+                ssfailed = true
+            }
         }
 
         ipcMain.on("gpu", () => {

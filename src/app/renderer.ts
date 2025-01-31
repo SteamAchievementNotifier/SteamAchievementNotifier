@@ -579,7 +579,7 @@ const opencustomiser = () => {
         const currenttheme = userthemes.find(theme => theme.enabled)
 
         if (!currenttheme) return log.write("WARN",`Error updating Theme: No "enabled" Theme found`)
-        usertheme.create(currenttheme.label,currenttheme.icon,undefined,"updatetheme")
+        usertheme.create(currenttheme.label,currenttheme.icon,undefined,"updatetheme",currenttheme.userthemedir)
     }
 
     document.getElementById("savetheme")!.onclick = async () => {

@@ -63,7 +63,7 @@ export const gameart = {
     getrandom: (appid: number) => `../img/gameart/${appid}_library_hero.jpg`,
     get: (obj: GameArt,files: string[]): Promise<string> => {
         const { appid, hqicon, steam3id, steampath, type } = obj
-        if (!appid) return Promise.resolve(type === "icon" ? "../img/gameicon.png" : gameart.getrandom(gameart.appids[Math.floor(Math.random() * gameart.appids.length)]))
+        if (!appid) return Promise.resolve((type === "icon" || type === "logo") ? "../img/gameicon.png" : gameart.getrandom(gameart.appids[Math.floor(Math.random() * gameart.appids.length)]))
 
         // if (!appid) {
         //     const restype = type === "icon" ? "icon" : "library_hero" as const
@@ -111,10 +111,12 @@ export const gameart = {
         const icon = await gameart.get({ ...obj, type: "icon" } as GameArt,files).then(res => res).catch(fallback => fallback)
         const gamearticon = await gameart.convertICO(icon,temp,__root)
         const gameartlibhero = await gameart.get({ ...obj, type: "library_hero" } as GameArt,files).then(res => res).catch(fallback => fallback)
+        const gameartlogo = await gameart.get({ ...obj, type: "logo" } as GameArt,files).then(res => res).catch(fallback => fallback)
 
         return {
             icon: (gamearticon || icon).replace(/\\/g,"/"),
-            libhero: gameartlibhero
+            libhero: gameartlibhero,
+            logo: gameartlogo
         }
     }
     // getrandomdir: (steampath: string,max: number) => {

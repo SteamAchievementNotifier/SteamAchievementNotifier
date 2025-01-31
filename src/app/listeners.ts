@@ -958,7 +958,8 @@ export const listeners = {
                     ssalldetails: ssalldetails,
                     screenshots: screenshots,
                     gamearticon: res.icon,
-                    gameartlibhero: res.libhero
+                    gameartlibhero: res.libhero,
+                    gameartlogo: res.logo
                 } as Info)
             }
 
@@ -1155,7 +1156,8 @@ export const listeners = {
                         ssalldetails: ssalldetails,
                         screenshots: screenshots,
                         gamearticon: res.icon,
-                        gameartlibhero: res.libhero
+                        gameartlibhero: res.libhero,
+                        gameartlogo: res.logo
                     } as Info
                 }
 

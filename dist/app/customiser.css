@@ -68,7 +68,11 @@ body[plat] #customisercontent .wrapper:has(> .img#hiddenicon),
 #customiseropts:has(.opt > select#preset > option[value="epicgames"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
 #customiseropts:has(.opt > select#preset > option[value="ps5"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
 #customiseropts:has(.opt > select#preset > option[value="ps4"]:checked) .opt:has(#alldetails:not(:checked)) ~ .opt:has(#customtext),
-.opt:has(select#outline > option[value="off"]:checked) > .opt {
+.opt:has(select#outline > option[value="off"]:checked) > .opt,
+.opt:has(input#usegameicon:not(:checked)) > .opt.sub:has(select#gameicontype),
+.opt:has(input#usecustomimgicon:not(:checked)) + .opt:has(.img#customimgicon),
+.optcont:has(input#usegameicon:checked) > .opt:has(input#usecustomimgicon),
+.optcont:has(input#usecustomimgicon:checked) > .opt:has(input#usegameicon) {
     display: none;
 }
 
@@ -399,6 +403,7 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 .img[id^="decoration"],
 .img#plat,
 .img#hiddenicon,
+.img#customimgicon,
 .img[id*="percentbadgeimg"] {
     min-height: 3.5rem;
     background: var(--img) center / 25% no-repeat var(--darkgrey);

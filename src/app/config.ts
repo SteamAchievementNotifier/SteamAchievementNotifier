@@ -15,12 +15,12 @@ export const customfilekeys = [
     "bgimg",
     "customfont",
     "customicons",
+    "customimgicon",
     "hiddenicon",
     "maskimg",
     "sounddir",
     "soundfile",
     "percentbadgeimg",
-    // "icon"
 ].flatMap(id => {
     if (id !== "percentbadgeimg") return [id]
     return ["bronze","silver","gold"].flatMap(type => [`${id}${type}`,`ss${id}${type}`])
@@ -320,6 +320,9 @@ export const sanconfig = {
                 fontshadowcolor: "#000000",
                 iconroundness: 0,
                 usegameicon: false,
+                gameicontype: "icon",
+                usecustomimgicon: false,
+                customimgicon: sanhelper.setfilepath("img","sanlogosquare.svg"),
                 customicons: {},
                 showdecoration: false,
                 pos: "bottomcenter",

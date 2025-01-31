@@ -156,6 +156,9 @@ declare interface Customisation {
     fontshadowcolor: string,
     iconroundness: number,
     usegameicon: boolean,
+    gameicontype: "icon" | "logo",
+    usecustomimgicon: boolean,
+    customimgicon: string,
     customicons: { [key: string]: CustomIcon | string },
     showdecoration: boolean,
     pos: "bottomcenter" | "topcenter" | "topleft" | "topright" | "bottomleft" | "bottomright",
@@ -315,7 +318,8 @@ declare interface Info {
     ssalldetails: string[],
     screenshots: "overlay" | "notifyimg" | "off",
     gamearticon: string,
-    gameartlibhero: string
+    gameartlibhero: string,
+    gameartlogo: string
 }
 
 declare interface BuildNotifyInfo {

@@ -84,7 +84,7 @@ const notifyhelper = {
     
         return notifyhelper.playaudio(customisation,iswebview,skipaudio,type)
     },
-    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string): Promise<HTMLImageElement[] | null> => {
+    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string,gameartlogo: string): Promise<HTMLImageElement[] | null> => {
         return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {    
             const fontloader = document.getElementById("fontloader")
             fontloader && fontloader.remove()
@@ -118,11 +118,11 @@ const notifyhelper = {
             const preloadimgs: HTMLImageElement[] = []
             const imgerrors: string[] = []
     
-            const getpreloadimgurl = async (type: "bgstyle" | "usegameicon",icon: string,libhero: string) => {
+            const getpreloadimgurl = async (type: "bgstyle" | "usegameicon",icon: string,libhero: string,logo: string) => {
                 const preloadimg = document.createElement("img")
-                const url = (type === "bgstyle" && customisation.bgstyle === "bgimg") ? (customisation.bgimg || "../img/sanimgbg.png") : type === "bgstyle" ? libhero : icon
+                const url = (type === "bgstyle" && customisation.bgstyle === "bgimg") ? (customisation.bgimg || "../img/sanimgbg.png") : type === "bgstyle" ? libhero : (customisation.gameicontype === "icon" ? icon : logo)
                 
-                const convertedicon = (await notifyhelper.convertICO(url,temp)) || (type === "bgstyle" ? libhero : icon)
+                const convertedicon = (await notifyhelper.convertICO(url,temp)) || (type === "bgstyle" ? libhero : (customisation.gameicontype === "icon" ? icon : logo))
                 preloadimg.id = `${type}url`
                 preloadimg.src = convertedicon
     
@@ -131,8 +131,8 @@ const notifyhelper = {
                 return convertedicon
             }
 
-            const gamearturl: string | null = (customisation.bgstyle === "gameart" || customisation.bgstyle === "bgimg") ? await getpreloadimgurl("bgstyle",gamearticon,gameartlibhero) : null
-            const gameiconurl: string | null = customisation.usegameicon ? (appid ? await getpreloadimgurl("usegameicon",gamearticon,gameartlibhero) : "../img/gameicon.png") : null
+            const gamearturl: string | null = (customisation.bgstyle === "gameart" || customisation.bgstyle === "bgimg") ? await getpreloadimgurl("bgstyle",gamearticon,gameartlibhero,gameartlogo) : null
+            const gameiconurl: string | null = customisation.usecustomimgicon ? customisation.customimgicon : (customisation.usegameicon ? (appid ? await getpreloadimgurl("usegameicon",gamearticon,gameartlibhero,gameartlogo) : "../img/gameicon.png") : null)
     
             gameiconurl && ((document.getElementById("achicon")! as HTMLImageElement)!.src = gameiconurl)
 
@@ -240,9 +240,7 @@ const notifyhelper = {
 }
 
 ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
-    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero } = obj
-
-    console.log(appid,gamearticon,gameartlibhero)
+    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo } = obj 
 
     try {
         document.body.setAttribute(type,"")
@@ -354,7 +352,7 @@ ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
             
             if (!steampath) throw new Error(`Steam installation path not found!`)
 
-            notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id,hqicon,temp,percentimg,gamearticon,gameartlibhero)
+            notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id,hqicon,temp,percentimg,gamearticon,gameartlibhero,gameartlogo)
             .then(preloadimgs => {
                 preloadimgs && preloadimgs.forEach(img => imgs.push(img))
                 resolve({

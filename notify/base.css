@@ -217,7 +217,7 @@ body[plat]:not([noiconanim]) .wrapper#achiconwrapper::after {
 
 #achicon {
     width: 85%;
-    height: 85%;
+    /* height: 85%; */
     border-radius: var(--iconroundness);
 }
 

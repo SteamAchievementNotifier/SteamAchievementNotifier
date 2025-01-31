@@ -19,19 +19,9 @@ declare global {
         appid: number,
         steam3id: number,
         update: Function,
-        availabletest: Function,
-        // userdirs: Function
+        availabletest: Function
     }
 }
-
-// window.userdirs = async () => {
-//     const { gameart } = await import("./gameart")
-//     const steampath = sanhelper.steampath
-//     const randomdirinfo = gameart.getrandomdir(steampath,5)
-//     const hqicon = sanhelper.gethqicon(randomdirinfo.randomdir)
-
-//     return await gameart.getusergameart(randomdirinfo,steampath,hqicon)
-// }
 
 const sanhelperlog = sanhelper.initlogger(path.join(sanhelper.appdata,"logs"))
 log.write("INFO",sanhelperlog)
@@ -432,6 +422,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             const defaultvalue = (): string => {
                 if (optbtn.id === "plat") return sanhelper.setfilepath("img","ribbon.svg")
                 if (optbtn.id === "maskimg") return sanhelper.setfilepath("img","san_trophy_mask.png")
+                if (optbtn.id === "customimgicon") return sanhelper.setfilepath("img","sanlogosquare.svg")
                 if (optbtn.id !== "logo" && !optbtn.id.includes("decoration")) return ""
 
                 if (optbtn.id === "logo") return sanconfig.defaulticons.get(preset)!["logo"] as string

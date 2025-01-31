@@ -317,14 +317,6 @@ const loadwebview = () => {
     }
 }
 
-const audioextensions = [
-    ".wav",
-    ".mp3",
-    ".ogg",
-    ".aac",
-    ".m4a"
-]
-
 const getaudiofile = (mode: "file" | "folder",filepath: string) => {
     if (mode === "file") return filepath
 
@@ -334,7 +326,7 @@ const getaudiofile = (mode: "file" | "folder",filepath: string) => {
 
     for (const file of dirfiles) {
         const filepath = path.join(sounddir,file).replace(/\\/g,"/")
-        audioextensions.includes(path.extname(file)) && fs.statSync(filepath).size && valid.push(filepath)
+        sanhelper.audioextensions.includes(path.extname(file)) && fs.statSync(filepath).size && valid.push(filepath)
     }
 
     !valid.length && valid.push(null)

@@ -10,7 +10,7 @@ import { log } from "./log"
 
 const isobject = (item: any): item is Record<string,any> => typeof item === "object" && item !== null && !Array.isArray(item)
 
-const getkeyvalue = (value: any, key: string, map = new Map<string, any>()): Map<string, any> => {
+const getkeyvalue = (value: any,key: string,map = new Map<string, any>()): Map<string, any> => {
     if (!isobject(value)) {
         map.set(key,value)
         return map
@@ -444,9 +444,20 @@ export const usertheme = {
                 if (!customisation) throw new Error("Error loading current usertheme")
 
                 const contentmap = new Map<string,any>()
-
+                
                 customfilekeys.forEach(key => {
                     if (customisation[key] === undefined) return log.write("WARN",`"customisation.${sanhelper.type}.${key}" does not exist`)
+
+                    const customicons = customisation[key] as { [key: string]: CustomIcon | string }
+
+                    if (key === "customicons") {
+                        for (const preset in customicons) {
+                            if (preset !== customisation.preset && preset !== "plat") (customicons as any)[preset] = ""
+                        }
+
+                        customisation.customicons = customicons
+                    }
+
                     getkeyvalue(customisation[key],key,contentmap)
                 })
 
@@ -458,36 +469,26 @@ export const usertheme = {
 
                 theme.version = sanhelper.semver
                 theme.userthemedir = parsed.name
-                theme.usecustomfiles = false
 
-                const config = sanconfig.get()
-
-                if (config.get("usecustomfiles")) {
-                    const core = [
-                        path.join("notify","base.html"),
-                        path.join("notify","base.css"),
-                        path.join("notify","baseanim.css"),
-                        path.join("dist","notify","base.js")
-                    ]
-
-                    core.forEach(filepath => {
-                        const customfilespath = path.join(sanhelper.appdata,"customfiles",filepath)
-                        if (!fs.existsSync(customfilespath)) throw new Error(`"${path.basename(filepath)}" does not exist in "${customfilespath.replace(path.basename(filepath),"")}"`)
-
-                        fsextra.copySync(customfilespath,path.join(src,"customfiles",filepath))
-                        log.write("INFO",`"${customfilespath}" copied successfully`)
-                    })
-
-                    theme.usecustomfiles = true
-                }
-
+                // Filters by and copies all string-based keys (filepaths) listed in `customfilekeys` from the value's path to "temp/exporttheme/assets"
                 contentmap.forEach((value,key) => {
-                    if (!value || typeof value !== "string" && (!Array.isArray(value) || !value.every(item => typeof item === "string" && ["unlockmsg", "title", "desc"].every(elem => item !== elem)))) return
+                    if (!value || typeof value !== "string" && (!Array.isArray(value) || !value.every(item => typeof item === "string" && ["unlockmsg","title","desc"].every(elem => item !== elem)))) return
 
-                    const keypaths = key.split(".")
-                    if (keypaths[0] === "customicons" && keypaths[1] !== customisation.preset) return theme.customisation![keypaths[0]][keypaths[1]] = ""
-
-                    Array.isArray(value) ? value.forEach(subvalue => fsextra.copySync(subvalue,path.join(src,"assets",path.basename(subvalue)))) : fsextra.copySync(value,path.join(src,"assets",path.basename(value)))
+                    if (Array.isArray(value)) {
+                        value.forEach(subvalue => fsextra.copySync(subvalue,path.join(src,"assets",path.basename(subvalue))))
+                    } else {
+                        if (key === "sounddir") {
+                            // `value` is the "sounddir" folder path
+                            const sounddirpath = path.join(src,"assets",path.basename(value))
+                            fs.mkdirSync(sounddirpath,{ recursive: true })
+                            
+                            for (const validfile of fs.readdirSync(value).filter(file => sanhelper.audioextensions.includes(path.extname(file)))) {
+                                fsextra.copySync(path.join(value,validfile),path.join(sounddirpath,validfile))
+                            }
+                        } else {
+                            fsextra.copySync(value,path.join(src,"assets",path.basename(value)))
+                        }
+                    }
                 })
 
                 const json = JSON.stringify(theme,null,4)

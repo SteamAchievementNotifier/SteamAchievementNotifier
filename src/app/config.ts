@@ -20,7 +20,7 @@ export const customfilekeys = [
     "sounddir",
     "soundfile",
     "percentbadgeimg",
-    "icon"
+    // "icon"
 ].flatMap(id => {
     if (id !== "percentbadgeimg") return [id]
     return ["bronze","silver","gold"].flatMap(type => [`${id}${type}`,`ss${id}${type}`])

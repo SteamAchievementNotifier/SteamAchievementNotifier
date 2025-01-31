@@ -72,6 +72,13 @@ export const sanhelper: SANHelper = {
     },
     get steampath(): string { return getSteamPath() },
     get gameinfo(): AppInfo { return getAppInfo()[0] },
+    get audioextensions(): string[] { return [
+            ".wav",
+            ".mp3",
+            ".ogg",
+            ".aac",
+            ".m4a"
+    ]},
     gethqicon: (appid: number = 0) => getHqIcon(appid),
     initlogger: (appdata: string) => initLogger(appdata),
     hdrscreenshot: (monitorid: number,sspath: string) => hdrScreenshot(monitorid,sspath),

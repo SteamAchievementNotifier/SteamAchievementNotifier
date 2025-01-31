@@ -12,6 +12,7 @@ import { gameart } from "./gameart"
 let appid: number = 0
 let extwin: BrowserWindow | null = null
 let statwin: BrowserWindow | null = null
+let ssfailed = false
 const gameartfiles: string[] = []
 
 export const listeners = {
@@ -1446,8 +1447,12 @@ export const listeners = {
         const capturesrc = (notifyid: number,callback: () => void,src?: number): void => {
             const config = sanconfig.get()
             if (config.get("screenshots") !== "overlay") return
+
+            ssfailed = false
             
             const checksrc = (src: string) =>  {
+                if (ssfailed) return ssfailed = false
+
                 if (!fs.existsSync(src)) {
                     log.write("WARN",`"${notifyid}.png" src file not present in "${sanhelper.temp}" - retrying...`)
                     setTimeout(() => checksrc(src),250)
@@ -1471,30 +1476,41 @@ export const listeners = {
             const { id, label, bounds: { width, height } } = monitor
 
             ipcMain.once("src",(event,err) => {
-                if (err) return log.write("ERROR",`Error writing screenshot for Monitor ${id} ("${label}"): ${err}`)
+                if (err) {
+                    log.write("ERROR",`Error writing screenshot for Monitor ${id} ("${label}"): ${err}`)
+                    return ssfailed = true
+                }
+
                 return log.write("INFO",`Screenshot for Monitor ${id} ("${label}") written successfully`)
             })
         
-            const capture = () => {
+            const capture = async () => {
                 if (config.get("hdrmode")) {
                     const msg: string = sanhelper.hdrscreenshot(monitor.id,sspath)
                     log.write("INFO",msg)
                     return
                 }
 
-                desktopCapturer.getSources({
-                    types: ["screen"],
-                    thumbnailSize: { width: width, height: height }
-                })
-                .then((srcs: Electron.DesktopCapturerSource[]) => {
+                try {
+                    const srcs = await desktopCapturer.getSources({
+                        types: ["screen"],
+                        thumbnailSize: { width: width, height: height }
+                    })
+
                     log.write("INFO",`[Selected Monitor ID]:\n- ${id}\n\n[Available Screen Sources]:\n- ${srcs.map(src => `${src.display_id} (Parsed id: ${parseInt(src.display_id)} | Match?: ${parseInt(src.display_id) === id})`).join("\n- ")}`)
 
-                    const src = srcs.find(src => parseInt(src.display_id) === id)
-                    if (!src) return log.write("ERROR",`Error configuring screenshot: No matching Display source id found for Monitor ${id} ("${label}")`)
+                    const src = srcs.find(src => parseInt(src.display_id) === id || screen.getPrimaryDisplay().id === id)
+
+                    if (!src) {
+                        ssfailed = true
+                        throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${id} ("${label}")`)
+                    }
                     
                     fs.writeFileSync(sspath,src.thumbnail.toPNG())
-                })
-                .catch(err => log.write("ERROR",err as string))
+                } catch (err) {
+                    log.write("ERROR",err as Error)
+                    ssfailed = true
+                }
             }
         
             setTimeout(capture,delay * 1000)

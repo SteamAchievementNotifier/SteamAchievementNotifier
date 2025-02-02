@@ -867,6 +867,11 @@ export const listeners = {
 
         const queue: WinType[] = []
         let running: boolean = false
+        const gameartobj: GameArtObj = {
+            icon: "../img/gameicon.png",
+            libhero: "../img/sanimgbg.png",
+            logo: "../img/gameicon.png"
+        }
 
         ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null,src?: number) => {            
             const config = sanconfig.get()
@@ -926,26 +931,25 @@ export const listeners = {
             }
 
             const info = await buildnotify(notify)
+
+            const steampath = sanhelper.steampath
+            const __temp = sanhelper.temp
+            const steam3id = notify.steam3id
+            const hqicon = sanhelper.gethqicon(appid)
+
+            // Gets all Game Art img files and assigns them to the global "gameartobj" object
+            for (const [key,value] of Object.entries(await gameart.getall(
+                { appid, hqicon, steam3id, steampath },
+                gameartfiles,
+                __temp,
+                __root
+            ))) {
+                gameartobj[key] = value
+            }
             
             if (iswebview === "customiser") {
                 const { ssalldetails, screenshots } = config.store
-                const steampath = sanhelper.steampath
-                const steam3id = notify.steam3id
-                const hqicon = sanhelper.gethqicon(appid)
-    
-                const gameartobj = {
-                    appid,
-                    hqicon,
-                    steam3id,
-                    steampath
-                }
-
-                const res = await gameart.getall(
-                    gameartobj,
-                    gameartfiles,
-                    sanhelper.temp,
-                    __root
-                )
+                const { icon, libhero, logo } = gameartobj
 
                 return win.webContents.send("customisernotify",{
                     info: info,
@@ -957,9 +961,9 @@ export const listeners = {
                     temp: sanhelper.temp,
                     ssalldetails: ssalldetails,
                     screenshots: screenshots,
-                    gamearticon: res.icon,
-                    gameartlibhero: res.libhero,
-                    gameartlogo: res.logo
+                    gamearticon: icon,
+                    gameartlibhero: libhero,
+                    gameartlogo: logo
                 } as Info)
             }
 
@@ -1129,20 +1133,7 @@ export const listeners = {
                     const { appid, steam3id } = info
                     const steampath = sanhelper.steampath
                     const hqicon = sanhelper.gethqicon(appid)
-        
-                    const gameartobj = {
-                        appid,
-                        hqicon,
-                        steam3id,
-                        steampath
-                    }
-
-                    const res = await gameart.getall(
-                        gameartobj,
-                        gameartfiles,
-                        sanhelper.temp,
-                        __root
-                    )
+                    const { icon, libhero, logo } = gameartobj
 
                     return {
                         info: info,
@@ -1155,9 +1146,9 @@ export const listeners = {
                         temp: sanhelper.temp,
                         ssalldetails: ssalldetails,
                         screenshots: screenshots,
-                        gamearticon: res.icon,
-                        gameartlibhero: res.libhero,
-                        gameartlogo: res.logo
+                        gamearticon: icon,
+                        gameartlibhero: libhero,
+                        gameartlogo: logo
                     } as Info
                 }
 
@@ -1557,6 +1548,9 @@ export const listeners = {
                     }
     
                     sswin.show()
+
+                    const { usecustomfiles, ssalldetails, screenshots } = config.store
+                    const { icon, libhero, logo } = gameartobj
             
                     event.reply(`${type}winready`,{
                         info: info,
@@ -1564,10 +1558,14 @@ export const listeners = {
                         iswebview: ispreview ? "sspreview" : "ss",
                         steampath: sanhelper.steampath,
                         skipaudio: true,
-                        customfiles: config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
+                        customfiles: usecustomfiles ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
                         hqicon: sanhelper.gethqicon(appid),
                         temp: sanhelper.temp,
-                        ssalldetails: config.get("ssalldetails")
+                        ssalldetails,
+                        screenshots,
+                        gamearticon: icon,
+                        gameartlibhero: libhero,
+                        gameartlogo: logo
                     } as Info)
     
                     ipcMain.once("dims",(event,dims: { width: number, height: number, offset: number }) => {

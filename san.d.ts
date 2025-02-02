@@ -422,6 +422,13 @@ declare interface GameArt {
     gamename?: string
 }
 
+declare interface GameArtObj {
+    [key: string]: string | null,
+    icon: string,
+    libhero: string,
+    logo: string
+}
+
 declare interface RandomDirInfo {
     randomdir: number,
     i: number,

@@ -2,23 +2,6 @@ import path from "path"
 import fs from "fs"
 
 export const gameart = {
-    get appids(): number[] {
-        return [
-            620,
-            4000,
-            22300,
-            257510,
-            285900,
-            361420,
-            582010,
-            613100,
-            835960,
-            1091500,
-            1149460,
-            1564220,
-            1659040
-        ]
-    },
     convertICO: async (file: string,tempdir: string,__root: string) => {
         if (path.extname(file) !== ".ico") return file
     
@@ -61,15 +44,9 @@ export const gameart = {
         }
     },
     getrandom: (appid: number) => `../img/gameart/${appid}_library_hero.jpg`,
-    get: (obj: GameArt,files: string[]): Promise<string> => {
+    get: async (obj: GameArt,files: string[]): Promise<string> => {
         const { appid, hqicon, steam3id, steampath, type } = obj
-        if (!appid) return Promise.resolve((type === "icon" || type === "logo") ? "../img/gameicon.png" : gameart.getrandom(gameart.appids[Math.floor(Math.random() * gameart.appids.length)]))
-
-        // if (!appid) {
-        //     const restype = type === "icon" ? "icon" : "library_hero" as const
-        //     const randomdirinfo = gameart.getrandomdir(steampath,5)
-        //     return Promise.resolve(gameart.getusergameart(randomdirinfo,steampath,hqicon).then(res => res[restype]).catch(err => err[restype]))
-        // }
+        if (!appid) return Promise.resolve(await gameart.get({ ...obj, appid: gameart.getrandomuserdir(steampath) },files))
 
         const exts = ["jpg","png"].map(ext => `.${ext}`) as (".jpg" | ".png")[]
     
@@ -102,7 +79,7 @@ export const gameart = {
     
         if (!fs.existsSync(imgpath)) {
             if (type === "icon") return gameart.get({ ...obj, type: "logo" },files)
-            return Promise.reject(type === "logo" ? "../img/gameicon.png" : "../img/sanimgbg.png")
+            return Promise.reject(type === "logo" ? "../img/gameicon.png" : `../img/gameart/gameart${Math.floor(Math.random() * 3)}.jpg`)
         }
         
         return Promise.resolve(imgpath)
@@ -118,63 +95,22 @@ export const gameart = {
             libhero: gameartlibhero,
             logo: gameartlogo
         }
+    },
+    getrandomuserdir: (steampath: string) => {
+        const libcache = path.join(steampath,"appcache","librarycache")
+        const dirs: number[] = []
+        const entries = fs.readdirSync(libcache).sort(() => Math.random() - 0.5).slice(0,100) // Limits to reading 100 randomly selected dir/file entries of `libcache` per call
+
+        for (const dir of entries) {
+            if (fs.statSync(path.join(libcache,dir)).isDirectory() && !isNaN(parseInt(dir))) {
+                const entrydir = fs.readdirSync(path.join(libcache,dir))
+
+                if (entrydir.length > 2) { // Prevents selecting dirs that are likely to not contain the required game art
+                    dirs.push(parseInt(dir))
+                }
+            }
+        }
+
+        return dirs.length ? dirs[Math.floor(Math.random() * dirs.length)] : 0
     }
-    // getrandomdir: (steampath: string,max: number) => {
-    //     const libcache = path.join(steampath,"appcache","librarycache")
-    //     const validdirs = gameart.getvaliduserdirs(libcache)
-
-    //     const i = Math.floor(Math.random() * validdirs.length)
-    //     const randomdir = validdirs[i]
-
-    //     return { randomdir, i, validdirs, max } as RandomDirInfo
-    // },
-    // getvaliduserdirs: (dir: string) => {
-    //     const validdirs = fs.readdirSync(dir).filter(entry => {
-    //         const dirpath = path.join(dir,entry)
-    //         if (!fs.statSync(dirpath).isDirectory() || isNaN(parseInt(entry))) return false
-    
-    //         const innerfiles = fs.readdirSync(dirpath)
-    //         return !(innerfiles.length <= 2 && innerfiles.includes("header.jpg"))
-    //     })
-    
-    //     return validdirs.length ? validdirs.map(v => parseInt(v)) : []
-    // },
-    // getusergameart: async (obj: RandomDirInfo,steampath: string,hqicon: string) => {
-    //     const { randomdir, i, validdirs, max } = obj
-    //     const files: string[] = []
-
-    //     const fallbackobj = {
-    //         icon: "../img/gameicon.png",
-    //         library_hero: "../img/sanimgbg.png"
-    //     }
-    
-    //     const getlibhero = async (max: number): Promise<{ icon: string, library_hero: string }> => {
-    //         if (!validdirs.length || max <= 0) return fallbackobj
-    
-    //         const gameartobj = {
-    //             appid: randomdir,
-    //             hqicon,
-    //             steam3id: 0,
-    //             steampath
-    //         }
-    
-    //         try {
-    //             const icon = await gameart.get({ ...gameartobj, type: "icon" } as GameArt,files)
-    //             const library_hero = await gameart.get({ ...gameartobj, type: "library_hero" } as GameArt,files)
-
-    //             if (icon) fallbackobj.icon = icon
-    //             if (library_hero) fallbackobj.library_hero = library_hero
-                
-    //             return {
-    //                 icon,
-    //                 library_hero
-    //             }
-    //         } catch {
-    //             validdirs.splice(i,1)
-    //             return getlibhero(max - 1)
-    //         }
-    //     }
-    
-    //     return await getlibhero(max)
-    // }
 }

@@ -21,18 +21,18 @@
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
         "@types/sortablejs": "^1.15.8",
-        "electron": "^34.0.2",
-        "electron-builder": "^24.9.1",
+        "electron": "^34.1.1",
+        "electron-builder": "^25.1.8",
         "typescript": "^5.2.2"
     },
     "dependencies": {
         "@jaames/iro": "^5.5.2",
         "adm-zip": "^0.5.14",
-        "electron-log": "^4.4.8",
-        "electron-store": "^8.1.0",
+        "electron-log": "4.4.8",
+        "electron-store": "8.2.0",
         "electron-updater": "^6.1.7",
         "fs-extra": "^11.2.0",
-        "icojs": "^0.18.0",
+        "icojs": "^0.19.5",
         "jpeg-js": "^0.4.4",
         "sanhelper.rs": "./deps/sanhelper.rs",
         "simple-vdf": "^1.1.1",

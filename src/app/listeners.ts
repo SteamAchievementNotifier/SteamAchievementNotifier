@@ -937,14 +937,16 @@ export const listeners = {
             const steam3id = notify.steam3id
             const hqicon = sanhelper.gethqicon(appid)
 
-            // Gets all Game Art img files and assigns them to the global "gameartobj" object
-            for (const [key,value] of Object.entries(await gameart.getall(
-                { appid, hqicon, steam3id, steampath },
-                gameartfiles,
-                __temp,
-                __root
-            ))) {
-                gameartobj[key] = value
+            if (config.get(`customisation.${notify.type}.bgstyle`) === "gameart") {
+                // Gets all Game Art img files and assigns them to the global "gameartobj" object
+                for (const [key,value] of Object.entries(await gameart.getall(
+                    { appid, hqicon, steam3id, steampath },
+                    gameartfiles,
+                    __temp,
+                    __root
+                ))) {
+                    gameartobj[key] = value
+                }
             }
             
             if (iswebview === "customiser") {

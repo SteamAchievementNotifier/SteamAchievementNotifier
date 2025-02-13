@@ -220,6 +220,7 @@ declare interface Customisation {
     sspercentbadgeimggold: string,
     synctheme: boolean,
     ssdisplay: boolean,
+    ssenabled: boolean,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }

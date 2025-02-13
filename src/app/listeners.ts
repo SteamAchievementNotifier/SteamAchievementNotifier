@@ -16,7 +16,7 @@ let ssfailed = false
 const gameartfiles: string[] = []
 
 export const listeners = {
-    setexit: (win?: BrowserWindow) => {
+    setexit: () => {
         ipcMain.on("exit",(event,reason) => {
             if (extwin) {
                 extwin.destroy()
@@ -24,22 +24,11 @@ export const listeners = {
             }
 
             log.write("EXIT",reason || `No exit reason provided.`)
-
-            // Stores last known monitor IDs in localStorage to compare against, as new monitor IDs are generated on restart due to Electron bug
-            if (win) {
-                ipcMain.on("storemonitors", () => {
-                    log.write("INFO",`"monitors" localStorage object updated`)
-                    app.exit()
-                })
-
-                win.webContents.send("storemonitors")
-            } else {
-                app.exit()
-            }
+            app.exit()
         })
     },
     set: (win: BrowserWindow): void => {
-        listeners.setexit(win)
+        listeners.setexit()
 
         app.on("second-instance", () => win.show())
 
@@ -137,7 +126,7 @@ export const listeners = {
                             .resize({ width: 16 }),
                     click: () => {
                         savewindowstate(win)
-                        ipcMain.emit("exit",null,`App exited via System Tray.`)
+                        ipcMain.emit("exit",null,"App exited via System Tray")
                     }
                 }
             ]
@@ -970,7 +959,7 @@ export const listeners = {
             }
 
             worker && worker.webContents.send("steam3id")
-            preset !== "os" && capturesrc(notify.id,() => createsswin("ss",notify,undefined,src),src)
+            preset !== "os" && notify.customisation.ssenabled && capturesrc(notify.id,() => createsswin("ss",notify,undefined,src),src)
 
             win.webContents.send("queue",queue)
             checkifrunning(info)

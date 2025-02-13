@@ -115,28 +115,41 @@ const setmonitors = async () => {
     }
 }
 
-const refreshmonitors = (monitors: Monitor[], prevmons: Monitor[]) => {
+const refreshmonitors = (monitors: Monitor[],prevmons: Monitor[]) => {
     const getmonid = (type: "id" | "themeswitch",id: number,str: string) => {str
         try {
             const match = monitors.find(monitor => monitor.id === id)
+
             if (match) {
                 log.write("INFO", `Monitor found in "monitors" array for "${match.label}" (${match.id}) used as ${str}`)
                 return match.id
             }
     
             const prevmon = prevmons.find(prevmon => prevmon.id === id)
-            if (!prevmon) throw new Error(`Monitor "id" (${id}) not found in previous "monitors" object for ${str}`)
+            if (!prevmon) throw new Error(`[MONERR] Monitor "id" (${id}) not found in previous "monitors" object for ${str}`)
+                
             const newmon = monitors.find(monitor => monitor.label === prevmon.label)
-            if (!newmon) throw new Error(`No monitor matching "${prevmon.label}" found in "monitors" array`)
+            if (!newmon) throw new Error(`[MONERR] No monitor matching "${prevmon.label}" found in "monitors" array`)
     
             if (prevmon.id !== newmon.id) {
-                log.write("INFO", `"id" for "${prevmon.label}" updated from "${prevmon.id}" to "${newmon.id}" for ${str}`)
+                log.write("INFO",`"id" for "${prevmon.label}" updated from "${prevmon.id}" to "${newmon.id}" for ${str}`)
                 return newmon.id
             }
 
             return id
-        } catch (err) {
-            log.write("ERROR", (err as Error).message)
+        } catch (e) {
+            const err = e as Error
+
+            if (err.message.startsWith(`[MONERR]`)) {
+                const primarymon = monitors.find(monitor => monitor.primary)
+
+                if (primarymon) {
+                    log.write("WARN",`Monitor "id" (${id}) not found in previous "monitors" object for ${str} - resetting to primary monitor...`)
+                    return primarymon.id
+                }
+            }
+
+            log.write("ERROR",err.message.replace(/^\[MONERR\]\s/,""))
             return type === "id" ? -1 : id
         }
     }
@@ -144,7 +157,7 @@ const refreshmonitors = (monitors: Monitor[], prevmons: Monitor[]) => {
     const checkmonitor = (id: number) => getmonid("id",id,`"monitor" in config`)
 
     const checkthemeswitch = (themeswitch: { [key: string]: ThemeSwitch }) => {    
-        return Object.fromEntries(Object.entries(themeswitch).map(([key, value]) => {
+        return Object.fromEntries(Object.entries(themeswitch).map(([key,value]) => {
             const src = getmonid("themeswitch",value.src,`"src" in "themeswitch" for AppID ${key}`)
             
             if (src !== value.src) return [key,{ themes: { ...value.themes }, src } as ThemeSwitch]
@@ -153,19 +166,26 @@ const refreshmonitors = (monitors: Monitor[], prevmons: Monitor[]) => {
     }
 
     const newmon = checkmonitor(config.get("monitor"))
-    newmon !== -1 && config.set("monitor",newmon)
+
+    if (newmon !== -1) {
+        config.set("monitor",newmon)
+    } else {
+        const primarymon = monitors.find(monitor => monitor.primary)
+
+        if (primarymon) {
+            config.set("monitor",primarymon.id)
+            log.write("WARN",`Unable to find matching monitor by "id" in "monitors" array. "monitor" value was reset to primary display in config`)
+        } else {
+            log.write("ERROR",`Unable to find primary monitor in "monitors" array. "monitor" value cannot be updated or reset in config`)
+        }
+    }
+
+    localStorage.setItem("monitors",JSON.stringify(monitors))
+    log.write("INFO",`"monitors" localStorage object updated`)
 
     const newswitchmon = checkthemeswitch(JSON.parse(localStorage.getItem("themeswitch")!) as { [key: string]: ThemeSwitch })
     localStorage.setItem("themeswitch",JSON.stringify(newswitchmon))
 }
-
-const storemonitors = (monitors: Monitor[]) => {
-    localStorage.setItem("monitors",JSON.stringify(monitors))
-    ipcRenderer.send("storemonitors")
-}
-
-// Stores last known monitor ids to compare against in `refreshmonitors()` on launch
-ipcRenderer.on("storemonitors", () => storemonitors(config.get("monitors")))
 
 window.addEventListener("DOMContentLoaded", () => setTimeout(() => {
     setmonitors()
@@ -879,7 +899,10 @@ const getsteamuser = async (): Promise<string | null> => {
     const users = VDF.parse(loginusers).users
 
     for (const user in users) {
-        if (parseInt(users[user].MostRecent) === 1) return users[user].PersonaName
+        const entry = users[user]
+        const mostrecent = Object.keys(entry).find(key => key.toLowerCase() === "mostrecent")
+
+        if (mostrecent && parseInt(entry[mostrecent]) === 1) return entry.PersonaName
     }
 
     return null

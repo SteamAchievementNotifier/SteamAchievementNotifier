@@ -391,6 +391,7 @@ export const sanconfig = {
                 synctheme: false,
                 ssdisplay: false,
                 iconanim: props !== "main",
+                ssenabled: true,
                 usertheme: [] as UserTheme[]
             }
 

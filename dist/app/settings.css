@@ -179,6 +179,11 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
     display: none;
 }
 
+.opt:has(#ssenabled:not(:checked)) ~ .opt:has(#ovpos,#ovmatch,.lbl#sselemselectorlbl,#ovpath,#imgpath,#ssdelay,#sspreview),
+.opt:has(#ssenabled:not(:checked)) ~ .wrapper[overlay]:has(> .wrapper[overlay]):has(#ovx,#ovy) {
+    display: none !important;
+}
+
 dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     display: flex;
     align-items: center;

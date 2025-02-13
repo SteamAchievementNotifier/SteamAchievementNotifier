@@ -115,7 +115,6 @@ export const sanhelper: SANHelper = {
         return new Promise<Display[]>(resolve => {
             const monitors: Display[] = []
     
-            ipcRenderer.send("displays")
             ipcRenderer.once("displays", (event,displays: {
                 primary: Display,
                 all: Display[]
@@ -132,6 +131,8 @@ export const sanhelper: SANHelper = {
     
                 resolve(monitors)
             })
+
+            ipcRenderer.send("displays")
         })
     },
     setdevtools: async (win: Electron.BrowserWindow) => {

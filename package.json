@@ -32,7 +32,7 @@
         "electron-store": "8.2.0",
         "electron-updater": "^6.1.7",
         "fs-extra": "^11.2.0",
-        "icojs": "^0.19.5",
+        "icojs": "^0.18.0",
         "jpeg-js": "^0.4.4",
         "sanhelper.rs": "./deps/sanhelper.rs",
         "simple-vdf": "^1.1.1",

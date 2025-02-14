@@ -720,6 +720,17 @@ export const sanhelper: SANHelper = {
                 #customisercontent select,
                 #customisercontent .rect
             `)!.forEach(async elem => {
+                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : elem.id,["tooltips"])
+
+                if (elem.id.startsWith("glowcolor")) {
+                    for (const type of ["silver","gold"].map(type => `glowcolor${type}`)) {
+                        if (elem.id === type) {
+                            const config = (await import("./config")).sanconfig.get()
+                            content = content.replace(/\$rarity/,`${config.get("rarity")}%`)
+                        }
+                    }
+                }
+
                 const tt = tippy(`
                     .opt:not(#posbtns, :has(> .sub, > .opt)):has(#${elem.id}:not(.optbtn)),
                     .opt:not(#posbtns, :has(> .sub, > .opt)):has(.optbtn#${elem.id}) > #${elem.id},
@@ -729,7 +740,7 @@ export const sanhelper: SANHelper = {
                     .opt#posbtns > #${elem.id}
                 `,{
                     ...defaulttippy,
-                    content: await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : elem.id,["tooltips"]),
+                    content,
                     onTrigger(inst) {
                         inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
                     }

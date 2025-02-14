@@ -1,6 +1,7 @@
 body[customiser][soundonly] .wrapper#customiser > .wrapper#webview,
 body[customiser][soundonly] #customisercontent > #customiseropts > .cont:not(:has(.title#sound)),
-#customiser[customfiles] .opt:has(#importtheme,#exporttheme) {
+#customiser[customfiles] .opt:has(#importtheme,#exporttheme),
+.optcont:has(.opt > input[type="checkbox"]#glowrarity:checked) > .opt:has(#glow) > .opt:has(#glowcolor) {
     opacity: 0.5;
     pointer-events: none;
 }
@@ -46,8 +47,12 @@ body[main] .sub:has(#iconanim),
 .optcont:has(.opt > select#bgstyle > option[value="gameart"]:not(:checked)) > .opt > .opt:has(#brightness),
 .optcont:has(.opt > select#bgstyle > option[value="bgimg"]:not(:checked)) > .opt > .opt:has(#blur),
 .optcont:has(.opt > select#bgstyle > option[value="gameart"]:not(:checked)) > .opt > .opt:has(#blur),
-.optcont:has(.opt > input[type="checkbox"]#glow:not(:checked)) > .opt:has(#glow) > .opt:has(#glowcolor,#glowsize,#glowx,#glowy,#glowopacity,#glowanim,#glowspeed),
+.optcont:has(.opt > input[type="checkbox"]#glow:not(:checked)) > .opt:has(#glow) > .opt:has(#glowcolor,#glowsize,#glowx,#glowy,#glowopacity,#glowanim,#glowspeed,#glowrarity,#glowcolorbronze,#glowcolorsilver,#glowcolorgold),
 .optcont:has(.opt > select#glowanim > option[value="off"]:checked) > .opt > .opt:has(#glowspeed),
+.optcont:has(.opt > input[type="checkbox"]#glowrarity:not(:checked)) > .opt:has(#glow) > .opt:has(#glowcolorbronze,#glowcolorsilver,#glowcolorgold),
+body[main] .optcont:has(.opt > input[type="checkbox"]#glowrarity:checked) > .opt:has(#glow) > .opt:has(#glowcolorgold),
+body[rare] .opt:has(#glow) > .opt:has(#glowrarity,#glowcolorbronze,#glowcolorsilver,#glowcolorgold),
+body[plat] .opt:has(#glow) > .opt:has(#glowrarity,#glowcolorbronze,#glowcolorsilver,#glowcolorgold),
 .optcont:has(.opt > input[type="checkbox"]#mask:not(:checked)) > .opt:has(#mask) > .opt:has(#maskimg),
 .optcont:has(.opt > input[type="checkbox"]#fontoutline:not(:checked)) > .opt:has(#fontoutline) > .opt:has(#fontoutlinecolor),
 .optcont:has(.opt > input[type="checkbox"]#fontshadow:not(:checked)) > .opt:has(#fontshadow) > .opt:has(#fontshadowcolor),

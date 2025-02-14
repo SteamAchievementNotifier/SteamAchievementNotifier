@@ -90,9 +90,24 @@ export const language = {
 
                 customisertitles.forEach(title => {
                     langmap.set(customisercontent.querySelector(`span.title#${title}`)!,customiser[title].title)
-                    customisercontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(input) > input`).forEach(input => langmap.set(input.parentElement!.querySelector(`span`)!,customiser[title].content[input.id]))
+
+                    customisercontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(input) > input`).forEach(input => {
+                        let content = customiser[title].content[input.id]
+
+                        if (input.id.startsWith("glowcolor")) {
+                            for (const type of ["silver","gold"].map(type => `glowcolor${type}`)) {
+                                if (input.id === type) {
+                                    content = content.replace(/\$rarity/,`${config.get("rarity")}%`)
+                                }
+                            }
+                        }
+
+                        langmap.set(input.parentElement!.querySelector(`span`)!,content)
+                    })
+
                     customisercontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(select) > select`).forEach(select => select.parentElement!.querySelector(`span`) && langmap.set(select.parentElement!.querySelector(`span`)!,customiser[title].content[select.id]))
                     customisercontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(select:not(#preset)) > select > option`).forEach(opt => opt.textContent = opt.parentElement!.id === "pos" ? global[(opt as HTMLOptionElement).value] : customiser[title].content[(opt as HTMLOptionElement).value])
+
                     customisercontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(button) > button`).forEach(btn => {
                         if (btn.id === "savetheme") return langmap.set(btn.querySelector("span")!,customiser.theme.content.savetheme)
                         if (btn.id.includes("decoration")) return

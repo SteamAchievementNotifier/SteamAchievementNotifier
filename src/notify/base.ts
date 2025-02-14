@@ -184,7 +184,7 @@ const notifyhelper = {
                 ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`],
                 ["--glow",customisation.glow ? `drop-shadow(${(customisation.glowx * (customisation.scale / 100)) / 10}px ${(customisation.glowy * (customisation.scale / 100)) / 10}px var(--glowsize) var(--glowcolor))` : "none"],
                 ["--glowsize",`${(customisation.glowsize / 100) * 0.6}rem`],
-                ["--glowcolor",customisation.glowcolor],
+                ["--glowcolor",customisation.glowrarity ? (percent.value >= 50 ? customisation.glowcolorbronze : (percent.value < 50 && percent.value > percent.rarity ? customisation.glowcolorsilver : customisation.glowcolorgold)) : customisation.glowcolor],
                 ["--glowanim",customisation.glow && customisation.glowanim !== "off" ? `${customisation.glowanim} calc(var(--transition) * var(--glowspeed)) linear infinite` : "none"],
                 ["--glowspeed",`${customisation.glowspeed}`],
                 ["--blur",`${customisation.blur * (iswebview === "customiser" ? 1 : customisation.scale / 100) / 50}px`],

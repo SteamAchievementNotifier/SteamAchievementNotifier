@@ -1522,6 +1522,8 @@ export const listeners = {
         const createsswin = async (type: "ss" | "img",notify: Notify,ispreview?: boolean,src?: number) => {
             try {
                 const config = sanconfig.get()
+                // Screenshots are disabled in `ipcMain.on("notify")` event and shouldn't reach here anyway, but added as a logical fallback
+                if (!config.get(`customisation.${notify.type}.ssenabled`)) return log.write("INFO",`${type === "ss" ? "Screenshots" : "Notification Images"} disabled for "${notify.type}" type`)
     
                 const imgpath: string = config.get(`${type === "ss" ? "ov" : "img"}path`) as string
                 const sspath: string | null = type === "ss" ? (!ispreview ? getsspath(notify.id) : sanhelper.setfilepath("img","santextlogobg.png")) : null

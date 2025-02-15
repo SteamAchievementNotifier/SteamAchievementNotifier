@@ -155,6 +155,7 @@ export const translations = {
                 ssdelay: "Atraso da Captura de Tela",
                 notifyimg: "Imagem de Notificação",
                 imgpath: "Caminho da Imagem",
+                ssenabled: "Ativar"
             }
         },
         streaming: {
@@ -261,6 +262,10 @@ export const translations = {
                 glowopacity: "Opacidade",
                 glowanim: "Animação",
                 glowspeed: "Velocidade",
+                glowrarity: "Usar Raridade",
+                glowcolorbronze: "Raridade: > 50%",
+                glowcolorsilver: "Raridade: < 50% & > $rarity",
+                glowcolorgold: "Raridade: < $rarity",
                 off: "Nenhum",
                 pulse: "Pulso",
                 rainbow: "Arco-íris",
@@ -468,6 +473,10 @@ export const translations = {
         glowopacity: "Defina a opacidade do efeito de brilho",
         glowanim: "Selecione uma animação predefinida para ser aplicada ao efeito de brilho",
         glowspeed: "Defina a velocidade da animação aplicada ao efeito de brilho",
+        glowrarity: "Alterar a cor do efeito de brilho com base na raridade da conquista desbloqueada",
+        glowcolorbronze: "A cor do brilho exibida quando a porcentagem de desbloqueio for > 50%",
+        glowcolorsilver: "A cor do brilho exibida quando a porcentagem de desbloqueio for < 50% e > $rarity",
+        glowcolorgold: "A cor do brilho exibida quando a porcentagem de desbloqueio for < $rarity",
         mask: "Ativar a máscara de partes do aviso com uma imagem personalizada",
         maskimg: `Carregar um arquivo de imagem para ser usado como máscara<br><br><span class="ttdesc">No CSS, <code class="ttcode">mask-mode: alpha</code> opera de forma oposta ao que é geralmente esperado - áreas de transparência no arquivo de imagem serão obscurecidas, e áreas pretas/cinzentas permitirão que os elementos abaixo sejam visíveis</span>`,
         outline: "Selecione o tipo de contorno a ser mostrado ao redor da notificação",
@@ -502,6 +511,7 @@ export const translations = {
         visibilitybtn: "Alternar a visibilidade do elemento em visualizações personalizadas e notificações de teste",
         delbtn: "Redefinir o elemento para o padrão",
         imgpath: "O local onde as imagens de notificação geradas por esta opção serão salvas",
+        ssenabled: "Ativar ou desativar a geração de mídia para este tipo",
         checkforupdates: `Verifique se uma nova versão do aplicativo foi lançada no GitHub. Se uma atualização estiver disponível, ela será baixada e instalada automaticamente após a confirmação na janela <span class="hl">Atualização Disponível</span>`,
         linkedgames: `Ignorar <span class="hl">rastreamento automático de processos</span> para jogos específicos do Steam<br><br><span class="ttdesc">Esta opção deve ser usada apenas para cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`,
         exclusionlist: `Prevenir que conquistas em jogos específicos do Steam sejam rastreadas pelo aplicativo<br><br><span class="ttdesc">Esta opção deve ser usada apenas para cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`,

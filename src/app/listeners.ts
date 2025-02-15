@@ -1229,7 +1229,7 @@ export const listeners = {
                         log.write("ERROR",`Error closing notification window for "${notify.apiname}": ${err}`)
                     } finally {
                         win.webContents.send("notifyprogress",0,true)
-                        removesrcimg(notify.id)
+                        setTimeout(() => removesrcimg(notify.id),2000)
                     }
                 })
 

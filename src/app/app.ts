@@ -7,7 +7,7 @@ if (process.platform === "win32" && process.env.npm_lifecycle_event !== "dev") {
 }
 
 import fs from "fs"
-import fsextra from "fs-extra"
+import asar from "@electron/asar"
 import { __root, sanhelper } from "./sanhelper"
 import { sanconfig } from "./config"
 import { log } from "./log"
@@ -135,33 +135,57 @@ const ignore = [
     "tsconfig.json"
 ]
 
+const copyrecursive = (src: string,dest: string,ignore: Set<string>) => {
+    if (!fs.existsSync(src) || ignore.has(path.basename(src))) return
+
+    if (fs.statSync(src).isDirectory()) {
+        !fs.existsSync(dest) && fs.mkdirSync(dest,{ recursive: true })
+
+        for (const file of fs.readdirSync(src)) {
+            copyrecursive(path.join(src,file),path.join(dest,file),ignore)
+        }
+    } else {
+        fs.copyFileSync(src,dest)
+    }
+}
+
 const createdir = (dirpath: string,src?: string,destdir?: string) => {
     checkdir(dirpath,() => fs.mkdirSync(dirpath),`"${dirpath}" created successfully`)
 
     if (!src || !destdir) return log.write("INFO",`No ${!src ? "src" : "destdir"} value specified - copy operation aborted`)
 
     const dest = path.join(dirpath,destdir)
+    const ignorelist = new Set(ignore)
     
-    checkdir(dest,() => fsextra.copySync(src,dest,{ filter(src) {
-        if (destdir === "customfiles") {
-            ignore.push("temp")
-        } else if (destdir === "img") {
-            const additional = [
-                "dist",
-                "fonts",
-                "icon",
-                "notify",
-                "sound",
-                "temp",
-                "package.json"
-            ]
-
-            additional.forEach(dir => ignore.push(dir))
+    if (destdir === "customfiles") {
+        ignorelist.add("temp")
+    } else if (destdir === "img") {
+        for (const entry of [
+            "dist",
+            "fonts",
+            "icon",
+            "notify",
+            "sound",
+            "temp",
+            "package.json"
+        ]) {
+            ignorelist.add(entry)
         }
+    }
 
-        if (ignore.find(item => path.basename(src) === item)) return false
-        return true
-    } }),`"${src}" copied to "${dest}" successfully`)
+    checkdir(dest,() => {
+        if (path.extname(src) === ".asar") {
+            const tempasar = path.join(sanhelper.appdata,"tempasar")
+            asar.extractAll(src,tempasar)
+
+            copyrecursive(tempasar,dest,ignorelist)
+
+            fs.rmSync(tempasar,{ recursive: true, force: true })
+            log.write("INFO",`"${src}" extracted and copied to "${dest}" successfully`)
+        } else {
+            copyrecursive(src,dest,ignorelist)
+        }
+    },`"${src}" copied to "${dest}" successfully`)
 
     process.platform === "linux" && fs.chmod(dest,0o777, err => log.write(err ? "ERROR" : "INFO",err ? `Error setting folder permissions for "${dest}": ${err}` : `Folder permissions for "${dest}" set successfully`))
 }

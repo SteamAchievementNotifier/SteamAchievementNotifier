@@ -77,10 +77,11 @@ new Map<string,"main" | "rare" | "plat" | undefined>([
 
 const getcustomfilesversion = (packagepath: string): string => {
     try {
-        return fs.existsSync(packagepath) ? (JSON.parse(fs.readFileSync(packagepath).toString())).version : sanhelper.semver
+        if (!fs.existsSync(packagepath)) throw new Error(`"package.json" does not exist in "${path.join(sanhelper.appdata,"customfiles")}"`)
+        return (JSON.parse(fs.readFileSync(packagepath).toString())).version
     } catch (err) {
         log.write("ERROR",`Error parsing package version number in "${packagepath}": ${err as Error}`)
-        return sanhelper.semver
+        return "0.0.0"
     }
 }
 

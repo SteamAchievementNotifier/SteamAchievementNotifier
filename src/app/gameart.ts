@@ -3,6 +3,7 @@ import fs from "fs"
 
 export const gameart = {
     convertICO: async (file: string,tempdir: string,__root: string) => {
+        if ((file as any) instanceof Error) throw file
         if (path.extname(file) !== ".ico") return file
     
         const iconpng = path.join(tempdir,"gameicon.png")
@@ -43,10 +44,24 @@ export const gameart = {
             }
         }
     },
-    getrandom: (appid: number) => `../img/gameart/${appid}_library_hero.jpg`,
+    isparseabledir: (libcache: string,dir: string) => fs.statSync(path.join(libcache,dir)).isDirectory() && !isNaN(parseInt(dir)),
+    hasnumdirs: (libcache: string) => fs.readdirSync(libcache).some(dir => gameart.isparseabledir(libcache,dir)),
     get: async (obj: GameArt,files: string[]): Promise<string> => {
         const { appid, hqicon, steam3id, steampath, type } = obj
-        if (!appid) return Promise.resolve(await gameart.get({ ...obj, appid: gameart.getrandomuserdir(steampath) },files))
+        const fallback = type !== "library_hero" ? "../img/gameicon.png" : `../img/gameart/gameart${Math.floor(Math.random() * 3)}.jpg`
+
+        if (!appid) {
+            const randomuserdir = gameart.getrandomuserdir(steampath) as number | null
+
+            if (randomuserdir === null) {
+                const randomlibcachefile = gameart.getrandomuserdir(steampath,type) as string | null
+                if (randomlibcachefile) return Promise.resolve(randomlibcachefile)
+
+                return Promise.reject(fallback)
+            }
+
+            return Promise.resolve(await gameart.get({ ...obj, appid: randomuserdir },files))
+        }
 
         const exts = ["jpg","png"].map(ext => `.${ext}`) as (".jpg" | ".png")[]
     
@@ -57,29 +72,35 @@ export const gameart = {
             `${type}`
         ].flatMap(img => exts.map(ext => `${img}${ext}`))
     
-        const libcache = path.join(steampath,"appcache","librarycache")    
-        const appiddir = path.join(libcache,`${appid}`)
-    
-        if (fs.existsSync(appiddir)) {
-            gameart.getfiles(appiddir,files)
-    
-            for (const filename of imgnames) {
-                const file = files.find(file => path.basename(file) == filename) || null
-    
-                if (file && fs.existsSync(file)) {
-                    libcachefilepath = file.replace(/\\/g,"/")
-                    files.length = 0
-                    break
+        const libcache = path.join(steampath,"appcache","librarycache")
+        const hasnumdirs = gameart.hasnumdirs(libcache)
+
+        if (hasnumdirs) {
+            const appiddir = path.join(libcache,`${appid}`)
+        
+            if (fs.existsSync(appiddir)) {
+                gameart.getfiles(appiddir,files)
+        
+                for (const filename of imgnames) {
+                    const file = files.find(file => path.basename(file) == filename) || null
+        
+                    if (file && fs.existsSync(file)) {
+                        libcachefilepath = file.replace(/\\/g,"/")
+                        files.length = 0
+                        break
+                    }
                 }
             }
         }
-    
-        const defaultpath = path.join(libcache,`${appid}_${type}.jpg`)
+
+        const defaultfiles = exts.map(ext => path.join(libcache,`${appid}_${type}${ext}`))
+        const defaultpath = defaultfiles.find(file => fs.existsSync(file)) || defaultfiles[0]
+
         const imgpath = (type === "library_hero" && gameart.libheroimg(appid,steam3id,steampath,exts) || type === "icon" && hqicon || libcachefilepath || defaultpath).replace(/\\/g,"/")
     
         if (!fs.existsSync(imgpath)) {
             if (type === "icon") return gameart.get({ ...obj, type: "logo" },files)
-            return Promise.reject(type === "logo" ? "../img/gameicon.png" : `../img/gameart/gameart${Math.floor(Math.random() * 3)}.jpg`)
+            return Promise.reject(fallback)
         }
         
         return Promise.resolve(imgpath)
@@ -96,21 +117,32 @@ export const gameart = {
             logo: gameartlogo
         }
     },
-    getrandomuserdir: (steampath: string) => {
+    getrandomdirentries: (dir: string) => fs.readdirSync(dir).sort(() => Math.random() - 0.5).slice(0,100), // Limits to reading 100 randomly selected dir/file entries of `libcache` per call
+    getrandomuserdir: (steampath: string,type?: "library_hero" | "icon" | "logo") => {
         const libcache = path.join(steampath,"appcache","librarycache")
-        const dirs: number[] = []
-        const entries = fs.readdirSync(libcache).sort(() => Math.random() - 0.5).slice(0,100) // Limits to reading 100 randomly selected dir/file entries of `libcache` per call
+        const hasnumdirs = gameart.hasnumdirs(libcache)
 
-        for (const dir of entries) {
-            if (fs.statSync(path.join(libcache,dir)).isDirectory() && !isNaN(parseInt(dir))) {
-                const entrydir = fs.readdirSync(path.join(libcache,dir))
-
-                if (entrydir.length > 2) { // Prevents selecting dirs that are likely to not contain the required game art
-                    dirs.push(parseInt(dir))
+        if (!type && hasnumdirs) {
+            const dirs: number[] = []
+            const entries = gameart.getrandomdirentries(libcache)
+    
+            for (const dir of entries) {
+                if (gameart.isparseabledir(libcache,dir)) {
+                    const entrydir = fs.readdirSync(path.join(libcache,dir))
+    
+                    if (entrydir.length > 2) { // Prevents selecting dirs that are likely to not contain the required game art
+                        dirs.push(parseInt(dir))
+                    }
                 }
             }
+    
+            return dirs.length ? dirs[Math.floor(Math.random() * dirs.length)] : null
         }
 
-        return dirs.length ? dirs[Math.floor(Math.random() * dirs.length)] : 0
+        // If no parseable AppID folders exist in `<steampath>/appcache/librarycache`, return a random file in `librarycache` matching the below criteria
+        const entries = gameart.getrandomdirentries(libcache)
+        const filepath = entries.find(file => new RegExp(`^\\d+_${type}\\.(?:jpg|png)$`, 'i').test(file))
+
+        return filepath ? path.join(libcache,filepath).replace(/\\/g,"/") : null
     }
 }

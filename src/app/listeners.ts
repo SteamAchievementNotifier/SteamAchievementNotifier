@@ -926,7 +926,7 @@ export const listeners = {
             const steam3id = notify.steam3id
             const hqicon = sanhelper.gethqicon(appid)
 
-            if (config.get(`customisation.${notify.type}.bgstyle`) === "gameart") {
+            if (config.get(`customisation.${notify.type}.bgstyle`) === "gameart" || config.get(`customisation.${notify.type}.usegameicon`)) {
                 // Gets all Game Art img files and assigns them to the global "gameartobj" object
                 for (const [key,value] of Object.entries(await gameart.getall(
                     { appid, hqicon, steam3id, steampath },

@@ -25,7 +25,7 @@ export const translations = {
         congrats: "Herzlichen Glückwunsch!",
         achievementunlocked: "Erfolg freigeschaltet",
         gamecomplete: "100% Abgeschlossen",
-        achievementdesc: "Auf die Schaltfläche 'Testbenachrichtigung anzeigen' geklickt",
+        achievementdesc: "Auf die Schaltfläche Testbenachrichtigung anzeigen geklickt",
         gamecompletedesc: "Du hast alle Erfolge freigeschaltet!",
         defaultcustomfont: "Standard (Keine Schriftart ausgewählt)",
         defaultsoundfile: "Standard (Keine Datei ausgewählt)",
@@ -325,7 +325,7 @@ export const translations = {
                 updatetheme: "Design Aktualisieren",
                 savetheme: "Design speichern",
                 sub: [
-                    `Gespeicherte <span class="hl">BenutzerDesigns</span> können im Menü <span class="hl">Design auswählen</span> auf dem Startbildschirm ausgewählt werden.`,
+                    `Gespeicherte <span class="hl">Benutzerdesigns</span> können im Menü <span class="hl">Design auswählen</span> auf dem Startbildschirm ausgewählt werden.`,
                     `Stellen Sie sicher, dass der <span class="hl">Designname</span> <u>eindeutig</u> ist - ein Name, der mit einem vorhandenen Design übereinstimmt, <u>überschreibt das vorherige</u>!`
                 ],
                 placeholder: "Designname",

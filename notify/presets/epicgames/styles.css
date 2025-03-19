@@ -280,6 +280,7 @@ body[alldetails] .wrapper#xpwrapper {
     width: calc(1.75rem * var(--fontsize));
     height: calc(1.75rem * var(--fontsize));
     background: var(--decoration) center / contain no-repeat;
+    transform: scale(var(--decorationscale));
 }
 
 .wrapper#xpwrapper::after {

@@ -39,6 +39,10 @@ body[customiser][closing] button.menubtn#close {
 }
 
 body[main] .sub:has(#iconanim),
+body[main] .opt:has(#iconshadowcolor),
+body[main] .opt:has(#iconanimcolor),
+body:not([main]) .cont:has( #iconanim:not(:checked)) ~ .cont:has(.title#colors) > .optcont > .opt:has(#iconshadowcolor),
+body:not([main]) .cont:has( #iconanim:not(:checked)) ~ .cont:has(.title#colors) > .optcont > .opt:has(#iconanimcolor),
 .optcont:has(.opt > select#soundmode > option[value="file"]:not(:checked)) > .opt:has(#soundfile),
 .optcont:has(.opt > select#soundmode > option[value="folder"]:not(:checked)) > .opt:has(#sounddir),
 .optcont:has(.opt > select#bgstyle > option[value="gradient"]:not(:checked)) > .opt > .opt:has(#gradientangle),

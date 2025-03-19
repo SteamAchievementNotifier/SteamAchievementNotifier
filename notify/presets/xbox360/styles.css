@@ -123,6 +123,7 @@
 .wrapper#innercircle > #logo {
     background: var(--logo) center / contain no-repeat;
     animation: scaleboth calc(var(--transition) * 20) infinite;
+    transform: scale(var(--logoscale));
 }
 
 @keyframes scaleboth {

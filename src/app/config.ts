@@ -396,6 +396,11 @@ export const sanconfig = {
                 ssdisplay: false,
                 iconanim: props !== "main",
                 ssenabled: true,
+                iconscale: 100,
+                iconshadowcolor: "#ffb84e99",
+                iconanimcolor: "#ffb84e",
+                logoscale: 100,
+                decorationscale: 100,
                 usertheme: [] as UserTheme[]
             }
 

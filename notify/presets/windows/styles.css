@@ -101,6 +101,7 @@ body[bottomcenter] .wrapper#ssdisplay {
     background: var(--logo) center / contain no-repeat;
     width: var(--headersize);
     height: var(--headersize);
+    transform: scale(var(--logoscale));
 }
 
 .wrapper#achiconwrapper {

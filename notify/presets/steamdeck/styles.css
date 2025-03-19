@@ -65,6 +65,7 @@ body[bottomcenter] .wrapper#achcont {
     background: var(--decoration) center / contain no-repeat;
     grid-column-start: 1;
     grid-row-start: var(--decorationindex);
+    transform: scale(var(--decorationscale));
 }
 
 #decoration {

@@ -29,6 +29,14 @@
     --logo: "";
     --decoration: "";
     --base64: url("../img/base64.png");
+    --iconscale: 1;
+    --iconshadowcolor: #ffb84e99;
+    --iconshadow: drop-shadow(0 0 0.25rem var(--iconshadowcolor)) drop-shadow(0 0 0.5rem var(--iconshadowcolor));
+    --iconanimcolor: #ffb84e;
+    --iconbefore: radial-gradient(circle,var(--iconanimcolor),transparent);
+    --iconafter: repeating-conic-gradient(var(--iconanimcolor),transparent);
+    --logoscale: 1;
+    --decorationscale: 1;
     --anim: 1s;
     --bodyopacity: 0;
     --glow: none;
@@ -172,11 +180,12 @@ body[gameart] .wrapper#bg::after {
     grid-column-start: 1;
     margin-inline: calc(5px * var(--scale));
     isolation: isolate;
+    transform: scale(var(--iconscale));
 }
 
 body[rare]:not([noiconanim]) .wrapper#achiconwrapper,
 body[plat]:not([noiconanim]) .wrapper#achiconwrapper {
-    filter: drop-shadow(0 0 0.25rem #ffb84e99) drop-shadow(0 0 0.5rem #ffb84e66);
+    filter: var(--iconshadow);
 }
 
 .wrapper#achiconwrapper::before,
@@ -195,7 +204,7 @@ body[plat]:not([noiconanim]) .wrapper#achiconwrapper {
 
 body[rare]:not([noiconanim]) .wrapper#achiconwrapper::before,
 body[plat]:not([noiconanim]) .wrapper#achiconwrapper::before {
-    background-image: radial-gradient(circle, #ffb84e 10%, transparent);
+    background-image: var(--iconbefore);
     overflow: hidden;
     z-index: -1;
     animation: steamrotate calc(var(--anim) * 18) linear infinite reverse;
@@ -205,7 +214,7 @@ body[rare]:not([noiconanim]) .wrapper#achiconwrapper::after,
 body[plat]:not([noiconanim]) .wrapper#achiconwrapper::after {
     animation: steamrotate calc(var(--anim) * 6) linear infinite;
     mix-blend-mode: overlay;
-    background: repeating-conic-gradient(rgba(255, 217, 0, 0.178) 0%, rgba(255, 184, 78, 0) 6%, rgba(255, 217, 0, 0.178) 10%, #ffb84e 26%, rgba(255, 217, 0, 0.178) 35%, #ffb84e 40%, rgba(255, 217, 0, 0.178) 60%, #ffb84e 82%, transparent 100%);
+    background: var(--iconafter);
     overflow: hidden;
     z-index: -1;
     filter: blur(1rem);

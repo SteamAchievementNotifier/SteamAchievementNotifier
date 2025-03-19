@@ -87,6 +87,7 @@ body[fastanim] .wrapper#bg {
     animation:
         popout calc(var(--transition) * 2) calc(var(--transition) * 8) forwards,
         var(--finish);
+    transform: scale(var(--logoscale));
 }
 
 body[fastanim] .wrapper#logo {

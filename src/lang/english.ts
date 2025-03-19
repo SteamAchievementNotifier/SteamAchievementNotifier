@@ -284,6 +284,8 @@ export const translations = {
                 primarycolor: "Primary Color",
                 secondarycolor: "Secondary Color",
                 tertiarycolor: "Tertiary Color",
+                iconshadowcolor: "Rare Icon Shadow Color",
+                iconanimcolor: "Rare Icon Animation Color",
                 fontcolor: "Font Color",
                 fontoutline: "Font Outline",
                 fontoutlinecolor: "Font Outline Color",
@@ -294,6 +296,7 @@ export const translations = {
         icons: {
             title: "Icons",
             content: {
+                iconscale: "Icon Scale",
                 iconroundness: "Icon Roundness",
                 plat: "100% Logo",
                 usegameicon: "Use Game Icon",
@@ -302,7 +305,9 @@ export const translations = {
                 customimgicon: "Custom Icon",
                 icon: "Icon",
                 logo: "Logo",
+                logoscale: "Logo Scale",
                 decoration: "Decoration",
+                decorationscale: "Decoration Scale",
                 showdecoration: "Show Decoration",
                 rarity: "Rarity",
                 showhiddenicon: "Show Hidden Icon",

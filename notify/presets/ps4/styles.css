@@ -134,6 +134,7 @@ body[bottomcenter] .wrapper#achcont {
     background: var(--decoration) center / contain no-repeat;
     grid-column-start: 1;
     grid-row-start: var(--decorationindex);
+    transform: scale(var(--decorationscale));
 }
 
 .wrapper#logo {
@@ -142,6 +143,7 @@ body[bottomcenter] .wrapper#achcont {
     margin-inline: 1.5rem;
     place-self: center;
     isolation: isolate;
+    transform: scale(var(--logoscale));
 }
 
 .wrapper#logo::before {

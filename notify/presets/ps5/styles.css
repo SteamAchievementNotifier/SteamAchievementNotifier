@@ -94,6 +94,7 @@ body[bottomleft] .wrapper#achcontent {
     background: var(--decoration) center / contain no-repeat;
     grid-column-start: 1;
     grid-row-start: var(--decorationindex);
+    transform: scale(var(--decorationscale));
 }
 
 #decoration {
@@ -107,6 +108,7 @@ body[bottomleft] .wrapper#achcontent {
     place-self: center;
     opacity: 0;
     isolation: isolate;
+    transform: scale(var(--logoscale));
 }
 
 .wrapper#logo::before {

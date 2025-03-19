@@ -225,6 +225,11 @@ declare interface Customisation {
     synctheme: boolean,
     ssdisplay: boolean,
     ssenabled: boolean,
+    iconscale: number,
+    iconshadowcolor: string,
+    iconanimcolor: string,
+    logoscale: number,
+    decorationscale: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }

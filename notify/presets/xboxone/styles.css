@@ -151,6 +151,7 @@ body[fastanim] #achicon {
         fadeout var(--transition) calc(var(--transition) * 5) forwards,
         fadein var(--transition) calc(var(--displaytime) - (var(--transition) * 10)) forwards,
         scaledown calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 9)) cubic-bezier(1, 0, 1, 1) forwards;
+    transform: scale(var(--logoscale));
 }
 
 @keyframes popin {

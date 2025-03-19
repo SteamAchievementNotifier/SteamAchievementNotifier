@@ -61,11 +61,13 @@
     height: 85%;
     background: var(--logo) center / contain no-repeat;
     border-radius: var(--iconroundness);
+    transform: scale(var(--logoscale));
 }
 
 body[rare]:not([noiconanim]) .wrapper#achiconwrapper:has(#logo),
 body[plat]:not([noiconanim]) .wrapper#achiconwrapper:has(#logo) {
-    filter: drop-shadow(0 0 0.25rem #ffb84e99) drop-shadow(0 0 0.5rem #ffb84e66);
+    /* filter: drop-shadow(0 0 0.25rem #ffb84e99) drop-shadow(0 0 0.5rem #ffb84e66); */
+    filter: var(--iconshadow);
 }
 
 .wrapper#achcont:has(.wrapper#achcontent > #desc) > .wrapper#achiconwrapper {
@@ -98,24 +100,34 @@ body[solid] .wrapper#achcont:has(.wrapper#achcontent > #desc) > #bg {
     opacity: 0;
 }
 
-.wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > .wrapper#achcontent {
+/* .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > .wrapper#achcontent {
     grid-template-columns: calc(var(--notifyheight) - (10px * var(--scale))) auto auto calc(var(--notifyheight) - (10px * var(--scale)));
     grid-column: 1 / -1;
     align-self: center;
     align-items: center;
     animation: fadein calc(var(--transition) * 2) calc(var(--transition) * 6) forwards;
     gap: 0;
+} */
+
+.wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) > .wrapper#achcontent {
+    grid-template-columns: calc(var(--notifyheight) - (10px * var(--scale))) auto auto calc(var(--notifyheight) - (10px * var(--scale)));
+    grid-column: 1 / -1;
+    place-content: center;
+    width: 100%;
+    animation: fadein calc(var(--transition) * 2) calc(var(--transition) * 6) forwards;
+    gap: 0.75rem;
 }
 
-#decoration {
+.wrapper#achcontent::before {
     content: "";
-    display: inline-block;
-    width: calc(1rem * var(--fontsize));
-    height: calc(1rem * var(--fontsize));
+    display: var(--decorationdisplaytype);
+    width: calc(var(--fontsize) * 0.6rem);
+    height: calc(var(--fontsize) * 0.6rem);
+    scale: calc(1.75 * var(--fontsize));
     background: var(--decoration) center / contain no-repeat;
-    margin-inline: 0 calc(5px * var(--scale));
-    vertical-align: calc(-2px * var(--scale));
     grid-column-start: 2;
+    grid-row-start: var(--decorationindex);
+    transform: scale(var(--decorationscale));
 }
 
 .wrapper#achcont:has(.wrapper#achcontent > #desc) > .wrapper#achcontent {

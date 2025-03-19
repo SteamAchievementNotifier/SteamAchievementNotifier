@@ -202,6 +202,7 @@ body[ss] .wrapper#logo {
     z-index: 1;
     opacity: var(--opacity);
     animation: altfade calc(var(--transition) * 20) calc(var(--transition) * 5) infinite;
+    transform: scale(var(--logoscale));
 }
 
 @keyframes altfade {

@@ -142,7 +142,7 @@ declare interface Customisation {
     glowsize: number,
     glowx: number,
     glowy: number,
-    glowanim: "off" | "pulse" | "rainbow",
+    glowanim: "off" | "pulse" | "double" | "focus" | "orbit" | "fluorescent" | "rainbow",
     glowspeed: number,
     glowrarity: boolean,
     glowcolorbronze: string,

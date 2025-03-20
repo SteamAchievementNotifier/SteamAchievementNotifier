@@ -83,9 +83,51 @@ body {
 }
 
 @keyframes pulse {
-    from { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) }
-    50% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)) }
-    to { filter: drop-shadow(0 0 calc(var(--glowsize) * 2) transparent) drop-shadow(0 0 calc(var(--glowsize) * 2) transparent) }
+    from { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) drop-shadow(0 0 calc(var(--glowsize) / 2) transparent); }
+    50% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)); }
+    to { filter: drop-shadow(0 0 calc(var(--glowsize) * 2) transparent) drop-shadow(0 0 calc(var(--glowsize) * 2) transparent); }
+}
+
+@keyframes double {
+    from { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) drop-shadow(0 0 calc(var(--glowsize) / 2) transparent); }
+    10% { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) var(--glowcolor)) drop-shadow(0 0 calc(var(--glowsize) / 2) var(--glowcolor)); }
+    25% { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) drop-shadow(0 0 calc(var(--glowsize) / 2) transparent); }
+    40% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)); }
+    to { filter: drop-shadow(0 0 calc(var(--glowsize) * 2) transparent) drop-shadow(0 0 calc(var(--glowsize) * 2) transparent); }
+}
+
+@keyframes focus {
+    from { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) blur(1.5rem) brightness(250%); }
+    10% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)); }
+    90% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)); }
+    to { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) blur(1.5rem) brightness(250%); }
+}
+
+@keyframes orbit {
+    from { filter: drop-shadow(0 0 var(--glowsize) transparent) drop-shadow(0 0 var(--glowsize) transparent); }
+    5% { filter: drop-shadow(0 -0.05rem var(--glowsize) var(--glowcolor)) drop-shadow(0 -0.25rem var(--glowsize) var(--glowcolor)); }
+    10% { filter: drop-shadow(0.05rem -0.05rem var(--glowsize) var(--glowcolor)) drop-shadow(0.25rem -0.25rem var(--glowsize) var(--glowcolor)); }
+    15% { filter: drop-shadow(0.05rem 0.05rem var(--glowsize) var(--glowcolor)) drop-shadow(0.25rem 0.25rem var(--glowsize) var(--glowcolor)); }
+    20% { filter: drop-shadow(-0.05rem 0.05rem var(--glowsize) var(--glowcolor)) drop-shadow(-0.25rem 0.25rem var(--glowsize) var(--glowcolor)); }
+    25% { filter: drop-shadow(-0.05rem -0.05rem var(--glowsize) var(--glowcolor)) drop-shadow(-0.25rem -0.25rem var(--glowsize) var(--glowcolor)); }
+    30% { filter: drop-shadow(0 -0.05rem var(--glowsize) var(--glowcolor)) drop-shadow(0 -0.25rem var(--glowsize) var(--glowcolor)); }
+    40% { filter: drop-shadow(0 0 var(--glowsize) transparent) drop-shadow(0 0 var(--glowsize) transparent); }
+    50% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)); }
+    to { filter: drop-shadow(0 0 var(--glowsize) transparent) drop-shadow(0 0 var(--glowsize) transparent); }
+}
+
+@keyframes fluorescent {
+    from { filter: drop-shadow(0 0 var(--glowsize) transparent) drop-shadow(0 0 var(--glowsize) transparent) brightness(35%); }
+    19% { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) brightness(35%); }
+    20% { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) var(--glowcolor)) drop-shadow(0 0 calc(var(--glowsize) / 2) var(--glowcolor)) brightness(75%); }
+    21% { filter: drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) drop-shadow(0 0 calc(var(--glowsize) / 2) transparent) brightness(35%); }
+    24% { filter: drop-shadow(0 0 var(--glowsize) transparent) drop-shadow(0 0 var(--glowsize) transparent) brightness(35%); }
+    25% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)) brightness(90%); }
+    26% { filter: drop-shadow(0 0 var(--glowsize) transparent) drop-shadow(0 0 var(--glowsize) transparent) brightness(35%); }
+    34% { filter: drop-shadow(0 0 var(--glowsize) transparent) drop-shadow(0 0 var(--glowsize) transparent) brightness(35%); }
+    35% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)); }
+    99% { filter: drop-shadow(0 0 var(--glowsize) var(--glowcolor)) drop-shadow(0 0 var(--glowsize) var(--glowcolor)); }
+    to { filter: drop-shadow(0 0 var(--glowsize) transparent) drop-shadow(0 0 var(--glowsize) transparent) brightness(35%); }
 }
 
 @keyframes rainbow {

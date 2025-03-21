@@ -503,7 +503,11 @@ export const sanhelper: SANHelper = {
                 ...defaulttippy,
                 appendTo: "parent",
                 content: content,
+                triggerTarget: !elem.id.startsWith("webhookembedcolor") ? elem.parentElement : elem,
                 onTrigger(inst) {
+                    currenttippy && currenttippy !== inst && currenttippy.hide()
+                    currenttippy = inst
+
                     inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
                 }
             }) as Instance<Props>[]
@@ -555,7 +559,7 @@ export const sanhelper: SANHelper = {
             const dialog = document.querySelector(`dialog[menu]:has(#${menu?.id})`)
             const color = clr as HTMLInputElement
 
-            color.style.setProperty("--configcolor",config.get(`customisation.${sanhelper.type}.${color.id}`) as string)
+            color.style.setProperty("--configcolor",config.get(`${!color.id.startsWith("webhookembedcolor") ? `customisation.${sanhelper.type}.` : ""}${color.id}`) as string)
     
             const tt = tippy(`#${color.id}`,{
                 allowHTML: true,

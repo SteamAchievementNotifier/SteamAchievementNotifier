@@ -271,7 +271,8 @@ input[type="password"] {
     font-style: italic;
 }
 
-.opt:not([nosubdisable]):has(.sub > input[type="checkbox"]:checked) > *:not(.sub) {
+.opt:not([nosubdisable]):has(.sub > input[type="checkbox"]:checked) > *:not(.sub),
+.opt:not([nosubdisable]):has(.sub > input[type="checkbox"]:checked)::before {
     opacity: 0.5;
     pointer-events: none;
 }

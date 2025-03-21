@@ -95,8 +95,11 @@ export const webhookwrapper = async (elem: HTMLElement) => {
 
     typeswrapper.querySelectorAll(`.wrapper#webhooktypeswrapper > .wrapper:has(> input)`).forEach(async wrapper => {
         const span = wrapper.querySelector("span") as HTMLSpanElement
-        const input = wrapper.querySelector("input") as HTMLInputElement
+        const input = wrapper.querySelector(`input[type="checkbox"]`) as HTMLInputElement
+        const color = wrapper.querySelector(`input[type="color"]`) as HTMLInputElement
         const type = (["main","rare","plat","test"] as const).find(type => input.id.endsWith(type)) as "main" | "rare" | "plat" | "test"
+
+        if (color) color.onclick = event => event.preventDefault()
 
         span.textContent = await language.get(type)
         input.checked = config.get(`webhook${type}`) as boolean

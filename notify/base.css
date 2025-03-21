@@ -315,6 +315,18 @@ body[nodecoration] .wrapper#achcontent > span {
     -webkit-box-align: center;
 }
 
+#achcontent > #unlockmsg {
+    font-size: calc(1rem * var(--unlockmsgfontsize));
+}
+
+#achcontent > #title {
+    font-size: calc(1rem * var(--titlefontsize));
+}
+
+#achcontent > #desc {
+    font-size: calc(1rem * var(--descfontsize));
+}
+
 #hiddenicon {
     display: inline-block;
     width: calc(0.85rem * var(--fontsize));

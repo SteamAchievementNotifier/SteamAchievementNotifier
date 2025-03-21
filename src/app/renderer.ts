@@ -409,7 +409,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             return config.get("webhooks") && webhookwrapper(document.querySelector(`#settingscontent .wrapper:has(> #webhooks)`)!)
         }
 
-        setwebhookwrapper()
+        requestAnimationFrame(setwebhookwrapper)
 
         synced && document.getElementById("settingscontent")!.setAttribute("synced",synced)
         
@@ -482,6 +482,13 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             soundpreviewbtn.removeAttribute("playing")
             soundpreviewbtn.onclick = () => handleaudio(keypath,audio,soundpreviewbtn)
         }
+
+        document.querySelectorAll(".opt.sub:has(> #unlockmsgfontsize), .opt.sub:has(> #titlefontsize), .opt.sub:has(> #descfontsize)").forEach(opt => {
+            const { elems } = config.store.customisation[type]
+            const elem = opt.querySelector("input")!.id.replace(/fontsize$/,"") as "unlockmsg" | "title" | "desc"
+
+            elems && opt.toggleAttribute("soon",!elems.includes(elem))
+        })
 
         document.querySelectorAll("button#setcustompos, button#resetcustompos")!.forEach(btn => (btn as HTMLButtonElement).onclick = () => {
             btn.id === "setcustompos" && document.getElementById("customiser")!.setAttribute("poswin","")
@@ -914,9 +921,10 @@ const embeds = async (notify: Notify) => {
     const { type, gamename, name, desc, icon, percent, hidden } = notify
     const user = await getsteamuser()
     const nospoilers = hidden && config.get("webhookspoilers")
+    const hexcode = (config.get(`webhookembedcolor${type}`) as string).replace(/#/g,"")
 
     return {
-        color: type === "main" ? 2123412 : (type === "rare" ? 7419530 : 12370112),
+        color: parseInt(hexcode,16),
         author: {
             name: await unlockstr(user || "???",gamename || "",notify.type)
         },
@@ -943,6 +951,7 @@ ipcRenderer.on("sendwebhook", async (event,notify: Notify) => {
 
 ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
     const settings = document.querySelector("dialog:has(#settingscontent)")
+
     if (settings) {
         const elem = settings.querySelector("button#suspendresume")! as HTMLButtonElement
         elem.toggleAttribute("suspend",suspended)

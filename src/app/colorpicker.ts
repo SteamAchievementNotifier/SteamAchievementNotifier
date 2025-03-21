@@ -14,36 +14,41 @@ export const createcolorpicker = (instance: Instance<Props>,input: HTMLInputElem
 
     const type = sanhelper.type
     const config = sanconfig.get()
-    let currentcolor = config.get(`customisation.${type}.${input.id}`) as string
+    const configstr = `${!input.id.startsWith("webhookembedcolor") ? `customisation.${type}.` : ""}${input.id}`
+
+    let currentcolor = config.get(configstr) as string
 
     picker.parentElement!.style.setProperty("--configcolor",currentcolor)
 
     const colorcode = instance.popper.querySelector(`input[type="text"]`) as HTMLInputElement
     colorcode.value = currentcolor
+
+    const layout = [
+        {
+            component: iro.ui.Box
+        },
+        {
+            component: iro.ui.Slider,
+            options: {
+                sliderType: "hue",
+                sliderSize: 10
+            }
+        }
+    ]
+
+    if (!input.id.startsWith("webhookembedcolor")) layout.push({
+        component: iro.ui.Slider,
+        options: {
+            sliderType: "alpha",
+            sliderSize: 10
+        }
+    })
     
     const colorpicker = iro.ColorPicker(picker,{
         color: currentcolor,
         width: 100,
         margin: 10,
-        layout: [
-            {
-                component: iro.ui.Box
-            },
-            {
-                component: iro.ui.Slider,
-                options: {
-                    sliderType: "hue",
-                    sliderSize: 10
-                }
-            },
-            {
-                component: iro.ui.Slider,
-                options: {
-                    sliderType: "alpha",
-                    sliderSize: 10
-                }
-            }
-        ],
+        layout,
         layoutDirection: "horizontal"
     })
 
@@ -51,14 +56,14 @@ export const createcolorpicker = (instance: Instance<Props>,input: HTMLInputElem
         [input,picker.parentElement!].forEach(elem => elem.style.setProperty("--configcolor",hexcode))
         colorcode.value = hexcode
         
-        config.set(`customisation.${type}.${input.id}`,hexcode)
-        currentcolor = config.get(`customisation.${type}.${input.id}`) as string
+        config.set(configstr,hexcode)
+        currentcolor = config.get(configstr) as string
 
         sanhelper.updatetabs()
         requestAnimationFrame(() => sanhelper.loadadditionaltooltips(menutype))
     }
     
-    colorpicker.on("input:end",(color: any) => setcolorpickervalue(color.hex8String))
+    colorpicker.on("input:end",(color: any) => setcolorpickervalue(color[!input.id.startsWith("webhookembedcolor") ? "hex8String" : "hexString"]))
 
     colorcode.onchange = event => {
         const colorinput = (event.target as HTMLInputElement)

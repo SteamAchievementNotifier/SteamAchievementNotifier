@@ -170,7 +170,7 @@ const notifyhelper = {
                 ["--bgimgbrightness",`${customisation.bgimgbrightness}%`],
                 ["--brightness",`${customisation.brightness}%`],
                 ["--roundness",`${(customisation.roundness / 4) * (customisation.scale / 100)}px`],
-                ["--fontsize", `${customisation.fontsize / 100}`],
+                ["--fontsize", `${customisation.usecustomfontsizes ? 1 : customisation.fontsize / 100}`],
                 ["--opacity", `${customisation.opacity / 100}`],
                 ["--iconroundness",customisation.iconroundness === 100 ? "50%" : `${(customisation.iconroundness / 6) * (customisation.scale / 100)}px`],
                 ["--fontoutline",customisation.fontoutline ? `0 0 ${customisation.scale / 100}px ${customisation.fontoutlinecolor},`.repeat(9).replace(/,$/, "") : "none"],
@@ -203,7 +203,10 @@ const notifyhelper = {
                 ["--iconshadowcolor",`${customisation.iconshadowcolor}`],
                 ["--iconanimcolor",`${customisation.iconanimcolor}`],
                 ["--logoscale",`${customisation.logoscale / 100}`],
-                ["--decorationscale",`${customisation.decorationscale / 100}`]
+                ["--decorationscale",`${customisation.decorationscale / 100}`],
+                ["--unlockmsgfontsize",`${(customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100}`],
+                ["--titlefontsize",`${(customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100}`],
+                ["--descfontsize",`${(customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100}`]
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")

@@ -596,7 +596,7 @@ export const translations = {
         descfontsize: "Increase or decrease the size of the achievement description text element",
         webhookembedcolormain: "Set the color used in the webhook embed when a Main achievement is unlocked",
         webhookembedcolorrare: "Set the color used in the webhook embed when a Rare achievement is unlocked",
-        webhookembedcolorplat: "Set the color used in the webhook embed when a 100% achievement is unlocked",
+        webhookembedcolorplat: "Set the color used in the webhook embed when a 100% achievement is unlocked"
     },
     update: {
         updateavailable: "Update available",

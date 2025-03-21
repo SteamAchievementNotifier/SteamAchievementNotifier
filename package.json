@@ -21,7 +21,7 @@
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
         "@types/sortablejs": "^1.15.8",
-        "electron": "^34.2.0",
+        "electron": "^35.0.3",
         "electron-builder": "^24.9.1",
         "typescript": "^5.2.2"
     },

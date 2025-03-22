@@ -221,7 +221,7 @@ body[ss] .wrapper#achcontent > #title {
     grid-row: 1 / span 2;
     align-self: center;
     -webkit-line-clamp: 2;
-    font-size: calc(var(--fontsize) * 0.9);
+    font-size: calc(0.9rem * var(--descfontsize));
     animation:
         fadein calc(var(--transition) * 2) calc(var(--displaytime) / 2 - (var(--transition) * 2)) forwards,
         var(--finish);

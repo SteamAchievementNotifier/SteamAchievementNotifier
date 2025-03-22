@@ -76,7 +76,7 @@ body[bottomcenter] .wrapper#ssdisplay {
 }
 
 .wrapper#header {
-    --headersize: 0.85rem;
+    --headersize: calc(0.85rem * var(--unlockmsgfontsize));
     grid-template-columns: auto 1fr;
     align-items: center;
     padding: 0.5rem 1rem;

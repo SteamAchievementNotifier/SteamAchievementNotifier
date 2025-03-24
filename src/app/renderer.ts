@@ -483,11 +483,48 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             soundpreviewbtn.onclick = () => handleaudio(keypath,audio,soundpreviewbtn)
         }
 
-        document.querySelectorAll(".opt.sub:has(> #unlockmsgfontsize), .opt.sub:has(> #titlefontsize), .opt.sub:has(> #descfontsize)").forEach(opt => {
-            const { elems } = config.store.customisation[type]
-            const elem = opt.querySelector("input")!.id.replace(/fontsize$/,"") as "unlockmsg" | "title" | "desc"
+        // Presets that only use `#unlockmsg`/`#title` elements when < 2 lines are displayed via Customiser > Notification Elements
+        const unlockmsgtitlepresets = [
+            "xbox360",
+            "ps4",
+            "ps3",
+            "gfwl"
+        ]
 
-            elems && opt.toggleAttribute("soon",!elems.includes(elem))
+        // Presets that only use `#title`/`#desc` elements when < 2 lines are displayed via Customiser > Notification Elements
+        const titledescpresets = [
+            "epicgames",
+            "steamdeck",
+            "ps5"
+        ]
+
+        document.querySelectorAll(".opt.sub:has(> #unlockmsgfontsize), .opt.sub:has(> #titlefontsize), .opt.sub:has(> #descfontsize)").forEach(async opt => {
+            const { elems, preset } = config.store.customisation[type]
+            const elem = opt.querySelector("input") as HTMLInputElement
+            const elemid = elem.id.replace(/fontsize$/,"") as "unlockmsg" | "title" | "desc"
+            
+            if (elems) {
+                const twolinepreset = elems.length <= 2 ? (unlockmsgtitlepresets.includes(preset) ? ["unlockmsg","title"] : titledescpresets.includes(preset) ? ["title","desc"] : null) : null
+                const targetelem = document.querySelector(`.opt.sub:has(input#${twolinepreset ? (elems[0] === elemid ? twolinepreset[0] : twolinepreset[1]) : elemid}fontsize)`)!
+                const inuse = elems.includes(elemid)
+
+                if (twolinepreset) {
+                    const targetelemid = targetelem.querySelector("input")!.id // Gets the id of the actual element that will be displayed in the notification
+                    const value = config.get(`customisation.${type}.${targetelemid}`) // Gets the config value of the actual element
+                    
+                    elem.value = `${value}` // Assigns the actual element's config value to the relevant slider
+                    opt.setAttribute("value",`${value}`) // Sets the "value" attribute to the actual element's config value, instead of the current value
+
+                    // On change of the current slider, override default behaviour of the current slider to update config with the actual element's value
+                    // This way, we can keep the correctly labelled slider on screen while updating the relevant visual element's config value instead
+                    elem.onchange = event => {
+                        config.set(`customisation.${type}.${targetelemid}`,parseInt((event.target as HTMLInputElement).value))
+                        sanhelper.updatetabs()
+                    }
+                }
+
+                opt.toggleAttribute("soon",!inuse)
+            }
         })
 
         document.querySelectorAll("button#setcustompos, button#resetcustompos")!.forEach(btn => (btn as HTMLButtonElement).onclick = () => {

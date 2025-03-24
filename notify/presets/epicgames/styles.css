@@ -198,6 +198,16 @@ body:not([alldetails]) #unlockmsg {
     line-height: calc(2rem * var(--fontsize));
 }
 
+body:not([alldetails]) .wrapper#achcontent > #title {
+    font-size: calc(1.75rem * var(--titlefontsize));
+    line-height: calc(2rem * var(--titlefontsize));
+}
+
+body:not([alldetails]) .wrapper#achcontent > #desc {
+    font-size: calc(1.75rem * var(--descfontsize));
+    line-height: calc(2rem * var(--descfontsize));
+}
+
 body[alldetails] .wrapper#achcontent {
     row-gap: 0.15rem;
 }

@@ -34,7 +34,7 @@ export const cachedata = (client: any, apinames: string[]): Achievement[] => {
 export const checkunlockstatus = (cache: Achievement[], live: Achievement[]): Achievement[] => {
     const unlocked: Achievement[] = []
 
-    live.forEach(live => {live
+    live.forEach(live => {
         const match = cache.find(cached => cached.apiname === live.apiname)
 
         if (match && live.unlocked !== match.unlocked) {
@@ -67,7 +67,7 @@ export const getachievementicon = async (client: any, achievement: Achievement):
     return iconpath
 }
 
-const downloadicon = async (achievement: { apiname: string, iconurl: string }): Promise<string> => {
+export const downloadicon = async (achievement: { apiname: string, iconurl: string }): Promise<string> => {
     const { apiname, iconurl } = achievement
     const dest = path.join(sanhelper.temp,`${apiname}.jpg`)
 

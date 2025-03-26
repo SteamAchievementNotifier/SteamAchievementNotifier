@@ -393,3 +393,19 @@ const startsan = async (appinfo: AppInfo) => {
 }
 
 startidle()
+
+let ratimer: NodeJS.Timeout | null = null
+
+ipcRenderer.on("ra",async (event,ra: { user: string, key: string }) => {
+    try {
+        const { startra } = await import("./ra")
+    
+        ratimer && clearInterval(ratimer)
+        ratimer = await startra(ra)
+    } catch (err) {
+        if (ratimer) {
+            clearInterval(ratimer)
+            ratimer = null
+        }
+    }
+})

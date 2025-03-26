@@ -187,6 +187,7 @@ export const listeners = {
         })
 
         ipcMain.on("worker",(event,args) => console.log(JSON.parse(args)))
+
         ipcMain.on("noexe",(event,addlinkfailed?: boolean) => {
             const config = sanconfig.get()
             let notifywin: BrowserWindow | null = null
@@ -862,7 +863,7 @@ export const listeners = {
             logo: "../img/gameicon.png"
         }
 
-        ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null,src?: number) => {            
+        ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null,src?: number) => {
             const config = sanconfig.get()
             
             if (config.get("soundonly")) {
@@ -1706,6 +1707,44 @@ export const listeners = {
                 if (!screens.find(screen => screen.id === id)) throw new Error(`Display "id" ${id} not found in current monitors`)
             } catch (err) {
                 dialog.showErrorBox(`Monitor Test Failed!`,(err as Error).stack || (err as Error).message)
+            }
+        })
+
+        ipcMain.on("storekey",async (event,key: string) => {
+            const { safeStorage } = await import("electron")
+    
+            if (!safeStorage.isEncryptionAvailable()) return log.write("ERROR",`Unable to access safeStorage API - RA Key cannot be stored in config`)
+    
+            const encrypted = key.length ? safeStorage.encryptString(key).toString("base64") : ""
+    
+            const config = sanconfig.get()
+            config.set("rakey",encrypted)
+            log.write("INFO",`"rakey" securely stored in config successfully`)
+
+            event.reply("keystored",encrypted)
+        })
+
+        const decryptrakey = async (key: string) => {
+            try {
+                const { safeStorage } = await import("electron")
+                return safeStorage.decryptString(Buffer.from(key,"base64"))
+            } catch (err) {
+                throw err
+            }
+        }
+
+        ipcMain.on("ra",async (event,ramode: boolean) => {
+            if (!ramode) {
+                worker && worker.webContents.send("ra",{ user: "stopra", key: "stopra" })
+                return log.write("INFO","Retro Achievements support not active")
+            }
+            
+            const { rauser, rakey } = sanconfig.get().store
+
+            try {
+                worker && worker.webContents.send("ra",{ user: rauser, key: await decryptrakey(rakey) })
+            } catch (err) {
+                return log.write("ERROR",`Unable to start Retro Achievements support: ${err}`)
             }
         })
 

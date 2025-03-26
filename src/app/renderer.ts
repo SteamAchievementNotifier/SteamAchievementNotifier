@@ -9,6 +9,7 @@ import { usertheme } from "./usertheme"
 import { language } from "./language"
 import { update } from "./update"
 import { sendwebhook } from "./webhook"
+import { ggetest } from "./ra"
 
 declare global {
     interface Window {
@@ -19,9 +20,12 @@ declare global {
         appid: number,
         steam3id: number,
         update: Function,
-        availabletest: Function
+        availabletest: Function,
+        ggetest: Function
     }
 }
+
+window.ggetest = ggetest
 
 const sanhelperlog = sanhelper.initlogger(path.join(sanhelper.appdata,"logs"))
 log.write("INFO",sanhelperlog)
@@ -396,7 +400,9 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         document.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
+        document.querySelectorAll(`#settingscontent .cont:has(.title#ra) .opt:has(input[type="text"]) > input,#settingscontent .cont:has(.title#ra) .opt:has(input[type="password"]) > input`).forEach(input => sanhelper.setvalue(config,input,null))
         document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
+
 
         const { elemselector } = await import("./elemselector")
         elemselector(document.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
@@ -1053,3 +1059,6 @@ ipcRenderer.on("noexeclick",async () => {
 
     sanhelper.sethelpdialog(document.getElementById("linkgamehelp")!,"linkgamehelp")
 })
+
+ipcRenderer.on("ra",() => ipcRenderer.send("ra",config.get("ramode")))
+setTimeout(() => ipcRenderer.emit("ra"),1000)

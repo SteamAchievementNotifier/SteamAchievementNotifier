@@ -1,4 +1,4 @@
-import { app, ipcRenderer, shell } from "electron"
+import { app, ipcMain, ipcRenderer, shell } from "electron"
 import path from "path"
 import fs from "fs"
 import Store from "electron-store"
@@ -322,8 +322,9 @@ export const sanhelper: SANHelper = {
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
-    getcheckbox: (config: Store<Config>, elem: HTMLInputElement, keypath?: string) => elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean,
-    setcheckbox: (config: Store<Config>, event: Event, keypath?: string) => {
+    ramode: (value: boolean) => ipcRenderer.send("ra",value),
+    getcheckbox: (config: Store<Config>,elem: HTMLInputElement,keypath?: string) => elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean,
+    setcheckbox: (config: Store<Config>,event: Event,keypath?: string) => {
         // event.preventDefault()
         const elem = (event.target instanceof HTMLSpanElement ? event.target.parentElement!.querySelector(`input[type="checkbox"]`)! : event.target!) as HTMLInputElement
 
@@ -349,7 +350,7 @@ export const sanhelper: SANHelper = {
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
         })
     },
-    setvalue: (config: Store<Config>, elem: (HTMLInputElement | HTMLSelectElement), keypath?: string) => {
+    setvalue: (config: Store<Config>,elem: (HTMLInputElement | HTMLSelectElement),keypath?: string) => {
         const key = config.get((keypath ? `${keypath}.` : "") + elem.id)
 
         if (elem.id === "monitors" && elem instanceof HTMLSelectElement) {
@@ -418,6 +419,12 @@ export const sanhelper: SANHelper = {
             elem.id === "audiosrc" && sanhelper.audiosrc(config.get("audiosrc"))
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
             elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
+            // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
+            elem.id === "rauser" && ipcRenderer.emit("ra")
+            if (elem.id === "rakey") {
+                sanhelper.storerakey(elem.value)
+                ipcRenderer.emit("ra")
+            }
         }
 
         if (elem.hasAttribute("unit")) {
@@ -425,7 +432,7 @@ export const sanhelper: SANHelper = {
             elem.oninput = ({ target }: Event) => (elem as HTMLInputElement).parentElement!.setAttribute("value",(target as HTMLInputElement).id === "glowspeed" ? `${parseInt((target as HTMLInputElement).value) * 0.2}` : (target as HTMLInputElement).value)
         }
     },
-    setbtn: async (config: Store<Config>, elem: HTMLButtonElement, keypath?: string) => {
+    setbtn: async (config: Store<Config>,elem: HTMLButtonElement,keypath?: string) => {
         elem.removeAttribute("novalue")
 
         const key = config.get((keypath ? `${keypath}.` : "") + elem.id.replace(/\d/,""))
@@ -928,5 +935,6 @@ export const sanhelper: SANHelper = {
         })
 
         document.querySelector("dialog[default] .contentsubitem:first-child")!.setAttribute("nobefore","")
-    }
+    },
+    storerakey: async (key: string) => ipcRenderer.send("storekey",key)
 }

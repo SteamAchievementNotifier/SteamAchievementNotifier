@@ -275,6 +275,9 @@ export const sanconfig = {
                 statwinnospoilers: true,
                 statwinshortcut: "CTRL+SHIFT+O",
                 statwinaot: false,
+                ramode: false,
+                rauser: "",
+                rakey: "",
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

@@ -111,6 +111,9 @@ declare interface Config {
     statwinnospoilers: boolean,
     statwinshortcut: string,
     statwinaot: boolean,
+    ramode: boolean,
+    rauser: string,
+    rakey: string,
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -285,6 +288,7 @@ declare interface Notify extends Achievement {
     steam3id: number,
     gameicon: string | null,
     istestnotification?: boolean,
+    unlocktime?: string
 }
 
 declare interface StatsObj {

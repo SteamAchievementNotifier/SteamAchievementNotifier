@@ -111,7 +111,11 @@ declare interface Config {
     statwinnospoilers: boolean,
     statwinshortcut: string,
     statwinaot: boolean,
-    ramode: boolean,
+    raemus: string[],
+    retroarchpath: string,
+    dolphinpath: string,
+    pcsx2path: string,
+    ppspppath: string,
     rauser: string,
     rakey: string,
     customisation: {

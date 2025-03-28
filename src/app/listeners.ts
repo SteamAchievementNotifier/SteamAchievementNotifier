@@ -1733,21 +1733,6 @@ export const listeners = {
             }
         }
 
-        ipcMain.on("ra",async (event,ramode: boolean) => {
-            if (!ramode) {
-                worker && worker.webContents.send("ra",{ user: "stopra", key: "stopra" })
-                return log.write("INFO","Retro Achievements support not active")
-            }
-            
-            const { rauser, rakey } = sanconfig.get().store
-
-            try {
-                worker && worker.webContents.send("ra",{ user: rauser, key: await decryptrakey(rakey) })
-            } catch (err) {
-                return log.write("ERROR",`Unable to start Retro Achievements support: ${err}`)
-            }
-        })
-
         return
     }
 }

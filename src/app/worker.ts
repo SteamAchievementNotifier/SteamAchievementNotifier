@@ -7,6 +7,7 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
+import { getlogmap, getlastaction } from "./ra"
 
 declare global {
     interface Window {
@@ -396,16 +397,29 @@ startidle()
 
 let ratimer: NodeJS.Timeout | null = null
 
-ipcRenderer.on("ra",async (event,ra: { user: string, key: string }) => {
-    try {
-        const { startra } = await import("./ra")
+// !!! If `launch` is specified, check all lines until either a last action is found or it reaches the end of the file without a match
+// If not, just get the last line's contents - if it's not a match, it's "idle"
+const startra = (launch?: boolean) => {
+    if (ratimer) return
+
+    ratimer = setInterval(() => {
+        const logmap = getlogmap()
+        const lastaction = getlastaction(logmap)
     
-        ratimer && clearInterval(ratimer)
-        ratimer = await startra(ra)
-    } catch (err) {
-        if (ratimer) {
-            clearInterval(ratimer)
-            ratimer = null
+        if (!lastaction) {
+            // if (launch) {
+                ratimer && clearInterval(ratimer)
+                ratimer = null
+    
+                return startra()
+            // }
         }
-    }
-})
+    
+        const { key, file, action, value } = lastaction
+        // !!! Repeatedly shows notification as "start" event is always the last action unless something else happens
+        // action === "start" && ipcRenderer.send("showtrack",value)
+        console.log(key,file,action,value)
+    },1000)
+}
+
+startra()

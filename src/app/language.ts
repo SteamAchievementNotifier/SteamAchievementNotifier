@@ -78,6 +78,8 @@ export const language = {
                     
                         langmap.set(lbl,settings[title].content[`${key}shortcut`])
                     })
+
+                    langmap.set(settingscontent.querySelector(".wrapper:has(.lbl#raemus) > .lbl")!,settings.ra.content.raemus)
                 }
 
                 (type === "selection" && backbtn) && (backbtn.textContent = global.back)

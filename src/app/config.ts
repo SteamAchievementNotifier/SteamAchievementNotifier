@@ -275,7 +275,11 @@ export const sanconfig = {
                 statwinnospoilers: true,
                 statwinshortcut: "CTRL+SHIFT+O",
                 statwinaot: false,
-                ramode: false,
+                raemus: [],
+                retroarchpath: "",
+                dolphinpath: "",
+                pcsx2path: "",
+                ppspppath: "",
                 rauser: "",
                 rakey: "",
                 customisation: {

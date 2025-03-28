@@ -9,6 +9,7 @@ import tippy, { followCursor, Instance, Props } from "tippy.js"
 import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
+import { rasupported } from "./ra"
 const { initLogger, testPanic } = sanhelperrslog
 
 export const __root: string = path.resolve(__dirname,"..","..")
@@ -483,7 +484,8 @@ export const sanhelper: SANHelper = {
             `#elemselector input`,
             `#elemselector button`,
             `#webhookwrapper input`,
-            `button[id$="shortcut"]`
+            `button[id$="shortcut"]`,
+            `.opt:has(.lbl#raemus) > span`
         ].join(",")
 
         menuelem.querySelectorAll(elems)!.forEach(async elem => {
@@ -936,5 +938,66 @@ export const sanhelper: SANHelper = {
 
         document.querySelector("dialog[default] .contentsubitem:first-child")!.setAttribute("nobefore","")
     },
-    storerakey: async (key: string) => ipcRenderer.send("storekey",key)
+    storerakey: async (key: string) => ipcRenderer.send("storekey",key),
+    loadraemus: (emus: string[],config: Store<Config>) => {
+        const raemuswrapper = document.querySelector(".opt#raemuswrapper")!
+
+        emus.forEach(async id => {
+            const html = `
+                <div class="wrapper opt">
+                    <span>${await language.get(id,["settings","ra","content"])}</span>
+                    <input type="checkbox" id="${id}">
+                    <div class="wrapper opt">
+                        <span class="lbl">${await language.get("installdir",["settings","ra","content"])}</span>
+                        <input type="text" id="${id}path">
+                        <button class="rect" id="${id}browse"></button>
+                    </div>
+                </div>
+            `
+            
+            raemuswrapper.insertAdjacentHTML("beforeend",html)
+
+            const opt = raemuswrapper.querySelector(`.opt:has(input#${id})`) as HTMLElement
+            opt.onclick = null
+
+            const span = opt.querySelector("span") as HTMLSpanElement
+            const input = opt.querySelector(`input[type="checkbox"]`) as HTMLInputElement
+            const installdir = opt.querySelector(`input[type="text"]`) as HTMLInputElement
+            const installdirvalue = config.get(installdir.id) as string
+            
+            installdir.placeholder = "Enter a path" // !!! Change this
+            installdir.value = installdirvalue
+            installdir.toggleAttribute("nodir",installdir.value !== "" && !fs.existsSync(path.join(installdirvalue,"logs")))
+
+            span.onclick = null
+            input.onclick = null
+
+            const value = config.store.raemus.includes(id)
+            input.checked = value
+
+            for (const e of [span,input]) {
+                const elem = e as HTMLSpanElement | HTMLInputElement
+
+                elem.onclick = event => {
+                    const raemus = config.get("raemus")
+                    const elem = event.target as HTMLSpanElement | HTMLInputElement
+                    const input = (elem instanceof HTMLSpanElement ? elem.nextElementSibling : elem) as HTMLInputElement
+
+                    const value = raemus.includes(input.id)
+                    value ? raemus.splice(raemus.indexOf(input.id),1) : raemus.push(input.id)
+
+                    config.set("raemus",raemus)
+                    input.checked = config.get("raemus").includes(input.id)
+
+                    return
+                }
+            }
+
+            installdir.onchange = event => {
+                const elem = event.target as HTMLInputElement
+                config.set(elem.id,elem.value)
+                elem.toggleAttribute("nodir",elem.value !== "" && !fs.existsSync(path.join(elem.value,"logs")))
+            }
+        })
+    }
 }

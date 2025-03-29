@@ -115,9 +115,10 @@ declare interface Config {
     retroarchpath: string,
     dolphinpath: string,
     pcsx2path: string,
-    ppspppath: string,
+    // ppspppath: string,
     rauser: string,
     rakey: string,
+    rapercenttype: "soft" | "hard",
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -459,6 +460,35 @@ declare interface RandomDirInfo {
     i: number,
     validdirs: number[],
     max: number
+}
+
+declare interface LogAction {
+    key: string | null,
+    file: string | null,
+    action: "start" | "stop" | "achievement" | "idle",
+    value: number | null
+}
+
+declare interface RAAchievement {
+    id: number,
+    numAwarded: number,
+    numAwardedHardcore: number,
+    title: string,
+    description: string,
+    points: number,
+    trueRatio: number,
+    author: string,
+    dateModified: string,
+    dateCreated: string,
+    badgeName: string,
+    displayOrder: number,
+    memAddr: string,
+    type: any,
+    softcorepercent: number,
+    hardcorepercent: number,
+    gamename: string,
+    gameicon: string,
+    gameartlibhero: string
 }
 
 declare module "simple-vdf"

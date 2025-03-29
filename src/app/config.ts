@@ -282,6 +282,7 @@ export const sanconfig = {
                 ppspppath: "",
                 rauser: "",
                 rakey: "",
+                rapercenttype: "hard",
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

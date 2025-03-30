@@ -361,6 +361,7 @@ export const dialog = {
             }
 
             document.getElementById("showcustomfiles")!.onclick = () => sanhelper.showcustomfiles()
+            sanhelper.sethelpdialog(document.querySelector("span#raloghelp")!,"raenablelog")
 
             ;[
                 "resetwindow",

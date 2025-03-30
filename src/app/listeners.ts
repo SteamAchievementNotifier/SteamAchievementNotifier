@@ -1748,6 +1748,8 @@ export const listeners = {
             event.reply("decryptrakey",decrypted)
         })
 
+        ipcMain.on("ragame",(event,ragame?: RAGame) => win.webContents.send("ragame",ragame))
+
         return
     }
 }

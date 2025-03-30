@@ -80,6 +80,7 @@ export const language = {
                     })
 
                     langmap.set(settingscontent.querySelector(".wrapper:has(.lbl#raemus) > .lbl")!,settings.ra.content.raemus)
+                    langmap.set(settingscontent.querySelector("span#raloghelp > u")!,global.raloghelp)
                 }
 
                 (type === "selection" && backbtn) && (backbtn.textContent = global.back)

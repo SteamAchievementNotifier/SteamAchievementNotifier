@@ -682,6 +682,31 @@ dialog[menu] #settingscontent .opt#raemuswrapper .opt:has(> input[type="checkbox
     grid-template-columns: 2fr 1fr;
 }
 
+body[raemu="retroarch"][ragameid] .multiselect#raemuswrapper .wrapper:has(> input#retroarch) > span::after,
+body[raemu="dolphin"][ragameid] .multiselect#raemuswrapper .wrapper:has(> input#dolphin) > span::after,
+body[raemu="pcsx2"][ragameid] .multiselect#raemuswrapper .wrapper:has(> input#pcsx2) > span::after {
+    content: "";
+    background: url("../../icon/dot_green.png") center / contain no-repeat;
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-left: 0.25rem;
+    vertical-align: middle;
+}
+
+span#raloghelp {
+    font-size: 0.65rem;
+    text-align: center;
+}
+
+.hllb {
+    color: #a3badb;
+}
+
+.hlgreen {
+    color: seagreen;
+}
+
 @media (orientation: portrait) {
     dialog[menu] > #content {
         width: 100%;

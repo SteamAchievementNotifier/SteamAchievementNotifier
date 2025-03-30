@@ -1057,5 +1057,4 @@ ipcRenderer.on("noexeclick",async () => {
     sanhelper.sethelpdialog(document.getElementById("linkgamehelp")!,"linkgamehelp")
 })
 
-// ipcRenderer.on("ra",() => ipcRenderer.send("ra",config.get("ramode")))
-// setTimeout(() => ipcRenderer.emit("ra"),1000)
+ipcRenderer.on("ragame",(event,ragame?: RAGame) => (["raemu","ragameid"] as const).forEach(attr => ragame ? document.body.setAttribute(attr,`${ragame[attr.replace(/^ra/,"") as "emu" | "gameid"]}`) : document.body.removeAttribute(attr)))

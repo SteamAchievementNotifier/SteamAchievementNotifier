@@ -504,5 +504,11 @@ declare interface RAAPlatObj {
     achievementsnum: number
 }
 
+
+declare interface RAGame {
+    emu: string,
+    gameid: number
+}
+
 declare module "simple-vdf"
 declare module "adm-zip"

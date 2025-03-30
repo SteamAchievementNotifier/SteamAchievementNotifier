@@ -101,19 +101,25 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
     try {
         switch (action) {
             case "start":
-                const config = sanconfig.get()
+                if (!value) return ["ERROR",[key,`Unable to parse GameID in "start" action`]]
+                if (!key) return ["ERROR",["<unknown>",`Unable to parse emulator name in "start" action`]]
 
-                value && (gameid = value)
-                key && (emu = key)
+                gameid = value
+                emu = key
                 
+                const config = sanconfig.get()
                 racached = await cacheradata(gameid,config.get("rauser"),config.get("rakey"),config.get("nowtracking"))
                 sanhelper.devmode && console.log(racached)
+
+                ipcRenderer.send("ragame",{ emu, gameid } as RAGame)
                 
                 return ["INFO",[key,`[RA]: "${emu || key}" started Game ${gameid || value}`]]
             case "stop":
                 gameid = 0
                 emu = null
                 racached.length = 0
+
+                ipcRenderer.send("ragame")
                 
                 return ["INFO",[key,`[RA]: "${emu || key}" stopped Game ${gameid || value}`]]
             case "achievement":

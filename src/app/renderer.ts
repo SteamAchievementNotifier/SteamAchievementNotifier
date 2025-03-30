@@ -393,15 +393,6 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
     }
 
     if (document.querySelector("dialog[menu] #settingscontent")) {
-        const setraemuswrapper = (emus: string[]) => {
-            const wrapper = document.getElementById("raemuswrapper")
-            wrapper && (wrapper.innerHTML = "")
-            
-            return sanhelper.loadraemus(emus,config)
-        }
-        
-        setraemuswrapper(rasupported) // If this runs after any of the below, `sanhelper.setcheckbox()` actions get assigned to these elements, which causes incorrect keys/values to be written to config
-
         document.querySelectorAll(`#settingscontent .opt > input[type="checkbox"], #settingscontent .opt > .sub > input[type="checkbox"]`).forEach(opt => sanhelper.getcheckbox(config,opt,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
         document.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
@@ -421,6 +412,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         }
 
         requestAnimationFrame(setwebhookwrapper)
+        sanhelper.loadraemus(rasupported,config)
 
         synced && document.getElementById("settingscontent")!.setAttribute("synced",synced)
         

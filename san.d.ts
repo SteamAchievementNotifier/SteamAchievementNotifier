@@ -293,7 +293,8 @@ declare interface Notify extends Achievement {
     steam3id: number,
     gameicon: string | null,
     istestnotification?: boolean,
-    unlocktime?: string
+    libhero?: string,
+    ra?: boolean
 }
 
 declare interface StatsObj {
@@ -345,7 +346,8 @@ declare interface Info {
     screenshots: "overlay" | "notifyimg" | "off",
     gamearticon: string,
     gameartlibhero: string,
-    gameartlogo: string
+    gameartlogo: string,
+    ra?: boolean
 }
 
 declare interface BuildNotifyInfo {
@@ -489,6 +491,17 @@ declare interface RAAchievement {
     gamename: string,
     gameicon: string,
     gameartlibhero: string
+}
+
+declare interface RAAPlatObj {
+    gameid: number,
+    achievement: RAAchievement,
+    customisation: Customisation,
+    platicon: string,
+    monitor: number,
+    username: string,
+    apikey: string,
+    achievementsnum: number
 }
 
 declare module "simple-vdf"

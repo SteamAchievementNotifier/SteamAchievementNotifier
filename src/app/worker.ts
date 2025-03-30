@@ -7,7 +7,7 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
-import { getlogmap, getlastaction, executeaction, testraunlock, emu } from "./ra"
+import { getlogmap, getlastaction, executeaction, testraunlock, emu, rasupported } from "./ra"
 
 declare global {
     interface Window {
@@ -398,6 +398,14 @@ startidle()
 
 let ratimer: NodeJS.Timeout | null = null
 let lastaction: LogAction | null = null
+const lastlog: { [key: string]: string } = {}
+
+for (const emu of rasupported) {
+    Object.assign(lastlog,{ [emu]: "" })
+}
+
+// Set a variable in localStorage for the last earned achievement if it does not already exist
+!localStorage.getItem("ralastachievement") && localStorage.setItem("ralastachievement","0")
 
 const startra = () => {
     if (ratimer) return
@@ -410,8 +418,15 @@ const startra = () => {
             if (!fs.existsSync(file) || emu && emu !== key) return
             lastaction = getlastaction(key,file)
 
-            const [type,msg] = await executeaction(lastaction)
-            ;(type && msg) && (type !== "CONSOLE" ? log.write(type as "INFO" | "ERROR",msg) : console.log(msg))
+            const [type,details] = await executeaction(lastaction)
+            const [keyname,msg] = details
+
+            if (type && details) {
+                if (!keyname || !msg) return
+                if (lastlog[keyname] === msg) return // Prevent excessive logging of duplicate actions
+                ;(type !== "CONSOLE" ? log.write(type as "INFO" | "ERROR",msg) : console.log(msg))
+                lastlog[keyname] = msg
+            }
         })
 
         if (!lastaction) {

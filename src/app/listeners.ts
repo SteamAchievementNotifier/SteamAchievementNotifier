@@ -927,14 +927,24 @@ export const listeners = {
             const hqicon = sanhelper.gethqicon(appid)
 
             if (config.get(`customisation.${notify.type}.bgstyle`) === "gameart" || config.get(`customisation.${notify.type}.usegameicon`)) {
-                // Gets all Game Art img files and assigns them to the global "gameartobj" object
-                for (const [key,value] of Object.entries(await gameart.getall(
-                    { appid, hqicon, steam3id, steampath },
-                    gameartfiles,
-                    __temp,
-                    __root
-                ))) {
-                    gameartobj[key] = value
+                if (notify.ra) {
+                    for (const [key,value] of Object.entries({
+                        icon: notify.gameicon!,
+                        libhero: notify.libhero!,
+                        logo: notify.gameicon!
+                    })) {
+                        gameartobj[key] = value
+                    }
+                } else {
+                    // Gets all Game Art img files and assigns them to the global "gameartobj" object
+                    for (const [key,value] of Object.entries(await gameart.getall(
+                        { appid, hqicon, steam3id, steampath },
+                        gameartfiles,
+                        __temp,
+                        __root
+                    ))) {
+                        gameartobj[key] = value
+                    }
                 }
             }
             
@@ -1123,7 +1133,7 @@ export const listeners = {
                     const { audiosrc, ssalldetails, screenshots } = config.store
                     const { appid, steam3id } = info
                     const steampath = sanhelper.steampath
-                    const hqicon = sanhelper.gethqicon(appid)
+                    const hqicon = notify.ra ? notify.gameicon : sanhelper.gethqicon(appid)
                     const { icon, libhero, logo } = gameartobj
 
                     return {
@@ -1139,7 +1149,8 @@ export const listeners = {
                         screenshots: screenshots,
                         gamearticon: icon,
                         gameartlibhero: libhero,
-                        gameartlogo: logo
+                        gameartlogo: logo,
+                        ra: notify.ra
                     } as Info
                 }
 

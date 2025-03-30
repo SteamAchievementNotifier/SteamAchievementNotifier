@@ -678,6 +678,10 @@ dialog[menu] #settingscontent .opt#raemuswrapper .opt:has(> input[type="checkbox
     margin-bottom: 0.5rem;
 }
 
+.opt:has(#rapercenttype) {
+    grid-template-columns: 2fr 1fr;
+}
+
 @media (orientation: portrait) {
     dialog[menu] > #content {
         width: 100%;

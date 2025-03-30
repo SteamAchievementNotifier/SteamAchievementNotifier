@@ -1,4 +1,4 @@
-import { app, ipcMain, ipcRenderer, shell } from "electron"
+import { app, ipcRenderer, shell } from "electron"
 import path from "path"
 import fs from "fs"
 import Store from "electron-store"
@@ -9,7 +9,8 @@ import tippy, { followCursor, Instance, Props } from "tippy.js"
 import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
-import { rasupported } from "./ra"
+import { raelems, rasupported } from "./ra"
+
 const { initLogger, testPanic } = sanhelperrslog
 
 export const __root: string = path.resolve(__dirname,"..","..")
@@ -328,6 +329,7 @@ export const sanhelper: SANHelper = {
     setcheckbox: (config: Store<Config>,event: Event,keypath?: string) => {
         // event.preventDefault()
         const elem = (event.target instanceof HTMLSpanElement ? event.target.parentElement!.querySelector(`input[type="checkbox"]`)! : event.target!) as HTMLInputElement
+        if (raelems.find(id => elem.id === id)) return
 
         if (process.platform === "linux") {
             const deps = new Map<string,string>([
@@ -396,8 +398,13 @@ export const sanhelper: SANHelper = {
 
         const selectinputtype = (target: EventTarget) => ((target instanceof HTMLSelectElement ? target as HTMLSelectElement : target as HTMLInputElement)).value
         
+        const skipelems = [
+            ...selectorelems,
+            ...raelems
+        ]
+        
         // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
-        if (selectorelems.find(id => elem.id === id)) return
+        if (skipelems.find(id => elem.id === id)) return
 
         elem.value = key.toString()
 
@@ -422,6 +429,7 @@ export const sanhelper: SANHelper = {
             elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
             // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
             elem.id === "rauser" && ipcRenderer.emit("ra")
+
             if (elem.id === "rakey") {
                 sanhelper.storerakey(elem.value)
                 ipcRenderer.emit("ra")
@@ -485,7 +493,7 @@ export const sanhelper: SANHelper = {
             `#elemselector button`,
             `#webhookwrapper input`,
             `button[id$="shortcut"]`,
-            `.opt:has(.lbl#raemus) > span`
+            `.opt#raemuswrapper .opt:has(> input[type="text"]) > input[type="text"]`
         ].join(",")
 
         menuelem.querySelectorAll(elems)!.forEach(async elem => {
@@ -940,9 +948,10 @@ export const sanhelper: SANHelper = {
     },
     storerakey: async (key: string) => ipcRenderer.send("storekey",key),
     loadraemus: (emus: string[],config: Store<Config>) => {
-        const raemuswrapper = document.querySelector(".opt#raemuswrapper")!
+        const raemuswrapper = document.querySelector(".wrapper#raemuswrapper") as HTMLElement
+        const elems: Set<[string,string]> = new Set([])
 
-        emus.forEach(async id => {
+        const createraemus = async (id: string) => {
             const html = `
                 <div class="wrapper opt">
                     <span>${await language.get(id,["settings","ra","content"])}</span>
@@ -955,9 +964,11 @@ export const sanhelper: SANHelper = {
                 </div>
             `
             
-            raemuswrapper.insertAdjacentHTML("beforeend",html)
+            // wrapper.insertAdjacentHTML("beforeend",html)
+            elems.add([id,html])
+        }
 
-            const opt = raemuswrapper.querySelector(`.opt:has(input#${id})`) as HTMLElement
+        const setraemuactions = async (opt: HTMLElement,id: string,config: Store<Config>) => {
             opt.onclick = null
 
             const span = opt.querySelector("span") as HTMLSpanElement
@@ -965,7 +976,7 @@ export const sanhelper: SANHelper = {
             const installdir = opt.querySelector(`input[type="text"]`) as HTMLInputElement
             const installdirvalue = config.get(installdir.id) as string
             
-            installdir.placeholder = "Enter a path" // !!! Change this
+            installdir.placeholder = await language.get("placeholder",["settings","ra","content"])
             installdir.value = installdirvalue
             installdir.toggleAttribute("nodir",installdir.value !== "" && !fs.existsSync(path.join(installdirvalue,"logs")))
 
@@ -994,14 +1005,48 @@ export const sanhelper: SANHelper = {
             }
 
             installdir.onchange = event => {
-                const elem = event.target as HTMLInputElement
-                const value = elem.value.replace(/\\/g,"/")
+                const input = event.target as HTMLInputElement
+                const value = input.value.replace(/\\/g,"/")
 
-                config.set(elem.id,value)
+                config.set(input.id,value)
 
-                elem.value = value
-                elem.toggleAttribute("nodir",value !== "" && !fs.existsSync(path.join(value,"logs").replace(/\\/g,"/")))
+                input.value = value
+                input.toggleAttribute("nodir",value !== "" && !fs.existsSync(path.join(value,"logs").replace(/\\/g,"/")))
             }
+
+            const btn = opt.querySelector(`button[id$="browse"]`) as HTMLButtonElement
+                
+            btn.onclick = event => {
+                const btn = event.target as HTMLButtonElement
+                const input = btn.parentElement!.querySelector("input") as HTMLInputElement
+
+                ipcRenderer.once("loadfile",(event,dirpath) => {
+                    if (!dirpath) return
+                    const value = dirpath[0].replace(/\\/g,"/")
+
+                    config.set(input.id,value)
+    
+                    input.value = value
+                    input.toggleAttribute("nodir",value !== "" && !fs.existsSync(path.join(value,"logs").replace(/\\/g,"/")))
+                })
+
+                ipcRenderer.send("loadfile","dir")
+            }
+        }
+
+        emus.forEach(async id => await createraemus(id))
+
+        requestAnimationFrame(async () => {
+            raemuswrapper.innerHTML = ""
+            raemuswrapper.onclick = null
+
+            elems.forEach(async ([id,html]) => {
+                raemuswrapper.insertAdjacentHTML("beforeend",html)
+                const opt = raemuswrapper.querySelector(`.opt:has(input#${id})`) as HTMLElement
+                opt.onclick = null
+                
+                await setraemuactions(opt,id,config)
+            })
         })
     }
 }

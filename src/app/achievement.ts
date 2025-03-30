@@ -67,9 +67,9 @@ export const getachievementicon = async (client: any, achievement: Achievement):
     return iconpath
 }
 
-export const downloadicon = async (achievement: { apiname: string, iconurl: string }): Promise<string> => {
+export const downloadicon = async (achievement: { apiname: string, iconurl: string },format?: string): Promise<string> => {
     const { apiname, iconurl } = achievement
-    const dest = path.join(sanhelper.temp,`${apiname}.jpg`)
+    const dest = path.join(sanhelper.temp,`${apiname}.${format || "jpg"}`)
 
     try {
         const promise = await new Promise<string>((resolve,reject) => {

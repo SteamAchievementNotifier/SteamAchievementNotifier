@@ -995,8 +995,12 @@ export const sanhelper: SANHelper = {
 
             installdir.onchange = event => {
                 const elem = event.target as HTMLInputElement
-                config.set(elem.id,elem.value)
-                elem.toggleAttribute("nodir",elem.value !== "" && !fs.existsSync(path.join(elem.value,"logs")))
+                const value = elem.value.replace(/\\/g,"/")
+
+                config.set(elem.id,value)
+
+                elem.value = value
+                elem.toggleAttribute("nodir",value !== "" && !fs.existsSync(path.join(value,"logs").replace(/\\/g,"/")))
             }
         })
     }

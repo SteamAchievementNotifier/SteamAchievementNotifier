@@ -7,7 +7,7 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
-import { getlogmap, getlastaction, executeaction, testraunlock } from "./ra"
+import { getlogmap, getlastaction, executeaction, testraunlock, emu } from "./ra"
 
 declare global {
     interface Window {
@@ -397,13 +397,22 @@ const startsan = async (appinfo: AppInfo) => {
 startidle()
 
 let ratimer: NodeJS.Timeout | null = null
+let lastaction: LogAction | null = null
 
 const startra = () => {
     if (ratimer) return
 
     ratimer = setInterval(async () => {
         const logmap = getlogmap()
-        const lastaction = getlastaction(logmap)
+
+        // Limits actions to active emulator
+        logmap.forEach(async (file,key) => {
+            if (!fs.existsSync(file) || emu && emu !== key) return
+            lastaction = getlastaction(key,file)
+
+            const [type,msg] = await executeaction(lastaction)
+            ;(type && msg) && (type !== "CONSOLE" ? log.write(type as "INFO" | "ERROR",msg) : console.log(msg))
+        })
 
         if (!lastaction) {
             ratimer && clearInterval(ratimer)
@@ -411,10 +420,6 @@ const startra = () => {
 
             return startra()
         }
-
-        const [type,msg] = await executeaction(lastaction)
-        // log.write(type as "INFO" | "ERROR",msg)
-        console.log(type,msg)
     }, 1000)
 }
 

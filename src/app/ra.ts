@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron"
 import path from "path"
 import fs from "fs"
-import { buildAuthorization, getUserRecentAchievements, UserRecentAchievement, AuthObject, getGameExtended, GameExtendedAchievementEntity, getGameInfoAndUserProgress } from "@retroachievements/api"
+import { buildAuthorization, getGameExtended } from "@retroachievements/api"
 import { sanhelper } from "./sanhelper"
 import { sanconfig } from "./config"
 import { log } from "./log"
@@ -21,17 +21,17 @@ const logfiles: { [key: string]: string } = {
     // ppspp: ""
 }
 
-let emu: string | null = null
+export let emu: string | null = null
 
-export const logmap = new Map<string,string>()
+const logmap = new Map<string,string>()
 
 export const getlogmap = () => {
     const config = sanconfig.get()
 
     for (const emu of rasupported) {
         const enabled = config.get("raemus").includes(emu)
-        const installdir = config.get(`${emu}path`) as string
-        if (installdir) enabled ? logmap.set(emu,path.join(installdir,"logs",logfiles[emu])) : logmap.delete(emu)
+        const installdir = (config.get(`${emu}path`) as string).replace(/\\/g,"/")
+        if (installdir) enabled ? logmap.set(emu,path.join(installdir,"logs",logfiles[emu]).replace(/\\/g,"/")) : logmap.delete(emu)
     }
 
     return logmap
@@ -45,27 +45,24 @@ const actionmap = new Map<"start" | "stop" | "achievement",RegExp>([
 
 let lastaction: LogAction | null = null
 
-export const getlastaction = (logmap: Map<string,string>): LogAction | null => {
-    if (!logmap.size) return null
+export const getlastaction = (key: string,file: string): LogAction => {
+    const contents = fs.readFileSync(file).toString().split("\n").reverse()
 
-    for (const [key,file] of logmap) {
-        const contents = fs.readFileSync(file).toString().split("\n").reverse()
-
-        for (const line of contents) {
-            for (const [action,regex] of actionmap) {
-                const match = line.match(regex)
-                if (!match) continue
-
+    for (const line of contents) {
+        for (const [action,regex] of actionmap) {
+            const match = line.match(regex)
+            
+            if (match) {
                 const newaction = { key, file, action, value: parseInt(match[1]) }
-
+    
                 if (!lastaction || lastaction.action !== newaction.action || lastaction.value !== newaction.value) {
                     // Prevents retriggering achievement notifications on launch
                     if (newaction.action === "achievement" && parseInt(localStorage.getItem("ralastachievement")!) === newaction.value) continue
-
+    
                     lastaction = newaction
                     return newaction
                 }
-
+    
                 return { key, file, action: "idle", value: null }
             }
         }
@@ -114,7 +111,7 @@ export const executeaction = async (lastaction: LogAction) => {
                 }
                 
                 return [value ? "INFO" : "ERROR",`[RA]: ${!value ? "Unable to display achievement notification - " : ""}"${emu || key}" unlocked Achievement ${value} in Game ${gameid || value}${!value ? `, but no AchievementID value was found in "achievement" action` : ""}`]
-            default: return ["INFO",`[RA]: ${!emu ? "No emulator actions detected" : `"${emu || key}" is idle${gameid ? ` for Game ${gameid}` : ""}`}`]
+            default: return !sanhelper.devmode ? [null,null] : ["CONSOLE",`[RA]: ${!emu ? "No emulator actions detected" : `"${emu || key}" is idle${gameid ? ` for Game ${gameid}` : ""}`}`]
         }
     } catch (err) {
         return ["ERROR",(err as Error).message]
@@ -139,6 +136,8 @@ const getauth = async (username: string,apikey: string) => {
 
 const raurl = `https://media.retroachievements.org`
 
+const geticon = async (type: "gameicon" | "gameartlibhero" | "achievement",label: string | number,url: string,format?: string) => (await downloadicon({ apiname: type !== "achievement" ? `${label}_${type}` : `${label}`, iconurl: url },format || "png")).replace(/\\/g,"/")
+
 const cacheradata = async (gameid: number,username: string,apikey: string,nowtracking: boolean): Promise<RAAchievement[]> => {
     if (!gameid) throw new Error(`No "gameid" detected`)
     const auth = await getauth(username,apikey)
@@ -147,8 +146,8 @@ const cacheradata = async (gameid: number,username: string,apikey: string,nowtra
     const { imageBoxArt, imageIcon, title: gamename, achievements, numDistinctPlayersCasual, numDistinctPlayersHardcore } = await getGameExtended(auth,{ gameId: gameid })
     const [iconurl,gameartlibherourl] = [imageIcon,imageBoxArt].map(asset => `${raurl}${asset}`)
 
-    const icon = (await downloadicon({ apiname: `${gameid}_gameicon`, iconurl })).replace(/\\/g,"/")
-    const gameartlibhero = (await downloadicon({ apiname: "gameartlibhero", iconurl: gameartlibherourl })).replace(/\\/g,"/")
+    const icon = await geticon("gameicon",gameid,iconurl)
+    const gameartlibhero = await geticon("gameartlibhero",gameid,gameartlibherourl)
 
     nowtracking && ipcRenderer.send("showtrack",gamename,{ icon, gameartlibhero })
 
@@ -169,7 +168,7 @@ const ranotify = async (gameid: number,achid: number) => {
     const achievement = racached.find(achievement => achievement.id === achid)
     if (!achievement) throw new Error(`No matching achievement found for AchievementID ${achid} in Game ${gameid}`)
 
-    const icon = await downloadicon({ apiname: achievement.badgeName, iconurl: `${raurl}/Badge/${achievement.badgeName}.png` })
+    const achicon = await geticon("achievement",achievement.badgeName,`${raurl}/Badge/${achievement.badgeName}.png`)
     const percent = achievement[`${config.get("rapercenttype")}corepercent`]
     const type = percent <= config.get("rarity") ? "rare" : "main"
 
@@ -180,7 +179,7 @@ const ranotify = async (gameid: number,achid: number) => {
         apiname: achievement.badgeName,
         name: achievement.title,
         desc: achievement.description,
-        icon,
+        icon: achicon,
         gameicon: achievement.gameicon,
         gamename: achievement.gamename,
         unlocked: true,

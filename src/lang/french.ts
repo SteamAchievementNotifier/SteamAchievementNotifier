@@ -81,7 +81,15 @@ export const translations = {
         webhookunlockmsg: "$user a débloqué un succès",
         webhookunlockmsgplat: "$user a débloqué tous les succès",
         webhookingame: "dans $gamename",
-        notconnected: "Non connecté"
+        notconnected: "Non connecté",
+        raloghelp: "Mon jeu n'est pas détecté",
+        raenablelog: `Activer les fichiers journaux de l'émulateur`,
+        raenablelogsub: [
+            `Afin d'accéder aux événements internes des émulateurs pris en charge (tels que l'état actuel du jeu, les informations de déverrouillage des succès, etc.), les <span class="hl">fichiers journaux</span> doivent être activés dans les émulateurs sélectionnés.<br><br>Chaque fichier journal sera situé dans le dossier <span class="hl">Logs</span> du répertoire spécifié pour chaque émulateur sélectionné.`,
+            `<span class="hl">RetroArch</span> : Allez dans <i class="hllb">Paramètres > Journalisation</i> et définissez <i><span class="hllb">Détail de la journalisation</span> : <span class="hlgreen">ACTIVÉ</span>, <span class="hllb">Niveau de journalisation de l'interface</span> : <span class="hlgreen">1 (Info)</span></i> et <i><span class="hllb">Enregistrer dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></i>`,
+            `<span class="hl">Dolphin</span> : Allez dans <i class="hllb">Affichage > Afficher la configuration des journaux</i> et définissez <i><span class="hllb">Détail</span> : <span class="hlgreen">Info</span>, <span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></i> et <i><span class="hllb">Types de journal</span> > <span class="hlgreen">Succès (RetroAchievements)</span></i>`,
+            `<span class="hl">PCSX2</span> : Cochez <i class="hllb">Outils > Activer l'enregistrement des fichiers</i>`
+        ]
     },
     app: {
         content: {
@@ -201,7 +209,24 @@ export const translations = {
                 usecustomfiles: "Utiliser des fichiers d'application personnalisés",
                 showcustomfiles: "Afficher les fichiers d'application personnalisés"
             }
-        },        
+        },
+        ra: {
+            title: "Retro Achievements",
+            content: {
+                raemus: "Émulateurs",
+                rauser: "Nom d'utilisateur",
+                rakey: "Clé API",
+                retroarch: "RetroArch",
+                dolphin: "Dolphin",
+                pcsx2: "PCSX2",
+                ppspp: "PPSPP",
+                installdir: "Chemin des données",
+                rapercenttype: "Type de pourcentage",
+                hard: "Hardcore",
+                soft: "Softcore",
+                placeholder: "Entrez le chemin d'installation"
+            }
+        },
         misc: {
             title: "Divers",
             content: {
@@ -596,7 +621,17 @@ export const translations = {
         descfontsize: "Agrandir ou réduire la taille de l'élément de texte de la description de la réussite",
         webhookembedcolormain: "Définir la couleur utilisée dans l'intégration webhook lors du déverrouillage d'une réussite principale",
         webhookembedcolorrare: "Définir la couleur utilisée dans l'intégration webhook lors du déverrouillage d'une réussite rare",
-        webhookembedcolorplat: "Définir la couleur utilisée dans l'intégration webhook lors du déverrouillage d'une réussite 100%"
+        webhookembedcolorplat: "Définir la couleur utilisée dans l'intégration webhook lors du déverrouillage d'une réussite 100%",
+        raemus: "Afficher des notifications lorsque des jeux sont détectés dans des émulateurs pris en charge",
+        rauser: "Définir le nom d'utilisateur Retro Achievements pour suivre les succès",
+        rakey: `Définir la clé Web API à utiliser pour l'authentification à l'API Retro Achievements<br><br><span class="ttdesc">Une clé Web API peut être copiée ou régénérée en se connectant au site Web Retro Achievements et en naviguant vers Paramètres > Clés > Clé Web API<br><br>🔒 La clé fournie sera chiffrée avant d'être stockée localement sur le système</span>`,
+        rapercenttype: "Définir si les notifications doivent afficher le pourcentage de déverrouillage des succès Hardcore ou Softcore",
+        retroarch: `Afficher les notifications Retro Achievements pour les jeux émulés via RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Paramètres > Journalisation</i> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Détail de la journalisation</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Niveau de journalisation du frontend</span> : <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Enregistrer dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></li></ul></span>`,  
+        dolphin: `Afficher les notifications Retro Achievements pour les jeux émulés via Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Affichage > Afficher la configuration du journal</i> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail</span> : <span class="hlgreen">Info</span></li><li><span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></li><li><span class="hllb">Types de journaux</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,  
+        pcsx2: `Afficher les notifications Retro Achievements pour les jeux émulés via PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Outils > Activer l'enregistrement des fichiers journaux</i> doit être activé</span>`,  
+        retroarchpath: `Définir le chemin du dossier contenant le répertoire "Logs" de RetroArch<br><br><span class="ttdesc">Les données de RetroArch sont stockées dans le répertoire d'installation de l'application</span>`,  
+        dolphinpath: `Définir le chemin du dossier contenant le répertoire "Logs" de Dolphin<br><br><span class="ttdesc">Les données de Dolphin sont stockées à l'un des emplacements suivants :<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
+        pcsx2path: `Définir le chemin du dossier contenant le répertoire "Logs" de PCSX2<br><br><span class="ttdesc">Les données de PCSX2 sont stockées dans le répertoire d'installation de l'application</span>`,  
     },
     update: {
         updateavailable: "Mise à jour disponible",

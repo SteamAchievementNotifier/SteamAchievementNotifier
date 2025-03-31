@@ -271,6 +271,18 @@ input[type="password"] {
     font-style: italic;
 }
 
+.ttdesc li {
+    font-style: italic;
+}
+
+.ttdesc li::before {
+    content: "• ";
+}
+
+.ttdesc li::marker {
+    content: "";
+}
+
 .opt:not([nosubdisable]):has(.sub > input[type="checkbox"]:checked) > *:not(.sub),
 .opt:not([nosubdisable]):has(.sub > input[type="checkbox"]:checked)::before {
     opacity: 0.5;

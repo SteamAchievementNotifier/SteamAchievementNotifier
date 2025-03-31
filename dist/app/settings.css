@@ -648,6 +648,14 @@ input[type="checkbox"][id^="webhook"] {
     background-color: var(--mediumgrey);
     border-radius: 0 0 0 var(--elembr);
     transition: background-color var(--transition);
+    text-overflow: ellipsis;
+    direction: rtl;
+}
+
+.opt#raemuswrapper input[type="text"]:focus {
+    background-color: var(--lightgrey);
+    text-overflow: clip;
+    direction: ltr !important;
 }
 
 .opt#raemuswrapper input[type="text"][nodir] {

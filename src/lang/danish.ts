@@ -81,7 +81,15 @@ export const translations = {
         webhookunlockmsg: "$user låste op for en præstation",
         webhookunlockmsgplat: "$user låste op for alle præstationer",
         webhookingame: "i $gamename",
-        notconnected: "Ikke forbundet"
+        notconnected: "Ikke forbundet",
+        raloghelp: "Mit spil bliver ikke registreret",
+        raenablelog: `Aktivér emulatorens logfiler`,
+        raenablelogsub: [
+            `For at få adgang til interne hændelser fra understøttede emulatorer (såsom spilstatus, oplysninger om oplåste achievements osv.) skal <span class="hl">logfiler</span> være aktiveret i de valgte emulatorer.<br><br>Hver logfil vil være placeret i mappen <span class="hl">Logs</span> i den angivne mappe for hver emulator.`,
+            `<span class="hl">RetroArch</span>: Gå til <i class="hllb">Indstillinger > Logning</i> og indstil <i><span class="hllb">Logniveau</span>: <span class="hlgreen">TIL</span>, <span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></i> samt <i><span class="hllb">Log til fil</span>: <span class="hlgreen">TIL</span></i>`,
+            `<span class="hl">Dolphin</span>: Gå til <i class="hllb">Vis > Vis logkonfiguration</i> og indstil <i><span class="hllb">Detaljeringsniveau</span>: <span class="hlgreen">Info</span>, <span class="hllb">Logoutput</span> > <span class="hlgreen">Skriv til fil</span></i> samt <i><span class="hllb">Logtyper</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></i>`,
+            `<span class="hl">PCSX2</span>: Aktivér <i class="hllb">Værktøjer > Aktivér fillogning</i>`
+        ]
     },
     app: {
         content: {
@@ -201,7 +209,24 @@ export const translations = {
                 usecustomfiles: "Brug tilpassede app-filer",
                 showcustomfiles: "Vis tilpassede app-filer"
             }
-        },        
+        },
+        ra: {
+            title: "Retro Achievements",
+            content: {
+                raemus: "Emulatorer",
+                rauser: "Brugernavn",
+                rakey: "API-nøgle",
+                retroarch: "RetroArch",
+                dolphin: "Dolphin",
+                pcsx2: "PCSX2",
+                ppspp: "PPSPP",
+                installdir: "Datamappe",
+                rapercenttype: "Procenttype",
+                hard: "Hardcore",
+                soft: "Softcore",
+                placeholder: "Indtast installationssti"
+            }
+        },
         misc: {
             title: "Diverse",
             content: {
@@ -596,7 +621,17 @@ export const translations = {
         descfontsize: "Forøg eller formindsk størrelsen på textelementet for præstationsbeskrivelsen",
         webhookembedcolormain: "Indstil farven, der bruges i webhook-embed, når en hovedpræstation låses op",
         webhookembedcolorrare: "Indstil farven, der bruges i webhook-embed, når en sjælden præstation låses op",
-        webhookembedcolorplat: "Indstil farven, der bruges i webhook-embed, når en 100% præstation låses op"
+        webhookembedcolorplat: "Indstil farven, der bruges i webhook-embed, når en 100% præstation låses op",
+        raemus: "Vis notifikationer, når spil registreres i understøttede emulatorer",
+        rauser: "Angiv Retro Achievements-brugernavnet for at spore achievements",
+        rakey: `Angiv Web API-nøglen til godkendelse med Retro Achievements API'et<br><br><span class="ttdesc">En Web API-nøgle kan kopieres eller genereres igen ved at logge ind på Retro Achievements-websiden og gå til Indstillinger > Nøgler > Web API-nøgle<br><br>🔒 Den angivne nøgle vil blive krypteret, før den gemmes lokalt på systemet</span>`,
+        rapercenttype: "Angiv, om procentdelen af oplåste Hardcore eller Softcore achievements skal vises i notifikationer",
+        retroarch: `Vis Retro Achievements-meddelelser for spil emuleret via RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Indstillinger > Logning</i> skal konfigureres med følgende indstillinger:<br><br><ul><li><span class="hllb">Logningsdetaljer</span>: <span class="hlgreen">TIL</span></li><li><span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log til fil</span>: <span class="hlgreen">TIL</span></li></ul></span>`,  
+        dolphin: `Vis Retro Achievements-meddelelser for spil emuleret via Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Vis > Vis logkonfiguration</i> skal konfigureres med følgende indstillinger:<br><br><ul><li><span class="hllb">Detaljeringsgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logudgange</span> > <span class="hlgreen">Skriv til fil</span></li><li><span class="hllb">Logtyper</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,  
+        pcsx2: `Vis Retro Achievements-meddelelser for spil emuleret via PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Værktøjer > Aktivér fil-logning</i> skal være aktiveret</span>`,  
+        retroarchpath: `Indstil stien til mappen, der indeholder "Logs"-mappen for RetroArch<br><br><span class="ttdesc">RetroArch-data gemmes i applikationens installationsmappe</span>`,  
+        dolphinpath: `Indstil stien til mappen, der indeholder "Logs"-mappen for Dolphin<br><br><span class="ttdesc">Dolphin-data gemmes på en af følgende placeringer:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
+        pcsx2path: `Indstil stien til mappen, der indeholder "Logs"-mappen for PCSX2<br><br><span class="ttdesc">PCSX2-data gemmes i applikationens installationsmappe</span>`,  
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

@@ -81,7 +81,15 @@ export const translations = {
         webhookunlockmsg: "$user đã mở khóa một thành tựu",
         webhookunlockmsgplat: "$user đã mở khóa tất cả thành tích",
         webhookingame: "trong $gamename",
-        notconnected: "Chưa kết nối"
+        notconnected: "Chưa kết nối",
+        raloghelp: "Trò chơi của tôi không được phát hiện",
+        raenablelog: `Bật các tệp nhật ký của trình giả lập`,
+        raenablelogsub: [
+            `Để truy cập các sự kiện bên trong cho các trình giả lập hỗ trợ (chẳng hạn như trạng thái trò chơi hiện tại, thông tin mở khóa thành tích, v.v.), các <span class="hl">tệp nhật ký</span> phải được bật trong bất kỳ trình giả lập nào đã chọn.<br><br>Mỗi tệp nhật ký sẽ được đặt trong thư mục <span class="hl">Logs</span> trong thư mục được chỉ định cho từng trình giả lập đã chọn.`,
+            `<span class="hl">RetroArch</span>: Đi đến <i class="hllb">Cài đặt > Nhật ký</i> và đặt <i><span class="hllb">Mức độ chi tiết nhật ký</span>: <span class="hlgreen">BẬT</span>, <span class="hllb">Mức độ Nhật ký Giao diện</span>: <span class="hlgreen">1 (Thông tin)</span></i> và <i><span class="hllb">Ghi vào tệp nhật ký</span>: <span class="hlgreen">BẬT</span></i>`,
+            `<span class="hl">Dolphin</span>: Đi đến <i class="hllb">Xem > Hiển thị Cấu hình Nhật ký</i> và đặt <i><span class="hllb">Mức độ chi tiết</span>: <span class="hlgreen">Thông tin</span>, <span class="hllb">Đầu ra Nhật ký</span> > <span class="hlgreen">Ghi vào Tệp</span></i> và <i><span class="hllb">Loại Nhật ký</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></i>`,
+            `<span class="hl">PCSX2</span>: Đánh dấu <i class="hllb">Công cụ > Bật Ghi Nhật ký Tệp</i>`
+        ]
     },
     app: {
         content: {
@@ -201,7 +209,24 @@ export const translations = {
                 usecustomfiles: "Sử dụng tập tin ứng dụng tùy chỉnh",
                 showcustomfiles: "Hiển thị tập tin ứng dụng tùy chỉnh"
             }
-        },        
+        },
+        ra: {
+            title: "Retro Achievements",
+            content: {
+                raemus: "Trình giả lập",
+                rauser: "Tên người dùng",
+                rakey: "API Key",
+                retroarch: "RetroArch",
+                dolphin: "Dolphin",
+                pcsx2: "PCSX2",
+                ppspp: "PPSPP",
+                installdir: "Đường dẫn dữ liệu",
+                rapercenttype: "Loại phần trăm",
+                hard: "Hardcore",
+                soft: "Softcore",
+                placeholder: "Nhập đường dẫn cài đặt"
+            }
+        },
         misc: {
             title: "Điều bổ sung",
             content: {
@@ -596,7 +621,17 @@ export const translations = {
         descfontsize: "Tăng hoặc giảm kích thước của phần tử văn bản mô tả thành tích",
         webhookembedcolormain: "Cài đặt màu được sử dụng trong webhook khi mở khóa thành tích chính",
         webhookembedcolorrare: "Cài đặt màu được sử dụng trong webhook khi mở khóa thành tích hiếm",
-        webhookembedcolorplat: "Cài đặt màu được sử dụng trong webhook khi mở khóa thành tích 100%"
+        webhookembedcolorplat: "Cài đặt màu được sử dụng trong webhook khi mở khóa thành tích 100%",
+        raemus: "Hiển thị thông báo khi phát hiện trò chơi trong các trình giả lập hỗ trợ",
+        rauser: "Đặt tên người dùng Retro Achievements để theo dõi các thành tích",
+        rakey: `Đặt Web API Key để sử dụng xác thực với Retro Achievements API<br><br><span class="ttdesc">Web API Key có thể sao chép hoặc tạo lại bằng cách đăng nhập vào trang web Retro Achievements và chuyển đến Cài đặt > Khóa > Web API Key<br><br>🔒 Chìa khóa được cung cấp sẽ được mã hóa trước khi lưu trữ cục bộ trên hệ thống</span>`,
+        rapercenttype: "Đặt xem có hiển thị phần trăm thành tích Hardcore hoặc Softcore trong thông báo không",
+        retroarch: `Hiển thị thông báo Retro Achievements cho các trò chơi mô phỏng qua RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Cài đặt > Ghi log</i> phải được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Mức độ chi tiết của log</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Mức độ ghi log giao diện</span>: <span class="hlgreen">1 (Thông tin)</span></li><li><span class="hllb">Ghi log vào tệp</span>: <span class="hlgreen">BẬT</span></li></ul></span>`,  
+        dolphin: `Hiển thị thông báo Retro Achievements cho các trò chơi mô phỏng qua Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Xem > Hiển thị Cài đặt Log</i> phải được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Mức độ chi tiết</span>: <span class="hlgreen">Thông tin</span></li><li><span class="hllb">Kết quả ghi log</span> > <span class="hlgreen">Ghi vào tệp</span></li><li><span class="hllb">Loại log</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></li></ul></span>`,  
+        pcsx2: `Hiển thị thông báo Retro Achievements cho các trò chơi mô phỏng qua PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Công cụ > Bật ghi log vào tệp</i> phải được bật</span>`,  
+        retroarchpath: `Đặt đường dẫn đến thư mục chứa thư mục "Logs" cho RetroArch<br><br><span class="ttdesc">Dữ liệu của RetroArch được lưu trong thư mục cài đặt ứng dụng</span>`,  
+        dolphinpath: `Đặt đường dẫn đến thư mục chứa thư mục "Logs" cho Dolphin<br><br><span class="ttdesc">Dữ liệu của Dolphin được lưu trong một trong các vị trí sau:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
+        pcsx2path: `Đặt đường dẫn đến thư mục chứa thư mục "Logs" cho PCSX2<br><br><span class="ttdesc">Dữ liệu của PCSX2 được lưu trong thư mục cài đặt ứng dụng</span>`,
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

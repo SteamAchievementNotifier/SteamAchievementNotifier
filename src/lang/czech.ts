@@ -81,7 +81,15 @@ export const translations = {
         webhookunlockmsg: "$user odemkl úspěch",
         webhookunlockmsgplat: "$user odemkl všechny úspěchy",
         webhookingame: "ve $gamename",
-        notconnected: "Nepřipojeno"
+        notconnected: "Nepřipojeno",
+        raloghelp: "Moje hra není detekována",
+        raenablelog: `Povolit logovací soubory emulátoru`,
+        raenablelogsub: [
+            `Pro přístup k interním událostem podporovaných emulátorů (například aktuální stav hry, informace o odemčených úspěších atd.) musí být <span class="hl">logovací soubory</span> povoleny v každém vybraném emulátoru.<br><br>Každý logovací soubor bude umístěn ve složce <span class="hl">Logs</span> v adresáři specifikovaném pro jednotlivé emulátory.`,
+            `<span class="hl">RetroArch</span>: Přejděte do <i class="hllb">Nastavení > Logování</i> a nastavte <i><span class="hllb">Úroveň podrobnosti logování</span>: <span class="hlgreen">ZAPNUTO</span>, <span class="hllb">Úroveň logování rozhraní</span>: <span class="hlgreen">1 (Informace)</span></i> a <i><span class="hllb">Zapisovat do souboru</span>: <span class="hlgreen">ZAPNUTO</span></i>`,
+            `<span class="hl">Dolphin</span>: Přejděte do <i class="hllb">Zobrazit > Zobrazit nastavení logování</i> a nastavte <i><span class="hllb">Úroveň podrobnosti</span>: <span class="hlgreen">Informace</span>, <span class="hllb">Výstupy logování</span> > <span class="hlgreen">Zapisovat do souboru</span></i> a <i><span class="hllb">Typy logů</span> > <span class="hlgreen">Úspěchy (RetroAchievements)</span></i>`,
+            `<span class="hl">PCSX2</span>: Zaškrtněte možnost <i class="hllb">Nástroje > Povolit logování do souboru</i>`
+        ]
     },
     app: {
         content: {
@@ -201,7 +209,24 @@ export const translations = {
                 usecustomfiles: "Použít vlastní soubory aplikace",
                 showcustomfiles: "Zobrazit vlastní soubory aplikace"
             }
-        },        
+        },     
+        ra: {
+            title: "Retro Achievements",
+            content: {
+                raemus: "Emulátory",
+                rauser: "Uživatelské jméno",
+                rakey: "API klíč",
+                retroarch: "RetroArch",
+                dolphin: "Dolphin",
+                pcsx2: "PCSX2",
+                ppspp: "PPSPP",
+                installdir: "Cesta k datům",
+                rapercenttype: "Typ procentuálního zobrazení",
+                hard: "Hardcore",
+                soft: "Softcore",
+                placeholder: "Zadejte cestu k instalaci"
+            }
+        },
         misc: {
             title: "Různé",
             content: {
@@ -596,7 +621,17 @@ export const translations = {
         descfontsize: "Zvětšit nebo zmenšit velikost textového prvku popisu úspěchu",
         webhookembedcolormain: "Nastavit barvu použitou v embedu webhooku při odemčení hlavního úspěchu",
         webhookembedcolorrare: "Nastavit barvu použitou v embedu webhooku při odemčení vzácného úspěchu",
-        webhookembedcolorplat: "Nastavit barvu použitou v embedu webhooku při odemčení 100% úspěchu"
+        webhookembedcolorplat: "Nastavit barvu použitou v embedu webhooku při odemčení 100% úspěchu",
+        raemus: "Zobrazit oznámení, když jsou hry detekovány v podporovaných emulátorech",
+        rauser: "Nastavit uživatelské jméno Retro Achievements pro sledování úspěchů",
+        rakey: `Nastavit webový API klíč pro autentizaci k API Retro Achievements<br><br><span class="ttdesc">Webový API klíč lze zkopírovat nebo znovu vygenerovat přihlášením na web Retro Achievements a přechodem do Nastavení > Klíče > Webový API klíč<br><br>🔒 Zadaný klíč bude před uložením lokálně na systém šifrován</span>`,
+        rapercenttype: "Nastavit, zda se v oznámeních zobrazí procento odemčených úspěchů pro Hardcore nebo Softcore režim",
+        retroarch: `Zobrazit oznámení Retro Achievements pro hry emulované přes RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Nastavení > Protokolování</i> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Úroveň podrobností protokolu</span>: <span class="hlgreen">ZAPNUTO</span></li><li><span class="hllb">Úroveň protokolování rozhraní</span>: <span class="hlgreen">1 (Informace)</span></li><li><span class="hllb">Zapisovat do souboru</span>: <span class="hlgreen">ZAPNUTO</span></li></ul></span>`,  
+        dolphin: `Zobrazit oznámení Retro Achievements pro hry emulované přes Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Zobrazení > Zobrazit konfiguraci protokolu</i> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Úroveň podrobností</span>: <span class="hlgreen">Informace</span></li><li><span class="hllb">Výstupy protokolu</span> > <span class="hlgreen">Zapisovat do souboru</span></li><li><span class="hllb">Typy protokolování</span> > <span class="hlgreen">Úspěchy (RetroAchievements)</span></li></ul></span>`,  
+        pcsx2: `Zobrazit oznámení Retro Achievements pro hry emulované přes PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Nástroje > Povolit protokolování do souboru</i> musí být povoleno</span>`,  
+        retroarchpath: `Nastavit cestu ke složce obsahující adresář "Logs" pro RetroArch<br><br><span class="ttdesc">Data RetroArch jsou uložena v instalačním adresáři aplikace</span>`,  
+        dolphinpath: `Nastavit cestu ke složce obsahující adresář "Logs" pro Dolphin<br><br><span class="ttdesc">Data Dolphin jsou uložena na jednom z následujících míst:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
+        pcsx2path: `Nastavit cestu ke složce obsahující adresář "Logs" pro PCSX2<br><br><span class="ttdesc">Data PCSX2 jsou uložena v instalačním adresáři aplikace</span>`,  
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

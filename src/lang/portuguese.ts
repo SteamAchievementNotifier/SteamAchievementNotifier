@@ -81,7 +81,15 @@ export const translations = {
         webhookunlockmsg: "$user desbloqueou uma conquista",
         webhookunlockmsgplat: "$user desbloqueou todas as conquistas",
         webhookingame: "em $gamename",
-        notconnected: "Não conectado"
+        notconnected: "Não conectado",
+        raloghelp: "Meu jogo não está sendo detectado",
+        raenablelog: `Ativar arquivos de log do emulador`,
+        raenablelogsub: [
+            `Para acessar eventos internos de emuladores suportados (como status atual do jogo, informações de desbloqueio de conquistas etc.), os <span class="hl">arquivos de log</span> devem ser ativados dentro dos emuladores selecionados.<br><br>Cada arquivo de log será localizado na pasta <span class="hl">Logs</span> dentro do diretório especificado para cada emulador selecionado.`,
+            `<span class="hl">RetroArch</span>: Vá para <i class="hllb">Configurações > Registro</i> e defina <i><span class="hllb">Verbosity do Registro</span>: <span class="hlgreen">LIGADO</span>, <span class="hllb">Nível de Registro da Interface</span>: <span class="hlgreen">1 (Info)</span></i> e <i><span class="hllb">Registrar para Arquivo</span>: <span class="hlgreen">LIGADO</span></i>`,
+            `<span class="hl">Dolphin</span>: Vá para <i class="hllb">Visualizar > Exibir Configuração de Log</i> e defina <i><span class="hllb">Verbosity</span>: <span class="hlgreen">Informações</span>, <span class="hllb">Saídas do Registrador</span> > <span class="hlgreen">Gravar em Arquivo</span></i> e <i><span class="hllb">Tipos de Log</span> > <span class="hlgreen">Conquistas (RetroAchievements)</span></i>`,
+            `<span class="hl">PCSX2</span>: Marque <i class="hllb">Ferramentas > Ativar Registro de Arquivo</i>`
+        ]
     },
     app: {
         content: {
@@ -201,7 +209,24 @@ export const translations = {
                 usecustomfiles: "Utilizar Arquivos Personalizados da Aplicação",
                 showcustomfiles: "Mostrar Arquivos Personalizados da Aplicação"
             }
-        },        
+        },
+        ra: {
+            title: "Retro Achievements",
+            content: {
+                raemus: "Emuladores",
+                rauser: "Nome de usuário",
+                rakey: "Chave da API",
+                retroarch: "RetroArch",
+                dolphin: "Dolphin",
+                pcsx2: "PCSX2",
+                ppspp: "PPSPP",
+                installdir: "Caminho de dados",
+                rapercenttype: "Tipo de porcentagem",
+                hard: "Hardcore",
+                soft: "Softcore",
+                placeholder: "Digite o caminho de instalação"
+            }
+        },
         misc: {
             title: "Diversos",
             content: {
@@ -596,7 +621,17 @@ export const translations = {
         descfontsize: "Aumentar ou diminuir o tamanho do elemento de texto da descrição da conquista",
         webhookembedcolormain: "Defina a cor usada na incorporação do webhook quando uma conquista principal for desbloqueada",
         webhookembedcolorrare: "Defina a cor usada na incorporação do webhook quando uma conquista rara for desbloqueada",
-        webhookembedcolorplat: "Defina a cor usada na incorporação do webhook quando uma conquista de 100% for desbloqueada"
+        webhookembedcolorplat: "Defina a cor usada na incorporação do webhook quando uma conquista de 100% for desbloqueada",
+        raemus: "Exibir notificações quando jogos forem detectados em emuladores suportados",
+        rauser: "Defina o nome de usuário do Retro Achievements para rastrear conquistas",
+        rakey: `Defina a chave da API da Web para usar na autenticação com a API do Retro Achievements<br><br><span class="ttdesc">Uma chave de API da Web pode ser copiada ou regenerada fazendo login no site do Retro Achievements e acessando Configurações > Chaves > Chave da API da Web<br><br>🔒 A chave fornecida será criptografada antes de ser armazenada localmente no sistema</span>`,
+        rapercenttype: "Defina se deseja exibir as porcentagens de desbloqueio de conquistas Hardcore ou Softcore nas notificações",
+        retroarch: `Exibir notificações de Retro Achievements para jogos emulados via RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Configurações > Registro</i> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento do Registro</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Nível de Registro da Interface</span>: <span class="hlgreen">1 (Informação)</span></li><li><span class="hllb">Registrar em Arquivo</span>: <span class="hlgreen">LIGADO</span></li></ul></span>`,  
+        dolphin: `Exibir notificações de Retro Achievements para jogos emulados via Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Exibir > Mostrar Configuração de Registro</i> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento</span>: <span class="hlgreen">Informação</span></li><li><span class="hllb">Saída do Registro</span> > <span class="hlgreen">Gravar em Arquivo</span></li><li><span class="hllb">Tipos de Registro</span> > <span class="hlgreen">Conquistas (RetroAchievements)</span></li></ul></span>`,  
+        pcsx2: `Exibir notificações de Retro Achievements para jogos emulados via PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Ferramentas > Habilitar Registro em Arquivo</i> deve estar ativado</span>`,  
+        retroarchpath: `Definir o caminho para a pasta que contém o diretório "Logs" do RetroArch<br><br><span class="ttdesc">Os dados do RetroArch são armazenados no diretório de instalação do aplicativo</span>`,  
+        dolphinpath: `Definir o caminho para a pasta que contém o diretório "Logs" do Dolphin<br><br><span class="ttdesc">Os dados do Dolphin são armazenados em um dos seguintes locais:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
+        pcsx2path: `Definir o caminho para a pasta que contém o diretório "Logs" do PCSX2<br><br><span class="ttdesc">Os dados do PCSX2 são armazenados no diretório de instalação do aplicativo</span>`,  
     },
     update: {
         updateavailable: "Atualização disponível",

@@ -81,7 +81,15 @@ export const translations = {
         webhookunlockmsg: "$user teljesítményt oldott fel",
         webhookunlockmsgplat: "$user feloldotta az összes teljesítményt",
         webhookingame: "a $gamename játékban",
-        notconnected: "Nincs csatlakoztatva"
+        notconnected: "Nincs csatlakoztatva",
+        raloghelp: "A játékom nem észlelhető",
+        raenablelog: `Engedélyezze az emulátor naplófájlokat`,
+        raenablelogsub: [
+            `A támogatott emulátorok belső eseményeinek eléréséhez (mint például a játék aktuális állapota, az elért eredmények információi stb.), a <span class="hl">naplófájlokat</span> engedélyezni kell az egyes kiválasztott emulátorokban.<br><br>Minden naplófájl a <span class="hl">Logs</span> mappában lesz elérhető az egyes kiválasztott emulátorok számára meghatározott mappában.`,
+            `<span class="hl">RetroArch</span>: Menjen a <i class="hllb">Beállítások > Naplózás</i> menüpontra, és állítsa be <i><span class="hllb">Naplózási részletesség</span>: <span class="hlgreen">BE</span>, <span class="hllb">Frontend naplózási szint</span>: <span class="hlgreen">1 (Információ)</span></i>, valamint <i><span class="hllb">Naplózás fájlba</span>: <span class="hlgreen">BE</span></i>`,
+            `<span class="hl">Dolphin</span>: Menjen a <i class="hllb">Nézet > Naplóbeállítások megjelenítése</i> menüpontra, és állítsa be <i><span class="hllb">Részletesség</span>: <span class="hlgreen">Információ</span>, <span class="hllb">Napló kimenetek</span> > <span class="hlgreen">Írás fájlba</span></i>, és <i><span class="hllb">Naplótípusok</span> > <span class="hlgreen">Eredmények (RetroAchievements)</span></i>`,
+            `<span class="hl">PCSX2</span>: Jelölje be az <i class="hllb">Eszközök > Naplózás fájlba engedélyezése</i> lehetőséget`
+        ]
     },
     app: {
         content: {
@@ -201,7 +209,24 @@ export const translations = {
                 usecustomfiles: "Egyedi alkalmazásfájlok használata",
                 showcustomfiles: "Egyedi alkalmazásfájlok megjelenítése"
             }
-        },        
+        },    
+        ra: {
+            title: "Retro Achievements",
+            content: {
+                raemus: "Emulátorok",
+                rauser: "Felhasználónév",
+                rakey: "API Kulcs",
+                retroarch: "RetroArch",
+                dolphin: "Dolphin",
+                pcsx2: "PCSX2",
+                ppspp: "PPSPP",
+                installdir: "Adat elérési út",
+                rapercenttype: "Százalék típus",
+                hard: "Hardcore",
+                soft: "Softcore",
+                placeholder: "Adja meg az telepítési elérési utat"
+            }
+        },
         misc: {
             title: "Egyéb",
             content: {
@@ -596,7 +621,17 @@ export const translations = {
         descfontsize: "A siker leírásának szöveges elemének méretének növelése vagy csökkentése",
         webhookembedcolormain: "Állítsa be a színt, amely a webhook beágyazásban használatos, amikor egy fő siker oldódik fel",
         webhookembedcolorrare: "Állítsa be a színt, amely a webhook beágyazásban használatos, amikor egy ritka siker oldódik fel",
-        webhookembedcolorplat: "Állítsa be a színt, amely a webhook beágyazásban használatos, amikor egy 100%-os siker oldódik fel"
+        webhookembedcolorplat: "Állítsa be a színt, amely a webhook beágyazásban használatos, amikor egy 100%-os siker oldódik fel",
+        raemus: "Értesítések megjelenítése, amikor játékokat észlelnek támogatott emulátorokban",
+        rauser: "A Retro Achievements felhasználónevet beállítani az elért eredmények nyomon követéséhez",
+        rakey: `Web API kulcs beállítása a Retro Achievements API hitelesítéséhez<br><br><span class="ttdesc">A Web API kulcsot a Retro Achievements weboldalon történő bejelentkezéssel és a Beállítások > Kulcsok > Web API Kulcs menüpontra navigálva másolhatja vagy újragenerálhatja<br><br>🔒 A megadott kulcs titkosítva lesz, mielőtt helyileg tárolódna a rendszeren</span>`,
+        rapercenttype: "Beállíthatja, hogy a Hardcore vagy Softcore eredmények százaléka jelenjen meg az értesítésekben",
+        retroarch: `Retro Achievements értesítések megjelenítése a RetroArch-on emulált játékokhoz<br><br><span class="ttdesc"><i class="hllb">RetroArch > Beállítások > Naplózás</i> a következő beállításokkal kell konfigurálni:<br><br><ul><li><span class="hllb">Naplózási részletesség</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Frontend naplózási szint</span>: <span class="hlgreen">1 (Információ)</span></li><li><span class="hllb">Naplózás fájlba</span>: <span class="hlgreen">BE</span></li></ul></span>`,  
+        dolphin: `Retro Achievements értesítések megjelenítése a Dolphin-on emulált játékokhoz<br><br><span class="ttdesc"><i class="hllb">Dolphin > Nézet > Naplóbeállítások megjelenítése</i> a következő beállításokkal kell konfigurálni:<br><br><ul><li><span class="hllb">Részletesség</span>: <span class="hlgreen">Információ</span></li><li><span class="hllb">Napló kimenetek</span> > <span class="hlgreen">Írás fájlba</span></li><li><span class="hllb">Napló típusok</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,  
+        pcsx2: `Retro Achievements értesítések megjelenítése a PCSX2-n emulált játékokhoz<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Eszközök > Fájlnaplózás engedélyezése</i> be kell kapcsolni</span>`,  
+        retroarchpath: `A "Logs" könyvtárat tartalmazó mappa elérési útjának beállítása a RetroArch számára<br><br><span class="ttdesc">A RetroArch adatai az alkalmazás telepítési könyvtárában találhatók</span>`,  
+        dolphinpath: `A "Logs" könyvtárat tartalmazó mappa elérési útjának beállítása a Dolphin számára<br><br><span class="ttdesc">A Dolphin adatai az alábbi helyek egyikén találhatók:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
+        pcsx2path: `A "Logs" könyvtárat tartalmazó mappa elérési útjának beállítása a PCSX2 számára<br><br><span class="ttdesc">A PCSX2 adatai az alkalmazás telepítési könyvtárában találhatók</span>`,  
     },
     update: {
         updateavailable: "Frissítés elérhető",

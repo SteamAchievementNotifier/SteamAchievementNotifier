@@ -493,7 +493,8 @@ export const sanhelper: SANHelper = {
             `#elemselector button`,
             `#webhookwrapper input`,
             `button[id$="shortcut"]`,
-            `.opt#raemuswrapper .opt:has(> input[type="text"]) > input[type="text"]`
+            `.multiselect#raemuswrapper input[type="checkbox"]`,
+            `.multiselect#raemuswrapper input[type="text"]`
         ].join(",")
 
         menuelem.querySelectorAll(elems)!.forEach(async elem => {
@@ -520,7 +521,7 @@ export const sanhelper: SANHelper = {
                 ...defaulttippy,
                 appendTo: "parent",
                 content: content,
-                triggerTarget: !elem.id.startsWith("webhookembedcolor") ? elem.parentElement : elem,
+                triggerTarget: !elem.id.startsWith("webhookembedcolor") && ![...rasupported].some(id => elem.id === id) ? elem.parentElement : ([...rasupported].some(id => elem.id === id) ? [elem,elem.previousElementSibling!] : elem),
                 onTrigger(inst) {
                     currenttippy && currenttippy !== inst && currenttippy.hide()
                     currenttippy = inst
@@ -964,7 +965,6 @@ export const sanhelper: SANHelper = {
                 </div>
             `
             
-            // wrapper.insertAdjacentHTML("beforeend",html)
             elems.add([id,html])
         }
 

@@ -81,7 +81,15 @@ export const translations = {
         webhookunlockmsg: "$user avasi saavutuksen",
         webhookunlockmsgplat: "$user avasi kaikki saavutukset",
         webhookingame: "pelissä $gamename",
-        notconnected: "Ei yhdistetty"
+        notconnected: "Ei yhdistetty",
+        raloghelp: "Peliäni ei havaita",
+        raenablelog: `Ota emulaattorin lokitiedostot käyttöön`,
+        raenablelogsub: [
+            `Jotta voit käyttää tuettujen emulaattorien sisäisiä tapahtumia (kuten nykyinen pelitila, saavutusten avaus jne.), <span class="hl">lokitiedostot</span> on otettava käyttöön valituissa emulaattoreissa.<br><br>Jokainen lokitiedosto sijaitsee <span class="hl">Logs</span>-kansiossa kunkin valitun emulaattorin määritetyssä hakemistossa.`,
+            `<span class="hl">RetroArch</span>: Siirry kohtaan <i class="hllb">Asetukset > Lokitus</i> ja aseta <i><span class="hllb">Lokituksen tarkkuus</span>: <span class="hlgreen">PÄÄLLÄ</span>, <span class="hllb">Frontend-lokitustaso</span>: <span class="hlgreen">1 (Info)</span></i> sekä <i><span class="hllb">Kirjaa tiedostoon</span>: <span class="hlgreen">PÄÄLLÄ</span></i>`,
+            `<span class="hl">Dolphin</span>: Siirry kohtaan <i class="hllb">Näytä > Näytä lokiasetukset</i> ja aseta <i><span class="hllb">Tarkkuus</span>: <span class="hlgreen">Info</span>, <span class="hllb">Lokitulosteet</span> > <span class="hlgreen">Kirjaa tiedostoon</span></i> sekä <i><span class="hllb">Lokitustyypit</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></i>`,
+            `<span class="hl">PCSX2</span>: Ota käyttöön <i class="hllb">Työkalut > Ota tiedostolokitus käyttöön</i>`
+        ]
     },
     app: {
         content: {
@@ -201,7 +209,24 @@ export const translations = {
                 usecustomfiles: "Käytä Mukautettuja Sovellustiedostoja",
                 showcustomfiles: "Näytä Mukautetut Sovellustiedostot"
             }
-        },        
+        },
+        ra: {
+            title: "Retro Achievements",
+            content: {
+                raemus: "Emulaattorit",
+                rauser: "Käyttäjätunnus",
+                rakey: "API-avain",
+                retroarch: "RetroArch",
+                dolphin: "Dolphin",
+                pcsx2: "PCSX2",
+                ppspp: "PPSPP",
+                installdir: "Tietopolku",
+                rapercenttype: "Prosenttityyppi",
+                hard: "Hardcore",
+                soft: "Softcore",
+                placeholder: "Syötä asennuspolku"
+            }
+        },
         misc: {
             title: "Sekalaiset",
             content: {
@@ -596,7 +621,17 @@ export const translations = {
         descfontsize: "Suurentaa tai pienentää saavutuksen kuvauksen tekstielementin kokoa",
         webhookembedcolormain: "Aseta väri, jota käytetään webhook-upotuksessa pääsaavutuksen avautuessa",
         webhookembedcolorrare: "Aseta väri, jota käytetään webhook-upotuksessa harvinaisen saavutuksen avautuessa",
-        webhookembedcolorplat: "Aseta väri, jota käytetään webhook-upotuksessa 100% saavutuksen avautuessa"
+        webhookembedcolorplat: "Aseta väri, jota käytetään webhook-upotuksessa 100% saavutuksen avautuessa",
+        raemus: "Näytä ilmoitukset, kun pelejä havaitaan tuetuissa emulaattoreissa",
+        rauser: "Aseta Retro Achievements -käyttäjätunnus saavutusten seuraamista varten",
+        rakey: `Aseta Web API -avain Retro Achievements API:n tunnistautumista varten<br><br><span class="ttdesc">Web API -avaimen voi kopioida tai luoda uudelleen kirjautumalla Retro Achievements -sivustolle ja siirtymällä kohtaan Asetukset > Avaimet > Web API -avain<br><br>🔒 Syötetty avain salataan ennen kuin se tallennetaan paikallisesti järjestelmään</span>`,
+        rapercenttype: "Määritä, näytetäänkö ilmoituksissa Hardcore- vai Softcore-saavutusten avausprosentit",
+        retroarch: `Näytä Retro Achievements -ilmoitukset RetroArch-emuloiduille peleille<br><br><span class="ttdesc"><i class="hllb">RetroArch > Asetukset > Lokitus</i> on määritettävä seuraavasti:<br><br><ul><li><span class="hllb">Lokituksen yksityiskohtaisuus</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Käyttöliittymän lokitustaso</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Kirjaa tiedostoon</span>: <span class="hlgreen">PÄÄLLÄ</span></li></ul></span>`,  
+        dolphin: `Näytä Retro Achievements -ilmoitukset Dolphin-emuloiduille peleille<br><br><span class="ttdesc"><i class="hllb">Dolphin > Näytä > Näytä lokiasetukset</i> on määritettävä seuraavasti:<br><br><ul><li><span class="hllb">Yksityiskohtaisuus</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Lokitulosteet</span> > <span class="hlgreen">Kirjaa tiedostoon</span></li><li><span class="hllb">Lokityypit</span> > <span class="hlgreen">Saavutukset (RetroAchievements)</span></li></ul></span>`,  
+        pcsx2: `Näytä Retro Achievements -ilmoitukset PCSX2-emuloiduille peleille<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Työkalut > Ota lokitiedostojen kirjoitus käyttöön</i> on oltava käytössä</span>`,  
+        retroarchpath: `Aseta polku kansioon, joka sisältää RetroArchin "Logs"-hakemiston<br><br><span class="ttdesc">RetroArchin tiedot tallennetaan sovelluksen asennushakemistoon</span>`,  
+        dolphinpath: `Aseta polku kansioon, joka sisältää Dolphin-emulaattorin "Logs"-hakemiston<br><br><span class="ttdesc">Dolphinin tiedot tallennetaan johonkin seuraavista sijainneista:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
+        pcsx2path: `Aseta polku kansioon, joka sisältää PCSX2:n "Logs"-hakemiston<br><br><span class="ttdesc">PCSX2:n tiedot tallennetaan sovelluksen asennushakemistoon</span>`,  
     },
     update: {
         updateavailable: "Päivitys saatavilla",

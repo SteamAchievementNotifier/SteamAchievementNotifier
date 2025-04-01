@@ -81,6 +81,8 @@ export const language = {
 
                     langmap.set(settingscontent.querySelector(".wrapper:has(.lbl#raemus) > .lbl")!,settings.ra.content.raemus)
                     langmap.set(settingscontent.querySelector("span#raloghelp > u")!,global.raloghelp)
+
+                    ;(["status","game"] as const).forEach(id => langmap.set(settingscontent.querySelector(`.wrapper#rastatuswrapper > div#ra${id} > span:nth-child(1)`)!,`${settings.ra.content[id]}:`))
                 }
 
                 (type === "selection" && backbtn) && (backbtn.textContent = global.back)

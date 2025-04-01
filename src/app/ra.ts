@@ -10,18 +10,22 @@ import { downloadicon } from "./achievement"
 export const rasupported = [
     "retroarch",
     "dolphin",
-    "pcsx2",
+    // "ravba", // Supports automatic logging to `RACache/RALog.txt`, but may not be as widely used as RetroArch VBA cores
+    // "rap64" // Supports automatic logging to `RACache/RALog.txt`, but may not be as widely used as RetroArch N64 cores
+    // "pcsx2", // "emulog.txt" is completely locked while PCSX2 is running, so the contents cannot be read, but the PS2 Core can be loaded via RetroArch
     // "ppspp" // PPSPP does not allow logging to a file, but the PPSPP core can be loaded via RetroArch
 ]
 
 export const raelems = [...rasupported].flatMap(id => [id,`${id}path`])
 
-const logfiles: { [key: string]: string } = {
-    retroarch: "retroarch.log",
-    dolphin: "dolphin.log",
-    pcsx2: "emulog.txt",
-    // ppspp: ""
-}
+// const logfiles: { [key: string]: string } = {
+//     retroarch: "retroarch.log",
+//     dolphin: "dolphin.log",
+//     // ravba: "ralog.txt",
+//     // rap64: "ralog.txt"
+//     // pcsx2: "emulog.txt",
+//     // ppspp: ""
+// }
 
 export let emu: string | null = null
 
@@ -33,7 +37,7 @@ export const getlogmap = () => {
     for (const emu of rasupported) {
         const enabled = config.get("raemus").includes(emu)
         const installdir = (config.get(`${emu}path`) as string).replace(/\\/g,"/")
-        if (installdir) enabled ? logmap.set(emu,path.join(installdir,"logs",logfiles[emu]).replace(/\\/g,"/")) : logmap.delete(emu)
+        if (installdir) enabled ? logmap.set(emu,installdir.replace(/\\/g,"/")) : logmap.delete(emu)
     }
 
     return logmap
@@ -95,7 +99,7 @@ let gameid = 0
 let racached: RAAchievement[] = []
 
 export const executeaction = async (lastaction: LogAction): Promise<[string | null,(string | null)[]]> => {
-    const { key, file, action, value } = lastaction
+    const { key, action, value } = lastaction
     // action !== "idle" && log.write("INFO",`[RA]: Detected "${action}" action in "${file}"`)
 
     try {
@@ -111,7 +115,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                 racached = await cacheradata(gameid,config.get("rauser"),config.get("rakey"),config.get("nowtracking"))
                 sanhelper.devmode && console.log(racached)
 
-                ipcRenderer.send("ragame",{ emu, gameid } as RAGame)
+                ipcRenderer.send("ragame",action,{ emu, gamename: racached[0].gamename, gameid } as RAGame)
                 
                 return ["INFO",[key,`[RA]: "${emu || key}" started Game ${gameid || value}`]]
             case "stop":
@@ -119,7 +123,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                 emu = null
                 racached.length = 0
 
-                ipcRenderer.send("ragame")
+                ipcRenderer.send("ragame",action)
                 
                 return ["INFO",[key,`[RA]: "${emu || key}" stopped Game ${gameid || value}`]]
             case "achievement":
@@ -131,10 +135,14 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 
                     sanhelper.devmode && console.log(notify)
                     ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,config.get("monitor")))
+
+                    ipcRenderer.send("ragame",action,{ emu, gamename: notify.gamename, gameid } as RAGame)
                 }
                 
                 return [value ? "INFO" : "ERROR",[key,`[RA]: ${!value ? "Unable to display achievement notification - " : ""}"${emu || key}" unlocked Achievement ${value} in Game ${gameid || value}${!value ? `, but no AchievementID value was found in "achievement" action` : ""}`]]
-            default: return ["CONSOLE",[key,`[RA]: ${!emu ? "No emulator actions detected" : `"${emu || key}" is idle${gameid ? ` for Game ${gameid}` : ""}`}`]]
+            default:
+                ipcRenderer.send("ragame",emu ? action : "wait",gameid ? { emu, gamename: racached[0].gamename, gameid } as RAGame : null)
+                return ["CONSOLE",[key,`[RA]: ${!emu ? "No emulator actions detected" : `"${emu || key}" is idle${gameid ? ` for Game ${gameid}` : ""}`}`]]
         }
     } catch (err) {
         return ["ERROR",[null,(err as Error).message]]

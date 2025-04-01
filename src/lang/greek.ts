@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "στο $gamename",
         notconnected: "Δεν είναι συνδεδεμένο",
         raloghelp: "Το παιχνίδι μου δεν ανιχνεύεται",
-        raenablelog: `Ενεργοποιήστε τα αρχεία καταγραφής του εξομοιωτή`,
+        raenablelog: `Αρχεία καταγραφής εξομοιωτή`,
         raenablelogsub: [
-            `Για να έχετε πρόσβαση σε εσωτερικά γεγονότα υποστηριζόμενων εξομοιωτών (όπως την τρέχουσα κατάσταση του παιχνιδιού, τις πληροφορίες για την επίτευξη επιτυχιών κ.λπ.), τα <span class="hl">αρχεία καταγραφής</span> πρέπει να είναι ενεργοποιημένα μέσα στους επιλεγμένους εξομοιωτές.<br><br>Κάθε αρχείο καταγραφής θα βρίσκεται στον φάκελο <span class="hl">Logs</span> στον καθορισμένο κατάλογο για κάθε επιλεγμένο εξομοιωτή.`,
-            `<span class="hl">RetroArch</span>: Πηγαίνετε στο <i class="hllb">Ρυθμίσεις > Καταγραφή</i> και ορίστε <i><span class="hllb">Λεπτομέρεια καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ</span>, <span class="hllb">Επίπεδο καταγραφής frontend</span>: <span class="hlgreen">1 (Πληροφορίες)</span></i> και <i><span class="hllb">Καταγραφή σε αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ</span></i>`,
-            `<span class="hl">Dolphin</span>: Πηγαίνετε στο <i class="hllb">Προβολή > Εμφάνιση ρυθμίσεων καταγραφής</i> και ορίστε <i><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span>, <span class="hllb">Εξόδους καταγραφής</span> > <span class="hlgreen">Εγγραφή σε αρχείο</span></i> και <i><span class="hllb">Τύποι καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Ενεργοποιήστε το <i class="hllb">Εργαλεία > Ενεργοποίηση καταγραφής σε αρχείο</i>`
+            `Για να αποκτήσετε πρόσβαση σε εσωτερικά γεγονότα παιχνιδιού (όπως η τρέχουσα κατάσταση του παιχνιδιού, πληροφορίες για την απελευθέρωση επιτευγμάτων κ.λπ.), η καταγραφή σε εξωτερικό <span class="hl">αρχείο καταγραφής</span> <u>πρέπει να είναι ενεργοποιημένη</u> σε οποιουσδήποτε επιλεγμένους εξομοιωτές.<br><br>Οι επιλεγμένοι εξομοιωτές <u>πρέπει να χρησιμοποιούν αυτό το <span class="hl">αρχείο καταγραφής</span></u> ως την τιμή για το <span class="hl">Μονοπάτι Αρχείου Καταγραφής</span>.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Ρυθμίσεις > Καταγραφή</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Λεπτομέρεια Καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li>
+                        <li><span class="hllb">Επίπεδο Καταγραφής Στο Πρόσθιο Μέρος</span>: <span class="hlgreen">1 (Πληροφορίες)</span></li>
+                        <li><span class="hllb">Καταγραφή σε Αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li>
+                        <li><span class="hllb">Χρονοσήμανση Αρχείων Καταγραφής</span>: <span class="hlred">ΑΝΕΝΕΡΓΟ</span></li>
+                    </ul>
+                    <br>
+                    Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"retroarch.log"</span> αποθηκεύεται στο εξής:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Προβολή > Εμφάνιση Ρυθμίσεων Καταγραφής</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span></li>
+                        <li><span class="hllb">Έξοδοι Καταγραφής</span> > <span class="hlgreen">Γράψε σε Αρχείο</span></li>
+                        <li><span class="hllb">Τύποι Καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"dolphin.log"</span> αποθηκεύεται σε μία από τις εξής τοποθεσίες:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API Κλειδί",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Διαδρομή δεδομένων",
+                installdir: "Διαδρομή αρχείου καταγραφής",
                 rapercenttype: "Τύπος ποσοστού",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Εισάγετε τη διαδρομή εγκατάστασης"
+                placeholder: "Εισάγετε τη διαδρομή του αρχείου καταγραφής",
+                logfile: "Αρχείο Καταγραφής",
+                status: "Κατάσταση",
+                game: "Παιχνίδι",
+                wait: "Αναμονή για τον εξομοιωτή",
+                idle: "Αναμονή για το γεγονός του παιχνιδιού",
+                start: "Ξεκινώντας το παιχνίδι",
+                stop: "Σταματώντας το παιχνίδι",
+                achievement: "Επίτευγμα ξεκλείδωσε"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Ορισμός του χρώματος που χρησιμοποιείται στην ενσωμάτωση webhook όταν ξεκλειδώνεται μια 100% επίτευξη",
         raemus: "Εμφάνιση ειδοποιήσεων όταν εντοπίζονται παιχνίδια σε υποστηριζόμενους εξομοιωτές",
         rauser: "Ορίστε το όνομα χρήστη Retro Achievements για να παρακολουθείτε τις επιτυχίες",
-        rakey: `Ορίστε το Web API Κλειδί για τον έλεγχο ταυτότητας στην API του Retro Achievements<br><br><span class="ttdesc">Ένα Web API Κλειδί μπορεί να αντιγραφεί ή να αναγεννηθεί συνδεόμενοι στον ιστότοπο του Retro Achievements και μεταβαίνοντας στο Ρυθμίσεις > Κλειδιά > Web API Κλειδί<br><br>🔒 Το παρεχόμενο κλειδί θα κρυπτογραφηθεί πριν αποθηκευτεί τοπικά στο σύστημα</span>`,
+        rakey: `Ορίστε το Web API Key που θα χρησιμοποιηθεί για την αυθεντικοποίηση στην API του Retro Achievements<br><br><span class="ttdesc">Ένα Web API Key μπορεί να αντιγραφεί ή να αναγεννηθεί συνδεόμενοι στον ιστότοπο του Retro Achievements και πηγαίνοντας στην ενότητα <span class="hl">Ρυθμίσεις > Κλειδιά > Web API Key</span><br><br>🔒 Το παρεχόμενο κλειδί θα κρυπτογραφηθεί πριν αποθηκευτεί τοπικά στο σύστημα</span>`,
         rapercenttype: "Ορίστε αν θέλετε να εμφανίζεται το ποσοστό επιτυχιών Hardcore ή Softcore στις ειδοποιήσεις",
-        retroarch: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που προσομοιώνονται μέσω του RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Ρυθμίσεις > Καταγραφή</i> πρέπει να ρυθμιστεί με τις ακόλουθες ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Επίπεδο καταγραφής frontend</span>: <span class="hlgreen">1 (Πληροφορίες)</span></li><li><span class="hllb">Καταγραφή σε αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li></ul></span>`,  
-        dolphin: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που προσομοιώνονται μέσω του Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Προβολή > Εμφάνιση Ρυθμίσεων Καταγραφής</i> πρέπει να ρυθμιστεί με τις ακόλουθες ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span></li><li><span class="hllb">Έξοδοι καταγραφής</span> > <span class="hlgreen">Εγγραφή σε αρχείο</span></li><li><span class="hllb">Τύποι καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που προσομοιώνονται μέσω του PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Εργαλεία > Ενεργοποίηση καταγραφής αρχείων</i> πρέπει να είναι ενεργοποιημένο</span>`,  
-        retroarchpath: `Ορισμός της διαδρομής προς τον φάκελο που περιέχει τον κατάλογο "Logs" για το RetroArch<br><br><span class="ttdesc">Τα δεδομένα του RetroArch αποθηκεύονται στον κατάλογο εγκατάστασης της εφαρμογής</span>`,  
-        dolphinpath: `Ορισμός της διαδρομής προς τον φάκελο που περιέχει τον κατάλογο "Logs" για το Dolphin<br><br><span class="ttdesc">Τα δεδομένα του Dolphin αποθηκεύονται σε μία από τις ακόλουθες τοποθεσίες:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `Ορισμός της διαδρομής προς τον φάκελο που περιέχει τον κατάλογο "Logs" για το PCSX2<br><br><span class="ttdesc">Τα δεδομένα του PCSX2 αποθηκεύονται στον κατάλογο εγκατάστασης της εφαρμογής</span>`,  
+        retroarch: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Ρυθμίσεις > Καταγραφή</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια Καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Επίπεδο Καταγραφής Στο Πρόσθιο Μέρος</span>: <span class="hlgreen">1 (Πληροφορίες)</span></li><li><span class="hllb">Καταγραφή σε Αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Χρονοσήμανση Αρχείων Καταγραφής</span>: <span class="hlred">ΑΝΕΝΕΡΓΟ</span></li></ul></span>`,
+        dolphin: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Προβολή > Εμφάνιση Ρυθμίσεων Καταγραφής</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span></li><li><span class="hllb">Έξοδοι Καταγραφής</span> > <span class="hlgreen">Γράψε σε Αρχείο</span></li><li><span class="hllb">Τύποι Καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Ορίστε τη διαδρομή για το <span class="hl">"retroarch.log"</span> αρχείο καταγραφής του RetroArch<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"retroarch.log"</span> αποθηκεύεται στο <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Ορίστε τη διαδρομή για το <span class="hl">"dolphin.log"</span> αρχείο καταγραφής του Dolphin<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"dolphin.log"</span> αποθηκεύεται σε μία από τις εξής τοποθεσίες:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Διαθέσιμη ενημέρωση",

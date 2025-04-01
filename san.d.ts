@@ -507,6 +507,7 @@ declare interface RAAPlatObj {
 
 declare interface RAGame {
     emu: string,
+    gamename: string,
     gameid: number
 }
 

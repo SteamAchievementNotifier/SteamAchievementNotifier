@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "in $gamename",
         notconnected: "Not connected",
         raloghelp: "My game is not being detected",
-        raenablelog: `Enable emulator log files`,
+        raenablelog: `Emulator log files`,
         raenablelogsub: [
-            `In order to access internal events for supported emulators (such as current game status, achievement unlock information etc.), <span class="hl">log files</span> must be enabled from within any selected emulators.<br><br>Each log file will be located in the <span class="hl">Logs</span> folder within the directory specified for each selected emulator.`,
-            `<span class="hl">RetroArch</span>: Go to <i class="hllb">Settings > Logging</i> and set <i><span class="hllb">Logging Verbosity</span>: <span class="hlgreen">ON</span>, <span class="hllb">Frontend Logging Level</span>: <span class="hlgreen">1 (Info)</span></i> and <i><span class="hllb">Log to File</span>: <span class="hlgreen">ON</span></i>`,
-            `<span class="hl">Dolphin</span>: Go to <i class="hllb">View > Show Log Configuration</i> and set <i><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span>, <span class="hllb">Logger Outputs</span> > <span class="hlgreen">Write to File</span></i> and <i><span class="hllb">Log Types</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Tick <i class="hllb">Tools > Enable File Logging</i>`
+            `In order to access internal game events (such as current game status, achievement unlock information etc.), logging to an external <span class="hl">log file</span> <u>must be enabled</u> within any selected emulators.<br><br>Any selected emulators <u>must use this <span class="hl">log file</span></u> as the <span class="hl">Log File Path</span> value.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Settings > Logging</span> must be configured with the following settings:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Logging Verbosity</span>: <span class="hlgreen">ON</span></li>
+                        <li><span class="hllb">Frontend Logging Level</span>: <span class="hlgreen">1 (Info)</span></li>
+                        <li><span class="hllb">Log to File</span>: <span class="hlgreen">ON</span></li>
+                        <li><span class="hllb">Timestamp Log Files</span>: <span class="hlred">OFF</span></li>
+                    </ul>
+                    <br>
+                    Using default installation settings, <span class="hl">"retroarch.log"</span> is stored in:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > View > Show Log Configuration</span> must be configured with the following settings:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Logger Outputs</span> > <span class="hlgreen">Write to File</span></li>
+                        <li><span class="hllb">Log Types</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Using default installation settings, <span class="hl">"dolphin.log"</span> is stored in one of the following locations:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API Key",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Data Path",
+                installdir: "Log File Path",
                 rapercenttype: "Percentage Type",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Enter installation path"
+                placeholder: "Enter log file path",
+                logfile: "Log File",
+                status: "Status",
+                game: "Game",
+                wait: "Waiting for emulator",
+                idle: "Waiting for game event",
+                start: "Starting game",
+                stop: "Stopping game",
+                achievement: "Achievement unlocked"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Set the color used in the webhook embed when a 100% achievement is unlocked",
         raemus: "Display notifications when games are detected in supported emulators",
         rauser: "Set the Retro Achievements username to track achievements for",
-        rakey: `Set the Web API Key to use for authentication to the Retro Achievements API<br><br><span class="ttdesc">A Web API Key can be copied or regenerated by logging into the Retro Achievements website and navigating to Settings > Keys > Web API Key<br><br>🔒 The provided key will be encrypted before being stored locally on the system</span>`,
+        rakey: `Set the Web API Key to use for authentication to the Retro Achievements API<br><br><span class="ttdesc">A Web API Key can be copied or regenerated by logging into the Retro Achievements website and navigating to <span class="hl">Settings > Keys > Web API Key</span><br><br>🔒 The provided key will be encrypted before being stored locally on the system</span>`,
         rapercenttype: "Set whether to display Hardcore or Softcore achievement unlock percentages in notifications",
-        retroarch: `Display Retro Achievements notifications for games emulated via RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Settings > Logging</i> must be configured with the following settings:<br><br><ul><li><span class="hllb">Logging Verbosity</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Frontend Logging Level</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log to File</span>: <span class="hlgreen">ON</span></li></ul></span>`,
-        dolphin: `Display Retro Achievements notifications for games emulated via Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > View > Show Log Configuration</i> must be configured with the following settings:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logger Outputs</span> > <span class="hlgreen">Write to File</span></li><li><span class="hllb">Log Types</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Display Retro Achievements notifications for games emulated via PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Tools > Enable File Logging</i> must be enabled</span>`,
-        retroarchpath: `Set the path to the folder containing the "Logs" directory for Retroarch<br><br><span class="ttdesc">RetroArch data is stored in the application's installation directory</span>`,
-        dolphinpath: `Set the path to the folder containing the "Logs" directory for Dolphin<br><br><span class="ttdesc">Dolphin data is stored in one of the following locations:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,
-        pcsx2path: `Set the path to the folder containing the "Logs" directory for PCSX2<br><br><span class="ttdesc">PCSX2 data is stored in the application's installation directory</span>`,
+        retroarch: `Display Retro Achievements notifications for games emulated via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Settings > Logging</span> must be configured with the following settings:<br><br><ul><li><span class="hllb">Logging Verbosity</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Frontend Logging Level</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log to File</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Timestamp Log Files</span>: <span class="hlred">OFF</span></li></ul></span>`,
+        dolphin: `Display Retro Achievements notifications for games emulated via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > View > Show Log Configuration</span> must be configured with the following settings:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logger Outputs</span> > <span class="hlgreen">Write to File</span></li><li><span class="hllb">Log Types</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Set the path to RetroArch's <span class="hl">"retroarch.log"</span> log file<br><br><span class="ttdesc">Using default installation settings, <span class="hl">"retroarch.log"</span> is stored in <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Set the path Dolphin's <span class="hl">"dolphin.log"</span> log file<br><br><span class="ttdesc">Using default installation settings, <span class="hl">"dolphin.log"</span> is stored in one of the following locations:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Update available",

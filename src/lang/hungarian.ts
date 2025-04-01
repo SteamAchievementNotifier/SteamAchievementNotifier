@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "a $gamename játékban",
         notconnected: "Nincs csatlakoztatva",
         raloghelp: "A játékom nem észlelhető",
-        raenablelog: `Engedélyezze az emulátor naplófájlokat`,
+        raenablelog: `Emulátor naplófájlok`,
         raenablelogsub: [
-            `A támogatott emulátorok belső eseményeinek eléréséhez (mint például a játék aktuális állapota, az elért eredmények információi stb.), a <span class="hl">naplófájlokat</span> engedélyezni kell az egyes kiválasztott emulátorokban.<br><br>Minden naplófájl a <span class="hl">Logs</span> mappában lesz elérhető az egyes kiválasztott emulátorok számára meghatározott mappában.`,
-            `<span class="hl">RetroArch</span>: Menjen a <i class="hllb">Beállítások > Naplózás</i> menüpontra, és állítsa be <i><span class="hllb">Naplózási részletesség</span>: <span class="hlgreen">BE</span>, <span class="hllb">Frontend naplózási szint</span>: <span class="hlgreen">1 (Információ)</span></i>, valamint <i><span class="hllb">Naplózás fájlba</span>: <span class="hlgreen">BE</span></i>`,
-            `<span class="hl">Dolphin</span>: Menjen a <i class="hllb">Nézet > Naplóbeállítások megjelenítése</i> menüpontra, és állítsa be <i><span class="hllb">Részletesség</span>: <span class="hlgreen">Információ</span>, <span class="hllb">Napló kimenetek</span> > <span class="hlgreen">Írás fájlba</span></i>, és <i><span class="hllb">Naplótípusok</span> > <span class="hlgreen">Eredmények (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Jelölje be az <i class="hllb">Eszközök > Naplózás fájlba engedélyezése</i> lehetőséget`
+            `Ahhoz, hogy hozzáférj a belső játék eseményekhez (például a jelenlegi játék állapota, teljesítmény értesítések stb.), egy külső <span class="hl">naplófájlba</span> történő naplózás <u>engedélyezve kell legyen</u> minden kiválasztott emulátorban.<br><br>A kiválasztott emulátorok <u>használják ezt a <span class="hl">naplófájlt</span></u> mint a <span class="hl">Naplófájl Elérési Út</span> értékét.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    A <span class="hl">RetroArch > Beállítások > Naplózás</span> beállításait az alábbi módon kell konfigurálni:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Naplózási Részletesség</span>: <span class="hlgreen">BE</span></li>
+                        <li><span class="hllb">Előlap Naplózási Szint</span>: <span class="hlgreen">1 (Info)</span></li>
+                        <li><span class="hllb">Naplózás Fájlba</span>: <span class="hlgreen">BE</span></li>
+                        <li><span class="hllb">Időbélyeg a Napló Fájlokhoz</span>: <span class="hlred">KI</span></li>
+                    </ul>
+                    <br>
+                    Alapértelmezett telepítési beállításokkal a <span class="hl">"retroarch.log"</span> itt található:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    A <span class="hl">Dolphin > Nézet > Naplózási Beállítások Megjelenítése</span> beállításait az alábbi módon kell konfigurálni:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Részletesség</span>: <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Napló Kimenetek</span> > <span class="hlgreen">Írás Fájlba</span></li>
+                        <li><span class="hllb">Napló Típusok</span> > <span class="hlgreen">Teljesítmények (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Alapértelmezett telepítési beállításokkal a <span class="hl">"dolphin.log"</span> az alábbi helyek egyikén található:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API Kulcs",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Adat elérési út",
+                installdir: "Naplófájl elérési út",
                 rapercenttype: "Százalék típus",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Adja meg az telepítési elérési utat"
+                placeholder: "Adja meg a naplófájl elérési útját",
+                logfile: "Napló Fájl",
+                status: "Állapot",
+                game: "Játék",
+                wait: "Várakozás az emulátorra",
+                idle: "Várakozás a játékeseményre",
+                start: "Játék indítása",
+                stop: "Játék leállítása",
+                achievement: "Teljesítmény feloldva"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Állítsa be a színt, amely a webhook beágyazásban használatos, amikor egy 100%-os siker oldódik fel",
         raemus: "Értesítések megjelenítése, amikor játékokat észlelnek támogatott emulátorokban",
         rauser: "A Retro Achievements felhasználónevet beállítani az elért eredmények nyomon követéséhez",
-        rakey: `Web API kulcs beállítása a Retro Achievements API hitelesítéséhez<br><br><span class="ttdesc">A Web API kulcsot a Retro Achievements weboldalon történő bejelentkezéssel és a Beállítások > Kulcsok > Web API Kulcs menüpontra navigálva másolhatja vagy újragenerálhatja<br><br>🔒 A megadott kulcs titkosítva lesz, mielőtt helyileg tárolódna a rendszeren</span>`,
+        rakey: `Állítsa be a Web API kulcsot, amelyet az autentikációhoz használ a Retro Achievements API-val<br><br><span class="ttdesc">A Web API kulcsot másolhatja vagy újragenerálhatja, ha bejelentkezik a Retro Achievements weboldalára, és elmegy a <span class="hl">Beállítások > Kulcsok > Web API Key</span> menüpontra<br><br>🔒 A megadott kulcs titkosítva lesz, mielőtt helyben tárolódna a rendszeren</span>`,
         rapercenttype: "Beállíthatja, hogy a Hardcore vagy Softcore eredmények százaléka jelenjen meg az értesítésekben",
-        retroarch: `Retro Achievements értesítések megjelenítése a RetroArch-on emulált játékokhoz<br><br><span class="ttdesc"><i class="hllb">RetroArch > Beállítások > Naplózás</i> a következő beállításokkal kell konfigurálni:<br><br><ul><li><span class="hllb">Naplózási részletesség</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Frontend naplózási szint</span>: <span class="hlgreen">1 (Információ)</span></li><li><span class="hllb">Naplózás fájlba</span>: <span class="hlgreen">BE</span></li></ul></span>`,  
-        dolphin: `Retro Achievements értesítések megjelenítése a Dolphin-on emulált játékokhoz<br><br><span class="ttdesc"><i class="hllb">Dolphin > Nézet > Naplóbeállítások megjelenítése</i> a következő beállításokkal kell konfigurálni:<br><br><ul><li><span class="hllb">Részletesség</span>: <span class="hlgreen">Információ</span></li><li><span class="hllb">Napló kimenetek</span> > <span class="hlgreen">Írás fájlba</span></li><li><span class="hllb">Napló típusok</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Retro Achievements értesítések megjelenítése a PCSX2-n emulált játékokhoz<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Eszközök > Fájlnaplózás engedélyezése</i> be kell kapcsolni</span>`,  
-        retroarchpath: `A "Logs" könyvtárat tartalmazó mappa elérési útjának beállítása a RetroArch számára<br><br><span class="ttdesc">A RetroArch adatai az alkalmazás telepítési könyvtárában találhatók</span>`,  
-        dolphinpath: `A "Logs" könyvtárat tartalmazó mappa elérési útjának beállítása a Dolphin számára<br><br><span class="ttdesc">A Dolphin adatai az alábbi helyek egyikén találhatók:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `A "Logs" könyvtárat tartalmazó mappa elérési útjának beállítása a PCSX2 számára<br><br><span class="ttdesc">A PCSX2 adatai az alkalmazás telepítési könyvtárában találhatók</span>`,  
+        retroarch: `Teljesítmények értesítéseinek megjelenítése RetroArch-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">RetroArch > Beállítások > Naplózás</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Naplózási Részletesség</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Előlap Naplózási Szint</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Naplózás Fájlba</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Időbélyeg a Napló Fájlokhoz</span>: <span class="hlred">KI</span></li></ul></span>`,
+        dolphin: `Teljesítmények értesítéseinek megjelenítése Dolphin-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">Dolphin > Nézet > Naplózási Beállítások Megjelenítése</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Részletesség</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Napló Kimenetek</span> > <span class="hlgreen">Írás Fájlba</span></li><li><span class="hllb">Napló Típusok</span> > <span class="hlgreen">Teljesítmények (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Állítsd be a RetroArch <span class="hl">"retroarch.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"retroarch.log"</span> itt található: <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Állítsd be a Dolphin <span class="hl">"dolphin.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"dolphin.log"</span> az alábbi helyek egyikén található:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

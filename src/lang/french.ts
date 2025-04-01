@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "dans $gamename",
         notconnected: "Non connecté",
         raloghelp: "Mon jeu n'est pas détecté",
-        raenablelog: `Activer les fichiers journaux de l'émulateur`,
+        raenablelog: `Fichiers de log de l'émulateur`,
         raenablelogsub: [
-            `Afin d'accéder aux événements internes des émulateurs pris en charge (tels que l'état actuel du jeu, les informations de déverrouillage des succès, etc.), les <span class="hl">fichiers journaux</span> doivent être activés dans les émulateurs sélectionnés.<br><br>Chaque fichier journal sera situé dans le dossier <span class="hl">Logs</span> du répertoire spécifié pour chaque émulateur sélectionné.`,
-            `<span class="hl">RetroArch</span> : Allez dans <i class="hllb">Paramètres > Journalisation</i> et définissez <i><span class="hllb">Détail de la journalisation</span> : <span class="hlgreen">ACTIVÉ</span>, <span class="hllb">Niveau de journalisation de l'interface</span> : <span class="hlgreen">1 (Info)</span></i> et <i><span class="hllb">Enregistrer dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></i>`,
-            `<span class="hl">Dolphin</span> : Allez dans <i class="hllb">Affichage > Afficher la configuration des journaux</i> et définissez <i><span class="hllb">Détail</span> : <span class="hlgreen">Info</span>, <span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></i> et <i><span class="hllb">Types de journal</span> > <span class="hlgreen">Succès (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span> : Cochez <i class="hllb">Outils > Activer l'enregistrement des fichiers</i>`
+            `Afin d'accéder aux événements internes du jeu (comme l'état actuel du jeu, les informations de déverrouillage des succès, etc.), l'enregistrement dans un <span class="hl">fichier journal</span> externe <u>doit être activé</u> dans tous les émulateurs sélectionnés.<br><br>Tout émulateur sélectionné <u>doit utiliser ce <span class="hl">fichier journal</span></u> comme valeur du <span class="hl">chemin du fichier journal</span>.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Paramètres > Journalisation</span> doit être configuré avec les paramètres suivants :
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Niveau de détail des journaux</span> : <span class="hlgreen">ACTIVÉ</span></li>
+                        <li><span class="hllb">Niveau de journalisation du frontend</span> : <span class="hlgreen">1 (Info)</span></li>
+                        <li><span class="hllb">Journaliser dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></li>
+                        <li><span class="hllb">Horodater les fichiers journaux</span> : <span class="hlred">DÉSACTIVÉ</span></li>
+                    </ul>
+                    <br>
+                    Avec les paramètres d'installation par défaut, <span class="hl">"retroarch.log"</span> est enregistré dans :
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Affichage > Afficher la configuration du journal</span> doit être configuré avec les paramètres suivants :
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Niveau de détail</span> : <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></li>
+                        <li><span class="hllb">Types de journal</span> > <span class="hlgreen">Succès (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Avec les paramètres d'installation par défaut, <span class="hl">"dolphin.log"</span> est enregistré dans l'un des emplacements suivants :
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "Clé API",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Chemin des données",
+                installdir: "Chemin du fichier log",
                 rapercenttype: "Type de pourcentage",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Entrez le chemin d'installation"
+                placeholder: "Entrez le chemin du fichier log",
+                logfile: "Fichier journal",
+                status: "Statut",
+                game: "Jeu",
+                wait: "En attente de l'émulateur",
+                idle: "En attente d'un événement du jeu",
+                start: "Démarrer le jeu",
+                stop: "Arrêter le jeu",
+                achievement: "Succès débloqué"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Définir la couleur utilisée dans l'intégration webhook lors du déverrouillage d'une réussite 100%",
         raemus: "Afficher des notifications lorsque des jeux sont détectés dans des émulateurs pris en charge",
         rauser: "Définir le nom d'utilisateur Retro Achievements pour suivre les succès",
-        rakey: `Définir la clé Web API à utiliser pour l'authentification à l'API Retro Achievements<br><br><span class="ttdesc">Une clé Web API peut être copiée ou régénérée en se connectant au site Web Retro Achievements et en naviguant vers Paramètres > Clés > Clé Web API<br><br>🔒 La clé fournie sera chiffrée avant d'être stockée localement sur le système</span>`,
+        rakey: `Définissez la clé Web API à utiliser pour l'authentification à l'API de Retro Achievements<br><br><span class="ttdesc">Une clé Web API peut être copiée ou régénérée en vous connectant au site Web de Retro Achievements et en allant dans <span class="hl">Paramètres > Clés > Web API Key</span><br><br>🔒 La clé fournie sera cryptée avant d'être stockée localement sur le système</span>`,
         rapercenttype: "Définir si les notifications doivent afficher le pourcentage de déverrouillage des succès Hardcore ou Softcore",
-        retroarch: `Afficher les notifications Retro Achievements pour les jeux émulés via RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Paramètres > Journalisation</i> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Détail de la journalisation</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Niveau de journalisation du frontend</span> : <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Enregistrer dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></li></ul></span>`,  
-        dolphin: `Afficher les notifications Retro Achievements pour les jeux émulés via Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Affichage > Afficher la configuration du journal</i> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail</span> : <span class="hlgreen">Info</span></li><li><span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></li><li><span class="hllb">Types de journaux</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Afficher les notifications Retro Achievements pour les jeux émulés via PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Outils > Activer l'enregistrement des fichiers journaux</i> doit être activé</span>`,  
-        retroarchpath: `Définir le chemin du dossier contenant le répertoire "Logs" de RetroArch<br><br><span class="ttdesc">Les données de RetroArch sont stockées dans le répertoire d'installation de l'application</span>`,  
-        dolphinpath: `Définir le chemin du dossier contenant le répertoire "Logs" de Dolphin<br><br><span class="ttdesc">Les données de Dolphin sont stockées à l'un des emplacements suivants :<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `Définir le chemin du dossier contenant le répertoire "Logs" de PCSX2<br><br><span class="ttdesc">Les données de PCSX2 sont stockées dans le répertoire d'installation de l'application</span>`,  
+        retroarch: `Afficher les notifications Retro Achievements pour les jeux émulés via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Paramètres > Journalisation</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail des journaux</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Niveau de journalisation du frontend</span> : <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Journaliser dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Horodater les fichiers journaux</span> : <span class="hlred">DÉSACTIVÉ</span></li></ul></span>`,
+        dolphin: `Afficher les notifications Retro Achievements pour les jeux émulés via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Affichage > Afficher la configuration du journal</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail</span> : <span class="hlgreen">Info</span></li><li><span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></li><li><span class="hllb">Types de journal</span> > <span class="hlgreen">Succès (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Définir le chemin du fichier journal <span class="hl">"retroarch.log"</span> de RetroArch<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"retroarch.log"</span> est enregistré dans <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Définir le chemin du fichier journal <span class="hl">"dolphin.log"</span> de Dolphin<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"dolphin.log"</span> est enregistré dans l'un des emplacements suivants :<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",

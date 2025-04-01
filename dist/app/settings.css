@@ -635,14 +635,6 @@ input[type="checkbox"][id^="webhook"] {
     --trophy: url("../../img/ra/dolphin.png");
 }
 
-.multiselect#raemuswrapper .wrapper:has(> input#pcsx2) > span::before {
-    --trophy: url("../../img/ra/pcsx2.png");
-}
-
-.multiselect#raemuswrapper .wrapper:has(> input#ppspp) > span::before {
-    --trophy: url("../../img/ra/ppspp.png");
-}
-
 .opt#raemuswrapper input[type="text"] {
     grid-column-start: 1;
     background-color: var(--mediumgrey);
@@ -691,8 +683,7 @@ dialog[menu] #settingscontent .opt#raemuswrapper .opt:has(> input[type="checkbox
 }
 
 body[raemu="retroarch"][ragameid] .multiselect#raemuswrapper .wrapper:has(> input#retroarch) > span::after,
-body[raemu="dolphin"][ragameid] .multiselect#raemuswrapper .wrapper:has(> input#dolphin) > span::after,
-body[raemu="pcsx2"][ragameid] .multiselect#raemuswrapper .wrapper:has(> input#pcsx2) > span::after {
+body[raemu="dolphin"][ragameid] .multiselect#raemuswrapper .wrapper:has(> input#dolphin) > span::after {
     content: "";
     background: url("../../icon/dot_green.png") center / contain no-repeat;
     display: inline-block;
@@ -702,17 +693,48 @@ body[raemu="pcsx2"][ragameid] .multiselect#raemuswrapper .wrapper:has(> input#pc
     vertical-align: middle;
 }
 
+.wrapper#rastatuswrapper {
+    font-size: 0.6rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--primary);
+    border-radius: var(--elembr);
+}
+
+.wrapper#rastatuswrapper > div {
+    grid-template-columns: 1fr 4fr;
+}
+
+.wrapper#rastatuswrapper > div#rastatus > span:nth-child(2)::before {
+    content: var(--rastatus);
+}
+
+body[ragamename] .wrapper#rastatuswrapper > div#ragame > span:nth-child(2)::before {
+    content: var(--ragamename);
+}
+
+body:not([ragameid]) .wrapper#rastatuswrapper > div#ragame > span:nth-child(2):after {
+    content: "-";
+}
+
+body[ragameid] .wrapper#rastatuswrapper > div#ragame > span:nth-child(2):after {
+    content: " [" var(--ragameid) "]";
+}
+
 span#raloghelp {
     font-size: 0.65rem;
     text-align: center;
 }
 
 .hllb {
-    color: #a3badb;
+    color: var(--lightblue);
 }
 
 .hlgreen {
     color: seagreen;
+}
+
+.hlred {
+    color: firebrick;
 }
 
 @media (orientation: portrait) {

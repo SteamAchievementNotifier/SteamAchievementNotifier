@@ -131,7 +131,7 @@ const notifyhelper = {
                 return convertedicon
             }
 
-            const gamearturl: string | null = (customisation.bgstyle === "gameart" || customisation.bgstyle === "bgimg") ? (ra ? gameartlibhero : await getpreloadimgurl("bgstyle",gamearticon,gameartlibhero,gameartlogo)) : null
+            const gamearturl: string | null = (customisation.bgstyle === "gameart" || customisation.bgstyle === "bgimg") ? await getpreloadimgurl("bgstyle",gamearticon,gameartlibhero,gameartlogo) : null
             const gameiconurl: string | null = customisation.usecustomimgicon ? customisation.customimgicon : (customisation.usegameicon ? (ra ? gamearticon : (appid ? await getpreloadimgurl("usegameicon",gamearticon,gameartlibhero,gameartlogo) : "../img/gameicon.png")) : null)
     
             gameiconurl && ((document.getElementById("achicon")! as HTMLImageElement)!.src = gameiconurl)

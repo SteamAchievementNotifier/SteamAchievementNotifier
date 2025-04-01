@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "في $gamename",
         notconnected: "غير متصل",
         raloghelp: "لعبتي لا يتم اكتشافها",
-        raenablelog: `تمكين ملفات سجل المحاكي`,
+        raenablelog: `ملفات سجل المحاكي`,
         raenablelogsub: [
-            `للوصول إلى الأحداث الداخلية للمحاكيات المدعومة (مثل حالة اللعبة الحالية، معلومات فتح الإنجازات، إلخ)، يجب تمكين <span class="hl">ملفات السجل</span> من داخل أي محاكي محدد.<br><br>سيتم العثور على كل ملف سجل داخل مجلد <span class="hl">Logs</span> ضمن الدليل المحدد لكل محاكي مختار.`,
-            `<span class="hl">RetroArch</span>: انتقل إلى <i class="hllb">الإعدادات > السجلات</i> وقم بتعيين <i><span class="hllb">تفاصيل السجل</span>: <span class="hlgreen">تشغيل</span>, <span class="hllb">مستوى تسجيل الواجهة</span>: <span class="hlgreen">1 (معلومات)</span></i> و <i><span class="hllb">التسجيل في ملف</span>: <span class="hlgreen">تشغيل</span></i>`,
-            `<span class="hl">Dolphin</span>: انتقل إلى <i class="hllb">عرض > إظهار إعدادات السجل</i> وقم بتعيين <i><span class="hllb">التفاصيل</span>: <span class="hlgreen">معلومات</span>, <span class="hllb">مخرجات السجل</span> > <span class="hlgreen">الكتابة إلى ملف</span></i> و <i><span class="hllb">أنواع السجل</span> > <span class="hlgreen">الإنجازات (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: قم بتحديد <i class="hllb">الأدوات > تمكين تسجيل الملفات</i>`
+            `للوصول إلى أحداث اللعبة الداخلية (مثل حالة اللعبة الحالية، معلومات فتح الإنجازات، إلخ)، يجب <u>تمكين</u> التسجيل إلى <span class="hl">ملف سجل خارجي</span> داخل أي من المحاكيات المحددة.<br><br>يجب على أي من المحاكيات المحددة <u>استخدام هذا <span class="hl">ملف السجل</span></u> كقيمة <span class="hl">مسار ملف السجل</span>.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    يجب تكوين <span class="hl">RetroArch > الإعدادات > التسجيل</span> بالإعدادات التالية:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">تشغيل</span></li>
+                        <li><span class="hllb">مستوى تسجيل الواجهة الأمامية</span>: <span class="hlgreen">1 (معلومات)</span></li>
+                        <li><span class="hllb">التسجيل إلى ملف</span>: <span class="hlgreen">تشغيل</span></li>
+                        <li><span class="hllb">تأريخ ملفات السجل</span>: <span class="hlred">إيقاف</span></li>
+                    </ul>
+                    <br>
+                    باستخدام إعدادات التثبيت الافتراضية، يتم تخزين <span class="hl">"retroarch.log"</span> في:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    يجب تكوين <span class="hl">Dolphin > عرض > إظهار إعدادات السجل</span> بالإعدادات التالية:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">معلومات</span></li>
+                        <li><span class="hllb">مخرجات المسجل</span> > <span class="hlgreen">الكتابة إلى ملف</span></li>
+                        <li><span class="hllb">أنواع السجل</span> > <span class="hlgreen">الإنجازات (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    باستخدام إعدادات التثبيت الافتراضية، يتم تخزين <span class="hl">"dolphin.log"</span> في أحد المواقع التالية:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "مفتاح API",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "مسار البيانات",
+                installdir: "مسار ملف السجل",
                 rapercenttype: "نوع النسبة المئوية",
                 hard: "المتقدمة",
                 soft: "العادية",
-                placeholder: "أدخل مسار التثبيت"
+                placeholder: "أدخل مسار ملف السجل",
+                logfile: "ملف السجل",
+                status: "الحالة",
+                game: "اللعبة",
+                wait: "انتظار المحاكي",
+                idle: "انتظار حدث اللعبة",
+                start: "بدء اللعبة",
+                stop: "إيقاف اللعبة",
+                achievement: "الإنجاز تم فتحه"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "تعيين اللون المستخدم في تضمين الويب عند فتح إنجاز 100%",
         raemus: "عرض الإشعارات عند اكتشاف الألعاب في المحاكيات المدعومة",
         rauser: "تحديد اسم مستخدم Retro Achievements لتتبع الإنجازات",
-        rakey: `تحديد مفتاح Web API لاستخدامه في المصادقة مع واجهة برمجة تطبيقات Retro Achievements<br><br><span class="ttdesc">يمكن نسخ أو إعادة إنشاء مفتاح Web API عن طريق تسجيل الدخول إلى موقع Retro Achievements والانتقال إلى الإعدادات > المفاتيح > مفتاح Web API<br><br>🔒 سيتم تشفير المفتاح المقدم قبل تخزينه محليًا على النظام</span>`,
+        rakey: `حدد مفتاح واجهة برمجة التطبيقات (API) لاستخدامه للمصادقة على واجهة برمجة التطبيقات Retro Achievements<br><br><span class="ttdesc">يمكنك نسخ أو إعادة توليد مفتاح واجهة برمجة التطبيقات عبر تسجيل الدخول إلى موقع Retro Achievements والانتقال إلى <span class="hl">الإعدادات > المفاتيح > مفتاح واجهة برمجة التطبيقات</span><br><br>🔒 سيتم تشفير المفتاح المقدم قبل تخزينه محليًا على النظام</span>`,
         rapercenttype: "تحديد ما إذا كان سيتم عرض نسب فتح الإنجازات المتقدمة أو العادية في الإشعارات",
-        retroarch: `عرض إشعارات إنجازات Retro للألعاب المُحاكاة عبر RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > الإعدادات > السجلات</i> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل السجلات</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">مستوى تسجيل الواجهة الأمامية</span>: <span class="hlgreen">1 (معلومات)</span></li><li><span class="hllb">التسجيل في ملف</span>: <span class="hlgreen">تشغيل</span></li></ul></span>`,  
-        dolphin: `عرض إشعارات إنجازات Retro للألعاب المُحاكاة عبر Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > عرض > إظهار تكوين السجل</i> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل السجلات</span>: <span class="hlgreen">معلومات</span></li><li><span class="hllb">مخرجات السجل</span> > <span class="hlgreen">الكتابة إلى ملف</span></li><li><span class="hllb">أنواع السجلات</span> > <span class="hlgreen">الإنجازات (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `عرض إشعارات إنجازات Retro للألعاب المُحاكاة عبر PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > الأدوات > تفعيل تسجيل الملفات</i> يجب تفعيله</span>`,  
-        retroarchpath: `تحديد المسار إلى المجلد الذي يحتوي على دليل "Logs" لـ RetroArch<br><br><span class="ttdesc">يتم تخزين بيانات RetroArch في دليل تثبيت التطبيق</span>`,  
-        dolphinpath: `تحديد المسار إلى المجلد الذي يحتوي على دليل "Logs" لـ Dolphin<br><br><span class="ttdesc">يتم تخزين بيانات Dolphin في أحد المواقع التالية:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `تحديد المسار إلى المجلد الذي يحتوي على دليل "Logs" لـ PCSX2<br><br><span class="ttdesc">يتم تخزين بيانات PCSX2 في دليل تثبيت التطبيق</span>`,  
+        retroarch: `عرض إشعارات Retro Achievements للألعاب المحاكاة عبر RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > الإعدادات > التسجيل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">مستوى تسجيل الواجهة الأمامية</span>: <span class="hlgreen">1 (معلومات)</span></li><li><span class="hllb">التسجيل إلى ملف</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">تأريخ ملفات السجل</span>: <span class="hlred">إيقاف</span></li></ul></span>`,
+        dolphin: `عرض إشعارات Retro Achievements للألعاب المحاكاة عبر Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > عرض > إظهار إعدادات السجل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">معلومات</span></li><li><span class="hllb">مخرجات المسجل</span> > <span class="hlgreen">الكتابة إلى ملف</span></li><li><span class="hllb">أنواع السجل</span> > <span class="hlgreen">الإنجازات (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `تحديد مسار <span class="hl">"retroarch.log"</span> الخاص بـ RetroArch<br><br><span class="ttdesc">باستخدام إعدادات التثبيت الافتراضية، يتم تخزين <span class="hl">"retroarch.log"</span> في <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `تحديد مسار <span class="hl">"dolphin.log"</span> الخاص بـ Dolphin<br><br><span class="ttdesc">باستخدام إعدادات التثبيت الافتراضية، يتم تخزين <span class="hl">"dolphin.log"</span> في أحد المواقع التالية:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "تحديث متاح",

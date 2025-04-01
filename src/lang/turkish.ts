@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "$gamename'de",
         notconnected: "Bağlantı yok",
         raloghelp: "Oyunum algılanmıyor",
-        raenablelog: `Emülatör günlük dosyalarını etkinleştir`,
+        raenablelog: `Emülatör günlük dosyaları`,
         raenablelogsub: [
-            `Desteklenen emülatörlerde (mevcut oyun durumu, başarı kilit açma bilgisi vb. gibi) dahili olaylara erişebilmek için, <span class="hl">günlük dosyaları</span> seçilen emülatörlerde etkinleştirilmelidir.<br><br>Her bir günlük dosyası, her seçilen emülatör için belirtilen dizinde yer alan <span class="hl">Logs</span> klasöründe bulunacaktır.`,
-            `<span class="hl">RetroArch</span>: <i class="hllb">Ayarlar > Günlükleme</i>'ye gidin ve <i><span class="hllb">Günlük Detay Seviyesi</span>: <span class="hlgreen">AÇIK</span>, <span class="hllb">Ön Yüz Günlük Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></i> ve <i><span class="hllb">Dosyaya Günlükle</span>: <span class="hlgreen">AÇIK</span></i> olarak ayarlayın`,
-            `<span class="hl">Dolphin</span>: <i class="hllb">Görünüm > Günlük Konfigürasyonunu Göster</i>'ye gidin ve <i><span class="hllb">Detay Seviyesi</span>: <span class="hlgreen">Bilgi</span>, <span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></i> ve <i><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></i> olarak ayarlayın`,
-            `<span class="hl">PCSX2</span>: <i class="hllb">Araçlar > Dosya Günlüklemeyi Etkinleştir</i>'yi işaretleyin`
+            `İç oyun etkinliklerine (mevcut oyun durumu, başarı kilidi bilgisi vb.) erişebilmek için, seçilen her emülatörde harici bir <span class="hl">log dosyasına</span> <u>loglama etkinleştirilmelidir</u>.<br><br>Seçilen her emülatör <u>bu <span class="hl">log dosyasını</span></u> <span class="hl">Log Dosyası Yolu</span> değeri olarak kullanmalıdır.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Ayarlar > Günlük Kaydı</span> aşağıdaki ayarlarla yapılandırılmalıdır:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Günlük Kaydı Ayrıntı Düzeyi</span>: <span class="hlgreen">AÇIK</span></li>
+                        <li><span class="hllb">Önyüz Günlük Kaydı Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li>
+                        <li><span class="hllb">Dosyaya Günlük Kaydı</span>: <span class="hlgreen">AÇIK</span></li>
+                        <li><span class="hllb">Günlük Dosyalarına Zaman Damgası</span>: <span class="hlred">KAPALI</span></li>
+                    </ul>
+                    <br>
+                    Varsayılan kurulum ayarları kullanıldığında, <span class="hl">"retroarch.log"</span> şu konumda saklanır:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Görünüm > Günlük Konfigürasyonunu Göster</span> aşağıdaki ayarlarla yapılandırılmalıdır:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Ayrıntı Düzeyi</span>: <span class="hlgreen">Bilgi</span></li>
+                        <li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li>
+                        <li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Varsayılan kurulum ayarları kullanıldığında, <span class="hl">"dolphin.log"</span> şu konumlarda saklanır:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API Anahtarı",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Veri Yolu",
+                installdir: "Log Dosyası Yolu",
                 rapercenttype: "Yüzde Türü",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Kurulum yolunu girin"
+                placeholder: "Log dosyasının yolunu girin",
+                logfile: "Log Dosyası",
+                status: "Durum",
+                game: "Oyun",
+                wait: "Emülatör bekleniyor",
+                idle: "Oyun olayı bekleniyor",
+                start: "Oyunu başlatıyor",
+                stop: "Oyunu durduruyor",
+                achievement: "Başarı açıldı"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Yüzde 100 başarı açıldığında webhook embed'inde kullanılan rengi ayarlayın",
         raemus: "Desteklenen emülatörlerde oyunlar tespit edildiğinde bildirim göster",
         rauser: "Başarıları takip etmek için Retro Achievements kullanıcı adını ayarlayın",
-        rakey: `Retro Achievements API'sine kimlik doğrulaması yapmak için kullanılacak Web API Anahtarını ayarlayın<br><br><span class="ttdesc">Web API Anahtarını, Retro Achievements web sitesine giriş yaparak ve Ayarlar > Anahtarlar > Web API Anahtarı sekmesine giderek kopyalayabilir veya yeniden oluşturabilirsiniz<br><br>🔒 Verilen anahtar, sistemde yerel olarak saklanmadan önce şifrelenecektir</span>`,
+        rakey: `Retro Achievements API'ye kimlik doğrulama için kullanılacak Web API Anahtarını ayarlayın<br><br><span class="ttdesc">Web API Anahtarı, Retro Achievements web sitesine giriş yaparak ve <span class="hl">Ayarlar > Anahtarlar > Web API Key</span> kısmına giderek kopyalanabilir veya yeniden oluşturulabilir<br><br>🔒 Sağlanan anahtar, sisteme yerel olarak kaydedilmeden önce şifrelenir</span>`,
         rapercenttype: "Bildirimlerde Hardcore veya Softcore başarı yüzdelerinin gösterilmesini ayarlayın",
-        retroarch: `RetroArch üzerinden emüle edilen oyunlar için Retro Achievements bildirimlerini göster<br><br><span class="ttdesc"><i class="hllb">RetroArch > Ayarlar > Günlükleme</i> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Günlükleme Ayrıntı Seviyesi</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Ön Yüz Günlükleme Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li><li><span class="hllb">Dosyaya Günlükle</span>: <span class="hlgreen">AÇIK</span></li></ul></span>`,  
-        dolphin: `Dolphin üzerinden emüle edilen oyunlar için Retro Achievements bildirimlerini göster<br><br><span class="ttdesc"><i class="hllb">Dolphin > Görünüm > Günlük Ayarlarını Göster</i> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Ayrıntı Seviyesi</span>: <span class="hlgreen">Bilgi</span></li><li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li><li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `PCSX2 üzerinden emüle edilen oyunlar için Retro Achievements bildirimlerini göster<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Araçlar > Dosya Günlüğü Oluşturmayı Etkinleştir</i> etkinleştirilmelidir</span>`,  
-        retroarchpath: `RetroArch için "Logs" klasörünü içeren dizinin yolunu belirleyin<br><br><span class="ttdesc">RetroArch verileri, uygulamanın kurulum dizininde saklanır</span>`,  
-        dolphinpath: `Dolphin için "Logs" klasörünü içeren dizinin yolunu belirleyin<br><br><span class="ttdesc">Dolphin verileri aşağıdaki konumlardan birinde saklanır:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `PCSX2 için "Logs" klasörünü içeren dizinin yolunu belirleyin<br><br><span class="ttdesc">PCSX2 verileri, uygulamanın kurulum dizininde saklanır</span>`,
+        retroarch: `Retro Achievements bildirimlerini RetroArch ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">RetroArch > Ayarlar > Günlük Kaydı</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Günlük Kaydı Ayrıntı Düzeyi</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Önyüz Günlük Kaydı Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li><li><span class="hllb">Dosyaya Günlük Kaydı</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Günlük Dosyalarına Zaman Damgası</span>: <span class="hlred">KAPALI</span></li></ul></span>`,
+        dolphin: `Retro Achievements bildirimlerini Dolphin ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">Dolphin > Görünüm > Günlük Konfigürasyonunu Göster</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Ayrıntı Düzeyi</span>: <span class="hlgreen">Bilgi</span></li><li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li><li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `RetroArch'ın <span class="hl">"retroarch.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"retroarch.log"</span> şu konumda saklanır: <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Dolphin'in <span class="hl">"dolphin.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"dolphin.log"</span> şu konumlarda saklanır:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

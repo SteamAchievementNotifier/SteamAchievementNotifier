@@ -1024,6 +1024,103 @@ dialog[selection][synced] .btnwrapper > button#userthemesync {
     pointer-events: none;
 }
 
+.contentwrapper:has(summary#retroarch) .contenttitle {
+    --dialogicon: url("../../icon/joystick.svg");
+}
+
+.wrapper#contentsubitems > div:has(.contentsubitem > details) {
+    grid-template-columns: 1fr;
+}
+
+.contentsubitem:has(details)::before {
+    content: none;
+}
+
+.contentsubitem > details > summary {
+    border-radius: var(--elembr);
+    font-size: 0.85rem;
+}
+
+details > summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    transition:
+        color var(--transition);
+    cursor: pointer;
+}
+
+.contentsubitem > details > summary:hover {
+    color: var(--lightblue);
+}
+
+details[open] > summary {
+    margin-bottom: 0.5rem;
+}
+
+.contentsubitem > details > summary::marker {
+    content: none;
+}
+
+.contentsubitem > details > summary::after {
+    content: "▶";
+    rotate: 0deg;
+    transition: rotate var(--transition);
+}
+
+.contentsubitem > details[open] > summary::after {
+    rotate: 90deg;
+}
+
+.contentsubitem > details > summary::before {
+    --icon: url("../../img/sanlogotrophy.svg");
+    content: "";
+    background: var(--icon) center / contain no-repeat;
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
+}
+
+.contentsubitem details > summary#retroarch::before {
+    --icon: url("../../img/ra/retroarch.png");
+    filter: invert();
+}
+
+.contentsubitem details > summary#dolphin::before {
+    --icon: url("../../img/ra/dolphin.png");
+}
+
+#contentsubitems:has(div > .contentsubitem > details[open]) > div:has(details:not([open])) {
+    display: none;
+}
+
+.contentsubitem ul {
+    padding: 0.15rem 0.5rem;
+    margin-top: 0.25rem;
+    background: var(--mediumgrey);
+    border-radius: var(--elembr);
+    font-size: 0.6rem;
+}
+
+.contentsubitem li::marker {
+    content: none;
+}
+
+.contentsubitem li::before {
+    content: "•";
+    margin-right: 0.25rem;
+}
+
+.contentsubitem .star::after {
+    content: "*";
+    color: red;
+}
+
+.contentsubitem .ttdesc::before {
+    margin-left: 0;
+}
+
 @media (orientation: portrait) {
     dialog[default] > #content {
         width: 75%;

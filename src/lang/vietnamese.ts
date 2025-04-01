@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "trong $gamename",
         notconnected: "Chưa kết nối",
         raloghelp: "Trò chơi của tôi không được phát hiện",
-        raenablelog: `Bật các tệp nhật ký của trình giả lập`,
+        raenablelog: `Tệp nhật ký của trình giả lập`,
         raenablelogsub: [
-            `Để truy cập các sự kiện bên trong cho các trình giả lập hỗ trợ (chẳng hạn như trạng thái trò chơi hiện tại, thông tin mở khóa thành tích, v.v.), các <span class="hl">tệp nhật ký</span> phải được bật trong bất kỳ trình giả lập nào đã chọn.<br><br>Mỗi tệp nhật ký sẽ được đặt trong thư mục <span class="hl">Logs</span> trong thư mục được chỉ định cho từng trình giả lập đã chọn.`,
-            `<span class="hl">RetroArch</span>: Đi đến <i class="hllb">Cài đặt > Nhật ký</i> và đặt <i><span class="hllb">Mức độ chi tiết nhật ký</span>: <span class="hlgreen">BẬT</span>, <span class="hllb">Mức độ Nhật ký Giao diện</span>: <span class="hlgreen">1 (Thông tin)</span></i> và <i><span class="hllb">Ghi vào tệp nhật ký</span>: <span class="hlgreen">BẬT</span></i>`,
-            `<span class="hl">Dolphin</span>: Đi đến <i class="hllb">Xem > Hiển thị Cấu hình Nhật ký</i> và đặt <i><span class="hllb">Mức độ chi tiết</span>: <span class="hlgreen">Thông tin</span>, <span class="hllb">Đầu ra Nhật ký</span> > <span class="hlgreen">Ghi vào Tệp</span></i> và <i><span class="hllb">Loại Nhật ký</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Đánh dấu <i class="hllb">Công cụ > Bật Ghi Nhật ký Tệp</i>`
+            `Để truy cập các sự kiện nội bộ của trò chơi (chẳng hạn như trạng thái hiện tại của trò chơi, thông tin mở khóa thành tích, v.v.), cần bật ghi log vào một <span class="hl">file log</span> <u>phải được bật</u> trong bất kỳ trình giả lập đã chọn nào.<br><br>Bất kỳ trình giả lập nào đã chọn <u>phải sử dụng <span class="hl">file log</span> này</u> làm giá trị <span class="hl">Đường dẫn đến File Log</span>.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Cài đặt > Ghi log</span> cần được cấu hình với các cài đặt sau:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Độ chi tiết của ghi log</span>: <span class="hlgreen">BẬT</span></li>
+                        <li><span class="hllb">Cấp độ ghi log của giao diện người dùng</span>: <span class="hlgreen">1 (Thông tin)</span></li>
+                        <li><span class="hllb">Ghi log vào file</span>: <span class="hlgreen">BẬT</span></li>
+                        <li><span class="hllb">Thêm dấu thời gian vào các file log</span>: <span class="hlred">TẮT</span></li>
+                    </ul>
+                    <br>
+                    Với cài đặt mặc định, file log <span class="hl">"retroarch.log"</span> được lưu tại:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Xem > Hiển thị Cấu hình Log</span> cần được cấu hình với các cài đặt sau:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Độ chi tiết</span>: <span class="hlgreen">Thông tin</span></li>
+                        <li><span class="hllb">Kết quả ghi log</span> > <span class="hlgreen">Ghi vào File</span></li>
+                        <li><span class="hllb">Các loại log</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Với cài đặt mặc định, file log <span class="hl">"dolphin.log"</span> được lưu tại một trong các vị trí sau:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API Key",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Đường dẫn dữ liệu",
+                installdir: "Đường dẫn tệp nhật ký",
                 rapercenttype: "Loại phần trăm",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Nhập đường dẫn cài đặt"
+                placeholder: "Nhập đường dẫn tệp nhật ký",
+                logfile: "File Log",
+                status: "Trạng thái",
+                game: "Trò chơi",
+                wait: "Đang chờ trình giả lập",
+                idle: "Đang chờ sự kiện trò chơi",
+                start: "Bắt đầu trò chơi",
+                stop: "Dừng trò chơi",
+                achievement: "Thành tựu đã mở khóa"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Cài đặt màu được sử dụng trong webhook khi mở khóa thành tích 100%",
         raemus: "Hiển thị thông báo khi phát hiện trò chơi trong các trình giả lập hỗ trợ",
         rauser: "Đặt tên người dùng Retro Achievements để theo dõi các thành tích",
-        rakey: `Đặt Web API Key để sử dụng xác thực với Retro Achievements API<br><br><span class="ttdesc">Web API Key có thể sao chép hoặc tạo lại bằng cách đăng nhập vào trang web Retro Achievements và chuyển đến Cài đặt > Khóa > Web API Key<br><br>🔒 Chìa khóa được cung cấp sẽ được mã hóa trước khi lưu trữ cục bộ trên hệ thống</span>`,
+        rakey: `Cài đặt Web API Key để sử dụng xác thực với Retro Achievements API<br><br><span class="ttdesc">Một Web API Key có thể được sao chép hoặc tạo lại bằng cách đăng nhập vào trang web của Retro Achievements và chuyển đến <span class="hl">Cài đặt > Chìa khóa > Web API Key</span><br><br>🔒 Chìa khóa được cung cấp sẽ được mã hóa trước khi lưu trữ cục bộ trên hệ thống</span>`,
         rapercenttype: "Đặt xem có hiển thị phần trăm thành tích Hardcore hoặc Softcore trong thông báo không",
-        retroarch: `Hiển thị thông báo Retro Achievements cho các trò chơi mô phỏng qua RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Cài đặt > Ghi log</i> phải được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Mức độ chi tiết của log</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Mức độ ghi log giao diện</span>: <span class="hlgreen">1 (Thông tin)</span></li><li><span class="hllb">Ghi log vào tệp</span>: <span class="hlgreen">BẬT</span></li></ul></span>`,  
-        dolphin: `Hiển thị thông báo Retro Achievements cho các trò chơi mô phỏng qua Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Xem > Hiển thị Cài đặt Log</i> phải được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Mức độ chi tiết</span>: <span class="hlgreen">Thông tin</span></li><li><span class="hllb">Kết quả ghi log</span> > <span class="hlgreen">Ghi vào tệp</span></li><li><span class="hllb">Loại log</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Hiển thị thông báo Retro Achievements cho các trò chơi mô phỏng qua PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Công cụ > Bật ghi log vào tệp</i> phải được bật</span>`,  
-        retroarchpath: `Đặt đường dẫn đến thư mục chứa thư mục "Logs" cho RetroArch<br><br><span class="ttdesc">Dữ liệu của RetroArch được lưu trong thư mục cài đặt ứng dụng</span>`,  
-        dolphinpath: `Đặt đường dẫn đến thư mục chứa thư mục "Logs" cho Dolphin<br><br><span class="ttdesc">Dữ liệu của Dolphin được lưu trong một trong các vị trí sau:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `Đặt đường dẫn đến thư mục chứa thư mục "Logs" cho PCSX2<br><br><span class="ttdesc">Dữ liệu của PCSX2 được lưu trong thư mục cài đặt ứng dụng</span>`,
+        retroarch: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Cài đặt > Ghi log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết của ghi log</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Cấp độ ghi log của giao diện người dùng</span>: <span class="hlgreen">1 (Thông tin)</span></li><li><span class="hllb">Ghi log vào file</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Thêm dấu thời gian vào các file log</span>: <span class="hlred">TẮT</span></li></ul></span>`,
+        dolphin: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Xem > Hiển thị Cấu hình Log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết</span>: <span class="hlgreen">Thông tin</span></li><li><span class="hllb">Kết quả ghi log</span> > <span class="hlgreen">Ghi vào File</span></li><li><span class="hllb">Các loại log</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Cài đặt đường dẫn đến file log của RetroArch <span class="hl">"retroarch.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"retroarch.log"</span> được lưu tại <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Cài đặt đường dẫn đến file log của Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"dolphin.log"</span> được lưu tại một trong các vị trí sau:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

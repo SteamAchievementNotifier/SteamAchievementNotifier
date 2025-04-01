@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "在 $gamename",
         notconnected: "未連接",
         raloghelp: "我的遊戲未被偵測到",
-        raenablelog: `啟用模擬器日誌檔案`,
+        raenablelog: `模擬器日誌檔案`,
         raenablelogsub: [
-            `為了訪問受支持的模擬器內部事件（例如當前遊戲狀態、成就解鎖信息等），必須在所選的模擬器中啟用<span class="hl">日誌檔案</span>。<br><br>每個日誌檔案將位於為每個選定的模擬器指定的目錄中的<span class="hl">Logs</span>資料夾。`,
-            `<span class="hl">RetroArch</span>: 進入<i class="hllb">設定 > 記錄</i>並設置<i><span class="hllb">日誌詳細程度</span>: <span class="hlgreen">開啟</span>，<span class="hllb">前端日誌級別</span>: <span class="hlgreen">1（資訊）</span></i>和<i><span class="hllb">寫入日誌檔案</span>: <span class="hlgreen">開啟</span></i>`,
-            `<span class="hl">Dolphin</span>: 進入<i class="hllb">檢視 > 顯示日誌配置</i>並設置<i><span class="hllb">詳細程度</span>: <span class="hlgreen">資訊</span>，<span class="hllb">記錄輸出</span> > <span class="hlgreen">寫入檔案</span></i>和<i><span class="hllb">日誌類型</span> > <span class="hlgreen">成就（RetroAchievements）</span></i>`,
-            `<span class="hl">PCSX2</span>: 勾選<i class="hllb">工具 > 啟用檔案記錄</i>`
+            `為了訪問內部遊戲事件（如當前遊戲狀態、成就解鎖信息等），必須在所有選定的模擬器中啟用日誌記錄到外部 <span class="hl">日誌檔案</span> <u>必須啟用</u>。<br><br>所有選定的模擬器 <u>必須使用這個 <span class="hl">日誌檔案</span></u> 作為 <span class="hl">日誌檔案路徑</span> 的值。`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > 設定 > 日誌記錄</span> 必須配置以下設定：
+                    <br>
+                    <ul>
+                        <li><span class="hllb">日誌詳細程度</span>: <span class="hlgreen">開啟</span></li>
+                        <li><span class="hllb">前端日誌級別</span>: <span class="hlgreen">1 (信息)</span></li>
+                        <li><span class="hllb">寫入日誌檔案</span>: <span class="hlgreen">開啟</span></li>
+                        <li><span class="hllb">時間戳日誌檔案</span>: <span class="hlred">關閉</span></li>
+                    </ul>
+                    <br>
+                    使用預設安裝設定，<span class="hl">"retroarch.log"</span> 儲存在：
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > 檢視 > 顯示日誌設定</span> 必須配置以下設定：
+                    <br>
+                    <ul>
+                        <li><span class="hllb">詳細程度</span>: <span class="hlgreen">信息</span></li>
+                        <li><span class="hllb">日誌輸出</span> > <span class="hlgreen">寫入檔案</span></li>
+                        <li><span class="hllb">日誌類型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li>
+                    </ul>
+                    <br>
+                    使用預設安裝設定，<span class="hl">"dolphin.log"</span> 儲存在以下位置之一：
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -158,7 +194,7 @@ export const translations = {
                 ovpos: "疊加位置",
                 ovmatch: "符合自訂位置",
                 ovx: "水平偏移",
-                ovy: "垂直偏移",                
+                ovy: "垂直偏移",
                 ovpath: "截圖路徑",
                 ssdelay: "截圖延遲",
                 notifyimg: "通知圖片",
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API 密鑰",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "資料路徑",
+                installdir: "日志文件路徑",
                 rapercenttype: "百分比類型",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "輸入安裝路徑"
+                placeholder: "輸入日志文件路徑",
+                logfile: "日誌檔案",
+                status: "狀態",
+                game: "遊戲",
+                wait: "等待模擬器",
+                idle: "等待遊戲事件",
+                start: "啟動遊戲",
+                stop: "停止遊戲",
+                achievement: "成就解鎖"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "設定解鎖100%成就時，Webhook嵌入中使用的顏色",
         raemus: "當遊戲在支持的模擬器中被偵測到時顯示通知",
         rauser: "設定 Retro Achievements 使用者名稱來追蹤成就",
-        rakey: `設定 Web API 密鑰來用於驗證 Retro Achievements API<br><br><span class="ttdesc">您可以通過登錄 Retro Achievements 網站並進入設定 > 密鑰 > Web API 密鑰來複製或重新生成 Web API 密鑰<br><br>🔒 提供的密鑰會在本地系統中加密儲存</span>`,
+        rakey: `設定用於認證 Retro Achievements API 的 Web API 密鑰<br><br><span class="ttdesc">您可以透過登入 Retro Achievements 網站並導航至 <span class="hl">設定 > 金鑰 > Web API 密鑰</span> 來複製或重新生成 Web API 密鑰<br><br>🔒 提供的密鑰將在儲存至本地系統之前進行加密</span>`,
         rapercenttype: "設定是否顯示 Hardcore 或 Softcore 成就解鎖百分比通知",
-        retroarch: `顯示通過 RetroArch 模擬的遊戲的 Retro Achievements 通知<br><br><span class="ttdesc"><i class="hllb">RetroArch > 設定 > 記錄</i> 必須按照以下設置進行配置：<br><br><ul><li><span class="hllb">記錄詳細程度</span>：<span class="hlgreen">開啟</span></li><li><span class="hllb">前端記錄等級</span>：<span class="hlgreen">1（資訊）</span></li><li><span class="hllb">記錄到檔案</span>：<span class="hlgreen">開啟</span></li></ul></span>`,  
-        dolphin: `顯示通過 Dolphin 模擬的遊戲的 Retro Achievements 通知<br><br><span class="ttdesc"><i class="hllb">Dolphin > 顯示 > 顯示記錄設置</i> 必須按照以下設置進行配置：<br><br><ul><li><span class="hllb">詳細程度</span>：<span class="hlgreen">資訊</span></li><li><span class="hllb">記錄輸出</span> > <span class="hlgreen">寫入檔案</span></li><li><span class="hllb">記錄類型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li></ul></span>`,  
-        pcsx2: `顯示通過 PCSX2 模擬的遊戲的 Retro Achievements 通知<br><br><span class="ttdesc"><i class="hllb">PCSX2 > 工具 > 啟用檔案記錄</i> 必須啟用</span>`,  
-        retroarchpath: `設定 RetroArch "Logs" 目錄所在的資料夾路徑<br><br><span class="ttdesc">RetroArch 資料存儲在應用程式的安裝目錄中</span>`,  
-        dolphinpath: `設定 Dolphin "Logs" 目錄所在的資料夾路徑<br><br><span class="ttdesc">Dolphin 資料存儲在以下其中一個位置：<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `設定 PCSX2 "Logs" 目錄所在的資料夾路徑<br><br><span class="ttdesc">PCSX2 資料存儲在應用程式的安裝目錄中</span>`,
+        retroarch: `顯示 Retro Achievements 通知，適用於透過 RetroArch 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > 日誌記錄</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">日誌詳細程度</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">前端日誌級別</span>: <span class="hlgreen">1 (信息)</span></li><li><span class="hllb">寫入日誌檔案</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">時間戳日誌檔案</span>: <span class="hlred">關閉</span></li></ul></span>`,
+        dolphin: `顯示 Retro Achievements 通知，適用於透過 Dolphin 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">Dolphin > 檢視 > 顯示日誌設定</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">詳細程度</span>: <span class="hlgreen">信息</span></li><li><span class="hllb">日誌輸出</span> > <span class="hlgreen">寫入檔案</span></li><li><span class="hllb">日誌類型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li></ul></span>`,
+        retroarchpath: `設置 RetroArch 的 <span class="hl">"retroarch.log"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"retroarch.log"</span> 儲存在 <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `設置 Dolphin 的 <span class="hl">"dolphin.log"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"dolphin.log"</span> 儲存在以下位置之一：<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "有可用更新",

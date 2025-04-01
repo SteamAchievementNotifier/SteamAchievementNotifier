@@ -521,6 +521,7 @@ export const sanhelper: SANHelper = {
                 ...defaulttippy,
                 appendTo: "parent",
                 content: content,
+                maxWidth: ![...rasupported].some(id => elem.id === `${id}path`) ? defaulttippy.maxWidth : 200,
                 triggerTarget: !elem.id.startsWith("webhookembedcolor") && ![...rasupported].some(id => elem.id === id) ? elem.parentElement : ([...rasupported].some(id => elem.id === id) ? [elem,elem.previousElementSibling!] : elem),
                 onTrigger(inst) {
                     currenttippy && currenttippy !== inst && currenttippy.hide()
@@ -978,7 +979,6 @@ export const sanhelper: SANHelper = {
             
             installdir.placeholder = await language.get("placeholder",["settings","ra","content"])
             installdir.value = installdirvalue
-            installdir.toggleAttribute("nodir",installdir.value !== "" && !fs.existsSync(path.join(installdirvalue,"logs")))
 
             span.onclick = null
             input.onclick = null
@@ -1011,7 +1011,6 @@ export const sanhelper: SANHelper = {
                 config.set(input.id,value)
 
                 input.value = value
-                input.toggleAttribute("nodir",value !== "" && !fs.existsSync(path.join(value,"logs").replace(/\\/g,"/")))
             }
 
             const btn = opt.querySelector(`button[id$="browse"]`) as HTMLButtonElement
@@ -1027,10 +1026,9 @@ export const sanhelper: SANHelper = {
                     config.set(input.id,value)
     
                     input.value = value
-                    input.toggleAttribute("nodir",value !== "" && !fs.existsSync(path.join(value,"logs").replace(/\\/g,"/")))
                 })
 
-                ipcRenderer.send("loadfile","dir")
+                ipcRenderer.send("loadfile","log")
             }
         }
 

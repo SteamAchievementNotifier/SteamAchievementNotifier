@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "$gamename에서",
         notconnected: "연결되지 않음",
         raloghelp: "게임이 감지되지 않습니다",
-        raenablelog: `에뮬레이터 로그 파일 활성화`,
+        raenablelog: `에뮬레이터 로그 파일`,
         raenablelogsub: [
-            `지원되는 에뮬레이터의 내부 이벤트(예: 현재 게임 상태, 업적 잠금 정보 등)에 접근하려면, <span class="hl">로그 파일</span>을 선택된 에뮬레이터에서 활성화해야 합니다.<br><br>각 로그 파일은 각 에뮬레이터에 대해 지정된 디렉토리 내의 <span class="hl">Logs</span> 폴더에 저장됩니다.`,
-            `<span class="hl">RetroArch</span>: <i class="hllb">설정 > 로그 설정</i>으로 이동하여 <i><span class="hllb">로그 상세 설정</span>: <span class="hlgreen">ON</span>, <span class="hllb">프론트엔드 로그 레벨</span>: <span class="hlgreen">1 (정보)</span></i>, <i><span class="hllb">파일로 로그 기록</span>: <span class="hlgreen">ON</span></i>로 설정합니다.`,
-            `<span class="hl">Dolphin</span>: <i class="hllb">보기 > 로그 설정 표시</i>로 이동하여 <i><span class="hllb">상세 설정</span>: <span class="hlgreen">정보</span>, <span class="hllb">로그 출력</span> > <span class="hlgreen">파일에 기록</span></i> 및 <i><span class="hllb">로그 유형</span> > <span class="hlgreen">업적 (RetroAchievements)</span></i>로 설정합니다.`,
-            `<span class="hl">PCSX2</span>: <i class="hllb">도구 > 파일 로그 활성화</i>를 선택합니다.`
+            `게임의 내부 이벤트(예: 현재 게임 상태, 업적 잠금 정보 등)에 액세스하려면 선택한 에뮬레이터에서 외부 <span class="hl">로그 파일</span> 기록이 <u>활성화되어야 합니다</u>.<br><br>선택된 에뮬레이터는 <u>이 <span class="hl">로그 파일</span></u>을 <span class="hl">로그 파일 경로</span> 값으로 사용해야 합니다.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > 설정 > 로깅</span>을 다음 설정으로 구성해야 합니다:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">로깅 상세도</span>: <span class="hlgreen">ON</span></li>
+                        <li><span class="hllb">프론트엔드 로깅 레벨</span>: <span class="hlgreen">1 (정보)</span></li>
+                        <li><span class="hllb">파일에 로깅</span>: <span class="hlgreen">ON</span></li>
+                        <li><span class="hllb">로그 파일에 타임스탬프 추가</span>: <span class="hlred">OFF</span></li>
+                    </ul>
+                    <br>
+                    기본 설치 설정을 사용할 경우, <span class="hl">"retroarch.log"</span>는 다음 위치에 저장됩니다:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > 보기 > 로그 구성 표시</span>를 다음 설정으로 구성해야 합니다:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">상세도</span>: <span class="hlgreen">정보</span></li>
+                        <li><span class="hllb">로거 출력</span> > <span class="hlgreen">파일에 쓰기</span></li>
+                        <li><span class="hllb">로그 유형</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    기본 설치 설정을 사용할 경우, <span class="hl">"dolphin.log"</span>는 다음 위치 중 하나에 저장됩니다:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API 키",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "데이터 경로",
+                installdir: "로그 파일 경로",
                 rapercenttype: "퍼센트 유형",
                 hard: "하드코어",
                 soft: "소프트코어",
-                placeholder: "설치 경로 입력"
+                placeholder: "로그 파일 경로를 입력하세요",
+                logfile: "로그 파일",
+                status: "상태",
+                game: "게임",
+                wait: "에뮬레이터 대기 중",
+                idle: "게임 이벤트 대기 중",
+                start: "게임 시작",
+                stop: "게임 종료",
+                achievement: "업적 해제"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "100% 성공이 해제될 때 webhook 임베드에 사용될 색상을 설정합니다",
         raemus: "지원되는 에뮬레이터에서 게임이 감지될 때 알림 표시",
         rauser: "업적 추적에 사용할 Retro Achievements 사용자 이름 설정",
-        rakey: `Retro Achievements API 인증에 사용할 웹 API 키 설정<br><br><span class="ttdesc">웹 API 키는 Retro Achievements 웹사이트에 로그인한 후 설정 > 키 > 웹 API 키로 이동하여 복사하거나 재생성할 수 있습니다<br><br>🔒 제공된 키는 시스템에 로컬 저장되기 전에 암호화됩니다.</span>`,
+        rakey: `Retro Achievements API 인증에 사용할 Web API 키를 설정하세요<br><br><span class="ttdesc">Web API 키는 Retro Achievements 웹사이트에 로그인하고 <span class="hl">설정 > 키 > Web API Key</span>로 이동하여 복사하거나 재생성할 수 있습니다<br><br>🔒 제공된 키는 시스템에 로컬로 저장되기 전에 암호화됩니다</span>`,
         rapercenttype: "알림에서 하드코어 또는 소프트코어 업적 잠금 퍼센트 표시 여부 설정",
-        retroarch: `RetroArch에서 에뮬레이션된 게임의 Retro Achievements 알림 표시<br><br><span class="ttdesc"><i class="hllb">RetroArch > 설정 > 로깅</i>을 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">로깅 상세 수준</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">프론트엔드 로깅 레벨</span>: <span class="hlgreen">1 (정보)</span></li><li><span class="hllb">파일로 로깅</span>: <span class="hlgreen">ON</span></li></ul></span>`,  
-        dolphin: `Dolphin에서 에뮬레이션된 게임의 Retro Achievements 알림 표시<br><br><span class="ttdesc"><i class="hllb">Dolphin > 보기 > 로그 설정 표시</i>를 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">상세 수준</span>: <span class="hlgreen">정보</span></li><li><span class="hllb">로그 출력</span> > <span class="hlgreen">파일에 기록</span></li><li><span class="hllb">로그 유형</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `PCSX2에서 에뮬레이션된 게임의 Retro Achievements 알림 표시<br><br><span class="ttdesc"><i class="hllb">PCSX2 > 도구 > 파일 로깅 활성화</i>를 켜야 합니다</span>`,  
-        retroarchpath: `RetroArch의 "Logs" 디렉터리가 포함된 폴더 경로 설정<br><br><span class="ttdesc">RetroArch 데이터는 애플리케이션 설치 디렉터리에 저장됩니다</span>`,  
-        dolphinpath: `Dolphin의 "Logs" 디렉터리가 포함된 폴더 경로 설정<br><br><span class="ttdesc">Dolphin 데이터는 다음 위치 중 하나에 저장됩니다:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `PCSX2의 "Logs" 디렉터리가 포함된 폴더 경로 설정<br><br><span class="ttdesc">PCSX2 데이터는 애플리케이션 설치 디렉터리에 저장됩니다</span>`,  
+        retroarch: `RetroArch를 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">RetroArch > 설정 > 로깅</span>을 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">로깅 상세도</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">프론트엔드 로깅 레벨</span>: <span class="hlgreen">1 (정보)</span></li><li><span class="hllb">파일에 로깅</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">로그 파일에 타임스탬프 추가</span>: <span class="hlred">OFF</span></li></ul></span>`,
+        dolphin: `Dolphin을 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">Dolphin > 보기 > 로그 구성 표시</span>를 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">상세도</span>: <span class="hlgreen">정보</span></li><li><span class="hllb">로거 출력</span> > <span class="hlgreen">파일에 쓰기</span></li><li><span class="hllb">로그 유형</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `RetroArch의 <span class="hl">"retroarch.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"retroarch.log"</span>는 <span class="hllb">C:\\RetroArch-x64\\Logs</span>에 저장됩니다.</span>`,
+        dolphinpath: `Dolphin의 <span class="hl">"dolphin.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"dolphin.log"</span>는 다음 위치 중 하나에 저장됩니다:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "업데이트 가능",

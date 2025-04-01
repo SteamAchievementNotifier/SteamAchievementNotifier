@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "pelissä $gamename",
         notconnected: "Ei yhdistetty",
         raloghelp: "Peliäni ei havaita",
-        raenablelog: `Ota emulaattorin lokitiedostot käyttöön`,
+        raenablelog: `Emulaattorin lokitiedostot`,
         raenablelogsub: [
-            `Jotta voit käyttää tuettujen emulaattorien sisäisiä tapahtumia (kuten nykyinen pelitila, saavutusten avaus jne.), <span class="hl">lokitiedostot</span> on otettava käyttöön valituissa emulaattoreissa.<br><br>Jokainen lokitiedosto sijaitsee <span class="hl">Logs</span>-kansiossa kunkin valitun emulaattorin määritetyssä hakemistossa.`,
-            `<span class="hl">RetroArch</span>: Siirry kohtaan <i class="hllb">Asetukset > Lokitus</i> ja aseta <i><span class="hllb">Lokituksen tarkkuus</span>: <span class="hlgreen">PÄÄLLÄ</span>, <span class="hllb">Frontend-lokitustaso</span>: <span class="hlgreen">1 (Info)</span></i> sekä <i><span class="hllb">Kirjaa tiedostoon</span>: <span class="hlgreen">PÄÄLLÄ</span></i>`,
-            `<span class="hl">Dolphin</span>: Siirry kohtaan <i class="hllb">Näytä > Näytä lokiasetukset</i> ja aseta <i><span class="hllb">Tarkkuus</span>: <span class="hlgreen">Info</span>, <span class="hllb">Lokitulosteet</span> > <span class="hlgreen">Kirjaa tiedostoon</span></i> sekä <i><span class="hllb">Lokitustyypit</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Ota käyttöön <i class="hllb">Työkalut > Ota tiedostolokitus käyttöön</i>`
+            `Jotta pääsy pelin sisäisiin tapahtumiin (kuten nykyinen pelitila, saavutusten avaamistiedot jne.) olisi mahdollista, ulkoiseen <span class="hl">lokitiedostoon</span> <u>kirjaaminen on oltava käytössä</u> kaikissa valituissa emulaattoreissa.<br><br>Kaikkien valittujen emulaattoreiden <u>on käytettävä tätä <span class="hl">lokitiedostoa</span></u> arvona <span class="hl">Lokitiedoston polku</span>.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Asetukset > Lokitus</span> on määritettävä seuraavilla asetuksilla:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Lokituksen yksityiskohtaisuus</span>: <span class="hlgreen">PÄÄLLÄ</span></li>
+                        <li><span class="hllb">Frontend-lokitaso</span>: <span class="hlgreen">1 (Info)</span></li>
+                        <li><span class="hllb">Kirjaa lokiin</span>: <span class="hlgreen">PÄÄLLÄ</span></li>
+                        <li><span class="hllb">Aikaleimat lokitiedostoissa</span>: <span class="hlred">POIS PÄÄLTÄ</span></li>
+                    </ul>
+                    <br>
+                    Oletusasennuksen mukaan <span class="hl">"retroarch.log"</span> tallennetaan sijaintiin:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Näytä > Näytä lokiasetukset</span> on määritettävä seuraavilla asetuksilla:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Yksityiskohtaisuus</span>: <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Lokin ulostulot</span> > <span class="hlgreen">Kirjoita tiedostoon</span></li>
+                        <li><span class="hllb">Lokityypit</span> > <span class="hlgreen">Saavutukset (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Oletusasennuksen mukaan <span class="hl">"dolphin.log"</span> tallennetaan johonkin seuraavista sijainneista:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API-avain",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Tietopolku",
+                installdir: "Lokitiedoston polku",
                 rapercenttype: "Prosenttityyppi",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Syötä asennuspolku"
+                placeholder: "Syötä lokitiedoston polku",
+                logfile: "Lokitiedosto",
+                status: "Tila",
+                game: "Peli",
+                wait: "Odottaminen emulaattoria",
+                idle: "Odottaminen pelitapahtumaa",
+                start: "Pelin aloitus",
+                stop: "Pelin lopetus",
+                achievement: "Saavutus avattu"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Aseta väri, jota käytetään webhook-upotuksessa 100% saavutuksen avautuessa",
         raemus: "Näytä ilmoitukset, kun pelejä havaitaan tuetuissa emulaattoreissa",
         rauser: "Aseta Retro Achievements -käyttäjätunnus saavutusten seuraamista varten",
-        rakey: `Aseta Web API -avain Retro Achievements API:n tunnistautumista varten<br><br><span class="ttdesc">Web API -avaimen voi kopioida tai luoda uudelleen kirjautumalla Retro Achievements -sivustolle ja siirtymällä kohtaan Asetukset > Avaimet > Web API -avain<br><br>🔒 Syötetty avain salataan ennen kuin se tallennetaan paikallisesti järjestelmään</span>`,
+        rakey: `Aseta käytettävä Web API -avain Retro Achievements API -autentikointiin<br><br><span class="ttdesc">Web API -avaimen voi kopioida tai luoda uudelleen kirjautumalla Retro Achievements -verkkosivustolle ja siirtymällä kohtaan <span class="hl">Asetukset > Avaimet > Web API Key</span><br><br>🔒 Annettu avain salataan ennen kuin se tallennetaan paikallisesti järjestelmään</span>`,
         rapercenttype: "Määritä, näytetäänkö ilmoituksissa Hardcore- vai Softcore-saavutusten avausprosentit",
-        retroarch: `Näytä Retro Achievements -ilmoitukset RetroArch-emuloiduille peleille<br><br><span class="ttdesc"><i class="hllb">RetroArch > Asetukset > Lokitus</i> on määritettävä seuraavasti:<br><br><ul><li><span class="hllb">Lokituksen yksityiskohtaisuus</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Käyttöliittymän lokitustaso</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Kirjaa tiedostoon</span>: <span class="hlgreen">PÄÄLLÄ</span></li></ul></span>`,  
-        dolphin: `Näytä Retro Achievements -ilmoitukset Dolphin-emuloiduille peleille<br><br><span class="ttdesc"><i class="hllb">Dolphin > Näytä > Näytä lokiasetukset</i> on määritettävä seuraavasti:<br><br><ul><li><span class="hllb">Yksityiskohtaisuus</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Lokitulosteet</span> > <span class="hlgreen">Kirjaa tiedostoon</span></li><li><span class="hllb">Lokityypit</span> > <span class="hlgreen">Saavutukset (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Näytä Retro Achievements -ilmoitukset PCSX2-emuloiduille peleille<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Työkalut > Ota lokitiedostojen kirjoitus käyttöön</i> on oltava käytössä</span>`,  
-        retroarchpath: `Aseta polku kansioon, joka sisältää RetroArchin "Logs"-hakemiston<br><br><span class="ttdesc">RetroArchin tiedot tallennetaan sovelluksen asennushakemistoon</span>`,  
-        dolphinpath: `Aseta polku kansioon, joka sisältää Dolphin-emulaattorin "Logs"-hakemiston<br><br><span class="ttdesc">Dolphinin tiedot tallennetaan johonkin seuraavista sijainneista:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `Aseta polku kansioon, joka sisältää PCSX2:n "Logs"-hakemiston<br><br><span class="ttdesc">PCSX2:n tiedot tallennetaan sovelluksen asennushakemistoon</span>`,  
+        retroarch: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan RetroArchilla<br><br><span class="ttdesc"><span class="hl">RetroArch > Asetukset > Lokitus</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Lokituksen yksityiskohtaisuus</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Frontend-lokitaso</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Kirjaa lokiin</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Aikaleimat lokitiedostoissa</span>: <span class="hlred">POIS PÄÄLTÄ</span></li></ul></span>`,
+        dolphin: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan Dolphinilla<br><br><span class="ttdesc"><span class="hl">Dolphin > Näytä > Näytä lokiasetukset</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Yksityiskohtaisuus</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Lokin ulostulot</span> > <span class="hlgreen">Kirjoita tiedostoon</span></li><li><span class="hllb">Lokityypit</span> > <span class="hlgreen">Saavutukset (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Aseta polku RetroArchin <span class="hl">"retroarch.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"retroarch.log"</span> tallennetaan sijaintiin <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Aseta polku Dolphin <span class="hl">"dolphin.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"dolphin.log"</span> tallennetaan johonkin seuraavista sijainneista:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

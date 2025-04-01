@@ -836,7 +836,8 @@ export const listeners = {
                 ["audio",{ name: await language.get("audio"), extensions: ["mp3","wav","ogg","aac"] }],
                 ["dir",{ name: await language.get("folder"), extensions: [] }],
                 ["font",{ name: await language.get("font"), extensions: ["ttf","otf","woff","woff2"] }],
-                ["exe",{ name: await language.get("exepath",["linkgame","content"]), extensions: [ process.platform === "win32" ? "exe" : "*" ] }]
+                ["exe",{ name: await language.get("exepath",["linkgame","content"]), extensions: [ process.platform === "win32" ? "exe" : "*" ] }],
+                ["log",{ name: await language.get("logfile",["settings","ra","content"]), extensions: ["log","txt"] }]
             ])
 
             const isfile = filetype !== "dir"
@@ -1748,7 +1749,7 @@ export const listeners = {
             event.reply("decryptrakey",decrypted)
         })
 
-        ipcMain.on("ragame",(event,ragame?: RAGame) => win.webContents.send("ragame",ragame))
+        ipcMain.on("ragame",(event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => win.webContents.send("ragame",status,ragame))
 
         return
     }

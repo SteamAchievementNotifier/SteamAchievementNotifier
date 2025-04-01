@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "în $gamename",
         notconnected: "Nu este conectat",
         raloghelp: "Jocul meu nu este detectat",
-        raenablelog: `Activează fișierele de log ale emulatorului`,
+        raenablelog: `Fișierele de jurnal ale emulatorului`,
         raenablelogsub: [
-            `Pentru a accesa evenimentele interne ale emulatorilor acceptați (cum ar fi starea curentă a jocului, informații despre deblocarea realizărilor etc.), fișierele de <span class="hl">log</span> trebuie activate în emulatorii selectați.<br><br>Fiecare fișier de log va fi localizat în folderul <span class="hl">Logs</span> din directorul specificat pentru fiecare emulator selectat.`,
-            `<span class="hl">RetroArch</span>: Mergi la <i class="hllb">Setări > Jurnalizare</i> și setează <i><span class="hllb">Verbozitatea jurnalului</span>: <span class="hlgreen">ACTIVAT</span>, <span class="hllb">Nivelul de jurnalizare al interfeței</span>: <span class="hlgreen">1 (Info)</span></i> și <i><span class="hllb">Înregistrează în fișier</span>: <span class="hlgreen">ACTIVAT</span></i>`,
-            `<span class="hl">Dolphin</span>: Mergi la <i class="hllb">Vizualizare > Arată configurația jurnalului</i> și setează <i><span class="hllb">Verbozitate</span>: <span class="hlgreen">Info</span>, <span class="hllb">Ieșirile jurnalului</span> > <span class="hlgreen">Scrie în fișier</span></i> și <i><span class="hllb">Tipuri de jurnal</span> > <span class="hlgreen">Realizări (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Bifează <i class="hllb">Unelte > Activează înregistrarea în fișier</i>`
+            `Pentru a accesa evenimentele interne ale jocului (cum ar fi starea curentă a jocului, informațiile despre deblocarea realizărilor, etc.), jurnalizarea într-un <span class="hl">fișier de log</span> <u>trebuie activată</u> în orice emulator selectat.<br><br>Emulatoarele selectate <u>trebuie să folosească acest <span class="hl">fișier de log</span></u> ca valoare pentru <span class="hl">Calea fișierului de log</span>.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Setări > Jurnalizare</span> trebuie configurat cu următoarele setări:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Verbiajul jurnalizării</span>: <span class="hlgreen">LIGAT</span></li>
+                        <li><span class="hllb">Nivelul de jurnalizare al interfeței</span>: <span class="hlgreen">1 (Info)</span></li>
+                        <li><span class="hllb">Jurnalizează în fișier</span>: <span class="hlgreen">LIGAT</span></li>
+                        <li><span class="hllb">Marca de timp pentru fișierele de log</span>: <span class="hlred">DEZLIGAT</span></li>
+                    </ul>
+                    <br>
+                    Cu setările implicite de instalare, <span class="hl">"retroarch.log"</span> este stocat în:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Vizualizare > Afișează configurația logului</span> trebuie configurat cu următoarele setări:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Verbiajul</span>: <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Ieșiri din jurnal</span> > <span class="hlgreen">Scrie în fișier</span></li>
+                        <li><span class="hllb">Tipuri de log</span> > <span class="hlgreen">Realizări (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Cu setările implicite de instalare, <span class="hl">"dolphin.log"</span> este stocat în una dintre următoarele locații:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "Cheia API",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Calea datelor",
+                installdir: "Calea fișierului de log",
                 rapercenttype: "Tipul procentajului",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Introdu calea de instalare"
+                placeholder: "Introduceți calea fișierului de log",
+                logfile: "Fișier de log",
+                status: "Stare",
+                game: "Joc",
+                wait: "Așteptând emulatorul",
+                idle: "Așteptând evenimentul jocului",
+                start: "Pornirea jocului",
+                stop: "Oprirea jocului",
+                achievement: "Realizare deblocată"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Setează culoarea folosită în încorporarea webhook atunci când se deblochează o realizare de 100%",
         raemus: "Afișează notificări atunci când jocurile sunt detectate în emulatorii acceptați",
         rauser: "Setează numele de utilizator Retro Achievements pentru a urmări realizările",
-        rakey: `Setează cheia Web API pentru autentificarea în API-ul Retro Achievements<br><br><span class="ttdesc">O cheie Web API poate fi copiată sau generată din nou conectându-te pe site-ul Retro Achievements și mergând la Setări > Chei > Cheia Web API<br><br>🔒 Cheia oferită va fi criptată înainte de a fi stocată local pe sistem</span>`,
+        rakey: `Setează cheia Web API care va fi utilizată pentru autentificarea în API-ul Retro Achievements<br><br><span class="ttdesc">O cheie Web API poate fi copiată sau regenerată conectându-te pe site-ul Retro Achievements și navigând la <span class="hl">Setări > Chei > Web API Key</span><br><br>🔒 Cheia furnizată va fi criptată înainte de a fi stocată local pe sistem</span>`,
         rapercenttype: "Setează dacă vrei să afișezi procentele de realizare Hardcore sau Softcore în notificări",
-        retroarch: `Afișează notificări Retro Achievements pentru jocurile emulate prin RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Setări > Înregistrare</i> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Detaliere înregistrare</span>: <span class="hlgreen">ACTIVAT</span></li><li><span class="hllb">Nivel de înregistrare al interfeței</span>: <span class="hlgreen">1 (Informații)</span></li><li><span class="hllb">Înregistrare în fișier</span>: <span class="hlgreen">ACTIVAT</span></li></ul></span>`,  
-        dolphin: `Afișează notificări Retro Achievements pentru jocurile emulate prin Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Vizualizare > Afișează Configurarea Jurnalului</i> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Detaliere</span>: <span class="hlgreen">Informații</span></li><li><span class="hllb">Ieșiri Jurnal</span> > <span class="hlgreen">Scrie în fișier</span></li><li><span class="hllb">Tipuri de Jurnal</span> > <span class="hlgreen">Realizări (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Afișează notificări Retro Achievements pentru jocurile emulate prin PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Unelte > Activează înregistrarea în fișier</i> trebuie să fie activată</span>`,  
-        retroarchpath: `Setează calea către folderul care conține directorul "Logs" pentru RetroArch<br><br><span class="ttdesc">Datele RetroArch sunt stocate în directorul de instalare al aplicației</span>`,  
-        dolphinpath: `Setează calea către folderul care conține directorul "Logs" pentru Dolphin<br><br><span class="ttdesc">Datele Dolphin sunt stocate în una dintre următoarele locații:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `Setează calea către folderul care conține directorul "Logs" pentru PCSX2<br><br><span class="ttdesc">Datele PCSX2 sunt stocate în directorul de instalare al aplicației</span>`,  
+        retroarch: `Afișează notificările Retro Achievements pentru jocurile emulate prin RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Setări > Jurnalizare</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul jurnalizării</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Nivelul de jurnalizare al interfeței</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Jurnalizează în fișier</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Marca de timp pentru fișierele de log</span>: <span class="hlred">DEZLIGAT</span></li></ul></span>`,
+        dolphin: `Afișează notificările Retro Achievements pentru jocurile emulate prin Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Vizualizare > Afișează configurația logului</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Ieșiri din jurnal</span> > <span class="hlgreen">Scrie în fișier</span></li><li><span class="hllb">Tipuri de log</span> > <span class="hlgreen">Realizări (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Setează calea către fișierul de log <span class="hl">"retroarch.log"</span> al RetroArch<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"retroarch.log"</span> este stocat în <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Setează calea către fișierul de log <span class="hl">"dolphin.log"</span> al Dolphin<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"dolphin.log"</span> este stocat în una dintre următoarele locații:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

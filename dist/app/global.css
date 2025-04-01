@@ -35,11 +35,16 @@
     --darkgrey: #101010;
     --mediumgrey: #2b2b2b;
     --lightgrey: #3d3d3d;
+    --lightblue: #a3badb;
     --transition: 0.2s;
     --winbr: 0.75rem;
     --elembr: 0.35rem;
     --columns: repeat(2,1fr);
     --icon: url("../../img/sanlogotrophy.svg");
+    --raemu: "";
+    --rastatus: "";
+    --ragameid: "";
+    --ragamename: "";
     font-size: clamp(0.7rem,0.25rem + 1.5vmax,4vh);
 }
 
@@ -271,8 +276,14 @@ input[type="password"] {
     font-style: italic;
 }
 
+.ttdesc ul {
+    width: 100%;
+    text-align: start;
+}
+
 .ttdesc li {
     font-style: italic;
+    line-height: 1.5;
 }
 
 .ttdesc li::before {

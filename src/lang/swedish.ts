@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "i $gamename",
         notconnected: "Inte ansluten",
         raloghelp: "Mitt spel upptäcks inte",
-        raenablelog: `Aktivera emulatorloggfiler`,
+        raenablelog: `Emulatorloggfiler`,
         raenablelogsub: [
-            `För att få åtkomst till interna händelser för stödja emulatorer (såsom aktuell spelstatus, information om upplåsta prestationer osv.), måste <span class="hl">loggfiler</span> aktiveras i de valda emulatorerna.<br><br>Varje loggfil kommer att finnas i <span class="hl">Logs</span>-mappen i katalogen som anges för varje vald emulator.`,
-            `<span class="hl">RetroArch</span>: Gå till <i class="hllb">Inställningar > Loggning</i> och ställ in <i><span class="hllb">Loggningsdetaljrikedom</span>: <span class="hlgreen">PÅ</span>, <span class="hllb">Frontend Loggningsnivå</span>: <span class="hlgreen">1 (Info)</span></i> och <i><span class="hllb">Logga till fil</span>: <span class="hlgreen">PÅ</span></i>`,
-            `<span class="hl">Dolphin</span>: Gå till <i class="hllb">Visa > Visa loggkonfiguration</i> och ställ in <i><span class="hllb">Detaljrikedom</span>: <span class="hlgreen">Info</span>, <span class="hllb">Loggerutgångar</span> > <span class="hlgreen">Skriva till fil</span></i> och <i><span class="hllb">Loggtyper</span> > <span class="hlgreen">Prestationer (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Markera <i class="hllb">Verktyg > Aktivera filregistrering</i>`
+            `För att få tillgång till interna spelevent (som aktuell spelstatus, information om prestationer osv.), måste loggning till en extern <span class="hl">loggfil</span> <u>aktiveras</u> inom alla valda emulatorer.<br><br>Alla valda emulatorer <u>måste använda denna <span class="hl">loggfil</span></u> som värde för <span class="hl">Loggfilens sökväg</span>.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Inställningar > Loggning</span> måste konfigureras med följande inställningar:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Loggningsverbositet</span>: <span class="hlgreen">PÅ</span></li>
+                        <li><span class="hllb">Frontend Loggningsnivå</span>: <span class="hlgreen">1 (Info)</span></li>
+                        <li><span class="hllb">Logga till fil</span>: <span class="hlgreen">PÅ</span></li>
+                        <li><span class="hllb">Tidsstämpel för loggfiler</span>: <span class="hlred">AV</span></li>
+                    </ul>
+                    <br>
+                    Med standardinstallationen lagras <span class="hl">"retroarch.log"</span> i:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Visa > Visa loggkonfiguration</span> måste konfigureras med följande inställningar:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Logger Outputs</span> > <span class="hlgreen">Skriv till fil</span></li>
+                        <li><span class="hllb">Loggtyper</span> > <span class="hlgreen">Prestationer (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Med standardinstallationen lagras <span class="hl">"dolphin.log"</span> i en av följande platser:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API-nyckel",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Datapath",
+                installdir: "Loggfilens sökväg",
                 rapercenttype: "Procenttyp",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Ange installationsväg"
+                placeholder: "Ange loggfilens sökväg",
+                logfile: "Loggfil",
+                status: "Status",
+                game: "Spel",
+                wait: "Väntar på emulator",
+                idle: "Väntar på spelhändelse",
+                start: "Startar spelet",
+                stop: "Stoppar spelet",
+                achievement: "Uppnåelse upplåst"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Ställ in färgen som används i webhook-inbäddningen när en 100%-prestation låses upp",
         raemus: "Visa meddelanden när spel detekteras i stödda emulatorer",
         rauser: "Ställ in användarnamnet för Retro Achievements för att spåra prestationer",
-        rakey: `Ställ in Web API-nyckeln som används för autentisering mot Retro Achievements API<br><br><span class="ttdesc">En Web API-nyckel kan kopieras eller återgenereras genom att logga in på Retro Achievements-webbplatsen och navigera till Inställningar > Nycklar > Web API-nyckel<br><br>🔒 Den angivna nyckeln kommer att krypteras innan den lagras lokalt på systemet</span>`,
+        rakey: `Ställ in Web API-nyckeln som ska användas för autentisering till Retro Achievements API<br><br><span class="ttdesc">En Web API-nyckel kan kopieras eller genereras om genom att logga in på Retro Achievements-webbplatsen och gå till <span class="hl">Inställningar > Nycklar > Web API Key</span><br><br>🔒 Den angivna nyckeln kommer att krypteras innan den lagras lokalt på systemet</span>`,
         rapercenttype: "Ställ in om du vill visa Hardcore eller Softcore prestationers upplåsningsprocent i meddelandena",
-        retroarch: `Visa Retro Achievements-notifikationer för spel emulerade via RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Inställningar > Loggning</i> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Loggningsdetaljrikedom</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Frontend Loggningsnivå</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Logga till Fil</span>: <span class="hlgreen">PÅ</span></li></ul></span>`,  
-        dolphin: `Visa Retro Achievements-notifikationer för spel emulerade via Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Visa > Visa Logginställningar</i> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Detaljeringsnivå</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Loggutgångar</span> > <span class="hlgreen">Skriva till Fil</span></li><li><span class="hllb">Loggtyper</span> > <span class="hlgreen">Prestationer (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Visa Retro Achievements-notifikationer för spel emulerade via PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Verktyg > Aktivera Loggning till Fil</i> måste vara aktiverat</span>`,  
-        retroarchpath: `Ställ in sökvägen till mappen som innehåller "Logs"-katalogen för RetroArch<br><br><span class="ttdesc">RetroArch-data lagras i applikationens installationskatalog</span>`,  
-        dolphinpath: `Ställ in sökvägen till mappen som innehåller "Logs"-katalogen för Dolphin<br><br><span class="ttdesc">Dolphin-data lagras på en av följande platser:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `Ställ in sökvägen till mappen som innehåller "Logs"-katalogen för PCSX2<br><br><span class="ttdesc">PCSX2-data lagras i applikationens installationskatalog</span>`,
+        retroarch: `Visa Retro Achievements-notifikationer för spel som emuleras via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Inställningar > Loggning</span> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Loggningsverbositet</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Frontend Loggningsnivå</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Logga till fil</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Tidsstämpel för loggfiler</span>: <span class="hlred">AV</span></li></ul></span>`,
+        dolphin: `Visa Retro Achievements-notifikationer för spel som emuleras via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Visa > Visa loggkonfiguration</span> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logger Outputs</span> > <span class="hlgreen">Skriv till fil</span></li><li><span class="hllb">Loggtyper</span> > <span class="hlgreen">Prestationer (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Ange sökvägen till RetroArchs <span class="hl">"retroarch.log"</span> loggfil<br><br><span class="ttdesc">Med standardinstallationen lagras <span class="hl">"retroarch.log"</span> i <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Ange sökvägen till Dolphins <span class="hl">"dolphin.log"</span> loggfil<br><br><span class="ttdesc">Med standardinstallationen lagras <span class="hl">"dolphin.log"</span> i en av följande platser:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

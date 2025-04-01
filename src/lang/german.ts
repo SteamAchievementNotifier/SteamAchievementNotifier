@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "in $gamename",
         notconnected: "Nicht verbunden",
         raloghelp: "Mein Spiel wird nicht erkannt",
-        raenablelog: `Emulator-Protokolldateien aktivieren`,
+        raenablelog: `Emulator-Logdateien`,
         raenablelogsub: [
-            `Um auf interne Ereignisse unterstützter Emulatoren zuzugreifen (wie den aktuellen Spielstatus, Informationen zum Freischalten von Erfolgen usw.), müssen <span class="hl">Protokolldateien</span> innerhalb der ausgewählten Emulatoren aktiviert werden.<br><br>Jede Protokolldatei befindet sich im Ordner <span class="hl">Logs</span> im angegebenen Verzeichnis des jeweiligen Emulators.`,
-            `<span class="hl">RetroArch</span>: Gehe zu <i class="hllb">Einstellungen > Protokollierung</i> und setze <i><span class="hllb">Protokoll-Details</span>: <span class="hlgreen">AN</span>, <span class="hllb">Frontend-Protokollstufe</span>: <span class="hlgreen">1 (Info)</span></i> sowie <i><span class="hllb">Protokoll in Datei speichern</span>: <span class="hlgreen">AN</span></i>`,
-            `<span class="hl">Dolphin</span>: Gehe zu <i class="hllb">Ansicht > Protokollkonfiguration anzeigen</i> und setze <i><span class="hllb">Detailstufe</span>: <span class="hlgreen">Info</span>, <span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></i> sowie <i><span class="hllb">Protokollarten</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Aktiviere <i class="hllb">Werkzeuge > Datei-Protokollierung aktivieren</i>`
+            `Um auf interne Spielereignisse zuzugreifen (wie den aktuellen Spielstatus, Informationen zum Freischalten von Erfolgen usw.), muss das Protokollieren in eine externe <span class="hl">Protokolldatei</span> <u>aktiviert sein</u> in allen ausgewählten Emulatoren.<br><br>Jeder ausgewählte Emulator <u>muss diese <span class="hl">Protokolldatei</span></u> als Wert für den <span class="hl">Protokolldateipfad</span> verwenden.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li>
+                        <li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li>
+                        <li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li>
+                        <li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li>
+                    </ul>
+                    <br>
+                    Mit den Standardeinstellungen wird <span class="hl">"retroarch.log"</span> gespeichert in:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li>
+                        <li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Mit den Standardeinstellungen wird <span class="hl">"dolphin.log"</span> in einem der folgenden Verzeichnisse gespeichert:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API-Schlüssel",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Datenpfad",
+                installdir: "Pfad zur Log-Datei",
                 rapercenttype: "Prozent-Typ",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Installationspfad eingeben"
+                placeholder: "Geben Sie den Pfad zur Log-Datei ein",
+                logfile: "Protokolldatei",
+                status: "Status",
+                game: "Spiel",
+                wait: "Warten auf Emulator",
+                idle: "Warten auf Spielereignis",
+                start: "Spiel starten",
+                stop: "Spiel stoppen",
+                achievement: "Erfolg freigeschaltet"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Stellen Sie die Farbe ein, die in der Webhook-Einbettung verwendet wird, wenn ein 100%-Erfolg freigeschaltet wird",
         raemus: "Benachrichtigungen anzeigen, wenn Spiele in unterstützten Emulatoren erkannt werden",
         rauser: "Den Retro Achievements-Benutzernamen festlegen, um Erfolge zu verfolgen",
-        rakey: `Den Web-API-Schlüssel für die Authentifizierung bei der Retro Achievements API festlegen<br><br><span class="ttdesc">Ein Web-API-Schlüssel kann kopiert oder neu generiert werden, indem man sich auf der Retro Achievements-Website anmeldet und zu Einstellungen > Schlüssel > Web-API-Schlüssel navigiert<br><br>🔒 Der eingegebene Schlüssel wird verschlüsselt, bevor er lokal auf dem System gespeichert wird</span>`,
+        rakey: `Legen Sie den Web-API-Schlüssel fest, der für die Authentifizierung bei der Retro Achievements API verwendet werden soll<br><br><span class="ttdesc">Ein Web-API-Schlüssel kann kopiert oder neu generiert werden, indem Sie sich auf der Retro Achievements-Website anmelden und zu <span class="hl">Einstellungen > Schlüssel > Web API Key</span> gehen<br><br>🔒 Der bereitgestellte Schlüssel wird verschlüsselt, bevor er lokal im System gespeichert wird</span>`,
         rapercenttype: "Festlegen, ob in den Benachrichtigungen der Freischaltprozentsatz für Hardcore- oder Softcore-Erfolge angezeigt wird",
-        retroarch: `Retro Achievements-Benachrichtigungen für Spiele anzeigen, die über RetroArch emuliert werden<br><br><span class="ttdesc"><i class="hllb">RetroArch > Einstellungen > Protokollierung</i> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">In Datei protokollieren</span>: <span class="hlgreen">EIN</span></li></ul></span>`,  
-        dolphin: `Retro Achievements-Benachrichtigungen für Spiele anzeigen, die über Dolphin emuliert werden<br><br><span class="ttdesc"><i class="hllb">Dolphin > Ansicht > Protokollkonfiguration anzeigen</i> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Detailstufe</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li><li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Retro Achievements-Benachrichtigungen für Spiele anzeigen, die über PCSX2 emuliert werden<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Werkzeuge > Datei-Protokollierung aktivieren</i> muss aktiviert sein</span>`,  
-        retroarchpath: `Den Pfad zum Ordner festlegen, der das "Logs"-Verzeichnis für RetroArch enthält<br><br><span class="ttdesc">RetroArch-Daten werden im Installationsverzeichnis der Anwendung gespeichert</span>`,  
-        dolphinpath: `Den Pfad zum Ordner festlegen, der das "Logs"-Verzeichnis für Dolphin enthält<br><br><span class="ttdesc">Dolphin-Daten werden an einem der folgenden Orte gespeichert:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `Den Pfad zum Ordner festlegen, der das "Logs"-Verzeichnis für PCSX2 enthält<br><br><span class="ttdesc">PCSX2-Daten werden im Installationsverzeichnis der Anwendung gespeichert</span>`,  
+        retroarch: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über RetroArch emuliert werden<br><br><span class="ttdesc"><span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li></ul></span>`,
+        dolphin: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über Dolphin emuliert werden<br><br><span class="ttdesc"><span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li><li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Lege den Pfad zur Protokolldatei <span class="hl">"retroarch.log"</span> von RetroArch fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"retroarch.log"</span> gespeichert in <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Lege den Pfad zur Protokolldatei <span class="hl">"dolphin.log"</span> von Dolphin fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"dolphin.log"</span> in einem der folgenden Verzeichnisse gespeichert:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Update verfügbar",

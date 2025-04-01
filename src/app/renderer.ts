@@ -1057,4 +1057,11 @@ ipcRenderer.on("noexeclick",async () => {
     sanhelper.sethelpdialog(document.getElementById("linkgamehelp")!,"linkgamehelp")
 })
 
-ipcRenderer.on("ragame",(event,ragame?: RAGame) => (["raemu","ragameid"] as const).forEach(attr => ragame ? document.body.setAttribute(attr,`${ragame[attr.replace(/^ra/,"") as "emu" | "gameid"]}`) : document.body.removeAttribute(attr)))
+ipcRenderer.on("ragame",async (event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => {
+    (["emu","gamename","gameid"] as const).forEach(attr => {
+        ragame ? document.body.setAttribute(`ra${attr}`,`${ragame[attr]}`) : document.body.removeAttribute(`ra${attr}`)
+        document.body.style.setProperty(`--ra${attr}`,ragame ? `"${ragame[attr]}"` : "")
+    })
+
+    document.body.style.setProperty(`--rastatus`,`"${await language.get(status,["settings","ra","content"])}"`)
+})

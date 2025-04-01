@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "en $gamename",
         notconnected: "No conectado",
         raloghelp: "Mi juego no está siendo detectado",
-        raenablelog: `Habilitar archivos de registro del emulador`,
+        raenablelog: `Archivos de registro del emulador`,
         raenablelogsub: [
-            `Para acceder a los eventos internos de los emuladores compatibles (como el estado actual del juego, información sobre logros desbloqueados, etc.), los <span class="hl">archivos de registro</span> deben ser habilitados en los emuladores seleccionados.<br><br>Cada archivo de registro estará ubicado en la carpeta <span class="hl">Logs</span> dentro del directorio especificado para cada emulador seleccionado.`,
-            `<span class="hl">RetroArch</span>: Ve a <i class="hllb">Configuración > Registro</i> y establece <i><span class="hllb">Verbosidad del registro</span>: <span class="hlgreen">ENCENDIDO</span>, <span class="hllb">Nivel de registro del frontend</span>: <span class="hlgreen">1 (Info)</span></i> y <i><span class="hllb">Registrar en archivo</span>: <span class="hlgreen">ENCENDIDO</span></i>`,
-            `<span class="hl">Dolphin</span>: Ve a <i class="hllb">Ver > Mostrar configuración de registro</i> y establece <i><span class="hllb">Verbosidad</span>: <span class="hlgreen">Información</span>, <span class="hllb">Salidas del registrador</span> > <span class="hlgreen">Escribir en archivo</span></i> y <i><span class="hllb">Tipos de registro</span> > <span class="hlgreen">Logros (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Marca <i class="hllb">Herramientas > Habilitar registro en archivo</i>`
+            `Para acceder a los eventos internos del juego (como el estado actual del juego, la información de desbloqueo de logros, etc.), se debe habilitar el registro en un archivo <span class="hl">de registro</span> <u>debe estar habilitado</u> en cualquiera de los emuladores seleccionados.<br><br>Cualquiera de los emuladores seleccionados <u>debe usar este <span class="hl">archivo de registro</span></u> como el valor de la <span class="hl">Ruta del archivo de registro</span>.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Configuración > Registro</span> debe configurarse con los siguientes ajustes:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Verbosity del registro</span>: <span class="hlgreen">ON</span></li>
+                        <li><span class="hllb">Nivel de registro del frontend</span>: <span class="hlgreen">1 (Info)</span></li>
+                        <li><span class="hllb">Registrar en archivo</span>: <span class="hlgreen">ON</span></li>
+                        <li><span class="hllb">Registrar archivos con marca de tiempo</span>: <span class="hlred">OFF</span></li>
+                    </ul>
+                    <br>
+                    Usando la configuración de instalación predeterminada, <span class="hl">"retroarch.log"</span> se guarda en:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Ver > Mostrar configuración de registro</span> debe configurarse con los siguientes ajustes:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Salidas del registrador</span> > <span class="hlgreen">Escribir en archivo</span></li>
+                        <li><span class="hllb">Tipos de registro</span> > <span class="hlgreen">Logros (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Usando la configuración de instalación predeterminada, <span class="hl">"dolphin.log"</span> se guarda en una de las siguientes ubicaciones:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "Clave API",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Ruta de datos",
+                installdir: "Ruta del archivo de registro",
                 rapercenttype: "Tipo de porcentaje",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Ingresa la ruta de instalación"
+                placeholder: "Ingrese la ruta del archivo de registro",
+                logfile: "Archivo de registro",
+                status: "Estado",
+                game: "Juego",
+                wait: "Esperando el emulador",
+                idle: "Esperando el evento del juego",
+                start: "Iniciando el juego",
+                stop: "Deteniendo el juego",
+                achievement: "Logro desbloqueado"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Establecer el color utilizado en la incrustación del webhook cuando se desbloquea un logro del 100%",
         raemus: "Mostrar notificaciones cuando se detecten juegos en emuladores compatibles",
         rauser: "Configurar el nombre de usuario de Retro Achievements para hacer un seguimiento de los logros",
-        rakey: `Configurar la clave Web API para la autenticación en la API de Retro Achievements<br><br><span class="ttdesc">Una clave Web API puede ser copiada o regenerada al iniciar sesión en el sitio web de Retro Achievements y navegar a Configuración > Claves > Clave Web API<br><br>🔒 La clave proporcionada será cifrada antes de ser almacenada localmente en el sistema</span>`,
+        rakey: `Configura la clave de la API Web que se utilizará para la autenticación en la API de Retro Achievements<br><br><span class="ttdesc">Se puede copiar o regenerar una clave de API Web iniciando sesión en el sitio web de Retro Achievements y navegando a <span class="hl">Configuración > Claves > Web API Key</span><br><br>🔒 La clave proporcionada se cifrará antes de ser almacenada localmente en el sistema</span>`,
         rapercenttype: "Configurar si deseas mostrar los porcentajes de desbloqueo de logros Hardcore o Softcore en las notificaciones",
-        retroarch: `Mostrar notificaciones de Retro Achievements para juegos emulados a través de RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Configuración > Registro</i> debe configurarse con los siguientes ajustes:<br><br><ul><li><span class="hllb">Verbosity del Registro</span>: <span class="hlgreen">ACTIVADO</span></li><li><span class="hllb">Nivel de Registro del Frontend</span>: <span class="hlgreen">1 (Información)</span></li><li><span class="hllb">Registrar en Archivo</span>: <span class="hlgreen">ACTIVADO</span></li></ul></span>`,  
-        dolphin: `Mostrar notificaciones de Retro Achievements para juegos emulados a través de Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Ver > Mostrar Configuración de Registro</i> debe configurarse con los siguientes ajustes:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Información</span></li><li><span class="hllb">Salidas del Registro</span> > <span class="hlgreen">Escribir en Archivo</span></li><li><span class="hllb">Tipos de Registro</span> > <span class="hlgreen">Logros (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Mostrar notificaciones de Retro Achievements para juegos emulados a través de PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Herramientas > Habilitar Registro en Archivo</i> debe estar habilitado</span>`,  
-        retroarchpath: `Establecer la ruta de la carpeta que contiene el directorio "Logs" para RetroArch<br><br><span class="ttdesc">Los datos de RetroArch se almacenan en el directorio de instalación de la aplicación</span>`,  
-        dolphinpath: `Establecer la ruta de la carpeta que contiene el directorio "Logs" para Dolphin<br><br><span class="ttdesc">Los datos de Dolphin se almacenan en una de las siguientes ubicaciones:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `Establecer la ruta de la carpeta que contiene el directorio "Logs" para PCSX2<br><br><span class="ttdesc">Los datos de PCSX2 se almacenan en el directorio de instalación de la aplicación</span>`,
+        retroarch: `Mostrar notificaciones de Retro Achievements para los juegos emulados a través de RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Configuración > Registro</span> debe configurarse con los siguientes ajustes:<br><br><ul><li><span class="hllb">Verbosity del registro</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Nivel de registro del frontend</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Registrar en archivo</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Registrar archivos con marca de tiempo</span>: <span class="hlred">OFF</span></li></ul></span>`,
+        dolphin: `Mostrar notificaciones de Retro Achievements para los juegos emulados a través de Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Ver > Mostrar configuración de registro</span> debe configurarse con los siguientes ajustes:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Salidas del registrador</span> > <span class="hlgreen">Escribir en archivo</span></li><li><span class="hllb">Tipos de registro</span> > <span class="hlgreen">Logros (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Establecer la ruta al archivo de registro <span class="hl">"retroarch.log"</span> de RetroArch<br><br><span class="ttdesc">Usando la configuración de instalación predeterminada, <span class="hl">"retroarch.log"</span> se guarda en <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Establecer la ruta al archivo de registro <span class="hl">"dolphin.log"</span> de Dolphin<br><br><span class="ttdesc">Usando la configuración de instalación predeterminada, <span class="hl">"dolphin.log"</span> se guarda en una de las siguientes ubicaciones:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Actualización disponible",

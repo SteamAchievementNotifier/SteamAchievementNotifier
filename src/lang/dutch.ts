@@ -83,12 +83,48 @@ export const translations = {
         webhookingame: "in $gamename",
         notconnected: "Niet verbonden",
         raloghelp: "Mijn spel wordt niet gedetecteerd",
-        raenablelog: `Schakel emulator logbestanden in`,
+        raenablelog: `Emulator logbestanden`,
         raenablelogsub: [
-            `Om toegang te krijgen tot interne gebeurtenissen van ondersteunde emulators (zoals de huidige spelstatus, informatie over behaalde achievements, etc.), moeten <span class="hl">logbestanden</span> worden ingeschakeld in de geselecteerde emulators.<br><br>Elk logbestand wordt opgeslagen in de map <span class="hl">Logs</span> binnen de opgegeven directory van elke emulator.`,
-            `<span class="hl">RetroArch</span>: Ga naar <i class="hllb">Instellingen > Loggen</i> en stel in: <i><span class="hllb">Logging Details</span>: <span class="hlgreen">AAN</span>, <span class="hllb">Frontend Logging Niveau</span>: <span class="hlgreen">1 (Info)</span></i> en <i><span class="hllb">Log naar Bestand</span>: <span class="hlgreen">AAN</span></i>`,
-            `<span class="hl">Dolphin</span>: Ga naar <i class="hllb">Weergave > Toon Log Configuratie</i> en stel in: <i><span class="hllb">Details</span>: <span class="hlgreen">Info</span>, <span class="hllb">Logger Uitgangen</span> > <span class="hlgreen">Schrijf naar Bestand</span></i> en <i><span class="hllb">Logtypen</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></i>`,
-            `<span class="hl">PCSX2</span>: Vink aan: <i class="hllb">Hulpmiddelen > Bestand Loggen Inschakelen</i>`
+            `Om toegang te krijgen tot interne game-evenementen (zoals de huidige gamestatus, informatie over vrijgespeelde prestaties, enz.), moet het loggen naar een extern <span class="hl">logbestand</span> <u>ingeschakeld zijn</u> in alle geselecteerde emulators.<br><br>Alle geselecteerde emulators <u>moeten dit <span class="hl">logbestand</span></u> gebruiken als de waarde voor <span class="hl">Logbestandspad</span>.`,
+            `<details>
+                <summary id="retroarch">RetroArch</summary>
+                <div>
+                    <span class="hl">RetroArch > Instellingen > Loggen</span> moet worden geconfigureerd met de volgende instellingen:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Logdetails</span>: <span class="hlgreen">AAN</span></li>
+                        <li><span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></li>
+                        <li><span class="hllb">Log naar bestand</span>: <span class="hlgreen">AAN</span></li>
+                        <li><span class="hllb">Tijdstempels in logbestanden</span>: <span class="hlred">UIT</span></li>
+                    </ul>
+                    <br>
+                    Bij standaardinstallatie wordt <span class="hl">"retroarch.log"</span> opgeslagen in:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">Dolphin</summary>
+                <div>
+                    <span class="hl">Dolphin > Beeld > Toon logconfiguratie</span> moet worden geconfigureerd met de volgende instellingen:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Details</span>: <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Loguitgangen</span> > <span class="hlgreen">Schrijf naar bestand</span></li>
+                        <li><span class="hllb">Logtypes</span> > <span class="hlgreen">Prestaties (RetroAchievements)</span></li>
+                    </ul>
+                    <br>
+                    Bij standaardinstallatie wordt <span class="hl">"dolphin.log"</span> opgeslagen op een van de volgende locaties:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
+                        <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`
         ]
     },
     app: {
@@ -218,13 +254,19 @@ export const translations = {
                 rakey: "API Sleutel",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2",
-                ppspp: "PPSPP",
-                installdir: "Gegevenspad",
+                installdir: "Pad naar logbestand",
                 rapercenttype: "Percentage Type",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Voer het installatiepad in"
+                placeholder: "Voer pad naar logbestand in",
+                logfile: "Logbestand",
+                status: "Status",
+                game: "Spel",
+                wait: "Wachten op emulator",
+                idle: "Wachten op game-evenement",
+                start: "Spel starten",
+                stop: "Spel stoppen",
+                achievement: "Prestatie ontgrendeld"
             }
         },
         misc: {
@@ -624,14 +666,12 @@ export const translations = {
         webhookembedcolorplat: "Stel de kleur in die wordt gebruikt in de webhook-embed bij het ontgrendelen van een 100% prestatie",
         raemus: "Meldingen weergeven wanneer spellen worden gedetecteerd in ondersteunde emulators",
         rauser: "Stel de Retro Achievements-gebruikersnaam in om achievements bij te houden",
-        rakey: `Stel de Web API Sleutel in voor authenticatie met de Retro Achievements API<br><br><span class="ttdesc">Een Web API Sleutel kan worden gekopieerd of opnieuw gegenereerd door in te loggen op de Retro Achievements-website en te navigeren naar Instellingen > Sleutels > Web API Sleutel<br><br>🔒 De ingevoerde sleutel wordt versleuteld voordat deze lokaal op het systeem wordt opgeslagen</span>`,
+        rakey: `Stel de Web API-sleutel in die gebruikt moet worden voor authenticatie bij de Retro Achievements API<br><br><span class="ttdesc">Een Web API-sleutel kan worden gekopieerd of opnieuw gegenereerd door in te loggen op de Retro Achievements-website en naar <span class="hl">Instellingen > Sleutels > Web API Key</span> te gaan<br><br>🔒 De opgegeven sleutel wordt versleuteld voordat deze lokaal op het systeem wordt opgeslagen</span>`,
         rapercenttype: "Stel in of het percentage ontgrendelde Hardcore- of Softcore-achievements wordt weergegeven in meldingen",
-        retroarch: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via RetroArch<br><br><span class="ttdesc"><i class="hllb">RetroArch > Instellingen > Logboekregistratie</i> moet geconfigureerd worden met de volgende instellingen:<br><br><ul><li><span class="hllb">Details logboekregistratie</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log naar bestand</span>: <span class="hlgreen">AAN</span></li></ul></span>`,  
-        dolphin: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via Dolphin<br><br><span class="ttdesc"><i class="hllb">Dolphin > Weergave > Toon logconfiguratie</i> moet geconfigureerd worden met de volgende instellingen:<br><br><ul><li><span class="hllb">Detailniveau</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Log-uitvoer</span> > <span class="hlgreen">Schrijven naar bestand</span></li><li><span class="hllb">Logtypen</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,  
-        pcsx2: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via PCSX2<br><br><span class="ttdesc"><i class="hllb">PCSX2 > Hulpmiddelen > Bestand-logboekregistratie inschakelen</i> moet ingeschakeld zijn</span>`,  
-        retroarchpath: `Stel het pad in naar de map die de "Logs"-map voor RetroArch bevat<br><br><span class="ttdesc">RetroArch-gegevens worden opgeslagen in de installatiemap van de applicatie</span>`,  
-        dolphinpath: `Stel het pad in naar de map die de "Logs"-map voor Dolphin bevat<br><br><span class="ttdesc">Dolphin-gegevens worden opgeslagen op een van de volgende locaties:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu</span></li></ul></span>`,  
-        pcsx2path: `Stel het pad in naar de map die de "Logs"-map voor PCSX2 bevat<br><br><span class="ttdesc">PCSX2-gegevens worden opgeslagen in de installatiemap van de applicatie</span>`,  
+        retroarch: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Instellingen > Loggen</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Logdetails</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log naar bestand</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Tijdstempels in logbestanden</span>: <span class="hlred">UIT</span></li></ul></span>`,
+        dolphin: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Beeld > Toon logconfiguratie</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Details</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Loguitgangen</span> > <span class="hlgreen">Schrijf naar bestand</span></li><li><span class="hllb">Logtypes</span> > <span class="hlgreen">Prestaties (RetroAchievements)</span></li></ul></span>`,
+        retroarchpath: `Stel het pad in naar het <span class="hl">"retroarch.log"</span> logbestand van RetroArch<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"retroarch.log"</span> opgeslagen in <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        dolphinpath: `Stel het pad in naar het <span class="hl">"dolphin.log"</span> logbestand van Dolphin<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"dolphin.log"</span> opgeslagen op een van de volgende locaties:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

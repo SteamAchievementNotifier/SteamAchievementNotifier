@@ -501,15 +501,19 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             "ps5"
         ]
 
-        document.querySelectorAll(".opt.sub:has(> #unlockmsgfontsize), .opt.sub:has(> #titlefontsize), .opt.sub:has(> #descfontsize)").forEach(async opt => {
+        document.querySelectorAll(".customopt:has(> #unlockmsgfontsize), .customopt:has(> #titlefontsize), .customopt:has(> #descfontsize)").forEach(async opt => {
             const { elems, preset } = config.store.customisation[type]
             const elem = opt.querySelector("input") as HTMLInputElement
             const elemid = elem.id.replace(/fontsize$/,"") as "unlockmsg" | "title" | "desc"
             
             if (elems) {
                 const twolinepreset = elems.length <= 2 ? (unlockmsgtitlepresets.includes(preset) ? ["unlockmsg","title"] : titledescpresets.includes(preset) ? ["title","desc"] : null) : null
-                const targetelem = document.querySelector(`.opt.sub:has(input#${twolinepreset ? (elems[0] === elemid ? twolinepreset[0] : twolinepreset[1]) : elemid}fontsize)`)!
+                const twolinepresettype = twolinepreset ? ["unlockmsg","title"].every(id => twolinepreset.includes(id)) ? "unlockmsg" : "title" : null
+                const targetelem = document.querySelector(`.customopt:has(input#${twolinepreset ? (elems[0] === elemid ? twolinepreset[0] : twolinepreset[1]) : elemid}fontsize)`)!
                 const inuse = elems.includes(elemid)
+
+                const fontcolor = document.querySelector(`.customopt:has(input[type="color"]#${elem.id.replace(/size$/,"color")}) > input`)!
+                let nocolor = ![...unlockmsgtitlepresets,...titledescpresets].includes(preset) && elems.length <= 2 && (elems.length > 1 ? fontcolor.id.startsWith("desc") : !fontcolor.id.startsWith("unlockmsg"))
 
                 if (twolinepreset) {
                     const targetelemid = targetelem.querySelector("input")!.id // Gets the id of the actual element that will be displayed in the notification
@@ -524,9 +528,12 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
                         config.set(`customisation.${type}.${targetelemid}`,parseInt((event.target as HTMLInputElement).value))
                         sanhelper.updatetabs()
                     }
+
+                    nocolor = (elems.length < 2 && ((twolinepresettype === "unlockmsg" && !fontcolor.id.startsWith("unlockmsg")) || (twolinepresettype === "title" && !fontcolor.id.startsWith("title")))) || (twolinepresettype === "unlockmsg" && fontcolor.id.startsWith("desc")) || (twolinepresettype === "title" && fontcolor.id.startsWith("unlockmsg"))
                 }
 
                 opt.toggleAttribute("soon",!inuse)
+                fontcolor.parentElement!.toggleAttribute("soon",nocolor)
             }
         })
 

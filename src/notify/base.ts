@@ -206,7 +206,10 @@ const notifyhelper = {
                 ["--decorationscale",`${customisation.decorationscale / 100}`],
                 ["--unlockmsgfontsize",`${(customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100}`],
                 ["--titlefontsize",`${(customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100}`],
-                ["--descfontsize",`${(customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100}`]
+                ["--descfontsize",`${(customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100}`],
+                ["--unlockmsgfontcolor",`${customisation.usecustomfontcolors ? customisation.unlockmsgfontcolor : customisation.fontcolor}`],
+                ["--titlefontcolor",`${customisation.usecustomfontcolors ? customisation.titlefontcolor : customisation.fontcolor}`],
+                ["--descfontcolor",`${customisation.usecustomfontcolors ? customisation.descfontcolor : customisation.fontcolor}`]
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")

@@ -7,7 +7,7 @@
 <div align="center">
 <img src="https://img.shields.io/github/v/release/steamachievementnotifier/steamachievementnotifier?sort=date&display_name=tag&logo=github&label=Version">
 <!-- <img src="https://img.shields.io/github/downloads/steamachievementnotifier/steamachievementnotifier/total?logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAw0lEQVRYhe3TSQ6EIBCFYe7BNRxu5pbTcDRdmegN%2Ft4YWprBoYxJJ%2FVWLOB9CRTGaDSvhi0KKKCAAgpcLh1oSgANg7TeAQttDqBlAZy0ni%2BxB7Z6REQAYKHbA3Sh%2FgqQPuKOWOnDumfN1R8OQW5DRKQrd3T%2BEIiI37gz509sKBDJ3d8GskTmaQVAQmQnRwRERGEwhUAginMvBozB1b7VA0A9CvwDMPJExjLgHwF8GbDM4voZW7tFi2e6XT7hq%2FUaza18AN4mbZC0hY1XAAAAAElFTkSuQmCC&label=Downloads&link=https%3A%2F%2Fgithub.com%2FSteamAchievementNotifier%2FSteamAchievementNotifier%2Freleases"> -->
-<img src="https://img.shields.io/discord/903745038826229762?logo=discord&logoColor=ffffff&label=Discord&color=5561f5&link=https%3A%2F%2Fdiscord.gg%2FFxCFtpd3eu">
+<img src="https://img.shields.io/discord/903745038826229762?logo=discord&logoColor=%23ffffff&label=Discord&color=%235561f5&link=https%3A%2F%2Fdiscord.com%2Finvite%2FFxCFtpd3eu">
 <img src="https://img.shields.io/static/v1?message=Donate!&logo=kofi&labelColor=5c5c5c&color=yellow&logoColor=white&label=Ko-Fi">
 </div>
 
@@ -67,6 +67,10 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 > ⚠ \**Some translated achievement information will only be locally available after unlocking the achievement. The **Max Translation Retries** option controls how many times a missing translation will be searched for (repeated once per second) before using the default achievement information provided by Steamworks instead*
 
 - 📡 **Auto Updater**: Using [electron-builder's autoUpdater](https://www.electron.build/auto-update.html), users will now be notified if a new update is available - if so, downloading/installation of the new version will all be handled automatically by the app!
+
+- 🕹 **Retro Achievements Support**: Starting from **V1.9.26**, display customised notifications for **Retro Achievements** earned in supported emulators\*! Most existing in-app functionality available for Steam achievements - such as Screenshots/Notification Images/Game Art etc. - is also available for **Retro Achievements** notifications!
+
+> ℹ \**For information on currently supported/incompatible emulators, prerequisites and setup, see the [Retro Achievements](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/blob/master/RA.md) section*
 
 <h2 align="center" id="updates">Updates</h2>
 

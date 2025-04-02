@@ -82,9 +82,9 @@ body[plat] #customisercontent .wrapper:has(> .img#hiddenicon),
 .opt:has(input#usecustomimgicon:not(:checked)) + .opt:has(.img#customimgicon),
 .optcont:has(input#usegameicon:checked) > .opt:has(input#usecustomimgicon),
 .optcont:has(input#usecustomimgicon:checked) > .opt:has(input#usegameicon),
-.opt:has(input#usecustomfontsizes:not(:checked)) > .opt.sub:has(input#unlockmsgfontsize),
-.opt:has(input#usecustomfontsizes:not(:checked)) > .opt.sub:has(input#titlefontsize),
-.opt:has(input#usecustomfontsizes:not(:checked)) > .opt.sub:has(input#descfontsize) {
+.opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="unlockmsg"]),
+.opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="title"]),
+.opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="desc"]) {
     display: none;
 }
 

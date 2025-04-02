@@ -51,6 +51,9 @@
     --badgefontcolor: #ffffff;
     --badgesize: 1rem;
     --badgeroundness: 5px;
+    --unlockmsgfontcolor: #ffffff;
+    --titlefontcolor: #ffffff;
+    --descfontcolor: #ffffff;
     --ssimg: url("../img/santextlogobg.png");
     font-size: clamp(0.05rem,0.05rem + 3vmax,12.5rem);
     line-height: 1;
@@ -317,14 +320,17 @@ body[nodecoration] .wrapper#achcontent > span {
 
 #achcontent > #unlockmsg {
     font-size: calc(1rem * var(--unlockmsgfontsize));
+    color: var(--unlockmsgfontcolor);
 }
 
 #achcontent > #title {
     font-size: calc(1rem * var(--titlefontsize));
+    color: var(--titlefontcolor);
 }
 
 #achcontent > #desc {
     font-size: calc(1rem * var(--descfontsize));
+    color: var(--descfontcolor);
 }
 
 #hiddenicon {

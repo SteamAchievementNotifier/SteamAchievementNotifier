@@ -209,7 +209,12 @@ const notifyhelper = {
                 ["--descfontsize",`${(customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100}`],
                 ["--unlockmsgfontcolor",`${customisation.usecustomfontcolors ? customisation.unlockmsgfontcolor : customisation.fontcolor}`],
                 ["--titlefontcolor",`${customisation.usecustomfontcolors ? customisation.titlefontcolor : customisation.fontcolor}`],
-                ["--descfontcolor",`${customisation.usecustomfontcolors ? customisation.descfontcolor : customisation.fontcolor}`]
+                ["--descfontcolor",`${customisation.usecustomfontcolors ? customisation.descfontcolor : customisation.fontcolor}`],
+                ["--iconborder",customisation.showiconborder ? `url('${customisation.iconborderimg}')` : ""],
+                ["--iconborderpos",`${customisation.iconborderpos === "back" ? -1 : 100}`],
+                ["--iconborderscale",`${customisation.iconborderscale / 100}`],
+                ["--iconborderx",`${customisation.iconborderx}`],
+                ["--iconbordery",`${customisation.iconbordery}`],
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")

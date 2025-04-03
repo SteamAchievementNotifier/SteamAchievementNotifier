@@ -278,11 +278,11 @@ export const sanconfig = {
                 raemus: [],
                 retroarchpath: "",
                 dolphinpath: "",
-                pcsx2path: "",
-                ppspppath: "",
                 rauser: "",
                 rakey: "",
                 rapercenttype: "hard",
+                exportachdata: false,
+                colorprofile: "none",
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,
@@ -420,6 +420,12 @@ export const sanconfig = {
                 iconanimcolor: "#ffb84e",
                 logoscale: 100,
                 decorationscale: 100,
+                showiconborder: false,
+                iconborderimg: sanhelper.setfilepath("img","saniconborder.png"),
+                iconborderpos: "front",
+                iconborderscale: 100,
+                iconborderx: 0,
+                iconbordery: 0,
                 usertheme: [] as UserTheme[]
             }
 

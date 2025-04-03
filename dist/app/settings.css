@@ -628,7 +628,6 @@ input[type="checkbox"][id^="webhook"] {
 
 .multiselect#raemuswrapper .wrapper:has(> input#retroarch) > span::before {
     --trophy: url("../../img/ra/retroarch.png");
-    filter: invert();
 }
 
 .multiselect#raemuswrapper .wrapper:has(> input#dolphin) > span::before {
@@ -735,6 +734,10 @@ span#raloghelp {
 
 .hlred {
     color: firebrick;
+}
+
+.opt:has(> select#colorprofile) {
+    margin-bottom: 0.5rem;
 }
 
 @media (orientation: portrait) {

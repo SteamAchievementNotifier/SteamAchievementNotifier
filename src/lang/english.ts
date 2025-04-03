@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Debug Panel",
                 userust: "Alt. Process Mode",
                 notifydebug: "Show Notification DevTools",
+                exportachdata: "Export Achievement Data",
                 usecustomfiles: "Use Custom App Files",
                 showcustomfiles: "Show Custom App Files"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Misc",
             content: {
+                colorprofile: "Color Profile",
                 checkforupdates: "Check For Updates",
                 log: "App Log",
                 reset: "Reset App"
@@ -377,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Icon Scale",
                 iconroundness: "Icon Roundness",
+                showiconborder: "Show Icon Border",
+                iconborderimg: "Icon Border",
+                iconborderpos: "Border Position",
+                iconborderscale: "Border Scale",
+                iconborderx: "Horizontal Offset",
+                iconbordery: "Vertical Offset",
+                front: "Front",
+                back: "Back",
                 plat: "100% Logo",
                 usegameicon: "Use Game Icon",
                 gameicontype: "Game Icon Type",
@@ -512,6 +522,7 @@ export const translations = {
         noupdatedialog: `Prevent the <span class="hl">Update Available</span> dialog from showing and focusing automatically<br><br><span class="ttdesc">The dialog can still be accessed by clicking the update button when available</span>`,
         nvda: "Enable copying achievement information to the clipboard when an achievement is unlocked, in order to be read by screen-reader software, such as NVDA",
         tooltips: "Display tooltips when hovering over certain UI elements",
+        colorprofile: `Force all app windows to render using the selected color profile<br><br><span class="ttdesc">Requires app restart</span>`,
         pollrate: `Set the update interval for achievement data during gameplay<br><br><span class="ttdesc">Performance may increase/decrease depending on the value or system hardware. Higher values typically result in lower system load, but may cause notifications to be more delayed</span>`,
         initdelay: `Set the delay between detection of the current <span class="hl">AppID</span> and when process/achievement tracking starts<br><br><span class="ttdesc">Increasing this value can prevent scenarios where Steam is unable to launch the current game (due to the app initialising Steamworks before the game has launched)</span><br><br><span class="ttdesc">Alternatively, increasing this value can also be used to bypass incorrect detection of pre-game launcher processes</span>`,
         releasedelay: `Set how long the background Worker process waits to restart after the current game has been released. Affects both automatic process tracking and manually linked games<br><br><span class="ttdesc">Allows a longer timeframe for Steamworks to be fully released from the app. Increasing this value can prevent unusual behaviour, such as tracking a previously closed game</span>`,
@@ -657,6 +668,12 @@ export const translations = {
         statwinshortcut: "Toggle the Achievement Stats Overlay using the specified keyboard shortcut",
         ssdisplay: "Display a preview of the captured screenshot within the notification",
         iconscale: "Increase or decrease the size of the achievement icon",
+        showiconborder: "Display an image as a border around the achievement icon",
+        iconborderimg: "Load an image file for use as a border around the achievement icon",
+        iconborderpos: "Set whether to display the icon border image in front or behind the achievement icon",
+        iconborderscale: "Increase or decrease the size of the icon border within the notification",
+        iconborderx: "Increase or decrease the horizontal offset of the icon border within the notification",
+        iconbordery: "Increase or decrease the vertical offset of the icon border within the notification",
         iconshadowcolor: "Set the color of the shadow effect surrounding the achievement icon when unlocking a Rare achievement",
         iconanimcolor: "Set the color of the animation effect behind the achievement icon when unlocking a Rare achievement",
         logoscale: "Increase or decrease the size of the Logo element within the notification",

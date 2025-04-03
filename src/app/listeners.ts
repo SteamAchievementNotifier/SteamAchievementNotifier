@@ -875,6 +875,22 @@ export const listeners = {
                 return
             }
 
+            if (!notify.istestnotification && config.get("exportachdata")) {
+                const achdata = path.join(sanhelper.appdata,"achdata.json")
+
+                try {
+                    const notifycopy = { ...notify }
+                    
+                    delete (notifycopy as any).customisation
+                    notifycopy.gameicon = !notify.ra ? path.join(sanhelper.temp,"gameicon.png").replace(/\\/g,"/") : notify.gameicon
+
+                    fs.writeFileSync(achdata,JSON.stringify(notifycopy,null,4))
+                    log.write("INFO",`Exported achievement data for "${notify.name}" to "${achdata}"`)
+                } catch (err) {
+                    log.write("ERROR",`Unable to export achievement data for "${notify.name}": ${err}`)
+                }
+            }
+
             const { syncedtheme } = (await import("./usertheme")).usertheme
             notify.customisation = syncedtheme(config,notify.customisation)
 

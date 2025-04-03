@@ -114,11 +114,11 @@ declare interface Config {
     raemus: string[],
     retroarchpath: string,
     dolphinpath: string,
-    pcsx2path: string,
-    // ppspppath: string,
     rauser: string,
     rakey: string,
     rapercenttype: "soft" | "hard",
+    exportachdata: boolean,
+    colorprofile: "none" | "srgb" | "display-p3-d65" | "color-spin-gamma24" | "scrgb-linear" | "hdr10",
     customisation: {
         main: Customisation,
         rare: Customisation,
@@ -249,6 +249,12 @@ declare interface Customisation {
     iconanimcolor: string,
     logoscale: number,
     decorationscale: number,
+    showiconborder: boolean,
+    iconborderimg: string,
+    iconborderpos: "front" | "back",
+    iconborderscale: number,
+    iconborderx: number,
+    iconbordery: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }
@@ -297,8 +303,8 @@ declare interface Notify extends Achievement {
     steam3id: number,
     gameicon: string | null,
     istestnotification?: boolean,
-    libhero?: string,
-    ra?: boolean
+    ra?: boolean,
+    libhero?: string
 }
 
 declare interface StatsObj {

@@ -14,6 +14,8 @@ import { log } from "./log"
 import { error } from "./error"
 import { main } from "./main"
 
+sanconfig.get().store.colorprofile !== "none" && app.commandLine.appendSwitch("force-color-profile",sanconfig.get().store.colorprofile)
+
 if (app.commandLine.hasSwitch("clean")) {
     try {
         fs.existsSync(sanhelper.appdata) && fs.rmSync(path.join(sanhelper.appdata), { recursive: true, force: true })

@@ -44,7 +44,8 @@ export const language = {
 
                     const selectignore = [
                         "lang",
-                        "monitors"
+                        "monitors",
+                        "colorprofile"
                     ].map(select => `#${select}`).join(",")
 
                     const posselect = [

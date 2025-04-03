@@ -90,7 +90,8 @@ body[bgonly] .wrapper#bg {
     isolation: isolate;
 }
 
-body:not([fastanim]) .wrapper#achiconwrapper {
+body:not([fastanim]) .wrapper#achiconwrapper,
+#iconborder {
     animation: scaledown calc(var(--transition) * 2) calc(var(--displaytime) - calc(var(--transition) * 8)) cubic-bezier(1, 0, 1, 1) forwards;
 }
 
@@ -124,17 +125,22 @@ body[bgonly] #iconbg {
     to { scale: 1; }
 }
 
-#achicon {
+#achicon,
+#iconborder {
     --finish: fadeout var(--transition) calc(var(--displaytime) - (var(--transition) * 10.5)) forwards;
     --elemopacity: 1;
     opacity: 0;
-    z-index: 1;
     animation:
         fadein var(--transition) calc(var(--transition) * 5) forwards,
         var(--finish);
 }
 
-body[fastanim] #achicon {
+#achicon {
+    z-index: 1;
+}
+
+body[fastanim] #achicon,
+body[fastanim] #iconborder {
     --finish: none;
 }
 

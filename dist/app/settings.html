@@ -324,6 +324,10 @@
                 </div>
                 <div class="wrapper opt">
                     <span></span>
+                    <input type="checkbox" id="exportachdata">
+                </div>
+                <div class="wrapper opt">
+                    <span></span>
                     <input type="checkbox" id="usecustomfiles">
                 </div>
                 <button class="wrapper" id="showcustomfiles"></button>
@@ -367,6 +371,17 @@
         <div class="wrapper cont">
             <span class="wrapper title" id="misc"></span>
             <div class="wrapper optcont">
+                <div class="wrapper opt" star>
+                    <span class="lbl"></span>
+                    <select name="colorprofile" id="colorprofile">
+                        <option value="none">None</option>
+                        <option value="srgb">sRGB</option>
+                        <option value="display-p3-d65">Display P3 D65</option>
+                        <option value="color-spin-gamma24">Color spin</option>
+                        <option value="scrgb-linear">scRGB linear</option>
+                        <option value="hdr10">HDR10</option>
+                    </select>
+                </div>
                 <button class="wrapper" id="resetwindow" systray></button>
                 <button class="wrapper" id="releasegame" systray></button>
                 <button class="wrapper" id="suspendresume" systray></button>

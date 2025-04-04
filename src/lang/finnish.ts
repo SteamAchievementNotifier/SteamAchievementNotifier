@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Vianetsintäpaneeli",
                 userust: "Vaihtoehtoinen käsittelytila",
                 notifydebug: "Näytä Ilmoitus Vianmäärityksestä",
+                exportachdata: "Vie saavutustiedot",
                 usecustomfiles: "Käytä Mukautettuja Sovellustiedostoja",
                 showcustomfiles: "Näytä Mukautetut Sovellustiedostot"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Sekalaiset",
             content: {
+                colorprofile: "Väritila",
                 checkforupdates: "Tarkista Päivitykset",
                 log: "Sovelluslokimerkintä",
                 reset: "Nollaa sovellus"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Harvinaisen kuvakkeen varjon väri",
                 iconanimcolor: "Harvinaisen kuvakkeen animaation väri",
                 fontcolor: "Fontin Väri",
+                usecustomfontcolors: "Käytä mukautettuja fonttivärejä",
+                unlockmsgfontcolor: "Väri 1",
+                titlefontcolor: "Väri 2",
+                descfontcolor: "Väri 3",
                 fontoutline: "Fontin Reunaviiva",
                 fontoutlinecolor: "Reunaviivan Väri",
                 fontshadow: "Fontin Varjo",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Kuvakkeen skaalaus",
                 iconroundness: "Kuvakkeen Pyöristys",
+                showiconborder: "Näytä kuvakeraja",
+                iconborderimg: "Kuvakeraja",
+                iconborderpos: "Reunan sijainti",
+                iconborderscale: "Reunan koko",
+                iconborderx: "Vaakasiirto",
+                iconbordery: "Pystysiirto",
+                front: "Edessä",
+                back: "Takana",
                 plat: "100% Logo",
                 usegameicon: "Käytä Peli-ikonia",
                 gameicontype: "Pelikuvaikoni",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Estä <span class="hl">Päivitys saatavilla</span> -dialogin automaattinen näyttäminen ja fokusoituminen<br><br><span class="ttdesc">Dialogi on edelleen saatavilla klikkaamalla päivityspainiketta, kun se on saatavilla</span>`,
         nvda: "Kopioi saavutustiedot leikepöydälle, kun saavutus avataan, jotta ne voidaan lukea näytönlukijasovelluksella, kuten NVDA",
         tooltips: "Näytä työkaluvihjeet, kun hiiren kohdistin on tiettyjen käyttöliittymäelementtien päällä",
+        colorprofile: `Pakota kaikki sovellusikkunat käyttämään valittua väritilaa<br><br><span class="ttdesc">Vaatii sovelluksen uudelleenkäynnistyksen</span>`,
         pollrate: `Aseta päivitysväli saavutustietojen aikana pelattaessa<br><br><span class="ttdesc">Suorituskyky voi lisääntyä/vähentyä arvon tai järjestelmän laitteiston mukaan. Korkeammat arvot johtavat yleensä pienempään järjestelmän kuormitukseen, mutta voivat viivästyttää ilmoituksia</span>`,
         initdelay: `Aseta viive nykyisen <span class="hl">AppID</span>-tunnuksen havaitsemisen ja prosessin/saavutusten seurannan aloittamisen välillä<br><br><span class="ttdesc">Tämän arvon suurentaminen voi estää tilanteita, joissa Steam ei pysty käynnistämään nykyistä peliä (koska sovellus käynnistää Steamworksin ennen kuin peli on käynnistynyt)</span><br><br><span class="ttdesc">Vaihtoehtoisesti tämän arvon suurentamista voidaan myös käyttää ohittamaan esipelin käynnistysprosessien virheellinen havaitseminen</span>`,
         releasedelay: `Aseta kuinka kauan taustaprosessin on odotettava uudelleenkäynnistymistä sen jälkeen, kun nykyinen peli on julkaistu. Vaikuttaa sekä automaattiseen prosessin seurantaan että manuaalisesti linkitettyihin peleihin.<br><br><span class="ttdesc">Mahdollistaa pidemmän aikajakson Steamworksin täydelliseen vapauttamiseen sovelluksesta. Tämän arvon lisääminen voi estää epätavallista käyttäytymistä, kuten aiemmin suljetun pelin seurannan</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Vaihda Saavutustilastojen ikkuna käyttämällä määritettyä pikanäppäintä",
         ssdisplay: "Näytä otetun ruutukaappauksen esikatselu ilmoituksessa",
         iconscale: "Suurentaa tai pienentää saavutuksen kuvakkeen kokoa",
+        showiconborder: "Näytä kuva reunuksena saavutuksen kuvakkeen ympärillä",
+        iconborderimg: "Lataa kuvatiedosto käytettäväksi saavutuksen kuvakkeen reunuksena",
+        iconborderpos: "Määritä, näytetäänkö kuvakerajan kuva saavutuksen kuvakkeen edessä vai takana",
+        iconborderscale: "Säädä kuvakerajan kokoa ilmoituksessa",
+        iconborderx: "Säädä kuvakerajan vaakasiirtoa ilmoituksessa",
+        iconbordery: "Säädä kuvakerajan pystysiirtoa ilmoituksessa",
         iconshadowcolor: "Aseta varjotehosteen väri, joka ympäröi saavutuksen kuvaketta harvinaisen saavutuksen avautuessa",
         iconanimcolor: "Aseta animaatiotehosteen väri saavutuksen kuvakkeen taakse harvinaisen saavutuksen avautuessa",
         logoscale: "Suurentaa tai pienentää logoelementin kokoa ilmoituksessa",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan RetroArchilla<br><br><span class="ttdesc"><span class="hl">RetroArch > Asetukset > Lokitus</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Lokituksen yksityiskohtaisuus</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Frontend-lokitaso</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Kirjaa lokiin</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Aikaleimat lokitiedostoissa</span>: <span class="hlred">POIS PÄÄLTÄ</span></li></ul></span>`,
         dolphin: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan Dolphinilla<br><br><span class="ttdesc"><span class="hl">Dolphin > Näytä > Näytä lokiasetukset</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Yksityiskohtaisuus</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Lokin ulostulot</span> > <span class="hlgreen">Kirjoita tiedostoon</span></li><li><span class="hllb">Lokityypit</span> > <span class="hlgreen">Saavutukset (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Aseta polku RetroArchin <span class="hl">"retroarch.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"retroarch.log"</span> tallennetaan sijaintiin <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Aseta polku Dolphin <span class="hl">"dolphin.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"dolphin.log"</span> tallennetaan johonkin seuraavista sijainneista:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Aseta polku Dolphin <span class="hl">"dolphin.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"dolphin.log"</span> tallennetaan johonkin seuraavista sijainneista:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Aseta ilmoituksen tekstielementtien värit erikseen",
+        unlockmsgfontcolor: "Aseta ensimmäisen tekstielementin väri",
+        titlefontcolor: "Aseta toisen tekstielementin väri",
+        descfontcolor: "Aseta kolmannen tekstielementin väri",
+        exportachdata: `Vie saavutustiedot JSON-tiedostoon, kun saavutus avataan<br><br><span class="ttdesc">Kun käytössä, <span class="ttcode">achdata.json</span> viedään sijaintiin:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Panou de Depanare",
                 userust: "Mod Alternativ de Procesare",
                 notifydebug: "Afișare Notificări de Depanare",
+                exportachdata: "Exportă datele realizărilor",
                 usecustomfiles: "Utilizare Fișiere de Aplicație Personalizate",
                 showcustomfiles: "Afișare Fișiere de Aplicație Personalizate"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Diverse",
             content: {
+                colorprofile: "Profil de culoare",
                 checkforupdates: "Verifică Actualizări",
                 log: "Jurnalul Aplicației",
                 reset: "Resetare Aplicație"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Culoare umbră iconiță rară",
                 iconanimcolor: "Culoare animație iconiță rară",
                 fontcolor: "Culoare Font",
+                usecustomfontcolors: "Folosește culori personalizate pentru fonturi",
+                unlockmsgfontcolor: "Culoare 1",
+                titlefontcolor: "Culoare 2",
+                descfontcolor: "Culoare 3",
                 fontoutline: "Contur Font",
                 fontoutlinecolor: "Culoare Contur Font",
                 fontshadow: "Umbra Font",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Scală iconiță",
                 iconroundness: "Rotunjire Iconiță",
+                showiconborder: "Arată bordura iconiței",
+                iconborderimg: "Imagine bordură",
+                iconborderpos: "Poziția bordurii",
+                iconborderscale: "Scalarea bordurii",
+                iconborderx: "Deplasare orizontală",
+                iconbordery: "Deplasare verticală",
+                front: "Față",
+                back: "Spate",
                 plat: "Logo 100%",
                 usegameicon: "Utilizare Iconiță Joc",
                 gameicontype: "Tipul iconiței jocului",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Previne afișarea automată și focalizarea dialogului <span class="hl">Actualizare disponibilă</span><br><br><span class="ttdesc">Dialogul poate fi totuși accesat prin clic pe butonul de actualizare când este disponibil</span>`,
         nvda: "Permiteți copierea informațiilor despre realizare în clipboard atunci când se deblochează o realizare, pentru a fi citite de software-ul de citire a ecranului, cum ar fi NVDA",
         tooltips: "Afișați sfaturi instrumente atunci când plasați cursorul pe anumite elemente UI",
+        colorprofile: `Forțează toate feroneriile aplicației să se redea folosind profilul de culoare selectat<br><br><span class="ttdesc">Este necesar un restart al aplicației</span>`,
         pollrate: `Setați intervalul de actualizare pentru datele de realizare în timpul jocului<br><br><span class="ttdesc">Performanța poate crește/scădea în funcție de valoarea sau de resursele hardware ale sistemului. Valorile mai mari duc de obicei la o încărcare mai mică a sistemului, dar pot întârzia notificările</span>`,
         initdelay: `Setează întârzierea între detectarea actualului <span class="hl">AppID</span> și începutul urmăririi proceselor/realizărilor<br><br><span class="ttdesc">Creșterea acestei valori poate preveni scenarii în care Steam nu poate porni jocul curent (din cauza inițializării aplicației în Steamworks înainte ca jocul să fie lansat)</span><br><br><span class="ttdesc">Alternativ, creșterea acestei valori poate fi folosită și pentru a evita detectarea incorectă a proceselor de pre-lansare ale jocului</span>`,
         releasedelay: `Stabilește cât timp așteaptă procesul de fundal să se repornească după ce jocul curent a fost lansat. Afectează atât urmărirea automată a procesului, cât și jocurile legate manual.<br><br><span class="ttdesc">Permite un interval mai lung de timp pentru a elibera complet Steamworks de aplicație. Creșterea acestei valori poate preveni comportamente neobișnuite, cum ar fi urmărirea unui joc închis anterior</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Comută Overlay-ul de Statistici ale Realizărilor folosind scurtătura de tastatură specificată",
         ssdisplay: "Afișează o previzualizare a capturii de ecran în notificare",
         iconscale: "Mărește sau micșorează dimensiunea iconiței realizării",
+        showiconborder: "Afișează o imagine ca bordură în jurul iconiței realizării",
+        iconborderimg: "Încarcă un fișier de imagine pentru a-l folosi ca bordură în jurul iconiței realizării",
+        iconborderpos: "Setează dacă să afișezi imaginea bordurii în fața sau în spatele iconiței realizării",
+        iconborderscale: "Crește sau micșorează dimensiunea bordurii iconiței în notificare",
+        iconborderx: "Crește sau micșorează deplasarea orizontală a bordurii iconiței în notificare",
+        iconbordery: "Crește sau micșorează deplasarea verticală a bordurii iconiței în notificare",
         iconshadowcolor: "Setează culoarea efectului de umbră din jurul iconiței realizării când se deblochează o realizare rară",
         iconanimcolor: "Setează culoarea efectului de animație din spatele iconiței realizării când se deblochează o realizare rară",
         logoscale: "Mărește sau micșorează dimensiunea elementului logo din notificare",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Afișează notificările Retro Achievements pentru jocurile emulate prin RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Setări > Jurnalizare</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul jurnalizării</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Nivelul de jurnalizare al interfeței</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Jurnalizează în fișier</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Marca de timp pentru fișierele de log</span>: <span class="hlred">DEZLIGAT</span></li></ul></span>`,
         dolphin: `Afișează notificările Retro Achievements pentru jocurile emulate prin Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Vizualizare > Afișează configurația logului</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Ieșiri din jurnal</span> > <span class="hlgreen">Scrie în fișier</span></li><li><span class="hllb">Tipuri de log</span> > <span class="hlgreen">Realizări (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Setează calea către fișierul de log <span class="hl">"retroarch.log"</span> al RetroArch<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"retroarch.log"</span> este stocat în <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Setează calea către fișierul de log <span class="hl">"dolphin.log"</span> al Dolphin<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"dolphin.log"</span> este stocat în una dintre următoarele locații:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Setează calea către fișierul de log <span class="hl">"dolphin.log"</span> al Dolphin<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"dolphin.log"</span> este stocat în una dintre următoarele locații:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Setează individual culoarea elementelor de text din notificare",
+        unlockmsgfontcolor: "Setează culoarea primului element de text",
+        titlefontcolor: "Setează culoarea celui de-al doilea element de text",
+        descfontcolor: "Setează culoarea celui de-al treilea element de text",
+        exportachdata: `Exportă datele realizărilor într-un fișier JSON atunci când o realizare este deblocat<br><br><span class="ttdesc">Când este activat, <span class="ttcode">achdata.json</span> va fi exportat în:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Debug-Panel",
                 userust: "Alternativer Verarbeitungsmodus",
                 notifydebug: "Debug-Benachrichtigungen Anzeigen",
+                exportachdata: "Erfolgsdaten exportieren",
                 usecustomfiles: "Benutzerdefinierte App-Dateien Verwenden",
                 showcustomfiles: "Benutzerdefinierte App-Dateien Anzeigen"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Verschiedenes",
             content: {
+                colorprofile: "Farbprofil",
                 checkforupdates: "Nach Updates Suchen",
                 log: "Anwendungsprotokoll",
                 reset: "App Zurücksetzen"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Schattenfarbe des seltenen Icons",
                 iconanimcolor: "Animationsfarbe des seltenen Icons",
                 fontcolor: "Schriftfarbe",
+                usecustomfontcolors: "Benutzerdefinierte Schriftfarben verwenden",
+                unlockmsgfontcolor: "Farbe 1",
+                titlefontcolor: "Farbe 2",
+                descfontcolor: "Farbe 3",
                 fontoutline: "Schriftkontur",
                 fontoutlinecolor: "Farbe der Schriftkontur",
                 fontshadow: "Schriftschatten",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Icon-Skalierung",
                 iconroundness: "Symbole abrunden",
+                showiconborder: "Symbolrahmen anzeigen",
+                iconborderimg: "Symbolrahmen",
+                iconborderpos: "Rahmenposition",
+                iconborderscale: "Rahmengröße",
+                iconborderx: "Horizontale Verschiebung",
+                iconbordery: "Vertikale Verschiebung",
+                front: "Vorne",
+                back: "Hinten",
                 plat: "100%-Logo",
                 usegameicon: "Spiel-Symbol verwenden",
                 gameicontype: "Spielsymboltyp",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Verhindert das automatische Anzeigen und Fokussieren des <span class="hl">Verfügbare Updates</span>-Dialogs<br><br><span class="ttdesc">Der Dialog kann weiterhin durch Klicken auf die Update-Schaltfläche geöffnet werden, wenn verfügbar</span>`,
         nvda: "Aktivieren Sie das Kopieren von Erfolgsinformationen in die Zwischenablage, wenn ein Erfolg freigeschaltet wird, um von Bildschirmleseprogrammen wie NVDA gelesen zu werden",
         tooltips: "Zeigen Sie Tooltips an, wenn Sie den Mauszeiger über bestimmte Nutzeroberflächen-Elemente halten",
+        colorprofile: `Erzwingt, dass alle Anwendungsfenster mit dem ausgewählten Farbprofil gerendert werden<br><br><span class="ttdesc">Erfordert einen Neustart der Anwendung</span>`,
         pollrate: `Legen Sie das Aktualisierungsintervall für Erfolgsdaten während des Spiels fest<br><br><span class="ttdesc">Die Leistung kann je nach Wert oder Systemhardware steigen/abfallen. Höhere Werte führen normalerweise zu einer geringeren Systemlast, können aber auch zu einer stärkeren Verzögerung bei Benachrichtigungen führen</span>`,
         initdelay: `Legen Sie die Verzögerung zwischen der Erkennung der aktuellen <span class="hl">AppID</span> und dem Beginn der Prozess-/Erfolgsverfolgung fest<br><br><span class="ttdesc">Durch Erhöhen dieses Werts können Szenarien vermieden werden, in denen Steam das aktuelle Spiel nicht starten kann (aufgrund der Initialisierung der Anwendung in Steamworks, bevor das Spiel gestartet wurde)</span><br><br><span class="ttdesc">Alternativ kann das Erhöhen dieses Werts auch verwendet werden, um eine falsche Erkennung von Vor-Spielstart-Prozessen zu umgehen</span>`,
         releasedelay: `Legt fest, wie lange der Hintergrundprozess warten soll, um nach der Freigabe des aktuellen Spiels neu zu starten. Beeinflusst sowohl die automatische Prozessüberwachung als auch manuell verknüpfte Spiele.<br><br><span class="ttdesc">Ermöglicht einen längeren Zeitrahmen, um Steamworks vollständig von der App freizugeben. Eine Erhöhung dieses Werts kann ungewöhnliches Verhalten verhindern, wie z.B. das Verfolgen eines zuvor geschlossenen Spiels</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Die Erfolgsstatistik-Überlagerung mit der angegebenen Tastenkombination umschalten",
         ssdisplay: "Zeige eine Vorschau des aufgenommenen Screenshots in der Benachrichtigung an",
         iconscale: "Größe des Erfolgsicons vergrößern oder verkleinern",
+        showiconborder: "Ein Bild als Rahmen um das Erfolgssymbol anzeigen",
+        iconborderimg: "Eine Bilddatei laden, die als Rahmen um das Erfolgssymbol verwendet wird",
+        iconborderpos: "Festlegen, ob das Rahmenbild vor oder hinter dem Erfolgssymbol angezeigt wird",
+        iconborderscale: "Die Größe des Symbolrahmens innerhalb der Benachrichtigung vergrößern oder verkleinern",
+        iconborderx: "Die horizontale Verschiebung des Symbolrahmens innerhalb der Benachrichtigung ändern",
+        iconbordery: "Die vertikale Verschiebung des Symbolrahmens innerhalb der Benachrichtigung ändern",
         iconshadowcolor: "Stellen Sie die Farbe des Schatteneffekts um das Erfolgsicon ein, wenn ein seltener Erfolg freigeschaltet wird",
         iconanimcolor: "Stellen Sie die Farbe des Animationseffekts hinter dem Erfolgsicon ein, wenn ein seltener Erfolg freigeschaltet wird",
         logoscale: "Größe des Logoelements in der Benachrichtigung vergrößern oder verkleinern",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über RetroArch emuliert werden<br><br><span class="ttdesc"><span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li></ul></span>`,
         dolphin: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über Dolphin emuliert werden<br><br><span class="ttdesc"><span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li><li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Lege den Pfad zur Protokolldatei <span class="hl">"retroarch.log"</span> von RetroArch fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"retroarch.log"</span> gespeichert in <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Lege den Pfad zur Protokolldatei <span class="hl">"dolphin.log"</span> von Dolphin fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"dolphin.log"</span> in einem der folgenden Verzeichnisse gespeichert:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Lege den Pfad zur Protokolldatei <span class="hl">"dolphin.log"</span> von Dolphin fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"dolphin.log"</span> in einem der folgenden Verzeichnisse gespeichert:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Farben der Textelemente in der Benachrichtigung individuell festlegen",
+        unlockmsgfontcolor: "Die Farbe des ersten Textelements festlegen",
+        titlefontcolor: "Die Farbe des zweiten Textelements festlegen",
+        descfontcolor: "Die Farbe des dritten Textelements festlegen",
+        exportachdata: `Erfolgsdaten in eine JSON-Datei exportieren, wenn ein Erfolg freigeschaltet wird<br><br><span class="ttdesc">Wenn aktiviert, wird <span class="ttcode">achdata.json</span> exportiert nach:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Update verfügbar",

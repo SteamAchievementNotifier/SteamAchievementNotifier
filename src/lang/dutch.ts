@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Debugpaneel",
                 userust: "Alternatieve Verwerkingsmodus",
                 notifydebug: "Melding Debugger Weergeven",
+                exportachdata: "Prestatiegegevens exporteren",
                 usecustomfiles: "Aangepaste App-bestanden Gebruiken",
                 showcustomfiles: "Aangepaste App-bestanden Weergeven"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Diversen",
             content: {
+                colorprofile: "Kleurprofiel",
                 checkforupdates: "Controleren Op Updates",
                 log: "Applicatielog",
                 reset: "App resetten"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Schaduwkleur van zeldzaam pictogram",
                 iconanimcolor: "Animatiekleur van zeldzaam pictogram",
                 fontcolor: "Letterkleur",
+                usecustomfontcolors: "Aangepaste letterkleuren gebruiken",
+                unlockmsgfontcolor: "Kleur 1",
+                titlefontcolor: "Kleur 2",
+                descfontcolor: "Kleur 3",
                 fontoutline: "Letteromlijning",
                 fontoutlinecolor: "Kleur Letteromlijning",
                 fontshadow: "Letter Schaduw",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Pictogram schaal",
                 iconroundness: "Icoon Ronding",
+                showiconborder: "Pictogramrand weergeven",
+                iconborderimg: "Pictogramrand",
+                iconborderpos: "Randpositie",
+                iconborderscale: "Randgrootte",
+                iconborderx: "Horizontale verschuiving",
+                iconbordery: "Verticale verschuiving",
+                front: "Voor",
+                back: "Achter",
                 plat: "100% Logo",
                 usegameicon: "Gebruik Spelicoon",
                 gameicontype: "Type spelpictogram",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Voorkom dat het <span class="hl">Beschikbare update</span>-venster automatisch wordt weergegeven en gefocust<br><br><span class="ttdesc">Het venster kan nog steeds worden geopend door op de updateknop te klikken wanneer deze beschikbaar is</span>`,
         nvda: "Schakel het kopiëren van prestatie-informatie naar het klembord in wanneer een prestatie wordt ontgrendeld, om te worden gelezen door schermlezer-software, zoals NVDA",
         tooltips: "Toon tooltips bij het zweven over bepaalde UI-elementen",
+        colorprofile: `Dwing alle app-vensters om weer te geven met het geselecteerde kleurprofiel<br><br><span class="ttdesc">Vereist een herstart van de app</span>`,
         pollrate: `Stel het update-interval in voor prestatiegegevens tijdens het spelen<br><br><span class="ttdesc">De prestaties kunnen toenemen/afnemen, afhankelijk van de waarde of de hardware van het systeem. Hogere waarden resulteren doorgaans in lagere systeembelasting, maar kunnen notificaties vertragen</span>`,
         initdelay: `Stel de vertraging in tussen de detectie van de huidige <span class="hl">AppID</span> en wanneer het volgen van processen/prestaties begint<br><br><span class="ttdesc">Het verhogen van deze waarde kan scenario's voorkomen waarin Steam niet in staat is om het huidige spel te starten (doordat de app Steamworks initialiseert voordat het spel is gestart)</span><br><br><span class="ttdesc">Als alternatief kan het verhogen van deze waarde ook worden gebruikt om onjuiste detectie van pre-game launcher-processen te omzeilen</span>`,
         releasedelay: `Stel in hoelang het achtergrondproces moet wachten om opnieuw op te starten nadat het huidige spel is uitgebracht. Beïnvloedt zowel automatische procesbewaking als handmatig gekoppelde spellen.<br><br><span class="ttdesc">Biedt een langere tijdsperiode om Steamworks volledig vrij te geven van de app. Het verhogen van deze waarde kan ongebruikelijk gedrag voorkomen, zoals het volgen van een eerder gesloten spel</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Schakel de Achievement Stats Overlay in met de opgegeven sneltoets",
         ssdisplay: "Toon een voorbeeld van de vastgelegde schermafbeelding in de melding",
         iconscale: "Vergroot of verklein de grootte van het prestatiepictogram",
+        showiconborder: "Toon een afbeelding als rand rondom het prestatiepictogram",
+        iconborderimg: "Laad een afbeeldingsbestand als rand rondom het prestatiepictogram",
+        iconborderpos: "Bepaal of de pictogramrand voor of achter het prestatiepictogram wordt weergegeven",
+        iconborderscale: "Vergroot of verklein de rand van het pictogram binnen de melding",
+        iconborderx: "Vergroot of verklein de horizontale verschuiving van de pictogramrand binnen de melding",
+        iconbordery: "Vergroot of verklein de verticale verschuiving van de pictogramrand binnen de melding",
         iconshadowcolor: "Stel de kleur in van het schaduweffect rond het prestatiepictogram bij het ontgrendelen van een zeldzame prestatie",
         iconanimcolor: "Stel de kleur in van het animatie-effect achter het prestatiepictogram bij het ontgrendelen van een zeldzame prestatie",
         logoscale: "Vergroot of verklein de grootte van het logo-element binnen de notificatie",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Instellingen > Loggen</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Logdetails</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log naar bestand</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Tijdstempels in logbestanden</span>: <span class="hlred">UIT</span></li></ul></span>`,
         dolphin: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Beeld > Toon logconfiguratie</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Details</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Loguitgangen</span> > <span class="hlgreen">Schrijf naar bestand</span></li><li><span class="hllb">Logtypes</span> > <span class="hlgreen">Prestaties (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Stel het pad in naar het <span class="hl">"retroarch.log"</span> logbestand van RetroArch<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"retroarch.log"</span> opgeslagen in <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Stel het pad in naar het <span class="hl">"dolphin.log"</span> logbestand van Dolphin<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"dolphin.log"</span> opgeslagen op een van de volgende locaties:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Stel het pad in naar het <span class="hl">"dolphin.log"</span> logbestand van Dolphin<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"dolphin.log"</span> opgeslagen op een van de volgende locaties:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Stel de kleur van tekstelementen in de melding individueel in",
+        unlockmsgfontcolor: "Stel de kleur in van het eerste tekstelement",
+        titlefontcolor: "Stel de kleur in van het tweede tekstelement",
+        descfontcolor: "Stel de kleur in van het derde tekstelement",
+        exportachdata: `Exporteer prestatiegegevens naar een JSON-bestand wanneer een prestatie wordt ontgrendeld<br><br><span class="ttdesc">Wanneer ingeschakeld, wordt <span class="ttcode">achdata.json</span> geëxporteerd naar:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

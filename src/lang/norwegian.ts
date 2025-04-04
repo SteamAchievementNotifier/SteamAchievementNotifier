@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Feilsøkingspanel",
                 userust: "Alternativ prosessbehandlingmodus",
                 notifydebug: "Vis feilsøkingsvarsler",
+                exportachdata: "Eksporter prestasjonsdata",
                 usecustomfiles: "Bruk egendefinerte app-filer",
                 showcustomfiles: "Vis egendefinerte app-filer"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Diverse",
             content: {
+                colorprofile: "Fargeprofil",
                 checkforupdates: "Sjekk etter oppdateringer",
                 log: "Applikasjonslogg",
                 reset: "Tilbakestill app"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Skyggefarge for sjeldent ikon",
                 iconanimcolor: "Animert farge for sjeldent ikon",
                 fontcolor: "Fontfarge",
+                usecustomfontcolors: "Bruk tilpassede skrifttypefarger",
+                unlockmsgfontcolor: "Farge 1",
+                titlefontcolor: "Farge 2",
+                descfontcolor: "Farge 3",
                 fontoutline: "Fontkontur",
                 fontoutlinecolor: "Fontkontur Farge",
                 fontshadow: "Fontskygge",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Ikon skala",
                 iconroundness: "Ikon Avrunding",
+                showiconborder: "Vis ikonramme",
+                iconborderimg: "Ikonramme",
+                iconborderpos: "Rammeposisjon",
+                iconborderscale: "Rammens skala",
+                iconborderx: "Horisontal forskyvning",
+                iconbordery: "Vertikal forskyvning",
+                front: "Foran",
+                back: "Bak",
                 plat: "100% Logo",
                 usegameicon: "Bruk Spillikon",
                 gameicontype: "Spillikonetype",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Forhindrer automatisk visning og fokus på <span class="hl">Oppdatering tilgjengelig</span>-dialogen<br><br><span class="ttdesc">Dialogen kan fortsatt åpnes ved å klikke på oppdateringsknappen når den er tilgjengelig</span>`,
         nvda: "Aktiver kopiering av prestasjonsinformasjon til utklippstavlen når en prestasjon blir låst opp, for å bli lest av skjermleserprogramvare, for eksempel NVDA",
         tooltips: "Vis verktøytips når du holder musepekeren over visse brukergrensesnittelementer",
+        colorprofile: `Tving alle appvinduer til å bruke den valgte fargeprofilen<br><br><span class="ttdesc">Krever app-nevning</span>`,
         pollrate: `Sett oppdateringsintervallet for prestasjonsdata under spill<br><br><span class="ttdesc">Ytelsen kan øke/redusere avhengig av verdien eller systemets maskinvare. Høyere verdier fører vanligvis til lavere systembelastning, men kan forsinke varsler</span>`,
         initdelay: `Sett forsinkelsen mellom deteksjon av gjeldende <span class="hl">AppID</span> og når prosess-/prestasjesporing starter<br><br><span class="ttdesc">Øke denne verdien kan forhindre scenarier der Steam ikke klarer å starte gjeldende spill (på grunn av initialisering av applikasjonen i Steamworks før spillet har startet)</span><br><br><span class="ttdesc">Alternativt kan økning av denne verdien også brukes til å omgå feilaktig deteksjon av forhåndslanseringsprosesser</span>`,
         releasedelay: `Angir hvor lenge bakgrunnsprosessen skal vente med å starte på nytt etter at det nåværende spillet er utgitt. Påvirker både automatisk prosessovervåking og manuelt tilknyttede spill.<br><br><span class="ttdesc">Gir en lengre tidsramme for å frigjøre Steamworks fullstendig fra appen. Å øke denne verdien kan forhindre unormal atferd, som sporing av et tidligere lukket spill</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Veksle prestasjonsstatistikk-overlegget ved hjelp av den angitte hurtigtasten",
         ssdisplay: "Vis forhåndsvisning av skjermbildet i varslingen",
         iconscale: "Øk eller reduser størrelsen på prestasjonens ikon",
+        showiconborder: "Vis et bilde som ramme rundt prestasjonsikonet",
+        iconborderimg: "Last inn et bildefil som skal brukes som ramme rundt prestasjonsikonet",
+        iconborderpos: "Angi om rammebildet skal vises foran eller bak prestasjonsikonet",
+        iconborderscale: "Øk eller reduser størrelsen på ikonrammen innenfor varslingen",
+        iconborderx: "Øk eller reduser den horisontale forskyvningen av ikonrammen innenfor varslingen",
+        iconbordery: "Øk eller reduser den vertikale forskyvningen av ikonrammen innenfor varslingen",
         iconshadowcolor: "Angi fargen på skyggeeffekten rundt prestasjonsikonet når en sjelden prestasjon låses opp",
         iconanimcolor: "Angi fargen på animasjonseffekten bak prestasjonsikonet når en sjelden prestasjon låses opp",
         logoscale: "Øk eller reduser størrelsen på logoelementet i varslingen",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Vis Retro Achievements varsler for spill emulert via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Innstillinger > Logging</span> må konfigureres med følgende innstillinger:<br><br><ul><li><span class="hllb">Logging Detaljnivå</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Frontend Logging Nivå</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Logg til Fil</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Tidsstempel Logg Filer</span>: <span class="hlred">AV</span></li></ul></span>`,
         dolphin: `Vis Retro Achievements varsler for spill emulert via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Visning > Vis Loggkonfigurasjon</span> må konfigureres med følgende innstillinger:<br><br><ul><li><span class="hllb">Detaljnivå</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logger Utganger</span> > <span class="hlgreen">Skriv til Fil</span></li><li><span class="hllb">Loggtyper</span> > <span class="hlgreen">Prestasjoner (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Angi banen til RetroArchs <span class="hl">"retroarch.log"</span> loggfil<br><br><span class="ttdesc">Ved standard installasjonsinnstillinger, vil <span class="hl">"retroarch.log"</span> bli lagret i <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Angi banen til Dolphins <span class="hl">"dolphin.log"</span> loggfil<br><br><span class="ttdesc">Ved standard installasjonsinnstillinger, vil <span class="hl">"dolphin.log"</span> bli lagret på en av følgende steder:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Angi banen til Dolphins <span class="hl">"dolphin.log"</span> loggfil<br><br><span class="ttdesc">Ved standard installasjonsinnstillinger, vil <span class="hl">"dolphin.log"</span> bli lagret på en av følgende steder:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Sett fargen på tekstelementer innenfor varslingen individuelt",
+        unlockmsgfontcolor: "Sett fargen på det første tekstelementet",
+        titlefontcolor: "Sett fargen på det andre tekstelementet",
+        descfontcolor: "Sett fargen på det tredje tekstelementet",
+        exportachdata: `Eksporter prestasjonsdata til en JSON-fil når en prestasjon låses opp<br><br><span class="ttdesc">Når aktivert, vil <span class="ttcode">achdata.json</span> bli eksportert til:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

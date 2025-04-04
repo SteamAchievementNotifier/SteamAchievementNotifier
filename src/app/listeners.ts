@@ -1215,6 +1215,7 @@ export const listeners = {
             config.get("screenshots") === "notifyimg" && createsswin("img",notify)
 
             win.webContents.send("notifyprogress",notify.customisation.displaytime)
+            log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)
 
             return setTimeout(() => {
                 if (notifyfailed) {

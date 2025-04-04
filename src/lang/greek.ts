@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Πίνακας Αποσφαλμάτωσης",
                 userust: "Εναλλακτική Λειτουργία Επεξεργασίας",
                 notifydebug: "Εμφάνιση ειδοποιήσεων αποσφαλμάτωσης",
+                exportachdata: "Εξαγωγή Δεδομένων Επιτευγμάτων",
                 usecustomfiles: "Χρήση προσαρμοσμένων αρχείων εφαρμογής",
                 showcustomfiles: "Εμφάνιση προσαρμοσμένων αρχείων εφαρμογής"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Διάφορα",
             content: {
+                colorprofile: "Προφίλ Χρώματος",
                 checkforupdates: "Έλεγχος για ενημερώσεις",
                 log: "Καταγραφή Εφαρμογής",
                 reset: "Επαναφορά εφαρμογής"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Χρώμα σκιάς εικονιδίου σπάνιου",
                 iconanimcolor: "Χρώμα animation εικονιδίου σπάνιου",
                 fontcolor: "Χρώμα Γραμματοσειράς",
+                usecustomfontcolors: "Χρήση Προσαρμοσμένων Χρωμάτων Γραμματοσειράς",
+                unlockmsgfontcolor: "Χρώμα 1",
+                titlefontcolor: "Χρώμα 2",
+                descfontcolor: "Χρώμα 3",
                 fontoutline: "Περίγραμμα Γραμματοσειράς",
                 fontoutlinecolor: "Χρώμα Περιγράμματος Γραμματοσειράς",
                 fontshadow: "Σκιά Γραμματοσειράς",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Κλίμακα εικονιδίου",
                 iconroundness: "Γύρω Περιοχή Εικονιδίου",
+                showiconborder: "Εμφάνιση Περιγράμματος Εικονιδίου",
+                iconborderimg: "Περιγράμματα Εικονιδίου",
+                iconborderpos: "Θέση Περιγράμματος",
+                iconborderscale: "Κλίμακα Περιγράμματος",
+                iconborderx: "Οριζόντια Απόκλιση",
+                iconbordery: "Κατακόρυφη Απόκλιση",
+                front: "Μπροστά",
+                back: "Πίσω",
                 plat: "Λογότυπο 100%",
                 usegameicon: "Χρήση Εικονιδίου Παιχνιδιού",
                 gameicontype: "Τύπος Εικονιδίου Παιχνιδιού",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Αποτρέπει την αυτόματη εμφάνιση και εστίαση του διαλόγου <span class="hl">Διαθέσιμη Ενημέρωση</span><br><br><span class="ttdesc">Ο διάλογος μπορεί να ανοίξει ακόμα κάνοντας κλικ στο κουμπί ενημέρωσης, όταν είναι διαθέσιμος</span>`,
         nvda: "Ενεργοποίηση αντιγραφής πληροφοριών επιτεύγματος στο πρόχειρο όταν ξεκλειδώνεται ένα επίτευγμα, για να μπορεί να διαβαστεί από λογισμικό ανάγνωσης οθόνης, όπως το NVDA",
         tooltips: "Εμφάνιση εργαλειοθηκών όταν τοποθετείτε το ποντίκι πάνω από ορισμένα στοιχεία του περιβάλλοντος χρήσης",
+        colorprofile: `Αναγκάζει όλα τα παράθυρα της εφαρμογής να χρησιμοποιούν το επιλεγμένο προφίλ χρώματος<br><br><span class="ttdesc">Απαιτεί επανεκκίνηση της εφαρμογής</span>`,
         pollrate: `Ορίστε το διάστημα ενημέρωσης για τα δεδομένα επίτευξης κατά τη διάρκεια του παιχνιδιού<br><br><span class="ttdesc">Η απόδοση μπορεί να αυξηθεί/μειωθεί ανάλογα με την τιμή ή το υλικό του συστήματος. Οι υψηλότερες τιμές συνήθως οδηγούν σε χαμηλότερο φόρτο συστήματος, αλλά μπορεί να προκαλέσουν καθυστερήσεις στις ειδοποιήσεις</span>`,
         initdelay: `Ορίστε την καθυστέρηση μεταξύ της ανίχνευσης του τρέχοντος <span class="hl">AppID</span> και της έναρξης της παρακολούθησης διεργασιών/κατορθωμάτων<br><br><span class="ttdesc">Η αύξηση αυτής της τιμής μπορεί να αποτρέψει σενάρια όπου το Steam δεν μπορεί να ξεκινήσει το τρέχον παιχνίδι (λόγω της εκκίνησης της εφαρμογής στο Steamworks πριν την έναρξη του παιχνιδιού)</span><br><br><span class="ttdesc">Εναλλακτικά, η αύξηση αυτής της τιμής μπορεί επίσης να χρησιμοποιηθεί για την παράκαμψη εσφαλμένης ανίχνευσης προεκκίνησης διεργασιών</span>`,
         releasedelay: `Ορίζει πόσο καιρό περιμένει η διεργασία φόντου να επανεκκινήσει μετά την κυκλοφορία του τρέχοντος παιχνιδιού. Επηρεάζει τόσο την αυτόματη παρακολούθηση της διαδικασίας όσο και τα παιχνίδια που έχουν συνδεθεί χειροκίνητα.<br><br><span class="ttdesc">Επιτρέπει έναν μεγαλύτερο χρονικό πλαίσιο για την πλήρη απελευθέρωση του Steamworks από την εφαρμογή. Η αύξηση αυτής της τιμής μπορεί να αποτρέψει την ανώμαλη συμπεριφορά, όπως η παρακολούθηση ενός προηγουμένως κλειστού παιχνιδιού</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Εναλλαγή της Επικάλυψης Στατιστικών Επιτευγμάτων χρησιμοποιώντας την καθορισμένη συντόμευση πληκτρολογίου",
         ssdisplay: "Εμφάνιση προεπισκόπησης της αποθηκευμένης εικόνας στην ειδοποίηση",
         iconscale: "Μεγέθυνση ή σμίκρυνση του μεγέθους του εικονιδίου επίτευξης",
+        showiconborder: "Εμφάνιση μιας εικόνας ως περίγραμμα γύρω από το εικονίδιο του επιτεύγματος",
+        iconborderimg: "Φόρτωση αρχείου εικόνας για χρήση ως περίγραμμα γύρω από το εικονίδιο του επιτεύγματος",
+        iconborderpos: "Ορίστε αν το περίγραμμα του εικονιδίου θα εμφανίζεται μπροστά ή πίσω από το εικονίδιο του επιτεύγματος",
+        iconborderscale: "Αυξήστε ή μειώστε το μέγεθος του περιγράμματος του εικονιδίου στην ειδοποίηση",
+        iconborderx: "Αυξήστε ή μειώστε την οριζόντια απόκλιση του περιγράμματος του εικονιδίου στην ειδοποίηση",
+        iconbordery: "Αυξήστε ή μειώστε την κατακόρυφη απόκλιση του περιγράμματος του εικονιδίου στην ειδοποίηση",
         iconshadowcolor: "Ορισμός του χρώματος της σκιάς γύρω από το εικονίδιο της επίτευξης όταν ξεκλειδώνεται μια σπάνια επίτευξη",
         iconanimcolor: "Ορισμός του χρώματος του εφέ animation πίσω από το εικονίδιο της επίτευξης όταν ξεκλειδώνεται μια σπάνια επίτευξη",
         logoscale: "Μεγέθυνση ή σμίκρυνση του μεγέθους του στοιχείου λογότυπου στην ειδοποίηση",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Ρυθμίσεις > Καταγραφή</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια Καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Επίπεδο Καταγραφής Στο Πρόσθιο Μέρος</span>: <span class="hlgreen">1 (Πληροφορίες)</span></li><li><span class="hllb">Καταγραφή σε Αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Χρονοσήμανση Αρχείων Καταγραφής</span>: <span class="hlred">ΑΝΕΝΕΡΓΟ</span></li></ul></span>`,
         dolphin: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Προβολή > Εμφάνιση Ρυθμίσεων Καταγραφής</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span></li><li><span class="hllb">Έξοδοι Καταγραφής</span> > <span class="hlgreen">Γράψε σε Αρχείο</span></li><li><span class="hllb">Τύποι Καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Ορίστε τη διαδρομή για το <span class="hl">"retroarch.log"</span> αρχείο καταγραφής του RetroArch<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"retroarch.log"</span> αποθηκεύεται στο <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Ορίστε τη διαδρομή για το <span class="hl">"dolphin.log"</span> αρχείο καταγραφής του Dolphin<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"dolphin.log"</span> αποθηκεύεται σε μία από τις εξής τοποθεσίες:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Ορίστε τη διαδρομή για το <span class="hl">"dolphin.log"</span> αρχείο καταγραφής του Dolphin<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"dolphin.log"</span> αποθηκεύεται σε μία από τις εξής τοποθεσίες:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Ορίστε το χρώμα των στοιχείων κειμένου στην ειδοποίηση ξεχωριστά",
+        unlockmsgfontcolor: "Ορίστε το χρώμα του πρώτου στοιχείου κειμένου",
+        titlefontcolor: "Ορίστε το χρώμα του δεύτερου στοιχείου κειμένου",
+        descfontcolor: "Ορίστε το χρώμα του τρίτου στοιχείου κειμένου",
+        exportachdata: `Εξαγωγή δεδομένων επιτευγμάτων σε αρχείο JSON όταν ένα επίτευγμα ξεκλειδωθεί<br><br><span class="ttdesc">Όταν είναι ενεργοποιημένο, το <span class="ttcode">achdata.json</span> θα εξαχθεί στο εξής:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Διαθέσιμη ενημέρωση",

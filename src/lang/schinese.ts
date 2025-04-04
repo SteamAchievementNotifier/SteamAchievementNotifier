@@ -242,6 +242,7 @@ export const translations = {
                 debug: "调试面板",
                 userust: "替代处理模式",
                 notifydebug: "显示调试通知",
+                exportachdata: "导出成就数据",
                 usecustomfiles: "使用自定义应用文件",
                 showcustomfiles: "显示自定义应用文件"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "其他",
             content: {
+                colorprofile: "颜色配置文件",
                 checkforupdates: "检查更新",
                 log: "应用日志",
                 reset: "重置应用"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "稀有图标阴影颜色",
                 iconanimcolor: "稀有图标动画颜色",
                 fontcolor: "字体颜色",
+                usecustomfontcolors: "使用自定义字体颜色",
+                unlockmsgfontcolor: "颜色 1",
+                titlefontcolor: "颜色 2",
+                descfontcolor: "颜色 3",
                 fontoutline: "字体轮廓",
                 fontoutlinecolor: "字体轮廓颜色",
                 fontshadow: "字体阴影",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "图标缩放",
                 iconroundness: "图标圆角",
+                showiconborder: "显示图标边框",
+                iconborderimg: "图标边框",
+                iconborderpos: "边框位置",
+                iconborderscale: "边框缩放",
+                iconborderx: "水平偏移",
+                iconbordery: "垂直偏移",
+                front: "前面",
+                back: "后面",
                 plat: "100% 图标",
                 usegameicon: "使用游戏图标",
                 gameicontype: "游戏图标类型",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `防止自动显示和将焦点放在 <span class="hl">更新可用</span> 对话框上<br><br><span class="ttdesc">仍然可以通过单击更新按钮来打开对话框</span>`,
         nvda: "在解锁成就时将成就信息复制到剪贴板，以供屏幕阅读器软件（如NVDA）阅读",
         tooltips: "在悬停在某些UI元素上时显示工具提示",
+        colorprofile: `强制所有应用窗口使用所选的颜色配置文件<br><br><span class="ttdesc">需要重启应用程序</span>`,
         pollrate: `设置游戏过程中成就数据的更新间隔<br><br><span class="ttdesc">性能可能会因系统值或硬件而增加/减少。更高的值通常会导致较低的系统负载，但可能会导致通知延迟</span>`,
         initdelay: `设置当前 <span class="hl">AppID</span> 检测和进程/成就跟踪开始之间的延迟<br><br><span class="ttdesc">增加此值可以避免 Steam 无法启动当前游戏的情况（因为在游戏启动之前 Steamworks 初始化应用程序）</span><br><br><span class="ttdesc">另外，增加此值也可以用于绕过游戏前启动进程错误检测</span>`,
         releasedelay: `设置当前游戏发布后，后台进程等待重新启动的时间。影响自动进程跟踪和手动链接的游戏。<br><br><span class="ttdesc">为完全释放 Steamworks 应用提供更长的时间间隔。增加此值可防止异常行为，如跟踪先前关闭的游戏</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "使用指定的快捷键切换成就统计覆盖层",
         ssdisplay: "在通知中显示捕获的截图预览",
         iconscale: "增加或减少成就图标的大小",
+        showiconborder: "将图像作为边框显示在成就图标周围",
+        iconborderimg: "加载图像文件作为成就图标的边框",
+        iconborderpos: "设置图标边框图像是显示在成就图标前面还是后面",
+        iconborderscale: "增加或减少通知中图标边框的大小",
+        iconborderx: "增加或减少通知中图标边框的水平偏移",
+        iconbordery: "增加或减少通知中图标边框的垂直偏移",
         iconshadowcolor: "设置解锁稀有成就时围绕成就图标的阴影效果颜色",
         iconanimcolor: "设置解锁稀有成就时成就图标背后的动画效果颜色",
         logoscale: "增加或减少通知中Logo元素的大小",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `显示 Retro Achievements 的通知，适用于通过 RetroArch 模拟的游戏<br><br><span class="ttdesc"><span class="hl">RetroArch > 设置 > 日志</span> 必须按照以下设置进行配置：<br><br><ul><li><span class="hllb">日志详细级别</span>: <span class="hlgreen">开启</span></li><li><span class="hllb">前端日志级别</span>: <span class="hlgreen">1（信息）</span></li><li><span class="hllb">记录到文件</span>: <span class="hlgreen">开启</span></li><li><span class="hllb">时间戳日志文件</span>: <span class="hlred">关闭</span></li></ul></span>`,
         dolphin: `显示 Retro Achievements 的通知，适用于通过 Dolphin 模拟的游戏<br><br><span class="ttdesc"><span class="hl">Dolphin > 查看 > 显示日志配置</span> 必须按照以下设置进行配置：<br><br><ul><li><span class="hllb">详细级别</span>: <span class="hlgreen">信息</span></li><li><span class="hllb">日志输出</span> > <span class="hlgreen">写入文件</span></li><li><span class="hllb">日志类型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li></ul></span>`,
         retroarchpath: `设置 RetroArch 的 <span class="hl">"retroarch.log"</span> 日志文件路径<br><br><span class="ttdesc">使用默认安装设置时，<span class="hl">"retroarch.log"</span> 存储在 <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `设置 Dolphin 的 <span class="hl">"dolphin.log"</span> 日志文件路径<br><br><span class="ttdesc">使用默认安装设置时，<span class="hl">"dolphin.log"</span> 存储在以下位置之一：<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `设置 Dolphin 的 <span class="hl">"dolphin.log"</span> 日志文件路径<br><br><span class="ttdesc">使用默认安装设置时，<span class="hl">"dolphin.log"</span> 存储在以下位置之一：<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "单独设置通知中文本元素的颜色",
+        unlockmsgfontcolor: "设置第一个文本元素的颜色",
+        titlefontcolor: "设置第二个文本元素的颜色",
+        descfontcolor: "设置第三个文本元素的颜色",
+        exportachdata: `当成就解锁时，将成就数据导出到 JSON 文件<br><br><span class="ttdesc">启用时，<span class="ttcode">achdata.json</span> 将导出到:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "有可用更新",

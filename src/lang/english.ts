@@ -697,6 +697,7 @@ export const translations = {
         unlockmsgfontcolor: "Set the color of the first text element",
         titlefontcolor: "Set the color of the second text element",
         descfontcolor: "Set the color of the third text element",
+        exportachdata: `Export achievement data to a JSON file when an achievement is unlocked<br><br><span class="ttdesc">When enabled, <span class="ttcode">achdata.json</span> will be exported to:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Update available",

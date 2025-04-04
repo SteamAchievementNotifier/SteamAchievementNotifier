@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Hata Ayıkla Paneli",
                 userust: "Alternatif İşleme Modu",
                 notifydebug: "Hata Ayıklama Bildirimlerini Göster",
+                exportachdata: "Başarım Verilerini Dışa Aktar",
                 usecustomfiles: "Özel Uygulama Dosyalarını Kullan",
                 showcustomfiles: "Özel Uygulama Dosyalarını Göster"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Çeşitli",
             content: {
+                colorprofile: "Renk Profili",
                 checkforupdates: "Güncellemeleri Kontrol Et",
                 log: "Uygulama Günlüğü",
                 reset: "Uygulamayı Sıfırla"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Nadir İkon Gölgesi Rengi",
                 iconanimcolor: "Nadir İkon Animasyon Rengi",
                 fontcolor: "Yazı Rengi",
+                usecustomfontcolors: "Özel Yazı Tipi Renklerini Kullan",
+                unlockmsgfontcolor: "Renk 1",
+                titlefontcolor: "Renk 2",
+                descfontcolor: "Renk 3",
                 fontoutline: "Yazı Çerçevesi",
                 fontoutlinecolor: "Yazı Çerçevesi Rengi",
                 fontshadow: "Yazı Gölgesi",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "İkon Ölçeği",
                 iconroundness: "İkon Yuvarlaklığı",
+                showiconborder: "Simge Kenarlığını Göster",
+                iconborderimg: "Simge Kenarlığı",
+                iconborderpos: "Kenarlık Konumu",
+                iconborderscale: "Kenarlık Ölçeği",
+                iconborderx: "Yatay Kaydırma",
+                iconbordery: "Dikey Kaydırma",
+                front: "Ön",
+                back: "Arka",
                 plat: "100% Logosu",
                 usegameicon: "Oyun İkonunu Kullan",
                 gameicontype: "Oyun İkonu Türü",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Otomatik olarak gösterilen ve odaklanan <span class="hl">Güncelleme Mevcut</span> iletişim kutusunu engeller<br><br><span class="ttdesc">İletişim kutusu, güncelleme mevcut olduğunda hala kullanılabilir durumdaysa, güncelleme düğmesine tıklayarak açılabilir</span>`,
         nvda: "Bir başarı kilidini açtığında başarı bilgilerini panoya kopyalayarak, NVDA gibi ekran okuyucu yazılımlar tarafından okunmasını sağlayın",
         tooltips: "Belirli UI öğelerinin üzerine gelindiğinde ipuçlarını göster",
+        colorprofile: `Tüm uygulama pencerelerinin seçilen renk profiliyle render edilmesini zorla<br><br><span class="ttdesc">Uygulamanın yeniden başlatılması gerekir</span>`,
         pollrate: `Oyun sırasında başarı verileri için güncelleme aralığını ayarlayın<br><br><span class="ttdesc">Performans, değer veya sistem donanımına bağlı olarak artabilir/azalabilir. Daha yüksek değerler genellikle daha düşük sistem yüküne yol açar, ancak bildirimlerin gecikmesine neden olabilir</span>`,
         initdelay: `Mevcut <span class="hl">AppID</span> tespiti ile işlem/başarı takibinin başlaması arasındaki gecikmeyi ayarlayın<br><br><span class="ttdesc">Bu değeri artırmak, Steam'in mevcut oyunu başlatamama senaryolarını önleyebilir (oyun başlatılmadan önce Steamworks uygulamasını başlatma nedeniyle)</span><br><br><span class="ttdesc">Alternatif olarak, bu değerin artırılması aynı zamanda oyun öncesi başlatıcı işlemlerin yanlış tespitini geçersiz kılma amacıyla da kullanılabilir</span>`,
         releasedelay: `Mevcut oyunun yayımlandıktan sonra arka plan işleminin ne kadar süre bekleyeceğini ayarlar. Hem otomatik işlem izleme hem de manuel olarak bağlanmış oyunları etkiler.<br><br><span class="ttdesc">Steamworks'in uygulamadan tamamen serbest bırakılması için daha uzun bir zaman aralığı sağlar. Bu değeri artırmak, önceki kapatılmış bir oyunun takibini engelleyebilecek anormal davranışları önleyebilir</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Belirtilen klavye kısayolunu kullanarak Başarı İstatistikleri Örtüsünü geçiş yap",
         ssdisplay: "Bildirimde yakalanan ekran görüntüsünün önizlemesini göster",
         iconscale: "Başarı simgesinin boyutunu artırın veya azaltın",
+        showiconborder: "Başarım simgesinin etrafında bir kenarlık olarak bir resim görüntüleyin",
+        iconborderimg: "Başarım simgesinin kenarlığı olarak kullanılacak bir resim dosyası yükleyin",
+        iconborderpos: "Simge kenarlık resminin başarım simgesinin önünde mi yoksa arkasında mı görüntüleneceğini ayarlayın",
+        iconborderscale: "Bildirim içindeki simge kenarlığının boyutunu artırın veya azaltın",
+        iconborderx: "Bildirim içindeki simge kenarlığının yatay kaydırmasını artırın veya azaltın",
+        iconbordery: "Bildirim içindeki simge kenarlığının dikey kaydırmasını artırın veya azaltın",
         iconshadowcolor: "Nadir bir başarıyı kilitlediğinizde başarı simgesinin etrafındaki gölge efektinin rengini ayarlayın",
         iconanimcolor: "Nadir bir başarıyı kilitlediğinizde başarı simgesinin arkasındaki animasyon efektinin rengini ayarlayın",
         logoscale: "Bildirimdeki Logo öğesinin boyutunu artırın veya azaltın",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Retro Achievements bildirimlerini RetroArch ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">RetroArch > Ayarlar > Günlük Kaydı</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Günlük Kaydı Ayrıntı Düzeyi</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Önyüz Günlük Kaydı Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li><li><span class="hllb">Dosyaya Günlük Kaydı</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Günlük Dosyalarına Zaman Damgası</span>: <span class="hlred">KAPALI</span></li></ul></span>`,
         dolphin: `Retro Achievements bildirimlerini Dolphin ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">Dolphin > Görünüm > Günlük Konfigürasyonunu Göster</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Ayrıntı Düzeyi</span>: <span class="hlgreen">Bilgi</span></li><li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li><li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `RetroArch'ın <span class="hl">"retroarch.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"retroarch.log"</span> şu konumda saklanır: <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Dolphin'in <span class="hl">"dolphin.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"dolphin.log"</span> şu konumlarda saklanır:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Dolphin'in <span class="hl">"dolphin.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"dolphin.log"</span> şu konumlarda saklanır:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Bildirim içindeki metin öğelerinin rengini ayrı ayrı ayarlayın",
+        unlockmsgfontcolor: "İlk metin öğesinin rengini ayarlayın",
+        titlefontcolor: "İkinci metin öğesinin rengini ayarlayın",
+        descfontcolor: "Üçüncü metin öğesinin rengini ayarlayın",
+        exportachdata: `Bir başarı kilidi açıldığında başarı verilerini bir JSON dosyasına dışa aktar<br><br><span class="ttdesc">Etkinleştirildiğinde, <span class="ttcode">achdata.json</span> şu konuma dışa aktarılacaktır:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

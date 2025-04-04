@@ -211,7 +211,7 @@ const notifyhelper = {
                 ["--titlefontcolor",`${customisation.usecustomfontcolors ? customisation.titlefontcolor : customisation.fontcolor}`],
                 ["--descfontcolor",`${customisation.usecustomfontcolors ? customisation.descfontcolor : customisation.fontcolor}`],
                 ["--iconborder",customisation.showiconborder ? `url('${customisation.iconborderimg}')` : ""],
-                ["--iconborderpos",`${customisation.iconborderpos === "back" ? -1 : 100}`],
+                ["--iconborderpos",`${customisation.iconborderpos === "back" ? -1 : 99}`],
                 ["--iconborderscale",`${customisation.iconborderscale / 100}`],
                 ["--iconborderx",`${customisation.iconborderx}`],
                 ["--iconbordery",`${customisation.iconbordery}`],

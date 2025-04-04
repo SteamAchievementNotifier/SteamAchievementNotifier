@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Painel de Depuração",
                 userust: "Modo de Processamento Alternativo",
                 notifydebug: "Mostrar Notificação do Depurador",
+                exportachdata: "Exportar Dados de Conquistas",
                 usecustomfiles: "Usar Arquivos de Aplicativo Personalizados",
                 showcustomfiles: "Mostrar Arquivos de Aplicativo Personalizados"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Diversos",
             content: {
+                colorprofile: "Perfil de Cores",
                 checkforupdates: "Verificar Atualizações",
                 log: "Registro do Aplicativo",
                 reset: "Redefinir Aplicativo"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Cor da Sombra do Ícone Raro",
                 iconanimcolor: "Cor da Animação do Ícone Raro",
                 fontcolor: "Cor da Fonte",
+                usecustomfontcolors: "Usar Cores Personalizadas para as Fontes",
+                unlockmsgfontcolor: "Cor 1",
+                titlefontcolor: "Cor 2",
+                descfontcolor: "Cor 3",
                 fontoutline: "Contorno da Fonte",
                 fontoutlinecolor: "Cor do Contorno da Fonte",
                 fontshadow: "Sombra da Fonte",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Escala do Ícone",
                 iconroundness: "Arredondamento do Ícone",
+                showiconborder: "Mostrar Borda do Ícone",
+                iconborderimg: "Borda do Ícone",
+                iconborderpos: "Posição da Borda",
+                iconborderscale: "Escala da Borda",
+                iconborderx: "Deslocamento Horizontal",
+                iconbordery: "Deslocamento Vertical",
+                front: "Frente",
+                back: "Trás",
                 plat: "Logotipo 100%",
                 usegameicon: "Usar Ícone do Jogo",
                 gameicontype: "Tipo de Ícone do Jogo",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Impedir que a caixa de diálogo <span class="hl">Atualização Disponível</span> apareça e foque automaticamente<br><br><span class="ttdesc">A caixa de diálogo ainda pode ser acessada clicando no botão de atualização quando disponível</span>`,
         nvda: "Habilitar a cópia de informações de conquista para a área de transferência quando uma conquista for desbloqueada, para ser lida por software de leitor de tela, como o NVDA",
         tooltips: "Exibir dicas de ferramentas ao passar o mouse sobre determinados elementos da interface do usuário",
+        colorprofile: `Forçar todas as janelas do aplicativo a renderizarem usando o perfil de cores selecionado<br><br><span class="ttdesc">Requer reinício do aplicativo</span>`,
         pollrate: `Defina o intervalo de atualização para os dados de conquistas durante o jogo<br><br><span class="ttdesc">O desempenho pode aumentar/diminuir dependendo do valor ou dos recursos do sistema. Valores mais altos geralmente resultam em carga de sistema mais baixa, mas podem causar atrasos nas notificações</span>`,
         initdelay: `Defina o atraso entre a detecção do <span class="hl">AppID</span> atual e o início do rastreamento de processos/conquistas<br><br><span class="ttdesc">Aumentar este valor pode evitar cenários em que o Steam não consegue iniciar o jogo atual (devido à inicialização do aplicativo no Steamworks antes de o jogo ser iniciado)</span><br><br><span class="ttdesc">Alternativamente, aumentar este valor também pode ser usado para evitar a detecção incorreta de processos de inicialização antes do jogo</span>`,
         releasedelay: `Define por quanto tempo o processo de Fundo espera para reiniciar após o jogo atual ser lançado. Afeta tanto o rastreamento automático do processo quanto os jogos vinculados manualmente.<br><br><span class="ttdesc">Permite um período maior para que o Steamworks seja totalmente liberado do aplicativo. Aumentar esse valor pode prevenir comportamentos incomuns, como rastrear um jogo previamente fechado</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Alternar a Sobreposição de Estatísticas de Conquistas usando o atalho de teclado especificado",
         ssdisplay: "Exibir uma prévia da captura de tela dentro da notificação",
         iconscale: "Aumentar ou diminuir o tamanho do ícone de conquista",
+        showiconborder: "Exibir uma imagem como borda ao redor do ícone da conquista",
+        iconborderimg: "Carregar um arquivo de imagem para usar como borda ao redor do ícone da conquista",
+        iconborderpos: "Definir se a imagem da borda do ícone será exibida na frente ou atrás do ícone da conquista",
+        iconborderscale: "Aumentar ou diminuir o tamanho da borda do ícone na notificação",
+        iconborderx: "Aumentar ou diminuir o deslocamento horizontal da borda do ícone na notificação",
+        iconbordery: "Aumentar ou diminuir o deslocamento vertical da borda do ícone na notificação",
         iconshadowcolor: "Definir a cor do efeito de sombra ao redor do ícone de conquista ao desbloquear uma conquista rara",
         iconanimcolor: "Definir a cor do efeito de animação atrás do ícone de conquista ao desbloquear uma conquista rara",
         logoscale: "Aumentar ou diminuir o tamanho do elemento de Logo dentro da notificação",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Exibir notificações do Retro Achievements para jogos emulados pelo RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Configurações > Registro</span> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento do Registro</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Nível de Registro da Interface</span>: <span class="hlgreen">1 (Informação)</span></li><li><span class="hllb">Registrar em Arquivo</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Arquivos de Log com Carimbo de Data/Hora</span>: <span class="hlred">DESLIGADO</span></li></ul></span>`,
         dolphin: `Exibir notificações do Retro Achievements para jogos emulados pelo Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Exibir > Mostrar Configuração de Log</span> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento</span>: <span class="hlgreen">Informação</span></li><li><span class="hllb">Saídas do Registro</span> > <span class="hlgreen">Escrever em Arquivo</span></li><li><span class="hllb">Tipos de Registro</span> > <span class="hlgreen">Conquistas (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Definir o caminho para o arquivo de log <span class="hl">"retroarch.log"</span> do RetroArch<br><br><span class="ttdesc">Com as configurações padrão de instalação, o <span class="hl">"retroarch.log"</span> é armazenado em <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Definir o caminho para o arquivo de log <span class="hl">"dolphin.log"</span> do Dolphin<br><br><span class="ttdesc">Com as configurações padrão de instalação, o <span class="hl">"dolphin.log"</span> é armazenado em um dos seguintes locais:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>` 
+        dolphinpath: `Definir o caminho para o arquivo de log <span class="hl">"dolphin.log"</span> do Dolphin<br><br><span class="ttdesc">Com as configurações padrão de instalação, o <span class="hl">"dolphin.log"</span> é armazenado em um dos seguintes locais:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Definir individualmente a cor dos elementos de texto na notificação",
+        unlockmsgfontcolor: "Definir a cor do primeiro elemento de texto",
+        titlefontcolor: "Definir a cor do segundo elemento de texto",
+        descfontcolor: "Definir a cor do terceiro elemento de texto",
+        exportachdata: `Exportar os dados da conquista para um arquivo JSON quando uma conquista for desbloqueada<br><br><span class="ttdesc">Quando ativado, <span class="ttcode">achdata.json</span> será exportado para:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Atualização disponível",

@@ -242,6 +242,7 @@ export const translations = {
                 debug: "デバッグパネル",
                 userust: "代替処理モード",
                 notifydebug: "デバッグ通知の表示",
+                exportachdata: "実績データをエクスポート",
                 usecustomfiles: "カスタムアプリファイルの使用",
                 showcustomfiles: "カスタムアプリファイルの表示"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "その他",
             content: {
+                colorprofile: "カラープロファイル",
                 checkforupdates: "更新を確認",
                 log: "アプリケーションログ",
                 reset: "アプリをリセット"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "レアアイコンの影の色",
                 iconanimcolor: "レアアイコンのアニメーションの色",
                 fontcolor: "フォントカラー",
+                usecustomfontcolors: "カスタムフォントカラーを使用",
+                unlockmsgfontcolor: "カラー 1",
+                titlefontcolor: "カラー 2",
+                descfontcolor: "カラー 3",
                 fontoutline: "フォントアウトライン",
                 fontoutlinecolor: "フォントアウトラインカラー",
                 fontshadow: "フォントシャドウ",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "アイコンスケール",
                 iconroundness: "アイコンの角丸",
+                showiconborder: "アイコンの境界線を表示",
+                iconborderimg: "アイコンの境界線画像",
+                iconborderpos: "境界線の位置",
+                iconborderscale: "境界線のスケール",
+                iconborderx: "水平オフセット",
+                iconbordery: "垂直オフセット",
+                front: "前面",
+                back: "背面",
                 plat: "100％ロゴ",
                 usegameicon: "ゲームアイコンを使用",
                 gameicontype: "ゲームアイコンの種類",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `自動的に表示され、フォーカスされる <span class="hl">更新可能</span> ダイアログを防止します<br><br><span class="ttdesc">更新ボタンをクリックして、ダイアログにアクセスすることができます</span>`,
         nvda: "実績がアンロックされたときにクリップボードに実績情報をコピーして、NVDAなどのスクリーンリーダーソフトウェアで読み取ることを有効にする",
         tooltips: "特定のUI要素にマウスオーバーしたときにツールチップを表示する",
+        colorprofile: `選択したカラープロファイルを使ってすべてのアプリケーションウィンドウをレンダリングするように強制します<br><br><span class="ttdesc">アプリの再起動が必要です</span>`,
         pollrate: `ゲームプレイ中の実績データの更新間隔を設定します<br><br><span class="ttdesc">値やシステムのハードウェアに応じて、パフォーマンスが向上または低下することがあります。通常、高い値はシステム負荷を低減させますが、通知の遅延を引き起こす可能性があります</span>`,
         initdelay: `現在の <span class="hl">AppID</span> の検出とプロセス/達成のトラッキング開始の間の遅延を設定します<br><br><span class="ttdesc">この値を増やすことで、Steam が現在のゲームを起動できないシナリオを防ぐことができます（ゲームが開始する前に Steamworks がアプリを初期化するため）</span><br><br><span class="ttdesc">また、この値を増やすことで、ゲームの前の起動プロセスの誤検出を回避することもできます</span>`,
         releasedelay: `現在のゲームがリリースされた後、バックグラウンドプロセスが再起動するまでの待機時間を設定します。自動プロセス追跡と手動でリンクされたゲームの両方に影響します。<br><br><span class="ttdesc">Steamworksがアプリケーションから完全に解放されるためのより長い時間枠を提供します。この値を増やすと、以前に閉じたゲームの追跡などの異常な動作を防ぐことができます</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "指定されたキーボードショートカットを使用して実績統計オーバーレイを切り替えます",
         ssdisplay: "通知内にキャプチャしたスクリーンショットのプレビューを表示",
         iconscale: "達成アイコンのサイズを増減する",
+        showiconborder: "実績アイコンの周りに画像を境界線として表示",
+        iconborderimg: "実績アイコンの周りに使用する画像ファイルを読み込む",
+        iconborderpos: "実績アイコンの前または後ろに境界線画像を表示するか設定",
+        iconborderscale: "通知内でアイコン境界線のサイズを増減",
+        iconborderx: "通知内でアイコン境界線の水平オフセットを増減",
+        iconbordery: "通知内でアイコン境界線の垂直オフセットを増減",
         iconshadowcolor: "レア達成を解除した際に達成アイコンの周りに表示される影の色を設定",
         iconanimcolor: "レア達成を解除した際に達成アイコンの後ろに表示されるアニメーションの色を設定",
         logoscale: "通知内のロゴ要素のサイズを増減する",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `RetroArchを使用してエミュレートされたゲームのRetro Achievements通知を表示<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > ロギング</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">ログの詳細度</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">フロントエンド ログ レベル</span>: <span class="hlgreen">1 (情報)</span></li><li><span class="hllb">ファイルにログを記録</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">ログファイルにタイムスタンプを付ける</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Dolphinを使用してエミュレートされたゲームのRetro Achievements通知を表示<br><br><span class="ttdesc"><span class="hl">Dolphin > 表示 > ログ設定の表示</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">詳細度</span>: <span class="hlgreen">情報</span></li><li><span class="hllb">ロガーの出力先</span> > <span class="hlgreen">ファイルに書き込む</span></li><li><span class="hllb">ログの種類</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `RetroArchの <span class="hl">"retroarch.log"</span> ログファイルのパスを設定<br><br><span class="ttdesc">デフォルトのインストール設定では、<span class="hl">"retroarch.log"</span> は <span class="hllb">C:\\RetroArch-x64\\Logs</span> に保存されます。</span>`,
-        dolphinpath: `Dolphinの <span class="hl">"dolphin.log"</span> ログファイルのパスを設定<br><br><span class="ttdesc">デフォルトのインストール設定では、<span class="hl">"dolphin.log"</span> は以下のいずれかの場所に保存されます:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Dolphinの <span class="hl">"dolphin.log"</span> ログファイルのパスを設定<br><br><span class="ttdesc">デフォルトのインストール設定では、<span class="hl">"dolphin.log"</span> は以下のいずれかの場所に保存されます:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "通知内のテキスト要素の色を個別に設定",
+        unlockmsgfontcolor: "最初のテキスト要素の色を設定",
+        titlefontcolor: "2番目のテキスト要素の色を設定",
+        descfontcolor: "3番目のテキスト要素の色を設定",
+        exportachdata: `実績が解除されると、実績データをJSONファイルとしてエクスポート<br><br><span class="ttdesc">有効にすると、<span class="ttcode">achdata.json</span>は以下の場所にエクスポートされます:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

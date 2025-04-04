@@ -290,7 +290,8 @@ const startsan = async (appinfo: AppInfo) => {
                         hidden: achievement.hidden,
                         percent: achievement.percent,
                         icon: await achievementicon() || sanhelper.setfilepath("img","sanlogosquare.svg"),
-                        gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg")
+                        gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg"),
+                        unlocktime: new Date(Date.now()).toISOString()
                     }
 
                     ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
@@ -329,7 +330,8 @@ const startsan = async (appinfo: AppInfo) => {
                             hidden: false,
                             percent: 0,
                             icon: platicon || sanhelper.setfilepath("img","ribbon.svg"),
-                            gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg")
+                            gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg"),
+                            unlocktime: new Date(Date.now()).toISOString()
                         }
         
                         ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,themeswitch?.[1].src))

@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Pannello di Debug",
                 userust: "Modalità di Elaborazione Alternativa",
                 notifydebug: "Mostra notifiche di debug",
+                exportachdata: "Esporta dati di successo",
                 usecustomfiles: "Utilizza file personalizzati dell'applicazione",
                 showcustomfiles: "Mostra file personalizzati dell'applicazione"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Varie",
             content: {
+                colorprofile: "Profilo colore",
                 checkforupdates: "Controlla gli aggiornamenti",
                 log: "Log dell'Applicazione",
                 reset: "Reset app"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Colore ombra icona rara",
                 iconanimcolor: "Colore animazione icona rara",
                 fontcolor: "Colore Carattere",
+                usecustomfontcolors: "Usa colori del carattere personalizzati",
+                unlockmsgfontcolor: "Colore 1",
+                titlefontcolor: "Colore 2",
+                descfontcolor: "Colore 3",
                 fontoutline: "Contorno Carattere",
                 fontoutlinecolor: "Colore Contorno Carattere",
                 fontshadow: "Ombra Carattere",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Scala icona",
                 iconroundness: "Arrotondamento Icona",
+                showiconborder: "Mostra bordo icona",
+                iconborderimg: "Bordo icona",
+                iconborderpos: "Posizione del bordo",
+                iconborderscale: "Scala del bordo",
+                iconborderx: "Offset orizzontale",
+                iconbordery: "Offset verticale",
+                front: "Davanti",
+                back: "Dietro",
                 plat: "Logo 100%",
                 usegameicon: "Usa Icona Gioco",
                 gameicontype: "Tipo di icona del gioco",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Impedisce che il dialogo <span class="hl">Aggiornamento disponibile</span> venga visualizzato e messo automaticamente in primo piano<br><br><span class="ttdesc">Il dialogo può comunque essere aperto cliccando sul pulsante di aggiornamento quando disponibile</span>`,
         nvda: "Abilita la copia delle informazioni sugli obiettivi negli appunti quando viene sbloccato un obiettivo, in modo da poter essere letto da software di lettura dello schermo, come NVDA",
         tooltips: "Mostra le descrizioni comandi quando si passa il mouse su determinati elementi dell'interfaccia utente",
+        colorprofile: `Forza tutte le finestre dell'applicazione a usare il profilo colore selezionato<br><br><span class="ttdesc">Richiede un riavvio dell'applicazione</span>`,
         pollrate: `Imposta l'intervallo di aggiornamento per i dati sugli obiettivi durante il gioco<br><br><span class="ttdesc">Le prestazioni possono aumentare/diminuire a seconda del valore o dell'hardware del sistema. Valori più alti di solito comportano un carico di sistema inferiore, ma possono ritardare le notifiche</span>`,
         initdelay: `Imposta il ritardo tra il rilevamento dell'attuale <span class="hl">AppID</span> e l'avvio del tracciamento dei processi/conquiste<br><br><span class="ttdesc">Aumentando questo valore è possibile evitare scenari in cui Steam non riesce a avviare il gioco corrente (a causa dell'inizializzazione dell'applicazione in Steamworks prima del lancio del gioco)</span><br><br><span class="ttdesc">In alternativa, aumentare questo valore può anche essere utilizzato per evitare la rilevazione errata dei processi di avvio pre-gioco</span>`,
         releasedelay: `Imposta quanto tempo il processo in background deve attendere per riavviarsi dopo che il gioco attuale è stato rilasciato. Influenza sia il monitoraggio automatico dei processi che i giochi collegati manualmente.<br><br><span class="ttdesc">Consente un periodo più lungo per il completo rilascio di Steamworks dall'applicazione. Aumentare questo valore può prevenire comportamenti insoliti, come il tracciamento di un gioco precedentemente chiuso</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Attiva o disattiva l'Overlay delle Statistiche dei Successi utilizzando la scorciatoia da tastiera specificata",
         ssdisplay: "Mostra un'anteprima dello screenshot catturato nella notifica",
         iconscale: "Aumenta o diminuisci la dimensione dell'icona del traguardo",
+        showiconborder: "Mostra un'immagine come bordo attorno all'icona del successo",
+        iconborderimg: "Carica un file immagine da utilizzare come bordo attorno all'icona del successo",
+        iconborderpos: "Imposta se l'immagine del bordo deve essere visualizzata davanti o dietro l'icona del successo",
+        iconborderscale: "Aumenta o diminuisci la dimensione del bordo dell'icona nella notifica",
+        iconborderx: "Aumenta o diminuisci l'offset orizzontale del bordo dell'icona nella notifica",
+        iconbordery: "Aumenta o diminuisci l'offset verticale del bordo dell'icona nella notifica",
         iconshadowcolor: "Imposta il colore dell'effetto ombra che circonda l'icona del traguardo quando viene sbloccato un traguardo raro",
         iconanimcolor: "Imposta il colore dell'effetto animazione dietro l'icona del traguardo quando viene sbloccato un traguardo raro",
         logoscale: "Aumenta o diminuisci la dimensione dell'elemento logo nella notifica",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Mostra notifiche di Retro Achievements per i giochi emulati tramite RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Impostazioni > Registrazione</span> deve essere configurato come segue:<br><br><ul><li><span class="hllb">Verbosity della registrazione</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Livello di log del frontend</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Registra su file</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Timestamp dei file di log</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Mostra notifiche di Retro Achievements per i giochi emulati tramite Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Visualizza > Mostra configurazione del log</span> deve essere configurato come segue:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Uscite del logger</span> > <span class="hlgreen">Scrivi su file</span></li><li><span class="hllb">Tipi di log</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Imposta il percorso del file di log di RetroArch <span class="hl">"retroarch.log"</span><br><br><span class="ttdesc">Con le impostazioni di installazione predefinite, <span class="hl">"retroarch.log"</span> si trova in <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Imposta il percorso del file di log di Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">Con le impostazioni di installazione predefinite, <span class="hl">"dolphin.log"</span> si trova in una delle seguenti posizioni:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Imposta il percorso del file di log di Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">Con le impostazioni di installazione predefinite, <span class="hl">"dolphin.log"</span> si trova in una delle seguenti posizioni:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Imposta separatamente il colore degli elementi di testo nella notifica",
+        unlockmsgfontcolor: "Imposta il colore del primo elemento di testo",
+        titlefontcolor: "Imposta il colore del secondo elemento di testo",
+        descfontcolor: "Imposta il colore del terzo elemento di testo",
+        exportachdata: `Esporta i dati di successo in un file JSON quando un successo viene sbloccato<br><br><span class="ttdesc">Quando abilitato, <span class="ttcode">achdata.json</span> verrà esportato in:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

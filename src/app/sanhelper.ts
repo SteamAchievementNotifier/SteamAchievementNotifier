@@ -517,12 +517,15 @@ export const sanhelper: SANHelper = {
                 }
             }
 
+            const wideelems = [...rasupported].flatMap(id => rasupported.includes(id) ? [id,`${id}path`] : [id])
+            const elemselectorbtns = [...trophies].map(id => `percentbadgeimg${id}`)
+
             const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})${elem.classList.contains("rect") ? ` > #${elem.id}` : ""}`,{
                 ...defaulttippy,
                 appendTo: "parent",
                 content: content,
-                maxWidth: ![...rasupported].some(id => elem.id === `${id}path`) ? defaulttippy.maxWidth : 200,
-                triggerTarget: !elem.id.startsWith("webhookembedcolor") && ![...rasupported].some(id => elem.id === id) ? elem.parentElement : ([...rasupported].some(id => elem.id === id) ? [elem,elem.previousElementSibling!] : elem),
+                maxWidth: sanhelper.maxwidth(wideelems,elem),
+                triggerTarget: !elem.id.startsWith("webhookembedcolor") && ![...rasupported].some(id => elem.id === id) && ![...elemselectorbtns,"resetpbimgs"].some(id => elem.id === id) ? elem.parentElement : ([...rasupported,...elemselectorbtns].some(id => elem.id === id) ? [elem,elem.previousElementSibling!] : elem),
                 onTrigger(inst) {
                     currenttippy && currenttippy !== inst && currenttippy.hide()
                     currenttippy = inst
@@ -615,6 +618,7 @@ export const sanhelper: SANHelper = {
             tippies.push(tt)
         })
     }),
+    maxwidth: (wideelems: string[],elem: HTMLElement) => wideelems.includes(elem.id) ? 200 : defaulttippy.maxWidth,
     settooltips: (value: boolean) => {
         tippies.forEach(tt => tt[0]?.destroy())
         tippies.length = 0
@@ -630,6 +634,10 @@ export const sanhelper: SANHelper = {
             ["extwinframerate","FPS"]
         ])
 
+        const wideelems = [
+            "exportachdata"
+        ]
+
         range.forEach((value,key) => {
             const elem = document.getElementById(key)
 
@@ -637,6 +645,7 @@ export const sanhelper: SANHelper = {
                 const tt = tippy(`#${key}`,{
                     ...defaulttippy,
                     content: `${(elem as HTMLInputElement).value}${value}`,
+                    maxWidth: sanhelper.maxwidth(wideelems,elem),
                     appendTo: "parent",
                     hideOnClick: false,
                     placement: "top",
@@ -669,6 +678,7 @@ export const sanhelper: SANHelper = {
             
             const tt = tippy(`#${elem}`,{
                 ...defaulttippy,
+                maxWidth: sanhelper.maxwidth(wideelems,elem),
                 content: await language.get(elem,["tooltips"]),
                 onTrigger(inst) {
                     inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
@@ -689,6 +699,7 @@ export const sanhelper: SANHelper = {
         btns.forEach(async btn => {
             const tt = tippy(`#${btn}`,{
                 ...defaulttippy,
+                maxWidth: sanhelper.maxwidth(wideelems,btn),
                 content: await language.get(btn,["tooltips"]),
                 placement: "top",
                 followCursor: false,
@@ -721,6 +732,7 @@ export const sanhelper: SANHelper = {
                     .opt:has(> .sub, > .opt):has(> #${elem.id}) > span
                 `,{
                     ...defaulttippy,
+                    maxWidth: sanhelper.maxwidth(wideelems,elem),
                     content: await language.get(elem.id,["tooltips"]),
                     appendTo: settings,
                     onTrigger(inst) {
@@ -763,6 +775,7 @@ export const sanhelper: SANHelper = {
                     .opt#posbtns > #${elem.id}
                 `,{
                     ...defaulttippy,
+                    maxWidth: sanhelper.maxwidth(wideelems,elem),
                     content,
                     onTrigger(inst) {
                         inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
@@ -777,6 +790,7 @@ export const sanhelper: SANHelper = {
             )!.forEach(async elem => {
                 const tt = tippy(`#${elem.id}`,{
                     ...defaulttippy,
+                    maxWidth: sanhelper.maxwidth(wideelems,elem),
                     content: await language.get(elem.id,["tooltips"]),
                     onTrigger(inst) {
                         inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
@@ -793,6 +807,7 @@ export const sanhelper: SANHelper = {
             .forEach(async elem =>  {
                 const tt = tippy(`.opt:has(#${elem.parentElement!.querySelector(`.optbtn`)!.id}) > .${elem.classList.contains("visibilitybtn") ? "visibilitybtn" : "delbtn"}`,{
                     ...defaulttippy,
+                    maxWidth: sanhelper.maxwidth(wideelems,elem),
                     content: await language.get(elem.classList.contains("visibilitybtn") ? "visibilitybtn" : "delbtn",["tooltips"]),
                     onTrigger(inst) {
                         inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
@@ -814,6 +829,7 @@ export const sanhelper: SANHelper = {
                 )!.forEach(async elem => {
                     const tt = tippy(`#${elem.id}`,{
                         ...defaulttippy,
+                        maxWidth: sanhelper.maxwidth(wideelems,elem),
                         content: await language.get(elem.id,["tooltips"]),
                         appendTo: "parent",
                         onTrigger(inst) {

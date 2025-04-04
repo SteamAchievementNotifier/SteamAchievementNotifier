@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Panneau de débogage",
                 userust: "Mode de traitement alternatif",
                 notifydebug: "Afficher les notifications de débogage",
+                exportachdata: "Exporter les données de succès",
                 usecustomfiles: "Utiliser des fichiers d'application personnalisés",
                 showcustomfiles: "Afficher les fichiers d'application personnalisés"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Divers",
             content: {
+                colorprofile: "Profil de couleur",
                 checkforupdates: "Vérifier les Mises à Jour",
                 log: "Journal de l'Application",
                 reset: "Réinitialiser l'application"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Couleur de l'ombre de l'icône rare",
                 iconanimcolor: "Couleur de l'animation de l'icône rare",
                 fontcolor: "Couleur de la Police",
+                usecustomfontcolors: "Utiliser des couleurs de police personnalisées",
+                unlockmsgfontcolor: "Couleur 1",
+                titlefontcolor: "Couleur 2",
+                descfontcolor: "Couleur 3",
                 fontoutline: "Contour de la Police",
                 fontoutlinecolor: "Couleur du Contour de la Police",
                 fontshadow: "Ombre de la Police",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Échelle de l'icône",
                 iconroundness: "Arrondi de l'Icône",
+                showiconborder: "Afficher la bordure de l'icône",
+                iconborderimg: "Bordure de l'icône",
+                iconborderpos: "Position de la bordure",
+                iconborderscale: "Échelle de la bordure",
+                iconborderx: "Décalage horizontal",
+                iconbordery: "Décalage vertical",
+                front: "Devant",
+                back: "Derrière",
                 plat: "Logo à 100%",
                 usegameicon: "Utiliser l'Icône du Jeu",
                 gameicontype: "Type d'icône du jeu",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Empêcher l'affichage automatique et la mise au premier plan de la boîte de dialogue <span class="hl">Mise à jour disponible</span><br><br><span class="ttdesc">La boîte de dialogue peut toujours être ouverte en cliquant sur le bouton de mise à jour lorsque disponible</span>`,
         nvda: "Active la copie des informations de succès dans le presse-papiers lorsqu'un succès est déverrouillé, afin d'être lu par un logiciel de lecteur d'écran, tel que NVDA",
         tooltips: "Affiche des info-bulles lors du survol de certains éléments de l'interface utilisateur",
+        colorprofile: `Forcer toutes les fenêtres de l'application à s'afficher avec le profil de couleur sélectionné<br><br><span class="ttdesc">Nécessite un redémarrage de l'application</span>`,
         pollrate: `Définir l'intervalle de mise à jour des données de réalisation pendant le jeu<br><br><span class="ttdesc">Les performances peuvent augmenter/diminuer en fonction de la valeur ou du matériel du système. Les valeurs plus élevées entraînent généralement une charge système plus faible, mais peuvent retarder les notifications</span>`,
         initdelay: `Définissez le délai entre la détection de l'<span class="hl">AppID</span> actuel et le début du suivi des processus/réalisations<br><br><span class="ttdesc">Augmenter cette valeur peut empêcher des scénarios où Steam ne peut pas lancer le jeu actuel (en raison de l'initialisation de l'application dans Steamworks avant le lancement du jeu)</span><br><br><span class="ttdesc">Alternativement, augmenter cette valeur peut également être utilisé pour contourner la détection incorrecte des processus de pré-lancement du jeu</span>`,
         releasedelay: `Définit pendant combien de temps le processus d'arrière-plan attend de redémarrer après que le jeu actuel a été publié. Affecte à la fois le suivi automatique des processus et les jeux liés manuellement.<br><br><span class="ttdesc">Permet une période plus longue pour que Steamworks soit entièrement libéré de l'application. Augmenter cette valeur peut prévenir les comportements inhabituels, tels que le suivi d'un jeu précédemment fermé</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Basculer la superposition des statistiques de succès à l'aide du raccourci clavier spécifié",
         ssdisplay: "Afficher un aperçu de la capture d'écran dans la notification",
         iconscale: "Agrandir ou réduire la taille de l'icône de la réussite",
+        showiconborder: "Afficher une image en tant que bordure autour de l'icône du succès",
+        iconborderimg: "Charger un fichier image à utiliser comme bordure autour de l'icône du succès",
+        iconborderpos: "Définir si l'image de la bordure doit être affichée devant ou derrière l'icône du succès",
+        iconborderscale: "Agrandir ou réduire la taille de la bordure de l'icône dans la notification",
+        iconborderx: "Augmenter ou diminuer le décalage horizontal de la bordure dans la notification",
+        iconbordery: "Augmenter ou diminuer le décalage vertical de la bordure dans la notification",
         iconshadowcolor: "Définir la couleur de l'effet d'ombre autour de l'icône de la réussite lors du déverrouillage d'une réussite rare",
         iconanimcolor: "Définir la couleur de l'effet d'animation derrière l'icône de la réussite lors du déverrouillage d'une réussite rare",
         logoscale: "Agrandir ou réduire la taille de l'élément du logo dans la notification",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Afficher les notifications Retro Achievements pour les jeux émulés via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Paramètres > Journalisation</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail des journaux</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Niveau de journalisation du frontend</span> : <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Journaliser dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Horodater les fichiers journaux</span> : <span class="hlred">DÉSACTIVÉ</span></li></ul></span>`,
         dolphin: `Afficher les notifications Retro Achievements pour les jeux émulés via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Affichage > Afficher la configuration du journal</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail</span> : <span class="hlgreen">Info</span></li><li><span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></li><li><span class="hllb">Types de journal</span> > <span class="hlgreen">Succès (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Définir le chemin du fichier journal <span class="hl">"retroarch.log"</span> de RetroArch<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"retroarch.log"</span> est enregistré dans <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Définir le chemin du fichier journal <span class="hl">"dolphin.log"</span> de Dolphin<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"dolphin.log"</span> est enregistré dans l'un des emplacements suivants :<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Définir le chemin du fichier journal <span class="hl">"dolphin.log"</span> de Dolphin<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"dolphin.log"</span> est enregistré dans l'un des emplacements suivants :<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Définir individuellement la couleur des éléments de texte dans la notification",
+        unlockmsgfontcolor: "Définir la couleur du premier élément de texte",
+        titlefontcolor: "Définir la couleur du deuxième élément de texte",
+        descfontcolor: "Définir la couleur du troisième élément de texte",
+        exportachdata: `Exporter les données de succès vers un fichier JSON lorsqu'un succès est débloqué<br><br><span class="ttdesc">Lorsqu'il est activé, <span class="ttcode">achdata.json</span> sera exporté vers :<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",

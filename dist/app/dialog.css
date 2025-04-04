@@ -1084,7 +1084,6 @@ details[open] > summary {
 
 .contentsubitem details > summary#retroarch::before {
     --icon: url("../../img/ra/retroarch.png");
-    filter: invert();
 }
 
 .contentsubitem details > summary#dolphin::before {

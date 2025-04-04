@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Panel Ladění",
                 userust: "Alternativní Režim Zpracování",
                 notifydebug: "Zobrazit oznámení nástrojů pro ladění",
+                exportachdata: "Exportovat data o úspěších",
                 usecustomfiles: "Použít vlastní soubory aplikace",
                 showcustomfiles: "Zobrazit vlastní soubory aplikace"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Různé",
             content: {
+                colorprofile: "Barevný profil",
                 checkforupdates: "Zkontrolovat Aktualizace",
                 log: "Záznam Aplikace",
                 reset: "Resetovat aplikaci"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Barva stínu vzácné ikony",
                 iconanimcolor: "Barva animace vzácné ikony",
                 fontcolor: "Barva písma",
+                usecustomfontcolors: "Použít vlastní barvy písma",
+                unlockmsgfontcolor: "Barva 1",
+                titlefontcolor: "Barva 2",
+                descfontcolor: "Barva 3",
                 fontoutline: "Obrys písma",
                 fontoutlinecolor: "Barva obrysu písma",
                 fontshadow: "Stín písma",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Měřítko ikony",
                 iconroundness: "Zaoblení ikony",
+                showiconborder: "Zobrazit ohraničení ikony",
+                iconborderimg: "Ohraničení ikony",
+                iconborderpos: "Pozice ohraničení",
+                iconborderscale: "Měřítko ohraničení",
+                iconborderx: "Vodorovný posun",
+                iconbordery: "Svislý posun",
+                front: "Předek",
+                back: "Zadek",
                 plat: "100% Logo",
                 usegameicon: "Použít ikonu hry",
                 gameicontype: "Typ ikony hry",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Zabraňte automatickému zobrazení a zaměření dialogu <span class="hl">Dostupná aktualizace</span><br><br><span class="ttdesc">Dialog stále můžete zobrazit kliknutím na tlačítko aktualizace, pokud je k dispozici</span>`,
         nvda: "Povolit kopírování informací o achievementu do schránky při odemknutí achievementu, aby je bylo možné číst pomocí čtečky obrazovky, například NVDA",
         tooltips: "Zobrazit popisky při najetí myší na určité prvky uživatelského rozhraní",
+        colorprofile: `Vynutit vykreslování všech oken aplikace pomocí vybraného barevného profilu<br><br><span class="ttdesc">Vyžaduje restart aplikace</span>`,
         pollrate: `Nastavit interval aktualizace dat o úspěších během hry<br><br><span class="ttdesc">Výkon může stoupat/klesat v závislosti na hodnotě nebo hardwarových zdrojích systému. Vyšší hodnoty obvykle znamenají nižší zátěž systému, ale mohou způsobit zpoždění upozornění</span>`,
         initdelay: `Nastavte zpoždění mezi detekcí aktuálního <span class="hl">AppID</span> a zahájením sledování procesů/úspěchů<br><br><span class="ttdesc">Zvýšení této hodnoty může zabránit scénářům, kdy Steam není schopen spustit aktuální hru (kvůli inicializaci aplikace ve Steamworks před spuštěním hry)</span><br><br><span class="ttdesc">Alternativně lze zvýšení této hodnoty také použít k obejití nesprávné detekce procesů spouštění před hrou</span>`,
         releasedelay: `Nastavuje, jak dlouho bude proces pozadí čekat na restart po uvolnění aktuální hry. Ovlivňuje jak automatické sledování procesu, tak ručně propojené hry.<br><br><span class="ttdesc">Umožňuje delší časový rámec pro úplné uvolnění Steamworks z aplikace. Zvýšení této hodnoty může zabránit neobvyklému chování, jako je sledování dříve uzavřené hry</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Přepnout překrytí statistik úspěchů pomocí specifikované klávesové zkratky",
         ssdisplay: "Zobrazit náhled zachycené obrazovky v oznámení",
         iconscale: "Zvětšit nebo zmenšit velikost ikony úspěchu",
+        showiconborder: "Zobrazit obrázek jako ohraničení kolem ikony úspěchu",
+        iconborderimg: "Načíst soubor s obrázkem pro použití jako ohraničení kolem ikony úspěchu",
+        iconborderpos: "Nastavit, zda se obrázek ohraničení ikony zobrazí před nebo za ikonou úspěchu",
+        iconborderscale: "Zvětšit nebo zmenšit velikost ohraničení ikony v oznámení",
+        iconborderx: "Zvětšit nebo zmenšit vodorovný posun ohraničení ikony v oznámení",
+        iconbordery: "Zvětšit nebo zmenšit svislý posun ohraničení ikony v oznámení",
         iconshadowcolor: "Nastavit barvu efektu stínu kolem ikony úspěchu při odemčení vzácného úspěchu",
         iconanimcolor: "Nastavit barvu animačního efektu za ikonou úspěchu při odemčení vzácného úspěchu",
         logoscale: "Zvětšit nebo zmenšit velikost prvku loga v oznámení",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Zobrazovat oznámení o Retro Achievements pro hry emulované v RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Nastavení > Záznam</span> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Podrobnost záznamu</span>: <span class="hlgreen">ZAPNUTO</span></li><li><span class="hllb">Úroveň záznamu uživatelského rozhraní</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Záznam do souboru</span>: <span class="hlgreen">ZAPNUTO</span></li><li><span class="hllb">Časové značky v logu</span>: <span class="hlred">VYPNUTO</span></li></ul></span>`,
         dolphin: `Zobrazovat oznámení o Retro Achievements pro hry emulované v Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Zobrazit > Zobrazit konfiguraci záznamu</span> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Podrobnost</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Výstupy záznamu</span> > <span class="hlgreen">Zapsat do souboru</span></li><li><span class="hllb">Typy záznamu</span> > <span class="hlgreen">Úspěchy (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Nastavit cestu k souboru s logy <span class="hl">"retroarch.log"</span> pro RetroArch<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"retroarch.log"</span> uložen v <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Nastavit cestu k souboru s logy <span class="hl">"dolphin.log"</span> pro Dolphin<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"dolphin.log"</span> uložen na jednom z následujících míst:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Nastavit cestu k souboru s logy <span class="hl">"dolphin.log"</span> pro Dolphin<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"dolphin.log"</span> uložen na jednom z následujících míst:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Individuálně nastavit barvu textových prvků v oznámení",
+        unlockmsgfontcolor: "Nastavit barvu prvního textového prvku",
+        titlefontcolor: "Nastavit barvu druhého textového prvku",
+        descfontcolor: "Nastavit barvu třetího textového prvku",
+        exportachdata: `Exportovat data o úspěších do souboru JSON při odemknutí úspěchu<br><br><span class="ttdesc">Pokud je povoleno, <span class="ttcode">achdata.json</span> bude exportován do:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

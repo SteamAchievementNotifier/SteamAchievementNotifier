@@ -116,7 +116,6 @@ declare interface Config {
     dolphinpath: string,
     rauser: string,
     rakey: string,
-    rapercenttype: "soft" | "hard",
     exportachdata: boolean,
     colorprofile: "none" | "srgb" | "display-p3-d65" | "color-spin-gamma24" | "scrgb-linear" | "hdr10",
     customisation: {
@@ -304,7 +303,8 @@ declare interface Notify extends Achievement {
     gameicon: string | null,
     istestnotification?: boolean,
     ra?: boolean,
-    libhero?: string
+    libhero?: string,
+    unlocktime?: string
 }
 
 declare interface StatsObj {
@@ -478,7 +478,8 @@ declare interface LogAction {
     key: string | null,
     file: string | null,
     action: "start" | "stop" | "achievement" | "idle",
-    value: number | null
+    value: number | null,
+    mode?: "hard" | "soft"
 }
 
 declare interface RAAchievement {
@@ -500,20 +501,20 @@ declare interface RAAchievement {
     hardcorepercent: number,
     gamename: string,
     gameicon: string,
-    gameartlibhero: string
+    gameartlibhero: string,
+    icon: string,
+    unlocked: boolean
 }
 
 declare interface RAAPlatObj {
-    gameid: number,
     achievement: RAAchievement,
     customisation: Customisation,
     platicon: string,
     monitor: number,
     username: string,
-    apikey: string,
-    achievementsnum: number
+    numawarded: number,
+    numachievements: number
 }
-
 
 declare interface RAGame {
     emu: string,

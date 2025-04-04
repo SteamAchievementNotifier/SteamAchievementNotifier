@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Bảng Gỡ lỗi",
                 userust: "Chế độ Xử lý Thay thế",
                 notifydebug: "Hiển thị thông báo gỡ lỗi",
+                exportachdata: "Xuất dữ liệu thành tích",
                 usecustomfiles: "Sử dụng tập tin ứng dụng tùy chỉnh",
                 showcustomfiles: "Hiển thị tập tin ứng dụng tùy chỉnh"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Điều bổ sung",
             content: {
+                colorprofile: "Hồ sơ màu",
                 checkforupdates: "Kiểm tra cập nhật",
                 log: "Nhật ký ứng dụng",
                 reset: "Đặt lại Ứng dụng"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Màu bóng đổ của biểu tượng hiếm",
                 iconanimcolor: "Màu hoạt ảnh của biểu tượng hiếm",
                 fontcolor: "Màu chữ",
+                usecustomfontcolors: "Sử dụng màu chữ tùy chỉnh",
+                unlockmsgfontcolor: "Màu 1",
+                titlefontcolor: "Màu 2",
+                descfontcolor: "Màu 3",
                 fontoutline: "Viền chữ",
                 fontoutlinecolor: "Màu viền chữ",
                 fontshadow: "Bóng chữ",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Tỉ lệ biểu tượng",
                 iconroundness: "Độ tròn của biểu tượng",
+                showiconborder: "Hiển thị viền biểu tượng",
+                iconborderimg: "Viền biểu tượng",
+                iconborderpos: "Vị trí viền",
+                iconborderscale: "Tỷ lệ viền",
+                iconborderx: "Dịch chuyển ngang",
+                iconbordery: "Dịch chuyển dọc",
+                front: "Trước",
+                back: "Sau",
                 plat: "Logo 100%",
                 usegameicon: "Sử dụng biểu tượng trò chơi",
                 gameicontype: "Loại biểu tượng trò chơi",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Ngăn chặn hiển thị tự động và tập trung vào hộp thoại <span class="hl">Cập nhật có sẵn</span><br><br><span class="ttdesc">Hộp thoại vẫn có thể truy cập bằng cách nhấp vào nút cập nhật khi có sẵn</span>`,
         nvda: "Bật sao chép thông tin thành tựu vào clipboard khi mở khóa thành tựu, để đọc bằng phần mềm đọc màn hình, chẳng hạn như NVDA",
         tooltips: "Hiển thị gợi ý khi di chuột qua các yếu tố giao diện người dùng cụ thể",
+        colorprofile: `Buộc tất cả cửa sổ ứng dụng hiển thị theo hồ sơ màu đã chọn<br><br><span class="ttdesc">Cần khởi động lại ứng dụng</span>`,
         pollrate: `Đặt khoảng thời gian cập nhật cho dữ liệu thành tựu trong khi chơi game<br><br><span class="ttdesc">Hiệu suất có thể tăng/giảm tùy thuộc vào giá trị hoặc phần cứng của hệ thống. Các giá trị cao thường dẫn đến tải hệ thống thấp hơn, nhưng có thể gây trễ trong thông báo</span>`,
         initdelay: `Đặt thời gian chờ giữa khi phát hiện <span class="hl">AppID</span> hiện tại và khi bắt đầu theo dõi quy trình/thành tựu<br><br><span class="ttdesc">Tăng giá trị này có thể ngăn ngừa những tình huống khi Steam không thể khởi động trò chơi hiện tại (do việc khởi tạo ứng dụng trong Steamworks trước khi trò chơi được khởi động)</span><br><br><span class="ttdesc">Hoặc có thể sử dụng giá trị này để tránh phát hiện không chính xác các quy trình khởi động trước trò chơi</span>`,
         releasedelay: `Thiết lập thời gian chờ cho quá trình nền để khởi động lại sau khi trò chơi hiện tại đã được phát hành. Ảnh hưởng đến cả việc theo dõi quá trình tự động và các trò chơi được liên kết thủ công.<br><br><span class="ttdesc">Cung cấp một khoảng thời gian lâu hơn để hoàn toàn giải phóng Steamworks khỏi ứng dụng. Tăng giá trị này có thể ngăn ngừa hành vi bất thường, chẳng hạn như theo dõi một trò chơi trước đó đã đóng</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "Chuyển đổi Overlay Thống kê Thành tích bằng phím tắt bàn phím đã chỉ định",
         ssdisplay: "Hiển thị bản xem trước ảnh chụp màn hình trong thông báo",
         iconscale: "Tăng hoặc giảm kích thước của biểu tượng thành tích",
+        showiconborder: "Hiển thị một hình ảnh làm viền xung quanh biểu tượng thành tích",
+        iconborderimg: "Tải tệp hình ảnh để sử dụng làm viền xung quanh biểu tượng thành tích",
+        iconborderpos: "Chọn hiển thị viền biểu tượng trước hoặc sau biểu tượng thành tích",
+        iconborderscale: "Tăng hoặc giảm kích thước viền biểu tượng trong thông báo",
+        iconborderx: "Tăng hoặc giảm dịch chuyển ngang của viền biểu tượng trong thông báo",
+        iconbordery: "Tăng hoặc giảm dịch chuyển dọc của viền biểu tượng trong thông báo",
         iconshadowcolor: "Cài đặt màu bóng đổ xung quanh biểu tượng thành tích khi mở khóa thành tích hiếm",
         iconanimcolor: "Cài đặt màu hoạt ảnh phía sau biểu tượng thành tích khi mở khóa thành tích hiếm",
         logoscale: "Tăng hoặc giảm kích thước của phần tử logo trong thông báo",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Cài đặt > Ghi log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết của ghi log</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Cấp độ ghi log của giao diện người dùng</span>: <span class="hlgreen">1 (Thông tin)</span></li><li><span class="hllb">Ghi log vào file</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Thêm dấu thời gian vào các file log</span>: <span class="hlred">TẮT</span></li></ul></span>`,
         dolphin: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Xem > Hiển thị Cấu hình Log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết</span>: <span class="hlgreen">Thông tin</span></li><li><span class="hllb">Kết quả ghi log</span> > <span class="hlgreen">Ghi vào File</span></li><li><span class="hllb">Các loại log</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Cài đặt đường dẫn đến file log của RetroArch <span class="hl">"retroarch.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"retroarch.log"</span> được lưu tại <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Cài đặt đường dẫn đến file log của Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"dolphin.log"</span> được lưu tại một trong các vị trí sau:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Cài đặt đường dẫn đến file log của Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"dolphin.log"</span> được lưu tại một trong các vị trí sau:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Tùy chỉnh màu sắc của từng phần văn bản trong thông báo",
+        unlockmsgfontcolor: "Chọn màu cho phần văn bản đầu tiên",
+        titlefontcolor: "Chọn màu cho phần văn bản thứ hai",
+        descfontcolor: "Chọn màu cho phần văn bản thứ ba",
+        exportachdata: `Xuất dữ liệu thành tích vào tệp JSON khi một thành tích được mở khóa<br><br><span class="ttdesc">Khi bật, <span class="ttcode">achdata.json</span> sẽ được xuất ra tại:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

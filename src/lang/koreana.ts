@@ -242,6 +242,7 @@ export const translations = {
                 debug: "디버그 패널",
                 userust: "대체 처리 모드",
                 notifydebug: "디버그 알림 표시",
+                exportachdata: "업적 데이터 내보내기",
                 usecustomfiles: "사용자 정의 앱 파일 사용",
                 showcustomfiles: "사용자 정의 앱 파일 표시"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "기타",
             content: {
+                colorprofile: "색상 프로필",
                 checkforupdates: "업데이트 확인",
                 log: "앱 로그",
                 reset: "앱 재설정"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "레어 아이콘 그림자 색상",
                 iconanimcolor: "레어 아이콘 애니메이션 색상",
                 fontcolor: "글꼴 색상",
+                usecustomfontcolors: "사용자 정의 글꼴 색상 사용",
+                unlockmsgfontcolor: "색상 1",
+                titlefontcolor: "색상 2",
+                descfontcolor: "색상 3",
                 fontoutline: "글꼴 외곽선",
                 fontoutlinecolor: "글꼴 외곽선 색상",
                 fontshadow: "글꼴 그림자",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "아이콘 크기",
                 iconroundness: "아이콘 둥글기",
+                showiconborder: "아이콘 테두리 표시",
+                iconborderimg: "아이콘 테두리 이미지",
+                iconborderpos: "테두리 위치",
+                iconborderscale: "테두리 크기",
+                iconborderx: "수평 오프셋",
+                iconbordery: "수직 오프셋",
+                front: "앞",
+                back: "뒤",
                 plat: "100% 로고",
                 usegameicon: "게임 아이콘 사용",
                 gameicontype: "게임 아이콘 유형",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `자동으로 표시되고 초점이 맞춰지는 <span class="hl">업데이트 가능</span> 대화상자를 방지합니다<br><br><span class="ttdesc">업데이트 버튼을 클릭하여 여전히 대화상자에 접근할 수 있습니다</span>`,
         nvda: "업적이 잠금 해제될 때 클립보드로 업적 정보 복사하여 NVDA와 같은 스크린 리더 소프트웨어에서 읽을 수 있도록 활성화",
         tooltips: "특정 UI 요소 위에 마우스를 올렸을 때 도구 설명 표시",
+        colorprofile: `선택한 색상 프로필을 사용하여 모든 애플리케이션 창을 렌더링하도록 강제<br><br><span class="ttdesc">앱 재시작이 필요합니다</span>`,
         pollrate: `게임 중 성취 데이터의 업데이트 간격을 설정합니다<br><br><span class="ttdesc">값이나 시스템 하드웨어에 따라 성능이 증가하거나 감소할 수 있습니다. 일반적으로 높은 값은 시스템 부하를 줄이지만 알림이 지연될 수 있습니다</span>`,
         initdelay: `현재 <span class="hl">AppID</span> 감지와 프로세스/성취 추적 시작 사이의 지연을 설정합니다<br><br><span class="ttdesc">이 값을 증가시키면 Steam이 현재 게임을 시작할 수 없는 시나리오를 방지할 수 있습니다 (게임이 시작되기 전에 Steamworks가 애플리케이션을 초기화하는 경우)</span><br><br><span class="ttdesc">또한 이 값을 증가시켜 게임 전 시작 프로세스의 잘못된 감지를 우회하는 데 사용할 수도 있습니다</span>`,
         releasedelay: `현재 게임이 출시된 후 백그라운드 프로세스가 다시 시작하기까지 대기하는 시간을 설정합니다. 자동 프로세스 추적 및 수동으로 연결된 게임에 모두 영향을 줍니다.<br><br><span class="ttdesc">앱에서 Steamworks를 완전히 해제하는 데 더 긴 시간 프레임을 제공합니다. 이 값을 높이면 이전에 닫힌 게임 추적과 같은 이상한 동작을 방지할 수 있습니다.</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "지정된 키보드 단축키를 사용하여 업적 통계 오버레이를 전환합니다",
         ssdisplay: "알림 내에 캡처한 스크린샷 미리보기 표시",
         iconscale: "성공 아이콘의 크기를 늘리거나 줄입니다",
+        showiconborder: "업적 아이콘 주위에 이미지를 테두리로 표시",
+        iconborderimg: "업적 아이콘 주위에 사용할 이미지 파일을 로드",
+        iconborderpos: "업적 아이콘 앞이나 뒤에 테두리 이미지를 표시할지 설정",
+        iconborderscale: "알림 내에서 아이콘 테두리의 크기를 늘리거나 줄이기",
+        iconborderx: "알림 내에서 아이콘 테두리의 수평 오프셋을 늘리거나 줄이기",
+        iconbordery: "알림 내에서 아이콘 테두리의 수직 오프셋을 늘리거나 줄이기",
         iconshadowcolor: "레어 성공이 해제될 때 성공 아이콘 주위의 그림자 효과 색상을 설정합니다",
         iconanimcolor: "레어 성공이 해제될 때 성공 아이콘 뒤의 애니메이션 효과 색상을 설정합니다",
         logoscale: "알림 내의 로고 요소 크기를 늘리거나 줄입니다",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `RetroArch를 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">RetroArch > 설정 > 로깅</span>을 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">로깅 상세도</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">프론트엔드 로깅 레벨</span>: <span class="hlgreen">1 (정보)</span></li><li><span class="hllb">파일에 로깅</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">로그 파일에 타임스탬프 추가</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Dolphin을 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">Dolphin > 보기 > 로그 구성 표시</span>를 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">상세도</span>: <span class="hlgreen">정보</span></li><li><span class="hllb">로거 출력</span> > <span class="hlgreen">파일에 쓰기</span></li><li><span class="hllb">로그 유형</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `RetroArch의 <span class="hl">"retroarch.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"retroarch.log"</span>는 <span class="hllb">C:\\RetroArch-x64\\Logs</span>에 저장됩니다.</span>`,
-        dolphinpath: `Dolphin의 <span class="hl">"dolphin.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"dolphin.log"</span>는 다음 위치 중 하나에 저장됩니다:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Dolphin의 <span class="hl">"dolphin.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"dolphin.log"</span>는 다음 위치 중 하나에 저장됩니다:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "알림 내 텍스트 요소의 색상을 개별적으로 설정",
+        unlockmsgfontcolor: "첫 번째 텍스트 요소의 색상 설정",
+        titlefontcolor: "두 번째 텍스트 요소의 색상 설정",
+        descfontcolor: "세 번째 텍스트 요소의 색상 설정",
+        exportachdata: `업적이 잠금 해제되면 JSON 파일로 업적 데이터를 내보냅니다<br><br><span class="ttdesc">활성화하면, <span class="ttcode">achdata.json</span>이 다음 경로에 내보내집니다:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "업데이트 가능",

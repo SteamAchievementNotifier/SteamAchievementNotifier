@@ -280,7 +280,6 @@ export const sanconfig = {
                 dolphinpath: "",
                 rauser: "",
                 rakey: "",
-                rapercenttype: "hard",
                 exportachdata: false,
                 colorprofile: "none",
                 customisation: {

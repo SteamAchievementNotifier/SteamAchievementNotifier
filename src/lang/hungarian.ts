@@ -242,6 +242,7 @@ export const translations = {
                 debug: "Hibakereső panel",
                 userust: "Alternatív feldolgozási mód",
                 notifydebug: "Hibakeresési értesítések megjelenítése",
+                exportachdata: "Teljesítményadatok exportálása",
                 usecustomfiles: "Egyedi alkalmazásfájlok használata",
                 showcustomfiles: "Egyedi alkalmazásfájlok megjelenítése"
             }
@@ -272,6 +273,7 @@ export const translations = {
         misc: {
             title: "Egyéb",
             content: {
+                colorprofile: "Színprofil",
                 checkforupdates: "Frissítések keresése",
                 log: "Alkalmazás napló",
                 reset: "Alkalmazás visszaállítása"
@@ -362,6 +364,10 @@ export const translations = {
                 iconshadowcolor: "Ritka ikon árnyék színe",
                 iconanimcolor: "Ritka ikon animáció színe",
                 fontcolor: "Betűszín",
+                usecustomfontcolors: "Egyedi betűszín használata",
+                unlockmsgfontcolor: "Szín 1",
+                titlefontcolor: "Szín 2",
+                descfontcolor: "Szín 3",
                 fontoutline: "Betű körvonal",
                 fontoutlinecolor: "Betű körvonal színe",
                 fontshadow: "Betűárnyék",
@@ -373,6 +379,14 @@ export const translations = {
             content: {
                 iconscale: "Ikon skálázás",
                 iconroundness: "Ikon kerekítése",
+                showiconborder: "Ikon keret megjelenítése",
+                iconborderimg: "Ikon keret",
+                iconborderpos: "Keret pozíciója",
+                iconborderscale: "Keret mérete",
+                iconborderx: "Vízszintes eltolás",
+                iconbordery: "Függőleges eltolás",
+                front: "Elöl",
+                back: "Hátul",
                 plat: "100% logó",
                 usegameicon: "Játék ikon használata",
                 gameicontype: "Játék ikon típus",
@@ -508,6 +522,7 @@ export const translations = {
         noupdatedialog: `Megakadályozza, hogy az <span class="hl">Elérhető frissítés</span> párbeszédpanel automatikusan megjelenjen és előtérbe kerüljön<br><br><span class="ttdesc">A párbeszédpanel továbbra is elérhető marad a frissítés gombra kattintva, ha az elérhető</span>`,
         nvda: "Engedélyezze az eredmény információinak másolását a vágólapra, amikor egy eredmény feloldódik, hogy képernyőolvasó szoftverek, például az NVDA által olvasható legyen",
         tooltips: "Eszközleírások megjelenítése bizonyos felhasználói felületi elemek fölé húzva",
+        colorprofile: `Kényszeríti az összes alkalmazásablakot, hogy a kiválasztott színprofilt használja<br><br><span class="ttdesc">Újraindítást igényel</span>`,
         pollrate: `Állítsa be a teljesítményadatok frissítési intervallumát játék közben<br><br><span class="ttdesc">A teljesítmény növekedhet/csökkenhet az érték vagy a rendszer hardverének függvényében. A magasabb értékek általában alacsonyabb rendszerterhelést eredményeznek, de késleltethetik az értesítéseket</span>`,
         initdelay: `Állítsa be a késleltetést a jelenlegi <span class="hl">AppID</span> érzékelése és a folyamat-/teljesítménykövetés kezdete között<br><br><span class="ttdesc">Ennek az értéknek a növelése megakadályozhatja azokat a helyzeteket, amikor a Steam nem tudja elindítani a jelenlegi játékot (a Steamworks alkalmazás inicializálása miatt, mielőtt a játék elindulna)</span><br><br><span class="ttdesc">Alternatívaként ennek az értéknek a növelése használható arra is, hogy kijavítsuk a játék előtti indítófolyamatok hibás érzékelését</span>`,
         releasedelay: `Állítsa be, hogy a háttér folyamat mennyi ideig várjon a jelenlegi játék kiadása után a újraindításra. Mind az automatikus folyamatkövetést, mind a kézi kapcsolt játékokat érinti.<br><br><span class="ttdesc">Lehetőséget biztosít a Steamworks teljes felszabadítására az alkalmazástól. Ennek az értéknek a növelése megakadályozhatja az szokatlan viselkedést, mint például egy korábban bezárt játék követését</span>`,
@@ -653,6 +668,12 @@ export const translations = {
         statwinshortcut: "A Teljesítmény Statisztikák Átfedésének váltása a megadott billentyűparancs használatával",
         ssdisplay: "A készített képernyőkép előnézete az értesítésben",
         iconscale: "A siker ikon méretének növelése vagy csökkentése",
+        showiconborder: "Kép megjelenítése a teljesítményikon körüli keretként",
+        iconborderimg: "Kép fájl betöltése, amely a teljesítményikon körüli keretként használható",
+        iconborderpos: "Állítsa be, hogy az ikon keret képének az ikon előtt vagy mögött kell megjelennie",
+        iconborderscale: "Növelje vagy csökkentse az ikon keretének méretét az értesítésen belül",
+        iconborderx: "Növelje vagy csökkentse az ikon keretének vízszintes eltolását az értesítésen belül",
+        iconbordery: "Növelje vagy csökkentse az ikon keretének függőleges eltolását az értesítésen belül",
         iconshadowcolor: "Állítsa be a siker ikont körülvevő árnyék effektus színét, amikor ritka siker oldódik fel",
         iconanimcolor: "Állítsa be az animációs effektus színét a siker ikon mögött, amikor ritka siker oldódik fel",
         logoscale: "A logó elem méretének növelése vagy csökkentése az értesítésen belül",
@@ -671,7 +692,12 @@ export const translations = {
         retroarch: `Teljesítmények értesítéseinek megjelenítése RetroArch-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">RetroArch > Beállítások > Naplózás</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Naplózási Részletesség</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Előlap Naplózási Szint</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Naplózás Fájlba</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Időbélyeg a Napló Fájlokhoz</span>: <span class="hlred">KI</span></li></ul></span>`,
         dolphin: `Teljesítmények értesítéseinek megjelenítése Dolphin-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">Dolphin > Nézet > Naplózási Beállítások Megjelenítése</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Részletesség</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Napló Kimenetek</span> > <span class="hlgreen">Írás Fájlba</span></li><li><span class="hllb">Napló Típusok</span> > <span class="hlgreen">Teljesítmények (RetroAchievements)</span></li></ul></span>`,
         retroarchpath: `Állítsd be a RetroArch <span class="hl">"retroarch.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"retroarch.log"</span> itt található: <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
-        dolphinpath: `Állítsd be a Dolphin <span class="hl">"dolphin.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"dolphin.log"</span> az alábbi helyek egyikén található:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`
+        dolphinpath: `Állítsd be a Dolphin <span class="hl">"dolphin.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"dolphin.log"</span> az alábbi helyek egyikén található:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        usecustomfontcolors: "Állítsa be a szövegelemek színét az értesítésen belül egyedileg",
+        unlockmsgfontcolor: "Állítsa be az első szövegelem színét",
+        titlefontcolor: "Állítsa be a második szövegelem színét",
+        descfontcolor: "Állítsa be a harmadik szövegelem színét",
+        exportachdata: `Teljesítményadatok exportálása JSON fájlba, amikor egy teljesítmény feloldódik<br><br><span class="ttdesc">Ha engedélyezve van, az <span class="ttcode">achdata.json</span> a következő helyre lesz exportálva:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

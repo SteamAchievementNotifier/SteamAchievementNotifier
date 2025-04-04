@@ -1,7 +1,6 @@
 import { ipcRenderer } from "electron"
-import path from "path"
 import fs from "fs"
-import { AuthObject, buildAuthorization, getGameExtended, getGameInfoAndUserProgress } from "@retroachievements/api"
+import { buildAuthorization, getGameInfoAndUserProgress } from "@retroachievements/api"
 import { sanhelper } from "./sanhelper"
 import { sanconfig } from "./config"
 import { log } from "./log"
@@ -9,23 +8,10 @@ import { downloadicon } from "./achievement"
 
 export const rasupported = [
     "retroarch",
-    "dolphin",
-    // "ravba", // Supports automatic logging to `RACache/RALog.txt`, but may not be as widely used as RetroArch VBA cores
-    // "rap64" // Supports automatic logging to `RACache/RALog.txt`, but may not be as widely used as RetroArch N64 cores
-    // "pcsx2", // "emulog.txt" is completely locked while PCSX2 is running, so the contents cannot be read, but the PS2 Core can be loaded via RetroArch
-    // "ppspp" // PPSPP does not allow logging to a file, but the PPSPP core can be loaded via RetroArch
+    "dolphin"
 ]
 
 export const raelems = [...rasupported].flatMap(id => [id,`${id}path`])
-
-// const logfiles: { [key: string]: string } = {
-//     retroarch: "retroarch.log",
-//     dolphin: "dolphin.log",
-//     // ravba: "ralog.txt",
-//     // rap64: "ralog.txt"
-//     // pcsx2: "emulog.txt",
-//     // ppspp: ""
-// }
 
 export let emu: string | null = null
 
@@ -42,8 +28,6 @@ export const getlogmap = () => {
 
     return logmap
 }
-
-let authobj: AuthObject | null = null
 
 const getauth = async (username: string,apikey: string) => {
     if (!username || !apikey) throw new Error(`Unable to locate "${!username ? "username" : "apikey"}" in config`)
@@ -62,7 +46,7 @@ const getauth = async (username: string,apikey: string) => {
 }
 
 const actionmap = new Map<"start" | "stop" | "achievement",RegExp>([
-    ["start",/Game (\d+) loaded/i],
+    ["start",/Game (\d+) loaded, Hardcore (enabled|disabled)/i],
     ["stop",/Unloading game (\d+)/i],
     ["achievement",/Achievement (\d+) awarded/i]
 ])
@@ -77,7 +61,7 @@ export const getlastaction = (key: string,file: string): LogAction => {
             const match = line.match(regex)
             
             if (match) {
-                const newaction = { key, file, action, value: parseInt(match[1]) }
+                const newaction = { key, file, action, value: parseInt(match[1]), mode: action === "start" ? (match[2] === "enabled" ? "hard" : "soft") as "hard" | "soft" : undefined }
     
                 if (!lastaction || lastaction.action !== newaction.action || lastaction.value !== newaction.value) {
                     // Prevents retriggering achievement notifications on launch
@@ -87,20 +71,20 @@ export const getlastaction = (key: string,file: string): LogAction => {
                     return newaction
                 }
     
-                return { key, file, action: "idle", value: null }
+                return { key, file, action: "idle", value: null, mode: undefined }
             }
         }
     }
 
-    return { key: null, file: null, action: "idle", value: null }
+    return { key: null, file: null, action: "idle", value: null, mode: undefined }
 }
 
 let gameid = 0
+let ramode: "hard" | "soft" = "hard"
 let racached: RAAchievement[] = []
 
 export const executeaction = async (lastaction: LogAction): Promise<[string | null,(string | null)[]]> => {
-    const { key, action, value } = lastaction
-    // action !== "idle" && log.write("INFO",`[RA]: Detected "${action}" action in "${file}"`)
+    const { key, action, value, mode } = lastaction
 
     try {
         switch (action) {
@@ -110,9 +94,12 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 
                 gameid = value
                 emu = key
+                ramode = mode!
+
+                log.write("INFO",`Game ${value} is running in ${mode!.replace(mode![0],mode![0].toUpperCase())}core Mode`)
                 
                 const config = sanconfig.get()
-                racached = await cacheradata(gameid,config.get("rauser"),config.get("rakey"),config.get("nowtracking"))
+                racached = await cacheradata(gameid,config.get("rauser"),config.get("rakey"),config.get("nowtracking"),mode as "hard" | "soft")
                 sanhelper.devmode && console.log(racached)
 
                 ipcRenderer.send("ragame",action,{ emu, gamename: racached[0].gamename, gameid } as RAGame)
@@ -121,6 +108,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
             case "stop":
                 gameid = 0
                 emu = null
+                ramode = "hard"
                 racached.length = 0
 
                 ipcRenderer.send("ragame",action)
@@ -131,7 +119,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                     localStorage.setItem("ralastachievement",`${value}`) // Set the id of the last earned achievement in localStorage
 
                     const config = sanconfig.get()
-                    const notify = await ranotify(gameid,value)
+                    const notify = await ranotify(gameid,value,ramode)
 
                     sanhelper.devmode && console.log(notify)
                     ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,config.get("monitor")))
@@ -153,40 +141,44 @@ const raurl = `https://media.retroachievements.org`
 
 const geticon = async (type: "gameicon" | "gameartlibhero" | "achievement",label: string | number,url: string,format?: string) => (await downloadicon({ apiname: type !== "achievement" ? `${label}_${type}` : `${label}`, iconurl: url },format || "png")).replace(/\\/g,"/")
 
-const cacheradata = async (gameid: number,username: string,apikey: string,nowtracking: boolean): Promise<RAAchievement[]> => {
+const cacheradata = async (gameid: number,username: string,apikey: string,nowtracking: boolean,mode: "hard" | "soft"): Promise<RAAchievement[]> => {
     if (!gameid) throw new Error(`No "gameid" detected`)
     const auth = await getauth(username,apikey)
     if (!auth) return []
 
-    !authobj && (authobj = auth)
-    
-    const { imageBoxArt, imageIcon, title: gamename, achievements, numDistinctPlayersCasual, numDistinctPlayersHardcore } = await getGameExtended(auth,{ gameId: gameid })
+    const { imageBoxArt, imageIcon, title: gamename, achievements, numDistinctPlayersCasual, numDistinctPlayersHardcore } = await getGameInfoAndUserProgress(auth,{ username, gameId: gameid })
     const [iconurl,gameartlibherourl] = [imageIcon,imageBoxArt].map(asset => `${raurl}${asset}`)
 
-    const icon = await geticon("gameicon",gameid,iconurl)
+    const gameicon = await geticon("gameicon",gameid,iconurl)
     const gameartlibhero = await geticon("gameartlibhero",gameid,gameartlibherourl)
 
-    nowtracking && ipcRenderer.send("showtrack",gamename,{ icon, gameartlibhero })
+    const raachievements = await Promise.all(Object.values(achievements).map(async achievement => {
+        const icon = await geticon("achievement",achievement.badgeName,`${raurl}/Badge/${achievement.badgeName}.png`)
 
-    return Object.values(achievements).map(achievement => {
         return {
             ...achievement,
+            icon,
             gamename,
-            gameicon: icon,
+            gameicon,
             gameartlibhero,
             softcorepercent: parseFloat(((achievement.numAwarded / numDistinctPlayersCasual) * 100).toFixed(1)),
-            hardcorepercent: parseFloat(((achievement.numAwardedHardcore / numDistinctPlayersHardcore) * 100).toFixed(1))
+            hardcorepercent: parseFloat(((achievement.numAwardedHardcore / numDistinctPlayersHardcore) * 100).toFixed(1)),
+            unlocked: !!achievement[`dateEarned${mode === "hard" ? "Hardcore" : ""}`]
         }
-    })
+    }))
+
+    nowtracking && ipcRenderer.send("showtrack",gamename,{ icon: gameicon, gameartlibhero })
+    return raachievements
 }
 
-const ranotify = async (gameid: number,achid: number) => {
+const ranotify = async (gameid: number,achid: number,mode: "hard" | "soft") => {
     const config = sanconfig.get()
     const achievement = racached.find(achievement => achievement.id === achid)
     if (!achievement) throw new Error(`No matching achievement found for AchievementID ${achid} in Game ${gameid}`)
 
-    const achicon = await geticon("achievement",achievement.badgeName,`${raurl}/Badge/${achievement.badgeName}.png`)
-    const percent = achievement[`${config.get("rapercenttype")}corepercent`]
+    achievement.unlocked = true // Update the achievement's `unlocked` value in `racached`
+
+    const percent = achievement[`${mode}corepercent`]
     const type = percent <= config.get("rarity") ? "rare" : "main"
 
     const notify: Notify = {
@@ -197,54 +189,39 @@ const ranotify = async (gameid: number,achid: number) => {
         apiname: achievement.badgeName,
         name: achievement.title,
         desc: achievement.description,
-        icon: achicon,
+        icon: achievement.icon,
         gameicon: achievement.gameicon,
         gamename: achievement.gamename,
         libhero: achievement.gameartlibhero,
         unlocked: true,
         hidden: false,
         steam3id: 0,
-        percent
+        percent,
+        unlocktime: new Date(Date.now()).toISOString()
     }
 
     const platcustomisation = config.get("customisation").plat
     const platobj: RAAPlatObj = {
-        gameid,
         achievement,
         customisation: platcustomisation,
         platicon: platcustomisation.usegameicon ? achievement.gameicon : (platcustomisation.usecustomimgicon ? platcustomisation.customimgicon :platcustomisation.customicons.plat as string),
         monitor: config.get("monitor"),
         username: config.get("rauser"),
-        apikey: config.get("rakey"),
-        achievementsnum: racached.length
+        numawarded: racached.filter(achievement => achievement.unlocked).length,
+        numachievements: racached.length
     }
 
     await raplatnotify(platobj)
     return notify
 }
 
-const numawardedtouser = async (gameid: number,username: string,apikey: string) => {
-    const auth = authobj || await getauth(username,apikey)
-
-    if (!auth) {
-        log.write("ERROR",`Unable to authenticate "${username}" to get completion progress`)
-        return 0
-    }
-
-    !authobj && (authobj = auth)
-
-    return (await getGameInfoAndUserProgress(auth,{ gameId: gameid, username })).numAwardedToUser
-}
-
 let hasshown = false
 
 const raplatnotify = async (platobj: RAAPlatObj) => {
-    const { gameid, achievement, customisation, platicon, monitor, username, apikey, achievementsnum } = platobj
-    const awarded = await numawardedtouser(gameid,username,apikey)
+    const { achievement, customisation, platicon, monitor, username, numawarded, numachievements } = platobj
+    log.write("INFO",`"${username}" has unlocked ${numawarded}/${numachievements} in ${achievement.gamename}${numawarded === numachievements ? " - triggering 100% notification..." : ""}`)
 
-    log.write("INFO",`"${username}" has unlocked ${awarded}/${achievementsnum} in ${achievement.gamename}${awarded === achievementsnum ? " - triggering 100% notification..." : ""}`)
-
-    if (awarded < achievementsnum) return false
+    if (numawarded < numachievements) return false
     if (hasshown) return false
 
     const platnotify: Notify = {
@@ -262,7 +239,8 @@ const raplatnotify = async (platobj: RAAPlatObj) => {
         unlocked: true,
         hidden: false,
         steam3id: 0,
-        percent: 0
+        percent: 0,
+        unlocktime: new Date(Date.now()).toISOString()
     }
 
     // Set timer to ensure last achievement is added to queue before plat notification

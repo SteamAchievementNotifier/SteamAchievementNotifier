@@ -101,8 +101,8 @@ export const language = {
                         let content = customiser[title].content[input.id]
 
                         if (input.id.startsWith("glowcolor")) {
-                            for (const type of ["silver","gold"].map(type => `glowcolor${type}`)) {
-                                if (input.id === type) {
+                            for (const rarity of ["silver","gold"].map(type => `glowcolor${type}`)) {
+                                if (input.id === rarity) {
                                     content = content.replace(/\$rarity/,`${config.get("rarity")}%`)
                                 }
                             }
@@ -114,7 +114,22 @@ export const language = {
                     customisercontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(select) > select`).forEach(select => select.parentElement!.querySelector(`span`) && langmap.set(select.parentElement!.querySelector(`span`)!,customiser[title].content[select.id]))
                     customisercontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(select:not(#preset)) > select > option`).forEach(opt => opt.textContent = opt.parentElement!.id === "pos" ? global[(opt as HTMLOptionElement).value] : customiser[title].content[(opt as HTMLOptionElement).value])
 
+                    const rarityids = [
+                        "iconborderimg"
+                    ] as const
+
                     customisercontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(button) > button`).forEach(btn => {
+                        for (const id of rarityids) {
+                            if (!btn.id.startsWith(id)) continue
+
+                            for (const rarity of (["bronze","silver","gold"] as const)) {
+                                if (btn.id !== id + rarity) continue
+
+                                const content = customiser[title].content[btn.id]
+                                if (content) return langmap.set(btn.parentElement!.querySelector("span")!,content.replace(/\$rarity/,`${config.get("rarity")}%`))
+                            }
+                        }
+                        
                         if (btn.id === "savetheme") return langmap.set(btn.querySelector("span")!,customiser.theme.content.savetheme)
                         if (btn.id.includes("decoration")) return
                         if (btn.parentElement!.id === "posbtns") return langmap.set(btn.querySelector("span")!,customiser[title].content[btn.id])

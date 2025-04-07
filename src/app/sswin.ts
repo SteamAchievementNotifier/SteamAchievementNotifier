@@ -1,5 +1,4 @@
 import { ipcRenderer } from "electron"
-import path from "path"
 
 const checkimgload = (img: HTMLImageElement): boolean => {
     if (!img.complete) return false

@@ -748,6 +748,11 @@ export const sanhelper: SANHelper = {
 
         const customiser = document.querySelector("#customiser") as HTMLElement
 
+        const rarityids = [
+            "glowcolor",
+            "iconborderimg"
+        ] as const
+
         if (customiser) {
             customiser.querySelectorAll(`
                 #customisercontent input,
@@ -757,12 +762,14 @@ export const sanhelper: SANHelper = {
             `)!.forEach(async elem => {
                 let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : elem.id,["tooltips"])
 
-                if (elem.id.startsWith("glowcolor")) {
-                    for (const type of ["silver","gold"].map(type => `glowcolor${type}`)) {
-                        if (elem.id === type) {
-                            const config = (await import("./config")).sanconfig.get()
-                            content = content.replace(/\$rarity/,`${config.get("rarity")}%`)
-                        }
+                for (const id of rarityids) {
+                    if (!elem.id.startsWith(id)) continue
+
+                    for (const rarity of (["bronze","silver","gold"] as const)) {
+                        if (elem.id !== id + rarity) continue
+
+                        const config = (await import("./config")).sanconfig.get()
+                        content = content.replace(/\$rarity/,`${config.get("rarity")}%`)
                     }
                 }
 

@@ -425,6 +425,10 @@ export const sanconfig = {
                 iconborderscale: 100,
                 iconborderx: 0,
                 iconbordery: 0,
+                iconborderrarity: false,
+                iconborderimgbronze: sanhelper.setfilepath("img","saniconborder_bronze.png"),
+                iconborderimgsilver: sanhelper.setfilepath("img","saniconborder_silver.png"),
+                textvspace: 0,
                 usertheme: [] as UserTheme[]
             }
 

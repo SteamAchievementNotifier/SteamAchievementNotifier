@@ -671,7 +671,8 @@ select#themeselect {
     background: var(--img) center / 100% no-repeat var(--darkgrey);
     transition:
         background-color var(--transition),
-        filter var(--transition);
+        opacity var(--closetransition),
+        filter var(--transition) !important;
 }
 
 .synclbl {

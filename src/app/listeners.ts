@@ -1507,7 +1507,7 @@ export const listeners = {
                 try {
                     const srcs = await desktopCapturer.getSources({
                         types: ["screen"],
-                        thumbnailSize: { width: width, height: height }
+                        thumbnailSize: { width, height }
                     })
 
                     log.write("INFO",`[Selected Monitor ID]:\n- ${id}\n\n[Available Screen Sources]:\n- ${srcs.map(src => `${src.display_id} (Parsed id: ${parseInt(src.display_id)} | Match?: ${parseInt(src.display_id) === id})`).join("\n- ")}`)
@@ -1664,7 +1664,7 @@ export const listeners = {
                     }
                 })
     
-                !ispreview && sswin.setOpacity(0)
+                !ispreview && sswin.setOpacity(sanhelper.devmode ? 0.5 : 0)
                 sswin.setIgnoreMouseEvents(!ispreview)
                 sswin.loadFile(path.join(__root,"dist","app",`${type}win.html`))
                 sanhelper.devmode && sanhelper.setdevtools(sswin)

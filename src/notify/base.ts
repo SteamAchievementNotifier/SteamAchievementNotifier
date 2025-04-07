@@ -210,11 +210,12 @@ const notifyhelper = {
                 ["--unlockmsgfontcolor",`${customisation.usecustomfontcolors ? customisation.unlockmsgfontcolor : customisation.fontcolor}`],
                 ["--titlefontcolor",`${customisation.usecustomfontcolors ? customisation.titlefontcolor : customisation.fontcolor}`],
                 ["--descfontcolor",`${customisation.usecustomfontcolors ? customisation.descfontcolor : customisation.fontcolor}`],
-                ["--iconborder",customisation.showiconborder ? `url('${customisation.iconborderimg}')` : ""],
+                ["--iconborder",customisation.showiconborder ? `url('${(!customisation.iconborderrarity ? customisation.iconborderimg : (percent.value >= 50 ? customisation.iconborderimgbronze : (percent.value < 50 && percent.value > percent.rarity ? customisation.iconborderimgsilver : customisation.iconborderimg)))}')` : ""],
                 ["--iconborderpos",`${customisation.iconborderpos === "back" ? -1 : 99}`],
                 ["--iconborderscale",`${customisation.iconborderscale / 100}`],
                 ["--iconborderx",`${customisation.iconborderx}`],
                 ["--iconbordery",`${customisation.iconbordery}`],
+                ["--textvspace",`${customisation.textvspace}`]
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")

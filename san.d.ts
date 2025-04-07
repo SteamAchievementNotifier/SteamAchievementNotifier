@@ -254,6 +254,10 @@ declare interface Customisation {
     iconborderscale: number,
     iconborderx: number,
     iconbordery: number,
+    iconborderrarity: boolean,
+    iconborderimgbronze: string,
+    iconborderimgsilver: string,
+    textvspace: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }

@@ -1,7 +1,8 @@
 body[customiser][soundonly] .wrapper#customiser > .wrapper#webview,
 body[customiser][soundonly] #customisercontent > #customiseropts > .cont:not(:has(.title#sound)),
 #customiser[customfiles] .opt:has(#importtheme,#exporttheme),
-.optcont:has(.opt > input[type="checkbox"]#glowrarity:checked) > .opt:has(#glow) > .opt:has(#glowcolor) {
+.optcont:has(.opt > input[type="checkbox"]#glowrarity:checked) > .opt:has(#glow) > .opt:has(#glowcolor),
+.optcont:has(.opt > input[type="checkbox"]#iconborderrarity:checked) > .opt:has(#iconborderimg) {
     opacity: 0.5;
     pointer-events: none;
 }
@@ -85,7 +86,10 @@ body[plat] #customisercontent .wrapper:has(> .img#hiddenicon),
 .optcont:has(input#usecustomimgicon:checked) > .opt:has(input#usegameicon),
 .opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="unlockmsg"]),
 .opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="title"]),
-.opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="desc"]) {
+.opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="desc"]),
+body:not([main]) .opt:has(input#iconborderrarity),
+body:not([main]) .opt:has(input#iconborderrarity) ~ .opt:has(.img[id^="iconborderimg"]),
+.opt:has(input#iconborderrarity:not(:checked)) ~ .opt:has(.img[id^="iconborderimg"]) {
     display: none;
 }
 
@@ -418,7 +422,7 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 .img#hiddenicon,
 .img#customimgicon,
 .img[id*="percentbadgeimg"],
-.img#iconborderimg {
+.opt:has(.iconborder) > .img {
     min-height: 3.5rem;
     background: var(--img) center / 25% no-repeat var(--darkgrey);
 }

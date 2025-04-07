@@ -443,7 +443,10 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
 
             const customiconkey = (): string => Array.isArray(key) ? key[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1] as string : key as string
             const defaultvalue = (): string => {
-                if (optbtn.id === "iconborderimg") return sanhelper.setfilepath("img","saniconborder.png")
+                for (const id of (["","bronze","silver"] as const)) {
+                    if (optbtn.id === `iconborderimg${id}`) return sanhelper.setfilepath("img",`saniconborder${id ? `_${id}` : ""}.png`)
+                }
+
                 if (optbtn.id === "plat") return sanhelper.setfilepath("img","ribbon.svg")
                 if (optbtn.id === "maskimg") return sanhelper.setfilepath("img","san_trophy_mask.png")
                 if (optbtn.id === "customimgicon") return sanhelper.setfilepath("img","sanlogosquare.svg")

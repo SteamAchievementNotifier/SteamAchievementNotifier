@@ -325,6 +325,7 @@ export const translations = {
                 unlockmsgfontsize: "Unlock Message",
                 titlefontsize: "Title",
                 descfontsize: "Description",
+                textvspace: "Text Spacing",
                 opacity: "Opacity",
                 bgonly: "Background Only",
                 glow: "Glow",
@@ -385,6 +386,9 @@ export const translations = {
                 iconborderscale: "Border Scale",
                 iconborderx: "Horizontal Offset",
                 iconbordery: "Vertical Offset",
+                iconborderrarity: "Use Rarity",
+                iconborderimgbronze: "Rarity > 50%",
+                iconborderimgsilver: "Rarity: < 50% & > $rarity",
                 front: "Front",
                 back: "Back",
                 plat: "100% Logo",
@@ -674,6 +678,9 @@ export const translations = {
         iconborderscale: "Increase or decrease the size of the icon border within the notification",
         iconborderx: "Increase or decrease the horizontal offset of the icon border within the notification",
         iconbordery: "Increase or decrease the vertical offset of the icon border within the notification",
+        iconborderrarity: "Change the displayed icon border image based on the rarity of the unlocked achievement",
+        iconborderimgbronze: "The icon border image displayed when the unlock percentage > 50%",
+        iconborderimgsilver: "The icon border image displayed when the unlock percentage is < 50% and > $rarity",
         iconshadowcolor: "Set the color of the shadow effect surrounding the achievement icon when unlocking a Rare achievement",
         iconanimcolor: "Set the color of the animation effect behind the achievement icon when unlocking a Rare achievement",
         logoscale: "Increase or decrease the size of the Logo element within the notification",
@@ -697,7 +704,8 @@ export const translations = {
         unlockmsgfontcolor: "Set the color of the first text element",
         titlefontcolor: "Set the color of the second text element",
         descfontcolor: "Set the color of the third text element",
-        exportachdata: `Export achievement data to a JSON file when an achievement is unlocked<br><br><span class="ttdesc">When enabled, <span class="ttcode">achdata.json</span> will be exported to:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Export achievement data to a JSON file when an achievement is unlocked<br><br><span class="ttdesc">When enabled, <span class="ttcode">achdata.json</span> will be exported to:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Adjust the vertical spacing between text elements within the notification"
     },
     update: {
         updateavailable: "Update available",

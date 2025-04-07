@@ -330,6 +330,7 @@ body[nodecoration] .wrapper#achcontent > span {
     line-height: calc(1.2rem * var(--fontsize));
     word-break: break-word;
     -webkit-box-align: center;
+    margin-block: calc((var(--textvspace) * 1px) * var(--scale));
 }
 
 #achcontent > #unlockmsg {

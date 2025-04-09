@@ -395,7 +395,11 @@ declare interface Positions {
 declare interface ProcessInfo {
     pid: number,
     exe: string,
-    windowtitle: string
+    windowtitle: string,
+    bounds?: {
+        width: number,
+        height: number
+    }
 }
 
 declare interface AppInfo {

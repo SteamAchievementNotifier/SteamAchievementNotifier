@@ -6,7 +6,7 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot } from "sanhelper.rs"
+import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getWindowBounds } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
@@ -88,6 +88,7 @@ export const sanhelper: SANHelper = {
             ".m4a"
     ]},
     gethqicon: (appid: number = 0) => getHqIcon(appid),
+    getwindowbounds: (windowtitle: string) => getWindowBounds(windowtitle),
     initlogger: (appdata: string) => initLogger(appdata),
     hdrscreenshot: (monitorid: number,sspath: string) => hdrScreenshot(monitorid,sspath),
     testpanic: () => testPanic(),
@@ -1072,5 +1073,6 @@ export const sanhelper: SANHelper = {
                 await setraemuactions(opt,id,config)
             })
         })
-    }
+    },
+    ssgamewin: (winobj: { windowtitle: string, bounds: Electron.Rectangle }) => ipcRenderer.send("ssgamewin",winobj)
 }

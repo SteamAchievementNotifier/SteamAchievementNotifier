@@ -83,9 +83,9 @@ const creategameinfo = (gamename: string,appid: number,exepath: string,pid: numb
     `appid: ${appid}`,
     `exepath: ${exepath}`,
     `pid: ${pid}`,
-    `windowtitle: ${windowtitle}`,
-    `pollrate: ${pollrate}ms`
-].join("\n-")
+    `pollrate: ${pollrate}ms`,
+    `windowtitle: ${windowtitle}`
+].join("\n- ")
 
 type LocalisedObj = {
     name: string | null,

@@ -14,6 +14,13 @@ export function getHqIcon(appid: number): string
 export function depsInstalled(lib: string): string
 export function hdrScreenshot(monitorId: number, sspath: string): string
 export function getFocusedWinPath(): string
+export interface WinBounds {
+  width: number
+  height: number
+  x: number
+  y: number
+}
+export function getWindowBounds(windowtitle: string): WinBounds
 export namespace log {
   export function initLogger(appData: string): string
   export function testPanic(): void

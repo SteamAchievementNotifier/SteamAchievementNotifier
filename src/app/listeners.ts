@@ -1,4 +1,4 @@
-import { app, ipcMain, BrowserWindow, Tray, Menu, nativeImage, dialog, Notification, screen, globalShortcut, BrowserWindowConstructorOptions, NotificationConstructorOptions, desktopCapturer, clipboard, shell, ipcRenderer } from "electron"
+import { app, ipcMain, BrowserWindow, Tray, Menu, nativeImage, dialog, Notification, screen, globalShortcut, BrowserWindowConstructorOptions, NotificationConstructorOptions, desktopCapturer, clipboard } from "electron"
 import path from "path"
 import fs from "fs"
 import Store from "electron-store"
@@ -1767,6 +1767,24 @@ export const listeners = {
         })
 
         ipcMain.on("ragame",(event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => win.webContents.send("ragame",status,ragame))
+
+        // ipcMain.on("ssgamewin",async (event,winobj: { windowtitle: string, bounds: Electron.Rectangle }) => {
+        //     const { windowtitle, bounds: { x, y, width, height } } = winobj
+
+        //     const srcs = await desktopCapturer.getSources({
+        //         types: ["window"],
+        //         thumbnailSize: {
+        //             width: Math.round(width * screen.getDisplayNearestPoint({ x, y }).scaleFactor),
+        //             height: Math.round(height * screen.getDisplayNearestPoint({ x, y }).scaleFactor)
+        //         }
+        //     })
+
+        //     for (const src of srcs) {
+        //         if (src.name === windowtitle) {
+        //             fs.writeFileSync(path.join(sanhelper.temp,"test.png"),src.thumbnail.toPNG())    
+        //         }
+        //     }
+        // })
 
         return
     }

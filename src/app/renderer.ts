@@ -736,7 +736,8 @@ const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisatio
         percent: type !== "plat" ? (type === "rare" ? 10.0 : 50.0) : 0,
         icon: type !== "plat" ? sanhelper.setfilepath("img",`achicon.png`) : plat || sanhelper.setfilepath("img","ribbon.svg"),
         gameicon: gameicon || sanhelper.setfilepath("img","gameicon.png"),
-        istestnotification: true
+        istestnotification: true,
+        unlocktime: new Date(Date.now()).toISOString()
     }
 
     return notify

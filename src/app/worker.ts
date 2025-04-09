@@ -77,12 +77,13 @@ ipcRenderer.on("stats",() => ipcRenderer.send("stats",statsobj))
 // Send to `listeners.ts` on spawn, in case `statwin` spawned between worker respawns and did not receive "stats" IPC event
 ipcRenderer.send("stats",statsobj)
 
-const creategameinfo = (gamename: string, appid: number, exepath: string, pid: number, pollrate: number) => [
+const creategameinfo = (gamename: string,appid: number,exepath: string,pid: number,pollrate: number,windowtitle: string) => [
     "Game process started:",
     `gamename: ${gamename}`,
     `appid: ${appid}`,
     `exepath: ${exepath}`,
     `pid: ${pid}`,
+    `windowtitle: ${windowtitle}`,
     `pollrate: ${pollrate}ms`
 ].join("\n-")
 
@@ -164,10 +165,11 @@ const startsan = async (appinfo: AppInfo) => {
     
             linkedgame && log.write("INFO",`${sgpexe ? `"steam-game-path"` : "Linked Game"} executable found for AppID "${appid}": "${linkedgame}"`)
     
-            client.processes.getGameProcesses(appid,linkedgame ? path.basename(linkedgame) : null).forEach(({ exe, pid }: ProcessInfo) => {
+            client.processes.getGameProcesses(appid,linkedgame ? path.basename(linkedgame) : null).forEach(({ exe,pid,windowtitle }: ProcessInfo) => {
                 processinfo.push({
-                    pid: pid,
-                    exe: exe
+                    pid,
+                    exe,
+                    windowtitle
                 } as ProcessInfo)
             })
     
@@ -179,7 +181,7 @@ const startsan = async (appinfo: AppInfo) => {
         const processes: ProcessInfo[] = []
     
         const initgameloop = () => {
-            processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
+            processes.forEach(({ pid,exe,windowtitle }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250,windowtitle)))
             
             ipcRenderer.send("appid",appid,gamename,steam3id,num)
             ipcRenderer.on("steam3id",(event,skipss?: boolean) => ipcRenderer.send("steam3id",steam3id,skipss))

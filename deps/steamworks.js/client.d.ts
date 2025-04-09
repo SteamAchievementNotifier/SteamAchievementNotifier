@@ -77,6 +77,7 @@ export namespace processes {
   export interface ProcessInfo {
     pid: number
     exe: string
+    windowtitle: string
   }
   export function getGameProcesses(appid: number, linkedgame?: string | undefined | null): Array<ProcessInfo>
   export function isProcessRunning(pid: number): boolean

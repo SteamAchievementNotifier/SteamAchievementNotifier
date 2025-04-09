@@ -44,6 +44,12 @@ const noreload = (elem: HTMLElement) => {
     ].find(id => elem.id === id)
 }
 
+const deps = new Map<string,string>([
+    ["keypressrs","steamss"],
+    ["hdr","hdrmode"],
+    ["wmctrl","ssmode"]
+])
+
 export const sanhelper: SANHelper = {
     get devmode(): boolean { return process.env.npm_lifecycle_event === "dev" },
     // `process.env.npm_package_version` is not available in the Renderer on build
@@ -331,14 +337,9 @@ export const sanhelper: SANHelper = {
         const elem = (event.target instanceof HTMLSpanElement ? event.target.parentElement!.querySelector(`input[type="checkbox"]`)! : event.target!) as HTMLInputElement
         if (raelems.find(id => elem.id === id)) return
 
-        if (process.platform === "linux") {
-            const deps = new Map<string,string>([
-                ["steamss","keypressrs"],
-                ["hdrmode","hdr"]
-            ])
-    
-            for (const [key,value] of deps) {
-                if (elem.id === key && sanhelper.depsinstalled(value)) return
+        if (process.platform === "linux") {    
+            for (const [lib,id] of deps) {
+                if (elem.id === id && sanhelper.depsinstalled(lib)) return
             }
         }
 
@@ -896,11 +897,13 @@ export const sanhelper: SANHelper = {
         })
     },
     presskey: (key: number) => setTimeout(() => pressKey(key),100),
-    depsinstalled: (lib: "keypressrs" | "hdr"): String => {
+    depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl"): String => {
         const missinglib = depsInstalled(lib)
-
+        
         if (process.platform === "linux" && missinglib) {
-            (async () => {
+            if (!deps.has(lib)) throw new Error(`"${lib}" not found in "deps" map`)
+
+            ;(async () => {
                 const { dialog } = await import("./dialog")
                 const lang = (await import("./config")).sanconfig.get().store.lang
                 const { missingdepssub } = await import(`../lang/${lang}`)
@@ -909,7 +912,7 @@ export const sanhelper: SANHelper = {
                     title: `${await language.get("missingdeps")}: ${missinglib}`,
                     type: "default",
                     icon: sanhelper.setfilepath("icon","error.svg"),
-                    sub: missingdepssub(await language.get(lib === "keypressrs" ? "steamss" : "hdrmode",["settings","media","content"]),missinglib)
+                    sub: missingdepssub(await language.get(deps.get(lib)!,["settings","media","content"]),missinglib)
                 })
             })()
 

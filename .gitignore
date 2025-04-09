@@ -7,7 +7,7 @@ dist/**/*.js
 deps/san_*
 deps/window_titles/
 deps/steamworks_build_instructions.md
-**/_previous
+**/_previous*
 **/node_modules/
 temp/
 _release/

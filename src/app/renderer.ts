@@ -98,6 +98,9 @@ const getmonitors = async () => {
         config.set("monitors",monitors)
         window.monitors = monitors
 
+        const currentmonitor = monitors.find(monitor => monitor.id === config.get("monitor")) || monitors[0]
+        !config.get("lastknownmonitorlbl") && config.set("lastknownmonitorlbl",currentmonitor.label)
+
         refreshmonitors(monitors,prevmons)
         sanhelper.devmode && monitors.forEach(monitor => ipcRenderer.send("montest",monitor.id))
     

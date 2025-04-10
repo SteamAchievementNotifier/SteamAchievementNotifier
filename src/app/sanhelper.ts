@@ -90,7 +90,7 @@ export const sanhelper: SANHelper = {
     gethqicon: (appid: number = 0) => getHqIcon(appid),
     getwindowbounds: (windowtitle: string) => getWindowBounds(windowtitle),
     initlogger: (appdata: string) => initLogger(appdata),
-    hdrscreenshot: (monitorid: number,sspath: string) => hdrScreenshot(monitorid,sspath),
+    hdrscreenshot: (monitorid: number,sspath: string,area?: [number,number,number,number]) => hdrScreenshot(monitorid,sspath,area),
     testpanic: () => testPanic(),
     isprocessrunning: (pid: number) => {
         try {
@@ -363,7 +363,10 @@ export const sanhelper: SANHelper = {
             elem.textContent = ""
 
             const monitors = key as Monitor[]
-            const currentmonitor = monitors.find(monitor => monitor.id === config.get("monitor")) || monitors.find(monitor => monitor.primary)!
+            let currentmonitor = monitors.find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
+            if (!currentmonitor) currentmonitor = monitors.find(monitor => monitor.id === config.get("monitor")) || monitors.find(monitor => monitor.primary)!
+
+            console.log(currentmonitor,monitors.map(monitor => monitor.label === config.get("lastknownmonitorlbl")))
 
             for (const monitor of monitors) {
                 const opt = document.createElement("option")
@@ -374,8 +377,13 @@ export const sanhelper: SANHelper = {
 
             elem.value = currentmonitor.id.toString()
             elem.onchange = ({ target }: Event) => {
-                const id = parseInt((target as HTMLOptionElement).value)
+                const select = target as HTMLSelectElement
+                const id = parseInt(select.value)
+                const lbl = select.querySelector(`option[value="${id}"]`)!.textContent
+
                 config.set("monitor",id)
+                config.set("lastknownmonitorlbl",lbl)
+
                 sanhelper.devmode && ipcRenderer.send("montest",id)
             }
 

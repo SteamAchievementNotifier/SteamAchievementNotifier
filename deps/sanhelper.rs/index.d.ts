@@ -12,7 +12,7 @@ export function getAppInfo(): Array<AppInfo>
 export function pressKey(key: number): void
 export function getHqIcon(appid: number): string
 export function depsInstalled(lib: string): string
-export function hdrScreenshot(monitorId: number, sspath: string): string
+export function hdrScreenshot(monitorId: number, sspath: string, area?: [number, number, number, number] | undefined | null): string
 export function getFocusedWinPath(): string
 export interface WinBounds {
   width: number

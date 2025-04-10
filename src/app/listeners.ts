@@ -1,4 +1,4 @@
-import { app, ipcMain, BrowserWindow, Tray, Menu, nativeImage, dialog, Notification, screen, globalShortcut, BrowserWindowConstructorOptions, NotificationConstructorOptions, desktopCapturer, clipboard } from "electron"
+import { app, ipcMain, BrowserWindow, Tray, Menu, nativeImage, dialog, Notification, screen, globalShortcut, BrowserWindowConstructorOptions, NotificationConstructorOptions, desktopCapturer, clipboard, ipcRenderer } from "electron"
 import path from "path"
 import fs from "fs"
 import Store from "electron-store"
@@ -986,7 +986,7 @@ export const listeners = {
             }
 
             worker && worker.webContents.send("steam3id")
-            preset !== "os" && notify.customisation.ssenabled && capturesrc(notify.id,() => createsswin("ss",notify,undefined,src),src)
+            preset !== "os" && notify.customisation.ssenabled && capturesrc(notify.id,(sssrc: number) => createsswin("ss",notify,undefined,sssrc),src || -1)
 
             win.webContents.send("queue",queue)
             checkifrunning(info)
@@ -1421,6 +1421,15 @@ export const listeners = {
         })
 
         let sswin: Electron.BrowserWindow | null = null
+        let sssrc: number = -1
+        const sswinbounds = {
+            bounds: {
+                width: 0,
+                height: 0,
+                x: 0,
+                y: 0
+            }
+        }
 
         // Used in `dialog.ts`/`renderer.ts` to close "sswin", and in `renderer.ts` to spawn the Preview window
         ipcMain.on("sswin", (event,notify?: Notify,src?: number) => {
@@ -1457,68 +1466,119 @@ export const listeners = {
 
         const getsspath = (id: number) => path.join(sanhelper.temp,`${id}.png`)
 
-        const capturesrc = (notifyid: number,callback: () => void,src?: number): void => {
+        const capturesrc = async (notifyid: number,callback: (sssrc: number) => void,src: number) => {
             const config = sanconfig.get()
             if (config.get("screenshots") !== "overlay") return
 
             ssfailed = false
+            sssrc = -1
             
-            const checksrc = (src: string) =>  {
-                if (ssfailed) return ssfailed = false
-
-                if (!fs.existsSync(src)) {
-                    log.write("WARN",`"${notifyid}.png" src file not present in "${sanhelper.temp}" - retrying...`)
-                    setTimeout(() => checksrc(src),250)
+            const checksrcimg = (tempimgpath: string) =>  {
+                if (ssfailed) {
+                    ssfailed = false
+                    sssrc = -1
                     return
                 }
 
-                callback()
+                if (!fs.existsSync(tempimgpath)) {
+                    log.write("WARN",`"${notifyid}.png" src file not present in "${sanhelper.temp}" - retrying...`)
+                    setTimeout(() => checksrcimg(tempimgpath),250)
+                    return
+                }
+
+                log.write("INFO",`Running "createsswin" callback for Monitor ${sssrc}...`)
+                callback(sssrc)
             }
 
             ipcMain.once(`${notifyid}`, () => {
                 log.write("INFO",`Building screenshot for "${notifyid}"...`)
-                checksrc(path.join(sanhelper.temp,`${notifyid}.png`))
+                checksrcimg(path.join(sanhelper.temp,`${notifyid}.png`))
             })
 
             const delay = config.get("ssdelay")
             const sspath = getsspath(notifyid)
 
-            const { monitor } = getssmonitor(src)
+            let windowtitle: string = ""
+
+            if (worker && config.get("ssmode") === "window") {
+                windowtitle = !appid ? win.title : await new Promise(resolve => {
+                    ipcMain.once("processes",(event,processes: ProcessInfo[]) => resolve(processes[0].windowtitle))
+                    worker!.webContents.send("processes")
+                })
+
+                console.log("\n\n" + windowtitle + "\n\n")
+
+                const { x, y, width, height } = sanhelper.getwindowbounds(windowtitle)
+                const { id } = screen.getDisplayNearestPoint({ x, y })
+
+                sssrc = id
+
+                Object.assign(sswinbounds,{
+                    bounds: {
+                        x,
+                        y,
+                        width,
+                        height
+                    }
+                })
+            }
+
+            // Fall back to provided "screen" src if no monitor is assigned when config.ssmode === "window"
+            if (sssrc === -1) {
+                log.write("WARN",`"sssrc" not found - using original "src" value (${src})...`)
+                sssrc = src
+            }
+
+            const { monitor } = getssmonitor(sssrc)
             if (!monitor) return log.write("ERROR",`Error configuring screenshot src: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
 
-            const { id, label, bounds: { width, height } } = monitor
+            const { id, label } = monitor
+            let { bounds: { width, height } } = config.get("ssmode") && (["width","height"] as const).every(dim => sswinbounds.bounds[dim] !== 0) ? sswinbounds : monitor
 
             ipcMain.once("src",(event,err) => {
                 if (err) {
                     log.write("ERROR",`Error writing screenshot for Monitor ${id} ("${label}"): ${err}`)
-                    return ssfailed = true
+                    ssfailed = true
+                    sssrc = -1
+                    return
                 }
 
                 return log.write("INFO",`Screenshot for Monitor ${id} ("${label}") written successfully`)
             })
         
             const capture = async () => {
+                // !!! `sanhelper.rs` changes to `capture_hdr_screenshot()` have not been committed
+                // !!! Linux native addon has not been rebuilt
                 if (config.get("hdrmode")) {
-                    const msg: string = sanhelper.hdrscreenshot(monitor.id,sspath)
+                    let area: number[] | undefined
+
+                    if (config.get("ssmode") === "window") {
+                        const { x, y, width, height } = sswinbounds.bounds
+                        area = [y,x,width,height] // Order of elements for `screenshots::Screen.capture_area()` is y/x/w/h
+                    }
+
+                    const msg: string = sanhelper.hdrscreenshot(monitor.id,sspath,area)
                     log.write("INFO",msg)
                     return
                 }
 
                 try {
                     const srcs = await desktopCapturer.getSources({
-                        types: ["screen"],
+                        types: [!windowtitle ? "screen" : config.get("ssmode")],
                         thumbnailSize: { width, height }
                     })
 
-                    log.write("INFO",`[Selected Monitor ID]:\n- ${id}\n\n[Available Screen Sources]:\n- ${srcs.map(src => `${src.display_id} (Parsed id: ${parseInt(src.display_id)} | Match?: ${parseInt(src.display_id) === id})`).join("\n- ")}`)
+                    log.write("INFO",`[Selected Monitor ID]:\n- ${id}\n\n[Available Screen Sources]:\n- ${srcs.map(src => `${src.display_id} (Parsed id: ${parseInt(src.display_id)} | Match?: ${parseInt(src.display_id) === sssrc})`).join("\n- ")}`)
 
-                    const src = srcs.find(src => parseInt(src.display_id) === id || screen.getPrimaryDisplay().id === id)
-                    if (!src) throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${id} ("${label}")`)
+                    const src = srcs.find(src => config.get("ssmode") === "window" ? src.name === windowtitle : parseInt(src.display_id) === sssrc || screen.getPrimaryDisplay().id === sssrc)
+                    if (!src) throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${sssrc} ("${label}")`)
                     
                     fs.writeFileSync(sspath,src.thumbnail.toPNG())
                 } catch (err) {
                     log.write("ERROR",err as Error)
                     ssfailed = true
+                    sssrc = -1
+                    return
                 }
             }
         
@@ -1535,8 +1595,8 @@ export const listeners = {
             }
         }
 
-        const removesrcimg = (id: number) => {
-            const srcimg = getsspath(id)
+        const removesrcimg = (notifyid: number) => {
+            const srcimg = getsspath(notifyid)
 
             try {
                 if (fs.existsSync(srcimg)) {
@@ -1636,18 +1696,21 @@ export const listeners = {
                     })
                 })
     
-                const { monitor, display } = getssmonitor(src)
+                const { monitor, display } = getssmonitor(sssrc)
     
                 if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
                 if (!display) return log.write("ERROR",`Error configuring screenshot: No Display matches Monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
     
                 const { x, y } = display.bounds
+                const { bounds: { width, height } } = sswinbounds
     
                 sswin = new BrowserWindow({
                     title: `Steam Achievement Notifier (V${sanhelper.version}): ${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}`,
-                    fullscreen: type === "ss",
-                    x: type === "ss" ? x : undefined,
-                    y: type === "ss" ? y : undefined,
+                    fullscreen: type === "ss" && config.get("ssmode") !== "window",
+                    x: type === "ss" && config.get("ssmode") !== "window" ? x : undefined,
+                    y: type === "ss" && config.get("ssmode") !== "window" ? y : undefined,
+                    width: width || undefined,
+                    height: height || undefined,
                     autoHideMenuBar: true,
                     frame: false,
                     transparent: true,
@@ -1657,6 +1720,7 @@ export const listeners = {
                     minimizable: false,
                     skipTaskbar: !sanhelper.devmode,
                     show: false,
+                    center: config.get("ssmode") === "window" ? true : undefined,
                     webPreferences: {
                         nodeIntegration: true,
                         contextIsolation: false,

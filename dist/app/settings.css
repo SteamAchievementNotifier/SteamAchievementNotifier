@@ -180,7 +180,6 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 .opt:has(#steamlang:not(:checked)) + .wrapper:has(#maxsteamlangretries),
 .opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow),
 .opt:has(#statwin:not(:checked)) + .wrapper:has(#statwinaot) {
-/* .cont:has(.title#ra):has(input[type="checkbox"]#ramode:not(:checked)) .opt:not(:has(> input[type="checkbox"]#ramode)) { */
     display: none;
 }
 

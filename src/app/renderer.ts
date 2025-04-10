@@ -119,7 +119,8 @@ const setmonitors = async () => {
 const refreshmonitors = (monitors: Monitor[],prevmons: Monitor[]) => {
     const getmonid = (type: "id" | "themeswitch",id: number,str: string) => {str
         try {
-            const match = monitors.find(monitor => monitor.id === id)
+            let match = monitors.find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
+            if (!match) match = monitors.find(monitor => config.get("lastknowmonitorlbl") === monitor.label || monitor.id === id)
 
             if (match) {
                 log.write("INFO", `Monitor found in "monitors" array for "${match.label}" (${match.id}) used as ${str}`)

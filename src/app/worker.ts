@@ -179,6 +179,8 @@ const startsan = async (appinfo: AppInfo) => {
         const isprocessrunning = (pid: number) => userust ? client.processes.isProcessRunning(pid) : sanhelper.isprocessrunning(pid)
     
         const processes: ProcessInfo[] = []
+
+        ipcRenderer.on("processes",() => ipcRenderer.send("processes",processes.filter(p => p.windowtitle !== "")))
     
         const initgameloop = () => {
             processes.forEach(({ pid,exe,windowtitle }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250,windowtitle)))

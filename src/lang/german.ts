@@ -83,7 +83,7 @@ export const translations = {
         webhookingame: "in $gamename",
         notconnected: "Nicht verbunden",
         raloghelp: "Mein Spiel wird nicht erkannt",
-        raenablelog: `Emulator-Logdateien`,
+        raenablelog: `Emulator-Protokolldateien`,
         raenablelogsub: [
             `Um auf interne Spielereignisse zuzugreifen (wie den aktuellen Spielstatus, Informationen zum Freischalten von Erfolgen usw.), muss das Protokollieren in eine externe <span class="hl">Protokolldatei</span> <u>aktiviert sein</u> in allen ausgewählten Emulatoren.<br><br>Jeder ausgewählte Emulator <u>muss diese <span class="hl">Protokolldatei</span></u> als Wert für den <span class="hl">Protokolldateipfad</span> verwenden.`,
             `<details>
@@ -92,7 +92,7 @@ export const translations = {
                     <span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:
                     <br>
                     <ul>
-                        <li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li>
+                        <li><span class="hllb">Ausführlichkeit der Protokolle</span>: <span class="hlgreen">EIN</span></li>
                         <li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li>
                         <li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li>
                         <li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li>
@@ -111,7 +111,7 @@ export const translations = {
                     <span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:
                     <br>
                     <ul>
-                        <li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li>
+                        <li><span class="hllb">Ausführlichkeit</span>: <span class="hlgreen">Info</span></li>
                         <li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li>
                         <li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li>
                     </ul>
@@ -258,11 +258,11 @@ export const translations = {
                 rakey: "API-Schlüssel",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                installdir: "Pfad zur Log-Datei",
+                installdir: "Pfad zur Protokolldatei",
                 rapercenttype: "Prozent-Typ",
                 hard: "Hardcore",
                 soft: "Softcore",
-                placeholder: "Geben Sie den Pfad zur Log-Datei ein",
+                placeholder: "Geben Sie den Pfad zur Protokolldatei ein",
                 logfile: "Protokolldatei",
                 status: "Status",
                 game: "Spiel",
@@ -347,7 +347,7 @@ export const translations = {
                 pulse: "Pulsieren",
                 double: "Doppelt",
                 focus: "Fokus",
-                orbit: "Orbit",
+                orbit: "Umkreisen",
                 fluorescent: "Fluoreszierend",
                 rainbow: "Regenbogen",
                 mask: "Maske",
@@ -365,8 +365,8 @@ export const translations = {
                 primarycolor: "Primärfarbe",
                 secondarycolor: "Sekundärfarbe",
                 tertiarycolor: "Tertiärfarbe",
-                iconshadowcolor: "Schattenfarbe des seltenen Icons",
-                iconanimcolor: "Animationsfarbe des seltenen Icons",
+                iconshadowcolor: "Schattenfarbe des seltenen Symbols",
+                iconanimcolor: "Animationsfarbe des seltenen Symbols",
                 fontcolor: "Schriftfarbe",
                 usecustomfontcolors: "Benutzerdefinierte Schriftfarben verwenden",
                 unlockmsgfontcolor: "Farbe 1",
@@ -381,7 +381,7 @@ export const translations = {
         icons: {
             title: "Symbole",
             content: {
-                iconscale: "Icon-Skalierung",
+                iconscale: "Symbol-Skalierung",
                 iconroundness: "Symbole abrunden",
                 showiconborder: "Symbolrahmen anzeigen",
                 iconborderimg: "Symbolrahmen",
@@ -674,7 +674,7 @@ export const translations = {
         statwinaot: `Setzen Sie das Fenster für Erfolgsstatistiken in den Modus "Immer im Vordergrund", sodass das Fenster über dem Spiel angezeigt wird<br><br><span class="ttdesc">Wenn diese Option aktiviert ist, reagiert das Fenster für Erfolgsstatistiken nicht mehr auf Benutzerinteraktionen wie "Klick"-Ereignisse. Um die Interaktion mit dem Fenster wieder zu aktivieren, muss diese Option deaktiviert werden</span>`,
         statwinshortcut: "Die Erfolgsstatistik-Überlagerung mit der angegebenen Tastenkombination umschalten",
         ssdisplay: "Zeige eine Vorschau des aufgenommenen Screenshots in der Benachrichtigung an",
-        iconscale: "Größe des Erfolgsicons vergrößern oder verkleinern",
+        iconscale: "Größe des Erfolgssymbols vergrößern oder verkleinern",
         showiconborder: "Ein Bild als Rahmen um das Erfolgssymbol anzeigen",
         iconborderimg: "Eine Bilddatei laden, die als Rahmen um das Erfolgssymbol verwendet wird",
         iconborderpos: "Festlegen, ob das Rahmenbild vor oder hinter dem Erfolgssymbol angezeigt wird",
@@ -684,8 +684,8 @@ export const translations = {
         iconborderrarity: "Ändert den angezeigten Symbolrahmen basierend auf der Seltenheit der freigeschalteten Errungenschaft",
         iconborderimgbronze: "Der Symbolrahmen, der angezeigt wird, wenn der Freischaltprozentsatz > 50 % beträgt",
         iconborderimgsilver: "Der Symbolrahmen, der angezeigt wird, wenn der Freischaltprozentsatz < 50 % und > $rarity beträgt",
-        iconshadowcolor: "Stellen Sie die Farbe des Schatteneffekts um das Erfolgsicon ein, wenn ein seltener Erfolg freigeschaltet wird",
-        iconanimcolor: "Stellen Sie die Farbe des Animationseffekts hinter dem Erfolgsicon ein, wenn ein seltener Erfolg freigeschaltet wird",
+        iconshadowcolor: "Stellen Sie die Farbe des Schatteneffekts um das Erfolgssymbol ein, wenn ein seltener Erfolg freigeschaltet wird",
+        iconanimcolor: "Stellen Sie die Farbe des Animationseffekts hinter dem Erfolgssymbol ein, wenn ein seltener Erfolg freigeschaltet wird",
         logoscale: "Größe des Logoelements in der Benachrichtigung vergrößern oder verkleinern",
         decorationscale: "Größe des Dekorationselements in der Benachrichtigung vergrößern oder verkleinern",
         usecustomfontsizes: `Individuelle Schriftgrößen der Textelemente in der Benachrichtigung vergrößern oder verkleinern<br><br><span class="ttdesc">Die Erhaltung des ursprünglichen Layouts der Benachrichtigung kann nicht garantiert werden, wenn die einzelnen Schriftgrößen geändert werden</span>`,
@@ -697,7 +697,7 @@ export const translations = {
         webhookembedcolorplat: "Stellen Sie die Farbe ein, die in der Webhook-Einbettung verwendet wird, wenn ein 100%-Erfolg freigeschaltet wird",
         raemus: "Benachrichtigungen anzeigen, wenn Spiele in unterstützten Emulatoren erkannt werden",
         rauser: "Den Retro Achievements-Benutzernamen festlegen, um Erfolge zu verfolgen",
-        rakey: `Legen Sie den Web-API-Schlüssel fest, der für die Authentifizierung bei der Retro Achievements API verwendet werden soll<br><br><span class="ttdesc">Ein Web-API-Schlüssel kann kopiert oder neu generiert werden, indem Sie sich auf der Retro Achievements-Website anmelden und zu <span class="hl">Einstellungen > Schlüssel > Web API Key</span> gehen<br><br>🔒 Der bereitgestellte Schlüssel wird verschlüsselt, bevor er lokal im System gespeichert wird</span>`,
+        rakey: `Legen Sie den Web-API-Schlüssel fest, der für die Authentifizierung bei der Retro Achievements API verwendet werden soll<br><br><span class="ttdesc">Ein Web-API-Schlüssel kann kopiert oder neu generiert werden, indem Sie sich auf der Retro Achievements-Webseite anmelden und zu <span class="hl">Einstellungen > Schlüssel > Web API Key</span> gehen<br><br>🔒 Der bereitgestellte Schlüssel wird verschlüsselt, bevor er lokal im System gespeichert wird</span>`,
         rapercenttype: "Festlegen, ob in den Benachrichtigungen der Freischaltprozentsatz für Hardcore- oder Softcore-Erfolge angezeigt wird",
         retroarch: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über RetroArch emuliert werden<br><br><span class="ttdesc"><span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li></ul></span>`,
         dolphin: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über Dolphin emuliert werden<br><br><span class="ttdesc"><span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li><li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li></ul></span>`,

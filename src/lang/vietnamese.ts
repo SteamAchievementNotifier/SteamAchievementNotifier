@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Hình ảnh thông báo",
                 imgpath: "Đường dẫn hình ảnh",
                 ssenabled: "Bật",
+                ssmode: "Chế độ Chụp màn hình",
+                screen: "Màn hình",
+                window: "Cửa sổ"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Thông điệp mở khóa",
                 titlefontsize: "Tiêu đề",
                 descfontsize: "Mô tả",
+                textvspace: "Khoảng cách giữa các đoạn văn bản",
                 opacity: "Độ mờ",
                 bgonly: "Chỉ nền",
                 glow: "Phát sáng",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Tỷ lệ viền",
                 iconborderx: "Dịch chuyển ngang",
                 iconbordery: "Dịch chuyển dọc",
+                iconborderrarity: "Sử dụng độ hiếm",
+                iconborderimgbronze: "Độ hiếm > 50%",
+                iconborderimgsilver: "Độ hiếm: < 50% và > $rarity",
                 front: "Trước",
                 back: "Sau",
                 plat: "Logo 100%",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Tăng hoặc giảm kích thước viền biểu tượng trong thông báo",
         iconborderx: "Tăng hoặc giảm dịch chuyển ngang của viền biểu tượng trong thông báo",
         iconbordery: "Tăng hoặc giảm dịch chuyển dọc của viền biểu tượng trong thông báo",
+        iconborderrarity: "Thay đổi hình ảnh viền biểu tượng dựa trên độ hiếm của thành tích đã mở khóa",
+        iconborderimgbronze: "Hình ảnh viền biểu tượng hiển thị khi tỷ lệ mở khóa > 50%",
+        iconborderimgsilver: "Hình ảnh viền biểu tượng hiển thị khi tỷ lệ mở khóa < 50% và > $rarity",
         iconshadowcolor: "Cài đặt màu bóng đổ xung quanh biểu tượng thành tích khi mở khóa thành tích hiếm",
         iconanimcolor: "Cài đặt màu hoạt ảnh phía sau biểu tượng thành tích khi mở khóa thành tích hiếm",
         logoscale: "Tăng hoặc giảm kích thước của phần tử logo trong thông báo",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Chọn màu cho phần văn bản đầu tiên",
         titlefontcolor: "Chọn màu cho phần văn bản thứ hai",
         descfontcolor: "Chọn màu cho phần văn bản thứ ba",
-        exportachdata: `Xuất dữ liệu thành tích vào tệp JSON khi một thành tích được mở khóa<br><br><span class="ttdesc">Khi bật, <span class="ttcode">achdata.json</span> sẽ được xuất ra tại:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Xuất dữ liệu thành tích vào tệp JSON khi một thành tích được mở khóa<br><br><span class="ttdesc">Khi bật, <span class="ttcode">achdata.json</span> sẽ được xuất ra tại:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Điều chỉnh khoảng cách dọc giữa các phần tử văn bản trong thông báo",
+        ssmode: `Cài đặt xem có chụp toàn bộ màn hình hay chỉ cửa sổ trò chơi hiện tại<span style="color: red;">*</span> trong các ảnh chụp màn hình<br><br><span class="ttdesc">Nếu không thể tìm thấy <span class="hl">tệp thực thi</span> của trò chơi hiện tại (<i>dù qua <span class="hl">theo dõi tiến trình tự động</span> hay thêm nó như một <span class="hl">Trò chơi Liên kết</span></i>), tùy chọn này sẽ mặc định về chế độ "Màn hình"</span>` 
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

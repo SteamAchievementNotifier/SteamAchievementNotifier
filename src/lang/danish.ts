@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Notifikationsbillede",
                 imgpath: "Billedsti",
                 ssenabled: "Aktiver",
+                ssmode: "Skærmbilledetilstand",
+                screen: "Skærm",
+                window: "Vindue"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Oplåsningsbesked",
                 titlefontsize: "Titel",
                 descfontsize: "Beskrivelse",
+                textvspace: "Tekstafstand",
                 opacity: "Gennemsigtighed",
                 bgonly: "Kun baggrund",
                 glow: "Glød",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Rammestørrelse",
                 iconborderx: "Vandret forskydning",
                 iconbordery: "Lodret forskydning",
+                iconborderrarity: "Brug Sjældenhed",
+                iconborderimgbronze: "Sjældenhed > 50%",
+                iconborderimgsilver: "Sjældenhed: < 50% og > $rarity",
                 front: "Foran",
                 back: "Bagved",
                 plat: "100% Logo",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Forøg eller formindsk størrelsen på ikonrammen i notifikationen",
         iconborderx: "Forøg eller formindsk den vandrette forskydning af ikonrammen i notifikationen",
         iconbordery: "Forøg eller formindsk den lodrette forskydning af ikonrammen i notifikationen",
+        iconborderrarity: "Ændrer den viste ikonramme baseret på sjældenheden af den oplåste præstation",
+        iconborderimgbronze: "Ikonrammen der vises, når oplåsningsprocenten er > 50%",
+        iconborderimgsilver: "Ikonrammen der vises, når oplåsningsprocenten er < 50% og > $rarity",
         iconshadowcolor: "Indstil farven på skyggeeffekten omkring præstationsikonet, når en sjælden præstation låses op",
         iconanimcolor: "Indstil farven på animationseffekten bag præstationsikonet, når en sjælden præstation låses op",
         logoscale: "Forøg eller formindsk størrelsen på logoelementet i notifikationen",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Indstil farven på det første tekstelement",
         titlefontcolor: "Indstil farven på det andet tekstelement",
         descfontcolor: "Indstil farven på det tredje tekstelement",
-        exportachdata: `Eksporter præstationsdata til en JSON-fil, når en præstation låses op<br><br><span class="ttdesc">Når aktiveret, vil <span class="ttcode">achdata.json</span> blive eksporteret til:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Eksporter præstationsdata til en JSON-fil, når en præstation låses op<br><br><span class="ttdesc">Når aktiveret, vil <span class="ttcode">achdata.json</span> blive eksporteret til:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Justerer den lodrette afstand mellem textelementerne i notifikationen",
+        ssmode: `Angiv om hele skærmen eller det aktuelle spilvindue<span style="color: red;">*</span> skal fanges i skærmbilleder<br><br><span class="ttdesc">Hvis spillets <span class="hl">eksekverbare fil</span> ikke kan findes (<i>enten via <span class="hl">automatisk procesovervågning</span> eller tilføjet som et <span class="hl">Tilknyttet Spil</span></i>), vil denne mulighed som standard være "Skærm"</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Obrazek powiadomienia",
                 imgpath: "Ścieżka obrazu",
                 ssenabled: "Włącz",
+                ssmode: "Tryb zrzutu ekranu",
+                screen: "Ekran",
+                window: "Okno"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Wiadomość odblokowania",
                 titlefontsize: "Tytuł",
                 descfontsize: "Opis",
+                textvspace: "Odstęp między tekstem",
                 opacity: "Nieprzezroczystość",
                 bgonly: "Tylko Tło",
                 glow: "Poświata",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Skala ramki",
                 iconborderx: "Przesunięcie poziome",
                 iconbordery: "Przesunięcie pionowe",
+                iconborderrarity: "Użyj rzadkości",
+                iconborderimgbronze: "Rzadkość > 50%",
+                iconborderimgsilver: "Rzadkość: < 50% i > $rarity",
                 front: "Z przodu",
                 back: "Z tyłu",
                 plat: "Logo 100%",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Zwiększ lub zmniejsz rozmiar ramki ikony w powiadomieniu",
         iconborderx: "Zwiększ lub zmniejsz poziome przesunięcie ramki ikony w powiadomieniu",
         iconbordery: "Zwiększ lub zmniejsz pionowe przesunięcie ramki ikony w powiadomieniu",
+        iconborderrarity: "Zmienia obraz obramowania ikony w zależności od rzadkości odblokowanego osiągnięcia",
+        iconborderimgbronze: "Obraz obramowania ikony wyświetlany, gdy procent odblokowania jest > 50%",
+        iconborderimgsilver: "Obraz obramowania ikony wyświetlany, gdy procent odblokowania jest < 50% i > $rarity",
         iconshadowcolor: "Ustaw kolor efektu cienia wokół ikony osiągnięcia, gdy odblokowane zostanie rzadkie osiągnięcie",
         iconanimcolor: "Ustaw kolor efektu animacji za ikoną osiągnięcia, gdy odblokowane zostanie rzadkie osiągnięcie",
         logoscale: "Zwiększ lub zmniejsz rozmiar elementu logo w powiadomieniu",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Ustaw kolor pierwszego elementu tekstowego",
         titlefontcolor: "Ustaw kolor drugiego elementu tekstowego",
         descfontcolor: "Ustaw kolor trzeciego elementu tekstowego",
-        exportachdata: `Eksportuj dane osiągnięć do pliku JSON, gdy osiągnięcie zostanie odblokowane<br><br><span class="ttdesc">Po włączeniu, plik <span class="ttcode">achdata.json</span> zostanie wyeksportowany do:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Eksportuj dane osiągnięć do pliku JSON, gdy osiągnięcie zostanie odblokowane<br><br><span class="ttdesc">Po włączeniu, plik <span class="ttcode">achdata.json</span> zostanie wyeksportowany do:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Dostosuj pionowy odstęp między elementami tekstowymi w powiadomieniu",
+        ssmode: `Ustaw, czy w zrzutach ekranu ma być uchwycony cały ekran, czy tylko aktualne okno gry<span style="color: red;">*</span><br><br><span class="ttdesc">Jeśli nie można znaleźć <span class="hl">pliku wykonywalnego</span> bieżącej gry (<i>zarówno za pomocą <span class="hl">automatycznego śledzenia procesów</span>, jak i dodając ją jako <span class="hl">Linked Game</span></i>), ta opcja domyślnie przełączy się na tryb "Ekran"</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

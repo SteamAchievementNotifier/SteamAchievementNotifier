@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Varslingsbilde",
                 imgpath: "Bildesti",
                 ssenabled: "Aktiver",
+                ssmode: "Skjermbilde-modus",
+                screen: "Skjerm",
+                window: "Vindu"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Låse opp melding",
                 titlefontsize: "Tittel",
                 descfontsize: "Beskrivelse",
+                textvspace: "Tekstavstand",
                 opacity: "Gjennomsiktighet",
                 bgonly: "Bare Bakgrunn",
                 glow: "Glimt",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Rammens skala",
                 iconborderx: "Horisontal forskyvning",
                 iconbordery: "Vertikal forskyvning",
+                iconborderrarity: "Bruk sjeldenhet",
+                iconborderimgbronze: "Sjeldenhet > 50%",
+                iconborderimgsilver: "Sjeldenhet: < 50% og > $rarity",
                 front: "Foran",
                 back: "Bak",
                 plat: "100% Logo",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Øk eller reduser størrelsen på ikonrammen innenfor varslingen",
         iconborderx: "Øk eller reduser den horisontale forskyvningen av ikonrammen innenfor varslingen",
         iconbordery: "Øk eller reduser den vertikale forskyvningen av ikonrammen innenfor varslingen",
+        iconborderrarity: "Endrer ikonetrammebildet som vises basert på sjeldenheten til den opplåste prestasjonen",
+        iconborderimgbronze: "Ikonrammebildet som vises når låsningsprosenten er > 50%",
+        iconborderimgsilver: "Ikonrammebildet som vises når låsningsprosenten er < 50% og > $rarity",
         iconshadowcolor: "Angi fargen på skyggeeffekten rundt prestasjonsikonet når en sjelden prestasjon låses opp",
         iconanimcolor: "Angi fargen på animasjonseffekten bak prestasjonsikonet når en sjelden prestasjon låses opp",
         logoscale: "Øk eller reduser størrelsen på logoelementet i varslingen",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Sett fargen på det første tekstelementet",
         titlefontcolor: "Sett fargen på det andre tekstelementet",
         descfontcolor: "Sett fargen på det tredje tekstelementet",
-        exportachdata: `Eksporter prestasjonsdata til en JSON-fil når en prestasjon låses opp<br><br><span class="ttdesc">Når aktivert, vil <span class="ttcode">achdata.json</span> bli eksportert til:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Eksporter prestasjonsdata til en JSON-fil når en prestasjon låses opp<br><br><span class="ttdesc">Når aktivert, vil <span class="ttcode">achdata.json</span> bli eksportert til:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Justere den vertikale avstanden mellom textelementene i varslingen",
+        ssmode: `Angi om skjermbildet skal ta hele skjermen eller bare det nåværende spillvinduet<span style="color: red;">*</span><br><br><span class="ttdesc">Hvis den nåværende spillens <span class="hl">kjørbare fil</span> ikke kan finnes (<i>enten via <span class="hl">automatisk prosesssporing</span> eller ved å legge den til som et <span class="hl">Linked Game</span></i>), vil dette alternativet standardisere til "Skjerm"-modus</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

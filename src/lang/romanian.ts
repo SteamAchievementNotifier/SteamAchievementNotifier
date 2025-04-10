@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Imagine Notificare",
                 imgpath: "Calea Imaginii",
                 ssenabled: "Activare",
+                ssmode: "Mod Captură Ecran",
+                screen: "Ecran",
+                window: "Fereastră"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Mesaj de deblocare",
                 titlefontsize: "Titlu",
                 descfontsize: "Descriere",
+                textvspace: "Spațiere Text",
                 opacity: "Opacitate",
                 bgonly: "Doar Fundal",
                 glow: "Strălucire",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Scalarea bordurii",
                 iconborderx: "Deplasare orizontală",
                 iconbordery: "Deplasare verticală",
+                iconborderrarity: "Folosește Raritate",
+                iconborderimgbronze: "Raritate > 50%",
+                iconborderimgsilver: "Raritate: < 50% și > $rarity",
                 front: "Față",
                 back: "Spate",
                 plat: "Logo 100%",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Crește sau micșorează dimensiunea bordurii iconiței în notificare",
         iconborderx: "Crește sau micșorează deplasarea orizontală a bordurii iconiței în notificare",
         iconbordery: "Crește sau micșorează deplasarea verticală a bordurii iconiței în notificare",
+        iconborderrarity: "Schimbă imaginea bordurii iconiței pe baza rarității realizării deblocată",
+        iconborderimgbronze: "Imaginea bordurii iconiței care apare atunci când procentul de deblocare este > 50%",
+        iconborderimgsilver: "Imaginea bordurii iconiței care apare atunci când procentul de deblocare este < 50% și > $rarity",
         iconshadowcolor: "Setează culoarea efectului de umbră din jurul iconiței realizării când se deblochează o realizare rară",
         iconanimcolor: "Setează culoarea efectului de animație din spatele iconiței realizării când se deblochează o realizare rară",
         logoscale: "Mărește sau micșorează dimensiunea elementului logo din notificare",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Setează culoarea primului element de text",
         titlefontcolor: "Setează culoarea celui de-al doilea element de text",
         descfontcolor: "Setează culoarea celui de-al treilea element de text",
-        exportachdata: `Exportă datele realizărilor într-un fișier JSON atunci când o realizare este deblocat<br><br><span class="ttdesc">Când este activat, <span class="ttcode">achdata.json</span> va fi exportat în:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Exportă datele realizărilor într-un fișier JSON atunci când o realizare este deblocat<br><br><span class="ttdesc">Când este activat, <span class="ttcode">achdata.json</span> va fi exportat în:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Ajustează spațierea verticală dintre elementele de text din notificare",
+        ssmode: `Setează dacă se va captura întreaga fereastră sau doar fereastra jocului curent<span style="color: red;">*</span> în capturile de ecran<br><br><span class="ttdesc">Dacă fișierul <span class="hl">executabil</span> al jocului curent nu poate fi găsit (<i>fie prin <span class="hl">urmărirea automată a proceselor</span>, fie adăugându-l ca un <span class="hl">Joc Legat</span></i>), această opțiune va reveni la modul "Ecran"</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

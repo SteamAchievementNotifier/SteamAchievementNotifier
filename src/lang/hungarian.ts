@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Értesítési kép",
                 imgpath: "Kép elérési útvonala",
                 ssenabled: "Engedélyezés",
+                ssmode: "Képernyőképfogó mód",
+                screen: "Képernyő",
+                window: "Ablak"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Feloldó üzenet",
                 titlefontsize: "Cím",
                 descfontsize: "Leírás",
+                textvspace: "Szöveg közötti távolság",
                 opacity: "Átlátszóság",
                 bgonly: "Csak háttér",
                 glow: "Fénylés",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Keret mérete",
                 iconborderx: "Vízszintes eltolás",
                 iconbordery: "Függőleges eltolás",
+                iconborderrarity: "Használja a ritkaságot",
+                iconborderimgbronze: "Ritkaság > 50%",
+                iconborderimgsilver: "Ritkaság: < 50% és > $rarity",
                 front: "Elöl",
                 back: "Hátul",
                 plat: "100% logó",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Növelje vagy csökkentse az ikon keretének méretét az értesítésen belül",
         iconborderx: "Növelje vagy csökkentse az ikon keretének vízszintes eltolását az értesítésen belül",
         iconbordery: "Növelje vagy csökkentse az ikon keretének függőleges eltolását az értesítésen belül",
+        iconborderrarity: "Módosítja az ikon körvonalának képét az elért siker ritkasága alapján",
+        iconborderimgbronze: "Az ikon körvonalának képe, amely akkor jelenik meg, ha a feloldás százaléka > 50%",
+        iconborderimgsilver: "Az ikon körvonalának képe, amely akkor jelenik meg, ha a feloldás százaléka < 50% és > $rarity",
         iconshadowcolor: "Állítsa be a siker ikont körülvevő árnyék effektus színét, amikor ritka siker oldódik fel",
         iconanimcolor: "Állítsa be az animációs effektus színét a siker ikon mögött, amikor ritka siker oldódik fel",
         logoscale: "A logó elem méretének növelése vagy csökkentése az értesítésen belül",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Állítsa be az első szövegelem színét",
         titlefontcolor: "Állítsa be a második szövegelem színét",
         descfontcolor: "Állítsa be a harmadik szövegelem színét",
-        exportachdata: `Teljesítményadatok exportálása JSON fájlba, amikor egy teljesítmény feloldódik<br><br><span class="ttdesc">Ha engedélyezve van, az <span class="ttcode">achdata.json</span> a következő helyre lesz exportálva:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Teljesítményadatok exportálása JSON fájlba, amikor egy teljesítmény feloldódik<br><br><span class="ttdesc">Ha engedélyezve van, az <span class="ttcode">achdata.json</span> a következő helyre lesz exportálva:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Beállítja a vertikális távolságot a szövegelemek között az értesítésben",
+        ssmode: `Beállítja, hogy a képernyőkép teljes képernyőt vagy csak az aktuális játékablakot<span style="color: red;">*</span> rögzítse<br><br><span class="ttdesc">Ha az aktuális játék <span class="hl">végrehajtható fájlja</span> nem található (<i>akár <span class="hl">automatikus folyamatfigyeléssel</span>, akár <span class="hl">Linked Game</span> hozzáadásával</i>), akkor ez az opció alapértelmezés szerint "Képernyő" módra vált</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

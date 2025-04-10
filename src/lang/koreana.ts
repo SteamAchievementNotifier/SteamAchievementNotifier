@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "알림 이미지",
                 imgpath: "이미지 경로",
                 ssenabled: "활성화",
+                ssmode: "스크린샷 모드",
+                screen: "화면",
+                window: "창"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "해제 메시지",
                 titlefontsize: "제목",
                 descfontsize: "설명",
+                textvspace: "텍스트 간격",
                 opacity: "불투명도",
                 bgonly: "배경만",
                 glow: "발광",
@@ -384,6 +388,9 @@ export const translations = {
                 iconborderpos: "테두리 위치",
                 iconborderscale: "테두리 크기",
                 iconborderx: "수평 오프셋",
+                iconborderrarity: "희귀도 사용",
+                iconborderimgbronze: "희귀도 > 50%",
+                iconborderimgsilver: "희귀도: < 50% 및 > $rarity",
                 iconbordery: "수직 오프셋",
                 front: "앞",
                 back: "뒤",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "알림 내에서 아이콘 테두리의 크기를 늘리거나 줄이기",
         iconborderx: "알림 내에서 아이콘 테두리의 수평 오프셋을 늘리거나 줄이기",
         iconbordery: "알림 내에서 아이콘 테두리의 수직 오프셋을 늘리거나 줄이기",
+        iconborderrarity: "잠금 해제된 업적의 희귀도에 따라 아이콘 테두리 이미지를 변경",
+        iconborderimgbronze: "잠금 해제 비율이 50%를 초과할 때 표시되는 아이콘 테두리 이미지",
+        iconborderimgsilver: "잠금 해제 비율이 50% 미만이거나 $rarity를 초과할 때 표시되는 아이콘 테두리 이미지",
         iconshadowcolor: "레어 성공이 해제될 때 성공 아이콘 주위의 그림자 효과 색상을 설정합니다",
         iconanimcolor: "레어 성공이 해제될 때 성공 아이콘 뒤의 애니메이션 효과 색상을 설정합니다",
         logoscale: "알림 내의 로고 요소 크기를 늘리거나 줄입니다",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "첫 번째 텍스트 요소의 색상 설정",
         titlefontcolor: "두 번째 텍스트 요소의 색상 설정",
         descfontcolor: "세 번째 텍스트 요소의 색상 설정",
-        exportachdata: `업적이 잠금 해제되면 JSON 파일로 업적 데이터를 내보냅니다<br><br><span class="ttdesc">활성화하면, <span class="ttcode">achdata.json</span>이 다음 경로에 내보내집니다:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `업적이 잠금 해제되면 JSON 파일로 업적 데이터를 내보냅니다<br><br><span class="ttdesc">활성화하면, <span class="ttcode">achdata.json</span>이 다음 경로에 내보내집니다:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "알림 내 텍스트 요소 간의 수직 간격을 조정",
+        ssmode: `스크린샷에서 전체 화면을 캡처할지 현재 게임 창<span style="color: red;">*</span>만 캡처할지를 설정<br><br><span class="ttdesc">현재 게임의 <span class="hl">실행 파일</span>을 찾을 수 없는 경우(<i>자동 프로세스 추적 또는 <span class="hl">연결된 게임</span>으로 추가한 경우</i>), 이 옵션은 기본적으로 "화면" 모드로 설정됩니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",

@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Bildirim Görseli",
                 imgpath: "Görsel Yolu",
                 ssenabled: "Etkinleştir",
+                ssmode: "Ekran Görüntüsü Modu",
+                screen: "Ekran",
+                window: "Pencere"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Kilitleme Mesajı",
                 titlefontsize: "Başlık",
                 descfontsize: "Açıklama",
+                textvspace: "Metin Aralığı",
                 opacity: "Opaklık",
                 bgonly: "Sadece Arka Plan",
                 glow: "Parlama",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Kenarlık Ölçeği",
                 iconborderx: "Yatay Kaydırma",
                 iconbordery: "Dikey Kaydırma",
+                iconborderrarity: "Nadırlık Kullan",
+                iconborderimgbronze: "Nadırlık > 50%",
+                iconborderimgsilver: "Nadırlık: < 50% ve > $rarity",
                 front: "Ön",
                 back: "Arka",
                 plat: "100% Logosu",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Bildirim içindeki simge kenarlığının boyutunu artırın veya azaltın",
         iconborderx: "Bildirim içindeki simge kenarlığının yatay kaydırmasını artırın veya azaltın",
         iconbordery: "Bildirim içindeki simge kenarlığının dikey kaydırmasını artırın veya azaltın",
+        iconborderrarity: "Açık başarıların nadırlığına göre ikonun kenarlık görüntüsünü değiştir",
+        iconborderimgbronze: "Kilit açma yüzdesi > %50 olduğunda gösterilen ikon kenarlık görüntüsü",
+        iconborderimgsilver: "Kilit açma yüzdesi < %50 ve > $rarity olduğunda gösterilen ikon kenarlık görüntüsü",
         iconshadowcolor: "Nadir bir başarıyı kilitlediğinizde başarı simgesinin etrafındaki gölge efektinin rengini ayarlayın",
         iconanimcolor: "Nadir bir başarıyı kilitlediğinizde başarı simgesinin arkasındaki animasyon efektinin rengini ayarlayın",
         logoscale: "Bildirimdeki Logo öğesinin boyutunu artırın veya azaltın",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "İlk metin öğesinin rengini ayarlayın",
         titlefontcolor: "İkinci metin öğesinin rengini ayarlayın",
         descfontcolor: "Üçüncü metin öğesinin rengini ayarlayın",
-        exportachdata: `Bir başarı kilidi açıldığında başarı verilerini bir JSON dosyasına dışa aktar<br><br><span class="ttdesc">Etkinleştirildiğinde, <span class="ttcode">achdata.json</span> şu konuma dışa aktarılacaktır:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Bir başarı kilidi açıldığında başarı verilerini bir JSON dosyasına dışa aktar<br><br><span class="ttdesc">Etkinleştirildiğinde, <span class="ttcode">achdata.json</span> şu konuma dışa aktarılacaktır:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Bildirimdeki metin öğeleri arasındaki dikey boşluğu ayarla",
+        ssmode: `Ekran görüntülerinde tüm ekranı mı yoksa yalnızca mevcut oyun penceresini mi yakalayacağını ayarla<span style="color: red;">*</span><br><br><span class="ttdesc">Eğer mevcut oyunun <span class="hl">çalıştırılabilir dosyası</span> bulunamazsa (<i>ya <span class="hl">otomatik işlem takibi</span> ile ya da bir <span class="hl">Bağlantılı Oyun</span> olarak eklenerek</i>), bu seçenek varsayılan olarak "Ekran" moduna dönecektir</span>` 
     },
     update: {
         updateavailable: "Güncelleme mevcut",

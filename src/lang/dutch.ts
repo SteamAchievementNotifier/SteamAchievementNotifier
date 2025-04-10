@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Meldingsafbeelding",
                 imgpath: "Afbeeldingspad",
                 ssenabled: "Inschakelen",
+                ssmode: "Schermafbeeldingmodus",
+                screen: "Scherm",
+                window: "Venster"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Ontgrendelingsbericht",
                 titlefontsize: "Titel",
                 descfontsize: "Beschrijving",
+                textvspace: "Tekstafstand",
                 opacity: "Doorzichtigheid",
                 bgonly: "Alleen Achtergrond",
                 glow: "Gloed",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Randgrootte",
                 iconborderx: "Horizontale verschuiving",
                 iconbordery: "Verticale verschuiving",
+                iconborderrarity: "Zeldzaamheid gebruiken",
+                iconborderimgbronze: "Zeldzaamheid > 50%",
+                iconborderimgsilver: "Zeldzaamheid: < 50% en > $rarity",
                 front: "Voor",
                 back: "Achter",
                 plat: "100% Logo",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Vergroot of verklein de rand van het pictogram binnen de melding",
         iconborderx: "Vergroot of verklein de horizontale verschuiving van de pictogramrand binnen de melding",
         iconbordery: "Vergroot of verklein de verticale verschuiving van de pictogramrand binnen de melding",
+        iconborderrarity: "Wijzigt de weergegeven rand van het pictogram op basis van de zeldzaamheid van de ontgrendelde prestatie",
+        iconborderimgbronze: "De pictogramrand die wordt weergegeven wanneer het ontgrendelingspercentage > 50% is",
+        iconborderimgsilver: "De pictogramrand die wordt weergegeven wanneer het ontgrendelingspercentage < 50% en > $rarity is",
         iconshadowcolor: "Stel de kleur in van het schaduweffect rond het prestatiepictogram bij het ontgrendelen van een zeldzame prestatie",
         iconanimcolor: "Stel de kleur in van het animatie-effect achter het prestatiepictogram bij het ontgrendelen van een zeldzame prestatie",
         logoscale: "Vergroot of verklein de grootte van het logo-element binnen de notificatie",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Stel de kleur in van het eerste tekstelement",
         titlefontcolor: "Stel de kleur in van het tweede tekstelement",
         descfontcolor: "Stel de kleur in van het derde tekstelement",
-        exportachdata: `Exporteer prestatiegegevens naar een JSON-bestand wanneer een prestatie wordt ontgrendeld<br><br><span class="ttdesc">Wanneer ingeschakeld, wordt <span class="ttcode">achdata.json</span> geëxporteerd naar:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Exporteer prestatiegegevens naar een JSON-bestand wanneer een prestatie wordt ontgrendeld<br><br><span class="ttdesc">Wanneer ingeschakeld, wordt <span class="ttcode">achdata.json</span> geëxporteerd naar:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Past de verticale afstand aan tussen tekstelementen in de melding",
+        ssmode: `Stel in of de volledige schermweergave of alleen het huidige spelvenster<span style="color: red;">*</span> moet worden vastgelegd bij schermafbeeldingen<br><br><span class="ttdesc">Als het <span class="hl">uitvoerbare bestand</span> van het huidige spel niet kan worden gevonden (<i>hetzij via <span class="hl">automatische procesdetectie</span> of door het toe te voegen als een <span class="hl">Gekoppeld Spel</span></i>), wordt deze optie standaard ingesteld op "Scherm"</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "通知圖片",
                 imgpath: "圖片路徑",
                 ssenabled: "啟用",
+                ssmode: "截圖模式",
+                screen: "螢幕",
+                window: "視窗"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "解鎖訊息",
                 titlefontsize: "標題",
                 descfontsize: "描述",
+                textvspace: "文字間距",
                 opacity: "不透明度",
                 bgonly: "僅背景",
                 glow: "發光",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "邊框縮放",
                 iconborderx: "水平偏移",
                 iconbordery: "垂直偏移",
+                iconborderrarity: "使用稀有度",
+                iconborderimgbronze: "稀有度 > 50%",
+                iconborderimgsilver: "稀有度: < 50% 且 > $rarity",
                 front: "前面",
                 back: "後面",
                 plat: "100% 圖示",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "調整通知內圖示邊框的大小",
         iconborderx: "調整通知內圖示邊框的水平偏移",
         iconbordery: "調整通知內圖示邊框的垂直偏移",
+        iconborderrarity: "根據解鎖的成就稀有度更改顯示的圖標邊框圖片",
+        iconborderimgbronze: "當解鎖百分比 > 50% 時顯示的圖標邊框圖片",
+        iconborderimgsilver: "當解鎖百分比 < 50% 且 > $rarity 時顯示的圖標邊框圖片",
         iconshadowcolor: "設定解鎖稀有成就時，圍繞成就圖示的陰影效果顏色",
         iconanimcolor: "設定解鎖稀有成就時，成就圖示背後的動畫效果顏色",
         logoscale: "增大或減小通知中的Logo元素大小",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "設定第一個文字元素的顏色",
         titlefontcolor: "設定第二個文字元素的顏色",
         descfontcolor: "設定第三個文字元素的顏色",
-        exportachdata: `當成就解鎖時，將成就數據匯出為 JSON 文件<br><br><span class="ttdesc">啟用後，<span class="ttcode">achdata.json</span> 將匯出至:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `當成就解鎖時，將成就數據匯出為 JSON 文件<br><br><span class="ttdesc">啟用後，<span class="ttcode">achdata.json</span> 將匯出至:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "調整通知中各文本元素之間的垂直間距",
+        ssmode: `設定是否要在截圖中捕捉整個螢幕或僅當前遊戲視窗<span style="color: red;">*</span><br><br><span class="ttdesc">如果無法找到當前遊戲的<span class="hl">可執行檔案</span>（<i>無論是透過<span class="hl">自動進程追蹤</span>，還是將其添加為<span class="hl">已連結遊戲</span></i>），此選項將預設為「螢幕」模式</span>` 
     },
     update: {
         updateavailable: "有可用更新",

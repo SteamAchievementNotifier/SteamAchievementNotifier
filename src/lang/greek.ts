@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Εικόνα ειδοποίησης",
                 imgpath: "Διαδρομή εικόνας",
                 ssenabled: "Ενεργοποίηση",
+                ssmode: "Λειτουργία Στιγμιότυπου Οθόνης",
+                screen: "Οθόνη",
+                window: "Παράθυρο"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Μήνυμα Ξεκλειδώματος",
                 titlefontsize: "Τίτλος",
                 descfontsize: "Περιγραφή",
+                textvspace: "Διάστιχο Κειμένου",
                 opacity: "Διαφάνεια",
                 bgonly: "Μόνο Φόντο",
                 glow: "Λάμψη",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Κλίμακα Περιγράμματος",
                 iconborderx: "Οριζόντια Απόκλιση",
                 iconbordery: "Κατακόρυφη Απόκλιση",
+                iconborderrarity: "Χρησιμοποιήστε Σπανιότητα",
+                iconborderimgbronze: "Σπανιότητα > 50%",
+                iconborderimgsilver: "Σπανιότητα: < 50% και > $rarity",
                 front: "Μπροστά",
                 back: "Πίσω",
                 plat: "Λογότυπο 100%",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Αυξήστε ή μειώστε το μέγεθος του περιγράμματος του εικονιδίου στην ειδοποίηση",
         iconborderx: "Αυξήστε ή μειώστε την οριζόντια απόκλιση του περιγράμματος του εικονιδίου στην ειδοποίηση",
         iconbordery: "Αυξήστε ή μειώστε την κατακόρυφη απόκλιση του περιγράμματος του εικονιδίου στην ειδοποίηση",
+        iconborderrarity: "Αλλάζει την εικόνα του περιγράμματος του εικονιδίου με βάση τη σπανιότητα της ξεκλειδωμένης επίτευξης",
+        iconborderimgbronze: "Η εικόνα του περιγράμματος του εικονιδίου που εμφανίζεται όταν το ποσοστό ξεκλειδώματος είναι > 50%",
+        iconborderimgsilver: "Η εικόνα του περιγράμματος του εικονιδίου που εμφανίζεται όταν το ποσοστό ξεκλειδώματος είναι < 50% και > $rarity",
         iconshadowcolor: "Ορισμός του χρώματος της σκιάς γύρω από το εικονίδιο της επίτευξης όταν ξεκλειδώνεται μια σπάνια επίτευξη",
         iconanimcolor: "Ορισμός του χρώματος του εφέ animation πίσω από το εικονίδιο της επίτευξης όταν ξεκλειδώνεται μια σπάνια επίτευξη",
         logoscale: "Μεγέθυνση ή σμίκρυνση του μεγέθους του στοιχείου λογότυπου στην ειδοποίηση",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Ορίστε το χρώμα του πρώτου στοιχείου κειμένου",
         titlefontcolor: "Ορίστε το χρώμα του δεύτερου στοιχείου κειμένου",
         descfontcolor: "Ορίστε το χρώμα του τρίτου στοιχείου κειμένου",
-        exportachdata: `Εξαγωγή δεδομένων επιτευγμάτων σε αρχείο JSON όταν ένα επίτευγμα ξεκλειδωθεί<br><br><span class="ttdesc">Όταν είναι ενεργοποιημένο, το <span class="ttcode">achdata.json</span> θα εξαχθεί στο εξής:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Εξαγωγή δεδομένων επιτευγμάτων σε αρχείο JSON όταν ένα επίτευγμα ξεκλειδωθεί<br><br><span class="ttdesc">Όταν είναι ενεργοποιημένο, το <span class="ttcode">achdata.json</span> θα εξαχθεί στο εξής:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Ρυθμίζει την κάθετη απόσταση μεταξύ των στοιχείων κειμένου στην ειδοποίηση",
+        ssmode: `Ορίζει εάν θα καταγράφεται ολόκληρη η οθόνη ή μόνο το παράθυρο του τρέχοντος παιχνιδιού<span style="color: red;">*</span> στα στιγμιότυπα οθόνης<br><br><span class="ttdesc">Εάν δεν μπορεί να βρεθεί το <span class="hl">εκτελέσιμο αρχείο</span> του τρέχοντος παιχνιδιού (<i>είτε μέσω της <span class="hl">αυτόματης παρακολούθησης διαδικασιών</span> είτε προσθέτοντας το ως <span class="hl">Συνδεδεμένο Παιχνίδι</span></i>), αυτή η επιλογή θα επιστρέψει προεπιλεγμένα σε "Οθόνη"</span>`
     },
     update: {
         updateavailable: "Διαθέσιμη ενημέρωση",

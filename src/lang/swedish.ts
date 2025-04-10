@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Meddelandebild",
                 imgpath: "Bildsökväg",
                 ssenabled: "Aktivera",
+                ssmode: "Skärmdumpsläge",
+                screen: "Skärm",
+                window: "Fönster"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Upplåsningsmeddelande",
                 titlefontsize: "Titel",
                 descfontsize: "Beskrivning",
+                textvspace: "Textavstånd",
                 opacity: "Opacitet",
                 bgonly: "Endast bakgrund",
                 glow: "Glow",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Ramskala",
                 iconborderx: "Horisontell förskjutning",
                 iconbordery: "Vertikal förskjutning",
+                iconborderrarity: "Använd sällsynthet",
+                iconborderimgbronze: "Sällsynthet > 50%",
+                iconborderimgsilver: "Sällsynthet: < 50% och > $rarity",
                 front: "Framför",
                 back: "Bakom",
                 plat: "100 % -logotyp",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Öka eller minska storleken på ikonramen i aviseringen",
         iconborderx: "Öka eller minska ikonramens horisontella förskjutning i aviseringen",
         iconbordery: "Öka eller minska ikonramens vertikala förskjutning i aviseringen",
+        iconborderrarity: "Ändrar bildramen på ikonen baserat på sällsyntheten av det upplåsta prestationen",
+        iconborderimgbronze: "Bildramen på ikonen som visas när upplåsningens procentandel är > 50%",
+        iconborderimgsilver: "Bildramen på ikonen som visas när upplåsningens procentandel är < 50% och > $rarity",
         iconshadowcolor: "Ställ in färgen på skuggningen runt prestationens ikon när en sällsynt prestation låses upp",
         iconanimcolor: "Ställ in färgen på animationen bakom prestationens ikon när en sällsynt prestation låses upp",
         logoscale: "Öka eller minska storleken på logoelementet inom meddelandet",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Ange färgen för det första textelementet",
         titlefontcolor: "Ange färgen för det andra textelementet",
         descfontcolor: "Ange färgen för det tredje textelementet",
-        exportachdata: `Exportera prestationsdata till en JSON-fil när en prestation låses upp<br><br><span class="ttdesc">När aktiverat kommer <span class="ttcode">achdata.json</span> att exporteras till:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Exportera prestationsdata till en JSON-fil när en prestation låses upp<br><br><span class="ttdesc">När aktiverat kommer <span class="ttcode">achdata.json</span> att exporteras till:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Justera det vertikala avståndet mellan textelementen i notifikationen",
+        ssmode: `Ställ in om hela skärmen eller bara det aktuella spelvinduet ska fångas i skärmdumpar<span style="color: red;">*</span><br><br><span class="ttdesc">Om den aktuella spelets <span class="hl">exekverbara fil</span> inte kan hittas (<i>antingen via <span class="hl">automatisk processövervakning</span> eller genom att lägga till det som ett <span class="hl">Länkat Spel</span></i>), kommer detta alternativ att återgå till "Skärm"-läge som standard</span>` 
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

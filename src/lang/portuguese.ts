@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Imagem de Notificação",
                 imgpath: "Caminho da Imagem",
                 ssenabled: "Ativar",
+                ssmode: "Modo de Captura de Tela",
+                screen: "Tela",
+                window: "Janela"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Mensagem de desbloqueio",
                 titlefontsize: "Título",
                 descfontsize: "Descrição",
+                textvspace: "Espaçamento do Texto",
                 opacity: "Opacidade",
                 bgonly: "Somente Fundo",
                 glow: "Brilho",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Escala da Borda",
                 iconborderx: "Deslocamento Horizontal",
                 iconbordery: "Deslocamento Vertical",
+                iconborderrarity: "Usar Raridade",
+                iconborderimgbronze: "Raridade > 50%",
+                iconborderimgsilver: "Raridade: < 50% e > $rarity",
                 front: "Frente",
                 back: "Verso",
                 plat: "Logo 100%",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Aumentar ou diminuir o tamanho da borda do ícone na notificação",
         iconborderx: "Aumentar ou diminuir o deslocamento horizontal da borda do ícone na notificação",
         iconbordery: "Aumentar ou diminuir o deslocamento vertical da borda do ícone na notificação",
+        iconborderrarity: "Muda a imagem da borda do ícone com base na raridade da conquista desbloqueada",
+        iconborderimgbronze: "A imagem da borda do ícone exibida quando a porcentagem de desbloqueio for > 50%",
+        iconborderimgsilver: "A imagem da borda do ícone exibida quando a porcentagem de desbloqueio for < 50% e > $rarity",
         iconshadowcolor: "Defina a cor do efeito de sombra ao redor do ícone de conquista ao desbloquear uma conquista rara",
         iconanimcolor: "Defina a cor do efeito de animação atrás do ícone de conquista ao desbloquear uma conquista rara",
         logoscale: "Aumentar ou diminuir o tamanho do elemento logo dentro da notificação",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Definir a cor do primeiro elemento de texto",
         titlefontcolor: "Definir a cor do segundo elemento de texto",
         descfontcolor: "Definir a cor do terceiro elemento de texto",
-        exportachdata: `Exportar dados de conquista para um arquivo JSON quando uma conquista for desbloqueada<br><br><span class="ttdesc">Quando ativado, <span class="ttcode">achdata.json</span> será exportado para:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Exportar dados de conquista para um arquivo JSON quando uma conquista for desbloqueada<br><br><span class="ttdesc">Quando ativado, <span class="ttcode">achdata.json</span> será exportado para:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Ajusta o espaçamento vertical entre os elementos de texto na notificação",
+        ssmode: `Define se a captura de tela deve pegar toda a tela ou apenas a janela do jogo atual<span style="color: red;">*</span><br><br><span class="ttdesc">Se o <span class="hl">arquivo executável</span> do jogo atual não puder ser encontrado (<i>seja por meio do <span class="hl">rastreamento automático de processos</span> ou adicionando-o como um <span class="hl">Jogo Vinculado</span></i>), esta opção será definida como "Tela" por padrão</span>` 
     },
     update: {
         updateavailable: "Atualização disponível",

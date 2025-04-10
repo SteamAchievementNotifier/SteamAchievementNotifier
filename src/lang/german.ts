@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Benachrichtigungsbild",
                 imgpath: "Bildpfad",
                 ssenabled: "Aktivieren",
+                ssmode: "Screenshot-Modus",
+                screen: "Bildschirm",
+                window: "Fenster"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Freischaltmeldung",
                 titlefontsize: "Titel",
                 descfontsize: "Beschreibung",
+                textvspace: "Textabstand",
                 opacity: "Deckkraft",
                 bgonly: "Nur Hintergrund",
                 glow: "Leuchten",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Rahmengröße",
                 iconborderx: "Horizontale Verschiebung",
                 iconbordery: "Vertikale Verschiebung",
+                iconborderrarity: "Seltenheit verwenden",
+                iconborderimgbronze: "Seltenheit > 50 %",
+                iconborderimgsilver: "Seltenheit: < 50 % & > $rarity",
                 front: "Vorne",
                 back: "Hinten",
                 plat: "100%-Logo",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Die Größe des Symbolrahmens innerhalb der Benachrichtigung vergrößern oder verkleinern",
         iconborderx: "Die horizontale Verschiebung des Symbolrahmens innerhalb der Benachrichtigung ändern",
         iconbordery: "Die vertikale Verschiebung des Symbolrahmens innerhalb der Benachrichtigung ändern",
+        iconborderrarity: "Ändert den angezeigten Symbolrahmen basierend auf der Seltenheit der freigeschalteten Errungenschaft",
+        iconborderimgbronze: "Der Symbolrahmen, der angezeigt wird, wenn der Freischaltprozentsatz > 50 % beträgt",
+        iconborderimgsilver: "Der Symbolrahmen, der angezeigt wird, wenn der Freischaltprozentsatz < 50 % und > $rarity beträgt",
         iconshadowcolor: "Stellen Sie die Farbe des Schatteneffekts um das Erfolgsicon ein, wenn ein seltener Erfolg freigeschaltet wird",
         iconanimcolor: "Stellen Sie die Farbe des Animationseffekts hinter dem Erfolgsicon ein, wenn ein seltener Erfolg freigeschaltet wird",
         logoscale: "Größe des Logoelements in der Benachrichtigung vergrößern oder verkleinern",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Die Farbe des ersten Textelements festlegen",
         titlefontcolor: "Die Farbe des zweiten Textelements festlegen",
         descfontcolor: "Die Farbe des dritten Textelements festlegen",
-        exportachdata: `Erfolgsdaten in eine JSON-Datei exportieren, wenn ein Erfolg freigeschaltet wird<br><br><span class="ttdesc">Wenn aktiviert, wird <span class="ttcode">achdata.json</span> exportiert nach:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Erfolgsdaten in eine JSON-Datei exportieren, wenn ein Erfolg freigeschaltet wird<br><br><span class="ttdesc">Wenn aktiviert, wird <span class="ttcode">achdata.json</span> exportiert nach:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Passt den vertikalen Abstand zwischen den Textelementen in der Benachrichtigung an",
+        ssmode: `Legt fest, ob beim Erstellen von Screenshots der gesamte Bildschirm oder nur das aktuelle Spielfenster<span style="color: red;">*</span> erfasst wird<br><br><span class="ttdesc">Wenn die <span class="hl">ausführbare Datei</span> des aktuellen Spiels nicht gefunden werden kann (<i>entweder über die <span class="hl">automatische Prozessverfolgung</span> oder durch Hinzufügen als <span class="hl">Verknüpftes Spiel</span></i>), wird diese Option standardmäßig auf "Bildschirm" gesetzt</span>`
     },
     update: {
         updateavailable: "Update verfügbar",

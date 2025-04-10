@@ -366,8 +366,6 @@ export const sanhelper: SANHelper = {
             let currentmonitor = monitors.find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
             if (!currentmonitor) currentmonitor = monitors.find(monitor => monitor.id === config.get("monitor")) || monitors.find(monitor => monitor.primary)!
 
-            console.log(currentmonitor,monitors.map(monitor => monitor.label === config.get("lastknownmonitorlbl")))
-
             for (const monitor of monitors) {
                 const opt = document.createElement("option")
                 opt.value = monitor.id.toString()
@@ -443,6 +441,16 @@ export const sanhelper: SANHelper = {
             if (elem.id === "rakey") {
                 sanhelper.storerakey(elem.value)
                 ipcRenderer.emit("ra")
+            }
+
+            if (process.platform === "linux") {   
+                for (const [lib,id] of deps) {
+                    if (elem.id === id && sanhelper.depsinstalled(lib)) {
+                        config.set("ssmode","screen")
+                        elem.value = "screen"
+                        return
+                    }
+                }
             }
         }
 

@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Image de notification",
                 imgpath: "Chemin de l'image",
                 ssenabled: "Activer",
+                ssmode: "Mode Capture d’écran",
+                screen: "Écran",
+                window: "Fenêtre"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Message de déverrouillage",
                 titlefontsize: "Titre",
                 descfontsize: "Description",
+                textvspace: "Espacement du texte",
                 opacity: "Opacité",
                 bgonly: "Fond Seulement",
                 glow: "Lueur",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Échelle de la bordure",
                 iconborderx: "Décalage horizontal",
                 iconbordery: "Décalage vertical",
+                iconborderrarity: "Utiliser la rareté",
+                iconborderimgbronze: "Rareté > 50%",
+                iconborderimgsilver: "Rareté : < 50% et > $rarity",
                 front: "Devant",
                 back: "Derrière",
                 plat: "Logo à 100%",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Agrandir ou réduire la taille de la bordure de l'icône dans la notification",
         iconborderx: "Augmenter ou diminuer le décalage horizontal de la bordure dans la notification",
         iconbordery: "Augmenter ou diminuer le décalage vertical de la bordure dans la notification",
+        iconborderrarity: "Change l’image de bordure de l’icône affichée en fonction de la rareté du succès déverrouillé",
+        iconborderimgbronze: "Image de bordure de l’icône affichée lorsque le pourcentage de déverrouillage est > 50%",
+        iconborderimgsilver: "Image de bordure de l’icône affichée lorsque le pourcentage de déverrouillage est < 50% et > $rarity",
         iconshadowcolor: "Définir la couleur de l'effet d'ombre autour de l'icône de la réussite lors du déverrouillage d'une réussite rare",
         iconanimcolor: "Définir la couleur de l'effet d'animation derrière l'icône de la réussite lors du déverrouillage d'une réussite rare",
         logoscale: "Agrandir ou réduire la taille de l'élément du logo dans la notification",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Définir la couleur du premier élément de texte",
         titlefontcolor: "Définir la couleur du deuxième élément de texte",
         descfontcolor: "Définir la couleur du troisième élément de texte",
-        exportachdata: `Exporter les données de succès vers un fichier JSON lorsqu'un succès est débloqué<br><br><span class="ttdesc">Lorsqu'il est activé, <span class="ttcode">achdata.json</span> sera exporté vers :<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Exporter les données de succès vers un fichier JSON lorsqu'un succès est débloqué<br><br><span class="ttdesc">Lorsqu'il est activé, <span class="ttcode">achdata.json</span> sera exporté vers :<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Ajuste l’espacement vertical entre les éléments de texte dans la notification",
+        ssmode: `Définit si la capture d’écran doit inclure tout l’écran ou uniquement la fenêtre du jeu en cours<span style="color: red;">*</span><br><br><span class="ttdesc">Si le <span class="hl">fichier exécutable</span> du jeu en cours ne peut pas être localisé (<i>soit via le <span class="hl">suivi automatique des processus</span>, soit en l’ajoutant comme un <span class="hl">Jeu Lié</span></i>), cette option reviendra par défaut au mode "Écran"</span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",

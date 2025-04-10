@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "通知画像",
                 imgpath: "画像のパス",
                 ssenabled: "有効化",
+                ssmode: "スクリーンショットモード",
+                screen: "スクリーン",
+                window: "ウィンドウ"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "解除メッセージ",
                 titlefontsize: "タイトル",
                 descfontsize: "説明",
+                textvspace: "テキストの間隔",
                 opacity: "不透明度",
                 bgonly: "背景のみ",
                 glow: "発光",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "境界線のスケール",
                 iconborderx: "水平オフセット",
                 iconbordery: "垂直オフセット",
+                iconborderrarity: "レアリティを使用",
+                iconborderimgbronze: "レアリティ > 50%",
+                iconborderimgsilver: "レアリティ: < 50% かつ > $rarity",
                 front: "前面",
                 back: "背面",
                 plat: "100％ロゴ",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "通知内でアイコン境界線のサイズを増減",
         iconborderx: "通知内でアイコン境界線の水平オフセットを増減",
         iconbordery: "通知内でアイコン境界線の垂直オフセットを増減",
+        iconborderrarity: "解除された実績のレアリティに基づいて表示されるアイコンの枠画像を変更",
+        iconborderimgbronze: "解除率が50%を超える場合に表示されるアイコンの枠画像",
+        iconborderimgsilver: "解除率が50%未満かつ$rarityを超える場合に表示されるアイコンの枠画像",
         iconshadowcolor: "レア達成を解除した際に達成アイコンの周りに表示される影の色を設定",
         iconanimcolor: "レア達成を解除した際に達成アイコンの後ろに表示されるアニメーションの色を設定",
         logoscale: "通知内のロゴ要素のサイズを増減する",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "最初のテキスト要素の色を設定",
         titlefontcolor: "2番目のテキスト要素の色を設定",
         descfontcolor: "3番目のテキスト要素の色を設定",
-        exportachdata: `実績が解除されると、実績データをJSONファイルとしてエクスポート<br><br><span class="ttdesc">有効にすると、<span class="ttcode">achdata.json</span>は以下の場所にエクスポートされます:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `実績が解除されると、実績データをJSONファイルとしてエクスポート<br><br><span class="ttdesc">有効にすると、<span class="ttcode">achdata.json</span>は以下の場所にエクスポートされます:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "通知内のテキスト要素間の縦の間隔を調整",
+        ssmode: `スクリーンショットを撮る際に、画面全体をキャプチャするか、現在のゲームウィンドウ<span style="color: red;">*</span>のみをキャプチャするかを設定<br><br><span class="ttdesc">現在のゲームの<span class="hl">実行ファイル</span>が見つからない場合（<i>自動プロセス追跡または<span class="hl">リンクされたゲーム</span>として追加された場合</i>）、このオプションはデフォルトで「スクリーン」モードに戻ります</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

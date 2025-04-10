@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Obrázek oznámení",
                 imgpath: "Cesta k obrázku",
                 ssenabled: "Povolit",
+                ssmode: "Režim snímku obrazovky",
+                screen: "Obrazovka",
+                window: "Okno"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Zpráva o odemčení",
                 titlefontsize: "Název",
                 descfontsize: "Popis",
+                textvspace: "Rozestup textu",
                 opacity: "Průhlednost",
                 bgonly: "Pouze pozadí",
                 glow: "Záře",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Měřítko ohraničení",
                 iconborderx: "Vodorovný posun",
                 iconbordery: "Svislý posun",
+                iconborderrarity: "Použít vzácnost",
+                iconborderimgbronze: "Vzácnost > 50 %",
+                iconborderimgsilver: "Vzácnost: < 50 % a > $rarity",
                 front: "Předek",
                 back: "Zadek",
                 plat: "100% Logo",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Zvětšit nebo zmenšit velikost ohraničení ikony v oznámení",
         iconborderx: "Zvětšit nebo zmenšit vodorovný posun ohraničení ikony v oznámení",
         iconbordery: "Zvětšit nebo zmenšit svislý posun ohraničení ikony v oznámení",
+        iconborderrarity: "Změní zobrazený rámeček ikony podle vzácnosti odemčeného úspěchu",
+        iconborderimgbronze: "Rámeček ikony zobrazený, když je procento odemčení > 50 %",
+        iconborderimgsilver: "Rámeček ikony zobrazený, když je procento odemčení < 50 % a > $rarity",
         iconshadowcolor: "Nastavit barvu efektu stínu kolem ikony úspěchu při odemčení vzácného úspěchu",
         iconanimcolor: "Nastavit barvu animačního efektu za ikonou úspěchu při odemčení vzácného úspěchu",
         logoscale: "Zvětšit nebo zmenšit velikost prvku loga v oznámení",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Nastavit barvu prvního textového prvku",
         titlefontcolor: "Nastavit barvu druhého textového prvku",
         descfontcolor: "Nastavit barvu třetího textového prvku",
-        exportachdata: `Exportovat data o úspěších do souboru JSON při odemknutí úspěchu<br><br><span class="ttdesc">Pokud je povoleno, <span class="ttcode">achdata.json</span> bude exportován do:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Exportovat data o úspěších do souboru JSON při odemknutí úspěchu<br><br><span class="ttdesc">Pokud je povoleno, <span class="ttcode">achdata.json</span> bude exportován do:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Upraví svislý rozestup mezi textovými prvky v oznámení",
+        ssmode: `Nastaví, zda se má při snímání obrazovky zachytit celá obrazovka nebo aktuální herní okno<span style="color: red;">*</span><br><br><span class="ttdesc">Pokud nelze najít <span class="hl">spustitelný soubor</span> aktuální hry (<i>ať už pomocí <span class="hl">automatického sledování procesů</span> nebo přidáním jako <span class="hl">Propojená hra</span></i>), tato možnost se automaticky nastaví na režim "Obrazovka"</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

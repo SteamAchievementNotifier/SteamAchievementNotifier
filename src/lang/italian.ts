@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Immagine notifica",
                 imgpath: "Percorso dell'immagine",
                 ssenabled: "Abilita",
+                ssmode: "Modalità Schermata",
+                screen: "Schermo",
+                window: "Finestra"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Messaggio di sblocco",
                 titlefontsize: "Titolo",
                 descfontsize: "Descrizione",
+                textvspace: "Spaziatura del testo",
                 opacity: "Opacità",
                 bgonly: "Solo Sfondo",
                 glow: "Bagliore",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Scala del bordo",
                 iconborderx: "Offset orizzontale",
                 iconbordery: "Offset verticale",
+                iconborderrarity: "Usa la rarità",
+                iconborderimgbronze: "Rarità > 50%",
+                iconborderimgsilver: "Rarità: < 50% e > $rarity",
                 front: "Davanti",
                 back: "Dietro",
                 plat: "Logo 100%",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Aumenta o diminuisci la dimensione del bordo dell'icona nella notifica",
         iconborderx: "Aumenta o diminuisci l'offset orizzontale del bordo dell'icona nella notifica",
         iconbordery: "Aumenta o diminuisci l'offset verticale del bordo dell'icona nella notifica",
+        iconborderrarity: "Cambia l'immagine del bordo dell'icona in base alla rarità del successo sbloccato",
+        iconborderimgbronze: "L'immagine del bordo dell'icona che viene mostrata quando la percentuale di sblocco è > 50%",
+        iconborderimgsilver: "L'immagine del bordo dell'icona che viene mostrata quando la percentuale di sblocco è < 50% e > $rarity",
         iconshadowcolor: "Imposta il colore dell'effetto ombra che circonda l'icona del traguardo quando viene sbloccato un traguardo raro",
         iconanimcolor: "Imposta il colore dell'effetto animazione dietro l'icona del traguardo quando viene sbloccato un traguardo raro",
         logoscale: "Aumenta o diminuisci la dimensione dell'elemento logo nella notifica",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Imposta il colore del primo elemento di testo",
         titlefontcolor: "Imposta il colore del secondo elemento di testo",
         descfontcolor: "Imposta il colore del terzo elemento di testo",
-        exportachdata: `Esporta i dati di successo in un file JSON quando un successo viene sbloccato<br><br><span class="ttdesc">Quando abilitato, <span class="ttcode">achdata.json</span> verrà esportato in:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Esporta i dati di successo in un file JSON quando un successo viene sbloccato<br><br><span class="ttdesc">Quando abilitato, <span class="ttcode">achdata.json</span> verrà esportato in:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Regola la spaziatura verticale tra gli elementi di testo nella notifica",
+        ssmode: `Imposta se catturare l'intero schermo o solo la finestra del gioco corrente<span style="color: red;">*</span> negli screenshot<br><br><span class="ttdesc">Se il <span class="hl">file eseguibile</span> del gioco corrente non può essere trovato (<i>sia tramite <span class="hl">monitoraggio automatico dei processi</span> che aggiungendolo come <span class="hl">Gioco Collegato</span></i>), questa opzione tornerà automaticamente alla modalità "Schermo"</span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

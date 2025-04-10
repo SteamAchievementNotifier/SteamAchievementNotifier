@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Ilmoituskuva",
                 imgpath: "Kuvan polku",
                 ssenabled: "Ota käyttöön",
+                ssmode: "Näyttökuvatila",
+                screen: "Näyttö",
+                window: "Ikkuna"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Lukituksen avausviesti",
                 titlefontsize: "Otsikko",
                 descfontsize: "Kuvaus",
+                textvspace: "Tekstin välistys",
                 opacity: "Läpinäkyvyys",
                 bgonly: "Vain Tausta",
                 glow: "Hehku",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Reunan koko",
                 iconborderx: "Vaakasiirto",
                 iconbordery: "Pystysiirto",
+                iconborderrarity: "Käytä harvinaisuutta",
+                iconborderimgbronze: "Harvinaisuus > 50 %",
+                iconborderimgsilver: "Harvinaisuus: < 50 % ja > $rarity",
                 front: "Edessä",
                 back: "Takana",
                 plat: "100% Logo",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Säädä kuvakerajan kokoa ilmoituksessa",
         iconborderx: "Säädä kuvakerajan vaakasiirtoa ilmoituksessa",
         iconbordery: "Säädä kuvakerajan pystysiirtoa ilmoituksessa",
+        iconborderrarity: "Muuttaa kuvakkeen reunuksen harvinaisuuden perusteella saavutuksen avautuessa",
+        iconborderimgbronze: "Kuvakkeen reunus, kun avausprosentti on > 50 %",
+        iconborderimgsilver: "Kuvakkeen reunus, kun avausprosentti on < 50 % ja > $rarity",
         iconshadowcolor: "Aseta varjotehosteen väri, joka ympäröi saavutuksen kuvaketta harvinaisen saavutuksen avautuessa",
         iconanimcolor: "Aseta animaatiotehosteen väri saavutuksen kuvakkeen taakse harvinaisen saavutuksen avautuessa",
         logoscale: "Suurentaa tai pienentää logoelementin kokoa ilmoituksessa",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Aseta ensimmäisen tekstielementin väri",
         titlefontcolor: "Aseta toisen tekstielementin väri",
         descfontcolor: "Aseta kolmannen tekstielementin väri",
-        exportachdata: `Vie saavutustiedot JSON-tiedostoon, kun saavutus avataan<br><br><span class="ttdesc">Kun käytössä, <span class="ttcode">achdata.json</span> viedään sijaintiin:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Vie saavutustiedot JSON-tiedostoon, kun saavutus avataan<br><br><span class="ttdesc">Kun käytössä, <span class="ttcode">achdata.json</span> viedään sijaintiin:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Säätää pystysuuntaista välistystä ilmoituksen tekstielementtien välillä",
+        ssmode: `Määrittää, tallennetaanko koko näyttö vai nykyinen pelin ikkuna<span style="color: red;">*</span> näyttökuvissa<br><br><span class="ttdesc">Jos nykyisen pelin <span class="hl">suoritettavaa tiedostoa</span> ei löydy (<i>joko <span class="hl">automaattisen prosessinseurannan</span> tai <span class="hl">Linkitetyn pelin</span> kautta</i>), tämä asetus palautuu oletuksena "Näyttö"-tilaan</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

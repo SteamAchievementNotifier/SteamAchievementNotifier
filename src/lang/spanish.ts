@@ -200,6 +200,9 @@ export const translations = {
                 notifyimg: "Imagen de Notificación",
                 imgpath: "Ruta de la Imagen",
                 ssenabled: "Habilitar",
+                ssmode: "Modo de Captura de Pantalla",
+                screen: "Pantalla",
+                window: "Ventana"
             }
         },
         streaming: {
@@ -325,6 +328,7 @@ export const translations = {
                 unlockmsgfontsize: "Mensaje de desbloqueo",
                 titlefontsize: "Título",
                 descfontsize: "Descripción",
+                textvspace: "Espaciado de Texto",
                 opacity: "Opacidad",
                 bgonly: "Solo Fondo",
                 glow: "Brillo",
@@ -385,6 +389,9 @@ export const translations = {
                 iconborderscale: "Escala del borde",
                 iconborderx: "Desplazamiento horizontal",
                 iconbordery: "Desplazamiento vertical",
+                iconborderrarity: "Usar Rareza",
+                iconborderimgbronze: "Rareza > 50%",
+                iconborderimgsilver: "Rareza: < 50% y > $rarity",
                 front: "Frente",
                 back: "Atrás",
                 plat: "Logotipo 100%",
@@ -674,6 +681,9 @@ export const translations = {
         iconborderscale: "Aumentar o disminuir el tamaño del borde del ícono en la notificación",
         iconborderx: "Aumentar o disminuir el desplazamiento horizontal del borde del ícono en la notificación",
         iconbordery: "Aumentar o disminuir el desplazamiento vertical del borde del ícono en la notificación",
+        iconborderrarity: "Cambia la imagen del borde del ícono según la rareza del logro desbloqueado",
+        iconborderimgbronze: "La imagen del borde del ícono que se muestra cuando el porcentaje de desbloqueo es > 50%",
+        iconborderimgsilver: "La imagen del borde del ícono que se muestra cuando el porcentaje de desbloqueo es < 50% y > $rarity",
         iconshadowcolor: "Establecer el color del efecto de sombra alrededor del ícono de logro al desbloquear un logro raro",
         iconanimcolor: "Establecer el color del efecto de animación detrás del ícono de logro al desbloquear un logro raro",
         logoscale: "Aumentar o disminuir el tamaño del elemento del logo en la notificación",
@@ -697,7 +707,9 @@ export const translations = {
         unlockmsgfontcolor: "Configurar el color del primer elemento de texto",
         titlefontcolor: "Configurar el color del segundo elemento de texto",
         descfontcolor: "Configurar el color del tercer elemento de texto",
-        exportachdata: `Exportar datos de logros a un archivo JSON cuando se desbloquee un logro<br><br><span class="ttdesc">Cuando está activado, <span class="ttcode">achdata.json</span> se exportará a:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`
+        exportachdata: `Exportar datos de logros a un archivo JSON cuando se desbloquee un logro<br><br><span class="ttdesc">Cuando está activado, <span class="ttcode">achdata.json</span> se exportará a:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        textvspace: "Ajusta el espaciado vertical entre los elementos de texto en la notificación",
+        ssmode: `Define si se debe capturar toda la pantalla o solo la ventana del juego actual<span style="color: red;">*</span> en las capturas de pantalla<br><br><span class="ttdesc">Si no se puede encontrar el <span class="hl">archivo ejecutable</span> del juego actual (<i>ya sea mediante <span class="hl">seguimiento automático de procesos</span> o agregándolo como un <span class="hl">Juego Vinculado</span></i>), esta opción se establecerá por defecto en el modo "Pantalla"</span>` 
     },
     update: {
         updateavailable: "Actualización disponible",

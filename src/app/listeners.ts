@@ -986,7 +986,7 @@ export const listeners = {
             }
 
             worker && worker.webContents.send("steam3id")
-            preset !== "os" && notify.customisation.ssenabled && capturesrc(notify.id,(sssrc: number) => createsswin("ss",notify,undefined,sssrc),src || -1)
+            preset !== "os" && notify.customisation.ssenabled && capturesrc(notify,src)
 
             win.webContents.send("queue",queue)
             checkifrunning(info)
@@ -1466,7 +1466,7 @@ export const listeners = {
 
         const getsspath = (id: number) => path.join(sanhelper.temp,`${id}.png`)
 
-        const capturesrc = async (notifyid: number,callback: (sssrc: number) => void,src: number) => {
+        const capturesrc = async (notify: Notify,src?: number) => {
             const config = sanconfig.get()
             if (config.get("screenshots") !== "overlay") return
 
@@ -1481,22 +1481,21 @@ export const listeners = {
                 }
 
                 if (!fs.existsSync(tempimgpath)) {
-                    log.write("WARN",`"${notifyid}.png" src file not present in "${sanhelper.temp}" - retrying...`)
+                    log.write("WARN",`"${notify.id}.png" src file not present in "${sanhelper.temp}" - retrying...`)
                     setTimeout(() => checksrcimg(tempimgpath),250)
                     return
                 }
 
-                log.write("INFO",`Running "createsswin" callback for Monitor ${sssrc}...`)
-                callback(sssrc)
+                createsswin("ss",notify,undefined,sssrc)
             }
 
-            ipcMain.once(`${notifyid}`, () => {
-                log.write("INFO",`Building screenshot for "${notifyid}"...`)
-                checksrcimg(path.join(sanhelper.temp,`${notifyid}.png`))
+            ipcMain.once(`${notify.id}`, () => {
+                log.write("INFO",`Building screenshot for "${notify.id}"...`)
+                checksrcimg(path.join(sanhelper.temp,`${notify.id}.png`))
             })
 
             const delay = config.get("ssdelay")
-            const sspath = getsspath(notifyid)
+            const sspath = getsspath(notify.id)
 
             let windowtitle: string = ""
 
@@ -1505,8 +1504,6 @@ export const listeners = {
                     ipcMain.once("processes",(event,processes: ProcessInfo[]) => resolve(processes[0].windowtitle))
                     worker!.webContents.send("processes")
                 })
-
-                console.log("\n\n" + windowtitle + "\n\n")
 
                 const { x, y, width, height } = sanhelper.getwindowbounds(windowtitle)
                 const { id } = screen.getDisplayNearestPoint({ x, y })
@@ -1526,7 +1523,9 @@ export const listeners = {
             // Fall back to provided "screen" src if no monitor is assigned when config.ssmode === "window"
             if (sssrc === -1) {
                 log.write("WARN",`"sssrc" not found - using original "src" value (${src})...`)
-                sssrc = src
+                
+                const lastknownmonitor = config.get("monitors").find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
+                sssrc = src || (lastknownmonitor && lastknownmonitor.id) || config.get("monitor") || screen.getPrimaryDisplay().id
             }
 
             const { monitor } = getssmonitor(sssrc)
@@ -1547,8 +1546,6 @@ export const listeners = {
             })
         
             const capture = async () => {
-                // !!! `sanhelper.rs` changes to `capture_hdr_screenshot()` have not been committed
-                // !!! Linux native addon has not been rebuilt
                 if (config.get("hdrmode")) {
                     let area: number[] | undefined
 

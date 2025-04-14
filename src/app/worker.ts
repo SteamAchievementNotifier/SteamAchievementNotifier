@@ -183,7 +183,7 @@ const startsan = async (appinfo: AppInfo) => {
         ipcRenderer.on("processes",() => ipcRenderer.send("processes",processes.filter(p => p.windowtitle !== "")))
     
         const initgameloop = () => {
-            processes.forEach(({ pid,exe,windowtitle }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250,windowtitle)))
+            processes.forEach(({ pid,exe,windowtitle }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250,windowtitle || "")))
             
             ipcRenderer.send("appid",appid,gamename,steam3id,num)
             ipcRenderer.on("steam3id",(event,skipss?: boolean) => ipcRenderer.send("steam3id",steam3id,skipss))

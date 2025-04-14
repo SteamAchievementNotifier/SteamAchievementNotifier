@@ -73,6 +73,11 @@ body {
     width: 100vw;
     height: 100vh;
     mask: var(--mask);
+    animation: animend var(--displaytime) forwards;
+}
+
+@keyframes animend {
+    to { cursor: none; }
 }
 
 .wrapper#outerwrapper {

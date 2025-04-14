@@ -3,7 +3,6 @@ import path from "path"
 import fs from "fs"
 
 const imgs = [document.getElementById("achicon")] as HTMLImageElement[]
-const files: string[] = []
 
 const hiddenelems = [
     "steamdeck",
@@ -256,6 +255,8 @@ const notifyhelper = {
     }
 }
 
+document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send("animend"))
+
 ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
     const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, ra } = obj 
 
@@ -325,9 +326,9 @@ ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
             customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : `${percentvalue}%`}</span>`))
 
             const str = {
-                unlockmsg: unlockmsg,
-                title: title,
-                desc: desc
+                unlockmsg,
+                title,
+                desc
             }
 
             const elemtype = `${ss}elems`

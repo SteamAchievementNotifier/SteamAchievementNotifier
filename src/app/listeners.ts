@@ -232,7 +232,7 @@ export const listeners = {
                     const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
     
                     notifywin.webContents.send(`${ipctype}ready`,await language.get(ipctype),await language.get(`${ipctype}sub`))
-                    shownotify(notifywin,bounds)
+                    shownotify(notifywin,bounds,undefined,true)
             
                     return setTimeout(() => notifywin && notifywin.webContents.send(`${ipctype}close`),!addlinkfailed ? 7500 : 5000)
                 })
@@ -857,6 +857,7 @@ export const listeners = {
 
         const queue: WinType[] = []
         let running: boolean = false
+
         const gameartobj: GameArtObj = {
             icon: "../img/gameicon.png",
             libhero: "../img/sanimgbg.png",
@@ -897,43 +898,39 @@ export const listeners = {
             const { preset } = notify.customisation
 
             if (!iswebview) {
-                if (preset === "os") {
-                    queue.push({
-                        type: "Notification",
-                        notify: notify,
-                        options: {
-                            timeoutType: "never",
-                            silent: true
-                        } as NotificationConstructorOptions
-                    } as WinType)
-                } else {
-                    queue.push({
-                        type: "BrowserWindow",
-                        notify: notify,
-                        options: {
-                            title: `Steam Achievement Notifier (V${sanhelper.version}): Notification`,
-                            // show: false,
-                            alwaysOnTop: true,
-                            frame: false,
-                            transparent: true,
-                            focusable: false,
-                            fullscreen: false,
-                            fullscreenable: false,
-                            maximizable: false,
-                            minimizable: false,
-                            autoHideMenuBar: true,
-                            hasShadow: false,
-                            movable: false,
-                            resizable: true,
-                            skipTaskbar: sanhelper.devmode,
-                            webPreferences: {
-                                nodeIntegration: true,
-                                contextIsolation: false,
-                                backgroundThrottling: false
-                            }
-                        } as BrowserWindowConstructorOptions
-                    } as WinType)
-                }
+                queue.push(preset === "os" ? {
+                    type: "Notification",
+                    notify: notify,
+                    options: {
+                        timeoutType: "never",
+                        silent: true
+                    } as NotificationConstructorOptions
+                } : {
+                    type: "BrowserWindow",
+                    notify: notify,
+                    options: {
+                        title: `Steam Achievement Notifier (V${sanhelper.version}): Notification`,
+                        // show: false,
+                        alwaysOnTop: true,
+                        frame: false,
+                        transparent: true,
+                        focusable: false,
+                        fullscreen: false,
+                        fullscreenable: false,
+                        maximizable: false,
+                        minimizable: false,
+                        autoHideMenuBar: true,
+                        hasShadow: false,
+                        movable: false,
+                        resizable: true,
+                        skipTaskbar: sanhelper.devmode,
+                        webPreferences: {
+                            nodeIntegration: true,
+                            contextIsolation: false,
+                            backgroundThrottling: false
+                        }
+                    } as BrowserWindowConstructorOptions
+                })
             }
 
             const info = await buildnotify(notify)
@@ -1063,17 +1060,12 @@ export const listeners = {
             isextwin && win.setResizable(true)
             win.setSize(Math.round(width),Math.round(height))
 
-            if (!isextwin) {
-                win.setPosition(Math.round(x as number),Math.round(y as number))
-                // win.show()
-            }
-
+            !isextwin && win.setPosition(Math.round(x as number),Math.round(y as number))
             istrackwin && win.show()
         }
 
         let notifywin: BrowserWindow | Notification | null = null
         let offscreenwin: BrowserWindow | null = null
-        let notifyfailed: boolean = false
 
         const checkifrunning = (info: BuildNotifyInfo): any => {
             if (running) return setTimeout(() => checkifrunning(info),1000)
@@ -1217,18 +1209,13 @@ export const listeners = {
             win.webContents.send("notifyprogress",notify.customisation.displaytime)
             log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)
 
-            return setTimeout(() => {
-                if (notifyfailed) {
-                    notifywin = null
-                    offscreenwin = null
-                    running = false
+            // Creates a timer on spawn. If the "animend" event has not been received in `displaytime` + 2s, resets the notification queue
+            // Prevents locking the queue when errors occur within notifications - e.g. when changing JS via custom files
+            const notifytimer = setTimeout(() => ipcMain.emit("notifyfailed",null,notify),(displaytime * 1000) + 2000)
 
-                    removesrcimg(notify.id)
-
-                    log.write("ERROR",`Notification window failed for "${notify.apiname}" - Check log for details`)
-                    return ipcMain.emit("notifyclosed",null,true,customisation.preset)
-                }
-
+            // "animend" is received from `base.ts`, rather than controlled from here via Timeout
+            // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
+            ipcMain.once("animend",() => {
                 // Closes the notification
                 ipcMain.once("notifyfinished", async () => {
                     try {
@@ -1257,6 +1244,11 @@ export const listeners = {
                     } catch (err) {
                         log.write("ERROR",`Error closing notification window for "${notify.apiname}": ${err}`)
                     } finally {
+                        if (notifytimer) {
+                            clearTimeout(notifytimer)
+                            sanhelper.devmode && log.write("INFO",`"notifytimer" cleared successfully`)
+                        }
+
                         win.webContents.send("notifyprogress",0,true)
                         setTimeout(() => removesrcimg(notify.id),2000)
                     }
@@ -1268,13 +1260,27 @@ export const listeners = {
                     if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
                     offscreenwin.webContents.send("notifyfinished")
                 }
-            },displaytime * 1000)
+            })
         }
 
-        ipcMain.on("notifyfailed", (event,err: { msg: string }) => {
-            notifyfailed = true
-            log.write("ERROR",err.msg)
-            win.webContents.send("notifyprogress",0,true)
+        ipcMain.on("notifyfailed",(event,notify: Notify) => {
+            try {
+                notifywin && (notifywin instanceof BrowserWindow ? notifywin.destroy() : notifywin.close()) // Destroys/closes the window
+                notifywin = null // Resets `notifywin` var
+    
+                offscreenwin && offscreenwin.destroy() // Destroys/closes the window
+                offscreenwin = null // Resets `offscreenwin` var
+                
+                running = false // Resets `running` var
+    
+                win.webContents.send("notifyprogress",0,true) // Resets UI progress circle
+                removesrcimg(notify.id) // Removes any corresponding screenshots from `temp`
+    
+                return log.write("WARN",`Notification window failed for "${notify.apiname}" - cleanup performed successfully`)
+            } catch (err) {
+                console.log(err)
+                return log.write("ERROR",`Cleanup failed for notification window "${notify.apiname}": ${err}`)
+            }
         })
 
         ipcMain.on("sendwebhook", (event,notify: Notify) => win.webContents.send("sendwebhook",notify))
@@ -1466,121 +1472,128 @@ export const listeners = {
 
         const getsspath = (id: number) => path.join(sanhelper.temp,`${id}.png`)
 
-        const capturesrc = async (notify: Notify,src?: number) => {
-            const config = sanconfig.get()
-            if (config.get("screenshots") !== "overlay") return
+        let srcimgtimer: NodeJS.Timeout | null = null
 
+        const setssfailed = (err?: string | Error) => {
+            err && log.write("ERROR",err)
             ssfailed = false
             sssrc = -1
-            
-            const checksrcimg = (tempimgpath: string) =>  {
-                if (ssfailed) {
-                    ssfailed = false
-                    sssrc = -1
-                    return
-                }
+            srcimgtimer && clearTimeout(srcimgtimer)
+            srcimgtimer = null
+        }
 
-                if (!fs.existsSync(tempimgpath)) {
-                    log.write("WARN",`"${notify.id}.png" src file not present in "${sanhelper.temp}" - retrying...`)
-                    setTimeout(() => checksrcimg(tempimgpath),250)
-                    return
-                }
-
-                createsswin("ss",notify,undefined,sssrc)
-            }
-
-            ipcMain.once(`${notify.id}`, () => {
-                log.write("INFO",`Building screenshot for "${notify.id}"...`)
-                checksrcimg(path.join(sanhelper.temp,`${notify.id}.png`))
-            })
-
-            const delay = config.get("ssdelay")
-            const sspath = getsspath(notify.id)
-
-            let windowtitle: string = ""
-
-            if (worker && config.get("ssmode") === "window") {
-                windowtitle = !appid ? win.title : await new Promise(resolve => {
-                    ipcMain.once("processes",(event,processes: ProcessInfo[]) => resolve(processes[0].windowtitle))
-                    worker!.webContents.send("processes")
-                })
-
-                const { x, y, width, height } = sanhelper.getwindowbounds(windowtitle)
-                const { id } = screen.getDisplayNearestPoint({ x, y })
-
-                sssrc = id
-
-                Object.assign(sswinbounds,{
-                    bounds: {
-                        x,
-                        y,
-                        width,
-                        height
-                    }
-                })
-            }
-
-            // Fall back to provided "screen" src if no monitor is assigned when config.ssmode === "window"
-            if (sssrc === -1) {
-                log.write("WARN",`"sssrc" not found - using original "src" value (${src})...`)
+        const capturesrc = async (notify: Notify,src?: number) => {
+            try {
+                const config = sanconfig.get()
+                if (config.get("screenshots") !== "overlay") return
+    
+                ssfailed = false
+                sssrc = -1
                 
-                const lastknownmonitor = config.get("monitors").find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
-                sssrc = src || (lastknownmonitor && lastknownmonitor.id) || config.get("monitor") || screen.getPrimaryDisplay().id
-            }
-
-            const { monitor } = getssmonitor(sssrc)
-            if (!monitor) return log.write("ERROR",`Error configuring screenshot src: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
-
-            const { id, label } = monitor
-            let { bounds: { width, height } } = config.get("ssmode") && (["width","height"] as const).every(dim => sswinbounds.bounds[dim] !== 0) ? sswinbounds : monitor
-
-            ipcMain.once("src",(event,err) => {
-                if (err) {
-                    log.write("ERROR",`Error writing screenshot for Monitor ${id} ("${label}"): ${err}`)
-                    ssfailed = true
-                    sssrc = -1
-                    return
-                }
-
-                return log.write("INFO",`Screenshot for Monitor ${id} ("${label}") written successfully`)
-            })
-        
-            const capture = async () => {
-                if (config.get("hdrmode")) {
-                    let area: number[] | undefined
-
-                    if (config.get("ssmode") === "window") {
-                        const { x, y, width, height } = sswinbounds.bounds
-                        area = [y,x,width,height] // Order of elements for `screenshots::Screen.capture_area()` is y/x/w/h
+                const checksrcimg = (tempimgpath: string) =>  {
+                    if (ssfailed) return setssfailed()
+    
+                    if (!fs.existsSync(tempimgpath)) {
+                        log.write("WARN",`"${notify.id}.png" src file not present in "${sanhelper.temp}" - retrying...`)
+                        
+                        srcimgtimer && clearTimeout(srcimgtimer)
+                        srcimgtimer = setTimeout(() => checksrcimg(tempimgpath),250)
+                        
+                        return
                     }
-
-                    const msg: string = sanhelper.hdrscreenshot(monitor.id,sspath,area)
-                    log.write("INFO",msg)
-                    return
+    
+                    createsswin("ss",notify,undefined,sssrc,windowtitle)
                 }
-
-                try {
-                    const srcs = await desktopCapturer.getSources({
-                        types: [!windowtitle ? "screen" : config.get("ssmode")],
-                        thumbnailSize: { width, height }
+    
+                ipcMain.once(`${notify.id}`, () => {
+                    log.write("INFO",`Building screenshot for "${notify.id}"...`)
+                    checksrcimg(path.join(sanhelper.temp,`${notify.id}.png`))
+                })
+    
+                const delay = config.get("ssdelay")
+                const sspath = getsspath(notify.id)
+    
+                let windowtitle: string = ""
+    
+                if (worker && config.get("ssmode") === "window") {
+                    windowtitle = !appid ? win.title : await new Promise(resolve => {
+                        ipcMain.once("processes",(event,processes: ProcessInfo[]) => resolve(processes[0].windowtitle))
+                        worker!.webContents.send("processes")
                     })
-
-                    log.write("INFO",`[Selected Monitor ID]:\n- ${id}\n\n[Available Screen Sources]:\n- ${srcs.map(src => `${src.display_id} (Parsed id: ${parseInt(src.display_id)} | Match?: ${parseInt(src.display_id) === sssrc})`).join("\n- ")}`)
-
-                    const src = srcs.find(src => config.get("ssmode") === "window" ? src.name === windowtitle : parseInt(src.display_id) === sssrc || screen.getPrimaryDisplay().id === sssrc)
-                    if (!src) throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${sssrc} ("${label}")`)
-                    
-                    fs.writeFileSync(sspath,src.thumbnail.toPNG())
-                } catch (err) {
-                    log.write("ERROR",err as Error)
-                    ssfailed = true
-                    sssrc = -1
-                    return
+    
+                    const { x, y, width, height } = sanhelper.getwindowbounds(windowtitle || "")
+                    const { id } = screen.getDisplayNearestPoint({ x, y })
+    
+                    sssrc = id
+    
+                    Object.assign(sswinbounds,{
+                        bounds: {
+                            x,
+                            y,
+                            width,
+                            height
+                        }
+                    })
                 }
+    
+                // Fall back to provided "screen" src if no monitor is assigned when config.ssmode === "window"
+                if (sssrc === -1) {
+                    log.write("WARN",`"sssrc" not found - using original "src" value (${src})...`)
+                    
+                    const lastknownmonitor = config.get("monitors").find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
+                    sssrc = src || (lastknownmonitor && lastknownmonitor.id) || config.get("monitor") || screen.getPrimaryDisplay().id
+                }
+    
+                const { monitor } = getssmonitor(sssrc)
+                if (!monitor) return log.write("ERROR",`Error configuring screenshot src: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
+    
+                const ssmode: "screen" | "window" = config.get("ssmode") === "window" && windowtitle ? "window" : "screen"
+                log.write("INFO",`Using "${ssmode}" mode for Screenshot (ssmode: "${config.get("ssmode")}" | windowtitle: "${windowtitle}")`)
+
+                const { id, label } = monitor
+                let { bounds: { width, height } } = ssmode === "window" && (["width","height"] as const).every(dim => sswinbounds.bounds[dim] !== 0) ? sswinbounds : monitor
+    
+                ipcMain.once("src",(event,err) => {
+                    if (err) return setssfailed(`Error writing screenshot for Monitor ${id} ("${label}"): ${err}`)
+                    return log.write("INFO",`Screenshot for Monitor ${id} ("${label}") written successfully`)
+                })
+            
+                const capture = async () => {
+                    if (config.get("hdrmode")) {
+                        let area: number[] | undefined
+    
+                        if (config.get("ssmode") === "window") {
+                            const { x, y, width, height } = sswinbounds.bounds
+                            area = [y,x,width,height] // Order of elements for `screenshots::Screen.capture_area()` is y/x/w/h
+                        }
+    
+                        const msg: string = sanhelper.hdrscreenshot(monitor.id,sspath,area)
+                        log.write("INFO",msg)
+                        return
+                    }
+    
+                    try {
+                        const srcs = await desktopCapturer.getSources({
+                            types: [ssmode],
+                            thumbnailSize: { width, height }
+                        })
+    
+                        log.write("INFO",`[Selected ${ssmode === "window" ? "Window Title" : "Monitor ID"}]:\n- ${ssmode === "window" ? windowtitle : id}\n\n[Available ${ssmode.replace(ssmode[0],ssmode[0].toUpperCase())} Sources]:\n- ${srcs.map(src => `${ssmode === "window" ? src.name : src.display_id} (${ssmode === "window" ? `Window name: ${src.name}` : `Parsed id: ${parseInt(src.display_id)}`} | Match?: ${ssmode === "window" ? src.name === windowtitle : parseInt(src.display_id) === sssrc})`).join("\n- ")}`)
+    
+                        const src = srcs.find(src => ssmode === "window" ? src.name === windowtitle : (parseInt(src.display_id) === sssrc || screen.getPrimaryDisplay().id === sssrc))
+                        if (!src) throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${sssrc} ("${label}")`)
+                        
+                        fs.writeFileSync(sspath,src.thumbnail.toPNG())
+                    } catch (err) {
+                        return setssfailed(err as Error)
+                    }
+                }
+            
+                setTimeout(capture,delay * 1000)
+                return
+            } catch (err) {
+                return setssfailed(err as Error)
             }
-        
-            setTimeout(capture,delay * 1000)
-            return
         }
 
         const createimgpathdir = (imgpath: string) => {
@@ -1588,7 +1601,7 @@ export const listeners = {
                 !fs.existsSync(imgpath) && fs.mkdirSync(imgpath, { recursive: true })
                 log.write("INFO",`"${imgpath}" ${!fs.existsSync(imgpath) ? "created successfully" : "already exists"}`)
             } catch (err) {
-                return log.write("ERROR",`Error creating "${imgpath}": ${err}`)
+                return setssfailed(`Error creating "${imgpath}": ${err}`)
             }
         }
 
@@ -1605,7 +1618,7 @@ export const listeners = {
             }
         }
 
-        const createsswin = async (type: "ss" | "img",notify: Notify,ispreview?: boolean,src?: number) => {
+        const createsswin = async (type: "ss" | "img",notify: Notify,ispreview?: boolean,src?: number,windowtitle?: string) => {
             try {
                 const config = sanconfig.get()
                 // Screenshots are disabled in `ipcMain.on("notify")` event and shouldn't reach here anyway, but added as a logical fallback
@@ -1700,12 +1713,13 @@ export const listeners = {
     
                 const { x, y } = display.bounds
                 const { bounds: { width, height } } = sswinbounds
+                const ssmode: "screen" | "window" = config.get("ssmode") === "window" && windowtitle ? "window" : "screen"
     
                 sswin = new BrowserWindow({
                     title: `Steam Achievement Notifier (V${sanhelper.version}): ${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}`,
-                    fullscreen: type === "ss" && config.get("ssmode") !== "window",
-                    x: type === "ss" && config.get("ssmode") !== "window" ? x : undefined,
-                    y: type === "ss" && config.get("ssmode") !== "window" ? y : undefined,
+                    fullscreen: type === "ss" && ssmode !== "window",
+                    x: type === "ss" && ssmode !== "window" ? x : undefined,
+                    y: type === "ss" && ssmode !== "window" ? y : undefined,
                     width: width || undefined,
                     height: height || undefined,
                     autoHideMenuBar: true,
@@ -1717,7 +1731,7 @@ export const listeners = {
                     minimizable: false,
                     skipTaskbar: !sanhelper.devmode,
                     show: false,
-                    center: config.get("ssmode") === "window" ? true : undefined,
+                    center: ssmode === "window" ? true : undefined,
                     webPreferences: {
                         nodeIntegration: true,
                         contextIsolation: false,

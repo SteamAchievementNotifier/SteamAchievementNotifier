@@ -121,10 +121,21 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                     const config = sanconfig.get()
                     const notify = await ranotify(gameid,value,ramode)
 
-                    sanhelper.devmode && console.log(notify)
-                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,config.get("monitor")))
+                    const { type } = notify
+                    const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === gameid) as [key: string,ThemeSwitch] | undefined
+                    const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
+                    
+                    if (themeswitch) {
+                        log.write("INFO",`[RA]: Auto-switch entry detected for ${gameid}`)
+                        sanhelper.devmode && console.log(customisation)
+                    }
 
-                    ipcRenderer.send("ragame",action,{ emu, gamename: notify.gamename, gameid } as RAGame)
+                    const notifycopy = { ...notify, customisation }
+
+                    sanhelper.devmode && console.log(notifycopy)
+                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notifycopy,undefined,themeswitch?.[1].src || config.get("monitor")))
+
+                    ipcRenderer.send("ragame",action,{ emu, gamename: notifycopy.gamename, gameid } as RAGame)
                 }
                 
                 return [value ? "INFO" : "ERROR",[key,`[RA]: ${!value ? "Unable to display achievement notification - " : ""}"${emu || key}" unlocked Achievement ${value} in Game ${gameid || value}${!value ? `, but no AchievementID value was found in "achievement" action` : ""}`]]

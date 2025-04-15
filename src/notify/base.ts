@@ -255,173 +255,177 @@ const notifyhelper = {
     }
 }
 
-document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send("animend"))
-
-ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
-    const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, ra } = obj 
-
-    try {
-        document.body.setAttribute(type,"")
-        document.body.toggleAttribute("noiconanim",!!!customisation.iconanim)
-
-        const ssdisplay = screenshots === "overlay" && customisation.ssdisplay
-        document.body.toggleAttribute("ssdisplay",ssdisplay)
-
-        if (iswebview === "customiser") {
-            document.documentElement.style.scale = `0.${ssdisplay ? "" : 7}5`
-            // Fixes issue on "PS Classic" preset where preview is not centered in the Customiser
-            customisation.preset === "ps4" && document.body.style.setProperty("--placement","center")
-        }
-
-        if (iswebview !== "customiser" && ssdisplay) {
-            const sspath = path.join(temp,`${id}.png`).replace(/\\/g,"/")
-            fs.existsSync(sspath) && document.documentElement.style.setProperty("--ssimg",`url('${sspath}')`)   
-        }
-
-        const fastanimmap = new Map<string,number>([
-            ["xqjan",8],
-            ["xboxone",8]
-        ])
-
-        fastanimmap.forEach((value,key) => {
-            if (customisation.preset !== key) return
-            document.body.toggleAttribute("fastanim",customisation.displaytime < value)
-        })
-        
-        const inserthtml = await new Promise<string>((resolve,reject) => {
-            try {
-                resolve(fs.readFileSync(path.join(__dirname,"presets",customisation.preset,"index.html")).toString())
-            } catch (err) {
-                reject(`Error inserting HTML for "${customisation.preset}" preset: ${err}`)
+try {
+    document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send("animend"))
+    
+    ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
+        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, ra } = obj 
+    
+        try {
+            document.body.setAttribute(type,"")
+            document.body.toggleAttribute("noiconanim",!!!customisation.iconanim)
+    
+            const ssdisplay = screenshots === "overlay" && customisation.ssdisplay
+            document.body.toggleAttribute("ssdisplay",ssdisplay)
+    
+            if (iswebview === "customiser") {
+                document.documentElement.style.scale = `0.${ssdisplay ? "" : 7}5`
+                // Fixes issue on "PS Classic" preset where preview is not centered in the Customiser
+                customisation.preset === "ps4" && document.body.style.setProperty("--placement","center")
             }
-        })
-        .catch(err => { throw new Error(err) })
-
-        document.body.insertAdjacentHTML("beforeend",inserthtml)
-        const meta = document.querySelector("body > meta")
-        if (!meta) throw new Error(`Error inserting HTML for "${customisation.preset}" preset: No <meta> tag found in body`)
-
-        const dims = {
-            width: parseInt(meta.getAttribute("width") as string),
-            height: parseInt(meta.getAttribute("height") as string),
-            offset: meta.getAttribute("offset") !== null ? parseInt(meta.getAttribute("offset") as string) : 20
-        }
-        
-        document.documentElement.style.setProperty("--notifywidth",`${dims.width * (iswebview !== "customiser" ? customisation.scale / 100 : 1)}px`)
-        document.documentElement.style.setProperty("--notifyheight",`${dims.height * (iswebview !== "customiser" ? customisation.scale / 100 : 1)}px`)
-
-        iswebview !== "customiser" && ipcRenderer.send("dims",dims)
-
-        const res = await new Promise<Res>(resolve => {
-            document.head.appendChild(notifyhelper.appendcss(customisation.preset))
-
-            const achicons = document.querySelectorAll("#achicon")!
-            achicons.forEach(achicon => (achicon as HTMLImageElement)!.src = icon)
-
-            const percentvalue = Math.max(parseFloat(percent.value.toFixed(1)),0.1)
-            const percentstr = customisation.percentbadge ? "" : `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${percentvalue}%)` : ""}`
-            const percentimg = percentvalue <= percent.rarity ? "gold" : ((percentvalue < 50 && percentvalue > percent.rarity) ? "silver" : "bronze")
-
-            const ss = iswebview && !customisation.elemsmatch && iswebview.startsWith("ss") ? "ss" : ""
-            customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : `${percentvalue}%`}</span>`))
-
-            const str = {
-                unlockmsg,
-                title,
-                desc
+    
+            if (iswebview !== "customiser" && ssdisplay) {
+                const sspath = path.join(temp,`${id}.png`).replace(/\\/g,"/")
+                fs.existsSync(sspath) && document.documentElement.style.setProperty("--ssimg",`url('${sspath}')`)   
             }
-
-            const elemtype = `${ss}elems`
-            const elems = customisation[elemtype] as ("unlockmsg" | "title" | "desc")[]
-            const ssnodetails = elemtype === "sselems" && !(ssalldetails as string[]).includes(customisation.preset)
-
-            if (elems) {
-                const filter = elems.filter(elem => elem !== null)
-                document.body.toggleAttribute("alldetails",filter.length === 3)
-
-                const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
-
-                const addelem = (type: "percent" | "hiddenicon" | "decoration",pos: number) => {
-                    if (!customisation[`${ss}${type}pos`] || customisation[`${ss}${type}pos`] + (ssnodetails ? 1 : 0) !== pos) return ""
-                    
-                    switch (type) {
-                        case "percent": return ` ${percentstr}`
-                        case "hiddenicon": return customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""
-                        case "decoration": return customisation[`${ss}decorationpos`] ? `<span id="decoration"></span>` : ""
-                        default: ""
-                    }
+    
+            const fastanimmap = new Map<string,number>([
+                ["xqjan",8],
+                ["xboxone",8]
+            ])
+    
+            fastanimmap.forEach((value,key) => {
+                if (customisation.preset !== key) return
+                document.body.toggleAttribute("fastanim",customisation.displaytime < value)
+            })
+            
+            const inserthtml = await new Promise<string>((resolve,reject) => {
+                try {
+                    resolve(fs.readFileSync(path.join(__dirname,"presets",customisation.preset,"index.html")).toString())
+                } catch (err) {
+                    reject(`Error inserting HTML for "${customisation.preset}" preset: ${err}`)
                 }
-
-                new Map<string,number[]>([
-                    ["unlockmsg",[1,0]],
-                    ["title",[2 - offset,ssnodetails ? 0 : 1 - offset]],
-                    ["desc",[3 - offset,ssnodetails ? 1 : 2 - offset]]
-                ])
-                .forEach((value,key) => {
-                    const elem = document.getElementById(key)!
-                    elem.innerHTML = `${addelem("decoration",value[0])}${addelem("hiddenicon",value[0])}${key === "unlockmsg" && ssnodetails ? "" : str[filter[value[1]]] || ""}${addelem("percent",value[0])}`
-                    // Once `innerHTML` has been added, see if it has any `textContent`. If not, remove the element's `innerHTML`
-                    // Not ideal, but "hiddenicon"/"decoration" elements aren't added until the text is, so checking for `textContent` beforehand added won't work
-                    !elem.textContent && (elem.innerHTML = "")
-                })
-
-                document.documentElement.style.setProperty("--decorationindex",(customisation[`${ss}decorationpos`]).toString())
+            })
+            .catch(err => { throw new Error(err) })
+    
+            document.body.insertAdjacentHTML("beforeend",inserthtml)
+            const meta = document.querySelector("body > meta")
+            if (!meta) throw new Error(`Error inserting HTML for "${customisation.preset}" preset: No <meta> tag found in body`)
+    
+            const dims = {
+                width: parseInt(meta.getAttribute("width") as string),
+                height: parseInt(meta.getAttribute("height") as string),
+                offset: meta.getAttribute("offset") !== null ? parseInt(meta.getAttribute("offset") as string) : 20
             }
             
-            if (!steampath) throw new Error(`Steam installation path not found!`)
-
-            notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id,hqicon,temp,percentimg,gamearticon,gameartlibhero,gameartlogo,ra)
-            .then(preloadimgs => {
-                preloadimgs && preloadimgs.forEach(img => imgs.push(img))
-                resolve({
-                    msg: `Achievement data for "${apiname}" loaded successfully`,
-                    dims: dims
-                } as Res)
+            document.documentElement.style.setProperty("--notifywidth",`${dims.width * (iswebview !== "customiser" ? customisation.scale / 100 : 1)}px`)
+            document.documentElement.style.setProperty("--notifyheight",`${dims.height * (iswebview !== "customiser" ? customisation.scale / 100 : 1)}px`)
+    
+            iswebview !== "customiser" && ipcRenderer.send("dims",dims)
+    
+            const res = await new Promise<Res>(resolve => {
+                document.head.appendChild(notifyhelper.appendcss(customisation.preset))
+    
+                const achicons = document.querySelectorAll("#achicon")!
+                achicons.forEach(achicon => (achicon as HTMLImageElement)!.src = icon)
+    
+                const percentvalue = Math.max(parseFloat(percent.value.toFixed(1)),0.1)
+                const percentstr = customisation.percentbadge ? "" : `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${percentvalue}%)` : ""}`
+                const percentimg = percentvalue <= percent.rarity ? "gold" : ((percentvalue < 50 && percentvalue > percent.rarity) ? "silver" : "bronze")
+    
+                const ss = iswebview && !customisation.elemsmatch && iswebview.startsWith("ss") ? "ss" : ""
+                customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : `${percentvalue}%`}</span>`))
+    
+                const str = {
+                    unlockmsg,
+                    title,
+                    desc
+                }
+    
+                const elemtype = `${ss}elems`
+                const elems = customisation[elemtype] as ("unlockmsg" | "title" | "desc")[]
+                const ssnodetails = elemtype === "sselems" && !(ssalldetails as string[]).includes(customisation.preset)
+    
+                if (elems) {
+                    const filter = elems.filter(elem => elem !== null)
+                    document.body.toggleAttribute("alldetails",filter.length === 3)
+    
+                    const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
+    
+                    const addelem = (type: "percent" | "hiddenicon" | "decoration",pos: number) => {
+                        if (!customisation[`${ss}${type}pos`] || customisation[`${ss}${type}pos`] + (ssnodetails ? 1 : 0) !== pos) return ""
+                        
+                        switch (type) {
+                            case "percent": return ` ${percentstr}`
+                            case "hiddenicon": return customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""
+                            case "decoration": return customisation[`${ss}decorationpos`] ? `<span id="decoration"></span>` : ""
+                            default: ""
+                        }
+                    }
+    
+                    new Map<string,number[]>([
+                        ["unlockmsg",[1,0]],
+                        ["title",[2 - offset,ssnodetails ? 0 : 1 - offset]],
+                        ["desc",[3 - offset,ssnodetails ? 1 : 2 - offset]]
+                    ])
+                    .forEach((value,key) => {
+                        const elem = document.getElementById(key)!
+                        elem.innerHTML = `${addelem("decoration",value[0])}${addelem("hiddenicon",value[0])}${key === "unlockmsg" && ssnodetails ? "" : str[filter[value[1]]] || ""}${addelem("percent",value[0])}`
+                        // Once `innerHTML` has been added, see if it has any `textContent`. If not, remove the element's `innerHTML`
+                        // Not ideal, but "hiddenicon"/"decoration" elements aren't added until the text is, so checking for `textContent` beforehand added won't work
+                        !elem.textContent && (elem.innerHTML = "")
+                    })
+    
+                    document.documentElement.style.setProperty("--decorationindex",(customisation[`${ss}decorationpos`]).toString())
+                }
+                
+                if (!steampath) throw new Error(`Steam installation path not found!`)
+    
+                notifyhelper.setcustomisations(customisation,percent,iswebview,appid,steampath,steam3id,hqicon,temp,percentimg,gamearticon,gameartlibhero,gameartlogo,ra)
+                .then(preloadimgs => {
+                    preloadimgs && preloadimgs.forEach(img => imgs.push(img))
+                    resolve({
+                        msg: `Achievement data for "${apiname}" loaded successfully`,
+                        dims: dims
+                    } as Res)
+                })
+                .catch((err: { validimgs: HTMLImageElement[] | null, msg: string }) => {
+                    err.validimgs && err.validimgs.forEach(img => imgs.push(img))
+                    resolve({
+                        msg: `Achievement data for "${apiname}" loaded with errors: ${err.msg}`,
+                        dims: dims
+                    } as Res)
+                })
+                .finally(() => !customisation[`${ss}decorationpos`] && customisation.preset !== "epicgames" && ["","displaytype"].forEach(prop => document.documentElement.style.setProperty(`--decoration${prop}`,"none")))
             })
-            .catch((err: { validimgs: HTMLImageElement[] | null, msg: string }) => {
-                err.validimgs && err.validimgs.forEach(img => imgs.push(img))
-                resolve({
-                    msg: `Achievement data for "${apiname}" loaded with errors: ${err.msg}`,
-                    dims: dims
-                } as Res)
-            })
-            .finally(() => !customisation[`${ss}decorationpos`] && customisation.preset !== "epicgames" && ["","displaytype"].forEach(prop => document.documentElement.style.setProperty(`--decoration${prop}`,"none")))
-        })
-
-        notifyhelper.checkreadystate("ready",obj,imgs,res)
-    } catch (err) {
-        const res = {
-            msg: `Error loading achievement data for ${apiname}: ${err}`,
-            dims: {
-                width: 0,
-                height: 0,
-                offset: 20
+    
+            notifyhelper.checkreadystate("ready",obj,imgs,res)
+        } catch (err) {
+            const res = {
+                msg: `Error loading achievement data for ${apiname}: ${err}`,
+                dims: {
+                    width: 0,
+                    height: 0,
+                    offset: 20
+                }
             }
+    
+            notifyhelper.checkreadystate("failed",obj,imgs,res)
         }
-
-        notifyhelper.checkreadystate("failed",obj,imgs,res)
-    }
-})
-
-ipcRenderer.once("ss",() => document.body.setAttribute("ss",""))
-ipcRenderer.on("playback",(event,shouldpause: boolean) => document.body.toggleAttribute("paused",shouldpause))
-
-ipcRenderer.on("notifyfinished", (event,isextwin?: boolean,preset?: string) => {
-    if (isextwin) return ipcRenderer.send("notifyclosed",isextwin,preset)
-
-    document.body.addEventListener("transitionend", (event: TransitionEvent) => event.propertyName === "opacity" && ipcRenderer.send("notifyfinished"))
-    document.documentElement.style.setProperty("--bodyopacity","0")
-})
-
-ipcRenderer.on("notifyclosed", (event,preset: string) => {
-    document.getElementById(`${preset}css`) && document.getElementById(`${preset}css`)!.remove()
-    document.documentElement.removeAttribute("style")
-
-    const body = document.createElement("body")
-    const audio = document.createElement("audio")
-    audio.src = ""
-    body.appendChild(audio)
-
-    document.body.remove()
-    document.documentElement.appendChild(body)
-})
+    })
+    
+    ipcRenderer.once("ss",() => document.body.setAttribute("ss",""))
+    ipcRenderer.on("playback",(event,shouldpause: boolean) => document.body.toggleAttribute("paused",shouldpause))
+    
+    ipcRenderer.on("notifyfinished", (event,isextwin?: boolean,preset?: string) => {
+        if (isextwin) return ipcRenderer.send("notifyclosed",isextwin,preset)
+    
+        document.body.addEventListener("transitionend", (event: TransitionEvent) => event.propertyName === "opacity" && ipcRenderer.send("notifyfinished"))
+        document.documentElement.style.setProperty("--bodyopacity","0")
+    })
+    
+    ipcRenderer.on("notifyclosed", (event,preset: string) => {
+        document.getElementById(`${preset}css`) && document.getElementById(`${preset}css`)!.remove()
+        document.documentElement.removeAttribute("style")
+    
+        const body = document.createElement("body")
+        const audio = document.createElement("audio")
+        audio.src = ""
+        body.appendChild(audio)
+    
+        document.body.remove()
+        document.documentElement.appendChild(body)
+    })
+} catch (err) {
+    ipcRenderer.send("notifyfailed",null,err as Error)
+}

@@ -344,6 +344,7 @@ declare interface UserTheme extends Button {
 }
 
 declare interface WinType {
+    order: number,
     type: "BrowserWindow" | "Notification",
     notify: Notify,
     options: Electron.BrowserWindowConstructorOptions | Electron.NotificationConstructorOptions

@@ -898,16 +898,16 @@ export const listeners = {
             const { preset } = notify.customisation
 
             if (!iswebview) {
-                queue.push(preset === "os" ? {
+                const wintypeobj = preset === "os" ? {
                     type: "Notification",
-                    notify: notify,
+                    notify,
                     options: {
                         timeoutType: "never",
                         silent: true
                     } as NotificationConstructorOptions
                 } : {
                     type: "BrowserWindow",
-                    notify: notify,
+                    notify,
                     options: {
                         title: `Steam Achievement Notifier (V${sanhelper.version}): Notification`,
                         // show: false,
@@ -930,7 +930,9 @@ export const listeners = {
                             backgroundThrottling: false
                         }
                     } as BrowserWindowConstructorOptions
-                })
+                }
+
+                queue.push({ ...wintypeobj, order: queue.length } as WinType)
             }
 
             const info = await buildnotify(notify)
@@ -967,15 +969,15 @@ export const listeners = {
                 const { icon, libhero, logo } = gameartobj
 
                 return win.webContents.send("customisernotify",{
-                    info: info,
+                    info,
                     customisation: notify.customisation,
-                    iswebview: iswebview,
+                    iswebview,
                     steampath,
                     steam3id: notify.steam3id,
                     hqicon,
                     temp: sanhelper.temp,
-                    ssalldetails: ssalldetails,
-                    screenshots: screenshots,
+                    ssalldetails,
+                    screenshots,
                     gamearticon: icon,
                     gameartlibhero: libhero,
                     gameartlogo: logo
@@ -1049,8 +1051,8 @@ export const listeners = {
             return {
                 width: notifywidth + glowsize,
                 height: notifyheight + glowsize,
-                x: x,
-                y: y
+                x,
+                y
             }
         }
 
@@ -1068,13 +1070,16 @@ export const listeners = {
         let offscreenwin: BrowserWindow | null = null
 
         const checkifrunning = (info: BuildNotifyInfo): any => {
-            if (running) return setTimeout(() => checkifrunning(info),1000)
+            const i = queue.findIndex(obj => obj.notify.id === info.id)
+            if (running || queue[i].order !== 0) return setTimeout(() => checkifrunning(info),1000)
 
             const config = sanconfig.get()
 
-            const i = queue.findIndex(obj => obj.notify.id === info.id)
             const { type, notify, notify: { customisation }, options } = queue.splice(i,1)[0]
-            const { displaytime } = customisation
+
+            for (const queueobj of queue) {
+                queueobj.order -= 1
+            }
             
             if (type === "Notification") {
                 // `toastXML` overrides all other options on Windows, but not on other platforms
@@ -1146,16 +1151,16 @@ export const listeners = {
                     const { icon, libhero, logo } = gameartobj
 
                     return {
-                        info: info,
-                        customisation: customisation,
+                        info,
+                        customisation,
                         iswebview: null,
                         steampath,
                         skipaudio: isextwin || audiosrc !== "notify",
                         steam3id,
                         hqicon,
                         temp: sanhelper.temp,
-                        ssalldetails: ssalldetails,
-                        screenshots: screenshots,
+                        ssalldetails,
+                        screenshots,
                         gamearticon: icon,
                         gameartlibhero: libhero,
                         gameartlogo: logo,
@@ -1209,51 +1214,42 @@ export const listeners = {
             win.webContents.send("notifyprogress",notify.customisation.displaytime)
             log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)
 
-            // Creates a timer on spawn. If the "animend" event has not been received in `displaytime` + 2s, resets the notification queue
-            // Prevents locking the queue when errors occur within notifications - e.g. when changing JS via custom files
-            const notifytimer = setTimeout(() => ipcMain.emit("notifyfailed",null,notify),(displaytime * 1000) + 2000)
+            // Closes the notification
+            ipcMain.once("notifyfinished", async () => {
+                try {
+                    const msg = await new Promise<string>(async resolve => {
+                        if (!notifywin) log.write("WARN",`"notifywin" not found - cannot close window`)
+
+                        notifywin && notifywin.close()
+                        notifywin = null
+
+                        if (extwin) {
+                            extwin.webContents.send("notifyfinished")
+
+                            if (!offscreenwin) log.write("WARN",`"offscreenwin" not found - cannot close window`)
+
+                            offscreenwin && offscreenwin.close()
+                            offscreenwin = null
+                        }
+
+                        resolve(`Notification window for "${notify.apiname}" closed successfully`)
+                    })
+
+                    log.write("INFO",msg)
+                    running = false
+
+                    win.webContents.send("queue",queue)
+                } catch (err) {
+                    log.write("ERROR",`Error closing notification window for "${notify.apiname}": ${err}`)
+                } finally {
+                    win.webContents.send("notifyprogress",0,true)
+                    setTimeout(() => removesrcimg(notify.id),2000)
+                }
+            })
 
             // "animend" is received from `base.ts`, rather than controlled from here via Timeout
             // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
             ipcMain.once("animend",() => {
-                // Closes the notification
-                ipcMain.once("notifyfinished", async () => {
-                    try {
-                        const msg = await new Promise<string>(async resolve => {
-                            if (!notifywin) log.write("WARN",`"notifywin" not found - cannot close window`)
-
-                            notifywin && notifywin.close()
-                            notifywin = null
-
-                            if (extwin) {
-                                extwin.webContents.send("notifyfinished")
-
-                                if (!offscreenwin) log.write("WARN",`"offscreenwin" not found - cannot close window`)
-
-                                offscreenwin && offscreenwin.close()
-                                offscreenwin = null
-                            }
-
-                            resolve(`Notification window for "${notify.apiname}" closed successfully`)
-                        })
-    
-                        log.write("INFO",msg)
-                        running = false
-
-                        win.webContents.send("queue",queue)
-                    } catch (err) {
-                        log.write("ERROR",`Error closing notification window for "${notify.apiname}": ${err}`)
-                    } finally {
-                        if (notifytimer) {
-                            clearTimeout(notifytimer)
-                            sanhelper.devmode && log.write("INFO",`"notifytimer" cleared successfully`)
-                        }
-
-                        win.webContents.send("notifyprogress",0,true)
-                        setTimeout(() => removesrcimg(notify.id),2000)
-                    }
-                })
-
                 notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished") : ipcMain.emit("notifyfinished")
                 
                 if (extwin) {
@@ -1263,23 +1259,27 @@ export const listeners = {
             })
         }
 
-        ipcMain.on("notifyfailed",(event,notify: Notify) => {
+        ipcMain.on("notifyfailed",(event,notify?: Notify,err?: Error) => {
             try {
                 notifywin && (notifywin instanceof BrowserWindow ? notifywin.destroy() : notifywin.close()) // Destroys/closes the window
                 notifywin = null // Resets `notifywin` var
     
                 offscreenwin && offscreenwin.destroy() // Destroys/closes the window
                 offscreenwin = null // Resets `offscreenwin` var
+
+                // Emit dummy events to trigger `.once()` listeners, which removes them for subsequent notifications
+                // Note: "notifyready" event cannot be triggered here, as it causes an error which prevents subsequent notifications from displaying
+                ;["notifyfinished","animend"].forEach(event => ipcMain.emit(event))
                 
                 running = false // Resets `running` var
     
                 win.webContents.send("notifyprogress",0,true) // Resets UI progress circle
-                removesrcimg(notify.id) // Removes any corresponding screenshots from `temp`
-    
-                return log.write("WARN",`Notification window failed for "${notify.apiname}" - cleanup performed successfully`)
+                notify && removesrcimg(notify.id) // Removes any corresponding screenshots from `temp`
+
+                err && log.write("ERROR",`Error displaying notification ${notify ? `for "${notify.apiname}"` : ""}: ${err}`)
+                return log.write("WARN",`Notification window failed ${notify ? `for "${notify.apiname}"` : ""} - cleanup performed successfully`)
             } catch (err) {
-                console.log(err)
-                return log.write("ERROR",`Cleanup failed for notification window "${notify.apiname}": ${err}`)
+                return log.write("ERROR",`Notification window cleanup failed ${notify ? `for "${notify.apiname}"` : ""}: ${err}`)
             }
         })
 

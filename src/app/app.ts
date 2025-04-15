@@ -133,6 +133,7 @@ const ignore = [
     "NOTIFY.md.old",
     "gh_token.txt",
     "package-lock.json",
+    "RA.md",
     "README.md",
     "san.d.ts",
     "tsconfig.json"

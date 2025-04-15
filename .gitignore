@@ -21,3 +21,5 @@ deps/_linux/
 desktop.ini
 TODO
 /deps/hudhook
+/dist/app/sanlogo.css
+/dist/app/index_sanlogo.html

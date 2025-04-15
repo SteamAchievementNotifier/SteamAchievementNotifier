@@ -27,12 +27,21 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 <img width="100%" height="100%" src="img/SANUIV1.9.jpg">
 </p>
 
+> ### 🛑 Fullscreen display modes are not supported\*
+> Games using **DirectX 9/10/11** require **Borderless**/**Borderless Windowed** mode to be enabled via in-game display settings in order for notifications to show above the game window
+> 
+> \**If a game supports and runs using **DirectX 12**, notifications will usually show above the game window when **Fullscreen** is enabled*
+
+<br>
+
 <div align="center">
 
 | <a href="#features">Features</a> | <a href="#updates">Updates</a> | <a href="#installation">Installation</a> | <a href="#credits">Credits</a> |
 | --- | --- | --- | --- |
 
 </div>
+
+<br>
 
 <h2 align="center" id="features">Features</h2>
 

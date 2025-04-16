@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `启用此选项并提供有效的 Discord Webhook 链接即表示您同意，您了解 <u>当前 Steam 用户的所有成就和游戏信息</u> 将通过提供的 Webhook 链接发布到指定的 Discord 服务器。<br><br>如果您不希望 Steam Achievement Notifier 代表您发布这些信息，请禁用此选项。`,
                 webhooklaststatus: "最后状态",
-                webhookspoilers: `添加剧透标签`
+                webhookspoilers: `添加剧透标签`,
+                replaynotify: "重播通知",
+                replaynotifyshortcut: "重播快捷键"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "替代处理模式",
                 notifydebug: "显示调试通知",
                 exportachdata: "导出成就数据",
+                uselegacynotifytimer: "使用旧版通知计时器",
                 usecustomfiles: "使用自定义应用文件",
                 showcustomfiles: "显示自定义应用文件"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "设置第三个文本元素的颜色",
         exportachdata: `当成就解锁时，将成就数据导出到 JSON 文件<br><br><span class="ttdesc">启用时，<span class="ttcode">achdata.json</span> 将导出到:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "调整通知中文本元素之间的垂直间距",
-        ssmode: `设置截图时是捕获整个屏幕还是仅捕获当前游戏窗口<span style="color: red;">*</span><br><br><span class="ttdesc">如果无法找到当前游戏的<span class="hl">可执行文件</span>（<i>无论是通过<span class="hl">自动进程追踪</span>，还是将其添加为<span class="hl">关联游戏</span></i>），此选项将默认为“屏幕”模式</span>` 
+        ssmode: `设置截图时是捕获整个屏幕还是仅捕获当前游戏窗口<span style="color: red;">*</span><br><br><span class="ttdesc">如果无法找到当前游戏的<span class="hl">可执行文件</span>（<i>无论是通过<span class="hl">自动进程追踪</span>，还是将其添加为<span class="hl">关联游戏</span></i>），此选项将默认为“屏幕”模式</span>` ,
+        replaynotify: "重播最后的成就通知",
+        replaynotifyshortcut: "使用指定的快捷键重播最后的成就通知",
+        replaynotifyempty: `<br><br><span class="ttdesc">重播队列为空。解锁一个成就以重播通知</span>`,
+        uselegacynotifytimer: `使用静态计时器在通知窗口外隐藏通知<br><br><span class="ttdesc">启用此选项可能会导致通知动画无法完成</span>`
     },
     update: {
         updateavailable: "有可用更新",

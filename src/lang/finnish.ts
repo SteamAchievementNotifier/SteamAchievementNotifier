@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Ottamalla tämän asetuksen käyttöön ja antamalla kelvollisen Discord-webhook-linkin, hyväksyt, että ymmärrät <u>kaiken nykyisen Steam-käyttäjän saavutuksiin ja peleihin liittyvän tiedon</u> julkaistavan määritettyyn Discord-palvelimeen annetun webhook-linkin kautta.<br><br>Jos et halua, että Steam Achievement Notifier julkaisee näitä tietoja puolestasi, poista tämä asetus käytöstä.`,
                 webhooklaststatus: "Viimeinen Tila",
-                webhookspoilers: `Lisää spoiler-tunniste`
+                webhookspoilers: `Lisää spoiler-tunniste`,
+                replaynotify: "Toistoviesti",
+                replaynotifyshortcut: "Toistoviestin pikanäppäin"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Vaihtoehtoinen käsittelytila",
                 notifydebug: "Näytä Ilmoitus Vianmäärityksestä",
                 exportachdata: "Vie saavutustiedot",
+                uselegacynotifytimer: "Käytä vanhaa ilmoitusaikaväliä",
                 usecustomfiles: "Käytä Mukautettuja Sovellustiedostoja",
                 showcustomfiles: "Näytä Mukautetut Sovellustiedostot"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Aseta kolmannen tekstielementin väri",
         exportachdata: `Vie saavutustiedot JSON-tiedostoon, kun saavutus avataan<br><br><span class="ttdesc">Kun käytössä, <span class="ttcode">achdata.json</span> viedään sijaintiin:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Säätää pystysuuntaista välistystä ilmoituksen tekstielementtien välillä",
-        ssmode: `Määrittää, tallennetaanko koko näyttö vai nykyinen pelin ikkuna<span style="color: red;">*</span> näyttökuvissa<br><br><span class="ttdesc">Jos nykyisen pelin <span class="hl">suoritettavaa tiedostoa</span> ei löydy (<i>joko <span class="hl">automaattisen prosessinseurannan</span> tai <span class="hl">Linkitetyn pelin</span> kautta</i>), tämä asetus palautuu oletuksena "Näyttö"-tilaan</span>`
+        ssmode: `Määrittää, tallennetaanko koko näyttö vai nykyinen pelin ikkuna<span style="color: red;">*</span> näyttökuvissa<br><br><span class="ttdesc">Jos nykyisen pelin <span class="hl">suoritettavaa tiedostoa</span> ei löydy (<i>joko <span class="hl">automaattisen prosessinseurannan</span> tai <span class="hl">Linkitetyn pelin</span> kautta</i>), tämä asetus palautuu oletuksena "Näyttö"-tilaan</span>`,
+        replaynotify: "Toista viimeisin saavutuksen ilmoitus",
+        replaynotifyshortcut: "Toista viimeisin saavutuksen ilmoitus käyttämällä määritettyä pikanäppäintä",
+        replaynotifyempty: `<br><br><span class="ttdesc">Toistovuoro on tyhjä. Avaa saavutus toistaaksesi ilmoituksen</span>`,
+        uselegacynotifytimer: `Piilota ilmoitukset käyttämällä staattista ajastinta, joka on erillinen ilmoitusikkunasta<br><br><span class="ttdesc">Tämän asetuksen ottaminen käyttöön voi estää ilmoitusten animaatioiden täydellisen suorittamisen</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

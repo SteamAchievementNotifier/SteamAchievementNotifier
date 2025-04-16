@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Ezeket a beállításokat aktiválva és érvényes Discord Webhook linket adva meg, elfogadja, hogy megérti, hogy <u>minden jelenlegi Steam felhasználóra vonatkozó teljesítmény- és játékadat</u> közzétételre kerül az adott Discord szerveren a megadott Webhook linken keresztül.<br><br>Ha nem szeretné, hogy a Steam Achievement Notifier közzétegye ezeket az információkat az Ön nevében, kérjük, tiltsa le ezt az opciót.`,
                 webhooklaststatus: "Utolsó Állapot",
-                webhookspoilers: `Spoiler címke hozzáadása`
+                webhookspoilers: `Spoiler címke hozzáadása`,
+                replaynotify: "Újraértesítés",
+                replaynotifyshortcut: "Újraértesítés gyorsbillentyű"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alternatív feldolgozási mód",
                 notifydebug: "Hibakeresési értesítések megjelenítése",
                 exportachdata: "Teljesítményadatok exportálása",
+                uselegacynotifytimer: "Használj régi értesítési időzítőt",
                 usecustomfiles: "Egyedi alkalmazásfájlok használata",
                 showcustomfiles: "Egyedi alkalmazásfájlok megjelenítése"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Állítsa be a harmadik szövegelem színét",
         exportachdata: `Teljesítményadatok exportálása JSON fájlba, amikor egy teljesítmény feloldódik<br><br><span class="ttdesc">Ha engedélyezve van, az <span class="ttcode">achdata.json</span> a következő helyre lesz exportálva:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Beállítja a vertikális távolságot a szövegelemek között az értesítésben",
-        ssmode: `Beállítja, hogy a képernyőkép teljes képernyőt vagy csak az aktuális játékablakot<span style="color: red;">*</span> rögzítse<br><br><span class="ttdesc">Ha az aktuális játék <span class="hl">végrehajtható fájlja</span> nem található (<i>akár <span class="hl">automatikus folyamatfigyeléssel</span>, akár <span class="hl">Linked Game</span> hozzáadásával</i>), akkor ez az opció alapértelmezés szerint "Képernyő" módra vált</span>`
+        ssmode: `Beállítja, hogy a képernyőkép teljes képernyőt vagy csak az aktuális játékablakot<span style="color: red;">*</span> rögzítse<br><br><span class="ttdesc">Ha az aktuális játék <span class="hl">végrehajtható fájlja</span> nem található (<i>akár <span class="hl">automatikus folyamatfigyeléssel</span>, akár <span class="hl">Linked Game</span> hozzáadásával</i>), akkor ez az opció alapértelmezés szerint "Képernyő" módra vált</span>`,
+        replaynotify: "Ismételd meg az utolsó teljesítmény értesítést",
+        replaynotifyshortcut: "Ismételd meg az utolsó teljesítmény értesítést a megadott gyorsbillentyűvel",
+        replaynotifyempty: `<br><br><span class="ttdesc">Az ismétlési sor üres. Nyiss meg egy teljesítményt az értesítés ismétléséhez</span>`,
+        uselegacynotifytimer: `Rejtse el az értesítéseket egy statikus időzítő használatával, amely kívül esik az értesítési ablakon<br><br><span class="ttdesc">Ennek az opciónak az engedélyezése azt eredményezheti, hogy az értesítési animációk nem fejeződnek be</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

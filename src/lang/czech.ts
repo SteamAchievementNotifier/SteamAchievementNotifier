@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `URL Webhooku`,
                 webhookcaution: `Povolením této možnosti a poskytnutím platného odkazu na Webhook Discordu souhlasíte s tím, že rozumíte, že <u>veškeré informace o úspěších a hrách aktuálního uživatele Steamu</u> budou odeslány na určený server Discord prostřednictvím poskytnutého odkazu Webhooku.<br><br>Pokud nechcete, aby Steam Achievement Notifier odesílal tyto informace vaším jménem, prosím deaktivujte tuto možnost.`,
                 webhooklaststatus: "Poslední stav",
-                webhookspoilers: `Přidat označení spoileru`
+                webhookspoilers: `Přidat označení spoileru`,
+                replaynotify: "Oznámení o opakování",
+                replaynotifyshortcut: "Zkratka pro opakování"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alternativní Režim Zpracování",
                 notifydebug: "Zobrazit oznámení nástrojů pro ladění",
                 exportachdata: "Exportovat data o úspěších",
+                uselegacynotifytimer: "Použít starší časovač oznámení",
                 usecustomfiles: "Použít vlastní soubory aplikace",
                 showcustomfiles: "Zobrazit vlastní soubory aplikace"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Nastavit barvu třetího textového prvku",
         exportachdata: `Exportovat data o úspěších do souboru JSON při odemknutí úspěchu<br><br><span class="ttdesc">Pokud je povoleno, <span class="ttcode">achdata.json</span> bude exportován do:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Upraví svislý rozestup mezi textovými prvky v oznámení",
-        ssmode: `Nastaví, zda se má při snímání obrazovky zachytit celá obrazovka nebo aktuální herní okno<span style="color: red;">*</span><br><br><span class="ttdesc">Pokud nelze najít <span class="hl">spustitelný soubor</span> aktuální hry (<i>ať už pomocí <span class="hl">automatického sledování procesů</span> nebo přidáním jako <span class="hl">Propojená hra</span></i>), tato možnost se automaticky nastaví na režim "Obrazovka"</span>`
+        ssmode: `Nastaví, zda se má při snímání obrazovky zachytit celá obrazovka nebo aktuální herní okno<span style="color: red;">*</span><br><br><span class="ttdesc">Pokud nelze najít <span class="hl">spustitelný soubor</span> aktuální hry (<i>ať už pomocí <span class="hl">automatického sledování procesů</span> nebo přidáním jako <span class="hl">Propojená hra</span></i>), tato možnost se automaticky nastaví na režim "Obrazovka"</span>`,
+        replaynotify: "Zopakovat poslední oznámení o úspěchu",
+        replaynotifyshortcut: "Zopakovat poslední oznámení o úspěchu pomocí zadané klávesové zkratky",
+        replaynotifyempty: `<br><br><span class="ttdesc">Fronta opakování je prázdná. Odemkni úspěch pro opakování oznámení</span>`,
+        uselegacynotifytimer: `Skryj oznámení pomocí statického časovače mimo okno oznámení<br><br><span class="ttdesc">Povolení této možnosti může způsobit, že se animace oznámení nedokončí</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

@@ -29,7 +29,8 @@ export const customfilekeys = [
 // Contains non-"shortcut" suffixed key names for all options that are assigned a `globalShortcut`
 export const shortcutkeys = [
     "release",
-    "statwin"
+    "statwin",
+    "replaynotify"
 ]
 
 export const sanconfig = {
@@ -284,6 +285,8 @@ export const sanconfig = {
                 rakey: "",
                 exportachdata: false,
                 colorprofile: "none",
+                replaynotifyshortcut: "CTRL+SHIFT+BACKSPACE",
+                uselegacynotifytimer: false,
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

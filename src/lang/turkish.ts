@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Bu seçeneği etkinleştirip geçerli bir Discord Webhook bağlantısı sağladığınızda, <u>mevcut Steam kullanıcısının tüm başarı ve oyun bilgilerini</u> belirtilen Discord sunucusuna Webhook bağlantısı aracılığıyla göndereceğinizi kabul etmiş olursunuz.<br><br>Bu bilgilerin sizin adınıza gönderilmesini istemiyorsanız, bu seçeneği devre dışı bırakın.`,
                 webhooklaststatus: "Son Durum",
-                webhookspoilers: `Spoiler etiketi ekle`
+                webhookspoilers: `Spoiler etiketi ekle`,
+                replaynotify: "Tekrar Bildirimi",
+                replaynotifyshortcut: "Tekrar Kısayolu"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alternatif İşleme Modu",
                 notifydebug: "Hata Ayıklama Bildirimlerini Göster",
                 exportachdata: "Başarım Verilerini Dışa Aktar",
+                uselegacynotifytimer: "Eski Bildirim Zamanlayıcısını Kullan",
                 usecustomfiles: "Özel Uygulama Dosyalarını Kullan",
                 showcustomfiles: "Özel Uygulama Dosyalarını Göster"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Üçüncü metin öğesinin rengini ayarlayın",
         exportachdata: `Bir başarı kilidi açıldığında başarı verilerini bir JSON dosyasına dışa aktar<br><br><span class="ttdesc">Etkinleştirildiğinde, <span class="ttcode">achdata.json</span> şu konuma dışa aktarılacaktır:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Bildirimdeki metin öğeleri arasındaki dikey boşluğu ayarla",
-        ssmode: `Ekran görüntülerinde tüm ekranı mı yoksa yalnızca mevcut oyun penceresini mi yakalayacağını ayarla<span style="color: red;">*</span><br><br><span class="ttdesc">Eğer mevcut oyunun <span class="hl">çalıştırılabilir dosyası</span> bulunamazsa (<i>ya <span class="hl">otomatik işlem takibi</span> ile ya da bir <span class="hl">Bağlantılı Oyun</span> olarak eklenerek</i>), bu seçenek varsayılan olarak "Ekran" moduna dönecektir</span>` 
+        ssmode: `Ekran görüntülerinde tüm ekranı mı yoksa yalnızca mevcut oyun penceresini mi yakalayacağını ayarla<span style="color: red;">*</span><br><br><span class="ttdesc">Eğer mevcut oyunun <span class="hl">çalıştırılabilir dosyası</span> bulunamazsa (<i>ya <span class="hl">otomatik işlem takibi</span> ile ya da bir <span class="hl">Bağlantılı Oyun</span> olarak eklenerek</i>), bu seçenek varsayılan olarak "Ekran" moduna dönecektir</span>` ,
+        replaynotify: "Son Başarı Bildirimini Tekrarla",
+        replaynotifyshortcut: "Belirtilen kısayol ile son başarı bildirimini tekrarla",
+        replaynotifyempty: `<br><br><span class="ttdesc">Tekrar kuyruğu boş. Bir başarıyı açarak bir bildirimi tekrar edebilirsiniz</span>`,
+        uselegacynotifytimer: `Bildirim penceresinin dışında statik bir zamanlayıcı kullanarak bildirimleri gizle<br><br><span class="ttdesc">Bu seçeneği etkinleştirmek, bildirim animasyonlarının tamamlanmamasına neden olabilir</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

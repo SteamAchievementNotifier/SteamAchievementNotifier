@@ -171,7 +171,9 @@ export const translations = {
                 webhooktypes: "Loại Webhook",
                 webhookcaution: `Bằng cách kích hoạt tùy chọn này và cung cấp liên kết Webhook Discord hợp lệ, bạn đồng ý rằng bạn hiểu rằng <u>tất cả thông tin thành tựu và trò chơi của người dùng Steam hiện tại</u> sẽ được đăng lên máy chủ Discord đã chỉ định thông qua liên kết Webhook được cung cấp.<br><br>Nếu bạn không muốn Steam Achievement Notifier đăng thông tin này thay cho bạn, hãy tắt tùy chọn này.`,
                 webhooklaststatus: "Trạng thái cuối cùng",
-                webhookspoilers: `Thêm thẻ spoiler`
+                webhookspoilers: `Thêm thẻ spoiler`,
+                replaynotify: "Thông báo phát lại",
+                replaynotifyshortcut: "Phím tắt phát lại"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Chế độ Xử lý Thay thế",
                 notifydebug: "Hiển thị thông báo gỡ lỗi",
                 exportachdata: "Xuất dữ liệu thành tích",
+                uselegacynotifytimer: "Sử dụng bộ đếm thời gian thông báo cũ",
                 usecustomfiles: "Sử dụng tập tin ứng dụng tùy chỉnh",
                 showcustomfiles: "Hiển thị tập tin ứng dụng tùy chỉnh"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Chọn màu cho phần văn bản thứ ba",
         exportachdata: `Xuất dữ liệu thành tích vào tệp JSON khi một thành tích được mở khóa<br><br><span class="ttdesc">Khi bật, <span class="ttcode">achdata.json</span> sẽ được xuất ra tại:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Điều chỉnh khoảng cách dọc giữa các phần tử văn bản trong thông báo",
-        ssmode: `Cài đặt xem có chụp toàn bộ màn hình hay chỉ cửa sổ trò chơi hiện tại<span style="color: red;">*</span> trong các ảnh chụp màn hình<br><br><span class="ttdesc">Nếu không thể tìm thấy <span class="hl">tệp thực thi</span> của trò chơi hiện tại (<i>dù qua <span class="hl">theo dõi tiến trình tự động</span> hay thêm nó như một <span class="hl">Trò chơi Liên kết</span></i>), tùy chọn này sẽ mặc định về chế độ "Màn hình"</span>` 
+        ssmode: `Cài đặt xem có chụp toàn bộ màn hình hay chỉ cửa sổ trò chơi hiện tại<span style="color: red;">*</span> trong các ảnh chụp màn hình<br><br><span class="ttdesc">Nếu không thể tìm thấy <span class="hl">tệp thực thi</span> của trò chơi hiện tại (<i>dù qua <span class="hl">theo dõi tiến trình tự động</span> hay thêm nó như một <span class="hl">Trò chơi Liên kết</span></i>), tùy chọn này sẽ mặc định về chế độ "Màn hình"</span>` ,
+        replaynotify: "Phát lại thông báo thành tích cuối cùng",
+        replaynotifyshortcut: "Phát lại thông báo thành tích cuối cùng bằng cách sử dụng phím tắt được chỉ định",
+        replaynotifyempty: `<br><br><span class="ttdesc">Hàng đợi phát lại trống. Mở khóa một thành tích để phát lại thông báo</span>`,
+        uselegacynotifytimer: `Ẩn thông báo bằng cách sử dụng bộ đếm thời gian tĩnh ngoài cửa sổ thông báo<br><br><span class="ttdesc">Kích hoạt tùy chọn này có thể khiến hoạt ảnh thông báo không hoàn thành</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `啟用此選項並提供有效的 Discord Webhook 連結，即表示您同意您了解 <u>當前 Steam 用戶的所有成就和遊戲信息</u> 將通過提供的 Webhook 連結發佈到指定的 Discord 伺服器。<br><br>如果您不希望 Steam Achievement Notifier 代表您發佈這些信息，請禁用此選項。`,
                 webhooklaststatus: "最後狀態",
-                webhookspoilers: `添加劇透標籤`
+                webhookspoilers: `添加劇透標籤`,
+                replaynotify: "重播通知",
+                replaynotifyshortcut: "重播快捷鍵"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "替代處理模式",
                 notifydebug: "顯示偵錯通知",
                 exportachdata: "匯出成就數據",
+                uselegacynotifytimer: "使用舊版通知計時器",
                 usecustomfiles: "使用自定義應用程式檔案",
                 showcustomfiles: "顯示自定義應用程式檔案"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "設定第三個文字元素的顏色",
         exportachdata: `當成就解鎖時，將成就數據匯出為 JSON 文件<br><br><span class="ttdesc">啟用後，<span class="ttcode">achdata.json</span> 將匯出至:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "調整通知中各文本元素之間的垂直間距",
-        ssmode: `設定是否要在截圖中捕捉整個螢幕或僅當前遊戲視窗<span style="color: red;">*</span><br><br><span class="ttdesc">如果無法找到當前遊戲的<span class="hl">可執行檔案</span>（<i>無論是透過<span class="hl">自動進程追蹤</span>，還是將其添加為<span class="hl">已連結遊戲</span></i>），此選項將預設為「螢幕」模式</span>` 
+        ssmode: `設定是否要在截圖中捕捉整個螢幕或僅當前遊戲視窗<span style="color: red;">*</span><br><br><span class="ttdesc">如果無法找到當前遊戲的<span class="hl">可執行檔案</span>（<i>無論是透過<span class="hl">自動進程追蹤</span>，還是將其添加為<span class="hl">已連結遊戲</span></i>），此選項將預設為「螢幕」模式</span>` ,
+        replaynotify: "重播最後的成就通知",
+        replaynotifyshortcut: "使用指定的快捷鍵重播最後的成就通知",
+        replaynotifyempty: `<br><br><span class="ttdesc">重播隊列為空。解鎖一個成就以重播通知</span>`,
+        uselegacynotifytimer: `使用靜態計時器在通知視窗外隱藏通知<br><br><span class="ttdesc">啟用此選項可能會導致通知動畫無法完成</span>`
     },
     update: {
         updateavailable: "有可用更新",

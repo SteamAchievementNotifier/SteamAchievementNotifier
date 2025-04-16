@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `このオプションを有効にし、正しいDiscord Webhookリンクを提供することで、<u>現在のSteamユーザーのすべてのアチーブメントおよびゲーム情報</u>が指定されたDiscordサーバーにWebhookリンクを通じて投稿されることを理解していることに同意します。<br><br>Steam Achievement Notifierがあなたの代わりにこの情報を投稿することを望まない場合は、このオプションを無効にしてください。`,
                 webhooklaststatus: "最後のステータス",
-                webhookspoilers: `ネタバレタグを追加`
+                webhookspoilers: `ネタバレタグを追加`,
+                replaynotify: "再通知",
+                replaynotifyshortcut: "再通知ショートカット"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "代替処理モード",
                 notifydebug: "デバッグ通知の表示",
                 exportachdata: "実績データをエクスポート",
+                uselegacynotifytimer: "レガシー通知タイマーを使用",
                 usecustomfiles: "カスタムアプリファイルの使用",
                 showcustomfiles: "カスタムアプリファイルの表示"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "3番目のテキスト要素の色を設定",
         exportachdata: `実績が解除されると、実績データをJSONファイルとしてエクスポート<br><br><span class="ttdesc">有効にすると、<span class="ttcode">achdata.json</span>は以下の場所にエクスポートされます:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "通知内のテキスト要素間の縦の間隔を調整",
-        ssmode: `スクリーンショットを撮る際に、画面全体をキャプチャするか、現在のゲームウィンドウ<span style="color: red;">*</span>のみをキャプチャするかを設定<br><br><span class="ttdesc">現在のゲームの<span class="hl">実行ファイル</span>が見つからない場合（<i>自動プロセス追跡または<span class="hl">リンクされたゲーム</span>として追加された場合</i>）、このオプションはデフォルトで「スクリーン」モードに戻ります</span>`
+        ssmode: `スクリーンショットを撮る際に、画面全体をキャプチャするか、現在のゲームウィンドウ<span style="color: red;">*</span>のみをキャプチャするかを設定<br><br><span class="ttdesc">現在のゲームの<span class="hl">実行ファイル</span>が見つからない場合（<i>自動プロセス追跡または<span class="hl">リンクされたゲーム</span>として追加された場合</i>）、このオプションはデフォルトで「スクリーン」モードに戻ります</span>`,
+        replaynotify: "最後の実績通知を再通知",
+        replaynotifyshortcut: "指定したショートカットを使用して最後の実績通知を再通知",
+        replaynotifyempty: `<br><br><span class="ttdesc">再通知キューは空です。通知を再通知するには実績を解除してください</span>`,
+        uselegacynotifytimer: `通知ウィンドウの外部で静的なタイマーを使用して通知を非表示<br><br><span class="ttdesc">このオプションを有効にすると、通知アニメーションが完了しない場合があります</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `URL du Webhook`,
                 webhookcaution: `En activant cette option et en fournissant un lien Webhook Discord valide, vous acceptez que vous comprenez que <u>toutes les informations sur les succès et les jeux pour l'utilisateur Steam actuel</u> seront publiées sur le serveur Discord spécifié via le lien Webhook fourni.<br><br>Si vous ne souhaitez pas que Steam Achievement Notifier publie ces informations en votre nom, veuillez désactiver cette option.`,
                 webhooklaststatus: "Dernier statut",
-                webhookspoilers: `Ajouter un tag spoiler`
+                webhookspoilers: `Ajouter un tag spoiler`,
+                replaynotify: "Notification de répétition",
+                replaynotifyshortcut: "Raccourci de répétition"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Mode de traitement alternatif",
                 notifydebug: "Afficher les notifications de débogage",
                 exportachdata: "Exporter les données de succès",
+                uselegacynotifytimer: "Utiliser le minuterie de notification legacy",
                 usecustomfiles: "Utiliser des fichiers d'application personnalisés",
                 showcustomfiles: "Afficher les fichiers d'application personnalisés"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Définir la couleur du troisième élément de texte",
         exportachdata: `Exporter les données de succès vers un fichier JSON lorsqu'un succès est débloqué<br><br><span class="ttdesc">Lorsqu'il est activé, <span class="ttcode">achdata.json</span> sera exporté vers :<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Ajuste l’espacement vertical entre les éléments de texte dans la notification",
-        ssmode: `Définit si la capture d’écran doit inclure tout l’écran ou uniquement la fenêtre du jeu en cours<span style="color: red;">*</span><br><br><span class="ttdesc">Si le <span class="hl">fichier exécutable</span> du jeu en cours ne peut pas être localisé (<i>soit via le <span class="hl">suivi automatique des processus</span>, soit en l’ajoutant comme un <span class="hl">Jeu Lié</span></i>), cette option reviendra par défaut au mode "Écran"</span>`
+        ssmode: `Définit si la capture d’écran doit inclure tout l’écran ou uniquement la fenêtre du jeu en cours<span style="color: red;">*</span><br><br><span class="ttdesc">Si le <span class="hl">fichier exécutable</span> du jeu en cours ne peut pas être localisé (<i>soit via le <span class="hl">suivi automatique des processus</span>, soit en l’ajoutant comme un <span class="hl">Jeu Lié</span></i>), cette option reviendra par défaut au mode "Écran"</span>`,
+        replaynotify: "Répéter la dernière notification de réussite",
+        replaynotifyshortcut: "Répéter la dernière notification de réussite en utilisant le raccourci clavier spécifié",
+        replaynotifyempty: `<br><br><span class="ttdesc">La file d'attente de répétition est vide. Débloquez une réussite pour répéter une notification</span>`,
+        uselegacynotifytimer: `Masquer les notifications à l'aide d'un minuterie statique externe à la fenêtre de notification<br><br><span class="ttdesc">L'activation de cette option peut entraîner l'échec des animations de notification</span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",

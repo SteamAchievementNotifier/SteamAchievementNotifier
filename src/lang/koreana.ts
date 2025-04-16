@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `이 옵션을 활성화하고 유효한 Discord Webhook 링크를 제공함으로써 <u>현재 Steam 사용자에 대한 모든 업적 및 게임 정보</u>가 제공된 Webhook 링크를 통해 지정된 Discord 서버에 게시될 것임을 이해하는 데 동의합니다.<br><br>Steam Achievement Notifier가 이 정보를 대신 게시하는 것을 원하지 않는 경우, 이 옵션을 비활성화해 주세요.`,
                 webhooklaststatus: "최종 상태",
-                webhookspoilers: `스포일러 태그 추가`
+                webhookspoilers: `스포일러 태그 추가`,
+                replaynotify: "재생 알림",
+                replaynotifyshortcut: "재생 단축키"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "대체 처리 모드",
                 notifydebug: "디버그 알림 표시",
                 exportachdata: "업적 데이터 내보내기",
+                uselegacynotifytimer: "레거시 알림 타이머 사용",
                 usecustomfiles: "사용자 정의 앱 파일 사용",
                 showcustomfiles: "사용자 정의 앱 파일 표시"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "세 번째 텍스트 요소의 색상 설정",
         exportachdata: `업적이 잠금 해제되면 JSON 파일로 업적 데이터를 내보냅니다<br><br><span class="ttdesc">활성화하면, <span class="ttcode">achdata.json</span>이 다음 경로에 내보내집니다:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "알림 내 텍스트 요소 간의 수직 간격을 조정",
-        ssmode: `스크린샷에서 전체 화면을 캡처할지 현재 게임 창<span style="color: red;">*</span>만 캡처할지를 설정<br><br><span class="ttdesc">현재 게임의 <span class="hl">실행 파일</span>을 찾을 수 없는 경우(<i>자동 프로세스 추적 또는 <span class="hl">연결된 게임</span>으로 추가한 경우</i>), 이 옵션은 기본적으로 "화면" 모드로 설정됩니다</span>`
+        ssmode: `스크린샷에서 전체 화면을 캡처할지 현재 게임 창<span style="color: red;">*</span>만 캡처할지를 설정<br><br><span class="ttdesc">현재 게임의 <span class="hl">실행 파일</span>을 찾을 수 없는 경우(<i>자동 프로세스 추적 또는 <span class="hl">연결된 게임</span>으로 추가한 경우</i>), 이 옵션은 기본적으로 "화면" 모드로 설정됩니다</span>`,
+        replaynotify: "최근 성취 알림을 재생",
+        replaynotifyshortcut: "지정된 단축키를 사용하여 최근 성취 알림을 재생",
+        replaynotifyempty: `<br><br><span class="ttdesc">재생 대기열이 비어 있습니다. 알림을 재생하려면 성취를 해제하세요</span>`,
+        uselegacynotifytimer: `알림 창 외부의 정적 타이머를 사용하여 알림 숨기기<br><br><span class="ttdesc">이 옵션을 활성화하면 알림 애니메이션이 완료되지 않을 수 있습니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",

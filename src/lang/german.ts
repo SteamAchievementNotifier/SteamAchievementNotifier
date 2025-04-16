@@ -171,7 +171,9 @@ export const translations = {
                 webhooktypes: "Webhook-Typen",
                 webhookcaution: `Indem Sie diese Option aktivieren und einen gültigen Discord-Webhook-Link angeben, erklären Sie sich damit einverstanden, dass Sie verstehen, dass <u>alle Erfolgs- und Spieledaten des aktuellen Steam-Benutzers</u> über den angegebenen Discord-Server-Link gepostet werden.<br><br>Wenn Sie nicht möchten, dass der Steam Achievement Notifier diese Informationen in Ihrem Namen veröffentlicht, deaktivieren Sie bitte diese Option.`,
                 webhooklaststatus: "Letzter Status",
-                webhookspoilers: `Spoiler-Tag hinzufügen`
+                webhookspoilers: `Spoiler-Tag hinzufügen`,
+                replaynotify: "Wiederholungsbenachrichtigung",
+                replaynotifyshortcut: "Tastenkombination für Wiederholung"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alternativer Verarbeitungsmodus",
                 notifydebug: "Debug-Benachrichtigungen Anzeigen",
                 exportachdata: "Erfolgsdaten exportieren",
+                uselegacynotifytimer: "Alten Benachrichtigungs-Timer verwenden",
                 usecustomfiles: "Benutzerdefinierte App-Dateien Verwenden",
                 showcustomfiles: "Benutzerdefinierte App-Dateien Anzeigen"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Die Farbe des dritten Textelements festlegen",
         exportachdata: `Erfolgsdaten in eine JSON-Datei exportieren, wenn ein Erfolg freigeschaltet wird<br><br><span class="ttdesc">Wenn aktiviert, wird <span class="ttcode">achdata.json</span> exportiert nach:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Passt den vertikalen Abstand zwischen den Textelementen in der Benachrichtigung an",
-        ssmode: `Legt fest, ob beim Erstellen von Screenshots der gesamte Bildschirm oder nur das aktuelle Spielfenster<span style="color: red;">*</span> erfasst wird<br><br><span class="ttdesc">Wenn die <span class="hl">ausführbare Datei</span> des aktuellen Spiels nicht gefunden werden kann (<i>entweder über die <span class="hl">automatische Prozessverfolgung</span> oder durch Hinzufügen als <span class="hl">Verknüpftes Spiel</span></i>), wird diese Option standardmäßig auf "Bildschirm" gesetzt</span>`
+        ssmode: `Legt fest, ob beim Erstellen von Screenshots der gesamte Bildschirm oder nur das aktuelle Spielfenster<span style="color: red;">*</span> erfasst wird<br><br><span class="ttdesc">Wenn die <span class="hl">ausführbare Datei</span> des aktuellen Spiels nicht gefunden werden kann (<i>entweder über die <span class="hl">automatische Prozessverfolgung</span> oder durch Hinzufügen als <span class="hl">Verknüpftes Spiel</span></i>), wird diese Option standardmäßig auf "Bildschirm" gesetzt</span>`,
+        replaynotify: "Wiederhole die letzte Erfolgsbenachrichtigung",
+        replaynotifyshortcut: "Wiederhole die letzte Erfolgsbenachrichtigung mit der angegebenen Tastenkombination",
+        replaynotifyempty: `<br><br><span class="ttdesc">Die Wiederholungswarteschlange ist leer. Schalte einen Erfolg frei, um eine Benachrichtigung zu wiederholen</span>`,
+        uselegacynotifytimer: `Benachrichtigungen mit einem statischen Timer außerhalb des Benachrichtigungsfensters ausblenden<br><br><span class="ttdesc">Das Aktivieren dieser Option kann dazu führen, dass Benachrichtigungsanimationen nicht abgeschlossen werden</span>`
     },
     update: {
         updateavailable: "Update verfügbar",

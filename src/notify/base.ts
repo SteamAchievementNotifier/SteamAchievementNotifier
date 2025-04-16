@@ -2,6 +2,9 @@ import { ipcRenderer } from "electron"
 import path from "path"
 import fs from "fs"
 
+window.addEventListener("unhandledrejection",event => ipcRenderer.send("notifyfailed",event.reason as Error))
+window.addEventListener("error",event => ipcRenderer.send("notifyfailed",event.error as Error))
+
 const imgs = [document.getElementById("achicon")] as HTMLImageElement[]
 
 const hiddenelems = [
@@ -77,14 +80,14 @@ const notifyhelper = {
 
         const { customisation, iswebview, skipaudio, info: { type } } = obj
         if (iswebview === "customiser" || iswebview === "sspreview") return
-        
-        ipcRenderer.send(`notify${status}`,res)
+
+        ipcRenderer.send(`notify${status}`,...(status === "failed" ? [res.msg,obj.info.id,obj.info.apiname] : [res]))
         status === "ready" && ipcRenderer.sendToHost("sscapture")
     
         return notifyhelper.playaudio(customisation,iswebview,skipaudio,type)
     },
     setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string,gameartlogo: string,ra?: boolean): Promise<HTMLImageElement[] | null> => {
-        return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {    
+        return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {
             const fontloader = document.getElementById("fontloader")
             fontloader && fontloader.remove()
             
@@ -407,25 +410,34 @@ try {
     ipcRenderer.once("ss",() => document.body.setAttribute("ss",""))
     ipcRenderer.on("playback",(event,shouldpause: boolean) => document.body.toggleAttribute("paused",shouldpause))
     
-    ipcRenderer.on("notifyfinished", (event,isextwin?: boolean,preset?: string) => {
-        if (isextwin) return ipcRenderer.send("notifyclosed",isextwin,preset)
-    
-        document.body.addEventListener("transitionend", (event: TransitionEvent) => event.propertyName === "opacity" && ipcRenderer.send("notifyfinished"))
-        document.documentElement.style.setProperty("--bodyopacity","0")
+    ipcRenderer.on("notifyfinished",(event,isextwin?: boolean,preset?: string) => {
+        try {
+            if (isextwin) return ipcRenderer.send("notifyclosed",isextwin,preset)
+        
+            document.body.addEventListener("transitionend", (event: TransitionEvent) => event.propertyName === "opacity" && ipcRenderer.send("notifyfinished"))
+            document.documentElement.style.setProperty("--bodyopacity","0")
+        } catch (err) {
+            ipcRenderer.send("notifyfailed",err as Error)
+        }
     })
     
-    ipcRenderer.on("notifyclosed", (event,preset: string) => {
-        document.getElementById(`${preset}css`) && document.getElementById(`${preset}css`)!.remove()
-        document.documentElement.removeAttribute("style")
-    
-        const body = document.createElement("body")
-        const audio = document.createElement("audio")
-        audio.src = ""
-        body.appendChild(audio)
-    
-        document.body.remove()
-        document.documentElement.appendChild(body)
+    // !!! May not be needed after `extwin` switching to offscreen window
+    ipcRenderer.on("notifyclosed",(event,preset: string) => {
+        try {
+            document.getElementById(`${preset}css`) && document.getElementById(`${preset}css`)!.remove()
+            document.documentElement.removeAttribute("style")
+        
+            const body = document.createElement("body")
+            const audio = document.createElement("audio")
+            audio.src = ""
+            body.appendChild(audio)
+        
+            document.body.remove()
+            document.documentElement.appendChild(body)
+        } catch (err) {
+            ipcRenderer.send("notifyfailed",err as Error)
+        }
     })
 } catch (err) {
-    ipcRenderer.send("notifyfailed",null,err as Error)
+    ipcRenderer.send("notifyfailed",err as Error)
 }

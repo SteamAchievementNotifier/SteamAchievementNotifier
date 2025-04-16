@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `URL del Webhook`,
                 webhookcaution: `Abilitando questa opzione e fornendo un link Webhook Discord valido, accetti di comprendere che <u>tutte le informazioni sui successi e sui giochi per l'attuale utente Steam</u> saranno pubblicate sul server Discord specificato tramite il link Webhook fornito.<br><br>Se non desideri che Steam Achievement Notifier pubblichi queste informazioni per tuo conto, disabilita questa opzione.`,
                 webhooklaststatus: "Ultimo Stato",
-                webhookspoilers: `Aggiungi tag spoiler`
+                webhookspoilers: `Aggiungi tag spoiler`,
+                replaynotify: "Notifica di ripetizione",
+                replaynotifyshortcut: "Scorciatoia di ripetizione"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Modalità di Elaborazione Alternativa",
                 notifydebug: "Mostra notifiche di debug",
                 exportachdata: "Esporta dati di successo",
+                uselegacynotifytimer: "Usa il timer di notifica legacy",
                 usecustomfiles: "Utilizza file personalizzati dell'applicazione",
                 showcustomfiles: "Mostra file personalizzati dell'applicazione"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Imposta il colore del terzo elemento di testo",
         exportachdata: `Esporta i dati di successo in un file JSON quando un successo viene sbloccato<br><br><span class="ttdesc">Quando abilitato, <span class="ttcode">achdata.json</span> verrà esportato in:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Regola la spaziatura verticale tra gli elementi di testo nella notifica",
-        ssmode: `Imposta se catturare l'intero schermo o solo la finestra del gioco corrente<span style="color: red;">*</span> negli screenshot<br><br><span class="ttdesc">Se il <span class="hl">file eseguibile</span> del gioco corrente non può essere trovato (<i>sia tramite <span class="hl">monitoraggio automatico dei processi</span> che aggiungendolo come <span class="hl">Gioco Collegato</span></i>), questa opzione tornerà automaticamente alla modalità "Schermo"</span>`
+        ssmode: `Imposta se catturare l'intero schermo o solo la finestra del gioco corrente<span style="color: red;">*</span> negli screenshot<br><br><span class="ttdesc">Se il <span class="hl">file eseguibile</span> del gioco corrente non può essere trovato (<i>sia tramite <span class="hl">monitoraggio automatico dei processi</span> che aggiungendolo come <span class="hl">Gioco Collegato</span></i>), questa opzione tornerà automaticamente alla modalità "Schermo"</span>`,
+        replaynotify: "Ripeti l'ultima notifica di conquista",
+        replaynotifyshortcut: "Ripeti l'ultima notifica di conquista utilizzando la scorciatoia da tastiera specificata",
+        replaynotifyempty: `<br><br><span class="ttdesc">La coda di ripetizione è vuota. Sblocca una conquista per ripetere una notifica</span>`,
+        uselegacynotifytimer: `Nascondi le notifiche utilizzando un timer statico esterno alla finestra della notifica<br><br><span class="ttdesc">Abilitare questa opzione potrebbe causare il fallimento del completamento delle animazioni delle notifiche</span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

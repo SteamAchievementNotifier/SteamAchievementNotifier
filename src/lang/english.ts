@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `By enabling this option and providing a valid Discord Webhook link, you agree that you understand that <u>all achievement and game information for the current Steam user</u> will be posted to the specified Discord server via the Webhook link provided.<br><br>If you do not wish for Steam Achievement Notifier to post this information on your behalf, please disable this option.`,
                 webhooklaststatus: "Last Status",
-                webhookspoilers: `Add Spoiler Tag`
+                webhookspoilers: `Add Spoiler Tag`,
+                replaynotify: "Replay Notification",
+                replaynotifyshortcut: "Replay Shortcut"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alt. Process Mode",
                 notifydebug: "Show Notification DevTools",
                 exportachdata: "Export Achievement Data",
+                uselegacynotifytimer: "Use Legacy Notification Timer",
                 usecustomfiles: "Use Custom App Files",
                 showcustomfiles: "Show Custom App Files"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Set the color of the third text element",
         exportachdata: `Export achievement data to a JSON file when an achievement is unlocked<br><br><span class="ttdesc">When enabled, <span class="ttcode">achdata.json</span> will be exported to:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Adjust the vertical spacing between text elements within the notification",
-        ssmode: `Set whether to capture the entire screen or the current game window<span style="color: red;">*</span> in screenshots<br><br><span class="ttdesc">If the current game's <span class="hl">executable file</span> cannot be located (<i>either via <span class="hl">automatic process tracking</span> or adding as a <span class="hl">Linked Game</span></i>), this option will default to "Screen" mode</span>`
+        ssmode: `Set whether to capture the entire screen or the current game window<span style="color: red;">*</span> in screenshots<br><br><span class="ttdesc">If the current game's <span class="hl">executable file</span> cannot be located (<i>either via <span class="hl">automatic process tracking</span> or adding as a <span class="hl">Linked Game</span></i>), this option will default to "Screen" mode</span>`,
+        replaynotify: "Replay the last achievement notification",
+        replaynotifyshortcut: "Replay the last achievement notification using the specified keyboard shortcut",
+        replaynotifyempty: `<br><br><span class="ttdesc">Replay queue is empty. Unlock an achievement to replay a notification</span>`,
+        uselegacynotifytimer: `Despawn notifications using a static timer external to the notification window<br><br><span class="ttdesc">Enabling this option may result in notification animations failing to complete</span>`
     },
     update: {
         updateavailable: "Update available",

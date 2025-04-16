@@ -120,6 +120,8 @@ declare interface Config {
     rakey: string,
     exportachdata: boolean,
     colorprofile: "none" | "srgb" | "display-p3-d65" | "color-spin-gamma24" | "scrgb-linear" | "hdr10",
+    replaynotifyshortcut: string,
+    uselegacynotifytimer: boolean,
     customisation: {
         main: Customisation,
         rare: Customisation,

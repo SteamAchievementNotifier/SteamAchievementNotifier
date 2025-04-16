@@ -739,6 +739,26 @@ span#raloghelp {
     margin-bottom: 0.5rem;
 }
 
+.rect#replaynotify {
+    --icon: url("../../icon/history.svg");
+}
+
+body[allowreplay] dialog[menu] #settingscontent button.rect#replaynotify:hover::before {
+    filter: invert();
+}
+
+body:not([allowreplay]) #settingscontent button.rect#replaynotify {
+    cursor: not-allowed;
+}
+
+body:not([allowreplay]) #settingscontent button.rect#replaynotify > span {
+    filter: none;
+}
+
+body:not([allowreplay]) #settingscontent button.rect#replaynotify::after {
+    background-color: red;
+}
+
 @media (orientation: portrait) {
     dialog[menu] > #content {
         width: 100%;

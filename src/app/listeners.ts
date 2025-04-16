@@ -13,6 +13,7 @@ let appid: number = 0
 let extwin: BrowserWindow | null = null
 let statwin: BrowserWindow | null = null
 let ssfailed = false
+let replay: { queueobj: WinType, src?: number } | null = null
 const gameartfiles: string[] = []
 
 export const listeners = {
@@ -65,7 +66,7 @@ export const listeners = {
 
         let suspended = false
 
-        const updatetray = async (tray: Tray,gamename?: string | null,num?: number) => {
+        const updatetray = async (tray: Tray,gamename?: string | null,num?: number,allowreplay?: boolean) => {
             tray && tray.removeAllListeners()
 
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
@@ -120,6 +121,14 @@ export const listeners = {
                     ]
                 },
                 {
+                    label: await language.get("replaynotify",["settings","notifications","content"]),
+                    icon: nativeImage
+                            .createFromPath(path.join(__root,"icon","history.png"))
+                            .resize({ width: 16 }),
+                    click: () => ipcMain.emit("replaynotify"),
+                    enabled: replay !== null
+                },
+                {
                     label: await language.get("exit"),
                     icon: nativeImage
                             .createFromPath(path.join(__root,"icon","close.png"))
@@ -148,7 +157,7 @@ export const listeners = {
         }
 
         updatetray(tray)
-        ipcMain.on("lang", (event,gamename: string | null,num: number) => {
+        ipcMain.on("lang",(event,gamename: string | null,num: number) => {
             updatetray(tray!,gamename,num)
             statwin && worker && worker.webContents.send("stats")
         })
@@ -828,6 +837,8 @@ export const listeners = {
                 config.set("statwin",!value)
                 ipcMain.emit("statwin",null,!value)
             })
+
+            globalShortcut.register(config.get("replaynotifyshortcut") as string,() => ipcMain.emit("replaynotify"))
         })
 
         ipcMain.on("loadfile", async (event,filetype) => {
@@ -988,7 +999,7 @@ export const listeners = {
             preset !== "os" && notify.customisation.ssenabled && capturesrc(notify,src)
 
             win.webContents.send("queue",queue)
-            checkifrunning(info)
+            checkifrunning(info,src)
         })
 
         const buildnotify = async (notify: Notify): Promise<BuildNotifyInfo> => {
@@ -1069,12 +1080,16 @@ export const listeners = {
         let notifywin: BrowserWindow | Notification | null = null
         let offscreenwin: BrowserWindow | null = null
 
-        const checkifrunning = (info: BuildNotifyInfo): any => {
+        const checkifrunning = (info: BuildNotifyInfo,src?: number): any => {
             const i = queue.findIndex(obj => obj.notify.id === info.id)
-            if (running || queue[i].order !== 0) return setTimeout(() => checkifrunning(info),1000)
+            if (running || queue[i].order !== 0) return setTimeout(() => checkifrunning(info,src),1000)
+
+            if (!queue[i].notify.istestnotification) {
+                replay = { queueobj: queue[i], src }
+                win.webContents.send("allowreplay",replay)
+            }
 
             const config = sanconfig.get()
-
             const { type, notify, notify: { customisation }, options } = queue.splice(i,1)[0]
 
             for (const queueobj of queue) {
@@ -1177,6 +1192,8 @@ export const listeners = {
                         if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notify" ipc event`)
                         offscreenwin.webContents.send("notify",await notifyinfo(true))
                     }
+
+                    config.get("uselegacynotifytimer") && log.write("INFO","Legacy notification timer enabled")
                 })
     
                 config.get("notifydebug") && sanhelper.setdevtools(notifywin)
@@ -1247,19 +1264,25 @@ export const listeners = {
                 }
             })
 
-            // "animend" is received from `base.ts`, rather than controlled from here via Timeout
-            // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
-            ipcMain.once("animend",() => {
+            const notifyfinished = () => {
                 notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished") : ipcMain.emit("notifyfinished")
                 
                 if (extwin) {
                     if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
                     offscreenwin.webContents.send("notifyfinished")
                 }
-            })
+            }
+
+            // "animend" is received from `base.ts`, rather than controlled from here via Timeout
+            // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
+            // When `uselegacynotifytimer` is enabled, the legacy `setTimeout()` will be used instead
+            config.get("uselegacynotifytimer") ? setTimeout(notifyfinished,customisation.displaytime * 1000) : ipcMain.once("animend",notifyfinished)
         }
 
-        ipcMain.on("notifyfailed",(event,notify?: Notify,err?: Error) => {
+        ipcMain.on("notifyfailed",(event,err?: Error,id?: number,apiname?: string) => {
+            let success = true
+            let catcherr: Error | null = null
+            
             try {
                 notifywin && (notifywin instanceof BrowserWindow ? notifywin.destroy() : notifywin.close()) // Destroys/closes the window
                 notifywin = null // Resets `notifywin` var
@@ -1274,13 +1297,19 @@ export const listeners = {
                 running = false // Resets `running` var
     
                 win.webContents.send("notifyprogress",0,true) // Resets UI progress circle
-                notify && removesrcimg(notify.id) // Removes any corresponding screenshots from `temp`
-
-                err && log.write("ERROR",`Error displaying notification ${notify ? `for "${notify.apiname}"` : ""}: ${err}`)
-                return log.write("WARN",`Notification window failed ${notify ? `for "${notify.apiname}"` : ""} - cleanup performed successfully`)
+                id && removesrcimg(id) // Removes any corresponding screenshots from `temp`                
             } catch (err) {
-                return log.write("ERROR",`Notification window cleanup failed ${notify ? `for "${notify.apiname}"` : ""}: ${err}`)
+                success = false
+                catcherr = err as Error
             }
+
+            return log.write("ERROR",`Notification window failed${apiname ? ` for ${apiname}` : ""}${err ? `: ${err}` : ""}\n\n${success ? "✅" : "❌"} Cleanup ${success ? "performed successfully" : `failed: ${catcherr || ""}`}`)
+        })
+
+        ipcMain.on("replaynotify",() => {
+            if (!replay) return log.write("WARN",`Unable to replay notification: Replay queue is empty`)
+            const { queueobj: { notify }, src } = replay
+            ipcMain.emit("notify",null,notify,null,src)
         })
 
         ipcMain.on("sendwebhook", (event,notify: Notify) => win.webContents.send("sendwebhook",notify))

@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Ved at aktivere denne mulighed og angive et gyldigt Discord-webhook-link, accepterer du, at du forstår, at <u>al præstations- og spilinformations for den nuværende Steam-bruger</u> vil blive sendt til den angivne Discord-server via det angivne webhook-link.<br><br>Hvis du ikke ønsker, at Steam Achievement Notifier skal sende disse oplysninger på dine vegne, skal du deaktivere denne mulighed.`,
                 webhooklaststatus: "Sidste status",
-                webhookspoilers: `Tilføj spoiler-mærke`
+                webhookspoilers: `Tilføj spoiler-mærke`,
+                replaynotify: "Gentagelsesnotifikation",
+                replaynotifyshortcut: "Genvej til gentagelse"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alternativ procesbehandlingstilstand",
                 notifydebug: "Vis notifikationer for fejlfinding",
                 exportachdata: "Eksporter præstationsdata",
+                uselegacynotifytimer: "Brug ældre notifikations-timer",
                 usecustomfiles: "Brug tilpassede app-filer",
                 showcustomfiles: "Vis tilpassede app-filer"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Indstil farven på det tredje tekstelement",
         exportachdata: `Eksporter præstationsdata til en JSON-fil, når en præstation låses op<br><br><span class="ttdesc">Når aktiveret, vil <span class="ttcode">achdata.json</span> blive eksporteret til:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Justerer den lodrette afstand mellem textelementerne i notifikationen",
-        ssmode: `Angiv om hele skærmen eller det aktuelle spilvindue<span style="color: red;">*</span> skal fanges i skærmbilleder<br><br><span class="ttdesc">Hvis spillets <span class="hl">eksekverbare fil</span> ikke kan findes (<i>enten via <span class="hl">automatisk procesovervågning</span> eller tilføjet som et <span class="hl">Tilknyttet Spil</span></i>), vil denne mulighed som standard være "Skærm"</span>`
+        ssmode: `Angiv om hele skærmen eller det aktuelle spilvindue<span style="color: red;">*</span> skal fanges i skærmbilleder<br><br><span class="ttdesc">Hvis spillets <span class="hl">eksekverbare fil</span> ikke kan findes (<i>enten via <span class="hl">automatisk procesovervågning</span> eller tilføjet som et <span class="hl">Tilknyttet Spil</span></i>), vil denne mulighed som standard være "Skærm"</span>`,
+        replaynotify: "Gentag den seneste præstationsnotifikation",
+        replaynotifyshortcut: "Gentag den seneste præstationsnotifikation med den angivne tastaturgenvej",
+        replaynotifyempty: `<br><br><span class="ttdesc">Gentagelseskøen er tom. Lås op for en præstation for at gentage en notifikation</span>`,
+        uselegacynotifytimer: `Fjern notifikationer ved hjælp af en statisk timer ekstern til notifikationsvinduet<br><br><span class="ttdesc">Aktivering af denne indstilling kan medføre, at notifikationsanimationer ikke fuldføres</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

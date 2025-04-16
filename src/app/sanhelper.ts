@@ -751,7 +751,7 @@ export const sanhelper: SANHelper = {
                 `,{
                     ...defaulttippy,
                     maxWidth: sanhelper.maxwidth(wideelems,elem),
-                    content: await language.get(elem.id,["tooltips"]),
+                    content: `${await language.get(elem.id,["tooltips"])}${(elem.id === "replaynotify" && !document.body.hasAttribute("allowreplay") ? await language.get("replaynotifyempty",["tooltips"]) : "")}`,
                     appendTo: settings,
                     onTrigger(inst) {
                         inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })

@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Ved å aktivere dette alternativet og oppgi en gyldig Discord Webhook-lenke, samtykker du i å forstå at <u>all prestasjons- og spillinformasjon for den nåværende Steam-brukeren</u> vil bli postet til den angitte Discord-serveren via den oppgitte Webhook-lenken.<br><br>Hvis du ikke ønsker at Steam Achievement Notifier skal poste denne informasjonen på dine vegne, vennligst deaktiver dette alternativet.`,
                 webhooklaststatus: "Siste status",
-                webhookspoilers: `Legg til spoiler-merke`
+                webhookspoilers: `Legg til spoiler-merke`,
+                replaynotify: "Gjenta varsling",
+                replaynotifyshortcut: "Gjenta snarveien"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alternativ prosessbehandlingmodus",
                 notifydebug: "Vis feilsøkingsvarsler",
                 exportachdata: "Eksporter prestasjonsdata",
+                uselegacynotifytimer: "Bruk eldre varslingstimer",
                 usecustomfiles: "Bruk egendefinerte app-filer",
                 showcustomfiles: "Vis egendefinerte app-filer"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Sett fargen på det tredje tekstelementet",
         exportachdata: `Eksporter prestasjonsdata til en JSON-fil når en prestasjon låses opp<br><br><span class="ttdesc">Når aktivert, vil <span class="ttcode">achdata.json</span> bli eksportert til:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Justere den vertikale avstanden mellom textelementene i varslingen",
-        ssmode: `Angi om skjermbildet skal ta hele skjermen eller bare det nåværende spillvinduet<span style="color: red;">*</span><br><br><span class="ttdesc">Hvis den nåværende spillens <span class="hl">kjørbare fil</span> ikke kan finnes (<i>enten via <span class="hl">automatisk prosesssporing</span> eller ved å legge den til som et <span class="hl">Linked Game</span></i>), vil dette alternativet standardisere til "Skjerm"-modus</span>`
+        ssmode: `Angi om skjermbildet skal ta hele skjermen eller bare det nåværende spillvinduet<span style="color: red;">*</span><br><br><span class="ttdesc">Hvis den nåværende spillens <span class="hl">kjørbare fil</span> ikke kan finnes (<i>enten via <span class="hl">automatisk prosesssporing</span> eller ved å legge den til som et <span class="hl">Linked Game</span></i>), vil dette alternativet standardisere til "Skjerm"-modus</span>`,
+        replaynotify: "Gjenta den siste prestasjonsvarslingen",
+        replaynotifyshortcut: "Gjenta den siste prestasjonsvarslingen ved å bruke den angitte snarveien",
+        replaynotifyempty: `<br><br><span class="ttdesc">Gjentakelseskoen er tom. Lås opp en prestasjon for å gjenta en varsling</span>`,
+        uselegacynotifytimer: `Skjul varsler ved hjelp av en statisk timer utenfor varslingsvinduet<br><br><span class="ttdesc">Aktivering av dette alternativet kan føre til at varslingsanimasjoner ikke fullføres</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

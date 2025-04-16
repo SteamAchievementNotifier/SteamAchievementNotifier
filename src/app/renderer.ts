@@ -395,51 +395,57 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         src = themeswitchsrc || src
     }
 
-    if (document.querySelector("dialog[menu] #settingscontent")) {
-        document.querySelectorAll(`#settingscontent .opt > input[type="checkbox"], #settingscontent .opt > .sub > input[type="checkbox"]`).forEach(opt => sanhelper.getcheckbox(config,opt,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
-        document.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
-        document.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
-        document.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
-        document.querySelectorAll(`#settingscontent .cont:has(.title#ra) .opt:has(input[type="text"]) > input,#settingscontent .cont:has(.title#ra) .opt:has(input[type="password"]) > input`).forEach(input => sanhelper.setvalue(config,input,null))
-        document.getElementById("sspreview")!.onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
+    const settingscontent = document.querySelector("dialog[menu] #settingscontent")
+
+    if (settingscontent) {
+        settingscontent.querySelectorAll(`#settingscontent .opt > input[type="checkbox"], #settingscontent .opt > .sub > input[type="checkbox"]`).forEach(opt => sanhelper.getcheckbox(config,opt,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
+        settingscontent.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
+        settingscontent.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
+        settingscontent.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
+        settingscontent.querySelectorAll(`#settingscontent .cont:has(.title#ra) .opt:has(input[type="text"]) > input,#settingscontent .cont:has(.title#ra) .opt:has(input[type="password"]) > input`).forEach(input => sanhelper.setvalue(config,input,null))
+        ;(settingscontent.querySelector("#sspreview") as HTMLButtonElement).onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
+        ;(settingscontent.querySelector("#replaynotify") as HTMLButtonElement).onclick = () => ipcRenderer.send("replaynotify")
+        
 
         const { elemselector } = await import("./elemselector")
-        elemselector(document.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
+        elemselector(settingscontent.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
 
         const { webhookwrapper } = await import("./webhook")
         const setwebhookwrapper = () => {
-            const wrapper = document.getElementById("webhookwrapper")
+            const wrapper = settingscontent.querySelector("#webhookwrapper")
             wrapper && wrapper.remove()
 
-            return config.get("webhooks") && webhookwrapper(document.querySelector(`#settingscontent .wrapper:has(> #webhooks)`)!)
+            return config.get("webhooks") && webhookwrapper(settingscontent.querySelector(`.wrapper:has(> #webhooks)`)!)
         }
 
         requestAnimationFrame(setwebhookwrapper)
         sanhelper.loadraemus(rasupported,config)
 
-        synced && document.getElementById("settingscontent")!.setAttribute("synced",synced)
+        synced && settingscontent.setAttribute("synced",synced)
         
-        const synclbl = document.querySelector("#settingscontent .synclbl")
+        const synclbl = settingscontent.querySelector(".synclbl")
         synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
 
         // Adds "soon" attribute to all ids in `nohwa` array when `config.nohwa` is enabled
-        requestAnimationFrame(() => nohwa.forEach(id => document.querySelector(`.opt:has(#${id})`)!.toggleAttribute("soon",config.get("nohwa"))))
+        requestAnimationFrame(() => nohwa.forEach(id => settingscontent.querySelector(`.opt:has(#${id})`)!.toggleAttribute("soon",config.get("nohwa"))))
     }
 
-    if (document.querySelector("body[customiser]")) {
+    const customiser = document.querySelector("body[customiser]")
+
+    if (customiser) {
         if (!detail.noreload) {
             loadwebview()
-            document.getElementById("playback")!.onclick = playback
-            document.getElementById("replay")!.onclick = loadwebview
+            ;(customiser.querySelector("#playback") as HTMLButtonElement).onclick = playback
+            ;(customiser.querySelector("#replay") as HTMLButtonElement).onclick = loadwebview
         }
 
-        document.querySelector("#customisertablbl > span")!.textContent = type === "main" ? await language.get("main") : (type === "rare" ? await language.get("rare") : await language.get("plat"))
+        customiser.querySelector("#customisertablbl > span")!.textContent = type === "main" ? await language.get("main") : (type === "rare" ? await language.get("rare") : await language.get("plat"))
         
-        document.querySelectorAll(`#customisercontent .opt > input[type="checkbox"]`).forEach(elem => sanhelper.getcheckbox(config,elem,keypath))
-        document.querySelectorAll(`#customisercontent .opt:has(input[type="checkbox"]) > span, #customisercontent .opt > input[type="checkbox"]`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,keypath))
-        document.querySelectorAll(`#customisercontent .opt > input[type="range"], #customisercontent .opt > input[type="color"], #customisercontent .opt > select, #customisercontent .opt > input[type="text"], #customisercontent .opt > input[type="number"]`).forEach(elem => sanhelper.setvalue(config,elem,keypath))
-        document.querySelectorAll(`#customisercontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,btn.id === "logo" || btn.id.includes("decoration") ? `${keypath}.customicons.${config.get(`${keypath}.preset`)}` : (btn.id === "plat" ? `${keypath}.customicons` : keypath)))
-        document.querySelectorAll(`#customisercontent .opt > .delbtn`).forEach(btn => (btn as HTMLButtonElement).onclick = async () => {
+        customiser.querySelectorAll(`#customisercontent .opt > input[type="checkbox"]`).forEach(elem => sanhelper.getcheckbox(config,elem,keypath))
+        customiser.querySelectorAll(`#customisercontent .opt:has(input[type="checkbox"]) > span, #customisercontent .opt > input[type="checkbox"]`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,keypath))
+        customiser.querySelectorAll(`#customisercontent .opt > input[type="range"], #customisercontent .opt > input[type="color"], #customisercontent .opt > select, #customisercontent .opt > input[type="text"], #customisercontent .opt > input[type="number"]`).forEach(elem => sanhelper.setvalue(config,elem,keypath))
+        customiser.querySelectorAll(`#customisercontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,btn.id === "logo" || btn.id.includes("decoration") ? `${keypath}.customicons.${config.get(`${keypath}.preset`)}` : (btn.id === "plat" ? `${keypath}.customicons` : keypath)))
+        customiser.querySelectorAll(`#customisercontent .opt > .delbtn`).forEach(btn => (btn as HTMLButtonElement).onclick = async () => {
             const optbtn = btn.parentElement!.querySelector(`.optbtn`) as HTMLButtonElement
             const preset = config.get(`customisation.${type}.preset`) as string
             const key = `${keypath}.${optbtn.classList.contains("customicon") ? `customicons.${optbtn.id === "plat" ? `plat` : `${config.get(`${keypath}.preset`)}.${(optbtn.id.includes("decoration") && Array.isArray(sanconfig.defaulticons.get(preset)!.decoration)) ? `decoration.${[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1]}` : optbtn.id.replace(/\d/,"")}`}` : optbtn.id}`         
@@ -467,7 +473,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             sanhelper.updatetabs(optbtn.id === "soundfile" || optbtn.id === "sounddir")
         })
 
-        const pinbtn = document.querySelector(`#customisercontent > #customiseropts .pinbtn`)! as HTMLButtonElement
+        const pinbtn = customiser.querySelector(`#customisercontent > #customiseropts .pinbtn`)! as HTMLButtonElement
         pinbtn.parentElement!.toggleAttribute("sticky",(JSON.parse(localStorage.getItem("pinned")!) as string[]).includes(pinbtn.nextElementSibling!.id))
 
         pinbtn.onclick = event => {
@@ -481,7 +487,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             localStorage.setItem("pinned",JSON.stringify(value ? [...pinned,elem.id] : pinned.filter(id => id !== elem.id),null,4))
         }
 
-        const soundpreviewbtn = document.querySelector("#customisercontent button.rect#preview")! as HTMLButtonElement
+        const soundpreviewbtn = customiser.querySelector("#customisercontent button.rect#preview")! as HTMLButtonElement
         const audio = document.querySelector("audio")!
         
         soundpreviewbtn.onclick = () => handleaudio(keypath,audio,soundpreviewbtn)
@@ -857,7 +863,7 @@ ipcRenderer.on("shortcut", async (event,type) => {
     sendtestnotify()
 })
 
-window.addEventListener("lang", async () => {
+window.addEventListener("lang",async () => {
     document.querySelector(".rect#game > span")!.textContent = globalgamename || await language.get("game",["app","content"])
     ipcRenderer.send("lang",globalgamename,achnum)
     document.getElementById("webhookwrapper")?.remove()
@@ -1079,4 +1085,9 @@ ipcRenderer.on("ragame",async (event,status: "wait" | "idle" | "start" | "stop" 
     })
 
     document.body.style.setProperty(`--rastatus`,`"${await language.get(status,["settings","ra","content"])}"`)
+})
+
+ipcRenderer.on("allowreplay",(event,replay: WinType | null) => {
+    document.body.toggleAttribute("allowreplay",replay !== null)
+    replay && window.dispatchEvent(new CustomEvent("lang"))
 })

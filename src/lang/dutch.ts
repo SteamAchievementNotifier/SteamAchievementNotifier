@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook URL`,
                 webhookcaution: `Door deze optie in te schakelen en een geldige Discord-webhook-link op te geven, ga je ermee akkoord dat je begrijpt dat <u>alle prestatie- en spelinformatie voor de huidige Steam-gebruiker</u> zal worden geplaatst op de opgegeven Discord-server via de verstrekte webhook-link.<br><br>Als je niet wilt dat Steam Achievement Notifier deze informatie namens jou plaatst, schakel dan deze optie uit.`,
                 webhooklaststatus: "Laatste Status",
-                webhookspoilers: `Spoilerlabel toevoegen`
+                webhookspoilers: `Spoilerlabel toevoegen`,
+                replaynotify: "Herhalingsmelding",
+                replaynotifyshortcut: "Sneltoets voor herhaling"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alternatieve Verwerkingsmodus",
                 notifydebug: "Melding Debugger Weergeven",
                 exportachdata: "Prestatiegegevens exporteren",
+                uselegacynotifytimer: "Oude meldingtimer gebruiken",
                 usecustomfiles: "Aangepaste App-bestanden Gebruiken",
                 showcustomfiles: "Aangepaste App-bestanden Weergeven"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Stel de kleur in van het derde tekstelement",
         exportachdata: `Exporteer prestatiegegevens naar een JSON-bestand wanneer een prestatie wordt ontgrendeld<br><br><span class="ttdesc">Wanneer ingeschakeld, wordt <span class="ttcode">achdata.json</span> geëxporteerd naar:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Past de verticale afstand aan tussen tekstelementen in de melding",
-        ssmode: `Stel in of de volledige schermweergave of alleen het huidige spelvenster<span style="color: red;">*</span> moet worden vastgelegd bij schermafbeeldingen<br><br><span class="ttdesc">Als het <span class="hl">uitvoerbare bestand</span> van het huidige spel niet kan worden gevonden (<i>hetzij via <span class="hl">automatische procesdetectie</span> of door het toe te voegen als een <span class="hl">Gekoppeld Spel</span></i>), wordt deze optie standaard ingesteld op "Scherm"</span>`
+        ssmode: `Stel in of de volledige schermweergave of alleen het huidige spelvenster<span style="color: red;">*</span> moet worden vastgelegd bij schermafbeeldingen<br><br><span class="ttdesc">Als het <span class="hl">uitvoerbare bestand</span> van het huidige spel niet kan worden gevonden (<i>hetzij via <span class="hl">automatische procesdetectie</span> of door het toe te voegen als een <span class="hl">Gekoppeld Spel</span></i>), wordt deze optie standaard ingesteld op "Scherm"</span>`,
+        replaynotify: "Herhaal de laatste prestatiemelding",
+        replaynotifyshortcut: "Herhaal de laatste prestatiemelding met de opgegeven sneltoets",
+        replaynotifyempty: `<br><br><span class="ttdesc">De herhalingswachtrij is leeg. Ontgrendel een prestatie om een melding te herhalen</span>`,
+        uselegacynotifytimer: `Verberg meldingen met een statische timer buiten het meldingsvenster<br><br><span class="ttdesc">Het inschakelen van deze optie kan ertoe leiden dat meldingsanimaties niet correct worden voltooid</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

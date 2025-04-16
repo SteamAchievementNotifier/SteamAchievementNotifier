@@ -171,7 +171,9 @@ export const translations = {
                 webhooktypes: "Rodzaje Webhook",
                 webhookcaution: `Włączając tę opcję i podając ważny link Webhook Discord, zgadzasz się zrozumieć, że <u>wszystkie informacje o osiągnięciach i grach dla bieżącego użytkownika Steam</u> zostaną opublikowane na wskazanym serwerze Discord za pośrednictwem podanego linku Webhook.<br><br>Jeśli nie chcesz, aby Steam Achievement Notifier publikował te informacje w Twoim imieniu, wyłącz tę opcję.`,
                 webhooklaststatus: "Ostatni status",
-                webhookspoilers: `Dodaj tag spoiler`
+                webhookspoilers: `Dodaj tag spoiler`,
+                replaynotify: "Powiadomienie o powtórzeniu",
+                replaynotifyshortcut: "Skrót klawiszowy do powtórzenia"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alternatywny tryb przetwarzania",
                 notifydebug: "Pokaż powiadomienia debugowania",
                 exportachdata: "Eksportuj dane osiągnięć",
+                uselegacynotifytimer: "Użyj starego timera powiadomień",
                 usecustomfiles: "Użyj niestandardowych plików aplikacji",
                 showcustomfiles: "Pokaż niestandardowe pliki aplikacji"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Ustaw kolor trzeciego elementu tekstowego",
         exportachdata: `Eksportuj dane osiągnięć do pliku JSON, gdy osiągnięcie zostanie odblokowane<br><br><span class="ttdesc">Po włączeniu, plik <span class="ttcode">achdata.json</span> zostanie wyeksportowany do:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Dostosuj pionowy odstęp między elementami tekstowymi w powiadomieniu",
-        ssmode: `Ustaw, czy w zrzutach ekranu ma być uchwycony cały ekran, czy tylko aktualne okno gry<span style="color: red;">*</span><br><br><span class="ttdesc">Jeśli nie można znaleźć <span class="hl">pliku wykonywalnego</span> bieżącej gry (<i>zarówno za pomocą <span class="hl">automatycznego śledzenia procesów</span>, jak i dodając ją jako <span class="hl">Linked Game</span></i>), ta opcja domyślnie przełączy się na tryb "Ekran"</span>`
+        ssmode: `Ustaw, czy w zrzutach ekranu ma być uchwycony cały ekran, czy tylko aktualne okno gry<span style="color: red;">*</span><br><br><span class="ttdesc">Jeśli nie można znaleźć <span class="hl">pliku wykonywalnego</span> bieżącej gry (<i>zarówno za pomocą <span class="hl">automatycznego śledzenia procesów</span>, jak i dodając ją jako <span class="hl">Linked Game</span></i>), ta opcja domyślnie przełączy się na tryb "Ekran"</span>`,
+        replaynotify: "Powtórz ostatnie powiadomienie o osiągnięciu",
+        replaynotifyshortcut: "Powtórz ostatnie powiadomienie o osiągnięciu za pomocą określonego skrótu klawiszowego",
+        replaynotifyempty: `<br><br><span class="ttdesc">Kolejka powtórzeń jest pusta. Odblokuj osiągnięcie, aby powtórzyć powiadomienie</span>`,
+        uselegacynotifytimer: `Ukryj powiadomienia za pomocą statycznego timera poza oknem powiadomienia<br><br><span class="ttdesc">Włączenie tej opcji może spowodować, że animacje powiadomień nie zakończą się poprawnie</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

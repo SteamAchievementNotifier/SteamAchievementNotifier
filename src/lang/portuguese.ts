@@ -171,7 +171,9 @@ export const translations = {
                 webhooktypes: "Tipos de Webhook",
                 webhookcaution: `Ao habilitar esta opção e fornecer um link de Webhook do Discord válido, você concorda que entende que <u>todas as informações sobre conquistas e jogos para o usuário Steam atual</u> serão postadas no servidor Discord especificado através do link de Webhook fornecido.<br><br>Se você não deseja que o Steam Achievement Notifier publique essas informações em seu nome, desative esta opção.`,
                 webhooklaststatus: "Último Status",
-                webhookspoilers: `Adicionar tag de spoiler`
+                webhookspoilers: `Adicionar tag de spoiler`,
+                replaynotify: "Notificação de Repetição",
+                replaynotifyshortcut: "Atalho de Repetição"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Modo de Processamento Alternativo",
                 notifydebug: "Mostrar Notificações de Depuração",
                 exportachdata: "Exportar Dados de Conquista",
+                uselegacynotifytimer: "Usar Timer de Notificação Antigo",
                 usecustomfiles: "Utilizar Arquivos Personalizados da Aplicação",
                 showcustomfiles: "Mostrar Arquivos Personalizados da Aplicação"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Definir a cor do terceiro elemento de texto",
         exportachdata: `Exportar dados de conquista para um arquivo JSON quando uma conquista for desbloqueada<br><br><span class="ttdesc">Quando ativado, <span class="ttcode">achdata.json</span> será exportado para:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Ajusta o espaçamento vertical entre os elementos de texto na notificação",
-        ssmode: `Define se a captura de tela deve pegar toda a tela ou apenas a janela do jogo atual<span style="color: red;">*</span><br><br><span class="ttdesc">Se o <span class="hl">arquivo executável</span> do jogo atual não puder ser encontrado (<i>seja por meio do <span class="hl">rastreamento automático de processos</span> ou adicionando-o como um <span class="hl">Jogo Vinculado</span></i>), esta opção será definida como "Tela" por padrão</span>` 
+        ssmode: `Define se a captura de tela deve pegar toda a tela ou apenas a janela do jogo atual<span style="color: red;">*</span><br><br><span class="ttdesc">Se o <span class="hl">arquivo executável</span> do jogo atual não puder ser encontrado (<i>seja por meio do <span class="hl">rastreamento automático de processos</span> ou adicionando-o como um <span class="hl">Jogo Vinculado</span></i>), esta opção será definida como "Tela" por padrão</span>` ,
+        replaynotify: "Repetir a última notificação de conquista",
+        replaynotifyshortcut: "Repetir a última notificação de conquista usando o atalho de teclado especificado",
+        replaynotifyempty: `<br><br><span class="ttdesc">A fila de repetição está vazia. Desbloqueie uma conquista para repetir uma notificação</span>`,
+        uselegacynotifytimer: `Esconder notificações usando um timer estático fora da janela de notificação<br><br><span class="ttdesc">Ativar essa opção pode fazer com que as animações de notificação falhem</span>`
     },
     update: {
         updateavailable: "Atualização disponível",

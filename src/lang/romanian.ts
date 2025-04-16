@@ -171,7 +171,9 @@ export const translations = {
                 webhooktypes: "Tipuri de Webhook",
                 webhookcaution: `Activând această opțiune și furnizând un link valid Webhook Discord, accepți că înțelegi că <u>toate informațiile despre realizări și jocuri pentru utilizatorul Steam actual</u> vor fi postate pe serverul Discord specificat prin intermediul linkului Webhook furnizat.<br><br>Dacă nu dorești ca Steam Achievement Notifier să posteze aceste informații în numele tău, dezactivează această opțiune.`,
                 webhooklaststatus: "Ultimul Statut",
-                webhookspoilers: `Adaugă etichetă spoiler`
+                webhookspoilers: `Adaugă etichetă spoiler`,
+                replaynotify: "Notificare de repetare",
+                replaynotifyshortcut: "Scurtătură pentru repetare"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Mod Alternativ de Procesare",
                 notifydebug: "Afișare Notificări de Depanare",
                 exportachdata: "Exportă datele realizărilor",
+                uselegacynotifytimer: "Folosește timerul vechi pentru notificări",
                 usecustomfiles: "Utilizare Fișiere de Aplicație Personalizate",
                 showcustomfiles: "Afișare Fișiere de Aplicație Personalizate"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Setează culoarea celui de-al treilea element de text",
         exportachdata: `Exportă datele realizărilor într-un fișier JSON atunci când o realizare este deblocat<br><br><span class="ttdesc">Când este activat, <span class="ttcode">achdata.json</span> va fi exportat în:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Ajustează spațierea verticală dintre elementele de text din notificare",
-        ssmode: `Setează dacă se va captura întreaga fereastră sau doar fereastra jocului curent<span style="color: red;">*</span> în capturile de ecran<br><br><span class="ttdesc">Dacă fișierul <span class="hl">executabil</span> al jocului curent nu poate fi găsit (<i>fie prin <span class="hl">urmărirea automată a proceselor</span>, fie adăugându-l ca un <span class="hl">Joc Legat</span></i>), această opțiune va reveni la modul "Ecran"</span>`
+        ssmode: `Setează dacă se va captura întreaga fereastră sau doar fereastra jocului curent<span style="color: red;">*</span> în capturile de ecran<br><br><span class="ttdesc">Dacă fișierul <span class="hl">executabil</span> al jocului curent nu poate fi găsit (<i>fie prin <span class="hl">urmărirea automată a proceselor</span>, fie adăugându-l ca un <span class="hl">Joc Legat</span></i>), această opțiune va reveni la modul "Ecran"</span>`,
+        replaynotify: "Repetă ultima notificare de realizare",
+        replaynotifyshortcut: "Repetă ultima notificare de realizare folosind scurtătura de tastatură specificată",
+        replaynotifyempty: `<br><br><span class="ttdesc">Coada de repetare este goală. Deblochează o realizare pentru a repeta o notificare</span>`,
+        uselegacynotifytimer: `Ascunde notificările folosind un timer static în afara ferestrei de notificare<br><br><span class="ttdesc">Activarea acestei opțiuni poate cauza eșecul completării animațiilor de notificare</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

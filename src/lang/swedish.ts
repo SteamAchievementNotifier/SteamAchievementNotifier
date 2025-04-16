@@ -171,7 +171,9 @@ export const translations = {
                 webhookurl: `Webhook-URL`,
                 webhookcaution: `Genom att aktivera det här alternativet och tillhandahålla en giltig Discord Webhook-länk godkänner du att du förstår att <u>all prestation och spelinformation för den aktuella Steam-användaren</u> kommer att publiceras på den angivna Discord-servern via den angivna Webhook-länken.<br><br>Om du inte vill att Steam Achievement Notifier ska posta den här informationen å dina vägnar, inaktivera det här alternativet.`,
                 webhooklaststatus: "Senaste status",
-                webhookspoilers: `Lägg till spoiler-tag`
+                webhookspoilers: `Lägg till spoiler-tag`,
+                replaynotify: "Wiederholungsbenachrichtigung",
+                replaynotifyshortcut: "Wiederholungs-Schnellzugriff"
             }
         },
         games: {
@@ -246,6 +248,7 @@ export const translations = {
                 userust: "Alternativ bearbetningsläge",
                 notifydebug: "Visa felsökningsaviseringar",
                 exportachdata: "Exportera prestationsdata",
+                uselegacynotifytimer: "Använd gammal notifikationstimer",
                 usecustomfiles: "Använd anpassade appfiler",
                 showcustomfiles: "Visa anpassade appfiler"
             }
@@ -709,7 +712,11 @@ export const translations = {
         descfontcolor: "Ange färgen för det tredje textelementet",
         exportachdata: `Exportera prestationsdata till en JSON-fil när en prestation låses upp<br><br><span class="ttdesc">När aktiverat kommer <span class="ttcode">achdata.json</span> att exporteras till:<br><br><ul><li><span class="hllb">%localappdata\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
         textvspace: "Justera det vertikala avståndet mellan textelementen i notifikationen",
-        ssmode: `Ställ in om hela skärmen eller bara det aktuella spelvinduet ska fångas i skärmdumpar<span style="color: red;">*</span><br><br><span class="ttdesc">Om den aktuella spelets <span class="hl">exekverbara fil</span> inte kan hittas (<i>antingen via <span class="hl">automatisk processövervakning</span> eller genom att lägga till det som ett <span class="hl">Länkat Spel</span></i>), kommer detta alternativ att återgå till "Skärm"-läge som standard</span>` 
+        ssmode: `Ställ in om hela skärmen eller bara det aktuella spelvinduet ska fångas i skärmdumpar<span style="color: red;">*</span><br><br><span class="ttdesc">Om den aktuella spelets <span class="hl">exekverbara fil</span> inte kan hittas (<i>antingen via <span class="hl">automatisk processövervakning</span> eller genom att lägga till det som ett <span class="hl">Länkat Spel</span></i>), kommer detta alternativ att återgå till "Skärm"-läge som standard</span>` ,
+        replaynotify: "Repetera den senaste prestationen",
+        replaynotifyshortcut: "Repetera den senaste prestationen med hjälp av den angivna snabbknappen",
+        replaynotifyempty: `<br><br><span class="ttdesc">Kön för upprepning är tom. Lås upp en prestation för att upprepa en notifikation</span>`,
+        uselegacynotifytimer: `Dölj notifikationer med hjälp av en statisk timer utanför notifikationsfönstret<br><br><span class="ttdesc">Att aktivera detta alternativ kan leda till att notifikationsanimationer inte fullföljs</span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

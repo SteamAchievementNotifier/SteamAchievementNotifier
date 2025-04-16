@@ -396,29 +396,29 @@ body[themeswitch] #themeswitch::after {
 
 #checkforupdates {
     --icon: url("../../icon/update_white.svg");
-    background-color: #00b44580;
+    background-color: #1b8945b5;
 }
 
 #checkforupdates:hover {
-    background-color: #00b445;
+    background-color: #1b8945;
 }
 
 #log {
     --icon: url("../../icon/clipboard.svg");
-    background-color: #006e8b80;
+    background-color: #2f40aab5;
 }
 
 #log:hover {
-    background-color: #006e8b;
+    background-color: #2f40aa;
 }
 
 #reset {
     --icon: url("../../icon/reset.svg");
-    background-color: #ff000080;
+    background-color: #b90505b5;
 }
 
 #reset:hover {
-    background-color: #ff0000;
+    background-color: #b90505;
 }
 
 #reset:hover::before {

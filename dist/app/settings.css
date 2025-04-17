@@ -345,7 +345,7 @@ body[plat] .rect#sspreview {
 
 #linkedgames {
     --icon: url("../../icon/link.svg");
-    background-color: #1e90ff80;
+    background-color: #1e90ffb5;
 }
 
 #linkedgames:hover {
@@ -354,7 +354,7 @@ body[plat] .rect#sspreview {
 
 #exclusionlist {
     --icon: url("../../icon/exclusion.svg");
-    background-color: #00000080;
+    background-color: #000000b5;
 }
 
 #exclusionlist:hover {
@@ -364,7 +364,7 @@ body[plat] .rect#sspreview {
 #themeswitch {
     --icon: url("../../icon/autoswitchtheme.svg");
     position: relative;
-    background-color: #7830ad80;
+    background-color: #7830adb5;
 }
 
 #themeswitch:hover {
@@ -387,7 +387,7 @@ body[themeswitch] #themeswitch::after {
 
 #showcustomfiles {
     --icon: url("../../icon/customfiles.svg");
-    background-color: #5662f680;
+    background-color: #5662f6b5;
 }
 
 #showcustomfiles:hover {
@@ -405,11 +405,11 @@ body[themeswitch] #themeswitch::after {
 
 #log {
     --icon: url("../../icon/clipboard.svg");
-    background-color: #2f40aab5;
+    background-color: #4169e1b5;
 }
 
 #log:hover {
-    background-color: #2f40aa;
+    background-color: #4169e1;
 }
 
 #reset {
@@ -430,7 +430,7 @@ body[themeswitch] #themeswitch::after {
 }
 
 button[systray] {
-    background-color: #50505080;
+    background-color: #505050b5;
 }
 
 button[systray]:hover {

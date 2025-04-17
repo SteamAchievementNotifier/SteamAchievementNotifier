@@ -1275,8 +1275,8 @@ export const listeners = {
 
             // "animend" is received from `base.ts`, rather than controlled from here via Timeout
             // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
-            // When `uselegacynotifytimer` is enabled, the legacy `setTimeout()` will be used instead
-            config.get("uselegacynotifytimer") ? setTimeout(notifyfinished,customisation.displaytime * 1000) : ipcMain.once("animend",notifyfinished)
+            // When `uselegacynotifytimer` is enabled (or the "Native OS" preset is selected), the legacy `setTimeout()` will be used instead
+            ;(customisation.preset === "os" || config.get("uselegacynotifytimer")) ? setTimeout(notifyfinished,customisation.displaytime * 1000) : ipcMain.once("animend",notifyfinished)
         }
 
         ipcMain.on("notifyfailed",(event,err?: Error,id?: number,apiname?: string) => {

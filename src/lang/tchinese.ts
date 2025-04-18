@@ -124,6 +124,19 @@ export const translations = {
                         <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
                     </ul>
                 </div>
+            </details>`,
+            `<details>
+                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <div>
+                    <span class="hl">PCSX2 > Tools > Enable File Logging</span> 必須啟用
+                    <br>
+                    <br>
+                    使用預設安裝設定，<span class="hl">"emulog.txt"</span> 檔案儲存於：
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
+                    </ul>
+                </div>
             </details>`
         ]
     },
@@ -261,6 +274,7 @@ export const translations = {
                 rakey: "API 密鑰",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
+                pcsx2: "PCSX2 [Nightly]",
                 installdir: "日志文件路徑",
                 rapercenttype: "百分比類型",
                 hard: "Hardcore",
@@ -704,8 +718,10 @@ export const translations = {
         rapercenttype: "設定是否顯示 Hardcore 或 Softcore 成就解鎖百分比通知",
         retroarch: `顯示 Retro Achievements 通知，適用於透過 RetroArch 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > 日誌記錄</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">日誌詳細程度</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">前端日誌級別</span>: <span class="hlgreen">1 (信息)</span></li><li><span class="hllb">寫入日誌檔案</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">時間戳日誌檔案</span>: <span class="hlred">關閉</span></li></ul></span>`,
         dolphin: `顯示 Retro Achievements 通知，適用於透過 Dolphin 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">Dolphin > 檢視 > 顯示日誌設定</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">詳細程度</span>: <span class="hlgreen">信息</span></li><li><span class="hllb">日誌輸出</span> > <span class="hlgreen">寫入檔案</span></li><li><span class="hllb">日誌類型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li></ul></span>`,
+        pcsx2: `顯示 Retro Achievements 通知，適用於透過 PCSX2 [Nightly] 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> 必須啟用</span><br><br><span class="ttdesc">❗ 由於最近的更新，<span class="hl">"emulog.txt"</span> 的內容目前僅能在 PCSX2 的 Nightly 版本中存取</span>`,
         retroarchpath: `設置 RetroArch 的 <span class="hl">"retroarch.log"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"retroarch.log"</span> 儲存在 <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `設置 Dolphin 的 <span class="hl">"dolphin.log"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"dolphin.log"</span> 儲存在以下位置之一：<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        pcsx2path: `設定 PCSX2 的 <span class="hl">"emulog.txt"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"emulog.txt"</span> 檔案儲存於 <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         usecustomfontcolors: "單獨設定通知內文字元素的顏色",
         unlockmsgfontcolor: "設定第一個文字元素的顏色",
         titlefontcolor: "設定第二個文字元素的顏色",

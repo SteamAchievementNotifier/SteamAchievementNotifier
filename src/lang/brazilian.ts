@@ -124,6 +124,19 @@ export const translations = {
                         <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
                     </ul>
                 </div>
+            </details>`,
+            `<details>
+                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <div>
+                    <span class="hl">PCSX2 > Tools > Enable File Logging</span> deve estar ativado
+                    <br>
+                    <br>
+                    Usando as configurações padrão de instalação, o arquivo <span class="hl">"emulog.txt"</span> é salvo em:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
+                    </ul>
+                </div>
             </details>`
         ]
     },
@@ -261,6 +274,7 @@ export const translations = {
                 rakey: "Chave da API",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
+                pcsx2: "PCSX2 [Nightly]",
                 installdir: "Caminho do Arquivo de Log",
                 rapercenttype: "Tipo de porcentagem",
                 hard: "Hardcore",
@@ -704,8 +718,10 @@ export const translations = {
         rapercenttype: "Definir se a porcentagem de desbloqueio de conquistas exibida nas notificações será Hardcore ou Softcore",
         retroarch: `Exibir notificações do Retro Achievements para jogos emulados pelo RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Configurações > Registro</span> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento do Registro</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Nível de Registro da Interface</span>: <span class="hlgreen">1 (Informação)</span></li><li><span class="hllb">Registrar em Arquivo</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Arquivos de Log com Carimbo de Data/Hora</span>: <span class="hlred">DESLIGADO</span></li></ul></span>`,
         dolphin: `Exibir notificações do Retro Achievements para jogos emulados pelo Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Exibir > Mostrar Configuração de Log</span> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento</span>: <span class="hlgreen">Informação</span></li><li><span class="hllb">Saídas do Registro</span> > <span class="hlgreen">Escrever em Arquivo</span></li><li><span class="hllb">Tipos de Registro</span> > <span class="hlgreen">Conquistas (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Exibir notificações do Retro Achievements para jogos emulados pelo PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> deve estar ativado</span><br><br><span class="ttdesc">❗ Devido a atualizações recentes, o conteúdo de <span class="hl">"emulog.txt"</span> atualmente só pode ser acessado na versão Nightly do PCSX2</span>`,
         retroarchpath: `Definir o caminho para o arquivo de log <span class="hl">"retroarch.log"</span> do RetroArch<br><br><span class="ttdesc">Com as configurações padrão de instalação, o <span class="hl">"retroarch.log"</span> é armazenado em <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Definir o caminho para o arquivo de log <span class="hl">"dolphin.log"</span> do Dolphin<br><br><span class="ttdesc">Com as configurações padrão de instalação, o <span class="hl">"dolphin.log"</span> é armazenado em um dos seguintes locais:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        pcsx2path: `Defina o caminho para o arquivo de log <span class="hl">"emulog.txt"</span> do PCSX2<br><br><span class="ttdesc">Usando as configurações padrão de instalação, o arquivo <span class="hl">"emulog.txt"</span> é salvo em <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         usecustomfontcolors: "Definir individualmente a cor dos elementos de texto na notificação",
         unlockmsgfontcolor: "Definir a cor do primeiro elemento de texto",
         titlefontcolor: "Definir a cor do segundo elemento de texto",

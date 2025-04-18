@@ -124,6 +124,19 @@ export const translations = {
                         <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
                     </ul>
                 </div>
+            </details>`,
+            `<details>
+                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <div>
+                    <span class="hl">PCSX2 > Tools > Enable File Logging</span> etkinleştirilmelidir
+                    <br>
+                    <br>
+                    Varsayılan kurulum ayarlarıyla, <span class="hl">"emulog.txt"</span> şu konumda saklanır:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
+                    </ul>
+                </div>
             </details>`
         ]
     },
@@ -261,6 +274,7 @@ export const translations = {
                 rakey: "API Anahtarı",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
+                pcsx2: "PCSX2 [Nightly]",
                 installdir: "Log Dosyası Yolu",
                 rapercenttype: "Yüzde Türü",
                 hard: "Hardcore",
@@ -704,8 +718,10 @@ export const translations = {
         rapercenttype: "Bildirimlerde Hardcore veya Softcore başarı yüzdelerinin gösterilmesini ayarlayın",
         retroarch: `Retro Achievements bildirimlerini RetroArch ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">RetroArch > Ayarlar > Günlük Kaydı</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Günlük Kaydı Ayrıntı Düzeyi</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Önyüz Günlük Kaydı Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li><li><span class="hllb">Dosyaya Günlük Kaydı</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Günlük Dosyalarına Zaman Damgası</span>: <span class="hlred">KAPALI</span></li></ul></span>`,
         dolphin: `Retro Achievements bildirimlerini Dolphin ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">Dolphin > Görünüm > Günlük Konfigürasyonunu Göster</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Ayrıntı Düzeyi</span>: <span class="hlgreen">Bilgi</span></li><li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li><li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Retro Achievements bildirimlerini PCSX2 [Nightly] ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> etkinleştirilmelidir</span><br><br><span class="ttdesc">❗ Son güncellemeler nedeniyle, <span class="hl">"emulog.txt"</span> içeriğine şu anda yalnızca PCSX2'nin Nightly sürümünde erişilebilir</span>`,
         retroarchpath: `RetroArch'ın <span class="hl">"retroarch.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"retroarch.log"</span> şu konumda saklanır: <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Dolphin'in <span class="hl">"dolphin.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"dolphin.log"</span> şu konumlarda saklanır:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        pcsx2path: `PCSX2'in <span class="hl">"emulog.txt"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"emulog.txt"</span> şu konumda saklanır: <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         usecustomfontcolors: "Bildirim içindeki metin öğelerinin rengini ayrı ayrı ayarlayın",
         unlockmsgfontcolor: "İlk metin öğesinin rengini ayarlayın",
         titlefontcolor: "İkinci metin öğesinin rengini ayarlayın",

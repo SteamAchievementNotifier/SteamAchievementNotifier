@@ -124,6 +124,19 @@ export const translations = {
                         <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
                     </ul>
                 </div>
+            </details>`,
+            `<details>
+                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <div>
+                    <span class="hl">PCSX2 > Tools > Enable File Logging</span> повинно бути увімкнено
+                    <br>
+                    <br>
+                    За умовчанням, <span class="hl">"emulog.txt"</span> зберігається за адресою:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
+                    </ul>
+                </div>
             </details>`
         ]
     },
@@ -261,6 +274,7 @@ export const translations = {
                 rakey: "API ключ",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
+                pcsx2: "PCSX2 [Nightly]",
                 installdir: "Шлях до файлу журналу",
                 rapercenttype: "Тип відсотка",
                 hard: "Hardcore",
@@ -704,8 +718,10 @@ export const translations = {
         rapercenttype: "Встановіть, чи слід показувати відсотки досягнень Hardcore або Softcore у сповіщеннях",
         retroarch: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Налаштування > Логування</span> повинно бути налаштоване за такими параметрами:<br><br><ul><li><span class="hllb">Рівень детальності логування</span>: <span class="hlgreen">УВІМК.</span></li><li><span class="hllb">Рівень логування фронтенду</span>: <span class="hlgreen">1 (Інформація)</span></li><li><span class="hllb">Логування в файл</span>: <span class="hlgreen">УВІМК.</span></li><li><span class="hllb">Часова мітка для лог-файлів</span>: <span class="hlred">ВИМК.</span></li></ul></span>`,
         dolphin: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Перегляд > Показати налаштування журналу</span> повинно бути налаштоване за такими параметрами:<br><br><ul><li><span class="hllb">Рівень детальності</span>: <span class="hlgreen">Інформація</span></li><li><span class="hllb">Виведення журналу</span> > <span class="hlgreen">Запис в файл</span></li><li><span class="hllb">Типи журналів</span> > <span class="hlgreen">Досягнення (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> повинно бути увімкнено</span><br><br><span class="ttdesc">❗ Через останні оновлення, вміст <span class="hl">"emulog.txt"</span> наразі доступний лише у Nightly версії PCSX2</span>`,
         retroarchpath: `Встановіть шлях до лог-файлу RetroArch <span class="hl">"retroarch.log"</span><br><br><span class="ttdesc">За умовчанням, лог-файл <span class="hl">"retroarch.log"</span> зберігається в <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Встановіть шлях до лог-файлу Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">За умовчанням, лог-файл <span class="hl">"dolphin.log"</span> зберігається в одному з наступних місць:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        pcsx2path: `Встановіть шлях до лог-файлу PCSX2 <span class="hl">"emulog.txt"</span><br><br><span class="ttdesc">За умовчанням, лог-файл <span class="hl">"emulog.txt"</span> зберігається в <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         usecustomfontcolors: "Окремо налаштувати колір текстових елементів у сповіщенні",
         unlockmsgfontcolor: "Встановити колір першого текстового елемента",
         titlefontcolor: "Встановити колір другого текстового елемента",

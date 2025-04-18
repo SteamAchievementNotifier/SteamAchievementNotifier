@@ -101,7 +101,7 @@ export const translations = {
                     Mit den Standardeinstellungen wird <span class="hl">"retroarch.log"</span> gespeichert in:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -122,6 +122,19 @@ export const translations = {
                         <li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li>
                         <li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li>
                         <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <div>
+                    <span class="hl">PCSX2 > Tools > Enable File Logging</span> muss aktiviert sein
+                    <br>
+                    <br>
+                    Mit den Standardinstallationseinstellungen wird <span class="hl">"emulog.txt"</span> gespeichert unter:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
                     </ul>
                 </div>
             </details>`
@@ -261,6 +274,7 @@ export const translations = {
                 rakey: "API-Schlüssel",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
+                pcsx2: "PCSX2 [Nightly]",
                 installdir: "Pfad zur Protokolldatei",
                 rapercenttype: "Prozent-Typ",
                 hard: "Hardcore",
@@ -704,8 +718,10 @@ export const translations = {
         rapercenttype: "Festlegen, ob in den Benachrichtigungen der Freischaltprozentsatz für Hardcore- oder Softcore-Erfolge angezeigt wird",
         retroarch: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über RetroArch emuliert werden<br><br><span class="ttdesc"><span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li></ul></span>`,
         dolphin: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über Dolphin emuliert werden<br><br><span class="ttdesc"><span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li><li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Lege den Pfad zur Protokolldatei <span class="hl">"retroarch.log"</span> von RetroArch fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"retroarch.log"</span> gespeichert in <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        pcsx2: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über PCSX2 [Nightly] emuliert werden<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> muss aktiviert sein</span><br><br><span class="ttdesc">❗ Aufgrund der letzten Updates kann der Inhalt von <span class="hl">"emulog.txt"</span> derzeit nur in der Nightly-Version von PCSX2 abgerufen werden</span>`,
+        retroarchpath: `Lege den Pfad zur Protokolldatei <span class="hl">"retroarch.log"</span> von RetroArch fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"retroarch.log"</span> gespeichert in <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Lege den Pfad zur Protokolldatei <span class="hl">"dolphin.log"</span> von Dolphin fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"dolphin.log"</span> in einem der folgenden Verzeichnisse gespeichert:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        pcsx2path: `Lege den Pfad zur Protokolldatei <span class="hl">"emulog.txt"</span> von PCSX2 fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"emulog.txt"</span> gespeichert in <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         usecustomfontcolors: "Farben der Textelemente in der Benachrichtigung individuell festlegen",
         unlockmsgfontcolor: "Die Farbe des ersten Textelements festlegen",
         titlefontcolor: "Die Farbe des zweiten Textelements festlegen",

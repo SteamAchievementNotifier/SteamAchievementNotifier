@@ -124,6 +124,19 @@ export const translations = {
                         <li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li>
                     </ul>
                 </div>
+            </details>`,
+            `<details>
+                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <div>
+                    <span class="hl">PCSX2 > Tools > Enable File Logging</span> doit être activé
+                    <br>
+                    <br>
+                    Avec les paramètres d'installation par défaut, <span class="hl">"emulog.txt"</span> est stocké dans :
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
+                    </ul>
+                </div>
             </details>`
         ]
     },
@@ -261,6 +274,7 @@ export const translations = {
                 rakey: "Clé API",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
+                pcsx2: "PCSX2 [Nightly]",
                 installdir: "Chemin du fichier log",
                 rapercenttype: "Type de pourcentage",
                 hard: "Hardcore",
@@ -704,8 +718,10 @@ export const translations = {
         rapercenttype: "Définir si les notifications doivent afficher le pourcentage de déverrouillage des succès Hardcore ou Softcore",
         retroarch: `Afficher les notifications Retro Achievements pour les jeux émulés via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Paramètres > Journalisation</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail des journaux</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Niveau de journalisation du frontend</span> : <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Journaliser dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Horodater les fichiers journaux</span> : <span class="hlred">DÉSACTIVÉ</span></li></ul></span>`,
         dolphin: `Afficher les notifications Retro Achievements pour les jeux émulés via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Affichage > Afficher la configuration du journal</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail</span> : <span class="hlgreen">Info</span></li><li><span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></li><li><span class="hllb">Types de journal</span> > <span class="hlgreen">Succès (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Afficher les notifications Retro Achievements pour les jeux émulés via PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> doit être activé</span><br><br><span class="ttdesc">❗ En raison des mises à jour récentes, le contenu de <span class="hl">"emulog.txt"</span> est actuellement uniquement accessible dans la version Nightly de PCSX2</span>`,
         retroarchpath: `Définir le chemin du fichier journal <span class="hl">"retroarch.log"</span> de RetroArch<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"retroarch.log"</span> est enregistré dans <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Définir le chemin du fichier journal <span class="hl">"dolphin.log"</span> de Dolphin<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"dolphin.log"</span> est enregistré dans l'un des emplacements suivants :<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
+        pcsx2path: `Définir le chemin du fichier journal <span class="hl">"emulog.txt"</span> de PCSX2<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"emulog.txt"</span> est enregistré dans <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         usecustomfontcolors: "Définir individuellement la couleur des éléments de texte dans la notification",
         unlockmsgfontcolor: "Définir la couleur du premier élément de texte",
         titlefontcolor: "Définir la couleur du deuxième élément de texte",

@@ -172,7 +172,7 @@ export const translations = {
                 webhookcaution: `Indem Sie diese Option aktivieren und einen gültigen Discord-Webhook-Link angeben, erklären Sie sich damit einverstanden, dass Sie verstehen, dass <u>alle Erfolgs- und Spieledaten des aktuellen Steam-Benutzers</u> über den angegebenen Discord-Server-Link gepostet werden.<br><br>Wenn Sie nicht möchten, dass der Steam Achievement Notifier diese Informationen in Ihrem Namen veröffentlicht, deaktivieren Sie bitte diese Option.`,
                 webhooklaststatus: "Letzter Status",
                 webhookspoilers: `Spoiler-Tag hinzufügen`,
-                replaynotify: "Wiederholungsbenachrichtigung",
+                replaynotify: "Benachrichtigung wiederholen",
                 replaynotifyshortcut: "Tastenkombination für Wiederholung"
             }
         },

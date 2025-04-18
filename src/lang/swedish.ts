@@ -101,7 +101,7 @@ export const translations = {
                     Med standardinstallationen lagras <span class="hl">"retroarch.log"</span> i:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Ställ in om du vill visa Hardcore eller Softcore prestationers upplåsningsprocent i meddelandena",
         retroarch: `Visa Retro Achievements-notifikationer för spel som emuleras via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Inställningar > Loggning</span> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Loggningsverbositet</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Frontend Loggningsnivå</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Logga till fil</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Tidsstämpel för loggfiler</span>: <span class="hlred">AV</span></li></ul></span>`,
         dolphin: `Visa Retro Achievements-notifikationer för spel som emuleras via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Visa > Visa loggkonfiguration</span> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logger Outputs</span> > <span class="hlgreen">Skriv till fil</span></li><li><span class="hllb">Loggtyper</span> > <span class="hlgreen">Prestationer (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Ange sökvägen till RetroArchs <span class="hl">"retroarch.log"</span> loggfil<br><br><span class="ttdesc">Med standardinstallationen lagras <span class="hl">"retroarch.log"</span> i <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Ange sökvägen till RetroArchs <span class="hl">"retroarch.log"</span> loggfil<br><br><span class="ttdesc">Med standardinstallationen lagras <span class="hl">"retroarch.log"</span> i <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Ange sökvägen till Dolphins <span class="hl">"dolphin.log"</span> loggfil<br><br><span class="ttdesc">Med standardinstallationen lagras <span class="hl">"dolphin.log"</span> i en av följande platser:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Ange färg individuellt för textelement i aviseringen",
         unlockmsgfontcolor: "Ange färgen för det första textelementet",

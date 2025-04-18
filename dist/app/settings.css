@@ -633,6 +633,10 @@ input[type="checkbox"][id^="webhook"] {
     --trophy: url("../../img/ra/dolphin.png");
 }
 
+.multiselect#raemuswrapper .wrapper:has(> input#pcsx2) > span::before {
+    --trophy: url("../../img/ra/pcsx2.png");
+}
+
 .opt#raemuswrapper input[type="text"] {
     grid-column-start: 1;
     background-color: var(--mediumgrey);

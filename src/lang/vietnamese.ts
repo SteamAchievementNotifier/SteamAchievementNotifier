@@ -101,7 +101,7 @@ export const translations = {
                     Với cài đặt mặc định, file log <span class="hl">"retroarch.log"</span> được lưu tại:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Đặt xem có hiển thị phần trăm thành tích Hardcore hoặc Softcore trong thông báo không",
         retroarch: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Cài đặt > Ghi log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết của ghi log</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Cấp độ ghi log của giao diện người dùng</span>: <span class="hlgreen">1 (Thông tin)</span></li><li><span class="hllb">Ghi log vào file</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Thêm dấu thời gian vào các file log</span>: <span class="hlred">TẮT</span></li></ul></span>`,
         dolphin: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Xem > Hiển thị Cấu hình Log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết</span>: <span class="hlgreen">Thông tin</span></li><li><span class="hllb">Kết quả ghi log</span> > <span class="hlgreen">Ghi vào File</span></li><li><span class="hllb">Các loại log</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Cài đặt đường dẫn đến file log của RetroArch <span class="hl">"retroarch.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"retroarch.log"</span> được lưu tại <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Cài đặt đường dẫn đến file log của RetroArch <span class="hl">"retroarch.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"retroarch.log"</span> được lưu tại <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Cài đặt đường dẫn đến file log của Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"dolphin.log"</span> được lưu tại một trong các vị trí sau:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Tùy chỉnh màu sắc của từng phần văn bản trong thông báo",
         unlockmsgfontcolor: "Chọn màu cho phần văn bản đầu tiên",

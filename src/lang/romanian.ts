@@ -101,7 +101,7 @@ export const translations = {
                     Cu setările implicite de instalare, <span class="hl">"retroarch.log"</span> este stocat în:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Setează dacă vrei să afișezi procentele de realizare Hardcore sau Softcore în notificări",
         retroarch: `Afișează notificările Retro Achievements pentru jocurile emulate prin RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Setări > Jurnalizare</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul jurnalizării</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Nivelul de jurnalizare al interfeței</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Jurnalizează în fișier</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Marca de timp pentru fișierele de log</span>: <span class="hlred">DEZLIGAT</span></li></ul></span>`,
         dolphin: `Afișează notificările Retro Achievements pentru jocurile emulate prin Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Vizualizare > Afișează configurația logului</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Ieșiri din jurnal</span> > <span class="hlgreen">Scrie în fișier</span></li><li><span class="hllb">Tipuri de log</span> > <span class="hlgreen">Realizări (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Setează calea către fișierul de log <span class="hl">"retroarch.log"</span> al RetroArch<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"retroarch.log"</span> este stocat în <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Setează calea către fișierul de log <span class="hl">"retroarch.log"</span> al RetroArch<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"retroarch.log"</span> este stocat în <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Setează calea către fișierul de log <span class="hl">"dolphin.log"</span> al Dolphin<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"dolphin.log"</span> este stocat în una dintre următoarele locații:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Setează individual culoarea elementelor de text din notificare",
         unlockmsgfontcolor: "Setează culoarea primului element de text",

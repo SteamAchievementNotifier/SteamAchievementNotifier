@@ -101,7 +101,7 @@ export const translations = {
                     デフォルトのインストール設定では、<span class="hl">"retroarch.log"</span> は以下の場所に保存されます:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "通知に表示する達成のハードコアまたはソフトコアのパーセンテージを設定",
         retroarch: `RetroArchを使用してエミュレートされたゲームのRetro Achievements通知を表示<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > ロギング</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">ログの詳細度</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">フロントエンド ログ レベル</span>: <span class="hlgreen">1 (情報)</span></li><li><span class="hllb">ファイルにログを記録</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">ログファイルにタイムスタンプを付ける</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Dolphinを使用してエミュレートされたゲームのRetro Achievements通知を表示<br><br><span class="ttdesc"><span class="hl">Dolphin > 表示 > ログ設定の表示</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">詳細度</span>: <span class="hlgreen">情報</span></li><li><span class="hllb">ロガーの出力先</span> > <span class="hlgreen">ファイルに書き込む</span></li><li><span class="hllb">ログの種類</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `RetroArchの <span class="hl">"retroarch.log"</span> ログファイルのパスを設定<br><br><span class="ttdesc">デフォルトのインストール設定では、<span class="hl">"retroarch.log"</span> は <span class="hllb">C:\\RetroArch-x64\\Logs</span> に保存されます。</span>`,
+        retroarchpath: `RetroArchの <span class="hl">"retroarch.log"</span> ログファイルのパスを設定<br><br><span class="ttdesc">デフォルトのインストール設定では、<span class="hl">"retroarch.log"</span> は <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span> に保存されます。</span>`,
         dolphinpath: `Dolphinの <span class="hl">"dolphin.log"</span> ログファイルのパスを設定<br><br><span class="ttdesc">デフォルトのインストール設定では、<span class="hl">"dolphin.log"</span> は以下のいずれかの場所に保存されます:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "通知内のテキスト要素の色を個別に設定",
         unlockmsgfontcolor: "最初のテキスト要素の色を設定",

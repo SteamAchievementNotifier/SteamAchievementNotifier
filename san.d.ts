@@ -116,6 +116,7 @@ declare interface Config {
     raemus: string[],
     retroarchpath: string,
     dolphinpath: string,
+    pcsx2path: string,
     rauser: string,
     rakey: string,
     exportachdata: boolean,

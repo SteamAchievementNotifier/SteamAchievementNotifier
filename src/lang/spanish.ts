@@ -101,7 +101,7 @@ export const translations = {
                     Usando la configuración de instalación predeterminada, <span class="hl">"retroarch.log"</span> se guarda en:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Configurar si deseas mostrar los porcentajes de desbloqueo de logros Hardcore o Softcore en las notificaciones",
         retroarch: `Mostrar notificaciones de Retro Achievements para los juegos emulados a través de RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Configuración > Registro</span> debe configurarse con los siguientes ajustes:<br><br><ul><li><span class="hllb">Verbosity del registro</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Nivel de registro del frontend</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Registrar en archivo</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Registrar archivos con marca de tiempo</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Mostrar notificaciones de Retro Achievements para los juegos emulados a través de Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Ver > Mostrar configuración de registro</span> debe configurarse con los siguientes ajustes:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Salidas del registrador</span> > <span class="hlgreen">Escribir en archivo</span></li><li><span class="hllb">Tipos de registro</span> > <span class="hlgreen">Logros (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Establecer la ruta al archivo de registro <span class="hl">"retroarch.log"</span> de RetroArch<br><br><span class="ttdesc">Usando la configuración de instalación predeterminada, <span class="hl">"retroarch.log"</span> se guarda en <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Establecer la ruta al archivo de registro <span class="hl">"retroarch.log"</span> de RetroArch<br><br><span class="ttdesc">Usando la configuración de instalación predeterminada, <span class="hl">"retroarch.log"</span> se guarda en <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Establecer la ruta al archivo de registro <span class="hl">"dolphin.log"</span> de Dolphin<br><br><span class="ttdesc">Usando la configuración de instalación predeterminada, <span class="hl">"dolphin.log"</span> se guarda en una de las siguientes ubicaciones:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Configurar individualmente el color de los elementos de texto en la notificación",
         unlockmsgfontcolor: "Configurar el color del primer elemento de texto",

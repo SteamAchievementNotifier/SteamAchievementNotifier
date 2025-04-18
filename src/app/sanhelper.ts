@@ -1083,6 +1083,7 @@ export const sanhelper: SANHelper = {
 
             elems.forEach(async ([id,html]) => {
                 raemuswrapper.insertAdjacentHTML("beforeend",html)
+                
                 const opt = raemuswrapper.querySelector(`.opt:has(input#${id})`) as HTMLElement
                 opt.onclick = null
                 

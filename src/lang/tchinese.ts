@@ -101,7 +101,7 @@ export const translations = {
                     使用預設安裝設定，<span class="hl">"retroarch.log"</span> 儲存在：
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "設定是否顯示 Hardcore 或 Softcore 成就解鎖百分比通知",
         retroarch: `顯示 Retro Achievements 通知，適用於透過 RetroArch 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > 日誌記錄</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">日誌詳細程度</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">前端日誌級別</span>: <span class="hlgreen">1 (信息)</span></li><li><span class="hllb">寫入日誌檔案</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">時間戳日誌檔案</span>: <span class="hlred">關閉</span></li></ul></span>`,
         dolphin: `顯示 Retro Achievements 通知，適用於透過 Dolphin 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">Dolphin > 檢視 > 顯示日誌設定</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">詳細程度</span>: <span class="hlgreen">信息</span></li><li><span class="hllb">日誌輸出</span> > <span class="hlgreen">寫入檔案</span></li><li><span class="hllb">日誌類型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li></ul></span>`,
-        retroarchpath: `設置 RetroArch 的 <span class="hl">"retroarch.log"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"retroarch.log"</span> 儲存在 <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `設置 RetroArch 的 <span class="hl">"retroarch.log"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"retroarch.log"</span> 儲存在 <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `設置 Dolphin 的 <span class="hl">"dolphin.log"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"dolphin.log"</span> 儲存在以下位置之一：<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "單獨設定通知內文字元素的顏色",
         unlockmsgfontcolor: "設定第一個文字元素的顏色",

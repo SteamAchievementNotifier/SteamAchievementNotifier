@@ -281,6 +281,7 @@ export const sanconfig = {
                 raemus: [],
                 retroarchpath: "",
                 dolphinpath: "",
+                pcsx2path: "",
                 rauser: "",
                 rakey: "",
                 exportachdata: false,

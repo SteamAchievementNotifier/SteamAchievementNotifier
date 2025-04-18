@@ -101,7 +101,7 @@ export const translations = {
                     Avec les paramètres d'installation par défaut, <span class="hl">"retroarch.log"</span> est enregistré dans :
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Définir si les notifications doivent afficher le pourcentage de déverrouillage des succès Hardcore ou Softcore",
         retroarch: `Afficher les notifications Retro Achievements pour les jeux émulés via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Paramètres > Journalisation</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail des journaux</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Niveau de journalisation du frontend</span> : <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Journaliser dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Horodater les fichiers journaux</span> : <span class="hlred">DÉSACTIVÉ</span></li></ul></span>`,
         dolphin: `Afficher les notifications Retro Achievements pour les jeux émulés via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Affichage > Afficher la configuration du journal</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail</span> : <span class="hlgreen">Info</span></li><li><span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></li><li><span class="hllb">Types de journal</span> > <span class="hlgreen">Succès (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Définir le chemin du fichier journal <span class="hl">"retroarch.log"</span> de RetroArch<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"retroarch.log"</span> est enregistré dans <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Définir le chemin du fichier journal <span class="hl">"retroarch.log"</span> de RetroArch<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"retroarch.log"</span> est enregistré dans <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Définir le chemin du fichier journal <span class="hl">"dolphin.log"</span> de Dolphin<br><br><span class="ttdesc">Avec les paramètres d'installation par défaut, <span class="hl">"dolphin.log"</span> est enregistré dans l'un des emplacements suivants :<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Définir individuellement la couleur des éléments de texte dans la notification",
         unlockmsgfontcolor: "Définir la couleur du premier élément de texte",

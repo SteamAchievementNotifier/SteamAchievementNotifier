@@ -101,7 +101,7 @@ export const translations = {
                     Alapértelmezett telepítési beállításokkal a <span class="hl">"retroarch.log"</span> itt található:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Beállíthatja, hogy a Hardcore vagy Softcore eredmények százaléka jelenjen meg az értesítésekben",
         retroarch: `Teljesítmények értesítéseinek megjelenítése RetroArch-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">RetroArch > Beállítások > Naplózás</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Naplózási Részletesség</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Előlap Naplózási Szint</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Naplózás Fájlba</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Időbélyeg a Napló Fájlokhoz</span>: <span class="hlred">KI</span></li></ul></span>`,
         dolphin: `Teljesítmények értesítéseinek megjelenítése Dolphin-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">Dolphin > Nézet > Naplózási Beállítások Megjelenítése</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Részletesség</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Napló Kimenetek</span> > <span class="hlgreen">Írás Fájlba</span></li><li><span class="hllb">Napló Típusok</span> > <span class="hlgreen">Teljesítmények (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Állítsd be a RetroArch <span class="hl">"retroarch.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"retroarch.log"</span> itt található: <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Állítsd be a RetroArch <span class="hl">"retroarch.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"retroarch.log"</span> itt található: <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Állítsd be a Dolphin <span class="hl">"dolphin.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"dolphin.log"</span> az alábbi helyek egyikén található:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Állítsa be a szövegelemek színét az értesítésen belül egyedileg",
         unlockmsgfontcolor: "Állítsa be az első szövegelem színét",

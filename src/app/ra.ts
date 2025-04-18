@@ -8,7 +8,8 @@ import { downloadicon } from "./achievement"
 
 export const rasupported = [
     "retroarch",
-    "dolphin"
+    "dolphin",
+    "pcsx2"
 ]
 
 export const raelems = [...rasupported].flatMap(id => [id,`${id}path`])

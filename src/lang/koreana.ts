@@ -101,7 +101,7 @@ export const translations = {
                     기본 설치 설정을 사용할 경우, <span class="hl">"retroarch.log"</span>는 다음 위치에 저장됩니다:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "알림에서 하드코어 또는 소프트코어 업적 잠금 퍼센트 표시 여부 설정",
         retroarch: `RetroArch를 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">RetroArch > 설정 > 로깅</span>을 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">로깅 상세도</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">프론트엔드 로깅 레벨</span>: <span class="hlgreen">1 (정보)</span></li><li><span class="hllb">파일에 로깅</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">로그 파일에 타임스탬프 추가</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Dolphin을 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">Dolphin > 보기 > 로그 구성 표시</span>를 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">상세도</span>: <span class="hlgreen">정보</span></li><li><span class="hllb">로거 출력</span> > <span class="hlgreen">파일에 쓰기</span></li><li><span class="hllb">로그 유형</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `RetroArch의 <span class="hl">"retroarch.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"retroarch.log"</span>는 <span class="hllb">C:\\RetroArch-x64\\Logs</span>에 저장됩니다.</span>`,
+        retroarchpath: `RetroArch의 <span class="hl">"retroarch.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"retroarch.log"</span>는 <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span>에 저장됩니다.</span>`,
         dolphinpath: `Dolphin의 <span class="hl">"dolphin.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"dolphin.log"</span>는 다음 위치 중 하나에 저장됩니다:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "알림 내 텍스트 요소의 색상을 개별적으로 설정",
         unlockmsgfontcolor: "첫 번째 텍스트 요소의 색상 설정",

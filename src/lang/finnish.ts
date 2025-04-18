@@ -101,7 +101,7 @@ export const translations = {
                     Oletusasennuksen mukaan <span class="hl">"retroarch.log"</span> tallennetaan sijaintiin:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Määritä, näytetäänkö ilmoituksissa Hardcore- vai Softcore-saavutusten avausprosentit",
         retroarch: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan RetroArchilla<br><br><span class="ttdesc"><span class="hl">RetroArch > Asetukset > Lokitus</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Lokituksen yksityiskohtaisuus</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Frontend-lokitaso</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Kirjaa lokiin</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Aikaleimat lokitiedostoissa</span>: <span class="hlred">POIS PÄÄLTÄ</span></li></ul></span>`,
         dolphin: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan Dolphinilla<br><br><span class="ttdesc"><span class="hl">Dolphin > Näytä > Näytä lokiasetukset</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Yksityiskohtaisuus</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Lokin ulostulot</span> > <span class="hlgreen">Kirjoita tiedostoon</span></li><li><span class="hllb">Lokityypit</span> > <span class="hlgreen">Saavutukset (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Aseta polku RetroArchin <span class="hl">"retroarch.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"retroarch.log"</span> tallennetaan sijaintiin <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Aseta polku RetroArchin <span class="hl">"retroarch.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"retroarch.log"</span> tallennetaan sijaintiin <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Aseta polku Dolphin <span class="hl">"dolphin.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"dolphin.log"</span> tallennetaan johonkin seuraavista sijainneista:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Aseta ilmoituksen tekstielementtien värit erikseen",
         unlockmsgfontcolor: "Aseta ensimmäisen tekstielementin väri",

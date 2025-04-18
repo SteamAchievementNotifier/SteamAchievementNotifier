@@ -101,7 +101,7 @@ export const translations = {
                     Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"retroarch.log"</span> αποθηκεύεται στο εξής:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Ορίστε αν θέλετε να εμφανίζεται το ποσοστό επιτυχιών Hardcore ή Softcore στις ειδοποιήσεις",
         retroarch: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Ρυθμίσεις > Καταγραφή</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια Καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Επίπεδο Καταγραφής Στο Πρόσθιο Μέρος</span>: <span class="hlgreen">1 (Πληροφορίες)</span></li><li><span class="hllb">Καταγραφή σε Αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Χρονοσήμανση Αρχείων Καταγραφής</span>: <span class="hlred">ΑΝΕΝΕΡΓΟ</span></li></ul></span>`,
         dolphin: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Προβολή > Εμφάνιση Ρυθμίσεων Καταγραφής</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span></li><li><span class="hllb">Έξοδοι Καταγραφής</span> > <span class="hlgreen">Γράψε σε Αρχείο</span></li><li><span class="hllb">Τύποι Καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Ορίστε τη διαδρομή για το <span class="hl">"retroarch.log"</span> αρχείο καταγραφής του RetroArch<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"retroarch.log"</span> αποθηκεύεται στο <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Ορίστε τη διαδρομή για το <span class="hl">"retroarch.log"</span> αρχείο καταγραφής του RetroArch<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"retroarch.log"</span> αποθηκεύεται στο <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Ορίστε τη διαδρομή για το <span class="hl">"dolphin.log"</span> αρχείο καταγραφής του Dolphin<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"dolphin.log"</span> αποθηκεύεται σε μία από τις εξής τοποθεσίες:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Ορίστε το χρώμα των στοιχείων κειμένου στην ειδοποίηση ξεχωριστά",
         unlockmsgfontcolor: "Ορίστε το χρώμα του πρώτου στοιχείου κειμένου",

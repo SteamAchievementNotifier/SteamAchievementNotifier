@@ -101,7 +101,7 @@ export const translations = {
                     Varsayılan kurulum ayarları kullanıldığında, <span class="hl">"retroarch.log"</span> şu konumda saklanır:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Bildirimlerde Hardcore veya Softcore başarı yüzdelerinin gösterilmesini ayarlayın",
         retroarch: `Retro Achievements bildirimlerini RetroArch ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">RetroArch > Ayarlar > Günlük Kaydı</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Günlük Kaydı Ayrıntı Düzeyi</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Önyüz Günlük Kaydı Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li><li><span class="hllb">Dosyaya Günlük Kaydı</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Günlük Dosyalarına Zaman Damgası</span>: <span class="hlred">KAPALI</span></li></ul></span>`,
         dolphin: `Retro Achievements bildirimlerini Dolphin ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">Dolphin > Görünüm > Günlük Konfigürasyonunu Göster</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Ayrıntı Düzeyi</span>: <span class="hlgreen">Bilgi</span></li><li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li><li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `RetroArch'ın <span class="hl">"retroarch.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"retroarch.log"</span> şu konumda saklanır: <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `RetroArch'ın <span class="hl">"retroarch.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"retroarch.log"</span> şu konumda saklanır: <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Dolphin'in <span class="hl">"dolphin.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"dolphin.log"</span> şu konumlarda saklanır:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Bildirim içindeki metin öğelerinin rengini ayrı ayrı ayarlayın",
         unlockmsgfontcolor: "İlk metin öğesinin rengini ayarlayın",

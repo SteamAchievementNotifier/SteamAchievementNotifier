@@ -101,7 +101,7 @@ export const translations = {
                     Při výchozím nastavení instalace je <span class="hl">"retroarch.log"</span> uložen v:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Nastavit, zda se v oznámeních zobrazí procento odemčených úspěchů pro Hardcore nebo Softcore režim",
         retroarch: `Zobrazovat oznámení o Retro Achievements pro hry emulované v RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Nastavení > Záznam</span> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Podrobnost záznamu</span>: <span class="hlgreen">ZAPNUTO</span></li><li><span class="hllb">Úroveň záznamu uživatelského rozhraní</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Záznam do souboru</span>: <span class="hlgreen">ZAPNUTO</span></li><li><span class="hllb">Časové značky v logu</span>: <span class="hlred">VYPNUTO</span></li></ul></span>`,
         dolphin: `Zobrazovat oznámení o Retro Achievements pro hry emulované v Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Zobrazit > Zobrazit konfiguraci záznamu</span> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Podrobnost</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Výstupy záznamu</span> > <span class="hlgreen">Zapsat do souboru</span></li><li><span class="hllb">Typy záznamu</span> > <span class="hlgreen">Úspěchy (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Nastavit cestu k souboru s logy <span class="hl">"retroarch.log"</span> pro RetroArch<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"retroarch.log"</span> uložen v <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Nastavit cestu k souboru s logy <span class="hl">"retroarch.log"</span> pro RetroArch<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"retroarch.log"</span> uložen v <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Nastavit cestu k souboru s logy <span class="hl">"dolphin.log"</span> pro Dolphin<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"dolphin.log"</span> uložen na jednom z následujících míst:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Individuálně nastavit barvu textových prvků v oznámení",
         unlockmsgfontcolor: "Nastavit barvu prvního textového prvku",

@@ -101,7 +101,7 @@ export const translations = {
                     Bij standaardinstallatie wordt <span class="hl">"retroarch.log"</span> opgeslagen in:
                     <br>
                     <ul>
-                        <li><span class="hllb">C:\\RetroArch-x64\\Logs</span></li>
+                        <li><span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></li>
                     </ul>
                 </div>
             </details>`,
@@ -704,7 +704,7 @@ export const translations = {
         rapercenttype: "Stel in of het percentage ontgrendelde Hardcore- of Softcore-achievements wordt weergegeven in meldingen",
         retroarch: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Instellingen > Loggen</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Logdetails</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log naar bestand</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Tijdstempels in logbestanden</span>: <span class="hlred">UIT</span></li></ul></span>`,
         dolphin: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Beeld > Toon logconfiguratie</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Details</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Loguitgangen</span> > <span class="hlgreen">Schrijf naar bestand</span></li><li><span class="hllb">Logtypes</span> > <span class="hlgreen">Prestaties (RetroAchievements)</span></li></ul></span>`,
-        retroarchpath: `Stel het pad in naar het <span class="hl">"retroarch.log"</span> logbestand van RetroArch<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"retroarch.log"</span> opgeslagen in <span class="hllb">C:\\RetroArch-x64\\Logs</span></span>`,
+        retroarchpath: `Stel het pad in naar het <span class="hl">"retroarch.log"</span> logbestand van RetroArch<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"retroarch.log"</span> opgeslagen in <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Stel het pad in naar het <span class="hl">"dolphin.log"</span> logbestand van Dolphin<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"dolphin.log"</span> opgeslagen op een van de volgende locaties:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         usecustomfontcolors: "Stel de kleur van tekstelementen in de melding individueel in",
         unlockmsgfontcolor: "Stel de kleur in van het eerste tekstelement",

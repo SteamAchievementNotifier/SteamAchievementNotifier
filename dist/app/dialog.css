@@ -1090,6 +1090,10 @@ details[open] > summary {
     --icon: url("../../img/ra/dolphin.png");
 }
 
+.contentsubitem details > summary#pcsx2::before {
+    --icon: url("../../img/ra/pcsx2.png");
+}
+
 #contentsubitems:has(div > .contentsubitem > details[open]) > div:has(details:not([open])) {
     display: none;
 }

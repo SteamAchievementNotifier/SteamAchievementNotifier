@@ -191,7 +191,7 @@ const notifyhelper = {
                 ["--glowspeed",`${customisation.glowspeed}`],
                 ["--blur",`${customisation.blur * (iswebview === "customiser" ? 1 : customisation.scale / 100) / 50}px`],
                 ["--mask",customisation.mask ? `url('${customisation.maskimg}') center / cover no-repeat` : "none"],
-                ["--outline",customisation.outline !== "off" ? customisation.outline : "none"],
+                ["--outline",customisation.useoutline ? customisation.outline : "none"],
                 ["--outlinecolor",customisation.outlinecolor],
                 ["--outlinewidth",`${(customisation.outlinewidth / 25) * (customisation.scale / 100)}px`],
                 ["--badgeposx",badgepos(customisation[`${ss}percentbadgepos`]).x],

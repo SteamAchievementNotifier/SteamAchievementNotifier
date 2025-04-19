@@ -55,10 +55,43 @@ sanconfig.get().store.nohwa && app.disableHardwareAcceleration()
     }
 })
 
+const setdefaultcustomisationvalue = (config: any,key: string,values: any[]) => {
+    const [oldvalue,newvalue] = values
+    if (!config.has(key)) return log.write("WARN",`Unable to set new value for "${key}" key: Key not present in config`)
+    
+    try {
+        if (config.get(key) === oldvalue) {
+            config.set(key,newvalue)
+            log.write("INFO",`Updated default "${key}" value from "${oldvalue}" to "${newvalue}" successfully`)
+        }
+    } catch (err) {
+        log.write("ERROR",`Unable to update default value for "${key}" key: ${err}`)
+    }
+}
+
+// Overwrites old default `customisation` key values to new default key values
+new Map<string,[any,any]>([
+    ["outline",["off","solid"]]
+]).forEach((values,key) => {
+    const config = sanconfig.get()
+    
+    for (const t in config.get("customisation")) {
+        const type = t as "main" | "rare" | "plat"
+        const { usertheme } = config.get(`customisation.${type}`) as Customisation
+
+        setdefaultcustomisationvalue(config,`customisation.${type}.${key}`,values)
+
+        for (const i in usertheme) {
+            setdefaultcustomisationvalue(config,`customisation.${type}.usertheme.${i}.customisation.${key}`,values)
+        }
+    }
+})
+
 const resetlegacykey = (key: string,limittype?: "main" | "rare" | "plat") => {
     const config = sanconfig.get()
 
-    for (const type in config.get("customisation")) {
+    for (const t in config.get("customisation")) {
+        const type = t as "main" | "rare" | "plat"
         const { usertheme } = config.get(`customisation.${type}`) as Customisation
 
         (!limittype || limittype === type) && config.set(`customisation.${type}.${key}`,false)

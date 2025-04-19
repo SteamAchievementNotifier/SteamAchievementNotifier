@@ -93,7 +93,9 @@ body[bottomcenter] .wrapper#ssdisplay {
 #unlockmsg {
     font-size: var(--headersize);
     color: var(--unlockmsgfontcolor);
-    text-shadow: var(--fontoutline);
+    /* text-shadow: var(--fontoutline); */
+    -webkit-text-stroke: var(--fontoutline);
+    paint-order: stroke fill;
     filter: var(--fontshadow);
 }
 

@@ -391,8 +391,10 @@ export const translations = {
                 descfontcolor: "Color 3",
                 fontoutline: "Font Outline",
                 fontoutlinecolor: "Font Outline Color",
+                fontoutlinescale: "Font Outline Scale",
                 fontshadow: "Font Shadow",
-                fontshadowcolor: "Font Shadow Color"
+                fontshadowcolor: "Font Shadow Color",
+                fontshadowscale: "Font Shadow Scale"
             }
         },
         icons: {
@@ -607,8 +609,10 @@ export const translations = {
         fontcolor: "Set the color of all text displayed within the notification",
         fontoutline: "Add an outline to all text displayed within the notification",
         fontoutlinecolor: "Set the color of the text outline",
+        fontoutlinescale: "Set the thickness of the text outline",
         fontshadow: "Add a shadow to all text displayed within the notification",
         fontshadowcolor: "Set the color of the text shadow",
+        fontshadowscale: "Set the thickness of the text shadow",
         iconroundness: "Set the roundness of the achievement/game icon displayed within the notification",
         plat: "Load an image file to be used as the 100% icon",
         usegameicon: "Replace the icon of the unlocked achievement with the icon for the current game",

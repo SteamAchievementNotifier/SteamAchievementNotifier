@@ -319,7 +319,9 @@ body[nodecoration] .wrapper#achcontent > span {
     align-items: center;
     font-size: calc(1rem * var(--fontsize));
     color: var(--fontcolor);
-    text-shadow: var(--fontoutline);
+    /* text-shadow: var(--fontoutline); */
+    -webkit-text-stroke: var(--fontoutline);
+    paint-order: stroke fill;
     filter: var(--fontshadow);
     grid-column-start: 2;
 }
@@ -336,6 +338,7 @@ body[nodecoration] .wrapper#achcontent > span {
     word-break: break-word;
     -webkit-box-align: center;
     margin-block: calc((var(--textvspace) * 1px) * var(--scale));
+    /* padding-inline: calc(var(--scale) * 2px); */
 }
 
 #achcontent > #unlockmsg {

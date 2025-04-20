@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Regnbue",
                 mask: "Maske",
                 maskimg: "Maskebilde",
-                outline: "Kontur",
+                useoutline: "Kontur",
+                outline: "Konturtype",
                 outlinecolor: "Konturfarge",
                 outlinewidth: "Konturbredde",
                 dashed: "Stiplet",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Farge 3",
                 fontoutline: "Fontkontur",
                 fontoutlinecolor: "Fontkontur Farge",
+                fontoutlinescale: "Fontkontur Skala",
                 fontshadow: "Fontskygge",
-                fontshadowcolor: "Fontskygge Farge"
+                fontshadowcolor: "Fontskygge Farge",
+                fontshadowscale: "Fontskygge Skala"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Glødefargen som vises når opplåsingsprosenten er < $rarity",
         mask: "Aktiver maske av deler av varselet med et tilpasset bilde",
         maskimg: `Last opp et bildefil som skal brukes som maske<br><br><span class="ttdesc">I CSS fungerer <code class="ttcode">mask-mode: alpha</code> på en motsatt måte enn hva som vanligvis forventes - områder med gjennomsiktighet i bildefilen vil bli skjult, og områder med svart/grå vil tillate elementene under å være synlige</span>`,
+        useoutline: "Vis en kontur rundt varslingen",
         outline: "Velg typen kontur som skal vises rundt varslingen",
         outlinecolor: "Angi fargen på konturen rundt varslingen",
         outlinewidth: "Angi bredden på konturen rundt varslingen",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Angi fargen på all tekst som vises i varslingen",
         fontoutline: "Legg til en kontur rundt all tekst som vises i varslingen",
         fontoutlinecolor: "Angi fargen på tekstkonturen",
+        fontoutlinescale: "Angi tykkelsen på tekstkonturen",
         fontshadow: "Legg til en skygge på all tekst som vises i varslingen",
         fontshadowcolor: "Angi fargen på tekstskyggen",
+        fontshadowscale: "Angi tykkelsen på tekstens skygge",
         iconroundness: "Angi avrundingen av prestasjons-/spillikonet som vises i varslingen",
         plat: "Last inn en bildefil som skal brukes som 100 % -ikon",
         usegameicon: "Erstatt ikonet for den opplåste prestasjonen med ikonet for det nåværende spillet",

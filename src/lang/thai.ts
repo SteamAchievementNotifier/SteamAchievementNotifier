@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "รุ้ง",
                 mask: "หน้ากาก",
                 maskimg: "ภาพหน้ากาก",
-                outline: "ขอบ",
+                useoutline: "ขอบเขต",
+                outline: "ประเภทขอบเขต",
                 outlinecolor: "สีขอบ",
                 outlinewidth: "ความกว้างของขอบ",
                 dashed: "เส้นประ",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "สี 3",
                 fontoutline: "เส้นขอบตัวอักษร",
                 fontoutlinecolor: "สีขอบตัวอักษร",
+                fontoutlinescale: "ขนาดขอบเขตของฟอนต์",
                 fontshadow: "เงาตัวอักษร",
-                fontshadowcolor: "สีเงาตัวอักษร"
+                fontshadowcolor: "สีเงาตัวอักษร",
+                fontshadowscale: "ขนาดเงาของฟอนต์"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "สีของการเรืองแสงที่แสดงเมื่อเปอร์เซ็นต์การปลดล็อก < $rarity",
         mask: "เปิดใช้งานการปกปิดบางส่วนของการแจ้งเตือนด้วยภาพที่กำหนดเอง",
         maskimg: `อัปโหลดไฟล์ภาพที่จะใช้เป็นหน้ากาก<br><br><span class="ttdesc">ใน CSS <code class="ttcode">mask-mode: alpha</code> ทำงานในทิศทางตรงกันข้ามกับที่คาดหวัง - พื้นที่โปร่งในไฟล์ภาพจะถูกซ่อนเอาไว้และพื้นที่สีดำ/เทาจะทำให้ส่วนองค์ประกอบด้านล่างเห็นได้</span>`,
+        useoutline: "แสดงขอบเขตรอบการแจ้งเตือน",
         outline: "เลือกประเภทขอบที่จะแสดงรอบๆ การแจ้งเตือน",
         outlinecolor: "ตั้งค่าสีของขอบรอบๆ การแจ้งเตือน",
         outlinewidth: "ตั้งค่าความกว้างของขอบรอบๆ การแจ้งเตือน",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "ตั้งค่าสีของข้อความทั้งหมดที่แสดงในการแจ้งเตือน",
         fontoutline: "เพิ่มเส้นขอบให้กับข้อความทั้งหมดที่แสดงในการแจ้งเตือน",
         fontoutlinecolor: "ตั้งค่าสีของเส้นขอบของข้อความ",
+        fontoutlinescale: "ตั้งค่าความหนาของขอบเขตข้อความ",
         fontshadow: "เพิ่มเงาให้กับข้อความทั้งหมดที่แสดงในการแจ้งเตือน",
         fontshadowcolor: "ตั้งค่าสีของเงาของข้อความ",
+        fontshadowscale: "ตั้งค่าความหนาของเงาข้อความ",
         iconroundness: "ตั้งค่าความโค้งของไอคอนความสำเร็จ/เกมที่แสดงในการแจ้งเตือน",
         plat: "โหลดไฟล์รูปภาพที่จะใช้เป็นไอคอน 100%",
         usegameicon: "แทนที่ไอคอนของความสำเร็จที่ปลดล็อกด้วยไอคอนของเกมปัจจุบัน",

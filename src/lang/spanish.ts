@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Arcoíris",
                 mask: "Máscara",
                 maskimg: "Imagen de máscara",
-                outline: "Contorno",
+                useoutline: "Contorno",
+                outline: "Tipo de Contorno",
                 outlinecolor: "Color del Contorno",
                 outlinewidth: "Ancho del Contorno",
                 dashed: "Rayado",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Color 3",
                 fontoutline: "Contorno de Fuente",
                 fontoutlinecolor: "Color de Contorno de Fuente",
+                fontoutlinescale: "Escala de Contorno de Fuente",
                 fontshadow: "Sombra de Fuente",
-                fontshadowcolor: "Color de Sombra de Fuente"
+                fontshadowcolor: "Color de Sombra de Fuente",
+                fontshadowscale: "Escala de Sombra de Fuente"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "El color del brillo mostrado cuando el porcentaje de desbloqueo es < $rarity",
         mask: "Activar el enmascaramiento de partes de la notificación con una imagen personalizada",
         maskimg: `Cargar un archivo de imagen para usar como máscara<br><br><span class="ttdesc">En CSS, <code class="ttcode">mask-mode: alpha</code> funciona de manera opuesta a lo que generalmente se espera: las áreas de transparencia en el archivo de imagen serán oscurecidas, y las áreas negras/grises permitirán que los elementos debajo sean visibles</span>`,
+        useoutline: "Mostrar un contorno alrededor de la notificación",
         outline: "Selecciona el tipo de contorno que se mostrará alrededor de la notificación",
         outlinecolor: "Establece el color del contorno alrededor de la notificación",
         outlinewidth: "Establece el ancho del contorno alrededor de la notificación",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Establecer el color de todo el texto que se muestra dentro de la notificación",
         fontoutline: "Agregar un contorno a todo el texto que se muestra dentro de la notificación",
         fontoutlinecolor: "Establecer el color del contorno del texto",
+        fontoutlinescale: "Establecer el grosor del contorno del texto",
         fontshadow: "Agregar una sombra a todo el texto que se muestra dentro de la notificación",
         fontshadowcolor: "Establecer el color de la sombra del texto",
+        fontshadowscale: "Establecer el grosor de la sombra del texto",
         iconroundness: "Establecer la redondez del icono de logro/juego que se muestra dentro de la notificación",
         plat: "Cargar un archivo de imagen para usar como el icono del 100%",
         usegameicon: "Reemplazar el ícono del logro desbloqueado por el ícono del juego actual",

@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Regnbåge",
                 mask: "Mask",
                 maskimg: "Maskbild",
-                outline: "Kontur",
+                useoutline: "Kontur",
+                outline: "Konturtyp",
                 outlinecolor: "Konturens färg",
                 outlinewidth: "Konturens bredd",
                 dashed: "Streckad",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Färg 3",
                 fontoutline: "Typsnittets kontur",
                 fontoutlinecolor: "Typsnittets konturfärg",
+                fontoutlinescale: "Teckensnittets konturskalning",
                 fontshadow: "Typsnittsskugga",
-                fontshadowcolor: "Typsnittsskuggans färg"
+                fontshadowcolor: "Typsnittsskuggans färg",
+                fontshadowscale: "Teckensnittets skuggsalning"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Glödens färg som visas när upplåsningsprocenten är < $rarity",
         mask: "Aktivera maskering av delar av meddelandet med en anpassad bild",
         maskimg: `Ladda en bildfil som ska användas som mask<br><br><span class="ttdesc">I CSS fungerar <code class="ttcode">mask-mode: alpha</code> på ett motsatt sätt än vad som vanligtvis förväntas - områden med genomskinlighet i bildfilen kommer att förbli osynliga, medan svarta/grå områden tillåter de underliggande elementen att vara synliga</span>`,
+        useoutline: "Visa en kontur runt meddelandet",
         outline: "Välj typen av kontur som ska visas runt notifikationen",
         outlinecolor: "Ställ in färgen på konturen runt notifikationen",
         outlinewidth: "Ställ in bredden på konturen runt notifikationen",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Ställ in färgen på all text som visas i aviseringen",
         fontoutline: "Lägg till en kontur till all text som visas i aviseringen",
         fontoutlinecolor: "Ställ in färgen på textens kontur",
+        fontoutlinescale: "Ställ in tjockleken på textens kontur",
         fontshadow: "Lägg till en skugga till all text som visas i aviseringen",
         fontshadowcolor: "Ställ in färgen på textens skugga",
+        fontshadowscale: "Ställ in tjockleken på textens skugga",
         iconroundness: "Ställ in rundheten för prestation/spelikonen som visas i aviseringen",
         plat: "Ladda en bildfil som ska användas som 100% ikon",
         usegameicon: "Ersätt ikonen för det upplåsta achievementet med spelets nuvarande ikon",

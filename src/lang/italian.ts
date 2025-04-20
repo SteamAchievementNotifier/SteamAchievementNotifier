@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Arcobaleno",
                 mask: "Maschera",
                 maskimg: "Immagine della maschera",
-                outline: "Contorno",
+                useoutline: "Contorno",
+                outline: "Tipo di Contorno",
                 outlinecolor: "Colore del Contorno",
                 outlinewidth: "Larghezza del Contorno",
                 dashed: "Tratteggiato",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Colore 3",
                 fontoutline: "Contorno Carattere",
                 fontoutlinecolor: "Colore Contorno Carattere",
+                fontoutlinescale: "Scala Contorno Carattere",
                 fontshadow: "Ombra Carattere",
-                fontshadowcolor: "Colore Ombra Carattere"
+                fontshadowcolor: "Colore Ombra Carattere",
+                fontshadowscale: "Scala Ombra Carattere"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Il colore del brillamento mostrato quando la percentuale di sblocco è < $rarity",
         mask: "Abilita la mascheratura di parti della notifica con un'immagine personalizzata",
         maskimg: `Carica un file immagine da utilizzare come maschera<br><br><span class="ttdesc">In CSS, <code class="ttcode">mask-mode: alpha</code> funziona in modo opposto a quanto ci si aspetta di solito: le aree di trasparenza nel file immagine verranno oscurate, mentre le aree nere/grigie permetteranno agli elementi sottostanti di essere visibili</span>`,
+        useoutline: "Mostra un contorno intorno alla notifica",
         outline: "Seleziona il tipo di contorno da mostrare attorno alla notifica",
         outlinecolor: "Imposta il colore del contorno attorno alla notifica",
         outlinewidth: "Imposta la larghezza del contorno attorno alla notifica",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Imposta il colore del testo visualizzato nella notifica",
         fontoutline: "Aggiungi un contorno a tutto il testo visualizzato nella notifica",
         fontoutlinecolor: "Imposta il colore del contorno del testo",
+        fontoutlinescale: "Imposta lo spessore del contorno del testo",
         fontshadow: "Aggiungi un'ombra a tutto il testo visualizzato nella notifica",
         fontshadowcolor: "Imposta il colore dell'ombra del testo",
+        fontshadowscale: "Imposta lo spessore dell'ombra del testo",
         iconroundness: "Imposta l'arrotondamento dell'icona dell'obiettivo/gioco visualizzata nella notifica",
         plat: "Carica un file immagine da utilizzare come icona al 100%",
         usegameicon: "Sostituisci l'icona del traguardo sbloccato con l'icona del gioco attuale",

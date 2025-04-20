@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Gökkuşağı",
                 mask: "Maske",
                 maskimg: "Maske Resmi",
-                outline: "Çerçeve",
+                useoutline: "Çerçeve",
+                outline: "Çerçeve Türü",
                 outlinecolor: "Çerçeve Rengi",
                 outlinewidth: "Çerçeve Genişliği",
                 dashed: "Kesik Çizgi",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Renk 3",
                 fontoutline: "Yazı Çerçevesi",
                 fontoutlinecolor: "Yazı Çerçevesi Rengi",
+                fontoutlinescale: "Yazı Tipi Çerçeve Ölçeği",
                 fontshadow: "Yazı Gölgesi",
-                fontshadowcolor: "Yazı Gölgesi Rengi"
+                fontshadowcolor: "Yazı Gölgesi Rengi",
+                fontshadowscale: "Yazı Tipi Gölgesi Ölçeği"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Kilitleme yüzdesi < $rarity olduğunda gösterilen ışık rengi",
         mask: "Bildirimin belirli bölümlerini özel bir resimle maskelemeyi etkinleştirin",
         maskimg: `Maske olarak kullanılacak bir resim dosyası yükleyin<br><br><span class="ttdesc">CSS'de <code class="ttcode">mask-mode: alpha</code>, genellikle beklenenin tam tersi şekilde çalışır - resim dosyasındaki şeffaflık alanları gizlenirken, siyah/grinin alanları alttaki öğelerin görünmesine izin verir</span>`,
+        useoutline: "Bildirim etrafında bir çerçeve göster",
         outline: "Bildirim etrafında gösterilecek çerçeve türünü seçin",
         outlinecolor: "Bildirim etrafındaki çerçevenin rengini ayarlayın",
         outlinewidth: "Bildirim etrafındaki çerçevenin genişliğini ayarlayın",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Bildirimde görüntülenen tüm metnin rengini ayarlayın",
         fontoutline: "Bildirimde görüntülenen tüm metne bir dış çizgi ekleyin",
         fontoutlinecolor: "Metin dış çizgisinin rengini ayarlayın",
+        fontoutlinescale: "Metnin çerçevesinin kalınlığını ayarla",
         fontshadow: "Bildirimde görüntülenen tüm metne bir gölge ekleyin",
         fontshadowcolor: "Metin gölgesinin rengini ayarlayın",
+        fontshadowscale: "Metnin gölgesinin kalınlığını ayarla",
         iconroundness: "Bildirimde görüntülenen başarı/oyun ikonunun yuvarlaklığını ayarlayın",
         plat: "100% ikonu olarak kullanılacak bir resim dosyası yükleyin",
         usegameicon: "Kilidi açılan başarının ikonunu, mevcut oyun ikonu ile değiştir",

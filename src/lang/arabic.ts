@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "قوس قزح",
                 mask: "قناع",
                 maskimg: "صورة القناع",
-                outline: "الحدود",
+                useoutline: "المخطط الخارجي",
+                outline: "نوع المخطط الخارجي",
                 outlinecolor: "لون الحدود",
                 outlinewidth: "عرض الحدود",
                 dashed: "متقطع",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "اللون 3",
                 fontoutline: "خط الخط",
                 fontoutlinecolor: "لون خط الخط",
+                fontoutlinescale: "مقياس مخطط الخط",
                 fontshadow: "ظل الخط",
-                fontshadowcolor: "لون ظل الخط"
+                fontshadowcolor: "لون ظل الخط",
+                fontshadowscale: "مقياس ظل الخط"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "لون التوهج المعروض عندما تكون نسبة الفتح < $rarity",
         mask: "تمكين تقنية الإخفاء لأجزاء من الإشعار باستخدام صورة مخصصة",
         maskimg: `تحميل ملف صورة لاستخدامه كإخفاء<br><br><span class="ttdesc">في CSS، <code class="ttcode">mask-mode: alpha</code> تعمل بالطريقة المعاكسة لما يتوقع عادة - ستُخفى مناطق الشفافية في ملف الصورة، وستسمح مناطق اللون الأسود / الرمادي بظهور العناصر أدناه</span>`,
+        useoutline: "عرض مخطط خارجي حول الإشعار",
         outline: "اختر نوع الحدود التي ستظهر حول الإشعار",
         outlinecolor: "حدد لون الحدود حول الإشعار",
         outlinewidth: "حدد عرض الحدود حول الإشعار",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "تعيين لون النص المعروض ضمن الإشعار",
         fontoutline: "إضافة حدود لجميع النصوص المعروضة ضمن الإشعار",
         fontoutlinecolor: "تعيين لون حدود النص",
+        fontoutlinescale: "تعيين سمك مخطط النص",
         fontshadow: "إضافة ظل لجميع النصوص المعروضة ضمن الإشعار",
         fontshadowcolor: "تعيين لون ظل النص",
+        fontshadowscale: "تعيين سمك ظل النص",
         iconroundness: "تعيين الدوران لرمز الإنجاز / اللعبة المعروض ضمن الإشعار",
         plat: "تحميل ملف صورة لاستخدامه كرمز 100%",
         usegameicon: "استبدال أيقونة الإنجاز غير المقفل بأيقونة اللعبة الحالية",

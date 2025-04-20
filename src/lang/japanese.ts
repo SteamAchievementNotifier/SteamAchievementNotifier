@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "虹",
                 mask: "マスク",
                 maskimg: "マスク画像",
-                outline: "アウトライン",
+                useoutline: "アウトライン",
+                outline: "アウトラインの種類",
                 outlinecolor: "アウトラインの色",
                 outlinewidth: "アウトラインの幅",
                 dashed: "破線",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "カラー 3",
                 fontoutline: "フォントアウトライン",
                 fontoutlinecolor: "フォントアウトラインカラー",
+                fontoutlinescale: "フォントのアウトラインスケール",
                 fontshadow: "フォントシャドウ",
-                fontshadowcolor: "フォントシャドウカラー"
+                fontshadowcolor: "フォントシャドウカラー",
+                fontshadowscale: "フォントのシャドウスケール"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "解除率が < $rarity のときに表示される輝きの色",
         mask: "カスタム画像で通知の一部をマスキングします",
         maskimg: `マスクとして使用する画像ファイルを読み込みます<br><br><span class="ttdesc">CSSでは、<code class="ttcode">mask-mode: alpha</code> は通常の期待とは逆に機能します。画像ファイルの透明な領域は非表示になり、黒/グレーの領域は下の要素を表示します</span>`,
+        useoutline: "通知の周りにアウトラインを表示",
         outline: "通知の周りに表示するアウトラインの種類を選択してください",
         outlinecolor: "通知の周りのアウトラインの色を設定します",
         outlinewidth: "通知の周りのアウトラインの幅を設定します",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "通知内に表示されるすべてのテキストの色を設定する",
         fontoutline: "通知内に表示されるすべてのテキストにアウトラインを追加する",
         fontoutlinecolor: "テキストのアウトラインの色を設定する",
+        fontoutlinescale: "テキストのアウトラインの太さを設定",
         fontshadow: "通知内に表示されるすべてのテキストにシャドウを追加する",
         fontshadowcolor: "テキストのシャドウの色を設定する",
+        fontshadowscale: "テキストのシャドウの太さを設定",
         iconroundness: "通知内に表示される実績/ゲームアイコンの角の丸みを設定する",
         plat: "100%アイコンとして使用する画像ファイルを読み込む",
         usegameicon: "解除された実績のアイコンを現在のゲームのアイコンに置き換える",

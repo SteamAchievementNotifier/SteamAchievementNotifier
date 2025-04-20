@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "무지개",
                 mask: "마스크",
                 maskimg: "마스크 이미지",
-                outline: "윤곽선",
+                useoutline: "윤곽선",
+                outline: "윤곽선 유형",
                 outlinecolor: "윤곽선 색상",
                 outlinewidth: "윤곽선 너비",
                 dashed: "점선",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "색상 3",
                 fontoutline: "글꼴 외곽선",
                 fontoutlinecolor: "글꼴 외곽선 색상",
+                fontoutlinescale: "폰트 윤곽선 크기",
                 fontshadow: "글꼴 그림자",
-                fontshadowcolor: "글꼴 그림자 색상"
+                fontshadowcolor: "글꼴 그림자 색상",
+                fontshadowscale: "폰트 그림자 크기"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "잠금 해제 비율이 < $rarity일 때 표시되는 빛 색상",
         mask: "사용자 지정 이미지로 알림의 일부를 마스킹합니다",
         maskimg: `마스크로 사용할 이미지 파일을 로드합니다<br><br><span class="ttdesc">CSS에서 <code class="ttcode">mask-mode: alpha</code>는 일반적으로 기대하는 것과 반대로 작동합니다. 이미지 파일의 투명 영역은 숨겨지고, 검은/회색 영역은 아래의 요소를 표시합니다</span>`,
+        useoutline: "알림 주위에 윤곽선을 표시",
         outline: "알림 주위에 표시할 윤곽선 유형을 선택하세요",
         outlinecolor: "알림 주위의 윤곽선 색상을 설정하세요",
         outlinewidth: "알림 주위의 윤곽선 너비를 설정하세요",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "알림 내에 표시되는 모든 텍스트의 색상 설정",
         fontoutline: "알림 내에 표시되는 모든 텍스트에 외곽선 추가",
         fontoutlinecolor: "텍스트 외곽선의 색상 설정",
+        fontoutlinescale: "텍스트 윤곽선 두께 설정",
         fontshadow: "알림 내에 표시되는 모든 텍스트에 그림자 추가",
         fontshadowcolor: "텍스트 그림자의 색상 설정",
+        fontshadowscale: "텍스트 그림자 두께 설정",
         iconroundness: "알림 내에 표시되는 업적/게임 아이콘의 둥글기 설정",
         plat: "100% 아이콘으로 사용할 이미지 파일 로드",
         usegameicon: "잠금 해제된 업적의 아이콘을 현재 게임의 아이콘으로 교체",

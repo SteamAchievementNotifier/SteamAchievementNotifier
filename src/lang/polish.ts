@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Tęcza",
                 mask: "Maska",
                 maskimg: "Obraz maski",
-                outline: "Kontur",
+                useoutline: "Kontur",
+                outline: "Typ konturu",
                 outlinecolor: "Kolor konturu",
                 outlinewidth: "Szerokość konturu",
                 dashed: "Kreskowany",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Kolor 3",
                 fontoutline: "Obrys Czcionki",
                 fontoutlinecolor: "Kolor Obrysu Czcionki",
+                fontoutlinescale: "Skala Obrysu Czcionki",
                 fontshadow: "Cień Czcionki",
-                fontshadowcolor: "Kolor Cienia Czcionki"
+                fontshadowcolor: "Kolor Cienia Czcionki",
+                fontshadowscale: "Skala Cienia Czcionki"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Kolor poświaty wyświetlany, gdy procent odblokowania wynosi < $rarity",
         mask: "Włącz maskowanie części powiadomienia za pomocą niestandardowego obrazu",
         maskimg: `Załaduj plik obrazu, który ma być używany jako maska<br><br><span class="ttdesc">W CSS, <code class="ttcode">mask-mode: alpha</code> działa w sposób przeciwny do oczekiwanego - obszary przezroczystości w pliku obrazu zostaną ukryte, a obszary czarne/szare pozwolą na widoczność elementów poniżej</span>`,
+        useoutline: "Pokaż obrys wokół powiadomienia",
         outline: "Wybierz typ konturu, który ma być wyświetlany wokół powiadomienia",
         outlinecolor: "Ustaw kolor konturu wokół powiadomienia",
         outlinewidth: "Ustaw szerokość konturu wokół powiadomienia",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Ustaw kolor wszystkich tekstów wyświetlanych w powiadomieniu",
         fontoutline: "Dodaj obrys do wszystkich tekstów wyświetlanych w powiadomieniu",
         fontoutlinecolor: "Ustaw kolor obrysu tekstu",
+        fontoutlinescale: "Ustaw grubość obrysu tekstu",
         fontshadow: "Dodaj cień do wszystkich tekstów wyświetlanych w powiadomieniu",
         fontshadowcolor: "Ustaw kolor cienia tekstu",
+        fontshadowscale: "Ustaw grubość cienia tekstu",
         iconroundness: "Ustaw zaokrąglenie ikony osiągnięcia/gry wyświetlanej w powiadomieniu",
         plat: "Wczytaj plik obrazu do użycia jako ikona 100%",
         usegameicon: "Zamień ikonę odblokowanego osiągnięcia na ikonę aktualnej gry",

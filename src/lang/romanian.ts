@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Curcubeu",
                 mask: "Mască",
                 maskimg: "Imaginea măștii",
-                outline: "Contur",
+                useoutline: "Contur",
+                outline: "Tipul Conturului",
                 outlinecolor: "Culoarea Conturului",
                 outlinewidth: "Lățimea Conturului",
                 dashed: "Liniuțat",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Culoare 3",
                 fontoutline: "Contur Font",
                 fontoutlinecolor: "Culoare Contur Font",
+                fontoutlinescale: "Scara Contur Font",
                 fontshadow: "Umbra Font",
-                fontshadowcolor: "Culoare Umbră Font"
+                fontshadowcolor: "Culoare Umbră Font",
+                fontshadowscale: "Scara Umbră Font"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Culoarea strălucirii afișată când procentul de deblocare este < $rarity",
         mask: "Activați mascațiunea părților notificării cu o imagine personalizată",
         maskimg: `Încărcați un fișier de imagine care să fie utilizat ca mască<br><br><span class="ttdesc">În CSS, <code class="ttcode">mask-mode: alpha</code> funcționează în mod invers față de ceea ce se așteaptă în mod normal - zonele de transparență din fișierul de imagine vor fi acoperite, iar zonele negre/cenușii vor permite elementelor de sub ele să fie vizibile</span>`,
+        useoutline: "Afișează un contur în jurul notificării",
         outline: "Selectează tipul de contur care va fi afișat în jurul notificării",
         outlinecolor: "Setează culoarea conturului din jurul notificării",
         outlinewidth: "Setează lățimea conturului din jurul notificării",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Setați culoarea textului afișat în notificare",
         fontoutline: "Adăugați un contur la textul afișat în notificare",
         fontoutlinecolor: "Setați culoarea conturului textului",
+        fontoutlinescale: "Setează grosimea conturului textului",
         fontshadow: "Adăugați o umbră la textul afișat în notificare",
         fontshadowcolor: "Setați culoarea umbrei textului",
+        fontshadowscale: "Setează grosimea umbrei textului",
         iconroundness: "Setați rotunjimea iconului realizării/jocului afișat în notificare",
         plat: "Încărcați un fișier de imagine care să înlocuiască iconul 100%",
         usegameicon: "Înlocuiți iconița realizării deblocate cu iconița jocului curent",

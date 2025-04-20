@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "彩虹",
                 mask: "遮罩",
                 maskimg: "遮罩圖片",
-                outline: "輪廓",
+                useoutline: "輪廓",
+                outline: "輪廓類型",
                 outlinecolor: "輪廓顏色",
                 outlinewidth: "輪廓寬度",
                 dashed: "虛線",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "顏色 3",
                 fontoutline: "文字輪廓",
                 fontoutlinecolor: "文字輪廓顏色",
+                fontoutlinescale: "字型輪廓縮放",
                 fontshadow: "文字陰影",
-                fontshadowcolor: "文字陰影顏色"
+                fontshadowcolor: "文字陰影顏色",
+                fontshadowscale: "字型陰影縮放"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "當解鎖百分比 < $rarity 時顯示的光暈顏色",
         mask: "使用自訂圖像啟用通知部分的遮罩",
         maskimg: `上傳要用作遮罩的圖像檔案<br><br><span class="ttdesc">在 CSS 中，<code class="ttcode">mask-mode: alpha</code> 的工作方式與通常預期的相反 - 圖像檔案中的透明區域將被隱藏，而黑色/灰色區域將允許下方元素可見</span>`,
+        useoutline: "在通知周圍顯示輪廓",
         outline: "選擇顯示在通知周圍的輪廓類型",
         outlinecolor: "設置通知周圍輪廓的顏色",
         outlinewidth: "設置通知周圍輪廓的寬度",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "設置通知中顯示的所有文本的顏色",
         fontoutline: "為通知中顯示的所有文本添加輪廓",
         fontoutlinecolor: "設置文本輪廓的顏色",
+        fontoutlinescale: "設定文本輪廓的厚度",
         fontshadow: "為通知中顯示的所有文本添加陰影",
         fontshadowcolor: "設置文本陰影的顏色",
+        fontshadowscale: "設定文本陰影的厚度",
         iconroundness: "設置通知中顯示的成就/遊戲圖標的圓角程度",
         plat: "加載要用作 100% 圖標的圖像文件",
         usegameicon: "將解鎖的成就圖示替換為當前遊戲的圖示",

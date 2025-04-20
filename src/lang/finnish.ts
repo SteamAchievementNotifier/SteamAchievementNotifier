@@ -369,9 +369,10 @@ export const translations = {
                 rainbow: "Sateenkaari",
                 mask: "Maski",
                 maskimg: "Maskin kuva",
-                outline: "Reunus",
-                outlinecolor: "Reunuksen Väri",
-                outlinewidth: "Reunuksen Leveys",
+                useoutline: "Ääriviiva",
+                outline: "Ääriviivan tyyppi",
+                outlinecolor: "Ääriviivan väri",
+                outlinewidth: "Ääriviivan leveys",
                 dashed: "Katkoviiva",
                 dotted: "Pisteviiva"
             }
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Väri 3",
                 fontoutline: "Fontin Reunaviiva",
                 fontoutlinecolor: "Reunaviivan Väri",
+                fontoutlinescale: "Fontin ääriviivan skaala",
                 fontshadow: "Fontin Varjo",
-                fontshadowcolor: "Varjon Väri"
+                fontshadowcolor: "Varjon Väri",
+                fontshadowscale: "Fontin varjon skaala"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Hehkun väri, kun avaamisprosentti on < $rarity",
         mask: "Ota käyttöön osien peittäminen mukautetulla kuvalla",
         maskimg: `Lataa kuvatiedosto, jota käytetään naamiona<br><br><span class="ttdesc">CSS:ssä <code class="ttcode">mask-mode: alpha</code> toimii päinvastaisesti kuin yleensä odotetaan - kuvatiedoston läpinäkyvyysalueet piilotetaan ja mustat/harmaat alueet sallivat alla olevien elementtien näkymisen</span>`,
+        useoutline: "Näytä ääriviiva ilmoituksen ympärillä",
         outline: "Valitse reunustyyppi, joka näkyy ilmoituksen ympärillä",
         outlinecolor: "Aseta reunuksen väri ilmoituksen ympärille",
         outlinewidth: "Aseta reunuksen leveys ilmoituksen ympärille",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Aseta kaiken ilmoituksessa näkyvän tekstin väri",
         fontoutline: "Lisää ääriviiva kaikelle ilmoituksessa näkyvälle tekstille",
         fontoutlinecolor: "Aseta tekstin ääriviivan väri",
+        fontoutlinescale: "Aseta tekstin ääriviivan paksuus",
         fontshadow: "Lisää varjostus kaikelle ilmoituksessa näkyvälle tekstille",
         fontshadowcolor: "Aseta tekstin varjostuksen väri",
+        fontshadowscale: "Aseta tekstin varjon paksuus",
         iconroundness: "Aseta saavutuksen/pelin kuvakkeen pyöristys ilmoituksessa",
         plat: "Lataa kuvatiedosto 100% -kuvakkeeksi",
         usegameicon: "Korvaa avatun saavutuksen ikoni nykyisen pelin ikonilla",

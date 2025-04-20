@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Szivárvány",
                 mask: "Maszk",
                 maskimg: "Maszk kép",
-                outline: "Kontúr",
+                useoutline: "Kontúr",
+                outline: "Kontúrtípus",
                 outlinecolor: "Kontúr Szín",
                 outlinewidth: "Kontúr Szélesség",
                 dashed: "Szakaszos",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Szín 3",
                 fontoutline: "Betű körvonal",
                 fontoutlinecolor: "Betű körvonal színe",
+                fontoutlinescale: "Betűkontúrok mérete",
                 fontshadow: "Betűárnyék",
-                fontshadowcolor: "Betűárnyék színe"
+                fontshadowcolor: "Betűárnyék színe",
+                fontshadowscale: "Betűárnyék mérete"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "A fény színe, amikor a feloldás százaléka < $rarity",
         mask: "Engedélyezze az értesítés egyes részeinek maszkolását egyéni képpel",
         maskimg: `Töltsön be egy képfájlt, amelyet maszkként szeretne használni<br><br><span class="ttdesc">A CSS-ben a <code class="ttcode">mask-mode: alpha</code> ellentétesen működik a megszokott módon - a képfájl átlátszó területei el lesznek rejtve, és a fekete/szürke területek engedélyezik a alatti elemek láthatóságát</span>`,
+        useoutline: "Kontúr megjelenítése az értesítés körül",
         outline: "Válassza ki a kontúr típusát, amely megjelenik az értesítés körül",
         outlinecolor: "Állítsa be a kontúr színét az értesítés körül",
         outlinewidth: "Állítsa be a kontúr szélességét az értesítés körül",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Állítsa be a betűszínét az értesítésben megjelenített összes szövegnek",
         fontoutline: "Keret hozzáadása az értesítésben megjelenített összes szöveghez",
         fontoutlinecolor: "Állítsa be a szöveg keretének színét",
+        fontoutlinescale: "A szöveg kontúrvastagságának beállítása",
         fontshadow: "Árnyék hozzáadása az értesítésben megjelenített összes szöveghez",
         fontshadowcolor: "Állítsa be a szöveg árnyékának színét",
+        fontshadowscale: "A szöveg árnyékának vastagságának beállítása",
         iconroundness: "Állítsa be az értesítésben megjelenített eredmény/játék ikon kerekességét",
         plat: "Képfájl betöltése a 100% ikonként való használathoz",
         usegameicon: "Az elérhető jutalom ikonját cseréld le a jelenlegi játék ikonjára",

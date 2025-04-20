@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Regenbogen",
                 mask: "Maske",
                 maskimg: "Maskenbild",
-                outline: "Umriss",
+                useoutline: "Umriss",
+                outline: "Umriss-Typ",
                 outlinecolor: "Umrissfarbe",
                 outlinewidth: "Umrissbreite",
                 dashed: "Gestrichelt",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Farbe 3",
                 fontoutline: "Schriftkontur",
                 fontoutlinecolor: "Farbe der Schriftkontur",
+                fontoutlinescale: "Skalierung des Schriftumrisses",
                 fontshadow: "Schriftschatten",
-                fontshadowcolor: "Farbe des Schriftschattens"
+                fontshadowcolor: "Farbe des Schriftschattens",
+                fontshadowscale: "Skalierung des Schriftschattens"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Die Leuchtfarbe, wenn der Entsperrprozentsatz < $rarity ist",
         mask: "Aktivieren Sie das Maskieren von Teilen der Benachrichtigung mit einem benutzerdefinierten Bild",
         maskimg: `Laden Sie eine Bilddatei hoch, die als Maske verwendet werden soll<br><br><span class="ttdesc">In CSS funktioniert <code class="ttcode">mask-mode: alpha</code> entgegen der üblichen Erwartung - Bereiche der Transparenz in der Bilddatei werden verdeckt, und schwarze/graue Bereiche lassen die darunterliegenden Elemente sichtbar werden</span>`,
+        useoutline: "Einen Umriss um die Benachrichtigung anzeigen",
         outline: "Wählen Sie den Typ des Umrisses aus, der um die Benachrichtigung angezeigt werden soll",
         outlinecolor: "Stellen Sie die Farbe des Umrisses um die Benachrichtigung ein",
         outlinewidth: "Stellen Sie die Breite des Umrisses um die Benachrichtigung ein",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Legen Sie die Farbe des in der Benachrichtigung angezeigten Textes fest",
         fontoutline: "Fügen Sie allen in der Benachrichtigung angezeigten Texten eine Kontur hinzu",
         fontoutlinecolor: "Legen Sie die Farbe der Textkontur fest",
+        fontoutlinescale: "Die Dicke des Schriftumrisses festlegen",
         fontshadow: "Fügen Sie allen in der Benachrichtigung angezeigten Texten einen Schatten hinzu",
         fontshadowcolor: "Legen Sie die Farbe des Textschattens fest",
+        fontshadowscale: "Die Dicke des Schattens des Textes festlegen",
         iconroundness: "Legen Sie die Rundung des Erfolgs-/Spielsymbols in der Benachrichtigung fest",
         plat: "Verwenden Sie eine Bilddatei, die als 100%-Symbol verwendet werden soll",
         usegameicon: "Ersetze das Symbol der freigeschalteten Errungenschaft durch das Symbol des aktuellen Spiels",

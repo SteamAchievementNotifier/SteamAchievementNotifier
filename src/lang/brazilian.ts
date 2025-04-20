@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Arco-íris",
                 mask: "Máscara",
                 maskimg: "Imagem da Máscara",
-                outline: "Contorno",
+                useoutline: "Contorno",
+                outline: "Tipo de Contorno",
                 outlinecolor: "Cor do Contorno",
                 outlinewidth: "Largura do Contorno",
                 dashed: "Tracejado",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Cor 3",
                 fontoutline: "Contorno da Fonte",
                 fontoutlinecolor: "Cor do Contorno da Fonte",
+                fontoutlinescale: "Escala do Contorno da Fonte",
                 fontshadow: "Sombra da Fonte",
-                fontshadowcolor: "Cor da Sombra da Fonte"
+                fontshadowcolor: "Cor da Sombra da Fonte",
+                fontshadowscale: "Escala da Sombra da Fonte"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "A cor do brilho exibida quando a porcentagem de desbloqueio for < $rarity",
         mask: "Ativar a máscara de partes do aviso com uma imagem personalizada",
         maskimg: `Carregar um arquivo de imagem para ser usado como máscara<br><br><span class="ttdesc">No CSS, <code class="ttcode">mask-mode: alpha</code> opera de forma oposta ao que é geralmente esperado - áreas de transparência no arquivo de imagem serão obscurecidas, e áreas pretas/cinzentas permitirão que os elementos abaixo sejam visíveis</span>`,
+        useoutline: "Exibir um contorno ao redor da notificação",
         outline: "Selecione o tipo de contorno a ser mostrado ao redor da notificação",
         outlinecolor: "Defina a cor do contorno ao redor da notificação",
         outlinewidth: "Defina a largura do contorno ao redor da notificação",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Definir a cor do texto exibido na notificação",
         fontoutline: "Adicionar um contorno a todo o texto exibido na notificação",
         fontoutlinecolor: "Definir a cor do contorno do texto",
+        fontoutlinescale: "Definir a espessura do contorno do texto",
         fontshadow: "Adicionar uma sombra a todo o texto exibido na notificação",
         fontshadowcolor: "Definir a cor da sombra do texto",
+        fontshadowscale: "Definir a espessura da sombra do texto",
         iconroundness: "Definir o arredondamento do ícone de conquista/jogo exibido na notificação",
         plat: "Carregar um arquivo de imagem para ser usado como o ícone de 100%",
         usegameicon: "Substituir o ícone da conquista desbloqueada pelo ícone do jogo atual",

@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Duha",
                 mask: "Maska",
                 maskimg: "Obrázek masky",
-                outline: "Obrys",
+                useoutline: "Obrys",
+                outline: "Typ obrysu",
                 outlinecolor: "Barva obrysu",
                 outlinewidth: "Šířka obrysu",
                 dashed: "Čárkovaný",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Barva 3",
                 fontoutline: "Obrys písma",
                 fontoutlinecolor: "Barva obrysu písma",
+                fontoutlinescale: "Měřítko obrysu písma",
                 fontshadow: "Stín písma",
-                fontshadowcolor: "Barva stínu písma"
+                fontshadowcolor: "Barva stínu písma",
+                fontshadowscale: "Měřítko stínu písma"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Barva záře zobrazená, když je procento odemčení < $rarity",
         mask: "Povolit maskování částí oznámení vlastním obrázkem",
         maskimg: `Načíst soubor s obrázkem, který se má použít jako maska<br><br><span class="ttdesc">V CSS, <code class="ttcode">mask-mode: alpha</code> pracuje opačným způsobem, než je obvykle očekáváno - oblasti průhlednosti v souboru s obrázkem budou zastíněny a černé/šedé oblasti umožní viditelnost prvků pod nimi</span>`,
+        useoutline: "Zobrazit obrys kolem oznámení",
         outline: "Vyberte typ obrysu, který se zobrazí kolem oznámení",
         outlinecolor: "Nastavte barvu obrysu kolem oznámení",
         outlinewidth: "Nastavte šířku obrysu kolem oznámení",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Nastavit barvu všech textů zobrazených v oznámení",
         fontoutline: "Přidat ohraničení ke všem textům zobrazeným v oznámení",
         fontoutlinecolor: "Nastavit barvu ohraničení textu",
+        fontoutlinescale: "Nastavit tloušťku obrysu textu",
         fontshadow: "Přidat stín ke všem textům zobrazeným v oznámení",
         fontshadowcolor: "Nastavit barvu stínu textu",
+        fontshadowscale: "Nastavit tloušťku stínu textu",
         iconroundness: "Nastavit zaoblení achievement/game ikony zobrazené v oznámení",
         plat: "Načíst obrázkový soubor, který se použije jako ikona 100%",
         usegameicon: "Nahradit ikonu odemčeného úspěchu ikonou aktuální hry",

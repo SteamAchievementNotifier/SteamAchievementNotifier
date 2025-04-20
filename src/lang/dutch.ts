@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Regenboog",
                 mask: "Masker",
                 maskimg: "Masker afbeelding",
-                outline: "Omlijning",
+                useoutline: "Omtrek",
+                outline: "Type omtrek",
                 outlinecolor: "Kleur van Omlijning",
                 outlinewidth: "Breedte van Omlijning",
                 dashed: "Gestreept",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Kleur 3",
                 fontoutline: "Letteromlijning",
                 fontoutlinecolor: "Kleur Letteromlijning",
+                fontoutlinescale: "Schaal van letteromtrek",
                 fontshadow: "Letter Schaduw",
-                fontshadowcolor: "Kleur Letter Schaduw"
+                fontshadowcolor: "Kleur Letter Schaduw",
+                fontshadowscale: "Schaal van letterschaduw"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "De kleur van de gloed wanneer het ontgrendelingspercentage < $rarity is",
         mask: "Activeer het maskeren van delen van de melding met een aangepaste afbeelding",
         maskimg: `Laad een afbeeldingsbestand om te gebruiken als masker<br><br><span class="ttdesc">In CSS werkt <code class="ttcode">mask-mode: alpha</code> op een tegenovergestelde manier dan verwacht - gebieden van transparantie in het afbeeldingsbestand worden verborgen en gebieden van zwart/grijs laten de elementen eronder zichtbaar zijn</span>`,
+        useoutline: "Toon een omtrek rond de melding",
         outline: "Selecteer het type omlijning om rond de melding te tonen",
         outlinecolor: "Stel de kleur in van de omlijning rond de melding",
         outlinewidth: "Stel de breedte in van de omlijning rond de melding",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Stel de kleur in van alle tekst die binnen de melding wordt weergegeven",
         fontoutline: "Voeg een contour toe aan alle tekst die binnen de melding wordt weergegeven",
         fontoutlinecolor: "Stel de kleur in van de tekstcontour",
+        fontoutlinescale: "Stel de dikte van de tekstomtrek in",
         fontshadow: "Voeg een schaduw toe aan alle tekst die binnen de melding wordt weergegeven",
         fontshadowcolor: "Stel de kleur in van de tekstschaduw",
+        fontshadowscale: "Stel de dikte van de tekstschaduw in",
         iconroundness: "Stel de rondheid in van het prestatie-/spelpictogram dat binnen de melding wordt weergegeven",
         plat: "Laad een afbeeldingsbestand om als 100% pictogram te gebruiken",
         usegameicon: "Vervang het pictogram van de ontgrendelde prestatie door het pictogram van het huidige spel",

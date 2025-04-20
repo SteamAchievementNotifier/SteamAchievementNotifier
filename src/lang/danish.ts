@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Regnbue",
                 mask: "Maske",
                 maskimg: "Maske billede",
-                outline: "Kontur",
+                useoutline: "Kontur",
+                outline: "Konturtype",
                 outlinecolor: "Konturfarve",
                 outlinewidth: "Konturbredde",
                 dashed: "Stiplet",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Farve 3",
                 fontoutline: "Skriftkontur",
                 fontoutlinecolor: "Skriftkonturfarve",
+                fontoutlinescale: "Skriftkonturens skala",
                 fontshadow: "Skriftskygge",
-                fontshadowcolor: "Skriftskyggefarve"
+                fontshadowcolor: "Skriftskyggefarve",
+                fontshadowscale: "Skriftskyggens skala"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Glødens farve, når oplåsningsprocenten er < $rarity",
         mask: "Aktiver maske af dele af meddelelsen med et brugerdefineret billede",
         maskimg: `Indlæs en billedfil, der skal bruges som maske<br><br><span class="ttdesc">I CSS fungerer <code class="ttcode">mask-mode: alpha</code> på en modsat måde end forventet - områder med gennemsigtighed i billedfilen vil blive skjult, og områder af sort/grå vil tillade elementerne nedenfor at være synlige</span>`,
+        useoutline: "Vis en kontur omkring notifikationen",
         outline: "Vælg den type kontur, der skal vises omkring notifikationen",
         outlinecolor: "Indstil konturens farve omkring notifikationen",
         outlinewidth: "Indstil konturens bredde omkring notifikationen",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Indstil farven på al tekst, der vises i meddelelsen",
         fontoutline: "Tilføj en omrids til al tekst, der vises i meddelelsen",
         fontoutlinecolor: "Indstil farven på tekstens omrids",
+        fontoutlinescale: "Angiv tykkelsen på tekstkonturen",
         fontshadow: "Tilføj en skygge til al tekst, der vises i meddelelsen",
         fontshadowcolor: "Indstil farven på tekstens skygge",
+        fontshadowscale: "Angiv tykkelsen på tekstens skygge",
         iconroundness: "Indstil afrundetheden af præstations-/spilikonet, der vises i meddelelsen",
         plat: "Indlæs en billedfil, der skal bruges som 100% ikon",
         usegameicon: "Erstat ikonet for den oplåste præstation med ikonet for det aktuelle spil",

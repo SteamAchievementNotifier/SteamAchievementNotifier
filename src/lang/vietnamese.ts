@@ -369,7 +369,8 @@ export const translations = {
                 rainbow: "Cầu vồng",
                 mask: "Mặt nạ",
                 maskimg: "Hình ảnh mặt nạ",
-                outline: "Đường viền",
+                useoutline: "Viền",
+                outline: "Loại viền",
                 outlinecolor: "Màu đường viền",
                 outlinewidth: "Độ rộng đường viền",
                 dashed: "Gạch chéo",
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Màu 3",
                 fontoutline: "Viền chữ",
                 fontoutlinecolor: "Màu viền chữ",
+                fontoutlinescale: "Tỷ lệ viền phông chữ",
                 fontshadow: "Bóng chữ",
-                fontshadowcolor: "Màu bóng chữ"
+                fontshadowcolor: "Màu bóng chữ",
+                fontshadowscale: "Tỷ lệ bóng chữ"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "Màu phát sáng hiển thị khi tỷ lệ mở khóa < $rarity",
         mask: "Bật mặt nạ cho các phần của thông báo với một hình ảnh tùy chỉnh",
         maskimg: `Tải lên một tập tin hình ảnh để sử dụng làm mặt nạ<br><br><span class="ttdesc">Trong CSS, <code class="ttcode">mask-mode: alpha</code> hoạt động ngược lại với những gì thường được mong đợi - các vùng trong suốt trong tập tin hình ảnh sẽ bị che khuất và các vùng đen/xám sẽ cho phép các yếu tố phía dưới trở nên hiển thị</span>`,
+        useoutline: "Hiển thị viền xung quanh thông báo",
         outline: "Chọn loại đường viền để hiển thị xung quanh thông báo",
         outlinecolor: "Cài đặt màu đường viền xung quanh thông báo",
         outlinewidth: "Cài đặt độ rộng của đường viền xung quanh thông báo",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Đặt màu của tất cả văn bản hiển thị trong thông báo",
         fontoutline: "Thêm đường viền cho tất cả văn bản hiển thị trong thông báo",
         fontoutlinecolor: "Đặt màu của đường viền văn bản",
+        fontoutlinescale: "Đặt độ dày viền của văn bản",
         fontshadow: "Thêm bóng cho tất cả văn bản hiển thị trong thông báo",
         fontshadowcolor: "Đặt màu của bóng văn bản",
+        fontshadowscale: "Đặt độ dày bóng của văn bản",
         iconroundness: "Đặt độ cong của biểu tượng thành tựu/trò chơi hiển thị trong thông báo",
         plat: "Tải một tệp hình ảnh để sử dụng làm biểu tượng 100%",
         usegameicon: "Thay thế biểu tượng của thành tích đã mở khóa bằng biểu tượng của trò chơi hiện tại",

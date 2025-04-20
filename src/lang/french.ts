@@ -369,9 +369,10 @@ export const translations = {
                 rainbow: "Arc-en-ciel",
                 mask: "Masque",
                 maskimg: "Image du masque",
-                outline: "Contour",
-                outlinecolor: "Couleur du contour",
-                outlinewidth: "Largeur du contour",
+                useoutline: "Contour",
+                outline: "Type de Contour",
+                outlinecolor: "Couleur du Contour",
+                outlinewidth: "Largeur du Contour",
                 dashed: "Tireté",
                 dotted: "Pointillé"
             }
@@ -391,8 +392,10 @@ export const translations = {
                 descfontcolor: "Couleur 3",
                 fontoutline: "Contour de la Police",
                 fontoutlinecolor: "Couleur du Contour de la Police",
+                fontoutlinescale: "Échelle du Contour de la Police",
                 fontshadow: "Ombre de la Police",
-                fontshadowcolor: "Couleur de l'Ombre de la Police"
+                fontshadowcolor: "Couleur de l'Ombre de la Police",
+                fontshadowscale: "Échelle de l'Ombre de la Police"
             }
         },
         icons: {
@@ -598,6 +601,7 @@ export const translations = {
         glowcolorgold: "La couleur de l'effet lumineux lorsque le pourcentage de déverrouillage est < $rarity",
         mask: "Activer le masquage de parties de la notification avec une image personnalisée",
         maskimg: `Charger un fichier image à utiliser comme masque<br><br><span class="ttdesc">En CSS, <code class="ttcode">mask-mode: alpha</code> fonctionne de manière opposée à ce qui est généralement attendu - les zones de transparence dans le fichier image seront obscurcies, et les zones noires/grises permettront aux éléments en dessous d'être visibles</span>`,
+        useoutline: "Afficher un contour autour de la notification",
         outline: "Sélectionnez le type de contour à afficher autour de la notification",
         outlinecolor: "Définissez la couleur du contour autour de la notification",
         outlinewidth: "Définissez la largeur du contour autour de la notification",
@@ -607,8 +611,10 @@ export const translations = {
         fontcolor: "Définir la couleur du texte affiché dans la notification",
         fontoutline: "Ajouter un contour à tout le texte affiché dans la notification",
         fontoutlinecolor: "Définir la couleur du contour du texte",
+        fontoutlinescale: "Définir l'épaisseur du contour du texte",
         fontshadow: "Ajouter une ombre à tout le texte affiché dans la notification",
         fontshadowcolor: "Définir la couleur de l'ombre du texte",
+        fontshadowscale: "Définir l'épaisseur de l'ombre du texte",
         iconroundness: "Définir l'arrondi de l'icône de succès/jeu affichée dans la notification",
         plat: "Charger un fichier image pour utiliser comme icône 100%",
         usegameicon: "Remplacer l'icône du succès débloqué par l'icône du jeu actuel",

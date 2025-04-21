@@ -315,6 +315,7 @@ declare interface Notify extends Achievement {
     gameicon: string | null,
     istestnotification?: boolean,
     ra?: boolean,
+    emu?: string | null,
     libhero?: string,
     unlocktime?: string
 }

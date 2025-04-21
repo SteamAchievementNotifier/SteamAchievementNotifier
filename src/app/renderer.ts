@@ -980,14 +980,14 @@ const unlockstr = async (user: string,gamename: string,type: "main" | "rare" | "
 
 const embeds = async (notify: Notify) => {
     const { type, gamename, name, desc, icon, percent, hidden } = notify
-    const user = await getsteamuser()
+    const user = notify.ra ? (config.get("rauser") || "???") : await getsteamuser()
     const nospoilers = hidden && config.get("webhookspoilers")
     const hexcode = (config.get(`webhookembedcolor${type}`) as string).replace(/#/g,"")
 
     return {
         color: parseInt(hexcode,16),
         author: {
-            name: await unlockstr(user || "???",gamename || "",notify.type)
+            name: `${await unlockstr(user || "???",gamename || "",notify.type)}${notify.emu ? ` [${notify.emu}]` : ""}`
         },
         title: `${nospoilers ? "||" : ""}${type === "plat" && !name ? await language.get("gamecomplete") : name}${nospoilers ? "||" : ""}${type === "plat" ? "" : ` (${Math.max(parseFloat(percent.toFixed(1)),0.1)}%)`}`,
         description: `${nospoilers ? "||" : ""}${type === "plat" ? await language.get("gamecompletedesc") : desc}${nospoilers ? "||" : ""}`,

@@ -195,6 +195,7 @@ const ranotify = async (gameid: number,achid: number,mode: "hard" | "soft") => {
 
     const notify: Notify = {
         ra: true,
+        emu,
         id: Math.round(Date.now() / Math.random() * 1000),
         type,
         customisation: config.get("customisation")[type],
@@ -238,6 +239,7 @@ const raplatnotify = async (platobj: RAAPlatObj) => {
 
     const platnotify: Notify = {
         ra: true,
+        emu,
         id: Date.now(),
         type: "plat",
         customisation,

@@ -7,7 +7,8 @@ body[nativeos] #settingscontent .cont:has(.title#media) .opt[overlay],
 body[nativeos] #ovtabs,
 body[active] #settingscontent > .cont:has(.title#notifications) > .optcont > .opt:has(#noiconcache),
 body[active] #settingscontent > .cont:has(.title#advanced) > .optcont > .opt:has(#pollrate,#maxretries,#userust),
-dialog[menu] #settingscontent > .cont:has(.title#media) > .optcont:has(#ovmatch:checked) > .opt:has(select#ovpos) {
+dialog[menu] #settingscontent > .cont:has(.title#media) > .optcont:has(#ovmatch:checked) > .opt:has(select#ovpos),
+body[beta] button#checkforupdates {
     opacity: 0.5;
     pointer-events: none;
 }

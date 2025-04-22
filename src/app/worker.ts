@@ -77,14 +77,13 @@ ipcRenderer.on("stats",() => ipcRenderer.send("stats",statsobj))
 // Send to `listeners.ts` on spawn, in case `statwin` spawned between worker respawns and did not receive "stats" IPC event
 ipcRenderer.send("stats",statsobj)
 
-const creategameinfo = (gamename: string,appid: number,exepath: string,pid: number,pollrate: number,windowtitle: string) => [
+const creategameinfo = (gamename: string,appid: number,exepath: string,pid: number,pollrate: number) => [
     "Game process started:",
     `gamename: ${gamename}`,
     `appid: ${appid}`,
     `exepath: ${exepath}`,
     `pid: ${pid}`,
-    `pollrate: ${pollrate}ms`,
-    `windowtitle: ${windowtitle}`
+    `pollrate: ${pollrate}ms`
 ].join("\n- ")
 
 type LocalisedObj = {
@@ -165,11 +164,10 @@ const startsan = async (appinfo: AppInfo) => {
     
             linkedgame && log.write("INFO",`${sgpexe ? `"steam-game-path"` : "Linked Game"} executable found for AppID "${appid}": "${linkedgame}"`)
     
-            client.processes.getGameProcesses(appid,linkedgame ? path.basename(linkedgame) : null).forEach(({ exe,pid,windowtitle }: ProcessInfo) => {
+            client.processes.getGameProcesses(appid,linkedgame ? path.basename(linkedgame) : null).forEach(({ exe,pid }: ProcessInfo) => {
                 processinfo.push({
                     pid,
-                    exe,
-                    windowtitle
+                    exe
                 } as ProcessInfo)
             })
     
@@ -180,10 +178,10 @@ const startsan = async (appinfo: AppInfo) => {
     
         const processes: ProcessInfo[] = []
 
-        ipcRenderer.on("processes",() => ipcRenderer.send("processes",processes.filter(p => p.windowtitle !== "")))
+        ipcRenderer.on("windowtitles",() => ipcRenderer.send("windowtitles",processes.map(({ pid }) => client.processes.getWindowTitle(pid))))
     
         const initgameloop = () => {
-            processes.forEach(({ pid,exe,windowtitle }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250,windowtitle || "")))
+            processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
             
             ipcRenderer.send("appid",appid,gamename,steam3id,num)
             ipcRenderer.on("steam3id",(event,skipss?: boolean) => ipcRenderer.send("steam3id",steam3id,skipss))

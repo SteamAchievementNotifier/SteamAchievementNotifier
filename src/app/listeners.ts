@@ -270,8 +270,10 @@ export const listeners = {
             }
         })
 
-        update.setlisteners(win)
-        update.check()
+        if (!sanhelper.beta) {
+            update.setlisteners(win)
+            update.check()
+        }
 
         ipcMain.on("checkforupdates", () => !sanhelper.devmode ? update.check() : ipcMain.emit("noupdatetest"))
 
@@ -1546,8 +1548,8 @@ export const listeners = {
     
                 if (worker && config.get("ssmode") === "window") {
                     windowtitle = !appid ? win.title : await new Promise(resolve => {
-                        ipcMain.once("processes",(event,processes: ProcessInfo[]) => resolve(processes[0].windowtitle))
-                        worker!.webContents.send("processes")
+                        ipcMain.once("windowtitles",(event,windowtitles: string[]) => resolve(windowtitles[0]))
+                        worker!.webContents.send("windowtitles")
                     })
     
                     const { x, y, width, height } = sanhelper.getwindowbounds(windowtitle || "")
@@ -1871,24 +1873,6 @@ export const listeners = {
         })
 
         ipcMain.on("ragame",(event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => win.webContents.send("ragame",status,ragame))
-
-        // ipcMain.on("ssgamewin",async (event,winobj: { windowtitle: string, bounds: Electron.Rectangle }) => {
-        //     const { windowtitle, bounds: { x, y, width, height } } = winobj
-
-        //     const srcs = await desktopCapturer.getSources({
-        //         types: ["window"],
-        //         thumbnailSize: {
-        //             width: Math.round(width * screen.getDisplayNearestPoint({ x, y }).scaleFactor),
-        //             height: Math.round(height * screen.getDisplayNearestPoint({ x, y }).scaleFactor)
-        //         }
-        //     })
-
-        //     for (const src of srcs) {
-        //         if (src.name === windowtitle) {
-        //             fs.writeFileSync(path.join(sanhelper.temp,"test.png"),src.thumbnail.toPNG())    
-        //         }
-        //     }
-        // })
 
         return
     }

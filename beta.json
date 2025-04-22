@@ -1,0 +1,61 @@
+{
+    "appId": "com.SteamAchievementNotifier.Jackson0ne",
+    "productName": "Steam Achievement Notifier (V1.9)",
+    "directories": {
+        "output": "_release"
+    },
+    "files": [
+        "deps/HackTimer.min.js",
+        "dist/**/*",
+        "fonts/**/*",
+        "icon/**/*",
+        "img/**/*",
+        "notify/**/*",
+        "sound/**/*",
+        {
+            "from": "img",
+            "to": "img",
+            "filter": [
+                "**/*"
+            ]
+        }
+    ],
+    "extraResources": [
+        {
+            "from": "img",
+            "to": "img",
+            "filter": [
+                "**/*"
+            ]
+        }
+    ],
+    "npmRebuild": false,
+    "publish": [
+        {
+            "provider": "github",
+            "owner": "${author}",
+            "repo": "${author}",
+            "vPrefixedTagName": false
+        }
+    ],
+    "win": {
+        "target": "nsis",
+        "icon": "img/sanlogo.ico"
+    },
+    "nsis": {
+        "oneClick": true,
+        "artifactName": "SteamAchievementNotifier_V${version}.exe",
+        "createDesktopShortcut": false,
+        "deleteAppDataOnUninstall": true,
+        "shortcutName": "Steam Achievement Notifier (V1.9)"
+    },
+    "linux": {
+        "target": "AppImage",
+        "artifactName": "SteamAchievementNotifier_V${version}.AppImage",
+        "icon": "img/sanlogo.png",
+        "category": "Utility"
+    },
+    "extraMetadata": {
+        "beta": true
+    }
+}

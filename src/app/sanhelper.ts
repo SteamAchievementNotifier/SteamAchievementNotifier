@@ -52,6 +52,7 @@ const deps = new Map<string,string>([
 
 export const sanhelper: SANHelper = {
     get devmode(): boolean { return process.env.npm_lifecycle_event === "dev" },
+    get beta(): boolean { return !!JSON.parse(fs.readFileSync(path.join(__root,"package.json")).toString())?.beta },
     // `process.env.npm_package_version` is not available in the Renderer on build
     get version(): number { return parseFloat(sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion())) },
     get semver(): string | undefined { return sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion()) },
@@ -1090,6 +1091,5 @@ export const sanhelper: SANHelper = {
                 await setraemuactions(opt,id,config)
             })
         })
-    },
-    ssgamewin: (winobj: { windowtitle: string, bounds: Electron.Rectangle }) => ipcRenderer.send("ssgamewin",winobj)
+    }
 }

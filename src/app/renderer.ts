@@ -30,7 +30,7 @@ log.write("INFO",sanhelperlog)
 log.init("RENDERER")
 dialog.init()
 
-update.renderer()
+!sanhelper.beta && update.renderer()
 
 const errorbtn = document.querySelector(`.menubtn#error`)! as HTMLButtonElement
 errorbtn.onclick = () => {
@@ -57,6 +57,8 @@ sanhelper.tooltips(config.get("tooltips"))
 
 document.getElementById("version")!.textContent = `Steam Achievement Notifier (V${sanhelper.version})`
 document.getElementById("copyright")!.textContent = `Copyright © Jackson0ne ${new Date().getFullYear()}. All Rights Reserved.`
+
+document.body.toggleAttribute("beta",sanhelper.beta)
 
 const btns = new Map<string,string>([
     ["kofi","https://ko-fi.com/steamachievementnotifier"],

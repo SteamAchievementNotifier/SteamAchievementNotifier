@@ -2,13 +2,15 @@
     "private": true,
     "name": "steamachievementnotifierv1.9",
     "author": "SteamAchievementNotifier",
-    "version": "1.9.30",
+    "version": "1.9.31",
     "description": "Steam Achievement Notifier (V1.9)",
     "main": "dist/app/app.js",
     "scripts": {
         "dev": "npx tsc && electron ./dist/app/app.js",
         "win": "npx tsc --build --clean && npx tsc && electron-builder --win=nsis --x64",
+        "win:beta": "npx tsc --build --clean && npx tsc && electron-builder --win=nsis --x64 --config beta.json",
         "linux": "npx tsc --build --clean && npx tsc && electron-builder --linux",
+        "linux:beta": "npx tsc --build --clean && npx tsc && electron-builder --linux --config beta.json",
         "publish": "npx tsc --build --clean && npx tsc && electron-builder -p always"
     },
     "repository": {

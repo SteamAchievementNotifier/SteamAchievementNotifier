@@ -161,6 +161,7 @@ const ignore = [
     "src",
     ".gitattributes",
     ".gitignore",
+    "beta.json",
     "DEV.md",
     "KNOWNISSUES.md",
     "NOTIFY.md.old",

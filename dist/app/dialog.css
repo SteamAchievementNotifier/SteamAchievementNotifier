@@ -269,14 +269,18 @@ dialog:not([default]):not(:has(button#userthemesync)) .btnwrapper {
 #okbtn:hover,
 #updatebtn:hover,
 #backbtn:hover,
-#userthemesync:hover {
+#userthemesync:hover,
+#betaexitbtn:hover,
+#betaghreleasesbtn:hover {
     filter: none;
 }
 
 #okbtn:hover,
 #okbtn:focus-visible,
 #updatebtn:hover,
-#updatebtn:focus-visible {
+#updatebtn:focus-visible,
+#betaghreleasesbtn:hover,
+#betaghreleasesbtn:focus-visible {
     background-color: limegreen;
 }
 
@@ -359,7 +363,9 @@ dialog #progressbar {
 }
 
 #backbtn:hover,
-#backbtn:focus-visible {
+#backbtn:focus-visible,
+#betaexitbtn:hover,
+#betaexitbtn:focus-visible {
     background-color: red;
 }
 
@@ -887,7 +893,8 @@ div#linkgamenewtablewrapper td:first-child {
     user-select: all;
 }
 
-dialog[selection] .btnwrapper:has(button#userthemesync) > button#backbtn {
+dialog[selection] .btnwrapper:has(button#userthemesync) > button#backbtn,
+dialog .btnwrapper:has(button#betaexitbtn) > button#backbtn {
     display: none;
 }
 
@@ -1122,6 +1129,23 @@ details[open] > summary {
 
 .contentsubitem .ttdesc::before {
     margin-left: 0;
+}
+
+body[beta] dialog[default] .contentwrapper:has(.btnwrapper > #betaexitbtn) .contentsub::before {
+    content: none;
+}
+
+body[beta] dialog[default] .contentwrapper:has(.btnwrapper > #betaexitbtn) .contentsub,
+body[beta] dialog[default] .contentwrapper:has(.btnwrapper > #betaexitbtn) div:has(> .contentsubitem) {
+    grid-template-columns: 1fr;
+}
+
+body[beta] dialog[default] .contentwrapper:has(.btnwrapper > #betaexitbtn) .contentsubitem::before {
+    content: none;
+}
+
+body[beta] dialog[default] .contentwrapper:has(.btnwrapper > #betaexitbtn) .contentsubitem {
+    text-align: center;
 }
 
 @media (orientation: portrait) {

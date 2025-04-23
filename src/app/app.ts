@@ -16,6 +16,7 @@ import { main } from "./main"
 
 sanconfig.get().store.colorprofile !== "none" && app.commandLine.appendSwitch("force-color-profile",sanconfig.get().store.colorprofile)
 
+// In devmode, run `npm run dev -- --clean` for full data reset
 if (app.commandLine.hasSwitch("clean")) {
     try {
         fs.existsSync(sanhelper.appdata) && fs.rmSync(path.join(sanhelper.appdata), { recursive: true, force: true })

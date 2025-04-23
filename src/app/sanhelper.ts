@@ -52,7 +52,8 @@ const deps = new Map<string,string>([
 
 export const sanhelper: SANHelper = {
     get devmode(): boolean { return process.env.npm_lifecycle_event === "dev" },
-    get beta(): boolean { return !!JSON.parse(fs.readFileSync(path.join(__root,"package.json")).toString())?.beta },
+    // In devmode, run `npm run dev -- --beta` to enable Beta environment
+    get beta(): boolean { return !sanhelper.devmode ? !!JSON.parse(fs.readFileSync(path.join(__root,"package.json")).toString())?.beta : (process.type === "renderer" ? ipcRenderer.sendSync("beta") : app.commandLine.hasSwitch("beta")) },
     // `process.env.npm_package_version` is not available in the Renderer on build
     get version(): number { return parseFloat(sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion())) },
     get semver(): string | undefined { return sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion()) },
@@ -1091,5 +1092,42 @@ export const sanhelper: SANHelper = {
                 await setraemuactions(opt,id,config)
             })
         })
+    },
+    checkbetastatus: async () => {
+        document.body.setAttribute("beta","")
+
+        const { dialog } = await import("./dialog")
+        const { log } = await import("./log")
+
+        try {
+            const tagname = (await (await fetch("https://api.github.com/repos/steamachievementnotifier/steamachievementnotifier/releases")).json())[0].tag_name
+            const latest = parseInt(tagname.split(".")[2])
+            const beta = parseInt(sanhelper.semver.split(".")[2])
+
+            if (latest >= beta) {
+                ipcRenderer.send("betaunsupported")
+
+                dialog.open({
+                    title: await language.get("betaunsupported"),
+                    type: "default",
+                    icon: sanhelper.setfilepath("icon","error.svg"),
+                    sub: await language.get("betaunsupportedsub"),
+                    buttons: [{
+                        icon: sanhelper.setfilepath("icon","github.svg"),
+                        id: "betaghreleases",
+                        label: await language.get("betaghreleases"),
+                        click: () => shell.openExternal("https://www.github.com/steamachievementnotifier/steamachievementnotifier/releases/latest")
+                    },
+                    {
+                        icon: sanhelper.setfilepath("icon","close.svg"),
+                        id: "betaexit",
+                        label: await language.get("exit"),
+                        click: () => ipcRenderer.send("exit",`Unsupported Beta version installed (Beta: V1.9.${beta} | Latest: V1.9.${latest})`)
+                    }]
+                })
+            }
+        } catch (err) {
+            log.write("ERROR",`Unable to query latest GitHub Release: ${err as Error}`)
+        }
     }
 }

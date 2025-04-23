@@ -9,7 +9,7 @@ import { language } from "./language"
 export const dialog = {
     init: (error?: "ERROR") => {
         error && document.body.setAttribute("error","")
-        window.addEventListener("click", ({ target }) => (target === document.querySelector("dialog") || target === document.getElementById("backbtn") || target === document.getElementById("settingsclose")) && dialog.close())
+        window.addEventListener("click", ({ target }) => (target === document.querySelector("dialog") || target === document.getElementById("backbtn") || target === document.getElementById("settingsclose")) && document.querySelector("dialog:not(:has(.btnwrapper > #betaexitbtn))") && dialog.close())
     },
     open: (obj: Dialog,errwin?: boolean) => {
         !errwin && (async () => {

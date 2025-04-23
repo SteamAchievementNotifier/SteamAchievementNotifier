@@ -9,6 +9,7 @@ import { listeners } from "./listeners"
 // Sets AppUserModelId for Native OS notifications
 app.setAppUserModelId(sanhelper.devmode ? process.execPath : "com.SteamAchievementNotifier.Jackson0ne")
 ipcMain.on("version", event => event.returnValue = app.getVersion())
+sanhelper.devmode && ipcMain.on("beta",event => event.returnValue = app.commandLine.hasSwitch("beta"))
 
 let win: BrowserWindow
 

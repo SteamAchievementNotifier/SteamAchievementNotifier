@@ -58,8 +58,6 @@ sanhelper.tooltips(config.get("tooltips"))
 document.getElementById("version")!.textContent = `Steam Achievement Notifier (V${sanhelper.version})`
 document.getElementById("copyright")!.textContent = `Copyright © Jackson0ne ${new Date().getFullYear()}. All Rights Reserved.`
 
-document.body.toggleAttribute("beta",sanhelper.beta)
-
 const btns = new Map<string,string>([
     ["kofi","https://ko-fi.com/steamachievementnotifier"],
     ["discord","https://discord.gg/FxCFtpd3eu"],
@@ -77,6 +75,8 @@ sanhelper.createclosedstate()
     "statwin",
     "pinned"
 ] as const).forEach(id => !localStorage.getItem(id) && localStorage.setItem(id,JSON.stringify(id === "pinned" ? [] : {})))
+
+sanhelper.beta && sanhelper.checkbetastatus()
 
 const getmonitors = async () => {
     try {

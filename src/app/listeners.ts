@@ -66,7 +66,7 @@ export const listeners = {
 
         let suspended = false
 
-        const updatetray = async (tray: Tray,gamename?: string | null,num?: number,allowreplay?: boolean) => {
+        const updatetray = async (tray: Tray,gamename?: string | null,num?: number,betaunsupported?: boolean) => {
             tray && tray.removeAllListeners()
 
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
@@ -102,14 +102,16 @@ export const listeners = {
                             icon: nativeImage
                                     .createFromPath(path.join(__root,"icon","donotdisturb.png"))
                                     .resize({ width: 16 }),
-                            click: () => ipcMain.emit("releasegame")
+                            click: () => ipcMain.emit("releasegame"),
+                            enabled: !betaunsupported
                         },
                         {
                             label: await language.get(suspended ? "resume" : "suspend"),
                             icon: nativeImage
                                     .createFromPath(path.join(__root,"icon",`power_${suspended ? "on" : "off"}.png`))
                                     .resize({ width: 16 }),
-                            click: () => ipcMain.emit("suspendresume")
+                            click: () => ipcMain.emit("suspendresume"),
+                            enabled: !betaunsupported
                         },
                         {
                             label: await language.get("restartapp"),
@@ -157,6 +159,7 @@ export const listeners = {
         }
 
         updatetray(tray)
+
         ipcMain.on("lang",(event,gamename: string | null,num: number) => {
             updatetray(tray!,gamename,num)
             statwin && worker && worker.webContents.send("stats")
@@ -1873,6 +1876,18 @@ export const listeners = {
         })
 
         ipcMain.on("ragame",(event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => win.webContents.send("ragame",status,ragame))
+
+        ipcMain.on("betaunsupported",() => {
+            if (!sanhelper.beta) return
+            const config = sanconfig.get()
+
+            setTimeout(() => {
+                worker && worker.destroy()
+                worker = null
+            },(config.get("initdelay") * 1000) + 1000)
+
+            updatetray(tray,undefined,undefined,true)
+        })
 
         return
     }

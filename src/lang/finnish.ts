@@ -138,7 +138,14 @@ export const translations = {
                     </ul>
                 </div>
             </details>`
-        ]
+        ],
+        betaunsupported: "Beta-versio ei ole tuettu",
+        betaunsupportedsub: [
+            "Uusi versio Steam Achievement Notifierista on julkaistu!",
+            `<u>Tätä Beta-versiota ei enää tueta</u>. Lataa ja asenna uusin virallinen versio Githubista käyttämällä alla olevaa <span class="hl">Julkaisut</span> painiketta.`,
+            "Kiitos testauksesta! 💜"
+        ],
+        betaghreleases: "Julkaisut",
     },
     app: {
         content: {

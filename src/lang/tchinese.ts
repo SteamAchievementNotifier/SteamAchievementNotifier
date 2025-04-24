@@ -138,7 +138,14 @@ export const translations = {
                     </ul>
                 </div>
             </details>`
-        ]
+        ],
+        betaunsupported: "不支援的Beta版",
+        betaunsupportedsub: [
+            "Steam Achievement Notifier已發布新版本！",
+            `<u>此Beta版不再支援</u>。請使用下面的<span class="hl">Releases</span>按鈕，從Github下載並安裝最新的正式版本.`,
+            "感謝您的測試！ 💜"
+        ],
+        betaghreleases: "版本發佈",
     },
     app: {
         content: {

@@ -138,7 +138,14 @@ export const translations = {
                     </ul>
                 </div>
             </details>`
-        ]
+        ],
+        betaunsupported: "Nem támogatott Beta",
+        betaunsupportedsub: [
+            "Új verzió jelent meg a Steam Achievement Notifierből!",
+            `<u>Ez a Beta verzió már nem támogatott</u>. Kérjük, töltse le és telepítse a legújabb hivatalos verziót a Githubról a <span class="hl">Releases</span> gomb használatával lentebb.`,
+            "Köszönjük, hogy tesztelted! 💜"
+        ],
+        betaghreleases: "Kiadások",
     },
     app: {
         content: {

@@ -138,7 +138,14 @@ export const translations = {
                     </ul>
                 </div>
             </details>`
-        ]
+        ],
+        betaunsupported: "지원되지 않는 Beta",
+        betaunsupportedsub: [
+            "Steam Achievement Notifier의 새로운 버전이 출시되었습니다!",
+            `<u>이 Beta 버전은 더 이상 지원되지 않습니다</u>. 아래의 <span class="hl">Releases</span> 버튼을 사용하여 Github에서 최신 공식 버전을 다운로드하고 설치해주세요.`,
+            "테스트해 주셔서 감사합니다! 💜"
+        ],
+        betaghreleases: "릴리스",
     },
     app: {
         content: {

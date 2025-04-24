@@ -138,7 +138,14 @@ export const translations = {
                     </ul>
                 </div>
             </details>`
-        ]
+        ],
+        betaunsupported: "Desteklenmeyen Beta",
+        betaunsupportedsub: [
+            "Steam Achievement Notifier'ın yeni bir sürümü yayımlandı!",
+            `<u>Bu Beta sürümü artık desteklenmiyor</u>. Lütfen aşağıdaki <span class="hl">Releases</span> butonunu kullanarak Github'dan en son resmi sürümü indirin ve kurun.`,
+            "Test ettiğiniz için teşekkürler! 💜"
+        ],
+        betaghreleases: "Sürümler",
     },
     app: {
         content: {

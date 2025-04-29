@@ -282,6 +282,7 @@ export const sanconfig = {
                 retroarchpath: "",
                 dolphinpath: "",
                 pcsx2path: "",
+                duckstationpath: "",
                 rauser: "",
                 rakey: "",
                 exportachdata: false,

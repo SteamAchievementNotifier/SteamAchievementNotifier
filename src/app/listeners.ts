@@ -1718,8 +1718,18 @@ export const listeners = {
                     !ispreview && ipcMain.once("sscapture", () => {
                         if (!sswin) return log.write("WARN",`"${type}win" was closed before image file could be written to "${imgpath}"`)
     
-                        const ssdir = `${imgpath}/${(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}`
-                        const ssimg = `${ssdir}/${info.title.replace(/[<>":\\/|?*\x00-\x1F]/g,"").trim()}${type === "img" ? " - Notification" : ""}.png`
+                        const regex = /[<>":\\/|?*\x00-\x1F]/g
+                        const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").trim()).replace(/\\/g,"/")
+                        const ssbasename = `${info.title.replace(regex,"").trim()}${type === "img" ? " - Notification" : ""}`
+                        const ssext = ".png"
+
+                        let sscounter = 0
+                        let ssimg = path.join(ssdir,`${ssbasename}${ssext}`).replace(/\\/g,"/")
+
+                        while (!notify.istestnotification && fs.existsSync(ssimg)) {
+                            sscounter++
+                            ssimg = path.join(ssdir,`${ssbasename}_${sscounter}${ssext}`).replace(/\\/g,"/")
+                        }
     
                         sswin.webContents.capturePage()
                         .then(img => {

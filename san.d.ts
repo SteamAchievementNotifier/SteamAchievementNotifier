@@ -117,6 +117,7 @@ declare interface Config {
     retroarchpath: string,
     dolphinpath: string,
     pcsx2path: string,
+    duckstationpath: string,
     rauser: string,
     rakey: string,
     exportachdata: boolean,

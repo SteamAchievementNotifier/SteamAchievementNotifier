@@ -1675,7 +1675,7 @@ export const listeners = {
                         sswin.webContents.send("src",sspath)
                     }
     
-                    sswin.show()
+                    ;(process.platform !== "linux" || ispreview) && sswin.show() // Prevent the window from showing, which still captures the contents but hides the window in "Window" and "Notification Image" modes
 
                     const { usecustomfiles, ssalldetails, screenshots } = config.store
                     const { icon, libhero, logo } = gameartobj
@@ -1756,17 +1756,20 @@ export const listeners = {
     
                 if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
                 if (!display) return log.write("ERROR",`Error configuring screenshot: No Display matches Monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
+
+                const offscreenpx = 10000
     
-                const { width: fbw, height: fbh } = process.platform === "linux" ? monitor.bounds : { width: undefined, height: undefined }
+                // On Linux, attempts to get `monitor.bounds`, falls back to `display.bounds` and falls back again to default 1080p values if both are undefined
+                const { fbw, fbh } = process.platform === "linux" && type === "ss" ? { fbw: monitor.bounds.width ?? display.bounds.width ?? 1920, fbh: monitor.bounds.height ?? display.bounds.height ?? 1080 } : { fbw: undefined, fbh: undefined }
                 const { x, y } = display.bounds
                 const { bounds: { width, height } } = sswinbounds
                 const ssmode: "screen" | "window" = config.get("ssmode") === "window" && windowtitle ? "window" : "screen"
     
                 sswin = new BrowserWindow({
                     title: `Steam Achievement Notifier (V${sanhelper.version}): ${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}`,
-                    fullscreen: type === "ss" && ssmode !== "window" && (process.platform !== "linux" || ispreview),
+                    fullscreen: type === "ss" && ssmode !== "window" && (process.platform !== "linux" || ispreview), // On Linux, prevents `fullscreen` from being activated when not a preview
                     x: type === "ss" && ssmode !== "window" ? x : undefined,
-                    y: type === "ss" && ssmode !== "window" ? y + (fbh || 0) : undefined,
+                    y: (process.platform === "linux" && type === "ss") ? offscreenpx : (type === "ss" && ssmode !== "window" ? y : undefined), // On Linux, sets the `y` value to `offscreenpx` in "Screen" mode, moving it far offscreen
                     width: width || fbw,
                     height: height || fbh,
                     autoHideMenuBar: true,

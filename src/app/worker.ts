@@ -1,7 +1,6 @@
 import { ipcRenderer } from "electron"
 import path from "path"
 import fs from "fs"
-import { existsSync } from "fs"
 import { sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { sanconfig } from "./config"
@@ -253,7 +252,7 @@ const startsan = async (appinfo: AppInfo) => {
                         const cachedicon = path.join(sanhelper.temp,`${achievement.apiname}.jpg`)
         
                         try {
-                            icon = (!noiconcache && existsSync(cachedicon)) ? cachedicon : await getachievementicon(client,achievement)
+                            icon = (!noiconcache && fs.existsSync(cachedicon)) ? cachedicon : await getachievementicon(client,achievement)
                             if (!icon) throw new Error(`Icon for ${achievement.apiname} is null. Retrying....`)
         
                             log.write("INFO",`Icon for ${achievement.apiname} saved successfully`)

@@ -47,11 +47,21 @@ const getauth = async (username: string,apikey: string) => {
     return buildAuthorization({ username, webApiKey: decrypted })
 }
 
-const actionmap = new Map<"start" | "stop" | "achievement",RegExp>([
-    ["start",/Game (\d+) loaded, Hardcore (enabled|disabled)/i],
-    ["stop",/Unloading game (\d+)/i],
-    ["achievement",/Achievement (\d+) awarded/i]
+// Custom action overrides for specific emulators that do not follow the standard default log file pattern
+const customactions = new Map<string,{ start: RegExp | null, stop: RegExp | null,achievement: RegExp | null }>([
+    ["duckstation",{ start: /Updating game (\d+)/i, stop: /Destroying ([\w\d]+) GPU device/i, achievement: /Achievement .+ \((\d+)\) for game \d+ unlocked/i }]
 ])
+
+const actionmap = () => {
+    const defaultactions = { start: null, stop: null, achievement: null }
+    const { start, stop, achievement } = emu ? (customactions.get(emu) || defaultactions) : defaultactions
+    
+    return new Map<"start" | "stop" | "achievement",RegExp>([
+        ["start",start || /Game (\d+) loaded, Hardcore (enabled|disabled)/i],
+        ["stop", stop || /Unloading game (\d+)/i],
+        ["achievement",achievement || /Achievement (\d+) awarded/i]
+    ])
+}
 
 let lastaction: LogAction | null = null
 
@@ -59,11 +69,11 @@ export const getlastaction = (key: string,file: string): LogAction => {
     const contents = fs.readFileSync(file).toString().split("\n").reverse()
 
     for (const line of contents) {
-        for (const [action,regex] of actionmap) {
+        for (const [action,regex] of actionmap()) {
             const match = line.match(regex)
             
             if (match) {
-                const newaction = { key, file, action, value: parseInt(match[1]), mode: action === "start" ? (match[2] === "enabled" ? "hard" : "soft") as "hard" | "soft" : undefined }
+                const newaction = { key, file, action, value: match[1] ? parseInt(match[1]) : null, mode: action === "start" ? (match[2] === "enabled" ? "hard" : "soft") as "hard" | "soft" : undefined }
     
                 if (!lastaction || lastaction.action !== newaction.action || lastaction.value !== newaction.value) {
                     // Prevents retriggering achievement notifications on launch

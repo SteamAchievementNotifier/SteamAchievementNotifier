@@ -1491,8 +1491,10 @@ export const listeners = {
 
         const getssmonitor = (src?: number): { monitor: Monitor | Electron.Display | null, display: Electron.Display | null } => {
             const config = sanconfig.get()
+            const targetid = src && src !== -1 ? src : config.get("monitor")
 
-            let monitor: Monitor | Electron.Display | undefined = config.get("monitors").find(monitor => (src || config.get("monitor")) === monitor.id)
+            let monitor: Monitor | Electron.Display | undefined = config.get("monitors").find(monitor => monitor.id === targetid)
+            
             if (!monitor) {
                 log.write("WARN",`Monitor id "${config.get("monitor")}" could not be found in "config.monitors" - Reverting to primary display...`)
                 monitor = screen.getPrimaryDisplay()
@@ -1719,7 +1721,7 @@ export const listeners = {
                         if (!sswin) return log.write("WARN",`"${type}win" was closed before image file could be written to "${imgpath}"`)
     
                         const regex = /[<>":\\/|?*\x00-\x1F]/g
-                        const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").trim()).replace(/\\/g,"/")
+                        const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").replace(/\.$/,"").trim()).replace(/\\/g,"/")
                         const ssbasename = `${info.title.replace(regex,"").trim()}${type === "img" ? " - Notification" : ""}`
                         const ssext = ".png"
 
@@ -1755,17 +1757,18 @@ export const listeners = {
                 if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
                 if (!display) return log.write("ERROR",`Error configuring screenshot: No Display matches Monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
     
+                const { width: fbw, height: fbh } = process.platform === "linux" ? monitor.bounds : { width: undefined, height: undefined }
                 const { x, y } = display.bounds
                 const { bounds: { width, height } } = sswinbounds
                 const ssmode: "screen" | "window" = config.get("ssmode") === "window" && windowtitle ? "window" : "screen"
     
                 sswin = new BrowserWindow({
                     title: `Steam Achievement Notifier (V${sanhelper.version}): ${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}`,
-                    fullscreen: type === "ss" && ssmode !== "window",
+                    fullscreen: type === "ss" && ssmode !== "window" && (process.platform !== "linux" || ispreview),
                     x: type === "ss" && ssmode !== "window" ? x : undefined,
-                    y: type === "ss" && ssmode !== "window" ? y : undefined,
-                    width: width || undefined,
-                    height: height || undefined,
+                    y: type === "ss" && ssmode !== "window" ? y + (fbh || 0) : undefined,
+                    width: width || fbw,
+                    height: height || fbh,
                     autoHideMenuBar: true,
                     frame: false,
                     transparent: true,
@@ -1775,7 +1778,7 @@ export const listeners = {
                     minimizable: false,
                     skipTaskbar: !sanhelper.devmode,
                     show: false,
-                    center: ssmode === "window" ? true : undefined,
+                    center: ssmode === "window",
                     webPreferences: {
                         nodeIntegration: true,
                         contextIsolation: false,

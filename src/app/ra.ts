@@ -48,18 +48,19 @@ const getauth = async (username: string,apikey: string) => {
 }
 
 // Custom action overrides for specific emulators that do not follow the standard default log file pattern
-const customactions = new Map<string,{ start: RegExp | null, stop: RegExp | null,achievement: RegExp | null }>([
-    ["duckstation",{ start: /Updating game (\d+)/i, stop: /Destroying ([\w\d]+) GPU device/i, achievement: /Achievement .+ \((\d+)\) for game \d+ unlocked/i }]
+const customactions = new Map<string,RAActions>([
+    ["duckstation",{ start: /Updating game (\d+)/i, stop: /Destroying ([\w\d]+) GPU device/i, achievement: /Achievement .+ \((\d+)\) for game \d+ unlocked/i, mode:  /Hardcore mode\/restrictions are now ACTIVE/i }]
 ])
 
-const actionmap = () => {
-    const defaultactions = { start: null, stop: null, achievement: null }
-    const { start, stop, achievement } = emu ? (customactions.get(emu) || defaultactions) : defaultactions
+const actionmap = (emu: string) => {
+    const defaultactions: RAActions = { start: null, stop: null, achievement: null }
+    const { start, stop, achievement, mode } = customactions.get(emu) || defaultactions
     
-    return new Map<"start" | "stop" | "achievement",RegExp>([
+    return new Map<"start" | "stop" | "achievement" | "mode",RegExp>([
         ["start",start || /Game (\d+) loaded, Hardcore (enabled|disabled)/i],
         ["stop", stop || /Unloading game (\d+)/i],
-        ["achievement",achievement || /Achievement (\d+) awarded/i]
+        ["achievement",achievement || /Achievement (\d+) awarded/i],
+        ...(mode ? [["mode",mode]] as const : [])
     ])
 }
 
@@ -67,13 +68,23 @@ let lastaction: LogAction | null = null
 
 export const getlastaction = (key: string,file: string): LogAction => {
     const contents = fs.readFileSync(file).toString().split("\n").reverse()
+    const actions = actionmap(key)
+    const moderegex = actions.get("mode")
 
     for (const line of contents) {
-        for (const [action,regex] of actionmap()) {
+        for (const [action,regex] of actions) {
+            if (action === "mode") continue
             const match = line.match(regex)
             
             if (match) {
-                const newaction = { key, file, action, value: match[1] ? parseInt(match[1]) : null, mode: action === "start" ? (match[2] === "enabled" ? "hard" : "soft") as "hard" | "soft" : undefined }
+                let mode: "hard" | "soft" | undefined = undefined
+
+                if (action === "start") {
+                    if (moderegex) mode = (line.match(moderegex) ?? contents.find(line => moderegex.test(line))?.match(moderegex)) ? "hard" : "soft"
+                    if (!mode) mode = match[2] === "enabled" ? "hard" : "soft"
+                }
+
+                const newaction = { key, file, action, value: match[1] ? parseInt(match[1]) : null, mode }
     
                 if (!lastaction || lastaction.action !== newaction.action || lastaction.value !== newaction.value) {
                     // Prevents retriggering achievement notifications on launch
@@ -118,6 +129,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                 
                 return ["INFO",[key,`[RA]: "${emu || key}" started Game ${gameid || value}`]]
             case "stop":
+                const stopmsg: [string | null, (string | null)[]] = ["INFO",[key,`[RA]: "${emu || key}" stopped Game ${gameid || value}`]]
                 gameid = 0
                 emu = null
                 ramode = "hard"
@@ -125,7 +137,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 
                 ipcRenderer.send("ragame",action)
                 
-                return ["INFO",[key,`[RA]: "${emu || key}" stopped Game ${gameid || value}`]]
+                return stopmsg
             case "achievement":
                 if (value) {
                     localStorage.setItem("ralastachievement",`${value}`) // Set the id of the last earned achievement in localStorage

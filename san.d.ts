@@ -541,5 +541,12 @@ declare interface RAGame {
     gameid: number
 }
 
+declare interface RAActions {
+    start: RegExp | null,
+    stop: RegExp | null,
+    achievement: RegExp | null,
+    mode?: RegExp | null
+}
+
 declare module "simple-vdf"
 declare module "adm-zip"

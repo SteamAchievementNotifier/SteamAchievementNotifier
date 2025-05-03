@@ -128,13 +128,26 @@ export const translations = {
             `<details>
                 <summary id="pcsx2">PCSX2 [Nightly]</summary>
                 <div>
-                    <span class="hl">PCSX2 > Tools > Enable File Logging</span> trebuie să fie activat
+                    <span class="hl">PCSX2 > Unelte > Activare jurnalizare fișiere</span> trebuie să fie activat
                     <br>
                     <br>
                     Cu setările de instalare implicite, <span class="hl">"emulog.txt"</span> este salvat în:
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="duckstation">Duckstation</summary>
+                <div>
+                    <span class="hl">Duckstation > Setări > Avansat > Jurnalizare în fișier</span> trebuie să fie activat
+                    <br>
+                    <br>
+                    Cu setările implicite de instalare, <span class="hl">"duckstation.log"</span> este salvat în:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
                     </ul>
                 </div>
             </details>`
@@ -282,6 +295,7 @@ export const translations = {
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
                 pcsx2: "PCSX2 [Nightly]",
+                duckstation: "Duckstation",
                 installdir: "Calea fișierului de log",
                 rapercenttype: "Tipul procentajului",
                 hard: "Hardcore",
@@ -731,10 +745,12 @@ export const translations = {
         rapercenttype: "Setează dacă vrei să afișezi procentele de realizare Hardcore sau Softcore în notificări",
         retroarch: `Afișează notificările Retro Achievements pentru jocurile emulate prin RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Setări > Jurnalizare</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul jurnalizării</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Nivelul de jurnalizare al interfeței</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Jurnalizează în fișier</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Marca de timp pentru fișierele de log</span>: <span class="hlred">DEZLIGAT</span></li></ul></span>`,
         dolphin: `Afișează notificările Retro Achievements pentru jocurile emulate prin Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Vizualizare > Afișează configurația logului</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Ieșiri din jurnal</span> > <span class="hlgreen">Scrie în fișier</span></li><li><span class="hllb">Tipuri de log</span> > <span class="hlgreen">Realizări (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Afișează notificările Retro Achievements pentru jocurile emulate prin PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> trebuie să fie activat</span><br><br><span class="ttdesc">❗ Datorită actualizărilor recente, conținutul fișierului <span class="hl">"emulog.txt"</span> poate fi accesat momentan doar în versiunea Nightly a PCSX2</span>`,
+        pcsx2: `Afișează notificările Retro Achievements pentru jocurile emulate prin PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Unelte > Activare jurnalizare fișiere</span> trebuie să fie activat</span><br><br><span class="ttdesc">❗ Datorită actualizărilor recente, conținutul fișierului <span class="hl">"emulog.txt"</span> poate fi accesat momentan doar în versiunea Nightly a PCSX2</span>`,
+        duckstation: `Afișați notificările Retro Achievements pentru jocuri emulate prin Duckstation<br><br><span class="ttdesc"><span class="hl">Duckstation > Setări > Avansat > Jurnalizare în fișier</span> trebuie să fie activat</span>`,
         retroarchpath: `Setează calea către fișierul de log <span class="hl">"retroarch.log"</span> al RetroArch<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"retroarch.log"</span> este stocat în <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Setează calea către fișierul de log <span class="hl">"dolphin.log"</span> al Dolphin<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"dolphin.log"</span> este stocat în una dintre următoarele locații:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Setează calea către fișierul de log <span class="hl">"emulog.txt"</span> al PCSX2<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"emulog.txt"</span> este stocat în <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
+        duckstationpath: `Setați calea către fișierul de jurnal al Duckstation <span class="hl">"duckstation.log"</span><br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"duckstation.log"</span> este salvat în <span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></span>`,
         usecustomfontcolors: "Setează individual culoarea elementelor de text din notificare",
         unlockmsgfontcolor: "Setează culoarea primului element de text",
         titlefontcolor: "Setează culoarea celui de-al doilea element de text",

@@ -128,13 +128,26 @@ export const translations = {
             `<details>
                 <summary id="pcsx2">PCSX2 [Nightly]</summary>
                 <div>
-                    <span class="hl">PCSX2 > Tools > Enable File Logging</span> skal være aktiveret
+                    <span class="hl">PCSX2 > Værktøjer > Aktiver fil-logning</span> skal være aktiveret
                     <br>
                     <br>
                     Med standardinstallationsindstillinger gemmes <span class="hl">"emulog.txt"</span> i:
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="duckstation">Duckstation</summary>
+                <div>
+                    <span class="hl">Duckstation > Indstillinger > Avanceret > Log til fil</span> skal være aktiveret
+                    <br>
+                    <br>
+                    Ved brug af standardinstallationsindstillinger gemmes <span class="hl">"duckstation.log"</span> i:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
                     </ul>
                 </div>
             </details>`
@@ -282,6 +295,7 @@ export const translations = {
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
                 pcsx2: "PCSX2 [Nightly]",
+                duckstation: "Duckstation",
                 installdir: "Logfilens sti",
                 rapercenttype: "Procenttype",
                 hard: "Hardcore",
@@ -731,10 +745,12 @@ export const translations = {
         rapercenttype: "Angiv, om procentdelen af oplåste Hardcore eller Softcore achievements skal vises i notifikationer",
         retroarch: `Vis Retro Achievements-meddelelser for spil emuleret via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Indstillinger > Logning</span> skal konfigureres med følgende indstillinger:<br><br><ul><li><span class="hllb">Logningsdetaljer</span>: <span class="hlgreen">TIL</span></li><li><span class="hllb">Frontend-logningsniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log til fil</span>: <span class="hlgreen">TIL</span></li><li><span class="hllb">Tidsstempler i logfiler</span>: <span class="hlred">FRA</span></li></ul></span>`,
         dolphin: `Vis Retro Achievements-meddelelser for spil emuleret via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Vis > Vis logkonfiguration</span> skal konfigureres med følgende indstillinger:<br><br><ul><li><span class="hllb">Detaljeringsgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logudgange</span> > <span class="hlgreen">Skriv til fil</span></li><li><span class="hllb">Logtyper</span> > <span class="hlgreen">Præstationer (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Vis Retro Achievements-meddelelser for spil emuleret via PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> skal være aktiveret</span><br><br><span class="ttdesc">❗ På grund af nylige opdateringer kan indholdet af <span class="hl">"emulog.txt"</span> i øjeblikket kun tilgås i Nightly-udgaven af PCSX2</span>`,
+        pcsx2: `Vis Retro Achievements-meddelelser for spil emuleret via PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Værktøjer > Aktiver fil-logning</span> skal være aktiveret</span><br><br><span class="ttdesc">❗ På grund af nylige opdateringer kan indholdet af <span class="hl">"emulog.txt"</span> i øjeblikket kun tilgås i Nightly-udgaven af PCSX2</span>`,
+        duckstation: `Vis Retro Achievements-notifikationer for spil emuleret via Duckstation<br><br><span class="ttdesc"><span class="hl">Duckstation > Indstillinger > Avanceret > Log til fil</span> skal være aktiveret</span>`,
         retroarchpath: `Indstil stien til RetroArch's <span class="hl">"retroarch.log"</span> logfil<br><br><span class="ttdesc">Ved standardinstallationen gemmes <span class="hl">"retroarch.log"</span> i <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Indstil stien til Dolphin's <span class="hl">"dolphin.log"</span> logfil<br><br><span class="ttdesc">Ved standardinstallationen gemmes <span class="hl">"dolphin.log"</span> på en af følgende placeringer:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Indstil stien til PCSX2's <span class="hl">"emulog.txt"</span> logfil<br><br><span class="ttdesc">Ved standardinstallationen gemmes <span class="hl">"emulog.txt"</span> i <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
+        duckstationpath: `Angiv stien til Duckstations logfil <span class="hl">"duckstation.log"</span><br><br><span class="ttdesc">Ved brug af standardinstallationsindstillinger gemmes <span class="hl">"duckstation.log"</span> i <span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></span>`,
         usecustomfontcolors: "Indstil farverne individuelt for tekstelementer i notifikationen",
         unlockmsgfontcolor: "Indstil farven på det første tekstelement",
         titlefontcolor: "Indstil farven på det andet tekstelement",

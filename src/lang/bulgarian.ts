@@ -128,13 +128,26 @@ export const translations = {
             `<details>
                 <summary id="pcsx2">PCSX2 [Nightly]</summary>
                 <div>
-                    <span class="hl">PCSX2 > Tools > Enable File Logging</span> трябва да бъде активирано
+                    <span class="hl">PCSX2 > Инструменти > Активиране на регистриране във файл</span> трябва да бъде активирано
                     <br>
                     <br>
                     При използване на стандартни настройки за инсталация, <span class="hl">"emulog.txt"</span> се съхранява в:
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="duckstation">Duckstation</summary>
+                <div>
+                    <span class="hl">Duckstation > Настройки > Разширени > Запис във файл</span> трябва да бъде активирано
+                    <br>
+                    <br>
+                    При използване на настройките по подразбиране за инсталация, <span class="hl">"duckstation.log"</span> се съхранява в:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
                     </ul>
                 </div>
             </details>`
@@ -282,6 +295,7 @@ export const translations = {
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
                 pcsx2: "PCSX2 [Nightly]",
+                duckstation: "Duckstation",
                 installdir: "Път до лог файл",
                 rapercenttype: "Тип на процента",
                 hard: "Хардкор",
@@ -731,10 +745,12 @@ export const translations = {
         rapercenttype: "Задайте дали да се показва процентът на отключените хардкор или софткор постижения в известията",
         retroarch: `Показване на известия за Retro Achievements за игри, емулирани чрез RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Настройки > Регистрация</span> трябва да бъде конфигуриран със следните настройки:<br><br><ul><li><span class="hllb">Подробност на дневника</span>: <span class="hlgreen">ВКЛЮЧЕНО</span></li><li><span class="hllb">Ниво на регистрация на интерфейса</span>: <span class="hlgreen">1 (Информация)</span></li><li><span class="hllb">Запис в файл</span>: <span class="hlgreen">ВКЛЮЧЕНО</span></li><li><span class="hllb">Отбелязване с времеви печат</span>: <span class="hlred">ИЗКЛЮЧЕНО</span></li></ul></span>`,
         dolphin: `Показване на известия за Retro Achievements за игри, емулирани чрез Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Изглед > Показване на конфигурация на дневника</span> трябва да бъде конфигуриран със следните настройки:<br><br><ul><li><span class="hllb">Подробност</span>: <span class="hlgreen">Информация</span></li><li><span class="hllb">Изходи на дневника</span> > <span class="hlgreen">Запис в файл</span></li><li><span class="hllb">Типове дневници</span> > <span class="hlgreen">Постижения (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Показване на известия за Retro Achievements за игри, емулирани чрез PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> трябва да бъде активирано</span><br><br><span class="ttdesc">❗ Поради скорошни актуализации, съдържанието на <span class="hl">"emulog.txt"</span> в момента е достъпно само в Nightly версията на PCSX2</span>`,
+        pcsx2: `Показване на известия за Retro Achievements за игри, емулирани чрез PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Инструменти > Активиране на регистриране във файл</span> трябва да бъде активирано</span><br><br><span class="ttdesc">❗ Поради скорошни актуализации, съдържанието на <span class="hl">"emulog.txt"</span> в момента е достъпно само в Nightly версията на PCSX2</span>`,
+        duckstation: `Показване на известия за Retro Achievements за игри, емулаторни чрез Duckstation<br><br><span class="ttdesc"><span class="hl">Duckstation > Настройки > Разширени > Запис във файл</span> трябва да бъде активирано</span>`,
         retroarchpath: `Задайте пътя до лог файла на RetroArch <span class="hl">"retroarch.log"</span> <br><br><span class="ttdesc">При стандартни настройки на инсталацията <span class="hl">"retroarch.log"</span> се съхранява в <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Задайте пътя до лог файла на Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">При стандартни настройки на инсталацията <span class="hl">"dolphin.log"</span> се съхранява на едно от следните места:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Задайте пътя до лог файла на PCSX2 <span class="hl">"emulog.txt"</span><br><br><span class="ttdesc">При използване на стандартни настройки за инсталация, <span class="hl">"emulog.txt"</span> се съхранява в <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
+        duckstationpath: `Задаване на пътя до лог файла на Duckstation <span class="hl">"duckstation.log"</span><br><br><span class="ttdesc">При използване на настройките по подразбиране за инсталация, <span class="hl">"duckstation.log"</span> се съхранява в <span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></span>`,
         usecustomfontcolors: "Задаване на индивидуални цветове за текстовите елементи в известието",
         unlockmsgfontcolor: "Задаване на цвят за първия текстов елемент",
         titlefontcolor: "Задаване на цвят за втория текстов елемент",

@@ -128,13 +128,26 @@ export const translations = {
             `<details>
                 <summary id="pcsx2">PCSX2 [Nightly]</summary>
                 <div>
-                    يجب تفعيل <span class="hl">PCSX2 > Tools > Enable File Logging</span>
+                    يجب تفعيل <span class="hl">PCSX2 > الأدوات > تمكين تسجيل الملفات</span>
                     <br>
                     <br>
                     باستخدام إعدادات التثبيت الافتراضية، يتم حفظ <span class="hl">"emulog.txt"</span> في:
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="duckstation">Duckstation</summary>
+                <div>
+                    <span class="hl">Duckstation > الإعدادات > متقدم > السجل إلى ملف</span> يجب أن تكون مفعّلة
+                    <br>
+                    <br>
+                    باستخدام إعدادات التثبيت الافتراضية، يتم حفظ <span class="hl">"duckstation.log"</span> في:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
                     </ul>
                 </div>
             </details>`
@@ -282,6 +295,7 @@ export const translations = {
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
                 pcsx2: "PCSX2 [Nightly]",
+                duckstation: "Duckstation",
                 installdir: "مسار ملف السجل",
                 rapercenttype: "نوع النسبة المئوية",
                 hard: "المتقدمة",
@@ -731,10 +745,12 @@ export const translations = {
         rapercenttype: "تحديد ما إذا كان سيتم عرض نسب فتح الإنجازات المتقدمة أو العادية في الإشعارات",
         retroarch: `عرض إشعارات Retro Achievements للألعاب المحاكاة عبر RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > الإعدادات > التسجيل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">مستوى تسجيل الواجهة الأمامية</span>: <span class="hlgreen">1 (معلومات)</span></li><li><span class="hllb">التسجيل إلى ملف</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">تأريخ ملفات السجل</span>: <span class="hlred">إيقاف</span></li></ul></span>`,
         dolphin: `عرض إشعارات Retro Achievements للألعاب المحاكاة عبر Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > عرض > إظهار إعدادات السجل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">معلومات</span></li><li><span class="hllb">مخرجات المسجل</span> > <span class="hlgreen">الكتابة إلى ملف</span></li><li><span class="hllb">أنواع السجل</span> > <span class="hlgreen">الإنجازات (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `عرض إشعارات Retro Achievements للألعاب التي يتم محاكاتها عبر PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Tools > Enable File Logging</span> يجب أن تكون مفعّلة</span><br><br><span class="ttdesc">❗ بسبب التحديثات الأخيرة، يمكن حاليًا الوصول إلى محتويات <span class="hl">"emulog.txt"</span> فقط في إصدار Nightly من PCSX2</span>`,
+        pcsx2: `عرض إشعارات Retro Achievements للألعاب التي يتم محاكاتها عبر PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > الأدوات > تمكين تسجيل الملفات</span> يجب أن تكون مفعّلة</span><br><br><span class="ttdesc">❗ بسبب التحديثات الأخيرة، يمكن حاليًا الوصول إلى محتويات <span class="hl">"emulog.txt"</span> فقط في إصدار Nightly من PCSX2</span>`,
+        duckstation: `عرض إشعارات Retro Achievements للألعاب التي تم تشغيلها عبر Duckstation<br><br><span class="ttdesc"><span class="hl">Duckstation > الإعدادات > متقدم > السجل إلى ملف</span> يجب أن تكون مفعّلة</span>`,
         retroarchpath: `تحديد مسار <span class="hl">"retroarch.log"</span> الخاص بـ RetroArch<br><br><span class="ttdesc">باستخدام إعدادات التثبيت الافتراضية، يتم تخزين <span class="hl">"retroarch.log"</span> في <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `تحديد مسار ملف السجل <span class="hl">"dolphin.log"</span> الخاص بـ Dolphin<br><br><span class="ttdesc">باستخدام إعدادات التثبيت الافتراضية، يتم حفظ <span class="hl">"dolphin.log"</span> في أحد المواقع التالية:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `تحديد مسار ملف السجل <span class="hl">"emulog.txt"</span> الخاص بـ PCSX2<br><br><span class="ttdesc">باستخدام إعدادات التثبيت الافتراضية، يتم حفظ <span class="hl">"emulog.txt"</span> في <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
+        duckstationpath: `حدد مسار ملف السجل <span class="hl">"duckstation.log"</span> الخاص بـ Duckstation<br><br><span class="ttdesc">باستخدام إعدادات التثبيت الافتراضية، يتم حفظ <span class="hl">"duckstation.log"</span> في <span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></span>`,
         usecustomfontcolors: "تحديد لون عناصر النص داخل الإشعار بشكل فردي",
         unlockmsgfontcolor: "تحديد لون عنصر النص الأول",
         titlefontcolor: "تحديد لون عنصر النص الثاني",

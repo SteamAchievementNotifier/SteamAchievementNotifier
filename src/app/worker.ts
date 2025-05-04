@@ -20,6 +20,23 @@ declare global {
 log.init("WORKER")
 sanhelper.errorhandler(log)
 
+const resolvefilepath = (dir: string,file: string) => {
+    if (process.platform === "win32") {
+        const filepath = path.join(dir,file)
+        return fs.existsSync(filepath) ? filepath : null
+    }
+
+    try {
+        for (const entry of fs.readdirSync(dir)) {
+            if (entry.toLowerCase() === file.toLowerCase()) return path.join(dir,entry)
+        }
+    } catch (err) {
+        log.write("ERROR",`Error reading contents of "${dir}" directory: ${err as Error}`)
+    }
+
+    return null
+}
+
 const startidle = () => {
     try {
         log.write("INFO","Idle loop started")
@@ -249,10 +266,10 @@ const startsan = async (appinfo: AppInfo) => {
         
                     const achievementicon = async (): Promise<string | null> => {
                         let icon: string | null = null
-                        const cachedicon = path.join(sanhelper.temp,`${achievement.apiname}.jpg`)
+                        const cachedicon = !noiconcache ? resolvefilepath(sanhelper.temp,`${achievement.apiname}.jpg`) : null
         
                         try {
-                            icon = (!noiconcache && fs.existsSync(cachedicon)) ? cachedicon : await getachievementicon(client,achievement)
+                            icon = cachedicon || await getachievementicon(client,achievement)
                             if (!icon) throw new Error(`Icon for ${achievement.apiname} is null. Retrying....`)
         
                             log.write("INFO",`Icon for ${achievement.apiname} saved successfully`)

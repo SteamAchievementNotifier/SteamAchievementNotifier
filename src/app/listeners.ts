@@ -1866,13 +1866,12 @@ export const listeners = {
         ipcMain.on("storekey",async (event,key: string) => {
             const { safeStorage } = await import("electron")
     
-            if (!safeStorage.isEncryptionAvailable()) return log.write("ERROR",`Unable to access safeStorage API - RA Key cannot be stored in config`)
-    
-            const encrypted = key.length ? safeStorage.encryptString(key).toString("base64") : ""
+            // safeStorage encryption is not available on Steam Deck
+            const encrypted = key.length ? (safeStorage.isEncryptionAvailable() ? safeStorage.encryptString(key).toString("base64") : key) : ""
     
             const config = sanconfig.get()
             config.set("rakey",encrypted)
-            log.write("INFO",`"rakey" securely stored in config successfully`)
+            log.write("INFO",`"rakey"${safeStorage.isEncryptionAvailable() ? " securely" : ""} stored in config successfully`)
 
             event.reply("keystored",encrypted)
         })
@@ -1880,7 +1879,7 @@ export const listeners = {
         const decryptrakey = async (key: string): Promise<string | Error> => {
             try {
                 const { safeStorage } = await import("electron")
-                return safeStorage.decryptString(Buffer.from(key,"base64"))
+                return safeStorage.isEncryptionAvailable() ? safeStorage.decryptString(Buffer.from(key,"base64")) : sanconfig.get().store.rakey                
             } catch (err) {
                 return err as Error
             }

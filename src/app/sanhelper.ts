@@ -308,8 +308,11 @@ export const sanhelper: SANHelper = {
             if (platform !== "win32" && platform !== "linux") return ""
 
             try {
-                return fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))!.match(/"([^"]+)"/)![1]
-            } catch {
+                const xdgdesktopdir = fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))?.match(/"([^"]+)"/)?.[1]?.replace(/^\$(?:\{)?HOME(?:\})?/,process.env.HOME!)
+                if (!xdgdesktopdir || (xdgdesktopdir && !fs.existsSync(xdgdesktopdir))) throw new Error(`"${xdgdesktopdir}" not found - reverting to default Desktop path...`)
+                
+                return xdgdesktopdir
+            } catch (err) {
                 return path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
             }
         }

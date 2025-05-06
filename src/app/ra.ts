@@ -49,7 +49,7 @@ const getauth = async (username: string,apikey: string) => {
 
 // Custom action overrides for specific emulators that do not follow the standard default log file pattern
 const customactions = new Map<string,RAActions>([
-    ["duckstation",{ start: /Identified game: (\d+)/i, stop: null, achievement: null, mode:  /Hardcore enabled/i }]
+    ["duckstation",{ start: /Identified game: (\d+)/i, stop: null, achievement: null, mode: /Hardcore enabled/i }]
 ])
 
 const actionmap = (emu: string) => {

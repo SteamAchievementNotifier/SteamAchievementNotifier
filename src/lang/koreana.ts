@@ -151,7 +151,7 @@ export const translations = {
                     기본 설치 설정을 사용하면, <span class="hl">"RALog.txt"</span>는 다음 위치에 저장됩니다:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -750,11 +750,11 @@ export const translations = {
         retroarch: `RetroArch를 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">RetroArch > 설정 > 로깅</span>을 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">로깅 상세도</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">프론트엔드 로깅 레벨</span>: <span class="hlgreen">1 (정보)</span></li><li><span class="hllb">파일에 로깅</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">로그 파일에 타임스탬프 추가</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Dolphin을 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">Dolphin > 보기 > 로그 구성 표시</span>를 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">상세도</span>: <span class="hlgreen">정보</span></li><li><span class="hllb">로거 출력</span> > <span class="hlgreen">파일에 쓰기</span></li><li><span class="hllb">로그 유형</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
         pcsx2: `PCSX2 [Nightly]로 에뮬레이션된 게임의 Retro Achievements 알림을 표시합니다<br><br><span class="ttdesc"><span class="hl">PCSX2 > 도구 > 파일 로깅 활성화</span>가 활성화되어야 합니다</span><br><br><span class="ttdesc">❗ 최신 업데이트로 인해 <span class="hl">"emulog.txt"</span>의 내용은 현재 PCSX2의 Nightly 버전에서만 접근할 수 있습니다</span>`,
-        duckstation: `Duckstation을 통해 에뮬레이션된 게임에 대한 Retro Achievements 알림을 표시합니다<br><br><span class="ttdesc"><span class="hl">Duckstation > 설정 > 고급 > 파일로 로그 기록</span>이 활성화되어야 합니다</span>`,
+        duckstation: `Duckstation을 통해 에뮬레이션된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc">❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> 파일을 다운로드하여 <span class="hl">Duckstation의 설치 디렉토리</span>로 이동해야 합니다</span><br><br><span class="ttdesc"><span class="hl">Duckstation > 설정 > 업적 > RAIntegration (개발자 전용)</span>을 활성화해야 합니다</span>`,
         retroarchpath: `RetroArch의 <span class="hl">"retroarch.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"retroarch.log"</span>는 <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span>에 저장됩니다.</span>`,
         dolphinpath: `Dolphin의 <span class="hl">"dolphin.log"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정을 사용할 경우, <span class="hl">"dolphin.log"</span>는 다음 위치 중 하나에 저장됩니다:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `PCSX2의 <span class="hl">"emulog.txt"</span> 로그 파일 경로를 설정합니다<br><br><span class="ttdesc">기본 설치 설정에서는 <span class="hl">"emulog.txt"</span>가 <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span>에 저장됩니다</span>`,
-        duckstationpath: `Duckstation의 <span class="hl">"duckstation.log"</span> 로그 파일 경로를 설정합니다<br><br><span class="ttdesc">기본 설치 설정을 사용하면 <span class="hl">"duckstation.log"</span>는 <span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span>에 저장됩니다</span>`,
+        duckstationpath: `Duckstation의 <span class="hl">"RALog.txt"</span> 로그 파일 경로 설정<br><br><span class="ttdesc">기본 설치 설정에서 <span class="hl">"RALog.txt"</span>는 <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span>에 저장됩니다</span>`,
         usecustomfontcolors: "알림 내 텍스트 요소의 색상을 개별적으로 설정",
         unlockmsgfontcolor: "첫 번째 텍스트 요소의 색상 설정",
         titlefontcolor: "두 번째 텍스트 요소의 색상 설정",

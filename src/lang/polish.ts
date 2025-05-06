@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Ustawienia > Zaawansowane > Rejestruj do pliku</span> musi być włączone
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> musi zostać <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>pobrane</u></span> i przeniesione do <span class="hl">katalogu instalacyjnego Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Ustawienia > Osiągnięcia > RAIntegration (tylko dla programistów)</span> musi być włączone
                     <br>
                     <br>
-                    Przy domyślnych ustawieniach instalacji, <span class="hl">"duckstation.log"</span> jest przechowywane w:
+                    Korzystając z domyślnych ustawień instalacji, <span class="hl">"RALog.txt"</span> jest zapisywane w:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Ustaw kolor używany w osadzeniu webhooka, gdy odblokowane zostanie osiągnięcie 100%",
         raemus: "Wyświetlaj powiadomienia, gdy gry są wykrywane w obsługiwanych emulatorach",
         rauser: "Ustaw nazwę użytkownika Retro Achievements do śledzenia osiągnięć",
-        rakey: `Ustaw klucz Web API, który będzie używany do uwierzytelniania w API Retro Achievements<br><br><span class="ttdesc">Klucz Web API można skopiować lub ponownie wygenerować, logując się na stronie Retro Achievements i przechodząc do <span class="hl">Ustawienia > Klucze > Web API Key</span><br><br>🔒 Podany klucz zostanie zaszyfrowany przed zapisaniem go lokalnie w systemie</span>`,
+        rakey: `Ustaw klucz Web API, który będzie używany do autentykacji z API Retro Achievements<br><br><span class="ttdesc">Klucz Web API może zostać skopiowany lub ponownie wygenerowany, logując się na stronie Retro Achievements i przechodząc do <span class="hl">Ustawienia > Klucze > Web API Key</span><br><br>🔒 Podany klucz zostanie zaszyfrowany przed zapisaniem go lokalnie w systemie (jeśli aktualny system operacyjny wspiera szyfrowanie)</span>`,
         rapercenttype: "Ustaw, czy chcesz wyświetlać procenty odblokowanych osiągnięć w trybie Hardcore lub Softcore w powiadomieniach",
         retroarch: `Wyświetl powiadomienia Retro Achievements dla gier emulowanych za pomocą RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Ustawienia > Logowanie</span> musi być skonfigurowane z następującymi ustawieniami:<br><br><ul><li><span class="hllb">Szczegółowość logowania</span>: <span class="hlgreen">WŁĄCZONE</span></li><li><span class="hllb">Poziom logowania interfejsu</span>: <span class="hlgreen">1 (Informacje)</span></li><li><span class="hllb">Logowanie do pliku</span>: <span class="hlgreen">WŁĄCZONE</span></li><li><span class="hllb">Znaczniki czasowe dla plików logów</span>: <span class="hlred">WYŁĄCZONE</span></li></ul></span>`,
         dolphin: `Wyświetl powiadomienia Retro Achievements dla gier emulowanych za pomocą Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Widok > Pokaż konfigurację logów</span> musi być skonfigurowane z następującymi ustawieniami:<br><br><ul><li><span class="hllb">Szczegółowość</span>: <span class="hlgreen">Informacje</span></li><li><span class="hllb">Wyniki logowania</span> > <span class="hlgreen">Zapisz do pliku</span></li><li><span class="hllb">Typy logów</span> > <span class="hlgreen">Osiągnięcia (RetroAchievements)</span></li></ul></span>`,

@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Nastavení > Pokročilé > Záznam do souboru</span> musí být povolen
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> musí být <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>stažen</u></span> a přesunut do <span class="hl">instalační složky Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Nastavení > Úspěchy > RAIntegration (pouze pro vývojáře)</span> musí být povoleno
                     <br>
                     <br>
-                    Při výchozím nastavení instalace je soubor <span class="hl">"duckstation.log"</span> uložen v:
+                    Při použití výchozího nastavení instalace je <span class="hl">"RALog.txt"</span> uložen v:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Nastavit barvu použitou v embedu webhooku při odemčení 100% úspěchu",
         raemus: "Zobrazit oznámení, když jsou hry detekovány v podporovaných emulátorech",
         rauser: "Nastavit uživatelské jméno Retro Achievements pro sledování úspěchů",
-        rakey: `Nastavte Web API klíč pro autentifikaci do Retro Achievements API<br><br><span class="ttdesc">Web API klíč lze zkopírovat nebo zregenerovat přihlášením na web Retro Achievements a přechodem na <span class="hl">Nastavení > Klíče > Web API Key</span><br><br>🔒 Poskytnutý klíč bude zašifrován před uložením lokálně na systému</span>`,
+        rakey: `Nastavte Web API klíč pro ověřování k Retro Achievements API<br><br><span class="ttdesc">Web API klíč lze zkopírovat nebo znovu vygenerovat po přihlášení na web Retro Achievements a přechodu na <span class="hl">Nastavení > Klíče > Web API klíč</span><br><br>🔒 Zadaný klíč bude před uložením na systém místně zašifrován (pokud aktuální OS podporuje šifrování)</span>`,
         rapercenttype: "Nastavit, zda se v oznámeních zobrazí procento odemčených úspěchů pro Hardcore nebo Softcore režim",
         retroarch: `Zobrazovat oznámení o Retro Achievements pro hry emulované v RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Nastavení > Záznam</span> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Podrobnost záznamu</span>: <span class="hlgreen">ZAPNUTO</span></li><li><span class="hllb">Úroveň záznamu uživatelského rozhraní</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Záznam do souboru</span>: <span class="hlgreen">ZAPNUTO</span></li><li><span class="hllb">Časové značky v logu</span>: <span class="hlred">VYPNUTO</span></li></ul></span>`,
         dolphin: `Zobrazovat oznámení o Retro Achievements pro hry emulované v Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Zobrazit > Zobrazit konfiguraci záznamu</span> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Podrobnost</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Výstupy záznamu</span> > <span class="hlgreen">Zapsat do souboru</span></li><li><span class="hllb">Typy záznamu</span> > <span class="hlgreen">Úspěchy (RetroAchievements)</span></li></ul></span>`,

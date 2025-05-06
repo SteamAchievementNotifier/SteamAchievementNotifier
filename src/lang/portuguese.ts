@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Configurações > Avançado > Registrar em arquivo</span> deve estar ativado
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> deve ser <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>baixado</u></span> e movido para o <span class="hl">diretório de instalação do Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Configurações > Conquistas > RAIntegration (Somente para desenvolvedores)</span> deve estar ativado
                     <br>
                     <br>
-                    Com as configurações de instalação padrão, <span class="hl">"duckstation.log"</span> é salvo em:
+                    Usando as configurações de instalação padrão, <span class="hl">"RALog.txt"</span> é armazenado em:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Defina a cor usada na incorporação do webhook quando uma conquista de 100% for desbloqueada",
         raemus: "Exibir notificações quando jogos forem detectados em emuladores suportados",
         rauser: "Defina o nome de usuário do Retro Achievements para rastrear conquistas",
-        rakey: `Defina a chave da Web API a ser usada para autenticação na API do Retro Achievements<br><br><span class="ttdesc">Uma chave da Web API pode ser copiada ou regenerada ao fazer login no site do Retro Achievements e navegar até <span class="hl">Configurações > Chaves > Web API Key</span><br><br>🔒 A chave fornecida será criptografada antes de ser armazenada localmente no sistema</span>`,
+        rakey: `Defina a chave Web API para autenticação com a API Retro Achievements<br><br><span class="ttdesc">Uma chave Web API pode ser copiada ou regenerada ao fazer login no site do Retro Achievements e navegar para <span class="hl">Configurações > Chaves > Web API Key</span><br><br>🔒 A chave fornecida será criptografada antes de ser armazenada localmente no sistema (se o sistema operacional atual suportar criptografia)</span>`,
         rapercenttype: "Defina se deseja exibir as porcentagens de desbloqueio de conquistas Hardcore ou Softcore nas notificações",
         retroarch: `Exibir notificações do Retro Achievements para jogos emulados via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Configurações > Log</span> deve ser configurado com as seguintes configurações:<br><br><ul><li><span class="hllb">Verbosity do Log</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Nível de Log do Frontend</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log para Arquivo</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Timestamp para Arquivos de Log</span>: <span class="hlred">DESLIGADO</span></li></ul></span>`,
         dolphin: `Exibir notificações do Retro Achievements para jogos emulados via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Exibir > Mostrar Configuração de Log</span> deve ser configurado com as seguintes configurações:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Saídas do Log</span> > <span class="hlgreen">Escrever para Arquivo</span></li><li><span class="hllb">Tipos de Log</span> > <span class="hlgreen">Conquistas (RetroAchievements)</span></li></ul></span>`,

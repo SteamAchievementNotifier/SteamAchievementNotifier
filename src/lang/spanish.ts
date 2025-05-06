@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Configuración > Avanzado > Registrar en archivo</span> debe estar habilitado
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> debe ser <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>descargado</u></span> y movido al <span class="hl">directorio de instalación de Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Configuración > Logros > RAIntegration (Solo para desarrolladores)</span> debe estar habilitado
                     <br>
                     <br>
-                    Con la configuración de instalación predeterminada, <span class="hl">"duckstation.log"</span> se guarda en:
+                    Usando la configuración de instalación predeterminada, <span class="hl">"RALog.txt"</span> se guarda en:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Establecer el color utilizado en la incrustación del webhook cuando se desbloquea un logro del 100%",
         raemus: "Mostrar notificaciones cuando se detecten juegos en emuladores compatibles",
         rauser: "Configurar el nombre de usuario de Retro Achievements para hacer un seguimiento de los logros",
-        rakey: `Configura la clave de la API Web que se utilizará para la autenticación en la API de Retro Achievements<br><br><span class="ttdesc">Se puede copiar o regenerar una clave de API Web iniciando sesión en el sitio web de Retro Achievements y navegando a <span class="hl">Configuración > Claves > Web API Key</span><br><br>🔒 La clave proporcionada se cifrará antes de ser almacenada localmente en el sistema</span>`,
+        rakey: `Establezca la clave Web API que se usará para la autenticación con la API de Retro Achievements<br><br><span class="ttdesc">Una clave Web API se puede copiar o regenerar iniciando sesión en el sitio web de Retro Achievements y navegando a <span class="hl">Configuración > Claves > Web API Key</span><br><br>🔒 La clave proporcionada se cifrará antes de almacenarse localmente en el sistema (si el sistema operativo actual es compatible con el cifrado)</span>`,
         rapercenttype: "Configurar si deseas mostrar los porcentajes de desbloqueo de logros Hardcore o Softcore en las notificaciones",
         retroarch: `Mostrar notificaciones de Retro Achievements para los juegos emulados a través de RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Configuración > Registro</span> debe configurarse con los siguientes ajustes:<br><br><ul><li><span class="hllb">Verbosity del registro</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Nivel de registro del frontend</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Registrar en archivo</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Registrar archivos con marca de tiempo</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Mostrar notificaciones de Retro Achievements para los juegos emulados a través de Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Ver > Mostrar configuración de registro</span> debe configurarse con los siguientes ajustes:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Salidas del registrador</span> > <span class="hlgreen">Escribir en archivo</span></li><li><span class="hllb">Tipos de registro</span> > <span class="hlgreen">Logros (RetroAchievements)</span></li></ul></span>`,

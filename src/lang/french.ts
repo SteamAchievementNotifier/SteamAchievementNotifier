@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Paramètres > Avancé > Journaliser dans un fichier</span> doit être activé
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> doit être <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>téléchargé</u></span> et déplacé dans <span class="hl">le répertoire d'installation de Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Paramètres > Succès > RAIntegration (Développeur uniquement)</span> doit être activé
                     <br>
                     <br>
-                    Avec les paramètres d'installation par défaut, <span class="hl">"duckstation.log"</span> est enregistré dans :
+                    Avec les paramètres d'installation par défaut, <span class="hl">"RALog.txt"</span> est enregistré dans :
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Définir la couleur utilisée dans l'intégration webhook lors du déverrouillage d'une réussite 100%",
         raemus: "Afficher des notifications lorsque des jeux sont détectés dans des émulateurs pris en charge",
         rauser: "Définir le nom d'utilisateur Retro Achievements pour suivre les succès",
-        rakey: `Définissez la clé Web API à utiliser pour l'authentification à l'API de Retro Achievements<br><br><span class="ttdesc">Une clé Web API peut être copiée ou régénérée en vous connectant au site Web de Retro Achievements et en allant dans <span class="hl">Paramètres > Clés > Web API Key</span><br><br>🔒 La clé fournie sera cryptée avant d'être stockée localement sur le système</span>`,
+        rakey: `Définissez la clé Web API à utiliser pour l'authentification à l'API Retro Achievements<br><br><span class="ttdesc">Une clé Web API peut être copiée ou régénérée en vous connectant au site Retro Achievements et en accédant à <span class="hl">Paramètres > Clés > Clé Web API</span><br><br>🔒 La clé fournie sera chiffrée avant d'être stockée localement sur le système (si le système d'exploitation actuel prend en charge le chiffrement)</span>`,
         rapercenttype: "Définir si les notifications doivent afficher le pourcentage de déverrouillage des succès Hardcore ou Softcore",
         retroarch: `Afficher les notifications Retro Achievements pour les jeux émulés via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Paramètres > Journalisation</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail des journaux</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Niveau de journalisation du frontend</span> : <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Journaliser dans un fichier</span> : <span class="hlgreen">ACTIVÉ</span></li><li><span class="hllb">Horodater les fichiers journaux</span> : <span class="hlred">DÉSACTIVÉ</span></li></ul></span>`,
         dolphin: `Afficher les notifications Retro Achievements pour les jeux émulés via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Affichage > Afficher la configuration du journal</span> doit être configuré avec les paramètres suivants :<br><br><ul><li><span class="hllb">Niveau de détail</span> : <span class="hlgreen">Info</span></li><li><span class="hllb">Sorties du journal</span> > <span class="hlgreen">Écrire dans un fichier</span></li><li><span class="hllb">Types de journal</span> > <span class="hlgreen">Succès (RetroAchievements)</span></li></ul></span>`,

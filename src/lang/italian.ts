@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Impostazioni > Avanzate > Registra su file</span> deve essere abilitato
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> deve essere <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>scaricato</u></span> e spostato nella <span class="hl">directory di installazione di Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Impostazioni > Obiettivi > RAIntegration (solo per sviluppatori)</span> deve essere abilitato
                     <br>
                     <br>
-                    Con le impostazioni di installazione predefinite, <span class="hl">"duckstation.log"</span> è salvato in:
+                    Con le impostazioni di installazione predefinite, <span class="hl">"RALog.txt"</span> viene salvato in:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Imposta il colore utilizzato nell'incorporamento webhook quando viene sbloccato un traguardo 100%",
         raemus: "Visualizza notifiche quando i giochi vengono rilevati in emulatori supportati",
         rauser: "Imposta il nome utente Retro Achievements per tracciare i trofei",
-        rakey: `Imposta la chiave Web API da utilizzare per l'autenticazione all'API di Retro Achievements<br><br><span class="ttdesc">Una chiave Web API può essere copiata o rigenerata effettuando il login sul sito web di Retro Achievements e andando su <span class="hl">Impostazioni > Chiavi > Web API Key</span><br><br>🔒 La chiave fornita verrà criptata prima di essere salvata localmente nel sistema</span>`,
+        rakey: `Imposta la chiave Web API da utilizzare per l'autenticazione con l'API Retro Achievements<br><br><span class="ttdesc">Una chiave Web API può essere copiata o rigenerata accedendo al sito web di Retro Achievements e navigando su <span class="hl">Impostazioni > Chiavi > Web API Key</span><br><br>🔒 La chiave fornita verrà crittografata prima di essere salvata localmente nel sistema (se il sistema operativo corrente supporta la crittografia)</span>`,
         rapercenttype: "Imposta se mostrare la percentuale di completamento Hardcore o Softcore nelle notifiche",
         retroarch: `Mostra notifiche di Retro Achievements per i giochi emulati tramite RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Impostazioni > Registrazione</span> deve essere configurato come segue:<br><br><ul><li><span class="hllb">Verbosity della registrazione</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Livello di log del frontend</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Registra su file</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">Timestamp dei file di log</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Mostra notifiche di Retro Achievements per i giochi emulati tramite Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Visualizza > Mostra configurazione del log</span> deve essere configurato come segue:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Uscite del logger</span> > <span class="hlgreen">Scrivi su file</span></li><li><span class="hllb">Tipi di log</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,

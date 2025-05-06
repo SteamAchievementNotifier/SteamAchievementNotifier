@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Ayarlar > Gelişmiş > Dosyaya Kayıt</span> etkinleştirilmiş olmalıdır
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> <span class="hl">Duckstation'ın kurulum dizinine</span> <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>indirilip</u></span> taşınmalıdır</li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Ayarlar > Başarılar > RAIntegration (Yalnızca geliştirici)</span> etkinleştirilmelidir
                     <br>
                     <br>
-                    Varsayılan kurulum ayarlarıyla, <span class="hl">"duckstation.log"</span> şu konumda saklanır:
+                    Varsayılan kurulum ayarları kullanıldığında, <span class="hl">"RALog.txt"</span> şu konumda saklanır:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Yüzde 100 başarı açıldığında webhook embed'inde kullanılan rengi ayarlayın",
         raemus: "Desteklenen emülatörlerde oyunlar tespit edildiğinde bildirim göster",
         rauser: "Başarıları takip etmek için Retro Achievements kullanıcı adını ayarlayın",
-        rakey: `Retro Achievements API'ye kimlik doğrulama için kullanılacak Web API Anahtarını ayarlayın<br><br><span class="ttdesc">Web API Anahtarı, Retro Achievements web sitesine giriş yaparak ve <span class="hl">Ayarlar > Anahtarlar > Web API Key</span> kısmına giderek kopyalanabilir veya yeniden oluşturulabilir<br><br>🔒 Sağlanan anahtar, sisteme yerel olarak kaydedilmeden önce şifrelenir</span>`,
+        rakey: `Retro Achievements API'si ile kimlik doğrulama için kullanılacak Web API Anahtarını ayarlayın<br><br><span class="ttdesc">Bir Web API Anahtarı, Retro Achievements web sitesine giriş yaparak ve <span class="hl">Ayarlar > Anahtarlar > Web API Key</span> bölümüne giderek kopyalanabilir veya yeniden oluşturulabilir<br><br>🔒 Verilen anahtar, yerel sisteme kaydedilmeden önce şifrelenir (eğer mevcut işletim sistemi şifrelemeyi destekliyorsa)</span>`,
         rapercenttype: "Bildirimlerde Hardcore veya Softcore başarı yüzdelerinin gösterilmesini ayarlayın",
         retroarch: `Retro Achievements bildirimlerini RetroArch ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">RetroArch > Ayarlar > Günlük Kaydı</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Günlük Kaydı Ayrıntı Düzeyi</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Önyüz Günlük Kaydı Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li><li><span class="hllb">Dosyaya Günlük Kaydı</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Günlük Dosyalarına Zaman Damgası</span>: <span class="hlred">KAPALI</span></li></ul></span>`,
         dolphin: `Retro Achievements bildirimlerini Dolphin ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">Dolphin > Görünüm > Günlük Konfigürasyonunu Göster</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Ayrıntı Düzeyi</span>: <span class="hlgreen">Bilgi</span></li><li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li><li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li></ul></span>`,

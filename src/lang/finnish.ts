@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Asetukset > Lisäasetukset > Kirjaa tiedostoon</span> täytyy olla käytössä
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> on <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>ladattava</u></span> ja siirrettävä <span class="hl">Duckstationin asennuskansioon</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Asetukset > Saavutukset > RAIntegration (vain kehittäjille)</span> on oltava käytössä
                     <br>
                     <br>
-                    Oletusasetuksilla <span class="hl">"duckstation.log"</span> tallennetaan sijaintiin:
+                    Oletusasetuksilla asennettaessa <span class="hl">"RALog.txt"</span> tallennetaan sijaintiin:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Aseta väri, jota käytetään webhook-upotuksessa 100% saavutuksen avautuessa",
         raemus: "Näytä ilmoitukset, kun pelejä havaitaan tuetuissa emulaattoreissa",
         rauser: "Aseta Retro Achievements -käyttäjätunnus saavutusten seuraamista varten",
-        rakey: `Aseta käytettävä Web API -avain Retro Achievements API -autentikointiin<br><br><span class="ttdesc">Web API -avaimen voi kopioida tai luoda uudelleen kirjautumalla Retro Achievements -verkkosivustolle ja siirtymällä kohtaan <span class="hl">Asetukset > Avaimet > Web API Key</span><br><br>🔒 Annettu avain salataan ennen kuin se tallennetaan paikallisesti järjestelmään</span>`,
+        rakey: `Aseta Web API -avain, jota käytetään tunnistautumiseen Retro Achievements API:ssa<br><br><span class="ttdesc">Web API -avaimen voi kopioida tai luoda uudelleen kirjautumalla sisään Retro Achievements -sivustolle ja siirtymällä kohtaan <span class="hl">Asetukset > Avaimet > Web API -avain</span><br><br>🔒 Annettu avain salataan ennen sen tallentamista paikallisesti järjestelmään (jos nykyinen käyttöjärjestelmä tukee salausta)</span>`,
         rapercenttype: "Määritä, näytetäänkö ilmoituksissa Hardcore- vai Softcore-saavutusten avausprosentit",
         retroarch: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan RetroArchilla<br><br><span class="ttdesc"><span class="hl">RetroArch > Asetukset > Lokitus</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Lokituksen yksityiskohtaisuus</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Frontend-lokitaso</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Kirjaa lokiin</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Aikaleimat lokitiedostoissa</span>: <span class="hlred">POIS PÄÄLTÄ</span></li></ul></span>`,
         dolphin: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan Dolphinilla<br><br><span class="ttdesc"><span class="hl">Dolphin > Näytä > Näytä lokiasetukset</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Yksityiskohtaisuus</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Lokin ulostulot</span> > <span class="hlgreen">Kirjoita tiedostoon</span></li><li><span class="hllb">Lokityypit</span> > <span class="hlgreen">Saavutukset (RetroAchievements)</span></li></ul></span>`,

@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Beállítások > Fejlett > Naplózás fájlba</span> engedélyezve kell lennie
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>letöltve</u></span> kell lennie, és át kell helyezni a <span class="hl">Duckstation telepítési könyvtárába</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Beállítások > Eredmények > RAIntegration (csak fejlesztőknek)</span> engedélyezve kell, hogy legyen
                     <br>
                     <br>
-                    Alapértelmezett telepítési beállításokkal a <span class="hl">"duckstation.log"</span> a következő helyen kerül mentésre:
+                    Alapértelmezett telepítési beállításokkal a <span class="hl">"RALog.txt"</span> a következő helyen tárolódik:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Állítsa be a színt, amely a webhook beágyazásban használatos, amikor egy 100%-os siker oldódik fel",
         raemus: "Értesítések megjelenítése, amikor játékokat észlelnek támogatott emulátorokban",
         rauser: "A Retro Achievements felhasználónevet beállítani az elért eredmények nyomon követéséhez",
-        rakey: `Állítsa be a Web API kulcsot, amelyet az autentikációhoz használ a Retro Achievements API-val<br><br><span class="ttdesc">A Web API kulcsot másolhatja vagy újragenerálhatja, ha bejelentkezik a Retro Achievements weboldalára, és elmegy a <span class="hl">Beállítások > Kulcsok > Web API Key</span> menüpontra<br><br>🔒 A megadott kulcs titkosítva lesz, mielőtt helyben tárolódna a rendszeren</span>`,
+        rakey: `Állítsa be a Web API kulcsot, amely az autentikációhoz használható a Retro Achievements API-val<br><br><span class="ttdesc">Egy Web API kulcs másolható vagy újragenerálható úgy, hogy bejelentkezik a Retro Achievements weboldalra, és átmegy a <span class="hl">Beállítások > Kulcsok > Web API kulcs</span> menüpontra<br><br>🔒 A megadott kulcs titkosítva lesz, mielőtt helyben tárolódna a rendszeren (ha az aktuális operációs rendszer támogatja a titkosítást)</span>`,
         rapercenttype: "Beállíthatja, hogy a Hardcore vagy Softcore eredmények százaléka jelenjen meg az értesítésekben",
         retroarch: `Teljesítmények értesítéseinek megjelenítése RetroArch-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">RetroArch > Beállítások > Naplózás</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Naplózási Részletesség</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Előlap Naplózási Szint</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Naplózás Fájlba</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Időbélyeg a Napló Fájlokhoz</span>: <span class="hlred">KI</span></li></ul></span>`,
         dolphin: `Teljesítmények értesítéseinek megjelenítése Dolphin-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">Dolphin > Nézet > Naplózási Beállítások Megjelenítése</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Részletesség</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Napló Kimenetek</span> > <span class="hlgreen">Írás Fájlba</span></li><li><span class="hllb">Napló Típusok</span> > <span class="hlgreen">Teljesítmények (RetroAchievements)</span></li></ul></span>`,

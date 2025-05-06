@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Cài đặt > Nâng cao > Ghi vào file</span> phải được bật
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> phải được <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>tải xuống</u></span> và di chuyển vào <span class="hl">thư mục cài đặt của Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Cài đặt > Thành tích > RAIntegration (Chỉ dành cho nhà phát triển)</span> phải được bật
                     <br>
                     <br>
-                    Với cài đặt mặc định, <span class="hl">"duckstation.log"</span> sẽ được lưu ở:
+                    Sử dụng cài đặt cài đặt mặc định, <span class="hl">"RALog.txt"</span> được lưu tại:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Cài đặt màu được sử dụng trong webhook khi mở khóa thành tích 100%",
         raemus: "Hiển thị thông báo khi phát hiện trò chơi trong các trình giả lập hỗ trợ",
         rauser: "Đặt tên người dùng Retro Achievements để theo dõi các thành tích",
-        rakey: `Cài đặt Web API Key để sử dụng xác thực với Retro Achievements API<br><br><span class="ttdesc">Một Web API Key có thể được sao chép hoặc tạo lại bằng cách đăng nhập vào trang web của Retro Achievements và chuyển đến <span class="hl">Cài đặt > Chìa khóa > Web API Key</span><br><br>🔒 Chìa khóa được cung cấp sẽ được mã hóa trước khi lưu trữ cục bộ trên hệ thống</span>`,
+        rakey: `Cài đặt Web API Key sẽ được sử dụng để xác thực với API của Retro Achievements<br><br><span class="ttdesc">Một Web API Key có thể được sao chép hoặc tạo lại bằng cách đăng nhập vào trang web Retro Achievements và đi tới <span class="hl">Cài đặt > Khóa > Web API Key</span><br><br>🔒 Khóa đã cung cấp sẽ được mã hóa trước khi lưu trữ trên hệ thống cục bộ (nếu hệ điều hành hiện tại hỗ trợ mã hóa)</span>`,
         rapercenttype: "Đặt xem có hiển thị phần trăm thành tích Hardcore hoặc Softcore trong thông báo không",
         retroarch: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Cài đặt > Ghi log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết của ghi log</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Cấp độ ghi log của giao diện người dùng</span>: <span class="hlgreen">1 (Thông tin)</span></li><li><span class="hllb">Ghi log vào file</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Thêm dấu thời gian vào các file log</span>: <span class="hlred">TẮT</span></li></ul></span>`,
         dolphin: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Xem > Hiển thị Cấu hình Log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết</span>: <span class="hlgreen">Thông tin</span></li><li><span class="hllb">Kết quả ghi log</span> > <span class="hlgreen">Ghi vào File</span></li><li><span class="hllb">Các loại log</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></li></ul></span>`,

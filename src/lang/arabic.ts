@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > الإعدادات > متقدم > السجل إلى ملف</span> يجب أن تكون مفعّلة
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> يجب أن يتم <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>تحميله</u></span> ونقله إلى <span class="hl">مجلد تثبيت Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > الإعدادات > الإنجازات > RAIntegration (للمطورين فقط)</span> يجب أن يكون مفعّلًا
                     <br>
                     <br>
-                    باستخدام إعدادات التثبيت الافتراضية، يتم حفظ <span class="hl">"duckstation.log"</span> في:
+                    باستخدام إعدادات التثبيت الافتراضية، يتم حفظ <span class="hl">"RALog.txt"</span> في:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "تعيين اللون المستخدم في تضمين الويب عند فتح إنجاز 100%",
         raemus: "عرض الإشعارات عند اكتشاف الألعاب في المحاكيات المدعومة",
         rauser: "تحديد اسم مستخدم Retro Achievements لتتبع الإنجازات",
-        rakey: `حدد مفتاح واجهة برمجة التطبيقات (API) لاستخدامه للمصادقة على واجهة برمجة التطبيقات Retro Achievements<br><br><span class="ttdesc">يمكنك نسخ أو إعادة توليد مفتاح واجهة برمجة التطبيقات عبر تسجيل الدخول إلى موقع Retro Achievements والانتقال إلى <span class="hl">الإعدادات > المفاتيح > مفتاح واجهة برمجة التطبيقات</span><br><br>🔒 سيتم تشفير المفتاح المقدم قبل تخزينه محليًا على النظام</span>`,
+        rakey: `قم بتعيين مفتاح واجهة برمجة تطبيقات الويب لاستخدامه في المصادقة مع واجهة Retro Achievements API<br><br><span class="ttdesc">يمكنك نسخ أو إعادة توليد مفتاح واجهة برمجة التطبيقات الويب عن طريق تسجيل الدخول إلى موقع Retro Achievements والانتقال إلى <span class="hl">الإعدادات > المفاتيح > مفتاح واجهة برمجة التطبيقات الويب</span><br><br>🔒 سيتم تشفير المفتاح المُقدم قبل تخزينه محليًا على النظام (إذا كان نظام التشغيل الحالي يدعم التشفير)</span>`,
         rapercenttype: "تحديد ما إذا كان سيتم عرض نسب فتح الإنجازات المتقدمة أو العادية في الإشعارات",
         retroarch: `عرض إشعارات Retro Achievements للألعاب المحاكاة عبر RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > الإعدادات > التسجيل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">مستوى تسجيل الواجهة الأمامية</span>: <span class="hlgreen">1 (معلومات)</span></li><li><span class="hllb">التسجيل إلى ملف</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">تأريخ ملفات السجل</span>: <span class="hlred">إيقاف</span></li></ul></span>`,
         dolphin: `عرض إشعارات Retro Achievements للألعاب المحاكاة عبر Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > عرض > إظهار إعدادات السجل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">معلومات</span></li><li><span class="hllb">مخرجات المسجل</span> > <span class="hlgreen">الكتابة إلى ملف</span></li><li><span class="hllb">أنواع السجل</span> > <span class="hlgreen">الإنجازات (RetroAchievements)</span></li></ul></span>`,

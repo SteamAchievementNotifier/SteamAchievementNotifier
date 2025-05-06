@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Ρυθμίσεις > Προχωρημένα > Καταγραφή σε αρχείο</span> πρέπει να είναι ενεργοποιημένο
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> πρέπει να <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>κατεβεί</u></span> και να μετακινηθεί στο <span class="hl">φακέλο εγκατάστασης του Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Ρυθμίσεις > Επιτεύγματα > RAIntegration (μόνο για προγραμματιστές)</span> πρέπει να είναι ενεργοποιημένο
                     <br>
                     <br>
-                    Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"duckstation.log"</span> αποθηκεύεται στη διαδρομή:
+                    Χρησιμοποιώντας τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"RALog.txt"</span> αποθηκεύεται στο:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Ορισμός του χρώματος που χρησιμοποιείται στην ενσωμάτωση webhook όταν ξεκλειδώνεται μια 100% επίτευξη",
         raemus: "Εμφάνιση ειδοποιήσεων όταν εντοπίζονται παιχνίδια σε υποστηριζόμενους εξομοιωτές",
         rauser: "Ορίστε το όνομα χρήστη Retro Achievements για να παρακολουθείτε τις επιτυχίες",
-        rakey: `Ορίστε το Web API Key που θα χρησιμοποιηθεί για την αυθεντικοποίηση στην API του Retro Achievements<br><br><span class="ttdesc">Ένα Web API Key μπορεί να αντιγραφεί ή να αναγεννηθεί συνδεόμενοι στον ιστότοπο του Retro Achievements και πηγαίνοντας στην ενότητα <span class="hl">Ρυθμίσεις > Κλειδιά > Web API Key</span><br><br>🔒 Το παρεχόμενο κλειδί θα κρυπτογραφηθεί πριν αποθηκευτεί τοπικά στο σύστημα</span>`,
+        rakey: `Ορίστε το Web API Key για να χρησιμοποιηθεί για αυθεντικοποίηση στο Retro Achievements API<br><br><span class="ttdesc">Ένα Web API Key μπορεί να αντιγραφεί ή να αναγεννηθεί συνδέοντας στο Retro Achievements και πηγαίνοντας στις <span class="hl">Ρυθμίσεις > Κλειδιά > Web API Key</span><br><br>🔒 Το παρεχόμενο κλειδί θα κρυπτογραφηθεί πριν αποθηκευτεί τοπικά στο σύστημα (αν το τρέχον λειτουργικό σύστημα υποστηρίζει κρυπτογράφηση)</span>`,
         rapercenttype: "Ορίστε αν θέλετε να εμφανίζεται το ποσοστό επιτυχιών Hardcore ή Softcore στις ειδοποιήσεις",
         retroarch: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Ρυθμίσεις > Καταγραφή</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια Καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Επίπεδο Καταγραφής Στο Πρόσθιο Μέρος</span>: <span class="hlgreen">1 (Πληροφορίες)</span></li><li><span class="hllb">Καταγραφή σε Αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Χρονοσήμανση Αρχείων Καταγραφής</span>: <span class="hlred">ΑΝΕΝΕΡΓΟ</span></li></ul></span>`,
         dolphin: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Προβολή > Εμφάνιση Ρυθμίσεων Καταγραφής</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span></li><li><span class="hllb">Έξοδοι Καταγραφής</span> > <span class="hlgreen">Γράψε σε Αρχείο</span></li><li><span class="hllb">Τύποι Καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></li></ul></span>`,

@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Setări > Avansat > Jurnalizare în fișier</span> trebuie să fie activat
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> trebuie să fie <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>descărcat</u></span> și mutat în <span class="hl">directorul de instalare Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Setări > Realizări > RAIntegration (doar pentru dezvoltatori)</span> trebuie să fie activat
                     <br>
                     <br>
-                    Cu setările implicite de instalare, <span class="hl">"duckstation.log"</span> este salvat în:
+                    Folosind setările de instalare implicite, <span class="hl">"RALog.txt"</span> este salvat în:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Setează culoarea folosită în încorporarea webhook atunci când se deblochează o realizare de 100%",
         raemus: "Afișează notificări atunci când jocurile sunt detectate în emulatorii acceptați",
         rauser: "Setează numele de utilizator Retro Achievements pentru a urmări realizările",
-        rakey: `Setează cheia Web API care va fi utilizată pentru autentificarea în API-ul Retro Achievements<br><br><span class="ttdesc">O cheie Web API poate fi copiată sau regenerată conectându-te pe site-ul Retro Achievements și navigând la <span class="hl">Setări > Chei > Web API Key</span><br><br>🔒 Cheia furnizată va fi criptată înainte de a fi stocată local pe sistem</span>`,
+        rakey: `Setează cheia Web API care va fi folosită pentru autentificare cu API-ul Retro Achievements<br><br><span class="ttdesc">O cheie Web API poate fi copiată sau regeneratoră prin conectarea la site-ul Retro Achievements și navigând la <span class="hl">Setări > Chei > Web API Key</span><br><br>🔒 Cheia furnizată va fi criptată înainte de a fi salvată local pe sistem (dacă sistemul de operare curent suportă criptarea)</span>`,
         rapercenttype: "Setează dacă vrei să afișezi procentele de realizare Hardcore sau Softcore în notificări",
         retroarch: `Afișează notificările Retro Achievements pentru jocurile emulate prin RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Setări > Jurnalizare</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul jurnalizării</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Nivelul de jurnalizare al interfeței</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Jurnalizează în fișier</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Marca de timp pentru fișierele de log</span>: <span class="hlred">DEZLIGAT</span></li></ul></span>`,
         dolphin: `Afișează notificările Retro Achievements pentru jocurile emulate prin Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Vizualizare > Afișează configurația logului</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Ieșiri din jurnal</span> > <span class="hlgreen">Scrie în fișier</span></li><li><span class="hllb">Tipuri de log</span> > <span class="hlgreen">Realizări (RetroAchievements)</span></li></ul></span>`,

@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Indstillinger > Avanceret > Log til fil</span> skal være aktiveret
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> skal <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>downloades</u></span> og flyttes til <span class="hl">Duckstations installationsmappe</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Indstillinger > Achievements > RAIntegration (kun for udviklere)</span> skal være aktiveret
                     <br>
                     <br>
-                    Ved brug af standardinstallationsindstillinger gemmes <span class="hl">"duckstation.log"</span> i:
+                    Ved brug af standardinstallationsindstillinger gemmes <span class="hl">"RALog.txt"</span> i:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Indstil farven, der bruges i webhook-embed, når en 100% præstation låses op",
         raemus: "Vis notifikationer, når spil registreres i understøttede emulatorer",
         rauser: "Angiv Retro Achievements-brugernavnet for at spore achievements",
-        rakey: `Indstil Web API-nøglen, der skal bruges til autentificering til Retro Achievements API<br><br><span class="ttdesc">En Web API-nøgle kan kopieres eller regenereres ved at logge ind på Retro Achievements-webstedet og navigere til <span class="hl">Indstillinger > Nøgler > Web API Key</span><br><br>🔒 Den angivne nøgle vil blive krypteret, før den gemmes lokalt på systemet</span>`,
+        rakey: `Angiv Web API-nøglen, der skal bruges til godkendelse med Retro Achievements API<br><br><span class="ttdesc">En Web API-nøgle kan kopieres eller gendannes ved at logge ind på Retro Achievements-hjemmesiden og navigere til <span class="hl">Indstillinger > Nøgler > Web API-nøgle</span><br><br>🔒 Den angivne nøgle vil blive krypteret, før den gemmes lokalt på systemet (hvis det aktuelle operativsystem understøtter kryptering)</span>`,
         rapercenttype: "Angiv, om procentdelen af oplåste Hardcore eller Softcore achievements skal vises i notifikationer",
         retroarch: `Vis Retro Achievements-meddelelser for spil emuleret via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Indstillinger > Logning</span> skal konfigureres med følgende indstillinger:<br><br><ul><li><span class="hllb">Logningsdetaljer</span>: <span class="hlgreen">TIL</span></li><li><span class="hllb">Frontend-logningsniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log til fil</span>: <span class="hlgreen">TIL</span></li><li><span class="hllb">Tidsstempler i logfiler</span>: <span class="hlred">FRA</span></li></ul></span>`,
         dolphin: `Vis Retro Achievements-meddelelser for spil emuleret via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Vis > Vis logkonfiguration</span> skal konfigureres med følgende indstillinger:<br><br><ul><li><span class="hllb">Detaljeringsgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logudgange</span> > <span class="hlgreen">Skriv til fil</span></li><li><span class="hllb">Logtyper</span> > <span class="hlgreen">Præstationer (RetroAchievements)</span></li></ul></span>`,

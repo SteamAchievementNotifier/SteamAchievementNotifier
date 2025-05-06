@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > 설정 > 고급 > 파일로 로그 기록</span>이 활성화되어야 합니다
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span>은 <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>다운로드</u></span>하여 <span class="hl">Duckstation 설치 디렉토리</span>로 이동해야 합니다</li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > 설정 > 업적 > RAIntegration (개발자 전용)</span>을 활성화해야 합니다
                     <br>
                     <br>
-                    기본 설치 설정을 사용하면 <span class="hl">"duckstation.log"</span>는 다음 위치에 저장됩니다:
+                    기본 설치 설정을 사용하면, <span class="hl">"RALog.txt"</span>는 다음 위치에 저장됩니다:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "100% 성공이 해제될 때 webhook 임베드에 사용될 색상을 설정합니다",
         raemus: "지원되는 에뮬레이터에서 게임이 감지될 때 알림 표시",
         rauser: "업적 추적에 사용할 Retro Achievements 사용자 이름 설정",
-        rakey: `Retro Achievements API 인증에 사용할 Web API 키를 설정하세요<br><br><span class="ttdesc">Web API 키는 Retro Achievements 웹사이트에 로그인하고 <span class="hl">설정 > 키 > Web API Key</span>로 이동하여 복사하거나 재생성할 수 있습니다<br><br>🔒 제공된 키는 시스템에 로컬로 저장되기 전에 암호화됩니다</span>`,
+        rakey: `Retro Achievements API 인증에 사용할 Web API 키를 설정합니다<br><br><span class="ttdesc">Web API 키는 Retro Achievements 웹사이트에 로그인하고 <span class="hl">설정 > 키 > Web API 키</span>로 이동하여 복사하거나 다시 생성할 수 있습니다<br><br>🔒 제공된 키는 시스템에 로컬로 저장되기 전에 암호화됩니다 (현재 운영 체제가 암호화를 지원하는 경우)</span>`,
         rapercenttype: "알림에서 하드코어 또는 소프트코어 업적 잠금 퍼센트 표시 여부 설정",
         retroarch: `RetroArch를 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">RetroArch > 설정 > 로깅</span>을 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">로깅 상세도</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">프론트엔드 로깅 레벨</span>: <span class="hlgreen">1 (정보)</span></li><li><span class="hllb">파일에 로깅</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">로그 파일에 타임스탬프 추가</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Dolphin을 사용하여 에뮬레이트된 게임의 Retro Achievements 알림을 표시<br><br><span class="ttdesc"><span class="hl">Dolphin > 보기 > 로그 구성 표시</span>를 다음 설정으로 구성해야 합니다:<br><br><ul><li><span class="hllb">상세도</span>: <span class="hlgreen">정보</span></li><li><span class="hllb">로거 출력</span> > <span class="hlgreen">파일에 쓰기</span></li><li><span class="hllb">로그 유형</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,

@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Einstellungen > Erweitert > In Datei protokollieren</span> muss aktiviert sein
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> muss <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>heruntergeladen</u></span> und in das <span class="hl">Installationsverzeichnis von Duckstation</span> verschoben werden</li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Einstellungen > Erfolge > RAIntegration (nur für Entwickler)</span> muss aktiviert sein
                     <br>
                     <br>
-                    Bei Standardeinstellungen wird <span class="hl">"duckstation.log"</span> gespeichert unter:
+                    Bei Verwendung der Standardinstallation wird <span class="hl">"RALog.txt"</span> gespeichert unter:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Stellen Sie die Farbe ein, die in der Webhook-Einbettung verwendet wird, wenn ein 100%-Erfolg freigeschaltet wird",
         raemus: "Benachrichtigungen anzeigen, wenn Spiele in unterstützten Emulatoren erkannt werden",
         rauser: "Den Retro Achievements-Benutzernamen festlegen, um Erfolge zu verfolgen",
-        rakey: `Legen Sie den Web-API-Schlüssel fest, der für die Authentifizierung bei der Retro Achievements API verwendet werden soll<br><br><span class="ttdesc">Ein Web-API-Schlüssel kann kopiert oder neu generiert werden, indem Sie sich auf der Retro Achievements-Webseite anmelden und zu <span class="hl">Einstellungen > Schlüssel > Web API Key</span> gehen<br><br>🔒 Der bereitgestellte Schlüssel wird verschlüsselt, bevor er lokal im System gespeichert wird</span>`,
+        rakey: `Legen Sie den Web-API-Schlüssel fest, der für die Authentifizierung mit der Retro Achievements API verwendet wird<br><br><span class="ttdesc">Ein Web-API-Schlüssel kann kopiert oder neu generiert werden, indem Sie sich auf der Retro Achievements-Website anmelden und zu <span class="hl">Einstellungen > Schlüssel > Web-API-Schlüssel</span> navigieren<br><br>🔒 Der angegebene Schlüssel wird verschlüsselt, bevor er lokal auf dem System gespeichert wird (sofern das aktuelle Betriebssystem Verschlüsselung unterstützt)</span>`,
         rapercenttype: "Festlegen, ob in den Benachrichtigungen der Freischaltprozentsatz für Hardcore- oder Softcore-Erfolge angezeigt wird",
         retroarch: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über RetroArch emuliert werden<br><br><span class="ttdesc"><span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li></ul></span>`,
         dolphin: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über Dolphin emuliert werden<br><br><span class="ttdesc"><span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li><li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li></ul></span>`,

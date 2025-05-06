@@ -13,9 +13,9 @@ The below table outlines current compatibility for emulators supporting **Retro 
 | RetroArch | ✔ | [Requires log file](#retroarch): `retroarch.log`  |
 | Dolphin | ✔ | [Requires log file](#dolphin): `dolphin.log` |
 | Bizhawk | ❌ | No external log-to-file functionality, but PS1 cores can be loaded via RetroArch |
-| DuckStation | ❔ | Not tested  |
-| PCSX2 | ❌ | Log file `emulog.txt` is permanently locked while PCSX2 is runnning. No other user, application or script can interact with the contents, despite the required game/achievement information being available within. However, PS2 core can be loaded via RetroArch |
-| PPSPP | ❌ | No external log-to-file functionality, but PPSPP core can be loaded via RetroArch |
+| DuckStation | ✔ | [Requires `RA_Integration-x64.dll` + log file](#duckstation): `RALog.txt`  |
+| PCSX2 [Nightly] | ✔ | [Requires log file](#pcsx2): `emulog.txt` |
+| PPSPP | ❌ | Logs to file if run in developer mode via `.bat` script. PPSPP core can be loaded via RetroArch |
 | RALibRetro | ❔ | Not tested |
 | RANes | ❔ | Not tested |
 | RALibRetro | ❔ | Not tested |
@@ -104,6 +104,23 @@ To enable *log-to-file* functionality:
     - **Log Types** > ☑ *Achievements (RetroAchievements)*
 </details>
 
+<details>
+    <summary>
+    <h4 id="pcsx2">PCSX2 [Nightly]</h4>
+    </summary>
+
+- **PCSX2 > Tools > Enable File Logging** must be enabled
+</details>
+
+<details>
+    <summary>
+    <h4 id="duckstation">Duckstation</h4>
+    </summary>
+
+- **Duckstation > Settings > Achievements > RAIntegration (Developer Only)** must be enabled
+
+</details>
+
 Once complete, this **log file** can then be selected in **Steam Achievement Notifier** for the associated emulator.
 
 <h2 align="center" id="setup">IN-APP SETUP</h2>
@@ -136,6 +153,64 @@ Once an emulator is enabled, a **Log File Path** option will appear. Click the �
     - `%APPDATA%\Dolphin Emulator\Logs`
     - `%USERPROFILE%\Documents\Dolphin Emulator\Logs`
     - 🐧 `$XDG_DATA_HOME/dolphin-emu/Logs`
+</details>
+
+<details>
+    <summary>
+    <h4>PCSX2 [Nightly]</h4>
+    </summary>
+
+> ❗ Due to recent updates, the contents of `emulog.txt` can currently only be accessed in the Nightly release of PCSX2
+
+- Using default installation settings, `emulog.txt` is stored in:
+
+    - `%USERPROFILE%\Documents\PCSX2\Logs`
+</details>
+
+<details>
+    <summary>
+    <h4>Duckstation</h4>
+    </summary>
+
+> ❗ `RA_Integration-x64.dll` must be [downloaded from the RetroAchievements website](https://retroachievements.org/bin/RA_Integration-x64.dll).
+> 
+> ❗ Once downloaded, `RA_Integration-x64.dll` must then be copied/moved to Duckstation's installation directory (*i.e. the same location as `duckstation-qt-x64-ReleaseLTCG.exe`*)
+
+<details>
+    <summary>
+    <h5 id="duckstationdll">ℹ What is RA_Integration-x64.dll?</h5>
+    </summary>
+
+> `RA_Integration-x64.dll` is a file used by developers to add RetroAchievements support to emulators, or for users of a supported emulator to create new achievements for existing games.
+> 
+> The DLL is created and maintained by RetroAchievements, and is hosted on their website (via the above link). It is safe to download and use, and the source code is freely available on [GitHub](https://github.com/RetroAchievements/RAIntegration).
+> 
+> Some emulators provide a way to load `RA_Integration-x64.dll` externally, which enables additional functionality within the emulator while requiring minimal setup.
+</details>
+
+<details>
+    <summary>
+    <h5 id="duckstationdlluse">ℹ Why do I need to use RA_Integration-x64.dll?</h5>
+    </summary>
+
+> While Duckstation's default log file (`duckstation.log`) is now accessible while the emulator is running due to recent updates, the information available within this file is currently inconsistent.
+> 
+> In `duckstation.log`'s current state, it does not provide enough reliable information regarding game/achievement events happening within the emulator, which prevents the ability for external applications (*such as Steam Achievement Notifier*) to implement a system to trigger in-app events (*such as notifications*) based on the current log events.
+> 
+> However, by making use of Duckstation's ***RAIntegration (Developer Only)*** option, `RA_Integration-x64.dll` can be loaded by Duckstation, which does a few important things:
+> 
+> - Creates a new folder called `RACache` in Duckstation's installation directory
+> - Creates a file within `RACache` called `RALog.txt`
+> - Logs ALL RetroAchievements achievement information, plus the current RA `gameId` and relevant game start/stop actions
+> 
+> By enabling `RA_Integration-x64.dll`, events logged to `RALog.txt` are now perfectly aligned with all other supported emulators and will work consistently, without having to implement any potentially unreliable workarounds
+</details>
+
+- Using default installation settings, `RALog.txt`\* is stored in:
+
+    - `%USERPROFILE%\Documents\Duckstation\RACache`\*
+
+> ⚠ \*`RACache/RALog.txt` will only be generated after adding `RA_Integration-x64.dll` and [enabling support in Duckstation](#logfiles)
 </details>
 
 <br>

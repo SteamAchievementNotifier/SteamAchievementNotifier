@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > 設定 > 進階 > 寫入文件日誌</span> 必須啟用
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> 必須 <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>下載</u></span> 並移動到 <span class="hl">Duckstation 的安裝目錄</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > 設定 > 成就 > RAIntegration (僅限開發者)</span> 必須啟用
                     <br>
                     <br>
-                    使用預設安裝設定時，<span class="hl">"duckstation.log"</span> 會儲存於以下位置：
+                    使用預設安裝設定，<span class="hl">"RALog.txt"</span> 將儲存在：
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "設定解鎖100%成就時，Webhook嵌入中使用的顏色",
         raemus: "當遊戲在支持的模擬器中被偵測到時顯示通知",
         rauser: "設定 Retro Achievements 使用者名稱來追蹤成就",
-        rakey: `設定用於認證 Retro Achievements API 的 Web API 密鑰<br><br><span class="ttdesc">您可以透過登入 Retro Achievements 網站並導航至 <span class="hl">設定 > 金鑰 > Web API 密鑰</span> 來複製或重新生成 Web API 密鑰<br><br>🔒 提供的密鑰將在儲存至本地系統之前進行加密</span>`,
+        rakey: `設定用於與 Retro Achievements API 進行身份驗證的 Web API 密鑰<br><br><span class="ttdesc">Web API 密鑰可以通過登入 Retro Achievements 網站並前往 <span class="hl">設定 > 密鑰 > Web API Key</span> 來複製或重新生成<br><br>🔒 提供的密鑰將在儲存在本地系統之前進行加密（如果當前操作系統支持加密）</span>`,
         rapercenttype: "設定是否顯示 Hardcore 或 Softcore 成就解鎖百分比通知",
         retroarch: `顯示 Retro Achievements 通知，適用於透過 RetroArch 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > 日誌記錄</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">日誌詳細程度</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">前端日誌級別</span>: <span class="hlgreen">1 (信息)</span></li><li><span class="hllb">寫入日誌檔案</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">時間戳日誌檔案</span>: <span class="hlred">關閉</span></li></ul></span>`,
         dolphin: `顯示 Retro Achievements 通知，適用於透過 Dolphin 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">Dolphin > 檢視 > 顯示日誌設定</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">詳細程度</span>: <span class="hlgreen">信息</span></li><li><span class="hllb">日誌輸出</span> > <span class="hlgreen">寫入檔案</span></li><li><span class="hllb">日誌類型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li></ul></span>`,

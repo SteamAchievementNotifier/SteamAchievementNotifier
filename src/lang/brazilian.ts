@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Configurações > Avançado > Registrar em Arquivo</span> deve estar ativado
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> deve ser <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>baixado</u></span> e movido para o <span class="hl">diretório de instalação do Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Configurações > Conquistas > RAIntegration (Somente para Desenvolvedores)</span> deve estar ativado
                     <br>
                     <br>
-                    Usando as configurações padrão de instalação, <span class="hl">"duckstation.log"</span> é armazenado em:
+                    Usando as configurações padrão de instalação, <span class="hl">"RALog.txt"</span> é armazenado em:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Definir a cor usada no embed do webhook ao desbloquear uma conquista de 100%",
         raemus: "Exibir notificações quando jogos forem detectados em emuladores compatíveis",
         rauser: "Definir o nome de usuário do Retro Achievements para acompanhar as conquistas",
-        rakey: `Defina a chave da Web API a ser usada para autenticação na API do Retro Achievements<br><br><span class="ttdesc">Uma chave de Web API pode ser copiada ou regenerada fazendo login no site do Retro Achievements e navegando até <span class="hl">Configurações > Chaves > Web API Key</span><br><br>🔒 A chave fornecida será criptografada antes de ser armazenada localmente no sistema</span>`,
+        rakey: `Defina a Chave da API Web para usar na autenticação com a Retro Achievements API<br><br><span class="ttdesc">Uma Chave da API Web pode ser copiada ou regenerada ao fazer login no site da Retro Achievements e navegar até <span class="hl">Configurações > Chaves > Chave da API Web</span><br><br>🔒 A chave fornecida será criptografada antes de ser armazenada localmente no sistema (se o sistema operacional atual oferecer suporte à criptografia)</span>`,
         rapercenttype: "Definir se a porcentagem de desbloqueio de conquistas exibida nas notificações será Hardcore ou Softcore",
         retroarch: `Exibir notificações do Retro Achievements para jogos emulados pelo RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Configurações > Registro</span> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento do Registro</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Nível de Registro da Interface</span>: <span class="hlgreen">1 (Informação)</span></li><li><span class="hllb">Registrar em Arquivo</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Arquivos de Log com Carimbo de Data/Hora</span>: <span class="hlred">DESLIGADO</span></li></ul></span>`,
         dolphin: `Exibir notificações do Retro Achievements para jogos emulados pelo Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Exibir > Mostrar Configuração de Log</span> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento</span>: <span class="hlgreen">Informação</span></li><li><span class="hllb">Saídas do Registro</span> > <span class="hlgreen">Escrever em Arquivo</span></li><li><span class="hllb">Tipos de Registro</span> > <span class="hlgreen">Conquistas (RetroAchievements)</span></li></ul></span>`,

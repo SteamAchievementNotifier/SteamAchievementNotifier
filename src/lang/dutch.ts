@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > Instellingen > Geavanceerd > Log naar bestand</span> moet ingeschakeld zijn
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> moet worden <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>gedownload</u></span> en verplaatst naar de <span class="hl">installatiemap van Duckstation</span></li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > Instellingen > Achievements > RAIntegration (Alleen voor ontwikkelaars)</span> moet ingeschakeld zijn
                     <br>
                     <br>
-                    Bij standaardinstallatie-instellingen wordt <span class="hl">"duckstation.log"</span> opgeslagen in:
+                    Met de standaardinstallatie-instellingen wordt <span class="hl">"RALog.txt"</span> opgeslagen in:
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "Stel de kleur in die wordt gebruikt in de webhook-embed bij het ontgrendelen van een 100% prestatie",
         raemus: "Meldingen weergeven wanneer spellen worden gedetecteerd in ondersteunde emulators",
         rauser: "Stel de Retro Achievements-gebruikersnaam in om achievements bij te houden",
-        rakey: `Stel de Web API-sleutel in die gebruikt moet worden voor authenticatie bij de Retro Achievements API<br><br><span class="ttdesc">Een Web API-sleutel kan worden gekopieerd of opnieuw gegenereerd door in te loggen op de Retro Achievements-website en naar <span class="hl">Instellingen > Sleutels > Web API Key</span> te gaan<br><br>🔒 De opgegeven sleutel wordt versleuteld voordat deze lokaal op het systeem wordt opgeslagen</span>`,
+        rakey: `Stel de Web API-sleutel in die gebruikt wordt voor authenticatie met de Retro Achievements API<br><br><span class="ttdesc">Een Web API-sleutel kan worden gekopieerd of opnieuw gegenereerd door in te loggen op de Retro Achievements-website en te navigeren naar <span class="hl">Instellingen > Sleutels > Web API-sleutel</span><br><br>🔒 De opgegeven sleutel wordt versleuteld voordat deze lokaal op het systeem wordt opgeslagen (als het huidige besturingssysteem versleuteling ondersteunt)</span>`,
         rapercenttype: "Stel in of het percentage ontgrendelde Hardcore- of Softcore-achievements wordt weergegeven in meldingen",
         retroarch: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Instellingen > Loggen</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Logdetails</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log naar bestand</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Tijdstempels in logbestanden</span>: <span class="hlred">UIT</span></li></ul></span>`,
         dolphin: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Beeld > Toon logconfiguratie</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Details</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Loguitgangen</span> > <span class="hlgreen">Schrijf naar bestand</span></li><li><span class="hllb">Logtypes</span> > <span class="hlgreen">Prestaties (RetroAchievements)</span></li></ul></span>`,

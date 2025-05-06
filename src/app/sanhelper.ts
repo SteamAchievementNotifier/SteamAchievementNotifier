@@ -995,6 +995,7 @@ export const sanhelper: SANHelper = {
         })
 
         document.querySelector("dialog[default] .contentsubitem:first-child")!.setAttribute("nobefore","")
+        document.querySelectorAll(`dialog[default] span.hl.help[url]`).forEach(elem => (elem as HTMLSpanElement).onclick = () => shell.openExternal(elem.getAttribute("url")!))
     },
     storerakey: async (key: string) => ipcRenderer.send("storekey",key),
     loadraemus: (emus: string[],config: Store<Config>) => {

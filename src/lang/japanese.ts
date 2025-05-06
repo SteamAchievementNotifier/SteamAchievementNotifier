@@ -141,13 +141,17 @@ export const translations = {
             `<details>
                 <summary id="duckstation">Duckstation</summary>
                 <div>
-                    <span class="hl">Duckstation > 設定 > 高度な設定 > ファイルにログを記録</span> を有効にする必要があります
+                    <ul style="background-color: var(--primary); outline: 0.1rem solid red;">
+                        <li>❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> は <span class="hl help" url="https://retroachievements.org/bin/RA_Integration-x64.dll"><u>ダウンロード</u></span>し、<span class="hl">Duckstationのインストールディレクトリ</span>に移動する必要があります</li>
+                    </ul>
+                    <br>
+                    <span class="hl">Duckstation > 設定 > 実績 > RAIntegration (開発者専用)</span> は有効にする必要があります
                     <br>
                     <br>
-                    デフォルトのインストール設定では、<span class="hl">"duckstation.log"</span> は以下の場所に保存されます：
+                    デフォルトのインストール設定では、<span class="hl">"RALog.txt"</span> は以下の場所に保存されます：
                     <br>
                     <ul>
-                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation</span></li>
+                        <li><span class="hllb">%USERPROFILE%\\Documents\\Duckstation\\RACache</span></li>
                     </ul>
                 </div>
             </details>`
@@ -741,7 +745,7 @@ export const translations = {
         webhookembedcolorplat: "100%達成が解除されたときにWebhook埋め込みで使用される色を設定",
         raemus: "サポートされているエミュレータでゲームが検出されると通知を表示",
         rauser: "達成の追跡に使用するRetro Achievementsのユーザー名を設定",
-        rakey: `Retro Achievements APIの認証に使用するWeb APIキーを設定します<br><br><span class="ttdesc">Web APIキーは、Retro Achievementsのウェブサイトにログインし、<span class="hl">設定 > キー > Web APIキー</span>に移動することでコピーまたは再生成できます<br><br>🔒 提供されたキーは、システムにローカルに保存される前に暗号化されます</span>`,
+        rakey: `Retro Achievements API の認証に使用する Web API キーを設定します<br><br><span class="ttdesc">Web API キーは Retro Achievements のウェブサイトにログインし、<span class="hl">設定 > キー > Web API キー</span>に移動することでコピーまたは再生成できます<br><br>🔒 提供されたキーは、システムにローカルで保存される前に暗号化されます（現在の OS が暗号化をサポートしている場合）</span>`,
         rapercenttype: "通知に表示する達成のハードコアまたはソフトコアのパーセンテージを設定",
         retroarch: `RetroArchを使用してエミュレートされたゲームのRetro Achievements通知を表示<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > ロギング</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">ログの詳細度</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">フロントエンド ログ レベル</span>: <span class="hlgreen">1 (情報)</span></li><li><span class="hllb">ファイルにログを記録</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">ログファイルにタイムスタンプを付ける</span>: <span class="hlred">OFF</span></li></ul></span>`,
         dolphin: `Dolphinを使用してエミュレートされたゲームのRetro Achievements通知を表示<br><br><span class="ttdesc"><span class="hl">Dolphin > 表示 > ログ設定の表示</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">詳細度</span>: <span class="hlgreen">情報</span></li><li><span class="hllb">ロガーの出力先</span> > <span class="hlgreen">ファイルに書き込む</span></li><li><span class="hllb">ログの種類</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,

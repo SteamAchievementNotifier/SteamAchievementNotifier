@@ -6,7 +6,7 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
-import { getlogmap, getlastaction, executeaction, testraunlock, emu, rasupported } from "./ra"
+import { getlogmap, getlastaction, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
 
 declare global {
     interface Window {
@@ -436,17 +436,32 @@ const startra = () => {
         // Limits actions to active emulator
         logmap.forEach(async (file,key) => {
             if (!fs.existsSync(file) || emu && emu !== key) return
-            lastaction = getlastaction(key,file)
 
-            const [type,details] = await executeaction(lastaction)
-            const [keyname,msg] = details
+            let i = 0
+            const isach = lastaction && lastaction.action === "achievement"
+            const max = isach ? (racached.length || 1) : 1
 
-            if (type && details) {
-                if (!keyname || !msg) return
-                if (lastlog[keyname] === msg) return // Prevent excessive logging of duplicate actions
-                ;(type !== "CONSOLE" ? log.write(type as "INFO" | "ERROR",msg) : console.log(msg))
+            // `do/while` loop checks all pending non-idle actions per tick (instead of just the last one), allowing simultaneous achievements to be added to the queue
+            do {
+                i++
+
+                // Breaks from `do/while` if number of simultaneous actions exceeds `max`
+                if (i > max) {
+                    isach && log.write("WARN",`Max number of "achievement" actions (${max}) executed for current tick`)
+                    break
+                }
+
+                lastaction = getlastaction(key, file)
+                if (lastaction.action === "idle") break
+
+                const [type, details] = await executeaction(lastaction)
+                const [keyname, msg] = details
+
+                if (!type || !keyname || !msg) continue
+                if (lastlog[keyname] === msg) continue
+                type !== "CONSOLE" ? log.write(type as "INFO" | "ERROR", msg) : console.log(msg)
                 lastlog[keyname] = msg
-            }
+            } while (true)
         })
 
         if (!lastaction) {

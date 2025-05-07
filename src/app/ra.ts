@@ -104,7 +104,7 @@ export const getlastaction = (key: string,file: string): LogAction => {
 
 let gameid = 0
 let ramode: "hard" | "soft" = "hard"
-let racached: RAAchievement[] = []
+export let racached: RAAchievement[] = []
 
 export const executeaction = async (lastaction: LogAction): Promise<[string | null,(string | null)[]]> => {
     const { key, action, value, mode } = lastaction

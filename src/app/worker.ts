@@ -6,14 +6,15 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
-import { getlogmap, getlastaction, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
+import { getlogmap, getlastactions, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
 
 declare global {
     interface Window {
         client: any
         cachedata: any,
         globallocalised: any,
-        testraunlock: Function
+        testraunlock: Function,
+        racached: any
     }
 }
 
@@ -417,59 +418,51 @@ const startsan = async (appinfo: AppInfo) => {
 startidle()
 
 let ratimer: NodeJS.Timeout | null = null
-let lastaction: LogAction | null = null
+const logactions = new Set<string>()
 const lastlog: { [key: string]: string } = {}
 
 for (const emu of rasupported) {
-    Object.assign(lastlog,{ [emu]: "" })
+    lastlog[emu] = ""
 }
 
 // Set a variable in localStorage for the last earned achievement if it does not already exist
 !localStorage.getItem("ralastachievement") && localStorage.setItem("ralastachievement","0")
 
+// Converts `LogAction` to string and stores in `logactions` Set. This de-dupes by ensuring only unique new actions are stored
+// Needs to be a string - Sets compare by reference (not by object or key/value), so comparing two `LogAction` objects directly will not work here
+const getactionstr = (action: LogAction) => `${action.key}:${action.file}:${action.action}:${action.value}:${action.mode}`
+
 const startra = () => {
     if (ratimer) return
 
     ratimer = setInterval(async () => {
+        sanhelper.devmode && (window.racached = racached)
         const logmap = getlogmap()
 
         // Limits actions to active emulator
-        logmap.forEach(async (file,key) => {
-            if (!fs.existsSync(file) || emu && emu !== key) return
+        logmap.forEach(async (file, key) => {
+            if (!fs.existsSync(file) || (emu && emu !== key)) return
 
-            let i = 0
-            const isach = lastaction && lastaction.action === "achievement"
-            const max = isach ? (racached.length || 1) : 1
+            for (const newaction of getlastactions(key,file)) {
+                if (newaction.action === "idle") continue
 
-            // `do/while` loop checks all pending non-idle actions per tick (instead of just the last one), allowing simultaneous achievements to be added to the queue
-            do {
-                i++
+                const actionkey = getactionstr(newaction)
+                if (logactions.has(actionkey)) continue
 
-                // Breaks from `do/while` if number of simultaneous actions exceeds `max`
-                if (i > max) {
-                    isach && log.write("WARN",`Max number of "achievement" actions (${max}) executed for current tick`)
-                    break
-                }
+                logactions.add(actionkey)
+                newaction.action === "stop" && setTimeout(() => logactions.clear(),1000)
 
-                lastaction = getlastaction(key, file)
-                if (lastaction.action === "idle") break
-
-                const [type, details] = await executeaction(lastaction)
-                const [keyname, msg] = details
+                const [type,details] = await executeaction(newaction)
+                const [keyname,msg] = details
 
                 if (!type || !keyname || !msg) continue
                 if (lastlog[keyname] === msg) continue
+
                 type !== "CONSOLE" ? log.write(type as "INFO" | "ERROR", msg) : console.log(msg)
+
                 lastlog[keyname] = msg
-            } while (true)
+            }
         })
-
-        if (!lastaction) {
-            ratimer && clearInterval(ratimer)
-            ratimer = null
-
-            return startra()
-        }
     }, 1000)
 }
 

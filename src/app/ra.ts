@@ -66,10 +66,39 @@ const actionmap = (emu: string) => {
 
 let lastaction: LogAction | null = null
 
-export const getlastaction = (key: string,file: string): LogAction => {
-    const contents = fs.readFileSync(file).toString().split("\n").reverse()
+// Splits log file into "session chunks":
+// - If no lines matching regex are found, don't do anything until a new "start" action is found
+// - If the last found action is "stop", don't do anything and wait for the next "start" action to begin tracking newly-logged achievements
+// - If the last found action is "start", start the next session from this point and assume the game is currently running
+const getsessionchunk = (key: string,lines: string[]): string[] => {
+    const [start,stop] = [...actionmap(key).values()]
+
+    if (!start) return []
+
+    let startindex: number | null = null
+
+    // Using traditional `for` loop allows iterating lines in reverse order to begin parsing from start of log file
+    for (let i = lines.length - 1; i >= 0; i--) {
+        const line = lines[i]
+    
+        if (stop?.test(line)) return [line]
+    
+        if (start.test(line)) {
+            startindex = i
+            break
+        }
+    }
+
+    if (!startindex) return []
+    return lines.slice(startindex)
+}
+
+export const getlastactions = (key: string,file: string): LogAction[] => {
+    const contents = getsessionchunk(key,fs.readFileSync(file).toString().split("\n")).reverse()    
     const actions = actionmap(key)
     const moderegex = actions.get("mode")
+
+    const lastactions: LogAction[] = []
 
     for (const line of contents) {
         for (const [action,regex] of actions) {
@@ -85,21 +114,26 @@ export const getlastaction = (key: string,file: string): LogAction => {
                 }
 
                 const newaction = { key, file, action, value: match[1] ? parseInt(match[1]) : null, mode }
+
+                if (!lastactions.length && action === "stop") {
+                    lastaction = newaction
+                    return [newaction]
+                }
+
+                if (action === "stop") continue
     
                 if (!lastaction || lastaction.action !== newaction.action || lastaction.value !== newaction.value) {
                     // Prevents retriggering achievement notifications on launch
                     if (newaction.action === "achievement" && parseInt(localStorage.getItem("ralastachievement")!) === newaction.value) continue
     
                     lastaction = newaction
-                    return newaction
+                    lastactions.push(newaction)
                 }
-    
-                return { key, file, action: "idle", value: null, mode: undefined }
             }
         }
     }
 
-    return { key: null, file: null, action: "idle", value: null, mode: undefined }
+    return lastactions.filter(action => action.action !== "idle")
 }
 
 let gameid = 0

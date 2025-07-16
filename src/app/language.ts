@@ -73,7 +73,7 @@ export const language = {
                         langmap.set(elem,elem.hasAttribute("systray") ? systray : settings[title].content[id])
                     })
 
-                    shortcutkeys.forEach(key => {
+                    shortcutkeys.forEach((_,key) => {
                         const lbl = settingscontent.querySelector(`.wrapper:has(> button#${key}shortcut) > span`)! as HTMLSpanElement
                         const title = lbl.parentElement!.parentElement!.parentElement!.querySelector(".title")!.id
                     

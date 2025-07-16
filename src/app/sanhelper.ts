@@ -199,14 +199,14 @@ export const sanhelper: SANHelper = {
         usertheme.update()
         sanhelper.reloadelemselector()
     },
-    getshortcut: (config: Store<Config>, target: HTMLElement, id?: string) => {
+    getshortcut: (config: Store<Config>,target: HTMLElement,id?: string) => {
         const btn = document.getElementById(id || "shortcutbtn")! as HTMLButtonElement
         const type = !id ? ["main","rare","plat"].find(attr => (target as HTMLElement).hasAttribute(attr)) : null
         const keys = config.get(id || `customisation.${type}.shortcut`) as string
 
         return btn.textContent = keys.replace(/\+/g," + ")
     },
-    setshortcut: (config: Store<Config>, event: Event, id?: string) => {
+    setshortcut: (config: Store<Config>,event: Event,id?: string,partialcombo: boolean = false) => {
         const target = event.target as HTMLElement
         const type = sanhelper.type
         const keys: string[] = []
@@ -238,7 +238,7 @@ export const sanhelper: SANHelper = {
             let sctimer: NodeJS.Timeout | null = null
             const replaced = keys.map(key => keycodes.has(key) ? keycodes.get(key) : key.replace(/KEY|DIGIT|ARROW/g,"").replace(/NUMPAD/g,"NUM"))
 
-            if (keys.length === 3) {
+            if (keys.length === 3 || (partialcombo && keys.length >= 1)) {
                 const shortcut = replaced.join("+")
                 const exists = ["main","rare","plat"].find(type => config.get(`customisation.${type}.shortcut`) === shortcut)
 
@@ -654,7 +654,8 @@ export const sanhelper: SANHelper = {
             ["releasedelay","s"],
             ["maxretries",""],
             ["maxsteamlangretries",""],
-            ["extwinframerate","FPS"]
+            ["extwinframerate","FPS"],
+            ["customtriggerdelay","s"]
         ])
 
         const wideelems = [
@@ -919,6 +920,15 @@ export const sanhelper: SANHelper = {
         })
     },
     presskey: (key: number) => setTimeout(() => pressKey(key),100),
+    triggerkeypress: async (hotkey: any) => {
+        const { log } = await import("./log")
+        const { steamkeycodes } = await import("./keycodes")
+        const { sanhelper: { presskey, depsinstalled } } = await import("./sanhelper")
+
+        if (process.platform === "linux" && !depsinstalled) return log.write("WARN",`Unable to trigger Steam screenshot: "xdotool" dependency not installed`)
+
+        steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? presskey(steamkeycodes.get(hotkey)) : log.write("ERROR",`Unable to trigger Steam screenshot: Key "${hotkey}" does not exist in steamkeycodes Map`)
+    },
     depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl"): String => {
         const missinglib = depsInstalled(lib)
         

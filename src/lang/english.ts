@@ -210,7 +210,10 @@ export const translations = {
                 webhooklaststatus: "Last Status",
                 webhookspoilers: `Add Spoiler Tag`,
                 replaynotify: "Replay Notification",
-                replaynotifyshortcut: "Replay Shortcut"
+                replaynotifyshortcut: "Replay Shortcut",
+                customtrigger: "Use Custom Trigger",
+                customtriggershortcut: "Trigger Shortcut",
+                customtriggerdelay: "Trigger Delay"
             }
         },
         games: {
@@ -765,7 +768,10 @@ export const translations = {
         replaynotify: "Replay the last achievement notification",
         replaynotifyshortcut: "Replay the last achievement notification using the specified keyboard shortcut",
         replaynotifyempty: `<br><br><span class="ttdesc">Replay queue is empty. Unlock an achievement to replay a notification</span>`,
-        uselegacynotifytimer: `Despawn notifications using a static timer external to the notification window<br><br><span class="ttdesc">Enabling this option may result in notification animations failing to complete</span>`
+        uselegacynotifytimer: `Despawn notifications using a static timer external to the notification window<br><br><span class="ttdesc">Enabling this option may result in notification animations failing to complete</span>`,
+        customtrigger: "Trigger a key/combo to be simulated when unlocking an achievement. Can be used to trigger keyboard shortcuts registered in external applications",
+        customtriggershortcut: "Trigger the specified key/combo when an achievement is unlocked",
+        customtriggerdelay: "Delay the registered Custom Trigger key/combo"
     },
     update: {
         updateavailable: "Update available",

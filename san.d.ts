@@ -124,6 +124,9 @@ declare interface Config {
     colorprofile: "none" | "srgb" | "display-p3-d65" | "color-spin-gamma24" | "scrgb-linear" | "hdr10",
     replaynotifyshortcut: string,
     uselegacynotifytimer: boolean,
+    customtrigger: boolean,
+    customtriggershortcut: string,
+    customtriggerdelay: number,
     customisation: {
         main: Customisation,
         rare: Customisation,

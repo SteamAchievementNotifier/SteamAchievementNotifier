@@ -72,10 +72,11 @@ export const dialog = {
 
             document.getElementById("shortcutbtn")!.onclick = event => sanhelper.setshortcut(config,event)
 
-            shortcutkeys.forEach(key => {
+            shortcutkeys.forEach((partialcombo,key) => {
                 const btn = document.getElementById(`${key}shortcut`)! as HTMLButtonElement
+                
                 btn.textContent = sanhelper.getshortcut(config,btn.id,btn.id)
-                btn.onclick = event => sanhelper.setshortcut(config,event,(event.target as HTMLButtonElement).id)
+                btn.onclick = event => sanhelper.setshortcut(config,event,(event.target as HTMLButtonElement).id,partialcombo)
             })
 
             const updatetables = async (type: "linkgame" | "exclusionlist" | "themeswitch") => {

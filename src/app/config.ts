@@ -27,11 +27,13 @@ export const customfilekeys = [
 })
 
 // Contains non-"shortcut" suffixed key names for all options that are assigned a `globalShortcut`
-export const shortcutkeys = [
-    "release",
-    "statwin",
-    "replaynotify"
-]
+// Additionally, passes boolean flag for whether partial combos should be allowed
+export const shortcutkeys = new Map<string,boolean>([
+    ["release",false],
+    ["statwin",false],
+    ["replaynotify",false],
+    ["customtrigger",true]
+])
 
 export const sanconfig = {
     get defaultfiles(): { [key: string]: any } {
@@ -289,6 +291,9 @@ export const sanconfig = {
                 colorprofile: "none",
                 replaynotifyshortcut: "CTRL+SHIFT+BACKSPACE",
                 uselegacynotifytimer: false,
+                customtrigger: false,
+                customtriggershortcut: "ALT+SHIFT+F10",
+                customtriggerdelay: 0,
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

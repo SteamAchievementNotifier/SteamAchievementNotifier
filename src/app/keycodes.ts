@@ -7,8 +7,8 @@ export const keycodes: Map<string,string> = new Map([
     ["CONTROLRIGHT","CTRL"],
     ["SHIFTLEFT","SHIFT"],
     ["INTLBACKSLASH","\\"],
-    ["PERIOD",","],
-    ["COMMA","."],
+    ["PERIOD","."],
+    ["COMMA",","],
     ["SLASH","/"],
     ["SHIFTRIGHT","SHIFT"],
     ["SEMICOLON",";"],
@@ -25,6 +25,36 @@ export const keycodes: Map<string,string> = new Map([
     ["NUMPADADD","NUMADD"],
     ["NUMPADDECIMAL","NUMDEC"],
     ["ESCAPE","ESC"],
+])
+
+export const jstosteamkeycodes = new Map<string,string>([
+    ["#","APOSTROPHE"],
+    ["\\","BACKSLASH"],
+    [".","PERIOD"],
+    [",","COMMA"],
+    ["/","SLASH"],
+    [";","SEMICOLON"],
+    ["`","BACKQUOTE"],
+    ["'","QUOTE"],
+    ["[","LBRACKET"],
+    ["]","RBRACKET"],
+    ["-","MINUS"],
+    ["=","EQUAL"],
+    ["PAD_0","NUMPAD0"],
+    ["PAD_1","NUMPAD1"],
+    ["PAD_2","NUMPAD2"],
+    ["PAD_3","NUMPAD3"],
+    ["PAD_4","NUMPAD4"],
+    ["PAD_5","NUMPAD5"],
+    ["PAD_6","NUMPAD6"],
+    ["PAD_7","NUMPAD7"],
+    ["PAD_8","NUMPAD8"],
+    ["PAD_9","NUMPAD9"],
+    ["PAD_DIVIDE","NUMPADDIVIDE"],
+    ["PAD_MULTIPLY","NUMPADMULTIPLY"],
+    ["PAD_MINUS","NUMPADSUBTRACT"],
+    ["PAD_PLUS","NUMPADADD"],
+    ["PAD_DECIMAL","NUMPADDECIMAL"],
 ])
 
 export const steamkeycodes = new Map<string, number | null>([
@@ -121,10 +151,17 @@ export const steamkeycodes = new Map<string, number | null>([
     ["KEY_PAD_MULTIPLY",0x6A],
     ["KEY_PAD_MINUS",0x6D],
     ["KEY_PAD_PLUS",0x6B],
-    ["KEY_PAD_DECIMAL",0x6E]
+    ["KEY_PAD_DECIMAL",0x6E],
+    // Not supported by Steam
+    ["KEY_CTRL",0xA2],
+    ["KEY_SHIFT",0xA0],
+    ["KEY_ALT",0xA4],
+    ["KEY_ALTGR",0xA5],
+    ["KEY_ESC",0x1B],
+    ["KEY_META",0x5B]
 ])
 
-export const cssreplacemap = new Map<string, string>([
+export const cssreplacemap = new Map<string,string>([
     ["'","QUOTE"],
     ['"',"DBLQUOTE"],
     ["\\","BACKSLASH"],

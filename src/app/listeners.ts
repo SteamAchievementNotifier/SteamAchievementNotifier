@@ -1203,6 +1203,23 @@ export const listeners = {
     
                 config.get("notifydebug") && sanhelper.setdevtools(notifywin)
                 config.get("nvda") && clipboard.writeText(`${info.unlockmsg}. ${info.title}. ${info.desc}.`)
+                config.get("customtrigger") && setTimeout(async () => {
+                    const { jstosteamkeycodes, steamkeycodes } = await import("./keycodes")
+                    const sckeys = config.get("customtriggershortcut").split("+")
+                    const keypresses: string[] = []
+                    
+                    for (const sckey of sckeys) {
+                        const hotkey = `KEY_${jstosteamkeycodes.get(sckey) || sckey}`
+                        steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? keypresses.push(`KEY_${jstosteamkeycodes.get(sckey) || sckey}`) : log.write("WARN",`Custom Trigger not activated due to invalid key "${sckey}"`)
+                    }
+
+                    if (keypresses.length < sckeys.length) return log.write("WARN",`Custom Trigger not activated due to invalid keys`)
+
+                    // !!! Need to update `pressKey` in `sanhelper.rs` to allow simultaneous key combos
+                    // for (const hotkey of keypresses) {
+                    //     sanhelper.triggerkeypress(hotkey)
+                    // }
+                },config.get("customtriggerdelay") * 1000)
     
                 ipcMain.once("notifyready", (event,res: Res) => {
                     const { msg, dims } = res
@@ -1448,13 +1465,8 @@ export const listeners = {
                 const VDF = await import("simple-vdf")
                 const localconfig = fs.readFileSync(path.join(sanhelper.steampath,"userdata",`${steam3id}`,"config","localconfig.vdf")).toString()
                 const { InGameOverlayScreenshotHotKey: hotkey } = VDF.parse(localconfig).UserLocalConfigStore.system || "KEY_F12"
-    
-                const { steamkeycodes } = await import("./keycodes")
-                const { sanhelper: { presskey, depsinstalled } } = await import("./sanhelper")
 
-                if (process.platform === "linux" && !depsinstalled) return log.write("WARN",`Error triggering Steam screenshot: "xdotool" dependency not installed`)
-    
-                steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? presskey(steamkeycodes.get(hotkey)) : log.write("ERROR",`Error triggering Steam screenshot: Key "${hotkey}" does not exist in steamkeycodes Map`)
+                sanhelper.triggerkeypress(hotkey)
             } catch (err) {
                 log.write("ERROR",`Error triggering Steam screenshot: ${err}`)
             }

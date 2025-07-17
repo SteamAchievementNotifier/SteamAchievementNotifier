@@ -1206,16 +1206,20 @@ export const listeners = {
                 config.get("customtrigger") && setTimeout(async () => {
                     const { jstosteamkeycodes, steamkeycodes } = await import("./keycodes")
                     const sckeys = config.get("customtriggershortcut").split("+")
-                    const vks: string[] = []
+                    const keypresses: (string | number)[] = []
                     
                     for (const sckey of sckeys) {
                         const hotkey = `KEY_${jstosteamkeycodes.get(sckey) || sckey}`
-                        steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? vks.push(`KEY_${jstosteamkeycodes.get(sckey) || sckey}`) : log.write("WARN",`Custom Trigger not activated due to invalid key "${sckey}"`)
+                        const steamkeycode = steamkeycodes.get(hotkey)
+                        const value = steamkeycode?.[process.platform === "win32" ? 0 : 1]
+
+                        // Ensure 0x-based keycodes are not accidentally excluded by checking specifically for `null`/`undefined`
+                        ;(value !== null && value !== undefined) ? keypresses.push(value) : log.write("WARN",`Custom Trigger not activated due to invalid key "${sckey}"`)
                     }
 
-                    if (vks.length < sckeys.length) return log.write("WARN",`Custom Trigger failed due to invalid key(s)`)
+                    if (keypresses.length < sckeys.length) return log.write("WARN",`Custom Trigger failed due to invalid key(s)`)
 
-                    sanhelper.triggerkeypress(vks)
+                    sanhelper.triggerkeypress(keypresses)
                 },(config.get(config.get("customtriggerusedisplaytime") ? `customisation.${notify.type}.displaytime` : "customtriggerdelay") as number) * 1000)
     
                 ipcMain.once("notifyready", (event,res: Res) => {

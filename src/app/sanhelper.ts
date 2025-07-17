@@ -6,7 +6,7 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKey, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getWindowBounds } from "sanhelper.rs"
+import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getWindowBounds } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
@@ -919,22 +919,13 @@ export const sanhelper: SANHelper = {
             })
         })
     },
-    presskeys: (keys: number[]) => setTimeout(() => pressKey(keys),100),
-    triggerkeypress: async (hotkeys: any[]) => {
+    presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? pressKeysWin32(keys as number[]) : pressKeysLinux(keys as string[]),100),
+    triggerkeypress: async (hotkeys: (string | number)[]) => {
         const { log } = await import("./log")
-        const { steamkeycodes } = await import("./keycodes")
-
         if (process.platform === "linux" && !sanhelper.depsinstalled) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`)
+        if (!hotkeys.length) return log.write("WARN",`No valid keys provided to trigger keypress/combo`)
 
-        const vks: number[] = []
-
-        for (const hotkey of hotkeys) {
-            steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? vks.push(steamkeycodes.get(hotkey)!) : log.write("ERROR",`Unable to trigger keypress: Key "${hotkey}" does not exist in steamkeycodes Map`)
-        }
-
-        if (vks.length < hotkeys.length) return log.write("ERROR",`Keypress failed due to invalid key(s)`)
-
-        sanhelper.presskeys(vks)
+        sanhelper.presskeys(hotkeys)
     },
     depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl"): String => {
         const missinglib = depsInstalled(lib)

@@ -9,7 +9,8 @@ export interface AppInfo {
   gamename: string
 }
 export function getAppInfo(): Array<AppInfo>
-export function pressKey(keys: Array<number>): void
+export function pressKeysWin32(keys: Array<number>): void
+export function pressKeysLinux(keys: Array<string>): void
 export function getHqIcon(appid: number): string
 export function depsInstalled(lib: string): string
 export function hdrScreenshot(monitorId: number, sspath: string, area?: [number, number, number, number] | undefined | null): string

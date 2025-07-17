@@ -1206,20 +1206,17 @@ export const listeners = {
                 config.get("customtrigger") && setTimeout(async () => {
                     const { jstosteamkeycodes, steamkeycodes } = await import("./keycodes")
                     const sckeys = config.get("customtriggershortcut").split("+")
-                    const keypresses: string[] = []
+                    const vks: string[] = []
                     
                     for (const sckey of sckeys) {
                         const hotkey = `KEY_${jstosteamkeycodes.get(sckey) || sckey}`
-                        steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? keypresses.push(`KEY_${jstosteamkeycodes.get(sckey) || sckey}`) : log.write("WARN",`Custom Trigger not activated due to invalid key "${sckey}"`)
+                        steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? vks.push(`KEY_${jstosteamkeycodes.get(sckey) || sckey}`) : log.write("WARN",`Custom Trigger not activated due to invalid key "${sckey}"`)
                     }
 
-                    if (keypresses.length < sckeys.length) return log.write("WARN",`Custom Trigger not activated due to invalid keys`)
+                    if (vks.length < sckeys.length) return log.write("WARN",`Custom Trigger failed due to invalid key(s)`)
 
-                    // !!! Need to update `pressKey` in `sanhelper.rs` to allow simultaneous key combos
-                    // for (const hotkey of keypresses) {
-                    //     sanhelper.triggerkeypress(hotkey)
-                    // }
-                },config.get("customtriggerdelay") * 1000)
+                    sanhelper.triggerkeypress(vks)
+                },(config.get(config.get("customtriggerusedisplaytime") ? `customisation.${notify.type}.displaytime` : "customtriggerdelay") as number) * 1000)
     
                 ipcMain.once("notifyready", (event,res: Res) => {
                     const { msg, dims } = res

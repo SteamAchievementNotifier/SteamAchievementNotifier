@@ -127,6 +127,7 @@ declare interface Config {
     customtrigger: boolean,
     customtriggershortcut: string,
     customtriggerdelay: number,
+    customtriggerusedisplaytime: boolean,
     customisation: {
         main: Customisation,
         rare: Customisation,

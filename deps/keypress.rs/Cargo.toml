@@ -1,6 +1,6 @@
 [package]
 name = "keypressrs"
-version = "0.0.1"
+version = "0.0.2"
 author="Jackson0ne"
 edition = "2018"
 

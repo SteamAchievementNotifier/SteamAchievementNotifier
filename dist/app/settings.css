@@ -8,7 +8,8 @@ body[nativeos] #ovtabs,
 body[active] #settingscontent > .cont:has(.title#notifications) > .optcont > .opt:has(#noiconcache),
 body[active] #settingscontent > .cont:has(.title#advanced) > .optcont > .opt:has(#pollrate,#maxretries,#userust),
 dialog[menu] #settingscontent > .cont:has(.title#media) > .optcont:has(#ovmatch:checked) > .opt:has(select#ovpos),
-body[beta] button#checkforupdates {
+body[beta] button#checkforupdates,
+#settingscontent > .cont:has(.title#notifications) > .optcont:has(#customtriggerusedisplaytime:checked) > .opt:has(#customtriggerdelay) {
     opacity: 0.5;
     pointer-events: none;
 }
@@ -181,7 +182,7 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 .opt:has(#steamlang:not(:checked)) + .wrapper:has(#maxsteamlangretries),
 .opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow),
 .opt:has(#statwin:not(:checked)) + .wrapper:has(#statwinaot),
-.opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay) {
+.opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime) {
     display: none;
 }
 

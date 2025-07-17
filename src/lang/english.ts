@@ -211,9 +211,10 @@ export const translations = {
                 webhookspoilers: `Add Spoiler Tag`,
                 replaynotify: "Replay Notification",
                 replaynotifyshortcut: "Replay Shortcut",
-                customtrigger: "Use Custom Trigger",
+                customtrigger: "Custom Trigger",
                 customtriggershortcut: "Trigger Shortcut",
-                customtriggerdelay: "Trigger Delay"
+                customtriggerdelay: "Trigger Delay",
+                customtriggerusedisplaytime: "Use Display Time"
             }
         },
         games: {
@@ -770,8 +771,9 @@ export const translations = {
         replaynotifyempty: `<br><br><span class="ttdesc">Replay queue is empty. Unlock an achievement to replay a notification</span>`,
         uselegacynotifytimer: `Despawn notifications using a static timer external to the notification window<br><br><span class="ttdesc">Enabling this option may result in notification animations failing to complete</span>`,
         customtrigger: "Trigger a key/combo to be simulated when unlocking an achievement. Can be used to trigger keyboard shortcuts registered in external applications",
-        customtriggershortcut: "Trigger the specified key/combo when an achievement is unlocked",
-        customtriggerdelay: "Delay the registered Custom Trigger key/combo"
+        customtriggershortcut: `Trigger the specified key/combo when an achievement is unlocked<br><br><span class="ttdesc">Supports between 1-3 keys per shortcut. For keypresses/combos requiring less than 3 keys, press the desired keys and wait for the timer (5s) to end</span>`,
+        customtriggerdelay: "Delay the specified Custom Trigger key/combo",
+        customtriggerusedisplaytime: `Delay the specified Custom Trigger key/combo based on the current notification type's Display Time value`,
     },
     update: {
         updateavailable: "Update available",

@@ -294,6 +294,7 @@ export const sanconfig = {
                 customtrigger: false,
                 customtriggershortcut: "ALT+SHIFT+F10",
                 customtriggerdelay: 0,
+                customtriggerusedisplaytime: false,
                 customisation: {
                     main: {} as Customisation,
                     rare: {} as Customisation,

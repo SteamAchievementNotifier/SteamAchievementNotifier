@@ -919,15 +919,22 @@ export const sanhelper: SANHelper = {
             })
         })
     },
-    presskey: (key: number) => setTimeout(() => pressKey(key),100),
-    triggerkeypress: async (hotkey: any) => {
+    presskeys: (keys: number[]) => setTimeout(() => pressKey(keys),100),
+    triggerkeypress: async (hotkeys: any[]) => {
         const { log } = await import("./log")
         const { steamkeycodes } = await import("./keycodes")
-        const { sanhelper: { presskey, depsinstalled } } = await import("./sanhelper")
 
-        if (process.platform === "linux" && !depsinstalled) return log.write("WARN",`Unable to trigger Steam screenshot: "xdotool" dependency not installed`)
+        if (process.platform === "linux" && !sanhelper.depsinstalled) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`)
 
-        steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? presskey(steamkeycodes.get(hotkey)) : log.write("ERROR",`Unable to trigger Steam screenshot: Key "${hotkey}" does not exist in steamkeycodes Map`)
+        const vks: number[] = []
+
+        for (const hotkey of hotkeys) {
+            steamkeycodes.has(hotkey) && steamkeycodes.get(hotkey) !== null ? vks.push(steamkeycodes.get(hotkey)!) : log.write("ERROR",`Unable to trigger keypress: Key "${hotkey}" does not exist in steamkeycodes Map`)
+        }
+
+        if (vks.length < hotkeys.length) return log.write("ERROR",`Keypress failed due to invalid key(s)`)
+
+        sanhelper.presskeys(vks)
     },
     depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl"): String => {
         const missinglib = depsInstalled(lib)

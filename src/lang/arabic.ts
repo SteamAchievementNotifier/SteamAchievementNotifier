@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `يبدو أنك تحاول تمكين خيار <span class="hl">${opt}</span>. ومع ذلك، على نظام لينكس، لا يمكن تمكين لقطات الشاشة دون تثبيت حزمة <code class="dialogcode">${dep}</code> أولاً`,
-    `يرجى تشغيل <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> لتثبيت هذه التبعية. سيساعد ذلك في التأكد من إمكانية التقاط لقطات الشاشة على هذا الجهاز`
+export const missingdepssub = (opt: string,dep: string) => [
+    `يبدو أنك تحاول تفعيل الخيار <span class="hl">${opt}</span>، لكن لا يمكن تفعيل هذا الخيار دون تثبيت الحزمة <code class="dialogcode">${dep}</code> أولاً`,
+    `يرجى تشغيل <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> لتثبيت هذا الاعتماد`
 ]

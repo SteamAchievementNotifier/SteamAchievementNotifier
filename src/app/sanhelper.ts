@@ -44,11 +44,17 @@ const noreload = (elem: HTMLElement) => {
     ].find(id => elem.id === id)
 }
 
-const deps = new Map<string,string>([
-    ["keypressrs","steamss"],
-    ["keypressrs","customtrigger"],
-    ["hdr","hdrmode"],
-    ["wmctrl","ssmode"]
+const deps = new Map<string,(string | null)[][]>([
+    ["keypressrs",[
+        ["steamss",null],
+        ["customtrigger","notifications"]
+    ]],
+    ["hdr",[
+        ["hdrmode",null]
+    ]],
+    ["wmctrl",[
+        ["ssmode",null]
+    ]]
 ])
 
 export const sanhelper: SANHelper = {
@@ -345,8 +351,10 @@ export const sanhelper: SANHelper = {
         if (raelems.find(id => elem.id === id)) return
 
         if (process.platform === "linux") {    
-            for (const [lib,id] of deps) {
-                if (elem.id === id && sanhelper.depsinstalled(lib)) return
+            for (const [lib,entries] of deps) {
+                for (const [id,section] of entries) {
+                    if (elem.id === id && sanhelper.depsinstalled(lib,section || "media")) return
+                }
             }
         }
 
@@ -450,11 +458,13 @@ export const sanhelper: SANHelper = {
             }
 
             if (process.platform === "linux") {   
-                for (const [lib,id] of deps) {
-                    if (elem.id === id && sanhelper.depsinstalled(lib)) {
-                        config.set("ssmode","screen")
-                        elem.value = "screen"
-                        return
+                for (const [lib,entries] of deps) {
+                    for (const [id,section] of entries) {
+                        if (id === "ssmode" && elem.id === id && sanhelper.depsinstalled(lib,section || "media")) {
+                            config.set("ssmode","screen")
+                            elem.value = "screen"
+                            return
+                        }
                     }
                 }
             }
@@ -923,27 +933,32 @@ export const sanhelper: SANHelper = {
     presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? pressKeysWin32(keys as number[]) : pressKeysLinux(keys as string[]),100),
     triggerkeypress: async (hotkeys: (string | number)[]) => {
         const { log } = await import("./log")
-        if (process.platform === "linux" && !sanhelper.depsinstalled) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`)
+        if (process.platform === "linux" && !sanhelper.depsinstalled("keypressrs","media")) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`)
         if (!hotkeys.length) return log.write("WARN",`No valid keys provided to trigger keypress/combo`)
 
         sanhelper.presskeys(hotkeys)
     },
-    depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl"): String => {
+    depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl",section: string): string => {
         const missinglib = depsInstalled(lib)
         
         if (process.platform === "linux" && missinglib) {
             if (!deps.has(lib)) throw new Error(`"${lib}" not found in "deps" map`)
 
+            const entries = deps.get(lib)!
+            const match = entries.find(([_,s]) => (s || "media") === section)
+
+            if (!match) throw new Error(`No matching language section found for "${section}" ("${lib}")`)
+
             ;(async () => {
                 const { dialog } = await import("./dialog")
-                const lang = (await import("./config")).sanconfig.get().store.lang
+                const { lang } = (await import("./config")).sanconfig.get().store
                 const { missingdepssub } = await import(`../lang/${lang}`)
 
                 dialog.open({
                     title: `${await language.get("missingdeps")}: ${missinglib}`,
                     type: "default",
                     icon: sanhelper.setfilepath("icon","error.svg"),
-                    sub: missingdepssub(await language.get(deps.get(lib)!,["settings","media","content"]),missinglib)
+                    sub: missingdepssub(await language.get(match[0] as string,["settings",section,"content"]),missinglib)
                 })
             })()
 

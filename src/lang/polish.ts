@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Wygląda na to, że próbujesz włączyć opcję <span class="hl">${opt}</span>. Jednakże na systemach Linux nie można włączyć zrzutów ekranu bez wcześniejszej instalacji pakietu <code class="dialogcode">${dep}</code>`,
-    `Proszę uruchomić <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code>, aby zainstalować tę zależność. Zapewni to możliwość robienia zrzutów ekranu na tym urządzeniu`
+export const missingdepssub = (opt: string,dep: string) => [
+    `Wygląda na to, że próbujesz włączyć opcję <span class="hl">${opt}</span>, ale nie można jej włączyć bez uprzedniego zainstalowania pakietu <code class="dialogcode">${dep}</code>`,
+    `Uruchom <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code>, aby zainstalować tę zależność`
 ]

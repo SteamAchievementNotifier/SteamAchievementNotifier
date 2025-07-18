@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Изглежда, че се опитвате да активирате опцията <span class="hl">${opt}</span>. Обаче, в Linux, снимките на екрана не могат да се активират без първо да инсталирате пакета <code class="dialogcode">${dep}</code>`,
-    `Моля, изпълнете <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code>, за да инсталирате тази зависимост. Това ще гарантира, че могат да се правят снимки на екрана на това устройство`
+export const missingdepssub = (opt: string,dep: string) => [
+    `Изглежда се опитвате да активирате опцията <span class="hl">${opt}</span>, но тази опция не може да бъде активирана без първо да се инсталира пакетът <code class="dialogcode">${dep}</code>`,
+    `Моля, изпълнете <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code>, за да инсталирате тази зависимост`
 ]

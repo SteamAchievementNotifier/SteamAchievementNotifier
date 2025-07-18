@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Zdá se, že se snažíte povolit možnost <span class="hl">${opt}</span>. Nicméně v systému Linux nelze povolit pořizování snímků obrazovky bez předchozí instalace balíčku <code class="dialogcode">${dep}</code>`,
-    `Prosím spusťte <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> pro instalaci této závislosti. Tím zajistíte možnost pořizování snímků obrazovky na tomto zařízení`
+export const missingdepssub = (opt: string,dep: string) => [
+    `Vypadá to, že se pokoušíte povolit volbu <span class="hl">${opt}</span>, ale tato volba nemůže být povolena bez nejprve nainstalovaného balíčku <code class="dialogcode">${dep}</code>`,
+    `Spusťte prosím <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> pro instalaci této závislosti`
 ]

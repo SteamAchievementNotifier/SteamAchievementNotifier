@@ -874,6 +874,6 @@ export const translations = {
 }
 
 export const missingdepssub = (opt: string,dep: string) => [
-    `Looks like you're trying to enable the <span class="hl">${opt}</span> option. However, on Linux, screenshots cannot be enabled without installing the <code class="dialogcode">${dep}</code> package first`,
-    `Please run <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> in order to install this dependency. This will ensure screenshots can be taken on this device`
+    `Looks like you're trying to enable the <span class="hl">${opt}</span> option, but this option cannot be enabled without installing the <code class="dialogcode">${dep}</code> package first`,
+    `Please run <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> in order to install this dependency`
 ]

@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Görünüşe göre <span class="hl">${opt}</span> seçeneğini etkinleştirmeye çalışıyorsunuz. Ancak Linux sistemlerinde, <code class="dialogcode">${dep}</code> paketini önce yüklemeden ekran görüntüsü alamazsınız`,
-    `Bu bağımlılığı yüklemek için lütfen <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> komutunu çalıştırın. Bu, bu cihazda ekran görüntüsü alınabilmesini sağlayacaktır`
+export const missingdepssub = (opt: string,dep: string) => [
+    `<span class="hl">${opt}</span> seçeneğini etkinleştirmeye çalışıyor gibi görünüyorsunuz, ancak bu seçenek <code class="dialogcode">${dep}</code> paketini öncelikle yüklemeden etkinleştirilemez`,
+    `Lütfen bu bağımlılığı yüklemek için <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> komutunu çalıştırın`
 ]

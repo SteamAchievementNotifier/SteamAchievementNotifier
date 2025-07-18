@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Úgy tűnik, hogy megpróbálja engedélyezni a <span class="hl">${opt}</span> beállítást. Azonban Linux rendszereken nem lehet képernyőképeket készíteni anélkül, hogy először telepítené a(z) <code class="dialogcode">${dep}</code> csomagot`,
-    `Kérjük, futtassa a <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> parancsot, hogy telepítse ezt a függőséget. Ez biztosítja, hogy képernyőképeket lehessen készíteni ezen eszközön`
+export const missingdepssub = (opt: string,dep: string) => [
+    `Úgy tűnik, megpróbálod engedélyezni a <span class="hl">${opt}</span> opciót, de ezt az opciót nem lehet engedélyezni, amíg először nem telepíted a <code class="dialogcode">${dep}</code> csomagot`,
+    `Kérlek, futtasd a <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> parancsot a függőség telepítéséhez`
 ]

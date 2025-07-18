@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `看起来您正在尝试启用 <span class="hl">${opt}</span> 选项。但是，在 Linux 系统上，如果没有先安装 <code class="dialogcode">${dep}</code> 包，无法启用截图功能`,
-    `请运行 <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> 来安装此依赖项。这将确保您可以在此设备上进行截图`
+export const missingdepssub = (opt: string,dep: string) => [
+    `看起来你正在尝试启用选项 <span class="hl">${opt}</span>，但在安装 <code class="dialogcode">${dep}</code> 软件包之前无法启用此选项`,
+    `请运行 <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> 来安装此依赖`
 ]

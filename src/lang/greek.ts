@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Φαίνεται ότι προσπαθείτε να ενεργοποιήσετε την επιλογή <span class="hl">${opt}</span>. Ωστόσο, στα συστήματα Linux, δεν μπορούν να ενεργοποιηθούν στιγμιότυπα οθόνης χωρίς να εγκαταστήσετε πρώτα το πακέτο <code class="dialogcode">${dep}</code>`,
-    `Παρακαλούμε εκτελέστε την εντολή <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> για να εγκαταστήσετε αυτήν την εξάρτηση. Αυτό θα διασφαλίσει ότι οι στιγμιότυπα οθόνης μπορούν να ληφθούν σε αυτήν τη συσκευή`
+export const missingdepssub = (opt: string,dep: string) => [
+    `Φαίνεται ότι προσπαθείτε να ενεργοποιήσετε την επιλογή <span class="hl">${opt}</span>, αλλά αυτή η επιλογή δεν μπορεί να ενεργοποιηθεί χωρίς πρώτα να εγκαταστήσετε το πακέτο <code class="dialogcode">${dep}</code>`,
+    `Παρακαλώ εκτελέστε <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> για να εγκαταστήσετε αυτήν την εξάρτηση`
 ]

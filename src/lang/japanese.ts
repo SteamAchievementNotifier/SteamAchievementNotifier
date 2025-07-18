@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `現在、<span class="hl">${opt}</span> オプションを有効にしようとしています。ただし、Linuxシステムでは、<code class="dialogcode">${dep}</code> パッケージをインストールせずにスクリーンショットを有効にすることはできません`,
-    `この依存関係をインストールするには、<code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> を実行してください。これにより、このデバイスでスクリーンショットを撮影できるようになります`
+export const missingdepssub = (opt: string,dep: string) => [
+    `<span class="hl">${opt}</span> オプションを有効にしようとしていますが、このオプションは <code class="dialogcode">${dep}</code> パッケージを先にインストールしないと有効にできません`,
+    `この依存関係をインストールするには、<code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> を実行してください`
 ]

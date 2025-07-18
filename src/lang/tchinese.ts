@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `似乎您正試圖啟用 <span class="hl">${opt}</span> 選項。但在 Linux 系統上，若未先安裝 <code class="dialogcode">${dep}</code> 套件，將無法啟用螢幕截圖功能`,
-    `請執行 <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> 以安裝此相依性。這將確保能在此裝置上進行螢幕截圖`
+export const missingdepssub = (opt: string,dep: string) => [
+    `看起來你正在嘗試啟用選項 <span class="hl">${opt}</span>，但在安裝 <code class="dialogcode">${dep}</code> 套件之前無法啟用此選項`,
+    `請執行 <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> 來安裝此相依套件`
 ]

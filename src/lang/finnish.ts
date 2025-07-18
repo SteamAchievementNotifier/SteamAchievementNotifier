@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Näyttää siltä, että yrität ottaa käyttöön asetuksen <span class="hl">${opt}</span>. Linux-järjestelmissä näyttökuvia ei kuitenkaan voi ottaa käyttöön ilman ensin asentamalla paketin <code class="dialogcode">${dep}</code>`,
-    `Suorita <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> asentaaksesi tämän riippuvuuden. Tämä varmistaa, että näyttökuvia voidaan ottaa tällä laitteella`
+export const missingdepssub = (opt: string,dep: string) => [
+    `Näyttää siltä, että yrität ottaa käyttöön asetusta <span class="hl">${opt}</span>, mutta tämä asetus ei toimi ilman, että paketti <code class="dialogcode">${dep}</code> on ensin asennettu`,
+    `Suorita komento <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> asentaaksesi tämän riippuvuuden`
 ]

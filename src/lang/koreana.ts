@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `<span class="hl">${opt}</span> 옵션을 활성화하려고 시도하는 것으로 보입니다. 그러나 Linux 시스템에서는 <code class="dialogcode">${dep}</code> 패키지를 설치하지 않으면 스크린샷을 활성화할 수 없습니다`,
-    `이 종속성을 설치하려면 <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code>을 실행하십시오. 이를 통해 이 장치에서 스크린샷을 촬영할 수 있게 됩니다`
+export const missingdepssub = (opt: string,dep: string) => [
+    `<span class="hl">${opt}</span> 옵션을 활성화하려고 하는 것 같지만, 이 옵션은 <code class="dialogcode">${dep}</code> 패키지를 먼저 설치해야 활성화할 수 없습니다`,
+    `이 의존성을 설치하려면 <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> 명령을 실행하세요`
 ]

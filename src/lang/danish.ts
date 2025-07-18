@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Det ser ud til, at du forsøger at aktivere indstillingen <span class="hl">${opt}</span>. På Linux-systemer kan skærmbilleder ikke aktiveres uden først at installere pakken <code class="dialogcode">${dep}</code>`,
-    `Kør venligst <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> for at installere denne afhængighed. Dette sikrer, at skærmbilleder kan tages på denne enhed`
+export const missingdepssub = (opt: string,dep: string) => [
+    `Det ser ud til, at du prøver at aktivere indstillingen <span class="hl">${opt}</span>, men denne indstilling kan ikke aktiveres uden først at installere pakken <code class="dialogcode">${dep}</code>`,
+    `Kør venligst <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> for at installere denne afhængighed`
 ]

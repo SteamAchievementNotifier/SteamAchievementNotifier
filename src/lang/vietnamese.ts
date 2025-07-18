@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Dường như bạn đang cố gắng bật tùy chọn <span class="hl">${opt}</span>. Tuy nhiên, trên các hệ thống Linux, không thể kích hoạt chụp màn hình mà không cài đặt trước gói <code class="dialogcode">${dep}</code>`,
-    `Vui lòng chạy lệnh <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> để cài đặt phụ thuộc này. Điều này sẽ đảm bảo bạn có thể chụp màn hình trên thiết bị này`
+export const missingdepssub = (opt: string,dep: string) => [
+    `Có vẻ như bạn đang cố gắng bật tùy chọn <span class="hl">${opt}</span>, nhưng tùy chọn này không thể bật được nếu chưa cài đặt gói <code class="dialogcode">${dep}</code>`,
+    `Vui lòng chạy <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> để cài đặt phụ thuộc này`
 ]

@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `Het lijkt erop dat je probeert de optie <span class="hl">${opt}</span> in te schakelen. Op Linux-systemen kunnen screenshots echter niet worden ingeschakeld zonder eerst het pakket <code class="dialogcode">${dep}</code> te installeren`,
-    `Voer alstublieft <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> uit om deze afhankelijkheid te installeren. Dit zorgt ervoor dat screenshots kunnen worden gemaakt op dit apparaat`
+export const missingdepssub = (opt: string,dep: string) => [
+    `Het lijkt erop dat je probeert de optie <span class="hl">${opt}</span> in te schakelen, maar deze optie kan niet worden ingeschakeld zonder eerst het pakket <code class="dialogcode">${dep}</code> te installeren`,
+    `Voer <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> uit om deze afhankelijkheid te installeren`
 ]

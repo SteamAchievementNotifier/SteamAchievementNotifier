@@ -873,7 +873,7 @@ export const translations = {
     }
 }
 
-export const missingdepssub = (opt: string, dep: string) => [
-    `ดูเหมือนว่าคุณกำลังพยายามเปิดใช้งานตัวเลือก <span class="hl">${opt}</span> แต่ในระบบ Linux ไม่สามารถเปิดใช้งานการจับภาพหน้าจอได้โดยไม่ติดตั้งแพ็กเกจ <code class="dialogcode">${dep}</code> ก่อน`,
-    `กรุณาใช้คำสั่ง <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> เพื่อติดตั้งขึ้นก่อน นี้จะทำให้สามารถจับภาพหน้าจอได้บนอุปกรณ์นี้`
+export const missingdepssub = (opt: string,dep: string) => [
+    `ดูเหมือนว่าคุณพยายามเปิดใช้งานตัวเลือก <span class="hl">${opt}</span> แต่ตัวเลือกนี้ไม่สามารถเปิดใช้งานได้หากไม่ได้ติดตั้งแพ็กเกจ <code class="dialogcode">${dep}</code> ก่อน`,
+    `กรุณารัน <code class="dialogcode" style="user-select: text;">sudo apt-get install ${dep}</code> เพื่อติดตั้งการพึ่งพานี้`
 ]

@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Letzter Status",
                 webhookspoilers: `Spoiler-Tag hinzufügen`,
                 replaynotify: "Benachrichtigung wiederholen",
-                replaynotifyshortcut: "Tastenkombination für Wiederholung"
+                replaynotifyshortcut: "Tastenkombination für Wiederholung",
+                customtrigger: "Benutzerdefinierter Auslöser",
+                customtriggershortcut: "Auslöser-Tastenkombination",
+                customtriggerdelay: "Auslöserverzögerung",
+                customtriggerusedisplaytime: "Anzeigezeit verwenden"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Wiederhole die letzte Erfolgsbenachrichtigung",
         replaynotifyshortcut: "Wiederhole die letzte Erfolgsbenachrichtigung mit der angegebenen Tastenkombination",
         replaynotifyempty: `<br><br><span class="ttdesc">Die Wiederholungswarteschlange ist leer. Schalte einen Erfolg frei, um eine Benachrichtigung zu wiederholen</span>`,
-        uselegacynotifytimer: `Benachrichtigungen mit einem statischen Timer außerhalb des Benachrichtigungsfensters ausblenden<br><br><span class="ttdesc">Das Aktivieren dieser Option kann dazu führen, dass Benachrichtigungsanimationen nicht abgeschlossen werden</span>`
+        uselegacynotifytimer: `Benachrichtigungen mit einem statischen Timer außerhalb des Benachrichtigungsfensters ausblenden<br><br><span class="ttdesc">Das Aktivieren dieser Option kann dazu führen, dass Benachrichtigungsanimationen nicht abgeschlossen werden</span>`,
+        customtrigger: "Löst eine Taste/Kombination aus, wenn ein Achievement freigeschaltet wird. Kann verwendet werden, um Tastenkombinationen in externen Anwendungen auszulösen",
+        customtriggershortcut: `Löst die angegebene Taste/Kombination aus, wenn ein Achievement freigeschaltet wird<br><br><span class="ttdesc">Unterstützt 1–3 Tasten pro Tastenkombination. Für Tastendrücke/Kombinationen mit weniger als 3 Tasten, drücke die gewünschten Tasten und warte, bis der Timer (5s) abläuft</span>`,
+        customtriggerdelay: "Verzögert die angegebene Taste/Kombination des benutzerdefinierten Auslösers",
+        customtriggerusedisplaytime: `Verzögert die angegebene Taste/Kombination des benutzerdefinierten Auslösers basierend auf dem Anzeigezeitwert des aktuellen Benachrichtigungstyps`
     },
     update: {
         updateavailable: "Update verfügbar",

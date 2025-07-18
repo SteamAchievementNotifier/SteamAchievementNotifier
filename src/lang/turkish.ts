@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Son Durum",
                 webhookspoilers: `Spoiler etiketi ekle`,
                 replaynotify: "Tekrar Bildirimi",
-                replaynotifyshortcut: "Tekrar Kısayolu"
+                replaynotifyshortcut: "Tekrar Kısayolu",
+                customtrigger: "Özel Tetikleyici",
+                customtriggershortcut: "Tetikleyici Kısayolu",
+                customtriggerdelay: "Tetikleyici Gecikmesi",
+                customtriggerusedisplaytime: "Gösterim Süresini Kullan"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Son Başarı Bildirimini Tekrarla",
         replaynotifyshortcut: "Belirtilen kısayol ile son başarı bildirimini tekrarla",
         replaynotifyempty: `<br><br><span class="ttdesc">Tekrar kuyruğu boş. Bir başarıyı açarak bir bildirimi tekrar edebilirsiniz</span>`,
-        uselegacynotifytimer: `Bildirim penceresinin dışında statik bir zamanlayıcı kullanarak bildirimleri gizle<br><br><span class="ttdesc">Bu seçeneği etkinleştirmek, bildirim animasyonlarının tamamlanmamasına neden olabilir</span>`
+        uselegacynotifytimer: `Bildirim penceresinin dışında statik bir zamanlayıcı kullanarak bildirimleri gizle<br><br><span class="ttdesc">Bu seçeneği etkinleştirmek, bildirim animasyonlarının tamamlanmamasına neden olabilir</span>`,
+        customtrigger: "Bir başarım açıldığında simüle edilen bir tuş/kombinasyonu tetikler. Harici uygulamalarda kayıtlı klavye kısayollarını tetiklemek için kullanılabilir",
+        customtriggershortcut: `Bir başarım açıldığında belirtilen tuş/kombinasyonu tetikler<br><br><span class="ttdesc">Her kısayol için 1-3 tuş desteklenir. 3’ten az tuş gerektiren tuş basımı/kombinasyonlar için, istenen tuşlara basın ve zamanlayıcının (5s) bitmesini bekleyin</span>`,
+        customtriggerdelay: "Belirtilen Özel Tetikleyici tuş/kombinasyonunu geciktir",
+        customtriggerusedisplaytime: `Belirtilen Özel Tetikleyici tuş/kombinasyonunu, mevcut bildirim türünün Gösterim Süresi değerine göre geciktir`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

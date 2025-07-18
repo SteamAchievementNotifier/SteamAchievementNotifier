@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Ostatni status",
                 webhookspoilers: `Dodaj tag spoiler`,
                 replaynotify: "Powiadomienie o powtórzeniu",
-                replaynotifyshortcut: "Skrót klawiszowy do powtórzenia"
+                replaynotifyshortcut: "Skrót klawiszowy do powtórzenia",
+                customtrigger: "Niestandardowy Wyzwalacz",
+                customtriggershortcut: "Skrót Wyzwalacza",
+                customtriggerdelay: "Opóźnienie Wyzwalacza",
+                customtriggerusedisplaytime: "Użyj Czasu Wyświetlania"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Powtórz ostatnie powiadomienie o osiągnięciu",
         replaynotifyshortcut: "Powtórz ostatnie powiadomienie o osiągnięciu za pomocą określonego skrótu klawiszowego",
         replaynotifyempty: `<br><br><span class="ttdesc">Kolejka powtórzeń jest pusta. Odblokuj osiągnięcie, aby powtórzyć powiadomienie</span>`,
-        uselegacynotifytimer: `Ukryj powiadomienia za pomocą statycznego timera poza oknem powiadomienia<br><br><span class="ttdesc">Włączenie tej opcji może spowodować, że animacje powiadomień nie zakończą się poprawnie</span>`
+        uselegacynotifytimer: `Ukryj powiadomienia za pomocą statycznego timera poza oknem powiadomienia<br><br><span class="ttdesc">Włączenie tej opcji może spowodować, że animacje powiadomień nie zakończą się poprawnie</span>`,
+        customtrigger: "Wyzwala klawisz/kombinację symulowaną podczas odblokowania osiągnięcia. Może być używany do wywoływania skrótów klawiaturowych zarejestrowanych w aplikacjach zewnętrznych",
+        customtriggershortcut: `Wyzwala określony klawisz/kombinację podczas odblokowania osiągnięcia<br><br><span class="ttdesc">Obsługuje od 1 do 3 klawiszy na skrót. Dla naciśnięć/kombinacji wymagających mniej niż 3 klawisze, naciśnij żądane klawisze i poczekaj na zakończenie timera (5 s)</span>`,
+        customtriggerdelay: "Opóźnij określony klawisz/kombinację Niestandardowego Wyzwalacza",
+        customtriggerusedisplaytime: `Opóźnij określony klawisz/kombinację Niestandardowego Wyzwalacza na podstawie wartości Czasu Wyświetlania bieżącego typu powiadomienia`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

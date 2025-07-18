@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "最后状态",
                 webhookspoilers: `添加剧透标签`,
                 replaynotify: "重播通知",
-                replaynotifyshortcut: "重播快捷键"
+                replaynotifyshortcut: "重播快捷键",
+                customtrigger: "自定义触发器",
+                customtriggershortcut: "触发快捷键",
+                customtriggerdelay: "触发延迟",
+                customtriggerusedisplaytime: "使用显示时间"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "重播最后的成就通知",
         replaynotifyshortcut: "使用指定的快捷键重播最后的成就通知",
         replaynotifyempty: `<br><br><span class="ttdesc">重播队列为空。解锁一个成就以重播通知</span>`,
-        uselegacynotifytimer: `使用静态计时器在通知窗口外隐藏通知<br><br><span class="ttdesc">启用此选项可能会导致通知动画无法完成</span>`
+        uselegacynotifytimer: `使用静态计时器在通知窗口外隐藏通知<br><br><span class="ttdesc">启用此选项可能会导致通知动画无法完成</span>`,
+        customtrigger: "在解锁成就时触发模拟按键/组合键。可用于触发外部应用中注册的键盘快捷键",
+        customtriggershortcut: `在解锁成就时触发指定的按键/组合键<br><br><span class="ttdesc">支持每个快捷键1-3个按键。对于少于3个按键的按键/组合，请按下所需按键并等待计时器（5秒）结束</span>`,
+        customtriggerdelay: "延迟指定的自定义触发器按键/组合",
+        customtriggerusedisplaytime: `根据当前通知类型的显示时间值延迟指定的自定义触发器按键/组合`
     },
     update: {
         updateavailable: "有可用更新",

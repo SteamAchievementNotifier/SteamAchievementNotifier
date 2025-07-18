@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Ultimul Statut",
                 webhookspoilers: `Adaugă etichetă spoiler`,
                 replaynotify: "Notificare de repetare",
-                replaynotifyshortcut: "Scurtătură pentru repetare"
+                replaynotifyshortcut: "Scurtătură pentru repetare",
+                customtrigger: "Declanșator Personalizat",
+                customtriggershortcut: "Scurtătură Declanșator",
+                customtriggerdelay: "Întârziere Declanșator",
+                customtriggerusedisplaytime: "Folosește Timpul de Afișare"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Repetă ultima notificare de realizare",
         replaynotifyshortcut: "Repetă ultima notificare de realizare folosind scurtătura de tastatură specificată",
         replaynotifyempty: `<br><br><span class="ttdesc">Coada de repetare este goală. Deblochează o realizare pentru a repeta o notificare</span>`,
-        uselegacynotifytimer: `Ascunde notificările folosind un timer static în afara ferestrei de notificare<br><br><span class="ttdesc">Activarea acestei opțiuni poate cauza eșecul completării animațiilor de notificare</span>`
+        uselegacynotifytimer: `Ascunde notificările folosind un timer static în afara ferestrei de notificare<br><br><span class="ttdesc">Activarea acestei opțiuni poate cauza eșecul completării animațiilor de notificare</span>`,
+        customtrigger: "Declanșează o tastă/combo simulată la deblocarea unui achievement. Poate fi folosit pentru a activa scurtături de tastatură înregistrate în aplicații externe",
+        customtriggershortcut: `Declanșează tasta/combo specificată la deblocarea unui achievement<br><br><span class="ttdesc">Acceptă între 1 și 3 taste per scurtătură. Pentru apăsări/combo-uri cu mai puțin de 3 taste, apasă tastele dorite și așteaptă până expiră temporizatorul (5s)</span>`,
+        customtriggerdelay: "Întârzie tasta/combo specificată a Declanșatorului Personalizat",
+        customtriggerusedisplaytime: `Întârzie tasta/combo specificată a Declanșatorului Personalizat pe baza valorii Timpului de Afișare pentru tipul curent de notificare`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

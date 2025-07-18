@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "최종 상태",
                 webhookspoilers: `스포일러 태그 추가`,
                 replaynotify: "재생 알림",
-                replaynotifyshortcut: "재생 단축키"
+                replaynotifyshortcut: "재생 단축키",
+                customtrigger: "사용자 지정 트리거",
+                customtriggershortcut: "트리거 단축키",
+                customtriggerdelay: "트리거 지연",
+                customtriggerusedisplaytime: "표시 시간 사용"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "최근 성취 알림을 재생",
         replaynotifyshortcut: "지정된 단축키를 사용하여 최근 성취 알림을 재생",
         replaynotifyempty: `<br><br><span class="ttdesc">재생 대기열이 비어 있습니다. 알림을 재생하려면 성취를 해제하세요</span>`,
-        uselegacynotifytimer: `알림 창 외부의 정적 타이머를 사용하여 알림 숨기기<br><br><span class="ttdesc">이 옵션을 활성화하면 알림 애니메이션이 완료되지 않을 수 있습니다</span>`
+        uselegacynotifytimer: `알림 창 외부의 정적 타이머를 사용하여 알림 숨기기<br><br><span class="ttdesc">이 옵션을 활성화하면 알림 애니메이션이 완료되지 않을 수 있습니다</span>`,
+        customtrigger: "업적을 해제할 때 키/조합을 시뮬레이션하도록 트리거합니다. 외부 응용 프로그램에 등록된 키보드 단축키를 트리거하는 데 사용할 수 있습니다",
+        customtriggershortcut: `업적이 해제될 때 지정된 키/조합을 트리거합니다<br><br><span class="ttdesc">단축키당 1~3개의 키를 지원합니다. 3개 미만의 키를 누르는 경우 원하는 키를 누르고 타이머(5초)가 종료될 때까지 기다리세요</span>`,
+        customtriggerdelay: "지정된 사용자 지정 트리거 키/조합을 지연합니다",
+        customtriggerusedisplaytime: `현재 알림 유형의 표시 시간 값을 기준으로 지정된 사용자 지정 트리거 키/조합을 지연합니다`
     },
     update: {
         updateavailable: "업데이트 가능",

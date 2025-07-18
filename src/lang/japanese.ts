@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "最後のステータス",
                 webhookspoilers: `ネタバレタグを追加`,
                 replaynotify: "再通知",
-                replaynotifyshortcut: "再通知ショートカット"
+                replaynotifyshortcut: "再通知ショートカット",
+                customtrigger: "カスタムトリガー",
+                customtriggershortcut: "トリガーショートカット",
+                customtriggerdelay: "トリガーディレイ",
+                customtriggerusedisplaytime: "表示時間を使用"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "最後の実績通知を再通知",
         replaynotifyshortcut: "指定したショートカットを使用して最後の実績通知を再通知",
         replaynotifyempty: `<br><br><span class="ttdesc">再通知キューは空です。通知を再通知するには実績を解除してください</span>`,
-        uselegacynotifytimer: `通知ウィンドウの外部で静的なタイマーを使用して通知を非表示<br><br><span class="ttdesc">このオプションを有効にすると、通知アニメーションが完了しない場合があります</span>`
+        uselegacynotifytimer: `通知ウィンドウの外部で静的なタイマーを使用して通知を非表示<br><br><span class="ttdesc">このオプションを有効にすると、通知アニメーションが完了しない場合があります</span>`,
+        customtrigger: "実績解除時にキーやコンボをシミュレートしてトリガーします。外部アプリで登録されたキーボードショートカットをトリガーするために使用できます",
+        customtriggershortcut: `実績解除時に指定されたキーやコンボをトリガーします<br><br><span class="ttdesc">ショートカットごとに1～3キーをサポートしています。3キー未満のキー入力/コンボの場合は、希望するキーを押してタイマー（5秒）が終了するのを待ってください</span>`,
+        customtriggerdelay: "指定されたカスタムトリガーのキー/コンボを遅延させます",
+        customtriggerusedisplaytime: `現在の通知タイプの表示時間の値に基づいて、指定されたカスタムトリガーのキー/コンボを遅延させます`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

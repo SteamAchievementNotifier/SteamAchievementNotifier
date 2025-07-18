@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Viimeinen Tila",
                 webhookspoilers: `Lisää spoiler-tunniste`,
                 replaynotify: "Toistoviesti",
-                replaynotifyshortcut: "Toistoviestin pikanäppäin"
+                replaynotifyshortcut: "Toistoviestin pikanäppäin",
+                customtrigger: "Mukautettu Laukaisin",
+                customtriggershortcut: "Laukaisimen Pikanäppäin",
+                customtriggerdelay: "Laukaisimen Viive",
+                customtriggerusedisplaytime: "Käytä Näyttöaikaa"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Toista viimeisin saavutuksen ilmoitus",
         replaynotifyshortcut: "Toista viimeisin saavutuksen ilmoitus käyttämällä määritettyä pikanäppäintä",
         replaynotifyempty: `<br><br><span class="ttdesc">Toistovuoro on tyhjä. Avaa saavutus toistaaksesi ilmoituksen</span>`,
-        uselegacynotifytimer: `Piilota ilmoitukset käyttämällä staattista ajastinta, joka on erillinen ilmoitusikkunasta<br><br><span class="ttdesc">Tämän asetuksen ottaminen käyttöön voi estää ilmoitusten animaatioiden täydellisen suorittamisen</span>`
+        uselegacynotifytimer: `Piilota ilmoitukset käyttämällä staattista ajastinta, joka on erillinen ilmoitusikkunasta<br><br><span class="ttdesc">Tämän asetuksen ottaminen käyttöön voi estää ilmoitusten animaatioiden täydellisen suorittamisen</span>`,
+        customtrigger: "Laukaisee näppäimen/yhdistelmän, kun saavutus avataan. Voidaan käyttää ulkoisissa sovelluksissa rekisteröityjen pikanäppäinten laukaisuun",
+        customtriggershortcut: `Laukaisee määritetyn näppäimen/yhdistelmän, kun saavutus avataan<br><br><span class="ttdesc">Tukee 1–3 näppäintä per pikanäppäin. Alle 3 näppäimen yhdistelmissä paina haluttuja näppäimiä ja odota ajastimen (5s) päättymistä</span>`,
+        customtriggerdelay: "Viivästyttää määritetyn mukautetun näppäimen/yhdistelmän laukaisua",
+        customtriggerusedisplaytime: `Viivästyttää määritetyn mukautetun näppäimen/yhdistelmän laukaisua nykyisen ilmoitustyypin Näyttöaika-arvon perusteella`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

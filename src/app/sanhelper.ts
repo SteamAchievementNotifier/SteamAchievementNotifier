@@ -46,6 +46,7 @@ const noreload = (elem: HTMLElement) => {
 
 const deps = new Map<string,string>([
     ["keypressrs","steamss"],
+    ["keypressrs","customtrigger"],
     ["hdr","hdrmode"],
     ["wmctrl","ssmode"]
 ])

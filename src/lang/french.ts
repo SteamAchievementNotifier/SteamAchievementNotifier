@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Dernier statut",
                 webhookspoilers: `Ajouter un tag spoiler`,
                 replaynotify: "Notification de répétition",
-                replaynotifyshortcut: "Raccourci de répétition"
+                replaynotifyshortcut: "Raccourci de répétition",
+                customtrigger: "Déclencheur Personnalisé",
+                customtriggershortcut: "Raccourci du Déclencheur",
+                customtriggerdelay: "Délai du Déclencheur",
+                customtriggerusedisplaytime: "Utiliser le Temps d’Affichage"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Répéter la dernière notification de réussite",
         replaynotifyshortcut: "Répéter la dernière notification de réussite en utilisant le raccourci clavier spécifié",
         replaynotifyempty: `<br><br><span class="ttdesc">La file d'attente de répétition est vide. Débloquez une réussite pour répéter une notification</span>`,
-        uselegacynotifytimer: `Masquer les notifications à l'aide d'un minuterie statique externe à la fenêtre de notification<br><br><span class="ttdesc">L'activation de cette option peut entraîner l'échec des animations de notification</span>`
+        uselegacynotifytimer: `Masquer les notifications à l'aide d'un minuterie statique externe à la fenêtre de notification<br><br><span class="ttdesc">L'activation de cette option peut entraîner l'échec des animations de notification</span>`,
+        customtrigger: "Déclenche une touche/combinaison simulée lors du déverrouillage d’un succès. Peut être utilisé pour activer des raccourcis clavier enregistrés dans des applications externes",
+        customtriggershortcut: `Déclenche la touche/combinaison spécifiée lors du déverrouillage d’un succès<br><br><span class="ttdesc">Prend en charge entre 1 et 3 touches par raccourci. Pour des pressions/combinaisons nécessitant moins de 3 touches, appuyez sur les touches souhaitées et attendez la fin du compte à rebours (5s)</span>`,
+        customtriggerdelay: "Retarde la touche/combinaison du Déclencheur Personnalisé spécifié",
+        customtriggerusedisplaytime: `Retarde la touche/combinaison du Déclencheur Personnalisé en fonction de la valeur du Temps d’Affichage du type de notification actuel`
     },
     update: {
         updateavailable: "Mise à jour disponible",

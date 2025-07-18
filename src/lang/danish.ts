@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Sidste status",
                 webhookspoilers: `Tilføj spoiler-mærke`,
                 replaynotify: "Gentagelsesnotifikation",
-                replaynotifyshortcut: "Genvej til gentagelse"
+                replaynotifyshortcut: "Genvej til gentagelse",
+                customtrigger: "Brugertilpasset Udløser",
+                customtriggershortcut: "Genvej til Udløser",
+                customtriggerdelay: "Forsinkelse af Udløser",
+                customtriggerusedisplaytime: "Brug Visningstid"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Gentag den seneste præstationsnotifikation",
         replaynotifyshortcut: "Gentag den seneste præstationsnotifikation med den angivne tastaturgenvej",
         replaynotifyempty: `<br><br><span class="ttdesc">Gentagelseskøen er tom. Lås op for en præstation for at gentage en notifikation</span>`,
-        uselegacynotifytimer: `Fjern notifikationer ved hjælp af en statisk timer ekstern til notifikationsvinduet<br><br><span class="ttdesc">Aktivering af denne indstilling kan medføre, at notifikationsanimationer ikke fuldføres</span>`
+        uselegacynotifytimer: `Fjern notifikationer ved hjælp af en statisk timer ekstern til notifikationsvinduet<br><br><span class="ttdesc">Aktivering af denne indstilling kan medføre, at notifikationsanimationer ikke fuldføres</span>`,
+        customtrigger: "Udløser en tast/kombination, der simuleres ved oplåsning af en achievement. Kan bruges til at udløse tastaturgenveje registreret i eksterne applikationer",
+        customtriggershortcut: `Udløser den angivne tast/kombination, når en achievement låses op<br><br><span class="ttdesc">Understøtter mellem 1-3 taster pr. genvej. For tastetryk/kombinationer med færre end 3 taster, tryk på de ønskede taster og vent på, at timeren (5 sek.) udløber</span>`,
+        customtriggerdelay: "Forsinker den angivne brugertilpassede tast/kombination",
+        customtriggerusedisplaytime: `Forsinker den angivne brugertilpassede tast/kombination baseret på den aktuelle notifikationstypes Visningstid`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

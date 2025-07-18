@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Utolsó Állapot",
                 webhookspoilers: `Spoiler címke hozzáadása`,
                 replaynotify: "Újraértesítés",
-                replaynotifyshortcut: "Újraértesítés gyorsbillentyű"
+                replaynotifyshortcut: "Újraértesítés gyorsbillentyű",
+                customtrigger: "Egyedi Trigger",
+                customtriggershortcut: "Trigger Gyorsbillentyű",
+                customtriggerdelay: "Trigger Késleltetés",
+                customtriggerusedisplaytime: "Megjelenítési Idő Használata"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Ismételd meg az utolsó teljesítmény értesítést",
         replaynotifyshortcut: "Ismételd meg az utolsó teljesítmény értesítést a megadott gyorsbillentyűvel",
         replaynotifyempty: `<br><br><span class="ttdesc">Az ismétlési sor üres. Nyiss meg egy teljesítményt az értesítés ismétléséhez</span>`,
-        uselegacynotifytimer: `Rejtse el az értesítéseket egy statikus időzítő használatával, amely kívül esik az értesítési ablakon<br><br><span class="ttdesc">Ennek az opciónak az engedélyezése azt eredményezheti, hogy az értesítési animációk nem fejeződnek be</span>`
+        uselegacynotifytimer: `Rejtse el az értesítéseket egy statikus időzítő használatával, amely kívül esik az értesítési ablakon<br><br><span class="ttdesc">Ennek az opciónak az engedélyezése azt eredményezheti, hogy az értesítési animációk nem fejeződnek be</span>`,
+        customtrigger: "Egy billentyű/kombináció szimulálása achievement feloldásakor. Használható külső alkalmazásokban regisztrált billentyűparancsok indítására",
+        customtriggershortcut: `A megadott billentyű/kombináció aktiválása achievement feloldásakor<br><br><span class="ttdesc">1–3 billentyűt támogat gyorsbillentyűként. Kevesebb mint 3 billentyűből álló kombináció esetén nyomja meg a kívánt billentyűket, majd várja meg az időzítő (5 mp) lejártát</span>`,
+        customtriggerdelay: "A megadott egyedi trigger billentyű/kombináció késleltetése",
+        customtriggerusedisplaytime: `A megadott egyedi trigger billentyű/kombináció késleltetése az aktuális értesítéstípus Megjelenítési Idő értéke alapján`
     },
     update: {
         updateavailable: "Frissítés elérhető",

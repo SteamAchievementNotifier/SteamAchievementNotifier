@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Poslední stav",
                 webhookspoilers: `Přidat označení spoileru`,
                 replaynotify: "Oznámení o opakování",
-                replaynotifyshortcut: "Zkratka pro opakování"
+                replaynotifyshortcut: "Zkratka pro opakování",
+                customtrigger: "Vlastní Spouštěč",
+                customtriggershortcut: "Zkratka Spouštěče",
+                customtriggerdelay: "Zpoždění Spouštěče",
+                customtriggerusedisplaytime: "Použít Čas Zobrazení"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Zopakovat poslední oznámení o úspěchu",
         replaynotifyshortcut: "Zopakovat poslední oznámení o úspěchu pomocí zadané klávesové zkratky",
         replaynotifyempty: `<br><br><span class="ttdesc">Fronta opakování je prázdná. Odemkni úspěch pro opakování oznámení</span>`,
-        uselegacynotifytimer: `Skryj oznámení pomocí statického časovače mimo okno oznámení<br><br><span class="ttdesc">Povolení této možnosti může způsobit, že se animace oznámení nedokončí</span>`
+        uselegacynotifytimer: `Skryj oznámení pomocí statického časovače mimo okno oznámení<br><br><span class="ttdesc">Povolení této možnosti může způsobit, že se animace oznámení nedokončí</span>`,
+        customtrigger: "Spustí klávesu/kombinaci při odemčení achievementu. Lze použít ke spuštění klávesových zkratek registrovaných v externích aplikacích",
+        customtriggershortcut: `Spustí zadanou klávesu/kombinaci při odemčení achievementu<br><br><span class="ttdesc">Podporuje 1–3 klávesy na zkratku. Pro stisknutí/kombinace s méně než 3 klávesami stiskněte požadované klávesy a počkejte na vypršení časovače (5 s)</span>`,
+        customtriggerdelay: "Zpoždění zadané klávesy/kombinace vlastního spouštěče",
+        customtriggerusedisplaytime: `Zpoždění zadané klávesy/kombinace vlastního spouštěče podle hodnoty Času Zobrazení aktuálního typu oznámení`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Siste status",
                 webhookspoilers: `Legg til spoiler-merke`,
                 replaynotify: "Gjenta varsling",
-                replaynotifyshortcut: "Gjenta snarveien"
+                replaynotifyshortcut: "Gjenta snarveien",
+                customtrigger: "Egendefinert Utløser",
+                customtriggershortcut: "Utløser hurtigtast",
+                customtriggerdelay: "Utløser forsinkelse",
+                customtriggerusedisplaytime: "Bruk visningstid"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Gjenta den siste prestasjonsvarslingen",
         replaynotifyshortcut: "Gjenta den siste prestasjonsvarslingen ved å bruke den angitte snarveien",
         replaynotifyempty: `<br><br><span class="ttdesc">Gjentakelseskoen er tom. Lås opp en prestasjon for å gjenta en varsling</span>`,
-        uselegacynotifytimer: `Skjul varsler ved hjelp av en statisk timer utenfor varslingsvinduet<br><br><span class="ttdesc">Aktivering av dette alternativet kan føre til at varslingsanimasjoner ikke fullføres</span>`
+        uselegacynotifytimer: `Skjul varsler ved hjelp av en statisk timer utenfor varslingsvinduet<br><br><span class="ttdesc">Aktivering av dette alternativet kan føre til at varslingsanimasjoner ikke fullføres</span>`,
+        customtrigger: "Utløser en tast/kombinasjon som simuleres ved opplåsing av et achievement. Kan brukes til å utløse hurtigtaster registrert i eksterne applikasjoner",
+        customtriggershortcut: `Utløs den angitte tast/kombinasjonen når et achievement låses opp<br><br><span class="ttdesc">Støtter mellom 1-3 taster per hurtigtast. For tastetrykk/kombinasjoner med færre enn 3 taster, trykk på ønskede taster og vent til timeren (5s) går ut</span>`,
+        customtriggerdelay: "Forsink den angitte egendefinerte tast/kombinasjonen",
+        customtriggerusedisplaytime: `Forsink den angitte egendefinerte tast/kombinasjonen basert på visningstidsverdien for den gjeldende varseltypen`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

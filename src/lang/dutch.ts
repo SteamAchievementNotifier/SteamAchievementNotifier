@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Laatste Status",
                 webhookspoilers: `Spoilerlabel toevoegen`,
                 replaynotify: "Herhalingsmelding",
-                replaynotifyshortcut: "Sneltoets voor herhaling"
+                replaynotifyshortcut: "Sneltoets voor herhaling",
+                customtrigger: "Aangepaste Trigger",
+                customtriggershortcut: "Trigger Sneltoets",
+                customtriggerdelay: "Trigger Vertraging",
+                customtriggerusedisplaytime: "Gebruik Weergavetijd"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Herhaal de laatste prestatiemelding",
         replaynotifyshortcut: "Herhaal de laatste prestatiemelding met de opgegeven sneltoets",
         replaynotifyempty: `<br><br><span class="ttdesc">De herhalingswachtrij is leeg. Ontgrendel een prestatie om een melding te herhalen</span>`,
-        uselegacynotifytimer: `Verberg meldingen met een statische timer buiten het meldingsvenster<br><br><span class="ttdesc">Het inschakelen van deze optie kan ertoe leiden dat meldingsanimaties niet correct worden voltooid</span>`
+        uselegacynotifytimer: `Verberg meldingen met een statische timer buiten het meldingsvenster<br><br><span class="ttdesc">Het inschakelen van deze optie kan ertoe leiden dat meldingsanimaties niet correct worden voltooid</span>`,
+        customtrigger: "Activeert een toets/combinatie bij het ontgrendelen van een achievement. Kan worden gebruikt om sneltoetsen te activeren die zijn geregistreerd in externe applicaties",
+        customtriggershortcut: `Activeert de opgegeven toets/combinatie bij het ontgrendelen van een achievement<br><br><span class="ttdesc">Ondersteunt 1-3 toetsen per sneltoets. Voor toetsindrukken/combinaties met minder dan 3 toetsen, druk op de gewenste toetsen en wacht tot de timer (5s) afloopt</span>`,
+        customtriggerdelay: "Vertraag de opgegeven toets/combinatie van de Aangepaste Trigger",
+        customtriggerusedisplaytime: `Vertraag de opgegeven toets/combinatie van de Aangepaste Trigger op basis van de Weergavetijd van het huidige meldingstype`
     },
     update: {
         updateavailable: "Update beschikbaar",

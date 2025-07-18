@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Senaste status",
                 webhookspoilers: `Lägg till spoiler-tag`,
                 replaynotify: "Wiederholungsbenachrichtigung",
-                replaynotifyshortcut: "Wiederholungs-Schnellzugriff"
+                replaynotifyshortcut: "Wiederholungs-Schnellzugriff",
+                customtrigger: "Anpassad Trigger",
+                customtriggershortcut: "Triggergenväg",
+                customtriggerdelay: "Triggerfördröjning",
+                customtriggerusedisplaytime: "Använd Visningstid"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Repetera den senaste prestationen",
         replaynotifyshortcut: "Repetera den senaste prestationen med hjälp av den angivna snabbknappen",
         replaynotifyempty: `<br><br><span class="ttdesc">Kön för upprepning är tom. Lås upp en prestation för att upprepa en notifikation</span>`,
-        uselegacynotifytimer: `Dölj notifikationer med hjälp av en statisk timer utanför notifikationsfönstret<br><br><span class="ttdesc">Att aktivera detta alternativ kan leda till att notifikationsanimationer inte fullföljs</span>`
+        uselegacynotifytimer: `Dölj notifikationer med hjälp av en statisk timer utanför notifikationsfönstret<br><br><span class="ttdesc">Att aktivera detta alternativ kan leda till att notifikationsanimationer inte fullföljs</span>`,
+        customtrigger: "Aktiverar en tangent/kommando som simuleras vid upplåsning av ett achievement. Kan användas för att aktivera tangentbordsgenvägar registrerade i externa applikationer",
+        customtriggershortcut: `Aktiverar den angivna tangenten/kommandot när ett achievement låses upp<br><br><span class="ttdesc">Stöder mellan 1 och 3 tangenter per genväg. För knapptryckningar/kommandon med färre än 3 tangenter, tryck på önskade tangenter och vänta tills timern (5 s) går ut</span>`,
+        customtriggerdelay: "Fördröj den angivna anpassade tangentkombinationen",
+        customtriggerusedisplaytime: `Fördröj den angivna anpassade tangentkombinationen baserat på visningstiden för den aktuella notifikationstypen`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Último Estado",
                 webhookspoilers: `Agregar etiqueta de spoiler`,
                 replaynotify: "Notificación de repetición",
-                replaynotifyshortcut: "Acceso directo de repetición"
+                replaynotifyshortcut: "Acceso directo de repetición",
+                customtrigger: "Disparador Personalizado",
+                customtriggershortcut: "Atajo del Disparador",
+                customtriggerdelay: "Retraso del Disparador",
+                customtriggerusedisplaytime: "Usar Tiempo de Visualización"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Repetir la última notificación de logro",
         replaynotifyshortcut: "Repetir la última notificación de logro utilizando el acceso directo de teclado especificado",
         replaynotifyempty: `<br><br><span class="ttdesc">La cola de repetición está vacía. Desbloquea un logro para repetir una notificación</span>`,
-        uselegacynotifytimer: `Ocultar notificaciones usando un temporizador estático fuera de la ventana de notificación<br><br><span class="ttdesc">Activar esta opción puede hacer que las animaciones de notificación no se completen</span>`
+        uselegacynotifytimer: `Ocultar notificaciones usando un temporizador estático fuera de la ventana de notificación<br><br><span class="ttdesc">Activar esta opción puede hacer que las animaciones de notificación no se completen</span>`,
+        customtrigger: "Dispara una tecla/combinación simulada al desbloquear un logro. Puede usarse para activar atajos de teclado registrados en aplicaciones externas",
+        customtriggershortcut: `Dispara la tecla/combinación especificada al desbloquear un logro<br><br><span class="ttdesc">Soporta entre 1 y 3 teclas por atajo. Para pulsaciones/combinaciones con menos de 3 teclas, pulsa las teclas deseadas y espera a que termine el temporizador (5s)</span>`,
+        customtriggerdelay: "Retrasar la tecla/combinación especificada del Disparador Personalizado",
+        customtriggerusedisplaytime: `Retrasar la tecla/combinación especificada del Disparador Personalizado según el valor de Tiempo de Visualización del tipo de notificación actual`
     },
     update: {
         updateavailable: "Actualización disponible",

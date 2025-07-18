@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Último Status",
                 webhookspoilers: `Adicionar Tag de Spoiler`,
                 replaynotify: "Notificação de Repetição",
-                replaynotifyshortcut: "Atalho de Repetição"
+                replaynotifyshortcut: "Atalho de Repetição",
+                customtrigger: "Gatilho Personalizado",
+                customtriggershortcut: "Atalho do Gatilho",
+                customtriggerdelay: "Atraso do Gatilho",
+                customtriggerusedisplaytime: "Usar Tempo de Exibição"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Repetir a última notificação de conquista",
         replaynotifyshortcut: "Repetir a última notificação de conquista usando o atalho de teclado especificado",
         replaynotifyempty: `<br><br><span class="ttdesc">Fila de repetição está vazia. Desbloqueie uma conquista para repetir uma notificação</span>`,
-        uselegacynotifytimer: `Ocultar notificações usando um temporizador estático externo à janela de notificação<br><br><span class="ttdesc">Ativar esta opção pode resultar em falhas nas animações das notificações</span>`
+        uselegacynotifytimer: `Ocultar notificações usando um temporizador estático externo à janela de notificação<br><br><span class="ttdesc">Ativar esta opção pode resultar em falhas nas animações das notificações</span>`,
+        customtrigger: "Dispara uma tecla/combo a ser simulada ao desbloquear uma conquista. Pode ser usado para acionar atalhos de teclado registrados em aplicativos externos",
+        customtriggershortcut: `Dispara a tecla/combo especificada ao desbloquear uma conquista<br><br><span class="ttdesc">Suporta entre 1-3 teclas por atalho. Para pressionamentos/combos com menos de 3 teclas, pressione as teclas desejadas e aguarde o final do temporizador (5s)</span>`,
+        customtriggerdelay: "Atrasar a tecla/combo especificada do Gatilho Personalizado",
+        customtriggerusedisplaytime: `Atrasar a tecla/combo especificada do Gatilho Personalizado com base no valor de Tempo de Exibição do tipo de notificação atual`
     },
     update: {
         updateavailable: "Atualização disponível",

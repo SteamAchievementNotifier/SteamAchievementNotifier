@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Ultimo Stato",
                 webhookspoilers: `Aggiungi tag spoiler`,
                 replaynotify: "Notifica di ripetizione",
-                replaynotifyshortcut: "Scorciatoia di ripetizione"
+                replaynotifyshortcut: "Scorciatoia di ripetizione",
+                customtrigger: "Trigger Personalizzato",
+                customtriggershortcut: "Scorciatoia Trigger",
+                customtriggerdelay: "Ritardo Trigger",
+                customtriggerusedisplaytime: "Usa Tempo di Visualizzazione"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Ripeti l'ultima notifica di conquista",
         replaynotifyshortcut: "Ripeti l'ultima notifica di conquista utilizzando la scorciatoia da tastiera specificata",
         replaynotifyempty: `<br><br><span class="ttdesc">La coda di ripetizione è vuota. Sblocca una conquista per ripetere una notifica</span>`,
-        uselegacynotifytimer: `Nascondi le notifiche utilizzando un timer statico esterno alla finestra della notifica<br><br><span class="ttdesc">Abilitare questa opzione potrebbe causare il fallimento del completamento delle animazioni delle notifiche</span>`
+        uselegacynotifytimer: `Nascondi le notifiche utilizzando un timer statico esterno alla finestra della notifica<br><br><span class="ttdesc">Abilitare questa opzione potrebbe causare il fallimento del completamento delle animazioni delle notifiche</span>`,
+        customtrigger: "Attiva un tasto/combinazione simulata al momento dello sblocco di un achievement. Può essere usato per attivare scorciatoie da tastiera registrate in applicazioni esterne",
+        customtriggershortcut: `Attiva il tasto/la combinazione specificata quando un achievement viene sbloccato<br><br><span class="ttdesc">Supporta da 1 a 3 tasti per scorciatoia. Per pressioni/combinazioni con meno di 3 tasti, premi i tasti desiderati e attendi la fine del timer (5s)</span>`,
+        customtriggerdelay: "Ritarda il tasto/la combinazione specificata del Trigger Personalizzato",
+        customtriggerusedisplaytime: `Ritarda il tasto/la combinazione specificata del Trigger Personalizzato basandosi sul valore del Tempo di Visualizzazione del tipo di notifica corrente`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

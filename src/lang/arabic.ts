@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "آخر حالة",
                 webhookspoilers: `أضف علامة المفسد`,
                 replaynotify: "إشعار إعادة العرض",
-                replaynotifyshortcut: "اختصار إعادة العرض"
+                replaynotifyshortcut: "اختصار إعادة العرض",
+                customtrigger: "مُشغِّل مخصص",
+                customtriggershortcut: "اختصار المُشغِّل",
+                customtriggerdelay: "تأخير المُشغِّل",
+                customtriggerusedisplaytime: "استخدم وقت العرض"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "أعد تشغيل إشعار الإنجاز الأخير",
         replaynotifyshortcut: "أعد تشغيل إشعار الإنجاز الأخير باستخدام اختصار لوحة المفاتيح المحدد",
         replaynotifyempty: `<br><br><span class="ttdesc">قائمة إعادة التشغيل فارغة. قم بفتح إنجاز لإعادة تشغيل الإشعار</span>`,
-        uselegacynotifytimer: `قم بإخفاء الإشعارات باستخدام مؤقت ثابت خارجي لنافذة الإشعار<br><br><span class="ttdesc">قد يؤدي تفعيل هذا الخيار إلى فشل اكتمال رسوم تحريك الإشعارات</span>`
+        uselegacynotifytimer: `قم بإخفاء الإشعارات باستخدام مؤقت ثابت خارجي لنافذة الإشعار<br><br><span class="ttdesc">قد يؤدي تفعيل هذا الخيار إلى فشل اكتمال رسوم تحريك الإشعارات</span>`,
+        customtrigger: "تشغيل مفتاح/مجموعة مفاتيح عند فتح الإنجاز. يمكن استخدامه لتشغيل اختصارات لوحة المفاتيح المسجلة في التطبيقات الخارجية",
+        customtriggershortcut: `تشغيل المفتاح/المجموعة المحددة عند فتح إنجاز<br><br><span class="ttdesc">يدعم بين 1-3 مفاتيح لكل اختصار. للضغطات/المجموعات التي تتطلب أقل من 3 مفاتيح، اضغط على المفاتيح المطلوبة وانتظر حتى انتهاء المؤقت (5 ثوانٍ)</span>`,
+        customtriggerdelay: "تأخير المفتاح/المجموعة المخصصة للمُشغِّل",
+        customtriggerusedisplaytime: `تأخير المفتاح/المجموعة المخصصة للمُشغِّل بناءً على قيمة وقت العرض لنوع الإشعار الحالي`
     },
     update: {
         updateavailable: "تحديث متاح",

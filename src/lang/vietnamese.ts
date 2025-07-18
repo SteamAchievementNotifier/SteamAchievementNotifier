@@ -210,7 +210,11 @@ export const translations = {
                 webhooklaststatus: "Trạng thái cuối cùng",
                 webhookspoilers: `Thêm thẻ spoiler`,
                 replaynotify: "Thông báo phát lại",
-                replaynotifyshortcut: "Phím tắt phát lại"
+                replaynotifyshortcut: "Phím tắt phát lại",
+                customtrigger: "Kích Hoạt Tùy Chỉnh",
+                customtriggershortcut: "Phím Tắt Kích Hoạt",
+                customtriggerdelay: "Độ Trễ Kích Hoạt",
+                customtriggerusedisplaytime: "Sử Dụng Thời Gian Hiển Thị"
             }
         },
         games: {
@@ -765,7 +769,11 @@ export const translations = {
         replaynotify: "Phát lại thông báo thành tích cuối cùng",
         replaynotifyshortcut: "Phát lại thông báo thành tích cuối cùng bằng cách sử dụng phím tắt được chỉ định",
         replaynotifyempty: `<br><br><span class="ttdesc">Hàng đợi phát lại trống. Mở khóa một thành tích để phát lại thông báo</span>`,
-        uselegacynotifytimer: `Ẩn thông báo bằng cách sử dụng bộ đếm thời gian tĩnh ngoài cửa sổ thông báo<br><br><span class="ttdesc">Kích hoạt tùy chọn này có thể khiến hoạt ảnh thông báo không hoàn thành</span>`
+        uselegacynotifytimer: `Ẩn thông báo bằng cách sử dụng bộ đếm thời gian tĩnh ngoài cửa sổ thông báo<br><br><span class="ttdesc">Kích hoạt tùy chọn này có thể khiến hoạt ảnh thông báo không hoàn thành</span>`,
+        customtrigger: "Kích hoạt phím/tổ hợp phím được mô phỏng khi mở khóa thành tích. Có thể dùng để kích hoạt phím tắt bàn phím đã đăng ký trong các ứng dụng bên ngoài",
+        customtriggershortcut: `Kích hoạt phím/tổ hợp phím được chỉ định khi mở khóa thành tích<br><br><span class="ttdesc">Hỗ trợ từ 1 đến 3 phím cho mỗi phím tắt. Đối với các phím nhấn/tổ hợp dưới 3 phím, nhấn các phím mong muốn và đợi bộ đếm thời gian (5 giây) kết thúc</span>`,
+        customtriggerdelay: "Trì hoãn phím/tổ hợp phím được chỉ định của Kích Hoạt Tùy Chỉnh",
+        customtriggerusedisplaytime: `Trì hoãn phím/tổ hợp phím được chỉ định của Kích Hoạt Tùy Chỉnh dựa trên giá trị Thời Gian Hiển Thị của loại thông báo hiện tại`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

@@ -181,7 +181,7 @@ export const sanconfig = {
             }]
         ])
     },
-    defaultobj: (objtype: "config" | "customisation",props?: { id: number, imgpath: string, target: { width: number, height: number }, width: number, height: number } | "main" | "rare" | "plat"): Config | Customisation => {
+    defaultobj: (objtype: "config" | "customisation",props?: { id: number, imgpath: string, target: { width: number, height: number }, width: number, height: number } | NotifyType): Config | Customisation => {
         if (objtype === "config" && typeof props === "object") {
             const { id, imgpath, target, width, height } = props!
 
@@ -480,8 +480,8 @@ export const sanconfig = {
         }
 
         for (const type in obj.customisation) {
-            const customobj = sanconfig.defaultobj("customisation",type as "main" | "rare" | "plat") as Customisation
-            validate && sanconfig.validateconfigobj(customobj,type as "main" | "rare" | "plat")
+            const customobj = sanconfig.defaultobj("customisation",type as NotifyType) as Customisation
+            validate && sanconfig.validateconfigobj(customobj,type as NotifyType)
 
             if (!validate) {
                 sanconfig.defaulticons.forEach((value: CustomIcon,key: string) => {
@@ -552,10 +552,10 @@ export const sanconfig = {
             }
         }
 
-        const missingfiles = await sanconfig.validatefiles(config,objkeys,type as "main" | "rare" | "plat" | undefined)
+        const missingfiles = await sanconfig.validatefiles(config,objkeys,type as NotifyType | undefined)
         missingfiles.size && sanconfig.resetmissingfiles(missingfiles,config,log)
     },
-    validatecustomicons: async (type: "main" | "rare" | "plat") => {
+    validatecustomicons: async (type: NotifyType) => {
         const config = sanconfig.get()
         const log = (await import("./log")).log
         const defaulticons = sanconfig.defaulticons
@@ -589,7 +589,7 @@ export const sanconfig = {
             }
         }
 
-        const missingfiles = await sanconfig.validatefiles(config,["customicons"],type as "main" | "rare" | "plat" | undefined)
+        const missingfiles = await sanconfig.validatefiles(config,["customicons"],type as NotifyType | undefined)
         missingfiles.size && sanconfig.resetmissingfiles(missingfiles,config,log)
 
         const { customisation } = sanconfig.create()
@@ -613,7 +613,7 @@ export const sanconfig = {
             sanconfig.validateconfigkeys(themekeys,defaultkeys,customisation[type],`${type}.usertheme.${i}.customisation`)
         })
     },
-    validatefiles: async (config: Store<Config>,keys: string[],type?: "main" | "rare" | "plat") => {
+    validatefiles: async (config: Store<Config>,keys: string[],type?: NotifyType) => {
         const files = new Map<string[],string>([])
 
         for (const key of keys) {
@@ -656,8 +656,26 @@ export const sanconfig = {
             log.write("ERROR",`Unable to reset "${key}" to default value: ${err as Error}`)
         }
     }),
-    validateconfigobj: async (obj: Config | Customisation,type?: "main" | "rare" | "plat") => {
+    validateconfigobj: async (obj: Config | Customisation,type?: NotifyType) => {
         const config = sanconfig.get()
+        const customisation = `customisation.${type}`
+        
+        // Creates new notification type object in config if missing
+        if (type && !config.get(customisation)) {
+            const defaultobj = sanconfig.defaultobj("customisation",type) as Customisation
+
+            defaultobj.usertheme = [{
+                id: 0,
+                label: `Default ${sanhelper.settypevalue(type, { main: "Main", semi: "Semi", rare: "Rare", plat: "100%" })}`,
+                icon: sanhelper.setfilepath("img","sanlogotrophy.svg"),
+                customisation: { ...defaultobj },
+                enabled: true
+            }]
+
+            delete (defaultobj.usertheme[0].customisation as any).usertheme
+            config.set(customisation,defaultobj)
+        }
+
         const configkeys = Object.keys(!type ? config.store : config.get(`customisation.${type}`))
         const objkeys = Object.keys(obj)
 
@@ -665,6 +683,6 @@ export const sanconfig = {
         keys.forEach(key => sanconfig.defaultfiles[key] = obj[key])
 
         await sanconfig.validateconfigkeys(configkeys,objkeys,obj,type)
-        type && await sanconfig.validatecustomicons(type as "main" | "rare" | "plat")
+        type && await sanconfig.validatecustomicons(type as NotifyType)
     }
 }

@@ -65,7 +65,7 @@ const converttoobject = (obj: Record<string,any>) => {
 export const usertheme = {
     data: () => {
         const config = sanconfig.get()
-        const type = sanhelper.type as "main" | "rare" | "plat"
+        const type = sanhelper.type as NotifyType
         const userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
 
         return { config, type, userthemes }
@@ -140,11 +140,11 @@ export const usertheme = {
         })
     },
     issynced: (config: Store<Config>) => {
-        let synced: "main" | "rare" | "plat" | null = null
+        let synced: NotifyType | null = null
         const customisation = config.get("customisation")
 
         for (const type in customisation) {
-            (customisation[type] as Customisation).synctheme && (synced = type as "main" | "rare" | "plat")
+            (customisation[type] as Customisation).synctheme && (synced = type as NotifyType)
         }
 
         return synced
@@ -525,7 +525,7 @@ export const usertheme = {
 
         ipcRenderer.send("exporttheme")
     },
-    sync: (config: Store<Config>,btn: HTMLButtonElement,elemtype: "main" | "rare" | "plat") => {
+    sync: (config: Store<Config>,btn: HTMLButtonElement,elemtype: NotifyType) => {
         const key = `customisation.${elemtype}.synctheme`
         const value = !config.get(key) as boolean
 
@@ -561,7 +561,7 @@ export const usertheme = {
 
         return syncobj
     },
-    themeswitchinfo: (config: Store<Config>,appid: number,notify?: { customisation: Customisation,type: "main" | "rare" | "plat",getsrc?: boolean }) => {
+    themeswitchinfo: (config: Store<Config>,appid: number,notify?: { customisation: Customisation,type: NotifyType,getsrc?: boolean }) => {
         const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch]
         if (!notify) return { themeswitchcustomisation: null, themeswitchsrc: null, enabled: Boolean(themeswitch) }
 

@@ -26,6 +26,8 @@ interface SANHelper {
     [key: string]: function | boolean | number | string | Promise<any> | undefined
 }
 
+declare type NotifyType = "main" | "rare" | "plat"
+
 declare interface Config {
     lang: string,
     desktop: boolean,

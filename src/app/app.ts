@@ -77,7 +77,7 @@ new Map<string,[any,any]>([
     const config = sanconfig.get()
     
     for (const t in config.get("customisation")) {
-        const type = t as "main" | "rare" | "plat"
+        const type = t as NotifyType
         const { usertheme } = config.get(`customisation.${type}`) as Customisation
 
         setdefaultcustomisationvalue(config,`customisation.${type}.${key}`,values)
@@ -88,11 +88,11 @@ new Map<string,[any,any]>([
     }
 })
 
-const resetlegacykey = (key: string,limittype?: "main" | "rare" | "plat") => {
+const resetlegacykey = (key: string,limittype?: NotifyType) => {
     const config = sanconfig.get()
 
     for (const t in config.get("customisation")) {
-        const type = t as "main" | "rare" | "plat"
+        const type = t as NotifyType
         const { usertheme } = config.get(`customisation.${type}`) as Customisation
 
         (!limittype || limittype === type) && config.set(`customisation.${type}.${key}`,false)
@@ -104,7 +104,7 @@ const resetlegacykey = (key: string,limittype?: "main" | "rare" | "plat") => {
 }
 
 // Reset legacy "alldetails"/"showdecoration" keys for each type, and reset "previewhiddenicon" key for 100%
-new Map<string,"main" | "rare" | "plat" | undefined>([
+new Map<string,NotifyType | undefined>([
     ["alldetails",undefined],
     ["showdecoration",undefined],
     ["previewhiddenicon","plat"]

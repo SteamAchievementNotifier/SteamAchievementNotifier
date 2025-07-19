@@ -1031,7 +1031,7 @@ export const listeners = {
             } as BuildNotifyInfo
         }
 
-        const setnotifybounds = (dims: { width: number, height: number, x?: number, y?: number },type: "main" | "rare" | "plat" | null,offset = 20,wintype?: "extwin" | "sswin",customisation?: Customisation) => {
+        const setnotifybounds = (dims: { width: number, height: number, x?: number, y?: number },type: NotifyType | null,offset = 20,wintype?: "extwin" | "sswin",customisation?: Customisation) => {
             const config = sanconfig.get()
             if (config.get("soundonly")) return
         
@@ -1339,7 +1339,7 @@ export const listeners = {
 
         let poswin: BrowserWindow | null = null
 
-        ipcMain.on("custompos", (event,type: "main" | "rare" | "plat",shouldreset: boolean) => {
+        ipcMain.on("custompos", (event,type: NotifyType,shouldreset: boolean) => {
             const config = sanconfig.get()
             if (poswin) return
             if (shouldreset) return config.set(`customisation.${type}.custompos`,{ x: 0, y: 0 })

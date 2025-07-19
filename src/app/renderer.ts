@@ -263,7 +263,7 @@ const loadwebview = () => {
         pause = false
         document.querySelector("#webviewbtns > #playback")!.toggleAttribute("paused",pause)
     
-        const type = sanhelper.type as "main" | "rare" | "plat"
+        const type = sanhelper.type as NotifyType
     
         return new Promise<void>(resolve => {
             removeelems([webview,nopreview])
@@ -352,7 +352,7 @@ const getaudiofile = (mode: "file" | "folder",filepath: string) => {
 
 const handleaudio = (keypath: string,audio: HTMLAudioElement,elem?: HTMLElement) => {
     const soundmode = config.get(`${keypath}.soundmode`) as "file" | "folder"
-    const type = keypath.replace(/^customisation\./,"") as "main" | "rare" | "plat"
+    const type = keypath.replace(/^customisation\./,"") as NotifyType
 
     audio.src = getaudiofile(soundmode,config.get(`${keypath}.sound${soundmode === "file" ? "file" : "dir"}`) as string) || sanhelper.setfilepath("sound",`notify${type !== "main" ? `_${type}` : ""}.wav`)
     audio.volume = (config.get(`${keypath}.volume`) as number) / 100
@@ -376,7 +376,7 @@ const playback = () => {
     webview && webview.send("playback",pause)
 }
 
-const sendsswin = async (type: "main" | "rare" | "plat",customisation: Customisation,src: number) => ipcRenderer.send("sswin",await notifyinfo(type,customisation),src)
+const sendsswin = async (type: NotifyType,customisation: Customisation,src: number) => ipcRenderer.send("sswin",await notifyinfo(type,customisation),src)
 
 // Array of option ids to disable when `config.nohwa` is enabled
 const nohwa = [
@@ -385,7 +385,7 @@ const nohwa = [
 
 window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
     const synced = usertheme.issynced(config)
-    const type = detail.type as "main" | "rare" | "plat"
+    const type = detail.type as NotifyType
     const keypath = `customisation.${type}`
 
     let customisation = config.get(keypath) as Customisation
@@ -723,7 +723,7 @@ window.addEventListener("soundonly", () => ipcRenderer.send("closeopenwins"))
 document.getElementById("maincontent")!.addEventListener("animationend", ({ animationName }) => animationName === "customiserin" && document.body.removeAttribute("opening"))
 document.querySelectorAll(".wrapper#tabs > .tab").forEach(btn => btn instanceof HTMLButtonElement && (btn!.onclick = (event: MouseEvent) => sanhelper.switchtab(event)))
 
-const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisation) => {
+const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
     const customisation = { ...customobj }
     delete (customisation as any).usertheme
 
@@ -754,7 +754,7 @@ const notifyinfo = async (type: "main" | "rare" | "plat",customobj: Customisatio
     return notify
 }
 
-let globaltype: "main" | "rare" | "plat" | null = null
+let globaltype: NotifyType | null = null
 
 // This needs to have no parameters to use in "removeEventListener"
 const sendtestnotify = async () => {
@@ -854,7 +854,7 @@ ipcRenderer.on("appid",async (event,appid,gamename,steam3id,num) => {
 
 sanhelper.soundonly(config.get("soundonly"))
 
-ipcRenderer.on("soundonly", (event,type: "main" | "rare" | "plat") => {
+ipcRenderer.on("soundonly", (event,type: NotifyType) => {
     const audio = document.querySelector("audio")!
     audio.src = config.get(`customisation.${type}.soundfile`) as string || sanhelper.setfilepath("sound",`notify${type !== "main" ? `_${type}` : ""}.wav`)
     audio.play()
@@ -978,7 +978,7 @@ const getsteamuser = async (): Promise<string | null> => {
     return null
 }
 
-const unlockstr = async (user: string,gamename: string,type: "main" | "rare" | "plat") => `${(await language.get(`webhookunlockmsg${type === "plat" ? "plat" : ""}`)).replace(/\$user/,user)}${gamename ? ` ${(await language.get("webhookingame")).replace(/\$gamename/,gamename)}` : ""}`
+const unlockstr = async (user: string,gamename: string,type: NotifyType) => `${(await language.get(`webhookunlockmsg${type === "plat" ? "plat" : ""}`)).replace(/\$user/,user)}${gamename ? ` ${(await language.get("webhookingame")).replace(/\$gamename/,gamename)}` : ""}`
 
 const embeds = async (notify: Notify) => {
     const { type, gamename, name, desc, icon, percent, hidden } = notify

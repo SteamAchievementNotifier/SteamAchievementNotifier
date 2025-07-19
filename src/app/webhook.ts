@@ -16,7 +16,7 @@ const setlaststatus = (statuscode?: string) => {
     webhooklaststatus.textContent = statuscode || "N/A"
 }
 
-export const sendwebhook = async (type: "main" | "rare" | "plat",webhookurl: string,content: object,icon: string,userid?: string,avatarurl?: string) => {
+export const sendwebhook = async (type: NotifyType,webhookurl: string,content: object,icon: string,userid?: string,avatarurl?: string) => {
     const config = sanconfig.get()
     if (!config.get(`webhook${type}`)) return log.write("INFO",`"webhook${type}" not active in config - skipping...`)
 
@@ -97,7 +97,7 @@ export const webhookwrapper = async (elem: HTMLElement) => {
         const span = wrapper.querySelector("span") as HTMLSpanElement
         const input = wrapper.querySelector(`input[type="checkbox"]`) as HTMLInputElement
         const color = wrapper.querySelector(`input[type="color"]`) as HTMLInputElement
-        const type = (["main","rare","plat","test"] as const).find(type => input.id.endsWith(type)) as "main" | "rare" | "plat" | "test"
+        const type = (["main","rare","plat","test"] as const).find(type => input.id.endsWith(type)) as NotifyType | "test"
 
         if (color) color.onclick = event => event.preventDefault()
 

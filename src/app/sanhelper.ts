@@ -121,7 +121,7 @@ export const sanhelper: SANHelper = {
         process.on("uncaughtException", (err: Error) => handleerr(`${err.stack}`))
         process.on("unhandledRejection", (err: Error) => handleerr(`${err.stack}`))
     },
-    settypevalue: <T>(type: "main" | "rare" | "plat",values: { main: T,rare: T,plat: T }) => type === "plat" ? values.plat : (type === "rare" ? values.rare : values.main),
+    settypevalue: <T>(type: NotifyType,values: { main: T,rare: T,plat: T }) => values[type],
     // On build, the Notifications API cannot access the `img` files within the asar
     setfilepath: (dir: "img" | "icon" | "sound",filename: string) => path.join((dir === "img" && !sanhelper.devmode) ? (process.platform === "linux" ? path.join(sanhelper.appdata,"resources") : process.resourcesPath) : __root,dir,filename).replace(/\\/g,"/"),
     showtrack: (gamename: string) => ipcRenderer.send("showtrack",gamename),
@@ -171,7 +171,7 @@ export const sanhelper: SANHelper = {
 
         return
     },
-    get type(): "main" | "rare" | "plat" { return ["main","rare","plat"].find(attr => document.body.hasAttribute(attr))! as "main" | "rare" | "plat" },
+    get type(): NotifyType { return ["main","rare","plat"].find(attr => document.body.hasAttribute(attr))! as NotifyType },
     logcontents: (logtype: "san" | "rust" | "sanhelperrs") => fs.readFileSync(path.join(sanhelper.appdata,"logs",`${logtype}.log`),"utf-8").replace(/(\r\n|\n|\r)/g,"<br>"),
     createlogwin:(logtype: "san" | "rust" | "sanhelperrs") => ipcRenderer.send("logwin",sanhelper.logcontents(logtype),logtype),
     updatelogwin: (logtype: "san" | "rust" | "sanhelperrs") => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype),logtype),

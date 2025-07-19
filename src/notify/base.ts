@@ -48,7 +48,7 @@ const notifyhelper = {
     
         return valid[Math.floor(Math.random() * valid.length)]
     },
-    playaudio: (customisation: Customisation, iswebview: "customiser" | "sspreview" | "ss" | null, skipaudio: boolean | undefined, type: "main" | "rare" | "plat") => {
+    playaudio: (customisation: Customisation, iswebview: "customiser" | "sspreview" | "ss" | null, skipaudio: boolean | undefined, type: NotifyType) => {
         if (iswebview || skipaudio) return
     
         const audio = document.querySelector("audio")!

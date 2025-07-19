@@ -110,7 +110,7 @@ export const dialog = {
                     appid.textContent = type !== "exclusionlist" ? entry[0] : entry
                     tr.appendChild(appid)
 
-                    const gettheme = (type: "main" | "rare" | "plat",id: number) => (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === id)?.label
+                    const gettheme = (type: NotifyType,id: number) => (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === id)?.label
 
                     if (type !== "exclusionlist") {
                         if (typeof entry[1] === "object") {
@@ -119,7 +119,7 @@ export const dialog = {
                             for (const i in entry[1]) {
                                 const entryvalue = entry[1][i]
 
-                                const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).map(key => `<span ${key}></span>${gettheme(key as "main" | "rare" | "plat",entryvalue[key]) || `<i style="color: red;">❗ ${themedeleted}</i>`}`) : Object.values(entryvalue)).join("<br>")
+                                const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).map(key => `<span ${key}></span>${gettheme(key as NotifyType,entryvalue[key]) || `<i style="color: red;">❗ ${themedeleted}</i>`}`) : Object.values(entryvalue)).join("<br>")
                                 const strvalue = type === "themeswitch" && i === "src" ? (config.get("monitors").find(monitor => monitor.id === entryvalue)?.label || `<i style="font-size: 0.5rem; color: red;">❗ ${await language.get("notconnected")}</i>`) : entryvalue
 
                                 const td = document.createElement("td")

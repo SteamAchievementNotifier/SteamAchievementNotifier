@@ -29,7 +29,7 @@ export const selectorelems = [
 
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))
 
-const updateelems = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",elems: string[],select: HTMLSelectElement,elemtype: "elems" | "sselems",max: number,posids: string[]) => {
+const updateelems = (config: ElectronStore<Config>,type: NotifyType,elems: string[],select: HTMLSelectElement,elemtype: "elems" | "sselems",max: number,posids: string[]) => {
     const key = `customisation.${type}.${elemtype}`
     let i = elems.indexOf(select.id)
     let newelems = elems.slice()
@@ -70,9 +70,9 @@ const updateopts = (select: HTMLSelectElement,elems: string[],max: number) => se
     i > max && opt.remove()
 })
 
-const adjustpos = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",id: string,elems: string[]) =>config.get(`customisation.${type}.${id}`) as number > elems.length && config.set(`customisation.${type}.${id}`, elems.length > 0 ? elems.length : 0)
+const adjustpos = (config: ElectronStore<Config>,type: NotifyType,id: string,elems: string[]) =>config.get(`customisation.${type}.${id}`) as number > elems.length && config.set(`customisation.${type}.${id}`, elems.length > 0 ? elems.length : 0)
 
-const updateinput = (config: ElectronStore<Config>,type: "main" | "rare" | "plat",elem: HTMLInputElement,value: boolean | string,menutype: HTMLElement) => {
+const updateinput = (config: ElectronStore<Config>,type: NotifyType,elem: HTMLInputElement,value: boolean | string,menutype: HTMLElement) => {
     config.set(`customisation.${type}.${elem.id}`,elem.type === "checkbox" ? value as boolean : parseInt(value as string))
     sanhelper.updatetabs()
 }

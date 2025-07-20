@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Pää",
+        semi: "Puoli",
         rare: "Harvinainen",
         plat: "100%",
+        trophymain: "Pronssi",
+        trophysemi: "Hopea",
+        trophyrare: "Kulta",
+        trophyplat: "Platina",
         test: "Testaa ilmoituksia",
         topleft: "Ylävasen",
         topcenter: "Yläkeski",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Ilmoitukset",
             content: {
                 rarity: "Harvinaisuusprosentti",
+                semirarity: "Hopeaprosentti",
                 rareonly: "Vain harvinaiset",
                 all: "Kaikki",
                 off: "Pois päältä",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Mukautettu Laukaisin",
                 customtriggershortcut: "Laukaisimen Pikanäppäin",
                 customtriggerdelay: "Laukaisimen Viive",
-                customtriggerusedisplaytime: "Käytä Näyttöaikaa"
+                customtriggerusedisplaytime: "Käytä Näyttöaikaa",
+                trophymode: "Trophymoodi"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animaatio",
                 glowspeed: "Nopeus",
                 glowrarity: "Käytä harvinaisuutta",
-                glowcolorbronze: "Harvinaisuus: > 50%",
-                glowcolorsilver: "Harvinaisuus: < 50% & > $rarity",
+                glowcolorbronze: "Harvinaisuus: > $semirarity",
+                glowcolorsilver: "Harvinaisuus: < $semirarity & > $rarity",
                 glowcolorgold: "Harvinaisuus: < $rarity",
                 off: "Ei mitään",
                 pulse: "Pulssi",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Vaakasiirto",
                 iconbordery: "Pystysiirto",
                 iconborderrarity: "Käytä harvinaisuutta",
-                iconborderimgbronze: "Harvinaisuus > 50 %",
-                iconborderimgsilver: "Harvinaisuus: < 50 % ja > $rarity",
+                iconborderimgbronze: "Harvinaisuus: > $semirarity",
+                iconborderimgsilver: "Harvinaisuus: < $semirarity & > $rarity",
                 front: "Edessä",
                 back: "Takana",
                 plat: "100% Logo",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Piilota sovelluksen käyttöliittymäikkuna käynnistyksen jälkeen, kunnes se avataan järjestelmälokista",
         nohwa: `Poista käytöstä laitteistokiihdytys, mikä voi parantaa suorituskykyä järjestelmissä, joissa on vähemmän resursseja tai järjestelmissä ilman omistettua GPU:ta<br><br><span class="ttdesc">Sovellus käynnistyy uudelleen tämän asetuksen käyttöönoton/poistamisen jälkeen</span>`,
         litemode: "Poista käytöstä kaikki vuorovaikutteiset käyttöliittymäelementit ja tarjoa vain rajoitettu sovellustoiminnallisuus järjestelmälokikuvakkeen kautta. Saattaa parantaa sovelluksen käyttämien resurssien käyttöä",
-        rarity: "Prosenttiosuus, jolla harvinaiset saavutusilmoitukset laukaistaan. Kaikki saavutukset, joiden lukitusprosentti on tämän arvon yläpuolella, näytetään pääilmoituksena",
+        rarity: `Prosentti, jolla harvinaisten saavutusten ilmoitukset laukeavat.<br><br>Kaikki saavutukset, joiden avausprosentti on tämän arvon yläpuolella, näytetään pääilmoituksena<br><br><span class="ttdesc">Jos <span class="hl">Trophymoodi</span> on käytössä, kaikki saavutukset, joiden avausprosentti ylittää tämän arvon, näytetään sen sijaan hopeailmoituksena</span>`,
+        semirarity: `"Hopea"-ilmoituselementit näytetään, kun tämä prosentti ylittyy (esim. <span class="hl">Harvinaisuusmerkit</span>, <span class="hl">Koristeet</span> jne.).<br><br>Kaikki saavutukset, joiden avausprosentti on tämän arvon alapuolella (tai yhtä suuri), ja suurempi kuin <span class="hl">Harvinaisuusprosentti</span>, näyttävät ilmoituselementit, jotka on määritetty "Hopea"-harvinaisuudelle.<br><br>Kaikki saavutukset, joiden avausprosentti on tämän arvon yläpuolella, näyttävät "Pronssi"-harvinaisuudelle määritetyt ilmoituselementit<br><br><span class="ttdesc">Jos <span class="hl">Trophymoodi</span> on käytössä, kaikki saavutukset, joiden avausprosentti ylittää tämän arvon, näytetään sen sijaan pronssi-ilmoituksena</span>`,
         showpercent: "Näytä saavutuksen lukitusprosentti ilmoituksessa valituille tyypeille",
         soundonly: "Poista ilmoitukset käytöstä ja toista vain äänet, jotka on määritetty Mukauttajassa",
         extwin: "Luo ikkuna, joka toistaa kaikki näytöllä tällä hetkellä näkyvät ilmoitukset. Tämä ikkuna voidaan sitten lisätä Ikkunan kaappauksen lähteeksi suoratoisto-ohjelmissa, kuten OBS:ssä",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Laukaisee näppäimen/yhdistelmän, kun saavutus avataan. Voidaan käyttää ulkoisissa sovelluksissa rekisteröityjen pikanäppäinten laukaisuun",
         customtriggershortcut: `Laukaisee määritetyn näppäimen/yhdistelmän, kun saavutus avataan<br><br><span class="ttdesc">Tukee 1–3 näppäintä per pikanäppäin. Alle 3 näppäimen yhdistelmissä paina haluttuja näppäimiä ja odota ajastimen (5s) päättymistä</span>`,
         customtriggerdelay: "Viivästyttää määritetyn mukautetun näppäimen/yhdistelmän laukaisua",
-        customtriggerusedisplaytime: `Viivästyttää määritetyn mukautetun näppäimen/yhdistelmän laukaisua nykyisen ilmoitustyypin Näyttöaika-arvon perusteella`
+        customtriggerusedisplaytime: `Viivästyttää määritetyn mukautetun näppäimen/yhdistelmän laukaisua nykyisen ilmoitustyypin Näyttöaika-arvon perusteella`,
+        trophymode: "Korvaa Pää/Harvinainen/100% ilmoitustyypit Pronssi/Hopea/Kulta/Platina -versioilla"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

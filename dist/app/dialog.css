@@ -1,5 +1,11 @@
 :root {
     --dialogicon: url("../../icon/info.svg");
+    --starmain: #ffc400;
+    --starrare: #9a31cd;
+    --starplat: #5082f0;
+    --starbronze: #cf6d30;
+    --starsilver: #d5d5d5;
+    --stargold: #ffeb3b;
 }
 
 dialog,
@@ -373,8 +379,20 @@ body[main] dialog:has([id*="theme"]) {
     --primary: #203e7a;
 }
 
+body[trophymode][main] dialog:has([id*="theme"]) {
+    --primary: #915921;
+}
+
+body[semi] dialog:has([id*="theme"]) {
+    --primary: #849093;
+}
+
 body[rare] dialog:has([id*="theme"]) {
     --primary: #663399;
+}
+
+body[trophymode][rare] dialog:has([id*="theme"]) {
+    --primary: #dba800;
 }
 
 body[plat] dialog:has([id*="theme"]) {
@@ -636,29 +654,30 @@ button#importbtn:focus-visible {
     to { background-color: #0c2a66; };
 }
 
-/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
+/* Override for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
 .wrapper#contentcontainer:has(.tbl#linkgametablewrapper) {
     --dialogicon: url("../../icon/link.svg");
 }
 
-/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
+/* Override for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
 .wrapper#contentcontainer:has(.tbl#exclusionlisttablewrapper) {
     --dialogicon: url("../../icon/exclusion.svg");
 }
 
-/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
+/* Override for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
 .wrapper#contentcontainer:has(.tbl#themeswitchtablewrapper) {
     --dialogicon: url("../../icon/autoswitchtheme.svg");
 }
 
-/* Overrides for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
+/* Override for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
 .wrapper#contentcontainer:has(#noexeclick) {
     --dialogicon: url("../../icon/error.svg");
 }
 
-/* .wrapper#contentcontainer:has(.tbl) + .btnwrapper {
-    grid-template-columns: repeat(2,1fr);
-} */
+/* Override for preventing primary color being changed on Auto-Switch Themes (i.e. non-type-based) dialog */
+dialog:has(#themeswitchtablewrapper,#themeswitchnewtablewrapper) {
+    --primary: #203e7a;
+}
 
 .nodata > td {
     text-align: center;
@@ -800,8 +819,20 @@ td > span[main] {
     --trophy: url("../../icon/trophy_gold.svg");
 }
 
+body[trophymode] td > span[main] {
+    --trophy: url("../../icon/trophy_bronze.svg");
+}
+
+td > span[semi] {
+    --trophy: url("../../icon/trophy_silver.svg");
+}
+
 td > span[rare] {
     --trophy: url("../../icon/trophy_purple.svg");
+}
+
+body[trophymode] td > span[rare] {
+    --trophy: url("../../icon/trophy_gold.svg");
 }
 
 td > span[plat] {
@@ -822,15 +853,32 @@ td > span[plat] {
     margin-right: 0.25rem;
 }
 
-#themeswitchnewselectwrapper th:first-child::before {
+#themeswitchnewselectwrapper th#main::before {
     --trophy: url("../../icon/trophy_gold.svg");
 }
 
-#themeswitchnewselectwrapper th:nth-child(2) {
+body[trophymode] #themeswitchnewselectwrapper th#main::before {
+    --trophy: url("../../icon/trophy_bronze.svg");
+}
+
+body[trophymode] #themeswitchnewselectwrapper th#semi::before {
+    --trophy: url("../../icon/trophy_silver.svg");
+}
+
+body:not([trophymode]) #themeswitchnewselectwrapper th#semi,
+body:not([trophymode]) #themeswitchnewselectwrapper td:has(select#semi) {
+    display: none;
+}
+
+#themeswitchnewselectwrapper th#rare::before {
     --trophy: url("../../icon/trophy_purple.svg");
 }
 
-#themeswitchnewselectwrapper th:last-child {
+body[trophymode] #themeswitchnewselectwrapper th#rare::before {
+    --trophy: url("../../icon/trophy_gold.svg");
+}
+
+#themeswitchnewselectwrapper th#plat::before {
     --trophy: url("../../icon/trophy_plat.svg");
 }
 
@@ -924,33 +972,73 @@ div#userthemesyncstars {
 }
 
 body[main] dialog[selection]:not([synced]) {
-    --star1: #ffc400;
-    --star2: #9a31cd;
-    --star3: #5082f0;
+    --star1: var(--starmain);
+    --star2: var(--starrare);
+    --star3: var(--starplat);
+}
+
+body[trophymode][main] dialog[selection]:not([synced]) {
+    --star1: var(--starbronze);
+    --star2: var(--stargold);
+    --star3: var(--starplat);
+    --star4: var(--starsilver);
+}
+
+body[trophymode][semi] dialog[selection]:not([synced]) {
+    --star1: var(--starsilver);
+    --star2: var(--stargold);
+    --star3: var(--starplat);
+    --star4: var(--starbronze);
 }
 
 body[rare] dialog[selection]:not([synced]) {
-    --star1: #9a31cd;
-    --star2: #ffc400;
-    --star3: #5082f0;
+    --star1: var(--starrare);
+    --star2: var(--starmain);
+    --star3: var(--starplat);
+}
+
+body[trophymode][rare] dialog[selection]:not([synced]) {
+    --star1: var(--stargold);
+    --star2: var(--starsilver);
+    --star3: var(--starplat);
+    --star4: var(--starbronze);
 }
 
 body[plat] dialog[selection]:not([synced]) {
-    --star1: #5082f0;
-    --star2: #ffc400;
-    --star3: #9a31cd;
+    --star1: var(--starplat);
+    --star2: var(--starmain);
+    --star3: var(--starrare);
+}
+
+body[trophymode][plat] dialog[selection]:not([synced]) {
+    --star1: var(--starplat);
+    --star2: var(--starsilver);
+    --star3: var(--stargold);
+    --star4: var(--starbronze);
 }
 
 dialog[selection][synced="main"] {
-    --star1: #ffc400;
+    --star1: var(--starmain);
+}
+
+body[trophymode] dialog[selection][synced="main"] {
+    --star1: var(--starbronze);
+}
+
+dialog[selection][synced="semi"] {
+    --star1: var(--starsilver);
 }
 
 dialog[selection][synced="rare"] {
-    --star1: #9a31cd;
+    --star1: var(--starrare);
+}
+
+body[trophymode] dialog[selection][synced="rare"] {
+    --star1: var(--stargold);
 }
 
 dialog[selection][synced="plat"] {
-    --star1: #5082f0;
+    --star1: var(--starplat);
 }
 
 div#userthemesyncstars::before {
@@ -958,9 +1046,14 @@ div#userthemesyncstars::before {
     z-index: 1;
 }
 
-div#userthemesyncstars > span {
+div#userthemesyncstars > span#stars_main {
     background-color: var(--star1);
     z-index: 10;
+}
+
+div#userthemesyncstars > span#stars_semi {
+    background-color: var(--star4);
+    z-index: 2;
 }
 
 div#userthemesyncstars::after {
@@ -995,18 +1088,37 @@ button#userthemesync:hover > div#userthemesyncstars > span {
     animation: var(--animation);
 }
 
+button#userthemesync:hover > div#userthemesyncstars > span#stars_main {
+    --offset: 0s;
+    translate: calc(-50% - 2px) calc(-50% + 2px);
+}
+
+button#userthemesync:hover > div#userthemesyncstars > span#stars_semi {
+    display: none;
+}
+
+body[trophymode] button#userthemesync:hover > div#userthemesyncstars > span#stars_semi {
+    --offset: 0.25s;
+    display: block;
+    translate: calc(-50% - 0.5px) calc(-50% + 0.5px);
+}
+
 button#userthemesync:hover > div#userthemesyncstars::before {
     --offset: 0.33s;
 }
 
-button#userthemesync:hover > div#userthemesyncstars > span {
-    --offset: 0s;
-    translate: calc(-50% - 2px) calc(-50% + 2px);
+body[trophymode] button#userthemesync:hover > div#userthemesyncstars::before {
+    --offset: 0.50s;
+    translate: calc(-50% + 0.5px) calc(-50% - 0.5px);
 }
 
 button#userthemesync:hover > div#userthemesyncstars::after {
     --offset: 0.66s;
     translate: calc(-50% + 2px) calc(-50% - 2px);
+}
+
+body[trophymode] button#userthemesync:hover > div#userthemesyncstars::after {
+    --offset: 0.75s;
 }
 
 @keyframes starbounce {

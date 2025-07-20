@@ -67,14 +67,52 @@ const btns = new Map<string,string>([
 btns.forEach((value,key) => (document.getElementById(key) as HTMLButtonElement)!.onclick = () => shell.openExternal(value))
 
 sanhelper.noanim(config.get("noanim"))
+sanhelper.trophymode(config.get("trophymode"),config)
 sanhelper.createclosedstate()
 
+// Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing
 ;([
     "linkgame",
     "themeswitch",
     "statwin",
     "pinned"
-] as const).forEach(id => !localStorage.getItem(id) && localStorage.setItem(id,JSON.stringify(id === "pinned" ? [] : {})))
+] as const).forEach(id => {
+    const lsitem = localStorage.getItem(id)
+
+    if (!lsitem) return localStorage.setItem(id,JSON.stringify(id === "pinned" ? [] : {}))
+    if (id !== "themeswitch") return log.write("INFO",`"${id}" key in localStorage verified successfully`)
+
+    const types = ["main","semi","rare","plat"] as NotifyType[]
+    let json: Record<string,ThemeSwitch>
+    
+    try {
+        json = JSON.parse(lsitem)
+    } catch {
+        return log.write("WARN",`Failed to parse "${id}" key in localStorage - skipping...`)
+    }
+
+    for (const appid in json) {
+        const themes = json[appid]?.themes
+        if (!themes) continue
+
+        for (const type of types) {
+            if (!(type in themes)) {
+                themes[type] = 0
+                log.write("INFO",`Patched missing "${id}.${appid}.themes.${type}" key in localStorage successfully`)
+            }
+        }
+    }
+
+    let err: Error | null = null
+
+    try {
+        localStorage.setItem(id,JSON.stringify(json))
+    } catch (e) {
+        err = e as Error
+    }
+
+    return log.write(!err ? "INFO" : "WARN",!err ? `"${id}" key in localStorage verified successfully` : `Unable to verify "${id}" key in localStorage: ${err}`)
+})
 
 sanhelper.beta && sanhelper.checkbetastatus()
 
@@ -426,7 +464,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         synced && settingscontent.setAttribute("synced",synced)
         
         const synclbl = settingscontent.querySelector(".synclbl")
-        synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
+        synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get((config.get("trophymode") ? "trophy" : "") + synced)}`)
 
         // Adds "soon" attribute to all ids in `nohwa` array when `config.nohwa` is enabled
         requestAnimationFrame(() => nohwa.forEach(id => settingscontent.querySelector(`.opt:has(#${id})`)!.toggleAttribute("soon",config.get("nohwa"))))
@@ -441,7 +479,8 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
             ;(customiser.querySelector("#replay") as HTMLButtonElement).onclick = loadwebview
         }
 
-        customiser.querySelector("#customisertablbl > span")!.textContent = type === "main" ? await language.get("main") : (type === "rare" ? await language.get("rare") : await language.get("plat"))
+        sanhelper.trophymode(config.get("trophymode"),config,true)
+        customiser.querySelector("#customisertablbl > span")!.textContent = await language.get((config.get("trophymode") ? "trophy" : "") + type)
         
         customiser.querySelectorAll(`#customisercontent .opt > input[type="checkbox"]`).forEach(elem => sanhelper.getcheckbox(config,elem,keypath))
         customiser.querySelectorAll(`#customisercontent .opt:has(input[type="checkbox"]) > span, #customisercontent .opt > input[type="checkbox"]`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,keypath))
@@ -575,7 +614,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         synced && document.getElementById("customiser")!.setAttribute("synced",synced)
 
         const synclbl = document.querySelector("#customiser .synclbl")
-        synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get(synced)}`)
+        synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get((config.get("trophymode") ? "trophy" : "") + synced)}`)
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")
@@ -652,7 +691,7 @@ const opencustomiser = () => {
     document.body.setAttribute("opening","")
     document.body.setAttribute("customiser","")
 
-    document.querySelectorAll("#customiser #customisertabs > button").forEach(btn => (btn as HTMLElement).onclick = (event: Event) => sanhelper.switchcustomisertab(event))
+    document.querySelectorAll("#customiser #customisertabs > button").forEach(btn => (btn as HTMLElement).onclick = (event: Event) => sanhelper.switchcustomisertab(event,config.get("trophymode")))
 
     document.getElementById("updatetheme")!.onclick = async () => {
         const { userthemes } = usertheme.data()
@@ -738,13 +777,13 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
         customisation: customisation,
         gamename: globalgamename || null,
         steam3id: window.steam3id,
-        type: type,
+        type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
         name: type === "plat" ? "" : `Steam Achievement Notifier`,
         desc: type === "plat" ? "" : await language.get("achievementdesc"),
         unlocked: true,
         hidden: customisation.previewhiddenicon,
-        percent: type !== "plat" ? (type === "rare" ? 10.0 : 50.0) : 0,
+        percent: type !== "plat" ? (type === "rare" ? config.get("rarity") : config.get("trophymode") && type === "semi" ? config.get("semirarity") : 50.0) : 0,
         icon: type !== "plat" ? sanhelper.setfilepath("img",`achicon.png`) : plat || sanhelper.setfilepath("img","ribbon.svg"),
         gameicon: gameicon || sanhelper.setfilepath("img","gameicon.png"),
         istestnotification: true,

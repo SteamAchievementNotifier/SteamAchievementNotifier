@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Fő",
+        semi: "Fél",
         rare: "Ritka",
         plat: "100%",
+        trophymain: "Bronz",
+        trophysemi: "Ezüst",
+        trophyrare: "Arany",
+        trophyplat: "Platina",
         test: "Teszt értesítések",
         topleft: "Bal felső",
         topcenter: "Felső közép",
@@ -192,7 +197,8 @@ export const translations = {
         notifications: {
             title: "Értesítések",
             content: {
-                rarity: "Ritkaság százalék",
+                rarity: "Ritkasági százalék",
+                semirarity: "Ezüst százalék",
                 rareonly: "Csak ritka",
                 all: "Mind",
                 off: "Ki",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Egyedi Trigger",
                 customtriggershortcut: "Trigger Gyorsbillentyű",
                 customtriggerdelay: "Trigger Késleltetés",
-                customtriggerusedisplaytime: "Megjelenítési Idő Használata"
+                customtriggerusedisplaytime: "Megjelenítési Idő Használata",
+                trophymode: "Trófea mód"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animáció",
                 glowspeed: "Sebesség",
                 glowrarity: "Ritkaság használata",
-                glowcolorbronze: "Ritkaság: > 50%",
-                glowcolorsilver: "Ritkaság: < 50% & > $rarity",
+                glowcolorbronze: "Ritkaság: > $semirarity",
+                glowcolorsilver: "Ritkaság: < $semirarity & > $rarity",
                 glowcolorgold: "Ritkaság: < $rarity",
                 off: "Nincs",
                 pulse: "Pulzus",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Vízszintes eltolás",
                 iconbordery: "Függőleges eltolás",
                 iconborderrarity: "Használja a ritkaságot",
-                iconborderimgbronze: "Ritkaság > 50%",
-                iconborderimgsilver: "Ritkaság: < 50% és > $rarity",
+                iconborderimgbronze: "Ritkaság: > $semirarity",
+                iconborderimgsilver: "Ritkaság: < $semirarity & > $rarity",
                 front: "Elöl",
                 back: "Hátul",
                 plat: "100% logó",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Indítás után elrejti az alkalmazás felhasználói felületét, amíg a rendszertálcáról meg nem nyitják",
         nohwa: `Hardvergyorsítás letiltása, ami javíthatja a teljesítményt az alacsonyabb erőforrású rendszereken vagy olyan rendszereken, amelyek nem rendelkeznek dedikált GPU-val<br><br><span class="ttdesc">Az alkalmazás újraindul ennek az opciónak az engedélyezése vagy letiltása után</span>`,
         litemode: "Az összes interaktív felhasználói felületi elem letiltása, miközben csak korlátozott alkalmazásfunkciókat biztosít a rendszerikonon keresztül. Javíthatja az alkalmazás által felhasznált erőforrásokat",
-        rarity: "A ritka eredmények értesítésének százaléka. Azok az eredmények, amelyeknek feloldási aránya meghaladja ezt az értéket, fő értesítésként jelennek meg",
+        rarity: `Az az arányszám, amelynél ritka eredmény értesítések jelennek meg.<br><br>Bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, Fő értesítésként jelenik meg<br><br><span class="ttdesc">Ha a <span class="hl">Trófea mód</span> engedélyezve van, bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, ezüst értesítésként jelenik meg</span>`,
+        semirarity: `Az az arányszám, amelynél az "Ezüst" értesítési elemek megjelennek (pl. <span class="hl">Ritkasági jelvények</span>, <span class="hl">Díszítések</span> stb.).<br><br>Bármely eredmény, amelynek feloldási százaléka ennél az értéknél alacsonyabb (vagy egyenlő) és a <span class="hl">Ritkasági százalék</span> értékénél magasabb, az "Ezüst" ritkaságokra konfigurált értesítési elemeket jeleníti meg.<br><br>Bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, a "Bronz" ritkaságokra konfigurált értesítési elemeket jeleníti meg<br><br><span class="ttdesc">Ha a <span class="hl">Trófea mód</span> engedélyezve van, bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, bronz értesítésként jelenik meg</span>`,
         showpercent: "Az eredmény feloldási százalékának megjelenítése az értesítésben a kiválasztott típusokhoz",
         soundonly: "Értesítések letiltása, csak a Customiser által beállított hangok lejátszása",
         extwin: "Hozzon létre egy ablakot, amely megkettőzi a képernyőn jelenleg megjelenő értesítéseket. Ez az ablak ezután hozzáadható ablakrögzítési forrásként a közvetítőszoftverekhez, például az OBS-hez",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Egy billentyű/kombináció szimulálása achievement feloldásakor. Használható külső alkalmazásokban regisztrált billentyűparancsok indítására",
         customtriggershortcut: `A megadott billentyű/kombináció aktiválása achievement feloldásakor<br><br><span class="ttdesc">1–3 billentyűt támogat gyorsbillentyűként. Kevesebb mint 3 billentyűből álló kombináció esetén nyomja meg a kívánt billentyűket, majd várja meg az időzítő (5 mp) lejártát</span>`,
         customtriggerdelay: "A megadott egyedi trigger billentyű/kombináció késleltetése",
-        customtriggerusedisplaytime: `A megadott egyedi trigger billentyű/kombináció késleltetése az aktuális értesítéstípus Megjelenítési Idő értéke alapján`
+        customtriggerusedisplaytime: `A megadott egyedi trigger billentyű/kombináció késleltetése az aktuális értesítéstípus Megjelenítési Idő értéke alapján`,
+        trophymode: "Cserélje le a Fő/Ritka/100%-os értesítési típusokat Bronz/Ezüst/Arany/Platina típusokra"
     },
     update: {
         updateavailable: "Frissítés elérhető",

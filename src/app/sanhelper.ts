@@ -57,6 +57,8 @@ const deps = new Map<string,(string | null)[][]>([
     ]]
 ])
 
+const trophyimgpath = (trophy: NotifyType | TrophyType | "",customiser?: boolean) => path.join(__root,"img",`san${customiser ? "customiser" : "text"}logo${trophy}_colors.svg`).replace(/\\/g,"/")
+
 export const sanhelper: SANHelper = {
     get devmode(): boolean { return process.env.npm_lifecycle_event === "dev" },
     // In devmode, run `npm run dev -- --beta` to enable Beta environment
@@ -121,7 +123,7 @@ export const sanhelper: SANHelper = {
         process.on("uncaughtException", (err: Error) => handleerr(`${err.stack}`))
         process.on("unhandledRejection", (err: Error) => handleerr(`${err.stack}`))
     },
-    settypevalue: <T>(type: NotifyType,values: { main: T,rare: T,plat: T }) => values[type],
+    settypevalue: <T>(type: NotifyType,values: { main: T,semi: T,rare: T,plat: T }) => values[type],
     // On build, the Notifications API cannot access the `img` files within the asar
     setfilepath: (dir: "img" | "icon" | "sound",filename: string) => path.join((dir === "img" && !sanhelper.devmode) ? (process.platform === "linux" ? path.join(sanhelper.appdata,"resources") : process.resourcesPath) : __root,dir,filename).replace(/\\/g,"/"),
     showtrack: (gamename: string) => ipcRenderer.send("showtrack",gamename),
@@ -171,21 +173,22 @@ export const sanhelper: SANHelper = {
 
         return
     },
-    get type(): NotifyType { return ["main","rare","plat"].find(attr => document.body.hasAttribute(attr))! as NotifyType },
+    get type(): NotifyType { return (["main","semi","rare","plat"] as const).find(attr => document.body.hasAttribute(attr))! as NotifyType },
     logcontents: (logtype: "san" | "rust" | "sanhelperrs") => fs.readFileSync(path.join(sanhelper.appdata,"logs",`${logtype}.log`),"utf-8").replace(/(\r\n|\n|\r)/g,"<br>"),
     createlogwin:(logtype: "san" | "rust" | "sanhelperrs") => ipcRenderer.send("logwin",sanhelper.logcontents(logtype),logtype),
     updatelogwin: (logtype: "san" | "rust" | "sanhelperrs") => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype),logtype),
     showcustomfiles: () => shell.openPath(path.join(sanhelper.appdata,"customfiles")),
     switchtab: ({ target }: Event) => {
-        target instanceof HTMLElement && ["main","rare","plat"].forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
+        target instanceof HTMLElement && (["main","semi","rare","plat"] as const).forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
         usertheme.update()
         sanhelper.reloadelemselector()
     },
-    switchcustomisertab: ({ target }: Event) => {
-        const attrs = ["main","rare","plat"]
+    switchcustomisertab: ({ target }: Event,trophymode: boolean) => {
+        const attrs = ["main",...(trophymode ? ["semi"] : []),"rare", "plat"] as NotifyType[]
         const i = attrs.indexOf(attrs.find(attr => document.body.hasAttribute(attr))!)
         
         if (i === -1) return
+        
         switch ((target as HTMLElement)!.id) {
             case "customiserbackbtn":
                 if (i > 0) {
@@ -208,7 +211,7 @@ export const sanhelper: SANHelper = {
     },
     getshortcut: (config: Store<Config>,target: HTMLElement,id?: string) => {
         const btn = document.getElementById(id || "shortcutbtn")! as HTMLButtonElement
-        const type = !id ? ["main","rare","plat"].find(attr => (target as HTMLElement).hasAttribute(attr)) : null
+        const type = !id ? (["main","semi","rare","plat"] as const).find(attr => (target as HTMLElement).hasAttribute(attr)) : null
         const keys = config.get(id || `customisation.${type}.shortcut`) as string
 
         return btn.textContent = keys.replace(/\+/g," + ")
@@ -247,7 +250,7 @@ export const sanhelper: SANHelper = {
 
             if (keys.length === 3 || (partialcombo && keys.length >= 1)) {
                 const shortcut = replaced.join("+")
-                const exists = ["main","rare","plat"].find(type => config.get(`customisation.${type}.shortcut`) === shortcut)
+                const exists = (["main","semi","rare","plat"] as const).find(type => config.get(`customisation.${type}.shortcut`) === shortcut)
 
                 const configshortcuts = Object.keys(config.store)
                     .filter(key => /^[A-Za-z0-9]+shortcut$/.test(key))
@@ -344,6 +347,32 @@ export const sanhelper: SANHelper = {
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
+    trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {
+        document.body.toggleAttribute("trophymode",value)
+
+        const { customisation, trophymode } = config.store
+
+        const trophymap: Record<"main" | "semi" | "rare" | "plat",NotifyType | TrophyType | ""> = {
+            main: trophymode ? "bronze" : "",
+            semi: trophymode ? "silver" : "",
+            rare: trophymode ? "gold" : "rare",
+            plat: "plat"
+        }
+
+        const synced = usertheme.issynced(config)
+
+        for (const type of Object.keys(customisation) as NotifyType[]) {
+            synced && synced === type && config.set(`customisation.${type}.synctheme`,false) // Removes synced Themes when toggling Trophy Mode
+            document.querySelectorAll(`.logo#${customiser ? "customiser" : ""}logo > img[${type}]`).forEach(img => (img as HTMLImageElement).src = trophyimgpath(trophymap[type],customiser))
+        }
+
+        // Below actions should only happen on app load
+        if (customiser) return
+
+        ;(async () => language.load())()
+        // Switch tab back to "Main" if "Semi" is currently selected when toggling Settings > Notifications > Trophy Mode off
+        !value && document.body.hasAttribute("semi") && (document.querySelector(".wrapper#tabs > .tab[main]")! as HTMLButtonElement).click()
+    },
     getcheckbox: (config: Store<Config>,elem: HTMLInputElement,keypath?: string) => elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean,
     setcheckbox: (config: Store<Config>,event: Event,keypath?: string) => {
         // event.preventDefault()
@@ -363,7 +392,7 @@ export const sanhelper: SANHelper = {
         // `elem.checked` property does not update when clicking `input` element if `requestAnimationFrame`/`setTimeout` is not used here.
         requestAnimationFrame(() => {
             elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean
-            sanhelper[elem.id] && sanhelper[elem.id](config.get(elem.id) as boolean)
+            sanhelper[elem.id] && sanhelper[elem.id](config.get(elem.id) as boolean,elem.id === "trophymode" ? config : undefined)
 
             sanhelper.updatetabs(noreload(elem) !== undefined)
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
@@ -506,18 +535,31 @@ export const sanhelper: SANHelper = {
         elem.style.setProperty("--img",`url('${customiconkey()}')`)
 
         if (elem.id.includes("decoration")) {
+            const { rarity, semirarity, trophymode } = config.store
             const i = parseInt(elem.id.replace(/[^\d]/g,""))
-            const raritylbl = i === 1 ? "> 50%" : (i === 2 ? `< 50% & > ${config.get("rarity")}%` : `< ${config.get("rarity")}%`)
+            const raritylbl = i === 1 ? `> ${semirarity}%` : (i === 2 ? `< ${semirarity}% & > ${rarity}%` : `< ${rarity}%`)
 
             // Only bronze/silver icons should appear for "main" type, and gold for "rare"/"plat"
+            // If Trophy Mode is active, each rarity should only show for the corresponding type (i.e. "> 50%" > "main"/"< 50% & > rarity%" > "semi"/"< rarity%" > "rare")
             if (Array.isArray(key)) {
-                if ((type === "main" && (i - 1) > 1) || (type !== "main" && (i - 1) < 2)) return elem.setAttribute("novalue","")
+                if (trophymode) {
+                    const typemap = new Map<NotifyType,number>([
+                        ["main",0],
+                        ["semi",1],
+                        ["rare",2],
+                        ["plat",2]
+                    ])
+
+                    if ((i - 1) !== typemap.get(type)!) return elem.setAttribute("novalue","")
+                }
+
+                if (((type === "main" || type === "semi") && (i - 1) > 1) || ((type !== "main" && type !== "semi") && (i - 1) < 2)) return elem.setAttribute("novalue","")
             }
             
-            elem.parentElement!.querySelector("span")!.textContent = `${await language.get(Array.isArray(key) ? "rarity" : "decoration",["customiser","icons","content"])}${Array.isArray(key) ? `: ${raritylbl}` : ""}`
+            elem.parentElement!.querySelector("span")!.textContent = type === "plat" ? await language.get("decoration",["customiser","icons","content"]) : `${await language.get(Array.isArray(key) ? "rarity" : "decoration",["customiser","icons","content"])}${Array.isArray(key) ? `: ${raritylbl}` : ""}`
         }
     },
-    updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: ["main","rare","plat"].find(attr => document.body.hasAttribute(attr)), noreload: noreload } })),
+    updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: (["main","semi","rare","plat"] as const).find(attr => document.body.hasAttribute(attr)), noreload: noreload } })),
     loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
         if (!menuelem) return
 
@@ -659,6 +701,7 @@ export const sanhelper: SANHelper = {
 
         const range = new Map<string,string>([
             ["rarity","%"],
+            ["semirarity","%"],
             ["nowtrackingscale","%"],
             ["pollrate","ms"],
             ["initdelay","s"],

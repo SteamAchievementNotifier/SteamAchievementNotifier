@@ -238,11 +238,15 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     grid-template-columns: repeat(3,auto);
 }
 
+body[trophymode] .settingstabs {
+    grid-template-columns: repeat(4,auto);
+}
+
 .settingstabs > .tab:first-child {
     border-radius: var(--elembr) 0 0 var(--tabbr);
 }
 
-.settingstabs > .tab:nth-child(3) {
+.settingstabs > .tab:nth-last-child(2) {
     border-radius: 0 var(--elembr) var(--tabbr) 0;
 }
 
@@ -338,8 +342,20 @@ body[main] .rect#sspreview {
     --icon: url("../../icon/trophy_gold.svg");
 }
 
+body[trophymode][main] .rect#sspreview {
+    --icon: url("../../icon/trophy_bronze.svg");
+}
+
+body[semi] .rect#sspreview {
+    --icon: url("../../icon/trophy_silver.svg");
+}
+
 body[rare] .rect#sspreview {
     --icon: url("../../icon/trophy_purple.svg");
+}
+
+body[trophymode][rare] .rect#sspreview {
+    --icon: url("../../icon/trophy_gold.svg");
 }
 
 body[plat] .rect#sspreview {

@@ -94,7 +94,6 @@ body[error] .menubtn#update {
 .wrapper#main {
     grid-template-rows: auto 1fr;
     gap: 3.5vh;
-    
 }
 
 .logo {
@@ -129,14 +128,19 @@ body[error] .menubtn#update {
     opacity: 0;
 }
 
-.logo > img[rare] {
+.logo > img[semi] {
     z-index: 1;
 }
 
-.logo > img[plat] {
+.logo > img[rare] {
     z-index: 2;
 }
 
+.logo > img[plat] {
+    z-index: 3;
+}
+
+body[semi] .logo > img[semi],
 body[rare] .logo > img[rare],
 body[plat] .logo > img[plat] {
     opacity: 1;
@@ -280,6 +284,10 @@ body[beta] .logo::before {
     width: 60vw;
 }
 
+body[trophymode] .wrapper#tabs {
+    grid-template-columns: repeat(4,1fr);
+}
+
 .tab {
     --tabicon: url("../../icon/trophy_gold.svg");
     display: grid;
@@ -296,7 +304,12 @@ body[beta] .logo::before {
     opacity: 0.5;
 }
 
+body:not([trophymode]) .tab[semi] {
+    display: none;
+}
+
 body[main] .wrapper > .tab[main],
+body[semi] .wrapper > .tab[semi],
 body[rare] .wrapper > .tab[rare],
 body[plat] .wrapper > .tab[plat] {
     background-color: white;
@@ -329,8 +342,20 @@ body[plat] .wrapper > .tab[plat] {
     --tabicon: url("../../icon/trophy_gold.svg");
 }
 
+body[trophymode] .wrapper > .tab[main]::before {
+    --tabicon: url("../../icon/trophy_bronze.svg");
+}
+
+.wrapper > .tab[semi]::before {
+    --tabicon: url("../../icon/trophy_silver.svg");
+}
+
 .wrapper > .tab[rare]::before {
     --tabicon: url("../../icon/trophy_purple.svg");
+}
+
+body[trophymode] .wrapper > .tab[rare]::before {
+    --tabicon: url("../../icon/trophy_gold.svg");
 }
 
 .wrapper > .tab[plat]::before {

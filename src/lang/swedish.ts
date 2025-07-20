@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Huvud",
+        semi: "Semi",
         rare: "Sällsynt",
         plat: "100%",
+        trophymain: "Brons",
+        trophysemi: "Silver",
+        trophyrare: "Guld",
+        trophyplat: "Platina",
         test: "Testnotifikationer",
         topleft: "Övre vänstra",
         topcenter: "Övre mitten",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Aviseringar",
             content: {
                 rarity: "Sällsynthetsprocent",
+                semirarity: "Silverprocent",
                 rareonly: "Endast sällsynta",
                 all: "Alla",
                 off: "Av",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Anpassad Trigger",
                 customtriggershortcut: "Triggergenväg",
                 customtriggerdelay: "Triggerfördröjning",
-                customtriggerusedisplaytime: "Använd Visningstid"
+                customtriggerusedisplaytime: "Använd Visningstid",
+                trophymode: "Trofyläge"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animation",
                 glowspeed: "Hastighet",
                 glowrarity: "Använd sällsynthet",
-                glowcolorbronze: "Sällsynthet: > 50%",
-                glowcolorsilver: "Sällsynthet: < 50% & > $rarity",
+                glowcolorbronze: "Sällsynthet: > $semirarity",
+                glowcolorsilver: "Sällsynthet: < $semirarity & > $rarity",
                 glowcolorgold: "Sällsynthet: < $rarity",
                 off: "Ingen",
                 pulse: "Puls",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Horisontell förskjutning",
                 iconbordery: "Vertikal förskjutning",
                 iconborderrarity: "Använd sällsynthet",
-                iconborderimgbronze: "Sällsynthet > 50%",
-                iconborderimgsilver: "Sällsynthet: < 50% och > $rarity",
+                iconborderimgbronze: "Sällsynthet: > $semirarity",
+                iconborderimgsilver: "Sällsynthet: < $semirarity & > $rarity",
                 front: "Framför",
                 back: "Bakom",
                 plat: "100 % -logotyp",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Efter starten dölj appens användargränssnittsfönster tills det öppnas från systemfältet",
         nohwa: `Inaktivera hårdvaruacceleration, vilket kan förbättra prestandan på system med begränsade resurser eller system utan dedikerad GPU<br><br><span class="ttdesc">Appen kommer att starta om efter aktivering/inaktivering av detta alternativ</span>`,
         litemode: "Inaktivera alla interaktiva användargränssnittselement och erbjuda endast begränsad appfunktionalitet via systemfältets ikon. Kan förbättra resursförbrukningen av appen",
-        rarity: "Procentandelen vid vilken sällsynta prestationaviseringar kommer att utlösas. Alla prestationer med en upplåsningsprocent över detta värde visas som huvudaviseringar",
+        rarity: `Procentandelen vid vilken sällsynta prestationer kommer att utlösa notifikationer.<br><br>Varje prestation med en upplåsningsprocent över detta värde kommer att visas som en Huvudnotifikation<br><br><span class="ttdesc">Om <span class="hl">Trofyläge</span> är aktiverat kommer varje prestation med en upplåsningsprocent över detta värde istället att visas som en Silvernotifikation</span>`,
+        semirarity: `Procentandelen vid vilken "Silver"-notifikationselement kommer att visas (t.ex. <span class="hl">Sällsynthetsmärken</span>, <span class="hl">Dekorationer</span> osv.).<br><br>Varje prestation med en upplåsningsprocent under (eller lika med) detta värde, och över värdet för <span class="hl">Sällsynthetsprocent</span>, kommer att visa notifikationselement konfigurerade för "Silver"-sällsyntheter.<br><br>Varje prestation med en upplåsningsprocent över detta värde kommer att visa notifikationselement konfigurerade för "Brons"-sällsyntheter<br><br><span class="ttdesc">Om <span class="hl">Trofyläge</span> är aktiverat kommer varje prestation med en upplåsningsprocent över detta värde istället att visas som en Bronsnotifikation</span>`,
         showpercent: "Visa upplåsningsprocenten för prestationen i aviseringen för de valda typerna",
         soundonly: "Inaktivera aviseringar och spela endast ljud som är inställt via anpassaren",
         extwin: "Skapa ett fönster som duplicerar alla meddelanden som för närvarande visas på skärmen. Detta fönster kan sedan läggas till som en fönsterkälla för användning i streamingsprogramvara som OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Aktiverar en tangent/kommando som simuleras vid upplåsning av ett achievement. Kan användas för att aktivera tangentbordsgenvägar registrerade i externa applikationer",
         customtriggershortcut: `Aktiverar den angivna tangenten/kommandot när ett achievement låses upp<br><br><span class="ttdesc">Stöder mellan 1 och 3 tangenter per genväg. För knapptryckningar/kommandon med färre än 3 tangenter, tryck på önskade tangenter och vänta tills timern (5 s) går ut</span>`,
         customtriggerdelay: "Fördröj den angivna anpassade tangentkombinationen",
-        customtriggerusedisplaytime: `Fördröj den angivna anpassade tangentkombinationen baserat på visningstiden för den aktuella notifikationstypen`
+        customtriggerusedisplaytime: `Fördröj den angivna anpassade tangentkombinationen baserat på visningstiden för den aktuella notifikationstypen`,
+        trophymode: "Ersätt Huvud/Sällsynt/100%-notifikationstyper med Brons/Silver/Guld/Platina"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

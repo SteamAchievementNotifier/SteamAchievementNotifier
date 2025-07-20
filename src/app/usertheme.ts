@@ -110,7 +110,8 @@ export const usertheme = {
                 const html = `
                     <button id="userthemesync">
                         <div id="userthemesyncstars">
-                            <span></span>
+                            <span id="stars_main"></span>
+                            <span id="stars_semi"></span>
                         </div>
                         <span></span>
                     </button>
@@ -129,7 +130,7 @@ export const usertheme = {
                 ;(async () => {
                     const { language } = await import("./language")
                     const syncstr = await language.get("synctheme",["customiser","theme","content"])
-                    const typestr = synced ? await language.get(synced) : ""
+                    const typestr = synced ? await language.get((config.get("trophymode") ? "trophy" : "") + synced) : ""
                     const syncedwithstr = `${await language.get("syncedwith",["customiser","theme","content"])} ${typestr}`
 
                     span.textContent = !synced ? syncstr : (synced !== type ? syncedwithstr : syncstr)

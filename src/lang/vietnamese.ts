@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Chính",
+        semi: "Bán",
         rare: "Hiếm",
         plat: "100%",
+        trophymain: "Đồng",
+        trophysemi: "Bạc",
+        trophyrare: "Vàng",
+        trophyplat: "Bạch kim",
         test: "Thông báo kiểm tra",
         topleft: "Trên Trái",
         topcenter: "Trên Giữa",
@@ -192,7 +197,8 @@ export const translations = {
         notifications: {
             title: "Thông báo",
             content: {
-                rarity: "Tỷ lệ Hiếm",
+                rarity: "Tỷ lệ hiếm",
+                semirarity: "Tỷ lệ bạc",
                 rareonly: "Chỉ Hiếm",
                 all: "Tất cả",
                 off: "Tắt",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Kích Hoạt Tùy Chỉnh",
                 customtriggershortcut: "Phím Tắt Kích Hoạt",
                 customtriggerdelay: "Độ Trễ Kích Hoạt",
-                customtriggerusedisplaytime: "Sử Dụng Thời Gian Hiển Thị"
+                customtriggerusedisplaytime: "Sử Dụng Thời Gian Hiển Thị",
+                trophymode: "Chế độ Cúp"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowopacity: "Độ mờ",
                 glowspeed: "Tốc độ",
                 glowrarity: "Sử dụng độ hiếm",
-                glowcolorbronze: "Độ hiếm: > 50%",
-                glowcolorsilver: "Độ hiếm: < 50% & > $rarity",
+                glowcolorbronze: "Độ hiếm: > $semirarity",
+                glowcolorsilver: "Độ hiếm: < $semirarity & > $rarity",
                 glowcolorgold: "Độ hiếm: < $rarity",
                 off: "Tắt",
                 pulse: "Nhịp tim",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Dịch chuyển ngang",
                 iconbordery: "Dịch chuyển dọc",
                 iconborderrarity: "Sử dụng độ hiếm",
-                iconborderimgbronze: "Độ hiếm > 50%",
-                iconborderimgsilver: "Độ hiếm: < 50% và > $rarity",
+                iconborderimgbronze: "Độ hiếm: > $semirarity",
+                iconborderimgsilver: "Độ hiếm: < $semirarity & > $rarity",
                 front: "Trước",
                 back: "Sau",
                 plat: "Logo 100%",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Sau khi khởi chạy, ẩn cửa sổ giao diện người dùng của ứng dụng cho đến khi mở từ Khay hệ thống",
         nohwa: `Tắt Tăng tốc phần cứng, điều này có thể cải thiện hiệu suất trên các hệ thống có tài nguyên hạn chế hoặc hệ thống không có GPU riêng<br><br><span class="ttdesc">Ứng dụng sẽ khởi động lại sau khi bật/tắt tùy chọn này</span>`,
         litemode: "Vô hiệu hóa tất cả các yếu tố giao diện người dùng tương tác, chỉ cung cấp chức năng ứng dụng giới hạn thông qua biểu tượng Khay hệ thống. Có thể cải thiện tài nguyên tiêu thụ của ứng dụng",
-        rarity: "Phần trăm mà Thông báo thành tựu Hiếm sẽ được kích hoạt. Bất kỳ thành tựu nào có tỷ lệ mở khóa cao hơn giá trị này sẽ được hiển thị như một Thông báo chính",
+        rarity: `Tỷ lệ phần trăm kích hoạt thông báo thành tích hiếm.<br><br>Bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị dưới dạng thông báo Chính<br><br><span class="ttdesc">Nếu <span class="hl">Chế độ Cúp</span> được bật, bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị dưới dạng thông báo Bạc thay thế</span>`,
+        semirarity: `Tỷ lệ phần trăm mà các phần tử thông báo "Bạc" sẽ hiển thị (ví dụ: <span class="hl">Huy hiệu độ hiếm</span>, <span class="hl">Trang trí</span> v.v.).<br><br>Bất kỳ thành tích nào có tỷ lệ mở khóa thấp hơn (hoặc bằng) giá trị này và cao hơn giá trị <span class="hl">Tỷ lệ hiếm</span> sẽ hiển thị các phần tử thông báo được cấu hình cho độ hiếm "Bạc".<br><br>Bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị các phần tử thông báo được cấu hình cho độ hiếm "Đồng"<br><br><span class="ttdesc">Nếu <span class="hl">Chế độ Cúp</span> được bật, bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị dưới dạng thông báo Đồng thay thế</span>`,
         showpercent: "Hiển thị phần trăm mở khóa của thành tựu trong thông báo cho các loại đã chọn",
         soundonly: "Vô hiệu hóa thông báo, chỉ phát âm thanh được thiết lập qua Tùy chỉnh",
         extwin: "Tạo một cửa sổ sao chép tất cả thông báo hiện đang hiển thị trên màn hình. Cửa sổ này có thể được thêm vào làm nguồn bắt cửa sổ để sử dụng trong phần mềm phát sóng, chẳng hạn như OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Kích hoạt phím/tổ hợp phím được mô phỏng khi mở khóa thành tích. Có thể dùng để kích hoạt phím tắt bàn phím đã đăng ký trong các ứng dụng bên ngoài",
         customtriggershortcut: `Kích hoạt phím/tổ hợp phím được chỉ định khi mở khóa thành tích<br><br><span class="ttdesc">Hỗ trợ từ 1 đến 3 phím cho mỗi phím tắt. Đối với các phím nhấn/tổ hợp dưới 3 phím, nhấn các phím mong muốn và đợi bộ đếm thời gian (5 giây) kết thúc</span>`,
         customtriggerdelay: "Trì hoãn phím/tổ hợp phím được chỉ định của Kích Hoạt Tùy Chỉnh",
-        customtriggerusedisplaytime: `Trì hoãn phím/tổ hợp phím được chỉ định của Kích Hoạt Tùy Chỉnh dựa trên giá trị Thời Gian Hiển Thị của loại thông báo hiện tại`
+        customtriggerusedisplaytime: `Trì hoãn phím/tổ hợp phím được chỉ định của Kích Hoạt Tùy Chỉnh dựa trên giá trị Thời Gian Hiển Thị của loại thông báo hiện tại`,
+        trophymode: "Thay thế loại thông báo Chính/Hiếm/100% bằng Đồng/Bạc/Vàng/Bạch kim"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

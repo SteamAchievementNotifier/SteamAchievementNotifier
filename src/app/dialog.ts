@@ -307,7 +307,7 @@ export const dialog = {
                                         const entries = {
                                             ...JSON.parse(localStorage.getItem("themeswitch")!),
                                             [themeswitchappid.value]: {
-                                                themes: Object.fromEntries(["main","rare","plat"].map(type => [type,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${type}`)! as HTMLSelectElement).value)])),
+                                                themes: Object.fromEntries(types.map(type => [type,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${type}`)! as HTMLSelectElement).value)])),
                                                 src: parseInt(srcselect.value)
                                             }
                                         }
@@ -335,11 +335,12 @@ export const dialog = {
 
                             config.get("monitors").forEach(monitor => srcselect.insertAdjacentHTML("beforeend",`<option value="${monitor.id}">${monitor.label}</option>`))
 
-                            const customisation = config.get(`customisation`)
+                            const { customisation, trophymode } = config.store
+                            const types = ["main",...(trophymode ? ["semi"] : []),"rare", "plat"] as NotifyType[]
 
                             ;(async () => {
                                 const { language } = await import("./language")
-                                ;["main","rare","plat"].forEach(async (id,i) => themeswitchselects.querySelector(`th:nth-child(${i + 1})`)!.textContent = await language.get(id))
+                                ;types.forEach(async type => themeswitchselects.querySelector(`th#${type}`)!.textContent = await language.get(type))
                             })()
 
                             themeswitchselects.querySelectorAll("select")!.forEach(s => {

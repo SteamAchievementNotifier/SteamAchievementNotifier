@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Główny",
+        semi: "Pół",
         rare: "Rzadki",
         plat: "100%",
+        trophymain: "Brąz",
+        trophysemi: "Srebro",
+        trophyrare: "Złoto",
+        trophyplat: "Platyna",
         test: "Powiadomienia Testowe",
         topleft: "Górny lewy",
         topcenter: "Górny środek",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Powiadomienia",
             content: {
                 rarity: "Procent rzadkości",
+                semirarity: "Procent srebra",
                 rareonly: "Tylko rzadkie",
                 all: "Wszystkie",
                 off: "Wyłączone",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Niestandardowy Wyzwalacz",
                 customtriggershortcut: "Skrót Wyzwalacza",
                 customtriggerdelay: "Opóźnienie Wyzwalacza",
-                customtriggerusedisplaytime: "Użyj Czasu Wyświetlania"
+                customtriggerusedisplaytime: "Użyj Czasu Wyświetlania",
+                trophymode: "Tryb trofeów"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animacja",
                 glowspeed: "Prędkość",
                 glowrarity: "Użyj rzadkości",
-                glowcolorbronze: "Rzadkość: > 50%",
-                glowcolorsilver: "Rzadkość: < 50% & > $rarity",
+                glowcolorbronze: "Rzadkość: > $semirarity",
+                glowcolorsilver: "Rzadkość: < $semirarity & > $rarity",
                 glowcolorgold: "Rzadkość: < $rarity",
                 off: "Brak",
                 pulse: "Puls",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Przesunięcie poziome",
                 iconbordery: "Przesunięcie pionowe",
                 iconborderrarity: "Użyj rzadkości",
-                iconborderimgbronze: "Rzadkość > 50%",
-                iconborderimgsilver: "Rzadkość: < 50% i > $rarity",
+                iconborderimgbronze: "Rzadkość: > $semirarity",
+                iconborderimgsilver: "Rzadkość: < $semirarity & > $rarity",
                 front: "Z przodu",
                 back: "Z tyłu",
                 plat: "Logo 100%",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Po uruchomieniu ukryj okno interfejsu użytkownika aplikacji, aż zostanie otwarte z System Tray",
         nohwa: `Wyłącz akcelerację sprzętową, co może poprawić wydajność na systemach z ograniczonymi zasobami lub systemach bez dedykowanej karty graficznej<br><br><span class="ttdesc">Aplikacja zostanie ponownie uruchomiona po włączeniu/wyłączeniu tej opcji</span>`,
         litemode: "Wyłącz wszystkie interaktywne elementy interfejsu użytkownika, zapewniając jednocześnie ograniczoną funkcjonalność aplikacji za pomocą ikony System Tray. Może poprawić wykorzystanie zasobów przez aplikację",
-        rarity: "Procent, przy którym będą wyświetlane powiadomienia o rzadkich osiągnięciach. Każde osiągnięcie o wartości odblokowania powyżej tej wartości będzie wyświetlane jako główne powiadomienie",
+        rarity: `Procent, przy którym wyzwalane są powiadomienia o rzadkich osiągnięciach.<br><br>Każde osiągnięcie z procentem odblokowania powyżej tej wartości będzie wyświetlane jako główne powiadomienie<br><br><span class="ttdesc">Jeśli włączony jest <span class="hl">Tryb trofeów</span>, każde osiągnięcie z procentem odblokowania powyżej tej wartości będzie zamiast tego wyświetlane jako powiadomienie srebrne</span>`,
+        semirarity: `Procent, przy którym wyświetlane są elementy powiadomień "Srebrne" (np. <span class="hl">Odznaki rzadkości</span>, <span class="hl">Dekoracje</span> itp.).<br><br>Każde osiągnięcie z procentem odblokowania poniżej (lub równym) tej wartości i powyżej wartości <span class="hl">Procent rzadkości</span> wyświetli elementy powiadomień skonfigurowane dla rzadkości "Srebrnych".<br><br>Każde osiągnięcie z procentem odblokowania powyżej tej wartości wyświetli elementy powiadomień skonfigurowane dla rzadkości "Brązowych"<br><br><span class="ttdesc">Jeśli włączony jest <span class="hl">Tryb trofeów</span>, każde osiągnięcie z procentem odblokowania powyżej tej wartości będzie zamiast tego wyświetlane jako powiadomienie brązowe</span>`,
         showpercent: "Wyświetl procent odblokowania osiągnięcia w powiadomieniu dla wybranych typów",
         soundonly: "Wyłącz powiadomienia, odtwarzając tylko dźwięki ustawione za pomocą Customiser",
         extwin: "Utwórz okno, które duplikuje wszystkie powiadomienia aktualnie wyświetlane na ekranie. To okno może zostać dodane jako źródło przechwytywania okna do użycia w oprogramowaniu do streamingu, takim jak OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Wyzwala klawisz/kombinację symulowaną podczas odblokowania osiągnięcia. Może być używany do wywoływania skrótów klawiaturowych zarejestrowanych w aplikacjach zewnętrznych",
         customtriggershortcut: `Wyzwala określony klawisz/kombinację podczas odblokowania osiągnięcia<br><br><span class="ttdesc">Obsługuje od 1 do 3 klawiszy na skrót. Dla naciśnięć/kombinacji wymagających mniej niż 3 klawisze, naciśnij żądane klawisze i poczekaj na zakończenie timera (5 s)</span>`,
         customtriggerdelay: "Opóźnij określony klawisz/kombinację Niestandardowego Wyzwalacza",
-        customtriggerusedisplaytime: `Opóźnij określony klawisz/kombinację Niestandardowego Wyzwalacza na podstawie wartości Czasu Wyświetlania bieżącego typu powiadomienia`
+        customtriggerusedisplaytime: `Opóźnij określony klawisz/kombinację Niestandardowego Wyzwalacza na podstawie wartości Czasu Wyświetlania bieżącego typu powiadomienia`,
+        trophymode: "Zamień typy powiadomień Główne/Rzadkie/100% na Brązowe/Srebrne/Złote/Platynowe"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

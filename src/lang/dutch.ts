@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Hoofd",
+        semi: "Half",
         rare: "Zeldzaam",
         plat: "100%",
+        trophymain: "Brons",
+        trophysemi: "Zilver",
+        trophyrare: "Goud",
+        trophyplat: "Platina",
         test: "Meldingen testen",
         topleft: "Linksboven",
         topcenter: "Boven in het midden",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Meldingen",
             content: {
                 rarity: "Zeldzaamheidspercentage",
+                semirarity: "Zilverpercentage",
                 rareonly: "Alleen zeldzaam",
                 all: "Alle",
                 off: "Uit",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Aangepaste Trigger",
                 customtriggershortcut: "Trigger Sneltoets",
                 customtriggerdelay: "Trigger Vertraging",
-                customtriggerusedisplaytime: "Gebruik Weergavetijd"
+                customtriggerusedisplaytime: "Gebruik Weergavetijd",
+                trophymode: "Trofee-modus"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animatie",
                 glowspeed: "Snelheid",
                 glowrarity: "Zeldzaamheid gebruiken",
-                glowcolorbronze: "Zeldzaamheid: > 50%",
-                glowcolorsilver: "Zeldzaamheid: < 50% & > $rarity",
+                glowcolorbronze: "Zeldzaamheid: > $semirarity",
+                glowcolorsilver: "Zeldzaamheid: < $semirarity & > $rarity",
                 glowcolorgold: "Zeldzaamheid: < $rarity",
                 off: "Geen",
                 pulse: "Puls",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Horizontale verschuiving",
                 iconbordery: "Verticale verschuiving",
                 iconborderrarity: "Zeldzaamheid gebruiken",
-                iconborderimgbronze: "Zeldzaamheid > 50%",
-                iconborderimgsilver: "Zeldzaamheid: < 50% en > $rarity",
+                iconborderimgbronze: "Zeldzaamheid: > $semirarity",
+                iconborderimgsilver: "Zeldzaamheid: < $semirarity & > $rarity",
                 front: "Voor",
                 back: "Achter",
                 plat: "100% Logo",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Verberg het app-UI-venster na het starten totdat het wordt geopend vanuit het systeemvak",
         nohwa: `Hardwareversnelling uitschakelen, wat de prestaties kan verbeteren op systemen met minder middelen of systemen zonder een toegewijde GPU<br><br><span class="ttdesc">De app wordt opnieuw opgestart na het inschakelen/uitschakelen van deze optie</span>`,
         litemode: "Schakel alle interactieve UI-elementen uit en bied alleen beperkte app-functionaliteit via het systeemvakpictogram. Kan de bronnen die door de app worden verbruikt verbeteren",
-        rarity: "Het percentage waarbij zeldzame prestatienotificaties worden geactiveerd. Elke prestatie met een ontgrendelingspercentage hoger dan deze waarde wordt weergegeven als een hoofdmelding",
+        rarity: `Het percentage waarbij meldingen voor Zeldzame prestaties worden getoond.<br><br>Elke prestatie met een ontgrendelingspercentage boven deze waarde wordt weergegeven als een Hoofd-melding<br><br><span class="ttdesc">Als <span class="hl">Trofee-modus</span> is ingeschakeld, wordt elke prestatie met een ontgrendelingspercentage boven deze waarde in plaats daarvan weergegeven als een Zilver-melding</span>`,
+        semirarity: `Het percentage waarbij "Zilver"-meldingsonderdelen worden weergegeven (bijv. <span class="hl">Zeldzaamheidsbadges</span>, <span class="hl">Decoraties</span>, enz.).<br><br>Elke prestatie met een ontgrendelingspercentage lager dan (of gelijk aan) deze waarde en hoger dan de waarde van <span class="hl">Zeldzaamheidspercentage</span>, zal meldingsonderdelen tonen die zijn geconfigureerd voor "Zilver"-zeldzaamheden.<br><br>Elke prestatie met een ontgrendelingspercentage boven deze waarde toont meldingsonderdelen geconfigureerd voor "Brons"-zeldzaamheden<br><br><span class="ttdesc">Als <span class="hl">Trofee-modus</span> is ingeschakeld, wordt elke prestatie met een ontgrendelingspercentage boven deze waarde in plaats daarvan weergegeven als een Brons-melding</span>`,
         showpercent: "Toon het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
         soundonly: "Schakel meldingen uit en speel alleen geluiden af die zijn ingesteld via de Customiser",
         extwin: "Maak een venster dat alle meldingen dupliceert die momenteel op het scherm worden weergegeven. Dit venster kan vervolgens worden toegevoegd als een Window Capture-bron voor gebruik in streamingsoftware, zoals OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Activeert een toets/combinatie bij het ontgrendelen van een achievement. Kan worden gebruikt om sneltoetsen te activeren die zijn geregistreerd in externe applicaties",
         customtriggershortcut: `Activeert de opgegeven toets/combinatie bij het ontgrendelen van een achievement<br><br><span class="ttdesc">Ondersteunt 1-3 toetsen per sneltoets. Voor toetsindrukken/combinaties met minder dan 3 toetsen, druk op de gewenste toetsen en wacht tot de timer (5s) afloopt</span>`,
         customtriggerdelay: "Vertraag de opgegeven toets/combinatie van de Aangepaste Trigger",
-        customtriggerusedisplaytime: `Vertraag de opgegeven toets/combinatie van de Aangepaste Trigger op basis van de Weergavetijd van het huidige meldingstype`
+        customtriggerusedisplaytime: `Vertraag de opgegeven toets/combinatie van de Aangepaste Trigger op basis van de Weergavetijd van het huidige meldingstype`,
+        trophymode: "Vervang Hoofd/Zeldzaam/100%-meldingstypen door Brons/Zilver/Goud/Platina"
     },
     update: {
         updateavailable: "Update beschikbaar",

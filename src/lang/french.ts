@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Principal",
+        semi: "Semi",
         rare: "Rare",
         plat: "100%",
+        trophymain: "Bronze",
+        trophysemi: "Argent",
+        trophyrare: "Or",
+        trophyplat: "Platine",
         test: "Notifications de Test",
         topleft: "En haut à gauche",
         topcenter: "En haut au centre",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Notifications",
             content: {
                 rarity: "Pourcentage de rareté",
+                semirarity: "Pourcentage d'argent",
                 rareonly: "Rares seulement",
                 all: "Tout",
                 off: "Désactivé",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Déclencheur Personnalisé",
                 customtriggershortcut: "Raccourci du Déclencheur",
                 customtriggerdelay: "Délai du Déclencheur",
-                customtriggerusedisplaytime: "Utiliser le Temps d’Affichage"
+                customtriggerusedisplaytime: "Utiliser le Temps d’Affichage",
+                trophymode: "Mode Trophée"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animation",
                 glowspeed: "Vitesse",
                 glowrarity: "Utiliser la rareté",
-                glowcolorbronze: "Rareté : > 50%",
-                glowcolorsilver: "Rareté : < 50% & > $rarity",
+                glowcolorbronze: "Rareté : > $semirarity",
+                glowcolorsilver: "Rareté : < $semirarity & > $rarity",
                 glowcolorgold: "Rareté : < $rarity",
                 off: "Aucun",
                 pulse: "Pouls",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Décalage horizontal",
                 iconbordery: "Décalage vertical",
                 iconborderrarity: "Utiliser la rareté",
-                iconborderimgbronze: "Rareté > 50%",
-                iconborderimgsilver: "Rareté : < 50% et > $rarity",
+                iconborderimgbronze: "Rareté: > $semirarity",
+                iconborderimgsilver: "Rareté : < $semirarity & > $rarity",
                 front: "Devant",
                 back: "Derrière",
                 plat: "Logo à 100%",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Après le lancement, masquez la fenêtre de l'interface utilisateur de l'application jusqu'à son ouverture depuis la barre d'état système",
         nohwa: `Désactiver l'accélération matérielle, ce qui peut améliorer les performances sur les systèmes avec des ressources limitées ou sans GPU dédié<br><br><span class="ttdesc">L'application redémarrera après avoir activé/désactivé cette option</span>`,
         litemode: "Désactiver tous les éléments interactifs de l'interface utilisateur, tout en fournissant uniquement une fonctionnalité limitée de l'application via l'icône de la barre d'état système. Peut améliorer les ressources consommées par l'application",
-        rarity: "Le pourcentage à partir duquel les notifications de succès rares seront déclenchées. Tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification principale",
+        rarity: `Le pourcentage à partir duquel les notifications de succès rares seront déclenchées.<br><br>Tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Principale<br><br><span class="ttdesc">Si le <span class="hl">Mode Trophée</span> est activé, tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Argent à la place</span>`,
+        semirarity: `Le pourcentage à partir duquel les éléments de notification "Argent" seront affichés (par ex. <span class="hl">Badges de rareté</span>, <span class="hl">Décorations</span>, etc.).<br><br>Tout succès avec un pourcentage de déverrouillage inférieur ou égal à cette valeur, et supérieur à la valeur du <span class="hl">Pourcentage de rareté</span>, affichera les éléments de notification configurés pour les raretés "Argent".<br><br>Tout succès avec un pourcentage de déverrouillage supérieur à cette valeur affichera les éléments de notification configurés pour les raretés "Bronze"<br><br><span class="ttdesc">Si le <span class="hl">Mode Trophée</span> est activé, tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Bronze à la place</span>`,
         showpercent: "Affiche le pourcentage de déverrouillage du succès dans la notification pour le(s) type(s) sélectionné(s)",
         soundonly: "Désactive les notifications, en jouant uniquement les sons définis via le Personnaliseur",
         extwin: "Créez une fenêtre qui duplique toutes les notifications actuellement affichées à l'écran. Cette fenêtre peut ensuite être ajoutée comme source de capture de fenêtre pour être utilisée dans un logiciel de streaming, comme OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Déclenche une touche/combinaison simulée lors du déverrouillage d’un succès. Peut être utilisé pour activer des raccourcis clavier enregistrés dans des applications externes",
         customtriggershortcut: `Déclenche la touche/combinaison spécifiée lors du déverrouillage d’un succès<br><br><span class="ttdesc">Prend en charge entre 1 et 3 touches par raccourci. Pour des pressions/combinaisons nécessitant moins de 3 touches, appuyez sur les touches souhaitées et attendez la fin du compte à rebours (5s)</span>`,
         customtriggerdelay: "Retarde la touche/combinaison du Déclencheur Personnalisé spécifié",
-        customtriggerusedisplaytime: `Retarde la touche/combinaison du Déclencheur Personnalisé en fonction de la valeur du Temps d’Affichage du type de notification actuel`
+        customtriggerusedisplaytime: `Retarde la touche/combinaison du Déclencheur Personnalisé en fonction de la valeur du Temps d’Affichage du type de notification actuel`,
+        trophymode: "Remplacer les types de notification Principale/Rare/100% par Bronze/Argent/Or/Platine"
     },
     update: {
         updateavailable: "Mise à jour disponible",

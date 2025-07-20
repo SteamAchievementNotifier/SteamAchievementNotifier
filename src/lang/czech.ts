@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Hlavní",
+        semi: "Poloviční",
         rare: "Vzácné",
         plat: "100%",
+        trophymain: "Bronzová",
+        trophysemi: "Stříbrná",
+        trophyrare: "Zlatá",
+        trophyplat: "Platinová",
         test: "Testovat oznámení",
         topleft: "Vlevo nahoře",
         topcenter: "Nahoře ve středu",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Upozornění",
             content: {
                 rarity: "Procento vzácnosti",
+                semirarity: "Procento stříbrné",
                 rareonly: "Pouze vzácné",
                 all: "Vše",
                 off: "Vypnuto",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Vlastní Spouštěč",
                 customtriggershortcut: "Zkratka Spouštěče",
                 customtriggerdelay: "Zpoždění Spouštěče",
-                customtriggerusedisplaytime: "Použít Čas Zobrazení"
+                customtriggerusedisplaytime: "Použít Čas Zobrazení",
+                trophymode: "Režim trofejí"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animace",
                 glowspeed: "Rychlost",
                 glowrarity: "Použít vzácnost",
-                glowcolorbronze: "Vzácnost: > 50%",
-                glowcolorsilver: "Vzácnost: < 50% & > $rarity",
+                glowcolorbronze: "Vzácnost: > $semirarity",
+                glowcolorsilver: "Vzácnost: < $semirarity & > $rarity",
                 glowcolorgold: "Vzácnost: < $rarity",
                 off: "Žádný",
                 pulse: "Puls",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Vodorovný posun",
                 iconbordery: "Svislý posun",
                 iconborderrarity: "Použít vzácnost",
-                iconborderimgbronze: "Vzácnost > 50 %",
-                iconborderimgsilver: "Vzácnost: < 50 % a > $rarity",
+                iconborderimgbronze: "Vzácnost: > $semirarity",
+                iconborderimgsilver: "Vzácnost: < $semirarity & > $rarity",
                 front: "Předek",
                 back: "Zadek",
                 plat: "100% Logo",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Po spuštění skrýt okno aplikace v uživatelském rozhraní, dokud není otevřeno z lišty systému",
         nohwa: `Vypnout hardwarové zrychlení, což může zlepšit výkon na systémech s nižšími zdroji nebo systémech bez dedikované GPU<br><br><span class="ttdesc">Aplikace se restartuje po povolení/zakázání této možnosti</span>`,
         litemode: "Vypnout všechny interaktivní prvky uživatelského rozhraní a poskytnout pouze omezenou funkčnost aplikace prostřednictvím ikony v liště systému. Může zlepšit využití prostředků aplikace",
-        rarity: "Procento, při kterém budou spouštěna oznámení o vzácných achievementech. Jakýkoli achievement s procentem odemknutí vyšším než tato hodnota bude zobrazen jako hlavní oznámení",
+        rarity: `Procento, při kterém budou spuštěna oznámení o vzácných úspěších.<br><br>Jakýkoli úspěch s procentem odemknutí nad touto hodnotou bude zobrazen jako Hlavní oznámení<br><br><span class="ttdesc">Pokud je povolen <span class="hl">Režim trofejí</span>, bude jakýkoli úspěch s procentem odemknutí nad touto hodnotou zobrazen jako Stříbrné oznámení</span>`,
+        semirarity: `Procento, při kterém budou zobrazeny prvky oznámení typu "Stříbrné" (např. <span class="hl">Odznaky vzácnosti</span>, <span class="hl">Dekorace</span> atd.).<br><br>Jakýkoli úspěch s procentem odemknutí nižším (nebo rovným) této hodnotě a vyšším než hodnota <span class="hl">Procenta vzácnosti</span> zobrazí prvky oznámení určené pro "Stříbrné" vzácnosti.<br><br>Jakýkoli úspěch s procentem odemknutí vyšším než tato hodnota zobrazí prvky oznámení určené pro "Bronzové" vzácnosti<br><br><span class="ttdesc">Pokud je povolen <span class="hl">Režim trofejí</span>, bude jakýkoli úspěch s procentem odemknutí nad touto hodnotou zobrazen jako Bronzové oznámení</span>`,
         showpercent: "Zobrazit procento odemknutí achievementu v oznámení pro vybrané typy",
         soundonly: "Vypnout oznámení a pouze přehrát zvuky nastavené pomocí přizpůsobovače",
         extwin: "Vytvořte okno, které duplikuje všechna oznámení momentálně zobrazená na obrazovce. Toto okno může být následně přidáno jako zdroj zachytávání okna pro použití v softwaru pro streamování, jako je OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Spustí klávesu/kombinaci při odemčení achievementu. Lze použít ke spuštění klávesových zkratek registrovaných v externích aplikacích",
         customtriggershortcut: `Spustí zadanou klávesu/kombinaci při odemčení achievementu<br><br><span class="ttdesc">Podporuje 1–3 klávesy na zkratku. Pro stisknutí/kombinace s méně než 3 klávesami stiskněte požadované klávesy a počkejte na vypršení časovače (5 s)</span>`,
         customtriggerdelay: "Zpoždění zadané klávesy/kombinace vlastního spouštěče",
-        customtriggerusedisplaytime: `Zpoždění zadané klávesy/kombinace vlastního spouštěče podle hodnoty Času Zobrazení aktuálního typu oznámení`
+        customtriggerusedisplaytime: `Zpoždění zadané klávesy/kombinace vlastního spouštěče podle hodnoty Času Zobrazení aktuálního typu oznámení`,
+        trophymode: "Nahradit typy oznámení Hlavní/Vzácné/100% za Bronzové/Stříbrné/Zlaté/Platinové"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

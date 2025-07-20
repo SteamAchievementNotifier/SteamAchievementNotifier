@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Principal",
+        semi: "Semi",
         rare: "Raro",
         plat: "100%",
+        trophymain: "Bronze",
+        trophysemi: "Prata",
+        trophyrare: "Ouro",
+        trophyplat: "Platina",
         test: "Testar Notificações",
         topleft: "Superior Esquerdo",
         topcenter: "Superior Central",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Notificações",
             content: {
                 rarity: "Porcentagem de Raridade",
+                semirarity: "Porcentagem de Prata",
                 rareonly: "Somente Raros",
                 all: "Tudo",
                 off: "Desativado",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Gatilho Personalizado",
                 customtriggershortcut: "Atalho do Gatilho",
                 customtriggerdelay: "Atraso do Gatilho",
-                customtriggerusedisplaytime: "Usar Tempo de Exibição"
+                customtriggerusedisplaytime: "Usar Tempo de Exibição",
+                trophymode: "Modo Troféu"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animação",
                 glowspeed: "Velocidade",
                 glowrarity: "Usar Raridade",
-                glowcolorbronze: "Raridade: > 50%",
-                glowcolorsilver: "Raridade: < 50% & > $rarity",
+                glowcolorbronze: "Raridade: > $semirarity",
+                glowcolorsilver: "Raridade: < $semirarity & > $rarity",
                 glowcolorgold: "Raridade: < $rarity",
                 off: "Nenhum",
                 pulse: "Pulso",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Deslocamento Horizontal",
                 iconbordery: "Deslocamento Vertical",
                 iconborderrarity: "Usar Raridade",
-                iconborderimgbronze: "Raridade > 50%",
-                iconborderimgsilver: "Raridade: < 50% e > $rarity",
+                iconborderimgbronze: "Raridade: > $semirarity",
+                iconborderimgsilver: "Raridade: < $semirarity & > $rarity",
                 front: "Frente",
                 back: "Trás",
                 plat: "Logotipo 100%",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Após o lançamento, ocultar a janela da interface do aplicativo até ser aberta pela Bandeja do Sistema",
         nohwa: `Desativar Aceleração de Hardware, o que pode melhorar o desempenho em sistemas com recursos limitados ou sistemas sem uma GPU dedicada<br><br><span class="ttdesc">O aplicativo será reiniciado após ativar/desativar esta opção</span>`,
         litemode: "Desativar todos os elementos interativos da interface do aplicativo, fornecendo apenas funcionalidade limitada por meio do ícone da Bandeja do Sistema. Pode melhorar os recursos consumidos pelo aplicativo",
-        rarity: "A porcentagem em que as notificações de conquistas raras serão acionadas. Qualquer conquista com uma porcentagem de desbloqueio acima desse valor será exibida como uma notificação principal",
+        rarity: `A porcentagem na qual notificações de conquistas Raras serão exibidas.<br><br>Qualquer conquista com uma porcentagem de desbloqueio acima deste valor será exibida como uma notificação Principal<br><br><span class="ttdesc">Se o <span class="hl">Modo Troféu</span> estiver ativado, qualquer conquista com uma porcentagem de desbloqueio acima deste valor será exibida como uma notificação Prata em vez disso</span>`,
+        semirarity: `A porcentagem na qual os elementos de notificação "Prata" serão exibidos (ex.: <span class="hl">Distintivos de Raridade</span>, <span class="hl">Decorações</span>, etc.).<br><br>Qualquer conquista com uma porcentagem de desbloqueio abaixo (ou igual) a este valor, e acima do valor de <span class="hl">Porcentagem de Raridade</span>, exibirá elementos de notificação configurados para raridades "Prata".<br><br>Qualquer conquista com uma porcentagem de desbloqueio acima deste valor exibirá elementos de notificação configurados para raridades "Bronze"<br><br><span class="ttdesc">Se o <span class="hl">Modo Troféu</span> estiver ativado, qualquer conquista com uma porcentagem de desbloqueio acima deste valor será exibida como uma notificação Bronze em vez disso</span>`,
         showpercent: "Exibir a porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
         soundonly: "Desativar notificações, reproduzindo apenas sons definidos pelo Personalizador",
         extwin: "Crie uma janela que duplica quaisquer notificações exibidas atualmente na tela. Esta janela pode então ser adicionada como uma fonte de Captura de Janela para uso em softwares de transmissão, como o OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Dispara uma tecla/combo a ser simulada ao desbloquear uma conquista. Pode ser usado para acionar atalhos de teclado registrados em aplicativos externos",
         customtriggershortcut: `Dispara a tecla/combo especificada ao desbloquear uma conquista<br><br><span class="ttdesc">Suporta entre 1-3 teclas por atalho. Para pressionamentos/combos com menos de 3 teclas, pressione as teclas desejadas e aguarde o final do temporizador (5s)</span>`,
         customtriggerdelay: "Atrasar a tecla/combo especificada do Gatilho Personalizado",
-        customtriggerusedisplaytime: `Atrasar a tecla/combo especificada do Gatilho Personalizado com base no valor de Tempo de Exibição do tipo de notificação atual`
+        customtriggerusedisplaytime: `Atrasar a tecla/combo especificada do Gatilho Personalizado com base no valor de Tempo de Exibição do tipo de notificação atual`,
+        trophymode: "Substituir os tipos de notificação Principal/Rara/100% por Bronze/Prata/Ouro/Platina"
     },
     update: {
         updateavailable: "Atualização disponível",

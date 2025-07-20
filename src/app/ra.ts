@@ -242,20 +242,21 @@ const cacheradata = async (gameid: number,username: string,apikey: string,nowtra
 
 const ranotify = async (gameid: number,achid: number,mode: "hard" | "soft") => {
     const config = sanconfig.get()
+    const { customisation, rarity, semirarity, trophymode } = config.store
     const achievement = racached.find(achievement => achievement.id === achid)
     if (!achievement) throw new Error(`No matching achievement found for AchievementID ${achid} in Game ${gameid}`)
 
     achievement.unlocked = true // Update the achievement's `unlocked` value in `racached`
 
     const percent = achievement[`${mode}corepercent`]
-    const type = percent <= config.get("rarity") ? "rare" : "main"
+    const type = percent <= rarity ? "rare" : (trophymode && (percent <= semirarity && percent > rarity) ? "semi" : "main")
 
     const notify: Notify = {
         ra: true,
         emu,
         id: Math.round(Date.now() / Math.random() * 1000),
         type,
-        customisation: config.get("customisation")[type],
+        customisation: customisation[type],
         apiname: achievement.badgeName,
         name: achievement.title,
         desc: achievement.description,

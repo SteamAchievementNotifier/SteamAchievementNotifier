@@ -21,11 +21,12 @@ export const language = {
 
             const tabtypes = [
                 "main",
+                "semi",
                 "rare",
                 "plat"
             ]
 
-            tabtypes.forEach(type => langmap.set(document.querySelector(`.wrapper#tabs > .tab[${type}]`)!,global[type]))
+            tabtypes.forEach(type => langmap.set(document.querySelector(`.wrapper#tabs > .tab[${type}]`)!,global[(config.get("trophymode") ? "trophy" : "") + type]))
 
             const dialog = document.querySelector("dialog")
             if (dialog) {

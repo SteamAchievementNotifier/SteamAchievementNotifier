@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "الرئيسية",
+        semi: "نصف",
         rare: "نادر",
         plat: "100٪",
+        trophymain: "برونزي",
+        trophysemi: "فضي",
+        trophyrare: "ذهبي",
+        trophyplat: "بلاتيني",
         test: "اختبار الإشعارات",
         topleft: "أعلى اليسار",
         topcenter: "أعلى الوسط",
@@ -193,6 +198,7 @@ export const translations = {
             title: "الإشعارات",
             content: {
                 rarity: "نسبة الندرة",
+                semirarity: "نسبة الفضة",
                 rareonly: "ندرة فقط",
                 all: "الكل",
                 off: "إيقاف",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "مُشغِّل مخصص",
                 customtriggershortcut: "اختصار المُشغِّل",
                 customtriggerdelay: "تأخير المُشغِّل",
-                customtriggerusedisplaytime: "استخدم وقت العرض"
+                customtriggerusedisplaytime: "استخدم وقت العرض",
+                trophymode: "وضع الجوائز"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "الرسوم المتحركة",
                 glowspeed: "السرعة",
                 glowrarity: "استخدام الندرة",
-                glowcolorbronze: "الندرة: > 50%",
-                glowcolorsilver: "الندرة: < 50% & > $rarity",
+                glowcolorbronze: "الندرة: > $semirarity",
+                glowcolorsilver: "الندرة: < $semirarity و > $rarity",
                 glowcolorgold: "الندرة: < $rarity",
                 off: "بلا",
                 pulse: "نبض",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "إزاحة أفقية",
                 iconbordery: "إزاحة عمودية",
                 iconborderrarity: "استخدام الندرة",
-                iconborderimgbronze: "الندرة > 50%",
-                iconborderimgsilver: "الندرة: < 50% و > $rarity",
+                iconborderimgbronze: "الندرة: > $semirarity",
+                iconborderimgsilver: "الندرة: < $semirarity و > $rarity",
                 front: "الأمام",
                 back: "الخلف",
                 plat: "شعار 100%",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "بعد التشغيل، إخفاء نافذة واجهة المستخدم للتطبيق حتى يتم فتحها من علبة النظام",
         nohwa: `تعطيل التسارع الأجهزة، مما قد يحسن الأداء على الأنظمة ذات الموارد المنخفضة، أو الأنظمة بدون وحدة معالجة رسومات مخصصة<br><br><span class="ttdesc">سيتم إعادة تشغيل التطبيق بعد تمكين/تعطيل هذا الخيار</span>`,
         litemode: "تعطيل جميع عناصر واجهة المستخدم التفاعلية، مع توفير وظائف محدودة فقط عبر أيقونة علبة النظام. قد يحسن استهلاك الموارد من التطبيق",
-        rarity: "النسبة المئوية التي سيتم فيها تشغيل إشعارات الإنجازات النادرة. سيتم عرض أي إنجاز يتجاوز هذه القيمة كإشعار رئيسي",
+        rarity: `النسبة المئوية التي يتم عندها تشغيل إشعارات الإنجازات النادرة.<br><br>سيتم عرض أي إنجاز بنسبة فتح أعلى من هذه القيمة كإشعار رئيسي<br><br><span class="ttdesc">إذا تم تفعيل <span class="hl">وضع الجوائز</span>، فسيتم عرض أي إنجاز بنسبة فتح أعلى من هذه القيمة كإشعار فضي بدلاً من ذلك</span>`,
+        semirarity: `النسبة المئوية التي يتم عندها عرض عناصر إشعارات "الفضة" (مثل <span class="hl">شارات الندرة</span>، <span class="hl">الزينة</span>، وما إلى ذلك).<br><br>سيتم عرض أي إنجاز بنسبة فتح أقل من (أو تساوي) هذه القيمة، وأعلى من قيمة <span class="hl">نسبة الندرة</span>، باستخدام عناصر إشعارات مخصصة للندرة "الفضية".<br><br>سيتم عرض أي إنجاز بنسبة فتح أعلى من هذه القيمة باستخدام عناصر إشعارات مخصصة للندرة "البرونزية"<br><br><span class="ttdesc">إذا تم تفعيل <span class="hl">وضع الجوائز</span>، فسيتم عرض أي إنجاز بنسبة فتح أعلى من هذه القيمة كإشعار برونزي بدلاً من ذلك</span>`,
         showpercent: "عرض نسبة فتح الإنجاز في الإشعار لأنواع محددة",
         soundonly: "تعطيل الإشعارات، وتشغيل الأصوات فقط المضبوطة عبر مخصص الإشعارات",
         extwin: "إنشاء نافذة تكرر أي إشعارات معروضة حاليًا على الشاشة. يمكن بعد ذلك إضافة هذه النافذة كمصدر التقاط نافذة لاستخدامها في برامج البث، مثل OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "تشغيل مفتاح/مجموعة مفاتيح عند فتح الإنجاز. يمكن استخدامه لتشغيل اختصارات لوحة المفاتيح المسجلة في التطبيقات الخارجية",
         customtriggershortcut: `تشغيل المفتاح/المجموعة المحددة عند فتح إنجاز<br><br><span class="ttdesc">يدعم بين 1-3 مفاتيح لكل اختصار. للضغطات/المجموعات التي تتطلب أقل من 3 مفاتيح، اضغط على المفاتيح المطلوبة وانتظر حتى انتهاء المؤقت (5 ثوانٍ)</span>`,
         customtriggerdelay: "تأخير المفتاح/المجموعة المخصصة للمُشغِّل",
-        customtriggerusedisplaytime: `تأخير المفتاح/المجموعة المخصصة للمُشغِّل بناءً على قيمة وقت العرض لنوع الإشعار الحالي`
+        customtriggerusedisplaytime: `تأخير المفتاح/المجموعة المخصصة للمُشغِّل بناءً على قيمة وقت العرض لنوع الإشعار الحالي`,
+        trophymode: "استبدال أنواع إشعارات الرئيسية/النادرة/100% بـ برونزي/فضي/ذهبي/بلاتيني"
     },
     update: {
         updateavailable: "تحديث متاح",

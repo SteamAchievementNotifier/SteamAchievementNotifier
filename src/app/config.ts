@@ -35,6 +35,28 @@ export const shortcutkeys = new Map<string,boolean>([
     ["customtrigger",true]
 ])
 
+const defaultuserthemelbls = {
+    main: "Main",
+    semi: "Semi-Rare",
+    rare: "Rare",
+    plat: "100%"
+} as const
+
+const defaultcolors = {
+    primary: {
+        main: "203e7a",
+        semi: "60707a",
+        rare: "663399",
+        plat: "4e75c9"
+    },
+    secondary: {
+        main: "0c2a66",
+        semi: "4c5c66",
+        rare: "521f85",
+        plat: "3a61b5"
+    }
+} as const
+
 export const sanconfig = {
     get defaultfiles(): { [key: string]: any } {
         const customobj = sanconfig.defaultobj("customisation")
@@ -193,6 +215,7 @@ export const sanconfig = {
                 nohwa: false,
                 litemode: false,
                 rarity: 10,
+                semirarity: 50,
                 soundonly: false,
                 showpercent: "rareonly",
                 extwin: false,
@@ -250,15 +273,17 @@ export const sanconfig = {
                 ],
                 webhooks: false,
                 webhookmain: true,
+                webhooksemi: true,
                 webhookrare: true,
                 webhookplat: true,
                 webhooktest: false,
                 webhookurl: "",
                 webhooklaststatus: "",
                 webhookspoilers: false,
-                webhookembedcolormain: "#203e7a",
-                webhookembedcolorrare: "#663399",
-                webhookembedcolorplat: "#4e75c9",
+                webhookembedcolormain: `#${defaultcolors.primary.main}`,
+                webhookembedcolorsemi: `#${defaultcolors.primary.semi}`,
+                webhookembedcolorrare: `#${defaultcolors.primary.rare}`,
+                webhookembedcolorplat: `#${defaultcolors.primary.plat}`,
                 // discord: {
                 //     userid: "",
                 //     avatarurl: "",
@@ -295,8 +320,10 @@ export const sanconfig = {
                 customtriggershortcut: "ALT+SHIFT+F10",
                 customtriggerdelay: 0,
                 customtriggerusedisplaytime: false,
+                trophymode: false,
                 customisation: {
                     main: {} as Customisation,
+                    semi: {} as Customisation,
                     rare: {} as Customisation,
                     plat: {} as Customisation
                 }
@@ -406,8 +433,8 @@ export const sanconfig = {
                 sspercentbadge: false,
                 percentbadgepos: "bottomcenter",
                 sspercentbadgepos: "bottomcenter",
-                percentbadgecolor: `#${sanhelper.settypevalue(props,{ main: "203e7a", rare: "663399", plat: "4e75c9" })}`,
-                sspercentbadgecolor: `#${sanhelper.settypevalue(props,{ main: "203e7a", rare: "663399", plat: "4e75c9" })}`,
+                percentbadgecolor: `#${sanhelper.settypevalue(props,defaultcolors.primary)}`,
+                sspercentbadgecolor: `#${sanhelper.settypevalue(props,defaultcolors.primary)}`,
                 percentbadgefontsize: 100,
                 sspercentbadgefontsize: 100,
                 percentbadgefontcolor: "#ffffff",
@@ -489,17 +516,15 @@ export const sanconfig = {
                     type === "plat" && (customobj.customicons.plat = sanhelper.setfilepath("img","ribbon.svg"))
                 })
                 
-                const sanlogotrophy = sanhelper.setfilepath("img","sanlogotrophy.svg")
-
                 Object.assign(customobj,{
-                    primarycolor: `#${sanhelper.settypevalue(type,{ main: "203e7a", rare: "663399", plat: "4e75c9" })}`,
-                    secondarycolor: `#${sanhelper.settypevalue(type,{ main: "0c2a66", rare: "521f85", plat: "3a61b5" })}`,
-                    shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, rare: 2, plat: 3 })}`,
+                    primarycolor: `#${sanhelper.settypevalue(type,defaultcolors.primary)}`,
+                    secondarycolor: `#${sanhelper.settypevalue(type,defaultcolors.secondary)}`,
+                    shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, semi: "Q", rare: 2, plat: 3 })}`,
                     elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
                     usertheme: [{
                         id: 0,
-                        label: `Default ${sanhelper.settypevalue(type,{ main: "Main", rare: "Rare", plat: "100%" })}`,
-                        icon: sanlogotrophy,
+                        label: `Default ${sanhelper.settypevalue(type,defaultuserthemelbls)}`,
+                        icon: sanhelper.setfilepath("img","sanlogotrophy.svg"),
                         customisation: {} as Customisation,
                         enabled: true
                     }] as UserTheme[]
@@ -662,18 +687,26 @@ export const sanconfig = {
         
         // Creates new notification type object in config if missing
         if (type && !config.get(customisation)) {
-            const defaultobj = sanconfig.defaultobj("customisation",type) as Customisation
+            const customobj = sanconfig.defaultobj("customisation",type) as Customisation
+            
+            Object.assign(customobj,{
+                primarycolor: `#${sanhelper.settypevalue(type,defaultcolors.primary)}`,
+                secondarycolor: `#${sanhelper.settypevalue(type,defaultcolors.secondary)}`,
+                shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, semi: "Q", rare: 2, plat: 3 })}`,
+                elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
+                usertheme: [{
+                    id: 0,
+                    label: `Default ${sanhelper.settypevalue(type,defaultuserthemelbls)}`,
+                    icon: sanhelper.setfilepath("img","sanlogotrophy.svg"),
+                    customisation: {} as Customisation,
+                    enabled: true
+                }] as UserTheme[]
+            })
 
-            defaultobj.usertheme = [{
-                id: 0,
-                label: `Default ${sanhelper.settypevalue(type, { main: "Main", semi: "Semi", rare: "Rare", plat: "100%" })}`,
-                icon: sanhelper.setfilepath("img","sanlogotrophy.svg"),
-                customisation: { ...defaultobj },
-                enabled: true
-            }]
+            customobj.usertheme[0].customisation = { ...customobj as any }
+            delete (customobj.usertheme[0].customisation as any).usertheme
 
-            delete (defaultobj.usertheme[0].customisation as any).usertheme
-            config.set(customisation,defaultobj)
+            config.set(customisation,customobj)
         }
 
         const configkeys = Object.keys(!type ? config.store : config.get(`customisation.${type}`))

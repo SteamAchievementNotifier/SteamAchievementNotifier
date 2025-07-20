@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Principal",
+        semi: "Semi",
         rare: "Raro",
         plat: "100%",
+        trophymain: "Bronce",
+        trophysemi: "Plata",
+        trophyrare: "Oro",
+        trophyplat: "Platino",
         test: "Notificaciones de Prueba",
         topleft: "Arriba Izquierda",
         topcenter: "Arriba Centro",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Notificaciones",
             content: {
                 rarity: "Porcentaje de rareza",
+                semirarity: "Porcentaje de plata",
                 rareonly: "Solo raras",
                 all: "Todas",
                 off: "Apagado",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Disparador Personalizado",
                 customtriggershortcut: "Atajo del Disparador",
                 customtriggerdelay: "Retraso del Disparador",
-                customtriggerusedisplaytime: "Usar Tiempo de Visualización"
+                customtriggerusedisplaytime: "Usar Tiempo de Visualización",
+                trophymode: "Modo Trofeo"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animación",
                 glowspeed: "Velocidad",
                 glowrarity: "Usar rareza",
-                glowcolorbronze: "Rareza: > 50%",
-                glowcolorsilver: "Rareza: < 50% & > $rarity",
+                glowcolorbronze: "Rareza: > $semirarity",
+                glowcolorsilver: "Rareza: < $semirarity & > $rarity",
                 glowcolorgold: "Rareza: < $rarity",
                 off: "Ninguno",
                 pulse: "Pulso",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Desplazamiento horizontal",
                 iconbordery: "Desplazamiento vertical",
                 iconborderrarity: "Usar Rareza",
-                iconborderimgbronze: "Rareza > 50%",
-                iconborderimgsilver: "Rareza: < 50% y > $rarity",
+                iconborderimgbronze: "Rareza > $semirarity",
+                iconborderimgsilver: "Rareza: < $semirarity & > $rarity",
                 front: "Frente",
                 back: "Atrás",
                 plat: "Logotipo 100%",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Después de iniciar, ocultar la ventana de la interfaz de usuario de la aplicación hasta que se abra desde la bandeja del sistema",
         nohwa: `Desactivar la aceleración de hardware, lo que puede mejorar el rendimiento en sistemas con recursos limitados o sistemas sin una GPU dedicada<br><br><span class="ttdesc">La aplicación se reiniciará después de activar/desactivar esta opción</span>`,
         litemode: "Desactivar todos los elementos interactivos de la interfaz de usuario, proporcionando solo funcionalidad limitada de la aplicación a través del icono de la bandeja del sistema. Puede mejorar los recursos consumidos por la aplicación",
-        rarity: "El porcentaje en el cual se activarán las notificaciones de logros raros. Cualquier logro con un porcentaje de desbloqueo superior a este valor se mostrará como una notificación principal",
+        rarity: `El porcentaje en el que se activarán las notificaciones de logros raros.<br><br>Cualquier logro con un porcentaje de desbloqueo por encima de este valor se mostrará como una notificación Principal<br><br><span class="ttdesc">Si está activado el <span class="hl">Modo Trofeo</span>, cualquier logro con un porcentaje de desbloqueo por encima de este valor se mostrará como una notificación de Plata en su lugar</span>`,
+        semirarity: `El porcentaje en el que se mostrarán los elementos de notificación "Plata" (por ejemplo, <span class="hl">Insignias de rareza</span>, <span class="hl">Decoraciones</span>, etc.).<br><br>Cualquier logro con un porcentaje de desbloqueo por debajo (o igual) a este valor y por encima del valor de <span class="hl">Porcentaje de rareza</span> mostrará los elementos de notificación configurados para rarezas "Plata".<br><br>Cualquier logro con un porcentaje de desbloqueo por encima de este valor mostrará los elementos de notificación configurados para rarezas "Bronce"<br><br><span class="ttdesc">Si está activado el <span class="hl">Modo Trofeo</span>, cualquier logro con un porcentaje de desbloqueo por encima de este valor se mostrará como una notificación de Bronce en su lugar</span>`,
         showpercent: "Mostrar el porcentaje de desbloqueo del logro en la notificación para el/los tipo(s) seleccionado(s)",
         soundonly: "Desactivar las notificaciones, reproduciendo solo los sonidos establecidos a través del Personalizador",
         extwin: "Crea una ventana que duplique todas las notificaciones que se están mostrando en la pantalla. Luego, esta ventana se puede agregar como fuente de captura de ventana para usarla en software de transmisión, como OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Dispara una tecla/combinación simulada al desbloquear un logro. Puede usarse para activar atajos de teclado registrados en aplicaciones externas",
         customtriggershortcut: `Dispara la tecla/combinación especificada al desbloquear un logro<br><br><span class="ttdesc">Soporta entre 1 y 3 teclas por atajo. Para pulsaciones/combinaciones con menos de 3 teclas, pulsa las teclas deseadas y espera a que termine el temporizador (5s)</span>`,
         customtriggerdelay: "Retrasar la tecla/combinación especificada del Disparador Personalizado",
-        customtriggerusedisplaytime: `Retrasar la tecla/combinación especificada del Disparador Personalizado según el valor de Tiempo de Visualización del tipo de notificación actual`
+        customtriggerusedisplaytime: `Retrasar la tecla/combinación especificada del Disparador Personalizado según el valor de Tiempo de Visualización del tipo de notificación actual`,
+        trophymode: "Reemplazar los tipos de notificación Principal/Raro/100% con Bronce/Plata/Oro/Platino"
     },
     update: {
         updateavailable: "Actualización disponible",

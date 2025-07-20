@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Principale",
+        semi: "Semi",
         rare: "Raro",
         plat: "100%",
+        trophymain: "Bronzo",
+        trophysemi: "Argento",
+        trophyrare: "Oro",
+        trophyplat: "Platino",
         test: "Notifiche di Test",
         topleft: "In alto a sinistra",
         topcenter: "In alto al centro",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Notifiche",
             content: {
                 rarity: "Percentuale di rarità",
+                semirarity: "Percentuale di argento",
                 rareonly: "Solo rare",
                 all: "Tutto",
                 off: "Spento",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Trigger Personalizzato",
                 customtriggershortcut: "Scorciatoia Trigger",
                 customtriggerdelay: "Ritardo Trigger",
-                customtriggerusedisplaytime: "Usa Tempo di Visualizzazione"
+                customtriggerusedisplaytime: "Usa Tempo di Visualizzazione",
+                trophymode: "Modalità Trofeo"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animazione",
                 glowspeed: "Velocità",
                 glowrarity: "Usa la rarità",
-                glowcolorbronze: "Rarità: > 50%",
-                glowcolorsilver: "Rarità: < 50% & > $rarity",
+                glowcolorbronze: "Rarità: > $semirarity",
+                glowcolorsilver: "Rarità: < $semirarity & > $rarity",
                 glowcolorgold: "Rarità: < $rarity",
                 off: "Nessuno",
                 pulse: "Impulso",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Offset orizzontale",
                 iconbordery: "Offset verticale",
                 iconborderrarity: "Usa la rarità",
-                iconborderimgbronze: "Rarità > 50%",
-                iconborderimgsilver: "Rarità: < 50% e > $rarity",
+                iconborderimgbronze: "Rarità: > $semirarity",
+                iconborderimgsilver: "Rarità: < $semirarity & > $rarity",
                 front: "Davanti",
                 back: "Dietro",
                 plat: "Logo 100%",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Dopo il lancio, nascondi la finestra dell'interfaccia utente dell'app fino a quando non viene aperta dalla barra delle applicazioni",
         nohwa: `Disabilita l'accelerazione hardware, che potrebbe migliorare le prestazioni su sistemi con risorse limitate o sistemi senza una GPU dedicata<br><br><span class="ttdesc">L'applicazione si riavvierà dopo aver abilitato/disabilitato questa opzione</span>`,
         litemode: "Disabilita tutti gli elementi interattivi dell'interfaccia utente, fornendo solo una funzionalità limitata tramite l'icona della barra delle applicazioni. Potrebbe migliorare le risorse utilizzate dall'app",
-        rarity: "La percentuale a cui verranno attivate le notifiche per gli obiettivi rari. Qualsiasi obiettivo con una percentuale di sblocco superiore a questo valore verrà visualizzato come notifica principale",
+        rarity: `La percentuale alla quale verranno attivate le notifiche per i trofei rari.<br><br>Ogni trofeo con una percentuale di sblocco superiore a questo valore verrà mostrato come notifica Principale<br><br><span class="ttdesc">Se la <span class="hl">Modalità Trofeo</span> è abilitata, ogni trofeo con una percentuale di sblocco superiore a questo valore verrà mostrato come notifica Argento invece</span>`,
+        semirarity: `La percentuale alla quale verranno mostrati gli elementi di notifica "Argento" (es. <span class="hl">Badge di Rarità</span>, <span class="hl">Decorazioni</span>, ecc.).<br><br>Ogni trofeo con una percentuale di sblocco inferiore (o uguale) a questo valore e superiore al valore di <span class="hl">Percentuale di Rarità</span> mostrerà gli elementi di notifica configurati per le rarità "Argento".<br><br>Ogni trofeo con una percentuale di sblocco superiore a questo valore mostrerà gli elementi di notifica configurati per le rarità "Bronzo"<br><br><span class="ttdesc">Se la <span class="hl">Modalità Trofeo</span> è abilitata, ogni trofeo con una percentuale di sblocco superiore a questo valore verrà mostrato come notifica Bronzo invece</span>`,
         showpercent: "Mostra la percentuale di sblocco dell'obiettivo nella notifica per i tipi selezionati",
         soundonly: "Disabilita le notifiche, riproducendo solo i suoni impostati tramite il Personalizzatore",
         extwin: "Crea una finestra che duplica tutte le notifiche attualmente visualizzate sullo schermo. Questa finestra può quindi essere aggiunta come sorgente di acquisizione finestra per l'uso in software di streaming come OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Attiva un tasto/combinazione simulata al momento dello sblocco di un achievement. Può essere usato per attivare scorciatoie da tastiera registrate in applicazioni esterne",
         customtriggershortcut: `Attiva il tasto/la combinazione specificata quando un achievement viene sbloccato<br><br><span class="ttdesc">Supporta da 1 a 3 tasti per scorciatoia. Per pressioni/combinazioni con meno di 3 tasti, premi i tasti desiderati e attendi la fine del timer (5s)</span>`,
         customtriggerdelay: "Ritarda il tasto/la combinazione specificata del Trigger Personalizzato",
-        customtriggerusedisplaytime: `Ritarda il tasto/la combinazione specificata del Trigger Personalizzato basandosi sul valore del Tempo di Visualizzazione del tipo di notifica corrente`
+        customtriggerusedisplaytime: `Ritarda il tasto/la combinazione specificata del Trigger Personalizzato basandosi sul valore del Tempo di Visualizzazione del tipo di notifica corrente`,
+        trophymode: "Sostituisci i tipi di notifica Principale/Raro/100% con Bronzo/Argento/Oro/Platino"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

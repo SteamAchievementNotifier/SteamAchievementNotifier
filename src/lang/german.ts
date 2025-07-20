@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Haupt",
+        semi: "Halb",
         rare: "Selten",
         plat: "100%",
+        trophymain: "Bronze",
+        trophysemi: "Silber",
+        trophyrare: "Gold",
+        trophyplat: "Platin",
         test: "Testbenachrichtigungen",
         topleft: "Oben Links",
         topcenter: "Oben Mitte",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Benachrichtigungen",
             content: {
                 rarity: "Seltenheitsprozentsatz",
+                semirarity: "Silberprozentsatz",
                 rareonly: "Nur Selten",
                 all: "Alle",
                 off: "Aus",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Benutzerdefinierter Auslöser",
                 customtriggershortcut: "Auslöser-Tastenkombination",
                 customtriggerdelay: "Auslöserverzögerung",
-                customtriggerusedisplaytime: "Anzeigezeit verwenden"
+                customtriggerusedisplaytime: "Anzeigezeit verwenden",
+                trophymode: "Trophäenmodus"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animation",
                 glowspeed: "Geschwindigkeit",
                 glowrarity: "Seltenheit verwenden",
-                glowcolorbronze: "Seltenheit: > 50%",
-                glowcolorsilver: "Seltenheit: < 50% & > $rarity",
+                glowcolorbronze: "Seltenheit: > $semirarity",
+                glowcolorsilver: "Seltenheit: < $semirarity & > $rarity",
                 glowcolorgold: "Seltenheit: < $rarity",
                 off: "Aus",
                 pulse: "Pulsieren",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Horizontale Verschiebung",
                 iconbordery: "Vertikale Verschiebung",
                 iconborderrarity: "Seltenheit verwenden",
-                iconborderimgbronze: "Seltenheit > 50 %",
-                iconborderimgsilver: "Seltenheit: < 50 % & > $rarity",
+                iconborderimgbronze: "Seltenheit: > $semirarity",
+                iconborderimgsilver: "Seltenheit: < $semirarity & > $rarity",
                 front: "Vorne",
                 back: "Hinten",
                 plat: "100%-Logo",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Nach dem Starten die App-Benutzeroberfläche ausblenden, bis sie aus dem System Tray geöffnet wird",
         nohwa: `Deaktivieren Sie die Hardwarebeschleunigung, um die Leistung auf Systemen mit geringeren Ressourcen oder Systemen ohne dedizierte GPU zu verbessern<br><br><span class="ttdesc">Die App wird nach Aktivierung/Deaktivierung dieser Option neu gestartet</span>`,
         litemode: "Deaktivieren Sie alle interaktiven Nutzeroberflächen-Elemente und bieten Sie nur begrenzte App-Funktionalität über das System Tray-Symbol. Kann die von der App verbrauchten Ressourcen verbessern",
-        rarity: "Der Prozentsatz, bei dem seltene Erfolgsmeldungen ausgelöst werden. Jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert wird als Hauptbenachrichtigung angezeigt",
+        rarity: `Der Prozentsatz, bei dem Benachrichtigungen für seltene Erfolge ausgelöst werden.<br><br>Jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert wird als Hauptbenachrichtigung angezeigt<br><br><span class="ttdesc">Wenn der <span class="hl">Trophäenmodus</span> aktiviert ist, wird jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert stattdessen als Silber-Benachrichtigung angezeigt</span>`,
+        semirarity: `Der Prozentsatz, bei dem "Silber"-Benachrichtigungselemente angezeigt werden (z. B. <span class="hl">Seltenheitsabzeichen</span>, <span class="hl">Dekorationen</span> usw.).<br><br>Jeder Erfolg mit einem Freischaltungsprozentsatz unter (oder gleich) diesem Wert und über dem <span class="hl">Seltenheitsprozentsatz</span> zeigt Benachrichtigungselemente an, die für "Silber"-Seltenheiten konfiguriert sind.<br><br>Jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert zeigt Benachrichtigungselemente an, die für "Bronze"-Seltenheiten konfiguriert sind<br><br><span class="ttdesc">Wenn der <span class="hl">Trophäenmodus</span> aktiviert ist, wird jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert stattdessen als Bronze-Benachrichtigung angezeigt</span>`,
         showpercent: "Zeigen Sie den Freischaltungsprozentsatz des Erfolgs in der Benachrichtigung für die ausgewählten Typen an",
         soundonly: "Deaktivieren Sie Benachrichtigungen und spielen Sie nur Sounds ab, die über den Customiser festgelegt wurden",
         extwin: "Erstellen Sie ein Fenster, das alle derzeit auf dem Bildschirm angezeigten Benachrichtigungen dupliziert. Dieses Fenster kann dann als Fensteraufnahmequelle für Streaming-Software wie OBS hinzugefügt werden",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Löst eine Taste/Kombination aus, wenn ein Achievement freigeschaltet wird. Kann verwendet werden, um Tastenkombinationen in externen Anwendungen auszulösen",
         customtriggershortcut: `Löst die angegebene Taste/Kombination aus, wenn ein Achievement freigeschaltet wird<br><br><span class="ttdesc">Unterstützt 1–3 Tasten pro Tastenkombination. Für Tastendrücke/Kombinationen mit weniger als 3 Tasten, drücke die gewünschten Tasten und warte, bis der Timer (5s) abläuft</span>`,
         customtriggerdelay: "Verzögert die angegebene Taste/Kombination des benutzerdefinierten Auslösers",
-        customtriggerusedisplaytime: `Verzögert die angegebene Taste/Kombination des benutzerdefinierten Auslösers basierend auf dem Anzeigezeitwert des aktuellen Benachrichtigungstyps`
+        customtriggerusedisplaytime: `Verzögert die angegebene Taste/Kombination des benutzerdefinierten Auslösers basierend auf dem Anzeigezeitwert des aktuellen Benachrichtigungstyps`,
+        trophymode: "Haupt/Selten/100 %-Benachrichtigungstypen durch Bronze/Silber/Gold/Platin ersetzen"
     },
     update: {
         updateavailable: "Update verfügbar",

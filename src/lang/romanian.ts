@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Principal",
+        semi: "Semi",
         rare: "Rar",
         plat: "100%",
+        trophymain: "Bronz",
+        trophysemi: "Argint",
+        trophyrare: "Aur",
+        trophyplat: "Platină",
         test: "Notificări de Test",
         topleft: "Stânga Sus",
         topcenter: "Centru Sus",
@@ -192,7 +197,8 @@ export const translations = {
         notifications: {
             title: "Notificări",
             content: {
-                rarity: "Procentaj Raritate",
+                rarity: "Procentaj de raritate",
+                semirarity: "Procentaj de argint",
                 rareonly: "Doar Rare",
                 all: "Toate",
                 off: "Oprit",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Declanșator Personalizat",
                 customtriggershortcut: "Scurtătură Declanșator",
                 customtriggerdelay: "Întârziere Declanșator",
-                customtriggerusedisplaytime: "Folosește Timpul de Afișare"
+                customtriggerusedisplaytime: "Folosește Timpul de Afișare",
+                trophymode: "Mod Trofeu"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animație",
                 glowspeed: "Viteză",
                 glowrarity: "Folosește raritatea",
-                glowcolorbronze: "Raritate: > 50%",
-                glowcolorsilver: "Raritate: < 50% & > $rarity",
+                glowcolorbronze: "Raritate: > $semirarity",
+                glowcolorsilver: "Raritate: < $semirarity & > $rarity",
                 glowcolorgold: "Raritate: < $rarity",
                 off: "Niciunul",
                 pulse: "Puls",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Deplasare orizontală",
                 iconbordery: "Deplasare verticală",
                 iconborderrarity: "Folosește Raritate",
-                iconborderimgbronze: "Raritate > 50%",
-                iconborderimgsilver: "Raritate: < 50% și > $rarity",
+                iconborderimgbronze: "Raritate: > $semirarity",
+                iconborderimgsilver: "Raritate: < $semirarity & > $rarity",
                 front: "Față",
                 back: "Spate",
                 plat: "Logo 100%",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "După lansare, ascundeți fereastra UI a aplicației până când este deschisă din Tava de sistem",
         nohwa: `Dezactivați accelerarea hardware, ceea ce poate îmbunătăți performanța pe sisteme cu resurse limitate sau sisteme fără un GPU dedicat<br><br><span class="ttdesc">Aplicația se va reporni după activarea/dezactivarea acestei opțiuni</span>`,
         litemode: "Dezactivați toate elementele interactive ale UI, oferind în același timp funcționalitate limitată a aplicației prin intermediul pictogramei din Tava de sistem. Poate îmbunătăți resursele consumate de aplicație",
-        rarity: "Procentajul la care notificările de realizare rară vor fi declanșate. Orice realizare cu un procentaj de deblocare mai mare decât această valoare va fi afișată ca o notificare principală",
+        rarity: `Procentajul la care se declanșează notificările pentru realizările rare.<br><br>Orice realizare cu un procentaj de deblocare peste această valoare va fi afișată ca o notificare Principală<br><br><span class="ttdesc">Dacă este activat <span class="hl">Modul Trofeu</span>, orice realizare cu un procentaj de deblocare peste această valoare va fi afișată ca o notificare Argint în schimb</span>`,
+        semirarity: `Procentajul la care vor fi afișate elementele de notificare „Argint” (de ex. <span class="hl">Insigne de Raritate</span>, <span class="hl">Decorațiuni</span> etc.).<br><br>Orice realizare cu un procentaj de deblocare sub (sau egal cu) această valoare și peste valoarea <span class="hl">Procentajului de Raritate</span> va afișa elemente de notificare configurate pentru rarități „Argint”.<br><br>Orice realizare cu un procentaj de deblocare peste această valoare va afișa elemente de notificare configurate pentru rarități „Bronz”<br><br><span class="ttdesc">Dacă este activat <span class="hl">Modul Trofeu</span>, orice realizare cu un procentaj de deblocare peste această valoare va fi afișată ca o notificare Bronz în schimb</span>`,
         showpercent: "Afișați procentajul de deblocare al realizării în notificare pentru tipurile selectate",
         soundonly: "Dezactivați notificările, redând doar sunetele setate prin Personalizator",
         extwin: "Creează o fereastră care duplică toate notificările afișate pe ecran. Această fereastră poate fi adăugată ulterior ca sursă de captură de fereastră pentru utilizare în software-ul de streaming, cum ar fi OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Declanșează o tastă/combo simulată la deblocarea unui achievement. Poate fi folosit pentru a activa scurtături de tastatură înregistrate în aplicații externe",
         customtriggershortcut: `Declanșează tasta/combo specificată la deblocarea unui achievement<br><br><span class="ttdesc">Acceptă între 1 și 3 taste per scurtătură. Pentru apăsări/combo-uri cu mai puțin de 3 taste, apasă tastele dorite și așteaptă până expiră temporizatorul (5s)</span>`,
         customtriggerdelay: "Întârzie tasta/combo specificată a Declanșatorului Personalizat",
-        customtriggerusedisplaytime: `Întârzie tasta/combo specificată a Declanșatorului Personalizat pe baza valorii Timpului de Afișare pentru tipul curent de notificare`
+        customtriggerusedisplaytime: `Întârzie tasta/combo specificată a Declanșatorului Personalizat pe baza valorii Timpului de Afișare pentru tipul curent de notificare`,
+        trophymode: "Înlocuiește tipurile de notificare Principal/Rar/100% cu Bronze/Argint/Aur/Platină"
     },
     update: {
         updateavailable: "Actualizare disponibilă",

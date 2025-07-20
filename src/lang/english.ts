@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Main",
+        semi: "Semi",
         rare: "Rare",
         plat: "100%",
+        trophymain: "Bronze",
+        trophysemi: "Silver",
+        trophyrare: "Gold",
+        trophyplat: "Platinum",
         test: "Test Notifications",
         topleft: "Top Left",
         topcenter: "Top Center",
@@ -192,7 +197,8 @@ export const translations = {
         notifications: {
             title: "Notifications",
             content: {
-                rarity: "Rarity Percentage",
+                rarity: "Rare Percentage",
+                semirarity: "Silver Percentage",
                 rareonly: "Rare Only",
                 all: "All",
                 off: "Off",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Custom Trigger",
                 customtriggershortcut: "Trigger Shortcut",
                 customtriggerdelay: "Trigger Delay",
-                customtriggerusedisplaytime: "Use Display Time"
+                customtriggerusedisplaytime: "Use Display Time",
+                trophymode: "Trophy Mode"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animation",
                 glowspeed: "Speed",
                 glowrarity: "Use Rarity",
-                glowcolorbronze: "Rarity: > 50%",
-                glowcolorsilver: "Rarity: < 50% & > $rarity",
+                glowcolorbronze: "Rarity: > $semirarity",
+                glowcolorsilver: "Rarity: < $semirarity & > $rarity",
                 glowcolorgold: "Rarity: < $rarity",
                 off: "None",
                 pulse: "Pulse",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Horizontal Offset",
                 iconbordery: "Vertical Offset",
                 iconborderrarity: "Use Rarity",
-                iconborderimgbronze: "Rarity > 50%",
-                iconborderimgsilver: "Rarity: < 50% & > $rarity",
+                iconborderimgbronze: "Rarity: > $semirarity",
+                iconborderimgsilver: "Rarity: < $semirarity & > $rarity",
                 front: "Front",
                 back: "Back",
                 plat: "100% Logo",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "After launching, hide the app UI window until opened from the System Tray",
         nohwa: `Disable Hardware Acceleration, which may improve performance on lower-end systems, or systems without a dedicated GPU<br><br><span class="ttdesc">App will restart after enabling/disabling this option</span>`,
         litemode: "Disable all interactive UI elements, while only providing limited app functionality via the System Tray icon. May improve resources consumed by the app",
-        rarity: "The percentage at which Rare achievement notifications will be triggered. Any achievement with an unlock percentage above this value will be displayed as a Main notification",
+        rarity: `The percentage at which Rare achievement notifications will be triggered.<br><br>Any achievement with an unlock percentage above this value will be displayed as a Main notification<br><br><span class="ttdesc">If <span class="hl">Trophy Mode</span> is enabled, any achievement with an unlock percentage above this value will be displayed as a Silver notification instead</span>`,
+        semirarity: `The percentage at which "Silver" notification assets will be displayed (e.g. <span class="hl">Rarity Badges</span>, <span class="hl">Decorations</span> etc.).<br><br>Any achievement with an unlock percentage below (or equal to) this value, and above the value of <span class="hl">Rarity Percentage</span>, will display notification assets configured for "Silver" rarities.<br><br>Any achievement with an unlock percentage above this value will display notification assets configured for "Bronze" rarities<br><br><span class="ttdesc">If <span class="hl">Trophy Mode</span> is enabled, any achievement with an unlock percentage above this value will be displayed as a Bronze notification instead</span>`,
         showpercent: "Display the unlock percentage of the achievement in the notification for the selected type(s)",
         soundonly: "Disable notifications, only playing sounds set via the Customiser",
         extwin: "Create a window that duplicates any notifications currently being displayed on-screen. This window can then be added as a Window Capture source for use in streaming software, such as OBS",
@@ -774,6 +782,7 @@ export const translations = {
         customtriggershortcut: `Trigger the specified key/combo when an achievement is unlocked<br><br><span class="ttdesc">Supports between 1-3 keys per shortcut. For keypresses/combos requiring less than 3 keys, press the desired keys and wait for the timer (5s) to end</span>`,
         customtriggerdelay: "Delay the specified Custom Trigger key/combo",
         customtriggerusedisplaytime: `Delay the specified Custom Trigger key/combo based on the current notification type's Display Time value`,
+        trophymode: "Replace Main/Rare/100% notification types with Bronze/Silver/Gold/Platinum"
     },
     update: {
         updateavailable: "Update available",

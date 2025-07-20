@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Hoved",
+        semi: "Halv",
         rare: "Sjælden",
         plat: "100%",
+        trophymain: "Bronze",
+        trophysemi: "Sølv",
+        trophyrare: "Guld",
+        trophyplat: "Platin",
         test: "Test Notifikationer",
         topleft: "Øverst til venstre",
         topcenter: "Øverst i midten",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Notifikationer",
             content: {
                 rarity: "Sjældenhedsprocent",
+                semirarity: "Sølvprocent",
                 rareonly: "Kun sjældne",
                 all: "Alle",
                 off: "Fra",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Brugertilpasset Udløser",
                 customtriggershortcut: "Genvej til Udløser",
                 customtriggerdelay: "Forsinkelse af Udløser",
-                customtriggerusedisplaytime: "Brug Visningstid"
+                customtriggerusedisplaytime: "Brug Visningstid",
+                trophymode: "Trofætilstand"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animation",
                 glowspeed: "Hastighed",
                 glowrarity: "Brug sjældenhed",
-                glowcolorbronze: "Sjældenhed: > 50%",
-                glowcolorsilver: "Sjældenhed: < 50% & > $rarity",
+                glowcolorbronze: "Sjældenhed: > $semirarity",
+                glowcolorsilver: "Sjældenhed: < $semirarity & > $rarity",
                 glowcolorgold: "Sjældenhed: < $rarity",
                 off: "Ingen",
                 pulse: "Puls",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Vandret forskydning",
                 iconbordery: "Lodret forskydning",
                 iconborderrarity: "Brug Sjældenhed",
-                iconborderimgbronze: "Sjældenhed > 50%",
-                iconborderimgsilver: "Sjældenhed: < 50% og > $rarity",
+                iconborderimgbronze: "Sjældenhed: > $semirarity",
+                iconborderimgsilver: "Sjældenhed: < $semirarity & > $rarity",
                 front: "Foran",
                 back: "Bagved",
                 plat: "100% Logo",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Efter lancering skjul appens brugergrænsefladevindue, indtil det åbnes fra systembakken",
         nohwa: `Deaktiver hardwareacceleration, hvilket kan forbedre ydeevnen på systemer med lavere ressourcer eller systemer uden dedikeret GPU<br><br><span class="ttdesc">Programmet genstarter efter aktivering/deaktivering af denne mulighed</span>`,
         litemode: "Deaktiver alle interaktive brugergrænsefladeelementer og tilbyder kun begrænset app-funktionalitet via systembakkeikonet. Kan forbedre ressourceforbruget af appen",
-        rarity: "Procentdelen, hvor sjældne præstationsmeddelelser udløses. Enhver præstation med en låseprocent over denne værdi vises som en hovedmeddelelse",
+        rarity: `Procenten hvor notifikationer for Sjældne præstationer udløses.<br><br>Enhver præstation med en oplåsningsprocent over denne værdi vil blive vist som en Hoved-notifikation<br><br><span class="ttdesc">Hvis <span class="hl">Trofætilstand</span> er aktiveret, vil enhver præstation med en oplåsningsprocent over denne værdi i stedet blive vist som en Sølv-notifikation</span>`,
+        semirarity: `Procenten hvor "Sølv"-notifikationselementer vises (f.eks. <span class="hl">Sjældenhedsemblemer</span>, <span class="hl">Dekorationer</span> osv.).<br><br>Enhver præstation med en oplåsningsprocent under (eller lig med) denne værdi og over værdien for <span class="hl">Sjældenhedsprocent</span>, vil vise notifikationselementer konfigureret til "Sølv"-sjældenheder.<br><br>Enhver præstation med en oplåsningsprocent over denne værdi vil vise notifikationselementer konfigureret til "Bronze"-sjældenheder<br><br><span class="ttdesc">Hvis <span class="hl">Trofætilstand</span> er aktiveret, vil enhver præstation med en oplåsningsprocent over denne værdi i stedet blive vist som en Bronze-notifikation</span>`,
         showpercent: "Vis låseprocenten af præstationen i meddelelsen for de valgte typer",
         soundonly: "Deaktiver meddelelser og afspil kun lyde, der er indstillet via Tilpasning",
         extwin: "Opret et vindue, der duplicerer alle meddelelser, der i øjeblikket vises på skærmen. Dette vindue kan derefter tilføjes som en vinduesoptagelseskilde til brug i streaming-software som OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Udløser en tast/kombination, der simuleres ved oplåsning af en achievement. Kan bruges til at udløse tastaturgenveje registreret i eksterne applikationer",
         customtriggershortcut: `Udløser den angivne tast/kombination, når en achievement låses op<br><br><span class="ttdesc">Understøtter mellem 1-3 taster pr. genvej. For tastetryk/kombinationer med færre end 3 taster, tryk på de ønskede taster og vent på, at timeren (5 sek.) udløber</span>`,
         customtriggerdelay: "Forsinker den angivne brugertilpassede tast/kombination",
-        customtriggerusedisplaytime: `Forsinker den angivne brugertilpassede tast/kombination baseret på den aktuelle notifikationstypes Visningstid`
+        customtriggerusedisplaytime: `Forsinker den angivne brugertilpassede tast/kombination baseret på den aktuelle notifikationstypes Visningstid`,
+        trophymode: "Erstat Hoved/Sjælden/100% notifikationstyper med Bronze/Sølv/Guld/Platin"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

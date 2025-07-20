@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "메인",
+        semi: "세미",
         rare: "희귀",
         plat: "100%",
+        trophymain: "브론즈",
+        trophysemi: "실버",
+        trophyrare: "골드",
+        trophyplat: "플래티넘",
         test: "테스트 알림",
         topleft: "왼쪽 상단",
         topcenter: "상단 중앙",
@@ -192,7 +197,8 @@ export const translations = {
         notifications: {
             title: "알림",
             content: {
-                rarity: "희귀 비율",
+                rarity: "희귀도 비율",
+                semirarity: "실버 비율",
                 rareonly: "희귀 항목만",
                 all: "모두",
                 off: "끔",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "사용자 지정 트리거",
                 customtriggershortcut: "트리거 단축키",
                 customtriggerdelay: "트리거 지연",
-                customtriggerusedisplaytime: "표시 시간 사용"
+                customtriggerusedisplaytime: "표시 시간 사용",
+                trophymode: "트로피 모드"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "애니메이션",
                 glowspeed: "속도",
                 glowrarity: "희귀도 사용",
-                glowcolorbronze: "희귀도: > 50%",
-                glowcolorsilver: "희귀도: < 50% & > $rarity",
+                glowcolorbronze: "희귀도: > $semirarity",
+                glowcolorsilver: "희귀도: < $semirarity & > $rarity",
                 glowcolorgold: "희귀도: < $rarity",
                 off: "없음",
                 pulse: "맥박",
@@ -438,8 +445,8 @@ export const translations = {
                 iconborderscale: "테두리 크기",
                 iconborderx: "수평 오프셋",
                 iconborderrarity: "희귀도 사용",
-                iconborderimgbronze: "희귀도 > 50%",
-                iconborderimgsilver: "희귀도: < 50% 및 > $rarity",
+                iconborderimgbronze: "희귀도: > $semirarity",
+                iconborderimgsilver: "희귀도: < $semirarity & > $rarity",
                 iconbordery: "수직 오프셋",
                 front: "앞",
                 back: "뒤",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "실행 후, 시스템 트레이에서 열릴 때까지 앱 UI 창 숨기기",
         nohwa: `하드웨어 가속을 비활성화하면 리소스가 제한된 시스템이나 전용 GPU가없는 시스템의 성능을 향상시킬 수 있습니다<br><br><span class="ttdesc">이 옵션을 활성화/비활성화하면 응용 프로그램이 다시 시작됩니다</span>`,
         litemode: "모든 상호 작용 UI 요소 비활성화, 시스템 트레이 아이콘을 통한 제한된 앱 기능만 제공. 앱이 사용하는 리소스 개선 가능",
-        rarity: "희귀 업적 알림이 트리거될 백분율. 이 값보다 높은 잠금 해제 백분율을 가진 업적은 주 알림으로 표시됨",
+        rarity: `희귀 업적 알림이 표시되는 비율입니다.<br><br>이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 메인 알림으로 표시됩니다<br><br><span class="ttdesc"><span class="hl">트로피 모드</span>가 활성화된 경우, 이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 대신 실버 알림으로 표시됩니다</span>`,
+        semirarity: `"실버" 알림 요소가 표시되는 비율입니다 (예: <span class="hl">희귀 배지</span>, <span class="hl">장식</span> 등).<br><br>이 값 이하(또는 같고)이며 <span class="hl">희귀도 비율</span>보다 높은 잠금 해제 비율을 가진 모든 업적은 "실버" 희귀도용으로 설정된 알림 요소를 표시합니다.<br><br>이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 "브론즈" 희귀도용으로 설정된 알림 요소를 표시합니다<br><br><span class="ttdesc"><span class="hl">트로피 모드</span>가 활성화된 경우, 이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 대신 브론즈 알림으로 표시됩니다</span>`,
         showpercent: "선택한 유형의 알림에 업적의 잠금 해제 백분율 표시",
         soundonly: "알림 비활성화, Customiser에서 설정한 사운드만 재생",
         extwin: "현재 화면에 표시되는 모든 알림을 복제하는 창을 생성합니다. 이 창은 OBS와 같은 스트리밍 소프트웨어에서 창 캡처 소스로 추가할 수 있습니다",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "업적을 해제할 때 키/조합을 시뮬레이션하도록 트리거합니다. 외부 응용 프로그램에 등록된 키보드 단축키를 트리거하는 데 사용할 수 있습니다",
         customtriggershortcut: `업적이 해제될 때 지정된 키/조합을 트리거합니다<br><br><span class="ttdesc">단축키당 1~3개의 키를 지원합니다. 3개 미만의 키를 누르는 경우 원하는 키를 누르고 타이머(5초)가 종료될 때까지 기다리세요</span>`,
         customtriggerdelay: "지정된 사용자 지정 트리거 키/조합을 지연합니다",
-        customtriggerusedisplaytime: `현재 알림 유형의 표시 시간 값을 기준으로 지정된 사용자 지정 트리거 키/조합을 지연합니다`
+        customtriggerusedisplaytime: `현재 알림 유형의 표시 시간 값을 기준으로 지정된 사용자 지정 트리거 키/조합을 지연합니다`,
+        trophymode: "메인/레어/100% 알림 유형을 브론즈/실버/골드/플래티넘으로 교체"
     },
     update: {
         updateavailable: "업데이트 가능",

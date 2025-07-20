@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "主要",
+        semi: "半",
         rare: "稀有",
         plat: "100%",
+        trophymain: "青铜",
+        trophysemi: "白银",
+        trophyrare: "黄金",
+        trophyplat: "白金",
         test: "测试通知",
         topleft: "左上角",
         topcenter: "顶部中心",
@@ -193,6 +198,7 @@ export const translations = {
             title: "通知",
             content: {
                 rarity: "稀有度百分比",
+                semirarity: "白银百分比",
                 rareonly: "仅显示稀有",
                 all: "全部",
                 off: "关闭",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "自定义触发器",
                 customtriggershortcut: "触发快捷键",
                 customtriggerdelay: "触发延迟",
-                customtriggerusedisplaytime: "使用显示时间"
+                customtriggerusedisplaytime: "使用显示时间",
+                trophymode: "奖杯模式"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "动画",
                 glowspeed: "速度",
                 glowrarity: "使用稀有度",
-                glowcolorbronze: "稀有度: > 50%",
-                glowcolorsilver: "稀有度: < 50% & > $rarity",
+                glowcolorbronze: "稀有度: > $semirarity",
+                glowcolorsilver: "稀有度: < $semirarity & > $rarity",
                 glowcolorgold: "稀有度: < $rarity",
                 off: "关闭",
                 pulse: "脉动",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "水平偏移",
                 iconbordery: "垂直偏移",
                 iconborderrarity: "使用稀有度",
-                iconborderimgbronze: "稀有度 > 50%",
-                iconborderimgsilver: "稀有度: < 50% 且 > $rarity",
+                iconborderimgbronze: "稀有度: > $semirarity",
+                iconborderimgsilver: "稀有度: < $semirarity & > $rarity",
                 front: "前面",
                 back: "后面",
                 plat: "100% 图标",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "启动后，隐藏应用程序UI窗口，直到从系统托盘中打开",
         nohwa: `禁用硬件加速，这可能会改善资源有限或没有专用 GPU 的系统性能<br><br><span class="ttdesc">启用/禁用此选项后，应用程序将重新启动</span>`,
         litemode: "禁用所有交互式UI元素，仅通过系统托盘图标提供有限的应用程序功能。可能会提高应用程序消耗的资源",
-        rarity: "稀有成就通知触发的百分比。任何解锁百分比高于此值的成就将显示为主要通知",
+        rarity: `触发稀有成就通知的百分比。<br><br>任何解锁百分比高于此值的成就将显示为主要通知<br><br><span class="ttdesc">如果启用了<span class="hl">奖杯模式</span>，任何解锁百分比高于此值的成就将改为显示为白银通知</span>`,
+        semirarity: `显示“白银”通知元素的百分比（例如<span class="hl">稀有度徽章</span>、<span class="hl">装饰</span>等）。<br><br>任何解锁百分比低于（或等于）此值且高于<span class="hl">稀有度百分比</span>的成就，将显示为配置为“白银”稀有度的通知元素。<br><br>任何解锁百分比高于此值的成就，将显示为配置为“青铜”稀有度的通知元素<br><br><span class="ttdesc">如果启用了<span class="hl">奖杯模式</span>，任何解锁百分比高于此值的成就将改为显示为青铜通知</span>`,
         showpercent: "在所选类型的通知中显示成就的解锁百分比",
         soundonly: "禁用通知，仅播放通过Customiser设置的声音",
         extwin: "创建一个窗口，复制当前屏幕上显示的所有通知。然后，可以将该窗口作为窗口捕捉源添加到流媒体软件中，如 OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "在解锁成就时触发模拟按键/组合键。可用于触发外部应用中注册的键盘快捷键",
         customtriggershortcut: `在解锁成就时触发指定的按键/组合键<br><br><span class="ttdesc">支持每个快捷键1-3个按键。对于少于3个按键的按键/组合，请按下所需按键并等待计时器（5秒）结束</span>`,
         customtriggerdelay: "延迟指定的自定义触发器按键/组合",
-        customtriggerusedisplaytime: `根据当前通知类型的显示时间值延迟指定的自定义触发器按键/组合`
+        customtriggerusedisplaytime: `根据当前通知类型的显示时间值延迟指定的自定义触发器按键/组合`,
+        trophymode: "将主要/稀有/100%通知类型替换为青铜/白银/黄金/白金"
     },
     update: {
         updateavailable: "有可用更新",

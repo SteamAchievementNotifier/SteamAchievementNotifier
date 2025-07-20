@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Ana",
+        semi: "Yarı",
         rare: "Nadir",
         plat: "100%",
+        trophymain: "Bronz",
+        trophysemi: "Gümüş",
+        trophyrare: "Altın",
+        trophyplat: "Platin",
         test: "Test Bildirimleri",
         topleft: "Sol Üst",
         topcenter: "Üst Orta",
@@ -193,6 +198,7 @@ export const translations = {
             title: "Bildirimler",
             content: {
                 rarity: "Nadirlik Yüzdesi",
+                semirarity: "Gümüş Yüzdesi",
                 rareonly: "Yalnızca Nadirler",
                 all: "Tümü",
                 off: "Kapalı",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Özel Tetikleyici",
                 customtriggershortcut: "Tetikleyici Kısayolu",
                 customtriggerdelay: "Tetikleyici Gecikmesi",
-                customtriggerusedisplaytime: "Gösterim Süresini Kullan"
+                customtriggerusedisplaytime: "Gösterim Süresini Kullan",
+                trophymode: "Kupa Modu"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animasyon",
                 glowspeed: "Hız",
                 glowrarity: "Nadırlığı kullan",
-                glowcolorbronze: "Nadırlık: > 50%",
-                glowcolorsilver: "Nadırlık: < 50% & > $rarity",
+                glowcolorbronze: "Nadirlik: > $semirarity",
+                glowcolorsilver: "Nadirlik: < $semirarity & > $rarity",
                 glowcolorgold: "Nadırlık: < $rarity",
                 off: "Kapalı",
                 pulse: "Nabız",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Yatay Kaydırma",
                 iconbordery: "Dikey Kaydırma",
                 iconborderrarity: "Nadırlık Kullan",
-                iconborderimgbronze: "Nadırlık > 50%",
-                iconborderimgsilver: "Nadırlık: < 50% ve > $rarity",
+                iconborderimgbronze: "Nadirlik: > $semirarity",
+                iconborderimgsilver: "Nadirlik: < $semirarity & > $rarity",
                 front: "Ön",
                 back: "Arka",
                 plat: "100% Logosu",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Başlatıldıktan sonra, uygulama arayüz penceresini Sistem Tepsisi'nden açılmadıkça gizle",
         nohwa: `Donanım Hızlandırmayı Devre Dışı Bırakın, bu, sınırlı kaynaklara sahip sistemlerde veya ayrılmış bir GPU olmayan sistemlerde performansı artırabilir<br><br><span class="ttdesc">Bu seçeneği etkinleştirdikten/devre dışı bıraktıktan sonra uygulama yeniden başlatılacaktır</span>`,
         litemode: "Tüm etkileşimli UI öğelerini devre dışı bırakırken, yalnızca Sistem Tepsisi simgesi aracılığıyla sınırlı uygulama işlevselliği sağlar. Uygulama tarafından tüketilen kaynakları iyileştirebilir",
-        rarity: "Nadir başarı bildirimlerinin tetikleneceği yüzde. Bu değerin üzerinde bir kilitleme yüzdesine sahip olan her başarı Ana bir bildirim olarak görüntülenir",
+        rarity: `Nadir başarı bildirimlerinin tetikleneceği yüzde.<br><br>Bu değerin üzerindeki kilit açma yüzdesine sahip herhangi bir başarı Ana bildirim olarak gösterilecektir<br><br><span class="ttdesc"><span class="hl">Kupa Modu</span> etkinse, bu değerin üzerindeki kilit açma yüzdesine sahip herhangi bir başarı bunun yerine Gümüş bildirim olarak gösterilir</span>`,
+        semirarity: `"Gümüş" bildirim öğelerinin (örneğin <span class="hl">Nadirlik Rozetleri</span>, <span class="hl">Süslemeler</span> vb.) gösterileceği yüzde.<br><br>Bu değerin altında (veya eşit) ve <span class="hl">Nadirlik Yüzdesi</span> değerinden yüksek olan herhangi bir başarı, "Gümüş" nadirlikler için yapılandırılmış bildirim öğelerini gösterecektir.<br><br>Bu değerin üzerinde olan herhangi bir başarı, "Bronz" nadirlikler için yapılandırılmış bildirim öğelerini gösterecektir<br><br><span class="ttdesc"><span class="hl">Kupa Modu</span> etkinse, bu değerin üzerindeki herhangi bir başarı bunun yerine Bronz bildirim olarak gösterilir</span>`,
         showpercent: "Seçilen tür(ler) için bildirimde başarının kilitleme yüzdesini göster",
         soundonly: "Bildirimleri devre dışı bırakır, yalnızca Customiser tarafından ayarlanan sesleri çalar",
         extwin: "Ekranda şu anda görüntülenen tüm bildirimleri kopyalayan bir pencere oluşturun. Bu pencere, OBS gibi yayın yazılımlarında pencere yakalama kaynağı olarak eklenebilir",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Bir başarım açıldığında simüle edilen bir tuş/kombinasyonu tetikler. Harici uygulamalarda kayıtlı klavye kısayollarını tetiklemek için kullanılabilir",
         customtriggershortcut: `Bir başarım açıldığında belirtilen tuş/kombinasyonu tetikler<br><br><span class="ttdesc">Her kısayol için 1-3 tuş desteklenir. 3’ten az tuş gerektiren tuş basımı/kombinasyonlar için, istenen tuşlara basın ve zamanlayıcının (5s) bitmesini bekleyin</span>`,
         customtriggerdelay: "Belirtilen Özel Tetikleyici tuş/kombinasyonunu geciktir",
-        customtriggerusedisplaytime: `Belirtilen Özel Tetikleyici tuş/kombinasyonunu, mevcut bildirim türünün Gösterim Süresi değerine göre geciktir`
+        customtriggerusedisplaytime: `Belirtilen Özel Tetikleyici tuş/kombinasyonunu, mevcut bildirim türünün Gösterim Süresi değerine göre geciktir`,
+        trophymode: "Ana/Nadir/%100 bildirim türlerini Bronz/Gümüş/Altın/Platin ile değiştir"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

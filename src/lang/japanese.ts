@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "メイン",
+        semi: "セミ",
         rare: "レア",
         plat: "100%",
+        trophymain: "ブロンズ",
+        trophysemi: "シルバー",
+        trophyrare: "ゴールド",
+        trophyplat: "プラチナ",
         test: "テスト通知",
         topleft: "左上",
         topcenter: "上中央",
@@ -193,6 +198,7 @@ export const translations = {
             title: "通知",
             content: {
                 rarity: "レア度の割合",
+                semirarity: "シルバーの割合",
                 rareonly: "レアのみ",
                 all: "すべて",
                 off: "オフ",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "カスタムトリガー",
                 customtriggershortcut: "トリガーショートカット",
                 customtriggerdelay: "トリガーディレイ",
-                customtriggerusedisplaytime: "表示時間を使用"
+                customtriggerusedisplaytime: "表示時間を使用",
+                trophymode: "トロフィーモード"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "アニメーション",
                 glowspeed: "速度",
                 glowrarity: "レアリティを使用",
-                glowcolorbronze: "レアリティ: > 50%",
-                glowcolorsilver: "レアリティ: < 50% & > $rarity",
+                glowcolorbronze: "レア度: > $semirarity",
+                glowcolorsilver: "レア度: < $semirarity & > $rarity",
                 glowcolorgold: "レアリティ: < $rarity",
                 off: "なし",
                 pulse: "パルス",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "水平オフセット",
                 iconbordery: "垂直オフセット",
                 iconborderrarity: "レアリティを使用",
-                iconborderimgbronze: "レアリティ > 50%",
-                iconborderimgsilver: "レアリティ: < 50% かつ > $rarity",
+                iconborderimgbronze: "レア度: > $semirarity",
+                iconborderimgsilver: "レア度: < $semirarity & > $rarity",
                 front: "前面",
                 back: "背面",
                 plat: "100％ロゴ",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "起動後、システムトレイから開かれるまでアプリUIウィンドウを非表示にする",
         nohwa: `ハードウェアアクセラレーションを無効にし、リソースが限られたシステムや専用のGPUを持たないシステムでのパフォーマンスを向上させることができます<br><br><span class="ttdesc">このオプションを有効化/無効化すると、アプリケーションが再起動します</span>`,
         litemode: "すべての対話型UI要素を無効にし、システムトレイアイコン経由で限定的なアプリ機能のみを提供する。アプリのリソース消費を改善する可能性があります",
-        rarity: "レアな実績通知がトリガーされるパーセンテージ。この値を超えるアンロックパーセンテージを持つ実績はメイン通知として表示されます",
+        rarity: `レアな実績通知がトリガーされる割合。<br><br>この値を超える解除率の実績はメイン通知として表示されます<br><br><span class="ttdesc"><span class="hl">トロフィーモード</span>が有効な場合、この値を超える解除率の実績は代わりにシルバー通知として表示されます</span>`,
+        semirarity: `"シルバー"通知要素（例：<span class="hl">レアリティバッジ</span>、<span class="hl">装飾</span>など）が表示される割合。<br><br>この値以下（または等しい）で、かつ<span class="hl">レアリティ割合</span>より上の解除率の実績は、「シルバー」レアリティ用に設定された通知要素を表示します。<br><br>この値を超える解除率の実績は、「ブロンズ」レアリティ用に設定された通知要素を表示します<br><br><span class="ttdesc"><span class="hl">トロフィーモード</span>が有効な場合、この値を超える解除率の実績は代わりにブロンズ通知として表示されます</span>`,
         showpercent: "選択したタイプの通知に実績のアンロックパーセンテージを表示する",
         soundonly: "通知を無効にし、カスタマイザで設定されたサウンドのみ再生する",
         extwin: "画面に現在表示されているすべての通知を複製するウィンドウを作成します。このウィンドウは、OBSなどのストリーミングソフトウェアでウィンドウキャプチャソースとして追加できます",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "実績解除時にキーやコンボをシミュレートしてトリガーします。外部アプリで登録されたキーボードショートカットをトリガーするために使用できます",
         customtriggershortcut: `実績解除時に指定されたキーやコンボをトリガーします<br><br><span class="ttdesc">ショートカットごとに1～3キーをサポートしています。3キー未満のキー入力/コンボの場合は、希望するキーを押してタイマー（5秒）が終了するのを待ってください</span>`,
         customtriggerdelay: "指定されたカスタムトリガーのキー/コンボを遅延させます",
-        customtriggerusedisplaytime: `現在の通知タイプの表示時間の値に基づいて、指定されたカスタムトリガーのキー/コンボを遅延させます`
+        customtriggerusedisplaytime: `現在の通知タイプの表示時間の値に基づいて、指定されたカスタムトリガーのキー/コンボを遅延させます`,
+        trophymode: "メイン/レア/100%通知タイプをブロンズ/シルバー/ゴールド/プラチナに置き換える"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

@@ -1025,6 +1025,7 @@ export const listeners = {
                 percent: {
                     value: percent,
                     rarity: config.get("rarity"),
+                    semirarity: config.get("semirarity"),
                     showpercent: config.get("showpercent")
                 },
                 hidden

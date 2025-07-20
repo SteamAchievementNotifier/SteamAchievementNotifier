@@ -42,8 +42,11 @@ body[customiser][closing] button.menubtn#close {
 body[main] .sub:has(#iconanim),
 body[main] .opt:has(#iconshadowcolor),
 body[main] .opt:has(#iconanimcolor),
-body:not([main]) .cont:has( #iconanim:not(:checked)) ~ .cont:has(.title#colors) > .optcont > .opt:has(#iconshadowcolor),
-body:not([main]) .cont:has( #iconanim:not(:checked)) ~ .cont:has(.title#colors) > .optcont > .opt:has(#iconanimcolor),
+body[semi] .sub:has(#iconanim),
+body[semi] .opt:has(#iconshadowcolor),
+body[semi] .opt:has(#iconanimcolor),
+body:not([main],[semi]) .cont:has( #iconanim:not(:checked)) ~ .cont:has(.title#colors) > .optcont > .opt:has(#iconshadowcolor),
+body:not([main],[semi]) .cont:has( #iconanim:not(:checked)) ~ .cont:has(.title#colors) > .optcont > .opt:has(#iconanimcolor),
 .optcont:has(.opt > select#soundmode > option[value="file"]:not(:checked)) > .opt:has(#soundfile),
 .optcont:has(.opt > select#soundmode > option[value="folder"]:not(:checked)) > .opt:has(#sounddir),
 .optcont:has(.opt > select#bgstyle > option[value="gradient"]:not(:checked)) > .opt > .opt:has(#gradientangle),
@@ -56,6 +59,7 @@ body:not([main]) .cont:has( #iconanim:not(:checked)) ~ .cont:has(.title#colors) 
 .optcont:has(.opt > select#glowanim > option[value="off"]:checked) > .opt > .opt:has(#glowspeed),
 .optcont:has(.opt > input[type="checkbox"]#glowrarity:not(:checked)) > .opt:has(#glow) > .opt:has(#glowcolorbronze,#glowcolorsilver,#glowcolorgold),
 body[main] .optcont:has(.opt > input[type="checkbox"]#glowrarity:checked) > .opt:has(#glow) > .opt:has(#glowcolorgold),
+body[semi] .optcont:has(.opt > input[type="checkbox"]#glowrarity:checked) > .opt:has(#glow) > .opt:has(#glowcolorgold),
 body[rare] .opt:has(#glow) > .opt:has(#glowrarity,#glowcolorbronze,#glowcolorsilver,#glowcolorgold),
 body[plat] .opt:has(#glow) > .opt:has(#glowrarity,#glowcolorbronze,#glowcolorsilver,#glowcolorgold),
 .optcont:has(.opt > input[type="checkbox"]#mask:not(:checked)) > .opt:has(#mask) > .opt:has(#maskimg),
@@ -87,8 +91,8 @@ body[plat] #customisercontent .wrapper:has(> .img#hiddenicon),
 .opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="unlockmsg"]),
 .opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="title"]),
 .opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="desc"]),
-body:not([main]) .opt:has(input#iconborderrarity),
-body:not([main]) .opt:has(input#iconborderrarity) ~ .opt:has(.img[id^="iconborderimg"]),
+body:not([main],[semi]) .opt:has(input#iconborderrarity),
+body:not([main],[semi]) .opt:has(input#iconborderrarity) ~ .opt:has(.img[id^="iconborderimg"]),
 .opt:has(input#iconborderrarity:not(:checked)) ~ .opt:has(.img[id^="iconborderimg"]) {
     display: none;
 }
@@ -326,8 +330,20 @@ body[main] .wrapper#customisertabs > .wrapper#customisertablbl::before {
     --icon: url("../../icon/trophy_gold.svg");
 }
 
+body[trophymode][main] .wrapper#customisertabs > .wrapper#customisertablbl::before {
+    --icon: url("../../icon/trophy_bronze.svg");
+}
+
+body[semi] .wrapper#customisertabs > .wrapper#customisertablbl::before {
+    --icon: url("../../icon/trophy_silver.svg");
+}
+
 body[rare] .wrapper#customisertabs > .wrapper#customisertablbl::before {
     --icon: url("../../icon/trophy_purple.svg");
+}
+
+body[trophymode][rare] .wrapper#customisertabs > .wrapper#customisertablbl::before {
+    --icon: url("../../icon/trophy_gold.svg");
 }
 
 body[plat] .wrapper#customisertabs > .wrapper#customisertablbl::before {
@@ -638,6 +654,7 @@ button#exporttheme {
 }
 
 body:not([main]) #customiser[synced="main"] .cont:has(.title) > .wrapper,
+body:not([semi]) #customiser[synced="semi"] .cont:has(.title) > .wrapper,
 body:not([rare]) #customiser[synced="rare"] .cont:has(.title) > .wrapper,
 body:not([plat]) #customiser[synced="plat"] .cont:has(.title) > .wrapper,
 body[themeswitch] #customiser .cont:has(.title) > .wrapper,

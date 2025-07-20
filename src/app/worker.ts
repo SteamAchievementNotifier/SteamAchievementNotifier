@@ -260,8 +260,8 @@ const startsan = async (appinfo: AppInfo) => {
                     log.write("INFO",`Achievement unlocked: ${JSON.stringify(achievement)}`)
         
                     const config = sanconfig.get()
-                    const { rarity } = config.store
-                    const type = achievement.percent <= rarity ? "rare" : "main"
+                    const { rarity, semirarity, trophymode } = config.store
+                    const type = achievement.percent <= rarity ? "rare" : (trophymode && (achievement.percent <= semirarity && achievement.percent > rarity) ? "semi" : "main")
         
                     let retries = 0
         
@@ -298,10 +298,10 @@ const startsan = async (appinfo: AppInfo) => {
         
                     const notify: Notify = {
                         id: Math.round(Date.now() / Math.random() * 1000),
-                        customisation: customisation,
-                        type: type,
+                        customisation,
+                        type,
                         gamename: gamename || "???",
-                        steam3id: steam3id,
+                        steam3id,
                         apiname: achievement.apiname,
                         name: localised.name || achievement.name,
                         desc: localised.desc || achievement.desc,
@@ -338,7 +338,7 @@ const startsan = async (appinfo: AppInfo) => {
         
                         const platnotify: Notify = {
                             id: Date.now(),
-                            customisation: customisation,
+                            customisation,
                             type: "plat",
                             gamename: gamename || "???",
                             steam3id: steam3id,

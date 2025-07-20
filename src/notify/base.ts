@@ -52,7 +52,7 @@ const notifyhelper = {
         if (iswebview || skipaudio) return
     
         const audio = document.querySelector("audio")!
-        audio.src = notifyhelper.getaudiofile(customisation.soundmode,customisation[`sound${customisation.soundmode === "file" ? "file" : "dir"}`]) || `../sound/notify${type !== "main" ? `_${type}` : ""}.wav`
+        audio.src = notifyhelper.getaudiofile(customisation.soundmode,customisation[`sound${customisation.soundmode === "file" ? "file" : "dir"}`]) || `../sound/notify${(type !== "main" && type !== "semi") ? `_${type}` : ""}.wav`
         audio.volume = customisation.volume / 100
         audio.play()
     },
@@ -86,7 +86,7 @@ const notifyhelper = {
     
         return notifyhelper.playaudio(customisation,iswebview,skipaudio,type)
     },
-    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string,gameartlogo: string,ra?: boolean): Promise<HTMLImageElement[] | null> => {
+    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number, semirarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string,gameartlogo: string,ra?: boolean): Promise<HTMLImageElement[] | null> => {
         return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {
             const fontloader = document.getElementById("fontloader")
             fontloader && fontloader.remove()
@@ -100,7 +100,7 @@ const notifyhelper = {
 
             const getpercent = (trophies?: { bronze: string | number, silver: string | number, gold: string | number }): string | number => {
                 if (!trophies) return 100 - Math.round(percent.value / 5) * 5
-                return percent.value >= 50 ? trophies.bronze : (percent.value < 50 && percent.value > percent.rarity ? trophies.silver : trophies.gold)
+                return percent.value > percent.semirarity ? trophies.bronze : (percent.value <= percent.semirarity && percent.value > percent.rarity ? trophies.silver : trophies.gold)
             }
 
             const getcustomicon = (type: "logo" | "decoration"): string => {
@@ -182,11 +182,11 @@ const notifyhelper = {
                 ["--decorationdisplaytype","block"],
                 ["--gs",customisation.usepercent ? `${percent.value.toFixed(1)}` : `${getpercent()}`],
                 ["--unit",customisation.usepercent ? "%" : (customisation.preset === "epicgames" ? " XP" : (customisation.preset === "xbox360" || customisation.preset === "gfwl" ? "G" : ""))],
-                ["--raritycolor",`${percent.value >= 50 ? "#a05526" : (percent.value < 50 && percent.value > percent.rarity ? "#828282" : "#b4904a")}`],
+                ["--raritycolor",`${percent.value > percent.semirarity ? "#a05526" : (percent.value <= percent.semirarity && percent.value > percent.rarity ? "#828282" : "#b4904a")}`],
                 ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`],
                 ["--glow",customisation.glow ? `drop-shadow(${(customisation.glowx * (customisation.scale / 100)) / 10}px ${(customisation.glowy * (customisation.scale / 100)) / 10}px var(--glowsize) var(--glowcolor))` : "none"],
                 ["--glowsize",`${(customisation.glowsize / 100) * 0.6}rem`],
-                ["--glowcolor",customisation.glowrarity ? (percent.value >= 50 ? customisation.glowcolorbronze : (percent.value < 50 && percent.value > percent.rarity ? customisation.glowcolorsilver : customisation.glowcolorgold)) : customisation.glowcolor],
+                ["--glowcolor",customisation.glowrarity ? (percent.value > percent.semirarity ? customisation.glowcolorbronze : (percent.value <= percent.semirarity && percent.value > percent.rarity ? customisation.glowcolorsilver : customisation.glowcolorgold)) : customisation.glowcolor],
                 ["--glowanim",customisation.glow && customisation.glowanim !== "off" ? `${customisation.glowanim} calc(var(--transition) * var(--glowspeed)) linear infinite` : "none"],
                 ["--glowspeed",`${customisation.glowspeed}`],
                 ["--blur",`${customisation.blur * (iswebview === "customiser" ? 1 : customisation.scale / 100) / 50}px`],
@@ -212,7 +212,7 @@ const notifyhelper = {
                 ["--unlockmsgfontcolor",`${customisation.usecustomfontcolors ? customisation.unlockmsgfontcolor : customisation.fontcolor}`],
                 ["--titlefontcolor",`${customisation.usecustomfontcolors ? customisation.titlefontcolor : customisation.fontcolor}`],
                 ["--descfontcolor",`${customisation.usecustomfontcolors ? customisation.descfontcolor : customisation.fontcolor}`],
-                ["--iconborder",customisation.showiconborder ? `url('${(!customisation.iconborderrarity ? customisation.iconborderimg : (percent.value >= 50 ? customisation.iconborderimgbronze : (percent.value < 50 && percent.value > percent.rarity ? customisation.iconborderimgsilver : customisation.iconborderimg)))}')` : ""],
+                ["--iconborder",customisation.showiconborder ? `url('${(!customisation.iconborderrarity ? customisation.iconborderimg : (percent.value > percent.semirarity ? customisation.iconborderimgbronze : (percent.value <= percent.semirarity && percent.value > percent.rarity ? customisation.iconborderimgsilver : customisation.iconborderimg)))}')` : ""],
                 ["--iconborderpos",`${customisation.iconborderpos === "back" ? -1 : 99}`],
                 ["--iconborderscale",`${customisation.iconborderscale / 100}`],
                 ["--iconborderx",`${customisation.iconborderx}`],
@@ -323,8 +323,8 @@ try {
                 achicons.forEach(achicon => (achicon as HTMLImageElement)!.src = icon)
     
                 const percentvalue = Math.max(parseFloat(percent.value.toFixed(1)),0.1)
-                const percentstr = customisation.percentbadge ? "" : `${(type === "main" && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${percentvalue}%)` : ""}`
-                const percentimg = percentvalue <= percent.rarity ? "gold" : ((percentvalue < 50 && percentvalue > percent.rarity) ? "silver" : "bronze")
+                const percentstr = customisation.percentbadge ? "" : `${((type === "main" || type === "semi") && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${percentvalue}%)` : ""}`
+                const percentimg = percentvalue <= percent.rarity ? "gold" : ((percentvalue <= percent.semirarity && percentvalue > percent.rarity) ? "silver" : "bronze")
     
                 const ss = iswebview && !customisation.elemsmatch && iswebview.startsWith("ss") ? "ss" : ""
                 customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : `${percentvalue}%`}</span>`))

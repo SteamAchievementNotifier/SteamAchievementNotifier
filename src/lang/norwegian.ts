@@ -1,8 +1,13 @@
 export const translations = {
     global: {
         main: "Hoved",
+        semi: "Semi",
         rare: "Sjelden",
         plat: "100%",
+        trophymain: "Bronse",
+        trophysemi: "Sølv",
+        trophyrare: "Gull",
+        trophyplat: "Platina",
         test: "Testvarsler",
         topleft: "Øverst til venstre",
         topcenter: "Øverst i midten",
@@ -192,7 +197,8 @@ export const translations = {
         notifications: {
             title: "Varsler",
             content: {
-                rarity: "Sjeldenhet prosentandel",
+                rarity: "Sjeldenhetsprosent",
+                semirarity: "Sølvprosent",
                 rareonly: "Bare sjeldne",
                 all: "Alle",
                 off: "Av",
@@ -214,7 +220,8 @@ export const translations = {
                 customtrigger: "Egendefinert Utløser",
                 customtriggershortcut: "Utløser hurtigtast",
                 customtriggerdelay: "Utløser forsinkelse",
-                customtriggerusedisplaytime: "Bruk visningstid"
+                customtriggerusedisplaytime: "Bruk visningstid",
+                trophymode: "Trofémodus"
             }
         },
         games: {
@@ -386,8 +393,8 @@ export const translations = {
                 glowanim: "Animasjon",
                 glowspeed: "Hastighet",
                 glowrarity: "Bruk sjeldenhet",
-                glowcolorbronze: "Sjeldenhet: > 50%",
-                glowcolorsilver: "Sjeldenhet: < 50% & > $rarity",
+                glowcolorbronze: "Sjeldenhet: > $semirarity",
+                glowcolorsilver: "Sjeldenhet: < $semirarity & > $rarity",
                 glowcolorgold: "Sjeldenhet: < $rarity",
                 off: "Ingen",
                 pulse: "Puls",
@@ -439,8 +446,8 @@ export const translations = {
                 iconborderx: "Horisontal forskyvning",
                 iconbordery: "Vertikal forskyvning",
                 iconborderrarity: "Bruk sjeldenhet",
-                iconborderimgbronze: "Sjeldenhet > 50%",
-                iconborderimgsilver: "Sjeldenhet: < 50% og > $rarity",
+                iconborderimgbronze: "Sjeldenhet: > $semirarity",
+                iconborderimgsilver: "Sjeldenhet: < $semirarity & > $rarity",
                 front: "Foran",
                 back: "Bak",
                 plat: "100% Logo",
@@ -553,7 +560,8 @@ export const translations = {
         startmin: "Etter oppstart, skjul appens brukergrensesnittvindu til det åpnes fra systemstatusfeltet",
         nohwa: `Deaktiver maskinvareakselerasjon, noe som kan forbedre ytelsen på systemer med begrensede ressurser eller systemer uten dedikert GPU<br><br><span class="ttdesc">Appen vil starte på nytt etter aktivering/deaktivering av dette alternativet</span>`,
         litemode: "Deaktiver alle interaktive brukergrensesnittelementer, og tilbyr bare begrenset appfunksjonalitet via systemstatusfeltikonet. Kan forbedre ressursene som brukes av appen",
-        rarity: "Prosentandelen der sjeldne prestasjonsvarsler vil bli utløst. Enhver prestasjon med en låseprosent over denne verdien vil bli vist som en hovedvarsling",
+        rarity: `Prosentandelen hvor varsler for sjeldne prestasjoner utløses.<br><br>Enhver prestasjon med en opplåsingsprosent over denne verdien vil vises som en Hovedvarsling<br><br><span class="ttdesc">Hvis <span class="hl">Trofe-modus</span> er aktivert, vil enhver prestasjon med en opplåsingsprosent over denne verdien vises som en Sølvvarsling i stedet</span>`,
+        semirarity: `Prosentandelen hvor "Sølv"-varslingsobjekter vises (f.eks. <span class="hl">Sjeldenhetsmerker</span>, <span class="hl">Dekorasjoner</span> osv.).<br><br>Enhver prestasjon med en opplåsingsprosent under (eller lik) denne verdien, og over verdien for <span class="hl">Sjeldenhetsprosent</span>, vil vise varslingsobjekter konfigurert for "Sølv" sjeldenheter.<br><br>Enhver prestasjon med en opplåsingsprosent over denne verdien vil vise varslingsobjekter konfigurert for "Bronse" sjeldenheter<br><br><span class="ttdesc">Hvis <span class="hl">Trofe-modus</span> er aktivert, vil enhver prestasjon med en opplåsingsprosent over denne verdien vises som en Bronsevarsling i stedet</span>`,
         showpercent: "Vis låseprosenten for prestasjonen i varslingen for de valgte typene",
         soundonly: "Deaktiver varsler, og spill bare av lyder som er satt via Tilpasseren",
         extwin: "Opprett et vindu som dupliserer alle varsler som for øyeblikket vises på skjermen. Dette vinduet kan deretter legges til som en vindusfangstkilde for bruk i strømmeprogramvare som OBS",
@@ -773,7 +781,8 @@ export const translations = {
         customtrigger: "Utløser en tast/kombinasjon som simuleres ved opplåsing av et achievement. Kan brukes til å utløse hurtigtaster registrert i eksterne applikasjoner",
         customtriggershortcut: `Utløs den angitte tast/kombinasjonen når et achievement låses opp<br><br><span class="ttdesc">Støtter mellom 1-3 taster per hurtigtast. For tastetrykk/kombinasjoner med færre enn 3 taster, trykk på ønskede taster og vent til timeren (5s) går ut</span>`,
         customtriggerdelay: "Forsink den angitte egendefinerte tast/kombinasjonen",
-        customtriggerusedisplaytime: `Forsink den angitte egendefinerte tast/kombinasjonen basert på visningstidsverdien for den gjeldende varseltypen`
+        customtriggerusedisplaytime: `Forsink den angitte egendefinerte tast/kombinasjonen basert på visningstidsverdien for den gjeldende varseltypen`,
+        trophymode: "Erstatt Hoved/Sjelden/100% varslingstyper med Bronse/Sølv/Gull/Platina"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

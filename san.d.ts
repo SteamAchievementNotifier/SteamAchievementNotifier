@@ -26,7 +26,8 @@ interface SANHelper {
     [key: string]: function | boolean | number | string | Promise<any> | undefined
 }
 
-declare type NotifyType = "main" | "rare" | "plat"
+declare type NotifyType = "main" | "semi" | "rare" | "plat"
+declare type TrophyType = "bronze" | "silver" | "gold"
 
 declare interface Config {
     lang: string,
@@ -36,6 +37,7 @@ declare interface Config {
     nohwa: boolean,
     litemode: boolean,
     rarity: number,
+    semirarity: number,
     soundonly: boolean,
     showpercent: "rareonly" | "all" | "off",
     extwin: boolean,
@@ -84,6 +86,7 @@ declare interface Config {
     ssalldetails: string[],
     webhooks: boolean,
     webhookmain: boolean,
+    webhooksemi: boolean,
     webhookrare: boolean,
     webhookplat: boolean,
     webhooktest: boolean,
@@ -91,6 +94,7 @@ declare interface Config {
     webhooklaststatus: string,
     webhookspoilers: boolean,
     webhookembedcolormain: string,
+    webhookembedcolorsemi: string,
     webhookembedcolorrare: string,
     webhookembedcolorplat: string,
     // discord: {
@@ -130,8 +134,10 @@ declare interface Config {
     customtriggershortcut: string,
     customtriggerdelay: number,
     customtriggerusedisplaytime: boolean,
+    trophymode: boolean,
     customisation: {
         main: Customisation,
+        semi: Customisation,
         rare: Customisation,
         plat: Customisation,
         [key: string]: object
@@ -314,7 +320,7 @@ declare interface Achievement {
 
 declare interface Notify extends Achievement {
     id: number,
-    type: "main" | "rare" | "plat",
+    type: NotifyType,
     customisation: Customisation,
     icon: string,
     gamename: string | null,
@@ -383,7 +389,7 @@ declare interface Info {
 
 declare interface BuildNotifyInfo {
     id: number,
-    type: "main" | "rare" | "plat",
+    type: NotifyType,
     gamename: string | null,
     steam3id: number,
     appid: number,
@@ -395,6 +401,7 @@ declare interface BuildNotifyInfo {
     percent: {
         value: number,
         rarity: number,
+        semirarity: number,
         showpercent: "rareonly" | "all" | "off"
     },
     hidden: boolean
@@ -460,6 +467,7 @@ declare interface DefaultBounds {
 declare interface ThemeSwitch {
     themes: {
         main: number,
+        semi: number,
         rare: number,
         plat: number
     },

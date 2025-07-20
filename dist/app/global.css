@@ -56,8 +56,20 @@ body[main] {
     --primary: #203e7a;
 }
 
+body[trophymode][main] {
+    --primary: #7f4e1d;
+}
+
+body[semi] {
+    --primary: #778285;
+}
+
 body[rare] {
     --primary: #663399;
+}
+
+body[trophymode][rare] {
+    --primary: #bf8e00;
 }
 
 body[plat] {
@@ -714,6 +726,11 @@ select#themeselect {
 #settingscontent[synced="main"] .synclbl,
 #customiser[synced="main"] .synclbl {
     --star: #ffc400;
+}
+
+#settingscontent[synced="semi"] .synclbl,
+#customiser[synced="semi"] .synclbl {
+    --star: #60707a;
 }
 
 #settingscontent[synced="rare"] .synclbl,

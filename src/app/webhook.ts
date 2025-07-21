@@ -97,11 +97,11 @@ export const webhookwrapper = async (elem: HTMLElement) => {
         const span = wrapper.querySelector("span") as HTMLSpanElement
         const input = wrapper.querySelector(`input[type="checkbox"]`) as HTMLInputElement
         const color = wrapper.querySelector(`input[type="color"]`) as HTMLInputElement
-        const type = (["main","rare","plat","test"] as const).find(type => input.id.endsWith(type)) as NotifyType | "test"
+        const type = (["main",...(config.get("trophymode") ? ["semi"] : []),"rare","plat","test"] as (NotifyType | "test")[]).find(type => input.id.endsWith(type)) as NotifyType | "test"
 
         if (color) color.onclick = event => event.preventDefault()
 
-        span.textContent = await language.get(type)
+        span.textContent = await language.get((type !== "test" && config.get("trophymode") ? "trophy" : "") + type)
         input.checked = config.get(`webhook${type}`) as boolean
         sanhelper.getcheckbox(config,input)
 

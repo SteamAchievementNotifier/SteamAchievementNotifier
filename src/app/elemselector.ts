@@ -83,12 +83,13 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     const lang = config.get("lang")
     const { translations: { global, notificationelems } } = await import(`../lang/${lang}`)
+    const { language } = await import("./language")
 
     const menutype = document.getElementById(elemtype === "elems" ? "customiser" : "settingscontent")!
     const elemselector = menutype.querySelector("#elemselector")
     elemselector && elemselector.remove()
 
-    const type = sanhelper.type
+    const type = sanhelper.type as NotifyType
     const max = elemtype === "sselems" && !(config.get("ssalldetails") as string[]).includes(config.get(`customisation.${type}.preset`) as string) ? 2 : 3
     const elems = config.get(`customisation.${type}.${elemtype}`) as string[]
 
@@ -218,9 +219,9 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         }
     })
 
-    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(button[id*="percentbadgeimg"]) > button`)!.forEach(b => {
+    menutype.querySelectorAll(`#elemselector > .opt > .opt:has(button[id*="percentbadgeimg"]) > button`)!.forEach(async b => {
         const btn = b as HTMLImageElement
-        btn.parentElement!.querySelector("span")!.textContent = notificationelems.content[btn.id].replace(/\$rarity/,config.get("rarity"))
+        btn.parentElement!.querySelector("span")!.textContent = type === "plat" ? await language.get("gamecomplete")  : language.configregex(config,notificationelems.content[btn.id],"%")
 
         btn.style.setProperty("--img",`url('${config.get(`customisation.${type}.${btn.id}`)}')`)
 

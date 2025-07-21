@@ -119,7 +119,7 @@ export const dialog = {
                             for (const i in entry[1]) {
                                 const entryvalue = entry[1][i]
 
-                                const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).map(key => `<span ${key}></span>${gettheme(key as NotifyType,entryvalue[key]) || `<i style="color: red;">❗ ${themedeleted}</i>`}`) : Object.values(entryvalue)).join("<br>")
+                                const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).filter(key => !config.get("trophymode") ? key !== "semi" : key).map(key => `<span ${key}></span>${gettheme(key as NotifyType,entryvalue[key]) || `<i style="color: red;">❗ ${themedeleted}</i>`}`) : Object.values(entryvalue)).join("<br>")
                                 const strvalue = type === "themeswitch" && i === "src" ? (config.get("monitors").find(monitor => monitor.id === entryvalue)?.label || `<i style="font-size: 0.5rem; color: red;">❗ ${await language.get("notconnected")}</i>`) : entryvalue
 
                                 const td = document.createElement("td")

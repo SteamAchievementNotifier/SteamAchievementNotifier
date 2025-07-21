@@ -364,7 +364,16 @@ export const sanhelper: SANHelper = {
         for (const type of Object.keys(customisation) as NotifyType[]) {
             synced && synced === type && config.set(`customisation.${type}.synctheme`,false) // Removes synced Themes when toggling Trophy Mode
             document.querySelectorAll(`.logo#${customiser ? "customiser" : ""}logo > img[${type}]`).forEach(img => (img as HTMLImageElement).src = trophyimgpath(trophymap[type],customiser))
+            
+            // Reset and remove (via CSS) "Use Rarity" options when Trophy Mode is enabled
+            if (value) {
+                for (const id of ["glow","iconborder"] as const) {
+                    (type === "main" || type === "semi") && config.set(`customisation.${type}.${id}rarity`,false)
+                }
+            }
         }
+
+        ipcRenderer.send("shortcut",true)
 
         // Below actions should only happen on app load
         if (customiser) return
@@ -480,6 +489,28 @@ export const sanhelper: SANHelper = {
             elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
             // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
             elem.id === "rauser" && ipcRenderer.emit("ra")
+            
+            // Updates labels and tooltips for percentage-based options while Customiser is open
+            // Also ensures Silver Percentage value is always reset to be above the Rare Percentage value on change
+            for (const id of (["rarity","semirarity"] as const)) {
+                if (elem.id === "rarity") {
+                    const { rarity, semirarity } = config.store
+                    const input = document.querySelector(`input[type="range"]#semirarity`)! as HTMLInputElement
+                    const rounded = Math.ceil(rarity) + 1
+                    
+                    if (rarity > semirarity) {
+                        config.set("semirarity",rounded)
+                        input.value = `${rounded}`
+                    }
+                    
+                    input.min = `${rounded}`
+                }
+
+                if (elem.id === id) {
+                    (async() => language.load())()
+                    sanhelper.tooltips(config.get("tooltips"))
+                }
+            }
 
             if (elem.id === "rakey") {
                 sanhelper.storerakey(elem.value)
@@ -559,7 +590,7 @@ export const sanhelper: SANHelper = {
             elem.parentElement!.querySelector("span")!.textContent = type === "plat" ? await language.get("decoration",["customiser","icons","content"]) : `${await language.get(Array.isArray(key) ? "rarity" : "decoration",["customiser","icons","content"])}${Array.isArray(key) ? `: ${raritylbl}` : ""}`
         }
     },
-    updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: (["main","semi","rare","plat"] as const).find(attr => document.body.hasAttribute(attr)), noreload: noreload } })),
+    updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: (["main","semi","rare","plat"] as NotifyType[]).find(attr => document.body.hasAttribute(attr)), noreload: noreload } })),
     loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
         if (!menuelem) return
 
@@ -581,15 +612,23 @@ export const sanhelper: SANHelper = {
             const trophies = [
                 "bronze",
                 "silver",
-                "gold"
-            ] as const
+                "gold",
+                "plat"
+            ] as TrophyType[] | "plat"
 
             let content = (await language.get(elem.id,["tooltips"])).replace(/\$type/,await language.get(menuelem.id === "settingscontent" ? "screenshot" : "notification",["tooltips"]))
+
+            for (const type of (["main","semi","rare","plat"] as NotifyType[])) {
+                if (elem.id === `webhook${type}` || elem.id === `webhookembedcolor${type}`) {
+                    const config = (await import("./config")).sanconfig.get()
+                    content = (await language.get(elem.id,["tooltips"])).replace(new RegExp(`\\$${type}`,"g"),await language.get((config.get("trophymode") ? "trophy" : "") + type))
+                }
+            }
 
             for (const id of trophies) {
                 if (elem.id.endsWith(id)) {
                     const config = (await import("./config")).sanconfig.get()
-                    content = content.replace(/\$rarity/,`${config.get("rarity")}%`)
+                    content = (sanhelper.type as NotifyType) === "plat" && elem.id.endsWith("percentbadgeimggold") ? await language.get("percentbadgeimgplat",["tooltips"])  : language.configregex(config,content,"%")
                 }
             }
 
@@ -847,7 +886,7 @@ export const sanhelper: SANHelper = {
                         if (elem.id !== id + rarity) continue
 
                         const config = (await import("./config")).sanconfig.get()
-                        content = content.replace(/\$rarity/,`${config.get("rarity")}%`)
+                        content = language.configregex(config,content,"%")
                     }
                 }
 

@@ -1,7 +1,22 @@
 import { sanconfig, shortcutkeys } from "./config"
 import { log } from "./log"
 
+// Contains values to replace in options/tooltips via regex, which should always match the setting's name in config
+const configregex = [
+    "rarity",
+    "semirarity"
+]
+
 export const language = {
+    configregex: (config: any,value: string,suffix = "") => {
+        let newvalue = value
+        
+        for (const key of configregex) {
+            newvalue = newvalue.replace(new RegExp(`\\$${key}`,"g"),config.get(key) + suffix)
+        }
+
+        return newvalue
+    },
     load: async () => {
         const config = sanconfig.get()
         const lang = config.get("lang")
@@ -19,14 +34,7 @@ export const language = {
 
             appelems.forEach(id => langmap.set(maincontent.querySelector(`.rect#${id} > span`)!,app.content[id]))
 
-            const tabtypes = [
-                "main",
-                "semi",
-                "rare",
-                "plat"
-            ]
-
-            tabtypes.forEach(type => langmap.set(document.querySelector(`.wrapper#tabs > .tab[${type}]`)!,global[(config.get("trophymode") ? "trophy" : "") + type]))
+            ;(["main","semi","rare","plat"] as NotifyType[]).forEach(type => langmap.set(document.querySelector(`.wrapper#tabs > .tab[${type}]`)!,global[(config.get("trophymode") ? "trophy" : "") + type]))
 
             const dialog = document.querySelector("dialog")
             if (dialog) {
@@ -102,9 +110,9 @@ export const language = {
                         let content = customiser[title].content[input.id]
 
                         if (input.id.startsWith("glowcolor")) {
-                            for (const rarity of ["silver","gold"].map(type => `glowcolor${type}`)) {
+                            for (const rarity of (["bronze","silver","gold"] as TrophyType[]).map(type => `glowcolor${type}`)) {
                                 if (input.id === rarity) {
-                                    content = content.replace(/\$rarity/,`${config.get("rarity")}%`)
+                                    content = language.configregex(config,content,"%")
                                 }
                             }
                         }
@@ -127,7 +135,7 @@ export const language = {
                                 if (btn.id !== id + rarity) continue
 
                                 const content = customiser[title].content[btn.id]
-                                if (content) return langmap.set(btn.parentElement!.querySelector("span")!,content.replace(/\$rarity/,`${config.get("rarity")}%`))
+                                if (content) return langmap.set(btn.parentElement!.querySelector("span")!,language.configregex(config,content,"%"))
                             }
                         }
                         

@@ -93,7 +93,11 @@ body[plat] #customisercontent .wrapper:has(> .img#hiddenicon),
 .opt:has(.customcontrol > input:not(:checked)) > .customopt:has(input[id^="desc"]),
 body:not([main],[semi]) .opt:has(input#iconborderrarity),
 body:not([main],[semi]) .opt:has(input#iconborderrarity) ~ .opt:has(.img[id^="iconborderimg"]),
-.opt:has(input#iconborderrarity:not(:checked)) ~ .opt:has(.img[id^="iconborderimg"]) {
+.opt:has(input#iconborderrarity:not(:checked)) ~ .opt:has(.img[id^="iconborderimg"]),
+body[trophymode][main] .opt:has(#glow) > .opt:has(#glowrarity),
+body[trophymode][semi] .opt:has(#glow) > .opt:has(#glowrarity),
+body[trophymode][main] .opt:has(input#iconborderrarity),
+body[trophymode][semi] .opt:has(input#iconborderrarity) {
     display: none;
 }
 

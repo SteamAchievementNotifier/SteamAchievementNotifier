@@ -138,6 +138,7 @@ export const getlastactions = (key: string,file: string): LogAction[] => {
 
 let gameid = 0
 let ramode: "hard" | "soft" = "hard"
+let nowtrackingshown = false
 export let racached: RAAchievement[] = []
 
 export const executeaction = async (lastaction: LogAction): Promise<[string | null,(string | null)[]]> => {
@@ -153,11 +154,16 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                 emu = key
                 ramode = mode!
 
+                // Prevents occasional bug where the "Now Tracking" notification is displayed again after unlocking simultaneous achievements
+                if (nowtrackingshown) return ["INFO",[key,`[RA]: "start" action in "${emu || key}" re-triggered by Game ${gameid || value} - skipping...`]]
+
                 log.write("INFO",`Game ${value} is running in ${mode!.replace(mode![0],mode![0].toUpperCase())}core Mode`)
                 
                 const config = sanconfig.get()
+                
                 racached = await cacheradata(gameid,config.get("rauser"),config.get("rakey"),config.get("nowtracking"),mode as "hard" | "soft")
                 sanhelper.devmode && console.log(racached)
+                nowtrackingshown = true
 
                 ipcRenderer.send("ragame",action,{ emu, gamename: racached[0].gamename, gameid } as RAGame)
                 
@@ -168,6 +174,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                 emu = null
                 ramode = "hard"
                 racached.length = 0
+                nowtrackingshown = false
 
                 ipcRenderer.send("ragame",action)
                 

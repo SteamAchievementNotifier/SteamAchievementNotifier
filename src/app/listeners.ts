@@ -826,14 +826,13 @@ export const listeners = {
 
         ipcMain.on("steamlang",() => statwin && worker && worker.webContents.send("steamlang"))
 
-        ipcMain.on("shortcut", (event,shouldregister) => {
+        ipcMain.on("shortcut",(event,shouldregister) => {
             globalShortcut.unregisterAll()
 
             if (!shouldregister) return
 
             const config = sanconfig.get()
-
-            config.get("shortcuts") && ["main","rare","plat"].forEach(type => globalShortcut.register(config.get(`customisation.${type}.shortcut`) as string, () => win.webContents.send("shortcut",type)))
+            config.get("shortcuts") && (["main",...(config.get("trophymode") ? ["semi"] : []),"rare","plat"] as NotifyType[]).forEach(type => globalShortcut.register(config.get(`customisation.${type}.shortcut`) as string, () => win.webContents.send("shortcut",type)))
 
             globalShortcut.register(config.get("releaseshortcut") as string,() => ipcMain.emit("releasegame"))
 

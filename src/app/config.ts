@@ -519,7 +519,7 @@ export const sanconfig = {
                 Object.assign(customobj,{
                     primarycolor: `#${sanhelper.settypevalue(type,defaultcolors.primary)}`,
                     secondarycolor: `#${sanhelper.settypevalue(type,defaultcolors.secondary)}`,
-                    shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, semi: "Q", rare: 2, plat: 3 })}`,
+                    shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, semi: "w", rare: 2, plat: 3 })}`,
                     elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
                     usertheme: [{
                         id: 0,

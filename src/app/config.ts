@@ -215,7 +215,7 @@ export const sanconfig = {
                 nohwa: false,
                 litemode: false,
                 rarity: 10,
-                semirarity: 50,
+                semirarity: 25,
                 soundonly: false,
                 showpercent: "rareonly",
                 extwin: false,

@@ -19,6 +19,7 @@ export const translations = {
         preview: "미리보기",
         save: "저장",
         back: "뒤로",
+        edit: "편집",
         settings: "설정",
         appversion: "앱 버전",
         image: "이미지",
@@ -810,6 +811,11 @@ export const translations = {
                 `게임의 <span class="hl">실행 파일</span>과 관련된 <span class="hl">AppID</span> 사이에 새로운 연결을 생성합니다`,
                 `생성된 후, 이전 <span class="hl">연결된 게임 관리</span> 대화 상자를 통해 연결을 <span class="hl">해제</span>할 수 있습니다`
             ],
+            linkedit: "연결된 게임 편집",
+            linkeditsub: [
+                `<span class="hl">게임 실행 파일</span>과 연관된 <span class="hl">AppID</span> 간의 기존 연결을 편집합니다`,
+                `생성 후에는 이전 <span class="hl">연결된 게임 관리</span> 대화 상자를 통해 <span class="hl">연결 해제</span>할 수 있습니다`
+            ],
             link: "연결",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "새로운 제외",
             exclusionnewsub: [
                 `<span class="hl">제외 목록</span>에 추가할 <span class="hl">AppID</span>를 입력하세요`
+            ],
+            exclusionedit: "제외 편집",
+            exclusioneditsub: [
+                `<span class="hl">제외 목록</span>에 있는 기존 <span class="hl">AppID</span>를 편집합니다`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `게임의 <span class="hl">AppID</span>와 사용할 모니터를 <span class="hl">스크린샷 소스</span>로 지정하세요.`,
                 `이 게임의 <span class="hl">AppID</span>가 감지될 때 각 알림 유형에 전환할 <span class="hl">테마</span>를 선택하세요.`
+            ],
+            themeswitchedit: "자동 전환 편집",
+            themeswitcheditsub: [
+                `이 게임의 <span class="hl">AppID</span>에 대한 <span class="hl">스크린샷 소스</span>로 사용할 모니터를 편집합니다`,
+                `이 게임의 <span class="hl">AppID</span>가 감지되었을 때 각 알림 유형에 대해 전환할 <span class="hl">테마</span>를 변경합니다`
             ],
             themes: "테마",
             src: "스크린샷 소스",

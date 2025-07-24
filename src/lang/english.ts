@@ -19,6 +19,7 @@ export const translations = {
         preview: "Preview",
         save: "Save",
         back: "Back",
+        edit: "Edit",
         settings: "Settings",
         appversion: "App Version",
         image: "Image",
@@ -810,6 +811,11 @@ export const translations = {
                 `Create a new link between a <span class="hl">game executable</span> and the associated <span class="hl">AppID</span>`,
                 `Once created, links can be <span class="hl">unlinked</span> via the previous <span class="hl">Manage Linked Games</span> dialog`
             ],
+            linkedit: "Edit Linked Game",
+            linkeditsub: [
+                `Edit an existing link between a <span class="hl">game executable</span> and the associated <span class="hl">AppID</span>`,
+                `Once created, links can be <span class="hl">unlinked</span> via the previous <span class="hl">Manage Linked Games</span> dialog`
+            ],
             link: "Link"
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "New Exclusion",
             exclusionnewsub: [
                 `Enter the <span class="hl">AppID</span> to add to the <span class="hl">Exclusion List</span>`
+            ],
+            exclusionedit: "Edit Exclusion",
+            exclusioneditsub: [
+                `Edit the existing <span class="hl">AppID</span> in the <span class="hl">Exclusion List</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Enter the game's <span class="hl">AppID</span>, along with the desired monitor to use as a <span class="hl">Screenshot Source</span>`,
                 `Select which <span class="hl">Theme</span> to switch to for each notification type when this game's <span class="hl">AppID</span> is detected`
+            ],
+            themeswitchedit: "Edit Auto-Switch",
+            themeswitcheditsub: [
+                `Edit the desired monitor to use as a <span class="hl">Screenshot Source</span> for this game's <span class="hl">AppID</span>`,
+                `Change which <span class="hl">Theme</span> to switch to for each notification type when this game's <span class="hl">AppID</span> is detected`
             ],
             themes: "Themes",
             src: "Screenshot Source",

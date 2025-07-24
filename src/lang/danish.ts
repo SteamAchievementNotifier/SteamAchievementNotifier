@@ -19,6 +19,7 @@ export const translations = {
         preview: "Forhåndsvisning",
         save: "Gem",
         back: "Tilbage",
+        edit: "Rediger",
         settings: "Indstillinger",
         appversion: "App-version",
         image: "Billede",
@@ -810,6 +811,11 @@ export const translations = {
                 `Opret et nyt link mellem en <span class="hl">spils eksekverbare fil</span> og den tilknyttede <span class="hl">AppID</span>`,
                 `Når de er oprettet, kan links <span class="hl">fjernes</span> via den tidligere dialog for <span class="hl">Administrer tilknyttede spil</span>`
             ],
+            linkedit: "Rediger Tilknyttet Spil",
+            linkeditsub: [
+                `Rediger en eksisterende tilknytning mellem en <span class="hl">spileksekverbar fil</span> og det tilhørende <span class="hl">AppID</span>`,
+                `Når de er oprettet, kan tilknytninger <span class="hl">fjernes</span> via den tidligere <span class="hl">Administrer Tilknyttede Spil</span> dialog`
+            ],
             link: "Link",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Ny udelukkelse",
             exclusionnewsub: [
                 `Indtast <span class="hl">AppID</span> for at tilføje det til <span class="hl">udelukkelseslisten</span>`
+            ],
+            exclusionedit: "Rediger Udelukkelse",
+            exclusioneditsub: [
+                `Rediger det eksisterende <span class="hl">AppID</span> i <span class="hl">Udelukkelseslisten</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Indtast spillets <span class="hl">AppID</span> sammen med den ønskede skærm, der skal bruges som <span class="hl">Skærmbilledkilde</span>`,
                 `Vælg hvilket <span class="hl">Tema</span> der skal skiftes til for hver meddelelsestype, når dette spils <span class="hl">AppID</span> opdages`
+            ],
+            themeswitchedit: "Rediger Automatisk Skift",
+            themeswitcheditsub: [
+                `Rediger den ønskede skærm, der skal bruges som <span class="hl">Skærmbilledkilde</span> for dette spils <span class="hl">AppID</span>`,
+                `Ændr hvilket <span class="hl">Tema</span> der skal skiftes til for hver notifikationstype, når dette spils <span class="hl">AppID</span> registreres`
             ],
             themes: "Temaer",
             src: "Skærmbilledkilde",

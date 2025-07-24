@@ -16,6 +16,7 @@ export const translations = {
         bottomcenter: "Dole ve středu",
         bottomright: "Vpravo dole",
         ok: "OK",
+        edit: "Upravit",
         preview: "Náhled",
         save: "Uložit",
         back: "Zpět",
@@ -810,6 +811,11 @@ export const translations = {
                 `Vytvořte nový odkaz mezi <span class="hl">spustitelným souborem hry</span> a příslušným <span class="hl">AppID</span>`,
                 `Po vytvoření mohou být odkazy <span class="hl">zrušeny</span> prostřednictvím předchozího dialogu <span class="hl">Spravovat propojené hry</span>`
             ],
+            linkedit: "Upravit propojenou hru",
+            linkeditsub: [
+                `Upravit existující propojení mezi <span class="hl">spustitelným souborem hry</span> a příslušným <span class="hl">AppID</span>`,
+                `Po vytvoření lze propojení <span class="hl">zrušit</span> pomocí předchozího dialogu <span class="hl">Spravovat propojené hry</span>`
+            ],
             link: "Propojit",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Nové vyloučení",
             exclusionnewsub: [
                 `Zadejte <span class="hl">AppID</span>, které chcete přidat do <span class="hl">seznamu vyloučení</span>`
+            ],
+            exclusionedit: "Upravit vyloučení",
+            exclusioneditsub: [
+                `Upravit existující <span class="hl">AppID</span> v <span class="hl">seznamu vyloučení</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Zadejte <span class="hl">AppID</span> hry, spolu s požadovaným monitorem pro použití jako <span class="hl">Zdroj snímku obrazovky</span>`,
                 `Vyberte, které <span class="hl">Téma</span> se má přepnout pro každý typ oznámení, když je detekováno <span class="hl">AppID</span> této hry`
+            ],
+            themeswitchedit: "Upravit automatické přepínání",
+            themeswitcheditsub: [
+                `Upravit požadovaný monitor, který se použije jako <span class="hl">zdroj snímků obrazovky</span> pro <span class="hl">AppID</span> této hry`,
+                `Změnit, na které <span class="hl">téma</span> se má přepnout pro každý typ oznámení, když je zjištěno <span class="hl">AppID</span> této hry`
             ],
             themes: "Témata",
             src: "Zdroj snímku obrazovky",

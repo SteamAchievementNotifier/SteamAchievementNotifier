@@ -19,6 +19,7 @@ export const translations = {
         preview: "معاينة",
         save: "حفظ",
         back: "رجوع",
+        edit: "تحرير",
         settings: "الإعدادات",
         appversion: "إصدار التطبيق",
         image: "صورة",
@@ -810,7 +811,12 @@ export const translations = {
                 `إنشاء رابط جديد بين <span class="hl">ملف تنفيذ اللعبة</span> والـ <span class="hl">AppID</span> المرتبط به`,
                 `بمجرد الإنشاء، يمكن <span class="hl">إلغاء الربط</span> عبر الحوار السابق <span class="hl">إدارة الألعاب المرتبطة</span>`
             ],
-            link: "ربط",
+            linkedit: "تحرير اللعبة المرتبطة",
+            linkeditsub: [
+                `تحرير رابط موجود بين <span class="hl">ملف تشغيل اللعبة</span> و<span class="hl">AppID</span> المرتبط`,
+                `بمجرد إنشائها، يمكن <span class="hl">إلغاء الربط</span> عبر نافذة <span class="hl">إدارة الألعاب المرتبطة</span> السابقة`
+            ],
+            link: "ربط"
         }
     },
     exclusions: {
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "استبعاد جديد",
             exclusionnewsub: [
                 `أدخل <span class="hl">AppID</span> لإضافته إلى <span class="hl">قائمة الاستبعاد</span>`
+            ],
+            exclusionedit: "تحرير الاستثناء",
+            exclusioneditsub: [
+                `تحرير <span class="hl">AppID</span> الموجود في <span class="hl">قائمة الاستثناءات</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `أدخل <span class="hl">AppID</span> الخاص باللعبة، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطة الشاشة</span>`,
                 `اختر أي <span class="hl">ثيم</span> للتبديل إليه لكل نوع من الإشعارات عند اكتشاف <span class="hl">AppID</span> الخاص بهذه اللعبة`
+            ],
+            themeswitchedit: "تحرير التبديل التلقائي",
+            themeswitcheditsub: [
+                `تحرير الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطات الشاشة</span> لـ<span class="hl">AppID</span> الخاص بهذه اللعبة`,
+                `تغيير <span class="hl">السمة</span> التي يتم التبديل إليها لكل نوع إشعار عند اكتشاف <span class="hl">AppID</span> الخاص بهذه اللعبة`
             ],
             themes: "الثيمات",
             src: "مصدر لقطة الشاشة",

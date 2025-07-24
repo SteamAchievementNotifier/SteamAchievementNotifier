@@ -19,6 +19,7 @@ export const translations = {
         preview: "Előnézet",
         save: "Mentés",
         back: "Vissza",
+        edit: "Szerkesztés",
         settings: "Beállítások",
         appversion: "App verzió",
         image: "Kép",
@@ -810,6 +811,11 @@ export const translations = {
                 `Hozzon létre egy új kapcsolatot egy <span class="hl">játék végrehajtható fájlja</span> és az azt kísérő <span class="hl">AppID</span> között`,
                 `Létrehozás után a kapcsolatokat a korábbi <span class="hl">Csatlakoztatott játékok kezelése</span> párbeszédpanelen lehet <span class="hl">szakítani</span>`
             ],
+            linkedit: "Kapcsolt játék szerkesztése",
+            linkeditsub: [
+                `Egy meglévő kapcsolat szerkesztése egy <span class="hl">játék futtatható fájl</span> és a hozzátartozó <span class="hl">AppID</span> között`,
+                `A létrehozás után a kapcsolatokat a korábbi <span class="hl">Kapcsolt játékok kezelése</span> párbeszédablakon keresztül lehet <span class="hl">megszüntetni</span>`
+            ],
             link: "Csatlakozás",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Új kizárás",
             exclusionnewsub: [
                 `Írd be az <span class="hl">AppID</span>-t a <span class="hl">kizárások listájához</span> való hozzáadáshoz`
+            ],
+            exclusionedit: "Kizárás szerkesztése",
+            exclusioneditsub: [
+                `A meglévő <span class="hl">AppID</span> szerkesztése a <span class="hl">Kizárási listában</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Adja meg a játék <span class="hl">AppID</span>-ját, valamint a kívánt monitort, amelyet <span class="hl">Képernyőkép forrásként</span> szeretne használni`,
                 `Válassza ki, hogy melyik <span class="hl">Témára</span> szeretne váltani minden figyelmeztetési típushoz, amikor a játék <span class="hl">AppID</span>-ját észlelik`
+            ],
+            themeswitchedit: "Automatikus váltás szerkesztése",
+            themeswitcheditsub: [
+                `A kívánt monitor szerkesztése, amely <span class="hl">képernyőkép forrásként</span> szolgál ehhez a játékhoz tartozó <span class="hl">AppID</span> esetén`,
+                `Módosítsa, hogy melyik <span class="hl">téma</span> váltson be minden értesítéstípus esetén, amikor ez a játék <span class="hl">AppID</span> észlelhető`
             ],
             themes: "Témák",
             src: "Képernyőkép forrás",

@@ -19,6 +19,7 @@ export const translations = {
         preview: "Vorschau",
         save: "Speichern",
         back: "Zurück",
+        edit: "Bearbeiten",
         settings: "Einstellungen",
         appversion: "App-Version",
         image: "Bild",
@@ -810,6 +811,11 @@ export const translations = {
                 `Erstellen Sie eine neue Verknüpfung zwischen einer <span class="hl">Spiel-Ausführungsdatei</span> und der zugehörigen <span class="hl">AppID</span>`,
                 `Nachdem sie erstellt wurden, können Verknüpfungen über den vorherigen <span class="hl">Dialog „Verknüpfte Spiele verwalten“</span> <span class="hl">aufgehoben</span> werden`
             ],
+            linkedit: "Verknüpftes Spiel bearbeiten",
+            linkeditsub: [
+                `Eine bestehende Verknüpfung zwischen einer <span class="hl">Spiel ausführbaren Datei</span> und der zugehörigen <span class="hl">AppID</span> bearbeiten`,
+                `Nach der Erstellung können Verknüpfungen über den vorherigen Dialog <span class="hl">Verknüpfte Spiele verwalten</span> <span class="hl">entfernt</span> werden`
+            ],
             link: "Verknüpfen",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Neuer Ausschluss",
             exclusionnewsub: [
                 `Geben Sie die <span class="hl">AppID</span> ein, um sie der <span class="hl">Ausschlussliste</span> hinzuzufügen`
+            ],
+            exclusionedit: "Ausschluss bearbeiten",
+            exclusioneditsub: [
+                `Die bestehende <span class="hl">AppID</span> in der <span class="hl">Ausschlussliste</span> bearbeiten`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Geben Sie die <span class="hl">AppID</span> des Spiels ein, zusammen mit dem gewünschten Monitor, der als <span class="hl">Screenshot-Quelle</span> verwendet wird`,
                 `Wählen Sie das <span class="hl">Design</span>, zu dem für jeden Benachrichtigungstyp gewechselt werden soll, wenn die <span class="hl">AppID</span> dieses Spiels erkannt wird`
+            ],
+            themeswitchedit: "Automatischen Wechsel bearbeiten",
+            themeswitcheditsub: [
+                `Den gewünschten Monitor bearbeiten, der als <span class="hl">Screenshot-Quelle</span> für die <span class="hl">AppID</span> dieses Spiels verwendet wird`,
+                `Ändern, zu welchem <span class="hl">Thema</span> für jeden Benachrichtigungstyp gewechselt wird, wenn die <span class="hl">AppID</span> dieses Spiels erkannt wird`
             ],
             themes: "Designs",
             src: "Screenshot-Quelle",

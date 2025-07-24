@@ -97,6 +97,7 @@ export const dialog = {
                             ${type !== "exclusionlist" ? `<td>&lt;${await language.get("nodata")}&gt;</td>` : ""}
                             ${type === "themeswitch" ? `<td>&lt;${await language.get("nodata")}&gt;</td>` : ""}
                             <td></td>
+                            <td></td>
                         </tr>
                     `
 
@@ -133,33 +134,83 @@ export const dialog = {
                         }
                     }
 
-                    const unlinktd = document.createElement("td")
-                    const unlinkbtn = document.createElement("button")
+                    for (const id of ["editbtn","unlinkbtn"] as const) {
+                        const td = document.createElement("td")
+                        const btn = document.createElement("button")
 
-                    unlinkbtn.className = "unlinkbtn"
-                    unlinktd.appendChild(unlinkbtn)
+                        btn.className = id
+                        td.appendChild(btn)
 
-                    tr.appendChild(unlinktd)
+                        tr.appendChild(td)
 
-                    table.appendChild(tr)
+                        table.appendChild(tr)
+                    }
+
+                    // const unlinktd = document.createElement("td")
+                    // const unlinkbtn = document.createElement("button")
+
+                    // unlinkbtn.className = "unlinkbtn"
+                    // unlinktd.appendChild(unlinkbtn)
+
+                    // tr.appendChild(unlinktd)
+
+                    // table.appendChild(tr)
                 })
 
+                const getappid = (strid: string | null) => {
+                    if (!strid || typeof parseInt(strid) !== "number") return null
+                    return parseInt(strid)
+                }
+
                 requestAnimationFrame(() => {
-                    const unlinkbtns = document.querySelectorAll(".unlinkbtn")
-                    unlinkbtns.forEach(btn => {
+                    document.querySelectorAll(".editbtn").forEach(async btn => {
+                        const { log } = await import("./log")
+                        let lsentry: { [key: number]: ThemeSwitch | string } | number | undefined = undefined
+
                         btn && ((btn as HTMLButtonElement).onclick = () => {
-                            const appid = btn.parentElement!.parentElement!.querySelector("td:first-child")!.textContent
+                            const elem = btn.parentElement!.parentElement!.querySelector("td:first-child")!.textContent
+                            const appid = getappid(elem)
+                            if (!appid) return log.write("WARN",`No matching "${type}" entry for AppID ${elem}`)
+
+                            if (type !== "exclusionlist") {
+                                const entries = JSON.parse(localStorage.getItem(type)!)
+    
+                                if (appid in entries) {
+                                    lsentry = entries[appid]
+                                    // delete entries[appid]
+                                    // localStorage.setItem(type,JSON.stringify(entries))
+                                }
+                            } else {
+                                const exclusions = config.get("exclusions")
+                                
+                                const match = exclusions.find(id => id === appid)
+                                if (!match) return log.write("WARN",`No matching "${type}" entry for AppID ${elem}`)
+                                
+                                lsentry = match
+                            }
+
+                            lsentry && setnewdialog(type,{ appid, lsentry })()
+                        })
+                    })
+
+                    document.querySelectorAll(".unlinkbtn").forEach(async btn => {
+                        const { log } = await import("./log")
+
+                        btn && ((btn as HTMLButtonElement).onclick = () => {
+                            const elem = btn.parentElement!.parentElement!.querySelector("td:first-child")!.textContent
+                            const appid = getappid(elem)
+                            if (!appid) return log.write("WARN",`No matching "${type}" entry for AppID ${elem}`)
     
                             if (type !== "exclusionlist") {
                                 const entries = JSON.parse(localStorage.getItem(type)!)
     
-                                if (appid && appid in entries) {
+                                if (appid in entries) {
                                     delete entries[appid]
                                     localStorage.setItem(type,JSON.stringify(entries))
                                 }
                             } else {
                                 const exclusions = config.get("exclusions")
-                                appid && config.set("exclusions",exclusions.filter(id => id !== parseInt(appid)))
+                                config.set("exclusions",exclusions.filter(id => id !== appid))
                             }
     
                             updatetables(type)
@@ -169,6 +220,177 @@ export const dialog = {
             }
 
             const settabindex = (btn: HTMLButtonElement,values: (string | null | undefined)[]) => btn.tabIndex = values.every(value => Boolean(value)) ? 0 : -1
+
+            const setnewdialog = (type: "linkgame" | "exclusionlist" | "themeswitch",obj?: { appid: number, lsentry: { [key: number]: ThemeSwitch | string } | number }) => {
+                switch (type) {
+                    case "linkgame": return async () => {
+                        dialog.open({
+                            title: await language.get(`link${!!obj ? "edit" : "new"}`,[type,"content"]),
+                            type: "default",
+                            icon: sanhelper.setfilepath("icon",`${!!obj ? "edit" : "newlink"}.svg`),
+                            sub: await language.get(`link${!!obj ? "edit" : "new"}sub`,[type,"content"]),
+                            addHTML: path.join(__dirname,"linkgamenew.html"),
+                            buttons: [{
+                                id: "ok",
+                                label: !!obj ? await language.get("edit") : await language.get("link",[type,"content"]),
+                                icon: "",
+                                click: () => {
+                                    const entries = {
+                                        ...JSON.parse(localStorage.getItem(type)!),
+                                        [linkgameappid.value]: linkgameselect.textContent
+                                    }
+
+                                    localStorage.setItem(type,JSON.stringify(entries))
+
+                                    updatetables(type)
+                                    dialog.close()
+                                }
+                            }]
+                        })
+
+                        document.querySelector("#linkgamenewheaders > th:nth-child(2)")!.textContent = await language.get("exepath",["linkgame","content"])
+
+                        const linkgameappid = document.getElementById("linkgameappid")! as HTMLInputElement
+                        const linkgameselect = document.getElementById("linkgameselect")! as HTMLTableCellElement
+
+                        linkgameappid.toggleAttribute("readonly",!!obj)
+
+                        if (obj) {
+                            linkgameappid.value = `${obj.appid}`
+                            linkgameselect.textContent = obj.lsentry as string
+                        }
+
+                        linkgameselect.onclick = () => {
+                            ipcRenderer.once("loadfile",(event,file) => file && (linkgameselect.textContent = file[0].replace(/\\/g,"/")))
+                            ipcRenderer.send("loadfile","exe")
+                        }
+
+                        const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
+                        okbtn.tabIndex = -1
+
+                        ;[linkgameappid,linkgameselect].forEach(elem => {
+                            elem.onfocus = () => settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
+                            elem.onblur = () => settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
+                            elem.onkeydown = () => settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
+                        })
+                    }
+                    case "exclusionlist": return async () => {
+                        dialog.open({
+                            title: await language.get(`exclusion${!!obj ? "edit" : "new"}`,["exclusions","content"]),
+                            type: "default",
+                            icon: sanhelper.setfilepath("icon",`${!!obj ? "edit" : "newexclusion"}.svg`),
+                            sub: await language.get(`exclusion${!!obj ? "edit" : "new"}sub`,["exclusions","content"]),
+                            addHTML: `<input type="number" class="appidinput" id="exclusionappid" placeholder="...">`,
+                            buttons: [{
+                                id: "ok",
+                                label: await language.get(!!obj ? "edit" : "ok"),
+                                icon: "",
+                                click: () => {
+                                    const exclusions = config.get("exclusions")
+
+                                    obj && exclusions.includes(obj.appid) && exclusions.splice(exclusions.indexOf(obj.appid),1)
+
+                                    exclusions.push(parseInt(input.value))
+
+                                    config.set("exclusions",exclusions)
+                                    updatetables(type)
+                                    dialog.close()
+                                }
+                            }]
+                        })
+
+                        const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
+                        okbtn.tabIndex = -1
+
+                        const input = document.getElementById("exclusionappid")! as HTMLInputElement
+                        if (obj) input.value = `${obj.lsentry}`
+
+                        input.onfocus = () => settabindex(okbtn,[input.value])
+                        input.onblur = () => settabindex(okbtn,[input.value])
+                        input.onkeydown = () => settabindex(okbtn,[input.value])
+                    }
+                    case "themeswitch": return async () => {
+                        dialog.open({
+                            title: await language.get(`themeswitch${!!obj ? "edit" : "new"}`,[type,"content"]),
+                            type: "default",
+                            icon: sanhelper.setfilepath("icon",`${!!obj ? "edit" : "newautoswitchtheme"}.svg`),
+                            sub: await language.get(`themeswitch${!!obj ? "edit" : "new"}sub`,[type,"content"]),
+                            addHTML: path.join(__dirname,"themeswitchnew.html"),
+                            buttons: [{
+                                id: "ok",
+                                label: await language.get(!!obj ? "edit" : "ok"),
+                                icon: "",
+                                click: () => {
+                                    const entries = {
+                                        ...JSON.parse(localStorage.getItem(type)!),
+                                        [themeswitchappid.value]: {
+                                            themes: Object.fromEntries(types.map(t => [t,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${t}`)! as HTMLSelectElement).value)])),
+                                            src: parseInt(srcselect.value)
+                                        }
+                                    }
+
+                                    localStorage.setItem(type,JSON.stringify(entries))
+
+                                    updatetables(type)
+                                    dialog.close()
+                                }
+                            }]
+                        })
+
+                        document.querySelector("#themeswitchnewheaders > th:nth-child(2)")!.textContent = await language.get("src",[type,"content"])
+
+                        const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
+                        okbtn.tabIndex = -1
+
+                        const themeswitchappid = document.getElementById("themeswitchappid")! as HTMLInputElement
+                        const themeswitchselects = document.querySelector("#themeswitchnewselectwrapper")!
+                        const srcselect = document.getElementById("themeswitchsrc")! as HTMLSelectElement
+
+                        themeswitchappid.toggleAttribute("readonly",!!obj)
+
+                        if (obj) themeswitchappid.value = `${obj.appid}`
+
+                        themeswitchappid.onfocus = () => settabindex(okbtn,[themeswitchappid.value])
+                        themeswitchappid.onblur = () => settabindex(okbtn,[themeswitchappid.value])
+                        themeswitchappid.onkeydown = () => settabindex(okbtn,[themeswitchappid.value])
+
+                        config.get("monitors").forEach(monitor => srcselect.insertAdjacentHTML("beforeend",`<option value="${monitor.id}">${monitor.label}</option>`))
+
+                        const { customisation, trophymode } = config.store
+                        const types = ["main",...(trophymode ? ["semi"] : []),"rare", "plat"] as NotifyType[]
+
+                        ;(async () => {
+                            const { language } = await import("./language")
+                            ;types.forEach(async t => themeswitchselects.querySelector(`th#${t}`)!.textContent = await language.get(t))
+                        })()
+
+                        themeswitchselects.querySelectorAll("select")!.forEach(s => {
+                            const select = s as HTMLSelectElement
+                            const themes = new Map<number,(string | number)[]>([])
+                            const userthemes = (customisation[select.id] as Customisation).usertheme
+
+                            for (const theme in userthemes) {
+                                themes.set(userthemes[theme].id as number,[userthemes[theme].id,userthemes[theme].label])
+                            }
+
+                            themes.forEach(value => select.insertAdjacentHTML("beforeend",`<option value="${value[0]}">${value[1]}</option>`))
+                        })
+
+                        if (obj && typeof obj.lsentry === "object" && "themes" in obj.lsentry && "src" in obj.lsentry) {
+                            const { themes, src } = obj.lsentry as ThemeSwitch
+
+                            types.forEach(type => {
+                                const select = themeswitchselects.querySelector(`select#${type}`) as HTMLSelectElement
+                                if (select && themes[type] !== undefined) {
+                                    select.value = `${themes[type]}`
+                                }
+                            })
+
+                            srcselect.value = `${src}`
+                        }
+                    }
+                }
+            }
 
             document.getElementById("linkedgames")!.onclick = async () => {
                 dialog.open({
@@ -181,50 +403,7 @@ export const dialog = {
                         id: "linknew",
                         label: await language.get("new"),
                         icon: sanhelper.setfilepath("icon","newlink.svg"),
-                        click: async () => {
-                            dialog.open({
-                                title: await language.get("linknew",["linkgame","content"]),
-                                type: "default",
-                                icon: sanhelper.setfilepath("icon","newlink.svg"),
-                                sub: await language.get("linknewsub",["linkgame","content"]),
-                                addHTML: path.join(__dirname,"linkgamenew.html"),
-                                buttons: [{
-                                    id: "ok",
-                                    label: await language.get("link",["linkgame","content"]),
-                                    icon: "",
-                                    click: () => {
-                                        const entries = {
-                                            ...JSON.parse(localStorage.getItem("linkgame")!),
-                                            [linkgameappid.value]: linkgameselect.innerText
-                                        }
-
-                                        localStorage.setItem("linkgame",JSON.stringify(entries))
-
-                                        updatetables("linkgame")
-                                        dialog.close()
-                                    }
-                                }]
-                            })
-
-                            document.querySelector("#linkgamenewheaders > th:nth-child(2)")!.textContent = await language.get("exepath",["linkgame","content"])
-
-                            const linkgameappid = document.getElementById("linkgameappid")! as HTMLInputElement
-                            const linkgameselect = document.getElementById("linkgameselect")! as HTMLTableCellElement
-
-                            linkgameselect.onclick = () => {
-                                ipcRenderer.once("loadfile", (event,file) => file && (linkgameselect.textContent = file[0].replace(/\\/g,"/")))
-                                ipcRenderer.send("loadfile","exe")
-                            }
-
-                            const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
-                            okbtn.tabIndex = -1
-
-                            ;[linkgameappid,linkgameselect].forEach(elem => {
-                                elem.onfocus = () => settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
-                                elem.onblur = () => settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
-                                elem.onkeydown = () => settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
-                            })
-                        }
+                        click: setnewdialog("linkgame")
                     }]
                 })
 
@@ -243,37 +422,7 @@ export const dialog = {
                         id: "exclusionnew",
                         label: await language.get("new"),
                         icon: sanhelper.setfilepath("icon","newexclusion.svg"),
-                        click: async () => {
-                            dialog.open({
-                                title: await language.get("exclusionnew",["exclusions","content"]),
-                                type: "default",
-                                icon: sanhelper.setfilepath("icon","newexclusion.svg"),
-                                sub: await language.get("exclusionnewsub",["exclusions","content"]),
-                                addHTML: `<input type="number" class="appidinput" id="exclusionappid" placeholder="...">`,
-                                buttons: [{
-                                    id: "ok",
-                                    label: await language.get("ok"),
-                                    icon: "",
-                                    click: () => {
-                                        const exclusions = config.get("exclusions")
-                                        exclusions.push(parseInt((document.getElementById("exclusionappid")! as HTMLInputElement).value))
-
-                                        config.set("exclusions",exclusions)
-                                        updatetables("exclusionlist")
-                                        dialog.close()
-                                    }
-                                }]
-                            })
-
-                            const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
-                            okbtn.tabIndex = -1
-
-                            const input = document.getElementById("exclusionappid")! as HTMLInputElement
-
-                            input.onfocus = () => settabindex(okbtn,[input.value])
-                            input.onblur = () => settabindex(okbtn,[input.value])
-                            input.onkeydown = () => settabindex(okbtn,[input.value])
-                        }
+                        click: setnewdialog("exclusionlist")
                     }]
                 })
 
@@ -292,69 +441,7 @@ export const dialog = {
                         id: "themeswitchnew",
                         label: await language.get("new"),
                         icon: sanhelper.setfilepath("icon","newautoswitchtheme.svg"),
-                        click: async () => {
-                            dialog.open({
-                                title: await language.get("themeswitchnew",["themeswitch","content"]),
-                                type: "default",
-                                icon: sanhelper.setfilepath("icon","newautoswitchtheme.svg"),
-                                sub: await language.get("themeswitchnewsub",["themeswitch","content"]),
-                                addHTML: path.join(__dirname,"themeswitchnew.html"),
-                                buttons: [{
-                                    id: "ok",
-                                    label: await language.get("ok"),
-                                    icon: "",
-                                    click: () => {
-                                        const entries = {
-                                            ...JSON.parse(localStorage.getItem("themeswitch")!),
-                                            [themeswitchappid.value]: {
-                                                themes: Object.fromEntries(types.map(type => [type,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${type}`)! as HTMLSelectElement).value)])),
-                                                src: parseInt(srcselect.value)
-                                            }
-                                        }
-
-                                        localStorage.setItem("themeswitch",JSON.stringify(entries))
-
-                                        updatetables("themeswitch")
-                                        dialog.close()
-                                    }
-                                }]
-                            })
-
-                            document.querySelector("#themeswitchnewheaders > th:nth-child(2)")!.textContent = await language.get("src",["themeswitch","content"])
-
-                            const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
-                            okbtn.tabIndex = -1
-
-                            const themeswitchappid = document.getElementById("themeswitchappid")! as HTMLInputElement
-                            const themeswitchselects = document.querySelector("#themeswitchnewselectwrapper")!
-                            const srcselect = document.getElementById("themeswitchsrc")! as HTMLSelectElement
-
-                            themeswitchappid.onfocus = () => settabindex(okbtn,[themeswitchappid.value])
-                            themeswitchappid.onblur = () => settabindex(okbtn,[themeswitchappid.value])
-                            themeswitchappid.onkeydown = () => settabindex(okbtn,[themeswitchappid.value])
-
-                            config.get("monitors").forEach(monitor => srcselect.insertAdjacentHTML("beforeend",`<option value="${monitor.id}">${monitor.label}</option>`))
-
-                            const { customisation, trophymode } = config.store
-                            const types = ["main",...(trophymode ? ["semi"] : []),"rare", "plat"] as NotifyType[]
-
-                            ;(async () => {
-                                const { language } = await import("./language")
-                                ;types.forEach(async type => themeswitchselects.querySelector(`th#${type}`)!.textContent = await language.get(type))
-                            })()
-
-                            themeswitchselects.querySelectorAll("select")!.forEach(s => {
-                                const select = s as HTMLSelectElement
-                                const themes = new Map<number,(string | number)[]>([])
-                                const userthemes = (customisation[select.id] as Customisation).usertheme
-
-                                for (const theme in userthemes) {
-                                    themes.set(userthemes[theme].id as number,[userthemes[theme].id,userthemes[theme].label])
-                                }
-
-                                themes.forEach(value => select.insertAdjacentHTML("beforeend",`<option value="${value[0]}">${value[1]}</option>`))
-                            })
-                        }
+                        click: setnewdialog("themeswitch")
                     }]
                 })
 

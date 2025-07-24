@@ -19,6 +19,7 @@ export const translations = {
         preview: "Попередній перегляд",
         save: "Зберегти",
         back: "Назад",
+        edit: "Редагувати",
         settings: "Налаштування",
         appversion: "Версія додатка",
         image: "Зображення",
@@ -810,6 +811,11 @@ export const translations = {
                 `Створіть нове посилання між <span class="hl">виконуваним файлом гри</span> та пов'язаним <span class="hl">AppID</span>`,
                 `Після створення посилання можна <span class="hl">від'єднати</span> його через попереднє вікно <span class="hl">Керування Пов'язаними Іграми</span>`
             ],
+            linkedit: "Редагувати пов’язану гру",
+            linkeditsub: [
+                `Редагувати існуюче посилання між <span class="hl">виконуваним файлом гри</span> та відповідним <span class="hl">AppID</span>`,
+                `Після створення посилання можна <span class="hl">від’єднати</span> через попереднє вікно <span class="hl">Керування пов’язаними іграми</span>`
+            ],
             link: "Посилання",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Нове виключення",
             exclusionnewsub: [
                 `Введіть <span class="hl">AppID</span>, щоб додати до <span class="hl">Списку виключень</span>`
+            ],
+            exclusionedit: "Редагувати виключення",
+            exclusioneditsub: [
+                `Редагувати існуючий <span class="hl">AppID</span> у <span class="hl">списку виключень</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Введіть <span class="hl">AppID</span> гри разом із бажаним монітором, який буде використовуватися як <span class="hl">Джерело Скріншоту</span>`,
                 `Виберіть, на яку <span class="hl">Тему</span> перемикатися для кожного типу сповіщення, коли виявлено <span class="hl">AppID</span> цієї гри`
+            ],
+            themeswitchedit: "Редагувати автоматичне перемикання",
+            themeswitcheditsub: [
+                `Редагувати потрібний монітор, який використовуватиметься як <span class="hl">джерело знімків екрана</span> для <span class="hl">AppID</span> цієї гри`,
+                `Змінити, на яку <span class="hl">тему</span> перемикатися для кожного типу повідомлення, коли виявлено <span class="hl">AppID</span> цієї гри`
             ],
             themes: "Темы",
             src: "Джерело Скріншоту",

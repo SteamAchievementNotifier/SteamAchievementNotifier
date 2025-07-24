@@ -19,6 +19,7 @@ export const translations = {
         preview: "プレビュー",
         save: "保存",
         back: "戻る",
+        edit: "編集",
         settings: "設定",
         appversion: "アプリのバージョン",
         image: "画像",
@@ -810,6 +811,11 @@ export const translations = {
                 `ゲームの <span class="hl">実行可能ファイル</span> と関連する <span class="hl">AppID</span> の間に新しいリンクを作成します`,
                 `作成された後、リンクは以前の <span class="hl">リンクされたゲームを管理</span> ダイアログを介して <span class="hl">解除</span> できます`
             ],
+            linkedit: "リンクされたゲームを編集",
+            linkeditsub: [
+                `<span class="hl">ゲーム実行ファイル</span> と関連する <span class="hl">AppID</span> の既存のリンクを編集します`,
+                `作成後、リンクは以前の <span class="hl">リンクされたゲームの管理</span> ダイアログから <span class="hl">解除</span> できます`
+            ],
             link: "リンク",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "新しい除外",
             exclusionnewsub: [
                 `<span class="hl">除外リスト</span>に追加する<span class="hl">AppID</span>を入力してください`
+            ],
+            exclusionedit: "除外を編集",
+            exclusioneditsub: [
+                `<span class="hl">除外リスト</span> にある既存の <span class="hl">AppID</span> を編集します`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `ゲームの <span class="hl">AppID</span> と、希望のモニターを <span class="hl">スクリーンショットソース</span> として指定してください`,
                 `このゲームの <span class="hl">AppID</span> が検出されたときに各通知タイプのために切り替える <span class="hl">テーマ</span> を選択`
+            ],
+            themeswitchedit: "自動切り替えを編集",
+            themeswitcheditsub: [
+                `このゲームの <span class="hl">AppID</span> に対して <span class="hl">スクリーンショットのソース</span> として使用するモニターを編集します`,
+                `このゲームの <span class="hl">AppID</span> が検出されたときに、各通知タイプで切り替える <span class="hl">テーマ</span> を変更します`
             ],
             themes: "テーマ",
             src: "スクリーンショットソース",

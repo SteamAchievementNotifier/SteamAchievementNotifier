@@ -19,6 +19,7 @@ export const translations = {
         preview: "Önizleme",
         save: "Kaydet",
         back: "Geri",
+        edit: "Düzenle",
         settings: "Ayarlar",
         appversion: "Uygulama Sürümü",
         image: "Resim",
@@ -810,6 +811,11 @@ export const translations = {
                 `Bir <span class="hl">oyunun yürütülebilir dosyası</span> ile ilişkili <span class="hl">AppID</span> arasında yeni bir bağlantı oluşturun`,
                 `Oluşturulduktan sonra, bağlantılar önceki <span class="hl">Bağlı Oyunları Yönet</span> iletişim kutusu üzerinden <span class="hl">bağlantısız</span> yapılabilir`
             ],
+            linkedit: "Bağlı Oyunu Düzenle",
+            linkeditsub: [
+                `<span class="hl">Oyun çalıştırılabilir dosyası</span> ile ilgili <span class="hl">AppID</span> arasındaki mevcut bağlantıyı düzenle`,
+                `Oluşturulduktan sonra, bağlantılar önceki <span class="hl">Bağlı Oyunları Yönet</span> iletişim kutusundan <span class="hl">kaldırılabilir</span>`
+            ],
             link: "Bağla",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Yeni Dışlama",
             exclusionnewsub: [
                 `<span class="hl">Dışlama Listesi</span>'ne eklemek için bir <span class="hl">AppID</span> girin`
+            ],
+            exclusionedit: "Hariç Tutmayı Düzenle",
+            exclusioneditsub: [
+                `<span class="hl">Hariç Tutma Listesi</span> içindeki mevcut <span class="hl">AppID</span>’yi düzenle`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Oyunun <span class="hl">AppID</span>'sini girin, ayrıca kullanılacak monitörü <span class="hl">Ekran Görüntüsü Kaynağı</span> olarak belirtin`,
                 `Bu oyunun <span class="hl">AppID</span>'si tespit edildiğinde her bildirim türü için hangi <span class="hl">Temaya</span> geçileceğini seçin`
+            ],
+            themeswitchedit: "Otomatik Değiştirmeyi Düzenle",
+            themeswitcheditsub: [
+                `Bu oyunun <span class="hl">AppID</span> için <span class="hl">Ekran Görüntüsü Kaynağı</span> olarak kullanılacak istenen monitörü düzenle`,
+                `Bu oyunun <span class="hl">AppID</span> algılandığında her bildirim türü için geçiş yapılacak <span class="hl">Tema</span>’yı değiştir`
             ],
             themes: "Temalar",
             src: "Ekran Görüntüsü Kaynağı",

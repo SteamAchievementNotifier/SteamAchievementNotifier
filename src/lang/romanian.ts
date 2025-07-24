@@ -19,6 +19,7 @@ export const translations = {
         preview: "Previzualizare",
         save: "Salvare",
         back: "Înapoi",
+        edit: "Editare",
         settings: "Setări",
         appversion: "Versiunea Aplicației",
         image: "Imagine",
@@ -810,6 +811,11 @@ export const translations = {
                 `Creați o nouă legătură între un <span class="hl">fișier executabil al jocului</span> și <span class="hl">AppID</span>-ul asociat`,
                 `După ce este creat, legăturile pot fi <span class="hl">dezasociate</span> prin fereastra de <span class="hl">Administrare Jocuri Asociate</span>`
             ],
+            linkedit: "Editează jocul legat",
+            linkeditsub: [
+                `Editează o legătură existentă între un <span class="hl">executabil al jocului</span> și <span class="hl">AppID</span>-ul asociat`,
+                `Odată create, legăturile pot fi <span class="hl">detașate</span> prin dialogul anterior <span class="hl">Gestionare jocuri legate</span>`
+            ],
             link: "Asociază",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Excludere Nouă",
             exclusionnewsub: [
                 `Introduceți <span class="hl">AppID</span>-ul pentru a-l adăuga la <span class="hl">Lista de Excludere</span>`
+            ],
+            exclusionedit: "Editează excluderea",
+            exclusioneditsub: [
+                `Editează <span class="hl">AppID</span>-ul existent din <span class="hl">Lista de excluderi</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Introdu <span class="hl">AppID</span> al jocului, împreună cu monitorul dorit de utilizat ca <span class="hl">Sursă de Captură de Ecran</span>`,
                 `Selectează care <span class="hl">Temă</span> să comute pentru fiecare tip de notificare atunci când <span class="hl">AppID</span> al acestui joc este detectat`
+            ],
+            themeswitchedit: "Editează comutarea automată",
+            themeswitcheditsub: [
+                `Editează monitorul dorit pentru a fi folosit ca <span class="hl">Sursa capturilor de ecran</span> pentru <span class="hl">AppID</span>-ul acestui joc`,
+                `Schimbă tema la care se comută pentru fiecare tip de notificare când este detectat <span class="hl">AppID</span>-ul acestui joc`
             ],
             themes: "Teme",
             src: "Sursă de Captură de Ecran",

@@ -19,6 +19,7 @@ export const translations = {
         preview: "ตัวอย่าง",
         save: "บันทึก",
         back: "กลับ",
+        edit: "แก้ไข",
         settings: "การตั้งค่า",
         appversion: "เวอร์ชันแอปพลิเคชัน",
         image: "ภาพ",
@@ -810,6 +811,11 @@ export const translations = {
                 `สร้างการเชื่อมโยงใหม่ระหว่าง <span class="hl">ไฟล์เรียกใช้ของเกม</span> และ <span class="hl">AppID</span> ที่เกี่ยวข้อง`,
                 `หลังจากสร้างแล้ว สามารถ <span class="hl">ยกเลิกการเชื่อมโยง</span> ผ่านกล่องโต้ตอบ <span class="hl">จัดการเกมที่เชื่อมโยง</span> ก่อนหน้านี้`
             ],
+            linkedit: "แก้ไขเกมที่เชื่อมโยง",
+            linkeditsub: [
+                `แก้ไขการเชื่อมโยงที่มีอยู่ระหว่าง <span class="hl">ไฟล์เกมที่สามารถเรียกใช้ได้</span> กับ <span class="hl">AppID</span> ที่เกี่ยวข้อง`,
+                `เมื่อสร้างแล้ว การเชื่อมโยงสามารถ <span class="hl">ยกเลิกการเชื่อมโยง</span> ผ่านกล่องโต้ตอบ <span class="hl">จัดการเกมที่เชื่อมโยง</span> ก่อนหน้า`
+            ],
             link: "เชื่อมโยง",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "การยกเว้นใหม่",
             exclusionnewsub: [
                 `ป้อน <span class="hl">AppID</span> เพื่อเพิ่มลงใน <span class="hl">รายการยกเว้น</span>`
+            ],
+            exclusionedit: "แก้ไขการยกเว้น",
+            exclusioneditsub: [
+                `แก้ไข <span class="hl">AppID</span> ที่มีอยู่ใน <span class="hl">รายการยกเว้น</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `ป้อน <span class="hl">AppID</span> ของเกม พร้อมกับจอแสดงผลที่ต้องการใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
                 `เลือก <span class="hl">ธีม</span> ที่จะเปลี่ยนไปยังสำหรับแต่ละประเภทการแจ้งเตือนเมื่อตรวจพบ <span class="hl">AppID</span> ของเกมนี้`
+            ],
+            themeswitchedit: "แก้ไขการสลับอัตโนมัติ",
+            themeswitcheditsub: [
+                `แก้ไขจอภาพที่ต้องการใช้เป็น <span class="hl">แหล่งที่มาของภาพหน้าจอ</span> สำหรับ <span class="hl">AppID</span> ของเกมนี้`,
+                `เปลี่ยน <span class="hl">ธีม</span> ที่จะสลับไปสำหรับแต่ละประเภทการแจ้งเตือนเมื่อพบ <span class="hl">AppID</span> ของเกมนี้`
             ],
             themes: "ธีม",
             src: "แหล่งภาพหน้าจอ",

@@ -19,6 +19,7 @@ export const translations = {
         preview: "Esikatselu",
         save: "Tallenna",
         back: "Takaisin",
+        edit: "Muokkaa",
         settings: "Asetukset",
         appversion: "Sovellusversio",
         image: "Kuva",
@@ -810,6 +811,11 @@ export const translations = {
                 `Luo uusi linkki <span class="hl">pelinsuoritettavan tiedoston</span> ja siihen liittyvän <span class="hl">AppID:n</span> välille`,
                 `Luotuaan linkkejä ne voidaan <span class="hl">poistaa</span> aikaisemman <span class="hl">Hallinnoi liitettyjä pelejä</span> -valintaikkunan kautta`
             ],
+            linkedit: "Muokkaa liitettyä peliä",
+            linkeditsub: [
+                `Muokkaa olemassa olevaa linkkiä <span class="hl">pelin suoritettavan tiedoston</span> ja siihen liitetyn <span class="hl">AppID:n</span> välillä`,
+                `Kun linkki on luotu, sen voi <span class="hl">poistaa</span> aiemman <span class="hl">Hallinnoi liitettyjä pelejä</span> -valintaikkunan kautta`
+            ],
             link: "Linkitä",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Uusi poissulkeminen",
             exclusionnewsub: [
                 `Syötä <span class="hl">AppID</span> lisätäksesi sen <span class="hl">poissulkemislistaan</span>`
+            ],
+            exclusionedit: "Muokkaa poissulkemista",
+            exclusioneditsub: [
+                `Muokkaa olemassa olevaa <span class="hl">AppID:tä</span> <span class="hl">Poissulkulistassa</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Anna pelin <span class="hl">AppID</span>, sekä haluttu näyttö käytettäväksi <span class="hl">Kuvakaappausten lähteenä</span>`,
                 `Valitse mikä <span class="hl">Teema</span> vaihtuu kullekin ilmoitustyypille, kun tämän pelin <span class="hl">AppID</span> havaitaan`
+            ],
+            themeswitchedit: "Muokkaa automaattista vaihtoa",
+            themeswitcheditsub: [
+                `Muokkaa haluttua näyttöä, jota käytetään <span class="hl">kuvakaappauslähteenä</span> tälle pelin <span class="hl">AppID:lle</span>`,
+                `Vaihda, mihin <span class="hl">teemaan</span> siirrytään kunkin ilmoitustyypin kohdalla, kun tämän pelin <span class="hl">AppID</span> havaitaan`
             ],
             themes: "Teemat",
             src: "Kuvakaappausten lähde",

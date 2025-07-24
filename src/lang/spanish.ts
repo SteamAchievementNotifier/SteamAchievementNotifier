@@ -19,6 +19,7 @@ export const translations = {
         preview: "Vista Previa",
         save: "Guardar",
         back: "Volver",
+        edit: "Editar",
         settings: "Configuración",
         appversion: "Versión de la Aplicación",
         image: "Imagen",
@@ -810,6 +811,11 @@ export const translations = {
                 `Crea un nuevo enlace entre un <span class="hl">archivo ejecutable del juego</span> y el <span class="hl">AppID</span> asociado`,
                 `Una vez creado, los enlaces pueden ser <span class="hl">desvinculados</span> a través del cuadro de diálogo <span class="hl">Administrar Juegos Asociados</span>`
             ],
+            linkedit: "Editar juego vinculado",
+            linkeditsub: [
+                `Editar un enlace existente entre un <span class="hl">ejecutable del juego</span> y el <span class="hl">AppID</span> asociado`,
+                `Una vez creados, los enlaces pueden ser <span class="hl">desvinculados</span> mediante el diálogo anterior <span class="hl">Administrar juegos vinculados</span>`
+            ],
             link: "Vincular",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Nueva Exclusión",
             exclusionnewsub: [
                 `Ingrese el <span class="hl">AppID</span> para agregar a la <span class="hl">Lista de Exclusión</span>`
+            ],
+            exclusionedit: "Editar exclusión",
+            exclusioneditsub: [
+                `Editar el <span class="hl">AppID</span> existente en la <span class="hl">lista de exclusiones</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Ingrese el <span class="hl">AppID</span> del juego, junto con el monitor deseado para usar como <span class="hl">Fuente de captura de pantalla</span>`,
                 `Seleccione qué <span class="hl">Tema</span> cambiar para cada tipo de notificación cuando se detecte el <span class="hl">AppID</span> de este juego`
+            ],
+            themeswitchedit: "Editar cambio automático",
+            themeswitcheditsub: [
+                `Editar el monitor deseado para usar como <span class="hl">fuente de captura de pantalla</span> para el <span class="hl">AppID</span> de este juego`,
+                `Cambiar a qué <span class="hl">tema</span> cambiar para cada tipo de notificación cuando se detecte el <span class="hl">AppID</span> de este juego`
             ],
             themes: "Temas",
             src: "Fuente de captura de pantalla",

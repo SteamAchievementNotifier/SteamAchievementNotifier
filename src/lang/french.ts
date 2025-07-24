@@ -19,6 +19,7 @@ export const translations = {
         preview: "Aperçu",
         save: "Enregistrer",
         back: "Retour",
+        edit: "Modifier",
         settings: "Paramètres",
         appversion: "Version de l'application",
         image: "Image",
@@ -810,6 +811,11 @@ export const translations = {
                 `Créez un nouveau lien entre un <span class="hl">fichier exécutable de jeu</span> et l' <span class="hl">AppID</span> associé`,
                 `Une fois créés, les liens peuvent être <span class="hl">dissociés</span> via la boîte de dialogue <span class="hl">Gérer les jeux liés</span> précédente`
             ],
+            linkedit: "Modifier le jeu lié",
+            linkeditsub: [
+                `Modifier un lien existant entre un <span class="hl">exécutable du jeu</span> et l'<span class="hl">AppID</span> associé`,
+                `Une fois créés, les liens peuvent être <span class="hl">dissociés</span> via la fenêtre précédente <span class="hl">Gérer les jeux liés</span>`
+            ],
             link: "Lier",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Nouvelle exclusion",
             exclusionnewsub: [
                 `Entrez l'<span class="hl">AppID</span> à ajouter à la <span class="hl">liste d'exclusion</span>`
+            ],
+            exclusionedit: "Modifier l'exclusion",
+            exclusioneditsub: [
+                `Modifier l'<span class="hl">AppID</span> existant dans la <span class="hl">liste d'exclusion</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Entrez l'<span class="hl">AppID</span> du jeu, ainsi que le moniteur souhaité utilisé comme <span class="hl">Source de capture d'écran</span>`,
                 `Sélectionnez le <span class="hl">Thème</span> à utiliser pour chaque type de notification lorsque l'<span class="hl">AppID</span> de ce jeu est détecté`
+            ],
+            themeswitchedit: "Modifier le changement automatique",
+            themeswitcheditsub: [
+                `Modifier le moniteur souhaité à utiliser comme <span class="hl">source de capture d'écran</span> pour l'<span class="hl">AppID</span> de ce jeu`,
+                `Changer le <span class="hl">thème</span> vers lequel basculer pour chaque type de notification lorsque l'<span class="hl">AppID</span> de ce jeu est détecté`
             ],
             themes: "Thèmes",
             src: "Source de capture d'écran",

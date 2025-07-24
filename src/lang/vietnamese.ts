@@ -19,6 +19,7 @@ export const translations = {
         preview: "Xem Trước",
         save: "Lưu",
         back: "Quay Lại",
+        edit: "Chỉnh sửa",
         settings: "Cài Đặt",
         appversion: "Phiên Bản Ứng Dụng",
         image: "Hình Ảnh",
@@ -810,6 +811,11 @@ export const translations = {
                 `Tạo liên kết mới giữa <span class="hl">tệp thực thi của trò chơi</span> và <span class="hl">AppID</span> tương ứng`,
                 `Sau khi tạo, liên kết có thể được <span class="hl">hủy liên kết</span> thông qua hộp thoại <span class="hl">Quản lý Trò chơi Liên kết</span> trước đó`
             ],
+            linkedit: "Chỉnh sửa Trò chơi đã Liên kết",
+            linkeditsub: [
+                `Chỉnh sửa liên kết hiện có giữa một <span class="hl">tệp thực thi của trò chơi</span> và <span class="hl">AppID</span> liên kết`,
+                `Sau khi được tạo, các liên kết có thể được <span class="hl">hủy liên kết</span> thông qua hộp thoại <span class="hl">Quản lý Trò chơi đã Liên kết</span> trước đó`
+            ],
             link: "Liên kết",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Loại trừ Mới",
             exclusionnewsub: [
                 `Nhập <span class="hl">AppID</span> để thêm vào <span class="hl">Danh sách Loại trừ</span>`
+            ],
+            exclusionedit: "Chỉnh sửa Loại trừ",
+            exclusioneditsub: [
+                `Chỉnh sửa <span class="hl">AppID</span> hiện có trong <span class="hl">Danh sách Loại trừ</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Nhập <span class="hl">AppID</span> của trò chơi, cùng với màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp màn hình</span>`,
                 `Chọn <span class="hl">Chủ đề</span> nào để chuyển đổi cho mỗi loại thông báo khi phát hiện <span class="hl">AppID</span> của trò chơi này`
+            ],
+            themeswitchedit: "Chỉnh sửa Tự động Chuyển đổi",
+            themeswitcheditsub: [
+                `Chỉnh sửa màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp Màn hình</span> cho <span class="hl">AppID</span> của trò chơi này`,
+                `Thay đổi <span class="hl">Chủ đề</span> sẽ được chuyển sang cho từng loại thông báo khi <span class="hl">AppID</span> của trò chơi này được phát hiện`
             ],
             themes: "Chủ đề",
             src: "Nguồn Ảnh chụp màn hình",

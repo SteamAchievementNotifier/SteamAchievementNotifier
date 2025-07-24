@@ -19,6 +19,7 @@ export const translations = {
         preview: "預覽",
         save: "保存",
         back: "返回",
+        edit: "編輯",
         settings: "設置",
         appversion: "應用程式版本",
         image: "圖像",
@@ -810,6 +811,11 @@ export const translations = {
                 `創建一個新的連結，將遊戲的 <span class="hl">執行檔</span> 與關聯的 <span class="hl">AppID</span> 連接`,
                 `創建後，這些連結可以通過之前的 <span class="hl">管理已關聯的遊戲</span> 對話框進行 <span class="hl">取消關聯</span>`
             ],
+            linkedit: "編輯已連結遊戲",
+            linkeditsub: [
+                `編輯現有的<span class="hl">遊戲可執行檔</span>與相關的<span class="hl">AppID</span>連結`,
+                `連結建立後，可以透過先前的<span class="hl">管理已連結遊戲</span>對話框<span class="hl">取消連結</span>`
+            ],
             link: "關聯",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "新增排除",
             exclusionnewsub: [
                 `輸入要新增至<span class="hl">排除清單</span>的<span class="hl">AppID</span>`
+            ],
+            exclusionedit: "編輯排除清單",
+            exclusioneditsub: [
+                `編輯<span class="hl">排除清單</span>中現有的<span class="hl">AppID</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `輸入遊戲的 <span class="hl">AppID</span>，以及用作 <span class="hl">截圖來源</span> 的所需顯示器`,
                 `選擇當檢測到此遊戲的 <span class="hl">AppID</span> 時，要為每個通知類型切換到哪個 <span class="hl">主題</span>`
+            ],
+            themeswitchedit: "編輯自動切換",
+            themeswitcheditsub: [
+                `編輯用作此遊戲<span class="hl">AppID</span>的<span class="hl">截圖來源</span>的目標顯示器`,
+                `更改當偵測到此遊戲的<span class="hl">AppID</span>時，針對每種通知類型切換的<span class="hl">主題</span>`
             ],
             themes: "主題",
             src: "截圖來源",

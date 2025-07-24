@@ -19,6 +19,7 @@ export const translations = {
         preview: "Преглед",
         save: "Запазване",
         back: "Назад",
+        edit: "Редактиране",
         settings: "Настройки",
         appversion: "Версия на приложението",
         image: "Изображение",
@@ -810,6 +811,11 @@ export const translations = {
                 `Създайте нова връзка между <span class="hl">изпълнимия файл на игра</span> и съответният <span class="hl">AppID</span>`,
                 `Веднъж създадени, връзките могат да бъдат <span class="hl">разкачени</span> чрез предходния диалог за <span class="hl">управление на свързаните игри</span>`
             ],
+            linkedit: "Редактиране на свързана игра",
+            linkeditsub: [
+                `Редактиране на съществуваща връзка между <span class="hl">изпълним файл на игра</span> и съответния <span class="hl">AppID</span>`,
+                `След създаване връзките могат да бъдат <span class="hl">премахнати</span> чрез предишния прозорец <span class="hl">Управление на свързани игри</span>`
+            ],
             link: "Свързване",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Ново изключване",
             exclusionnewsub: [
                 `Въведете <span class="hl">AppID</span>, за да го добавите към <span class="hl">Списък за изключване</span>`
+            ],
+            exclusionedit: "Редактиране на изключение",
+            exclusioneditsub: [
+                `Редактиране на съществуващия <span class="hl">AppID</span> в <span class="hl">Списъка с изключения</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Въведете <span class="hl">AppID</span> на играта, заедно с желания монитор за използване като <span class="hl">Източник на екранна снимка</span>`,
                 `Изберете коя <span class="hl">Тема</span> да се превключи за всеки тип известие, когато бъде открит <span class="hl">AppID</span> на тази игра`
+            ],
+            themeswitchedit: "Редактиране на автоматично превключване",
+            themeswitcheditsub: [
+                `Редактирайте желания монитор, който да се използва като <span class="hl">източник на екранни снимки</span> за <span class="hl">AppID</span> на тази игра`,
+                `Променете кой <span class="hl">тема</span> да се използва за всеки тип известие, когато бъде открит <span class="hl">AppID</span> на тази игра`
             ],
             themes: "Теми",
             src: "Източник на екранна снимка",

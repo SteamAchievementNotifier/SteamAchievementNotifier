@@ -19,6 +19,7 @@ export const translations = {
         preview: "Προεπισκόπηση",
         save: "Αποθήκευση",
         back: "Πίσω",
+        edit: "Επεξεργασία",
         settings: "Ρυθμίσεις",
         appversion: "Έκδοση εφαρμογής",
         image: "Εικόνα",
@@ -810,6 +811,11 @@ export const translations = {
                 `Δημιουργήστε μια νέα σύνδεση μεταξύ ενός <span class="hl">εκτελέσιμου αρχείου παιχνιδιού</span> και του σχετικού <span class="hl">AppID</span>`,
                 `Μόλις δημιουργηθούν, οι συνδέσεις μπορούν να <span class="hl">αποσυνδεθούν</span> μέσω του προηγούμενου διαλόγου <span class="hl">Διαχείριση συνδεδεμένων παιχνιδιών</span>`
             ],
+            linkedit: "Επεξεργασία Συνδεδεμένου Παιχνιδιού",
+            linkeditsub: [
+                `Επεξεργασία υπάρχουσας σύνδεσης μεταξύ ενός <span class="hl">εκτελέσιμου αρχείου παιχνιδιού</span> και του σχετικού <span class="hl">AppID</span>`,
+                `Μόλις δημιουργηθούν, οι σύνδεσμοι μπορούν να <span class="hl">αποσυνδεθούν</span> μέσω του προηγούμενου διαλόγου <span class="hl">Διαχείριση Συνδεδεμένων Παιχνιδιών</span>`
+            ],
             link: "Σύνδεση",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Νέος αποκλεισμός",
             exclusionnewsub: [
                 `Εισαγάγετε την <span class="hl">AppID</span> για προσθήκη στη <span class="hl">λίστα αποκλεισμού</span>`
+            ],
+            exclusionedit: "Επεξεργασία Εξαίρεσης",
+            exclusioneditsub: [
+                `Επεξεργασία του υπάρχοντος <span class="hl">AppID</span> στη <span class="hl">Λίστα Εξαιρέσεων</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Εισαγάγετε την <span class="hl">AppID</span> του παιχνιδιού, μαζί με τον επιθυμητό υπολογιστή για να χρησιμοποιηθεί ως <span class="hl">Πηγή Στιγμιότυπου</span>`,
                 `Επιλέξτε ποιο <span class="hl">Θέμα</span> να αλλάξει για κάθε τύπο ειδοποίησης όταν ανιχνευτεί η <span class="hl">AppID</span> αυτού του παιχνιδιού`
+            ],
+            themeswitchedit: "Επεξεργασία Αυτόματης Εναλλαγής",
+            themeswitcheditsub: [
+                `Επεξεργασία της επιθυμητής οθόνης που θα χρησιμοποιηθεί ως <span class="hl">Πηγή Στιγμιότυπων</span> για το <span class="hl">AppID</span> αυτού του παιχνιδιού`,
+                `Αλλαγή του <span class="hl">Θέματος</span> στο οποίο θα γίνεται εναλλαγή για κάθε τύπο ειδοποίησης όταν εντοπίζεται το <span class="hl">AppID</span> αυτού του παιχνιδιού`
             ],
             themes: "Θέματα",
             src: "Πηγή Στιγμιότυπου",

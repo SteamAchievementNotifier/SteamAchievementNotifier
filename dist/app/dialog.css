@@ -685,6 +685,11 @@ dialog:has(#themeswitchtablewrapper,#themeswitchnewtablewrapper) {
     pointer-events: none;
 }
 
+[id$="tablewrapper"] > table > tr:not([id$="headers"]):has(> td:nth-last-child(2):hover) {
+    background-color: #5d5d5d;
+    cursor: pointer;
+}
+
 [id$="tablewrapper"] > table > tr:not([id$="headers"]):has(> td:last-child:hover) {
     background-color: red;
     cursor: pointer;
@@ -750,12 +755,24 @@ dialog > #content:has(.tbl) {
     width: 65%;
 }
 
-td:has(.unlinkbtn) > .unlinkbtn {
-    --menuicon: url("../../icon/unlink.svg");
+td:has(.editbtn,.unlinkbtn) > button {
     background: var(--menuicon) center / contain no-repeat;
     width: 1rem;
     height: 1rem;
     vertical-align: middle;
+    opacity: 0.75;
+}
+
+td:has(.editbtn,.unlinkbtn):hover > button {
+    opacity: 1;
+}
+
+td:has(.editbtn) > .editbtn {
+    --menuicon: url("../../icon/edit.svg");
+}
+
+td:has(.unlinkbtn) > .unlinkbtn {
+    --menuicon: url("../../icon/unlink.svg");
 }
 
 dialog:has(#linkgametablewrapper) td:has(.unlinkbtn) > .unlinkbtn {
@@ -770,8 +787,13 @@ dialog:has(#themeswitchtablewrapper) td:has(.unlinkbtn) > .unlinkbtn {
     --menuicon: url("../../icon/unautoswitchtheme.svg");
 }
 
-#exclusionlistheaders > th:nth-child(1) {
-    width: 90%;
+#exclusionlistheaders > th:first-child {
+    width: 80%;
+}
+
+#exclusionlistheaders > th:nth-last-child(2),
+#exclusionlistheaders > th:last-child {
+    width: 10%;
 }
 
 #exclusionlisttablewrapper td {

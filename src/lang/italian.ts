@@ -19,6 +19,7 @@ export const translations = {
         preview: "Anteprima",
         save: "Salva",
         back: "Indietro",
+        edit: "Modifica",
         settings: "Impostazioni",
         appversion: "Versione dell'app",
         image: "Immagine",
@@ -810,6 +811,11 @@ export const translations = {
                 `Crea un nuovo collegamento tra un <span class="hl">file eseguibile del gioco</span> e l'AppID associato`,
                 `Una volta creati, i collegamenti possono essere <span class="hl">scollegati</span> tramite la precedente finestra di dialogo <span class="hl">Gestisci Giochi Collegati</span>`
             ],
+            linkedit: "Modifica gioco collegato",
+            linkeditsub: [
+                `Modifica un collegamento esistente tra un <span class="hl">eseguibile del gioco</span> e l'<span class="hl">AppID</span> associato`,
+                `Una volta creati, i collegamenti possono essere <span class="hl">scollegati</span> tramite la finestra precedente <span class="hl">Gestisci giochi collegati</span>`
+            ],
             link: "Collega",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Nuova esclusione",
             exclusionnewsub: [
                 `Inserisci l'<span class="hl">AppID</span> da aggiungere alla <span class="hl">lista di esclusione</span>`
+            ],
+            exclusionedit: "Modifica esclusione",
+            exclusioneditsub: [
+                `Modifica l'<span class="hl">AppID</span> esistente nella <span class="hl">Lista delle esclusioni</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Inserisci l'<span class="hl">AppID</span> del gioco, insieme al monitor desiderato da usare come <span class="hl">Sorgente Screenshot</span>`,
                 `Seleziona quale <span class="hl">Tema</span> cambiare per ciascun tipo di notifica quando viene rilevato l'<span class="hl">AppID</span> di questo gioco`
+            ],
+            themeswitchedit: "Modifica commutazione automatica",
+            themeswitcheditsub: [
+                `Modifica il monitor desiderato da usare come <span class="hl">Fonte screenshot</span> per l'<span class="hl">AppID</span> di questo gioco`,
+                `Cambia il <span class="hl">Tema</span> a cui passare per ogni tipo di notifica quando viene rilevato l'<span class="hl">AppID</span> di questo gioco`
             ],
             themes: "Temi",
             src: "Sorgente Screenshot",

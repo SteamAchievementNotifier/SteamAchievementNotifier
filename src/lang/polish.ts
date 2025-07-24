@@ -19,6 +19,7 @@ export const translations = {
         preview: "Podgląd",
         save: "Zapisz",
         back: "Wstecz",
+        edit: "Edytuj",
         settings: "Ustawienia",
         appversion: "Wersja aplikacji",
         image: "Obraz",
@@ -810,6 +811,11 @@ export const translations = {
                 `Utwórz nowe połączenie między <span class="hl">plikiem wykonywalnym gry</span>, a powiązanym <span class="hl">AppID</span>`,
                 `Po utworzeniu połączenia można je <span class="hl">rozłączyć</span> za pomocą wcześniejszego okna dialogowego <span class="hl">Zarządzaj połączonymi grami</span>`
             ],
+            linkedit: "Edytuj powiązaną grę",
+            linkeditsub: [
+                `Edytuj istniejące powiązanie między <span class="hl">plikiem wykonywalnym gry</span> a powiązanym <span class="hl">AppID</span>`,
+                `Po utworzeniu, powiązania można <span class="hl">odłączyć</span> za pomocą poprzedniego okna <span class="hl">Zarządzaj powiązanymi grami</span>`
+            ],
             link: "Połącz",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Nowe wyłączenie",
             exclusionnewsub: [
                 `Wpisz <span class="hl">AppID</span>, aby dodać go do <span class="hl">listy wyłączeń</span>`
+            ],
+            exclusionedit: "Edytuj wykluczenie",
+            exclusioneditsub: [
+                `Edytuj istniejące <span class="hl">AppID</span> na <span class="hl">liście wykluczeń</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Wprowadź <span class="hl">AppID</span> gry, razem z żądaną monitorem, który ma być używany jako <span class="hl">Źródło zrzutu ekranu</span>`,
                 `Wybierz, który <span class="hl">motyw</span> ma być używany dla każdego typu powiadomienia, gdy AppID tej gry zostanie wykryty`
+            ],
+            themeswitchedit: "Edytuj automatyczną zmianę",
+            themeswitcheditsub: [
+                `Edytuj wybrany monitor używany jako <span class="hl">źródło zrzutów ekranu</span> dla <span class="hl">AppID</span> tej gry`,
+                `Zmień, na jaki <span class="hl">motyw</span> ma być przełączane dla każdego typu powiadomienia, gdy wykryty zostanie <span class="hl">AppID</span> tej gry`
             ],
             themes: "Motywy",
             src: "Źródło zrzutu ekranu",

@@ -19,6 +19,7 @@ export const translations = {
         preview: "Förhandsvisning",
         save: "Spara",
         back: "Tillbaka",
+        edit: "Redigera",
         settings: "Inställningar",
         appversion: "Appversion",
         image: "Bild",
@@ -810,6 +811,11 @@ export const translations = {
                 `Skapa en ny länk mellan en <span class="hl">körbar fil för spelet</span> och det associerade <span class="hl">AppID</span>`,
                 `Efter att ha skapats kan länkar <span class="hl">avlägsnas</span> via den tidigare <span class="hl">Hantera Länkade Spel</span>-dialogrutan`
             ],
+            linkedit: "Redigera kopplat spel",
+            linkeditsub: [
+                `Redigera en befintlig koppling mellan en <span class="hl">spelbar körbar fil</span> och den associerade <span class="hl">AppID</span>`,
+                `När de skapats kan kopplingar <span class="hl">avkopplas</span> via den tidigare dialogrutan <span class="hl">Hantera kopplade spel</span>`
+            ],
             link: "Länka",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Ny uteslutning",
             exclusionnewsub: [
                 `Ange <span class="hl">AppID</span> för att lägga till i <span class="hl">Undantagslistan</span>`
+            ],
+            exclusionedit: "Redigera undantag",
+            exclusioneditsub: [
+                `Redigera den befintliga <span class="hl">AppID</span> i <span class="hl">undantagslistan</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Ange spelets <span class="hl">AppID</span>, tillsammans med den önskade monitorn som ska användas som <span class="hl">Skärmdumpkälla</span>`,
                 `Välj vilket <span class="hl">Tema</span> som ska bytas till för varje notifieringstyp när detta spels <span class="hl">AppID</span> upptäcks`
+            ],
+            themeswitchedit: "Redigera automatisk växling",
+            themeswitcheditsub: [
+                `Redigera den önskade skärmen som ska användas som <span class="hl">källan för skärmbilder</span> för detta spels <span class="hl">AppID</span>`,
+                `Ändra vilket <span class="hl">tema</span> som ska växlas till för varje notifikationstyp när detta spels <span class="hl">AppID</span> upptäcks`
             ],
             themes: "Teman",
             src: "Skärmdumpkälla",

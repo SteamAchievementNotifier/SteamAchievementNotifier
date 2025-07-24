@@ -19,6 +19,7 @@ export const translations = {
         preview: "Pré-visualização",
         save: "Salvar",
         back: "Voltar",
+        edit: "Editar",
         settings: "Configurações",
         appversion: "Versão do Aplicativo",
         image: "Imagem",
@@ -810,6 +811,11 @@ export const translations = {
                 `Crie um novo link entre um <span class="hl">arquivo executável do jogo</span> e o <span class="hl">AppID</span> associado`,
                 `Após criado, os links podem ser <span class="hl">desassociados</span> através da janela de <span class="hl">Gerenciar Jogos Associados</span>`
             ],
+            linkedit: "Editar Jogo Ligado",
+            linkeditsub: [
+                `Edite uma ligação existente entre um <span class="hl">executável do jogo</span> e o <span class="hl">AppID</span> associado`,
+                `Depois de criadas, as ligações podem ser <span class="hl">desligadas</span> através da janela anterior <span class="hl">Gerir Jogos Ligados</span>`
+            ],
             link: "Associar",
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Nova Exclusão",
             exclusionnewsub: [
                 `Digite o <span class="hl">AppID</span> para adicionar à <span class="hl">Lista de Exclusão</span>`
+            ],
+            exclusionedit: "Editar Exclusão",
+            exclusioneditsub: [
+                `Edite o <span class="hl">AppID</span> existente na <span class="hl">Lista de Exclusões</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Insira o <span class="hl">AppID</span> do jogo, juntamente com o monitor desejado para ser usado como <span class="hl">Fonte de Captura de Tela</span>`,
                 `Selecione qual <span class="hl">Tema</span> alternar para cada tipo de notificação quando o <span class="hl">AppID</span> deste jogo for detectado`
+            ],
+            themeswitchedit: "Editar Troca Automática",
+            themeswitcheditsub: [
+                `Edite o monitor desejado para usar como <span class="hl">Fonte de Captura de Ecrã</span> para o <span class="hl">AppID</span> deste jogo`,
+                `Altere qual <span class="hl">Tema</span> trocar para cada tipo de notificação quando for detetado o <span class="hl">AppID</span> deste jogo`
             ],
             themes: "Temas",
             src: "Fonte de Captura de Tela",

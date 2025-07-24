@@ -19,6 +19,7 @@ export const translations = {
         preview: "Voorbeeld",
         save: "Opslaan",
         back: "Terug",
+        edit: "Bewerken",
         settings: "Instellingen",
         appversion: "App-versie",
         image: "Afbeelding",
@@ -810,6 +811,11 @@ export const translations = {
                 `Maak een nieuwe koppeling tussen een <span class="hl">spel uitvoerbaar bestand</span> en de bijbehorende <span class="hl">AppID</span>`,
                 `Eenmaal gemaakt, kunnen koppelingen worden <span class="hl">ontkoppeld</span> via het vorige <span class="hl">Beheer Gekoppelde Spellen</span> dialoogvenster`
             ],
+            linkedit: "Bewerk gekoppeld spel",
+            linkeditsub: [
+                `Bewerk een bestaande koppeling tussen een <span class="hl">speluitvoerbaar bestand</span> en de bijbehorende <span class="hl">AppID</span>`,
+                `Eenmaal aangemaakt, kunnen koppelingen worden <span class="hl">ontkoppeld</span> via het vorige <span class="hl">Beheer gekoppelde spellen</span> dialoogvenster`
+            ],
             link: "Koppelen"
         }
     },
@@ -823,6 +829,10 @@ export const translations = {
             exclusionnew: "Nieuwe uitsluiting",
             exclusionnewsub: [
                 `Voer de <span class="hl">AppID</span> in om deze toe te voegen aan de <span class="hl">uitsluitingslijst</span>`
+            ],
+            exclusionedit: "Bewerk uitsluiting",
+            exclusioneditsub: [
+                `Bewerk de bestaande <span class="hl">AppID</span> in de <span class="hl">Uitsluitingslijst</span>`
             ]
         }
     },
@@ -878,6 +888,11 @@ export const translations = {
             themeswitchnewsub: [
                 `Voer de <span class="hl">AppID</span> van het spel in, samen met de gewenste monitor om te gebruiken als <span class="hl">Schermafbeeldingsbron</span>`,
                 `Selecteer welk <span class="hl">Thema</span> moet worden gewisseld voor elk meldingstype wanneer de <span class="hl">AppID</span> van dit spel wordt gedetecteerd`
+            ],
+            themeswitchedit: "Bewerk automatische wissel",
+            themeswitcheditsub: [
+                `Bewerk de gewenste monitor die gebruikt wordt als <span class="hl">Screenshotbron</span> voor de <span class="hl">AppID</span> van dit spel`,
+                `Wijzig welk <span class="hl">Thema</span> er wordt gewisseld voor elk notificatietype wanneer de <span class="hl">AppID</span> van dit spel wordt gedetecteerd`
             ],
             themes: "Thema's",
             src: "Schermafbeeldingsbron",

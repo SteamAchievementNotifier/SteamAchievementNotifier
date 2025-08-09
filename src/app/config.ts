@@ -478,6 +478,21 @@ export const sanconfig = {
             return customobj
         }
     },
+    defaultcustomobj: (customobj: Customisation,type: NotifyType) => {
+        return {
+            primarycolor: `#${sanhelper.settypevalue(type,defaultcolors.primary)}`,
+            secondarycolor: `#${sanhelper.settypevalue(type,defaultcolors.secondary)}`,
+            shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, semi: "W", rare: 2, plat: 3 })}`,
+            elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
+            usertheme: [{
+                id: 0,
+                label: `Default ${sanhelper.settypevalue(type,defaultuserthemelbls)}`,
+                icon: sanhelper.setfilepath("img","sanlogotrophy.svg"),
+                customisation: {} as Customisation,
+                enabled: true
+            }] as UserTheme[]
+        }
+    },
     create: (validate?: boolean): Config => {
         // When calling from renderer, it cannot access the `screen` API - so create a dummy object to bypass
         const dummyscreen: DefaultBounds = {
@@ -516,19 +531,7 @@ export const sanconfig = {
                     type === "plat" && (customobj.customicons.plat = sanhelper.setfilepath("img","ribbon.svg"))
                 })
                 
-                Object.assign(customobj,{
-                    primarycolor: `#${sanhelper.settypevalue(type,defaultcolors.primary)}`,
-                    secondarycolor: `#${sanhelper.settypevalue(type,defaultcolors.secondary)}`,
-                    shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, semi: "w", rare: 2, plat: 3 })}`,
-                    elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
-                    usertheme: [{
-                        id: 0,
-                        label: `Default ${sanhelper.settypevalue(type,defaultuserthemelbls)}`,
-                        icon: sanhelper.setfilepath("img","sanlogotrophy.svg"),
-                        customisation: {} as Customisation,
-                        enabled: true
-                    }] as UserTheme[]
-                })
+                Object.assign(customobj,sanconfig.defaultcustomobj(customobj,type as NotifyType))
     
                 customobj.usertheme[0].customisation = { ...customobj as any }
                 delete (customobj.usertheme[0].customisation as any).usertheme
@@ -689,19 +692,7 @@ export const sanconfig = {
         if (type && !config.get(customisation)) {
             const customobj = sanconfig.defaultobj("customisation",type) as Customisation
             
-            Object.assign(customobj,{
-                primarycolor: `#${sanhelper.settypevalue(type,defaultcolors.primary)}`,
-                secondarycolor: `#${sanhelper.settypevalue(type,defaultcolors.secondary)}`,
-                shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, semi: "Q", rare: 2, plat: 3 })}`,
-                elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
-                usertheme: [{
-                    id: 0,
-                    label: `Default ${sanhelper.settypevalue(type,defaultuserthemelbls)}`,
-                    icon: sanhelper.setfilepath("img","sanlogotrophy.svg"),
-                    customisation: {} as Customisation,
-                    enabled: true
-                }] as UserTheme[]
-            })
+            Object.assign(customobj,sanconfig.defaultcustomobj(customobj,type))
 
             customobj.usertheme[0].customisation = { ...customobj as any }
             delete (customobj.usertheme[0].customisation as any).usertheme

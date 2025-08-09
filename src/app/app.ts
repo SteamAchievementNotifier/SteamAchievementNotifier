@@ -39,6 +39,8 @@ checksingleinstance(lock)
 const starttime = new Date().toLocaleTimeString()
 log.init("APP")
 
+;(async () => log.write("INFO",`OS: ${await sanhelper.getosinfo()}`))()
+
 sanconfig.get().store.nohwa && app.disableHardwareAcceleration()
 
 // Legacy keys required to be removed if existing in config

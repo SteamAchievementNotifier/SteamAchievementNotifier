@@ -98,6 +98,27 @@ export const sanhelper: SANHelper = {
             ".aac",
             ".m4a"
     ]},
+    getosinfo: async () => {
+        if (process.platform !== "win32" && process.platform !== "linux") return `Unsupported platform ("${process.platform}")`
+        
+        const os = await import("os")
+        
+        if (process.platform === "win32") {
+            const buildno = parseInt(os.release().split(".")[2])
+    
+            if (buildno >= 22000) return `Windows 11 (${buildno})`
+            if (buildno >= 10240) return `Windows 10 (${buildno})`
+            
+            return `Windows [Unsupported] (${buildno})`
+        }
+        
+        try {
+            const match = fs.readFileSync("/etc/os-release","utf8").match(/^PRETTY_NAME="(.+)"$/m)
+            if (match) return match[1]
+        } catch {}
+        
+        return `Linux kernel (${os.release()})`
+    },
     gethqicon: (appid: number = 0) => getHqIcon(appid),
     getwindowbounds: (windowtitle: string) => getWindowBounds(windowtitle),
     initlogger: (appdata: string) => initLogger(appdata),
@@ -348,6 +369,9 @@ export const sanhelper: SANHelper = {
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
     trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {
+        // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled
+        ;(async () => await sanhelper.verifylocalstorage(["themeswitch"]))()
+        
         document.body.toggleAttribute("trophymode",value)
 
         const { customisation, trophymode } = config.store
@@ -1239,5 +1263,46 @@ export const sanhelper: SANHelper = {
         } catch (err) {
             log.write("ERROR",`Unable to query latest GitHub Release: ${err as Error}`)
         }
+    },
+    verifylocalstorage: async (lsitems: ("linkgame" | "themeswitch" | "statwin" | "pinned")[]) => {
+        const { log } = await import("./log")
+
+        lsitems.forEach(id => {
+            const lsitem = localStorage.getItem(id)
+        
+            if (!lsitem) return localStorage.setItem(id,JSON.stringify(id === "pinned" ? [] : {}))
+            if (id !== "themeswitch") return log.write("INFO",`"${id}" key in localStorage verified successfully`)
+        
+            const types = ["main","semi","rare","plat"] as NotifyType[]
+            let json: Record<string,ThemeSwitch>
+            
+            try {
+                json = JSON.parse(lsitem)
+            } catch {
+                return log.write("WARN",`Failed to parse "${id}" key in localStorage - skipping...`)
+            }
+        
+            for (const appid in json) {
+                const themes = json[appid]?.themes
+                if (!themes) continue
+        
+                for (const type of types) {
+                    if (!(type in themes)) {
+                        themes[type] = 0
+                        log.write("INFO",`Patched missing "${id}.${appid}.themes.${type}" key in localStorage successfully`)
+                    }
+                }
+            }
+        
+            let err: Error | null = null
+        
+            try {
+                localStorage.setItem(id,JSON.stringify(json))
+            } catch (e) {
+                err = e as Error
+            }
+        
+            log.write(!err ? "INFO" : "WARN",!err ? `"${id}" key in localStorage verified successfully` : `Unable to verify "${id}" key in localStorage: ${err}`)
+        })
     }
 }

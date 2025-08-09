@@ -70,49 +70,13 @@ sanhelper.noanim(config.get("noanim"))
 sanhelper.trophymode(config.get("trophymode"),config)
 sanhelper.createclosedstate()
 
-// Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing
-;([
+// Verifies all required localStorage objects (and creates if missing) on launch
+;(async () => await sanhelper.verifylocalstorage([
     "linkgame",
     "themeswitch",
     "statwin",
     "pinned"
-] as const).forEach(id => {
-    const lsitem = localStorage.getItem(id)
-
-    if (!lsitem) return localStorage.setItem(id,JSON.stringify(id === "pinned" ? [] : {}))
-    if (id !== "themeswitch") return log.write("INFO",`"${id}" key in localStorage verified successfully`)
-
-    const types = ["main","semi","rare","plat"] as NotifyType[]
-    let json: Record<string,ThemeSwitch>
-    
-    try {
-        json = JSON.parse(lsitem)
-    } catch {
-        return log.write("WARN",`Failed to parse "${id}" key in localStorage - skipping...`)
-    }
-
-    for (const appid in json) {
-        const themes = json[appid]?.themes
-        if (!themes) continue
-
-        for (const type of types) {
-            if (!(type in themes)) {
-                themes[type] = 0
-                log.write("INFO",`Patched missing "${id}.${appid}.themes.${type}" key in localStorage successfully`)
-            }
-        }
-    }
-
-    let err: Error | null = null
-
-    try {
-        localStorage.setItem(id,JSON.stringify(json))
-    } catch (e) {
-        err = e as Error
-    }
-
-    return log.write(!err ? "INFO" : "WARN",!err ? `"${id}" key in localStorage verified successfully` : `Unable to verify "${id}" key in localStorage: ${err}`)
-})
+]))()
 
 sanhelper.beta && sanhelper.checkbetastatus()
 

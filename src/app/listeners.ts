@@ -24,6 +24,8 @@ export const listeners = {
                 extwin = null
             }
 
+            log.backup(sanconfig.get())
+
             log.write("EXIT",reason || `No exit reason provided.`)
             app.exit()
         })
@@ -327,6 +329,8 @@ export const listeners = {
             win.webContents.send("appid",appid,gamename,steam3id,num)
             updatetray(tray!,gamename,num)
         })
+
+        ipcMain.on("runningappid",event => event.reply("runningappid",appid || 0))
 
         let debugwin: BrowserWindow | null = null
 
@@ -1449,13 +1453,14 @@ export const listeners = {
             logwin.once("closed", () => {
                 log.write("EXIT",`"App Log" window closed`)
                 logwin = null
+                sanconfig.get().set("logwin","san") // Reset "logtype" to "san" on exit
             })
         })
 
-        ipcMain.on("updatelogwin", (event,logcontents: string,logtype: "san" | "rust") => logwin && logwin.webContents.send("updatelogwin",logcontents,logtype))
-        ipcMain.on("updatelogtype", (event,logtype) => {
+        ipcMain.on("updatelogwin", (event,logcontents: string,logtype: "san" | "rust" | "sanhelperrs" | "bak",filename?: string) => logwin && logwin.webContents.send("updatelogwin",logcontents,logtype,filename))
+        ipcMain.on("updatelogtype", (event,logtype,filename?: string) => {
             sanconfig.get().set("logtype",logtype)
-            win.webContents.send("updatelogtype",logtype)
+            win.webContents.send("updatelogtype",logtype,filename)
         })
 
         ipcMain.on("steam3id", async (event,steam3id: number,skipss?: boolean) => {

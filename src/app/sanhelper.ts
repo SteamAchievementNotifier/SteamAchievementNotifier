@@ -195,9 +195,9 @@ export const sanhelper: SANHelper = {
         return
     },
     get type(): NotifyType { return (["main","semi","rare","plat"] as const).find(attr => document.body.hasAttribute(attr))! as NotifyType },
-    logcontents: (logtype: "san" | "rust" | "sanhelperrs") => fs.readFileSync(path.join(sanhelper.appdata,"logs",`${logtype}.log`),"utf-8").replace(/(\r\n|\n|\r)/g,"<br>"),
-    createlogwin:(logtype: "san" | "rust" | "sanhelperrs") => ipcRenderer.send("logwin",sanhelper.logcontents(logtype),logtype),
-    updatelogwin: (logtype: "san" | "rust" | "sanhelperrs") => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype),logtype),
+    logcontents: (logtype: "san" | "rust" | "sanhelperrs" | "bak",filename?: string) => fs.readFileSync(path.join(sanhelper.appdata,"logs",filename || `${logtype}.log`),"utf-8").replace(/(\r\n|\n|\r)/g,"<br>"),
+    createlogwin: () => ipcRenderer.send("logwin",sanhelper.logcontents("san"),"san"),
+    updatelogwin: (logtype: "san" | "rust" | "sanhelperrs" | "bak",filename?: string) => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype,filename),logtype,filename),
     showcustomfiles: () => shell.openPath(path.join(sanhelper.appdata,"customfiles")),
     switchtab: ({ target }: Event) => {
         target instanceof HTMLElement && (["main","semi","rare","plat"] as const).forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
@@ -772,7 +772,8 @@ export const sanhelper: SANHelper = {
             ["maxretries",""],
             ["maxsteamlangretries",""],
             ["extwinframerate","FPS"],
-            ["customtriggerdelay","s"]
+            ["customtriggerdelay","s"],
+            ["lognum",""]
         ])
 
         const wideelems = [
@@ -978,6 +979,27 @@ export const sanhelper: SANHelper = {
                     const tt = tippy(`#${elem.id}`,{
                         ...defaulttippy,
                         maxWidth: sanhelper.maxwidth(wideelems,elem),
+                        content: await language.get(elem.id,["tooltips"]),
+                        appendTo: "parent",
+                        onTrigger(inst) {
+                            inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                        }
+                    })
+
+                    tippies.push(tt)
+                })
+            })
+        }
+
+        const exclusionlistnewdialog = document.querySelector(`dialog:has(#exclusionappid)`)
+        
+        if (exclusionlistnewdialog && exclusionlistnewdialog.querySelector(`input[appid]`)) {
+            requestAnimationFrame(() => {
+                exclusionlistnewdialog.querySelectorAll(
+                    `button#detectedappid`
+                )!.forEach(async elem => {
+                    const tt = tippy(`#${elem.id}`,{
+                        ...defaulttippy,
                         content: await language.get(elem.id,["tooltips"]),
                         appendTo: "parent",
                         onTrigger(inst) {

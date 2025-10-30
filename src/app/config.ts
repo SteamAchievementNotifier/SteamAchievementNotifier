@@ -321,6 +321,7 @@ export const sanconfig = {
                 customtriggerdelay: 0,
                 customtriggerusedisplaytime: false,
                 trophymode: false,
+                lognum: 1,
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

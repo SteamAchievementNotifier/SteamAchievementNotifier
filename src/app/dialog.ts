@@ -145,16 +145,6 @@ export const dialog = {
 
                         table.appendChild(tr)
                     }
-
-                    // const unlinktd = document.createElement("td")
-                    // const unlinkbtn = document.createElement("button")
-
-                    // unlinkbtn.className = "unlinkbtn"
-                    // unlinktd.appendChild(unlinkbtn)
-
-                    // tr.appendChild(unlinktd)
-
-                    // table.appendChild(tr)
                 })
 
                 const getappid = (strid: string | null) => {
@@ -175,11 +165,7 @@ export const dialog = {
                             if (type !== "exclusionlist") {
                                 const entries = JSON.parse(localStorage.getItem(type)!)
     
-                                if (appid in entries) {
-                                    lsentry = entries[appid]
-                                    // delete entries[appid]
-                                    // localStorage.setItem(type,JSON.stringify(entries))
-                                }
+                                if (appid in entries) lsentry = entries[appid]
                             } else {
                                 const exclusions = config.get("exclusions")
                                 
@@ -275,39 +261,48 @@ export const dialog = {
                         })
                     }
                     case "exclusionlist": return async () => {
-                        dialog.open({
-                            title: await language.get(`exclusion${!!obj ? "edit" : "new"}`,["exclusions","content"]),
-                            type: "default",
-                            icon: sanhelper.setfilepath("icon",`${!!obj ? "edit" : "newexclusion"}.svg`),
-                            sub: await language.get(`exclusion${!!obj ? "edit" : "new"}sub`,["exclusions","content"]),
-                            addHTML: `<input type="number" class="appidinput" id="exclusionappid" placeholder="...">`,
-                            buttons: [{
-                                id: "ok",
-                                label: await language.get(!!obj ? "edit" : "ok"),
-                                icon: "",
-                                click: () => {
-                                    const exclusions = config.get("exclusions")
+                        ipcRenderer.once("runningappid",async (event,appid) => {
+                            dialog.open({
+                                title: await language.get(`exclusion${!!obj ? "edit" : "new"}`,["exclusions","content"]),
+                                type: "default",
+                                icon: sanhelper.setfilepath("icon",`${!!obj ? "edit" : "newexclusion"}.svg`),
+                                sub: await language.get(`exclusion${!!obj ? "edit" : "new"}sub`,["exclusions","content"]),
+                                addHTML: `<input type="number" class="appidinput" id="exclusionappid" placeholder="..."${appid ? ` appid="${appid}"` : ""}><button id="detectedappid"><span></span></button>`,
+                                buttons: [{
+                                    id: "ok",
+                                    label: await language.get(!!obj ? "edit" : "ok"),
+                                    icon: "",
+                                    click: () => {
+                                        const exclusions = config.get("exclusions")
+    
+                                        obj && exclusions.includes(obj.appid) && exclusions.splice(exclusions.indexOf(obj.appid),1)
+    
+                                        exclusions.push(parseInt(input.value))
+    
+                                        config.set("exclusions",exclusions)
+                                        updatetables(type)
+                                        dialog.close()
 
-                                    obj && exclusions.includes(obj.appid) && exclusions.splice(exclusions.indexOf(obj.appid),1)
+                                        appid && config.get("exclusions").includes(appid) && ipcRenderer.send("validateworker") // Restart the Worker process if the current AppID has been added to the Exclusion List
+                                    }
+                                }]
+                            })
+    
+                            const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
+                            okbtn.tabIndex = -1
+    
+                            const input = document.getElementById("exclusionappid")! as HTMLInputElement
+                            if (obj) input.value = `${obj.lsentry}`
+    
+                            input.onfocus = () => settabindex(okbtn,[input.value])
+                            input.onblur = () => settabindex(okbtn,[input.value])
+                            input.onkeydown = () => settabindex(okbtn,[input.value])
 
-                                    exclusions.push(parseInt(input.value))
-
-                                    config.set("exclusions",exclusions)
-                                    updatetables(type)
-                                    dialog.close()
-                                }
-                            }]
+                            const detectedappidbtn = document.getElementById("detectedappid") as HTMLButtonElement | null
+                            detectedappidbtn && appid && (detectedappidbtn.onclick = () => input.value = appid)
                         })
 
-                        const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
-                        okbtn.tabIndex = -1
-
-                        const input = document.getElementById("exclusionappid")! as HTMLInputElement
-                        if (obj) input.value = `${obj.lsentry}`
-
-                        input.onfocus = () => settabindex(okbtn,[input.value])
-                        input.onblur = () => settabindex(okbtn,[input.value])
-                        input.onkeydown = () => settabindex(okbtn,[input.value])
+                        ipcRenderer.send("runningappid")
                     }
                     case "themeswitch": return async () => {
                         dialog.open({

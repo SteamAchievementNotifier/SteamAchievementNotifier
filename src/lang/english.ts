@@ -168,7 +168,7 @@ export const translations = {
             `<u>This Beta version is now unsupported</u>. Please download and install the latest official release via Github using the <span class="hl">Releases</span> button below.`,
             "Thanks for testing! 💜"
         ],
-        betaghreleases: "Releases",
+        betaghreleases: "Releases"
     },
     app: {
         content: {
@@ -298,6 +298,7 @@ export const translations = {
                 notifydebug: "Show Notification DevTools",
                 exportachdata: "Export Achievement Data",
                 uselegacynotifytimer: "Use Legacy Notification Timer",
+                lognum: "Previous Log Files",
                 usecustomfiles: "Use Custom App Files",
                 showcustomfiles: "Show Custom App Files"
             }
@@ -787,7 +788,9 @@ export const translations = {
         customtriggershortcut: `Trigger the specified key/combo when an achievement is unlocked<br><br><span class="ttdesc">Supports between 1-3 keys per shortcut. For keypresses/combos requiring less than 3 keys, press the desired keys and wait for the timer (5s) to end</span>`,
         customtriggerdelay: "Delay the specified Custom Trigger key/combo",
         customtriggerusedisplaytime: `Delay the specified Custom Trigger key/combo based on the current notification type's Display Time value`,
-        trophymode: "Replace Main/Rare/100% notification types with Bronze/Silver/Gold/Platinum"
+        trophymode: "Replace Main/Rare/100% notification types with Bronze/Silver/Gold/Platinum",
+        lognum: `The number of previous log files stored before deletion. A new log file will be generated upon each app launch<br><br><span class="ttdesc">When set to 0, all previous log files will be deleted upon exit</span>`,
+        detectedappid: `Use the <span class="hl">AppID</span> of the currently-detected game`
     },
     update: {
         updateavailable: "Update available",

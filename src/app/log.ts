@@ -57,5 +57,65 @@ export const log = {
     },
     get open(): Promise<string> {
         return shell.openPath(path.join(sanhelper.appdata,"logs"))
+    },
+    clearlogfile: (logspath: string,logfile: string) => {
+        const filepath = path.join(logspath,logfile)
+
+        try {
+            fs.rmSync(filepath,{ force: true })
+            log.write("INFO",`"${filepath}" cleared successfully`)
+        } catch (err) {
+            log.write("ERROR",`Unable to clear "${filepath}": ${err}`)
+        }
+    },
+    backup: (config: any) => {
+        try {
+            const { lognum } = config.store
+            const logspath = path.join(sanhelper.appdata,"logs")
+            const logfiles = fs.readdirSync(logspath).filter(file => file.endsWith("_san.log")).sort()
+
+            if (!Number.isFinite(lognum)) return log.write("WARN",`No. of logs is not valid (${lognum}) - skipping backup...`)
+
+            if (!lognum) {
+                log.write("INFO","No. logs set to 0 - clearing all previous logs...")
+
+                if (logfiles.length) {
+                    for (const logfile of logfiles) {
+                        log.clearlogfile(logspath,logfile)
+                    }
+                }
+
+                return log.write("INFO","Log file backup disabled")
+            }
+            
+            while (logfiles.length >= lognum) {
+                const oldest = logfiles.shift()
+                oldest && log.clearlogfile(logspath,oldest)
+            }
+
+            const date = new Date()
+            const [
+                year,
+                month,
+                day,
+                hour,
+                minute,
+                second
+            ] = [
+                date.getFullYear(),
+                date.getMonth() + 1,
+                date.getDate(),
+                date.getHours(),
+                date.getMinutes(),
+                date.getSeconds()
+            ].map((part,i) => (i !== 0 ? part.toString().padStart(2,"0") : part).toString())
+            
+            const logpath = path.join(logspath,`${year + month + day}_${hour + minute + second}_san.log`)
+            
+            fs.copyFileSync(path.join(logspath,"san.log"),logpath)
+            log.write("INFO",`"${logpath}" created successfully`)
+        } catch (err) {
+            log.write("ERROR",`Unable to write previous log file: ${err}`)
+        }
     }
 }

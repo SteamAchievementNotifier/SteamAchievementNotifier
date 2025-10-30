@@ -82,7 +82,7 @@ declare interface Config {
     debug: boolean,
     noiconcache: boolean,
     exclusions: number[],
-    logtype: "san" | "rust" | "sanhelperrs",
+    logtype: "san" | "rust" | "sanhelperrs" | "bak",
     ssalldetails: string[],
     webhooks: boolean,
     webhookmain: boolean,
@@ -135,6 +135,7 @@ declare interface Config {
     customtriggerdelay: number,
     customtriggerusedisplaytime: boolean,
     trophymode: boolean,
+    lognum: number,
     customisation: {
         main: Customisation,
         semi: Customisation,

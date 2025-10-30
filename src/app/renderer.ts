@@ -35,9 +35,7 @@ dialog.init()
 const errorbtn = document.querySelector(`.menubtn#error`)! as HTMLButtonElement
 errorbtn.onclick = () => {
     document.body.removeAttribute("error")
-
-    const logtype = config.get("logtype")
-    ipcRenderer.send("logwin",sanhelper.logcontents(logtype),logtype)
+    ipcRenderer.send("logwin",sanhelper.logcontents(config.get("logtype")))
 }
 
 sanhelper.errorhandler(log)
@@ -69,6 +67,7 @@ btns.forEach((value,key) => (document.getElementById(key) as HTMLButtonElement)!
 sanhelper.noanim(config.get("noanim"))
 sanhelper.trophymode(config.get("trophymode"),config)
 sanhelper.createclosedstate()
+config.set("logtype","san") // Reset App Log to "san.log" on launch
 
 // Verifies all required localStorage objects (and creates if missing) on launch
 ;(async () => await sanhelper.verifylocalstorage([
@@ -964,7 +963,7 @@ ipcRenderer.on("updatemenu", (event,id) => {
 })
 
 ipcRenderer.on("workeractive", (event,value: boolean) => document.body.toggleAttribute("active",value))
-ipcRenderer.on("updatelogtype", (event,logtype) => sanhelper.updatelogwin(logtype))
+ipcRenderer.on("updatelogtype", (event,logtype,filename?: string) => sanhelper.updatelogwin(logtype,filename))
 
 const getsteamuser = async (): Promise<string | null> => {
     const VDF = await import("simple-vdf")

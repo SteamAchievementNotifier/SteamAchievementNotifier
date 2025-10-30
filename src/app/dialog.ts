@@ -262,11 +262,14 @@ export const dialog = {
                     }
                     case "exclusionlist": return async () => {
                         ipcRenderer.once("runningappid",async (event,appid) => {
+                            const { inclusionlist } = config.store
+                            const inex = inclusionlist ? "in" : "ex"
+
                             dialog.open({
-                                title: await language.get(`exclusion${!!obj ? "edit" : "new"}`,["exclusions","content"]),
+                                title: await language.get(`${inex}clusion${!!obj ? "edit" : "new"}`,[`${inex}clusions`,"content"]),
                                 type: "default",
                                 icon: sanhelper.setfilepath("icon",`${!!obj ? "edit" : "newexclusion"}.svg`),
-                                sub: await language.get(`exclusion${!!obj ? "edit" : "new"}sub`,["exclusions","content"]),
+                                sub: await language.get(`${inex}clusion${!!obj ? "edit" : "new"}sub`,[`${inex}clusions`,"content"]),
                                 addHTML: `<input type="number" class="appidinput" id="exclusionappid" placeholder="..."${appid ? ` appid="${appid}"` : ""}><button id="detectedappid"><span></span></button>`,
                                 buttons: [{
                                     id: "ok",
@@ -407,11 +410,14 @@ export const dialog = {
             }
             
             document.getElementById("exclusionlist")!.onclick = async () => {
+                const { inclusionlist } = config.store
+                const inex = inclusionlist ? "in" : "ex"
+                
                 dialog.open({
-                    title: await language.get("exclusionlist",["settings","games","content"]),
+                    title: await language.get(`${inex}clusionlist`,["settings","games","content"]),
                     type: "default",
                     icon: sanhelper.setfilepath("icon","exclusion.svg"),
-                    sub: await language.get("managesub",["exclusions","content"]),
+                    sub: await language.get("managesub",[`${inex}clusions`,"content"]),
                     addHTML: path.join(__dirname,"exclusionlist.html"),
                     buttons: [{
                         id: "exclusionnew",

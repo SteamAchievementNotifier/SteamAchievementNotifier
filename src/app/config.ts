@@ -260,6 +260,7 @@ export const sanconfig = {
                 debug: false,
                 noiconcache: false,
                 exclusions: [],
+                inclusionlist: false,
                 logtype: "san",
                 ssalldetails: [
                     "steamdeck",

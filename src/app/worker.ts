@@ -47,14 +47,16 @@ const startidle = () => {
         let exclusionlogged = false
         
         const timer = setInterval(() => {
-            const { pollrate, initdelay, releasedelay, maxretries, userust, debug, noiconcache, exclusions } = sanconfig.get().store
+            const { pollrate, initdelay, releasedelay, maxretries, userust, debug, noiconcache, exclusions, inclusionlist } = sanconfig.get().store
             const { appid, gamename } = sanhelper.gameinfo as AppInfo
     
             if (!appid) return
+
+            const match = inclusionlist ? !exclusions.includes(appid) : exclusions.includes(appid)
     
-            if (exclusions.find(id => appid === id)) {
+            if (match) {
                 if (!exclusionlogged) {
-                    log.write("INFO",`AppID ${appid} in Exclusion List`)
+                    log.write("INFO",`AppID ${appid} ${inclusionlist ? "not in In" : "in Ex"}clusion List`)
                     exclusionlogged = true
                 }
     

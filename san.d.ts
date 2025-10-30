@@ -82,6 +82,7 @@ declare interface Config {
     debug: boolean,
     noiconcache: boolean,
     exclusions: number[],
+    inclusionlist: boolean,
     logtype: "san" | "rust" | "sanhelperrs" | "bak",
     ssalldetails: string[],
     webhooks: boolean,

@@ -480,6 +480,36 @@ export const sanhelper: SANHelper = {
             return
         }
 
+        if (elem.id === "listmode") {
+            ;(async () => {
+                const listmode = elem as HTMLSelectElement
+                listmode.innerHTML = ""
+
+                for (const opt of ["exclusion","inclusion"]) {
+                    listmode.insertAdjacentHTML("beforeend",`<option value="${opt}">${await language.get(opt,["settings","games","content"])}</option>`)
+                }
+
+                const { inclusionlist } = config.store
+
+                listmode.value = `${inclusionlist ? "in" : "ex"}clusion`
+                document.querySelector("button#exclusionlist")!.textContent = await language.get(`${inclusionlist ? "in" : "ex"}clusionlist`,["settings","games","content"])
+                
+                listmode.onchange = async event => {
+                    const { value } = event.target as HTMLSelectElement
+                    
+                    config.set("inclusionlist",value === "inclusion")
+    
+                    const { inclusionlist } = config.store
+                    listmode.value = `${inclusionlist ? "in" : "ex"}clusion`
+    
+                    document.querySelector("button#exclusionlist")!.textContent = await language.get(`${inclusionlist ? "in" : "ex"}clusionlist`,["settings","games","content"])
+                    sanhelper.tooltips(config.get("tooltips"))
+                }
+            })()
+
+            return
+        }
+
         const selectinputtype = (target: EventTarget) => ((target instanceof HTMLSelectElement ? target as HTMLSelectElement : target as HTMLInputElement)).value
         
         const skipelems = [
@@ -865,24 +895,26 @@ export const sanhelper: SANHelper = {
                 #settingscontent select,
                 #settingscontent .rect,
                 #settingscontent > .cont:has(button${settingsbtns.map(id => `#${id}`).join(",")}) > .optcont > button
-            `)!.forEach(async elem => {
+            `)!.forEach(elem => {
                 if (!elem) return
 
-                const tt = tippy(settingsbtns.includes(elem.id) ? `#${elem.id}` : `
-                    .opt:not(:has(> .sub, > .opt)):has(#${elem.id}),
-                    .opt:has(> .sub, > .opt):has(> #${elem.id}) > #${elem.id},
-                    .opt:has(> .sub, > .opt):has(> #${elem.id}) > span
-                `,{
-                    ...defaulttippy,
-                    maxWidth: sanhelper.maxwidth(wideelems,elem),
-                    content: `${await language.get(elem.id,["tooltips"])}${(elem.id === "replaynotify" && !document.body.hasAttribute("allowreplay") ? await language.get("replaynotifyempty",["tooltips"]) : "")}`,
-                    appendTo: settings,
-                    onTrigger(inst) {
-                        inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
-                    }
-                }) as Instance<Props>[]
-        
-                tippies.push(tt)
+                requestAnimationFrame(async () => {
+                    const tt = tippy(settingsbtns.includes(elem.id) ? `#${elem.id}` : `
+                        .opt:not(:has(> .sub, > .opt)):has(#${elem.id}),
+                        .opt:has(> .sub, > .opt):has(> #${elem.id}) > #${elem.id},
+                        .opt:has(> .sub, > .opt):has(> #${elem.id}) > span
+                    `,{
+                        ...defaulttippy,
+                        maxWidth: sanhelper.maxwidth(wideelems,elem),
+                        content: `${await language.get(`${elem.id === "exclusionlist" && settings.querySelector(`select#listmode > option[value="inclusion"]:checked`) ? elem.id.replace(/^ex/,"in") : elem.id}`,["tooltips"])}${(elem.id === "replaynotify" && !document.body.hasAttribute("allowreplay") ? await language.get("replaynotifyempty",["tooltips"]) : "")}`,
+                        appendTo: settings,
+                        onTrigger(inst) {
+                            inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                        }
+                    }) as Instance<Props>[]
+            
+                    tippies.push(tt)
+                })
             })
 
             sanhelper.loadadditionaltooltips(settings)

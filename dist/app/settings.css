@@ -229,7 +229,7 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     gap: 0;
 }
 
-#settingscontent .cont:has(.title#notifications,.title#streaming,.title#advanced) .opt:has(input[type="range"],select) {
+#settingscontent .cont:has(.title#notifications,.title#streaming,.title#advanced,.title#games) .opt:has(input[type="range"],select) {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
@@ -380,6 +380,19 @@ body[plat] .rect#sspreview {
 
 #exclusionlist:hover {
     background-color: #000000;
+}
+
+.cont:has(.title#games) > .optcont:has(select#listmode > option[value="inclusion"]:checked) > button#exclusionlist {
+    background-color: #ffffffb5;
+    color: black;
+}
+
+.cont:has(.title#games) > .optcont:has(select#listmode > option[value="inclusion"]:checked) > button#exclusionlist::before {
+    filter: invert();
+}
+
+.cont:has(.title#games) > .optcont:has(select#listmode > option[value="inclusion"]:checked) > button#exclusionlist:hover {
+    background-color: #ffffff;
 }
 
 #themeswitch {

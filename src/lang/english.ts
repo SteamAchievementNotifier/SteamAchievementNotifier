@@ -230,7 +230,11 @@ export const translations = {
             content: {
                 linkedgames: "Linked Games",
                 themeswitch: "Auto-Switch Themes",
-                exclusionlist: "Exclusion List"
+                exclusionlist: "Exclusion List",
+                inclusionlist: "Inclusion List",
+                listmode: "List Mode",
+                exclusion: "Exclusion",
+                inclusion: "Inclusion"
             }
         },
         media: {
@@ -679,6 +683,7 @@ export const translations = {
         checkforupdates: `Check whether a new app version has been released on GitHub. If an update is available, it will be automatically downloaded and installed once confirmed via the <span class="hl">Update Available</span> dialog`,
         linkedgames: `Bypass <span class="hl">automatic process tracking</span> for specific Steam games<br><br><span class="ttdesc">This option should only be used for very specific scenarios. Users should not need to use this option under normal circumstances!</span>`,
         exclusionlist: `Prevent achievements in specific Steam games from being tracked by the app<br><br><span class="ttdesc">This option should only be used for very specific scenarios. Users should not need to use this option under normal circumstances!</span>`,
+        inclusionlist: `Prevent all Steam games from being tracked by the app unless specified<br><br><span class="ttdesc">This option should only be used for very specific scenarios. Users should not need to use this option under normal circumstances!</span>`,
         ovx: "Offset the notification displayed in the screenshot horizontally",
         ovy: "Offset the notification displayed in the screenshot vertically",
         importtheme: `Import customisations via a user-created <span class="hl">Theme file</span>`,
@@ -790,7 +795,8 @@ export const translations = {
         customtriggerusedisplaytime: `Delay the specified Custom Trigger key/combo based on the current notification type's Display Time value`,
         trophymode: "Replace Main/Rare/100% notification types with Bronze/Silver/Gold/Platinum",
         lognum: `The number of previous log files stored before deletion. A new log file will be generated upon each app launch<br><br><span class="ttdesc">When set to 0, all previous log files will be deleted upon exit</span>`,
-        detectedappid: `Use the <span class="hl">AppID</span> of the currently-detected game`
+        detectedappid: `Use the <span class="hl">AppID</span> of the currently-detected game`,
+        listmode: `Set the behaviour of the <span class="hl">Exclusion</span>/<span class="hl">Inclusion List</span><br><br><span class="ttdesc">• <span class="hl">Exclusion</span>: Only ignore games specified in the list<br>• <span class="hl">Inclusion</span>: Ignore all games except those specified in the list</span>`
     },
     update: {
         updateavailable: "Update available",
@@ -836,6 +842,23 @@ export const translations = {
             exclusionedit: "Edit Exclusion",
             exclusioneditsub: [
                 `Edit the existing <span class="hl">AppID</span> in the <span class="hl">Exclusion List</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Add any Steam game's <span class="hl">AppID</span> to the <span class="hl">Inclusion List</span>`,
+                `Steam Achievement Notifier will only attempt to track achievement data for games with an <span class="hl">AppID</span> added to the <span class="hl">Inclusion List</span>`,
+                `<span class="hl help" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
+            ],
+            inclusionnew: "New Inclusion",
+            inclusionnewsub: [
+                `Enter the <span class="hl">AppID</span> to add to the <span class="hl">Inclusion List</span>`
+            ],
+            inclusionedit: "Edit Inclusion",
+            inclusioneditsub: [
+                `Edit the existing <span class="hl">AppID</span> in the <span class="hl">Inclusion List</span>`
             ]
         }
     },

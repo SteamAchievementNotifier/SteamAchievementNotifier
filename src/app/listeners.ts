@@ -1224,7 +1224,7 @@ export const listeners = {
                     if (keypresses.length < sckeys.length) return log.write("WARN",`Custom Trigger failed due to invalid key(s)`)
 
                     sanhelper.triggerkeypress(keypresses)
-                },(config.get(config.get("customtriggerusedisplaytime") ? `customisation.${notify.type}.displaytime` : "customtriggerdelay") as number) * 1000)
+                },((config.get(config.get("customtriggerusedisplaytime") ? `customisation.${notify.type}.displaytime` : "customtriggerdelay") as number) * 1000) + (config.get("customtriggerusedisplaytime") ? 1000 : 0))
     
                 ipcMain.once("notifyready", (event,res: Res) => {
                     const { msg, dims } = res

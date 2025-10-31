@@ -408,7 +408,16 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         settingscontent.querySelectorAll(`#settingscontent .cont:has(.title#ra) .opt:has(input[type="text"]) > input,#settingscontent .cont:has(.title#ra) .opt:has(input[type="password"]) > input`).forEach(input => sanhelper.setvalue(config,input,null))
         ;(settingscontent.querySelector("#sspreview") as HTMLButtonElement).onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
         ;(settingscontent.querySelector("#replaynotify") as HTMLButtonElement).onclick = () => ipcRenderer.send("replaynotify")
-        
+        settingscontent.querySelector("#ralastachievement > span:nth-child(2)")!.textContent = localStorage.getItem("ralastachievement")
+        ;(settingscontent.querySelector(".wrapper#ralastachievement > button") as HTMLButtonElement).onclick = () => {
+            try {
+                localStorage.setItem("ralastachievement","0")
+                log.write("INFO",`"ralastachievement" cleared successfully`)
+                settingscontent.querySelector("#ralastachievement > span:nth-child(2)")!.textContent = localStorage.getItem("ralastachievement")
+            } catch (err) {
+                log.write("ERROR",`Unable to clear "ralastachievement": ${err}`)
+            }
+        }
 
         const { elemselector } = await import("./elemselector")
         elemselector(settingscontent.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")

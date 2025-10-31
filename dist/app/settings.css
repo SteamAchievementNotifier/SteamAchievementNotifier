@@ -757,7 +757,28 @@ body[raemu="dolphin"][ragameid] .multiselect#raemuswrapper .wrapper:has(> input#
 }
 
 .wrapper#rastatuswrapper > div {
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.5rem;
+}
+
+.wrapper#rastatuswrapper > .wrapper#ralastachievement {
+    grid-template-columns: auto 1fr auto;
+}
+
+.wrapper#ralastachievement > button {
+    --icon: url("../../icon/donotdisturb.svg");
+    appearance: none;
+    width: 1rem;
+    height: 0.75rem;
+    background-color: transparent;
+    background: var(--icon) center / contain no-repeat;
+    border-radius: calc(var(--elembr) / 2);
+    scale: 0.9;
+    transition: scale var(--transition);
+}
+
+.wrapper#ralastachievement > button:hover {
+    scale: 1.2;
 }
 
 .wrapper#rastatuswrapper > div#rastatus > span:nth-child(2)::before {

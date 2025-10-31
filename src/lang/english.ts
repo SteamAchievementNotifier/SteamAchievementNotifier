@@ -325,6 +325,7 @@ export const translations = {
                 logfile: "Log File",
                 status: "Status",
                 game: "Game",
+                lastachievement: "Last Ach. ID",
                 wait: "Waiting for emulator",
                 idle: "Waiting for game event",
                 start: "Starting game",

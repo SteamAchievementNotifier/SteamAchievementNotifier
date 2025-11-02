@@ -875,7 +875,8 @@ export const listeners = {
         })
 
         const queue: WinType[] = []
-        let running: boolean = false
+        // let running: boolean = false
+        const runningmap = new Map<number,BrowserWindow | Notification>()
 
         const gameartobj: GameArtObj = {
             icon: "../img/gameicon.png",
@@ -1086,12 +1087,12 @@ export const listeners = {
             istrackwin && win.show()
         }
 
-        let notifywin: BrowserWindow | Notification | null = null
-        let offscreenwin: BrowserWindow | null = null
+        const notifywins = new Map<number,BrowserWindow | Notification | null>()
+        const offscreenwins = new Map<number,BrowserWindow | null>()
 
         const checkifrunning = (info: BuildNotifyInfo,src?: number): any => {
             const i = queue.findIndex(obj => obj.notify.id === info.id)
-            if (running || queue[i].order !== 0) return setTimeout(() => checkifrunning(info,src),1000)
+            if (runningmap.size > (sanconfig.get().store.maxnotify - 1) || queue[i].order !== 0) return setTimeout(() => checkifrunning(info,src),1000)
 
             if (!queue[i].notify.istestnotification) {
                 replay = { queueobj: queue[i], src }
@@ -1107,7 +1108,7 @@ export const listeners = {
             
             if (type === "Notification") {
                 // `toastXML` overrides all other options on Windows, but not on other platforms
-                notifywin = new Notification({
+                notifywins.set(notify.id,new Notification({
                     ...options,
                     title: info.title,
                     subtitle: info.unlockmsg,
@@ -1129,12 +1130,12 @@ export const listeners = {
                             </actions>
                         </toast>
                     `
-                })
+                }))
 
-                notifywin.show()
+                notifywins.get(notify.id)!.show()
             } else {
-                notifywin = new BrowserWindow(options)
-                offscreenwin = !extwin ? null : new BrowserWindow({
+                notifywins.set(notify.id,new BrowserWindow(options))
+                offscreenwins.set(notify.id,!extwin ? null : new BrowserWindow({
                     ...options,
                     title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
                     x: 0,
@@ -1146,13 +1147,15 @@ export const listeners = {
                         backgroundThrottling: false,
                         offscreen: true
                     }
-                })
+                }))
 
-                offscreenwin?.webContents.setFrameRate(config.get("extwinframerate"))
+                offscreenwins.get(notify.id)?.webContents.setFrameRate(config.get("extwinframerate"))
             }
 
-            if (notifywin instanceof BrowserWindow) {
+            if (notifywins.get(notify.id)! instanceof BrowserWindow) {
                 const basehtml = config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html")
+                const notifywin = notifywins.get(notify.id)! as BrowserWindow
+                const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow
 
                 notifywin.loadFile(basehtml)
                 config.get("screenshots") !== "off" && config.get("ssdelay") > 0 && notifywin.setContentProtection(true)
@@ -1245,9 +1248,12 @@ export const listeners = {
                 })
             }
 
+            const notifywin = notifywins.get(notify.id)! as BrowserWindow
+            const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow 
+
             (config.get("audiosrc") === "app" || notifywin instanceof Notification && config.get("audiosrc") !== "off") && win.webContents.send("appaudio",notify.type)
 
-            running = true
+            runningmap.set(notify.id,notifywin)
 
             // Sends event to `createsswin()` to build screenshot for `notify.id`
             ipcMain.emit(`${notify.id}`)
@@ -1258,70 +1264,80 @@ export const listeners = {
             win.webContents.send("notifyprogress",notify.customisation.displaytime)
             log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)
 
-            // Closes the notification
-            ipcMain.once("notifyfinished", async () => {
-                try {
-                    const msg = await new Promise<string>(async resolve => {
-                        if (!notifywin) log.write("WARN",`"notifywin" not found - cannot close window`)
-
-                        notifywin && notifywin.close()
-                        notifywin = null
-
-                        if (extwin) {
-                            extwin.webContents.send("notifyfinished")
-
-                            if (!offscreenwin) log.write("WARN",`"offscreenwin" not found - cannot close window`)
-
-                            offscreenwin && offscreenwin.close()
-                            offscreenwin = null
-                        }
-
-                        resolve(`Notification window for "${notify.apiname}" closed successfully`)
-                    })
-
-                    log.write("INFO",msg)
-                    running = false
-
-                    win.webContents.send("queue",queue)
-                } catch (err) {
-                    log.write("ERROR",`Error closing notification window for "${notify.apiname}": ${err}`)
-                } finally {
-                    win.webContents.send("notifyprogress",0,true)
-                    setTimeout(() => removesrcimg(notify.id),2000)
-                }
-            })
-
-            const notifyfinished = () => {
-                notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished") : ipcMain.emit("notifyfinished")
+            const notifyfinished = (id: number) => {
+                notify.id === id && (notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished",id) : ipcMain.emit("notifyfinished",id))
                 
                 if (extwin) {
                     if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
-                    offscreenwin.webContents.send("notifyfinished")
+                    offscreenwin.webContents.send("notifyfinished",id)
                 }
             }
 
             // "animend" is received from `base.ts`, rather than controlled from here via Timeout
             // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
             // When `uselegacynotifytimer` is enabled (or the "Native OS" preset is selected), the legacy `setTimeout()` will be used instead
-            ;(customisation.preset === "os" || config.get("uselegacynotifytimer")) ? setTimeout(notifyfinished,customisation.displaytime * 1000) : ipcMain.once("animend",notifyfinished)
+            ;(customisation.preset === "os" || config.get("uselegacynotifytimer")) ? setTimeout(() => notifyfinished(notify.id),customisation.displaytime * 1000) : ipcMain.on("animend",(event,id: number) => notifyfinished(id))
         }
+
+        // Closes the notification
+        ipcMain.on("notifyfinished",async (event,id: number) => {
+            const notify = { id: Array.from(notifywins.keys()).find(key => key === id) }
+            const notifywin = notifywins.get(id)
+            const offscreenwin = offscreenwins.get(id)
+            
+            if (!notify.id || notify.id !== id || !notifywin) return
+
+            try {
+                const msg = await new Promise<string>(async resolve => {
+                    if (!notifywin) log.write("WARN",`"notifywin" for ID ${id} not found - cannot close window`)
+
+                    notifywin && notifywin.close()
+                    notify.id && notifywins.delete(notify.id)
+
+                    if (extwin) {
+                        extwin.webContents.send("notifyfinished",id)
+
+                        if (!offscreenwin) log.write("WARN",`"offscreenwin" not found - cannot close window`)
+
+                        offscreenwin && offscreenwin.close()
+                        notify.id && offscreenwins.delete(notify.id)
+                    }
+
+                    resolve(`Notification window for ID ${id} closed successfully`)
+                })
+
+                log.write("INFO",msg)
+                runningmap.delete(id)
+
+                win.webContents.send("queue",queue)
+            } catch (err) {
+                log.write("ERROR",`Error closing notification window for ${id}: ${err}`)
+            } finally {
+                win.webContents.send("notifyprogress",0,true)
+                setTimeout(() => notify.id && removesrcimg(notify.id),2000)
+            }
+        })
 
         ipcMain.on("notifyfailed",(event,err?: Error,id?: number,apiname?: string) => {
             let success = true
             let catcherr: Error | null = null
+
+            const notifywin = id ? notifywins.get(id) : null
+            const offscreenwin = id ? offscreenwins.get(id) : null
+            if (!id || !notifywin) return log.write("ERROR",`No ${!id ? "ID" : `window for ID ${id}`} found`)
             
             try {
                 notifywin && (notifywin instanceof BrowserWindow ? notifywin.destroy() : notifywin.close()) // Destroys/closes the window
-                notifywin = null // Resets `notifywin` var
+                notifywins.delete(id)
     
                 offscreenwin && offscreenwin.destroy() // Destroys/closes the window
-                offscreenwin = null // Resets `offscreenwin` var
+                offscreenwins.delete(id)
 
                 // Emit dummy events to trigger `.once()` listeners, which removes them for subsequent notifications
                 // Note: "notifyready" event cannot be triggered here, as it causes an error which prevents subsequent notifications from displaying
-                ;["notifyfinished","animend"].forEach(event => ipcMain.emit(event))
+                ;["notifyfinished","animend"].forEach(event => ipcMain.emit(event,id))
                 
-                running = false // Resets `running` var
+                id && runningmap.delete(id)
     
                 win.webContents.send("notifyprogress",0,true) // Resets UI progress circle
                 id && removesrcimg(id) // Removes any corresponding screenshots from `temp`                

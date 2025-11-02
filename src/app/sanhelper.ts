@@ -803,7 +803,8 @@ export const sanhelper: SANHelper = {
             ["maxsteamlangretries",""],
             ["extwinframerate","FPS"],
             ["customtriggerdelay","s"],
-            ["lognum",""]
+            ["lognum",""],
+            ["maxnotify",""]
         ])
 
         const wideelems = [

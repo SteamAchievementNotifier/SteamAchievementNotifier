@@ -137,6 +137,7 @@ declare interface Config {
     customtriggerusedisplaytime: boolean,
     trophymode: boolean,
     lognum: number,
+    maxnotify: number,
     customisation: {
         main: Customisation,
         semi: Customisation,

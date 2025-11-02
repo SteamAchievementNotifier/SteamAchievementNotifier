@@ -13,6 +13,8 @@ const hiddenelems = [
     "ps5"
 ]
 
+let notifyid: number = -1
+
 const notifyhelper = {
     appendcss: (preset: string) => {
         document.querySelector(`link#${preset}css`)! && document.querySelector(`link#${preset}css`)!.remove()
@@ -259,10 +261,11 @@ const notifyhelper = {
 }
 
 try {
-    document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send("animend"))
+    document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send("animend",notifyid))
     
     ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
-        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, ra } = obj 
+        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, ra } = obj
+        notifyid = id // Store globally to access in "notifyfinished" IPC event
     
         try {
             document.body.setAttribute(type,"")
@@ -410,34 +413,16 @@ try {
     ipcRenderer.once("ss",() => document.body.setAttribute("ss",""))
     ipcRenderer.on("playback",(event,shouldpause: boolean) => document.body.toggleAttribute("paused",shouldpause))
     
-    ipcRenderer.on("notifyfinished",(event,isextwin?: boolean,preset?: string) => {
+    ipcRenderer.on("notifyfinished",(event,id: number,isextwin?: boolean,preset?: string) => {
         try {
-            if (isextwin) return ipcRenderer.send("notifyclosed",isextwin,preset)
+            if (isextwin) return ipcRenderer.send("notifyclosed",id,isextwin,preset)
         
-            document.body.addEventListener("transitionend", (event: TransitionEvent) => event.propertyName === "opacity" && ipcRenderer.send("notifyfinished"))
+            document.body.addEventListener("transitionend", (event: TransitionEvent) => event.propertyName === "opacity" && ipcRenderer.send("notifyfinished",id))
             document.documentElement.style.setProperty("--bodyopacity","0")
         } catch (err) {
-            ipcRenderer.send("notifyfailed",err as Error)
-        }
-    })
-    
-    // !!! May not be needed after `extwin` switching to offscreen window
-    ipcRenderer.on("notifyclosed",(event,preset: string) => {
-        try {
-            document.getElementById(`${preset}css`) && document.getElementById(`${preset}css`)!.remove()
-            document.documentElement.removeAttribute("style")
-        
-            const body = document.createElement("body")
-            const audio = document.createElement("audio")
-            audio.src = ""
-            body.appendChild(audio)
-        
-            document.body.remove()
-            document.documentElement.appendChild(body)
-        } catch (err) {
-            ipcRenderer.send("notifyfailed",err as Error)
+            ipcRenderer.send("notifyfailed",err as Error,id)
         }
     })
 } catch (err) {
-    ipcRenderer.send("notifyfailed",err as Error)
+    ipcRenderer.send("notifyfailed",err as Error,notifyid)
 }

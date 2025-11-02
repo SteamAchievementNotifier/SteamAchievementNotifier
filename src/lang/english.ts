@@ -222,7 +222,8 @@ export const translations = {
                 customtriggershortcut: "Trigger Shortcut",
                 customtriggerdelay: "Trigger Delay",
                 customtriggerusedisplaytime: "Use Display Time",
-                trophymode: "Trophy Mode"
+                trophymode: "Trophy Mode",
+                maxnotify: "Max Notifications"
             }
         },
         games: {
@@ -797,7 +798,8 @@ export const translations = {
         trophymode: "Replace Main/Rare/100% notification types with Bronze/Silver/Gold/Platinum",
         lognum: `The number of previous log files stored before deletion. A new log file will be generated upon each app launch<br><br><span class="ttdesc">When set to 0, all previous log files will be deleted upon exit</span>`,
         detectedappid: `Use the <span class="hl">AppID</span> of the currently-detected game`,
-        listmode: `Set the behaviour of the <span class="hl">Exclusion</span>/<span class="hl">Inclusion List</span><br><br><span class="ttdesc">• <span class="hl">Exclusion</span>: Only ignore games specified in the list<br>• <span class="hl">Inclusion</span>: Ignore all games except those specified in the list</span>`
+        listmode: `Set the behaviour of the <span class="hl">Exclusion</span>/<span class="hl">Inclusion List</span><br><br><span class="ttdesc">• <span class="hl">Exclusion</span>: Only ignore games specified in the list<br>• <span class="hl">Inclusion</span>: Ignore all games except those specified in the list</span>`,
+        maxnotify: "Max number of on-screen notifications"
     },
     update: {
         updateavailable: "Update available",

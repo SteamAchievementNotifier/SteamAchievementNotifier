@@ -80,11 +80,11 @@ const notifyhelper = {
         if (document.readyState !== "complete") return setTimeout(() => notifyhelper.checkreadystate(status,obj,imgs,res),250)
         if (!notifyhelper.checkimgload(imgs)) return setTimeout(() => notifyhelper.checkreadystate(status,obj,imgs,res),250)
 
-        const { customisation, iswebview, skipaudio, info: { type } } = obj
+        const { customisation, iswebview, skipaudio, info: { type, id } } = obj
         if (iswebview === "customiser" || iswebview === "sspreview") return
 
         ipcRenderer.send(`notify${status}`,...(status === "failed" ? [res.msg,obj.info.id,obj.info.apiname] : [res]))
-        status === "ready" && ipcRenderer.sendToHost("sscapture")
+        status === "ready" && ipcRenderer.sendToHost(`sscapture_${id}`)
     
         return notifyhelper.playaudio(customisation,iswebview,skipaudio,type)
     },
@@ -305,20 +305,19 @@ try {
             .catch(err => { throw new Error(err) })
     
             document.body.insertAdjacentHTML("beforeend",inserthtml)
+            
             const meta = document.querySelector("body > meta")
             if (!meta) throw new Error(`Error inserting HTML for "${customisation.preset}" preset: No <meta> tag found in body`)
     
             const dims = {
                 width: parseInt(meta.getAttribute("width") as string),
                 height: parseInt(meta.getAttribute("height") as string),
-                offset: meta.getAttribute("offset") !== null ? parseInt(meta.getAttribute("offset") as string) : 20
+                offset: meta.getAttribute("offset") ? parseInt(meta.getAttribute("offset") as string) : 20
             }
             
             document.documentElement.style.setProperty("--notifywidth",`${dims.width * (iswebview !== "customiser" ? customisation.scale / 100 : 1)}px`)
             document.documentElement.style.setProperty("--notifyheight",`${dims.height * (iswebview !== "customiser" ? customisation.scale / 100 : 1)}px`)
-    
-            iswebview !== "customiser" && ipcRenderer.send("dims",dims)
-    
+            
             const res = await new Promise<Res>(resolve => {
                 document.head.appendChild(notifyhelper.appendcss(customisation.preset))
     

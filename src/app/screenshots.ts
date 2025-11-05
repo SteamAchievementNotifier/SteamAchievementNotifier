@@ -45,18 +45,6 @@ export const screenshot = {
         return { monitor: monitor || null, display: display || null }
     },
     srcpath: (id: number) => path.join(sanhelper.temp,`${id}.png`),
-    clearsswin: (id: number) => {
-        const sswin = sswins.get(id)
-
-        if (sswin) {
-            sswin.timer && clearTimeout(sswin.timer)
-            sswin.timer = null
-            
-            sswins.delete(id)
-        }
-
-        return log.write(sswin && !sswin.timer ? "INFO" : "WARN",`"sswin" for ID ${id} ${sswin && !sswin.timer ? "cleared successfully" : "could not be found"}`)
-    },
     checksrcimg: (notify: Notify,windowtitle: string | null,retries = 0) => {
         const tempimgpath = path.join(sanhelper.temp,`${notify.id}.png`)
         const sswin = sswins.get(notify.id)
@@ -155,7 +143,7 @@ export const screenshot = {
 
             // Fall back to provided "screen" src if no monitor is assigned when config.ssmode === "window"
             if (sswin.src === -1) {
-                log.write("WARN",`"sssrc" not found - using original "src" value (${monitorid})...`)
+                log.write("WARN",`"sswin.src" not found - using original "src" value (${monitorid})...`)
                 
                 const lastknownmonitor = config.get("monitors").find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
                 sswin.src = monitorid || (lastknownmonitor && lastknownmonitor.id) || config.get("monitor") || screen.getPrimaryDisplay().id
@@ -172,7 +160,7 @@ export const screenshot = {
             const { id, label } = monitor
             let { bounds: { width, height } } = ssmode === "window" && (["width","height"] as const).every(dim => screenshot.sswinbounds.bounds[dim] !== 0) ? screenshot.sswinbounds : monitor
 
-            ipcMain.once("src",(event,err) => {
+            ipcMain.once(`src_${notify.id}`,(event,err) => {
                 if (err) {
                     log.write("ERROR",err as Error)
                     return screenshot.clearsswin(notify.id)
@@ -215,7 +203,7 @@ export const screenshot = {
             log.write("INFO",`[Selected ${ssmode === "window" ? "Window Title" : "Monitor ID"}]:\n- ${ssmode === "window" ? windowtitle : id}\n\n[Available ${ssmode.replace(ssmode[0],ssmode[0].toUpperCase())} Sources]:\n- ${srcs.map(src => `${ssmode === "window" ? src.name : src.display_id} (${ssmode === "window" ? `Window name: ${src.name}` : `Parsed id: ${parseInt(src.display_id)}`} | Match?: ${ssmode === "window" ? src.name === windowtitle : parseInt(src.display_id) === sswin.src})`).join("\n- ")}`)
 
             const src = srcs.find(src => ssmode === "window" ? src.name === windowtitle : (parseInt(src.display_id) === sswin.src || screen.getPrimaryDisplay().id === sswin.src))
-            if (!src) throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${sswin.src} ("${label}")`)
+            if (!src) throw new Error(`Error configuring screenshot: No matching Display source ID found for Monitor ${sswin.src} ("${label}")`)
             
             fs.writeFileSync(srcpath,src.thumbnail.toPNG())
         } catch (err) {
@@ -223,12 +211,10 @@ export const screenshot = {
             return screenshot.clearsswin(notify.id)
         }
     },
-    // !!! Still general IPC events closing multiple windows at the same time
-    // !!! `offset` value not working
-    // !!! On-screen notifications being captured
     createsswin: async (type: "ss" | "img",notify: Notify,ispreview?: boolean) => {
         try {
             const config = sanconfig.get()
+            const sswintype = `${type === "ss" ? "Screenshot" : "Notification Image"} Window`
             
             // Screenshots are disabled in `ipcMain.on("notify")` event and shouldn't reach here anyway, but added as a logical fallback
             if (!config.get(`customisation.${notify.type}.ssenabled`)) return log.write("INFO",`${type === "ss" ? "Screenshots" : "Notification Images"} disabled for "${notify.type}" type`)
@@ -247,14 +233,14 @@ export const screenshot = {
             const info = await screenshot.buildnotify(notify)
 
             const sswin = sswins.get(notify.id)
-            if (!sswin) return log.write("ERROR",`Error creating "sswin" for ID ${notify.id}: Entry not found in "sswins" Map`)
+            if (!sswin) return log.write("ERROR",`Error creating ${sswintype} for ID ${notify.id}: Entry not found in "sswins" Map`)
 
-            ipcMain.once(`${type}winready`, async event => {
-                if (!sswin.win) return log.write("WARN",`Error sending ${type === "ss" ? `screenshot "src"` : "notification data"}: "${type}win" not found`)
+            ipcMain.once(`${type}winready_${notify.id}`,async event => {
+                if (!sswin.win) return log.write("WARN",`Error sending ${type === "ss" ? `screenshot "src"` : "notification data"} for ID ${notify.id}: "${type}win" not found`)
 
                 if (type === "ss") {
-                    log.write("INFO",!ispreview ? `Sending "src" for id: ${notify.id}` : "Screenshot not taken for preview")
-                    sswin.win.webContents.send("src",srcpath)
+                    log.write("INFO",!ispreview ? `Sending "src" for ID ${notify.id}` : "Screenshot not taken for preview")
+                    sswin.win.webContents.send(`src_${notify.id}`,srcpath)
                 }
 
                 ;(process.platform !== "linux" || ispreview) && sswin.win.show() // Prevent the window from showing, which still captures the contents but hides the window in "Window" and "Notification Image" modes
@@ -262,46 +248,62 @@ export const screenshot = {
                 const [appid,gameartobj] = await Promise.all((["appid","gameartobj"] as const).map(lv => screenshot.getlistenersvar(lv))) as [number,GameArtObj]
                 const { usecustomfiles, ssalldetails, screenshots } = config.store
                 const { icon, libhero, logo } = gameartobj
-        
-                event.reply(`${type}winready`,{
-                    info: info,
-                    customisation: notify.customisation,
-                    iswebview: ispreview ? "sspreview" : "ss",
-                    steampath: sanhelper.steampath,
-                    skipaudio: true,
-                    customfiles: usecustomfiles ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
-                    hqicon: sanhelper.gethqicon(appid),
-                    temp: sanhelper.temp,
-                    ssalldetails,
-                    screenshots,
-                    gamearticon: icon,
-                    gameartlibhero: libhero,
-                    gameartlogo: logo
-                } as Info)
 
-                ipcMain.once("dims",async (event,dims: { width: number, height: number, offset: number }) => {
-                    try {
-                        if (!sswin) return log.write("WARN",`Error setting "sswin" dimensions: "sswin" not found`)
-                        if (!sswin.win) return log.write("WARN",`Error setting "sswin" dimensions: "sswin" BrowserWindow not found`)
-    
-                        const { width, height } = await screenshot.setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,"sswin",notify.customisation)
-    
-                        if (type === "img") {
-                            sswin.win.setSize(Math.round(width),Math.round(height))
-                            sswin.win.center()
-                        }
-    
-                        const monitor = (type !== "img" && screen.getAllDisplays().find(monitor => monitor.id === (sswin.src || config.get("monitor")))) || screen.getPrimaryDisplay()
-    
-                        sswin.win.setResizable(false)
-                        sswin.win.webContents.send("dims",{ width, height, offset: dims.offset, scalefactor: monitor.scaleFactor })
-                    } catch (err) {
-                        return log.write("ERROR",`Error creating "sswin" in "dims" event: ${err as Error}`)
+                const html = fs.readFileSync(path.join(__root,"notify","presets",notify.customisation.preset,"index.html")).toString()
+                if (!html) throw new Error(`Error parsing HTML for "${notify.customisation.preset}" preset`)
+
+                const meta = {
+                    width: html.match(/width="(\d+)"/i)?.[1] || "0",
+                    height: html.match(/height="(\d+)"/i)?.[1] || "0",
+                    offset: html.match(/offset="(-?\d+)"/i)?.[1] || "20"
+                }
+
+                const dims = {
+                    width: parseInt(meta.width),
+                    height: parseInt(meta.height),
+                    offset: parseInt(meta.offset),
+                    scalefactor: 1
+                }
+
+                try {
+                    const { width, height } = await screenshot.setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,"sswin",notify.customisation)
+
+                    if (type === "img") {
+                        sswin.win.setSize(Math.round(width),Math.round(height))
+                        sswin.win.center()
                     }
+
+                    const monitor = (type !== "img" && screen.getAllDisplays().find(monitor => monitor.id === (sswin.src || config.get("monitor")))) || screen.getPrimaryDisplay()
+                    dims.scalefactor = monitor.scaleFactor
+
+                    sswin.win.setResizable(false)
+                } catch (err) {
+                    return log.write("ERROR",`Error creating ${sswintype} for ID ${notify.id} dimensions: ${err as Error}`)
+                }
+
+                console.log(dims)
+        
+                event.reply(`${type}winready_${notify.id}`,{
+                    info: {
+                        info: info,
+                        customisation: notify.customisation,
+                        iswebview: ispreview ? "sspreview" : "ss",
+                        steampath: sanhelper.steampath,
+                        skipaudio: true,
+                        customfiles: usecustomfiles ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
+                        hqicon: sanhelper.gethqicon(appid),
+                        temp: sanhelper.temp,
+                        ssalldetails,
+                        screenshots,
+                        gamearticon: icon,
+                        gameartlibhero: libhero,
+                        gameartlogo: logo
+                    } as Info,
+                    dims
                 })
 
-                !ispreview && ipcMain.once("sscapture", () => {
-                    if (!sswin?.win) return log.write("WARN",`"${type}win" was closed before image file could be written to "${imgpath}"`)
+                !ispreview && ipcMain.once(`sscapture_${notify.id}`,async () => {
+                    if (!sswin?.win) return log.write("WARN",`${sswintype} for ID ${notify.id} was closed before image file could be written to "${imgpath}"`)
 
                     const regex = /[<>":\\/|?*\x00-\x1F]/g
                     const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").replace(/\.$/,"").trim()).replace(/\\/g,"/")
@@ -316,22 +318,20 @@ export const screenshot = {
                         ssimg = path.join(ssdir,`${ssbasename}_${sscounter}${ssext}`).replace(/\\/g,"/")
                     }
 
-                    sswin.win.webContents.capturePage()
-                    .then(img => {
-                        try {
-                            !fs.existsSync(ssimg) && fs.mkdirSync(ssdir,{ recursive: true })
-                            fs.writeFileSync(ssimg,img.toPNG())
-    
-                            log.write("INFO",`Screenshot written to "${ssimg}" successfully`)
-                        } catch (err) {
-                            log.write("ERROR",`Error writing screenshot for "${info.apiname}": ${err as Error}`)
-                        }
-                    })
-                    .catch(err => log.write("ERROR",`Error capturing screenshot for "${info.apiname}": ${err as Error}`))
-                    .finally(() => {
-                        sswin.win && sswin.win.destroy()
-                        sswin.win = null
-                    })
+                    try {
+                        await new Promise(resolve => setTimeout(resolve,250)) // Allow additional frames for window to fully render before capturing
+
+                        const img = await sswin.win.capturePage()
+                        
+                        !fs.existsSync(ssimg) && fs.mkdirSync(ssdir,{ recursive: true })
+                        fs.writeFileSync(ssimg,img.toPNG())
+
+                        log.write("INFO",`Screenshot written to "${ssimg}" successfully`)
+                    } catch (err) {
+                        log.write("ERROR",`Error capturing screenshot for "${info.apiname}": ${err as Error}`)
+                    }
+                    
+                    screenshot.clearsswin(notify.id)
                 })
             })
 
@@ -368,7 +368,8 @@ export const screenshot = {
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
-                    webviewTag: true
+                    webviewTag: true,
+                    additionalArguments: [`--notifyid=${notify.id}`]
                 }
             })
 
@@ -377,12 +378,31 @@ export const screenshot = {
             sswin.win.loadFile(path.join(__root,"dist","app",`${type}win.html`))
             sanhelper.devmode && sanhelper.setdevtools(sswin.win)
 
-            sswin.win.once("closed", () => log.write("INFO",`"${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}" closed`))
+            sswin.win.once("closed", () => log.write("INFO",`"${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}" for ID ${notify.id} closed`))
         } catch (err) {
             log.write("ERROR",err as Error)
             screenshot.clearsswin(notify.id)
-        } finally {
-            screenshot.clearsswin(notify.id)
         }
+    },
+    clearsswin: (id: number) => {
+        const sswin = sswins.get(id)
+
+        if (sswin) {
+            sswin.timer && clearTimeout(sswin.timer)
+            sswin.timer = null
+            
+            sswin.win && sswin.win.close()
+            sswins.delete(id)
+        }
+
+        try {
+            const srcimg = screenshot.srcpath(id)
+            fs.existsSync(srcimg) && fs.rmSync(srcimg,{ force: true })
+            log.write("INFO",`"src" image for ID ${id} deleted successfully`)
+        } catch (err) {
+            log.write("ERROR",`Unable to delete "src" image for ID ${id}: ${err as Error}`)
+        }
+
+        return log.write(sswin && !sswin.timer ? "INFO" : "WARN",`"sswin" for ID ${id} ${sswin && !sswin.timer ? "cleared successfully" : "could not be found"}`)
     }
 }

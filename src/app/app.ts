@@ -45,7 +45,8 @@ sanconfig.get().store.nohwa && app.disableHardwareAcceleration()
 
 // Legacy keys required to be removed if existing in config
 ;([
-    "webhooktypes"
+    "webhooktypes",
+    "uselegacynotifytimer"
 ] as const).forEach(key => {
     const config = sanconfig.get()
     if (!config.has(key)) return

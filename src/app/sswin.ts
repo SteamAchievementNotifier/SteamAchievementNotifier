@@ -108,4 +108,4 @@ ipcRenderer.once("sswinready", (event,obj: Info) => {
     })
 })
 
-window.addEventListener("DOMContentLoaded", () => ipcRenderer.send("sswinready"))
+window.addEventListener("DOMContentLoaded",() => ipcRenderer.send("sswinready"))

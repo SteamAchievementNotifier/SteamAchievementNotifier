@@ -8,21 +8,22 @@ import { sanconfig } from "./config"
 import { language } from "./language"
 import { update } from "./update"
 import { gameart } from "./gameart"
+import { screenshot } from "./screenshots"
 
 let appid: number = 0
-let extwin: BrowserWindow | null = null
+// let extwin: BrowserWindow | null = null
 let statwin: BrowserWindow | null = null
-let ssfailed = false
+// let ssfailed = false
 let replay: { queueobj: WinType, src?: number } | null = null
 const gameartfiles: string[] = []
 
 export const listeners = {
     setexit: () => {
         ipcMain.on("exit",(event,reason) => {
-            if (extwin) {
-                extwin.destroy()
-                extwin = null
-            }
+            // if (extwin) {
+            //     extwin.destroy()
+            //     extwin = null
+            // }
 
             log.backup(sanconfig.get())
 
@@ -313,7 +314,7 @@ export const listeners = {
             const { releasedelay } = sanconfig.get().store
 
             try {
-                ipcMain.emit("appid",0)
+                ipcMain.emit("appid",null,0)
 
                 const msg = await validateworker()
                 log.write("INFO",msg)
@@ -511,7 +512,7 @@ export const listeners = {
                 win.hide()
                 win.setPosition(0,0)
 
-                extwin && extwin.setPosition(0,0)
+                // extwin && extwin.setPosition(0,0)
                 statwin && statwin.setPosition(0,0)
 
                 resolve()
@@ -705,10 +706,10 @@ export const listeners = {
         const closewin = (type: string) => {
             // Needs explicit assignment to avoid "Object has been destroyed" error
             if (type === "ext") {
-                if (!extwin) return log.write("WARN",`"${type}win" not found`)
+                // if (!extwin) return log.write("WARN",`"${type}win" not found`)
 
-                extwin.close()
-                extwin = null
+                // extwin.close()
+                // extwin = null
             } else {
                 if (!statwin) return log.write("WARN",`"${type}win" not found`)
 
@@ -738,29 +739,29 @@ export const listeners = {
             ipcMain.emit("configupdated",null,config.store)
         }
 
-        ipcMain.on("extwin", (event,value: boolean) => {
-            const config = sanconfig.get()
+        // ipcMain.on("extwin", (event,value: boolean) => {
+        //     const config = sanconfig.get()
 
-            // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
-            let reopenonlaunch = true
+        //     // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
+        //     let reopenonlaunch = true
 
-            extwin = createextwin(config,"ext",value)
-            if (!extwin) return
+        //     extwin = createextwin(config,"ext",value)
+        //     if (!extwin) return
 
-            extwin.on("moved",() => setwinbounds(config,"ext",extwin!))
+        //     extwin.on("moved",() => setwinbounds(config,"ext",extwin!))
 
-            extwin.once("close", () => {
-                setwinbounds(config,"ext",extwin!)
-                reopenonlaunch = false
-            })
+        //     extwin.once("close", () => {
+        //         setwinbounds(config,"ext",extwin!)
+        //         reopenonlaunch = false
+        //     })
 
-            extwin.once("closed", () => {
-                setwinclosevalue(config,"ext",reopenonlaunch)
-                extwin = null
-            })
-        })
+        //     extwin.once("closed", () => {
+        //         setwinclosevalue(config,"ext",reopenonlaunch)
+        //         extwin = null
+        //     })
+        // })
 
-        ipcMain.on("extwinshow",(event,show: boolean) => extwin && extwin.setOpacity(show ? 1 : (sanhelper.devmode ? 0.5 : 0)))
+        // ipcMain.on("extwinshow",(event,show: boolean) => extwin && extwin.setOpacity(show ? 1 : (sanhelper.devmode ? 0.5 : 0)))
         ipcMain.on("closeextwin",() => closewin("ext"))
 
         ipcMain.on("statwin", (event,value: boolean) => {
@@ -875,7 +876,6 @@ export const listeners = {
         })
 
         const queue: WinType[] = []
-        // let running: boolean = false
         const runningmap = new Map<number,BrowserWindow | Notification>()
 
         const gameartobj: GameArtObj = {
@@ -884,7 +884,7 @@ export const listeners = {
             logo: "../img/gameicon.png"
         }
 
-        ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null,src?: number) => {
+        ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null,monitorid?: number) => {
             const config = sanconfig.get()
             
             if (config.get("soundonly")) {
@@ -1005,10 +1005,10 @@ export const listeners = {
             }
 
             worker && worker.webContents.send("steam3id")
-            preset !== "os" && notify.customisation.ssenabled && capturesrc(notify,src)
+            preset !== "os" && notify.customisation.ssenabled && screenshot.configuresrc(notify,monitorid)
 
             win.webContents.send("queue",queue)
-            checkifrunning(info,src)
+            checkifrunning(info,monitorid)
         })
 
         const buildnotify = async (notify: Notify): Promise<BuildNotifyInfo> => {
@@ -1088,14 +1088,14 @@ export const listeners = {
         }
 
         const notifywins = new Map<number,BrowserWindow | Notification | null>()
-        const offscreenwins = new Map<number,BrowserWindow | null>()
+        // const offscreenwins = new Map<number,BrowserWindow | null>()
 
-        const checkifrunning = (info: BuildNotifyInfo,src?: number): any => {
+        const checkifrunning = (info: BuildNotifyInfo,monitorid?: number): any => {
             const i = queue.findIndex(obj => obj.notify.id === info.id)
-            if (runningmap.size > (sanconfig.get().store.maxnotify - 1) || queue[i].order !== 0) return setTimeout(() => checkifrunning(info,src),1000)
+            if (runningmap.size > (sanconfig.get().store.maxnotify - 1) || queue[i].order !== 0) return setTimeout(() => checkifrunning(info,monitorid),1000)
 
             if (!queue[i].notify.istestnotification) {
-                replay = { queueobj: queue[i], src }
+                replay = { queueobj: queue[i], src: monitorid }
                 win.webContents.send("allowreplay",replay)
             }
 
@@ -1135,40 +1135,40 @@ export const listeners = {
                 notifywins.get(notify.id)!.show()
             } else {
                 notifywins.set(notify.id,new BrowserWindow(options))
-                offscreenwins.set(notify.id,!extwin ? null : new BrowserWindow({
-                    ...options,
-                    title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
-                    x: 0,
-                    y: 0,
-                    show: false,
-                    webPreferences: {
-                        nodeIntegration: true,
-                        contextIsolation: false,
-                        backgroundThrottling: false,
-                        offscreen: true
-                    }
-                }))
+                // offscreenwins.set(notify.id,!extwin ? null : new BrowserWindow({
+                //     ...options,
+                //     title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
+                //     x: 0,
+                //     y: 0,
+                //     show: false,
+                //     webPreferences: {
+                //         nodeIntegration: true,
+                //         contextIsolation: false,
+                //         backgroundThrottling: false,
+                //         offscreen: true
+                //     }
+                // }))
 
-                offscreenwins.get(notify.id)?.webContents.setFrameRate(config.get("extwinframerate"))
+                // offscreenwins.get(notify.id)?.webContents.setFrameRate(config.get("extwinframerate"))
             }
 
             if (notifywins.get(notify.id)! instanceof BrowserWindow) {
                 const basehtml = config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html")
                 const notifywin = notifywins.get(notify.id)! as BrowserWindow
-                const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow
+                // const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow
 
                 notifywin.loadFile(basehtml)
                 config.get("screenshots") !== "off" && config.get("ssdelay") > 0 && notifywin.setContentProtection(true)
                 notifywin.setIgnoreMouseEvents(true)
                 notifywin.setAlwaysOnTop(true,"screen-saver",1000)
 
-                if (extwin && offscreenwin instanceof BrowserWindow) {
-                    offscreenwin.loadFile(basehtml)
-                    offscreenwin.setIgnoreMouseEvents(true)
+                // if (extwin && offscreenwin instanceof BrowserWindow) {
+                //     offscreenwin.loadFile(basehtml)
+                //     offscreenwin.setIgnoreMouseEvents(true)
 
-                    // Send img data to offscreen window if `extwin` is active
-                    offscreenwin.webContents.on("paint",(event,_,img) => extwin && extwin.webContents.send("imgdata",img.toDataURL()))
-                }
+                //     // Send img data to offscreen window if `extwin` is active
+                //     offscreenwin.webContents.on("paint",(event,_,img) => extwin && extwin.webContents.send("imgdata",img.toDataURL()))
+                // }
 
                 const notifyinfo = async (isextwin?: boolean) => {
                     const { audiosrc, ssalldetails, screenshots } = config.store
@@ -1198,14 +1198,12 @@ export const listeners = {
                 notifywin.once("ready-to-show", async () => {
                     (notifywin as BrowserWindow).webContents.send("notify",await notifyinfo(),notify.id)
 
-                    if (extwin) {
-                        extwin.webContents.send("notify")
+                    // if (extwin) {
+                    //     extwin.webContents.send("notify")
 
-                        if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notify" ipc event`)
-                        offscreenwin.webContents.send("notify",await notifyinfo(true))
-                    }
-
-                    config.get("uselegacynotifytimer") && log.write("INFO","Legacy notification timer enabled")
+                    //     if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notify" ipc event`)
+                    //     offscreenwin.webContents.send("notify",await notifyinfo(true))
+                    // }
                 })
     
                 config.get("notifydebug") && sanhelper.setdevtools(notifywin)
@@ -1244,12 +1242,12 @@ export const listeners = {
                     }
                     
                     preparewin(notifywin as BrowserWindow)
-                    extwin && [(offscreenwin as BrowserWindow),extwin].forEach(win => preparewin(win,true))
+                    // extwin && [(offscreenwin as BrowserWindow),extwin].forEach(win => preparewin(win,true))
                 })
             }
 
             const notifywin = notifywins.get(notify.id)! as BrowserWindow
-            const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow 
+            // const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow 
 
             (config.get("audiosrc") === "app" || notifywin instanceof Notification && config.get("audiosrc") !== "off") && win.webContents.send("appaudio",notify.type)
 
@@ -1259,7 +1257,8 @@ export const listeners = {
             ipcMain.emit(`${notify.id}`)
 
             // Creates "notifyimg" file on notification spawn, as it doesn't have to wait for screenshots to be generated
-            config.get("screenshots") === "notifyimg" && createsswin("img",notify)
+            // config.get("screenshots") === "notifyimg" && createsswin("img",notify)
+            // config.get("screenshots") === "notifyimg" && screenshots.createsswin("img",notify)
 
             win.webContents.send("notifyprogress",notify.customisation.displaytime)
             log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)
@@ -1267,23 +1266,23 @@ export const listeners = {
             const notifyfinished = (id: number) => {
                 notify.id === id && (notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished",id) : ipcMain.emit("notifyfinished",id))
                 
-                if (extwin) {
-                    if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
-                    offscreenwin.webContents.send("notifyfinished",id)
-                }
+                // if (extwin) {
+                //     if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
+                //     offscreenwin.webContents.send("notifyfinished",id)
+                // }
             }
 
             // "animend" is received from `base.ts`, rather than controlled from here via Timeout
             // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
-            // When `uselegacynotifytimer` is enabled (or the "Native OS" preset is selected), the legacy `setTimeout()` will be used instead
-            ;(customisation.preset === "os" || config.get("uselegacynotifytimer")) ? setTimeout(() => notifyfinished(notify.id),customisation.displaytime * 1000) : ipcMain.on("animend",(event,id: number) => notifyfinished(id))
+            // When the "Native OS" preset is selected, the legacy `setTimeout()` will be used instead
+            ;customisation.preset === "os" ? setTimeout(() => notifyfinished(notify.id),customisation.displaytime * 1000) : ipcMain.on("animend",(event,id: number) => notifyfinished(id))
         }
 
         // Closes the notification
         ipcMain.on("notifyfinished",async (event,id: number) => {
             const notify = { id: Array.from(notifywins.keys()).find(key => key === id) }
             const notifywin = notifywins.get(id)
-            const offscreenwin = offscreenwins.get(id)
+            // const offscreenwin = offscreenwins.get(id)
             
             if (!notify.id || notify.id !== id || !notifywin) return
 
@@ -1294,14 +1293,14 @@ export const listeners = {
                     notifywin && notifywin.close()
                     notify.id && notifywins.delete(notify.id)
 
-                    if (extwin) {
-                        extwin.webContents.send("notifyfinished",id)
+                    // if (extwin) {
+                    //     extwin.webContents.send("notifyfinished",id)
 
-                        if (!offscreenwin) log.write("WARN",`"offscreenwin" not found - cannot close window`)
+                    //     if (!offscreenwin) log.write("WARN",`"offscreenwin" not found - cannot close window`)
 
-                        offscreenwin && offscreenwin.close()
-                        notify.id && offscreenwins.delete(notify.id)
-                    }
+                    //     offscreenwin && offscreenwin.close()
+                    //     notify.id && offscreenwins.delete(notify.id)
+                    // }
 
                     resolve(`Notification window for ID ${id} closed successfully`)
                 })
@@ -1314,7 +1313,7 @@ export const listeners = {
                 log.write("ERROR",`Error closing notification window for ${id}: ${err}`)
             } finally {
                 win.webContents.send("notifyprogress",0,true)
-                setTimeout(() => notify.id && removesrcimg(notify.id),2000)
+                // setTimeout(() => notify.id && removesrcimg(notify.id),2000)
             }
         })
 
@@ -1323,15 +1322,15 @@ export const listeners = {
             let catcherr: Error | null = null
 
             const notifywin = id ? notifywins.get(id) : null
-            const offscreenwin = id ? offscreenwins.get(id) : null
+            // const offscreenwin = id ? offscreenwins.get(id) : null
             if (!id || !notifywin) return log.write("ERROR",`No ${!id ? "ID" : `window for ID ${id}`} found`)
             
             try {
                 notifywin && (notifywin instanceof BrowserWindow ? notifywin.destroy() : notifywin.close()) // Destroys/closes the window
                 notifywins.delete(id)
     
-                offscreenwin && offscreenwin.destroy() // Destroys/closes the window
-                offscreenwins.delete(id)
+                // offscreenwin && offscreenwin.destroy() // Destroys/closes the window
+                // offscreenwins.delete(id)
 
                 // Emit dummy events to trigger `.once()` listeners, which removes them for subsequent notifications
                 // Note: "notifyready" event cannot be triggered here, as it causes an error which prevents subsequent notifications from displaying
@@ -1340,7 +1339,7 @@ export const listeners = {
                 id && runningmap.delete(id)
     
                 win.webContents.send("notifyprogress",0,true) // Resets UI progress circle
-                id && removesrcimg(id) // Removes any corresponding screenshots from `temp`                
+                // id && removesrcimg(id) // Removes any corresponding screenshots from `temp`            
             } catch (err) {
                 success = false
                 catcherr = err as Error
@@ -1496,347 +1495,354 @@ export const listeners = {
 
         let sswin: Electron.BrowserWindow | null = null
         let sssrc: number = -1
-        const sswinbounds = {
-            bounds: {
-                width: 0,
-                height: 0,
-                x: 0,
-                y: 0
-            }
-        }
+        // const sswinbounds = {
+        //     bounds: {
+        //         width: 0,
+        //         height: 0,
+        //         x: 0,
+        //         y: 0
+        //     }
+        // }
 
-        // Used in `dialog.ts`/`renderer.ts` to close "sswin", and in `renderer.ts` to spawn the Preview window
-        ipcMain.on("sswin", (event,notify?: Notify,src?: number) => {
-            const config = sanconfig.get()
+        // // Used in `dialog.ts`/`renderer.ts` to close "sswin", and in `renderer.ts` to spawn the Preview window
+        // ipcMain.on("sswin", (event,notify?: Notify,src?: number) => {
+        //     const config = sanconfig.get()
 
-            if (!notify) {
-                sswin && sswin.destroy()
-                sswin = null
-                return
-            }
+        //     if (!notify) {
+        //         sswin && sswin.destroy()
+        //         sswin = null
+        //         return
+        //     }
 
-            if (sswin) {
-                sswin.destroy()
-                sswin = null
-            }
+        //     if (sswin) {
+        //         sswin.destroy()
+        //         sswin = null
+        //     }
 
-            createsswin(config.get("screenshots") === "notifyimg" ? "img" : "ss",notify,true,src)
-        })
+        //     createsswin(config.get("screenshots") === "notifyimg" ? "img" : "ss",notify,true,src)
+        // })
 
-        const getssmonitor = (src?: number): { monitor: Monitor | Electron.Display | null, display: Electron.Display | null } => {
-            const config = sanconfig.get()
-            const targetid = src && src !== -1 ? src : config.get("monitor")
+        // const getssmonitor = (src?: number): { monitor: Monitor | Electron.Display | null, display: Electron.Display | null } => {
+        //     const config = sanconfig.get()
+        //     const targetid = src && src !== -1 ? src : config.get("monitor")
 
-            let monitor: Monitor | Electron.Display | undefined = config.get("monitors").find(monitor => monitor.id === targetid)
+        //     let monitor: Monitor | Electron.Display | undefined = config.get("monitors").find(monitor => monitor.id === targetid)
             
-            if (!monitor) {
-                log.write("WARN",`Monitor id "${config.get("monitor")}" could not be found in "config.monitors" - Reverting to primary display...`)
-                monitor = screen.getPrimaryDisplay()
-            }
+        //     if (!monitor) {
+        //         log.write("WARN",`Monitor id "${config.get("monitor")}" could not be found in "config.monitors" - Reverting to primary display...`)
+        //         monitor = screen.getPrimaryDisplay()
+        //     }
 
-            log.write("INFO",`[Selected Monitor ID]:\n- ${config.get("monitor")}\n\n[Stored Monitors]:\n- ${config.get("monitors").map(monitor => monitor.id).join("\n- ")}`)
-            const display = screen.getAllDisplays().find(display => display.id === monitor!.id)
+        //     log.write("INFO",`[Selected Monitor ID]:\n- ${config.get("monitor")}\n\n[Stored Monitors]:\n- ${config.get("monitors").map(monitor => monitor.id).join("\n- ")}`)
+        //     const display = screen.getAllDisplays().find(display => display.id === monitor!.id)
 
-            return { monitor: monitor || null, display: display || null }
-        }
+        //     return { monitor: monitor || null, display: display || null }
+        // }
 
-        const getsspath = (id: number) => path.join(sanhelper.temp,`${id}.png`)
+        // const getsspath = (id: number) => path.join(sanhelper.temp,`${id}.png`)
 
-        let srcimgtimer: NodeJS.Timeout | null = null
+        // let srcimgtimer: NodeJS.Timeout | null = null
 
-        const setssfailed = (err?: string | Error) => {
-            err && log.write("ERROR",err)
-            ssfailed = false
-            sssrc = -1
-            srcimgtimer && clearTimeout(srcimgtimer)
-            srcimgtimer = null
-        }
+        // const setssfailed = (err?: string | Error) => {
+        //     err && log.write("ERROR",err)
+        //     ssfailed = false
+        //     sssrc = -1
+        //     srcimgtimer && clearTimeout(srcimgtimer)
+        //     srcimgtimer = null
+        // }
 
-        const capturesrc = async (notify: Notify,src?: number) => {
-            try {
-                const config = sanconfig.get()
-                if (config.get("screenshots") !== "overlay") return
+        // const capturesrc = async (notify: Notify,src?: number) => {
+        //     try {
+        //         const config = sanconfig.get()
+        //         if (config.get("screenshots") !== "overlay") return
     
-                ssfailed = false
-                sssrc = -1
+        //         ssfailed = false
+        //         sssrc = -1
                 
-                const checksrcimg = (tempimgpath: string) =>  {
-                    if (ssfailed) return setssfailed()
+        //         const checksrcimg = (tempimgpath: string) =>  {
+        //             if (ssfailed) return setssfailed()
     
-                    if (!fs.existsSync(tempimgpath)) {
-                        log.write("WARN",`"${notify.id}.png" src file not present in "${sanhelper.temp}" - retrying...`)
+        //             if (!fs.existsSync(tempimgpath)) {
+        //                 log.write("WARN",`"${notify.id}.png" src file not present in "${sanhelper.temp}" - retrying...`)
                         
-                        srcimgtimer && clearTimeout(srcimgtimer)
-                        srcimgtimer = setTimeout(() => checksrcimg(tempimgpath),250)
+        //                 srcimgtimer && clearTimeout(srcimgtimer)
+        //                 srcimgtimer = setTimeout(() => checksrcimg(tempimgpath),250)
                         
-                        return
-                    }
+        //                 return
+        //             }
     
-                    createsswin("ss",notify,undefined,sssrc,windowtitle)
-                }
+        //             createsswin("ss",notify,undefined,sssrc,windowtitle)
+        //         }
     
-                ipcMain.once(`${notify.id}`, () => {
-                    log.write("INFO",`Building screenshot for "${notify.id}"...`)
-                    checksrcimg(path.join(sanhelper.temp,`${notify.id}.png`))
-                })
+        //         ipcMain.once(`${notify.id}`, () => {
+        //             log.write("INFO",`Building screenshot for "${notify.id}"...`)
+        //             checksrcimg(path.join(sanhelper.temp,`${notify.id}.png`))
+        //         })
     
-                const delay = config.get("ssdelay")
-                const sspath = getsspath(notify.id)
+        //         const delay = config.get("ssdelay")
+        //         const sspath = getsspath(notify.id)
     
-                let windowtitle: string = ""
+        //         let windowtitle: string = ""
     
-                if (worker && config.get("ssmode") === "window") {
-                    windowtitle = !appid ? win.title : await new Promise(resolve => {
-                        ipcMain.once("windowtitles",(event,windowtitles: string[]) => resolve(windowtitles[0]))
-                        worker!.webContents.send("windowtitles")
-                    })
+        //         if (worker && config.get("ssmode") === "window") {
+        //             windowtitle = !appid ? win.title : await new Promise(resolve => {
+        //                 ipcMain.once("windowtitles",(event,windowtitles: string[]) => resolve(windowtitles[0]))
+        //                 worker!.webContents.send("windowtitles")
+        //             })
     
-                    const { x, y, width, height } = sanhelper.getwindowbounds(windowtitle || "")
-                    const { id } = screen.getDisplayNearestPoint({ x, y })
+        //             const { x, y, width, height } = sanhelper.getwindowbounds(windowtitle || "")
+        //             const { id } = screen.getDisplayNearestPoint({ x, y })
     
-                    sssrc = id
+        //             sssrc = id
     
-                    Object.assign(sswinbounds,{
-                        bounds: {
-                            x,
-                            y,
-                            width,
-                            height
-                        }
-                    })
-                }
+        //             Object.assign(sswinbounds,{
+        //                 bounds: {
+        //                     x,
+        //                     y,
+        //                     width,
+        //                     height
+        //                 }
+        //             })
+        //         }
     
-                // Fall back to provided "screen" src if no monitor is assigned when config.ssmode === "window"
-                if (sssrc === -1) {
-                    log.write("WARN",`"sssrc" not found - using original "src" value (${src})...`)
+        //         // Fall back to provided "screen" src if no monitor is assigned when config.ssmode === "window"
+        //         if (sssrc === -1) {
+        //             log.write("WARN",`"sssrc" not found - using original "src" value (${src})...`)
                     
-                    const lastknownmonitor = config.get("monitors").find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
-                    sssrc = src || (lastknownmonitor && lastknownmonitor.id) || config.get("monitor") || screen.getPrimaryDisplay().id
-                }
+        //             const lastknownmonitor = config.get("monitors").find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
+        //             sssrc = src || (lastknownmonitor && lastknownmonitor.id) || config.get("monitor") || screen.getPrimaryDisplay().id
+        //         }
     
-                const { monitor } = getssmonitor(sssrc)
-                if (!monitor) return log.write("ERROR",`Error configuring screenshot src: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
+        //         const { monitor } = getssmonitor(sssrc)
+        //         if (!monitor) return log.write("ERROR",`Error configuring screenshot src: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
     
-                const ssmode: "screen" | "window" = config.get("ssmode") === "window" && windowtitle ? "window" : "screen"
-                log.write("INFO",`Using "${ssmode}" mode for Screenshot (ssmode: "${config.get("ssmode")}" | windowtitle: "${windowtitle}")`)
+        //         const ssmode: "screen" | "window" = config.get("ssmode") === "window" && windowtitle ? "window" : "screen"
+        //         log.write("INFO",`Using "${ssmode}" mode for Screenshot (ssmode: "${config.get("ssmode")}" | windowtitle: "${windowtitle}")`)
 
-                const { id, label } = monitor
-                let { bounds: { width, height } } = ssmode === "window" && (["width","height"] as const).every(dim => sswinbounds.bounds[dim] !== 0) ? sswinbounds : monitor
+        //         const { id, label } = monitor
+        //         let { bounds: { width, height } } = ssmode === "window" && (["width","height"] as const).every(dim => sswinbounds.bounds[dim] !== 0) ? sswinbounds : monitor
     
-                ipcMain.once("src",(event,err) => {
-                    if (err) return setssfailed(`Error writing screenshot for Monitor ${id} ("${label}"): ${err}`)
-                    return log.write("INFO",`Screenshot for Monitor ${id} ("${label}") written successfully`)
-                })
+        //         ipcMain.once("src",(event,err) => {
+        //             if (err) return setssfailed(`Error writing screenshot for Monitor ${id} ("${label}"): ${err}`)
+        //             return log.write("INFO",`Screenshot for Monitor ${id} ("${label}") written successfully`)
+        //         })
             
-                const capture = async () => {
-                    if (config.get("hdrmode")) {
-                        let area: number[] | undefined
+        //         const capture = async () => {
+        //             if (config.get("hdrmode")) {
+        //                 let area: number[] | undefined
     
-                        if (config.get("ssmode") === "window") {
-                            const { x, y, width, height } = sswinbounds.bounds
-                            area = [y,x,width,height] // Order of elements for `screenshots::Screen.capture_area()` is y/x/w/h
-                        }
+        //                 if (config.get("ssmode") === "window") {
+        //                     const { x, y, width, height } = sswinbounds.bounds
+        //                     area = [y,x,width,height] // Order of elements for `screenshots::Screen.capture_area()` is y/x/w/h
+        //                 }
     
-                        const msg: string = sanhelper.hdrscreenshot(monitor.id,sspath,area)
-                        log.write("INFO",msg)
-                        return
-                    }
+        //                 const msg: string = sanhelper.hdrscreenshot(monitor.id,sspath,area)
+        //                 log.write("INFO",msg)
+        //                 return
+        //             }
     
-                    try {
-                        const srcs = await desktopCapturer.getSources({
-                            types: [ssmode],
-                            thumbnailSize: { width, height }
-                        })
+        //             try {
+        //                 const srcs = await desktopCapturer.getSources({
+        //                     types: [ssmode],
+        //                     thumbnailSize: { width, height }
+        //                 })
     
-                        log.write("INFO",`[Selected ${ssmode === "window" ? "Window Title" : "Monitor ID"}]:\n- ${ssmode === "window" ? windowtitle : id}\n\n[Available ${ssmode.replace(ssmode[0],ssmode[0].toUpperCase())} Sources]:\n- ${srcs.map(src => `${ssmode === "window" ? src.name : src.display_id} (${ssmode === "window" ? `Window name: ${src.name}` : `Parsed id: ${parseInt(src.display_id)}`} | Match?: ${ssmode === "window" ? src.name === windowtitle : parseInt(src.display_id) === sssrc})`).join("\n- ")}`)
+        //                 log.write("INFO",`[Selected ${ssmode === "window" ? "Window Title" : "Monitor ID"}]:\n- ${ssmode === "window" ? windowtitle : id}\n\n[Available ${ssmode.replace(ssmode[0],ssmode[0].toUpperCase())} Sources]:\n- ${srcs.map(src => `${ssmode === "window" ? src.name : src.display_id} (${ssmode === "window" ? `Window name: ${src.name}` : `Parsed id: ${parseInt(src.display_id)}`} | Match?: ${ssmode === "window" ? src.name === windowtitle : parseInt(src.display_id) === sssrc})`).join("\n- ")}`)
     
-                        const src = srcs.find(src => ssmode === "window" ? src.name === windowtitle : (parseInt(src.display_id) === sssrc || screen.getPrimaryDisplay().id === sssrc))
-                        if (!src) throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${sssrc} ("${label}")`)
+        //                 const src = srcs.find(src => ssmode === "window" ? src.name === windowtitle : (parseInt(src.display_id) === sssrc || screen.getPrimaryDisplay().id === sssrc))
+        //                 if (!src) throw new Error(`Error configuring screenshot: No matching Display source id found for Monitor ${sssrc} ("${label}")`)
                         
-                        fs.writeFileSync(sspath,src.thumbnail.toPNG())
-                    } catch (err) {
-                        return setssfailed(err as Error)
-                    }
-                }
+        //                 fs.writeFileSync(sspath,src.thumbnail.toPNG())
+        //             } catch (err) {
+        //                 return setssfailed(err as Error)
+        //             }
+        //         }
             
-                setTimeout(capture,delay * 1000)
-                return
-            } catch (err) {
-                return setssfailed(err as Error)
-            }
-        }
+        //         setTimeout(capture,delay * 1000)
+        //         return
+        //     } catch (err) {
+        //         return setssfailed(err as Error)
+        //     }
+        // }
 
-        const createimgpathdir = (imgpath: string) => {
-            try {
-                !fs.existsSync(imgpath) && fs.mkdirSync(imgpath, { recursive: true })
-                log.write("INFO",`"${imgpath}" ${!fs.existsSync(imgpath) ? "created successfully" : "already exists"}`)
-            } catch (err) {
-                return setssfailed(`Error creating "${imgpath}": ${err}`)
-            }
-        }
+        // const createimgpathdir = (imgpath: string) => {
+        //     try {
+        //         !fs.existsSync(imgpath) && fs.mkdirSync(imgpath, { recursive: true })
+        //         log.write("INFO",`"${imgpath}" ${!fs.existsSync(imgpath) ? "created successfully" : "already exists"}`)
+        //     } catch (err) {
+        //         return setssfailed(`Error creating "${imgpath}": ${err}`)
+        //     }
+        // }
 
-        const removesrcimg = (notifyid: number) => {
-            const srcimg = getsspath(notifyid)
+        // const removesrcimg = (notifyid: number) => {
+        //     const srcimg = getsspath(notifyid)
 
-            try {
-                if (fs.existsSync(srcimg)) {
-                    fs.rmSync(srcimg)
-                    log.write("INFO",`Removed "src" image: "${srcimg}"`)
-                }
-            } catch (err) {
-                log.write("ERROR",`Error removing "src" image "${srcimg}": ${err as Error}`)
-            }
-        }
+        //     try {
+        //         if (fs.existsSync(srcimg)) {
+        //             fs.rmSync(srcimg)
+        //             log.write("INFO",`Removed "src" image: "${srcimg}"`)
+        //         }
+        //     } catch (err) {
+        //         log.write("ERROR",`Error removing "src" image "${srcimg}": ${err as Error}`)
+        //     }
+        // }
 
-        const createsswin = async (type: "ss" | "img",notify: Notify,ispreview?: boolean,src?: number,windowtitle?: string) => {
-            try {
-                const config = sanconfig.get()
-                // Screenshots are disabled in `ipcMain.on("notify")` event and shouldn't reach here anyway, but added as a logical fallback
-                if (!config.get(`customisation.${notify.type}.ssenabled`)) return log.write("INFO",`${type === "ss" ? "Screenshots" : "Notification Images"} disabled for "${notify.type}" type`)
+        // const createsswin = async (type: "ss" | "img",notify: Notify,ispreview?: boolean,src?: number,windowtitle?: string) => {
+        //     try {
+        //         const config = sanconfig.get()
+        //         // Screenshots are disabled in `ipcMain.on("notify")` event and shouldn't reach here anyway, but added as a logical fallback
+        //         if (!config.get(`customisation.${notify.type}.ssenabled`)) return log.write("INFO",`${type === "ss" ? "Screenshots" : "Notification Images"} disabled for "${notify.type}" type`)
     
-                const imgpath: string = path.join(config.get(`${type === "ss" ? "ov" : "img"}path`),notify.ra ? "RetroAchievements" : "") as string
-                const sspath: string | null = type === "ss" ? (!ispreview ? getsspath(notify.id) : sanhelper.setfilepath("img","santextlogobg.png")) : null
+        //         const imgpath: string = path.join(config.get(`${type === "ss" ? "ov" : "img"}path`),notify.ra ? "RetroAchievements" : "") as string
+        //         const sspath: string | null = type === "ss" ? (!ispreview ? getsspath(notify.id) : sanhelper.setfilepath("img","santextlogobg.png")) : null
     
-                createimgpathdir(imgpath)
+        //         createimgpathdir(imgpath)
     
-                const info = await buildnotify(notify)
+        //         const info = await buildnotify(notify)
     
-                ipcMain.once(`${type}winready`, async event => {
-                    if (!sswin) return log.write("WARN",`Error sending ${type === "ss" ? `screenshot "src"` : "notification data"}: "${type}win" not found`)
+        //         ipcMain.once(`${type}winready`, async event => {
+        //             if (!sswin) return log.write("WARN",`Error sending ${type === "ss" ? `screenshot "src"` : "notification data"}: "${type}win" not found`)
     
-                    if (type === "ss") {
-                        log.write("INFO",!ispreview ? `Sending "src" for id: ${notify.id}` : "Screenshot not taken for preview")
-                        sswin.webContents.send("src",sspath)
-                    }
+        //             if (type === "ss") {
+        //                 log.write("INFO",!ispreview ? `Sending "src" for id: ${notify.id}` : "Screenshot not taken for preview")
+        //                 sswin.webContents.send("src",sspath)
+        //             }
     
-                    ;(process.platform !== "linux" || ispreview) && sswin.show() // Prevent the window from showing, which still captures the contents but hides the window in "Window" and "Notification Image" modes
+        //             ;(process.platform !== "linux" || ispreview) && sswin.show() // Prevent the window from showing, which still captures the contents but hides the window in "Window" and "Notification Image" modes
 
-                    const { usecustomfiles, ssalldetails, screenshots } = config.store
-                    const { icon, libhero, logo } = gameartobj
+        //             const { usecustomfiles, ssalldetails, screenshots } = config.store
+        //             const { icon, libhero, logo } = gameartobj
             
-                    event.reply(`${type}winready`,{
-                        info: info,
-                        customisation: notify.customisation,
-                        iswebview: ispreview ? "sspreview" : "ss",
-                        steampath: sanhelper.steampath,
-                        skipaudio: true,
-                        customfiles: usecustomfiles ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
-                        hqicon: sanhelper.gethqicon(appid),
-                        temp: sanhelper.temp,
-                        ssalldetails,
-                        screenshots,
-                        gamearticon: icon,
-                        gameartlibhero: libhero,
-                        gameartlogo: logo
-                    } as Info)
+        //             event.reply(`${type}winready`,{
+        //                 info: info,
+        //                 customisation: notify.customisation,
+        //                 iswebview: ispreview ? "sspreview" : "ss",
+        //                 steampath: sanhelper.steampath,
+        //                 skipaudio: true,
+        //                 customfiles: usecustomfiles ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : undefined,
+        //                 hqicon: sanhelper.gethqicon(appid),
+        //                 temp: sanhelper.temp,
+        //                 ssalldetails,
+        //                 screenshots,
+        //                 gamearticon: icon,
+        //                 gameartlibhero: libhero,
+        //                 gameartlogo: logo
+        //             } as Info)
     
-                    ipcMain.once("dims",(event,dims: { width: number, height: number, offset: number }) => {
-                        try {
-                            if (!sswin) return log.write("WARN",`Error setting "sswin" dimensions: "sswin" not found`)
+        //             ipcMain.once("dims",(event,dims: { width: number, height: number, offset: number }) => {
+        //                 try {
+        //                     if (!sswin) return log.write("WARN",`Error setting "sswin" dimensions: "sswin" not found`)
         
-                            const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,"sswin",notify.customisation) as { width: number, height: number, x: number, y: number }
+        //                     const { width, height } = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,"sswin",notify.customisation) as { width: number, height: number, x: number, y: number }
         
-                            if (type === "img") {
-                                sswin.setSize(Math.round(width),Math.round(height))
-                                sswin.center()
-                            }
+        //                     if (type === "img") {
+        //                         sswin.setSize(Math.round(width),Math.round(height))
+        //                         sswin.center()
+        //                     }
         
-                            const monitor = (type !== "img" && screen.getAllDisplays().find(monitor => monitor.id === (src || config.get("monitor")))) || screen.getPrimaryDisplay()
+        //                     const monitor = (type !== "img" && screen.getAllDisplays().find(monitor => monitor.id === (src || config.get("monitor")))) || screen.getPrimaryDisplay()
         
-                            sswin.setResizable(false)
-                            sswin.webContents.send("dims",{ width, height, offset: dims.offset, scalefactor: monitor.scaleFactor })
-                        } catch (err) {
-                            log.write("ERROR",`Error creating "sswin" in "dims" event: ${err as Error}`)
-                            ssfailed = true
-                        }
-                    })
+        //                     sswin.setResizable(false)
+        //                     sswin.webContents.send("dims",{ width, height, offset: dims.offset, scalefactor: monitor.scaleFactor })
+        //                 } catch (err) {
+        //                     log.write("ERROR",`Error creating "sswin" in "dims" event: ${err as Error}`)
+        //                     ssfailed = true
+        //                 }
+        //             })
     
-                    !ispreview && ipcMain.once("sscapture", () => {
-                        if (!sswin) return log.write("WARN",`"${type}win" was closed before image file could be written to "${imgpath}"`)
+        //             !ispreview && ipcMain.once("sscapture", () => {
+        //                 if (!sswin) return log.write("WARN",`"${type}win" was closed before image file could be written to "${imgpath}"`)
     
-                        const regex = /[<>":\\/|?*\x00-\x1F]/g
-                        const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").replace(/\.$/,"").trim()).replace(/\\/g,"/")
-                        const ssbasename = `${info.title.replace(regex,"").trim()}${type === "img" ? " - Notification" : ""}`
-                        const ssext = ".png"
+        //                 const regex = /[<>":\\/|?*\x00-\x1F]/g
+        //                 const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").replace(/\.$/,"").trim()).replace(/\\/g,"/")
+        //                 const ssbasename = `${info.title.replace(regex,"").trim()}${type === "img" ? " - Notification" : ""}`
+        //                 const ssext = ".png"
 
-                        let sscounter = 0
-                        let ssimg = path.join(ssdir,`${ssbasename}${ssext}`).replace(/\\/g,"/")
+        //                 let sscounter = 0
+        //                 let ssimg = path.join(ssdir,`${ssbasename}${ssext}`).replace(/\\/g,"/")
 
-                        while (!notify.istestnotification && fs.existsSync(ssimg)) {
-                            sscounter++
-                            ssimg = path.join(ssdir,`${ssbasename}_${sscounter}${ssext}`).replace(/\\/g,"/")
-                        }
+        //                 while (!notify.istestnotification && fs.existsSync(ssimg)) {
+        //                     sscounter++
+        //                     ssimg = path.join(ssdir,`${ssbasename}_${sscounter}${ssext}`).replace(/\\/g,"/")
+        //                 }
     
-                        sswin.webContents.capturePage()
-                        .then(img => {
-                            try {
-                                !fs.existsSync(ssimg) && fs.mkdirSync(ssdir,{ recursive: true })
-                                fs.writeFileSync(ssimg,img.toPNG())
+        //                 sswin.webContents.capturePage()
+        //                 .then(img => {
+        //                     try {
+        //                         !fs.existsSync(ssimg) && fs.mkdirSync(ssdir,{ recursive: true })
+        //                         fs.writeFileSync(ssimg,img.toPNG())
         
-                                log.write("INFO",`Screenshot written to "${ssimg}" successfully`)
-                            } catch (err) {
-                                log.write("ERROR",`Error writing screenshot for "${info.apiname}": ${err as Error}`)
-                            }
-                        })
-                        .catch(err => log.write("ERROR",`Error capturing screenshot for "${info.apiname}": ${err as Error}`))
-                        .finally(() => {
-                            sswin && sswin.destroy()
-                            sswin = null
-                        })
-                    })
-                })
+        //                         log.write("INFO",`Screenshot written to "${ssimg}" successfully`)
+        //                     } catch (err) {
+        //                         log.write("ERROR",`Error writing screenshot for "${info.apiname}": ${err as Error}`)
+        //                     }
+        //                 })
+        //                 .catch(err => log.write("ERROR",`Error capturing screenshot for "${info.apiname}": ${err as Error}`))
+        //                 .finally(() => {
+        //                     sswin && sswin.destroy()
+        //                     sswin = null
+        //                 })
+        //             })
+        //         })
     
-                const { monitor, display } = getssmonitor(sssrc)
+        //         const { monitor, display } = getssmonitor(sssrc)
     
-                if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
-                if (!display) return log.write("ERROR",`Error configuring screenshot: No Display matches Monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
+        //         if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
+        //         if (!display) return log.write("ERROR",`Error configuring screenshot: No Display matches Monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
 
-                const offscreenpx = 10000
+        //         const offscreenpx = 10000
     
-                // On Linux, attempts to get `monitor.bounds`, falls back to `display.bounds` and falls back again to default 1080p values if both are undefined
-                const { fbw, fbh } = process.platform === "linux" && type === "ss" ? { fbw: monitor.bounds.width ?? display.bounds.width ?? 1920, fbh: monitor.bounds.height ?? display.bounds.height ?? 1080 } : { fbw: undefined, fbh: undefined }
-                const { x, y } = display.bounds
-                const { bounds: { width, height } } = sswinbounds
-                const ssmode: "screen" | "window" = config.get("ssmode") === "window" && windowtitle ? "window" : "screen"
+        //         // On Linux, attempts to get `monitor.bounds`, falls back to `display.bounds` and falls back again to default 1080p values if both are undefined
+        //         const { fbw, fbh } = process.platform === "linux" && type === "ss" ? { fbw: monitor.bounds.width ?? display.bounds.width ?? 1920, fbh: monitor.bounds.height ?? display.bounds.height ?? 1080 } : { fbw: undefined, fbh: undefined }
+        //         const { x, y } = display.bounds
+        //         const { bounds: { width, height } } = sswinbounds
+        //         const ssmode: "screen" | "window" = config.get("ssmode") === "window" && windowtitle ? "window" : "screen"
     
-                sswin = new BrowserWindow({
-                    title: `Steam Achievement Notifier (V${sanhelper.version}): ${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}`,
-                    fullscreen: type === "ss" && ssmode !== "window" && (process.platform !== "linux" || ispreview), // On Linux, prevents `fullscreen` from being activated when not a preview
-                    x: type === "ss" && ssmode !== "window" ? x : undefined,
-                    y: (process.platform === "linux" && type === "ss") ? offscreenpx : (type === "ss" && ssmode !== "window" ? y : undefined), // On Linux, sets the `y` value to `offscreenpx` in "Screen" mode, moving it far offscreen
-                    width: width || fbw,
-                    height: height || fbh,
-                    autoHideMenuBar: true,
-                    frame: false,
-                    transparent: true,
-                    focusable: ispreview,
-                    movable: false,
-                    maximizable: false,
-                    minimizable: false,
-                    skipTaskbar: !sanhelper.devmode,
-                    show: false,
-                    center: ssmode === "window",
-                    webPreferences: {
-                        nodeIntegration: true,
-                        contextIsolation: false,
-                        webviewTag: true
-                    }
-                })
+        //         sswin = new BrowserWindow({
+        //             title: `Steam Achievement Notifier (V${sanhelper.version}): ${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}`,
+        //             fullscreen: type === "ss" && ssmode !== "window" && (process.platform !== "linux" || ispreview), // On Linux, prevents `fullscreen` from being activated when not a preview
+        //             x: type === "ss" && ssmode !== "window" ? x : undefined,
+        //             y: (process.platform === "linux" && type === "ss") ? offscreenpx : (type === "ss" && ssmode !== "window" ? y : undefined), // On Linux, sets the `y` value to `offscreenpx` in "Screen" mode, moving it far offscreen
+        //             width: width || fbw,
+        //             height: height || fbh,
+        //             autoHideMenuBar: true,
+        //             frame: false,
+        //             transparent: true,
+        //             focusable: ispreview,
+        //             movable: false,
+        //             maximizable: false,
+        //             minimizable: false,
+        //             skipTaskbar: !sanhelper.devmode,
+        //             show: false,
+        //             center: ssmode === "window",
+        //             webPreferences: {
+        //                 nodeIntegration: true,
+        //                 contextIsolation: false,
+        //                 webviewTag: true
+        //             }
+        //         })
     
-                !ispreview && sswin.setOpacity(sanhelper.devmode ? 0.5 : 0)
-                sswin.setIgnoreMouseEvents(!ispreview)
-                sswin.loadFile(path.join(__root,"dist","app",`${type}win.html`))
-                sanhelper.devmode && sanhelper.setdevtools(sswin)
+        //         !ispreview && sswin.setOpacity(sanhelper.devmode ? 0.5 : 0)
+        //         sswin.setIgnoreMouseEvents(!ispreview)
+        //         sswin.loadFile(path.join(__root,"dist","app",`${type}win.html`))
+        //         sanhelper.devmode && sanhelper.setdevtools(sswin)
     
-                sswin.once("closed", () => {
-                    log.write("INFO",`"${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}" closed`)
-                    sswin = null
-                })
-            } catch (err) {
-                log.write("ERROR",err as Error)
-                ssfailed = true
-            }
-        }
+        //         sswin.once("closed", () => {
+        //             log.write("INFO",`"${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}" closed`)
+        //             sswin = null
+        //         })
+        //     } catch (err) {
+        //         log.write("ERROR",err as Error)
+        //         ssfailed = true
+        //     }
+        // }
+
+        ipcMain.on("ss_appid",() => ipcMain.emit("ss_appidnum",null,appid))
+        ipcMain.on("ss_win",() => ipcMain.emit("ss_winobj",null,win))
+        ipcMain.on("ss_worker",() => ipcMain.emit("ss_workerobj",null,worker))
+        ipcMain.on("ss_gameartobj",() => ipcMain.emit("ss_gameartobjobj",null,gameartobj))
+        ipcMain.on("buildnotify",async (event,notify: Notify) => ipcMain.emit("buildnotifyobj",null,await buildnotify(notify)))
+        ipcMain.on("setnotifybounds",async (event,bounds: { width: number, height: number, x: number, y: number }) => ipcMain.emit("setnotifyboundsobj",null,setnotifybounds(bounds,null)))
 
         ipcMain.on("gpu", () => {
             const gpu = new BrowserWindow({

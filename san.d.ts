@@ -130,7 +130,6 @@ declare interface Config {
     exportachdata: boolean,
     colorprofile: "none" | "srgb" | "display-p3-d65" | "color-spin-gamma24" | "scrgb-linear" | "hdr10",
     replaynotifyshortcut: string,
-    uselegacynotifytimer: boolean,
     customtrigger: boolean,
     customtriggershortcut: string,
     customtriggerdelay: number,
@@ -563,6 +562,31 @@ declare interface RAActions {
     stop: RegExp | null,
     achievement: RegExp | null,
     mode?: RegExp | null
+}
+
+declare interface ScreenshotConfig {
+    config: any,
+    notify: {
+        id: number
+    },
+    id: number,
+    label: string
+    monitor: Monitor | Electron.Display,
+    bounds: {
+        width: number,
+        height:number
+    },
+    srcpath: string,
+    ssmode: "screen" | "window",
+    windowtitle: string | null,
+}
+
+declare interface SSWin {
+    win: Electron.BrowserWindow | null,
+    src: number,
+    timer: NodeJS.Timeout | null,
+    windowtitle: string | null,
+    haswarned: boolean
 }
 
 declare module "simple-vdf"

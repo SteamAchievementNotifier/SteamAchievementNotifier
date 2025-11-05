@@ -316,7 +316,6 @@ export const sanconfig = {
                 exportachdata: false,
                 colorprofile: "none",
                 replaynotifyshortcut: "CTRL+SHIFT+BACKSPACE",
-                uselegacynotifytimer: false,
                 customtrigger: false,
                 customtriggershortcut: "ALT+SHIFT+F10",
                 customtriggerdelay: 0,

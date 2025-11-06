@@ -9,21 +9,21 @@ import { language } from "./language"
 import { update } from "./update"
 import { gameart } from "./gameart"
 import { screenshot } from "./screenshots"
+import { audio } from "./audio"
 
 let appid: number = 0
-// let extwin: BrowserWindow | null = null
+let extwin: BrowserWindow | null = null
 let statwin: BrowserWindow | null = null
-// let ssfailed = false
 let replay: { queueobj: WinType, src?: number } | null = null
 const gameartfiles: string[] = []
 
 export const listeners = {
     setexit: () => {
         ipcMain.on("exit",(event,reason) => {
-            // if (extwin) {
-            //     extwin.destroy()
-            //     extwin = null
-            // }
+            if (extwin) {
+                extwin.destroy()
+                extwin = null
+            }
 
             log.backup(sanconfig.get())
 
@@ -512,7 +512,7 @@ export const listeners = {
                 win.hide()
                 win.setPosition(0,0)
 
-                // extwin && extwin.setPosition(0,0)
+                extwin && extwin.setPosition(0,0)
                 statwin && statwin.setPosition(0,0)
 
                 resolve()
@@ -706,10 +706,10 @@ export const listeners = {
         const closewin = (type: string) => {
             // Needs explicit assignment to avoid "Object has been destroyed" error
             if (type === "ext") {
-                // if (!extwin) return log.write("WARN",`"${type}win" not found`)
+                if (!extwin) return log.write("WARN",`"${type}win" not found`)
 
-                // extwin.close()
-                // extwin = null
+                extwin.close()
+                extwin = null
             } else {
                 if (!statwin) return log.write("WARN",`"${type}win" not found`)
 
@@ -739,29 +739,29 @@ export const listeners = {
             ipcMain.emit("configupdated",null,config.store)
         }
 
-        // ipcMain.on("extwin", (event,value: boolean) => {
-        //     const config = sanconfig.get()
+        ipcMain.on("extwin", (event,value: boolean) => {
+            const config = sanconfig.get()
 
-        //     // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
-        //     let reopenonlaunch = true
+            // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
+            let reopenonlaunch = true
 
-        //     extwin = createextwin(config,"ext",value)
-        //     if (!extwin) return
+            extwin = createextwin(config,"ext",value)
+            if (!extwin) return
 
-        //     extwin.on("moved",() => setwinbounds(config,"ext",extwin!))
+            extwin.on("moved",() => setwinbounds(config,"ext",extwin!))
 
-        //     extwin.once("close", () => {
-        //         setwinbounds(config,"ext",extwin!)
-        //         reopenonlaunch = false
-        //     })
+            extwin.once("close", () => {
+                setwinbounds(config,"ext",extwin!)
+                reopenonlaunch = false
+            })
 
-        //     extwin.once("closed", () => {
-        //         setwinclosevalue(config,"ext",reopenonlaunch)
-        //         extwin = null
-        //     })
-        // })
+            extwin.once("closed", () => {
+                setwinclosevalue(config,"ext",reopenonlaunch)
+                extwin = null
+            })
+        })
 
-        // ipcMain.on("extwinshow",(event,show: boolean) => extwin && extwin.setOpacity(show ? 1 : (sanhelper.devmode ? 0.5 : 0)))
+        ipcMain.on("extwinshow",(event,show: boolean) => extwin && extwin.setOpacity(show ? 1 : (sanhelper.devmode ? 0.5 : 0)))
         ipcMain.on("closeextwin",() => closewin("ext"))
 
         ipcMain.on("statwin", (event,value: boolean) => {
@@ -877,6 +877,7 @@ export const listeners = {
 
         const queue: WinType[] = []
         const runningmap = new Map<number,BrowserWindow | Notification>()
+        const posmap = new Map<"topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright",{ y: number; items: { id: number, win: BrowserWindow, bounds: { width: number, height: number, x: number, y: number } }[] }>()
 
         const gameartobj: GameArtObj = {
             icon: "../img/gameicon.png",
@@ -884,7 +885,7 @@ export const listeners = {
             logo: "../img/gameicon.png"
         }
 
-        ipcMain.on("notify", async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null,monitorid?: number) => {
+        ipcMain.on("notify",async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null,monitorid?: number) => {
             const config = sanconfig.get()
             
             if (config.get("soundonly")) {
@@ -1088,11 +1089,11 @@ export const listeners = {
         }
 
         const notifywins = new Map<number,BrowserWindow | Notification | null>()
-        // const offscreenwins = new Map<number,BrowserWindow | null>()
+        const offscreenwins = new Map<number,BrowserWindow | null>()
 
         const checkifrunning = (info: BuildNotifyInfo,monitorid?: number): any => {
             const i = queue.findIndex(obj => obj.notify.id === info.id)
-            if (runningmap.size > (sanconfig.get().store.maxnotify - 1) || queue[i].order !== 0) return setTimeout(() => checkifrunning(info,monitorid),1000)
+            if (runningmap.size > (sanconfig.get().store.notifymax - 1) || queue[i].order !== 0) return setTimeout(() => checkifrunning(info,monitorid),1000)
 
             if (!queue[i].notify.istestnotification) {
                 replay = { queueobj: queue[i], src: monitorid }
@@ -1135,40 +1136,40 @@ export const listeners = {
                 notifywins.get(notify.id)!.show()
             } else {
                 notifywins.set(notify.id,new BrowserWindow(options))
-                // offscreenwins.set(notify.id,!extwin ? null : new BrowserWindow({
-                //     ...options,
-                //     title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
-                //     x: 0,
-                //     y: 0,
-                //     show: false,
-                //     webPreferences: {
-                //         nodeIntegration: true,
-                //         contextIsolation: false,
-                //         backgroundThrottling: false,
-                //         offscreen: true
-                //     }
-                // }))
+                offscreenwins.set(notify.id,!extwin ? null : new BrowserWindow({
+                    ...options,
+                    title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
+                    x: 0,
+                    y: 0,
+                    show: false,
+                    webPreferences: {
+                        nodeIntegration: true,
+                        contextIsolation: false,
+                        backgroundThrottling: false,
+                        offscreen: true
+                    }
+                }))
 
-                // offscreenwins.get(notify.id)?.webContents.setFrameRate(config.get("extwinframerate"))
+                offscreenwins.get(notify.id)?.webContents.setFrameRate(config.get("extwinframerate"))
             }
 
             if (notifywins.get(notify.id)! instanceof BrowserWindow) {
                 const basehtml = config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles","notify","base.html") : path.join(__root,"notify","base.html")
                 const notifywin = notifywins.get(notify.id)! as BrowserWindow
-                // const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow
+                const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow
 
                 notifywin.loadFile(basehtml)
                 config.get("screenshots") !== "off" && config.get("ssdelay") > 0 && notifywin.setContentProtection(true)
                 notifywin.setIgnoreMouseEvents(true)
                 notifywin.setAlwaysOnTop(true,"screen-saver",1000)
 
-                // if (extwin && offscreenwin instanceof BrowserWindow) {
-                //     offscreenwin.loadFile(basehtml)
-                //     offscreenwin.setIgnoreMouseEvents(true)
+                if (extwin && offscreenwin instanceof BrowserWindow) {
+                    offscreenwin.loadFile(basehtml)
+                    offscreenwin.setIgnoreMouseEvents(true)
 
-                //     // Send img data to offscreen window if `extwin` is active
-                //     offscreenwin.webContents.on("paint",(event,_,img) => extwin && extwin.webContents.send("imgdata",img.toDataURL()))
-                // }
+                    // Send img data to offscreen window if `extwin` is active
+                    offscreenwin.webContents.on("paint",(event,_,img) => extwin && extwin.webContents.send("imgdata",img.toDataURL()))
+                }
 
                 const notifyinfo = async (isextwin?: boolean) => {
                     const { audiosrc, ssalldetails, screenshots } = config.store
@@ -1196,14 +1197,17 @@ export const listeners = {
                 }
 
                 notifywin.once("ready-to-show", async () => {
-                    (notifywin as BrowserWindow).webContents.send("notify",await notifyinfo(),notify.id)
+                    const info = await notifyinfo()
+                    
+                    config.get("notifymax") > 1 && info.customisation.preset !== "os" && audio.playhighestpriority(info,info.info.type) // Play the audio for the highest priority notification
+                    ;(notifywin as BrowserWindow).webContents.send("notify",info,notify.id)
 
-                    // if (extwin) {
-                    //     extwin.webContents.send("notify")
+                    if (extwin) {
+                        extwin.webContents.send("notify")
 
-                    //     if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notify" ipc event`)
-                    //     offscreenwin.webContents.send("notify",await notifyinfo(true))
-                    // }
+                        if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notify" ipc event`)
+                        offscreenwin.webContents.send("notify",await notifyinfo(true))
+                    }
                 })
     
                 config.get("notifydebug") && sanhelper.setdevtools(notifywin)
@@ -1238,16 +1242,39 @@ export const listeners = {
                         const bounds = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,isextwin ? "extwin" : undefined,notify.customisation) as { width: number, height: number, x: number, y: number }
                         log.write("INFO",msg)
 
+                        if (config.store.notifymax > 1) {
+                            const { pos } = notify.customisation
+                            const top = pos.startsWith("top")
+
+                            let stack = posmap.get(pos)
+                            
+                            if (!stack) {
+                                stack = { y: bounds.y, items: [] }
+                                posmap.set(pos,stack)
+                            }
+
+                            let offset = 0
+
+                            for (const i of stack.items) {
+                                offset += i.bounds.height + config.store.notifyspace
+                            }
+                            
+                            bounds.y = top ? stack.y + offset : stack.y - offset
+
+                            stack.items.push({ id: notify.id, win: notifywin, bounds })
+                            posmap.set(pos,stack)
+                        }
+
                         shownotify(win,bounds,isextwin)
                     }
                     
                     preparewin(notifywin as BrowserWindow)
-                    // extwin && [(offscreenwin as BrowserWindow),extwin].forEach(win => preparewin(win,true))
+                    extwin && [(offscreenwin as BrowserWindow),extwin].forEach(win => preparewin(win,true))
                 })
             }
 
             const notifywin = notifywins.get(notify.id)! as BrowserWindow
-            // const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow 
+            const offscreenwin = offscreenwins.get(notify.id)! as BrowserWindow 
 
             (config.get("audiosrc") === "app" || notifywin instanceof Notification && config.get("audiosrc") !== "off") && win.webContents.send("appaudio",notify.type)
 
@@ -1256,20 +1283,16 @@ export const listeners = {
             // Sends event to `createsswin()` to build screenshot for `notify.id`
             ipcMain.emit(`${notify.id}`)
 
-            // Creates "notifyimg" file on notification spawn, as it doesn't have to wait for screenshots to be generated
-            // config.get("screenshots") === "notifyimg" && createsswin("img",notify)
-            // config.get("screenshots") === "notifyimg" && screenshots.createsswin("img",notify)
-
             win.webContents.send("notifyprogress",notify.customisation.displaytime)
             log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)
 
             const notifyfinished = (id: number) => {
                 notify.id === id && (notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished",id) : ipcMain.emit("notifyfinished",id))
                 
-                // if (extwin) {
-                //     if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
-                //     offscreenwin.webContents.send("notifyfinished",id)
-                // }
+                if (extwin) {
+                    if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
+                    offscreenwin.webContents.send("notifyfinished",id)
+                }
             }
 
             // "animend" is received from `base.ts`, rather than controlled from here via Timeout
@@ -1282,7 +1305,7 @@ export const listeners = {
         ipcMain.on("notifyfinished",async (event,id: number) => {
             const notify = { id: Array.from(notifywins.keys()).find(key => key === id) }
             const notifywin = notifywins.get(id)
-            // const offscreenwin = offscreenwins.get(id)
+            const offscreenwin = offscreenwins.get(id)
             
             if (!notify.id || notify.id !== id || !notifywin) return
 
@@ -1293,14 +1316,14 @@ export const listeners = {
                     notifywin && notifywin.close()
                     notify.id && notifywins.delete(notify.id)
 
-                    // if (extwin) {
-                    //     extwin.webContents.send("notifyfinished",id)
+                    if (extwin) {
+                        extwin.webContents.send("notifyfinished",id)
 
-                    //     if (!offscreenwin) log.write("WARN",`"offscreenwin" not found - cannot close window`)
+                        if (!offscreenwin) log.write("WARN",`"offscreenwin" not found - cannot close window`)
 
-                    //     offscreenwin && offscreenwin.close()
-                    //     notify.id && offscreenwins.delete(notify.id)
-                    // }
+                        offscreenwin && offscreenwin.close()
+                        notify.id && offscreenwins.delete(notify.id)
+                    }
 
                     resolve(`Notification window for ID ${id} closed successfully`)
                 })
@@ -1308,12 +1331,42 @@ export const listeners = {
                 log.write("INFO",msg)
                 runningmap.delete(id)
 
+                for (const [pos,stack] of posmap.entries()) {
+                    const stackcopy = stack.items
+                    const i = stack.items.findIndex(item => item.id === id)
+                    if (i === -1) continue
+
+                    stack.items.splice(i,1)
+
+                    if (!stack.items.length) {
+                        posmap.delete(pos)
+                        continue
+                    }
+
+                    const top = pos.startsWith("top")
+
+                    let offset = 0
+
+                    for (const item of stackcopy) {
+                        const bounds = { ...item.bounds }
+                        bounds.y = top ? stack.y + offset : stack.y - offset
+
+                        setTimeout(() => { try { item.win.setBounds(bounds,true) } catch {} },50) // `try/catch` prevents "Object has been destroyed" error
+
+                        item.bounds = bounds
+
+                        offset += bounds.height + sanconfig.get().store.notifyspace
+                    }
+
+                    stack.items = stackcopy
+                    posmap.set(pos,stack)
+                }
+
                 win.webContents.send("queue",queue)
             } catch (err) {
                 log.write("ERROR",`Error closing notification window for ${id}: ${err}`)
             } finally {
                 win.webContents.send("notifyprogress",0,true)
-                // setTimeout(() => notify.id && removesrcimg(notify.id),2000)
             }
         })
 
@@ -1322,15 +1375,15 @@ export const listeners = {
             let catcherr: Error | null = null
 
             const notifywin = id ? notifywins.get(id) : null
-            // const offscreenwin = id ? offscreenwins.get(id) : null
+            const offscreenwin = id ? offscreenwins.get(id) : null
             if (!id || !notifywin) return log.write("ERROR",`No ${!id ? "ID" : `window for ID ${id}`} found`)
             
             try {
                 notifywin && (notifywin instanceof BrowserWindow ? notifywin.destroy() : notifywin.close()) // Destroys/closes the window
                 notifywins.delete(id)
     
-                // offscreenwin && offscreenwin.destroy() // Destroys/closes the window
-                // offscreenwins.delete(id)
+                offscreenwin && offscreenwin.destroy() // Destroys/closes the window
+                offscreenwins.delete(id)
 
                 // Emit dummy events to trigger `.once()` listeners, which removes them for subsequent notifications
                 // Note: "notifyready" event cannot be triggered here, as it causes an error which prevents subsequent notifications from displaying
@@ -1339,7 +1392,6 @@ export const listeners = {
                 id && runningmap.delete(id)
     
                 win.webContents.send("notifyprogress",0,true) // Resets UI progress circle
-                // id && removesrcimg(id) // Removes any corresponding screenshots from `temp`            
             } catch (err) {
                 success = false
                 catcherr = err as Error

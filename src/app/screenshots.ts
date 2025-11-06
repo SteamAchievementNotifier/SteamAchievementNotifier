@@ -98,7 +98,24 @@ export const screenshot = {
     configuresrc: async (notify: Notify,monitorid?: number) => {
         try {
             const config = sanconfig.get()
-            if (config.get("screenshots") !== "overlay") return
+            const screenshots = config.get("screenshots")
+
+            const sswinsobj = {
+                win: null,
+                src: monitorid || -1,
+                timer: null,
+                windowtitle: null,
+                haswarned: false
+            }
+
+            if (screenshots !== "overlay") {
+                if (screenshots === "notifyimg") {
+                    sswins.set(notify.id,sswinsobj)
+                    screenshot.createsswin("img",notify)
+                }
+                
+                return
+            }
 
             sswins.has(notify.id) && sswins.delete(notify.id)
 
@@ -110,13 +127,7 @@ export const screenshot = {
             // Wait to receive global vars from `listeners.ts`
             const [win, worker, appid] = await Promise.all((["win","worker","appid"] as const).map(lv => screenshot.getlistenersvar(lv))) as [BrowserWindow,BrowserWindow,number]
 
-            sswins.set(notify.id,{
-                win: null,
-                src: -1,
-                timer: null,
-                windowtitle: null,
-                haswarned: false
-            })
+            sswins.set(notify.id,sswinsobj)
 
             const sswin = sswins.get(notify.id)!
 
@@ -214,7 +225,7 @@ export const screenshot = {
     createsswin: async (type: "ss" | "img",notify: Notify,ispreview?: boolean) => {
         try {
             const config = sanconfig.get()
-            const sswintype = `${type === "ss" ? "Screenshot" : "Notification Image"} Window`
+            const sswintype = `${type === "ss" ? "Screenshot" : "Notification Image"}${ispreview ? " Preview" : ""} Window`
             
             // Screenshots are disabled in `ipcMain.on("notify")` event and shouldn't reach here anyway, but added as a logical fallback
             if (!config.get(`customisation.${notify.type}.ssenabled`)) return log.write("INFO",`${type === "ss" ? "Screenshots" : "Notification Images"} disabled for "${notify.type}" type`)
@@ -326,7 +337,7 @@ export const screenshot = {
                         !fs.existsSync(ssimg) && fs.mkdirSync(ssdir,{ recursive: true })
                         fs.writeFileSync(ssimg,img.toPNG())
 
-                        log.write("INFO",`Screenshot written to "${ssimg}" successfully`)
+                        log.write("INFO",`${sswintype.replace(" Window","")} written to "${ssimg}" successfully`)
                     } catch (err) {
                         log.write("ERROR",`Error capturing screenshot for "${info.apiname}": ${err as Error}`)
                     }
@@ -378,7 +389,7 @@ export const screenshot = {
             sswin.win.loadFile(path.join(__root,"dist","app",`${type}win.html`))
             sanhelper.devmode && sanhelper.setdevtools(sswin.win)
 
-            sswin.win.once("closed", () => log.write("INFO",`"${type === "ss" ? "Screenshot" : "Notification Image"} ${ispreview ? "Preview" : "Window"}" for ID ${notify.id} closed`))
+            sswin.win.once("closed", () => log.write("INFO",`${sswintype} for ID ${notify.id} closed`))
         } catch (err) {
             log.write("ERROR",err as Error)
             screenshot.clearsswin(notify.id)
@@ -397,8 +408,11 @@ export const screenshot = {
 
         try {
             const srcimg = screenshot.srcpath(id)
-            fs.existsSync(srcimg) && fs.rmSync(srcimg,{ force: true })
-            log.write("INFO",`"src" image for ID ${id} deleted successfully`)
+            
+            if (fs.existsSync(srcimg)) {
+                fs.rmSync(srcimg,{ force: true })
+                log.write("INFO",`"src" image for ID ${id} deleted successfully`)
+            }
         } catch (err) {
             log.write("ERROR",`Unable to delete "src" image for ID ${id}: ${err as Error}`)
         }

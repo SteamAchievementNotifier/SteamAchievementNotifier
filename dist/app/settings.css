@@ -183,7 +183,8 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .opt:has(#steamlang:not(:checked)) + .wrapper:has(#maxsteamlangretries),
 .opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow),
 .opt:has(#statwin:not(:checked)) + .wrapper:has(#statwinaot),
-.opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime) {
+.opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime),
+.opt:has(#notifymax)[value="1"] + .wrapper:has(#notifyspace) {
     display: none;
 }
 

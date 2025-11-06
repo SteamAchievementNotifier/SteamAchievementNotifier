@@ -223,7 +223,8 @@ export const translations = {
                 customtriggerdelay: "Trigger Delay",
                 customtriggerusedisplaytime: "Use Display Time",
                 trophymode: "Trophy Mode",
-                maxnotify: "Max Notifications"
+                notifymax: "Max Notifications",
+                notifyspace: "Notification Spacing"
             }
         },
         games: {
@@ -304,6 +305,7 @@ export const translations = {
                 exportachdata: "Export Achievement Data",
                 uselegacynotifytimer: "Use Legacy Notification Timer",
                 lognum: "Previous Log Files",
+                audiocooldown: "Audio Cooldown",
                 usecustomfiles: "Use Custom App Files",
                 showcustomfiles: "Show Custom App Files"
             }
@@ -799,7 +801,9 @@ export const translations = {
         lognum: `The number of previous log files stored before deletion. A new log file will be generated upon each app launch<br><br><span class="ttdesc">When set to 0, all previous log files will be deleted upon exit</span>`,
         detectedappid: `Use the <span class="hl">AppID</span> of the currently-detected game`,
         listmode: `Set the behaviour of the <span class="hl">Exclusion</span>/<span class="hl">Inclusion List</span><br><br><span class="ttdesc">• <span class="hl">Exclusion</span>: Only ignore games specified in the list<br>• <span class="hl">Inclusion</span>: Ignore all games except those specified in the list</span>`,
-        maxnotify: "Max number of on-screen notifications"
+        notifymax: `Set the maximum number of simultaneous on-screen notifications<br><br><span class="ttdesc">Increasing the number of simultaneous on-screen notifications requires more resources and may result in reduced performance</span>`,
+        notifyspace: "Set the distance between simultaneous on-screen notifications",
+        audiocooldown: `Set the amount of time subsequent notifications wait before new audio can be played<br><br><span class="ttdesc">Audio will be unaffected if Max Notifications is set to 1</span>`
     },
     update: {
         updateavailable: "Update available",

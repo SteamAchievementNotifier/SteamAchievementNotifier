@@ -136,7 +136,9 @@ declare interface Config {
     customtriggerusedisplaytime: boolean,
     trophymode: boolean,
     lognum: number,
-    maxnotify: number,
+    notifymax: number,
+    notifyspace: number,
+    audiocooldown: number,
     customisation: {
         main: Customisation,
         semi: Customisation,

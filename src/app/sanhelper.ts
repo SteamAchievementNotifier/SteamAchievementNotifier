@@ -584,7 +584,7 @@ export const sanhelper: SANHelper = {
             }
         }
 
-        if (elem.hasAttribute("unit")) {
+        if (elem.hasAttribute("unit") || elem.id === "notifymax") {
             elem.parentElement!.setAttribute("value",elem.id === "glowspeed" ? `${parseInt(elem.value) * 0.2}` : elem.value)
             elem.oninput = ({ target }: Event) => (elem as HTMLInputElement).parentElement!.setAttribute("value",(target as HTMLInputElement).id === "glowspeed" ? `${parseInt((target as HTMLInputElement).value) * 0.2}` : (target as HTMLInputElement).value)
         }
@@ -804,7 +804,9 @@ export const sanhelper: SANHelper = {
             ["extwinframerate","FPS"],
             ["customtriggerdelay","s"],
             ["lognum",""],
-            ["maxnotify",""]
+            ["notifymax",""],
+            ["notifyspace","px"],
+            ["audiocooldown","ms"]
         ])
 
         const wideelems = [

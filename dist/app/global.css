@@ -590,7 +590,7 @@ td:last-child,
 .opt:has(input[type="text"] + .sub) > input[type="text"],
 .opt:has(input[type="range"] + .sub) > input[type="range"],
 .opt:has(input[unit="percent"] + .sub) > .sub,
-input[type="range"][unit],
+input[type="range"][unit]:not(#notifyspace),
 .opt:has(input[type="checkbox"] + .opt) > .opt,
 .optbtn {
     grid-column: 1 / -1;

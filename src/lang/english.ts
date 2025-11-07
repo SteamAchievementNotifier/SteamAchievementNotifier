@@ -20,6 +20,7 @@ export const translations = {
         save: "Save",
         back: "Back",
         edit: "Edit",
+        lockedby: "Locked by $lock",
         settings: "Settings",
         appversion: "App Version",
         image: "Image",

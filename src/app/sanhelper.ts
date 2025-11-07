@@ -520,12 +520,14 @@ export const sanhelper: SANHelper = {
         // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
         if (skipelems.find(id => elem.id === id)) return
 
-        elem.value = key.toString()
+        elem.value = elem.id === "scale" && config.get("notifymax") > 1 ? `${config.get(`customisation.main.${elem.id}`)}` : key.toString()
 
         if (elem instanceof HTMLInputElement && elem.type === "color") return elem.onclick = event => event.preventDefault()
 
         elem.onchange = ({ target }: Event) => {
-            config.set((keypath ? `${keypath}.` : "") + elem.id, (target instanceof HTMLInputElement && (target.type === "range" || target.type === "number")) ? parseFloat(target.value) : (typeof key === "number" ? parseInt(selectinputtype(target!)) : selectinputtype(target!)))
+            const scalelock = elem.id === "scale" && config.get("notifymax") > 1 // Locks all notification types to the same scaling if Max Notifications > 1
+            
+            config.set(`${scalelock ? `customisation.main.` : (keypath ? `${keypath}.` : "")}${elem.id}`,(target instanceof HTMLInputElement && (!scalelock && (target.type === "range" || target.type === "number"))) ? parseFloat(target.value) : ((scalelock || typeof key === "number") ? parseInt(selectinputtype(target!)) : selectinputtype(target!)))
             sanhelper.updatetabs(noreload(elem) !== undefined)
 
             if (elem.id === "lang") {
@@ -541,8 +543,7 @@ export const sanhelper: SANHelper = {
             elem.id === "audiosrc" && sanhelper.audiosrc(config.get("audiosrc"))
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
             elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
-            // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
-            elem.id === "rauser" && ipcRenderer.emit("ra")
+            elem.id === "rauser" && ipcRenderer.emit("ra") // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
             
             // Updates labels and tooltips for percentage-based options while Customiser is open
             // Also ensures Silver Percentage value is always reset to be above the Rare Percentage value on change

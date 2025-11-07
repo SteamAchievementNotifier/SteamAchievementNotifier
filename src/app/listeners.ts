@@ -885,7 +885,7 @@ export const listeners = {
 
         const queue: WinType[] = []
         const runningmap = new Map<number,BrowserWindow | Notification>()
-        const posmap = new Map<"topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright",{ y: number; items: { id: number, win: BrowserWindow, bounds: { width: number, height: number, x: number, y: number } }[] }>()
+        const posmap = new Map<"topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright",{ y: number, items: { id: number, win: BrowserWindow, bounds: { width: number, height: number, x: number, y: number }, type: NotifyType }[] }>()
 
         const gameartobj: GameArtObj = {
             icon: "../img/gameicon.png",
@@ -1261,6 +1261,7 @@ export const listeners = {
                         const bounds = setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,isextwin ? "extwin" : undefined,notify.customisation) as { width: number, height: number, x: number, y: number }
                         log.write("INFO",msg)
 
+                        // Stack/offset notifications with the same `customisation.pos` value
                         if (config.store.notifymax > 1) {
                             const { pos } = notify.customisation
                             const top = pos.startsWith("top")
@@ -1274,13 +1275,15 @@ export const listeners = {
 
                             let offset = 0
 
-                            for (const i of stack.items) {
-                                offset += i.bounds.height + config.store.notifyspace
+                            const { notifyspace, customisation } = config.store
+                            
+                            for (const item of stack.items) {
+                                offset += item.bounds.height + Math.round(notifyspace * (customisation[item.type].scale / 100))
                             }
                             
                             bounds.y = top ? stack.y + offset : stack.y - offset
 
-                            stack.items.push({ id: notify.id, win: notifywin, bounds })
+                            stack.items.push({ id: notify.id, win: notifywin, bounds, type: notify.type })
                             posmap.set(pos,stack)
                         }
 
@@ -1350,6 +1353,7 @@ export const listeners = {
                 log.write("INFO",msg)
                 runningmap.delete(id)
 
+                // Reposition and re-offset remaining notifications
                 for (const [pos,stack] of posmap.entries()) {
                     const stackcopy = stack.items
                     const i = stack.items.findIndex(item => item.id === id)
@@ -1366,6 +1370,9 @@ export const listeners = {
 
                     let offset = 0
 
+                    const config = sanconfig.get()
+                    const { notifyspace, customisation } = config.store
+
                     for (const item of stackcopy) {
                         const bounds = { ...item.bounds }
                         bounds.y = top ? stack.y + offset : stack.y - offset
@@ -1374,7 +1381,7 @@ export const listeners = {
 
                         item.bounds = bounds
 
-                        offset += bounds.height + sanconfig.get().store.notifyspace
+                        offset += bounds.height + Math.round(notifyspace * (customisation[item.type].scale / 100))
                     }
 
                     stack.items = stackcopy
@@ -1406,7 +1413,7 @@ export const listeners = {
 
                 // Emit dummy events to trigger `.once()` listeners, which removes them for subsequent notifications
                 // Note: "notifyready" event cannot be triggered here, as it causes an error which prevents subsequent notifications from displaying
-                ;["notifyfinished","animend"].forEach(event => ipcMain.emit(event,id))
+                ;["notifyfinished","animend"].forEach(event => ipcMain.emit(event,null,id))
                 
                 id && runningmap.delete(id)
     

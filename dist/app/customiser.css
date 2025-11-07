@@ -667,6 +667,23 @@ body[themeswitch] #customiser .cont:has(.title) > .wrapper,
     pointer-events: none;
 }
 
+div.lockedlbl {
+    display: none;
+    grid-column: 1 / -1;
+    margin-top: 0.25rem;
+    font-size: 0.65rem;
+    text-align: center;
+}
+
+.opt[locked] > div.lockedlbl {
+    display: block;
+}
+
+div.lockedlbl::before {
+    content: "* ";
+    color: red;
+}
+
 @media (orientation: portrait) or (width < 400px) {
     .wrapper#customiser {
         grid-template-columns: 1fr;

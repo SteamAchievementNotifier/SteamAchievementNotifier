@@ -454,6 +454,10 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
 
         sanhelper.trophymode(config.get("trophymode"),config,true)
         customiser.querySelector("#customisertablbl > span")!.textContent = await language.get((config.get("trophymode") ? "trophy" : "") + type)
+
+        const scaleelem = customiser.querySelector("#customiser .opt:has(#scale)")!
+        scaleelem.querySelector(".lockedlbl")!.textContent = `${(await language.get("lockedby")).replace("$lock",await language.get("notifymax",["settings","notifications","content"]))}`
+        scaleelem.toggleAttribute("locked",config.get("notifymax") > 1)
         
         customiser.querySelectorAll(`#customisercontent .opt > input[type="checkbox"]`).forEach(elem => sanhelper.getcheckbox(config,elem,keypath))
         customiser.querySelectorAll(`#customisercontent .opt:has(input[type="checkbox"]) > span, #customisercontent .opt > input[type="checkbox"]`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,keypath))

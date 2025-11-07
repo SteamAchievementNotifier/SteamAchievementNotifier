@@ -664,7 +664,7 @@ export const listeners = {
                 minHeight: type === "ext" ? 50 : 300
             }
 
-            const wintitle = type === "ext" ? "Stream Notification" : "Achievement Stats Overlay"
+            const wintitle = type === "ext" ? "Stream Notifications" : "Achievement Stats Overlay"
 
             const win = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): ${wintitle}`,
@@ -734,13 +734,21 @@ export const listeners = {
         }
 
         const setwinclosevalue = (config: Store<Config>,type: "ext" | "stat",reopenonlaunch: boolean) => {
-            log.write("EXIT",`"${type === "ext" ? "Stream Notification" : "Achievement Stats Overlay"}" window ${reopenonlaunch ? "destroyed" : "closed"}.`)
+            log.write("EXIT",`${type === "ext" ? "Stream Notifications" : "Achievement Stats Overlay"} Window ${reopenonlaunch ? "destroyed" : "closed"}.`)
             config.set(`${type}win`,reopenonlaunch)
             ipcMain.emit("configupdated",null,config.store)
         }
 
-        ipcMain.on("extwin", (event,value: boolean) => {
+        ipcMain.on("extwin",(event,value: boolean) => {
             const config = sanconfig.get()
+            const { notifymax } = config.store
+            
+            if (value && notifymax > 1) {
+                log.write("WARN",`Max notifications currently set to ${notifymax}, and Stream Notifications does not support more than 1 notification at a time. Resetting to 1...`)
+                config.set("notifymax",1)
+            }
+
+            win.webContents.send("notifymax",value)
 
             // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
             let reopenonlaunch = true
@@ -1136,6 +1144,13 @@ export const listeners = {
                 notifywins.get(notify.id)!.show()
             } else {
                 notifywins.set(notify.id,new BrowserWindow(options))
+
+                for (const [id,offscreenwin] of offscreenwins) {
+                    offscreenwin && offscreenwin.destroy()
+                }
+
+                offscreenwins.clear() // For now, make sure only one `offscreenwin` exists at a time
+
                 offscreenwins.set(notify.id,!extwin ? null : new BrowserWindow({
                     ...options,
                     title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
@@ -1205,7 +1220,11 @@ export const listeners = {
                     if (extwin) {
                         extwin.webContents.send("notify")
 
-                        if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notify" ipc event`)
+                        if (!offscreenwin) {
+                            log.write("WARN",`"offscreenwin" not found - cannot send "notify" ipc event`)
+                            return offscreenwins.clear()
+                        }
+
                         offscreenwin.webContents.send("notify",await notifyinfo(true))
                     }
                 })
@@ -1287,7 +1306,7 @@ export const listeners = {
             log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)
 
             const notifyfinished = (id: number) => {
-                notify.id === id && (notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished",id) : ipcMain.emit("notifyfinished",id))
+                notify.id === id && (notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished",id) : ipcMain.emit("notifyfinished",null,id))
                 
                 if (extwin) {
                     if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
@@ -1298,7 +1317,7 @@ export const listeners = {
             // "animend" is received from `base.ts`, rather than controlled from here via Timeout
             // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
             // When the "Native OS" preset is selected, the legacy `setTimeout()` will be used instead
-            ;customisation.preset === "os" ? setTimeout(() => notifyfinished(notify.id),customisation.displaytime * 1000) : ipcMain.on("animend",(event,id: number) => notifyfinished(id))
+            ;customisation.preset === "os" ? setTimeout(() => { try { notifyfinished(notify.id) } catch {} },customisation.displaytime * 1000) : ipcMain.on("animend",(event,id: number) => { try { notifyfinished(id) } catch {} })
         }
 
         // Closes the notification

@@ -9,7 +9,8 @@ body[active] #settingscontent > .cont:has(.title#notifications) > .optcont > .op
 body[active] #settingscontent > .cont:has(.title#advanced) > .optcont > .opt:has(#pollrate,#maxretries,#userust),
 dialog[menu] #settingscontent > .cont:has(.title#media) > .optcont:has(#ovmatch:checked) > .opt:has(select#ovpos),
 body[beta] button#checkforupdates,
-#settingscontent > .cont:has(.title#notifications) > .optcont:has(#customtriggerusedisplaytime:checked) > .opt:has(#customtriggerdelay) {
+#settingscontent > .cont:has(.title#notifications) > .optcont:has(#customtriggerusedisplaytime:checked) > .opt:has(#customtriggerdelay),
+#settingscontent > .cont:has(.title#notifications) .opt:has(#notifymax)[extwin] {
     opacity: 0.5;
     pointer-events: none;
 }

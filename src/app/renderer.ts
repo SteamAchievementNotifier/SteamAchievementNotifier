@@ -418,6 +418,7 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
                 log.write("ERROR",`Unable to clear "ralastachievement": ${err}`)
             }
         }
+        settingscontent.querySelector(".opt:has(#notifymax)")!.toggleAttribute("extwin",config.get("extwin"))
 
         const { elemselector } = await import("./elemselector")
         elemselector(settingscontent.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
@@ -1103,4 +1104,12 @@ ipcRenderer.on("ragame",async (event,status: "wait" | "idle" | "start" | "stop" 
 ipcRenderer.on("allowreplay",(event,replay: WinType | null) => {
     document.body.toggleAttribute("allowreplay",replay !== null)
     replay && window.dispatchEvent(new CustomEvent("lang"))
+})
+
+ipcRenderer.on("notifymax",(event,value: boolean) => {
+    const settings = document.querySelector("dialog > #content > #settingscontent")
+    if (!settings) return
+
+    const notifymax = settings.querySelector(".opt:has(#notifymax)")
+    notifymax && notifymax.toggleAttribute("extwin",value)
 })

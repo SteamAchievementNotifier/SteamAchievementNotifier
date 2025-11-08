@@ -20,6 +20,7 @@ export const translations = {
         save: "บันทึก",
         back: "กลับ",
         edit: "แก้ไข",
+        lockedby: "ถูกล็อกโดย $lock",
         settings: "การตั้งค่า",
         appversion: "เวอร์ชันแอปพลิเคชัน",
         image: "ภาพ",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "ทางลัดทริกเกอร์",
                 customtriggerdelay: "ดีเลย์ทริกเกอร์",
                 customtriggerusedisplaytime: "ใช้เวลาการแสดงผล",
-                trophymode: "โหมดถ้วยรางวัล"
+                trophymode: "โหมดถ้วยรางวัล",
+                notifymax: "จำนวนการแจ้งเตือนสูงสุด", 
+                notifyspace: "ระยะห่างระหว่างการแจ้งเตือน"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "เกมที่เชื่อมโยง",
                 themeswitch: "เปลี่ยนธีมอัตโนมัติ",
-                exclusionlist: "รายการยกเว้น"
+                exclusionlist: "รายการยกเว้น",
+                inclusionlist: "รายชื่อที่รวมไว้",
+                listmode: "โหมดรายการ",
+                exclusion: "ไม่รวม",
+                inclusion: "รวม"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "โหมดการประมวลผลทางเลือก",
                 notifydebug: "แสดงการแจ้งเตือนในการดีบัก",
                 exportachdata: "ส่งออกข้อมูลความสำเร็จ",
-                uselegacynotifytimer: "ใช้ตัวจับเวลาแจ้งเตือนรุ่นเก่า",
+                lognum: "ไฟล์บันทึกก่อนหน้า", 
+                audiocooldown: "เวลาหน่วงเสียง",
                 usecustomfiles: "ใช้ไฟล์แอปพลิเคชันที่กำหนดเอง",
                 showcustomfiles: "แสดงไฟล์แอปพลิเคชันที่กำหนดเอง"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "ไฟล์บันทึก",
                 status: "สถานะ",
                 game: "เกม",
+                lastachievement: "ID ความสำเร็จล่าสุด",
                 wait: "รอสำหรับอีมูเลเตอร์",
                 idle: "รอเหตุการณ์ในเกม",
                 start: "เริ่มเกม",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `ตรวจสอบว่าได้มีการปล่อยเวอร์ชันใหม่ของแอปบน GitHub หรือไม่ หากมีการอัปเดตให้ดาวน์โหลดและติดตั้งโดยอัตโนมัติเมื่อได้รับการยืนยันผ่านกล่องโต้ตอบ <span class="hl">อัปเดตที่มีอยู่</span>`,
         linkedgames: `หลีกเลี่ยง <span class="hl">การติดตามกระบวนการอัตโนมัติ</span> สำหรับเกม Steam ที่เฉพาะเจาะจง<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในสถานการณ์ที่เฉพาะเจาะจงมากๆ เราไม่ควรจะต้องใช้ตัวเลือกนี้ในสถานการณ์ปกติ!</span>`,
         exclusionlist: `ป้องกันไม่ให้แอปติดตามความสำเร็จในเกม Steam ที่ระบุไว้<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในสถานการณ์ที่เฉพาะเจาะจงมากๆ เราไม่ควรจะต้องใช้ตัวเลือกนี้ในสถานการณ์ปกติ!</span>`,
+        inclusionlist: `ป้องกันไม่ให้เกม Steam ทั้งหมดถูกติดตามโดยแอป เว้นแต่จะระบุไว้<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในกรณีเฉพาะเท่านั้น ผู้ใช้ทั่วไปไม่จำเป็นต้องใช้ตัวเลือกนี้ในสถานการณ์ปกติ!</span>`,
         ovx: "เลื่อนการแจ้งเตือนที่แสดงในภาพหน้าจอตามแนวนอน",
         ovy: "เลื่อนการแจ้งเตือนที่แสดงในภาพหน้าจอตามแนวตั้ง",
         importtheme: `นำเข้าการปรับแต่งผ่าน <span class="hl">ไฟล์ธีมที่สร้างโดยผู้ใช้</span>`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "เล่นซ้ำการแจ้งเตือนความสำเร็จล่าสุด",
         replaynotifyshortcut: "เล่นซ้ำการแจ้งเตือนความสำเร็จล่าสุดโดยใช้ทางลัดที่ระบุ",
         replaynotifyempty: `<br><br><span class="ttdesc">คิวการเล่นซ้ำว่างเปล่า ปลดล็อกความสำเร็จเพื่อเล่นซ้ำการแจ้งเตือน</span>`,
-        uselegacynotifytimer: `ซ่อนการแจ้งเตือนโดยใช้ตัวจับเวลาแบบคงที่นอกหน้าต่างการแจ้งเตือน<br><br><span class="ttdesc">การเปิดใช้งานตัวเลือกนี้อาจทำให้การแสดงผลอนิเมชันการแจ้งเตือนไม่สมบูรณ์</span>`,
         customtrigger: "ทริกเกอร์การจำลองกดปุ่ม/ชุดปุ่มเมื่อปลดล็อกความสำเร็จ สามารถใช้เพื่อเรียกทางลัดแป้นพิมพ์ที่ลงทะเบียนในแอปพลิเคชันภายนอก",
         customtriggershortcut: `ทริกเกอร์ปุ่ม/ชุดปุ่มที่กำหนดไว้เมื่อปลดล็อกความสำเร็จ<br><br><span class="ttdesc">รองรับ 1-3 ปุ่มต่อทางลัด สำหรับการกดปุ่ม/ชุดปุ่มที่น้อยกว่า 3 ปุ่ม ให้กดปุ่มที่ต้องการแล้วรอให้ตัวจับเวลาหมด (5 วินาที)</span>`,
         customtriggerdelay: "หน่วงเวลาปุ่ม/ชุดปุ่มของทริกเกอร์กำหนดเองที่ระบุ",
         customtriggerusedisplaytime: `หน่วงเวลาปุ่ม/ชุดปุ่มของทริกเกอร์กำหนดเองที่ระบุโดยอิงตามค่าระยะเวลาการแสดงผลของประเภทการแจ้งเตือนปัจจุบัน`,
-        trophymode: "แทนที่ประเภทการแจ้งเตือน หลัก/หายาก/100% ด้วย บรอนซ์/เงิน/ทอง/แพลตินัม"
+        trophymode: "แทนที่ประเภทการแจ้งเตือน หลัก/หายาก/100% ด้วย บรอนซ์/เงิน/ทอง/แพลตินัม",
+        lognum: `จำนวนไฟล์บันทึกก่อนหน้าที่จัดเก็บไว้ก่อนลบ ไฟล์บันทึกใหม่จะถูกสร้างขึ้นทุกครั้งที่เปิดแอป<br><br><span class="ttdesc">เมื่อกำหนดค่าเป็น 0 ไฟล์บันทึกก่อนหน้าทั้งหมดจะถูกลบเมื่อออกจากแอป</span>`, 
+        detectedappid: `ใช้ <span class="hl">AppID</span> ของเกมที่ตรวจพบในขณะนี้`,
+        listmode: `ตั้งค่าพฤติกรรมของ <span class="hl">รายการไม่รวม</span>/<span class="hl">รายการที่รวมไว้</span><br><br><span class="ttdesc">• <span class="hl">ไม่รวม</span>: ข้ามเฉพาะเกมที่ระบุในรายการ<br>• <span class="hl">รวม</span>: ข้ามเกมทั้งหมด ยกเว้นเกมที่ระบุในรายการ</span>`,
+        notifymax: `ตั้งค่าจำนวนการแจ้งเตือนสูงสุดที่สามารถแสดงบนหน้าจอพร้อมกัน<br><br><span class="ttdesc">การเพิ่มจำนวนการแจ้งเตือนที่แสดงพร้อมกันจะใช้ทรัพยากรมากขึ้น และอาจทำให้ประสิทธิภาพลดลง</span>`,
+        notifyspace: "ตั้งค่าระยะห่างระหว่างการแจ้งเตือนที่แสดงพร้อมกันบนหน้าจอ",
+        audiocooldown: `ตั้งค่าระยะเวลาที่การแจ้งเตือนต่อไปจะต้องรอก่อนเล่นเสียงใหม่<br><br><span class="ttdesc">เสียงจะไม่ถูกจำกัดหากจำนวนการแจ้งเตือนสูงสุดตั้งค่าเป็น 1</span>`
     },
     update: {
         updateavailable: "มีการอัปเดตใหม่",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "แก้ไขการยกเว้น",
             exclusioneditsub: [
                 `แก้ไข <span class="hl">AppID</span> ที่มีอยู่ใน <span class="hl">รายการยกเว้น</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `เพิ่ม <span class="hl">AppID</span> ของเกม Steam ใดๆ ไปยัง <span class="hl">รายการที่รวมไว้</span>`,
+                `Steam Achievement Notifier จะพยายามติดตามข้อมูลความสำเร็จเฉพาะเกมที่มี <span class="hl">AppID</span> อยู่ใน <span class="hl">รายการที่รวมไว้</span>`,
+                `<span class="hl help" id="appidhelp"><u>ฉันจะหาค่า AppID ของเกม Steam ได้อย่างไร?</u></span>`
+            ],
+            inclusionnew: "เพิ่มรายการที่รวมใหม่",
+            inclusionnewsub: [
+                `ใส่ <span class="hl">AppID</span> เพื่อเพิ่มลงใน <span class="hl">รายการที่รวมไว้</span>`
+            ],
+            inclusionedit: "แก้ไขรายการที่รวม",
+            inclusioneditsub: [
+                `แก้ไข <span class="hl">AppID</span> ที่มีอยู่ใน <span class="hl">รายการที่รวมไว้</span>`
             ]
         }
     },

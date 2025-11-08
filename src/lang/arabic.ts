@@ -20,6 +20,7 @@ export const translations = {
         save: "حفظ",
         back: "رجوع",
         edit: "تحرير",
+        lockedby: "مقفل بواسطة $lock",
         settings: "الإعدادات",
         appversion: "إصدار التطبيق",
         image: "صورة",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "اختصار المُشغِّل",
                 customtriggerdelay: "تأخير المُشغِّل",
                 customtriggerusedisplaytime: "استخدم وقت العرض",
-                trophymode: "وضع الجوائز"
+                trophymode: "وضع الجوائز",
+                notifymax: "أقصى عدد للإشعارات",
+                notifyspace: "مسافة الإشعارات"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "الألعاب المرتبطة",
                 themeswitch: "التبديل التلقائي للثيمات",
-                exclusionlist: "قائمة الاستبعاد"
+                exclusionlist: "قائمة الاستبعاد",
+                inclusionlist: "قائمة الإدراج",
+                listmode: "وضع القائمة",
+                exclusion: "الاستبعاد",
+                inclusion: "الإدراج"
             }
         },
         media: {
@@ -295,9 +302,10 @@ export const translations = {
                 maxretries: "أقصى عدد لإعادة المحاولة",
                 debug: "لوحة التصحيح",
                 userust: "نمط المعالجة البديل",
-                uselegacynotifytimer: "استخدم مؤقت الإشعارات القديم",
                 notifydebug: "عرض إشعار أدوات التطوير",
                 exportachdata: "تصدير بيانات الإنجازات",
+                lognum: "ملفات السجل السابقة",
+                audiocooldown: "التأخير الصوتي",
                 usecustomfiles: "استخدام ملفات التطبيق المخصصة",
                 showcustomfiles: "عرض ملفات التطبيق المخصصة"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "ملف السجل",
                 status: "الحالة",
                 game: "اللعبة",
+                lastachievement: "آخر إنجاز. معرف",
                 wait: "انتظار المحاكي",
                 idle: "انتظار حدث اللعبة",
                 start: "بدء اللعبة",
@@ -336,7 +345,7 @@ export const translations = {
                 reset: "إعادة تعيين التطبيق"
             }
         }
-    },    
+    },
     customiser: {
         preset: {
             title: "الإعداد المسبق",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `تحقق مما إذا كان هناك إصدار تطبيق جديد قد تم إصداره على GitHub. إذا كان هناك تحديث متاح، سيتم تنزيله وتثبيته تلقائيًا بمجرد تأكيده عبر نافذة <span class="hl">تحديث متاح</span>`,
         linkedgames: `تخطي <span class="hl">تتبع العملية التلقائية</span> لألعاب Steam محددة<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط لحالات محددة جدًا. يجب ألا يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`,
         exclusionlist: `منع تتبع الإنجازات في ألعاب Steam محددة بواسطة التطبيق<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط لحالات محددة جدًا. يجب ألا يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`,
+        inclusionlist: `منع جميع ألعاب Steam من أن يتم تتبعها بواسطة التطبيق ما لم يتم تحديدها<br><br><span class="ttdesc">يجب استخدام هذا الخيار في سيناريوهات محددة للغاية. لا ينبغي للمستخدمين استخدام هذا الخيار في الظروف العادية!</span>`,
         ovx: "إزاحة الإشعار المعروض في لقطة الشاشة أفقيًا",
         ovy: "إزاحة الإشعار المعروض في لقطة الشاشة عموديًا",
         importtheme: `استيراد التخصيصات عبر <span class="hl">ملف سمة</span> أنشأه المستخدم`,
@@ -787,7 +797,13 @@ export const translations = {
         customtriggershortcut: `تشغيل المفتاح/المجموعة المحددة عند فتح إنجاز<br><br><span class="ttdesc">يدعم بين 1-3 مفاتيح لكل اختصار. للضغطات/المجموعات التي تتطلب أقل من 3 مفاتيح، اضغط على المفاتيح المطلوبة وانتظر حتى انتهاء المؤقت (5 ثوانٍ)</span>`,
         customtriggerdelay: "تأخير المفتاح/المجموعة المخصصة للمُشغِّل",
         customtriggerusedisplaytime: `تأخير المفتاح/المجموعة المخصصة للمُشغِّل بناءً على قيمة وقت العرض لنوع الإشعار الحالي`,
-        trophymode: "استبدال أنواع إشعارات الرئيسية/النادرة/100% بـ برونزي/فضي/ذهبي/بلاتيني"
+        trophymode: "استبدال أنواع إشعارات الرئيسية/النادرة/100% بـ برونزي/فضي/ذهبي/بلاتيني",
+        lognum: `عدد ملفات السجل السابقة المخزنة قبل الحذف. سيتم إنشاء ملف سجل جديد عند كل بدء تشغيل للتطبيق<br><br><span class="ttdesc">عند تعيينه إلى 0، سيتم حذف جميع ملفات السجل السابقة عند الخروج</span>`,
+        detectedappid: `استخدام <span class="hl">AppID</span> للعبة المكتشفة حاليًا`,
+        listmode: `تعيين سلوك <span class="hl">قائمة الاستبعاد</span>/<span class="hl">قائمة الإدراج</span><br><br><span class="ttdesc">• <span class="hl">الاستبعاد</span>: تجاهل فقط الألعاب المحددة في القائمة<br>• <span class="hl">الإدراج</span>: تجاهل جميع الألعاب باستثناء تلك المحددة في القائمة</span>`,
+        notifymax: `تعيين الحد الأقصى لعدد الإشعارات المتزامنة على الشاشة<br><br><span class="ttdesc">زيادة عدد الإشعارات المتزامنة على الشاشة يتطلب المزيد من الموارد وقد يؤدي إلى تقليل الأداء</span>`,
+        notifyspace: "تعيين المسافة بين الإشعارات المتزامنة على الشاشة",
+        audiocooldown: `تعيين مقدار الوقت الذي تنتظره الإشعارات التالية قبل أن يتم تشغيل صوت جديد<br><br><span class="ttdesc">لن يتأثر الصوت إذا تم تعيين عدد الإشعارات المتزامنة إلى 1</span>`
     },
     update: {
         updateavailable: "تحديث متاح",
@@ -833,6 +849,23 @@ export const translations = {
             exclusionedit: "تحرير الاستثناء",
             exclusioneditsub: [
                 `تحرير <span class="hl">AppID</span> الموجود في <span class="hl">قائمة الاستثناءات</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `أضف <span class="hl">AppID</span> لأي لعبة Steam إلى <span class="hl">قائمة الإدراج</span>`,
+                `سيحاول Steam Achievement Notifier تتبع بيانات الإنجازات فقط للألعاب التي تمت إضافة <span class="hl">AppID</span> الخاص بها إلى <span class="hl">قائمة الإدراج</span>`,
+                `<span class="hl help" id="appidhelp"><u>كيف يمكنني العثور على AppID الخاص بلعبة Steam؟</u></span>`
+            ],
+            inclusionnew: "إدراج جديد",
+            inclusionnewsub: [
+                `أدخل <span class="hl">AppID</span> لإضافته إلى <span class="hl">قائمة الإدراج</span>`
+            ],
+            inclusionedit: "تعديل الإدراج",
+            inclusioneditsub: [
+                `قم بتعديل <span class="hl">AppID</span> الموجود في <span class="hl">قائمة الإدراج</span>`
             ]
         }
     },

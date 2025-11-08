@@ -20,6 +20,7 @@ export const translations = {
         save: "Zapisz",
         back: "Wstecz",
         edit: "Edytuj",
+        lockedby: "Zablokowane przez $lock",
         settings: "Ustawienia",
         appversion: "Wersja aplikacji",
         image: "Obraz",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Skrót Wyzwalacza",
                 customtriggerdelay: "Opóźnienie Wyzwalacza",
                 customtriggerusedisplaytime: "Użyj Czasu Wyświetlania",
-                trophymode: "Tryb trofeów"
+                trophymode: "Tryb trofeów",
+                notifymax: "Maksymalna liczba powiadomień", 
+                notifyspace: "Odstęp między powiadomieniami"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Połączone gry",
                 themeswitch: "Automatyczna zmiana motywów",
-                exclusionlist: "Lista wyłączeń"
+                exclusionlist: "Lista wyłączeń",
+                inclusionlist: "Lista dołączania",
+                listmode: "Tryb listy",
+                exclusion: "Wykluczenie",
+                inclusion: "Dołączenie"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Alternatywny tryb przetwarzania",
                 notifydebug: "Pokaż powiadomienia debugowania",
                 exportachdata: "Eksportuj dane osiągnięć",
-                uselegacynotifytimer: "Użyj starego timera powiadomień",
+                lognum: "Poprzednie pliki dziennika", 
+                audiocooldown: "Czas oczekiwania dźwięku",
                 usecustomfiles: "Użyj niestandardowych plików aplikacji",
                 showcustomfiles: "Pokaż niestandardowe pliki aplikacji"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Plik logu",
                 status: "Status",
                 game: "Gra",
+                lastachievement: "ID ostatniego osiągnięcia",
                 wait: "Oczekiwanie na emulator",
                 idle: "Oczekiwanie na zdarzenie gry",
                 start: "Rozpoczynanie gry",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Sprawdź, czy na GitHubie została wydana nowa wersja aplikacji. Jeśli aktualizacja jest dostępna, zostanie automatycznie pobrana i zainstalowana po potwierdzeniu w oknie dialogowym <span class="hl">Aktualizacja dostępna</span>`,
         linkedgames: `Ominięcie <span class="hl">automatycznego śledzenia procesów</span> dla konkretnych gier na platformie Steam<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`,
         exclusionlist: `Zapobieganie śledzeniu osiągnięć w konkretnych grach na platformie Steam przez aplikację<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`,
+        inclusionlist: `Zablokuj śledzenie wszystkich gier Steam przez aplikację, chyba że zostały określone<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo specyficznych przypadkach. Użytkownicy nie powinni jej potrzebować w normalnych okolicznościach!</span>`,
         ovx: "Przesuń powiadomienie wyświetlane na zrzucie ekranu poziomo",
         ovy: "Przesuń powiadomienie wyświetlane na zrzucie ekranu pionowo",
         importtheme: `Importuj dostosowania za pomocą <span class="hl">pliku motywu</span> stworzonego przez użytkownika`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Powtórz ostatnie powiadomienie o osiągnięciu",
         replaynotifyshortcut: "Powtórz ostatnie powiadomienie o osiągnięciu za pomocą określonego skrótu klawiszowego",
         replaynotifyempty: `<br><br><span class="ttdesc">Kolejka powtórzeń jest pusta. Odblokuj osiągnięcie, aby powtórzyć powiadomienie</span>`,
-        uselegacynotifytimer: `Ukryj powiadomienia za pomocą statycznego timera poza oknem powiadomienia<br><br><span class="ttdesc">Włączenie tej opcji może spowodować, że animacje powiadomień nie zakończą się poprawnie</span>`,
         customtrigger: "Wyzwala klawisz/kombinację symulowaną podczas odblokowania osiągnięcia. Może być używany do wywoływania skrótów klawiaturowych zarejestrowanych w aplikacjach zewnętrznych",
         customtriggershortcut: `Wyzwala określony klawisz/kombinację podczas odblokowania osiągnięcia<br><br><span class="ttdesc">Obsługuje od 1 do 3 klawiszy na skrót. Dla naciśnięć/kombinacji wymagających mniej niż 3 klawisze, naciśnij żądane klawisze i poczekaj na zakończenie timera (5 s)</span>`,
         customtriggerdelay: "Opóźnij określony klawisz/kombinację Niestandardowego Wyzwalacza",
         customtriggerusedisplaytime: `Opóźnij określony klawisz/kombinację Niestandardowego Wyzwalacza na podstawie wartości Czasu Wyświetlania bieżącego typu powiadomienia`,
-        trophymode: "Zamień typy powiadomień Główne/Rzadkie/100% na Brązowe/Srebrne/Złote/Platynowe"
+        trophymode: "Zamień typy powiadomień Główne/Rzadkie/100% na Brązowe/Srebrne/Złote/Platynowe",
+        lognum: `Liczba poprzednich plików dziennika przechowywanych przed ich usunięciem. Nowy plik dziennika zostanie utworzony przy każdym uruchomieniu aplikacji<br><br><span class="ttdesc">Gdy ustawiono 0, wszystkie poprzednie pliki dziennika zostaną usunięte przy zamknięciu</span>`, 
+        detectedappid: `Użyj <span class="hl">AppID</span> aktualnie wykrytej gry`,
+        listmode: `Ustaw zachowanie <span class="hl">Listy wykluczeń</span>/<span class="hl">Listy dołączania</span><br><br><span class="ttdesc">• <span class="hl">Wykluczenie</span>: Ignoruj tylko gry określone na liście<br>• <span class="hl">Dołączenie</span>: Ignoruj wszystkie gry oprócz tych określonych na liście</span>`,
+        notifymax: `Ustaw maksymalną liczbę jednoczesnych powiadomień na ekranie<br><br><span class="ttdesc">Zwiększenie liczby jednoczesnych powiadomień wymaga więcej zasobów i może obniżyć wydajność</span>`,
+        notifyspace: "Ustaw odstęp między jednoczesnymi powiadomieniami na ekranie",
+        audiocooldown: `Ustaw czas oczekiwania, zanim kolejne powiadomienia będą mogły odtworzyć nowy dźwięk<br><br><span class="ttdesc">Dźwięk nie będzie mieć wpływu, jeśli Maksymalna liczba powiadomień jest ustawiona na 1</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Edytuj wykluczenie",
             exclusioneditsub: [
                 `Edytuj istniejące <span class="hl">AppID</span> na <span class="hl">liście wykluczeń</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Dodaj <span class="hl">AppID</span> dowolnej gry Steam do <span class="hl">Listy dołączania</span>`,
+                `Steam Achievement Notifier będzie próbował śledzić dane osiągnięć tylko dla gier, których <span class="hl">AppID</span> został dodany do <span class="hl">Listy dołączania</span>`,
+                `<span class="hl help" id="appidhelp"><u>Jak znaleźć AppID gry Steam?</u></span>`
+            ],
+            inclusionnew: "Nowe dołączenie",
+            inclusionnewsub: [
+                `Wprowadź <span class="hl">AppID</span>, aby dodać go do <span class="hl">Listy dołączania</span>`
+            ],
+            inclusionedit: "Edytuj dołączenie",
+            inclusioneditsub: [
+                `Edytuj istniejące <span class="hl">AppID</span> na <span class="hl">Liście dołączania</span>`
             ]
         }
     },

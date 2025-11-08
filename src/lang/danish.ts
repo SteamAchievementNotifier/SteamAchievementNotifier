@@ -20,6 +20,7 @@ export const translations = {
         save: "Gem",
         back: "Tilbage",
         edit: "Rediger",
+        lockedby: "Låst af $lock",
         settings: "Indstillinger",
         appversion: "App-version",
         image: "Billede",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Genvej til Udløser",
                 customtriggerdelay: "Forsinkelse af Udløser",
                 customtriggerusedisplaytime: "Brug Visningstid",
-                trophymode: "Trofætilstand"
+                trophymode: "Trofætilstand",
+                notifymax: "Maksimalt antal notifikationer", 
+                notifyspace: "Afstand mellem notifikationer"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Forbundne spil",
                 themeswitch: "Automatisk skift af tema",
-                exclusionlist: "Udelukkelsesliste"
+                exclusionlist: "Udelukkelsesliste",
+                inclusionlist: "Inklusionsliste",
+                listmode: "Listefunktion",
+                exclusion: "Ekskludering",
+                inclusion: "Inkludering"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Alternativ procesbehandlingstilstand",
                 notifydebug: "Vis notifikationer for fejlfinding",
                 exportachdata: "Eksporter præstationsdata",
-                uselegacynotifytimer: "Brug ældre notifikations-timer",
+                lognum: "Tidligere logfiler", 
+                audiocooldown: "Lydnedkøling",
                 usecustomfiles: "Brug tilpassede app-filer",
                 showcustomfiles: "Vis tilpassede app-filer"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Logfil",
                 status: "Status",
                 game: "Spil",
+                lastachievement: "ID for sidste præstation",
                 wait: "Venter på emulator",
                 idle: "Venter på spilbegivenhed",
                 start: "Starter spil",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Tjek om en ny app-version er blevet udgivet på GitHub. Hvis der er en opdatering tilgængelig, vil den automatisk blive downloadet og installeret, når den er bekræftet via dialogvinduet <span class="hl">Opdatering tilgængelig</span>`,
         linkedgames: `Omgå <span class="hl">automatisk procesregistrering</span> for specifikke Steam-spil<br><br><span class="ttdesc">Denne mulighed bør kun bruges i meget specifikke scenarier. Brugere bør ikke have brug for at bruge denne mulighed under normale omstændigheder!</span>`,
         exclusionlist: `Forhindre præstationer i specifikke Steam-spil i at blive sporet af appen<br><br><span class="ttdesc">Denne mulighed bør kun bruges i meget specifikke scenarier. Brugere bør ikke have brug for at bruge denne mulighed under normale omstændigheder!</span>`,
+        inclusionlist: `Forhindrer alle Steam-spil i at blive sporet af appen, medmindre de er specificeret<br><br><span class="ttdesc">Denne indstilling bør kun bruges i meget specifikke situationer. Brugere bør normalt ikke have behov for at bruge denne indstilling!</span>`,
         ovx: "Forskyd meddelelsen vist på skærmbilledet horisontalt",
         ovy: "Forskyd meddelelsen vist på skærmbilledet vertikalt",
         importtheme: `Importer tilpasninger via en brugeroprettet <span class="hl">temafil</span>`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Gentag den seneste præstationsnotifikation",
         replaynotifyshortcut: "Gentag den seneste præstationsnotifikation med den angivne tastaturgenvej",
         replaynotifyempty: `<br><br><span class="ttdesc">Gentagelseskøen er tom. Lås op for en præstation for at gentage en notifikation</span>`,
-        uselegacynotifytimer: `Fjern notifikationer ved hjælp af en statisk timer ekstern til notifikationsvinduet<br><br><span class="ttdesc">Aktivering af denne indstilling kan medføre, at notifikationsanimationer ikke fuldføres</span>`,
         customtrigger: "Udløser en tast/kombination, der simuleres ved oplåsning af en achievement. Kan bruges til at udløse tastaturgenveje registreret i eksterne applikationer",
         customtriggershortcut: `Udløser den angivne tast/kombination, når en achievement låses op<br><br><span class="ttdesc">Understøtter mellem 1-3 taster pr. genvej. For tastetryk/kombinationer med færre end 3 taster, tryk på de ønskede taster og vent på, at timeren (5 sek.) udløber</span>`,
         customtriggerdelay: "Forsinker den angivne brugertilpassede tast/kombination",
         customtriggerusedisplaytime: `Forsinker den angivne brugertilpassede tast/kombination baseret på den aktuelle notifikationstypes Visningstid`,
-        trophymode: "Erstat Hoved/Sjælden/100% notifikationstyper med Bronze/Sølv/Guld/Platin"
+        trophymode: "Erstat Hoved/Sjælden/100% notifikationstyper med Bronze/Sølv/Guld/Platin",
+        lognum: `Antallet af tidligere logfiler, der gemmes, før de slettes. En ny logfil oprettes ved hver appstart<br><br><span class="ttdesc">Når sat til 0, slettes alle tidligere logfiler ved afslutning</span>`, 
+        detectedappid: `Brug <span class="hl">AppID</span> for det aktuelt registrerede spil`,
+        listmode: `Angiver adfærden for <span class="hl">Ekskludering</span>/<span class="hl">Inklusionsliste</span><br><br><span class="ttdesc">• <span class="hl">Ekskludering</span>: Ignorer kun de spil, der er angivet på listen<br>• <span class="hl">Inkludering</span>: Ignorer alle spil undtagen dem, der er angivet på listen</span>`,
+        notifymax: `Indstil det maksimale antal notifikationer, der kan vises samtidigt på skærmen<br><br><span class="ttdesc">Øgning af antallet af samtidige notifikationer kræver flere ressourcer og kan reducere ydeevnen</span>`,
+        notifyspace: "Indstil afstanden mellem samtidige notifikationer på skærmen",
+        audiocooldown: `Indstil hvor lang tid efterfølgende notifikationer skal vente, før ny lyd kan afspilles<br><br><span class="ttdesc">Lyden påvirkes ikke, hvis Maksimalt antal notifikationer er sat til 1</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Rediger Udelukkelse",
             exclusioneditsub: [
                 `Rediger det eksisterende <span class="hl">AppID</span> i <span class="hl">Udelukkelseslisten</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Tilføj et Steam-spils <span class="hl">AppID</span> til <span class="hl">Inklusionslisten</span>`,
+                `Steam Achievement Notifier forsøger kun at spore præstationsdata for spil, der har et <span class="hl">AppID</span> tilføjet til <span class="hl">Inklusionslisten</span>`,
+                `<span class="hl help" id="appidhelp"><u>Hvordan finder jeg et Steam-spils AppID?</u></span>`
+            ],
+            inclusionnew: "Ny inklusion",
+            inclusionnewsub: [
+                `Indtast <span class="hl">AppID</span> for at tilføje det til <span class="hl">Inklusionslisten</span>`
+            ],
+            inclusionedit: "Rediger inklusion",
+            inclusioneditsub: [
+                `Rediger det eksisterende <span class="hl">AppID</span> i <span class="hl">Inklusionslisten</span>`
             ]
         }
     },

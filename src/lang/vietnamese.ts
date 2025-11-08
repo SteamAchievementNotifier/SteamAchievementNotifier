@@ -20,6 +20,7 @@ export const translations = {
         save: "Lưu",
         back: "Quay Lại",
         edit: "Chỉnh sửa",
+        lockedby: "Đã bị khóa bởi $lock",
         settings: "Cài Đặt",
         appversion: "Phiên Bản Ứng Dụng",
         image: "Hình Ảnh",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Phím Tắt Kích Hoạt",
                 customtriggerdelay: "Độ Trễ Kích Hoạt",
                 customtriggerusedisplaytime: "Sử Dụng Thời Gian Hiển Thị",
-                trophymode: "Chế độ Cúp"
+                trophymode: "Chế độ Cúp",
+                notifymax: "Số lượng thông báo tối đa", 
+                notifyspace: "Khoảng cách giữa các thông báo"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Trò chơi Liên kết",
                 themeswitch: "Tự động chuyển đổi chủ đề",
-                exclusionlist: "Danh sách Loại trừ"
+                exclusionlist: "Danh sách Loại trừ",
+                inclusionlist: "Danh sách bao gồm",
+                listmode: "Chế độ danh sách",
+                exclusion: "Loại trừ",
+                inclusion: "Bao gồm"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Chế độ Xử lý Thay thế",
                 notifydebug: "Hiển thị thông báo gỡ lỗi",
                 exportachdata: "Xuất dữ liệu thành tích",
-                uselegacynotifytimer: "Sử dụng bộ đếm thời gian thông báo cũ",
+                lognum: "Tệp nhật ký trước đó", 
+                audiocooldown: "Thời gian chờ âm thanh",
                 usecustomfiles: "Sử dụng tập tin ứng dụng tùy chỉnh",
                 showcustomfiles: "Hiển thị tập tin ứng dụng tùy chỉnh"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "File Log",
                 status: "Trạng thái",
                 game: "Trò chơi",
+                lastachievement: "ID thành tựu cuối cùng",
                 wait: "Đang chờ trình giả lập",
                 idle: "Đang chờ sự kiện trò chơi",
                 start: "Bắt đầu trò chơi",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Kiểm tra xem có phiên bản ứng dụng mới nào đã được phát hành trên GitHub không. Nếu có bản cập nhật, nó sẽ được tải xuống và cài đặt tự động sau khi được xác nhận qua hộp thoại <span class="hl">Cập nhật có sẵn</span>`,
         linkedgames: `Bỏ qua <span class="hl">theo dõi tự động các quy trình</span> cho các trò chơi Steam cụ thể<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các tình huống rất cụ thể. Người dùng không nên cần phải sử dụng tùy chọn này trong điều kiện bình thường!</span>`,
         exclusionlist: `Ngăn chặn ứng dụng theo dõi thành tích trong các trò chơi Steam cụ thể<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các tình huống rất cụ thể. Người dùng không nên cần phải sử dụng tùy chọn này trong điều kiện bình thường!</span>`,
+        inclusionlist: `Ngăn tất cả trò chơi Steam bị ứng dụng theo dõi trừ khi được chỉ định<br><br><span class="ttdesc">Tùy chọn này chỉ nên được sử dụng trong các trường hợp rất cụ thể. Người dùng thông thường không cần sử dụng tùy chọn này trong điều kiện bình thường!</span>`,
         ovx: "Lệch thông báo hiển thị trên ảnh chụp màn hình theo chiều ngang",
         ovy: "Lệch thông báo hiển thị trên ảnh chụp màn hình theo chiều dọc",
         importtheme: `Nhập các tùy chỉnh thông qua một <span class="hl">tệp Tema</span> do người dùng tạo ra`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Phát lại thông báo thành tích cuối cùng",
         replaynotifyshortcut: "Phát lại thông báo thành tích cuối cùng bằng cách sử dụng phím tắt được chỉ định",
         replaynotifyempty: `<br><br><span class="ttdesc">Hàng đợi phát lại trống. Mở khóa một thành tích để phát lại thông báo</span>`,
-        uselegacynotifytimer: `Ẩn thông báo bằng cách sử dụng bộ đếm thời gian tĩnh ngoài cửa sổ thông báo<br><br><span class="ttdesc">Kích hoạt tùy chọn này có thể khiến hoạt ảnh thông báo không hoàn thành</span>`,
         customtrigger: "Kích hoạt phím/tổ hợp phím được mô phỏng khi mở khóa thành tích. Có thể dùng để kích hoạt phím tắt bàn phím đã đăng ký trong các ứng dụng bên ngoài",
         customtriggershortcut: `Kích hoạt phím/tổ hợp phím được chỉ định khi mở khóa thành tích<br><br><span class="ttdesc">Hỗ trợ từ 1 đến 3 phím cho mỗi phím tắt. Đối với các phím nhấn/tổ hợp dưới 3 phím, nhấn các phím mong muốn và đợi bộ đếm thời gian (5 giây) kết thúc</span>`,
         customtriggerdelay: "Trì hoãn phím/tổ hợp phím được chỉ định của Kích Hoạt Tùy Chỉnh",
         customtriggerusedisplaytime: `Trì hoãn phím/tổ hợp phím được chỉ định của Kích Hoạt Tùy Chỉnh dựa trên giá trị Thời Gian Hiển Thị của loại thông báo hiện tại`,
-        trophymode: "Thay thế loại thông báo Chính/Hiếm/100% bằng Đồng/Bạc/Vàng/Bạch kim"
+        trophymode: "Thay thế loại thông báo Chính/Hiếm/100% bằng Đồng/Bạc/Vàng/Bạch kim",
+        lognum: `Số lượng tệp nhật ký trước đó được lưu trữ trước khi xóa. Một tệp nhật ký mới sẽ được tạo mỗi khi ứng dụng khởi động<br><br><span class="ttdesc">Khi đặt là 0, tất cả các tệp nhật ký trước đó sẽ bị xóa khi thoát</span>`, 
+        detectedappid: `Sử dụng <span class="hl">AppID</span> của trò chơi hiện được phát hiện`,
+        listmode: `Đặt hành vi của <span class="hl">Danh sách loại trừ</span>/<span class="hl">Danh sách bao gồm</span><br><br><span class="ttdesc">• <span class="hl">Loại trừ</span>: Chỉ bỏ qua các trò chơi được chỉ định trong danh sách<br>• <span class="hl">Bao gồm</span>: Bỏ qua tất cả các trò chơi ngoại trừ những trò được chỉ định trong danh sách</span>`,
+        notifymax: `Đặt số lượng thông báo tối đa có thể hiển thị cùng lúc trên màn hình<br><br><span class="ttdesc">Tăng số lượng thông báo hiển thị cùng lúc sẽ tiêu tốn nhiều tài nguyên hơn và có thể làm giảm hiệu suất</span>`,
+        notifyspace: "Đặt khoảng cách giữa các thông báo hiển thị cùng lúc trên màn hình",
+        audiocooldown: `Đặt khoảng thời gian chờ trước khi thông báo tiếp theo có thể phát âm thanh mới<br><br><span class="ttdesc">Âm thanh sẽ không bị ảnh hưởng nếu Số lượng thông báo tối đa được đặt là 1</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Chỉnh sửa Loại trừ",
             exclusioneditsub: [
                 `Chỉnh sửa <span class="hl">AppID</span> hiện có trong <span class="hl">Danh sách Loại trừ</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Thêm <span class="hl">AppID</span> của bất kỳ trò chơi Steam nào vào <span class="hl">Danh sách bao gồm</span>`,
+                `Steam Achievement Notifier chỉ theo dõi dữ liệu thành tựu cho các trò chơi có <span class="hl">AppID</span> được thêm vào <span class="hl">Danh sách bao gồm</span>`,
+                `<span class="hl help" id="appidhelp"><u>Làm cách nào để tìm AppID của trò chơi Steam?</u></span>`
+            ],
+            inclusionnew: "Thêm bao gồm mới",
+            inclusionnewsub: [
+                `Nhập <span class="hl">AppID</span> để thêm vào <span class="hl">Danh sách bao gồm</span>`
+            ],
+            inclusionedit: "Chỉnh sửa bao gồm",
+            inclusioneditsub: [
+                `Chỉnh sửa <span class="hl">AppID</span> hiện có trong <span class="hl">Danh sách bao gồm</span>`
             ]
         }
     },

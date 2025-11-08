@@ -20,6 +20,7 @@ export const translations = {
         save: "Enregistrer",
         back: "Retour",
         edit: "Modifier",
+        lockedby: "Verrouillé par $lock",
         settings: "Paramètres",
         appversion: "Version de l'application",
         image: "Image",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Raccourci du Déclencheur",
                 customtriggerdelay: "Délai du Déclencheur",
                 customtriggerusedisplaytime: "Utiliser le Temps d’Affichage",
-                trophymode: "Mode Trophée"
+                trophymode: "Mode Trophée",
+                notifymax: "Notifications maximales", 
+                notifyspace: "Espacement des notifications"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Jeux liés",
                 themeswitch: "Changement automatique de thème",
-                exclusionlist: "Liste d'exclusion"
+                exclusionlist: "Liste d'exclusion",
+                inclusionlist: "Liste d'inclusion",
+                listmode: "Mode de liste",
+                exclusion: "Exclusion",
+                inclusion: "Inclusion"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Mode de traitement alternatif",
                 notifydebug: "Afficher les notifications de débogage",
                 exportachdata: "Exporter les données de succès",
-                uselegacynotifytimer: "Utiliser le minuterie de notification legacy",
+                lognum: "Fichiers journaux précédents", 
+                audiocooldown: "Délai du son",
                 usecustomfiles: "Utiliser des fichiers d'application personnalisés",
                 showcustomfiles: "Afficher les fichiers d'application personnalisés"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Fichier journal",
                 status: "Statut",
                 game: "Jeu",
+                lastachievement: "Dernier ID de succès",
                 wait: "En attente de l'émulateur",
                 idle: "En attente d'un événement du jeu",
                 start: "Démarrer le jeu",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Vérifiez si une nouvelle version de l'application a été publiée sur GitHub. Si une mise à jour est disponible, elle sera téléchargée et installée automatiquement une fois confirmée via la boîte de dialogue <span class="hl">Mise à jour disponible</span>`,
         linkedgames: `Contourner le <span class="hl">suivi automatique des processus</span> pour des jeux Steam spécifiques<br><br><span class="ttdesc">Cette option ne devrait être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`,
         exclusionlist: `Empêcher le suivi des réalisations dans des jeux Steam spécifiques par l'application<br><br><span class="ttdesc">Cette option ne devrait être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`,
+        inclusionlist: `Empêcher tous les jeux Steam d'être suivis par l'application sauf si spécifié<br><br><span class="ttdesc">Cette option ne doit être utilisée que pour des scénarios très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`,
         ovx: "Décalez la notification affichée dans la capture d'écran horizontalement",
         ovy: "Décalez la notification affichée dans la capture d'écran verticalement",
         importtheme: `Importez des personnalisations via un <span class="hl">fichier de thème</span> créé par l'utilisateur`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Répéter la dernière notification de réussite",
         replaynotifyshortcut: "Répéter la dernière notification de réussite en utilisant le raccourci clavier spécifié",
         replaynotifyempty: `<br><br><span class="ttdesc">La file d'attente de répétition est vide. Débloquez une réussite pour répéter une notification</span>`,
-        uselegacynotifytimer: `Masquer les notifications à l'aide d'un minuterie statique externe à la fenêtre de notification<br><br><span class="ttdesc">L'activation de cette option peut entraîner l'échec des animations de notification</span>`,
         customtrigger: "Déclenche une touche/combinaison simulée lors du déverrouillage d’un succès. Peut être utilisé pour activer des raccourcis clavier enregistrés dans des applications externes",
         customtriggershortcut: `Déclenche la touche/combinaison spécifiée lors du déverrouillage d’un succès<br><br><span class="ttdesc">Prend en charge entre 1 et 3 touches par raccourci. Pour des pressions/combinaisons nécessitant moins de 3 touches, appuyez sur les touches souhaitées et attendez la fin du compte à rebours (5s)</span>`,
         customtriggerdelay: "Retarde la touche/combinaison du Déclencheur Personnalisé spécifié",
         customtriggerusedisplaytime: `Retarde la touche/combinaison du Déclencheur Personnalisé en fonction de la valeur du Temps d’Affichage du type de notification actuel`,
-        trophymode: "Remplacer les types de notification Principale/Rare/100% par Bronze/Argent/Or/Platine"
+        trophymode: "Remplacer les types de notification Principale/Rare/100% par Bronze/Argent/Or/Platine",
+        lognum: `Le nombre de fichiers journaux précédents conservés avant suppression. Un nouveau fichier journal sera généré à chaque lancement de l'application<br><br><span class="ttdesc">Lorsqu'il est défini sur 0, tous les fichiers journaux précédents seront supprimés à la fermeture</span>`, 
+        detectedappid: `Utiliser l'<span class="hl">AppID</span> du jeu actuellement détecté`,
+        listmode: `Définir le comportement de la <span class="hl">Liste d'exclusion</span>/<span class="hl">Liste d'inclusion</span><br><br><span class="ttdesc">• <span class="hl">Exclusion</span> : Ignorer uniquement les jeux spécifiés dans la liste<br>• <span class="hl">Inclusion</span> : Ignorer tous les jeux sauf ceux spécifiés dans la liste</span>`,
+        notifymax: `Définir le nombre maximal de notifications simultanées à l'écran<br><br><span class="ttdesc">Augmenter le nombre de notifications simultanées à l'écran nécessite plus de ressources et peut réduire les performances</span>`,
+        notifyspace: "Définir la distance entre les notifications simultanées à l'écran",
+        audiocooldown: `Définir le délai avant que les notifications suivantes puissent rejouer un son<br><br><span class="ttdesc">Le son ne sera pas affecté si Notifications maximales est défini sur 1</span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Modifier l'exclusion",
             exclusioneditsub: [
                 `Modifier l'<span class="hl">AppID</span> existant dans la <span class="hl">liste d'exclusion</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Ajouter l'<span class="hl">AppID</span> de n'importe quel jeu Steam à la <span class="hl">Liste d'inclusion</span>`,
+                `Steam Achievement Notifier tentera uniquement de suivre les données de succès pour les jeux dont l'<span class="hl">AppID</span> a été ajouté à la <span class="hl">Liste d'inclusion</span>`,
+                `<span class="hl help" id="appidhelp"><u>Comment trouver l'AppID d'un jeu Steam ?</u></span>`
+            ],
+            inclusionnew: "Nouvelle inclusion",
+            inclusionnewsub: [
+                `Saisir l'<span class="hl">AppID</span> à ajouter à la <span class="hl">Liste d'inclusion</span>`
+            ],
+            inclusionedit: "Modifier l'inclusion",
+            inclusioneditsub: [
+                `Modifier l'<span class="hl">AppID</span> existant dans la <span class="hl">Liste d'inclusion</span>`
             ]
         }
     },

@@ -20,6 +20,7 @@ export const translations = {
         save: "Opslaan",
         back: "Terug",
         edit: "Bewerken",
+        lockedby: "Vergrendeld door $lock",
         settings: "Instellingen",
         appversion: "App-versie",
         image: "Afbeelding",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Trigger Sneltoets",
                 customtriggerdelay: "Trigger Vertraging",
                 customtriggerusedisplaytime: "Gebruik Weergavetijd",
-                trophymode: "Trofee-modus"
+                trophymode: "Trofee-modus",
+                notifymax: "Maximaal aantal meldingen", 
+                notifyspace: "Meldingsafstand"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Gekoppelde spellen",
                 themeswitch: "Automatisch Thema's Wisselen",
-                exclusionlist: "Uitsluitingslijst"
+                exclusionlist: "Uitsluitingslijst",
+                inclusionlist: "Inclusielijst",
+                listmode: "Lijstmodus",
+                exclusion: "Uitsluiting",
+                inclusion: "Inclusie"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Alternatieve Verwerkingsmodus",
                 notifydebug: "Melding Debugger Weergeven",
                 exportachdata: "Prestatiegegevens exporteren",
-                uselegacynotifytimer: "Oude meldingtimer gebruiken",
+                lognum: "Vorige logbestanden", 
+                audiocooldown: "Audio-wachttijd",
                 usecustomfiles: "Aangepaste App-bestanden Gebruiken",
                 showcustomfiles: "Aangepaste App-bestanden Weergeven"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Logbestand",
                 status: "Status",
                 game: "Spel",
+                lastachievement: "ID van laatste prestatie",
                 wait: "Wachten op emulator",
                 idle: "Wachten op game-evenement",
                 start: "Spel starten",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Controleer of er een nieuwe app-versie is uitgebracht op GitHub. Als er een update beschikbaar is, wordt deze automatisch gedownload en geïnstalleerd zodra deze is bevestigd via de <span class="hl">Update Beschikbaar</span> dialoog`,
         linkedgames: `Omzeil <span class="hl">automatische procestracking</span> voor specifieke Steam-spellen<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`,
         exclusionlist: `Voorkom dat prestaties in specifieke Steam-spellen door de app worden gevolgd<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`,
+        inclusionlist: `Voorkomt dat alle Steam-games door de app worden gevolgd, tenzij ze zijn opgegeven<br><br><span class="ttdesc">Deze optie mag alleen worden gebruikt in zeer specifieke situaties. Gebruikers zouden deze optie normaal gesproken niet hoeven te gebruiken!</span>`,
         ovx: "Verplaats de melding die op de schermafbeelding wordt weergegeven horizontaal",
         ovy: "Verplaats de melding die op de schermafbeelding wordt weergegeven verticaal",
         importtheme: `Importeer aanpassingen via een door de gebruiker aangemaakt <span class="hl">themabestand</span>`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Herhaal de laatste prestatiemelding",
         replaynotifyshortcut: "Herhaal de laatste prestatiemelding met de opgegeven sneltoets",
         replaynotifyempty: `<br><br><span class="ttdesc">De herhalingswachtrij is leeg. Ontgrendel een prestatie om een melding te herhalen</span>`,
-        uselegacynotifytimer: `Verberg meldingen met een statische timer buiten het meldingsvenster<br><br><span class="ttdesc">Het inschakelen van deze optie kan ertoe leiden dat meldingsanimaties niet correct worden voltooid</span>`,
         customtrigger: "Activeert een toets/combinatie bij het ontgrendelen van een achievement. Kan worden gebruikt om sneltoetsen te activeren die zijn geregistreerd in externe applicaties",
         customtriggershortcut: `Activeert de opgegeven toets/combinatie bij het ontgrendelen van een achievement<br><br><span class="ttdesc">Ondersteunt 1-3 toetsen per sneltoets. Voor toetsindrukken/combinaties met minder dan 3 toetsen, druk op de gewenste toetsen en wacht tot de timer (5s) afloopt</span>`,
         customtriggerdelay: "Vertraag de opgegeven toets/combinatie van de Aangepaste Trigger",
         customtriggerusedisplaytime: `Vertraag de opgegeven toets/combinatie van de Aangepaste Trigger op basis van de Weergavetijd van het huidige meldingstype`,
-        trophymode: "Vervang Hoofd/Zeldzaam/100%-meldingstypen door Brons/Zilver/Goud/Platina"
+        trophymode: "Vervang Hoofd/Zeldzaam/100%-meldingstypen door Brons/Zilver/Goud/Platina",
+        lognum: `Het aantal eerdere logbestanden dat wordt opgeslagen voordat ze worden verwijderd. Een nieuw logbestand wordt aangemaakt bij elke start van de app<br><br><span class="ttdesc">Wanneer ingesteld op 0, worden alle vorige logbestanden verwijderd bij afsluiten</span>`, 
+        detectedappid: `Gebruik de <span class="hl">AppID</span> van het momenteel gedetecteerde spel`,
+        listmode: `Stel het gedrag in van de <span class="hl">Uitsluiting</span>/<span class="hl">Inclusielijst</span><br><br><span class="ttdesc">• <span class="hl">Uitsluiting</span>: Negeer alleen de spellen die in de lijst staan<br>• <span class="hl">Inclusie</span>: Negeer alle spellen behalve die welke in de lijst staan</span>`,
+        notifymax: `Stel het maximale aantal meldingen in dat gelijktijdig op het scherm kan worden weergegeven<br><br><span class="ttdesc">Het verhogen van het aantal gelijktijdige meldingen vereist meer systeembronnen en kan leiden tot lagere prestaties</span>`,
+        notifyspace: "Stel de afstand tussen gelijktijdige meldingen op het scherm in",
+        audiocooldown: `Stel de wachttijd in voordat volgende meldingen een nieuw geluid kunnen afspelen<br><br><span class="ttdesc">Audio wordt niet beïnvloed als Maximaal aantal meldingen is ingesteld op 1</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Bewerk uitsluiting",
             exclusioneditsub: [
                 `Bewerk de bestaande <span class="hl">AppID</span> in de <span class="hl">Uitsluitingslijst</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Voeg de <span class="hl">AppID</span> van een Steam-spel toe aan de <span class="hl">Inclusielijst</span>`,
+                `Steam Achievement Notifier probeert alleen prestatiegegevens te volgen voor spellen waarvan de <span class="hl">AppID</span> is toegevoegd aan de <span class="hl">Inclusielijst</span>`,
+                `<span class="hl help" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-spel?</u></span>`
+            ],
+            inclusionnew: "Nieuwe inclusie",
+            inclusionnewsub: [
+                `Voer de <span class="hl">AppID</span> in om toe te voegen aan de <span class="hl">Inclusielijst</span>`
+            ],
+            inclusionedit: "Inclusie bewerken",
+            inclusioneditsub: [
+                `Bewerk de bestaande <span class="hl">AppID</span> in de <span class="hl">Inclusielijst</span>`
             ]
         }
     },

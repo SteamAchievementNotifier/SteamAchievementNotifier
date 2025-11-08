@@ -20,6 +20,7 @@ export const translations = {
         save: "Tallenna",
         back: "Takaisin",
         edit: "Muokkaa",
+        lockedby: "Lukittu käyttäjän $lock toimesta",
         settings: "Asetukset",
         appversion: "Sovellusversio",
         image: "Kuva",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Laukaisimen Pikanäppäin",
                 customtriggerdelay: "Laukaisimen Viive",
                 customtriggerusedisplaytime: "Käytä Näyttöaikaa",
-                trophymode: "Trophymoodi"
+                trophymode: "Trophymoodi",
+                notifymax: "Ilmoitusten enimmäismäärä", 
+                notifyspace: "Ilmoitusten väli"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Linkitetyt pelit",
                 themeswitch: "Vaihda teemoja automaattisesti",
-                exclusionlist: "Poissulkemislista"
+                exclusionlist: "Poissulkemislista",
+                inclusionlist: "Sisällysluettelo",
+                listmode: "Luettelotila",
+                exclusion: "Poissulkeminen",
+                inclusion: "Sisällyttäminen"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Vaihtoehtoinen käsittelytila",
                 notifydebug: "Näytä Ilmoitus Vianmäärityksestä",
                 exportachdata: "Vie saavutustiedot",
-                uselegacynotifytimer: "Käytä vanhaa ilmoitusaikaväliä",
+                lognum: "Aiemmat lokitiedostot", 
+                audiocooldown: "Äänien viive",
                 usecustomfiles: "Käytä Mukautettuja Sovellustiedostoja",
                 showcustomfiles: "Näytä Mukautetut Sovellustiedostot"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Lokitiedosto",
                 status: "Tila",
                 game: "Peli",
+                lastachievement: "Viimeisen saavutuksen ID",
                 wait: "Odottaminen emulaattoria",
                 idle: "Odottaminen pelitapahtumaa",
                 start: "Pelin aloitus",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Tarkista, onko GitHubissa julkaistu uusi sovellusversio. Jos päivitys on saatavilla, se ladataan ja asennetaan automaattisesti, kun se on vahvistettu <span class="hl">Päivitys saatavilla</span> -valintaikkunassa`,
         linkedgames: `Ohita <span class="hl">automaattinen prosessin seuranta</span> tietyille Steam-peleille<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`,
         exclusionlist: `Estä saavutusten seuranta tietyissä Steam-peleissä sovelluksen avulla<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`,
+        inclusionlist: `Estää kaikkien Steam-pelien seuraamisen sovelluksessa, ellei niitä ole erikseen määritetty<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei normaalisti pitäisi tarvita tätä asetusta!</span>`,
         ovx: "Siirrä ilmoitusta, joka näkyy kuvakaappauksessa, vaakasuunnassa",
         ovy: "Siirrä ilmoitusta, joka näkyy kuvakaappauksessa, pystysuunnassa",
         importtheme: `Tuo mukautuksia käyttäjän luoman <span class="hl">teematiedoston</span> kautta`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Toista viimeisin saavutuksen ilmoitus",
         replaynotifyshortcut: "Toista viimeisin saavutuksen ilmoitus käyttämällä määritettyä pikanäppäintä",
         replaynotifyempty: `<br><br><span class="ttdesc">Toistovuoro on tyhjä. Avaa saavutus toistaaksesi ilmoituksen</span>`,
-        uselegacynotifytimer: `Piilota ilmoitukset käyttämällä staattista ajastinta, joka on erillinen ilmoitusikkunasta<br><br><span class="ttdesc">Tämän asetuksen ottaminen käyttöön voi estää ilmoitusten animaatioiden täydellisen suorittamisen</span>`,
         customtrigger: "Laukaisee näppäimen/yhdistelmän, kun saavutus avataan. Voidaan käyttää ulkoisissa sovelluksissa rekisteröityjen pikanäppäinten laukaisuun",
         customtriggershortcut: `Laukaisee määritetyn näppäimen/yhdistelmän, kun saavutus avataan<br><br><span class="ttdesc">Tukee 1–3 näppäintä per pikanäppäin. Alle 3 näppäimen yhdistelmissä paina haluttuja näppäimiä ja odota ajastimen (5s) päättymistä</span>`,
         customtriggerdelay: "Viivästyttää määritetyn mukautetun näppäimen/yhdistelmän laukaisua",
         customtriggerusedisplaytime: `Viivästyttää määritetyn mukautetun näppäimen/yhdistelmän laukaisua nykyisen ilmoitustyypin Näyttöaika-arvon perusteella`,
-        trophymode: "Korvaa Pää/Harvinainen/100% ilmoitustyypit Pronssi/Hopea/Kulta/Platina -versioilla"
+        trophymode: "Korvaa Pää/Harvinainen/100% ilmoitustyypit Pronssi/Hopea/Kulta/Platina -versioilla",
+        lognum: `Aiemmin tallennettujen lokitiedostojen määrä ennen poistamista. Uusi lokitiedosto luodaan aina, kun sovellus käynnistetään<br><br><span class="ttdesc">Kun asetuksena on 0, kaikki aiemmat lokitiedostot poistetaan suljettaessa</span>`, 
+        detectedappid: `Käytä parhaillaan tunnistetun pelin <span class="hl">AppID</span>-tunnusta`,
+        listmode: `Määrittää <span class="hl">Poissulkeminen</span>/<span class="hl">Sisällysluettelo</span> -toiminnan<br><br><span class="ttdesc">• <span class="hl">Poissulkeminen</span>: Ohittaa vain luetteloon merkityt pelit<br>• <span class="hl">Sisällyttäminen</span>: Ohittaa kaikki pelit paitsi ne, jotka on lisätty luetteloon</span>`,
+        notifymax: `Määrittää, kuinka monta ilmoitusta voi näkyä samanaikaisesti näytöllä<br><br><span class="ttdesc">Samanaikaisten ilmoitusten määrän kasvattaminen vaatii enemmän resursseja ja voi heikentää suorituskykyä</span>`,
+        notifyspace: "Määrittää etäisyyden samanaikaisesti näkyvien ilmoitusten välillä näytöllä",
+        audiocooldown: `Määrittää ajan, jonka seuraavat ilmoitukset odottavat ennen kuin uusi ääni voidaan toistaa<br><br><span class="ttdesc">Ääni ei muutu, jos Ilmoitusten enimmäismäärä on asetettu arvoon 1</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Muokkaa poissulkemista",
             exclusioneditsub: [
                 `Muokkaa olemassa olevaa <span class="hl">AppID:tä</span> <span class="hl">Poissulkulistassa</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Lisää minkä tahansa Steam-pelin <span class="hl">AppID</span> <span class="hl">Sisällysluetteloon</span>`,
+                `Steam Achievement Notifier seuraa saavutustietoja vain peleistä, joiden <span class="hl">AppID</span> on lisätty <span class="hl">Sisällysluetteloon</span>`,
+                `<span class="hl help" id="appidhelp"><u>Kuinka löydän Steam-pelin AppID-tunnuksen?</u></span>`
+            ],
+            inclusionnew: "Uusi sisällytys",
+            inclusionnewsub: [
+                `Syötä <span class="hl">AppID</span> lisättäväksi <span class="hl">Sisällysluetteloon</span>`
+            ],
+            inclusionedit: "Muokkaa sisällytystä",
+            inclusioneditsub: [
+                `Muokkaa olemassa olevaa <span class="hl">AppID</span>-tunnusta <span class="hl">Sisällysluettelossa</span>`
             ]
         }
     },

@@ -20,6 +20,7 @@ export const translations = {
         save: "Spara",
         back: "Tillbaka",
         edit: "Redigera",
+        lockedby: "Låst av $lock",
         settings: "Inställningar",
         appversion: "Appversion",
         image: "Bild",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Triggergenväg",
                 customtriggerdelay: "Triggerfördröjning",
                 customtriggerusedisplaytime: "Använd Visningstid",
-                trophymode: "Trofyläge"
+                trophymode: "Trofyläge",
+                notifymax: "Maximalt antal aviseringar", 
+                notifyspace: "Aviseringsavstånd"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Länkade spel",
                 themeswitch: "Automatisk byte av teman",
-                exclusionlist: "Undantagslista"
+                exclusionlist: "Undantagslista",
+                inclusionlist: "Inklusionslista",
+                listmode: "Listläge",
+                exclusion: "Exkludering",
+                inclusion: "Inkludering"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Alternativ bearbetningsläge",
                 notifydebug: "Visa felsökningsaviseringar",
                 exportachdata: "Exportera prestationsdata",
-                uselegacynotifytimer: "Använd gammal notifikationstimer",
+                lognum: "Tidigare loggfiler", 
+                audiocooldown: "Ljudnedkylning",
                 usecustomfiles: "Använd anpassade appfiler",
                 showcustomfiles: "Visa anpassade appfiler"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Loggfil",
                 status: "Status",
                 game: "Spel",
+                lastachievement: "Senaste prestationens ID",
                 wait: "Väntar på emulator",
                 idle: "Väntar på spelhändelse",
                 start: "Startar spelet",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Kontrollera om en ny appversion har släppts på GitHub. Om en uppdatering är tillgänglig kommer den automatiskt att laddas ner och installeras när den bekräftas via dialogrutan <span class="hl">Uppdatering tillgänglig</span>`,
         linkedgames: `Bypassa <span class="hl">automatisk processpårning</span> för specifika Steam-spel<br><br><span class="ttdesc">Denna alternativ bör endast användas i mycket specifika scenarier. Användare bör inte behöva använda detta alternativ under normala omständigheter!</span>`,
         exclusionlist: `Förhindra att prestationer i specifika Steam-spel spåras av appen<br><br><span class="ttdesc">Denna alternativ bör endast användas i mycket specifika scenarier. Användare bör inte behöva använda detta alternativ under normala omständigheter!</span>`,
+        inclusionlist: `Förhindra att alla Steam-spel spåras av appen om de inte anges<br><br><span class="ttdesc">Detta alternativ bör endast användas i mycket specifika situationer. Användare ska normalt inte behöva använda detta alternativ!</span>`,
         ovx: "Förskjutning av meddelandet som visas i skärmdumpen horisontellt",
         ovy: "Förskjutning av meddelandet som visas i skärmdumpen vertikalt",
         importtheme: `Importera anpassningar via en användarskapad <span class="hl">temafil</span>`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Repetera den senaste prestationen",
         replaynotifyshortcut: "Repetera den senaste prestationen med hjälp av den angivna snabbknappen",
         replaynotifyempty: `<br><br><span class="ttdesc">Kön för upprepning är tom. Lås upp en prestation för att upprepa en notifikation</span>`,
-        uselegacynotifytimer: `Dölj notifikationer med hjälp av en statisk timer utanför notifikationsfönstret<br><br><span class="ttdesc">Att aktivera detta alternativ kan leda till att notifikationsanimationer inte fullföljs</span>`,
         customtrigger: "Aktiverar en tangent/kommando som simuleras vid upplåsning av ett achievement. Kan användas för att aktivera tangentbordsgenvägar registrerade i externa applikationer",
         customtriggershortcut: `Aktiverar den angivna tangenten/kommandot när ett achievement låses upp<br><br><span class="ttdesc">Stöder mellan 1 och 3 tangenter per genväg. För knapptryckningar/kommandon med färre än 3 tangenter, tryck på önskade tangenter och vänta tills timern (5 s) går ut</span>`,
         customtriggerdelay: "Fördröj den angivna anpassade tangentkombinationen",
         customtriggerusedisplaytime: `Fördröj den angivna anpassade tangentkombinationen baserat på visningstiden för den aktuella notifikationstypen`,
-        trophymode: "Ersätt Huvud/Sällsynt/100%-notifikationstyper med Brons/Silver/Guld/Platina"
+        trophymode: "Ersätt Huvud/Sällsynt/100%-notifikationstyper med Brons/Silver/Guld/Platina",
+        lognum: `Antalet tidigare loggfiler som lagras innan de tas bort. En ny loggfil skapas vid varje start av appen<br><br><span class="ttdesc">När detta värde är satt till 0 tas alla tidigare loggfiler bort vid avslut</span>`, 
+        detectedappid: `Använd det <span class="hl">AppID</span> som tillhör det spel som för närvarande har upptäckts`,
+        listmode: `Ställ in beteendet för <span class="hl">Exklusionslista</span>/<span class="hl">Inklusionslista</span><br><br><span class="ttdesc">• <span class="hl">Exkludering</span>: Ignorera endast de spel som anges i listan<br>• <span class="hl">Inkludering</span>: Ignorera alla spel förutom de som anges i listan</span>`,
+        notifymax: `Ställ in det maximala antalet aviseringar som kan visas samtidigt på skärmen<br><br><span class="ttdesc">Att öka antalet samtidiga aviseringar kräver mer resurser och kan påverka prestandan</span>`,
+        notifyspace: "Ställ in avståndet mellan samtidiga aviseringar på skärmen",
+        audiocooldown: `Ställ in hur lång tid efterföljande aviseringar väntar innan nytt ljud kan spelas upp<br><br><span class="ttdesc">Ljudet påverkas inte om Maximalt antal aviseringar är satt till 1</span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Redigera undantag",
             exclusioneditsub: [
                 `Redigera den befintliga <span class="hl">AppID</span> i <span class="hl">undantagslistan</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Lägg till ett Steam-spels <span class="hl">AppID</span> i <span class="hl">Inklusionslistan</span>`,
+                `Steam Achievement Notifier försöker endast spåra prestationsdata för spel vars <span class="hl">AppID</span> har lagts till i <span class="hl">Inklusionslistan</span>`,
+                `<span class="hl help" id="appidhelp"><u>Hur hittar jag ett Steam-spels AppID?</u></span>`
+            ],
+            inclusionnew: "Ny inkludering",
+            inclusionnewsub: [
+                `Ange <span class="hl">AppID</span> som ska läggas till i <span class="hl">Inklusionslistan</span>`
+            ],
+            inclusionedit: "Redigera inkludering",
+            inclusioneditsub: [
+                `Redigera det befintliga <span class="hl">AppID</span> i <span class="hl">Inklusionslistan</span>`
             ]
         }
     },

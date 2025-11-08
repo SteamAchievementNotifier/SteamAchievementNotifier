@@ -20,6 +20,7 @@ export const translations = {
         save: "保存",
         back: "戻る",
         edit: "編集",
+        lockedby: "$lock によってロックされています",
         settings: "設定",
         appversion: "アプリのバージョン",
         image: "画像",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "トリガーショートカット",
                 customtriggerdelay: "トリガーディレイ",
                 customtriggerusedisplaytime: "表示時間を使用",
-                trophymode: "トロフィーモード"
+                trophymode: "トロフィーモード",
+                notifymax: "最大通知数", 
+                notifyspace: "通知間の間隔"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "リンクされたゲーム",
                 themeswitch: "テーマを自動切替",
-                exclusionlist: "除外リスト"
+                exclusionlist: "除外リスト",
+                inclusionlist: "インクルージョンリスト",
+                listmode: "リストモード",
+                exclusion: "除外",
+                inclusion: "含める"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "代替処理モード",
                 notifydebug: "デバッグ通知の表示",
                 exportachdata: "実績データをエクスポート",
-                uselegacynotifytimer: "レガシー通知タイマーを使用",
+                lognum: "以前のログファイル", 
+                audiocooldown: "オーディオクールダウン",
                 usecustomfiles: "カスタムアプリファイルの使用",
                 showcustomfiles: "カスタムアプリファイルの表示"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "ログファイル",
                 status: "ステータス",
                 game: "ゲーム",
+                lastachievement: "最後の実績ID",
                 wait: "エミュレータを待機中",
                 idle: "ゲームイベントを待機中",
                 start: "ゲーム開始",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `GitHubに新しいアプリのバージョンがリリースされたか確認します。更新が利用可能な場合は、<span class="hl">更新可能</span>ダイアログを介して確認されると、自動的にダウンロードされ、インストールされます`,
         linkedgames: `特定のSteamゲームの<span class="hl">自動プロセス追跡</span>をバイパス<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`,
         exclusionlist: `アプリによる特定のSteamゲームの実績の追跡を防止<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`,
+        inclusionlist: `指定されていない限り、すべての Steam ゲームがアプリによって追跡されないようにします<br><br><span class="ttdesc">このオプションは非常に特定の状況でのみ使用してください。通常の状況では、このオプションを使用する必要はありません！</span>`,
         ovx: "スクリーンショットに表示される通知を水平方向にオフセットします",
         ovy: "スクリーンショットに表示される通知を垂直方向にオフセットします",
         importtheme: `ユーザーが作成した<span class="hl">テーマファイル</span>を通じてカスタマイズをインポートします`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "最後の実績通知を再通知",
         replaynotifyshortcut: "指定したショートカットを使用して最後の実績通知を再通知",
         replaynotifyempty: `<br><br><span class="ttdesc">再通知キューは空です。通知を再通知するには実績を解除してください</span>`,
-        uselegacynotifytimer: `通知ウィンドウの外部で静的なタイマーを使用して通知を非表示<br><br><span class="ttdesc">このオプションを有効にすると、通知アニメーションが完了しない場合があります</span>`,
         customtrigger: "実績解除時にキーやコンボをシミュレートしてトリガーします。外部アプリで登録されたキーボードショートカットをトリガーするために使用できます",
         customtriggershortcut: `実績解除時に指定されたキーやコンボをトリガーします<br><br><span class="ttdesc">ショートカットごとに1～3キーをサポートしています。3キー未満のキー入力/コンボの場合は、希望するキーを押してタイマー（5秒）が終了するのを待ってください</span>`,
         customtriggerdelay: "指定されたカスタムトリガーのキー/コンボを遅延させます",
         customtriggerusedisplaytime: `現在の通知タイプの表示時間の値に基づいて、指定されたカスタムトリガーのキー/コンボを遅延させます`,
-        trophymode: "メイン/レア/100%通知タイプをブロンズ/シルバー/ゴールド/プラチナに置き換える"
+        trophymode: "メイン/レア/100%通知タイプをブロンズ/シルバー/ゴールド/プラチナに置き換える",
+        lognum: `削除される前に保存される以前のログファイルの数。アプリを起動するたびに新しいログファイルが生成されます<br><br><span class="ttdesc">0 に設定すると、終了時にすべての以前のログファイルが削除されます</span>`, 
+        detectedappid: `現在検出されているゲームの <span class="hl">AppID</span> を使用する`,
+        listmode: `<span class="hl">除外リスト</span>/<span class="hl">インクルージョンリスト</span> の動作を設定します<br><br><span class="ttdesc">• <span class="hl">除外</span>: リストに指定されたゲームのみを無視する<br>• <span class="hl">含める</span>: リストに指定されたゲーム以外をすべて無視する</span>`,
+        notifymax: `画面上に同時に表示される通知の最大数を設定します<br><br><span class="ttdesc">同時通知数を増やすと、より多くのリソースを必要とし、パフォーマンスが低下する可能性があります</span>`,
+        notifyspace: "画面上で同時に表示される通知間の距離を設定します",
+        audiocooldown: `次の通知が新しいオーディオを再生できるようになるまでの待機時間を設定します<br><br><span class="ttdesc">最大通知数が 1 に設定されている場合、オーディオには影響しません</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "除外を編集",
             exclusioneditsub: [
                 `<span class="hl">除外リスト</span> にある既存の <span class="hl">AppID</span> を編集します`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `任意の Steam ゲームの <span class="hl">AppID</span> を <span class="hl">インクルージョンリスト</span> に追加します`,
+                `Steam Achievement Notifier は、<span class="hl">AppID</span> が <span class="hl">インクルージョンリスト</span> に追加されたゲームの実績データのみを追跡しようとします`,
+                `<span class="hl help" id="appidhelp"><u>Steam ゲームの AppID はどこで確認できますか？</u></span>`
+            ],
+            inclusionnew: "新しいインクルージョン",
+            inclusionnewsub: [
+                `<span class="hl">AppID</span> を入力して <span class="hl">インクルージョンリスト</span> に追加します`
+            ],
+            inclusionedit: "インクルージョンを編集",
+            inclusioneditsub: [
+                `<span class="hl">インクルージョンリスト</span> 内の既存の <span class="hl">AppID</span> を編集します`
             ]
         }
     },

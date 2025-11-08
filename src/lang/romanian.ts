@@ -20,6 +20,7 @@ export const translations = {
         save: "Salvare",
         back: "Înapoi",
         edit: "Editare",
+        lockedby: "Blocat de $lock",
         settings: "Setări",
         appversion: "Versiunea Aplicației",
         image: "Imagine",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Scurtătură Declanșator",
                 customtriggerdelay: "Întârziere Declanșator",
                 customtriggerusedisplaytime: "Folosește Timpul de Afișare",
-                trophymode: "Mod Trofeu"
+                trophymode: "Mod Trofeu",
+                notifymax: "Notificări Maxime", 
+                notifyspace: "Spațierea Notificărilor"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Jocuri Conectate",
                 themeswitch: "Comutare automată a temelor",
-                exclusionlist: "Listă de Excludere"
+                exclusionlist: "Listă de Excludere",
+                inclusionlist: "Listă de Incluziune",
+                listmode: "Mod Listă",
+                exclusion: "Excludere",
+                inclusion: "Incluziune"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Mod Alternativ de Procesare",
                 notifydebug: "Afișare Notificări de Depanare",
                 exportachdata: "Exportă datele realizărilor",
-                uselegacynotifytimer: "Folosește timerul vechi pentru notificări",
+                lognum: "Fișiere de Jurnal Anterioare", 
+                audiocooldown: "Timp de Așteptare Audio",
                 usecustomfiles: "Utilizare Fișiere de Aplicație Personalizate",
                 showcustomfiles: "Afișare Fișiere de Aplicație Personalizate"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Fișier de log",
                 status: "Stare",
                 game: "Joc",
+                lastachievement: "Ultimul ID de Realizare",
                 wait: "Așteptând emulatorul",
                 idle: "Așteptând evenimentul jocului",
                 start: "Pornirea jocului",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Verificați dacă a fost lansată o nouă versiune a aplicației pe GitHub. Dacă este disponibilă o actualizare, aceasta va fi descărcată și instalată automat odată ce a fost confirmată prin fereastra de dialog <span class="hl">Actualizare disponibilă</span>`,
         linkedgames: `Ocolirea <span class="hl">urmaririi automate a proceselor</span> pentru anumite jocuri Steam<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`,
         exclusionlist: `Prevenirea urmăririi realizărilor în anumite jocuri Steam de către aplicație<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`,
+        inclusionlist: `Împiedică toate jocurile Steam să fie urmărite de aplicație, cu excepția celor specificate<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în condiții normale!</span>`,
         ovx: "Deplasați notificarea afișată în captura de ecran pe orizontală",
         ovy: "Deplasați notificarea afișată în captura de ecran pe verticală",
         importtheme: `Importați personalizările printr-un <span class="hl">fișier temă</span> creat de utilizator`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Repetă ultima notificare de realizare",
         replaynotifyshortcut: "Repetă ultima notificare de realizare folosind scurtătura de tastatură specificată",
         replaynotifyempty: `<br><br><span class="ttdesc">Coada de repetare este goală. Deblochează o realizare pentru a repeta o notificare</span>`,
-        uselegacynotifytimer: `Ascunde notificările folosind un timer static în afara ferestrei de notificare<br><br><span class="ttdesc">Activarea acestei opțiuni poate cauza eșecul completării animațiilor de notificare</span>`,
         customtrigger: "Declanșează o tastă/combo simulată la deblocarea unui achievement. Poate fi folosit pentru a activa scurtături de tastatură înregistrate în aplicații externe",
         customtriggershortcut: `Declanșează tasta/combo specificată la deblocarea unui achievement<br><br><span class="ttdesc">Acceptă între 1 și 3 taste per scurtătură. Pentru apăsări/combo-uri cu mai puțin de 3 taste, apasă tastele dorite și așteaptă până expiră temporizatorul (5s)</span>`,
         customtriggerdelay: "Întârzie tasta/combo specificată a Declanșatorului Personalizat",
         customtriggerusedisplaytime: `Întârzie tasta/combo specificată a Declanșatorului Personalizat pe baza valorii Timpului de Afișare pentru tipul curent de notificare`,
-        trophymode: "Înlocuiește tipurile de notificare Principal/Rar/100% cu Bronze/Argint/Aur/Platină"
+        trophymode: "Înlocuiește tipurile de notificare Principal/Rar/100% cu Bronze/Argint/Aur/Platină",
+        lognum: `Numărul de fișiere de jurnal anterioare stocate înainte de ștergere. Un nou fișier de jurnal va fi generat la fiecare lansare a aplicației<br><br><span class="ttdesc">Când este setat la 0, toate fișierele de jurnal anterioare vor fi șterse la ieșire</span>`, 
+        detectedappid: `Folosește <span class="hl">AppID</span>-ul jocului detectat în prezent`,
+        listmode: `Setează comportamentul pentru <span class="hl">Lista de Excludere</span>/<span class="hl">Lista de Incluziune</span><br><br><span class="ttdesc">• <span class="hl">Excludere</span>: Ignoră doar jocurile specificate în listă<br>• <span class="hl">Incluziune</span>: Ignoră toate jocurile, cu excepția celor specificate în listă</span>`,
+        notifymax: `Setează numărul maxim de notificări afișate simultan pe ecran<br><br><span class="ttdesc">Creșterea numărului de notificări simultane necesită mai multe resurse și poate duce la performanță redusă</span>`,
+        notifyspace: "Setează distanța dintre notificările afișate simultan pe ecran",
+        audiocooldown: `Setează timpul de așteptare înainte ca notificările următoare să poată reda un nou sunet<br><br><span class="ttdesc">Audio nu va fi afectat dacă Notificări Maxime este setat la 1</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Editează excluderea",
             exclusioneditsub: [
                 `Editează <span class="hl">AppID</span>-ul existent din <span class="hl">Lista de excluderi</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Adaugă <span class="hl">AppID</span>-ul oricărui joc Steam în <span class="hl">Lista de Incluziune</span>`,
+                `Steam Achievement Notifier va încerca să urmărească datele de realizări doar pentru jocurile care au un <span class="hl">AppID</span> adăugat în <span class="hl">Lista de Incluziune</span>`,
+                `<span class="hl help" id="appidhelp"><u>Cum pot găsi AppID-ul unui joc Steam?</u></span>`
+            ],
+            inclusionnew: "Incluziune Nouă",
+            inclusionnewsub: [
+                `Introdu <span class="hl">AppID</span>-ul care va fi adăugat în <span class="hl">Lista de Incluziune</span>`
+            ],
+            inclusionedit: "Editează Incluziunea",
+            inclusioneditsub: [
+                `Editează <span class="hl">AppID</span>-ul existent în <span class="hl">Lista de Incluziune</span>`
             ]
         }
     },

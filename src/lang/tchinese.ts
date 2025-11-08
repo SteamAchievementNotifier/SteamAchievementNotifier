@@ -20,6 +20,7 @@ export const translations = {
         save: "保存",
         back: "返回",
         edit: "編輯",
+        lockedby: "由 $lock 鎖定",
         settings: "設置",
         appversion: "應用程式版本",
         image: "圖像",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "觸發捷徑",
                 customtriggerdelay: "觸發延遲",
                 customtriggerusedisplaytime: "使用顯示時間",
-                trophymode: "獎盃模式"
+                trophymode: "獎盃模式",
+                notifymax: "最大通知數量", 
+                notifyspace: "通知間距"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "已連結的遊戲",
                 themeswitch: "自動切換主題",
-                exclusionlist: "排除清單"
+                exclusionlist: "排除清單",
+                inclusionlist: "包含清單",
+                listmode: "清單模式",
+                exclusion: "排除",
+                inclusion: "包含"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "替代處理模式",
                 notifydebug: "顯示偵錯通知",
                 exportachdata: "匯出成就數據",
-                uselegacynotifytimer: "使用舊版通知計時器",
+                lognum: "先前的日誌檔案", 
+                audiocooldown: "音訊冷卻時間",
                 usecustomfiles: "使用自定義應用程式檔案",
                 showcustomfiles: "顯示自定義應用程式檔案"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "日誌檔案",
                 status: "狀態",
                 game: "遊戲",
+                lastachievement: "最後成就 ID",
                 wait: "等待模擬器",
                 idle: "等待遊戲事件",
                 start: "啟動遊戲",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `檢查是否在GitHub上發布了新的應用版本。如果有可用的更新，將在透過<span class="hl">更新可用</span>對話框確認後自動下載並安裝，`,
         linkedgames: `為特定的Steam遊戲<span class="hl">繞過自動進程追蹤</span><br><br><span class="ttdesc">此選項應僅在非常特定的情況下使用。使用者不應該在正常情況下使用此選項！</span>`,
         exclusionlist: `防止應用程式追蹤特定Steam遊戲的成就<br><br><span class="ttdesc">此選項應僅在非常特定的情況下使用。使用者不應該在正常情況下使用此選項！</span>`,
+        inclusionlist: `除非特別指定，否則防止所有 Steam 遊戲被此應用程式追蹤<br><br><span class="ttdesc">此選項僅應在非常特定的情況下使用。一般使用者在正常情況下不應使用此選項！</span>`,
         ovx: "水平偏移在螢幕截圖中顯示的通知",
         ovy: "垂直偏移在螢幕截圖中顯示的通知",
         importtheme: `透過使用者建立的 <span class="hl">主題檔案</span> 匯入自訂設置`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "重播最後的成就通知",
         replaynotifyshortcut: "使用指定的快捷鍵重播最後的成就通知",
         replaynotifyempty: `<br><br><span class="ttdesc">重播隊列為空。解鎖一個成就以重播通知</span>`,
-        uselegacynotifytimer: `使用靜態計時器在通知視窗外隱藏通知<br><br><span class="ttdesc">啟用此選項可能會導致通知動畫無法完成</span>`,
         customtrigger: "在解鎖成就時觸發模擬按鍵/組合鍵。可用於觸發外部應用程式中註冊的鍵盤捷徑",
         customtriggershortcut: `在解鎖成就時觸發指定的按鍵/組合鍵<br><br><span class="ttdesc">支援每個捷徑1至3個按鍵。對於少於3個按鍵的按鍵/組合，請按下所需按鍵並等待計時器（5秒）結束</span>`,
         customtriggerdelay: "延遲指定的自訂觸發器按鍵/組合",
         customtriggerusedisplaytime: `根據當前通知類型的顯示時間值延遲指定的自訂觸發器按鍵/組合`,
-        trophymode: "將主要/稀有/100%通知類型替換為青銅/白銀/黃金/白金"
+        trophymode: "將主要/稀有/100%通知類型替換為青銅/白銀/黃金/白金",
+        lognum: `儲存並在刪除前保留的先前日誌檔案數量。每次啟動應用程式時都會產生新的日誌檔案<br><br><span class="ttdesc">當設定為 0 時，所有先前的日誌檔案會在退出時被刪除</span>`, 
+        detectedappid: `使用目前偵測到遊戲的 <span class="hl">AppID</span>`,
+        listmode: `設定 <span class="hl">排除</span>/<span class="hl">包含清單</span> 的行為<br><br><span class="ttdesc">• <span class="hl">排除</span>：只忽略清單中指定的遊戲<br>• <span class="hl">包含</span>：忽略所有遊戲，除了清單中指定的遊戲</span>`,
+        notifymax: `設定同時在螢幕上顯示的最大通知數量<br><br><span class="ttdesc">增加同時顯示的通知數量會需要更多資源，並可能導致效能降低</span>`,
+        notifyspace: "設定同時在螢幕上顯示的通知之間的距離",
+        audiocooldown: `設定後續通知在播放新音訊前需等待的時間<br><br><span class="ttdesc">若最大通知數量設為 1，音訊將不受影響</span>`
     },
     update: {
         updateavailable: "有可用更新",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "編輯排除清單",
             exclusioneditsub: [
                 `編輯<span class="hl">排除清單</span>中現有的<span class="hl">AppID</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `將任意 Steam 遊戲的 <span class="hl">AppID</span> 新增至 <span class="hl">包含清單</span>`,
+                `Steam Achievement Notifier 只會嘗試追蹤已新增至 <span class="hl">包含清單</span> 的遊戲成就資料`,
+                `<span class="hl help" id="appidhelp"><u>如何查找 Steam 遊戲的 AppID？</u></span>`
+            ],
+            inclusionnew: "新增包含項目",
+            inclusionnewsub: [
+                `輸入要新增至 <span class="hl">包含清單</span> 的 <span class="hl">AppID</span>`
+            ],
+            inclusionedit: "編輯包含項目",
+            inclusioneditsub: [
+                `編輯 <span class="hl">包含清單</span> 中現有的 <span class="hl">AppID</span>`
             ]
         }
     },

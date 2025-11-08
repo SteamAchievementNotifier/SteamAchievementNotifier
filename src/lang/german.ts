@@ -20,6 +20,7 @@ export const translations = {
         save: "Speichern",
         back: "Zurück",
         edit: "Bearbeiten",
+        lockedby: "Gesperrt von $lock",
         settings: "Einstellungen",
         appversion: "App-Version",
         image: "Bild",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Auslöser-Tastenkombination",
                 customtriggerdelay: "Auslöserverzögerung",
                 customtriggerusedisplaytime: "Anzeigezeit verwenden",
-                trophymode: "Trophäenmodus"
+                trophymode: "Trophäenmodus",
+                notifymax: "Maximale Benachrichtigungen", 
+                notifyspace: "Benachrichtigungsabstand"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Verknüpfte Spiele",
                 themeswitch: "Automatischer Designwechsel",
-                exclusionlist: "Ausschlussliste"
+                exclusionlist: "Ausschlussliste",
+                inclusionlist: "Einschlussliste",
+                listmode: "Listenmodus",
+                exclusion: "Ausschluss",
+                inclusion: "Einschluss"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Alternativer Verarbeitungsmodus",
                 notifydebug: "Debug-Benachrichtigungen Anzeigen",
                 exportachdata: "Erfolgsdaten exportieren",
-                uselegacynotifytimer: "Alten Benachrichtigungs-Timer verwenden",
+                lognum: "Vorherige Protokolldateien", 
+                audiocooldown: "Audio-Abklingzeit",
                 usecustomfiles: "Benutzerdefinierte App-Dateien Verwenden",
                 showcustomfiles: "Benutzerdefinierte App-Dateien Anzeigen"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Protokolldatei",
                 status: "Status",
                 game: "Spiel",
+                lastachievement: "Letzte Errungenschafts-ID",
                 wait: "Warten auf Emulator",
                 idle: "Warten auf Spielereignis",
                 start: "Spiel starten",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Überprüfen Sie, ob eine neue App-Version auf GitHub veröffentlicht wurde. Wenn ein Update verfügbar ist, wird es automatisch heruntergeladen und installiert, sobald es über das Dialogfeld <span class="hl">Update verfügbar</span> bestätigt wurde`,
         linkedgames: `Umgehen Sie die <span class="hl">automatische Prozess-Verfolgung</span> für bestimmte Steam-Spiele<br><br><span class="ttdesc">Diese Option sollte nur in sehr spezifischen Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`,
         exclusionlist: `Verhindern Sie, dass Errungenschaften in bestimmten Steam-Spielen von der App verfolgt werden<br><br><span class="ttdesc">Diese Option sollte nur in sehr spezifischen Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`,
+        inclusionlist: `Verhindert, dass alle Steam-Spiele von der App verfolgt werden, es sei denn, sie sind angegeben<br><br><span class="ttdesc">Diese Option sollte nur für sehr spezifische Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`,
         ovx: "Verschieben Sie die Benachrichtigung, die im Screenshot angezeigt wird, horizontal",
         ovy: "Verschieben Sie die Benachrichtigung, die im Screenshot angezeigt wird, vertikal",
         importtheme: `Importieren Sie Anpassungen über eine vom Benutzer erstellte <span class="hl">Designdatei</span>`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Wiederhole die letzte Erfolgsbenachrichtigung",
         replaynotifyshortcut: "Wiederhole die letzte Erfolgsbenachrichtigung mit der angegebenen Tastenkombination",
         replaynotifyempty: `<br><br><span class="ttdesc">Die Wiederholungswarteschlange ist leer. Schalte einen Erfolg frei, um eine Benachrichtigung zu wiederholen</span>`,
-        uselegacynotifytimer: `Benachrichtigungen mit einem statischen Timer außerhalb des Benachrichtigungsfensters ausblenden<br><br><span class="ttdesc">Das Aktivieren dieser Option kann dazu führen, dass Benachrichtigungsanimationen nicht abgeschlossen werden</span>`,
         customtrigger: "Löst eine Taste/Kombination aus, wenn ein Achievement freigeschaltet wird. Kann verwendet werden, um Tastenkombinationen in externen Anwendungen auszulösen",
         customtriggershortcut: `Löst die angegebene Taste/Kombination aus, wenn ein Achievement freigeschaltet wird<br><br><span class="ttdesc">Unterstützt 1–3 Tasten pro Tastenkombination. Für Tastendrücke/Kombinationen mit weniger als 3 Tasten, drücke die gewünschten Tasten und warte, bis der Timer (5s) abläuft</span>`,
         customtriggerdelay: "Verzögert die angegebene Taste/Kombination des benutzerdefinierten Auslösers",
         customtriggerusedisplaytime: `Verzögert die angegebene Taste/Kombination des benutzerdefinierten Auslösers basierend auf dem Anzeigezeitwert des aktuellen Benachrichtigungstyps`,
-        trophymode: "Haupt/Selten/100 %-Benachrichtigungstypen durch Bronze/Silber/Gold/Platin ersetzen"
+        trophymode: "Haupt/Selten/100 %-Benachrichtigungstypen durch Bronze/Silber/Gold/Platin ersetzen",
+        lognum: `Die Anzahl der gespeicherten vorherigen Protokolldateien vor dem Löschen. Bei jedem Start der App wird eine neue Protokolldatei erstellt<br><br><span class="ttdesc">Wenn auf 0 gesetzt, werden alle vorherigen Protokolldateien beim Beenden gelöscht</span>`, 
+        detectedappid: `Verwende die <span class="hl">AppID</span> des aktuell erkannten Spiels`,
+        listmode: `Lege das Verhalten der <span class="hl">Ausschlussliste</span>/<span class="hl">Einschlussliste</span> fest<br><br><span class="ttdesc">• <span class="hl">Ausschluss</span>: Ignoriere nur Spiele, die in der Liste angegeben sind<br>• <span class="hl">Einschluss</span>: Ignoriere alle Spiele außer denen, die in der Liste angegeben sind</span>`,
+        notifymax: `Lege die maximale Anzahl gleichzeitiger Benachrichtigungen auf dem Bildschirm fest<br><br><span class="ttdesc">Das Erhöhen der Anzahl gleichzeitiger Benachrichtigungen erfordert mehr Ressourcen und kann die Leistung beeinträchtigen</span>`,
+        notifyspace: "Lege den Abstand zwischen gleichzeitigen Benachrichtigungen auf dem Bildschirm fest",
+        audiocooldown: `Lege fest, wie lange nachfolgende Benachrichtigungen warten müssen, bevor neuer Ton abgespielt werden kann<br><br><span class="ttdesc">Audio wird nicht beeinflusst, wenn Maximale Benachrichtigungen auf 1 gesetzt ist</span>`
     },
     update: {
         updateavailable: "Update verfügbar",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Ausschluss bearbeiten",
             exclusioneditsub: [
                 `Die bestehende <span class="hl">AppID</span> in der <span class="hl">Ausschlussliste</span> bearbeiten`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Füge die <span class="hl">AppID</span> eines beliebigen Steam-Spiels zur <span class="hl">Einschlussliste</span> hinzu`,
+                `Steam Achievement Notifier versucht nur, Erfolgsdaten für Spiele zu verfolgen, deren <span class="hl">AppID</span> zur <span class="hl">Einschlussliste</span> hinzugefügt wurde`,
+                `<span class="hl help" id="appidhelp"><u>Wie finde ich die AppID eines Steam-Spiels?</u></span>`
+            ],
+            inclusionnew: "Neue Einschlussliste",
+            inclusionnewsub: [
+                `Gib die <span class="hl">AppID</span> ein, die zur <span class="hl">Einschlussliste</span> hinzugefügt werden soll`
+            ],
+            inclusionedit: "Einschluss bearbeiten",
+            inclusioneditsub: [
+                `Bearbeite die vorhandene <span class="hl">AppID</span> in der <span class="hl">Einschlussliste</span>`
             ]
         }
     },

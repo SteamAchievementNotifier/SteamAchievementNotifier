@@ -20,6 +20,7 @@ export const translations = {
         save: "저장",
         back: "뒤로",
         edit: "편집",
+        lockedby: "$lock 에 의해 잠김",
         settings: "설정",
         appversion: "앱 버전",
         image: "이미지",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "트리거 단축키",
                 customtriggerdelay: "트리거 지연",
                 customtriggerusedisplaytime: "표시 시간 사용",
-                trophymode: "트로피 모드"
+                trophymode: "트로피 모드",
+                notifymax: "최대 알림 수", 
+                notifyspace: "알림 간격"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "연결된 게임",
                 themeswitch: "테마 자동 전환",
-                exclusionlist: "제외 목록"
+                exclusionlist: "제외 목록",
+                inclusionlist: "포함 목록",
+                listmode: "목록 모드",
+                exclusion: "제외",
+                inclusion: "포함"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "대체 처리 모드",
                 notifydebug: "디버그 알림 표시",
                 exportachdata: "업적 데이터 내보내기",
-                uselegacynotifytimer: "레거시 알림 타이머 사용",
+                lognum: "이전 로그 파일", 
+                audiocooldown: "오디오 대기 시간",
                 usecustomfiles: "사용자 정의 앱 파일 사용",
                 showcustomfiles: "사용자 정의 앱 파일 표시"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "로그 파일",
                 status: "상태",
                 game: "게임",
+                lastachievement: "마지막 업적 ID",
                 wait: "에뮬레이터 대기 중",
                 idle: "게임 이벤트 대기 중",
                 start: "게임 시작",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `GitHub에 새 앱 버전이 출시되었는지 확인합니다. 업데이트가 가능한 경우, <span class="hl">업데이트 가능</span> 대화 상자를 통해 확인된 후 자동으로 다운로드 및 설치됩니다`,
         linkedgames: `특정 Steam 게임의 <span class="hl">자동 프로세스 추적</span> 우회<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`,
         exclusionlist: `앱에서 특정 Steam 게임의 업적 추적 방지<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`,
+        inclusionlist: `명시되지 않은 한, 모든 Steam 게임이 앱에 의해 추적되지 않도록 합니다<br><br><span class="ttdesc">이 옵션은 매우 특정한 상황에서만 사용해야 합니다. 일반적인 상황에서는 이 옵션을 사용할 필요가 없습니다!</span>`,
         ovx: "스크린샷에 표시된 알림을 수평으로 오프셋합니다",
         ovy: "스크린샷에 표시된 알림을 수직으로 오프셋합니다",
         importtheme: `사용자가 생성한 <span class="hl">테마 파일</span>을 통해 맞춤 설정을 가져옵니다`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "최근 성취 알림을 재생",
         replaynotifyshortcut: "지정된 단축키를 사용하여 최근 성취 알림을 재생",
         replaynotifyempty: `<br><br><span class="ttdesc">재생 대기열이 비어 있습니다. 알림을 재생하려면 성취를 해제하세요</span>`,
-        uselegacynotifytimer: `알림 창 외부의 정적 타이머를 사용하여 알림 숨기기<br><br><span class="ttdesc">이 옵션을 활성화하면 알림 애니메이션이 완료되지 않을 수 있습니다</span>`,
         customtrigger: "업적을 해제할 때 키/조합을 시뮬레이션하도록 트리거합니다. 외부 응용 프로그램에 등록된 키보드 단축키를 트리거하는 데 사용할 수 있습니다",
         customtriggershortcut: `업적이 해제될 때 지정된 키/조합을 트리거합니다<br><br><span class="ttdesc">단축키당 1~3개의 키를 지원합니다. 3개 미만의 키를 누르는 경우 원하는 키를 누르고 타이머(5초)가 종료될 때까지 기다리세요</span>`,
         customtriggerdelay: "지정된 사용자 지정 트리거 키/조합을 지연합니다",
         customtriggerusedisplaytime: `현재 알림 유형의 표시 시간 값을 기준으로 지정된 사용자 지정 트리거 키/조합을 지연합니다`,
-        trophymode: "메인/레어/100% 알림 유형을 브론즈/실버/골드/플래티넘으로 교체"
+        trophymode: "메인/레어/100% 알림 유형을 브론즈/실버/골드/플래티넘으로 교체",
+        lognum: `삭제되기 전에 저장되는 이전 로그 파일의 수입니다. 앱이 시작될 때마다 새로운 로그 파일이 생성됩니다<br><br><span class="ttdesc">0으로 설정하면, 종료 시 모든 이전 로그 파일이 삭제됩니다</span>`, 
+        detectedappid: `현재 감지된 게임의 <span class="hl">AppID</span> 사용`,
+        listmode: `<span class="hl">제외 목록</span>/<span class="hl">포함 목록</span>의 동작을 설정합니다<br><br><span class="ttdesc">• <span class="hl">제외</span>: 목록에 지정된 게임만 무시<br>• <span class="hl">포함</span>: 목록에 지정된 게임을 제외한 모든 게임을 무시</span>`,
+        notifymax: `화면에 동시에 표시될 수 있는 최대 알림 수를 설정합니다<br><br><span class="ttdesc">동시에 표시되는 알림 수를 늘리면 더 많은 리소스가 필요하며 성능이 저하될 수 있습니다</span>`,
+        notifyspace: "화면에 동시에 표시되는 알림 간의 거리를 설정합니다",
+        audiocooldown: `다음 알림이 새로운 오디오를 재생하기 전에 대기해야 하는 시간을 설정합니다<br><br><span class="ttdesc">최대 알림 수가 1로 설정된 경우 오디오는 영향을 받지 않습니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "제외 편집",
             exclusioneditsub: [
                 `<span class="hl">제외 목록</span>에 있는 기존 <span class="hl">AppID</span>를 편집합니다`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `아무 Steam 게임의 <span class="hl">AppID</span>를 <span class="hl">포함 목록</span>에 추가합니다`,
+                `Steam Achievement Notifier는 <span class="hl">AppID</span>가 <span class="hl">포함 목록</span>에 추가된 게임의 업적 데이터만 추적합니다`,
+                `<span class="hl help" id="appidhelp"><u>Steam 게임의 AppID는 어떻게 찾나요?</u></span>`
+            ],
+            inclusionnew: "새 포함 항목",
+            inclusionnewsub: [
+                `<span class="hl">AppID</span>를 입력하여 <span class="hl">포함 목록</span>에 추가합니다`
+            ],
+            inclusionedit: "포함 항목 편집",
+            inclusioneditsub: [
+                `<span class="hl">포함 목록</span>에 있는 기존 <span class="hl">AppID</span>를 편집합니다`
             ]
         }
     },

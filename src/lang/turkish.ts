@@ -20,6 +20,7 @@ export const translations = {
         save: "Kaydet",
         back: "Geri",
         edit: "Düzenle",
+        lockedby: "$lock tarafından kilitlendi",
         settings: "Ayarlar",
         appversion: "Uygulama Sürümü",
         image: "Resim",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Tetikleyici Kısayolu",
                 customtriggerdelay: "Tetikleyici Gecikmesi",
                 customtriggerusedisplaytime: "Gösterim Süresini Kullan",
-                trophymode: "Kupa Modu"
+                trophymode: "Kupa Modu",
+                notifymax: "Maksimum Bildirim Sayısı", 
+                notifyspace: "Bildirim Aralığı"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Bağlantılı Oyunlar",
                 themeswitch: "Tema Değişimini Otomatik Yap",
-                exclusionlist: "Dışlama Listesi"
+                exclusionlist: "Dışlama Listesi",
+                inclusionlist: "Dahil Etme Listesi",
+                listmode: "Liste Modu",
+                exclusion: "Hariç Tutma",
+                inclusion: "Dahil Etme"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Alternatif İşleme Modu",
                 notifydebug: "Hata Ayıklama Bildirimlerini Göster",
                 exportachdata: "Başarım Verilerini Dışa Aktar",
-                uselegacynotifytimer: "Eski Bildirim Zamanlayıcısını Kullan",
+                lognum: "Önceki Günlük Dosyaları", 
+                audiocooldown: "Ses Bekleme Süresi",
                 usecustomfiles: "Özel Uygulama Dosyalarını Kullan",
                 showcustomfiles: "Özel Uygulama Dosyalarını Göster"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Log Dosyası",
                 status: "Durum",
                 game: "Oyun",
+                lastachievement: "Son Başarım Kimliği",
                 wait: "Emülatör bekleniyor",
                 idle: "Oyun olayı bekleniyor",
                 start: "Oyunu başlatıyor",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `GitHub'da yeni bir uygulama sürümünün yayımlanıp yayımlanmadığını kontrol edin. Bir güncelleme mevcutsa, <span class="hl">Güncelleme Mevcut</span> iletişim kutusu aracılığıyla onaylandıktan sonra otomatik olarak indirilecek ve yüklenecektir,`,
         linkedgames: `Belirli Steam oyunları için <span class="hl">otomatik işlem takibini</span> atlayın<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`,
         exclusionlist: `Uygulamanın belirli Steam oyunlarının başarılarını izlemesini engelleyin<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`,
+        inclusionlist: `Belirtilmedikçe tüm Steam oyunlarının uygulama tarafından izlenmesini engelle<br><br><span class="ttdesc">Bu seçenek yalnızca çok özel durumlarda kullanılmalıdır. Normal koşullarda kullanıcıların bu seçeneği kullanmasına gerek yoktur!</span>`,
         ovx: "Ekran görüntüsünde gösterilen bildirimi yatay olarak kaydırma",
         ovy: "Ekran görüntüsünde gösterilen bildirimi dikey olarak kaydırma",
         importtheme: `Kullanıcı tarafından oluşturulan <span class="hl">tema dosyası</span> aracılığıyla özelleştirmeleri içe aktarın`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Son Başarı Bildirimini Tekrarla",
         replaynotifyshortcut: "Belirtilen kısayol ile son başarı bildirimini tekrarla",
         replaynotifyempty: `<br><br><span class="ttdesc">Tekrar kuyruğu boş. Bir başarıyı açarak bir bildirimi tekrar edebilirsiniz</span>`,
-        uselegacynotifytimer: `Bildirim penceresinin dışında statik bir zamanlayıcı kullanarak bildirimleri gizle<br><br><span class="ttdesc">Bu seçeneği etkinleştirmek, bildirim animasyonlarının tamamlanmamasına neden olabilir</span>`,
         customtrigger: "Bir başarım açıldığında simüle edilen bir tuş/kombinasyonu tetikler. Harici uygulamalarda kayıtlı klavye kısayollarını tetiklemek için kullanılabilir",
         customtriggershortcut: `Bir başarım açıldığında belirtilen tuş/kombinasyonu tetikler<br><br><span class="ttdesc">Her kısayol için 1-3 tuş desteklenir. 3’ten az tuş gerektiren tuş basımı/kombinasyonlar için, istenen tuşlara basın ve zamanlayıcının (5s) bitmesini bekleyin</span>`,
         customtriggerdelay: "Belirtilen Özel Tetikleyici tuş/kombinasyonunu geciktir",
         customtriggerusedisplaytime: `Belirtilen Özel Tetikleyici tuş/kombinasyonunu, mevcut bildirim türünün Gösterim Süresi değerine göre geciktir`,
-        trophymode: "Ana/Nadir/%100 bildirim türlerini Bronz/Gümüş/Altın/Platin ile değiştir"
+        trophymode: "Ana/Nadir/%100 bildirim türlerini Bronz/Gümüş/Altın/Platin ile değiştir",
+        lognum: `Silinmeden önce saklanacak önceki günlük dosyalarının sayısı. Uygulama her başlatıldığında yeni bir günlük dosyası oluşturulur<br><br><span class="ttdesc">0 olarak ayarlanırsa, önceki tüm günlük dosyaları çıkışta silinir</span>`, 
+        detectedappid: `Şu anda algılanan oyunun <span class="hl">AppID</span>’sini kullan`,
+        listmode: `<span class="hl">Hariç Tutma</span>/<span class="hl">Dahil Etme Listesi</span> davranışını ayarla<br><br><span class="ttdesc">• <span class="hl">Hariç Tutma</span>: Yalnızca listede belirtilen oyunları yoksay<br>• <span class="hl">Dahil Etme</span>: Listede belirtilen oyunlar dışındaki tüm oyunları yoksay</span>`,
+        notifymax: `Ekranda aynı anda gösterilebilecek maksimum bildirim sayısını ayarla<br><br><span class="ttdesc">Aynı anda gösterilen bildirim sayısını artırmak daha fazla kaynak kullanır ve performansın düşmesine neden olabilir</span>`,
+        notifyspace: "Ekranda aynı anda gösterilen bildirimler arasındaki mesafeyi ayarla",
+        audiocooldown: `Yeni bir ses çalınmadan önce sonraki bildirimlerin beklemesi gereken süreyi ayarla<br><br><span class="ttdesc">Maksimum Bildirim Sayısı 1 olarak ayarlanmışsa ses etkilenmez</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Hariç Tutmayı Düzenle",
             exclusioneditsub: [
                 `<span class="hl">Hariç Tutma Listesi</span> içindeki mevcut <span class="hl">AppID</span>’yi düzenle`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Herhangi bir Steam oyununun <span class="hl">AppID</span>’sini <span class="hl">Dahil Etme Listesi</span>’ne ekle`,
+                `Steam Achievement Notifier yalnızca <span class="hl">Dahil Etme Listesi</span>’ne eklenmiş <span class="hl">AppID</span>’lere sahip oyunların başarı verilerini izlemeye çalışır`,
+                `<span class="hl help" id="appidhelp"><u>Bir Steam oyununun AppID’sini nasıl bulurum?</u></span>`
+            ],
+            inclusionnew: "Yeni Dahil Etme",
+            inclusionnewsub: [
+                `<span class="hl">AppID</span> girerek <span class="hl">Dahil Etme Listesi</span>’ne ekle`
+            ],
+            inclusionedit: "Dahil Etmeyi Düzenle",
+            inclusioneditsub: [
+                `<span class="hl">Dahil Etme Listesi</span>’ndeki mevcut <span class="hl">AppID</span>’yi düzenle`
             ]
         }
     },

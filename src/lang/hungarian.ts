@@ -20,6 +20,7 @@ export const translations = {
         save: "Mentés",
         back: "Vissza",
         edit: "Szerkesztés",
+        lockedby: "Zárolva: $lock",
         settings: "Beállítások",
         appversion: "App verzió",
         image: "Kép",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Trigger Gyorsbillentyű",
                 customtriggerdelay: "Trigger Késleltetés",
                 customtriggerusedisplaytime: "Megjelenítési Idő Használata",
-                trophymode: "Trófea mód"
+                trophymode: "Trófea mód",
+                notifymax: "Maximális értesítések", 
+                notifyspace: "Értesítések közötti távolság"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Kapcsolt játékok",
                 themeswitch: "Automatikus téma váltás",
-                exclusionlist: "Kizárások listája"
+                exclusionlist: "Kizárások listája",
+                inclusionlist: "Belefoglalási lista",
+                listmode: "Lista mód",
+                exclusion: "Kizárás",
+                inclusion: "Belefoglalás"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Alternatív feldolgozási mód",
                 notifydebug: "Hibakeresési értesítések megjelenítése",
                 exportachdata: "Teljesítményadatok exportálása",
-                uselegacynotifytimer: "Használj régi értesítési időzítőt",
+                lognum: "Korábbi naplófájlok", 
+                audiocooldown: "Hang-várakozási idő",
                 usecustomfiles: "Egyedi alkalmazásfájlok használata",
                 showcustomfiles: "Egyedi alkalmazásfájlok megjelenítése"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Napló Fájl",
                 status: "Állapot",
                 game: "Játék",
+                lastachievement: "Utolsó teljesítményazonosító",
                 wait: "Várakozás az emulátorra",
                 idle: "Várakozás a játékeseményre",
                 start: "Játék indítása",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Ellenőrizze, hogy megjelent-e új verzió az alkalmazásból a GitHubon. Ha elérhető frissítés van, az automatikusan letöltésre és telepítésre kerül, miután megerősítette a <span class="hl">Frissítés elérhető</span> párbeszédablakban`,
         linkedgames: `Kerüld meg a <span class="hl">automatikus folyamatkövetést</span> bizonyos Steam-játékokhoz<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`,
         exclusionlist: `Akadályozd meg a Steam-játékok bizonyos teljesítményeinek követését az alkalmazásban<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`,
+        inclusionlist: `Megakadályozza, hogy az alkalmazás minden Steam-játékot kövessen, kivéve ha külön meg van adva<br><br><span class="ttdesc">Ezt az opciót csak nagyon speciális esetekben érdemes használni. Normál körülmények között a felhasználóknak nem kellene ezt választaniuk!</span>`,
         ovx: "A képernyőképen megjelenő értesítés vízszintes eltolása",
         ovy: "A képernyőképen megjelenő értesítés függőleges eltolása",
         importtheme: `Testreszabások importálása egy felhasználó által létrehozott <span class="hl">témafájl</span> segítségével`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Ismételd meg az utolsó teljesítmény értesítést",
         replaynotifyshortcut: "Ismételd meg az utolsó teljesítmény értesítést a megadott gyorsbillentyűvel",
         replaynotifyempty: `<br><br><span class="ttdesc">Az ismétlési sor üres. Nyiss meg egy teljesítményt az értesítés ismétléséhez</span>`,
-        uselegacynotifytimer: `Rejtse el az értesítéseket egy statikus időzítő használatával, amely kívül esik az értesítési ablakon<br><br><span class="ttdesc">Ennek az opciónak az engedélyezése azt eredményezheti, hogy az értesítési animációk nem fejeződnek be</span>`,
         customtrigger: "Egy billentyű/kombináció szimulálása achievement feloldásakor. Használható külső alkalmazásokban regisztrált billentyűparancsok indítására",
         customtriggershortcut: `A megadott billentyű/kombináció aktiválása achievement feloldásakor<br><br><span class="ttdesc">1–3 billentyűt támogat gyorsbillentyűként. Kevesebb mint 3 billentyűből álló kombináció esetén nyomja meg a kívánt billentyűket, majd várja meg az időzítő (5 mp) lejártát</span>`,
         customtriggerdelay: "A megadott egyedi trigger billentyű/kombináció késleltetése",
         customtriggerusedisplaytime: `A megadott egyedi trigger billentyű/kombináció késleltetése az aktuális értesítéstípus Megjelenítési Idő értéke alapján`,
-        trophymode: "Cserélje le a Fő/Ritka/100%-os értesítési típusokat Bronz/Ezüst/Arany/Platina típusokra"
+        trophymode: "Cserélje le a Fő/Ritka/100%-os értesítési típusokat Bronz/Ezüst/Arany/Platina típusokra",
+        lognum: `A törlés előtt megőrzött korábbi naplófájlok száma. Az alkalmazás minden indításakor új naplófájl jön létre<br><br><span class="ttdesc">Ha 0-ra van állítva, az összes korábbi naplófájl törlődik kilépéskor</span>`, 
+        detectedappid: `A jelenleg észlelt játék <span class="hl">AppID</span>-jének használata`,
+        listmode: `A <span class="hl">Kizárási lista</span>/<span class="hl">Belefoglalási lista</span> működésének beállítása<br><br><span class="ttdesc">• <span class="hl">Kizárás</span>: Csak a listában szereplő játékokat hagyja figyelmen kívül<br>• <span class="hl">Belefoglalás</span>: Minden játékot figyelmen kívül hagy, kivéve a listában szereplőket</span>`,
+        notifymax: `A képernyőn egyszerre megjelenő értesítések maximális számának beállítása<br><br><span class="ttdesc">A több egyidejű értesítés több erőforrást igényelhet, és ronthatja a teljesítményt</span>`,
+        notifyspace: "Az egyszerre megjelenő értesítések közötti távolság beállítása",
+        audiocooldown: `Annak az időnek a beállítása, amennyit a következő értesítéseknek várniuk kell, mielőtt új hang lejátszható<br><br><span class="ttdesc">A hangot nem érinti, ha a Maximális értesítések értéke 1</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Kizárás szerkesztése",
             exclusioneditsub: [
                 `A meglévő <span class="hl">AppID</span> szerkesztése a <span class="hl">Kizárási listában</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Adj hozzá bármely Steam-játék <span class="hl">AppID</span>-ját a <span class="hl">Belefoglalási listához</span>`,
+                `A Steam Achievement Notifier csak azoknak a játékoknak a teljesítményadatait próbálja követni, amelyek <span class="hl">AppID</span>-ja hozzá lett adva a <span class="hl">Belefoglalási listához</span>`,
+                `<span class="hl help" id="appidhelp"><u>Hogyan találom meg egy Steam-játék AppID-ját?</u></span>`
+            ],
+            inclusionnew: "Új belefoglalás",
+            inclusionnewsub: [
+                `Add meg a <span class="hl">AppID</span>-t, amelyet hozzá szeretnél adni a <span class="hl">Belefoglalási listához</span>`
+            ],
+            inclusionedit: "Belefoglalás szerkesztése",
+            inclusioneditsub: [
+                `Szerkeszd a meglévő <span class="hl">AppID</span>-t a <span class="hl">Belefoglalási listában</span>`
             ]
         }
     },

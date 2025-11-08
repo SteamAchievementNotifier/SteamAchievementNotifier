@@ -16,10 +16,11 @@ export const translations = {
         bottomcenter: "Dole ve středu",
         bottomright: "Vpravo dole",
         ok: "OK",
-        edit: "Upravit",
         preview: "Náhled",
         save: "Uložit",
         back: "Zpět",
+        edit: "Upravit",
+        lockedby: "Uzamčeno pomocí $lock",
         settings: "Nastavení",
         appversion: "Verze aplikace",
         image: "Obrázek",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Zkratka Spouštěče",
                 customtriggerdelay: "Zpoždění Spouštěče",
                 customtriggerusedisplaytime: "Použít Čas Zobrazení",
-                trophymode: "Režim trofejí"
+                trophymode: "Režim trofejí",
+                notifymax: "Maximální počet oznámení", 
+                notifyspace: "Rozestup mezi oznámeními"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Propojené hry",
                 themeswitch: "Automatické přepínání témat",
-                exclusionlist: "Seznam vyloučení"
+                exclusionlist: "Seznam vyloučení",
+                inclusionlist: "Seznam zahrnutí",
+                listmode: "Režim seznamu",
+                exclusion: "Vyloučení",
+                inclusion: "Zahrnutí"
             }
         },
         media: {
@@ -297,11 +304,12 @@ export const translations = {
                 userust: "Alternativní Režim Zpracování",
                 notifydebug: "Zobrazit oznámení nástrojů pro ladění",
                 exportachdata: "Exportovat data o úspěších",
-                uselegacynotifytimer: "Použít starší časovač oznámení",
+                lognum: "Předchozí soubory protokolu", 
+                audiocooldown: "Časový odstup zvuku",
                 usecustomfiles: "Použít vlastní soubory aplikace",
                 showcustomfiles: "Zobrazit vlastní soubory aplikace"
             }
-        },     
+        },
         ra: {
             title: "Retro Achievements",
             content: {
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Soubor s logy",
                 status: "Stav",
                 game: "Hra",
+                lastachievement: "ID posledního úspěchu",
                 wait: "Čekání na emulátor",
                 idle: "Čekání na událost ve hře",
                 start: "Spuštění hry",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Zkontrolujte, zda byla na GitHubu vydána nová verze aplikace. Pokud je k dispozici aktualizace, bude automaticky stažena a nainstalována po potvrzení v dialogovém okně <span class="hl">Aktualizace k dispozici</span>`,
         linkedgames: `Přeskočit <span class="hl">automatické sledování procesů</span> pro konkrétní hry ve službě Steam<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`,
         exclusionlist: `Zabránit sledování úspěchů v konkrétních hrách ve službě Steam aplikací<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`,
+        inclusionlist: `Zabraňuje sledování všech her ze služby Steam aplikací, pokud nejsou výslovně uvedeny<br><br><span class="ttdesc">Tato možnost by měla být použita pouze ve velmi specifických případech. Uživatelé by tuto možnost za běžných okolností neměli potřebovat!</span>`,
         ovx: "Posunout upozornění zobrazené na snímku obrazovky horizontálně",
         ovy: "Posunout upozornění zobrazené na snímku obrazovky vertikálně",
         importtheme: `Importovat úpravy prostřednictvím uživatelem vytvořeného <span class="hl">souboru tématu</span>`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Zopakovat poslední oznámení o úspěchu",
         replaynotifyshortcut: "Zopakovat poslední oznámení o úspěchu pomocí zadané klávesové zkratky",
         replaynotifyempty: `<br><br><span class="ttdesc">Fronta opakování je prázdná. Odemkni úspěch pro opakování oznámení</span>`,
-        uselegacynotifytimer: `Skryj oznámení pomocí statického časovače mimo okno oznámení<br><br><span class="ttdesc">Povolení této možnosti může způsobit, že se animace oznámení nedokončí</span>`,
         customtrigger: "Spustí klávesu/kombinaci při odemčení achievementu. Lze použít ke spuštění klávesových zkratek registrovaných v externích aplikacích",
         customtriggershortcut: `Spustí zadanou klávesu/kombinaci při odemčení achievementu<br><br><span class="ttdesc">Podporuje 1–3 klávesy na zkratku. Pro stisknutí/kombinace s méně než 3 klávesami stiskněte požadované klávesy a počkejte na vypršení časovače (5 s)</span>`,
         customtriggerdelay: "Zpoždění zadané klávesy/kombinace vlastního spouštěče",
         customtriggerusedisplaytime: `Zpoždění zadané klávesy/kombinace vlastního spouštěče podle hodnoty Času Zobrazení aktuálního typu oznámení`,
-        trophymode: "Nahradit typy oznámení Hlavní/Vzácné/100% za Bronzové/Stříbrné/Zlaté/Platinové"
+        trophymode: "Nahradit typy oznámení Hlavní/Vzácné/100% za Bronzové/Stříbrné/Zlaté/Platinové",
+        lognum: `Počet předchozích souborů protokolu uložených před odstraněním. Při každém spuštění aplikace se vytvoří nový soubor protokolu<br><br><span class="ttdesc">Pokud je nastavena hodnota 0, všechny předchozí soubory protokolu budou při ukončení odstraněny</span>`, 
+        detectedappid: `Použít <span class="hl">AppID</span> aktuálně zjištěné hry`,
+        listmode: `Nastaví chování pro <span class="hl">Vyloučení</span>/<span class="hl">Seznam zahrnutí</span><br><br><span class="ttdesc">• <span class="hl">Vyloučení</span>: Ignoruje pouze hry uvedené v seznamu<br>• <span class="hl">Zahrnutí</span>: Ignoruje všechny hry kromě těch, které jsou uvedeny v seznamu</span>`,
+        notifymax: `Nastaví maximální počet současně zobrazených oznámení na obrazovce<br><br><span class="ttdesc">Zvýšení počtu současně zobrazených oznámení vyžaduje více prostředků a může snížit výkon</span>`,
+        notifyspace: "Nastaví vzdálenost mezi současně zobrazenými oznámeními na obrazovce",
+        audiocooldown: `Nastaví dobu, po kterou musí další oznámení čekat, než může být přehrán nový zvuk<br><br><span class="ttdesc">Zvuk nebude ovlivněn, pokud je Maximální počet oznámení nastaven na 1</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Upravit vyloučení",
             exclusioneditsub: [
                 `Upravit existující <span class="hl">AppID</span> v <span class="hl">seznamu vyloučení</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Přidejte <span class="hl">AppID</span> libovolné hry ze služby Steam do <span class="hl">Seznamu zahrnutí</span>`,
+                `Steam Achievement Notifier se pokusí sledovat data o úspěších pouze u her, které mají své <span class="hl">AppID</span> přidané do <span class="hl">Seznamu zahrnutí</span>`,
+                `<span class="hl help" id="appidhelp"><u>Jak zjistím AppID hry ze služby Steam?</u></span>`
+            ],
+            inclusionnew: "Nové zahrnutí",
+            inclusionnewsub: [
+                `Zadejte <span class="hl">AppID</span> pro přidání do <span class="hl">Seznamu zahrnutí</span>`
+            ],
+            inclusionedit: "Upravit zahrnutí",
+            inclusioneditsub: [
+                `Upravte existující <span class="hl">AppID</span> v <span class="hl">Seznamu zahrnutí</span>`
             ]
         }
     },

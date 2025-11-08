@@ -20,6 +20,7 @@ export const translations = {
         save: "Lagre",
         back: "Tilbake",
         edit: "Rediger",
+        lockedby: "Låst av $lock",
         settings: "Innstillinger",
         appversion: "Appversjon",
         image: "Bilde",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Utløser hurtigtast",
                 customtriggerdelay: "Utløser forsinkelse",
                 customtriggerusedisplaytime: "Bruk visningstid",
-                trophymode: "Trofémodus"
+                trophymode: "Trofémodus",
+                notifymax: "Maksimalt antall varsler", 
+                notifyspace: "Avstand mellom varsler"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Lenkede spill",
                 themeswitch: "Automatisk bytte av temaer",
-                exclusionlist: "Unntaksliste"
+                exclusionlist: "Unntaksliste",
+                inclusionlist: "Inkluderingsliste",
+                listmode: "Listemodus",
+                exclusion: "Utelukkelse",
+                inclusion: "Inkludering"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Alternativ prosessbehandlingmodus",
                 notifydebug: "Vis feilsøkingsvarsler",
                 exportachdata: "Eksporter prestasjonsdata",
-                uselegacynotifytimer: "Bruk eldre varslingstimer",
+                lognum: "Tidligere loggfiler", 
+                audiocooldown: "Lydnedkjøling",
                 usecustomfiles: "Bruk egendefinerte app-filer",
                 showcustomfiles: "Vis egendefinerte app-filer"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "Loggfil",
                 status: "Status",
                 game: "Spill",
+                lastachievement: "Siste prestasjons-ID",
                 wait: "Venter på emulator",
                 idle: "Venter på spillhendelse",
                 start: "Starter spill",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Sjekk om en ny app-versjon har blitt utgitt på GitHub. Hvis en oppdatering er tilgjengelig, vil den automatisk bli lastet ned og installert når den er bekreftet via dialogvinduet <span class="hl">Oppdatering tilgjengelig</span>`,
         linkedgames: `Bypass <span class="hl">automatisk prosesssporing</span> for bestemte Steam-spill<br><br><span class="ttdesc">Denne opsjonen bør kun brukes i svært spesifikke scenarioer. Brukere bør ikke trenge å bruke denne opsjonen under normale omstendigheter!</span>`,
         exclusionlist: `Forhindre prestasjoner i bestemte Steam-spill fra å bli sporet av appen<br><br><span class="ttdesc">Denne opsjonen bør kun brukes i svært spesifikke scenarioer. Brukere bør ikke trenge å bruke denne opsjonen under normale omstendigheter!</span>`,
+        inclusionlist: `Hindre at alle Steam-spill spores av appen med mindre de er spesifisert<br><br><span class="ttdesc">Dette alternativet bør kun brukes i svært spesifikke tilfeller. Brukere bør ikke trenge å bruke dette alternativet under normale omstendigheter!</span>`,
         ovx: "Forskyvning av varsling som vises i skjermbildet horisontalt",
         ovy: "Forskyvning av varsling som vises i skjermbildet vertikalt",
         importtheme: `Importer tilpasninger via en brukerskapt <span class="hl">temafil</span>`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Gjenta den siste prestasjonsvarslingen",
         replaynotifyshortcut: "Gjenta den siste prestasjonsvarslingen ved å bruke den angitte snarveien",
         replaynotifyempty: `<br><br><span class="ttdesc">Gjentakelseskoen er tom. Lås opp en prestasjon for å gjenta en varsling</span>`,
-        uselegacynotifytimer: `Skjul varsler ved hjelp av en statisk timer utenfor varslingsvinduet<br><br><span class="ttdesc">Aktivering av dette alternativet kan føre til at varslingsanimasjoner ikke fullføres</span>`,
         customtrigger: "Utløser en tast/kombinasjon som simuleres ved opplåsing av et achievement. Kan brukes til å utløse hurtigtaster registrert i eksterne applikasjoner",
         customtriggershortcut: `Utløs den angitte tast/kombinasjonen når et achievement låses opp<br><br><span class="ttdesc">Støtter mellom 1-3 taster per hurtigtast. For tastetrykk/kombinasjoner med færre enn 3 taster, trykk på ønskede taster og vent til timeren (5s) går ut</span>`,
         customtriggerdelay: "Forsink den angitte egendefinerte tast/kombinasjonen",
         customtriggerusedisplaytime: `Forsink den angitte egendefinerte tast/kombinasjonen basert på visningstidsverdien for den gjeldende varseltypen`,
-        trophymode: "Erstatt Hoved/Sjelden/100% varslingstyper med Bronse/Sølv/Gull/Platina"
+        trophymode: "Erstatt Hoved/Sjelden/100% varslingstyper med Bronse/Sølv/Gull/Platina",
+        lognum: `Antall tidligere loggfiler som lagres før sletting. En ny loggfil genereres hver gang appen startes<br><br><span class="ttdesc">Når satt til 0, slettes alle tidligere loggfiler ved avslutning</span>`, 
+        detectedappid: `Bruk <span class="hl">AppID</span> til det spillet som for øyeblikket er oppdaget`,
+        listmode: `Angi oppførselen til <span class="hl">Utelukkelsesliste</span>/<span class="hl">Inkluderingsliste</span><br><br><span class="ttdesc">• <span class="hl">Utelukkelse</span>: Ignorer bare spill som er spesifisert i listen<br>• <span class="hl">Inkludering</span>: Ignorer alle spill unntatt de som er spesifisert i listen</span>`,
+        notifymax: `Angi maksimalt antall varsler som kan vises samtidig på skjermen<br><br><span class="ttdesc">Å øke antall samtidige varsler krever mer ressurser og kan redusere ytelsen</span>`,
+        notifyspace: "Angi avstanden mellom varsler som vises samtidig på skjermen",
+        audiocooldown: `Angi hvor lang tid det skal gå før påfølgende varsler kan spille ny lyd<br><br><span class="ttdesc">Lyden påvirkes ikke hvis Maksimalt antall varsler er satt til 1</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Rediger utelatelse",
             exclusioneditsub: [
                 `Rediger den eksisterende <span class="hl">AppID</span> i <span class="hl">utelatelseslisten</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Legg til et Steam-spills <span class="hl">AppID</span> i <span class="hl">Inkluderingslisten</span>`,
+                `Steam Achievement Notifier vil bare forsøke å spore prestasjonsdata for spill hvis <span class="hl">AppID</span> er lagt til i <span class="hl">Inkluderingslisten</span>`,
+                `<span class="hl help" id="appidhelp"><u>Hvordan finner jeg et Steam-spills AppID?</u></span>`
+            ],
+            inclusionnew: "Ny inkludering",
+            inclusionnewsub: [
+                `Skriv inn <span class="hl">AppID</span> som skal legges til i <span class="hl">Inkluderingslisten</span>`
+            ],
+            inclusionedit: "Rediger inkludering",
+            inclusioneditsub: [
+                `Rediger eksisterende <span class="hl">AppID</span> i <span class="hl">Inkluderingslisten</span>`
             ]
         }
     },

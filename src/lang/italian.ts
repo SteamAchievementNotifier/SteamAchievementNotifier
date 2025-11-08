@@ -20,6 +20,7 @@ export const translations = {
         save: "Salva",
         back: "Indietro",
         edit: "Modifica",
+        lockedby: "Bloccato da $lock",
         settings: "Impostazioni",
         appversion: "Versione dell'app",
         image: "Immagine",
@@ -222,7 +223,9 @@ export const translations = {
                 customtriggershortcut: "Scorciatoia Trigger",
                 customtriggerdelay: "Ritardo Trigger",
                 customtriggerusedisplaytime: "Usa Tempo di Visualizzazione",
-                trophymode: "Modalità Trofeo"
+                trophymode: "Modalità Trofeo",
+                notifymax: "Notifiche massime", 
+                notifyspace: "Spaziatura notifiche"
             }
         },
         games: {
@@ -230,7 +233,11 @@ export const translations = {
             content: {
                 linkedgames: "Giochi collegati",
                 themeswitch: "Cambia tema automaticamente",
-                exclusionlist: "Lista di esclusione"
+                exclusionlist: "Lista di esclusione",
+                inclusionlist: "Lista di inclusione",
+                listmode: "Modalità elenco",
+                exclusion: "Esclusione",
+                inclusion: "Inclusione"
             }
         },
         media: {
@@ -297,7 +304,8 @@ export const translations = {
                 userust: "Modalità di Elaborazione Alternativa",
                 notifydebug: "Mostra notifiche di debug",
                 exportachdata: "Esporta dati di successo",
-                uselegacynotifytimer: "Usa il timer di notifica legacy",
+                lognum: "File di registro precedenti", 
+                audiocooldown: "Tempo di attesa audio",
                 usecustomfiles: "Utilizza file personalizzati dell'applicazione",
                 showcustomfiles: "Mostra file personalizzati dell'applicazione"
             }
@@ -320,6 +328,7 @@ export const translations = {
                 logfile: "File di Log",
                 status: "Stato",
                 game: "Gioco",
+                lastachievement: "ID ultimo obiettivo",
                 wait: "In attesa dell'emulatore",
                 idle: "In attesa dell'evento di gioco",
                 start: "Avviando il gioco",
@@ -678,6 +687,7 @@ export const translations = {
         checkforupdates: `Controlla se è stata rilasciata una nuova versione dell'app su GitHub. Se è disponibile un aggiornamento, verrà scaricato e installato automaticamente una volta confermato tramite la finestra di dialogo <span class="hl">Aggiornamento disponibile</span>`,
         linkedgames: `Evita il <span class="hl">tracciamento automatico dei processi</span> per giochi Steam specifici<br><br><span class="ttdesc">Questa opzione dovrebbe essere utilizzata solo in scenari molto specifici. Gli utenti non dovrebbero avere bisogno di utilizzare questa opzione in circostanze normali!</span>`,
         exclusionlist: `Impedisci il tracciamento degli obiettivi in giochi Steam specifici dall'applicazione<br><br><span class="ttdesc">Questa opzione dovrebbe essere utilizzata solo in scenari molto specifici. Gli utenti non dovrebbero avere bisogno di utilizzare questa opzione in circostanze normali!</span>`,
+        inclusionlist: `Impedisci che tutti i giochi Steam vengano tracciati dall'app, a meno che non siano specificati<br><br><span class="ttdesc">Questa opzione dovrebbe essere usata solo in casi molto specifici. Gli utenti non dovrebbero aver bisogno di utilizzarla in circostanze normali!</span>`,
         ovx: "Sposta la notifica visualizzata nello screenshot in orizzontale",
         ovy: "Sposta la notifica visualizzata nello screenshot in verticale",
         importtheme: `Importa personalizzazioni tramite un <span class="hl">file del tema</span> creato dall'utente`,
@@ -782,12 +792,17 @@ export const translations = {
         replaynotify: "Ripeti l'ultima notifica di conquista",
         replaynotifyshortcut: "Ripeti l'ultima notifica di conquista utilizzando la scorciatoia da tastiera specificata",
         replaynotifyempty: `<br><br><span class="ttdesc">La coda di ripetizione è vuota. Sblocca una conquista per ripetere una notifica</span>`,
-        uselegacynotifytimer: `Nascondi le notifiche utilizzando un timer statico esterno alla finestra della notifica<br><br><span class="ttdesc">Abilitare questa opzione potrebbe causare il fallimento del completamento delle animazioni delle notifiche</span>`,
         customtrigger: "Attiva un tasto/combinazione simulata al momento dello sblocco di un achievement. Può essere usato per attivare scorciatoie da tastiera registrate in applicazioni esterne",
         customtriggershortcut: `Attiva il tasto/la combinazione specificata quando un achievement viene sbloccato<br><br><span class="ttdesc">Supporta da 1 a 3 tasti per scorciatoia. Per pressioni/combinazioni con meno di 3 tasti, premi i tasti desiderati e attendi la fine del timer (5s)</span>`,
         customtriggerdelay: "Ritarda il tasto/la combinazione specificata del Trigger Personalizzato",
         customtriggerusedisplaytime: `Ritarda il tasto/la combinazione specificata del Trigger Personalizzato basandosi sul valore del Tempo di Visualizzazione del tipo di notifica corrente`,
-        trophymode: "Sostituisci i tipi di notifica Principale/Raro/100% con Bronzo/Argento/Oro/Platino"
+        trophymode: "Sostituisci i tipi di notifica Principale/Raro/100% con Bronzo/Argento/Oro/Platino",
+        lognum: `Il numero di file di registro precedenti conservati prima della cancellazione. Un nuovo file di registro verrà generato a ogni avvio dell'app<br><br><span class="ttdesc">Quando impostato su 0, tutti i file di registro precedenti verranno eliminati alla chiusura</span>`, 
+        detectedappid: `Usa l'<span class="hl">AppID</span> del gioco attualmente rilevato`,
+        listmode: `Imposta il comportamento della <span class="hl">Lista di esclusione</span>/<span class="hl">Lista di inclusione</span><br><br><span class="ttdesc">• <span class="hl">Esclusione</span>: Ignora solo i giochi specificati nell'elenco<br>• <span class="hl">Inclusione</span>: Ignora tutti i giochi tranne quelli specificati nell'elenco</span>`,
+        notifymax: `Imposta il numero massimo di notifiche simultanee sullo schermo<br><br><span class="ttdesc">Aumentare il numero di notifiche simultanee richiede più risorse e può ridurre le prestazioni</span>`,
+        notifyspace: "Imposta la distanza tra le notifiche simultanee sullo schermo",
+        audiocooldown: `Imposta il tempo di attesa prima che le notifiche successive possano riprodurre un nuovo suono<br><br><span class="ttdesc">L'audio non sarà influenzato se Notifiche massime è impostato su 1</span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",
@@ -833,6 +848,23 @@ export const translations = {
             exclusionedit: "Modifica esclusione",
             exclusioneditsub: [
                 `Modifica l'<span class="hl">AppID</span> esistente nella <span class="hl">Lista delle esclusioni</span>`
+            ]
+        }
+    },
+    inclusions: {
+        content: {
+            managesub: [
+                `Aggiungi l'<span class="hl">AppID</span> di qualsiasi gioco Steam alla <span class="hl">Lista di inclusione</span>`,
+                `Steam Achievement Notifier tenterà di tracciare i dati degli obiettivi solo per i giochi il cui <span class="hl">AppID</span> è stato aggiunto alla <span class="hl">Lista di inclusione</span>`,
+                `<span class="hl help" id="appidhelp"><u>Come posso trovare l'AppID di un gioco Steam?</u></span>`
+            ],
+            inclusionnew: "Nuova inclusione",
+            inclusionnewsub: [
+                `Inserisci l'<span class="hl">AppID</span> da aggiungere alla <span class="hl">Lista di inclusione</span>`
+            ],
+            inclusionedit: "Modifica inclusione",
+            inclusioneditsub: [
+                `Modifica l'<span class="hl">AppID</span> esistente nella <span class="hl">Lista di inclusione</span>`
             ]
         }
     },

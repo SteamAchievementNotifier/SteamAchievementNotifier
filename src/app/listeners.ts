@@ -924,6 +924,9 @@ export const listeners = {
             const { syncedtheme } = (await import("./usertheme")).usertheme
             notify.customisation = syncedtheme(config,notify.customisation)
 
+            // Set all notifications to use the same scaling when Max Notifications > 1
+            config.get("notifymax") > 1 && (notify.customisation = { ...notify.customisation, scale: config.get("customisation.main.scale") as number })
+
             const { preset } = notify.customisation
 
             if (!iswebview) {
@@ -1212,9 +1215,10 @@ export const listeners = {
                 }
 
                 notifywin.once("ready-to-show", async () => {
+                    const { notifymax } = config.store                    
                     const info = await notifyinfo()
                     
-                    config.get("notifymax") > 1 && info.customisation.preset !== "os" && audio.playhighestpriority(info,info.info.type) // Play the audio for the highest priority notification
+                    notifymax > 1 && info.customisation.preset !== "os" && audio.playhighestpriority(info,info.info.type) // Play the audio for the highest priority notification
                     ;(notifywin as BrowserWindow).webContents.send("notify",info,notify.id)
 
                     if (extwin) {

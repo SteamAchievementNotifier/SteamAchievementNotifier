@@ -133,7 +133,7 @@ export const translations = {
                 </div>
             </details>`,
             `<details>
-                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <summary id="pcsx2">PCSX2</summary>
                 <div>
                     <span class="hl">PCSX2 > Nástroje > Povolit protokolování do souboru</span> musí být povoleno
                     <br>
@@ -159,6 +159,22 @@ export const translations = {
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Settings > Developer Tools > General > Log to File</span> musí být povoleno a nakonfigurováno s následujícím nastavením:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></li>
+                    </ul>
+                    <br>
+                    Při použití výchozího nastavení instalace je soubor <span class="hl">"log.txt"</span> uložen v:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
                     </ul>
                 </div>
             </details>`
@@ -318,8 +334,9 @@ export const translations = {
                 rakey: "API klíč",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2 [Nightly]",
+                pcsx2: "PCSX2",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "Cesta k souboru protokolu",
                 rapercenttype: "Typ procentuálního zobrazení",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "Nastavit, zda se v oznámeních zobrazí procento odemčených úspěchů pro Hardcore nebo Softcore režim",
         retroarch: `Zobrazovat oznámení o Retro Achievements pro hry emulované v RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Nastavení > Záznam</span> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Podrobnost záznamu</span>: <span class="hlgreen">ZAPNUTO</span></li><li><span class="hllb">Úroveň záznamu uživatelského rozhraní</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Záznam do souboru</span>: <span class="hlgreen">ZAPNUTO</span></li><li><span class="hllb">Časové značky v logu</span>: <span class="hlred">VYPNUTO</span></li></ul></span>`,
         dolphin: `Zobrazovat oznámení o Retro Achievements pro hry emulované v Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Zobrazit > Zobrazit konfiguraci záznamu</span> musí být nakonfigurováno s následujícími nastaveními:<br><br><ul><li><span class="hllb">Podrobnost</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Výstupy záznamu</span> > <span class="hlgreen">Zapsat do souboru</span></li><li><span class="hllb">Typy záznamu</span> > <span class="hlgreen">Úspěchy (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Zobrazovat oznámení o Retro Achievements pro hry emulované v PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Nástroje > Povolit protokolování do souboru</span> musí být povoleno</span><br><br><span class="ttdesc">❗ Kvůli nedávným aktualizacím je aktuálně obsah <span class="hl">"emulog.txt"</span> dostupný pouze ve verzi Nightly PCSX2</span>`,
+        pcsx2: `Zobrazovat oznámení o Retro Achievements pro hry emulované v PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Nástroje > Povolit protokolování do souboru</span> musí být povoleno</span>`,
         duckstation: `Zobrazit oznámení Retro Achievements pro hry emulované pomocí Duckstation<br><br><span class="ttdesc">❗ Soubor <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> musí být stažen a přesunut do <span class="hl">instalační složky Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Nastavení > Úspěchy > RAIntegration (Pouze pro vývojáře)</span> musí být povoleno</span>`,
+        ppsspp: `Zobrazovat oznámení Retro Achievements pro hry emulované pomocí PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> musí být povoleno a nakonfigurováno s následujícím nastavením:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Nastavte cestu k log souboru <span class="hl">"retroarch.log"</span> pro RetroArch<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"retroarch.log"</span> uložen v <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Nastavte cestu k log souboru <span class="hl">"dolphin.log"</span> pro Dolphin<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"dolphin.log"</span> uložen na jednom z následujících míst:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Nastavte cestu k log souboru <span class="hl">"emulog.txt"</span> pro PCSX2<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"emulog.txt"</span> uložen v <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `Nastavte cestu k log souboru <span class="hl">"RALog.txt"</span> Duckstation<br><br><span class="ttdesc">Při výchozím nastavení instalace je <span class="hl">"RALog.txt"</span> uložen v <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></span>`,
+        ppsspppath: `Nastavte cestu k log souboru PPSSPP <span class="hl">"log.txt"</span><br><br><span class="ttdesc">Při použití výchozího nastavení instalace je soubor <span class="hl">"log.txt"</span> uložen v <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "Individuálně nastavit barvu textových prvků v oznámení",
         unlockmsgfontcolor: "Nastavit barvu prvního textového prvku",
         titlefontcolor: "Nastavit barvu druhého textového prvku",

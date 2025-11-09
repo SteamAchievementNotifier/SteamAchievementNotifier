@@ -133,7 +133,7 @@ export const translations = {
                 </div>
             </details>`,
             `<details>
-                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <summary id="pcsx2">PCSX2</summary>
                 <div>
                     <span class="hl">PCSX2 > Eszközök > Fájl naplózás engedélyezése</span> engedélyezve kell, hogy legyen
                     <br>
@@ -159,6 +159,22 @@ export const translations = {
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Beállítások > Fejlesztői eszközök > Általános > Naplózás fájlba</span> engedélyezve kell legyen, és a következő beállításokkal kell konfigurálni:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Teljesítmények</span>: <span class="hlgreen">Információ</span></li>
+                    </ul>
+                    <br>
+                    Alapértelmezett telepítési beállítások esetén a <span class="hl">"log.txt"</span> fájl itt található:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
                     </ul>
                 </div>
             </details>`
@@ -318,8 +334,9 @@ export const translations = {
                 rakey: "API Kulcs",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2 [Nightly]",
+                pcsx2: "PCSX2",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "Naplófájl elérési út",
                 rapercenttype: "Százalék típus",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "Beállíthatja, hogy a Hardcore vagy Softcore eredmények százaléka jelenjen meg az értesítésekben",
         retroarch: `Teljesítmények értesítéseinek megjelenítése RetroArch-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">RetroArch > Beállítások > Naplózás</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Naplózási Részletesség</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Előlap Naplózási Szint</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Naplózás Fájlba</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Időbélyeg a Napló Fájlokhoz</span>: <span class="hlred">KI</span></li></ul></span>`,
         dolphin: `Teljesítmények értesítéseinek megjelenítése Dolphin-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">Dolphin > Nézet > Naplózási Beállítások Megjelenítése</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Részletesség</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Napló Kimenetek</span> > <span class="hlgreen">Írás Fájlba</span></li><li><span class="hllb">Napló Típusok</span> > <span class="hlgreen">Teljesítmények (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Teljesítmények értesítéseinek megjelenítése PCSX2 [Nightly]-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">PCSX2 > Eszközök > Fájl naplózás engedélyezése</span> engedélyezve kell, hogy legyen</span><br><br><span class="ttdesc">❗ A legutóbbi frissítések miatt a <span class="hl">"emulog.txt"</span> tartalma jelenleg csak a PCSX2 Nightly kiadásában érhető el</span>`,
+        pcsx2: `Teljesítmények értesítéseinek megjelenítése PCSX2-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">PCSX2 > Eszközök > Fájl naplózás engedélyezése</span> engedélyezve kell, hogy legyen</span>`,
         duckstation: `Retro Achievements értesítések megjelenítése Duckstation segítségével emulált játékokhoz<br><br><span class="ttdesc">❗ A <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> fájlt le kell tölteni és áthelyezni a <span class="hl">Duckstation telepítési könyvtárába</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Beállítások > Eredmények > RAIntegration (Csak fejlesztőknek)</span> engedélyezve kell lennie</span>`,
+        ppsspp: `Retro Achievements értesítések megjelenítése a PPSSPP-n keresztül emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">Beállítások > Eszközök > Fejlesztői eszközök > Általános > Naplózás fájlba</span> engedélyezve kell legyen, és a következő beállításokkal kell konfigurálni:<br><br><ul><li><span class="hllb">Teljesítmények</span>: <span class="hlgreen">Információ</span></span>`,
         retroarchpath: `Állítsd be a RetroArch <span class="hl">"retroarch.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"retroarch.log"</span> itt található: <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Állítsd be a Dolphin <span class="hl">"dolphin.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"dolphin.log"</span> az alábbi helyek egyikén található:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Állítsd be a PCSX2 <span class="hl">"emulog.txt"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"emulog.txt"</span> itt található: <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `Állítsa be a <span class="hl">"RALog.txt"</span> fájl elérési útját a Duckstationhoz<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"RALog.txt"</span> fájl a következő helyen található: <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></span>`,
+        ppsspppath: `Adja meg a PPSSPP <span class="hl">"log.txt"</span> naplófájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállítások esetén a <span class="hl">"log.txt"</span> fájl itt található: <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "Állítsa be a szövegelemek színét az értesítésen belül egyedileg",
         unlockmsgfontcolor: "Állítsa be az első szövegelem színét",
         titlefontcolor: "Állítsa be a második szövegelem színét",

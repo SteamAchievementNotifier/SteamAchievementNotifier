@@ -125,6 +125,7 @@ declare interface Config {
     dolphinpath: string,
     pcsx2path: string,
     duckstationpath: string,
+    ppsspppath: string,
     rauser: string,
     rakey: string,
     exportachdata: boolean,

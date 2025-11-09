@@ -133,7 +133,7 @@ export const translations = {
                 </div>
             </details>`,
             `<details>
-                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <summary id="pcsx2">PCSX2</summary>
                 <div>
                     <span class="hl">PCSX2 > Інструменти > Увімкнути запис у файл</span> повинно бути увімкнено
                     <br>
@@ -159,6 +159,22 @@ export const translations = {
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Settings > Developer Tools > General > Log to File</span> має бути ввімкнено та налаштовано з такими параметрами:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></li>
+                    </ul>
+                    <br>
+                    За стандартних параметрів встановлення <span class="hl">"log.txt"</span> зберігається в:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
                     </ul>
                 </div>
             </details>`
@@ -318,8 +334,9 @@ export const translations = {
                 rakey: "API ключ",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2 [Nightly]",
+                pcsx2: "PCSX2",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "Шлях до файлу журналу",
                 rapercenttype: "Тип відсотка",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "Встановіть, чи слід показувати відсотки досягнень Hardcore або Softcore у сповіщеннях",
         retroarch: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Налаштування > Логування</span> повинно бути налаштоване за такими параметрами:<br><br><ul><li><span class="hllb">Рівень детальності логування</span>: <span class="hlgreen">УВІМК.</span></li><li><span class="hllb">Рівень логування фронтенду</span>: <span class="hlgreen">1 (Інформація)</span></li><li><span class="hllb">Логування в файл</span>: <span class="hlgreen">УВІМК.</span></li><li><span class="hllb">Часова мітка для лог-файлів</span>: <span class="hlred">ВИМК.</span></li></ul></span>`,
         dolphin: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Перегляд > Показати налаштування журналу</span> повинно бути налаштоване за такими параметрами:<br><br><ul><li><span class="hllb">Рівень детальності</span>: <span class="hlgreen">Інформація</span></li><li><span class="hllb">Виведення журналу</span> > <span class="hlgreen">Запис в файл</span></li><li><span class="hllb">Типи журналів</span> > <span class="hlgreen">Досягнення (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Інструменти > Увімкнути запис у файл</span> повинно бути увімкнено</span><br><br><span class="ttdesc">❗ Через останні оновлення, вміст <span class="hl">"emulog.txt"</span> наразі доступний лише у Nightly версії PCSX2</span>`,
+        pcsx2: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Інструменти > Увімкнути запис у файл</span> повинно бути увімкнено</span>`,
         duckstation: `Показувати сповіщення Retro Achievements для ігор, емульованих через Duckstation<br><br><span class="ttdesc">❗ Файл <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> потрібно завантажити та перемістити в <span class="hl">каталог установки Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Налаштування > Досягнення > RAIntegration (Тільки для розробників)</span> має бути увімкнено</span>`,
+        ppsspp: `Показувати сповіщення Retro Achievements для ігор, які емітуються через PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> має бути ввімкнено та налаштовано з такими параметрами:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Встановіть шлях до лог-файлу RetroArch <span class="hl">"retroarch.log"</span><br><br><span class="ttdesc">За умовчанням, лог-файл <span class="hl">"retroarch.log"</span> зберігається в <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Встановіть шлях до лог-файлу Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">За умовчанням, лог-файл <span class="hl">"dolphin.log"</span> зберігається в одному з наступних місць:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Встановіть шлях до лог-файлу PCSX2 <span class="hl">"emulog.txt"</span><br><br><span class="ttdesc">За умовчанням, лог-файл <span class="hl">"emulog.txt"</span> зберігається в <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `Встановіть шлях до файлу журналу <span class="hl">"RALog.txt"</span> Duckstation<br><br><span class="ttdesc">За умовчанням, <span class="hl">"RALog.txt"</span> зберігається у <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></span>`,
+        ppsspppath: `Встановіть шлях до файлу журналу <span class="hl">"log.txt"</span> PPSSPP<br><br><span class="ttdesc">За стандартних параметрів встановлення <span class="hl">"log.txt"</span> зберігається в <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "Окремо налаштувати колір текстових елементів у сповіщенні",
         unlockmsgfontcolor: "Встановити колір першого текстового елемента",
         titlefontcolor: "Встановити колір другого текстового елемента",

@@ -133,7 +133,7 @@ export const translations = {
                 </div>
             </details>`,
             `<details>
-                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <summary id="pcsx2">PCSX2</summary>
                 <div>
                     <span class="hl">PCSX2 > Werkzeuge > Dateiprotokollierung aktivieren</span> muss aktiviert sein
                     <br>
@@ -159,6 +159,22 @@ export const translations = {
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Settings > Developer Tools > General > Log to File</span> muss aktiviert und mit den folgenden Einstellungen konfiguriert sein:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></li>
+                    </ul>
+                    <br>
+                    Bei Verwendung der Standardinstallations-Einstellungen wird <span class="hl">"log.txt"</span> gespeichert unter:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
                     </ul>
                 </div>
             </details>`
@@ -318,8 +334,9 @@ export const translations = {
                 rakey: "API-Schlüssel",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2 [Nightly]",
+                pcsx2: "PCSX2",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "Pfad zur Protokolldatei",
                 rapercenttype: "Prozent-Typ",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "Festlegen, ob in den Benachrichtigungen der Freischaltprozentsatz für Hardcore- oder Softcore-Erfolge angezeigt wird",
         retroarch: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über RetroArch emuliert werden<br><br><span class="ttdesc"><span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li></ul></span>`,
         dolphin: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über Dolphin emuliert werden<br><br><span class="ttdesc"><span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li><li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über PCSX2 [Nightly] emuliert werden<br><br><span class="ttdesc"><span class="hl">PCSX2 > Werkzeuge > Dateiprotokollierung aktivieren</span> muss aktiviert sein</span><br><br><span class="ttdesc">❗ Aufgrund der letzten Updates kann der Inhalt von <span class="hl">"emulog.txt"</span> derzeit nur in der Nightly-Version von PCSX2 abgerufen werden</span>`,
+        pcsx2: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über PCSX2 emuliert werden<br><br><span class="ttdesc"><span class="hl">PCSX2 > Werkzeuge > Dateiprotokollierung aktivieren</span> muss aktiviert sein</span>`,
         duckstation: `Retro Achievements-Benachrichtigungen für Spiele anzeigen, die über Duckstation emuliert werden<br><br><span class="ttdesc">❗ Die Datei <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> muss heruntergeladen und in das <span class="hl">Installationsverzeichnis von Duckstation</span> verschoben werden</span><br><br><span class="ttdesc"><span class="hl">Duckstation > Einstellungen > Erfolge > RAIntegration (Nur für Entwickler)</span> muss aktiviert sein</span>`,
+        ppsspp: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über PPSSPP emuliert werden<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> muss aktiviert und mit den folgenden Einstellungen konfiguriert sein:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Lege den Pfad zur Protokolldatei <span class="hl">"retroarch.log"</span> von RetroArch fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"retroarch.log"</span> gespeichert in <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Lege den Pfad zur Protokolldatei <span class="hl">"dolphin.log"</span> von Dolphin fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"dolphin.log"</span> in einem der folgenden Verzeichnisse gespeichert:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Lege den Pfad zur Protokolldatei <span class="hl">"emulog.txt"</span> von PCSX2 fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"emulog.txt"</span> gespeichert in <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `Geben Sie den Pfad zur Logdatei <span class="hl">"RALog.txt"</span> von Duckstation an<br><br><span class="ttdesc">Mit den Standardinstallationseinstellungen wird <span class="hl">"RALog.txt"</span> in <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span> gespeichert</span>`,
+        ppsspppath: `Lege den Pfad zur PPSSPP-Protokolldatei <span class="hl">"log.txt"</span> fest<br><br><span class="ttdesc">Bei Verwendung der Standardinstallations-Einstellungen wird die Datei <span class="hl">"log.txt"</span> gespeichert unter <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "Farben der Textelemente in der Benachrichtigung individuell festlegen",
         unlockmsgfontcolor: "Die Farbe des ersten Textelements festlegen",
         titlefontcolor: "Die Farbe des zweiten Textelements festlegen",

@@ -133,7 +133,7 @@ export const translations = {
                 </div>
             </details>`,
             `<details>
-                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <summary id="pcsx2">PCSX2</summary>
                 <div>
                     <span class="hl">PCSX2 > Εργαλεία > Ενεργοποίηση καταγραφής αρχείων</span> πρέπει να είναι ενεργοποιημένο
                     <br>
@@ -159,6 +159,22 @@ export const translations = {
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Ρυθμίσεις > Εργαλεία προγραμματιστή > Γενικά > Καταγραφή σε αρχείο</span> πρέπει να είναι ενεργοποιημένο και ρυθμισμένο με τις ακόλουθες ρυθμίσεις:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Επιτεύγματα</span>: <span class="hlgreen">Πληροφορίες</span></li>
+                    </ul>
+                    <br>
+                    Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"log.txt"</span> αποθηκεύεται στο:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
                     </ul>
                 </div>
             </details>`
@@ -318,8 +334,9 @@ export const translations = {
                 rakey: "API Κλειδί",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2 [Nightly]",
+                pcsx2: "PCSX2",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "Διαδρομή αρχείου καταγραφής",
                 rapercenttype: "Τύπος ποσοστού",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "Ορίστε αν θέλετε να εμφανίζεται το ποσοστό επιτυχιών Hardcore ή Softcore στις ειδοποιήσεις",
         retroarch: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Ρυθμίσεις > Καταγραφή</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια Καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Επίπεδο Καταγραφής Στο Πρόσθιο Μέρος</span>: <span class="hlgreen">1 (Πληροφορίες)</span></li><li><span class="hllb">Καταγραφή σε Αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Χρονοσήμανση Αρχείων Καταγραφής</span>: <span class="hlred">ΑΝΕΝΕΡΓΟ</span></li></ul></span>`,
         dolphin: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Προβολή > Εμφάνιση Ρυθμίσεων Καταγραφής</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span></li><li><span class="hllb">Έξοδοι Καταγραφής</span> > <span class="hlgreen">Γράψε σε Αρχείο</span></li><li><span class="hllb">Τύποι Καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που προσομοιώνονται μέσω του PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Εργαλεία > Ενεργοποίηση καταγραφής αρχείων</span> πρέπει να είναι ενεργοποιημένο</span><br><br><span class="ttdesc">❗ Λόγω των τελευταίων ενημερώσεων, το περιεχόμενο του <span class="hl">"emulog.txt"</span> μπορεί αυτή τη στιγμή να είναι προσβάσιμο μόνο στην έκδοση Nightly του PCSX2</span>`,
+        pcsx2: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που προσομοιώνονται μέσω του PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Εργαλεία > Ενεργοποίηση καταγραφής αρχείων</span> πρέπει να είναι ενεργοποιημένο</span>`,
         duckstation: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που προσομοιώνονται μέσω του Duckstation<br><br><span class="ttdesc">❗ Το αρχείο <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> πρέπει να κατέβει και να μεταφερθεί στον <span class="hl">φάκελο εγκατάστασης του Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Ρυθμίσεις > Επιτεύγματα > RAIntegration (Μόνο για προγραμματιστές)</span> πρέπει να είναι ενεργοποιημένο</span>`,
+        ppsspp: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω PPSSPP<br><br><span class="ttdesc"><span class="hl">Ρυθμίσεις > Εργαλεία > Εργαλεία προγραμματιστή > Γενικά > Καταγραφή σε αρχείο</span> πρέπει να είναι ενεργοποιημένο και ρυθμισμένο με τις ακόλουθες ρυθμίσεις:<br><br><ul><li><span class="hllb">Επιτεύγματα</span>: <span class="hlgreen">Πληροφορίες</span></span>`,
         retroarchpath: `Ορίστε τη διαδρομή για το <span class="hl">"retroarch.log"</span> αρχείο καταγραφής του RetroArch<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"retroarch.log"</span> αποθηκεύεται στο <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Ορίστε τη διαδρομή για το <span class="hl">"dolphin.log"</span> αρχείο καταγραφής του Dolphin<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"dolphin.log"</span> αποθηκεύεται σε μία από τις εξής τοποθεσίες:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Ορίστε τη διαδρομή προς το αρχείο καταγραφής <span class="hl">"emulog.txt"</span> του PCSX2<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"emulog.txt"</span> αποθηκεύεται στο <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `Ορίστε τη διαδρομή για το αρχείο καταγραφής <span class="hl">"RALog.txt"</span> του Duckstation<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"RALog.txt"</span> αποθηκεύεται στο <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></span>`,
+        ppsspppath: `Ορισμός της διαδρομής προς το αρχείο καταγραφής <span class="hl">"log.txt"</span> του PPSSPP<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"log.txt"</span> αποθηκεύεται στο <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "Ορίστε το χρώμα των στοιχείων κειμένου στην ειδοποίηση ξεχωριστά",
         unlockmsgfontcolor: "Ορίστε το χρώμα του πρώτου στοιχείου κειμένου",
         titlefontcolor: "Ορίστε το χρώμα του δεύτερου στοιχείου κειμένου",

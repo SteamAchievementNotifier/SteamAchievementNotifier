@@ -133,7 +133,7 @@ export const translations = {
                 </div>
             </details>`,
             `<details>
-                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <summary id="pcsx2">PCSX2</summary>
                 <div>
                     <span class="hl">PCSX2 > Unelte > Activare jurnalizare fișiere</span> trebuie să fie activat
                     <br>
@@ -159,6 +159,22 @@ export const translations = {
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Setări > Instrumente pentru dezvoltatori > General > Înregistrare în fișier</span> trebuie să fie activată și configurată cu următoarele setări:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Realizări</span>: <span class="hlgreen">Informații</span></li>
+                    </ul>
+                    <br>
+                    Cu setările implicite de instalare, fișierul <span class="hl">"log.txt"</span> este salvat în:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
                     </ul>
                 </div>
             </details>`
@@ -318,8 +334,9 @@ export const translations = {
                 rakey: "Cheia API",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2 [Nightly]",
+                pcsx2: "PCSX2",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "Calea fișierului de log",
                 rapercenttype: "Tipul procentajului",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "Setează dacă vrei să afișezi procentele de realizare Hardcore sau Softcore în notificări",
         retroarch: `Afișează notificările Retro Achievements pentru jocurile emulate prin RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Setări > Jurnalizare</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul jurnalizării</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Nivelul de jurnalizare al interfeței</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Jurnalizează în fișier</span>: <span class="hlgreen">LIGAT</span></li><li><span class="hllb">Marca de timp pentru fișierele de log</span>: <span class="hlred">DEZLIGAT</span></li></ul></span>`,
         dolphin: `Afișează notificările Retro Achievements pentru jocurile emulate prin Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Vizualizare > Afișează configurația logului</span> trebuie configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Verbiajul</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Ieșiri din jurnal</span> > <span class="hlgreen">Scrie în fișier</span></li><li><span class="hllb">Tipuri de log</span> > <span class="hlgreen">Realizări (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Afișează notificările Retro Achievements pentru jocurile emulate prin PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Unelte > Activare jurnalizare fișiere</span> trebuie să fie activat</span><br><br><span class="ttdesc">❗ Datorită actualizărilor recente, conținutul fișierului <span class="hl">"emulog.txt"</span> poate fi accesat momentan doar în versiunea Nightly a PCSX2</span>`,
+        pcsx2: `Afișează notificările Retro Achievements pentru jocurile emulate prin PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Unelte > Activare jurnalizare fișiere</span> trebuie să fie activat</span>`,
         duckstation: `Afișează notificările Retro Achievements pentru jocurile emulate prin Duckstation<br><br><span class="ttdesc">❗ Fișierul <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> trebuie descărcat și mutat în <span class="hl">directorul de instalare al Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Setări > Realizări > RAIntegration (Doar pentru dezvoltatori)</span> trebuie să fie activat</span>`,
+        ppsspp: `Afișează notificările Retro Achievements pentru jocurile emulate prin PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> trebuie să fie activat și configurat cu următoarele setări:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Setează calea către fișierul de log <span class="hl">"retroarch.log"</span> al RetroArch<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"retroarch.log"</span> este stocat în <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Setează calea către fișierul de log <span class="hl">"dolphin.log"</span> al Dolphin<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"dolphin.log"</span> este stocat în una dintre următoarele locații:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Setează calea către fișierul de log <span class="hl">"emulog.txt"</span> al PCSX2<br><br><span class="ttdesc">Cu setările implicite de instalare, <span class="hl">"emulog.txt"</span> este stocat în <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `Setează calea către fișierul jurnal <span class="hl">"RALog.txt"</span> al Duckstation<br><br><span class="ttdesc">Cu setările de instalare implicite, <span class="hl">"RALog.txt"</span> este salvat în <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></span>`,
+        ppsspppath: `Setează calea către fișierul jurnal <span class="hl">"log.txt"</span> al PPSSPP<br><br><span class="ttdesc">Folosind setările implicite de instalare, <span class="hl">"log.txt"</span> este stocat în <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "Setează individual culoarea elementelor de text din notificare",
         unlockmsgfontcolor: "Setează culoarea primului element de text",
         titlefontcolor: "Setează culoarea celui de-al doilea element de text",

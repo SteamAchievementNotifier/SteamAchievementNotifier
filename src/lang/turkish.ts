@@ -133,7 +133,7 @@ export const translations = {
                 </div>
             </details>`,
             `<details>
-                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <summary id="pcsx2">PCSX2</summary>
                 <div>
                     <span class="hl">PCSX2 > Araçlar > Dosya Kaydı Etkinleştir</span> etkinleştirilmelidir
                     <br>
@@ -159,6 +159,22 @@ export const translations = {
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Settings > Developer Tools > General > Log to File</span> etkinleştirilmeli ve aşağıdaki ayarlarla yapılandırılmalıdır:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></li>
+                    </ul>
+                    <br>
+                    Varsayılan kurulum ayarları kullanıldığında, <span class="hl">"log.txt"</span> şu konumda saklanır:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
                     </ul>
                 </div>
             </details>`
@@ -318,8 +334,9 @@ export const translations = {
                 rakey: "API Anahtarı",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2 [Nightly]",
+                pcsx2: "PCSX2",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "Log Dosyası Yolu",
                 rapercenttype: "Yüzde Türü",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "Bildirimlerde Hardcore veya Softcore başarı yüzdelerinin gösterilmesini ayarlayın",
         retroarch: `Retro Achievements bildirimlerini RetroArch ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">RetroArch > Ayarlar > Günlük Kaydı</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Günlük Kaydı Ayrıntı Düzeyi</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Önyüz Günlük Kaydı Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li><li><span class="hllb">Dosyaya Günlük Kaydı</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Günlük Dosyalarına Zaman Damgası</span>: <span class="hlred">KAPALI</span></li></ul></span>`,
         dolphin: `Retro Achievements bildirimlerini Dolphin ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">Dolphin > Görünüm > Günlük Konfigürasyonunu Göster</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Ayrıntı Düzeyi</span>: <span class="hlgreen">Bilgi</span></li><li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li><li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Retro Achievements bildirimlerini PCSX2 [Nightly] ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">PCSX2 > Araçlar > Dosya Kaydı Etkinleştir</span> etkinleştirilmelidir</span><br><br><span class="ttdesc">❗ Son güncellemeler nedeniyle, <span class="hl">"emulog.txt"</span> içeriğine şu anda yalnızca PCSX2'nin Nightly sürümünde erişilebilir</span>`,
+        pcsx2: `Retro Achievements bildirimlerini PCSX2 ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">PCSX2 > Araçlar > Dosya Kaydı Etkinleştir</span> etkinleştirilmelidir</span>`,
         duckstation: `Duckstation üzerinden emüle edilen oyunlar için Retro Achievements bildirimlerini göster<br><br><span class="ttdesc">❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> dosyasının indirilip <span class="hl">Duckstation'ın kurulum dizinine</span> taşınması gerekir</span><br><br><span class="ttdesc"><span class="hl">Duckstation > Ayarlar > Başarılar > RAIntegration (Sadece geliştiriciler için)</span> etkinleştirilmiş olmalıdır</span>`,
+        ppsspp: `PPSSPP aracılığıyla emüle edilen oyunlar için Retro Achievements bildirimlerini göster<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> etkinleştirilmeli ve aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `RetroArch'ın <span class="hl">"retroarch.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"retroarch.log"</span> şu konumda saklanır: <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Dolphin'in <span class="hl">"dolphin.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"dolphin.log"</span> şu konumlarda saklanır:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `PCSX2'in <span class="hl">"emulog.txt"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"emulog.txt"</span> şu konumda saklanır: <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `Duckstation'ın <span class="hl">"RALog.txt"</span> günlük dosyasının yolunu ayarla<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"RALog.txt"</span> <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span> içinde saklanır</span>`,
+        ppsspppath: `PPSSPP'nin <span class="hl">"log.txt"</span> günlük dosyasının yolunu ayarla<br><br><span class="ttdesc">Varsayılan kurulum ayarları kullanıldığında, <span class="hl">"log.txt"</span> şu konumda saklanır: <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "Bildirim içindeki metin öğelerinin rengini ayrı ayrı ayarlayın",
         unlockmsgfontcolor: "İlk metin öğesinin rengini ayarlayın",
         titlefontcolor: "İkinci metin öğesinin rengini ayarlayın",

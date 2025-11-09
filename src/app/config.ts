@@ -311,6 +311,7 @@ export const sanconfig = {
                 dolphinpath: "",
                 pcsx2path: "",
                 duckstationpath: "",
+                ppsspppath: "",
                 rauser: "",
                 rakey: "",
                 exportachdata: false,

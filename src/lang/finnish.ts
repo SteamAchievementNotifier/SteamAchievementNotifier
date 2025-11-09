@@ -133,7 +133,7 @@ export const translations = {
                 </div>
             </details>`,
             `<details>
-                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <summary id="pcsx2">PCSX2</summary>
                 <div>
                     <span class="hl">PCSX2 > Työkalut > Ota tiedostolokitus käyttöön</span> täytyy olla käytössä
                     <br>
@@ -159,6 +159,22 @@ export const translations = {
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Settings > Developer Tools > General > Log to File</span> täytyy olla otettuna käyttöön ja määritetty seuraavilla asetuksilla:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></li>
+                    </ul>
+                    <br>
+                    Oletusasennoilla asennettuna tiedosto <span class="hl">"log.txt"</span> tallennetaan sijaintiin:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
                     </ul>
                 </div>
             </details>`
@@ -318,8 +334,9 @@ export const translations = {
                 rakey: "API-avain",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2 [Nightly]",
+                pcsx2: "PCSX2",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "Lokitiedoston polku",
                 rapercenttype: "Prosenttityyppi",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "Määritä, näytetäänkö ilmoituksissa Hardcore- vai Softcore-saavutusten avausprosentit",
         retroarch: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan RetroArchilla<br><br><span class="ttdesc"><span class="hl">RetroArch > Asetukset > Lokitus</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Lokituksen yksityiskohtaisuus</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Frontend-lokitaso</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Kirjaa lokiin</span>: <span class="hlgreen">PÄÄLLÄ</span></li><li><span class="hllb">Aikaleimat lokitiedostoissa</span>: <span class="hlred">POIS PÄÄLTÄ</span></li></ul></span>`,
         dolphin: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan Dolphinilla<br><br><span class="ttdesc"><span class="hl">Dolphin > Näytä > Näytä lokiasetukset</span> on määritettävä seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Yksityiskohtaisuus</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Lokin ulostulot</span> > <span class="hlgreen">Kirjoita tiedostoon</span></li><li><span class="hllb">Lokityypit</span> > <span class="hlgreen">Saavutukset (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan PCSX2 [Nightly]illa<br><br><span class="ttdesc"><span class="hl">PCSX2 > Työkalut > Ota tiedostolokitus käyttöön</span> täytyy olla käytössä</span><br><br><span class="ttdesc">❗ Viimeisimpien päivitysten vuoksi <span class="hl">"emulog.txt"</span> sisältö on tällä hetkellä saatavilla vain PCSX2:n Nightly-versiossa</span>`,
+        pcsx2: `Näytä Retro Achievements -ilmoitukset peleille, jotka emuloidaan PCSX2illa<br><br><span class="ttdesc"><span class="hl">PCSX2 > Työkalut > Ota tiedostolokitus käyttöön</span> täytyy olla käytössä</span>`,
         duckstation: `Näytä Retro Achievements -ilmoitukset Duckstationin kautta emuloiduista peleistä<br><br><span class="ttdesc">❗ Tiedosto <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> täytyy ladata ja siirtää <span class="hl">Duckstationin asennuskansioon</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Asetukset > Saavutukset > RAIntegration (Vain kehittäjille)</span> täytyy olla käytössä</span>`,
+        ppsspp: `Näytä Retro Achievements -ilmoitukset peleille, joita emuloidaan PPSSPP:n kautta<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> täytyy olla otettuna käyttöön ja määritetty seuraavilla asetuksilla:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Aseta polku RetroArchin <span class="hl">"retroarch.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"retroarch.log"</span> tallennetaan sijaintiin <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Aseta polku Dolphin <span class="hl">"dolphin.log"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksen mukaan <span class="hl">"dolphin.log"</span> tallennetaan johonkin seuraavista sijainneista:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Aseta polku PCSX2 <span class="hl">"emulog.txt"</span> -lokitiedostoon<br><br><span class="ttdesc">Oletusasennuksilla <span class="hl">"emulog.txt"</span> tallennetaan polkuun <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `Aseta polku Duckstationin lokitiedostoon <span class="hl">"RALog.txt"</span><br><br><span class="ttdesc">Oletusasetuksilla <span class="hl">"RALog.txt"</span> tallennetaan sijaintiin <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></span>`,
+        ppsspppath: `Aseta PPSSPP:n lokitiedoston <span class="hl">"log.txt"</span> polku<br><br><span class="ttdesc">Oletusasennoilla asennettuna tiedosto <span class="hl">"log.txt"</span> tallennetaan sijaintiin <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "Aseta ilmoituksen tekstielementtien värit erikseen",
         unlockmsgfontcolor: "Aseta ensimmäisen tekstielementin väri",
         titlefontcolor: "Aseta toisen tekstielementin väri",

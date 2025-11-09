@@ -693,6 +693,10 @@ body[trophymode] .multiselect .wrapper:has(> input[id$="rare"]) > span::before {
     --trophy: url("../../img/ra/duckstation.png");
 }
 
+.multiselect#raemuswrapper .wrapper:has(> input#ppsspp) > span::before {
+    --trophy: url("../../img/ra/ppsspp.png");
+}
+
 .opt#raemuswrapper input[type="text"] {
     grid-column-start: 1;
     background-color: var(--mediumgrey);

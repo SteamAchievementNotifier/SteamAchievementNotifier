@@ -133,7 +133,7 @@ export const translations = {
                 </div>
             </details>`,
             `<details>
-                <summary id="pcsx2">PCSX2 [Nightly]</summary>
+                <summary id="pcsx2">PCSX2</summary>
                 <div>
                     <span class="hl">PCSX2 > 工具 > 启用文件日志</span> 必须启用
                     <br>
@@ -159,6 +159,22 @@ export const translations = {
                     <br>
                     <ul>
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
+                    </ul>
+                </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Settings > Developer Tools > General > Log to File</span> 必须启用并按以下设置进行配置：
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></li>
+                    </ul>
+                    <br>
+                    使用默认安装设置时，<span class="hl">"log.txt"</span> 存储在：
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
                     </ul>
                 </div>
             </details>`
@@ -318,8 +334,9 @@ export const translations = {
                 rakey: "API 密钥",
                 retroarch: "RetroArch",
                 dolphin: "Dolphin",
-                pcsx2: "PCSX2 [Nightly]",
+                pcsx2: "PCSX2",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "日志文件路径",
                 rapercenttype: "百分比类型",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "设置是否在通知中显示 Hardcore 或 Softcore 成就解锁百分比",
         retroarch: `显示 Retro Achievements 的通知，适用于通过 RetroArch 模拟的游戏<br><br><span class="ttdesc"><span class="hl">RetroArch > 设置 > 日志</span> 必须按照以下设置进行配置：<br><br><ul><li><span class="hllb">日志详细级别</span>: <span class="hlgreen">开启</span></li><li><span class="hllb">前端日志级别</span>: <span class="hlgreen">1（信息）</span></li><li><span class="hllb">记录到文件</span>: <span class="hlgreen">开启</span></li><li><span class="hllb">时间戳日志文件</span>: <span class="hlred">关闭</span></li></ul></span>`,
         dolphin: `显示 Retro Achievements 的通知，适用于通过 Dolphin 模拟的游戏<br><br><span class="ttdesc"><span class="hl">Dolphin > 查看 > 显示日志配置</span> 必须按照以下设置进行配置：<br><br><ul><li><span class="hllb">详细级别</span>: <span class="hlgreen">信息</span></li><li><span class="hllb">日志输出</span> > <span class="hlgreen">写入文件</span></li><li><span class="hllb">日志类型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li></ul></span>`,
-        pcsx2: `显示 Retro Achievements 通知，对于通过 PCSX2 [Nightly] 模拟的游戏<br><br><span class="ttdesc"><span class="hl">PCSX2 > 工具 > 启用文件日志</span> 必须启用</span><br><br><span class="ttdesc">❗ 由于最近的更新，<span class="hl">"emulog.txt"</span> 的内容目前只能在 PCSX2 的 Nightly 版本中访问</span>`,
+        pcsx2: `显示 Retro Achievements 通知，对于通过 PCSX2 模拟的游戏<br><br><span class="ttdesc"><span class="hl">PCSX2 > 工具 > 启用文件日志</span> 必须启用</span>`,
         duckstation: `显示通过 Duckstation 模拟的游戏的 Retro Achievements 通知<br><br><span class="ttdesc">❗ 文件 <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> 必须下载并移动到 <span class="hl">Duckstation 的安装目录</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > 设置 > 成就 > RAIntegration（仅限开发者）</span> 必须启用</span>`,
+        ppsspp: `为通过 PPSSPP 模拟的游戏显示 Retro Achievements 通知<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> 必须启用并按以下设置进行配置：<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `设置 RetroArch 的 <span class="hl">"retroarch.log"</span> 日志文件路径<br><br><span class="ttdesc">使用默认安装设置时，<span class="hl">"retroarch.log"</span> 存储在 <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `设置 Dolphin 的 <span class="hl">"dolphin.log"</span> 日志文件路径<br><br><span class="ttdesc">使用默认安装设置时，<span class="hl">"dolphin.log"</span> 存储在以下位置之一：<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `设置 PCSX2 的 <span class="hl">"emulog.txt"</span> 日志文件路径<br><br><span class="ttdesc">使用默认安装设置，<span class="hl">"emulog.txt"</span> 文件存储在 <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `设置 Duckstation 的 <span class="hl">"RALog.txt"</span> 日志文件路径<br><br><span class="ttdesc">使用默认安装设置，<span class="hl">"RALog.txt"</span> 文件保存在 <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></span>`,
+        ppsspppath: `设置 PPSSPP 的日志文件 <span class="hl">"log.txt"</span> 路径<br><br><span class="ttdesc">使用默认安装设置时，<span class="hl">"log.txt"</span> 存储在 <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "单独设置通知中文本元素的颜色",
         unlockmsgfontcolor: "设置第一个文本元素的颜色",
         titlefontcolor: "设置第二个文本元素的颜色",

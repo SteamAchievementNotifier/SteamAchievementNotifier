@@ -161,6 +161,22 @@ export const translations = {
                         <li><span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></li>
                     </ul>
                 </div>
+            </details>`,
+            `<details>
+                <summary id="dolphin">PPSSPP</summary>
+                <div>
+                    <span class="hl">PPSSPP > Settings > Developer Tools > General > Log to File</span> deve estar ativado e configurado com as seguintes definições:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></li>
+                    </ul>
+                    <br>
+                    Usando as configurações de instalação padrão, o arquivo <span class="hl">"log.txt"</span> é armazenado em:
+                    <br>
+                    <ul>
+                        <li><span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></li>
+                    </ul>
+                </div>
             </details>`
         ],
         betaunsupported: "Beta não suportado",
@@ -320,6 +336,7 @@ export const translations = {
                 dolphin: "Dolphin",
                 pcsx2: "PCSX2 [Nightly]",
                 duckstation: "Duckstation",
+                ppsspp: "PPSSPP",
                 installdir: "Caminho do Arquivo de Log",
                 rapercenttype: "Tipo de porcentagem",
                 hard: "Hardcore",
@@ -776,12 +793,14 @@ export const translations = {
         rapercenttype: "Definir se a porcentagem de desbloqueio de conquistas exibida nas notificações será Hardcore ou Softcore",
         retroarch: `Exibir notificações do Retro Achievements para jogos emulados pelo RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Configurações > Registro</span> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento do Registro</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Nível de Registro da Interface</span>: <span class="hlgreen">1 (Informação)</span></li><li><span class="hllb">Registrar em Arquivo</span>: <span class="hlgreen">LIGADO</span></li><li><span class="hllb">Arquivos de Log com Carimbo de Data/Hora</span>: <span class="hlred">DESLIGADO</span></li></ul></span>`,
         dolphin: `Exibir notificações do Retro Achievements para jogos emulados pelo Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Exibir > Mostrar Configuração de Log</span> deve ser configurado com as seguintes opções:<br><br><ul><li><span class="hllb">Detalhamento</span>: <span class="hlgreen">Informação</span></li><li><span class="hllb">Saídas do Registro</span> > <span class="hlgreen">Escrever em Arquivo</span></li><li><span class="hllb">Tipos de Registro</span> > <span class="hlgreen">Conquistas (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Exibir notificações do Retro Achievements para jogos emulados pelo PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Ferramentas > Ativar Registro de Arquivo</span> deve estar ativado</span><br><br><span class="ttdesc">❗ Devido a atualizações recentes, o conteúdo de <span class="hl">"emulog.txt"</span> atualmente só pode ser acessado na versão Nightly do PCSX2</span>`,
+        pcsx2: `Exibir notificações do Retro Achievements para jogos emulados pelo PCSX2 [Nightly]<br><br><span class="ttdesc"><span class="hl">PCSX2 > Ferramentas > Ativar Registro de Arquivo</span> deve estar ativado</span>`,
         duckstation: `Exibir notificações do Retro Achievements para jogos emulados via Duckstation<br><br><span class="ttdesc">❗ O arquivo <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> deve ser baixado e movido para o <span class="hl">diretório de instalação do Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Configurações > Conquistas > RAIntegration (Somente para desenvolvedores)</span> deve estar ativado</span>`,
+        ppsspp: `Exibir notificações do Retro Achievements para jogos emulados via PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> deve estar ativado e configurado com as seguintes definições:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Definir o caminho para o arquivo de log <span class="hl">"retroarch.log"</span> do RetroArch<br><br><span class="ttdesc">Com as configurações padrão de instalação, o <span class="hl">"retroarch.log"</span> é armazenado em <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Definir o caminho para o arquivo de log <span class="hl">"dolphin.log"</span> do Dolphin<br><br><span class="ttdesc">Com as configurações padrão de instalação, o <span class="hl">"dolphin.log"</span> é armazenado em um dos seguintes locais:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Defina o caminho para o arquivo de log <span class="hl">"emulog.txt"</span> do PCSX2<br><br><span class="ttdesc">Usando as configurações padrão de instalação, o arquivo <span class="hl">"emulog.txt"</span> é salvo em <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
         duckstationpath: `Defina o caminho para o arquivo de log <span class="hl">"RALog.txt"</span> do Duckstation<br><br><span class="ttdesc">Com as configurações padrão de instalação, o <span class="hl">"RALog.txt"</span> é salvo em <span class="hllb">%USERPROFILE%\\Downloads\\duckstation-windows-x64-release\\RACache</span></span>`,
+        ppsspppath: `Defina o caminho para o arquivo de log <span class="hl">"log.txt"</span> do PPSSPP<br><br><span class="ttdesc">Usando as configurações de instalação padrão, o arquivo <span class="hl">"log.txt"</span> é armazenado em <span class="hllb">%PROGRAMFILES%\\PPSSPP\\PSP\\memstick\\PSP\\SYSTEM\\DUMP</span></span>`,
         usecustomfontcolors: "Definir individualmente a cor dos elementos de texto na notificação",
         unlockmsgfontcolor: "Definir a cor do primeiro elemento de texto",
         titlefontcolor: "Definir a cor do segundo elemento de texto",

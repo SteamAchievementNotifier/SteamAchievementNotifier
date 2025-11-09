@@ -10,7 +10,8 @@ export const rasupported = [
     "retroarch",
     "dolphin",
     "pcsx2",
-    "duckstation"
+    "duckstation",
+    "ppsspp"
 ]
 
 export const raelems = [...rasupported].flatMap(id => [id,`${id}path`])
@@ -58,7 +59,7 @@ const actionmap = (emu: string) => {
     
     return new Map<"start" | "stop" | "achievement" | "mode",RegExp>([
         ["start",start || /Game (\d+) loaded, Hardcore (enabled|disabled)/i],
-        ["stop", stop || /Unloading game (\d+)/i],
+        ["stop",stop || /Unloading game (\d+)/i],
         ["achievement",achievement || /Awarding achievement (\d+)/i],
         ...(mode ? [["mode",mode]] as const : [])
     ])

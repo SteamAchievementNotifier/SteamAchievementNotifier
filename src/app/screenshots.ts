@@ -230,7 +230,21 @@ export const screenshot = {
             // Screenshots are disabled in `ipcMain.on("notify")` event and shouldn't reach here anyway, but added as a logical fallback
             if (!config.get(`customisation.${notify.type}.ssenabled`)) return log.write("INFO",`${type === "ss" ? "Screenshots" : "Notification Images"} disabled for "${notify.type}" type`)
 
-            const imgpath: string = path.join(config.get(`${type === "ss" ? "ov" : "img"}path`),notify.ra ? "RetroAchievements" : "") as string
+            let rapath = ""
+
+            if (notify.ra) {
+                const key = await new Promise<string | null>(resolve => {
+                    ipcMain.once("sendemu",(event,emu: string | null) => resolve(emu))
+                    ipcMain.emit("getemu")
+                })
+
+                const { language } = await import("./language")
+                const emu = key ? await language.get(key,["settings","ra","content"]) : null
+
+                rapath = path.join("RetroAchievements",emu || "[Unknown Emulator]")
+            }
+
+            const imgpath: string = path.join(config.get(`${type === "ss" ? "ov" : "img"}path`),rapath) as string
             const srcpath: string | null = type === "ss" ? (!ispreview ? screenshot.srcpath(notify.id) : sanhelper.setfilepath("img","santextlogobg.png")) : null
 
             try {

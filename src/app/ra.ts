@@ -152,7 +152,10 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                 if (!key) return ["ERROR",["<unknown>",`Unable to parse emulator name in "start" action`]]
 
                 gameid = value
+                
                 emu = key
+                ipcRenderer.send("emu",emu) // Update global `emu` variable in `listeners.ts`
+                
                 ramode = mode!
 
                 // Prevents occasional bug where the "Now Tracking" notification is displayed again after unlocking simultaneous achievements
@@ -172,7 +175,10 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
             case "stop":
                 const stopmsg: [string | null, (string | null)[]] = ["INFO",[key,`[RA]: "${emu || key}" stopped Game ${gameid || value}`]]
                 gameid = 0
+                
                 emu = null
+                ipcRenderer.send("emu",null) // Reset global `emu` variable in `listeners.ts`
+                
                 ramode = "hard"
                 racached.length = 0
                 nowtrackingshown = false

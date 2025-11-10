@@ -442,7 +442,7 @@ const startra = () => {
         const logmap = getlogmap()
 
         // Limits actions to active emulator
-        logmap.forEach(async (file, key) => {
+        logmap.forEach(async (file,key) => {
             if (!fs.existsSync(file) || (emu && emu !== key)) return
 
             for (const newaction of getlastactions(key,file)) {
@@ -470,3 +470,5 @@ const startra = () => {
 
 sanhelper.devmode && (window.testraunlock = testraunlock)
 startra()
+
+ipcRenderer.on("emu",() => ipcRenderer.send("emu",emu))

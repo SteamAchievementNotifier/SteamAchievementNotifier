@@ -16,6 +16,7 @@ let extwin: BrowserWindow | null = null
 let statwin: BrowserWindow | null = null
 let replay: { queueobj: WinType, src?: number } | null = null
 const gameartfiles: string[] = []
+let emu: string | null = null
 
 export const listeners = {
     setexit: () => {
@@ -1687,6 +1688,9 @@ export const listeners = {
 
             updatetray(tray,undefined,undefined,true)
         })
+        
+        ipcMain.on("emu",(event,_emu: string | null) => emu = _emu) // Updates global `emu` variable with name of current emulator (or `null` if nothing is running)
+        ipcMain.on("getemu",event => ipcMain.emit("sendemu",null,emu)) // Sends emulator name to `screenshot.ts` if `notify.ra` is true
 
         return
     }

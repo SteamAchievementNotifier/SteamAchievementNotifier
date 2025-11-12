@@ -337,23 +337,27 @@ body[nodecoration] .wrapper#achcontent > span {
     line-height: calc(1.2rem * var(--fontsize));
     word-break: break-word;
     -webkit-box-align: center;
-    margin-block: calc((var(--textvspace) * 1px) * var(--scale));
+    margin-block: calc(((var(--textvspace) * 1px) - 1.5px) * var(--scale));
     /* padding-inline: calc(var(--scale) * 2px); */
 }
 
+/* `padding-block` ensures text does not get cut off when custom per-element font-sizes are used */
 #achcontent > #unlockmsg {
     font-size: calc(1rem * var(--unlockmsgfontsize));
     color: var(--unlockmsgfontcolor);
+    padding-block: calc(0.2rem * var(--unlockmsgfontsize));
 }
 
 #achcontent > #title {
     font-size: calc(1rem * var(--titlefontsize));
     color: var(--titlefontcolor);
+    padding-block: calc(0.2rem * var(--titlefontsize));
 }
 
 #achcontent > #desc {
     font-size: calc(1rem * var(--descfontsize));
     color: var(--descfontcolor);
+    padding-block: calc(0.2rem * var(--descfontsize));
 }
 
 #hiddenicon {

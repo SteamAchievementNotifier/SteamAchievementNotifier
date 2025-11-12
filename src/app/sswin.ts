@@ -47,7 +47,7 @@ ipcRenderer.once(`src_${notifyid}`,(event,path: string) => {
 })
 
 ipcRenderer.once(`sswinready_${notifyid}`,async (event,obj: { info: Info, dims: { width: number, height: number, offset: number, scalefactor: number } }) => {
-    const { customisation, iswebview, info: { type }, customfiles, skipaudio } = obj.info
+    const { customisation, iswebview, info: { type }, customfiles } = obj.info
     const webview = document.querySelector("webview")! as Electron.WebviewTag
 
     webview.src = customfiles || "../../notify/base.html"

@@ -5,6 +5,32 @@ import { sanconfig } from "./config"
 import { log } from "./log"
 import { __root, sanhelper } from "./sanhelper"
 
+// Used in `dialog.ts`/`renderer.ts` to close "sswin", and in `renderer.ts` to spawn the Preview window
+ipcMain.on("sswin", (event,notify?: Notify,src?: number) => {
+    const { screenshots, monitor } = sanconfig.get().store
+
+    if (!notify) {
+        for (const [id,sswin] of sswins) {
+            screenshot.clearsswin(id)
+        }
+
+        return
+    }
+
+    const sswin = sswins.get(notify.id)
+    sswin && sswin.win && screenshot.clearsswin(notify.id)
+
+    sswins.set(notify.id,{
+        win: null,
+        src: monitor || -1,
+        timer: null,
+        windowtitle: null,
+        haswarned: false
+    })
+
+    screenshot.createsswin(screenshots === "notifyimg" ? "img" : "ss",notify,true)
+})
+
 const sswins = new Map<number,SSWin>()
 
 export const screenshot = {
@@ -294,7 +320,7 @@ export const screenshot = {
                     const { width, height } = await screenshot.setnotifybounds({ width: dims.width, height: dims.height },notify.type,dims.offset,"sswin",notify.customisation)
 
                     if (type === "img") {
-                        sswin.win.setSize(Math.round(width),Math.round(height))
+                        sswin.win.setSize(Math.round(width * (notify.customisation.scale / 100)),Math.round(height * (notify.customisation.scale / 100)))
                         sswin.win.center()
                     }
 
@@ -305,8 +331,6 @@ export const screenshot = {
                 } catch (err) {
                     return log.write("ERROR",`Error creating ${sswintype} for ID ${notify.id} dimensions: ${err as Error}`)
                 }
-
-                console.log(dims)
         
                 event.reply(`${type}winready_${notify.id}`,{
                     info: {
@@ -330,7 +354,7 @@ export const screenshot = {
                 !ispreview && ipcMain.once(`sscapture_${notify.id}`,async () => {
                     if (!sswin?.win) return log.write("WARN",`${sswintype} for ID ${notify.id} was closed before image file could be written to "${imgpath}"`)
 
-                    const regex = /[<>":\\/|?*\x00-\x1F]/g
+                    const regex = /[^a-zA-Z0-9 _()\-\[\]]/g
                     const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").replace(/\.$/,"").trim()).replace(/\\/g,"/")
                     const ssbasename = `${info.title.replace(regex,"").trim()}${type === "img" ? " - Notification" : ""}`
                     const ssext = ".png"
@@ -412,12 +436,16 @@ export const screenshot = {
     clearsswin: (id: number) => {
         const sswin = sswins.get(id)
 
-        if (sswin) {
-            sswin.timer && clearTimeout(sswin.timer)
-            sswin.timer = null
-            
-            sswin.win && sswin.win.close()
-            sswins.delete(id)
+        try {
+            if (sswin) {
+                sswin.timer && clearTimeout(sswin.timer)
+                sswin.timer = null
+                
+                sswin.win && sswin.win.close()
+                sswins.delete(id)
+            }
+        } catch (err) {
+            !(err as Error).message.includes("TypeError: Object has been destroyed") && log.write("WARN",`Unable to clear "sswin" for ID ${id}: ${err as Error}`)
         }
 
         try {
@@ -428,7 +456,7 @@ export const screenshot = {
                 log.write("INFO",`"src" image for ID ${id} deleted successfully`)
             }
         } catch (err) {
-            log.write("ERROR",`Unable to delete "src" image for ID ${id}: ${err as Error}`)
+            log.write("WARN",`Unable to delete "src" image for ID ${id}: ${err as Error}`)
         }
 
         return log.write(sswin && !sswin.timer ? "INFO" : "WARN",`"sswin" for ID ${id} ${sswin && !sswin.timer ? "cleared successfully" : "could not be found"}`)

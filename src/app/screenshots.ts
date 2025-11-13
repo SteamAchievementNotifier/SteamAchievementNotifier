@@ -418,7 +418,11 @@ export const screenshot = {
                     nodeIntegration: true,
                     contextIsolation: false,
                     webviewTag: true,
-                    additionalArguments: [`--notifyid=${notify.id}`]
+                    additionalArguments: [
+                        `--notifyid=${notify.id}`,
+                        `--monwidth=${Math.round(monitor.bounds.width / monitor.scaleFactor)}`,
+                        `--monheight=${Math.round(monitor.bounds.height / monitor.scaleFactor)}`
+                    ]
                 }
             })
 
@@ -427,7 +431,7 @@ export const screenshot = {
             sswin.win.loadFile(path.join(__root,"dist","app",`${type}win.html`))
             sanhelper.devmode && sanhelper.setdevtools(sswin.win)
 
-            sswin.win.once("closed", () => log.write("INFO",`${sswintype} for ID ${notify.id} closed`))
+            sswin.win.once("closed",() => log.write("INFO",`${sswintype} for ID ${notify.id} closed`))
         } catch (err) {
             log.write("ERROR",err as Error)
             screenshot.clearsswin(notify.id)

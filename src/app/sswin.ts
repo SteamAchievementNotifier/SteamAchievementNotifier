@@ -1,6 +1,7 @@
 import { ipcRenderer } from "electron"
 
 const notifyid = process.argv.find(arg => arg.startsWith("--notifyid="))!.split("=")[1]
+const [monwidth,monheight] = (["width","height"] as const).map(dim => parseInt(process.argv.find(arg => arg.startsWith(`--mon${dim}`))!.split("=")[1]))
 
 const checkimgload = (img: HTMLImageElement): boolean => {
     if (!img.complete) return false
@@ -100,7 +101,8 @@ ipcRenderer.once(`sswinready_${notifyid}`,async (event,obj: { info: Info, dims: 
     // `25 * (customisation.scale)` references the base value of 50 added to the notification size divided by 2 - not a magic number
     // This puts the notification at the edge of the screen, so we can then translate it by a fixed value (`translate` value) for each scale setting
     const margin = `${(!offset ? 0 : (25 * scale) * -1)}px`
-    const translate = !offset ? 0 : ((75 * scale) / scalefactor) - ((scale - 1) * 25)
+    const baseoffset = (75 / scalefactor) + (Math.min(monwidth,monheight) * 0.025)
+    const translate = !offset ? 0 : (baseoffset / scalefactor) * scale
 
     setwebviewpos(margin,{ x: customisation.ovx, y: customisation.ovy })
 

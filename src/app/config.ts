@@ -285,6 +285,7 @@ export const sanconfig = {
                 webhookembedcolorsemi: `#${defaultcolors.primary.semi}`,
                 webhookembedcolorrare: `#${defaultcolors.primary.rare}`,
                 webhookembedcolorplat: `#${defaultcolors.primary.plat}`,
+                webhookappid: false,
                 // discord: {
                 //     userid: "",
                 //     avatarurl: "",

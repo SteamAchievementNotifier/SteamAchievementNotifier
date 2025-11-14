@@ -996,7 +996,7 @@ const getsteamuser = async (): Promise<string | null> => {
 
 const unlockstr = async (user: string,gamename: string,type: NotifyType) => `${(await language.get(`webhookunlockmsg${type === "plat" ? "plat" : ""}`)).replace(/\$user/,user)}${gamename ? ` ${(await language.get("webhookingame")).replace(/\$gamename/,gamename)}` : ""}`
 
-const embeds = async (notify: Notify) => {
+const embeds = async (notify: Notify,appid: number) => {
     const { type, gamename, name, desc, icon, percent, hidden } = notify
     const user = notify.ra ? (config.get("rauser") || "???") : await getsteamuser()
     const nospoilers = hidden && config.get("webhookspoilers")
@@ -1012,11 +1012,16 @@ const embeds = async (notify: Notify) => {
         thumbnail: {
             url: `attachment://${path.basename(icon)}`
         },
+        ...(config.get("webhookappid") && appid && {
+            footer: {
+                text: `${appid}`
+            }
+        }),
         timestamp: new Date()
     }
 }
 
-ipcRenderer.on("sendwebhook", async (event,notify: Notify) => {
+ipcRenderer.on("sendwebhook",async (event,notify: Notify,appid: number) => {
     const config = sanconfig.get()
 
     if (notify.type === "plat") {
@@ -1025,7 +1030,7 @@ ipcRenderer.on("sendwebhook", async (event,notify: Notify) => {
         notify.icon = ["jpg","jpeg"].map(ext => `.${ext}`).includes(path.extname(notify.icon)) ? notify.icon : sanhelper.setfilepath("img","ribbon.jpg")
     }
 
-    config.get("webhooks") && sendwebhook(notify.type,config.get("webhookurl"),await embeds(notify),notify.icon)
+    config.get("webhooks") && sendwebhook(notify.type,config.get("webhookurl"),await embeds(notify,appid),notify.icon)
 })
 
 ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {

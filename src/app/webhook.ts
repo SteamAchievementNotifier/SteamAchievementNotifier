@@ -114,8 +114,20 @@ export const webhookwrapper = async (elem: HTMLElement) => {
 
     spoilersspan.textContent = await language.get("webhookspoilers",["settings","notifications","content"])
     sanhelper.getcheckbox(config,spoilersinput)
+    
+    const appid = document.querySelector(`.wrapper:has(> input#webhookappid)`)!
+    const appidspan = appid.querySelector("span") as HTMLSpanElement
+    const appidinput = appid.querySelector("input") as HTMLInputElement
 
-    ;[spoilersspan,spoilersinput].forEach(elem => elem.onclick = event => sanhelper.setcheckbox(config,event))
+    appidspan.textContent = await language.get("webhookappid",["settings","notifications","content"])
+    sanhelper.getcheckbox(config,appidinput)
+
+    ;[
+        spoilersspan,
+        spoilersinput,
+        appidspan,
+        appidinput
+    ].forEach(elem => elem.onclick = event => sanhelper.setcheckbox(config,event))
 
     const laststatus = document.getElementById("webhooklaststatus")!
     const lslbl = laststatus.parentElement!.querySelector("span:first-child") as HTMLSpanElement

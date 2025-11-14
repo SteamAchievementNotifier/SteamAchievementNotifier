@@ -1437,7 +1437,7 @@ export const listeners = {
             ipcMain.emit("notify",null,notify,null,src)
         })
 
-        ipcMain.on("sendwebhook", (event,notify: Notify) => win.webContents.send("sendwebhook",notify))
+        ipcMain.on("sendwebhook",(event,notify: Notify) => win.webContents.send("sendwebhook",notify,appid))
 
         let poswin: BrowserWindow | null = null
 

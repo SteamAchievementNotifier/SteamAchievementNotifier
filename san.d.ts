@@ -98,6 +98,7 @@ declare interface Config {
     webhookembedcolorsemi: string,
     webhookembedcolorrare: string,
     webhookembedcolorplat: string,
+    webhookappid: boolean,
     // discord: {
     //     [key: string]: string,
     //     userid: string,

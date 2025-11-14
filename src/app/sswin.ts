@@ -1,7 +1,6 @@
 import { ipcRenderer } from "electron"
 
 const notifyid = process.argv.find(arg => arg.startsWith("--notifyid="))!.split("=")[1]
-const [monwidth,monheight] = (["width","height"] as const).map(dim => parseInt(process.argv.find(arg => arg.startsWith(`--mon${dim}`))!.split("=")[1]))
 
 const checkimgload = (img: HTMLImageElement): boolean => {
     if (!img.complete) return false
@@ -64,7 +63,7 @@ ipcRenderer.once(`sswinready_${notifyid}`,async (event,obj: { info: Info, dims: 
 
     const setwebviewpos = (margin: string,offset: { x: number, y: number }) => {
         const postype = !customisation.ovmatch ? "ovpos" : "pos"
-        const setoffset = (axis: number,plusdir: string) => axis + (customisation[postype].includes("center") && plusdir === "left" ? 0 : translate) * (customisation[postype].includes(plusdir) ? 1 : -1)
+        const setoffset = (axis: number,plusdir: string) => axis * (customisation[postype].includes(plusdir) ? 1 : -1)
 
         webview.style.setProperty("--margin",margin)
         webview.style.setProperty("--offset",`${setoffset(offset.x,"left")}px ${setoffset(offset.y,"top")}px`)
@@ -98,11 +97,10 @@ ipcRenderer.once(`sswinready_${notifyid}`,async (event,obj: { info: Info, dims: 
     webview.style.setProperty("--width",`${Math.round(width * scale)}px`)
     webview.style.setProperty("--height",`${Math.round(height * scale)}px`)
 
-    // `25 * (customisation.scale)` references the base value of 50 added to the notification size divided by 2 - not a magic number
-    // This puts the notification at the edge of the screen, so we can then translate it by a fixed value (`translate` value) for each scale setting
-    const margin = `${(!offset ? 0 : (25 * scale) * -1)}px`
-    const baseoffset = (75 / scalefactor) + (Math.min(monwidth,monheight) * 0.025)
-    const translate = !offset ? 0 : (baseoffset / scalefactor) * scale
+    // Electron automatically converts this value between OS scale/resolution settings, so no conversion is required
+    // e.g. Windows scaling @ 150% would make 25 = 37 (37.5 rounded down) automatically
+    // Using `margin` to place the notification is sufficient between different OS scaling/resolution settings
+    const margin = `${!offset ? 0 : 25}px`
 
     setwebviewpos(margin,{ x: customisation.ovx, y: customisation.ovy })
 

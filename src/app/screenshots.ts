@@ -418,11 +418,7 @@ export const screenshot = {
                     nodeIntegration: true,
                     contextIsolation: false,
                     webviewTag: true,
-                    additionalArguments: [
-                        `--notifyid=${notify.id}`,
-                        `--monwidth=${Math.round(monitor.bounds.width / monitor.scaleFactor)}`,
-                        `--monheight=${Math.round(monitor.bounds.height / monitor.scaleFactor)}`
-                    ]
+                    additionalArguments: [`--notifyid=${notify.id}`]
                 }
             })
 

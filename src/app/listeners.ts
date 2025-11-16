@@ -665,7 +665,7 @@ export const listeners = {
                 minHeight: type === "ext" ? 50 : 300
             }
 
-            const wintitle = type === "ext" ? "Stream Notifications" : "Achievement Stats Overlay"
+            const wintitle = type === "ext" ? "Stream Notification" : "Achievement Stats Overlay"
 
             const win = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): ${wintitle}`,
@@ -735,7 +735,7 @@ export const listeners = {
         }
 
         const setwinclosevalue = (config: Store<Config>,type: "ext" | "stat",reopenonlaunch: boolean) => {
-            log.write("EXIT",`${type === "ext" ? "Stream Notifications" : "Achievement Stats Overlay"} Window ${reopenonlaunch ? "destroyed" : "closed"}.`)
+            log.write("EXIT",`${type === "ext" ? "Stream Notification" : "Achievement Stats Overlay"} Window ${reopenonlaunch ? "destroyed" : "closed"}.`)
             config.set(`${type}win`,reopenonlaunch)
             ipcMain.emit("configupdated",null,config.store)
         }

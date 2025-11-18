@@ -1098,7 +1098,7 @@ export const sanhelper: SANHelper = {
     triggerkeypress: async (hotkeys: (string | number)[]) => {
         const { log } = await import("./log")
         if (process.platform === "linux" && !sanhelper.depsinstalled("keypressrs","media")) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`)
-        if (!hotkeys.length) return log.write("WARN",`No valid keys provided to trigger keypress/combo`)
+        if (!hotkeys?.length) return log.write("WARN",`No valid keys provided to trigger keypress/combo`)
 
         sanhelper.presskeys(hotkeys)
     },

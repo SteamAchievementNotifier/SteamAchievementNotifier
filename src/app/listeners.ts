@@ -1314,7 +1314,9 @@ export const listeners = {
             log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)
 
             const notifyfinished = (id: number) => {
-                notify.id === id && (notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished",id) : ipcMain.emit("notifyfinished",null,id))
+                notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished",id) : ipcMain.emit("notifyfinished",null,id)
+
+                log.write("INFO",`Animation for ID ${id} finished - closing notification window...`)
                 
                 if (extwin) {
                     if (!offscreenwin) return log.write("WARN",`"offscreenwin" not found - cannot send "notifyfinished" ipc event`)
@@ -1325,7 +1327,8 @@ export const listeners = {
             // "animend" is received from `base.ts`, rather than controlled from here via Timeout
             // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
             // When the "Native OS" preset is selected, the legacy `setTimeout()` will be used instead
-            ;customisation.preset === "os" ? setTimeout(() => { try { notifyfinished(notify.id) } catch {} },customisation.displaytime * 1000) : ipcMain.on("animend",(event,id: number) => { try { notifyfinished(id) } catch {} })
+            // ;customisation.preset === "os" ? setTimeout(() => { try { notifyfinished(notify.id) } catch {} },customisation.displaytime * 1000) : ipcMain.on("animend",(event,id: number) => { try { notifyfinished(id) } catch {} })
+            ;customisation.preset === "os" ? setTimeout(() => { try { notifyfinished(notify.id) } catch {} },customisation.displaytime * 1000) : ipcMain.once(`animend_${notify.id}`,(event,id: number) => { try { notifyfinished(id) } catch {} })
         }
 
         // Closes the notification

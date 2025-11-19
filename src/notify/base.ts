@@ -261,7 +261,7 @@ const notifyhelper = {
 }
 
 try {
-    document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send("animend",notifyid))
+    document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send(`animend_${notifyid}`,notifyid))
     
     ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
         const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, ra } = obj

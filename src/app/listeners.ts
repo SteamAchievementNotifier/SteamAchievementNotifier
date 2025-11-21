@@ -1327,7 +1327,6 @@ export const listeners = {
             // "animend" is received from `base.ts`, rather than controlled from here via Timeout
             // This allows notifications to dictate when to close, rather than being closed after `displaytime` with no context of animation progress
             // When the "Native OS" preset is selected, the legacy `setTimeout()` will be used instead
-            // ;customisation.preset === "os" ? setTimeout(() => { try { notifyfinished(notify.id) } catch {} },customisation.displaytime * 1000) : ipcMain.on("animend",(event,id: number) => { try { notifyfinished(id) } catch {} })
             ;customisation.preset === "os" ? setTimeout(() => { try { notifyfinished(notify.id) } catch {} },customisation.displaytime * 1000) : ipcMain.once(`animend_${notify.id}`,(event,id: number) => { try { notifyfinished(id) } catch {} })
         }
 

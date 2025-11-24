@@ -61,14 +61,25 @@ ipcRenderer.once(`sswinready_${notifyid}`,async (event,obj: { info: Info, dims: 
         customisation.preset === key && (webview.style.scale = value.toString())
     }
 
-    const setwebviewpos = (margin: string,offset: { x: number, y: number }) => {
+    const { width, height, offset } = obj.dims
+    const scale = customisation.scale / 100
+    const bordersize = 50
+    const glowsize = Math.round(bordersize * scale)
+
+    const setwebviewpos = (margin: string,offsetobj: { x: number, y: number }) => {
         const postype = !customisation.ovmatch ? "ovpos" : "pos"
-        const setoffset = (axis: number,plusdir: string) => axis * (customisation[postype].includes(plusdir) ? 1 : -1)
+        
+        const setoffset = (axis: number,plusdir: "top" | "left") => {
+            const wvoffset = !offset || (plusdir === "left" && customisation[postype].endsWith("center")) ? 0 : (glowsize / 2) * (customisation[postype].includes(plusdir) ? -1 : 1)
+            return (axis * (customisation[postype].includes(plusdir) ? 1 : -1)) + wvoffset
+        }
 
         webview.style.setProperty("--margin",margin)
-        webview.style.setProperty("--offset",`${setoffset(offset.x,"left")}px ${setoffset(offset.y,"top")}px`)
+        webview.style.setProperty("--offset",`${setoffset(offsetobj.x,"left")}px ${setoffset(offsetobj.y,"top")}px`)
     
-        setnotifypos(customisation).forEach((value,key) => document.documentElement.style.setProperty(key,value))
+        for (const [key,value] of setnotifypos(customisation)) {
+            document.documentElement.style.setProperty(key,value)
+        }
     }
 
     // Updates the placement of the "ss" notification when changed without closing
@@ -87,15 +98,12 @@ ipcRenderer.once(`sswinready_${notifyid}`,async (event,obj: { info: Info, dims: 
         })
     }
 
-    const scale = customisation.scale / 100
-
-    const { width, height, offset, scalefactor } = obj.dims
-    webview.shadowRoot!.querySelector("iframe")!.style.width = `${Math.round(width * scale)}px`
-    webview.shadowRoot!.querySelector("iframe")!.style.height = `${Math.round(height * scale)}px`
+    webview.shadowRoot!.querySelector("iframe")!.style.width = `${Math.round(width * scale) + glowsize}px`
+    webview.shadowRoot!.querySelector("iframe")!.style.height = `${Math.round(height * scale) + glowsize}px`
 
     document.documentElement.style.setProperty("--opacity","1")
-    webview.style.setProperty("--width",`${Math.round(width * scale)}px`)
-    webview.style.setProperty("--height",`${Math.round(height * scale)}px`)
+    webview.style.setProperty("--width",`${Math.round(width * scale) + glowsize}px`)
+    webview.style.setProperty("--height",`${Math.round(height * scale) + glowsize}px`)
 
     // Electron automatically converts this value between OS scale/resolution settings, so no conversion is required
     // e.g. Windows scaling @ 150% would make 25 = 37 (37.5 rounded down) automatically

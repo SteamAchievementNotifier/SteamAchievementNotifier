@@ -44,14 +44,14 @@
     },
     "nsis": {
         "oneClick": true,
-        "artifactName": "SteamAchievementNotifier_V${version}.exe",
+        "artifactName": "SteamAchievementNotifier_V${version}_BETA.exe",
         "createDesktopShortcut": false,
         "deleteAppDataOnUninstall": true,
         "shortcutName": "Steam Achievement Notifier (V1.9)"
     },
     "linux": {
         "target": "AppImage",
-        "artifactName": "SteamAchievementNotifier_V${version}.AppImage",
+        "artifactName": "SteamAchievementNotifier_V${version}_BETA.AppImage",
         "icon": "img/sanlogo.png",
         "category": "Utility"
     },

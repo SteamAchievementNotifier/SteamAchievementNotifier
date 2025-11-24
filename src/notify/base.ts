@@ -239,7 +239,7 @@ const notifyhelper = {
             const attrs = [
                 "bgstyle",
                 "bgonly",
-                iswebview === "sspreview" || iswebview === "ss" ? "ovpos" : "pos"
+                `${(iswebview === "sspreview" || iswebview === "ss") && !customisation.ovmatch ? "ov" : ""}pos`
             ]
     
             attrs.forEach(attr => (customisation as any)[attr] && document.body.setAttribute(typeof (customisation as any)[attr] === "boolean" ? attr : (customisation as any)[attr],""))

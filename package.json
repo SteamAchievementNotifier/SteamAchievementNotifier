@@ -11,7 +11,9 @@
         "win:beta": "npx tsc --build --clean && npx tsc && electron-builder --win=nsis --x64 --config beta.json",
         "linux": "npx tsc --build --clean && npx tsc && electron-builder --linux",
         "linux:beta": "npx tsc --build --clean && npx tsc && electron-builder --linux --config beta.json",
-        "publish": "npx tsc --build --clean && npx tsc && electron-builder -p always"
+        "publish": "npx tsc --build --clean && npx tsc && electron-builder -p always",
+        "build:beta": "(node -e \"if (process.platform==='win32') { process.exit(0) } else { process.exit(1) }\" && npm run win:beta || npm run linux:beta) && node ./dist/app/_publishbeta.js",
+        "publish:beta": "npx tsc --build --clean && npx tsc && npm run build:beta"
     },
     "repository": {
         "url": "https://github.com/${author}/${author}"

@@ -9,6 +9,7 @@ body[active] #settingscontent > .cont:has(.title#notifications) > .optcont > .op
 body[active] #settingscontent > .cont:has(.title#advanced) > .optcont > .opt:has(#pollrate,#maxretries,#userust),
 dialog[menu] #settingscontent > .cont:has(.title#media) > .optcont:has(#ovmatch:checked) > .opt:has(select#ovpos),
 body[beta] button#checkforupdates,
+body[beta] button#joinbetachannel,
 #settingscontent > .cont:has(.title#notifications) > .optcont:has(#customtriggerusedisplaytime:checked) > .opt:has(#customtriggerdelay),
 #settingscontent > .cont:has(.title#notifications) .opt:has(#notifymax)[extwin] {
     opacity: 0.5;
@@ -384,16 +385,56 @@ body[plat] .rect#sspreview {
     background-color: #000000;
 }
 
-.cont:has(.title#games) > .optcont:has(select#listmode > option[value="inclusion"]:checked) > button#exclusionlist {
+button#listmode {
+    --icon: url("../../icon/reset.svg");
+    background-color: transparent;
+}
+
+.cont:has(.title#games) > .optcont {
+    grid-template-columns: 1fr auto;
+}
+
+.cont:has(.title#games) > .optcont > button {
+    grid-column: 1 / -1;
+}
+
+.cont:has(.title#games) > .optcont > button#exclusionlist {
+    grid-row-start: 3;
+}
+
+.cont:has(.title#games) > .optcont > button#listmode {
+    grid-row-start: 3;
+    grid-column-start: 2;
+    gap: 0;
+}
+
+.cont:has(.title#games) > .optcont > button#listmode[mode="exclusion"]:hover {
+    background-color: #ffffff;
+}
+
+.cont:has(.title#games) > .optcont > button#listmode[mode="inclusion"]:not(:hover)::before,
+.cont:has(.title#games) > .optcont > button#listmode[mode="exclusion"]:hover::before {
+    filter: invert();
+}
+
+.cont:has(.title#games) > .optcont > button#listmode[mode="inclusion"]:hover {
+    background-color: #000000;
+}
+
+.cont:has(.title#games) > .optcont:has(button#listmode:hover) > button#exclusionlist {
+    grid-column: 1 / span 1;
+}
+
+.cont:has(.title#games) > .optcont:has(button#listmode[mode="inclusion"]) > button#exclusionlist {
     background-color: #ffffffb5;
     color: black;
 }
 
-.cont:has(.title#games) > .optcont:has(select#listmode > option[value="inclusion"]:checked) > button#exclusionlist::before {
+.cont:has(.title#games) > .optcont:has(button#listmode[mode="inclusion"]) > button#exclusionlist::before {
     filter: invert();
 }
 
-.cont:has(.title#games) > .optcont:has(select#listmode > option[value="inclusion"]:checked) > button#exclusionlist:hover {
+.cont:has(.title#games) > .optcont:has(button#listmode[mode="inclusion"]) > button#exclusionlist:hover {
     background-color: #ffffff;
 }
 
@@ -437,6 +478,15 @@ body[themeswitch] #themeswitch::after {
 
 #checkforupdates:hover {
     background-color: #1b8945;
+}
+
+#joinbetachannel {
+    --icon: url("../../icon/beta.svg");
+    background-color: #8a2be2b5;
+}
+
+#joinbetachannel:hover {
+    background-color: #8a2be2;
 }
 
 #log {

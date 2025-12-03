@@ -420,6 +420,26 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
         }
         settingscontent.querySelector(".opt:has(#notifymax)")!.toggleAttribute("extwin",config.get("extwin"))
 
+        const exclusionlist = settingscontent.querySelector("button#exclusionlist") as HTMLButtonElement
+        const listmode = settingscontent.querySelector("button#listmode") as HTMLButtonElement
+        const listmodevalue = `${config.get("inclusionlist") ? "in" : "ex"}clusion`
+        
+        exclusionlist.textContent = await language.get(`${listmodevalue}list`,["settings","games","content"])
+        listmode.setAttribute("mode",listmodevalue)
+        
+        listmode.onclick = async () => {
+            const { inclusionlist } = config.store
+            const value = !inclusionlist
+            const listmodevalue = `${value ? "in" : "ex"}clusion`
+            
+            config.set("inclusionlist",value)
+            
+            exclusionlist.textContent = await language.get(`${listmodevalue}list`,["settings","games","content"])
+            listmode.setAttribute("mode",listmodevalue)
+
+            sanhelper.tooltips(config.get("tooltips"))
+        }
+
         const { elemselector } = await import("./elemselector")
         elemselector(settingscontent.querySelector("#settingscontent .wrapper:has(> input#ovmatch)")!,"sselems")
 

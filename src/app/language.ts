@@ -74,7 +74,7 @@ export const language = {
 
                     settingsbtns.forEach(id => {
                         const elem = settingscontent.querySelector(`button.wrapper#${id}`)! as HTMLElement
-                        if (!elem) return
+                        if (!elem || elem.id === "listmode") return
 
                         const title = elem.parentElement!.parentElement!.querySelector(".title")!.id
                         const systray = global[elem.id === "suspendresume" ? (!elem.hasAttribute("suspend") ? "suspend" : "resume") : elem.id]

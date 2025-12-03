@@ -1320,6 +1320,21 @@ body[beta] dialog[default] .contentwrapper:has(.btnwrapper > #betaexitbtn) .cont
     text-align: center;
 }
 
+.addhtml > .betahtml {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.55rem;
+}
+
+.addhtml > .betahtml#disclaimer {
+    background-color: darkred;
+    margin-bottom: 0.5rem;
+}
+
+.addhtml > .betahtml#backup {
+    background-color: var(--primary);
+}
+
 @media (orientation: portrait) {
     dialog[default] > #content {
         width: 75%;

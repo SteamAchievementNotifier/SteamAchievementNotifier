@@ -98,7 +98,8 @@ ipcRenderer.once(`sswinready_${notifyid}`,async (event,obj: { info: Info, dims: 
         })
     }
 
-    webview.shadowRoot!.querySelector("iframe")!.style.width = `${Math.round(width * scale) + glowsize}px`
+    // `width` is increased to accomodate `glowsize` @ 100%. Otherwise, the glow effect gets cut off at the sides
+    webview.shadowRoot!.querySelector("iframe")!.style.width = `${(Math.round(width * scale) + glowsize) * 1.075}px`
     webview.shadowRoot!.querySelector("iframe")!.style.height = `${Math.round(height * scale) + glowsize}px`
 
     document.documentElement.style.setProperty("--opacity","1")

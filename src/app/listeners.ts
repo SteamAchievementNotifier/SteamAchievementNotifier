@@ -12,6 +12,7 @@ import { screenshot } from "./screenshots"
 import { audio } from "./audio"
 
 let appid: number = 0
+let gameid: number = 0 // RetroAchievements GameID
 let extwin: BrowserWindow | null = null
 let statwin: BrowserWindow | null = null
 let replay: { queueobj: WinType, src?: number } | null = null
@@ -1439,7 +1440,7 @@ export const listeners = {
             ipcMain.emit("notify",null,notify,null,src)
         })
 
-        ipcMain.on("sendwebhook",(event,notify: Notify) => win.webContents.send("sendwebhook",notify,appid))
+        ipcMain.on("sendwebhook",(event,notify: Notify) => win.webContents.send("sendwebhook",notify,notify.ra ? gameid : appid))
 
         let poswin: BrowserWindow | null = null
 
@@ -1570,9 +1571,13 @@ export const listeners = {
             try {
                 const VDF = await import("simple-vdf")
                 const localconfig = fs.readFileSync(path.join(sanhelper.steampath,"userdata",`${steam3id}`,"config","localconfig.vdf")).toString()
-                const { InGameOverlayScreenshotHotKey: hotkey } = VDF.parse(localconfig).UserLocalConfigStore.system || "KEY_F12"
+                const { InGameOverlayScreenshotHotKey } = VDF.parse(localconfig).UserLocalConfigStore.system || "KEY_F12"
+                
+                const { steamkeycodes } = await import("./keycodes")
+                const hotkey = steamkeycodes.get(InGameOverlayScreenshotHotKey)?.[0]
+                if (!hotkey) return log.write("WARN",`"${InGameOverlayScreenshotHotKey}" not found in "steamkeycodes" Map`)
 
-                sanhelper.triggerkeypress(hotkey)
+                sanhelper.triggerkeypress([hotkey])
             } catch (err) {
                 log.write("ERROR",`Error triggering Steam screenshot: ${err}`)
             }
@@ -1677,7 +1682,10 @@ export const listeners = {
             event.reply("decryptrakey",decrypted)
         })
 
-        ipcMain.on("ragame",(event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => win.webContents.send("ragame",status,ragame))
+        ipcMain.on("ragame",(event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => {
+            gameid = ragame?.gameid || 0
+            win.webContents.send("ragame",status,ragame)
+        })
 
         ipcMain.on("betaunsupported",() => {
             if (!sanhelper.beta) return

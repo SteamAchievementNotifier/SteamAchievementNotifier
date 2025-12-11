@@ -166,6 +166,9 @@ const notifyhelper = {
                 }
             }
 
+            // Increases font-size value if being used in a screenshot `webview` to better match on-screen font-size
+            const fontsizescalefactor = iswebview && iswebview !== "customiser" ? 1.0075 : 1
+
             const properties = new Map<string,string>([
                 ["--displaytime",`${customisation.displaytime}s`],
                 ["--scale",`${customisation.scale / 100}`],
@@ -174,7 +177,7 @@ const notifyhelper = {
                 ["--bgimgbrightness",`${customisation.bgimgbrightness}%`],
                 ["--brightness",`${customisation.brightness}%`],
                 ["--roundness",`${(customisation.roundness / 4) * (customisation.scale / 100)}px`],
-                ["--fontsize", `${customisation.usecustomfontsizes ? 1 : customisation.fontsize / 100}`],
+                ["--fontsize", `${(customisation.usecustomfontsizes ? 1 : customisation.fontsize / 100) * fontsizescalefactor}`],
                 ["--opacity", `${customisation.opacity / 100}`],
                 ["--iconroundness",customisation.iconroundness === 100 ? "50%" : `${(customisation.iconroundness / 6) * (customisation.scale / 100)}px`],
                 ["--fontoutline",customisation.fontoutline ? `${(customisation.scale / 100) * customisation.fontoutlinescale}px ${customisation.fontoutlinecolor}` : "none"],
@@ -208,9 +211,9 @@ const notifyhelper = {
                 ["--iconanimcolor",`${customisation.iconanimcolor}`],
                 ["--logoscale",`${customisation.logoscale / 100}`],
                 ["--decorationscale",`${customisation.decorationscale / 100}`],
-                ["--unlockmsgfontsize",`${(customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100}`],
-                ["--titlefontsize",`${(customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100}`],
-                ["--descfontsize",`${(customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100}`],
+                ["--unlockmsgfontsize",`${((customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                ["--titlefontsize",`${((customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                ["--descfontsize",`${((customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
                 ["--unlockmsgfontcolor",`${customisation.usecustomfontcolors ? customisation.unlockmsgfontcolor : customisation.fontcolor}`],
                 ["--titlefontcolor",`${customisation.usecustomfontcolors ? customisation.titlefontcolor : customisation.fontcolor}`],
                 ["--descfontcolor",`${customisation.usecustomfontcolors ? customisation.descfontcolor : customisation.fontcolor}`],

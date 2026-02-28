@@ -126,15 +126,16 @@ export const screenshot = {
             const config = sanconfig.get()
             const screenshots = config.get("screenshots")
 
-            const sswinsobj = {
+            const sswinsobj: SSWin = {
                 win: null,
                 src: monitorid || -1,
                 timer: null,
                 windowtitle: null,
-                haswarned: false
+                haswarned: false,
+                ...(screenshots === "screenshot_only" && { monitorid })
             }
 
-            if (screenshots !== "overlay") {
+            if (screenshots !== "overlay" && screenshots !== "screenshot_only") {
                 if (screenshots === "notifyimg") {
                     sswins.set(notify.id,sswinsobj)
                     screenshot.createsswin("img",notify)
@@ -145,15 +146,16 @@ export const screenshot = {
 
             sswins.has(notify.id) && sswins.delete(notify.id)
 
-            ipcMain.once(`${notify.id}`,() => screenshot.checkwindowtitle(notify.ra ? "screen" : config.get("ssmode"),notify))
+            sswins.set(notify.id,sswinsobj)
+
+            // Register overlay listener before any await so main process is not blocked (game detection can run)
+            if (screenshots === "overlay") ipcMain.once(`${notify.id}`,() => screenshot.checkwindowtitle(notify.ra ? "screen" : config.get("ssmode"),notify))
 
             const delay = config.get("ssdelay")
             const srcpath = screenshot.srcpath(notify.id)
             
             // Wait to receive global vars from `listeners.ts`
             const [win,worker,appid] = await Promise.all((["win","worker","appid"] as const).map(lv => screenshot.getlistenersvar(lv))) as [BrowserWindow,BrowserWindow,number]
-
-            sswins.set(notify.id,sswinsobj)
 
             const sswin = sswins.get(notify.id)!
 
@@ -198,6 +200,73 @@ export const screenshot = {
 
             const { id, label } = monitor
             let { bounds: { width, height } } = !notify.ra && ssmode === "window" && (["width","height"] as const).every(dim => screenshot.sswinbounds.bounds[dim] !== 0) ? screenshot.sswinbounds : monitor
+
+            if (screenshots === "screenshot_only") {
+                // For screenshot_only mode: capture then save to final path (no overlay window, so no src_ event)
+                const saveNativeScreenshot = async () => {
+                    try {
+                        const info = await screenshot.buildnotify(notify)
+                        let rapath = ""
+
+                        if (notify.ra) {
+                            const key = await new Promise<string | null>(resolve => {
+                                ipcMain.once("sendemu",(event,emu: string | null) => resolve(emu))
+                                ipcMain.emit("getemu")
+                            })
+
+                            const { language } = await import("./language")
+                            const emu = key ? await language.get(key,["settings","ra","content"]) : null
+
+                            rapath = path.join("RetroAchievements",emu || "[Unknown Emulator]")
+                        }
+
+                        const imgpath: string = path.join(config.get("ovpath"),rapath) as string
+
+                        try {
+                            !fs.existsSync(imgpath) && fs.mkdirSync(imgpath, { recursive: true })
+                            log.write("INFO",`"${imgpath}" ${!fs.existsSync(imgpath) ? "created successfully" : "already exists"}`)
+                        } catch (err) {
+                            log.write("ERROR",`Error creating "${imgpath}": ${err as Error}`)
+                            return screenshot.clearsswin(notify.id)
+                        }
+
+                        const regex = /[^a-zA-Z0-9 _()\-\[\]]/g
+                        const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").replace(/\.$/,"").trim()).replace(/\\/g,"/")
+                        const ssbasename = `${info.title.replace(regex,"").trim()}`
+                        const ssext = ".png"
+
+                        let sscounter = 0
+                        let ssimg = path.join(ssdir,`${ssbasename}${ssext}`).replace(/\\/g,"/")
+
+                        while (!notify.istestnotification && fs.existsSync(ssimg)) {
+                            sscounter++
+                            ssimg = path.join(ssdir,`${ssbasename}_${sscounter}${ssext}`).replace(/\\/g,"/")
+                        }
+
+                        !fs.existsSync(ssdir) && fs.mkdirSync(ssdir,{ recursive: true })
+                        fs.copyFileSync(srcpath,ssimg)
+
+                        log.write("INFO",`Native Screenshot written to "${ssimg}" successfully`)
+                    } catch (err) {
+                        log.write("ERROR",`Error saving screenshot for "${notify.id}": ${err as Error}`)
+                    }
+                    const sswin = sswins.get(notify.id)
+                    const monitorid = sswin?.monitorid
+                    screenshot.clearsswin(notify.id)
+                    if (sswin) ipcMain.emit("native_screenshot_done",null,notify,monitorid)
+                }
+
+                setTimeout(async () => {
+                    try {
+                        await screenshot.capturesrc({ config, notify: { id: notify.id }, bounds: { width, height }, id, label, monitor, ssmode, srcpath, windowtitle: sswin.windowtitle })
+                        if (fs.existsSync(srcpath)) await saveNativeScreenshot()
+                    } catch (err) {
+                        log.write("ERROR",err as Error)
+                        screenshot.clearsswin(notify.id)
+                    }
+                },delay * 1000)
+                return
+            }
 
             ipcMain.once(`src_${notify.id}`,(event,err) => {
                 if (err) {

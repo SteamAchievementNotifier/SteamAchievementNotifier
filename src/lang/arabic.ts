@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "مسار اللقطة الشاشة",
                 ssdelay: "تأخير اللقطة الشاشة",
                 notifyimg: "صورة الإشعار",
+                screenshot_only: "لقطة الشاشة الأصلية فقط",
                 imgpath: "مسار الصورة",
                 ssenabled: "تمكين",
                 ssmode: "وضع لقطة الشاشة",

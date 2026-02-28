@@ -53,7 +53,7 @@ declare interface Config {
     nowtrackingpos: "bottomcenter" | "topcenter" | "topleft" | "topright" | "bottomleft" | "bottomright",
     shortcuts: boolean,
     steamss: boolean,
-    screenshots: "off" | "overlay" | "notifyimg",
+    screenshots: "off" | "overlay" | "notifyimg" | "screenshot_only",
     ssmode: "screen" | "window",
     hdrmode: boolean,
     monitor: number,
@@ -594,7 +594,8 @@ declare interface SSWin {
     src: number,
     timer: NodeJS.Timeout | null,
     windowtitle: string | null,
-    haswarned: boolean
+    haswarned: boolean,
+    monitorid?: number
 }
 
 declare module "simple-vdf"

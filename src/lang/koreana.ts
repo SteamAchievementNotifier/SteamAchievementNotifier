@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "스크린 샷 경로",
                 ssdelay: "스크린 샷 지연",
                 notifyimg: "알림 이미지",
+                screenshot_only: "네이티브 스크린샷만",
                 imgpath: "이미지 경로",
                 ssenabled: "활성화",
                 ssmode: "스크린샷 모드",

@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Skärmdumpssökväg",
                 ssdelay: "Skärmdumpsfördröjning",
                 notifyimg: "Meddelandebild",
+                screenshot_only: "Endast Nativa Skärmdumpar",
                 imgpath: "Bildsökväg",
                 ssenabled: "Aktivera",
                 ssmode: "Skärmdumpsläge",

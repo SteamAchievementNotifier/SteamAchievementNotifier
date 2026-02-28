@@ -925,6 +925,7 @@ export const listeners = {
         })
 
         const queue: WinType[] = []
+        const pendingScreenshotOnly = new Map<number,{ wintypeobj: WinType }>()
         const runningmap = new Map<number,BrowserWindow | Notification>()
         const posmap = new Map<"topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright",{ y: number, items: { id: number, win: BrowserWindow, bounds: { width: number, height: number, x: number, y: number }, type: NotifyType }[] }>()
 
@@ -1005,7 +1006,12 @@ export const listeners = {
                     } as BrowserWindowConstructorOptions
                 }
 
-                queue.push({ ...wintypeobj, order: queue.length } as WinType)
+                // Native Screenshot Only: delay adding to queue until after screenshot is saved
+                if (config.get("screenshots") === "screenshot_only") {
+                    pendingScreenshotOnly.set(notify.id,{ wintypeobj: { ...wintypeobj, order: 0 } as WinType })
+                } else {
+                    queue.push({ ...wintypeobj, order: queue.length } as WinType)
+                }
             }
 
             const info = await buildnotify(notify)
@@ -1058,8 +1064,22 @@ export const listeners = {
             }
 
             worker && worker.webContents.send("steam3id")
-            preset !== "os" && notify.customisation.ssenabled && screenshot.configuresrc(notify,monitorid)
+            if (preset !== "os" && notify.customisation.ssenabled) screenshot.configuresrc(notify,monitorid).catch(err => log.write("ERROR",`configuresrc: ${err}`))
 
+            win.webContents.send("queue",queue)
+
+            // Native Screenshot Only: show notification and sound only after screenshot is saved (handled in native_screenshot_done)
+            if (config.get("screenshots") === "screenshot_only" && !iswebview) return
+
+            checkifrunning(info,monitorid)
+        })
+
+        ipcMain.on("native_screenshot_done",async (event,notify: Notify,monitorid?: number) => {
+            const pending = pendingScreenshotOnly.get(notify.id)
+            if (!pending) return
+            pendingScreenshotOnly.delete(notify.id)
+            const info = await buildnotify(notify)
+            queue.push({ ...pending.wintypeobj, order: queue.length } as WinType)
             win.webContents.send("queue",queue)
             checkifrunning(info,monitorid)
         })
@@ -1145,7 +1165,7 @@ export const listeners = {
 
         const checkifrunning = (info: BuildNotifyInfo,monitorid?: number): any => {
             const i = queue.findIndex(obj => obj.notify.id === info.id)
-            if (runningmap.size > (sanconfig.get().store.notifymax - 1) || queue[i].order !== 0) return setTimeout(() => checkifrunning(info,monitorid),1000)
+            if (runningmap.size > (sanconfig.get().store.notifymax - 1) || queue[i].order !== 0) return void setTimeout(() => checkifrunning(info,monitorid),1000)
 
             if (!queue[i].notify.istestnotification) {
                 replay = { queueobj: queue[i], src: monitorid }

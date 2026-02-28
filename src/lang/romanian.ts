@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Cale Captură",
                 ssdelay: "Întârziere Captură",
                 notifyimg: "Imagine Notificare",
+                screenshot_only: "Doar Captură Ecran Nativă",
                 imgpath: "Calea Imaginii",
                 ssenabled: "Activare",
                 ssmode: "Mod Captură Ecran",

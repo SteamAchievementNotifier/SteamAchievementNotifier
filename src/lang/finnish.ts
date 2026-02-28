@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Ruutukaappauksen polku",
                 ssdelay: "Ruutukaappauksen viive",
                 notifyimg: "Ilmoituskuva",
+                screenshot_only: "Vain Natiivi Näyttökuva",
                 imgpath: "Kuvan polku",
                 ssenabled: "Ota käyttöön",
                 ssmode: "Näyttökuvatila",

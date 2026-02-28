@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "เส้นทางการถ่ายภาพหน้าจอ",
                 ssdelay: "ความล่าช้าในการถ่ายภาพหน้าจอ",
                 notifyimg: "รูปภาพการแจ้งเตือน",
+                screenshot_only: "ภาพหน้าจอพื้นเมืองเท่านั้น",
                 imgpath: "เส้นทางรูปภาพ",
                 ssenabled: "เปิดใช้งาน",
                 ssmode: "โหมดจับภาพหน้าจอ",

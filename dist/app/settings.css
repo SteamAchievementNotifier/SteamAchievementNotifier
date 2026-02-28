@@ -190,7 +190,8 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
     display: none;
 }
 
-.opt:has(#ssenabled:not(:checked)) ~ .opt:has(#ovpos,#ovmatch,.lbl#sselemselectorlbl,#ovpath,#imgpath,#ssdelay,#sspreview),
+.opt:has(#ssenabled:not(:checked)) ~ .opt:has(#ovpos,#ovmatch,.lbl#sselemselectorlbl,#ovpath,#imgpath,#sspreview):not([screenshot_only]),
+.opt:has(#ssenabled:not(:checked)) ~ .opt:has(#ssdelay):not([screenshot_only]),
 .opt:has(#ssenabled:not(:checked)) ~ .wrapper[overlay]:has(> .wrapper[overlay]):has(#ovx,#ovy) {
     display: none !important;
 }
@@ -295,7 +296,8 @@ dialog[menu]:has(#settingscontent) *[notifyimg]:not(.synclbl) {
 }
 
 dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="overlay"]:checked) *[overlay]:not(.synclbl),
-dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="notifyimg"]:checked) *[notifyimg]:not(.synclbl) {
+dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="notifyimg"]:checked) *[notifyimg]:not(.synclbl),
+dialog[menu]:has(#settingscontent) .optcont:has(select#screenshots > option[value="screenshot_only"]:checked) *[screenshot_only]:not(.synclbl) {
     display: grid;
 }
 

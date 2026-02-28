@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Percorso screenshot",
                 ssdelay: "Ritardo screenshot",
                 notifyimg: "Immagine notifica",
+                screenshot_only: "Solo Screenshot Nativo",
                 imgpath: "Percorso dell'immagine",
                 ssenabled: "Abilita",
                 ssmode: "Modalità Schermata",

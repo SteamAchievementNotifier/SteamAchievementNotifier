@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Screenshot-Pfad",
                 ssdelay: "Screenshot-Verzögerung",
                 notifyimg: "Benachrichtigungsbild",
+                screenshot_only: "Nur Nativer Screenshot",
                 imgpath: "Bildpfad",
                 ssenabled: "Aktivieren",
                 ssmode: "Screenshot-Modus",

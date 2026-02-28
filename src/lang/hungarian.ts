@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Képernyőkép útvonal",
                 ssdelay: "Képernyőkép késleltetés",
                 notifyimg: "Értesítési kép",
+                screenshot_only: "Csak Natív Képernyőkép",
                 imgpath: "Kép elérési útvonala",
                 ssenabled: "Engedélyezés",
                 ssmode: "Képernyőképfogó mód",

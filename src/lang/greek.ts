@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Διαδρομή στιγμιότυπου",
                 ssdelay: "Καθυστέρηση στιγμιοτύπου",
                 notifyimg: "Εικόνα ειδοποίησης",
+                screenshot_only: "Μόνο Εγγενές Στιγμιότυπο",
                 imgpath: "Διαδρομή εικόνας",
                 ssenabled: "Ενεργοποίηση",
                 ssmode: "Λειτουργία Στιγμιότυπου Οθόνης",

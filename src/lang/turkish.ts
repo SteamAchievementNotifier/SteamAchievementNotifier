@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Görüntü Yolu",
                 ssdelay: "Görüntü Gecikmesi",
                 notifyimg: "Bildirim Görseli",
+                screenshot_only: "Yalnızca Yerel Ekran Görüntüsü",
                 imgpath: "Görsel Yolu",
                 ssenabled: "Etkinleştir",
                 ssmode: "Ekran Görüntüsü Modu",

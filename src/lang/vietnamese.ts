@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Đường dẫn Chụp Ảnh Màn hình",
                 ssdelay: "Độ Trễ Chụp Ảnh Màn hình",
                 notifyimg: "Hình ảnh thông báo",
+                screenshot_only: "Chỉ Chụp Màn Hình Gốc",
                 imgpath: "Đường dẫn hình ảnh",
                 ssenabled: "Bật",
                 ssmode: "Chế độ Chụp màn hình",

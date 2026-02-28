@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Cesta screenshotu",
                 ssdelay: "Zpoždění screenshotu",
                 notifyimg: "Obrázek oznámení",
+                screenshot_only: "Pouze Nativní Snímek",
                 imgpath: "Cesta k obrázku",
                 ssenabled: "Povolit",
                 ssmode: "Režim snímku obrazovky",

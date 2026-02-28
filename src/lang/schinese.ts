@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "截图路径",
                 ssdelay: "截图延迟",
                 notifyimg: "通知图片",
+                screenshot_only: "仅原生截图",
                 imgpath: "图片路径",
                 ssenabled: "启用",
                 ssmode: "截图模式",

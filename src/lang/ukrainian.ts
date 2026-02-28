@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Шлях знімка екрана",
                 ssdelay: "Затримка знімка екрана",
                 notifyimg: "Зображення повідомлення",
+                screenshot_only: "Тільки Нативний Знімок",
                 imgpath: "Шлях до зображення",
                 ssenabled: "Увімкнути",
                 ssmode: "Режим знімка екрану",

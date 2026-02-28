@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Screenshot pad",
                 ssdelay: "Screenshot vertraging",
                 notifyimg: "Meldingsafbeelding",
+                screenshot_only: "Alleen Native Screenshot",
                 imgpath: "Afbeeldingspad",
                 ssenabled: "Inschakelen",
                 ssmode: "Schermafbeeldingmodus",

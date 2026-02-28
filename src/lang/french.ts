@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Chemin de la capture d'écran",
                 ssdelay: "Délai de capture d'écran",
                 notifyimg: "Image de notification",
+                screenshot_only: "Capture d'écran native uniquement",
                 imgpath: "Chemin de l'image",
                 ssenabled: "Activer",
                 ssmode: "Mode Capture d’écran",

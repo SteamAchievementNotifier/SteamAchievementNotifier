@@ -279,6 +279,7 @@ export const translations = {
                 ovpath: "Ścieżka zrzutu ekranu",
                 ssdelay: "Opóźnienie zrzutu ekranu",
                 notifyimg: "Obrazek powiadomienia",
+                screenshot_only: "Tylko Natywny Zrzut",
                 imgpath: "Ścieżka obrazu",
                 ssenabled: "Włącz",
                 ssmode: "Tryb zrzutu ekranu",

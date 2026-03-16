@@ -3,6 +3,7 @@ import { readFileSync, createWriteStream } from "fs"
 import { get } from "https"
 import { sanhelper, __root } from "./sanhelper"
 import { log } from "./log"
+import { sanconfig } from "./config"
 
 export const cachedata = (client: any,apinames: string[]): Achievement[] => {
     const {
@@ -12,6 +13,7 @@ export const cachedata = (client: any,apinames: string[]): Achievement[] => {
     } = client.achievement
 
     const achievements: Achievement[] = []
+    const config = sanconfig.get()
 
     for (const i in apinames) {
         const name = apinames[i]
@@ -21,7 +23,7 @@ export const cachedata = (client: any,apinames: string[]): Achievement[] => {
             apiname: name,
             name: getAchievementDisplayAttribute(name,"name"),
             desc: getAchievementDisplayAttribute(name,"desc"),
-            percent: getAchievementAchievedPercent(name),
+            percent: config.get("showpercent") !== "off" ? getAchievementAchievedPercent(name) : 0,
             hidden: hidden !== 0
         }
 

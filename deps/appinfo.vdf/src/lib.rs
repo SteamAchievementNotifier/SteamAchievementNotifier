@@ -13,34 +13,12 @@ const LAUNCH_CONFIG_KEYS: &[&str] = &[
 ];
 
 fn get_launch_keys(launch_keys: &Map<String,Value>) -> Option<Value> {
-    let platform = if cfg!(target_os="windows") {
-        "windows"
-    } else if cfg!(target_os="linux") {
-        "linux"
-    } else {
-        return None
-    };
-    
     let launchmap: Map<_, _> = launch_keys
         .iter()
         .filter_map(|(key,value)|
     {
         let launch = value.as_object()?;
 
-        let os_match = match launch
-            .get("config")
-            .and_then(|value| value.as_object())
-            .and_then(|config| config.get("oslist"))
-            .and_then(|value| value.as_str())
-        {
-            Some(oslist) => oslist.trim() == platform,
-            None => true
-        };
-
-        if !os_match {
-            return None
-        }
-        
         let mut entrymap = Map::new();
 
         for prop in LAUNCH_KEYS {
@@ -69,14 +47,14 @@ fn get_launch_keys(launch_keys: &Map<String,Value>) -> Option<Value> {
         if !entrymap.is_empty() {
             return Some((key.clone(),Object(entrymap)));
         }
-        
+
         None
     }).collect();
 
     if !launchmap.is_empty() {
         return Some(Object(launchmap))
     }
-    
+
     None
 }
 

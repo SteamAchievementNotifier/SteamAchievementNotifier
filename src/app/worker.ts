@@ -7,6 +7,7 @@ import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
 import { getlogmap, getlastactions, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
+import { mc } from "./mc"
 
 declare global {
     interface Window {
@@ -490,3 +491,62 @@ ipcRenderer.on("rastop",() => {
 })
 
 ipcRenderer.on("emu",() => ipcRenderer.send("emu",emu))
+
+let mctimer: NodeJS.Timeout | null = null
+const mclog = {
+    start: false,
+    stop: false
+}
+
+const startmc = () => {
+    if (mctimer) return log.write("WARN",`"mctimer" already active`)
+    log.write("INFO",`"mctimer" started`)
+    
+    mctimer = setInterval(() => {
+        if (!mctimer) return log.write("WARN",`"mctimer" is not active`)
+        const { processinfo } = mc
+        const running = processinfo.length > 0
+
+        if (!running) {
+            if (mclog.start) {
+                clearInterval(mctimer)
+                mctimer = null
+                log.write("INFO",`"mctimer" stopped`)
+
+                mclog.start = false
+                mclog.stop = false
+
+                return startmc()
+            }
+
+            if (!mclog.stop) {
+                log.write("INFO","Minecraft is not running")
+                mclog.stop = true
+            }
+
+            return
+        }
+
+        if (!mclog.start) {
+            const mcprocesses = processinfo.map(mcprocess => {
+                const props: Record<string,any> = {}
+
+                for (const [key,value] of Object.entries(mcprocess)) {
+                    if (!value) {
+                        log.write("WARN",`No value found for "${key}" key`)
+                        continue
+                    }
+
+                    props[key] = ["exe","gamedir","quickplaypath"].includes(key) ? (value as string).replace(/\\/g,"/") : value
+                }
+
+                return props
+            })
+
+            log.write("INFO",`Found ${mcprocesses.length} Minecraft process${mcprocesses.length > 1 ? "es" : ""}:\n\n - ${mcprocesses.map(mcprocess => Object.entries(mcprocess).filter(([key]) => key !== "cmdline").map(([key,value]) => `${key}: ${value}`).join("\n - ")).join("\n\n")}`)
+            mclog.start = true
+        }
+    }, 1000)
+}
+
+startmc()

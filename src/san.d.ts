@@ -441,6 +441,16 @@ declare interface ProcessInfo {
     }
 }
 
+declare interface MCProcessInfo extends ProcessInfo {
+    cmdline: string,
+    username?: string,
+    version?: string,
+    gamedir?: string,
+    uuid?: string,
+    versiontype?: string,
+    quickplaypath?: string
+}
+
 declare interface AppInfo {
     appid: number,
     status?: "Active" | "Released",

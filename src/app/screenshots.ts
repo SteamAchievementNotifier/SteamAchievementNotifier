@@ -126,6 +126,7 @@ export const screenshot = {
         try {
             const config = sanconfig.get()
             const screenshots = config.get("screenshots")
+            if (screenshots === "off") return
 
             const sswinsobj = {
                 win: null,

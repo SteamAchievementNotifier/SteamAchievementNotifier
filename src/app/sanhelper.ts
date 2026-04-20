@@ -6,7 +6,7 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getWindowBounds } from "sanhelper.rs"
+import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getWindowBounds, getMcProcess } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
@@ -91,6 +91,7 @@ export const sanhelper: SANHelper = {
     },
     get steampath(): string { return getSteamPath() },
     get gameinfo(): AppInfo { return getAppInfo()[0] },
+    get getmcprocess(): MCProcessInfo[] { return getMcProcess() },
     get audioextensions(): string[] { return [
             ".wav",
             ".mp3",

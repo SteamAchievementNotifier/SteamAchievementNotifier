@@ -412,10 +412,10 @@ export const sanhelper: SANHelper = {
         const elem = (event.target instanceof HTMLSpanElement ? event.target.parentElement!.querySelector(`input[type="checkbox"]`)! : event.target!) as HTMLInputElement
         if (raelems.find(id => elem.id === id)) return
 
-        if (process.platform === "linux") {    
+        if (process.platform === "linux") {
             for (const [lib,entries] of deps) {
                 for (const [id,section] of entries) {
-                    if (elem.id === id && sanhelper.depsinstalled(lib,section || "media")) return
+                    if (elem.id === id && !config.get(id) && sanhelper.depsinstalled(lib,section || "media")) return
                 }
             }
         }
@@ -1067,13 +1067,14 @@ export const sanhelper: SANHelper = {
     presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? pressKeysWin32(keys as number[]) : pressKeysLinux(keys as string[]),100),
     triggerkeypress: async (hotkeys: (string | number)[]) => {
         const { log } = await import("./log")
-        if (process.platform === "linux" && !sanhelper.depsinstalled("keypressrs","media")) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`)
+        // The required lib is missing if `sanhelper.depsinstalled()` returns a non-empty string, so the value needs to be truthy to trigger the return
+        if (process.platform === "linux" && sanhelper.depsinstalled("keypressrs","media")) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`)
         if (!hotkeys?.length) return log.write("WARN",`No valid keys provided to trigger keypress/combo`)
 
         sanhelper.presskeys(hotkeys)
     },
     depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl",section: string): string => {
-        const missinglib = depsInstalled(lib)
+        const missinglib = depsInstalled(lib) // `depsInstalled()` returns the string(s) of missing deps (for logging purposes), or "" if installed
         
         if (process.platform === "linux" && missinglib) {
             if (!deps.has(lib)) throw new Error(`"${lib}" not found in "deps" map`)

@@ -38,12 +38,11 @@
         "electron-store": "8.2.0",
         "electron-updater": "^6.1.7",
         "fs-extra": "^11.2.0",
-        "icojs": "^0.20.1",
+        "icojs": "^0.22.1",
         "jpeg-js": "^0.4.4",
         "sanhelper.rs": "./deps/sanhelper.rs",
         "simple-vdf": "^1.1.1",
         "sortablejs": "^1.15.6",
-        "steam-game-path": "^2.2.0",
         "steamworks.js": "./deps/steamworks.js",
         "tippy.js": "^6.3.7"
     },

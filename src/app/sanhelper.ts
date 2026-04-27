@@ -366,7 +366,11 @@ export const sanhelper: SANHelper = {
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
-    usecustomfiles: () => ipcRenderer.send("closeextwin"),
+    usecustomfiles: (value: boolean) => {
+        ipcRenderer.send("closeextwin")
+        const presetbtn = document.querySelector("#customiser button#createnewpreset") as HTMLButtonElement | null
+        !value && presetbtn && presetbtn.remove()
+    },
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
     trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {
         // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled

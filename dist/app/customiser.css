@@ -779,6 +779,34 @@ div.lockedlbl::before {
     color: red;
 }
 
+#customiser button#createnewpreset {
+    --icon: url("../../icon/add.svg");
+    grid-template-columns: auto auto;
+    grid-row-start: 3;
+    gap: 0.25rem;
+    width: 100%;
+    height: 1.5rem;
+    margin-top: 0.5rem;
+    background-color: #5662f6b5;
+    font-size: 0.7rem;
+}
+
+#customiser button#createnewpreset::before {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    justify-self: end;
+}
+
+#customiser button#createnewpreset > span {
+    padding: 0;
+    justify-self: start;
+}
+
+.opt:has(> select#preset):has(> button#createnewpreset) > .wrapper.opt.sub:has(> input[type="checkbox"]#iconanim) {
+    grid-row-start: 4;
+}
+
 @media (orientation: portrait) or (width < 400px) {
     .wrapper#customiser {
         grid-template-columns: 1fr;

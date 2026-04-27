@@ -191,7 +191,8 @@ export const translations = {
             `<u>This Beta version is now unsupported</u>. Please download and install the latest official release via Github using the <span class="hl">Releases</span> button below.`,
             "Thanks for testing! 💜"
         ],
-        betaghreleases: "Releases"
+        betaghreleases: "Releases",
+        createnewpreset: "Create New Preset"
     },
     app: {
         content: {
@@ -851,7 +852,8 @@ export const translations = {
         ssext: "Set the file format of screenshots generated via the Screenshot with Notification Overlay option",
         notify1line: `Limit the number of lines of text displayed within all notifications to 1<br><br><span class="ttdesc">Overflowing text strings that cannot fit onto a single line will be truncated with "..."</span>`,
         copytheme: "Copy the selected Theme to another notification type",
-        ssaddtosteam: "Automatically add generated media to the current game's Recordings and Screenshots in Steam"
+        ssaddtosteam: "Automatically add generated media to the current game's Recordings and Screenshots in Steam",
+        createnewpreset: "Create a new notification preset using a blank template for custom designs/animations"
     },
     update: {
         updateavailable: "Update available",

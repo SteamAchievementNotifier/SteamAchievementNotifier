@@ -272,7 +272,7 @@ const nohwa = [
     "extwinshow"
 ]
 
-window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
+window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
     const synced = usertheme.issynced(config)
     const type = detail.type as NotifyType
     const keypath = `customisation.${type}`
@@ -516,12 +516,32 @@ window.addEventListener("tabchanged", async ({ detail }: CustomEventInit) => {
 
         const synclbl = customiser.querySelector(".synclbl")
         synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get((config.get("trophymode") ? "trophy" : "") + synced)}`)
+
+        // Add "Create New Preset" button when Use Custom App Files is enabled
+        if (config.get("usecustomfiles")) {
+            const presetopt = customiser.querySelector(".opt:has(> select#preset)") as HTMLSelectElement
+            let presetbtn = customiser.querySelector("button#createnewpreset") as HTMLButtonElement | null
+            
+            if (!presetbtn) {
+                const html = `<button class="rect" id="createnewpreset"><span></span></button>`
+                presetopt.insertAdjacentHTML("beforeend",html)
+                presetbtn = customiser.querySelector("button#createnewpreset") as HTMLButtonElement
+            }
+
+            presetbtn.querySelector("span")!.textContent = await language.get("createnewpreset")
+            presetbtn.onclick = () => dialog.open({
+                title: "TEST",
+                type: "default",
+            })
+
+            // TODO: Fix issue where "Notification Presets" `select` label gets removed on `dialog.open()`
+        }
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")
 
-    const dialog = document.querySelector("dialog") || document.getElementById("customiser")
-    sanhelper.loadclosedstate(dialog)
+    const dialogelem = document.querySelector("dialog") || document.getElementById("customiser")
+    sanhelper.loadclosedstate(dialogelem)
 
     ;["settingscontent","customiser"].forEach(id => {
         const menuelem = document.getElementById(id)

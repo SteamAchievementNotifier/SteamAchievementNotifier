@@ -10,8 +10,31 @@ import Sortable from "sortablejs"
 const zoomlvl = localStorage.getItem("statwinzoomlvl")
 webFrame.setZoomLevel((zoomlvl && JSON.parse(zoomlvl)) || 0)
 
-// Remap "zoom in" to `CTRL+=`, instead of `CTRL+Shift+=`
-window.onkeydown = event => (event.code === "Equal" && (event.ctrlKey || event.metaKey)) ? (event.shiftKey ? event.preventDefault() : webFrame.setZoomLevel(webFrame.getZoomLevel() + 1)) : null
+const getzoomchange = (code: string) => {
+    switch (code) {
+        case "Equal":
+        case "NumpadAdd": return 1
+        case "Minus":
+        case "NumpadSubtract": return -1
+        case "Digit0":
+        case "Numpad0": return 0
+        default: return null
+    }
+}
+
+window.onkeydown = event => {
+    if (!event.ctrlKey && !event.metaKey) return
+
+    const zoomchange = getzoomchange(event.code)
+    if (zoomchange === null) return
+
+    const zoomlvl = zoomchange === 0 ? 0 : Math.floor(webFrame.getZoomLevel() + zoomchange)
+
+    // Remap "zoom in" to `CTRL+=`, instead of `CTRL+Shift+=`
+    ;(event.code === "Equal" && event.shiftKey) ? event.preventDefault() : webFrame.setZoomLevel(zoomlvl)
+    localStorage.setItem("statwinzoomlvl",`${zoomlvl}`)
+}
+
 window.addEventListener("beforeunload",() => localStorage.setItem("statwinzoomlvl",`${webFrame.getZoomLevel()}`))
 
 // Placeholder elements to ignore

@@ -741,6 +741,9 @@ export const listeners = {
             win.loadFile(path.join(__root,"dist","app",`${type}win.html`))
             sanhelper.devmode && sanhelper.setdevtools(win)
 
+            // Saved `config.get("statwinpos").height` value is not applied when positioned on a secondary monitor unless a timeout is used here
+            setTimeout(() => win.setBounds({ x, y, width, height }),250)
+
             return win
         }
 
@@ -830,6 +833,7 @@ export const listeners = {
             })
 
             statwin.on("moved",() => setwinbounds(config,"stat",statwin!))
+            statwin.on("resized",() => setwinbounds(config,"stat",statwin!))
 
             statwin.once("close",() => {
                 setwinbounds(config,"stat",statwin!)
@@ -1228,6 +1232,7 @@ export const listeners = {
                 }))
 
                 offscreenwins.get(notify.id)?.webContents.setFrameRate(config.get("extwinframerate"))
+                sanhelper.devmode && offscreenwins.get(notify.id)?.webContents.openDevTools({ mode: "detach" })
             }
 
             if (notifywins.get(notify.id)! instanceof BrowserWindow) {
@@ -1274,6 +1279,10 @@ export const listeners = {
                     } as Info
                 }
 
+                // Fixes an issue where `ipcRenderer.on("notify",...)` was sometimes not received in `offscreenwin`'s `base.ts` instance, due to sending `offscreenwin.webContents.send("notify",...)` before the window was created
+                // This prevents instances where notifications would sometimes appear blank in `extwin`, due to never receiving the "notify" event
+                ipcMain.once(`offscreenready_${notify.id}`,async () => offscreenwin.webContents.send("notify",await notifyinfo(true)))
+
                 notifywin.once("ready-to-show", async () => {
                     const { notifymax } = config.store                    
                     const info = await notifyinfo()
@@ -1288,8 +1297,6 @@ export const listeners = {
                             log.write("WARN",`"offscreenwin" not found - cannot send "notify" ipc event`)
                             return offscreenwins.clear()
                         }
-
-                        offscreenwin.webContents.send("notify",await notifyinfo(true))
                     }
                 })
     
@@ -1356,6 +1363,7 @@ export const listeners = {
                     
                     preparewin(notifywin as BrowserWindow)
                     extwin && [(offscreenwin as BrowserWindow),extwin].forEach(win => preparewin(win,true))
+                    ipcMain.emit(`offscreenready_${notify.id}`)
                 })
             }
 

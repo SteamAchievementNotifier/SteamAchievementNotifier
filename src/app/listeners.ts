@@ -1281,7 +1281,7 @@ export const listeners = {
 
                 // Fixes an issue where `ipcRenderer.on("notify",...)` was sometimes not received in `offscreenwin`'s `base.ts` instance, due to sending `offscreenwin.webContents.send("notify",...)` before the window was created
                 // This prevents instances where notifications would sometimes appear blank in `extwin`, due to never receiving the "notify" event
-                ipcMain.once(`offscreenready_${notify.id}`,async () => offscreenwin.webContents.send("notify",await notifyinfo(true)))
+                ipcMain.once(`offscreenready_${notify.id}`,async () => offscreenwin && offscreenwin.webContents.send("notify",await notifyinfo(true)))
 
                 notifywin.once("ready-to-show", async () => {
                     const { notifymax } = config.store                    

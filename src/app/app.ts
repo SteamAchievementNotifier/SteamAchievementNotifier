@@ -174,7 +174,9 @@ const ignore = [
     "RA.md",
     "README.md",
     "san.d.ts",
-    "tsconfig.json"
+    "tsconfig.json",
+    "_template",
+    "_template.html"
 ]
 
 const copyrecursive = (src: string,dest: string,ignore: Set<string>) => {

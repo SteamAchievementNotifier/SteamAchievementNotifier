@@ -781,14 +781,21 @@ div.lockedlbl::before {
 
 #customiser button#createnewpreset {
     --icon: url("../../icon/add.svg");
+    display: none;
     grid-template-columns: auto auto;
     grid-row-start: 3;
     gap: 0.25rem;
     width: 100%;
     height: 1.5rem;
-    margin-top: 0.5rem;
+    margin-block: 0.5rem 0.15rem;
     background-color: #5662f6b5;
     font-size: 0.7rem;
+    pointer-events: none;
+}
+
+body[customfiles] #customiser button#createnewpreset {
+    display: grid;
+    pointer-events: auto;
 }
 
 #customiser button#createnewpreset::before {
@@ -805,6 +812,118 @@ div.lockedlbl::before {
 
 .opt:has(> select#preset):has(> button#createnewpreset) > .wrapper.opt.sub:has(> input[type="checkbox"]#iconanim) {
     grid-row-start: 4;
+}
+
+.addhtml > .wrapper:has(input#createnewpresetlbl) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3,auto);
+    gap: 0.25rem 0.5rem;
+}
+
+.addhtml > .wrapper > input#createnewpresetlbl {
+    background-color: var(--mediumgrey);
+    grid-column: 1 / -1;
+}
+
+.addhtml > .wrapper > input#createnewpresetlbl:hover {
+    background-color: var(--lightgrey);
+}
+
+.addhtml > .wrapper > input#createnewpresetlbl:placeholder-shown {
+    outline: 0.1rem solid red;
+}
+
+dialog:has(.addhtml > .wrapper > input#createnewpresetlbl) button#okbtn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+dialog:has(.addhtml > .wrapper > input#createnewpresetlbl:placeholder-shown) button#okbtn,
+dialog:has(.addhtml > .wrapper > input#createnewpresetlbl) button#okbtn[invalid]  {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+select[id^="createnewpreset"][invalid],
+.wrapper:has(select[id^="createnewpreset"][invalid]) > .lbl {
+    outline: 0.1rem solid red;
+}
+
+dialog .addhtml > .wrapper > .opt:has(select[id^="createnewpreset"]) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2,min-content) auto;
+    align-items: start;
+}
+
+dialog .addhtml > .wrapper > .opt:has(select[id^="createnewpreset"]) > select {
+    background-color: var(--mediumgrey);
+}
+
+dialog .addhtml > .wrapper > .opt:has(select[id^="createnewpreset"]) > select:hover,
+dialog .addhtml > .wrapper > .opt:has(select[id^="createnewpreset"]) > select:focus {
+    background-color: var(--lightgrey);
+}
+
+dialog:has(select#createnewpresetlogo > option[value="none"]:checked) .addhtml > .wrapper > .opt:has(select#createnewpresetlogo) > .wrapper:has(button#createnewpresetlogoimg),
+dialog:has(select#createnewpresetdecoration > option[value="none"]:checked) .addhtml > .wrapper > .opt:has(select#createnewpresetdecoration) > .wrapper:has(button[id^="createnewpresetdecorationimg"]),
+dialog:has(select#createnewpresetdecoration > option[value="fixed"]:checked) .addhtml > .wrapper > .opt:has(select#createnewpresetdecoration) > .wrapper:has(button[id^="createnewpresetdecorationimg"]) > button:not(#createnewpresetdecorationimg1) {
+    display: none;
+}
+
+dialog .addhtml > .wrapper > .opt:has(select[id^="createnewpreset"]) > .wrapper:has(button) {
+    grid-template-columns: repeat(3,1fr);
+    place-items: center;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+dialog .addhtml > .wrapper > .opt:has(select[id^="createnewpreset"]) > .wrapper:has(button) > button {
+    --icon: url("../../img/sanlogotrophy.svg");
+    background-color: transparent;
+    background: var(--icon) center / contain no-repeat;
+    width: 100%;
+    height: 100%;
+    min-height: 1rem;
+    transition:
+        opacity var(--transition),
+        scale var(--transition);
+}
+
+dialog .addhtml > .wrapper > .opt:has(select[id^="createnewpreset"]) > .wrapper:has(button) > button:hover {
+    opacity: 0.75;
+    scale: 1.1;
+}
+
+dialog:has(select#createnewpresetlogo > option[value="fixed"]:checked) .addhtml > .wrapper > .opt:has(select#createnewpresetlogo) > .wrapper:has(button) > button:first-child,
+dialog:has(select#createnewpresetdecoration > option[value="fixed"]:checked) .addhtml > .wrapper > .opt:has(select#createnewpresetdecoration) > .wrapper:has(button) > button:first-child {
+    grid-column-start: 2;
+}
+
+.wrapper:has(#createnewpresetlog) {
+    grid-column: 1 / -1;
+    margin-top: 0.25rem;
+}
+
+#createnewpresetlog {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    place-items: center start;
+    gap: 0.25rem;
+    color: red;
+    font-size: 0.65rem;
+    text-align: center;
+}
+
+#createnewpresetlog::before {
+    content: "";
+    display: block;
+    background: url("../../icon/error.svg") center / contain no-repeat;
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+.addhtml:has(#createnewpresetlog:empty) > .wrapper > .wrapper:has(#createnewpresetlog) {
+    display: none;
 }
 
 @media (orientation: portrait) or (width < 400px) {

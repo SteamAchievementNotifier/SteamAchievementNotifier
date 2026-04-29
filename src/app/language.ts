@@ -99,6 +99,7 @@ export const language = {
             }
             
             const customiserelem = document.querySelector(".wrapper#customiser")
+            
             if (customiserelem) {
                 const customisercontent = document.getElementById("customisercontent")!
                 const customisertitles = Array.from(customisercontent.querySelectorAll(`#customiseropts > .cont > .title`)).map(title => title.id)!
@@ -142,6 +143,7 @@ export const language = {
                         if (btn.id === "savetheme") return langmap.set(btn.querySelector("span")!,customiser.theme.content.savetheme)
                         if (btn.id.includes("decoration")) return
                         if (btn.parentElement!.id === "posbtns") return langmap.set(btn.querySelector("span")!,customiser[title].content[btn.id])
+                        if (btn.id === "createnewpreset") return langmap.set(btn.querySelector("span")!,global[btn.id])
 
                         btn.parentElement!.querySelector(`span`) && langmap.set(btn.parentElement!.querySelector(`span`)!,btn.id === "preview" ? global.preview : customiser[title].content[btn.id])
                     })

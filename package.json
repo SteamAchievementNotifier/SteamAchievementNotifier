@@ -6,7 +6,7 @@
     "description": "Steam Achievement Notifier (V1.9)",
     "main": "dist/app/app.js",
     "scripts": {
-        "dev": "npx tsc && electron ./dist/app/app.js",
+        "dev": "npx tsc && electron ./dist/app/app.js --ozone-platform=x11",
         "win": "npx tsc --build --clean && npx tsc && electron-builder --win=nsis --x64",
         "win:beta": "npx tsc --build --clean && npx tsc && electron-builder --win=nsis --x64 --config beta.json",
         "linux": "npx tsc --build --clean && npx tsc && electron-builder --linux",
@@ -102,6 +102,7 @@
             "artifactName": "SteamAchievementNotifier_V${version}.AppImage",
             "icon": "img/sanlogo.png",
             "category": "Utility"
-        }
+        },
+        "afterPack": "./afterpack.js"
     }
 }

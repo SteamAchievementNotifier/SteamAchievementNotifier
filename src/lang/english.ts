@@ -192,7 +192,14 @@ export const translations = {
             "Thanks for testing! 💜"
         ],
         betaghreleases: "Releases",
-        createnewpreset: "Create New Preset"
+        createnewpreset: "Create New Preset",
+        createnewpresetplaceholder: "Preset Name",
+        createnewpreseterror: "Unable to create new preset. Please check the App Log for details.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Decoration",
+        none: "None",
+        fixed: "Fixed",
+        dynamic: "Dynamic"
     },
     app: {
         content: {

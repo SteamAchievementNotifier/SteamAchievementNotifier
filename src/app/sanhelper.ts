@@ -366,11 +366,7 @@ export const sanhelper: SANHelper = {
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
-    usecustomfiles: (value: boolean) => {
-        ipcRenderer.send("closeextwin")
-        const presetbtn = document.querySelector("#customiser button#createnewpreset") as HTMLButtonElement | null
-        !value && presetbtn && presetbtn.remove()
-    },
+    usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
     trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {
         // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled
@@ -1126,9 +1122,10 @@ export const sanhelper: SANHelper = {
         wintype.send("debuginfoupdated",debuginfo,true)
     },
     resetelemselector: async (menuelem: HTMLElement) => {
-        const { sanconfig: { defaulticons, get } } = await import("./config")
-        const config = get()
+        const { sanconfig } = await import("./config")
+        const config = sanconfig.get()
         const type = sanhelper.type
+        const defaulticons = config.get("usecustomfiles") ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
 
         // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
         ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype]))
@@ -1338,5 +1335,28 @@ export const sanhelper: SANHelper = {
         
             log.write(!err ? "INFO" : "WARN",!err ? `"${id}" key in localStorage verified successfully` : `Unable to verify "${id}" key in localStorage: ${err}`)
         })
+    },
+    settabindex: (btn: HTMLButtonElement,values: (string | null | undefined)[]) => btn.tabIndex = values.every(value => Boolean(value)) ? 0 : -1,
+    get presets(): { path: string, json: any } | null {
+        const presetspath = path.join(sanhelper.appdata,"customfiles","notify","presets","presets.json").replace(/\\/g,"/")
+        if (!fs.existsSync(presetspath)) return null
+        return { path: presetspath, json: JSON.parse(fs.readFileSync(presetspath).toString()) }
+    },
+    getcustomdefaulticons: (defaulticons: Map<string, CustomIcon>) => {
+        const presets: { path: string, json: any } | null = sanhelper.presets
+        if (!presets) throw new Error(`Unable to read contents of "presets.json"`)
+        
+        for (const key of Object.keys(presets.json)) {
+            if (!defaulticons.has(key)) {
+                const newpresetspath = path.join(presets.path,"..",key)
+                const newpresetdefaulticons = path.join(newpresetspath,"defaulticons.json")
+                if (!fs.existsSync(newpresetdefaulticons)) throw new Error(`"defaulticons.json" does not exist for "${key}" preset in "${newpresetspath}"`)
+                
+                const defaulticonobj = JSON.parse(fs.readFileSync(newpresetdefaulticons).toString())
+                defaulticons.set(key,defaulticonobj)
+            }
+        }
+
+        return defaulticons
     }
 }

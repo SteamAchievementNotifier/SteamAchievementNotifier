@@ -57,5 +57,6 @@
     },
     "extraMetadata": {
         "beta": true
-    }
+    },
+    "afterPack": "./afterpack.js"
 }

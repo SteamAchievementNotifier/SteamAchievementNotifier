@@ -205,8 +205,6 @@ export const dialog = {
                 })
             }
 
-            const settabindex = (btn: HTMLButtonElement,values: (string | null | undefined)[]) => btn.tabIndex = values.every(value => Boolean(value)) ? 0 : -1
-
             const setnewdialog = (type: "linkgame" | "exclusionlist" | "themeswitch",obj?: { appid: number, lsentry: { [key: number]: ThemeSwitch | string } | number }) => {
                 switch (type) {
                     case "linkgame": return async () => {
@@ -255,9 +253,9 @@ export const dialog = {
                         okbtn.tabIndex = -1
 
                         ;[linkgameappid,linkgameselect].forEach(elem => {
-                            elem.onfocus = () => settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
-                            elem.onblur = () => settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
-                            elem.onkeydown = () => settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
+                            elem.onfocus = () => sanhelper.settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
+                            elem.onblur = () => sanhelper.settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
+                            elem.onkeydown = () => sanhelper.settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
                         })
                     }
                     case "exclusionlist": return async () => {
@@ -297,9 +295,9 @@ export const dialog = {
                             const input = document.getElementById("exclusionappid")! as HTMLInputElement
                             if (obj) input.value = `${obj.lsentry}`
     
-                            input.onfocus = () => settabindex(okbtn,[input.value])
-                            input.onblur = () => settabindex(okbtn,[input.value])
-                            input.onkeydown = () => settabindex(okbtn,[input.value])
+                            input.onfocus = () => sanhelper.settabindex(okbtn,[input.value])
+                            input.onblur = () => sanhelper.settabindex(okbtn,[input.value])
+                            input.onkeydown = () => sanhelper.settabindex(okbtn,[input.value])
 
                             const detectedappidbtn = document.getElementById("detectedappid") as HTMLButtonElement | null
                             detectedappidbtn && appid && (detectedappidbtn.onclick = () => input.value = appid)
@@ -348,9 +346,9 @@ export const dialog = {
 
                         if (obj) themeswitchappid.value = `${obj.appid}`
 
-                        themeswitchappid.onfocus = () => settabindex(okbtn,[themeswitchappid.value])
-                        themeswitchappid.onblur = () => settabindex(okbtn,[themeswitchappid.value])
-                        themeswitchappid.onkeydown = () => settabindex(okbtn,[themeswitchappid.value])
+                        themeswitchappid.onfocus = () => sanhelper.settabindex(okbtn,[themeswitchappid.value])
+                        themeswitchappid.onblur = () => sanhelper.settabindex(okbtn,[themeswitchappid.value])
+                        themeswitchappid.onkeydown = () => sanhelper.settabindex(okbtn,[themeswitchappid.value])
 
                         config.get("monitors").forEach(monitor => srcselect.insertAdjacentHTML("beforeend",`<option value="${monitor.id}">${monitor.label}</option>`))
 

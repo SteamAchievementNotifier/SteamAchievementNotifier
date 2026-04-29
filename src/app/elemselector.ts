@@ -127,6 +127,8 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     menutype.querySelectorAll(`#elemselector > .opt > .opt:has(select) > span`).forEach(lbl => lbl.textContent = notificationelems.content[lbl.nextElementSibling!.id])
 
     if (!elems) return
+    
+    const defaulticons = config.get("usecustomfiles") ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
 
     menutype.querySelectorAll(`#elemselector > .opt > .opt:has(select) > select:not(select[id*="percentbadge"])`).forEach(s => {
         const select = s as HTMLSelectElement
@@ -137,7 +139,8 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         if (id) {
             const preset = config.get(`customisation.${type}.preset`) as string
 
-            const usedecoration = [
+            // Handles cases where `defaulticons[preset].decoration: null`, but gets used for an extra notification element anyway
+            const decorationoverride = [
                 "epicgames",
                 "xboxone",
                 "xbox360",
@@ -146,9 +149,9 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
             if (id.includes("decorationpos")) {
                 // Note: `defaulticons.epicgames.decoration` is NOT null in config, hence the equality check
-                if (!sanconfig.defaulticons.get(preset)!.decoration || preset === "epicgames") {
+                if (!defaulticons.get(preset)!.decoration || preset === "epicgames") {
                     // Dynamically removes the `select` element if `defaulticons.<preset>.decoration` is null
-                    if (!usedecoration.includes(preset)) return select.parentElement!.remove()
+                    if (!decorationoverride.includes(preset)) return select.parentElement!.remove()
                     // Dynamically removes any `option` elements greater than 1 for any preset in the `usedecoration` array (replaces legacy "Show Decoration" option)
                     menutype.querySelectorAll(`#${id} > option:not([value="off"],[value="1"])`).forEach(elem => elem.remove())
                 }

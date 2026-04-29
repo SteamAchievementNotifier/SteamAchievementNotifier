@@ -163,7 +163,8 @@ export const sanconfig = {
                 sselems: ["unlockmsg","title"]
             }],
             ["ps3",{
-                logo: null, decoration: trophies,
+                logo: null,
+                decoration: trophies,
                 index: {
                     percent: 1,
                     hiddenicon: 1,

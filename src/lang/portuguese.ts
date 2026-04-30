@@ -192,6 +192,14 @@ export const translations = {
             "Obrigado por testar! 💜"
         ],
         betaghreleases: "Lançamentos",
+        createnewpreset: "Criar Novo Predefinido",
+        createnewpresetplaceholder: "Nome do Predefinido",
+        createnewpreseterror: "Não foi possível criar o novo predefinido. Verifique o Log do Aplicativo para mais detalhes.",
+        createnewpresetlogo: "Logotipo",
+        createnewpresetdecoration: "Decoração",
+        none: "Nenhum",
+        fixed: "Fixo",
+        dynamic: "Dinâmico"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Definir o formato de arquivo das capturas de tela geradas pela opção Captura de Tela com Sobreposição de Notificação",
         notify1line: `Limita o número de linhas de texto exibidas em todas as notificações a 1<br><br><span class="ttdesc">Textos que não cabem em uma única linha serão truncados com "..."</span>`,
         copytheme: "Copiar o tema selecionado para outro tipo de notificação",
-        ssaddtosteam: "Adicionar automaticamente a mídia gerada às Gravações e Capturas de Tela do jogo atual no Steam"
+        ssaddtosteam: "Adicionar automaticamente a mídia gerada às Gravações e Capturas de Tela do jogo atual no Steam",
+        createnewpreset: "Crie um novo predefinido de notificação usando um modelo em branco para designs/animações personalizados"
     },
     update: {
         updateavailable: "Atualização disponível",

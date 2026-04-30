@@ -950,6 +950,13 @@ export const listeners = {
                 return
             }
 
+            // if (config.get("usecustomfiles")) {
+            //     const customiconsmap = new Map<string,CustomIcon>(Object.entries(notify.customisation.customicons as { [key: string]: CustomIcon }))
+            //     const customicons = sanhelper.getcustomdefaulticons(customiconsmap)
+                
+            //     notify.customisation.customicons = Object.fromEntries(customicons)
+            // }
+
             if (!notify.istestnotification && config.get("exportachdata")) {
                 const achdata = path.join(sanhelper.appdata,"achdata.json")
 

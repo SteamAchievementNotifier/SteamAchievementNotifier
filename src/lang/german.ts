@@ -192,6 +192,14 @@ export const translations = {
             "Danke fürs Testen! 💜"
         ],
         betaghreleases: "Releases",
+        createnewpreset: "Neues Preset erstellen",
+        createnewpresetplaceholder: "Preset-Name",
+        createnewpreseterror: "Neues Preset konnte nicht erstellt werden. Bitte überprüfen Sie das App-Log für Details.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Dekoration",
+        none: "Keine",
+        fixed: "Fest",
+        dynamic: "Dynamisch"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Das Dateiformat für Screenshots festlegen, die über die Option Screenshot mit Benachrichtigungs-Overlay erstellt werden",
         notify1line: `Die Anzahl der in allen Benachrichtigungen angezeigten Textzeilen auf 1 begrenzen<br><br><span class="ttdesc">Überlaufende Textzeichenfolgen, die nicht in eine einzelne Zeile passen, werden mit "..." gekürzt</span>`,
         copytheme: "Das ausgewählte Design in einen anderen Benachrichtigungstyp kopieren",
-        ssaddtosteam: "Generierte Medien automatisch zu den Aufnahmen und Screenshots des aktuellen Spiels in Steam hinzufügen"
+        ssaddtosteam: "Generierte Medien automatisch zu den Aufnahmen und Screenshots des aktuellen Spiels in Steam hinzufügen",
+        createnewpreset: "Erstellen Sie ein neues Benachrichtigungs-Preset mit einer leeren Vorlage für benutzerdefinierte Designs/Animationen"
     },
     update: {
         updateavailable: "Update verfügbar",

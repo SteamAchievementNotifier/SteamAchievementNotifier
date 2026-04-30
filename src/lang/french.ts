@@ -192,6 +192,14 @@ export const translations = {
             "Merci d'avoir testé ! 💜"
         ],
         betaghreleases: "Releases",
+        createnewpreset: "Créer un nouveau préréglage",
+        createnewpresetplaceholder: "Nom du préréglage",
+        createnewpreseterror: "Impossible de créer un nouveau préréglage. Veuillez vérifier le journal de l'application pour plus de détails.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Décoration",
+        none: "Aucun",
+        fixed: "Fixe",
+        dynamic: "Dynamique"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Définir le format de fichier des captures d'écran générées via l'option de capture d'écran avec superposition de notification",
         notify1line: `Limiter le nombre de lignes de texte affichées dans toutes les notifications à 1<br><br><span class="ttdesc">Les chaînes de texte dépassant la longueur d'une ligne seront tronquées avec "..."</span>`,
         copytheme: "Copier le thème sélectionné vers un autre type de notification",
-        ssaddtosteam: "Ajouter automatiquement les médias générés aux Enregistrements et Captures d’écran du jeu actuel dans Steam"
+        ssaddtosteam: "Ajouter automatiquement les médias générés aux Enregistrements et Captures d’écran du jeu actuel dans Steam",
+        createnewpreset: "Créer un nouveau préréglage de notification en utilisant un modèle vierge pour des conceptions/animations personnalisées"
     },
     update: {
         updateavailable: "Mise à jour disponible",

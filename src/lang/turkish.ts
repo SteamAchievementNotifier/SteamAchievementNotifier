@@ -192,6 +192,14 @@ export const translations = {
             "Test ettiğiniz için teşekkürler! 💜"
         ],
         betaghreleases: "Sürümler",
+        createnewpreset: "Yeni Öntanımlı Ayar Oluştur",
+        createnewpresetplaceholder: "Öntanımlı Ayar Adı",
+        createnewpreseterror: "Yeni öntanımlı ayar oluşturulamadı. Detaylar için uygulama günlüğünü kontrol edin.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Süsleme",
+        none: "Yok",
+        fixed: "Sabit",
+        dynamic: "Dinamik"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Screenshot with Notification Overlay seçeneği ile oluşturulan ekran görüntülerinin dosya formatını ayarla",
         notify1line: `Tüm bildirimlerde görüntülenen metin satırı sayısını 1 ile sınırla<br><br><span class="ttdesc">Tek bir satıra sığmayan metinler "..." ile kısaltılacaktır</span>`,
         copytheme: "Seçilen temayı başka bir bildirim türüne kopyala",
-        ssaddtosteam: "Oluşturulan medyayı mevcut oyunun Steam'deki Kayıtlar ve Ekran Görüntülerine otomatik olarak ekle"
+        ssaddtosteam: "Oluşturulan medyayı mevcut oyunun Steam'deki Kayıtlar ve Ekran Görüntülerine otomatik olarak ekle",
+        createnewpreset: "Özel tasarımlar/animasyonlar için boş bir şablon kullanarak yeni bir bildirim öntanımlı ayarı oluşturun"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

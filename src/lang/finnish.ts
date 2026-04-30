@@ -192,6 +192,14 @@ export const translations = {
             "Kiitos testauksesta! 💜"
         ],
         betaghreleases: "Julkaisut",
+        createnewpreset: "Luo uusi esiasetus",
+        createnewpresetplaceholder: "Esiasetuksen nimi",
+        createnewpreseterror: "Uuden esiasetuksen luominen epäonnistui. Tarkista sovellusloki lisätietoja varten.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Koristelu",
+        none: "Ei mitään",
+        fixed: "Kiinteä",
+        dynamic: "Dynaaminen"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Määritä tiedostomuoto kuvakaappauksille, jotka luodaan kuvakaappaus ilmoituspeitteellä -asetuksella",
         notify1line: `Rajoita kaikissa ilmoituksissa näytettävien tekstirivien määrä yhteen<br><br><span class="ttdesc">Yhteen riviin mahtumattomat tekstit katkaistaan merkillä "..."</span>`,
         copytheme: "Kopioi valittu teema toiseen ilmoitustyyppiin",
-        ssaddtosteam: "Lisää automaattisesti luotu media nykyisen pelin Tallenteisiin ja Kuvakaappauksiin Steamissa"
+        ssaddtosteam: "Lisää automaattisesti luotu media nykyisen pelin Tallenteisiin ja Kuvakaappauksiin Steamissa",
+        createnewpreset: "Luo uusi ilmoitusesiasetus käyttämällä tyhjää mallia mukautettuja malleja/animaatioita varten"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

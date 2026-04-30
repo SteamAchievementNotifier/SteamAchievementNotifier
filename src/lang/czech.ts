@@ -192,6 +192,14 @@ export const translations = {
             "Děkujeme za testování! 💜"
         ],
         betaghreleases: "Vydání",
+        createnewpreset: "Vytvořit nový preset",
+        createnewpresetplaceholder: "Název presetu",
+        createnewpreseterror: "Nelze vytvořit nový preset. Zkontrolujte prosím log aplikace pro více informací.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Dekorace",
+        none: "Žádný",
+        fixed: "Pevný",
+        dynamic: "Dynamický"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Nastavit formát souboru snímků obrazovky generovaných pomocí možnosti snímku obrazovky s překrytím oznámení",
         notify1line: `Omezit počet řádků textu zobrazovaných ve všech oznámeních na 1<br><br><span class="ttdesc">Přetékající textové řetězce, které se nevejdou na jeden řádek, budou zkráceny pomocí "..."</span>`,
         copytheme: "Zkopírovat vybraný motiv do jiného typu oznámení",
-        ssaddtosteam: "Automaticky přidat vygenerovaná média do záznamů a snímků obrazovky aktuální hry ve Steam"
+        ssaddtosteam: "Automaticky přidat vygenerovaná média do záznamů a snímků obrazovky aktuální hry ve Steam",
+        createnewpreset: "Vytvořit nový preset oznámení pomocí prázdné šablony pro vlastní návrhy/animace"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

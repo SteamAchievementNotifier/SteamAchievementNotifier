@@ -192,6 +192,14 @@ export const translations = {
             "Tak for at du testede! 💜"
         ],
         betaghreleases: "Udgivelser",
+        createnewpreset: "Opret ny forudindstilling",
+        createnewpresetplaceholder: "Navn på forudindstilling",
+        createnewpreseterror: "Kunne ikke oprette en ny forudindstilling. Tjek venligst applikationsloggen for detaljer.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Dekoration",
+        none: "Ingen",
+        fixed: "Fast",
+        dynamic: "Dynamisk"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Angiv filformatet for skærmbilleder, der genereres via indstillingen for skærmbillede med notifikationsoverlay",
         notify1line: `Begræns antallet af tekstlinjer, der vises i alle notifikationer, til 1<br><br><span class="ttdesc">Tekststrenge, der ikke kan være på én linje, vil blive afkortet med "..."</span>`,
         copytheme: "Kopiér det valgte tema til en anden notifikationstype",
-        ssaddtosteam: "Tilføj automatisk genereret medie til den aktuelle spils Optagelser og Skærmbilleder i Steam"
+        ssaddtosteam: "Tilføj automatisk genereret medie til den aktuelle spils Optagelser og Skærmbilleder i Steam",
+        createnewpreset: "Opret en ny notifikationsforudindstilling ved hjælp af en tom skabelon til brugerdefinerede designs/animationer"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

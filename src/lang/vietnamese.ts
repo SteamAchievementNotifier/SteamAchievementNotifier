@@ -192,6 +192,14 @@ export const translations = {
             "Cảm ơn bạn đã thử nghiệm! 💜"
         ],
         betaghreleases: "Phiên bản phát hành",
+        createnewpreset: "Tạo Cài Đặt Mặc Định Mới",
+        createnewpresetplaceholder: "Tên Cài Đặt Mặc Định",
+        createnewpreseterror: "Không thể tạo cài đặt mặc định mới. Vui lòng kiểm tra nhật ký ứng dụng để biết chi tiết.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Trang trí",
+        none: "Không có",
+        fixed: "Cố định",
+        dynamic: "Động"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Đặt định dạng tệp của ảnh chụp màn hình được tạo thông qua tùy chọn Screenshot with Notification Overlay",
         notify1line: `Giới hạn số dòng văn bản hiển thị trong tất cả thông báo xuống 1<br><br><span class="ttdesc">Các chuỗi văn bản không thể vừa trong một dòng sẽ bị cắt ngắn bằng "..."</span>`,
         copytheme: "Sao chép giao diện đã chọn sang loại thông báo khác",
-        ssaddtosteam: "Tự động thêm phương tiện đã tạo vào Bản ghi và Ảnh chụp màn hình của trò chơi hiện tại trong Steam"
+        ssaddtosteam: "Tự động thêm phương tiện đã tạo vào Bản ghi và Ảnh chụp màn hình của trò chơi hiện tại trong Steam",
+        createnewpreset: "Tạo một cài đặt mặc định thông báo mới bằng cách sử dụng mẫu trống cho thiết kế/hoạt ảnh tùy chỉnh"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

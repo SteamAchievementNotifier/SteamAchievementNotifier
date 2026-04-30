@@ -192,6 +192,14 @@ export const translations = {
             "Köszönjük, hogy tesztelted! 💜"
         ],
         betaghreleases: "Kiadások",
+        createnewpreset: "Új Előbeállítás Létrehozása",
+        createnewpresetplaceholder: "Előbeállítás Neve",
+        createnewpreseterror: "Nem sikerült új előbeállítást létrehozni. Kérjük, ellenőrizze az Alkalmazás Naplóját a részletekért.",
+        createnewpresetlogo: "Logó",
+        createnewpresetdecoration: "Díszítés",
+        none: "Nincs",
+        fixed: "Rögzített",
+        dynamic: "Dinamikus"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Állítsd be a képernyőképek fájlformátumát, amelyeket a Képernyőkép értesítési átfedéssel opció hoz létre",
         notify1line: `Korlátozza az összes értesítésben megjelenített szövegsorok számát 1-re<br><br><span class="ttdesc">Azok a szövegek, amelyek nem férnek el egy sorban, "..." jellel lesznek levágva</span>`,
         copytheme: "A kiválasztott téma másolása egy másik értesítési típushoz",
-        ssaddtosteam: "A generált média automatikus hozzáadása az aktuális játék Felvételeihez és Képernyőképeihez a Steamen"
+        ssaddtosteam: "A generált média automatikus hozzáadása az aktuális játék Felvételeihez és Képernyőképeihez a Steamen",
+        createnewpreset: "Hozzon létre egy új értesítési előbeállítást egy üres sablon használatával, testreszabott tervek/animációk számára"
     },
     update: {
         updateavailable: "Frissítés elérhető",

@@ -192,6 +192,14 @@ export const translations = {
             "Mulțumim că ai testat! 💜"
         ],
         betaghreleases: "Versiuni",
+        createnewpreset: "Creează un Nou Predefinit",
+        createnewpresetplaceholder: "Numele Predefinitului",
+        createnewpreseterror: "Nu s-a putut crea noul predefinit. Verifică Jurnalul Aplicației pentru detalii.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Decorație",
+        none: "Niciunul",
+        fixed: "Fix",
+        dynamic: "Dinamic"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Setează formatul fișierului pentru capturile de ecran generate prin opțiunea Captură de ecran cu suprapunere de notificare",
         notify1line: `Limitează numărul de linii de text afișate în toate notificările la 1<br><br><span class="ttdesc">Textele care nu încap pe o singură linie vor fi trunchiate cu "..."</span>`,
         copytheme: "Copiază tema selectată într-un alt tip de notificare",
-        ssaddtosteam: "Adaugă automat media generată la Înregistrările și Capturile de ecran ale jocului curent în Steam"
+        ssaddtosteam: "Adaugă automat media generată la Înregistrările și Capturile de ecran ale jocului curent în Steam",
+        createnewpreset: "Creează un nou predefinit de notificare folosind un șablon gol pentru designuri/animatii personalizate"
     },
     update: {
         updateavailable: "Actualizare disponibilă",

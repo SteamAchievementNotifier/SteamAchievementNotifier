@@ -192,6 +192,14 @@ export const translations = {
             "Takk for at du testet! 💜"
         ],
         betaghreleases: "Utgivelser",
+        createnewpreset: "Lag Nytt Forhåndsinnstilt Valg",
+        createnewpresetplaceholder: "Forhåndsinnstilling Navn",
+        createnewpreseterror: "Kunne ikke lage nytt forhåndsinnstilt valg. Vennligst sjekk App-loggen for detaljer.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Dekorasjon",
+        none: "Ingen",
+        fixed: "Fast",
+        dynamic: "Dynamisk"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Angi filformatet for skjermbilder generert via alternativet Skjermbilde med varslingsoverlay",
         notify1line: `Begrens antall tekstlinjer som vises i alle varsler til 1<br><br><span class="ttdesc">Tekststrenger som ikke får plass på én linje vil bli avkortet med "..."</span>`,
         copytheme: "Kopier det valgte temaet til en annen varslingstype",
-        ssaddtosteam: "Legg automatisk til generert media i det nåværende spillets opptak og skjermbilder i Steam"
+        ssaddtosteam: "Legg automatisk til generert media i det nåværende spillets opptak og skjermbilder i Steam",
+        createnewpreset: "Lag et nytt varslingsforhåndsinnstilt valg ved å bruke en tom mal for tilpassede design/animasjoner"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

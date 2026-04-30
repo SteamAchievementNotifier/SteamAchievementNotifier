@@ -192,6 +192,14 @@ export const translations = {
             "Спасибо за тестирование! 💜"
         ],
         betaghreleases: "Релизы",
+        createnewpreset: "Создать Новый Пресет",
+        createnewpresetplaceholder: "Название Пресета",
+        createnewpreseterror: "Не удалось создать новый пресет. Проверьте журнал приложения для подробностей.",
+        createnewpresetlogo: "Логотип",
+        createnewpresetdecoration: "Украшение",
+        none: "Нет",
+        fixed: "Фиксированный",
+        dynamic: "Динамичный"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Установить формат файлов скриншотов, создаваемых с помощью опции Screenshot with Notification Overlay",
         notify1line: `Ограничить количество строк текста, отображаемого во всех уведомлениях, до 1<br><br><span class="ttdesc">Строки текста, которые не помещаются в одну строку, будут обрезаны с помощью "..."</span>`,
         copytheme: "Копировать выбранную тему в другой тип уведомлений",
-        ssaddtosteam: "Автоматически добавлять созданные медиафайлы в записи и скриншоты текущей игры в Steam"
+        ssaddtosteam: "Автоматически добавлять созданные медиафайлы в записи и скриншоты текущей игры в Steam",
+        createnewpreset: "Создайте новый пресет уведомлений, используя пустой шаблон для пользовательских дизайнов/анимаций"
     },
     update: {
         updateavailable: "Доступно обновление",

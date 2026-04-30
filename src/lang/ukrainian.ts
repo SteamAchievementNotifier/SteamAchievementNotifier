@@ -192,6 +192,14 @@ export const translations = {
             "Дякуємо за тестування! 💜"
         ],
         betaghreleases: "Випуски",
+        createnewpreset: "Створити Новий Пресет",
+        createnewpresetplaceholder: "Назва Пресету",
+        createnewpreseterror: "Не вдалося створити новий пресет. Перевірте журнал програми для деталей.",
+        createnewpresetlogo: "Логотип",
+        createnewpresetdecoration: "Оздоблення",
+        none: "Немає",
+        fixed: "Фіксований",
+        dynamic: "Динамічний"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Встановити формат файлів знімків екрана, створених за допомогою опції Screenshot with Notification Overlay",
         notify1line: `Обмежити кількість рядків тексту, що відображаються у всіх сповіщеннях, до 1<br><br><span class="ttdesc">Рядки тексту, що не вміщуються в один рядок, будуть скорочені за допомогою "..."</span>`,
         copytheme: "Копіювати вибрану тему до іншого типу сповіщень",
-        ssaddtosteam: "Автоматично додавати створені медіафайли до записів і знімків екрана поточної гри в Steam"
+        ssaddtosteam: "Автоматично додавати створені медіафайли до записів і знімків екрана поточної гри в Steam",
+        createnewpreset: "Створіть новий пресет сповіщень, використовуючи порожній шаблон для користувацьких дизайнів/анімацій"
     },
     update: {
         updateavailable: "Доступне оновлення",

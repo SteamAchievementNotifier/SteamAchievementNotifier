@@ -192,6 +192,14 @@ export const translations = {
             "テストしていただきありがとうございます！ 💜"
         ],
         betaghreleases: "リリース",
+        createnewpreset: "新しいプリセットを作成",
+        createnewpresetplaceholder: "プリセット名",
+        createnewpreseterror: "新しいプリセットを作成できませんでした。詳細はアプリログをご確認ください。",
+        createnewpresetlogo: "ロゴ",
+        createnewpresetdecoration: "装飾",
+        none: "なし",
+        fixed: "固定",
+        dynamic: "動的"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "通知オーバーレイ付きスクリーンショットオプションで生成されるスクリーンショットのファイル形式を設定します",
         notify1line: `すべての通知に表示されるテキストの行数を1行に制限します<br><br><span class="ttdesc">1行に収まらないテキストは「...」で切り捨てられます</span>`,
         copytheme: "選択したテーマを別の通知タイプにコピーします",
-        ssaddtosteam: "生成されたメディアを現在のゲームのSteamの録画およびスクリーンショットに自動的に追加"
+        ssaddtosteam: "生成されたメディアを現在のゲームのSteamの録画およびスクリーンショットに自動的に追加",
+        createnewpreset: "カスタムデザイン/アニメーション用の空白テンプレートを使って新しい通知プリセットを作成"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

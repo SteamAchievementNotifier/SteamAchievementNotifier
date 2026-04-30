@@ -192,6 +192,14 @@ export const translations = {
             "Grazie per aver testato! 💜"
         ],
         betaghreleases: "Rilasci",
+        createnewpreset: "Crea Nuovo Predefinito",
+        createnewpresetplaceholder: "Nome Predefinito",
+        createnewpreseterror: "Impossibile creare un nuovo predefinito. Controlla il Registro dell'App per i dettagli.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Decorazione",
+        none: "Nessuno",
+        fixed: "Fisso",
+        dynamic: "Dinamico"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Imposta il formato file degli screenshot generati tramite l'opzione Screenshot con sovrapposizione di notifica",
         notify1line: `Limita il numero di righe di testo visualizzate in tutte le notifiche a 1<br><br><span class="ttdesc">Le stringhe di testo troppo lunghe per una singola riga verranno troncate con "..."</span>`,
         copytheme: "Copia il tema selezionato in un altro tipo di notifica",
-        ssaddtosteam: "Aggiungi automaticamente i contenuti generati alle Registrazioni e agli Screenshot del gioco corrente su Steam"
+        ssaddtosteam: "Aggiungi automaticamente i contenuti generati alle Registrazioni e agli Screenshot del gioco corrente su Steam",
+        createnewpreset: "Crea un nuovo predefinito di notifica utilizzando un modello vuoto per design/animazioni personalizzati"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

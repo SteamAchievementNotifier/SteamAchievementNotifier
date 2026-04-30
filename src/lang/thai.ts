@@ -192,6 +192,14 @@ export const translations = {
             "ขอบคุณที่ทดสอบ! 💜"
         ],
         betaghreleases: "การปล่อย",
+        createnewpreset: "สร้างการตั้งค่าล่วงหน้าใหม่",
+        createnewpresetplaceholder: "ชื่อการตั้งค่าล่วงหน้า",
+        createnewpreseterror: "ไม่สามารถสร้างการตั้งค่าล่วงหน้าใหม่ได้ กรุณาตรวจสอบบันทึกแอปเพื่อดูรายละเอียด",
+        createnewpresetlogo: "โลโก้",
+        createnewpresetdecoration: "การตกแต่ง",
+        none: "ไม่มี",
+        fixed: "คงที่",
+        dynamic: "พลศาสตร์"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "กำหนดรูปแบบไฟล์ของภาพหน้าจอที่สร้างผ่านตัวเลือก Screenshot with Notification Overlay",
         notify1line: `จำกัดจำนวนบรรทัดของข้อความที่แสดงในทุกการแจ้งเตือนให้เหลือ 1<br><br><span class="ttdesc">ข้อความที่ยาวเกินและไม่สามารถแสดงในบรรทัดเดียวได้จะถูกตัดให้เหลือ "..."</span>`,
         copytheme: "คัดลอกธีมที่เลือกไปยังประเภทการแจ้งเตือนอื่น",
-        ssaddtosteam: "เพิ่มสื่อที่สร้างขึ้นไปยังการบันทึกและภาพหน้าจอของเกมปัจจุบันใน Steam โดยอัตโนมัติ"
+        ssaddtosteam: "เพิ่มสื่อที่สร้างขึ้นไปยังการบันทึกและภาพหน้าจอของเกมปัจจุบันใน Steam โดยอัตโนมัติ",
+        createnewpreset: "สร้างการตั้งค่าการแจ้งเตือนใหม่โดยใช้เทมเพลตเปล่าสำหรับการออกแบบ/แอนิเมชั่นที่กำหนดเอง"
     },
     update: {
         updateavailable: "มีการอัปเดตใหม่",

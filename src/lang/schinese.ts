@@ -192,6 +192,14 @@ export const translations = {
             "感谢您的测试！ 💜"
         ],
         betaghreleases: "版本发布",
+        createnewpreset: "创建新预设",
+        createnewpresetplaceholder: "预设名称",
+        createnewpreseterror: "无法创建新预设。请检查应用日志以获取详细信息。",
+        createnewpresetlogo: "徽标",
+        createnewpresetdecoration: "装饰",
+        none: "无",
+        fixed: "固定",
+        dynamic: "动态"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "设置通过 Screenshot with Notification Overlay 选项生成的截图文件格式",
         notify1line: `将所有通知中显示的文本行数限制为 1<br><br><span class="ttdesc">无法适应单行的文本字符串将被截断并显示为 "..."</span>`,
         copytheme: "将所选主题复制到另一种通知类型",
-        ssaddtosteam: "自动将生成的媒体添加到当前游戏在 Steam 中的录制和截图"
+        ssaddtosteam: "自动将生成的媒体添加到当前游戏在 Steam 中的录制和截图",
+        createnewpreset: "使用空白模板创建新的通知预设，用于自定义设计/动画"
     },
     update: {
         updateavailable: "有可用更新",

@@ -192,6 +192,14 @@ export const translations = {
             "Dziękujemy za testowanie! 💜"
         ],
         betaghreleases: "Wydania",
+        createnewpreset: "Utwórz Nowy Predefiniowany Szablon",
+        createnewpresetplaceholder: "Nazwa Szablonu",
+        createnewpreseterror: "Nie udało się utworzyć nowego szablonu. Sprawdź dziennik aplikacji, aby uzyskać szczegóły.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Dekoracja",
+        none: "Brak",
+        fixed: "Stały",
+        dynamic: "Dynamiczny"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Ustaw format pliku zrzutów ekranu generowanych przez opcję Zrzut ekranu z nakładką powiadomienia",
         notify1line: `Ogranicza liczbę linii tekstu wyświetlanych we wszystkich powiadomieniach do 1<br><br><span class="ttdesc">Teksty, które nie mieszczą się w jednej linii, zostaną skrócone do "..."</span>`,
         copytheme: "Kopiuje wybrany motyw do innego typu powiadomienia",
-        ssaddtosteam: "Automatycznie dodaj wygenerowane media do nagrań i zrzutów ekranu bieżącej gry w Steam"
+        ssaddtosteam: "Automatycznie dodaj wygenerowane media do nagrań i zrzutów ekranu bieżącej gry w Steam",
+        createnewpreset: "Utwórz nowy predefiniowany szablon powiadomienia, używając pustego szablonu do niestandardowych projektów/animacji"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

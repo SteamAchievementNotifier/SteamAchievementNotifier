@@ -192,6 +192,14 @@ export const translations = {
             "¡Gracias por probar! 💜"
         ],
         betaghreleases: "Lanzamientos",
+        createnewpreset: "Crear Nuevo Preajuste",
+        createnewpresetplaceholder: "Nombre del Preajuste",
+        createnewpreseterror: "No se pudo crear el nuevo preajuste. Por favor, revisa el registro de la aplicación para más detalles.",
+        createnewpresetlogo: "Logo",
+        createnewpresetdecoration: "Decoración",
+        none: "Ninguno",
+        fixed: "Fijo",
+        dynamic: "Dinámico"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Establecer el formato de archivo de las capturas de pantalla generadas mediante la opción Screenshot with Notification Overlay",
         notify1line: `Limitar el número de líneas de texto mostradas en todas las notificaciones a 1<br><br><span class="ttdesc">Las cadenas de texto que no quepan en una sola línea se truncarán con "..."</span>`,
         copytheme: "Copiar el tema seleccionado a otro tipo de notificación",
-        ssaddtosteam: "Agregar automáticamente los medios generados a las grabaciones y capturas de pantalla del juego actual en Steam"
+        ssaddtosteam: "Agregar automáticamente los medios generados a las grabaciones y capturas de pantalla del juego actual en Steam",
+        createnewpreset: "Crea un nuevo preajuste de notificación utilizando una plantilla en blanco para diseños/animaciones personalizadas"
     },
     update: {
         updateavailable: "Actualización disponible",

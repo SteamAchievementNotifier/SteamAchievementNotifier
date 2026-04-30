@@ -192,6 +192,14 @@ export const translations = {
             "테스트해 주셔서 감사합니다! 💜"
         ],
         betaghreleases: "릴리스",
+        createnewpreset: "새 프리셋 만들기",
+        createnewpresetplaceholder: "프리셋 이름",
+        createnewpreseterror: "새 프리셋을 만들 수 없습니다. 앱 로그에서 자세한 정보를 확인하세요.",
+        createnewpresetlogo: "로고",
+        createnewpresetdecoration: "장식",
+        none: "없음",
+        fixed: "고정",
+        dynamic: "동적"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "알림 오버레이가 포함된 스크린샷 옵션으로 생성되는 스크린샷의 파일 형식을 설정합니다",
         notify1line: `모든 알림에 표시되는 텍스트 줄 수를 1줄로 제한합니다<br><br><span class="ttdesc">한 줄에 표시할 수 없는 긴 텍스트는 "..."로 잘립니다</span>`,
         copytheme: "선택한 테마를 다른 알림 유형으로 복사합니다",
-        ssaddtosteam: "생성된 미디어를 현재 게임의 Steam 녹화 및 스크린샷에 자동으로 추가"
+        ssaddtosteam: "생성된 미디어를 현재 게임의 Steam 녹화 및 스크린샷에 자동으로 추가",
+        createnewpreset: "사용자 정의 디자인/애니메이션을 위한 빈 템플릿을 사용하여 새 알림 프리셋 만들기"
     },
     update: {
         updateavailable: "업데이트 가능",

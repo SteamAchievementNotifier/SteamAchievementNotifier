@@ -192,6 +192,14 @@ export const translations = {
             "Tack för att du testade! 💜"
         ],
         betaghreleases: "Uppdateringar",
+        createnewpreset: "Skapa Ny Förinställning",
+        createnewpresetplaceholder: "Förinställningens Namn",
+        createnewpreseterror: "Det gick inte att skapa den nya förinställningen. Vänligen kontrollera appens logg för detaljer.",
+        createnewpresetlogo: "Logotyp",
+        createnewpresetdecoration: "Dekoration",
+        none: "Inget",
+        fixed: "Fast",
+        dynamic: "Dynamisk"
     },
     app: {
         content: {
@@ -851,7 +859,8 @@ export const translations = {
         ssext: "Ange filformat för skärmbilder som genereras via alternativet Screenshot with Notification Overlay",
         notify1line: `Begränsa antalet textrader som visas i alla aviseringar till 1<br><br><span class="ttdesc">Textsträngar som inte får plats på en enda rad kommer att trunkeras med "..."</span>`,
         copytheme: "Kopiera det valda temat till en annan aviseringstyp",
-        ssaddtosteam: "Lägg automatiskt till genererat media i det aktuella spelets inspelningar och skärmbilder i Steam"
+        ssaddtosteam: "Lägg automatiskt till genererat media i det aktuella spelets inspelningar och skärmbilder i Steam",
+        createnewpreset: "Skapa en ny notifieringsförinställning med en tom mall för anpassade designer/animeringar"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

@@ -1125,7 +1125,8 @@ export const sanhelper: SANHelper = {
         const { sanconfig } = await import("./config")
         const config = sanconfig.get()
         const type = sanhelper.type
-        const defaulticons = config.get("usecustomfiles") ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
+        // const defaulticons = config.get("usecustomfiles") ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
+        const { defaulticons } = sanconfig
 
         // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
         ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype]))

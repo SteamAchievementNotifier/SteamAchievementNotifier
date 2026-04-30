@@ -128,7 +128,8 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     if (!elems) return
     
-    const defaulticons = config.get("usecustomfiles") ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
+    // const defaulticons = config.get("usecustomfiles") ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
+    const { defaulticons } = sanconfig
 
     menutype.querySelectorAll(`#elemselector > .opt > .opt:has(select) > select:not(select[id*="percentbadge"])`).forEach(s => {
         const select = s as HTMLSelectElement

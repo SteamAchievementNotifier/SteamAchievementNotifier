@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Sürümler",
         createnewpreset: "Yeni Öntanımlı Ayar Oluştur",
         createnewpresetplaceholder: "Öntanımlı Ayar Adı",
-        createnewpreseterror: "Yeni öntanımlı ayar oluşturulamadı. Detaylar için uygulama günlüğünü kontrol edin.",
+        createnewpreseterror: "Yeni ön ayar oluşturulamadı.",
+        applogdetails: "Lütfen ayrıntılar için Uygulama Günlüğünü kontrol edin.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Süsleme",
         none: "Yok",
         fixed: "Sabit",
-        dynamic: "Dinamik"
+        dynamic: "Dinamik",
+        deletenewpreset: "Yeni ön ayarı sil",
+        deletenewpresetsub: [
+            "Emin misiniz? Bu ön ayarla ilişkili tüm yapılandırmalar ve özel dosyalar kalıcı olarak silinecektir",
+            "Şu anda bu ön ayarı kullanan diğer tüm bildirim türleri de varsayılan değerlere sıfırlanacaktır",
+            "🛑 Bu işlem geri alınamaz!"
+        ],
+        deletenewpreseterror: "Ön ayar silinemedi."
     },
     app: {
         content: {

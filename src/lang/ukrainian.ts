@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Випуски",
         createnewpreset: "Створити Новий Пресет",
         createnewpresetplaceholder: "Назва Пресету",
-        createnewpreseterror: "Не вдалося створити новий пресет. Перевірте журнал програми для деталей.",
+        createnewpreseterror: "Не вдалося створити новий пресет.",
+        applogdetails: "Будь ласка, перевірте журнал застосунку для отримання деталей.",
         createnewpresetlogo: "Логотип",
         createnewpresetdecoration: "Оздоблення",
         none: "Немає",
         fixed: "Фіксований",
-        dynamic: "Динамічний"
+        dynamic: "Динамічний",
+        deletenewpreset: "Видалити новий пресет",
+        deletenewpresetsub: [
+            "Ви впевнені? Усі конфігурації та користувацькі файли, пов’язані з цим пресетом, будуть назавжди видалені",
+            "Будь-які інші типи сповіщень, що наразі використовують цей пресет, також будуть скинуті до значень за замовчуванням",
+            "🛑 Цю дію неможливо скасувати!"
+        ],
+        deletenewpreseterror: "Не вдалося видалити пресет."
     },
     app: {
         content: {

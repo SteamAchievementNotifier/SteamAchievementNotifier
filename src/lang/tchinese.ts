@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "版本發佈",
         createnewpreset: "建立新預設",
         createnewpresetplaceholder: "預設名稱",
-        createnewpreseterror: "無法建立新預設。請檢查應用程式日誌以獲取詳細資訊。",
+        createnewpreseterror: "無法建立新預設。",
+        applogdetails: "請檢查應用程式日誌以取得詳細資訊。",
         createnewpresetlogo: "標誌",
         createnewpresetdecoration: "裝飾",
         none: "無",
         fixed: "固定",
-        dynamic: "動態"
+        dynamic: "動態",
+        deletenewpreset: "刪除新預設",
+        deletenewpresetsub: [
+            "你確定嗎？與此預設相關的所有設定和自訂檔案都將被永久刪除",
+            "目前使用此預設的任何其他通知類型也將被重設為預設值",
+            "🛑 此操作無法復原！"
+        ],
+        deletenewpreseterror: "無法刪除預設。"
     },
     app: {
         content: {

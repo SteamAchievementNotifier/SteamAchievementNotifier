@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "릴리스",
         createnewpreset: "새 프리셋 만들기",
         createnewpresetplaceholder: "프리셋 이름",
-        createnewpreseterror: "새 프리셋을 만들 수 없습니다. 앱 로그에서 자세한 정보를 확인하세요.",
+        createnewpreseterror: "새 프리셋을 생성할 수 없습니다.",
+        applogdetails: "자세한 내용은 앱 로그를 확인하세요.",
         createnewpresetlogo: "로고",
         createnewpresetdecoration: "장식",
         none: "없음",
         fixed: "고정",
-        dynamic: "동적"
+        dynamic: "동적",
+        deletenewpreset: "새 프리셋 삭제",
+        deletenewpresetsub: [
+            "확실합니까? 이 프리셋과 관련된 모든 구성 및 사용자 지정 파일이 영구적으로 삭제됩니다",
+            "현재 이 프리셋을 사용 중인 다른 모든 알림 유형도 기본값으로 재설정됩니다",
+            "🛑 이 작업은 되돌릴 수 없습니다!"
+        ],
+        deletenewpreseterror: "프리셋을 삭제할 수 없습니다."
     },
     app: {
         content: {

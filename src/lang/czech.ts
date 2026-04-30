@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Vydání",
         createnewpreset: "Vytvořit nový preset",
         createnewpresetplaceholder: "Název presetu",
-        createnewpreseterror: "Nelze vytvořit nový preset. Zkontrolujte prosím log aplikace pro více informací.",
+        createnewpreseterror: "Nelze vytvořit nový preset.",
+        applogdetails: "Zkontrolujte prosím protokol aplikace pro více informací.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Dekorace",
         none: "Žádný",
         fixed: "Pevný",
-        dynamic: "Dynamický"
+        dynamic: "Dynamický",
+        deletenewpreset: "Smazat nový preset",
+        deletenewpresetsub: [
+            "Jste si jisti? Všechna nastavení a vlastní soubory související s tímto presetem budou trvale smazány",
+            "Všechny ostatní typy oznámení, které aktuálně používají tento preset, budou také resetovány na výchozí hodnoty",
+            "🛑 Tuto akci nelze vrátit zpět!"
+        ],
+        deletenewpreseterror: "Nelze smazat preset."
     },
     app: {
         content: {

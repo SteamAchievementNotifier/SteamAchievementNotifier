@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "リリース",
         createnewpreset: "新しいプリセットを作成",
         createnewpresetplaceholder: "プリセット名",
-        createnewpreseterror: "新しいプリセットを作成できませんでした。詳細はアプリログをご確認ください。",
+        createnewpreseterror: "新しいプリセットを作成できませんでした。",
+        applogdetails: "詳細についてはアプリのログを確認してください。",
         createnewpresetlogo: "ロゴ",
         createnewpresetdecoration: "装飾",
         none: "なし",
         fixed: "固定",
-        dynamic: "動的"
+        dynamic: "動的",
+        deletenewpreset: "新しいプリセットを削除",
+        deletenewpresetsub: [
+            "よろしいですか？このプリセットに関連するすべての設定とカスタムファイルは完全に削除されます",
+            "現在このプリセットを使用している他のすべての通知タイプもデフォルトにリセットされます",
+            "🛑 これは元に戻せません！"
+        ],
+        deletenewpreseterror: "プリセットを削除できませんでした。"
     },
     app: {
         content: {

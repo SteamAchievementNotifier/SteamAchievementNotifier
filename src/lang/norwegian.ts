@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Utgivelser",
         createnewpreset: "Lag Nytt Forhåndsinnstilt Valg",
         createnewpresetplaceholder: "Forhåndsinnstilling Navn",
-        createnewpreseterror: "Kunne ikke lage nytt forhåndsinnstilt valg. Vennligst sjekk App-loggen for detaljer.",
+        createnewpreseterror: "Kunne ikke opprette nytt preset.",
+        applogdetails: "Vennligst sjekk app-loggen for detaljer.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Dekorasjon",
         none: "Ingen",
         fixed: "Fast",
-        dynamic: "Dynamisk"
+        dynamic: "Dynamisk",
+        deletenewpreset: "Slett nytt preset",
+        deletenewpresetsub: [
+            "Er du sikker? Alle konfigurasjoner og egendefinerte filer knyttet til dette presetet vil bli permanent slettet",
+            "Alle andre varslingstyper som for øyeblikket bruker dette presetet vil også bli tilbakestilt til standard",
+            "🛑 Dette kan ikke angres!"
+        ],
+        deletenewpreseterror: "Kunne ikke slette preset."
     },
     app: {
         content: {

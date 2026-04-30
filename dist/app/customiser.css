@@ -779,23 +779,59 @@ div.lockedlbl::before {
     color: red;
 }
 
-#customiser button#createnewpreset {
-    --icon: url("../../icon/add.svg");
+#customiser .wrapper:has(> button#createnewpreset) {
     display: none;
-    grid-template-columns: auto auto;
+    grid-template-columns: 6fr 1fr;
     grid-row-start: 3;
     gap: 0.25rem;
-    width: 100%;
-    height: 1.5rem;
+    place-items: center;
     margin-block: 0.5rem 0.15rem;
-    background-color: #5662f6b5;
-    font-size: 0.7rem;
     pointer-events: none;
 }
 
-body[customfiles] #customiser button#createnewpreset {
+#customiser:has(select#preset > option[value="default"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="xqjan"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="steamdeck"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="epicgames"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="xboxone"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="xbox360"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="ps5"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="ps4"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="ps3"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="windows"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="aero"]:checked) .wrapper:has(> button#createnewpreset),
+#customiser:has(select#preset > option[value="os"]:checked) .wrapper:has(> button#createnewpreset) {
+    grid-template-columns: 1fr;
+}
+
+#customiser:has(select#preset > option[value="default"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="xqjan"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="steamdeck"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="epicgames"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="xboxone"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="xbox360"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="ps5"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="ps4"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="ps3"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="windows"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="aero"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset,
+#customiser:has(select#preset > option[value="os"]:checked) .wrapper:has(> button#createnewpreset) > button#deletenewpreset {
+    display: none;
+}
+
+body[customfiles] #customiser .wrapper:has(> button#createnewpreset) {
     display: grid;
     pointer-events: auto;
+}
+
+#customiser button#createnewpreset {
+    --icon: url("../../icon/add.svg");
+    grid-template-columns: auto auto;
+    gap: 0.25rem;
+    width: 100%;
+    height: 1.5rem;
+    background-color: #5662f6b5;
+    font-size: 0.7rem;
 }
 
 #customiser button#createnewpreset::before {
@@ -810,8 +846,32 @@ body[customfiles] #customiser button#createnewpreset {
     justify-self: start;
 }
 
-.opt:has(> select#preset):has(> button#createnewpreset) > .wrapper.opt.sub:has(> input[type="checkbox"]#iconanim) {
+.wrapper.opt.sub:has(> input[type="checkbox"]#iconanim) {
+    grid-row-start: 3;
+}
+
+body[customfiles] .opt:has(> select#preset + .wrapper > button#createnewpreset) > .wrapper.opt.sub:has(> input[type="checkbox"]#iconanim) {
     grid-row-start: 4;
+}
+
+#customiser button#deletenewpreset {
+    --icon: url("../../icon/delete.svg");
+    width: 100%;
+    height: 1.5rem;
+    background: var(--icon) center / 65% no-repeat;
+    border-radius: var(--elembr);
+    scale: 0.75;
+    opacity: 0.75;
+    transition:
+        background-color var(--transition),
+        scale var(--transition),
+        opacity var(--transition);
+}
+
+#customiser button#deletenewpreset:hover {
+    background-color: red;
+    scale: 1;
+    opacity: 1;
 }
 
 .addhtml > .wrapper:has(input#createnewpresetlbl) {
@@ -899,12 +959,12 @@ dialog:has(select#createnewpresetdecoration > option[value="fixed"]:checked) .ad
     grid-column-start: 2;
 }
 
-.wrapper:has(#createnewpresetlog) {
+.wrapper:has(> .presetlog) {
     grid-column: 1 / -1;
     margin-top: 0.25rem;
 }
 
-#createnewpresetlog {
+.presetlog {
     display: grid;
     grid-template-columns: auto 1fr;
     place-items: center start;
@@ -914,7 +974,7 @@ dialog:has(select#createnewpresetdecoration > option[value="fixed"]:checked) .ad
     text-align: center;
 }
 
-#createnewpresetlog::before {
+.presetlog::before {
     content: "";
     display: block;
     background: url("../../icon/error.svg") center / contain no-repeat;
@@ -922,8 +982,16 @@ dialog:has(select#createnewpresetdecoration > option[value="fixed"]:checked) .ad
     height: 0.75rem;
 }
 
-.addhtml:has(#createnewpresetlog:empty) > .wrapper > .wrapper:has(#createnewpresetlog) {
+.addhtml:has(.presetlog:empty) .wrapper:has(> .presetlog) {
     display: none;
+}
+
+.addhtml:has(.presetlog#delete:empty) {
+    margin-top: 0;
+}
+
+dialog #contentcontainer:has(.presetlog#delete) > .contenttitle {
+    background-color: red;
 }
 
 @media (orientation: portrait) or (width < 400px) {

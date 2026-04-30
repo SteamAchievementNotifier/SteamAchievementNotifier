@@ -176,7 +176,8 @@ const ignore = [
     "san.d.ts",
     "tsconfig.json",
     "_template",
-    "_template.html"
+    "_template.html",
+    "afterpack.js"
 ]
 
 const copyrecursive = (src: string,dest: string,ignore: Set<string>) => {

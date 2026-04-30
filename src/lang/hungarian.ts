@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Kiadások",
         createnewpreset: "Új Előbeállítás Létrehozása",
         createnewpresetplaceholder: "Előbeállítás Neve",
-        createnewpreseterror: "Nem sikerült új előbeállítást létrehozni. Kérjük, ellenőrizze az Alkalmazás Naplóját a részletekért.",
+        createnewpreseterror: "Nem sikerült új presetet létrehozni.",
+        applogdetails: "Kérjük, ellenőrizd az alkalmazás naplóját a részletekért.",
         createnewpresetlogo: "Logó",
         createnewpresetdecoration: "Díszítés",
         none: "Nincs",
         fixed: "Rögzített",
-        dynamic: "Dinamikus"
+        dynamic: "Dinamikus",
+        deletenewpreset: "Új preset törlése",
+        deletenewpresetsub: [
+            "Biztos vagy benne? Az ehhez a presethez kapcsolódó összes konfiguráció és egyéni fájl véglegesen törlésre kerül",
+            "Az összes többi értesítéstípus, amely jelenleg ezt a presetet használja, szintén visszaáll az alapértelmezett beállításokra",
+            "🛑 Ez nem vonható vissza!"
+        ],
+        deletenewpreseterror: "Nem sikerült törölni a presetet."
     },
     app: {
         content: {

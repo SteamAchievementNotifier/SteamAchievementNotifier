@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Udgivelser",
         createnewpreset: "Opret ny forudindstilling",
         createnewpresetplaceholder: "Navn på forudindstilling",
-        createnewpreseterror: "Kunne ikke oprette en ny forudindstilling. Tjek venligst applikationsloggen for detaljer.",
+        createnewpreseterror: "Kan ikke oprette en ny forudindstilling.",
+        applogdetails: "Tjek venligst apploggen for detaljer.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Dekoration",
         none: "Ingen",
         fixed: "Fast",
-        dynamic: "Dynamisk"
+        dynamic: "Dynamisk",
+        deletenewpreset: "Slet ny forudindstilling",
+        deletenewpresetsub: [
+            "Er du sikker? Alle konfigurationer og brugerdefinerede filer relateret til denne forudindstilling vil blive slettet permanent",
+            "Alle andre notifikationstyper, der i øjeblikket bruger denne forudindstilling, vil også blive nulstillet til standard",
+            "🛑 Dette kan ikke fortrydes!"
+        ],
+        deletenewpreseterror: "Kan ikke slette forudindstillingen."
     },
     app: {
         content: {

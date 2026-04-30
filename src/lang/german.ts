@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Releases",
         createnewpreset: "Neues Preset erstellen",
         createnewpresetplaceholder: "Preset-Name",
-        createnewpreseterror: "Neues Preset konnte nicht erstellt werden. Bitte überprüfen Sie das App-Log für Details.",
+        createnewpreseterror: "Neues Preset konnte nicht erstellt werden.",
+        applogdetails: "Bitte überprüfe das App-Protokoll für Details.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Dekoration",
         none: "Keine",
         fixed: "Fest",
-        dynamic: "Dynamisch"
+        dynamic: "Dynamisch",
+        deletenewpreset: "Neues Preset löschen",
+        deletenewpresetsub: [
+            "Bist du sicher? Alle Konfigurations- und benutzerdefinierten Dateien, die mit diesem Preset verbunden sind, werden dauerhaft gelöscht",
+            "Alle anderen Benachrichtigungstypen, die derzeit dieses Preset verwenden, werden ebenfalls auf die Standardeinstellungen zurückgesetzt",
+            "🛑 Dies kann nicht rückgängig gemacht werden!"
+        ],
+        deletenewpreseterror: "Preset konnte nicht gelöscht werden."
     },
     app: {
         content: {

@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Wydania",
         createnewpreset: "Utwórz Nowy Predefiniowany Szablon",
         createnewpresetplaceholder: "Nazwa Szablonu",
-        createnewpreseterror: "Nie udało się utworzyć nowego szablonu. Sprawdź dziennik aplikacji, aby uzyskać szczegóły.",
+        createnewpreseterror: "Nie można utworzyć nowego presetu.",
+        applogdetails: "Sprawdź dziennik aplikacji, aby uzyskać szczegóły.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Dekoracja",
         none: "Brak",
         fixed: "Stały",
-        dynamic: "Dynamiczny"
+        dynamic: "Dynamiczny",
+        deletenewpreset: "Usuń nowy preset",
+        deletenewpresetsub: [
+            "Czy na pewno? Wszystkie konfiguracje i niestandardowe pliki powiązane z tym presetem zostaną trwale usunięte",
+            "Wszystkie inne typy powiadomień, które obecnie korzystają z tego presetu, również zostaną zresetowane do ustawień domyślnych",
+            "🛑 Tego nie można cofnąć!"
+        ],
+        deletenewpreseterror: "Nie można usunąć presetu."
     },
     app: {
         content: {

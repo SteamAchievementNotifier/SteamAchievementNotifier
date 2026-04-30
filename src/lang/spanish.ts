@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Lanzamientos",
         createnewpreset: "Crear Nuevo Preajuste",
         createnewpresetplaceholder: "Nombre del Preajuste",
-        createnewpreseterror: "No se pudo crear el nuevo preajuste. Por favor, revisa el registro de la aplicación para más detalles.",
+        createnewpreseterror: "No se pudo crear un nuevo preset.",
+        applogdetails: "Por favor, revisa el registro de la aplicación para más detalles.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Decoración",
         none: "Ninguno",
         fixed: "Fijo",
-        dynamic: "Dinámico"
+        dynamic: "Dinámico",
+        deletenewpreset: "Eliminar nuevo preset",
+        deletenewpresetsub: [
+            "¿Estás seguro? Todas las configuraciones y archivos personalizados relacionados con este preset se eliminarán permanentemente",
+            "Cualquier otro tipo de notificación que actualmente use este preset también se restablecerá a los valores predeterminados",
+            "🛑 ¡Esto no se puede deshacer!"
+        ],
+        deletenewpreseterror: "No se pudo eliminar el preset."
     },
     app: {
         content: {

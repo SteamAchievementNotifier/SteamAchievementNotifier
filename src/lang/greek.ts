@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Δημοσιεύσεις",
         createnewpreset: "Δημιουργία Νέου Προτύπου",
         createnewpresetplaceholder: "Όνομα Προτύπου",
-        createnewpreseterror: "Δεν είναι δυνατή η δημιουργία νέου προτύπου. Ελέγξτε το Αρχείο Καταγραφής της Εφαρμογής για λεπτομέρειες.",
+        createnewpreseterror: "Δεν ήταν δυνατή η δημιουργία νέου preset.",
+        applogdetails: "Παρακαλώ ελέγξτε το αρχείο καταγραφής της εφαρμογής για λεπτομέρειες.",
         createnewpresetlogo: "Λογότυπο",
         createnewpresetdecoration: "Διακόσμηση",
         none: "Κανένα",
         fixed: "Σταθερό",
-        dynamic: "Δυναμικό"
+        dynamic: "Δυναμικό",
+        deletenewpreset: "Διαγραφή νέου preset",
+        deletenewpresetsub: [
+            "Είστε σίγουροι; Όλες οι ρυθμίσεις και τα προσαρμοσμένα αρχεία που σχετίζονται με αυτό το preset θα διαγραφούν οριστικά",
+            "Όλοι οι άλλοι τύποι ειδοποιήσεων που χρησιμοποιούν αυτήν τη στιγμή αυτό το preset θα επαναφερθούν επίσης στις προεπιλεγμένες ρυθμίσεις",
+            "🛑 Αυτό δεν μπορεί να αναιρεθεί!"
+        ],
+        deletenewpreseterror: "Δεν ήταν δυνατή η διαγραφή του preset."
     },
     app: {
         content: {

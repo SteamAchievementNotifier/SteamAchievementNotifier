@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Lançamentos",
         createnewpreset: "Criar novo preset",
         createnewpresetplaceholder: "Nome do preset",
-        createnewpreseterror: "Não foi possível criar um novo preset. Por favor, verifique o log do aplicativo para mais detalhes.",
+        createnewpreseterror: "Não foi possível criar um novo preset.",
+        applogdetails: "Por favor, verifique o Log do App para mais detalhes.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Decoração",
         none: "Nenhum",
         fixed: "Fixo",
-        dynamic: "Dinâmico"
+        dynamic: "Dinâmico",
+        deletenewpreset: "Excluir novo preset",
+        deletenewpresetsub: [
+            "Tem certeza? Todas as configurações e arquivos personalizados relacionados a este preset serão excluídos permanentemente",
+            "Quaisquer outros tipos de notificação que estejam usando este preset atualmente também serão redefinidos para o padrão",
+            "🛑 Isso não pode ser desfeito!"
+        ],
+        deletenewpreseterror: "Não foi possível excluir o preset."
     },
     app: {
         content: {

@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Releases",
         createnewpreset: "Nieuwe preset maken",
         createnewpresetplaceholder: "Presetnaam",
-        createnewpreseterror: "Kan geen nieuwe preset maken. Controleer het applicatielogboek voor details.",
+        createnewpreseterror: "Kan geen nieuwe preset maken.",
+        applogdetails: "Controleer het applogboek voor details.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Decoratie",
         none: "Geen",
         fixed: "Vast",
-        dynamic: "Dynamisch"
+        dynamic: "Dynamisch",
+        deletenewpreset: "Nieuwe preset verwijderen",
+        deletenewpresetsub: [
+            "Weet je het zeker? Alle configuraties en aangepaste bestanden die bij deze preset horen, worden permanent verwijderd",
+            "Alle andere meldingstypen die momenteel deze preset gebruiken, worden ook teruggezet naar de standaardinstellingen",
+            "🛑 Dit kan niet ongedaan worden gemaakt!"
+        ],
+        deletenewpreseterror: "Kan de preset niet verwijderen."
     },
     app: {
         content: {

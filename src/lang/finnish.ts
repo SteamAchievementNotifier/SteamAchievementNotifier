@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Julkaisut",
         createnewpreset: "Luo uusi esiasetus",
         createnewpresetplaceholder: "Esiasetuksen nimi",
-        createnewpreseterror: "Uuden esiasetuksen luominen epäonnistui. Tarkista sovellusloki lisätietoja varten.",
+        createnewpreseterror: "Uuden esiasetuksen luominen ei onnistunut.",
+        applogdetails: "Tarkista sovelluksen loki saadaksesi lisätietoja.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Koristelu",
         none: "Ei mitään",
         fixed: "Kiinteä",
-        dynamic: "Dynaaminen"
+        dynamic: "Dynaaminen",
+        deletenewpreset: "Poista uusi esiasetus",
+        deletenewpresetsub: [
+            "Oletko varma? Kaikki tähän esiasetukseen liittyvät asetukset ja mukautetut tiedostot poistetaan pysyvästi",
+            "Myös kaikki muut ilmoitustyypit, jotka käyttävät tällä hetkellä tätä esiasetusta, palautetaan oletusarvoihin",
+            "🛑 Tätä ei voi kumota!"
+        ],
+        deletenewpreseterror: "Esiasetuksen poistaminen ei onnistunut."
     },
     app: {
         content: {

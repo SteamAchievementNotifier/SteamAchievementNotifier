@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "الإصدارات",
         createnewpreset: "إنشاء إعداد مسبق جديد",
         createnewpresetplaceholder: "اسم الإعداد المسبق",
-        createnewpreseterror: "تعذر إنشاء إعداد مسبق جديد. يرجى التحقق من سجل التطبيق للحصول على التفاصيل.",
+        createnewpreseterror: "غير قادر على إنشاء إعداد مسبق جديد.",
+        applogdetails: "يرجى التحقق من سجل التطبيق للحصول على التفاصيل.",
         createnewpresetlogo: "الشعار",
         createnewpresetdecoration: "الزخرفة",
         none: "لا شيء",
         fixed: "ثابت",
-        dynamic: "ديناميكي"
+        dynamic: "ديناميكي",
+        deletenewpreset: "حذف الإعداد المسبق الجديد",
+        deletenewpresetsub: [
+            "هل أنت متأكد؟ سيتم حذف جميع التكوينات والملفات المخصصة المتعلقة بهذا الإعداد المسبق بشكل دائم",
+            "سيتم أيضًا إعادة تعيين أي أنواع إشعارات أخرى تستخدم هذا الإعداد المسبق حاليًا إلى الإعدادات الافتراضية",
+            "🛑 لا يمكن التراجع عن هذا!"
+        ],
+        deletenewpreseterror: "غير قادر على حذف الإعداد المسبق."
     },
     app: {
         content: {

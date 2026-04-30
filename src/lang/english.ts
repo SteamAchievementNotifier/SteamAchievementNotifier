@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Releases",
         createnewpreset: "Create New Preset",
         createnewpresetplaceholder: "Preset Name",
-        createnewpreseterror: "Unable to create new preset. Please check the App Log for details.",
+        createnewpreseterror: "Unable to create new preset.",
+        applogdetails: "Please check the App Log for details.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Decoration",
         none: "None",
         fixed: "Fixed",
-        dynamic: "Dynamic"
+        dynamic: "Dynamic",
+        deletenewpreset: "Delete New Preset",
+        deletenewpresetsub: [
+            "Are you sure? All configuration and custom files related to this preset will be permanently deleted",
+            "Any other notification types currently using this preset will also be reset to default",
+            "🛑 This cannot be undone!"
+        ],
+        deletenewpreseterror: "Unable to delete preset."
     },
     app: {
         content: {

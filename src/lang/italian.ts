@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Rilasci",
         createnewpreset: "Crea Nuovo Predefinito",
         createnewpresetplaceholder: "Nome Predefinito",
-        createnewpreseterror: "Impossibile creare un nuovo predefinito. Controlla il Registro dell'App per i dettagli.",
+        createnewpreseterror: "Impossibile creare un nuovo preset.",
+        applogdetails: "Controlla il registro dell'app per i dettagli.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Decorazione",
         none: "Nessuno",
         fixed: "Fisso",
-        dynamic: "Dinamico"
+        dynamic: "Dinamico",
+        deletenewpreset: "Elimina nuovo preset",
+        deletenewpresetsub: [
+            "Sei sicuro? Tutte le configurazioni e i file personalizzati relativi a questo preset verranno eliminati definitivamente",
+            "Tutti gli altri tipi di notifica che attualmente utilizzano questo preset verranno anch'essi reimpostati ai valori predefiniti",
+            "🛑 Questa operazione non può essere annullata!"
+        ],
+        deletenewpreseterror: "Impossibile eliminare il preset."
     },
     app: {
         content: {

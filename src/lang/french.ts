@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Releases",
         createnewpreset: "Créer un nouveau préréglage",
         createnewpresetplaceholder: "Nom du préréglage",
-        createnewpreseterror: "Impossible de créer un nouveau préréglage. Veuillez vérifier le journal de l'application pour plus de détails.",
+        createnewpreseterror: "Impossible de créer un nouveau preset.",
+        applogdetails: "Veuillez vérifier le journal de l'application pour plus de détails.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Décoration",
         none: "Aucun",
         fixed: "Fixe",
-        dynamic: "Dynamique"
+        dynamic: "Dynamique",
+        deletenewpreset: "Supprimer le nouveau preset",
+        deletenewpresetsub: [
+            "Êtes-vous sûr ? Toutes les configurations et fichiers personnalisés liés à ce preset seront supprimés définitivement",
+            "Tous les autres types de notifications utilisant actuellement ce preset seront également réinitialisés par défaut",
+            "🛑 Cette action est irréversible !"
+        ],
+        deletenewpreseterror: "Impossible de supprimer le preset."
     },
     app: {
         content: {

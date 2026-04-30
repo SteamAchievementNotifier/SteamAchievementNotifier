@@ -143,7 +143,6 @@ export const language = {
                         if (btn.id === "savetheme") return langmap.set(btn.querySelector("span")!,customiser.theme.content.savetheme)
                         if (btn.id.includes("decoration")) return
                         if (btn.parentElement!.id === "posbtns") return langmap.set(btn.querySelector("span")!,customiser[title].content[btn.id])
-                        if (btn.id === "createnewpreset") return langmap.set(btn.querySelector("span")!,global[btn.id])
 
                         btn.parentElement!.querySelector(`span`) && langmap.set(btn.parentElement!.querySelector(`span`)!,btn.id === "preview" ? global.preview : customiser[title].content[btn.id])
                     })
@@ -151,6 +150,9 @@ export const language = {
 
                 const themeselect = customisercontent.querySelector(`#customiseropts > .opt:has(select) > select`)!
                 langmap.set(themeselect.parentElement!.querySelector(`span`)!,customiser.theme.content[themeselect.id])
+
+                const createnewpresetbtn = customisercontent.querySelector(`#customiser button#createnewpreset`)!
+                langmap.set(createnewpresetbtn.querySelector("span")!,global[createnewpresetbtn.id])
             }
 
             langmap.forEach((value,elem) => {

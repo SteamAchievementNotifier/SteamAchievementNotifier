@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Uppdateringar",
         createnewpreset: "Skapa Ny Förinställning",
         createnewpresetplaceholder: "Förinställningens Namn",
-        createnewpreseterror: "Det gick inte att skapa den nya förinställningen. Vänligen kontrollera appens logg för detaljer.",
+        createnewpreseterror: "Det gick inte att skapa en ny förinställning.",
+        applogdetails: "Kontrollera apploggen för mer information.",
         createnewpresetlogo: "Logotyp",
         createnewpresetdecoration: "Dekoration",
         none: "Inget",
         fixed: "Fast",
-        dynamic: "Dynamisk"
+        dynamic: "Dynamisk",
+        deletenewpreset: "Ta bort ny förinställning",
+        deletenewpresetsub: [
+            "Är du säker? Alla konfigurationer och anpassade filer som är kopplade till denna förinställning kommer att raderas permanent",
+            "Alla andra notifieringstyper som för närvarande använder denna förinställning kommer också att återställas till standardvärden",
+            "🛑 Detta kan inte ångras!"
+        ],
+        deletenewpreseterror: "Det gick inte att ta bort förinställningen."
     },
     app: {
         content: {

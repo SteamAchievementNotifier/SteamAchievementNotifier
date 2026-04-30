@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Versiuni",
         createnewpreset: "Creează un Nou Predefinit",
         createnewpresetplaceholder: "Numele Predefinitului",
-        createnewpreseterror: "Nu s-a putut crea noul predefinit. Verifică Jurnalul Aplicației pentru detalii.",
+        createnewpreseterror: "Nu se poate crea un preset nou.",
+        applogdetails: "Vă rugăm să verificați Jurnalul aplicației pentru detalii.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Decorație",
         none: "Niciunul",
         fixed: "Fix",
-        dynamic: "Dinamic"
+        dynamic: "Dinamic",
+        deletenewpreset: "Șterge presetul nou",
+        deletenewpresetsub: [
+            "Ești sigur? Toate configurațiile și fișierele personalizate asociate acestui preset vor fi șterse permanent",
+            "Orice alte tipuri de notificări care folosesc în prezent acest preset vor fi, de asemenea, resetate la valorile implicite",
+            "🛑 Acest lucru nu poate fi anulat!"
+        ],
+        deletenewpreseterror: "Nu se poate șterge presetul."
     },
     app: {
         content: {

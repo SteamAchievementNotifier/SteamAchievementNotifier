@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "Phiên bản phát hành",
         createnewpreset: "Tạo Cài Đặt Mặc Định Mới",
         createnewpresetplaceholder: "Tên Cài Đặt Mặc Định",
-        createnewpreseterror: "Không thể tạo cài đặt mặc định mới. Vui lòng kiểm tra nhật ký ứng dụng để biết chi tiết.",
+        createnewpreseterror: "Không thể tạo preset mới.",
+        applogdetails: "Vui lòng kiểm tra Nhật ký ứng dụng để biết chi tiết.",
         createnewpresetlogo: "Logo",
         createnewpresetdecoration: "Trang trí",
         none: "Không có",
         fixed: "Cố định",
-        dynamic: "Động"
+        dynamic: "Động",
+        deletenewpreset: "Xóa preset mới",
+        deletenewpresetsub: [
+            "Bạn có chắc không? Tất cả cấu hình và tệp tùy chỉnh liên quan đến preset này sẽ bị xóa vĩnh viễn",
+            "Bất kỳ loại thông báo nào khác hiện đang sử dụng preset này cũng sẽ được đặt lại về mặc định",
+            "🛑 Không thể hoàn tác hành động này!"
+        ],
+        deletenewpreseterror: "Không thể xóa preset."
     },
     app: {
         content: {

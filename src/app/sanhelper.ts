@@ -366,7 +366,20 @@ export const sanhelper: SANHelper = {
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
-    usecustomfiles: () => ipcRenderer.send("closeextwin"),
+    usecustomfiles: (value: boolean) => {
+        !value && (async () => {
+            const config = (await import("./config")).sanconfig.get()
+            const { preset } = config.get(`customisation.${sanhelper.type}`) as Customisation
+            
+            // If a `custom<index>` preset is loaded when the option is disabled, reset the current type's preset to "default"
+            if (preset.startsWith("custom")) {
+                config.set(`customisation.${sanhelper.type}.preset`,"default")
+                document.getElementById("customiser") && ipcRenderer.emit("closecustomiser")
+            }
+        })()
+
+        ipcRenderer.send("closeextwin")
+    },
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
     trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {
         // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled
@@ -1125,8 +1138,7 @@ export const sanhelper: SANHelper = {
         const { sanconfig } = await import("./config")
         const config = sanconfig.get()
         const type = sanhelper.type
-        // const defaulticons = config.get("usecustomfiles") ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
-        const { defaulticons } = sanconfig
+        const defaulticons = config.get("usecustomfiles") ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
 
         // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
         ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype]))
@@ -1343,9 +1355,9 @@ export const sanhelper: SANHelper = {
         if (!fs.existsSync(presetspath)) return null
         return { path: presetspath, json: JSON.parse(fs.readFileSync(presetspath).toString()) }
     },
-    getcustomdefaulticons: (defaulticons: Map<string, CustomIcon>) => {
+    getcustomdefaulticons: (defaulticons: Map<string,CustomIcon>) => {
         const presets: { path: string, json: any } | null = sanhelper.presets
-        if (!presets) throw new Error(`Unable to read contents of "presets.json"`)
+        if (!presets || typeof presets.json !== "object") throw new Error(`Unable to read contents of "presets.json"`)
         
         for (const key of Object.keys(presets.json)) {
             if (!defaulticons.has(key)) {

@@ -194,12 +194,20 @@ export const translations = {
         betaghreleases: "การปล่อย",
         createnewpreset: "สร้างการตั้งค่าล่วงหน้าใหม่",
         createnewpresetplaceholder: "ชื่อการตั้งค่าล่วงหน้า",
-        createnewpreseterror: "ไม่สามารถสร้างการตั้งค่าล่วงหน้าใหม่ได้ กรุณาตรวจสอบบันทึกแอปเพื่อดูรายละเอียด",
+        createnewpreseterror: "ไม่สามารถสร้างพรีเซ็ตใหม่ได้",
+        applogdetails: "โปรดตรวจสอบบันทึกแอปสำหรับรายละเอียด",
         createnewpresetlogo: "โลโก้",
         createnewpresetdecoration: "การตกแต่ง",
         none: "ไม่มี",
         fixed: "คงที่",
-        dynamic: "พลศาสตร์"
+        dynamic: "พลศาสตร์",
+        deletenewpreset: "ลบพรีเซ็ตใหม่",
+        deletenewpresetsub: [
+            "คุณแน่ใจหรือไม่? การตั้งค่าและไฟล์ที่กำหนดเองทั้งหมดที่เกี่ยวข้องกับพรีเซ็ตนี้จะถูกลบอย่างถาวร",
+            "ประเภทการแจ้งเตือนอื่น ๆ ที่กำลังใช้พรีเซ็ตนี้อยู่จะถูกรีเซ็ตเป็นค่าเริ่มต้นด้วย",
+            "🛑 ไม่สามารถย้อนกลับการกระทำนี้ได้!"
+        ],
+        deletenewpreseterror: "ไม่สามารถลบพรีเซ็ตได้"
     },
     app: {
         content: {

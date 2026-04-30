@@ -532,6 +532,8 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
                     label: await language.get("ok"),
                     icon: "",
                     click: async () => {
+                        const presetlog = document.querySelector("dialog .addhtml > .wrapper > .wrapper > .presetlog")!
+                        
                         try {
                             const presets: { path: string, json: any } | null = sanhelper.presets
                             if (!presets || typeof presets.json !== "object") throw new Error(`Unable to read contents of "presets.json"`)
@@ -646,7 +648,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
                             dialog.close()
                         } catch (err) {
                             log.write("WARN",`Unable to create new preset: ${(err as Error).message}`)
-                            document.querySelector("dialog .addhtml > .wrapper > .wrapper > .presetlog")!.textContent = `${await language.get("createnewpreseterror")} ${await language.get("applogdetails")}`
+                            presetlog.textContent = `${await language.get("createnewpreseterror")} ${await language.get("applogdetails")}`
                             input.value = ""
                         }
                     }
@@ -714,8 +716,11 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         const deletenewpresetbtn = customiser.querySelector("button#deletenewpreset") as HTMLButtonElement
         deletenewpresetbtn.onclick = async () => {
             const presetselect = customiser.querySelector("select#preset") as HTMLSelectElement
+            const preset = presetselect.value
+            if (!preset) return log.write("ERROR","No preset is selected")
+            
             const corepresets = Array.from(sanconfig.defaulticons.keys())
-            if (corepresets.includes(presetselect.value)) return log.write("WARN",`Unable to delete core preset "${presetselect.value}"`)
+            if (corepresets.includes(preset)) return log.write("WARN",`Unable to delete core preset "${presetselect.value}"`)
             
             dialog.open({
                 title: await language.get("deletenewpreset"),
@@ -728,8 +733,9 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
                     label: await language.get("ok"),
                     icon: sanhelper.setfilepath("icon","delete.svg"),
                     click: async () => {
+                        const presetlog = document.querySelector("dialog .addhtml > .wrapper > .presetlog#delete")!
+                        
                         try {
-                            const preset = presetselect.value
                             if (corepresets.includes(preset)) throw new Error(`Unable to delete core preset "${preset}"`)
                             
                             const presets: { path: string, json: any } | null = sanhelper.presets
@@ -767,7 +773,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
                             dialog.close()
                         } catch (err) {
                             log.write("WARN",`Unable to delete preset: ${(err as Error).message}`)
-                            document.querySelector("dialog .addhtml > .wrapper > .presetlog#delete")!.textContent = `${await language.get("deletenewpreseterror")} ${await language.get("applogdetails")}`
+                            presetlog.textContent = `${await language.get("deletenewpreseterror")} ${await language.get("applogdetails")}`
                         }
                     }
                 }]

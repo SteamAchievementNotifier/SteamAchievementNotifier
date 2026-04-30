@@ -157,6 +157,10 @@ export const usertheme = {
         
         const updatedthemes = userthemes.map(theme => {
             theme.enabled = theme.id === id
+
+            const { usecustomfiles } = config.store            
+            usertheme.validate(theme,usecustomfiles,usecustomfiles ? sanhelper.presets : undefined)
+
             return theme
         })
         
@@ -590,5 +594,24 @@ export const usertheme = {
         }
 
         return { themeswitchcustomisation: customobj, themeswitchsrc: src, enabled: Boolean(themeswitch) }
+    },
+    validate: (theme: UserTheme,usecustomfiles: boolean,presets?: { path: string, json: any } | null) => {
+        const { preset } = theme.customisation
+
+        if (!usecustomfiles) {
+            if (preset.startsWith("custom")) {
+                log.write("WARN",`"usertheme[${theme.id}].customisation.preset" uses non-core "${preset}" preset - resetting to "default"...`)
+                theme.customisation.preset = "default"
+            }
+
+            return
+        }
+
+        if (!presets || typeof presets.json !== "object") return log.write("ERROR",`Error in userthemes Map: Unable to read contents of "presets.json"`)
+        
+        if (!(preset in presets.json)) {
+            log.write("WARN",`"usertheme[${theme.id}].customisation.preset" uses "${preset}" preset which cannot be loaded - resetting to "default"...`)
+            theme.customisation.preset = "default"
+        }
     }
 }

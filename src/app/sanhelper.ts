@@ -1371,5 +1371,25 @@ export const sanhelper: SANHelper = {
         }
 
         return defaulticons
+    },
+    verifypresetsjson: (log: any) => {
+        const customfilesdir = path.join(sanhelper.appdata,"customfiles")
+        const presetsjson = path.join("notify","presets","presets.json")
+        const presetspath = path.join(customfilesdir,presetsjson)
+        
+        try {
+            if (!fs.existsSync(presetspath)) {
+                log.write("WARN",`"presets.json" not found in "${path.join(presetspath,"..")}" - copying...`)
+                
+                const srcpath = path.join(__root,presetsjson)
+                fs.copyFileSync(srcpath,presetspath)
+                
+                log.write("INFO",`Copied "${srcpath}" to "${presetspath}" successfully`)
+            }
+        } catch (err) {
+            log.write("WARN",`Unable to copy missing "presets.json" to "${path.join(presetsjson,"..")}": ${err as Error}`)
+        }
+
+        return fs.existsSync(presetspath)
     }
 }

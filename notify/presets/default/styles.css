@@ -64,6 +64,10 @@
     transform: scale(var(--logoscale));
 }
 
+.wrapper#achiconwrapper:has(#logo) {
+    transform: none;
+}
+
 body[rare]:not([noiconanim]) .wrapper#achiconwrapper:has(#logo),
 body[plat]:not([noiconanim]) .wrapper#achiconwrapper:has(#logo) {
     filter: var(--iconshadow);

@@ -201,15 +201,23 @@ Additionally, any other notification types/saved **Themes** currently referencin
 <details>
     <summary><h3 align="center" id="html">HTML</h3></summary>
 
-Location: `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/custom<number>/index.html`
+> [!INFO]
+> File location: `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/custom<number>/index.html`
 
 Each preset's HTML file contains only a partial HTML structure. Surrounding standard tags - such as `<!DOCTYPE html>`/`<html>`/`<body>` etc. - are specified in `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/base.html`.
 
 Each preset's partial HTML is loaded within `base.html`, which then creates a complete HTML file.
 
-<h4>Tags</h4>
+<h3>Tags, Classes & IDs</h3>
 
-- `<meta width="300" height="50" offset="20">`
+The following tags, classes & IDs are common between all notification presets, and dynamically control the display of the various customisation options available in the **Customiser** menu.
+
+<hr style="height: 1px;"/>
+
+<h4>Dimensions/Placement</h4>
+
+| `<meta width="300" height="50" offset="20">` |
+| - |
 
 The `meta` tag controls the default `width`/`height` values of unscaled notifications - i.e. when **Customiser** > **Presets** > **Scale** is set to **100%**.
 
@@ -217,13 +225,338 @@ An optional `offset` attribute can be specified, which offsets the placement of 
 
 If `offset` is not specified - i.e. `<meta width="300" height="50">` - the notification will use the default `offset` value of `20`.
 
+<hr style="height: 1px;"/>
+
+<h4><code>.wrapper</code> Class</h4>
+
+The `.wrapper` class simply adds `display: grid` to any element using it, which prevents having to assign `display: grid` to each element individually.
+
+<hr style="height: 1px;"/>
+
+<h4>Containers/Background</h4>
+
+| `<div class="wrapper" id="outerwrapper">` |
+| - |
+
+The `div.wrapper#outerwrapper` element is the main container for all other notification content.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Style** > **Glow**
+
+<hr style="height: 1px;"/>
+
+| `<div class="wrapper" id="achcont">` |
+| - |
+
+The `div.wrapper#achcont` element is an inner container for the notification background, icon and text element.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Style** > **Opacity** (when **Style** > **Opacity** > **BG Only** is unchecked)
+
+<hr style="height: 1px;"/>
+
+| `<div class="wrapper" id="bg"></div>` |
+| - |
+
+The `div.wrapper#bg` element displays the chosen **Style** > **Background Style**.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Style** > **Background Style** > **Background Image**/**Game Art** > **Brightness** (when **Style** > **Background Style** > **Background Image**/**Game Art** is selected)
+- **Style** > **Roundness**
+- **Style** > **Opacity** (when **Style** > **Opacity** > **BG Only** is checked)
+- **Style** > **Outline**
+- **Colors** > **Primary Color**
+- **Colors** > **Secondary Color**
+- **Colors** > **Primary Color**
+
+<hr style="height: 1px;"/>
+
+| `<div class="wrapper" id="bg">::after</div>` |
+| - |
+
+The following **Customiser** options are applied to the `div.wrapper#bg` element's inner `::after` element when enabled:
+
+- **Style** > **Background Style** > **Background Image**/**Game Art**
+- **Style** > **Background Style** > **Background Image** > **Use Achievement Icon**
+- **Style** > **Background Style** > **Background Image**/**Game Art** > **Blur**
+
+<hr style="height: 1px;"/>
+
+<h4>Icons</h4>
+
+| `<div class="wrapper" id="achiconwrapper">` |
+| - |
+
+The `div.wrapper#achiconwrapper` element is a container for notification icon elements.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Icons** > **Icon Scale**
+
+<hr style="height: 1px;"/>
+
+| `<div id="iconborder"></div>` |
+| - |
+
+The `div#iconborder` element displays the image(s) selected for **Icons** > **Show Icon Border**.
+
+<hr style="height: 1px;"/>
+
+| `<img src="../img/achicon.png" id="achicon" draggable="false">` |
+| - |
+
+The `img#achicon` element displays the icon of the unlocked achievement.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Icons** > **Icon Scale**
+- **Icons** > **Icon Roundness**
+- **Icons** > **Use Game Icon** (which replaces the unlocked achievement icon)
+- **Icons** > **Use Custom Icon** (which replaces the unlocked achievement icon)
+
+<hr style="height: 1px;"/>
+
+| `<div class="wrapper" id="logo"></div>` |
+| - |
+
+> [!WARNING]
+> If **+ Create New Preset** > **Logo** is set to *None* when creating a new preset, **Logo**-related options will be hidden in the **Customiser** menu.
+
+The `div.wrapper#logo` element displays the image used for the **Icons** > **Logo** option.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Icons** > **Logo Scale**
+- The image used for the **Icons** > **Decoration** option when **Icons** > **Use Decoration** is enabled
+
+<hr style="height: 1px;"/>
+
+<h4>Text</h4>
+
+| `<div class="wrapper" id="achcontent">` |
+| - |
+
+The `div.wrapper#achcontent` element is the container for all text elements.
+
+<hr style="height: 1px;"/>
+
+| `<span id="unlockmsg"></span>` |
+| - |
+
+The `span#unlockmsg` element displays the default "Achievement unlocked" message.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Preset** > **Custom Text**
+- **Preset** > **Custom Text** > **Use Game Title**
+- **Style** > **Font Size**
+- **Style** > **Font Size** > **Use Custom Font Sizes** > **Unlock Message**
+- **Style** > **Text Spacing** (where applicable)
+- **Style** > **Font Color**
+- **Style** > **Font Color** > **Use Custom Font Colors** > **Color 1/2/3** (dependent on position set by **Preset** > **Notification Elements**)
+- **Style** > **Font Outline**
+- **Style** > **Font Shadow**
+
+<hr style="height: 1px;"/>
+
+| `<span id="decoration"></span>` :zap: |
+| - |
+
+> [!WARNING]
+> If **+ Create New Preset** > **Decoration** is set to *None* when creating a new preset, **Decoration**-related options will be hidden in the **Customiser** menu.
+
+> [!INFO]
+> :zap: This element is dynamically inserted as a child of the `span#unlockmsg` element via `.../customfiles/dist/notify/base.js`.
+
+The presence of the `span#decoration` element indicates that a decoration element is active for the current preset and serves only as a CSS target. In most core notification presets, a `::before` psuedo-element within `.wrapper#achcontent` is used to display the **Decoration** image instead:
+
+```css
+.wrapper#achcontent::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    grid-column-start: 1;
+    display: var(--decorationdisplaytype);
+    grid-row-start: var(--decorationindex);
+    background: var(--decoration) center / contain no-repeat;
+    transform: scale(var(--decorationscale));
+    scale: calc(1.75 * var(--fontsize));
+}
+```
+
+This is done in order to support the dynamic positioning controlled by **Customiser** > **Preset** > **Notification Elements** via the `var(--decorationindex)` variable.
+
+Although this element usually appears inline alongside text elements, this behaviour can be overridden:
+
+```css
+.wrapper#achcont:has(span#unlockmsg > span#decoration) #mycustomelement {
+    background: url(var(--decoration)) center / contain no-repeat;
+    ...
+}
+```
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Icons** > **Decoration Scale**
+- **Icons** > **Rarity: \>/\< X%** (when **+ Create New Preset** > **Decoration** is set to **Dynamic** or `...customfiles/notify/presets/custom<number>/defaulticons.json` > `"decoration"` is set to `string[]`)
+
+<hr style="height: 1px;"/>
+
+| `<span id="title"></span>` |
+| - |
+
+The `span#title` element displays the title of the unlocked achievement.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Style** > **Font Size**
+- **Style** > **Font Size** > **Use Custom Font Sizes** > **Title**
+- **Style** > **Text Spacing** (where applicable)
+- **Style** > **Font Color**
+- **Style** > **Font Color** > **Use Custom Font Colors** > **Color 1/2/3** (dependent on position set by **Preset** > **Notification Elements**)
+- **Style** > **Font Outline**
+- **Style** > **Font Shadow**
+
+<hr style="height: 1px;"/>
+
+| `<span id="hiddenicon"></span>` :zap: |
+| - |
+
+> [!INFO]
+> :zap: This element is dynamically inserted as a child of the `span#title` element via `.../customfiles/dist/notify/base.js`.
+
+The `span#hiddenicon` element displays the chosen **Icons** > **Hidden Icon** image when a "hidden"/"secret" achievement is unlocked.
+
+Although this element usually appears inline alongside the `span#title` element, this behaviour can be overridden\*:
+
+```css
+#hiddenicon {
+    display: none;
+}
+
+#mycustomelement {
+    background: url(var(--hiddenicon)) center / contain no-repeat;
+    ...
+}
+```
+
+> [!WARNING]
+> Overriding the default inline position will cause the position set by **Preset** > **Notification Elements** to no longer function.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Icons** > **Show Hidden Icon**
+
+<hr style="height: 1px;"/>
+
+| `<span id="desc"></span>` |
+| - |
+
+The `span#desc` element displays the description of the unlocked achievement.
+
+Additionally, the following **Customiser** options are also applied to this element when enabled:
+
+- **Style** > **Font Size**
+- **Style** > **Font Size** > **Use Custom Font Sizes** > **Description**
+- **Style** > **Text Spacing** (where applicable)
+- **Style** > **Font Color**
+- **Style** > **Font Color** > **Use Custom Font Colors** > **Color 1/2/3** (dependent on position set by **Preset** > **Notification Elements**)
+- **Style** > **Font Outline**
+- **Style** > **Font Shadow**
 
 </details>
 
 <details>
     <summary><h3 align="center" id="css">CSS</h3></summary>
-</details>
 
-<details>
-    <summary><h3 align="center" id="customjs">Custom JS</h3></summary>
+Each customisation option set via the **Customiser** menu is automatically applied to each of the above HTML elements via the following files:
+
+- `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/base.css`
+- `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/dist/notify/base.js`
+
+> [!WARNING]
+> While any changes made to the above files will be reflected in notifications, changes to global CSS variables and/or JS functions/values will affect ALL notification presets while **Settings** > **Advanced** > **Use Custom App Files** is enabled.
+
+All notification presets have access to the following CSS variables:
+
+- `--displaytime`: 
+- `--scale`: 
+- `--gradientangle`: 
+- `--bgimg`: 
+- `--bgimgbrightness`: 
+- `--brightness`: 
+- `--roundness`: 
+- `--fontsize`: 
+- `--opacity`: 
+- `--iconroundness`: 
+- `--primarycolor`: 
+- `--secondarycolor`: 
+- `--tertiarycolor`: 
+- `--fontcolor`: 
+- `--fontoutline`: 
+- `--fontshadow`: 
+- `--logo`: 
+- `--decoration`: 
+- `--decorationdisplaytype`: 
+- `--gs`: 
+- `--unit`: 
+- `--raritycolor`: 
+- `--hiddenicon`: 
+- `--glow`: 
+- `--glowsize`: 
+- `--glowcolor`: 
+- `--glowanim`: 
+- `--glowspeed`: 
+- `--blur`: 
+- `--mask`: 
+- `--outline`: 
+- `--outlinecolor`: 
+- `--outlinewidth`: 
+- `--badgeposx`: 
+- `--badgeposy`: 
+- `--badgecolor`: 
+- `--badgefontcolor`: 
+- `--badgesize`: 
+- `--badgeroundness`: 
+- `--badgeimg`: 
+- `--iconscale`: 
+- `--iconshadowcolor`: 
+- `--iconanimcolor`: 
+- `--logoscale`: 
+- `--decorationscale`: 
+- `--unlockmsgfontsize`: 
+- `--titlefontsize`: 
+- `--descfontsize`: 
+- `--unlockmsgfontcolor`: 
+- `--titlefontcolor`: 
+- `--descfontcolor`: 
+- `--iconborder`: 
+- `--iconborderpos`: 
+- `--iconborderscale`: 
+- `--iconborderx`: 
+- `--iconbordery`: 
+- `--textvspace`: 
+- `--bgstyle`: 
+- `--bgonly`: 
+- `--pos`: 
+- `--ovpos`: 
+
+Additionally, the following attributes are dynamically applied to the notification's `<body>` element:
+
+- `[main]`/`[semi]`/`[rare]`/`[plat]`: 
+- `[topleft]`/`[topcenter]`/`[topright]`/`[bottomleft]`/`[bottomcenter]`/`[bottomright]`: 
+- `[solid]`/`[gradient]`/`[bgimg]`/`[gameart]`: 
+- `[bgonly]`: 
+- `[nodecoration]`: 
+- `[alldetails]`: 
+- `[fastanim]`: 
+- `[ss]`: 
+- `[ssdisplay]`: 
+
+> [!IMPORTANT]
+> CSS variables/attributes may be added/removed as part of future updates. As such, this list may not fully reflect all CSS variables/attributes currently available within the app.
+
 </details>

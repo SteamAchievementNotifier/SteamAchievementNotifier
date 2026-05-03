@@ -520,7 +520,12 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get((config.get("trophymode") ? "trophy" : "") + synced)}`)
 
         const createnewpresetbtn = customiser.querySelector("button#createnewpreset") as HTMLButtonElement
+        
         createnewpresetbtn.onclick = async () => {
+            if (!config.get("usecustomfiles")) return log.write("WARN",`"config.usecustomfiles" not enabled`)
+
+            const { custompresets } = await import("./custompresets")
+
             dialog.open({
                 title: await language.get("createnewpreset"),
                 type: "default",
@@ -531,127 +536,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
                     id: "ok",
                     label: await language.get("ok"),
                     icon: "",
-                    click: async () => {
-                        const presetlog = document.querySelector("dialog .addhtml > .wrapper > .wrapper > .presetlog")!
-                        
-                        try {
-                            const presets: { path: string, json: any } | null = sanhelper.presets
-                            if (!presets || typeof presets.json !== "object") throw new Error(`Unable to read contents of "presets.json"`)
-                            
-                            const existing = new Set(Object.keys(presets.json).map(key => key.match(/^custom(\d+)$/)?.[1]).filter(key => !!key).map(key => Number(key)))
-
-                            let i = 0
-                            while (existing.has(i)) i++
-
-                            const newpresets = {
-                                ...presets.json,
-                                [`custom${i}`]: input.value
-                            }
-
-                            fs.writeFileSync(presets.path,JSON.stringify(newpresets,null,4))
-                            log.write("INFO",`"${presets.path}" updated successfully`)
-
-                            const newpresetdir = path.join(presets.path,"..",`custom${i}`).replace(/\\/g,"/")
-                            if (fs.existsSync(newpresetdir)) throw new Error(`"${newpresetdir}" already exists. Move, rename or delete the existing directory to continue`)
-
-                            fs.mkdirSync(newpresetdir)
-                            log.write("INFO",`"${newpresetdir}" created successfully`)
-
-                            for (const file of ["index.html","styles.css"]) {
-                                const filepath = path.join(__root,"notify","_template",file).replace(/\\/g,"/")
-                                const dest = path.join(newpresetdir,file).replace(/\\/g,"/")
-                                if (!fs.existsSync(filepath)) throw new Error(`"${filepath}" does not exist`)
-                                
-                                fs.copyFileSync(filepath,dest)
-                                log.write("INFO",`"${file}" copied to "${newpresetdir}" successfully`)
-                            }
-
-                            const imgbtns = wrapper.querySelectorAll(`button[id^="createnewpreset"]`)
-                            const defaulticons: CustomIcon = {
-                                logo: null,
-                                decoration: null,
-                                index: {
-                                    percent: 1,
-                                    hiddenicon: 1,
-                                    decoration: 1
-                                } as Index,
-                                elems: ["unlockmsg","title","desc"],
-                                sselems: ["unlockmsg","title","desc"]
-                            }
-
-                            const decorations: string[] = []
-                            const decorationselect = wrapper.querySelector("select#createnewpresetdecoration") as HTMLSelectElement
-                            
-                            const assetsdir = path.join(newpresetdir,"assets").replace(/\\/g,"/")
-
-                            const copyimgtoassets = (ogiconpath: string) => {
-                                try {
-                                    const iconpath = path.join(assetsdir,path.basename(ogiconpath)).replace(/\\/g,"/")
-    
-                                    !fs.existsSync(assetsdir) && fs.mkdirSync(assetsdir,{ recursive: true })
-                                    fs.copyFileSync(ogiconpath,iconpath)
-                                    log.write("INFO",`"${ogiconpath}" copied to "${assetsdir}" successfully`)
-    
-                                    return iconpath
-                                } catch {
-                                    return null
-                                }
-                            }
-
-                            for (const btn of imgbtns) {
-                                const iconvalue = getComputedStyle(btn).getPropertyValue("--icon").match(/url\('([^']+)'\)/)?.[1] || "../../img/sanlogotrophy.svg"
-                                const ogiconpath = (path.isAbsolute(iconvalue) ? iconvalue : sanhelper.setfilepath("img",path.basename(iconvalue))).replace(/\\/g,"/")
-
-                                if (btn.id === "createnewpresetlogoimg") {
-                                    const logoselect = wrapper.querySelector("select#createnewpresetlogo") as HTMLSelectElement
-                                    
-                                    if (logoselect.value !== "none") {
-                                        const iconpath = copyimgtoassets(ogiconpath)
-                                        if (!iconpath) throw new Error(`Unable to copy "${ogiconpath}" to "${assetsdir}"`)
-                                        
-                                        defaulticons.logo = iconpath
-                                    }
-                                    
-                                    continue
-                                }
-
-                                if (!btn.id.startsWith("createnewpresetdecoration") || decorationselect.value === "none") continue
-
-                                if (decorationselect.value === "fixed") {
-                                    if (btn.id === "createnewpresetdecorationimg1") {
-                                        const iconpath = copyimgtoassets(ogiconpath)
-                                        if (!iconpath) throw new Error(`Unable to copy "${ogiconpath}" to "${assetsdir}"`)
-                                        
-                                        defaulticons.decoration = iconpath
-                                    }
-                                    
-                                    continue
-                                }
-
-                                const iconpath = copyimgtoassets(ogiconpath)
-                                if (!iconpath) throw new Error(`Unable to copy "${ogiconpath}" to "${assetsdir}"`)
-                                
-                                const i = parseInt(btn.id.slice(-1)) - 1
-                                decorations[i] = iconpath
-                            }
-
-                            if (decorationselect.value === "dynamic") {
-                                if (!decorations.some(item => !!item)) throw new Error(`No selected decoration images could be assigned`)
-                                defaulticons.decoration = decorations
-                            }
-
-                            const defaulticonsjson = path.join(newpresetdir,"defaulticons.json")
-                            fs.writeFileSync(defaulticonsjson,JSON.stringify(defaulticons,null,4))
-                            log.write("INFO",`"${defaulticonsjson}" created successfully`)
-                            
-                            config.set(`customisation.${sanhelper.type}.preset`,`custom${i}`)
-                            dialog.close()
-                        } catch (err) {
-                            log.write("WARN",`Unable to create new preset: ${(err as Error).message}`)
-                            presetlog.textContent = `${await language.get("createnewpreseterror")} ${await language.get("applogdetails")}`
-                            input.value = ""
-                        }
-                    }
+                    click: async () => await custompresets.create(config,wrapper,input)
                 }]
             })
 
@@ -662,65 +547,24 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
             input.placeholder = await language.get("createnewpresetplaceholder")
 
             const wrapper = document.querySelector("dialog .addhtml > .wrapper") as HTMLElement
-
-            const setokbtnstate = () => {
-                const logoselect = wrapper.querySelector("select#createnewpresetlogo") as HTMLSelectElement
-                const decorationselect = wrapper.querySelector("select#createnewpresetdecoration") as HTMLSelectElement
-                const invalid = [logoselect,decorationselect].every(elem => elem.value === "none")
-
-                for (const elem of [okbtn,logoselect,decorationselect]) {
-                    elem.toggleAttribute("invalid",invalid)
-                }
-
-                sanhelper.settabindex(okbtn,[input.value,!invalid])
-            }
             
-            input.onfocus = setokbtnstate
-            input.onblur = setokbtnstate
-            input.oninput = setokbtnstate
+            input.onfocus = () => custompresets.setokbtnstate(wrapper,input,okbtn)
+            input.onblur = () => custompresets.setokbtnstate(wrapper,input,okbtn)
+            input.oninput = () => custompresets.setokbtnstate(wrapper,input,okbtn)
 
-            for (const id of (["logo","decoration"] as const)) {
-                const elem = wrapper.querySelector(`dialog .addhtml > .wrapper > .opt:has(select#createnewpreset${id})`)
-                
-                if (!elem) {
-                    log.write("ERROR",`"createnewpreset${id}" element not found`)
-                    continue
-                }
-
-                elem.querySelector("span")!.textContent = await language.get(`createnewpreset${id}`)
-
-                for (const opt of elem.querySelectorAll("option")) {
-                    opt.textContent = await language.get(opt.value)
-                }
-
-                const select = elem.querySelector("select") as HTMLSelectElement
-                select.onchange = setokbtnstate
-
-                const imgbtns = elem.querySelectorAll("button") as NodeListOf<HTMLButtonElement>
-                
-                for (const btn of imgbtns) {
-                    btn.onclick = event => {
-                        const target = event.target as HTMLButtonElement
-
-                        ipcRenderer.once("loadfile",(event,path) => {
-                            if (!path) return
-                            target.style.setProperty("--icon",`url('${path[0].replace(/\\/g,"/")}')`)
-                        })
-
-                        ipcRenderer.send("loadfile","img")
-                    }
-                }
-            }
+            await custompresets.createselectelems(wrapper,input,okbtn)
         }
 
         const deletenewpresetbtn = customiser.querySelector("button#deletenewpreset") as HTMLButtonElement
+        
         deletenewpresetbtn.onclick = async () => {
+            if (!config.get("usecustomfiles")) return log.write("WARN",`"config.usecustomfiles" not enabled`)
+
+            const { custompresets } = await import("./custompresets")
+
             const presetselect = customiser.querySelector("select#preset") as HTMLSelectElement
             const preset = presetselect.value
             if (!preset) return log.write("ERROR","No preset is selected")
-            
-            const corepresets = Array.from(sanconfig.defaulticons.keys())
-            if (corepresets.includes(preset)) return log.write("WARN",`Unable to delete core preset "${presetselect.value}"`)
             
             dialog.open({
                 title: await language.get("deletenewpreset"),
@@ -732,50 +576,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
                     id: "ok",
                     label: await language.get("ok"),
                     icon: sanhelper.setfilepath("icon","delete.svg"),
-                    click: async () => {
-                        const presetlog = document.querySelector("dialog .addhtml > .wrapper > .presetlog#delete")!
-                        
-                        try {
-                            if (corepresets.includes(preset)) throw new Error(`Unable to delete core preset "${preset}"`)
-                            
-                            const presets: { path: string, json: any } | null = sanhelper.presets
-                            if (!presets || typeof presets.json !== "object") throw new Error(`Unable to read contents of "presets.json"`)
-
-                            const newpresets = { ...presets.json }
-                            delete newpresets[preset]
-                            
-                            fs.writeFileSync(presets.path,JSON.stringify(newpresets,null,4))
-                            log.write("INFO",`"${preset}" removed from "presets.json" successfully`)
-
-                            const newpresetdir = path.join(sanhelper.appdata,"customfiles","notify","presets",preset).replace(/\\/g,"/")
-                            if (!fs.existsSync(newpresetdir)) throw new Error(`Unable to delete preset dir for "${preset}" - "${newpresetdir}" does not exist`)
-
-                            fs.rmSync(newpresetdir,{ recursive: true, force: true })
-                            log.write("INFO",`"${newpresetdir}" removed successfully`)
-                            
-                            // Reset current type to "default"
-                            config.set(`customisation.${sanhelper.type}.preset`,"default")
-
-                            ;(() => {
-                                // Get a new reference, as the file should now have been updated
-                                const presets: { path: string, json: any } | null = sanhelper.presets
-                                if (!presets || typeof presets.json !== "object") throw new Error(`Unable to read contents of "presets.json"`)
-                                
-                                // Check all other types - if "preset" uses the deleted preset, reset to "default"
-                                for (const type of (["main","semi","rare","plat"] as const)) {
-                                    if (type === sanhelper.type) continue
-                                    
-                                    const preset = config.get(`customisation.${type}.preset`) as string
-                                    preset.startsWith("custom") && !(preset in presets.json) && config.set(`customisation.${type}.preset`,"default")
-                                }
-                            })()
-
-                            dialog.close()
-                        } catch (err) {
-                            log.write("WARN",`Unable to delete preset: ${(err as Error).message}`)
-                            presetlog.textContent = `${await language.get("deletenewpreseterror")} ${await language.get("applogdetails")}`
-                        }
-                    }
+                    click: async () => await custompresets.delete(config,presetselect)
                 }]
             })
         }

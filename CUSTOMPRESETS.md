@@ -169,9 +169,9 @@ Additionally, any other notification types/saved **Themes** currently referencin
 > Most scenarios which reset to the **Default** preset should be logged under **Settings** > **Misc.** > **App Log**.
 
 > [!CAUTION]
-> If you encounter an error in the confirmation dialog while deleting a custom preset, it may be left in a partially-deleted state.
+> If you encounter an error in the confirmation dialog while deleting a custom preset, cleanup logic has been added when creating/deleting custom presets to mitigate scenarios where the custom preset's files and directories may be left in a partially-deleted state.
 > 
-> If this happens, you can manually remove all associated entries/files by doing the following:
+> However, you may still encounter situations where cleanup cannot be fully performed automatically. If this happens, you can manually remove all entries/files/directories associated with the affected custom preset by doing the following:
 > 
 > - Open `<appdatadir>/customfiles/notify/presets/preset.json`
 > - Remove the entry containing the deleted preset - e.g:
@@ -191,7 +191,8 @@ Additionally, any other notification types/saved **Themes** currently referencin
 >   }
 > ```
 > 
-> - Manually delete `<appdatadir>/customfiles/notify/presets/custom<number>`
+> - If present, manually delete `<appdatadir>/customfiles/notify/presets/preset_TEMP.json`
+> - Manually delete the `<appdatadir>/customfiles/notify/presets/custom<number>` directory
 > 
 > Once completed, **Steam Achievement Notifier** should no longer be able to access or display this custom preset, and all previously-associated files will have been deleted.
 </details>
@@ -472,32 +473,281 @@ Additionally, the following **Customiser** options are also applied to this elem
 <details>
     <summary><h3 align="center" id="css">CSS</h3></summary>
 
+> [!INFO]
+> File location: `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/custom<number>/styles.css`
+
 Each customisation option set via the **Customiser** menu is automatically applied to each of the above HTML elements via the following files:
 
-- `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/base.css`
-- `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/dist/notify/base.js`
+- `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/base.css`: The main global CSS rules loaded by all presets, which apply the user's current notification configuration via specific HTML classes, IDs, variables and attributes
+- `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/baseanim.css`: Contains global CSS rules loaded by all presets, which control global animation states - especially HTML classes, IDs variables and attributes relating to Customiser preview and screenshot behaviours
+- `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/dist/notify/base.js`: Transpiled JS generated from `src/notify/base.ts`, which dynamically inserts CSS variables/attributes relevant to the user's current notification configuration into the notification DOM
 
-> [!WARNING]
-> While any changes made to the above files will be reflected in notifications, changes to global CSS variables and/or JS functions/values will affect ALL notification presets while **Settings** > **Advanced** > **Use Custom App Files** is enabled.
+> [!CAUTION]
+> While any changes made to the above files will be reflected in notifications, changes to global CSS variables/attirbutes and/or JS functions/values will affect ALL notification presets while **Settings** > **Advanced** > **Use Custom App Files** is enabled.
+
+<h3>CSS Variables</h3>
 
 All notification presets have access to the following CSS variables:
 
-- `--displaytime`: 
-- `--scale`: 
-- `--gradientangle`: 
-- `--bgimg`: 
-- `--bgimgbrightness`: 
-- `--brightness`: 
-- `--roundness`: 
-- `--fontsize`: 
-- `--opacity`: 
-- `--iconroundness`: 
-- `--primarycolor`: 
-- `--secondarycolor`: 
-- `--tertiarycolor`: 
-- `--fontcolor`: 
-- `--fontoutline`: 
-- `--fontshadow`: 
+<h4>Dimensions</h4>
+
+| `--notifywidth` | `px` |
+| - | - |
+| `--notifyheight` | `px` |
+
+The value of the notification's absolute width/height in `px`, multiplied by the value of **Customiser** > **Presets** > **Scale**, divided by 100:
+
+| `width\|height x (scale / 100)` |
+| - |
+
+<hr style="height: 1px;"/>
+
+<h4>Customiser > Presets</h4>
+
+| `--displaytime` | `number` |
+| - | - |
+
+The value of **Customiser** > **Presets** > **Display Time**.
+
+<hr style="height: 1px;"/>
+
+| `--scale` | `number` |
+| - | - |
+
+The value of **Customiser** > **Presets** > **Scale**, divided by 100.
+
+<hr style="height: 1px;"/>
+
+<h4>Customiser > Presets > Notification Elements > Rarity Badge</h4>
+
+| `--badgeposx` | `px px` |
+| - | - |
+
+Two `calc()` functions used for the `inset-inline` property to calculate the horizontal position of the **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** element.
+
+> [!INFO]
+> The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Horizontal Offset** is added to the above `calc()` functions automatically.
+
+<hr style="height: 1px;"/>
+
+| `--badgeposy` | `px px` |
+| - | - |
+
+Two `calc()` functions used for the `inset-block` property to calculate the vertical position of the **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** element.
+
+> [!INFO]
+> The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Vertical Offset** is added to the above `calc()` functions automatically.
+
+<hr style="height: 1px;"/>
+
+| `--badgecolor` | `hex` |
+| - | - |
+
+The hex code value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Badge Color**, used as the **Rarity Badge**'s background color.
+
+> [!INFO]
+> When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is checked, this value is unused.
+
+<hr style="height: 1px;"/>
+
+| `--badgefontcolor` | `hex` |
+| - | - |
+
+The hex code value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Badge Font Color**, used as the **Rarity Badge**'s font color.
+
+> [!INFO]
+> When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is checked, this value is unused.
+
+<hr style="height: 1px;"/>
+
+| `--badgesize` | `px` |
+| - | - |
+
+The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Badge Size** as `px`, divided by 100.
+
+<hr style="height: 1px;"/>
+
+| `--badgeroundness` | `px` |
+| - | - |
+
+The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Badge Roundness** as `px`, divided by 100.
+
+<hr style="height: 1px;"/>
+
+| `--badgeimg` | `url()` |
+| - | - |
+
+The filepath of an image set under **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon**, wrapped in a `url()` function.
+
+The filepath of image used as the **Rarity Badge** is dynamically inserted based on the rarity value of the unlocked achievement.
+
+> [!INFO]
+> When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is unchecked, this value is unused.
+
+<hr style="height: 1px;"/>
+
+<h4>Customiser > Style</h4>
+
+| `--gradientangle` | `deg` |
+| - | - |
+
+The value of **Customiser** > **Style** > **Background Style** > **Gradient** > **Gradient Angle**.
+
+<hr style="height: 1px;"/>
+
+| `--bgimg` | `url()` |
+| - | - |
+
+The filepath of **Customiser** > **Style** > **Background Style** > **Background Image** > **Background Image**, wrapped in a `url()` function.
+
+<hr style="height: 1px;"/>
+
+| `--bgimgbrightness` | `` |
+| - | - |
+
+
+
+<hr style="height: 1px;"/>
+
+| `--brightness` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--roundness` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--fontsize` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--unlockmsgfontsize` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--titlefontsize` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--descfontsize` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--textvspace` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--opacity` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--outline` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--outlinecolor` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--outlinewidth` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--glow` | `` |
+| - | - | 
+
+<hr style="height: 1px;"/>
+
+| `--glowsize` | `` |
+| - | - | 
+
+<hr style="height: 1px;"/>
+
+| `--glowcolor` | `` |
+| - | - | 
+
+<hr style="height: 1px;"/>
+
+| `--glowanim` | `` |
+| - | - | 
+
+<hr style="height: 1px;"/>
+
+| `--glowspeed` | `` |
+| - | - | 
+
+<hr style="height: 1px;"/>
+
+| `--mask` | `` |
+| - | - | 
+
+<hr style="height: 1px;"/>
+
+<h4>Customiser > Colors</h4>
+
+| `--primarycolor` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--secondarycolor` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--tertiarycolor` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--fontcolor` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--unlockmsgfontcolor` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--titlefontcolor` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--descfontcolor` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--fontoutline` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+| `--fontshadow` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
+<h4>Customiser > Icons</h4>
+
+| `--iconroundness` | `` |
+| - | - |
+
+<hr style="height: 1px;"/>
+
 - `--logo`: 
 - `--decoration`: 
 - `--decorationdisplaytype`: 
@@ -505,40 +755,17 @@ All notification presets have access to the following CSS variables:
 - `--unit`: 
 - `--raritycolor`: 
 - `--hiddenicon`: 
-- `--glow`: 
-- `--glowsize`: 
-- `--glowcolor`: 
-- `--glowanim`: 
-- `--glowspeed`: 
 - `--blur`: 
-- `--mask`: 
-- `--outline`: 
-- `--outlinecolor`: 
-- `--outlinewidth`: 
-- `--badgeposx`: 
-- `--badgeposy`: 
-- `--badgecolor`: 
-- `--badgefontcolor`: 
-- `--badgesize`: 
-- `--badgeroundness`: 
-- `--badgeimg`: 
 - `--iconscale`: 
 - `--iconshadowcolor`: 
 - `--iconanimcolor`: 
 - `--logoscale`: 
 - `--decorationscale`: 
-- `--unlockmsgfontsize`: 
-- `--titlefontsize`: 
-- `--descfontsize`: 
-- `--unlockmsgfontcolor`: 
-- `--titlefontcolor`: 
-- `--descfontcolor`: 
 - `--iconborder`: 
 - `--iconborderpos`: 
 - `--iconborderscale`: 
 - `--iconborderx`: 
 - `--iconbordery`: 
-- `--textvspace`: 
 - `--bgstyle`: 
 - `--bgonly`: 
 - `--pos`: 

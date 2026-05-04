@@ -13,9 +13,9 @@ If so, this guide will provide information on how to create a brand new preset, 
 > 
 > Unless something isn't working as intended, no support will be given via GitHub or Discord for questions regarding how to use and edit HTML/CSS/JS files in general (that's what search engines are for) or how to make something work for your specific custom preset (you'll just need to figure it out yourself).
 
-:information_source: `<appdatadir>` in the below documentation refers to:
-- **Windows**: `C:/Users/%username%/AppData/Local`
-- **Linux**: `~/.local/share`
+> :information_source: `<appdatadir>` in the below documentation refers to:
+> - **Windows**: `C:/Users/%username%/AppData/Local`
+> - **Linux**: `~/.local/share`
 
 <h2 align="center" id="setup">Setup</h2>
 
@@ -24,13 +24,11 @@ If so, this guide will provide information on how to create a brand new preset, 
 
 Starting in **V1.9.39**, a **+ Create New Preset** button will appear under the **Customiser** > **Presets** > **Notification Preset** dropdown.
 
-> [!WARNING]
-> The **+ Create New Preset** button will only be displayed when **Settings** > **Advanced** > **Use Custom App Files** is enabled.
+> :warning: The **+ Create New Preset** button will only be displayed when **Settings** > **Advanced** > **Use Custom App Files** is enabled.
 
 To create a new preset, click the **+ Create New Preset** button. In the dialog that appears, add a **name** for your preset, then select either a **Logo** element, a **Decoration** element or one of each from the associated dropdowns.
 
-> [!INFO]
-> The preset name is used only as a label.
+> :information_source: The preset name is used only as a label.
 > 
 > An internal key will be created for each new custom preset automatically, which will always follow the format `custom<number>` (e.g. `custom0`).
 
@@ -45,15 +43,13 @@ To create a new preset, click the **+ Create New Preset** button. In the dialog 
 
 \***100%**/**Platinum** **Decoration** elements are not dynamic, as no valid rarity value is used for this notification type. As such, this type's **Decoration** image will always be set manually by the user via **Customiser** > **Icons** > **Decoration**.
 
-> [!TIP]
-> You can replace any **Logo**/**Decoration** image(s) with a file of your choice by clicking the image element below the dropdown.
+> :bulb: You can replace any **Logo**/**Decoration** image(s) with a file of your choice by clicking the image element below the dropdown.
 > 
 > This will then open a file select menu where you can choose a custom image file.
 
 Click the **OK** button to create your new custom preset. The preset's files will then be available in `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/custom<number>`.
 
-> [!TIP]
-> If you don't know what `custom<number>` key has been assigned to your created preset, check `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/presets.json`, which will contain an entry for your chosen label next to its `custom<number>` key.
+> :bulb: If you don't know what `custom<number>` key has been assigned to your created preset, check `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/presets.json`, which will contain an entry for your chosen label next to its `custom<number>` key.
 </details>
 
 <details>
@@ -69,7 +65,7 @@ If you change your mind after creating the preset, you can change each of the el
 ```json
 // Before:
 {
-    ...,
+    // ...Other keys/values
     "custom0": "OLD Preset"
 }
 ```
@@ -78,18 +74,17 @@ If you change your mind after creating the preset, you can change each of the el
 ```json
 // After:
 {
-    ...,
+    // ...Other keys/values
     "custom0": "NEW Preset"
 }
 ```
 
-> [!CAUTION]
-> 🛑 \*Do not change the name of the `custom<number>` key itself:
+> :stop: 🛑 \*Do not change the name of the `custom<number>` key itself:
 > 
 > ```json
 > // Before:
 > {
->    ...,
+>    // ...Other keys/values
 >     "custom0": "OLD Preset"
 > }
 > ```
@@ -98,7 +93,7 @@ If you change your mind after creating the preset, you can change each of the el
 > ```json
 > // After:
 > {
->    ...,
+>    // ...Other keys/values
 >     "whydidichangethis": "NEW Preset"
 > }
 > ```
@@ -119,15 +114,13 @@ If you change your mind after creating the preset, you can change each of the el
 - `string`: The full path\* to an image file within the `<appdatadir>/customfiles/notify/presets/custom<number>/assets` directory
 - `string[]`: An ordered array\*\* of full paths to 3 image files present in the `.../custom<number>/assets` directory
 
-> [!WARNING]
-> \*Regardless of platform, all image paths must replace all backslash (`\`) characters with forward slash (`/`) characters instead.
+> :warning: \*Regardless of platform, all image paths must replace all backslash (`\`) characters with forward slash (`/`) characters instead.
 > 
 > e.g: `C:/Users/User/AppData/Local/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/custom0/assets/customicon.png`
 > 
 > This is to ensure the path can be read when loaded via HTML.
 
-> [!WARNING]
-> \*\*Bronze/silver/gold image paths **must appear in order** - e.g.:
+> :warning: \*\*Bronze/silver/gold image paths **must appear in order** - e.g.:
       >       
 > ```json
 > [
@@ -137,8 +130,7 @@ If you change your mind after creating the preset, you can change each of the el
 > ]
 > ```
 
-> [!IMPORTANT] 
-> When manually editing a preset, all images used for **Logo**/**Decoration** elements should be manually copied to the preset's `<appdatadir>/customfiles/notify/presets/custom<number>/assets` directory for consistency.
+> :exclamation: When manually editing a preset, all images used for **Logo**/**Decoration** elements should be manually copied to the preset's `<appdatadir>/customfiles/notify/presets/custom<number>/assets` directory for consistency.
 > 
 > Images set via the **+ Create New Preset** dialog will be copied to this directory automatically.
 </details>
@@ -157,8 +149,7 @@ The preset will then be removed from **Steam Achievement Notifier**, and any fil
 
 Additionally, any other notification types/saved **Themes** currently referencing this now-deleted custom preset will be reset to the **Default** preset\* instead.
 
-> [!INFO]
-> \*If a custom preset is loaded when it shouldn't be, **Steam Achievement Notifier** will fall back to the **Default** preset instead.
+> :information_source: \*If a custom preset is loaded when it shouldn't be, **Steam Achievement Notifier** will fall back to the **Default** preset instead.
 > 
 > Example scenarios:
 > - **Settings** > **Advanced** > **Use Custom App Files** has been disabled while a custom preset is selected
@@ -168,8 +159,7 @@ Additionally, any other notification types/saved **Themes** currently referencin
 > 
 > Most scenarios which reset to the **Default** preset should be logged under **Settings** > **Misc.** > **App Log**.
 
-> [!CAUTION]
-> If you encounter an error in the confirmation dialog while deleting a custom preset, cleanup logic has been added when creating/deleting custom presets to mitigate scenarios where the custom preset's files and directories may be left in a partially-deleted state.
+> :stop: If you encounter an error in the confirmation dialog while deleting a custom preset, cleanup logic has been added when creating/deleting custom presets to mitigate scenarios where the custom preset's files and directories may be left in a partially-deleted state.
 > 
 > However, you may still encounter situations where cleanup cannot be fully performed automatically. If this happens, you can manually remove all entries/files/directories associated with the affected custom preset by doing the following:
 > 
@@ -179,7 +169,7 @@ Additionally, any other notification types/saved **Themes** currently referencin
 > ```json
 >   // Before:
 >   {
->       ...,
+>       // ...Other keys/values
 >       "custom0": "This shouldn't be here"
 >   }
 > ```
@@ -187,7 +177,7 @@ Additionally, any other notification types/saved **Themes** currently referencin
 > ```json
 >   // After:
 >   {
->       ...
+>       // ...Other keys/values
 >   }
 > ```
 > 
@@ -202,8 +192,7 @@ Additionally, any other notification types/saved **Themes** currently referencin
 <details>
     <summary><h3 align="center" id="html">HTML</h3></summary>
 
-> [!INFO]
-> File location: `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/custom<number>/index.html`
+> :information_source: File location: `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/custom<number>/index.html`
 
 Each preset's HTML file contains only a partial HTML structure. Surrounding standard tags - such as `<!DOCTYPE html>`/`<html>`/`<body>` etc. - are specified in `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/base.html`.
 
@@ -323,8 +312,7 @@ Additionally, the following **Customiser** options are also applied to this elem
 | `<div class="wrapper" id="logo"></div>` |
 | - |
 
-> [!WARNING]
-> If **+ Create New Preset** > **Logo** is set to *None* when creating a new preset, **Logo**-related options will be hidden in the **Customiser** menu.
+> :warning: If **+ Create New Preset** > **Logo** is set to *None* when creating a new preset, **Logo**-related options will be hidden in the **Customiser** menu.
 
 The `div.wrapper#logo` element displays the image used for the **Icons** > **Logo** option.
 
@@ -366,10 +354,8 @@ Additionally, the following **Customiser** options are also applied to this elem
 | `<span id="decoration"></span>` :zap: |
 | - |
 
-> [!WARNING]
-> If **+ Create New Preset** > **Decoration** is set to *None* when creating a new preset, **Decoration**-related options will be hidden in the **Customiser** menu.
+> :warning: If **+ Create New Preset** > **Decoration** is set to *None* when creating a new preset, **Decoration**-related options will be hidden in the **Customiser** menu.
 
-> [!INFO]
 > :zap: This element is dynamically inserted as a child of the `span#unlockmsg` element via `.../customfiles/dist/notify/base.js`.
 
 The presence of the `span#decoration` element indicates that a decoration element is active for the current preset and serves only as a CSS target. In most core notification presets, a `::before` psuedo-element within `.wrapper#achcontent` is used to display the **Decoration** image instead:
@@ -426,7 +412,6 @@ Additionally, the following **Customiser** options are also applied to this elem
 | `<span id="hiddenicon"></span>` :zap: |
 | - |
 
-> [!INFO]
 > :zap: This element is dynamically inserted as a child of the `span#title` element via `.../customfiles/dist/notify/base.js`.
 
 The `span#hiddenicon` element displays the chosen **Icons** > **Hidden Icon** image when a "hidden"/"secret" achievement is unlocked.
@@ -444,8 +429,7 @@ Although this element usually appears inline alongside the `span#title` element,
 }
 ```
 
-> [!WARNING]
-> Overriding the default inline position will cause the position set by **Preset** > **Notification Elements** to no longer function.
+> :warning: Overriding the default inline position will cause the position set by **Preset** > **Notification Elements** to no longer function.
 
 Additionally, the following **Customiser** options are also applied to this element when enabled:
 
@@ -473,8 +457,7 @@ Additionally, the following **Customiser** options are also applied to this elem
 <details>
     <summary><h3 align="center" id="css">CSS</h3></summary>
 
-> [!INFO]
-> File location: `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/custom<number>/styles.css`
+> :information_source: File location: `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/presets/custom<number>/styles.css`
 
 Each customisation option set via the **Customiser** menu is automatically applied to each of the above HTML elements via the following files:
 
@@ -482,8 +465,7 @@ Each customisation option set via the **Customiser** menu is automatically appli
 - `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/notify/baseanim.css`: Contains global CSS rules loaded by all presets, which control global animation states - especially HTML classes, IDs variables and attributes relating to Customiser preview and screenshot behaviours
 - `<appdatadir>/Steam Achievement Notifier (V1.9)/customfiles/dist/notify/base.js`: Transpiled JS generated from `src/notify/base.ts`, which dynamically inserts CSS variables/attributes relevant to the user's current notification configuration into the notification DOM
 
-> [!CAUTION]
-> While any changes made to the above files will be reflected in notifications, changes to global CSS variables/attirbutes and/or JS functions/values will affect ALL notification presets while **Settings** > **Advanced** > **Use Custom App Files** is enabled.
+> :stop: While any changes made to the above files will be reflected in notifications, changes to global CSS variables/attirbutes and/or JS functions/values will affect ALL notification presets while **Settings** > **Advanced** > **Use Custom App Files** is enabled.
 
 <h3>CSS Variables</h3>
 
@@ -493,12 +475,21 @@ All notification presets have access to the following CSS variables:
 
 | `--notifywidth` | `px` |
 | - | - |
+
 | `--notifyheight` | `px` |
+| - | - |
 
 The value of the notification's absolute width/height in `px`, multiplied by the value of **Customiser** > **Presets** > **Scale**, divided by 100:
 
 | `width\|height x (scale / 100)` |
 | - |
+
+```css
+.wrapper#outerwrapper {
+    width: var(--notifywidth);
+    height: var(--notifyheight);
+}
+```
 
 <hr style="height: 1px;"/>
 
@@ -509,12 +500,28 @@ The value of the notification's absolute width/height in `px`, multiplied by the
 
 The value of **Customiser** > **Presets** > **Display Time**.
 
+```css
+.wrapper#achcont {
+    --transition: 0.2s;
+    animation:
+        slidein calc(var(--transition) * 2) forwards,
+        slideout calc(var(--transition) * 2) calc(var(--displaytime) - calc(var(--transition) * 2)) forwards;
+}
+```
+
 <hr style="height: 1px;"/>
 
 | `--scale` | `number` |
 | - | - |
 
 The value of **Customiser** > **Presets** > **Scale**, divided by 100.
+
+```css
+.wrapper#achiconwrapper {
+    width: calc(var(--notifyheight) - (10px * var(--scale)));
+    height: calc(var(--notifyheight) - (10px * var(--scale)));
+}
+```
 
 <hr style="height: 1px;"/>
 
@@ -525,8 +532,14 @@ The value of **Customiser** > **Presets** > **Scale**, divided by 100.
 
 Two `calc()` functions used for the `inset-inline` property to calculate the horizontal position of the **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** element.
 
-> [!INFO]
-> The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Horizontal Offset** is added to the above `calc()` functions automatically.
+```css
+#badge {
+    inset-inline: var(--badgeposx);
+}
+
+```
+
+> :information_source: The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Horizontal Offset** is added to the above `calc()` functions automatically.
 
 <hr style="height: 1px;"/>
 
@@ -535,8 +548,14 @@ Two `calc()` functions used for the `inset-inline` property to calculate the hor
 
 Two `calc()` functions used for the `inset-block` property to calculate the vertical position of the **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** element.
 
-> [!INFO]
-> The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Vertical Offset** is added to the above `calc()` functions automatically.
+```css
+#badge {
+    inset-block: var(--badgeposy);
+}
+
+```
+
+> :information_source: The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Vertical Offset** is added to the above `calc()` functions automatically.
 
 <hr style="height: 1px;"/>
 
@@ -545,8 +564,13 @@ Two `calc()` functions used for the `inset-block` property to calculate the vert
 
 The hex code value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Badge Color**, used as the **Rarity Badge**'s background color.
 
-> [!INFO]
-> When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is checked, this value is unused.
+```css
+#badge {
+    background-color: var(--badgecolor);
+}
+```
+
+> :information_source:When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is checked, this value is unused.
 
 <hr style="height: 1px;"/>
 
@@ -555,8 +579,13 @@ The hex code value of **Customiser** > **Presets** > **Notification Elements** >
 
 The hex code value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Badge Font Color**, used as the **Rarity Badge**'s font color.
 
-> [!INFO]
-> When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is checked, this value is unused.
+```css
+#badge {
+    color: var(--badgefontcolor);
+}
+```
+
+> :information_source: When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is checked, this value is unused.
 
 <hr style="height: 1px;"/>
 
@@ -565,6 +594,12 @@ The hex code value of **Customiser** > **Presets** > **Notification Elements** >
 
 The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Badge Size** as `px`, divided by 100.
 
+```css
+#badge:not([badgeimg]) {
+    height: calc(var(--badgesize) * 1.5);
+}
+```
+
 <hr style="height: 1px;"/>
 
 | `--badgeroundness` | `px` |
@@ -572,17 +607,33 @@ The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity
 
 The value of **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Badge Roundness** as `px`, divided by 100.
 
+```css
+#badge {
+    border-radius: var(--badgeroundness);
+}
+```
+
+> :information_source: When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is checked, this value is unused.
+
 <hr style="height: 1px;"/>
 
 | `--badgeimg` | `url()` |
 | - | - |
 
-The filepath of an image set under **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon**, wrapped in a `url()` function.
+The filepath of the rarity-appropriate image set under **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon**, wrapped in a `url()` function.
 
-The filepath of image used as the **Rarity Badge** is dynamically inserted based on the rarity value of the unlocked achievement.
+> :information_source: The image used as the **Rarity Badge** is dynamically inserted based on the rarity value of the unlocked achievement.
 
-> [!INFO]
-> When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is unchecked, this value is unused.
+```css
+#badge[badgeimg] {
+    width: calc(var(--badgesize) * 1.5);
+    height: calc(var(--badgesize) * 1.5);
+    background: var(--badgeimg) center / contain no-repeat;
+    background-color: transparent;
+}
+```
+
+> :information_source: When **Customiser** > **Presets** > **Notification Elements** > **Rarity Badge** > **Use Icon** is unchecked, this value is unused.
 
 <hr style="height: 1px;"/>
 
@@ -593,197 +644,647 @@ The filepath of image used as the **Rarity Badge** is dynamically inserted based
 
 The value of **Customiser** > **Style** > **Background Style** > **Gradient** > **Gradient Angle**.
 
+```css
+body[gradient] .wrapper#bg {
+    background-image: linear-gradient(var(--gradientangle),var(--primarycolor),var(--secondarycolor));
+}
+```
+
 <hr style="height: 1px;"/>
 
 | `--bgimg` | `url()` |
 | - | - |
 
-The filepath of **Customiser** > **Style** > **Background Style** > **Background Image** > **Background Image**, wrapped in a `url()` function.
+The filepath of the image set under **Customiser** > **Style** > **Background Style** > **Background Image** > **Background Image**, wrapped in a `url()` function.
+
+```css
+body[bgimg] .wrapper#bg::after,
+body[gameart] .wrapper#bg::after {
+    background: var(--bgimg) center / cover no-repeat;
+}
+```
 
 <hr style="height: 1px;"/>
 
-| `--bgimgbrightness` | `` |
+| `--bgimgbrightness` | `number` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Background Style** > **Background Image** > **Brightness**.
 
+```css
+body[bgimg] .wrapper#bg {
+    filter: brightness(var(--bgimgbrightness));
+}
+```
 
 <hr style="height: 1px;"/>
 
-| `--brightness` | `` |
+| `--brightness` | `number` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Background Style** > **Game Art** > **Brightness**.
+
+```css
+body[gameart] .wrapper#bg {
+    filter: brightness(var(--brightness));
+}
+```
 <hr style="height: 1px;"/>
 
-| `--roundness` | `` |
+| `--blur` | `px` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Background Style** > **Background Image**/**Game Art** > **Blur** in `px`.
+
+```css
+body[bgimg] .wrapper#bg::after,
+body[gameart] .wrapper#bg::after {
+    filter: blur(var(--blur));
+}
+```
+
 <hr style="height: 1px;"/>
 
-| `--fontsize` | `` |
+| `--roundness` | `px` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Roundness** in `px`.
+
+```css
+.wrapper#bg {
+    border-radius: var(--roundness);
+}
+```
+
 <hr style="height: 1px;"/>
 
-| `--unlockmsgfontsize` | `` |
+| `--fontsize` | `number` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Font Size**, divided by 100.
+
+```css
+#achcontent {
+    font-size: calc(1rem * var(--fontsize));
+}
+```
+
 <hr style="height: 1px;"/>
 
-| `--titlefontsize` | `` |
+| `--unlockmsgfontsize` | `number` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Font Size** > **Use Custom Font Sizes** > **Unlock Message**, divided by 100.
+
+```css
+#achcontent > #unlockmsg {
+    font-size: calc(1rem * var(--unlockmsgfontsize));
+}
+```
+
+> :information_source: When **Customiser** > **Style** > **Font Size** > **Use Custom Font Sizes** is unchecked, this value uses the **Customiser** > **Style** > **Font Size** value instead.
+
 <hr style="height: 1px;"/>
 
-| `--descfontsize` | `` |
+| `--titlefontsize` | `number` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Font Size** > **Use Custom Font Sizes** > **Title**, divided by 100.
+
+```css
+#achcontent > #title {
+    font-size: calc(1rem * var(--titlefontsize));
+}
+```
+
+> :information_source: When **Customiser** > **Style** > **Font Size** > **Use Custom Font Sizes** is unchecked, this value uses the **Customiser** > **Style** > **Font Size** value instead.
+
 <hr style="height: 1px;"/>
 
-| `--textvspace` | `` |
+| `--descfontsize` | `number` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Font Size** > **Use Custom Font Sizes** > **Description**, divided by 100.
+
+```css
+#achcontent > #desc {
+    font-size: calc(1rem * var(--descfontsize));
+}
+```
+
+> :information_source: When **Customiser** > **Style** > **Font Size** > **Use Custom Font Sizes** is unchecked, this value uses the **Customiser** > **Style** > **Font Size** value instead.
+
 <hr style="height: 1px;"/>
 
-| `--opacity` | `` |
+| `--textvspace` | `px` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Text Spacing** in `px`.
+
+```css
+#achcontent > span,
+#header > span {
+    margin-block: calc(((var(--textvspace) * 1px) - 1.5px) * var(--scale));
+}
+```
+
 <hr style="height: 1px;"/>
 
-| `--outline` | `` |
+| `--opacity` | `number` |
 | - | - |
 
+The value of **Customiser** > **Style** > **Opacity**, divided by 100.
+
+```css
+.wrapper#bg {
+    opacity: var(--opacity);
+}
+```
+
 <hr style="height: 1px;"/>
 
-| `--outlinecolor` | `` |
+| `--outline` | `solid \| dashed \| dotted` |
 | - | - |
 
-<hr style="height: 1px;"/>
-
-| `--outlinewidth` | `` |
+| `--outlinecolor` | `hex` |
 | - | - |
 
-<hr style="height: 1px;"/>
+| `--outlinewidth` | `px` |
+| - | - |
 
-| `--glow` | `` |
-| - | - | 
+The values of the **Customiser** > **Style** > **Outline** sub-options:
 
-<hr style="height: 1px;"/>
+- **Outline Type**: `--outline`
+- **Outline Color**: `--outlinecolor`
+- **Outline Width**: `--outlinewidth`
 
-| `--glowsize` | `` |
-| - | - | 
-
-<hr style="height: 1px;"/>
-
-| `--glowcolor` | `` |
-| - | - | 
-
-<hr style="height: 1px;"/>
-
-| `--glowanim` | `` |
-| - | - | 
+```css
+.wrapper#bg {
+    border: var(--outlinewidth) var(--outline) var(--outlinecolor);
+}
+```
 
 <hr style="height: 1px;"/>
 
-| `--glowspeed` | `` |
-| - | - | 
+| `--glow` | `drop-shadow()` |
+| - | - |
+
+| `--glowsize` | `rem` |
+| - | - |
+
+| `--glowcolor` | `hex` |
+| - | - |
+
+| `--glowanim` | `animation` |
+| - | - |
+
+| `--glowspeed` | `number` |
+| - | - |
+
+The values of the **Customiser** > **Style** > **Glow** option (`--glow`), plus its sub-options:
+
+- **Size**: `--glowsize`
+- **Horizontal Offset**: `--glow`
+- **Vertical Offset**: `--glow`
+- **Color**/**Use Rarity**: `--glowcolor`
+- **Animation**: `--glowanim`
+- **Speed**: `--glowspeed`
+
+```css
+body {
+    /* Horizontal/Vertical Offset are appended to `--glow` as `drop-shadow(<HO>px <VO>px)` automatically via `base.ts` */
+    --glow: drop-shadow(0px 0px var(--glowsize) var(--glowcolor));
+    --glowsize: 0.3rem;
+    --glowcolor: #8a2be2;
+    --glowanim: pulse calc(var(--transition) * var(--glowspeed)) linear infinite;
+    --glowspeed: 50;
+}
+
+.wrapper#outerwrapper {
+    --filter: var(--glow);
+    filter: var(--filter);
+    animation: var(--glowanim);
+}
+```
+
+> :information_source: The values of the **Glow** sub-options are calculated and applied automatically via `base.ts`.
 
 <hr style="height: 1px;"/>
 
-| `--mask` | `` |
-| - | - | 
+| `--mask` | `url() center / contain no-repeat` |
+| - | - |
+
+The filepath of the image set under **Customiser** > **Style** > **Background Style** > **Mask** > **Mask Image**, wrapped in a `url() center / contain no-repeat` function and applied to the `body` element.
+
+```css
+body {
+    mask: var(--mask);
+}
+```
 
 <hr style="height: 1px;"/>
 
 <h4>Customiser > Colors</h4>
 
-| `--primarycolor` | `` |
+| `--primarycolor` | `hex` |
 | - | - |
+
+The hex code value of **Customiser** > **Colors** > **Primary Color**.
+
+```css
+body[solid] .wrapper#bg {
+    background-color: var(--primarycolor);
+}
+```
 
 <hr style="height: 1px;"/>
 
-| `--secondarycolor` | `` |
+| `--secondarycolor` | `hex` |
 | - | - |
+
+The hex code value of **Customiser** > **Colors** > **Secondary Color**.
+
+```css
+body[gradient] .wrapper#bg {
+    background-image: linear-gradient(var(--gradientangle),var(--primarycolor),var(--secondarycolor));
+}
+```
 
 <hr style="height: 1px;"/>
 
-| `--tertiarycolor` | `` |
+| `--tertiarycolor` | `hex` |
 | - | - |
+
+The hex code value of **Customiser** > **Colors** > **Tertiary Color**.
+
+```css
+/* PS Modern Preset */
+.wrapper#logo::after {
+    content: "";
+    width: 3rem;
+    height: 3rem;
+    scale: 0;
+    background-color: transparent;
+    outline: calc(1px * var(--scale)) solid var(--tertiarycolor);
+    border-radius: 50%;
+    filter: blur(calc(0.65px * var(--scale)));
+    z-index: -1;
+    animation: expandcircle calc(var(--transition) * 5) calc(var(--displaytime) / 4) linear forwards;
+}
+```
 
 <hr style="height: 1px;"/>
 
-| `--fontcolor` | `` |
+| `--iconshadow`| `drop-shadow()` |
 | - | - |
+
+| `--iconshadowcolor`| `hex` |
+| - | - |
+
+The value of **Customiser** > **Colors** > **Rare Icon Shadow Color**, wrapped in a repeated `drop-shadow()` function.
+
+```css
+/*
+    --iconshadowcolor: #<hex>;
+    --iconshadow: drop-shadow(0 0 0.25rem var(--iconshadowcolor)) drop-shadow(0 0 0.5rem var(--iconshadowcolor));
+*/
+body[rare]:not([noiconanim]) .wrapper#achiconwrapper,
+body[plat]:not([noiconanim]) .wrapper#achiconwrapper {
+    filter: var(--iconshadow);
+}
+```
 
 <hr style="height: 1px;"/>
 
-| `--unlockmsgfontcolor` | `` |
+| `--iconanimcolor`| `hex` |
 | - | - |
+
+| `--iconbefore`| `radial-gradient()` |
+| - | - |
+
+| `--iconafter`| `repeating-conic-gradient()` |
+| - | - |
+
+Two layered animations using the value of **Customiser** > **Colors** > **Rare Icon Animation Color**, wrapped in `radial-gradient()`/`repeating-conic-gradient()` functions.
+
+```css
+/*
+    --iconanimcolor: #<hex>;
+    --iconbefore: radial-gradient(circle,var(--iconanimcolor),transparent);
+    --iconafter: repeating-conic-gradient(var(--iconanimcolor),transparent);
+*/
+
+body[rare]:not([noiconanim]) .wrapper#achiconwrapper::before,
+body[plat]:not([noiconanim]) .wrapper#achiconwrapper::before {
+    background-image: var(--iconbefore);
+    overflow: hidden;
+    z-index: -1;
+    animation: steamrotate calc(var(--anim) * 18) linear infinite reverse;
+}
+
+body[rare]:not([noiconanim]) .wrapper#achiconwrapper::after,
+body[plat]:not([noiconanim]) .wrapper#achiconwrapper::after {
+    animation: steamrotate calc(var(--anim) * 6) linear infinite;
+    mix-blend-mode: overlay;
+    background: var(--iconafter);
+    overflow: hidden;
+    z-index: -1;
+    filter: blur(1rem);
+}
+```
 
 <hr style="height: 1px;"/>
 
-| `--titlefontcolor` | `` |
+| `--fontcolor` | `hex` |
 | - | - |
+
+The hex code value of **Customiser** > **Colors** > **Font Color**.
+
+```css
+#achcontent {
+    color: var(--fontcolor);
+}
+```
 
 <hr style="height: 1px;"/>
 
-| `--descfontcolor` | `` |
+| `--unlockmsgfontcolor` | `hex` |
 | - | - |
+
+The hex code value of **Customiser** > **Colors** > **Font Color** > **Use Custom Font Colors** > **Color 1**.
+
+```css
+#achcontent > #unlockmsg {
+    color: var(--unlockmsgfontcolor);
+}
+```
+
+> :information_source: When **Customiser** > **Colors** > **Font Color** > **Use Custom Font Colors** is unchecked, this value uses the **Customiser** > **Colors** > **Font Color** value instead.
 
 <hr style="height: 1px;"/>
 
-| `--fontoutline` | `` |
+| `--titlefontcolor` | `hex` |
 | - | - |
+
+The hex code value of **Customiser** > **Colors** > **Font Color** > **Use Custom Font Colors** > **Color 2**.
+
+```css
+#achcontent > #title {
+    color: var(--titlefontcolor);
+}
+```
+
+> :information_source: When **Customiser** > **Colors** > **Font Color** > **Use Custom Font Colors** is unchecked, this value uses the **Customiser** > **Colors** > **Font Color** value instead.
 
 <hr style="height: 1px;"/>
 
-| `--fontshadow` | `` |
+| `--descfontcolor` | `hex` |
 | - | - |
+
+The hex code value of **Customiser** > **Colors** > **Font Color** > **Use Custom Font Colors** > **Color 3**.
+
+```css
+#achcontent > #desc {
+    color: var(--descfontcolor);
+}
+```
+
+> :information_source: When **Customiser** > **Colors** > **Font Color** > **Use Custom Font Colors** is unchecked, this value uses the **Customiser** > **Colors** > **Font Color** value instead.
+
+<hr style="height: 1px;"/>
+
+| `--fontoutline` | `px hex` |
+| - | - |
+
+The combined values of the **Customiser** > **Colors** > **Font Outline** sub-options, applied via `-webkit-text-stroke`:
+
+- **Font Outline Color**: `hex`
+- **Font Outline Scale**: `px`
+
+```css
+#achcontent {
+    /* --fontoutline: <scale>px #<color>; */
+    -webkit-text-stroke: var(--fontoutline);
+    paint-order: stroke fill;
+}
+```
+
+<hr style="height: 1px;"/>
+
+| `--fontshadow` | `drop-shadow() hex px px px` |
+| - | - |
+
+The combined values of the **Customiser** > **Colors** > **Font Shadow** sub-options, applied via the `filter: drop-shadow()` function:
+
+- **Font Shadow Color**: `hex`
+- **Font Shadow Scale**: `px`
+- **Horizontal Offset**: `px`
+- **Vertical Offset**: `px`
+
+```css
+#achcontent {
+    /* --fontshadow: drop-shadow(<HO>px <VO>px <scale>px #<color>); */
+    filter: var(--fontshadow);
+}
+```
 
 <hr style="height: 1px;"/>
 
 <h4>Customiser > Icons</h4>
 
-| `--iconroundness` | `` |
+| `--iconscale` | `number` |
 | - | - |
+
+The value of **Customiser** > **Icons** > **Icon Scale**, divided by 100.
+
+```css
+.wrapper#achiconwrapper {
+    transform: scale(var(--iconscale));
+}
+```
 
 <hr style="height: 1px;"/>
 
-- `--logo`: 
-- `--decoration`: 
-- `--decorationdisplaytype`: 
-- `--gs`: 
-- `--unit`: 
-- `--raritycolor`: 
-- `--hiddenicon`: 
-- `--blur`: 
-- `--iconscale`: 
-- `--iconshadowcolor`: 
-- `--iconanimcolor`: 
-- `--logoscale`: 
-- `--decorationscale`: 
-- `--iconborder`: 
-- `--iconborderpos`: 
-- `--iconborderscale`: 
-- `--iconborderx`: 
-- `--iconbordery`: 
-- `--bgstyle`: 
-- `--bgonly`: 
-- `--pos`: 
-- `--ovpos`: 
+| `--iconroundness` | `px` |
+| - | - |
+
+The value of **Customiser** > **Icons** > **Icon Roundness** in `px`.
+
+```css
+#achicon {
+    border-radius: var(--iconroundness);
+}
+```
+
+<hr style="height: 1px;"/>
+
+| `--iconborder` | `url()` |
+| - | - |
+
+| `--iconborderpos` | `number` |
+| - | - |
+
+| `--iconborderscale` | `number` |
+| - | - |
+
+| `--iconborderx` | `px` |
+| - | - |
+
+| `--iconbordery` | `px` |
+| - | - |
+
+The values of the **Customiser** > **Icons** > **Show Icon Border** sub-options:
+
+- **Icon Border**: `--iconborder`
+- **Border Position**: `--iconborderpos`
+- **Border Scale**: `--iconborderscale`
+- **Horizontal Offset**: `--iconborderx`
+- **Vertical Offset**: `--iconbordery`
+
+```css
+#iconborder {
+    /* 
+        --iconborder: url('<filepath>');
+        --iconborderpos: <99 | -1>;
+        --iconborderscale: <scale / 100>;
+        --iconborderx: <HO>px;
+        --iconbordery: <VO>px;
+    */
+    transform: translate(calc(var(--iconborderx) * 1px),calc(var(--iconbordery) * 1px));
+    background: var(--iconborder) center / contain no-repeat;
+    scale: var(--iconborderscale);
+    z-index: var(--iconborderpos);
+}
+```
+
+<hr style="height: 1px;"/>
+
+| `--hiddenicon` | `url()` |
+| - | - |
+
+The filepath of the image set under **Customiser** > **Icons** > **Show Hidden Icon** > **Hidden Icon**, wrapped in a `url()` function.
+
+```css
+#hiddenicon {
+    display: inline-block;
+    width: calc(0.85rem * var(--fontsize));
+    height: calc(0.85rem * var(--fontsize));
+    background: var(--hiddenicon) center / contain no-repeat;
+    margin-right: calc(0.25rem * var(--fontsize));
+    vertical-align: calc(-0.5px * var(--fontsize));
+}
+```
+
+<hr style="height: 1px;"/>
+
+| `--logo` | `url()` |
+| - | - |
+
+The filepath of the image set under **Customiser** > **Icons** > **Logo**, wrapped in a `url()` function.
+
+```css
+/* PS Modern Preset */
+.wrapper#logo::before {
+    content: "";
+    width: 2rem;
+    height: 2rem;
+    background: var(--logo) center / contain no-repeat;
+}
+```
+
+<hr style="height: 1px;"/>
+
+| `--logoscale` | `number` |
+| - | - |
+
+The value of **Customiser** > **Icons** > **Logo Scale**, divided by 100.
+
+```css
+.wrapper#logo {
+    transform: scale(var(--logoscale));
+}
+```
+
+<hr style="height: 1px;"/>
+
+| `--decoration` | `url()` |
+| - | - |
+
+The filepath of the image (or rarity-appropriate image) set under **Customiser** > **Icons** > **Decoration**, wrapped in a `url()` function.
+
+| `--decorationscale` | `number` |
+| - | - |
+
+The value of **Customiser** > **Icons** > **Decoration Scale**, divided by 100.
+
+| `--decorationindex` | `number` |
+| - | - |
+
+The selected index value of **Customiser** > **Preset** > **Notification Elements** > **Decoration**.
+
+```css
+.wrapper#achcontent::before {
+    /* --decorationdisplaytype: block; */
+    content: "";
+    display: var(--decorationdisplaytype);
+    width: 0.5rem;
+    height: 0.5rem;
+    scale: calc(1.75 * var(--fontsize));
+    background: var(--decoration) center / contain no-repeat;
+    grid-column-start: 1;
+    grid-row-start: var(--decorationindex);
+    transform: scale(var(--decorationscale));
+}
+```
+
+> :information_source: When **Decoration** is set to **Dynamic**, the image used as the **Decoration** is dynamically inserted based on the rarity value of the unlocked achievement.
+
+<hr style="height: 1px;"/>
+
+<h4>Misc.</h4>
+
+| `--gs` | `number` |
+| - | - |
+
+Calculates the inverse of the achievement unlock percentage (rounded down to the nearest 5) to use as an XP value for certain presets - e.g. An achievement unlock percentage of `10` would have a `--gs` value of `90`.
+
+`100 - <unlockpercentage> / 5) * 5`
+
+> :information_source: The `--gs` value is reverted to the original achievement unlock percentage value when **Customiser** > **Presets** > **Use Percentage** is checked.
+
+<hr style="height: 1px;"/>
+
+| `--raritycolor` | `#a05526 \| #828282 \| #b4904a` |
+| - | - |
+
+A hardcoded hex code value displaying a color related to the unlock percentage of the achievement.
+
+- Bronze: `#a05526`
+- Silver: `#828282`
+- Gold: `#b4904a`
+
+<hr style="height: 1px;"/>
 
 Additionally, the following attributes are dynamically applied to the notification's `<body>` element:
 
 - `[main]`/`[semi]`/`[rare]`/`[plat]`: 
 - `[topleft]`/`[topcenter]`/`[topright]`/`[bottomleft]`/`[bottomcenter]`/`[bottomright]`: 
+- `[noiconanim]`: 
 - `[solid]`/`[gradient]`/`[bgimg]`/`[gameart]`: 
 - `[bgonly]`: 
+
+```css
+body[bgonly] .wrapper#bg {
+    opacity: var(--opacity);
+}
+```
+
 - `[nodecoration]`: 
 - `[alldetails]`: 
 - `[fastanim]`: 
 - `[ss]`: 
 - `[ssdisplay]`: 
 
-> [!IMPORTANT]
-> CSS variables/attributes may be added/removed as part of future updates. As such, this list may not fully reflect all CSS variables/attributes currently available within the app.
+> :bulb: CSS variables/attributes may be added/removed as part of future updates. As such, this list may not fully reflect all CSS variables/attributes currently available within the app.
 
 </details>

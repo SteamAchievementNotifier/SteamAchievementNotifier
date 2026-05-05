@@ -3,10 +3,10 @@ import { ipcRenderer } from "electron"
 const notifyid = process.argv.find(arg => arg.startsWith("--notifyid="))!.split("=")[1]
 
 ipcRenderer.once(`imgwinready_${notifyid}`, (event,obj: { info: Info, dims: { width: number, height: number, offset: number, scalefactor: number } }) => {
-    const { customisation, iswebview } = obj.info
+    const { customisation, iswebview, customfiles } = obj.info
     const webview = document.querySelector("webview")! as Electron.WebviewTag
 
-    webview.src = "../../notify/base.html"
+    webview.src = customfiles || "../../notify/base.html"
     !iswebview || iswebview === "ss" && (document.querySelector(".menubtn#close") as HTMLButtonElement)!.remove()
 
     const downscale = new Map<string,number>([

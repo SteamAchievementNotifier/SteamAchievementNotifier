@@ -60,6 +60,7 @@ export const custompresets = {
             const defaulticons: CustomIcon = {
                 logo: null,
                 decoration: null,
+                plat: sanhelper.setfilepath("img","ribbon.svg").replace(/\\/g,"/"),
                 index: {
                     percent: 1,
                     hiddenicon: 1,
@@ -116,9 +117,16 @@ export const custompresets = {
                 defaulticons.decoration = decorations
             }
 
+            // Contains originally selected files used for resetting preset images to default
             const defaulticonsjson = path.join(newpresetdir,"defaulticons.json")
             fs.writeFileSync(defaulticonsjson,JSON.stringify(defaulticons,null,4))
             log.write("INFO",`"${defaulticonsjson}" created successfully`)
+            
+            // Used to write to as a "temp config" when new element images are selected via the Customiser
+            // Prevents having to write custom keys to config (and subsequently clean up from multiple places on deletion)
+            const customiconsjson = path.join(newpresetdir,"customicons.json")
+            fs.writeFileSync(customiconsjson,JSON.stringify(defaulticons,null,4))
+            log.write("INFO",`"${customiconsjson}" created successfully`)
 
             fs.copyFileSync(tempjson,presets.path) // Rename `presets_TEMP.json` to `presets.json`
             temppresetsjson = null // Prevent deletion in `catch` block

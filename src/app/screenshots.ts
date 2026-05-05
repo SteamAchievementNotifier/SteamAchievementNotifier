@@ -326,7 +326,7 @@ export const screenshot = {
                     const { usecustomfiles, ssalldetails, screenshots } = config.store
                     const { icon, libhero, logo } = gameartobj
     
-                    const html = fs.readFileSync(path.join(__root,"notify","presets",notify.customisation.preset,"index.html")).toString()
+                    const html = fs.readFileSync(path.join(config.get("usecustomfiles") ? path.join(sanhelper.appdata,"customfiles") : __root,"notify","presets",notify.customisation.preset,"index.html")).toString()
                     if (!html) throw new Error(`Error parsing HTML for "${notify.customisation.preset}" preset`)
     
                     const meta = {
@@ -358,6 +358,11 @@ export const screenshot = {
                         dims.scalefactor = monitor.scaleFactor
     
                         sswin.win.setResizable(false)
+
+                        if (config.get("usecustomfiles")) {
+                            const customicons = sanhelper.getcustomdefaulticons(notify.customisation.customicons,true)
+                            notify.customisation.customicons = Object.fromEntries(customicons)
+                        }
 
                         eventinfo = {
                             info: {

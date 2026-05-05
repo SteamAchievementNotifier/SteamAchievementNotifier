@@ -148,7 +148,7 @@ const resizewebview = () => {
 
 const loadwebview = () => {
     try {
-        (sanhelper.devmode && webview) && webview.closeDevTools()
+        ((sanhelper.devmode || config.get("customiserdebug")) && webview) && webview.closeDevTools()
         pause = false
         document.querySelector("#webviewbtns > #playback")!.toggleAttribute("paused",pause)
     
@@ -376,7 +376,13 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         customiser.querySelectorAll(`#customisercontent .opt > .delbtn`).forEach(btn => (btn as HTMLButtonElement).onclick = async () => {
             const optbtn = btn.parentElement!.querySelector(`.optbtn`) as HTMLButtonElement
             const preset = config.get(`customisation.${type}.preset`) as string
-            const key = `${keypath}.${optbtn.classList.contains("customicon") ? `customicons.${optbtn.id === "plat" ? `plat` : `${config.get(`${keypath}.preset`)}.${(optbtn.id.includes("decoration") && Array.isArray(sanconfig.defaulticons.get(preset)!.decoration)) ? `decoration.${[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1]}` : optbtn.id.replace(/\d/,"")}`}` : optbtn.id}`         
+            const customfiles = config.get("usecustomfiles")
+            const defaulticonsmap: Map<string,CustomIcon> = customfiles ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
+
+            const defaulticons = defaulticonsmap.get(preset)
+            if (!defaulticons) return log.write("WARN",`No default icons found for "${preset}" in ${customfiles ? `"${path.join(sanhelper.appdata,"customfiles","notify","presets",preset,"defaulticons.json").replace(/\\/g,"/")}"` : "config"}`)
+            
+            const key = `${keypath}.${optbtn.classList.contains("customicon") ? `customicons.${optbtn.id === "plat" ? `plat` : `${config.get(`${keypath}.preset`)}.${(optbtn.id.includes("decoration") && Array.isArray(defaulticons.decoration)) ? `decoration.${[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1]}` : optbtn.id.replace(/\d/,"")}`}` : optbtn.id}`         
 
             const customiconkey = (): string => Array.isArray(key) ? key[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1] as string : key as string
             const defaultvalue = (): string => {
@@ -389,13 +395,28 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
                 if (optbtn.id === "customimgicon") return sanhelper.setfilepath("img","sanlogosquare.svg")
                 if (optbtn.id !== "logo" && !optbtn.id.includes("decoration")) return ""
 
-                if (optbtn.id === "logo") return sanconfig.defaulticons.get(preset)!["logo"] as string
-                if (Array.isArray(sanconfig.defaulticons.get(preset)!.decoration)) return sanconfig.defaulticons.get(preset)!.decoration![parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1] as string
+                if (optbtn.id === "logo") return defaulticons["logo"] as string
+                if (Array.isArray(defaulticons.decoration)) return defaulticons.decoration![parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1] as string
 
-                return sanconfig.defaulticons.get(preset)!.decoration as string
+                return defaulticons.decoration as string
             }
             
-            config.set(customiconkey(),defaultvalue())
+            const value = defaultvalue()
+
+            // Write default icon from ".../customfiles/notify/presets/custom<number>/defaulticons.json" back to ".../customfiles/notify/presets/custom<number>/customicons.json"
+            if (customfiles && (optbtn.id === "logo" || optbtn.id.startsWith("decoration")) && preset.startsWith("custom")) {
+                const customiconsmap: Map<string,CustomIcon> = sanhelper.getcustomdefaulticons(config.get(`customisation.${type}.customicons`),true)
+                const customicons = customiconsmap.get(preset)
+                const customiconsjson = path.join(sanhelper.appdata,"customfiles","notify","presets",preset,"customicons.json").replace(/\\/g,"/")
+                if (!customicons) return log.write("WARN",`No custom icons found for "${preset}" in "${customiconsjson}"`)
+                
+                if (optbtn.id.startsWith("decoration")) {
+                    const i = parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1
+                    Array.isArray(customicons.decoration) ? customicons.decoration[i] = value : customicons.decoration = value
+                } else customicons[optbtn.id] = value
+
+                fs.writeFileSync(customiconsjson,JSON.stringify(customicons,null,4))
+            } else config.set(customiconkey(),value)
 
             log.write("INFO",`"${customiconkey()}" reset`)
             sanhelper.updatetabs(optbtn.id === "soundfile" || optbtn.id === "sounddir")
@@ -618,7 +639,7 @@ const resetwin = (attrs: string[], animationName?: string) => {
 const customisebtn = document.getElementById("customise")! as HTMLButtonElement
 
 const closecustomiser = () => {
-    if (sanhelper.devmode && webview) {
+    if ((sanhelper.devmode || config.get("customiserdebug")) && webview) {
         try {
             webview.closeDevTools()
         } catch (err) {
@@ -846,7 +867,7 @@ const sendtestnotify = async () => {
         webview.style.opacity = "1"
         webview.removeEventListener("dom-ready",sendtestnotify)
 
-        sanhelper.devmode && webview.openDevTools()
+        ;(sanhelper.devmode || config.get("customiserdebug")) && webview.openDevTools()
     }
 
     if (window.appid) {

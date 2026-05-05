@@ -951,8 +951,7 @@ export const listeners = {
             }
 
             if (config.get("usecustomfiles")) {
-                const customiconsmap = new Map<string,CustomIcon>(Object.entries(notify.customisation.customicons as { [key: string]: CustomIcon }))
-                const customicons = sanhelper.getcustomdefaulticons(customiconsmap)
+                const customicons = sanhelper.getcustomdefaulticons(notify.customisation.customicons,true)
                 notify.customisation.customicons = Object.fromEntries(customicons)
             }
 

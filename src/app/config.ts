@@ -245,6 +245,7 @@ export const sanconfig = {
                 nvda: false,
                 tooltips: true,
                 notifydebug: false,
+                customiserdebug: false,
                 pollrate: 250,
                 maxretries: 10,
                 initdelay: 0,

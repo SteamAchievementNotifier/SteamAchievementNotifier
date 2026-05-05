@@ -192,7 +192,8 @@ body[trophymode][semi] .opt:has(input#iconborderrarity) {
 #customiseropts:has(.opt > select#preset > option[value="xboxone"]:checked) .opt:has(#usepercent),
 #customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#usepercent),
 .optcont:has(.opt > select#bgstyle > option[value="bgimg"]:checked) > .opt > .opt:has(#blur),
-.optcont:has(.opt > select#bgstyle > option[value="gameart"]:checked) > .opt > .opt:has(#blur) {
+.optcont:has(.opt > select#bgstyle > option[value="gameart"]:checked) > .opt > .opt:has(#blur),
+body[customfiles] #customiser:has(select#preset > option[value^="custom"]:checked) .opt:has(#tertiarycolor) {
     display: grid;
 }
 

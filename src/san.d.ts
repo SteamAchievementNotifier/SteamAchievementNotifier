@@ -68,6 +68,7 @@ declare interface Config {
     nvda: boolean,
     tooltips: boolean,
     notifydebug: boolean,
+    customiserdebug: boolean,
     pollrate: number,
     maxretries: number,
     initdelay: number,

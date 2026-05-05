@@ -1269,7 +1269,6 @@ Additionally, the following attributes are dynamically applied to the notificati
 
 - `[main]`/`[semi]`/`[rare]`/`[plat]`: 
 - `[topleft]`/`[topcenter]`/`[topright]`/`[bottomleft]`/`[bottomcenter]`/`[bottomright]`: 
-- `[noiconanim]`: 
 - `[solid]`/`[gradient]`/`[bgimg]`/`[gameart]`: 
 - `[bgonly]`: 
 
@@ -1279,7 +1278,9 @@ body[bgonly] .wrapper#bg {
 }
 ```
 
-- `[nodecoration]`: 
+- `[nologo]`: 
+- `[nodeco]`: 
+- `[noiconanim]`: 
 - `[alldetails]`: 
 - `[fastanim]`: 
 - `[ss]`: 

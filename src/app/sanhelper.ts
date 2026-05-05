@@ -576,19 +576,48 @@ export const sanhelper: SANHelper = {
     setbtn: async (config: Store<Config>,elem: HTMLButtonElement,keypath?: string) => {
         elem.removeAttribute("novalue")
 
-        const key = config.get((keypath ? `${keypath}.` : "") + elem.id.replace(/\d/,""))
         const type = sanhelper.type
+        let key: any = config.get((keypath ? `${keypath}.` : "") + elem.id.replace(/\d/,""))
+        
+        // "plat" key always exists under `config.customisation[<type>].customicons` and is shared between all presets
+        // Otherwise, when Use Custom App Files is active, get the target icon for the current preset stored in `.../customfiles/notify/presets/custom<number>/customicons.json`
+        if (config.get("usecustomfiles") && elem.id !== "plat" && keypath && keypath.startsWith(`customisation.${type}.customicons`)) {
+            const preset = config.get(`customisation.${type}.preset`) as string
+            const configcustomicons = config.get(`customisation.${type}.customicons`) as { [key: string]: CustomIcon | string }
+            const customiconsmap = sanhelper.getcustomdefaulticons(configcustomicons,true) as Map<string,CustomIcon>
+            const customicons = customiconsmap.get(preset)
+
+            if (customicons) key = customicons[elem.id.replace(/\d/,"") as "logo" | "decoration" | "plat"]
+        }
         
         elem.onclick = () => {
             const attr = ["img","audio","dir","font"].find(attr => elem.hasAttribute(attr))
 
-            ipcRenderer.once("loadfile", (event,path) => {
-                if (!path) return
+            ipcRenderer.once("loadfile",async (event,paths) => {
+                if (!paths) return
+                const value = paths[0].replace(/\\/g,"/")
 
                 const iconkey = ["logo","decoration","plat"].find(id => elem.id.replace(/\d/,"") === id)
                 const newkeypath = (keypath ? `${keypath}.` : "") + (iconkey ? (Array.isArray(config.get((keypath ? `${keypath}.` : "") + iconkey)) ? `${iconkey}.${parseInt(elem.id.replace(/[^\d]/g,"")) - 1}` : iconkey) : elem.id)
 
-                config.set(newkeypath,path[0].replace(/\\/g,"/"))
+                const customfiles = config.get("usecustomfiles")
+                const preset = config.get(`customisation.${type}.preset`) as string
+
+                if (customfiles && (elem.id === "logo" || elem.id.startsWith("decoration")) && preset.startsWith("custom")) {
+                    const { log } = await import("./log")
+                    const customiconsmap: Map<string,CustomIcon> = sanhelper.getcustomdefaulticons(config.get(`customisation.${type}.customicons`),true)
+                    const customicons = customiconsmap.get(preset)
+                    const customiconsjson = path.join(sanhelper.appdata,"customfiles","notify","presets",preset,"customicons.json").replace(/\\/g,"/")
+                    if (!customicons) return log.write("WARN",`No custom icons found for "${preset}" in "${customiconsjson}"`)
+
+                    if (elem.id.startsWith("decoration")) {
+                        const i = parseInt(elem.id.replace(/[^\d]/g,"")) - 1
+                        Array.isArray(customicons.decoration) ? customicons.decoration[i] = value : customicons.decoration = value
+                    } else customicons[elem.id] = value
+
+                    fs.writeFileSync(customiconsjson,JSON.stringify(customicons,null,4))
+                } else config.set(newkeypath,value)
+
                 sanhelper.updatetabs(noreload(elem) !== undefined)
             })
 
@@ -1355,22 +1384,25 @@ export const sanhelper: SANHelper = {
         if (!fs.existsSync(presetspath)) return null
         return { path: presetspath, json: JSON.parse(fs.readFileSync(presetspath).toString()) }
     },
-    getcustomdefaulticons: (defaulticons: Map<string,CustomIcon>) => {
+    getcustomdefaulticons: (icons: Map<string,CustomIcon> | { [key: string]: CustomIcon | string },customicons?: boolean) => {
         const presets: { path: string, json: any } | null = sanhelper.presets
         if (!presets || typeof presets.json !== "object") throw new Error(`Unable to read contents of "presets.json"`)
         
+        if (!(icons instanceof Map)) icons = new Map<string,CustomIcon>(Object.entries(icons).filter(([_,value]) => typeof value === "object") as [string,CustomIcon][])
+        
         for (const key of Object.keys(presets.json)) {
-            if (!defaulticons.has(key)) {
-                const newpresetspath = path.join(presets.path,"..",key)
-                const newpresetdefaulticons = path.join(newpresetspath,"defaulticons.json")
-                if (!fs.existsSync(newpresetdefaulticons)) throw new Error(`"defaulticons.json" does not exist for "${key}" preset in "${newpresetspath}"`)
+            if (!icons.has(key)) {
+                const jsonfile = `${customicons ? "custom" : "default"}icons.json`
+                const newpresetspath = path.join(path.dirname(presets.path),key)
+                const newpreseticons = path.join(newpresetspath,jsonfile)
+                if (!fs.existsSync(newpreseticons)) throw new Error(`"${jsonfile}" does not exist for "${key}" preset in "${newpresetspath}"`)
                 
-                const defaulticonobj = JSON.parse(fs.readFileSync(newpresetdefaulticons).toString())
-                defaulticons.set(key,defaulticonobj)
+                const iconobj = JSON.parse(fs.readFileSync(newpreseticons).toString())
+                icons.set(key,iconobj)
             }
         }
 
-        return defaulticons
+        return icons
     },
     verifypresetsjson: (log: any) => {
         const customfilesdir = path.join(sanhelper.appdata,"customfiles")

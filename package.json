@@ -11,9 +11,7 @@
         "win:beta": "npx tsc --build --clean && npx tsc && electron-builder --win=nsis --x64 --config beta.json",
         "linux": "npx tsc --build --clean && npx tsc && electron-builder --linux",
         "linux:beta": "npx tsc --build --clean && npx tsc && electron-builder --linux --config beta.json",
-        "publish": "npx tsc --build --clean && npx tsc && electron-builder -p always",
-        "publish:beta": "npx tsc --build --clean && npx tsc && electron-builder --config beta.json -p always",
-        "update:beta": "npx tsc && node ./dist/app/_updatebetarevision.js"
+        "publish": "npx tsc --build --clean && npx tsc && electron-builder -p always"
     },
     "repository": {
         "url": "https://github.com/SteamAchievementNotifier/SteamAchievementNotifier"
@@ -25,7 +23,7 @@
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
         "@types/sortablejs": "^1.15.8",
-        "electron": "^41.3.0",
+        "electron": "^41.5.0",
         "electron-builder": "^26.8.1",
         "typescript": "^6.0.2"
     },

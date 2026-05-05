@@ -148,7 +148,7 @@ const resizewebview = () => {
 
 const loadwebview = () => {
     try {
-        ((sanhelper.devmode || config.get("customiserdebug")) && webview) && webview.closeDevTools()
+        sanhelper.devmode && webview && webview.closeDevTools()
         pause = false
         document.querySelector("#webviewbtns > #playback")!.toggleAttribute("paused",pause)
     
@@ -376,47 +376,25 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         customiser.querySelectorAll(`#customisercontent .opt > .delbtn`).forEach(btn => (btn as HTMLButtonElement).onclick = async () => {
             const optbtn = btn.parentElement!.querySelector(`.optbtn`) as HTMLButtonElement
             const preset = config.get(`customisation.${type}.preset`) as string
-            const customfiles = config.get("usecustomfiles")
-            const defaulticonsmap: Map<string,CustomIcon> = customfiles ? sanhelper.getcustomdefaulticons(sanconfig.defaulticons) : sanconfig.defaulticons
-
-            const defaulticons = defaulticonsmap.get(preset)
-            if (!defaulticons) return log.write("WARN",`No default icons found for "${preset}" in ${customfiles ? `"${path.join(sanhelper.appdata,"customfiles","notify","presets",preset,"defaulticons.json").replace(/\\/g,"/")}"` : "config"}`)
-            
-            const key = `${keypath}.${optbtn.classList.contains("customicon") ? `customicons.${optbtn.id === "plat" ? `plat` : `${config.get(`${keypath}.preset`)}.${(optbtn.id.includes("decoration") && Array.isArray(defaulticons.decoration)) ? `decoration.${[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1]}` : optbtn.id.replace(/\d/,"")}`}` : optbtn.id}`         
+            const key = `${keypath}.${optbtn.classList.contains("customicon") ? `customicons.${optbtn.id === "plat" ? `plat` : `${config.get(`${keypath}.preset`)}.${(optbtn.id.includes("decoration") && Array.isArray(sanconfig.defaulticons.get(preset)!.decoration)) ? `decoration.${[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1]}` : optbtn.id.replace(/\d/,"")}`}` : optbtn.id}`         
 
             const customiconkey = (): string => Array.isArray(key) ? key[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1] as string : key as string
             const defaultvalue = (): string => {
                 for (const id of (["","bronze","silver"] as const)) {
                     if (optbtn.id === `iconborderimg${id}`) return sanhelper.setfilepath("img",`saniconborder${id ? `_${id}` : ""}.png`)
                 }
-
                 if (optbtn.id === "plat") return sanhelper.setfilepath("img","ribbon.svg")
                 if (optbtn.id === "maskimg") return sanhelper.setfilepath("img","san_trophy_mask.png")
                 if (optbtn.id === "customimgicon") return sanhelper.setfilepath("img","sanlogosquare.svg")
                 if (optbtn.id !== "logo" && !optbtn.id.includes("decoration")) return ""
 
-                if (optbtn.id === "logo") return defaulticons["logo"] as string
-                if (Array.isArray(defaulticons.decoration)) return defaulticons.decoration![parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1] as string
+                if (optbtn.id === "logo") return sanconfig.defaulticons.get(preset)!["logo"] as string
+                if (Array.isArray(sanconfig.defaulticons.get(preset)!.decoration)) return sanconfig.defaulticons.get(preset)!.decoration![parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1] as string
 
-                return defaulticons.decoration as string
+                return sanconfig.defaulticons.get(preset)!.decoration as string
             }
-            
-            const value = defaultvalue()
 
-            // Write default icon from ".../customfiles/notify/presets/custom<number>/defaulticons.json" back to ".../customfiles/notify/presets/custom<number>/customicons.json"
-            if (customfiles && (optbtn.id === "logo" || optbtn.id.startsWith("decoration")) && preset.startsWith("custom")) {
-                const customiconsmap: Map<string,CustomIcon> = sanhelper.getcustomdefaulticons(config.get(`customisation.${type}.customicons`),true)
-                const customicons = customiconsmap.get(preset)
-                const customiconsjson = path.join(sanhelper.appdata,"customfiles","notify","presets",preset,"customicons.json").replace(/\\/g,"/")
-                if (!customicons) return log.write("WARN",`No custom icons found for "${preset}" in "${customiconsjson}"`)
-                
-                if (optbtn.id.startsWith("decoration")) {
-                    const i = parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1
-                    Array.isArray(customicons.decoration) ? customicons.decoration[i] = value : customicons.decoration = value
-                } else customicons[optbtn.id] = value
-
-                fs.writeFileSync(customiconsjson,JSON.stringify(customicons,null,4))
-            } else config.set(customiconkey(),value)
+            config.set(customiconkey(),defaultvalue())
 
             log.write("INFO",`"${customiconkey()}" reset`)
             sanhelper.updatetabs(optbtn.id === "soundfile" || optbtn.id === "sounddir")
@@ -539,68 +517,6 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
 
         const synclbl = customiser.querySelector(".synclbl")
         synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get((config.get("trophymode") ? "trophy" : "") + synced)}`)
-
-        const createnewpresetbtn = customiser.querySelector("button#createnewpreset") as HTMLButtonElement
-        
-        createnewpresetbtn.onclick = async () => {
-            if (!config.get("usecustomfiles")) return log.write("WARN",`"config.usecustomfiles" not enabled`)
-
-            const { custompresets } = await import("./custompresets")
-
-            dialog.open({
-                title: await language.get("createnewpreset"),
-                type: "default",
-                icon: sanhelper.setfilepath("icon","add.svg"),
-                sub: await language.get("createnewpreset",["tooltips"]),
-                addHTML: path.join(__root,"dist","app","createnewpreset.html"),
-                buttons: [{
-                    id: "ok",
-                    label: await language.get("ok"),
-                    icon: "",
-                    click: async () => await custompresets.create(config,wrapper,input)
-                }]
-            })
-
-            const okbtn = document.querySelector("dialog:has(.addhtml > .wrapper > input#createnewpresetlbl) button#okbtn")! as HTMLButtonElement
-            okbtn.tabIndex = -1
-
-            const input = document.querySelector("dialog .addhtml > .wrapper > input#createnewpresetlbl") as HTMLInputElement
-            input.placeholder = await language.get("createnewpresetplaceholder")
-
-            const wrapper = document.querySelector("dialog .addhtml > .wrapper") as HTMLElement
-            
-            input.onfocus = () => custompresets.setokbtnstate(wrapper,input,okbtn)
-            input.onblur = () => custompresets.setokbtnstate(wrapper,input,okbtn)
-            input.oninput = () => custompresets.setokbtnstate(wrapper,input,okbtn)
-
-            await custompresets.createselectelems(wrapper,input,okbtn)
-        }
-
-        const deletenewpresetbtn = customiser.querySelector("button#deletenewpreset") as HTMLButtonElement
-        
-        deletenewpresetbtn.onclick = async () => {
-            if (!config.get("usecustomfiles")) return log.write("WARN",`"config.usecustomfiles" not enabled`)
-
-            const { custompresets } = await import("./custompresets")
-
-            const presetselect = customiser.querySelector("select#preset") as HTMLSelectElement
-            const preset = presetselect.value
-            if (!preset) return log.write("ERROR","No preset is selected")
-            
-            dialog.open({
-                title: await language.get("deletenewpreset"),
-                type: "default",
-                icon: sanhelper.setfilepath("icon","delete.svg"),
-                sub: await language.get("deletenewpresetsub"),
-                addHTML: `<div class="wrapper"><span class="presetlog" id="delete"></span></div>`,
-                buttons: [{
-                    id: "ok",
-                    label: await language.get("ok"),
-                    icon: sanhelper.setfilepath("icon","delete.svg"),
-                    click: async () => await custompresets.delete(config,presetselect)
-                }]
-            })
-        }
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")
@@ -639,7 +555,7 @@ const resetwin = (attrs: string[], animationName?: string) => {
 const customisebtn = document.getElementById("customise")! as HTMLButtonElement
 
 const closecustomiser = () => {
-    if ((sanhelper.devmode || config.get("customiserdebug")) && webview) {
+    if (sanhelper.devmode && webview) {
         try {
             webview.closeDevTools()
         } catch (err) {
@@ -663,8 +579,6 @@ const closecustomiser = () => {
 
     customisebtn.removeAttribute("active")
 }
-
-ipcRenderer.on("closecustomiser",closecustomiser)
 
 const opencustomiser = () => {
     customisebtn.setAttribute("active","")
@@ -867,7 +781,7 @@ const sendtestnotify = async () => {
         webview.style.opacity = "1"
         webview.removeEventListener("dom-ready",sendtestnotify)
 
-        ;(sanhelper.devmode || config.get("customiserdebug")) && webview.openDevTools()
+        sanhelper.devmode && webview.openDevTools()
     }
 
     if (window.appid) {

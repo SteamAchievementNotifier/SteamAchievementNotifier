@@ -950,11 +950,6 @@ export const listeners = {
                 return
             }
 
-            if (config.get("usecustomfiles")) {
-                const customicons = sanhelper.getcustomdefaulticons(notify.customisation.customicons,true)
-                notify.customisation.customicons = Object.fromEntries(customicons)
-            }
-
             if (!notify.istestnotification && config.get("exportachdata")) {
                 const achdata = path.join(sanhelper.appdata,"achdata.json")
 
@@ -976,14 +971,6 @@ export const listeners = {
 
             // Set all notifications to use the same scaling when Max Notifications > 1
             config.get("notifymax") > 1 && (notify.customisation = { ...notify.customisation, scale: config.get("customisation.main.scale") as number })
-
-            if (config.get("usecustomfiles")) {
-                const presets: { path: string, json: any } | null = sanhelper.presets
-                if (!presets || typeof presets.json !== "object") throw new Error(`Unable to read contents of "presets.json"`)
-                
-                // If `customisation.preset` is not found in "presets.json", fall back to "default"
-                !(notify.customisation.preset in presets.json) && (notify.customisation.preset = "default")
-            }
 
             const { preset } = notify.customisation
 

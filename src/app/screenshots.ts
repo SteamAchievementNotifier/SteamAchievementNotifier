@@ -359,11 +359,6 @@ export const screenshot = {
     
                         sswin.win.setResizable(false)
 
-                        if (config.get("usecustomfiles")) {
-                            const customicons = sanhelper.getcustomdefaulticons(notify.customisation.customicons,true)
-                            notify.customisation.customicons = Object.fromEntries(customicons)
-                        }
-
                         eventinfo = {
                             info: {
                                 info,

@@ -277,14 +277,6 @@ try {
             const ssdisplay = screenshots === "overlay" && customisation.ssdisplay
             document.body.toggleAttribute("ssdisplay",ssdisplay)
             document.body.toggleAttribute("notify1line",notify1line)
-
-            if (customisation.preset.startsWith("custom")) {
-                const customicons = customisation.customicons[customisation.preset] as CustomIcon
-                
-                for (const id of (["logo","decoration"] as const)) {
-                    document.body.toggleAttribute(`no${id.replace("decoration","deco")}`,!!!customicons[id])
-                }
-            }
     
             if (iswebview === "customiser") {
                 document.documentElement.style.scale = `0.${ssdisplay ? "" : 7}5`

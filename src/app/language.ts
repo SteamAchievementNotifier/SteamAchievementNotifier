@@ -150,9 +150,6 @@ export const language = {
 
                 const themeselect = customisercontent.querySelector(`#customiseropts > .opt:has(select) > select`)!
                 langmap.set(themeselect.parentElement!.querySelector(`span`)!,customiser.theme.content[themeselect.id])
-
-                const createnewpresetbtn = customisercontent.querySelector(`#customiser button#createnewpreset`)!
-                langmap.set(createnewpresetbtn.querySelector("span")!,global[createnewpresetbtn.id])
             }
 
             langmap.forEach((value,elem) => {

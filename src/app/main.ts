@@ -21,21 +21,12 @@ export const main = async (starttime: string) => {
     // Validate config on launch
     sanconfig.create(true)
     
-    // Verify `customfiles/notify/presets/presets.json` exists (and copy there if not)
-    const presetsjson = sanhelper.verifypresetsjson(log)
-    log.write(presetsjson ? "INFO" : "WARN",`"presets.json" ${presetsjson ? "verified successfully" : "could not be found"}`)
-    
     const createwin = async () => {
         try {
             // Check Steam is installed
             const steampath = await sanhelper.steampath
             if (!steampath) throw new Error(`Steam installation path not found. Please install Steam before running Steam Achievement Notifier`)
             log.write("INFO",`Steam installation path: ${steampath}`)
-        
-            // // Check "appinfo.vdf" is present in Steam's installation directory
-            // const appinfovdf = path.join(sanhelper.steampath,"appcache","appinfo.vdf").replace(/\\/g,"/")
-            // if (!fs.existsSync(appinfovdf)) throw new Error(`"${appinfovdf}" not found in Steam installation directory. Please ensure the latest version of Steam is installed before running Steam Achievement Notifier`)
-            // log.write("INFO",`"${appinfovdf}" present in Steam installation directory`)
         } catch (err) {
             if (err instanceof Error && err.message) throw err
             throw new Error(`Unable to start Steam Achievement Notifier: ${err}`)

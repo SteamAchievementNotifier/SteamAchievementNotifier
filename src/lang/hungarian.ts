@@ -192,22 +192,7 @@ export const translations = {
             "Köszönjük, hogy tesztelted! 💜"
         ],
         betaghreleases: "Kiadások",
-        createnewpreset: "Új Előbeállítás Létrehozása",
-        createnewpresetplaceholder: "Előbeállítás Neve",
-        createnewpreseterror: "Nem sikerült új presetet létrehozni.",
-        applogdetails: "Kérjük, ellenőrizd az alkalmazás naplóját a részletekért.",
-        createnewpresetlogo: "Logó",
-        createnewpresetdecoration: "Díszítés",
-        none: "Nincs",
-        fixed: "Rögzített",
-        dynamic: "Dinamikus",
-        deletenewpreset: "Új preset törlése",
-        deletenewpresetsub: [
-            "Biztos vagy benne? Az ehhez a presethez kapcsolódó összes konfiguráció és egyéni fájl véglegesen törlésre kerül",
-            "Az összes többi értesítéstípus, amely jelenleg ezt a presetet használja, szintén visszaáll az alapértelmezett beállításokra",
-            "🛑 Ez nem vonható vissza!"
-        ],
-        deletenewpreseterror: "Nem sikerült törölni a presetet."
+        checkapplog: "Kérjük, ellenőrizze az alkalmazás naplóját a részletekért."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Korábbi naplófájlok", 
                 audiocooldown: "Hang-várakozási idő",
                 usecustomfiles: "Egyedi alkalmazásfájlok használata",
-                showcustomfiles: "Egyedi alkalmazásfájlok megjelenítése"
+                showcustomfiles: "Egyedi alkalmazásfájlok megjelenítése",
+                appdatadir: "AppData mappa megjelenítése",
+                backup: "Biztonsági mentés",
+                backuppath: "Mentési útvonal",
+                backupsub: [
+                    "Készítsen biztonsági másolatot az alkalmazás AppData mappájának tartalmáról egy kiválasztott helyre",
+                    "Ez a biztonsági mentés a jelenlegi állapot visszaállítási pontjaként szolgál az alkalmazás számára",
+                    `Bármely korábbi biztonsági mentés visszaállítása a <span class="hl">Beállítások</span> > <span class="hl">Speciális</span> > <span class="hl">Visszaállítás</span> menüpontból`
+                ],
+                backupfailed: "A biztonsági mentés létrehozása sikertelen.",
+                restore: "Visszaállítás",
+                restoresub: [
+                    "Állítsa vissza az alkalmazás AppData mappájának tartalmát egy korábbi biztonsági mentésből",
+                    `Válasszon egy <span class="hl">.sanbak</span> biztonsági mentési fájlt a visszaállításhoz. Ez a fájl megmarad a visszaállítás után`,
+                    "❗ A megerősítés után az alkalmazás újraindul a kiválasztott biztonsági mentési fájl visszaállításához"
+                ],
+                restorefailed: "A biztonsági mentés visszaállítása sikertelen."
             }
         },    
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Korlátozza az összes értesítésben megjelenített szövegsorok számát 1-re<br><br><span class="ttdesc">Azok a szövegek, amelyek nem férnek el egy sorban, "..." jellel lesznek levágva</span>`,
         copytheme: "A kiválasztott téma másolása egy másik értesítési típushoz",
         ssaddtosteam: "A generált média automatikus hozzáadása az aktuális játék Felvételeihez és Képernyőképeihez a Steamen",
-        createnewpreset: "Hozzon létre egy új értesítési előbeállítást egy üres sablon használatával, testreszabott tervek/animációk számára"
+        appdatadir: "Nyissa meg az alkalmazás AppData mappájának helyét",
+        backup: "Készítsen biztonsági másolatot az alkalmazás AppData mappájának tartalmáról egy kiválasztott helyre, amely a jelenlegi állapot visszaállítási pontjaként szolgál",
+        restore: "Állítsa vissza az alkalmazás AppData mappájának tartalmát egy korábbi biztonsági mentésből"
     },
     update: {
         updateavailable: "Frissítés elérhető",

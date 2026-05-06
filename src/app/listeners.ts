@@ -656,7 +656,7 @@ export const listeners = {
 
         ipcMain.on("restart", (event,reason: string) => {
             return new Promise(async (resolve,reject) => {
-                if (reason !== "Reset App confirmed by User") return resolve(reason)
+                if (reason !== "Reset App confirmed by user") return resolve(reason)
                     
                 await new Promise<void>(resolve => {
                     ipcMain.once("clearls", (event,msg) => {
@@ -910,7 +910,8 @@ export const listeners = {
                 ["dir",{ name: await language.get("folder"), extensions: [] }],
                 ["font",{ name: await language.get("font"), extensions: ["ttf","otf","woff","woff2"] }],
                 ["exe",{ name: await language.get("exepath",["linkgame","content"]), extensions: [ process.platform === "win32" ? "exe" : "*" ] }],
-                ["log",{ name: await language.get("logfile",["settings","ra","content"]), extensions: ["log","txt"] }]
+                ["log",{ name: await language.get("logfile",["settings","ra","content"]), extensions: ["log","txt"] }],
+                ["sanbak",{ name: await language.get("backup",["settings","advanced","content"]), extensions: ["sanbak"] }]
             ])
 
             const isfile = filetype !== "dir"

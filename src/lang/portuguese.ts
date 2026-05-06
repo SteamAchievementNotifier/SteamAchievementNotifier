@@ -192,22 +192,7 @@ export const translations = {
             "Obrigado por testar! 💜"
         ],
         betaghreleases: "Lançamentos",
-        createnewpreset: "Criar Novo Predefinido",
-        createnewpresetplaceholder: "Nome do Predefinido",
-        createnewpreseterror: "Não foi possível criar um novo preset.",
-        applogdetails: "Verifique o registro do aplicativo para obter detalhes.",
-        createnewpresetlogo: "Logotipo",
-        createnewpresetdecoration: "Decoração",
-        none: "Nenhum",
-        fixed: "Fixo",
-        dynamic: "Dinâmico",
-        deletenewpreset: "Excluir novo preset",
-        deletenewpresetsub: [
-            "Tem certeza? Todas as configurações e arquivos personalizados relacionados a este preset serão excluídos permanentemente",
-            "Todos os outros tipos de notificação que estão atualmente usando este preset também serão redefinidos para o padrão",
-            "🛑 Isso não pode ser desfeito!"
-        ],
-        deletenewpreseterror: "Não foi possível excluir o preset."
+        checkapplog: "Por favor, verifique o Registo da App para detalhes."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Arquivos de Log Anteriores", 
                 audiocooldown: "Tempo de Espera do Áudio",
                 usecustomfiles: "Utilizar Arquivos Personalizados da Aplicação",
-                showcustomfiles: "Mostrar Arquivos Personalizados da Aplicação"
+                showcustomfiles: "Mostrar Arquivos Personalizados da Aplicação",
+                appdatadir: "Mostrar pasta AppData",
+                backup: "Backup",
+                backuppath: "Caminho do Backup",
+                backupsub: [
+                    "Faça backup do conteúdo da pasta AppData da app para um local à escolha",
+                    "Este backup servirá como ponto de restauração para o estado atual da app",
+                    `Restaure qualquer backup anterior através de <span class="hl">Definições</span> > <span class="hl">Avançadas</span> > <span class="hl">Restaurar</span>`
+                ],
+                backupfailed: "Não foi possível criar o backup.",
+                restore: "Restaurar",
+                restoresub: [
+                    "Restaure o conteúdo da pasta AppData da app a partir de um backup anterior",
+                    `Selecione um ficheiro de backup <span class="hl">.sanbak</span> para restaurar. Este ficheiro será preservado após a restauração`,
+                    "❗ Uma vez confirmado, a app será reiniciada para restaurar o ficheiro de backup selecionado"
+                ],
+                restorefailed: "Não foi possível restaurar o backup."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Limita o número de linhas de texto exibidas em todas as notificações a 1<br><br><span class="ttdesc">Textos que não cabem em uma única linha serão truncados com "..."</span>`,
         copytheme: "Copiar o tema selecionado para outro tipo de notificação",
         ssaddtosteam: "Adicionar automaticamente a mídia gerada às Gravações e Capturas de Tela do jogo atual no Steam",
-        createnewpreset: "Crie um novo predefinido de notificação usando um modelo em branco para designs/animações personalizados"
+        appdatadir: "Abrir a localização da pasta AppData da app",
+        backup: "Faça backup do conteúdo da pasta AppData da app para um local à escolha, que servirá como ponto de restauração para o estado atual da app",
+        restore: "Restaure o conteúdo da pasta AppData da app a partir de um backup anterior"
     },
     update: {
         updateavailable: "Atualização disponível",

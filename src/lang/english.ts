@@ -192,22 +192,7 @@ export const translations = {
             "Thanks for testing! 💜"
         ],
         betaghreleases: "Releases",
-        createnewpreset: "Create New Preset",
-        createnewpresetplaceholder: "Preset Name",
-        createnewpreseterror: "Unable to create new preset.",
-        applogdetails: "Please check the App Log for details.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Decoration",
-        none: "None",
-        fixed: "Fixed",
-        dynamic: "Dynamic",
-        deletenewpreset: "Delete New Preset",
-        deletenewpresetsub: [
-            "Are you sure? All configuration and custom files related to this preset will be permanently deleted",
-            "Any other notification types currently using this preset will also be reset to default",
-            "🛑 This cannot be undone!"
-        ],
-        deletenewpreseterror: "Unable to delete preset."
+        checkapplog: "Please check the App Log for details."
     },
     app: {
         content: {
@@ -349,12 +334,27 @@ export const translations = {
                 debug: "Debug Panel",
                 userust: "Alt. Process Mode",
                 notifydebug: "Show Notification DevTools",
-                customiserdebug: "Show Customiser DevTools",
                 exportachdata: "Export Achievement Data",
                 lognum: "Previous Log Files",
                 audiocooldown: "Audio Cooldown",
                 usecustomfiles: "Use Custom App Files",
-                showcustomfiles: "Show Custom App Files"
+                showcustomfiles: "Show Custom App Files",
+                appdatadir: "Show AppData Folder",
+                backup: "Backup",
+                backuppath: "Backup Path",
+                backupsub: [
+                    "Backup the contents of the app's AppData folder to a chosen location",
+                    "This backup will act as a restore point for the current state of the app",
+                    `Restore any previous backup via <span class="hl">Settings</span> > <span class="hl">Advanced</span> > <span class="hl">Restore</span>`
+                ],
+                backupfailed: "Unable to create backup.",
+                restore: "Restore",
+                restoresub: [
+                    "Restore the contents of the app's AppData folder from a previous backup",
+                    `Select a <span class="hl">.sanbak</span> backup file to restore from. This file will be preserved after the restore is complete`,
+                    "❗ Once confirmed, the app will restart in order to restore the selected backup file"
+                ],
+                restorefailed: "Unable to restore backup."
             }
         },
         ra: {
@@ -658,7 +658,6 @@ export const translations = {
         debug: "Open the Debug Panel, which displays in-depth Process Tracking info",
         userust: "Use an alternative Rust-based function to check whether tracked game processes are currently running on the system. When unchecked, the default Node JS-based process check will be used instead",
         notifydebug: "Create a DevTools window for all notifications. Useful for debugging/troubleshooting notification issues",
-        customiserdebug: "Create a DevTools window for notifications shown in the Customsier menu. Useful for designing or debugging/troubleshooting custom notification presets",
         usecustomfiles: "Enables notifications to load user-customisable files. Caution is advised for regular users",
         showcustomfiles: "Open the location of the custom files",
         log: "Open the App Log window, which displays information about process activity, warnings and errors",
@@ -870,7 +869,9 @@ export const translations = {
         notify1line: `Limit the number of lines of text displayed within all notifications to 1<br><br><span class="ttdesc">Overflowing text strings that cannot fit onto a single line will be truncated with "..."</span>`,
         copytheme: "Copy the selected Theme to another notification type",
         ssaddtosteam: "Automatically add generated media to the current game's Recordings and Screenshots in Steam",
-        createnewpreset: "Create a new notification preset using a blank template for custom designs/animations"
+        appdatadir: "Open the location of the app's AppData folder",
+        backup: "Backup the contents of the app's AppData folder to a chosen location, which will act as a restore point for the current state of the app",
+        restore: "Restore the contents of the app's AppData folder from a previous backup"
     },
     update: {
         updateavailable: "Update available",

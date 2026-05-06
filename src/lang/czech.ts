@@ -192,22 +192,7 @@ export const translations = {
             "Děkujeme za testování! 💜"
         ],
         betaghreleases: "Vydání",
-        createnewpreset: "Vytvořit nový preset",
-        createnewpresetplaceholder: "Název presetu",
-        createnewpreseterror: "Nelze vytvořit nový preset.",
-        applogdetails: "Zkontrolujte prosím protokol aplikace pro více informací.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Dekorace",
-        none: "Žádný",
-        fixed: "Pevný",
-        dynamic: "Dynamický",
-        deletenewpreset: "Smazat nový preset",
-        deletenewpresetsub: [
-            "Jste si jisti? Všechna nastavení a vlastní soubory související s tímto presetem budou trvale smazány",
-            "Všechny ostatní typy oznámení, které aktuálně používají tento preset, budou také resetovány na výchozí hodnoty",
-            "🛑 Tuto akci nelze vrátit zpět!"
-        ],
-        deletenewpreseterror: "Nelze smazat preset."
+        checkapplog: "Zkontrolujte prosím protokol aplikace pro podrobnosti."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Předchozí soubory protokolu", 
                 audiocooldown: "Časový odstup zvuku",
                 usecustomfiles: "Použít vlastní soubory aplikace",
-                showcustomfiles: "Zobrazit vlastní soubory aplikace"
+                showcustomfiles: "Zobrazit vlastní soubory aplikace",
+                appdatadir: "Zobrazit složku AppData",
+                backup: "Záloha",
+                backuppath: "Cesta zálohy",
+                backupsub: [
+                    "Zálohujte obsah složky AppData aplikace do vybraného umístění",
+                    "Tato záloha bude sloužit jako bod obnovení aktuálního stavu aplikace",
+                    `Obnovte jakoukoli předchozí zálohu přes <span class="hl">Nastavení</span> > <span class="hl">Pokročilé</span> > <span class="hl">Obnovit</span>`
+                ],
+                backupfailed: "Nepodařilo se vytvořit zálohu.",
+                restore: "Obnovit",
+                restoresub: [
+                    "Obnovte obsah složky AppData aplikace z předchozí zálohy",
+                    `Vyberte záložní soubor <span class="hl">.sanbak</span> pro obnovení. Tento soubor bude zachován po dokončení obnovení`,
+                    "❗ Po potvrzení se aplikace restartuje, aby obnovila vybraný záložní soubor"
+                ],
+                restorefailed: "Nepodařilo se obnovit zálohu."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Omezit počet řádků textu zobrazovaných ve všech oznámeních na 1<br><br><span class="ttdesc">Přetékající textové řetězce, které se nevejdou na jeden řádek, budou zkráceny pomocí "..."</span>`,
         copytheme: "Zkopírovat vybraný motiv do jiného typu oznámení",
         ssaddtosteam: "Automaticky přidat vygenerovaná média do záznamů a snímků obrazovky aktuální hry ve Steam",
-        createnewpreset: "Vytvořit nový preset oznámení pomocí prázdné šablony pro vlastní návrhy/animace"
+        appdatadir: "Otevřít umístění složky AppData aplikace",
+        backup: "Zálohujte obsah složky AppData aplikace do vybraného umístění, které bude sloužit jako bod obnovení aktuálního stavu aplikace",
+        restore: "Obnovte obsah složky AppData aplikace z předchozí zálohy"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

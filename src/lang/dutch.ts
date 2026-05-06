@@ -192,22 +192,7 @@ export const translations = {
             "Bedankt voor het testen! 💜"
         ],
         betaghreleases: "Releases",
-        createnewpreset: "Nieuwe preset maken",
-        createnewpresetplaceholder: "Presetnaam",
-        createnewpreseterror: "Kan geen nieuwe preset maken.",
-        applogdetails: "Controleer het applogboek voor details.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Decoratie",
-        none: "Geen",
-        fixed: "Vast",
-        dynamic: "Dynamisch",
-        deletenewpreset: "Nieuwe preset verwijderen",
-        deletenewpresetsub: [
-            "Weet je het zeker? Alle configuraties en aangepaste bestanden die bij deze preset horen, worden permanent verwijderd",
-            "Alle andere meldingstypen die momenteel deze preset gebruiken, worden ook teruggezet naar de standaardinstellingen",
-            "🛑 Dit kan niet ongedaan worden gemaakt!"
-        ],
-        deletenewpreseterror: "Kan de preset niet verwijderen."
+        checkapplog: "Controleer het App-logboek voor details."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Vorige logbestanden", 
                 audiocooldown: "Audio-wachttijd",
                 usecustomfiles: "Aangepaste App-bestanden Gebruiken",
-                showcustomfiles: "Aangepaste App-bestanden Weergeven"
+                showcustomfiles: "Aangepaste App-bestanden Weergeven",
+                appdatadir: "Toon AppData-map",
+                backup: "Back-up",
+                backuppath: "Back-up pad",
+                backupsub: [
+                    "Maak een back-up van de inhoud van de AppData-map van de app naar een gekozen locatie",
+                    "Deze back-up fungeert als herstelpunt voor de huidige staat van de app",
+                    `Herstel een eerdere back-up via <span class="hl">Instellingen</span> > <span class="hl">Geavanceerd</span> > <span class="hl">Herstellen</span>`
+                ],
+                backupfailed: "Kan back-up niet maken.",
+                restore: "Herstellen",
+                restoresub: [
+                    "Herstel de inhoud van de AppData-map van de app vanuit een eerdere back-up",
+                    `Selecteer een <span class="hl">.sanbak</span> back-upbestand om van te herstellen. Dit bestand wordt bewaard na voltooiing van het herstel`,
+                    "❗ Na bevestiging wordt de app opnieuw gestart om het geselecteerde back-upbestand te herstellen"
+                ],
+                restorefailed: "Kan back-up niet herstellen."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Beperk het aantal tekstregels dat wordt weergegeven in alle meldingen tot 1<br><br><span class="ttdesc">Overlopende tekst die niet op één regel past, wordt afgekapt met "..."</span>`,
         copytheme: "Kopieer het geselecteerde thema naar een ander meldingstype",
         ssaddtosteam: "Automatisch gegenereerde media toevoegen aan de Opnamen en Screenshots van de huidige game in Steam",
-        createnewpreset: "Maak een nieuwe meldingspreset met een lege sjabloon voor aangepaste ontwerpen/animaties"
+        appdatadir: "Open de locatie van de AppData-map van de app",
+        backup: "Maak een back-up van de inhoud van de AppData-map van de app naar een gekozen locatie, die fungeert als herstelpunt voor de huidige staat van de app",
+        restore: "Herstel de inhoud van de AppData-map van de app vanuit een eerdere back-up"
     },
     update: {
         updateavailable: "Update beschikbaar",

@@ -192,22 +192,7 @@ export const translations = {
             "Cảm ơn bạn đã thử nghiệm! 💜"
         ],
         betaghreleases: "Phiên bản phát hành",
-        createnewpreset: "Tạo Cài Đặt Mặc Định Mới",
-        createnewpresetplaceholder: "Tên Cài Đặt Mặc Định",
-        createnewpreseterror: "Không thể tạo preset mới.",
-        applogdetails: "Vui lòng kiểm tra Nhật ký ứng dụng để biết chi tiết.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Trang trí",
-        none: "Không có",
-        fixed: "Cố định",
-        dynamic: "Động",
-        deletenewpreset: "Xóa preset mới",
-        deletenewpresetsub: [
-            "Bạn có chắc không? Tất cả cấu hình và tệp tùy chỉnh liên quan đến preset này sẽ bị xóa vĩnh viễn",
-            "Bất kỳ loại thông báo nào khác hiện đang sử dụng preset này cũng sẽ được đặt lại về mặc định",
-            "🛑 Không thể hoàn tác hành động này!"
-        ],
-        deletenewpreseterror: "Không thể xóa preset."
+        checkapplog: "Vui lòng kiểm tra Nhật ký Ứng dụng để biết chi tiết."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Tệp nhật ký trước đó", 
                 audiocooldown: "Thời gian chờ âm thanh",
                 usecustomfiles: "Sử dụng tập tin ứng dụng tùy chỉnh",
-                showcustomfiles: "Hiển thị tập tin ứng dụng tùy chỉnh"
+                showcustomfiles: "Hiển thị tập tin ứng dụng tùy chỉnh",
+                appdatadir: "Hiển thị Thư mục AppData",
+                backup: "Sao lưu",
+                backuppath: "Đường dẫn sao lưu",
+                backupsub: [
+                    "Sao lưu nội dung thư mục AppData của ứng dụng đến vị trí đã chọn",
+                    "Bản sao lưu này sẽ hoạt động như điểm khôi phục cho trạng thái hiện tại của ứng dụng",
+                    `Khôi phục bất kỳ bản sao lưu trước đó nào thông qua <span class="hl">Cài đặt</span> > <span class="hl">Nâng cao</span> > <span class="hl">Khôi phục</span>`
+                ],
+                backupfailed: "Không thể tạo bản sao lưu.",
+                restore: "Khôi phục",
+                restoresub: [
+                    "Khôi phục nội dung thư mục AppData của ứng dụng từ bản sao lưu trước đó",
+                    `Chọn một tệp sao lưu <span class="hl">.sanbak</span> để khôi phục. Tệp này sẽ được giữ nguyên sau khi khôi phục hoàn tất`,
+                    "❗ Sau khi xác nhận, ứng dụng sẽ khởi động lại để khôi phục tệp sao lưu đã chọn"
+                ],
+                restorefailed: "Không thể khôi phục bản sao lưu."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Giới hạn số dòng văn bản hiển thị trong tất cả thông báo xuống 1<br><br><span class="ttdesc">Các chuỗi văn bản không thể vừa trong một dòng sẽ bị cắt ngắn bằng "..."</span>`,
         copytheme: "Sao chép giao diện đã chọn sang loại thông báo khác",
         ssaddtosteam: "Tự động thêm phương tiện đã tạo vào Bản ghi và Ảnh chụp màn hình của trò chơi hiện tại trong Steam",
-        createnewpreset: "Tạo một cài đặt mặc định thông báo mới bằng cách sử dụng mẫu trống cho thiết kế/hoạt ảnh tùy chỉnh"
+        appdatadir: "Mở vị trí thư mục AppData của ứng dụng",
+        backup: "Sao lưu nội dung thư mục AppData của ứng dụng đến vị trí đã chọn, sẽ hoạt động như điểm khôi phục cho trạng thái hiện tại của ứng dụng",
+        restore: "Khôi phục nội dung thư mục AppData của ứng dụng từ bản sao lưu trước đó"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

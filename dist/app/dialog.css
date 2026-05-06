@@ -1340,6 +1340,61 @@ body[beta] dialog[default] .contentwrapper:has(.btnwrapper > #betaexitbtn) .cont
     background-color: var(--primary);
 }
 
+dialog .opt:has(> button.optbtn#backuppath,> button.optbtn#restorepath) > button {
+    background-color: var(--mediumgrey);
+}
+
+dialog .opt:has(> button.optbtn#backuppath,> button.optbtn#restorepath) > button:hover {
+    background-color: var(--lightgrey);
+}
+
+button.optbtn#restorepath:empty {
+    border: 0.1rem solid red;
+}
+
+.wrapper#contentcontainer:has(button.optbtn#restorepath:empty) + .btnwrapper > #okbtn {
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+.addhtml:has(#backuprestorelog:empty) #backuprestorelog {
+    margin-top: 0;
+}
+
+#backuprestorelog {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: red;
+    margin-top: 0.25rem;
+}
+
+.contentsub:has(.addhtml[backup]) {
+    position: relative;
+}
+
+.contentsub:has(.addhtml[backup]),
+.wrapper#contentcontainer:has(.addhtml[backup]) + .btnwrapper > #okbtn {
+    filter: brightness(0.75);
+    pointer-events: none;
+}
+
+.contentsub:has(.addhtml[backup])::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 50%;
+    height: 50%;
+    background: url("../../icon/reset.svg") center / contain no-repeat;
+    animation: spin 1s infinite;
+}
+
+@keyframes spin {
+    to { rotate: 360deg; }
+}
+
 @media (orientation: portrait) {
     dialog[default] > #content {
         width: 75%;

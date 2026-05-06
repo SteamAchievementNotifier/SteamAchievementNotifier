@@ -192,22 +192,7 @@ export const translations = {
             "Danke fürs Testen! 💜"
         ],
         betaghreleases: "Releases",
-        createnewpreset: "Neues Preset erstellen",
-        createnewpresetplaceholder: "Preset-Name",
-        createnewpreseterror: "Neues Preset konnte nicht erstellt werden.",
-        applogdetails: "Bitte überprüfe das App-Protokoll für Details.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Dekoration",
-        none: "Keine",
-        fixed: "Fest",
-        dynamic: "Dynamisch",
-        deletenewpreset: "Neues Preset löschen",
-        deletenewpresetsub: [
-            "Bist du sicher? Alle Konfigurations- und benutzerdefinierten Dateien, die mit diesem Preset verbunden sind, werden dauerhaft gelöscht",
-            "Alle anderen Benachrichtigungstypen, die derzeit dieses Preset verwenden, werden ebenfalls auf die Standardeinstellungen zurückgesetzt",
-            "🛑 Dies kann nicht rückgängig gemacht werden!"
-        ],
-        deletenewpreseterror: "Preset konnte nicht gelöscht werden."
+        checkapplog: "Bitte prüfen Sie das App-Protokoll für weitere Details."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Vorherige Protokolldateien", 
                 audiocooldown: "Audio-Abklingzeit",
                 usecustomfiles: "Benutzerdefinierte App-Dateien Verwenden",
-                showcustomfiles: "Benutzerdefinierte App-Dateien Anzeigen"
+                showcustomfiles: "Benutzerdefinierte App-Dateien Anzeigen",
+                appdatadir: "AppData-Ordner anzeigen",
+                backup: "Sicherung",
+                backuppath: "Sicherungspfad",
+                backupsub: [
+                    "Sichern Sie den Inhalt des AppData-Ordners der App an einem ausgewählten Ort",
+                    "Diese Sicherung dient als Wiederherstellungspunkt für den aktuellen Zustand der App",
+                    `Stellen Sie eine vorherige Sicherung über <span class="hl">Einstellungen</span> > <span class="hl">Erweitert</span> > <span class="hl">Wiederherstellen</span> wieder her`
+                ],
+                backupfailed: "Sicherung konnte nicht erstellt werden.",
+                restore: "Wiederherstellen",
+                restoresub: [
+                    "Stellen Sie den Inhalt des AppData-Ordners der App aus einer vorherigen Sicherung wieder her",
+                    `Wählen Sie eine <span class="hl">.sanbak</span>-Sicherungsdatei zur Wiederherstellung aus. Diese Datei bleibt nach Abschluss der Wiederherstellung erhalten`,
+                    "❗ Nach Bestätigung wird die App neu gestartet, um die ausgewählte Sicherungsdatei wiederherzustellen"
+                ],
+                restorefailed: "Sicherung konnte nicht wiederhergestellt werden."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Die Anzahl der in allen Benachrichtigungen angezeigten Textzeilen auf 1 begrenzen<br><br><span class="ttdesc">Überlaufende Textzeichenfolgen, die nicht in eine einzelne Zeile passen, werden mit "..." gekürzt</span>`,
         copytheme: "Das ausgewählte Design in einen anderen Benachrichtigungstyp kopieren",
         ssaddtosteam: "Generierte Medien automatisch zu den Aufnahmen und Screenshots des aktuellen Spiels in Steam hinzufügen",
-        createnewpreset: "Erstellen Sie ein neues Benachrichtigungs-Preset mit einer leeren Vorlage für benutzerdefinierte Designs/Animationen"
+        appdatadir: "Öffne den Speicherort des AppData-Ordners der App",
+        backup: "Sichern Sie den Inhalt des AppData-Ordners der App an einem ausgewählten Ort, der als Wiederherstellungspunkt für den aktuellen Zustand der App dient",
+        restore: "Stellen Sie den Inhalt des AppData-Ordners der App aus einer vorherigen Sicherung wieder her"
     },
     update: {
         updateavailable: "Update verfügbar",

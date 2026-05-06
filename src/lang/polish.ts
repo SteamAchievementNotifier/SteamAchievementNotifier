@@ -192,22 +192,7 @@ export const translations = {
             "Dziękujemy za testowanie! 💜"
         ],
         betaghreleases: "Wydania",
-        createnewpreset: "Utwórz Nowy Predefiniowany Szablon",
-        createnewpresetplaceholder: "Nazwa Szablonu",
-        createnewpreseterror: "Nie można utworzyć nowego presetu.",
-        applogdetails: "Sprawdź dziennik aplikacji, aby uzyskać szczegóły.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Dekoracja",
-        none: "Brak",
-        fixed: "Stały",
-        dynamic: "Dynamiczny",
-        deletenewpreset: "Usuń nowy preset",
-        deletenewpresetsub: [
-            "Czy na pewno? Wszystkie konfiguracje i niestandardowe pliki powiązane z tym presetem zostaną trwale usunięte",
-            "Wszystkie inne typy powiadomień, które obecnie korzystają z tego presetu, również zostaną zresetowane do ustawień domyślnych",
-            "🛑 Tego nie można cofnąć!"
-        ],
-        deletenewpreseterror: "Nie można usunąć presetu."
+        checkapplog: "Sprawdź dziennik aplikacji, aby uzyskać szczegóły."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Poprzednie pliki dziennika", 
                 audiocooldown: "Czas oczekiwania dźwięku",
                 usecustomfiles: "Użyj niestandardowych plików aplikacji",
-                showcustomfiles: "Pokaż niestandardowe pliki aplikacji"
+                showcustomfiles: "Pokaż niestandardowe pliki aplikacji",
+                appdatadir: "Pokaż folder AppData",
+                backup: "Kopia zapasowa",
+                backuppath: "Ścieżka kopii zapasowej",
+                backupsub: [
+                    "Utwórz kopię zapasową zawartości folderu AppData aplikacji w wybranej lokalizacji",
+                    "Ta kopia zapasowa będzie punktem przywracania dla bieżącego stanu aplikacji",
+                    `Przywróć dowolną wcześniejszą kopię zapasową przez <span class="hl">Ustawienia</span> > <span class="hl">Zaawansowane</span> > <span class="hl">Przywróć</span>`
+                ],
+                backupfailed: "Nie udało się utworzyć kopii zapasowej.",
+                restore: "Przywróć",
+                restoresub: [
+                    "Przywróć zawartość folderu AppData aplikacji z wcześniejszej kopii zapasowej",
+                    `Wybierz plik kopii zapasowej <span class="hl">.sanbak</span>, z którego chcesz przywrócić. Plik ten zostanie zachowany po zakończeniu przywracania`,
+                    "❗ Po potwierdzeniu aplikacja uruchomi się ponownie, aby przywrócić wybrany plik kopii zapasowej"
+                ],
+                restorefailed: "Nie udało się przywrócić kopii zapasowej."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Ogranicza liczbę linii tekstu wyświetlanych we wszystkich powiadomieniach do 1<br><br><span class="ttdesc">Teksty, które nie mieszczą się w jednej linii, zostaną skrócone do "..."</span>`,
         copytheme: "Kopiuje wybrany motyw do innego typu powiadomienia",
         ssaddtosteam: "Automatycznie dodaj wygenerowane media do nagrań i zrzutów ekranu bieżącej gry w Steam",
-        createnewpreset: "Utwórz nowy predefiniowany szablon powiadomienia, używając pustego szablonu do niestandardowych projektów/animacji"
+        appdatadir: "Otwórz lokalizację folderu AppData aplikacji",
+        backup: "Utwórz kopię zapasową zawartości folderu AppData aplikacji w wybranej lokalizacji, która będzie punktem przywracania dla bieżącego stanu aplikacji",
+        restore: "Przywróć zawartość folderu AppData aplikacji z wcześniejszej kopii zapasowej"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

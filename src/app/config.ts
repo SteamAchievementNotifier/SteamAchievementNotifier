@@ -332,6 +332,7 @@ export const sanconfig = {
                 ssext: "png",
                 notify1line: false,
                 ssaddtosteam: false,
+                backuppath: "",
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

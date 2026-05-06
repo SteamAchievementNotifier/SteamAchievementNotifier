@@ -192,22 +192,7 @@ export const translations = {
             "Tak for at du testede! 💜"
         ],
         betaghreleases: "Udgivelser",
-        createnewpreset: "Opret ny forudindstilling",
-        createnewpresetplaceholder: "Navn på forudindstilling",
-        createnewpreseterror: "Kan ikke oprette en ny forudindstilling.",
-        applogdetails: "Tjek venligst apploggen for detaljer.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Dekoration",
-        none: "Ingen",
-        fixed: "Fast",
-        dynamic: "Dynamisk",
-        deletenewpreset: "Slet ny forudindstilling",
-        deletenewpresetsub: [
-            "Er du sikker? Alle konfigurationer og brugerdefinerede filer relateret til denne forudindstilling vil blive slettet permanent",
-            "Alle andre notifikationstyper, der i øjeblikket bruger denne forudindstilling, vil også blive nulstillet til standard",
-            "🛑 Dette kan ikke fortrydes!"
-        ],
-        deletenewpreseterror: "Kan ikke slette forudindstillingen."
+        checkapplog: "Tjek venligst App-loggen for detaljer."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Tidligere logfiler", 
                 audiocooldown: "Lydnedkøling",
                 usecustomfiles: "Brug tilpassede app-filer",
-                showcustomfiles: "Vis tilpassede app-filer"
+                showcustomfiles: "Vis tilpassede app-filer",
+                appdatadir: "Vis AppData-mappe",
+                backup: "Backup",
+                backuppath: "Backup-sti",
+                backupsub: [
+                    "Lav en backup af indholdet i appens AppData-mappe til et valgt sted",
+                    "Denne backup vil fungere som et gendannelsespunkt for den nuværende tilstand af appen",
+                    `Gendan en tidligere backup via <span class="hl">Indstillinger</span> > <span class="hl">Avanceret</span> > <span class="hl">Gendan</span>`
+                ],
+                backupfailed: "Kunne ikke oprette backup.",
+                restore: "Gendan",
+                restoresub: [
+                    "Gendan indholdet af appens AppData-mappe fra en tidligere backup",
+                    `Vælg en <span class="hl">.sanbak</span> backup-fil at gendanne fra. Denne fil vil blive bevaret efter gendannelsen`,
+                    "❗ Når bekræftet, genstarter appen for at gendanne den valgte backup-fil"
+                ],
+                restorefailed: "Kunne ikke gendanne backup."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Begræns antallet af tekstlinjer, der vises i alle notifikationer, til 1<br><br><span class="ttdesc">Tekststrenge, der ikke kan være på én linje, vil blive afkortet med "..."</span>`,
         copytheme: "Kopiér det valgte tema til en anden notifikationstype",
         ssaddtosteam: "Tilføj automatisk genereret medie til den aktuelle spils Optagelser og Skærmbilleder i Steam",
-        createnewpreset: "Opret en ny notifikationsforudindstilling ved hjælp af en tom skabelon til brugerdefinerede designs/animationer"
+        appdatadir: "Åbn placeringen af appens AppData-mappe",
+        backup: "Lav en backup af indholdet i appens AppData-mappe til et valgt sted, som vil fungere som et gendannelsespunkt for den nuværende tilstand af appen",
+        restore: "Gendan indholdet af appens AppData-mappe fra en tidligere backup"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

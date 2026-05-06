@@ -192,22 +192,7 @@ export const translations = {
             "¡Gracias por probar! 💜"
         ],
         betaghreleases: "Lanzamientos",
-        createnewpreset: "Crear Nuevo Preajuste",
-        createnewpresetplaceholder: "Nombre del Preajuste",
-        createnewpreseterror: "No se pudo crear un nuevo preset.",
-        applogdetails: "Por favor, revisa el registro de la aplicación para más detalles.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Decoración",
-        none: "Ninguno",
-        fixed: "Fijo",
-        dynamic: "Dinámico",
-        deletenewpreset: "Eliminar nuevo preset",
-        deletenewpresetsub: [
-            "¿Estás seguro? Todas las configuraciones y archivos personalizados relacionados con este preset se eliminarán permanentemente",
-            "Cualquier otro tipo de notificación que actualmente use este preset también se restablecerá a los valores predeterminados",
-            "🛑 ¡Esto no se puede deshacer!"
-        ],
-        deletenewpreseterror: "No se pudo eliminar el preset."
+        checkapplog: "Por favor, revisa el registro de la aplicación para más detalles."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Archivos de Registro Anteriores", 
                 audiocooldown: "Enfriamiento de Audio",
                 usecustomfiles: "Utilizar Archivos de Aplicación Personalizados",
-                showcustomfiles: "Mostrar Archivos de Aplicación Personalizados"
+                showcustomfiles: "Mostrar Archivos de Aplicación Personalizados",
+                appdatadir: "Mostrar carpeta AppData",
+                backup: "Copia de seguridad",
+                backuppath: "Ruta de copia de seguridad",
+                backupsub: [
+                    "Realiza una copia de seguridad del contenido de la carpeta AppData de la aplicación en una ubicación seleccionada",
+                    "Esta copia de seguridad servirá como punto de restauración para el estado actual de la aplicación",
+                    `Restaura cualquier copia de seguridad anterior mediante <span class="hl">Configuración</span> > <span class="hl">Avanzado</span> > <span class="hl">Restaurar</span>`
+                ],
+                backupfailed: "No se pudo crear la copia de seguridad.",
+                restore: "Restaurar",
+                restoresub: [
+                    "Restaura el contenido de la carpeta AppData de la aplicación desde una copia de seguridad anterior",
+                    `Selecciona un archivo de copia de seguridad <span class="hl">.sanbak</span> desde el cual restaurar. Este archivo se conservará después de completar la restauración`,
+                    "❗ Una vez confirmado, la aplicación se reiniciará para restaurar el archivo de copia de seguridad seleccionado"
+                ],
+                restorefailed: "No se pudo restaurar la copia de seguridad."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Limitar el número de líneas de texto mostradas en todas las notificaciones a 1<br><br><span class="ttdesc">Las cadenas de texto que no quepan en una sola línea se truncarán con "..."</span>`,
         copytheme: "Copiar el tema seleccionado a otro tipo de notificación",
         ssaddtosteam: "Agregar automáticamente los medios generados a las grabaciones y capturas de pantalla del juego actual en Steam",
-        createnewpreset: "Crea un nuevo preajuste de notificación utilizando una plantilla en blanco para diseños/animaciones personalizadas"
+        appdatadir: "Abrir la ubicación de la carpeta AppData de la aplicación",
+        backup: "Realiza una copia de seguridad del contenido de la carpeta AppData de la aplicación en una ubicación seleccionada, que servirá como punto de restauración para el estado actual de la aplicación",
+        restore: "Restaura el contenido de la carpeta AppData de la aplicación desde una copia de seguridad anterior"
     },
     update: {
         updateavailable: "Actualización disponible",

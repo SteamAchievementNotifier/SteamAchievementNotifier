@@ -192,22 +192,7 @@ export const translations = {
             "Mulțumim că ai testat! 💜"
         ],
         betaghreleases: "Versiuni",
-        createnewpreset: "Creează un Nou Predefinit",
-        createnewpresetplaceholder: "Numele Predefinitului",
-        createnewpreseterror: "Nu se poate crea un preset nou.",
-        applogdetails: "Vă rugăm să verificați Jurnalul aplicației pentru detalii.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Decorație",
-        none: "Niciunul",
-        fixed: "Fix",
-        dynamic: "Dinamic",
-        deletenewpreset: "Șterge presetul nou",
-        deletenewpresetsub: [
-            "Ești sigur? Toate configurațiile și fișierele personalizate asociate acestui preset vor fi șterse permanent",
-            "Orice alte tipuri de notificări care folosesc în prezent acest preset vor fi, de asemenea, resetate la valorile implicite",
-            "🛑 Acest lucru nu poate fi anulat!"
-        ],
-        deletenewpreseterror: "Nu se poate șterge presetul."
+        checkapplog: "Vă rugăm să verificați jurnalul aplicației pentru detalii."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Fișiere de Jurnal Anterioare", 
                 audiocooldown: "Timp de Așteptare Audio",
                 usecustomfiles: "Utilizare Fișiere de Aplicație Personalizate",
-                showcustomfiles: "Afișare Fișiere de Aplicație Personalizate"
+                showcustomfiles: "Afișare Fișiere de Aplicație Personalizate",
+                appdatadir: "Afișează folderul AppData",
+                backup: "Backup",
+                backuppath: "Cale de backup",
+                backupsub: [
+                    "Faceți backup pentru conținutul folderului AppData al aplicației într-o locație aleasă",
+                    "Acest backup va servi ca punct de restaurare pentru starea curentă a aplicației",
+                    `Restabiliți orice backup anterior prin <span class="hl">Setări</span> > <span class="hl">Avansat</span> > <span class="hl">Restaurare</span>`
+                ],
+                backupfailed: "Nu s-a putut crea backup-ul.",
+                restore: "Restaurare",
+                restoresub: [
+                    "Restabiliți conținutul folderului AppData al aplicației dintr-un backup anterior",
+                    `Selectați un fișier de backup <span class="hl">.sanbak</span> pentru restaurare. Acest fișier va fi păstrat după finalizarea restaurării`,
+                    "❗ După confirmare, aplicația se va reporni pentru a restaura fișierul de backup selectat"
+                ],
+                restorefailed: "Nu s-a putut restaura backup-ul."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Limitează numărul de linii de text afișate în toate notificările la 1<br><br><span class="ttdesc">Textele care nu încap pe o singură linie vor fi trunchiate cu "..."</span>`,
         copytheme: "Copiază tema selectată într-un alt tip de notificare",
         ssaddtosteam: "Adaugă automat media generată la Înregistrările și Capturile de ecran ale jocului curent în Steam",
-        createnewpreset: "Creează un nou predefinit de notificare folosind un șablon gol pentru designuri/animatii personalizate"
+        appdatadir: "Deschideți locația folderului AppData al aplicației",
+        backup: "Faceți backup pentru conținutul folderului AppData al aplicației într-o locație aleasă, care va servi ca punct de restaurare pentru starea curentă a aplicației",
+        restore: "Restabiliți conținutul folderului AppData al aplicației dintr-un backup anterior"
     },
     update: {
         updateavailable: "Actualizare disponibilă",

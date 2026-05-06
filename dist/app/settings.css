@@ -238,6 +238,15 @@ dialog[menu] #settingscontent .opt:has(select) > span:not(.lbl) {
     gap: 1rem;
 }
 
+#settingscontent .cont:has(.title#advanced) > .optcont {
+    grid-template-columns: 1fr 1fr;
+}
+
+#settingscontent .cont:has(.title#advanced) > .optcont > .opt,
+#settingscontent .cont:has(.title#advanced) > .optcont > button:not(#backup,#restore) {
+    grid-column: 1 / -1;
+}
+
 .settingstabs {
     --tabbr: var(--elembr);
     grid-template-columns: repeat(3,auto);
@@ -512,6 +521,33 @@ body[themeswitch] #themeswitch::after {
 
 #reset:hover::before {
     rotate: 360deg;
+}
+
+#appdatadir {
+    --icon: url("../../icon/folder.svg");
+    background-color: #5662f6b5;
+}
+
+#appdatadir:hover {
+    background-color: #5662f6;
+}
+
+#backup {
+    --icon: url("../../icon/backup.svg");
+    background-color: #778899b5;
+}
+
+#backup:hover {
+    background-color: #778899;
+}
+
+#restore {
+    --icon: url("../../icon/restore.svg");
+    background-color: #6a5acdb5;
+}
+
+#restore:hover {
+    background-color: #6a5acd;
 }
 
 #settingscontent:has(#showsystrayopts:not(:checked)) .cont:has(.title#misc) button[systray] {

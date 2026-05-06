@@ -147,6 +147,7 @@ declare interface Config {
     ssext: "png" | "jpg",
     notify1line: boolean,
     ssaddtosteam: boolean,
+    backuppath: string,
     customisation: {
         main: Customisation,
         semi: Customisation,

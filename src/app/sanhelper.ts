@@ -98,6 +98,11 @@ export const sanhelper: SANHelper = {
             ".aac",
             ".m4a"
     ]},
+    get datetimestr(): string {
+        const d = new Date()
+        const pad = (num: number) => num.toString().padStart(2,"0")
+        return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`
+    },
     getosinfo: async () => {
         if (process.platform !== "win32" && process.platform !== "linux") return `Unsupported platform ("${process.platform}")`
         
@@ -199,6 +204,7 @@ export const sanhelper: SANHelper = {
     createlogwin: () => ipcRenderer.send("logwin",sanhelper.logcontents("san"),"san"),
     updatelogwin: (logtype: "san" | "rust" | "sanhelperrs" | "bak",filename?: string) => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype,filename),logtype,filename),
     showcustomfiles: () => shell.openPath(path.join(sanhelper.appdata,"customfiles")),
+    appdatadir: () => shell.openPath(sanhelper.appdata),
     switchtab: ({ target }: Event) => {
         target instanceof HTMLElement && (["main","semi","rare","plat"] as const).forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
         usertheme.update()
@@ -567,21 +573,30 @@ export const sanhelper: SANHelper = {
         const key = config.get((keypath ? `${keypath}.` : "") + elem.id.replace(/\d/,""))
         
         elem.onclick = () => {
-            const attr = ["img","audio","dir","font"].find(attr => elem.hasAttribute(attr))
+            const attr = ["img","audio","dir","font","sanbak"].find(attr => elem.hasAttribute(attr))
 
-            ipcRenderer.once("loadfile", (event,path) => {
+            ipcRenderer.once("loadfile",(event,path) => {
                 if (!path) return
+                const filepath = path[0].replace(/\\/g,"/")
 
                 const iconkey = ["logo","decoration","plat"].find(id => elem.id.replace(/\d/,"") === id)
                 const newkeypath = (keypath ? `${keypath}.` : "") + (iconkey ? (Array.isArray(config.get((keypath ? `${keypath}.` : "") + iconkey)) ? `${iconkey}.${parseInt(elem.id.replace(/[^\d]/g,"")) - 1}` : iconkey) : elem.id)
 
-                config.set(newkeypath,path[0].replace(/\\/g,"/"))
+                config.set(newkeypath,filepath)
+                
+                if (["backup","restore"].map(id => `${id}path`).includes(elem.id)) {
+                    elem.textContent = filepath
+                    const okbtn = document.querySelector("dialog .btnwrapper > button#okbtn") as HTMLButtonElement | null
+                    okbtn && (okbtn.tabIndex = 0)
+                }
+                
                 sanhelper.updatetabs(noreload(elem) !== undefined)
             })
 
             ipcRenderer.send("loadfile",attr)
         }
 
+        if (["backup","restore"].map(id => `${id}path`).includes(elem.id)) return
         if (!elem.classList.contains("img")) return elem.textContent = key ? key.toString().replace(/\\/g,"/") : (await language.get(`default${elem.id}`) || "MISSING!!!")
         if (!elem.classList.contains("customicon")) return elem.style.setProperty("--img",`url('${key ? key : sanhelper.setfilepath(elem.id === "hiddenicon" ? "icon" : "img",`${elem.id === "hiddenicon" ? (key || "lock.svg") : "sanimgbg.png"}`)}')`)
 
@@ -1336,5 +1351,47 @@ export const sanhelper: SANHelper = {
             log.write(!err ? "INFO" : "WARN",!err ? `"${id}" key in localStorage verified successfully` : `Unable to verify "${id}" key in localStorage: ${err}`)
         })
     },
-    settabindex: (btn: HTMLButtonElement,values: (string | null | undefined)[]) => btn.tabIndex = values.every(value => Boolean(value)) ? 0 : -1
+    settabindex: (btn: HTMLButtonElement,values: (string | null | undefined)[]) => btn.tabIndex = values.every(value => Boolean(value)) ? 0 : -1,
+    restorefrombackup: (sanbak: string,log: any) => {
+        const dir = sanhelper.appdata
+        const tempdir = `${sanhelper.appdata}_TEMP`
+
+        try {
+            const contents = fs.readdirSync(sanbak)
+            if (!contents.length) throw new Error(`"${sanbak}" is empty`)
+
+            fs.existsSync(tempdir) && fs.rmSync(tempdir,{ recursive: true, force: true })
+
+            if (fs.existsSync(dir)) {
+                fs.renameSync(dir,tempdir)
+                log.write("INFO",`"${dir}" renamed to "${tempdir}" successfully`)
+            }
+
+            try {
+                fs.renameSync(sanbak,dir)
+                log.write("INFO",`"${sanbak}" restored to "${dir}" successfully`)
+            } catch (err) {
+                // Attempt rollback to original `sanhelper.appdata` if rename fails
+                try {
+                    fs.renameSync(tempdir, dir)
+                    log.write("WARN",`Unable to restore from "${sanbak}". Rolled back to previous app state successfully`)
+                } catch (err) {
+                    log.write("ERROR",`Unable to rollback to previous app state: ${(err as Error).message}`)
+                }
+                
+                throw err
+            }
+        } catch (err) {
+            log.write("ERROR",`Unable to restore backup: ${(err as Error).message}`)
+        } finally {
+            if (fs.existsSync(tempdir)) {
+                try {
+                    fs.rmSync(tempdir,{ recursive: true, force: true })
+                    log.write("INFO",`Leftover restore directory "${tempdir}" detected and removed successfully`)
+                } catch (err) {
+                    log.write("WARN",`Unable to remove leftover restore directory "${tempdir}": ${(err as Error).message}`)
+                }
+            }
+        }
+    }
 }

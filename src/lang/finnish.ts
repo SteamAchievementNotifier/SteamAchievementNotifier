@@ -192,22 +192,7 @@ export const translations = {
             "Kiitos testauksesta! 💜"
         ],
         betaghreleases: "Julkaisut",
-        createnewpreset: "Luo uusi esiasetus",
-        createnewpresetplaceholder: "Esiasetuksen nimi",
-        createnewpreseterror: "Uuden esiasetuksen luominen ei onnistunut.",
-        applogdetails: "Tarkista sovelluksen loki saadaksesi lisätietoja.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Koristelu",
-        none: "Ei mitään",
-        fixed: "Kiinteä",
-        dynamic: "Dynaaminen",
-        deletenewpreset: "Poista uusi esiasetus",
-        deletenewpresetsub: [
-            "Oletko varma? Kaikki tähän esiasetukseen liittyvät asetukset ja mukautetut tiedostot poistetaan pysyvästi",
-            "Myös kaikki muut ilmoitustyypit, jotka käyttävät tällä hetkellä tätä esiasetusta, palautetaan oletusarvoihin",
-            "🛑 Tätä ei voi kumota!"
-        ],
-        deletenewpreseterror: "Esiasetuksen poistaminen ei onnistunut."
+        checkapplog: "Tarkista sovelluksen loki lisätietoja varten."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Aiemmat lokitiedostot", 
                 audiocooldown: "Äänien viive",
                 usecustomfiles: "Käytä Mukautettuja Sovellustiedostoja",
-                showcustomfiles: "Näytä Mukautetut Sovellustiedostot"
+                showcustomfiles: "Näytä Mukautetut Sovellustiedostot",
+                appdatadir: "Näytä AppData-kansio",
+                backup: "Varmuuskopio",
+                backuppath: "Varmuuskopion sijainti",
+                backupsub: [
+                    "Tee varmuuskopio sovelluksen AppData-kansion sisällöstä valittuun sijaintiin",
+                    "Tämä varmuuskopio toimii palautuspisteenä sovelluksen nykyiselle tilalle",
+                    `Palauta aiempi varmuuskopio valitsemalla <span class="hl">Asetukset</span> > <span class="hl">Lisäasetukset</span> > <span class="hl">Palauta</span>`
+                ],
+                backupfailed: "Varmuuskopion luonti epäonnistui.",
+                restore: "Palauta",
+                restoresub: [
+                    "Palauta sovelluksen AppData-kansion sisältö aiemmasta varmuuskopiosta",
+                    `Valitse <span class="hl">.sanbak</span> varmuuskopiotiedosto palautettavaksi. Tämä tiedosto säilyy palautuksen jälkeen`,
+                    "❗ Vahvistamisen jälkeen sovellus käynnistyy uudelleen palauttaakseen valitun varmuuskopiotiedoston"
+                ],
+                restorefailed: "Varmuuskopion palautus epäonnistui."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Rajoita kaikissa ilmoituksissa näytettävien tekstirivien määrä yhteen<br><br><span class="ttdesc">Yhteen riviin mahtumattomat tekstit katkaistaan merkillä "..."</span>`,
         copytheme: "Kopioi valittu teema toiseen ilmoitustyyppiin",
         ssaddtosteam: "Lisää automaattisesti luotu media nykyisen pelin Tallenteisiin ja Kuvakaappauksiin Steamissa",
-        createnewpreset: "Luo uusi ilmoitusesiasetus käyttämällä tyhjää mallia mukautettuja malleja/animaatioita varten"
+        appdatadir: "Avaa sovelluksen AppData-kansion sijainti",
+        backup: "Tee varmuuskopio sovelluksen AppData-kansion sisällöstä valittuun sijaintiin, joka toimii palautuspisteenä sovelluksen nykyiselle tilalle",
+        restore: "Palauta sovelluksen AppData-kansion sisältö aiemmasta varmuuskopiosta"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

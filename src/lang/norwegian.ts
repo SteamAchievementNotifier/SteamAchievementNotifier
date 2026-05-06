@@ -192,22 +192,7 @@ export const translations = {
             "Takk for at du testet! 💜"
         ],
         betaghreleases: "Utgivelser",
-        createnewpreset: "Lag Nytt Forhåndsinnstilt Valg",
-        createnewpresetplaceholder: "Forhåndsinnstilling Navn",
-        createnewpreseterror: "Kunne ikke opprette nytt preset.",
-        applogdetails: "Vennligst sjekk app-loggen for detaljer.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Dekorasjon",
-        none: "Ingen",
-        fixed: "Fast",
-        dynamic: "Dynamisk",
-        deletenewpreset: "Slett nytt preset",
-        deletenewpresetsub: [
-            "Er du sikker? Alle konfigurasjoner og egendefinerte filer knyttet til dette presetet vil bli permanent slettet",
-            "Alle andre varslingstyper som for øyeblikket bruker dette presetet vil også bli tilbakestilt til standard",
-            "🛑 Dette kan ikke angres!"
-        ],
-        deletenewpreseterror: "Kunne ikke slette preset."
+        checkapplog: "Vennligst sjekk Apploggen for detaljer."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Tidligere loggfiler", 
                 audiocooldown: "Lydnedkjøling",
                 usecustomfiles: "Bruk egendefinerte app-filer",
-                showcustomfiles: "Vis egendefinerte app-filer"
+                showcustomfiles: "Vis egendefinerte app-filer",
+                appdatadir: "Vis AppData-mappe",
+                backup: "Sikkerhetskopi",
+                backuppath: "Sikkerhetskopi-sti",
+                backupsub: [
+                    "Sikkerhetskopier innholdet i appens AppData-mappe til et valgt sted",
+                    "Denne sikkerhetskopien fungerer som et gjenopprettingspunkt for appens nåværende tilstand",
+                    `Gjenopprett en tidligere sikkerhetskopi via <span class="hl">Innstillinger</span> > <span class="hl">Avansert</span> > <span class="hl">Gjenopprett</span>`
+                ],
+                backupfailed: "Kunne ikke lage sikkerhetskopi.",
+                restore: "Gjenopprett",
+                restoresub: [
+                    "Gjenopprett innholdet i appens AppData-mappe fra en tidligere sikkerhetskopi",
+                    `Velg en <span class="hl">.sanbak</span> sikkerhetskopifil å gjenopprette fra. Denne filen beholdes etter gjenopprettingen`,
+                    "❗ Når bekreftet, vil appen starte på nytt for å gjenopprette den valgte sikkerhetskopifilen"
+                ],
+                restorefailed: "Kunne ikke gjenopprette sikkerhetskopi."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Begrens antall tekstlinjer som vises i alle varsler til 1<br><br><span class="ttdesc">Tekststrenger som ikke får plass på én linje vil bli avkortet med "..."</span>`,
         copytheme: "Kopier det valgte temaet til en annen varslingstype",
         ssaddtosteam: "Legg automatisk til generert media i det nåværende spillets opptak og skjermbilder i Steam",
-        createnewpreset: "Lag et nytt varslingsforhåndsinnstilt valg ved å bruke en tom mal for tilpassede design/animasjoner"
+        appdatadir: "Åpne plasseringen av appens AppData-mappe",
+        backup: "Sikkerhetskopier innholdet i appens AppData-mappe til et valgt sted, som fungerer som et gjenopprettingspunkt for appens nåværende tilstand",
+        restore: "Gjenopprett innholdet i appens AppData-mappe fra en tidligere sikkerhetskopi"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

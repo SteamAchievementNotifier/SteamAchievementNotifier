@@ -192,22 +192,7 @@ export const translations = {
             "感謝您的測試！ 💜"
         ],
         betaghreleases: "版本發佈",
-        createnewpreset: "建立新預設",
-        createnewpresetplaceholder: "預設名稱",
-        createnewpreseterror: "無法建立新預設。",
-        applogdetails: "請檢查應用程式日誌以取得詳細資訊。",
-        createnewpresetlogo: "標誌",
-        createnewpresetdecoration: "裝飾",
-        none: "無",
-        fixed: "固定",
-        dynamic: "動態",
-        deletenewpreset: "刪除新預設",
-        deletenewpresetsub: [
-            "你確定嗎？與此預設相關的所有設定和自訂檔案都將被永久刪除",
-            "目前使用此預設的任何其他通知類型也將被重設為預設值",
-            "🛑 此操作無法復原！"
-        ],
-        deletenewpreseterror: "無法刪除預設。"
+        checkapplog: "請查看應用程式日誌以獲取詳細資訊。"
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "先前的日誌檔案", 
                 audiocooldown: "音訊冷卻時間",
                 usecustomfiles: "使用自定義應用程式檔案",
-                showcustomfiles: "顯示自定義應用程式檔案"
+                showcustomfiles: "顯示自定義應用程式檔案",
+                appdatadir: "顯示 AppData 資料夾",
+                backup: "備份",
+                backuppath: "備份路徑",
+                backupsub: [
+                    "將應用程式的 AppData 資料夾內容備份到選定位置",
+                    "此備份將作為應用程式當前狀態的還原點",
+                    `透過 <span class="hl">設定</span> > <span class="hl">進階</span> > <span class="hl">還原</span> 恢復任何先前的備份`
+                ],
+                backupfailed: "無法建立備份。",
+                restore: "還原",
+                restoresub: [
+                    "從先前的備份還原應用程式 AppData 資料夾的內容",
+                    `選擇一個 <span class="hl">.sanbak</span> 備份檔以還原。還原完成後，此檔案將會保留`,
+                    "❗ 確認後，應用程式將重新啟動以還原所選的備份檔"
+                ],
+                restorefailed: "無法還原備份。"
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `將所有通知中顯示的文字行數限制為 1<br><br><span class="ttdesc">無法容納於單行的文字字串將會以 "..." 截斷</span>`,
         copytheme: "將所選主題複製到另一種通知類型",
         ssaddtosteam: "自動將產生的媒體新增至目前遊戲在 Steam 中的錄製與截圖",
-        createnewpreset: "使用空白範本建立新的通知預設，並進行自訂設計/動畫"
+        appdatadir: "打開應用程式 AppData 資料夾的位置",
+        backup: "將應用程式的 AppData 資料夾內容備份到選定位置，作為應用程式當前狀態的還原點",
+        restore: "從先前的備份還原應用程式 AppData 資料夾的內容"
     },
     update: {
         updateavailable: "有可用更新",

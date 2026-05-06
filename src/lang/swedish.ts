@@ -192,22 +192,7 @@ export const translations = {
             "Tack för att du testade! 💜"
         ],
         betaghreleases: "Uppdateringar",
-        createnewpreset: "Skapa Ny Förinställning",
-        createnewpresetplaceholder: "Förinställningens Namn",
-        createnewpreseterror: "Det gick inte att skapa en ny förinställning.",
-        applogdetails: "Kontrollera apploggen för mer information.",
-        createnewpresetlogo: "Logotyp",
-        createnewpresetdecoration: "Dekoration",
-        none: "Inget",
-        fixed: "Fast",
-        dynamic: "Dynamisk",
-        deletenewpreset: "Ta bort ny förinställning",
-        deletenewpresetsub: [
-            "Är du säker? Alla konfigurationer och anpassade filer som är kopplade till denna förinställning kommer att raderas permanent",
-            "Alla andra notifieringstyper som för närvarande använder denna förinställning kommer också att återställas till standardvärden",
-            "🛑 Detta kan inte ångras!"
-        ],
-        deletenewpreseterror: "Det gick inte att ta bort förinställningen."
+        checkapplog: "Vänligen kontrollera apploggen för mer information."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Tidigare loggfiler", 
                 audiocooldown: "Ljudnedkylning",
                 usecustomfiles: "Använd anpassade appfiler",
-                showcustomfiles: "Visa anpassade appfiler"
+                showcustomfiles: "Visa anpassade appfiler",
+                appdatadir: "Visa AppData-mapp",
+                backup: "Säkerhetskopiering",
+                backuppath: "Säkerhetskopieringsväg",
+                backupsub: [
+                    "Säkerhetskopiera innehållet i appens AppData-mapp till en vald plats",
+                    "Denna säkerhetskopia fungerar som en återställningspunkt för appens nuvarande tillstånd",
+                    `Återställ en tidigare säkerhetskopia via <span class="hl">Inställningar</span> > <span class="hl">Avancerat</span> > <span class="hl">Återställ</span>`
+                ],
+                backupfailed: "Kunde inte skapa säkerhetskopia.",
+                restore: "Återställ",
+                restoresub: [
+                    "Återställ innehållet i appens AppData-mapp från en tidigare säkerhetskopia",
+                    `Välj en <span class="hl">.sanbak</span> säkerhetskopieringsfil att återställa från. Denna fil bevaras efter återställningen`,
+                    "❗ Efter bekräftelse startas appen om för att återställa den valda säkerhetskopieringsfilen"
+                ],
+                restorefailed: "Kunde inte återställa säkerhetskopian."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Begränsa antalet textrader som visas i alla aviseringar till 1<br><br><span class="ttdesc">Textsträngar som inte får plats på en enda rad kommer att trunkeras med "..."</span>`,
         copytheme: "Kopiera det valda temat till en annan aviseringstyp",
         ssaddtosteam: "Lägg automatiskt till genererat media i det aktuella spelets inspelningar och skärmbilder i Steam",
-        createnewpreset: "Skapa en ny notifieringsförinställning med en tom mall för anpassade designer/animeringar"
+        appdatadir: "Öppna platsen för appens AppData-mapp",
+        backup: "Säkerhetskopiera innehållet i appens AppData-mapp till en vald plats, vilket fungerar som en återställningspunkt för appens nuvarande tillstånd",
+        restore: "Återställ innehållet i appens AppData-mapp från en tidigare säkerhetskopia"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

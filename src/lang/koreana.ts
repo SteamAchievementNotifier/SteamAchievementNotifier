@@ -192,22 +192,7 @@ export const translations = {
             "테스트해 주셔서 감사합니다! 💜"
         ],
         betaghreleases: "릴리스",
-        createnewpreset: "새 프리셋 만들기",
-        createnewpresetplaceholder: "프리셋 이름",
-        createnewpreseterror: "새 프리셋을 생성할 수 없습니다.",
-        applogdetails: "자세한 내용은 앱 로그를 확인하세요.",
-        createnewpresetlogo: "로고",
-        createnewpresetdecoration: "장식",
-        none: "없음",
-        fixed: "고정",
-        dynamic: "동적",
-        deletenewpreset: "새 프리셋 삭제",
-        deletenewpresetsub: [
-            "확실합니까? 이 프리셋과 관련된 모든 구성 및 사용자 지정 파일이 영구적으로 삭제됩니다",
-            "현재 이 프리셋을 사용 중인 다른 모든 알림 유형도 기본값으로 재설정됩니다",
-            "🛑 이 작업은 되돌릴 수 없습니다!"
-        ],
-        deletenewpreseterror: "프리셋을 삭제할 수 없습니다."
+        checkapplog: "자세한 내용은 앱 로그를 확인하세요."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "이전 로그 파일", 
                 audiocooldown: "오디오 대기 시간",
                 usecustomfiles: "사용자 정의 앱 파일 사용",
-                showcustomfiles: "사용자 정의 앱 파일 표시"
+                showcustomfiles: "사용자 정의 앱 파일 표시",
+                appdatadir: "AppData 폴더 표시",
+                backup: "백업",
+                backuppath: "백업 경로",
+                backupsub: [
+                    "앱의 AppData 폴더 내용을 선택한 위치에 백업합니다",
+                    "이 백업은 앱의 현재 상태를 복원할 수 있는 복원 지점으로 사용됩니다",
+                    `이전 백업은 <span class="hl">설정</span> > <span class="hl">고급</span> > <span class="hl">복원</span>을 통해 복원할 수 있습니다`
+                ],
+                backupfailed: "백업 생성에 실패했습니다.",
+                restore: "복원",
+                restoresub: [
+                    "앱의 AppData 폴더 내용을 이전 백업에서 복원합니다",
+                    `복원할 <span class="hl">.sanbak</span> 백업 파일을 선택하세요. 복원 후에도 이 파일은 보존됩니다`,
+                    "❗ 확인 후, 선택한 백업 파일을 복원하기 위해 앱이 재시작됩니다"
+                ],
+                restorefailed: "백업 복원에 실패했습니다."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `모든 알림에 표시되는 텍스트 줄 수를 1줄로 제한합니다<br><br><span class="ttdesc">한 줄에 표시할 수 없는 긴 텍스트는 "..."로 잘립니다</span>`,
         copytheme: "선택한 테마를 다른 알림 유형으로 복사합니다",
         ssaddtosteam: "생성된 미디어를 현재 게임의 Steam 녹화 및 스크린샷에 자동으로 추가",
-        createnewpreset: "사용자 정의 디자인/애니메이션을 위한 빈 템플릿을 사용하여 새 알림 프리셋 만들기"
+        appdatadir: "앱의 AppData 폴더 위치 열기",
+        backup: "앱의 AppData 폴더 내용을 선택한 위치에 백업하여, 앱의 현재 상태를 복원할 수 있는 복원 지점으로 사용합니다",
+        restore: "앱의 AppData 폴더 내용을 이전 백업에서 복원합니다"
     },
     update: {
         updateavailable: "업데이트 가능",

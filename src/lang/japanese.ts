@@ -192,22 +192,7 @@ export const translations = {
             "テストしていただきありがとうございます！ 💜"
         ],
         betaghreleases: "リリース",
-        createnewpreset: "新しいプリセットを作成",
-        createnewpresetplaceholder: "プリセット名",
-        createnewpreseterror: "新しいプリセットを作成できませんでした。",
-        applogdetails: "詳細についてはアプリのログを確認してください。",
-        createnewpresetlogo: "ロゴ",
-        createnewpresetdecoration: "装飾",
-        none: "なし",
-        fixed: "固定",
-        dynamic: "動的",
-        deletenewpreset: "新しいプリセットを削除",
-        deletenewpresetsub: [
-            "よろしいですか？このプリセットに関連するすべての設定とカスタムファイルは完全に削除されます",
-            "現在このプリセットを使用している他のすべての通知タイプもデフォルトにリセットされます",
-            "🛑 これは元に戻せません！"
-        ],
-        deletenewpreseterror: "プリセットを削除できませんでした。"
+        checkapplog: "詳細についてはアプリのログを確認してください。"
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "以前のログファイル", 
                 audiocooldown: "オーディオクールダウン",
                 usecustomfiles: "カスタムアプリファイルの使用",
-                showcustomfiles: "カスタムアプリファイルの表示"
+                showcustomfiles: "カスタムアプリファイルの表示",
+                appdatadir: "AppDataフォルダーを表示",
+                backup: "バックアップ",
+                backuppath: "バックアップパス",
+                backupsub: [
+                    "アプリのAppDataフォルダーの内容を選択した場所にバックアップします",
+                    "このバックアップは、アプリの現在の状態の復元ポイントとして機能します",
+                    `以前のバックアップは、<span class="hl">設定</span> > <span class="hl">詳細設定</span> > <span class="hl">復元</span> から復元できます`
+                ],
+                backupfailed: "バックアップの作成に失敗しました。",
+                restore: "復元",
+                restoresub: [
+                    "アプリのAppDataフォルダーの内容を以前のバックアップから復元します",
+                    `復元する <span class="hl">.sanbak</span> バックアップファイルを選択してください。このファイルは復元後も保持されます`,
+                    "❗ 確認後、選択したバックアップファイルを復元するためにアプリが再起動します"
+                ],
+                restorefailed: "バックアップの復元に失敗しました。"
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `すべての通知に表示されるテキストの行数を1行に制限します<br><br><span class="ttdesc">1行に収まらないテキストは「...」で切り捨てられます</span>`,
         copytheme: "選択したテーマを別の通知タイプにコピーします",
         ssaddtosteam: "生成されたメディアを現在のゲームのSteamの録画およびスクリーンショットに自動的に追加",
-        createnewpreset: "カスタムデザイン/アニメーション用の空白テンプレートを使って新しい通知プリセットを作成"
+        appdatadir: "アプリのAppDataフォルダーの場所を開く",
+        backup: "アプリのAppDataフォルダーの内容を選択した場所にバックアップし、アプリの現在の状態の復元ポイントとして使用します",
+        restore: "アプリのAppDataフォルダーの内容を以前のバックアップから復元します"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

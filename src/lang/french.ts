@@ -192,22 +192,7 @@ export const translations = {
             "Merci d'avoir testé ! 💜"
         ],
         betaghreleases: "Releases",
-        createnewpreset: "Créer un nouveau préréglage",
-        createnewpresetplaceholder: "Nom du préréglage",
-        createnewpreseterror: "Impossible de créer un nouveau preset.",
-        applogdetails: "Veuillez vérifier le journal de l'application pour plus de détails.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Décoration",
-        none: "Aucun",
-        fixed: "Fixe",
-        dynamic: "Dynamique",
-        deletenewpreset: "Supprimer le nouveau preset",
-        deletenewpresetsub: [
-            "Êtes-vous sûr ? Toutes les configurations et fichiers personnalisés liés à ce preset seront supprimés définitivement",
-            "Tous les autres types de notifications utilisant actuellement ce preset seront également réinitialisés par défaut",
-            "🛑 Cette action est irréversible !"
-        ],
-        deletenewpreseterror: "Impossible de supprimer le preset."
+        checkapplog: "Veuillez consulter le journal de l'application pour plus de détails."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Fichiers journaux précédents", 
                 audiocooldown: "Délai du son",
                 usecustomfiles: "Utiliser des fichiers d'application personnalisés",
-                showcustomfiles: "Afficher les fichiers d'application personnalisés"
+                showcustomfiles: "Afficher les fichiers d'application personnalisés",
+                appdatadir: "Afficher le dossier AppData",
+                backup: "Sauvegarde",
+                backuppath: "Chemin de la sauvegarde",
+                backupsub: [
+                    "Sauvegardez le contenu du dossier AppData de l'application vers un emplacement choisi",
+                    "Cette sauvegarde servira de point de restauration pour l'état actuel de l'application",
+                    `Restaurez toute sauvegarde précédente via <span class="hl">Paramètres</span> > <span class="hl">Avancé</span> > <span class="hl">Restaurer</span>`
+                ],
+                backupfailed: "Impossible de créer la sauvegarde.",
+                restore: "Restaurer",
+                restoresub: [
+                    "Restaurez le contenu du dossier AppData de l'application à partir d'une sauvegarde précédente",
+                    `Sélectionnez un fichier de sauvegarde <span class="hl">.sanbak</span> pour restaurer. Ce fichier sera conservé après la restauration`,
+                    "❗ Une fois confirmé, l'application redémarrera pour restaurer le fichier de sauvegarde sélectionné"
+                ],
+                restorefailed: "Impossible de restaurer la sauvegarde."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Limiter le nombre de lignes de texte affichées dans toutes les notifications à 1<br><br><span class="ttdesc">Les chaînes de texte dépassant la longueur d'une ligne seront tronquées avec "..."</span>`,
         copytheme: "Copier le thème sélectionné vers un autre type de notification",
         ssaddtosteam: "Ajouter automatiquement les médias générés aux Enregistrements et Captures d’écran du jeu actuel dans Steam",
-        createnewpreset: "Créer un nouveau préréglage de notification en utilisant un modèle vierge pour des conceptions/animations personnalisées"
+        appdatadir: "Ouvrir l'emplacement du dossier AppData de l'application",
+        backup: "Sauvegardez le contenu du dossier AppData de l'application vers un emplacement choisi, qui servira de point de restauration pour l'état actuel de l'application",
+        restore: "Restaurez le contenu du dossier AppData de l'application à partir d'une sauvegarde précédente"
     },
     update: {
         updateavailable: "Mise à jour disponible",

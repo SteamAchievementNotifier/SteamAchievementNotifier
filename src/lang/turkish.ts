@@ -192,22 +192,7 @@ export const translations = {
             "Test ettiğiniz için teşekkürler! 💜"
         ],
         betaghreleases: "Sürümler",
-        createnewpreset: "Yeni Öntanımlı Ayar Oluştur",
-        createnewpresetplaceholder: "Öntanımlı Ayar Adı",
-        createnewpreseterror: "Yeni ön ayar oluşturulamadı.",
-        applogdetails: "Lütfen ayrıntılar için Uygulama Günlüğünü kontrol edin.",
-        createnewpresetlogo: "Logo",
-        createnewpresetdecoration: "Süsleme",
-        none: "Yok",
-        fixed: "Sabit",
-        dynamic: "Dinamik",
-        deletenewpreset: "Yeni ön ayarı sil",
-        deletenewpresetsub: [
-            "Emin misiniz? Bu ön ayarla ilişkili tüm yapılandırmalar ve özel dosyalar kalıcı olarak silinecektir",
-            "Şu anda bu ön ayarı kullanan diğer tüm bildirim türleri de varsayılan değerlere sıfırlanacaktır",
-            "🛑 Bu işlem geri alınamaz!"
-        ],
-        deletenewpreseterror: "Ön ayar silinemedi."
+        checkapplog: "Detaylar için lütfen Uygulama Günlüğünü kontrol edin."
     },
     app: {
         content: {
@@ -353,7 +338,23 @@ export const translations = {
                 lognum: "Önceki Günlük Dosyaları", 
                 audiocooldown: "Ses Bekleme Süresi",
                 usecustomfiles: "Özel Uygulama Dosyalarını Kullan",
-                showcustomfiles: "Özel Uygulama Dosyalarını Göster"
+                showcustomfiles: "Özel Uygulama Dosyalarını Göster",
+                appdatadir: "AppData Klasörünü Göster",
+                backup: "Yedekleme",
+                backuppath: "Yedekleme Yolu",
+                backupsub: [
+                    "Uygulamanın AppData klasörünün içeriğini seçilen bir konuma yedekleyin",
+                    "Bu yedekleme, uygulamanın mevcut durumu için bir geri yükleme noktası olarak hizmet edecektir",
+                    `Önceki herhangi bir yedeklemeyi <span class="hl">Ayarlar</span> > <span class="hl">Gelişmiş</span> > <span class="hl">Geri Yükle</span> üzerinden geri yükleyin`
+                ],
+                backupfailed: "Yedekleme oluşturulamadı.",
+                restore: "Geri Yükle",
+                restoresub: [
+                    "Uygulamanın AppData klasörünün içeriğini önceki bir yedekten geri yükleyin",
+                    `Geri yüklemek için bir <span class="hl">.sanbak</span> yedekleme dosyası seçin. Bu dosya geri yükleme tamamlandıktan sonra korunacaktır`,
+                    "❗ Onaylandıktan sonra, seçilen yedekleme dosyasını geri yüklemek için uygulama yeniden başlatılacaktır"
+                ],
+                restorefailed: "Yedekleme geri yüklenemedi."
             }
         },
         ra: {
@@ -868,7 +869,9 @@ export const translations = {
         notify1line: `Tüm bildirimlerde görüntülenen metin satırı sayısını 1 ile sınırla<br><br><span class="ttdesc">Tek bir satıra sığmayan metinler "..." ile kısaltılacaktır</span>`,
         copytheme: "Seçilen temayı başka bir bildirim türüne kopyala",
         ssaddtosteam: "Oluşturulan medyayı mevcut oyunun Steam'deki Kayıtlar ve Ekran Görüntülerine otomatik olarak ekle",
-        createnewpreset: "Özel tasarımlar/animasyonlar için boş bir şablon kullanarak yeni bir bildirim öntanımlı ayarı oluşturun"
+        appdatadir: "Uygulamanın AppData klasörünün konumunu aç",
+        backup: "Uygulamanın AppData klasörünün içeriğini seçilen bir konuma yedekleyin; bu, uygulamanın mevcut durumu için bir geri yükleme noktası olarak hizmet edecektir",
+        restore: "Uygulamanın AppData klasörünün içeriğini önceki bir yedekten geri yükleyin"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

@@ -448,7 +448,181 @@ export const dialog = {
                 updatetables("themeswitch")
             }
 
-            document.getElementById("showcustomfiles")!.onclick = () => sanhelper.showcustomfiles()
+            document.getElementById("showcustomfiles")!.onclick = sanhelper.showcustomfiles
+            document.getElementById("appdatadir")!.onclick = sanhelper.appdatadir
+            
+            document.getElementById("backup")!.onclick = async () => {
+                dialog.open({
+                    title: await language.get("backup",["settings","advanced","content"]),
+                    type: "default",
+                    icon: sanhelper.setfilepath("icon","backup.svg"),
+                    sub: await language.get("backupsub",["settings","advanced","content"]),
+                    addHTML: `
+                        <div class="wrapper opt">
+                            <span class="lbl"></span>
+                            <button class="optbtn" id="backuppath" dir></button>
+                        </div>
+                        <span id="backuprestorelog"></span>
+                    `,
+                    buttons: [{
+                        id: "ok",
+                        icon: "",
+                        label: await language.get("ok"),
+                        click: async () => {
+                            const { log } = await import("./log")
+
+                            const dialogelem = document.querySelector("dialog")!
+                            const addhtml = dialogelem.querySelector(".addhtml")!
+                            addhtml.setAttribute("backup","")
+
+                            const okbtn = dialogelem.querySelector(".btnwrapper > button#okbtn") as HTMLButtonElement
+                            
+                            for (const btn of [backuppathbtn,okbtn]) {
+                                btn.tabIndex = -1
+                            }
+
+                            const src = sanhelper.appdata
+                            const dest = path.join(config.get("backuppath"),`${sanhelper.datetimestr}.zip`)
+                            const parsed = path.parse(dest)
+
+                            parsed.ext = ".sanbak"
+                            parsed.base = `${parsed.name}${parsed.ext}`
+
+                            const sanbak = path.format(parsed)
+
+                            try {
+                                const { default: AdmZip } = await import("adm-zip")
+                                const zip = new AdmZip()
+                                
+                                zip.addLocalFolder(src)
+                                zip.writeZip(dest)
+
+                                log.write("INFO",`"${dest}" ZIP archive created successfully`)
+                                
+                                fs.renameSync(dest,sanbak)
+                                log.write("INFO",`"${dest}" renamed to "${sanbak}" successfully`)
+
+                                addhtml.removeAttribute("backup")
+                                dialog.close()
+                            } catch (err) {
+                                addhtml.removeAttribute("backup")
+
+                                backuppathbtn.tabIndex = 1
+                                okbtn.tabIndex = 0
+
+                                try {
+                                    for (const file of [dest,sanbak]) {
+                                        if (!fs.existsSync(file)) continue
+
+                                        fs.rmSync(file,{ force: true })
+                                        log.write("INFO",`"${file}" cleaned up successfully`)
+                                    }
+                                } catch (err) {
+                                    log.write("ERROR",`Unable to remove partial backup: ${(err as Error).message}`)
+                                }
+
+                                document.getElementById("backuprestorelog")!.textContent = `${await language.get("backupfailed",["settings","advanced","content"])} ${await language.get("checkapplog")}`
+                                log.write("ERROR",`Unable to create backup: ${(err as Error).message}`)
+                            }
+                        }
+                    }]
+                })
+
+                const opt = document.querySelector("dialog .opt:has(> button.optbtn#backuppath)")!
+                opt.querySelector("span.lbl")!.textContent = await language.get("backuppath",["settings","advanced","content"])
+                
+                const backuppathbtn = opt.querySelector("button.optbtn#backuppath") as HTMLButtonElement
+                backuppathbtn.textContent = (config.get("backuppath") || path.join(path.dirname(sanhelper.appdata),"Temp")).replace(/\\/g,"/")
+                sanhelper.setbtn(config,backuppathbtn,null)
+            }
+            
+            document.getElementById("restore")!.onclick = async () => {
+                dialog.open({
+                    title: await language.get("restore",["settings","advanced","content"]),
+                    type: "default",
+                    icon: sanhelper.setfilepath("icon","restore.svg"),
+                    sub: await language.get("restoresub",["settings","advanced","content"]),
+                    addHTML: `
+                        <div class="wrapper opt">
+                            <span class="lbl"></span>
+                            <button class="optbtn" id="restorepath" sanbak></button>
+                        </div>
+                        <span id="backuprestorelog"></span>
+                    `,
+                    buttons: [{
+                        id: "ok",
+                        icon: "",
+                        label: await language.get("ok"),
+                        click: async () => {
+                            const { log } = await import("./log")
+
+                            const dialogelem = document.querySelector("dialog")!
+                            const addhtml = dialogelem.querySelector(".addhtml")!
+                            addhtml.setAttribute("backup","")
+
+                            const okbtn = dialogelem.querySelector(".btnwrapper > button#okbtn") as HTMLButtonElement
+                            
+                            for (const btn of [restorepathbtn,okbtn]) {
+                                btn.tabIndex = -1
+                            }
+
+                            const sanbak = restorepathbtn.textContent
+                            if (!sanbak || !sanbak.endsWith(".sanbak")) return log.write("WARN","No valid backup selected")
+                            
+                            const parsed = path.parse(sanbak)
+                            
+                            parsed.ext = ".zip"
+                            parsed.base = `${parsed.name}${parsed.ext}`
+
+                            const tempzip = path.format(parsed)
+
+                            try {
+                                const { default: AdmZip } = await import("adm-zip")
+
+                                fs.copyFileSync(sanbak,tempzip)
+                                log.write("INFO",`"${sanbak}" copied to "${tempzip}" successfully`)
+
+                                const tempdir = path.join(path.dirname(sanhelper.appdata),"Temp","sanbak")
+                                fs.existsSync(tempdir) && fs.rmSync(tempdir,{ recursive: true, force: true })
+                                fs.mkdirSync(tempdir,{ recursive: true })
+
+                                const zip = new AdmZip(tempzip)
+                                zip.extractAllTo(tempdir,true)
+                                log.write("INFO",`"${tempzip}" extracted to "${tempdir}" successfully`)
+
+                                ipcRenderer.send("restart",`Exiting to restore extracted backup from "${tempdir}"`)
+                            } catch (err) {
+                                document.getElementById("backuprestorelog")!.textContent = `${await language.get("restorefailed",["settings","advanced","content"])} ${await language.get("checkapplog")}`
+                                log.write("ERROR",`Unable to restore backup: ${(err as Error).message}`)
+                            } finally {
+                                addhtml.removeAttribute("backup")
+
+                                restorepathbtn.tabIndex = 1
+                                okbtn.tabIndex = 0
+
+                                try {
+                                    if (fs.existsSync(tempzip)) {
+                                        fs.rmSync(tempzip,{ force: true })
+                                        log.write("INFO",`"${tempzip}" cleaned up successfully`)
+                                    }
+                                } catch (err) {
+                                    log.write("ERROR",`Unable to remove temp ZIP archive: ${(err as Error).message}`)
+                                }
+                            }
+                        }
+                    }]
+                })
+
+                const opt = document.querySelector("dialog .opt:has(> button.optbtn#restorepath)")!
+                opt.querySelector("span.lbl")!.textContent = await language.get("backuppath",["settings","advanced","content"])
+
+                const restorepathbtn = opt.querySelector("button.optbtn#restorepath") as HTMLButtonElement
+                sanhelper.setbtn(config,restorepathbtn,null)
+
+                const okbtn = document.querySelector("dialog .btnwrapper > button#okbtn") as HTMLButtonElement
+                okbtn.tabIndex = -1
+            }
+            
             sanhelper.sethelpdialog(document.querySelector("span#raloghelp")!,"raenablelog")
 
             ;[
@@ -469,7 +643,7 @@ export const dialog = {
                     id: "ok",
                     label: await language.get("reset",["reset","content"]),
                     icon: "",
-                    click: () => ipcRenderer.send("restart","Reset App confirmed by User")
+                    click: () => ipcRenderer.send("restart","Reset App confirmed by user")
                 }]
             })
 

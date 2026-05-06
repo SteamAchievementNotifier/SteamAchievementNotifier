@@ -2,7 +2,7 @@ const path = require("path")
 const fs = require("fs")
 
 exports.default = async context => {
-    if (!context.electronPlatformName !== "linux") return
+    if (context.electronPlatformName !== "linux") return
 
     const { appOutDir, packager: { executableName: exename } } = context
     const exepath = path.join(appOutDir,exename)

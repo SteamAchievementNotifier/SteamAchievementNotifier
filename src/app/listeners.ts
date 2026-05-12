@@ -15,9 +15,12 @@ let appid: number = 0
 let gameid: number = 0 // RetroAchievements GameID
 let extwin: BrowserWindow | null = null
 let statwin: BrowserWindow | null = null
+let gametimerwin: BrowserWindow | null = null
 let replay: { queueobj: WinType, src?: number } | null = null
 const gameartfiles: string[] = []
 let emu: string | null = null
+
+const extwinsmap = sanhelper.extwinsmap(sanconfig.get()) as Map<ExtWins,{ wintitle: string, width: number, height: number, minWidth: number, minHeight: number }>
 
 export const listeners = {
     setexit: () => {
@@ -178,7 +181,7 @@ export const listeners = {
 
         ipcMain.on("lang",(event,gamename: string | null,num: number) => {
             updatetray(tray!,gamename,num)
-            statwin && worker && worker.webContents.send("stats")
+            ;(statwin || gametimerwin) && worker && worker.webContents.send("stats")
         })
 
         ipcMain.on("steamlang",() => statwin && worker && worker.webContents.send("stats"))
@@ -377,7 +380,7 @@ export const listeners = {
                 title: `Steam Achievement Notifier (V${sanhelper.version}): Debug Panel`,
                 width: Math.round(width),
                 height: Math.round(width / ratio),
-                minWidth: 500,
+                minWidth: minwidth,
                 minHeight: 300,
                 autoHideMenuBar: true,
                 resizable: true,
@@ -416,7 +419,10 @@ export const listeners = {
             })
         })
 
-        ipcMain.on("workeractive", (event,value: boolean) => win.webContents.send("workeractive",value))
+        ipcMain.on("workeractive", (event,value: boolean) => {
+            win.webContents.send("workeractive",value)
+            gametimerwin && ipcMain.emit("startgametimer")
+        })
 
         ipcMain.on("showtrack", (event,gamename: string,ra?: { icon: string, gameartlibhero: string }) => {
             const config = sanconfig.get()
@@ -552,14 +558,16 @@ export const listeners = {
                 win.hide()
                 win.setPosition(0,0)
 
-                extwin && extwin.setPosition(0,0)
-                statwin && statwin.setPosition(0,0)
+                for (const win of [extwin,statwin,gametimerwin]) {
+                    win && win.setPosition(0,0)
+                }
 
                 resolve()
             })
             .then(() => {
                 win.setSize(width,height)
                 statwin && statwin.setSize(250,500)
+                gametimerwin && gametimerwin.setSize(250,100)
             })
             .finally(() => {
                 win.center()
@@ -654,7 +662,7 @@ export const listeners = {
             sanhelper.devmode && log.write("INFO",JSON.stringify(app.getLoginItemSettings(),null,4))
         })
 
-        ipcMain.on("restart", (event,reason: string) => {
+        ipcMain.on("restart",(event,reason: string) => {
             return new Promise(async (resolve,reject) => {
                 if (reason !== "Reset App confirmed by user") return resolve(reason)
                     
@@ -691,24 +699,22 @@ export const listeners = {
             })
         })
 
-        const createextwin = (config: Store<Config>,type: "ext" | "stat",value: boolean) => {
+        const createextwin = (config: Store<Config>,type: ExtWins,value: boolean) => {
             if (!value) {
                 closewin(type)
                 return null
             }
 
+            const extwinsmap = sanhelper.extwinsmap(sanconfig.get()) as Map<ExtWins,{ wintitle: string, width: number, height: number, minWidth: number, minHeight: number }>
             const { x, y } = config.get(`${type}winpos`)
-            const { width, height, minWidth, minHeight } = {
-                width: type === "ext" ? 300 : config.get("statwinpos").width,
-                height: type === "ext" ? 50 : config.get("statwinpos").height,
-                minWidth: type === "ext" ? 125 : 200,
-                minHeight: type === "ext" ? 50 : 300
-            }
 
-            const wintitle = type === "ext" ? "Stream Notification" : "Achievement Stats Overlay"
+            const wininfo = extwinsmap.get(type)
+            if (!wininfo) throw new Error(`"${type}" key does not exist in "extwinsmap"`)
+
+            const { wintitle, width, height, minWidth, minHeight } = wininfo
 
             const win = new BrowserWindow({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): ${wintitle}`,
+                title: `Steam Achievement Notifier (V${sanhelper.version}): ${wintitle || "???"}`,
                 width,
                 height,
                 minWidth,
@@ -720,23 +726,32 @@ export const listeners = {
                 fullscreenable: false,
                 minimizable: false,
                 maximizable: false,
-                resizable: type === "stat",
+                resizable: type !== "ext",
                 movable: true,
                 frame: false,
                 transparent: true,
                 skipTaskbar: false,
-                alwaysOnTop: type === "stat" && config.get("statwinaot"),
+                alwaysOnTop: type !== "ext" && config.get(`${type}winaot`),
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
-                    backgroundThrottling: false,
-                    // webviewTag: type === "stat"
+                    backgroundThrottling: false
                 }
             })
 
             // `extwin` does not render content if transparency is set while HWA is disabled
             type === "ext" && !config.get("nohwa") && win.setOpacity(config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0))
-            type === "stat" && win.setIgnoreMouseEvents(config.get("statwinaot"))
+            type !== "ext" && win.setIgnoreMouseEvents(config.get(`${type}winaot`))
+
+            type === "gametimer" && win.on("will-resize",(event,bounds) => {
+                event.preventDefault()
+
+                const ratio = 2.5 // Base aspect ratio
+                const { width } = bounds
+                
+                win && win.setBounds({ width, height: Math.round(width / ratio) })
+                setwinbounds(config,"gametimer",gametimerwin!)
+            })
 
             win.loadFile(path.join(__root,"dist","app",`${type}win.html`))
             sanhelper.devmode && sanhelper.setdevtools(win)
@@ -754,22 +769,28 @@ export const listeners = {
 
                 extwin.close()
                 extwin = null
-            } else {
+            }
+            
+            if (type === "stat") {
                 if (!statwin) return log.write("WARN",`"${type}win" not found`)
 
                 statwin && statwin.close()
                 statwin = null
             }
+
+            if (type === "gametimer") {
+                if (!gametimerwin) return log.write("WARN",`"${type}win" not found`)
+
+                gametimerwin && gametimerwin.close()
+                gametimerwin = null
+            }
         }
 
-        const setwinbounds = (config: Store<Config>,type: "ext" | "stat",win: BrowserWindow) => {
+        const setwinbounds = (config: Store<Config>,type: ExtWins,win: BrowserWindow) => {
             const { x, y, width, height } = win.getBounds()
-            const bounds: { x: number, y: number, width?: number, height?: number } = {
-                x: x,
-                y: y
-            }
+            const bounds: { x: number, y: number, width?: number, height?: number } = { x, y }
 
-            if (type === "stat") {
+            if (type !== "ext") {
                 bounds.width = roundbounds(width,"size")
                 bounds.height = roundbounds(height,"size")
             }
@@ -777,8 +798,8 @@ export const listeners = {
             config.set(`${type}winpos`,bounds)
         }
 
-        const setwinclosevalue = (config: Store<Config>,type: "ext" | "stat",reopenonlaunch: boolean) => {
-            log.write("EXIT",`${type === "ext" ? "Stream Notification" : "Achievement Stats Overlay"} Window ${reopenonlaunch ? "destroyed" : "closed"}.`)
+        const setwinclosevalue = (config: Store<Config>,type: ExtWins,reopenonlaunch: boolean) => {
+            log.write("EXIT",`${extwinsmap.get(type)?.wintitle || "<Unknown>"} Window ${reopenonlaunch ? "destroyed" : "closed"}.`)
             config.set(`${type}win`,reopenonlaunch)
             ipcMain.emit("configupdated",null,config.store)
         }
@@ -816,7 +837,9 @@ export const listeners = {
         ipcMain.on("extwinshow",(event,show: boolean) => extwin && extwin.setOpacity(show ? 1 : (sanhelper.devmode ? 0.5 : 0)))
         ipcMain.on("closeextwin",() => closewin("ext"))
 
-        ipcMain.on("statwin", (event,value: boolean) => {
+        ipcMain.on("statwin",(event,value: boolean) => {
+            if (value && statwin) return log.write("WARN",`${extwinsmap.get("stat")!.wintitle} window already active`)
+            
             const config = sanconfig.get()
 
             // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
@@ -856,9 +879,9 @@ export const listeners = {
         })
 
         ipcMain.on("stats",async (event,statsobj: StatsObj) => {
-            if (statwin) {
-                const section = ["settings","streaming","content"]
+            const section = ["settings","streaming","content"]
 
+            if (statwin) {
                 const translations: StatsObjTranslations = {
                     nogame: await language.get("game",["app","content"]),
                     noachievements: await language.get("noachievements",[...section]),
@@ -871,6 +894,8 @@ export const listeners = {
 
                 statwin.webContents.send("stats",statsobj,translations)
             }
+
+            gametimerwin && gametimerwin.webContents.send("initgametimer",statsobj,await language.get("game",["app","content"]))
         })
 
         ipcMain.on("statsunlock",(event,achievement: Achievement,statsobj: StatsObj) => statwin && statwin.webContents.send("statsunlock",achievement,statsobj))
@@ -894,11 +919,13 @@ export const listeners = {
 
             globalShortcut.register(config.get("releaseshortcut") as string,() => ipcMain.emit("releasegame"))
 
-            globalShortcut.register(config.get("statwinshortcut") as string,() => {
-                const value = config.get("statwin")
-                config.set("statwin",!value)
-                ipcMain.emit("statwin",null,!value)
-            })
+            for (const type of (["stat","gametimer"] as const)) {
+                globalShortcut.register(config.get(`${type}winshortcut`) as string,() => {
+                    const value = config.get(`${type}win`)
+                    config.set(`${type}win`,!value)
+                    ipcMain.emit(`${type}win`,null,!value)
+                })
+            }
 
             globalShortcut.register(config.get("replaynotifyshortcut") as string,() => ipcMain.emit("replaynotify"))
         })
@@ -1777,6 +1804,57 @@ export const listeners = {
         ipcMain.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
             if (!fs.existsSync(imgpath)) return log.write("WARN",`Unable to add media to Steam: "${imgpath}" does not exist`)
             worker && worker.webContents.send("addtosteam",imgpath,width,height)
+        })
+
+        ipcMain.on("gametimerwin",(event,value: boolean) => {
+            if (value && gametimerwin) return log.write("WARN",`${extwinsmap.get("gametimer")!.wintitle} window already active`)
+            const config = sanconfig.get()
+            
+            // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
+            let reopenonlaunch = true
+
+            gametimerwin = createextwin(config,"gametimer",value)
+            if (!gametimerwin) return
+
+            ipcMain.once("gametimerwinready",() => {
+                const value = config.get("gametimerwinaot")
+                value && gametimerwin!.webContents.send("gametimerwinaot",value)
+
+                worker && worker.webContents.send("stats")
+                worker && ipcMain.emit("startgametimer")
+            })
+
+            gametimerwin.on("moved",() => setwinbounds(config,"gametimer",gametimerwin!))
+            gametimerwin.on("resized",() => setwinbounds(config,"gametimer",gametimerwin!))
+
+            gametimerwin.once("close",() => {
+                setwinbounds(config,"gametimer",gametimerwin!)
+                reopenonlaunch = false
+            })
+
+            gametimerwin.once("closed",() => {
+                setwinclosevalue(config,"gametimer",reopenonlaunch)
+                gametimerwin = null
+            })
+        })
+
+        // `restarted` is sent from `gametimer.setcompletionstatus()` when a previous completion has had achievements re-locked
+        ipcMain.on("startgametimer",(event,restarted?: number) => {
+            if (!gametimerwin || !appid) return
+
+            ipcMain.once("updategametimer",(event,obj: { stored: number, started?: number }) => gametimerwin && gametimerwin.webContents.send("updategametimer",obj))
+            worker && worker.webContents.send("updategametimer",restarted)
+        })
+
+        ipcMain.on("gametimercompletionstatus",(event,complete: boolean) => gametimerwin && gametimerwin.webContents.send("gametimercompletionstatus",complete))
+
+        ipcMain.on("gametimerwinaot",(event,value: boolean) => {
+            if (!gametimerwin) return
+
+            gametimerwin.setAlwaysOnTop(value)
+            gametimerwin.setIgnoreMouseEvents(value)
+
+            gametimerwin.webContents.send("gametimerwinaot",value)
         })
 
         return

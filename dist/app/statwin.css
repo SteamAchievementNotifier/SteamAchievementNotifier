@@ -373,6 +373,12 @@ input#maxcustom {
 }
 
 button#winopacity {
+    --icon: url("../../icon/visibility.svg");
+    grid-column-start: -1;
+}
+
+body[hidden] button#winopacity,
+body[aot] button#winopacity {
     --icon: url("../../icon/visibility_off.svg");
     grid-column-start: -1;
 }

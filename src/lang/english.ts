@@ -310,7 +310,10 @@ export const translations = {
                 startgame: "Start a game to show achievements!",
                 max: "Max",
                 custom: "Custom...",
-                statwinshortcut: "Overlay Shortcut"
+                statwinshortcut: "Overlay Shortcut",
+                gametimerwin: "Game Completion Timer",
+                gametimerwinshortcut: "Timer Shortcut",
+                gametimerwinaot: "Always on Top"
             }
         },
         accessibility: {
@@ -871,7 +874,10 @@ export const translations = {
         ssaddtosteam: "Automatically add generated media to the current game's Recordings and Screenshots in Steam",
         appdatadir: "Open the location of the app's AppData folder",
         backup: "Backup the contents of the app's AppData folder to a chosen location, which will act as a restore point for the current state of the app",
-        restore: "Restore the contents of the app's AppData folder from a previous backup"
+        restore: "Restore the contents of the app's AppData folder from a previous backup",
+        gametimerwin: "Display an on-screen timer showing the amount of time taken to unlock all achievements for the current game",
+        gametimerwinshortcut: "Toggle the Game Completion Timer using the specified keyboard shortcut",
+        gametimerwinaot: `Set the Game Completion Timer to "Always on Top" mode, allowing the window to be displayed above the game window<br><br><span class="ttdesc">When enabled, the Game Completion Timer will no longer register user interactions, such as "click" events. To re-enable interaction with the window, this option must be disabled</span>`,
     },
     update: {
         updateavailable: "Update available",

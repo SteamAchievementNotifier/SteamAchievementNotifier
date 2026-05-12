@@ -148,6 +148,15 @@ declare interface Config {
     notify1line: boolean,
     ssaddtosteam: boolean,
     backuppath: string,
+    gametimerwin: boolean,
+    gametimerwinpos: {
+        width: number,
+        height: number,
+        x: number,
+        y: number
+    },
+    gametimerwinshortcut: string,
+    gametimerwinaot: boolean,
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -603,6 +612,8 @@ declare interface SSWin {
     windowtitle: string | null,
     haswarned: boolean
 }
+
+declare type ExtWins = "ext" | "stat" | "gametimer"
 
 declare module "simple-vdf"
 declare module "adm-zip"

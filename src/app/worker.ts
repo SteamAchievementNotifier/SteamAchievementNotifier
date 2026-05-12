@@ -5,7 +5,11 @@ import { sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
+import { getGamePath } from "steam-game-path"
 import { getlogmap, getlastactions, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
+import { gametimer } from "./gametimer"
+
+const runninggametimers: { [key: number]: number } = {}
 
 declare global {
     interface Window {
@@ -167,6 +171,15 @@ const startsan = async (appinfo: AppInfo) => {
             const icon = await getachievementicon(client,achievement)
             ipcRenderer.send(`iconpath_${achievement.apiname}`,icon)
         })
+
+        ipcRenderer.on("updategametimer",(event,restarted?: number) => {
+            restarted && runninggametimers[appid] === undefined && (runninggametimers[appid] = restarted)
+            
+            const stored = gametimer.json[appid]?.elapsed ?? 0
+            const started = runninggametimers[appid]
+
+            ipcRenderer.send("updategametimer",{ stored, started })
+        })
     
         const rustlog = client.log.initLogger(path.join(sanhelper.appdata,"logs"))
         log.write("INFO",rustlog)
@@ -176,19 +189,19 @@ const startsan = async (appinfo: AppInfo) => {
         const username = client.localplayer.getName()
         const num = client.achievement.getNumAchievements()
     
-        const getprocessinfo = (): ProcessInfo[] => {
+        const getprocessinfo = (sgpexe?: string): ProcessInfo[] => {
             const processinfo: ProcessInfo[] = []
-            
-            const linkedgame: string | undefined = Object.entries(JSON.parse(localStorage.getItem("linkgame")!)).find(item => parseInt(item[0]) === appid)?.[1] as string
-            linkedgame && log.write("INFO",`"Linked Game" executable found for AppID "${appid}": "${linkedgame}"`)
+            const linkedgame: string | undefined = sgpexe || Object.entries(JSON.parse(localStorage.getItem("linkgame")!)).find(item => parseInt(item[0]) === appid)?.[1] as string
     
+            linkedgame && log.write("INFO",`${sgpexe ? `"steam-game-path"` : "Linked Game"} executable found for AppID "${appid}": "${linkedgame}"`)
+
             client.processes.getGameProcesses(appid,linkedgame ? path.basename(linkedgame) : null).forEach(({ exe,pid }: ProcessInfo) => {
                 processinfo.push({
                     pid,
                     exe
                 } as ProcessInfo)
             })
-    
+
             return processinfo
         }
     
@@ -220,6 +233,12 @@ const startsan = async (appinfo: AppInfo) => {
             ipcRenderer.on("steamlang",async () => await updatestats(appid,gamename || "???",cache,steam3id))
     
             !num && log.write("INFO",`"${gamename}" has no achievements`)
+
+            if (runninggametimers[appid] === undefined) {
+                gametimer.start(appid) && (runninggametimers[appid] = Date.now())
+            } else {
+                log.write("WARN",`Game Timer for AppID ${appid} already running`)
+            }
             
             const gameloop = () => {
                 if (processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid))) {
@@ -233,6 +252,13 @@ const startsan = async (appinfo: AppInfo) => {
                     statsobj.achievements = undefined
 
                     ipcRenderer.send("stats",statsobj)
+
+                    const started = runninggametimers[appid]
+
+                    if (started !== undefined) {
+                        gametimer.stop(appid,started)
+                        delete runninggametimers[appid]
+                    }
                 }
     
                 const { debug } = sanconfig.get().store
@@ -340,8 +366,11 @@ const startsan = async (appinfo: AppInfo) => {
 
                         ipcRenderer.send("statsunlock",achievement,statsobj)
                     })()
+
+                    const allunlocked = live.every(ach => ach.unlocked)
+                    gametimer.setcompletionstatus(appid,allunlocked,runninggametimers[appid])
         
-                    if (live.every(ach => ach.unlocked) && !hasshown) {
+                    if (allunlocked && !hasshown) {
                         const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon
                         const customisation = config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation
         
@@ -386,6 +415,18 @@ const startsan = async (appinfo: AppInfo) => {
                     setTimeout(getrunninggameprocesses,1000)
                     return
                 } else {
+                    // If no processes are found by automatic process tracking or by manually adding a Linked Game, use "steam-game-path" as a last resort fallback
+                    log.write("WARN",`No matching game processes found via automatic process tracking or Linked Games. Checking for executable using "steam-game-path"...`)
+    
+                    const exes = async () => (await (getGamePath(appid,true)?.game)?.executable as any[]).filter(({ executable }: any) => path.extname(executable) === (process.platform === "win32" ? ".exe" : ""))    
+    
+                    for (const exe of await exes()) {
+                        await (async () => {
+                            const processinfo: ProcessInfo[] = getprocessinfo(exe.executable)
+                            processinfo.length && processes.push(...processinfo)
+                        })()
+                    }
+
                     // If an EXE is still not found, push an invalid process. The user will then need to manually release the game
                     if (!processes.length) {
                         log.write("WARN",`Unable to find running game process for "${gamename}": Game will not be able to quit automatically!`)

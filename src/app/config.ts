@@ -31,6 +31,7 @@ export const customfilekeys = [
 export const shortcutkeys = new Map<string,boolean>([
     ["release",false],
     ["statwin",false],
+    ["gametimerwin",false],
     ["replaynotify",false],
     ["customtrigger",true]
 ])
@@ -333,6 +334,15 @@ export const sanconfig = {
                 notify1line: false,
                 ssaddtosteam: false,
                 backuppath: "",
+                gametimerwin: false,
+                gametimerwinpos: {
+                    width: 250,
+                    height: 100,
+                    x: 0,
+                    y: 0
+                },
+                gametimerwinshortcut: "CTRL+SHIFT+T",
+                gametimerwinaot: false,
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

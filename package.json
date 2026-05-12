@@ -2,7 +2,7 @@
     "private": true,
     "name": "steamachievementnotifierv1.9",
     "author": "SteamAchievementNotifier",
-    "version": "1.9.39",
+    "version": "1.9.40",
     "description": "Steam Achievement Notifier (V1.9)",
     "main": "dist/app/app.js",
     "scripts": {
@@ -41,8 +41,15 @@
         "sanhelper.rs": "./deps/sanhelper.rs",
         "simple-vdf": "^1.1.1",
         "sortablejs": "^1.15.6",
+        "steam-game-path": "^2.3.0",
         "steamworks.js": "./deps/steamworks.js",
         "tippy.js": "^6.3.7"
+    },
+    "overrides": {
+        "steam-game-path": {
+            "steam-appticket": "^2.0.1",
+            "steam-user": "^5.2.3"
+        }
     },
     "build": {
         "appId": "com.SteamAchievementNotifier.Jackson0ne",

@@ -369,6 +369,8 @@ export const sanhelper: SANHelper = {
     shortcuts: (value: boolean) => ipcRenderer.send("shortcut",value),
     statwin: (value: boolean) => ipcRenderer.send("statwin",value),
     statwinaot: (value: boolean) => ipcRenderer.send("statwinaot",value),
+    gametimerwin: (value: boolean) => ipcRenderer.send("gametimerwin",value),
+    gametimerwinaot: (value: boolean) => ipcRenderer.send("gametimerwinaot",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
@@ -1393,5 +1395,10 @@ export const sanhelper: SANHelper = {
                 }
             }
         }
-    }
+    },
+    extwinsmap: (config: any): Map<ExtWins,{ wintitle: string, width: number, height: number, minWidth: number, minHeight: number }> => new Map<ExtWins,{ wintitle: string, width: number, height: number, minWidth: number, minHeight: number }>([
+        ["ext",{ wintitle: "Stream Notifications", width: 300, height: 50, minWidth: 125, minHeight: 50 }],
+        ["stat",{ wintitle: "Achievement Stats Overlay", width: config.get("statwinpos")?.width ?? 250, height: config.get("statwinpos")?.height ?? 500, minWidth: 200, minHeight: 300 }],
+        ["gametimer",{ wintitle: "Game Completion Timer", width: config.get("gametimerwinpos")?.width ?? 250, height: Math.round((config.get("gametimerwinpos")?.width ?? 250) / 2.5), minWidth: 250, minHeight: 100 }],
+    ])
 }

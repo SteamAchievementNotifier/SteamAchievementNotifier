@@ -20,7 +20,7 @@ let replay: { queueobj: WinType, src?: number } | null = null
 const gameartfiles: string[] = []
 let emu: string | null = null
 
-const extwinsmap = sanhelper.extwinsmap(sanconfig.get()) as Map<ExtWins,{ wintitle: string, width: number, height: number, minWidth: number, minHeight: number }>
+const { defaultextwins } = sanconfig
 
 export const listeners = {
     setexit: () => {
@@ -370,17 +370,11 @@ export const listeners = {
             if (value && debugwin) return log.write("WARN",`"debugwin" already active`)
             if (!value && debugwin) return debugwin.close()
 
-            const { width: screenwidth } = screen.getPrimaryDisplay().bounds
-            const ratio = 5 / 3 // Base aspect ratio
-            const minwidth = 500
-            const maxwidth = Math.min(screenwidth * 0.5,1000)
-            const width = Math.max(Math.min(screenwidth * 0.3,minwidth),maxwidth)
-
             debugwin = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): Debug Panel`,
-                width: Math.round(width),
-                height: Math.round(width / ratio),
-                minWidth: minwidth,
+                width: 500,
+                height: 300,
+                minWidth: 500,
                 minHeight: 300,
                 autoHideMenuBar: true,
                 resizable: true,
@@ -393,12 +387,7 @@ export const listeners = {
                 }
             })
 
-            debugwin.on("will-resize",(event,bounds) => {
-                event.preventDefault()
-
-                const { width } = bounds
-                debugwin && debugwin.setBounds({ width, height: Math.round(width / ratio) })
-            })
+            debugwin.setAspectRatio(5/3)
 
             debugwin.loadFile(path.join(__root,"dist","app","debugwin.html"))
             debugwin.once("ready-to-show", () => debugwin && sanhelper.resetdebuginfo(debugwin))
@@ -705,16 +694,11 @@ export const listeners = {
                 return null
             }
 
-            const extwinsmap = sanhelper.extwinsmap(sanconfig.get()) as Map<ExtWins,{ wintitle: string, width: number, height: number, minWidth: number, minHeight: number }>
             const { x, y } = config.get(`${type}winpos`)
-
-            const wininfo = extwinsmap.get(type)
-            if (!wininfo) throw new Error(`"${type}" key does not exist in "extwinsmap"`)
-
-            const { wintitle, width, height, minWidth, minHeight } = wininfo
+            const { wintitle, width, height, minWidth, minHeight } = defaultextwins[type]
 
             const win = new BrowserWindow({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): ${wintitle || "???"}`,
+                title: `Steam Achievement Notifier (V${sanhelper.version}): ${wintitle || "!!!MISSING"}`,
                 width,
                 height,
                 minWidth,
@@ -742,16 +726,7 @@ export const listeners = {
             // `extwin` does not render content if transparency is set while HWA is disabled
             type === "ext" && !config.get("nohwa") && win.setOpacity(config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0))
             type !== "ext" && win.setIgnoreMouseEvents(config.get(`${type}winaot`))
-
-            type === "gametimer" && win.on("will-resize",(event,bounds) => {
-                event.preventDefault()
-
-                const ratio = 2.5 // Base aspect ratio
-                const { width } = bounds
-                
-                win && win.setBounds({ width, height: Math.round(width / ratio) })
-                setwinbounds(config,"gametimer",gametimerwin!)
-            })
+            type === "gametimer" && win.setAspectRatio(2.5/1)
 
             win.loadFile(path.join(__root,"dist","app",`${type}win.html`))
             sanhelper.devmode && sanhelper.setdevtools(win)
@@ -799,7 +774,7 @@ export const listeners = {
         }
 
         const setwinclosevalue = (config: Store<Config>,type: ExtWins,reopenonlaunch: boolean) => {
-            log.write("EXIT",`${extwinsmap.get(type)?.wintitle || "<Unknown>"} Window ${reopenonlaunch ? "destroyed" : "closed"}.`)
+            log.write("EXIT",`${defaultextwins[type].wintitle || "!!!MISSING"} Window ${reopenonlaunch ? "destroyed" : "closed"}.`)
             config.set(`${type}win`,reopenonlaunch)
             ipcMain.emit("configupdated",null,config.store)
         }
@@ -838,7 +813,7 @@ export const listeners = {
         ipcMain.on("closeextwin",() => closewin("ext"))
 
         ipcMain.on("statwin",(event,value: boolean) => {
-            if (value && statwin) return log.write("WARN",`${extwinsmap.get("stat")!.wintitle} window already active`)
+            if (value && statwin) return log.write("WARN",`${defaultextwins.stat.wintitle} window already active`)
             
             const config = sanconfig.get()
 
@@ -909,10 +884,11 @@ export const listeners = {
 
         ipcMain.on("steamlang",() => statwin && worker && worker.webContents.send("steamlang"))
 
-        ipcMain.on("shortcut",(event,shouldregister) => {
+        ipcMain.on("shortcut",(event,shouldregister?: boolean) => {
             globalShortcut.unregisterAll()
+            win.webContents.send("noshortcuts",sanconfig.get().store.noshortcuts)
 
-            if (!shouldregister) return
+            if (shouldregister === false) return
 
             const config = sanconfig.get()
             config.get("shortcuts") && (["main",...(config.get("trophymode") ? ["semi"] : []),"rare","plat"] as NotifyType[]).forEach(type => globalShortcut.register(config.get(`customisation.${type}.shortcut`) as string, () => win.webContents.send("shortcut",type)))
@@ -1245,6 +1221,8 @@ export const listeners = {
 
                 offscreenwins.clear() // For now, make sure only one `offscreenwin` exists at a time
 
+                const { x, y } = config.get("extwinpos")
+
                 offscreenwins.set(notify.id,!extwin ? null : new BrowserWindow({
                     ...options,
                     title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
@@ -1255,7 +1233,9 @@ export const listeners = {
                         nodeIntegration: true,
                         contextIsolation: false,
                         backgroundThrottling: false,
-                        offscreen: true
+                        offscreen: {
+                            deviceScaleFactor: screen.getDisplayNearestPoint({ x, y }).scaleFactor
+                        }
                     }
                 }))
 
@@ -1272,6 +1252,7 @@ export const listeners = {
                 config.get("screenshots") !== "off" && config.get("ssdelay") > 0 && notifywin.setContentProtection(true) // If `ssdelay` > 0, prevents on-screen notification from being captured to prevent duplicate notifications in screenshots
                 notifywin.setIgnoreMouseEvents(true)
                 notifywin.setAlwaysOnTop(true,"screen-saver",1000)
+                config.get("extwin") && !config.get("nohwa") && process.platform !== "linux" && notifywin.setOpacity(!config.get("extwinnotify") ? (sanhelper.devmode ? 0.5 : 0) : 1)
 
                 if (extwin && offscreenwin instanceof BrowserWindow) {
                     offscreenwin.loadFile(basehtml)
@@ -1781,7 +1762,7 @@ export const listeners = {
             event.reply("decryptrakey",decrypted)
         })
 
-        ipcMain.on("ragame",(event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => {
+        ipcMain.on("ragame",async (event,status: RAStatus,ragame?: RAGame) => {
             gameid = ragame?.gameid || 0
             win.webContents.send("ragame",status,ragame)
         })
@@ -1807,7 +1788,7 @@ export const listeners = {
         })
 
         ipcMain.on("gametimerwin",(event,value: boolean) => {
-            if (value && gametimerwin) return log.write("WARN",`${extwinsmap.get("gametimer")!.wintitle} window already active`)
+            if (value && gametimerwin) return log.write("WARN",`${defaultextwins.gametimer.wintitle} window already active`)
             const config = sanconfig.get()
             
             // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
@@ -1837,16 +1818,15 @@ export const listeners = {
                 gametimerwin = null
             })
         })
-
-        // `restarted` is sent from `gametimer.setcompletionstatus()` when a previous completion has had achievements re-locked
-        ipcMain.on("startgametimer",(event,restarted?: number) => {
+        
+        ipcMain.on("startgametimer",(event) => {
             if (!gametimerwin || !appid) return
 
             ipcMain.once("updategametimer",(event,obj: { stored: number, started?: number }) => gametimerwin && gametimerwin.webContents.send("updategametimer",obj))
-            worker && worker.webContents.send("updategametimer",restarted)
+            worker && worker.webContents.send("updategametimer")
         })
 
-        ipcMain.on("gametimercompletionstatus",(event,complete: boolean) => gametimerwin && gametimerwin.webContents.send("gametimercompletionstatus",complete))
+        ipcMain.on("gametimercomplete",() => gametimerwin && gametimerwin.webContents.send("gametimercomplete"))
 
         ipcMain.on("gametimerwinaot",(event,value: boolean) => {
             if (!gametimerwin) return
@@ -1855,6 +1835,18 @@ export const listeners = {
             gametimerwin.setIgnoreMouseEvents(value)
 
             gametimerwin.webContents.send("gametimerwinaot",value)
+        })
+
+        ipcMain.on("ragametimer",async (event,statsobj: StatsObj,action: RAStatus) => {
+            if (!gametimerwin) return
+            const { appid } = statsobj
+                        
+            gametimerwin.webContents.send("initgametimer",statsobj,await language.get("game",["app","content"]))
+
+            if (!appid) return
+            
+            ipcMain.once("updateragametimer",(event,obj: { stored: number, started?: number }) => gametimerwin && gametimerwin.webContents.send("updategametimer",obj))
+            worker && worker.webContents.send("updateragametimer","ra")
         })
 
         return

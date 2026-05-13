@@ -1,5 +1,4 @@
 import { app, BrowserWindow, ipcMain, nativeTheme } from "electron"
-import fs from "fs"
 import path from "path"
 import { sanhelper, __root } from "./sanhelper"
 import { log } from "./log"
@@ -82,8 +81,11 @@ export const main = async (starttime: string) => {
         win.once("ready-to-show", () => {
             listeners.set(win)
             ipcMain.emit("validateworker")
-            ;(sanhelper.extwinsmap(config) as Map<ExtWins,any>).forEach((_,type) => config.get(`${type}win`) && ipcMain.emit(`${type}win`,null,true))
-            ipcMain.emit("shortcut",null,config.get("shortcuts"))
+            ipcMain.emit("shortcut",null,!config.get("noshortcuts"))
+
+            for (const type of Object.keys(sanconfig.defaultextwins) as ExtWins[]) {
+                config.get(`${type}win`) && ipcMain.emit(`${type}win`,null,true)
+            }
         })
 
         ipcMain.on("starttime", event => event.reply("starttime",starttime))

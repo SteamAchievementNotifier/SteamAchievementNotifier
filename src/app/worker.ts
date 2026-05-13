@@ -17,7 +17,8 @@ declare global {
         cachedata: any,
         globallocalised: any,
         testraunlock: Function,
-        racached: any
+        racached: any,
+        runninggametimers: any
     }
 }
 
@@ -39,6 +40,13 @@ const resolvefilepath = (dir: string,file: string) => {
     }
 
     return null
+}
+
+const updategametimer = (appid: number,ra?: "ra") => {    
+    const stored = gametimer.json[appid]?.elapsed ?? 0
+    const started = runninggametimers[appid]
+
+    ipcRenderer.send(`update${ra ?? ""}gametimer`,{ stored, started })
 }
 
 const startidle = () => {
@@ -172,14 +180,7 @@ const startsan = async (appinfo: AppInfo) => {
             ipcRenderer.send(`iconpath_${achievement.apiname}`,icon)
         })
 
-        ipcRenderer.on("updategametimer",(event,restarted?: number) => {
-            restarted && runninggametimers[appid] === undefined && (runninggametimers[appid] = restarted)
-            
-            const stored = gametimer.json[appid]?.elapsed ?? 0
-            const started = runninggametimers[appid]
-
-            ipcRenderer.send("updategametimer",{ stored, started })
-        })
+        ipcRenderer.on("updategametimer",() => updategametimer(appid))
     
         const rustlog = client.log.initLogger(path.join(sanhelper.appdata,"logs"))
         log.write("INFO",rustlog)
@@ -368,7 +369,6 @@ const startsan = async (appinfo: AppInfo) => {
                     })()
 
                     const allunlocked = live.every(ach => ach.unlocked)
-                    gametimer.setcompletionstatus(appid,allunlocked,runninggametimers[appid])
         
                     if (allunlocked && !hasshown) {
                         const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon
@@ -392,6 +392,8 @@ const startsan = async (appinfo: AppInfo) => {
                         }
         
                         ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,themeswitch?.[1].src))
+                        gametimer.setcomplete(appid,runninggametimers[appid])
+
                         hasshown = true
                     }
                 })
@@ -454,6 +456,7 @@ const startsan = async (appinfo: AppInfo) => {
 
 startidle()
 
+let gameid = 0
 let ratimer: NodeJS.Timeout | null = null
 const logactions = new Set<string>()
 const lastlog: { [key: string]: string } = {}
@@ -468,6 +471,11 @@ for (const emu of rasupported) {
 // Converts `LogAction` to string and stores in `logactions` Set. This de-dupes by ensuring only unique new actions are stored
 // Needs to be a string - Sets compare by reference (not by object or key/value), so comparing two `LogAction` objects directly will not work here
 const getactionstr = (action: LogAction) => `${action.key}:${action.file}:${action.action}:${action.value}:${action.mode}`
+
+let rastatsobj: StatsObj = {
+    appid: 0,
+    gamename: null
+}
 
 const startra = () => {
     if (ratimer) return log.write("WARN",`"ratimer" already active`)
@@ -499,6 +507,46 @@ const startra = () => {
                 type !== "CONSOLE" ? log.write(type as "INFO" | "ERROR", msg) : console.log(msg)
 
                 lastlog[keyname] = msg
+
+                const { action, value: appid } = newaction
+                if (!appid) return
+
+                gameid = appid
+                
+                if (action === "start") {
+                    rastatsobj = {
+                        appid: appid as number,
+                        gamename: racached[0].gamename as string,
+                        achievements: racached as any,
+                        action
+                    }
+                    
+                    if (runninggametimers[appid] === undefined) {
+                        gametimer.start(appid) && (runninggametimers[appid] = Date.now())
+                    } else {
+                        log.write("WARN",`Game Timer for RA GameID ${appid} already running`)
+                    }
+                }
+                
+                if (action === "stop") {
+                    gameid = 0
+                    
+                    rastatsobj = {
+                        appid: 0,
+                        gamename: null,
+                        action
+                    }
+                    
+                    const started = runninggametimers[appid]
+
+                    if (started !== undefined) {
+                        gametimer.stop(appid,started)
+                        delete runninggametimers[appid]
+                    }
+                }
+
+                sanhelper.devmode && (window.runninggametimers = runninggametimers)
+                ipcRenderer.send("ragametimer",rastatsobj,action)
             }
         }
     },1000)
@@ -517,3 +565,5 @@ ipcRenderer.on("rastop",() => {
 })
 
 ipcRenderer.on("emu",() => ipcRenderer.send("emu",emu))
+ipcRenderer.on("updateragametimer",(event,ra?: "ra") => updategametimer(gameid,ra))
+ipcRenderer.on("ragametimercomplete",() => gametimer.setcomplete(gameid,runninggametimers[gameid]))

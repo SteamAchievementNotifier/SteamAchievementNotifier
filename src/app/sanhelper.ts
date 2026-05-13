@@ -299,7 +299,7 @@ export const sanhelper: SANHelper = {
             }
 
             !sctimer && sanhelper.getshortcut(config,document.body,id)
-            ipcRenderer.send("shortcut",true)
+            ipcRenderer.send("shortcut",!config.get("noshortcuts"))
         }
 
         target.setAttribute("set","")
@@ -366,13 +366,14 @@ export const sanhelper: SANHelper = {
     extwin: (value: boolean) => ipcRenderer.send("extwin",value),
     extwinshow: (value: boolean) => ipcRenderer.send("extwinshow",value),
     audiosrc: (value: "notify" | "app" | "off") => document.body.toggleAttribute("muted",value === "off"),
-    shortcuts: (value: boolean) => ipcRenderer.send("shortcut",value),
+    shortcuts: () => ipcRenderer.send("shortcut",true),
     statwin: (value: boolean) => ipcRenderer.send("statwin",value),
     statwinaot: (value: boolean) => ipcRenderer.send("statwinaot",value),
     gametimerwin: (value: boolean) => ipcRenderer.send("gametimerwin",value),
     gametimerwinaot: (value: boolean) => ipcRenderer.send("gametimerwinaot",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
+    noshortcuts: (value: boolean) => ipcRenderer.send("shortcut",!value),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
@@ -405,7 +406,7 @@ export const sanhelper: SANHelper = {
             }
         }
 
-        ipcRenderer.send("shortcut",true)
+        ipcRenderer.send("shortcut",!config.get("noshortcuts"))
 
         // Below actions should only happen on app load
         if (customiser) return
@@ -1395,10 +1396,5 @@ export const sanhelper: SANHelper = {
                 }
             }
         }
-    },
-    extwinsmap: (config: any): Map<ExtWins,{ wintitle: string, width: number, height: number, minWidth: number, minHeight: number }> => new Map<ExtWins,{ wintitle: string, width: number, height: number, minWidth: number, minHeight: number }>([
-        ["ext",{ wintitle: "Stream Notifications", width: 300, height: 50, minWidth: 125, minHeight: 50 }],
-        ["stat",{ wintitle: "Achievement Stats Overlay", width: config.get("statwinpos")?.width ?? 250, height: config.get("statwinpos")?.height ?? 500, minWidth: 200, minHeight: 300 }],
-        ["gametimer",{ wintitle: "Game Completion Timer", width: config.get("gametimerwinpos")?.width ?? 250, height: Math.round((config.get("gametimerwinpos")?.width ?? 250) / 2.5), minWidth: 250, minHeight: 100 }],
-    ])
+    }
 }

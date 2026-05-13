@@ -266,7 +266,6 @@ ipcRenderer.on("statwinaot",(event,value: boolean) => document.body.toggleAttrib
 
 window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("close")!.onclick = () => window.close()
-    document.getElementById("winopacity")!.onclick = () => document.body.toggleAttribute("hidden",!document.body.hasAttribute("hidden"))
     document.getElementById("reorder")!.onclick = () => document.body.toggleAttribute("reorder",!document.body.hasAttribute("reorder"))
     document.getElementById("spoilers")!.onclick = () => {
         const config = sanconfig.get()
@@ -276,6 +275,18 @@ window.addEventListener("DOMContentLoaded", () => {
         log.write("INFO",`"statwin" updated to ${value ? "hide" : "show"} spoilers`)
 
         document.body.toggleAttribute("nospoilers",value)
+    }
+
+    const winopacity = document.getElementById("winopacity")!
+    document.body.toggleAttribute("hidden",sanconfig.get().store.statwinopacity)
+    
+    winopacity.onclick = () => {
+        const config = sanconfig.get()
+        const value = !config.get("statwinopacity")
+
+        config.set("statwinopacity",value)
+
+        document.body.toggleAttribute("hidden",value)
     }
 
     const maxdisplayelem = document.getElementById("maxdisplay") as HTMLSelectElement

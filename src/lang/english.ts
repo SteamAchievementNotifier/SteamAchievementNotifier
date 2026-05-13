@@ -313,7 +313,8 @@ export const translations = {
                 statwinshortcut: "Overlay Shortcut",
                 gametimerwin: "Game Completion Timer",
                 gametimerwinshortcut: "Timer Shortcut",
-                gametimerwinaot: "Always on Top"
+                gametimerwinaot: "Always on Top",
+                extwinnotify: "Show Onscreen Notification"
             }
         },
         accessibility: {
@@ -324,7 +325,8 @@ export const translations = {
                 nvda: "Enable NVDA Support",
                 tooltips: "Show Tooltips",
                 showsystrayopts: "Show System Tray Options",
-                releaseshortcut: "Release Game Shortcut"
+                releaseshortcut: "Release Game Shortcut",
+                noshortcuts: "Disable Keyboard Shortcuts"
             }
         },
         advanced: {
@@ -878,6 +880,8 @@ export const translations = {
         gametimerwin: "Display an on-screen timer showing the amount of time taken to unlock all achievements for the current game",
         gametimerwinshortcut: "Toggle the Game Completion Timer using the specified keyboard shortcut",
         gametimerwinaot: `Set the Game Completion Timer to "Always on Top" mode, allowing the window to be displayed above the game window<br><br><span class="ttdesc">When enabled, the Game Completion Timer will no longer register user interactions, such as "click" events. To re-enable interaction with the window, this option must be disabled</span>`,
+        noshortcuts: `Disables all in-app keyboard shortcuts<br><br><span class="ttdesc">When enabled, <u>all in-app shortcuts will no longer function</u>. All options related to keyboard shortcuts will also be hidden</span>`,
+        extwinnotify: "Toggle visibility of all onscreen notifications while using Stream Notifications"
     },
     update: {
         updateavailable: "Update available",

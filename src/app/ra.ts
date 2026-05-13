@@ -333,6 +333,8 @@ const raplatnotify = async (platobj: RAAPlatObj) => {
     setTimeout(() => {
         sanhelper.devmode && console.log(platnotify)
         ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,monitor))
+        
+        ipcRenderer.send("ragametimercomplete")
 
         hasshown = true
     },1000)

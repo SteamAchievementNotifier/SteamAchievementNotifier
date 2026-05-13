@@ -80,12 +80,17 @@ config.set("logtype","san") // Reset App Log to "san.log" on launch
 
 sanhelper.beta && sanhelper.checkbetastatus()
 
+ipcRenderer.on("noshortcuts",(event,value: boolean) => document.body.toggleAttribute("noshortcuts",value))
+
 window.addEventListener("DOMContentLoaded",() => setTimeout(async () => {
     const monitorslist = await monitors.get()
     sanhelper.devmode && console.log(monitorslist)
 
-    // Init renderer shortcuts on launch
-    ipcRenderer.send("shortcut",true)
+    const { noshortcuts } = config.store
+    document.body.toggleAttribute("noshortcuts",noshortcuts)
+
+    // Init renderer shortcuts on launch (if enabled)
+    ipcRenderer.send("shortcut",!noshortcuts)
 },100))
 
 ipcRenderer.on("displaysupdated",async () => {
@@ -871,7 +876,7 @@ ipcRenderer.on("soundonly", (event,type: NotifyType) => {
     audio.play()
 })
 
-ipcRenderer.on("shortcut", async (event,type) => {
+ipcRenderer.on("shortcut",async (event,type) => {
     globaltype = type
     sendtestnotify()
 })

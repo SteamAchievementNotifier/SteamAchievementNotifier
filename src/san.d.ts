@@ -49,6 +49,7 @@ declare interface Config {
         x: number,
         y: number
     },
+    extwinnotify: boolean,
     audiosrc: "notify" | "app" | "off",
     nowtracking: boolean,
     nowtrackingscale: number,
@@ -123,6 +124,7 @@ declare interface Config {
     statwinnospoilers: boolean,
     statwinshortcut: string,
     statwinaot: boolean,
+    statwinopacity: boolean,
     raemus: string[],
     retroarchpath: string,
     dolphinpath: string,
@@ -157,6 +159,8 @@ declare interface Config {
     },
     gametimerwinshortcut: string,
     gametimerwinaot: boolean,
+    gametimerwinopacity: boolean,
+    noshortcuts: boolean,
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -361,7 +365,8 @@ declare interface Notify extends Achievement {
 declare interface StatsObj {
     appid: number,
     gamename: string | null,
-    achievements?: Achievement[]
+    achievements?: Achievement[],
+    action?: RAStatus
 }
 
 declare interface Dialog {
@@ -588,6 +593,8 @@ declare interface RAActions {
     mode?: RegExp | null
 }
 
+declare type RAStatus = "wait" | "idle" | "start" | "stop" | "achievement"
+
 declare interface ScreenshotConfig {
     config: any,
     notify: {
@@ -614,6 +621,14 @@ declare interface SSWin {
 }
 
 declare type ExtWins = "ext" | "stat" | "gametimer"
+
+declare interface ExtWinConfig {
+    wintitle: string,
+    width: number,
+    height: number,
+    minWidth: number,
+    minHeight: number
+}
 
 declare module "simple-vdf"
 declare module "adm-zip"

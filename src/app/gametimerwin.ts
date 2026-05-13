@@ -1,10 +1,13 @@
 import { ipcRenderer } from "electron"
+import { sanconfig } from "./config"
 import { gametimer } from "./gametimer"
 
 let timer: NodeJS.Timeout | null = null
 
 ipcRenderer.on("initgametimer",async (event,statsobj: StatsObj,nogame: string) => {
-    const { appid, gamename, achievements } = statsobj
+    const { appid, gamename, achievements, action } = statsobj
+    if (!action) return // Prevents invalid actions sent via `worker.ts` from stopping the timer on achievement unlocks
+
     const gamenamewrapper = document.getElementById("gamename")!
     const timerelem = document.getElementById("timer")!
     
@@ -28,15 +31,25 @@ ipcRenderer.on("updategametimer",(event,obj: { stored: number, started?: number 
     timer = setInterval(() => timerelem.textContent = gametimer.currenttime(stored,started),16)
 })
 
-ipcRenderer.on("gametimercompletionstatus",(event,complete: boolean) => {
-    complete ? (timer && clearInterval(timer)) : ipcRenderer.send("startgametimer")
-    document.body.toggleAttribute("complete",complete)
+ipcRenderer.on("gametimercomplete",() => {
+    timer && clearInterval(timer)
+    document.body.setAttribute("complete","")
 })
 
 ipcRenderer.on("gametimerwinaot",(event,value: boolean) => document.body.toggleAttribute("aot",value))
 
 window.addEventListener("DOMContentLoaded",() => {
-    document.getElementById("winopacity")!.onclick = () => document.body.toggleAttribute("hidden",!document.body.hasAttribute("hidden"))
+    const winopacity = document.getElementById("winopacity")!
+    document.body.toggleAttribute("hidden",sanconfig.get().store.gametimerwinopacity)
+
+    winopacity.onclick = () => {
+        const config = sanconfig.get()
+        const value = !config.get("gametimerwinopacity")
+
+        config.set("gametimerwinopacity",value)
+
+        document.body.toggleAttribute("hidden",value)
+    }
     
     ipcRenderer.send("gametimerwinready")
 })

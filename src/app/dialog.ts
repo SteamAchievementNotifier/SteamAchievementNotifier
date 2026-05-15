@@ -462,7 +462,7 @@ export const dialog = {
                             <span class="lbl"></span>
                             <button class="optbtn" id="backuppath" dir></button>
                         </div>
-                        <span id="backuprestorelog"></span>
+                        <span class="dialoglog" id="backuprestorelog"></span>
                     `,
                     buttons: [{
                         id: "ok",
@@ -547,7 +547,7 @@ export const dialog = {
                             <span class="lbl"></span>
                             <button class="optbtn" id="restorepath" sanbak></button>
                         </div>
-                        <span id="backuprestorelog"></span>
+                        <span class="dialoglog" id="backuprestorelog"></span>
                     `,
                     buttons: [{
                         id: "ok",
@@ -622,6 +622,41 @@ export const dialog = {
                 const okbtn = document.querySelector("dialog .btnwrapper > button#okbtn") as HTMLButtonElement
                 okbtn.tabIndex = -1
             }
+
+            document.getElementById("resetgametimer")!.onclick = async () => dialog.open({
+                title: await language.get("resetgametimer",["settings","streaming","content"]),
+                type: "default",
+                icon: sanhelper.setfilepath("icon","timer_start.svg"),
+                sub: await language.get("resetgametimersub",["settings","streaming","content"]),
+                addHTML: `<span class="dialoglog" id="resetgametimerlog"></span>`,
+                buttons: [{
+                    id: "ok",
+                    label: await language.get("ok"),
+                    icon: "",
+                    click: async () => {
+                        const { log } = await import("./log")
+
+                        const appid = await new Promise<number>(resolve => {
+                            ipcRenderer.once("runningappid",(event,appid: number) => resolve(appid))
+                            ipcRenderer.send("runningappid")
+                        })
+
+                        const gameid = document.body.hasAttribute("ragameid") ? parseInt(document.body.getAttribute("ragameid") as string) : 0
+
+                        if (!gameid && !appid) return log.write("WARN",`Unable to reset Game Timer: No AppID detected`)
+
+                        const idtype = gameid ? "RA Game" : "App"
+                        
+                        try {
+                            ipcRenderer.send("resetgametimer",gameid || appid,gameid ? "ra" : undefined)
+                            dialog.close()
+                        } catch (err) {
+                            document.getElementById("resetgametimerlog")!.textContent = `${await language.get("resetgametimerfailed",["settings","streaming","content"])} ${await language.get("checkapplog")}`
+                            log.write("WARN",`Unable to reset Game Timer for ${idtype}ID: ${(err as Error).message}`)
+                        }
+                    }
+                }]
+            })
             
             sanhelper.sethelpdialog(document.querySelector("span#raloghelp")!,"raenablelog")
 

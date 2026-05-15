@@ -366,7 +366,9 @@ declare interface StatsObj {
     appid: number,
     gamename: string | null,
     achievements?: Achievement[],
-    action?: RAStatus
+    ra?: boolean,
+    action?: RAStatus,
+    runninggametimer?: boolean
 }
 
 declare interface Dialog {

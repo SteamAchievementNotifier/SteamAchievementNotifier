@@ -183,15 +183,15 @@ div:has(> .contentsubitem[nobefore]) {
     content: none;
 }
 
-.wrapper#contentcontainer:has(.wrapper#resetsub) .contenttitle {
+.wrapper#contentcontainer:has(.resetsub) .contenttitle {
     background-color: red;
 }
 
-.wrapper#resetsub {
+.resetsub {
     gap: 0.25rem;
 }
 
-.wrapper#resetsub > span:nth-child(3) {
+.noundo {
     color: #ff000080;
     animation: flash calc(var(--transition) * 2.5) alternate infinite;
 }
@@ -1357,11 +1357,11 @@ button.optbtn#restorepath:empty {
     pointer-events: none;
 }
 
-.addhtml:has(#backuprestorelog:empty) #backuprestorelog {
+.addhtml:has(.dialoglog:empty) .dialoglog {
     margin-top: 0;
 }
 
-#backuprestorelog {
+.dialoglog {
     display: block;
     width: 100%;
     text-align: center;
@@ -1393,6 +1393,14 @@ button.optbtn#restorepath:empty {
 
 @keyframes spin {
     to { rotate: 360deg; }
+}
+
+.addhtml:has(.dialoglog#resetgametimerlog) {
+    margin-top: 0;
+}
+
+.addhtml:has(.dialoglog#resetgametimerlog:not(:empty)) .dialoglog {
+    margin-top: 1rem;
 }
 
 @media (orientation: portrait) {

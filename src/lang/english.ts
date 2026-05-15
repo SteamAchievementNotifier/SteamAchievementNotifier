@@ -314,6 +314,15 @@ export const translations = {
                 gametimerwin: "Game Completion Timer",
                 gametimerwinshortcut: "Timer Shortcut",
                 gametimerwinaot: "Always on Top",
+                resetgametimer: "Reset Timer",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Are you sure?</span>
+                        <span>This will reset the Game Completion Timer for the current game back to 00:00:00.000.</span>
+                        <span class="noundo">🛑 This cannot be undone!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Unable to reset timer.",
                 extwinnotify: "Show Onscreen Notification"
             }
         },
@@ -594,10 +603,10 @@ export const translations = {
     reset: {
         content: {
             sub: `
-                <div class="wrapper" id="resetsub">
+                <div class="wrapper resetsub">
                     <span>Are you sure?</span>
                     <span>All previously configured data, <u>including Customisations</u>, will be reset to default.</span>
-                    <span>🛑 This cannot be undone!</span>
+                    <span class="noundo">🛑 This cannot be undone!</span>
                 </div>
             `,
             reset: "Reset"
@@ -880,6 +889,7 @@ export const translations = {
         gametimerwin: "Display an on-screen timer showing the amount of time taken to unlock all achievements for the current game",
         gametimerwinshortcut: "Toggle the Game Completion Timer using the specified keyboard shortcut",
         gametimerwinaot: `Set the Game Completion Timer to "Always on Top" mode, allowing the window to be displayed above the game window<br><br><span class="ttdesc">When enabled, the Game Completion Timer will no longer register user interactions, such as "click" events. To re-enable interaction with the window, this option must be disabled</span>`,
+        resetgametimer: "Reset the Game Completion Timer for the current game",
         noshortcuts: `Disables all in-app keyboard shortcuts<br><br><span class="ttdesc">When enabled, <u>all in-app shortcuts will no longer function</u>. All options related to keyboard shortcuts will also be hidden</span>`,
         extwinnotify: "Toggle visibility of all onscreen notifications while using Stream Notifications"
     },

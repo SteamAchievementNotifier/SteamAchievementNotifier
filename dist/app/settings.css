@@ -187,6 +187,7 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .cont:has(input[type="checkbox"]#nohwa:checked) ~ .cont:has(.title#streaming) .opt:has(#extwinnotify),
 .opt:has(#statwin:not(:checked)) + .wrapper:has(#statwinaot),
 .opt:has(#gametimerwin:not(:checked)) + .wrapper:has(#gametimerwinaot),
+.opt:has(#gametimerwin:not(:checked)) ~ button#resetgametimer,
 .opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime),
 .opt:has(#notifymax)[value="1"] + .wrapper:has(#notifyspace) {
     display: none;
@@ -965,6 +966,21 @@ body:not([allowreplay]) #settingscontent button.rect#replaynotify > span {
 
 body:not([allowreplay]) #settingscontent button.rect#replaynotify::after {
     background-color: red;
+}
+
+button#resetgametimer {
+    --icon: url("../../icon/timer_start.svg");
+    display: none;
+    background-color: #b90505b5;
+}
+
+body[active] button#resetgametimer,
+body[ragameid] button#resetgametimer {
+    display: grid;
+}
+
+button#resetgametimer:hover {
+    background-color: #b90505;
 }
 
 @media (orientation: portrait) {

@@ -10,6 +10,7 @@ import { getlogmap, getlastactions, executeaction, testraunlock, emu, rasupporte
 import { gametimer } from "./gametimer"
 
 const runninggametimers: { [key: number]: number } = {}
+const getrunninggametimers = () => !!Object.keys(runninggametimers).length
 
 declare global {
     interface Window {
@@ -42,12 +43,29 @@ const resolvefilepath = (dir: string,file: string) => {
     return null
 }
 
-const updategametimer = (appid: number,ra?: "ra") => {    
+const updategametimer = (appid: number,ra?: "ra") => {
     const stored = gametimer.json[appid]?.elapsed ?? 0
     const started = runninggametimers[appid]
 
     ipcRenderer.send(`update${ra ?? ""}gametimer`,{ stored, started })
 }
+
+ipcRenderer.on("resetgametimer",(event,appid: number,ra?: "ra") => {
+    if (!appid) return
+    const { json } = gametimer
+
+    if (!json[appid]) json[appid] = { elapsed: 0, complete: false }
+
+    json[appid].elapsed = 0
+    localStorage.setItem("gametimer",JSON.stringify(json,null,4))
+
+    const idtype = ra ? "RA Game" : "App"
+
+    runninggametimers[appid] = Date.now()
+    updategametimer(appid,ra)
+
+    log.write("INFO",`Game Timer for ${idtype}ID ${appid} reset successfully`)
+})
 
 const startidle = () => {
     try {
@@ -103,9 +121,9 @@ const statsobj: StatsObj = {
     gamename: null
 }
 
-ipcRenderer.on("stats",() => ipcRenderer.send("stats",statsobj))
+ipcRenderer.on("stats",() => ipcRenderer.send("stats",{ ...statsobj, runninggametimer: getrunninggametimers() }))
 // Send to `listeners.ts` on spawn, in case `statwin` spawned between worker respawns and did not receive "stats" IPC event
-ipcRenderer.send("stats",statsobj)
+ipcRenderer.send("stats",{ ...statsobj, runninggametimer: getrunninggametimers() })
 
 const creategameinfo = (gamename: string,appid: number,exepath: string,pid: number,pollrate: number) => [
     "Game process started:",
@@ -161,6 +179,7 @@ const updatestats = async (appid: number,gamename: string,cache: Achievement[],s
             return achievementcopy
         })
     )
+    statsobj.runninggametimer = getrunninggametimers()
 
     ipcRenderer.send("stats",statsobj)
 }
@@ -230,16 +249,16 @@ const startsan = async (appinfo: AppInfo) => {
             const apinames: string[] = num ? client.achievement.getAchievementNames() : []
             let cache: Achievement[] = num ? cachedata(client,apinames) : []
 
-            ;(async () => await updatestats(appid,gamename || "???",cache,steam3id))()
-            ipcRenderer.on("steamlang",async () => await updatestats(appid,gamename || "???",cache,steam3id))
-    
-            !num && log.write("INFO",`"${gamename}" has no achievements`)
-
             if (runninggametimers[appid] === undefined) {
                 gametimer.start(appid) && (runninggametimers[appid] = Date.now())
             } else {
                 log.write("WARN",`Game Timer for AppID ${appid} already running`)
             }
+
+            ;(async () => await updatestats(appid,gamename || "???",cache,steam3id))()
+            ipcRenderer.on("steamlang",async () => await updatestats(appid,gamename || "???",cache,steam3id))
+    
+            !num && log.write("INFO",`"${gamename}" has no achievements`)
             
             const gameloop = () => {
                 if (processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid))) {
@@ -251,6 +270,7 @@ const startsan = async (appinfo: AppInfo) => {
                     statsobj.appid = 0
                     statsobj.gamename = null
                     statsobj.achievements = undefined
+                    statsobj.runninggametimer = false
 
                     ipcRenderer.send("stats",statsobj)
 
@@ -514,17 +534,17 @@ const startra = () => {
                 gameid = appid
                 
                 if (action === "start") {
+                    if (runninggametimers[appid] === undefined) {
+                        gametimer.start(appid) && (runninggametimers[appid] = Date.now())
+                    } else {
+                        log.write("WARN",`Game Timer for RA GameID ${appid} already running`)
+                    }
+
                     rastatsobj = {
                         appid: appid as number,
                         gamename: racached[0].gamename as string,
                         achievements: racached as any,
                         action
-                    }
-                    
-                    if (runninggametimers[appid] === undefined) {
-                        gametimer.start(appid) && (runninggametimers[appid] = Date.now())
-                    } else {
-                        log.write("WARN",`Game Timer for RA GameID ${appid} already running`)
                     }
                 }
                 
@@ -544,9 +564,14 @@ const startra = () => {
                         delete runninggametimers[appid]
                     }
                 }
+                
+                if (!["start","stop"].includes(action)) continue
+
+                rastatsobj.ra = true
+                rastatsobj.runninggametimer = getrunninggametimers()
 
                 sanhelper.devmode && (window.runninggametimers = runninggametimers)
-                ipcRenderer.send("ragametimer",rastatsobj,action)
+                ipcRenderer.send("startragametimer",rastatsobj,action)
             }
         }
     },1000)
@@ -565,5 +590,7 @@ ipcRenderer.on("rastop",() => {
 })
 
 ipcRenderer.on("emu",() => ipcRenderer.send("emu",emu))
-ipcRenderer.on("updateragametimer",(event,ra?: "ra") => updategametimer(gameid,ra))
+
+ipcRenderer.on("startragametimer",() => ipcRenderer.send("startragametimer",{ ...rastatsobj, runninggametimer: getrunninggametimers() },"start"))
+ipcRenderer.on("updateragametimer",() => updategametimer(gameid,"ra"))
 ipcRenderer.on("ragametimercomplete",() => gametimer.setcomplete(gameid,runninggametimers[gameid]))

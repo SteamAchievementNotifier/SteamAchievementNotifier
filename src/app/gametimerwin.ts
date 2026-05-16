@@ -1,39 +1,50 @@
 import { ipcRenderer } from "electron"
 import { sanconfig } from "./config"
+import { language } from "./language"
 import { gametimer } from "./gametimer"
 
 let timer: NodeJS.Timeout | null = null
 
-ipcRenderer.on("initgametimer",async (event,statsobj: StatsObj,nogame: string) => {
-    const { appid, gamename, achievements, ra, action } = statsobj
-    if (ra && !action) return // Prevents invalid RA actions sent via `worker.ts` from stopping the timer on achievement unlocks
+ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer: RunningGameTimer | null) => {
+    const { appid, gamename, allunlocked } = workerinfo
     
     const gamenamewrapper = document.getElementById("gamename")!
     const timerelem = document.getElementById("timer")!
-    
-    gamenamewrapper.textContent = gamename || nogame
+
+    gamenamewrapper.textContent = gamename || await language.get("game",["app","content"])
     gamenamewrapper.toggleAttribute("appid",!!appid)
     
-    achievements && document.body.toggleAttribute("complete",achievements.every(ach => ach.unlocked))
-    
-    if (appid) return
+    document.body.toggleAttribute("complete",!!allunlocked)
 
-    timer && clearInterval(timer)
+    const { json } = gametimer
+
+    if (runninggametimer && appid) {
+        const stored = json[appid]?.elapsed ?? 0
+        const { started } = runninggametimer
+        
+        if (!timer && gametimer.start(appid)) timer = setInterval(() => timerelem.textContent = gametimer.currenttime(stored,started),50)
+
+        if (!!allunlocked) {
+            gametimer.setcomplete(appid,started)
+            timerelem.textContent = gametimer.currenttime(stored,started)
+
+            timer && clearInterval(timer)
+            timer = null
+        }
+
+        return
+    }
+
     timerelem.textContent = "00:00:00.000"
     document.body.removeAttribute("complete")
-})
 
-ipcRenderer.on("updategametimer",(event,obj: { stored: number, started?: number }) => {
-    const { stored, started } = obj
-    const timerelem = document.getElementById("timer")!
-    
     timer && clearInterval(timer)
-    timer = setInterval(() => timerelem.textContent = gametimer.currenttime(stored,started),16)
-})
+    timer = null
 
-ipcRenderer.on("gametimercomplete",() => {
-    timer && clearInterval(timer)
-    document.body.setAttribute("complete","")
+    if (!runninggametimer) return
+
+    const { started } = runninggametimer
+    gametimer.stop(runninggametimer.appid,started)
 })
 
 ipcRenderer.on("gametimerwinaot",(event,value: boolean) => document.body.toggleAttribute("aot",value))

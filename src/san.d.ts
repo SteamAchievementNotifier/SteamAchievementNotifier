@@ -365,10 +365,7 @@ declare interface Notify extends Achievement {
 declare interface StatsObj {
     appid: number,
     gamename: string | null,
-    achievements?: Achievement[],
-    ra?: boolean,
-    action?: RAStatus,
-    runninggametimer?: boolean
+    achievements?: Achievement[]
 }
 
 declare interface Dialog {
@@ -630,6 +627,26 @@ declare interface ExtWinConfig {
     height: number,
     minWidth: number,
     minHeight: number
+}
+
+declare interface WorkerInfo {
+    appid: number,
+    steam3id?: number,
+    achnum?: number,
+    gamename?: string | null,
+    allunlocked?: boolean,
+    ra?: boolean
+}
+
+declare type GameTimer = {
+    elapsed: number,
+    complete: boolean
+}
+
+declare type RunningGameTimer = {
+    appid: number,
+    type: "steam" | "ra",
+    started: number
 }
 
 declare module "simple-vdf"

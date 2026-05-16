@@ -7,10 +7,6 @@ import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
 import { getlogmap, getlastactions, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
-import { gametimer } from "./gametimer"
-
-const runninggametimers: { [key: number]: number } = {}
-const getrunninggametimers = () => !!Object.keys(runninggametimers).length
 
 declare global {
     interface Window {
@@ -23,49 +19,121 @@ declare global {
     }
 }
 
+type LocalisedObj = {
+    name: string | null,
+    desc: string | null
+}
+
 log.init("WORKER")
 sanhelper.errorhandler(log)
 
-const resolvefilepath = (dir: string,file: string) => {
-    if (process.platform === "win32") {
-        const filepath = path.join(dir,file)
-        return fs.existsSync(filepath) ? filepath : null
-    }
+const globallocalised = new Map<string,LocalisedObj>()
+window.globallocalised = globallocalised
 
-    try {
-        for (const entry of fs.readdirSync(dir)) {
-            if (entry.toLowerCase() === file.toLowerCase()) return path.join(dir,entry)
+const worker = {
+    resolvefilepath: (dir: string,file: string) => {
+        if (process.platform === "win32") {
+            const filepath = path.join(dir,file)
+            return fs.existsSync(filepath) ? filepath : null
         }
-    } catch (err) {
-        log.write("ERROR",`Error reading contents of "${dir}" directory: ${err as Error}`)
+
+        try {
+            for (const entry of fs.readdirSync(dir)) {
+                if (entry.toLowerCase() === file.toLowerCase()) return path.join(dir,entry)
+            }
+        } catch (err) {
+            log.write("ERROR",`Error reading contents of "${dir}" directory: ${err as Error}`)
+        }
+
+        return null
+    },
+    creategameinfo: (gamename: string,appid: number,exepath: string,pid: number,pollrate: number) => [
+        "Game process started:",
+        `gamename: ${gamename}`,
+        `appid: ${appid}`,
+        `exepath: ${exepath}`,
+        `pid: ${pid}`,
+        `pollrate: ${pollrate}ms`
+    ].join("\n- "),
+    localisedobj: async (steam3id: number,achievement: Achievement) => {
+        const config = sanconfig.get()
+        const steamlang = config.get("steamlang")
+        const maxlang = config.get("maxsteamlangretries")
+
+        const obj: LocalisedObj = {
+            name: null,
+            desc: null
+        }
+
+        for (const prop of (["name","description"] as const)) {
+            const key = prop === "name" ? "name" : "desc"
+            obj[key] = steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,prop,maxlang) : null
+        }
+
+        globallocalised.set(achievement.apiname,obj)
+        window.globallocalised = globallocalised
+
+        return obj
+    },
+    updatestats: async (appid: number,gamename: string,cache: Achievement[],steam3id: number) => {
+        const { steamlang } = sanconfig.get().store
+        statsobj.appid = appid
+        statsobj.gamename = gamename as string
+        statsobj.achievements = !steamlang ? cache : await Promise.all(
+            cache.map(async achievement => {
+                const achievementcopy = { ...achievement }
+                const localised = await worker.localisedobj(steam3id,achievementcopy)
+
+                for (const key of Object.keys(localised)) {
+                    achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]
+                }
+
+                return achievementcopy
+            })
+        )
+
+        ipcRenderer.send("stats",statsobj)
     }
-
-    return null
 }
 
-const updategametimer = (appid: number,ra?: "ra") => {
-    const stored = gametimer.json[appid]?.elapsed ?? 0
-    const started = runninggametimers[appid]
-
-    ipcRenderer.send(`update${ra ?? ""}gametimer`,{ stored, started })
+const statsobj: StatsObj = {
+    appid: 0,
+    gamename: null
 }
 
-ipcRenderer.on("resetgametimer",(event,appid: number,ra?: "ra") => {
-    if (!appid) return
-    const { json } = gametimer
+ipcRenderer.on("stats",() => ipcRenderer.send("stats",statsobj))
+// Send to `listeners.ts` on spawn, in case `statwin` spawned between worker respawns and did not receive "stats" IPC event
+ipcRenderer.send("stats",statsobj)
 
-    if (!json[appid]) json[appid] = { elapsed: 0, complete: false }
+const workerinfo: WorkerInfo = {
+    appid: 0
+}
 
-    json[appid].elapsed = 0
-    localStorage.setItem("gametimer",JSON.stringify(json,null,4))
+ipcRenderer.on("gametimer",(event,ra?: "ra") => ipcRenderer.send("gametimer",ra ? raworkerinfo : workerinfo))
 
-    const idtype = ra ? "RA Game" : "App"
+// const updategametimer = (appid: number,ra?: "ra") => {
+//     const stored = gametimer.json[appid]?.elapsed ?? 0
+//     const started = runninggametimers[appid]
 
-    runninggametimers[appid] = Date.now()
-    updategametimer(appid,ra)
+//     ipcRenderer.send(`update${ra ?? ""}gametimer`,{ stored, started })
+// }
 
-    log.write("INFO",`Game Timer for ${idtype}ID ${appid} reset successfully`)
-})
+// ipcRenderer.on("resetgametimer",(event,appid: number,ra?: "ra") => {
+//     if (!appid) return
+//     const { json } = gametimer
+
+//     if (!json[appid]) json[appid] = { elapsed: 0, complete: false }
+
+//     json[appid].elapsed = 0
+//     localStorage.setItem("gametimer",JSON.stringify(json,null,4))
+
+//     const idtype = ra ? "RA Game" : "App"
+
+//     runninggametimers[appid] = Date.now()
+//     updategametimer(appid,ra)
+
+//     log.write("INFO",`Game Timer for ${idtype}ID ${appid} reset successfully`)
+// })
 
 const startidle = () => {
     try {
@@ -116,74 +184,6 @@ const startidle = () => {
     }
 }
 
-const statsobj: StatsObj = {
-    appid: 0,
-    gamename: null
-}
-
-ipcRenderer.on("stats",() => ipcRenderer.send("stats",{ ...statsobj, runninggametimer: getrunninggametimers() }))
-// Send to `listeners.ts` on spawn, in case `statwin` spawned between worker respawns and did not receive "stats" IPC event
-ipcRenderer.send("stats",{ ...statsobj, runninggametimer: getrunninggametimers() })
-
-const creategameinfo = (gamename: string,appid: number,exepath: string,pid: number,pollrate: number) => [
-    "Game process started:",
-    `gamename: ${gamename}`,
-    `appid: ${appid}`,
-    `exepath: ${exepath}`,
-    `pid: ${pid}`,
-    `pollrate: ${pollrate}ms`
-].join("\n- ")
-
-type LocalisedObj = {
-    name: string | null,
-    desc: string | null
-}
-
-const globallocalised = new Map<string,LocalisedObj>()
-window.globallocalised = globallocalised
-
-const localisedobj = async (steam3id: number,achievement: Achievement) => {
-    const config = sanconfig.get()
-    const steamlang = config.get("steamlang")
-    const maxlang = config.get("maxsteamlangretries")
-
-    const obj: LocalisedObj = {
-        name: null,
-        desc: null
-    }
-
-    for (const prop of (["name","description"] as const)) {
-        const key = prop === "name" ? "name" : "desc"
-        obj[key] = steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,prop,maxlang) : null
-    }
-
-    globallocalised.set(achievement.apiname,obj)
-    window.globallocalised = globallocalised
-
-    return obj
-}
-
-const updatestats = async (appid: number,gamename: string,cache: Achievement[],steam3id: number) => {
-    const { steamlang } = sanconfig.get().store
-    statsobj.appid = appid
-    statsobj.gamename = gamename as string
-    statsobj.achievements = !steamlang ? cache : await Promise.all(
-        cache.map(async achievement => {
-            const achievementcopy = { ...achievement }
-            const localised = await localisedobj(steam3id,achievementcopy)
-
-            for (const key of Object.keys(localised)) {
-                achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]
-            }
-
-            return achievementcopy
-        })
-    )
-    statsobj.runninggametimer = getrunninggametimers()
-
-    ipcRenderer.send("stats",statsobj)
-}
-
 const startsan = async (appinfo: AppInfo) => {
     try {
         globallocalised.clear()
@@ -199,8 +199,6 @@ const startsan = async (appinfo: AppInfo) => {
             ipcRenderer.send(`iconpath_${achievement.apiname}`,icon)
         })
 
-        ipcRenderer.on("updategametimer",() => updategametimer(appid))
-    
         const rustlog = client.log.initLogger(path.join(sanhelper.appdata,"logs"))
         log.write("INFO",rustlog)
     
@@ -240,23 +238,26 @@ const startsan = async (appinfo: AppInfo) => {
         })
     
         const initgameloop = () => {
-            processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
+            processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",worker.creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
+
+            workerinfo.appid = appid
+            workerinfo.steam3id = steam3id
+            workerinfo.achnum = num
+            workerinfo.gamename = gamename
+
+            ipcRenderer.send("appid",workerinfo)
             
-            ipcRenderer.send("appid",appid,gamename,steam3id,num)
             ipcRenderer.on("steam3id",(event,skipss?: boolean) => ipcRenderer.send("steam3id",steam3id,skipss))
             ipcRenderer.send("workeractive",true)
         
             const apinames: string[] = num ? client.achievement.getAchievementNames() : []
             let cache: Achievement[] = num ? cachedata(client,apinames) : []
 
-            if (runninggametimers[appid] === undefined) {
-                gametimer.start(appid) && (runninggametimers[appid] = Date.now())
-            } else {
-                log.write("WARN",`Game Timer for AppID ${appid} already running`)
-            }
+            ;(async () => await worker.updatestats(appid,gamename || "???",cache,steam3id))()
+            ipcRenderer.on("steamlang",async () => await worker.updatestats(appid,gamename || "???",cache,steam3id))
 
-            ;(async () => await updatestats(appid,gamename || "???",cache,steam3id))()
-            ipcRenderer.on("steamlang",async () => await updatestats(appid,gamename || "???",cache,steam3id))
+            workerinfo.allunlocked = cache.every(ach => ach.unlocked)
+            ipcRenderer.emit("gametimer")
     
             !num && log.write("INFO",`"${gamename}" has no achievements`)
             
@@ -270,16 +271,15 @@ const startsan = async (appinfo: AppInfo) => {
                     statsobj.appid = 0
                     statsobj.gamename = null
                     statsobj.achievements = undefined
-                    statsobj.runninggametimer = false
 
                     ipcRenderer.send("stats",statsobj)
+                    
+                    workerinfo.appid = 0
+                    workerinfo.steam3id = 0
+                    workerinfo.achnum = undefined
+                    workerinfo.gamename = undefined
 
-                    const started = runninggametimers[appid]
-
-                    if (started !== undefined) {
-                        gametimer.stop(appid,started)
-                        delete runninggametimers[appid]
-                    }
+                    ipcRenderer.emit("gametimer")
                 }
     
                 const { debug } = sanconfig.get().store
@@ -323,7 +323,7 @@ const startsan = async (appinfo: AppInfo) => {
         
                     const achievementicon = async (): Promise<string | null> => {
                         let icon: string | null = null
-                        const cachedicon = !noiconcache ? resolvefilepath(sanhelper.temp,`${achievement.apiname}.jpg`) : null
+                        const cachedicon = !noiconcache ? worker.resolvefilepath(sanhelper.temp,`${achievement.apiname}.jpg`) : null
         
                         try {
                             icon = cachedicon || await getachievementicon(client,achievement)
@@ -343,7 +343,7 @@ const startsan = async (appinfo: AppInfo) => {
         
                     const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
                     const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
-                    const localised = await localisedobj(steam3id,achievement)
+                    const localised = await worker.localisedobj(steam3id,achievement)
                     const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch] | undefined
                     const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
                     
@@ -375,7 +375,7 @@ const startsan = async (appinfo: AppInfo) => {
                         statsobj.achievements = !config.get("steamlang") ? live : await Promise.all(
                             live.map(async achievement => {
                                 const achievementcopy = { ...achievement }
-                                const localised = globallocalised.get(achievementcopy.apiname) || await localisedobj(steam3id,achievementcopy)
+                                const localised = globallocalised.get(achievementcopy.apiname) || await worker.localisedobj(steam3id,achievementcopy)
         
                                 for (const key of Object.keys(localised)) {
                                     achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]
@@ -389,6 +389,7 @@ const startsan = async (appinfo: AppInfo) => {
                     })()
 
                     const allunlocked = live.every(ach => ach.unlocked)
+                    ipcRenderer.emit("gametimer",null,{ ...workerinfo, allunlocked })
         
                     if (allunlocked && !hasshown) {
                         const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon
@@ -412,7 +413,6 @@ const startsan = async (appinfo: AppInfo) => {
                         }
         
                         ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,themeswitch?.[1].src))
-                        gametimer.setcomplete(appid,runninggametimers[appid])
 
                         hasshown = true
                     }
@@ -492,9 +492,8 @@ for (const emu of rasupported) {
 // Needs to be a string - Sets compare by reference (not by object or key/value), so comparing two `LogAction` objects directly will not work here
 const getactionstr = (action: LogAction) => `${action.key}:${action.file}:${action.action}:${action.value}:${action.mode}`
 
-let rastatsobj: StatsObj = {
-    appid: 0,
-    gamename: null
+const raworkerinfo: WorkerInfo = {
+    appid: 0
 }
 
 const startra = () => {
@@ -529,49 +528,18 @@ const startra = () => {
                 lastlog[keyname] = msg
 
                 const { action, value: appid } = newaction
-                if (!appid) return
+                if (appid === null) continue
 
-                gameid = appid
+                if (action !== "achievement") gameid = action === "start" ? appid : 0
+                const live = action !== "stop"
                 
-                if (action === "start") {
-                    if (runninggametimers[appid] === undefined) {
-                        gametimer.start(appid) && (runninggametimers[appid] = Date.now())
-                    } else {
-                        log.write("WARN",`Game Timer for RA GameID ${appid} already running`)
-                    }
+                raworkerinfo.appid = gameid
+                raworkerinfo.gamename = live ? racached[0].gamename : null
+                raworkerinfo.achnum = live ? racached.length : undefined
+                raworkerinfo.allunlocked = live ? (racached.length ? racached.every(ach => ach.unlocked) : false) : undefined
+                raworkerinfo.ra = true
 
-                    rastatsobj = {
-                        appid: appid as number,
-                        gamename: racached[0].gamename as string,
-                        achievements: racached as any,
-                        action
-                    }
-                }
-                
-                if (action === "stop") {
-                    gameid = 0
-                    
-                    rastatsobj = {
-                        appid: 0,
-                        gamename: null,
-                        action
-                    }
-                    
-                    const started = runninggametimers[appid]
-
-                    if (started !== undefined) {
-                        gametimer.stop(appid,started)
-                        delete runninggametimers[appid]
-                    }
-                }
-                
-                if (!["start","stop"].includes(action)) continue
-
-                rastatsobj.ra = true
-                rastatsobj.runninggametimer = getrunninggametimers()
-
-                sanhelper.devmode && (window.runninggametimers = runninggametimers)
-                ipcRenderer.send("startragametimer",rastatsobj,action)
+                ipcRenderer.emit("gametimer",null,"ra")
             }
         }
     },1000)
@@ -590,7 +558,3 @@ ipcRenderer.on("rastop",() => {
 })
 
 ipcRenderer.on("emu",() => ipcRenderer.send("emu",emu))
-
-ipcRenderer.on("startragametimer",() => ipcRenderer.send("startragametimer",{ ...rastatsobj, runninggametimer: getrunninggametimers() },"start"))
-ipcRenderer.on("updateragametimer",() => updategametimer(gameid,"ra"))
-ipcRenderer.on("ragametimercomplete",() => gametimer.setcomplete(gameid,runninggametimers[gameid]))

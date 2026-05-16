@@ -19,7 +19,10 @@ declare global {
         gpu: Function
         monitors: Monitor[],
         appid: number,
+        gameid: number,
         steam3id: number,
+        achnum?: number,
+        gamename: string | null,
         update: Function,
         availabletest: Function
     }
@@ -590,7 +593,7 @@ const opencustomiser = () => {
 
     ;(async () => {
         await language.load()
-        await sanhelper.updategamelbl(globalgamename)
+        await sanhelper.updategamelbl(window.gamename)
     })()
 
     document.getElementById("main")!.insertAdjacentHTML("beforeend",fs.readFileSync(path.join(__dirname,"customiser.html")).toString())
@@ -752,7 +755,7 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
     const notify: Notify = {
         id: Math.round(Date.now() / Math.random() * 1000),
         customisation: customisation,
-        gamename: globalgamename || null,
+        gamename: window.gamename || null,
         steam3id: window.steam3id,
         type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
@@ -842,30 +845,40 @@ ipcRenderer.on("poswinclosed", () => {
     customiser && customiser.removeAttribute("poswin")
 })
 
-let globalgamename: string | null = null
-let achnum = 0
+const windownumkeys = [
+    "appid",
+    "steam3id"
+] as const
+
+for (const numkey of windownumkeys) {
+    window[numkey] = 0
+}
+
+window.achnum = undefined
+window.gamename = null
+
 const gamelbl =  document.querySelector(`.rect#game > span`)!
+gamelbl.addEventListener("updategamelbl",async () => await sanhelper.updategamelbl(window.gamename))
 
-gamelbl.addEventListener("updategamelbl",async () => await sanhelper.updategamelbl(globalgamename))
+ipcRenderer.on("appid",async (event,workerinfo: WorkerInfo) => {
+    const { appid, gamename, achnum } = workerinfo
+    
+    if (!config.get("soundonly") && appid !== 0 && gamename) sanhelper.showtrack(gamename)
 
-window.appid = 0
-window.steam3id = 0
+    for (const key of windownumkeys) {
+        window[key] = workerinfo[key] || 0
+    }
 
-ipcRenderer.on("appid",async (event,appid,gamename,steam3id,num) => {
-    // (config.get("nowtracking") && !config.get("soundonly") && appid !== 0 && gamename) && sanhelper.showtrack(gamename)
-    (!config.get("soundonly") && appid !== 0 && gamename) && sanhelper.showtrack(gamename)
-    window.appid = appid || 0
-    window.steam3id = steam3id || 0
-    achnum = num
-
+    window.achnum = achnum
+    
     // Fixes issue where gamename is reset to default upon opening a dialog
-    globalgamename = gamename || null
+    window.gamename = gamename || null
     
     gamelbl.parentElement!.toggleAttribute("novalue",!gamename)
     sanhelper.updategamelbl(gamename)
 
     const enabled = appid ? usertheme.themeswitchinfo(config,appid).enabled : false
-    enabled ? document.body.setAttribute("themeswitch",appid) : document.body.removeAttribute("themeswitch")
+    enabled ? document.body.setAttribute("themeswitch",`${appid}`) : document.body.removeAttribute("themeswitch")
 })
 
 sanhelper.soundonly(config.get("soundonly"))
@@ -882,8 +895,8 @@ ipcRenderer.on("shortcut",async (event,type) => {
 })
 
 window.addEventListener("lang",async () => {
-    document.querySelector(".rect#game > span")!.textContent = globalgamename || await language.get("game",["app","content"])
-    ipcRenderer.send("lang",globalgamename,achnum)
+    document.querySelector(".rect#game > span")!.textContent = window.gamename || await language.get("game",["app","content"])
+    ipcRenderer.send("lang",window.gamename,window.achnum)
     document.getElementById("webhookwrapper")?.remove()
 })
 

@@ -8,7 +8,7 @@ enum TimeUnit {
 }
 
 export const gametimer = {
-    get json(): Record<number,{ elapsed: number, complete: boolean }> {
+    get json(): Record<number,GameTimer> {
         const lsentry = localStorage.getItem("gametimer")
         !lsentry && localStorage.setItem("gametimer",JSON.stringify({},null,4))
 
@@ -41,8 +41,11 @@ export const gametimer = {
 
         json[appid].elapsed += Date.now() - started
         localStorage.setItem("gametimer",JSON.stringify(json,null,4))
+
+        ipcRenderer.send("stopgametimer",appid)
+        log.write("INFO",`Game Timer for AppID ${appid} stopped${json[appid].complete ? " due to game completion" : ""}`)
         
-        return log.write("INFO",`Game Timer for AppID ${appid} stopped`)
+        return
     },
     pad: (num: number,size = 2) => num.toString().padStart(size,"0"),
     timeobj: (timestamp: number) => {
@@ -77,8 +80,5 @@ export const gametimer = {
         localStorage.setItem("gametimer",JSON.stringify(json,null,4))
         
         gametimer.stop(appid,started)
-        log.write("INFO",`Game Timer for AppID ${appid} stopped due to game completion`)
-
-        ipcRenderer.send("gametimercomplete")
     }
 }

@@ -1841,6 +1841,24 @@ export const listeners = {
             log.write("INFO",`Game Timer for AppID ${appid} cleared`)
         })
 
+        ipcMain.on("resetgametimer",(event,appid: number,gameid: number) => {
+            const errmsg = `Unable to reset Game Timer:`
+            if (!gametimerwin) return log.write("ERROR",`${errmsg} Game Timer window inactive`)
+            if (!runninggametimer) return log.write("ERROR",`${errmsg} No active Game Timer found`)
+            
+            const ra = runninggametimer.type === "ra"
+            const target =  {
+                id: ra ? gameid : appid,
+                type: ra ? "RA Game" : "App"
+            }
+
+            if (!target.id) return log.write("ERROR",`${errmsg} Invalid ${target.type}ID ${target.id} supplied`)
+            if (target.id !== runninggametimer.appid) return log.write("WARN",`${errmsg} Target ${target.type}ID ${target.id} does not match active Game Timer AppID ${runninggametimer.appid}`)
+
+            runninggametimer.started = Date.now()
+            gametimerwin.webContents.send("resetgametimer",target.id,runninggametimer)
+        })
+
         ipcMain.on("gametimerwinaot",(event,value: boolean) => {
             if (!gametimerwin) return
 

@@ -648,7 +648,7 @@ export const dialog = {
                         const idtype = gameid ? "RA Game" : "App"
                         
                         try {
-                            ipcRenderer.send("resetgametimer",gameid || appid,gameid ? "ra" : undefined)
+                            ipcRenderer.send("resetgametimer",appid,gameid)
                             dialog.close()
                         } catch (err) {
                             document.getElementById("resetgametimerlog")!.textContent = `${await language.get("resetgametimerfailed",["settings","streaming","content"])} ${await language.get("checkapplog")}`

@@ -47,6 +47,29 @@ ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer:
     gametimer.stop(runninggametimer.appid,started)
 })
 
+ipcRenderer.on("resetgametimer",async (event,appid: number,runninggametimer: RunningGameTimer) => {
+    const { json } = gametimer
+    const timerelem = document.getElementById("timer")!
+
+    json[appid] = {
+        elapsed: 0,
+        complete: false
+    }
+
+    localStorage.setItem("gametimer",JSON.stringify(json,null,4))
+
+    timerelem.textContent = "00:00:00.000"
+    document.body.removeAttribute("complete")
+
+    timer && clearInterval(timer)
+    timer = null
+
+    const stored = 0
+    const { started } = runninggametimer
+
+    timer = setInterval(() => timerelem.textContent = gametimer.currenttime(stored,started),50)
+})
+
 ipcRenderer.on("gametimerwinaot",(event,value: boolean) => document.body.toggleAttribute("aot",value))
 
 window.addEventListener("DOMContentLoaded",() => {

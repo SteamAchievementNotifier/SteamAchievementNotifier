@@ -311,6 +311,19 @@ export const translations = {
                 max: "Maximum",
                 custom: "Vlastní...",
                 statwinshortcut: "Zkratka pro překrytí",
+                gametimerwin: "Časovač dokončení hry",
+                gametimerwinshortcut: "Klávesová zkratka časovače",
+                gametimerwinaot: "Vždy navrchu",
+                resetgametimer: "Resetovat časovač",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Jste si jisti?</span>
+                        <span>Tímto se časovač dokončení aktuální hry resetuje zpět na 00:00:00.000.</span>
+                        <span class="noundo">🛑 Toto nelze vrátit zpět!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Nepodařilo se resetovat časovač.",
+                extwinnotify: "Zobrazit oznámení na obrazovce"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "Povolit podporu NVDA",
                 tooltips: "Zobrazit tooltipy",
                 showsystrayopts: "Zobrazit možnosti systémové lišty",
-                releaseshortcut: "Klávesová zkratka pro uvolnění hry"
+                releaseshortcut: "Klávesová zkratka pro uvolnění hry",
+                noshortcuts: "Zakázat klávesové zkratky"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Automaticky přidat vygenerovaná média do záznamů a snímků obrazovky aktuální hry ve Steam",
         appdatadir: "Otevřít umístění složky AppData aplikace",
         backup: "Zálohujte obsah složky AppData aplikace do vybraného umístění, které bude sloužit jako bod obnovení aktuálního stavu aplikace",
-        restore: "Obnovte obsah složky AppData aplikace z předchozí zálohy"
+        restore: "Obnovte obsah složky AppData aplikace z předchozí zálohy",
+        gametimerwin: "Zobrazí časovač na obrazovce ukazující čas potřebný k odemčení všech achievementů pro aktuální hru",
+        gametimerwinshortcut: "Přepíná časovač dokončení hry pomocí zadané klávesové zkratky",
+        gametimerwinaot: `Nastaví časovač dokončení hry do režimu „Vždy navrchu“, což umožní zobrazení okna nad oknem hry<br><br><span class="ttdesc">Pokud je povoleno, časovač dokončení hry již nebude registrovat interakce uživatele, například události „kliknutí“. Pro opětovné povolení interakce s oknem musí být tato možnost vypnuta</span>`,
+        resetgametimer: "Resetuje časovač dokončení aktuální hry",
+        noshortcuts: `Zakáže všechny klávesové zkratky v aplikaci<br><br><span class="ttdesc">Pokud je povoleno, <u>všechny klávesové zkratky v aplikaci přestanou fungovat</u>. Všechny možnosti související s klávesovými zkratkami budou také skryty</span>`,
+        extwinnotify: "Přepíná viditelnost všech oznámení na obrazovce při používání Stream Notifications"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

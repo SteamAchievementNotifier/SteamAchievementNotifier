@@ -36,13 +36,13 @@ export const gametimer = {
         log.write("INFO",`Game Timer for AppID ${appid} started`)
         return true
     },
-    stop: (appid: number,started: number) => {
+    stop: (appid: number,active: "steam" | "ra",started: number) => {
         const { json } = gametimer
 
         json[appid].elapsed += Date.now() - started
         localStorage.setItem("gametimer",JSON.stringify(json,null,4))
 
-        ipcRenderer.send("stopgametimer",appid)
+        ipcRenderer.send("stopgametimer",appid,active)
         log.write("INFO",`Game Timer for AppID ${appid} stopped${json[appid].complete ? " due to game completion" : ""}`)
         
         return
@@ -72,13 +72,13 @@ export const gametimer = {
         const timestamp = started ? stored + (Date.now() - started) : stored
         return gametimer.timestr(timestamp)
     },
-    setcomplete: (appid: number,started: number) => {        
+    setcomplete: (appid: number,active: "steam" | "ra",started: number) => {        
         const { json } = gametimer
         if (!json[appid] || json[appid].elapsed === undefined) return log.write("WARN",`Unable to set "complete" flag in Game Timer entry for AppID ${appid}: Valid entry not found in localStorage`)
             
         json[appid].complete = true
         localStorage.setItem("gametimer",JSON.stringify(json,null,4))
         
-        gametimer.stop(appid,started)
+        gametimer.stop(appid,active,started)
     }
 }

@@ -311,6 +311,19 @@ export const translations = {
                 max: "Maksimum",
                 custom: "Özel...",
                 statwinshortcut: "Örtü Kısayolu",
+                gametimerwin: "Oyun Tamamlama Zamanlayıcısı",
+                gametimerwinshortcut: "Zamanlayıcı Kısayolu",
+                gametimerwinaot: "Her Zaman Üstte",
+                resetgametimer: "Zamanlayıcıyı Sıfırla",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Emin misiniz?</span>
+                        <span>Bu işlem, mevcut oyun için Oyun Tamamlama Zamanlayıcısını tekrar 00:00:00.000 değerine sıfırlayacaktır.</span>
+                        <span class="noundo">🛑 Bu işlem geri alınamaz!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Zamanlayıcı sıfırlanamadı.",
+                extwinnotify: "Ekran Bildirimini Göster"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "NVDA Desteğini Etkinleştir",
                 tooltips: "İpuçlarını Göster",
                 showsystrayopts: "Sistem Tepsisi Seçeneklerini Göster",
-                releaseshortcut: "Oyunu Yayınlama Kısayolu"
+                releaseshortcut: "Oyunu Yayınlama Kısayolu",
+                noshortcuts: "Klavye Kısayollarını Devre Dışı Bırak"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Oluşturulan medyayı mevcut oyunun Steam'deki Kayıtlar ve Ekran Görüntülerine otomatik olarak ekle",
         appdatadir: "Uygulamanın AppData klasörünün konumunu aç",
         backup: "Uygulamanın AppData klasörünün içeriğini seçilen bir konuma yedekleyin; bu, uygulamanın mevcut durumu için bir geri yükleme noktası olarak hizmet edecektir",
-        restore: "Uygulamanın AppData klasörünün içeriğini önceki bir yedekten geri yükleyin"
+        restore: "Uygulamanın AppData klasörünün içeriğini önceki bir yedekten geri yükleyin",
+        gametimerwin: "Mevcut oyun için tüm başarımların kilidini açmak için harcanan süreyi gösteren ekran üstü bir zamanlayıcı görüntüle",
+        gametimerwinshortcut: "Belirtilen klavye kısayolunu kullanarak Oyun Tamamlama Zamanlayıcısını aç/kapat",
+        gametimerwinaot: `Oyun Tamamlama Zamanlayıcısını "Her Zaman Üstte" moduna ayarlayarak pencerenin oyun penceresinin üstünde görüntülenmesini sağla<br><br><span class="ttdesc">Etkinleştirildiğinde, Oyun Tamamlama Zamanlayıcısı artık "click" olayları gibi kullanıcı etkileşimlerini algılamayacaktır. Pencereyle etkileşimi yeniden etkinleştirmek için bu seçenek devre dışı bırakılmalıdır</span>`,
+        resetgametimer: "Mevcut oyun için Oyun Tamamlama Zamanlayıcısını sıfırla",
+        noshortcuts: `Tüm uygulama içi klavye kısayollarını devre dışı bırakır<br><br><span class="ttdesc">Etkinleştirildiğinde, <u>tüm uygulama içi kısayollar artık çalışmayacaktır</u>. Klavye kısayollarıyla ilgili tüm seçenekler de gizlenecektir</span>`,
+        extwinnotify: "Stream Notifications kullanılırken tüm ekran bildirimlerinin görünürlüğünü aç/kapat"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

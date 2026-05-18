@@ -45,7 +45,7 @@ const ignore = [
 
 let globalappid = 0
 
-const getapiname = (elem: Element) => esc(elem.id.replace(/^ACH\_/,""),true)
+const getapiname = (elem: Element,ra?: boolean) => ra ? elem.id.replace(/^ACH\_/,"") : esc(elem.id.replace(/^ACH\_/,""),true)
 
 const maxdisplay = (appid: number,max: number,filter: Element[]) => {
     const achievements: string[] = JSON.parse(localStorage.getItem("statwin")!)[appid]
@@ -119,17 +119,17 @@ const esc = (str: string,unesc?: boolean,iconpath?: boolean): string => {
     return str.replace(/([\s!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~])/g,match => !iconpath ? (cssreplacemap.get(match) || match) : `\\${match}`)
 }
 
-// Test adding `ss` versions of used notifications instead of generic achievement (using `base.ts`/`sselems` from config)
-ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslations) => {
-    const { appid, gamename, achievements } = statsobj
+const unlocked = new Map<string,boolean>()
+let ramode: "hard" | "soft" = "hard" // Default to Hardcore mode
+
+ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslations,init?: boolean) => {
+    const { appid, gamename, achievements, ra, mode } = statsobj
     const { nogame, noachievements, startgame } = translations
-    // const { nogame, noachievements, startgame, congrats, gamecompletedesc } = translations
 
     const gamenamewrapper = document.getElementById("gamename")!
     const achievementswrapper = document.getElementById("achievements")!
     const progressbar = document.getElementById("progressbar")!
     const placeholder = document.getElementById("placeholder")!
-    // const complete = document.getElementById("complete")!
     const select = document.getElementById("maxdisplay")! as HTMLSelectElement
     const input = document.getElementById("maxcustom")! as HTMLInputElement
 
@@ -146,11 +146,12 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
     globalappid = appid
 
     if (!appid) {
+        ramode = "hard" // Reset to default Hardcore mode on game exit
+        unlocked.clear() // Clear all achievements from `unlocked` on game exit
+        
         gamenamewrapper.textContent = nogame
         placeholder.querySelector("span:first-child")!.textContent = noachievements
         placeholder.querySelector("span:last-child")!.textContent = startgame
-        // complete.querySelector("span:first-child")!.textContent = congrats
-        // complete.querySelector("span:last-child")!.textContent = gamecompletedesc
 
         document.getElementById("maxcustom")!.setAttribute("max",`1`)
         document.body.removeAttribute("reorder")
@@ -162,6 +163,16 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
     gamenamewrapper.textContent = gamename
 
     if (!achievements) return
+
+    if (!!init) {
+        ra && mode && (ramode = mode)
+        unlocked.clear()
+
+        // On game/`statwin` launch, set latest achievement unlocked status in `unlock` Map
+        for (const achievement of achievements) {
+            unlocked.set((achievement as any)[ra ? "id" : "apiname"],achievement.unlocked)
+        }
+    }
     
     const { rarity, statwinnospoilers } = sanconfig.get().store
 
@@ -177,7 +188,7 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
             ...lsitem,
             [appid]: achievements
                 .sort((a,b) => Number(b.unlocked) - Number(a.unlocked))
-                .map(achievement => achievement.apiname)
+                .map(achievement => ra ? (achievement as any).id : achievement.apiname)
         }
 
         // Set the `lsentry` in "statwin" localStorage object, then get the new contents of `localStorage > "statwin"`
@@ -186,15 +197,15 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
     }
 
     achievements
-    .sort((a,b) => lsitem[appid].indexOf(a.apiname) - lsitem[appid].indexOf(b.apiname))
+    .sort((a,b) => lsitem[appid].indexOf(ra ? (a as any).id : a.apiname) - lsitem[appid].indexOf(ra ? (a as any).id : b.apiname))
     .forEach(async achievement => {
         const html = `
-            <div class="wrapper achievement" id="ACH_${esc(achievement.apiname)}" unlocked="${achievement.unlocked}" rarity="${parseFloat(achievement.percent.toFixed(1)) <= rarity ? "rare" : "main"}" ${achievement.hidden ? "hidden" : ""}>
+            <div class="wrapper achievement" id="ACH_${ra ? (achievement as any).id : esc(achievement.apiname)}" unlocked="${achievement.unlocked}" rarity="${parseFloat(ra ? (achievement as any)[`${ramode}corepercent`] : achievement.percent.toFixed(1)) <= rarity ? "rare" : "main"}" ${achievement?.hidden ? "hidden" : ""}>
                 <div class="inner">
                     <div class="wrapper icon"></div>
                     <div class="wrapper text">
-                        <span>${achievement.name}</span>
-                        <span>${achievement.desc}</span>
+                        <span>${ra ? (achievement as any).title : achievement.name}</span>
+                        <span>${ra ? (achievement as any).description : achievement.desc}</span>
                     </div>
                     <span class="handle">⁝⁝</span>
                 </div>
@@ -203,17 +214,33 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
 
         achievementswrapper.insertAdjacentHTML("beforeend",html)
 
-        const achelem = achievementswrapper.querySelector(`.achievement#ACH_${esc(achievement.apiname)}`) as HTMLElement
-
-        // Move unlocked achievement to the top of the list
-        achelem.addEventListener("animationstart",event => {
-            if (event.animationName === "unlocked") {
-                achelem.previousElementSibling && achievementswrapper.insertBefore(achelem,achelem.previousElementSibling)
-            }
-        })
-
+        const achid = ra ? (achievement as any).id : achievement.apiname
+        const achelem = achievementswrapper.querySelector(`.achievement#ACH_${ra ? achid : esc(achid)}`) as HTMLElement
+        
         // If icon does not exist in `temp` dir, cache it
-        achelem.style.setProperty("--icon",`url('${esc(isiconcached(achievement) || await cacheicon(achievement),false,true)}')`)
+        achelem.style.setProperty("--icon",`url('${ra ? (achievement as any).icon : esc(isiconcached(achievement) || await cacheicon(achievement),false,true)}')`)
+
+        const wasunlocked = unlocked.get(achid) ?? false
+        const isunlocked = achievement.unlocked
+
+        // Update last achievement unlocked status in `unlocked` Map
+        unlocked.set(achid,isunlocked)
+        
+        if (isunlocked && !wasunlocked) {
+            // Move unlocked achievement to the top of the list and start the animation
+            const animhandler = (event: AnimationEvent) => {
+                if (event.animationName === "shift") {
+                    achelem.removeAttribute("playing")
+                    achelem.removeEventListener("animationend",animhandler)
+                }
+            }
+            
+            achelem.addEventListener("animationend",animhandler)
+            achievementswrapper.prepend(achelem)
+            
+            achelem.setAttribute("playing","")
+            achelem.removeAttribute("nodisplay")
+        }
     })
 
     Sortable.create(achievementswrapper,{
@@ -228,38 +255,6 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
     })
 
     setmaxachievements(select.value === "custom" ? input : select,lsitem[appid])
-})
-
-ipcRenderer.on("statsunlock", async (event,achievement: Achievement,statsobj: StatsObj) => {
-    const { noiconcache } = sanconfig.get().store
-    const achievementswrapper = document.getElementById("achievements")!
-    const progressbar = document.getElementById("progressbar")!
-
-    const achelem = achievementswrapper.querySelector(`.achievement#ACH_${esc(achievement.apiname)}`) as HTMLElement | null
-    if (!achelem) return ipcRenderer.send("stats",statsobj)
-
-    const sendipc = (event: AnimationEvent) => {
-        if (event.animationName === "shift") {
-            achelem.removeAttribute("playing")
-            ipcRenderer.send("stats",statsobj)
-            achelem.removeEventListener("animationend",sendipc)
-        }
-    }
-
-    // Reorder after unlocked achievement is set to `display: none` at end of animation
-    achelem.addEventListener("animationend",sendipc)
-
-    // Re-cache color icon if `grey` version is already present in `temp` dir
-    achelem.style.setProperty("--icon",`url('${`${esc(isiconcached(achievement,noiconcache) || await cacheicon(achievement),false,true)}?v=${Date.now()}`}')`)
-
-    achelem.setAttribute("unlocked",`${achievement.unlocked}`)
-    achelem.toggleAttribute("playing",achievement.unlocked)
-    
-    // Remove `nodisplay` attribute when unlocked, regardless of max number of achievements
-    achelem.removeAttribute("nodisplay")
-
-    // Update the progress bar before sending stats
-    statsobj.achievements && updateprogressbar(statsobj.achievements,progressbar)
 })
 
 ipcRenderer.on("statwinaot",(event,value: boolean) => document.body.toggleAttribute("aot",value))

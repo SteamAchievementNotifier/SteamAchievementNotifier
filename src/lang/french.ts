@@ -311,6 +311,19 @@ export const translations = {
                 max: "Max",
                 custom: "Personnalisé...",
                 statwinshortcut: "Raccourci de superposition",
+                gametimerwin: "Minuteur de fin de jeu",
+                gametimerwinshortcut: "Raccourci du minuteur",
+                gametimerwinaot: "Toujours au premier plan",
+                resetgametimer: "Réinitialiser le minuteur",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Êtes-vous sûr ?</span>
+                        <span>Cela réinitialisera le minuteur de fin de jeu du jeu actuel à 00:00:00.000.</span>
+                        <span class="noundo">🛑 Cette action est irréversible !</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Impossible de réinitialiser le minuteur.",
+                extwinnotify: "Afficher une notification à l'écran"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "Activer le support NVDA",
                 tooltips: "Afficher les info-bulles",
                 showsystrayopts: "Afficher les options de la barre système",
-                releaseshortcut: "Raccourci Libérer le Jeu"
+                releaseshortcut: "Raccourci Libérer le Jeu",
+                noshortcuts: "Désactiver les raccourcis clavier"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Ajouter automatiquement les médias générés aux Enregistrements et Captures d’écran du jeu actuel dans Steam",
         appdatadir: "Ouvrir l'emplacement du dossier AppData de l'application",
         backup: "Sauvegardez le contenu du dossier AppData de l'application vers un emplacement choisi, qui servira de point de restauration pour l'état actuel de l'application",
-        restore: "Restaurez le contenu du dossier AppData de l'application à partir d'une sauvegarde précédente"
+        restore: "Restaurez le contenu du dossier AppData de l'application à partir d'une sauvegarde précédente",
+        gametimerwin: "Affiche un minuteur à l'écran indiquant le temps nécessaire pour débloquer tous les succès du jeu actuel",
+        gametimerwinshortcut: "Active ou désactive le minuteur de fin de jeu à l'aide du raccourci clavier spécifié",
+        gametimerwinaot: `Définit le minuteur de fin de jeu en mode « Toujours au premier plan », permettant à la fenêtre d'être affichée au-dessus de la fenêtre du jeu<br><br><span class="ttdesc">Lorsqu'il est activé, le minuteur de fin de jeu n'enregistrera plus les interactions utilisateur, telles que les événements de « clic ». Pour réactiver l'interaction avec la fenêtre, cette option doit être désactivée</span>`,
+        resetgametimer: "Réinitialise le minuteur de fin de jeu du jeu actuel",
+        noshortcuts: `Désactive tous les raccourcis clavier de l'application<br><br><span class="ttdesc">Lorsqu'il est activé, <u>tous les raccourcis de l'application ne fonctionneront plus</u>. Toutes les options liées aux raccourcis clavier seront également masquées</span>`,
+        extwinnotify: "Active ou désactive la visibilité de toutes les notifications à l'écran lors de l'utilisation de Stream Notifications"
     },
     update: {
         updateavailable: "Mise à jour disponible",

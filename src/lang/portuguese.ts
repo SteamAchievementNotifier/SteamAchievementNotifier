@@ -311,6 +311,19 @@ export const translations = {
                 max: "Máximo",
                 custom: "Personalizado...",
                 statwinshortcut: "Atalho da Sobreposição",
+                gametimerwin: "Temporizador de Conclusão do Jogo",
+                gametimerwinshortcut: "Atalho do Temporizador",
+                gametimerwinaot: "Sempre no Topo",
+                resetgametimer: "Redefinir Temporizador",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Tem a certeza?</span>
+                        <span>Isto irá redefinir o Temporizador de Conclusão do Jogo do jogo atual para 00:00:00.000.</span>
+                        <span class="noundo">🛑 Esta ação não pode ser desfeita!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Não foi possível redefinir o temporizador.",
+                extwinnotify: "Mostrar Notificação no Ecrã"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "Ativar Suporte NVDA",
                 tooltips: "Mostrar Dicas de Ferramentas",
                 showsystrayopts: "Mostrar opções da área de notificação",
-                releaseshortcut: "Atalho para Liberar Jogo"
+                releaseshortcut: "Atalho para Liberar Jogo",
+                noshortcuts: "Desativar Atalhos de Teclado"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Adicionar automaticamente a mídia gerada às Gravações e Capturas de Tela do jogo atual no Steam",
         appdatadir: "Abrir a localização da pasta AppData da app",
         backup: "Faça backup do conteúdo da pasta AppData da app para um local à escolha, que servirá como ponto de restauração para o estado atual da app",
-        restore: "Restaure o conteúdo da pasta AppData da app a partir de um backup anterior"
+        restore: "Restaure o conteúdo da pasta AppData da app a partir de um backup anterior",
+        gametimerwin: "Mostrar um temporizador no ecrã que indica o tempo necessário para desbloquear todos os achievements do jogo atual",
+        gametimerwinshortcut: "Alternar o Temporizador de Conclusão do Jogo utilizando o atalho de teclado especificado",
+        gametimerwinaot: `Definir o Temporizador de Conclusão do Jogo para o modo "Sempre no Topo", permitindo que a janela seja exibida acima da janela do jogo<br><br><span class="ttdesc">Quando ativado, o Temporizador de Conclusão do Jogo deixará de registar interações do utilizador, como eventos de "click". Para voltar a permitir a interação com a janela, esta opção deve ser desativada</span>`,
+        resetgametimer: "Redefinir o Temporizador de Conclusão do Jogo para o jogo atual",
+        noshortcuts: `Desativa todos os atalhos de teclado dentro da aplicação<br><br><span class="ttdesc">Quando ativado, <u>todos os atalhos da aplicação deixarão de funcionar</u>. Todas as opções relacionadas com atalhos de teclado também serão ocultadas</span>`,
+        extwinnotify: "Alternar a visibilidade de todas as notificações no ecrã ao utilizar Stream Notifications"
     },
     update: {
         updateavailable: "Atualização disponível",

@@ -311,6 +311,19 @@ export const translations = {
                 max: "最大",
                 custom: "カスタム...",
                 statwinshortcut: "オーバーレイのショートカット",
+                gametimerwin: "ゲーム完了タイマー",
+                gametimerwinshortcut: "タイマーショートカット",
+                gametimerwinaot: "常に最前面に表示",
+                resetgametimer: "タイマーをリセット",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>本当によろしいですか？</span>
+                        <span>これにより、現在のゲームのゲーム完了タイマーが 00:00:00.000 にリセットされます。</span>
+                        <span class="noundo">🛑 この操作は元に戻せません！</span>
+                    </div>
+                `,
+                resetgametimerfailed: "タイマーをリセットできませんでした。",
+                extwinnotify: "オンスクリーン通知を表示"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "NVDAサポートを有効にする",
                 tooltips: "ツールチップを表示",
                 showsystrayopts: "システムトレイオプションを表示",
-                releaseshortcut: "ゲームリリースショートカット"
+                releaseshortcut: "ゲームリリースショートカット",
+                noshortcuts: "キーボードショートカットを無効化"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "生成されたメディアを現在のゲームのSteamの録画およびスクリーンショットに自動的に追加",
         appdatadir: "アプリのAppDataフォルダーの場所を開く",
         backup: "アプリのAppDataフォルダーの内容を選択した場所にバックアップし、アプリの現在の状態の復元ポイントとして使用します",
-        restore: "アプリのAppDataフォルダーの内容を以前のバックアップから復元します"
+        restore: "アプリのAppDataフォルダーの内容を以前のバックアップから復元します",
+        gametimerwin: "現在のゲームのすべての achievement を解除するまでにかかった時間を表示するオンスクリーンタイマーを表示します",
+        gametimerwinshortcut: "指定したキーボードショートカットを使用してゲーム完了タイマーを切り替えます",
+        gametimerwinaot: `ゲーム完了タイマーを「常に最前面に表示」モードに設定し、ゲームウィンドウの上に表示できるようにします<br><br><span class="ttdesc">有効にすると、ゲーム完了タイマーは "click" イベントなどのユーザー操作を受け付けなくなります。ウィンドウとの操作を再度有効にするには、このオプションを無効にする必要があります</span>`,
+        resetgametimer: "現在のゲームのゲーム完了タイマーをリセットします",
+        noshortcuts: `アプリ内のすべてのキーボードショートカットを無効にします<br><br><span class="ttdesc">有効にすると、<u>すべてのアプリ内ショートカットが機能しなくなります</u>。キーボードショートカットに関連するすべてのオプションも非表示になります</span>`,
+        extwinnotify: "Stream Notifications 使用中のすべてのオンスクリーン通知の表示を切り替えます"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

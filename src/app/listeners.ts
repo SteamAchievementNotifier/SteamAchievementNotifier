@@ -21,7 +21,6 @@ const gameartfiles: string[] = []
 let emu: string | null = null
 
 const { defaultextwins } = sanconfig
-let runninggametimer: RunningGameTimer | null = null
 
 export const listeners = {
     setexit: () => {
@@ -827,8 +826,7 @@ export const listeners = {
             ipcMain.once("statwinready",() => {
                 const value = config.get("statwinaot")
                 value && statwin!.webContents.send("statwinaot",value)
-
-                worker && worker.webContents.send("stats")
+                worker && worker.webContents.send(`${gameid ? "ra" : ""}stats`,true)
             })
 
             statwin.on("moved",() => setwinbounds(config,"stat",statwin!))
@@ -854,25 +852,32 @@ export const listeners = {
             statwin.webContents.send("statwinaot",value)
         })
 
-        ipcMain.on("stats",async (event,statsobj: StatsObj) => {
+        let runningstatwin: Record<"steam" | "ra",number> = { steam: 0, ra: 0 }
+
+        ipcMain.on("stats",async (event,statsobj: StatsObj,init?: boolean) => {
+            if (!statwin) return
+            
+            const { appid, ra } = statsobj
+            const active = ra ? "ra" : "steam"
+            const inactive = ra ? "steam" : "ra"
+
+            if (runningstatwin[inactive] !== 0) return log.write("WARN",`${defaultextwins.stat.wintitle} already active for ${inactive === "ra" ? "RA Game" : "App"}ID ${runningstatwin[inactive]}`)
+            
+            runningstatwin[active] = appid
+            
             const section = ["settings","streaming","content"]
-
-            if (statwin) {
-                const translations: StatsObjTranslations = {
-                    nogame: await language.get("game",["app","content"]),
-                    noachievements: await language.get("noachievements",[...section]),
-                    startgame: await language.get("startgame",[...section]),
-                    max: await language.get("max",[...section]),
-                    custom: await language.get("custom",[...section]),
-                    congrats: await language.get("congrats"),
-                    gamecompletedesc: await language.get("gamecompletedesc"),
-                }
-
-                statwin.webContents.send("stats",statsobj,translations)
+            const translations: StatsObjTranslations = {
+                nogame: await language.get("game",["app","content"]),
+                noachievements: await language.get("noachievements",[...section]),
+                startgame: await language.get("startgame",[...section]),
+                max: await language.get("max",[...section]),
+                custom: await language.get("custom",[...section]),
+                congrats: await language.get("congrats"),
+                gamecompletedesc: await language.get("gamecompletedesc"),
             }
-        })
 
-        ipcMain.on("statsunlock",(event,achievement: Achievement,statsobj: StatsObj) => statwin && statwin.webContents.send("statsunlock",achievement,statsobj))
+            statwin.webContents.send("stats",statsobj,translations,init)
+        })
 
         ipcMain.on("statwinicon",(event,achievement: Achievement) => {
             if (!worker) return statwin && statwin.webContents.send("statwinicon",null)
@@ -1799,11 +1804,10 @@ export const listeners = {
             ipcMain.once("gametimerwinready",() => {
                 const value = config.get("gametimerwinaot")
                 value && gametimerwin!.webContents.send("gametimerwinaot",value)
-                
+
                 if (worker) {
-                    worker.webContents.send("gametimer") // Steam
-                    // !!! Only send RA IPC event when at least one emulator is active
-                    worker.webContents.send("gametimer","ra") // RA
+                    worker.webContents.send("gametimer")
+                    worker.webContents.send("gametimer","ra")
                 }
             })
 
@@ -1821,43 +1825,63 @@ export const listeners = {
             })
         })
 
-        ipcMain.on("gametimer",(event,workerinfo: WorkerInfo) => {
-            if (!gametimerwin) return log.write("WARN","Game Timer window not active")
+        const runninggametimer: { steam: RunningGameTimer, ra: RunningGameTimer } = { steam: { appid: 0, started: 0 }, ra: { appid: 0, started: 0 } }
 
-            const { appid } = workerinfo
-            const type = workerinfo.ra ? "ra" : "steam"
+        ipcMain.on("gametimer",(event,workerinfo: WorkerInfo) => {
+            const { appid, ra } = workerinfo
+            const active = ra ? "ra" : "steam"
+            const inactive = ra ? "steam" : "ra"
+
+            if (runninggametimer[inactive].appid !== 0) return log.write("WARN",`${defaultextwins.gametimer.wintitle} already active for ${inactive === "ra" ? "RA Game" : "App"}ID ${runninggametimer[inactive].appid}`)
             
-            if (runninggametimer) {
-                if (type !== runninggametimer.type || workerinfo.appid && (workerinfo.appid !== runninggametimer.appid)) return log.write("WARN",`Game Timer already active for ${runninggametimer.type === "ra" ? "RA Game" : "App"}ID ${runninggametimer.appid}`)
+            if (appid) {
+                runninggametimer[active].appid = appid
+                if (runninggametimer[active].started === 0) runninggametimer[active].started = Date.now()
             }
-            
-            if (!runninggametimer && appid) runninggametimer = { appid, type, started: Date.now() }
-            
-            gametimerwin.webContents.send("gametimer",workerinfo,runninggametimer)
+
+            gametimerwin && gametimerwin.webContents.send("gametimer",workerinfo,runninggametimer[active])
         })
 
-        ipcMain.on("stopgametimer",(event,appid: number) => {
-            runninggametimer = null
+        ipcMain.on("stopgametimer",(event,appid: number,active: "steam" | "ra") => {
+            runninggametimer[active] = {
+                appid: 0,
+                started: 0
+            }
+
             log.write("INFO",`Game Timer for AppID ${appid} cleared`)
         })
 
-        ipcMain.on("resetgametimer",(event,appid: number,gameid: number) => {
-            const errmsg = `Unable to reset Game Timer:`
-            if (!gametimerwin) return log.write("ERROR",`${errmsg} Game Timer window inactive`)
-            if (!runninggametimer) return log.write("ERROR",`${errmsg} No active Game Timer found`)
-            
-            const ra = runninggametimer.type === "ra"
-            const target =  {
-                id: ra ? gameid : appid,
-                type: ra ? "RA Game" : "App"
-            }
+        ipcMain.on("gametimerappid",async event => {
+            const appid = await new Promise<number | null>(resolve => {
+                if (!gametimerwin) return resolve(null)
+                
+                ipcMain.once("gametimerwinappid",(event,appid: number) => resolve(appid))
+                gametimerwin.webContents.send("gametimerwinappid")
+            })
 
-            if (!target.id) return log.write("ERROR",`${errmsg} Invalid ${target.type}ID ${target.id} supplied`)
-            if (target.id !== runninggametimer.appid) return log.write("WARN",`${errmsg} Target ${target.type}ID ${target.id} does not match active Game Timer AppID ${runninggametimer.appid}`)
-
-            runninggametimer.started = Date.now()
-            gametimerwin.webContents.send("resetgametimer",target.id,runninggametimer)
+            event.reply("gametimerappid",appid)
         })
+
+        ipcMain.on("resetgametimer",(event,appid: number) => {
+            try {
+                if (!gametimerwin) throw new Error("Game Timer window inactive")
+                
+                // !!! Build new `runninggametimer` if `null` due to game completion
+
+                const activetimers = Object.entries(runninggametimer).filter(([_,timer]) => timer.appid !== 0 && timer.started !== 0)
+                if (!activetimers.length) throw new Error("No active Game Timer found")
+                if (activetimers.length > 1) throw new Error("Multiple active Game Timers found")
+                
+                const [active] = activetimers[0] as ["steam" | "ra",RunningGameTimer]
+                runninggametimer[active].started = Date.now()
+    
+                gametimerwin.webContents.send("resetgametimer",runninggametimer[active])
+            } catch (err) {
+                ipcMain.emit("resetgametimerstatus",null,undefined,err as Error)
+            }
+        })
+
+        ipcMain.on("resetgametimerstatus",(event,appid?: number,err?: Error) => win.webContents.send("resetgametimerstatus",appid,err))
 
         ipcMain.on("gametimerwinaot",(event,value: boolean) => {
             if (!gametimerwin) return

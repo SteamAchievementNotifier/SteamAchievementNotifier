@@ -311,6 +311,19 @@ export const translations = {
                 max: "Maks",
                 custom: "Brugerdefineret...",
                 statwinshortcut: "Overlay Genvejstast",
+                gametimerwin: "Spilafslutningstimer",
+                gametimerwinshortcut: "Genvej til timer",
+                gametimerwinaot: "Altid øverst",
+                resetgametimer: "Nulstil timer",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Er du sikker?</span>
+                        <span>Dette vil nulstille spilafslutningstimeren for det aktuelle spil tilbage til 00:00:00.000.</span>
+                        <span class="noundo">🛑 Dette kan ikke fortrydes!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Kunne ikke nulstille timeren.",
+                extwinnotify: "Vis notifikation på skærmen"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "Aktivér NVDA-support",
                 tooltips: "Vis tooltips",
                 showsystrayopts: "Vis systembakke-indstillinger",
-                releaseshortcut: "Genvej til frigivelse af spil"
+                releaseshortcut: "Genvej til frigivelse af spil",
+                noshortcuts: "Deaktiver tastaturgenveje"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Tilføj automatisk genereret medie til den aktuelle spils Optagelser og Skærmbilleder i Steam",
         appdatadir: "Åbn placeringen af appens AppData-mappe",
         backup: "Lav en backup af indholdet i appens AppData-mappe til et valgt sted, som vil fungere som et gendannelsespunkt for den nuværende tilstand af appen",
-        restore: "Gendan indholdet af appens AppData-mappe fra en tidligere backup"
+        restore: "Gendan indholdet af appens AppData-mappe fra en tidligere backup",
+        gametimerwin: "Viser en timer på skærmen, der viser den tid, det tager at låse op for alle achievements i det aktuelle spil",
+        gametimerwinshortcut: "Skifter spilafslutningstimeren ved hjælp af den angivne tastaturgenvej",
+        gametimerwinaot: `Sætter spilafslutningstimeren til tilstanden "Altid øverst", så vinduet kan vises over spilvinduet<br><br><span class="ttdesc">Når aktiveret, vil spilafslutningstimeren ikke længere registrere brugerinteraktioner, såsom "klik"-hændelser. For at genaktivere interaktion med vinduet skal denne indstilling deaktiveres</span>`,
+        resetgametimer: "Nulstiller spilafslutningstimeren for det aktuelle spil",
+        noshortcuts: `Deaktiverer alle tastaturgenveje i appen<br><br><span class="ttdesc">Når aktiveret, <u>vil alle genveje i appen ikke længere fungere</u>. Alle indstillinger relateret til tastaturgenveje vil også blive skjult</span>`,
+        extwinnotify: "Skifter synligheden af alle notifikationer på skærmen ved brug af Stream Notifications"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

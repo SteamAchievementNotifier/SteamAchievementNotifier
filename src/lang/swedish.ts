@@ -311,6 +311,19 @@ export const translations = {
                 max: "Max",
                 custom: "Anpassad...",
                 statwinshortcut: "Snarväg för överlägg",
+                gametimerwin: "Timer för spelavslut",
+                gametimerwinshortcut: "Genväg för timer",
+                gametimerwinaot: "Alltid överst",
+                resetgametimer: "Återställ timer",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Är du säker?</span>
+                        <span>Detta kommer att återställa Timern för spelavslut för det aktuella spelet tillbaka till 00:00:00.000.</span>
+                        <span class="noundo">🛑 Detta kan inte ångras!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Det gick inte att återställa timern.",
+                extwinnotify: "Visa skärmnotifikation"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "Aktivera NVDA-stöd",
                 tooltips: "Visa verktygstips",
                 showsystrayopts: "Visa systemfältalternativ",
-                releaseshortcut: "Genväg för att frigöra spel"
+                releaseshortcut: "Genväg för att frigöra spel",
+                noshortcuts: "Inaktivera tangentbordsgenvägar"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Lägg automatiskt till genererat media i det aktuella spelets inspelningar och skärmbilder i Steam",
         appdatadir: "Öppna platsen för appens AppData-mapp",
         backup: "Säkerhetskopiera innehållet i appens AppData-mapp till en vald plats, vilket fungerar som en återställningspunkt för appens nuvarande tillstånd",
-        restore: "Återställ innehållet i appens AppData-mapp från en tidigare säkerhetskopia"
+        restore: "Återställ innehållet i appens AppData-mapp från en tidigare säkerhetskopia",
+        gametimerwin: "Visa en timer på skärmen som visar hur lång tid det tagit att låsa upp alla prestationer för det aktuella spelet",
+        gametimerwinshortcut: "Växla Timern för spelavslut med den angivna tangentbordsgenvägen",
+        gametimerwinaot: `Ställ in Timern för spelavslut till läget "Alltid överst", så att fönstret visas ovanför spelfönstret<br><br><span class="ttdesc">När detta är aktiverat kommer Timern för spelavslut inte längre att registrera användarinteraktioner, såsom "click"-händelser. För att återaktivera interaktion med fönstret måste detta alternativ inaktiveras</span>`,
+        resetgametimer: "Återställ Timern för spelavslut för det aktuella spelet",
+        noshortcuts: `Inaktiverar alla tangentbordsgenvägar i appen<br><br><span class="ttdesc">När detta är aktiverat kommer <u>alla genvägar i appen inte längre att fungera</u>. Alla alternativ relaterade till tangentbordsgenvägar kommer också att döljas</span>`,
+        extwinnotify: "Växla synlighet för alla skärmnotifikationer vid användning av Stream Notifications"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

@@ -4,9 +4,21 @@ import { language } from "./language"
 import { gametimer } from "./gametimer"
 
 let timer: NodeJS.Timeout | null = null
+let globalappid = 0
 
-ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer: RunningGameTimer | null) => {
-    const { appid, gamename, allunlocked } = workerinfo
+const resettimer = (timerelem: HTMLElement,clear?: boolean) => {
+    if (!clear) {
+        timerelem.textContent = "00:00:00.000"
+        document.body.removeAttribute("complete")
+    }
+
+    timer && clearInterval(timer)
+    timer = null
+}
+
+ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer: RunningGameTimer) => {
+    const { appid, gamename, allunlocked, ra } = workerinfo
+    const active = ra ? "ra" : "steam"
     
     const gamenamewrapper = document.getElementById("gamename")!
     const timerelem = document.getElementById("timer")!
@@ -18,56 +30,55 @@ ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer:
 
     const { json } = gametimer
 
-    if (runninggametimer && appid) {
+    if (appid) {
+        globalappid = appid
+        
         const stored = json[appid]?.elapsed ?? 0
         const { started } = runninggametimer
         
         if (!timer && gametimer.start(appid)) timer = setInterval(() => timerelem.textContent = gametimer.currenttime(stored,started),50)
 
         if (!!allunlocked) {
-            gametimer.setcomplete(appid,started)
+            gametimer.setcomplete(appid,active,started)
+            
             timerelem.textContent = gametimer.currenttime(stored,started)
-
-            timer && clearInterval(timer)
-            timer = null
+            resettimer(timerelem,true)
         }
 
         return
     }
 
-    timerelem.textContent = "00:00:00.000"
-    document.body.removeAttribute("complete")
+    globalappid = 0
 
-    timer && clearInterval(timer)
-    timer = null
+    resettimer(timerelem)
 
-    if (!runninggametimer) return
+    if (!runninggametimer.appid) return
 
     const { started } = runninggametimer
-    gametimer.stop(runninggametimer.appid,started)
+    gametimer.stop(runninggametimer.appid,active,started)
 })
 
-ipcRenderer.on("resetgametimer",async (event,appid: number,runninggametimer: RunningGameTimer) => {
+ipcRenderer.on("gametimerwinappid",() => ipcRenderer.send("gametimerwinappid",globalappid || 0))
+
+ipcRenderer.on("resetgametimer",async (event,runninggametimer: RunningGameTimer) => {
     const { json } = gametimer
     const timerelem = document.getElementById("timer")!
 
-    json[appid] = {
+    json[runninggametimer.appid] = {
         elapsed: 0,
         complete: false
     }
 
     localStorage.setItem("gametimer",JSON.stringify(json,null,4))
 
-    timerelem.textContent = "00:00:00.000"
-    document.body.removeAttribute("complete")
-
-    timer && clearInterval(timer)
-    timer = null
+    resettimer(timerelem)
 
     const stored = 0
     const { started } = runninggametimer
 
     timer = setInterval(() => timerelem.textContent = gametimer.currenttime(stored,started),50)
+
+    ipcRenderer.send("resetgametimerstatus",runninggametimer.appid)
 })
 
 ipcRenderer.on("gametimerwinaot",(event,value: boolean) => document.body.toggleAttribute("aot",value))

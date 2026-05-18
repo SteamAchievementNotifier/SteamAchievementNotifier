@@ -311,6 +311,19 @@ export const translations = {
                 max: "Maksimi",
                 custom: "Mukautettu...",
                 statwinshortcut: "Pikapainike Overlaylle",
+                gametimerwin: "Pelin valmistumisajastin",
+                gametimerwinshortcut: "Ajastimen pikanäppäin",
+                gametimerwinaot: "Aina päällimmäisenä",
+                resetgametimer: "Nollaa ajastin",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Oletko varma?</span>
+                        <span>Tämä nollaa nykyisen pelin valmistumisajastimen takaisin aikaan 00:00:00.000.</span>
+                        <span class="noundo">🛑 Tätä ei voi kumota!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Ajastimen nollaaminen epäonnistui.",
+                extwinnotify: "Näytä ilmoitus näytöllä"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "Ota NVDA-tuki käyttöön",
                 tooltips: "Näytä työkaluvihjeet",
                 showsystrayopts: "Näytä järjestelmäpalkin asetukset",
-                releaseshortcut: "Pelin vapautuksen pikanäppäin"
+                releaseshortcut: "Pelin vapautuksen pikanäppäin",
+                noshortcuts: "Poista pikanäppäimet käytöstä"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Lisää automaattisesti luotu media nykyisen pelin Tallenteisiin ja Kuvakaappauksiin Steamissa",
         appdatadir: "Avaa sovelluksen AppData-kansion sijainti",
         backup: "Tee varmuuskopio sovelluksen AppData-kansion sisällöstä valittuun sijaintiin, joka toimii palautuspisteenä sovelluksen nykyiselle tilalle",
-        restore: "Palauta sovelluksen AppData-kansion sisältö aiemmasta varmuuskopiosta"
+        restore: "Palauta sovelluksen AppData-kansion sisältö aiemmasta varmuuskopiosta",
+        gametimerwin: "Näyttää näytöllä ajastimen, joka näyttää ajan, joka kului kaikkien saavutusten avaamiseen nykyisessä pelissä",
+        gametimerwinshortcut: "Kytkee pelin valmistumisajastimen päälle tai pois määritetyllä pikanäppäimellä",
+        gametimerwinaot: `Asettaa pelin valmistumisajastimen "Aina päällimmäisenä" -tilaan, jolloin ikkuna voidaan näyttää peli-ikkunan yläpuolella<br><br><span class="ttdesc">Kun tämä on käytössä, pelin valmistumisajastin ei enää rekisteröi käyttäjän toimintoja, kuten "klikkaus"-tapahtumia. Vuorovaikutuksen palauttamiseksi tämän asetuksen kanssa se on poistettava käytöstä</span>`,
+        resetgametimer: "Nollaa nykyisen pelin valmistumisajastimen",
+        noshortcuts: `Poistaa kaikki sovelluksen pikanäppäimet käytöstä<br><br><span class="ttdesc">Kun tämä on käytössä, <u>mikään sovelluksen pikanäppäimistä ei enää toimi</u>. Kaikki pikanäppäimiin liittyvät asetukset piilotetaan myös</span>`,
+        extwinnotify: "Vaihtaa kaikkien näytöllä näkyvien ilmoitusten näkyvyyttä käytettäessä Stream Notifications -ominaisuutta"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

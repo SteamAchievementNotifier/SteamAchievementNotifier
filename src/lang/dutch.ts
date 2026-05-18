@@ -311,6 +311,19 @@ export const translations = {
                 max: "Max",
                 custom: "Aangepast...",
                 statwinshortcut: "Overlay Snelkoppeling",
+                gametimerwin: "Spelvoltooiingstimer",
+                gametimerwinshortcut: "Sneltoets voor timer",
+                gametimerwinaot: "Altijd bovenaan",
+                resetgametimer: "Timer resetten",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Weet je het zeker?</span>
+                        <span>Hiermee wordt de spelvoltooiingstimer voor het huidige spel teruggezet naar 00:00:00.000.</span>
+                        <span class="noundo">🛑 Dit kan niet ongedaan worden gemaakt!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Kan timer niet resetten.",
+                extwinnotify: "Melding op scherm tonen"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "NVDA-ondersteuning inschakelen",
                 tooltips: "Tooltips weergeven",
                 showsystrayopts: "Systeemvakopties Weergeven",
-                releaseshortcut: "Sneltoets voor Spel Vrijgeven"
+                releaseshortcut: "Sneltoets voor Spel Vrijgeven",
+                noshortcuts: "Sneltoetsen uitschakelen"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Automatisch gegenereerde media toevoegen aan de Opnamen en Screenshots van de huidige game in Steam",
         appdatadir: "Open de locatie van de AppData-map van de app",
         backup: "Maak een back-up van de inhoud van de AppData-map van de app naar een gekozen locatie, die fungeert als herstelpunt voor de huidige staat van de app",
-        restore: "Herstel de inhoud van de AppData-map van de app vanuit een eerdere back-up"
+        restore: "Herstel de inhoud van de AppData-map van de app vanuit een eerdere back-up",
+        gametimerwin: "Toont een timer op het scherm die laat zien hoeveel tijd nodig was om alle achievements voor het huidige spel te ontgrendelen",
+        gametimerwinshortcut: "Schakelt de spelvoltooiingstimer in of uit met de opgegeven sneltoets",
+        gametimerwinaot: `Zet de spelvoltooiingstimer in de modus "Altijd bovenaan", zodat het venster boven het spelvenster wordt weergegeven<br><br><span class="ttdesc">Wanneer ingeschakeld, registreert de spelvoltooiingstimer geen gebruikersinteracties meer, zoals "klik"-gebeurtenissen. Om interactie met het venster opnieuw mogelijk te maken, moet deze optie worden uitgeschakeld</span>`,
+        resetgametimer: "Reset de spelvoltooiingstimer voor het huidige spel",
+        noshortcuts: `Schakelt alle sneltoetsen binnen de app uit<br><br><span class="ttdesc">Wanneer ingeschakeld, <u>werken alle sneltoetsen binnen de app niet langer</u>. Alle opties met betrekking tot sneltoetsen worden ook verborgen</span>`,
+        extwinnotify: "Schakelt de zichtbaarheid van alle meldingen op het scherm tijdens het gebruik van Stream Notifications"
     },
     update: {
         updateavailable: "Update beschikbaar",

@@ -311,6 +311,19 @@ export const translations = {
                 max: "Tối đa",
                 custom: "Tùy chỉnh...",
                 statwinshortcut: "Phím tắt Overlay",
+                gametimerwin: "Bộ đếm thời gian hoàn thành trò chơi",
+                gametimerwinshortcut: "Phím tắt bộ đếm thời gian",
+                gametimerwinaot: "Luôn hiển thị trên cùng",
+                resetgametimer: "Đặt lại bộ đếm thời gian",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Bạn có chắc chắn không?</span>
+                        <span>Thao tác này sẽ đặt lại Bộ đếm thời gian hoàn thành trò chơi của trò chơi hiện tại về 00:00:00.000.</span>
+                        <span class="noundo">🛑 Không thể hoàn tác thao tác này!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Không thể đặt lại bộ đếm thời gian.",
+                extwinnotify: "Hiển thị thông báo trên màn hình"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "Bật hỗ trợ NVDA",
                 tooltips: "Hiển thị Chú giải Công cụ",
                 showsystrayopts: "Hiện tùy chọn khay hệ thống",
-                releaseshortcut: "Phím tắt phát hành trò chơi"
+                releaseshortcut: "Phím tắt phát hành trò chơi",
+                noshortcuts: "Tắt phím tắt bàn phím"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Tự động thêm phương tiện đã tạo vào Bản ghi và Ảnh chụp màn hình của trò chơi hiện tại trong Steam",
         appdatadir: "Mở vị trí thư mục AppData của ứng dụng",
         backup: "Sao lưu nội dung thư mục AppData của ứng dụng đến vị trí đã chọn, sẽ hoạt động như điểm khôi phục cho trạng thái hiện tại của ứng dụng",
-        restore: "Khôi phục nội dung thư mục AppData của ứng dụng từ bản sao lưu trước đó"
+        restore: "Khôi phục nội dung thư mục AppData của ứng dụng từ bản sao lưu trước đó",
+        gametimerwin: "Hiển thị bộ đếm thời gian trên màn hình cho biết khoảng thời gian đã dùng để mở khóa tất cả thành tựu của trò chơi hiện tại",
+        gametimerwinshortcut: "Bật/tắt Bộ đếm thời gian hoàn thành trò chơi bằng phím tắt bàn phím đã chỉ định",
+        gametimerwinaot: `Đặt Bộ đếm thời gian hoàn thành trò chơi sang chế độ "Luôn hiển thị trên cùng", cho phép cửa sổ hiển thị phía trên cửa sổ trò chơi<br><br><span class="ttdesc">Khi được bật, Bộ đếm thời gian hoàn thành trò chơi sẽ không còn ghi nhận các tương tác của người dùng, chẳng hạn như sự kiện "click". Để bật lại khả năng tương tác với cửa sổ, tùy chọn này phải được tắt</span>`,
+        resetgametimer: "Đặt lại Bộ đếm thời gian hoàn thành trò chơi cho trò chơi hiện tại",
+        noshortcuts: `Tắt tất cả phím tắt bàn phím trong ứng dụng<br><br><span class="ttdesc">Khi được bật, <u>tất cả phím tắt trong ứng dụng sẽ không còn hoạt động</u>. Tất cả các tùy chọn liên quan đến phím tắt bàn phím cũng sẽ bị ẩn</span>`,
+        extwinnotify: "Bật/tắt hiển thị tất cả thông báo trên màn hình khi sử dụng Stream Notifications"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

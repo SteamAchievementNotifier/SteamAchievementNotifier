@@ -636,23 +636,28 @@ export const dialog = {
                     click: async () => {
                         const { log } = await import("./log")
 
-                        const appid = await new Promise<number>(resolve => {
-                            ipcRenderer.once("runningappid",(event,appid: number) => resolve(appid))
-                            ipcRenderer.send("runningappid")
-                        })
-
-                        const gameid = document.body.hasAttribute("ragameid") ? parseInt(document.body.getAttribute("ragameid") as string) : 0
-
-                        if (!gameid && !appid) return log.write("WARN",`Unable to reset Game Timer: No AppID detected`)
-
-                        const idtype = gameid ? "RA Game" : "App"
-                        
                         try {
-                            ipcRenderer.send("resetgametimer",appid,gameid)
+                            const appid = await new Promise<number | null>(resolve => {
+                                ipcRenderer.once("gametimerappid",(event,appid: number | null) => resolve(appid))
+                                ipcRenderer.send("gametimerappid")
+                            })
+
+                            if (!appid) throw new Error(`No AppID detected`)
+
+                            const status = await new Promise<string>((resolve,reject) => {
+                                ipcRenderer.once("resetgametimerstatus",(event,appid?: number,err?: Error) => {
+                                    if (err) return reject(err)
+                                    resolve(`Game Timer reset for AppID ${appid}`)
+                                })
+                                
+                                ipcRenderer.send("resetgametimer",appid)
+                            })
+
+                            log.write("INFO",status)
                             dialog.close()
                         } catch (err) {
                             document.getElementById("resetgametimerlog")!.textContent = `${await language.get("resetgametimerfailed",["settings","streaming","content"])} ${await language.get("checkapplog")}`
-                            log.write("WARN",`Unable to reset Game Timer for ${idtype}ID: ${(err as Error).message}`)
+                            log.write("WARN",`Unable to reset Game Timer: ${(err as Error).message}`)
                         }
                     }
                 }]

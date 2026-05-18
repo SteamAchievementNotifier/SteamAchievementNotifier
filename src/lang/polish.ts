@@ -311,6 +311,19 @@ export const translations = {
                 max: "Maksimum",
                 custom: "Niestandardowe...",
                 statwinshortcut: "Skrót Nakładki",
+                gametimerwin: "Timer Ukończenia Gry",
+                gametimerwinshortcut: "Skrót Timera",
+                gametimerwinaot: "Zawsze na Wierzchu",
+                resetgametimer: "Resetuj Timer",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>Czy na pewno?</span>
+                        <span>Spowoduje to zresetowanie Timera Ukończenia Gry dla bieżącej gry do wartości 00:00:00.000.</span>
+                        <span class="noundo">🛑 Tej operacji nie można cofnąć!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "Nie można zresetować timera.",
+                extwinnotify: "Pokaż Powiadomienie na Ekranie"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "Włącz obsługę NVDA",
                 tooltips: "Pokaż etykiety narzędzi",
                 showsystrayopts: "Pokaż opcje w zasobniku systemowym",
-                releaseshortcut: "Skrót do uwolnienia gry"
+                releaseshortcut: "Skrót do uwolnienia gry",
+                noshortcuts: "Wyłącz Skróty Klawiaturowe"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "Automatycznie dodaj wygenerowane media do nagrań i zrzutów ekranu bieżącej gry w Steam",
         appdatadir: "Otwórz lokalizację folderu AppData aplikacji",
         backup: "Utwórz kopię zapasową zawartości folderu AppData aplikacji w wybranej lokalizacji, która będzie punktem przywracania dla bieżącego stanu aplikacji",
-        restore: "Przywróć zawartość folderu AppData aplikacji z wcześniejszej kopii zapasowej"
+        restore: "Przywróć zawartość folderu AppData aplikacji z wcześniejszej kopii zapasowej",
+        gametimerwin: "Wyświetl timer na ekranie pokazujący czas potrzebny do odblokowania wszystkich achievementów dla bieżącej gry",
+        gametimerwinshortcut: "Przełącz Timer Ukończenia Gry za pomocą określonego skrótu klawiaturowego",
+        gametimerwinaot: `Ustaw Timer Ukończenia Gry w trybie "Zawsze na Wierzchu", umożliwiając wyświetlanie okna nad oknem gry<br><br><span class="ttdesc">Po włączeniu Timer Ukończenia Gry nie będzie już rejestrować interakcji użytkownika, takich jak zdarzenia "click". Aby ponownie włączyć interakcję z oknem, należy wyłączyć tę opcję</span>`,
+        resetgametimer: "Resetuj Timer Ukończenia Gry dla bieżącej gry",
+        noshortcuts: `Wyłącza wszystkie skróty klawiaturowe w aplikacji<br><br><span class="ttdesc">Po włączeniu <u>wszystkie skróty w aplikacji przestaną działać</u>. Wszystkie opcje związane ze skrótami klawiaturowymi również zostaną ukryte</span>`,
+        extwinnotify: "Przełącz widoczność wszystkich powiadomień ekranowych podczas korzystania ze Stream Notifications"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

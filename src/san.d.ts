@@ -365,7 +365,9 @@ declare interface Notify extends Achievement {
 declare interface StatsObj {
     appid: number,
     gamename: string | null,
-    achievements?: Achievement[]
+    achievements?: Achievement[],
+    ra?: boolean,
+    mode?: "hard" | "soft"
 }
 
 declare interface Dialog {
@@ -631,9 +633,9 @@ declare interface ExtWinConfig {
 
 declare interface WorkerInfo {
     appid: number,
+    gamename?: string | null,
     steam3id?: number,
     achnum?: number,
-    gamename?: string | null,
     allunlocked?: boolean,
     ra?: boolean
 }
@@ -645,7 +647,6 @@ declare type GameTimer = {
 
 declare type RunningGameTimer = {
     appid: number,
-    type: "steam" | "ra",
     started: number
 }
 

@@ -311,6 +311,19 @@ export const translations = {
                 max: "最大值",
                 custom: "自定义...",
                 statwinshortcut: "覆盖层快捷键",
+                gametimerwin: "游戏完成计时器",
+                gametimerwinshortcut: "计时器快捷键",
+                gametimerwinaot: "始终置顶",
+                resetgametimer: "重置计时器",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>您确定吗？</span>
+                        <span>这将把当前游戏的游戏完成计时器重置回 00:00:00.000。</span>
+                        <span class="noundo">🛑 此操作无法撤销！</span>
+                    </div>
+                `,
+                resetgametimerfailed: "无法重置计时器。",
+                extwinnotify: "显示屏幕通知"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "启用NVDA支持",
                 tooltips: "显示工具提示",
                 showsystrayopts: "显示系统托盘选项",
-                releaseshortcut: "释放游戏快捷键"
+                releaseshortcut: "释放游戏快捷键",
+                noshortcuts: "禁用键盘快捷键"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "自动将生成的媒体添加到当前游戏在 Steam 中的录制和截图",
         appdatadir: "打开应用程序 AppData 文件夹的位置",
         backup: "将应用程序的 AppData 文件夹内容备份到选定位置，这将作为应用程序当前状态的还原点",
-        restore: "从以前的备份中还原应用程序 AppData 文件夹的内容"
+        restore: "从以前的备份中还原应用程序 AppData 文件夹的内容",
+        gametimerwin: "显示一个屏幕计时器，用于显示完成当前游戏所有成就所花费的时间",
+        gametimerwinshortcut: "使用指定的键盘快捷键切换游戏完成计时器",
+        gametimerwinaot: `将游戏完成计时器设置为“始终置顶”模式，使窗口显示在游戏窗口之上<br><br><span class="ttdesc">启用后，游戏完成计时器将不再响应用户交互，例如“click”事件。要重新启用与窗口的交互，必须禁用此选项</span>`,
+        resetgametimer: "重置当前游戏的游戏完成计时器",
+        noshortcuts: `禁用所有应用内键盘快捷键<br><br><span class="ttdesc">启用后，<u>所有应用内快捷键将不再生效</u>。所有与键盘快捷键相关的选项也将被隐藏</span>`,
+        extwinnotify: "切换使用 Stream Notifications 时所有屏幕通知的可见性"
     },
     update: {
         updateavailable: "有可用更新",

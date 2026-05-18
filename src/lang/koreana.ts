@@ -311,6 +311,19 @@ export const translations = {
                 max: "최대",
                 custom: "사용자 정의...",
                 statwinshortcut: "오버레이 단축키",
+                gametimerwin: "게임 완료 타이머",
+                gametimerwinshortcut: "타이머 단축키",
+                gametimerwinaot: "항상 위에 표시",
+                resetgametimer: "타이머 초기화",
+                resetgametimersub: `
+                    <div class="wrapper resetsub">
+                        <span>정말로 진행하시겠습니까?</span>
+                        <span>현재 게임의 게임 완료 타이머가 00:00:00.000으로 초기화됩니다.</span>
+                        <span class="noundo">🛑 이 작업은 되돌릴 수 없습니다!</span>
+                    </div>
+                `,
+                resetgametimerfailed: "타이머를 초기화할 수 없습니다.",
+                extwinnotify: "화면 알림 표시"
             }
         },
         accessibility: {
@@ -321,7 +334,8 @@ export const translations = {
                 nvda: "NVDA 지원 활성화",
                 tooltips: "도구 설명 표시",
                 showsystrayopts: "시스템 트레이 옵션 표시",
-                releaseshortcut: "게임 릴리스 단축키"
+                releaseshortcut: "게임 릴리스 단축키",
+                noshortcuts: "키보드 단축키 비활성화"
             }
         },
         advanced: {
@@ -871,7 +885,13 @@ export const translations = {
         ssaddtosteam: "생성된 미디어를 현재 게임의 Steam 녹화 및 스크린샷에 자동으로 추가",
         appdatadir: "앱의 AppData 폴더 위치 열기",
         backup: "앱의 AppData 폴더 내용을 선택한 위치에 백업하여, 앱의 현재 상태를 복원할 수 있는 복원 지점으로 사용합니다",
-        restore: "앱의 AppData 폴더 내용을 이전 백업에서 복원합니다"
+        restore: "앱의 AppData 폴더 내용을 이전 백업에서 복원합니다",
+        gametimerwin: "현재 게임의 모든 achievement를 잠금 해제하는 데 걸린 시간을 표시하는 화면 타이머를 표시합니다",
+        gametimerwinshortcut: "지정된 키보드 단축키를 사용하여 게임 완료 타이머를 전환합니다",
+        gametimerwinaot: `게임 완료 타이머를 "항상 위에 표시" 모드로 설정하여 게임 창 위에 표시되도록 합니다<br><br><span class="ttdesc">활성화되면 게임 완료 타이머는 "click" 이벤트와 같은 사용자 상호작용을 더 이상 감지하지 않습니다. 창과 다시 상호작용하려면 이 옵션을 비활성화해야 합니다</span>`,
+        resetgametimer: "현재 게임의 게임 완료 타이머를 초기화합니다",
+        noshortcuts: `앱 내의 모든 키보드 단축키를 비활성화합니다<br><br><span class="ttdesc">활성화되면 <u>모든 앱 내 단축키가 더 이상 작동하지 않습니다</u>. 키보드 단축키와 관련된 모든 옵션도 숨겨집니다</span>`,
+        extwinnotify: "Stream Notifications 사용 중 모든 화면 알림의 표시 여부를 전환합니다"
     },
     update: {
         updateavailable: "업데이트 가능",

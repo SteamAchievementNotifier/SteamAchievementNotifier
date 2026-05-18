@@ -310,7 +310,10 @@ export const translations = {
                 startgame: "Inicie um jogo para mostrar conquistas!",
                 max: "Máximo",
                 custom: "Personalizado...",
-                statwinshortcut: "Atalho do Sobrepor"
+                statwinshortcut: "Atalho do Sobrepor",
+                gametimerwin: "Temporizador de Conclusão do Jogo",
+                gametimerwinshortcut: "Atalho do Temporizador",
+                gametimerwinaot: "Sempre no Topo"
             }
         },
         accessibility: {
@@ -871,7 +874,10 @@ export const translations = {
         ssaddtosteam: "Adicionar automaticamente a mídia gerada às Gravações e Capturas de Tela do jogo atual no Steam",
         appdatadir: "Abrir o local da pasta AppData do app",
         backup: "Faça backup do conteúdo da pasta AppData do app para um local escolhido, que servirá como ponto de restauração para o estado atual do app",
-        restore: "Restaure o conteúdo da pasta AppData do app a partir de um backup anterior"
+        restore: "Restaure o conteúdo da pasta AppData do app a partir de um backup anterior",
+        gametimerwin: "Exibe um temporizador na tela mostrando o tempo levado para desbloquear todas as conquistas do jogo atual",
+        gametimerwinshortcut: "Alterna o Temporizador de Conclusão do Jogo usando o atalho de teclado especificado",
+        gametimerwinaot: `Define o Temporizador de Conclusão do Jogo no modo "Sempre no Topo", permitindo que a janela seja exibida acima da janela do jogo<br><br><span class="ttdesc">Quando ativado, o Temporizador de Conclusão do Jogo não registrará mais interações do usuário, como eventos de "clique". Para reativar a interação com a janela, esta opção deve ser desativada</span>`
     },
     update: {
         updateavailable: "Atualização disponível",

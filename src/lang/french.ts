@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Impossible de réinitialiser le minuteur.",
+                resetgametimercomplete: "L’AppID $appid a déjà été terminé.",
                 extwinnotify: "Afficher une notification à l'écran"
             }
         },

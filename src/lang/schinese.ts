@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "无法重置计时器。",
+                resetgametimercomplete: "AppID $appid 已经完成。",
                 extwinnotify: "显示屏幕通知"
             }
         },

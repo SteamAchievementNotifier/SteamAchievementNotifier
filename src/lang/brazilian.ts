@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Não foi possível redefinir o temporizador.",
+                resetgametimercomplete: "O AppID $appid já foi concluído.",
                 extwinnotify: "Mostrar Notificação na Tela"
             }
         },

@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Kunne ikke tilbakestille tidtakeren.",
+                resetgametimercomplete: "AppID $appid er allerede fullført.",
                 extwinnotify: "Vis Varsel på Skjermen"
             }
         },

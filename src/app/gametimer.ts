@@ -72,13 +72,17 @@ export const gametimer = {
         const timestamp = started ? stored + (Date.now() - started) : stored
         return gametimer.timestr(timestamp)
     },
-    setcomplete: (appid: number,active: "steam" | "ra",started: number) => {        
+    setcompletionstatus: (appid: number,active: "steam" | "ra",started: number,workerinfo: WorkerInfo) => {        
+        const { allunlocked } = workerinfo
         const { json } = gametimer
-        if (!json[appid] || json[appid].elapsed === undefined) return log.write("WARN",`Unable to set "complete" flag in Game Timer entry for AppID ${appid}: Valid entry not found in localStorage`)
+        if (!json[appid] || json[appid].elapsed === undefined) return log.write("WARN",`Unable to set "complete" flag in Game Timer entry for AppID ${appid}: No valid entry found in localStorage`)
+
+        const wascomplete = json[appid].complete // Cache the old value before overwriting
             
-        json[appid].complete = true
+        json[appid].complete = !!allunlocked
         localStorage.setItem("gametimer",JSON.stringify(json,null,4))
         
-        gametimer.stop(appid,active,started)
+        !!allunlocked && gametimer.stop(appid,active,started)
+        wascomplete && !!!allunlocked && ipcRenderer.send("gametimer",workerinfo) // Rebuild `runninggametimer` if previously-completed game becomes incomplete again
     }
 }

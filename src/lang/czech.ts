@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Nepodařilo se resetovat časovač.",
+                resetgametimercomplete: "AppID $appid již byl dokončen.",
                 extwinnotify: "Zobrazit oznámení na obrazovce"
             }
         },

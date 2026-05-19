@@ -57,6 +57,7 @@ body {
 
 body[hidden] .menubtn#close,
 body[aot] .menubtn#close,
+body[aot] .menubtn#displaymode,
 body[aot] .menubtn#winopacity {
     opacity: 0;
     pointer-events: none;
@@ -153,7 +154,6 @@ body[aot] .wrapper#cont {
 }
 
 .wrapper#gamename[appid] ~ .wrapper#achievements > .achievement#placeholder,
-/* .wrapper#progressbar:not([complete]) ~ .wrapper#achievements > .achievement#complete, */
 .achievement[nodisplay],
 body:not([reorder]) .handle {
     display: none;
@@ -183,6 +183,14 @@ body:not([reorder]) .handle {
         filter calc(var(--transition) * 2),
         background-color var(--transition);
     overflow: hidden;
+    animation: none;
+}
+
+.achievement[playing]:not([removing]) > .inner {
+    animation: unlocked calc(var(--transition) * 20) linear forwards;
+}
+
+.achievement[playing][removing] > .inner {
     animation:
         unlocked calc(var(--transition) * 20) linear forwards,
         shift calc(var(--transition) * 5) calc(var(--transition) * 10) linear forwards;
@@ -224,7 +232,11 @@ body:not([reorder]) .handle {
 .achievement[unlocked="false"] > .inner {
     filter: grayscale();
     background-color: var(--lightgrey);
-    animation: none;
+}
+
+.achievement[unlocked="true"] > .inner {
+    filter: none;
+    background-color: var(--rarity);
 }
 
 body[nospoilers] .achievement[hidden]::before {
@@ -240,21 +252,7 @@ body[nospoilers] .achievement[unlocked="false"][hidden] > .inner > .icon {
     filter: blur(5px);
 }
 
-/* .achievement#complete[unlocked="false"] {
-    filter: none;
-    background-color: var(--plat);
-}
-
-.achievement#complete > .icon {
-    --icon: url("../../img/sanlogotrophy_gold.svg");
-} */
-
-.achievement[unlocked="true"]:not([playing]) {
-    display: none;
-    translate: -1000% 0;
-}
-
-.achievement[unlocked="true"][playing] > .inner::before {
+.achievement[playing] > .inner::before {
     content: "";
     position: absolute;
     right: 100%;
@@ -329,7 +327,7 @@ body[nospoilers] .achievement[unlocked="false"][hidden] > .inner > .icon {
 }
 
 .wrapper#btnwrapper {
-    grid-template-columns: repeat(2,auto) 1fr repeat(2,auto);
+    grid-template-columns: repeat(2,auto) 1fr repeat(3,auto);
     justify-items: stretch;
     align-items: center;
     gap: 0.5rem;
@@ -404,15 +402,28 @@ body[reorder] button#reorder {
 }
 
 button#spoilers {
-    --icon: url("../../icon/lock.svg");
+    --icon: url("../../icon/asterisk.svg");
     grid-column-start: -3;
 }
 
 body[nospoilers] button#spoilers {
-    --icon: url("../../icon/unlock.svg");
+    --icon: url("../../icon/dots.svg");
 }
 
 body:has(.wrapper#gamename:not([appid])) button#reorder,
-body:has(.wrapper#gamename:not([appid])) button#spoilers {
+body:has(.wrapper#gamename:not([appid])) button#spoilers,
+body:has(.wrapper#gamename:not([appid])) button#displaymode {
     display: none;
+}
+
+button#displaymode {
+    grid-column-start: -4;
+}
+
+body[displaymode="locked"] button#displaymode {
+    --icon: url("../../icon/lock.svg");
+}
+
+body[displaymode="unlocked"] button#displaymode {
+    --icon: url("../../icon/unlock.svg");
 }

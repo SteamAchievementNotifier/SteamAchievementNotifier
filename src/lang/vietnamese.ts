@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Không thể đặt lại bộ đếm thời gian.",
+                resetgametimercomplete: "AppID $appid đã được hoàn thành.",
                 extwinnotify: "Hiển thị thông báo trên màn hình"
             }
         },

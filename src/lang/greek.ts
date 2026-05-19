@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Αδυναμία επαναφοράς χρονομετρητή.",
+                resetgametimercomplete: "Το AppID $appid έχει ήδη ολοκληρωθεί.",
                 extwinnotify: "Εμφάνιση Ειδοποίησης στην Οθόνη"
             }
         },

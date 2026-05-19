@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "タイマーをリセットできませんでした。",
+                resetgametimercomplete: "AppID $appid はすでに完了しています。",
                 extwinnotify: "オンスクリーン通知を表示"
             }
         },

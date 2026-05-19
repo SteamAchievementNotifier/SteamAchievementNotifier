@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "타이머를 초기화할 수 없습니다.",
+                resetgametimercomplete: "AppID $appid는 이미 완료되었습니다.",
                 extwinnotify: "화면 알림 표시"
             }
         },

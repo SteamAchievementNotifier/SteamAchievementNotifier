@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Не удалось сбросить таймер.",
+                resetgametimercomplete: "AppID $appid уже был завершён.",
                 extwinnotify: "Показывать уведомление на экране"
             }
         },

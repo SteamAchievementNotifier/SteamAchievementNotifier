@@ -125,6 +125,7 @@ declare interface Config {
     statwinshortcut: string,
     statwinaot: boolean,
     statwinopacity: boolean,
+    statwindisplaymode: "locked" | "unlocked",
     raemus: string[],
     retroarchpath: string,
     dolphinpath: string,

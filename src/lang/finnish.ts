@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Ajastimen nollaaminen epäonnistui.",
+                resetgametimercomplete: "AppID $appid on jo suoritettu.",
                 extwinnotify: "Näytä ilmoitus näytöllä"
             }
         },

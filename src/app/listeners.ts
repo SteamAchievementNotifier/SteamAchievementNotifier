@@ -345,7 +345,7 @@ export const listeners = {
                 ipcMain.emit("appid",null,{ appid: 0 })
                 const msg = await validateworker()
                 log.write("INFO",msg)
-                setTimeout(() => ipcMain.emit("createworker"),releasedelay * 1000)
+                setTimeout(() => ipcMain.emit("createworker"),2500 + (releasedelay * 1000))
             } catch (err) {
                 log.write("WARN",err as Error)
                 setTimeout(() => ipcMain.emit("validateworker"),1000)
@@ -1837,12 +1837,23 @@ export const listeners = {
             if (appid) {
                 runninggametimer[active].appid = appid
                 if (runninggametimer[active].started === 0) runninggametimer[active].started = Date.now()
+            } else {
+                // Fixes issue where Game Timer will continue to count up after game has exited if Game Timer option is not enabled
+                !gametimerwin && runninggametimer[active].appid && ipcMain.emit("stopgametimer",null,runninggametimer[active].appid,active,true)
             }
 
             gametimerwin && gametimerwin.webContents.send("gametimer",workerinfo,runninggametimer[active])
         })
 
-        ipcMain.on("stopgametimer",(event,appid: number,active: "steam" | "ra") => {
+        ipcMain.on("stopgametimer",(event,appid: number,active: "steam" | "ra",nowindow?: boolean) => {
+            if (nowindow) {
+                log.write("WARN",`Game Timer window inactive - stopping Game Timer for AppID ${appid}...`)
+
+                const { started } = runninggametimer[active]
+                win.webContents.send("stopgametimer",appid,active,started)
+                return
+            }
+
             runninggametimer[active] = {
                 appid: 0,
                 started: 0
@@ -1851,25 +1862,12 @@ export const listeners = {
             log.write("INFO",`Game Timer for AppID ${appid} cleared`)
         })
 
-        ipcMain.on("gametimerappid",async event => {
-            const appid = await new Promise<number | null>(resolve => {
-                if (!gametimerwin) return resolve(null)
-                
-                ipcMain.once("gametimerwinappid",(event,appid: number) => resolve(appid))
-                gametimerwin.webContents.send("gametimerwinappid")
-            })
-
-            event.reply("gametimerappid",appid)
-        })
-
         ipcMain.on("resetgametimer",(event,appid: number) => {
             try {
                 if (!gametimerwin) throw new Error("Game Timer window inactive")
-                
-                // !!! Build new `runninggametimer` if `null` due to game completion
 
                 const activetimers = Object.entries(runninggametimer).filter(([_,timer]) => timer.appid !== 0 && timer.started !== 0)
-                if (!activetimers.length) throw new Error("No active Game Timer found")
+                if (!activetimers.length) throw new Error(`No active Game Timer found for AppID ${appid}`)
                 if (activetimers.length > 1) throw new Error("Multiple active Game Timers found")
                 
                 const [active] = activetimers[0] as ["steam" | "ra",RunningGameTimer]
@@ -1882,6 +1880,17 @@ export const listeners = {
         })
 
         ipcMain.on("resetgametimerstatus",(event,appid?: number,err?: Error) => win.webContents.send("resetgametimerstatus",appid,err))
+
+        ipcMain.on("gametimerappid",async event => {
+            const appid = await new Promise<number | null>(resolve => {
+                if (!gametimerwin) return resolve(null)
+                
+                ipcMain.once("gametimerwinappid",(event,appid: number) => resolve(appid))
+                gametimerwin.webContents.send("gametimerwinappid")
+            })
+
+            event.reply("gametimerappid",appid)
+        })
 
         ipcMain.on("gametimerwinaot",(event,value: boolean) => {
             if (!gametimerwin) return

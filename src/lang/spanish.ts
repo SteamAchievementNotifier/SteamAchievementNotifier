@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "No se pudo restablecer el temporizador.",
+                resetgametimercomplete: "La AppID $appid ya ha sido completada.",
                 extwinnotify: "Mostrar notificación en pantalla"
             }
         },

@@ -311,6 +311,7 @@ export const sanconfig = {
                 statwinshortcut: "CTRL+SHIFT+O",
                 statwinaot: false,
                 statwinopacity: false,
+                statwindisplaymode: "locked",
                 raemus: [],
                 retroarchpath: "",
                 dolphinpath: "",

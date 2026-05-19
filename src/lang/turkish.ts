@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Zamanlayıcı sıfırlanamadı.",
+                resetgametimercomplete: "AppID $appid zaten tamamlandı.",
                 extwinnotify: "Ekran Bildirimini Göster"
             }
         },

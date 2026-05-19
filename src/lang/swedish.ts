@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Det gick inte att återställa timern.",
+                resetgametimercomplete: "AppID $appid har redan slutförts.",
                 extwinnotify: "Visa skärmnotifikation"
             }
         },

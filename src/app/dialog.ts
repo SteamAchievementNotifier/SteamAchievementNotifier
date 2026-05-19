@@ -635,6 +635,7 @@ export const dialog = {
                     icon: "",
                     click: async () => {
                         const { log } = await import("./log")
+                        const { gametimer } = await import("./gametimer")
 
                         try {
                             const appid = await new Promise<number | null>(resolve => {
@@ -643,6 +644,11 @@ export const dialog = {
                             })
 
                             if (!appid) throw new Error(`No AppID detected`)
+
+                            // If the current game has been completed, throw a specific error to show in the dialog
+                            const { json } = gametimer
+                            if (!json[appid] || json[appid].elapsed === undefined) throw new Error(`No valid entry for AppID ${appid} found in localStorage`)
+                            if (json[appid].complete) throw new Error(`[gametimer]${(await language.get("resetgametimercomplete",["settings","streaming","content"])).replace(/\$appid/,appid)}`)
 
                             const status = await new Promise<string>((resolve,reject) => {
                                 ipcRenderer.once("resetgametimerstatus",(event,appid?: number,err?: Error) => {
@@ -656,8 +662,11 @@ export const dialog = {
                             log.write("INFO",status)
                             dialog.close()
                         } catch (err) {
-                            document.getElementById("resetgametimerlog")!.textContent = `${await language.get("resetgametimerfailed",["settings","streaming","content"])} ${await language.get("checkapplog")}`
-                            log.write("WARN",`Unable to reset Game Timer: ${(err as Error).message}`)
+                            const errmsg = (err as Error).message
+                            const gterr = errmsg.startsWith("[gametimer]")
+                            
+                            document.getElementById("resetgametimerlog")!.textContent = `${await language.get("resetgametimerfailed",["settings","streaming","content"])} ${gterr ? errmsg.replace(/^\[gametimer\]/,"") : await language.get("checkapplog")}` // If present, show specific game completion error message in the dialog
+                            log.write("WARN",`Unable to reset Game Timer: ${errmsg.replace(/^\[gametimer\]/,"")}`)
                         }
                     }
                 }]

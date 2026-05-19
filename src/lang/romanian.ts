@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Nu s-a putut reseta cronometrul.",
+                resetgametimercomplete: "AppID-ul $appid a fost deja completat.",
                 extwinnotify: "Afișează Notificare pe Ecran"
             }
         },

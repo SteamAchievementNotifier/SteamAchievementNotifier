@@ -44,6 +44,8 @@ const ignore = [
 ]
 
 let globalappid = 0
+let globalstatsobj: StatsObj | null = null
+let globaltranslations: StatsObjTranslations | null = null
 
 const getapiname = (elem: Element,ra?: boolean) => ra ? elem.id.replace(/^ACH\_/,"") : esc(elem.id.replace(/^ACH\_/,""),true)
 
@@ -54,6 +56,8 @@ const maxdisplay = (appid: number,max: number,filter: Element[]) => {
         .slice(0,max)
 }
 
+const shoulddisplay = (unlocked: boolean) => document.body.getAttribute("displaymode") === "locked" ? !unlocked : unlocked
+
 const setmaxachievements = (elem: HTMLSelectElement | HTMLInputElement,order: string[]) => {
     try {
         if (!globalappid) throw new Error(`No game detected by "statwin"`)
@@ -61,7 +65,10 @@ const setmaxachievements = (elem: HTMLSelectElement | HTMLInputElement,order: st
         const achievementswrapper = document.getElementById("achievements")!
         const filter = Array.from(achievementswrapper.children)
             .sort((a,b) => order.indexOf(getapiname(a)) - order.indexOf(getapiname(b)))
-            .filter(achievement => !ignore.includes(achievement.id) && achievement.getAttribute("unlocked") !== "true")
+            .filter(achievement => {
+                if (ignore.includes(achievement.id)) return false
+                return shoulddisplay(achievement.getAttribute("unlocked") === "true")
+            })
     
         const value = elem.value === "max" ? filter.length : parseInt(elem.value)
     
@@ -122,7 +129,10 @@ const esc = (str: string,unesc?: boolean,iconpath?: boolean): string => {
 const unlocked = new Map<string,boolean>()
 let ramode: "hard" | "soft" = "hard" // Default to Hardcore mode
 
-ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslations,init?: boolean) => {
+const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslations,init?: boolean) => {
+    globalstatsobj = statsobj
+    globaltranslations = translations
+
     const { appid, gamename, achievements, ra, mode } = statsobj
     const { nogame, noachievements, startgame } = translations
 
@@ -174,7 +184,7 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
         }
     }
     
-    const { rarity, statwinnospoilers } = sanconfig.get().store
+    const { rarity, statwinnospoilers, statwindisplaymode } = sanconfig.get().store
 
     updateprogressbar(achievements,progressbar)
 
@@ -225,21 +235,27 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
 
         // Update last achievement unlocked status in `unlocked` Map
         unlocked.set(achid,isunlocked)
+        achelem.toggleAttribute("nodisplay",!shoulddisplay(isunlocked))
         
         if (isunlocked && !wasunlocked) {
-            // Move unlocked achievement to the top of the list and start the animation
-            const animhandler = (event: AnimationEvent) => {
-                if (event.animationName === "shift") {
-                    achelem.removeAttribute("playing")
-                    achelem.removeEventListener("animationend",animhandler)
-                }
-            }
-            
-            achelem.addEventListener("animationend",animhandler)
             achievementswrapper.prepend(achelem)
-            
-            achelem.setAttribute("playing","")
+
             achelem.removeAttribute("nodisplay")
+            achelem.setAttribute("playing","")
+
+            const anim = statwindisplaymode === "locked" ? "shift" : "unlocked"
+
+            const animhandler = (event: AnimationEvent) => {
+                if (event.animationName !== anim) return
+
+                achelem.removeAttribute("playing")
+                achelem.removeAttribute("removing")
+                statwindisplaymode === "locked" && achelem.setAttribute("nodisplay","")
+                achelem.removeEventListener("animationend",animhandler)
+            }
+
+            statwindisplaymode === "locked" && achelem.setAttribute("removing","")
+            achelem.addEventListener("animationend",animhandler)
         }
     })
 
@@ -255,8 +271,9 @@ ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslati
     })
 
     setmaxachievements(select.value === "custom" ? input : select,lsitem[appid])
-})
+}
 
+ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslations,init?: boolean) => buildachievementlist(statsobj,translations,init))
 ipcRenderer.on("statwinaot",(event,value: boolean) => document.body.toggleAttribute("aot",value))
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -270,6 +287,20 @@ window.addEventListener("DOMContentLoaded", () => {
         log.write("INFO",`"statwin" updated to ${value ? "hide" : "show"} spoilers`)
 
         document.body.toggleAttribute("nospoilers",value)
+    }
+
+    document.body.setAttribute("displaymode",sanconfig.get().store.statwindisplaymode)
+
+    document.getElementById("displaymode")!.onclick = () => {
+        const config = sanconfig.get()
+        const displaymode = config.get("statwindisplaymode") === "locked" ? "unlocked" : "locked"
+
+        config.set("statwindisplaymode",displaymode)
+        log.write("INFO",`"statwin" updated to display ${displaymode} achievements`)
+
+        document.body.setAttribute("displaymode",`${displaymode}`)
+        
+        globalstatsobj && globaltranslations && buildachievementlist(globalstatsobj,globaltranslations,true)
     }
 
     const winopacity = document.getElementById("winopacity")!

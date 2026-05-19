@@ -38,9 +38,9 @@ ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer:
         
         if (!timer && gametimer.start(appid)) timer = setInterval(() => timerelem.textContent = gametimer.currenttime(stored,started),50)
 
+        gametimer.setcompletionstatus(appid,active,started,workerinfo)
+
         if (!!allunlocked) {
-            gametimer.setcomplete(appid,active,started)
-            
             timerelem.textContent = gametimer.currenttime(stored,started)
             resettimer(timerelem,true)
         }

@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "Nem sikerült visszaállítani az időzítőt.",
+                resetgametimercomplete: "Az AppID $appid már teljesítve lett.",
                 extwinnotify: "Képernyőértesítés Megjelenítése"
             }
         },

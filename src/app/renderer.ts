@@ -1139,3 +1139,9 @@ ipcRenderer.on("notifymax",(event,value: boolean) => {
     const notifymax = settings.querySelector(".opt:has(#notifymax)")
     notifymax && notifymax.toggleAttribute("extwin",value)
 })
+
+// Sends "stopgametimer" IPC event back to "listeners" via `gametimer.stop()` when Game Timer window is inactive
+ipcRenderer.on("stopgametimer",async (event,appid: number,active: "steam" | "ra",started: number) => {
+    const { gametimer } = await import("./gametimer")
+    gametimer.stop(appid,active,started)
+})

@@ -323,6 +323,7 @@ export const translations = {
                     </div>
                 `,
                 resetgametimerfailed: "تعذر إعادة تعيين المؤقت.",
+                resetgametimercomplete: "تم بالفعل إكمال AppID $appid.",
                 extwinnotify: "إظهار إشعار على الشاشة"
             }
         },

@@ -379,7 +379,7 @@ export const sanhelper: SANHelper = {
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
     trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {
         // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled
-        ;(async () => await sanhelper.verifylocalstorage(["themeswitch"]))()
+        ;(async () => await sanhelper.verifylocalstorage("themeswitch"))()
         
         document.body.toggleAttribute("trophymode",value)
 
@@ -1313,46 +1313,71 @@ export const sanhelper: SANHelper = {
             log.write("ERROR",`Unable to query latest GitHub Release: ${err as Error}`)
         }
     },
-    verifylocalstorage: async (lsitems: ("linkgame" | "themeswitch" | "statwin" | "pinned")[]) => {
+    verifylocalstorage: async (id: "linkgame" | "themeswitch" | "statwin" | "pinned") => {
         const { log } = await import("./log")
+        const lsentry = localStorage.getItem(id)
+    
+        if (!lsentry) {
+            localStorage.setItem(id,JSON.stringify(id === "pinned" ? [] : {}))
+            return log.write("INFO",`"${id}" key in localStorage created successfully`)
+        }
 
-        lsitems.forEach(id => {
-            const lsitem = localStorage.getItem(id)
-        
-            if (!lsitem) return localStorage.setItem(id,JSON.stringify(id === "pinned" ? [] : {}))
-            if (id !== "themeswitch") return log.write("INFO",`"${id}" key in localStorage verified successfully`)
-        
-            const types = ["main","semi","rare","plat"] as NotifyType[]
-            let json: Record<string,ThemeSwitch>
+        // Patches existing "statwin" values if legacy string-based array method is currently in use (< V1.9.40)
+        if (id === "statwin") {
+            const lsentry: Record<string,StatsEntry[]> = JSON.parse(localStorage.getItem(id) || "{}")
             
-            try {
-                json = JSON.parse(lsitem)
-            } catch {
-                return log.write("WARN",`Failed to parse "${id}" key in localStorage - skipping...`)
-            }
-        
-            for (const appid in json) {
-                const themes = json[appid]?.themes
-                if (!themes) continue
-        
-                for (const type of types) {
-                    if (!(type in themes)) {
-                        themes[type] = 0
-                        log.write("INFO",`Patched missing "${id}.${appid}.themes.${type}" key in localStorage successfully`)
+            for (const [appid,statsentry] of Object.entries(lsentry)) {
+                if (statsentry.every(item => typeof item === "string")) {
+                    log.write("WARN",`AppID ${appid} uses legacy "${id}" array in localStorage - patching...`)
+            
+                    const statwinobj: Record<string,StatsEntry[]> = {
+                        ...lsentry,
+                        [appid]: statsentry.map(apiname => {
+                            return {
+                                apiname,
+                                unlocktimestamp: -1
+                            }
+                        })
                     }
+            
+                    localStorage.setItem(id,JSON.stringify(statwinobj,null,4))
+                    log.write("INFO",`"${id}" entry for AppID ${appid} patched successfully`)
                 }
             }
+        }
         
-            let err: Error | null = null
+        if (id !== "themeswitch") return log.write("INFO",`"${id}" key in localStorage verified successfully`)
+    
+        const types = ["main","semi","rare","plat"] as NotifyType[]
+        let json: Record<string,ThemeSwitch>
         
-            try {
-                localStorage.setItem(id,JSON.stringify(json))
-            } catch (e) {
-                err = e as Error
+        try {
+            json = JSON.parse(lsentry)
+        } catch {
+            return log.write("WARN",`Failed to parse "${id}" key in localStorage - skipping...`)
+        }
+    
+        for (const appid in json) {
+            const themes = json[appid]?.themes
+            if (!themes) continue
+    
+            for (const type of types) {
+                if (!(type in themes)) {
+                    themes[type] = 0
+                    log.write("INFO",`Patched missing "${id}.${appid}.themes.${type}" key in localStorage successfully`)
+                }
             }
-        
-            log.write(!err ? "INFO" : "WARN",!err ? `"${id}" key in localStorage verified successfully` : `Unable to verify "${id}" key in localStorage: ${err}`)
-        })
+        }
+    
+        let err: Error | null = null
+    
+        try {
+            localStorage.setItem(id,JSON.stringify(json))
+        } catch (e) {
+            err = e as Error
+        }
+    
+        log.write(!err ? "INFO" : "WARN",!err ? `"${id}" key in localStorage verified successfully` : `Unable to verify "${id}" key in localStorage: ${err}`)
     },
     settabindex: (btn: HTMLButtonElement,values: (string | null | undefined)[]) => btn.tabIndex = values.every(value => Boolean(value)) ? 0 : -1,
     restorefrombackup: (sanbak: string,log: any) => {

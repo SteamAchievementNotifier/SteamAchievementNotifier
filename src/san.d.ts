@@ -345,7 +345,8 @@ declare interface Achievement {
     desc: string,
     percent: number,
     hidden: boolean,
-    icon?: string
+    icon?: string,
+    unlocktimestamp?: number
 }
 
 declare interface Notify extends Achievement {
@@ -369,6 +370,11 @@ declare interface StatsObj {
     achievements?: Achievement[],
     ra?: boolean,
     mode?: "hard" | "soft"
+}
+
+declare interface StatsEntry {
+    apiname: string,
+    unlocktimestamp: number
 }
 
 declare interface Dialog {
@@ -569,7 +575,8 @@ declare interface RAAchievement {
     gameicon: string,
     gameartlibhero: string,
     icon: string,
-    unlocked: boolean
+    unlocked: boolean,
+    unlocktimestamp?: number
 }
 
 declare interface RAAPlatObj {

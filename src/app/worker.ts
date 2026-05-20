@@ -302,6 +302,9 @@ const startsan = async (appinfo: AppInfo) => {
                 let hasshown = false
         
                 unlocked.forEach(async (achievement: Achievement) => {
+                    const unlocktime = Date.now()
+                    achievement.unlocktimestamp = achievement.unlocked ? unlocktime : -1
+
                     log.write("INFO",`Achievement unlocked: ${JSON.stringify(achievement)}`)
         
                     const config = sanconfig.get()
@@ -355,7 +358,7 @@ const startsan = async (appinfo: AppInfo) => {
                         percent: achievement.percent,
                         icon: await achievementicon() || sanhelper.setfilepath("img","sanlogosquare.svg"),
                         gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg"),
-                        unlocktime: new Date(Date.now()).toISOString()
+                        unlocktime: new Date(unlocktime).toISOString()
                     }
 
                     ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
@@ -541,6 +544,14 @@ const startra = () => {
                     achievements: live ? racached as any : undefined,
                     achnum: live ? racached.length : undefined,
                     allunlocked: live ? (racached.length ? racached.every(ach => ach.unlocked) : false) : undefined
+                }
+
+                if (achievements) {
+                    const unlocktime = Date.now()
+
+                    for (const achievement of achievements) {
+                        achievement.unlocktimestamp = achievement.unlocked ? unlocktime : -1
+                    }
                 }
 
                 rastatsobj.appid = gameid

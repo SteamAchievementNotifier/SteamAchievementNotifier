@@ -338,6 +338,10 @@ body[nospoilers] .achievement[unlocked="false"][hidden] > .inner > .icon {
     transition: var(--transition);
 }
 
+body[displaymode="unlocked"] .wrapper#btnwrapper {
+    grid-template-columns: repeat(2,auto) 1fr repeat(2,auto);
+}
+
 body[hidden] .wrapper#btnwrapper,
 body[aot] .wrapper#btnwrapper {
     background-color: transparent;
@@ -401,6 +405,10 @@ body[reorder] button#reorder {
     }
 }
 
+body[displaymode="unlocked"] button#reorder {
+    display: none;
+}
+
 button#spoilers {
     --icon: url("../../icon/asterisk.svg");
     grid-column-start: -3;
@@ -408,6 +416,10 @@ button#spoilers {
 
 body[nospoilers] button#spoilers {
     --icon: url("../../icon/dots.svg");
+}
+
+body[displaymode="unlocked"] button#spoilers {
+    grid-column-start: -2;
 }
 
 body:has(.wrapper#gamename:not([appid])) button#reorder,
@@ -426,4 +438,8 @@ body[displaymode="locked"] button#displaymode {
 
 body[displaymode="unlocked"] button#displaymode {
     --icon: url("../../icon/unlock.svg");
+}
+
+body[displaymode="unlocked"] button#displaymode {
+    grid-column-start: -3;
 }

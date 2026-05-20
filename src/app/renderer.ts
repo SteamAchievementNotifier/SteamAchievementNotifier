@@ -72,14 +72,18 @@ sanhelper.noanim(config.get("noanim"))
 sanhelper.trophymode(config.get("trophymode"),config)
 sanhelper.createclosedstate()
 config.set("logtype","san") // Reset App Log to "san.log" on launch
-
+    
 // Verifies all required localStorage objects (and creates if missing) on launch
-;(async () => await sanhelper.verifylocalstorage([
-    "linkgame",
-    "themeswitch",
-    "statwin",
-    "pinned"
-]))()
+;(async () => {
+    for (const id of ([
+        "linkgame",
+        "themeswitch",
+        "statwin",
+        "pinned"
+    ] as const)) {
+        await sanhelper.verifylocalstorage(id)
+    }
+})()
 
 sanhelper.beta && sanhelper.checkbetastatus()
 

@@ -64,14 +64,19 @@ body[aot] .menubtn#winopacity {
 }
 
 .wrapper#cont {
+    grid-template-columns: 1fr auto;
     grid-template-rows: 1.5rem repeat(2,auto) 4fr;
     grid-column-start: 1;
     grid-row: 1 / -1;
-    gap: 1rem;
+    row-gap: 1rem;
     background-color: var(--bggrey);
     transition: background-color var(--transition);
     overflow: hidden;
     -webkit-app-region: no-drag;
+}
+
+.wrapper#cont > *:not(#progressbar,#trophy) {
+    grid-column: 1 / -1;
 }
 
 body[hidden] .wrapper#cont,
@@ -91,7 +96,13 @@ body[aot] .wrapper#cont {
 }
 
 .wrapper#gamename {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
     font-size: 1.35rem;
+    text-align: center;
     -webkit-app-region: drag;
 }
 
@@ -113,6 +124,7 @@ body[aot] .wrapper#cont {
 
 .wrapper#progressbar[complete] {
     filter: drop-shadow(0 0 0.25rem #e1c56b);
+    margin-right: 0;
 }
 
 .wrapper#progressbar::before {
@@ -143,7 +155,21 @@ body[aot] .wrapper#cont {
 }
 
 .wrapper#progressbar[complete]::after {
-    background-color: var(--plat);
+    background-color: #c8a859;
+}
+
+#trophy {
+    display: none;
+}
+
+.wrapper#progressbar[complete] + #trophy {
+    display: block;
+    width: 2rem;
+    height: 100%;
+    margin-right: 1.5rem;
+    translate: 25% 0;
+    background: url("../../img/sanlogotrophy_gold.svg") center / 100% no-repeat;
+    animation: popin 1s forwards;
 }
 
 .wrapper#cont > .wrapper#achievements {

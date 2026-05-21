@@ -52,7 +52,7 @@ const getapiname = (elem: Element,ra?: boolean) => ra ? elem.id.replace(/^ACH\_/
 const maxdisplay = (appid: number,max: number,filter: Element[]) => {
     const achievements: StatsEntry[] = JSON.parse(localStorage.getItem("statwin") || "{}")[appid]
     return filter
-        .filter(elem =>achievements.some(achievement => achievement.apiname === getapiname(elem)))
+        .filter(elem => achievements.some(achievement => achievement.apiname === getapiname(elem)))
         .slice(0,max)
 }
 
@@ -87,9 +87,9 @@ const setmaxachievements = (elem: HTMLSelectElement | HTMLInputElement,order: St
         
         const achievementswrapper = document.getElementById("achievements")!
         const filter = Array.from(achievementswrapper.children)
-            .filter(achievement => {
-                if (ignore.includes(achievement.id)) return false
-                return shoulddisplay(achievement.getAttribute("unlocked") === "true")
+            .filter(achelem => {
+                if (ignore.includes(achelem.id)) return false
+                return shoulddisplay(achelem.getAttribute("unlocked") === "true")
             })
             .sort((a,b) => {
                 const apinamea = getapiname(a)
@@ -208,7 +208,7 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
 
         // On game/`statwin` launch, set latest achievement unlocked status in `unlock` Map
         for (const achievement of achievements) {
-            unlocked.set((achievement as any)[ra ? "id" : "apiname"],achievement.unlocked)
+            unlocked.set(`${(achievement as any)[ra ? "id" : "apiname"]}`,achievement.unlocked)
         }
     }
     
@@ -226,7 +226,7 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
             ...lsentry,
             [appid]: achievements.map(achievement => {
                 return {
-                    apiname: ra ? (achievement as any).id : achievement.apiname,
+                    apiname: `${ra ? (achievement as any).id : achievement.apiname}`,
                     unlocktimestamp: achievement.unlocktimestamp ?? -1
                 }
             })
@@ -237,7 +237,7 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
     }
 
     for (const achievement of achievements) {
-        const apiname = ra ? (achievement as any).id : achievement.apiname
+        const apiname = `${ra ? (achievement as any).id : achievement.apiname}`
         const entry = lsentry[appid].find(entry => entry.apiname === apiname)
 
         if (!entry) continue
@@ -250,8 +250,8 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
 
     achievements
     .sort((a,b) => {
-        const apinamea = ra ? (a as any).id : a.apiname
-        const apinameb = ra ? (b as any).id : b.apiname
+        const apinamea = `${ra ? (a as any).id : a.apiname}`
+        const apinameb = `${ra ? (b as any).id : b.apiname}`
 
         return sortachievementlist(apinamea,apinameb,order,statwindisplaymode)
     })
@@ -271,7 +271,7 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
 
         achievementswrapper.insertAdjacentHTML("beforeend",html)
 
-        const achid = ra ? (achievement as any).id : achievement.apiname
+        const achid = `${ra ? (achievement as any).id : achievement.apiname}`
         const achelem = achievementswrapper.querySelector(`.achievement#ACH_${ra ? achid : esc(achid)}`) as HTMLElement
         
         // If icon does not exist in `temp` dir, cache it

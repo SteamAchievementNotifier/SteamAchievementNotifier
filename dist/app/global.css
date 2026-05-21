@@ -746,3 +746,13 @@ select#themeselect {
 #customiser[synced="plat"] .synclbl {
     --star: #5082f0;
 }
+
+@keyframes popin {
+    20% { scale: 1.5; }
+    30% { scale: 1; }
+    40% { scale: 1.25; }
+    50% { scale: 1; }
+    60% { scale: 1.1; }
+    70% { scale: 1; }
+    to { scale: 1; }
+}

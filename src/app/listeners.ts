@@ -345,7 +345,7 @@ export const listeners = {
                 ipcMain.emit("appid",null,{ appid: 0 })
                 const msg = await validateworker()
                 log.write("INFO",msg)
-                setTimeout(() => ipcMain.emit("createworker"),2500 + (releasedelay * 1000))
+                setTimeout(() => ipcMain.emit("createworker"),releasedelay * 1000)
             } catch (err) {
                 log.write("WARN",err as Error)
                 setTimeout(() => ipcMain.emit("validateworker"),1000)
@@ -1162,11 +1162,12 @@ export const listeners = {
 
         const shownotify = (win: BrowserWindow,bounds: { width: number, height: number, x: number, y: number },isextwin?: boolean,istrackwin?: boolean) => {
             const { width, height, x, y } = bounds
-
+            const offscreenpx: number | null = process.platform === "linux" && !sanconfig.get().store.extwinnotify ? 10000  : null
+            
             isextwin && win.setResizable(true)
             win.setSize(Math.round(width),Math.round(height))
 
-            !isextwin && win.setPosition(Math.round(x as number),Math.round(y as number))
+            !isextwin && win.setPosition(Math.round(x as number),offscreenpx ?? Math.round(y as number))
             istrackwin && win.show()
         }
 
@@ -1225,8 +1226,6 @@ export const listeners = {
 
                 offscreenwins.clear() // For now, make sure only one `offscreenwin` exists at a time
 
-                const { x, y } = config.get("extwinpos")
-
                 offscreenwins.set(notify.id,!extwin ? null : new BrowserWindow({
                     ...options,
                     title: `Steam Achievement Notifier (V${sanhelper.version}): Offscreen Notification`,
@@ -1238,7 +1237,7 @@ export const listeners = {
                         contextIsolation: false,
                         backgroundThrottling: false,
                         offscreen: {
-                            deviceScaleFactor: screen.getDisplayNearestPoint({ x, y }).scaleFactor
+                            deviceScaleFactor: screen.getPrimaryDisplay().scaleFactor
                         }
                     }
                 }))

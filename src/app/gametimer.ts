@@ -16,7 +16,7 @@ export const gametimer = {
     },
     start: (appid: number) => {
         if (!appid) {
-            log.write("WARN",`Invalid AppID (${appid}) supplied to Game Timer`)
+            log.write("WARN",`Invalid AppID ${appid} supplied to Game Timer`)
             return false
         }
 

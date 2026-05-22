@@ -408,10 +408,7 @@ export const listeners = {
             })
         })
 
-        ipcMain.on("workeractive", (event,value: boolean) => {
-            win.webContents.send("workeractive",value)
-            gametimerwin && ipcMain.emit("startgametimer")
-        })
+        ipcMain.on("workeractive", (event,value: boolean) => win.webContents.send("workeractive",value))
 
         ipcMain.on("showtrack", (event,gamename: string,ra?: { icon: string, gameartlibhero: string }) => {
             const config = sanconfig.get()
@@ -1841,7 +1838,15 @@ export const listeners = {
                 !gametimerwin && runninggametimer[active].appid && ipcMain.emit("stopgametimer",null,runninggametimer[active].appid,active,true)
             }
 
-            gametimerwin && gametimerwin.webContents.send("gametimer",workerinfo,runninggametimer[active])
+            if (!gametimerwin) {
+                if (!appid) return
+                if (!worker) return log.write("ERROR",`Worker inactive - unable to create "gametimer" localStorage entry for AppID ${appid}`)
+                
+                ipcMain.once("creategametimer",(event,created: boolean,msg?: string) => msg && log.write(created ? "INFO" : "ERROR",msg))
+                return worker.webContents.send("creategametimer",appid)
+            }
+
+            gametimerwin.webContents.send("gametimer",workerinfo,runninggametimer[active])
         })
 
         ipcMain.on("stopgametimer",(event,appid: number,active: "steam" | "ra",nowindow?: boolean) => {

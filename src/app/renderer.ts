@@ -1149,3 +1149,21 @@ ipcRenderer.on("stopgametimer",async (event,appid: number,active: "steam" | "ra"
     const { gametimer } = await import("./gametimer")
     gametimer.stop(appid,active,started)
 })
+
+// Creates entry for the current appid in "gametimer" localStorage object if `gametimerwin` is inactive at game launch
+ipcRenderer.on("creategametimerentry",async (event,appid: number) => {
+    try {
+        if (!appid) throw new Error(`Invalid AppID ${appid} supplied to Game Timer`)
+        
+        const { gametimer } = await import("./gametimer")
+        const { json } = gametimer
+    
+        if (!json[appid] || json[appid].elapsed === undefined) {
+            json[appid] = { elapsed: 0, complete: false }
+            localStorage.setItem("gametimer",JSON.stringify(json,null,4))
+            return log.write("INFO",`Game Timer entry for AppID ${appid} written to localStorage`)
+        }
+    } catch (err) {
+        log.write("ERROR",(err as Error).message)
+    }
+})

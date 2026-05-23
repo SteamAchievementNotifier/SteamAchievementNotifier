@@ -121,20 +121,6 @@ const workerinfo: WorkerInfo = {
 }
 
 ipcRenderer.on("gametimer",(event,ra?: "ra") => ipcRenderer.send("gametimer",ra ? raworkerinfo : workerinfo))
-ipcRenderer.on("creategametimer",async (event,appid: number) => {
-    if (!appid) return ipcRenderer.send("creategametimer",false,`Invalid AppID ${appid} supplied to Game Timer`)
-    
-    const { gametimer } = await import("./gametimer")
-    const { json } = gametimer
-
-    if (!json[appid] || json[appid].elapsed === undefined) {
-        json[appid] = { elapsed: 0, complete: false }
-        localStorage.setItem("gametimer",JSON.stringify(json,null,4))
-        return ipcRenderer.send("creategametimer",true,`Game Timer entry for AppID ${appid} written to localStorage`)
-    }
-
-    ipcRenderer.send("creategametimer",true)
-})
 
 const startidle = () => {
     try {

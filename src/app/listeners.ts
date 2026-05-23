@@ -1838,14 +1838,8 @@ export const listeners = {
                 !gametimerwin && runninggametimer[active].appid && ipcMain.emit("stopgametimer",null,runninggametimer[active].appid,active,true)
             }
 
-            if (!gametimerwin) {
-                if (!appid) return
-                if (!worker) return log.write("ERROR",`Worker inactive - unable to create "gametimer" localStorage entry for AppID ${appid}`)
-                
-                ipcMain.once("creategametimer",(event,created: boolean,msg?: string) => msg && log.write(created ? "INFO" : "ERROR",msg))
-                return worker.webContents.send("creategametimer",appid)
-            }
-
+            // Fixes issue where Game Timer entry for the active game will not be written to localStorage if the Game Timer option is not enabled at game launch, which then causes an error when `gametimer.stop()` is called after closing the game
+            if (!gametimerwin) return appid && win.webContents.send("creategametimerentry",appid)
             gametimerwin.webContents.send("gametimer",workerinfo,runninggametimer[active])
         })
 

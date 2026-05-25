@@ -318,6 +318,7 @@ export const sanconfig = {
                 pcsx2path: "",
                 duckstationpath: "",
                 ppsspppath: "",
+                rpcs3path: "",
                 rauser: "",
                 rakey: "",
                 rauseemudir: false,

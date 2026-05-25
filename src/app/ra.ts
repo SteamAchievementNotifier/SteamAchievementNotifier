@@ -11,7 +11,8 @@ export const rasupported = [
     "dolphin",
     "pcsx2",
     "duckstation",
-    "ppsspp"
+    "ppsspp",
+    "rpcs3"
 ]
 
 export const raelems = [...rasupported].flatMap(id => [id,`${id}path`])

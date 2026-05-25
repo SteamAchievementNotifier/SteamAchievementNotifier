@@ -23,6 +23,7 @@
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
         "@types/sortablejs": "^1.15.8",
+        "@types/xml2js": "^0.4.14",
         "electron": "^42.0.1",
         "electron-builder": "^26.8.1",
         "typescript": "^6.0.2"
@@ -32,6 +33,7 @@
         "@jaames/iro": "^5.5.2",
         "@retroachievements/api": "^2.4.0",
         "adm-zip": "^0.5.14",
+        "chokidar": "^5.0.0",
         "electron-log": "4.4.8",
         "electron-store": "8.2.0",
         "electron-updater": "^6.1.7",
@@ -43,7 +45,8 @@
         "sortablejs": "^1.15.6",
         "steam-game-path": "^2.3.0",
         "steamworks.js": "./deps/steamworks.js",
-        "tippy.js": "^6.3.7"
+        "tippy.js": "^6.3.7",
+        "xml2js": "^0.6.2"
     },
     "overrides": {
         "steam-game-path": {

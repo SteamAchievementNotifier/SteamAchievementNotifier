@@ -6,6 +6,7 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
+import { initRpcs3Watcher, stopRpcs3Watcher } from "./rpcs3"
 import { getlogmap, getlastactions, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
 
 declare global {
@@ -225,6 +226,9 @@ const startsan = async (appinfo: AppInfo) => {
         })
     
         const initgameloop = () => {
+            if (sanconfig.get().store.raemus.includes("rpcs3") && processes.some(({ exe }) => exe.toLowerCase().includes("rpcs3"))) {
+                try { initRpcs3Watcher() } catch(err) { log.write("ERROR", `Failed to init RPCS3 watcher: ${err}`) }
+            }
             processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",worker.creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
 
             workerinfo.appid = appid
@@ -252,6 +256,7 @@ const startsan = async (appinfo: AppInfo) => {
             
             const gameloop = () => {
                 if (processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid))) {
+                    if (sanconfig.get().store.raemus.includes("rpcs3")) { try { stopRpcs3Watcher() } catch(err) { log.write("ERROR", `Failed to stop RPCS3 watcher: ${err}`) } }
                     clearInterval(timer!)
                     log.write("INFO","Game loop stopped")
         
@@ -498,6 +503,10 @@ const raworkerinfo: WorkerInfo = {
 }
 
 const startra = () => {
+    const { raemus } = sanconfig.get().store
+    if (raemus.includes("rpcs3")) {
+        try { initRpcs3Watcher() } catch(err) { log.write("ERROR", `Failed to init RPCS3 watcher: ${err}`) }
+    }
     if (ratimer) return log.write("WARN",`"ratimer" already active`)
     log.write("INFO",`"ratimer" started`)
 
@@ -577,6 +586,7 @@ sanconfig.get().store.raemus.length && startra()
 
 ipcRenderer.on("rastart",() => startra())
 ipcRenderer.on("rastop",() => {
+    try { stopRpcs3Watcher() } catch(err) { log.write("ERROR", `Failed to stop RPCS3 watcher: ${err}`) }
     if (!ratimer) return log.write("WARN",`"ratimer" is not active`)
 
     clearInterval(ratimer)

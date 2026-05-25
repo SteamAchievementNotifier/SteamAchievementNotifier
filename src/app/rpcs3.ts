@@ -7,8 +7,8 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { sanhelper } from "./sanhelper"
 
-let rpcs3LogWatcher: any | null = null
 let trophyWatcher: any | null = null
+const activeSessions = new Set<string>()
 
 let cachedTrophies = new Map<string, Buffer>()
 let currentGameId: string | null = null
@@ -23,85 +23,28 @@ export const initRpcs3Watcher = () => {
     }
 
     log.write("INFO", `Initializing RPCS3 Watchers for path: ${rpcs3path}`)
-
-    // We expect rpcs3path to be like <RPCS3_Root>\dev_hdd0\home\00000001\trophy
-    // RPCS3.log is typically at <RPCS3_Root>\RPCS3.log
-    const logPath = path.join(rpcs3path, "..", "..", "..", "..", "RPCS3.log").replace(/\\/g,"/")
-
-    if (fs.existsSync(logPath)) {
-        watchRpcs3Log(logPath)
-    } else {
-        log.write("WARN", `RPCS3.log not found at ${logPath}`)
-    }
-
     watchTrophyDir(rpcs3path)
 }
 
 export const stopRpcs3Watcher = () => {
-    if (rpcs3LogWatcher) {
-        rpcs3LogWatcher.close()
-        rpcs3LogWatcher = null
-    }
     if (trophyWatcher) {
         trophyWatcher.close()
         trophyWatcher = null
     }
     cachedTrophies.clear()
+    activeSessions.clear()
     currentGameId = null
     currentTitleName = null
     log.write("INFO", "Stopped RPCS3 Watchers")
 }
 
-const watchRpcs3Log = (logPath: string) => {
-    if (rpcs3LogWatcher) rpcs3LogWatcher.close()
 
-    rpcs3LogWatcher = chokidar.watch(logPath, {
-        persistent: true,
-        usePolling: true,
-        interval: 1000
-    })
-
-    // To read the tail of the log
-    let lastSize = 0
-    if (fs.existsSync(logPath)) {
-        lastSize = fs.statSync(logPath).size
-    }
-
-    rpcs3LogWatcher.on("change", (filePath: string, stats: any) => {
-        if (!stats) return
-
-        if (stats.size < lastSize) {
-            lastSize = 0 // file was truncated
-        }
-
-        if (stats.size > lastSize) {
-            const buffer = Buffer.alloc(stats.size - lastSize)
-            const fd = fs.openSync(filePath, "r")
-            fs.readSync(fd, buffer, 0, stats.size - lastSize, lastSize)
-            fs.closeSync(fd)
-
-            const newContent = buffer.toString()
-            lastSize = stats.size
-
-            const lines = newContent.split('\n')
-            for (const line of lines) {
-                // Booting game Title ID and Name
-                // example: Boot successful.
-                const bootMatch = line.match(/Boot successful/)
-                if (bootMatch) {
-                    log.write("INFO", `RPCS3 game boot detected in log`)
-                    // Optionally extract title here if available in previous lines or another regex
-                }
-            }
-        }
-    })
-}
 
 const watchTrophyDir = (trophyDir: string) => {
     if (trophyWatcher) trophyWatcher.close()
 
     // Watch all TROPUSR.DAT files
-    const watchPath = path.join(trophyDir, "*", "TROPUSR.DAT").replace(/\\/g, "/")
+    const watchPath = path.join(trophyDir, "**", "TROPUSR.DAT").replace(/\\/g, "/")
     log.write("INFO", `Watching for trophy changes at: ${watchPath}`)
 
     trophyWatcher = chokidar.watch(watchPath, {
@@ -153,10 +96,31 @@ const handleTrophyChange = async (filePath: string) => {
 
         cachedTrophies.set(filePath, newData)
 
-        if (changedIndexes.length > 0) {
-            // Need to parse TROPCONF.SFM in the same directory
-            const dirPath = path.dirname(filePath)
-            const sfmPath = path.join(dirPath, "TROPCONF.SFM")
+        const dirPath = path.dirname(filePath)
+        const titleId = path.basename(dirPath)
+        const sfmPath = path.join(dirPath, "TROPCONF.SFM")
+
+        if (changedIndexes.length === 0) {
+            // File accessed but no unlocks (boot up)
+            if (!activeSessions.has(titleId)) {
+                activeSessions.add(titleId)
+                if (fs.existsSync(sfmPath)) {
+                    try {
+                        const xmlContent = fs.readFileSync(sfmPath, "utf8")
+                        const parsed = await parseStringPromise(xmlContent)
+                        const gameTitle = parsed.trophyconf?.title_name?.[0] || "Unknown PS3 Game"
+
+                        log.write("INFO", `RPCS3 Tracking Started: ${gameTitle}`)
+                        const gameIconPath = path.join(dirPath, "ICON0.PNG").replace(/\\/g, "/")
+                        const iconUrl = fs.existsSync(gameIconPath) ? gameIconPath : sanhelper.setfilepath("img", "sanlogosquare.svg")
+
+                        ipcRenderer.send("showtrack", gameTitle, { icon: iconUrl, gameartlibhero: iconUrl })
+                    } catch (err) {
+                        log.write("ERROR", `Error parsing TROPCONF.SFM on boot: ${err}`)
+                    }
+                }
+            }
+        } else {
             if (fs.existsSync(sfmPath)) {
                 await processTrophyUnlock(sfmPath, changedIndexes)
             } else {

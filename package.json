@@ -2,7 +2,7 @@
     "private": true,
     "name": "steamachievementnotifierv1.9",
     "author": "SteamAchievementNotifier",
-    "version": "1.9.41",
+    "version": "1.9.42",
     "description": "Steam Achievement Notifier (V1.9)",
     "main": "dist/app/app.js",
     "scripts": {
@@ -39,6 +39,7 @@
         "icojs": "^0.22.1",
         "jpeg-js": "^0.4.4",
         "sanhelper.rs": "./deps/sanhelper.rs",
+        "sanwatcher.rs": "./deps/sanwatcher.rs",
         "simple-vdf": "^1.1.1",
         "sortablejs": "^1.15.6",
         "steam-game-path": "^2.3.0",

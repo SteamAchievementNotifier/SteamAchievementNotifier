@@ -369,7 +369,8 @@ export const translations = {
                     `Select a <span class="hl">.sanbak</span> backup file to restore from. This file will be preserved after the restore is complete`,
                     "❗ Once confirmed, the app will restart in order to restore the selected backup file"
                 ],
-                restorefailed: "Unable to restore backup."
+                restorefailed: "Unable to restore backup.",
+                usesanwatcher: "SANWatcher"
             }
         },
         ra: {
@@ -892,7 +893,8 @@ export const translations = {
         gametimerwinaot: `Set the Game Completion Timer to "Always on Top" mode, allowing the window to be displayed above the game window<br><br><span class="ttdesc">When enabled, the Game Completion Timer will no longer register user interactions, such as "click" events. To re-enable interaction with the window, this option must be disabled</span>`,
         resetgametimer: "Reset the Game Completion Timer for the current game",
         noshortcuts: `Disables all in-app keyboard shortcuts<br><br><span class="ttdesc">When enabled, <u>all in-app shortcuts will no longer function</u>. All options related to keyboard shortcuts will also be hidden</span>`,
-        extwinnotify: "Toggle visibility of all onscreen notifications while using Stream Notifications"
+        extwinnotify: "Toggle visibility of all onscreen notifications while using Stream Notifications",
+        usesanwatcher: `Enable SAN's new game process watcher<br><br><span class="ttdesc">Differences between the new SANWatcher/old automatic process tracking methods are as follows:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Actively monitors start/exit events for any process stored inside the game's installation directory</li><li>Does not require game executable to be known before tracking achievements</li><li>Pre-game launcher behaviour can vary, so compatibility with all games is not guaranteed</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scans game installation directory for any running executables after game launch</li><li>Requires game executable to be known before tracking achievements</li><li>If game process cannot be determined automatically, the user must manually add a new entry to <span class="hl">Auto-Release Games</span> for games to be released automatically</li></ul></div>`
     },
     update: {
         updateavailable: "Update available",

@@ -162,6 +162,7 @@ declare interface Config {
     gametimerwinaot: boolean,
     gametimerwinopacity: boolean,
     noshortcuts: boolean,
+    usesanwatcher: boolean,
     customisation: {
         main: Customisation,
         semi: Customisation,

@@ -7,6 +7,7 @@ import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
 import { getlogmap, getlastactions, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
+import sanwatcher, { WatchEvent } from "sanwatcher.rs"
 
 declare global {
     interface Window {
@@ -47,13 +48,13 @@ const worker = {
 
         return null
     },
-    creategameinfo: (gamename: string,appid: number,exepath: string,pid: number,pollrate: number) => [
-        "Game process started:",
-        `gamename: ${gamename}`,
-        `appid: ${appid}`,
-        `exepath: ${exepath}`,
-        `pid: ${pid}`,
-        `pollrate: ${pollrate}ms`
+    creategameinfo: (gameinfo: { gamename: string, appid: number, exepath: string, pid: number, pollrate: number },event: "started" | "exited") => [
+        `Game process ${event}:`,
+        `gamename: ${gameinfo.gamename}`,
+        `appid: ${gameinfo.appid}`,
+        `exepath: ${gameinfo.exepath}`,
+        `pid: ${gameinfo.pid}`,
+        `pollrate: ${gameinfo.pollrate}ms`
     ].join("\n- "),
     localisedobj: async (steam3id: number,achievement: Achievement) => {
         const config = sanconfig.get()
@@ -171,6 +172,30 @@ const startidle = () => {
     }
 }
 
+const pids = new Set<number>()
+
+const releasegame = (timer: NodeJS.Timeout,appid: number,process: ProcessInfo) => {
+    log.write("INFO",`Releasing game for AppID ${appid}:\n\n- PID: ${process.pid}\n- Executable Path: ${process.exe}`)
+    
+    clearInterval(timer)
+    log.write("INFO",`Game loop stopped for AppID ${appid}`)
+
+    statsobj.appid = 0
+    statsobj.gamename = null
+    statsobj.achievements = undefined
+
+    ipcRenderer.send("stats",statsobj)
+
+    workerinfo.appid = 0
+    workerinfo.steam3id = 0
+    workerinfo.achnum = undefined
+    workerinfo.gamename = undefined
+
+    ipcRenderer.emit("gametimer")
+    
+    ipcRenderer.send("validateworker")
+}
+
 const startsan = async (appinfo: AppInfo) => {
     try {
         globallocalised.clear()
@@ -193,6 +218,9 @@ const startsan = async (appinfo: AppInfo) => {
         const steam64id = client.localplayer.getSteamId().steamId64.toString().replace(/n$/,"")
         const username = client.localplayer.getName()
         const num = client.achievement.getNumAchievements()
+
+        const { usesanwatcher } = sanconfig.get().store
+        log.write("INFO",`SANWatcher ${usesanwatcher ? "en" : "dis"}abled`)
     
         const getprocessinfo = (sgpexe?: string): ProcessInfo[] => {
             const processinfo: ProcessInfo[] = []
@@ -214,7 +242,8 @@ const startsan = async (appinfo: AppInfo) => {
     
         const processes: ProcessInfo[] = []
 
-        ipcRenderer.on("windowtitles",() => ipcRenderer.send("windowtitles",processes.map(({ pid }) => client.processes.getWindowTitle(pid))))
+        ipcRenderer.on("windowtitles",() => ipcRenderer.send("windowtitles",(usesanwatcher ? Array.from(pids) : processes.map(process => process.pid)).map(pid => client.processes.getWindowTitle(pid))))
+        
         ipcRenderer.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
             try {
                 client.screenshots.addScreenshotToLibrary(imgpath,width,height)
@@ -223,9 +252,19 @@ const startsan = async (appinfo: AppInfo) => {
                 log.write("WARN",`Unable to add media to Steam: ${(err as Error).message}`)
             }
         })
-    
+        
         const initgameloop = () => {
-            processes.forEach(({ pid,exe }: ProcessInfo) => log.write("INFO",worker.creategameinfo(gamename || "???",appid,exe,pid,pollrate || 250)))
+            !usesanwatcher && processes.forEach(({ pid,exe }: ProcessInfo) => {
+                const gameinfo = {
+                    gamename: gamename || "???",
+                    appid,
+                    exepath: exe,
+                    pid,
+                    pollrate: pollrate || 250
+                }
+                
+                log.write("INFO",worker.creategameinfo(gameinfo,"started"))
+            })
 
             workerinfo.appid = appid
             workerinfo.steam3id = steam3id
@@ -240,8 +279,6 @@ const startsan = async (appinfo: AppInfo) => {
             const apinames: string[] = num ? client.achievement.getAchievementNames() : []
             let cache: Achievement[] = num ? cachedata(client,apinames) : []
 
-            // ;(async () => await worker.updatestats(appid,gamename || "???",cache,steam3id,true))()
-            // ipcRenderer.on("steamlang",async () => await worker.updatestats(appid,gamename || "???",cache,steam3id))
             ;(async () => await worker.updatestats(workerinfo,cache,true))()
             ipcRenderer.on("steamlang",async () => await worker.updatestats(workerinfo,cache,true))
 
@@ -249,27 +286,33 @@ const startsan = async (appinfo: AppInfo) => {
             ipcRenderer.emit("gametimer")
     
             !num && log.write("INFO",`"${gamename}" has no achievements`)
+
+            usesanwatcher && sanwatcher.start(client.apps.appInstallDir(appid),pollrate || 250,(err,event: WatchEvent) => {
+                if (err) return log.write("ERROR",err as string)
+
+                const { started, pid, exe } = event
+
+                const gameinfo = {
+                    gamename: gamename || "???",
+                    appid,
+                    exepath: exe,
+                    pid,
+                    pollrate: pollrate || 250
+                }
+
+                if (started) {
+                    pids.add(pid)
+                    return log.write("INFO",worker.creategameinfo(gameinfo,"started"))
+                }
+
+                log.write("INFO",worker.creategameinfo(gameinfo,"exited"))
+                
+                pids.delete(pid)
+                !pids.size && releasegame(timer,appid,{ pid, exe } as ProcessInfo)
+            })
             
             const gameloop = () => {
-                if (processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid))) {
-                    clearInterval(timer!)
-                    log.write("INFO","Game loop stopped")
-        
-                    ipcRenderer.send("validateworker")
-
-                    statsobj.appid = 0
-                    statsobj.gamename = null
-                    statsobj.achievements = undefined
-
-                    ipcRenderer.send("stats",statsobj)
-                    
-                    workerinfo.appid = 0
-                    workerinfo.steam3id = 0
-                    workerinfo.achnum = undefined
-                    workerinfo.gamename = undefined
-
-                    ipcRenderer.emit("gametimer")
-                }
+                !usesanwatcher && processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid)) && releasegame(timer,appid,processes[0])
     
                 const { debug } = sanconfig.get().store
     
@@ -280,7 +323,7 @@ const startsan = async (appinfo: AppInfo) => {
                     appid: appid,
                     gamename: gamename,
                     status: "Active",
-                    processes: processes.map(({ exe, pid }: ProcessInfo) => {
+                    processes: usesanwatcher ? undefined : processes.map(({ exe, pid }: ProcessInfo) => {
                         return {
                             exe: exe,
                             pid: pid,
@@ -459,7 +502,8 @@ const startsan = async (appinfo: AppInfo) => {
             initgameloop()
         }
             
-        getrunninggameprocesses()
+        // getrunninggameprocesses()
+        usesanwatcher ? initgameloop() : getrunninggameprocesses()
     } catch (err) {
         log.write("ERROR",(err as Error).stack || (err as Error).message)
     }

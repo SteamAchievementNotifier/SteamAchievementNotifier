@@ -983,6 +983,15 @@ button#resetgametimer:hover {
     background-color: #b90505;
 }
 
+.opt[beta] > span::before {
+    content: "BETA";
+    background-color: blueviolet;
+    font-family: "VT323";
+    margin-right: 0.25rem;
+    padding: 0.1rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
 @media (orientation: portrait) {
     dialog[menu] > #content {
         width: 100%;

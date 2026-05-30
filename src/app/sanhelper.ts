@@ -799,7 +799,8 @@ export const sanhelper: SANHelper = {
         ])
 
         const wideelems = [
-            "exportachdata"
+            "exportachdata",
+            "usesanwatcher"
         ]
 
         range.forEach((value,key) => {

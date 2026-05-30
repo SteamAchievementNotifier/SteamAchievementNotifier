@@ -1403,6 +1403,15 @@ button.optbtn#restorepath:empty {
     margin-top: 1rem;
 }
 
+.sanwatcher {
+    justify-items: start;
+}
+
+.sanwatcher > .hl,
+.sanwatcher > ul > li:not(:last-child) {
+    margin-bottom: 0.1rem;
+}
+
 @media (orientation: portrait) {
     dialog[default] > #content {
         width: 75%;

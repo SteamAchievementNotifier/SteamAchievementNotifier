@@ -369,7 +369,9 @@ export const translations = {
                     `Geri yüklemek için bir <span class="hl">.sanbak</span> yedekleme dosyası seçin. Bu dosya geri yükleme tamamlandıktan sonra korunacaktır`,
                     "❗ Onaylandıktan sonra, seçilen yedekleme dosyasını geri yüklemek için uygulama yeniden başlatılacaktır"
                 ],
-                restorefailed: "Yedekleme geri yüklenemedi."
+                restorefailed: "Yedekleme geri yüklenemedi.",
+                usesanwatcher: "SANWatcher",
+                releasewaittime: "Serbest Bırakma Bekleme Süresi"
             }
         },
         ra: {
@@ -892,7 +894,9 @@ export const translations = {
         gametimerwinaot: `Oyun Tamamlama Zamanlayıcısını "Her Zaman Üstte" moduna ayarlayarak pencerenin oyun penceresinin üstünde görüntülenmesini sağla<br><br><span class="ttdesc">Etkinleştirildiğinde, Oyun Tamamlama Zamanlayıcısı artık "click" olayları gibi kullanıcı etkileşimlerini algılamayacaktır. Pencereyle etkileşimi yeniden etkinleştirmek için bu seçenek devre dışı bırakılmalıdır</span>`,
         resetgametimer: "Mevcut oyun için Oyun Tamamlama Zamanlayıcısını sıfırla",
         noshortcuts: `Tüm uygulama içi klavye kısayollarını devre dışı bırakır<br><br><span class="ttdesc">Etkinleştirildiğinde, <u>tüm uygulama içi kısayollar artık çalışmayacaktır</u>. Klavye kısayollarıyla ilgili tüm seçenekler de gizlenecektir</span>`,
-        extwinnotify: "Stream Notifications kullanılırken tüm ekran bildirimlerinin görünürlüğünü aç/kapat"
+        extwinnotify: "Stream Notifications kullanılırken tüm ekran bildirimlerinin görünürlüğünü aç/kapat",
+        usesanwatcher: `SAN'ın yeni oyun süreç izleyicisini etkinleştir<br><br><span class="ttdesc">Yeni SANWatcher ile eski otomatik süreç takip yöntemleri arasındaki farklar şunlardır:<br><br><div class="wrapper sanwatcher"><span class="hl">AÇIK</span><ul><li>Oyunun kurulum dizininde bulunan tüm süreçlerin başlatılma ve sonlandırılma olaylarını aktif olarak izler</li><li>Mevcut oyunu serbest bırakmak için oyunun çalıştırılabilir dosyasının bilinmesini gerektirmez</li><li>Oyun öncesi başlatıcıların davranışları farklılık gösterebilir, bu nedenle tüm Steam oyunlarıyla tam uyumluluk garanti edilmez</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">KAPALI</span><ul><li>Oyun başlatıldıktan sonra çalışan yürütülebilir dosyalar için oyunun kurulum dizinini tarar</li><li>Mevcut oyunu serbest bırakmak için oyunun çalıştırılabilir dosyasının bilinmesini gerektirir</li><li>Oyun süreci otomatik olarak belirlenemezse, oyunların otomatik olarak serbest bırakılabilmesi için kullanıcının <span class="hl">Auto-Release Games</span> bölümüne manuel olarak yeni bir giriş eklemesi gerekir</li></ul></div>`,
+        releasewaittime: `SANWatcher'ın mevcut oyunu serbest bırakmadan önce yeni oyun süreçlerinin başlamasını ne kadar süre bekleyeceğini ayarla<br><br><span class="ttdesc">Örneğin, mevcut oyun gerçek oyunu başlatmadan önce bir oyun öncesi başlatıcı veya yapılandırma penceresi açıyorsa, bu ayar SANWatcher'ın oyun öncesi başlatıcı veya yapılandırma penceresi kapandıktan sonra gerçek oyun penceresinin açılmasını kaç saniye bekleyeceğini belirler<br><br>Bu bekleme süresi içinde yeni bir aktif oyun süreci algılanırsa, serbest bırakma işlemi iptal edilir ve bunun yerine yeni aktif süreç izlenmeye başlanır<br><br>💡 Mevcut oyun serbest bırakılmayı beklerken oyun adı <span class="hl">Game Display</span> kutusunda <span style="color: yellow;">sarı</span> renkte yanıp sönecektir</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

@@ -32,6 +32,7 @@ const globallocalised = new Map<string,LocalisedObj>()
 window.globallocalised = globallocalised
 
 const worker = {
+    getadditionalargs: (arg?: string) => arg ? JSON.parse(arg.split("=")[1]) : null,
     resolvefilepath: (dir: string,file: string) => {
         if (process.platform === "win32") {
             const filepath = path.join(dir,file)
@@ -101,6 +102,10 @@ const worker = {
     }
 }
 
+// `lastknowngame` var in `listeners.ts` is passed via `BrowserWindow.webPreferences.additionalArguments`, so current AppID/last install dir can be verified before re-initialising Steamworks for the same game in `startsan()`
+// This ensures SAN does not re-initialise an AppID for a game that has now closed, which would prevent Steam from resetting `RunningAppID` to 0 in the Windows registry
+const lastknowngame: LastKnownGame | null = worker.getadditionalargs(process.argv.find(arg => arg.startsWith("--lastknowngame="))) as LastKnownGame | null
+
 const statsobj: StatsObj = {
     appid: 0,
     gamename: null
@@ -137,6 +142,22 @@ const startidle = () => {
     
             if (!appid) return
 
+            const { usesanwatcher } = sanconfig.get().store
+
+            // If `lastknowngame === null`, continue as normal, as there is no existing game data to compare to
+            if (usesanwatcher && lastknowngame && appid === lastknowngame.appid) {
+                // Otherwise, if the current AppID is the same as the last known one, check whether any install dir processes are active for the current AppID
+                const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir)
+                
+                // If there are no active processes in the game's install dir, this signifies Steam is currently trying to reset `RunningAppID` back to 0 in the registry
+                if (!activeprocesses.length) {
+                    log.write("WARN",`No active processes within game installation directory, but Steam reports AppID ${appid} is still active - exiting "Worker" process for Steam to clear AppID ${appid}...`)
+                    
+                    clearInterval(timer)
+                    return ipcRenderer.send("validateworker") // In this case, destroy the active "Worker" process and allow Steam to reset
+                }
+            }
+
             const match = inclusionlist ? !exclusions.includes(appid) : exclusions.includes(appid)
     
             if (match) {
@@ -147,7 +168,7 @@ const startidle = () => {
     
                 return
             }
-    
+
             clearInterval(timer)
     
             const appinfo: AppInfo = {
@@ -173,9 +194,15 @@ const startidle = () => {
 }
 
 const pids = new Set<number>()
+let releasetimer: NodeJS.Timeout | null = null
 
 const releasegame = (timer: NodeJS.Timeout,appid: number,process: ProcessInfo) => {
     log.write("INFO",`Releasing game for AppID ${appid}:\n\n- PID: ${process.pid}\n- Executable Path: ${process.exe}`)
+
+    if (releasetimer) {
+        clearTimeout(releasetimer)
+        releasetimer = null
+    }
     
     clearInterval(timer)
     log.write("INFO",`Game loop stopped for AppID ${appid}`)
@@ -187,12 +214,11 @@ const releasegame = (timer: NodeJS.Timeout,appid: number,process: ProcessInfo) =
     ipcRenderer.send("stats",statsobj)
 
     workerinfo.appid = 0
+    workerinfo.gamename = undefined
     workerinfo.steam3id = 0
     workerinfo.achnum = undefined
-    workerinfo.gamename = undefined
 
     ipcRenderer.emit("gametimer")
-    
     ipcRenderer.send("validateworker")
 }
 
@@ -206,6 +232,12 @@ const startsan = async (appinfo: AppInfo) => {
         const client = init(appid)
         sanhelper.devmode && (window.client = client)
 
+        const { usesanwatcher, releasewaittime } = sanconfig.get().store
+        log.write("INFO",`SANWatcher ${usesanwatcher ? "en" : "dis"}abled`)
+
+        const installdir = client.apps.appInstallDir(appid).replace(/\\/g,"/")
+        ipcRenderer.send("lastknowngame",{ appid, installdir } as LastKnownGame) // Update `lastknowngame` in `listeners.ts` to the current game
+
         ipcRenderer.on("statwinicon",async (event,achievement: Achievement) => {
             const icon = await getachievementicon(client,achievement)
             ipcRenderer.send(`iconpath_${achievement.apiname}`,icon)
@@ -218,9 +250,6 @@ const startsan = async (appinfo: AppInfo) => {
         const steam64id = client.localplayer.getSteamId().steamId64.toString().replace(/n$/,"")
         const username = client.localplayer.getName()
         const num = client.achievement.getNumAchievements()
-
-        const { usesanwatcher } = sanconfig.get().store
-        log.write("INFO",`SANWatcher ${usesanwatcher ? "en" : "dis"}abled`)
     
         const getprocessinfo = (sgpexe?: string): ProcessInfo[] => {
             const processinfo: ProcessInfo[] = []
@@ -287,35 +316,62 @@ const startsan = async (appinfo: AppInfo) => {
     
             !num && log.write("INFO",`"${gamename}" has no achievements`)
 
-            usesanwatcher && sanwatcher.start(client.apps.appInstallDir(appid),pollrate || 250,(err,event: WatchEvent) => {
-                if (err) return log.write("ERROR",err as string)
-
-                const { started, pid, exe } = event
-
-                const gameinfo = {
-                    gamename: gamename || "???",
-                    appid,
-                    exepath: exe,
-                    pid,
-                    pollrate: pollrate || 250
-                }
-
-                if (started) {
-                    pids.add(pid)
-                    return log.write("INFO",worker.creategameinfo(gameinfo,"started"))
-                }
-
-                log.write("INFO",worker.creategameinfo(gameinfo,"exited"))
+            if (usesanwatcher) {
+                pids.clear() // Clear any stale PIDs in the set before tracking the current game
                 
-                pids.delete(pid)
-                !pids.size && releasegame(timer,appid,{ pid, exe } as ProcessInfo)
-            })
+                sanwatcher.start(installdir,pollrate || 250,(err,event: WatchEvent) => {
+                    if (err) return log.write("ERROR",err as string)
+                    
+                    const { started, pid, exe } = event
+                    const gameinfo = {
+                        gamename: gamename || "???",
+                        appid,
+                        exepath: exe,
+                        pid,
+                        pollrate: pollrate || 250
+                    }
+    
+                    if (started) {
+                        // If a new process within the current game's installdir is detected within X seconds (i.e. `releasewaittime`) of another installdir process exiting (e.g. a pre-game launcher), cancel the release and continue tracking
+                        if (releasetimer) {
+                            clearTimeout(releasetimer)
+                            releasetimer = null
+                            
+                            ipcRenderer.send("gametimer",workerinfo) // Restart Game Timer if new process is discovered
+                            ipcRenderer.send("releasing",false) // Send IPC event to remove "releasing" attribute to Game Display in UI
+                            log.write("INFO",`New game process detected for AppID ${appid} - release cancelled`)
+                        }
+                        
+                        pids.add(pid)
+                        return log.write("INFO",worker.creategameinfo(gameinfo,"started"))
+                    }
+    
+                    pids.delete(pid)
+                    log.write("INFO",worker.creategameinfo(gameinfo,"exited"))
+    
+                    // If no PIDs for any processes in the game's installdir are active, and there is no active "releasetimer", begin checking for new installdir processes for X seconds (i.e. `releasewaittime`) before releasing the game
+                    if (!pids.size && !releasetimer) {
+                        log.write("INFO",`No tracked game processes found for AppID ${appid}. Checking for new game processes...`)
+                        
+                        const workerinfo = {
+                            appid: 0,
+                            gamename: undefined,
+                            steam3id: 0,
+                            achnum: undefined
+                        }
+                        
+                        ipcRenderer.send("gametimer",workerinfo) // Stop active Game Timer on any installdir process exit
+                        ipcRenderer.send("releasing",true) // Send IPC event to apply "releasing" attribute to Game Display in UI
+                        releasetimer = setTimeout(() => !pids.size && releasegame(timer,appid,{ pid, exe } as ProcessInfo),releasewaittime * 1000)
+                    }
+                })
+            }
             
             const gameloop = () => {
                 !usesanwatcher && processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid)) && releasegame(timer,appid,processes[0])
     
                 const { debug } = sanconfig.get().store
-    
+
                 debug && ipcRenderer.send("debuginfoupdated",{
                     username: username,
                     steam3id: steam3id,
@@ -323,7 +379,7 @@ const startsan = async (appinfo: AppInfo) => {
                     appid: appid,
                     gamename: gamename,
                     status: "Active",
-                    processes: usesanwatcher ? undefined : processes.map(({ exe, pid }: ProcessInfo) => {
+                    processes: (usesanwatcher ? sanwatcher.getActiveProcesses(installdir) : processes).map(({ pid, exe }) => {
                         return {
                             exe: exe,
                             pid: pid,
@@ -331,7 +387,7 @@ const startsan = async (appinfo: AppInfo) => {
                         } as DebugProcessInfo
                     })
                 })
-    
+
                 if (!num) return
         
                 const live: Achievement[] = cachedata(client,apinames)

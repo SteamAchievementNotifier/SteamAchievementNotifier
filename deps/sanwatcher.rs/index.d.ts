@@ -8,5 +8,10 @@ export interface WatchEvent {
   pid: number
   exe: string
 }
+export interface ActiveProcess {
+  pid: number
+  exe: string
+}
+export declare function getActiveProcesses(installdir: string): Array<ActiveProcess>
 export declare function stop(): void
 export declare function start(installdir: string, pollrate: number, callback: (...args: any[]) => any): void

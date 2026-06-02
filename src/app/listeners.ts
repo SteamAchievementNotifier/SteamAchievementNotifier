@@ -77,6 +77,9 @@ export const listeners = {
         const updatetray = async (tray: Tray,gamename?: string | null,num?: number,betaunsupported?: boolean) => {
             tray && tray.removeAllListeners()
 
+            const { usesanwatcher } = sanconfig.get().store
+            const showautorelease = !usesanwatcher && !!appid
+
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
             tray.setImage(path.join(__root,"img",`sanlogo_${num === 0 ? "inactive" : (gamename ? "active" : "idle")}.${process.platform === "win32" ? "ico" : "png"}`))
 
@@ -137,8 +140,8 @@ export const listeners = {
                         .createFromPath(path.join(__root,"icon","link.png"))
                         .resize({ width: 16 }),
                     click: () => ipcMain.emit("noexe",null,false,true),
-                    enabled: !!appid,
-                    visible: !!appid
+                    enabled: showautorelease,
+                    visible: showautorelease
                 },
                 {
                     label: await language.get("replaynotify",["settings","notifications","content"]),
@@ -184,11 +187,24 @@ export const listeners = {
             ;(statwin || gametimerwin) && worker && worker.webContents.send("stats")
         })
 
+        ipcMain.on("usesanwatcher",() => {
+            updatetray(tray!)
+            ipcMain.emit("validateworker")
+        })
+
         ipcMain.on("steamlang",() => statwin && worker && worker.webContents.send("stats"))
 
-        let worker: BrowserWindow | null = null
+        let lastknowngame: LastKnownGame | null = null // Updated via `worker.ts` and sent via "createworker" on each new "Worker" process spawn
 
-        ipcMain.on("createworker",() => {
+        // Received from `worker.ts` when tracking begins for a new game
+        ipcMain.on("lastknowngame",(event,game: LastKnownGame) => {
+            lastknowngame = game
+            log.write("INFO",`Cached last known game:\n\n- AppID: ${game.appid}\n- InstallDir: ${game.installdir}`)
+        })
+
+        let worker: BrowserWindow | null = null
+        
+        ipcMain.on("createworker",(event,lastknowngame: LastKnownGame | null) => {
             worker = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): Worker`,
                 width: 100,
@@ -208,7 +224,10 @@ export const listeners = {
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
-                    backgroundThrottling: false
+                    backgroundThrottling: false,
+                    additionalArguments: [
+                        `--lastknowngame=${lastknowngame ? JSON.stringify(lastknowngame) : ""}` // "Worker" parses `lastknowngame` arg on spawn
+                    ]
                 }
             })
 
@@ -226,6 +245,41 @@ export const listeners = {
         }
 
         ipcMain.on("worker",(event,args) => console.log(JSON.parse(args)))
+
+        const validateworker = (): Promise<string> => {
+            return new Promise<string>((resolve,reject) => {
+                if (worker) {
+                    worker.destroy()
+                    worker = null
+                    reject(`Existing "Worker" process destroyed.`)
+                }
+
+                const gameicon = path.join(sanhelper.temp,"gameicon.png")
+                fs.existsSync(gameicon) && fs.rmSync(gameicon,{ force: true })
+
+                resolve(`No running game or "Worker" processes found. Restarting "Worker" process...`)
+            })
+        }
+
+        ipcMain.on("validateworker",async () => {
+            win.webContents.send("releasing",false) // Clear "releasing" attribute
+            
+            const { releasedelay, usesanwatcher } = sanconfig.get().store
+
+            try {
+                ipcMain.emit("appid",null,{ appid: 0 })
+
+                const msg = await validateworker()
+                log.write("INFO",msg)
+
+                setTimeout(() => ipcMain.emit("createworker",null,lastknowngame),usesanwatcher ? 0 : releasedelay * 1000)
+            } catch (err) {
+                log.write("WARN",err as Error)
+                setTimeout(() => ipcMain.emit("validateworker"),1000)
+            }
+        })
+
+        ipcMain.on("releasing",(event,value: boolean) => win.webContents.send("releasing",value)) // Adds visual "releasing" hint in UI
 
         const sendnoexeclick = (ipctype: "noexe" | "addlinkfailed",appid: number,skipnotify?: boolean) => {
             win.show()
@@ -322,35 +376,6 @@ export const listeners = {
         }
 
         cleartemp()
-
-        const validateworker = (): Promise<string> => {
-            return new Promise<string>((resolve,reject) => {
-                if (worker) {
-                    worker.destroy()
-                    worker = null
-                    reject(`Existing "Worker" process destroyed.`)
-                }
-
-                const gameicon = path.join(sanhelper.temp,"gameicon.png")
-                fs.existsSync(gameicon) && fs.rmSync(gameicon,{ force: true })
-
-                resolve(`No running game or "Worker" processes found. Restarting "Worker" process...`)
-            })
-        }
-        
-        ipcMain.on("validateworker", async () => {
-            const { releasedelay } = sanconfig.get().store
-
-            try {
-                ipcMain.emit("appid",null,{ appid: 0 })
-                const msg = await validateworker()
-                log.write("INFO",msg)
-                setTimeout(() => ipcMain.emit("createworker"),releasedelay * 1000)
-            } catch (err) {
-                log.write("WARN",err as Error)
-                setTimeout(() => ipcMain.emit("validateworker"),1000)
-            }
-        })
 
         ipcMain.on("appid",(event,workerinfo: WorkerInfo) => {
             const { appid: id, gamename, achnum } = workerinfo

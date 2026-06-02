@@ -349,6 +349,7 @@ export const sanconfig = {
                 gametimerwinopacity: false,
                 noshortcuts: false,
                 usesanwatcher: false,
+                releasewaittime: 5,
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

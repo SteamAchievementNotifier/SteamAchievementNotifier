@@ -369,7 +369,9 @@ export const translations = {
                     `選擇一個 <span class="hl">.sanbak</span> 備份檔以還原。還原完成後，此檔案將會保留`,
                     "❗ 確認後，應用程式將重新啟動以還原所選的備份檔"
                 ],
-                restorefailed: "無法還原備份。"
+                restorefailed: "無法還原備份。",
+                usesanwatcher: "SANWatcher",
+                releasewaittime: "釋放等待時間"
             }
         },
         ra: {
@@ -892,7 +894,9 @@ export const translations = {
         gametimerwinaot: `將遊戲完成計時器設為「永遠置頂」模式，讓視窗顯示於遊戲視窗之上<br><br><span class="ttdesc">啟用後，遊戲完成計時器將不再回應使用者互動，例如「click」事件。若要重新啟用與視窗的互動，必須停用此選項</span>`,
         resetgametimer: "重設目前遊戲的遊戲完成計時器",
         noshortcuts: `停用所有應用程式內鍵盤快捷鍵<br><br><span class="ttdesc">啟用後，<u>所有應用程式內快捷鍵將不再運作</u>。所有與鍵盤快捷鍵相關的選項也將被隱藏</span>`,
-        extwinnotify: "切換使用 Stream Notifications 時所有螢幕通知的可見性"
+        extwinnotify: "切換使用 Stream Notifications 時所有螢幕通知的可見性",
+        usesanwatcher: `啟用 SAN 的新遊戲程序監視器<br><br><span class="ttdesc">新版 SANWatcher 與舊版自動程序追蹤方法之間的差異如下：<br><br><div class="wrapper sanwatcher"><span class="hl">開啟</span><ul><li>主動監視儲存在遊戲安裝目錄中的任何程序之啟動與結束事件</li><li>無需知道遊戲執行檔即可釋放目前遊戲</li><li>遊戲啟動前啟動器的行為可能有所不同，因此無法保證與所有 Steam 遊戲完全相容</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">關閉</span><ul><li>在遊戲啟動後掃描遊戲安裝目錄中的所有執行中可執行檔</li><li>需要知道遊戲執行檔才能釋放目前遊戲</li><li>如果無法自動判定遊戲程序，使用者必須手動新增一筆項目至 <span class="hl">Auto-Release Games</span>，遊戲才能自動釋放</li></ul></div>`,
+        releasewaittime: `設定 SANWatcher 在釋放目前遊戲之前，等待新遊戲程序啟動的時間長度<br><br><span class="ttdesc">例如，如果目前遊戲在啟動實際遊戲之前會先啟動一個啟動器或設定視窗，則此設定將決定 SANWatcher 在啟動器或設定視窗關閉後，等待實際遊戲視窗出現的秒數<br><br>如果在此等待時間內偵測到新的作用中遊戲程序，則釋放作業將被取消，並改為追蹤新偵測到的作用中程序<br><br>💡 當目前遊戲正在等待釋放時，遊戲名稱將在 <span class="hl">Game Display</span> 方塊中以<span style="color: yellow;">黃色</span>閃爍顯示</span>`
     },
     update: {
         updateavailable: "有可用更新",

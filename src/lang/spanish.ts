@@ -369,7 +369,9 @@ export const translations = {
                     `Selecciona un archivo de copia de seguridad <span class="hl">.sanbak</span> desde el cual restaurar. Este archivo se conservará después de completar la restauración`,
                     "❗ Una vez confirmado, la aplicación se reiniciará para restaurar el archivo de copia de seguridad seleccionado"
                 ],
-                restorefailed: "No se pudo restaurar la copia de seguridad."
+                restorefailed: "No se pudo restaurar la copia de seguridad.",
+                usesanwatcher: "SANWatcher",
+                releasewaittime: "Tiempo de espera para liberar"
             }
         },
         ra: {
@@ -892,7 +894,9 @@ export const translations = {
         gametimerwinaot: `Configurar el Temporizador de finalización del juego en modo "Siempre visible", permitiendo que la ventana se muestre sobre la ventana del juego<br><br><span class="ttdesc">Cuando está habilitado, el Temporizador de finalización del juego ya no registrará interacciones del usuario, como eventos de "click". Para volver a habilitar la interacción con la ventana, esta opción debe desactivarse</span>`,
         resetgametimer: "Restablecer el Temporizador de finalización del juego del juego actual",
         noshortcuts: `Desactiva todos los atajos de teclado de la aplicación<br><br><span class="ttdesc">Cuando está habilitado, <u>todos los atajos de la aplicación dejarán de funcionar</u>. Todas las opciones relacionadas con los atajos de teclado también se ocultarán</span>`,
-        extwinnotify: "Alternar la visibilidad de todas las notificaciones en pantalla mientras se usan las notificaciones de transmisión"
+        extwinnotify: "Alternar la visibilidad de todas las notificaciones en pantalla mientras se usan las notificaciones de transmisión",
+        usesanwatcher: `Habilitar el nuevo monitor de procesos de juegos de SAN<br><br><span class="ttdesc">Las diferencias entre el nuevo SANWatcher y los métodos antiguos de seguimiento automático de procesos son las siguientes:<br><br><div class="wrapper sanwatcher"><span class="hl">ACTIVADO</span><ul><li>Supervisa activamente los eventos de inicio y cierre de cualquier proceso almacenado dentro del directorio de instalación del juego</li><li>No requiere conocer el ejecutable del juego para liberar el juego actual</li><li>El comportamiento de los lanzadores previos al juego puede variar, por lo que no se garantiza la compatibilidad total con todos los juegos de Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">DESACTIVADO</span><ul><li>Escanea el directorio de instalación del juego en busca de ejecutables en ejecución después del inicio del juego</li><li>Requiere conocer el ejecutable del juego para liberar el juego actual</li><li>Si el proceso del juego no puede determinarse automáticamente, el usuario debe añadir manualmente una nueva entrada a <span class="hl">Auto-Release Games</span> para que los juegos se liberen automáticamente</li></ul></div>`,
+        releasewaittime: `Establece cuánto tiempo esperará SANWatcher a que aparezcan nuevos procesos de juego antes de liberar el juego actual<br><br><span class="ttdesc">Por ejemplo, si el juego actual inicia un lanzador o ventana de configuración previa antes de ejecutar el juego real, esta configuración determina el número de segundos que SANWatcher esperará a que aparezca la ventana del juego real después de que el lanzador o ventana de configuración previa se haya cerrado<br><br>Si se detecta un nuevo proceso de juego activo dentro de este tiempo de espera, la liberación se cancelará y se realizará el seguimiento del nuevo proceso activo en su lugar<br><br>💡 El nombre del juego parpadeará en <span style="color: yellow;">amarillo</span> en el cuadro <span class="hl">Game Display</span> mientras el juego actual está esperando ser liberado</span>`
     },
     update: {
         updateavailable: "Actualización disponible",

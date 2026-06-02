@@ -369,7 +369,9 @@ export const translations = {
                     `Válasszon egy <span class="hl">.sanbak</span> biztonsági mentési fájlt a visszaállításhoz. Ez a fájl megmarad a visszaállítás után`,
                     "❗ A megerősítés után az alkalmazás újraindul a kiválasztott biztonsági mentési fájl visszaállításához"
                 ],
-                restorefailed: "A biztonsági mentés visszaállítása sikertelen."
+                restorefailed: "A biztonsági mentés visszaállítása sikertelen.",
+                usesanwatcher: "SANWatcher",
+                releasewaittime: "Felszabadítási várakozási idő"
             }
         },    
         ra: {
@@ -892,7 +894,9 @@ export const translations = {
         gametimerwinaot: `A Játék Befejezési Időzítő beállítása "Mindig Felül" módba, amely lehetővé teszi, hogy az ablak a játék ablaka felett jelenjen meg<br><br><span class="ttdesc">Ha engedélyezve van, a Játék Befejezési Időzítő többé nem fogja érzékelni a felhasználói interakciókat, például a "click" eseményeket. Az ablakkal való interakció újbóli engedélyezéséhez ezt az opciót ki kell kapcsolni</span>`,
         resetgametimer: "Az aktuális játék Játék Befejezési Időzítőjének visszaállítása",
         noshortcuts: `Letiltja az alkalmazáson belüli összes billentyűparancsot<br><br><span class="ttdesc">Ha engedélyezve van, <u>az alkalmazáson belüli összes billentyűparancs többé nem fog működni</u>. A billentyűparancsokhoz kapcsolódó összes opció is el lesz rejtve</span>`,
-        extwinnotify: "Az összes képernyőértesítés láthatóságának váltása Stream Notifications használata közben"
+        extwinnotify: "Az összes képernyőértesítés láthatóságának váltása Stream Notifications használata közben",
+        usesanwatcher: `A SAN új játékfolyamat-figyelőjének engedélyezése<br><br><span class="ttdesc">Az új SANWatcher és a régi automatikus folyamatkövetési módszerek közötti különbségek a következők:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Aktívan figyeli az indítási/kilépési eseményeket minden olyan folyamat esetén, amely a játék telepítési könyvtárában található</li><li>Nem szükséges ismerni a játék futtatható állományát az aktuális játék felszabadításához</li><li>A játék előtti indítók viselkedése eltérő lehet, ezért a teljes kompatibilitás nem garantált minden Steam játék esetén</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>A játék indítása után átvizsgálja a játék telepítési könyvtárát futó végrehajtható fájlok után</li><li>Az aktuális játék felszabadításához ismerni kell a játék futtatható állományát</li><li>Ha a játék folyamata nem határozható meg automatikusan, a felhasználónak manuálisan kell új bejegyzést hozzáadnia az <span class="hl">Auto-Release Games</span> listához, hogy a játékok automatikusan felszabaduljanak</li></ul></div>`,
+        releasewaittime: `Adja meg, hogy a SANWatcher mennyi ideig várjon az új játékfolyamatok elindulására, mielőtt felszabadítaná az aktuális játékot<br><br><span class="ttdesc">Például ha az aktuális játék egy játék előtti indítót vagy konfigurációs ablakot nyit meg a tényleges játék elindítása előtt, ez a beállítás határozza meg, hogy a SANWatcher hány másodpercig várjon a tényleges játékablak megjelenésére, miután a játék előtti indító vagy konfigurációs ablak bezárult<br><br>Ha ezen várakozási időn belül új aktív játékfolyamatot észlel, a felszabadítás megszakad, és a rendszer az újonnan aktív folyamatot fogja követni helyette<br><br>💡 A játék neve <span style="color: yellow;">sárgán</span> villog majd a <span class="hl">Game Display</span> mezőben, amíg az aktuális játék a felszabadításra vár</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

@@ -369,7 +369,9 @@ export const translations = {
                     `Velg en <span class="hl">.sanbak</span> sikkerhetskopifil å gjenopprette fra. Denne filen beholdes etter gjenopprettingen`,
                     "❗ Når bekreftet, vil appen starte på nytt for å gjenopprette den valgte sikkerhetskopifilen"
                 ],
-                restorefailed: "Kunne ikke gjenopprette sikkerhetskopi."
+                restorefailed: "Kunne ikke gjenopprette sikkerhetskopi.",
+                usesanwatcher: "SANWatcher",
+                releasewaittime: "Ventetid før frigjøring"
             }
         },
         ra: {
@@ -892,7 +894,9 @@ export const translations = {
         gametimerwinaot: `Sett Spillfullføringstidtaker til "Alltid Øverst"-modus, slik at vinduet kan vises over spillvinduet<br><br><span class="ttdesc">Når aktivert, vil Spillfullføringstidtaker ikke lenger registrere brukerinteraksjoner, som "click"-hendelser. For å aktivere interaksjon med vinduet igjen må dette alternativet deaktiveres</span>`,
         resetgametimer: "Tilbakestill Spillfullføringstidtaker for det nåværende spillet",
         noshortcuts: `Deaktiverer alle tastatursnarveier i appen<br><br><span class="ttdesc">Når aktivert, vil <u>alle snarveier i appen ikke lenger fungere</u>. Alle alternativer relatert til tastatursnarveier vil også bli skjult</span>`,
-        extwinnotify: "Bytt synlighet for alle varsler på skjermen mens du bruker Stream Notifications"
+        extwinnotify: "Bytt synlighet for alle varsler på skjermen mens du bruker Stream Notifications",
+        usesanwatcher: `Aktiver SANs nye overvåker for spillprosesser<br><br><span class="ttdesc">Forskjellene mellom den nye SANWatcher og de gamle metodene for automatisk prosessporing er som følger:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Overvåker aktivt start-/avslutningshendelser for alle prosesser som er lagret i spillets installasjonsmappe</li><li>Krever ikke at spillets kjørbare fil er kjent for å frigjøre det nåværende spillet</li><li>Oppførselen til oppstartsprogrammer før spillet starter kan variere, så full kompatibilitet med alle Steam-spill er ikke garantert</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Skanner spillets installasjonsmappe etter kjørbare filer som kjører etter at spillet har startet</li><li>Krever at spillets kjørbare fil er kjent for å frigjøre det nåværende spillet</li><li>Hvis spillprosessen ikke kan fastslås automatisk, må brukeren manuelt legge til en ny oppføring i <span class="hl">Auto-Release Games</span> for at spill skal frigjøres automatisk</li></ul></div>`,
+        releasewaittime: `Angi hvor lenge SANWatcher skal vente på at nye spillprosesser starter før det nåværende spillet frigjøres<br><br><span class="ttdesc">For eksempel, hvis det nåværende spillet starter et oppstartsprogram eller et konfigurasjonsvindu før selve spillet startes, bestemmer denne innstillingen hvor mange sekunder SANWatcher skal vente på at det faktiske spillvinduet starter etter at oppstartsprogrammet eller konfigurasjonsvinduet er lukket<br><br>Hvis en ny aktiv spillprosess oppdages innenfor denne ventetiden, vil frigjøringen bli avbrutt, og den nye aktive prosessen vil bli sporet i stedet<br><br>💡 Spillnavnet vil blinke <span style="color: yellow;">gult</span> i <span class="hl">Game Display</span>-boksen mens det nåværende spillet venter på å bli frigjort</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

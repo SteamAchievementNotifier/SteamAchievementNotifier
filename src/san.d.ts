@@ -163,6 +163,7 @@ declare interface Config {
     gametimerwinopacity: boolean,
     noshortcuts: boolean,
     usesanwatcher: boolean,
+    releasewaittime: number,
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -657,6 +658,11 @@ declare type GameTimer = {
 declare type RunningGameTimer = {
     appid: number,
     started: number
+}
+
+declare interface LastKnownGame {
+    appid: number,
+    installdir: string
 }
 
 declare module "simple-vdf"

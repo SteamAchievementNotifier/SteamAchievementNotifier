@@ -369,7 +369,9 @@ export const translations = {
                     `Vælg en <span class="hl">.sanbak</span> backup-fil at gendanne fra. Denne fil vil blive bevaret efter gendannelsen`,
                     "❗ Når bekræftet, genstarter appen for at gendanne den valgte backup-fil"
                 ],
-                restorefailed: "Kunne ikke gendanne backup."
+                restorefailed: "Kunne ikke gendanne backup.",
+                usesanwatcher: "SANWatcher",
+                releasewaittime: "Ventetid før frigivelse"
             }
         },
         ra: {
@@ -892,7 +894,9 @@ export const translations = {
         gametimerwinaot: `Sætter spilafslutningstimeren til tilstanden "Altid øverst", så vinduet kan vises over spilvinduet<br><br><span class="ttdesc">Når aktiveret, vil spilafslutningstimeren ikke længere registrere brugerinteraktioner, såsom "klik"-hændelser. For at genaktivere interaktion med vinduet skal denne indstilling deaktiveres</span>`,
         resetgametimer: "Nulstiller spilafslutningstimeren for det aktuelle spil",
         noshortcuts: `Deaktiverer alle tastaturgenveje i appen<br><br><span class="ttdesc">Når aktiveret, <u>vil alle genveje i appen ikke længere fungere</u>. Alle indstillinger relateret til tastaturgenveje vil også blive skjult</span>`,
-        extwinnotify: "Skifter synligheden af alle notifikationer på skærmen ved brug af Stream Notifications"
+        extwinnotify: "Skifter synligheden af alle notifikationer på skærmen ved brug af Stream Notifications",
+        usesanwatcher: `Aktivér SAN's nye overvågning af spilprocesser<br><br><span class="ttdesc">Forskellene mellem den nye SANWatcher og de gamle metoder til automatisk procesovervågning er som følger:<br><br><div class="wrapper sanwatcher"><span class="hl">TIL</span><ul><li>Overvåger aktivt start-/afslutningshændelser for alle processer, der er gemt i spillets installationsmappe</li><li>Kræver ikke, at spillets eksekverbare fil er kendt for at frigive det aktuelle spil</li><li>Adfærden for launchere før spilstart kan variere, så fuld kompatibilitet med alle Steam-spil kan ikke garanteres</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">FRA</span><ul><li>Scanner spillets installationsmappe for kørende eksekverbare filer efter spilstart</li><li>Kræver, at spillets eksekverbare fil er kendt for at frigive det aktuelle spil</li><li>Hvis spilprocessen ikke kan bestemmes automatisk, skal brugeren manuelt tilføje en ny post til <span class="hl">Auto-Release Games</span>, for at spillene kan frigives automatisk</li></ul></div>`,
+        releasewaittime: `Angiv, hvor længe SANWatcher skal vente på, at nye spilprocesser starter, før det aktuelle spil frigives<br><br><span class="ttdesc">Hvis det aktuelle spil for eksempel starter en launcher eller et konfigurationsvindue før selve spillet, bestemmer denne indstilling, hvor mange sekunder SANWatcher skal vente på, at det faktiske spilvindue åbnes, efter at launcheren eller konfigurationsvinduet er blevet lukket<br><br>Hvis en ny aktiv spilproces registreres inden for denne ventetid, annulleres frigivelsen, og den nye aktive proces vil i stedet blive overvåget<br><br>💡 Spilnavnet vil blinke <span style="color: yellow;">gult</span> i feltet <span class="hl">Game Display</span>, mens det aktuelle spil venter på at blive frigivet</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

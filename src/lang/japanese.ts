@@ -369,7 +369,9 @@ export const translations = {
                     `復元する <span class="hl">.sanbak</span> バックアップファイルを選択してください。このファイルは復元後も保持されます`,
                     "❗ 確認後、選択したバックアップファイルを復元するためにアプリが再起動します"
                 ],
-                restorefailed: "バックアップの復元に失敗しました。"
+                restorefailed: "バックアップの復元に失敗しました。",
+                usesanwatcher: "SANWatcher",
+                releasewaittime: "解放待機時間"
             }
         },
         ra: {
@@ -892,7 +894,9 @@ export const translations = {
         gametimerwinaot: `ゲーム完了タイマーを「常に最前面に表示」モードに設定し、ゲームウィンドウの上に表示できるようにします<br><br><span class="ttdesc">有効にすると、ゲーム完了タイマーは "click" イベントなどのユーザー操作を受け付けなくなります。ウィンドウとの操作を再度有効にするには、このオプションを無効にする必要があります</span>`,
         resetgametimer: "現在のゲームのゲーム完了タイマーをリセットします",
         noshortcuts: `アプリ内のすべてのキーボードショートカットを無効にします<br><br><span class="ttdesc">有効にすると、<u>すべてのアプリ内ショートカットが機能しなくなります</u>。キーボードショートカットに関連するすべてのオプションも非表示になります</span>`,
-        extwinnotify: "Stream Notifications 使用中のすべてのオンスクリーン通知の表示を切り替えます"
+        extwinnotify: "Stream Notifications 使用中のすべてのオンスクリーン通知の表示を切り替えます",
+        usesanwatcher: `SAN の新しいゲームプロセス監視機能を有効化<br><br><span class="ttdesc">新しい SANWatcher と従来の自動プロセス追跡方式の違いは次のとおりです。<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>ゲームのインストールディレクトリ内に存在するすべてのプロセスの開始／終了イベントを積極的に監視します</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要はありません</li><li>ゲーム起動前ランチャーの動作はゲームごとに異なるため、すべての Steam ゲームとの完全な互換性は保証されません</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>ゲーム起動後、ゲームのインストールディレクトリ内で実行中の実行ファイルをスキャンします</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要があります</li><li>ゲームプロセスを自動的に特定できない場合、ゲームを自動的に解放するにはユーザーが <span class="hl">Auto-Release Games</span> に新しいエントリを手動で追加する必要があります</li></ul></div>`,
+        releasewaittime: `現在のゲームを解放する前に、新しいゲームプロセスの起動を SANWatcher が待機する時間を設定します<br><br><span class="ttdesc">たとえば、現在のゲームが実際のゲームを起動する前にランチャーや設定ウィンドウを表示する場合、この設定によってランチャーまたは設定ウィンドウが閉じられた後に実際のゲームウィンドウが起動するまで SANWatcher が待機する秒数を指定します<br><br>この待機時間内に新しいアクティブなゲームプロセスが検出された場合、解放はキャンセルされ、代わりに新しくアクティブになったプロセスが追跡されます<br><br>💡 現在のゲームが解放待機中の間は、<span class="hl">Game Display</span> ボックス内のゲーム名が<span style="color: yellow;">黄色</span>で点滅表示されます</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

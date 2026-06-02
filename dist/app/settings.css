@@ -6,7 +6,7 @@ body[nativeos] #settingscontent .cont:has(.title#media) .opt:has(select#screensh
 body[nativeos] #settingscontent .cont:has(.title#media) .opt[overlay],
 body[nativeos] #ovtabs,
 body[active] #settingscontent > .cont:has(.title#notifications) > .optcont > .opt:has(#noiconcache),
-body[active] #settingscontent > .cont:has(.title#advanced) > .optcont > .opt:has(#pollrate,#maxretries,#userust),
+body[active] #settingscontent > .cont:has(.title#advanced) > .optcont > .opt:has(#pollrate,#maxretries,#userust,#releasewaittime),
 dialog[menu] #settingscontent > .cont:has(.title#media) > .optcont:has(#ovmatch:checked) > .opt:has(select#ovpos),
 body[beta] button#checkforupdates,
 body[beta] button#joinbetachannel,
@@ -189,7 +189,11 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .opt:has(#gametimerwin:not(:checked)) + .wrapper:has(#gametimerwinaot),
 .opt:has(#gametimerwin:not(:checked)) ~ button#resetgametimer,
 .opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime),
-.opt:has(#notifymax)[value="1"] + .wrapper:has(#notifyspace) {
+.opt:has(#notifymax)[value="1"] + .wrapper:has(#notifyspace),
+.optcont:has(input#usesanwatcher:checked) > .opt:has(#maxretries),
+.optcont:has(input#usesanwatcher:checked) > .opt:has(#releasedelay),
+.optcont:has(input#usesanwatcher:not(:checked)) > .opt:has(#releasewaittime),
+#settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#linkedgames {
     display: none;
 }
 
@@ -422,10 +426,18 @@ button#listmode {
     grid-row-start: 3;
 }
 
+#settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#exclusionlist {
+    grid-row-start: 2;
+}
+
 .cont:has(.title#games) > .optcont > button#listmode {
     grid-row-start: 3;
     grid-column-start: 2;
     gap: 0;
+}
+
+#settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#listmode {
+    grid-row-start: 2;
 }
 
 .cont:has(.title#games) > .optcont > button#listmode[mode="exclusion"]:hover {

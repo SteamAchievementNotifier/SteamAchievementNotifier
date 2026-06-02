@@ -369,7 +369,9 @@ export const translations = {
                     `Chọn một tệp sao lưu <span class="hl">.sanbak</span> để khôi phục. Tệp này sẽ được giữ nguyên sau khi khôi phục hoàn tất`,
                     "❗ Sau khi xác nhận, ứng dụng sẽ khởi động lại để khôi phục tệp sao lưu đã chọn"
                 ],
-                restorefailed: "Không thể khôi phục bản sao lưu."
+                restorefailed: "Không thể khôi phục bản sao lưu.",
+                usesanwatcher: "SANWatcher",
+                releasewaittime: "Thời gian chờ giải phóng"
             }
         },
         ra: {
@@ -892,7 +894,9 @@ export const translations = {
         gametimerwinaot: `Đặt Bộ đếm thời gian hoàn thành trò chơi sang chế độ "Luôn hiển thị trên cùng", cho phép cửa sổ hiển thị phía trên cửa sổ trò chơi<br><br><span class="ttdesc">Khi được bật, Bộ đếm thời gian hoàn thành trò chơi sẽ không còn ghi nhận các tương tác của người dùng, chẳng hạn như sự kiện "click". Để bật lại khả năng tương tác với cửa sổ, tùy chọn này phải được tắt</span>`,
         resetgametimer: "Đặt lại Bộ đếm thời gian hoàn thành trò chơi cho trò chơi hiện tại",
         noshortcuts: `Tắt tất cả phím tắt bàn phím trong ứng dụng<br><br><span class="ttdesc">Khi được bật, <u>tất cả phím tắt trong ứng dụng sẽ không còn hoạt động</u>. Tất cả các tùy chọn liên quan đến phím tắt bàn phím cũng sẽ bị ẩn</span>`,
-        extwinnotify: "Bật/tắt hiển thị tất cả thông báo trên màn hình khi sử dụng Stream Notifications"
+        extwinnotify: "Bật/tắt hiển thị tất cả thông báo trên màn hình khi sử dụng Stream Notifications",
+        usesanwatcher: `Bật trình theo dõi tiến trình trò chơi mới của SAN<br><br><span class="ttdesc">Sự khác biệt giữa SANWatcher mới và các phương pháp theo dõi tiến trình tự động cũ như sau:<br><br><div class="wrapper sanwatcher"><span class="hl">BẬT</span><ul><li>Chủ động theo dõi các sự kiện khởi động và kết thúc của mọi tiến trình nằm trong thư mục cài đặt trò chơi</li><li>Không yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Hành vi của các trình khởi chạy trước khi vào trò chơi có thể khác nhau, vì vậy không đảm bảo khả năng tương thích hoàn toàn với tất cả các trò chơi Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">TẮT</span><ul><li>Quét thư mục cài đặt trò chơi để tìm các tệp thực thi đang chạy sau khi trò chơi được khởi động</li><li>Yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Nếu không thể tự động xác định tiến trình trò chơi, người dùng phải tự thêm một mục mới vào <span class="hl">Auto-Release Games</span> để trò chơi có thể được giải phóng tự động</li></ul></div>`,
+        releasewaittime: `Thiết lập khoảng thời gian SANWatcher sẽ chờ các tiến trình trò chơi mới khởi chạy trước khi giải phóng trò chơi hiện tại<br><br><span class="ttdesc">Ví dụ: nếu trò chơi hiện tại khởi chạy một trình khởi chạy hoặc cửa sổ cấu hình trước khi khởi động trò chơi thực tế, cài đặt này sẽ xác định số giây SANWatcher chờ cửa sổ trò chơi thực tế xuất hiện sau khi trình khởi chạy hoặc cửa sổ cấu hình đã đóng<br><br>Nếu phát hiện một tiến trình trò chơi đang hoạt động mới trong khoảng thời gian chờ này, việc giải phóng sẽ bị hủy và tiến trình mới được phát hiện sẽ được theo dõi thay thế<br><br>💡 Tên trò chơi sẽ nhấp nháy màu <span style="color: yellow;">vàng</span> trong hộp <span class="hl">Game Display</span> trong khi trò chơi hiện tại đang chờ được giải phóng</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

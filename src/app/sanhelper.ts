@@ -374,6 +374,7 @@ export const sanhelper: SANHelper = {
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     noshortcuts: (value: boolean) => ipcRenderer.send("shortcut",!value),
+    usesanwatcher: () => ipcRenderer.send("usesanwatcher"),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
@@ -795,7 +796,8 @@ export const sanhelper: SANHelper = {
             ["lognum",""],
             ["notifymax",""],
             ["notifyspace","px"],
-            ["audiocooldown","ms"]
+            ["audiocooldown","ms"],
+            ["releasewaittime","s"]
         ])
 
         const wideelems = [

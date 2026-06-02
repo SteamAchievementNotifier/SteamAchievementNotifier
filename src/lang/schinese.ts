@@ -369,7 +369,9 @@ export const translations = {
                     `选择一个 <span class="hl">.sanbak</span> 备份文件进行还原。还原完成后，该文件将被保留`,
                     "❗ 确认后，应用程序将重新启动以还原所选的备份文件"
                 ],
-                restorefailed: "无法还原备份。"
+                restorefailed: "无法还原备份。",
+                usesanwatcher: "SANWatcher",
+                releasewaittime: "释放等待时间"
             }
         },
         ra: {
@@ -892,7 +894,9 @@ export const translations = {
         gametimerwinaot: `将游戏完成计时器设置为“始终置顶”模式，使窗口显示在游戏窗口之上<br><br><span class="ttdesc">启用后，游戏完成计时器将不再响应用户交互，例如“click”事件。要重新启用与窗口的交互，必须禁用此选项</span>`,
         resetgametimer: "重置当前游戏的游戏完成计时器",
         noshortcuts: `禁用所有应用内键盘快捷键<br><br><span class="ttdesc">启用后，<u>所有应用内快捷键将不再生效</u>。所有与键盘快捷键相关的选项也将被隐藏</span>`,
-        extwinnotify: "切换使用 Stream Notifications 时所有屏幕通知的可见性"
+        extwinnotify: "切换使用 Stream Notifications 时所有屏幕通知的可见性",
+        usesanwatcher: `启用 SAN 的新游戏进程监视器<br><br><span class="ttdesc">新 SANWatcher 与旧自动进程跟踪方法之间的区别如下：<br><br><div class="wrapper sanwatcher"><span class="hl">开启</span><ul><li>主动监视存储在游戏安装目录中的任何进程的启动和退出事件</li><li>无需已知游戏可执行文件即可释放当前游戏</li><li>游戏启动前启动器的行为可能有所不同，因此无法保证与所有 Steam 游戏完全兼容</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">关闭</span><ul><li>在游戏启动后扫描游戏安装目录中的所有正在运行的可执行文件</li><li>需要已知游戏可执行文件才能释放当前游戏</li><li>如果无法自动确定游戏进程，用户必须手动向 <span class="hl">Auto-Release Games</span> 添加新条目，游戏才能自动释放</li></ul></div>`,
+        releasewaittime: `设置 SANWatcher 在释放当前游戏之前等待新游戏进程启动的时间<br><br><span class="ttdesc">例如，如果当前游戏在启动实际游戏之前会先启动一个预启动器或配置窗口，此设置决定了在预启动器或配置窗口关闭后，SANWatcher 等待实际游戏窗口启动的秒数<br><br>如果在此等待时间内检测到新的活动游戏进程，则释放操作将被取消，并改为跟踪新检测到的活动进程<br><br>💡 当当前游戏正在等待释放时，游戏名称会在 <span class="hl">Game Display</span> 框中以<span style="color: yellow;">黄色</span>闪烁显示</span>`
     },
     update: {
         updateavailable: "有可用更新",

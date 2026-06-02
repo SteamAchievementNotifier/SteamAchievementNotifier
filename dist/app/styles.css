@@ -230,6 +230,14 @@ body[beta] .logo::before {
     opacity: 1;
 }
 
+#game[releasing] {
+    animation: release calc(var(--transition) * 2.5) linear alternate infinite;
+}
+
+@keyframes release {
+    to { color: #ffff00; }
+}
+
 .rect#usertheme::before {
     --icon: url("../../icon/stars.svg");
 }

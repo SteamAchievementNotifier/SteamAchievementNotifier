@@ -74,20 +74,20 @@ export const listeners = {
 
         let suspended = false
 
-        const updatetray = async (tray: Tray,gamename?: string | null,num?: number,betaunsupported?: boolean) => {
+        const updatetray = async (tray: Tray,gamename?: string | null,num?: number,releasing?: boolean,betaunsupported?: boolean) => {
             tray && tray.removeAllListeners()
 
             const { usesanwatcher } = sanconfig.get().store
             const showautorelease = !usesanwatcher && !!appid
 
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
-            tray.setImage(path.join(__root,"img",`sanlogo_${num === 0 ? "inactive" : (gamename ? "active" : "idle")}.${process.platform === "win32" ? "ico" : "png"}`))
+            tray.setImage(path.join(__root,"img",`sanlogo_${releasing ? "releasing" : (num === 0 ? "inactive" : (gamename ? "active" : "idle"))}.${process.platform === "win32" ? "ico" : "png"}`))
 
             const template: Electron.MenuItemConstructorOptions[] = [
                 {
                     label: gamename || await language.get("game",["app","content"]),
                     icon: nativeImage
-                            .createFromPath(path.join(__root,"icon",`dot_${num === 0 ? "yellow" : (gamename ? "green" : "red")}.png`))
+                            .createFromPath(path.join(__root,"icon",`dot_${releasing ? "grey" : (num === 0 ? "yellow" : (gamename ? "green" : "red"))}.png`))
                             .resize({ width: 10 }),
                     enabled: false
                 },
@@ -199,7 +199,7 @@ export const listeners = {
         // Received from `worker.ts` when tracking begins for a new game
         ipcMain.on("lastknowngame",(event,game: LastKnownGame) => {
             lastknowngame = game
-            log.write("INFO",`Cached last known game:\n\n- AppID: ${game.appid}\n- InstallDir: ${game.installdir}`)
+            log.write("INFO",`Cached last known game:\n- appid: ${game.appid}\n- installdir: ${game.installdir}`)
         })
 
         let worker: BrowserWindow | null = null
@@ -279,7 +279,10 @@ export const listeners = {
             }
         })
 
-        ipcMain.on("releasing",(event,value: boolean) => win.webContents.send("releasing",value)) // Adds visual "releasing" hint in UI
+        ipcMain.on("releasing",(event,gamename: string,value: boolean) => {
+            updatetray(tray,gamename,undefined,value)
+            win.webContents.send("releasing",value)
+        }) // Adds visual "releasing" hint in UI
 
         const sendnoexeclick = (ipctype: "noexe" | "addlinkfailed",appid: number,skipnotify?: boolean) => {
             win.show()
@@ -1804,7 +1807,7 @@ export const listeners = {
                 worker = null
             },(config.get("initdelay") * 1000) + 1000)
 
-            updatetray(tray,undefined,undefined,true)
+            updatetray(tray,undefined,undefined,undefined,true)
         })
 
         ipcMain.on("addtosteam",(event,imgpath: string,width: number,height: number) => {

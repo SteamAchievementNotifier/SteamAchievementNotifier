@@ -135,29 +135,44 @@ const startidle = () => {
         ipcRenderer.send("workeractive",false)
     
         let exclusionlogged = false
+        let invalidappidlogged = false
         
         const timer = setInterval(() => {
             const { pollrate, initdelay, releasedelay, maxretries, userust, debug, noiconcache, exclusions, inclusionlist } = sanconfig.get().store
             const { appid, gamename } = sanhelper.gameinfo as AppInfo
-    
+            
             if (!appid) return
-
+            
             const { usesanwatcher } = sanconfig.get().store
 
             // If `lastknowngame === null`, continue as normal, as there is no existing game data to compare to
-            if (usesanwatcher && lastknowngame && appid === lastknowngame.appid) {
-                // Otherwise, if the current AppID is the same as the last known one, check whether any install dir processes are active for the current AppID
-                const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir)
-                
-                // If there are no active processes in the game's install dir, this signifies Steam is currently trying to reset `RunningAppID` back to 0 in the registry
-                if (!activeprocesses.length) {
-                    log.write("WARN",`No active processes within game installation directory, but Steam reports AppID ${appid} is still active - exiting "Worker" process for Steam to clear AppID ${appid}...`)
+            // Otherwise, if the current AppID is the same as the last known one, first check if the AppID is valid
+            if (lastknowngame && appid === lastknowngame.appid) {
+                // If `installdir === null`, current AppID is invalid (i.e. a non-Steam game/application)
+                if (!lastknowngame.installdir) {
+                    if (!invalidappidlogged) {
+                        log.write("WARN",`Invalid AppID ${appid} currently active in Steam - skipping...`)
+                        invalidappidlogged = true
+                    }
+
+                    return
+                }
+
+                if (usesanwatcher) {
+                    // Check whether any install dir processes are active for the current AppID
+                    const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir)
                     
-                    clearInterval(timer)
-                    return ipcRenderer.send("validateworker") // In this case, destroy the active "Worker" process and allow Steam to reset
+                    // If there are no active processes in the game's install dir, this signifies Steam is currently trying to reset `RunningAppID` back to 0 in the registry
+                    if (!activeprocesses.length) {
+                        log.write("WARN",`No active processes within game installation directory, but Steam reports AppID ${appid} is still active - exiting "Worker" process for Steam to clear AppID ${appid}...`)
+                        clearInterval(timer)
+                        return ipcRenderer.send("validateworker") // In this case, destroy the active "Worker" process and allow Steam to reset
+                    }
                 }
             }
-
+            
+            log.write("INFO",`AppID ${appid} detected - initialising...`)
+            
             const match = inclusionlist ? !exclusions.includes(appid) : exclusions.includes(appid)
     
             if (match) {
@@ -197,7 +212,7 @@ const pids = new Set<number>()
 let releasetimer: NodeJS.Timeout | null = null
 
 const releasegame = (timer: NodeJS.Timeout,appid: number,process: ProcessInfo) => {
-    log.write("INFO",`Releasing game for AppID ${appid}:\n\n- PID: ${process.pid}\n- Executable Path: ${process.exe}`)
+    log.write("INFO",`Releasing game for AppID ${appid}:\n- pid: ${process.pid}\n- exepath: ${process.exe}`)
 
     if (releasetimer) {
         clearTimeout(releasetimer)
@@ -228,8 +243,21 @@ const startsan = async (appinfo: AppInfo) => {
 
         const { appid, gamename, pollrate, maxretries, userust, noiconcache } = appinfo
         const { init } = await import("steamworks.js")
-    
-        const client = init(appid)
+        
+        const client = (() => {
+            try {
+                return init(appid)
+            } catch (err) {                
+                log.write("WARN",`Unable to initialise Steamworks for AppID ${appid}: ${err instanceof Error ? err.message : err}`)
+                return null
+            }
+        })()
+
+        if (!client) {
+            ipcRenderer.send("lastknowngame",{ appid, installdir: null } as LastKnownGame)
+            return ipcRenderer.send("validateworker")
+        }
+
         sanhelper.devmode && (window.client = client)
 
         const { usesanwatcher, releasewaittime } = sanconfig.get().store
@@ -338,7 +366,7 @@ const startsan = async (appinfo: AppInfo) => {
                             releasetimer = null
                             
                             ipcRenderer.send("gametimer",workerinfo) // Restart Game Timer if new process is discovered
-                            ipcRenderer.send("releasing",false) // Send IPC event to remove "releasing" attribute to Game Display in UI
+                            ipcRenderer.send("releasing",gameinfo.gamename,false) // Send IPC event to remove "releasing" attribute to Game Display in UI
                             log.write("INFO",`New game process detected for AppID ${appid} - release cancelled`)
                         }
                         
@@ -361,7 +389,7 @@ const startsan = async (appinfo: AppInfo) => {
                         }
                         
                         ipcRenderer.send("gametimer",workerinfo) // Stop active Game Timer on any installdir process exit
-                        ipcRenderer.send("releasing",true) // Send IPC event to apply "releasing" attribute to Game Display in UI
+                        ipcRenderer.send("releasing",gameinfo.gamename,true) // Send IPC event to apply "releasing" attribute to Game Display in UI
                         releasetimer = setTimeout(() => !pids.size && releasegame(timer,appid,{ pid, exe } as ProcessInfo),releasewaittime * 1000)
                     }
                 })

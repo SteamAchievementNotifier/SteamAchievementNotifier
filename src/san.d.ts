@@ -662,7 +662,7 @@ declare type RunningGameTimer = {
 
 declare interface LastKnownGame {
     appid: number,
-    installdir: string
+    installdir: string | null
 }
 
 declare module "simple-vdf"

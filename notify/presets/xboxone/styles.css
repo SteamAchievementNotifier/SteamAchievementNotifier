@@ -217,18 +217,8 @@ body[fastanim] .wrapper#achcontent {
 body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::before,
 body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::before {
     content: attr(gs) attr(unit) " - ";
-    margin-left: calc(1.175rem * var(--fontsize));
-}
-
-body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::after,
-body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.25rem;
-    background: var(--s) center / contain no-repeat;
-    width: calc(0.825rem * var(--fontsize));
-    height: calc(0.825rem * var(--fontsize));
+    padding-left: calc(1.25rem * var(--fontsize));
+    background: var(--s) left / 30% no-repeat;
 }
 
 #unlockmsg,

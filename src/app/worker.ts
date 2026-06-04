@@ -199,9 +199,9 @@ const startidle = () => {
     
             typeof pollrate !== "number" && log.write("WARN",`"pollrate" has invalid type of "${typeof pollrate}" - setting to default value (250ms)...`) 
             pollrate < 50 && log.write("WARN",`Minimum "pollrate" exceeded (${pollrate}ms) - setting to default value (50ms)`)
-    
-            initdelay && log.write("INFO",`Tracking process delayed by ${initdelay} seconds`)
-            setTimeout(() => startsan(appinfo),initdelay * 1000)
+
+            !usesanwatcher && initdelay && log.write("INFO",`Tracking process delayed by ${initdelay} seconds`)
+            setTimeout(() => startsan(appinfo),usesanwatcher ? 0 : (initdelay * 1000))
         },1000)
     } catch (err) {
         log.write("ERROR",(err as Error).stack || (err as Error).message)

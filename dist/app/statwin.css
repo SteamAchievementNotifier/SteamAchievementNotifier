@@ -275,7 +275,7 @@ body[nospoilers] .achievement[hidden]::before {
 
 body[nospoilers] .achievement[unlocked="false"][hidden] > .inner > .text,
 body[nospoilers] .achievement[unlocked="false"][hidden] > .inner > .icon {
-    filter: blur(5px);
+    filter: blur(clamp(5px,0.3rem,15px));
 }
 
 .achievement[playing] > .inner::before {

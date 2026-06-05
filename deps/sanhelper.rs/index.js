@@ -295,7 +295,7 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, getHqIcon, depsInstalled, hdrScreenshot, getFocusedWinPath, getWindowBounds, log } = nativeBinding
+const { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, getHqIcon, depsInstalled, hdrScreenshot, getFocusedWinPath, getWindowBounds, getAllDisplays, findElectronDisplay, log } = nativeBinding
 
 module.exports.getSteamPath = getSteamPath
 module.exports.getAppInfo = getAppInfo
@@ -306,4 +306,6 @@ module.exports.depsInstalled = depsInstalled
 module.exports.hdrScreenshot = hdrScreenshot
 module.exports.getFocusedWinPath = getFocusedWinPath
 module.exports.getWindowBounds = getWindowBounds
+module.exports.getAllDisplays = getAllDisplays
+module.exports.findElectronDisplay = findElectronDisplay
 module.exports.log = log

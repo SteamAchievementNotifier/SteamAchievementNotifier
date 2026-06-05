@@ -6,7 +6,7 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getWindowBounds } from "sanhelper.rs"
+import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getWindowBounds, findElectronDisplay } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
@@ -181,6 +181,7 @@ export const sanhelper: SANHelper = {
             ipcRenderer.send("displays")
         })
     },
+    findelectrondisplay: (id: number) => findElectronDisplay(id),
     setdevtools: async (win: Electron.BrowserWindow) => {
         const { BrowserWindow, screen } = await import("electron")
         const { width, height } = screen.getPrimaryDisplay().bounds

@@ -22,6 +22,26 @@ export interface WinBounds {
   y: number
 }
 export function getWindowBounds(windowtitle: string): WinBounds
+export interface Bounds {
+  width: number
+  height: number
+}
+export interface DisplayObject {
+  id: number
+  label: string
+  primary: boolean
+  bounds: Bounds
+  scaleFactor: number
+  rotation: number
+  frequency: number
+}
+export function getAllDisplays(): Array<DisplayObject>
+export interface JsMonitorInfo {
+  electronDisplayId: number
+  label: string
+  edid?: Array<number>
+}
+export function findElectronDisplay(id: number): JsMonitorInfo | null
 export namespace log {
   export function initLogger(appData: string): string
   export function testPanic(): void

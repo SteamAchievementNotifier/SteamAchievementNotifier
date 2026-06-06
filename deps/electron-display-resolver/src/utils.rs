@@ -28,6 +28,8 @@ pub mod win32 {
 
 #[cfg(target_os="linux")]
 pub mod linux {
+    use crate::hash::super_fast_hash;
+    
     pub fn get_output_edid(conn: &x11rb::rust_connection::RustConnection,output: u32,atom: u32) -> Result<Option<Vec<u8>>,Box<dyn std::error::Error>> {
         use x11rb::protocol::randr::ConnectionExt;
     

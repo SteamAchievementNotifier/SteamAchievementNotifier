@@ -108,8 +108,7 @@ pub fn get_monitors() -> Result<Vec<MonitorInfo>,Box<dyn Error>> {
 
             let electron_display_id = chromium_display_id(LinuxMonitor {
                 edid: edid.as_deref(),
-                output_index: i as u8,
-                fallback: &format!("x11:{output_name}"),
+                output_index: i as u8
             });
 
             let label = edid.as_deref().and_then(parse_monitor_name).unwrap_or_else(|| output_name.clone());

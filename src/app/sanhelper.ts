@@ -450,8 +450,11 @@ export const sanhelper: SANHelper = {
             elem.textContent = ""
 
             const monitors = key as Monitor[]
-            let currentmonitor = monitors.find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
-            if (!currentmonitor) currentmonitor = monitors.find(monitor => monitor.id === config.get("monitor")) || monitors.find(monitor => monitor.primary)!
+            // let currentmonitor = monitors.find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
+            // if (!currentmonitor) currentmonitor = monitors.find(monitor => monitor.id === config.get("monitor")) || monitors.find(monitor => monitor.primary)!
+            
+            const currentmonitor = monitors.find(monitor => monitor.id === config.get("monitor")) || monitors.find(monitor => monitor.primary)
+            if (!currentmonitor) throw new Error(`Current monitor "id" ${config.get("monitor")} not found in "monitors" array`)
 
             for (const monitor of monitors) {
                 const opt = document.createElement("option")
@@ -467,7 +470,7 @@ export const sanhelper: SANHelper = {
                 const lbl = select.querySelector(`option[value="${id}"]`)!.textContent
 
                 config.set("monitor",id)
-                config.set("lastknownmonitorlbl",lbl)
+                // config.set("lastknownmonitorlbl",lbl)
 
                 sanhelper.devmode && ipcRenderer.send("montest",id)
             }

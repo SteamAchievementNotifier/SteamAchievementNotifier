@@ -184,8 +184,10 @@ export const screenshot = {
             if (sswin.src === -1) {
                 log.write("WARN",`"sswin.src" not found - using original "src" value (${monitorid})...`)
                 
-                const lastknownmonitor = config.get("monitors").find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
-                sswin.src = monitorid || (lastknownmonitor && lastknownmonitor.id) || config.get("monitor") || screen.getPrimaryDisplay().id
+                // const lastknownmonitor = config.get("monitors").find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
+                // sswin.src = monitorid || (lastknownmonitor && lastknownmonitor.id) || config.get("monitor") || screen.getPrimaryDisplay().id
+
+                sswin.src = monitorid || config.get("monitor") || screen.getPrimaryDisplay().id
             }
 
             sswins.set(notify.id,sswin)

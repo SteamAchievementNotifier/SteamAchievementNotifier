@@ -467,11 +467,8 @@ export const sanhelper: SANHelper = {
             elem.onchange = ({ target }: Event) => {
                 const select = target as HTMLSelectElement
                 const id = parseInt(select.value)
-                const lbl = select.querySelector(`option[value="${id}"]`)!.textContent
 
                 config.set("monitor",id)
-                // config.set("lastknownmonitorlbl",lbl)
-
                 sanhelper.devmode && ipcRenderer.send("montest",id)
             }
 

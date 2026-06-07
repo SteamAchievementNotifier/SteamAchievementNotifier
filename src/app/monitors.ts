@@ -31,9 +31,6 @@ export const monitors = {
             config.set("monitors",current)
             window.monitors = current
             
-            // const currentmonitor = current.find(monitor => monitor.id === config.get("monitor")) || current[0]
-            // !config.get("lastknownmonitorlbl") && config.set("lastknownmonitorlbl",currentmonitor.label)
-            
             monitors.refresh(config,current,previous)
             sanhelper.devmode && current.forEach(monitor => ipcRenderer.send("montest",monitor.id))
             
@@ -44,10 +41,8 @@ export const monitors = {
             return null
         }
     },
-    // getid: (config: any,current: Monitor[],previous: Monitor[],type: "id" | "themeswitch",id: number,str: string) => {
     getid: (current: Monitor[],previous: Monitor[],type: "id" | "themeswitch",id: number,str: string) => {        
         try {
-            // const match = current.find(monitor => config.get("lastknownmonitorlbl") === monitor.label) || current.find(monitor => monitor.id === id)
             const match = current.find(monitor => monitor.id === id)
 
             if (match) {
@@ -71,7 +66,7 @@ export const monitors = {
             const err = e as Error
 
             if (err.message.startsWith(`[MONERR]`)) {
-                const primarymon = current.find(monitor => monitor.primary)
+                const primarymon = type === "id" ? current.find(monitor => monitor.primary) : undefined
 
                 if (primarymon) {
                     log.write("WARN",`Monitor "id" (${id}) not found in previous "monitors" object for ${str} - resetting to primary monitor...`)
@@ -83,15 +78,12 @@ export const monitors = {
             return type === "id" ? -1 : id
         }
     },
-    // themeswitch: (config: any,themeswitch: { [key: string]: ThemeSwitch },current: Monitor[],previous: Monitor[]) => Object.fromEntries(Object.entries(themeswitch).map(([key,value]) => {
     themeswitch: (themeswitch: { [key: string]: ThemeSwitch },current: Monitor[],previous: Monitor[]) => Object.fromEntries(Object.entries(themeswitch).map(([key,value]) => {
-        // const src = monitors.getid(config,current,previous,"themeswitch",value.src,`"src" in "themeswitch" for AppID ${key}`)
         const src = monitors.getid(current,previous,"themeswitch",value.src,`"src" in "themeswitch" for AppID ${key}`)
         if (src !== value.src) return [key,{ themes: { ...value.themes }, src } as ThemeSwitch]
         return [key,value]
     })),
     refresh: (config: any,current: Monitor[],previous: Monitor[]) => {
-        // const newid = monitors.getid(config,current,previous,"id",config.get("monitor"),`"monitor" in config`)
         const newid = monitors.getid(current,previous,"id",config.get("monitor"),`"monitor" in config`)
 
         if (newid !== -1) {
@@ -109,8 +101,7 @@ export const monitors = {
 
         localStorage.setItem("monitors",JSON.stringify(current))
         log.write("INFO",`"monitors" localStorage object updated`)
-
-        // const themeswitch = monitors.themeswitch(config,JSON.parse(localStorage.getItem("themeswitch")!) as { [key: string]: ThemeSwitch },current,previous)
+        
         const themeswitch = monitors.themeswitch(JSON.parse(localStorage.getItem("themeswitch")!) as { [key: string]: ThemeSwitch },current,previous)
         localStorage.setItem("themeswitch",JSON.stringify(themeswitch))
     }

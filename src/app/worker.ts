@@ -303,8 +303,8 @@ const startsan = async (appinfo: AppInfo) => {
         
         ipcRenderer.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
             try {
-                client.screenshots.addScreenshotToLibrary(imgpath,width,height)
-                log.write("INFO",`"${imgpath}" added to Steam successfully`)
+                const handle = client.screenshots.addScreenshotToLibrary(imgpath,width,height)
+                log.write("INFO",`"${imgpath}" added to Steam successfully (handle: ${handle})`)
             } catch (err) {
                 log.write("WARN",`Unable to add media to Steam: ${(err as Error).message}`)
             }

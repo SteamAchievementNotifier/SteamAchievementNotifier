@@ -145,20 +145,20 @@ const startidle = () => {
             
             const { usesanwatcher } = sanconfig.get().store
 
-            // If `lastknowngame === null`, continue as normal, as there is no existing game data to compare to
-            // Otherwise, if the current AppID is the same as the last known one, first check if the AppID is valid
-            if (lastknowngame && appid === lastknowngame.appid) {
-                // If `installdir === null`, current AppID is invalid (i.e. a non-Steam game/application)
-                if (!lastknowngame.installdir) {
-                    if (!invalidappidlogged) {
-                        log.write("WARN",`Invalid AppID ${appid} currently active in Steam - skipping...`)
-                        invalidappidlogged = true
+            if (usesanwatcher) {
+                // If `lastknowngame === null`, continue as normal, as there is no existing game data to compare to
+                // Otherwise, if the current AppID is the same as the last known one, first check if the AppID is valid
+                if (lastknowngame && appid === lastknowngame.appid) {
+                    // If `installdir === null`, current AppID is invalid (i.e. a non-Steam game/application)
+                    if (!lastknowngame.installdir) {
+                        if (!invalidappidlogged) {
+                            log.write("WARN",`Invalid AppID ${appid} currently active in Steam - skipping...`)
+                            invalidappidlogged = true
+                        }
+                        
+                        return
                     }
-
-                    return
-                }
-
-                if (usesanwatcher) {
+                    
                     // Check whether any install dir processes are active for the current AppID
                     const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir)
                     

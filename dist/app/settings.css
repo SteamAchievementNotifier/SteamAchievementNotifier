@@ -191,7 +191,7 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime),
 .opt:has(#notifymax)[value="1"] + .wrapper:has(#notifyspace),
 .optcont:has(input#usesanwatcher:checked) > .opt:has(#maxretries),
-.optcont:has(input#usesanwatcher:checked) > .opt:has(#releasedelay,#initdelay),
+.optcont:has(input#usesanwatcher:checked) > .opt:has(#initdelay),
 .optcont:has(input#usesanwatcher:not(:checked)) > .opt:has(#releasewaittime),
 #settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#linkedgames {
     display: none;

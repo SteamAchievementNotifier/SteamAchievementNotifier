@@ -164,6 +164,7 @@ declare interface Config {
     noshortcuts: boolean,
     usesanwatcher: boolean,
     releasewaittime: number,
+    workerdebug: boolean,
     customisation: {
         main: Customisation,
         semi: Customisation,

@@ -377,6 +377,7 @@ export const sanhelper: SANHelper = {
     noshortcuts: (value: boolean) => ipcRenderer.send("shortcut",!value),
     usesanwatcher: () => ipcRenderer.send("usesanwatcher"),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
+    workerdebug: () => ipcRenderer.send("releasegame",true),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
     trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {

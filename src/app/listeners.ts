@@ -236,11 +236,12 @@ export const listeners = {
 
             log.write("INFO",`"Worker" process #${id} created`)
 
+            const config = sanconfig.get()
+            
             worker.loadFile(path.join(__root,"dist","app","worker.html"))
-            sanhelper.devmode && sanhelper.setdevtools(worker)
+            ;(sanhelper.devmode || config.get("workerdebug")) && sanhelper.setdevtools(worker)
             worker.once("closed",() => log.write("EXIT",`"Worker" process #${id} closed`))
 
-            const config = sanconfig.get()
             config.get("raemus").length && worker.webContents.send("startra")
         })
 

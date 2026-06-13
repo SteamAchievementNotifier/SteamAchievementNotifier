@@ -1836,7 +1836,8 @@ export const listeners = {
 
         ipcMain.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
             if (!fs.existsSync(imgpath)) return log.write("WARN",`Unable to add media to Steam: "${imgpath}" does not exist`)
-            worker && worker.webContents.send("addtosteam",imgpath,width,height)
+            if (!worker) return log.write("WARN",`Unable to add media to Steam: Worker process is not active`)
+            worker.webContents.send("addtosteam",imgpath,width,height)
         })
 
         ipcMain.on("gametimerwin",(event,value: boolean) => {

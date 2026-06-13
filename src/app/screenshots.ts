@@ -58,6 +58,7 @@ export const screenshot = {
     monitor: (src?: number): { monitor: Monitor | Electron.Display | null, display: Electron.Display | null } => {
         const config = sanconfig.get()
         const targetid = src && src !== -1 ? src : config.get("monitor")
+        const displays = screen.getAllDisplays()
 
         let monitor: Monitor | Electron.Display | undefined = config.get("monitors").find(monitor => monitor.id === targetid)
         
@@ -67,7 +68,30 @@ export const screenshot = {
         }
 
         log.write("INFO",`[Selected Monitor ID]:\n- ${config.get("monitor")}\n\n[Stored Monitors]:\n- ${config.get("monitors").map(monitor => monitor.id).join("\n- ")}`)
-        const display = screen.getAllDisplays().find(display => display.id === monitor!.id)
+        let display = displays.find(display => display.id === monitor!.id)
+
+        // Electron display ids can change between launches; keep the user's selected monitor if the label still matches.
+        if (!display && "label" in monitor) {
+            display = displays.find(display => display.label === monitor!.label)
+
+            if (display) {
+                log.write("WARN",`Monitor id "${monitor.id}" for "${monitor.label}" does not match the current display id "${display.id}" - using display matched by label`)
+                monitor = {
+                    ...monitor,
+                    id: display.id
+                }
+            }
+        }
+
+        // Single-display systems should not fail just because a cached id no longer matches Electron's current id.
+        if (!display && displays.length === 1) {
+            display = displays[0]
+            log.write("WARN",`No Display matches Monitor id ${monitor!.id} - using the only available display (${display.id})`)
+            monitor = {
+                ...monitor!,
+                id: display.id
+            }
+        }
 
         return { monitor: monitor || null, display: display || null }
     },
@@ -237,9 +261,25 @@ export const screenshot = {
                 thumbnailSize: bounds
             })
 
-            log.write("INFO",`[Selected ${ssmode === "window" ? "Window Title" : "Monitor ID"}]:\n- ${ssmode === "window" ? windowtitle : id}\n\n[Available ${ssmode.replace(ssmode[0],ssmode[0].toUpperCase())} Sources]:\n- ${srcs.map(src => `${ssmode === "window" ? src.name : src.display_id} (${ssmode === "window" ? `Window name: ${src.name}` : `Parsed id: ${parseInt(src.display_id)}`} | Match?: ${ssmode === "window" ? src.name === windowtitle : parseInt(src.display_id) === sswin.src})`).join("\n- ")}`)
+            const displays = screen.getAllDisplays()
+            const primary = screen.getPrimaryDisplay()
+            const matchesSource = (src: Electron.DesktopCapturerSource) => {
+                if (ssmode === "window") return src.name === windowtitle
 
-            const src = srcs.find(src => ssmode === "window" ? src.name === windowtitle : (parseInt(src.display_id) === sswin.src || screen.getPrimaryDisplay().id === sswin.src))
+                const displayid = parseInt(src.display_id)
+                return displayid === sswin.src || displayid === id || (primary.id === sswin.src && displayid === primary.id)
+            }
+
+            log.write("INFO",`[Selected ${ssmode === "window" ? "Window Title" : "Monitor ID"}]:\n- ${ssmode === "window" ? windowtitle : id}\n\n[Available ${ssmode.replace(ssmode[0],ssmode[0].toUpperCase())} Sources]:\n- ${srcs.map(src => `${ssmode === "window" ? src.name : src.display_id} (${ssmode === "window" ? `Window name: ${src.name}` : `Parsed id: ${parseInt(src.display_id)}`} | Match?: ${matchesSource(src)})`).join("\n- ")}`)
+
+            let src = srcs.find(matchesSource)
+
+            // desktopCapturer may expose a different display_id than screen.getAllDisplays() after monitor id churn.
+            if (!src && ssmode === "screen" && srcs.length === 1 && displays.length === 1) {
+                src = srcs[0]
+                log.write("WARN",`No matching Display source ID found for Monitor ${sswin.src} ("${label}") - using the only available Screen source (${src.display_id})`)
+            }
+
             if (!src) throw new Error(`Error configuring screenshot: No matching Display source ID found for Monitor ${sswin.src} ("${label}")`)
             
             fs.writeFileSync(srcpath,src.thumbnail.toPNG())

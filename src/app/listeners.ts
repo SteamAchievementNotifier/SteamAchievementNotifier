@@ -203,8 +203,11 @@ export const listeners = {
         })
 
         let worker: BrowserWindow | null = null
+        let workerid = 0
         
         ipcMain.on("createworker",(event,lastknowngame: LastKnownGame | null) => {
+            const id = ++workerid
+
             worker = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): Worker`,
                 width: 100,
@@ -231,11 +234,14 @@ export const listeners = {
                 }
             })
 
-            worker.loadFile(path.join(__root,"dist","app","worker.html"))
-            sanhelper.devmode && sanhelper.setdevtools(worker)
-            worker.once("closed",() => log.write("EXIT",`"Worker" process closed`))
+            log.write("INFO",`"Worker" process #${id} created`)
 
             const config = sanconfig.get()
+            
+            worker.loadFile(path.join(__root,"dist","app","worker.html"))
+            ;(sanhelper.devmode || config.get("workerdebug")) && sanhelper.setdevtools(worker)
+            worker.once("closed",() => log.write("EXIT",`"Worker" process #${id} closed`))
+
             config.get("raemus").length && worker.webContents.send("startra")
         })
 
@@ -261,10 +267,20 @@ export const listeners = {
             })
         }
 
+        let applaunch = true // Prevent SAN failing to start tracking for already-running games on launch
+        let workertimer: NodeJS.Timeout | null = null
+        let resetcounter = 0
+
         ipcMain.on("validateworker",async () => {
+            if (workertimer) {
+                clearInterval(workertimer)
+                workertimer = null
+            }
+
             win.webContents.send("releasing",false) // Clear "releasing" attribute
             
             const { releasedelay, usesanwatcher } = sanconfig.get().store
+            const runningappid = sanhelper.gameinfo.appid
 
             try {
                 ipcMain.emit("appid",null,{ appid: 0 })
@@ -272,10 +288,18 @@ export const listeners = {
                 const msg = await validateworker()
                 log.write("INFO",msg)
 
-                setTimeout(() => ipcMain.emit("createworker",null,lastknowngame),usesanwatcher ? 0 : releasedelay * 1000)
+                if (usesanwatcher) {
+                    if (!applaunch && !appid && runningappid) throw new Error(`Steam reports AppID ${runningappid} is still active - waiting for Steam to clear AppID (${resetcounter})s`)
+                    
+                    applaunch = false
+                    resetcounter = 0
+                }
+                
+                workertimer = setTimeout(() => ipcMain.emit("createworker",null,lastknowngame),releasedelay * 1000)
             } catch (err) {
-                log.write("WARN",err as Error)
-                setTimeout(() => ipcMain.emit("validateworker"),1000)
+                log.write("WARN",(err as Error).message || err as Error)
+                usesanwatcher && ++resetcounter
+                workertimer = setTimeout(() => ipcMain.emit("validateworker"),1000)
             }
         })
 

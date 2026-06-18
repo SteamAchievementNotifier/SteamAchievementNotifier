@@ -350,6 +350,7 @@ export const sanconfig = {
                 noshortcuts: false,
                 usesanwatcher: false,
                 releasewaittime: 5,
+                workerdebug: false,
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

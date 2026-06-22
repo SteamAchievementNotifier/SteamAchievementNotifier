@@ -25,14 +25,22 @@ export const log = {
     init: (process: "APP" | "MAIN" | "RENDERER" | "WORKER" | "ERROR") => {
         log.create(process)
 
+        // Rust-based log files must be created before game tracking starts to prevent continuous missing file error logging
+        const logfiles = [
+            "steamworks",
+            "sanwatcher"
+        ] as const
+
         if (process === "APP") {
             log.clear()
 
-            try {
-                fs.writeFileSync(path.join(sanhelper.appdata,"logs","rust.log"),"")
-                log.write("INFO",`"rust.log" created successfully`)
-            } catch (err) {
-                log.write("ERROR",`Error creating "rust.log": ${(err as Error).stack || (err as Error).message}`)
+            for (const logfile of logfiles) {
+                try {
+                    fs.writeFileSync(path.join(sanhelper.appdata,"logs",`${logfile}.log`),"")
+                    log.write("INFO",`"${logfile}.log" created successfully`)
+                } catch (err) {
+                    log.write("ERROR",`Error creating "${logfile}.log": ${(err as Error).stack || (err as Error).message}`)
+                }
             }
         } else if (process === "RENDERER") {
             const vnan = path.join(sanhelper.appdata,"..","Steam Achievement Notifier (VNaN)")

@@ -271,8 +271,8 @@ const startsan = async (appinfo: AppInfo) => {
             ipcRenderer.send(`iconpath_${achievement.apiname}`,icon)
         })
 
-        const rustlog = client.log.initLogger(path.join(sanhelper.appdata,"logs"))
-        log.write("INFO",rustlog)
+        const steamworksjslog = client.log.initLogger(path.join(sanhelper.appdata,"logs"))
+        log.write("INFO",steamworksjslog)
     
         const steam3id = client.localplayer.getSteamId().accountId
         const steam64id = client.localplayer.getSteamId().steamId64.toString().replace(/n$/,"")
@@ -345,6 +345,9 @@ const startsan = async (appinfo: AppInfo) => {
             !num && log.write("INFO",`"${gamename}" has no achievements`)
 
             if (usesanwatcher) {
+                const sanwatcherlog = sanwatcher.log.initLogger(path.join(sanhelper.appdata,"logs"))
+                log.write("INFO",sanwatcherlog)
+                
                 pids.clear() // Clear any stale PIDs in the set before tracking the current game
                 
                 sanwatcher.start(installdir,pollrate || 250,(err,event: WatchEvent) => {

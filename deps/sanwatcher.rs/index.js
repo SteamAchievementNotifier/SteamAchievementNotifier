@@ -310,8 +310,9 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { getActiveProcesses, stop, start } = nativeBinding
+const { getActiveProcesses, stop, start, log } = nativeBinding
 
 module.exports.getActiveProcesses = getActiveProcesses
 module.exports.stop = stop
 module.exports.start = start
+module.exports.log = log

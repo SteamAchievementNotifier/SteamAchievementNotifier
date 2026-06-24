@@ -1060,16 +1060,18 @@ ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
     }
 })
 
-ipcRenderer.on("noexeclick",async (event,appid: number,skipnotify?: boolean) => {
-    if (!appid) return log.write("INFO",`Failed to init Add Link dialog - AppID is 0`)
-    ipcRenderer.send("noexeclose")
+ipcRenderer.on("errnotifyclick",async (event,appid: number,{ channel, skipnotify }: ErrNotify) => {
+    if (!appid) return log.write("INFO",`Failed to init EXE Link dialog - AppID is 0`)
+    ipcRenderer.send("errnotifyclose")
 
+    if (channel === "workercrash") return ipcRenderer.send("validateworker")
+    
     dialog.open({
-        title: await language.get(skipnotify ? "autorelease" : "noexe"),
+        title: await language.get(skipnotify ? "autoreleasegame" : "noexe",skipnotify ? ["linkgame","content"] : undefined),
         type: "default",
         icon: sanhelper.setfilepath("icon",`${skipnotify ? "link" : "error"}.svg`),
         sub: [
-            ...(skipnotify ? await language.get("autoreleasesub") : await language.get("noexedialogsub")),
+            ...(skipnotify ? await language.get("autoreleasefocussub") : await language.get("noexedialogsub")),
             await language.get("linkgamehelplink")
         ],
         addHTML: `<span id="noexeclick"></span>`,
@@ -1088,11 +1090,12 @@ ipcRenderer.on("noexeclick",async (event,appid: number,skipnotify?: boolean) => 
                     count--
 
                     if (!count) {
-                        const winpath = getFocusedWinPath().replace(/\\/g,"/")
+                        let winpath = getFocusedWinPath().replace(/\\/g,"/")
+                        winpath.endsWith("electron.exe") && (winpath = "")
 
                         // Re-check `appid` is not 0 (i.e. game is still open) before writing to localStorage
                         if (!winpath || !appid) {
-                            ipcRenderer.send("noexe",true)
+                            ipcRenderer.send("errnotify",{ channel: "addlinkfailed" } as ErrNotify)
                         } else {
                             const lsobj = JSON.parse(localStorage.getItem("linkgame")!)
                             lsobj[window.appid] = winpath
@@ -1168,7 +1171,18 @@ ipcRenderer.on("creategametimerentry",async (event,appid: number) => {
     }
 })
 
-ipcRenderer.on("releasing",(event,value: boolean) => {
-    const gamedisplay = document.getElementById("game")
-    gamedisplay && gamedisplay.toggleAttribute("releasing",value)
+const events = [
+    "releasing",
+    "workercrash"
+] as const
+
+const gamedisplay = document.getElementById("game") as HTMLElement
+
+for (const event of events) {
+    ipcRenderer.on(event,(_,value) => gamedisplay.toggleAttribute(event,value))
+}
+
+ipcRenderer.on("activeprocesses",(event,appid: number,activeprocesses: boolean,linkedgame?: string) => {
+    log.write(activeprocesses ? "INFO" : "WARN",activeprocesses ? `Active ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} found for AppID ${appid}` : `Waiting for ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} for AppID ${appid} to start...`)
+    gamedisplay.toggleAttribute("waiting",!activeprocesses)
 })

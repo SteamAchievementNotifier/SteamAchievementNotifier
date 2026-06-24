@@ -193,7 +193,8 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .optcont:has(input#usesanwatcher:checked) > .opt:has(#maxretries),
 .optcont:has(input#usesanwatcher:checked) > .opt:has(#initdelay),
 .optcont:has(input#usesanwatcher:not(:checked)) > .opt:has(#releasewaittime),
-#settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#linkedgames {
+#settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#autoreleasegames,
+#settingscontent:has(input#usesanwatcher:not(:checked)) > .cont:has(.title#games) > .optcont > button#linkedgames {
     display: none;
 }
 
@@ -391,12 +392,14 @@ body[plat] .rect#sspreview {
     --icon: url("../../icon/trophy_plat.svg");
 }
 
-#linkedgames {
+#linkedgames,
+#autoreleasegames {
     --icon: url("../../icon/link.svg");
     background-color: #1e90ffb5;
 }
 
-#linkedgames:hover {
+#linkedgames:hover,
+#autoreleasegames:hover {
     background-color: #1e90ff;
 }
 
@@ -426,18 +429,10 @@ button#listmode {
     grid-row-start: 3;
 }
 
-#settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#exclusionlist {
-    grid-row-start: 2;
-}
-
 .cont:has(.title#games) > .optcont > button#listmode {
     grid-row-start: 3;
     grid-column-start: 2;
     gap: 0;
-}
-
-#settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#listmode {
-    grid-row-start: 2;
 }
 
 .cont:has(.title#games) > .optcont > button#listmode[mode="exclusion"]:hover {

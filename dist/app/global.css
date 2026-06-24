@@ -355,7 +355,6 @@ input[type="password"] {
 }
 
 .rect::before,
-.rect#game > button#link,
 #progresscircle {
     content: "";
     background: var(--icon) center / contain no-repeat;

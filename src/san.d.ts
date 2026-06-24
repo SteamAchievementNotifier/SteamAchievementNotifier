@@ -666,5 +666,12 @@ declare interface LastKnownGame {
     installdir: string | null
 }
 
+declare type ErrNotifyType = "noexe" | "addlinkfailed" | "workercrash"
+
+declare interface ErrNotify {
+    channel: ErrNotifyType
+    skipnotify?: boolean
+}
+
 declare module "simple-vdf"
 declare module "adm-zip"

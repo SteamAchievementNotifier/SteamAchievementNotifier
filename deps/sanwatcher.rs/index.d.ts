@@ -12,9 +12,9 @@ export interface ActiveProcess {
   pid: number
   exe: string
 }
-export declare function getActiveProcesses(installdir: string): Array<ActiveProcess>
+export declare function getActiveProcesses(installdir: string, linkedgame?: string | undefined | null): Array<ActiveProcess>
 export declare function stop(): void
-export declare function start(installdir: string, pollrate: number, callback: (...args: any[]) => any): void
+export declare function start(installdir: string, linkedgame: string | undefined | null, pollrate: number, callback: (...args: any[]) => any): void
 export declare namespace log {
   export function initLogger(appData: string): string
   export function testPanic(): void

@@ -218,12 +218,33 @@ body[beta] .logo::before {
     animation: release calc(var(--transition) * 2.5) linear alternate infinite;
 }
 
+.rect#game[releasing]::before {
+    animation: waiting calc(var(--transition) * 2.5) linear alternate infinite;
+}
+
 @keyframes release {
     to { color: transparent; }
 }
 
 body[noanim] .rect#game[releasing] {
     color: #808080;
+}
+
+.rect#game[workercrash]::before {
+    --icon: url("../../icon/worker_crash.svg");
+}
+
+.rect#game[workercrash] {
+    color: red;
+}
+
+body:not([noanim]) .rect#game[waiting]:not([releasing])::before {
+    --icon: url("../../icon/worker_waiting.svg");
+    animation: waiting calc(var(--transition) * 2.5) linear alternate infinite;
+}
+
+@keyframes waiting {
+    to { opacity: 0; }
 }
 
 .rect#usertheme::before {

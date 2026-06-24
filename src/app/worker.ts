@@ -49,13 +49,14 @@ const worker = {
 
         return null
     },
-    creategameinfo: (gameinfo: { gamename: string, appid: number, exepath: string, pid: number, pollrate: number },event: "started" | "exited") => [
+    creategameinfo: (gameinfo: { gamename: string, appid: number, exepath: string, pid: number, pollrate: number, linkedgame?: string },event: "started" | "exited") => [
         `Game process ${event}:`,
         `gamename: ${gameinfo.gamename}`,
         `appid: ${gameinfo.appid}`,
         `exepath: ${gameinfo.exepath}`,
         `pid: ${gameinfo.pid}`,
-        `pollrate: ${gameinfo.pollrate}ms`
+        `pollrate: ${gameinfo.pollrate}ms`,
+        `linkedgame: ${gameinfo.linkedgame || "N/A"}`
     ].join("\n- "),
     localisedobj: async (steam3id: number,achievement: Achievement) => {
         const config = sanconfig.get()
@@ -99,7 +100,8 @@ const worker = {
         )
 
         ipcRenderer.send("stats",statsobj,launch)
-    }
+    },
+    linkedgame: (appid: number) => Object.entries(JSON.parse(localStorage.getItem("linkgame")!)).find(item => parseInt(item[0]) === appid)?.[1] as string | undefined
 }
 
 // `lastknowngame` var in `listeners.ts` is passed via `BrowserWindow.webPreferences.additionalArguments`, so current AppID/last install dir can be verified before re-initialising Steamworks for the same game in `startsan()`
@@ -158,12 +160,15 @@ const startidle = () => {
                         
                         return
                     }
+
+                    const linkedgame = worker.linkedgame(appid) ?? null
                     
                     // Check whether any install dir processes are active for the current AppID
-                    const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir)
+                    const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir,linkedgame)
                     
                     // If there are no active processes in the game's install dir, this signifies Steam is currently trying to reset `RunningAppID` back to 0 in the registry
-                    if (!activeprocesses.length) {
+                    // Additionally, continue if a linked game is specified for the current AppID - even if not currently running. This prevents scenarios where no processes exist (e.g. the linked game EXE hasn't launched yet), so SAN quits the Worker process immediately and hangs due to non-zero RunningAppID
+                    if (!linkedgame && !activeprocesses.length) {
                         log.write("WARN",`No active processes within game installation directory, but Steam reports AppID ${appid} is still active - exiting "Worker" process for Steam to clear AppID ${appid}...`)
                         clearInterval(timer)
                         return ipcRenderer.send("validateworker") // In this case, destroy the active "Worker" process and allow Steam to reset
@@ -234,6 +239,7 @@ const releasegame = (timer: NodeJS.Timeout,appid: number,process: ProcessInfo) =
     workerinfo.achnum = undefined
 
     ipcRenderer.emit("gametimer")
+    ipcRenderer.send("activeprocesses",appid,true,worker.linkedgame(appid)) // Remove UI hint on release
     ipcRenderer.send("validateworker")
 }
 
@@ -281,7 +287,7 @@ const startsan = async (appinfo: AppInfo) => {
     
         const getprocessinfo = (sgpexe?: string): ProcessInfo[] => {
             const processinfo: ProcessInfo[] = []
-            const linkedgame: string | undefined = sgpexe || Object.entries(JSON.parse(localStorage.getItem("linkgame")!)).find(item => parseInt(item[0]) === appid)?.[1] as string
+            const linkedgame: string | undefined = sgpexe ?? worker.linkedgame(appid)
     
             linkedgame && log.write("INFO",`${sgpexe ? `"steam-game-path"` : "Linked Game"} executable found for AppID "${appid}": "${linkedgame}"`)
 
@@ -349,17 +355,24 @@ const startsan = async (appinfo: AppInfo) => {
                 log.write("INFO",sanwatcherlog)
                 
                 pids.clear() // Clear any stale PIDs in the set before tracking the current game
+
+                const linkedgame = worker.linkedgame(appid) ?? null
+
+                const activeprocesses = sanwatcher.getActiveProcesses(installdir,linkedgame)
+                ipcRenderer.send("activeprocesses",appid,!!activeprocesses.length,linkedgame) // Check initial active processes and send UI hint if no active game processes are detected
                 
-                sanwatcher.start(installdir,pollrate || 250,(err,event: WatchEvent) => {
+                sanwatcher.start(installdir,linkedgame,pollrate || 250,(err,event: WatchEvent) => {
                     if (err) return log.write("ERROR",err as string)
                     
                     const { started, pid, exe } = event
+                    
                     const gameinfo = {
                         gamename: gamename || "???",
                         appid,
                         exepath: exe,
                         pid,
-                        pollrate: pollrate || 250
+                        pollrate: pollrate || 250,
+                        linkedgame: linkedgame ? linkedgame.toLowerCase() : "N/A"
                     }
     
                     if (started) {
@@ -370,10 +383,13 @@ const startsan = async (appinfo: AppInfo) => {
                             
                             ipcRenderer.send("gametimer",workerinfo) // Restart Game Timer if new process is discovered
                             ipcRenderer.send("releasing",gameinfo.gamename,false) // Send IPC event to remove "releasing" attribute to Game Display in UI
+                            
                             log.write("INFO",`New game process detected for AppID ${appid} - release cancelled`)
                         }
                         
                         pids.add(pid)
+                        ipcRenderer.send("activeprocesses",appid,true,linkedgame) // Update UI hint on matching process start
+
                         return log.write("INFO",worker.creategameinfo(gameinfo,"started"))
                     }
     
@@ -393,6 +409,7 @@ const startsan = async (appinfo: AppInfo) => {
                         
                         ipcRenderer.send("gametimer",workerinfo) // Stop active Game Timer on any installdir process exit
                         ipcRenderer.send("releasing",gameinfo.gamename,true) // Send IPC event to apply "releasing" attribute to Game Display in UI
+                        
                         releasetimer = setTimeout(() => !pids.size && releasegame(timer,appid,{ pid, exe } as ProcessInfo),releasewaittime * 1000)
                     }
                 })
@@ -410,7 +427,7 @@ const startsan = async (appinfo: AppInfo) => {
                     appid: appid,
                     gamename: gamename,
                     status: "Active",
-                    processes: (usesanwatcher ? sanwatcher.getActiveProcesses(installdir) : processes).map(({ pid, exe }) => {
+                    processes: (usesanwatcher ? sanwatcher.getActiveProcesses(installdir,worker.linkedgame(appid) ?? null) : processes).map(({ pid, exe }) => {
                         return {
                             exe: exe,
                             pid: pid,
@@ -573,7 +590,7 @@ const startsan = async (appinfo: AppInfo) => {
                     // If an EXE is still not found, push an invalid process. The user will then need to manually release the game
                     if (!processes.length) {
                         log.write("WARN",`Unable to find running game process for "${gamename}": Game will not be able to quit automatically!`)
-                        ipcRenderer.send("noexe")
+                        ipcRenderer.send("errnotify",{ channel: "noexe" } as ErrNotify)
                         
                         processes.push({
                             exe: "<Unknown>",

@@ -189,7 +189,7 @@ export const screenshot = {
             sswins.set(notify.id,sswin)
 
             const { monitor } = screenshot.monitor(sswin.src)
-            if (!monitor) return log.write("ERROR",`Error configuring screenshot src: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
+            if (!monitor) return log.write("ERROR",`Error configuring screenshot src: Could not locate monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
 
             const ssmode: "screen" | "window" = !notify.ra && config.get("ssmode") === "window" && sswin.windowtitle ? "window" : "screen"
             log.write("INFO",`Using "${ssmode}" mode for Screenshot (ssmode: "${config.get("ssmode")}" | windowtitle: "${sswin.windowtitle}")`)
@@ -203,7 +203,7 @@ export const screenshot = {
                     return screenshot.clearsswin(notify.id)
                 }
 
-                return log.write("INFO",`Screenshot for Monitor ${id} ("${label}") written successfully`)
+                return log.write("INFO",`Screenshot for monitor ${id} ("${label}") written successfully`)
             })
         
             setTimeout(() => screenshot.capturesrc({ config, notify: { id: notify.id }, bounds: { width, height }, id, label, monitor, ssmode, srcpath, windowtitle: sswin.windowtitle }),delay * 1000)
@@ -237,12 +237,16 @@ export const screenshot = {
                 thumbnailSize: bounds
             })
 
+            if (!srcs.length) throw new Error(`Error configuring screenshot: No available screen sources detected`)
+
             log.write("INFO",`[Selected ${ssmode === "window" ? "Window Title" : "Monitor ID"}]:\n- ${ssmode === "window" ? windowtitle : id}\n\n[Available ${ssmode.replace(ssmode[0],ssmode[0].toUpperCase())} Sources]:\n- ${srcs.map(src => `${ssmode === "window" ? src.name : src.display_id} (${ssmode === "window" ? `Window name: ${src.name}` : `Parsed id: ${parseInt(src.display_id)}`} | Match?: ${ssmode === "window" ? src.name === windowtitle : parseInt(src.display_id) === sswin.src})`).join("\n- ")}`)
 
             const src = srcs.find(src => ssmode === "window" ? src.name === windowtitle : (parseInt(src.display_id) === sswin.src || screen.getPrimaryDisplay().id === sswin.src))
-            if (!src) throw new Error(`Error configuring screenshot: No matching Display source ID found for Monitor ${sswin.src} ("${label}")`)
+            const fbsrc = srcs[0]
             
-            fs.writeFileSync(srcpath,src.thumbnail.toPNG())
+            !src && log.write("WARN",`Error configuring screenshot: No matching display source ID found for monitor ${sswin.src} ("${label}") - using only available monitor ${fbsrc} (${fbsrc.display_id})`)
+            
+            fs.writeFileSync(srcpath,(src ?? fbsrc).thumbnail.toPNG())
         } catch (err) {
             log.write("ERROR",err as Error)
             return screenshot.clearsswin(notify.id)
@@ -408,8 +412,8 @@ export const screenshot = {
 
             const { monitor, display } = screenshot.monitor(sswin.src)
 
-            if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate Monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
-            if (!display) return log.write("ERROR",`Error configuring screenshot: No Display matches Monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
+            if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
+            if (!display) return log.write("ERROR",`Error configuring screenshot: No display matches monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
 
             const offscreenpx = 10000
 

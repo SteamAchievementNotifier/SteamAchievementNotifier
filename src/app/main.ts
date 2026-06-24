@@ -88,6 +88,11 @@ export const main = async (starttime: string) => {
             }
         })
 
+        win.webContents.once("render-process-gone",(event,{ reason, exitCode }) => {
+            log.write("ERROR",`"Renderer" process closed unexpectedly: "${reason}" (${exitCode})`)
+            ipcMain.emit("workercrash")
+        })
+
         ipcMain.on("starttime", event => event.reply("starttime",starttime))
         ipcMain.on("configupdated", (event,newobj) => config.store = newobj)
     }

@@ -139,7 +139,7 @@ export const listeners = {
                     icon: nativeImage
                         .createFromPath(path.join(__root,"icon","link.png"))
                         .resize({ width: 16 }),
-                    click: () => ipcMain.emit("noexe",null,false,true),
+                    click: () => ipcMain.emit("errnotify",null,{ channel: "noexe", skipnotify: true } as ErrNotify),
                     enabled: showautorelease,
                     visible: showautorelease
                 },
@@ -241,8 +241,18 @@ export const listeners = {
             worker.loadFile(path.join(__root,"dist","app","worker.html"))
             ;(sanhelper.devmode || config.get("workerdebug")) && sanhelper.setdevtools(worker)
             worker.once("closed",() => log.write("EXIT",`"Worker" process #${id} closed`))
+            worker.webContents.once("render-process-gone",(event,{ reason, exitCode }) => {
+                log.write("ERROR",`"Worker" process closed unexpectedly: "${reason}" (${exitCode})`)
+                ipcMain.emit("workercrash")
+            })
 
             config.get("raemus").length && worker.webContents.send("startra")
+        })
+        
+        ipcMain.on("workercrash",() => {
+            applaunch = true
+            win.webContents.send("workercrash",true)
+            ipcMain.emit("errnotify",null,{ channel: "workercrash" } as ErrNotify)
         })
 
         // Starts/stops `ratimer` in `worker.ts` based on whether any emulators are selected under Settings > RetroAchievements > Emulators
@@ -271,13 +281,20 @@ export const listeners = {
         let workertimer: NodeJS.Timeout | null = null
         let resetcounter = 0
 
+        const events = [
+            "releasing",
+            "workercrash"
+        ] as const
+
         ipcMain.on("validateworker",async () => {
             if (workertimer) {
                 clearInterval(workertimer)
                 workertimer = null
             }
 
-            win.webContents.send("releasing",false) // Clear "releasing" attribute
+            for (const event of events) {
+                win.webContents.send(event,false) // Clear Renderer UI attributes
+            }
             
             const { releasedelay, usesanwatcher } = sanconfig.get().store
             const runningappid = sanhelper.gameinfo.appid
@@ -308,25 +325,27 @@ export const listeners = {
             win.webContents.send("releasing",value)
         }) // Adds visual "releasing" hint in UI
 
-        const sendnoexeclick = (ipctype: "noexe" | "addlinkfailed",appid: number,skipnotify?: boolean) => {
+        ipcMain.on("activeprocesses",(event,appid: number,activeprocesses: boolean,linkedgame: string | null) => win.webContents.send("activeprocesses",appid,activeprocesses,linkedgame ?? undefined)) // Handles UI hint for active processes
+
+        const sendclick = (appid: number,errnotify: ErrNotify) => {
             win.show()
             win.focus()
-            win.webContents.send(`${ipctype}click`,appid,skipnotify)
+            win.webContents.send("errnotifyclick",appid,errnotify)
         }
 
-        ipcMain.on("noexe",(event,addlinkfailed?: boolean,skipnotify?: boolean) => {
-            if (skipnotify) return sendnoexeclick("noexe",appid,skipnotify)
+        ipcMain.on("errnotify",(event,errnotify: ErrNotify) => {
+            const { channel, skipnotify } = errnotify
             
+            if (skipnotify) return sendclick(appid,errnotify)
+            
+            let errnotifywin: BrowserWindow | null = null
             const config = sanconfig.get()
-            let notifywin: BrowserWindow | null = null
-            const ipctype = !addlinkfailed ? "noexe" : "addlinkfailed"
+            const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
 
             // Delay to prevent overlapping with trackwin
-            setTimeout(() => {
-                const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
-    
-                notifywin = new BrowserWindow({
-                    title: `Steam Achievement Notifier (V${sanhelper.version}): ${!addlinkfailed ? "No Game EXE" : "Add Link Failed"}`,
+            setTimeout(async () => {
+                errnotifywin = new BrowserWindow({
+                    title: `Steam Achievement Notifier (V${sanhelper.version}): ${await language.get(channel)}`,
                     width: Math.round((375 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
                     height: Math.round((112.5 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
                     autoHideMenuBar: true,
@@ -347,33 +366,33 @@ export const listeners = {
                     }
                 })
     
-                addlinkfailed && notifywin.setIgnoreMouseEvents(true)
-                notifywin.setAlwaysOnTop(true,"screen-saver")
-                sanhelper.devmode && sanhelper.setdevtools(notifywin)
-    
-                notifywin.loadFile(path.join(__root,"dist","app",`${ipctype}.html`))
-    
-                ipcMain.once(`${ipctype}ready`,async () => {
-                    if (!notifywin) return
+                channel === "addlinkfailed" && errnotifywin.setIgnoreMouseEvents(true)
+                errnotifywin.setAlwaysOnTop(true,"screen-saver")
+                sanhelper.devmode && sanhelper.setdevtools(errnotifywin)
 
-                    const { width, height } = notifywin.getBounds()
+                errnotifywin.loadFile(path.join(__root,"dist","app","errnotify.html"))
+
+                ipcMain.once("errnotifyready",async () => {
+                    if (!errnotifywin) return
+
+                    const { width, height } = errnotifywin.getBounds()
                     const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
     
-                    notifywin.webContents.send(`${ipctype}ready`,await language.get(ipctype),await language.get(`${ipctype}sub`))
-                    shownotify(notifywin,bounds,undefined,true)
+                    errnotifywin.webContents.send("errnotifyready",channel,await language.get(channel),await language.get(`${channel}sub`))
+                    shownotify(errnotifywin,bounds,undefined,true)
             
-                    return setTimeout(() => notifywin && notifywin.webContents.send(`${ipctype}close`),!addlinkfailed ? 7500 : 5000)
+                    return setTimeout(() => errnotifywin && errnotifywin.webContents.send("errnotifyclose"),channel === "addlinkfailed" ? 5000 : 7500)
                 })
     
-                ipcMain.once(`${ipctype}close`, () => {
-                    if (!notifywin) return
-
-                    notifywin.destroy()
-                    notifywin = null
+                ipcMain.once("errnotifyclose",() => {
+                    if (!errnotifywin) return
+                    
+                    errnotifywin.destroy()
+                    errnotifywin = null // Resetting to `null` on "errnotifyclose" event prevents "The object has been destroyed" error
                 })
 
-                !addlinkfailed && ipcMain.once(`${ipctype}click`,() => sendnoexeclick(ipctype,appid))
-            },config.get("nowtracking") ? 6500 : 0)
+                channel !== "addlinkfailed" && ipcMain.once("errnotifyclick",() => sendclick(appid,errnotify))
+            },config.get("nowtracking") && channel === "noexe" ? 6500 : 0)
         })
 
         // Emitted from `main.ts`

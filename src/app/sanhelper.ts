@@ -1168,14 +1168,14 @@ export const sanhelper: SANHelper = {
 
         sanhelper.loadadditionaltooltips(menutype)
     },
-    sethelpdialog: (span: HTMLSpanElement,langid: string) => span.onclick = async () => {
+    sethelpdialog: (span: HTMLSpanElement,langid: string,keys?: string[]) => span.onclick = async () => {
         const { dialog } = await import("./dialog")
 
         dialog.open({
-            title: await language.get(langid),
+            title: await language.get(langid,keys),
             type: "default",
             icon: sanhelper.setfilepath("icon","question.svg"),
-            sub: await language.get(`${langid}sub`)
+            sub: await language.get(`${langid}sub`,keys)
         })
 
         document.querySelector("dialog[default] .contentsubitem:first-child")!.setAttribute("nobefore","")

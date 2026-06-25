@@ -906,8 +906,8 @@ window.addEventListener("lang",async () => {
 
 const checkdialogstatus = (input: HTMLInputElement) => config.set(input.id,input.checked)
 
-ipcRenderer.on("releasegame", async (event,noreleasedialog: boolean) => {
-    if (noreleasedialog) return ipcRenderer.send("validateworker")
+ipcRenderer.on("releasegame",async (event,noreleasedialog: boolean) => {
+    if (noreleasedialog) return ipcRenderer.send("validateworker",true)
 
     dialog.open({
         title: await language.get("releasegame"),
@@ -921,7 +921,7 @@ ipcRenderer.on("releasegame", async (event,noreleasedialog: boolean) => {
             icon: sanhelper.setfilepath("icon","tick.svg"),
             click: () => {
                 checkdialogstatus(document.getElementById("noreleasedialog") as HTMLInputElement)
-                ipcRenderer.send("validateworker")
+                ipcRenderer.send("validateworker",true)
                 dialog.close()
             }
         }]
@@ -1061,23 +1061,28 @@ ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
 })
 
 ipcRenderer.on("errnotifyclick",async (event,appid: number,{ channel, skipnotify }: ErrNotify) => {
-    if (!appid) return log.write("INFO",`Failed to init EXE Link dialog - AppID is 0`)
+    if (!appid) return log.write("INFO",`Failed to init Link via Focus dialog - AppID is 0`)
     ipcRenderer.send("errnotifyclose")
 
     if (channel === "workercrash") return ipcRenderer.send("validateworker")
+
+    const { usesanwatcher } = config.store
+    const menutype = `${usesanwatcher ? "linked" : "autorelease"}game` as const
+    const content = ["linkgame","content"]
     
     dialog.open({
-        title: await language.get(skipnotify ? "autoreleasegame" : "noexe",skipnotify ? ["linkgame","content"] : undefined),
+        title: await language.get(skipnotify ? menutype : "noexe",content),
         type: "default",
         icon: sanhelper.setfilepath("icon",`${skipnotify ? "link" : "error"}.svg`),
         sub: [
-            ...(skipnotify ? await language.get("autoreleasefocussub") : await language.get("noexedialogsub")),
-            await language.get("linkgamehelplink")
+            await language.get(`${skipnotify ? `${menutype}focus` : "noexedialog"}sub`,content),
+            (await language.get("focussub",content) as string).replace(/\$linkgame/,await language.get(`${menutype}s`,["settings","games","content"])),
+            await language.get("linkgamehelplink",content)
         ],
         addHTML: `<span id="noexeclick"></span>`,
         buttons: [{
             id: "addlink",
-            label: await language.get("link",["linkgame","content"]),
+            label: await language.get("link",content),
             icon: sanhelper.setfilepath("icon","newlink.svg"),
             click: async () => {
                 const { getFocusedWinPath } = await import("sanhelper.rs")
@@ -1121,7 +1126,7 @@ ipcRenderer.on("errnotifyclick",async (event,appid: number,{ channel, skipnotify
         }]
     })
 
-    sanhelper.sethelpdialog(document.getElementById("linkgamehelp")!,"linkgamehelp")
+    sanhelper.sethelpdialog(document.getElementById("linkgamehelp")!,"linkgamehelp",content)
     document.querySelector(".wrapper#contentcontainer:has(#noexeclick)")!.toggleAttribute("autorelease",skipnotify)
 })
 

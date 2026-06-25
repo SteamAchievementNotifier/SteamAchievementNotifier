@@ -78,7 +78,6 @@ export const listeners = {
             tray && tray.removeAllListeners()
 
             const { usesanwatcher } = sanconfig.get().store
-            const showautorelease = !usesanwatcher && !!appid
 
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
             tray.setImage(path.join(__root,"img",`sanlogo_${releasing ? "releasing" : (num === 0 ? "inactive" : (gamename ? "active" : "idle"))}.${process.platform === "win32" ? "ico" : "png"}`))
@@ -135,13 +134,13 @@ export const listeners = {
                 },
                 // Only show this option when global `appid` var is non-zero
                 {
-                    label: await language.get("autorelease"),
+                    label: await language.get(`${usesanwatcher ? "linked" : "autorelease"}game`,["linkgame","content"]),
                     icon: nativeImage
                         .createFromPath(path.join(__root,"icon","link.png"))
                         .resize({ width: 16 }),
-                    click: () => ipcMain.emit("errnotify",null,{ channel: "noexe", skipnotify: true } as ErrNotify),
-                    enabled: showautorelease,
-                    visible: showautorelease
+                    click: () => ipcMain.emit("errnotify",null,{ channel: "noexe", skipnotify: true } as ErrNotify), // `skipnotify: true` initiates the `click()` action without showing the error notification
+                    enabled: !!appid,
+                    visible: !!appid
                 },
                 {
                     label: await language.get("replaynotify",["settings","notifications","content"]),
@@ -189,7 +188,7 @@ export const listeners = {
 
         ipcMain.on("usesanwatcher",() => {
             updatetray(tray!)
-            ipcMain.emit("validateworker")
+            ipcMain.emit("validateworker",true)
         })
 
         ipcMain.on("steamlang",() => statwin && worker && worker.webContents.send("stats"))
@@ -286,7 +285,7 @@ export const listeners = {
             "workercrash"
         ] as const
 
-        ipcMain.on("validateworker",async () => {
+        ipcMain.on("validateworker",async (event,manualrelease?: boolean) => {
             if (workertimer) {
                 clearInterval(workertimer)
                 workertimer = null
@@ -298,6 +297,8 @@ export const listeners = {
             
             const { releasedelay, usesanwatcher } = sanconfig.get().store
             const runningappid = sanhelper.gameinfo.appid
+
+            if (usesanwatcher && !applaunch && appid && manualrelease) applaunch = true // If `manualrelease` is specified, override `applaunch` flag
 
             try {
                 ipcMain.emit("appid",null,{ appid: 0 })
@@ -316,7 +317,7 @@ export const listeners = {
             } catch (err) {
                 log.write("WARN",(err as Error).message || err as Error)
                 usesanwatcher && ++resetcounter
-                workertimer = setTimeout(() => ipcMain.emit("validateworker"),1000)
+                workertimer = setTimeout(() => ipcMain.emit("validateworker",null,manualrelease),1000)
             }
         })
 
@@ -341,11 +342,12 @@ export const listeners = {
             let errnotifywin: BrowserWindow | null = null
             const config = sanconfig.get()
             const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
+            const content = channel !== "workercrash" ? ["linkgame","content"] : undefined
 
             // Delay to prevent overlapping with trackwin
             setTimeout(async () => {
                 errnotifywin = new BrowserWindow({
-                    title: `Steam Achievement Notifier (V${sanhelper.version}): ${await language.get(channel)}`,
+                    title: `Steam Achievement Notifier (V${sanhelper.version}): ${await language.get(channel,content)}`,
                     width: Math.round((375 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
                     height: Math.round((112.5 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
                     autoHideMenuBar: true,
@@ -378,20 +380,23 @@ export const listeners = {
                     const { width, height } = errnotifywin.getBounds()
                     const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
     
-                    errnotifywin.webContents.send("errnotifyready",channel,await language.get(channel),await language.get(`${channel}sub`))
+                    errnotifywin.webContents.send("errnotifyready",channel,await language.get(channel,content),await language.get(`${channel}sub`,content))
                     shownotify(errnotifywin,bounds,undefined,true)
             
                     return setTimeout(() => errnotifywin && errnotifywin.webContents.send("errnotifyclose"),channel === "addlinkfailed" ? 5000 : 7500)
                 })
+
+                const clickhandler = () => sendclick(appid,errnotify)
     
                 ipcMain.once("errnotifyclose",() => {
                     if (!errnotifywin) return
-                    
+
+                    ipcMain.removeListener("errnotifyclick",clickhandler) // If not clicked, removes previous `ipcMain.once("errnotifyclick",...)` event on close
                     errnotifywin.destroy()
                     errnotifywin = null // Resetting to `null` on "errnotifyclose" event prevents "The object has been destroyed" error
                 })
 
-                channel !== "addlinkfailed" && ipcMain.once("errnotifyclick",() => sendclick(appid,errnotify))
+                channel !== "addlinkfailed" && ipcMain.once("errnotifyclick",clickhandler)
             },config.get("nowtracking") && channel === "noexe" ? 6500 : 0)
         })
 

@@ -429,7 +429,7 @@ export const dialog = {
                         }]
                     })
     
-                    sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid")
+                    sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
                     updatetables("linkgame")
                 }
             }
@@ -452,7 +452,7 @@ export const dialog = {
                     }]
                 })
 
-                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid")
+                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
                 updatetables("exclusionlist")
             }
 
@@ -471,7 +471,7 @@ export const dialog = {
                     }]
                 })
 
-                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid")
+                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
                 updatetables("themeswitch")
             }
 

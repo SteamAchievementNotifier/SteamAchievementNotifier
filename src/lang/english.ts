@@ -61,35 +61,6 @@ export const translations = {
         resume: "Resume",
         new: "New...",
         nodata: "No Data",
-        findappid: "Find AppID",
-        findappidsub: [
-            `Each Steam game has a unique number associated with it - called an <span class="hl">AppID</span>. You can find any Steam game's associated AppID by checking one of the following:`,
-            `In the <span class="hl">Steam client</span>, <i>right-click</i> a game in your <span class="hl">Library</span> and select <i>Properties</i> > <i>Updates</i> - the AppID will be listed here`,
-            `The <span class="hl">URL</span> of the game's <span class="hl">Store page</span> - it will be the number listed after <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Websites such as <span class="hl">SteamDB</span> - the <span class="hl">App Info</span> section will list the AppID for each game`
-        ],
-        noexe: "Game EXE not found!",
-        noexesub: "Click here for more information",
-        noexedialogsub: [
-            `Steam Achievement Notifier was unable to locate the executable file for this game automatically. The location of the game's executable file is required in order to "release" the game once closed`,
-            `To manually release the game once closed, <i>right-click</i> the <span class="hl">System Tray icon</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>, or use the <span class="hl">Release Game Shortcut</span>`,
-            `Alternatively, click the <span class="hl">Add</span> button below to add any focused window's associated executable file to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>`,
-        ],
-        autoreleasefocussub: [
-            `If Steam still shows a game as <i>Playing</i> after the game window has closed, try adding a new entry to <span class="hl">Auto-Release Games</span>`,
-            `To do this for the current game, click the <span class="hl">Add</span> button below to add any focused window's associated executable file to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>What happens when I click the Add button?</u></span>`,
-        linkgamehelp: "Add Entry via Focus",
-        linkgamehelpsub: [
-            `Clicking the <span class="hl">Add</span> button will automatically add a new entry to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>, using information from the currently focused window.`,
-            `After clicking the <span class="hl">Add</span> button, a 5-second timer will begin`,
-            `Before the timer ends, focus the game window`,
-            `Once the timer has ended, a new entry for the current <span class="hl">AppID</span> will be added to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>, using the focused window's associated executable file`,
-            `New attempts will overwrite existing entries, or the entry can be removed via <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span> by clicking the <span id="linkhelpunlink"></span> button`
-        ],
-        addlinkfailed: "Unable to add window",
-        addlinkfailedsub: `Click the <span class="hl">Add</span> button to try again`,
         webhookunlockmsg: "$user unlocked an achievement",
         webhookunlockmsgplat: "$user unlocked all achievements",
         webhookingame: "in $gamename",
@@ -918,28 +889,56 @@ export const translations = {
             linkedgame: "Link Game",
             autoreleasegame: "Auto-Release Game",
             linkedgamessub: [
-                `Override all running game processes tracked automatically by <span class="hl">SANWatcher</span>, and instead, only check the running status of the specified executable file`,
-                `Add a specific game's <span class="hl">AppID</span> along with the target <span class="hl">game executable</span>, or <span class="hl">remove</span> an existing entry`
+                `Override all running game processes tracked automatically by <span class="hl">SANWatcher</span>, and instead, only check whether the selected <span class="hl">game executable</span> is currently active`,
+                `Link any game's <span class="hl">AppID</span> to a target <span class="hl">game executable</span>, or <span class="hl">remove</span> an existing link`
             ],
             autoreleasegamessub: [
                 `If Steam still shows a game as <i>Playing</i> after the game window has closed, try adding a new entry to <span class="hl">$linkgame</span>`,
                 `Add a specific game's <span class="hl">AppID</span> along with its expected <span class="hl">game executable</span>, or <span class="hl">remove</span> an existing entry`,
             ],
             managesub: [
-                `New entries can also be added by <i>right-clicking</i> the <span class="hl">System Tray icon</span> > <span class="hl">$linkgame</span> once a game has been detected`,
+                `Once a game has been detected, new entries can also be added via <span class="hl">window focus</span> by <i>right-clicking</i> the <span class="hl">System Tray icon</span> > <span class="hl">$linkgame</span>`,
                 `<span class="hl help" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
             ],
             linknew: "New Entry",
             linknewsub: [
-                `Add a new game's <span class="hl">AppID</span> along with its expected <span class="hl">game executable</span>`,
+                `Link a new game's <span class="hl">AppID</span> to a target <span class="hl">game executable</span>`,
                 `Once added, entries can be <span class="hl">removed</span> via the previous <span class="hl">$linkgame</span> menu`
             ],
             linkedit: "Edit Entry",
             linkeditsub: [
-                `Edit an existing game's <span class="hl">AppID</span> along with its expected <span class="hl">game executable</span>`,
+                `Edit an existing link between a game's <span class="hl">AppID</span> and the target <span class="hl">game executable</span>`,
                 `Once added, entries can be <span class="hl">removed</span> via the previous <span class="hl">$linkgame</span> menu`
             ],
-            link: "Add"
+            link: "Add",
+            findappid: "Find AppID",
+            findappidsub: [
+                `Each Steam game has a unique number associated with it - called an <span class="hl">AppID</span>. You can find any Steam game's associated AppID by checking one of the following:`,
+                `In the <span class="hl">Steam client</span>, <i>right-click</i> a game in your <span class="hl">Library</span> and select <i>Properties</i> > <i>Updates</i> - the AppID will be listed here`,
+                `The <span class="hl">URL</span> of the game's <span class="hl">Store page</span> - it will be the number listed after <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Websites such as <span class="hl">SteamDB</span> - the <span class="hl">App Info</span> section will list the AppID for each game`
+            ],
+            noexe: "Game EXE not found!",
+            noexesub: "Click here for more information",
+            noexedialogsub: [
+                `Steam Achievement Notifier was unable to locate the executable file for this game automatically. The location of the game's executable file is required in order to "release" the game once closed`,
+                `To manually release the game once closed, <i>right-click</i> the <span class="hl">System Tray icon</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>, or use the <span class="hl">Release Game Shortcut</span>`,
+                `Alternatively, click the <span class="hl">Add</span> button below to add any focused window's associated executable file to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>`,
+            ],
+            linkedgamefocussub: `To override all running game processes tracked automatically by <span class="hl">SANWatcher</span>, add a new entry to <span class="hl">Linked Games</span>`,
+            autoreleasegamefocussub: `If Steam still shows a game as <i>Playing</i> after the game window has closed, try adding a new entry to <span class="hl">Auto-Release Games</span>`,
+            focussub: `To do this for the current game, click the <span class="hl">Add</span> button below to add any focused window's associated executable file to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>What happens when I click the Add button?</u></span>`,
+            linkgamehelp: "Link via Focus",
+            linkgamehelpsub: [
+                `Clicking the <span class="hl">Add</span> button will automatically add a new entry to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>, using information from the currently focused window.`,
+                `After clicking the <span class="hl">Add</span> button, a 5-second timer will begin`,
+                `Before the timer ends, focus the game window`,
+                `Once the timer has ended, a new entry for the current <span class="hl">AppID</span> will be added to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>, using the focused window's associated executable file`,
+                `New attempts will overwrite existing entries, or the entry can be removed via <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span> by clicking the <span id="linkhelpunlink"></span> button`
+            ],
+            addlinkfailed: "Unable to add window",
+            addlinkfailedsub: `Click the <span class="hl">Add</span> button to try again`,
         }
     },
     exclusions: {

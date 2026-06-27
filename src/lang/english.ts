@@ -163,8 +163,8 @@ export const translations = {
         ],
         betaghreleases: "Releases",
         checkapplog: "Please check the App Log for details.",
-        workercrash: "SANWatcher has crashed!",
-        workercrashsub: "Click here to restart SANWatcher and re-attempt game tracking"
+        workercrash: "Worker has crashed!",
+        workercrashsub: "Click here to restart Worker and re-attempt game tracking"
     },
     app: {
         content: {

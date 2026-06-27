@@ -1060,12 +1060,11 @@ ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
     }
 })
 
-ipcRenderer.on("errnotifyclick",async (event,appid: number,{ channel, skipnotify }: ErrNotify) => {
-    if (!appid) return log.write("INFO",`Failed to init Link via Focus dialog - AppID is 0`)
+ipcRenderer.on("errnotifyclick",async (event,appid: number,{ channel, skipnotify }: ErrNotify,ra?: boolean) => {
     ipcRenderer.send("errnotifyclose")
-
-    if (channel === "workercrash") return ipcRenderer.send("validateworker")
-
+    
+    if (!appid || channel === "workercrash") return ipcRenderer.send(ra ? "rastop" : "validateworker",ra)
+    
     const { usesanwatcher } = config.store
     const menutype = `${usesanwatcher ? "linked" : "autorelease"}game` as const
     const content = ["linkgame","content"]
@@ -1184,7 +1183,7 @@ const events = [
 const gamedisplay = document.getElementById("game") as HTMLElement
 
 for (const event of events) {
-    ipcRenderer.on(event,(_,value) => gamedisplay.toggleAttribute(event,value))
+    ipcRenderer.on(event,(_,value: boolean) => gamedisplay.toggleAttribute(event,value))
 }
 
 ipcRenderer.on("activeprocesses",(event,appid: number,activeprocesses: boolean,linkedgame?: string) => {

@@ -642,6 +642,15 @@ declare interface ExtWinConfig {
     minHeight: number
 }
 
+declare type Platform = "steam" | "ra" | null
+
+declare interface ExtWinsPayload {
+    win: ExtWins,
+    state: Platform
+}
+
+declare type ExtWinsState = Record<ExtWins,Platform>
+
 declare interface WorkerInfo {
     appid: number,
     gamename?: string | null,

@@ -32,6 +32,7 @@ ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer:
 
     if (appid) {
         globalappid = appid
+        ipcRenderer.send("extwinsstate",{ win: "gametimer", state: ra ? "ra" : "steam" } as ExtWinsPayload)
         
         const stored = json[appid]?.elapsed ?? 0
         const { started } = runninggametimer
@@ -49,6 +50,7 @@ ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer:
     }
 
     globalappid = 0
+    ipcRenderer.send("extwinsstate",{ win: "gametimer", state: null } as ExtWinsPayload)
 
     resettimer(timerelem)
 

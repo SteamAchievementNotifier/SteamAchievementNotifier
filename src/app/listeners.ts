@@ -20,6 +20,12 @@ let replay: { queueobj: WinType, src?: number } | null = null
 const gameartfiles: string[] = []
 let emu: string | null = null
 
+const extwinsstate: ExtWinsState = {
+    ext: null,
+    stat: null,
+    gametimer: null
+}
+
 const { defaultextwins } = sanconfig
 
 export const listeners = {
@@ -183,15 +189,17 @@ export const listeners = {
 
         ipcMain.on("lang",(event,gamename: string | null,num: number) => {
             updatetray(tray!,gamename,num)
-            ;(statwin || gametimerwin) && worker && worker.webContents.send("stats")
+
+            if (!statwin) return
+
+            const workerwin = extwinsstate.stat === "ra" ? raworker : worker
+            workerwin && workerwin.webContents.send("stats")
         })
 
         ipcMain.on("usesanwatcher",() => {
             updatetray(tray!)
             ipcMain.emit("validateworker",true)
         })
-
-        ipcMain.on("steamlang",() => statwin && worker && worker.webContents.send("stats"))
 
         let lastknowngame: LastKnownGame | null = null // Updated via `worker.ts` and sent via "createworker" on each new "Worker" process spawn
 
@@ -201,14 +209,14 @@ export const listeners = {
             log.write("INFO",`Cached last known game:\n- appid: ${game.appid}\n- installdir: ${game.installdir}`)
         })
 
-        let worker: BrowserWindow | null = null
-        let workerid = 0
-        
-        ipcMain.on("createworker",(event,lastknowngame: LastKnownGame | null) => {
-            const id = ++workerid
+        const createworker = (id: number,lastknowngame: LastKnownGame | null,ra?: boolean) => {
+            const prefix = ra ? "RA" : ""
+            const args = !ra ? [
+                `--lastknowngame=${lastknowngame ? JSON.stringify(lastknowngame) : ""}` // "Worker" parses `lastknowngame` arg on spawn
+            ] : []
 
-            worker = new BrowserWindow({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): Worker`,
+            const worker = new BrowserWindow({
+                title: `Steam Achievement Notifier (V${sanhelper.version}): ${prefix}Worker`,
                 width: 100,
                 height: 100,
                 center: true,
@@ -227,46 +235,45 @@ export const listeners = {
                     nodeIntegration: true,
                     contextIsolation: false,
                     backgroundThrottling: false,
-                    additionalArguments: [
-                        `--lastknowngame=${lastknowngame ? JSON.stringify(lastknowngame) : ""}` // "Worker" parses `lastknowngame` arg on spawn
-                    ]
+                    additionalArguments: args
                 }
             })
 
-            log.write("INFO",`"Worker" process #${id} created`)
+            log.write("INFO",`"${prefix}Worker" process #${id} created`)
 
             const config = sanconfig.get()
             
-            worker.loadFile(path.join(__root,"dist","app","worker.html"))
-            ;(sanhelper.devmode || config.get("workerdebug")) && sanhelper.setdevtools(worker)
-            worker.once("closed",() => log.write("EXIT",`"Worker" process #${id} closed`))
+            worker.loadFile(path.join(__root,"dist","app",`${prefix}worker.html`))
+            ;(sanhelper.devmode || config.get(`${prefix}workerdebug`)) && sanhelper.setdevtools(worker)
+            worker.once("closed",() => log.write("EXIT",`"${prefix}Worker" process #${id} closed`))
             worker.webContents.once("render-process-gone",(event,{ reason, exitCode }) => {
-                log.write("ERROR",`"Worker" process closed unexpectedly: "${reason}" (${exitCode})`)
-                ipcMain.emit("workercrash")
+                log.write("ERROR",`"${prefix}Worker" process closed unexpectedly: "${reason}" (${exitCode})`)
+                ipcMain.emit("workercrash",null,!!ra)
             })
 
-            config.get("raemus").length && worker.webContents.send("startra")
-        })
-        
-        ipcMain.on("workercrash",() => {
-            applaunch = true
-            win.webContents.send("workercrash",true)
-            ipcMain.emit("errnotify",null,{ channel: "workercrash" } as ErrNotify)
-        })
-
-        // Starts/stops `ratimer` in `worker.ts` based on whether any emulators are selected under Settings > RetroAchievements > Emulators
-        for (const action of (["start","stop"] as const)) {
-            ipcMain.on(`ra${action}`,() => worker && worker.webContents.send(`ra${action}`))
+            return worker
         }
+
+        let worker: BrowserWindow | null = null
+        let workerid = 0
+        
+        ipcMain.on("createworker",(event,lastknowngame: LastKnownGame | null) => worker = createworker(++workerid,lastknowngame))
+        
+        ipcMain.on("workercrash",(event,ra?: boolean) => {
+            !ra && (applaunch = true)
+            win.webContents.send("workercrash",true)
+            ipcMain.emit("errnotify",null,{ channel: "workercrash" } as ErrNotify,ra)
+        })
 
         ipcMain.on("worker",(event,args) => console.log(JSON.parse(args)))
 
-        const validateworker = (): Promise<string> => {
+        const validateworker = (manualrelease?: boolean): Promise<string> => {
             return new Promise<string>((resolve,reject) => {
                 if (worker) {
                     worker.destroy()
                     worker = null
-                    reject(`Existing "Worker" process destroyed.`)
+                    manualrelease && (applaunch = true)
+                    return reject(`Existing "Worker" process destroyed`)
                 }
 
                 const gameicon = path.join(sanhelper.temp,"gameicon.png")
@@ -303,7 +310,7 @@ export const listeners = {
             try {
                 ipcMain.emit("appid",null,{ appid: 0 })
 
-                const msg = await validateworker()
+                const msg = await validateworker(manualrelease)
                 log.write("INFO",msg)
 
                 if (usesanwatcher) {
@@ -328,13 +335,43 @@ export const listeners = {
 
         ipcMain.on("activeprocesses",(event,appid: number,activeprocesses: boolean,linkedgame: string | null) => win.webContents.send("activeprocesses",appid,activeprocesses,linkedgame ?? undefined)) // Handles UI hint for active processes
 
-        const sendclick = (appid: number,errnotify: ErrNotify) => {
+        let raworker: BrowserWindow | null = null
+        let raworkerid = 0
+
+        ipcMain.on("createraworker",() => {
+            ipcMain.once("raworkerready",() => raworker && raworker.webContents.send("rastart"))
+            raworker = createworker(++raworkerid,null,true)
+        })
+
+        sanconfig.get().store.raemus.length && ipcMain.emit("createraworker")
+
+        ipcMain.on("rastart",() => {
+            if (raworker) return log.write("WARN",`"rastart" failed: "RAWorker" #${raworkerid} already active`)
+            ipcMain.emit("createraworker")
+        })
+        
+        ipcMain.on("rastop",(event,restart?: boolean) => {
+            win.webContents.send("workercrash",false) // Clear "workercrash" Renderer UI attribute
+
+            if (!raworker) {
+                log.write("WARN",`"rastop" failed: "RAWorker" not active`)
+                restart && ipcMain.emit("rastart")
+                return
+            }
+            
+            raworker.destroy()
+            raworker = null
+
+            restart && ipcMain.emit("rastart")
+        })
+        
+        const sendclick = (appid: number,errnotify: ErrNotify,ra?: boolean) => {
             win.show()
             win.focus()
-            win.webContents.send("errnotifyclick",appid,errnotify)
+            win.webContents.send("errnotifyclick",appid,errnotify,ra)
         }
 
-        ipcMain.on("errnotify",(event,errnotify: ErrNotify) => {
+        ipcMain.on("errnotify",(event,errnotify: ErrNotify,ra?: boolean) => {
             const { channel, skipnotify } = errnotify
             
             if (skipnotify) return sendclick(appid,errnotify)
@@ -379,14 +416,19 @@ export const listeners = {
 
                     const { width, height } = errnotifywin.getBounds()
                     const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
+
+                    let title = await language.get(channel, content) as string
+                    let sub = await language.get(`${channel}sub`, content) as string
+
+                    if (ra) [title,sub] = [title,sub].map(s => s.replace(/Worker/,"RAWorker"))
     
-                    errnotifywin.webContents.send("errnotifyready",channel,await language.get(channel,content),await language.get(`${channel}sub`,content))
+                    errnotifywin.webContents.send("errnotifyready",channel,title,sub)
                     shownotify(errnotifywin,bounds,undefined,true)
             
                     return setTimeout(() => errnotifywin && errnotifywin.webContents.send("errnotifyclose"),channel === "addlinkfailed" ? 5000 : 7500)
                 })
 
-                const clickhandler = () => sendclick(appid,errnotify)
+                const clickhandler = () => sendclick(appid,errnotify,ra)
     
                 ipcMain.once("errnotifyclose",() => {
                     if (!errnotifywin) return
@@ -884,6 +926,11 @@ export const listeners = {
 
         ipcMain.on("extwinshow",(event,show: boolean) => extwin && extwin.setOpacity(show ? 1 : (sanhelper.devmode ? 0.5 : 0)))
         ipcMain.on("closeextwin",() => closewin("ext"))
+        
+        ipcMain.on("extwinsstate",(event,payload: ExtWinsPayload) => {
+            const { win, state } = payload
+            extwinsstate[win] = state
+        })
 
         ipcMain.on("statwin",(event,value: boolean) => {
             if (value && statwin) return log.write("WARN",`${defaultextwins.stat.wintitle} window already active`)
@@ -895,11 +942,15 @@ export const listeners = {
             
             statwin = createextwin(config,"stat",value)
             if (!statwin) return
-
+            
             ipcMain.once("statwinready",() => {
+                if (!statwin) return
+                
                 const value = config.get("statwinaot")
-                value && statwin!.webContents.send("statwinaot",value)
-                worker && worker.webContents.send(`${gameid ? "ra" : ""}stats`,true)
+                value && statwin.webContents.send("statwinaot",value)
+                
+                const workerwin = extwinsstate.stat === "ra" ? raworker : worker
+                workerwin && workerwin.webContents.send("stats",true)
             })
 
             statwin.on("moved",() => setwinbounds(config,"stat",statwin!))
@@ -1877,9 +1928,8 @@ export const listeners = {
                 const value = config.get("gametimerwinaot")
                 value && gametimerwin!.webContents.send("gametimerwinaot",value)
 
-                if (worker) {
-                    worker.webContents.send("gametimer")
-                    worker.webContents.send("gametimer","ra")
+                for (const workerwin of [worker,raworker]) {
+                    workerwin && workerwin.webContents.send("gametimer")
                 }
             })
 

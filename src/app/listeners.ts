@@ -274,7 +274,7 @@ export const listeners = {
 
             const config = sanconfig.get()
             
-            worker.loadFile(path.join(__root,"dist","app",`${prefix}worker.html`))
+            worker.loadFile(path.join(__root,"dist","app",`${prefix}worker.html`.toLowerCase()))
             ;(sanhelper.devmode || config.get(`${prefix}workerdebug`)) && sanhelper.setdevtools(worker)
             worker.once("closed",() => log.write("EXIT",`"${prefix}Worker" process #${id} closed`))
             worker.webContents.once("render-process-gone",(event,{ reason, exitCode }) => {

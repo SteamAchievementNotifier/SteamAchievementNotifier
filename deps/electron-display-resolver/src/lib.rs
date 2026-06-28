@@ -114,14 +114,14 @@ pub fn get_monitors() -> Result<Vec<MonitorInfo>,Box<dyn Error>> {
             }
 
             let output_name = String::from_utf8_lossy(&info.name).to_string();
-            let edid = get_output_edid(&conn,output.resource_id(),atom)?;
+            let edid = get_output_edid(&conn,*output,atom)?;
 
             let electron_display_id = chromium_display_id(LinuxMonitor {
                 edid: edid.as_deref(),
                 output_index: i as u8
             });
 
-            let screenshots_displayinfo_id = output.resource_id();
+            let screenshots_displayinfo_id = output.clone();
             let label = edid.as_deref().and_then(parse_monitor_name).unwrap_or_else(|| output_name.clone());
 
             monitors.push(MonitorInfo {

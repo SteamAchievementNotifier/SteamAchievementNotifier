@@ -45,7 +45,38 @@ export const listeners = {
     set: (win: BrowserWindow): void => {
         listeners.setexit()
 
-        app.on("second-instance", () => win.show())
+        const sanhelperlog = sanhelper.initlogger(path.join(sanhelper.appdata,"logs"))
+        log.write("INFO",sanhelperlog)
+
+        ipcMain.on("resourceusage", async event => {
+            const metrics = app.getAppMetrics()
+            const { residentSet } = await process.getProcessMemoryInfo()
+
+            let cpu = 0
+
+            for (const process of metrics) {
+                cpu += process.cpu.percentCPUUsage
+            }
+
+            let totalmemMB = 0
+
+            for (const process of metrics) {
+                totalmemMB += process.memory.workingSetSize / 1024
+            }
+
+            return event.reply("resourceusage",{
+                processes: metrics.length,
+                cpupercent: parseFloat(cpu.toFixed(1)),
+                memmainMB: parseFloat((residentSet / 1024).toFixed(1)),
+                memperprocessMB: metrics.map(process => ({
+                    type: process.type,
+                    MB: parseFloat((process.memory.workingSetSize / 1024).toFixed(1))
+                })),
+                memtotalMB: parseFloat(totalmemMB.toFixed(1))
+            } as ResourceUsage)
+        })
+
+        app.on("second-instance",() => win.show())
 
         // Prevent page zoom
         win.webContents.on("before-input-event",(event,input) => ((input.code === "Minus" || input.code === "Equal") && (input.control || input.meta)) && event.preventDefault())

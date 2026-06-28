@@ -38,6 +38,7 @@ export interface DisplayObject {
 export function getAllDisplays(): Array<DisplayObject>
 export interface JsMonitorInfo {
   electronDisplayId: number
+  screenshotsDisplayinfoId: number
   label: string
   edid?: Array<number>
 }

@@ -6,7 +6,7 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getWindowBounds, findElectronDisplay } from "sanhelper.rs"
+import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getAllDisplays, getWindowBounds, findElectronDisplay } from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
@@ -127,6 +127,7 @@ export const sanhelper: SANHelper = {
     gethqicon: (appid: number = 0) => getHqIcon(appid),
     getwindowbounds: (windowtitle: string) => getWindowBounds(windowtitle),
     initlogger: (appdata: string) => initLogger(appdata),
+    getalldisplayinfo: () => getAllDisplays(),
     hdrscreenshot: (monitorid: number,sspath: string,area?: [number,number,number,number]) => hdrScreenshot(monitorid,sspath,area),
     testpanic: () => testPanic(),
     isprocessrunning: (pid: number) => {

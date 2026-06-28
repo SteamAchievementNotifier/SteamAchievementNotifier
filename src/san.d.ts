@@ -682,5 +682,16 @@ declare interface ErrNotify {
     skipnotify?: boolean
 }
 
+declare interface ResourceUsage {
+    processes: number,
+    cpupercent: number,
+    memmainMB: number,
+    memperprocessMB: {
+        type: Electron.ProcessMetric["type"],
+        MB: number
+    }[],
+    memtotalMB: number
+}
+
 declare module "simple-vdf"
 declare module "adm-zip"

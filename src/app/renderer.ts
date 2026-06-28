@@ -24,12 +24,10 @@ declare global {
         achnum?: number,
         gamename: string | null,
         update: Function,
-        availabletest: Function
+        availabletest: Function,
+        resourceusage: Function
     }
 }
-
-const sanhelperlog = sanhelper.initlogger(path.join(sanhelper.appdata,"logs"))
-log.write("INFO",sanhelperlog)
 
 log.init("RENDERER")
 dialog.init()
@@ -43,6 +41,12 @@ errorbtn.onclick = () => {
 }
 
 sanhelper.errorhandler(log)
+
+const resourceusage = () => {
+    ipcRenderer.once("resourceusage",(event,resourceusage: ResourceUsage) => console.log(resourceusage))
+    ipcRenderer.send("resourceusage")
+}
+window.resourceusage = resourceusage
 
 const gpu = () => ipcRenderer.send("gpu")
 window.gpu = gpu

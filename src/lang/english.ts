@@ -938,7 +938,7 @@ export const translations = {
                 `New attempts will overwrite existing entries, or the entry can be removed via <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span> by clicking the <span id="linkhelpunlink"></span> button`
             ],
             addlinkfailed: "Unable to add window",
-            addlinkfailedsub: `Click the <span class="hl">Add</span> button to try again`,
+            addlinkfailedsub: `Click the <span class="hl">Add</span> button to try again`
         }
     },
     exclusions: {

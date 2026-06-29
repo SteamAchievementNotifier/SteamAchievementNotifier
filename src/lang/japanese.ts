@@ -61,36 +61,6 @@ export const translations = {
         resume: "再開",
         new: "新規...",
         nodata: "データがありません",
-        findappid: "AppIDを検索",
-        findappidsub: [
-            `各Steamゲームには固有の番号があります - これを <span class="hl">AppID</span> と呼びます。任意のSteamゲームの関連するAppIDを見つけるには、次のいずれかを確認してください：`,
-            ` <span class="hl">Steamクライアント</span> で、<span class="hl">ライブラリ</span>内のゲームを右クリックし、<i>プロパティ</i> > <i>更新</i> を選択します - ここにAppIDがリストされます`,
-            `ゲームの <span class="hl">ストアページ</span> の <span class="hl">URL</span> - <span class="hl">app/</span> の後にリストされる番号です： <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `<span class="hl">SteamDB</span> のようなウェブサイト - 各ゲームのAppIDが <span class="hl">App Info</span> セクションにリストされます`
-        ],
-        noexe: "ゲームのEXEファイルが見つかりません！",
-        noexesub: "詳細についてはここをクリックしてください",
-        noexedialogsub: [
-            `Steam Achievement Notifier は、このゲームの実行ファイルを自動的に特定できませんでした。ゲームを終了後に「リリース」するには、ゲームの実行ファイルの場所が必要です`,
-            `ゲーム終了後に手動でリリースするには、<i>右クリック</i>で <span class="hl">システムトレイアイコン</span> > <span class="hl">オプション</span> > <span class="hl">ゲームをリリース</span> を選択するか、<span class="hl">ゲームをリリース ショートカット</span>を使用してください`,
-            `または、下の <span class="hl">追加</span> ボタンをクリックして、現在フォーカスされているウィンドウに関連付けられた実行ファイルを <span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動リリース ゲーム</span> に追加してください`,
-        ],
-        autorelease: "自動リリース ゲーム",
-        autoreleasesub: [
-            `ゲームウィンドウを閉じた後も Steam がゲームを <i>プレイ中</i> と表示する場合は、<span class="hl">自動リリース ゲーム</span> に新しいエントリを追加してみてください`,
-            `現在のゲームに対してこれを行うには、下の <span class="hl">追加</span> ボタンをクリックして、現在フォーカスされているウィンドウに関連付けられた実行ファイルを <span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動リリース ゲーム</span> に追加してください`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>追加 ボタンをクリックするとどうなりますか？</u></span>`,
-        linkgamehelp: "フォーカス経由でエントリを追加",
-        linkgamehelpsub: [
-            `<span class="hl">追加</span> ボタンをクリックすると、現在フォーカスされているウィンドウの情報を使用して、<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動リリース ゲーム</span> に新しいエントリが自動的に追加されます。`,
-            `<span class="hl">追加</span> ボタンをクリックすると、5 秒のタイマーが開始されます`,
-            `タイマーが終了する前に、ゲームウィンドウにフォーカスしてください`,
-            `タイマーが終了すると、現在の <span class="hl">AppID</span> に対する新しいエントリが、フォーカスされているウィンドウに関連付けられた実行ファイルを使用して <span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動リリース ゲーム</span> に追加されます`,
-            `新しい試行は既存のエントリを上書きします。または、<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動リリース ゲーム</span> から <span id="linkhelpunlink"></span> ボタンをクリックしてエントリを削除できます`
-        ],
-        addlinkfailed: "ウィンドウを追加できません",
-        addlinkfailedsub: `<span class="hl">追加</span> ボタンをクリックして再試行してください`,
         webhookunlockmsg: "$user がアチーブメントを解除しました",
         webhookunlockmsgplat: "$user がすべての実績を解除しました",
         webhookingame: "$gamename で",
@@ -192,7 +162,9 @@ export const translations = {
             "テストしていただきありがとうございます！ 💜"
         ],
         betaghreleases: "リリース",
-        checkapplog: "詳細についてはアプリのログを確認してください。"
+        checkapplog: "詳細についてはアプリのログを確認してください。",
+        workercrash: "Worker がクラッシュしました！",
+        workercrashsub: "ここをクリックして Worker を再起動し、ゲームの追跡を再試行してください"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "ゲーム",
             content: {
-                linkedgames: "自動リリース ゲーム",
+                linkedgames: "リンク済みゲーム",
+                autoreleasegames: "自動解放ゲーム",
                 themeswitch: "テーマを自動切替",
                 exclusionlist: "除外リスト",
                 inclusionlist: "インクルージョンリスト",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "このオプションによって生成された通知画像が保存される場所",
         ssenabled: "このタイプのメディア生成を有効または無効にします",
         checkforupdates: `GitHubに新しいアプリのバージョンがリリースされたか確認します。更新が利用可能な場合は、<span class="hl">更新可能</span>ダイアログを介して確認されると、自動的にダウンロードされ、インストールされます`,
-        linkedgames: `特定のSteamゲームの<span class="hl">自動プロセス追跡</span>をバイパス<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`,
+        linkedgames: `特定の Steam ゲームに対して <span class="hl">SANWatcher</span> をバイパスします<br><br><span class="ttdesc">このオプションは非常に特殊な状況でのみ使用してください。通常の利用では、このオプションを使用する必要はありません！</span>`,
+        autoreleasegames: `特定の Steam ゲームに対して <span class="hl">自動プロセス追跡</span>をバイパスします<br><br><span class="ttdesc">このオプションは非常に特殊な状況でのみ使用してください。通常の利用では、このオプションを使用する必要はありません！</span>`,
         exclusionlist: `アプリによる特定のSteamゲームの実績の追跡を防止<br><br><span class="ttdesc">このオプションは非常に特定のシナリオでのみ使用する必要があります。ユーザーは通常の状況でこのオプションを使用する必要はありません！</span>`,
         inclusionlist: `指定されていない限り、すべての Steam ゲームがアプリによって追跡されないようにします<br><br><span class="ttdesc">このオプションは非常に特定の状況でのみ使用してください。通常の状況では、このオプションを使用する必要はありません！</span>`,
         ovx: "スクリーンショットに表示される通知を水平方向にオフセットします",
@@ -911,24 +885,60 @@ export const translations = {
     },
     linkgame: {
         content: {
-            exepath: "実行可能ファイルのパス",
+            exepath: "実行ファイルのパス",
+            linkedgame: "ゲームをリンク",
+            autoreleasegame: "ゲームを自動解放",
+            linkedgamessub: [
+                `<span class="hl">SANWatcher</span> が自動追跡しているすべての実行中ゲームプロセスを上書きし、代わりに選択した<span class="hl">ゲーム実行ファイル</span>が現在アクティブかどうかのみを確認します`,
+                `ゲームの<span class="hl">AppID</span>を対象の<span class="hl">ゲーム実行ファイル</span>にリンクするか、既存のリンクを<span class="hl">削除</span>します`
+            ],
+            autoreleasegamessub: [
+                `ゲームウィンドウを閉じた後も Steam がゲームを<i>プレイ中</i>と表示し続ける場合は、<span class="hl">$linkgame</span>に新しいエントリを追加してみてください`,
+                `特定のゲームの<span class="hl">AppID</span>と対応する<span class="hl">ゲーム実行ファイル</span>を追加するか、既存のエントリを<span class="hl">削除</span>します`,
+            ],
             managesub: [
-                `ゲームウィンドウを閉じた後も Steam がゲームを <i>プレイ中</i> と表示する場合は、<span class="hl">自動リリース ゲーム</span> に新しいエントリを追加してみてください`,
-                `特定のゲームの <span class="hl">AppID</span> と、想定される <span class="hl">ゲーム実行ファイル</span> を追加するか、既存のエントリを <span class="hl">削除</span> します`,
-                `ゲームが検出された後、<span class="hl">システムトレイアイコン</span> を <i>右クリック</i> > <span class="hl">自動リリース ゲーム</span> から新しいエントリを追加することもできます`,
-                `<span class="hl help" id="appidhelp"><u>Steam ゲームの AppID はどのように確認しますか？</u></span>`
+                `ゲームが検出された後は、<span class="hl">システムトレイアイコン</span>を<i>右クリック</i>して <span class="hl">$linkgame</span> を選択し、<span class="hl">フォーカス中のウィンドウ</span>から新しいエントリを追加することもできます`,
+                `<span class="hl help" id="appidhelp"><u>Steam ゲームの AppID はどのように確認できますか？</u></span>`
             ],
             linknew: "新しいエントリ",
             linknewsub: [
-                `新しいゲームの <span class="hl">AppID</span> と、想定される <span class="hl">ゲーム実行ファイル</span> を追加します`,
-                `追加後、エントリは前の <span class="hl">自動リリース ゲーム</span> メニューから <span class="hl">削除</span> できます`
+                `新しいゲームの<span class="hl">AppID</span>を対象の<span class="hl">ゲーム実行ファイル</span>にリンクします`,
+                `追加後は、以前の<span class="hl">$linkgame</span>メニューからエントリを<span class="hl">削除</span>できます`
             ],
             linkedit: "エントリを編集",
             linkeditsub: [
-                `既存のゲームの <span class="hl">AppID</span> と、想定される <span class="hl">ゲーム実行ファイル</span> を編集します`,
-                `追加後、エントリは前の <span class="hl">自動リリース ゲーム</span> メニューから <span class="hl">削除</span> できます`
+                `ゲームの<span class="hl">AppID</span>と対象の<span class="hl">ゲーム実行ファイル</span>との既存のリンクを編集します`,
+                `追加後は、以前の<span class="hl">$linkgame</span>メニューからエントリを<span class="hl">削除</span>できます`
             ],
-            link: "追加"
+            link: "追加",
+            findappid: "AppID を検索",
+            findappidsub: [
+                `Steam の各ゲームには<span class="hl">AppID</span>と呼ばれる固有の番号が割り当てられています。Steam ゲームの AppID は次のいずれかの方法で確認できます。`,
+                `<span class="hl">Steam クライアント</span>で<span class="hl">ライブラリ</span>内のゲームを<i>右クリック</i>し、<i>プロパティ</i> > <i>アップデート</i>を選択すると、AppID が表示されます`,
+                `ゲームの<span class="hl">ストアページ</span>の<span class="hl">URL</span>では、<span class="hl">app/</span>の後にある数字が AppID です: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `<span class="hl">SteamDB</span>などの Web サイトでは、<span class="hl">App Info</span>セクションに各ゲームの AppID が表示されます`
+            ],
+            noexe: "ゲームの EXE が見つかりません！",
+            noexesub: "詳細についてはここをクリックしてください",
+            noexedialogsub: [
+                `Steam Achievement Notifier はこのゲームの実行ファイルを自動的に見つけることができませんでした。ゲーム終了後にゲームを「解放」するには、ゲーム実行ファイルの場所が必要です`,
+                `ゲーム終了後に手動で解放するには、<span class="hl">システムトレイアイコン</span>を<i>右クリック</i>し、<span class="hl">オプション</span> > <span class="hl">ゲームを解放</span>を選択するか、<span class="hl">ゲーム解放ショートカット</span>を使用してください`,
+                `または、下の<span class="hl">追加</span>ボタンをクリックして、現在フォーカス中のウィンドウに関連付けられた実行ファイルを<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動解放ゲーム</span>へ追加してください`,
+            ],
+            linkedgamefocussub: `<span class="hl">SANWatcher</span> が自動追跡しているすべての実行中ゲームプロセスを上書きするには、<span class="hl">リンク済みゲーム</span>に新しいエントリを追加してください`,
+            autoreleasegamefocussub: `ゲームウィンドウを閉じた後も Steam がゲームを<i>プレイ中</i>と表示し続ける場合は、<span class="hl">自動解放ゲーム</span>に新しいエントリを追加してみてください`,
+            focussub: `現在のゲームに対してこれを行うには、下の<span class="hl">追加</span>ボタンをクリックして、現在フォーカス中のウィンドウに関連付けられた実行ファイルを<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">$linkgame</span>へ追加してください`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>追加ボタンをクリックするとどうなりますか？</u></span>`,
+            linkgamehelp: "フォーカスからリンク",
+            linkgamehelpsub: [
+                `<span class="hl">追加</span>ボタンをクリックすると、現在フォーカス中のウィンドウの情報を使用して、<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動解放ゲーム</span>に新しいエントリが自動的に追加されます。`,
+                `<span class="hl">追加</span>ボタンをクリックすると、5 秒間のタイマーが開始されます`,
+                `タイマーが終了する前に、ゲームウィンドウをフォーカスしてください`,
+                `タイマーが終了すると、現在の<span class="hl">AppID</span>用の新しいエントリが、フォーカス中のウィンドウに関連付けられた実行ファイルを使用して<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動解放ゲーム</span>へ追加されます`,
+                `新しい試行では既存のエントリが上書きされます。または、<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動解放ゲーム</span>で<span id="linkhelpunlink"></span>ボタンをクリックしてエントリを削除できます`
+            ],
+            addlinkfailed: "ウィンドウを追加できませんでした",
+            addlinkfailedsub: `<span class="hl">追加</span>ボタンをクリックして再試行してください`
         }
     },
     exclusions: {

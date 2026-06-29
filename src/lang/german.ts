@@ -61,36 +61,6 @@ export const translations = {
         resume: "Fortsetzen",
         new: "Neu...",
         nodata: "Keine Daten",
-        findappid: "AppID finden",
-        findappidsub: [
-            `Jedes Steam-Spiel hat eine einzigartige Nummer - die <span class="hl">AppID</span>. Sie können die zugehörige AppID eines beliebigen Steam-Spiels finden, indem Sie eines der folgenden überprüfen:`,
-            `Im <span class="hl">Steam-Client</span> mit der rechten Maustaste auf ein Spiel in Ihrer <span class="hl">Bibliothek</span> klicken und <i>Eigenschaften</i> > <i>Updates</i> auswählen - die AppID wird hier aufgelistet`,
-            `Die <span class="hl">URL</span> der <span class="hl">Shop-Seite</span> des Spiels - es handelt sich um die Zahl, die nach <span class="hl">app/</span> aufgelistet ist: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Websites wie <span class="hl">SteamDB</span> - der Abschnitt <span class="hl">App-Informationen</span> listet die AppID für jedes Spiel auf`
-        ],
-        noexe: "Spiel-EXE nicht gefunden!",
-        noexesub: "Klicken Sie hier für mehr Informationen",
-        noexedialogsub: [
-            `Steam Achievement Notifier konnte die ausführbare Datei dieses Spiels nicht automatisch finden. Der Speicherort der ausführbaren Datei des Spiels ist erforderlich, um das Spiel nach dem Schließen „freizugeben“`,
-            `Um das Spiel nach dem Schließen manuell freizugeben, <i>klicken Sie mit der rechten Maustaste</i> auf das <span class="hl">System-Tray-Symbol</span> > <span class="hl">Optionen</span> > <span class="hl">Spiel freigeben</span>, oder verwenden Sie die <span class="hl">Verknüpfung zum Freigeben des Spiels</span>`,
-            `Alternativ klicken Sie unten auf die Schaltfläche <span class="hl">Hinzufügen</span>, um die mit einem fokussierten Fenster verknüpfte ausführbare Datei zu <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">Automatische Spielfreigabe</span> hinzuzufügen`,
-        ],
-        autorelease: "Automatische Spielfreigabe",
-        autoreleasesub: [
-            `Wenn Steam ein Spiel nach dem Schließen des Spielfensters weiterhin als <i>Wird gespielt</i> anzeigt, versuchen Sie, einen neuen Eintrag zu <span class="hl">Automatische Spielfreigabe</span> hinzuzufügen`,
-            `Um dies für das aktuelle Spiel zu tun, klicken Sie unten auf die Schaltfläche <span class="hl">Hinzufügen</span>, um die mit einem fokussierten Fenster verknüpfte ausführbare Datei zu <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">Automatische Spielfreigabe</span> hinzuzufügen`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Was passiert, wenn ich auf die Schaltfläche Hinzufügen klicke?</u></span>`,
-        linkgamehelp: "Eintrag per Fokus hinzufügen",
-        linkgamehelpsub: [
-            `Durch Klicken auf die Schaltfläche <span class="hl">Hinzufügen</span> wird automatisch ein neuer Eintrag zu <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">Automatische Spielfreigabe</span> hinzugefügt, basierend auf Informationen aus dem aktuell fokussierten Fenster.`,
-            `Nach dem Klicken auf die Schaltfläche <span class="hl">Hinzufügen</span> startet ein 5-Sekunden-Timer`,
-            `Bevor der Timer abläuft, fokussieren Sie das Spielfenster`,
-            `Sobald der Timer abgelaufen ist, wird ein neuer Eintrag für die aktuelle <span class="hl">AppID</span> zu <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">Automatische Spielfreigabe</span> hinzugefügt, unter Verwendung der mit dem fokussierten Fenster verknüpften ausführbaren Datei`,
-            `Neue Versuche überschreiben bestehende Einträge, oder der Eintrag kann über <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">Automatische Spielfreigabe</span> durch Klicken auf die Schaltfläche <span id="linkhelpunlink"></span> entfernt werden`
-        ],
-        addlinkfailed: "Fenster konnte nicht hinzugefügt werden",
-        addlinkfailedsub: `Klicken Sie auf die Schaltfläche <span class="hl">Hinzufügen</span>, um es erneut zu versuchen`,
         webhookunlockmsg: "$user hat einen Erfolg freigeschaltet",
         webhookunlockmsgplat: "$user hat alle Erfolge freigeschaltet",
         webhookingame: "in $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "Danke fürs Testen! 💜"
         ],
         betaghreleases: "Releases",
-        checkapplog: "Bitte prüfen Sie das App-Protokoll für weitere Details."
+        checkapplog: "Bitte prüfen Sie das App-Protokoll für weitere Details.",
+        workercrash: "Worker ist abgestürzt!",
+        workercrashsub: "Klicken Sie hier, um Worker neu zu starten und die Spielverfolgung erneut zu versuchen"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Spiele",
             content: {
-                linkedgames: "Automatische Spielfreigabe",
+                linkedgames: "Verknüpfte Spiele",
+                autoreleasegames: "Automatische Spielfreigabe",
                 themeswitch: "Automatischer Designwechsel",
                 exclusionlist: "Ausschlussliste",
                 inclusionlist: "Einschlussliste",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "Der Speicherort, an dem Benachrichtigungsbilder, die von dieser Option generiert wurden, gespeichert werden",
         ssenabled: "Aktivieren oder Deaktivieren der Medienerstellung für diesen Typ",
         checkforupdates: `Überprüfen Sie, ob eine neue App-Version auf GitHub veröffentlicht wurde. Wenn ein Update verfügbar ist, wird es automatisch heruntergeladen und installiert, sobald es über das Dialogfeld <span class="hl">Update verfügbar</span> bestätigt wurde`,
-        linkedgames: `Umgehen Sie die <span class="hl">automatische Prozess-Verfolgung</span> für bestimmte Steam-Spiele<br><br><span class="ttdesc">Diese Option sollte nur in sehr spezifischen Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`,
+        linkedgames: `Umgehen Sie <span class="hl">SANWatcher</span> für bestimmte Steam-Spiele<br><br><span class="ttdesc">Diese Option sollte nur in ganz bestimmten Fällen verwendet werden. Unter normalen Umständen sollten Benutzer diese Option nicht benötigen!</span>`,
+        autoreleasegames: `Umgehen Sie die <span class="hl">automatische Prozessverfolgung</span> für bestimmte Steam-Spiele<br><br><span class="ttdesc">Diese Option sollte nur in ganz bestimmten Fällen verwendet werden. Unter normalen Umständen sollten Benutzer diese Option nicht benötigen!</span>`,
         exclusionlist: `Verhindern Sie, dass Errungenschaften in bestimmten Steam-Spielen von der App verfolgt werden<br><br><span class="ttdesc">Diese Option sollte nur in sehr spezifischen Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`,
         inclusionlist: `Verhindert, dass alle Steam-Spiele von der App verfolgt werden, es sei denn, sie sind angegeben<br><br><span class="ttdesc">Diese Option sollte nur für sehr spezifische Szenarien verwendet werden. Benutzer sollten diese Option unter normalen Umständen nicht benötigen!</span>`,
         ovx: "Verschieben Sie die Benachrichtigung, die im Screenshot angezeigt wird, horizontal",
@@ -911,24 +885,60 @@ export const translations = {
     },
     linkgame: {
         content: {
-            exepath: "Ausführungspfad",
+            exepath: "Pfad zur ausführbaren Datei",
+            linkedgame: "Spiel verknüpfen",
+            autoreleasegame: "Spiel automatisch freigeben",
+            linkedgamessub: [
+                `Überschreiben Sie die automatische Verfolgung aller laufenden Spielprozesse durch <span class="hl">SANWatcher</span> und prüfen Sie stattdessen nur, ob die ausgewählte <span class="hl">ausführbare Spieldatei</span> derzeit aktiv ist`,
+                `Verknüpfen Sie die <span class="hl">AppID</span> eines Spiels mit einer Ziel-<span class="hl">ausführbaren Spieldatei</span> oder <span class="hl">entfernen</span> Sie eine bestehende Verknüpfung`
+            ],
+            autoreleasegamessub: [
+                `Wenn Steam ein Spiel nach dem Schließen des Spielfensters weiterhin als <i>Wird gespielt</i> anzeigt, versuchen Sie, einen neuen Eintrag zu <span class="hl">$linkgame</span> hinzuzufügen`,
+                `Fügen Sie die <span class="hl">AppID</span> eines bestimmten Spiels zusammen mit der zugehörigen <span class="hl">ausführbaren Spieldatei</span> hinzu oder <span class="hl">entfernen</span> Sie einen vorhandenen Eintrag`,
+            ],
             managesub: [
-                `Wenn Steam ein Spiel nach dem Schließen des Spielfensters weiterhin als <i>Wird gespielt</i> anzeigt, versuchen Sie, einen neuen Eintrag zu <span class="hl">Automatische Spielfreigabe</span> hinzuzufügen`,
-                `Fügen Sie die <span class="hl">AppID</span> eines bestimmten Spiels zusammen mit der erwarteten <span class="hl">ausführbaren Spieldatei</span> hinzu, oder <span class="hl">entfernen</span> Sie einen bestehenden Eintrag`,
-                `Neue Einträge können auch hinzugefügt werden, indem Sie <i>mit der rechten Maustaste klicken</i> auf das <span class="hl">System-Tray-Symbol</span> > <span class="hl">Automatische Spielfreigabe</span>, sobald ein Spiel erkannt wurde`,
+                `Sobald ein Spiel erkannt wurde, können neue Einträge auch über den <span class="hl">Fensterfokus</span> hinzugefügt werden, indem Sie mit der <i>rechten Maustaste</i> auf das <span class="hl">Symbol im Infobereich</span> klicken > <span class="hl">$linkgame</span>`,
                 `<span class="hl help" id="appidhelp"><u>Wie finde ich die AppID eines Steam-Spiels?</u></span>`
             ],
             linknew: "Neuer Eintrag",
             linknewsub: [
-                `Fügen Sie die <span class="hl">AppID</span> eines neuen Spiels zusammen mit der erwarteten <span class="hl">ausführbaren Spieldatei</span> hinzu`,
-                `Nach dem Hinzufügen können Einträge über das vorherige Menü <span class="hl">Automatische Spielfreigabe</span> <span class="hl">entfernt</span> werden`
+                `Verknüpfen Sie die <span class="hl">AppID</span> eines neuen Spiels mit einer Ziel-<span class="hl">ausführbaren Spieldatei</span>`,
+                `Nach dem Hinzufügen können Einträge über das vorherige Menü <span class="hl">$linkgame</span> <span class="hl">entfernt</span> werden`
             ],
             linkedit: "Eintrag bearbeiten",
             linkeditsub: [
-                `Bearbeiten Sie die <span class="hl">AppID</span> eines bestehenden Spiels zusammen mit der erwarteten <span class="hl">ausführbaren Spieldatei</span>`,
-                `Nach dem Hinzufügen können Einträge über das vorherige Menü <span class="hl">Automatische Spielfreigabe</span> <span class="hl">entfernt</span> werden`
+                `Bearbeiten Sie eine bestehende Verknüpfung zwischen der <span class="hl">AppID</span> eines Spiels und der Ziel-<span class="hl">ausführbaren Spieldatei</span>`,
+                `Nach dem Hinzufügen können Einträge über das vorherige Menü <span class="hl">$linkgame</span> <span class="hl">entfernt</span> werden`
             ],
-            link: "Hinzufügen"
+            link: "Hinzufügen",
+            findappid: "AppID finden",
+            findappidsub: [
+                `Jedes Steam-Spiel besitzt eine eindeutige Nummer, die <span class="hl">AppID</span> genannt wird. Sie können die AppID eines beliebigen Steam-Spiels auf eine der folgenden Arten finden:`,
+                `Klicken Sie im <span class="hl">Steam-Client</span> mit der <i>rechten Maustaste</i> auf ein Spiel in Ihrer <span class="hl">Bibliothek</span> und wählen Sie <i>Eigenschaften</i> > <i>Updates</i> – die AppID wird dort angezeigt`,
+                `In der <span class="hl">URL</span> der <span class="hl">Shopseite</span> des Spiels – es ist die Zahl nach <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Webseiten wie <span class="hl">SteamDB</span> – im Abschnitt <span class="hl">App Info</span> wird die AppID jedes Spiels aufgeführt`
+            ],
+            noexe: "Spiel-EXE nicht gefunden!",
+            noexesub: "Klicken Sie hier für weitere Informationen",
+            noexedialogsub: [
+                `Steam Achievement Notifier konnte die ausführbare Datei dieses Spiels nicht automatisch finden. Der Speicherort der ausführbaren Spieldatei wird benötigt, um das Spiel nach dem Schließen „freizugeben“`,
+                `Um das Spiel nach dem Schließen manuell freizugeben, klicken Sie mit der <i>rechten Maustaste</i> auf das <span class="hl">Symbol im Infobereich</span> > <span class="hl">Optionen</span> > <span class="hl">Spiel freigeben</span> oder verwenden Sie die <span class="hl">Tastenkombination zum Freigeben des Spiels</span>`,
+                `Alternativ können Sie unten auf die Schaltfläche <span class="hl">Hinzufügen</span> klicken, um die ausführbare Datei des aktuell fokussierten Fensters zu <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">Spiele mit automatischer Freigabe</span> hinzuzufügen`,
+            ],
+            linkedgamefocussub: `Um die automatische Verfolgung aller laufenden Spielprozesse durch <span class="hl">SANWatcher</span> zu überschreiben, fügen Sie einen neuen Eintrag zu <span class="hl">Verknüpfte Spiele</span> hinzu`,
+            autoreleasegamefocussub: `Wenn Steam ein Spiel nach dem Schließen des Spielfensters weiterhin als <i>Wird gespielt</i> anzeigt, versuchen Sie, einen neuen Eintrag zu <span class="hl">Spiele mit automatischer Freigabe</span> hinzuzufügen`,
+            focussub: `Um dies für das aktuelle Spiel zu tun, klicken Sie unten auf die Schaltfläche <span class="hl">Hinzufügen</span>, um die ausführbare Datei des aktuell fokussierten Fensters zu <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">$linkgame</span> hinzuzufügen`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Was passiert, wenn ich auf die Schaltfläche „Hinzufügen“ klicke?</u></span>`,
+            linkgamehelp: "Über Fokus verknüpfen",
+            linkgamehelpsub: [
+                `Beim Klicken auf die Schaltfläche <span class="hl">Hinzufügen</span> wird automatisch ein neuer Eintrag unter <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">Spiele mit automatischer Freigabe</span> erstellt, wobei Informationen aus dem aktuell fokussierten Fenster verwendet werden.`,
+                `Nachdem Sie auf die Schaltfläche <span class="hl">Hinzufügen</span> geklickt haben, startet ein 5-Sekunden-Timer`,
+                `Bevor der Timer abläuft, fokussieren Sie das Spielfenster`,
+                `Sobald der Timer abgelaufen ist, wird ein neuer Eintrag für die aktuelle <span class="hl">AppID</span> unter <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">Spiele mit automatischer Freigabe</span> erstellt, wobei die ausführbare Datei des fokussierten Fensters verwendet wird`,
+                `Neue Versuche überschreiben vorhandene Einträge, oder der Eintrag kann unter <span class="hl">Einstellungen</span> > <span class="hl">Spiele</span> > <span class="hl">Spiele mit automatischer Freigabe</span> durch Klicken auf die Schaltfläche <span id="linkhelpunlink"></span> entfernt werden`
+            ],
+            addlinkfailed: "Fenster konnte nicht hinzugefügt werden",
+            addlinkfailedsub: `Klicken Sie auf die Schaltfläche <span class="hl">Hinzufügen</span>, um es erneut zu versuchen`
         }
     },
     exclusions: {

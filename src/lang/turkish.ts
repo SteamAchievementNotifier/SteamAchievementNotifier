@@ -61,36 +61,6 @@ export const translations = {
         resume: "Devam et",
         new: "Yeni...",
         nodata: "Veri Yok",
-        findappid: "AppID Bul",
-        findappidsub: [
-            `Her Steam oyununun onunla ilişkili benzersiz bir numarası vardır - <span class="hl">AppID</span> olarak adlandırılır. Herhangi bir Steam oyununun ilişkili AppID'sini aşağıdakilerden birini kontrol ederek bulabilirsiniz:`,
-            `<span class="hl">Steam istemcisinde</span>, <i>Kütüphanem</i>'deki bir oyuna sağ tıklayın ve <i>Özellikler</i> > <i>Güncellemeler</i> - AppID burada listelenir`,
-            `Oyunun <span class="hl">Mağaza sayfasının URL</span>'si - <span class="hl">app/</span>'den sonraki listedir: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `<span class="hl">SteamDB</span> gibi web siteleri - <span class="hl">App Bilgisi</span> bölümü her oyun için AppID'yi listeleyecektir`
-        ],
-        noexe: "Oyunun EXE dosyası bulunamadı!",
-        noexesub: "Daha fazla bilgi için buraya tıklayın",
-        noexedialogsub: [
-            `Steam Achievement Notifier bu oyun için yürütülebilir dosyayı otomatik olarak bulamadı. Oyun kapatıldıktan sonra oyunu "serbest bırakabilmek" için oyunun yürütülebilir dosyasının konumu gereklidir`,
-            `Oyunu kapattıktan sonra manuel olarak serbest bırakmak için <span class="hl">Sistem Tepsisi simgesi</span> üzerinde <i>sağ tıklayın</i> > <span class="hl">Seçenekler</span> > <span class="hl">Oyunu Serbest Bırak</span> yolunu izleyin veya <span class="hl">Oyunu Serbest Bırak Kısayolu</span>nu kullanın`,
-            `Alternatif olarak, aşağıdaki <span class="hl">Ekle</span> düğmesine tıklayarak odaklanmış herhangi bir pencereye ait yürütülebilir dosyayı <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne ekleyebilirsiniz`,
-        ],
-        autorelease: "Oyunu Otomatik Serbest Bırak",
-        autoreleasesub: [
-            `Oyun penceresi kapatıldıktan sonra Steam hâlâ bir oyunu <i>Oynanıyor</i> olarak gösteriyorsa, <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne yeni bir giriş eklemeyi deneyin`,
-            `Bunu geçerli oyun için yapmak üzere, aşağıdaki <span class="hl">Ekle</span> düğmesine tıklayarak odaklanmış herhangi bir pencereye ait yürütülebilir dosyayı <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne ekleyin`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Ekle düğmesine tıkladığımda ne olur?</u></span>`,
-        linkgamehelp: "Odak Yoluyla Giriş Ekle",
-        linkgamehelpsub: [
-            `<span class="hl">Ekle</span> düğmesine tıklamak, odaklanmış olan pencereden alınan bilgileri kullanarak <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne otomatik olarak yeni bir giriş ekler.`,
-            `<span class="hl">Ekle</span> düğmesine tıkladıktan sonra 5 saniyelik bir zamanlayıcı başlar`,
-            `Zamanlayıcı sona ermeden önce oyun penceresine odaklanın`,
-            `Zamanlayıcı sona erdiğinde, odaklanmış pencereye ait yürütülebilir dosya kullanılarak geçerli <span class="hl">AppID</span> için <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne yeni bir giriş eklenir`,
-            `Yeni denemeler mevcut girişlerin üzerine yazar veya giriş, <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümünde <span id="linkhelpunlink"></span> düğmesine tıklanarak kaldırılabilir`
-        ],
-        addlinkfailed: "Pencere eklenemedi",
-        addlinkfailedsub: `<span class="hl">Ekle</span> düğmesine tıklayarak tekrar deneyin`,
         webhookunlockmsg: "$user bir başarıyı kilidini açtı",
         webhookunlockmsgplat: "$user tüm başarıları açtı",
         webhookingame: "$gamename'de",
@@ -192,7 +162,9 @@ export const translations = {
             "Test ettiğiniz için teşekkürler! 💜"
         ],
         betaghreleases: "Sürümler",
-        checkapplog: "Detaylar için lütfen Uygulama Günlüğünü kontrol edin."
+        checkapplog: "Detaylar için lütfen Uygulama Günlüğünü kontrol edin.",
+        workercrash: "Worker çöktü!",
+        workercrashsub: "Worker'ı yeniden başlatmak ve oyun izlemeyi tekrar denemek için buraya tıklayın"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Oyunlar",
             content: {
-                linkedgames: "Otomatik Serbest Bırakılan Oyunlar",
+                linkedgames: "Bağlı Oyunlar",
+                autoreleasegames: "Otomatik Serbest Bırakılan Oyunlar",
                 themeswitch: "Tema Değişimini Otomatik Yap",
                 exclusionlist: "Dışlama Listesi",
                 inclusionlist: "Dahil Etme Listesi",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "Bu seçenek tarafından oluşturulan bildirim görüntülerinin kaydedileceği konum",
         ssenabled: "Bu tür için medya oluşturmayı etkinleştir veya devre dışı bırak",
         checkforupdates: `GitHub'da yeni bir uygulama sürümünün yayımlanıp yayımlanmadığını kontrol edin. Bir güncelleme mevcutsa, <span class="hl">Güncelleme Mevcut</span> iletişim kutusu aracılığıyla onaylandıktan sonra otomatik olarak indirilecek ve yüklenecektir,`,
-        linkedgames: `Belirli Steam oyunları için <span class="hl">otomatik işlem takibini</span> atlayın<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`,
+        linkedgames: `Belirli Steam oyunları için <span class="hl">SANWatcher</span>'ı atla<br><br><span class="ttdesc">Bu seçenek yalnızca çok özel durumlarda kullanılmalıdır. Normal koşullarda kullanıcıların bu seçeneği kullanmasına gerek yoktur!</span>`,
+        autoreleasegames: `Belirli Steam oyunları için <span class="hl">otomatik süreç izlemeyi</span> atla<br><br><span class="ttdesc">Bu seçenek yalnızca çok özel durumlarda kullanılmalıdır. Normal koşullarda kullanıcıların bu seçeneği kullanmasına gerek yoktur!</span>`,
         exclusionlist: `Uygulamanın belirli Steam oyunlarının başarılarını izlemesini engelleyin<br><br><span class="ttdesc">Bu seçenek yalnızca çok belirli senaryolarda kullanılmalıdır. Kullanıcıların normal koşullarda bu seçeneği kullanmaları gerekmez!</span>`,
         inclusionlist: `Belirtilmedikçe tüm Steam oyunlarının uygulama tarafından izlenmesini engelle<br><br><span class="ttdesc">Bu seçenek yalnızca çok özel durumlarda kullanılmalıdır. Normal koşullarda kullanıcıların bu seçeneği kullanmasına gerek yoktur!</span>`,
         ovx: "Ekran görüntüsünde gösterilen bildirimi yatay olarak kaydırma",
@@ -911,24 +885,60 @@ export const translations = {
     },
     linkgame: {
         content: {
-            exepath: "Yürütülebilir Dosya Yolu",
+            exepath: "Çalıştırılabilir Dosya Yolu",
+            linkedgame: "Oyun Bağla",
+            autoreleasegame: "Otomatik Oyun Serbest Bırakma",
+            linkedgamessub: [
+                `<span class="hl">SANWatcher</span> tarafından otomatik olarak izlenen tüm çalışan oyun süreçlerini geçersiz kılar ve bunun yerine yalnızca seçilen <span class="hl">oyun çalıştırılabilir dosyasının</span> aktif olup olmadığını kontrol eder`,
+                `Herhangi bir oyunun <span class="hl">AppID</span>'sini hedef bir <span class="hl">oyun çalıştırılabilir dosyasına</span> bağla veya mevcut bir bağlantıyı <span class="hl">kaldır</span>`
+            ],
+            autoreleasegamessub: [
+                `Oyun penceresi kapandıktan sonra Steam hâlâ oyunu <i>Çalışıyor</i> olarak gösteriyorsa, <span class="hl">$linkgame</span> içine yeni bir giriş eklemeyi deneyin`,
+                `Belirli bir oyunun <span class="hl">AppID</span>'sini beklenen <span class="hl">oyun çalıştırılabilir dosyasıyla</span> birlikte ekleyin veya mevcut bir girişi <span class="hl">kaldırın</span>`,
+            ],
             managesub: [
-                `Oyun penceresi kapatıldıktan sonra Steam hâlâ bir oyunu <i>Oynanıyor</i> olarak gösteriyorsa, <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne yeni bir giriş eklemeyi deneyin`,
-                `Belirli bir oyunun <span class="hl">AppID</span>'sini beklenen <span class="hl">oyun yürütülebilir dosyası</span> ile birlikte ekleyin veya mevcut bir girişi <span class="hl">kaldırın</span>`,
-                `Bir oyun algılandıktan sonra, <span class="hl">Sistem Tepsisi simgesi</span> üzerinde <i>sağ tıklayarak</i> > <span class="hl">Oyunu Otomatik Serbest Bırak</span> yoluyla da yeni girişler eklenebilir`,
-                `<span class="hl help" id="appidhelp"><u>Bir Steam oyununun AppID'sini nasıl bulurum?</u></span>`
+                `Bir oyun algılandıktan sonra, yeni girişler <span class="hl">odaklanmış pencere</span> üzerinden de eklenebilir: <span class="hl">sistem tepsisi simgesine</span> sağ tıklayın > <span class="hl">$linkgame</span>`,
+                `<span class="hl help" id="appidhelp"><u>Steam oyunlarının AppID'si nasıl bulunur?</u></span>`
             ],
             linknew: "Yeni Giriş",
             linknewsub: [
-                `Yeni bir oyunun <span class="hl">AppID</span>'sini beklenen <span class="hl">oyun yürütülebilir dosyası</span> ile birlikte ekleyin`,
-                `Eklendikten sonra girişler, önceki <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> menüsü üzerinden <span class="hl">kaldırılabilir</span>`
+                `Yeni bir oyunun <span class="hl">AppID</span>'sini hedef bir <span class="hl">oyun çalıştırılabilir dosyasına</span> bağla`,
+                `Eklendikten sonra girişler önceki <span class="hl">$linkgame</span> menüsünden <span class="hl">kaldırılabilir</span>`
             ],
             linkedit: "Girişi Düzenle",
             linkeditsub: [
-                `Mevcut bir oyunun <span class="hl">AppID</span>'sini beklenen <span class="hl">oyun yürütülebilir dosyası</span> ile birlikte düzenleyin`,
-                `Eklendikten sonra girişler, önceki <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> menüsü üzerinden <span class="hl">kaldırılabilir</span>`
+                `Bir oyunun <span class="hl">AppID</span>'si ile hedef <span class="hl">oyun çalıştırılabilir dosyası</span> arasındaki mevcut bağlantıyı düzenle`,
+                `Eklendikten sonra girişler önceki <span class="hl">$linkgame</span> menüsünden <span class="hl">kaldırılabilir</span>`
             ],
-            link: "Ekle"
+            link: "Ekle",
+            findappid: "AppID Bul",
+            findappidsub: [
+                `Her Steam oyununun <span class="hl">AppID</span> adı verilen benzersiz bir numarası vardır. Herhangi bir Steam oyununun AppID'sini aşağıdaki yöntemlerden biriyle bulabilirsiniz:`,
+                `<span class="hl">Steam istemcisinde</span>, <span class="hl">Kütüphane</span>'de bir oyuna sağ tıklayın ve <i>Özellikler</i> > <i>Güncellemeler</i> seçeneğini seçin — AppID burada listelenir`,
+                `Oyunun <span class="hl">Mağaza sayfası URL'si</span> — <span class="hl">app/</span> sonrası yer alan sayı AppID'dir: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `<span class="hl">SteamDB</span> gibi web siteleri — <span class="hl">App Info</span> bölümünde her oyunun AppID'si listelenir`
+            ],
+            noexe: "Oyun EXE'si bulunamadı!",
+            noexesub: "Daha fazla bilgi için buraya tıklayın",
+            noexedialogsub: [
+                `Steam Achievement Notifier bu oyunun çalıştırılabilir dosyasını otomatik olarak bulamadı. Oyunu kapattıktan sonra "serbest bırakmak" için çalıştırılabilir dosya konumu gereklidir`,
+                `Oyunu kapattıktan sonra manuel olarak serbest bırakmak için <span class="hl">sistem tepsisi simgesine</span> sağ tıklayın > <span class="hl">Seçenekler</span> > <span class="hl">Oyunu Serbest Bırak</span> veya <span class="hl">Oyunu Serbest Bırak kısayolunu</span> kullanın`,
+                `Alternatif olarak, aşağıdaki <span class="hl">Ekle</span> düğmesine tıklayarak odaklanmış pencerenin çalıştırılabilir dosyasını <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne ekleyin`,
+            ],
+            linkedgamefocussub: `<span class="hl">SANWatcher</span> tarafından otomatik izlenen tüm oyun süreçlerini geçersiz kılmak için <span class="hl">Bağlı Oyunlar</span> içine yeni bir giriş ekleyin`,
+            autoreleasegamefocussub: `Oyun penceresi kapandıktan sonra Steam hâlâ oyunu <i>Çalışıyor</i> olarak gösteriyorsa, <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> içine yeni bir giriş eklemeyi deneyin`,
+            focussub: `Bunu mevcut oyun için yapmak istiyorsanız, aşağıdaki <span class="hl">Ekle</span> düğmesine tıklayarak odaklanmış pencerenin çalıştırılabilir dosyasını <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">$linkgame</span> bölümüne ekleyin`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Ekle düğmesine tıklayınca ne olur?</u></span>`,
+            linkgamehelp: "Odak penceresiyle bağla",
+            linkgamehelpsub: [
+                `<span class="hl">Ekle</span> düğmesine tıklandığında, odaklanmış pencere bilgileri kullanılarak otomatik olarak <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne yeni bir giriş eklenir.`,
+                `<span class="hl">Ekle</span> düğmesine tıkladıktan sonra 5 saniyelik bir geri sayım başlar`,
+                `Geri sayım bitmeden önce oyun penceresine odaklanın`,
+                `Geri sayım sona erdiğinde, mevcut <span class="hl">AppID</span> için odaklanmış pencerenin çalıştırılabilir dosyası kullanılarak <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne yeni bir giriş eklenir`,
+                `Yeni denemeler mevcut girişlerin üzerine yazılır veya giriş <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümünden <span id="linkhelpunlink"></span> düğmesine tıklanarak kaldırılabilir`
+            ],
+            addlinkfailed: "Pencere eklenemedi",
+            addlinkfailedsub: `<span class="hl">Ekle</span> düğmesine tıklayarak tekrar deneyin`
         }
     },
     exclusions: {

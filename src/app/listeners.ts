@@ -292,7 +292,7 @@ export const listeners = {
         
         ipcMain.on("workercrash",(event,ra?: boolean) => {
             !ra && (applaunch = true)
-            win.webContents.send("workercrash",true)
+            win.webContents.send("workercrash",true,ra)
             ipcMain.emit("errnotify",null,{ channel: "workercrash" } as ErrNotify,ra)
         })
 

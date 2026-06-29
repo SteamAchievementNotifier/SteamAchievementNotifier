@@ -234,7 +234,12 @@ body[noanim] .rect#game[releasing] {
     --icon: url("../../icon/worker_crash.svg");
 }
 
-.rect#game[workercrash] {
+.rect#game[raworkercrash]::before {
+    --icon: url("../../icon/ra_worker_crash.svg");
+}
+
+.rect#game[workercrash],
+.rect#game[raworkercrash] {
     color: red;
 }
 

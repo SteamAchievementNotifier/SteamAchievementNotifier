@@ -61,36 +61,6 @@ export const translations = {
         resume: "Genoptag",
         new: "Ny...",
         nodata: "Ingen data",
-        findappid: "Find AppID",
-        findappidsub: [
-            `Hvert Steam-spil har et unikt nummer knyttet til det - kaldet en <span class="hl">AppID</span>. Du kan finde et hvilket som helst Steam-spils tilknyttede AppID ved at kontrollere en af følgende:`,
-            `I <span class="hl">Steam-klienten</span>, højreklik på et spil i din <span class="hl">Bibliotek</span> og vælg <i>Egenskaber</i> > <i>Opdateringer</i> - AppID'en vil blive angivet her`,
-            `URL'en til spillets <span class="hl">Butiks side</span> - det vil være tallet efter <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Websites som <span class="hl">SteamDB</span> - sektionen <span class="hl">App Info</span> vil liste AppID for hvert spil`
-        ],
-        noexe: "Spillets EXE-fil blev ikke fundet!",
-        noexesub: "Klik her for mere information",
-        noexedialogsub: [
-            `Steam Achievement Notifier kunne ikke automatisk finde den eksekverbare fil til dette spil. Placeringen af spillets eksekverbare fil er påkrævet for at kunne "frigive" spillet, når det er lukket`,
-            `For at frigive spillet manuelt efter lukning skal du <i>højreklikke</i> på <span class="hl">System Tray-ikonet</span> > <span class="hl">Indstillinger</span> > <span class="hl">Frigiv spil</span>, eller bruge <span class="hl">Genvej til frigivelse af spil</span>`,
-            `Alternativt kan du klikke på knappen <span class="hl">Tilføj</span> nedenfor for at tilføje den eksekverbare fil, der er knyttet til et vilkårligt fokuseret vindue, til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Automatisk frigivelse af spil</span>`,
-        ],
-        autorelease: "Automatisk frigivelse af spil",
-        autoreleasesub: [
-            `Hvis Steam stadig viser et spil som <i>Spiller</i> efter spilvinduet er lukket, kan du prøve at tilføje en ny post til <span class="hl">Automatisk frigivelse af spil</span>`,
-            `For at gøre dette for det aktuelle spil skal du klikke på knappen <span class="hl">Tilføj</span> nedenfor for at tilføje den eksekverbare fil, der er knyttet til et vilkårligt fokuseret vindue, til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Automatisk frigivelse af spil</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Hvad sker der, når jeg klikker på knappen Tilføj?</u></span>`,
-        linkgamehelp: "Tilføj post via fokus",
-        linkgamehelpsub: [
-            `Når du klikker på knappen <span class="hl">Tilføj</span>, tilføjes der automatisk en ny post til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Automatisk frigivelse af spil</span> ved brug af oplysninger fra det aktuelt fokuserede vindue.`,
-            `Efter klik på knappen <span class="hl">Tilføj</span> starter en 5-sekunders timer`,
-            `Før timeren udløber, skal du sætte fokus på spilvinduet`,
-            `Når timeren er udløbet, tilføjes en ny post for det aktuelle <span class="hl">AppID</span> til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Automatisk frigivelse af spil</span> ved brug af den eksekverbare fil, der er knyttet til det fokuserede vindue`,
-            `Nye forsøg vil overskrive eksisterende poster, eller posten kan fjernes via <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Automatisk frigivelse af spil</span> ved at klikke på knappen <span id="linkhelpunlink"></span>`
-        ],
-        addlinkfailed: "Kunne ikke tilføje vinduet",
-        addlinkfailedsub: `Klik på knappen <span class="hl">Tilføj</span> for at prøve igen`,
         webhookunlockmsg: "$user låste op for en præstation",
         webhookunlockmsgplat: "$user låste op for alle præstationer",
         webhookingame: "i $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "Tak for at du testede! 💜"
         ],
         betaghreleases: "Udgivelser",
-        checkapplog: "Tjek venligst App-loggen for detaljer."
+        checkapplog: "Tjek venligst App-loggen for detaljer.",
+        workercrash: "Worker er brudt sammen!",
+        workercrashsub: "Klik her for at genstarte Worker og forsøge at spore spillet igen"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Spil",
             content: {
-                linkedgames: "Automatisk frigivelse af spil",
+                linkedgames: "Sammenkædede spil",
+                autoreleasegames: "Spil med automatisk frigivelse",
                 themeswitch: "Automatisk skift af tema",
                 exclusionlist: "Udelukkelsesliste",
                 inclusionlist: "Inklusionsliste",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "Stedet, hvor notifikationsbilleder genereret af denne indstilling vil blive gemt",
         ssenabled: "Aktiver eller deaktiver generering af medier for denne type",
         checkforupdates: `Tjek om en ny app-version er blevet udgivet på GitHub. Hvis der er en opdatering tilgængelig, vil den automatisk blive downloadet og installeret, når den er bekræftet via dialogvinduet <span class="hl">Opdatering tilgængelig</span>`,
-        linkedgames: `Omgå <span class="hl">automatisk procesregistrering</span> for specifikke Steam-spil<br><br><span class="ttdesc">Denne mulighed bør kun bruges i meget specifikke scenarier. Brugere bør ikke have brug for at bruge denne mulighed under normale omstændigheder!</span>`,
+        linkedgames: `Omgå <span class="hl">SANWatcher</span> for bestemte Steam-spil<br><br><span class="ttdesc">Denne indstilling bør kun bruges i meget specifikke situationer. Brugere bør ikke have behov for at bruge denne indstilling under normale omstændigheder!</span>`,
+        autoreleasegames: `Omgå <span class="hl">automatisk processporing</span> for bestemte Steam-spil<br><br><span class="ttdesc">Denne indstilling bør kun bruges i meget specifikke situationer. Brugere bør ikke have behov for at bruge denne indstilling under normale omstændigheder!</span>`,
         exclusionlist: `Forhindre præstationer i specifikke Steam-spil i at blive sporet af appen<br><br><span class="ttdesc">Denne mulighed bør kun bruges i meget specifikke scenarier. Brugere bør ikke have brug for at bruge denne mulighed under normale omstændigheder!</span>`,
         inclusionlist: `Forhindrer alle Steam-spil i at blive sporet af appen, medmindre de er specificeret<br><br><span class="ttdesc">Denne indstilling bør kun bruges i meget specifikke situationer. Brugere bør normalt ikke have behov for at bruge denne indstilling!</span>`,
         ovx: "Forskyd meddelelsen vist på skærmbilledet horisontalt",
@@ -912,23 +886,59 @@ export const translations = {
     linkgame: {
         content: {
             exepath: "Sti til eksekverbar fil",
+            linkedgame: "Sammenkæd spil",
+            autoreleasegame: "Automatisk frigivelse af spil",
+            linkedgamessub: [
+                `Tilsidesæt alle kørende spilprocesser, som automatisk spores af <span class="hl">SANWatcher</span>, og kontrollér i stedet kun, om den valgte <span class="hl">eksekverbare spilfil</span> er aktiv`,
+                `Sammenkæd et spils <span class="hl">AppID</span> med en bestemt <span class="hl">eksekverbar spilfil</span>, eller <span class="hl">fjern</span> en eksisterende sammenkædning`
+            ],
+            autoreleasegamessub: [
+                `Hvis Steam stadig viser et spil som <i>Spiller</i>, efter at spilvinduet er lukket, kan du prøve at tilføje en ny post til <span class="hl">$linkgame</span>`,
+                `Tilføj et bestemt spils <span class="hl">AppID</span> sammen med dets forventede <span class="hl">eksekverbare spilfil</span>, eller <span class="hl">fjern</span> en eksisterende post`,
+            ],
             managesub: [
-                `Hvis Steam stadig viser et spil som <i>Spiller</i> efter spilvinduet er lukket, kan du prøve at tilføje en ny post til <span class="hl">Automatisk frigivelse af spil</span>`,
-                `Tilføj et specifikt spils <span class="hl">AppID</span> sammen med det forventede <span class="hl">spil-eksekverbare fil</span>, eller <span class="hl">fjern</span> en eksisterende post`,
-                `Nye poster kan også tilføjes ved at <i>højreklikke</i> på <span class="hl">System Tray-ikonet</span> > <span class="hl">Automatisk frigivelse af spil</span>, når et spil er blevet registreret`,
-                `<span class="hl help" id="appidhelp"><u>Hvordan finder jeg AppID for et Steam-spil?</u></span>`
+                `Når et spil er blevet registreret, kan nye poster også tilføjes via <span class="hl">vinduesfokus</span> ved at <i>højreklikke</i> på <span class="hl">ikonet i systembakken</span> > <span class="hl">$linkgame</span>`,
+                `<span class="hl help" id="appidhelp"><u>Hvordan finder jeg et Steam-spils AppID?</u></span>`
             ],
             linknew: "Ny post",
             linknewsub: [
-                `Tilføj et nyt spils <span class="hl">AppID</span> sammen med det forventede <span class="hl">spil-eksekverbare fil</span>`,
-                `Når de er tilføjet, kan poster <span class="hl">fjernes</span> via den forrige menu <span class="hl">Automatisk frigivelse af spil</span>`
+                `Sammenkæd et nyt spils <span class="hl">AppID</span> med en bestemt <span class="hl">eksekverbar spilfil</span>`,
+                `Når poster er tilføjet, kan de <span class="hl">fjernes</span> via den tidligere menu <span class="hl">$linkgame</span>`
             ],
             linkedit: "Rediger post",
             linkeditsub: [
-                `Rediger et eksisterende spils <span class="hl">AppID</span> sammen med det forventede <span class="hl">spil-eksekverbare fil</span>`,
-                `Når de er tilføjet, kan poster <span class="hl">fjernes</span> via den forrige menu <span class="hl">Automatisk frigivelse af spil</span>`
+                `Rediger en eksisterende sammenkædning mellem et spils <span class="hl">AppID</span> og den bestemte <span class="hl">eksekverbare spilfil</span>`,
+                `Når poster er tilføjet, kan de <span class="hl">fjernes</span> via den tidligere menu <span class="hl">$linkgame</span>`
             ],
-            link: "Tilføj"
+            link: "Tilføj",
+            findappid: "Find AppID",
+            findappidsub: [
+                `Hvert Steam-spil har et unikt nummer tilknyttet, kaldet et <span class="hl">AppID</span>. Du kan finde et Steam-spils AppID på en af følgende måder:`,
+                `I <span class="hl">Steam-klienten</span> skal du <i>højreklikke</i> på et spil i dit <span class="hl">Bibliotek</span> og vælge <i>Egenskaber</i> > <i>Opdateringer</i> – AppID'et vises her`,
+                `I spillets <span class="hl">URL</span> til <span class="hl">Butikssiden</span> – det er nummeret efter <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Websteder som <span class="hl">SteamDB</span> – afsnittet <span class="hl">App Info</span> viser AppID'et for hvert spil`
+            ],
+            noexe: "Spillets EXE blev ikke fundet!",
+            noexesub: "Klik her for flere oplysninger",
+            noexedialogsub: [
+                `Steam Achievement Notifier kunne ikke automatisk finde den eksekverbare fil til dette spil. Placeringen af spillets eksekverbare fil er nødvendig for at kunne "frigive" spillet, når det er lukket`,
+                `Hvis du vil frigive spillet manuelt, når det er lukket, skal du <i>højreklikke</i> på <span class="hl">ikonet i systembakken</span> > <span class="hl">Indstillinger</span> > <span class="hl">Frigiv spil</span> eller bruge <span class="hl">Genvej til frigivelse af spil</span>`,
+                `Alternativt kan du klikke på knappen <span class="hl">Tilføj</span> nedenfor for at tilføje den eksekverbare fil, der er knyttet til det aktive vindue, til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Spil med automatisk frigivelse</span>`,
+            ],
+            linkedgamefocussub: `Hvis du vil tilsidesætte alle kørende spilprocesser, som automatisk spores af <span class="hl">SANWatcher</span>, skal du tilføje en ny post til <span class="hl">Sammenkædede spil</span>`,
+            autoreleasegamefocussub: `Hvis Steam stadig viser et spil som <i>Spiller</i>, efter at spilvinduet er lukket, kan du prøve at tilføje en ny post til <span class="hl">Spil med automatisk frigivelse</span>`,
+            focussub: `For at gøre dette for det aktuelle spil skal du klikke på knappen <span class="hl">Tilføj</span> nedenfor for at tilføje den eksekverbare fil, der er knyttet til det aktive vindue, til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Hvad sker der, når jeg klikker på knappen Tilføj?</u></span>`,
+            linkgamehelp: "Sammenkæd via fokus",
+            linkgamehelpsub: [
+                `Når du klikker på knappen <span class="hl">Tilføj</span>, tilføjes der automatisk en ny post til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Spil med automatisk frigivelse</span> ved hjælp af oplysninger fra det aktuelt aktive vindue.`,
+                `Når du har klikket på knappen <span class="hl">Tilføj</span>, starter en nedtælling på 5 sekunder`,
+                `Fokusér spilvinduet, før nedtællingen udløber`,
+                `Når nedtællingen er slut, tilføjes en ny post for det aktuelle <span class="hl">AppID</span> til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Spil med automatisk frigivelse</span> ved hjælp af den eksekverbare fil, der er knyttet til det aktive vindue`,
+                `Nye forsøg overskriver eksisterende poster, eller posten kan fjernes via <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Spil med automatisk frigivelse</span> ved at klikke på knappen <span id="linkhelpunlink"></span>`
+            ],
+            addlinkfailed: "Kunne ikke tilføje vinduet",
+            addlinkfailedsub: `Klik på knappen <span class="hl">Tilføj</span> for at prøve igen`
         }
     },
     exclusions: {

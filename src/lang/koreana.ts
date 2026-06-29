@@ -61,36 +61,6 @@ export const translations = {
         resume: "다시 시작",
         new: "새로 만들기...",
         nodata: "데이터 없음",
-        findappid: "AppID 찾기",
-        findappidsub: [
-            `모든 Steam 게임에는 고유한 번호가 있습니다. 이를 <span class="hl">AppID</span>라고 합니다. Steam 게임의 관련 AppID를 확인하려면 다음 중 하나를 확인하십시오.`,
-            `<span class="hl">Steam 클라이언트</span>에서 <span class="hl">라이브러리</span>에서 게임을 마우스 오른쪽 단추로 클릭하고 <i>속성</i> > <i>업데이트</i>를 선택합니다. 여기에 AppID가 나열됩니다`,
-            `게임의 <span class="hl">상점 페이지</span>의 <span class="hl">URL</span> - <span class="hl">app/</span> 뒤에 나열된 숫자입니다: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `<span class="hl">SteamDB</span>와 같은 웹 사이트 - <span class="hl">App Info</span> 섹션에 각 게임의 AppID가 나열됩니다`
-        ],
-        noexe: "게임 EXE 파일을 찾을 수 없습니다!",
-        noexesub: "자세한 정보를 보려면 여기를 클릭하세요",
-        noexedialogsub: [
-            `Steam Achievement Notifier가 이 게임의 실행 파일을 자동으로 찾을 수 없었습니다. 게임을 종료한 후 "릴리스"하려면 게임의 실행 파일 위치가 필요합니다`,
-            `게임 종료 후 수동으로 릴리스하려면 <i>마우스 오른쪽 버튼</i>으로 <span class="hl">시스템 트레이 아이콘</span> > <span class="hl">옵션</span> > <span class="hl">게임 릴리스</span>를 선택하거나 <span class="hl">게임 릴리스 바로가기</span>를 사용하세요`,
-            `또는 아래의 <span class="hl">추가</span> 버튼을 클릭하여 현재 포커스된 창과 연결된 실행 파일을 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 릴리스 게임</span>에 추가하세요`,
-        ],
-        autorelease: "자동 릴리스 게임",
-        autoreleasesub: [
-            `게임 창을 닫은 후에도 Steam에서 게임이 <i>플레이 중</i>으로 표시된다면 <span class="hl">자동 릴리스 게임</span>에 새 항목을 추가해 보세요`,
-            `현재 게임에 대해 이를 수행하려면 아래의 <span class="hl">추가</span> 버튼을 클릭하여 현재 포커스된 창과 연결된 실행 파일을 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 릴리스 게임</span>에 추가하세요`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>추가 버튼을 클릭하면 어떻게 되나요?</u></span>`,
-        linkgamehelp: "포커스를 통해 항목 추가",
-        linkgamehelpsub: [
-            `<span class="hl">추가</span> 버튼을 클릭하면 현재 포커스된 창의 정보를 사용하여 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 릴리스 게임</span>에 새 항목이 자동으로 추가됩니다.`,
-            `<span class="hl">추가</span> 버튼을 클릭하면 5초 타이머가 시작됩니다`,
-            `타이머가 끝나기 전에 게임 창에 포커스를 맞추세요`,
-            `타이머가 종료되면 현재 <span class="hl">AppID</span>에 대한 새 항목이 포커스된 창과 연결된 실행 파일을 사용하여 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 릴리스 게임</span>에 추가됩니다`,
-            `새 시도는 기존 항목을 덮어쓰며, 또는 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 릴리스 게임</span>에서 <span id="linkhelpunlink"></span> 버튼을 클릭하여 항목을 제거할 수 있습니다`
-        ],
-        addlinkfailed: "창을 추가할 수 없습니다",
-        addlinkfailedsub: `<span class="hl">추가</span> 버튼을 클릭하여 다시 시도하세요`,
         webhookunlockmsg: "$user가 업적을 잠금 해제했습니다",
         webhookunlockmsgplat: "$user 님이 모든 업적을 해제했습니다",
         webhookingame: "$gamename에서",
@@ -192,7 +162,9 @@ export const translations = {
             "테스트해 주셔서 감사합니다! 💜"
         ],
         betaghreleases: "릴리스",
-        checkapplog: "자세한 내용은 앱 로그를 확인하세요."
+        checkapplog: "자세한 내용은 앱 로그를 확인하세요.",
+        workercrash: "Worker가 충돌했습니다!",
+        workercrashsub: "여기를 클릭하여 Worker를 다시 시작하고 게임 추적을 다시 시도하세요"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "게임",
             content: {
-                linkedgames: "자동 릴리스 게임",
+                linkedgames: "연결된 게임",
+                autoreleasegames: "자동 해제 게임",
                 themeswitch: "테마 자동 전환",
                 exclusionlist: "제외 목록",
                 inclusionlist: "포함 목록",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "이 옵션으로 생성된 알림 이미지가 저장되는 위치",
         ssenabled: "이 유형의 미디어 생성을 활성화하거나 비활성화합니다",
         checkforupdates: `GitHub에 새 앱 버전이 출시되었는지 확인합니다. 업데이트가 가능한 경우, <span class="hl">업데이트 가능</span> 대화 상자를 통해 확인된 후 자동으로 다운로드 및 설치됩니다`,
-        linkedgames: `특정 Steam 게임의 <span class="hl">자동 프로세스 추적</span> 우회<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`,
+        linkedgames: `특정 Steam 게임에 대해 <span class="hl">SANWatcher</span>를 우회합니다<br><br><span class="ttdesc">이 옵션은 매우 특정한 상황에서만 사용해야 합니다. 일반적인 경우에는 사용할 필요가 없습니다!</span>`,
+        autoreleasegames: `특정 Steam 게임에 대해 <span class="hl">자동 프로세스 추적</span>을 우회합니다<br><br><span class="ttdesc">이 옵션은 매우 특정한 상황에서만 사용해야 합니다. 일반적인 경우에는 사용할 필요가 없습니다!</span>`,
         exclusionlist: `앱에서 특정 Steam 게임의 업적 추적 방지<br><br><span class="ttdesc">이 옵션은 매우 특정한 시나리오에서만 사용해야 합니다. 사용자는 일반적인 상황에서 이 옵션을 사용할 필요가 없습니다!</span>`,
         inclusionlist: `명시되지 않은 한, 모든 Steam 게임이 앱에 의해 추적되지 않도록 합니다<br><br><span class="ttdesc">이 옵션은 매우 특정한 상황에서만 사용해야 합니다. 일반적인 상황에서는 이 옵션을 사용할 필요가 없습니다!</span>`,
         ovx: "스크린샷에 표시된 알림을 수평으로 오프셋합니다",
@@ -912,23 +886,59 @@ export const translations = {
     linkgame: {
         content: {
             exepath: "실행 파일 경로",
+            linkedgame: "게임 연결",
+            autoreleasegame: "게임 자동 해제",
+            linkedgamessub: [
+                `<span class="hl">SANWatcher</span>가 자동으로 추적하는 모든 실행 중인 게임 프로세스를 무시하고, 대신 선택한 <span class="hl">게임 실행 파일</span>이 현재 실행 중인지 여부만 확인합니다`,
+                `게임의 <span class="hl">AppID</span>를 대상 <span class="hl">게임 실행 파일</span>에 연결하거나 기존 연결을 <span class="hl">삭제</span>합니다`
+            ],
+            autoreleasegamessub: [
+                `게임 창을 닫은 후에도 Steam에 게임이 <i>플레이 중</i>으로 표시된다면 <span class="hl">$linkgame</span>에 새 항목을 추가해 보세요`,
+                `특정 게임의 <span class="hl">AppID</span>와 해당 <span class="hl">게임 실행 파일</span>을 추가하거나 기존 항목을 <span class="hl">삭제</span>합니다`,
+            ],
             managesub: [
-                `게임 창을 닫은 후에도 Steam에서 게임이 <i>플레이 중</i>으로 표시된다면 <span class="hl">자동 릴리스 게임</span>에 새 항목을 추가해 보세요`,
-                `특정 게임의 <span class="hl">AppID</span>와 예상되는 <span class="hl">게임 실행 파일</span>을 추가하거나 기존 항목을 <span class="hl">제거</span>할 수 있습니다`,
-                `게임이 감지되면 <span class="hl">시스템 트레이 아이콘</span>을 <i>마우스 오른쪽 버튼</i>으로 클릭 > <span class="hl">자동 릴리스 게임</span>을 통해 새 항목을 추가할 수도 있습니다`,
+                `게임이 감지되면 <span class="hl">시스템 트레이 아이콘</span>을 <i>마우스 오른쪽 버튼으로 클릭</i>한 뒤 <span class="hl">$linkgame</span>을 선택하여 <span class="hl">포커스된 창</span>을 통해 새 항목을 추가할 수도 있습니다`,
                 `<span class="hl help" id="appidhelp"><u>Steam 게임의 AppID는 어떻게 찾나요?</u></span>`
             ],
             linknew: "새 항목",
             linknewsub: [
-                `새 게임의 <span class="hl">AppID</span>와 예상되는 <span class="hl">게임 실행 파일</span>을 추가합니다`,
-                `추가된 후에는 이전 <span class="hl">자동 릴리스 게임</span> 메뉴를 통해 항목을 <span class="hl">제거</span>할 수 있습니다`
+                `새 게임의 <span class="hl">AppID</span>를 대상 <span class="hl">게임 실행 파일</span>에 연결합니다`,
+                `추가한 후에는 이전 <span class="hl">$linkgame</span> 메뉴에서 항목을 <span class="hl">삭제</span>할 수 있습니다`
             ],
             linkedit: "항목 편집",
             linkeditsub: [
-                `기존 게임의 <span class="hl">AppID</span>와 예상되는 <span class="hl">게임 실행 파일</span>을 편집합니다`,
-                `추가된 후에는 이전 <span class="hl">자동 릴리스 게임</span> 메뉴를 통해 항목을 <span class="hl">제거</span>할 수 있습니다`
+                `게임의 <span class="hl">AppID</span>와 대상 <span class="hl">게임 실행 파일</span> 간의 기존 연결을 편집합니다`,
+                `추가한 후에는 이전 <span class="hl">$linkgame</span> 메뉴에서 항목을 <span class="hl">삭제</span>할 수 있습니다`
             ],
-            link: "추가"
+            link: "추가",
+            findappid: "AppID 찾기",
+            findappidsub: [
+                `모든 Steam 게임에는 <span class="hl">AppID</span>라고 하는 고유 번호가 있습니다. Steam 게임의 AppID는 다음 방법 중 하나로 확인할 수 있습니다:`,
+                `<span class="hl">Steam 클라이언트</span>에서 <span class="hl">라이브러리</span>의 게임을 <i>마우스 오른쪽 버튼으로 클릭</i>한 후 <i>속성</i> > <i>업데이트</i>를 선택하면 AppID가 표시됩니다`,
+                `게임의 <span class="hl">상점 페이지</span> <span class="hl">URL</span>에서 <span class="hl">app/</span> 뒤에 있는 숫자가 AppID입니다: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `<span class="hl">SteamDB</span>와 같은 웹사이트에서는 <span class="hl">App Info</span> 섹션에서 각 게임의 AppID를 확인할 수 있습니다`
+            ],
+            noexe: "게임 실행 파일을 찾을 수 없습니다!",
+            noexesub: "자세한 내용을 보려면 여기를 클릭하세요",
+            noexedialogsub: [
+                `Steam Achievement Notifier가 이 게임의 실행 파일을 자동으로 찾지 못했습니다. 게임이 종료된 후 게임을 "해제"하려면 게임 실행 파일의 위치가 필요합니다`,
+                `게임 종료 후 수동으로 게임을 해제하려면 <span class="hl">시스템 트레이 아이콘</span>을 <i>마우스 오른쪽 버튼으로 클릭</i>한 후 <span class="hl">옵션</span> > <span class="hl">게임 해제</span>를 선택하거나 <span class="hl">게임 해제 단축키</span>를 사용하세요`,
+                `또는 아래의 <span class="hl">추가</span> 버튼을 클릭하여 현재 포커스된 창과 연결된 실행 파일을 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 해제 게임</span>에 추가하세요`,
+            ],
+            linkedgamefocussub: `<span class="hl">SANWatcher</span>가 자동으로 추적하는 모든 실행 중인 게임 프로세스를 무시하려면 <span class="hl">연결된 게임</span>에 새 항목을 추가하세요`,
+            autoreleasegamefocussub: `게임 창을 닫은 후에도 Steam에 게임이 <i>플레이 중</i>으로 표시된다면 <span class="hl">자동 해제 게임</span>에 새 항목을 추가해 보세요`,
+            focussub: `현재 게임에 대해 이 작업을 수행하려면 아래의 <span class="hl">추가</span> 버튼을 클릭하여 현재 포커스된 창과 연결된 실행 파일을 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">$linkgame</span>에 추가하세요`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>추가 버튼을 클릭하면 어떻게 되나요?</u></span>`,
+            linkgamehelp: "포커스를 통한 연결",
+            linkgamehelpsub: [
+                `<span class="hl">추가</span> 버튼을 클릭하면 현재 포커스된 창의 정보를 사용하여 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 해제 게임</span>에 새 항목이 자동으로 추가됩니다.`,
+                `<span class="hl">추가</span> 버튼을 클릭하면 5초 타이머가 시작됩니다`,
+                `타이머가 끝나기 전에 게임 창에 포커스를 맞추세요`,
+                `타이머가 끝나면 현재 <span class="hl">AppID</span>에 대한 새 항목이 포커스된 창과 연결된 실행 파일을 사용하여 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 해제 게임</span>에 추가됩니다`,
+                `새로 시도하면 기존 항목이 덮어써지며, <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 해제 게임</span>에서 <span id="linkhelpunlink"></span> 버튼을 클릭하여 항목을 삭제할 수도 있습니다`
+            ],
+            addlinkfailed: "창을 추가할 수 없습니다",
+            addlinkfailedsub: `<span class="hl">추가</span> 버튼을 클릭하여 다시 시도하세요`
         }
     },
     exclusions: {

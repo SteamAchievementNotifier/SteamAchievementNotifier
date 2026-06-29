@@ -61,36 +61,6 @@ export const translations = {
         resume: "Folytatás",
         new: "Új...",
         nodata: "Nincsenek adatok",
-        findappid: "AppID keresése",
-        findappidsub: [
-            `Minden Steam-játékhoz egyedi szám tartozik - ezt nevezzük <span class="hl">AppID</span>-nek. Bármely Steam-játékhoz tartozó AppID-t bármelyik következő módszerrel megtalálhatja:`,
-            `A <span class="hl">Steam kliensben</span> kattintson jobb gombbal egy játékra a <span class="hl">könyvtárában</span>, majd válassza az <i>Ingatlanok</i> > <i>Frissítések</i> lehetőséget - az AppID itt lesz felsorolva`,
-            `A játék <span class="hl">Bolt oldalának URL-címe</span> - ez lesz az a szám, amely az <span class="hl">app/</span> után következik: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Olyan webhelyek, mint a <span class="hl">SteamDB</span> - az <span class="hl">App Info</span> szakasz felsorolja az AppID-t minden játékhoz`
-        ],
-        noexe: "A játék EXE fájl nem található!",
-        noexesub: "Kattints ide a további információkért",
-        noexedialogsub: [
-            `A Steam Achievement Notifier nem tudta automatikusan megtalálni ehhez a játékhoz a végrehajtható fájlt. A játék végrehajtható fájljának helye szükséges ahhoz, hogy a játék bezárása után „release” történjen`,
-            `A játék kézi release-éhez bezárás után <i>kattintson jobb gombbal</i> a <span class="hl">System Tray ikonra</span> > <span class="hl">Beállítások</span> > <span class="hl">Játék felszabadítása</span>, vagy használja a <span class="hl">Játék felszabadítása billentyűparancsot</span>`,
-            `Alternatív megoldásként kattintson az alábbi <span class="hl">Hozzáadás</span> gombra, hogy bármely fókuszban lévő ablakhoz tartozó végrehajtható fájlt hozzáadja a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikus játék release</span> menühöz`,
-        ],
-        autorelease: "Automatikus játék release",
-        autoreleasesub: [
-            `Ha a Steam továbbra is <i>Játékban</i> állapotban mutat egy játékot az ablak bezárása után, próbáljon meg egy új bejegyzést hozzáadni az <span class="hl">Automatikus játék release</span> listához`,
-            `Az aktuális játék esetén kattintson az alábbi <span class="hl">Hozzáadás</span> gombra, hogy bármely fókuszban lévő ablakhoz tartozó végrehajtható fájlt hozzáadja a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikus játék release</span> menühöz`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Mi történik, amikor a Hozzáadás gombra kattintok?</u></span>`,
-        linkgamehelp: "Bejegyzés hozzáadása fókusz alapján",
-        linkgamehelpsub: [
-            `A <span class="hl">Hozzáadás</span> gombra kattintva automatikusan létrejön egy új bejegyzés a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikus játék release</span> alatt, az aktuálisan fókuszban lévő ablak adatai alapján.`,
-            `A <span class="hl">Hozzáadás</span> gombra kattintás után egy 5 másodperces időzítő indul`,
-            `Az időzítő lejárta előtt helyezze fókuszba a játék ablakát`,
-            `Az időzítő lejárta után egy új bejegyzés kerül hozzáadásra az aktuális <span class="hl">AppID</span>-hez a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikus játék release</span> alatt, a fókuszban lévő ablakhoz tartozó végrehajtható fájl használatával`,
-            `Az új próbálkozások felülírják a meglévő bejegyzéseket, vagy a bejegyzés eltávolítható a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikus játék release</span> alatt a <span id="linkhelpunlink"></span> gombra kattintva`
-        ],
-        addlinkfailed: "Az ablak hozzáadása sikertelen",
-        addlinkfailedsub: `Kattintson a <span class="hl">Hozzáadás</span> gombra az újbóli próbálkozáshoz`,
         webhookunlockmsg: "$user teljesítményt oldott fel",
         webhookunlockmsgplat: "$user feloldotta az összes teljesítményt",
         webhookingame: "a $gamename játékban",
@@ -192,7 +162,9 @@ export const translations = {
             "Köszönjük, hogy tesztelted! 💜"
         ],
         betaghreleases: "Kiadások",
-        checkapplog: "Kérjük, ellenőrizze az alkalmazás naplóját a részletekért."
+        checkapplog: "Kérjük, ellenőrizze az alkalmazás naplóját a részletekért.",
+        workercrash: "A Worker összeomlott!",
+        workercrashsub: "Kattints ide a Worker újraindításához és a játék követésének újbóli megkísérléséhez"
     },
     app: {
         content: {
@@ -257,6 +229,7 @@ export const translations = {
             title: "Játékok",
             content: {
                 linkedgames: "Kapcsolt játékok",
+                autoreleasegames: "Automatikusan kiadott játékok",
                 themeswitch: "Automatikus téma váltás",
                 exclusionlist: "Kizárások listája",
                 inclusionlist: "Belefoglalási lista",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "Az a hely, ahol ezen beállítás által generált értesítési képek lesznek mentve",
         ssenabled: "Média generálás engedélyezése vagy letiltása erre a típusra",
         checkforupdates: `Ellenőrizze, hogy megjelent-e új verzió az alkalmazásból a GitHubon. Ha elérhető frissítés van, az automatikusan letöltésre és telepítésre kerül, miután megerősítette a <span class="hl">Frissítés elérhető</span> párbeszédablakban`,
-        linkedgames: `Kerüld meg a <span class="hl">automatikus folyamatkövetést</span> bizonyos Steam-játékokhoz<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`,
+        linkedgames: `A <span class="hl">SANWatcher</span> megkerülése meghatározott Steam játékok esetén<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben érdemes használni. Normál körülmények között a felhasználóknak nincs szükségük erre a beállításra!</span>`,
+        autoreleasegames: `Az <span class="hl">automatikus folyamatkövetés</span> megkerülése meghatározott Steam játékok esetén<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben érdemes használni. Normál körülmények között a felhasználóknak nincs szükségük erre a beállításra!</span>`,
         exclusionlist: `Akadályozd meg a Steam-játékok bizonyos teljesítményeinek követését az alkalmazásban<br><br><span class="ttdesc">Ezt a lehetőséget csak nagyon speciális esetekben kellene használni. A felhasználóknak normál körülmények között nem kellene ezt a lehetőséget használniuk!</span>`,
         inclusionlist: `Megakadályozza, hogy az alkalmazás minden Steam-játékot kövessen, kivéve ha külön meg van adva<br><br><span class="ttdesc">Ezt az opciót csak nagyon speciális esetekben érdemes használni. Normál körülmények között a felhasználóknak nem kellene ezt választaniuk!</span>`,
         ovx: "A képernyőképen megjelenő értesítés vízszintes eltolása",
@@ -912,23 +886,59 @@ export const translations = {
     linkgame: {
         content: {
             exepath: "Végrehajtható fájl elérési útja",
+            linkedgame: "Játék összekapcsolása",
+            autoreleasegame: "Játék automatikus kiadása",
+            linkedgamessub: [
+                `Felülírja a <span class="hl">SANWatcher</span> által automatikusan követett összes futó játékfolyamatot, és ehelyett csak azt ellenőrzi, hogy a kiválasztott <span class="hl">játék futtatható fájlja</span> jelenleg aktív-e`,
+                `Kapcsold össze bármely játék <span class="hl">AppID</span>-jét egy cél <span class="hl">játék futtatható fájllal</span>, vagy <span class="hl">távolíts el</span> egy meglévő kapcsolatot`
+            ],
+            autoreleasegamessub: [
+                `Ha a Steam továbbra is <i>Fut</i> állapotban mutat egy játékot a játékablak bezárása után, próbálj meg új bejegyzést hozzáadni a <span class="hl">$linkgame</span> menüben`,
+                `Adj hozzá egy adott játék <span class="hl">AppID</span>-jét a hozzá tartozó <span class="hl">játék futtatható fájllal</span>, vagy <span class="hl">távolíts el</span> egy meglévő bejegyzést`,
+            ],
             managesub: [
-                `Ha a Steam továbbra is <i>Játékban</i> állapotban mutat egy játékot az ablak bezárása után, próbáljon meg egy új bejegyzést hozzáadni az <span class="hl">Automatikus játék release</span> listához`,
-                `Adja hozzá egy adott játék <span class="hl">AppID</span>-jét a várt <span class="hl">játék végrehajtható fájljával</span> együtt, vagy <span class="hl">távolítson el</span> egy meglévő bejegyzést`,
-                `Új bejegyzések a <i>jobb gombbal</i> a <span class="hl">System Tray ikonra</span> kattintva is hozzáadhatók > <span class="hl">Auto-Release Game</span>, miután egy játék észlelésre került`,
+                `Miután egy játékot észlelt a rendszer, új bejegyzéseket is hozzáadhatsz az <span class="hl">aktív ablak</span> alapján a <span class="hl">Rendszertálca ikonra</span> történő <i>jobb gombos kattintással</i> > <span class="hl">$linkgame</span>`,
                 `<span class="hl help" id="appidhelp"><u>Hogyan találom meg egy Steam játék AppID-jét?</u></span>`
             ],
             linknew: "Új bejegyzés",
             linknewsub: [
-                `Adja hozzá egy új játék <span class="hl">AppID</span>-jét a várt <span class="hl">játék végrehajtható fájljával</span> együtt`,
-                `Hozzáadás után a bejegyzések eltávolíthatók az előző <span class="hl">Automatikus játék release</span> menün keresztül`
+                `Kapcsold össze egy új játék <span class="hl">AppID</span>-jét egy cél <span class="hl">játék futtatható fájllal</span>`,
+                `Hozzáadás után a bejegyzések <span class="hl">eltávolíthatók</span> az előző <span class="hl">$linkgame</span> menüből`
             ],
             linkedit: "Bejegyzés szerkesztése",
             linkeditsub: [
-                `Szerkessze egy meglévő játék <span class="hl">AppID</span>-jét a várt <span class="hl">játék végrehajtható fájljával</span> együtt`,
-                `Hozzáadás után a bejegyzések eltávolíthatók az előző <span class="hl">Automatikus játék release</span> menün keresztül`
+                `Szerkessz egy meglévő kapcsolatot egy játék <span class="hl">AppID</span>-je és a cél <span class="hl">játék futtatható fájlja</span> között`,
+                `Hozzáadás után a bejegyzések <span class="hl">eltávolíthatók</span> az előző <span class="hl">$linkgame</span> menüből`
             ],
-            link: "Hozzáadás"
+            link: "Hozzáadás",
+            findappid: "AppID keresése",
+            findappidsub: [
+                `Minden Steam játékhoz egy egyedi szám tartozik – ezt <span class="hl">AppID</span>-nek nevezik. Bármely Steam játék AppID-jét az alábbi módok egyikével találhatod meg:`,
+                `A <span class="hl">Steam kliensben</span> kattints <i>jobb gombbal</i> a játékra a <span class="hl">Könyvtárban</span>, majd válaszd a <i>Tulajdonságok</i> > <i>Frissítések</i> menüpontot – itt megtalálod az AppID-t`,
+                `A játék <span class="hl">Áruház oldalának</span> <span class="hl">URL</span>-jében – ez az <span class="hl">app/</span> utáni szám: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Olyan weboldalakon, mint a <span class="hl">SteamDB</span> – az <span class="hl">App Info</span> szakaszban minden játék AppID-je megtalálható`
+            ],
+            noexe: "A játék EXE fájlja nem található!",
+            noexesub: "Kattints ide további információkért",
+            noexedialogsub: [
+                `A Steam Achievement Notifier nem tudta automatikusan megtalálni a játék futtatható fájlját. A játék futtatható fájljának helye szükséges ahhoz, hogy bezárás után a játék „kiadható” legyen`,
+                `Ha a játékot bezárás után manuálisan szeretnéd kiadni, kattints <i>jobb gombbal</i> a <span class="hl">Rendszertálca ikonra</span> > <span class="hl">Beállítások</span> > <span class="hl">Játék kiadása</span>, vagy használd a <span class="hl">Játék kiadása gyorsbillentyűt</span>`,
+                `Alternatívaként kattints az alábbi <span class="hl">Hozzáadás</span> gombra, hogy a fókuszban lévő ablakhoz tartozó futtatható fájlt hozzáadd a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikusan kiadott játékok</span> menühöz`,
+            ],
+            linkedgamefocussub: `Az összes, a <span class="hl">SANWatcher</span> által automatikusan követett futó játékfolyamat felülírásához adj hozzá egy új bejegyzést a <span class="hl">Kapcsolt játékok</span> menüben`,
+            autoreleasegamefocussub: `Ha a Steam továbbra is <i>Fut</i> állapotban mutat egy játékot a játékablak bezárása után, próbálj meg új bejegyzést hozzáadni az <span class="hl">Automatikusan kiadott játékok</span> menüben`,
+            focussub: `Ehhez az aktuális játék esetén kattints az alábbi <span class="hl">Hozzáadás</span> gombra, hogy a fókuszban lévő ablakhoz tartozó futtatható fájlt hozzáadd a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">$linkgame</span> menühöz`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Mi történik, ha a Hozzáadás gombra kattintok?</u></span>`,
+            linkgamehelp: "Összekapcsolás fókusz alapján",
+            linkgamehelpsub: [
+                `A <span class="hl">Hozzáadás</span> gombra kattintva automatikusan létrejön egy új bejegyzés a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikusan kiadott játékok</span> menüben, a jelenleg fókuszban lévő ablak adatai alapján.`,
+                `A <span class="hl">Hozzáadás</span> gombra kattintás után egy 5 másodperces időzítő indul`,
+                `Mielőtt az időzítő lejár, helyezd fókuszba a játék ablakát`,
+                `Miután az időzítő lejárt, az aktuális <span class="hl">AppID</span>-hez egy új bejegyzés kerül a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikusan kiadott játékok</span> menübe, a fókuszban lévő ablakhoz tartozó futtatható fájl használatával`,
+                `Az új próbálkozások felülírják a meglévő bejegyzéseket, vagy a bejegyzés eltávolítható a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikusan kiadott játékok</span> menüben a <span id="linkhelpunlink"></span> gombra kattintva`
+            ],
+            addlinkfailed: "Nem sikerült hozzáadni az ablakot",
+            addlinkfailedsub: `Kattints a <span class="hl">Hozzáadás</span> gombra az újbóli próbálkozáshoz`
         }
     },
     exclusions: {

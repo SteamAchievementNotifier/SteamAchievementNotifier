@@ -61,36 +61,6 @@ export const translations = {
         resume: "Retomar",
         new: "Novo...",
         nodata: "Sem Dados",
-        findappid: "Encontrar AppID",
-        findappidsub: [
-            `Cada jogo Steam tem um número único associado a ele - chamado de <span class="hl">AppID</span>. Você pode encontrar o AppID associado a qualquer jogo Steam verificando um dos seguintes:`,
-            `No <span class="hl">cliente Steam</span>, clique com o botão direito do mouse em um jogo na sua <span class="hl">Biblioteca</span> e selecione <i>Propriedades</i> > <i>Atualizações</i> - o AppID será listado aqui`,
-            `A <span class="hl">URL</span> da página da <span class="hl">loja</span> do jogo - será o número listado após <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Sites como o <span class="hl">SteamDB</span> - a seção de <span class="hl">Informações do App</span> listará o AppID para cada jogo`
-        ],
-        noexe: "Arquivo EXE do jogo não encontrado!",
-        noexesub: "Clique aqui para mais informações",
-        noexedialogsub: [
-            `O Steam Achievement Notifier não conseguiu localizar automaticamente o ficheiro executável deste jogo. A localização do ficheiro executável do jogo é necessária para poder "libertar" o jogo após o seu encerramento`,
-            `Para libertar manualmente o jogo após o encerramento, <i>clique com o botão direito</i> no <span class="hl">ícone da Área de Notificação</span> > <span class="hl">Opções</span> > <span class="hl">Libertar jogo</span>, ou utilize o <span class="hl">Atalho para libertar jogo</span>`,
-            `Em alternativa, clique no botão <span class="hl">Adicionar</span> abaixo para adicionar o ficheiro executável associado a qualquer janela atualmente em foco em <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">Jogos com libertação automática</span>`,
-        ],
-        autorelease: "Libertação automática do jogo",
-        autoreleasesub: [
-            `Se o Steam continuar a mostrar um jogo como <i>A jogar</i> após o encerramento da janela do jogo, tente adicionar uma nova entrada em <span class="hl">Jogos com libertação automática</span>`,
-            `Para fazer isto para o jogo atual, clique no botão <span class="hl">Adicionar</span> abaixo para adicionar o ficheiro executável associado a qualquer janela atualmente em foco em <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">Jogos com libertação automática</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>O que acontece quando clico no botão Adicionar?</u></span>`,
-        linkgamehelp: "Adicionar entrada via foco",
-        linkgamehelpsub: [
-            `Ao clicar no botão <span class="hl">Adicionar</span>, será automaticamente adicionada uma nova entrada em <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">Jogos com libertação automática</span>, utilizando informações da janela atualmente em foco.`,
-            `Após clicar no botão <span class="hl">Adicionar</span>, será iniciado um temporizador de 5 segundos`,
-            `Antes de o temporizador terminar, coloque o foco na janela do jogo`,
-            `Quando o temporizador terminar, será adicionada uma nova entrada para o <span class="hl">AppID</span> atual em <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">Jogos com libertação automática</span>, utilizando o ficheiro executável associado à janela em foco`,
-            `Novas tentativas irão substituir entradas existentes, ou a entrada pode ser removida através de <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">Jogos com libertação automática</span> clicando no botão <span id="linkhelpunlink"></span>`
-        ],
-        addlinkfailed: "Não foi possível adicionar a janela",
-        addlinkfailedsub: `Clique no botão <span class="hl">Adicionar</span> para tentar novamente`,
         webhookunlockmsg: "$user desbloqueou uma conquista",
         webhookunlockmsgplat: "$user desbloqueou todas as conquistas",
         webhookingame: "em $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "Obrigado por testar! 💜"
         ],
         betaghreleases: "Lançamentos",
-        checkapplog: "Por favor, verifique o Registo da App para detalhes."
+        checkapplog: "Por favor, verifique o Registo da App para detalhes.",
+        workercrash: "O Worker falhou!",
+        workercrashsub: "Clique aqui para reiniciar o Worker e tentar novamente o rastreamento do jogo"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Jogos",
             content: {
-                linkedgames: "Jogos com libertação automática",
+                linkedgames: "Jogos vinculados",
+                autoreleasegames: "Jogos com liberação automática",
                 themeswitch: "Troca automática de temas",
                 exclusionlist: "Lista de Exclusão",
                 inclusionlist: "Lista de Inclusão",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "O local onde as imagens de notificação geradas por esta opção serão salvas",
         ssenabled: "Ativar ou desativar a geração de mídia para este tipo",
         checkforupdates: `Verifique se uma nova versão do aplicativo foi lançada no GitHub. Se uma atualização estiver disponível, ela será baixada e instalada automaticamente uma vez confirmada através da janela <span class="hl">Atualização Disponível</span>`,
-        linkedgames: `Ignorar <span class="hl">rastreamento automático de processos</span> para jogos específicos da Steam<br><br><span class="ttdesc">Esta opção deve ser usada apenas em cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`,
+        linkedgames: `Ignorar o <span class="hl">SANWatcher</span> para jogos específicos da Steam<br><br><span class="ttdesc">Esta opção deve ser utilizada apenas em cenários muito específicos. Em circunstâncias normais, os utilizadores não deverão precisar de utilizar esta opção!</span>`,
+        autoreleasegames: `Ignorar o <span class="hl">rastreamento automático de processos</span> para jogos específicos da Steam<br><br><span class="ttdesc">Esta opção deve ser utilizada apenas em cenários muito específicos. Em circunstâncias normais, os utilizadores não deverão precisar de utilizar esta opção!</span>`,
         exclusionlist: `Prevenir a rastreabilidade de conquistas em jogos específicos da Steam pela aplicação<br><br><span class="ttdesc">Esta opção deve ser usada apenas em cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`,
         inclusionlist: `Impedir que todos os jogos da Steam sejam rastreados pelo aplicativo, a menos que especificado<br><br><span class="ttdesc">Esta opção deve ser usada apenas em cenários muito específicos. Os usuários não devem precisar usar esta opção em circunstâncias normais!</span>`,
         ovx: "Desloque o aviso exibido na captura de tela horizontalmente",
@@ -911,24 +885,60 @@ export const translations = {
     },
     linkgame: {
         content: {
-            exepath: "Caminho do Executável",
+            exepath: "Caminho do executável",
+            linkedgame: "Vincular jogo",
+            autoreleasegame: "Liberação automática do jogo",
+            linkedgamessub: [
+                `Substitua todos os processos de jogos em execução rastreados automaticamente pelo <span class="hl">SANWatcher</span> e, em vez disso, verifique apenas se o <span class="hl">executável do jogo</span> selecionado está atualmente ativo`,
+                `Vincule o <span class="hl">AppID</span> de qualquer jogo a um <span class="hl">executável do jogo</span> específico ou <span class="hl">remova</span> um vínculo existente`
+            ],
+            autoreleasegamessub: [
+                `Se a Steam continuar a mostrar um jogo como <i>Em execução</i> após a janela do jogo ser fechada, experimente adicionar uma nova entrada em <span class="hl">$linkgame</span>`,
+                `Adicione o <span class="hl">AppID</span> de um jogo específico juntamente com o respetivo <span class="hl">executável do jogo</span> esperado ou <span class="hl">remova</span> uma entrada existente`,
+            ],
             managesub: [
-                `Se o Steam continuar a mostrar um jogo como <i>A jogar</i> após o encerramento da janela do jogo, tente adicionar uma nova entrada em <span class="hl">Jogos com libertação automática</span>`,
-                `Adicione o <span class="hl">AppID</span> de um jogo específico juntamente com o respetivo <span class="hl">ficheiro executável do jogo</span> esperado, ou <span class="hl">remova</span> uma entrada existente`,
-                `Novas entradas também podem ser adicionadas ao <i>clicar com o botão direito</i> no <span class="hl">ícone da Área de Notificação</span> > <span class="hl">Libertação automática do jogo</span> depois de um jogo ser detetado`,
-                `<span class="hl help" id="appidhelp"><u>Como encontro o AppID de um jogo Steam?</u></span>`
+                `Depois de um jogo ser detetado, também é possível adicionar novas entradas através da <span class="hl">janela em foco</span>, clicando com o <i>botão direito</i> no <span class="hl">ícone da Área de Notificação</span> > <span class="hl">$linkgame</span>`,
+                `<span class="hl help" id="appidhelp"><u>Como encontro o AppID de um jogo da Steam?</u></span>`
             ],
             linknew: "Nova entrada",
             linknewsub: [
-                `Adicione o <span class="hl">AppID</span> de um novo jogo juntamente com o respetivo <span class="hl">ficheiro executável do jogo</span> esperado`,
-                `Depois de adicionadas, as entradas podem ser <span class="hl">removidas</span> através do menu anterior <span class="hl">Jogos com libertação automática</span>`
+                `Vincule o <span class="hl">AppID</span> de um novo jogo a um <span class="hl">executável do jogo</span> específico`,
+                `Depois de adicionadas, as entradas podem ser <span class="hl">removidas</span> através do menu <span class="hl">$linkgame</span> anterior`
             ],
             linkedit: "Editar entrada",
             linkeditsub: [
-                `Edite o <span class="hl">AppID</span> de um jogo existente juntamente com o respetivo <span class="hl">ficheiro executável do jogo</span> esperado`,
-                `Depois de adicionadas, as entradas podem ser <span class="hl">removidas</span> através do menu anterior <span class="hl">Jogos com libertação automática</span>`
+                `Edite um vínculo existente entre o <span class="hl">AppID</span> de um jogo e o respetivo <span class="hl">executável do jogo</span>`,
+                `Depois de adicionadas, as entradas podem ser <span class="hl">removidas</span> através do menu <span class="hl">$linkgame</span> anterior`
             ],
-            link: "Adicionar"
+            link: "Adicionar",
+            findappid: "Encontrar AppID",
+            findappidsub: [
+                `Cada jogo da Steam tem um número único associado, chamado <span class="hl">AppID</span>. Pode encontrar o AppID de qualquer jogo da Steam através de um dos seguintes métodos:`,
+                `No <span class="hl">cliente Steam</span>, clique com o <i>botão direito</i> num jogo da sua <span class="hl">Biblioteca</span> e selecione <i>Propriedades</i> > <i>Atualizações</i> – o AppID será apresentado aqui`,
+                `O <span class="hl">URL</span> da <span class="hl">página da Loja</span> do jogo – será o número apresentado após <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Sites como o <span class="hl">SteamDB</span> – a secção <span class="hl">App Info</span> apresenta o AppID de cada jogo`
+            ],
+            noexe: "Executável do jogo não encontrado!",
+            noexesub: "Clique aqui para mais informações",
+            noexedialogsub: [
+                `O Steam Achievement Notifier não conseguiu localizar automaticamente o ficheiro executável deste jogo. A localização do ficheiro executável do jogo é necessária para "libertar" o jogo depois de ser fechado`,
+                `Para libertar manualmente o jogo depois de ser fechado, clique com o <i>botão direito</i> no <span class="hl">ícone da Área de Notificação</span> > <span class="hl">Opções</span> > <span class="hl">Libertar jogo</span> ou utilize o <span class="hl">Atalho para Libertar Jogo</span>`,
+                `Em alternativa, clique no botão <span class="hl">Adicionar</span> abaixo para adicionar o ficheiro executável associado à janela atualmente em foco em <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">Jogos com liberação automática</span>`,
+            ],
+            linkedgamefocussub: `Para substituir todos os processos de jogos em execução rastreados automaticamente pelo <span class="hl">SANWatcher</span>, adicione uma nova entrada em <span class="hl">Jogos vinculados</span>`,
+            autoreleasegamefocussub: `Se a Steam continuar a mostrar um jogo como <i>Em execução</i> após a janela do jogo ser fechada, experimente adicionar uma nova entrada em <span class="hl">Jogos com liberação automática</span>`,
+            focussub: `Para fazer isto para o jogo atual, clique no botão <span class="hl">Adicionar</span> abaixo para adicionar o ficheiro executável associado à janela atualmente em foco em <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>O que acontece quando clico no botão Adicionar?</u></span>`,
+            linkgamehelp: "Vincular através do foco",
+            linkgamehelpsub: [
+                `Ao clicar no botão <span class="hl">Adicionar</span>, será automaticamente adicionada uma nova entrada em <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">Jogos com liberação automática</span>, utilizando as informações da janela atualmente em foco.`,
+                `Depois de clicar no botão <span class="hl">Adicionar</span>, será iniciado um temporizador de 5 segundos`,
+                `Antes de o temporizador terminar, coloque a janela do jogo em foco`,
+                `Quando o temporizador terminar, será adicionada uma nova entrada para o <span class="hl">AppID</span> atual em <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">Jogos com liberação automática</span>, utilizando o ficheiro executável associado à janela em foco`,
+                `As novas tentativas substituirão as entradas existentes ou a entrada pode ser removida em <span class="hl">Definições</span> > <span class="hl">Jogos</span> > <span class="hl">Jogos com liberação automática</span>, clicando no botão <span id="linkhelpunlink"></span>`
+            ],
+            addlinkfailed: "Não foi possível adicionar a janela",
+            addlinkfailedsub: `Clique no botão <span class="hl">Adicionar</span> para tentar novamente`
         }
     },
     exclusions: {

@@ -61,36 +61,6 @@ export const translations = {
         resume: "استئناف",
         new: "جديد...",
         nodata: "لا توجد بيانات",
-        findappid: "العثور على AppID",
-        findappidsub: [
-            `كل لعبة Steam لها رقم فريد مرتبط بها - يُسمى <span class="hl">AppID</span>. يمكنك العثور على AppID المرتبط بأي لعبة Steam عن طريق التحقق من أحد الآتي:`,
-            `في <span class="hl">عميل Steam</span>، انقر بزر الماوس الأيمن على لعبة في <span class="hl">المكتبة</span> الخاصة بك وحدد <i>الخصائص</i> > <i>التحديثات</i> - سيتم سرد AppID هنا`,
-            `عنوان <span class="hl">URL</span> لصفحة <span class="hl">المتجر</span> الخاصة باللعبة - سيكون الرقم المدرج بعد <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `مواقع الويب مثل <span class="hl">SteamDB</span> - سيقوم القسم <span class="hl">معلومات الأطباق</span> بسرد AppID لكل لعبة`
-        ],
-        noexe: "لم يتم العثور على ملف اللعبة التنفيذي!",
-        noexesub: "انقر هنا لمزيد من المعلومات",
-        noexedialogsub: [
-            `لم يتمكن Steam Achievement Notifier من تحديد موقع ملف التشغيل الخاص بهذه اللعبة تلقائيًا. يلزم تحديد موقع ملف التشغيل الخاص باللعبة من أجل "تحرير" اللعبة بعد إغلاقها`,
-            `لتحرير اللعبة يدويًا بعد إغلاقها، <i>انقر بزر الماوس الأيمن</i> على <span class="hl">أيقونة System Tray</span> > <span class="hl">الخيارات</span> > <span class="hl">تحرير اللعبة</span>، أو استخدم <span class="hl">اختصار تحرير اللعبة</span>`,
-            `بدلاً من ذلك، انقر على زر <span class="hl">إضافة</span> أدناه لإضافة ملف التشغيل المرتبط بأي نافذة نشطة إلى <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">التحرير التلقائي للألعاب</span>`,
-        ],
-        autorelease: "التحرير التلقائي للعبة",
-        autoreleasesub: [
-            `إذا كان Steam لا يزال يعرض اللعبة على أنها <i>قيد التشغيل</i> بعد إغلاق نافذة اللعبة، فحاول إضافة إدخال جديد إلى <span class="hl">التحرير التلقائي للألعاب</span>`,
-            `للقيام بذلك للعبة الحالية، انقر على زر <span class="hl">إضافة</span> أدناه لإضافة ملف التشغيل المرتبط بأي نافذة نشطة إلى <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">التحرير التلقائي للألعاب</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>ماذا يحدث عند النقر على زر الإضافة؟</u></span>`,
-        linkgamehelp: "إضافة إدخال عبر النافذة النشطة",
-        linkgamehelpsub: [
-            `سيؤدي النقر على زر <span class="hl">إضافة</span> إلى إضافة إدخال جديد تلقائيًا إلى <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">التحرير التلقائي للألعاب</span>، باستخدام معلومات من النافذة النشطة حاليًا.`,
-            `بعد النقر على زر <span class="hl">إضافة</span>، سيبدأ مؤقت مدته 5 ثوانٍ`,
-            `قبل انتهاء المؤقت، قم بالتركيز على نافذة اللعبة`,
-            `بمجرد انتهاء المؤقت، سيتم إضافة إدخال جديد لـ <span class="hl">AppID</span> الحالي إلى <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">التحرير التلقائي للألعاب</span>، باستخدام ملف التشغيل المرتبط بالنافذة النشطة`,
-            `ستؤدي المحاولات الجديدة إلى استبدال الإدخالات الحالية، أو يمكن إزالة الإدخال عبر <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">التحرير التلقائي للألعاب</span> بالنقر على زر <span id="linkhelpunlink"></span>`
-        ],
-        addlinkfailed: "تعذرت إضافة النافذة",
-        addlinkfailedsub: `انقر على زر <span class="hl">إضافة</span> للمحاولة مرة أخرى`,
         webhookunlockmsg: "$user فتح إنجازًا",
         webhookunlockmsgplat: "$user فتح جميع الإنجازات",
         webhookingame: "في $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "شكرًا لتجربتك! 💜"
         ],
         betaghreleases: "الإصدارات",
-        checkapplog: "يرجى التحقق من سجل التطبيق للحصول على التفاصيل."
+        checkapplog: "يرجى التحقق من سجل التطبيق للحصول على التفاصيل.",
+        workercrash: "تعطل Worker!",
+        workercrashsub: "انقر هنا لإعادة تشغيل Worker وإعادة محاولة تتبع اللعبة"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "الألعاب",
             content: {
-                linkedgames: "التحرير التلقائي للألعاب",
+                linkedgames: "الألعاب المرتبطة",
+                autoreleasegames: "ألعاب الإصدار التلقائي",
                 themeswitch: "التبديل التلقائي للثيمات",
                 exclusionlist: "قائمة الاستبعاد",
                 inclusionlist: "قائمة الإدراج",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "الموقع الذي ستحفظ فيه صور الإشعارات التي تم إنشاؤها بهذا الخيار",
         ssenabled: "تمكين أو تعطيل إنشاء الوسائط لهذا النوع",
         checkforupdates: `تحقق مما إذا كان هناك إصدار تطبيق جديد قد تم إصداره على GitHub. إذا كان هناك تحديث متاح، سيتم تنزيله وتثبيته تلقائيًا بمجرد تأكيده عبر نافذة <span class="hl">تحديث متاح</span>`,
-        linkedgames: `تخطي <span class="hl">تتبع العملية التلقائية</span> لألعاب Steam محددة<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط لحالات محددة جدًا. يجب ألا يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`,
+        linkedgames: `تجاوز <span class="hl">SANWatcher</span> لألعاب Steam محددة<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط في حالات محددة جدًا. لن يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`,
+        autoreleasegames: `تجاوز <span class="hl">التتبع التلقائي للعمليات</span> لألعاب Steam محددة<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط في حالات محددة جدًا. لن يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`,
         exclusionlist: `منع تتبع الإنجازات في ألعاب Steam محددة بواسطة التطبيق<br><br><span class="ttdesc">يجب استخدام هذا الخيار فقط لحالات محددة جدًا. يجب ألا يحتاج المستخدمون إلى استخدام هذا الخيار في الظروف العادية!</span>`,
         inclusionlist: `منع جميع ألعاب Steam من أن يتم تتبعها بواسطة التطبيق ما لم يتم تحديدها<br><br><span class="ttdesc">يجب استخدام هذا الخيار في سيناريوهات محددة للغاية. لا ينبغي للمستخدمين استخدام هذا الخيار في الظروف العادية!</span>`,
         ovx: "إزاحة الإشعار المعروض في لقطة الشاشة أفقيًا",
@@ -911,24 +885,60 @@ export const translations = {
     },
     linkgame: {
         content: {
-            exepath: "مسار التنفيذ",
+            exepath: "مسار الملف التنفيذي",
+            linkedgame: "ربط لعبة",
+            autoreleasegame: "لعبة الإصدار التلقائي",
+            linkedgamessub: [
+                `تجاوز جميع عمليات الألعاب قيد التشغيل التي يتتبعها <span class="hl">SANWatcher</span> تلقائيًا، وبدلًا من ذلك، التحقق فقط مما إذا كان <span class="hl">الملف التنفيذي للعبة</span> المحدد نشطًا حاليًا`,
+                `اربط <span class="hl">AppID</span> لأي لعبة مع <span class="hl">الملف التنفيذي للعبة</span> المستهدف، أو <span class="hl">أزل</span> ارتباطًا موجودًا`
+            ],
+            autoreleasegamessub: [
+                `إذا كان Steam لا يزال يعرض اللعبة على أنها <i>قيد التشغيل</i> بعد إغلاق نافذة اللعبة، فجرّب إضافة إدخال جديد إلى <span class="hl">$linkgame</span>`,
+                `أضف <span class="hl">AppID</span> للعبة محددة مع <span class="hl">الملف التنفيذي للعبة</span> المتوقع، أو <span class="hl">أزل</span> إدخالًا موجودًا`,
+            ],
             managesub: [
-                `إذا كان Steam لا يزال يعرض اللعبة على أنها <i>قيد التشغيل</i> بعد إغلاق نافذة اللعبة، فحاول إضافة إدخال جديد إلى <span class="hl">التحرير التلقائي للألعاب</span>`,
-                `أضف <span class="hl">AppID</span> الخاص بلعبة معينة مع <span class="hl">ملف تشغيل اللعبة</span> المتوقع، أو <span class="hl">أزل</span> إدخالًا موجودًا`,
-                `يمكن أيضًا إضافة إدخالات جديدة عن طريق <i>النقر بزر الماوس الأيمن</i> على <span class="hl">أيقونة System Tray</span> > <span class="hl">التحرير التلقائي للعبة</span> بمجرد اكتشاف لعبة`,
+                `بمجرد اكتشاف لعبة، يمكن أيضًا إضافة إدخالات جديدة عبر <span class="hl">تركيز النافذة</span> من خلال <i>النقر بزر الماوس الأيمن</i> على <span class="hl">أيقونة علبة النظام</span> > <span class="hl">$linkgame</span>`,
                 `<span class="hl help" id="appidhelp"><u>كيف يمكنني العثور على AppID الخاص بلعبة Steam؟</u></span>`
             ],
             linknew: "إدخال جديد",
             linknewsub: [
-                `أضف <span class="hl">AppID</span> الخاص بلعبة جديدة مع <span class="hl">ملف تشغيل اللعبة</span> المتوقع`,
-                `بمجرد الإضافة، يمكن <span class="hl">إزالة</span> الإدخالات عبر قائمة <span class="hl">التحرير التلقائي للألعاب</span> السابقة`
+                `اربط <span class="hl">AppID</span> للعبة جديدة مع <span class="hl">الملف التنفيذي للعبة</span> المستهدف`,
+                `بعد الإضافة، يمكن <span class="hl">إزالة</span> الإدخالات عبر قائمة <span class="hl">$linkgame</span> السابقة`
             ],
-            linkedit: "تعديل إدخال",
+            linkedit: "تعديل الإدخال",
             linkeditsub: [
-                `قم بتعديل <span class="hl">AppID</span> الخاص بلعبة موجودة مع <span class="hl">ملف تشغيل اللعبة</span> المتوقع`,
-                `بمجرد الإضافة، يمكن <span class="hl">إزالة</span> الإدخالات عبر قائمة <span class="hl">التحرير التلقائي للألعاب</span> السابقة`
+                `عدّل ارتباطًا موجودًا بين <span class="hl">AppID</span> للعبة و<span class="hl">الملف التنفيذي للعبة</span> المستهدف`,
+                `بعد الإضافة، يمكن <span class="hl">إزالة</span> الإدخالات عبر قائمة <span class="hl">$linkgame</span> السابقة`
             ],
-            link: "إضافة"
+            link: "إضافة",
+            findappid: "العثور على AppID",
+            findappidsub: [
+                `لكل لعبة Steam رقم فريد مرتبط بها يُسمى <span class="hl">AppID</span>. يمكنك العثور على AppID لأي لعبة Steam بإحدى الطرق التالية:`,
+                `في <span class="hl">عميل Steam</span>، <i>انقر بزر الماوس الأيمن</i> على لعبة في <span class="hl">المكتبة</span> واختر <i>الخصائص</i> > <i>التحديثات</i> - سيظهر AppID هنا`,
+                `في <span class="hl">عنوان URL</span> الخاص بـ <span class="hl">صفحة المتجر</span> للعبة - سيكون الرقم الموجود بعد <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `مواقع مثل <span class="hl">SteamDB</span> - سيعرض قسم <span class="hl">App Info</span> قيمة AppID لكل لعبة`
+            ],
+            noexe: "لم يتم العثور على الملف التنفيذي للعبة!",
+            noexesub: "انقر هنا لمزيد من المعلومات",
+            noexedialogsub: [
+                `تعذر على Steam Achievement Notifier تحديد موقع الملف التنفيذي لهذه اللعبة تلقائيًا. يلزم معرفة موقع الملف التنفيذي للعبة حتى يمكن "إصدار" اللعبة بعد إغلاقها`,
+                `لإصدار اللعبة يدويًا بعد إغلاقها، <i>انقر بزر الماوس الأيمن</i> على <span class="hl">أيقونة علبة النظام</span> > <span class="hl">الخيارات</span> > <span class="hl">إصدار اللعبة</span>، أو استخدم <span class="hl">اختصار إصدار اللعبة</span>`,
+                `بدلًا من ذلك، انقر على زر <span class="hl">إضافة</span> أدناه لإضافة الملف التنفيذي المرتبط بأي نافذة نشطة إلى <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">ألعاب الإصدار التلقائي</span>`,
+            ],
+            linkedgamefocussub: `لتجاوز جميع عمليات الألعاب قيد التشغيل التي يتتبعها <span class="hl">SANWatcher</span> تلقائيًا، أضف إدخالًا جديدًا إلى <span class="hl">الألعاب المرتبطة</span>`,
+            autoreleasegamefocussub: `إذا كان Steam لا يزال يعرض اللعبة على أنها <i>قيد التشغيل</i> بعد إغلاق نافذة اللعبة، فجرّب إضافة إدخال جديد إلى <span class="hl">ألعاب الإصدار التلقائي</span>`,
+            focussub: `للقيام بذلك بالنسبة للعبة الحالية، انقر على زر <span class="hl">إضافة</span> أدناه لإضافة الملف التنفيذي المرتبط بأي نافذة نشطة إلى <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>ماذا يحدث عند النقر على زر إضافة؟</u></span>`,
+            linkgamehelp: "الربط عبر التركيز",
+            linkgamehelpsub: [
+                `سيؤدي النقر على زر <span class="hl">إضافة</span> إلى إضافة إدخال جديد تلقائيًا إلى <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">ألعاب الإصدار التلقائي</span>، باستخدام معلومات النافذة النشطة حاليًا.`,
+                `بعد النقر على زر <span class="hl">إضافة</span>، سيبدأ مؤقت لمدة 5 ثوانٍ`,
+                `قبل انتهاء المؤقت، ركّز نافذة اللعبة`,
+                `بمجرد انتهاء المؤقت، سيُضاف إدخال جديد لـ <span class="hl">AppID</span> الحالي إلى <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">ألعاب الإصدار التلقائي</span>، باستخدام الملف التنفيذي المرتبط بالنافذة النشطة`,
+                `ستستبدل المحاولات الجديدة الإدخالات الموجودة، أو يمكن إزالة الإدخال عبر <span class="hl">الإعدادات</span> > <span class="hl">الألعاب</span> > <span class="hl">ألعاب الإصدار التلقائي</span> بالنقر على الزر <span id="linkhelpunlink"></span>`
+            ],
+            addlinkfailed: "تعذر إضافة النافذة",
+            addlinkfailedsub: `انقر على زر <span class="hl">إضافة</span> للمحاولة مرة أخرى`
         }
     },
     exclusions: {

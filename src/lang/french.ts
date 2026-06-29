@@ -61,36 +61,6 @@ export const translations = {
         resume: "Reprendre",
         new: "Nouveau...",
         nodata: "Aucune donnée",
-        findappid: "Trouver l'AppID",
-        findappidsub: [
-            `Chaque jeu Steam a un numéro unique associé - appelé <span class="hl">AppID</span>. Vous pouvez trouver l'AppID associé à n'importe quel jeu Steam en vérifiant l'une des méthodes suivantes :`,
-            `Dans le <span class="hl">client Steam</span>, faites un clic droit sur un jeu dans votre <span class="hl">Bibliothèque</span> et sélectionnez <i>Propriétés</i> > <i>Mises à jour</i> - l'AppID sera listé ici`,
-            `L' <span class="hl">URL</span> de la page <span class="hl">Store</span> du jeu - ce sera le numéro indiqué après <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Des sites Web tels que <span class="hl">SteamDB</span> - la section <span class="hl">Infos App</span> listera l'AppID de chaque jeu`
-        ],
-        noexe: "Fichier EXE du jeu non trouvé !",
-        noexesub: "Cliquez ici pour plus d'informations",
-        noexedialogsub: [
-            `Steam Achievement Notifier n’a pas pu localiser automatiquement le fichier exécutable de ce jeu. L’emplacement du fichier exécutable du jeu est requis afin de pouvoir « libérer » le jeu une fois celui-ci fermé`,
-            `Pour libérer le jeu manuellement après sa fermeture, <i>cliquez avec le bouton droit</i> sur <span class="hl">l’icône de la System Tray</span> > <span class="hl">Options</span> > <span class="hl">Libérer le jeu</span>, ou utilisez le <span class="hl">Raccourci de libération du jeu</span>`,
-            `Vous pouvez également cliquer sur le bouton <span class="hl">Ajouter</span> ci-dessous pour ajouter le fichier exécutable associé à toute fenêtre active dans <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Libération automatique des jeux</span>`,
-        ],
-        autorelease: "Libération automatique du jeu",
-        autoreleasesub: [
-            `Si Steam affiche toujours un jeu comme <i>En cours</i> après la fermeture de la fenêtre du jeu, essayez d’ajouter une nouvelle entrée dans <span class="hl">Libération automatique des jeux</span>`,
-            `Pour effectuer cette action pour le jeu actuel, cliquez sur le bouton <span class="hl">Ajouter</span> ci-dessous afin d’ajouter le fichier exécutable associé à toute fenêtre active dans <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Libération automatique des jeux</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Que se passe-t-il lorsque je clique sur le bouton Ajouter ?</u></span>`,
-        linkgamehelp: "Ajouter une entrée via le focus",
-        linkgamehelpsub: [
-            `Cliquer sur le bouton <span class="hl">Ajouter</span> ajoutera automatiquement une nouvelle entrée dans <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Libération automatique des jeux</span>, en utilisant les informations de la fenêtre actuellement active.`,
-            `Après avoir cliqué sur le bouton <span class="hl">Ajouter</span>, un minuteur de 5 secondes démarre`,
-            `Avant la fin du minuteur, placez le focus sur la fenêtre du jeu`,
-            `Une fois le minuteur terminé, une nouvelle entrée pour l’<span class="hl">AppID</span> actuel sera ajoutée dans <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Libération automatique des jeux</span>, en utilisant le fichier exécutable associé à la fenêtre active`,
-            `Les nouvelles tentatives écraseront les entrées existantes, ou l’entrée peut être supprimée via <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Libération automatique des jeux</span> en cliquant sur le bouton <span id="linkhelpunlink"></span>`
-        ],
-        addlinkfailed: "Impossible d’ajouter la fenêtre",
-        addlinkfailedsub: `Cliquez sur le bouton <span class="hl">Ajouter</span> pour réessayer`,
         webhookunlockmsg: "$user a débloqué un succès",
         webhookunlockmsgplat: "$user a débloqué tous les succès",
         webhookingame: "dans $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "Merci d'avoir testé ! 💜"
         ],
         betaghreleases: "Releases",
-        checkapplog: "Veuillez consulter le journal de l'application pour plus de détails."
+        checkapplog: "Veuillez consulter le journal de l'application pour plus de détails.",
+        workercrash: "Worker a planté!",
+        workercrashsub: "Cliquez ici pour redémarrer Worker et relancer le suivi du jeu"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Jeux",
             content: {
-                linkedgames: "Libération automatique des jeux",
+                linkedgames: "Jeux liés",
+                autoreleasegames: "Jeux à libération automatique",
                 themeswitch: "Changement automatique de thème",
                 exclusionlist: "Liste d'exclusion",
                 inclusionlist: "Liste d'inclusion",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "L'emplacement où les images de notification générées par cette option seront enregistrées",
         ssenabled: "Activer ou désactiver la génération de médias pour ce type",
         checkforupdates: `Vérifiez si une nouvelle version de l'application a été publiée sur GitHub. Si une mise à jour est disponible, elle sera téléchargée et installée automatiquement une fois confirmée via la boîte de dialogue <span class="hl">Mise à jour disponible</span>`,
-        linkedgames: `Contourner le <span class="hl">suivi automatique des processus</span> pour des jeux Steam spécifiques<br><br><span class="ttdesc">Cette option ne devrait être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`,
+        linkedgames: `Ignorer <span class="hl">SANWatcher</span> pour certains jeux Steam<br><br><span class="ttdesc">Cette option ne doit être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin de l'utiliser dans des conditions normales!</span>`,
+        autoreleasegames: `Ignorer le <span class="hl">suivi automatique des processus</span> pour certains jeux Steam<br><br><span class="ttdesc">Cette option ne doit être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin de l'utiliser dans des conditions normales!</span>`,
         exclusionlist: `Empêcher le suivi des réalisations dans des jeux Steam spécifiques par l'application<br><br><span class="ttdesc">Cette option ne devrait être utilisée que dans des cas très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`,
         inclusionlist: `Empêcher tous les jeux Steam d'être suivis par l'application sauf si spécifié<br><br><span class="ttdesc">Cette option ne doit être utilisée que pour des scénarios très spécifiques. Les utilisateurs ne devraient pas avoir besoin d'utiliser cette option dans des circonstances normales !</span>`,
         ovx: "Décalez la notification affichée dans la capture d'écran horizontalement",
@@ -911,24 +885,60 @@ export const translations = {
     },
     linkgame: {
         content: {
-            exepath: "Chemin du fichier exécutable",
+            exepath: "Chemin de l'exécutable",
+            linkedgame: "Lier un jeu",
+            autoreleasegame: "Libération automatique du jeu",
+            linkedgamessub: [
+                `Remplacez le suivi automatique de tous les processus de jeu en cours effectué par <span class="hl">SANWatcher</span>, et vérifiez uniquement si <span class="hl">l'exécutable du jeu</span> sélectionné est actuellement actif`,
+                `Liez l'<span class="hl">AppID</span> de n'importe quel jeu à un <span class="hl">exécutable de jeu</span> cible, ou <span class="hl">supprimez</span> un lien existant`
+            ],
+            autoreleasegamessub: [
+                `Si Steam affiche toujours un jeu comme étant <i>En cours</i> après la fermeture de sa fenêtre, essayez d'ajouter une nouvelle entrée à <span class="hl">$linkgame</span>`,
+                `Ajoutez l'<span class="hl">AppID</span> d'un jeu spécifique avec son <span class="hl">exécutable de jeu</span> attendu, ou <span class="hl">supprimez</span> une entrée existante`,
+            ],
             managesub: [
-                `Si Steam affiche toujours un jeu comme <i>En cours</i> après la fermeture de la fenêtre du jeu, essayez d’ajouter une nouvelle entrée dans <span class="hl">Libération automatique des jeux</span>`,
-                `Ajoutez l’<span class="hl">AppID</span> d’un jeu spécifique avec son <span class="hl">fichier exécutable du jeu</span> attendu, ou <span class="hl">supprimez</span> une entrée existante`,
-                `De nouvelles entrées peuvent également être ajoutées en <i>cliquant avec le bouton droit</i> sur <span class="hl">l’icône de la System Tray</span> > <span class="hl">Libération automatique du jeu</span> une fois qu’un jeu a été détecté`,
-                `<span class="hl help" id="appidhelp"><u>Comment trouver l’AppID d’un jeu Steam ?</u></span>`
+                `Une fois qu'un jeu a été détecté, de nouvelles entrées peuvent également être ajoutées via le <span class="hl">focus de la fenêtre</span> en <i>cliquant avec le bouton droit</i> sur <span class="hl">l'icône de la zone de notification</span> > <span class="hl">$linkgame</span>`,
+                `<span class="hl help" id="appidhelp"><u>Comment trouver l'AppID d'un jeu Steam ?</u></span>`
             ],
             linknew: "Nouvelle entrée",
             linknewsub: [
-                `Ajoutez l’<span class="hl">AppID</span> d’un nouveau jeu avec son <span class="hl">fichier exécutable du jeu</span> attendu`,
-                `Une fois ajoutées, les entrées peuvent être <span class="hl">supprimées</span> via le menu précédent <span class="hl">Libération automatique des jeux</span>`
+                `Liez l'<span class="hl">AppID</span> d'un nouveau jeu à un <span class="hl">exécutable de jeu</span> cible`,
+                `Une fois ajoutées, les entrées peuvent être <span class="hl">supprimées</span> via le menu <span class="hl">$linkgame</span> précédent`
             ],
-            linkedit: "Modifier l’entrée",
+            linkedit: "Modifier l'entrée",
             linkeditsub: [
-                `Modifiez l’<span class="hl">AppID</span> d’un jeu existant avec son <span class="hl">fichier exécutable du jeu</span> attendu`,
-                `Une fois ajoutées, les entrées peuvent être <span class="hl">supprimées</span> via le menu précédent <span class="hl">Libération automatique des jeux</span>`
+                `Modifiez un lien existant entre l'<span class="hl">AppID</span> d'un jeu et <span class="hl">l'exécutable de jeu</span> cible`,
+                `Une fois ajoutées, les entrées peuvent être <span class="hl">supprimées</span> via le menu <span class="hl">$linkgame</span> précédent`
             ],
-            link: "Ajouter"
+            link: "Ajouter",
+            findappid: "Trouver l'AppID",
+            findappidsub: [
+                `Chaque jeu Steam possède un numéro unique appelé <span class="hl">AppID</span>. Vous pouvez trouver l'AppID de n'importe quel jeu Steam de l'une des façons suivantes :`,
+                `Dans le <span class="hl">client Steam</span>, <i>cliquez avec le bouton droit</i> sur un jeu de votre <span class="hl">Bibliothèque</span>, puis sélectionnez <i>Propriétés</i> > <i>Mises à jour</i> - l'AppID y sera affiché`,
+                `L'<span class="hl">URL</span> de la <span class="hl">page de la boutique</span> du jeu - il s'agit du numéro situé après <span class="hl">app/</span> : <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Des sites tels que <span class="hl">SteamDB</span> - la section <span class="hl">App Info</span> affiche l'AppID de chaque jeu`
+            ],
+            noexe: "EXE du jeu introuvable!",
+            noexesub: "Cliquez ici pour plus d'informations",
+            noexedialogsub: [
+                `Steam Achievement Notifier n'a pas pu localiser automatiquement le fichier exécutable de ce jeu. L'emplacement du fichier exécutable du jeu est nécessaire afin de pouvoir « libérer » le jeu une fois fermé`,
+                `Pour libérer manuellement le jeu après sa fermeture, <i>cliquez avec le bouton droit</i> sur <span class="hl">l'icône de la zone de notification</span> > <span class="hl">Options</span> > <span class="hl">Libérer le jeu</span>, ou utilisez le <span class="hl">Raccourci de libération du jeu</span>`,
+                `Vous pouvez également cliquer sur le bouton <span class="hl">Ajouter</span> ci-dessous pour ajouter le fichier exécutable associé à la fenêtre active à <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Jeux à libération automatique</span>`,
+            ],
+            linkedgamefocussub: `Pour remplacer le suivi automatique de tous les processus de jeu en cours effectué par <span class="hl">SANWatcher</span>, ajoutez une nouvelle entrée à <span class="hl">Jeux liés</span>`,
+            autoreleasegamefocussub: `Si Steam affiche toujours un jeu comme étant <i>En cours</i> après la fermeture de sa fenêtre, essayez d'ajouter une nouvelle entrée à <span class="hl">Jeux à libération automatique</span>`,
+            focussub: `Pour faire cela pour le jeu actuel, cliquez sur le bouton <span class="hl">Ajouter</span> ci-dessous afin d'ajouter le fichier exécutable associé à la fenêtre active à <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Que se passe-t-il lorsque je clique sur le bouton Ajouter ?</u></span>`,
+            linkgamehelp: "Lier via le focus",
+            linkgamehelpsub: [
+                `En cliquant sur le bouton <span class="hl">Ajouter</span>, une nouvelle entrée sera automatiquement ajoutée à <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Jeux à libération automatique</span>, en utilisant les informations de la fenêtre actuellement active.`,
+                `Après avoir cliqué sur le bouton <span class="hl">Ajouter</span>, un compte à rebours de 5 secondes commencera`,
+                `Avant la fin du compte à rebours, mettez le focus sur la fenêtre du jeu`,
+                `Une fois le compte à rebours terminé, une nouvelle entrée pour l'<span class="hl">AppID</span> actuel sera ajoutée à <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Jeux à libération automatique</span>, en utilisant le fichier exécutable associé à la fenêtre active`,
+                `Les nouvelles tentatives remplaceront les entrées existantes, ou l'entrée pourra être supprimée via <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Jeux à libération automatique</span> en cliquant sur le bouton <span id="linkhelpunlink"></span>`
+            ],
+            addlinkfailed: "Impossible d'ajouter la fenêtre",
+            addlinkfailedsub: `Cliquez sur le bouton <span class="hl">Ajouter</span> pour réessayer`
         }
     },
     exclusions: {

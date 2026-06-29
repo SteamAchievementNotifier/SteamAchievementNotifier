@@ -1187,7 +1187,7 @@ const events = [
 const gamedisplay = document.getElementById("game") as HTMLElement
 
 for (const event of events) {
-    ipcRenderer.on(event,(_,value: boolean) => gamedisplay.toggleAttribute(event,value))
+    ipcRenderer.on(event,(_,value: boolean,ra?: boolean) => gamedisplay.toggleAttribute(`${ra ? "ra" : ""}${event}`,value))
 }
 
 ipcRenderer.on("activeprocesses",(event,appid: number,activeprocesses: boolean,linkedgame?: string) => {

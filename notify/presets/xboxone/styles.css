@@ -216,9 +216,15 @@ body[fastanim] .wrapper#achcontent {
 
 body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::before,
 body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::before {
+    --ssize: 30%;
     content: attr(gs) attr(unit) " - ";
     padding-left: calc(1.25rem * var(--fontsize));
-    background: var(--s) left / 30% no-repeat;
+    background: var(--s) left / var(--ssize) no-repeat;
+}
+
+body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title[unit="%"]::before,
+body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc[unit="%"]::before {
+    --ssize: 20%;
 }
 
 #unlockmsg,

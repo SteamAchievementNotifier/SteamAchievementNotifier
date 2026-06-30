@@ -642,6 +642,15 @@ declare interface ExtWinConfig {
     minHeight: number
 }
 
+declare type Platform = "steam" | "ra" | null
+
+declare interface ExtWinsPayload {
+    win: ExtWins,
+    state: Platform
+}
+
+declare type ExtWinsState = Record<ExtWins,Platform>
+
 declare interface WorkerInfo {
     appid: number,
     gamename?: string | null,
@@ -664,6 +673,24 @@ declare type RunningGameTimer = {
 declare interface LastKnownGame {
     appid: number,
     installdir: string | null
+}
+
+declare type ErrNotifyType = "noexe" | "addlinkfailed" | "workercrash"
+
+declare interface ErrNotify {
+    channel: ErrNotifyType
+    skipnotify?: boolean
+}
+
+declare interface ResourceUsage {
+    processes: number,
+    cpupercent: number,
+    memmainMB: number,
+    memperprocessMB: {
+        type: Electron.ProcessMetric["type"],
+        MB: number
+    }[],
+    memtotalMB: number
 }
 
 declare module "simple-vdf"

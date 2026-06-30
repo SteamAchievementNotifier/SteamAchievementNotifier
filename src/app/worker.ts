@@ -6,7 +6,6 @@ import { log } from "./log"
 import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
-import { getlogmap, getlastactions, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
 import sanwatcher, { WatchEvent } from "sanwatcher.rs"
 
 declare global {
@@ -31,6 +30,23 @@ sanhelper.errorhandler(log)
 const globallocalised = new Map<string,LocalisedObj>()
 window.globallocalised = globallocalised
 
+const pids = new Set<number>()
+let releasetimer: NodeJS.Timeout | null = null
+
+const statsobj: StatsObj = {
+    appid: 0,
+    gamename: null
+}
+
+const workerinfo: WorkerInfo = {
+    appid: 0,
+    gamename: null,
+    steam3id: undefined,
+    achnum: undefined,
+    allunlocked: undefined,
+    ra: false
+}
+
 const worker = {
     getadditionalargs: (arg?: string) => arg ? JSON.parse(arg.split("=")[1]) : null,
     resolvefilepath: (dir: string,file: string) => {
@@ -49,13 +65,14 @@ const worker = {
 
         return null
     },
-    creategameinfo: (gameinfo: { gamename: string, appid: number, exepath: string, pid: number, pollrate: number },event: "started" | "exited") => [
+    creategameinfo: (gameinfo: { gamename: string, appid: number, exepath: string, pid: number, pollrate: number, linkedgame?: string },event: "started" | "exited") => [
         `Game process ${event}:`,
         `gamename: ${gameinfo.gamename}`,
         `appid: ${gameinfo.appid}`,
         `exepath: ${gameinfo.exepath}`,
         `pid: ${gameinfo.pid}`,
-        `pollrate: ${gameinfo.pollrate}ms`
+        `pollrate: ${gameinfo.pollrate}ms`,
+        `linkedgame: ${gameinfo.linkedgame || "N/A"}`
     ].join("\n- "),
     localisedobj: async (steam3id: number,achievement: Achievement) => {
         const config = sanconfig.get()
@@ -99,6 +116,33 @@ const worker = {
         )
 
         ipcRenderer.send("stats",statsobj,launch)
+    },
+    linkedgame: (appid: number) => Object.entries(JSON.parse(localStorage.getItem("linkgame")!)).find(item => parseInt(item[0]) === appid)?.[1] as string | undefined,
+    releasegame: (timer: NodeJS.Timeout,appid: number,process: ProcessInfo) => {
+        log.write("INFO",`Releasing game for AppID ${appid}:\n- pid: ${process.pid}\n- exepath: ${process.exe}`)
+
+        if (releasetimer) {
+            clearTimeout(releasetimer)
+            releasetimer = null
+        }
+        
+        clearInterval(timer)
+        log.write("INFO",`Game loop stopped for AppID ${appid}`)
+
+        statsobj.appid = 0
+        statsobj.gamename = null
+        statsobj.achievements = undefined
+
+        ipcRenderer.send("stats",statsobj)
+
+        workerinfo.appid = 0
+        workerinfo.gamename = undefined
+        workerinfo.steam3id = 0
+        workerinfo.achnum = undefined
+
+        ipcRenderer.emit("gametimer")
+        ipcRenderer.send("activeprocesses",appid,true,worker.linkedgame(appid)) // Remove UI hint on release
+        ipcRenderer.send("validateworker")
     }
 }
 
@@ -106,27 +150,14 @@ const worker = {
 // This ensures SAN does not re-initialise an AppID for a game that has now closed, which would prevent Steam from resetting `RunningAppID` to 0 in the Windows registry
 const lastknowngame: LastKnownGame | null = worker.getadditionalargs(process.argv.find(arg => arg.startsWith("--lastknowngame="))) as LastKnownGame | null
 
-const statsobj: StatsObj = {
-    appid: 0,
-    gamename: null
-}
-
 // `init` is only sent via "stats" IPC event when `statwin` spawns
 ipcRenderer.on("stats",(event,init?: boolean) => ipcRenderer.send("stats",statsobj,init))
 
 // Send to `listeners.ts` on spawn, in case `statwin` spawned between worker respawns and did not receive "stats" IPC event
 ipcRenderer.send("stats",statsobj)
 
-const workerinfo: WorkerInfo = {
-    appid: 0,
-    gamename: null,
-    steam3id: undefined,
-    achnum: undefined,
-    allunlocked: undefined,
-    ra: false
-}
-
-ipcRenderer.on("gametimer",(event,ra?: "ra") => ipcRenderer.send("gametimer",ra ? raworkerinfo : workerinfo))
+// ipcRenderer.on("gametimer",(event,ra?: "ra") => ipcRenderer.send("gametimer",ra ? raworkerinfo : workerinfo))
+ipcRenderer.on("gametimer",() => ipcRenderer.send("gametimer",workerinfo))
 
 const startidle = () => {
     try {
@@ -143,27 +174,30 @@ const startidle = () => {
             
             if (!appid) return
             
+            // If `installdir === null`, current AppID is invalid (i.e. a non-Steam game/application)
+            if (lastknowngame && appid === lastknowngame.appid && !lastknowngame.installdir) {
+                if (!invalidappidlogged) {
+                    log.write("WARN",`Invalid AppID ${appid} currently active in Steam - skipping...`)
+                    invalidappidlogged = true
+                }
+                
+                return
+            }
+            
             const { usesanwatcher } = sanconfig.get().store
 
             if (usesanwatcher) {
                 // If `lastknowngame === null`, continue as normal, as there is no existing game data to compare to
                 // Otherwise, if the current AppID is the same as the last known one, first check if the AppID is valid
                 if (lastknowngame && appid === lastknowngame.appid) {
-                    // If `installdir === null`, current AppID is invalid (i.e. a non-Steam game/application)
-                    if (!lastknowngame.installdir) {
-                        if (!invalidappidlogged) {
-                            log.write("WARN",`Invalid AppID ${appid} currently active in Steam - skipping...`)
-                            invalidappidlogged = true
-                        }
-                        
-                        return
-                    }
+                    const linkedgame = worker.linkedgame(appid) ?? null
                     
                     // Check whether any install dir processes are active for the current AppID
-                    const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir)
+                    const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir as string,linkedgame)
                     
                     // If there are no active processes in the game's install dir, this signifies Steam is currently trying to reset `RunningAppID` back to 0 in the registry
-                    if (!activeprocesses.length) {
+                    // Additionally, continue if a linked game is specified for the current AppID - even if not currently running. This prevents scenarios where no processes exist (e.g. the linked game EXE hasn't launched yet), so SAN quits the Worker process immediately and hangs due to non-zero RunningAppID
+                    if (!linkedgame && !activeprocesses.length) {
                         log.write("WARN",`No active processes within game installation directory, but Steam reports AppID ${appid} is still active - exiting "Worker" process for Steam to clear AppID ${appid}...`)
                         clearInterval(timer)
                         return ipcRenderer.send("validateworker") // In this case, destroy the active "Worker" process and allow Steam to reset
@@ -208,35 +242,6 @@ const startidle = () => {
     }
 }
 
-const pids = new Set<number>()
-let releasetimer: NodeJS.Timeout | null = null
-
-const releasegame = (timer: NodeJS.Timeout,appid: number,process: ProcessInfo) => {
-    log.write("INFO",`Releasing game for AppID ${appid}:\n- pid: ${process.pid}\n- exepath: ${process.exe}`)
-
-    if (releasetimer) {
-        clearTimeout(releasetimer)
-        releasetimer = null
-    }
-    
-    clearInterval(timer)
-    log.write("INFO",`Game loop stopped for AppID ${appid}`)
-
-    statsobj.appid = 0
-    statsobj.gamename = null
-    statsobj.achievements = undefined
-
-    ipcRenderer.send("stats",statsobj)
-
-    workerinfo.appid = 0
-    workerinfo.gamename = undefined
-    workerinfo.steam3id = 0
-    workerinfo.achnum = undefined
-
-    ipcRenderer.emit("gametimer")
-    ipcRenderer.send("validateworker")
-}
-
 const startsan = async (appinfo: AppInfo) => {
     try {
         globallocalised.clear()
@@ -255,7 +260,7 @@ const startsan = async (appinfo: AppInfo) => {
 
         if (!client) {
             ipcRenderer.send("lastknowngame",{ appid, installdir: null } as LastKnownGame)
-            return ipcRenderer.send("validateworker")
+            return ipcRenderer.send("validateworker",true)
         }
 
         sanhelper.devmode && (window.client = client)
@@ -271,8 +276,8 @@ const startsan = async (appinfo: AppInfo) => {
             ipcRenderer.send(`iconpath_${achievement.apiname}`,icon)
         })
 
-        const rustlog = client.log.initLogger(path.join(sanhelper.appdata,"logs"))
-        log.write("INFO",rustlog)
+        const steamworksjslog = client.log.initLogger(path.join(sanhelper.appdata,"logs"))
+        log.write("INFO",steamworksjslog)
     
         const steam3id = client.localplayer.getSteamId().accountId
         const steam64id = client.localplayer.getSteamId().steamId64.toString().replace(/n$/,"")
@@ -281,7 +286,7 @@ const startsan = async (appinfo: AppInfo) => {
     
         const getprocessinfo = (sgpexe?: string): ProcessInfo[] => {
             const processinfo: ProcessInfo[] = []
-            const linkedgame: string | undefined = sgpexe || Object.entries(JSON.parse(localStorage.getItem("linkgame")!)).find(item => parseInt(item[0]) === appid)?.[1] as string
+            const linkedgame: string | undefined = sgpexe ?? worker.linkedgame(appid)
     
             linkedgame && log.write("INFO",`${sgpexe ? `"steam-game-path"` : "Linked Game"} executable found for AppID "${appid}": "${linkedgame}"`)
 
@@ -303,8 +308,8 @@ const startsan = async (appinfo: AppInfo) => {
         
         ipcRenderer.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
             try {
-                const handle = client.screenshots.addScreenshotToLibrary(imgpath,width,height)
-                log.write("INFO",`"${imgpath}" added to Steam successfully (handle: ${handle})`)
+                client.screenshots.addScreenshotToLibrary(imgpath,width,height)
+                log.write("INFO",`"${imgpath}" added to Steam successfully`)
             } catch (err) {
                 log.write("WARN",`Unable to add media to Steam: ${(err as Error).message}`)
             }
@@ -345,18 +350,28 @@ const startsan = async (appinfo: AppInfo) => {
             !num && log.write("INFO",`"${gamename}" has no achievements`)
 
             if (usesanwatcher) {
-                pids.clear() // Clear any stale PIDs in the set before tracking the current game
+                const sanwatcherlog = sanwatcher.log.initLogger(path.join(sanhelper.appdata,"logs"))
+                log.write("INFO",sanwatcherlog)
                 
-                sanwatcher.start(installdir,pollrate || 250,(err,event: WatchEvent) => {
+                pids.clear() // Clear any stale PIDs in the set before tracking the current game
+
+                const linkedgame = worker.linkedgame(appid) ?? null
+
+                const activeprocesses = sanwatcher.getActiveProcesses(installdir,linkedgame)
+                ipcRenderer.send("activeprocesses",appid,!!activeprocesses.length,linkedgame) // Check initial active processes and send UI hint if no active game processes are detected
+                
+                sanwatcher.start(installdir,linkedgame,pollrate || 250,(err,event: WatchEvent) => {
                     if (err) return log.write("ERROR",err as string)
                     
                     const { started, pid, exe } = event
+                    
                     const gameinfo = {
                         gamename: gamename || "???",
                         appid,
                         exepath: exe,
                         pid,
-                        pollrate: pollrate || 250
+                        pollrate: pollrate || 250,
+                        linkedgame: linkedgame ? linkedgame.toLowerCase() : "N/A"
                     }
     
                     if (started) {
@@ -367,10 +382,13 @@ const startsan = async (appinfo: AppInfo) => {
                             
                             ipcRenderer.send("gametimer",workerinfo) // Restart Game Timer if new process is discovered
                             ipcRenderer.send("releasing",gameinfo.gamename,false) // Send IPC event to remove "releasing" attribute to Game Display in UI
+                            
                             log.write("INFO",`New game process detected for AppID ${appid} - release cancelled`)
                         }
                         
                         pids.add(pid)
+                        ipcRenderer.send("activeprocesses",appid,true,linkedgame) // Update UI hint on matching process start
+
                         return log.write("INFO",worker.creategameinfo(gameinfo,"started"))
                     }
     
@@ -390,13 +408,14 @@ const startsan = async (appinfo: AppInfo) => {
                         
                         ipcRenderer.send("gametimer",workerinfo) // Stop active Game Timer on any installdir process exit
                         ipcRenderer.send("releasing",gameinfo.gamename,true) // Send IPC event to apply "releasing" attribute to Game Display in UI
-                        releasetimer = setTimeout(() => !pids.size && releasegame(timer,appid,{ pid, exe } as ProcessInfo),releasewaittime * 1000)
+                        
+                        releasetimer = setTimeout(() => !pids.size && worker.releasegame(timer,appid,{ pid, exe } as ProcessInfo),releasewaittime * 1000)
                     }
                 })
             }
             
             const gameloop = () => {
-                !usesanwatcher && processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid)) && releasegame(timer,appid,processes[0])
+                !usesanwatcher && processes.every(({ pid }: ProcessInfo) => pid !== -1 && !isprocessrunning(pid)) && worker.releasegame(timer,appid,processes[0])
     
                 const { debug } = sanconfig.get().store
 
@@ -407,7 +426,7 @@ const startsan = async (appinfo: AppInfo) => {
                     appid: appid,
                     gamename: gamename,
                     status: "Active",
-                    processes: (usesanwatcher ? sanwatcher.getActiveProcesses(installdir) : processes).map(({ pid, exe }) => {
+                    processes: (usesanwatcher ? sanwatcher.getActiveProcesses(installdir,worker.linkedgame(appid) ?? null) : processes).map(({ pid, exe }) => {
                         return {
                             exe: exe,
                             pid: pid,
@@ -570,7 +589,7 @@ const startsan = async (appinfo: AppInfo) => {
                     // If an EXE is still not found, push an invalid process. The user will then need to manually release the game
                     if (!processes.length) {
                         log.write("WARN",`Unable to find running game process for "${gamename}": Game will not be able to quit automatically!`)
-                        ipcRenderer.send("noexe")
+                        ipcRenderer.send("errnotify",{ channel: "noexe" } as ErrNotify)
                         
                         processes.push({
                             exe: "<Unknown>",
@@ -594,123 +613,3 @@ const startsan = async (appinfo: AppInfo) => {
 }
 
 startidle()
-
-let gameid = 0
-let ratimer: NodeJS.Timeout | null = null
-const logactions = new Set<string>()
-const lastlog: { [key: string]: string } = {}
-
-for (const emu of rasupported) {
-    lastlog[emu] = ""
-}
-
-// Set a variable in localStorage for the last earned achievement if it does not already exist
-!localStorage.getItem("ralastachievement") && localStorage.setItem("ralastachievement","0")
-
-// Converts `LogAction` to string and stores in `logactions` Set. This de-dupes by ensuring only unique new actions are stored
-// Needs to be a string - Sets compare by reference (not by object or key/value), so comparing two `LogAction` objects directly will not work here
-const getactionstr = (action: LogAction) => `${action.key}:${action.file}:${action.action}:${action.value}:${action.mode}`
-
-const rastatsobj: StatsObj = {
-    appid: 0,
-    gamename: null,
-    ra: true
-}
-
-const raworkerinfo: WorkerInfo = {
-    appid: 0,
-    gamename: null,
-    achnum: undefined,
-    allunlocked: undefined,
-    ra: true
-}
-
-const startra = () => {
-    if (ratimer) return log.write("WARN",`"ratimer" already active`)
-    log.write("INFO",`"ratimer" started`)
-
-    ratimer = setInterval(async () => {
-        sanhelper.devmode && (window.racached = racached)
-        const logmap = getlogmap()
-
-        // Limits actions to active emulator
-        for (const [key,file] of logmap) {
-            if (!fs.existsSync(file) || (emu && emu !== key)) continue
-
-            for (const newaction of getlastactions(key,file)) {
-                if (newaction.action === "idle") continue
-
-                const actionkey = getactionstr(newaction)
-                if (logactions.has(actionkey)) continue
-
-                logactions.add(actionkey)
-                newaction.action === "stop" && setTimeout(() => logactions.clear(),1000)
-
-                const [type,details] = await executeaction(newaction)
-                const [keyname,msg] = details
-
-                if (!type || !keyname || !msg) continue
-                if (lastlog[keyname] === msg) continue
-
-                type !== "CONSOLE" ? log.write(type as "INFO" | "ERROR", msg) : console.log(msg)
-
-                lastlog[keyname] = msg
-
-                const { action, value: appid, mode } = newaction
-                if (appid === null) continue
-
-                if (action !== "achievement") gameid = action === "start" ? appid : 0
-                const live = action !== "stop"
-
-                const {
-                    gamename,
-                    achievements,
-                    achnum,
-                    allunlocked
-                } = {
-                    gamename: live ? racached[0].gamename : null,
-                    achievements: live ? racached as any : undefined,
-                    achnum: live ? racached.length : undefined,
-                    allunlocked: live ? (racached.length ? racached.every(ach => ach.unlocked) : false) : undefined
-                }
-
-                if (achievements) {
-                    const unlocktime = Date.now()
-
-                    for (const achievement of achievements) {
-                        achievement.unlocktimestamp = achievement.unlocked ? unlocktime : -1
-                    }
-                }
-
-                rastatsobj.appid = gameid
-                rastatsobj.gamename = gamename
-                rastatsobj.achievements = achievements
-                rastatsobj.mode = mode
-
-                ipcRenderer.send("stats",rastatsobj,action === "start")
-                
-                raworkerinfo.appid = gameid
-                raworkerinfo.gamename = gamename
-                raworkerinfo.achnum = achnum
-                raworkerinfo.allunlocked = allunlocked
-
-                ipcRenderer.emit("gametimer",null,"ra")
-            }
-        }
-    },1000)
-}
-
-sanhelper.devmode && (window.testraunlock = testraunlock)
-sanconfig.get().store.raemus.length && startra()
-
-ipcRenderer.on("rastart",() => startra())
-ipcRenderer.on("rastop",() => {
-    if (!ratimer) return log.write("WARN",`"ratimer" is not active`)
-
-    clearInterval(ratimer)
-    ratimer = null
-    log.write("INFO",`"ratimer" stopped`)
-})
-
-ipcRenderer.on("emu",() => ipcRenderer.send("emu",emu))
-ipcRenderer.on("rastats",(event,init: boolean) => ipcRenderer.send("stats",rastatsobj,init))

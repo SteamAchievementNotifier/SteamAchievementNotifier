@@ -61,36 +61,6 @@ export const translations = {
         resume: "ดำเนินการต่อ",
         new: "ใหม่...",
         nodata: "ไม่มีข้อมูล",
-        findappid: "ค้นหา AppID",
-        findappidsub: [
-            `ทุกเกมของ Steam มีหมายเลขที่ไม่ซ้ำกันที่เกี่ยวข้อง - เรียกว่า <span class="hl">AppID</span> คุณสามารถค้นหา AppID ที่เกี่ยวข้องกับเกม Steam ใด ๆ ได้โดยตรวจสอบหนึ่งในวิธีต่อไปนี้:`,
-            `ใน <span class="hl">ไคลเอนต์ Steam</span> คลิกขวาที่เกมใน <span class="hl">คลัง</span> ของคุณและเลือก <i>คุณสมบัติ</i> > <i>อัพเดท</i> - AppID จะถูกแสดงที่นี่`,
-            `ที่ <span class="hl">URL</span> ของ <span class="hl">หน้าร้านของเกม</span> - จะเป็นตัวเลขที่ระบุหลังจาก <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `เว็บไซต์เช่น <span class="hl">SteamDB</span> - ส่วนข้อมูลเกี่ยวกับ <span class="hl">App</span> จะระบุ AppID สำหรับแต่ละเกม`
-        ],
-        noexe: "ไม่พบไฟล์ EXE ของเกม!",
-        noexesub: "คลิกที่นี่เพื่อข้อมูลเพิ่มเติม",
-        noexedialogsub: [
-            `Steam Achievement Notifier ไม่สามารถค้นหาไฟล์ปฏิบัติการของเกมนี้โดยอัตโนมัติได้ จำเป็นต้องระบุตำแหน่งของไฟล์ปฏิบัติการของเกมเพื่อให้สามารถ "ปล่อย" เกมได้หลังจากปิดเกมแล้ว`,
-            `หากต้องการปล่อยเกมด้วยตนเองหลังจากปิดเกมแล้ว ให้ <i>คลิกขวา</i> ที่ <span class="hl">ไอคอน System Tray</span> > <span class="hl">ตัวเลือก</span> > <span class="hl">ปล่อยเกม</span> หรือใช้ <span class="hl">ทางลัดการปล่อยเกม</span>`,
-            `หรืออีกทางหนึ่ง ให้คลิกปุ่ม <span class="hl">เพิ่ม</span> ด้านล่างเพื่อเพิ่มไฟล์ปฏิบัติการที่เชื่อมโยงกับหน้าต่างที่กำลังโฟกัสไปยัง <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">เกมปล่อยอัตโนมัติ</span>`,
-        ],
-        autorelease: "ปล่อยเกมอัตโนมัติ",
-        autoreleasesub: [
-            `หาก Steam ยังคงแสดงเกมว่า <i>กำลังเล่น</i> หลังจากที่หน้าต่างเกมถูกปิดแล้ว ให้ลองเพิ่มรายการใหม่ใน <span class="hl">เกมปล่อยอัตโนมัติ</span>`,
-            `หากต้องการทำสิ่งนี้กับเกมปัจจุบัน ให้คลิกปุ่ม <span class="hl">เพิ่ม</span> ด้านล่างเพื่อเพิ่มไฟล์ปฏิบัติการที่เชื่อมโยงกับหน้าต่างที่กำลังโฟกัสไปยัง <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">เกมปล่อยอัตโนมัติ</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>จะเกิดอะไรขึ้นเมื่อฉันคลิกปุ่ม เพิ่ม?</u></span>`,
-        linkgamehelp: "เพิ่มรายการผ่านโฟกัส",
-        linkgamehelpsub: [
-            `การคลิกปุ่ม <span class="hl">เพิ่ม</span> จะเพิ่มรายการใหม่ไปยัง <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">เกมปล่อยอัตโนมัติ</span> โดยอัตโนมัติ โดยใช้ข้อมูลจากหน้าต่างที่กำลังโฟกัสอยู่`,
-            `หลังจากคลิกปุ่ม <span class="hl">เพิ่ม</span> จะเริ่มนับเวลาถอยหลัง 5 วินาที`,
-            `ก่อนที่ตัวจับเวลาจะสิ้นสุด ให้โฟกัสไปที่หน้าต่างเกม`,
-            `เมื่อการนับเวลาสิ้นสุด ระบบจะเพิ่มรายการใหม่สำหรับ <span class="hl">AppID</span> ปัจจุบันไปยัง <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">เกมปล่อยอัตโนมัติ</span> โดยใช้ไฟล์ปฏิบัติการที่เชื่อมโยงกับหน้าต่างที่กำลังโฟกัสอยู่`,
-            `ความพยายามใหม่จะเขียนทับรายการที่มีอยู่ หรือสามารถลบรายการได้ผ่าน <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">เกมปล่อยอัตโนมัติ</span> โดยคลิกปุ่ม <span id="linkhelpunlink"></span>`
-        ],
-        addlinkfailed: "ไม่สามารถเพิ่มหน้าต่างได้",
-        addlinkfailedsub: `คลิกปุ่ม <span class="hl">เพิ่ม</span> เพื่อลองอีกครั้ง`,
         webhookunlockmsg: "$user ได้ปลดล็อกความสำเร็จ",
         webhookunlockmsgplat: "$user ปลดล็อกความสำเร็จทั้งหมด",
         webhookingame: "ใน $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "ขอบคุณที่ทดสอบ! 💜"
         ],
         betaghreleases: "การปล่อย",
-        checkapplog: "กรุณาตรวจสอบบันทึกของแอปเพื่อดูรายละเอียด"
+        checkapplog: "กรุณาตรวจสอบบันทึกของแอปเพื่อดูรายละเอียด",
+        workercrash: "Worker ล้มเหลว!",
+        workercrashsub: "คลิกที่นี่เพื่อเริ่ม Worker ใหม่และลองติดตามเกมอีกครั้ง"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "เกม",
             content: {
-                linkedgames: "เกมปล่อยอัตโนมัติ",
+                linkedgames: "เกมที่เชื่อมโยง",
+                autoreleasegames: "เกมปล่อยอัตโนมัติ",
                 themeswitch: "เปลี่ยนธีมอัตโนมัติ",
                 exclusionlist: "รายการยกเว้น",
                 inclusionlist: "รายชื่อที่รวมไว้",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "สถานที่ที่รูปภาพการแจ้งเตือนที่สร้างขึ้นโดยตัวเลือกนี้จะถูกบันทึก",
         ssenabled: "เปิดหรือปิดการสร้างสื่อสำหรับประเภทนี้",
         checkforupdates: `ตรวจสอบว่าได้มีการปล่อยเวอร์ชันใหม่ของแอปบน GitHub หรือไม่ หากมีการอัปเดตให้ดาวน์โหลดและติดตั้งโดยอัตโนมัติเมื่อได้รับการยืนยันผ่านกล่องโต้ตอบ <span class="hl">อัปเดตที่มีอยู่</span>`,
-        linkedgames: `หลีกเลี่ยง <span class="hl">การติดตามกระบวนการอัตโนมัติ</span> สำหรับเกม Steam ที่เฉพาะเจาะจง<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในสถานการณ์ที่เฉพาะเจาะจงมากๆ เราไม่ควรจะต้องใช้ตัวเลือกนี้ในสถานการณ์ปกติ!</span>`,
+        linkedgames: `ข้าม <span class="hl">SANWatcher</span> สำหรับเกม Steam ที่ระบุ<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในกรณีพิเศษเท่านั้น โดยปกติแล้วผู้ใช้ไม่จำเป็นต้องใช้ตัวเลือกนี้!</span>`,
+        autoreleasegames: `ข้าม<span class="hl">การติดตามกระบวนการอัตโนมัติ</span>สำหรับเกม Steam ที่ระบุ<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในกรณีพิเศษเท่านั้น โดยปกติแล้วผู้ใช้ไม่จำเป็นต้องใช้ตัวเลือกนี้!</span>`,
         exclusionlist: `ป้องกันไม่ให้แอปติดตามความสำเร็จในเกม Steam ที่ระบุไว้<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในสถานการณ์ที่เฉพาะเจาะจงมากๆ เราไม่ควรจะต้องใช้ตัวเลือกนี้ในสถานการณ์ปกติ!</span>`,
         inclusionlist: `ป้องกันไม่ให้เกม Steam ทั้งหมดถูกติดตามโดยแอป เว้นแต่จะระบุไว้<br><br><span class="ttdesc">ตัวเลือกนี้ควรใช้เฉพาะในกรณีเฉพาะเท่านั้น ผู้ใช้ทั่วไปไม่จำเป็นต้องใช้ตัวเลือกนี้ในสถานการณ์ปกติ!</span>`,
         ovx: "เลื่อนการแจ้งเตือนที่แสดงในภาพหน้าจอตามแนวนอน",
@@ -911,24 +885,60 @@ export const translations = {
     },
     linkgame: {
         content: {
-            exepath: "เส้นทางของไฟล์เรียกใช้",
+            exepath: "เส้นทางไฟล์โปรแกรม",
+            linkedgame: "เชื่อมโยงเกม",
+            autoreleasegame: "ปล่อยเกมอัตโนมัติ",
+            linkedgamessub: [
+                `แทนที่กระบวนการเกมทั้งหมดที่กำลังทำงานซึ่งถูกติดตามอัตโนมัติโดย <span class="hl">SANWatcher</span> และตรวจสอบเฉพาะว่า<span class="hl">ไฟล์โปรแกรมของเกม</span>ที่เลือกกำลังทำงานอยู่หรือไม่`,
+                `เชื่อมโยง <span class="hl">AppID</span> ของเกมกับ<span class="hl">ไฟล์โปรแกรมของเกม</span>เป้าหมาย หรือ<span class="hl">ลบ</span>การเชื่อมโยงที่มีอยู่`
+            ],
+            autoreleasegamessub: [
+                `หาก Steam ยังแสดงว่าเกมอยู่ในสถานะ<i>กำลังเล่น</i>หลังจากปิดหน้าต่างเกมแล้ว ให้ลองเพิ่มรายการใหม่ใน <span class="hl">$linkgame</span>`,
+                `เพิ่ม <span class="hl">AppID</span> ของเกมพร้อมกับ<span class="hl">ไฟล์โปรแกรมของเกม</span>ที่คาดไว้ หรือ<span class="hl">ลบ</span>รายการที่มีอยู่`,
+            ],
             managesub: [
-                `หาก Steam ยังคงแสดงเกมว่า <i>กำลังเล่น</i> หลังจากที่หน้าต่างเกมถูกปิดแล้ว ให้ลองเพิ่มรายการใหม่ใน <span class="hl">เกมปล่อยอัตโนมัติ</span>`,
-                `เพิ่ม <span class="hl">AppID</span> ของเกมที่ระบุพร้อมกับ <span class="hl">ไฟล์ปฏิบัติการของเกม</span> ที่คาดไว้ หรือ <span class="hl">ลบ</span> รายการที่มีอยู่`,
-                `สามารถเพิ่มรายการใหม่ได้โดย <i>คลิกขวา</i> ที่ <span class="hl">ไอคอน System Tray</span> > <span class="hl">ปล่อยเกมอัตโนมัติ</span> เมื่อมีการตรวจพบเกมแล้ว`,
+                `หลังจากตรวจพบเกมแล้ว สามารถเพิ่มรายการใหม่ผ่าน<span class="hl">หน้าต่างที่กำลังโฟกัส</span>ได้ โดยการ<i>คลิกขวา</i>ที่<span class="hl">ไอคอนถาดระบบ</span> > <span class="hl">$linkgame</span>`,
                 `<span class="hl help" id="appidhelp"><u>ฉันจะหา AppID ของเกม Steam ได้อย่างไร?</u></span>`
             ],
             linknew: "รายการใหม่",
             linknewsub: [
-                `เพิ่ม <span class="hl">AppID</span> ของเกมใหม่พร้อมกับ <span class="hl">ไฟล์ปฏิบัติการของเกม</span> ที่คาดไว้`,
-                `เมื่อเพิ่มแล้ว สามารถ <span class="hl">ลบ</span> รายการได้ผ่านเมนู <span class="hl">เกมปล่อยอัตโนมัติ</span> ก่อนหน้า`
+                `เชื่อมโยง <span class="hl">AppID</span> ของเกมใหม่กับ<span class="hl">ไฟล์โปรแกรมของเกม</span>เป้าหมาย`,
+                `หลังจากเพิ่มแล้ว สามารถ<span class="hl">ลบ</span>รายการได้ผ่านเมนู <span class="hl">$linkgame</span> ก่อนหน้า`
             ],
             linkedit: "แก้ไขรายการ",
             linkeditsub: [
-                `แก้ไข <span class="hl">AppID</span> ของเกมที่มีอยู่พร้อมกับ <span class="hl">ไฟล์ปฏิบัติการของเกม</span> ที่คาดไว้`,
-                `เมื่อเพิ่มแล้ว สามารถ <span class="hl">ลบ</span> รายการได้ผ่านเมนู <span class="hl">เกมปล่อยอัตโนมัติ</span> ก่อนหน้า`
+                `แก้ไขการเชื่อมโยงระหว่าง <span class="hl">AppID</span> ของเกมกับ<span class="hl">ไฟล์โปรแกรมของเกม</span>เป้าหมาย`,
+                `หลังจากเพิ่มแล้ว สามารถ<span class="hl">ลบ</span>รายการได้ผ่านเมนู <span class="hl">$linkgame</span> ก่อนหน้า`
             ],
-            link: "เพิ่ม"
+            link: "เพิ่ม",
+            findappid: "ค้นหา AppID",
+            findappidsub: [
+                `เกม Steam ทุกเกมมีหมายเลขเฉพาะที่เรียกว่า <span class="hl">AppID</span> คุณสามารถหา AppID ของเกม Steam ได้จากวิธีต่อไปนี้:`,
+                `ใน <span class="hl">ไคลเอนต์ Steam</span> ให้<i>คลิกขวา</i>ที่เกมใน<span class="hl">คลังเกม</span> แล้วเลือก<i>คุณสมบัติ</i> > <i>อัปเดต</i> - จะมี AppID แสดงอยู่`,
+                `URL ของ<span class="hl">หน้าร้านค้า</span>เกม - จะเป็นตัวเลขหลัง <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `เว็บไซต์เช่น <span class="hl">SteamDB</span> - ในส่วน <span class="hl">App Info</span> จะแสดง AppID ของแต่ละเกม`
+            ],
+            noexe: "ไม่พบไฟล์ EXE ของเกม!",
+            noexesub: "คลิกที่นี่เพื่อดูข้อมูลเพิ่มเติม",
+            noexedialogsub: [
+                `Steam Achievement Notifier ไม่สามารถค้นหาไฟล์โปรแกรมของเกมนี้โดยอัตโนมัติ ตำแหน่งของไฟล์โปรแกรมจำเป็นสำหรับการ "ปล่อย" เกมหลังจากปิด`,
+                `หากต้องการปล่อยเกมด้วยตนเองหลังจากปิด ให้<i>คลิกขวา</i>ที่<span class="hl">ไอคอนถาดระบบ</span> > <span class="hl">ตัวเลือก</span> > <span class="hl">ปล่อยเกม</span> หรือใช้<span class="hl">ปุ่มลัดปล่อยเกม</span>`,
+                `อีกทางเลือกหนึ่ง ให้คลิกปุ่ม<span class="hl">เพิ่ม</span>ด้านล่างเพื่อเพิ่มไฟล์โปรแกรมของหน้าต่างที่กำลังโฟกัสไปยัง <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">เกมปล่อยอัตโนมัติ</span>`,
+            ],
+            linkedgamefocussub: `หากต้องการแทนที่กระบวนการเกมทั้งหมดที่ถูกติดตามอัตโนมัติโดย <span class="hl">SANWatcher</span> ให้เพิ่มรายการใหม่ใน<span class="hl">เกมที่เชื่อมโยง</span>`,
+            autoreleasegamefocussub: `หาก Steam ยังแสดงว่าเกมอยู่ในสถานะ<i>กำลังเล่น</i>หลังจากปิดหน้าต่างเกมแล้ว ให้ลองเพิ่มรายการใหม่ใน<span class="hl">เกมปล่อยอัตโนมัติ</span>`,
+            focussub: `หากต้องการทำสิ่งนี้สำหรับเกมปัจจุบัน ให้คลิกปุ่ม<span class="hl">เพิ่ม</span>ด้านล่างเพื่อเพิ่มไฟล์โปรแกรมของหน้าต่างที่กำลังโฟกัสไปยัง <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>จะเกิดอะไรขึ้นเมื่อฉันคลิกปุ่มเพิ่ม?</u></span>`,
+            linkgamehelp: "เชื่อมโยงผ่านหน้าต่างที่โฟกัส",
+            linkgamehelpsub: [
+                `เมื่อคลิกปุ่ม<span class="hl">เพิ่ม</span> จะมีการเพิ่มรายการใหม่ไปยัง <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">เกมปล่อยอัตโนมัติ</span> โดยใช้ข้อมูลจากหน้าต่างที่กำลังโฟกัสอยู่`,
+                `หลังจากคลิกปุ่ม<span class="hl">เพิ่ม</span> จะเริ่มนับถอยหลัง 5 วินาที`,
+                `ก่อนหมดเวลา ให้นำโฟกัสไปที่หน้าต่างเกม`,
+                `เมื่อหมดเวลา จะมีการเพิ่มรายการใหม่สำหรับ <span class="hl">AppID</span> ปัจจุบันใน <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">เกมปล่อยอัตโนมัติ</span> โดยใช้ไฟล์โปรแกรมของหน้าต่างที่กำลังโฟกัส`,
+                `ความพยายามใหม่จะเขียนทับรายการเดิม หรือสามารถลบรายการได้ใน <span class="hl">การตั้งค่า</span> > <span class="hl">เกม</span> > <span class="hl">เกมปล่อยอัตโนมัติ</span> โดยคลิกปุ่ม <span id="linkhelpunlink"></span>`
+            ],
+            addlinkfailed: "ไม่สามารถเพิ่มหน้าต่างได้",
+            addlinkfailedsub: `คลิกปุ่ม<span class="hl">เพิ่ม</span>เพื่อลองอีกครั้ง`
         }
     },
     exclusions: {

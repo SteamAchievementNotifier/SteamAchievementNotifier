@@ -208,11 +208,21 @@ export const dialog = {
             const setnewdialog = (type: "linkgame" | "exclusionlist" | "themeswitch",obj?: { appid: number, lsentry: { [key: number]: ThemeSwitch | string } | number }) => {
                 switch (type) {
                     case "linkgame": return async () => {
+                        const { usesanwatcher } = config.store
+                        const content = ["settings","games","content"]
+                        
+                        const [linkedgames,autoreleasegames] = await Promise.all([
+                            language.get("linkedgames",content),
+                            language.get("autoreleasegames",content)
+                        ])
+                        
+                        const sub = await language.get(`link${!!obj ? "edit" : "new"}sub`,[type,"content"]) as string[]
+                        
                         dialog.open({
                             title: await language.get(`link${!!obj ? "edit" : "new"}`,[type,"content"]),
                             type: "default",
                             icon: sanhelper.setfilepath("icon",`${!!obj ? "edit" : "newlink"}.svg`),
-                            sub: await language.get(`link${!!obj ? "edit" : "new"}sub`,[type,"content"]),
+                            sub: sub.map(str => str.replace(/\$linkgame/,usesanwatcher ? linkedgames : autoreleasegames)),
                             addHTML: path.join(__dirname,"linkgamenew.html"),
                             buttons: [{
                                 id: "ok",
@@ -388,23 +398,40 @@ export const dialog = {
                 }
             }
 
-            document.getElementById("linkedgames")!.onclick = async () => {
-                dialog.open({
-                    title: await language.get("linkedgames",["settings","games","content"]),
-                    type: "default",
-                    icon: sanhelper.setfilepath("icon","link.svg"),
-                    sub: await language.get("managesub",["linkgame","content"]),
-                    addHTML: path.join(__dirname,"linkgame.html"),
-                    buttons: [{
-                        id: "linknew",
-                        label: await language.get("new"),
-                        icon: sanhelper.setfilepath("icon","newlink.svg"),
-                        click: setnewdialog("linkgame")
-                    }]
-                })
+            const linkedgameselems = [
+                "linked",
+                "autorelease"
+            ].map(id => `${id}games`)
 
-                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid")
-                updatetables("linkgame")
+            for (const id of linkedgameselems) {
+                document.getElementById(id)!.onclick = async () => {
+                    const [title,opt,idsub,managesub] = await Promise.all([
+                        language.get(id,["settings","games","content"]),
+                        language.get(id.slice(0,-1),["linkgame","content"]),
+                        language.get(`${id}sub`,["linkgame","content"]),
+                        language.get("managesub",["linkgame","content"]),
+                    ])
+
+                    dialog.open({
+                        title: await language.get(id,["settings","games","content"]),
+                        type: "default",
+                        icon: sanhelper.setfilepath("icon","link.svg"),
+                        sub: [
+                            ...((idsub as string[]).map(str => str.replace(/\$linkgame/,title as string)) as string[]),
+                            ...((managesub as string[]).map(str => str.replace(/\$linkgame/,opt as string)) as string[])
+                        ],
+                        addHTML: path.join(__dirname,"linkgame.html"),
+                        buttons: [{
+                            id: "linknew",
+                            label: await language.get("new"),
+                            icon: sanhelper.setfilepath("icon","newlink.svg"),
+                            click: setnewdialog("linkgame")
+                        }]
+                    })
+    
+                    sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
+                    updatetables("linkgame")
+                }
             }
             
             document.getElementById("exclusionlist")!.onclick = async () => {
@@ -425,7 +452,7 @@ export const dialog = {
                     }]
                 })
 
-                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid")
+                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
                 updatetables("exclusionlist")
             }
 
@@ -444,7 +471,7 @@ export const dialog = {
                     }]
                 })
 
-                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid")
+                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
                 updatetables("themeswitch")
             }
 

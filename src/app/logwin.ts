@@ -19,8 +19,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
         for (const opt of [
             "san",
-            "rust",
-            "sanhelperrs"
+            "steamworks",
+            "sanhelper",
+            "sanwatcher"
         ]) {
             select.insertAdjacentHTML("beforeend",`<option value="${opt}">${opt}.log</option>`)
         }

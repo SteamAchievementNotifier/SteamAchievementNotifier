@@ -174,14 +174,13 @@ export const language = {
         try {
             const { translations, translations: { global } } = await import(`../lang/${lang}`)
             if (!keys) return global[id]
-    
-            const keysarr = Array.isArray(keys) ? keys : [keys]
-            const top = translations[keysarr.shift() as string]
-            const keypath = language.getkeypath(top,keysarr)
+
+            const [top,...keysarr] = Array.isArray(keys) ? [...keys] : [keys]
+            const keypath = language.getkeypath(translations[top],keysarr)
     
             return keypath ? keypath[id] : "MISSING!!!"
         } catch (err) {
-            log.write("ERROR", `Error getting translation for "${id}" in language file "${lang}.js": ${err}`)
+            log.write("ERROR",`Error getting translation for "${id}" in language file "${lang}.js": ${err}`)
         }
     }
 }

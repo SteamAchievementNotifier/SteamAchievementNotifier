@@ -19,6 +19,7 @@ name = "electron-display-resolver"
 version = "0.0.1"
 dependencies = [
  "base64",
+ "sfhash",
  "windows",
  "x11rb",
 ]
@@ -85,6 +86,12 @@ dependencies = [
  "linux-raw-sys",
  "windows-sys",
 ]
+
+[[package]]
+name = "sfhash"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c72019dd341c01ac4abd5a7065bbae73f5009f9c97677c8200521218c961c19a"
 
 [[package]]
 name = "syn"

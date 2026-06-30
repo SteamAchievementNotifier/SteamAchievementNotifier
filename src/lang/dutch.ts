@@ -61,36 +61,6 @@ export const translations = {
         resume: "Hervatten",
         new: "Nieuw...",
         nodata: "Geen gegevens",
-        findappid: "AppID vinden",
-        findappidsub: [
-            `Elk Steam-spel heeft een uniek nummer - genaamd een <span class="hl">AppID</span>. U kunt de bijbehorende AppID van elk Steam-spel vinden door een van de volgende methoden te controleren:`,
-            `In de <span class="hl">Steam-client</span>, klik met de rechtermuisknop op een spel in uw <span class="hl">Bibliotheek</span> en selecteer <i>Eigenschappen</i> > <i>Updates</i> - de AppID wordt hier vermeld`,
-            `De <span class="hl">URL</span> van de <span class="hl">Winkel pagina</span> van het spel - het zal het nummer zijn dat na <span class="hl">app/</span> wordt vermeld: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Websites zoals <span class="hl">SteamDB</span> - de sectie <span class="hl">App Info</span> zal de AppID voor elk spel vermelden`
-        ],
-        noexe: "EXE-bestand van het spel niet gevonden!",
-        noexesub: "Klik hier voor meer informatie",
-        noexedialogsub: [
-            `Steam Achievement Notifier kon het uitvoerbare bestand van dit spel niet automatisch vinden. De locatie van het uitvoerbare bestand van het spel is vereist om het spel na het sluiten te kunnen "vrijgeven"`,
-            `Om het spel handmatig vrij te geven nadat het is gesloten, <i>klik met de rechtermuisknop</i> op het <span class="hl">System Tray-pictogram</span> > <span class="hl">Opties</span> > <span class="hl">Spel vrijgeven</span>, of gebruik de <span class="hl">Sneltoets voor spel vrijgeven</span>`,
-            `U kunt ook op de knop <span class="hl">Toevoegen</span> hieronder klikken om het uitvoerbare bestand dat is gekoppeld aan een venster met focus toe te voegen aan <span class="hl">Instellingen</span> > <span class="hl">Spellen</span> > <span class="hl">Automatisch vrijgeven van spellen</span>`,
-        ],
-        autorelease: "Automatisch spel vrijgeven",
-        autoreleasesub: [
-            `Als Steam een spel nog steeds als <i>Bezig met spelen</i> weergeeft nadat het spelvenster is gesloten, probeer dan een nieuwe vermelding toe te voegen aan <span class="hl">Automatisch vrijgeven van spellen</span>`,
-            `Om dit voor het huidige spel te doen, klikt u op de knop <span class="hl">Toevoegen</span> hieronder om het uitvoerbare bestand dat is gekoppeld aan een venster met focus toe te voegen aan <span class="hl">Instellingen</span> > <span class="hl">Spellen</span> > <span class="hl">Automatisch vrijgeven van spellen</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Wat gebeurt er wanneer ik op de knop Toevoegen klik?</u></span>`,
-        linkgamehelp: "Vermelding toevoegen via focus",
-        linkgamehelpsub: [
-            `Door op de knop <span class="hl">Toevoegen</span> te klikken, wordt automatisch een nieuwe vermelding toegevoegd aan <span class="hl">Instellingen</span> > <span class="hl">Spellen</span> > <span class="hl">Automatisch vrijgeven van spellen</span>, met behulp van informatie van het momenteel gefocuste venster.`,
-            `Na het klikken op de knop <span class="hl">Toevoegen</span> start een timer van 5 seconden`,
-            `Voordat de timer afloopt, zet de focus op het spelvenster`,
-            `Zodra de timer is afgelopen, wordt een nieuwe vermelding voor het huidige <span class="hl">AppID</span> toegevoegd aan <span class="hl">Instellingen</span> > <span class="hl">Spellen</span> > <span class="hl">Automatisch vrijgeven van spellen</span>, met behulp van het uitvoerbare bestand dat is gekoppeld aan het gefocuste venster`,
-            `Nieuwe pogingen overschrijven bestaande vermeldingen, of de vermelding kan worden verwijderd via <span class="hl">Instellingen</span> > <span class="hl">Spellen</span> > <span class="hl">Automatisch vrijgeven van spellen</span> door op de knop <span id="linkhelpunlink"></span> te klikken`
-        ],
-        addlinkfailed: "Kan venster niet toevoegen",
-        addlinkfailedsub: `Klik op de knop <span class="hl">Toevoegen</span> om het opnieuw te proberen`,
         webhookunlockmsg: "$user heeft een prestatie ontgrendeld",
         webhookunlockmsgplat: "$user ontgrendelde alle prestaties",
         webhookingame: "in $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "Bedankt voor het testen! 💜"
         ],
         betaghreleases: "Releases",
-        checkapplog: "Controleer het App-logboek voor details."
+        checkapplog: "Controleer het App-logboek voor details.",
+        workercrash: "Worker is gecrasht!",
+        workercrashsub: "Klik hier om Worker opnieuw te starten en de game opnieuw te laten volgen"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Spellen",
             content: {
-                linkedgames: "Automatisch vrijgeven van spellen",
+                linkedgames: "Gekoppelde Games",
+                autoreleasegames: "Games met Automatisch Vrijgeven",
                 themeswitch: "Automatisch Thema's Wisselen",
                 exclusionlist: "Uitsluitingslijst",
                 inclusionlist: "Inclusielijst",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen",
         ssenabled: "In- of uitschakelen van het genereren van media voor dit type",
         checkforupdates: `Controleer of er een nieuwe app-versie is uitgebracht op GitHub. Als er een update beschikbaar is, wordt deze automatisch gedownload en geïnstalleerd zodra deze is bevestigd via de <span class="hl">Update Beschikbaar</span> dialoog`,
-        linkedgames: `Omzeil <span class="hl">automatische procestracking</span> voor specifieke Steam-spellen<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`,
+        linkedgames: `Omzeil <span class="hl">SANWatcher</span> voor specifieke Steam-games<br><br><span class="ttdesc">Deze optie mag alleen in zeer specifieke situaties worden gebruikt. Onder normale omstandigheden zouden gebruikers deze optie niet nodig moeten hebben!</span>`,
+        autoreleasegames: `Omzeil <span class="hl">automatische procesdetectie</span> voor specifieke Steam-games<br><br><span class="ttdesc">Deze optie mag alleen in zeer specifieke situaties worden gebruikt. Onder normale omstandigheden zouden gebruikers deze optie niet nodig moeten hebben!</span>`,
         exclusionlist: `Voorkom dat prestaties in specifieke Steam-spellen door de app worden gevolgd<br><br><span class="ttdesc">Deze optie moet alleen worden gebruikt in zeer specifieke scenario's. Gebruikers hoeven deze optie normaal gesproken niet te gebruiken!</span>`,
         inclusionlist: `Voorkomt dat alle Steam-games door de app worden gevolgd, tenzij ze zijn opgegeven<br><br><span class="ttdesc">Deze optie mag alleen worden gebruikt in zeer specifieke situaties. Gebruikers zouden deze optie normaal gesproken niet hoeven te gebruiken!</span>`,
         ovx: "Verplaats de melding die op de schermafbeelding wordt weergegeven horizontaal",
@@ -912,23 +886,59 @@ export const translations = {
     linkgame: {
         content: {
             exepath: "Pad naar uitvoerbaar bestand",
+            linkedgame: "Game koppelen",
+            autoreleasegame: "Game automatisch vrijgeven",
+            linkedgamessub: [
+                `Negeer alle actieve gameprocessen die automatisch worden gevolgd door <span class="hl">SANWatcher</span> en controleer in plaats daarvan alleen of het geselecteerde <span class="hl">uitvoerbare bestand van de game</span> momenteel actief is`,
+                `Koppel de <span class="hl">AppID</span> van een game aan een doel-<span class="hl">uitvoerbaar bestand van de game</span> of <span class="hl">verwijder</span> een bestaande koppeling`
+            ],
+            autoreleasegamessub: [
+                `Als Steam een game nog steeds als <i>Wordt gespeeld</i> weergeeft nadat het gamevenster is gesloten, probeer dan een nieuwe vermelding toe te voegen aan <span class="hl">$linkgame</span>`,
+                `Voeg de <span class="hl">AppID</span> van een specifieke game toe samen met het bijbehorende <span class="hl">uitvoerbare bestand van de game</span> of <span class="hl">verwijder</span> een bestaande vermelding`,
+            ],
             managesub: [
-                `Als Steam een spel nog steeds als <i>Bezig met spelen</i> weergeeft nadat het spelvenster is gesloten, probeer dan een nieuwe vermelding toe te voegen aan <span class="hl">Automatisch vrijgeven van spellen</span>`,
-                `Voeg de <span class="hl">AppID</span> van een specifiek spel toe samen met het verwachte <span class="hl">uitvoerbare bestand van het spel</span>, of <span class="hl">verwijder</span> een bestaande vermelding`,
-                `Nieuwe vermeldingen kunnen ook worden toegevoegd door <i>met de rechtermuisknop te klikken</i> op het <span class="hl">System Tray-pictogram</span> > <span class="hl">Automatisch spel vrijgeven</span> zodra een spel is gedetecteerd`,
-                `<span class="hl help" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-spel?</u></span>`
+                `Zodra een game is gedetecteerd, kunnen ook nieuwe vermeldingen worden toegevoegd via <span class="hl">vensterfocus</span> door met de <i>rechtermuisknop</i> op het <span class="hl">systeemvakpictogram</span> te klikken > <span class="hl">$linkgame</span>`,
+                `<span class="hl help" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-game?</u></span>`
             ],
             linknew: "Nieuwe vermelding",
             linknewsub: [
-                `Voeg de <span class="hl">AppID</span> van een nieuw spel toe samen met het verwachte <span class="hl">uitvoerbare bestand van het spel</span>`,
-                `Na toevoeging kunnen vermeldingen <span class="hl">worden verwijderd</span> via het vorige menu <span class="hl">Automatisch vrijgeven van spellen</span>`
+                `Koppel de <span class="hl">AppID</span> van een nieuwe game aan een doel-<span class="hl">uitvoerbaar bestand van de game</span>`,
+                `Na het toevoegen kunnen vermeldingen <span class="hl">worden verwijderd</span> via het vorige menu <span class="hl">$linkgame</span>`
             ],
             linkedit: "Vermelding bewerken",
             linkeditsub: [
-                `Bewerk de <span class="hl">AppID</span> van een bestaand spel samen met het verwachte <span class="hl">uitvoerbare bestand van het spel</span>`,
-                `Na toevoeging kunnen vermeldingen <span class="hl">worden verwijderd</span> via het vorige menu <span class="hl">Automatisch vrijgeven van spellen</span>`
+                `Bewerk een bestaande koppeling tussen de <span class="hl">AppID</span> van een game en het doel-<span class="hl">uitvoerbare bestand van de game</span>`,
+                `Na het toevoegen kunnen vermeldingen <span class="hl">worden verwijderd</span> via het vorige menu <span class="hl">$linkgame</span>`
             ],
-            link: "Toevoegen"
+            link: "Toevoegen",
+            findappid: "AppID zoeken",
+            findappidsub: [
+                `Elke Steam-game heeft een uniek nummer dat een <span class="hl">AppID</span> wordt genoemd. Je kunt de AppID van elke Steam-game op een van de volgende manieren vinden:`,
+                `Klik in de <span class="hl">Steam-client</span> met de <i>rechtermuisknop</i> op een game in je <span class="hl">Bibliotheek</span> en kies <i>Eigenschappen</i> > <i>Updates</i> - de AppID wordt hier weergegeven`,
+                `De <span class="hl">URL</span> van de <span class="hl">Winkelpagina</span> van de game - dit is het nummer na <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Websites zoals <span class="hl">SteamDB</span> - in de sectie <span class="hl">App Info</span> staat de AppID van elke game`
+            ],
+            noexe: "Game-EXE niet gevonden!",
+            noexesub: "Klik hier voor meer informatie",
+            noexedialogsub: [
+                `Steam Achievement Notifier kon het uitvoerbare bestand van deze game niet automatisch vinden. De locatie van het uitvoerbare bestand van de game is vereist om de game na het afsluiten te kunnen "vrijgeven"`,
+                `Om de game na het afsluiten handmatig vrij te geven, klik je met de <i>rechtermuisknop</i> op het <span class="hl">systeemvakpictogram</span> > <span class="hl">Opties</span> > <span class="hl">Game vrijgeven</span>, of gebruik je de <span class="hl">Sneltoets voor game vrijgeven</span>`,
+                `Je kunt ook op de knop <span class="hl">Toevoegen</span> hieronder klikken om het uitvoerbare bestand van het momenteel actieve venster toe te voegen aan <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">Games met Automatisch Vrijgeven</span>`,
+            ],
+            linkedgamefocussub: `Om alle actieve gameprocessen die automatisch worden gevolgd door <span class="hl">SANWatcher</span> te negeren, voeg je een nieuwe vermelding toe aan <span class="hl">Gekoppelde Games</span>`,
+            autoreleasegamefocussub: `Als Steam een game nog steeds als <i>Wordt gespeeld</i> weergeeft nadat het gamevenster is gesloten, probeer dan een nieuwe vermelding toe te voegen aan <span class="hl">Games met Automatisch Vrijgeven</span>`,
+            focussub: `Om dit voor de huidige game te doen, klik je op de knop <span class="hl">Toevoegen</span> hieronder om het uitvoerbare bestand van het momenteel actieve venster toe te voegen aan <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Wat gebeurt er als ik op de knop Toevoegen klik?</u></span>`,
+            linkgamehelp: "Koppelen via focus",
+            linkgamehelpsub: [
+                `Door op de knop <span class="hl">Toevoegen</span> te klikken, wordt automatisch een nieuwe vermelding toegevoegd aan <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">Games met Automatisch Vrijgeven</span>, met behulp van informatie uit het momenteel actieve venster.`,
+                `Nadat je op de knop <span class="hl">Toevoegen</span> hebt geklikt, start een timer van 5 seconden`,
+                `Zorg ervoor dat het gamevenster actief is voordat de timer afloopt`,
+                `Wanneer de timer is afgelopen, wordt een nieuwe vermelding voor de huidige <span class="hl">AppID</span> toegevoegd aan <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">Games met Automatisch Vrijgeven</span>, met behulp van het uitvoerbare bestand van het actieve venster`,
+                `Nieuwe pogingen overschrijven bestaande vermeldingen, of de vermelding kan worden verwijderd via <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">Games met Automatisch Vrijgeven</span> door op de knop <span id="linkhelpunlink"></span> te klikken`
+            ],
+            addlinkfailed: "Kan venster niet toevoegen",
+            addlinkfailedsub: `Klik op de knop <span class="hl">Toevoegen</span> om het opnieuw te proberen`
         }
     },
     exclusions: {

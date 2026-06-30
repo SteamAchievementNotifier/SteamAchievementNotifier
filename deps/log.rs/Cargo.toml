@@ -1,0 +1,10 @@
+[package]
+name = "logrs"
+author="Jackson0ne"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+fern = "0.6.2"
+log = "0.4.21"
+chrono = "0.4.38"

@@ -61,36 +61,6 @@ export const translations = {
         resume: "Jatka",
         new: "Uusi...",
         nodata: "Ei tietoja",
-        findappid: "Etsi AppID",
-        findappidsub: [
-            `Jokaisella Steam-pelillä on siihen liittyvä yksilöllinen numero - kutsutaan <span class="hl">AppID:ksi</span>. Voit löytää minkä tahansa Steam-pelin AppID:n tarkistamalla yhden seuraavista tavoista:`,
-            `Steam-asiakkaassa, napsauta hiiren kakkospainikkeella peliä <span class="hl">Kirjastossa</span> ja valitse <i>Ominaisuudet</i> > <i>Päivitykset</i> - AppID näkyy täällä`,
-            `Pelin <span class="hl">Kaupan sivun URL-osoite</span> - se on numero, joka on listattu <span class="hl">app/</span> -jälkeen: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Verkkosivustot kuten <span class="hl">SteamDB</span> - <span class="hl">App-tiedot</span> -osio listaa AppID:n jokaiselle pelille`
-        ],
-        noexe: "Pelin EXE:tä ei löydy!",
-        noexesub: "Klikkaa tästä saadaksesi lisätietoja",
-        noexedialogsub: [
-            `Steam Achievement Notifier ei pystynyt paikantamaan tämän pelin suoritettavaa tiedostoa automaattisesti. Pelin suoritettavan tiedoston sijainti vaaditaan, jotta peli voidaan "vapauttaa" sen sulkemisen jälkeen`,
-            `Vapauttaaksesi pelin manuaalisesti sen sulkemisen jälkeen, <i>napsauta hiiren oikealla painikkeella</i> <span class="hl">System Tray -kuvaketta</span> > <span class="hl">Asetukset</span> > <span class="hl">Vapauta peli</span>, tai käytä <span class="hl">Pelin vapautuksen pikanäppäintä</span>`,
-            `Vaihtoehtoisesti napsauta alla olevaa <span class="hl">Lisää</span>-painiketta lisätäksesi minkä tahansa aktiivisen ikkunan siihen liittyvän suoritettavan tiedoston kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Pelien automaattinen vapautus</span>`,
-        ],
-        autorelease: "Pelien automaattinen vapautus",
-        autoreleasesub: [
-            `Jos Steam näyttää pelin edelleen tilassa <i>Pelaa</i> pelin ikkunan sulkemisen jälkeen, kokeile lisätä uusi merkintä kohtaan <span class="hl">Pelien automaattinen vapautus</span>`,
-            `Tehdäksesi tämän nykyiselle pelille, napsauta alla olevaa <span class="hl">Lisää</span>-painiketta lisätäksesi minkä tahansa aktiivisen ikkunan siihen liittyvän suoritettavan tiedoston kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Pelien automaattinen vapautus</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Mitä tapahtuu, kun napsautan Lisää-painiketta?</u></span>`,
-        linkgamehelp: "Lisää merkintä fokuksen kautta",
-        linkgamehelpsub: [
-            `Napsauttamalla <span class="hl">Lisää</span>-painiketta lisätään automaattisesti uusi merkintä kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Pelien automaattinen vapautus</span>, käyttäen tietoja tällä hetkellä aktiivisesta ikkunasta.`,
-            `Lisää-painikkeen napsauttamisen jälkeen käynnistyy 5 sekunnin ajastin`,
-            `Ennen kuin ajastin päättyy, siirrä fokus pelin ikkunaan`,
-            `Kun ajastin on päättynyt, nykyiselle <span class="hl">AppID</span>:lle lisätään uusi merkintä kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Pelien automaattinen vapautus</span>, käyttäen aktiiviseen ikkunaan liittyvää suoritettavaa tiedostoa`,
-            `Uudet yritykset korvaavat olemassa olevat merkinnät, tai merkintä voidaan poistaa kohdasta <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Pelien automaattinen vapautus</span> napsauttamalla <span id="linkhelpunlink"></span>-painiketta`
-        ],
-        addlinkfailed: "Ikkunan lisääminen epäonnistui",
-        addlinkfailedsub: `Napsauta <span class="hl">Lisää</span>-painiketta yrittääksesi uudelleen`,
         webhookunlockmsg: "$user avasi saavutuksen",
         webhookunlockmsgplat: "$user avasi kaikki saavutukset",
         webhookingame: "pelissä $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "Kiitos testauksesta! 💜"
         ],
         betaghreleases: "Julkaisut",
-        checkapplog: "Tarkista sovelluksen loki lisätietoja varten."
+        checkapplog: "Tarkista sovelluksen loki lisätietoja varten.",
+        workercrash: "Worker kaatui!",
+        workercrashsub: "Käynnistä Worker uudelleen ja yritä pelin seurantaa uudelleen napsauttamalla tästä"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Pelit",
             content: {
-                linkedgames: "Pelien automaattinen vapautus",
+                linkedgames: "Linkitetyt pelit",
+                autoreleasegames: "Automaattisesti vapautettavat pelit",
                 themeswitch: "Vaihda teemoja automaattisesti",
                 exclusionlist: "Poissulkemislista",
                 inclusionlist: "Sisällysluettelo",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "De locatie waar meldingsafbeeldingen die door deze optie zijn gegenereerd, worden opgeslagen",
         ssenabled: "Ota käyttöön tai poista käytöstä median luonti tälle tyypille",
         checkforupdates: `Tarkista, onko GitHubissa julkaistu uusi sovellusversio. Jos päivitys on saatavilla, se ladataan ja asennetaan automaattisesti, kun se on vahvistettu <span class="hl">Päivitys saatavilla</span> -valintaikkunassa`,
-        linkedgames: `Ohita <span class="hl">automaattinen prosessin seuranta</span> tietyille Steam-peleille<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`,
+        linkedgames: `Ohita <span class="hl">SANWatcher</span> tietyille Steam-peleille<br><br><span class="ttdesc">Tätä asetusta tulisi käyttää vain hyvin erityisissä tilanteissa. Normaalisti käyttäjien ei pitäisi tarvita tätä asetusta!</span>`,
+        autoreleasegames: `Ohita <span class="hl">automaattinen prosessien seuranta</span> tietyille Steam-peleille<br><br><span class="ttdesc">Tätä asetusta tulisi käyttää vain hyvin erityisissä tilanteissa. Normaalisti käyttäjien ei pitäisi tarvita tätä asetusta!</span>`,
         exclusionlist: `Estä saavutusten seuranta tietyissä Steam-peleissä sovelluksen avulla<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei pitäisi tarvita tätä vaihtoehtoa normaaleissa olosuhteissa!</span>`,
         inclusionlist: `Estää kaikkien Steam-pelien seuraamisen sovelluksessa, ellei niitä ole erikseen määritetty<br><br><span class="ttdesc">Tätä vaihtoehtoa tulisi käyttää vain hyvin erityisissä tilanteissa. Käyttäjien ei normaalisti pitäisi tarvita tätä asetusta!</span>`,
         ovx: "Siirrä ilmoitusta, joka näkyy kuvakaappauksessa, vaakasuunnassa",
@@ -912,23 +886,59 @@ export const translations = {
     linkgame: {
         content: {
             exepath: "Suoritettavan tiedoston polku",
+            linkedgame: "Linkitä peli",
+            autoreleasegame: "Automaattisesti vapautettava peli",
+            linkedgamessub: [
+                `Ohita kaikki <span class="hl">SANWatcher</span>:n automaattisesti seuraamat käynnissä olevat peliprosessit ja tarkista sen sijaan vain, onko valittu <span class="hl">pelin suoritettava tiedosto</span> tällä hetkellä aktiivinen`,
+                `Linkitä minkä tahansa pelin <span class="hl">AppID</span> kohteena olevaan <span class="hl">pelin suoritettavaan tiedostoon</span> tai <span class="hl">poista</span> olemassa oleva linkitys`
+            ],
+            autoreleasegamessub: [
+                `Jos Steam näyttää pelin edelleen tilassa <i>Käynnissä</i> pelin ikkunan sulkemisen jälkeen, kokeile lisätä uusi merkintä kohtaan <span class="hl">$linkgame</span>`,
+                `Lisää tietyn pelin <span class="hl">AppID</span> yhdessä odotetun <span class="hl">pelin suoritettavan tiedoston</span> kanssa tai <span class="hl">poista</span> olemassa oleva merkintä`,
+            ],
             managesub: [
-                `Jos Steam näyttää pelin edelleen tilassa <i>Pelaa</i> pelin ikkunan sulkemisen jälkeen, kokeile lisätä uusi merkintä kohtaan <span class="hl">Pelien automaattinen vapautus</span>`,
-                `Lisää tietyn pelin <span class="hl">AppID</span> yhdessä sen odotetun <span class="hl">pelin suoritettavan tiedoston</span> kanssa, tai <span class="hl">poista</span> olemassa oleva merkintä`,
-                `Uusia merkintöjä voidaan myös lisätä <i>napsauttamalla hiiren oikealla painikkeella</i> <span class="hl">System Tray -kuvaketta</span> > <span class="hl">Pelien automaattinen vapautus</span>, kun peli on havaittu`,
+                `Kun peli on havaittu, uusia merkintöjä voidaan lisätä myös <span class="hl">ikkunan kohdistuksen</span> kautta <i>napsauttamalla hiiren oikealla painikkeella</i> <span class="hl">ilmoitusalueen kuvaketta</span> > <span class="hl">$linkgame</span>`,
                 `<span class="hl help" id="appidhelp"><u>Miten löydän Steam-pelin AppID:n?</u></span>`
             ],
             linknew: "Uusi merkintä",
             linknewsub: [
-                `Lisää uuden pelin <span class="hl">AppID</span> yhdessä sen odotetun <span class="hl">pelin suoritettavan tiedoston</span> kanssa`,
-                `Lisäyksen jälkeen merkinnät voidaan <span class="hl">poistaa</span> edellisestä <span class="hl">Pelien automaattinen vapautus</span> -valikosta`
+                `Linkitä uuden pelin <span class="hl">AppID</span> kohteena olevaan <span class="hl">pelin suoritettavaan tiedostoon</span>`,
+                `Lisäämisen jälkeen merkinnät voidaan <span class="hl">poistaa</span> aiemmasta <span class="hl">$linkgame</span>-valikosta`
             ],
             linkedit: "Muokkaa merkintää",
             linkeditsub: [
-                `Muokkaa olemassa olevan pelin <span class="hl">AppID</span> yhdessä sen odotetun <span class="hl">pelin suoritettavan tiedoston</span> kanssa`,
-                `Lisäyksen jälkeen merkinnät voidaan <span class="hl">poistaa</span> edellisestä <span class="hl">Pelien automaattinen vapautus</span> -valikosta`
+                `Muokkaa olemassa olevaa linkitystä pelin <span class="hl">AppID</span>:n ja kohteena olevan <span class="hl">pelin suoritettavan tiedoston</span> välillä`,
+                `Lisäämisen jälkeen merkinnät voidaan <span class="hl">poistaa</span> aiemmasta <span class="hl">$linkgame</span>-valikosta`
             ],
-            link: "Lisää"
+            link: "Lisää",
+            findappid: "Etsi AppID",
+            findappidsub: [
+                `Jokaisella Steam-pelillä on yksilöllinen numero, jota kutsutaan <span class="hl">AppID</span>:ksi. Voit löytää minkä tahansa Steam-pelin AppID:n jollakin seuraavista tavoista:`,
+                `Napsauta <span class="hl">Steam-asiakasohjelmassa</span> pelin nimeä <i>hiiren oikealla painikkeella</i> <span class="hl">Kirjastossasi</span> ja valitse <i>Ominaisuudet</i> > <i>Päivitykset</i> – AppID näkyy siellä`,
+                `Pelin <span class="hl">kauppasivun</span> <span class="hl">URL-osoitteesta</span> – se on numero, joka tulee kohdan <span class="hl">app/</span> jälkeen: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Sivustoilta, kuten <span class="hl">SteamDB</span> – <span class="hl">App Info</span> -osio näyttää jokaisen pelin AppID:n`
+            ],
+            noexe: "Pelin EXE-tiedostoa ei löytynyt!",
+            noexesub: "Napsauta tästä saadaksesi lisätietoja",
+            noexedialogsub: [
+                `Steam Achievement Notifier ei pystynyt löytämään tämän pelin suoritettavaa tiedostoa automaattisesti. Pelin suoritettavan tiedoston sijainti tarvitaan, jotta peli voidaan "vapauttaa" sen sulkemisen jälkeen`,
+                `Voit vapauttaa pelin manuaalisesti sen sulkemisen jälkeen napsauttamalla <span class="hl">ilmoitusalueen kuvaketta</span> <i>hiiren oikealla painikkeella</i> > <span class="hl">Asetukset</span> > <span class="hl">Vapauta peli</span> tai käyttämällä <span class="hl">Pelin vapautuksen pikanäppäintä</span>`,
+                `Vaihtoehtoisesti napsauta alla olevaa <span class="hl">Lisää</span>-painiketta lisätäksesi aktiivisen ikkunan suoritettavan tiedoston kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Automaattisesti vapautettavat pelit</span>`,
+            ],
+            linkedgamefocussub: `Jos haluat ohittaa kaikki <span class="hl">SANWatcher</span>:n automaattisesti seuraamat käynnissä olevat peliprosessit, lisää uusi merkintä kohtaan <span class="hl">Linkitetyt pelit</span>`,
+            autoreleasegamefocussub: `Jos Steam näyttää pelin edelleen tilassa <i>Käynnissä</i> pelin ikkunan sulkemisen jälkeen, kokeile lisätä uusi merkintä kohtaan <span class="hl">Automaattisesti vapautettavat pelit</span>`,
+            focussub: `Voit tehdä tämän nykyiselle pelille napsauttamalla alla olevaa <span class="hl">Lisää</span>-painiketta lisätäksesi aktiivisen ikkunan suoritettavan tiedoston kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Mitä tapahtuu, kun napsautan Lisää-painiketta?</u></span>`,
+            linkgamehelp: "Linkitä kohdistuksen kautta",
+            linkgamehelpsub: [
+                `Kun napsautat <span class="hl">Lisää</span>-painiketta, uusi merkintä lisätään automaattisesti kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Automaattisesti vapautettavat pelit</span> käyttäen parhaillaan aktiivisen ikkunan tietoja.`,
+                `Kun napsautat <span class="hl">Lisää</span>-painiketta, 5 sekunnin ajastin käynnistyy`,
+                `Kohdista peli-ikkuna ennen kuin ajastin päättyy`,
+                `Kun ajastin päättyy, uusi merkintä nykyiselle <span class="hl">AppID</span>:lle lisätään kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Automaattisesti vapautettavat pelit</span> käyttäen aktiivisen ikkunan suoritettavaa tiedostoa`,
+                `Uudet yritykset korvaavat olemassa olevat merkinnät, tai merkintä voidaan poistaa kohdasta <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Automaattisesti vapautettavat pelit</span> napsauttamalla painiketta <span id="linkhelpunlink"></span>`
+            ],
+            addlinkfailed: "Ikkunaa ei voitu lisätä",
+            addlinkfailedsub: `Yritä uudelleen napsauttamalla <span class="hl">Lisää</span>-painiketta`
         }
     },
     exclusions: {

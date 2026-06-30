@@ -7,7 +7,7 @@ use utils::MonitorInfo;
 #[cfg(target_os="windows")]
 mod win32 {
     pub use windows::{core::{Error,HRESULT},Win32::{Devices::Display::*,Foundation::ERROR_SUCCESS}};
-    pub use crate::utils::win32::{WindowsMonitor,utf16_to_string,chromium_display_id};
+    pub use crate::utils::win32::{WindowsMonitor,utf16_to_string,chromium_display_id,screenshots_displayinfo_id};
 }
 
 #[cfg(target_os="linux")]
@@ -27,20 +27,20 @@ pub fn get_monitors() -> Result<Vec<MonitorInfo>,Box<dyn Error>> {
         unsafe {
             let mut path_count = 0u32;
             let mut mode_count = 0u32;
-    
+
             let err = GetDisplayConfigBufferSizes(
                 QDC_ONLY_ACTIVE_PATHS,
                 &mut path_count,
                 &mut mode_count
             );
-    
+
             if err != ERROR_SUCCESS {
                 return Err(Box::new(Error::from_hresult(HRESULT::from_win32(err.0))));
             }
-    
+
             let mut paths = vec![DISPLAYCONFIG_PATH_INFO::default();path_count as usize];
             let mut modes = vec![DISPLAYCONFIG_MODE_INFO::default();mode_count as usize];
-    
+
             let err = QueryDisplayConfig(
                 QDC_ONLY_ACTIVE_PATHS,
                 &mut path_count,
@@ -49,20 +49,29 @@ pub fn get_monitors() -> Result<Vec<MonitorInfo>,Box<dyn Error>> {
                 modes.as_mut_ptr(),
                 None
             );
-    
+
             if err != ERROR_SUCCESS {
                 return Err(Box::new(Error::from_hresult(HRESULT::from_win32(err.0))));
             }
-    
+
             for path in paths.iter() {
                 let mut dc_target_device_name = DISPLAYCONFIG_TARGET_DEVICE_NAME::default();
-    
+
                 dc_target_device_name.header.r#type = DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME;
                 dc_target_device_name.header.size = std::mem::size_of::<DISPLAYCONFIG_TARGET_DEVICE_NAME>() as u32;
                 dc_target_device_name.header.adapterId = path.targetInfo.adapterId;
                 dc_target_device_name.header.id = path.targetInfo.id;
-    
+
                 let _ = DisplayConfigGetDeviceInfo(&mut dc_target_device_name as *mut _ as *mut DISPLAYCONFIG_DEVICE_INFO_HEADER);
+                let mut dc_source_device_name = DISPLAYCONFIG_SOURCE_DEVICE_NAME::default();
+
+                dc_source_device_name.header.r#type = DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME;
+                dc_source_device_name.header.size = std::mem::size_of::<DISPLAYCONFIG_SOURCE_DEVICE_NAME>() as u32;
+                dc_source_device_name.header.adapterId = path.sourceInfo.adapterId;
+                dc_source_device_name.header.id = path.sourceInfo.id;
+
+                let _ = DisplayConfigGetDeviceInfo(&mut dc_source_device_name as *mut _ as *mut DISPLAYCONFIG_DEVICE_INFO_HEADER);
+                let gdi_device_name = utf16_to_string(&dc_source_device_name.viewGdiDeviceName);
 
                 let electron_display_id = chromium_display_id(WindowsMonitor {
                     low: path.targetInfo.adapterId.LowPart,
@@ -70,15 +79,16 @@ pub fn get_monitors() -> Result<Vec<MonitorInfo>,Box<dyn Error>> {
                     id: path.targetInfo.id
                 });
 
+                let screenshots_displayinfo_id = screenshots_displayinfo_id(&gdi_device_name);
+
                 let label = utf16_to_string(&dc_target_device_name.monitorFriendlyDeviceName);
-    
-                let monitor = MonitorInfo {
+
+                monitors.push(MonitorInfo {
                     electron_display_id,
+                    screenshots_displayinfo_id,
                     label,
                     edid: None
-                };
-    
-                monitors.push(monitor);
+                });
             }
         }
     }
@@ -111,10 +121,12 @@ pub fn get_monitors() -> Result<Vec<MonitorInfo>,Box<dyn Error>> {
                 output_index: i as u8
             });
 
+            let screenshots_displayinfo_id = output.clone();
             let label = edid.as_deref().and_then(parse_monitor_name).unwrap_or_else(|| output_name.clone());
 
             monitors.push(MonitorInfo {
                 electron_display_id,
+                screenshots_displayinfo_id,
                 label,
                 edid,
             });

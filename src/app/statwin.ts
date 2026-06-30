@@ -186,6 +186,7 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
     if (!appid) {
         ramode = "hard" // Reset to default Hardcore mode on game exit
         unlocked.clear() // Clear all achievements from `unlocked` on game exit
+        ipcRenderer.send("extwinsstate",{ win: "stat", state: null } as ExtWinsPayload) // Clear `extwinsstate.stat` platform on game exit
         
         gamenamewrapper.textContent = nogame
         placeholder.querySelector("span:first-child")!.textContent = noachievements
@@ -205,6 +206,7 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
     if (!!init) {
         ra && mode && (ramode = mode)
         unlocked.clear()
+        ipcRenderer.send("extwinsstate",{ win: "stat", state: ra ? "ra" : "steam" } as ExtWinsPayload)
 
         // On game/`statwin` launch, set latest achievement unlocked status in `unlock` Map
         for (const achievement of achievements) {

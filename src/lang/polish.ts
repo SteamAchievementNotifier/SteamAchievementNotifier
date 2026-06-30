@@ -61,36 +61,6 @@ export const translations = {
         resume: "Wznów",
         new: "Nowy...",
         nodata: "Brak danych",
-        findappid: "Znajdź AppID",
-        findappidsub: [
-            `Każda gra Steam ma przypisany do niej unikalny numer - nazywany <span class="hl">AppID</span>. Możesz znaleźć AppID powiązane z dowolną grą Steam, sprawdzając jedną z poniższych metod:`,
-            `W <span class="hl">kliencie Steam</span>, kliknij prawym przyciskiem myszy grę w <span class="hl">bibliotece</span>, a następnie wybierz <i>Właściwości</i> > <i>Aktualizacje</i> - tutaj będzie wymieniony AppID`,
-            `URL do <span class="hl">strony sklepu</span> gry - będzie to liczba wymieniona po <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Strony internetowe takie jak <span class="hl">SteamDB</span> - sekcja <span class="hl">Informacje o aplikacji</span> wylistuje AppID dla każdej gry`
-        ],
-        noexe: "Nie znaleziono pliku EXE gry!",
-        noexesub: "Kliknij tutaj, aby uzyskać więcej informacji",
-        noexedialogsub: [
-            `Steam Achievement Notifier nie był w stanie automatycznie zlokalizować pliku wykonywalnego tej gry. Lokalizacja pliku wykonywalnego gry jest wymagana, aby można było „zwolnić” grę po jej zamknięciu`,
-            `Aby ręcznie zwolnić grę po jej zamknięciu, <i>kliknij prawym przyciskiem myszy</i> <span class="hl">ikonę zasobnika systemowego</span> > <span class="hl">Opcje</span> > <span class="hl">Zwolnij grę</span> lub użyj <span class="hl">Skrótu zwalniania gry</span>`,
-            `Alternatywnie kliknij poniżej przycisk <span class="hl">Dodaj</span>, aby dodać plik wykonywalny powiązany z aktualnie aktywnym oknem do <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">Gry z automatycznym zwalnianiem</span>`,
-        ],
-        autorelease: "Automatyczne zwalnianie gry",
-        autoreleasesub: [
-            `Jeśli Steam nadal pokazuje grę jako <i>W grze</i> po zamknięciu okna gry, spróbuj dodać nowy wpis do <span class="hl">Gry z automatycznym zwalnianiem</span>`,
-            `Aby zrobić to dla bieżącej gry, kliknij poniżej przycisk <span class="hl">Dodaj</span>, aby dodać plik wykonywalny powiązany z aktualnie aktywnym oknem do <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">Gry z automatycznym zwalnianiem</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Co się stanie po kliknięciu przycisku Dodaj?</u></span>`,
-        linkgamehelp: "Dodaj wpis przez fokus",
-        linkgamehelpsub: [
-            `Kliknięcie przycisku <span class="hl">Dodaj</span> spowoduje automatyczne dodanie nowego wpisu do <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">Gry z automatycznym zwalnianiem</span>, przy użyciu informacji z aktualnie aktywnego okna.`,
-            `Po kliknięciu przycisku <span class="hl">Dodaj</span> rozpocznie się 5-sekundowy licznik`,
-            `Zanim licznik się zakończy, ustaw fokus na oknie gry`,
-            `Po zakończeniu licznika zostanie dodany nowy wpis dla bieżącego <span class="hl">AppID</span> do <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">Gry z automatycznym zwalnianiem</span>, przy użyciu pliku wykonywalnego powiązanego z aktywnym oknem`,
-            `Nowe próby nadpiszą istniejące wpisy lub wpis można usunąć przez <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">Gry z automatycznym zwalnianiem</span>, klikając przycisk <span id="linkhelpunlink"></span>`
-        ],
-        addlinkfailed: "Nie można dodać okna",
-        addlinkfailedsub: `Kliknij przycisk <span class="hl">Dodaj</span>, aby spróbować ponownie`,
         webhookunlockmsg: "$user odblokował osiągnięcie",
         webhookunlockmsgplat: "$user odblokował wszystkie osiągnięcia",
         webhookingame: "w $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "Dziękujemy za testowanie! 💜"
         ],
         betaghreleases: "Wydania",
-        checkapplog: "Sprawdź dziennik aplikacji, aby uzyskać szczegóły."
+        checkapplog: "Sprawdź dziennik aplikacji, aby uzyskać szczegóły.",
+        workercrash: "Worker uległ awarii!",
+        workercrashsub: "Kliknij tutaj, aby ponownie uruchomić Worker i ponowić śledzenie gry"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Gry",
             content: {
-                linkedgames: "Gry z automatycznym zwalnianiem",
+                linkedgames: "Powiązane gry",
+                autoreleasegames: "Gry z automatycznym zwalnianiem",
                 themeswitch: "Automatyczna zmiana motywów",
                 exclusionlist: "Lista wyłączeń",
                 inclusionlist: "Lista dołączania",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "Lokalizacja, w której będą przechowywane obrazy powiadomień generowane przez tę opcję",
         ssenabled: "Włącz lub wyłącz generowanie multimediów dla tego typu",
         checkforupdates: `Sprawdź, czy na GitHubie została wydana nowa wersja aplikacji. Jeśli aktualizacja jest dostępna, zostanie automatycznie pobrana i zainstalowana po potwierdzeniu w oknie dialogowym <span class="hl">Aktualizacja dostępna</span>`,
-        linkedgames: `Ominięcie <span class="hl">automatycznego śledzenia procesów</span> dla konkretnych gier na platformie Steam<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`,
+        linkedgames: `Pomiń <span class="hl">SANWatcher</span> dla określonych gier Steam<br><br><span class="ttdesc">Ta opcja powinna być używana wyłącznie w bardzo specyficznych sytuacjach. W normalnych okolicznościach użytkownicy nie powinni z niej korzystać!</span>`,
+        autoreleasegames: `Pomiń <span class="hl">automatyczne śledzenie procesów</span> dla określonych gier Steam<br><br><span class="ttdesc">Ta opcja powinna być używana wyłącznie w bardzo specyficznych sytuacjach. W normalnych okolicznościach użytkownicy nie powinni z niej korzystać!</span>`,
         exclusionlist: `Zapobieganie śledzeniu osiągnięć w konkretnych grach na platformie Steam przez aplikację<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo konkretnych scenariuszach. Użytkownicy nie powinni potrzebować jej w normalnych warunkach!</span>`,
         inclusionlist: `Zablokuj śledzenie wszystkich gier Steam przez aplikację, chyba że zostały określone<br><br><span class="ttdesc">Ta opcja powinna być używana tylko w bardzo specyficznych przypadkach. Użytkownicy nie powinni jej potrzebować w normalnych okolicznościach!</span>`,
         ovx: "Przesuń powiadomienie wyświetlane na zrzucie ekranu poziomo",
@@ -912,23 +886,59 @@ export const translations = {
     linkgame: {
         content: {
             exepath: "Ścieżka do pliku wykonywalnego",
+            linkedgame: "Powiąż grę",
+            autoreleasegame: "Automatyczne zwalnianie gry",
+            linkedgamessub: [
+                `Zastąp wszystkie uruchomione procesy gier śledzone automatycznie przez <span class="hl">SANWatcher</span> i zamiast tego sprawdzaj tylko, czy wybrany <span class="hl">plik wykonywalny gry</span> jest aktualnie aktywny`,
+                `Powiąż <span class="hl">AppID</span> dowolnej gry z docelowym <span class="hl">plikiem wykonywalnym gry</span> lub <span class="hl">usuń</span> istniejące powiązanie`
+            ],
+            autoreleasegamessub: [
+                `Jeśli Steam nadal pokazuje grę jako <i>Uruchomioną</i> po zamknięciu okna gry, spróbuj dodać nowy wpis w <span class="hl">$linkgame</span>`,
+                `Dodaj <span class="hl">AppID</span> określonej gry wraz z odpowiadającym jej <span class="hl">plikiem wykonywalnym gry</span> lub <span class="hl">usuń</span> istniejący wpis`,
+            ],
             managesub: [
-                `Jeśli Steam nadal pokazuje grę jako <i>W grze</i> po zamknięciu okna gry, spróbuj dodać nowy wpis do <span class="hl">Gry z automatycznym zwalnianiem</span>`,
-                `Dodaj <span class="hl">AppID</span> konkretnej gry wraz z oczekiwanym <span class="hl">plikiem wykonywalnym gry</span> lub <span class="hl">usuń</span> istniejący wpis`,
-                `Nowe wpisy można również dodać, <i>klikając prawym przyciskiem myszy</i> <span class="hl">ikonę zasobnika systemowego</span> > <span class="hl">Automatyczne zwalnianie gry</span>, gdy gra zostanie wykryta`,
+                `Po wykryciu gry nowe wpisy można również dodawać za pomocą <span class="hl">aktywnego okna</span>, klikając <i>prawym przyciskiem myszy</i> <span class="hl">ikonę w zasobniku systemowym</span> > <span class="hl">$linkgame</span>`,
                 `<span class="hl help" id="appidhelp"><u>Jak znaleźć AppID gry Steam?</u></span>`
             ],
             linknew: "Nowy wpis",
             linknewsub: [
-                `Dodaj <span class="hl">AppID</span> nowej gry wraz z oczekiwanym <span class="hl">plikiem wykonywalnym gry</span>`,
-                `Po dodaniu wpisy można <span class="hl">usunąć</span> przez poprzednie menu <span class="hl">Gry z automatycznym zwalnianiem</span>`
+                `Powiąż <span class="hl">AppID</span> nowej gry z docelowym <span class="hl">plikiem wykonywalnym gry</span>`,
+                `Po dodaniu wpisy można <span class="hl">usunąć</span> z poprzedniego menu <span class="hl">$linkgame</span>`
             ],
             linkedit: "Edytuj wpis",
             linkeditsub: [
-                `Edytuj <span class="hl">AppID</span> istniejącej gry wraz z oczekiwanym <span class="hl">plikiem wykonywalnym gry</span>`,
-                `Po dodaniu wpisy można <span class="hl">usunąć</span> przez poprzednie menu <span class="hl">Gry z automatycznym zwalnianiem</span>`
+                `Edytuj istniejące powiązanie między <span class="hl">AppID</span> gry a docelowym <span class="hl">plikiem wykonywalnym gry</span>`,
+                `Po dodaniu wpisy można <span class="hl">usunąć</span> z poprzedniego menu <span class="hl">$linkgame</span>`
             ],
-            link: "Dodaj"
+            link: "Dodaj",
+            findappid: "Znajdź AppID",
+            findappidsub: [
+                `Każda gra Steam ma przypisany unikalny numer zwany <span class="hl">AppID</span>. AppID dowolnej gry Steam można znaleźć na jeden z następujących sposobów:`,
+                `W <span class="hl">kliencie Steam</span> kliknij <i>prawym przyciskiem myszy</i> grę w <span class="hl">Bibliotece</span> i wybierz <i>Właściwości</i> > <i>Aktualizacje</i> — AppID będzie tam wyświetlone`,
+                `<span class="hl">Adres URL</span> <span class="hl">strony sklepu</span> gry — będzie to numer znajdujący się po <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Strony internetowe takie jak <span class="hl">SteamDB</span> — sekcja <span class="hl">App Info</span> zawiera AppID każdej gry`
+            ],
+            noexe: "Nie znaleziono pliku EXE gry!",
+            noexesub: "Kliknij tutaj, aby uzyskać więcej informacji",
+            noexedialogsub: [
+                `Steam Achievement Notifier nie mógł automatycznie zlokalizować pliku wykonywalnego tej gry. Lokalizacja pliku wykonywalnego gry jest wymagana, aby można było „zwolnić” grę po jej zamknięciu`,
+                `Aby ręcznie zwolnić grę po jej zamknięciu, <i>kliknij prawym przyciskiem myszy</i> <span class="hl">ikonę w zasobniku systemowym</span> > <span class="hl">Opcje</span> > <span class="hl">Zwolnij grę</span> lub użyj <span class="hl">skrótu Zwolnij grę</span>`,
+                `Alternatywnie kliknij poniższy przycisk <span class="hl">Dodaj</span>, aby dodać plik wykonywalny skojarzony z aktualnie aktywnym oknem do <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">Gry z automatycznym zwalnianiem</span>`,
+            ],
+            linkedgamefocussub: `Aby zastąpić wszystkie uruchomione procesy gier śledzone automatycznie przez <span class="hl">SANWatcher</span>, dodaj nowy wpis do <span class="hl">Powiązane gry</span>`,
+            autoreleasegamefocussub: `Jeśli Steam nadal pokazuje grę jako <i>Uruchomioną</i> po zamknięciu okna gry, spróbuj dodać nowy wpis do <span class="hl">Gry z automatycznym zwalnianiem</span>`,
+            focussub: `Aby zrobić to dla bieżącej gry, kliknij poniższy przycisk <span class="hl">Dodaj</span>, aby dodać plik wykonywalny skojarzony z aktualnie aktywnym oknem do <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Co się stanie po kliknięciu przycisku Dodaj?</u></span>`,
+            linkgamehelp: "Powiąż przez aktywne okno",
+            linkgamehelpsub: [
+                `Kliknięcie przycisku <span class="hl">Dodaj</span> automatycznie utworzy nowy wpis w <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">Gry z automatycznym zwalnianiem</span>, wykorzystując informacje z aktualnie aktywnego okna.`,
+                `Po kliknięciu przycisku <span class="hl">Dodaj</span> rozpocznie się 5-sekundowe odliczanie`,
+                `Przed zakończeniem odliczania przełącz fokus na okno gry`,
+                `Po zakończeniu odliczania zostanie dodany nowy wpis dla bieżącego <span class="hl">AppID</span> w <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">Gry z automatycznym zwalnianiem</span>, wykorzystujący plik wykonywalny skojarzony z aktywnym oknem`,
+                `Nowe próby zastąpią istniejące wpisy lub wpis można usunąć w <span class="hl">Ustawienia</span> > <span class="hl">Gry</span> > <span class="hl">Gry z automatycznym zwalnianiem</span>, klikając przycisk <span id="linkhelpunlink"></span>`
+            ],
+            addlinkfailed: "Nie udało się dodać okna",
+            addlinkfailedsub: `Kliknij przycisk <span class="hl">Dodaj</span>, aby spróbować ponownie`
         }
     },
     exclusions: {

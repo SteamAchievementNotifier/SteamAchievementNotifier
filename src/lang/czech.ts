@@ -61,36 +61,6 @@ export const translations = {
         resume: "Obnovit",
         new: "Nové...",
         nodata: "Žádná data",
-        findappid: "Najít AppID",
-        findappidsub: [
-            `Každá hra ve službě Steam má unikátní číslo - nazývané <span class="hl">AppID</span>. AppID každé hry ve službě Steam můžete najít pomocí následujících metod:`,
-            `V <span class="hl">klientu Steam</span> klikněte pravým tlačítkem myši na hru ve vaší <span class="hl">knihovně</span> a vyberte <i>Vlastnosti</i> > <i>Aktualizace</i> - AppID bude zde uveden`,
-            `URL adresa stránky <span class="hl">obchodu</span> s hrou - číslo bude uvedeno za <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Webové stránky jako <span class="hl">SteamDB</span> - sekce <span class="hl">Informace o aplikaci</span> bude seznamovat AppID pro každou hru`
-        ],
-        noexe: "Soubor EXE hry nebyl nalezen!",
-        noexesub: "Klikněte zde pro více informací",
-        noexedialogsub: [
-            `Steam Achievement Notifier se nepodařilo automaticky najít spustitelný soubor této hry. Umístění spustitelného souboru hry je vyžadováno, aby bylo možné hru po jejím zavření „uvolnit“`,
-            `Chcete-li hru po jejím zavření uvolnit ručně, <i>klikněte pravým tlačítkem</i> na <span class="hl">ikonu v System Tray</span> > <span class="hl">Možnosti</span> > <span class="hl">Uvolnit hru</span>, nebo použijte <span class="hl">Zkratku pro uvolnění hry</span>`,
-            `Případně klikněte na tlačítko <span class="hl">Přidat</span> níže a přidejte spustitelný soubor přiřazený k aktuálně aktivnímu oknu do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Automatické uvolnění her</span>`,
-        ],
-        autorelease: "Automatické uvolnění hry",
-        autoreleasesub: [
-            `Pokud Steam po zavření okna hry stále zobrazuje hru jako <i>Hraje se</i>, zkuste přidat novou položku do <span class="hl">Automatické uvolnění her</span>`,
-            `Chcete-li to provést pro aktuální hru, klikněte na tlačítko <span class="hl">Přidat</span> níže a přidejte spustitelný soubor přiřazený k aktuálně aktivnímu oknu do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Automatické uvolnění her</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Co se stane po kliknutí na tlačítko Přidat?</u></span>`,
-        linkgamehelp: "Přidat položku pomocí fokusu",
-        linkgamehelpsub: [
-            `Kliknutí na tlačítko <span class="hl">Přidat</span> automaticky přidá novou položku do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Automatické uvolnění her</span> s využitím informací z aktuálně aktivního okna.`,
-            `Po kliknutí na tlačítko <span class="hl">Přidat</span> se spustí 5sekundový časovač`,
-            `Před vypršením časovače přepněte fokus na okno hry`,
-            `Po vypršení časovače bude přidána nová položka pro aktuální <span class="hl">AppID</span> do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Automatické uvolnění her</span> s využitím spustitelného souboru přiřazeného k aktivnímu oknu`,
-            `Nové pokusy přepíší existující položky, případně lze položku odebrat přes <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Automatické uvolnění her</span> kliknutím na tlačítko <span id="linkhelpunlink"></span>`
-        ],
-        addlinkfailed: "Nelze přidat okno",
-        addlinkfailedsub: `Klikněte na tlačítko <span class="hl">Přidat</span> a zkuste to znovu`,
         webhookunlockmsg: "$user odemkl úspěch",
         webhookunlockmsgplat: "$user odemkl všechny úspěchy",
         webhookingame: "ve $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "Děkujeme za testování! 💜"
         ],
         betaghreleases: "Vydání",
-        checkapplog: "Zkontrolujte prosím protokol aplikace pro podrobnosti."
+        checkapplog: "Zkontrolujte prosím protokol aplikace pro podrobnosti.",
+        workercrash: "Worker selhal!",
+        workercrashsub: "Klikněte sem pro restartování Worker a opětovné spuštění sledování hry"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Hry",
             content: {
-                linkedgames: "Automatické uvolnění her",
+                linkedgames: "Propojené hry",
+                autoreleasegames: "Hry s automatickým uvolněním",
                 themeswitch: "Automatické přepínání témat",
                 exclusionlist: "Seznam vyloučení",
                 inclusionlist: "Seznam zahrnutí",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "Místo, kam budou uloženy obrázky oznámení generované touto možností",
         ssenabled: "Povolit nebo zakázat generování médií pro tento typ",
         checkforupdates: `Zkontrolujte, zda byla na GitHubu vydána nová verze aplikace. Pokud je k dispozici aktualizace, bude automaticky stažena a nainstalována po potvrzení v dialogovém okně <span class="hl">Aktualizace k dispozici</span>`,
-        linkedgames: `Přeskočit <span class="hl">automatické sledování procesů</span> pro konkrétní hry ve službě Steam<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`,
+        linkedgames: `Obejít <span class="hl">SANWatcher</span> pro vybrané hry ve službě Steam<br><br><span class="ttdesc">Tato možnost by měla být použita pouze ve velmi specifických situacích. Za běžných okolností by ji uživatelé neměli potřebovat!</span>`,
+        autoreleasegames: `Obejít <span class="hl">automatické sledování procesů</span> pro vybrané hry ve službě Steam<br><br><span class="ttdesc">Tato možnost by měla být použita pouze ve velmi specifických situacích. Za běžných okolností by ji uživatelé neměli potřebovat!</span>`,
         exclusionlist: `Zabránit sledování úspěchů v konkrétních hrách ve službě Steam aplikací<br><br><span class="ttdesc">Tuto možnost by měli používat pouze ve velmi specifických případech. Uživatelé by tuto možnost neměli používat za běžných okolností!</span>`,
         inclusionlist: `Zabraňuje sledování všech her ze služby Steam aplikací, pokud nejsou výslovně uvedeny<br><br><span class="ttdesc">Tato možnost by měla být použita pouze ve velmi specifických případech. Uživatelé by tuto možnost za běžných okolností neměli potřebovat!</span>`,
         ovx: "Posunout upozornění zobrazené na snímku obrazovky horizontálně",
@@ -911,24 +885,60 @@ export const translations = {
     },
     linkgame: {
         content: {
-            exepath: "Cesta k spustitelnému souboru",
+            exepath: "Cesta ke spustitelnému souboru",
+            linkedgame: "Propojit hru",
+            autoreleasegame: "Automatické uvolnění hry",
+            linkedgamessub: [
+                `Přepište automatické sledování všech spuštěných herních procesů pomocí <span class="hl">SANWatcher</span> a místo toho kontrolujte pouze, zda je vybraný <span class="hl">spustitelný soubor hry</span> aktuálně aktivní`,
+                `Propojte <span class="hl">AppID</span> libovolné hry s cílovým <span class="hl">spustitelným souborem hry</span> nebo <span class="hl">odstraňte</span> existující propojení`
+            ],
+            autoreleasegamessub: [
+                `Pokud Steam stále zobrazuje hru jako <i>Spuštěnou</i> i po zavření okna hry, zkuste přidat novou položku do <span class="hl">$linkgame</span>`,
+                `Přidejte <span class="hl">AppID</span> konkrétní hry spolu s očekávaným <span class="hl">spustitelným souborem hry</span> nebo <span class="hl">odstraňte</span> existující položku`,
+            ],
             managesub: [
-                `Pokud Steam po zavření okna hry stále zobrazuje hru jako <i>Hraje se</i>, zkuste přidat novou položku do <span class="hl">Automatické uvolnění her</span>`,
-                `Přidejte <span class="hl">AppID</span> konkrétní hry spolu s očekávaným <span class="hl">spustitelným souborem hry</span>, nebo <span class="hl">odeberte</span> existující položku`,
-                `Nové položky lze také přidat <i>kliknutím pravým tlačítkem</i> na <span class="hl">ikonu v System Tray</span> > <span class="hl">Automatické uvolnění hry</span> poté, co je hra detekována`,
-                `<span class="hl help" id="appidhelp"><u>Jak najdu AppID hry na Steamu?</u></span>`
+                `Jakmile je hra rozpoznána, lze nové položky přidávat také prostřednictvím <span class="hl">zaměření okna</span> kliknutím <i>pravým tlačítkem myši</i> na <span class="hl">ikonu v oznamovací oblasti</span> > <span class="hl">$linkgame</span>`,
+                `<span class="hl help" id="appidhelp"><u>Jak zjistím AppID hry ve službě Steam?</u></span>`
             ],
             linknew: "Nová položka",
             linknewsub: [
-                `Přidejte <span class="hl">AppID</span> nové hry spolu s očekávaným <span class="hl">spustitelným souborem hry</span>`,
-                `Po přidání lze položky <span class="hl">odebrat</span> prostřednictvím předchozí nabídky <span class="hl">Automatické uvolnění her</span>`
+                `Propojte <span class="hl">AppID</span> nové hry s cílovým <span class="hl">spustitelným souborem hry</span>`,
+                `Po přidání lze položky <span class="hl">odstranit</span> prostřednictvím předchozí nabídky <span class="hl">$linkgame</span>`
             ],
             linkedit: "Upravit položku",
             linkeditsub: [
-                `Upravte <span class="hl">AppID</span> existující hry spolu s očekávaným <span class="hl">spustitelným souborem hry</span>`,
-                `Po přidání lze položky <span class="hl">odebrat</span> prostřednictvím předchozí nabídky <span class="hl">Automatické uvolnění her</span>`
+                `Upravte existující propojení mezi <span class="hl">AppID</span> hry a cílovým <span class="hl">spustitelným souborem hry</span>`,
+                `Po přidání lze položky <span class="hl">odstranit</span> prostřednictvím předchozí nabídky <span class="hl">$linkgame</span>`
             ],
-            link: "Přidat"
+            link: "Přidat",
+            findappid: "Najít AppID",
+            findappidsub: [
+                `Každá hra ve službě Steam má jedinečné číslo nazývané <span class="hl">AppID</span>. AppID libovolné hry ve službě Steam můžete zjistit jedním z následujících způsobů:`,
+                `V <span class="hl">klientu Steam</span> klikněte <i>pravým tlačítkem myši</i> na hru ve své <span class="hl">Knihovně</span> a vyberte <i>Vlastnosti</i> > <i>Aktualizace</i> – zde bude uvedeno AppID`,
+                `V <span class="hl">URL adrese</span> <span class="hl">stránky obchodu</span> hry – jedná se o číslo uvedené za <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Na webových stránkách, jako je <span class="hl">SteamDB</span> – sekce <span class="hl">App Info</span> obsahuje AppID každé hry`
+            ],
+            noexe: "Spustitelný soubor hry nebyl nalezen!",
+            noexesub: "Klikněte sem pro více informací",
+            noexedialogsub: [
+                `Steam Achievement Notifier nedokázal automaticky najít spustitelný soubor této hry. Umístění spustitelného souboru hry je vyžadováno, aby bylo možné hru po jejím ukončení „uvolnit“`,
+                `Chcete-li hru po jejím ukončení uvolnit ručně, klikněte <i>pravým tlačítkem myši</i> na <span class="hl">ikonu v oznamovací oblasti</span> > <span class="hl">Možnosti</span> > <span class="hl">Uvolnit hru</span> nebo použijte <span class="hl">Klávesovou zkratku pro uvolnění hry</span>`,
+                `Případně klikněte na tlačítko <span class="hl">Přidat</span> níže a přidejte spustitelný soubor aktuálně zaměřeného okna do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Hry s automatickým uvolněním</span>`,
+            ],
+            linkedgamefocussub: `Chcete-li přepsat automatické sledování všech spuštěných herních procesů pomocí <span class="hl">SANWatcher</span>, přidejte novou položku do <span class="hl">Propojených her</span>`,
+            autoreleasegamefocussub: `Pokud Steam stále zobrazuje hru jako <i>Spuštěnou</i> i po zavření okna hry, zkuste přidat novou položku do <span class="hl">Her s automatickým uvolněním</span>`,
+            focussub: `Chcete-li to provést pro aktuální hru, klikněte na tlačítko <span class="hl">Přidat</span> níže a přidejte spustitelný soubor aktuálně zaměřeného okna do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Co se stane, když kliknu na tlačítko Přidat?</u></span>`,
+            linkgamehelp: "Propojit pomocí zaměření",
+            linkgamehelpsub: [
+                `Kliknutím na tlačítko <span class="hl">Přidat</span> se automaticky přidá nová položka do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Hry s automatickým uvolněním</span> s využitím informací z aktuálně zaměřeného okna.`,
+                `Po kliknutí na tlačítko <span class="hl">Přidat</span> se spustí pětisekundový odpočet`,
+                `Před vypršením odpočtu zaměřte okno hry`,
+                `Po skončení odpočtu bude přidána nová položka pro aktuální <span class="hl">AppID</span> do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Hry s automatickým uvolněním</span> s využitím spustitelného souboru aktuálně zaměřeného okna`,
+                `Nové pokusy přepíší existující položky nebo lze položku odstranit v <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Hry s automatickým uvolněním</span> kliknutím na tlačítko <span id="linkhelpunlink"></span>`
+            ],
+            addlinkfailed: "Okno se nepodařilo přidat",
+            addlinkfailedsub: `Klikněte na tlačítko <span class="hl">Přidat</span> a zkuste to znovu`
         }
     },
     exclusions: {

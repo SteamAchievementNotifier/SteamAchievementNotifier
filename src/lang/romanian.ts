@@ -61,36 +61,6 @@ export const translations = {
         resume: "Reia",
         new: "Nou...",
         nodata: "Fără Date",
-        findappid: "Găsește AppID",
-        findappidsub: [
-            `Fiecare joc Steam are un număr unic asociat - numit <span class="hl">AppID</span>. Puteți găsi AppID-ul asociat oricărui joc Steam verificând una dintre următoarele:`,
-            `În <span class="hl">clientul Steam</span>, faceți clic dreapta pe un joc din <span class="hl">Biblioteca</span> și selectați <i>Proprietăți</i> > <i>Actualizări</i> - AppID-ul va fi listat aici`,
-            `URL-ul paginii <span class="hl">magazinului</span> jocului - va fi numărul listat după <span class="hl">app/</span>: <code class="appidhelpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-            `Site-uri precum <span class="hl">SteamDB</span> - secțiunea de <span class="hl">Informații despre App</span> va lista AppID-ul pentru fiecare joc`
-        ],
-        noexe: "Fișierul EXE al jocului nu a fost găsit!",
-        noexesub: "Apasă aici pentru mai multe informații",
-        noexedialogsub: [
-            `Steam Achievement Notifier nu a reușit să localizeze automat fișierul executabil al acestui joc. Locația fișierului executabil al jocului este necesară pentru a putea „elibera” jocul după ce este închis`,
-            `Pentru a elibera manual jocul după ce este închis, <i>faceți clic dreapta</i> pe <span class="hl">pictograma din zona de notificare</span> > <span class="hl">Opțiuni</span> > <span class="hl">Eliberează jocul</span> sau utilizați <span class="hl">Comanda rapidă de eliberare a jocului</span>`,
-            `Alternativ, faceți clic pe butonul <span class="hl">Adaugă</span> de mai jos pentru a adăuga fișierul executabil asociat oricărei ferestre aflate în prezent în focus la <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>`,
-        ],
-        autorelease: "Eliberare automată a jocului",
-        autoreleasesub: [
-            `Dacă Steam afișează în continuare un joc ca <i>În joc</i> după ce fereastra jocului a fost închisă, încercați să adăugați o nouă intrare la <span class="hl">Jocuri cu eliberare automată</span>`,
-            `Pentru a face acest lucru pentru jocul curent, faceți clic pe butonul <span class="hl">Adaugă</span> de mai jos pentru a adăuga fișierul executabil asociat oricărei ferestre aflate în prezent în focus la <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>`,
-        ],
-        linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Ce se întâmplă când fac clic pe butonul Adaugă?</u></span>`,
-        linkgamehelp: "Adaugă intrare prin focus",
-        linkgamehelpsub: [
-            `Făcând clic pe butonul <span class="hl">Adaugă</span>, va fi adăugată automat o nouă intrare la <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>, folosind informațiile din fereastra aflată în prezent în focus.`,
-            `După ce faceți clic pe butonul <span class="hl">Adaugă</span>, va începe un temporizator de 5 secunde`,
-            `Înainte ca temporizatorul să se termine, aduceți fereastra jocului în prim-plan`,
-            `Odată ce temporizatorul s-a încheiat, va fi adăugată o nouă intrare pentru <span class="hl">AppID</span>-ul curent la <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>, folosind fișierul executabil asociat ferestrei aflate în focus`,
-            `Încercările noi vor suprascrie intrările existente sau intrarea poate fi eliminată prin <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span> făcând clic pe butonul <span id="linkhelpunlink"></span>`
-        ],
-        addlinkfailed: "Nu se poate adăuga fereastra",
-        addlinkfailedsub: `Faceți clic pe butonul <span class="hl">Adaugă</span> pentru a încerca din nou`,
         webhookunlockmsg: "$user a deblocat o realizare",
         webhookunlockmsgplat: "$user a deblocat toate realizările",
         webhookingame: "în $gamename",
@@ -192,7 +162,9 @@ export const translations = {
             "Mulțumim că ai testat! 💜"
         ],
         betaghreleases: "Versiuni",
-        checkapplog: "Vă rugăm să verificați jurnalul aplicației pentru detalii."
+        checkapplog: "Vă rugăm să verificați jurnalul aplicației pentru detalii.",
+        workercrash: "Worker s-a blocat!",
+        workercrashsub: "Faceți clic aici pentru a reporni Worker și a încerca din nou monitorizarea jocului"
     },
     app: {
         content: {
@@ -256,7 +228,8 @@ export const translations = {
         games: {
             title: "Jocuri",
             content: {
-                linkedgames: "Jocuri cu eliberare automată",
+                linkedgames: "Jocuri asociate",
+                autoreleasegames: "Jocuri cu eliberare automată",
                 themeswitch: "Comutare automată a temelor",
                 exclusionlist: "Listă de Excludere",
                 inclusionlist: "Listă de Incluziune",
@@ -762,7 +735,8 @@ export const translations = {
         imgpath: "Locația unde vor fi salvate imaginile de notificare generate de această opțiune",
         ssenabled: "Activează sau dezactivează generarea de media pentru acest tip",
         checkforupdates: `Verificați dacă a fost lansată o nouă versiune a aplicației pe GitHub. Dacă este disponibilă o actualizare, aceasta va fi descărcată și instalată automat odată ce a fost confirmată prin fereastra de dialog <span class="hl">Actualizare disponibilă</span>`,
-        linkedgames: `Ocolirea <span class="hl">urmaririi automate a proceselor</span> pentru anumite jocuri Steam<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`,
+        linkedgames: `Ocolește <span class="hl">SANWatcher</span> pentru anumite jocuri Steam<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în situații foarte specifice. În mod normal, utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune!</span>`,
+        autoreleasegames: `Ocolește <span class="hl">monitorizarea automată a proceselor</span> pentru anumite jocuri Steam<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în situații foarte specifice. În mod normal, utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune!</span>`,
         exclusionlist: `Prevenirea urmăririi realizărilor în anumite jocuri Steam de către aplicație<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în circumstanțe normale!</span>`,
         inclusionlist: `Împiedică toate jocurile Steam să fie urmărite de aplicație, cu excepția celor specificate<br><br><span class="ttdesc">Această opțiune ar trebui utilizată doar în scenarii foarte specifice. Utilizatorii nu ar trebui să aibă nevoie să folosească această opțiune în condiții normale!</span>`,
         ovx: "Deplasați notificarea afișată în captura de ecran pe orizontală",
@@ -911,24 +885,60 @@ export const translations = {
     },
     linkgame: {
         content: {
-            exepath: "Calea către Executabil",
+            exepath: "Calea executabilului",
+            linkedgame: "Asociază joc",
+            autoreleasegame: "Eliberare automată joc",
+            linkedgamessub: [
+                `Suprascrie toate procesele jocurilor aflate în execuție monitorizate automat de <span class="hl">SANWatcher</span> și verifică în schimb doar dacă <span class="hl">executabilul jocului</span> selectat este activ`,
+                `Asociază <span class="hl">AppID</span>-ul oricărui joc cu un <span class="hl">executabil al jocului</span> țintă sau <span class="hl">elimină</span> o asociere existentă`
+            ],
+            autoreleasegamessub: [
+                `Dacă Steam continuă să afișeze un joc ca fiind <i>În desfășurare</i> după închiderea ferestrei jocului, încearcă să adaugi o nouă intrare în <span class="hl">$linkgame</span>`,
+                `Adaugă <span class="hl">AppID</span>-ul unui anumit joc împreună cu <span class="hl">executabilul jocului</span> corespunzător sau <span class="hl">elimină</span> o intrare existentă`,
+            ],
             managesub: [
-                `Dacă Steam afișează în continuare un joc ca <i>În joc</i> după ce fereastra jocului a fost închisă, încercați să adăugați o nouă intrare la <span class="hl">Jocuri cu eliberare automată</span>`,
-                `Adăugați <span class="hl">AppID</span>-ul unui joc specific împreună cu <span class="hl">fișierul executabil al jocului</span> așteptat sau <span class="hl">eliminați</span> o intrare existentă`,
-                `Intrările noi pot fi adăugate și făcând <i>clic dreapta</i> pe <span class="hl">pictograma din zona de notificare</span> > <span class="hl">Eliberare automată a jocului</span> odată ce un joc a fost detectat`,
+                `După ce un joc a fost detectat, poți adăuga noi intrări și prin <span class="hl">fereastra aflată în prim-plan</span>, făcând <i>clic dreapta</i> pe <span class="hl">pictograma din zona de notificare</span> > <span class="hl">$linkgame</span>`,
                 `<span class="hl help" id="appidhelp"><u>Cum găsesc AppID-ul unui joc Steam?</u></span>`
             ],
             linknew: "Intrare nouă",
             linknewsub: [
-                `Adăugați <span class="hl">AppID</span>-ul unui joc nou împreună cu <span class="hl">fișierul executabil al jocului</span> așteptat`,
-                `Odată adăugate, intrările pot fi <span class="hl">eliminate</span> din meniul anterior <span class="hl">Jocuri cu eliberare automată</span>`
+                `Asociază <span class="hl">AppID</span>-ul unui joc nou cu un <span class="hl">executabil al jocului</span> țintă`,
+                `După adăugare, intrările pot fi <span class="hl">eliminate</span> din meniul anterior <span class="hl">$linkgame</span>`
             ],
             linkedit: "Editează intrarea",
             linkeditsub: [
-                `Editați <span class="hl">AppID</span>-ul unui joc existent împreună cu <span class="hl">fișierul executabil al jocului</span> așteptat`,
-                `Odată adăugate, intrările pot fi <span class="hl">eliminate</span> din meniul anterior <span class="hl">Jocuri cu eliberare automată</span>`
+                `Editează o asociere existentă între <span class="hl">AppID</span>-ul unui joc și <span class="hl">executabilul jocului</span> țintă`,
+                `După adăugare, intrările pot fi <span class="hl">eliminate</span> din meniul anterior <span class="hl">$linkgame</span>`
             ],
-            link: "Adaugă"
+            link: "Adaugă",
+            findappid: "Găsește AppID",
+            findappidsub: [
+                `Fiecare joc Steam are un număr unic asociat, numit <span class="hl">AppID</span>. Poți găsi AppID-ul oricărui joc Steam folosind una dintre următoarele metode:`,
+                `În <span class="hl">clientul Steam</span>, fă <i>clic dreapta</i> pe un joc din <span class="hl">Bibliotecă</span> și selectează <i>Proprietăți</i> > <i>Actualizări</i> — AppID-ul va fi afișat aici`,
+                `<span class="hl">URL-ul</span> <span class="hl">paginii din Magazin</span> a jocului — numărul de după <span class="hl">app/</span> reprezintă AppID-ul: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Site-uri precum <span class="hl">SteamDB</span> — secțiunea <span class="hl">App Info</span> afișează AppID-ul fiecărui joc`
+            ],
+            noexe: "Executabilul jocului nu a fost găsit!",
+            noexesub: "Faceți clic aici pentru mai multe informații",
+            noexedialogsub: [
+                `Steam Achievement Notifier nu a putut localiza automat fișierul executabil al acestui joc. Locația executabilului jocului este necesară pentru a putea „elibera” jocul după închidere`,
+                `Pentru a elibera manual jocul după închidere, fă <i>clic dreapta</i> pe <span class="hl">pictograma din zona de notificare</span> > <span class="hl">Opțiuni</span> > <span class="hl">Eliberează jocul</span> sau folosește <span class="hl">scurtătura Eliberează jocul</span>`,
+                `Alternativ, fă clic pe butonul <span class="hl">Adaugă</span> de mai jos pentru a adăuga fișierul executabil asociat ferestrei aflate în prim-plan în <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>`,
+            ],
+            linkedgamefocussub: `Pentru a suprascrie toate procesele jocurilor aflate în execuție monitorizate automat de <span class="hl">SANWatcher</span>, adaugă o nouă intrare în <span class="hl">Jocuri asociate</span>`,
+            autoreleasegamefocussub: `Dacă Steam continuă să afișeze un joc ca fiind <i>În desfășurare</i> după închiderea ferestrei jocului, încearcă să adaugi o nouă intrare în <span class="hl">Jocuri cu eliberare automată</span>`,
+            focussub: `Pentru a face acest lucru pentru jocul curent, fă clic pe butonul <span class="hl">Adaugă</span> de mai jos pentru a adăuga fișierul executabil asociat ferestrei aflate în prim-plan în <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">$linkgame</span>`,
+            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Ce se întâmplă când fac clic pe butonul Adaugă?</u></span>`,
+            linkgamehelp: "Asociere prin fereastra activă",
+            linkgamehelpsub: [
+                `Făcând clic pe butonul <span class="hl">Adaugă</span>, va fi adăugată automat o nouă intrare în <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>, folosind informațiile din fereastra aflată în prim-plan.`,
+                `După ce faci clic pe butonul <span class="hl">Adaugă</span>, va începe un cronometru de 5 secunde`,
+                `Înainte ca timpul să expire, adu în prim-plan fereastra jocului`,
+                `După expirarea timpului, va fi adăugată o nouă intrare pentru <span class="hl">AppID</span>-ul curent în <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>, folosind fișierul executabil asociat ferestrei aflate în prim-plan`,
+                `Noile încercări vor suprascrie intrările existente sau intrarea poate fi eliminată din <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span> făcând clic pe butonul <span id="linkhelpunlink"></span>`
+            ],
+            addlinkfailed: "Nu s-a putut adăuga fereastra",
+            addlinkfailedsub: `Faceți clic pe butonul <span class="hl">Adaugă</span> pentru a încerca din nou`
         }
     },
     exclusions: {

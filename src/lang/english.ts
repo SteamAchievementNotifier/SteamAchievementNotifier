@@ -397,7 +397,8 @@ export const translations = {
                 scale: "Scale",
                 customtext: "Custom Text",
                 usegametitle: "Use Game Title",
-                customfont: "Custom Font"
+                customfont: "Custom Font",
+                platcustomtext: "Custom 100% Text"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "Display the unlock percentage of the achievement, instead of the XP/S value",
         displaytime: "Set the number of seconds the notification will display",
         scale: "Increase or decrease the size of the notification",
-        customtext: "Set a custom message to be displayed within the notification",
+        customtext: `Set a custom message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
         usegametitle: "Show the title of the current game within the notification",
         customfont: "Load a custom font to be used within the notification",
         soundmode: "Select either a single audio file, or a randomly selected audio file from within a folder containing multiple audio files, when a notification occurs",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `Disables all in-app keyboard shortcuts<br><br><span class="ttdesc">When enabled, <u>all in-app shortcuts will no longer function</u>. All options related to keyboard shortcuts will also be hidden</span>`,
         extwinnotify: "Toggle visibility of all onscreen notifications while using Stream Notifications",
         usesanwatcher: `Enable SAN's new game process watcher<br><br><span class="ttdesc">Differences between the new SANWatcher/old automatic process tracking methods are as follows:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Actively monitors start/exit events for any process stored inside the game's installation directory</li><li>Does not require game executable to be known to release current game</li><li>Pre-game launcher behaviour can vary, so full compatibility with all Steam games is not guaranteed</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scans game installation directory for any running executables after game launch</li><li>Requires game executable to be known to release current game</li><li>If game process cannot be determined automatically, the user must manually add a new entry to <span class="hl">Auto-Release Games</span> for games to be released automatically</li></ul></div>`,
-        releasewaittime: `Set how long SANWatcher will wait for new game processes to spawn before releasing the current game<br><br><span class="ttdesc">For example, if the current game spawns a pre-game launcher/configuration window before launching the actual game, this setting determines the number of seconds SANWatcher will wait for the actual game window to spawn after the pre-game launcher/configuration window has closed<br><br>If a new active game process is detected within this wait time, the release will be cancelled and the newly active process will then be tracked instead<br><br>💡 The game name will <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">flash</span> in the <span class="hl">Game Display</span> box while the current game is waiting to release</span>`
+        releasewaittime: `Set how long SANWatcher will wait for new game processes to spawn before releasing the current game<br><br><span class="ttdesc">For example, if the current game spawns a pre-game launcher/configuration window before launching the actual game, this setting determines the number of seconds SANWatcher will wait for the actual game window to spawn after the pre-game launcher/configuration window has closed<br><br>If a new active game process is detected within this wait time, the release will be cancelled and the newly active process will then be tracked instead<br><br>💡 The game name will <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">flash</span> in the <span class="hl">Game Display</span> box while the current game is waiting to release</span>`,
+        platcustomtext: `Set a custom 100% game completion message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`
     },
     update: {
         updateavailable: "Update available",
@@ -911,7 +913,7 @@ export const translations = {
                 `Once added, entries can be <span class="hl">removed</span> via the previous <span class="hl">$linkgame</span> menu`
             ],
             link: "Add",
-            findappid: "Find AppID",
+            findappid: "Find Steam AppID",
             findappidsub: [
                 `Each Steam game has a unique number associated with it - called an <span class="hl">AppID</span>. You can find any Steam game's associated AppID by checking one of the following:`,
                 `In the <span class="hl">Steam client</span>, <i>right-click</i> a game in your <span class="hl">Library</span> and select <i>Properties</i> > <i>Updates</i> - the AppID will be listed here`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Add any game's <span class="hl">AppID</span> to automatically switch <span class="hl">Themes</span> when detected`,
+                `Add any game's <span class="hl">AppID</span>/<span class="hl">GameID</span> to automatically switch <span class="hl">Themes</span> when detected`,
                 `Any saved <span class="hl">Theme</span> can be selected for each notification type, along with the desired monitor to use as a <span class="hl">Screenshot Source</span>`,
-                `<span class="hl help" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
+                `<span class="hl help" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>How do I find a RetroAchievements game's GameID?</u></span>`
             ],
             themeswitchnew: "New Auto-Switch",
             themeswitchnewsub: [
-                `Enter the game's <span class="hl">AppID</span>, along with the desired monitor to use as a <span class="hl">Screenshot Source</span>`,
-                `Select which <span class="hl">Theme</span> to switch to for each notification type when this game's <span class="hl">AppID</span> is detected`
+                `Enter the game's <span class="hl">AppID</span>/<span class="hl">GameID</span>, along with the desired monitor to use as a <span class="hl">Screenshot Source</span>`,
+                `Multiple <span class="hl">AppIDs</span>/<span class="hl">GameIDs</span> can be entered at once when separated by either a comma (<code>,</code>) or a semicolon (<code>;</code>)`,
+                `Select which <span class="hl">Theme</span> to switch to for each notification type when this game's <span class="hl">AppID</span>/<span class="hl">GameID</span> is detected`
             ],
             themeswitchedit: "Edit Auto-Switch",
             themeswitcheditsub: [
-                `Edit the desired monitor to use as a <span class="hl">Screenshot Source</span> for this game's <span class="hl">AppID</span>`,
-                `Change which <span class="hl">Theme</span> to switch to for each notification type when this game's <span class="hl">AppID</span> is detected`
+                `Edit the desired monitor to use as a <span class="hl">Screenshot Source</span> for this game's <span class="hl">AppID</span>/<span class="hl">GameID</span>`,
+                `Change which <span class="hl">Theme</span> to switch to for each notification type when this game's <span class="hl">AppID</span>/<span class="hl">GameID</span> is detected`
             ],
             themes: "Themes",
             src: "Screenshot Source",
-            themedeleted: "Theme deleted"
+            themedeleted: "Theme deleted",
+            rafindgameid: "Find RA GameID",
+            rafindgameidsub: [
+                `Each RetroAchievements game has a unique number associated with it - called a <span class="hl">GameID</span>. You can find any RetroAchievements game's associated GameID by checking:`,
+                `The <span class="hl">URL</span> of the <span class="hl">game page</span> on the RetroAchievements site - it will be the number listed after <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

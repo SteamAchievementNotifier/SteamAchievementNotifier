@@ -1262,7 +1262,7 @@ export const listeners = {
                 apiname,
                 unlockmsg: `${(customisation.usegametitle && (gamename || await language.get("gametitle"))) || customisation.customtext || (notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked"))}`,
                 title: type === "plat" ? await language.get("gamecomplete") : notify.name,
-                desc: type === "plat" ? await language.get("gamecompletedesc") : notify.desc,
+                desc: type === "plat" ? (config.get("platcustomtext") || await language.get("gamecompletedesc")) : notify.desc,
                 icon,
                 percent: {
                     value: percent,

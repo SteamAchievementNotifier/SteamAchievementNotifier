@@ -351,6 +351,7 @@ export const sanconfig = {
                 usesanwatcher: false,
                 releasewaittime: 5,
                 workerdebug: false,
+                platcustomtext: "",
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

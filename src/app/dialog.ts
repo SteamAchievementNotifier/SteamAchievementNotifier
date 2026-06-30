@@ -327,11 +327,20 @@ export const dialog = {
                                 label: await language.get(!!obj ? "edit" : "ok"),
                                 icon: "",
                                 click: () => {
-                                    const entries = {
-                                        ...JSON.parse(localStorage.getItem(type)!),
-                                        [themeswitchappid.value]: {
-                                            themes: Object.fromEntries(types.map(t => [t,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${t}`)! as HTMLSelectElement).value)])),
-                                            src: parseInt(srcselect.value)
+                                    const themeswitchobj = {
+                                        themes: Object.fromEntries(types.map(t => [t,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${t}`)! as HTMLSelectElement).value)])),
+                                        src: parseInt(srcselect.value)
+                                    }
+
+                                    const entries = JSON.parse(localStorage.getItem(type)!)
+
+                                    if (obj) {
+                                        entries[themeswitchappid.value] = themeswitchobj
+                                    } else {
+                                        const appids = [...new Set(themeswitchappid.value.split(/[,;]+/).map(id => id.trim()).filter(id => id.length > 0 && Number.isInteger(parseFloat(id))))]
+
+                                        for (const appid of appids) {
+                                            entries[appid] = themeswitchobj
                                         }
                                     }
 
@@ -358,7 +367,28 @@ export const dialog = {
 
                         themeswitchappid.onfocus = () => sanhelper.settabindex(okbtn,[themeswitchappid.value])
                         themeswitchappid.onblur = () => sanhelper.settabindex(okbtn,[themeswitchappid.value])
-                        themeswitchappid.onkeydown = () => sanhelper.settabindex(okbtn,[themeswitchappid.value])
+                        
+                        // Handle invalid characters on input - i.e. anything non-numeric or ,/; characters
+                        themeswitchappid.oninput = () => {
+                            const { selectionStart, value } = themeswitchappid
+                            let cursorpos = 0
+
+                            const input = Array.from(value).filter((input,i) => {
+                                const valid = /[\d,;\s]/.test(input)
+                                !valid && selectionStart !== null && i < selectionStart && cursorpos++
+                                return valid
+                            }).join("")
+
+                            if (input !== value) {
+                                themeswitchappid.value = input
+                                
+                                // Prevents text cursor from skipping to the end of the input when an invalid character is entered
+                                const newpos = (selectionStart ?? input.length) - cursorpos
+                                themeswitchappid.setSelectionRange(newpos,newpos)
+                            }
+
+                            sanhelper.settabindex(okbtn,[themeswitchappid.value])
+                        }
 
                         config.get("monitors").forEach(monitor => srcselect.insertAdjacentHTML("beforeend",`<option value="${monitor.id}">${monitor.label}</option>`))
 
@@ -472,6 +502,7 @@ export const dialog = {
                 })
 
                 sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
+                sanhelper.sethelpdialog(document.getElementById("ragameidhelp")!,"rafindgameid",["themeswitch","content"])
                 updatetables("themeswitch")
             }
 

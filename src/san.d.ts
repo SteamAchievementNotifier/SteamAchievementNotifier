@@ -165,6 +165,7 @@ declare interface Config {
     usesanwatcher: boolean,
     releasewaittime: number,
     workerdebug: boolean,
+    platcustomtext: string,
     customisation: {
         main: Customisation,
         semi: Customisation,

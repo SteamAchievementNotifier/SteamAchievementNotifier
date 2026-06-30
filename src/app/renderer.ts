@@ -800,8 +800,10 @@ const sendtestnotify = async () => {
         sanhelper.devmode && webview.openDevTools()
     }
 
-    if (window.appid) {
-        const { themeswitchcustomisation, themeswitchsrc } = usertheme.themeswitchinfo(config,window.appid,{ customisation: notify.customisation, type: notify.type, getsrc: true })
+    const { appid, gameid } = window
+
+    if (gameid || appid) {
+        const { themeswitchcustomisation, themeswitchsrc } = usertheme.themeswitchinfo(config,gameid || appid,{ customisation: notify.customisation, type: notify.type, getsrc: true })
         customisation = themeswitchcustomisation || customisation
         src = themeswitchsrc || src
     }
@@ -1134,12 +1136,17 @@ ipcRenderer.on("errnotifyclick",async (event,appid: number,{ channel, skipnotify
 })
 
 ipcRenderer.on("ragame",async (event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => {
-    (["emu","gamename","gameid"] as const).forEach(attr => {
+    window.gameid = ragame?.gameid || 0
+
+    ;(["emu","gamename","gameid"] as const).forEach(attr => {
         ragame ? document.body.setAttribute(`ra${attr}`,`${ragame[attr]}`) : document.body.removeAttribute(`ra${attr}`)
         document.body.style.setProperty(`--ra${attr}`,ragame ? `"${ragame[attr]}"` : "")
     })
 
     document.body.style.setProperty(`--rastatus`,`"${await language.get(status,["settings","ra","content"])}"`)
+
+    const enabled = ragame ? usertheme.themeswitchinfo(config,ragame.gameid).enabled : false
+    enabled ? document.body.setAttribute("themeswitch",`${ragame?.gameid}`) : document.body.removeAttribute("themeswitch")
 })
 
 ipcRenderer.on("allowreplay",(event,replay: WinType | null) => {

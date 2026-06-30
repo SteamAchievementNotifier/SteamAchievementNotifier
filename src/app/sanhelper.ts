@@ -452,8 +452,6 @@ export const sanhelper: SANHelper = {
             elem.textContent = ""
 
             const monitors = key as Monitor[]
-            // let currentmonitor = monitors.find(monitor => config.get("lastknownmonitorlbl") === monitor.label)
-            // if (!currentmonitor) currentmonitor = monitors.find(monitor => monitor.id === config.get("monitor")) || monitors.find(monitor => monitor.primary)!
             
             const currentmonitor = monitors.find(monitor => monitor.id === config.get("monitor")) || monitors.find(monitor => monitor.primary)
             if (!currentmonitor) throw new Error(`Current monitor "id" ${config.get("monitor")} not found in "monitors" array`)
@@ -490,6 +488,21 @@ export const sanhelper: SANHelper = {
                 sanhelper.reloadelemselector()
             }
 
+            return
+        }
+
+        if (elem.id === "platcustomtext") {
+            elem.textContent = sanhelper.type as NotifyType === "plat" ? (config.get("platcustomtext") || "") : null
+            
+            elem.onchange = event => {
+                const target = event.target as HTMLInputElement
+                
+                config.set("platcustomtext",target.value ?? "")
+
+                sanhelper.updatetabs()
+                sanhelper.reloadelemselector()
+            }
+            
             return
         }
 

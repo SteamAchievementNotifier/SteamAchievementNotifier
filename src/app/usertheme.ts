@@ -568,7 +568,7 @@ export const usertheme = {
         return syncobj
     },
     themeswitchinfo: (config: Store<Config>,appid: number,notify?: { customisation: Customisation,type: NotifyType,getsrc?: boolean }) => {
-        const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch]
+        const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.themeswitchentries(appid)
         if (!notify) return { themeswitchcustomisation: null, themeswitchsrc: null, enabled: Boolean(themeswitch) }
 
         const { customisation, type, getsrc } = notify
@@ -590,5 +590,6 @@ export const usertheme = {
         }
 
         return { themeswitchcustomisation: customobj, themeswitchsrc: src, enabled: Boolean(themeswitch) }
-    }
+    },
+    themeswitchentries: (appid: number) => Object.entries(JSON.parse(localStorage.getItem("themeswitch") || "{}")).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch] | undefined
 }

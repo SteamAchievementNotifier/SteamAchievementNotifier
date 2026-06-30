@@ -7,6 +7,7 @@ import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
 import sanwatcher, { WatchEvent } from "sanwatcher.rs"
+import { usertheme } from "./usertheme"
 
 declare global {
     interface Window {
@@ -482,7 +483,7 @@ const startsan = async (appinfo: AppInfo) => {
                     const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
                     const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
                     const localised = await worker.localisedobj(steam3id,achievement)
-                    const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch] | undefined
+                    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.themeswitchentries(appid)
                     const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
                     
                     if (themeswitch) {

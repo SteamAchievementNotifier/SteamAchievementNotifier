@@ -5,6 +5,7 @@ import { sanhelper } from "./sanhelper"
 import { sanconfig } from "./config"
 import { log } from "./log"
 import { downloadicon } from "./achievement"
+import { usertheme } from "./usertheme"
 
 export const rasupported = [
     "retroarch",
@@ -159,9 +160,9 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                 ramode = mode!
 
                 // Prevents occasional bug where the "Now Tracking" notification is displayed again after unlocking simultaneous achievements
-                if (nowtrackingshown) return ["INFO",[key,`[RA]: "start" action in "${emu || key}" re-triggered by Game ${gameid || value} - skipping...`]]
+                if (nowtrackingshown) return ["INFO",[key,`[RA]: "start" action in "${emu || key}" re-triggered by GameID ${gameid || value} - skipping...`]]
 
-                log.write("INFO",`Game ${value} is running in ${mode!.replace(mode![0],mode![0].toUpperCase())}core Mode`)
+                log.write("INFO",`GameID ${value} is running in ${mode!.replace(mode![0],mode![0].toUpperCase())}core Mode`)
                 
                 const config = sanconfig.get()
                 
@@ -171,9 +172,9 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 
                 ipcRenderer.send("ragame",action,{ emu, gamename: racached[0].gamename, gameid } as RAGame)
                 
-                return ["INFO",[key,`[RA]: "${emu || key}" started Game ${gameid || value}`]]
+                return ["INFO",[key,`[RA]: "${emu || key}" started GameID ${gameid || value}`]]
             case "stop":
-                const stopmsg: [string | null, (string | null)[]] = ["INFO",[key,`[RA]: "${emu || key}" stopped Game ${gameid || value}`]]
+                const stopmsg: [string | null, (string | null)[]] = ["INFO",[key,`[RA]: "${emu || key}" stopped GameID ${gameid || value}`]]
                 gameid = 0
                 
                 emu = null
@@ -194,7 +195,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                     const notify = await ranotify(gameid,value,ramode)
 
                     const { type } = notify
-                    const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === gameid) as [key: string,ThemeSwitch] | undefined
+                    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.themeswitchentries(gameid)
                     const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
                     
                     if (themeswitch) {
@@ -210,10 +211,10 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                     ipcRenderer.send("ragame",action,{ emu, gamename: notifycopy.gamename, gameid } as RAGame)
                 }
                 
-                return [value ? "INFO" : "ERROR",[key,`[RA]: ${!value ? "Unable to display achievement notification - " : ""}"${emu || key}" unlocked Achievement ${value} in Game ${gameid || value}${!value ? `, but no AchievementID value was found in "achievement" action` : ""}`]]
+                return [value ? "INFO" : "ERROR",[key,`[RA]: ${!value ? "Unable to display achievement notification - " : ""}"${emu || key}" unlocked Achievement ${value} in GameID ${gameid || value}${!value ? `, but no AchievementID value was found in "achievement" action` : ""}`]]
             default:
                 ipcRenderer.send("ragame",emu ? action : "wait",gameid ? { emu, gamename: racached[0].gamename, gameid } as RAGame : null)
-                return ["CONSOLE",[key,`[RA]: ${!emu ? "No emulator actions detected" : `"${emu || key}" is idle${gameid ? ` for Game ${gameid}` : ""}`}`]]
+                return ["CONSOLE",[key,`[RA]: ${!emu ? "No emulator actions detected" : `"${emu || key}" is idle${gameid ? ` for GameID ${gameid}` : ""}`}`]]
         }
     } catch (err) {
         return ["ERROR",[null,(err as Error).message]]
@@ -258,7 +259,7 @@ const ranotify = async (gameid: number,achid: number,mode: "hard" | "soft") => {
     const config = sanconfig.get()
     const { customisation, rarity, semirarity, trophymode } = config.store
     const achievement = racached.find(achievement => achievement.id === achid)
-    if (!achievement) throw new Error(`No matching achievement found for AchievementID ${achid} in Game ${gameid}`)
+    if (!achievement) throw new Error(`No matching achievement found for AchievementID ${achid} in GameID ${gameid}`)
 
     achievement.unlocked = true // Update the achievement's `unlocked` value in `racached`
 
@@ -285,13 +286,16 @@ const ranotify = async (gameid: number,achid: number,mode: "hard" | "soft") => {
         unlocktime: new Date(Date.now()).toISOString()
     }
 
-    const platcustomisation = config.get("customisation").plat
+    const { monitor, rauser } = config.store
+    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.themeswitchentries(gameid)
+    const platcustomisation = themeswitch ? customisation.plat.usertheme[themeswitch[1].themes.plat].customisation as Customisation : customisation.plat
+    
     const platobj: RAAPlatObj = {
         achievement,
         customisation: platcustomisation,
         platicon: platcustomisation.usegameicon ? achievement.gameicon : (platcustomisation.usecustomimgicon ? platcustomisation.customimgicon :platcustomisation.customicons.plat as string),
-        monitor: config.get("monitor"),
-        username: config.get("rauser"),
+        monitor: themeswitch?.[1].src || monitor,
+        username: rauser,
         numawarded: racached.filter(achievement => achievement.unlocked).length,
         numachievements: racached.length
     }

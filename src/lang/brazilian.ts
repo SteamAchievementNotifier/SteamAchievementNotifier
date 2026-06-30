@@ -397,7 +397,8 @@ export const translations = {
                 scale: "Escala",
                 customtext: "Texto Personalizado",
                 usegametitle: "Usar Título do Jogo",
-                customfont: "Fonte Personalizada"
+                customfont: "Fonte Personalizada",
+                platcustomtext: "Texto personalizado de 100%"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "Exibir a porcentagem de desbloqueio da conquista, em vez do valor XP/S",
         displaytime: "Definir o número de segundos que a notificação será exibida",
         scale: "Aumentar ou diminuir o tamanho da notificação",
-        customtext: "Definir uma mensagem personalizada a ser exibida na notificação",
+        customtext: `Defina uma mensagem personalizada para ser exibida na notificação<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos da Notificação > Mensagem de Desbloqueio estiver desativado</span>`,
         usegametitle: "Mostrar o título do jogo atual na notificação",
         customfont: "Carregar uma fonte personalizada a ser usada na notificação",
         soundmode: "Selecionar um único arquivo de áudio ou um arquivo de áudio selecionado aleatoriamente de uma pasta contendo vários arquivos de áudio, quando ocorrer uma notificação",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `Desativa todos os atalhos de teclado do aplicativo<br><br><span class="ttdesc">Quando ativado, <u>todos os atalhos do aplicativo deixarão de funcionar</u>. Todas as opções relacionadas a atalhos de teclado também serão ocultadas</span>`,
         extwinnotify: "Alterna a visibilidade de todas as notificações na tela ao usar Stream Notifications",
         usesanwatcher: `Ativar o novo monitor de processos de jogos do SAN<br><br><span class="ttdesc">As diferenças entre o novo SANWatcher e os métodos antigos de rastreamento automático de processos são as seguintes:<br><br><div class="wrapper sanwatcher"><span class="hl">LIGADO</span><ul><li>Monitora ativamente eventos de início/encerramento de qualquer processo armazenado dentro do diretório de instalação do jogo</li><li>Não exige que o executável do jogo seja conhecido para liberar o jogo atual</li><li>O comportamento de inicializadores pré-jogo pode variar, portanto a compatibilidade total com todos os jogos da Steam não é garantida</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">DESLIGADO</span><ul><li>Analisa o diretório de instalação do jogo em busca de executáveis em execução após o lançamento do jogo</li><li>Exige que o executável do jogo seja conhecido para liberar o jogo atual</li><li>Se o processo do jogo não puder ser determinado automaticamente, o usuário deverá adicionar manualmente uma nova entrada em <span class="hl">Liberação Automática de Jogos</span> para que os jogos sejam liberados automaticamente</li></ul></div>`,
-        releasewaittime: `Defina por quanto tempo o SANWatcher aguardará o surgimento de novos processos de jogo antes de liberar o jogo atual<br><br><span class="ttdesc">Por exemplo, se o jogo atual abrir um iniciador/janela de configuração antes do jogo propriamente dito, esta configuração determina o número de segundos que o SANWatcher aguardará o surgimento da janela do jogo real após o fechamento do iniciador/janela de configuração<br><br>Se um novo processo de jogo ativo for detectado dentro desse período de espera, a liberação será cancelada e o novo processo ativo passará a ser monitorado em seu lugar<br><br>💡 O nome do jogo <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">piscará</span> na caixa <span class="hl">Exibição do Jogo</span> enquanto o jogo atual estiver aguardando para ser liberado</span>`
+        releasewaittime: `Defina por quanto tempo o SANWatcher aguardará o surgimento de novos processos de jogo antes de liberar o jogo atual<br><br><span class="ttdesc">Por exemplo, se o jogo atual abrir um iniciador/janela de configuração antes do jogo propriamente dito, esta configuração determina o número de segundos que o SANWatcher aguardará o surgimento da janela do jogo real após o fechamento do iniciador/janela de configuração<br><br>Se um novo processo de jogo ativo for detectado dentro desse período de espera, a liberação será cancelada e o novo processo ativo passará a ser monitorado em seu lugar<br><br>💡 O nome do jogo <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">piscará</span> na caixa <span class="hl">Exibição do Jogo</span> enquanto o jogo atual estiver aguardando para ser liberado</span>`,
+        platcustomtext: `Defina uma mensagem personalizada de conclusão de jogo em 100% para ser exibida na notificação<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos da Notificação > Descrição da Conquista estiver desativado</span>`
     },
     update: {
         updateavailable: "Atualização disponível",
@@ -911,7 +913,7 @@ export const translations = {
                 `Depois de adicionadas, as entradas poderão ser <span class="hl">removidas</span> pelo menu <span class="hl">$linkgame</span> anterior`
             ],
             link: "Adicionar",
-            findappid: "Encontrar AppID",
+            findappid: "Encontrar AppID da Steam",
             findappidsub: [
                 `Cada jogo da Steam possui um número exclusivo associado a ele, chamado <span class="hl">AppID</span>. Você pode encontrar o AppID de qualquer jogo da Steam verificando um dos seguintes locais:`,
                 `No <span class="hl">cliente da Steam</span>, clique com o <i>botão direito</i> em um jogo da sua <span class="hl">Biblioteca</span> e selecione <i>Propriedades</i> > <i>Atualizações</i> - o AppID será listado aqui`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Adicione o <span class="hl">AppID</span> de qualquer jogo para trocar automaticamente para <span class="hl">Temas</span> quando detectado`,
-                `Qualquer <span class="hl">Tema</span> salvo pode ser selecionado para cada tipo de notificação, junto com o monitor desejado para usar como <span class="hl">Fonte de Captura de Tela</span>`,
-                `<span class="hl" id="appidhelp"><u>Como encontro o AppID de um jogo da Steam?</u></span>`
+                `Adicione o <span class="hl">AppID</span>/<span class="hl">GameID</span> de qualquer jogo para alternar automaticamente os <span class="hl">Temas</span> quando ele for detectado`,
+                `Qualquer <span class="hl">Tema</span> salvo pode ser selecionado para cada tipo de notificação, juntamente com o monitor desejado para usar como <span class="hl">Fonte da Captura de Tela</span>`,
+                `<span class="hl help" id="appidhelp"><u>Como encontro o AppID de um jogo da Steam?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Como encontro o GameID de um jogo do RetroAchievements?</u></span>`
             ],
-            themeswitchnew: "Novo Troca Automática",
+            themeswitchnew: "Nova Alternância Automática",
             themeswitchnewsub: [
-                `Insira o <span class="hl">AppID</span> do jogo, junto com o monitor desejado para usar como <span class="hl">Fonte de Captura de Tela</span>`,
-                `Selecione qual <span class="hl">Tema</span> trocar para cada tipo de notificação quando o <span class="hl">AppID</span> deste jogo for detectado`
+                `Insira o <span class="hl">AppID</span>/<span class="hl">GameID</span> do jogo, juntamente com o monitor desejado para usar como <span class="hl">Fonte da Captura de Tela</span>`,
+                `Vários <span class="hl">AppIDs</span>/<span class="hl">GameIDs</span> podem ser inseridos de uma só vez, separados por vírgula (<code>,</code>) ou ponto e vírgula (<code>;</code>)`,
+                `Selecione para qual <span class="hl">Tema</span> alternar em cada tipo de notificação quando o <span class="hl">AppID</span>/<span class="hl">GameID</span> deste jogo for detectado`
             ],
-            themeswitchedit: "Editar Troca Automática",
+            themeswitchedit: "Editar Alternância Automática",
             themeswitcheditsub: [
-                `Edite o monitor desejado para usar como <span class="hl">Fonte da Captura de Tela</span> para o <span class="hl">AppID</span> deste jogo`,
-                `Altere qual <span class="hl">Tema</span> será usado para cada tipo de notificação quando o <span class="hl">AppID</span> deste jogo for detectado`
+                `Edite o monitor desejado para usar como <span class="hl">Fonte da Captura de Tela</span> para o <span class="hl">AppID</span>/<span class="hl">GameID</span> deste jogo`,
+                `Altere para qual <span class="hl">Tema</span> alternar em cada tipo de notificação quando o <span class="hl">AppID</span>/<span class="hl">GameID</span> deste jogo for detectado`
             ],
             themes: "Temas",
             src: "Fonte da Captura de Tela",
-            themedeleted: "Tema excluído"
+            themedeleted: "Tema excluído",
+            rafindgameid: "Encontrar GameID do RA",
+            rafindgameidsub: [
+                `Cada jogo do RetroAchievements possui um número exclusivo associado a ele, chamado <span class="hl">GameID</span>. Você pode encontrar o GameID de qualquer jogo do RetroAchievements verificando:`,
+                `A <span class="hl">URL</span> da <span class="hl">página do jogo</span> no site do RetroAchievements — será o número exibido após <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -397,7 +397,8 @@ export const translations = {
                 scale: "ขนาด",
                 customtext: "ข้อความที่กำหนดเอง",
                 usegametitle: "ใช้ชื่อเกม",
-                customfont: "แบบอักษรที่กำหนดเอง"
+                customfont: "แบบอักษรที่กำหนดเอง",
+                platcustomtext: "ข้อความกำหนดเอง 100%"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "แสดงเปอร์เซ็นต์การปลดล็อกของความสำเร็จแทนค่า XP/S",
         displaytime: "ตั้งค่าจำนวนวินาทีที่การแจ้งเตือนจะแสดง",
         scale: "เพิ่มหรือลดขนาดของการแจ้งเตือน",
-        customtext: "ตั้งค่าข้อความที่กำหนดเองที่จะแสดงในการแจ้งเตือน",
+        customtext: `ตั้งค่าข้อความกำหนดเองที่จะแสดงในการแจ้งเตือน<br><br><span class="ttdesc">ตัวเลือกนี้จะถูกซ่อนเมื่อ Customiser > ค่าเริ่มต้น > องค์ประกอบการแจ้งเตือน > ข้อความปลดล็อก ถูกปิดใช้งาน</span>`,
         usegametitle: "แสดงชื่อเกมปัจจุบันในการแจ้งเตือน",
         customfont: "โหลดฟอนต์ที่กำหนดเองที่จะใช้ในการแจ้งเตือน",
         soundmode: "เลือกไฟล์เสียงเดียวหรือเลือกไฟล์เสียงแบบสุ่มจากโฟลเดอร์ที่มีไฟล์เสียงหลายไฟล์เมื่อเกิดการแจ้งเตือน",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `ปิดใช้งานปุ่มลัดแป้นพิมพ์ทั้งหมดภายในแอป<br><br><span class="ttdesc">เมื่อเปิดใช้งาน <u>ปุ่มลัดทั้งหมดภายในแอปจะไม่สามารถใช้งานได้อีกต่อไป</u> ตัวเลือกทั้งหมดที่เกี่ยวข้องกับปุ่มลัดแป้นพิมพ์จะถูกซ่อนด้วย</span>`,
         extwinnotify: "สลับการมองเห็นของการแจ้งเตือนบนหน้าจอทั้งหมดขณะใช้ Stream Notifications",
         usesanwatcher: `เปิดใช้งานตัวเฝ้าติดตามโปรเซสเกมตัวใหม่ของ SAN<br><br><span class="ttdesc">ความแตกต่างระหว่าง SANWatcher ใหม่กับวิธีติดตามโปรเซสอัตโนมัติแบบเดิมมีดังนี้:<br><br><div class="wrapper sanwatcher"><span class="hl">เปิด</span><ul><li>ตรวจสอบเหตุการณ์การเริ่มต้นและการสิ้นสุดของทุกโปรเซสที่อยู่ภายในโฟลเดอร์ติดตั้งเกมอย่างต่อเนื่อง</li><li>ไม่จำเป็นต้องทราบไฟล์ปฏิบัติการของเกมเพื่อปล่อยเกมปัจจุบัน</li><li>พฤติกรรมของตัวเรียกใช้งานก่อนเข้าเกมอาจแตกต่างกัน จึงไม่สามารถรับประกันความเข้ากันได้อย่างสมบูรณ์กับเกม Steam ทุกเกม</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">ปิด</span><ul><li>สแกนโฟลเดอร์ติดตั้งเกมเพื่อค้นหาไฟล์ปฏิบัติการที่กำลังทำงานอยู่หลังจากเปิดเกม</li><li>จำเป็นต้องทราบไฟล์ปฏิบัติการของเกมเพื่อปล่อยเกมปัจจุบัน</li><li>หากไม่สามารถระบุโปรเซสของเกมได้โดยอัตโนมัติ ผู้ใช้จะต้องเพิ่มรายการใหม่ลงใน <span class="hl">เกมปล่อยอัตโนมัติ</span> ด้วยตนเอง เพื่อให้สามารถปล่อยเกมโดยอัตโนมัติได้</li></ul></div>`,
-        releasewaittime: `กำหนดระยะเวลาที่ SANWatcher จะรอให้กระบวนการของเกมใหม่เริ่มทำงานก่อนที่จะปล่อยเกมปัจจุบัน<br><br><span class="ttdesc">ตัวอย่างเช่น หากเกมปัจจุบันเปิดตัวเรียกใช้งาน/หน้าต่างการตั้งค่าก่อนเกมก่อนที่จะเปิดเกมจริง การตั้งค่านี้จะกำหนดจำนวนวินาทีที่ SANWatcher จะรอให้หน้าต่างของเกมจริงเปิดขึ้นหลังจากที่ตัวเรียกใช้งาน/หน้าต่างการตั้งค่าก่อนเกมปิดลง<br><br>หากตรวจพบกระบวนการเกมที่กำลังทำงานใหม่ภายในช่วงเวลารอนี้ การปล่อยเกมจะถูกยกเลิก และจะติดตามกระบวนการที่เพิ่งทำงานแทน<br><br>💡 ชื่อเกมจะ<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">กะพริบ</span>ในกล่อง <span class="hl">การแสดงผลเกม</span> ขณะที่เกมปัจจุบันกำลังรอการปล่อย</span>`
+        releasewaittime: `กำหนดระยะเวลาที่ SANWatcher จะรอให้กระบวนการของเกมใหม่เริ่มทำงานก่อนที่จะปล่อยเกมปัจจุบัน<br><br><span class="ttdesc">ตัวอย่างเช่น หากเกมปัจจุบันเปิดตัวเรียกใช้งาน/หน้าต่างการตั้งค่าก่อนเกมก่อนที่จะเปิดเกมจริง การตั้งค่านี้จะกำหนดจำนวนวินาทีที่ SANWatcher จะรอให้หน้าต่างของเกมจริงเปิดขึ้นหลังจากที่ตัวเรียกใช้งาน/หน้าต่างการตั้งค่าก่อนเกมปิดลง<br><br>หากตรวจพบกระบวนการเกมที่กำลังทำงานใหม่ภายในช่วงเวลารอนี้ การปล่อยเกมจะถูกยกเลิก และจะติดตามกระบวนการที่เพิ่งทำงานแทน<br><br>💡 ชื่อเกมจะ<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">กะพริบ</span>ในกล่อง <span class="hl">การแสดงผลเกม</span> ขณะที่เกมปัจจุบันกำลังรอการปล่อย</span>`,
+        platcustomtext: `ตั้งค่าข้อความกำหนดเองสำหรับการจบเกม 100% ที่จะแสดงในการแจ้งเตือน<br><br><span class="ttdesc">ตัวเลือกนี้จะถูกซ่อนเมื่อ Customiser > ค่าเริ่มต้น > องค์ประกอบการแจ้งเตือน > คำอธิบายความสำเร็จ ถูกปิดใช้งาน</span>`
     },
     update: {
         updateavailable: "มีการอัปเดตใหม่",
@@ -911,7 +913,7 @@ export const translations = {
                 `หลังจากเพิ่มแล้ว สามารถ<span class="hl">ลบ</span>รายการได้ผ่านเมนู <span class="hl">$linkgame</span> ก่อนหน้า`
             ],
             link: "เพิ่ม",
-            findappid: "ค้นหา AppID",
+            findappid: "ค้นหา Steam AppID",
             findappidsub: [
                 `เกม Steam ทุกเกมมีหมายเลขเฉพาะที่เรียกว่า <span class="hl">AppID</span> คุณสามารถหา AppID ของเกม Steam ได้จากวิธีต่อไปนี้:`,
                 `ใน <span class="hl">ไคลเอนต์ Steam</span> ให้<i>คลิกขวา</i>ที่เกมใน<span class="hl">คลังเกม</span> แล้วเลือก<i>คุณสมบัติ</i> > <i>อัปเดต</i> - จะมี AppID แสดงอยู่`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `เพิ่ม <span class="hl">AppID</span> ของเกมใด ๆ เพื่อเปลี่ยน <span class="hl">ธีม</span> โดยอัตโนมัติเมื่อถูกตรวจพบ`,
-                `สามารถเลือก <span class="hl">ธีม</span> ที่บันทึกไว้สำหรับแต่ละประเภทการแจ้งเตือน พร้อมกับจอแสดงผลที่ต้องการใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
-                `<span class="hl" id="appidhelp"><u>ฉันจะหาข้อมูล AppID ของเกม Steam ได้อย่างไร?</u></span>`
+                `เพิ่ม <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกมใดก็ได้ เพื่อสลับ <span class="hl">ธีม</span> อัตโนมัติเมื่อถูกตรวจพบ`,
+                `สามารถเลือก <span class="hl">ธีม</span> ที่บันทึกไว้สำหรับแต่ละประเภทการแจ้งเตือนได้ พร้อมเลือกจอที่ใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
+                `<span class="hl help" id="appidhelp"><u>จะหา AppID ของเกม Steam ได้อย่างไร?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>จะหา GameID ของเกม RetroAchievements ได้อย่างไร?</u></span>`
             ],
-            themeswitchnew: "การเปลี่ยนแปลงอัตโนมัติใหม่",
+            themeswitchnew: "การสลับอัตโนมัติใหม่",
             themeswitchnewsub: [
-                `ป้อน <span class="hl">AppID</span> ของเกม พร้อมกับจอแสดงผลที่ต้องการใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
-                `เลือก <span class="hl">ธีม</span> ที่จะเปลี่ยนไปยังสำหรับแต่ละประเภทการแจ้งเตือนเมื่อตรวจพบ <span class="hl">AppID</span> ของเกมนี้`
+                `ป้อน <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกม พร้อมเลือกจอที่ใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
+                `สามารถป้อน <span class="hl">AppID</span>/<span class="hl">GameID</span> หลายรายการได้ โดยคั่นด้วยเครื่องหมายจุลภาค (<code>,</code>) หรืออัฒภาค (<code>;</code>)`,
+                `เลือก <span class="hl">ธีม</span> ที่จะสลับไปสำหรับแต่ละประเภทการแจ้งเตือนเมื่อพบ <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกมนี้`
             ],
             themeswitchedit: "แก้ไขการสลับอัตโนมัติ",
             themeswitcheditsub: [
-                `แก้ไขจอภาพที่ต้องการใช้เป็น <span class="hl">แหล่งที่มาของภาพหน้าจอ</span> สำหรับ <span class="hl">AppID</span> ของเกมนี้`,
-                `เปลี่ยน <span class="hl">ธีม</span> ที่จะสลับไปสำหรับแต่ละประเภทการแจ้งเตือนเมื่อพบ <span class="hl">AppID</span> ของเกมนี้`
+                `แก้ไขจอที่ใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span> สำหรับ <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกมนี้`,
+                `เปลี่ยน <span class="hl">ธีม</span> ที่จะสลับไปสำหรับแต่ละประเภทการแจ้งเตือนเมื่อพบ <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกมนี้`
             ],
             themes: "ธีม",
             src: "แหล่งภาพหน้าจอ",
-            themedeleted: "ลบธีมแล้ว"
+            themedeleted: "ลบธีมแล้ว",
+            rafindgameid: "ค้นหา RA GameID",
+            rafindgameidsub: [
+                `เกม RetroAchievements แต่ละเกมจะมีหมายเลขเฉพาะเรียกว่า <span class="hl">GameID</span> คุณสามารถค้นหา GameID ของเกมใดก็ได้โดยตรวจสอบ:`,
+                `URL ของหน้า <span class="hl">เกม</span> บนเว็บไซต์ RetroAchievements — คือหมายเลขที่อยู่หลัง <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

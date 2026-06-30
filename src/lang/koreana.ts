@@ -397,7 +397,8 @@ export const translations = {
                 scale: "크기 조절",
                 customtext: "사용자 정의 텍스트",
                 usegametitle: "게임 제목 사용",
-                customfont: "사용자 정의 글꼴"
+                customfont: "사용자 정의 글꼴",
+                platcustomtext: "사용자 지정 100% 텍스트"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "XP/S 값 대신 업적의 잠금 해제 백분율 표시",
         displaytime: "알림이 표시될 시간(초) 설정",
         scale: "알림의 크기를 확대 또는 축소",
-        customtext: "알림 내에 표시될 사용자 정의 메시지 설정",
+        customtext: `알림에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">Customiser > 프리셋 > 알림 요소 > 잠금 해제 메시지가 비활성화되면 이 옵션은 숨겨집니다</span>`,
         usegametitle: "알림 내에 현재 게임의 제목 표시",
         customfont: "알림 내에서 사용할 사용자 정의 글꼴 로드",
         soundmode: "알림이 발생할 때 단일 오디오 파일 또는 여러 오디오 파일이 포함된 폴더에서 무작위로 선택된 오디오 파일 중 하나 선택",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `앱 내의 모든 키보드 단축키를 비활성화합니다<br><br><span class="ttdesc">활성화되면 <u>모든 앱 내 단축키가 더 이상 작동하지 않습니다</u>. 키보드 단축키와 관련된 모든 옵션도 숨겨집니다</span>`,
         extwinnotify: "Stream Notifications 사용 중 모든 화면 알림의 표시 여부를 전환합니다",
         usesanwatcher: `SAN의 새로운 게임 프로세스 감시 기능 활성화<br><br><span class="ttdesc">새로운 SANWatcher와 기존 자동 프로세스 추적 방식의 차이점은 다음과 같습니다.<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>게임 설치 디렉터리에 저장된 모든 프로세스의 시작/종료 이벤트를 적극적으로 모니터링합니다</li><li>현재 게임을 해제하기 위해 게임 실행 파일을 미리 알고 있을 필요가 없습니다</li><li>게임 실행 전 런처의 동작은 달라질 수 있으므로 모든 Steam 게임과의 완전한 호환성은 보장되지 않습니다</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>게임 실행 후 게임 설치 디렉터리에서 실행 중인 실행 파일을 검색합니다</li><li>현재 게임을 해제하려면 게임 실행 파일을 알고 있어야 합니다</li><li>게임 프로세스를 자동으로 확인할 수 없는 경우, 게임을 자동으로 해제하려면 사용자가 <span class="hl">자동 릴리스 게임</span>에 새 항목을 수동으로 추가해야 합니다</li></ul></div>`,
-        releasewaittime: `현재 게임을 해제하기 전에 SANWatcher가 새 게임 프로세스가 시작될 때까지 대기할 시간을 설정합니다<br><br><span class="ttdesc">예를 들어, 현재 게임이 실제 게임을 실행하기 전에 런처 또는 설정 창을 먼저 실행하는 경우, 이 설정은 런처 또는 설정 창이 닫힌 후 실제 게임 창이 나타날 때까지 SANWatcher가 기다릴 초 단위를 결정합니다<br><br>이 대기 시간 내에 새로운 활성 게임 프로세스가 감지되면 해제가 취소되고, 대신 새로 활성화된 프로세스가 추적됩니다<br><br>💡 현재 게임이 해제 대기 중인 동안 게임 이름이 <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">깜박이며</span> <span class="hl">게임 표시</span> 상자에 표시됩니다</span>`
+        releasewaittime: `현재 게임을 해제하기 전에 SANWatcher가 새 게임 프로세스가 시작될 때까지 대기할 시간을 설정합니다<br><br><span class="ttdesc">예를 들어, 현재 게임이 실제 게임을 실행하기 전에 런처 또는 설정 창을 먼저 실행하는 경우, 이 설정은 런처 또는 설정 창이 닫힌 후 실제 게임 창이 나타날 때까지 SANWatcher가 기다릴 초 단위를 결정합니다<br><br>이 대기 시간 내에 새로운 활성 게임 프로세스가 감지되면 해제가 취소되고, 대신 새로 활성화된 프로세스가 추적됩니다<br><br>💡 현재 게임이 해제 대기 중인 동안 게임 이름이 <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">깜박이며</span> <span class="hl">게임 표시</span> 상자에 표시됩니다</span>`,
+        platcustomtext: `알림에 표시할 게임 100% 완료 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">Customiser > 프리셋 > 알림 요소 > 업적 설명이 비활성화되면 이 옵션은 숨겨집니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",
@@ -911,7 +913,7 @@ export const translations = {
                 `추가한 후에는 이전 <span class="hl">$linkgame</span> 메뉴에서 항목을 <span class="hl">삭제</span>할 수 있습니다`
             ],
             link: "추가",
-            findappid: "AppID 찾기",
+            findappid: "Steam AppID 찾기",
             findappidsub: [
                 `모든 Steam 게임에는 <span class="hl">AppID</span>라고 하는 고유 번호가 있습니다. Steam 게임의 AppID는 다음 방법 중 하나로 확인할 수 있습니다:`,
                 `<span class="hl">Steam 클라이언트</span>에서 <span class="hl">라이브러리</span>의 게임을 <i>마우스 오른쪽 버튼으로 클릭</i>한 후 <i>속성</i> > <i>업데이트</i>를 선택하면 AppID가 표시됩니다`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `任意 게임의 <span class="hl">AppID</span>를 추가하여 감지될 때 <span class="hl">테마</span>를 자동으로 전환`,
-                `저장된 모든 <span class="hl">테마</span>를 각 알림 유형에 선택할 수 있으며, 사용할 모니터를 <span class="hl">스크린샷 소스</span>로 지정할 수 있습니다.`,
-                `<span class="hl" id="appidhelp"><u>Steam 게임의 AppID는 어떻게 찾나요?</u></span>`
+                `게임이 감지되면 <span class="hl">테마</span>를 자동으로 전환하도록 원하는 게임의 <span class="hl">AppID</span>/<span class="hl">GameID</span>를 추가하세요`,
+                `저장된 <span class="hl">테마</span>는 각 알림 유형마다 선택할 수 있으며, <span class="hl">스크린샷 소스</span>로 사용할 원하는 모니터도 함께 지정할 수 있습니다`,
+                `<span class="hl help" id="appidhelp"><u>Steam 게임의 AppID는 어떻게 찾나요?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>RetroAchievements 게임의 GameID는 어떻게 찾나요?</u></span>`
             ],
             themeswitchnew: "새 자동 전환",
             themeswitchnewsub: [
-                `게임의 <span class="hl">AppID</span>와 사용할 모니터를 <span class="hl">스크린샷 소스</span>로 지정하세요.`,
-                `이 게임의 <span class="hl">AppID</span>가 감지될 때 각 알림 유형에 전환할 <span class="hl">테마</span>를 선택하세요.`
+                `게임의 <span class="hl">AppID</span>/<span class="hl">GameID</span>와 <span class="hl">스크린샷 소스</span>로 사용할 원하는 모니터를 입력하세요`,
+                `여러 개의 <span class="hl">AppID</span>/<span class="hl">GameID</span>는 쉼표(<code>,</code>) 또는 세미콜론(<code>;</code>)으로 구분하여 한 번에 입력할 수 있습니다`,
+                `이 게임의 <span class="hl">AppID</span>/<span class="hl">GameID</span>가 감지되면 각 알림 유형에 대해 전환할 <span class="hl">테마</span>를 선택하세요`
             ],
             themeswitchedit: "자동 전환 편집",
             themeswitcheditsub: [
-                `이 게임의 <span class="hl">AppID</span>에 대한 <span class="hl">스크린샷 소스</span>로 사용할 모니터를 편집합니다`,
-                `이 게임의 <span class="hl">AppID</span>가 감지되었을 때 각 알림 유형에 대해 전환할 <span class="hl">테마</span>를 변경합니다`
+                `이 게임의 <span class="hl">AppID</span>/<span class="hl">GameID</span>에 사용할 <span class="hl">스크린샷 소스</span> 모니터를 편집하세요`,
+                `이 게임의 <span class="hl">AppID</span>/<span class="hl">GameID</span>가 감지되면 각 알림 유형에 대해 전환할 <span class="hl">테마</span>를 변경하세요`
             ],
             themes: "테마",
             src: "스크린샷 소스",
-            themedeleted: "테마가 삭제되었습니다"
+            themedeleted: "테마가 삭제되었습니다",
+            rafindgameid: "RA GameID 찾기",
+            rafindgameidsub: [
+                `RetroAchievements의 각 게임에는 <span class="hl">GameID</span>라는 고유 번호가 있습니다. RetroAchievements 게임의 GameID는 다음에서 확인할 수 있습니다:`,
+                `RetroAchievements 사이트의 <span class="hl">게임 페이지</span> <span class="hl">URL</span>을 확인하세요. <span class="hl">game/</span> 뒤에 있는 숫자가 GameID입니다: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

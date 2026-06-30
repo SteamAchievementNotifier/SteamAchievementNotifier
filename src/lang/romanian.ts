@@ -397,7 +397,8 @@ export const translations = {
                 scale: "Scară",
                 customtext: "Text Personalizat",
                 usegametitle: "Utilizare Titlu Joc",
-                customfont: "Font Personalizat"
+                customfont: "Font Personalizat",
+                platcustomtext: "Text personalizat 100%"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "Afișare procentul de deblocare al realizării, în locul valorii XP/S",
         displaytime: "Setați numărul de secunde în care va fi afișată notificarea",
         scale: "Măriți sau micșorați dimensiunea notificării",
-        customtext: "Setați un mesaj personalizat care va fi afișat în notificare",
+        customtext: `Setați un mesaj personalizat care va fi afișat în notificare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Customiser > Presetare > Elementele notificării > Mesaj de deblocare este dezactivat</span>`,
         usegametitle: "Afișați titlul jocului curent în notificare",
         customfont: "Încărcați o fontă personalizată care va fi utilizată în notificare",
         soundmode: "Selectați fie un singur fișier audio, fie un fișier audio selectat aleatoriu dintr-un folder care conține mai multe fișiere audio, atunci când apare o notificare",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `Dezactivează toate scurtăturile de la tastatură din aplicație<br><br><span class="ttdesc">Când este activat, <u>toate scurtăturile din aplicație nu vor mai funcționa</u>. Toate opțiunile legate de scurtăturile de la tastatură vor fi, de asemenea, ascunse</span>`,
         extwinnotify: "Comută vizibilitatea tuturor notificărilor pe ecran în timpul utilizării Stream Notifications",
         usesanwatcher: `Activează noul monitor de procese pentru jocuri al SAN<br><br><span class="ttdesc">Diferențele dintre noul SANWatcher și vechile metode de urmărire automată a proceselor sunt următoarele:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Monitorizează activ evenimentele de pornire/închidere pentru orice proces stocat în directorul de instalare al jocului</li><li>Nu necesită cunoașterea fișierului executabil al jocului pentru a elibera jocul curent</li><li>Comportamentul lansatoarelor pre-joc poate varia, astfel că nu este garantată compatibilitatea completă cu toate jocurile Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scanează directorul de instalare al jocului pentru orice fișiere executabile aflate în execuție după lansarea jocului</li><li>Necesită cunoașterea fișierului executabil al jocului pentru a elibera jocul curent</li><li>Dacă procesul jocului nu poate fi determinat automat, utilizatorul trebuie să adauge manual o nouă intrare în <span class="hl">Jocuri cu eliberare automată</span> pentru ca jocurile să fie eliberate automat</li></ul></div>`,
-        releasewaittime: `Setați cât timp SANWatcher va aștepta ca noile procese de joc să fie inițializate înainte de a elibera jocul curent<br><br><span class="ttdesc">De exemplu, dacă jocul curent inițializează un lansator/fereastră de configurare înainte de a porni jocul propriu-zis, această setare determină numărul de secunde pe care SANWatcher îl va aștepta pentru ca fereastra jocului propriu-zis să apară după ce lansatorul/fereastra de configurare s-a închis<br><br>Dacă un nou proces de joc activ este detectat în acest interval de așteptare, eliberarea va fi anulată, iar noul proces activ va fi urmărit în schimb<br><br>💡 Numele jocului va <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">clipi</span> în caseta <span class="hl">Afișaj Joc</span> în timp ce jocul curent așteaptă să fie eliberat</span>`
+        releasewaittime: `Setați cât timp SANWatcher va aștepta ca noile procese de joc să fie inițializate înainte de a elibera jocul curent<br><br><span class="ttdesc">De exemplu, dacă jocul curent inițializează un lansator/fereastră de configurare înainte de a porni jocul propriu-zis, această setare determină numărul de secunde pe care SANWatcher îl va aștepta pentru ca fereastra jocului propriu-zis să apară după ce lansatorul/fereastra de configurare s-a închis<br><br>Dacă un nou proces de joc activ este detectat în acest interval de așteptare, eliberarea va fi anulată, iar noul proces activ va fi urmărit în schimb<br><br>💡 Numele jocului va <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">clipi</span> în caseta <span class="hl">Afișaj Joc</span> în timp ce jocul curent așteaptă să fie eliberat</span>`,
+        platcustomtext: `Setați un mesaj personalizat pentru finalizarea 100% a jocului care va fi afișat în notificare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Customiser > Presetare > Elementele notificării > Descrierea realizării este dezactivată</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",
@@ -911,7 +913,7 @@ export const translations = {
                 `După adăugare, intrările pot fi <span class="hl">eliminate</span> din meniul anterior <span class="hl">$linkgame</span>`
             ],
             link: "Adaugă",
-            findappid: "Găsește AppID",
+            findappid: "Găsește Steam AppID",
             findappidsub: [
                 `Fiecare joc Steam are un număr unic asociat, numit <span class="hl">AppID</span>. Poți găsi AppID-ul oricărui joc Steam folosind una dintre următoarele metode:`,
                 `În <span class="hl">clientul Steam</span>, fă <i>clic dreapta</i> pe un joc din <span class="hl">Bibliotecă</span> și selectează <i>Proprietăți</i> > <i>Actualizări</i> — AppID-ul va fi afișat aici`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Adaugă <span class="hl">AppID</span> al oricărui joc pentru a comuta automat <span class="hl">Temele</span> când este detectat`,
-                `Orice <span class="hl">Temă</span> salvată poate fi selectată pentru fiecare tip de notificare, împreună cu monitorul dorit de utilizat ca <span class="hl">Sursă de Captură de Ecran</span>`,
-                `<span class="hl" id="appidhelp"><u>Cum găsesc AppID-ul unui joc Steam?</u></span>`
+                `Adăugați <span class="hl">AppID</span>/<span class="hl">GameID</span> al oricărui joc pentru a comuta automat <span class="hl">Temele</span> când este detectat`,
+                `Orice <span class="hl">Temă</span> salvată poate fi selectată pentru fiecare tip de notificare, împreună cu monitorul dorit folosit ca <span class="hl">Sursă de captură de ecran</span>`,
+                `<span class="hl help" id="appidhelp"><u>Cum găsesc AppID-ul unui joc Steam?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Cum găsesc GameID-ul unui joc RetroAchievements?</u></span>`
             ],
-            themeswitchnew: "Nouă comutare automată",
+            themeswitchnew: "Comutare automată nouă",
             themeswitchnewsub: [
-                `Introdu <span class="hl">AppID</span> al jocului, împreună cu monitorul dorit de utilizat ca <span class="hl">Sursă de Captură de Ecran</span>`,
-                `Selectează care <span class="hl">Temă</span> să comute pentru fiecare tip de notificare atunci când <span class="hl">AppID</span> al acestui joc este detectat`
+                `Introduceți <span class="hl">AppID</span>/<span class="hl">GameID</span> al jocului, împreună cu monitorul dorit folosit ca <span class="hl">Sursă de captură de ecran</span>`,
+                `Mai multe <span class="hl">AppID-uri</span>/<span class="hl">GameID-uri</span> pot fi introduse simultan dacă sunt separate prin virgulă (<code>,</code>) sau punct și virgulă (<code>;</code>)`,
+                `Selectați la ce <span class="hl">Temă</span> să se comute pentru fiecare tip de notificare atunci când este detectat <span class="hl">AppID</span>/<span class="hl">GameID</span> al acestui joc`
             ],
-            themeswitchedit: "Editează comutarea automată",
+            themeswitchedit: "Editare comutare automată",
             themeswitcheditsub: [
-                `Editează monitorul dorit pentru a fi folosit ca <span class="hl">Sursa capturilor de ecran</span> pentru <span class="hl">AppID</span>-ul acestui joc`,
-                `Schimbă tema la care se comută pentru fiecare tip de notificare când este detectat <span class="hl">AppID</span>-ul acestui joc`
+                `Editați monitorul dorit folosit ca <span class="hl">Sursă de captură de ecran</span> pentru <span class="hl">AppID</span>/<span class="hl">GameID</span> al acestui joc`,
+                `Schimbați la ce <span class="hl">Temă</span> să se comute pentru fiecare tip de notificare atunci când este detectat <span class="hl">AppID</span>/<span class="hl">GameID</span> al acestui joc`
             ],
             themes: "Teme",
-            src: "Sursă de Captură de Ecran",
-            themedeleted: "Tema șters"
+            src: "Sursă de captură de ecran",
+            themedeleted: "Temă ștearsă",
+            rafindgameid: "Găsește RA GameID",
+            rafindgameidsub: [
+                `Fiecare joc RetroAchievements are un număr unic asociat numit <span class="hl">GameID</span>. Puteți găsi GameID-ul oricărui joc RetroAchievements verificând:`,
+                `URL-ul <span class="hl">paginii jocului</span> de pe site-ul RetroAchievements — este numărul după <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -397,7 +397,8 @@ export const translations = {
                 scale: "مقياس",
                 customtext: "النص المخصص",
                 usegametitle: "استخدام عنوان اللعبة",
-                customfont: "الخط المخصص"
+                customfont: "الخط المخصص",
+                platcustomtext: "نص مخصص لإكمال 100%"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "عرض نسبة فتح الإنجاز بدلاً من قيمة الخبرة / ثانية",
         displaytime: "تعيين عدد الثواني التي سيتم عرض الإشعار فيها",
         scale: "زيادة أو تقليل حجم الإشعار",
-        customtext: "تعيين رسالة مخصصة لتظهر ضمن الإشعار",
+        customtext: `قم بتعيين رسالة مخصصة لعرضها داخل الإشعار<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل Customiser > الإعداد المسبق > عناصر الإشعار > رسالة الفتح</span>`,
         usegametitle: "عرض عنوان اللعبة الحالية ضمن الإشعار",
         customfont: "تحميل خط مخصص لاستخدامه ضمن الإشعار",
         soundmode: "حدد إما ملف صوتي واحد، أو ملف صوتي مختار عشوائيًا من داخل مجلد يحتوي على عدة ملفات صوتية عند حدوث إشعار",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `تعطيل جميع اختصارات لوحة المفاتيح داخل التطبيق<br><br><span class="ttdesc">عند التفعيل، <u>لن تعمل جميع الاختصارات داخل التطبيق بعد الآن</u>. سيتم أيضًا إخفاء جميع الخيارات المتعلقة باختصارات لوحة المفاتيح</span>`,
         extwinnotify: "تبديل ظهور جميع الإشعارات على الشاشة أثناء استخدام إشعارات البث",
         usesanwatcher: `تمكين مراقب عمليات الألعاب الجديد الخاص بـ SAN<br><br><span class="ttdesc">الاختلافات بين SANWatcher الجديد وطرق التتبع التلقائي للعمليات القديمة هي كما يلي:<br><br><div class="wrapper sanwatcher"><span class="hl">تشغيل</span><ul><li>يراقب بشكل نشط أحداث بدء/إنهاء أي عملية مخزنة داخل دليل تثبيت اللعبة</li><li>لا يتطلب معرفة الملف التنفيذي للعبة لتحرير اللعبة الحالية</li><li>قد يختلف سلوك مشغّل ما قبل اللعبة، لذلك لا يمكن ضمان التوافق الكامل مع جميع ألعاب Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">إيقاف</span><ul><li>يفحص دليل تثبيت اللعبة بحثًا عن أي ملفات تنفيذية قيد التشغيل بعد تشغيل اللعبة</li><li>يتطلب معرفة الملف التنفيذي للعبة لتحرير اللعبة الحالية</li><li>إذا تعذر تحديد عملية اللعبة تلقائيًا، فيجب على المستخدم إضافة إدخال جديد يدويًا إلى <span class="hl">التحرير التلقائي للألعاب</span> حتى يتم تحرير الألعاب تلقائيًا</li></ul></div>`,
-        releasewaittime: `حدد المدة التي سينتظرها SANWatcher لظهور عمليات لعبة جديدة قبل تحرير اللعبة الحالية<br><br><span class="ttdesc">على سبيل المثال، إذا كانت اللعبة الحالية تُشغّل نافذة تشغيل/إعدادات قبل اللعبة الفعلية قبل تشغيل اللعبة نفسها، فإن هذا الإعداد يحدد عدد الثواني التي سينتظرها SANWatcher لظهور نافذة اللعبة الفعلية بعد إغلاق نافذة التشغيل/الإعدادات السابقة للعبة<br><br>إذا تم اكتشاف عملية لعبة نشطة جديدة خلال فترة الانتظار هذه، فسيتم إلغاء التحرير وسيتم تتبع العملية النشطة الجديدة بدلاً من ذلك<br><br>💡 سيومض اسم اللعبة <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">وميضًا</span> في مربع <span class="hl">عرض اللعبة</span> أثناء انتظار تحرير اللعبة الحالية</span>`
+        releasewaittime: `حدد المدة التي سينتظرها SANWatcher لظهور عمليات لعبة جديدة قبل تحرير اللعبة الحالية<br><br><span class="ttdesc">على سبيل المثال، إذا كانت اللعبة الحالية تُشغّل نافذة تشغيل/إعدادات قبل اللعبة الفعلية قبل تشغيل اللعبة نفسها، فإن هذا الإعداد يحدد عدد الثواني التي سينتظرها SANWatcher لظهور نافذة اللعبة الفعلية بعد إغلاق نافذة التشغيل/الإعدادات السابقة للعبة<br><br>إذا تم اكتشاف عملية لعبة نشطة جديدة خلال فترة الانتظار هذه، فسيتم إلغاء التحرير وسيتم تتبع العملية النشطة الجديدة بدلاً من ذلك<br><br>💡 سيومض اسم اللعبة <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">وميضًا</span> في مربع <span class="hl">عرض اللعبة</span> أثناء انتظار تحرير اللعبة الحالية</span>`,
+        platcustomtext: `قم بتعيين رسالة مخصصة لإكمال اللعبة بنسبة 100% لعرضها داخل الإشعار<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل Customiser > الإعداد المسبق > عناصر الإشعار > وصف الإنجاز</span>`
     },
     update: {
         updateavailable: "تحديث متاح",
@@ -911,7 +913,7 @@ export const translations = {
                 `بعد الإضافة، يمكن <span class="hl">إزالة</span> الإدخالات عبر قائمة <span class="hl">$linkgame</span> السابقة`
             ],
             link: "إضافة",
-            findappid: "العثور على AppID",
+            findappid: "العثور على Steam AppID",
             findappidsub: [
                 `لكل لعبة Steam رقم فريد مرتبط بها يُسمى <span class="hl">AppID</span>. يمكنك العثور على AppID لأي لعبة Steam بإحدى الطرق التالية:`,
                 `في <span class="hl">عميل Steam</span>، <i>انقر بزر الماوس الأيمن</i> على لعبة في <span class="hl">المكتبة</span> واختر <i>الخصائص</i> > <i>التحديثات</i> - سيظهر AppID هنا`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `أضف <span class="hl">AppID</span> لأي لعبة للتبديل تلقائيًا إلى <span class="hl">الثيمات</span> عند اكتشافها`,
-                `يمكن اختيار أي <span class="hl">ثيم</span> محفوظ لكل نوع من الإشعارات، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطة الشاشة</span>`,
-                `<span class="hl" id="appidhelp"><u>كيف أجد معرف تطبيق لعبة Steam؟</u></span>`
+                `أضف <span class="hl">AppID</span>/<span class="hl">GameID</span> لأي لعبة للتبديل تلقائيًا بين <span class="hl">السمات</span> عند اكتشافها`,
+                `يمكن اختيار أي <span class="hl">سمة</span> محفوظة لكل نوع من الإشعارات، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">لقطة الشاشة</span>`,
+                `<span class="hl help" id="appidhelp"><u>كيف يمكنني العثور على AppID للعبة على Steam؟</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>كيف يمكنني العثور على GameID للعبة على RetroAchievements؟</u></span>`
             ],
             themeswitchnew: "تبديل تلقائي جديد",
             themeswitchnewsub: [
-                `أدخل <span class="hl">AppID</span> الخاص باللعبة، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطة الشاشة</span>`,
-                `اختر أي <span class="hl">ثيم</span> للتبديل إليه لكل نوع من الإشعارات عند اكتشاف <span class="hl">AppID</span> الخاص بهذه اللعبة`
+                `أدخل <span class="hl">AppID</span>/<span class="hl">GameID</span> الخاص باللعبة، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">لقطة الشاشة</span>`,
+                `يمكن إدخال عدة <span class="hl">AppIDs</span>/<span class="hl">GameIDs</span> دفعة واحدة عند فصلها بفاصلة (<code>,</code>) أو فاصلة منقوطة (<code>;</code>)`,
+                `حدد <span class="hl">السمة</span> التي سيتم التبديل إليها لكل نوع من الإشعارات عند اكتشاف <span class="hl">AppID</span>/<span class="hl">GameID</span> الخاص بهذه اللعبة`
             ],
-            themeswitchedit: "تحرير التبديل التلقائي",
+            themeswitchedit: "تعديل التبديل التلقائي",
             themeswitcheditsub: [
-                `تحرير الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطات الشاشة</span> لـ<span class="hl">AppID</span> الخاص بهذه اللعبة`,
-                `تغيير <span class="hl">السمة</span> التي يتم التبديل إليها لكل نوع إشعار عند اكتشاف <span class="hl">AppID</span> الخاص بهذه اللعبة`
+                `عدّل الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">لقطة الشاشة</span> لـ <span class="hl">AppID</span>/<span class="hl">GameID</span> الخاص بهذه اللعبة`,
+                `غيّر <span class="hl">السمة</span> التي سيتم التبديل إليها لكل نوع من الإشعارات عند اكتشاف <span class="hl">AppID</span>/<span class="hl">GameID</span> الخاص بهذه اللعبة`
             ],
-            themes: "الثيمات",
+            themes: "السمات",
             src: "مصدر لقطة الشاشة",
-            themedeleted: "تم حذف السمة"
+            themedeleted: "تم حذف السمة",
+            rafindgameid: "العثور على RA GameID",
+            rafindgameidsub: [
+                `لكل لعبة على RetroAchievements رقم فريد مرتبط بها يُسمى <span class="hl">GameID</span>. يمكنك العثور على GameID الخاص بأي لعبة على RetroAchievements من خلال التحقق من:`,
+                `عنوان <span class="hl">URL</span> الخاص <span class="hl">بصفحة اللعبة</span> على موقع RetroAchievements — سيكون الرقم الموجود بعد <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

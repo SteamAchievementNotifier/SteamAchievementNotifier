@@ -397,7 +397,8 @@ export const translations = {
                 scale: "Mittakaava",
                 customtext: "Mukautettu Teksti",
                 usegametitle: "Käytä Pelin Otsikkoa",
-                customfont: "Mukautettu Fontti"
+                customfont: "Mukautettu Fontti",
+                platcustomtext: "Mukautettu 100 % -teksti"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "Näytä saavutuksen lukitusprosentti XP/S-arvon sijaan",
         displaytime: "Aseta ilmoituksen näyttöaika sekunteina",
         scale: "Kasvata tai pienennä ilmoituksen kokoa",
-        customtext: "Aseta mukautettu viesti, joka näytetään ilmoituksessa",
+        customtext: `Aseta mukautettu viesti näytettäväksi ilmoituksessa<br><br><span class="ttdesc">Tämä asetus piilotetaan, kun Customiser > Esiasetus > Ilmoituksen elementit > Avausviesti on poistettu käytöstä</span>`,
         usegametitle: "Näytä nykyisen pelin nimi ilmoituksessa",
         customfont: "Lataa mukautettu fontti ilmoituksessa käytettäväksi",
         soundmode: "Valitse joko yksi äänitiedosto tai satunnaisesti valittu äänitiedosto kansiossa, joka sisältää useita äänitiedostoja, kun ilmoitus tapahtuu",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `Poistaa kaikki sovelluksen pikanäppäimet käytöstä<br><br><span class="ttdesc">Kun tämä on käytössä, <u>mikään sovelluksen pikanäppäimistä ei enää toimi</u>. Kaikki pikanäppäimiin liittyvät asetukset piilotetaan myös</span>`,
         extwinnotify: "Vaihtaa kaikkien näytöllä näkyvien ilmoitusten näkyvyyttä käytettäessä Stream Notifications -ominaisuutta",
         usesanwatcher: `Ota käyttöön SAN:n uusi peliprosessien valvonta<br><br><span class="ttdesc">Uuden SANWatcherin ja vanhojen automaattisten prosessienseurantamenetelmien erot ovat seuraavat:<br><br><div class="wrapper sanwatcher"><span class="hl">PÄÄLLÄ</span><ul><li>Valvoo aktiivisesti kaikkien pelin asennushakemistossa olevien prosessien käynnistys- ja lopetustapahtumia</li><li>Ei edellytä pelin suoritettavan tiedoston tuntemista nykyisen pelin vapauttamiseksi</li><li>Peliä edeltävien käynnistysohjelmien toiminta voi vaihdella, joten täyttä yhteensopivuutta kaikkien Steam-pelien kanssa ei voida taata</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">POIS PÄÄLTÄ</span><ul><li>Tarkistaa pelin asennushakemistosta käynnissä olevat suoritettavat tiedostot pelin käynnistyksen jälkeen</li><li>Edellyttää pelin suoritettavan tiedoston tuntemista nykyisen pelin vapauttamiseksi</li><li>Jos peliprosessia ei voida määrittää automaattisesti, käyttäjän on lisättävä manuaalisesti uusi merkintä kohtaan <span class="hl">Pelien automaattinen vapautus</span>, jotta pelit voidaan vapauttaa automaattisesti</li></ul></div>`,
-        releasewaittime: `Määritä, kuinka kauan SANWatcher odottaa uusien peliprosessien käynnistymistä ennen nykyisen pelin vapauttamista<br><br><span class="ttdesc">Jos esimerkiksi nykyinen peli käynnistää ennen varsinaista peliä esikäynnistys- tai asetusikkunan, tämä asetus määrittää, kuinka monta sekuntia SANWatcher odottaa varsinaisen peli-ikkunan ilmestymistä sen jälkeen, kun esikäynnistys- tai asetusikkuna on suljettu<br><br>Jos uusi aktiivinen peliprosessi havaitaan tämän odotusajan kuluessa, vapautus peruutetaan ja uutta aktiivista prosessia seurataan sen sijaan<br><br>💡 Pelin nimi <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">vilkkuu</span> <span class="hl">Pelinäyttö</span>-ruudussa, kun nykyinen peli odottaa vapauttamista</span>`
+        releasewaittime: `Määritä, kuinka kauan SANWatcher odottaa uusien peliprosessien käynnistymistä ennen nykyisen pelin vapauttamista<br><br><span class="ttdesc">Jos esimerkiksi nykyinen peli käynnistää ennen varsinaista peliä esikäynnistys- tai asetusikkunan, tämä asetus määrittää, kuinka monta sekuntia SANWatcher odottaa varsinaisen peli-ikkunan ilmestymistä sen jälkeen, kun esikäynnistys- tai asetusikkuna on suljettu<br><br>Jos uusi aktiivinen peliprosessi havaitaan tämän odotusajan kuluessa, vapautus peruutetaan ja uutta aktiivista prosessia seurataan sen sijaan<br><br>💡 Pelin nimi <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">vilkkuu</span> <span class="hl">Pelinäyttö</span>-ruudussa, kun nykyinen peli odottaa vapauttamista</span>`,
+        platcustomtext: `Aseta mukautettu viesti pelin 100 %:n läpäisystä näytettäväksi ilmoituksessa<br><br><span class="ttdesc">Tämä asetus piilotetaan, kun Customiser > Esiasetus > Ilmoituksen elementit > Saavutuksen kuvaus on poistettu käytöstä</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",
@@ -911,7 +913,7 @@ export const translations = {
                 `Lisäämisen jälkeen merkinnät voidaan <span class="hl">poistaa</span> aiemmasta <span class="hl">$linkgame</span>-valikosta`
             ],
             link: "Lisää",
-            findappid: "Etsi AppID",
+            findappid: "Etsi Steam AppID",
             findappidsub: [
                 `Jokaisella Steam-pelillä on yksilöllinen numero, jota kutsutaan <span class="hl">AppID</span>:ksi. Voit löytää minkä tahansa Steam-pelin AppID:n jollakin seuraavista tavoista:`,
                 `Napsauta <span class="hl">Steam-asiakasohjelmassa</span> pelin nimeä <i>hiiren oikealla painikkeella</i> <span class="hl">Kirjastossasi</span> ja valitse <i>Ominaisuudet</i> > <i>Päivitykset</i> – AppID näkyy siellä`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Lisää minkä tahansa pelin <span class="hl">AppID</span> vaihtaaksesi automaattisesti <span class="hl">Teemaa</span> kun se havaitaan`,
-                `Kaikki tallennetut <span class="hl">Teemat</span> voidaan valita jokaista ilmoitustyyppiä varten, yhdessä halutun näytön kanssa käytettäväksi <span class="hl">Kuvakaappausten lähteenä</span>`,
-                `<span class="hl" id="appidhelp"><u>Miten löydän Steam-pelin AppID:n?</u></span>`
+                `Lisää minkä tahansa pelin <span class="hl">AppID</span>/<span class="hl">GameID</span>, jotta <span class="hl">Teemat</span> vaihtuvat automaattisesti, kun peli havaitaan`,
+                `Mikä tahansa tallennettu <span class="hl">Teema</span> voidaan valita jokaiselle ilmoitustyypille sekä haluttu näyttö käytettäväksi <span class="hl">Kuvakaappauslähteenä</span>`,
+                `<span class="hl help" id="appidhelp"><u>Miten löydän Steam-pelin AppID:n?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Miten löydän RetroAchievements-pelin GameID:n?</u></span>`
             ],
-            themeswitchnew: "Uusi Automaattinen Vaihto",
+            themeswitchnew: "Uusi automaattinen vaihto",
             themeswitchnewsub: [
-                `Anna pelin <span class="hl">AppID</span>, sekä haluttu näyttö käytettäväksi <span class="hl">Kuvakaappausten lähteenä</span>`,
-                `Valitse mikä <span class="hl">Teema</span> vaihtuu kullekin ilmoitustyypille, kun tämän pelin <span class="hl">AppID</span> havaitaan`
+                `Syötä pelin <span class="hl">AppID</span>/<span class="hl">GameID</span> sekä haluttu näyttö käytettäväksi <span class="hl">Kuvakaappauslähteenä</span>`,
+                `Useita <span class="hl">AppID</span>-/<span class="hl">GameID</span>-tunnuksia voidaan syöttää kerralla erottamalla ne pilkulla (<code>,</code>) tai puolipisteellä (<code>;</code>)`,
+                `Valitse, mihin <span class="hl">Teemaan</span> vaihdetaan kullekin ilmoitustyypille, kun tämän pelin <span class="hl">AppID</span>/<span class="hl">GameID</span> havaitaan`
             ],
             themeswitchedit: "Muokkaa automaattista vaihtoa",
             themeswitcheditsub: [
-                `Muokkaa haluttua näyttöä, jota käytetään <span class="hl">kuvakaappauslähteenä</span> tälle pelin <span class="hl">AppID:lle</span>`,
-                `Vaihda, mihin <span class="hl">teemaan</span> siirrytään kunkin ilmoitustyypin kohdalla, kun tämän pelin <span class="hl">AppID</span> havaitaan`
+                `Muokkaa haluttua näyttöä käytettäväksi <span class="hl">Kuvakaappauslähteenä</span> tämän pelin <span class="hl">AppID</span>/<span class="hl">GameID</span>:lle`,
+                `Vaihda, mihin <span class="hl">Teemaan</span> siirrytään kullekin ilmoitustyypille, kun tämän pelin <span class="hl">AppID</span>/<span class="hl">GameID</span> havaitaan`
             ],
             themes: "Teemat",
-            src: "Kuvakaappausten lähde",
-            themedeleted: "Teema poistettu"
+            src: "Kuvakaappauslähde",
+            themedeleted: "Teema poistettu",
+            rafindgameid: "Etsi RA GameID",
+            rafindgameidsub: [
+                `Jokaisella RetroAchievements-pelillä on yksilöllinen numero, jota kutsutaan <span class="hl">GameID</span>:ksi. Löydät minkä tahansa RetroAchievements-pelin GameID:n tarkistamalla:`,
+                `RetroAchievements-sivuston <span class="hl">pelisivun</span> <span class="hl">URL-osoitteen</span> – numero löytyy kohdan <span class="hl">game/</span> jälkeen: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

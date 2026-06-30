@@ -397,7 +397,8 @@ export const translations = {
                 scale: "Skala",
                 customtext: "Anpassad text",
                 usegametitle: "Använd speltitel",
-                customfont: "Anpassad typsnitt"
+                customfont: "Anpassad typsnitt",
+                platcustomtext: "Anpassad 100%-text"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "Visa låsningsprocenten för prestationen, istället för XP/S-värdet",
         displaytime: "Ange antalet sekunder som aviseringen kommer att visas",
         scale: "Öka eller minska storleken på aviseringen",
-        customtext: "Ange ett anpassat meddelande som ska visas i aviseringen",
+        customtext: `Ställ in ett anpassat meddelande som ska visas i aviseringen<br><br><span class="ttdesc">Detta alternativ döljs när Customiser > Förinställning > Aviseringselement > Upplåsningsmeddelande är inaktiverat</span>`,
         usegametitle: "Visa titeln på det aktuella spelet i aviseringen",
         customfont: "Ladda en anpassad typsnitt som ska användas i aviseringen",
         soundmode: "Välj antingen en enskild ljudfil eller en slumpmässigt vald ljudfil från en mapp som innehåller flera ljudfiler när en avisering inträffar",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `Inaktiverar alla tangentbordsgenvägar i appen<br><br><span class="ttdesc">När detta är aktiverat kommer <u>alla genvägar i appen inte längre att fungera</u>. Alla alternativ relaterade till tangentbordsgenvägar kommer också att döljas</span>`,
         extwinnotify: "Växla synlighet för alla skärmnotifikationer vid användning av Stream Notifications",
         usesanwatcher: `Aktivera SAN:s nya övervakare för spelprocesser<br><br><span class="ttdesc">Skillnaderna mellan den nya SANWatcher och den gamla metoden för automatisk processövervakning är följande:<br><br><div class="wrapper sanwatcher"><span class="hl">PÅ</span><ul><li>Övervakar aktivt start- och avslutningshändelser för alla processer som finns i spelets installationskatalog</li><li>Kräver inte att spelets körbara fil är känd för att frigöra det aktuella spelet</li><li>Beteendet hos startprogram före spelets start kan variera, så full kompatibilitet med alla Steam-spel kan inte garanteras</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">AV</span><ul><li>Söker igenom spelets installationskatalog efter körbara filer som är igång efter att spelet har startats</li><li>Kräver att spelets körbara fil är känd för att frigöra det aktuella spelet</li><li>Om spelprocessen inte kan fastställas automatiskt måste användaren manuellt lägga till en ny post i <span class="hl">Automatiskt Frigjorda Spel</span> för att spel ska frigöras automatiskt</li></ul></div>`,
-        releasewaittime: `Ange hur länge SANWatcher ska vänta på att nya spelprocesser startas innan det aktuella spelet släpps<br><br><span class="ttdesc">Om det aktuella spelet till exempel startar ett förstartsfönster/en konfigurationsruta innan själva spelet startas, avgör denna inställning hur många sekunder SANWatcher ska vänta på att det faktiska spelfönstret ska startas efter att förstartsfönstret/konfigurationsrutan har stängts<br><br>Om en ny aktiv spelprocess upptäcks inom denna väntetid kommer frigöringen att avbrytas och den nyaktiva processen kommer i stället att spåras<br><br>💡 Spelnamnet kommer att <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinka</span> i rutan <span class="hl">Spelvisning</span> medan det aktuella spelet väntar på att släppas</span>`
+        releasewaittime: `Ange hur länge SANWatcher ska vänta på att nya spelprocesser startas innan det aktuella spelet släpps<br><br><span class="ttdesc">Om det aktuella spelet till exempel startar ett förstartsfönster/en konfigurationsruta innan själva spelet startas, avgör denna inställning hur många sekunder SANWatcher ska vänta på att det faktiska spelfönstret ska startas efter att förstartsfönstret/konfigurationsrutan har stängts<br><br>Om en ny aktiv spelprocess upptäcks inom denna väntetid kommer frigöringen att avbrytas och den nyaktiva processen kommer i stället att spåras<br><br>💡 Spelnamnet kommer att <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinka</span> i rutan <span class="hl">Spelvisning</span> medan det aktuella spelet väntar på att släppas</span>`,
+        platcustomtext: `Ställ in ett anpassat meddelande för 100% spelklarering som ska visas i aviseringen<br><br><span class="ttdesc">Detta alternativ döljs när Customiser > Förinställning > Aviseringselement > Beskrivning av prestation är inaktiverat</span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",
@@ -911,7 +913,7 @@ export const translations = {
                 `När de har lagts till kan poster <span class="hl">tas bort</span> via den tidigare <span class="hl">$linkgame</span>-menyn`
             ],
             link: "Lägg till",
-            findappid: "Hitta AppID",
+            findappid: "Hitta Steam AppID",
             findappidsub: [
                 `Varje Steam-spel har ett unikt nummer som kallas <span class="hl">AppID</span>. Du kan hitta AppID för vilket Steam-spel som helst på något av följande sätt:`,
                 `I <span class="hl">Steam-klienten</span>, <i>högerklicka</i> på ett spel i ditt <span class="hl">bibliotek</span> och välj <i>Egenskaper</i> > <i>Uppdateringar</i> – AppID visas där`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Lägg till vilket spels <span class="hl">AppID</span> som helst för att automatiskt byta <span class="hl">Teman</span> när det upptäcks`,
-                `Vilket sparat <span class="hl">Tema</span> som helst kan väljas för varje notifieringstyp, tillsammans med den önskade monitorn som ska användas som <span class="hl">Skärmdumpkälla</span>`,
-                `<span class="hl" id="appidhelp"><u>Hur hittar jag ett Steam-spels AppID?</u></span>`
+                `Lägg till ett spels <span class="hl">AppID</span>/<span class="hl">GameID</span> för att automatiskt byta <span class="hl">teman</span> när det upptäcks`,
+                `Alla sparade <span class="hl">teman</span> kan väljas för varje aviseringstyp, tillsammans med önskad skärm som används som <span class="hl">skärmdumpskälla</span>`,
+                `<span class="hl help" id="appidhelp"><u>Hur hittar jag ett Steam-spels AppID?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Hur hittar jag ett RetroAchievements-spels GameID?</u></span>`
             ],
-            themeswitchnew: "Nytt automatiskt byte",
+            themeswitchnew: "Ny automatisk växling",
             themeswitchnewsub: [
-                `Ange spelets <span class="hl">AppID</span>, tillsammans med den önskade monitorn som ska användas som <span class="hl">Skärmdumpkälla</span>`,
-                `Välj vilket <span class="hl">Tema</span> som ska bytas till för varje notifieringstyp när detta spels <span class="hl">AppID</span> upptäcks`
+                `Ange spelets <span class="hl">AppID</span>/<span class="hl">GameID</span> samt önskad skärm som ska användas som <span class="hl">skärmdumpskälla</span>`,
+                `Flera <span class="hl">AppID</span>/<span class="hl">GameID</span> kan anges samtidigt genom att separera dem med komma (<code>,</code>) eller semikolon (<code>;</code>)`,
+                `Välj vilket <span class="hl">tema</span> som ska användas för varje aviseringstyp när detta spels <span class="hl">AppID</span>/<span class="hl">GameID</span> upptäcks`
             ],
             themeswitchedit: "Redigera automatisk växling",
             themeswitcheditsub: [
-                `Redigera den önskade skärmen som ska användas som <span class="hl">källan för skärmbilder</span> för detta spels <span class="hl">AppID</span>`,
-                `Ändra vilket <span class="hl">tema</span> som ska växlas till för varje notifikationstyp när detta spels <span class="hl">AppID</span> upptäcks`
+                `Redigera önskad skärm som ska användas som <span class="hl">skärmdumpskälla</span> för detta spels <span class="hl">AppID</span>/<span class="hl">GameID</span>`,
+                `Ändra vilket <span class="hl">tema</span> som ska användas för varje aviseringstyp när detta spels <span class="hl">AppID</span>/<span class="hl">GameID</span> upptäcks`
             ],
             themes: "Teman",
-            src: "Skärmdumpkälla",
-            themedeleted: "Tema raderat"
+            src: "Skärmdumpskälla",
+            themedeleted: "Tema borttaget",
+            rafindgameid: "Hitta RA GameID",
+            rafindgameidsub: [
+                `Varje RetroAchievements-spel har ett unikt nummer kopplat till sig som kallas <span class="hl">GameID</span>. Du kan hitta GameID för vilket RetroAchievements-spel som helst genom att kontrollera:`,
+                `URL:en till <span class="hl">spelens sida</span> på RetroAchievements-webbplatsen – det är numret efter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -397,7 +397,8 @@ export const translations = {
                 scale: "Échelle",
                 customtext: "Texte Personnalisé",
                 usegametitle: "Utiliser le Titre du Jeu",
-                customfont: "Police Personnalisée"
+                customfont: "Police Personnalisée",
+                platcustomtext: "Texte personnalisé pour les 100 %"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "Afficher le pourcentage de déblocage de l'exploit, au lieu de la valeur XP/S",
         displaytime: "Définir le nombre de secondes pendant lesquelles la notification sera affichée",
         scale: "Augmenter ou diminuer la taille de la notification",
-        customtext: "Définir un message personnalisé à afficher dans la notification",
+        customtext: `Définissez un message personnalisé à afficher dans la notification<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnaliseur > Préréglage > Éléments de notification > Message de déverrouillage est désactivé</span>`,
         usegametitle: "Afficher le titre du jeu en cours dans la notification",
         customfont: "Charger une police personnalisée à utiliser dans la notification",
         soundmode: "Sélectionnez soit un seul fichier audio, soit un fichier audio sélectionné au hasard dans un dossier contenant plusieurs fichiers audio, lorsqu'une notification se produit",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `Désactive tous les raccourcis clavier de l'application<br><br><span class="ttdesc">Lorsqu'il est activé, <u>tous les raccourcis de l'application ne fonctionneront plus</u>. Toutes les options liées aux raccourcis clavier seront également masquées</span>`,
         extwinnotify: "Active ou désactive la visibilité de toutes les notifications à l'écran lors de l'utilisation de Stream Notifications",
         usesanwatcher: `Activer le nouveau surveillant de processus de jeu de SAN<br><br><span class="ttdesc">Les différences entre le nouveau SANWatcher et les anciennes méthodes de suivi automatique des processus sont les suivantes :<br><br><div class="wrapper sanwatcher"><span class="hl">ACTIVÉ</span><ul><li>Surveille activement les événements de démarrage/arrêt de tout processus stocké dans le répertoire d'installation du jeu</li><li>Il n'est pas nécessaire de connaître l'exécutable du jeu pour libérer le jeu actuel</li><li>Le comportement des lanceurs préalables au jeu peut varier, la compatibilité complète avec tous les jeux Steam n'est donc pas garantie</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">DÉSACTIVÉ</span><ul><li>Analyse le répertoire d'installation du jeu à la recherche d'exécutables en cours d'exécution après le lancement du jeu</li><li>Nécessite que l'exécutable du jeu soit connu pour libérer le jeu actuel</li><li>Si le processus du jeu ne peut pas être déterminé automatiquement, l'utilisateur doit ajouter manuellement une nouvelle entrée à <span class="hl">Libération automatique des jeux</span> afin que les jeux puissent être libérés automatiquement</li></ul></div>`,
-        releasewaittime: `Définissez combien de temps SANWatcher attendra l’apparition de nouveaux processus de jeu avant de libérer le jeu actuel<br><br><span class="ttdesc">Par exemple, si le jeu actuel lance une fenêtre de lancement/configuration avant de démarrer le jeu lui-même, ce paramètre détermine le nombre de secondes pendant lesquelles SANWatcher attendra l’apparition de la fenêtre du jeu réel après la fermeture de la fenêtre de lancement/configuration<br><br>Si un nouveau processus de jeu actif est détecté pendant ce délai d’attente, la libération sera annulée et le nouveau processus actif sera suivi à la place<br><br>💡 Le nom du jeu <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">clignotera</span> dans la zone <span class="hl">Affichage du jeu</span> pendant que le jeu actuel attend d’être libéré</span>`
+        releasewaittime: `Définissez combien de temps SANWatcher attendra l’apparition de nouveaux processus de jeu avant de libérer le jeu actuel<br><br><span class="ttdesc">Par exemple, si le jeu actuel lance une fenêtre de lancement/configuration avant de démarrer le jeu lui-même, ce paramètre détermine le nombre de secondes pendant lesquelles SANWatcher attendra l’apparition de la fenêtre du jeu réel après la fermeture de la fenêtre de lancement/configuration<br><br>Si un nouveau processus de jeu actif est détecté pendant ce délai d’attente, la libération sera annulée et le nouveau processus actif sera suivi à la place<br><br>💡 Le nom du jeu <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">clignotera</span> dans la zone <span class="hl">Affichage du jeu</span> pendant que le jeu actuel attend d’être libéré</span>`,
+        platcustomtext: `Définissez un message personnalisé de progression à 100 % du jeu à afficher dans la notification<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnaliseur > Préréglage > Éléments de notification > Description du succès est désactivé</span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",
@@ -911,7 +913,7 @@ export const translations = {
                 `Une fois ajoutées, les entrées peuvent être <span class="hl">supprimées</span> via le menu <span class="hl">$linkgame</span> précédent`
             ],
             link: "Ajouter",
-            findappid: "Trouver l'AppID",
+            findappid: "Trouver l'AppID Steam",
             findappidsub: [
                 `Chaque jeu Steam possède un numéro unique appelé <span class="hl">AppID</span>. Vous pouvez trouver l'AppID de n'importe quel jeu Steam de l'une des façons suivantes :`,
                 `Dans le <span class="hl">client Steam</span>, <i>cliquez avec le bouton droit</i> sur un jeu de votre <span class="hl">Bibliothèque</span>, puis sélectionnez <i>Propriétés</i> > <i>Mises à jour</i> - l'AppID y sera affiché`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Ajouter l'<span class="hl">AppID</span> d'un jeu pour changer automatiquement de <span class="hl">Thème</span> lorsqu'il est détecté`,
-                `Tout <span class="hl">Thème</span> enregistré peut être sélectionné pour chaque type de notification, avec le moniteur souhaité utilisé comme <span class="hl">Source de capture d'écran</span>`,
-                `<span class="hl" id="appidhelp"><u>Comment trouver l'AppID d'un jeu Steam ?</u></span>`
+                `Ajoutez l'<span class="hl">AppID</span>/<span class="hl">GameID</span> de n'importe quel jeu pour changer automatiquement de <span class="hl">Thème</span> lorsqu'il est détecté`,
+                `N'importe quel <span class="hl">Thème</span> enregistré peut être sélectionné pour chaque type de notification, ainsi que le moniteur à utiliser comme <span class="hl">Source de capture d'écran</span>`,
+                `<span class="hl help" id="appidhelp"><u>Comment trouver l'AppID d'un jeu Steam ?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Comment trouver le GameID d'un jeu RetroAchievements ?</u></span>`
             ],
-            themeswitchnew: "Nouveau Changement Automatique",
+            themeswitchnew: "Nouveau changement automatique",
             themeswitchnewsub: [
-                `Entrez l'<span class="hl">AppID</span> du jeu, ainsi que le moniteur souhaité utilisé comme <span class="hl">Source de capture d'écran</span>`,
-                `Sélectionnez le <span class="hl">Thème</span> à utiliser pour chaque type de notification lorsque l'<span class="hl">AppID</span> de ce jeu est détecté`
+                `Saisissez l'<span class="hl">AppID</span>/<span class="hl">GameID</span> du jeu, ainsi que le moniteur à utiliser comme <span class="hl">Source de capture d'écran</span>`,
+                `Plusieurs <span class="hl">AppID</span>/<span class="hl">GameID</span> peuvent être saisis en une seule fois en les séparant par une virgule (<code>,</code>) ou un point-virgule (<code>;</code>)`,
+                `Sélectionnez le <span class="hl">Thème</span> vers lequel basculer pour chaque type de notification lorsque l'<span class="hl">AppID</span>/<span class="hl">GameID</span> de ce jeu est détecté`
             ],
             themeswitchedit: "Modifier le changement automatique",
             themeswitcheditsub: [
-                `Modifier le moniteur souhaité à utiliser comme <span class="hl">source de capture d'écran</span> pour l'<span class="hl">AppID</span> de ce jeu`,
-                `Changer le <span class="hl">thème</span> vers lequel basculer pour chaque type de notification lorsque l'<span class="hl">AppID</span> de ce jeu est détecté`
+                `Modifiez le moniteur à utiliser comme <span class="hl">Source de capture d'écran</span> pour l'<span class="hl">AppID</span>/<span class="hl">GameID</span> de ce jeu`,
+                `Modifiez le <span class="hl">Thème</span> vers lequel basculer pour chaque type de notification lorsque l'<span class="hl">AppID</span>/<span class="hl">GameID</span> de ce jeu est détecté`
             ],
             themes: "Thèmes",
             src: "Source de capture d'écran",
-            themedeleted: "Thème supprimé"
+            themedeleted: "Thème supprimé",
+            rafindgameid: "Trouver le GameID RA",
+            rafindgameidsub: [
+                `Chaque jeu RetroAchievements possède un numéro unique qui lui est associé, appelé <span class="hl">GameID</span>. Vous pouvez trouver le GameID de n'importe quel jeu RetroAchievements en vérifiant :`,
+                `L'<span class="hl">URL</span> de la <span class="hl">page du jeu</span> sur le site RetroAchievements : il s'agit du numéro indiqué après <span class="hl">game/</span> : <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -397,7 +397,8 @@ export const translations = {
                 scale: "Měřítko",
                 customtext: "Vlastní text",
                 usegametitle: "Použít název hry",
-                customfont: "Vlastní písmo"
+                customfont: "Vlastní písmo",
+                platcustomtext: "Vlastní text pro 100%"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "Zobrazit procento odemknutí úspěchu místo hodnoty XP/S",
         displaytime: "Nastavit počet sekund, po které bude oznámení zobrazeno",
         scale: "Zvětšit nebo zmenšit velikost oznámení",
-        customtext: "Nastavit vlastní zprávu, která se zobrazí v oznámení",
+        customtext: `Nastavte vlastní zprávu, která se zobrazí v oznámení<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je vypnuto Customiser > Předvolba > Prvky oznámení > Zpráva o odemknutí</span>`,
         usegametitle: "Zobrazit název aktuální hry v oznámení",
         customfont: "Načíst vlastní písmo, které se použije v oznámení",
         soundmode: "Vyberte buď jediný zvukový soubor nebo náhodně vybraný zvukový soubor z adresáře obsahujícího více zvukových souborů, když dojde k oznámení",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `Zakáže všechny klávesové zkratky v aplikaci<br><br><span class="ttdesc">Pokud je povoleno, <u>všechny klávesové zkratky v aplikaci přestanou fungovat</u>. Všechny možnosti související s klávesovými zkratkami budou také skryty</span>`,
         extwinnotify: "Přepíná viditelnost všech oznámení na obrazovce při používání Stream Notifications",
         usesanwatcher: `Povolit nový sledovač herních procesů SAN<br><br><span class="ttdesc">Rozdíly mezi novým SANWatcherem a starými metodami automatického sledování procesů jsou následující:<br><br><div class="wrapper sanwatcher"><span class="hl">ZAPNUTO</span><ul><li>Aktivně sleduje události spuštění/ukončení všech procesů uložených v instalačním adresáři hry</li><li>Pro uvolnění aktuální hry není nutné znát spustitelný soubor hry</li><li>Chování spouštěčů před samotnou hrou se může lišit, proto není zaručena úplná kompatibilita se všemi hrami na Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">VYPNUTO</span><ul><li>Po spuštění hry prohledává instalační adresář hry a hledá spuštěné spustitelné soubory</li><li>Pro uvolnění aktuální hry je nutné znát spustitelný soubor hry</li><li>Pokud nelze herní proces určit automaticky, musí uživatel ručně přidat novou položku do <span class="hl">Automatické uvolnění her</span>, aby byly hry uvolňovány automaticky</li></ul></div>`,
-        releasewaittime: `Nastavte, jak dlouho bude SANWatcher čekat na spuštění nových herních procesů, než uvolní aktuální hru<br><br><span class="ttdesc">Například pokud aktuální hra před spuštěním samotné hry otevře spouštěcí nebo konfigurační okno, toto nastavení určuje počet sekund, po které bude SANWatcher čekat na zobrazení skutečného herního okna po zavření spouštěcího nebo konfiguračního okna<br><br>Pokud bude během této čekací doby zjištěn nový aktivní herní proces, uvolnění bude zrušeno a místo toho bude sledován nově aktivní proces<br><br>💡 Název hry bude <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blikat</span> v poli <span class="hl">Zobrazení hry</span>, zatímco aktuální hra čeká na uvolnění</span>`
+        releasewaittime: `Nastavte, jak dlouho bude SANWatcher čekat na spuštění nových herních procesů, než uvolní aktuální hru<br><br><span class="ttdesc">Například pokud aktuální hra před spuštěním samotné hry otevře spouštěcí nebo konfigurační okno, toto nastavení určuje počet sekund, po které bude SANWatcher čekat na zobrazení skutečného herního okna po zavření spouštěcího nebo konfiguračního okna<br><br>Pokud bude během této čekací doby zjištěn nový aktivní herní proces, uvolnění bude zrušeno a místo toho bude sledován nově aktivní proces<br><br>💡 Název hry bude <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blikat</span> v poli <span class="hl">Zobrazení hry</span>, zatímco aktuální hra čeká na uvolnění</span>`,
+        platcustomtext: `Nastavte vlastní zprávu o 100% dokončení hry, která se zobrazí v oznámení<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je vypnuto Customiser > Předvolba > Prvky oznámení > Popis achievementu</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",
@@ -911,7 +913,7 @@ export const translations = {
                 `Po přidání lze položky <span class="hl">odstranit</span> prostřednictvím předchozí nabídky <span class="hl">$linkgame</span>`
             ],
             link: "Přidat",
-            findappid: "Najít AppID",
+            findappid: "Najít Steam AppID",
             findappidsub: [
                 `Každá hra ve službě Steam má jedinečné číslo nazývané <span class="hl">AppID</span>. AppID libovolné hry ve službě Steam můžete zjistit jedním z následujících způsobů:`,
                 `V <span class="hl">klientu Steam</span> klikněte <i>pravým tlačítkem myši</i> na hru ve své <span class="hl">Knihovně</span> a vyberte <i>Vlastnosti</i> > <i>Aktualizace</i> – zde bude uvedeno AppID`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Přidejte jakékoliv <span class="hl">AppID</span> hry pro automatické přepínání <span class="hl">Témat</span>, když je detekována`,
-                `Každé uložené <span class="hl">Téma</span> může být vybráno pro každý typ oznámení, spolu s požadovaným monitorem pro použití jako <span class="hl">Zdroj snímku obrazovky</span>`,
-                `<span class="hl" id="appidhelp"><u>Jak najdu AppID hry ve Steamu?</u></span>`
+                `Přidejte <span class="hl">AppID</span>/<span class="hl">GameID</span> libovolné hry, aby se při jejím rozpoznání automaticky přepínala <span class="hl">Témata</span>`,
+                `Pro každý typ oznámení lze vybrat jakékoli uložené <span class="hl">Téma</span> spolu s požadovaným monitorem, který se použije jako <span class="hl">Zdroj snímku obrazovky</span>`,
+                `<span class="hl help" id="appidhelp"><u>Jak zjistím AppID hry na Steamu?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Jak zjistím GameID hry na RetroAchievements?</u></span>`
             ],
             themeswitchnew: "Nové automatické přepínání",
             themeswitchnewsub: [
-                `Zadejte <span class="hl">AppID</span> hry, spolu s požadovaným monitorem pro použití jako <span class="hl">Zdroj snímku obrazovky</span>`,
-                `Vyberte, které <span class="hl">Téma</span> se má přepnout pro každý typ oznámení, když je detekováno <span class="hl">AppID</span> této hry`
+                `Zadejte <span class="hl">AppID</span>/<span class="hl">GameID</span> hry spolu s požadovaným monitorem, který se použije jako <span class="hl">Zdroj snímku obrazovky</span>`,
+                `Najednou lze zadat více <span class="hl">AppID</span>/<span class="hl">GameID</span>, pokud jsou odděleny čárkou (<code>,</code>) nebo středníkem (<code>;</code>)`,
+                `Vyberte, na které <span class="hl">Téma</span> se má přepnout pro každý typ oznámení, když bude rozpoznáno <span class="hl">AppID</span>/<span class="hl">GameID</span> této hry`
             ],
             themeswitchedit: "Upravit automatické přepínání",
             themeswitcheditsub: [
-                `Upravit požadovaný monitor, který se použije jako <span class="hl">zdroj snímků obrazovky</span> pro <span class="hl">AppID</span> této hry`,
-                `Změnit, na které <span class="hl">téma</span> se má přepnout pro každý typ oznámení, když je zjištěno <span class="hl">AppID</span> této hry`
+                `Upravte požadovaný monitor, který se použije jako <span class="hl">Zdroj snímku obrazovky</span> pro <span class="hl">AppID</span>/<span class="hl">GameID</span> této hry`,
+                `Změňte, na které <span class="hl">Téma</span> se má přepnout pro každý typ oznámení, když bude rozpoznáno <span class="hl">AppID</span>/<span class="hl">GameID</span> této hry`
             ],
             themes: "Témata",
             src: "Zdroj snímku obrazovky",
-            themedeleted: "Téma bylo smazáno"
+            themedeleted: "Téma bylo odstraněno",
+            rafindgameid: "Najít RA GameID",
+            rafindgameidsub: [
+                `Každá hra na RetroAchievements má jedinečné číslo, které je s ní spojeno – nazývá se <span class="hl">GameID</span>. GameID libovolné hry na RetroAchievements najdete zde:`,
+                `V <span class="hl">URL</span> <span class="hl">stránky hry</span> na webu RetroAchievements – jedná se o číslo uvedené za <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

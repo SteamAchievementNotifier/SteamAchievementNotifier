@@ -397,7 +397,8 @@ export const translations = {
                 scale: "スケール",
                 customtext: "カスタムテキスト",
                 usegametitle: "ゲームタイトルを使用",
-                customfont: "カスタムフォント"
+                customfont: "カスタムフォント",
+                platcustomtext: "カスタム100%テキスト"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "XP/S値の代わりに実績の解除パーセンテージを表示",
         displaytime: "通知が表示される秒数を設定する",
         scale: "通知のサイズを拡大または縮小する",
-        customtext: "通知内に表示されるカスタムメッセージを設定する",
+        customtext: `通知内に表示するカスタムメッセージを設定します<br><br><span class="ttdesc">Customiser > プリセット > 通知要素 > アンロックメッセージ が無効になっている場合、このオプションは非表示になります</span>`,
         usegametitle: "通知内に現在のゲームのタイトルを表示する",
         customfont: "通知内で使用するカスタムフォントを読み込む",
         soundmode: "通知が発生したときに、単一のオーディオファイルまたは複数のオーディオファイルが含まれるフォルダからランダムに選択されるオーディオファイルを選択する",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `アプリ内のすべてのキーボードショートカットを無効にします<br><br><span class="ttdesc">有効にすると、<u>すべてのアプリ内ショートカットが機能しなくなります</u>。キーボードショートカットに関連するすべてのオプションも非表示になります</span>`,
         extwinnotify: "Stream Notifications 使用中のすべてのオンスクリーン通知の表示を切り替えます",
         usesanwatcher: `SAN の新しいゲームプロセス監視機能を有効化<br><br><span class="ttdesc">新しい SANWatcher と従来の自動プロセス追跡方式の違いは次のとおりです。<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>ゲームのインストールディレクトリ内に存在するすべてのプロセスの開始／終了イベントを積極的に監視します</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要はありません</li><li>ゲーム起動前ランチャーの動作はゲームごとに異なるため、すべての Steam ゲームとの完全な互換性は保証されません</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>ゲーム起動後、ゲームのインストールディレクトリ内で実行中の実行ファイルをスキャンします</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要があります</li><li>ゲームプロセスを自動的に特定できない場合、ゲームを自動的に解放するにはユーザーが <span class="hl">自動リリース ゲーム</span> に新しいエントリを手動で追加する必要があります</li></ul></div>`,
-        releasewaittime: `現在のゲームを解放する前に、新しいゲームプロセスの起動をSANWatcherがどれくらい待機するかを設定します<br><br><span class="ttdesc">例えば、現在のゲームが実際のゲームを起動する前にランチャーや設定ウィンドウを表示する場合、この設定はランチャーや設定ウィンドウが閉じられた後に実際のゲームウィンドウが表示されるまでSANWatcherが待機する秒数を決定します<br><br>この待機時間内に新しいアクティブなゲームプロセスが検出された場合、解放はキャンセルされ、代わりに新たにアクティブになったプロセスが追跡されます<br><br>💡 現在のゲームが解放待機中の間、ゲーム名は<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">点滅</span>し、<span class="hl">ゲーム表示</span>ボックス内で表示されます</span>`
+        releasewaittime: `現在のゲームを解放する前に、新しいゲームプロセスの起動をSANWatcherがどれくらい待機するかを設定します<br><br><span class="ttdesc">例えば、現在のゲームが実際のゲームを起動する前にランチャーや設定ウィンドウを表示する場合、この設定はランチャーや設定ウィンドウが閉じられた後に実際のゲームウィンドウが表示されるまでSANWatcherが待機する秒数を決定します<br><br>この待機時間内に新しいアクティブなゲームプロセスが検出された場合、解放はキャンセルされ、代わりに新たにアクティブになったプロセスが追跡されます<br><br>💡 現在のゲームが解放待機中の間、ゲーム名は<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">点滅</span>し、<span class="hl">ゲーム表示</span>ボックス内で表示されます</span>`,
+        platcustomtext: `通知内に表示するゲーム100%達成時のカスタムメッセージを設定します<br><br><span class="ttdesc">Customiser > プリセット > 通知要素 > 実績の説明 が無効になっている場合、このオプションは非表示になります</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",
@@ -911,7 +913,7 @@ export const translations = {
                 `追加後は、以前の<span class="hl">$linkgame</span>メニューからエントリを<span class="hl">削除</span>できます`
             ],
             link: "追加",
-            findappid: "AppID を検索",
+            findappid: "Steam AppIDを検索",
             findappidsub: [
                 `Steam の各ゲームには<span class="hl">AppID</span>と呼ばれる固有の番号が割り当てられています。Steam ゲームの AppID は次のいずれかの方法で確認できます。`,
                 `<span class="hl">Steam クライアント</span>で<span class="hl">ライブラリ</span>内のゲームを<i>右クリック</i>し、<i>プロパティ</i> > <i>アップデート</i>を選択すると、AppID が表示されます`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `任意のゲームの <span class="hl">AppID</span> を追加して、検出されたときに <span class="hl">テーマ</span> を自動的に切り替え`,
-                `保存された任意の <span class="hl">テーマ</span> を各通知タイプに選択でき、使用する希望のモニターを <span class="hl">スクリーンショットソース</span> として指定できます`,
-                `<span class="hl" id="appidhelp"><u>SteamゲームのAppIDはどのように見つけることができますか？</u></span>`
+                `任意のゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>を追加すると、検出時に<span class="hl">テーマ</span>が自動的に切り替わります`,
+                `保存済みの<span class="hl">テーマ</span>は通知タイプごとに選択でき、使用するモニターを<span class="hl">スクリーンショットのソース</span>として指定できます`,
+                `<span class="hl help" id="appidhelp"><u>SteamゲームのAppIDはどのように確認できますか？</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>RetroAchievementsゲームのGameIDはどのように確認できますか？</u></span>`
             ],
-            themeswitchnew: "新しい自動切替",
+            themeswitchnew: "新しい自動切り替え",
             themeswitchnewsub: [
-                `ゲームの <span class="hl">AppID</span> と、希望のモニターを <span class="hl">スクリーンショットソース</span> として指定してください`,
-                `このゲームの <span class="hl">AppID</span> が検出されたときに各通知タイプのために切り替える <span class="hl">テーマ</span> を選択`
+                `ゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>と、<span class="hl">スクリーンショットのソース</span>として使用するモニターを入力してください`,
+                `複数の<span class="hl">AppID</span>/<span class="hl">GameID</span>は、カンマ（<code>,</code>）またはセミコロン（<code>;</code>）で区切ることで一度に入力できます`,
+                `このゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>が検出されたとき、通知タイプごとに切り替える<span class="hl">テーマ</span>を選択してください`
             ],
             themeswitchedit: "自動切り替えを編集",
             themeswitcheditsub: [
-                `このゲームの <span class="hl">AppID</span> に対して <span class="hl">スクリーンショットのソース</span> として使用するモニターを編集します`,
-                `このゲームの <span class="hl">AppID</span> が検出されたときに、各通知タイプで切り替える <span class="hl">テーマ</span> を変更します`
+                `このゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>に対して、<span class="hl">スクリーンショットのソース</span>として使用するモニターを編集します`,
+                `このゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>が検出されたとき、通知タイプごとに切り替える<span class="hl">テーマ</span>を変更します`
             ],
             themes: "テーマ",
-            src: "スクリーンショットソース",
-            themedeleted: "テーマが削除されました"
+            src: "スクリーンショットのソース",
+            themedeleted: "テーマを削除しました",
+            rafindgameid: "RA GameIDを検索",
+            rafindgameidsub: [
+                `RetroAchievementsの各ゲームには、<span class="hl">GameID</span>と呼ばれる固有の番号が割り当てられています。RetroAchievementsゲームのGameIDは、次の方法で確認できます。`,
+                `RetroAchievementsサイトの<span class="hl">ゲームページ</span>の<span class="hl">URL</span>を確認してください。<span class="hl">game/</span>の後に表示される番号がGameIDです：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

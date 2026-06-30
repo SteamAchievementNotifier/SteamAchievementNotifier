@@ -397,7 +397,8 @@ export const translations = {
                 scale: "Tỷ lệ",
                 customtext: "Văn bản tùy chỉnh",
                 usegametitle: "Sử dụng tiêu đề trò chơi",
-                customfont: "Phông chữ tùy chỉnh"
+                customfont: "Phông chữ tùy chỉnh",
+                platcustomtext: "Văn bản 100% tùy chỉnh"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "Hiển thị phần trăm mở khóa của thành tựu, thay vì giá trị XP/S",
         displaytime: "Đặt số giây thông báo sẽ hiển thị",
         scale: "Tăng hoặc giảm kích thước của thông báo",
-        customtext: "Đặt một thông báo tùy chỉnh để hiển thị trong thông báo",
+        customtext: `Đặt một thông báo tùy chỉnh để hiển thị trong thông báo<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Customiser > Cài đặt sẵn > Thành phần thông báo > Thông báo mở khóa bị vô hiệu hóa</span>`,
         usegametitle: "Hiển thị tiêu đề của trò chơi hiện tại trong thông báo",
         customfont: "Tải một phông chữ tùy chỉnh để sử dụng trong thông báo",
         soundmode: "Chọn một tệp âm thanh duy nhất hoặc một tệp âm thanh được chọn ngẫu nhiên từ một thư mục chứa nhiều tệp âm thanh khi có thông báo xảy ra",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `Tắt tất cả phím tắt bàn phím trong ứng dụng<br><br><span class="ttdesc">Khi được bật, <u>tất cả phím tắt trong ứng dụng sẽ không còn hoạt động</u>. Tất cả các tùy chọn liên quan đến phím tắt bàn phím cũng sẽ bị ẩn</span>`,
         extwinnotify: "Bật/tắt hiển thị tất cả thông báo trên màn hình khi sử dụng Stream Notifications",
         usesanwatcher: `Bật trình theo dõi tiến trình trò chơi mới của SAN<br><br><span class="ttdesc">Sự khác biệt giữa SANWatcher mới và các phương pháp theo dõi tiến trình tự động cũ như sau:<br><br><div class="wrapper sanwatcher"><span class="hl">BẬT</span><ul><li>Chủ động theo dõi các sự kiện khởi động và kết thúc của mọi tiến trình nằm trong thư mục cài đặt trò chơi</li><li>Không yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Hành vi của các trình khởi chạy trước khi vào trò chơi có thể khác nhau, vì vậy không đảm bảo khả năng tương thích hoàn toàn với tất cả các trò chơi Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">TẮT</span><ul><li>Quét thư mục cài đặt trò chơi để tìm các tệp thực thi đang chạy sau khi trò chơi được khởi động</li><li>Yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Nếu không thể tự động xác định tiến trình trò chơi, người dùng phải tự thêm một mục mới vào <span class="hl">Trò chơi Giải phóng Tự động</span> để trò chơi có thể được giải phóng tự động</li></ul></div>`,
-        releasewaittime: `Đặt khoảng thời gian SANWatcher sẽ chờ các tiến trình trò chơi mới khởi chạy trước khi giải phóng trò chơi hiện tại<br><br><span class="ttdesc">Ví dụ: nếu trò chơi hiện tại khởi chạy một trình khởi chạy/cửa sổ cấu hình trước khi vào trò chơi trước khi khởi chạy trò chơi thực tế, cài đặt này sẽ xác định số giây SANWatcher sẽ chờ cửa sổ trò chơi thực tế xuất hiện sau khi trình khởi chạy/cửa sổ cấu hình trước trò chơi đã đóng<br><br>Nếu một tiến trình trò chơi đang hoạt động mới được phát hiện trong khoảng thời gian chờ này, việc giải phóng sẽ bị hủy và tiến trình mới được kích hoạt sẽ được theo dõi thay thế<br><br>💡 Tên trò chơi sẽ <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">nhấp nháy</span> trong hộp <span class="hl">Hiển thị trò chơi</span> khi trò chơi hiện tại đang chờ được giải phóng</span>`
+        releasewaittime: `Đặt khoảng thời gian SANWatcher sẽ chờ các tiến trình trò chơi mới khởi chạy trước khi giải phóng trò chơi hiện tại<br><br><span class="ttdesc">Ví dụ: nếu trò chơi hiện tại khởi chạy một trình khởi chạy/cửa sổ cấu hình trước khi vào trò chơi trước khi khởi chạy trò chơi thực tế, cài đặt này sẽ xác định số giây SANWatcher sẽ chờ cửa sổ trò chơi thực tế xuất hiện sau khi trình khởi chạy/cửa sổ cấu hình trước trò chơi đã đóng<br><br>Nếu một tiến trình trò chơi đang hoạt động mới được phát hiện trong khoảng thời gian chờ này, việc giải phóng sẽ bị hủy và tiến trình mới được kích hoạt sẽ được theo dõi thay thế<br><br>💡 Tên trò chơi sẽ <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">nhấp nháy</span> trong hộp <span class="hl">Hiển thị trò chơi</span> khi trò chơi hiện tại đang chờ được giải phóng</span>`,
+        platcustomtext: `Đặt thông báo tùy chỉnh cho việc hoàn thành 100% trò chơi để hiển thị trong thông báo<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Customiser > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị vô hiệu hóa</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",
@@ -911,7 +913,7 @@ export const translations = {
                 `Sau khi thêm, các mục có thể được <span class="hl">xóa</span> thông qua menu <span class="hl">$linkgame</span> trước đó`
             ],
             link: "Thêm",
-            findappid: "Tìm AppID",
+            findappid: "Tìm Steam AppID",
             findappidsub: [
                 `Mỗi trò chơi Steam đều có một số duy nhất gọi là <span class="hl">AppID</span>. Bạn có thể tìm AppID của bất kỳ trò chơi Steam nào bằng một trong các cách sau:`,
                 `Trong <span class="hl">ứng dụng Steam</span>, <i>nhấp chuột phải</i> vào trò chơi trong <span class="hl">Thư viện</span> và chọn <i>Thuộc tính</i> > <i>Cập nhật</i> - AppID sẽ được hiển thị ở đây`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Thêm <span class="hl">AppID</span> của bất kỳ trò chơi nào để tự động chuyển đổi <span class="hl">Chủ đề</span> khi phát hiện`,
-                `Bất kỳ <span class="hl">Chủ đề</span> nào đã lưu có thể được chọn cho mỗi loại thông báo, cùng với màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp màn hình</span>`,
-                `<span class="hl" id="appidhelp"><u>Làm thế nào để tìm AppID của một trò chơi Steam?</u></span>`
+                `Thêm <span class="hl">AppID</span>/<span class="hl">GameID</span> của bất kỳ trò chơi nào để tự động chuyển <span class="hl">chủ đề</span> khi được phát hiện`,
+                `Bất kỳ <span class="hl">chủ đề</span> đã lưu nào cũng có thể được chọn cho từng loại thông báo, cùng với màn hình dùng làm <span class="hl">nguồn ảnh chụp màn hình</span>`,
+                `<span class="hl help" id="appidhelp"><u>Làm thế nào để tìm AppID của trò chơi Steam?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Làm thế nào để tìm GameID của trò chơi RetroAchievements?</u></span>`
             ],
-            themeswitchnew: "Chuyển đổi Tự động Mới",
+            themeswitchnew: "Chuyển đổi tự động mới",
             themeswitchnewsub: [
-                `Nhập <span class="hl">AppID</span> của trò chơi, cùng với màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp màn hình</span>`,
-                `Chọn <span class="hl">Chủ đề</span> nào để chuyển đổi cho mỗi loại thông báo khi phát hiện <span class="hl">AppID</span> của trò chơi này`
+                `Nhập <span class="hl">AppID</span>/<span class="hl">GameID</span> của trò chơi, cùng với màn hình dùng làm <span class="hl">nguồn ảnh chụp màn hình</span>`,
+                `Có thể nhập nhiều <span class="hl">AppID</span>/<span class="hl">GameID</span> cùng lúc bằng cách phân tách bằng dấu phẩy (<code>,</code>) hoặc dấu chấm phẩy (<code>;</code>)`,
+                `Chọn <span class="hl">chủ đề</span> sẽ chuyển sang cho từng loại thông báo khi phát hiện <span class="hl">AppID</span>/<span class="hl">GameID</span> của trò chơi này`
             ],
-            themeswitchedit: "Chỉnh sửa Tự động Chuyển đổi",
+            themeswitchedit: "Chỉnh sửa chuyển đổi tự động",
             themeswitcheditsub: [
-                `Chỉnh sửa màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp Màn hình</span> cho <span class="hl">AppID</span> của trò chơi này`,
-                `Thay đổi <span class="hl">Chủ đề</span> sẽ được chuyển sang cho từng loại thông báo khi <span class="hl">AppID</span> của trò chơi này được phát hiện`
+                `Chỉnh sửa màn hình dùng làm <span class="hl">nguồn ảnh chụp màn hình</span> cho <span class="hl">AppID</span>/<span class="hl">GameID</span> của trò chơi này`,
+                `Thay đổi <span class="hl">chủ đề</span> sẽ chuyển sang cho từng loại thông báo khi phát hiện <span class="hl">AppID</span>/<span class="hl">GameID</span> của trò chơi này`
             ],
             themes: "Chủ đề",
-            src: "Nguồn Ảnh chụp màn hình",
-            themedeleted: "Chủ đề đã bị xóa"
+            src: "Nguồn ảnh chụp màn hình",
+            themedeleted: "Đã xóa chủ đề",
+            rafindgameid: "Tìm RA GameID",
+            rafindgameidsub: [
+                `Mỗi trò chơi RetroAchievements có một số duy nhất gọi là <span class="hl">GameID</span>. Bạn có thể tìm GameID của bất kỳ trò chơi RetroAchievements nào bằng cách kiểm tra:`,
+                `URL của <span class="hl">trang trò chơi</span> trên trang RetroAchievements — đó là số nằm sau <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

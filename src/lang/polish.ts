@@ -397,7 +397,8 @@ export const translations = {
                 scale: "Skala",
                 customtext: "Niestandardowy Tekst",
                 usegametitle: "Użyj Tytułu Gry",
-                customfont: "Niestandardowa Czcionka"
+                customfont: "Niestandardowa Czcionka",
+                platcustomtext: "Niestandardowy tekst 100%"
             }
         },
         sound: {
@@ -662,7 +663,7 @@ export const translations = {
         usepercent: "Pokaż procent odblokowania osiągnięcia zamiast wartości XP/S",
         displaytime: "Ustaw liczbę sekund, przez które będzie wyświetlane powiadomienie",
         scale: "Zwiększ lub zmniejsz rozmiar powiadomienia",
-        customtext: "Ustaw niestandardową wiadomość do wyświetlenia w powiadomieniu",
+        customtext: `Ustaw niestandardową wiadomość wyświetlaną w powiadomieniu<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Customiser > Ustawienie wstępne > Elementy powiadomień > Wiadomość odblokowania jest wyłączona</span>`,
         usegametitle: "Wyświetl tytuł bieżącej gry w powiadomieniu",
         customfont: "Wczytaj niestandardową czcionkę do użycia w powiadomieniu",
         soundmode: "Wybierz pojedynczy plik dźwiękowy lub losowo wybrany plik dźwiękowy z folderu zawierającego wiele plików dźwiękowych, gdy wystąpi powiadomienie",
@@ -872,7 +873,8 @@ export const translations = {
         noshortcuts: `Wyłącza wszystkie skróty klawiaturowe w aplikacji<br><br><span class="ttdesc">Po włączeniu <u>wszystkie skróty w aplikacji przestaną działać</u>. Wszystkie opcje związane ze skrótami klawiaturowymi również zostaną ukryte</span>`,
         extwinnotify: "Przełącz widoczność wszystkich powiadomień ekranowych podczas korzystania ze Stream Notifications",
         usesanwatcher: `Włącz nowy monitor procesów gier SAN<br><br><span class="ttdesc">Różnice między nowym SANWatcher a starymi metodami automatycznego śledzenia procesów są następujące:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Aktywnie monitoruje zdarzenia uruchomienia/zakończenia dla każdego procesu znajdującego się w katalogu instalacyjnym gry</li><li>Nie wymaga znajomości pliku wykonywalnego gry, aby zwolnić bieżącą grę</li><li>Zachowanie programów uruchamiających przed startem gry może się różnić, dlatego pełna kompatybilność ze wszystkimi grami Steam nie jest gwarantowana</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Po uruchomieniu gry skanuje katalog instalacyjny gry w poszukiwaniu uruchomionych plików wykonywalnych</li><li>Wymaga znajomości pliku wykonywalnego gry, aby zwolnić bieżącą grę</li><li>Jeśli proces gry nie może zostać określony automatycznie, użytkownik musi ręcznie dodać nowy wpis do <span class="hl">Gry z automatycznym zwalnianiem</span>, aby gry były automatycznie zwalniane</li></ul></div>`,
-        releasewaittime: `Ustaw, jak długo SANWatcher ma czekać na uruchomienie nowych procesów gry przed zwolnieniem bieżącej gry<br><br><span class="ttdesc">Na przykład, jeśli bieżąca gra uruchamia program startowy lub okno konfiguracji przed uruchomieniem właściwej gry, to ustawienie określa liczbę sekund, przez które SANWatcher będzie czekać na pojawienie się właściwego okna gry po zamknięciu programu startowego lub okna konfiguracji<br><br>Jeśli w tym czasie oczekiwania zostanie wykryty nowy aktywny proces gry, zwolnienie zostanie anulowane, a zamiast tego śledzony będzie nowo aktywny proces<br><br>💡 Nazwa gry będzie <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">migać</span> w polu <span class="hl">Wyświetlanie Gry</span>, gdy bieżąca gra oczekuje na zwolnienie</span>`
+        releasewaittime: `Ustaw, jak długo SANWatcher ma czekać na uruchomienie nowych procesów gry przed zwolnieniem bieżącej gry<br><br><span class="ttdesc">Na przykład, jeśli bieżąca gra uruchamia program startowy lub okno konfiguracji przed uruchomieniem właściwej gry, to ustawienie określa liczbę sekund, przez które SANWatcher będzie czekać na pojawienie się właściwego okna gry po zamknięciu programu startowego lub okna konfiguracji<br><br>Jeśli w tym czasie oczekiwania zostanie wykryty nowy aktywny proces gry, zwolnienie zostanie anulowane, a zamiast tego śledzony będzie nowo aktywny proces<br><br>💡 Nazwa gry będzie <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">migać</span> w polu <span class="hl">Wyświetlanie Gry</span>, gdy bieżąca gra oczekuje na zwolnienie</span>`,
+        platcustomtext: `Ustaw niestandardową wiadomość ukończenia gry w 100%, która będzie wyświetlana w powiadomieniu<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Customiser > Ustawienie wstępne > Elementy powiadomień > Opis osiągnięcia jest wyłączony</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",
@@ -911,7 +913,7 @@ export const translations = {
                 `Po dodaniu wpisy można <span class="hl">usunąć</span> z poprzedniego menu <span class="hl">$linkgame</span>`
             ],
             link: "Dodaj",
-            findappid: "Znajdź AppID",
+            findappid: "Znajdź Steam AppID",
             findappidsub: [
                 `Każda gra Steam ma przypisany unikalny numer zwany <span class="hl">AppID</span>. AppID dowolnej gry Steam można znaleźć na jeden z następujących sposobów:`,
                 `W <span class="hl">kliencie Steam</span> kliknij <i>prawym przyciskiem myszy</i> grę w <span class="hl">Bibliotece</span> i wybierz <i>Właściwości</i> > <i>Aktualizacje</i> — AppID będzie tam wyświetlone`,
@@ -1019,23 +1021,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Dodaj <span class="hl">AppID</span> dowolnej gry, aby automatycznie przełączać <span class="hl">motywy</span> po wykryciu`,
-                `Dowolny zapisany <span class="hl">motyw</span> można wybrać dla każdego typu powiadomienia, razem z żądaną monitorem, który ma być używany jako <span class="hl">Źródło zrzutu ekranu</span>`,
-                `<span class="hl" id="appidhelp"><u>Jak znaleźć AppID gry na Steamie?</u></span>`
+                `Dodaj <span class="hl">AppID</span>/<span class="hl">GameID</span> dowolnej gry, aby automatycznie przełączać <span class="hl">motywy</span> po jej wykryciu`,
+                `Każdy zapisany <span class="hl">motyw</span> może być wybrany dla każdego typu powiadomienia, wraz z wybranym monitorem używanym jako <span class="hl">źródło zrzutu ekranu</span>`,
+                `<span class="hl help" id="appidhelp"><u>Jak znaleźć AppID gry Steam?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Jak znaleźć GameID gry RetroAchievements?</u></span>`
             ],
             themeswitchnew: "Nowe automatyczne przełączanie",
             themeswitchnewsub: [
-                `Wprowadź <span class="hl">AppID</span> gry, razem z żądaną monitorem, który ma być używany jako <span class="hl">Źródło zrzutu ekranu</span>`,
-                `Wybierz, który <span class="hl">motyw</span> ma być używany dla każdego typu powiadomienia, gdy AppID tej gry zostanie wykryty`
+                `Wprowadź <span class="hl">AppID</span>/<span class="hl">GameID</span> gry oraz wybrany monitor jako <span class="hl">źródło zrzutu ekranu</span>`,
+                `Wiele <span class="hl">AppID</span>/<span class="hl">GameID</span> można wprowadzić jednocześnie, oddzielając je przecinkiem (<code>,</code>) lub średnikiem (<code>;</code>)`,
+                `Wybierz, na jaki <span class="hl">motyw</span> przełączyć się dla każdego typu powiadomienia po wykryciu <span class="hl">AppID</span>/<span class="hl">GameID</span> tej gry`
             ],
-            themeswitchedit: "Edytuj automatyczną zmianę",
+            themeswitchedit: "Edytuj automatyczne przełączanie",
             themeswitcheditsub: [
-                `Edytuj wybrany monitor używany jako <span class="hl">źródło zrzutów ekranu</span> dla <span class="hl">AppID</span> tej gry`,
-                `Zmień, na jaki <span class="hl">motyw</span> ma być przełączane dla każdego typu powiadomienia, gdy wykryty zostanie <span class="hl">AppID</span> tej gry`
+                `Edytuj wybrany monitor używany jako <span class="hl">źródło zrzutu ekranu</span> dla <span class="hl">AppID</span>/<span class="hl">GameID</span> tej gry`,
+                `Zmień, na jaki <span class="hl">motyw</span> przełączać się dla każdego typu powiadomienia po wykryciu <span class="hl">AppID</span>/<span class="hl">GameID</span> tej gry`
             ],
             themes: "Motywy",
             src: "Źródło zrzutu ekranu",
-            themedeleted: "Motyw usunięty"
+            themedeleted: "Motyw usunięty",
+            rafindgameid: "Znajdź GameID RA",
+            rafindgameidsub: [
+                `Każda gra RetroAchievements ma przypisany unikalny numer zwany <span class="hl">GameID</span>. Możesz znaleźć GameID dowolnej gry RetroAchievements, sprawdzając:`,
+                `Adres <span class="hl">URL</span> strony gry na stronie RetroAchievements — jest to numer po <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

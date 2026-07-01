@@ -13,9 +13,7 @@ declare global {
     interface Window {
         client: any
         cachedata: any,
-        globallocalised: any,
-        testraunlock: Function,
-        racached: any,
+        localised: Map<string,LocalisedObj>,
         runninggametimers: any
     }
 }
@@ -28,8 +26,7 @@ type LocalisedObj = {
 log.init("WORKER")
 sanhelper.errorhandler(log)
 
-const globallocalised = new Map<string,LocalisedObj>()
-window.globallocalised = globallocalised
+window.localised = new Map<string,LocalisedObj>()
 
 const pids = new Set<number>()
 let releasetimer: NodeJS.Timeout | null = null
@@ -90,8 +87,7 @@ const worker = {
             obj[key] = steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,prop,maxlang) : null
         }
 
-        globallocalised.set(achievement.apiname,obj)
-        window.globallocalised = globallocalised
+        window.localised.set(achievement.apiname,obj)
 
         return obj
     },
@@ -146,6 +142,8 @@ const worker = {
         ipcRenderer.send("validateworker")
     }
 }
+
+ipcRenderer.on("appid",() => ipcRenderer.send("appid",workerinfo))
 
 // `lastknowngame` var in `listeners.ts` is passed via `BrowserWindow.webPreferences.additionalArguments`, so current AppID/last install dir can be verified before re-initialising Steamworks for the same game in `startsan()`
 // This ensures SAN does not re-initialise an AppID for a game that has now closed, which would prevent Steam from resetting `RunningAppID` to 0 in the Windows registry
@@ -245,7 +243,7 @@ const startidle = () => {
 
 const startsan = async (appinfo: AppInfo) => {
     try {
-        globallocalised.clear()
+        window.localised.clear()
 
         const { appid, gamename, pollrate, maxretries, userust, noiconcache } = appinfo
         const { init } = await import("steamworks.js")
@@ -514,7 +512,7 @@ const startsan = async (appinfo: AppInfo) => {
                         statsobj.achievements = !config.get("steamlang") ? live : await Promise.all(
                             live.map(async achievement => {
                                 const achievementcopy = { ...achievement }
-                                const localised = globallocalised.get(achievementcopy.apiname) || await worker.localisedobj(steam3id,achievementcopy)
+                                const localised = window.localised.get(achievementcopy.apiname) || await worker.localisedobj(steam3id,achievementcopy)
         
                                 for (const key of Object.keys(localised)) {
                                     achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]

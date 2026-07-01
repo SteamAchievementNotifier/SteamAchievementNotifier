@@ -174,7 +174,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                 
                 return ["INFO",[key,`[RA]: "${emu || key}" started GameID ${gameid || value}`]]
             case "stop":
-                const stopmsg: [string | null, (string | null)[]] = ["INFO",[key,`[RA]: "${emu || key}" stopped GameID ${gameid || value}`]]
+                const stopmsg: [string | null,(string | null)[]] = ["INFO",[key,`[RA]: "${emu || key}" stopped GameID ${gameid || value}`]]
                 gameid = 0
                 
                 emu = null

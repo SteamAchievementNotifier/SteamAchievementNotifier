@@ -23,6 +23,7 @@ declare global {
         steam3id: number,
         achnum?: number,
         gamename: string | null,
+        type: NotifyType | null,
         update: Function,
         availabletest: Function,
         resourceusage: Function
@@ -108,7 +109,7 @@ ipcRenderer.on("displaysupdated",async () => {
     const monitorslist = await monitors.get()
     sanhelper.devmode && console.log(monitorslist)
 
-    ipcRenderer.once("monitorsupdated", () => sanhelper.updatetabs())
+    ipcRenderer.once("monitorsupdated",() => sanhelper.updatetabs())
     ipcRenderer.send("monitorsupdated")
 
     document.getElementById("webhookwrapper")?.remove()
@@ -222,7 +223,7 @@ const loadwebview = () => {
             // Fixes an issue where the font size is displayed smaller in Customiser Previews, due to scaling used on these presets
             scaledpresets.forEach(preset => config.get(`customisation.${type}.preset`) === preset && cmds.set("fontSize",`"clamp(0.05rem,0.05rem + 4.25vmax,12.5rem)"`))
     
-            webview.addEventListener("dom-ready", () => {
+            webview.addEventListener("dom-ready",() => {
                 resizewebview()
                 cmds.forEach((value,key) => webview!.executeJavaScript(`document.documentElement.style.${key} = ${value}`))
     
@@ -591,7 +592,7 @@ const closecustomiser = () => {
     ]
 
     document.body.setAttribute("closing","")
-    !noanim ? document.getElementById("maincontent")!.addEventListener("animationend", ({ animationName }) => resetwin(attrs,animationName),{ once: true }) : resetwin(attrs)
+    !noanim ? document.getElementById("maincontent")!.addEventListener("animationend",({ animationName }) => resetwin(attrs,animationName),{ once: true }) : resetwin(attrs)
 
     customisebtn.removeAttribute("active")
 }
@@ -654,7 +655,7 @@ const opencustomiser = () => {
             const elem = target as HTMLElement
             
             if (elem.id === "themeiconcustom") {
-                ipcRenderer.once("themeiconcustom", (event,file) => file && seticon(`url('${file[0]}')`))
+                ipcRenderer.once("themeiconcustom",(event,file) => file && seticon(`url('${file[0]}')`))
                 return ipcRenderer.send("themeiconcustom")
             }
 
@@ -745,9 +746,9 @@ const opencustomiser = () => {
 customisebtn.onclick = opencustomiser
 
 // Closes "extwin" if "config.soundonly" is true
-window.addEventListener("soundonly", () => ipcRenderer.send("closeopenwins"))
+window.addEventListener("soundonly",() => ipcRenderer.send("closeopenwins"))
 
-document.getElementById("maincontent")!.addEventListener("animationend", ({ animationName }) => animationName === "customiserin" && document.body.removeAttribute("opening"))
+document.getElementById("maincontent")!.addEventListener("animationend",({ animationName }) => animationName === "customiserin" && document.body.removeAttribute("opening"))
 document.querySelectorAll(".wrapper#tabs > .tab").forEach(btn => btn instanceof HTMLButtonElement && (btn!.onclick = (event: MouseEvent) => sanhelper.switchtab(event)))
 
 const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
@@ -781,11 +782,11 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
     return notify
 }
 
-let globaltype: NotifyType | null = null
+window.type = null
 
 // This needs to have no parameters to use in "removeEventListener"
 const sendtestnotify = async () => {
-    const type = globaltype || sanhelper.type
+    const type = window.type || sanhelper.type as NotifyType
     const customobj: Customisation = { ...config.get(`customisation.${type}`) as Customisation }
     
     const notify = await notifyinfo(type,customobj)
@@ -812,17 +813,17 @@ const sendtestnotify = async () => {
     
     ipcRenderer.send("notify",notify,webview !== null && "customiser",src)
     config.get("webhooktest") && !webview && ipcRenderer.emit("sendwebhook",null,notify)
-    globaltype && (globaltype = null)
+    window.type && (window.type = null)
 }
 
-ipcRenderer.on("appaudio", (event,type) => {
+ipcRenderer.on("appaudio",(event,type) => {
     const audio = document.querySelector("audio")!
     handleaudio(`customisation.${type}`,audio)
 })
 
 document.getElementById("test")!.onclick = sendtestnotify
 
-ipcRenderer.on("customisernotify", (event,obj: Info) => {
+ipcRenderer.on("customisernotify",(event,obj: Info) => {
     const wrapper = document.querySelector(".wrapper:has(> webview)")! as HTMLElement
     let { width, height } = sanhelper.getpresetbounds(obj.customisation.preset)
     !width && !height && log.write("WARN",`Error parsing "width"/"height" values for "${obj.customisation.preset}" preset: No <meta> tag found in body`)
@@ -845,12 +846,12 @@ ipcRenderer.on("customisernotify", (event,obj: Info) => {
     webview && webview.send("notify",obj)
 })
 
-ipcRenderer.on("queue", (event,queue: WinType[]) => {
+ipcRenderer.on("queue",(event,queue: WinType[]) => {
     log.write("INFO",`Queue Length: ${queue.length}`)
     console.log(queue)
 })
 
-ipcRenderer.on("poswinclosed", () => {
+ipcRenderer.on("poswinclosed",() => {
     const customiser = document.getElementById("customiser")! as HTMLElement
     customiser && customiser.removeAttribute("poswin")
 })
@@ -880,27 +881,38 @@ ipcRenderer.on("appid",async (event,workerinfo: WorkerInfo) => {
     }
 
     window.achnum = achnum
+    window.gamename = gamename || null // Fixes issue where gamename is reset to default upon opening a dialog
     
-    // Fixes issue where gamename is reset to default upon opening a dialog
-    window.gamename = gamename || null
-    
-    gamelbl.parentElement!.toggleAttribute("novalue",!gamename)
-    sanhelper.updategamelbl(gamename)
+    gamelbl.parentElement!.toggleAttribute("novalue",!window.gamename)
+    sanhelper.updategamelbl(window.gamename)
 
     const enabled = appid ? usertheme.themeswitchinfo(config,appid).enabled : false
     enabled ? document.body.setAttribute("themeswitch",`${appid}`) : document.body.removeAttribute("themeswitch")
 })
 
+// Checks `skipui` (`config.store.raui`) - if true (inverted in `listeners.ts`), update Game Display/system tray UI to show RA game titles when detected
+ipcRenderer.on("gameid",(event,workerinfo: WorkerInfo,skipui?: boolean) => {
+    if (skipui) return
+    
+    const { appid, gamename } = workerinfo
+
+    window.gameid = appid
+    window.gamename = gamename || null
+
+    gamelbl.parentElement!.toggleAttribute("novalue",!window.gamename)
+    sanhelper.updategamelbl(window.gamename)
+})
+
 sanhelper.soundonly(config.get("soundonly"))
 
-ipcRenderer.on("soundonly", (event,type: NotifyType) => {
+ipcRenderer.on("soundonly",(event,type: NotifyType) => {
     const audio = document.querySelector("audio")!
     audio.src = config.get(`customisation.${type}.soundfile`) as string || sanhelper.setfilepath("sound",`notify${type !== "main" ? `_${type}` : ""}.wav`)
     audio.play()
 })
 
-ipcRenderer.on("shortcut",async (event,type) => {
-    globaltype = type
+ipcRenderer.on("shortcut",async (event,type: NotifyType) => {
+    window.type = type
     sendtestnotify()
 })
 
@@ -934,7 +946,7 @@ ipcRenderer.on("releasegame",async (event,noreleasedialog: boolean) => {
     })
 })
 
-ipcRenderer.on("notifyprogress", (event,displaytime: number,finish?: boolean) => {
+ipcRenderer.on("notifyprogress",(event,displaytime: number,finish?: boolean) => {
     const progresscircle = document.querySelector(".rect#test > #progresscircle")! as HTMLElement
     progresscircle.style.setProperty("--displaytime",`${displaytime * 1000}ms`)
 
@@ -942,7 +954,7 @@ ipcRenderer.on("notifyprogress", (event,displaytime: number,finish?: boolean) =>
     progresscircle.setAttribute("running","")
 })
 
-ipcRenderer.on("restartapp", async () => {
+ipcRenderer.on("restartapp",async () => {
     if (config.get("norestartdialog")) return ipcRenderer.send("restart",`System Tray > "Options" > "Restart" selected by User`)
 
     dialog.open({
@@ -964,7 +976,7 @@ ipcRenderer.on("restartapp", async () => {
     })
 })
 
-ipcRenderer.on("clearls", async () => {
+ipcRenderer.on("clearls",async () => {
     try {
         const msg = await new Promise<string>((resolve,reject) => {
             try {
@@ -981,7 +993,7 @@ ipcRenderer.on("clearls", async () => {
     }
 })
 
-ipcRenderer.on("updatemenu", (event,id) => {
+ipcRenderer.on("updatemenu",(event,id) => {
     if (id !== "debug") return
 
     const settings = document.querySelector("dialog > #content > #settingscontent")
@@ -999,8 +1011,8 @@ ipcRenderer.on("updatemenu", (event,id) => {
     })
 })
 
-ipcRenderer.on("workeractive", (event,value: boolean) => document.body.toggleAttribute("active",value))
-ipcRenderer.on("updatelogtype", (event,logtype,filename?: string) => sanhelper.updatelogwin(logtype,filename))
+ipcRenderer.on("workeractive",(event,value: boolean) => document.body.toggleAttribute("active",value))
+ipcRenderer.on("updatelogtype",(event,logtype,filename?: string) => sanhelper.updatelogwin(logtype,filename))
 
 const getsteamuser = async (): Promise<string | null> => {
     const VDF = await import("simple-vdf")
@@ -1056,7 +1068,7 @@ ipcRenderer.on("sendwebhook",async (event,notify: Notify,appid: number) => {
     config.get("webhooks") && sendwebhook(notify.type,config.get("webhookurl"),await embeds(notify,appid),notify.icon)
 })
 
-ipcRenderer.on("suspendresume", async (event,suspended: boolean) => {
+ipcRenderer.on("suspendresume",async (event,suspended: boolean) => {
     const settings = document.querySelector("dialog:has(#settingscontent)")
 
     if (settings) {

@@ -9,7 +9,7 @@ import { language } from "./language"
 export const dialog = {
     init: (error?: "ERROR") => {
         error && document.body.setAttribute("error","")
-        window.addEventListener("click", ({ target }) => (target === document.querySelector("dialog") || target === document.getElementById("backbtn") || target === document.getElementById("settingsclose")) && document.querySelector("dialog:not(:has(.btnwrapper > #betaexitbtn))") && dialog.close())
+        window.addEventListener("click",({ target }) => (target === document.querySelector("dialog") || target === document.getElementById("backbtn") || target === document.getElementById("settingsclose")) && document.querySelector("dialog:not(:has(.btnwrapper > #betaexitbtn))") && dialog.close())
     },
     open: (obj: Dialog,errwin?: boolean) => {
         !errwin && (async () => {
@@ -755,7 +755,7 @@ export const dialog = {
             })
 
             document.getElementById("checkforupdates")!.onclick = async () => {
-                ipcRenderer.once("noupdateavailable", async (event,currentversion) => dialog.open({
+                ipcRenderer.once("noupdateavailable",async (event,currentversion) => dialog.open({
                     title: await language.get("noupdateavailable"),
                     type: "default",
                     icon: sanhelper.setfilepath("icon","update_white.svg"),
@@ -830,7 +830,7 @@ export const dialog = {
         const menutype = attrs.find(attr => dialog.hasAttribute(attr))
         const noanim = skipanim || document.body.hasAttribute("noanim")
 
-        const settransitionlistener = (): void => content.addEventListener(`transition${menutype === "menu" ? "start" : "end"}`, ({ propertyName }: TransitionEvent) => propertyName === `${menutype === "menu" ? "translate" : "scale"}` ? (dialog.style.animation = `dialogout var(--transition) forwards`) : settransitionlistener(), { once: true })
+        const settransitionlistener = (): void => content.addEventListener(`transition${menutype === "menu" ? "start" : "end"}`,({ propertyName }: TransitionEvent) => propertyName === `${menutype === "menu" ? "translate" : "scale"}` ? (dialog.style.animation = `dialogout var(--transition) forwards`) : settransitionlistener(),{ once: true })
         const resetdialog = () => {
             dialog.style.animation = ""
             dialog.close()
@@ -846,6 +846,6 @@ export const dialog = {
         content.removeAttribute("open")
         !noanim && settransitionlistener()
     
-        !noanim ? dialog.addEventListener("animationend", ({ animationName }: AnimationEvent) => animationName === "dialogout" && resetdialog(),{ once: true }) : resetdialog()
+        !noanim ? dialog.addEventListener("animationend",({ animationName }: AnimationEvent) => animationName === "dialogout" && resetdialog(),{ once: true }) : resetdialog()
     }
 }

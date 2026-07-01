@@ -10,18 +10,18 @@ export const update = {
     check: () => !sanhelper.devmode ? autoUpdater.checkForUpdates() : log.write("INFO",`Unable to check for updates in devmode`),
     setlisteners: (win: BrowserWindow) => {
         autoUpdater.autoDownload = false
-        sanhelper.devmode && ipcMain.on("availabletest", (event,newversion: string) => win.webContents.send("updateavailable",newversion || "1.9.X"))
-        sanhelper.devmode && ipcMain.on("noupdatetest", (event,currentversion: string) => win.webContents.send("noupdateavailable",currentversion || "1.9.X"))
+        sanhelper.devmode && ipcMain.on("availabletest",(event,newversion: string) => win.webContents.send("updateavailable",newversion || "1.9.X"))
+        sanhelper.devmode && ipcMain.on("noupdatetest",(event,currentversion: string) => win.webContents.send("noupdateavailable",currentversion || "1.9.X"))
 
-        ipcMain.once("updateconfirmed", () => autoUpdater.downloadUpdate())
-        autoUpdater.on("checking-for-update", () => update.ipc(win,"Checking for update..."))
+        ipcMain.once("updateconfirmed",() => autoUpdater.downloadUpdate())
+        autoUpdater.on("checking-for-update",() => update.ipc(win,"Checking for update..."))
 
         autoUpdater.on("update-available", info => {
             update.ipc(win,`Update available (V${info.version})`)
             win.webContents.send("updateavailable",info.version)
         })
 
-        autoUpdater.on("update-not-available", () => {
+        autoUpdater.on("update-not-available",() => {
             update.ipc(win,`Latest version installed (V${autoUpdater.currentVersion})`)
             win.webContents.send("noupdateavailable",autoUpdater.currentVersion.version)
         })
@@ -40,7 +40,7 @@ export const update = {
     },
     ipc: (win: BrowserWindow,msg: string | Error,nolog?: boolean) => win.webContents.send("updatemsg",msg,nolog),
     renderer: () => {
-        ipcRenderer.on("updatemsg", (event,msg: string | Error,nolog: boolean) => !nolog && log.write(msg instanceof Error ? "ERROR" : "INFO",`[AUTOUPDATER]: ${msg instanceof Error ? `Error during update: ${msg.stack}` : msg}`))
+        ipcRenderer.on("updatemsg",(event,msg: string | Error,nolog: boolean) => !nolog && log.write(msg instanceof Error ? "ERROR" : "INFO",`[AUTOUPDATER]: ${msg instanceof Error ? `Error during update: ${msg.stack}` : msg}`))
 
         const updatemsg = async (newversion: string) => {
             dialog.open({
@@ -79,7 +79,7 @@ export const update = {
             })
         }
         
-        ipcRenderer.on("updateavailable", (event,newversion: string) => {
+        ipcRenderer.on("updateavailable",(event,newversion: string) => {
             (document.querySelector(".menubtn#update") as HTMLButtonElement)!.onclick = () => updatemsg(newversion)
             document.body.setAttribute("update","")
 
@@ -89,7 +89,7 @@ export const update = {
             })()
         })
         
-        ipcRenderer.on("updateprogress", (event,progress: number) => {
+        ipcRenderer.on("updateprogress",(event,progress: number) => {
             sanhelper.devmode && console.log(`[UPDATE]: Download progress: ${parseInt(progress.toString())}%`)
             const progresswrapper = document.querySelector(`dialog .wrapper:has(> #progressbar)`) as HTMLElement
             progresswrapper && progresswrapper.style.setProperty(`--progress`,`${parseInt(progress.toString())}%`)

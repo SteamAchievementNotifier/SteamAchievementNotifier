@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Așteptând evenimentul jocului",
                 start: "Pornirea jocului",
                 stop: "Oprirea jocului",
-                achievement: "Realizare deblocată"
+                achievement: "Realizare deblocată",
+                raui: "Folosește interfața de afișare a jocului"
             }
         },
         misc: {
@@ -874,7 +875,8 @@ export const translations = {
         extwinnotify: "Comută vizibilitatea tuturor notificărilor pe ecran în timpul utilizării Stream Notifications",
         usesanwatcher: `Activează noul monitor de procese pentru jocuri al SAN<br><br><span class="ttdesc">Diferențele dintre noul SANWatcher și vechile metode de urmărire automată a proceselor sunt următoarele:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Monitorizează activ evenimentele de pornire/închidere pentru orice proces stocat în directorul de instalare al jocului</li><li>Nu necesită cunoașterea fișierului executabil al jocului pentru a elibera jocul curent</li><li>Comportamentul lansatoarelor pre-joc poate varia, astfel că nu este garantată compatibilitatea completă cu toate jocurile Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scanează directorul de instalare al jocului pentru orice fișiere executabile aflate în execuție după lansarea jocului</li><li>Necesită cunoașterea fișierului executabil al jocului pentru a elibera jocul curent</li><li>Dacă procesul jocului nu poate fi determinat automat, utilizatorul trebuie să adauge manual o nouă intrare în <span class="hl">Jocuri cu eliberare automată</span> pentru ca jocurile să fie eliberate automat</li></ul></div>`,
         releasewaittime: `Setați cât timp SANWatcher va aștepta ca noile procese de joc să fie inițializate înainte de a elibera jocul curent<br><br><span class="ttdesc">De exemplu, dacă jocul curent inițializează un lansator/fereastră de configurare înainte de a porni jocul propriu-zis, această setare determină numărul de secunde pe care SANWatcher îl va aștepta pentru ca fereastra jocului propriu-zis să apară după ce lansatorul/fereastra de configurare s-a închis<br><br>Dacă un nou proces de joc activ este detectat în acest interval de așteptare, eliberarea va fi anulată, iar noul proces activ va fi urmărit în schimb<br><br>💡 Numele jocului va <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">clipi</span> în caseta <span class="hl">Afișaj Joc</span> în timp ce jocul curent așteaptă să fie eliberat</span>`,
-        platcustomtext: `Setați un mesaj personalizat pentru finalizarea 100% a jocului care va fi afișat în notificare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Customiser > Presetare > Elementele notificării > Descrierea realizării este dezactivată</span>`
+        platcustomtext: `Setați un mesaj personalizat pentru finalizarea 100% a jocului care va fi afișat în notificare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Customiser > Presetare > Elementele notificării > Descrierea realizării este dezactivată</span>`,
+        raui: `Afișează numele jocurilor RetroAchievements detectate în interfața de afișare a jocului/zona de notificare a sistemului<br><br><span class="ttdesc">Când este activată, pot apărea comportamente neașteptate ale interfeței de afișare a jocului/zonei de notificare a sistemului dacă jocurile Steam și RetroAchievements rulează simultan</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

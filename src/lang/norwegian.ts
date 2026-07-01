@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Venter på spillhendelse",
                 start: "Starter spill",
                 stop: "Stopper spill",
-                achievement: "Oppnåelse låst opp"
+                achievement: "Oppnåelse låst opp",
+                raui: "Bruk spillvisningsgrensesnitt"
             }
         },
         misc: {
@@ -874,7 +875,8 @@ export const translations = {
         extwinnotify: "Bytt synlighet for alle varsler på skjermen mens du bruker Stream Notifications",
         usesanwatcher: `Aktiver SANs nye overvåker for spillprosesser<br><br><span class="ttdesc">Forskjellene mellom den nye SANWatcher og de gamle metodene for automatisk prosessporing er som følger:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Overvåker aktivt start-/avslutningshendelser for alle prosesser som er lagret i spillets installasjonsmappe</li><li>Krever ikke at spillets kjørbare fil er kjent for å frigjøre det nåværende spillet</li><li>Oppførselen til oppstartsprogrammer før spillet starter kan variere, så full kompatibilitet med alle Steam-spill er ikke garantert</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Skanner spillets installasjonsmappe etter kjørbare filer som kjører etter at spillet har startet</li><li>Krever at spillets kjørbare fil er kjent for å frigjøre det nåværende spillet</li><li>Hvis spillprosessen ikke kan fastslås automatisk, må brukeren manuelt legge til en ny oppføring i <span class="hl">Spill med automatisk frigivelse</span> for at spill skal frigjøres automatisk</li></ul></div>`,
         releasewaittime: `Angi hvor lenge SANWatcher skal vente på at nye spillprosesser starter før det nåværende spillet frigis<br><br><span class="ttdesc">For eksempel, hvis det nåværende spillet starter et oppstarts-/konfigurasjonsvindu før det faktiske spillet startes, bestemmer denne innstillingen hvor mange sekunder SANWatcher skal vente på at det faktiske spillvinduet skal vises etter at oppstarts-/konfigurasjonsvinduet er lukket<br><br>Hvis en ny aktiv spillprosess oppdages innenfor denne ventetiden, vil frigivelsen bli avbrutt, og den nylig aktive prosessen vil i stedet bli sporet<br><br>💡 Spillnavnet vil <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinke</span> i boksen <span class="hl">Spillvisning</span> mens det nåværende spillet venter på å bli frigitt</span>`,
-        platcustomtext: `Angi en egendefinert melding for 100 % fullføring av spillet som skal vises i varselet<br><br><span class="ttdesc">Dette alternativet vil være skjult når Customiser > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`
+        platcustomtext: `Angi en egendefinert melding for 100 % fullføring av spillet som skal vises i varselet<br><br><span class="ttdesc">Dette alternativet vil være skjult når Customiser > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`,
+        raui: `Vis navnene på oppdagede RetroAchievements-spill i spillvisningsgrensesnittet/systemstatusfeltet<br><br><span class="ttdesc">Når dette er aktivert, kan uventet oppførsel oppstå i spillvisningsgrensesnittet/systemstatusfeltet hvis både Steam- og RetroAchievements-spill kjører samtidig</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

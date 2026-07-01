@@ -135,6 +135,7 @@ declare interface Config {
     rauser: string,
     rakey: string,
     rauseemudir: boolean,
+    raui: boolean,
     exportachdata: boolean,
     colorprofile: "none" | "srgb" | "display-p3-d65" | "color-spin-gamma24" | "scrgb-linear" | "hdr10",
     replaynotifyshortcut: string,

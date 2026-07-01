@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Aguardando pelo evento do jogo",
                 start: "Iniciando o jogo",
                 stop: "Parando o jogo",
-                achievement: "Conquista desbloqueada"
+                achievement: "Conquista desbloqueada",
+                raui: "Usar a Interface de Exibição do Jogo"
             }
         },
         misc: {
@@ -874,7 +875,8 @@ export const translations = {
         extwinnotify: "Alterna a visibilidade de todas as notificações na tela ao usar Stream Notifications",
         usesanwatcher: `Ativar o novo monitor de processos de jogos do SAN<br><br><span class="ttdesc">As diferenças entre o novo SANWatcher e os métodos antigos de rastreamento automático de processos são as seguintes:<br><br><div class="wrapper sanwatcher"><span class="hl">LIGADO</span><ul><li>Monitora ativamente eventos de início/encerramento de qualquer processo armazenado dentro do diretório de instalação do jogo</li><li>Não exige que o executável do jogo seja conhecido para liberar o jogo atual</li><li>O comportamento de inicializadores pré-jogo pode variar, portanto a compatibilidade total com todos os jogos da Steam não é garantida</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">DESLIGADO</span><ul><li>Analisa o diretório de instalação do jogo em busca de executáveis em execução após o lançamento do jogo</li><li>Exige que o executável do jogo seja conhecido para liberar o jogo atual</li><li>Se o processo do jogo não puder ser determinado automaticamente, o usuário deverá adicionar manualmente uma nova entrada em <span class="hl">Liberação Automática de Jogos</span> para que os jogos sejam liberados automaticamente</li></ul></div>`,
         releasewaittime: `Defina por quanto tempo o SANWatcher aguardará o surgimento de novos processos de jogo antes de liberar o jogo atual<br><br><span class="ttdesc">Por exemplo, se o jogo atual abrir um iniciador/janela de configuração antes do jogo propriamente dito, esta configuração determina o número de segundos que o SANWatcher aguardará o surgimento da janela do jogo real após o fechamento do iniciador/janela de configuração<br><br>Se um novo processo de jogo ativo for detectado dentro desse período de espera, a liberação será cancelada e o novo processo ativo passará a ser monitorado em seu lugar<br><br>💡 O nome do jogo <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">piscará</span> na caixa <span class="hl">Exibição do Jogo</span> enquanto o jogo atual estiver aguardando para ser liberado</span>`,
-        platcustomtext: `Defina uma mensagem personalizada de conclusão de jogo em 100% para ser exibida na notificação<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos da Notificação > Descrição da Conquista estiver desativado</span>`
+        platcustomtext: `Defina uma mensagem personalizada de conclusão de jogo em 100% para ser exibida na notificação<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos da Notificação > Descrição da Conquista estiver desativado</span>`,
+        raui: `Exibe os nomes dos jogos RetroAchievements detectados na Interface de Exibição do Jogo/bandeja do sistema<br><br><span class="ttdesc">Quando ativado, pode ocorrer um comportamento inesperado na Interface de Exibição do Jogo/bandeja do sistema se jogos do Steam e do RetroAchievements estiverem em execução simultaneamente</span>`
     },
     update: {
         updateavailable: "Atualização disponível",

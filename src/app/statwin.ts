@@ -7,6 +7,14 @@ import { log } from "./log"
 import { cssreplacemap, cssrevreplacemap } from "./keycodes"
 import Sortable from "sortablejs"
 
+declare global {
+    interface Window {
+        appid: number,
+        statsobj: StatsObj | null,
+        translations: StatsObjTranslations | null
+    }
+}
+
 const zoomlvl = localStorage.getItem("statwinzoomlvl")
 webFrame.setZoomLevel((zoomlvl && JSON.parse(zoomlvl)) || 0)
 
@@ -43,9 +51,9 @@ const ignore = [
     "complete"
 ]
 
-let globalappid = 0
-let globalstatsobj: StatsObj | null = null
-let globaltranslations: StatsObjTranslations | null = null
+window.appid = 0
+window.statsobj = null
+window.translations = null
 
 const getapiname = (elem: Element,ra?: boolean) => ra ? elem.id.replace(/^ACH\_/,"") : esc(elem.id.replace(/^ACH\_/,""),true)
 
@@ -83,7 +91,7 @@ const sortachievementlist = (a: string,b: string,order: StatsEntry[],displaymode
 
 const setmaxachievements = (elem: HTMLSelectElement | HTMLInputElement,order: StatsEntry[],displaymode: "locked" | "unlocked") => {
     try {
-        if (!globalappid) throw new Error(`No game detected by "statwin"`)
+        if (!window.appid) throw new Error(`No game detected by "statwin"`)
         
         const achievementswrapper = document.getElementById("achievements")!
         const filter = Array.from(achievementswrapper.children)
@@ -99,9 +107,9 @@ const setmaxachievements = (elem: HTMLSelectElement | HTMLInputElement,order: St
             })
             
         const value = elem.value === "max" ? filter.length : parseInt(elem.value)
-    
-        const displayed = maxdisplay(globalappid,value,filter)
-        if (!displayed) throw new Error(`No achievements were found in localStorage for AppID "${globalappid}"`)
+
+        const displayed = maxdisplay(window.appid,value,filter)
+        if (!displayed) throw new Error(`No achievements were found in localStorage for AppID "${window.appid}"`)
     
         for (const achievement of filter) {
             achievement.toggleAttribute("nodisplay",!displayed.includes(achievement))
@@ -122,7 +130,7 @@ const isiconcached = (achievement: Achievement,noiconcache?: boolean) => {
 
 const cacheicon = async (achievement: Achievement) => {
     return new Promise<string>(resolve => {
-        ipcRenderer.once(`iconpath_${achievement.apiname}`, (event,iconpath: string | null) => {
+        ipcRenderer.once(`iconpath_${achievement.apiname}`,(event,iconpath: string | null) => {
             if (iconpath) return resolve(iconpath.replace(/\\/g,"/"))
 
             log.write("WARN",`Unable to get achievement icon for "${achievement.apiname}"`)
@@ -145,7 +153,7 @@ const updateprogressbar = (achievements: Achievement[],progressbar: HTMLElement)
 const esc = (str: string,unesc?: boolean,iconpath?: boolean): string => {
     if (unesc) {
         for (const [value,key] of cssrevreplacemap) {
-            str = str.replace(new RegExp(value,"g"), key)
+            str = str.replace(new RegExp(value,"g"),key)
         }
 
         return str
@@ -158,8 +166,8 @@ const unlocked = new Map<string,boolean>()
 let ramode: "hard" | "soft" = "hard" // Default to Hardcore mode
 
 const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslations,init?: boolean) => {
-    globalstatsobj = statsobj
-    globaltranslations = translations
+    window.statsobj = statsobj
+    window.translations = translations
 
     const { appid, gamename, achievements, ra, mode } = statsobj
     const { nogame, noachievements, startgame } = translations
@@ -181,7 +189,7 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
         .filter(node => !ignore.includes(node.id))
         .forEach(node => node.remove())
 
-    globalappid = appid
+    window.appid = appid
 
     if (!appid) {
         ramode = "hard" // Reset to default Hardcore mode on game exit
@@ -330,7 +338,7 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
 ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslations,init?: boolean) => buildachievementlist(statsobj,translations,init))
 ipcRenderer.on("statwinaot",(event,value: boolean) => document.body.toggleAttribute("aot",value))
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded",() => {
     document.getElementById("close")!.onclick = () => window.close()
     document.getElementById("reorder")!.onclick = () => document.body.toggleAttribute("reorder",!document.body.hasAttribute("reorder"))
     document.getElementById("spoilers")!.onclick = () => {
@@ -356,7 +364,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         document.body.setAttribute("displaymode",`${displaymode}`)
         
-        globalstatsobj && globaltranslations && buildachievementlist(globalstatsobj,globaltranslations,true)
+        window.statsobj && window.translations && buildachievementlist(window.statsobj,window.translations,true)
     }
 
     const winopacity = document.getElementById("winopacity")!
@@ -382,7 +390,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const input = document.getElementById("maxcustom") as HTMLInputElement
         const elem = select.value === "custom" ? input : select
 
-        setmaxachievements(elem,lsitem[globalappid],statwindisplaymode)
+        setmaxachievements(elem,lsitem[window.appid],statwindisplaymode)
     }
 
     const maxcustomelem = document.getElementById("maxcustom") as HTMLInputElement
@@ -397,7 +405,7 @@ window.addEventListener("DOMContentLoaded", () => {
         if (!input.value || parseInt(input.value) > parseInt(input.max) || parseInt(input.value) < 1) return input.value = `${current}`
 
         current = parseInt(input.value)
-        setmaxachievements(input,lsitem[globalappid],statwindisplaymode)
+        setmaxachievements(input,lsitem[window.appid],statwindisplaymode)
     }
 
     ipcRenderer.send("statwinready")

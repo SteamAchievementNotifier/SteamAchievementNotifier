@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Wachten op game-evenement",
                 start: "Spel starten",
                 stop: "Spel stoppen",
-                achievement: "Prestatie ontgrendeld"
+                achievement: "Prestatie ontgrendeld",
+                raui: "Gameweergave-UI gebruiken"
             }
         },
         misc: {
@@ -874,7 +875,8 @@ export const translations = {
         extwinnotify: "Schakelt de zichtbaarheid van alle meldingen op het scherm tijdens het gebruik van Stream Notifications",
         usesanwatcher: `Schakel SAN's nieuwe controlefunctie voor spelprocessen in<br><br><span class="ttdesc">De verschillen tussen de nieuwe SANWatcher en de oude methoden voor automatische procesdetectie zijn als volgt:<br><br><div class="wrapper sanwatcher"><span class="hl">AAN</span><ul><li>Controleert actief start-/afsluitgebeurtenissen van elk proces dat is opgeslagen in de installatiemap van het spel</li><li>Vereist niet dat het uitvoerbare bestand van het spel bekend is om het huidige spel vrij te geven</li><li>Het gedrag van opstartprogramma's vóór het spel kan verschillen, waardoor volledige compatibiliteit met alle Steam-spellen niet kan worden gegarandeerd</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">UIT</span><ul><li>Scant de installatiemap van het spel op actieve uitvoerbare bestanden nadat het spel is gestart</li><li>Vereist dat het uitvoerbare bestand van het spel bekend is om het huidige spel vrij te geven</li><li>Als het spelproces niet automatisch kan worden vastgesteld, moet de gebruiker handmatig een nieuwe vermelding toevoegen aan <span class="hl">Automatisch vrijgeven van spellen</span> zodat spellen automatisch kunnen worden vrijgegeven</li></ul></div>`,
         releasewaittime: `Stel in hoe lang SANWatcher wacht totdat nieuwe gameprocessen worden gestart voordat de huidige game wordt vrijgegeven<br><br><span class="ttdesc">Als de huidige game bijvoorbeeld eerst een opstart-/configuratievenster opent voordat de daadwerkelijke game wordt gestart, bepaalt deze instelling hoeveel seconden SANWatcher wacht totdat het daadwerkelijke gamevenster verschijnt nadat het opstart-/configuratievenster is gesloten<br><br>Als binnen deze wachttijd een nieuw actief gameproces wordt gedetecteerd, wordt de vrijgave geannuleerd en wordt in plaats daarvan het nieuw actieve proces gevolgd<br><br>💡 De naam van de game zal <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">knipperen</span> in het vak <span class="hl">Gameweergave</span> terwijl de huidige game wacht om te worden vrijgegeven</span>`,
-        platcustomtext: `Stel een aangepast bericht voor 100% spelvoltooiing in dat in de melding wordt weergegeven<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Customiser > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`
+        platcustomtext: `Stel een aangepast bericht voor 100% spelvoltooiing in dat in de melding wordt weergegeven<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Customiser > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`,
+        raui: `Toon de namen van gedetecteerde RetroAchievements-games in de Gameweergave-/systeemvak-UI<br><br><span class="ttdesc">Wanneer ingeschakeld, kan onverwacht gedrag optreden in de Gameweergave-/systeemvak-UI als zowel Steam- als RetroAchievements-games tegelijkertijd actief zijn</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

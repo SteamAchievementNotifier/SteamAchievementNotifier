@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Waiting for game event",
                 start: "Starting game",
                 stop: "Stopping game",
-                achievement: "Achievement unlocked"
+                achievement: "Achievement unlocked",
+                raui: "Use Game Display UI"
             }
         },
         misc: {
@@ -870,11 +871,12 @@ export const translations = {
         gametimerwinshortcut: "Toggle the Game Completion Timer using the specified keyboard shortcut",
         gametimerwinaot: `Set the Game Completion Timer to "Always on Top" mode, allowing the window to be displayed above the game window<br><br><span class="ttdesc">When enabled, the Game Completion Timer will no longer register user interactions, such as "click" events. To re-enable interaction with the window, this option must be disabled</span>`,
         resetgametimer: "Reset the Game Completion Timer for the current game",
-        noshortcuts: `Disables all in-app keyboard shortcuts<br><br><span class="ttdesc">When enabled, <u>all in-app shortcuts will no longer function</u>. All options related to keyboard shortcuts will also be hidden</span>`,
+        noshortcuts: `Disable all in-app keyboard shortcuts<br><br><span class="ttdesc">When enabled, <u>all in-app shortcuts will no longer function</u>. All options related to keyboard shortcuts will also be hidden</span>`,
         extwinnotify: "Toggle visibility of all onscreen notifications while using Stream Notifications",
         usesanwatcher: `Enable SAN's new game process watcher<br><br><span class="ttdesc">Differences between the new SANWatcher/old automatic process tracking methods are as follows:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Actively monitors start/exit events for any process stored inside the game's installation directory</li><li>Does not require game executable to be known to release current game</li><li>Pre-game launcher behaviour can vary, so full compatibility with all Steam games is not guaranteed</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scans game installation directory for any running executables after game launch</li><li>Requires game executable to be known to release current game</li><li>If game process cannot be determined automatically, the user must manually add a new entry to <span class="hl">Auto-Release Games</span> for games to be released automatically</li></ul></div>`,
         releasewaittime: `Set how long SANWatcher will wait for new game processes to spawn before releasing the current game<br><br><span class="ttdesc">For example, if the current game spawns a pre-game launcher/configuration window before launching the actual game, this setting determines the number of seconds SANWatcher will wait for the actual game window to spawn after the pre-game launcher/configuration window has closed<br><br>If a new active game process is detected within this wait time, the release will be cancelled and the newly active process will then be tracked instead<br><br>💡 The game name will <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">flash</span> in the <span class="hl">Game Display</span> box while the current game is waiting to release</span>`,
-        platcustomtext: `Set a custom 100% game completion message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`
+        platcustomtext: `Set a custom 100% game completion message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`,
+        raui: `Display the names of detected RetroAchievements games in the Game Display/system tray UI<br><br><span class="ttdesc">When enabled, unexpected Game Display/system tray UI behaviour may occur if both Steam and RetroAchievements games are running simultaneously</span>`
     },
     update: {
         updateavailable: "Update available",

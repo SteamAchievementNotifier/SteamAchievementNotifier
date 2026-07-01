@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Warten auf Spielereignis",
                 start: "Spiel starten",
                 stop: "Spiel stoppen",
-                achievement: "Erfolg freigeschaltet"
+                achievement: "Erfolg freigeschaltet",
+                raui: "Spielanzeige-Benutzeroberfläche verwenden"
             }
         },
         misc: {
@@ -874,7 +875,8 @@ export const translations = {
         extwinnotify: "Schaltet die Sichtbarkeit aller Bildschirmbenachrichtigungen bei der Verwendung von Stream Notifications um",
         usesanwatcher: `SANs neue Überwachung für Spielprozesse aktivieren<br><br><span class="ttdesc">Die Unterschiede zwischen dem neuen SANWatcher und den alten Methoden zur automatischen Prozessverfolgung sind wie folgt:<br><br><div class="wrapper sanwatcher"><span class="hl">EIN</span><ul><li>Überwacht aktiv Start-/Beendigungsereignisse aller Prozesse, die sich im Installationsverzeichnis des Spiels befinden</li><li>Es ist nicht erforderlich, die ausführbare Datei des Spiels zu kennen, um das aktuelle Spiel freizugeben</li><li>Das Verhalten von vorgeschalteten Launchern kann variieren, daher kann eine vollständige Kompatibilität mit allen Steam-Spielen nicht garantiert werden</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">AUS</span><ul><li>Durchsucht nach dem Start des Spiels das Installationsverzeichnis nach laufenden ausführbaren Dateien</li><li>Erfordert die Kenntnis der ausführbaren Datei des Spiels, um das aktuelle Spiel freizugeben</li><li>Wenn der Spielprozess nicht automatisch ermittelt werden kann, muss der Benutzer manuell einen neuen Eintrag zu <span class="hl">Automatische Spielfreigabe</span> hinzufügen, damit Spiele automatisch freigegeben werden können</li></ul></div>`,
         releasewaittime: `Legen Sie fest, wie lange SANWatcher auf das Starten neuer Spielprozesse wartet, bevor das aktuelle Spiel freigegeben wird<br><br><span class="ttdesc">Wenn das aktuelle Spiel beispielsweise vor dem eigentlichen Spiel ein Start-/Konfigurationsfenster öffnet, bestimmt diese Einstellung, wie viele Sekunden SANWatcher nach dem Schließen des Start-/Konfigurationsfensters auf das Erscheinen des eigentlichen Spielfensters wartet<br><br>Wird innerhalb dieser Wartezeit ein neuer aktiver Spielprozess erkannt, wird die Freigabe abgebrochen und stattdessen der neu aktive Prozess verfolgt<br><br>💡 Der Spielname wird im Feld <span class="hl">Spielanzeige</span> <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinken</span>, während das aktuelle Spiel auf die Freigabe wartet</span>`,
-        platcustomtext: `Legen Sie eine benutzerdefinierte Nachricht für den 100%-Spielabschluss fest, die in der Benachrichtigung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Customiser > Voreinstellung > Benachrichtigungselemente > Erfolgsbeschreibung deaktiviert ist</span>`
+        platcustomtext: `Legen Sie eine benutzerdefinierte Nachricht für den 100%-Spielabschluss fest, die in der Benachrichtigung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Customiser > Voreinstellung > Benachrichtigungselemente > Erfolgsbeschreibung deaktiviert ist</span>`,
+        raui: `Zeigt die Namen erkannter RetroAchievements-Spiele in der Spielanzeige-/Infobereich-Benutzeroberfläche an<br><br><span class="ttdesc">Wenn aktiviert, kann es zu unerwartetem Verhalten der Spielanzeige-/Infobereich-Benutzeroberfläche kommen, wenn Steam- und RetroAchievements-Spiele gleichzeitig ausgeführt werden</span>`
     },
     update: {
         updateavailable: "Update verfügbar",

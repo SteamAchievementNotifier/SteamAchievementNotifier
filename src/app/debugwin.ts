@@ -19,7 +19,7 @@ const getdebuginfo = (debuginfo: DebugInfo) => {
     return lbls
 }
 
-ipcRenderer.on("debuginfoupdated", (event,debuginfo: DebugInfo,reset?: boolean) => {
+ipcRenderer.on("debuginfoupdated",(event,debuginfo: DebugInfo,reset?: boolean) => {
     const { processes } = debuginfo
     const lbls = getdebuginfo(debuginfo)
 
@@ -70,4 +70,4 @@ ipcRenderer.on("debuginfoupdated", (event,debuginfo: DebugInfo,reset?: boolean) 
     })
 })
 
-document.addEventListener("DOMContentLoaded", () => ipcRenderer.send("debugwinready"))
+document.addEventListener("DOMContentLoaded",() => ipcRenderer.send("debugwinready"))

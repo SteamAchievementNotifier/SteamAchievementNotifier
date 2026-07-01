@@ -315,7 +315,7 @@ export const usertheme = {
     },
     import: async () => {
         const { language } = await import("./language")
-        const importhandler = () => ipcRenderer.once("importtheme", async (event,file: string) => {
+        const importhandler = () => ipcRenderer.once("importtheme",async (event,file: string) => {
             if (!file) return
             if (path.extname(file[0]) !== ".san") return log.write("WARN",`"${file[0]}" is not a valid import file`)
 
@@ -433,7 +433,7 @@ export const usertheme = {
     export: () => {
         const src = path.join(sanhelper.appdata,"temp","exporttheme")
 
-        ipcRenderer.once("exporttheme", async (event,dest: string | undefined) => {
+        ipcRenderer.once("exporttheme",async (event,dest: string | undefined) => {
             if (!dest) return
 
             const { default: AdmZip } = await import("adm-zip")

@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Đang chờ sự kiện trò chơi",
                 start: "Bắt đầu trò chơi",
                 stop: "Dừng trò chơi",
-                achievement: "Thành tựu đã mở khóa"
+                achievement: "Thành tựu đã mở khóa",
+                raui: "Sử dụng giao diện hiển thị trò chơi"
             }
         },
         misc: {
@@ -874,7 +875,8 @@ export const translations = {
         extwinnotify: "Bật/tắt hiển thị tất cả thông báo trên màn hình khi sử dụng Stream Notifications",
         usesanwatcher: `Bật trình theo dõi tiến trình trò chơi mới của SAN<br><br><span class="ttdesc">Sự khác biệt giữa SANWatcher mới và các phương pháp theo dõi tiến trình tự động cũ như sau:<br><br><div class="wrapper sanwatcher"><span class="hl">BẬT</span><ul><li>Chủ động theo dõi các sự kiện khởi động và kết thúc của mọi tiến trình nằm trong thư mục cài đặt trò chơi</li><li>Không yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Hành vi của các trình khởi chạy trước khi vào trò chơi có thể khác nhau, vì vậy không đảm bảo khả năng tương thích hoàn toàn với tất cả các trò chơi Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">TẮT</span><ul><li>Quét thư mục cài đặt trò chơi để tìm các tệp thực thi đang chạy sau khi trò chơi được khởi động</li><li>Yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Nếu không thể tự động xác định tiến trình trò chơi, người dùng phải tự thêm một mục mới vào <span class="hl">Trò chơi Giải phóng Tự động</span> để trò chơi có thể được giải phóng tự động</li></ul></div>`,
         releasewaittime: `Đặt khoảng thời gian SANWatcher sẽ chờ các tiến trình trò chơi mới khởi chạy trước khi giải phóng trò chơi hiện tại<br><br><span class="ttdesc">Ví dụ: nếu trò chơi hiện tại khởi chạy một trình khởi chạy/cửa sổ cấu hình trước khi vào trò chơi trước khi khởi chạy trò chơi thực tế, cài đặt này sẽ xác định số giây SANWatcher sẽ chờ cửa sổ trò chơi thực tế xuất hiện sau khi trình khởi chạy/cửa sổ cấu hình trước trò chơi đã đóng<br><br>Nếu một tiến trình trò chơi đang hoạt động mới được phát hiện trong khoảng thời gian chờ này, việc giải phóng sẽ bị hủy và tiến trình mới được kích hoạt sẽ được theo dõi thay thế<br><br>💡 Tên trò chơi sẽ <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">nhấp nháy</span> trong hộp <span class="hl">Hiển thị trò chơi</span> khi trò chơi hiện tại đang chờ được giải phóng</span>`,
-        platcustomtext: `Đặt thông báo tùy chỉnh cho việc hoàn thành 100% trò chơi để hiển thị trong thông báo<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Customiser > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị vô hiệu hóa</span>`
+        platcustomtext: `Đặt thông báo tùy chỉnh cho việc hoàn thành 100% trò chơi để hiển thị trong thông báo<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Customiser > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị vô hiệu hóa</span>`,
+        raui: `Hiển thị tên các trò chơi RetroAchievements được phát hiện trong giao diện hiển thị trò chơi/khu vực khay hệ thống<br><br><span class="ttdesc">Khi được bật, có thể xảy ra hành vi không mong muốn của giao diện hiển thị trò chơi/khu vực khay hệ thống nếu trò chơi Steam và RetroAchievements đang chạy đồng thời</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

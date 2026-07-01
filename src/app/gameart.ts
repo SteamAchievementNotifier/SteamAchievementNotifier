@@ -139,7 +139,7 @@ export const gameart = {
 
         // If no parseable AppID folders exist in `<steampath>/appcache/librarycache`, return a random file in `librarycache` matching the below criteria
         const entries = gameart.getrandomdirentries(libcache)
-        const filepath = entries.find(file => new RegExp(`^\\d+_${type}\\.(?:jpg|png)$`, 'i').test(file))
+        const filepath = entries.find(file => new RegExp(`^\\d+_${type}\\.(?:jpg|png)$`,"i").test(file))
 
         return filepath ? path.join(libcache,filepath).replace(/\\/g,"/") : null
     }

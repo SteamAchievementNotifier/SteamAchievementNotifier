@@ -23,7 +23,7 @@ export const audio = {
         let selected = pendingaudio.find(pending => pending.type === "plat") || pendingaudio[0]
         
         const filtered = pendingaudio.filter(pending => ["main","semi","rare"].includes(pending.type))
-        if (filtered.length) selected = filtered.reduce((lowest,cur) => cur.info.info.percent.value < lowest.info.info.percent.value ? cur : lowest, filtered[0])
+        if (filtered.length) selected = filtered.reduce((lowest,cur) => cur.info.info.percent.value < lowest.info.info.percent.value ? cur : lowest,filtered[0])
 
         selected.info.skipaudio = false
 

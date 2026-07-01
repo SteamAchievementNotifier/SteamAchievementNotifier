@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Odottaminen pelitapahtumaa",
                 start: "Pelin aloitus",
                 stop: "Pelin lopetus",
-                achievement: "Saavutus avattu"
+                achievement: "Saavutus avattu",
+                raui: "Käytä pelinäyttökäyttöliittymää"
             }
         },
         misc: {
@@ -874,7 +875,8 @@ export const translations = {
         extwinnotify: "Vaihtaa kaikkien näytöllä näkyvien ilmoitusten näkyvyyttä käytettäessä Stream Notifications -ominaisuutta",
         usesanwatcher: `Ota käyttöön SAN:n uusi peliprosessien valvonta<br><br><span class="ttdesc">Uuden SANWatcherin ja vanhojen automaattisten prosessienseurantamenetelmien erot ovat seuraavat:<br><br><div class="wrapper sanwatcher"><span class="hl">PÄÄLLÄ</span><ul><li>Valvoo aktiivisesti kaikkien pelin asennushakemistossa olevien prosessien käynnistys- ja lopetustapahtumia</li><li>Ei edellytä pelin suoritettavan tiedoston tuntemista nykyisen pelin vapauttamiseksi</li><li>Peliä edeltävien käynnistysohjelmien toiminta voi vaihdella, joten täyttä yhteensopivuutta kaikkien Steam-pelien kanssa ei voida taata</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">POIS PÄÄLTÄ</span><ul><li>Tarkistaa pelin asennushakemistosta käynnissä olevat suoritettavat tiedostot pelin käynnistyksen jälkeen</li><li>Edellyttää pelin suoritettavan tiedoston tuntemista nykyisen pelin vapauttamiseksi</li><li>Jos peliprosessia ei voida määrittää automaattisesti, käyttäjän on lisättävä manuaalisesti uusi merkintä kohtaan <span class="hl">Pelien automaattinen vapautus</span>, jotta pelit voidaan vapauttaa automaattisesti</li></ul></div>`,
         releasewaittime: `Määritä, kuinka kauan SANWatcher odottaa uusien peliprosessien käynnistymistä ennen nykyisen pelin vapauttamista<br><br><span class="ttdesc">Jos esimerkiksi nykyinen peli käynnistää ennen varsinaista peliä esikäynnistys- tai asetusikkunan, tämä asetus määrittää, kuinka monta sekuntia SANWatcher odottaa varsinaisen peli-ikkunan ilmestymistä sen jälkeen, kun esikäynnistys- tai asetusikkuna on suljettu<br><br>Jos uusi aktiivinen peliprosessi havaitaan tämän odotusajan kuluessa, vapautus peruutetaan ja uutta aktiivista prosessia seurataan sen sijaan<br><br>💡 Pelin nimi <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">vilkkuu</span> <span class="hl">Pelinäyttö</span>-ruudussa, kun nykyinen peli odottaa vapauttamista</span>`,
-        platcustomtext: `Aseta mukautettu viesti pelin 100 %:n läpäisystä näytettäväksi ilmoituksessa<br><br><span class="ttdesc">Tämä asetus piilotetaan, kun Customiser > Esiasetus > Ilmoituksen elementit > Saavutuksen kuvaus on poistettu käytöstä</span>`
+        platcustomtext: `Aseta mukautettu viesti pelin 100 %:n läpäisystä näytettäväksi ilmoituksessa<br><br><span class="ttdesc">Tämä asetus piilotetaan, kun Customiser > Esiasetus > Ilmoituksen elementit > Saavutuksen kuvaus on poistettu käytöstä</span>`,
+        raui: `Näytä havaittujen RetroAchievements-pelien nimet pelinäyttö-/järjestelmäalueen käyttöliittymässä<br><br><span class="ttdesc">Kun tämä on käytössä, pelinäyttö-/järjestelmäalueen käyttöliittymä voi toimia odottamattomasti, jos sekä Steam- että RetroAchievements-pelit ovat käynnissä samanaikaisesti</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

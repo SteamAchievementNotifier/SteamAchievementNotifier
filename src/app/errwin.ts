@@ -9,7 +9,7 @@ dialog.init("ERROR")
 
 ipcRenderer.on("err",(event,err: Error | string) => document.querySelector(".errorbox > code")!.textContent = err instanceof Error ? err.stack! : err)
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded",async () => {
     document.getElementById("subtitle")!.textContent = await language.get("subtitle",["error","content"])
     document.querySelector(".errorbox > div > span")!.textContent = await language.get("details",["error","content"])
 

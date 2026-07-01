@@ -144,11 +144,11 @@ export const sanhelper: SANHelper = {
             log.write("ERROR",err)
         }
         
-        ipcRenderer.on("error", (event,err) => handleerr((err as Error).stack || err as string))
+        ipcRenderer.on("error",(event,err) => handleerr((err as Error).stack || err as string))
         window.onerror = (event,src,lineno,colno,err) => handleerr(err ? `${err.stack}` : event.toString())
         window.onunhandledrejection = err => handleerr(err.toString())
-        process.on("uncaughtException", (err: Error) => handleerr(`${err.stack}`))
-        process.on("unhandledRejection", (err: Error) => handleerr(`${err.stack}`))
+        process.on("uncaughtException",(err: Error) => handleerr(`${err.stack}`))
+        process.on("unhandledRejection",(err: Error) => handleerr(`${err.stack}`))
     },
     settypevalue: <T>(type: NotifyType,values: { main: T,semi: T,rare: T,plat: T }) => values[type],
     // On build, the Notifications API cannot access the `img` files within the asar
@@ -162,7 +162,7 @@ export const sanhelper: SANHelper = {
         return new Promise<Display[]>(resolve => {
             const monitors: Display[] = []
     
-            ipcRenderer.once("displays", (event,displays: {
+            ipcRenderer.once("displays",(event,displays: {
                 primary: Display,
                 all: Display[]
             }) => {
@@ -197,7 +197,7 @@ export const sanhelper: SANHelper = {
         win.webContents.openDevTools({ mode: "detach" })
         devtools.setPosition(Math.round(width - (width / 5 + 20)),Math.round((height - (height / 1.125)) / 2))
 
-        win.once("closed", () => devtools.destroy())
+        win.once("closed",() => devtools.destroy())
 
         return
     },
@@ -381,6 +381,7 @@ export const sanhelper: SANHelper = {
     workerdebug: () => ipcRenderer.send("releasegame",true),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
+    raui: (value: boolean) => ipcRenderer.send("raui",value),
     trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {
         // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled
         ;(async () => await sanhelper.verifylocalstorage("themeswitch"))()

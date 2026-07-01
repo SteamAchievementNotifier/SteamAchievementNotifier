@@ -321,6 +321,7 @@ export const sanconfig = {
                 rauser: "",
                 rakey: "",
                 rauseemudir: false,
+                raui: false,
                 exportachdata: false,
                 colorprofile: "none",
                 replaynotifyshortcut: "CTRL+SHIFT+BACKSPACE",

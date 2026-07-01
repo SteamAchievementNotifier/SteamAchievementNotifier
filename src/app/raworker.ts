@@ -4,9 +4,18 @@ import { sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { getlogmap, getlastactions, executeaction, testraunlock, emu, rasupported, racached } from "./ra"
 
+declare global {
+    interface Window {
+        gameid: number,
+        testraunlock: Function,
+        racached: any
+    }
+}
+
 window.addEventListener("DOMContentLoaded",() => ipcRenderer.send("raworkerready"))
 
-let gameid = 0
+window.gameid = 0
+
 let ratimer: NodeJS.Timeout | null = null
 const logactions = new Set<string>()
 const lastlog: { [key: string]: string } = {}
@@ -72,7 +81,7 @@ const startra = () => {
                 const { action, value: appid, mode } = newaction
                 if (appid === null) continue
 
-                if (action !== "achievement") gameid = action === "start" ? appid : 0
+                if (action !== "achievement") window.gameid = action === "start" ? appid : 0
                 const live = action !== "stop"
 
                 const {
@@ -95,19 +104,20 @@ const startra = () => {
                     }
                 }
 
-                statsobj.appid = gameid
+                statsobj.appid = window.gameid
                 statsobj.gamename = gamename
                 statsobj.achievements = achievements
                 statsobj.mode = mode
 
                 ipcRenderer.send("stats",statsobj,action === "start")
                 
-                workerinfo.appid = gameid
+                workerinfo.appid = window.gameid
                 workerinfo.gamename = gamename
                 workerinfo.achnum = achnum
                 workerinfo.allunlocked = allunlocked
 
                 ipcRenderer.emit("gametimer")
+                action !== "achievement" && ipcRenderer.send("gameid",workerinfo)
             }
         }
     },1000)
@@ -124,5 +134,6 @@ ipcRenderer.on("rastop",() => {
     log.write("INFO",`"ratimer" stopped`)
 })
 
+ipcRenderer.on("gameid",() => ipcRenderer.send("gameid",workerinfo))
 ipcRenderer.on("emu",() => ipcRenderer.send("emu",emu))
 ipcRenderer.on("stats",(event,init: boolean) => ipcRenderer.send("stats",statsobj,init)) // Sent from "statwinready" IPC event in `listeners.ts`

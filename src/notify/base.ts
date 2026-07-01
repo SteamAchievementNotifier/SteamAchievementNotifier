@@ -266,7 +266,7 @@ const notifyhelper = {
 try {
     document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send(`animend_${notifyid}`,notifyid))
     
-    ipcRenderer.on("notify", async (event,obj: Info,id: number) => {
+    ipcRenderer.on("notify",async (event,obj: Info,id: number) => {
         const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notify1line, ra } = obj
         notifyid = id // Store globally to access in "notifyfinished" IPC event
     
@@ -420,7 +420,7 @@ try {
         try {
             if (isextwin) return ipcRenderer.send("notifyclosed",id,isextwin,preset)
         
-            document.body.addEventListener("transitionend", (event: TransitionEvent) => event.propertyName === "opacity" && ipcRenderer.send("notifyfinished",id))
+            document.body.addEventListener("transitionend",(event: TransitionEvent) => event.propertyName === "opacity" && ipcRenderer.send("notifyfinished",id))
             document.documentElement.style.setProperty("--bodyopacity","0")
         } catch (err) {
             ipcRenderer.send("notifyfailed",err as Error,id)

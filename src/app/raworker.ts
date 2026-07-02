@@ -90,7 +90,7 @@ const startra = () => {
                     achnum,
                     allunlocked
                 } = {
-                    gamename: live ? racached[0].gamename : null,
+                    gamename: live ? (racached[0]?.gamename || null) : null,
                     achievements: live ? racached as any : undefined,
                     achnum: live ? racached.length : undefined,
                     allunlocked: live ? (racached.length ? racached.every(ach => ach.unlocked) : false) : undefined

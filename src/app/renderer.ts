@@ -47,6 +47,7 @@ const resourceusage = () => {
     ipcRenderer.once("resourceusage",(event,resourceusage: ResourceUsage) => console.log(resourceusage))
     ipcRenderer.send("resourceusage")
 }
+
 window.resourceusage = resourceusage
 
 const gpu = () => ipcRenderer.send("gpu")
@@ -871,8 +872,16 @@ window.gamename = null
 const gamelbl =  document.querySelector(`.rect#game > span`)!
 gamelbl.addEventListener("updategamelbl",async () => await sanhelper.updategamelbl(window.gamename))
 
+ipcRenderer.on("gamedisplay",(event,gamedisplay: GameDisplayInfo) => {
+    window.gamename = gamedisplay.gamename // Fixes issue where gamename is reset to default upon opening a dialog
+    window.achnum = gamedisplay.achnum
+
+    gamelbl.parentElement!.toggleAttribute("novalue",!window.gamename)
+    sanhelper.updategamelbl(window.gamename)
+})
+
 ipcRenderer.on("appid",async (event,workerinfo: WorkerInfo) => {
-    const { appid, gamename, achnum } = workerinfo
+    const { appid, gamename } = workerinfo
     
     if (!config.get("soundonly") && appid !== 0 && gamename) sanhelper.showtrack(gamename)
 
@@ -880,28 +889,12 @@ ipcRenderer.on("appid",async (event,workerinfo: WorkerInfo) => {
         window[key] = workerinfo[key] || 0
     }
 
-    window.achnum = achnum
-    window.gamename = gamename || null // Fixes issue where gamename is reset to default upon opening a dialog
-    
-    gamelbl.parentElement!.toggleAttribute("novalue",!window.gamename)
-    sanhelper.updategamelbl(window.gamename)
-
     const enabled = appid ? usertheme.themeswitchinfo(config,appid).enabled : false
     enabled ? document.body.setAttribute("themeswitch",`${appid}`) : document.body.removeAttribute("themeswitch")
 })
 
-// Checks `skipui` (`config.store.raui`) - if true (inverted in `listeners.ts`), update Game Display/system tray UI to show RA game titles when detected
-ipcRenderer.on("gameid",(event,workerinfo: WorkerInfo,skipui?: boolean) => {
-    if (skipui) return
-    
-    const { appid, gamename } = workerinfo
-
-    window.gameid = appid
-    window.gamename = gamename || null
-
-    gamelbl.parentElement!.toggleAttribute("novalue",!window.gamename)
-    sanhelper.updategamelbl(window.gamename)
-})
+// Checks `skipui` (`config.store.raui`) - if true (inverted in `listeners.ts`), update `window.gameid`
+ipcRenderer.on("gameid",(event,workerinfo: WorkerInfo,skipui?: boolean) => !skipui && (window.gameid = workerinfo.appid))
 
 sanhelper.soundonly(config.get("soundonly"))
 
@@ -1203,13 +1196,13 @@ const events = [
     "workercrash"
 ] as const
 
-const gamedisplay = document.getElementById("game") as HTMLElement
+const gamedisplayelem = document.getElementById("game") as HTMLElement
 
 for (const event of events) {
-    ipcRenderer.on(event,(_,value: boolean,ra?: boolean) => gamedisplay.toggleAttribute(`${ra ? "ra" : ""}${event}`,value))
+    ipcRenderer.on(event,(_,value: boolean,ra?: boolean) => gamedisplayelem.toggleAttribute(`${ra ? "ra" : ""}${event}`,value))
 }
 
 ipcRenderer.on("activeprocesses",(event,appid: number,activeprocesses: boolean,linkedgame?: string) => {
     log.write(activeprocesses ? "INFO" : "WARN",activeprocesses ? `Active ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} found for AppID ${appid}` : `Waiting for ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} for AppID ${appid} to start...`)
-    gamedisplay.toggleAttribute("waiting",!activeprocesses)
+    gamedisplayelem.toggleAttribute("waiting",!activeprocesses)
 })

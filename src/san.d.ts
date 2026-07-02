@@ -695,5 +695,13 @@ declare interface ResourceUsage {
     memtotalMB: number
 }
 
+declare interface GameDisplayInfo {
+    gamename: string | null,
+    achnum?: number,
+    releasing?: boolean
+}
+
+declare type GameDisplay = Record<Platform,GameDisplayInfo>
+
 declare module "simple-vdf"
 declare module "adm-zip"

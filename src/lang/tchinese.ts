@@ -876,7 +876,7 @@ export const translations = {
         usesanwatcher: `啟用 SAN 的新遊戲程序監視器<br><br><span class="ttdesc">新版 SANWatcher 與舊版自動程序追蹤方法之間的差異如下：<br><br><div class="wrapper sanwatcher"><span class="hl">開啟</span><ul><li>主動監視儲存在遊戲安裝目錄中的任何程序之啟動與結束事件</li><li>無需知道遊戲執行檔即可釋放目前遊戲</li><li>遊戲啟動前啟動器的行為可能有所不同，因此無法保證與所有 Steam 遊戲完全相容</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">關閉</span><ul><li>在遊戲啟動後掃描遊戲安裝目錄中的所有執行中可執行檔</li><li>需要知道遊戲執行檔才能釋放目前遊戲</li><li>如果無法自動判定遊戲程序，使用者必須手動新增一筆項目至 <span class="hl">自動釋放遊戲</span>，遊戲才能自動釋放</li></ul></div>`,
         releasewaittime: `設定 SANWatcher 在釋放目前遊戲之前，等待新遊戲程序啟動的時間長度<br><br><span class="ttdesc">例如，如果目前遊戲會先啟動遊戲前啟動器／設定視窗，然後才啟動實際遊戲，則此設定會決定在遊戲前啟動器／設定視窗關閉後，SANWatcher 等待實際遊戲視窗啟動的秒數<br><br>如果在此等待時間內偵測到新的作用中遊戲程序，則釋放作業將會取消，並改為追蹤新啟用的程序<br><br>💡 當目前遊戲正在等待釋放時，遊戲名稱將會在<span class="hl">遊戲顯示</span>方塊中<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">閃爍</span></span>`,
         platcustomtext: `設定要在通知中顯示的遊戲 100% 完成自訂訊息<br><br><span class="ttdesc">當 Customiser > 預設 > 通知元素 > 成就描述 被停用時，此選項將會隱藏</span>`,
-        raui: `在遊戲顯示介面/系統匣介面中顯示已偵測到的 RetroAchievements 遊戲名稱<br><br><span class="ttdesc">啟用後，如果 Steam 與 RetroAchievements 遊戲同時執行，可能會導致遊戲顯示介面/系統匣介面出現非預期的行為</span>`
+        raui: "在遊戲顯示介面/系統匣介面中顯示已偵測到的 RetroAchievements 遊戲名稱"
     },
     update: {
         updateavailable: "有可用更新",

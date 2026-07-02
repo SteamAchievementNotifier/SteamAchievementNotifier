@@ -876,7 +876,7 @@ export const translations = {
         usesanwatcher: `SAN の新しいゲームプロセス監視機能を有効化<br><br><span class="ttdesc">新しい SANWatcher と従来の自動プロセス追跡方式の違いは次のとおりです。<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>ゲームのインストールディレクトリ内に存在するすべてのプロセスの開始／終了イベントを積極的に監視します</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要はありません</li><li>ゲーム起動前ランチャーの動作はゲームごとに異なるため、すべての Steam ゲームとの完全な互換性は保証されません</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>ゲーム起動後、ゲームのインストールディレクトリ内で実行中の実行ファイルをスキャンします</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要があります</li><li>ゲームプロセスを自動的に特定できない場合、ゲームを自動的に解放するにはユーザーが <span class="hl">自動リリース ゲーム</span> に新しいエントリを手動で追加する必要があります</li></ul></div>`,
         releasewaittime: `現在のゲームを解放する前に、新しいゲームプロセスの起動をSANWatcherがどれくらい待機するかを設定します<br><br><span class="ttdesc">例えば、現在のゲームが実際のゲームを起動する前にランチャーや設定ウィンドウを表示する場合、この設定はランチャーや設定ウィンドウが閉じられた後に実際のゲームウィンドウが表示されるまでSANWatcherが待機する秒数を決定します<br><br>この待機時間内に新しいアクティブなゲームプロセスが検出された場合、解放はキャンセルされ、代わりに新たにアクティブになったプロセスが追跡されます<br><br>💡 現在のゲームが解放待機中の間、ゲーム名は<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">点滅</span>し、<span class="hl">ゲーム表示</span>ボックス内で表示されます</span>`,
         platcustomtext: `通知内に表示するゲーム100%達成時のカスタムメッセージを設定します<br><br><span class="ttdesc">Customiser > プリセット > 通知要素 > 実績の説明 が無効になっている場合、このオプションは非表示になります</span>`,
-        raui: `検出されたRetroAchievementsゲームの名前をゲーム表示UI/システムトレイUIに表示します<br><br><span class="ttdesc">有効にすると、SteamとRetroAchievementsのゲームが同時に実行されている場合、ゲーム表示UI/システムトレイUIが予期しない動作をすることがあります</span>`
+        raui: "検出されたRetroAchievementsゲームの名前をゲーム表示UI/システムトレイUIに表示します"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

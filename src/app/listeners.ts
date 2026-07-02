@@ -26,6 +26,11 @@ const extwinsstate: ExtWinsState = {
     gametimer: null
 }
 
+const gamedisplaystate: GameDisplay = {
+    steam: { gamename: null, achnum: undefined, releasing: false },
+    ra: { gamename: null, achnum: undefined }
+}
+
 const { defaultextwins } = sanconfig
 
 export const listeners = {
@@ -111,19 +116,19 @@ export const listeners = {
 
         let suspended = false
 
-        const updatetray = async (tray: Tray,gamename?: string | null,num?: number,releasing?: boolean,betaunsupported?: boolean) => {
+        const updatetray = async (tray: Tray,gamename?: string | null,achnum?: number,releasing?: boolean,betaunsupported?: boolean) => {
             tray && tray.removeAllListeners()
 
             const { usesanwatcher } = sanconfig.get().store
 
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
-            tray.setImage(path.join(__root,"img",`sanlogo_${releasing ? "releasing" : (num === 0 ? "inactive" : (gamename ? "active" : "idle"))}.${process.platform === "win32" ? "ico" : "png"}`))
+            tray.setImage(path.join(__root,"img",`sanlogo_${releasing ? "releasing" : (achnum === 0 ? "inactive" : (gamename ? "active" : "idle"))}.${process.platform === "win32" ? "ico" : "png"}`))
 
             const template: Electron.MenuItemConstructorOptions[] = [
                 {
                     label: gamename || await language.get("game",["app","content"]),
                     icon: nativeImage
-                            .createFromPath(path.join(__root,"icon",`dot_${releasing ? "grey" : (num === 0 ? "yellow" : (gamename ? "green" : "red"))}.png`))
+                            .createFromPath(path.join(__root,"icon",`dot_${releasing ? "grey" : (achnum === 0 ? "yellow" : (gamename ? "green" : "red"))}.png`))
                             .resize({ width: 10 }),
                     enabled: false
                 },
@@ -217,6 +222,16 @@ export const listeners = {
         }
 
         updatetray(tray)
+
+        const refreshgamedisplay = () => {
+            const { raui } = sanconfig.get().store
+            const { steam, ra } = gamedisplaystate
+            
+            const active = steam.releasing ? steam : ((raui && ra.gamename) ? ra : (steam.gamename ? steam : ra))
+            updatetray(tray!,active.gamename,active.achnum,active === steam ? steam.releasing : undefined)
+            
+            win.webContents.send("gamedisplay",{ gamename: active.gamename, achnum: active.achnum } as GameDisplayInfo)
+        }
 
         ipcMain.on("lang",(event,gamename: string | null,num: number) => {
             updatetray(tray!,gamename,num)
@@ -360,7 +375,8 @@ export const listeners = {
         })
 
         ipcMain.on("releasing",(event,gamename: string,value: boolean) => {
-            updatetray(tray,gamename,undefined,value)
+            gamedisplaystate.steam = { ...gamedisplaystate.steam, gamename, releasing: value }
+            refreshgamedisplay()
             win.webContents.send("releasing",value)
         }) // Adds visual "releasing" hint in UI
 
@@ -505,7 +521,14 @@ export const listeners = {
             const { appid, gamename, achnum, ra } = workerinfo
             
             win.webContents.send(`${ra ? "game" : "app"}id`,workerinfo,skipui)
-            !skipui && updatetray(tray!,gamename,achnum)
+
+            gamedisplaystate[ra ? "ra" : "steam"] = {
+                gamename: gamename || null,
+                achnum,
+                ...(ra ? {} : { releasing: false })
+            }
+
+            !skipui && refreshgamedisplay()
             
             return appid
         }

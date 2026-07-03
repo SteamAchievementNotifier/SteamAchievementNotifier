@@ -163,15 +163,16 @@ const startidle = () => {
         log.write("INFO","Idle loop started")
         sanhelper.resetdebuginfo()
         ipcRenderer.send("workeractive",false)
-    
+
         let exclusionlogged = false
         let invalidappidlogged = false
+        let waitingforsteamlogged = false
         
         const timer = setInterval(() => {
             const { pollrate, initdelay, releasedelay, maxretries, userust, debug, noiconcache, exclusions, inclusionlist } = sanconfig.get().store
             const { appid, gamename } = sanhelper.gameinfo as AppInfo
             
-            if (!appid) return
+            if (!appid) return ipcRenderer.send("activeprocesses",0,false) // Clears "waiting" attribute in `renderer.ts` if present
             
             // If `installdir === null`, current AppID is invalid (i.e. a non-Steam game/application)
             if (lastknowngame && appid === lastknowngame.appid && !lastknowngame.installdir) {
@@ -193,13 +194,17 @@ const startidle = () => {
                     
                     // Check whether any install dir processes are active for the current AppID
                     const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir as string,linkedgame)
+                    ipcRenderer.send("activeprocesses",appid,!!activeprocesses.length,linkedgame) // Check initial active processes and send UI hint if no active game processes are detected
                     
-                    // If there are no active processes in the game's install dir, this signifies Steam is currently trying to reset `RunningAppID` back to 0 in the registry
+                    // If there are no active processes in the game's install dir, this usually signifies either Steam is currently trying to reset `RunningAppID` back to 0 in the registry/command line, or the game process is taking a while to launch (especially on Linux)
                     // Additionally, continue if a linked game is specified for the current AppID - even if not currently running. This prevents scenarios where no processes exist (e.g. the linked game EXE hasn't launched yet), so SAN quits the Worker process immediately and hangs due to non-zero RunningAppID
                     if (!linkedgame && !activeprocesses.length) {
-                        log.write("WARN",`No active processes within game installation directory, but Steam reports AppID ${appid} is still active - exiting "Worker" process for Steam to clear AppID ${appid}...`)
-                        clearInterval(timer)
-                        return ipcRenderer.send("validateworker") // In this case, destroy the active "Worker" process and allow Steam to reset
+                        if (!waitingforsteamlogged) {
+                            log.write("WARN",`Steam reports AppID ${appid} is currently active, but no matching game processes have been detected. Waiting...`)
+                            waitingforsteamlogged = true
+                        }
+                        
+                        return
                     }
                 }
             }

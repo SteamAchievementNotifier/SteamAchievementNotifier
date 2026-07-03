@@ -1203,6 +1203,8 @@ for (const event of events) {
 }
 
 ipcRenderer.on("activeprocesses",(event,appid: number,activeprocesses: boolean,linkedgame?: string) => {
+    if (!appid) return gamedisplayelem.removeAttribute("waiting")
+    
     log.write(activeprocesses ? "INFO" : "WARN",activeprocesses ? `Active ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} found for AppID ${appid}` : `Waiting for ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} for AppID ${appid} to start...`)
     gamedisplayelem.toggleAttribute("waiting",!activeprocesses)
 })

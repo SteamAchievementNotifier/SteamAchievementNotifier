@@ -7,7 +7,7 @@ ipcRenderer.on("notifyfinished",() => {
     setTimeout(() => img.src = "../../img/transparent.png",1000)
 })
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded",() => {
     const img = document.querySelector("img") as HTMLImageElement
     ipcRenderer.on("imgdata",(event,imgdata) => img.src = imgdata)
 })

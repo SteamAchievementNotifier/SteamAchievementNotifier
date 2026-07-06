@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "エミュレータ",
                 rauser: "ユーザー名",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "ゲームイベントを待機中",
                 start: "ゲーム開始",
                 stop: "ゲーム停止",
-                achievement: "実績解除"
+                achievement: "実績解除",
+                raui: "ゲーム表示UIを使用"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "スケール",
                 customtext: "カスタムテキスト",
                 usegametitle: "ゲームタイトルを使用",
-                customfont: "カスタムフォント"
+                customfont: "カスタムフォント",
+                platcustomtext: "カスタム100%テキスト"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "XP/S値の代わりに実績の解除パーセンテージを表示",
         displaytime: "通知が表示される秒数を設定する",
         scale: "通知のサイズを拡大または縮小する",
-        customtext: "通知内に表示されるカスタムメッセージを設定する",
+        customtext: `通知内に表示するカスタムメッセージを設定します<br><br><span class="ttdesc">Customiser > プリセット > 通知要素 > アンロックメッセージ が無効になっている場合、このオプションは非表示になります</span>`,
         usegametitle: "通知内に現在のゲームのタイトルを表示する",
         customfont: "通知内で使用するカスタムフォントを読み込む",
         soundmode: "通知が発生したときに、単一のオーディオファイルまたは複数のオーディオファイルが含まれるフォルダからランダムに選択されるオーディオファイルを選択する",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: `$rare 実績がアンロックされたときにWebhookの埋め込みで使用される色を設定`,
         webhookembedcolorplat: `$plat 実績がアンロックされたときにWebhookの埋め込みで使用される色を設定`,
         raemus: "サポートされているエミュレータでゲームが検出されると通知を表示",
-        rauser: "達成の追跡に使用するRetro Achievementsのユーザー名を設定",
-        rakey: `Retro Achievements API の認証に使用する Web API キーを設定します<br><br><span class="ttdesc">Web API キーは Retro Achievements のウェブサイトにログインし、<span class="hl">設定 > キー > Web API キー</span>に移動することでコピーまたは再生成できます<br><br>🔒 提供されたキーは、システムにローカルで保存される前に暗号化されます（現在の OS が暗号化をサポートしている場合）</span>`,
+        rauser: "達成の追跡に使用するRetroAchievementsのユーザー名を設定",
+        rakey: `RetroAchievements API の認証に使用する Web API キーを設定します<br><br><span class="ttdesc">Web API キーは RetroAchievements のウェブサイトにログインし、<span class="hl">設定 > キー > Web API キー</span>に移動することでコピーまたは再生成できます<br><br>🔒 提供されたキーは、システムにローカルで保存される前に暗号化されます（現在の OS が暗号化をサポートしている場合）</span>`,
         rapercenttype: "通知に表示する達成のハードコアまたはソフトコアのパーセンテージを設定",
-        retroarch: `RetroArchを使用してエミュレートされたゲームのRetro Achievements通知を表示<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > ロギング</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">ログの詳細度</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">フロントエンド ログ レベル</span>: <span class="hlgreen">1 (情報)</span></li><li><span class="hllb">ファイルにログを記録</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">ログファイルにタイムスタンプを付ける</span>: <span class="hlred">OFF</span></li></ul></span>`,
-        dolphin: `Dolphinを使用してエミュレートされたゲームのRetro Achievements通知を表示<br><br><span class="ttdesc"><span class="hl">Dolphin > 表示 > ログ設定の表示</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">詳細度</span>: <span class="hlgreen">情報</span></li><li><span class="hllb">ロガーの出力先</span> > <span class="hlgreen">ファイルに書き込む</span></li><li><span class="hllb">ログの種類</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `PCSX2 でエミュレートされたゲームの Retro Achievements 通知を表示する<br><br><span class="ttdesc"><span class="hl">PCSX2 > ツール > ファイルログの有効化</span> を有効にする必要があります</span>`,
-        duckstation: `DuckstationでエミュレートされたゲームのRetro Achievements通知を表示<br><br><span class="ttdesc">❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span>をダウンロードして、<span class="hl">Duckstationのインストールディレクトリ</span>に移動する必要があります</span><br><br><span class="ttdesc"><span class="hl">Duckstation > 設定 > 実績 > RAIntegration（開発者のみ）</span>を有効にする必要があります</span>`,
-        ppsspp: `PPSSPP を介してエミュレートされたゲームの Retro Achievements 通知を表示<br><br><span class="ttdesc"><span class="hl">設定 > ツール > 開発者ツール > 一般 > ファイルにログを記録</span> を有効にし、次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">実績</span>: <span class="hlgreen">情報</span></span>`,
+        retroarch: `RetroArchを使用してエミュレートされたゲームのRetroAchievements通知を表示<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > ロギング</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">ログの詳細度</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">フロントエンド ログ レベル</span>: <span class="hlgreen">1 (情報)</span></li><li><span class="hllb">ファイルにログを記録</span>: <span class="hlgreen">ON</span></li><li><span class="hllb">ログファイルにタイムスタンプを付ける</span>: <span class="hlred">OFF</span></li></ul></span>`,
+        dolphin: `Dolphinを使用してエミュレートされたゲームのRetroAchievements通知を表示<br><br><span class="ttdesc"><span class="hl">Dolphin > 表示 > ログ設定の表示</span> を次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">詳細度</span>: <span class="hlgreen">情報</span></li><li><span class="hllb">ロガーの出力先</span> > <span class="hlgreen">ファイルに書き込む</span></li><li><span class="hllb">ログの種類</span> > <span class="hlgreen">Achievements (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `PCSX2 でエミュレートされたゲームの RetroAchievements 通知を表示する<br><br><span class="ttdesc"><span class="hl">PCSX2 > ツール > ファイルログの有効化</span> を有効にする必要があります</span>`,
+        duckstation: `DuckstationでエミュレートされたゲームのRetroAchievements通知を表示<br><br><span class="ttdesc">❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span>をダウンロードして、<span class="hl">Duckstationのインストールディレクトリ</span>に移動する必要があります</span><br><br><span class="ttdesc"><span class="hl">Duckstation > 設定 > 実績 > RAIntegration（開発者のみ）</span>を有効にする必要があります</span>`,
+        ppsspp: `PPSSPP を介してエミュレートされたゲームの RetroAchievements 通知を表示<br><br><span class="ttdesc"><span class="hl">設定 > ツール > 開発者ツール > 一般 > ファイルにログを記録</span> を有効にし、次の設定で構成する必要があります:<br><br><ul><li><span class="hllb">実績</span>: <span class="hlgreen">情報</span></span>`,
         retroarchpath: `RetroArchの <span class="hl">"retroarch.log"</span> ログファイルのパスを設定<br><br><span class="ttdesc">デフォルトのインストール設定では、<span class="hl">"retroarch.log"</span> は <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span> に保存されます。</span>`,
         dolphinpath: `Dolphinの <span class="hl">"dolphin.log"</span> ログファイルのパスを設定<br><br><span class="ttdesc">デフォルトのインストール設定では、<span class="hl">"dolphin.log"</span> は以下のいずれかの場所に保存されます:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `PCSX2 の <span class="hl">"emulog.txt"</span> ログファイルのパスを設定する<br><br><span class="ttdesc">デフォルトのインストール設定では、<span class="hl">"emulog.txt"</span> は <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span> に保存されます</span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `アプリ内のすべてのキーボードショートカットを無効にします<br><br><span class="ttdesc">有効にすると、<u>すべてのアプリ内ショートカットが機能しなくなります</u>。キーボードショートカットに関連するすべてのオプションも非表示になります</span>`,
         extwinnotify: "Stream Notifications 使用中のすべてのオンスクリーン通知の表示を切り替えます",
         usesanwatcher: `SAN の新しいゲームプロセス監視機能を有効化<br><br><span class="ttdesc">新しい SANWatcher と従来の自動プロセス追跡方式の違いは次のとおりです。<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>ゲームのインストールディレクトリ内に存在するすべてのプロセスの開始／終了イベントを積極的に監視します</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要はありません</li><li>ゲーム起動前ランチャーの動作はゲームごとに異なるため、すべての Steam ゲームとの完全な互換性は保証されません</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>ゲーム起動後、ゲームのインストールディレクトリ内で実行中の実行ファイルをスキャンします</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要があります</li><li>ゲームプロセスを自動的に特定できない場合、ゲームを自動的に解放するにはユーザーが <span class="hl">自動リリース ゲーム</span> に新しいエントリを手動で追加する必要があります</li></ul></div>`,
-        releasewaittime: `現在のゲームを解放する前に、新しいゲームプロセスの起動をSANWatcherがどれくらい待機するかを設定します<br><br><span class="ttdesc">例えば、現在のゲームが実際のゲームを起動する前にランチャーや設定ウィンドウを表示する場合、この設定はランチャーや設定ウィンドウが閉じられた後に実際のゲームウィンドウが表示されるまでSANWatcherが待機する秒数を決定します<br><br>この待機時間内に新しいアクティブなゲームプロセスが検出された場合、解放はキャンセルされ、代わりに新たにアクティブになったプロセスが追跡されます<br><br>💡 現在のゲームが解放待機中の間、ゲーム名は<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">点滅</span>し、<span class="hl">ゲーム表示</span>ボックス内で表示されます</span>`
+        releasewaittime: `現在のゲームを解放する前に、新しいゲームプロセスの起動をSANWatcherがどれくらい待機するかを設定します<br><br><span class="ttdesc">例えば、現在のゲームが実際のゲームを起動する前にランチャーや設定ウィンドウを表示する場合、この設定はランチャーや設定ウィンドウが閉じられた後に実際のゲームウィンドウが表示されるまでSANWatcherが待機する秒数を決定します<br><br>この待機時間内に新しいアクティブなゲームプロセスが検出された場合、解放はキャンセルされ、代わりに新たにアクティブになったプロセスが追跡されます<br><br>💡 現在のゲームが解放待機中の間、ゲーム名は<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">点滅</span>し、<span class="hl">ゲーム表示</span>ボックス内で表示されます</span>`,
+        platcustomtext: `通知内に表示するゲーム100%達成時のカスタムメッセージを設定します<br><br><span class="ttdesc">Customiser > プリセット > 通知要素 > 実績の説明 が無効になっている場合、このオプションは非表示になります</span>`,
+        raui: "検出されたRetroAchievementsゲームの名前をゲーム表示UI/システムトレイUIに表示します"
     },
     update: {
         updateavailable: "アップデートが利用可能です",
@@ -911,7 +915,7 @@ export const translations = {
                 `追加後は、以前の<span class="hl">$linkgame</span>メニューからエントリを<span class="hl">削除</span>できます`
             ],
             link: "追加",
-            findappid: "AppID を検索",
+            findappid: "Steam AppIDを検索",
             findappidsub: [
                 `Steam の各ゲームには<span class="hl">AppID</span>と呼ばれる固有の番号が割り当てられています。Steam ゲームの AppID は次のいずれかの方法で確認できます。`,
                 `<span class="hl">Steam クライアント</span>で<span class="hl">ライブラリ</span>内のゲームを<i>右クリック</i>し、<i>プロパティ</i> > <i>アップデート</i>を選択すると、AppID が表示されます`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `任意のゲームの <span class="hl">AppID</span> を追加して、検出されたときに <span class="hl">テーマ</span> を自動的に切り替え`,
-                `保存された任意の <span class="hl">テーマ</span> を各通知タイプに選択でき、使用する希望のモニターを <span class="hl">スクリーンショットソース</span> として指定できます`,
-                `<span class="hl" id="appidhelp"><u>SteamゲームのAppIDはどのように見つけることができますか？</u></span>`
+                `任意のゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>を追加すると、検出時に<span class="hl">テーマ</span>が自動的に切り替わります`,
+                `保存済みの<span class="hl">テーマ</span>は通知タイプごとに選択でき、使用するモニターを<span class="hl">スクリーンショットのソース</span>として指定できます`,
+                `<span class="hl help" id="appidhelp"><u>SteamゲームのAppIDはどのように確認できますか？</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>RetroAchievementsゲームのGameIDはどのように確認できますか？</u></span>`
             ],
-            themeswitchnew: "新しい自動切替",
+            themeswitchnew: "新しい自動切り替え",
             themeswitchnewsub: [
-                `ゲームの <span class="hl">AppID</span> と、希望のモニターを <span class="hl">スクリーンショットソース</span> として指定してください`,
-                `このゲームの <span class="hl">AppID</span> が検出されたときに各通知タイプのために切り替える <span class="hl">テーマ</span> を選択`
+                `ゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>と、<span class="hl">スクリーンショットのソース</span>として使用するモニターを入力してください`,
+                `複数の<span class="hl">AppID</span>/<span class="hl">GameID</span>は、カンマ（<code>,</code>）またはセミコロン（<code>;</code>）で区切ることで一度に入力できます`,
+                `このゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>が検出されたとき、通知タイプごとに切り替える<span class="hl">テーマ</span>を選択してください`
             ],
             themeswitchedit: "自動切り替えを編集",
             themeswitcheditsub: [
-                `このゲームの <span class="hl">AppID</span> に対して <span class="hl">スクリーンショットのソース</span> として使用するモニターを編集します`,
-                `このゲームの <span class="hl">AppID</span> が検出されたときに、各通知タイプで切り替える <span class="hl">テーマ</span> を変更します`
+                `このゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>に対して、<span class="hl">スクリーンショットのソース</span>として使用するモニターを編集します`,
+                `このゲームの<span class="hl">AppID</span>/<span class="hl">GameID</span>が検出されたとき、通知タイプごとに切り替える<span class="hl">テーマ</span>を変更します`
             ],
             themes: "テーマ",
-            src: "スクリーンショットソース",
-            themedeleted: "テーマが削除されました"
+            src: "スクリーンショットのソース",
+            themedeleted: "テーマを削除しました",
+            rafindgameid: "RA GameIDを検索",
+            rafindgameidsub: [
+                `RetroAchievementsの各ゲームには、<span class="hl">GameID</span>と呼ばれる固有の番号が割り当てられています。RetroAchievementsゲームのGameIDは、次の方法で確認できます。`,
+                `RetroAchievementsサイトの<span class="hl">ゲームページ</span>の<span class="hl">URL</span>を確認してください。<span class="hl">game/</span>の後に表示される番号がGameIDです：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "Trình giả lập",
                 rauser: "Tên người dùng",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Đang chờ sự kiện trò chơi",
                 start: "Bắt đầu trò chơi",
                 stop: "Dừng trò chơi",
-                achievement: "Thành tựu đã mở khóa"
+                achievement: "Thành tựu đã mở khóa",
+                raui: "Sử dụng giao diện hiển thị trò chơi"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "Tỷ lệ",
                 customtext: "Văn bản tùy chỉnh",
                 usegametitle: "Sử dụng tiêu đề trò chơi",
-                customfont: "Phông chữ tùy chỉnh"
+                customfont: "Phông chữ tùy chỉnh",
+                platcustomtext: "Văn bản 100% tùy chỉnh"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "Hiển thị phần trăm mở khóa của thành tựu, thay vì giá trị XP/S",
         displaytime: "Đặt số giây thông báo sẽ hiển thị",
         scale: "Tăng hoặc giảm kích thước của thông báo",
-        customtext: "Đặt một thông báo tùy chỉnh để hiển thị trong thông báo",
+        customtext: `Đặt một thông báo tùy chỉnh để hiển thị trong thông báo<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Customiser > Cài đặt sẵn > Thành phần thông báo > Thông báo mở khóa bị vô hiệu hóa</span>`,
         usegametitle: "Hiển thị tiêu đề của trò chơi hiện tại trong thông báo",
         customfont: "Tải một phông chữ tùy chỉnh để sử dụng trong thông báo",
         soundmode: "Chọn một tệp âm thanh duy nhất hoặc một tệp âm thanh được chọn ngẫu nhiên từ một thư mục chứa nhiều tệp âm thanh khi có thông báo xảy ra",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "Đặt màu được sử dụng trong webhook embed khi mở khóa thành tích $rare",
         webhookembedcolorplat: "Đặt màu được sử dụng trong webhook embed khi mở khóa thành tích $plat",
         raemus: "Hiển thị thông báo khi phát hiện trò chơi trong các trình giả lập hỗ trợ",
-        rauser: "Đặt tên người dùng Retro Achievements để theo dõi các thành tích",
-        rakey: `Cài đặt Web API Key sẽ được sử dụng để xác thực với API của Retro Achievements<br><br><span class="ttdesc">Một Web API Key có thể được sao chép hoặc tạo lại bằng cách đăng nhập vào trang web Retro Achievements và đi tới <span class="hl">Cài đặt > Khóa > Web API Key</span><br><br>🔒 Khóa đã cung cấp sẽ được mã hóa trước khi lưu trữ trên hệ thống cục bộ (nếu hệ điều hành hiện tại hỗ trợ mã hóa)</span>`,
+        rauser: "Đặt tên người dùng RetroAchievements để theo dõi các thành tích",
+        rakey: `Cài đặt Web API Key sẽ được sử dụng để xác thực với API của RetroAchievements<br><br><span class="ttdesc">Một Web API Key có thể được sao chép hoặc tạo lại bằng cách đăng nhập vào trang web RetroAchievements và đi tới <span class="hl">Cài đặt > Khóa > Web API Key</span><br><br>🔒 Khóa đã cung cấp sẽ được mã hóa trước khi lưu trữ trên hệ thống cục bộ (nếu hệ điều hành hiện tại hỗ trợ mã hóa)</span>`,
         rapercenttype: "Đặt xem có hiển thị phần trăm thành tích Hardcore hoặc Softcore trong thông báo không",
-        retroarch: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Cài đặt > Ghi log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết của ghi log</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Cấp độ ghi log của giao diện người dùng</span>: <span class="hlgreen">1 (Thông tin)</span></li><li><span class="hllb">Ghi log vào file</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Thêm dấu thời gian vào các file log</span>: <span class="hlred">TẮT</span></li></ul></span>`,
-        dolphin: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Xem > Hiển thị Cấu hình Log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết</span>: <span class="hlgreen">Thông tin</span></li><li><span class="hllb">Kết quả ghi log</span> > <span class="hlgreen">Ghi vào File</span></li><li><span class="hllb">Các loại log</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Công cụ > Bật ghi vào file</span> phải được bật</span>`,
-        duckstation: `Hiển thị thông báo Retro Achievements cho các trò chơi mô phỏng qua Duckstation<br><br><span class="ttdesc">❗ Tệp <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> phải được tải xuống và di chuyển vào <span class="hl">thư mục cài đặt của Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Cài đặt > Thành tựu > RAIntegration (Chỉ dành cho nhà phát triển)</span> phải được bật</span>`,
-        ppsspp: `Hiển thị thông báo Retro Achievements cho các trò chơi được giả lập qua PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> phải được bật và cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `Hiển thị thông báo RetroAchievements cho các trò chơi được giả lập qua RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Cài đặt > Ghi log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết của ghi log</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Cấp độ ghi log của giao diện người dùng</span>: <span class="hlgreen">1 (Thông tin)</span></li><li><span class="hllb">Ghi log vào file</span>: <span class="hlgreen">BẬT</span></li><li><span class="hllb">Thêm dấu thời gian vào các file log</span>: <span class="hlred">TẮT</span></li></ul></span>`,
+        dolphin: `Hiển thị thông báo RetroAchievements cho các trò chơi được giả lập qua Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Xem > Hiển thị Cấu hình Log</span> cần được cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Độ chi tiết</span>: <span class="hlgreen">Thông tin</span></li><li><span class="hllb">Kết quả ghi log</span> > <span class="hlgreen">Ghi vào File</span></li><li><span class="hllb">Các loại log</span> > <span class="hlgreen">Thành tích (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Hiển thị thông báo RetroAchievements cho các trò chơi được giả lập qua PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Công cụ > Bật ghi vào file</span> phải được bật</span>`,
+        duckstation: `Hiển thị thông báo RetroAchievements cho các trò chơi mô phỏng qua Duckstation<br><br><span class="ttdesc">❗ Tệp <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> phải được tải xuống và di chuyển vào <span class="hl">thư mục cài đặt của Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Cài đặt > Thành tựu > RAIntegration (Chỉ dành cho nhà phát triển)</span> phải được bật</span>`,
+        ppsspp: `Hiển thị thông báo RetroAchievements cho các trò chơi được giả lập qua PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> phải được bật và cấu hình với các cài đặt sau:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Cài đặt đường dẫn đến file log của RetroArch <span class="hl">"retroarch.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"retroarch.log"</span> được lưu tại <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Cài đặt đường dẫn đến file log của Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"dolphin.log"</span> được lưu tại một trong các vị trí sau:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Cài đặt đường dẫn đến file log của PCSX2<span class="hl">"emulog.txt"</span><br><br><span class="ttdesc">Với cài đặt mặc định, file log <span class="hl">"emulog.txt"</span> được lưu tại <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `Tắt tất cả phím tắt bàn phím trong ứng dụng<br><br><span class="ttdesc">Khi được bật, <u>tất cả phím tắt trong ứng dụng sẽ không còn hoạt động</u>. Tất cả các tùy chọn liên quan đến phím tắt bàn phím cũng sẽ bị ẩn</span>`,
         extwinnotify: "Bật/tắt hiển thị tất cả thông báo trên màn hình khi sử dụng Stream Notifications",
         usesanwatcher: `Bật trình theo dõi tiến trình trò chơi mới của SAN<br><br><span class="ttdesc">Sự khác biệt giữa SANWatcher mới và các phương pháp theo dõi tiến trình tự động cũ như sau:<br><br><div class="wrapper sanwatcher"><span class="hl">BẬT</span><ul><li>Chủ động theo dõi các sự kiện khởi động và kết thúc của mọi tiến trình nằm trong thư mục cài đặt trò chơi</li><li>Không yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Hành vi của các trình khởi chạy trước khi vào trò chơi có thể khác nhau, vì vậy không đảm bảo khả năng tương thích hoàn toàn với tất cả các trò chơi Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">TẮT</span><ul><li>Quét thư mục cài đặt trò chơi để tìm các tệp thực thi đang chạy sau khi trò chơi được khởi động</li><li>Yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Nếu không thể tự động xác định tiến trình trò chơi, người dùng phải tự thêm một mục mới vào <span class="hl">Trò chơi Giải phóng Tự động</span> để trò chơi có thể được giải phóng tự động</li></ul></div>`,
-        releasewaittime: `Đặt khoảng thời gian SANWatcher sẽ chờ các tiến trình trò chơi mới khởi chạy trước khi giải phóng trò chơi hiện tại<br><br><span class="ttdesc">Ví dụ: nếu trò chơi hiện tại khởi chạy một trình khởi chạy/cửa sổ cấu hình trước khi vào trò chơi trước khi khởi chạy trò chơi thực tế, cài đặt này sẽ xác định số giây SANWatcher sẽ chờ cửa sổ trò chơi thực tế xuất hiện sau khi trình khởi chạy/cửa sổ cấu hình trước trò chơi đã đóng<br><br>Nếu một tiến trình trò chơi đang hoạt động mới được phát hiện trong khoảng thời gian chờ này, việc giải phóng sẽ bị hủy và tiến trình mới được kích hoạt sẽ được theo dõi thay thế<br><br>💡 Tên trò chơi sẽ <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">nhấp nháy</span> trong hộp <span class="hl">Hiển thị trò chơi</span> khi trò chơi hiện tại đang chờ được giải phóng</span>`
+        releasewaittime: `Đặt khoảng thời gian SANWatcher sẽ chờ các tiến trình trò chơi mới khởi chạy trước khi giải phóng trò chơi hiện tại<br><br><span class="ttdesc">Ví dụ: nếu trò chơi hiện tại khởi chạy một trình khởi chạy/cửa sổ cấu hình trước khi vào trò chơi trước khi khởi chạy trò chơi thực tế, cài đặt này sẽ xác định số giây SANWatcher sẽ chờ cửa sổ trò chơi thực tế xuất hiện sau khi trình khởi chạy/cửa sổ cấu hình trước trò chơi đã đóng<br><br>Nếu một tiến trình trò chơi đang hoạt động mới được phát hiện trong khoảng thời gian chờ này, việc giải phóng sẽ bị hủy và tiến trình mới được kích hoạt sẽ được theo dõi thay thế<br><br>💡 Tên trò chơi sẽ <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">nhấp nháy</span> trong hộp <span class="hl">Hiển thị trò chơi</span> khi trò chơi hiện tại đang chờ được giải phóng</span>`,
+        platcustomtext: `Đặt thông báo tùy chỉnh cho việc hoàn thành 100% trò chơi để hiển thị trong thông báo<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Customiser > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị vô hiệu hóa</span>`,
+        raui: "Hiển thị tên các trò chơi RetroAchievements được phát hiện trong giao diện hiển thị trò chơi/khu vực khay hệ thống"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",
@@ -911,7 +915,7 @@ export const translations = {
                 `Sau khi thêm, các mục có thể được <span class="hl">xóa</span> thông qua menu <span class="hl">$linkgame</span> trước đó`
             ],
             link: "Thêm",
-            findappid: "Tìm AppID",
+            findappid: "Tìm Steam AppID",
             findappidsub: [
                 `Mỗi trò chơi Steam đều có một số duy nhất gọi là <span class="hl">AppID</span>. Bạn có thể tìm AppID của bất kỳ trò chơi Steam nào bằng một trong các cách sau:`,
                 `Trong <span class="hl">ứng dụng Steam</span>, <i>nhấp chuột phải</i> vào trò chơi trong <span class="hl">Thư viện</span> và chọn <i>Thuộc tính</i> > <i>Cập nhật</i> - AppID sẽ được hiển thị ở đây`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Thêm <span class="hl">AppID</span> của bất kỳ trò chơi nào để tự động chuyển đổi <span class="hl">Chủ đề</span> khi phát hiện`,
-                `Bất kỳ <span class="hl">Chủ đề</span> nào đã lưu có thể được chọn cho mỗi loại thông báo, cùng với màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp màn hình</span>`,
-                `<span class="hl" id="appidhelp"><u>Làm thế nào để tìm AppID của một trò chơi Steam?</u></span>`
+                `Thêm <span class="hl">AppID</span>/<span class="hl">GameID</span> của bất kỳ trò chơi nào để tự động chuyển <span class="hl">chủ đề</span> khi được phát hiện`,
+                `Bất kỳ <span class="hl">chủ đề</span> đã lưu nào cũng có thể được chọn cho từng loại thông báo, cùng với màn hình dùng làm <span class="hl">nguồn ảnh chụp màn hình</span>`,
+                `<span class="hl help" id="appidhelp"><u>Làm thế nào để tìm AppID của trò chơi Steam?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Làm thế nào để tìm GameID của trò chơi RetroAchievements?</u></span>`
             ],
-            themeswitchnew: "Chuyển đổi Tự động Mới",
+            themeswitchnew: "Chuyển đổi tự động mới",
             themeswitchnewsub: [
-                `Nhập <span class="hl">AppID</span> của trò chơi, cùng với màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp màn hình</span>`,
-                `Chọn <span class="hl">Chủ đề</span> nào để chuyển đổi cho mỗi loại thông báo khi phát hiện <span class="hl">AppID</span> của trò chơi này`
+                `Nhập <span class="hl">AppID</span>/<span class="hl">GameID</span> của trò chơi, cùng với màn hình dùng làm <span class="hl">nguồn ảnh chụp màn hình</span>`,
+                `Có thể nhập nhiều <span class="hl">AppID</span>/<span class="hl">GameID</span> cùng lúc bằng cách phân tách bằng dấu phẩy (<code>,</code>) hoặc dấu chấm phẩy (<code>;</code>)`,
+                `Chọn <span class="hl">chủ đề</span> sẽ chuyển sang cho từng loại thông báo khi phát hiện <span class="hl">AppID</span>/<span class="hl">GameID</span> của trò chơi này`
             ],
-            themeswitchedit: "Chỉnh sửa Tự động Chuyển đổi",
+            themeswitchedit: "Chỉnh sửa chuyển đổi tự động",
             themeswitcheditsub: [
-                `Chỉnh sửa màn hình mong muốn được sử dụng làm <span class="hl">Nguồn Ảnh chụp Màn hình</span> cho <span class="hl">AppID</span> của trò chơi này`,
-                `Thay đổi <span class="hl">Chủ đề</span> sẽ được chuyển sang cho từng loại thông báo khi <span class="hl">AppID</span> của trò chơi này được phát hiện`
+                `Chỉnh sửa màn hình dùng làm <span class="hl">nguồn ảnh chụp màn hình</span> cho <span class="hl">AppID</span>/<span class="hl">GameID</span> của trò chơi này`,
+                `Thay đổi <span class="hl">chủ đề</span> sẽ chuyển sang cho từng loại thông báo khi phát hiện <span class="hl">AppID</span>/<span class="hl">GameID</span> của trò chơi này`
             ],
             themes: "Chủ đề",
-            src: "Nguồn Ảnh chụp màn hình",
-            themedeleted: "Chủ đề đã bị xóa"
+            src: "Nguồn ảnh chụp màn hình",
+            themedeleted: "Đã xóa chủ đề",
+            rafindgameid: "Tìm RA GameID",
+            rafindgameidsub: [
+                `Mỗi trò chơi RetroAchievements có một số duy nhất gọi là <span class="hl">GameID</span>. Bạn có thể tìm GameID của bất kỳ trò chơi RetroAchievements nào bằng cách kiểm tra:`,
+                `URL của <span class="hl">trang trò chơi</span> trên trang RetroAchievements — đó là số nằm sau <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

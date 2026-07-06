@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "Emulators",
                 rauser: "Gebruikersnaam",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Wachten op game-evenement",
                 start: "Spel starten",
                 stop: "Spel stoppen",
-                achievement: "Prestatie ontgrendeld"
+                achievement: "Prestatie ontgrendeld",
+                raui: "Gameweergave-UI gebruiken"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "Schaal",
                 customtext: "Aangepaste Tekst",
                 usegametitle: "Gebruik Speltitel",
-                customfont: "Aangepast Lettertype"
+                customfont: "Aangepast Lettertype",
+                platcustomtext: "Aangepaste 100%-tekst"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "Toon het ontgrendelingspercentage van de prestatie, in plaats van de XP/S-waarde",
         displaytime: "Stel het aantal seconden in dat de melding wordt weergegeven",
         scale: "Vergroot of verklein de grootte van de melding",
-        customtext: "Stel een aangepast bericht in dat binnen de melding wordt weergegeven",
+        customtext: `Stel een aangepast bericht in dat in de melding wordt weergegeven<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Customiser > Voorinstelling > Meldingselementen > Ontgrendelingsbericht is uitgeschakeld</span>`,
         usegametitle: "Toon de titel van het huidige spel in de melding",
         customfont: "Laad een aangepast lettertype dat binnen de melding wordt gebruikt",
         soundmode: "Selecteer een enkel audiobestand of een willekeurig geselecteerd audiobestand uit een map met meerdere audiobestanden wanneer een melding optreedt",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "Stel de kleur in die wordt gebruikt in de webhook-embed wanneer een $rare prestatie wordt ontgrendeld",
         webhookembedcolorplat: "Stel de kleur in die wordt gebruikt in de webhook-embed wanneer een $plat prestatie wordt ontgrendeld",
         raemus: "Meldingen weergeven wanneer spellen worden gedetecteerd in ondersteunde emulators",
-        rauser: "Stel de Retro Achievements-gebruikersnaam in om achievements bij te houden",
-        rakey: `Stel de Web API-sleutel in die gebruikt wordt voor authenticatie met de Retro Achievements API<br><br><span class="ttdesc">Een Web API-sleutel kan worden gekopieerd of opnieuw gegenereerd door in te loggen op de Retro Achievements-website en te navigeren naar <span class="hl">Instellingen > Sleutels > Web API-sleutel</span><br><br>🔒 De opgegeven sleutel wordt versleuteld voordat deze lokaal op het systeem wordt opgeslagen (als het huidige besturingssysteem versleuteling ondersteunt)</span>`,
+        rauser: "Stel de RetroAchievements-gebruikersnaam in om achievements bij te houden",
+        rakey: `Stel de Web API-sleutel in die gebruikt wordt voor authenticatie met de RetroAchievements API<br><br><span class="ttdesc">Een Web API-sleutel kan worden gekopieerd of opnieuw gegenereerd door in te loggen op de RetroAchievements-website en te navigeren naar <span class="hl">Instellingen > Sleutels > Web API-sleutel</span><br><br>🔒 De opgegeven sleutel wordt versleuteld voordat deze lokaal op het systeem wordt opgeslagen (als het huidige besturingssysteem versleuteling ondersteunt)</span>`,
         rapercenttype: "Stel in of het percentage ontgrendelde Hardcore- of Softcore-achievements wordt weergegeven in meldingen",
-        retroarch: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Instellingen > Loggen</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Logdetails</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log naar bestand</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Tijdstempels in logbestanden</span>: <span class="hlred">UIT</span></li></ul></span>`,
-        dolphin: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Beeld > Toon logconfiguratie</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Details</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Loguitgangen</span> > <span class="hlgreen">Schrijf naar bestand</span></li><li><span class="hllb">Logtypes</span> > <span class="hlgreen">Prestaties (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Hulpmiddelen > Bestandslogboek inschakelen</span> moet ingeschakeld zijn</span>`,
-        duckstation: `Toon Retro Achievements-meldingen voor games die worden geëmuleerd via Duckstation<br><br><span class="ttdesc">❗ Het bestand <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> moet worden gedownload en verplaatst naar de <span class="hl">installatiemap van Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Instellingen > Achievements > RAIntegration (Alleen voor ontwikkelaars)</span> moet ingeschakeld zijn</span>`,
-        ppsspp: `Toon Retro Achievements-meldingen voor games die via PPSSPP worden geëmuleerd<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> moet zijn ingeschakeld en geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `Toon RetroAchievements-meldingen voor games die worden geëmuleerd via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Instellingen > Loggen</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Logdetails</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Frontend-logniveau</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Log naar bestand</span>: <span class="hlgreen">AAN</span></li><li><span class="hllb">Tijdstempels in logbestanden</span>: <span class="hlred">UIT</span></li></ul></span>`,
+        dolphin: `Toon RetroAchievements-meldingen voor games die worden geëmuleerd via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Beeld > Toon logconfiguratie</span> moet worden geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Details</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Loguitgangen</span> > <span class="hlgreen">Schrijf naar bestand</span></li><li><span class="hllb">Logtypes</span> > <span class="hlgreen">Prestaties (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Toon RetroAchievements-meldingen voor games die worden geëmuleerd via PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Hulpmiddelen > Bestandslogboek inschakelen</span> moet ingeschakeld zijn</span>`,
+        duckstation: `Toon RetroAchievements-meldingen voor games die worden geëmuleerd via Duckstation<br><br><span class="ttdesc">❗ Het bestand <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> moet worden gedownload en verplaatst naar de <span class="hl">installatiemap van Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Instellingen > Achievements > RAIntegration (Alleen voor ontwikkelaars)</span> moet ingeschakeld zijn</span>`,
+        ppsspp: `Toon RetroAchievements-meldingen voor games die via PPSSPP worden geëmuleerd<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> moet zijn ingeschakeld en geconfigureerd met de volgende instellingen:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Stel het pad in naar het <span class="hl">"retroarch.log"</span> logbestand van RetroArch<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"retroarch.log"</span> opgeslagen in <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Stel het pad in naar het <span class="hl">"dolphin.log"</span> logbestand van Dolphin<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"dolphin.log"</span> opgeslagen op een van de volgende locaties:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Stel het pad in naar het <span class="hl">"emulog.txt"</span> logbestand van PCSX2<br><br><span class="ttdesc">Bij standaardinstallatie wordt <span class="hl">"emulog.txt"</span> opgeslagen in <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `Schakelt alle sneltoetsen binnen de app uit<br><br><span class="ttdesc">Wanneer ingeschakeld, <u>werken alle sneltoetsen binnen de app niet langer</u>. Alle opties met betrekking tot sneltoetsen worden ook verborgen</span>`,
         extwinnotify: "Schakelt de zichtbaarheid van alle meldingen op het scherm tijdens het gebruik van Stream Notifications",
         usesanwatcher: `Schakel SAN's nieuwe controlefunctie voor spelprocessen in<br><br><span class="ttdesc">De verschillen tussen de nieuwe SANWatcher en de oude methoden voor automatische procesdetectie zijn als volgt:<br><br><div class="wrapper sanwatcher"><span class="hl">AAN</span><ul><li>Controleert actief start-/afsluitgebeurtenissen van elk proces dat is opgeslagen in de installatiemap van het spel</li><li>Vereist niet dat het uitvoerbare bestand van het spel bekend is om het huidige spel vrij te geven</li><li>Het gedrag van opstartprogramma's vóór het spel kan verschillen, waardoor volledige compatibiliteit met alle Steam-spellen niet kan worden gegarandeerd</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">UIT</span><ul><li>Scant de installatiemap van het spel op actieve uitvoerbare bestanden nadat het spel is gestart</li><li>Vereist dat het uitvoerbare bestand van het spel bekend is om het huidige spel vrij te geven</li><li>Als het spelproces niet automatisch kan worden vastgesteld, moet de gebruiker handmatig een nieuwe vermelding toevoegen aan <span class="hl">Automatisch vrijgeven van spellen</span> zodat spellen automatisch kunnen worden vrijgegeven</li></ul></div>`,
-        releasewaittime: `Stel in hoe lang SANWatcher wacht totdat nieuwe gameprocessen worden gestart voordat de huidige game wordt vrijgegeven<br><br><span class="ttdesc">Als de huidige game bijvoorbeeld eerst een opstart-/configuratievenster opent voordat de daadwerkelijke game wordt gestart, bepaalt deze instelling hoeveel seconden SANWatcher wacht totdat het daadwerkelijke gamevenster verschijnt nadat het opstart-/configuratievenster is gesloten<br><br>Als binnen deze wachttijd een nieuw actief gameproces wordt gedetecteerd, wordt de vrijgave geannuleerd en wordt in plaats daarvan het nieuw actieve proces gevolgd<br><br>💡 De naam van de game zal <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">knipperen</span> in het vak <span class="hl">Gameweergave</span> terwijl de huidige game wacht om te worden vrijgegeven</span>`
+        releasewaittime: `Stel in hoe lang SANWatcher wacht totdat nieuwe gameprocessen worden gestart voordat de huidige game wordt vrijgegeven<br><br><span class="ttdesc">Als de huidige game bijvoorbeeld eerst een opstart-/configuratievenster opent voordat de daadwerkelijke game wordt gestart, bepaalt deze instelling hoeveel seconden SANWatcher wacht totdat het daadwerkelijke gamevenster verschijnt nadat het opstart-/configuratievenster is gesloten<br><br>Als binnen deze wachttijd een nieuw actief gameproces wordt gedetecteerd, wordt de vrijgave geannuleerd en wordt in plaats daarvan het nieuw actieve proces gevolgd<br><br>💡 De naam van de game zal <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">knipperen</span> in het vak <span class="hl">Gameweergave</span> terwijl de huidige game wacht om te worden vrijgegeven</span>`,
+        platcustomtext: `Stel een aangepast bericht voor 100% spelvoltooiing in dat in de melding wordt weergegeven<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Customiser > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`,
+        raui: "Toon de namen van gedetecteerde RetroAchievements-games in de Gameweergave-/systeemvak-UI"
     },
     update: {
         updateavailable: "Update beschikbaar",
@@ -911,7 +915,7 @@ export const translations = {
                 `Na het toevoegen kunnen vermeldingen <span class="hl">worden verwijderd</span> via het vorige menu <span class="hl">$linkgame</span>`
             ],
             link: "Toevoegen",
-            findappid: "AppID zoeken",
+            findappid: "Steam AppID zoeken",
             findappidsub: [
                 `Elke Steam-game heeft een uniek nummer dat een <span class="hl">AppID</span> wordt genoemd. Je kunt de AppID van elke Steam-game op een van de volgende manieren vinden:`,
                 `Klik in de <span class="hl">Steam-client</span> met de <i>rechtermuisknop</i> op een game in je <span class="hl">Bibliotheek</span> en kies <i>Eigenschappen</i> > <i>Updates</i> - de AppID wordt hier weergegeven`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Voeg de <span class="hl">AppID</span> van een spel toe om automatisch <span class="hl">Thema's</span> te wisselen wanneer het wordt gedetecteerd`,
-                `Elk opgeslagen <span class="hl">Thema</span> kan worden geselecteerd voor elk meldingstype, samen met de gewenste monitor om te gebruiken als <span class="hl">Schermafbeeldingsbron</span>`,
-                `<span class="hl" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-spel?</u></span>`
+                `Voeg de <span class="hl">AppID</span>/<span class="hl">GameID</span> van een spel toe om automatisch van <span class="hl">Thema</span> te wisselen wanneer het wordt gedetecteerd`,
+                `Elk opgeslagen <span class="hl">Thema</span> kan worden geselecteerd voor elk meldingstype, samen met de gewenste monitor die als <span class="hl">Bron voor schermafbeeldingen</span> wordt gebruikt`,
+                `<span class="hl help" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-spel?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Hoe vind ik de GameID van een RetroAchievements-spel?</u></span>`
             ],
-            themeswitchnew: "Nieuwe Automatische Wissel",
+            themeswitchnew: "Nieuwe automatische wissel",
             themeswitchnewsub: [
-                `Voer de <span class="hl">AppID</span> van het spel in, samen met de gewenste monitor om te gebruiken als <span class="hl">Schermafbeeldingsbron</span>`,
-                `Selecteer welk <span class="hl">Thema</span> moet worden gewisseld voor elk meldingstype wanneer de <span class="hl">AppID</span> van dit spel wordt gedetecteerd`
+                `Voer de <span class="hl">AppID</span>/<span class="hl">GameID</span> van het spel in, samen met de gewenste monitor die als <span class="hl">Bron voor schermafbeeldingen</span> wordt gebruikt`,
+                `Meerdere <span class="hl">AppID's</span>/<span class="hl">GameID's</span> kunnen tegelijk worden ingevoerd, gescheiden door een komma (<code>,</code>) of een puntkomma (<code>;</code>)`,
+                `Selecteer naar welk <span class="hl">Thema</span> moet worden gewisseld voor elk meldingstype wanneer de <span class="hl">AppID</span>/<span class="hl">GameID</span> van dit spel wordt gedetecteerd`
             ],
-            themeswitchedit: "Bewerk automatische wissel",
+            themeswitchedit: "Automatische wissel bewerken",
             themeswitcheditsub: [
-                `Bewerk de gewenste monitor die gebruikt wordt als <span class="hl">Screenshotbron</span> voor de <span class="hl">AppID</span> van dit spel`,
-                `Wijzig welk <span class="hl">Thema</span> er wordt gewisseld voor elk notificatietype wanneer de <span class="hl">AppID</span> van dit spel wordt gedetecteerd`
+                `Bewerk de gewenste monitor die als <span class="hl">Bron voor schermafbeeldingen</span> wordt gebruikt voor de <span class="hl">AppID</span>/<span class="hl">GameID</span> van dit spel`,
+                `Wijzig naar welk <span class="hl">Thema</span> moet worden gewisseld voor elk meldingstype wanneer de <span class="hl">AppID</span>/<span class="hl">GameID</span> van dit spel wordt gedetecteerd`
             ],
             themes: "Thema's",
-            src: "Schermafbeeldingsbron",
-            themedeleted: "Thema verwijderd"
+            src: "Bron voor schermafbeeldingen",
+            themedeleted: "Thema verwijderd",
+            rafindgameid: "RA GameID zoeken",
+            rafindgameidsub: [
+                `Elk RetroAchievements-spel heeft een uniek nummer dat eraan is gekoppeld, een <span class="hl">GameID</span>. Je kunt de GameID van elk RetroAchievements-spel vinden door het volgende te controleren:`,
+                `De <span class="hl">URL</span> van de <span class="hl">spelpagina</span> op de RetroAchievements-website. Dit is het nummer dat volgt op <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

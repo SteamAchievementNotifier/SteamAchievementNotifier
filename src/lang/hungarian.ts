@@ -349,7 +349,7 @@ export const translations = {
             }
         },    
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "Emulátorok",
                 rauser: "Felhasználónév",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Várakozás a játékeseményre",
                 start: "Játék indítása",
                 stop: "Játék leállítása",
-                achievement: "Teljesítmény feloldva"
+                achievement: "Teljesítmény feloldva",
+                raui: "Játékkijelző felhasználói felület használata"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "Méretarány",
                 customtext: "Egyéni szöveg",
                 usegametitle: "Játékcím használata",
-                customfont: "Egyéni betűtípus"
+                customfont: "Egyéni betűtípus",
+                platcustomtext: "Egyéni 100%-os szöveg"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "A teljesítmény feloldási százalékának megjelenítése az XP/S érték helyett",
         displaytime: "Állítsa be az értesítés megjelenítési idejét másodpercben",
         scale: "Növelje vagy csökkentse az értesítés méretét",
-        customtext: "Egyéni üzenet beállítása az értesítésben való megjelenítéshez",
+        customtext: `Állítson be egy egyéni üzenetet, amely megjelenik az értesítésben<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Customiser > Előbeállítás > Értesítési elemek > Feloldási üzenet ki van kapcsolva</span>`,
         usegametitle: "A jelenlegi játék címének megjelenítése az értesítésben",
         customfont: "Egyéni betűtípus betöltése az értesítésben való használathoz",
         soundmode: "Válasszon egyetlen hangfájlt vagy véletlenszerűen kiválasztott hangfájlt egy mappából, amikor egy értesítés történik",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "Állítsa be a webhook beágyazásban használt színt, amikor egy $rare teljesítmény feloldódik",
         webhookembedcolorplat: "Állítsa be a webhook beágyazásban használt színt, amikor egy $plat teljesítmény feloldódik",
         raemus: "Értesítések megjelenítése, amikor játékokat észlelnek támogatott emulátorokban",
-        rauser: "A Retro Achievements felhasználónevet beállítani az elért eredmények nyomon követéséhez",
-        rakey: `Állítsa be a Web API kulcsot, amely az autentikációhoz használható a Retro Achievements API-val<br><br><span class="ttdesc">Egy Web API kulcs másolható vagy újragenerálható úgy, hogy bejelentkezik a Retro Achievements weboldalra, és átmegy a <span class="hl">Beállítások > Kulcsok > Web API kulcs</span> menüpontra<br><br>🔒 A megadott kulcs titkosítva lesz, mielőtt helyben tárolódna a rendszeren (ha az aktuális operációs rendszer támogatja a titkosítást)</span>`,
+        rauser: "A RetroAchievements felhasználónevet beállítani az elért eredmények nyomon követéséhez",
+        rakey: `Állítsa be a Web API kulcsot, amely az autentikációhoz használható a RetroAchievements API-val<br><br><span class="ttdesc">Egy Web API kulcs másolható vagy újragenerálható úgy, hogy bejelentkezik a RetroAchievements weboldalra, és átmegy a <span class="hl">Beállítások > Kulcsok > Web API kulcs</span> menüpontra<br><br>🔒 A megadott kulcs titkosítva lesz, mielőtt helyben tárolódna a rendszeren (ha az aktuális operációs rendszer támogatja a titkosítást)</span>`,
         rapercenttype: "Beállíthatja, hogy a Hardcore vagy Softcore eredmények százaléka jelenjen meg az értesítésekben",
         retroarch: `Teljesítmények értesítéseinek megjelenítése RetroArch-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">RetroArch > Beállítások > Naplózás</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Naplózási Részletesség</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Előlap Naplózási Szint</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Naplózás Fájlba</span>: <span class="hlgreen">BE</span></li><li><span class="hllb">Időbélyeg a Napló Fájlokhoz</span>: <span class="hlred">KI</span></li></ul></span>`,
         dolphin: `Teljesítmények értesítéseinek megjelenítése Dolphin-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">Dolphin > Nézet > Naplózási Beállítások Megjelenítése</span> beállításait az alábbi módon kell konfigurálni:<br><br><ul><li><span class="hllb">Részletesség</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Napló Kimenetek</span> > <span class="hlgreen">Írás Fájlba</span></li><li><span class="hllb">Napló Típusok</span> > <span class="hlgreen">Teljesítmények (RetroAchievements)</span></li></ul></span>`,
         pcsx2: `Teljesítmények értesítéseinek megjelenítése PCSX2-ban emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">PCSX2 > Eszközök > Fájl naplózás engedélyezése</span> engedélyezve kell, hogy legyen</span>`,
-        duckstation: `Retro Achievements értesítések megjelenítése Duckstation segítségével emulált játékokhoz<br><br><span class="ttdesc">❗ A <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> fájlt le kell tölteni és áthelyezni a <span class="hl">Duckstation telepítési könyvtárába</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Beállítások > Eredmények > RAIntegration (Csak fejlesztőknek)</span> engedélyezve kell lennie</span>`,
-        ppsspp: `Retro Achievements értesítések megjelenítése a PPSSPP-n keresztül emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">Beállítások > Eszközök > Fejlesztői eszközök > Általános > Naplózás fájlba</span> engedélyezve kell legyen, és a következő beállításokkal kell konfigurálni:<br><br><ul><li><span class="hllb">Teljesítmények</span>: <span class="hlgreen">Információ</span></span>`,
+        duckstation: `RetroAchievements értesítések megjelenítése Duckstation segítségével emulált játékokhoz<br><br><span class="ttdesc">❗ A <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> fájlt le kell tölteni és áthelyezni a <span class="hl">Duckstation telepítési könyvtárába</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Beállítások > Eredmények > RAIntegration (Csak fejlesztőknek)</span> engedélyezve kell lennie</span>`,
+        ppsspp: `RetroAchievements értesítések megjelenítése a PPSSPP-n keresztül emulált játékokhoz<br><br><span class="ttdesc"><span class="hl">Beállítások > Eszközök > Fejlesztői eszközök > Általános > Naplózás fájlba</span> engedélyezve kell legyen, és a következő beállításokkal kell konfigurálni:<br><br><ul><li><span class="hllb">Teljesítmények</span>: <span class="hlgreen">Információ</span></span>`,
         retroarchpath: `Állítsd be a RetroArch <span class="hl">"retroarch.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"retroarch.log"</span> itt található: <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Állítsd be a Dolphin <span class="hl">"dolphin.log"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"dolphin.log"</span> az alábbi helyek egyikén található:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Állítsd be a PCSX2 <span class="hl">"emulog.txt"</span> napló fájl elérési útját<br><br><span class="ttdesc">Alapértelmezett telepítési beállításokkal a <span class="hl">"emulog.txt"</span> itt található: <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `Letiltja az alkalmazáson belüli összes billentyűparancsot<br><br><span class="ttdesc">Ha engedélyezve van, <u>az alkalmazáson belüli összes billentyűparancs többé nem fog működni</u>. A billentyűparancsokhoz kapcsolódó összes opció is el lesz rejtve</span>`,
         extwinnotify: "Az összes képernyőértesítés láthatóságának váltása Stream Notifications használata közben",
         usesanwatcher: `A SAN új játékfolyamat-figyelőjének engedélyezése<br><br><span class="ttdesc">Az új SANWatcher és a régi automatikus folyamatkövetési módszerek közötti különbségek a következők:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Aktívan figyeli az indítási/kilépési eseményeket minden olyan folyamat esetén, amely a játék telepítési könyvtárában található</li><li>Nem szükséges ismerni a játék futtatható állományát az aktuális játék felszabadításához</li><li>A játék előtti indítók viselkedése eltérő lehet, ezért a teljes kompatibilitás nem garantált minden Steam játék esetén</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>A játék indítása után átvizsgálja a játék telepítési könyvtárát futó végrehajtható fájlok után</li><li>Az aktuális játék felszabadításához ismerni kell a játék futtatható állományát</li><li>Ha a játék folyamata nem határozható meg automatikusan, a felhasználónak manuálisan kell új bejegyzést hozzáadnia az <span class="hl">Kapcsolt játékok</span> listához, hogy a játékok automatikusan felszabaduljanak</li></ul></div>`,
-        releasewaittime: `Állítsa be, hogy a SANWatcher mennyi ideig várjon új játékfolyamatok elindulására, mielőtt elengedné a jelenlegi játékot<br><br><span class="ttdesc">Például, ha a jelenlegi játék a tényleges játék indítása előtt egy indító-/beállítóablakot nyit meg, ez a beállítás határozza meg, hogy a SANWatcher hány másodpercig várjon a tényleges játékablak megjelenésére azután, hogy az indító-/beállítóablak bezárult<br><br>Ha ezen várakozási időn belül új aktív játékfolyamat észlelhető, az elengedés megszakad, és a rendszer ezután az újonnan aktív folyamatot fogja követni<br><br>💡 A játék neve <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">villogni fog</span> a <span class="hl">Játékmegjelenítő</span> mezőben, miközben a jelenlegi játék az elengedésre vár</span>`
+        releasewaittime: `Állítsa be, hogy a SANWatcher mennyi ideig várjon új játékfolyamatok elindulására, mielőtt elengedné a jelenlegi játékot<br><br><span class="ttdesc">Például, ha a jelenlegi játék a tényleges játék indítása előtt egy indító-/beállítóablakot nyit meg, ez a beállítás határozza meg, hogy a SANWatcher hány másodpercig várjon a tényleges játékablak megjelenésére azután, hogy az indító-/beállítóablak bezárult<br><br>Ha ezen várakozási időn belül új aktív játékfolyamat észlelhető, az elengedés megszakad, és a rendszer ezután az újonnan aktív folyamatot fogja követni<br><br>💡 A játék neve <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">villogni fog</span> a <span class="hl">Játékmegjelenítő</span> mezőben, miközben a jelenlegi játék az elengedésre vár</span>`,
+        platcustomtext: `Állítson be egy egyéni üzenetet a játék 100%-os teljesítéséhez, amely megjelenik az értesítésben<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Customiser > Előbeállítás > Értesítési elemek > Achievement leírás ki van kapcsolva</span>`,
+        raui: "Az észlelt RetroAchievements játékok nevének megjelenítése a Játékkijelző/rendszertálca felhasználói felületén"
     },
     update: {
         updateavailable: "Frissítés elérhető",
@@ -911,7 +915,7 @@ export const translations = {
                 `Hozzáadás után a bejegyzések <span class="hl">eltávolíthatók</span> az előző <span class="hl">$linkgame</span> menüből`
             ],
             link: "Hozzáadás",
-            findappid: "AppID keresése",
+            findappid: "Steam AppID keresése",
             findappidsub: [
                 `Minden Steam játékhoz egy egyedi szám tartozik – ezt <span class="hl">AppID</span>-nek nevezik. Bármely Steam játék AppID-jét az alábbi módok egyikével találhatod meg:`,
                 `A <span class="hl">Steam kliensben</span> kattints <i>jobb gombbal</i> a játékra a <span class="hl">Könyvtárban</span>, majd válaszd a <i>Tulajdonságok</i> > <i>Frissítések</i> menüpontot – itt megtalálod az AppID-t`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Adja hozzá bármely játék <span class="hl">AppID</span>-ját, hogy automatikusan válthasson <span class="hl">Témákra</span>, amikor észlelik`,
-                `Bármely mentett <span class="hl">Téma</span> választható minden figyelmeztetési típushoz, valamint a kívánt monitor kiválasztható, amelyet <span class="hl">Képernyőkép forrásként</span> szeretne használni`,
-                `<span class="hl" id="appidhelp"><u>Hogyan találom meg egy Steam játék AppID-ját?</u></span>`
+                `Adja hozzá bármely játék <span class="hl">AppID</span>/<span class="hl">GameID</span> azonosítóját, hogy észleléskor automatikusan váltson <span class="hl">Témát</span>`,
+                `Bármely mentett <span class="hl">Téma</span> kiválasztható minden értesítéstípushoz, valamint a kívánt monitor, amelyet <span class="hl">Képernyőkép forrásként</span> használjon`,
+                `<span class="hl help" id="appidhelp"><u>Hogyan találom meg egy Steam-játék AppID azonosítóját?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Hogyan találom meg egy RetroAchievements-játék GameID azonosítóját?</u></span>`
             ],
             themeswitchnew: "Új automatikus váltás",
             themeswitchnewsub: [
-                `Adja meg a játék <span class="hl">AppID</span>-ját, valamint a kívánt monitort, amelyet <span class="hl">Képernyőkép forrásként</span> szeretne használni`,
-                `Válassza ki, hogy melyik <span class="hl">Témára</span> szeretne váltani minden figyelmeztetési típushoz, amikor a játék <span class="hl">AppID</span>-ját észlelik`
+                `Adja meg a játék <span class="hl">AppID</span>/<span class="hl">GameID</span> azonosítóját, valamint a kívánt monitort, amelyet <span class="hl">Képernyőkép forrásként</span> használjon`,
+                `Több <span class="hl">AppID</span>/<span class="hl">GameID</span> egyszerre is megadható, ha vesszővel (<code>,</code>) vagy pontosvesszővel (<code>;</code>) vannak elválasztva`,
+                `Válassza ki, melyik <span class="hl">Témára</span> váltson az egyes értesítéstípusoknál, amikor a játék <span class="hl">AppID</span>/<span class="hl">GameID</span> azonosítója észlelésre kerül`
             ],
             themeswitchedit: "Automatikus váltás szerkesztése",
             themeswitcheditsub: [
-                `A kívánt monitor szerkesztése, amely <span class="hl">képernyőkép forrásként</span> szolgál ehhez a játékhoz tartozó <span class="hl">AppID</span> esetén`,
-                `Módosítsa, hogy melyik <span class="hl">téma</span> váltson be minden értesítéstípus esetén, amikor ez a játék <span class="hl">AppID</span> észlelhető`
+                `Szerkessze a kívánt monitort, amelyet <span class="hl">Képernyőkép forrásként</span> használjon a játék <span class="hl">AppID</span>/<span class="hl">GameID</span> azonosítójához`,
+                `Módosítsa, melyik <span class="hl">Témára</span> váltson az egyes értesítéstípusoknál, amikor a játék <span class="hl">AppID</span>/<span class="hl">GameID</span> azonosítója észlelésre kerül`
             ],
             themes: "Témák",
             src: "Képernyőkép forrás",
-            themedeleted: "Téma törölve"
+            themedeleted: "A téma törölve",
+            rafindgameid: "RA GameID keresése",
+            rafindgameidsub: [
+                `Minden RetroAchievements-játékhoz tartozik egy egyedi szám, amelyet <span class="hl">GameID</span>-nek neveznek. Bármely RetroAchievements-játék GameID azonosítóját az alábbi módon találhatja meg:`,
+                `A RetroAchievements webhely <span class="hl">játékoldalának</span> <span class="hl">URL-címében</span> – ez a <span class="hl">game/</span> után szereplő szám: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "Емулатори",
                 rauser: "Ім'я користувача",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Очікування події в грі",
                 start: "Запуск гри",
                 stop: "Зупинка гри",
-                achievement: "Досягнення розблоковано"
+                achievement: "Досягнення розблоковано",
+                raui: "Використовувати інтерфейс відображення гри"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "Масштаб",
                 customtext: "Власний текст",
                 usegametitle: "Використовувати назву гри",
-                customfont: "Власний шрифт"
+                customfont: "Власний шрифт",
+                platcustomtext: "Користувацький текст 100%"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "Показати відсоток відкриття досягнення замість значення XP/S",
         displaytime: "Встановити кількість секунд, протягом яких буде відображатися сповіщення",
         scale: "Збільшити або зменшити розмір сповіщення",
-        customtext: "Встановити користувацьке повідомлення, яке буде відображатися в сповіщенні",
+        customtext: `Встановіть користувацьке повідомлення для відображення в сповіщенні<br><br><span class="ttdesc">Цей параметр буде приховано, якщо Customiser > Попереднє налаштування > Елементи сповіщень > Повідомлення розблокування вимкнено</span>`,
         usegametitle: "Показати назву поточної гри в сповіщенні",
         customfont: "Завантажити користувацький шрифт для використання в сповіщенні",
         soundmode: "Виберіть один аудіофайл або випадково вибраний аудіофайл з папки, що містить кілька аудіофайлів, коли виникає сповіщення",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "Встановити колір, що використовується у вебхуці при розблокуванні досягнення $rare",
         webhookembedcolorplat: "Встановити колір, що використовується у вебхуці при розблокуванні досягнення $plat",
         raemus: "Показувати сповіщення, коли гри виявляються в підтримуваних емуляторах",
-        rauser: "Встановіть ім'я користувача Retro Achievements для відслідковування досягнень",
-        rakey: `Встановіть Web API ключ, який буде використовуватись для автентифікації в API Retro Achievements<br><br><span class="ttdesc">Web API ключ можна скопіювати або відновити, увійшовши на сайт Retro Achievements і перейшовши в розділ <span class="hl">Налаштування > Ключі > Web API Key</span><br><br>🔒 Наданий ключ буде зашифрований перед збереженням в локальній системі (якщо поточна операційна система підтримує шифрування)</span>`,
+        rauser: "Встановіть ім'я користувача RetroAchievements для відслідковування досягнень",
+        rakey: `Встановіть Web API ключ, який буде використовуватись для автентифікації в API RetroAchievements<br><br><span class="ttdesc">Web API ключ можна скопіювати або відновити, увійшовши на сайт RetroAchievements і перейшовши в розділ <span class="hl">Налаштування > Ключі > Web API Key</span><br><br>🔒 Наданий ключ буде зашифрований перед збереженням в локальній системі (якщо поточна операційна система підтримує шифрування)</span>`,
         rapercenttype: "Встановіть, чи слід показувати відсотки досягнень Hardcore або Softcore у сповіщеннях",
-        retroarch: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Налаштування > Логування</span> повинно бути налаштоване за такими параметрами:<br><br><ul><li><span class="hllb">Рівень детальності логування</span>: <span class="hlgreen">УВІМК.</span></li><li><span class="hllb">Рівень логування фронтенду</span>: <span class="hlgreen">1 (Інформація)</span></li><li><span class="hllb">Логування в файл</span>: <span class="hlgreen">УВІМК.</span></li><li><span class="hllb">Часова мітка для лог-файлів</span>: <span class="hlred">ВИМК.</span></li></ul></span>`,
-        dolphin: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Перегляд > Показати налаштування журналу</span> повинно бути налаштоване за такими параметрами:<br><br><ul><li><span class="hllb">Рівень детальності</span>: <span class="hlgreen">Інформація</span></li><li><span class="hllb">Виведення журналу</span> > <span class="hlgreen">Запис в файл</span></li><li><span class="hllb">Типи журналів</span> > <span class="hlgreen">Досягнення (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Показувати повідомлення Retro Achievements для ігор, емульованих за допомогою PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Інструменти > Увімкнути запис у файл</span> повинно бути увімкнено</span>`,
-        duckstation: `Показувати сповіщення Retro Achievements для ігор, емульованих через Duckstation<br><br><span class="ttdesc">❗ Файл <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> потрібно завантажити та перемістити в <span class="hl">каталог установки Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Налаштування > Досягнення > RAIntegration (Тільки для розробників)</span> має бути увімкнено</span>`,
-        ppsspp: `Показувати сповіщення Retro Achievements для ігор, які емітуються через PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> має бути ввімкнено та налаштовано з такими параметрами:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `Показувати повідомлення RetroAchievements для ігор, емульованих за допомогою RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Налаштування > Логування</span> повинно бути налаштоване за такими параметрами:<br><br><ul><li><span class="hllb">Рівень детальності логування</span>: <span class="hlgreen">УВІМК.</span></li><li><span class="hllb">Рівень логування фронтенду</span>: <span class="hlgreen">1 (Інформація)</span></li><li><span class="hllb">Логування в файл</span>: <span class="hlgreen">УВІМК.</span></li><li><span class="hllb">Часова мітка для лог-файлів</span>: <span class="hlred">ВИМК.</span></li></ul></span>`,
+        dolphin: `Показувати повідомлення RetroAchievements для ігор, емульованих за допомогою Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Перегляд > Показати налаштування журналу</span> повинно бути налаштоване за такими параметрами:<br><br><ul><li><span class="hllb">Рівень детальності</span>: <span class="hlgreen">Інформація</span></li><li><span class="hllb">Виведення журналу</span> > <span class="hlgreen">Запис в файл</span></li><li><span class="hllb">Типи журналів</span> > <span class="hlgreen">Досягнення (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Показувати повідомлення RetroAchievements для ігор, емульованих за допомогою PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Інструменти > Увімкнути запис у файл</span> повинно бути увімкнено</span>`,
+        duckstation: `Показувати сповіщення RetroAchievements для ігор, емульованих через Duckstation<br><br><span class="ttdesc">❗ Файл <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> потрібно завантажити та перемістити в <span class="hl">каталог установки Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Налаштування > Досягнення > RAIntegration (Тільки для розробників)</span> має бути увімкнено</span>`,
+        ppsspp: `Показувати сповіщення RetroAchievements для ігор, які емітуються через PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> має бути ввімкнено та налаштовано з такими параметрами:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Встановіть шлях до лог-файлу RetroArch <span class="hl">"retroarch.log"</span><br><br><span class="ttdesc">За умовчанням, лог-файл <span class="hl">"retroarch.log"</span> зберігається в <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Встановіть шлях до лог-файлу Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">За умовчанням, лог-файл <span class="hl">"dolphin.log"</span> зберігається в одному з наступних місць:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Встановіть шлях до лог-файлу PCSX2 <span class="hl">"emulog.txt"</span><br><br><span class="ttdesc">За умовчанням, лог-файл <span class="hl">"emulog.txt"</span> зберігається в <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `Вимикає всі комбінації клавіш у застосунку<br><br><span class="ttdesc">Коли ввімкнено, <u>усі комбінації клавіш у застосунку більше не працюватимуть</u>. Усі параметри, пов’язані з комбінаціями клавіш, також будуть приховані</span>`,
         extwinnotify: "Перемикати видимість усіх сповіщень на екрані під час використання Stream Notifications",
         usesanwatcher: `Увімкнути новий засіб відстеження ігрових процесів SAN<br><br><span class="ttdesc">Відмінності між новим SANWatcher і старими методами автоматичного відстеження процесів такі:<br><br><div class="wrapper sanwatcher"><span class="hl">УВІМК.</span><ul><li>Активно відстежує події запуску та завершення будь-яких процесів, що знаходяться в каталозі встановлення гри</li><li>Не потребує знання виконуваного файлу гри для вивільнення поточної гри</li><li>Поведінка попередніх запускників гри може відрізнятися, тому повна сумісність з усіма іграми Steam не гарантується</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">ВИМК.</span><ul><li>Сканує каталог встановлення гри на наявність запущених виконуваних файлів після запуску гри</li><li>Потребує знання виконуваного файлу гри для вивільнення поточної гри</li><li>Якщо процес гри не вдається визначити автоматично, користувач повинен вручну додати новий запис до <span class="hl">Ігри з Автоматичним Звільненням</span>, щоб ігри могли вивільнятися автоматично</li></ul></div>`,
-        releasewaittime: `Укажіть, як довго SANWatcher чекатиме на запуск нових ігрових процесів перед звільненням поточної гри<br><br><span class="ttdesc">Наприклад, якщо поточна гра спочатку запускає передігровий лаунчер/вікно налаштувань перед запуском самої гри, цей параметр визначає кількість секунд, протягом яких SANWatcher чекатиме на появу вікна фактичної гри після закриття передігрового лаунчера/вікна налаштувань<br><br>Якщо протягом цього часу очікування буде виявлено новий активний ігровий процес, звільнення буде скасовано, і натомість відстежуватиметься новий активний процес<br><br>💡 Назва гри буде <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">блимати</span> у полі <span class="hl">Відображення гри</span>, поки поточна гра очікує на звільнення</span>`
+        releasewaittime: `Укажіть, як довго SANWatcher чекатиме на запуск нових ігрових процесів перед звільненням поточної гри<br><br><span class="ttdesc">Наприклад, якщо поточна гра спочатку запускає передігровий лаунчер/вікно налаштувань перед запуском самої гри, цей параметр визначає кількість секунд, протягом яких SANWatcher чекатиме на появу вікна фактичної гри після закриття передігрового лаунчера/вікна налаштувань<br><br>Якщо протягом цього часу очікування буде виявлено новий активний ігровий процес, звільнення буде скасовано, і натомість відстежуватиметься новий активний процес<br><br>💡 Назва гри буде <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">блимати</span> у полі <span class="hl">Відображення гри</span>, поки поточна гра очікує на звільнення</span>`,
+        platcustomtext: `Встановіть користувацьке повідомлення про 100% проходження гри для відображення в сповіщенні<br><br><span class="ttdesc">Цей параметр буде приховано, якщо Customiser > Попереднє налаштування > Елементи сповіщень > Опис досягнення вимкнено</span>`,
+        raui: "Відображати назви виявлених ігор RetroAchievements в інтерфейсі відображення гри/системному треї"
     },
     update: {
         updateavailable: "Доступне оновлення",
@@ -911,7 +915,7 @@ export const translations = {
                 `Після додавання записи можна <span class="hl">видалити</span> через попереднє меню <span class="hl">$linkgame</span>`
             ],
             link: "Додати",
-            findappid: "Знайти AppID",
+            findappid: "Знайти Steam AppID",
             findappidsub: [
                 `Кожна гра Steam має унікальний номер, який називається <span class="hl">AppID</span>. Ви можете знайти AppID будь-якої гри Steam одним із таких способів:`,
                 `У <span class="hl">клієнті Steam</span> клацніть правою кнопкою миші гру у вашій <span class="hl">бібліотеці</span> та виберіть <i>Властивості</i> > <i>Оновлення</i> — тут буде показано AppID`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Додайте <span class="hl">AppID</span> будь-якої гри, щоб автоматично перемикати <span class="hl">Темы</span> при виявленні`,
-                `Для кожного типу сповіщення можна вибрати будь-яку збережену <span class="hl">Тему</span>, а також бажаний монітор, який буде використовуватися як <span class="hl">Джерело Скріншоту</span>`,
-                `<span class="hl" id="appidhelp"><u>Як знайти AppID гри Steam?</u></span>`
+                `Додайте <span class="hl">AppID</span>/<span class="hl">GameID</span> будь-якої гри, щоб автоматично перемикати <span class="hl">теми</span> при виявленні`,
+                `Будь-яку збережену <span class="hl">тему</span> можна вибрати для кожного типу сповіщення, а також вибрати монітор як <span class="hl">джерело скриншоту</span>`,
+                `<span class="hl help" id="appidhelp"><u>Як знайти AppID гри Steam?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Як знайти GameID гри RetroAchievements?</u></span>`
             ],
-            themeswitchnew: "Нова автоматична зміна",
+            themeswitchnew: "Нове автоматичне перемикання",
             themeswitchnewsub: [
-                `Введіть <span class="hl">AppID</span> гри разом із бажаним монітором, який буде використовуватися як <span class="hl">Джерело Скріншоту</span>`,
-                `Виберіть, на яку <span class="hl">Тему</span> перемикатися для кожного типу сповіщення, коли виявлено <span class="hl">AppID</span> цієї гри`
+                `Введіть <span class="hl">AppID</span>/<span class="hl">GameID</span> гри та монітор для використання як <span class="hl">джерело скриншоту</span>`,
+                `Можна ввести кілька <span class="hl">AppID</span>/<span class="hl">GameID</span> одночасно, розділяючи їх комою (<code>,</code>) або крапкою з комою (<code>;</code>)`,
+                `Виберіть, на яку <span class="hl">тему</span> перемикатися для кожного типу сповіщення, коли виявлено <span class="hl">AppID</span>/<span class="hl">GameID</span> цієї гри`
             ],
             themeswitchedit: "Редагувати автоматичне перемикання",
             themeswitcheditsub: [
-                `Редагувати потрібний монітор, який використовуватиметься як <span class="hl">джерело знімків екрана</span> для <span class="hl">AppID</span> цієї гри`,
-                `Змінити, на яку <span class="hl">тему</span> перемикатися для кожного типу повідомлення, коли виявлено <span class="hl">AppID</span> цієї гри`
+                `Відредагуйте монітор для використання як <span class="hl">джерело скриншоту</span> для <span class="hl">AppID</span>/<span class="hl">GameID</span> цієї гри`,
+                `Змініть, на яку <span class="hl">тему</span> перемикатися для кожного типу сповіщення, коли виявлено <span class="hl">AppID</span>/<span class="hl">GameID</span> цієї гри`
             ],
-            themes: "Темы",
-            src: "Джерело Скріншоту",
-            themedeleted: "Тему видалено"
+            themes: "Теми",
+            src: "Джерело скриншоту",
+            themedeleted: "Тему видалено",
+            rafindgameid: "Знайти RA GameID",
+            rafindgameidsub: [
+                `Кожна гра RetroAchievements має унікальний номер, який називається <span class="hl">GameID</span>. Ви можете знайти GameID будь-якої гри RetroAchievements, перевіривши:`,
+                `URL <span class="hl">сторінки гри</span> на сайті RetroAchievements — це число після <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

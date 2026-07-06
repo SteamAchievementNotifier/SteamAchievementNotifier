@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "Емулатори",
                 rauser: "Потребителско име",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Изчакване на събитие в играта",
                 start: "Започване на играта",
                 stop: "Спиране на играта",
-                achievement: "Постижение отключено"
+                achievement: "Постижение отключено",
+                raui: "Използвай интерфейса за показване на играта"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "Мащаб",
                 customtext: "Персонализиран текст",
                 usegametitle: "Използване на заглавие на играта",
-                customfont: "Персонализиран шрифт"
+                customfont: "Персонализиран шрифт",
+                platcustomtext: "Персонализиран текст за 100%"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "Показване на процента на отключване на постижението, вместо стойността XP/S",
         displaytime: "Задаване на броя секунди, през които известието ще се показва",
         scale: "Увеличаване или намаляване на размера на известието",
-        customtext: "Задаване на персонализирано съобщение, което да се показва в известието",
+        customtext: `Задайте персонализирано съобщение, което да се показва в известието<br><br><span class="ttdesc">Тази опция ще бъде скрита, когато Customiser > Предварителна настройка > Елементи на известието > Съобщение при отключване е деактивирано</span>`,
         usegametitle: "Показване на заглавието на текущата игра в известието",
         customfont: "Зареждане на персонализиран шрифт, който да се използва в известието",
         soundmode: "Изберете единичен аудио файл или случайно избран аудио файл от папка, съдържаща множество аудио файлове, когато се появи известие",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "Задайте цвета, използван в вграденото съобщение на webhook при отключване на $rare постижение",
         webhookembedcolorplat: "Задайте цвета, използван в вграденото съобщение на webhook при отключване на $plat постижение",
         raemus: "Показване на известия при разпознаване на игри в поддържаните емулатори",
-        rauser: "Задайте потребителско име за Retro Achievements, за да проследявате постиженията",
-        rakey: `Задайте Web API ключа за удостоверяване към Retro Achievements API<br><br><span class="ttdesc">Web API ключ може да бъде копиран или генериран отново, като влезете в уебсайта на Retro Achievements и навигирате до <span class="hl">Настройки > Ключове > Web API ключ</span><br><br>🔒 Предоставеният ключ ще бъде криптиран преди да се съхрани локално на системата (ако текущата операционна система поддържа криптиране)</span>`,
+        rauser: "Задайте потребителско име за RetroAchievements, за да проследявате постиженията",
+        rakey: `Задайте Web API ключа за удостоверяване към RetroAchievements API<br><br><span class="ttdesc">Web API ключ може да бъде копиран или генериран отново, като влезете в уебсайта на RetroAchievements и навигирате до <span class="hl">Настройки > Ключове > Web API ключ</span><br><br>🔒 Предоставеният ключ ще бъде криптиран преди да се съхрани локално на системата (ако текущата операционна система поддържа криптиране)</span>`,
         rapercenttype: "Задайте дали да се показва процентът на отключените хардкор или софткор постижения в известията",
-        retroarch: `Показване на известия за Retro Achievements за игри, емулирани чрез RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Настройки > Регистрация</span> трябва да бъде конфигуриран със следните настройки:<br><br><ul><li><span class="hllb">Подробност на дневника</span>: <span class="hlgreen">ВКЛЮЧЕНО</span></li><li><span class="hllb">Ниво на регистрация на интерфейса</span>: <span class="hlgreen">1 (Информация)</span></li><li><span class="hllb">Запис в файл</span>: <span class="hlgreen">ВКЛЮЧЕНО</span></li><li><span class="hllb">Отбелязване с времеви печат</span>: <span class="hlred">ИЗКЛЮЧЕНО</span></li></ul></span>`,
-        dolphin: `Показване на известия за Retro Achievements за игри, емулирани чрез Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Изглед > Показване на конфигурация на дневника</span> трябва да бъде конфигуриран със следните настройки:<br><br><ul><li><span class="hllb">Подробност</span>: <span class="hlgreen">Информация</span></li><li><span class="hllb">Изходи на дневника</span> > <span class="hlgreen">Запис в файл</span></li><li><span class="hllb">Типове дневници</span> > <span class="hlgreen">Постижения (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Показване на известия за Retro Achievements за игри, емулирани чрез PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Инструменти > Активиране на регистриране във файл</span> трябва да бъде активирано</span>`,
-        duckstation: `Показване на известия от Retro Achievements за игри, емулирани чрез Duckstation<br><br><span class="ttdesc">❗ Файлът <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> трябва да бъде изтеглен и преместен в <span class="hl">директорията за инсталация на Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Настройки > Постижения > RAIntegration (Само за разработчици)</span> трябва да бъде активирано</span>`,
-        ppsspp: `Показвай известия от Retro Achievements за игри, емулирани чрез PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> трябва да бъде активирано и конфигурирано със следните настройки:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `Показване на известия за RetroAchievements за игри, емулирани чрез RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Настройки > Регистрация</span> трябва да бъде конфигуриран със следните настройки:<br><br><ul><li><span class="hllb">Подробност на дневника</span>: <span class="hlgreen">ВКЛЮЧЕНО</span></li><li><span class="hllb">Ниво на регистрация на интерфейса</span>: <span class="hlgreen">1 (Информация)</span></li><li><span class="hllb">Запис в файл</span>: <span class="hlgreen">ВКЛЮЧЕНО</span></li><li><span class="hllb">Отбелязване с времеви печат</span>: <span class="hlred">ИЗКЛЮЧЕНО</span></li></ul></span>`,
+        dolphin: `Показване на известия за RetroAchievements за игри, емулирани чрез Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Изглед > Показване на конфигурация на дневника</span> трябва да бъде конфигуриран със следните настройки:<br><br><ul><li><span class="hllb">Подробност</span>: <span class="hlgreen">Информация</span></li><li><span class="hllb">Изходи на дневника</span> > <span class="hlgreen">Запис в файл</span></li><li><span class="hllb">Типове дневници</span> > <span class="hlgreen">Постижения (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Показване на известия за RetroAchievements за игри, емулирани чрез PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Инструменти > Активиране на регистриране във файл</span> трябва да бъде активирано</span>`,
+        duckstation: `Показване на известия от RetroAchievements за игри, емулирани чрез Duckstation<br><br><span class="ttdesc">❗ Файлът <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> трябва да бъде изтеглен и преместен в <span class="hl">директорията за инсталация на Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Настройки > Постижения > RAIntegration (Само за разработчици)</span> трябва да бъде активирано</span>`,
+        ppsspp: `Показвай известия от RetroAchievements за игри, емулирани чрез PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> трябва да бъде активирано и конфигурирано със следните настройки:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Задайте пътя до лог файла на RetroArch <span class="hl">"retroarch.log"</span> <br><br><span class="ttdesc">При стандартни настройки на инсталацията <span class="hl">"retroarch.log"</span> се съхранява в <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Задайте пътя до лог файла на Dolphin <span class="hl">"dolphin.log"</span><br><br><span class="ttdesc">При стандартни настройки на инсталацията <span class="hl">"dolphin.log"</span> се съхранява на едно от следните места:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Задайте пътя до лог файла на PCSX2 <span class="hl">"emulog.txt"</span><br><br><span class="ttdesc">При използване на стандартни настройки за инсталация, <span class="hl">"emulog.txt"</span> се съхранява в <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `Деактивира всички клавишни комбинации в приложението<br><br><span class="ttdesc">Когато е активирано, <u>всички клавишни комбинации в приложението повече няма да работят</u>. Всички опции, свързани с клавишните комбинации, също ще бъдат скрити</span>`,
         extwinnotify: "Превключва видимостта на всички известия на екрана при използване на Stream Notifications",
         usesanwatcher: `Активиране на новия наблюдател на игрови процеси на SAN<br><br><span class="ttdesc">Разликите между новия SANWatcher и старите методи за автоматично проследяване на процеси са следните:<br><br><div class="wrapper sanwatcher"><span class="hl">ВКЛ.</span><ul><li>Активно следи събитията за стартиране/прекратяване на всеки процес, съхраняван в директорията за инсталация на играта</li><li>Не е необходимо да е известен изпълнимият файл на играта, за да бъде освободена текущата игра</li><li>Поведението на стартовите програми преди играта може да варира, така че пълна съвместимост с всички Steam игри не е гарантирана</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">ИЗКЛ.</span><ul><li>Сканира директорията за инсталация на играта за работещи изпълними файлове след стартиране на играта</li><li>Необходимо е да е известен изпълнимият файл на играта, за да бъде освободена текущата игра</li><li>Ако процесът на играта не може да бъде определен автоматично, потребителят трябва ръчно да добави нов запис в <span class="hl">Автоматично освобождаване на игри</span>, за да могат игрите да бъдат освобождавани автоматично</li></ul></div>`,
-        releasewaittime: `Задайте колко дълго SANWatcher ще изчаква появата на нови игрови процеси, преди да освободи текущата игра<br><br><span class="ttdesc">Например, ако текущата игра стартира прозорец за стартиране/конфигуриране преди действителната игра, тази настройка определя броя секунди, които SANWatcher ще изчака за появата на действителния игрови прозорец след затварянето на прозореца за стартиране/конфигуриране<br><br>Ако в рамките на това време за изчакване бъде открит нов активен игрови процес, освобождаването ще бъде отменено и вместо това ще бъде проследяван новият активен процес<br><br>💡 Името на играта ще <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">мига</span> в полето <span class="hl">Показване на играта</span>, докато текущата игра изчаква освобождаване</span>`
+        releasewaittime: `Задайте колко дълго SANWatcher ще изчаква появата на нови игрови процеси, преди да освободи текущата игра<br><br><span class="ttdesc">Например, ако текущата игра стартира прозорец за стартиране/конфигуриране преди действителната игра, тази настройка определя броя секунди, които SANWatcher ще изчака за появата на действителния игрови прозорец след затварянето на прозореца за стартиране/конфигуриране<br><br>Ако в рамките на това време за изчакване бъде открит нов активен игрови процес, освобождаването ще бъде отменено и вместо това ще бъде проследяван новият активен процес<br><br>💡 Името на играта ще <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">мига</span> в полето <span class="hl">Показване на играта</span>, докато текущата игра изчаква освобождаване</span>`,
+        platcustomtext: `Задайте персонализирано съобщение за 100% завършване на играта, което да се показва в известието<br><br><span class="ttdesc">Тази опция ще бъде скрита, когато Customiser > Предварителна настройка > Елементи на известието > Описание на постижението е деактивирано</span>`,
+        raui: "Показва имената на откритите RetroAchievements игри в интерфейса за показване на играта/областта за уведомяване"
     },
     update: {
         updateavailable: "Налична е актуализация",
@@ -911,7 +915,7 @@ export const translations = {
                 `След добавяне записите могат да бъдат <span class="hl">премахнати</span> чрез предишното меню <span class="hl">$linkgame</span>`
             ],
             link: "Добави",
-            findappid: "Намери AppID",
+            findappid: "Намери Steam AppID",
             findappidsub: [
                 `Всяка Steam игра има уникален номер, наречен <span class="hl">AppID</span>. Можете да намерите AppID на всяка Steam игра по един от следните начини:`,
                 `В <span class="hl">Steam клиента</span> <i>щракнете с десния бутон</i> върху игра във вашата <span class="hl">Библиотека</span> и изберете <i>Свойства</i> > <i>Актуализации</i> – AppID ще бъде показан там`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Добавете <span class="hl">AppID</span> на която и да е игра, за да превключите автоматично на <span class="hl">Теми</span>, когато бъде открита`,
-                `Всяка запазена <span class="hl">Тема</span> може да бъде избрана за всеки тип известие, заедно с желания монитор за използване като <span class="hl">Източник на екранна снимка</span>`,
-                `<span class="hl" id="appidhelp"><u>Как да намеря AppID на игра в Steam?</u></span>`
+                `Добавете <span class="hl">AppID</span>/<span class="hl">GameID</span> на която и да е игра, за да превключвате автоматично <span class="hl">Темите</span>, когато бъде засечена`,
+                `Всяка запазена <span class="hl">Тема</span> може да бъде избрана за всеки тип известие, заедно с желания монитор, който да се използва като <span class="hl">Източник на екранна снимка</span>`,
+                `<span class="hl help" id="appidhelp"><u>Как да намеря AppID на игра в Steam?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Как да намеря GameID на игра в RetroAchievements?</u></span>`
             ],
-            themeswitchnew: "Нова автоматична смяна",
+            themeswitchnew: "Ново автоматично превключване",
             themeswitchnewsub: [
-                `Въведете <span class="hl">AppID</span> на играта, заедно с желания монитор за използване като <span class="hl">Източник на екранна снимка</span>`,
-                `Изберете коя <span class="hl">Тема</span> да се превключи за всеки тип известие, когато бъде открит <span class="hl">AppID</span> на тази игра`
+                `Въведете <span class="hl">AppID</span>/<span class="hl">GameID</span> на играта, заедно с желания монитор, който да се използва като <span class="hl">Източник на екранна снимка</span>`,
+                `Могат да бъдат въведени няколко <span class="hl">AppID</span>/<span class="hl">GameID</span> наведнъж, ако са разделени със запетая (<code>,</code>) или точка и запетая (<code>;</code>)`,
+                `Изберете към коя <span class="hl">Тема</span> да се превключва за всеки тип известие, когато <span class="hl">AppID</span>/<span class="hl">GameID</span> на тази игра бъде засечен`
             ],
-            themeswitchedit: "Редактиране на автоматично превключване",
+            themeswitchedit: "Редактиране на автоматичното превключване",
             themeswitcheditsub: [
-                `Редактирайте желания монитор, който да се използва като <span class="hl">източник на екранни снимки</span> за <span class="hl">AppID</span> на тази игра`,
-                `Променете кой <span class="hl">тема</span> да се използва за всеки тип известие, когато бъде открит <span class="hl">AppID</span> на тази игра`
+                `Редактирайте желания монитор, който да се използва като <span class="hl">Източник на екранна снимка</span> за <span class="hl">AppID</span>/<span class="hl">GameID</span> на тази игра`,
+                `Променете към коя <span class="hl">Тема</span> да се превключва за всеки тип известие, когато <span class="hl">AppID</span>/<span class="hl">GameID</span> на тази игра бъде засечен`
             ],
             themes: "Теми",
             src: "Източник на екранна снимка",
-            themedeleted: "Тема изтрита"
+            themedeleted: "Темата е изтрита",
+            rafindgameid: "Намери RA GameID",
+            rafindgameidsub: [
+                `Всяка игра в RetroAchievements има уникален номер, свързан с нея – наречен <span class="hl">GameID</span>. Можете да намерите GameID на всяка игра в RetroAchievements, като проверите:`,
+                ` <span class="hl">URL адреса</span> на <span class="hl">страницата на играта</span> в сайта на RetroAchievements – това е числото след <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -2,7 +2,7 @@ import { ipcRenderer } from "electron"
 
 const notifyid = process.argv.find(arg => arg.startsWith("--notifyid="))!.split("=")[1]
 
-ipcRenderer.once(`imgwinready_${notifyid}`, (event,obj: { info: Info, dims: { width: number, height: number, offset: number, scalefactor: number } }) => {
+ipcRenderer.once(`imgwinready_${notifyid}`,(event,obj: { info: Info, dims: { width: number, height: number, offset: number, scalefactor: number } }) => {
     const { customisation, iswebview, customfiles } = obj.info
     const webview = document.querySelector("webview")! as Electron.WebviewTag
 
@@ -33,13 +33,13 @@ ipcRenderer.once(`imgwinready_${notifyid}`, (event,obj: { info: Info, dims: { wi
     obj.info.skipaudio = true
 
     // Sends the "sscapture_${notify.id}" (triggered via `base.ts` > `checkreadystate()` > `ipcRenderer.sendToHost()`) IPC event to Main
-    webview.addEventListener("ipc-message", event => setTimeout(() => ipcRenderer.send(event.channel),2000))
+    webview.addEventListener("ipc-message",event => setTimeout(() => ipcRenderer.send(event.channel),2000))
 
-    webview.addEventListener("dom-ready", () => {
+    webview.addEventListener("dom-ready",() => {
         // Send "ss" event to webview - on receipt of this event, the webview adds the "ss" tag so animation can be disabled via CSS
         webview.send("ss")
         webview.send("notify",obj.info)
     })
 })
 
-window.addEventListener("DOMContentLoaded", () => ipcRenderer.send(`imgwinready_${notifyid}`))
+window.addEventListener("DOMContentLoaded",() => ipcRenderer.send(`imgwinready_${notifyid}`))

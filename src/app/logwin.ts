@@ -11,9 +11,9 @@ window.onkeydown = event => ((event.code === "Minus" || event.code === "Equal") 
 document.getElementById("close")!.onclick = () => window.close()
 document.getElementById("copylog")!.onclick = () => clipboard.writeText(`\`${document.querySelector("#logcontents > code")!.innerHTML.replace(/<br>/g,"\n")}\``)
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded",() => {
     ipcRenderer.send("logwinready")
-    ipcRenderer.on("updatelogwin", (event,logcontents,logtype,filename) => {
+    ipcRenderer.on("updatelogwin",(event,logcontents,logtype,filename) => {
         const select = document.getElementById("logtype")! as HTMLSelectElement
         select.innerHTML = ""
 
@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", () => {
     })
     
     ipcRenderer.send("starttime")
-    ipcRenderer.once("starttime", async (event,starttime) => {
+    ipcRenderer.once("starttime",async (event,starttime) => {
         document.getElementById("tagline")!.textContent = await language.get("tagline",["logwin","content"])
         document.getElementById("starttime")!.textContent = starttime
         document.querySelector(".rect#copylog > span")!.textContent = await language.get("copylog",["logwin","content"])

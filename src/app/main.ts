@@ -8,7 +8,7 @@ import { listeners } from "./listeners"
 
 // Sets AppUserModelId for Native OS notifications
 app.setAppUserModelId(sanhelper.devmode ? process.execPath : "com.SteamAchievementNotifier.Jackson0ne")
-ipcMain.on("version", event => event.returnValue = app.getVersion())
+ipcMain.on("version",event => event.returnValue = app.getVersion())
 sanhelper.devmode && ipcMain.on("beta",event => event.returnValue = app.commandLine.hasSwitch("beta"))
 
 let win: BrowserWindow
@@ -68,9 +68,9 @@ export const main = async (starttime: string) => {
 
         let update = false
         // Emitted from `update.ts`
-        ipcMain.on("update", () => update = true)
+        ipcMain.on("update",() => update = true)
 
-        win.on("close", event => {
+        win.on("close",event => {
             // Send event to `listeners.ts` to quit worker if it exists
             if (update) return ipcMain.emit("quitforupdate")
 
@@ -78,7 +78,7 @@ export const main = async (starttime: string) => {
             return win.hide()
         })
 
-        win.once("ready-to-show", () => {
+        win.once("ready-to-show",() => {
             listeners.set(win)
             ipcMain.emit("validateworker")
             ipcMain.emit("shortcut",null,!config.get("noshortcuts"))
@@ -93,16 +93,16 @@ export const main = async (starttime: string) => {
             ipcMain.emit("workercrash")
         })
 
-        ipcMain.on("starttime", event => event.reply("starttime",starttime))
-        ipcMain.on("configupdated", (event,newobj) => config.store = newobj)
+        ipcMain.on("starttime",event => event.reply("starttime",starttime))
+        ipcMain.on("configupdated",(event,newobj) => config.store = newobj)
     }
 
     log.init("MAIN")
 
     nativeTheme.themeSource = "dark"
 
-    process.on("uncaughtException", err => win?.webContents.send("error",err))
-    process.on("unhandledRejection", err => win?.webContents.send("error",err))
+    process.on("uncaughtException",err => win?.webContents.send("error",err))
+    process.on("unhandledRejection",err => win?.webContents.send("error",err))
 
     app.on("window-all-closed",app.quit)
 

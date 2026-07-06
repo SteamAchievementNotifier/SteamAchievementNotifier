@@ -7,14 +7,13 @@ import { sanconfig } from "./config"
 import { cachedata, checkunlockstatus, getachievementicon, cacheachievementicons, getlocalisedachievementinfo } from "./achievement"
 import { getGamePath } from "steam-game-path"
 import sanwatcher, { WatchEvent } from "sanwatcher.rs"
+import { usertheme } from "./usertheme"
 
 declare global {
     interface Window {
         client: any
         cachedata: any,
-        globallocalised: any,
-        testraunlock: Function,
-        racached: any,
+        localised: Map<string,LocalisedObj>,
         runninggametimers: any
     }
 }
@@ -27,8 +26,7 @@ type LocalisedObj = {
 log.init("WORKER")
 sanhelper.errorhandler(log)
 
-const globallocalised = new Map<string,LocalisedObj>()
-window.globallocalised = globallocalised
+window.localised = new Map<string,LocalisedObj>()
 
 const pids = new Set<number>()
 let releasetimer: NodeJS.Timeout | null = null
@@ -89,8 +87,7 @@ const worker = {
             obj[key] = steamlang ? await getlocalisedachievementinfo(steam3id,achievement.apiname,prop,maxlang) : null
         }
 
-        globallocalised.set(achievement.apiname,obj)
-        window.globallocalised = globallocalised
+        window.localised.set(achievement.apiname,obj)
 
         return obj
     },
@@ -146,6 +143,8 @@ const worker = {
     }
 }
 
+ipcRenderer.on("appid",() => ipcRenderer.send("appid",workerinfo))
+
 // `lastknowngame` var in `listeners.ts` is passed via `BrowserWindow.webPreferences.additionalArguments`, so current AppID/last install dir can be verified before re-initialising Steamworks for the same game in `startsan()`
 // This ensures SAN does not re-initialise an AppID for a game that has now closed, which would prevent Steam from resetting `RunningAppID` to 0 in the Windows registry
 const lastknowngame: LastKnownGame | null = worker.getadditionalargs(process.argv.find(arg => arg.startsWith("--lastknowngame="))) as LastKnownGame | null
@@ -164,15 +163,16 @@ const startidle = () => {
         log.write("INFO","Idle loop started")
         sanhelper.resetdebuginfo()
         ipcRenderer.send("workeractive",false)
-    
+
         let exclusionlogged = false
         let invalidappidlogged = false
+        let waitingforsteamlogged = false
         
         const timer = setInterval(() => {
             const { pollrate, initdelay, releasedelay, maxretries, userust, debug, noiconcache, exclusions, inclusionlist } = sanconfig.get().store
             const { appid, gamename } = sanhelper.gameinfo as AppInfo
             
-            if (!appid) return
+            if (!appid) return ipcRenderer.send("activeprocesses",0,false) // Clears "waiting" attribute in `renderer.ts` if present
             
             // If `installdir === null`, current AppID is invalid (i.e. a non-Steam game/application)
             if (lastknowngame && appid === lastknowngame.appid && !lastknowngame.installdir) {
@@ -194,13 +194,17 @@ const startidle = () => {
                     
                     // Check whether any install dir processes are active for the current AppID
                     const activeprocesses = sanwatcher.getActiveProcesses(lastknowngame.installdir as string,linkedgame)
+                    ipcRenderer.send("activeprocesses",appid,!!activeprocesses.length,linkedgame) // Check initial active processes and send UI hint if no active game processes are detected
                     
-                    // If there are no active processes in the game's install dir, this signifies Steam is currently trying to reset `RunningAppID` back to 0 in the registry
+                    // If there are no active processes in the game's install dir, this usually signifies either Steam is currently trying to reset `RunningAppID` back to 0 in the registry/command line, or the game process is taking a while to launch (especially on Linux)
                     // Additionally, continue if a linked game is specified for the current AppID - even if not currently running. This prevents scenarios where no processes exist (e.g. the linked game EXE hasn't launched yet), so SAN quits the Worker process immediately and hangs due to non-zero RunningAppID
                     if (!linkedgame && !activeprocesses.length) {
-                        log.write("WARN",`No active processes within game installation directory, but Steam reports AppID ${appid} is still active - exiting "Worker" process for Steam to clear AppID ${appid}...`)
-                        clearInterval(timer)
-                        return ipcRenderer.send("validateworker") // In this case, destroy the active "Worker" process and allow Steam to reset
+                        if (!waitingforsteamlogged) {
+                            log.write("WARN",`Steam reports AppID ${appid} is currently active, but no matching game processes have been detected. Waiting...`)
+                            waitingforsteamlogged = true
+                        }
+                        
+                        return
                     }
                 }
             }
@@ -244,7 +248,7 @@ const startidle = () => {
 
 const startsan = async (appinfo: AppInfo) => {
     try {
-        globallocalised.clear()
+        window.localised.clear()
 
         const { appid, gamename, pollrate, maxretries, userust, noiconcache } = appinfo
         const { init } = await import("steamworks.js")
@@ -482,7 +486,7 @@ const startsan = async (appinfo: AppInfo) => {
                     const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
                     const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
                     const localised = await worker.localisedobj(steam3id,achievement)
-                    const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch] | undefined
+                    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.themeswitchentries(appid)
                     const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
                     
                     if (themeswitch) {
@@ -513,7 +517,7 @@ const startsan = async (appinfo: AppInfo) => {
                         statsobj.achievements = !config.get("steamlang") ? live : await Promise.all(
                             live.map(async achievement => {
                                 const achievementcopy = { ...achievement }
-                                const localised = globallocalised.get(achievementcopy.apiname) || await worker.localisedobj(steam3id,achievementcopy)
+                                const localised = window.localised.get(achievementcopy.apiname) || await worker.localisedobj(steam3id,achievementcopy)
         
                                 for (const key of Object.keys(localised)) {
                                     achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]

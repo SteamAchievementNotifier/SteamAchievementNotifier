@@ -3,8 +3,14 @@ import { sanconfig } from "./config"
 import { language } from "./language"
 import { gametimer } from "./gametimer"
 
+declare global {
+    interface Window {
+        appid: number
+    }
+}
+
 let timer: NodeJS.Timeout | null = null
-let globalappid = 0
+window.appid = 0
 
 const resettimer = (timerelem: HTMLElement,clear?: boolean) => {
     if (!clear) {
@@ -31,7 +37,7 @@ ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer:
     const { json } = gametimer
 
     if (appid) {
-        globalappid = appid
+        window.appid = appid
         ipcRenderer.send("extwinsstate",{ win: "gametimer", state: ra ? "ra" : "steam" } as ExtWinsPayload)
         
         const stored = json[appid]?.elapsed ?? 0
@@ -49,7 +55,7 @@ ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer:
         return
     }
 
-    globalappid = 0
+    window.appid = 0
     ipcRenderer.send("extwinsstate",{ win: "gametimer", state: null } as ExtWinsPayload)
 
     resettimer(timerelem)
@@ -60,7 +66,7 @@ ipcRenderer.on("gametimer",async (event,workerinfo: WorkerInfo,runninggametimer:
     gametimer.stop(runninggametimer.appid,active,started)
 })
 
-ipcRenderer.on("gametimerwinappid",() => ipcRenderer.send("gametimerwinappid",globalappid || 0))
+ipcRenderer.on("gametimerwinappid",() => ipcRenderer.send("gametimerwinappid",window.appid || 0))
 
 ipcRenderer.on("resetgametimer",async (event,runninggametimer: RunningGameTimer) => {
     const { json } = gametimer

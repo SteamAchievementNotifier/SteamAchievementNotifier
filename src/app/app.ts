@@ -128,7 +128,7 @@ const getcustomfilesversion = (packagepath: string): string => {
     }
 }
 
-const checkdir = (dirpath: string, callback: () => void, msg: string) => {
+const checkdir = (dirpath: string,callback: () => void,msg: string) => {
     if (fs.existsSync(dirpath)) {
         if (path.basename(dirpath) !== "customfiles") return log.write("INFO",`"${dirpath}" already exists: No changes were made`)
 
@@ -236,7 +236,7 @@ const createdir = (dirpath: string,src?: string,destdir?: string) => {
         }
     },`"${src}" copied to "${dest}" successfully`)
 
-    process.platform === "linux" && fs.chmod(dest,0o777, err => log.write(err ? "ERROR" : "INFO",err ? `Error setting folder permissions for "${dest}": ${err}` : `Folder permissions for "${dest}" set successfully`))
+    process.platform === "linux" && fs.chmod(dest,0o777,err => log.write(err ? "ERROR" : "INFO",err ? `Error setting folder permissions for "${dest}": ${err}` : `Folder permissions for "${dest}" set successfully`))
 }
 
 app
@@ -244,7 +244,7 @@ app
 .then(() => {
     if (process.platform === "linux") {
         const tempdir = path.join(sanhelper.appdata,"resources","temp")
-        !fs.existsSync(tempdir) && fs.mkdirSync(tempdir, { recursive: true })
+        !fs.existsSync(tempdir) && fs.mkdirSync(tempdir,{ recursive: true })
         createdir(path.join(sanhelper.appdata,"resources"),path.join(__root,"img"),"img")
     }
 

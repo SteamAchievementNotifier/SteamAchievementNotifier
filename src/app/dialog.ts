@@ -9,7 +9,7 @@ import { language } from "./language"
 export const dialog = {
     init: (error?: "ERROR") => {
         error && document.body.setAttribute("error","")
-        window.addEventListener("click", ({ target }) => (target === document.querySelector("dialog") || target === document.getElementById("backbtn") || target === document.getElementById("settingsclose")) && document.querySelector("dialog:not(:has(.btnwrapper > #betaexitbtn))") && dialog.close())
+        window.addEventListener("click",({ target }) => (target === document.querySelector("dialog") || target === document.getElementById("backbtn") || target === document.getElementById("settingsclose")) && document.querySelector("dialog:not(:has(.btnwrapper > #betaexitbtn))") && dialog.close())
     },
     open: (obj: Dialog,errwin?: boolean) => {
         !errwin && (async () => {
@@ -327,11 +327,20 @@ export const dialog = {
                                 label: await language.get(!!obj ? "edit" : "ok"),
                                 icon: "",
                                 click: () => {
-                                    const entries = {
-                                        ...JSON.parse(localStorage.getItem(type)!),
-                                        [themeswitchappid.value]: {
-                                            themes: Object.fromEntries(types.map(t => [t,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${t}`)! as HTMLSelectElement).value)])),
-                                            src: parseInt(srcselect.value)
+                                    const themeswitchobj = {
+                                        themes: Object.fromEntries(types.map(t => [t,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${t}`)! as HTMLSelectElement).value)])),
+                                        src: parseInt(srcselect.value)
+                                    }
+
+                                    const entries = JSON.parse(localStorage.getItem(type)!)
+
+                                    if (obj) {
+                                        entries[themeswitchappid.value] = themeswitchobj
+                                    } else {
+                                        const appids = [...new Set(themeswitchappid.value.split(/[,;]+/).map(id => id.trim()).filter(id => id.length > 0 && Number.isInteger(parseFloat(id))))]
+
+                                        for (const appid of appids) {
+                                            entries[appid] = themeswitchobj
                                         }
                                     }
 
@@ -358,7 +367,28 @@ export const dialog = {
 
                         themeswitchappid.onfocus = () => sanhelper.settabindex(okbtn,[themeswitchappid.value])
                         themeswitchappid.onblur = () => sanhelper.settabindex(okbtn,[themeswitchappid.value])
-                        themeswitchappid.onkeydown = () => sanhelper.settabindex(okbtn,[themeswitchappid.value])
+                        
+                        // Handle invalid characters on input - i.e. anything non-numeric or ,/; characters
+                        themeswitchappid.oninput = () => {
+                            const { selectionStart, value } = themeswitchappid
+                            let cursorpos = 0
+
+                            const input = Array.from(value).filter((input,i) => {
+                                const valid = /[\d,;\s]/.test(input)
+                                !valid && selectionStart !== null && i < selectionStart && cursorpos++
+                                return valid
+                            }).join("")
+
+                            if (input !== value) {
+                                themeswitchappid.value = input
+                                
+                                // Prevents text cursor from skipping to the end of the input when an invalid character is entered
+                                const newpos = (selectionStart ?? input.length) - cursorpos
+                                themeswitchappid.setSelectionRange(newpos,newpos)
+                            }
+
+                            sanhelper.settabindex(okbtn,[themeswitchappid.value])
+                        }
 
                         config.get("monitors").forEach(monitor => srcselect.insertAdjacentHTML("beforeend",`<option value="${monitor.id}">${monitor.label}</option>`))
 
@@ -472,6 +502,7 @@ export const dialog = {
                 })
 
                 sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
+                sanhelper.sethelpdialog(document.getElementById("ragameidhelp")!,"rafindgameid",["themeswitch","content"])
                 updatetables("themeswitch")
             }
 
@@ -724,7 +755,7 @@ export const dialog = {
             })
 
             document.getElementById("checkforupdates")!.onclick = async () => {
-                ipcRenderer.once("noupdateavailable", async (event,currentversion) => dialog.open({
+                ipcRenderer.once("noupdateavailable",async (event,currentversion) => dialog.open({
                     title: await language.get("noupdateavailable"),
                     type: "default",
                     icon: sanhelper.setfilepath("icon","update_white.svg"),
@@ -799,7 +830,7 @@ export const dialog = {
         const menutype = attrs.find(attr => dialog.hasAttribute(attr))
         const noanim = skipanim || document.body.hasAttribute("noanim")
 
-        const settransitionlistener = (): void => content.addEventListener(`transition${menutype === "menu" ? "start" : "end"}`, ({ propertyName }: TransitionEvent) => propertyName === `${menutype === "menu" ? "translate" : "scale"}` ? (dialog.style.animation = `dialogout var(--transition) forwards`) : settransitionlistener(), { once: true })
+        const settransitionlistener = (): void => content.addEventListener(`transition${menutype === "menu" ? "start" : "end"}`,({ propertyName }: TransitionEvent) => propertyName === `${menutype === "menu" ? "translate" : "scale"}` ? (dialog.style.animation = `dialogout var(--transition) forwards`) : settransitionlistener(),{ once: true })
         const resetdialog = () => {
             dialog.style.animation = ""
             dialog.close()
@@ -815,6 +846,6 @@ export const dialog = {
         content.removeAttribute("open")
         !noanim && settransitionlistener()
     
-        !noanim ? dialog.addEventListener("animationend", ({ animationName }: AnimationEvent) => animationName === "dialogout" && resetdialog(),{ once: true }) : resetdialog()
+        !noanim ? dialog.addEventListener("animationend",({ animationName }: AnimationEvent) => animationName === "dialogout" && resetdialog(),{ once: true }) : resetdialog()
     }
 }

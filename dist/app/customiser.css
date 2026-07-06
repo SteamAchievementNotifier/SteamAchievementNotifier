@@ -74,6 +74,7 @@ body[plat] .opt:has(#glow) > .opt:has(#glowrarity,#glowcolorbronze,#glowcolorsil
 .optcont:has(.opt > .img#logo[novalue]) > .opt:has(input#replacelogo),
 .optcont:has(.opt > .img[id="decoration1"][novalue]):has(.opt > .img[id="decoration2"][novalue]):has(.opt > .img[id="decoration3"][novalue]) > .opt:has(input#replacelogo),
 #customiseropts:has(.wrapper#elemselector > .wrapper > .wrapper > select#unlockmsg > option[value="off"]:checked) > .wrapper:has(.title#preset) > .optcont:has(select#preset > option[value="os"]:not(:checked)) > .opt:has(#customtext),
+#customiseropts:has(.wrapper#elemselector > .wrapper > .wrapper > select#desc > option[value="off"]:checked) > .wrapper:has(.title#preset) > .optcont:has(select#preset > option[value="os"]:not(:checked)) > .opt:has(#platcustomtext),
 body[plat] #customisercontent .wrapper:has(> #showhiddenicon),
 body[plat] #customisercontent .wrapper:has(> .img#hiddenicon),
 .opt:has(#alldetails),
@@ -99,7 +100,8 @@ body:not([main],[semi]) .opt:has(input#iconborderrarity) ~ .opt:has(.img[id^="ic
 body[trophymode][main] .opt:has(#glow) > .opt:has(#glowrarity),
 body[trophymode][semi] .opt:has(#glow) > .opt:has(#glowrarity),
 body[trophymode][main] .opt:has(input#iconborderrarity),
-body[trophymode][semi] .opt:has(input#iconborderrarity) {
+body[trophymode][semi] .opt:has(input#iconborderrarity),
+body:not([plat]) .opt:has(input#platcustomtext) {
     display: none;
 }
 

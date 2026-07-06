@@ -70,7 +70,7 @@ const updateopts = (select: HTMLSelectElement,elems: string[],max: number) => se
     i > max && opt.remove()
 })
 
-const adjustpos = (config: ElectronStore<Config>,type: NotifyType,id: string,elems: string[]) =>config.get(`customisation.${type}.${id}`) as number > elems.length && config.set(`customisation.${type}.${id}`, elems.length > 0 ? elems.length : 0)
+const adjustpos = (config: ElectronStore<Config>,type: NotifyType,id: string,elems: string[]) =>config.get(`customisation.${type}.${id}`) as number > elems.length && config.set(`customisation.${type}.${id}`,elems.length > 0 ? elems.length : 0)
 
 const updateinput = (config: ElectronStore<Config>,type: NotifyType,elem: HTMLInputElement,value: boolean | string,menutype: HTMLElement) => {
     config.set(`customisation.${type}.${elem.id}`,elem.type === "checkbox" ? value as boolean : parseInt(value as string))
@@ -232,7 +232,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
         btn.onclick = event => {
             const elem = (event.target) as HTMLButtonElement
 
-            ipcRenderer.once("loadfile", (event,path) => {
+            ipcRenderer.once("loadfile",(event,path) => {
                 if (!path) return
 
                 config.set(`customisation.${type}.${elem.id}`,path[0].replace(/\\/g,"/"))

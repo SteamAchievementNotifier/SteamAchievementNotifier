@@ -36,9 +36,9 @@ export const error = {
         errwin.loadFile(path.join(__root,"dist","app","errwin.html"))
         sanhelper.devmode && sanhelper.setdevtools(errwin)
 
-        errwin.once("ready-to-show", () => errwin.webContents.send("err",err))
+        errwin.once("ready-to-show",() => errwin.webContents.send("err",err))
 
-        ipcMain.once("capture", async event => {
+        ipcMain.once("capture",async event => {
             const capture = await errwin.webContents.capturePage()
 
             try {

@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "อีมูเลเตอร์",
                 rauser: "ชื่อผู้ใช้",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "รอเหตุการณ์ในเกม",
                 start: "เริ่มเกม",
                 stop: "หยุดเกม",
-                achievement: "ปลดล็อกความสำเร็จ"
+                achievement: "ปลดล็อกความสำเร็จ",
+                raui: "ใช้ UI การแสดงผลเกม"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "ขนาด",
                 customtext: "ข้อความที่กำหนดเอง",
                 usegametitle: "ใช้ชื่อเกม",
-                customfont: "แบบอักษรที่กำหนดเอง"
+                customfont: "แบบอักษรที่กำหนดเอง",
+                platcustomtext: "ข้อความกำหนดเอง 100%"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "แสดงเปอร์เซ็นต์การปลดล็อกของความสำเร็จแทนค่า XP/S",
         displaytime: "ตั้งค่าจำนวนวินาทีที่การแจ้งเตือนจะแสดง",
         scale: "เพิ่มหรือลดขนาดของการแจ้งเตือน",
-        customtext: "ตั้งค่าข้อความที่กำหนดเองที่จะแสดงในการแจ้งเตือน",
+        customtext: `ตั้งค่าข้อความกำหนดเองที่จะแสดงในการแจ้งเตือน<br><br><span class="ttdesc">ตัวเลือกนี้จะถูกซ่อนเมื่อ Customiser > ค่าเริ่มต้น > องค์ประกอบการแจ้งเตือน > ข้อความปลดล็อก ถูกปิดใช้งาน</span>`,
         usegametitle: "แสดงชื่อเกมปัจจุบันในการแจ้งเตือน",
         customfont: "โหลดฟอนต์ที่กำหนดเองที่จะใช้ในการแจ้งเตือน",
         soundmode: "เลือกไฟล์เสียงเดียวหรือเลือกไฟล์เสียงแบบสุ่มจากโฟลเดอร์ที่มีไฟล์เสียงหลายไฟล์เมื่อเกิดการแจ้งเตือน",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "ตั้งค่าสีที่ใช้ใน webhook embed เมื่อปลดล็อกความสำเร็จ $rare",
         webhookembedcolorplat: "ตั้งค่าสีที่ใช้ใน webhook embed เมื่อปลดล็อกความสำเร็จ $plat",
         raemus: "แสดงการแจ้งเตือนเมื่อเกมถูกตรวจจับในอีมูเลเตอร์ที่รองรับ",
-        rauser: "ตั้งค่าชื่อผู้ใช้ Retro Achievements เพื่อการติดตามความสำเร็จ",
-        rakey: `ตั้งค่า Web API Key ที่จะใช้ในการยืนยันตัวตนกับ API ของ Retro Achievements<br><br><span class="ttdesc">Web API Key สามารถคัดลอกหรือสร้างใหม่ได้โดยการเข้าสู่ระบบเว็บไซต์ของ Retro Achievements และไปที่ <span class="hl">การตั้งค่า > คีย์ > Web API Key</span><br><br>🔒 คีย์ที่ให้มาจะถูกเข้ารหัสก่อนที่จะถูกจัดเก็บในระบบท้องถิ่น (หากระบบปฏิบัติการปัจจุบันรองรับการเข้ารหัส)</span>`,
+        rauser: "ตั้งค่าชื่อผู้ใช้ RetroAchievements เพื่อการติดตามความสำเร็จ",
+        rakey: `ตั้งค่า Web API Key ที่จะใช้ในการยืนยันตัวตนกับ API ของ RetroAchievements<br><br><span class="ttdesc">Web API Key สามารถคัดลอกหรือสร้างใหม่ได้โดยการเข้าสู่ระบบเว็บไซต์ของ RetroAchievements และไปที่ <span class="hl">การตั้งค่า > คีย์ > Web API Key</span><br><br>🔒 คีย์ที่ให้มาจะถูกเข้ารหัสก่อนที่จะถูกจัดเก็บในระบบท้องถิ่น (หากระบบปฏิบัติการปัจจุบันรองรับการเข้ารหัส)</span>`,
         rapercenttype: "ตั้งค่าการแสดงเปอร์เซ็นต์การปลดล็อกความสำเร็จแบบ Hardcore หรือ Softcore ในการแจ้งเตือน",
-        retroarch: `แสดงการแจ้งเตือน Retro Achievements สำหรับเกมที่จำลองผ่าน RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > การตั้งค่า > การบันทึก</span> ต้องตั้งค่าด้วยการตั้งค่าต่อไปนี้：<br><br><ul><li><span class="hllb">ความละเอียดของการบันทึก</span>: <span class="hlgreen">เปิดใช้งาน</span></li><li><span class="hllb">ระดับการบันทึกของหน้าต่าง</span>: <span class="hlgreen">1 (ข้อมูล)</span></li><li><span class="hllb">บันทึกไปยังไฟล์</span>: <span class="hlgreen">เปิดใช้งาน</span></li><li><span class="hllb">เพิ่มเวลาในไฟล์บันทึก</span>: <span class="hlred">ปิด</span></li></ul></span>`,
-        dolphin: `แสดงการแจ้งเตือน Retro Achievements สำหรับเกมที่จำลองผ่าน Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > มุมมอง > แสดงการตั้งค่าบันทึก</span> ต้องตั้งค่าด้วยการตั้งค่าต่อไปนี้：<br><br><ul><li><span class="hllb">ความละเอียด</span>: <span class="hlgreen">ข้อมูล</span></li><li><span class="hllb">ผลลัพธ์ของบันทึก</span> > <span class="hlgreen">เขียนไปยังไฟล์</span></li><li><span class="hllb">ประเภทบันทึก</span> > <span class="hlgreen">ความสำเร็จ (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `แสดงการแจ้งเตือน Retro Achievements สำหรับเกมที่จำลองโดย PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > เครื่องมือ > เปิดใช้งานการบันทึกไฟล์</span> ต้องเปิดใช้งาน</span>`,
-        duckstation: `แสดงการแจ้งเตือน Retro Achievements สำหรับเกมที่จำลองผ่าน Duckstation<br><br><span class="ttdesc">❗ ไฟล์ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> จะต้องดาวน์โหลดและย้ายไปยัง <span class="hl">ไดเรกทอรีการติดตั้งของ Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > การตั้งค่า > ความสำเร็จ > RAIntegration (สำหรับนักพัฒนาเท่านั้น)</span> ต้องเปิดใช้งาน</span>`,
-        ppsspp: `แสดงการแจ้งเตือน Retro Achievements สำหรับเกมที่จำลองผ่าน PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> ต้องเปิดใช้งานและกำหนดค่าด้วยการตั้งค่าดังต่อไปนี้:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `แสดงการแจ้งเตือน RetroAchievements สำหรับเกมที่จำลองผ่าน RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > การตั้งค่า > การบันทึก</span> ต้องตั้งค่าด้วยการตั้งค่าต่อไปนี้：<br><br><ul><li><span class="hllb">ความละเอียดของการบันทึก</span>: <span class="hlgreen">เปิดใช้งาน</span></li><li><span class="hllb">ระดับการบันทึกของหน้าต่าง</span>: <span class="hlgreen">1 (ข้อมูล)</span></li><li><span class="hllb">บันทึกไปยังไฟล์</span>: <span class="hlgreen">เปิดใช้งาน</span></li><li><span class="hllb">เพิ่มเวลาในไฟล์บันทึก</span>: <span class="hlred">ปิด</span></li></ul></span>`,
+        dolphin: `แสดงการแจ้งเตือน RetroAchievements สำหรับเกมที่จำลองผ่าน Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > มุมมอง > แสดงการตั้งค่าบันทึก</span> ต้องตั้งค่าด้วยการตั้งค่าต่อไปนี้：<br><br><ul><li><span class="hllb">ความละเอียด</span>: <span class="hlgreen">ข้อมูล</span></li><li><span class="hllb">ผลลัพธ์ของบันทึก</span> > <span class="hlgreen">เขียนไปยังไฟล์</span></li><li><span class="hllb">ประเภทบันทึก</span> > <span class="hlgreen">ความสำเร็จ (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `แสดงการแจ้งเตือน RetroAchievements สำหรับเกมที่จำลองโดย PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > เครื่องมือ > เปิดใช้งานการบันทึกไฟล์</span> ต้องเปิดใช้งาน</span>`,
+        duckstation: `แสดงการแจ้งเตือน RetroAchievements สำหรับเกมที่จำลองผ่าน Duckstation<br><br><span class="ttdesc">❗ ไฟล์ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> จะต้องดาวน์โหลดและย้ายไปยัง <span class="hl">ไดเรกทอรีการติดตั้งของ Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > การตั้งค่า > ความสำเร็จ > RAIntegration (สำหรับนักพัฒนาเท่านั้น)</span> ต้องเปิดใช้งาน</span>`,
+        ppsspp: `แสดงการแจ้งเตือน RetroAchievements สำหรับเกมที่จำลองผ่าน PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> ต้องเปิดใช้งานและกำหนดค่าด้วยการตั้งค่าดังต่อไปนี้:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `ตั้งค่าเส้นทางของไฟล์บันทึก <span class="hl">"retroarch.log"</span> ของ RetroArch<br><br><span class="ttdesc">เมื่อใช้การตั้งค่าการติดตั้งเริ่มต้น, <span class="hl">"retroarch.log"</span> จะถูกเก็บไว้ที่ <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `ตั้งค่าเส้นทางของไฟล์บันทึก <span class="hl">"dolphin.log"</span> ของ Dolphin<br><br><span class="ttdesc">เมื่อใช้การตั้งค่าการติดตั้งเริ่มต้น, <span class="hl">"dolphin.log"</span> จะถูกเก็บไว้ที่ตำแหน่งใดตำแหน่งหนึ่งดังนี้：<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `ตั้งค่าพาธไปยังไฟล์บันทึก <span class="hl">"emulog.txt"</span> ของ PCSX2<br><br><span class="ttdesc">ด้วยการตั้งค่าการติดตั้งเริ่มต้น, <span class="hl">"emulog.txt"</span> จะถูกเก็บไว้ที่ <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `ปิดใช้งานปุ่มลัดแป้นพิมพ์ทั้งหมดภายในแอป<br><br><span class="ttdesc">เมื่อเปิดใช้งาน <u>ปุ่มลัดทั้งหมดภายในแอปจะไม่สามารถใช้งานได้อีกต่อไป</u> ตัวเลือกทั้งหมดที่เกี่ยวข้องกับปุ่มลัดแป้นพิมพ์จะถูกซ่อนด้วย</span>`,
         extwinnotify: "สลับการมองเห็นของการแจ้งเตือนบนหน้าจอทั้งหมดขณะใช้ Stream Notifications",
         usesanwatcher: `เปิดใช้งานตัวเฝ้าติดตามโปรเซสเกมตัวใหม่ของ SAN<br><br><span class="ttdesc">ความแตกต่างระหว่าง SANWatcher ใหม่กับวิธีติดตามโปรเซสอัตโนมัติแบบเดิมมีดังนี้:<br><br><div class="wrapper sanwatcher"><span class="hl">เปิด</span><ul><li>ตรวจสอบเหตุการณ์การเริ่มต้นและการสิ้นสุดของทุกโปรเซสที่อยู่ภายในโฟลเดอร์ติดตั้งเกมอย่างต่อเนื่อง</li><li>ไม่จำเป็นต้องทราบไฟล์ปฏิบัติการของเกมเพื่อปล่อยเกมปัจจุบัน</li><li>พฤติกรรมของตัวเรียกใช้งานก่อนเข้าเกมอาจแตกต่างกัน จึงไม่สามารถรับประกันความเข้ากันได้อย่างสมบูรณ์กับเกม Steam ทุกเกม</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">ปิด</span><ul><li>สแกนโฟลเดอร์ติดตั้งเกมเพื่อค้นหาไฟล์ปฏิบัติการที่กำลังทำงานอยู่หลังจากเปิดเกม</li><li>จำเป็นต้องทราบไฟล์ปฏิบัติการของเกมเพื่อปล่อยเกมปัจจุบัน</li><li>หากไม่สามารถระบุโปรเซสของเกมได้โดยอัตโนมัติ ผู้ใช้จะต้องเพิ่มรายการใหม่ลงใน <span class="hl">เกมปล่อยอัตโนมัติ</span> ด้วยตนเอง เพื่อให้สามารถปล่อยเกมโดยอัตโนมัติได้</li></ul></div>`,
-        releasewaittime: `กำหนดระยะเวลาที่ SANWatcher จะรอให้กระบวนการของเกมใหม่เริ่มทำงานก่อนที่จะปล่อยเกมปัจจุบัน<br><br><span class="ttdesc">ตัวอย่างเช่น หากเกมปัจจุบันเปิดตัวเรียกใช้งาน/หน้าต่างการตั้งค่าก่อนเกมก่อนที่จะเปิดเกมจริง การตั้งค่านี้จะกำหนดจำนวนวินาทีที่ SANWatcher จะรอให้หน้าต่างของเกมจริงเปิดขึ้นหลังจากที่ตัวเรียกใช้งาน/หน้าต่างการตั้งค่าก่อนเกมปิดลง<br><br>หากตรวจพบกระบวนการเกมที่กำลังทำงานใหม่ภายในช่วงเวลารอนี้ การปล่อยเกมจะถูกยกเลิก และจะติดตามกระบวนการที่เพิ่งทำงานแทน<br><br>💡 ชื่อเกมจะ<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">กะพริบ</span>ในกล่อง <span class="hl">การแสดงผลเกม</span> ขณะที่เกมปัจจุบันกำลังรอการปล่อย</span>`
+        releasewaittime: `กำหนดระยะเวลาที่ SANWatcher จะรอให้กระบวนการของเกมใหม่เริ่มทำงานก่อนที่จะปล่อยเกมปัจจุบัน<br><br><span class="ttdesc">ตัวอย่างเช่น หากเกมปัจจุบันเปิดตัวเรียกใช้งาน/หน้าต่างการตั้งค่าก่อนเกมก่อนที่จะเปิดเกมจริง การตั้งค่านี้จะกำหนดจำนวนวินาทีที่ SANWatcher จะรอให้หน้าต่างของเกมจริงเปิดขึ้นหลังจากที่ตัวเรียกใช้งาน/หน้าต่างการตั้งค่าก่อนเกมปิดลง<br><br>หากตรวจพบกระบวนการเกมที่กำลังทำงานใหม่ภายในช่วงเวลารอนี้ การปล่อยเกมจะถูกยกเลิก และจะติดตามกระบวนการที่เพิ่งทำงานแทน<br><br>💡 ชื่อเกมจะ<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">กะพริบ</span>ในกล่อง <span class="hl">การแสดงผลเกม</span> ขณะที่เกมปัจจุบันกำลังรอการปล่อย</span>`,
+        platcustomtext: `ตั้งค่าข้อความกำหนดเองสำหรับการจบเกม 100% ที่จะแสดงในการแจ้งเตือน<br><br><span class="ttdesc">ตัวเลือกนี้จะถูกซ่อนเมื่อ Customiser > ค่าเริ่มต้น > องค์ประกอบการแจ้งเตือน > คำอธิบายความสำเร็จ ถูกปิดใช้งาน</span>`,
+        raui: "แสดงชื่อเกม RetroAchievements ที่ตรวจพบใน UI การแสดงผลเกม/ถาดระบบ"
     },
     update: {
         updateavailable: "มีการอัปเดตใหม่",
@@ -911,7 +915,7 @@ export const translations = {
                 `หลังจากเพิ่มแล้ว สามารถ<span class="hl">ลบ</span>รายการได้ผ่านเมนู <span class="hl">$linkgame</span> ก่อนหน้า`
             ],
             link: "เพิ่ม",
-            findappid: "ค้นหา AppID",
+            findappid: "ค้นหา Steam AppID",
             findappidsub: [
                 `เกม Steam ทุกเกมมีหมายเลขเฉพาะที่เรียกว่า <span class="hl">AppID</span> คุณสามารถหา AppID ของเกม Steam ได้จากวิธีต่อไปนี้:`,
                 `ใน <span class="hl">ไคลเอนต์ Steam</span> ให้<i>คลิกขวา</i>ที่เกมใน<span class="hl">คลังเกม</span> แล้วเลือก<i>คุณสมบัติ</i> > <i>อัปเดต</i> - จะมี AppID แสดงอยู่`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `เพิ่ม <span class="hl">AppID</span> ของเกมใด ๆ เพื่อเปลี่ยน <span class="hl">ธีม</span> โดยอัตโนมัติเมื่อถูกตรวจพบ`,
-                `สามารถเลือก <span class="hl">ธีม</span> ที่บันทึกไว้สำหรับแต่ละประเภทการแจ้งเตือน พร้อมกับจอแสดงผลที่ต้องการใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
-                `<span class="hl" id="appidhelp"><u>ฉันจะหาข้อมูล AppID ของเกม Steam ได้อย่างไร?</u></span>`
+                `เพิ่ม <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกมใดก็ได้ เพื่อสลับ <span class="hl">ธีม</span> อัตโนมัติเมื่อถูกตรวจพบ`,
+                `สามารถเลือก <span class="hl">ธีม</span> ที่บันทึกไว้สำหรับแต่ละประเภทการแจ้งเตือนได้ พร้อมเลือกจอที่ใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
+                `<span class="hl help" id="appidhelp"><u>จะหา AppID ของเกม Steam ได้อย่างไร?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>จะหา GameID ของเกม RetroAchievements ได้อย่างไร?</u></span>`
             ],
-            themeswitchnew: "การเปลี่ยนแปลงอัตโนมัติใหม่",
+            themeswitchnew: "การสลับอัตโนมัติใหม่",
             themeswitchnewsub: [
-                `ป้อน <span class="hl">AppID</span> ของเกม พร้อมกับจอแสดงผลที่ต้องการใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
-                `เลือก <span class="hl">ธีม</span> ที่จะเปลี่ยนไปยังสำหรับแต่ละประเภทการแจ้งเตือนเมื่อตรวจพบ <span class="hl">AppID</span> ของเกมนี้`
+                `ป้อน <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกม พร้อมเลือกจอที่ใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span>`,
+                `สามารถป้อน <span class="hl">AppID</span>/<span class="hl">GameID</span> หลายรายการได้ โดยคั่นด้วยเครื่องหมายจุลภาค (<code>,</code>) หรืออัฒภาค (<code>;</code>)`,
+                `เลือก <span class="hl">ธีม</span> ที่จะสลับไปสำหรับแต่ละประเภทการแจ้งเตือนเมื่อพบ <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกมนี้`
             ],
             themeswitchedit: "แก้ไขการสลับอัตโนมัติ",
             themeswitcheditsub: [
-                `แก้ไขจอภาพที่ต้องการใช้เป็น <span class="hl">แหล่งที่มาของภาพหน้าจอ</span> สำหรับ <span class="hl">AppID</span> ของเกมนี้`,
-                `เปลี่ยน <span class="hl">ธีม</span> ที่จะสลับไปสำหรับแต่ละประเภทการแจ้งเตือนเมื่อพบ <span class="hl">AppID</span> ของเกมนี้`
+                `แก้ไขจอที่ใช้เป็น <span class="hl">แหล่งภาพหน้าจอ</span> สำหรับ <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกมนี้`,
+                `เปลี่ยน <span class="hl">ธีม</span> ที่จะสลับไปสำหรับแต่ละประเภทการแจ้งเตือนเมื่อพบ <span class="hl">AppID</span>/<span class="hl">GameID</span> ของเกมนี้`
             ],
             themes: "ธีม",
             src: "แหล่งภาพหน้าจอ",
-            themedeleted: "ลบธีมแล้ว"
+            themedeleted: "ลบธีมแล้ว",
+            rafindgameid: "ค้นหา RA GameID",
+            rafindgameidsub: [
+                `เกม RetroAchievements แต่ละเกมจะมีหมายเลขเฉพาะเรียกว่า <span class="hl">GameID</span> คุณสามารถค้นหา GameID ของเกมใดก็ได้โดยตรวจสอบ:`,
+                `URL ของหน้า <span class="hl">เกม</span> บนเว็บไซต์ RetroAchievements — คือหมายเลขที่อยู่หลัง <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -135,6 +135,7 @@ declare interface Config {
     rauser: string,
     rakey: string,
     rauseemudir: boolean,
+    raui: boolean,
     exportachdata: boolean,
     colorprofile: "none" | "srgb" | "display-p3-d65" | "color-spin-gamma24" | "scrgb-linear" | "hdr10",
     replaynotifyshortcut: string,
@@ -165,6 +166,7 @@ declare interface Config {
     usesanwatcher: boolean,
     releasewaittime: number,
     workerdebug: boolean,
+    platcustomtext: string,
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -692,6 +694,14 @@ declare interface ResourceUsage {
     }[],
     memtotalMB: number
 }
+
+declare interface GameDisplayInfo {
+    gamename: string | null,
+    achnum?: number,
+    releasing?: boolean
+}
+
+declare type GameDisplay = Record<Platform,GameDisplayInfo>
 
 declare module "simple-vdf"
 declare module "adm-zip"

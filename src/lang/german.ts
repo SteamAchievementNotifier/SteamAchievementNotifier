@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "Emulatoren",
                 rauser: "Benutzername",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Warten auf Spielereignis",
                 start: "Spiel starten",
                 stop: "Spiel stoppen",
-                achievement: "Erfolg freigeschaltet"
+                achievement: "Erfolg freigeschaltet",
+                raui: "Spielanzeige-Benutzeroberfläche verwenden"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "Skalierung",
                 customtext: "Benutzerdefinierter Text",
                 usegametitle: "Spielname verwenden",
-                customfont: "Benutzerdefinierte Schriftart"
+                customfont: "Benutzerdefinierte Schriftart",
+                platcustomtext: "Benutzerdefinierter 100%-Text"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "Den Freischaltprozentsatz des Erfolges anzeigen, anstelle des XP/S-Werts",
         displaytime: "Legen Sie die Anzeigedauer der Benachrichtigung in Sekunden fest",
         scale: "Vergrößern oder verkleinern Sie die Größe der Benachrichtigung",
-        customtext: "Legen Sie eine benutzerdefinierte Nachricht fest, die in der Benachrichtigung angezeigt werden soll",
+        customtext: `Legen Sie eine benutzerdefinierte Nachricht fest, die in der Benachrichtigung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Customiser > Voreinstellung > Benachrichtigungselemente > Freischaltungsnachricht deaktiviert ist</span>`,
         usegametitle: "Zeigen Sie den Titel des aktuellen Spiels in der Benachrichtigung an",
         customfont: "Verwenden Sie eine benutzerdefinierte Schriftart, die in der Benachrichtigung verwendet werden soll",
         soundmode: "Wählen Sie entweder eine einzelne Audiodatei oder eine zufällig ausgewählte Audiodatei aus einem Ordner mit mehreren Audiodateien aus, wenn eine Benachrichtigung auftritt",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "Lege die Farbe fest, die im Webhook-Embed verwendet wird, wenn ein $rare-Erfolg freigeschaltet wird",
         webhookembedcolorplat: "Lege die Farbe fest, die im Webhook-Embed verwendet wird, wenn ein $plat-Erfolg freigeschaltet wird",
         raemus: "Benachrichtigungen anzeigen, wenn Spiele in unterstützten Emulatoren erkannt werden",
-        rauser: "Den Retro Achievements-Benutzernamen festlegen, um Erfolge zu verfolgen",
-        rakey: `Legen Sie den Web-API-Schlüssel fest, der für die Authentifizierung mit der Retro Achievements API verwendet wird<br><br><span class="ttdesc">Ein Web-API-Schlüssel kann kopiert oder neu generiert werden, indem Sie sich auf der Retro Achievements-Website anmelden und zu <span class="hl">Einstellungen > Schlüssel > Web-API-Schlüssel</span> navigieren<br><br>🔒 Der angegebene Schlüssel wird verschlüsselt, bevor er lokal auf dem System gespeichert wird (sofern das aktuelle Betriebssystem Verschlüsselung unterstützt)</span>`,
+        rauser: "Den RetroAchievements-Benutzernamen festlegen, um Erfolge zu verfolgen",
+        rakey: `Legen Sie den Web-API-Schlüssel fest, der für die Authentifizierung mit der RetroAchievements API verwendet wird<br><br><span class="ttdesc">Ein Web-API-Schlüssel kann kopiert oder neu generiert werden, indem Sie sich auf der RetroAchievements-Website anmelden und zu <span class="hl">Einstellungen > Schlüssel > Web-API-Schlüssel</span> navigieren<br><br>🔒 Der angegebene Schlüssel wird verschlüsselt, bevor er lokal auf dem System gespeichert wird (sofern das aktuelle Betriebssystem Verschlüsselung unterstützt)</span>`,
         rapercenttype: "Festlegen, ob in den Benachrichtigungen der Freischaltprozentsatz für Hardcore- oder Softcore-Erfolge angezeigt wird",
-        retroarch: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über RetroArch emuliert werden<br><br><span class="ttdesc"><span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li></ul></span>`,
-        dolphin: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über Dolphin emuliert werden<br><br><span class="ttdesc"><span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li><li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über PCSX2 emuliert werden<br><br><span class="ttdesc"><span class="hl">PCSX2 > Werkzeuge > Dateiprotokollierung aktivieren</span> muss aktiviert sein</span>`,
-        duckstation: `Retro Achievements-Benachrichtigungen für Spiele anzeigen, die über Duckstation emuliert werden<br><br><span class="ttdesc">❗ Die Datei <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> muss heruntergeladen und in das <span class="hl">Installationsverzeichnis von Duckstation</span> verschoben werden</span><br><br><span class="ttdesc"><span class="hl">Duckstation > Einstellungen > Erfolge > RAIntegration (Nur für Entwickler)</span> muss aktiviert sein</span>`,
-        ppsspp: `Zeige Retro Achievements-Benachrichtigungen für Spiele, die über PPSSPP emuliert werden<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> muss aktiviert und mit den folgenden Einstellungen konfiguriert sein:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `Zeige RetroAchievements-Benachrichtigungen für Spiele, die über RetroArch emuliert werden<br><br><span class="ttdesc"><span class="hl">RetroArch > Einstellungen > Protokollierung</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Protokollierungsdetails</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Frontend-Protokollierungsstufe</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Protokoll in Datei schreiben</span>: <span class="hlgreen">EIN</span></li><li><span class="hllb">Protokolldateien mit Zeitstempel versehen</span>: <span class="hlred">AUS</span></li></ul></span>`,
+        dolphin: `Zeige RetroAchievements-Benachrichtigungen für Spiele, die über Dolphin emuliert werden<br><br><span class="ttdesc"><span class="hl">Dolphin > Ansicht > Protokollkonfiguration anzeigen</span> muss mit den folgenden Einstellungen konfiguriert werden:<br><br><ul><li><span class="hllb">Detailgrad</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Protokollausgaben</span> > <span class="hlgreen">In Datei schreiben</span></li><li><span class="hllb">Protokolltypen</span> > <span class="hlgreen">Erfolge (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Zeige RetroAchievements-Benachrichtigungen für Spiele, die über PCSX2 emuliert werden<br><br><span class="ttdesc"><span class="hl">PCSX2 > Werkzeuge > Dateiprotokollierung aktivieren</span> muss aktiviert sein</span>`,
+        duckstation: `RetroAchievements-Benachrichtigungen für Spiele anzeigen, die über Duckstation emuliert werden<br><br><span class="ttdesc">❗ Die Datei <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> muss heruntergeladen und in das <span class="hl">Installationsverzeichnis von Duckstation</span> verschoben werden</span><br><br><span class="ttdesc"><span class="hl">Duckstation > Einstellungen > Erfolge > RAIntegration (Nur für Entwickler)</span> muss aktiviert sein</span>`,
+        ppsspp: `Zeige RetroAchievements-Benachrichtigungen für Spiele, die über PPSSPP emuliert werden<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> muss aktiviert und mit den folgenden Einstellungen konfiguriert sein:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Lege den Pfad zur Protokolldatei <span class="hl">"retroarch.log"</span> von RetroArch fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"retroarch.log"</span> gespeichert in <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Lege den Pfad zur Protokolldatei <span class="hl">"dolphin.log"</span> von Dolphin fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"dolphin.log"</span> in einem der folgenden Verzeichnisse gespeichert:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Lege den Pfad zur Protokolldatei <span class="hl">"emulog.txt"</span> von PCSX2 fest<br><br><span class="ttdesc">Mit den Standardeinstellungen wird <span class="hl">"emulog.txt"</span> gespeichert in <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `Deaktiviert alle Tastenkürzel in der App<br><br><span class="ttdesc">Wenn aktiviert, <u>funktionieren alle Tastenkürzel in der App nicht mehr</u>. Alle Optionen im Zusammenhang mit Tastenkürzeln werden ebenfalls ausgeblendet</span>`,
         extwinnotify: "Schaltet die Sichtbarkeit aller Bildschirmbenachrichtigungen bei der Verwendung von Stream Notifications um",
         usesanwatcher: `SANs neue Überwachung für Spielprozesse aktivieren<br><br><span class="ttdesc">Die Unterschiede zwischen dem neuen SANWatcher und den alten Methoden zur automatischen Prozessverfolgung sind wie folgt:<br><br><div class="wrapper sanwatcher"><span class="hl">EIN</span><ul><li>Überwacht aktiv Start-/Beendigungsereignisse aller Prozesse, die sich im Installationsverzeichnis des Spiels befinden</li><li>Es ist nicht erforderlich, die ausführbare Datei des Spiels zu kennen, um das aktuelle Spiel freizugeben</li><li>Das Verhalten von vorgeschalteten Launchern kann variieren, daher kann eine vollständige Kompatibilität mit allen Steam-Spielen nicht garantiert werden</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">AUS</span><ul><li>Durchsucht nach dem Start des Spiels das Installationsverzeichnis nach laufenden ausführbaren Dateien</li><li>Erfordert die Kenntnis der ausführbaren Datei des Spiels, um das aktuelle Spiel freizugeben</li><li>Wenn der Spielprozess nicht automatisch ermittelt werden kann, muss der Benutzer manuell einen neuen Eintrag zu <span class="hl">Automatische Spielfreigabe</span> hinzufügen, damit Spiele automatisch freigegeben werden können</li></ul></div>`,
-        releasewaittime: `Legen Sie fest, wie lange SANWatcher auf das Starten neuer Spielprozesse wartet, bevor das aktuelle Spiel freigegeben wird<br><br><span class="ttdesc">Wenn das aktuelle Spiel beispielsweise vor dem eigentlichen Spiel ein Start-/Konfigurationsfenster öffnet, bestimmt diese Einstellung, wie viele Sekunden SANWatcher nach dem Schließen des Start-/Konfigurationsfensters auf das Erscheinen des eigentlichen Spielfensters wartet<br><br>Wird innerhalb dieser Wartezeit ein neuer aktiver Spielprozess erkannt, wird die Freigabe abgebrochen und stattdessen der neu aktive Prozess verfolgt<br><br>💡 Der Spielname wird im Feld <span class="hl">Spielanzeige</span> <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinken</span>, während das aktuelle Spiel auf die Freigabe wartet</span>`
+        releasewaittime: `Legen Sie fest, wie lange SANWatcher auf das Starten neuer Spielprozesse wartet, bevor das aktuelle Spiel freigegeben wird<br><br><span class="ttdesc">Wenn das aktuelle Spiel beispielsweise vor dem eigentlichen Spiel ein Start-/Konfigurationsfenster öffnet, bestimmt diese Einstellung, wie viele Sekunden SANWatcher nach dem Schließen des Start-/Konfigurationsfensters auf das Erscheinen des eigentlichen Spielfensters wartet<br><br>Wird innerhalb dieser Wartezeit ein neuer aktiver Spielprozess erkannt, wird die Freigabe abgebrochen und stattdessen der neu aktive Prozess verfolgt<br><br>💡 Der Spielname wird im Feld <span class="hl">Spielanzeige</span> <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinken</span>, während das aktuelle Spiel auf die Freigabe wartet</span>`,
+        platcustomtext: `Legen Sie eine benutzerdefinierte Nachricht für den 100%-Spielabschluss fest, die in der Benachrichtigung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Customiser > Voreinstellung > Benachrichtigungselemente > Erfolgsbeschreibung deaktiviert ist</span>`,
+        raui: "Zeigt die Namen erkannter RetroAchievements-Spiele in der Spielanzeige-/Infobereich-Benutzeroberfläche an"
     },
     update: {
         updateavailable: "Update verfügbar",
@@ -911,7 +915,7 @@ export const translations = {
                 `Nach dem Hinzufügen können Einträge über das vorherige Menü <span class="hl">$linkgame</span> <span class="hl">entfernt</span> werden`
             ],
             link: "Hinzufügen",
-            findappid: "AppID finden",
+            findappid: "Steam AppID finden",
             findappidsub: [
                 `Jedes Steam-Spiel besitzt eine eindeutige Nummer, die <span class="hl">AppID</span> genannt wird. Sie können die AppID eines beliebigen Steam-Spiels auf eine der folgenden Arten finden:`,
                 `Klicken Sie im <span class="hl">Steam-Client</span> mit der <i>rechten Maustaste</i> auf ein Spiel in Ihrer <span class="hl">Bibliothek</span> und wählen Sie <i>Eigenschaften</i> > <i>Updates</i> – die AppID wird dort angezeigt`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Füge die <span class="hl">AppID</span> eines Spiels hinzu, um automatisch die <span class="hl">Designs</span> zu wechseln, wenn es erkannt wird`,
-                `Jedes gespeicherte <span class="hl">Design</span> kann für jeden Benachrichtigungstyp ausgewählt werden, zusammen mit dem gewünschten Monitor, der als <span class="hl">Screenshot-Quelle</span> verwendet wird`,
-                `<span class="hl" id="appidhelp"><u>Wie finde ich die AppID eines Steam-Spiels?</u></span>`
+                `Fügen Sie die <span class="hl">AppID</span>/<span class="hl">GameID</span> eines beliebigen Spiels hinzu, um <span class="hl">Themen</span> bei Erkennung automatisch zu wechseln`,
+                `Für jeden Benachrichtigungstyp kann ein beliebiges gespeichertes <span class="hl">Thema</span> ausgewählt werden, zusammen mit dem gewünschten Monitor als <span class="hl">Quelle für Bildschirmaufnahmen</span>`,
+                `<span class="hl help" id="appidhelp"><u>Wie finde ich die AppID eines Steam-Spiels?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Wie finde ich die GameID eines RetroAchievements-Spiels?</u></span>`
             ],
             themeswitchnew: "Neuer automatischer Wechsel",
             themeswitchnewsub: [
-                `Geben Sie die <span class="hl">AppID</span> des Spiels ein, zusammen mit dem gewünschten Monitor, der als <span class="hl">Screenshot-Quelle</span> verwendet wird`,
-                `Wählen Sie das <span class="hl">Design</span>, zu dem für jeden Benachrichtigungstyp gewechselt werden soll, wenn die <span class="hl">AppID</span> dieses Spiels erkannt wird`
+                `Geben Sie die <span class="hl">AppID</span>/<span class="hl">GameID</span> des Spiels sowie den gewünschten Monitor als <span class="hl">Quelle für Bildschirmaufnahmen</span> ein`,
+                `Mehrere <span class="hl">AppIDs</span>/<span class="hl">GameIDs</span> können gleichzeitig eingegeben werden, wenn sie durch ein Komma (<code>,</code>) oder ein Semikolon (<code>;</code>) getrennt sind`,
+                `Wählen Sie aus, zu welchem <span class="hl">Thema</span> für jeden Benachrichtigungstyp gewechselt werden soll, wenn die <span class="hl">AppID</span>/<span class="hl">GameID</span> dieses Spiels erkannt wird`
             ],
             themeswitchedit: "Automatischen Wechsel bearbeiten",
             themeswitcheditsub: [
-                `Den gewünschten Monitor bearbeiten, der als <span class="hl">Screenshot-Quelle</span> für die <span class="hl">AppID</span> dieses Spiels verwendet wird`,
-                `Ändern, zu welchem <span class="hl">Thema</span> für jeden Benachrichtigungstyp gewechselt wird, wenn die <span class="hl">AppID</span> dieses Spiels erkannt wird`
+                `Bearbeiten Sie den gewünschten Monitor als <span class="hl">Quelle für Bildschirmaufnahmen</span> für die <span class="hl">AppID</span>/<span class="hl">GameID</span> dieses Spiels`,
+                `Ändern Sie, zu welchem <span class="hl">Thema</span> für jeden Benachrichtigungstyp gewechselt werden soll, wenn die <span class="hl">AppID</span>/<span class="hl">GameID</span> dieses Spiels erkannt wird`
             ],
-            themes: "Designs",
-            src: "Screenshot-Quelle",
-            themedeleted: "Design gelöscht"
+            themes: "Themen",
+            src: "Quelle für Bildschirmaufnahmen",
+            themedeleted: "Thema gelöscht",
+            rafindgameid: "RA GameID finden",
+            rafindgameidsub: [
+                `Jedes RetroAchievements-Spiel besitzt eine eindeutige Nummer, die als <span class="hl">GameID</span> bezeichnet wird. Sie können die GameID eines beliebigen RetroAchievements-Spiels wie folgt finden:`,
+                `Die <span class="hl">URL</span> der <span class="hl">Spielseite</span> auf der RetroAchievements-Website – es ist die Zahl nach <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

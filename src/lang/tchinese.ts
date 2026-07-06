@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "模擬器",
                 rauser: "使用者名稱",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "等待遊戲事件",
                 start: "啟動遊戲",
                 stop: "停止遊戲",
-                achievement: "成就解鎖"
+                achievement: "成就解鎖",
+                raui: "使用遊戲顯示介面"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "比例",
                 customtext: "自訂文字",
                 usegametitle: "使用遊戲標題",
-                customfont: "自訂字型"
+                customfont: "自訂字型",
+                platcustomtext: "自訂 100% 文字"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "顯示成就解鎖百分比，而不是XP/S值",
         displaytime: "設置通知顯示的秒數",
         scale: "增加或減小通知的大小",
-        customtext: "設置要在通知中顯示的自定義消息",
+        customtext: `設定要在通知中顯示的自訂訊息<br><br><span class="ttdesc">當 Customiser > 預設 > 通知元素 > 解鎖訊息 被停用時，此選項將會隱藏</span>`,
         usegametitle: "在通知中顯示當前遊戲的標題",
         customfont: "加載要在通知中使用的自定義字體",
         soundmode: "在通知發生時選擇單個音訊文件或從包含多個音訊文件的文件夾中隨機選擇音訊文件",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "設定在解鎖 $rare 成就時 webhook 內嵌使用的顏色",
         webhookembedcolorplat: "設定在解鎖 $plat 成就時 webhook 內嵌使用的顏色",
         raemus: "當遊戲在支持的模擬器中被偵測到時顯示通知",
-        rauser: "設定 Retro Achievements 使用者名稱來追蹤成就",
-        rakey: `設定用於與 Retro Achievements API 進行身份驗證的 Web API 密鑰<br><br><span class="ttdesc">Web API 密鑰可以通過登入 Retro Achievements 網站並前往 <span class="hl">設定 > 密鑰 > Web API Key</span> 來複製或重新生成<br><br>🔒 提供的密鑰將在儲存在本地系統之前進行加密（如果當前操作系統支持加密）</span>`,
+        rauser: "設定 RetroAchievements 使用者名稱來追蹤成就",
+        rakey: `設定用於與 RetroAchievements API 進行身份驗證的 Web API 密鑰<br><br><span class="ttdesc">Web API 密鑰可以通過登入 RetroAchievements 網站並前往 <span class="hl">設定 > 密鑰 > Web API Key</span> 來複製或重新生成<br><br>🔒 提供的密鑰將在儲存在本地系統之前進行加密（如果當前操作系統支持加密）</span>`,
         rapercenttype: "設定是否顯示 Hardcore 或 Softcore 成就解鎖百分比通知",
-        retroarch: `顯示 Retro Achievements 通知，適用於透過 RetroArch 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > 日誌記錄</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">日誌詳細程度</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">前端日誌級別</span>: <span class="hlgreen">1 (信息)</span></li><li><span class="hllb">寫入日誌檔案</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">時間戳日誌檔案</span>: <span class="hlred">關閉</span></li></ul></span>`,
-        dolphin: `顯示 Retro Achievements 通知，適用於透過 Dolphin 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">Dolphin > 檢視 > 顯示日誌設定</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">詳細程度</span>: <span class="hlgreen">信息</span></li><li><span class="hllb">日誌輸出</span> > <span class="hlgreen">寫入檔案</span></li><li><span class="hllb">日誌類型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li></ul></span>`,
-        pcsx2: `顯示 Retro Achievements 通知，適用於透過 PCSX2 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">PCSX2 > 工具 > 啟用文件日誌</span> 必須啟用</span>`,
-        duckstation: `顯示透過 Duckstation 模擬的遊戲的 Retro Achievements 通知<br><br><span class="ttdesc">❗ 檔案 <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> 必須下載並移動到 <span class="hl">Duckstation 的安裝目錄</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > 設定 > 成就 > RAIntegration（僅限開發者）</span> 必須啟用</span>`,
-        ppsspp: `為透過 PPSSPP 模擬的遊戲顯示 Retro Achievements 通知<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> 必須啟用並依照以下設定進行配置：<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `顯示 RetroAchievements 通知，適用於透過 RetroArch 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">RetroArch > 設定 > 日誌記錄</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">日誌詳細程度</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">前端日誌級別</span>: <span class="hlgreen">1 (信息)</span></li><li><span class="hllb">寫入日誌檔案</span>: <span class="hlgreen">開啟</span></li><li><span class="hllb">時間戳日誌檔案</span>: <span class="hlred">關閉</span></li></ul></span>`,
+        dolphin: `顯示 RetroAchievements 通知，適用於透過 Dolphin 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">Dolphin > 檢視 > 顯示日誌設定</span> 必須配置以下設定：<br><br><ul><li><span class="hllb">詳細程度</span>: <span class="hlgreen">信息</span></li><li><span class="hllb">日誌輸出</span> > <span class="hlgreen">寫入檔案</span></li><li><span class="hllb">日誌類型</span> > <span class="hlgreen">成就（RetroAchievements）</span></li></ul></span>`,
+        pcsx2: `顯示 RetroAchievements 通知，適用於透過 PCSX2 模擬的遊戲<br><br><span class="ttdesc"><span class="hl">PCSX2 > 工具 > 啟用文件日誌</span> 必須啟用</span>`,
+        duckstation: `顯示透過 Duckstation 模擬的遊戲的 RetroAchievements 通知<br><br><span class="ttdesc">❗ 檔案 <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> 必須下載並移動到 <span class="hl">Duckstation 的安裝目錄</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > 設定 > 成就 > RAIntegration（僅限開發者）</span> 必須啟用</span>`,
+        ppsspp: `為透過 PPSSPP 模擬的遊戲顯示 RetroAchievements 通知<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> 必須啟用並依照以下設定進行配置：<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `設置 RetroArch 的 <span class="hl">"retroarch.log"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"retroarch.log"</span> 儲存在 <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `設置 Dolphin 的 <span class="hl">"dolphin.log"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"dolphin.log"</span> 儲存在以下位置之一：<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `設定 PCSX2 的 <span class="hl">"emulog.txt"</span> 日誌檔案路徑<br><br><span class="ttdesc">使用預設安裝設定，<span class="hl">"emulog.txt"</span> 檔案儲存於 <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `停用所有應用程式內鍵盤快捷鍵<br><br><span class="ttdesc">啟用後，<u>所有應用程式內快捷鍵將不再運作</u>。所有與鍵盤快捷鍵相關的選項也將被隱藏</span>`,
         extwinnotify: "切換使用 Stream Notifications 時所有螢幕通知的可見性",
         usesanwatcher: `啟用 SAN 的新遊戲程序監視器<br><br><span class="ttdesc">新版 SANWatcher 與舊版自動程序追蹤方法之間的差異如下：<br><br><div class="wrapper sanwatcher"><span class="hl">開啟</span><ul><li>主動監視儲存在遊戲安裝目錄中的任何程序之啟動與結束事件</li><li>無需知道遊戲執行檔即可釋放目前遊戲</li><li>遊戲啟動前啟動器的行為可能有所不同，因此無法保證與所有 Steam 遊戲完全相容</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">關閉</span><ul><li>在遊戲啟動後掃描遊戲安裝目錄中的所有執行中可執行檔</li><li>需要知道遊戲執行檔才能釋放目前遊戲</li><li>如果無法自動判定遊戲程序，使用者必須手動新增一筆項目至 <span class="hl">自動釋放遊戲</span>，遊戲才能自動釋放</li></ul></div>`,
-        releasewaittime: `設定 SANWatcher 在釋放目前遊戲之前，等待新遊戲程序啟動的時間長度<br><br><span class="ttdesc">例如，如果目前遊戲會先啟動遊戲前啟動器／設定視窗，然後才啟動實際遊戲，則此設定會決定在遊戲前啟動器／設定視窗關閉後，SANWatcher 等待實際遊戲視窗啟動的秒數<br><br>如果在此等待時間內偵測到新的作用中遊戲程序，則釋放作業將會取消，並改為追蹤新啟用的程序<br><br>💡 當目前遊戲正在等待釋放時，遊戲名稱將會在<span class="hl">遊戲顯示</span>方塊中<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">閃爍</span></span>`
+        releasewaittime: `設定 SANWatcher 在釋放目前遊戲之前，等待新遊戲程序啟動的時間長度<br><br><span class="ttdesc">例如，如果目前遊戲會先啟動遊戲前啟動器／設定視窗，然後才啟動實際遊戲，則此設定會決定在遊戲前啟動器／設定視窗關閉後，SANWatcher 等待實際遊戲視窗啟動的秒數<br><br>如果在此等待時間內偵測到新的作用中遊戲程序，則釋放作業將會取消，並改為追蹤新啟用的程序<br><br>💡 當目前遊戲正在等待釋放時，遊戲名稱將會在<span class="hl">遊戲顯示</span>方塊中<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">閃爍</span></span>`,
+        platcustomtext: `設定要在通知中顯示的遊戲 100% 完成自訂訊息<br><br><span class="ttdesc">當 Customiser > 預設 > 通知元素 > 成就描述 被停用時，此選項將會隱藏</span>`,
+        raui: "在遊戲顯示介面/系統匣介面中顯示已偵測到的 RetroAchievements 遊戲名稱"
     },
     update: {
         updateavailable: "有可用更新",
@@ -911,7 +915,7 @@ export const translations = {
                 `新增後，可透過先前的 <span class="hl">$linkgame</span> 選單<span class="hl">移除</span>項目`
             ],
             link: "新增",
-            findappid: "尋找 AppID",
+            findappid: "尋找 Steam AppID",
             findappidsub: [
                 `每個 Steam 遊戲都有一個唯一的編號，稱為 <span class="hl">AppID</span>。你可以透過以下方式找到 Steam 遊戲的 AppID：`,
                 `在 <span class="hl">Steam 用戶端</span>中，於<span class="hl">收藏庫</span>中<i>右鍵點擊</i>遊戲，選擇<i>內容</i> > <i>更新</i> — AppID 會顯示在此`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `將任何遊戲的 <span class="hl">AppID</span> 添加到自動切換 <span class="hl">主題</span> 當檢測到時`,
-                `可以為每個通知類型選擇任何已保存的 <span class="hl">主題</span>，以及用作 <span class="hl">截圖來源</span> 的所需顯示器`,
-                `<span class="hl" id="appidhelp"><u>我該如何找到Steam遊戲的AppID?</u></span>`
+                `新增任何遊戲的 <span class="hl">AppID</span>/<span class="hl">GameID</span>，當偵測到時即可自動切換 <span class="hl">主題</span>`,
+                `每個通知類型都可選擇任何已儲存的 <span class="hl">主題</span>，並可指定要作為 <span class="hl">螢幕截圖來源</span> 的螢幕`,
+                `<span class="hl help" id="appidhelp"><u>如何找到 Steam 遊戲的 AppID？</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>如何找到 RetroAchievements 遊戲的 GameID？</u></span>`
             ],
-            themeswitchnew: "新自動切換",
+            themeswitchnew: "新增自動切換",
             themeswitchnewsub: [
-                `輸入遊戲的 <span class="hl">AppID</span>，以及用作 <span class="hl">截圖來源</span> 的所需顯示器`,
-                `選擇當檢測到此遊戲的 <span class="hl">AppID</span> 時，要為每個通知類型切換到哪個 <span class="hl">主題</span>`
+                `輸入遊戲的 <span class="hl">AppID</span>/<span class="hl">GameID</span>，以及要作為 <span class="hl">螢幕截圖來源</span> 的螢幕`,
+                `可一次輸入多個 <span class="hl">AppID</span>/<span class="hl">GameID</span>，以逗號（<code>,</code>）或分號（<code>;</code>）分隔`,
+                `當偵測到該遊戲的 <span class="hl">AppID</span>/<span class="hl">GameID</span> 時，為每種通知類型選擇要切換到的 <span class="hl">主題</span>`
             ],
             themeswitchedit: "編輯自動切換",
             themeswitcheditsub: [
-                `編輯用作此遊戲<span class="hl">AppID</span>的<span class="hl">截圖來源</span>的目標顯示器`,
-                `更改當偵測到此遊戲的<span class="hl">AppID</span>時，針對每種通知類型切換的<span class="hl">主題</span>`
+                `編輯此遊戲 <span class="hl">AppID</span>/<span class="hl">GameID</span> 所使用的 <span class="hl">螢幕截圖來源</span>`,
+                `修改當偵測到此遊戲 <span class="hl">AppID</span>/<span class="hl">GameID</span> 時，各通知類型要切換到的 <span class="hl">主題</span>`
             ],
             themes: "主題",
-            src: "截圖來源",
-            themedeleted: "主題已刪除"
+            src: "螢幕截圖來源",
+            themedeleted: "主題已刪除",
+            rafindgameid: "尋找 RA GameID",
+            rafindgameidsub: [
+                `每個 RetroAchievements 遊戲都有一個唯一編號，稱為 <span class="hl">GameID</span>。你可以透過以下方式找到任何 RetroAchievements 遊戲的 GameID：`,
+                `RetroAchievements 網站上的 <span class="hl">遊戲頁面</span> URL —— 即 <span class="hl">game/</span> 之後的數字：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

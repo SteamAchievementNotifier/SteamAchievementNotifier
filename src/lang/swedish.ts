@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "Emulatorer",
                 rauser: "Användarnamn",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Väntar på spelhändelse",
                 start: "Startar spelet",
                 stop: "Stoppar spelet",
-                achievement: "Uppnåelse upplåst"
+                achievement: "Uppnåelse upplåst",
+                raui: "Använd spelvisningsgränssnitt"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "Skala",
                 customtext: "Anpassad text",
                 usegametitle: "Använd speltitel",
-                customfont: "Anpassad typsnitt"
+                customfont: "Anpassad typsnitt",
+                platcustomtext: "Anpassad 100%-text"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "Visa låsningsprocenten för prestationen, istället för XP/S-värdet",
         displaytime: "Ange antalet sekunder som aviseringen kommer att visas",
         scale: "Öka eller minska storleken på aviseringen",
-        customtext: "Ange ett anpassat meddelande som ska visas i aviseringen",
+        customtext: `Ställ in ett anpassat meddelande som ska visas i aviseringen<br><br><span class="ttdesc">Detta alternativ döljs när Customiser > Förinställning > Aviseringselement > Upplåsningsmeddelande är inaktiverat</span>`,
         usegametitle: "Visa titeln på det aktuella spelet i aviseringen",
         customfont: "Ladda en anpassad typsnitt som ska användas i aviseringen",
         soundmode: "Välj antingen en enskild ljudfil eller en slumpmässigt vald ljudfil från en mapp som innehåller flera ljudfiler när en avisering inträffar",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "Ange färgen som används i webhook-embed när en $rare prestation låses upp",
         webhookembedcolorplat: "Ange färgen som används i webhook-embed när en $plat prestation låses upp",
         raemus: "Visa meddelanden när spel detekteras i stödda emulatorer",
-        rauser: "Ställ in användarnamnet för Retro Achievements för att spåra prestationer",
-        rakey: `Ställ in Web API-nyckeln som ska användas för autentisering med Retro Achievements API<br><br><span class="ttdesc">En Web API-nyckel kan kopieras eller regenereras genom att logga in på Retro Achievements-webbplatsen och navigera till <span class="hl">Inställningar > Nycklar > Web API Key</span><br><br>🔒 Den angivna nyckeln kommer att krypteras innan den lagras lokalt på systemet (om det aktuella operativsystemet stöder kryptering)</span>`,
+        rauser: "Ställ in användarnamnet för RetroAchievements för att spåra prestationer",
+        rakey: `Ställ in Web API-nyckeln som ska användas för autentisering med RetroAchievements API<br><br><span class="ttdesc">En Web API-nyckel kan kopieras eller regenereras genom att logga in på RetroAchievements-webbplatsen och navigera till <span class="hl">Inställningar > Nycklar > Web API Key</span><br><br>🔒 Den angivna nyckeln kommer att krypteras innan den lagras lokalt på systemet (om det aktuella operativsystemet stöder kryptering)</span>`,
         rapercenttype: "Ställ in om du vill visa Hardcore eller Softcore prestationers upplåsningsprocent i meddelandena",
-        retroarch: `Visa Retro Achievements-notifikationer för spel som emuleras via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Inställningar > Loggning</span> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Loggningsverbositet</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Frontend Loggningsnivå</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Logga till fil</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Tidsstämpel för loggfiler</span>: <span class="hlred">AV</span></li></ul></span>`,
-        dolphin: `Visa Retro Achievements-notifikationer för spel som emuleras via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Visa > Visa loggkonfiguration</span> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logger Outputs</span> > <span class="hlgreen">Skriv till fil</span></li><li><span class="hllb">Loggtyper</span> > <span class="hlgreen">Prestationer (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Visa Retro Achievements-notifikationer för spel som emuleras via PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Verktyg > Aktivera filinspelning</span> måste vara aktiverat</span>`,
-        duckstation: `Visa Retro Achievements-notifikationer för spel emulerade via Duckstation<br><br><span class="ttdesc">❗ Filen <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> måste laddas ner och flyttas till <span class="hl">Duckstations installationsmapp</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Inställningar > Prestationer > RAIntegration (Endast för utvecklare)</span> måste vara aktiverat</span>`,
-        ppsspp: `Visa Retro Achievements-notiser för spel som emuleras via PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> måste vara aktiverat och konfigurerat med följande inställningar:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `Visa RetroAchievements-notifikationer för spel som emuleras via RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Inställningar > Loggning</span> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Loggningsverbositet</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Frontend Loggningsnivå</span>: <span class="hlgreen">1 (Info)</span></li><li><span class="hllb">Logga till fil</span>: <span class="hlgreen">PÅ</span></li><li><span class="hllb">Tidsstämpel för loggfiler</span>: <span class="hlred">AV</span></li></ul></span>`,
+        dolphin: `Visa RetroAchievements-notifikationer för spel som emuleras via Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Visa > Visa loggkonfiguration</span> måste konfigureras med följande inställningar:<br><br><ul><li><span class="hllb">Verbosity</span>: <span class="hlgreen">Info</span></li><li><span class="hllb">Logger Outputs</span> > <span class="hlgreen">Skriv till fil</span></li><li><span class="hllb">Loggtyper</span> > <span class="hlgreen">Prestationer (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Visa RetroAchievements-notifikationer för spel som emuleras via PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Verktyg > Aktivera filinspelning</span> måste vara aktiverat</span>`,
+        duckstation: `Visa RetroAchievements-notifikationer för spel emulerade via Duckstation<br><br><span class="ttdesc">❗ Filen <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> måste laddas ner och flyttas till <span class="hl">Duckstations installationsmapp</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Inställningar > Prestationer > RAIntegration (Endast för utvecklare)</span> måste vara aktiverat</span>`,
+        ppsspp: `Visa RetroAchievements-notiser för spel som emuleras via PPSSPP<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> måste vara aktiverat och konfigurerat med följande inställningar:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `Ange sökvägen till RetroArchs <span class="hl">"retroarch.log"</span> loggfil<br><br><span class="ttdesc">Med standardinstallationen lagras <span class="hl">"retroarch.log"</span> i <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Ange sökvägen till Dolphins <span class="hl">"dolphin.log"</span> loggfil<br><br><span class="ttdesc">Med standardinstallationen lagras <span class="hl">"dolphin.log"</span> i en av följande platser:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Ange sökvägen till PCSX2s <span class="hl">"emulog.txt"</span> loggfil<br><br><span class="ttdesc">Med standardinstallationen lagras <span class="hl">"emulog.txt"</span> i <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `Inaktiverar alla tangentbordsgenvägar i appen<br><br><span class="ttdesc">När detta är aktiverat kommer <u>alla genvägar i appen inte längre att fungera</u>. Alla alternativ relaterade till tangentbordsgenvägar kommer också att döljas</span>`,
         extwinnotify: "Växla synlighet för alla skärmnotifikationer vid användning av Stream Notifications",
         usesanwatcher: `Aktivera SAN:s nya övervakare för spelprocesser<br><br><span class="ttdesc">Skillnaderna mellan den nya SANWatcher och den gamla metoden för automatisk processövervakning är följande:<br><br><div class="wrapper sanwatcher"><span class="hl">PÅ</span><ul><li>Övervakar aktivt start- och avslutningshändelser för alla processer som finns i spelets installationskatalog</li><li>Kräver inte att spelets körbara fil är känd för att frigöra det aktuella spelet</li><li>Beteendet hos startprogram före spelets start kan variera, så full kompatibilitet med alla Steam-spel kan inte garanteras</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">AV</span><ul><li>Söker igenom spelets installationskatalog efter körbara filer som är igång efter att spelet har startats</li><li>Kräver att spelets körbara fil är känd för att frigöra det aktuella spelet</li><li>Om spelprocessen inte kan fastställas automatiskt måste användaren manuellt lägga till en ny post i <span class="hl">Automatiskt Frigjorda Spel</span> för att spel ska frigöras automatiskt</li></ul></div>`,
-        releasewaittime: `Ange hur länge SANWatcher ska vänta på att nya spelprocesser startas innan det aktuella spelet släpps<br><br><span class="ttdesc">Om det aktuella spelet till exempel startar ett förstartsfönster/en konfigurationsruta innan själva spelet startas, avgör denna inställning hur många sekunder SANWatcher ska vänta på att det faktiska spelfönstret ska startas efter att förstartsfönstret/konfigurationsrutan har stängts<br><br>Om en ny aktiv spelprocess upptäcks inom denna väntetid kommer frigöringen att avbrytas och den nyaktiva processen kommer i stället att spåras<br><br>💡 Spelnamnet kommer att <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinka</span> i rutan <span class="hl">Spelvisning</span> medan det aktuella spelet väntar på att släppas</span>`
+        releasewaittime: `Ange hur länge SANWatcher ska vänta på att nya spelprocesser startas innan det aktuella spelet släpps<br><br><span class="ttdesc">Om det aktuella spelet till exempel startar ett förstartsfönster/en konfigurationsruta innan själva spelet startas, avgör denna inställning hur många sekunder SANWatcher ska vänta på att det faktiska spelfönstret ska startas efter att förstartsfönstret/konfigurationsrutan har stängts<br><br>Om en ny aktiv spelprocess upptäcks inom denna väntetid kommer frigöringen att avbrytas och den nyaktiva processen kommer i stället att spåras<br><br>💡 Spelnamnet kommer att <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinka</span> i rutan <span class="hl">Spelvisning</span> medan det aktuella spelet väntar på att släppas</span>`,
+        platcustomtext: `Ställ in ett anpassat meddelande för 100% spelklarering som ska visas i aviseringen<br><br><span class="ttdesc">Detta alternativ döljs när Customiser > Förinställning > Aviseringselement > Beskrivning av prestation är inaktiverat</span>`,
+        raui: "Visa namnen på upptäckta RetroAchievements-spel i spelvisningsgränssnittet/systemfältets användargränssnitt"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",
@@ -911,7 +915,7 @@ export const translations = {
                 `När de har lagts till kan poster <span class="hl">tas bort</span> via den tidigare <span class="hl">$linkgame</span>-menyn`
             ],
             link: "Lägg till",
-            findappid: "Hitta AppID",
+            findappid: "Hitta Steam AppID",
             findappidsub: [
                 `Varje Steam-spel har ett unikt nummer som kallas <span class="hl">AppID</span>. Du kan hitta AppID för vilket Steam-spel som helst på något av följande sätt:`,
                 `I <span class="hl">Steam-klienten</span>, <i>högerklicka</i> på ett spel i ditt <span class="hl">bibliotek</span> och välj <i>Egenskaper</i> > <i>Uppdateringar</i> – AppID visas där`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Lägg till vilket spels <span class="hl">AppID</span> som helst för att automatiskt byta <span class="hl">Teman</span> när det upptäcks`,
-                `Vilket sparat <span class="hl">Tema</span> som helst kan väljas för varje notifieringstyp, tillsammans med den önskade monitorn som ska användas som <span class="hl">Skärmdumpkälla</span>`,
-                `<span class="hl" id="appidhelp"><u>Hur hittar jag ett Steam-spels AppID?</u></span>`
+                `Lägg till ett spels <span class="hl">AppID</span>/<span class="hl">GameID</span> för att automatiskt byta <span class="hl">teman</span> när det upptäcks`,
+                `Alla sparade <span class="hl">teman</span> kan väljas för varje aviseringstyp, tillsammans med önskad skärm som används som <span class="hl">skärmdumpskälla</span>`,
+                `<span class="hl help" id="appidhelp"><u>Hur hittar jag ett Steam-spels AppID?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Hur hittar jag ett RetroAchievements-spels GameID?</u></span>`
             ],
-            themeswitchnew: "Nytt automatiskt byte",
+            themeswitchnew: "Ny automatisk växling",
             themeswitchnewsub: [
-                `Ange spelets <span class="hl">AppID</span>, tillsammans med den önskade monitorn som ska användas som <span class="hl">Skärmdumpkälla</span>`,
-                `Välj vilket <span class="hl">Tema</span> som ska bytas till för varje notifieringstyp när detta spels <span class="hl">AppID</span> upptäcks`
+                `Ange spelets <span class="hl">AppID</span>/<span class="hl">GameID</span> samt önskad skärm som ska användas som <span class="hl">skärmdumpskälla</span>`,
+                `Flera <span class="hl">AppID</span>/<span class="hl">GameID</span> kan anges samtidigt genom att separera dem med komma (<code>,</code>) eller semikolon (<code>;</code>)`,
+                `Välj vilket <span class="hl">tema</span> som ska användas för varje aviseringstyp när detta spels <span class="hl">AppID</span>/<span class="hl">GameID</span> upptäcks`
             ],
             themeswitchedit: "Redigera automatisk växling",
             themeswitcheditsub: [
-                `Redigera den önskade skärmen som ska användas som <span class="hl">källan för skärmbilder</span> för detta spels <span class="hl">AppID</span>`,
-                `Ändra vilket <span class="hl">tema</span> som ska växlas till för varje notifikationstyp när detta spels <span class="hl">AppID</span> upptäcks`
+                `Redigera önskad skärm som ska användas som <span class="hl">skärmdumpskälla</span> för detta spels <span class="hl">AppID</span>/<span class="hl">GameID</span>`,
+                `Ändra vilket <span class="hl">tema</span> som ska användas för varje aviseringstyp när detta spels <span class="hl">AppID</span>/<span class="hl">GameID</span> upptäcks`
             ],
             themes: "Teman",
-            src: "Skärmdumpkälla",
-            themedeleted: "Tema raderat"
+            src: "Skärmdumpskälla",
+            themedeleted: "Tema borttaget",
+            rafindgameid: "Hitta RA GameID",
+            rafindgameidsub: [
+                `Varje RetroAchievements-spel har ett unikt nummer kopplat till sig som kallas <span class="hl">GameID</span>. Du kan hitta GameID för vilket RetroAchievements-spel som helst genom att kontrollera:`,
+                `URL:en till <span class="hl">spelens sida</span> på RetroAchievements-webbplatsen – det är numret efter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

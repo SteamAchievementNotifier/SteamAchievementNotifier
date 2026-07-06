@@ -734,31 +734,47 @@ dialog:has(#themeswitchtablewrapper,#themeswitchnewtablewrapper) {
     cursor: pointer;
 }
 
-input[type="number"].appidinput {
+.appidinput:read-only {
+    cursor: not-allowed;
+}
+
+input[type="number"].appidinput,
+input[type="text"].appidinput {
     width: 100%;
     max-width: none;
     border-radius: 0;
+    padding: 0.15rem 0.35rem;
     font-size: 0.65rem;
     background-color: transparent;
     border: none;
 }
 
-input[type="number"].appidinput[id$="appid"] {
+input[type="number"].appidinput[id$="appid"],
+input[type="text"].appidinput[id$="appid"] {
     background-color: var(--mediumgrey);
-    border-radius: var(--elembr);
 }
 
-input[type="number"].appidinput:hover {
+input[type="number"].appidinput:hover,
+input[type="text"].appidinput:hover {
     background-color: transparent;
 }
 
-input[type="number"].appidinput[id$="appid"]:hover {
+input[type="number"].appidinput[id$="appid"]:not(:read-only):hover,
+input[type="text"].appidinput[id$="appid"]:not(:read-only):hover {
     background-color: var(--lightgrey);
 }
 
-td:has(input[type="number"].appidinput) {
+td:has(input[type="number"].appidinput),
+td:has(input[type="text"].appidinput) {
     min-width: 5rem;
     padding: 0;
+    background-color: var(--mediumgrey);
+    transition: var(--transition);
+}
+
+td:has(input[type="number"].appidinput:not(:read-only):hover),
+td:has(input[type="text"].appidinput:not(:read-only):hover) {
+    background-color: var(--lightgrey);
 }
 
 td[id$="select"] {
@@ -785,7 +801,7 @@ td#linkgameselect:hover {
     background-color: var(--lightgrey);
 }
 
-.contentwrapper:has(input[type="number"]:placeholder-shown, #linkgameselect:empty) > .btnwrapper > button#okbtn {
+.contentwrapper:has(input[type="number"]:placeholder-shown,.appidinput#themeswitchappid:placeholder-shown,#linkgameselect:empty) > .btnwrapper > button#okbtn {
     opacity: 0.5;
     pointer-events: none;
 }

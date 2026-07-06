@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "Emülatörler",
                 rauser: "Kullanıcı Adı",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Oyun olayı bekleniyor",
                 start: "Oyunu başlatıyor",
                 stop: "Oyunu durduruyor",
-                achievement: "Başarı açıldı"
+                achievement: "Başarı açıldı",
+                raui: "Oyun Görüntüleme Arayüzünü Kullan"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "Ölçek",
                 customtext: "Özel Metin",
                 usegametitle: "Oyun Başlığını Kullan",
-                customfont: "Özel Font"
+                customfont: "Özel Font",
+                platcustomtext: "Özel %100 Metni"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "Başarı kilidini açma yüzdesini, XP/S değeri yerine göster",
         displaytime: "Bildirimin görüntüleneceği saniye sayısını ayarlayın",
         scale: "Bildirimin boyutunu artırın veya azaltın",
-        customtext: "Bildirim içinde görüntülenecek özel bir mesaj belirleyin",
+        customtext: `Bildirim içinde gösterilecek özel bir mesaj ayarlayın<br><br><span class="ttdesc">Customiser > Ön Ayar > Bildirim Öğeleri > Kilit Açma Mesajı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
         usegametitle: "Bildirim içinde mevcut oyunun başlığını göster",
         customfont: "Bildirim içinde kullanılacak özel bir yazı tipi yükleyin",
         soundmode: "Bir bildirim gerçekleştiğinde tek bir ses dosyası veya birden çok ses dosyası içeren bir klasörden rastgele seçilen bir ses dosyası seçin",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: `$rare başarısı kilitlendiğinde webhook gömme içinde kullanılan rengi ayarla`,
         webhookembedcolorplat: `$plat başarısı kilitlendiğinde webhook gömme içinde kullanılan rengi ayarla`,
         raemus: "Desteklenen emülatörlerde oyunlar tespit edildiğinde bildirim göster",
-        rauser: "Başarıları takip etmek için Retro Achievements kullanıcı adını ayarlayın",
-        rakey: `Retro Achievements API'si ile kimlik doğrulama için kullanılacak Web API Anahtarını ayarlayın<br><br><span class="ttdesc">Bir Web API Anahtarı, Retro Achievements web sitesine giriş yaparak ve <span class="hl">Ayarlar > Anahtarlar > Web API Key</span> bölümüne giderek kopyalanabilir veya yeniden oluşturulabilir<br><br>🔒 Verilen anahtar, yerel sisteme kaydedilmeden önce şifrelenir (eğer mevcut işletim sistemi şifrelemeyi destekliyorsa)</span>`,
+        rauser: "Başarıları takip etmek için RetroAchievements kullanıcı adını ayarlayın",
+        rakey: `RetroAchievements API'si ile kimlik doğrulama için kullanılacak Web API Anahtarını ayarlayın<br><br><span class="ttdesc">Bir Web API Anahtarı, RetroAchievements web sitesine giriş yaparak ve <span class="hl">Ayarlar > Anahtarlar > Web API Key</span> bölümüne giderek kopyalanabilir veya yeniden oluşturulabilir<br><br>🔒 Verilen anahtar, yerel sisteme kaydedilmeden önce şifrelenir (eğer mevcut işletim sistemi şifrelemeyi destekliyorsa)</span>`,
         rapercenttype: "Bildirimlerde Hardcore veya Softcore başarı yüzdelerinin gösterilmesini ayarlayın",
-        retroarch: `Retro Achievements bildirimlerini RetroArch ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">RetroArch > Ayarlar > Günlük Kaydı</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Günlük Kaydı Ayrıntı Düzeyi</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Önyüz Günlük Kaydı Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li><li><span class="hllb">Dosyaya Günlük Kaydı</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Günlük Dosyalarına Zaman Damgası</span>: <span class="hlred">KAPALI</span></li></ul></span>`,
-        dolphin: `Retro Achievements bildirimlerini Dolphin ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">Dolphin > Görünüm > Günlük Konfigürasyonunu Göster</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Ayrıntı Düzeyi</span>: <span class="hlgreen">Bilgi</span></li><li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li><li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Retro Achievements bildirimlerini PCSX2 ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">PCSX2 > Araçlar > Dosya Kaydı Etkinleştir</span> etkinleştirilmelidir</span>`,
-        duckstation: `Duckstation üzerinden emüle edilen oyunlar için Retro Achievements bildirimlerini göster<br><br><span class="ttdesc">❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> dosyasının indirilip <span class="hl">Duckstation'ın kurulum dizinine</span> taşınması gerekir</span><br><br><span class="ttdesc"><span class="hl">Duckstation > Ayarlar > Başarılar > RAIntegration (Sadece geliştiriciler için)</span> etkinleştirilmiş olmalıdır</span>`,
-        ppsspp: `PPSSPP aracılığıyla emüle edilen oyunlar için Retro Achievements bildirimlerini göster<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> etkinleştirilmeli ve aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `RetroAchievements bildirimlerini RetroArch ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">RetroArch > Ayarlar > Günlük Kaydı</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Günlük Kaydı Ayrıntı Düzeyi</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Önyüz Günlük Kaydı Seviyesi</span>: <span class="hlgreen">1 (Bilgi)</span></li><li><span class="hllb">Dosyaya Günlük Kaydı</span>: <span class="hlgreen">AÇIK</span></li><li><span class="hllb">Günlük Dosyalarına Zaman Damgası</span>: <span class="hlred">KAPALI</span></li></ul></span>`,
+        dolphin: `RetroAchievements bildirimlerini Dolphin ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">Dolphin > Görünüm > Günlük Konfigürasyonunu Göster</span> aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Ayrıntı Düzeyi</span>: <span class="hlgreen">Bilgi</span></li><li><span class="hllb">Günlük Çıktıları</span> > <span class="hlgreen">Dosyaya Yaz</span></li><li><span class="hllb">Günlük Türleri</span> > <span class="hlgreen">Başarılar (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `RetroAchievements bildirimlerini PCSX2 ile simüle edilen oyunlar için göster<br><br><span class="ttdesc"><span class="hl">PCSX2 > Araçlar > Dosya Kaydı Etkinleştir</span> etkinleştirilmelidir</span>`,
+        duckstation: `Duckstation üzerinden emüle edilen oyunlar için RetroAchievements bildirimlerini göster<br><br><span class="ttdesc">❗ <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> dosyasının indirilip <span class="hl">Duckstation'ın kurulum dizinine</span> taşınması gerekir</span><br><br><span class="ttdesc"><span class="hl">Duckstation > Ayarlar > Başarılar > RAIntegration (Sadece geliştiriciler için)</span> etkinleştirilmiş olmalıdır</span>`,
+        ppsspp: `PPSSPP aracılığıyla emüle edilen oyunlar için RetroAchievements bildirimlerini göster<br><br><span class="ttdesc"><span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> etkinleştirilmeli ve aşağıdaki ayarlarla yapılandırılmalıdır:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `RetroArch'ın <span class="hl">"retroarch.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"retroarch.log"</span> şu konumda saklanır: <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Dolphin'in <span class="hl">"dolphin.log"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"dolphin.log"</span> şu konumlarda saklanır:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `PCSX2'in <span class="hl">"emulog.txt"</span> günlük dosyasının yolunu ayarlayın<br><br><span class="ttdesc">Varsayılan kurulum ayarlarıyla, <span class="hl">"emulog.txt"</span> şu konumda saklanır: <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `Tüm uygulama içi klavye kısayollarını devre dışı bırakır<br><br><span class="ttdesc">Etkinleştirildiğinde, <u>tüm uygulama içi kısayollar artık çalışmayacaktır</u>. Klavye kısayollarıyla ilgili tüm seçenekler de gizlenecektir</span>`,
         extwinnotify: "Stream Notifications kullanılırken tüm ekran bildirimlerinin görünürlüğünü aç/kapat",
         usesanwatcher: `SAN'ın yeni oyun süreç izleyicisini etkinleştir<br><br><span class="ttdesc">Yeni SANWatcher ile eski otomatik süreç takip yöntemleri arasındaki farklar şunlardır:<br><br><div class="wrapper sanwatcher"><span class="hl">AÇIK</span><ul><li>Oyunun kurulum dizininde bulunan tüm süreçlerin başlatılma ve sonlandırılma olaylarını aktif olarak izler</li><li>Mevcut oyunu serbest bırakmak için oyunun çalıştırılabilir dosyasının bilinmesini gerektirmez</li><li>Oyun öncesi başlatıcıların davranışları farklılık gösterebilir, bu nedenle tüm Steam oyunlarıyla tam uyumluluk garanti edilmez</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">KAPALI</span><ul><li>Oyun başlatıldıktan sonra çalışan yürütülebilir dosyalar için oyunun kurulum dizinini tarar</li><li>Mevcut oyunu serbest bırakmak için oyunun çalıştırılabilir dosyasının bilinmesini gerektirir</li><li>Oyun süreci otomatik olarak belirlenemezse, oyunların otomatik olarak serbest bırakılabilmesi için kullanıcının <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne manuel olarak yeni bir giriş eklemesi gerekir</li></ul></div>`,
-        releasewaittime: `Mevcut oyun serbest bırakılmadan önce SANWatcher'ın yeni oyun süreçlerinin başlatılmasını ne kadar süre bekleyeceğini ayarlayın<br><br><span class="ttdesc">Örneğin, mevcut oyun asıl oyunu başlatmadan önce bir oyun öncesi başlatıcı/yapılandırma penceresi açıyorsa, bu ayar oyun öncesi başlatıcı/yapılandırma penceresi kapandıktan sonra SANWatcher'ın asıl oyun penceresinin açılmasını kaç saniye bekleyeceğini belirler<br><br>Bu bekleme süresi içinde yeni bir etkin oyun süreci algılanırsa, serbest bırakma işlemi iptal edilir ve bunun yerine yeni etkin süreç takip edilir<br><br>💡 Mevcut oyun serbest bırakılmayı beklerken oyun adı <span class="hl">Oyun Görüntüsü</span> kutusunda <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">yanıp sönecektir</span></span>`
+        releasewaittime: `Mevcut oyun serbest bırakılmadan önce SANWatcher'ın yeni oyun süreçlerinin başlatılmasını ne kadar süre bekleyeceğini ayarlayın<br><br><span class="ttdesc">Örneğin, mevcut oyun asıl oyunu başlatmadan önce bir oyun öncesi başlatıcı/yapılandırma penceresi açıyorsa, bu ayar oyun öncesi başlatıcı/yapılandırma penceresi kapandıktan sonra SANWatcher'ın asıl oyun penceresinin açılmasını kaç saniye bekleyeceğini belirler<br><br>Bu bekleme süresi içinde yeni bir etkin oyun süreci algılanırsa, serbest bırakma işlemi iptal edilir ve bunun yerine yeni etkin süreç takip edilir<br><br>💡 Mevcut oyun serbest bırakılmayı beklerken oyun adı <span class="hl">Oyun Görüntüsü</span> kutusunda <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">yanıp sönecektir</span></span>`,
+        platcustomtext: `Bildirimde gösterilecek %100 oyun tamamlama özel mesajını ayarlayın<br><br><span class="ttdesc">Customiser > Ön Ayar > Bildirim Öğeleri > Başarı Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`,
+        raui: "Tespit edilen RetroAchievements oyunlarının adlarını Oyun Görüntüleme arayüzü/sistem tepsisi arayüzünde göster"
     },
     update: {
         updateavailable: "Güncelleme mevcut",
@@ -911,7 +915,7 @@ export const translations = {
                 `Eklendikten sonra girişler önceki <span class="hl">$linkgame</span> menüsünden <span class="hl">kaldırılabilir</span>`
             ],
             link: "Ekle",
-            findappid: "AppID Bul",
+            findappid: "Steam AppID Bul",
             findappidsub: [
                 `Her Steam oyununun <span class="hl">AppID</span> adı verilen benzersiz bir numarası vardır. Herhangi bir Steam oyununun AppID'sini aşağıdaki yöntemlerden biriyle bulabilirsiniz:`,
                 `<span class="hl">Steam istemcisinde</span>, <span class="hl">Kütüphane</span>'de bir oyuna sağ tıklayın ve <i>Özellikler</i> > <i>Güncellemeler</i> seçeneğini seçin — AppID burada listelenir`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Herhangi bir oyunun <span class="hl">AppID</span>'sini ekleyin, tespit edildiğinde otomatik olarak <span class="hl">Temaları</span> değiştirmek için`,
-                `Her bildirim türü için seçilecek kaydedilmiş <span class="hl">Tema</span> ile birlikte kullanılacak <span class="hl">Ekran Görüntüsü Kaynağı</span> olarak istenen monitör seçilebilir`,
-                `<span class="hl" id="appidhelp"><u>Bir Steam oyununun AppID'sini nasıl bulabilirim?</u></span>`
+                `Herhangi bir oyunun <span class="hl">AppID</span>/<span class="hl">GameID</span> bilgisini ekleyerek algılandığında otomatik olarak <span class="hl">Tema</span> değiştirebilirsiniz`,
+                `Kaydedilen herhangi bir <span class="hl">Tema</span> her bildirim türü için seçilebilir ve <span class="hl">ekran görüntüsü kaynağı</span> olarak kullanılacak monitör belirlenebilir`,
+                `<span class="hl help" id="appidhelp"><u>Steam oyunlarının AppID'si nasıl bulunur?</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>RetroAchievements oyunlarının GameID'si nasıl bulunur?</u></span>`
             ],
-            themeswitchnew: "Yeni Otomatik Değişim",
+            themeswitchnew: "Yeni otomatik geçiş",
             themeswitchnewsub: [
-                `Oyunun <span class="hl">AppID</span>'sini girin, ayrıca kullanılacak monitörü <span class="hl">Ekran Görüntüsü Kaynağı</span> olarak belirtin`,
-                `Bu oyunun <span class="hl">AppID</span>'si tespit edildiğinde her bildirim türü için hangi <span class="hl">Temaya</span> geçileceğini seçin`
+                `Oyunun <span class="hl">AppID</span>/<span class="hl">GameID</span> bilgisini ve <span class="hl">ekran görüntüsü kaynağı</span> olarak kullanılacak monitörü girin`,
+                `Birden fazla <span class="hl">AppID</span>/<span class="hl">GameID</span> virgül (<code>,</code>) veya noktalı virgül (<code>;</code>) ile ayrılarak girilebilir`,
+                `Bu oyun algılandığında her bildirim türü için hangi <span class="hl">Tema</span>'ya geçileceğini seçin`
             ],
-            themeswitchedit: "Otomatik Değiştirmeyi Düzenle",
+            themeswitchedit: "Otomatik geçişi düzenle",
             themeswitcheditsub: [
-                `Bu oyunun <span class="hl">AppID</span> için <span class="hl">Ekran Görüntüsü Kaynağı</span> olarak kullanılacak istenen monitörü düzenle`,
-                `Bu oyunun <span class="hl">AppID</span> algılandığında her bildirim türü için geçiş yapılacak <span class="hl">Tema</span>’yı değiştir`
+                `Bu oyunun <span class="hl">AppID</span>/<span class="hl">GameID</span> için kullanılacak <span class="hl">ekran görüntüsü kaynağı</span> monitörünü düzenleyin`,
+                `Bu oyun algılandığında her bildirim türü için hangi <span class="hl">Tema</span>'ya geçileceğini değiştirin`
             ],
             themes: "Temalar",
-            src: "Ekran Görüntüsü Kaynağı",
-            themedeleted: "Tema silindi"
+            src: "Ekran görüntüsü kaynağı",
+            themedeleted: "Tema silindi",
+            rafindgameid: "RA GameID Bul",
+            rafindgameidsub: [
+                `Her RetroAchievements oyununun kendine ait benzersiz bir numarası vardır ve buna <span class="hl">GameID</span> denir. Herhangi bir RetroAchievements oyununun GameID'sini şu şekilde bulabilirsiniz:`,
+                `RetroAchievements sitesindeki <span class="hl">oyun sayfasının</span> URL'sine bakın — <span class="hl">game/</span> ifadesinden sonra gelen sayı GameID'dir: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "Retro Achievements",
+            title: "RetroAchievements",
             content: {
                 raemus: "Εξομοιωτές",
                 rauser: "Όνομα χρήστη",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "Αναμονή για το γεγονός του παιχνιδιού",
                 start: "Ξεκινώντας το παιχνίδι",
                 stop: "Σταματώντας το παιχνίδι",
-                achievement: "Επίτευγμα ξεκλείδωσε"
+                achievement: "Επίτευγμα ξεκλείδωσε",
+                raui: "Χρήση του UI Εμφάνισης Παιχνιδιού"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "Κλίμακα",
                 customtext: "Προσαρμοσμένο Κείμενο",
                 usegametitle: "Χρήση Τίτλου Παιχνιδιού",
-                customfont: "Προσαρμοσμένη Γραμματοσειρά"
+                customfont: "Προσαρμοσμένη Γραμματοσειρά",
+                platcustomtext: "Προσαρμοσμένο κείμενο 100%"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "Εμφάνιση του ποσοστού ξεκλειδώματος της επίτευξης, αντί της τιμής XP/S",
         displaytime: "Ορισμός του αριθμού των δευτερολέπτων που θα εμφανίζεται η ειδοποίηση",
         scale: "Αύξηση ή μείωση του μεγέθους της ειδοποίησης",
-        customtext: "Ορισμός ενός προσαρμοσμένου μηνύματος που θα εμφανίζεται μέσα στην ειδοποίηση",
+        customtext: `Ορίστε ένα προσαρμοσμένο μήνυμα που θα εμφανίζεται μέσα στην ειδοποίηση<br><br><span class="ttdesc">Αυτή η επιλογή θα αποκρύπτεται όταν το Customiser > Προεπιλογή > Στοιχεία ειδοποίησης > Μήνυμα ξεκλειδώματος είναι απενεργοποιημένο</span>`,
         usegametitle: "Εμφάνιση του τίτλου του τρέχοντος παιχνιδιού μέσα στην ειδοποίηση",
         customfont: "Φόρτωση ενός προσαρμοσμένου γραμματοσειράς που θα χρησιμοποιείται μέσα στην ειδοποίηση",
         soundmode: "Επιλογή είτε ενός μόνο ηχητικού αρχείου, είτε ενός τυχαία επιλεγμένου ηχητικού αρχείου από έναν φάκελο που περιέχει πολλά ηχητικά αρχεία, όταν συμβαίνει μια ειδοποίηση",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "Ορισμός του χρώματος που χρησιμοποιείται στην ενσωμάτωση webhook όταν ξεκλειδώνεται ένα επίτευγμα $rare",
         webhookembedcolorplat: "Ορισμός του χρώματος που χρησιμοποιείται στην ενσωμάτωση webhook όταν ξεκλειδώνεται ένα επίτευγμα $plat",
         raemus: "Εμφάνιση ειδοποιήσεων όταν εντοπίζονται παιχνίδια σε υποστηριζόμενους εξομοιωτές",
-        rauser: "Ορίστε το όνομα χρήστη Retro Achievements για να παρακολουθείτε τις επιτυχίες",
-        rakey: `Ορίστε το Web API Key για να χρησιμοποιηθεί για αυθεντικοποίηση στο Retro Achievements API<br><br><span class="ttdesc">Ένα Web API Key μπορεί να αντιγραφεί ή να αναγεννηθεί συνδέοντας στο Retro Achievements και πηγαίνοντας στις <span class="hl">Ρυθμίσεις > Κλειδιά > Web API Key</span><br><br>🔒 Το παρεχόμενο κλειδί θα κρυπτογραφηθεί πριν αποθηκευτεί τοπικά στο σύστημα (αν το τρέχον λειτουργικό σύστημα υποστηρίζει κρυπτογράφηση)</span>`,
+        rauser: "Ορίστε το όνομα χρήστη RetroAchievements για να παρακολουθείτε τις επιτυχίες",
+        rakey: `Ορίστε το Web API Key για να χρησιμοποιηθεί για αυθεντικοποίηση στο RetroAchievements API<br><br><span class="ttdesc">Ένα Web API Key μπορεί να αντιγραφεί ή να αναγεννηθεί συνδέοντας στο RetroAchievements και πηγαίνοντας στις <span class="hl">Ρυθμίσεις > Κλειδιά > Web API Key</span><br><br>🔒 Το παρεχόμενο κλειδί θα κρυπτογραφηθεί πριν αποθηκευτεί τοπικά στο σύστημα (αν το τρέχον λειτουργικό σύστημα υποστηρίζει κρυπτογράφηση)</span>`,
         rapercenttype: "Ορίστε αν θέλετε να εμφανίζεται το ποσοστό επιτυχιών Hardcore ή Softcore στις ειδοποιήσεις",
-        retroarch: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Ρυθμίσεις > Καταγραφή</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια Καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Επίπεδο Καταγραφής Στο Πρόσθιο Μέρος</span>: <span class="hlgreen">1 (Πληροφορίες)</span></li><li><span class="hllb">Καταγραφή σε Αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Χρονοσήμανση Αρχείων Καταγραφής</span>: <span class="hlred">ΑΝΕΝΕΡΓΟ</span></li></ul></span>`,
-        dolphin: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω του Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Προβολή > Εμφάνιση Ρυθμίσεων Καταγραφής</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span></li><li><span class="hllb">Έξοδοι Καταγραφής</span> > <span class="hlgreen">Γράψε σε Αρχείο</span></li><li><span class="hllb">Τύποι Καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που προσομοιώνονται μέσω του PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Εργαλεία > Ενεργοποίηση καταγραφής αρχείων</span> πρέπει να είναι ενεργοποιημένο</span>`,
-        duckstation: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που προσομοιώνονται μέσω του Duckstation<br><br><span class="ttdesc">❗ Το αρχείο <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> πρέπει να κατέβει και να μεταφερθεί στον <span class="hl">φάκελο εγκατάστασης του Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Ρυθμίσεις > Επιτεύγματα > RAIntegration (Μόνο για προγραμματιστές)</span> πρέπει να είναι ενεργοποιημένο</span>`,
-        ppsspp: `Εμφάνιση ειδοποιήσεων Retro Achievements για παιχνίδια που εξομοιώνονται μέσω PPSSPP<br><br><span class="ttdesc"><span class="hl">Ρυθμίσεις > Εργαλεία > Εργαλεία προγραμματιστή > Γενικά > Καταγραφή σε αρχείο</span> πρέπει να είναι ενεργοποιημένο και ρυθμισμένο με τις ακόλουθες ρυθμίσεις:<br><br><ul><li><span class="hllb">Επιτεύγματα</span>: <span class="hlgreen">Πληροφορίες</span></span>`,
+        retroarch: `Εμφάνιση ειδοποιήσεων RetroAchievements για παιχνίδια που εξομοιώνονται μέσω του RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > Ρυθμίσεις > Καταγραφή</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια Καταγραφής</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Επίπεδο Καταγραφής Στο Πρόσθιο Μέρος</span>: <span class="hlgreen">1 (Πληροφορίες)</span></li><li><span class="hllb">Καταγραφή σε Αρχείο</span>: <span class="hlgreen">ΕΝΕΡΓΟ</span></li><li><span class="hllb">Χρονοσήμανση Αρχείων Καταγραφής</span>: <span class="hlred">ΑΝΕΝΕΡΓΟ</span></li></ul></span>`,
+        dolphin: `Εμφάνιση ειδοποιήσεων RetroAchievements για παιχνίδια που εξομοιώνονται μέσω του Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > Προβολή > Εμφάνιση Ρυθμίσεων Καταγραφής</span> πρέπει να έχει ρυθμιστεί με τις εξής ρυθμίσεις:<br><br><ul><li><span class="hllb">Λεπτομέρεια</span>: <span class="hlgreen">Πληροφορίες</span></li><li><span class="hllb">Έξοδοι Καταγραφής</span> > <span class="hlgreen">Γράψε σε Αρχείο</span></li><li><span class="hllb">Τύποι Καταγραφής</span> > <span class="hlgreen">Επιτεύγματα (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `Εμφάνιση ειδοποιήσεων RetroAchievements για παιχνίδια που προσομοιώνονται μέσω του PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > Εργαλεία > Ενεργοποίηση καταγραφής αρχείων</span> πρέπει να είναι ενεργοποιημένο</span>`,
+        duckstation: `Εμφάνιση ειδοποιήσεων RetroAchievements για παιχνίδια που προσομοιώνονται μέσω του Duckstation<br><br><span class="ttdesc">❗ Το αρχείο <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> πρέπει να κατέβει και να μεταφερθεί στον <span class="hl">φάκελο εγκατάστασης του Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > Ρυθμίσεις > Επιτεύγματα > RAIntegration (Μόνο για προγραμματιστές)</span> πρέπει να είναι ενεργοποιημένο</span>`,
+        ppsspp: `Εμφάνιση ειδοποιήσεων RetroAchievements για παιχνίδια που εξομοιώνονται μέσω PPSSPP<br><br><span class="ttdesc"><span class="hl">Ρυθμίσεις > Εργαλεία > Εργαλεία προγραμματιστή > Γενικά > Καταγραφή σε αρχείο</span> πρέπει να είναι ενεργοποιημένο και ρυθμισμένο με τις ακόλουθες ρυθμίσεις:<br><br><ul><li><span class="hllb">Επιτεύγματα</span>: <span class="hlgreen">Πληροφορίες</span></span>`,
         retroarchpath: `Ορίστε τη διαδρομή για το <span class="hl">"retroarch.log"</span> αρχείο καταγραφής του RetroArch<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"retroarch.log"</span> αποθηκεύεται στο <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `Ορίστε τη διαδρομή για το <span class="hl">"dolphin.log"</span> αρχείο καταγραφής του Dolphin<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"dolphin.log"</span> αποθηκεύεται σε μία από τις εξής τοποθεσίες:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `Ορίστε τη διαδρομή προς το αρχείο καταγραφής <span class="hl">"emulog.txt"</span> του PCSX2<br><br><span class="ttdesc">Με τις προεπιλεγμένες ρυθμίσεις εγκατάστασης, το <span class="hl">"emulog.txt"</span> αποθηκεύεται στο <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `Απενεργοποιεί όλες τις συντομεύσεις πληκτρολογίου εντός της εφαρμογής<br><br><span class="ttdesc">Όταν είναι ενεργοποιημένο, <u>όλες οι συντομεύσεις εντός της εφαρμογής δεν θα λειτουργούν πλέον</u>. Όλες οι επιλογές που σχετίζονται με συντομεύσεις πληκτρολογίου θα αποκρύπτονται επίσης</span>`,
         extwinnotify: "Εναλλαγή ορατότητας όλων των ειδοποιήσεων στην οθόνη κατά τη χρήση των Stream Notifications",
         usesanwatcher: `Ενεργοποίηση του νέου παρακολουθητή διεργασιών παιχνιδιών του SAN<br><br><span class="ttdesc">Οι διαφορές μεταξύ των νέων μεθόδων παρακολούθησης διεργασιών SANWatcher και των παλαιών αυτόματων μεθόδων είναι οι εξής:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Παρακολουθεί ενεργά τα συμβάντα εκκίνησης/τερματισμού για οποιαδήποτε διεργασία είναι αποθηκευμένη στον κατάλογο εγκατάστασης του παιχνιδιού</li><li>Δεν απαιτεί να είναι γνωστό το εκτελέσιμο αρχείο του παιχνιδιού για την αποδέσμευση του τρέχοντος παιχνιδιού</li><li>Η συμπεριφορά των προγραμμάτων εκκίνησης πριν από το παιχνίδι μπορεί να διαφέρει, επομένως δεν είναι εγγυημένη η πλήρης συμβατότητα με όλα τα παιχνίδια Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Σαρώνει τον κατάλογο εγκατάστασης του παιχνιδιού για τυχόν εκτελέσιμα αρχεία που εκτελούνται μετά την εκκίνηση του παιχνιδιού</li><li>Απαιτεί να είναι γνωστό το εκτελέσιμο αρχείο του παιχνιδιού για την αποδέσμευση του τρέχοντος παιχνιδιού</li><li>Εάν η διεργασία του παιχνιδιού δεν μπορεί να προσδιοριστεί αυτόματα, ο χρήστης πρέπει να προσθέσει χειροκίνητα μια νέα καταχώριση στα <span class="hl">Αυτόματη Αποδέσμευση Παιχνιδιών</span> ώστε τα παιχνίδια να αποδεσμεύονται αυτόματα</li></ul></div>`,
-        releasewaittime: `Ορίστε πόσο χρόνο θα περιμένει το SANWatcher για την εμφάνιση νέων διεργασιών παιχνιδιού πριν αποδεσμεύσει το τρέχον παιχνίδι<br><br><span class="ttdesc">Για παράδειγμα, αν το τρέχον παιχνίδι εμφανίζει έναν εκκινητή/παράθυρο ρυθμίσεων πριν από την εκκίνηση του πραγματικού παιχνιδιού, αυτή η ρύθμιση καθορίζει τον αριθμό των δευτερολέπτων που θα περιμένει το SANWatcher για να εμφανιστεί το πραγματικό παράθυρο του παιχνιδιού αφού κλείσει ο εκκινητής/το παράθυρο ρυθμίσεων<br><br>Αν εντοπιστεί μια νέα ενεργή διεργασία παιχνιδιού μέσα σε αυτό το χρονικό διάστημα αναμονής, η αποδέσμευση θα ακυρωθεί και η νέα ενεργή διεργασία θα παρακολουθείται αντί αυτής<br><br>💡 Το όνομα του παιχνιδιού θα <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">αναβοσβήνει</span> στο πλαίσιο <span class="hl">Εμφάνιση Παιχνιδιού</span> ενώ το τρέχον παιχνίδι περιμένει να αποδεσμευτεί</span>`
+        releasewaittime: `Ορίστε πόσο χρόνο θα περιμένει το SANWatcher για την εμφάνιση νέων διεργασιών παιχνιδιού πριν αποδεσμεύσει το τρέχον παιχνίδι<br><br><span class="ttdesc">Για παράδειγμα, αν το τρέχον παιχνίδι εμφανίζει έναν εκκινητή/παράθυρο ρυθμίσεων πριν από την εκκίνηση του πραγματικού παιχνιδιού, αυτή η ρύθμιση καθορίζει τον αριθμό των δευτερολέπτων που θα περιμένει το SANWatcher για να εμφανιστεί το πραγματικό παράθυρο του παιχνιδιού αφού κλείσει ο εκκινητής/το παράθυρο ρυθμίσεων<br><br>Αν εντοπιστεί μια νέα ενεργή διεργασία παιχνιδιού μέσα σε αυτό το χρονικό διάστημα αναμονής, η αποδέσμευση θα ακυρωθεί και η νέα ενεργή διεργασία θα παρακολουθείται αντί αυτής<br><br>💡 Το όνομα του παιχνιδιού θα <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">αναβοσβήνει</span> στο πλαίσιο <span class="hl">Εμφάνιση Παιχνιδιού</span> ενώ το τρέχον παιχνίδι περιμένει να αποδεσμευτεί</span>`,
+        platcustomtext: `Ορίστε ένα προσαρμοσμένο μήνυμα ολοκλήρωσης παιχνιδιού 100% που θα εμφανίζεται μέσα στην ειδοποίηση<br><br><span class="ttdesc">Αυτή η επιλογή θα αποκρύπτεται όταν το Customiser > Προεπιλογή > Στοιχεία ειδοποίησης > Περιγραφή επιτεύγματος είναι απενεργοποιημένο</span>`,
+        raui: "Εμφάνιση των ονομάτων των ανιχνευμένων παιχνιδιών RetroAchievements στο UI Εμφάνισης Παιχνιδιού/περιοχής ειδοποιήσεων"
     },
     update: {
         updateavailable: "Διαθέσιμη ενημέρωση",
@@ -911,7 +915,7 @@ export const translations = {
                 `Μετά την προσθήκη, οι καταχωρήσεις μπορούν να <span class="hl">αφαιρεθούν</span> μέσω του προηγούμενου μενού <span class="hl">$linkgame</span>`
             ],
             link: "Προσθήκη",
-            findappid: "Εύρεση AppID",
+            findappid: "Εύρεση Steam AppID",
             findappidsub: [
                 `Κάθε παιχνίδι Steam έχει έναν μοναδικό αριθμό που ονομάζεται <span class="hl">AppID</span>. Μπορείτε να βρείτε το AppID οποιουδήποτε παιχνιδιού Steam ελέγχοντας ένα από τα παρακάτω:`,
                 `Στον <span class="hl">πελάτη Steam</span>, κάντε <i>δεξί κλικ</i> σε ένα παιχνίδι στη <span class="hl">Βιβλιοθήκη</span> σας και επιλέξτε <i>Ιδιότητες</i> > <i>Ενημερώσεις</i> - το AppID θα εμφανίζεται εδώ`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `Προσθέστε την <span class="hl">AppID</span> οποιουδήποτε παιχνιδιού για να αλλάξετε αυτόματα <span class="hl">Θέματα</span> όταν ανιχνευτεί`,
-                `Οποιοδήποτε αποθηκευμένο <span class="hl">Θέμα</span> μπορεί να επιλεγεί για κάθε τύπο ειδοποίησης, μαζί με τον επιθυμητό υπολογιστή για να χρησιμοποιηθεί ως <span class="hl">Πηγή Στιγμιότυπου</span>`,
-                `<span class="hl" id="appidhelp"><u>Πώς μπορώ να βρω την AppID ενός παιχνιδιού στο Steam;</u></span>`
+                `Προσθέστε το <span class="hl">AppID</span>/<span class="hl">GameID</span> οποιουδήποτε παιχνιδιού για αυτόματη εναλλαγή <span class="hl">Θεμάτων</span> όταν εντοπιστεί`,
+                `Οποιοδήποτε αποθηκευμένο <span class="hl">Θέμα</span> μπορεί να επιλεγεί για κάθε τύπο ειδοποίησης, μαζί με την επιθυμητή οθόνη που θα χρησιμοποιείται ως <span class="hl">Πηγή στιγμιότυπου οθόνης</span>`,
+                `<span class="hl help" id="appidhelp"><u>Πώς μπορώ να βρω το AppID ενός παιχνιδιού στο Steam;</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>Πώς μπορώ να βρω το GameID ενός παιχνιδιού στο RetroAchievements;</u></span>`
             ],
-            themeswitchnew: "Νέος Αυτόματος Αλλαγής",
+            themeswitchnew: "Νέα αυτόματη εναλλαγή",
             themeswitchnewsub: [
-                `Εισαγάγετε την <span class="hl">AppID</span> του παιχνιδιού, μαζί με τον επιθυμητό υπολογιστή για να χρησιμοποιηθεί ως <span class="hl">Πηγή Στιγμιότυπου</span>`,
-                `Επιλέξτε ποιο <span class="hl">Θέμα</span> να αλλάξει για κάθε τύπο ειδοποίησης όταν ανιχνευτεί η <span class="hl">AppID</span> αυτού του παιχνιδιού`
+                `Εισαγάγετε το <span class="hl">AppID</span>/<span class="hl">GameID</span> του παιχνιδιού, μαζί με την επιθυμητή οθόνη που θα χρησιμοποιείται ως <span class="hl">Πηγή στιγμιότυπου οθόνης</span>`,
+                `Μπορείτε να εισαγάγετε πολλά <span class="hl">AppID</span>/<span class="hl">GameID</span> ταυτόχρονα, διαχωρίζοντάς τα με κόμμα (<code>,</code>) ή ελληνικό ερωτηματικό (<code>;</code>)`,
+                `Επιλέξτε σε ποιο <span class="hl">Θέμα</span> θα γίνεται εναλλαγή για κάθε τύπο ειδοποίησης όταν εντοπιστεί το <span class="hl">AppID</span>/<span class="hl">GameID</span> αυτού του παιχνιδιού`
             ],
-            themeswitchedit: "Επεξεργασία Αυτόματης Εναλλαγής",
+            themeswitchedit: "Επεξεργασία αυτόματης εναλλαγής",
             themeswitcheditsub: [
-                `Επεξεργασία της επιθυμητής οθόνης που θα χρησιμοποιηθεί ως <span class="hl">Πηγή Στιγμιότυπων</span> για το <span class="hl">AppID</span> αυτού του παιχνιδιού`,
-                `Αλλαγή του <span class="hl">Θέματος</span> στο οποίο θα γίνεται εναλλαγή για κάθε τύπο ειδοποίησης όταν εντοπίζεται το <span class="hl">AppID</span> αυτού του παιχνιδιού`
+                `Επεξεργαστείτε την επιθυμητή οθόνη που θα χρησιμοποιείται ως <span class="hl">Πηγή στιγμιότυπου οθόνης</span> για το <span class="hl">AppID</span>/<span class="hl">GameID</span> αυτού του παιχνιδιού`,
+                `Αλλάξτε σε ποιο <span class="hl">Θέμα</span> θα γίνεται εναλλαγή για κάθε τύπο ειδοποίησης όταν εντοπιστεί το <span class="hl">AppID</span>/<span class="hl">GameID</span> αυτού του παιχνιδιού`
             ],
             themes: "Θέματα",
-            src: "Πηγή Στιγμιότυπου",
-            themedeleted: "Το θέμα διαγράφηκε"
+            src: "Πηγή στιγμιότυπου οθόνης",
+            themedeleted: "Το θέμα διαγράφηκε",
+            rafindgameid: "Εύρεση RA GameID",
+            rafindgameidsub: [
+                `Κάθε παιχνίδι στο RetroAchievements έχει έναν μοναδικό αριθμό που σχετίζεται με αυτό, ο οποίος ονομάζεται <span class="hl">GameID</span>. Μπορείτε να βρείτε το GameID οποιουδήποτε παιχνιδιού στο RetroAchievements ελέγχοντας:`,
+                `Το <span class="hl">URL</span> της <span class="hl">σελίδας του παιχνιδιού</span> στον ιστότοπο του RetroAchievements — είναι ο αριθμός που εμφανίζεται μετά το <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -315,7 +315,7 @@ export const usertheme = {
     },
     import: async () => {
         const { language } = await import("./language")
-        const importhandler = () => ipcRenderer.once("importtheme", async (event,file: string) => {
+        const importhandler = () => ipcRenderer.once("importtheme",async (event,file: string) => {
             if (!file) return
             if (path.extname(file[0]) !== ".san") return log.write("WARN",`"${file[0]}" is not a valid import file`)
 
@@ -433,7 +433,7 @@ export const usertheme = {
     export: () => {
         const src = path.join(sanhelper.appdata,"temp","exporttheme")
 
-        ipcRenderer.once("exporttheme", async (event,dest: string | undefined) => {
+        ipcRenderer.once("exporttheme",async (event,dest: string | undefined) => {
             if (!dest) return
 
             const { default: AdmZip } = await import("adm-zip")
@@ -568,7 +568,7 @@ export const usertheme = {
         return syncobj
     },
     themeswitchinfo: (config: Store<Config>,appid: number,notify?: { customisation: Customisation,type: NotifyType,getsrc?: boolean }) => {
-        const themeswitch: [key: string,ThemeSwitch] | undefined = Object.entries(JSON.parse(localStorage.getItem("themeswitch")!)).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch]
+        const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.themeswitchentries(appid)
         if (!notify) return { themeswitchcustomisation: null, themeswitchsrc: null, enabled: Boolean(themeswitch) }
 
         const { customisation, type, getsrc } = notify
@@ -590,5 +590,6 @@ export const usertheme = {
         }
 
         return { themeswitchcustomisation: customobj, themeswitchsrc: src, enabled: Boolean(themeswitch) }
-    }
+    },
+    themeswitchentries: (appid: number) => Object.entries(JSON.parse(localStorage.getItem("themeswitch") || "{}")).find(item => parseInt(item[0]) === appid) as [key: string,ThemeSwitch] | undefined
 }

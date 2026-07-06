@@ -349,7 +349,7 @@ export const translations = {
             }
         },
         ra: {
-            title: "إنجازات Retro",
+            title: "RetroAchievements",
             content: {
                 raemus: "المحاكيات",
                 rauser: "اسم المستخدم",
@@ -372,7 +372,8 @@ export const translations = {
                 idle: "انتظار حدث اللعبة",
                 start: "بدء اللعبة",
                 stop: "إيقاف اللعبة",
-                achievement: "الإنجاز تم فتحه"
+                achievement: "الإنجاز تم فتحه",
+                raui: "استخدام واجهة عرض اللعبة"
             }
         },
         misc: {
@@ -397,7 +398,8 @@ export const translations = {
                 scale: "مقياس",
                 customtext: "النص المخصص",
                 usegametitle: "استخدام عنوان اللعبة",
-                customfont: "الخط المخصص"
+                customfont: "الخط المخصص",
+                platcustomtext: "نص مخصص لإكمال 100%"
             }
         },
         sound: {
@@ -662,7 +664,7 @@ export const translations = {
         usepercent: "عرض نسبة فتح الإنجاز بدلاً من قيمة الخبرة / ثانية",
         displaytime: "تعيين عدد الثواني التي سيتم عرض الإشعار فيها",
         scale: "زيادة أو تقليل حجم الإشعار",
-        customtext: "تعيين رسالة مخصصة لتظهر ضمن الإشعار",
+        customtext: `قم بتعيين رسالة مخصصة لعرضها داخل الإشعار<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل Customiser > الإعداد المسبق > عناصر الإشعار > رسالة الفتح</span>`,
         usegametitle: "عرض عنوان اللعبة الحالية ضمن الإشعار",
         customfont: "تحميل خط مخصص لاستخدامه ضمن الإشعار",
         soundmode: "حدد إما ملف صوتي واحد، أو ملف صوتي مختار عشوائيًا من داخل مجلد يحتوي على عدة ملفات صوتية عند حدوث إشعار",
@@ -823,14 +825,14 @@ export const translations = {
         webhookembedcolorrare: "تعيين اللون المستخدم في تضمين Webhook عند فتح إنجاز $rare",
         webhookembedcolorplat: "تعيين اللون المستخدم في تضمين Webhook عند فتح إنجاز $plat",
         raemus: "عرض الإشعارات عند اكتشاف الألعاب في المحاكيات المدعومة",
-        rauser: "تحديد اسم مستخدم Retro Achievements لتتبع الإنجازات",
-        rakey: `قم بتعيين مفتاح واجهة برمجة تطبيقات الويب لاستخدامه في المصادقة مع واجهة Retro Achievements API<br><br><span class="ttdesc">يمكنك نسخ أو إعادة توليد مفتاح واجهة برمجة التطبيقات الويب عن طريق تسجيل الدخول إلى موقع Retro Achievements والانتقال إلى <span class="hl">الإعدادات > المفاتيح > مفتاح واجهة برمجة التطبيقات الويب</span><br><br>🔒 سيتم تشفير المفتاح المُقدم قبل تخزينه محليًا على النظام (إذا كان نظام التشغيل الحالي يدعم التشفير)</span>`,
+        rauser: "تحديد اسم مستخدم RetroAchievements لتتبع الإنجازات",
+        rakey: `قم بتعيين مفتاح واجهة برمجة تطبيقات الويب لاستخدامه في المصادقة مع واجهة RetroAchievements API<br><br><span class="ttdesc">يمكنك نسخ أو إعادة توليد مفتاح واجهة برمجة التطبيقات الويب عن طريق تسجيل الدخول إلى موقع RetroAchievements والانتقال إلى <span class="hl">الإعدادات > المفاتيح > مفتاح واجهة برمجة التطبيقات الويب</span><br><br>🔒 سيتم تشفير المفتاح المُقدم قبل تخزينه محليًا على النظام (إذا كان نظام التشغيل الحالي يدعم التشفير)</span>`,
         rapercenttype: "تحديد ما إذا كان سيتم عرض نسب فتح الإنجازات المتقدمة أو العادية في الإشعارات",
-        retroarch: `عرض إشعارات Retro Achievements للألعاب المحاكاة عبر RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > الإعدادات > التسجيل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">مستوى تسجيل الواجهة الأمامية</span>: <span class="hlgreen">1 (معلومات)</span></li><li><span class="hllb">التسجيل إلى ملف</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">تأريخ ملفات السجل</span>: <span class="hlred">إيقاف</span></li></ul></span>`,
-        dolphin: `عرض إشعارات Retro Achievements للألعاب المحاكاة عبر Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > عرض > إظهار إعدادات السجل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">معلومات</span></li><li><span class="hllb">مخرجات المسجل</span> > <span class="hlgreen">الكتابة إلى ملف</span></li><li><span class="hllb">أنواع السجل</span> > <span class="hlgreen">الإنجازات (RetroAchievements)</span></li></ul></span>`,
-        pcsx2: `عرض إشعارات Retro Achievements للألعاب التي يتم محاكاتها عبر PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > الأدوات > تمكين تسجيل الملفات</span> يجب أن تكون مفعّلة</span>`,
-        duckstation: `عرض إشعارات Retro Achievements للألعاب التي يتم محاكاتها عبر Duckstation<br><br><span class="ttdesc">❗ يجب تنزيل <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> ونقله إلى <span class="hl">دليل تثبيت Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > الإعدادات > الإنجازات > RAIntegration (للمطورين فقط)</span> يجب تفعيله</span>`,
-        ppsspp: `عرض إشعارات Retro Achievements للألعاب المُحاكة عبر PPSSPP<br><br><span class="ttdesc">يجب تمكين <span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> وتكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
+        retroarch: `عرض إشعارات RetroAchievements للألعاب المحاكاة عبر RetroArch<br><br><span class="ttdesc"><span class="hl">RetroArch > الإعدادات > التسجيل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">مستوى تسجيل الواجهة الأمامية</span>: <span class="hlgreen">1 (معلومات)</span></li><li><span class="hllb">التسجيل إلى ملف</span>: <span class="hlgreen">تشغيل</span></li><li><span class="hllb">تأريخ ملفات السجل</span>: <span class="hlred">إيقاف</span></li></ul></span>`,
+        dolphin: `عرض إشعارات RetroAchievements للألعاب المحاكاة عبر Dolphin<br><br><span class="ttdesc"><span class="hl">Dolphin > عرض > إظهار إعدادات السجل</span> يجب تكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">تفصيل التسجيل</span>: <span class="hlgreen">معلومات</span></li><li><span class="hllb">مخرجات المسجل</span> > <span class="hlgreen">الكتابة إلى ملف</span></li><li><span class="hllb">أنواع السجل</span> > <span class="hlgreen">الإنجازات (RetroAchievements)</span></li></ul></span>`,
+        pcsx2: `عرض إشعارات RetroAchievements للألعاب التي يتم محاكاتها عبر PCSX2<br><br><span class="ttdesc"><span class="hl">PCSX2 > الأدوات > تمكين تسجيل الملفات</span> يجب أن تكون مفعّلة</span>`,
+        duckstation: `عرض إشعارات RetroAchievements للألعاب التي يتم محاكاتها عبر Duckstation<br><br><span class="ttdesc">❗ يجب تنزيل <span class="dialogcode" style="background-color: var(--mediumgrey);">RA_Integration-x64.dll</span> ونقله إلى <span class="hl">دليل تثبيت Duckstation</span></span><br><br><span class="ttdesc"><span class="hl">Duckstation > الإعدادات > الإنجازات > RAIntegration (للمطورين فقط)</span> يجب تفعيله</span>`,
+        ppsspp: `عرض إشعارات RetroAchievements للألعاب المُحاكة عبر PPSSPP<br><br><span class="ttdesc">يجب تمكين <span class="hl">Settings > Tools > Developer Tools > General > Log to File</span> وتكوينه بالإعدادات التالية:<br><br><ul><li><span class="hllb">Achievements</span>: <span class="hlgreen">Info</span></span>`,
         retroarchpath: `تحديد مسار <span class="hl">"retroarch.log"</span> الخاص بـ RetroArch<br><br><span class="ttdesc">باستخدام إعدادات التثبيت الافتراضية، يتم تخزين <span class="hl">"retroarch.log"</span> في <span class="hllb">%SYSTEMDRIVE%\\RetroArch-Win64\\Logs</span></span>`,
         dolphinpath: `تحديد مسار ملف السجل <span class="hl">"dolphin.log"</span> الخاص بـ Dolphin<br><br><span class="ttdesc">باستخدام إعدادات التثبيت الافتراضية، يتم حفظ <span class="hl">"dolphin.log"</span> في أحد المواقع التالية:<br><br><ul><li><span class="hllb">%APPDATA%\\Dolphin Emulator\\Logs</span></li><li><span class="hllb">%USERPROFILE%\\Documents\\Dolphin Emulator\\Logs</span></li><li>🐧 <span class="hllb">$XDG_DATA_HOME/dolphin-emu/Logs</span></li></ul></span>`,
         pcsx2path: `تحديد مسار ملف السجل <span class="hl">"emulog.txt"</span> الخاص بـ PCSX2<br><br><span class="ttdesc">باستخدام إعدادات التثبيت الافتراضية، يتم حفظ <span class="hl">"emulog.txt"</span> في <span class="hllb">%USERPROFILE%\\Documents\\PCSX2\\Logs</span></span>`,
@@ -872,7 +874,9 @@ export const translations = {
         noshortcuts: `تعطيل جميع اختصارات لوحة المفاتيح داخل التطبيق<br><br><span class="ttdesc">عند التفعيل، <u>لن تعمل جميع الاختصارات داخل التطبيق بعد الآن</u>. سيتم أيضًا إخفاء جميع الخيارات المتعلقة باختصارات لوحة المفاتيح</span>`,
         extwinnotify: "تبديل ظهور جميع الإشعارات على الشاشة أثناء استخدام إشعارات البث",
         usesanwatcher: `تمكين مراقب عمليات الألعاب الجديد الخاص بـ SAN<br><br><span class="ttdesc">الاختلافات بين SANWatcher الجديد وطرق التتبع التلقائي للعمليات القديمة هي كما يلي:<br><br><div class="wrapper sanwatcher"><span class="hl">تشغيل</span><ul><li>يراقب بشكل نشط أحداث بدء/إنهاء أي عملية مخزنة داخل دليل تثبيت اللعبة</li><li>لا يتطلب معرفة الملف التنفيذي للعبة لتحرير اللعبة الحالية</li><li>قد يختلف سلوك مشغّل ما قبل اللعبة، لذلك لا يمكن ضمان التوافق الكامل مع جميع ألعاب Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">إيقاف</span><ul><li>يفحص دليل تثبيت اللعبة بحثًا عن أي ملفات تنفيذية قيد التشغيل بعد تشغيل اللعبة</li><li>يتطلب معرفة الملف التنفيذي للعبة لتحرير اللعبة الحالية</li><li>إذا تعذر تحديد عملية اللعبة تلقائيًا، فيجب على المستخدم إضافة إدخال جديد يدويًا إلى <span class="hl">التحرير التلقائي للألعاب</span> حتى يتم تحرير الألعاب تلقائيًا</li></ul></div>`,
-        releasewaittime: `حدد المدة التي سينتظرها SANWatcher لظهور عمليات لعبة جديدة قبل تحرير اللعبة الحالية<br><br><span class="ttdesc">على سبيل المثال، إذا كانت اللعبة الحالية تُشغّل نافذة تشغيل/إعدادات قبل اللعبة الفعلية قبل تشغيل اللعبة نفسها، فإن هذا الإعداد يحدد عدد الثواني التي سينتظرها SANWatcher لظهور نافذة اللعبة الفعلية بعد إغلاق نافذة التشغيل/الإعدادات السابقة للعبة<br><br>إذا تم اكتشاف عملية لعبة نشطة جديدة خلال فترة الانتظار هذه، فسيتم إلغاء التحرير وسيتم تتبع العملية النشطة الجديدة بدلاً من ذلك<br><br>💡 سيومض اسم اللعبة <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">وميضًا</span> في مربع <span class="hl">عرض اللعبة</span> أثناء انتظار تحرير اللعبة الحالية</span>`
+        releasewaittime: `حدد المدة التي سينتظرها SANWatcher لظهور عمليات لعبة جديدة قبل تحرير اللعبة الحالية<br><br><span class="ttdesc">على سبيل المثال، إذا كانت اللعبة الحالية تُشغّل نافذة تشغيل/إعدادات قبل اللعبة الفعلية قبل تشغيل اللعبة نفسها، فإن هذا الإعداد يحدد عدد الثواني التي سينتظرها SANWatcher لظهور نافذة اللعبة الفعلية بعد إغلاق نافذة التشغيل/الإعدادات السابقة للعبة<br><br>إذا تم اكتشاف عملية لعبة نشطة جديدة خلال فترة الانتظار هذه، فسيتم إلغاء التحرير وسيتم تتبع العملية النشطة الجديدة بدلاً من ذلك<br><br>💡 سيومض اسم اللعبة <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">وميضًا</span> في مربع <span class="hl">عرض اللعبة</span> أثناء انتظار تحرير اللعبة الحالية</span>`,
+        platcustomtext: `قم بتعيين رسالة مخصصة لإكمال اللعبة بنسبة 100% لعرضها داخل الإشعار<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل Customiser > الإعداد المسبق > عناصر الإشعار > وصف الإنجاز</span>`,
+        raui: "اعرض أسماء ألعاب RetroAchievements المكتشفة في واجهة عرض اللعبة/واجهة درج النظام"
     },
     update: {
         updateavailable: "تحديث متاح",
@@ -911,7 +915,7 @@ export const translations = {
                 `بعد الإضافة، يمكن <span class="hl">إزالة</span> الإدخالات عبر قائمة <span class="hl">$linkgame</span> السابقة`
             ],
             link: "إضافة",
-            findappid: "العثور على AppID",
+            findappid: "العثور على Steam AppID",
             findappidsub: [
                 `لكل لعبة Steam رقم فريد مرتبط بها يُسمى <span class="hl">AppID</span>. يمكنك العثور على AppID لأي لعبة Steam بإحدى الطرق التالية:`,
                 `في <span class="hl">عميل Steam</span>، <i>انقر بزر الماوس الأيمن</i> على لعبة في <span class="hl">المكتبة</span> واختر <i>الخصائص</i> > <i>التحديثات</i> - سيظهر AppID هنا`,
@@ -1019,23 +1023,30 @@ export const translations = {
     themeswitch: {
         content: {
             managesub: [
-                `أضف <span class="hl">AppID</span> لأي لعبة للتبديل تلقائيًا إلى <span class="hl">الثيمات</span> عند اكتشافها`,
-                `يمكن اختيار أي <span class="hl">ثيم</span> محفوظ لكل نوع من الإشعارات، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطة الشاشة</span>`,
-                `<span class="hl" id="appidhelp"><u>كيف أجد معرف تطبيق لعبة Steam؟</u></span>`
+                `أضف <span class="hl">AppID</span>/<span class="hl">GameID</span> لأي لعبة للتبديل تلقائيًا بين <span class="hl">السمات</span> عند اكتشافها`,
+                `يمكن اختيار أي <span class="hl">سمة</span> محفوظة لكل نوع من الإشعارات، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">لقطة الشاشة</span>`,
+                `<span class="hl help" id="appidhelp"><u>كيف يمكنني العثور على AppID للعبة على Steam؟</u></span>`,
+                `<span class="hl help" id="ragameidhelp"><u>كيف يمكنني العثور على GameID للعبة على RetroAchievements؟</u></span>`
             ],
             themeswitchnew: "تبديل تلقائي جديد",
             themeswitchnewsub: [
-                `أدخل <span class="hl">AppID</span> الخاص باللعبة، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطة الشاشة</span>`,
-                `اختر أي <span class="hl">ثيم</span> للتبديل إليه لكل نوع من الإشعارات عند اكتشاف <span class="hl">AppID</span> الخاص بهذه اللعبة`
+                `أدخل <span class="hl">AppID</span>/<span class="hl">GameID</span> الخاص باللعبة، بالإضافة إلى الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">لقطة الشاشة</span>`,
+                `يمكن إدخال عدة <span class="hl">AppIDs</span>/<span class="hl">GameIDs</span> دفعة واحدة عند فصلها بفاصلة (<code>,</code>) أو فاصلة منقوطة (<code>;</code>)`,
+                `حدد <span class="hl">السمة</span> التي سيتم التبديل إليها لكل نوع من الإشعارات عند اكتشاف <span class="hl">AppID</span>/<span class="hl">GameID</span> الخاص بهذه اللعبة`
             ],
-            themeswitchedit: "تحرير التبديل التلقائي",
+            themeswitchedit: "تعديل التبديل التلقائي",
             themeswitcheditsub: [
-                `تحرير الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">للقطات الشاشة</span> لـ<span class="hl">AppID</span> الخاص بهذه اللعبة`,
-                `تغيير <span class="hl">السمة</span> التي يتم التبديل إليها لكل نوع إشعار عند اكتشاف <span class="hl">AppID</span> الخاص بهذه اللعبة`
+                `عدّل الشاشة المطلوبة لاستخدامها كمصدر <span class="hl">لقطة الشاشة</span> لـ <span class="hl">AppID</span>/<span class="hl">GameID</span> الخاص بهذه اللعبة`,
+                `غيّر <span class="hl">السمة</span> التي سيتم التبديل إليها لكل نوع من الإشعارات عند اكتشاف <span class="hl">AppID</span>/<span class="hl">GameID</span> الخاص بهذه اللعبة`
             ],
-            themes: "الثيمات",
+            themes: "السمات",
             src: "مصدر لقطة الشاشة",
-            themedeleted: "تم حذف السمة"
+            themedeleted: "تم حذف السمة",
+            rafindgameid: "العثور على RA GameID",
+            rafindgameidsub: [
+                `لكل لعبة على RetroAchievements رقم فريد مرتبط بها يُسمى <span class="hl">GameID</span>. يمكنك العثور على GameID الخاص بأي لعبة على RetroAchievements من خلال التحقق من:`,
+                `عنوان <span class="hl">URL</span> الخاص <span class="hl">بصفحة اللعبة</span> على موقع RetroAchievements — سيكون الرقم الموجود بعد <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
+            ]
         }
     }
 }

@@ -127,7 +127,7 @@ ipcRenderer.once(`${sstype}winready_${notifyid}`,async (event,obj?: { info: Info
     // Sends the "sscapture_${notify.id}" (triggered via `base.ts` > `checkreadystate()` > `ipcRenderer.sendToHost()`) IPC event to Main
     webview.addEventListener("ipc-message",event => setTimeout(() => ipcRenderer.send(event.channel),2000))
 
-    webview.addEventListener("dom-ready", () => {
+    webview.addEventListener("dom-ready",() => {
         // Send "ss" event to webview - on receipt of this event, the webview adds the "ss" tag so animation can be disabled via CSS
         webview.send("ss")
         webview.send("notify",obj.info)

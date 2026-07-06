@@ -166,7 +166,7 @@ export const language = {
             log.write("ERROR",`Error loading language file "${lang}.js": ${(err as Error).stack || (err as Error).message}`)
         }
     },
-    getkeypath: (obj: any,keys: string[]): any => keys.reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined),obj),
+    getkeypath: (obj: any,keys: string[]): any => keys.reduce((acc,key) => (acc && acc[key] !== undefined ? acc[key] : undefined),obj),
     get: async (id: string,keys?: string | string[]) => {
         const config = sanconfig.get()
         const lang = config.get("lang") || "english"

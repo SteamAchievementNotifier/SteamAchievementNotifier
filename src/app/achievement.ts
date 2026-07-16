@@ -31,7 +31,7 @@ export const cachedata = (client: any,apinames: string[]): Achievement[] => {
     return achievements
 }
 
-export const checkunlockstatus = (cache: Achievement[], live: Achievement[]): Achievement[] => {
+export const checkunlockstatus = (cache: Achievement[],live: Achievement[]): Achievement[] => {
     const unlocked: Achievement[] = []
 
     for (const ach of live) {
@@ -42,7 +42,7 @@ export const checkunlockstatus = (cache: Achievement[], live: Achievement[]): Ac
     return unlocked
 }
 
-export const getachievementicon = async (client: any, achievement: Achievement): Promise<string | null> => {
+export const getachievementicon = async (client: any,achievement: Achievement): Promise<string | null> => {
     const fs = await import("fs")
     const { encode } = await import("jpeg-js")
 
@@ -91,27 +91,39 @@ export const downloadicon = async (achievement: { apiname: string, iconurl: stri
     }
 }
 
-// As Steamworks' `getAchievementIcon()` function does not allow specification of whether to fetch locked/unlocked versions of achievement icons, they cannot be locally cached.
-// Caching icons from the user's Steam Community page ensures icons are locally available upon unlocking an achievement.
-// `getAchievementIcon()` is then used as a fallback, in case caching the icon via this function fails.
-export const cacheachievementicons = async (gamename: string, steam64id: string, appid: number, url?: string): Promise<string[]> => {
+const getsteamprofile = async (steam64id: string,appid: number,url?: string): Promise<Document | Error> => {
     const steamurl = url || `https://steamcommunity.com/profiles/${steam64id}/stats/${appid}/?xml=1`
-    const icons: string[] = []
-    let total = 0
 
     try {
         const res = await fetch(steamurl)
-
-        if (!res.ok) throw new Error(`Error preparing to cache achievement icons: ${res.statusText}`)
+        if (!res.ok) throw new Error(`Error fetching Steam Community profile for "${steam64id}": [${res.status}] ${res.statusText}`)
+        
         if (!res.url.includes(`${appid}`) && !res.url.includes("/?xml=1")) {
             log.write("INFO",`Steam Community Page for "${appid}" uses game name instead of AppId. Retrying...`)
-            return cacheachievementicons(gamename,steam64id,appid,`${res.url}/?xml=1`)
+            return getsteamprofile(steam64id,appid,`${res.url}/?xml=1`)
         }
 
         const xml = new window.DOMParser().parseFromString(await res.text(),"text/xml")
 
         const error = xml.querySelector("error")
         if (error) throw new Error(`Error parsing Steam Community profile for "${steam64id}": ${error.textContent}`)
+        
+        return xml
+    } catch (err) {
+        return err as Error
+    }
+}
+
+// As Steamworks' `getAchievementIcon()` function does not allow specification of whether to fetch locked/unlocked versions of achievement icons, they cannot be locally cached.
+// Caching icons from the user's Steam Community page ensures icons are locally available upon unlocking an achievement.
+// `getAchievementIcon()` is then used as a fallback, in case caching the icon via this function fails.
+export const cacheachievementicons = async (gamename: string,steam64id: string,appid: number,url?: string): Promise<string[]> => {
+    const icons: string[] = []
+    let total = 0
+
+    try {
+        const xml = await getsteamprofile(steam64id,appid,url)
+        if (xml instanceof Error) throw xml
 
         const achievements = Array.from(xml.getElementsByTagName("achievement")) as HTMLElement[]
         total = achievements.length
@@ -124,7 +136,9 @@ export const cacheachievementicons = async (gamename: string, steam64id: string,
                 }
 
                 const icon = await downloadicon(achievement)
-                icon && icons.push(icon)
+                if (!icon) throw new Error(`Icon download failed for "${achievement.apiname}"`)
+                
+                icons.push(icon)
             } catch (err) {
                 throw new Error(`Error downloading achievement icon: ${(err as Error).message}`)
             }

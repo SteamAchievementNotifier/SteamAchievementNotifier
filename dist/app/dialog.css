@@ -734,8 +734,17 @@ dialog:has(#themeswitchtablewrapper,#themeswitchnewtablewrapper) {
     cursor: pointer;
 }
 
-.appidinput:read-only {
+.appidinput:read-only,
+input[type="checkbox"]:disabled {
     cursor: not-allowed;
+}
+
+input[type="checkbox"]:not(:checked):disabled:hover {
+    background-color: var(--darkgrey);
+}
+
+input[type="checkbox"]:checked:disabled:hover {
+    background-color: var(--primary);
 }
 
 input[type="number"].appidinput,
@@ -775,6 +784,14 @@ td:has(input[type="text"].appidinput) {
 td:has(input[type="number"].appidinput:not(:read-only):hover),
 td:has(input[type="text"].appidinput:not(:read-only):hover) {
     background-color: var(--lightgrey);
+}
+
+.opt:has(input[type="checkbox"]#radefault) {
+    margin-top: 0.5rem;
+    width: 99%;
+    padding: 0.25rem;
+    padding-left: 0.35rem;
+    font-size: 0.65rem;
 }
 
 td[id$="select"] {

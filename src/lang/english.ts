@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Trophy Mode",
                 notifymax: "Max Notifications",
                 notifyspace: "Notification Spacing",
-                notify1line: "Limit Text to 1 Line"
+                notify1line: "Limit Text to 1 Line",
+                testnotifycustomtext: "Test Notification Custom Text",
+                testnotifycustomtexttitle: "Title",
+                testnotifycustomtextdesc: "Description"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Enable SAN's new game process watcher<br><br><span class="ttdesc">Differences between the new SANWatcher/old automatic process tracking methods are as follows:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Actively monitors start/exit events for any process stored inside the game's installation directory</li><li>Does not require game executable to be known to release current game</li><li>Pre-game launcher behaviour can vary, so full compatibility with all Steam games is not guaranteed</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scans game installation directory for any running executables after game launch</li><li>Requires game executable to be known to release current game</li><li>If game process cannot be determined automatically, the user must manually add a new entry to <span class="hl">Auto-Release Games</span> for games to be released automatically</li></ul></div>`,
         releasewaittime: `Set how long SANWatcher will wait for new game processes to spawn before releasing the current game<br><br><span class="ttdesc">For example, if the current game spawns a pre-game launcher/configuration window before launching the actual game, this setting determines the number of seconds SANWatcher will wait for the actual game window to spawn after the pre-game launcher/configuration window has closed<br><br>If a new active game process is detected within this wait time, the release will be cancelled and the newly active process will then be tracked instead<br><br>💡 The game name will <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">flash</span> in the <span class="hl">Game Display</span> box while the current game is waiting to release</span>`,
         platcustomtext: `Set a custom 100% game completion message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`,
-        raui: "Display the names of detected RetroAchievements games in the Game Display/system tray UI"
+        raui: "Display the names of detected RetroAchievements games in the Game Display/system tray UI",
+        testnotifycustomtext: "Override the text displayed in all Test Notifications",
+        testnotifycustomtexttitle: "Override the text displayed for the title element in all Test Notifications",
+        testnotifycustomtextdesc: "Override the text displayed for the description element in all Test Notifications",
+        radefault: `Always auto-switch to this entry when any RetroAchievements achievement is unlocked<br><br><span class="ttdesc">Only one Auto-Switch Themes entry can be designated as the default for all RetroAchievements achievements. This default can also be overridden per-game by adding a new Auto-Switch Themes entry for a specific RetroAchievements <span class="hl">GameID</span></span>`
     },
     update: {
         updateavailable: "Update available",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Each RetroAchievements game has a unique number associated with it - called a <span class="hl">GameID</span>. You can find any RetroAchievements game's associated GameID by checking:`,
                 `The <span class="hl">URL</span> of the <span class="hl">game page</span> on the RetroAchievements site - it will be the number listed after <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Set as default for RetroAchievements"
         }
     }
 }

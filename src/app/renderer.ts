@@ -311,7 +311,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
     if (settingscontent) {
         settingscontent.querySelectorAll(`#settingscontent .opt > input[type="checkbox"], #settingscontent .opt > .sub > input[type="checkbox"]`).forEach(opt => sanhelper.getcheckbox(config,opt,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
         settingscontent.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
-        settingscontent.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
+        settingscontent.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select, #settingscontent .opt > input[type="text"][id^="testnotifycustomtext"]`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         settingscontent.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
         settingscontent.querySelectorAll(`#settingscontent .cont:has(.title#ra) .opt:has(input[type="text"]) > input,#settingscontent .cont:has(.title#ra) .opt:has(input[type="password"]) > input`).forEach(input => sanhelper.setvalue(config,input,null))
         ;(settingscontent.querySelector("#sspreview") as HTMLButtonElement).onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
@@ -762,6 +762,10 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
     const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
     const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
 
+    const { testnotifycustomtext, testnotifycustomtexttitle, testnotifycustomtextdesc } = config.store
+    const titleoverride = testnotifycustomtext ? testnotifycustomtexttitle : null
+    const descoverride = testnotifycustomtext ? testnotifycustomtextdesc : null
+
     const notify: Notify = {
         id: Math.round(Date.now() / Math.random() * 1000),
         customisation: customisation,
@@ -769,8 +773,8 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
         steam3id: window.steam3id,
         type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
-        name: type === "plat" ? "" : `Steam Achievement Notifier`,
-        desc: type === "plat" ? "" : await language.get("achievementdesc"),
+        name: titleoverride || (type === "plat" ? "" : `Steam Achievement Notifier`),
+        desc: descoverride || (type === "plat" ? "" : await language.get("achievementdesc")),
         unlocked: true,
         hidden: customisation.previewhiddenicon,
         percent: type !== "plat" ? (type === "rare" ? config.get("rarity") : config.get("trophymode") && type === "semi" ? config.get("semirarity") : 50.0) : 0,
@@ -1150,7 +1154,7 @@ ipcRenderer.on("ragame",async (event,status: "wait" | "idle" | "start" | "stop" 
 
     document.body.style.setProperty(`--rastatus`,`"${await language.get(status,["settings","ra","content"])}"`)
 
-    const enabled = ragame ? usertheme.themeswitchinfo(config,ragame.gameid).enabled : false
+    const enabled = ragame ? usertheme.themeswitchinfo(config,ragame.gameid,undefined,true).enabled : false
     enabled ? document.body.setAttribute("themeswitch",`${ragame?.gameid}`) : document.body.removeAttribute("themeswitch")
 })
 

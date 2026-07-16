@@ -353,6 +353,9 @@ export const sanconfig = {
                 releasewaittime: 5,
                 workerdebug: false,
                 platcustomtext: "",
+                testnotifycustomtext: false,
+                testnotifycustomtexttitle: "",
+                testnotifycustomtextdesc: "",
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

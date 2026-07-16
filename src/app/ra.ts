@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron"
 import fs from "fs"
-import { buildAuthorization, getGameInfoAndUserProgress } from "@retroachievements/api"
+import { buildAuthorization, getGameInfoAndUserProgress, getGame } from "@retroachievements/api"
 import { sanhelper } from "./sanhelper"
 import { sanconfig } from "./config"
 import { log } from "./log"
@@ -195,7 +195,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                     const notify = await ranotify(gameid,value,ramode)
 
                     const { type } = notify
-                    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.themeswitchentries(gameid)
+                    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(gameid,true)
                     const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
                     
                     if (themeswitch) {
@@ -224,6 +224,14 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 const raurl = `https://media.retroachievements.org`
 
 const geticon = async (type: "gameicon" | "gameartlibhero" | "achievement",label: string | number,url: string,format?: string) => (await downloadicon({ apiname: type !== "achievement" ? `${label}_${type}` : `${label}`, iconurl: url },format || "png")).replace(/\\/g,"/")
+
+export const getgamenamefromgameid = async (gameid: number,username: string,apikey: string) => {
+    if (!gameid) throw new Error(`No "gameid" provided`)
+    const auth = await getauth(username,apikey)
+    if (!auth) return undefined
+
+    return (await getGame(auth,{ gameId: gameid }))?.title
+}
 
 const cacheradata = async (gameid: number,username: string,apikey: string,nowtracking: boolean,mode: "hard" | "soft"): Promise<RAAchievement[]> => {
     if (!gameid) throw new Error(`No "gameid" detected`)
@@ -287,7 +295,7 @@ const ranotify = async (gameid: number,achid: number,mode: "hard" | "soft") => {
     }
 
     const { monitor, rauser } = config.store
-    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.themeswitchentries(gameid)
+    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(gameid,true)
     const platcustomisation = themeswitch ? customisation.plat.usertheme[themeswitch[1].themes.plat].customisation as Customisation : customisation.plat
     
     const platobj: RAAPlatObj = {

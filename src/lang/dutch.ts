@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Trofee-modus",
                 notifymax: "Maximaal aantal meldingen", 
                 notifyspace: "Meldingsafstand",
-                notify1line: "Beperk tekst tot 1 regel"
+                notify1line: "Beperk tekst tot 1 regel",
+                testnotifycustomtext: "Aangepaste tekst voor testmelding",
+                testnotifycustomtexttitle: "Titel",
+                testnotifycustomtextdesc: "Beschrijving"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Schakel SAN's nieuwe controlefunctie voor spelprocessen in<br><br><span class="ttdesc">De verschillen tussen de nieuwe SANWatcher en de oude methoden voor automatische procesdetectie zijn als volgt:<br><br><div class="wrapper sanwatcher"><span class="hl">AAN</span><ul><li>Controleert actief start-/afsluitgebeurtenissen van elk proces dat is opgeslagen in de installatiemap van het spel</li><li>Vereist niet dat het uitvoerbare bestand van het spel bekend is om het huidige spel vrij te geven</li><li>Het gedrag van opstartprogramma's vóór het spel kan verschillen, waardoor volledige compatibiliteit met alle Steam-spellen niet kan worden gegarandeerd</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">UIT</span><ul><li>Scant de installatiemap van het spel op actieve uitvoerbare bestanden nadat het spel is gestart</li><li>Vereist dat het uitvoerbare bestand van het spel bekend is om het huidige spel vrij te geven</li><li>Als het spelproces niet automatisch kan worden vastgesteld, moet de gebruiker handmatig een nieuwe vermelding toevoegen aan <span class="hl">Automatisch vrijgeven van spellen</span> zodat spellen automatisch kunnen worden vrijgegeven</li></ul></div>`,
         releasewaittime: `Stel in hoe lang SANWatcher wacht totdat nieuwe gameprocessen worden gestart voordat de huidige game wordt vrijgegeven<br><br><span class="ttdesc">Als de huidige game bijvoorbeeld eerst een opstart-/configuratievenster opent voordat de daadwerkelijke game wordt gestart, bepaalt deze instelling hoeveel seconden SANWatcher wacht totdat het daadwerkelijke gamevenster verschijnt nadat het opstart-/configuratievenster is gesloten<br><br>Als binnen deze wachttijd een nieuw actief gameproces wordt gedetecteerd, wordt de vrijgave geannuleerd en wordt in plaats daarvan het nieuw actieve proces gevolgd<br><br>💡 De naam van de game zal <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">knipperen</span> in het vak <span class="hl">Gameweergave</span> terwijl de huidige game wacht om te worden vrijgegeven</span>`,
         platcustomtext: `Stel een aangepast bericht voor 100% spelvoltooiing in dat in de melding wordt weergegeven<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Customiser > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`,
-        raui: "Toon de namen van gedetecteerde RetroAchievements-games in de Gameweergave-/systeemvak-UI"
+        raui: "Toon de namen van gedetecteerde RetroAchievements-games in de Gameweergave-/systeemvak-UI",
+        testnotifycustomtext: "De tekst overschrijven die wordt weergegeven in alle testmeldingen",
+        testnotifycustomtexttitle: "De tekst overschrijven die wordt weergegeven voor het titeldeel in alle testmeldingen",
+        testnotifycustomtextdesc: "De tekst overschrijven die wordt weergegeven voor het beschrijvingsdeel in alle testmeldingen",
+        radefault: `Altijd automatisch overschakelen naar dit item wanneer een RetroAchievements-prestatie wordt ontgrendeld<br><br><span class="ttdesc">Slechts één Automatisch Thema's Wisselen-item kan als standaard worden ingesteld voor alle RetroAchievements-prestaties. Deze standaardinstelling kan ook per spel worden overschreven door een nieuw Automatisch Thema's Wisselen-item toe te voegen voor een specifieke RetroAchievements <span class="hl">GameID</span></span>`
     },
     update: {
         updateavailable: "Update beschikbaar",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Elk RetroAchievements-spel heeft een uniek nummer dat eraan is gekoppeld, een <span class="hl">GameID</span>. Je kunt de GameID van elk RetroAchievements-spel vinden door het volgende te controleren:`,
                 `De <span class="hl">URL</span> van de <span class="hl">spelpagina</span> op de RetroAchievements-website. Dit is het nummer dat volgt op <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Instellen als standaard voor RetroAchievements"
         }
     }
 }

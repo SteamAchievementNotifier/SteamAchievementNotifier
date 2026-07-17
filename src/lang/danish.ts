@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Trofætilstand",
                 notifymax: "Maksimalt antal notifikationer", 
                 notifyspace: "Afstand mellem notifikationer",
-                notify1line: "Begræns tekst til 1 linje"
+                notify1line: "Begræns tekst til 1 linje",
+                testnotifycustomtext: "Brugerdefineret tekst til testmeddelelse",
+                testnotifycustomtexttitle: "Titel",
+                testnotifycustomtextdesc: "Beskrivelse"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Aktivér SAN's nye overvågning af spilprocesser<br><br><span class="ttdesc">Forskellene mellem den nye SANWatcher og de gamle metoder til automatisk procesovervågning er som følger:<br><br><div class="wrapper sanwatcher"><span class="hl">TIL</span><ul><li>Overvåger aktivt start-/afslutningshændelser for alle processer, der er gemt i spillets installationsmappe</li><li>Kræver ikke, at spillets eksekverbare fil er kendt for at frigive det aktuelle spil</li><li>Adfærden for launchere før spilstart kan variere, så fuld kompatibilitet med alle Steam-spil kan ikke garanteres</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">FRA</span><ul><li>Scanner spillets installationsmappe for kørende eksekverbare filer efter spilstart</li><li>Kræver, at spillets eksekverbare fil er kendt for at frigive det aktuelle spil</li><li>Hvis spilprocessen ikke kan bestemmes automatisk, skal brugeren manuelt tilføje en ny post til <span class="hl">Automatisk frigivelse af spil</span>, for at spillene kan frigives automatisk</li></ul></div>`,
         releasewaittime: `Angiv, hvor længe SANWatcher skal vente på, at nye spilprocesser starter, før det aktuelle spil frigives<br><br><span class="ttdesc">Hvis det aktuelle spil f.eks. åbner et opstarts-/konfigurationsvindue før selve spillet starter, bestemmer denne indstilling, hvor mange sekunder SANWatcher skal vente på, at det faktiske spilvindue vises, efter at opstarts-/konfigurationsvinduet er blevet lukket<br><br>Hvis en ny aktiv spilproces registreres inden for denne ventetid, annulleres frigivelsen, og den nyligt aktive proces spores i stedet<br><br>💡 Spilnavnet vil <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinke</span> i feltet <span class="hl">Spilvisning</span>, mens det aktuelle spil venter på at blive frigivet</span>`,
         platcustomtext: `Angiv en brugerdefineret besked om 100% gennemførelse af spillet, der skal vises i notifikationen<br><br><span class="ttdesc">Denne indstilling vil være skjult, når Customiser > Forudindstilling > Notifikationselementer > Præstationsbeskrivelse er deaktiveret</span>`,
-        raui: "Vis navnene på registrerede RetroAchievements-spil i spilvisningsgrænsefladen/systembakkegrænsefladen"
+        raui: "Vis navnene på registrerede RetroAchievements-spil i spilvisningsgrænsefladen/systembakkegrænsefladen",
+        testnotifycustomtext: "Tilsidesæt teksten, der vises i alle testmeddelelser",
+        testnotifycustomtexttitle: "Tilsidesæt teksten, der vises for tittelelementet i alle testmeddelelser",
+        testnotifycustomtextdesc: "Tilsidesæt teksten, der vises for beskrivelseselementet i alle testmeddelelser",
+        radefault: `Skift altid automatisk til denne post, når en RetroAchievements-præstation låses op<br><br><span class="ttdesc">Kun én Automatisk skift af tema-post kan angives som standard for alle RetroAchievements-præstationer. Denne standard kan også tilsidesættes pr. spil ved at tilføje en ny Automatisk skift af tema-post for et specifikt RetroAchievements <span class="hl">GameID</span></span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Hvert RetroAchievements-spil har et unikt nummer tilknyttet – kaldet et <span class="hl">GameID</span>. Du kan finde et hvilket som helst RetroAchievements-spils GameID ved at kontrollere:`,
                 ` <span class="hl">URL'en</span> til <span class="hl">spilsiden</span> på RetroAchievements-webstedet – det er tallet efter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Angiv som standard for RetroAchievements"
         }
     }
 }

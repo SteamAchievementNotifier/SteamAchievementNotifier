@@ -244,7 +244,15 @@ export const screenshot = {
             const src = srcs.find(src => ssmode === "window" ? src.name === windowtitle : (parseInt(src.display_id) === sswin.src || screen.getPrimaryDisplay().id === sswin.src))
             const fbsrc = srcs[0]
             
-            !src && log.write("WARN",`Error configuring screenshot: No matching display source ID found for monitor ${sswin.src} ("${label}") - using only available monitor ${fbsrc} (${fbsrc.display_id})`)
+            if (!src && ssmode === "screen") {
+                log.write("WARN",`Error configuring screenshot: No matching display source ID found for monitor ${sswin.src} ("${label}") - using only available monitor ${fbsrc.name} (${fbsrc.display_id})`)
+                sswin.src = parseInt(fbsrc.display_id)
+                
+                const fbdisplay = screen.getAllDisplays().find(display => display.id === parseInt(fbsrc.display_id))
+                if (!fbdisplay) throw new Error(`No matching display found for fallback source ${fbsrc.display_id} ("${fbsrc.name}")`)
+                
+                sswin.display = fbdisplay
+            }
             
             fs.writeFileSync(srcpath,(src ?? fbsrc).thumbnail.toPNG())
         } catch (err) {
@@ -410,7 +418,7 @@ export const screenshot = {
                 })
             })
 
-            const { monitor, display } = screenshot.monitor(sswin.src)
+            const { monitor, display } = sswin.display ? { monitor: sswin.display, display: sswin.display } : screenshot.monitor(sswin.src) // Use the `sswin.display` fallback if it has been assigned in `capturesrc()`
 
             if (!monitor) return log.write("ERROR",`Error configuring screenshot: Could not locate monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
             if (!display) return log.write("ERROR",`Error configuring screenshot: No display matches monitor id ${monitor.id}.\n\n${JSON.stringify(screen.getAllDisplays())}`)
@@ -462,26 +470,12 @@ export const screenshot = {
             screenshot.clearsswin(notify.id)
         }
     },
-    // createsteamimg: (ssimg: string) => {
-    //     const ext = path.extname(ssimg)
-
-    //     // Create a copy of the image named `<filename>_STEAM.<png|jpg>`
-    //     // `client.screenshot.addScreenshotToLibrary()` deletes the original file after deleting in Steam
-    //     const steamimg = path.join(path.dirname(ssimg),`${path.basename(ssimg,ext)}_STEAM${ext}`).replace(/\\/g,"/")
-    //     fs.copyFileSync(ssimg,steamimg)
-        
-    //     log.write("INFO",`"${ssimg}" successfully copied to "${steamimg}"`)
-
-    //     return steamimg
-    // },
     addtosteam: (shouldadd: boolean,imgpath: string,img: Electron.NativeImage) => {
         if (!shouldadd) return
         if (!fs.existsSync(imgpath)) throw new Error(`Unable to add media to Steam: "${imgpath}" does not exist`)
         
-        // const steamimg = screenshot.createsteamimg(imgpath)
         const { width, height } = img.getSize()
         
-        // ipcMain.emit("addtosteam",null,steamimg,Math.round(width),Math.round(height))
         ipcMain.emit("addtosteam",null,imgpath,Math.round(width),Math.round(height))
     },
     clearsswin: (id: number) => {

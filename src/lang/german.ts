@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Trophäenmodus",
                 notifymax: "Maximale Benachrichtigungen", 
                 notifyspace: "Benachrichtigungsabstand",
-                notify1line: "Text auf 1 Zeile begrenzen"
+                notify1line: "Text auf 1 Zeile begrenzen",
+                testnotifycustomtext: "Benutzerdefinierter Text für Testbenachrichtigung",
+                testnotifycustomtexttitle: "Titel",
+                testnotifycustomtextdesc: "Beschreibung"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `SANs neue Überwachung für Spielprozesse aktivieren<br><br><span class="ttdesc">Die Unterschiede zwischen dem neuen SANWatcher und den alten Methoden zur automatischen Prozessverfolgung sind wie folgt:<br><br><div class="wrapper sanwatcher"><span class="hl">EIN</span><ul><li>Überwacht aktiv Start-/Beendigungsereignisse aller Prozesse, die sich im Installationsverzeichnis des Spiels befinden</li><li>Es ist nicht erforderlich, die ausführbare Datei des Spiels zu kennen, um das aktuelle Spiel freizugeben</li><li>Das Verhalten von vorgeschalteten Launchern kann variieren, daher kann eine vollständige Kompatibilität mit allen Steam-Spielen nicht garantiert werden</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">AUS</span><ul><li>Durchsucht nach dem Start des Spiels das Installationsverzeichnis nach laufenden ausführbaren Dateien</li><li>Erfordert die Kenntnis der ausführbaren Datei des Spiels, um das aktuelle Spiel freizugeben</li><li>Wenn der Spielprozess nicht automatisch ermittelt werden kann, muss der Benutzer manuell einen neuen Eintrag zu <span class="hl">Automatische Spielfreigabe</span> hinzufügen, damit Spiele automatisch freigegeben werden können</li></ul></div>`,
         releasewaittime: `Legen Sie fest, wie lange SANWatcher auf das Starten neuer Spielprozesse wartet, bevor das aktuelle Spiel freigegeben wird<br><br><span class="ttdesc">Wenn das aktuelle Spiel beispielsweise vor dem eigentlichen Spiel ein Start-/Konfigurationsfenster öffnet, bestimmt diese Einstellung, wie viele Sekunden SANWatcher nach dem Schließen des Start-/Konfigurationsfensters auf das Erscheinen des eigentlichen Spielfensters wartet<br><br>Wird innerhalb dieser Wartezeit ein neuer aktiver Spielprozess erkannt, wird die Freigabe abgebrochen und stattdessen der neu aktive Prozess verfolgt<br><br>💡 Der Spielname wird im Feld <span class="hl">Spielanzeige</span> <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinken</span>, während das aktuelle Spiel auf die Freigabe wartet</span>`,
         platcustomtext: `Legen Sie eine benutzerdefinierte Nachricht für den 100%-Spielabschluss fest, die in der Benachrichtigung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Customiser > Voreinstellung > Benachrichtigungselemente > Erfolgsbeschreibung deaktiviert ist</span>`,
-        raui: "Zeigt die Namen erkannter RetroAchievements-Spiele in der Spielanzeige-/Infobereich-Benutzeroberfläche an"
+        raui: "Zeigt die Namen erkannter RetroAchievements-Spiele in der Spielanzeige-/Infobereich-Benutzeroberfläche an",
+        testnotifycustomtext: "Den in allen Testbenachrichtigungen angezeigten Text überschreiben",
+        testnotifycustomtexttitle: "Den für das Titelelement in allen Testbenachrichtigungen angezeigten Text überschreiben",
+        testnotifycustomtextdesc: "Den für das Beschreibungselement in allen Testbenachrichtigungen angezeigten Text überschreiben",
+        radefault: `Immer automatisch zu diesem Eintrag wechseln, wenn ein RetroAchievements-Erfolg freigeschaltet wird<br><br><span class="ttdesc">Nur ein Automatischer Designwechsel-Eintrag kann als Standard für alle RetroAchievements-Erfolge festgelegt werden. Dieser Standard kann außerdem spielbezogen überschrieben werden, indem ein neuer Automatischer Designwechsel-Eintrag für eine bestimmte RetroAchievements-<span class="hl">GameID</span> hinzugefügt wird</span>`
     },
     update: {
         updateavailable: "Update verfügbar",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Jedes RetroAchievements-Spiel besitzt eine eindeutige Nummer, die als <span class="hl">GameID</span> bezeichnet wird. Sie können die GameID eines beliebigen RetroAchievements-Spiels wie folgt finden:`,
                 `Die <span class="hl">URL</span> der <span class="hl">Spielseite</span> auf der RetroAchievements-Website – es ist die Zahl nach <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Als Standard für RetroAchievements festlegen"
         }
     }
 }

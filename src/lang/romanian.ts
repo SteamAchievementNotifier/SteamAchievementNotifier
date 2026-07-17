@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Mod Trofeu",
                 notifymax: "Notificări Maxime", 
                 notifyspace: "Spațierea Notificărilor",
-                notify1line: "Limitează textul la 1 linie"
+                notify1line: "Limitează textul la 1 linie",
+                testnotifycustomtext: "Text personalizat pentru notificarea de test",
+                testnotifycustomtexttitle: "Titlu",
+                testnotifycustomtextdesc: "Descriere"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Activează noul monitor de procese pentru jocuri al SAN<br><br><span class="ttdesc">Diferențele dintre noul SANWatcher și vechile metode de urmărire automată a proceselor sunt următoarele:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Monitorizează activ evenimentele de pornire/închidere pentru orice proces stocat în directorul de instalare al jocului</li><li>Nu necesită cunoașterea fișierului executabil al jocului pentru a elibera jocul curent</li><li>Comportamentul lansatoarelor pre-joc poate varia, astfel că nu este garantată compatibilitatea completă cu toate jocurile Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scanează directorul de instalare al jocului pentru orice fișiere executabile aflate în execuție după lansarea jocului</li><li>Necesită cunoașterea fișierului executabil al jocului pentru a elibera jocul curent</li><li>Dacă procesul jocului nu poate fi determinat automat, utilizatorul trebuie să adauge manual o nouă intrare în <span class="hl">Jocuri cu eliberare automată</span> pentru ca jocurile să fie eliberate automat</li></ul></div>`,
         releasewaittime: `Setați cât timp SANWatcher va aștepta ca noile procese de joc să fie inițializate înainte de a elibera jocul curent<br><br><span class="ttdesc">De exemplu, dacă jocul curent inițializează un lansator/fereastră de configurare înainte de a porni jocul propriu-zis, această setare determină numărul de secunde pe care SANWatcher îl va aștepta pentru ca fereastra jocului propriu-zis să apară după ce lansatorul/fereastra de configurare s-a închis<br><br>Dacă un nou proces de joc activ este detectat în acest interval de așteptare, eliberarea va fi anulată, iar noul proces activ va fi urmărit în schimb<br><br>💡 Numele jocului va <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">clipi</span> în caseta <span class="hl">Afișaj Joc</span> în timp ce jocul curent așteaptă să fie eliberat</span>`,
         platcustomtext: `Setați un mesaj personalizat pentru finalizarea 100% a jocului care va fi afișat în notificare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Customiser > Presetare > Elementele notificării > Descrierea realizării este dezactivată</span>`,
-        raui: "Afișează numele jocurilor RetroAchievements detectate în interfața de afișare a jocului/zona de notificare a sistemului"
+        raui: "Afișează numele jocurilor RetroAchievements detectate în interfața de afișare a jocului/zona de notificare a sistemului",
+        testnotifycustomtext: "Suprascrie textul afișat în toate notificările de test",
+        testnotifycustomtexttitle: "Suprascrie textul afișat pentru elementul de titlu în toate notificările de test",
+        testnotifycustomtextdesc: "Suprascrie textul afișat pentru elementul de descriere în toate notificările de test",
+        radefault: `Comută întotdeauna automat la această intrare atunci când este deblocată orice realizare RetroAchievements<br><br><span class="ttdesc">Doar o singură intrare pentru Comutarea Automată a Temelor poate fi desemnată ca implicită pentru toate realizările RetroAchievements. Această setare implicită poate fi, de asemenea, suprascrisă pentru fiecare joc prin adăugarea unei noi intrări pentru Comutarea Automată a Temelor pentru un anumit <span class="hl">GameID</span> RetroAchievements</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Fiecare joc RetroAchievements are un număr unic asociat numit <span class="hl">GameID</span>. Puteți găsi GameID-ul oricărui joc RetroAchievements verificând:`,
                 `URL-ul <span class="hl">paginii jocului</span> de pe site-ul RetroAchievements — este numărul după <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Setează ca implicit pentru RetroAchievements"
         }
     }
 }

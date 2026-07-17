@@ -489,6 +489,7 @@ declare interface DebugInfo extends AppInfo {
     steam3id?: number,
     steam64id?: string,
     releasedelay?: number,
+    lastknowngame?: LastKnownGame,
     processes: ProcessInfo[] | DebugProcessInfo[]
 }
 
@@ -636,7 +637,8 @@ declare interface SSWin {
     src: number,
     timer: NodeJS.Timeout | null,
     windowtitle: string | null,
-    haswarned: boolean
+    haswarned: boolean,
+    display?: Electron.Display
 }
 
 declare type ExtWins = "ext" | "stat" | "gametimer"

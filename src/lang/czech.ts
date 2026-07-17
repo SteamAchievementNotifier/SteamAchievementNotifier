@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Režim trofejí",
                 notifymax: "Maximální počet oznámení", 
                 notifyspace: "Rozestup mezi oznámeními",
-                notify1line: "Omezit text na 1 řádek"
+                notify1line: "Omezit text na 1 řádek",
+                testnotifycustomtext: "Vlastní text testovacího oznámení",
+                testnotifycustomtexttitle: "Název",
+                testnotifycustomtextdesc: "Popis"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Povolit nový sledovač herních procesů SAN<br><br><span class="ttdesc">Rozdíly mezi novým SANWatcherem a starými metodami automatického sledování procesů jsou následující:<br><br><div class="wrapper sanwatcher"><span class="hl">ZAPNUTO</span><ul><li>Aktivně sleduje události spuštění/ukončení všech procesů uložených v instalačním adresáři hry</li><li>Pro uvolnění aktuální hry není nutné znát spustitelný soubor hry</li><li>Chování spouštěčů před samotnou hrou se může lišit, proto není zaručena úplná kompatibilita se všemi hrami na Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">VYPNUTO</span><ul><li>Po spuštění hry prohledává instalační adresář hry a hledá spuštěné spustitelné soubory</li><li>Pro uvolnění aktuální hry je nutné znát spustitelný soubor hry</li><li>Pokud nelze herní proces určit automaticky, musí uživatel ručně přidat novou položku do <span class="hl">Automatické uvolnění her</span>, aby byly hry uvolňovány automaticky</li></ul></div>`,
         releasewaittime: `Nastavte, jak dlouho bude SANWatcher čekat na spuštění nových herních procesů, než uvolní aktuální hru<br><br><span class="ttdesc">Například pokud aktuální hra před spuštěním samotné hry otevře spouštěcí nebo konfigurační okno, toto nastavení určuje počet sekund, po které bude SANWatcher čekat na zobrazení skutečného herního okna po zavření spouštěcího nebo konfiguračního okna<br><br>Pokud bude během této čekací doby zjištěn nový aktivní herní proces, uvolnění bude zrušeno a místo toho bude sledován nově aktivní proces<br><br>💡 Název hry bude <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blikat</span> v poli <span class="hl">Zobrazení hry</span>, zatímco aktuální hra čeká na uvolnění</span>`,
         platcustomtext: `Nastavte vlastní zprávu o 100% dokončení hry, která se zobrazí v oznámení<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je vypnuto Customiser > Předvolba > Prvky oznámení > Popis achievementu</span>`,
-        raui: "Zobrazuje názvy rozpoznaných her RetroAchievements v rozhraní zobrazení hry / v oznamovací oblasti"
+        raui: "Zobrazuje názvy rozpoznaných her RetroAchievements v rozhraní zobrazení hry / v oznamovací oblasti",
+        testnotifycustomtext: "Přepsat text zobrazený ve všech testovacích oznámeních",
+        testnotifycustomtexttitle: "Přepsat text zobrazený pro prvek názvu ve všech testovacích oznámeních",
+        testnotifycustomtextdesc: "Přepsat text zobrazený pro prvek popisu ve všech testovacích oznámeních",
+        radefault: `Vždy automaticky přepnout na tuto položku při odemčení jakéhokoli achievementu RetroAchievements<br><br><span class="ttdesc">Pouze jedna položka Automatické přepínání témat může být nastavena jako výchozí pro všechny achievementy RetroAchievements. Toto výchozí nastavení lze také přepsat pro jednotlivé hry přidáním nové položky Automatické přepínání témat pro konkrétní <span class="hl">GameID</span> RetroAchievements</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Každá hra na RetroAchievements má jedinečné číslo, které je s ní spojeno – nazývá se <span class="hl">GameID</span>. GameID libovolné hry na RetroAchievements najdete zde:`,
                 `V <span class="hl">URL</span> <span class="hl">stránky hry</span> na webu RetroAchievements – jedná se o číslo uvedené za <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Nastavit jako výchozí pro RetroAchievements"
         }
     }
 }

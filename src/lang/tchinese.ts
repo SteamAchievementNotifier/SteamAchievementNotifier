@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "獎盃模式",
                 notifymax: "最大通知數量", 
                 notifyspace: "通知間距",
-                notify1line: "將文字限制為一行"
+                notify1line: "將文字限制為一行",
+                testnotifycustomtext: "測試通知自訂文字",
+                testnotifycustomtexttitle: "標題",
+                testnotifycustomtextdesc: "描述"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `啟用 SAN 的新遊戲程序監視器<br><br><span class="ttdesc">新版 SANWatcher 與舊版自動程序追蹤方法之間的差異如下：<br><br><div class="wrapper sanwatcher"><span class="hl">開啟</span><ul><li>主動監視儲存在遊戲安裝目錄中的任何程序之啟動與結束事件</li><li>無需知道遊戲執行檔即可釋放目前遊戲</li><li>遊戲啟動前啟動器的行為可能有所不同，因此無法保證與所有 Steam 遊戲完全相容</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">關閉</span><ul><li>在遊戲啟動後掃描遊戲安裝目錄中的所有執行中可執行檔</li><li>需要知道遊戲執行檔才能釋放目前遊戲</li><li>如果無法自動判定遊戲程序，使用者必須手動新增一筆項目至 <span class="hl">自動釋放遊戲</span>，遊戲才能自動釋放</li></ul></div>`,
         releasewaittime: `設定 SANWatcher 在釋放目前遊戲之前，等待新遊戲程序啟動的時間長度<br><br><span class="ttdesc">例如，如果目前遊戲會先啟動遊戲前啟動器／設定視窗，然後才啟動實際遊戲，則此設定會決定在遊戲前啟動器／設定視窗關閉後，SANWatcher 等待實際遊戲視窗啟動的秒數<br><br>如果在此等待時間內偵測到新的作用中遊戲程序，則釋放作業將會取消，並改為追蹤新啟用的程序<br><br>💡 當目前遊戲正在等待釋放時，遊戲名稱將會在<span class="hl">遊戲顯示</span>方塊中<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">閃爍</span></span>`,
         platcustomtext: `設定要在通知中顯示的遊戲 100% 完成自訂訊息<br><br><span class="ttdesc">當 Customiser > 預設 > 通知元素 > 成就描述 被停用時，此選項將會隱藏</span>`,
-        raui: "在遊戲顯示介面/系統匣介面中顯示已偵測到的 RetroAchievements 遊戲名稱"
+        raui: "在遊戲顯示介面/系統匣介面中顯示已偵測到的 RetroAchievements 遊戲名稱",
+        testnotifycustomtext: "覆寫所有測試通知中顯示的文字",
+        testnotifycustomtexttitle: "覆寫所有測試通知中標題元素顯示的文字",
+        testnotifycustomtextdesc: "覆寫所有測試通知中描述元素顯示的文字",
+        radefault: `當任何 RetroAchievements 成就解鎖時，始終自動切換至此項目<br><br><span class="ttdesc">只能將一個 自動切換主題 項目指定為所有 RetroAchievements 成就的預設項目。也可以透過為特定的 RetroAchievements <span class="hl">GameID</span> 新增一個 自動切換主題 項目來覆寫個別遊戲的預設設定</span>`
     },
     update: {
         updateavailable: "有可用更新",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `每個 RetroAchievements 遊戲都有一個唯一編號，稱為 <span class="hl">GameID</span>。你可以透過以下方式找到任何 RetroAchievements 遊戲的 GameID：`,
                 `RetroAchievements 網站上的 <span class="hl">遊戲頁面</span> URL —— 即 <span class="hl">game/</span> 之後的數字：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "設為 RetroAchievements 預設項目"
         }
     }
 }

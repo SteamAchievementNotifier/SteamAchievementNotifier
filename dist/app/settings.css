@@ -180,6 +180,7 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 
 .opt:has(#nowtracking:not(:checked)) ~ .wrapper:has(#nowtrackingscale,#nowtrackingpos),
 .opt:has(#shortcuts:not(:checked)) + .wrapper:has(#shortcuttabs),
+.opt:has(#testnotifycustomtext:not(:checked)) ~ .wrapper:has(#testnotifycustomtexttitle,#testnotifycustomtextdesc),
 .opt:has(#webhooks:not(:checked)) + .wrapper#webhookwrapper,
 body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .opt:has(#steamlang:not(:checked)) + .wrapper:has(#maxsteamlangretries),
@@ -674,7 +675,8 @@ input[type="checkbox"][id^="webhook"] {
     grid-column-start: 3;
 }
 
-.multiselect > .wrapper:first-child {
+.multiselect > .wrapper:first-child,
+.opt:has(#testnotifycustomtexttitle,#testnotifycustomtextdesc) {
     margin: 0;
 }
 

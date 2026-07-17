@@ -203,6 +203,10 @@ input[type="number"]:hover {
     background-color: var(--lightgrey);
 }
 
+input[type="checkbox"].darkbg:not(:checked) {
+    background-color: var(--mediumgrey);
+}
+
 input[type="number"] {
     appearance: none;
     border: none;
@@ -472,6 +476,40 @@ td:first-child {
     width: 20%;
 }
 
+tr#themeswitchnewheaders > th:first-child::before {
+    content: "AppID";
+}
+
+#themeswitchnewtablewrapper[themeswitchra] tr#themeswitchnewheaders > th:first-child::before {
+    content: "GameID"
+}
+
+tr#themeswitchnewheaders > th:nth-child(2),
+td:has(select#themeswitchplatform) {
+    width: 20%;
+}
+
+tr#themeswitchnewheaders > th:nth-child(2) {
+    background: url("../../img/ra/ra.png") center / contain no-repeat;
+}
+
+td:has(input[type="checkbox"]#themeswitchra) {
+    position: relative;
+    background-color: var(--mediumgrey);
+}
+
+td:has(input[type="checkbox"]#themeswitchra) > input {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+tr[appid] > td:first-child {
+    white-space: normal;
+    width: 25%;
+}
+
 th:nth-child(2),
 td:nth-child(2) {
     width: 60%;
@@ -502,6 +540,15 @@ td:last-child,
 #themeswitchheaders th:nth-last-child(2),
 #themeswitchtablewrapper td:has(.editbtn) {
     width: 10%;
+}
+
+td[radefault]::before {
+    content: "";
+    background: url("../../img/ra/ra.png") center / contain no-repeat;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: block;
+    place-self: center;
 }
 
 .wrapper.title {

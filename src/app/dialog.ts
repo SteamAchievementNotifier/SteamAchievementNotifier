@@ -5,6 +5,9 @@ import { sanhelper } from "./sanhelper"
 import { sanconfig, shortcutkeys } from "./config"
 import { usertheme } from "./usertheme"
 import { language } from "./language"
+import { getgamenamefromgameid } from "./ra"
+
+const rathemeswitchvalue = "-100"
 
 export const dialog = {
     init: (error?: "ERROR") => {
@@ -84,6 +87,7 @@ export const dialog = {
                 const entries = type !== "exclusionlist" ? Object.entries(JSON.parse(localStorage.getItem(type)!)).sort() as [string,any][] : config.get("exclusions") as number[]
 
                 table.querySelectorAll(`tr:not(#${type}headers)`).forEach(item => item && item.remove())
+                table.querySelector(`#${type}headers > th:first-child`)!.textContent = await language.get("game",["settings","ra","content"])
 
                 if (type !== "exclusionlist") {
                     table.querySelector(`#${type}headers > th:nth-child(2)`)!.textContent = await language.get(type === "linkgame" ? "exepath" : "themes",[type,"content"])
@@ -104,20 +108,33 @@ export const dialog = {
                     return table.insertAdjacentHTML("beforeend",html)
                 }
 
-                entries.forEach(async (entry: any) => {
+                const gettheme = (type: NotifyType,id: number) => (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === id)?.label
+
+                await Promise.all(entries.map(async (entry: any) => {
                     const tr = document.createElement("tr")
 
-                    const appid = document.createElement("td")
-                    appid.textContent = type !== "exclusionlist" ? entry[0] : entry
-                    tr.appendChild(appid)
+                    const appid = type !== "exclusionlist" ? entry[0] : entry
+                    tr.setAttribute("appid",appid)
 
-                    const gettheme = (type: NotifyType,id: number) => (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === id)?.label
+                    const { rauser, rakey } = config.store
+                    const radefault = appid === rathemeswitchvalue
+
+                    const lbl = document.createElement("td")
+                    lbl.textContent = radefault ? "" : (entry[1]?.ra ? await getgamenamefromgameid(appid,rauser,rakey) : await sanhelper.getgamenamefromappid(appid)) ?? appid // Show gamename if stored or can be fetched - otherwise, fall back to appid
+                    lbl.toggleAttribute("radefault",radefault)
+                    tr.appendChild(lbl)
 
                     if (type !== "exclusionlist") {
                         if (typeof entry[1] === "object") {
                             const themedeleted = await language.get("themedeleted",["themeswitch","content"])
+                            const ignore = [
+                                "gamename",
+                                "ra",
+                                "radefault"
+                            ] // Don't add new columns for these properties
 
                             for (const i in entry[1]) {
+                                if (ignore.includes(i)) continue
                                 const entryvalue = entry[1][i]
 
                                 const objvalue = (type === "themeswitch" && i === "themes" ? Object.keys(entryvalue).filter(key => !config.get("trophymode") ? key !== "semi" : key).map(key => `<span ${key}></span>${gettheme(key as NotifyType,entryvalue[key]) || `<i style="color: red;">❗ ${themedeleted}</i>`}`) : Object.values(entryvalue)).join("<br>")
@@ -145,32 +162,27 @@ export const dialog = {
 
                         table.appendChild(tr)
                     }
-                })
-
-                const getappid = (strid: string | null) => {
-                    if (!strid || typeof parseInt(strid) !== "number") return null
-                    return parseInt(strid)
-                }
+                }))
 
                 requestAnimationFrame(() => {
                     document.querySelectorAll(".editbtn").forEach(async btn => {
                         const { log } = await import("./log")
-                        let lsentry: { [key: number]: ThemeSwitch | string } | number | undefined = undefined
+                        let lsentry: ThemeSwitch | string | number | undefined = undefined
 
                         btn && ((btn as HTMLButtonElement).onclick = () => {
-                            const elem = btn.parentElement!.parentElement!.querySelector("td:first-child")!.textContent
-                            const appid = getappid(elem)
-                            if (!appid) return log.write("WARN",`No matching "${type}" entry for AppID ${elem}`)
+                            const parent = btn.parentElement!.parentElement!
+                            const appid = parseInt(parent.getAttribute("appid")!)
 
                             if (type !== "exclusionlist") {
                                 const entries = JSON.parse(localStorage.getItem(type)!)
-    
-                                if (appid in entries) lsentry = entries[appid]
+                                if (!(appid in entries)) return log.write("WARN",`No matching "${type}" entry for AppID ${appid}`)
+                                
+                                lsentry = entries[appid]
                             } else {
                                 const exclusions = config.get("exclusions")
                                 
                                 const match = exclusions.find(id => id === appid)
-                                if (!match) return log.write("WARN",`No matching "${type}" entry for AppID ${elem}`)
+                                if (!match) return log.write("WARN",`No matching "${type}" entry for AppID ${appid}`)
                                 
                                 lsentry = match
                             }
@@ -183,17 +195,15 @@ export const dialog = {
                         const { log } = await import("./log")
 
                         btn && ((btn as HTMLButtonElement).onclick = () => {
-                            const elem = btn.parentElement!.parentElement!.querySelector("td:first-child")!.textContent
-                            const appid = getappid(elem)
-                            if (!appid) return log.write("WARN",`No matching "${type}" entry for AppID ${elem}`)
-    
+                            const parent = btn.parentElement!.parentElement!
+                            const appid = parseInt(parent.getAttribute("appid")!)
+                            
                             if (type !== "exclusionlist") {
                                 const entries = JSON.parse(localStorage.getItem(type)!)
-    
-                                if (appid in entries) {
-                                    delete entries[appid]
-                                    localStorage.setItem(type,JSON.stringify(entries))
-                                }
+                                if (!(appid in entries)) return log.write("WARN",`No matching "${type}" entry for AppID ${appid}`)
+
+                                delete entries[appid]
+                                localStorage.setItem(type,JSON.stringify(entries))
                             } else {
                                 const exclusions = config.get("exclusions")
                                 config.set("exclusions",exclusions.filter(id => id !== appid))
@@ -205,7 +215,7 @@ export const dialog = {
                 })
             }
 
-            const setnewdialog = (type: "linkgame" | "exclusionlist" | "themeswitch",obj?: { appid: number, lsentry: { [key: number]: ThemeSwitch | string } | number }) => {
+            const setnewdialog = (type: "linkgame" | "exclusionlist" | "themeswitch",obj?: { appid: number, lsentry: ThemeSwitch | string | number }) => {
                 switch (type) {
                     case "linkgame": return async () => {
                         const { usesanwatcher } = config.store
@@ -326,18 +336,22 @@ export const dialog = {
                                 id: "ok",
                                 label: await language.get(!!obj ? "edit" : "ok"),
                                 icon: "",
-                                click: () => {
+                                click: async () => {
+                                    const value = themeswitchappid.value === "RetroAchievements" ? rathemeswitchvalue : themeswitchappid.value
+                                    
                                     const themeswitchobj = {
-                                        themes: Object.fromEntries(types.map(t => [t,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${t}`)! as HTMLSelectElement).value)])),
-                                        src: parseInt(srcselect.value)
+                                        themes: Object.fromEntries(types.map(type => [type,parseInt((document.querySelector(`#themeswitchnewselectwrapper select#${type}`)! as HTMLSelectElement).value)])),
+                                        src: parseInt(srcselect.value),
+                                        ra: !obj ? (themeswitchnewtablewrapper.hasAttribute("themeswitchra") || undefined) : (obj.lsentry as ThemeSwitch).ra,
+                                        radefault: !obj ? (radefaultinput.checked || undefined) : (obj.lsentry as ThemeSwitch).radefault
                                     }
 
                                     const entries = JSON.parse(localStorage.getItem(type)!)
 
                                     if (obj) {
-                                        entries[themeswitchappid.value] = themeswitchobj
+                                        entries[value] = themeswitchobj
                                     } else {
-                                        const appids = [...new Set(themeswitchappid.value.split(/[,;]+/).map(id => id.trim()).filter(id => id.length > 0 && Number.isInteger(parseFloat(id))))]
+                                        const appids = [...new Set(value.split(/[,;]+/).map(id => id.trim()).filter(id => id.length > 0 && Number.isInteger(parseFloat(id))))]
 
                                         for (const appid of appids) {
                                             entries[appid] = themeswitchobj
@@ -352,13 +366,13 @@ export const dialog = {
                             }]
                         })
 
-                        document.querySelector("#themeswitchnewheaders > th:nth-child(2)")!.textContent = await language.get("src",[type,"content"])
+                        document.querySelector("#themeswitchnewheaders > th:nth-child(3)")!.textContent = await language.get("src",[type,"content"])
 
                         const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
                         okbtn.tabIndex = -1
 
                         const themeswitchappid = document.getElementById("themeswitchappid")! as HTMLInputElement
-                        const themeswitchselects = document.querySelector("#themeswitchnewselectwrapper")!
+                        const themeswitchselects = document.getElementById("themeswitchnewselectwrapper")!
                         const srcselect = document.getElementById("themeswitchsrc")! as HTMLSelectElement
 
                         themeswitchappid.toggleAttribute("readonly",!!obj)
@@ -423,6 +437,50 @@ export const dialog = {
                             })
 
                             srcselect.value = `${src}`
+                        }
+
+                        const themeswitchnewtablewrapper = document.getElementById("themeswitchnewtablewrapper") as HTMLElement
+
+                        const radefault = usertheme.themeswitchentries().find(item => !!item[1].radefault)
+                        const radefaultinput = document.getElementById("radefault") as HTMLInputElement
+                        const radefaultlbl = radefaultinput.previousElementSibling as HTMLSpanElement
+
+                        radefaultlbl.textContent = await language.get("radefault",["themeswitch","content"])
+
+                        ;(obj || (!obj && radefault)) && radefaultinput.parentElement!.remove() // Remove the checkbox if in edit mode or if `radefault` already exists
+
+                        const racheckbox = document.querySelector(`#themeswitchnewtablewrapper td > input[type="checkbox"]#themeswitchra`) as HTMLInputElement
+                        racheckbox.toggleAttribute("disabled",!!obj)
+
+                        obj && (racheckbox.checked = themeswitchappid.value === rathemeswitchvalue || !!usertheme.themeswitchentries().find(item => item[0] === themeswitchappid.value && item[1]?.ra))
+
+                        racheckbox.onchange = event => {
+                            const target = event.target as HTMLInputElement
+                            themeswitchnewtablewrapper.toggleAttribute("themeswitchra",target.checked)
+                        }
+
+                        if (!obj) {
+                            const updateinput = () => {
+                                themeswitchappid.toggleAttribute("readonly",radefaultinput.checked)
+                                themeswitchappid.value = radefaultinput.checked ? "RetroAchievements" : ""
+                                
+                                for (const prop of (["checked","disabled"] as const)) {
+                                    racheckbox[prop] = radefaultinput.checked
+                                }
+
+                                themeswitchnewtablewrapper.toggleAttribute("themeswitchra",radefaultinput.checked)
+                            }
+
+                            radefaultlbl.onclick = () => {
+                                radefaultinput.checked = !radefaultinput.checked
+                                updateinput()
+                            }
+    
+                            radefaultinput.onchange = updateinput
+
+                            sanhelper.loadadditionaltooltips(document.querySelector(`dialog:has(input[type="checkbox"]#radefault) .wrapper#contentcontainer`))
+                        } else {
+                            themeswitchappid.value === rathemeswitchvalue && (themeswitchappid.value = "RetroAchievements")
                         }
                     }
                 }

@@ -318,7 +318,12 @@ export const listeners = {
                 if (worker) {
                     worker.destroy()
                     worker = null
-                    manualrelease && (applaunch = true)
+                    
+                    if (manualrelease) {
+                        applaunch = true
+                        lastknowngame = null
+                    }
+                    
                     return reject(`Existing "Worker" process destroyed`)
                 }
 
@@ -1286,6 +1291,10 @@ export const listeners = {
         const buildnotify = async (notify: Notify): Promise<BuildNotifyInfo> => {
             const config = sanconfig.get()
             const { id, type, customisation, gamename, steam3id, apiname, icon, percent, hidden } = notify
+
+            const { testnotifycustomtext, testnotifycustomtexttitle, testnotifycustomtextdesc } = config.store
+            const titleoverride = testnotifycustomtext ? testnotifycustomtexttitle : null
+            const descoverride = testnotifycustomtext ? testnotifycustomtextdesc : null
             
             return {
                 id,
@@ -1295,8 +1304,8 @@ export const listeners = {
                 steam3id,
                 apiname,
                 unlockmsg: `${(customisation.usegametitle && (gamename || await language.get("gametitle"))) || customisation.customtext || (notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked"))}`,
-                title: type === "plat" ? await language.get("gamecomplete") : notify.name,
-                desc: type === "plat" ? (config.get("platcustomtext") || await language.get("gamecompletedesc")) : notify.desc,
+                title: type === "plat" ? (titleoverride || await language.get("gamecomplete")) : notify.name,
+                desc: type === "plat" ? (config.get("platcustomtext") || descoverride || await language.get("gamecompletedesc")) : notify.desc,
                 icon,
                 percent: {
                     value: percent,

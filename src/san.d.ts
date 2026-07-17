@@ -167,6 +167,9 @@ declare interface Config {
     releasewaittime: number,
     workerdebug: boolean,
     platcustomtext: string,
+    testnotifycustomtext: boolean,
+    testnotifycustomtexttitle: string,
+    testnotifycustomtextdesc: string,
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -515,7 +518,9 @@ declare interface ThemeSwitch {
         rare: number,
         plat: number
     },
-    src: number
+    src: number,
+    ra?: boolean,
+    radefault?: boolean
 }
 
 declare interface StatsObjTranslations {

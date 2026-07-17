@@ -320,6 +320,8 @@ const startsan = async (appinfo: AppInfo) => {
         })
         
         const initgameloop = () => {
+            (async () => !noiconcache && await cacheachievementicons(gamename || "???",steam64id,appid))()
+
             !usesanwatcher && processes.forEach(({ pid,exe }: ProcessInfo) => {
                 const gameinfo = {
                     gamename: gamename || "???",
@@ -486,7 +488,7 @@ const startsan = async (appinfo: AppInfo) => {
                     const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
                     const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
                     const localised = await worker.localisedobj(steam3id,achievement)
-                    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.themeswitchentries(appid)
+                    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(appid)
                     const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
                     
                     if (themeswitch) {
@@ -605,11 +607,9 @@ const startsan = async (appinfo: AppInfo) => {
                 processes.push(...processinfo)
             }
     
-            !noiconcache && await cacheachievementicons(gamename || "???",steam64id,appid)
             initgameloop()
         }
             
-        // getrunninggameprocesses()
         usesanwatcher ? initgameloop() : getrunninggameprocesses()
     } catch (err) {
         log.write("ERROR",(err as Error).stack || (err as Error).message)

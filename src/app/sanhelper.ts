@@ -91,6 +91,16 @@ export const sanhelper: SANHelper = {
     },
     get steampath(): string { return getSteamPath() },
     get gameinfo(): AppInfo { return getAppInfo()[0] },
+    getgamenamefromappid: async (appid: number) => {
+        if (appid < 100) return undefined
+        const url = `https://store.steampowered.com/api/appdetails?appids=${appid}`
+
+        const res = await fetch(url)
+        if (!res.ok) throw new Error(`Error fetching app info for Steam AppID ${appid}: [${res.status}] ${res.statusText}`)
+        
+        const json = await res.json()
+        return json[appid]?.data?.name
+    },
     get audioextensions(): string[] { return [
             ".wav",
             ".mp3",
@@ -493,12 +503,27 @@ export const sanhelper: SANHelper = {
         }
 
         if (elem.id === "platcustomtext") {
-            elem.textContent = sanhelper.type as NotifyType === "plat" ? (config.get("platcustomtext") || "") : null
+            elem.value = sanhelper.type as NotifyType === "plat" ? (config.get("platcustomtext") || "") : ""
             
             elem.onchange = event => {
                 const target = event.target as HTMLInputElement
                 
                 config.set("platcustomtext",target.value ?? "")
+
+                sanhelper.updatetabs()
+                sanhelper.reloadelemselector()
+            }
+            
+            return
+        }
+        
+        if ((["title","desc"] as const).map(value => `testnotifycustomtext${value}` as const).some(value => value === elem.id)) {
+            elem.value = (config.get(elem.id) || "") as string
+            
+            elem.onchange = event => {
+                const target = event.target as HTMLInputElement
+                
+                config.set(elem.id,target.value || "")
 
                 sanhelper.updatetabs()
                 sanhelper.reloadelemselector()
@@ -656,13 +681,14 @@ export const sanhelper: SANHelper = {
         if (!menuelem) return
 
         const elems = [
-            `#elemselector select`,
-            `#elemselector input`,
-            `#elemselector button`,
-            `#webhookwrapper input`,
+            "#elemselector select",
+            "#elemselector input",
+            "#elemselector button",
+            "#webhookwrapper input",
             `button[id$="shortcut"]`,
             `.multiselect#raemuswrapper input[type="checkbox"]`,
-            `.multiselect#raemuswrapper input[type="text"]`
+            `.multiselect#raemuswrapper input[type="text"]`,
+            `.opt > input[type="checkbox"]#radefault`
         ].join(",")
 
         menuelem.querySelectorAll(elems)!.forEach(async elem => {

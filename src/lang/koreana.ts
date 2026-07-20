@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "트로피 모드",
                 notifymax: "최대 알림 수", 
                 notifyspace: "알림 간격",
-                notify1line: "텍스트를 1줄로 제한"
+                notify1line: "텍스트를 1줄로 제한",
+                testnotifycustomtext: "테스트 알림 사용자 지정 텍스트",
+                testnotifycustomtexttitle: "제목",
+                testnotifycustomtextdesc: "설명"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `SAN의 새로운 게임 프로세스 감시 기능 활성화<br><br><span class="ttdesc">새로운 SANWatcher와 기존 자동 프로세스 추적 방식의 차이점은 다음과 같습니다.<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>게임 설치 디렉터리에 저장된 모든 프로세스의 시작/종료 이벤트를 적극적으로 모니터링합니다</li><li>현재 게임을 해제하기 위해 게임 실행 파일을 미리 알고 있을 필요가 없습니다</li><li>게임 실행 전 런처의 동작은 달라질 수 있으므로 모든 Steam 게임과의 완전한 호환성은 보장되지 않습니다</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>게임 실행 후 게임 설치 디렉터리에서 실행 중인 실행 파일을 검색합니다</li><li>현재 게임을 해제하려면 게임 실행 파일을 알고 있어야 합니다</li><li>게임 프로세스를 자동으로 확인할 수 없는 경우, 게임을 자동으로 해제하려면 사용자가 <span class="hl">자동 릴리스 게임</span>에 새 항목을 수동으로 추가해야 합니다</li></ul></div>`,
         releasewaittime: `현재 게임을 해제하기 전에 SANWatcher가 새 게임 프로세스가 시작될 때까지 대기할 시간을 설정합니다<br><br><span class="ttdesc">예를 들어, 현재 게임이 실제 게임을 실행하기 전에 런처 또는 설정 창을 먼저 실행하는 경우, 이 설정은 런처 또는 설정 창이 닫힌 후 실제 게임 창이 나타날 때까지 SANWatcher가 기다릴 초 단위를 결정합니다<br><br>이 대기 시간 내에 새로운 활성 게임 프로세스가 감지되면 해제가 취소되고, 대신 새로 활성화된 프로세스가 추적됩니다<br><br>💡 현재 게임이 해제 대기 중인 동안 게임 이름이 <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">깜박이며</span> <span class="hl">게임 표시</span> 상자에 표시됩니다</span>`,
         platcustomtext: `알림에 표시할 게임 100% 완료 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">Customiser > 프리셋 > 알림 요소 > 업적 설명이 비활성화되면 이 옵션은 숨겨집니다</span>`,
-        raui: "감지된 RetroAchievements 게임의 이름을 게임 표시 UI/시스템 트레이 UI에 표시합니다"
+        raui: "감지된 RetroAchievements 게임의 이름을 게임 표시 UI/시스템 트레이 UI에 표시합니다",
+        testnotifycustomtext: "모든 테스트 알림에 표시되는 텍스트를 재정의합니다",
+        testnotifycustomtexttitle: "모든 테스트 알림의 제목 요소에 표시되는 텍스트를 재정의합니다",
+        testnotifycustomtextdesc: "모든 테스트 알림의 설명 요소에 표시되는 텍스트를 재정의합니다",
+        radefault: `RetroAchievements 업적이 잠금 해제될 때마다 항상 이 항목으로 자동 전환합니다<br><br><span class="ttdesc">모든 RetroAchievements 업적에 대해 기본값으로 지정할 수 있는 자동 테마 전환 항목은 하나뿐입니다. 이 기본값은 특정 RetroAchievements <span class="hl">GameID</span>에 대한 새 자동 테마 전환 항목을 추가하여 게임별로 재정의할 수도 있습니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `RetroAchievements의 각 게임에는 <span class="hl">GameID</span>라는 고유 번호가 있습니다. RetroAchievements 게임의 GameID는 다음에서 확인할 수 있습니다:`,
                 `RetroAchievements 사이트의 <span class="hl">게임 페이지</span> <span class="hl">URL</span>을 확인하세요. <span class="hl">game/</span> 뒤에 있는 숫자가 GameID입니다: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "RetroAchievements의 기본값으로 설정"
         }
     }
 }

@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "奖杯模式",
                 notifymax: "最大通知数", 
                 notifyspace: "通知间距",
-                notify1line: "将文本限制为一行"
+                notify1line: "将文本限制为一行",
+                testnotifycustomtext: "测试通知自定义文本",
+                testnotifycustomtexttitle: "标题",
+                testnotifycustomtextdesc: "描述"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `启用 SAN 的新游戏进程监视器<br><br><span class="ttdesc">新 SANWatcher 与旧自动进程跟踪方法之间的区别如下：<br><br><div class="wrapper sanwatcher"><span class="hl">开启</span><ul><li>主动监视存储在游戏安装目录中的任何进程的启动和退出事件</li><li>无需已知游戏可执行文件即可释放当前游戏</li><li>游戏启动前启动器的行为可能有所不同，因此无法保证与所有 Steam 游戏完全兼容</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">关闭</span><ul><li>在游戏启动后扫描游戏安装目录中的所有正在运行的可执行文件</li><li>需要已知游戏可执行文件才能释放当前游戏</li><li>如果无法自动确定游戏进程，用户必须手动向 <span class="hl">自动释放游戏</span> 添加新条目，游戏才能自动释放</li></ul></div>`,
         releasewaittime: `设置 SANWatcher 在释放当前游戏之前等待新游戏进程启动的时间长度<br><br><span class="ttdesc">例如，如果当前游戏会先启动一个游戏前启动器/配置窗口，然后再启动实际游戏，此设置将决定在游戏前启动器/配置窗口关闭后，SANWatcher 等待实际游戏窗口启动的秒数<br><br>如果在此等待时间内检测到新的活动游戏进程，则释放操作将被取消，并改为跟踪新激活的进程<br><br>💡 当当前游戏正在等待释放时，游戏名称将在<span class="hl">游戏显示</span>框中<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">闪烁</span></span>`,
         platcustomtext: `设置在游戏100%完成时要在通知中显示的自定义消息<br><br><span class="ttdesc">当 Customiser > 预设 > 通知元素 > 成就描述 被禁用时，此选项将被隐藏</span>`,
-        raui: "在游戏显示界面/系统托盘界面中显示已检测到的 RetroAchievements 游戏名称"
+        raui: "在游戏显示界面/系统托盘界面中显示已检测到的 RetroAchievements 游戏名称",
+        testnotifycustomtext: "覆盖所有测试通知中显示的文本",
+        testnotifycustomtexttitle: "覆盖所有测试通知中标题元素显示的文本",
+        testnotifycustomtextdesc: "覆盖所有测试通知中描述元素显示的文本",
+        radefault: `当任何 RetroAchievements 成就解锁时，始终自动切换到此条目<br><br><span class="ttdesc">只能将一个 自动切换主题 条目标记为所有 RetroAchievements 成就的默认项。也可以通过为特定的 RetroAchievements <span class="hl">GameID</span> 添加新的 自动切换主题 条目来覆盖该游戏的默认设置</span>`
     },
     update: {
         updateavailable: "有可用更新",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `每个 RetroAchievements 游戏都有一个唯一编号，称为 <span class="hl">GameID</span>。你可以通过以下方式查找任意 RetroAchievements 游戏的 GameID：`,
                 `RetroAchievements 网站上的 <span class="hl">游戏页面</span> URL —— 即 <span class="hl">game/</span> 后面的数字：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "设为 RetroAchievements 默认项"
         }
     }
 }

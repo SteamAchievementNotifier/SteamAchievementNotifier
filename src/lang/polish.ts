@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Tryb trofeów",
                 notifymax: "Maksymalna liczba powiadomień", 
                 notifyspace: "Odstęp między powiadomieniami",
-                notify1line: "Ogranicz tekst do 1 linii"
+                notify1line: "Ogranicz tekst do 1 linii",
+                testnotifycustomtext: "Niestandardowy tekst powiadomienia testowego",
+                testnotifycustomtexttitle: "Tytuł",
+                testnotifycustomtextdesc: "Opis"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Włącz nowy monitor procesów gier SAN<br><br><span class="ttdesc">Różnice między nowym SANWatcher a starymi metodami automatycznego śledzenia procesów są następujące:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Aktywnie monitoruje zdarzenia uruchomienia/zakończenia dla każdego procesu znajdującego się w katalogu instalacyjnym gry</li><li>Nie wymaga znajomości pliku wykonywalnego gry, aby zwolnić bieżącą grę</li><li>Zachowanie programów uruchamiających przed startem gry może się różnić, dlatego pełna kompatybilność ze wszystkimi grami Steam nie jest gwarantowana</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Po uruchomieniu gry skanuje katalog instalacyjny gry w poszukiwaniu uruchomionych plików wykonywalnych</li><li>Wymaga znajomości pliku wykonywalnego gry, aby zwolnić bieżącą grę</li><li>Jeśli proces gry nie może zostać określony automatycznie, użytkownik musi ręcznie dodać nowy wpis do <span class="hl">Gry z automatycznym zwalnianiem</span>, aby gry były automatycznie zwalniane</li></ul></div>`,
         releasewaittime: `Ustaw, jak długo SANWatcher ma czekać na uruchomienie nowych procesów gry przed zwolnieniem bieżącej gry<br><br><span class="ttdesc">Na przykład, jeśli bieżąca gra uruchamia program startowy lub okno konfiguracji przed uruchomieniem właściwej gry, to ustawienie określa liczbę sekund, przez które SANWatcher będzie czekać na pojawienie się właściwego okna gry po zamknięciu programu startowego lub okna konfiguracji<br><br>Jeśli w tym czasie oczekiwania zostanie wykryty nowy aktywny proces gry, zwolnienie zostanie anulowane, a zamiast tego śledzony będzie nowo aktywny proces<br><br>💡 Nazwa gry będzie <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">migać</span> w polu <span class="hl">Wyświetlanie Gry</span>, gdy bieżąca gra oczekuje na zwolnienie</span>`,
         platcustomtext: `Ustaw niestandardową wiadomość ukończenia gry w 100%, która będzie wyświetlana w powiadomieniu<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Customiser > Ustawienie wstępne > Elementy powiadomień > Opis osiągnięcia jest wyłączony</span>`,
-        raui: "Wyświetlaj nazwy wykrytych gier RetroAchievements w interfejsie wyświetlania gry/obszarze powiadomień systemowych"
+        raui: "Wyświetlaj nazwy wykrytych gier RetroAchievements w interfejsie wyświetlania gry/obszarze powiadomień systemowych",
+        testnotifycustomtext: "Zastąp tekst wyświetlany we wszystkich powiadomieniach testowych",
+        testnotifycustomtexttitle: "Zastąp tekst wyświetlany w elemencie tytułu we wszystkich powiadomieniach testowych",
+        testnotifycustomtextdesc: "Zastąp tekst wyświetlany w elemencie opisu we wszystkich powiadomieniach testowych",
+        radefault: `Zawsze automatycznie przełączaj na ten wpis po odblokowaniu dowolnego osiągnięcia RetroAchievements<br><br><span class="ttdesc">Tylko jeden wpis Automatycznego Przełączania Motywów może zostać wyznaczony jako domyślny dla wszystkich osiągnięć RetroAchievements. To ustawienie domyślne można również zastąpić dla poszczególnych gier, dodając nowy wpis Automatycznego Przełączania Motywów dla określonego <span class="hl">GameID</span> RetroAchievements</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Każda gra RetroAchievements ma przypisany unikalny numer zwany <span class="hl">GameID</span>. Możesz znaleźć GameID dowolnej gry RetroAchievements, sprawdzając:`,
                 `Adres <span class="hl">URL</span> strony gry na stronie RetroAchievements — jest to numer po <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Ustaw jako domyślne dla RetroAchievements"
         }
     }
 }

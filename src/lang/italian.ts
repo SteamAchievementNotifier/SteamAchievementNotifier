@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Modalità Trofeo",
                 notifymax: "Notifiche massime", 
                 notifyspace: "Spaziatura notifiche",
-                notify1line: "Limita il testo a 1 riga"
+                notify1line: "Limita il testo a 1 riga",
+                testnotifycustomtext: "Testo personalizzato della notifica di prova",
+                testnotifycustomtexttitle: "Titolo",
+                testnotifycustomtextdesc: "Descrizione"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Abilita il nuovo monitor dei processi di gioco di SAN<br><br><span class="ttdesc">Le differenze tra il nuovo SANWatcher e i vecchi metodi di tracciamento automatico dei processi sono le seguenti:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Monitora attivamente gli eventi di avvio/chiusura di qualsiasi processo presente nella directory di installazione del gioco</li><li>Non richiede che l'eseguibile del gioco sia noto per rilasciare il gioco corrente</li><li>Il comportamento dei launcher pre-gioco può variare, quindi la piena compatibilità con tutti i giochi Steam non è garantita</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Analizza la directory di installazione del gioco alla ricerca di eventuali eseguibili in esecuzione dopo l'avvio del gioco</li><li>Richiede che l'eseguibile del gioco sia noto per rilasciare il gioco corrente</li><li>Se il processo del gioco non può essere determinato automaticamente, l'utente deve aggiungere manualmente una nuova voce a <span class="hl">Giochi con rilascio automatico</span> affinché i giochi vengano rilasciati automaticamente</li></ul></div>`,
         releasewaittime: `Imposta per quanto tempo SANWatcher attenderà la comparsa di nuovi processi di gioco prima di rilasciare il gioco corrente<br><br><span class="ttdesc">Ad esempio, se il gioco corrente avvia un launcher/finestra di configurazione prima di avviare il gioco vero e proprio, questa impostazione determina il numero di secondi che SANWatcher attenderà affinché la finestra del gioco effettivo venga visualizzata dopo la chiusura del launcher/della finestra di configurazione<br><br>Se viene rilevato un nuovo processo di gioco attivo entro questo intervallo di attesa, il rilascio verrà annullato e verrà invece monitorato il nuovo processo attivo<br><br>💡 Il nome del gioco <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">lampeggerà</span> nella casella <span class="hl">Visualizzazione Gioco</span> mentre il gioco corrente è in attesa di essere rilasciato</span>`,
         platcustomtext: `Imposta un messaggio personalizzato per il completamento del gioco al 100% da visualizzare nella notifica<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Predefinito > Elementi della notifica > Descrizione dell'obiettivo è disattivata</span>`,
-        raui: "Mostra i nomi dei giochi RetroAchievements rilevati nell'interfaccia utente di visualizzazione del gioco/area di notifica"
+        raui: "Mostra i nomi dei giochi RetroAchievements rilevati nell'interfaccia utente di visualizzazione del gioco/area di notifica",
+        testnotifycustomtext: "Sostituisci il testo visualizzato in tutte le notifiche di prova",
+        testnotifycustomtexttitle: "Sostituisci il testo visualizzato per l'elemento del titolo in tutte le notifiche di prova",
+        testnotifycustomtextdesc: "Sostituisci il testo visualizzato per l'elemento della descrizione in tutte le notifiche di prova",
+        radefault: `Passa sempre automaticamente a questa voce quando viene sbloccato un qualsiasi obiettivo di RetroAchievements<br><br><span class="ttdesc">Solo una voce di Cambio Automatico Tema può essere designata come predefinita per tutti gli obiettivi di RetroAchievements. Questa impostazione predefinita può anche essere sostituita per singolo gioco aggiungendo una nuova voce di Cambio Automatico Tema per uno specifico <span class="hl">GameID</span> di RetroAchievements</span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Ogni gioco RetroAchievements ha un numero univoco associato, chiamato <span class="hl">GameID</span>. Puoi trovare il GameID di qualsiasi gioco RetroAchievements controllando:`,
                 `L'<span class="hl">URL</span> della <span class="hl">pagina del gioco</span> sul sito RetroAchievements: sarà il numero riportato dopo <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Imposta come predefinito per RetroAchievements"
         }
     }
 }

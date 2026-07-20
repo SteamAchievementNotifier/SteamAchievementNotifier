@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Trofyläge",
                 notifymax: "Maximalt antal aviseringar", 
                 notifyspace: "Aviseringsavstånd",
-                notify1line: "Begränsa text till 1 rad"
+                notify1line: "Begränsa text till 1 rad",
+                testnotifycustomtext: "Anpassad text för testavisering",
+                testnotifycustomtexttitle: "Titel",
+                testnotifycustomtextdesc: "Beskrivning"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Aktivera SAN:s nya övervakare för spelprocesser<br><br><span class="ttdesc">Skillnaderna mellan den nya SANWatcher och den gamla metoden för automatisk processövervakning är följande:<br><br><div class="wrapper sanwatcher"><span class="hl">PÅ</span><ul><li>Övervakar aktivt start- och avslutningshändelser för alla processer som finns i spelets installationskatalog</li><li>Kräver inte att spelets körbara fil är känd för att frigöra det aktuella spelet</li><li>Beteendet hos startprogram före spelets start kan variera, så full kompatibilitet med alla Steam-spel kan inte garanteras</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">AV</span><ul><li>Söker igenom spelets installationskatalog efter körbara filer som är igång efter att spelet har startats</li><li>Kräver att spelets körbara fil är känd för att frigöra det aktuella spelet</li><li>Om spelprocessen inte kan fastställas automatiskt måste användaren manuellt lägga till en ny post i <span class="hl">Automatiskt Frigjorda Spel</span> för att spel ska frigöras automatiskt</li></ul></div>`,
         releasewaittime: `Ange hur länge SANWatcher ska vänta på att nya spelprocesser startas innan det aktuella spelet släpps<br><br><span class="ttdesc">Om det aktuella spelet till exempel startar ett förstartsfönster/en konfigurationsruta innan själva spelet startas, avgör denna inställning hur många sekunder SANWatcher ska vänta på att det faktiska spelfönstret ska startas efter att förstartsfönstret/konfigurationsrutan har stängts<br><br>Om en ny aktiv spelprocess upptäcks inom denna väntetid kommer frigöringen att avbrytas och den nyaktiva processen kommer i stället att spåras<br><br>💡 Spelnamnet kommer att <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinka</span> i rutan <span class="hl">Spelvisning</span> medan det aktuella spelet väntar på att släppas</span>`,
         platcustomtext: `Ställ in ett anpassat meddelande för 100% spelklarering som ska visas i aviseringen<br><br><span class="ttdesc">Detta alternativ döljs när Customiser > Förinställning > Aviseringselement > Beskrivning av prestation är inaktiverat</span>`,
-        raui: "Visa namnen på upptäckta RetroAchievements-spel i spelvisningsgränssnittet/systemfältets användargränssnitt"
+        raui: "Visa namnen på upptäckta RetroAchievements-spel i spelvisningsgränssnittet/systemfältets användargränssnitt",
+        testnotifycustomtext: "Åsidosätt texten som visas i alla testaviseringar",
+        testnotifycustomtexttitle: "Åsidosätt texten som visas för titelfältet i alla testaviseringar",
+        testnotifycustomtextdesc: "Åsidosätt texten som visas för beskrivningsfältet i alla testaviseringar",
+        radefault: `Växla alltid automatiskt till denna post när någon RetroAchievements-prestation låses upp<br><br><span class="ttdesc">Endast en Automatisk byte av teman-post kan anges som standard för alla RetroAchievements-prestationer. Denna standard kan också åsidosättas per spel genom att lägga till en ny Automatisk byte av teman-post för ett specifikt RetroAchievements <span class="hl">GameID</span></span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Varje RetroAchievements-spel har ett unikt nummer kopplat till sig som kallas <span class="hl">GameID</span>. Du kan hitta GameID för vilket RetroAchievements-spel som helst genom att kontrollera:`,
                 `URL:en till <span class="hl">spelens sida</span> på RetroAchievements-webbplatsen – det är numret efter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Ange som standard för RetroAchievements"
         }
     }
 }

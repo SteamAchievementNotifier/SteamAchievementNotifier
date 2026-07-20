@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "وضع الجوائز",
                 notifymax: "أقصى عدد للإشعارات",
                 notifyspace: "مسافة الإشعارات",
-                notify1line: "تقييد النص إلى سطر واحد"
+                notify1line: "تقييد النص إلى سطر واحد",
+                testnotifycustomtext: "نص إشعار الاختبار المخصص",
+                testnotifycustomtexttitle: "العنوان",
+                testnotifycustomtextdesc: "الوصف"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `تمكين مراقب عمليات الألعاب الجديد الخاص بـ SAN<br><br><span class="ttdesc">الاختلافات بين SANWatcher الجديد وطرق التتبع التلقائي للعمليات القديمة هي كما يلي:<br><br><div class="wrapper sanwatcher"><span class="hl">تشغيل</span><ul><li>يراقب بشكل نشط أحداث بدء/إنهاء أي عملية مخزنة داخل دليل تثبيت اللعبة</li><li>لا يتطلب معرفة الملف التنفيذي للعبة لتحرير اللعبة الحالية</li><li>قد يختلف سلوك مشغّل ما قبل اللعبة، لذلك لا يمكن ضمان التوافق الكامل مع جميع ألعاب Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">إيقاف</span><ul><li>يفحص دليل تثبيت اللعبة بحثًا عن أي ملفات تنفيذية قيد التشغيل بعد تشغيل اللعبة</li><li>يتطلب معرفة الملف التنفيذي للعبة لتحرير اللعبة الحالية</li><li>إذا تعذر تحديد عملية اللعبة تلقائيًا، فيجب على المستخدم إضافة إدخال جديد يدويًا إلى <span class="hl">التحرير التلقائي للألعاب</span> حتى يتم تحرير الألعاب تلقائيًا</li></ul></div>`,
         releasewaittime: `حدد المدة التي سينتظرها SANWatcher لظهور عمليات لعبة جديدة قبل تحرير اللعبة الحالية<br><br><span class="ttdesc">على سبيل المثال، إذا كانت اللعبة الحالية تُشغّل نافذة تشغيل/إعدادات قبل اللعبة الفعلية قبل تشغيل اللعبة نفسها، فإن هذا الإعداد يحدد عدد الثواني التي سينتظرها SANWatcher لظهور نافذة اللعبة الفعلية بعد إغلاق نافذة التشغيل/الإعدادات السابقة للعبة<br><br>إذا تم اكتشاف عملية لعبة نشطة جديدة خلال فترة الانتظار هذه، فسيتم إلغاء التحرير وسيتم تتبع العملية النشطة الجديدة بدلاً من ذلك<br><br>💡 سيومض اسم اللعبة <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">وميضًا</span> في مربع <span class="hl">عرض اللعبة</span> أثناء انتظار تحرير اللعبة الحالية</span>`,
         platcustomtext: `قم بتعيين رسالة مخصصة لإكمال اللعبة بنسبة 100% لعرضها داخل الإشعار<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل Customiser > الإعداد المسبق > عناصر الإشعار > وصف الإنجاز</span>`,
-        raui: "اعرض أسماء ألعاب RetroAchievements المكتشفة في واجهة عرض اللعبة/واجهة درج النظام"
+        raui: "اعرض أسماء ألعاب RetroAchievements المكتشفة في واجهة عرض اللعبة/واجهة درج النظام",
+        testnotifycustomtext: "تجاوز النص المعروض في جميع إشعارات الاختبار",
+        testnotifycustomtexttitle: "تجاوز النص المعروض لعنصر العنوان في جميع إشعارات الاختبار",
+        testnotifycustomtextdesc: "تجاوز النص المعروض لعنصر الوصف في جميع إشعارات الاختبار",
+        radefault: `التبديل تلقائيًا دائمًا إلى هذا الإدخال عند فتح أي إنجاز من RetroAchievements<br><br><span class="ttdesc">يمكن تعيين إدخال واحد فقط من التبديل التلقائي للثيمات كإعداد افتراضي لجميع إنجازات RetroAchievements. يمكن أيضًا تجاوز هذا الإعداد الافتراضي لكل لعبة على حدة بإضافة إدخال جديد من التبديل التلقائي للثيمات لمعرف لعبة <span class="hl">GameID</span> محدد في RetroAchievements</span>`
     },
     update: {
         updateavailable: "تحديث متاح",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `لكل لعبة على RetroAchievements رقم فريد مرتبط بها يُسمى <span class="hl">GameID</span>. يمكنك العثور على GameID الخاص بأي لعبة على RetroAchievements من خلال التحقق من:`,
                 `عنوان <span class="hl">URL</span> الخاص <span class="hl">بصفحة اللعبة</span> على موقع RetroAchievements — سيكون الرقم الموجود بعد <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "تعيين كافتراضي لـ RetroAchievements"
         }
     }
 }

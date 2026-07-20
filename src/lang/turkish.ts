@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Kupa Modu",
                 notifymax: "Maksimum Bildirim Sayısı", 
                 notifyspace: "Bildirim Aralığı",
-                notify1line: "Metni 1 satırla sınırla"
+                notify1line: "Metni 1 satırla sınırla",
+                testnotifycustomtext: "Test Bildirimi Özel Metni",
+                testnotifycustomtexttitle: "Başlık",
+                testnotifycustomtextdesc: "Açıklama"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `SAN'ın yeni oyun süreç izleyicisini etkinleştir<br><br><span class="ttdesc">Yeni SANWatcher ile eski otomatik süreç takip yöntemleri arasındaki farklar şunlardır:<br><br><div class="wrapper sanwatcher"><span class="hl">AÇIK</span><ul><li>Oyunun kurulum dizininde bulunan tüm süreçlerin başlatılma ve sonlandırılma olaylarını aktif olarak izler</li><li>Mevcut oyunu serbest bırakmak için oyunun çalıştırılabilir dosyasının bilinmesini gerektirmez</li><li>Oyun öncesi başlatıcıların davranışları farklılık gösterebilir, bu nedenle tüm Steam oyunlarıyla tam uyumluluk garanti edilmez</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">KAPALI</span><ul><li>Oyun başlatıldıktan sonra çalışan yürütülebilir dosyalar için oyunun kurulum dizinini tarar</li><li>Mevcut oyunu serbest bırakmak için oyunun çalıştırılabilir dosyasının bilinmesini gerektirir</li><li>Oyun süreci otomatik olarak belirlenemezse, oyunların otomatik olarak serbest bırakılabilmesi için kullanıcının <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne manuel olarak yeni bir giriş eklemesi gerekir</li></ul></div>`,
         releasewaittime: `Mevcut oyun serbest bırakılmadan önce SANWatcher'ın yeni oyun süreçlerinin başlatılmasını ne kadar süre bekleyeceğini ayarlayın<br><br><span class="ttdesc">Örneğin, mevcut oyun asıl oyunu başlatmadan önce bir oyun öncesi başlatıcı/yapılandırma penceresi açıyorsa, bu ayar oyun öncesi başlatıcı/yapılandırma penceresi kapandıktan sonra SANWatcher'ın asıl oyun penceresinin açılmasını kaç saniye bekleyeceğini belirler<br><br>Bu bekleme süresi içinde yeni bir etkin oyun süreci algılanırsa, serbest bırakma işlemi iptal edilir ve bunun yerine yeni etkin süreç takip edilir<br><br>💡 Mevcut oyun serbest bırakılmayı beklerken oyun adı <span class="hl">Oyun Görüntüsü</span> kutusunda <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">yanıp sönecektir</span></span>`,
         platcustomtext: `Bildirimde gösterilecek %100 oyun tamamlama özel mesajını ayarlayın<br><br><span class="ttdesc">Customiser > Ön Ayar > Bildirim Öğeleri > Başarı Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`,
-        raui: "Tespit edilen RetroAchievements oyunlarının adlarını Oyun Görüntüleme arayüzü/sistem tepsisi arayüzünde göster"
+        raui: "Tespit edilen RetroAchievements oyunlarının adlarını Oyun Görüntüleme arayüzü/sistem tepsisi arayüzünde göster",
+        testnotifycustomtext: "Tüm Test Bildirimlerinde görüntülenen metni geçersiz kıl",
+        testnotifycustomtexttitle: "Tüm Test Bildirimlerinde başlık öğesi için görüntülenen metni geçersiz kıl",
+        testnotifycustomtextdesc: "Tüm Test Bildirimlerinde açıklama öğesi için görüntülenen metni geçersiz kıl",
+        radefault: `Herhangi bir RetroAchievements başarımı açıldığında her zaman otomatik olarak bu girdiye geç<br><br><span class="ttdesc">Tüm RetroAchievements başarımları için varsayılan olarak yalnızca bir Tema Değişimini Otomatik Yap girdisi belirlenebilir. Bu varsayılan ayar, belirli bir RetroAchievements <span class="hl">GameID</span> için yeni bir Tema Değişimini Otomatik Yap girdisi eklenerek oyun bazında da geçersiz kılınabilir</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Her RetroAchievements oyununun kendine ait benzersiz bir numarası vardır ve buna <span class="hl">GameID</span> denir. Herhangi bir RetroAchievements oyununun GameID'sini şu şekilde bulabilirsiniz:`,
                 `RetroAchievements sitesindeki <span class="hl">oyun sayfasının</span> URL'sine bakın — <span class="hl">game/</span> ifadesinden sonra gelen sayı GameID'dir: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "RetroAchievements için varsayılan olarak ayarla"
         }
     }
 }

@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron"
 
 const getdebuginfo = (debuginfo: DebugInfo) => {
-    const { appid, gamename, pollrate, releasedelay, maxretries, steam3id, steam64id, username, userust, status } = debuginfo
+    const { appid, gamename, pollrate, releasedelay, maxretries, steam3id, steam64id, username, userust, status, lastknowngame } = debuginfo
 
     const lbls = new Map<string,any>([
         ["username",username || ""],
@@ -13,7 +13,9 @@ const getdebuginfo = (debuginfo: DebugInfo) => {
         ["pollrate",pollrate || 250],
         ["releasedelay",releasedelay || 0],
         ["maxretries",maxretries],
-        ["userust",userust ? "Rust" : "Node"]
+        ["userust",userust ? "Rust" : "Node"],
+        ["lastknowngameappid",lastknowngame?.appid || ""],
+        ["lastknowngameinstalldir",lastknowngame?.installdir || ""]
     ])
 
     return lbls
@@ -56,7 +58,7 @@ ipcRenderer.on("debuginfoupdated",(event,debuginfo: DebugInfo,reset?: boolean) =
         const html = `
             <div class="wrapper process">
                 <div class="exe">
-                    <span class="key">Executable</span>
+                    <span class="key">EXE</span>
                     <code class="value" id="exe_${i}">${exe}</code>
                 </div>
                 <div class="pid">

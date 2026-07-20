@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Trophymoodi",
                 notifymax: "Ilmoitusten enimmäismäärä", 
                 notifyspace: "Ilmoitusten väli",
-                notify1line: "Rajoita teksti yhteen riviin"
+                notify1line: "Rajoita teksti yhteen riviin",
+                testnotifycustomtext: "Testi-ilmoituksen mukautettu teksti",
+                testnotifycustomtexttitle: "Otsikko",
+                testnotifycustomtextdesc: "Kuvaus"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Ota käyttöön SAN:n uusi peliprosessien valvonta<br><br><span class="ttdesc">Uuden SANWatcherin ja vanhojen automaattisten prosessienseurantamenetelmien erot ovat seuraavat:<br><br><div class="wrapper sanwatcher"><span class="hl">PÄÄLLÄ</span><ul><li>Valvoo aktiivisesti kaikkien pelin asennushakemistossa olevien prosessien käynnistys- ja lopetustapahtumia</li><li>Ei edellytä pelin suoritettavan tiedoston tuntemista nykyisen pelin vapauttamiseksi</li><li>Peliä edeltävien käynnistysohjelmien toiminta voi vaihdella, joten täyttä yhteensopivuutta kaikkien Steam-pelien kanssa ei voida taata</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">POIS PÄÄLTÄ</span><ul><li>Tarkistaa pelin asennushakemistosta käynnissä olevat suoritettavat tiedostot pelin käynnistyksen jälkeen</li><li>Edellyttää pelin suoritettavan tiedoston tuntemista nykyisen pelin vapauttamiseksi</li><li>Jos peliprosessia ei voida määrittää automaattisesti, käyttäjän on lisättävä manuaalisesti uusi merkintä kohtaan <span class="hl">Pelien automaattinen vapautus</span>, jotta pelit voidaan vapauttaa automaattisesti</li></ul></div>`,
         releasewaittime: `Määritä, kuinka kauan SANWatcher odottaa uusien peliprosessien käynnistymistä ennen nykyisen pelin vapauttamista<br><br><span class="ttdesc">Jos esimerkiksi nykyinen peli käynnistää ennen varsinaista peliä esikäynnistys- tai asetusikkunan, tämä asetus määrittää, kuinka monta sekuntia SANWatcher odottaa varsinaisen peli-ikkunan ilmestymistä sen jälkeen, kun esikäynnistys- tai asetusikkuna on suljettu<br><br>Jos uusi aktiivinen peliprosessi havaitaan tämän odotusajan kuluessa, vapautus peruutetaan ja uutta aktiivista prosessia seurataan sen sijaan<br><br>💡 Pelin nimi <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">vilkkuu</span> <span class="hl">Pelinäyttö</span>-ruudussa, kun nykyinen peli odottaa vapauttamista</span>`,
         platcustomtext: `Aseta mukautettu viesti pelin 100 %:n läpäisystä näytettäväksi ilmoituksessa<br><br><span class="ttdesc">Tämä asetus piilotetaan, kun Customiser > Esiasetus > Ilmoituksen elementit > Saavutuksen kuvaus on poistettu käytöstä</span>`,
-        raui: "Näytä havaittujen RetroAchievements-pelien nimet pelinäyttö-/järjestelmäalueen käyttöliittymässä"
+        raui: "Näytä havaittujen RetroAchievements-pelien nimet pelinäyttö-/järjestelmäalueen käyttöliittymässä",
+        testnotifycustomtext: "Korvaa kaikissa testi-ilmoituksissa näytettävä teksti",
+        testnotifycustomtexttitle: "Korvaa kaikissa testi-ilmoituksissa otsikkoelementissä näytettävä teksti",
+        testnotifycustomtextdesc: "Korvaa kaikissa testi-ilmoituksissa kuvauselementissä näytettävä teksti",
+        radefault: `Vaihda aina automaattisesti tähän kohteeseen, kun mikä tahansa RetroAchievements-saavutus avataan<br><br><span class="ttdesc">Vain yksi Vaihda teemoja automaattisesti -kohde voidaan määrittää oletukseksi kaikille RetroAchievements-saavutuksille. Tämä oletusasetus voidaan myös ohittaa pelikohtaisesti lisäämällä uusi Vaihda teemoja automaattisesti -kohde tietylle RetroAchievements <span class="hl">GameID</span>:lle</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Jokaisella RetroAchievements-pelillä on yksilöllinen numero, jota kutsutaan <span class="hl">GameID</span>:ksi. Löydät minkä tahansa RetroAchievements-pelin GameID:n tarkistamalla:`,
                 `RetroAchievements-sivuston <span class="hl">pelisivun</span> <span class="hl">URL-osoitteen</span> – numero löytyy kohdan <span class="hl">game/</span> jälkeen: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Aseta oletukseksi RetroAchievementsille"
         }
     }
 }

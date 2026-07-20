@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Trofémodus",
                 notifymax: "Maksimalt antall varsler", 
                 notifyspace: "Avstand mellom varsler",
-                notify1line: "Begrens tekst til 1 linje"
+                notify1line: "Begrens tekst til 1 linje",
+                testnotifycustomtext: "Egendefinert tekst for testvarsling",
+                testnotifycustomtexttitle: "Tittel",
+                testnotifycustomtextdesc: "Beskrivelse"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `Aktiver SANs nye overvåker for spillprosesser<br><br><span class="ttdesc">Forskjellene mellom den nye SANWatcher og de gamle metodene for automatisk prosessporing er som følger:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Overvåker aktivt start-/avslutningshendelser for alle prosesser som er lagret i spillets installasjonsmappe</li><li>Krever ikke at spillets kjørbare fil er kjent for å frigjøre det nåværende spillet</li><li>Oppførselen til oppstartsprogrammer før spillet starter kan variere, så full kompatibilitet med alle Steam-spill er ikke garantert</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Skanner spillets installasjonsmappe etter kjørbare filer som kjører etter at spillet har startet</li><li>Krever at spillets kjørbare fil er kjent for å frigjøre det nåværende spillet</li><li>Hvis spillprosessen ikke kan fastslås automatisk, må brukeren manuelt legge til en ny oppføring i <span class="hl">Spill med automatisk frigivelse</span> for at spill skal frigjøres automatisk</li></ul></div>`,
         releasewaittime: `Angi hvor lenge SANWatcher skal vente på at nye spillprosesser starter før det nåværende spillet frigis<br><br><span class="ttdesc">For eksempel, hvis det nåværende spillet starter et oppstarts-/konfigurasjonsvindu før det faktiske spillet startes, bestemmer denne innstillingen hvor mange sekunder SANWatcher skal vente på at det faktiske spillvinduet skal vises etter at oppstarts-/konfigurasjonsvinduet er lukket<br><br>Hvis en ny aktiv spillprosess oppdages innenfor denne ventetiden, vil frigivelsen bli avbrutt, og den nylig aktive prosessen vil i stedet bli sporet<br><br>💡 Spillnavnet vil <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinke</span> i boksen <span class="hl">Spillvisning</span> mens det nåværende spillet venter på å bli frigitt</span>`,
         platcustomtext: `Angi en egendefinert melding for 100 % fullføring av spillet som skal vises i varselet<br><br><span class="ttdesc">Dette alternativet vil være skjult når Customiser > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`,
-        raui: "Vis navnene på oppdagede RetroAchievements-spill i spillvisningsgrensesnittet/systemstatusfeltet"
+        raui: "Vis navnene på oppdagede RetroAchievements-spill i spillvisningsgrensesnittet/systemstatusfeltet",
+        testnotifycustomtext: "Overstyr teksten som vises i alle testvarslinger",
+        testnotifycustomtexttitle: "Overstyr teksten som vises for titelelementet i alle testvarslinger",
+        testnotifycustomtextdesc: "Overstyr teksten som vises for beskrivelseselementet i alle testvarslinger",
+        radefault: `Bytt alltid automatisk til denne oppføringen når en RetroAchievements-prestasjon låses opp<br><br><span class="ttdesc">Kun én oppføring for automatisk temabytte kan angis som standard for alle RetroAchievements-prestasjoner. Denne standardinnstillingen kan også overstyres per spill ved å legge til en ny oppføring for automatisk temabytte for en bestemt RetroAchievements <span class="hl">GameID</span></span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Hvert RetroAchievements-spill har et unikt nummer knyttet til seg, kalt <span class="hl">GameID</span>. Du kan finne GameID for ethvert RetroAchievements-spill ved å sjekke:`,
                 `URL-en til <span class="hl">spill-siden</span> på RetroAchievements-nettstedet – det er tallet etter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Angi som standard for RetroAchievements"
         }
     }
 }

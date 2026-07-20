@@ -552,7 +552,7 @@ export const listeners = {
         let debugwin: BrowserWindow | null = null
 
         ipcMain.on("debugwinready",() => worker && worker.webContents.send("debugwinready"))
-        ipcMain.on("debuginfoupdated",(event,debuginfo: DebugInfo,reset?: boolean) => debugwin && debugwin.webContents.send("debuginfoupdated",debuginfo,reset))
+        ipcMain.on("debuginfoupdated",(event,debuginfo: DebugInfo,reset?: boolean) => debugwin && debugwin.webContents.send("debuginfoupdated",{ ...debuginfo, lastknowngame },reset))
 
         ipcMain.on("debugwin",(event,value: boolean) => {
             if (value && debugwin) return log.write("WARN",`"debugwin" already active`)
@@ -560,10 +560,10 @@ export const listeners = {
 
             debugwin = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): Debug Panel`,
-                width: 500,
-                height: 300,
-                minWidth: 500,
-                minHeight: 300,
+                width: 600,
+                height: 400,
+                minWidth: 600,
+                minHeight: 400,
                 autoHideMenuBar: true,
                 resizable: true,
                 maximizable: false,
@@ -575,7 +575,7 @@ export const listeners = {
                 }
             })
 
-            debugwin.setAspectRatio(5/3)
+            debugwin.setAspectRatio(6/4)
 
             debugwin.loadFile(path.join(__root,"dist","app","debugwin.html"))
             debugwin.once("ready-to-show",() => debugwin && sanhelper.resetdebuginfo(debugwin))

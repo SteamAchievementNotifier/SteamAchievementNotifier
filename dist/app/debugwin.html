@@ -92,7 +92,9 @@
 
             .wrapper#userinfo:has(#steam3id > .value:empty) > #steam3id > .value::before,
             .wrapper#userinfo:has(#steam64id > .value:empty) > #steam64id > .value::before,
-            .wrapper#gameinfo:has(#gamename > .value:empty) > .wrapper > #gamename > .value::before {
+            .wrapper#gameinfo:has(#gamename > .value:empty) > .wrapper > #gamename > .value::before,
+            .wrapper#lastknowngame:has(#lastknowngameappid > .value:empty) > .wrapper > #lastknowngameappid > .value::before,
+            .wrapper#lastknowngame:has(#lastknowngameinstalldir > .value:empty) > .wrapper > #lastknowngameinstalldir > .value::before {
                 content: "None";
             }
 
@@ -107,16 +109,14 @@
                 font-size: 1.25rem;
             }
 
-            .wrapper#gameinfo,
-            .wrapper#appinfo {
+            .infopanel {
                 grid-template-rows: auto 1fr;
                 background-color: var(--mediumgrey);
                 border-radius: var(--elembr);
                 overflow: hidden;
             }
 
-            .wrapper#gameinfo > span:nth-child(1),
-            .wrapper#appinfo > span:nth-child(1) {
+            .infopanel > span:nth-child(1) {
                 width: 100%;
                 padding: 0.25rem;
                 text-align: center;
@@ -124,8 +124,7 @@
                 background-color: var(--primary);
             }
 
-            .wrapper#gameinfo > div:nth-child(2),
-            .wrapper#appinfo > div:nth-child(2) {
+            .infopanel > div:nth-child(2) {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -138,6 +137,11 @@
 
             .wrapper#appinfo {
                 grid-row-start: 3;
+            }
+
+            .wrapper#lastknowngame {
+                grid-column: 1 / -1;
+                grid-row-start: 4;
             }
 
             .wrapper#processes {
@@ -185,6 +189,15 @@
             .process > code {
                 word-break: break-all;
             }
+
+            .process > .exe {
+                grid-row-start: 1;
+                word-break: break-all;
+            }
+
+            .process > .pid {
+                grid-row-start: 2;
+            }
         </style>
     </head>
     <body>
@@ -202,7 +215,7 @@
                 <code class="value"></code>
             </div>
         </div>
-        <div class="wrapper" id="gameinfo">
+        <div class="wrapper infopanel" id="gameinfo">
             <span>Game Info</span>
             <div class="wrapper">
                 <div id="appid">
@@ -219,7 +232,7 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper" id="appinfo">
+        <div class="wrapper infopanel" id="appinfo">
             <span>App Info</span>
             <div class="wrapper">
                 <div id="pollrate">
@@ -236,6 +249,19 @@
                 </div>
                 <div id="userust">
                     <span class="key">Process Mode</span>
+                    <code class="value"></code>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper infopanel" id="lastknowngame">
+            <span>Last Known Game Info</span>
+            <div class="wrapper">
+                <div id="lastknowngameappid">
+                    <span class="key">AppID</span>
+                    <code class="value"></code>
+                </div>
+                <div id="lastknowngameinstalldir">
+                    <span class="key">Install Dir</span>
                     <code class="value"></code>
                 </div>
             </div>

@@ -1178,8 +1178,7 @@ export const sanhelper: SANHelper = {
             releasedelay: config.get("releasedelay"),
             maxretries: config.get("maxretries"),
             userust: config.get("userust"),
-            processes: [],
-            vdfentry: null
+            processes: []
         } as DebugInfo
 
         const wintype = debugwin ? debugwin.webContents : ipcRenderer

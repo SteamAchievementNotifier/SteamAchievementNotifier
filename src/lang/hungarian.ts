@@ -222,7 +222,10 @@ export const translations = {
                 trophymode: "Trófea mód",
                 notifymax: "Maximális értesítések", 
                 notifyspace: "Értesítések közötti távolság",
-                notify1line: "Szöveg korlátozása 1 sorra"
+                notify1line: "Szöveg korlátozása 1 sorra",
+                testnotifycustomtext: "Egyéni tesztértesítés szövege",
+                testnotifycustomtexttitle: "Cím",
+                testnotifycustomtextdesc: "Leírás"
             }
         },
         games: {
@@ -876,7 +879,11 @@ export const translations = {
         usesanwatcher: `A SAN új játékfolyamat-figyelőjének engedélyezése<br><br><span class="ttdesc">Az új SANWatcher és a régi automatikus folyamatkövetési módszerek közötti különbségek a következők:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Aktívan figyeli az indítási/kilépési eseményeket minden olyan folyamat esetén, amely a játék telepítési könyvtárában található</li><li>Nem szükséges ismerni a játék futtatható állományát az aktuális játék felszabadításához</li><li>A játék előtti indítók viselkedése eltérő lehet, ezért a teljes kompatibilitás nem garantált minden Steam játék esetén</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>A játék indítása után átvizsgálja a játék telepítési könyvtárát futó végrehajtható fájlok után</li><li>Az aktuális játék felszabadításához ismerni kell a játék futtatható állományát</li><li>Ha a játék folyamata nem határozható meg automatikusan, a felhasználónak manuálisan kell új bejegyzést hozzáadnia az <span class="hl">Kapcsolt játékok</span> listához, hogy a játékok automatikusan felszabaduljanak</li></ul></div>`,
         releasewaittime: `Állítsa be, hogy a SANWatcher mennyi ideig várjon új játékfolyamatok elindulására, mielőtt elengedné a jelenlegi játékot<br><br><span class="ttdesc">Például, ha a jelenlegi játék a tényleges játék indítása előtt egy indító-/beállítóablakot nyit meg, ez a beállítás határozza meg, hogy a SANWatcher hány másodpercig várjon a tényleges játékablak megjelenésére azután, hogy az indító-/beállítóablak bezárult<br><br>Ha ezen várakozási időn belül új aktív játékfolyamat észlelhető, az elengedés megszakad, és a rendszer ezután az újonnan aktív folyamatot fogja követni<br><br>💡 A játék neve <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">villogni fog</span> a <span class="hl">Játékmegjelenítő</span> mezőben, miközben a jelenlegi játék az elengedésre vár</span>`,
         platcustomtext: `Állítson be egy egyéni üzenetet a játék 100%-os teljesítéséhez, amely megjelenik az értesítésben<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Customiser > Előbeállítás > Értesítési elemek > Achievement leírás ki van kapcsolva</span>`,
-        raui: "Az észlelt RetroAchievements játékok nevének megjelenítése a Játékkijelző/rendszertálca felhasználói felületén"
+        raui: "Az észlelt RetroAchievements játékok nevének megjelenítése a Játékkijelző/rendszertálca felhasználói felületén",
+        testnotifycustomtext: "Az összes tesztértesítésben megjelenő szöveg felülbírálása",
+        testnotifycustomtexttitle: "Az összes tesztértesítés címmezőjében megjelenő szöveg felülbírálása",
+        testnotifycustomtextdesc: "Az összes tesztértesítés leírásmezőjében megjelenő szöveg felülbírálása",
+        radefault: `Mindig automatikusan váltson erre a bejegyzésre, amikor bármely RetroAchievements teljesítmény feloldásra kerül<br><br><span class="ttdesc">Csak egy Automatikus Témaváltás bejegyzés jelölhető ki alapértelmezettként az összes RetroAchievements teljesítményhez. Ez az alapértelmezett beállítás játékonként is felülbírálható egy új Automatikus Témaváltás bejegyzés hozzáadásával egy adott RetroAchievements <span class="hl">GameID</span> számára</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",
@@ -1046,7 +1053,8 @@ export const translations = {
             rafindgameidsub: [
                 `Minden RetroAchievements-játékhoz tartozik egy egyedi szám, amelyet <span class="hl">GameID</span>-nek neveznek. Bármely RetroAchievements-játék GameID azonosítóját az alábbi módon találhatja meg:`,
                 `A RetroAchievements webhely <span class="hl">játékoldalának</span> <span class="hl">URL-címében</span> – ez a <span class="hl">game/</span> után szereplő szám: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
-            ]
+            ],
+            radefault: "Beállítás alapértelmezettként a RetroAchievements számára"
         }
     }
 }

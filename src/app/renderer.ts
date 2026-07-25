@@ -1016,14 +1016,21 @@ const getsteamuser = async (): Promise<string | null> => {
     const loginusers = fs.readFileSync(path.join(sanhelper.steampath,"config","loginusers.vdf")).toString()
     const users = VDF.parse(loginusers).users
 
+    let mostrecentuser: string | null = null
+    let mostrecenttimestamp = -1
+
     for (const user in users) {
         const entry = users[user]
-        const mostrecent = Object.keys(entry).find(key => key.toLowerCase() === "mostrecent")
+        const timestampkey = Object.keys(entry).find(key => key.toLowerCase() === "timestamp")
+        const timestamp = parseInt(entry[timestampkey ?? ""] ?? "0")
 
-        if (mostrecent && parseInt(entry[mostrecent]) === 1) return entry.PersonaName
+        if (timestamp < mostrecenttimestamp) continue
+
+        mostrecenttimestamp = timestamp
+        mostrecentuser = entry.PersonaName
     }
 
-    return null
+    return mostrecentuser
 }
 
 const unlockstr = async (user: string,gamename: string,type: NotifyType) => `${(await language.get(`webhookunlockmsg${type === "plat" ? "plat" : ""}`)).replace(/\$user/,user)}${gamename ? ` ${(await language.get("webhookingame")).replace(/\$gamename/,gamename)}` : ""}`

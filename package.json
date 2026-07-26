@@ -31,7 +31,7 @@
         "@electron/asar": "^3.3.1",
         "@jaames/iro": "^5.5.2",
         "@retroachievements/api": "^2.4.0",
-        "adm-zip": "^0.5.14",
+        "adm-zip": "^0.6.0",
         "electron-log": "4.4.8",
         "electron-store": "8.2.0",
         "electron-updater": "^6.1.7",
@@ -50,7 +50,9 @@
         "steam-game-path": {
             "steam-appticket": "^2.0.1",
             "steam-user": "^5.2.3"
-        }
+        },
+        "adm-zip": "^0.6.0",
+        "brace-expansion": "^5.0.8"
     },
     "build": {
         "appId": "com.SteamAchievementNotifier.Jackson0ne",

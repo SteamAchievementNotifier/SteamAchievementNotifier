@@ -31,6 +31,9 @@ window.localised = new Map<string,LocalisedObj>()
 const pids = new Set<number>()
 let releasetimer: NodeJS.Timeout | null = null
 let processing = false
+let cachedwindowtitles: string[] = []
+let titlecacheinflight = false
+let refreshtitlecache: (() => void) | null = null
 
 const statsobj: StatsObj = {
     appid: 0,
@@ -123,6 +126,9 @@ const worker = {
             clearTimeout(releasetimer)
             releasetimer = null
         }
+
+        cachedwindowtitles = []
+        refreshtitlecache = null
         
         clearInterval(timer)
         log.write("INFO",`Game loop stopped for AppID ${appid}`)
@@ -309,7 +315,39 @@ const startsan = async (appinfo: AppInfo) => {
     
         const processes: ProcessInfo[] = []
 
-        ipcRenderer.on("windowtitles",() => ipcRenderer.send("windowtitles",(usesanwatcher ? Array.from(pids) : processes.map(process => process.pid)).map(pid => client.processes.getWindowTitle(pid))))
+        const gettrackedpids = () => usesanwatcher ? Array.from(pids) : processes.map(process => process.pid)
+
+        refreshtitlecache = () => {
+            if (titlecacheinflight) return
+
+            const tracked = gettrackedpids().filter(pid => pid > 0)
+            if (!tracked.length) {
+                cachedwindowtitles = []
+                return
+            }
+
+            titlecacheinflight = true
+
+            try {
+                cachedwindowtitles = tracked.map(pid => client.processes.getWindowTitle(pid)).filter(Boolean)
+                sanhelper.devmode && log.write("INFO",`Window title cache updated: ${JSON.stringify(cachedwindowtitles)}`)
+            } catch (err) {
+                log.write("WARN",`Unable to refresh window title cache: ${err as Error}`)
+            } finally {
+                titlecacheinflight = false
+            }
+        }
+
+        const starttitlecache = () => {
+            // Warm the cache once after processes are known. Do NOT poll on an interval —
+            // getWindowTitle is sync and can freeze the worker for seconds, blocking steamss + capture IPC.
+            setTimeout(() => refreshtitlecache?.(),0)
+        }
+
+        ipcRenderer.on("windowtitles",() => {
+            // Instant reply only — never call getWindowTitle on this path
+            ipcRenderer.send("windowtitles",cachedwindowtitles)
+        })
         
         ipcRenderer.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
             try {
@@ -344,6 +382,7 @@ const startsan = async (appinfo: AppInfo) => {
             
             ipcRenderer.on("steam3id",(event,skipss?: boolean) => ipcRenderer.send("steam3id",steam3id,skipss))
             ipcRenderer.send("workeractive",true)
+            starttitlecache()
         
             const apinames: string[] = num ? client.achievement.getAchievementNames() : []
             let cache: Achievement[] = num ? cachedata(client,apinames) : []
@@ -395,6 +434,7 @@ const startsan = async (appinfo: AppInfo) => {
                         
                         pids.add(pid)
                         ipcRenderer.send("activeprocesses",appid,true,linkedgame) // Update UI hint on matching process start
+                        setTimeout(() => refreshtitlecache?.(),0)
 
                         return log.write("INFO",worker.creategameinfo(gameinfo,"started"))
                     }
@@ -471,6 +511,30 @@ const startsan = async (appinfo: AppInfo) => {
                             log.write("INFO",`Achievement unlocked: ${JSON.stringify(achievement)}`)
                             
                             const type = achievement.percent <= rarity ? "rare" : (trophymode && (achievement.percent <= semirarity && achievement.percent > rarity) ? "semi" : "main")
+                            const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
+                            const notifyid = Math.round(Date.now() / Math.random() * 1000)
+
+                            // Fire Screenshot Only capture immediately — before icon/localisation awaits — using cached window titles
+                            if (config.get("screenshots") === "ssonly" && customisation.ssenabled && customisation.preset !== "os") {
+                                const earlynotify: Notify = {
+                                    id: notifyid,
+                                    customisation,
+                                    type,
+                                    gamename: gamename || "???",
+                                    steam3id,
+                                    apiname: achievement.apiname,
+                                    name: achievement.name,
+                                    desc: achievement.desc,
+                                    unlocked: achievement.unlocked,
+                                    hidden: achievement.hidden,
+                                    percent: achievement.percent,
+                                    icon: sanhelper.setfilepath("img","sanlogosquare.svg"),
+                                    gameicon: sanhelper.setfilepath("img","sanlogosquare.svg"),
+                                    unlocktime: new Date(unlocktime).toISOString()
+                                }
+
+                                ipcRenderer.send("earlycapture",earlynotify,themeswitch?.[1].src)
+                            }
                 
                             let retries = 0
                 
@@ -497,7 +561,6 @@ const startsan = async (appinfo: AppInfo) => {
                             const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
                             const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
                             const localised = await worker.localisedobj(steam3id,achievement)
-                            const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
                             
                             if (themeswitch) {
                                 log.write("INFO",`Auto-switch entry detected for ${appid}`)
@@ -505,7 +568,7 @@ const startsan = async (appinfo: AppInfo) => {
                             }
                 
                             const notify: Notify = {
-                                id: Math.round(Date.now() / Math.random() * 1000),
+                                id: notifyid,
                                 customisation,
                                 type,
                                 gamename: gamename || "???",

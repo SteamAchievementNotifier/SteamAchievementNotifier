@@ -1360,7 +1360,8 @@ export const listeners = {
 
         const shownotify = (win: BrowserWindow,bounds: { width: number, height: number, x: number, y: number },isextwin?: boolean,istrackwin?: boolean) => {
             const { width, height, x, y } = bounds
-            const offscreenpx: number | null = process.platform === "linux" && !sanconfig.get().store.extwinnotify ? 10000  : null
+            const { extwin, extwinnotify } = sanconfig.get().store
+            const offscreenpx: number | null = process.platform === "linux" && extwin && !extwinnotify ? 10000  : null
             
             isextwin && win.setResizable(true)
             win.setSize(Math.round(width),Math.round(height))

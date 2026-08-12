@@ -220,10 +220,16 @@ export const screenshot = {
         
         if (config.get("hdrmode")) {
             let area: number[] | undefined
-
+            
             if (ssmode === "window") {
-                const { x, y, width, height } = screenshot.sswinbounds.bounds
-                area = [y,x,width,height] // Order of elements for `screenshots::Screen.capture_area()` is y/x/w/h
+                const validwinsize = (["width","height"] as const).every(dim => screenshot.sswinbounds.bounds[dim] !== 0) // Check if width/height bounds are valid (i.e. non-zero) and fallback to "screen" mode if not
+                
+                if (validwinsize) {
+                    const { x, y, width, height } = screenshot.sswinbounds.bounds
+                    area = [y,x,width,height] // Order of elements for `screenshots::Screen.capture_area()` is y/x/w/h
+                } else {
+                    log.write("WARN",`A width/height value for the matching window is invalid (0) for ID ${notify.id} - falling back to "screen" mode...`)
+                }
             }
 
             const msg: string = sanhelper.hdrscreenshot(monitor.id,srcpath,area)

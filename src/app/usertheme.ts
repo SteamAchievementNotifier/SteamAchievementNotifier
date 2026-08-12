@@ -476,31 +476,39 @@ export const usertheme = {
 
                 const icondir = fs.existsSync(path.join(__root,"img",path.basename(theme.icon))) ? "img" : "icon"
                 theme.icon = (!path.isAbsolute(theme.icon) ? path.join(__root,icondir,path.basename(theme.icon)) : theme.icon).replace(/\\/g,"/")
-                fsextra.copySync(theme.icon,path.join(src,"assets",path.basename(theme.icon)))
+
+                try {
+                    fsextra.copySync(theme.icon,path.join(src,"assets",path.basename(theme.icon)))
+                } catch (err) {
+                    throw new Error(`Error copying Theme icon "${theme.icon}": ${(err as Error).message}`)
+                }
 
                 theme.version = sanhelper.semver
                 theme.userthemedir = parsed.name
 
                 // Filters by and copies all string-based keys (filepaths) listed in `customfilekeys` from the value's path to "temp/exporttheme/assets"
-                contentmap.forEach((value,key) => {
-                    if (!value || typeof value !== "string" && (!Array.isArray(value) || !value.every(item => typeof item === "string" && ["unlockmsg","title","desc"].every(elem => item !== elem)))) return
+                for (const [key,value] of contentmap) {
+                    if (!value || typeof value !== "string" && (!Array.isArray(value) || !value.every(item => typeof item === "string" && ["unlockmsg","title","desc"].every(elem => item !== elem)))) continue
 
-                    if (Array.isArray(value)) {
-                        value.forEach(subvalue => fsextra.copySync(subvalue,path.join(src,"assets",path.basename(subvalue))))
-                    } else {
-                        if (key === "sounddir") {
-                            // `value` is the "sounddir" folder path
-                            const sounddirpath = path.join(src,"assets",path.basename(value))
-                            fs.mkdirSync(sounddirpath,{ recursive: true })
-                            
-                            for (const validfile of fs.readdirSync(value).filter(file => sanhelper.audioextensions.includes(path.extname(file)))) {
-                                fsextra.copySync(path.join(value,validfile),path.join(sounddirpath,validfile))
-                            }
+                    try {
+                        if (Array.isArray(value)) {
+                            value.forEach(subvalue => fsextra.copySync(subvalue,path.join(src,"assets",path.basename(subvalue))))
                         } else {
-                            fsextra.copySync(value,path.join(src,"assets",path.basename(value)))
+                            if (key === "sounddir") {
+                                const sounddirpath = path.join(src,"assets",path.basename(value)) // `value` is the "sounddir" folder path
+                                fs.mkdirSync(sounddirpath,{ recursive: true })
+
+                                for (const validfile of fs.readdirSync(value).filter(file => sanhelper.audioextensions.includes(path.extname(file)))) {
+                                    fsextra.copySync(path.join(value,validfile),path.join(sounddirpath,validfile))
+                                }
+                            } else {
+                                fsextra.copySync(value,path.join(src,"assets",path.basename(value)))
+                            }
                         }
+                    } catch (err) {
+                        throw new Error(`Error copying asset from "customisation.${sanhelper.type}.${key}": ${(err as Error).message}`)
                     }
-                })
+                }
 
                 const json = JSON.stringify(theme,null,4)
                 fs.writeFileSync(path.join(src,"usertheme.json"),json)

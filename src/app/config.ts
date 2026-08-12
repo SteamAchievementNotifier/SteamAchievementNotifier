@@ -21,9 +21,12 @@ export const customfilekeys = [
     "sounddir",
     "soundfile",
     "percentbadgeimg",
+    "iconborderimg"
 ].flatMap(id => {
-    if (id !== "percentbadgeimg") return [id]
-    return ["bronze","silver","gold"].flatMap(type => [`${id}${type}`,`ss${id}${type}`])
+    if (id === "percentbadgeimg") return ["bronze","silver","gold"].flatMap(type => [`${id}${type}`,`ss${id}${type}`])
+    if (id === "iconborderimg") return ["bronze","silver"].map(type => `${id}${type}`).concat(id)
+    
+    return [id]
 })
 
 // Contains non-"shortcut" suffixed key names for all options that are assigned a `globalShortcut`

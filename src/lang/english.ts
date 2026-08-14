@@ -281,7 +281,7 @@ export const translations = {
                 app: "App Window",
                 off: "Muted",
                 statwin: "Achievement Stats Overlay",
-                statwinaot: "Always on Top",
+                statwinaot: "Lock Overlay Position",
                 noachievements: "No achievements to display",
                 startgame: "Start a game to show achievements!",
                 max: "Max",
@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Unable to reset timer.",
                 resetgametimercomplete: "AppID $appid has already been completed.",
-                extwinnotify: "Show Onscreen Notification"
+                extwinnotify: "Show Onscreen Notification",
+                statwintype: "Overlay Type",
+                statwinunlockonly: "Only Show on Unlock",
+                statwinunlockonlydisplaytime: "Display Time",
+                statwinunlockonlysync: "Sync to Notification",
+                default: "Default",
+                progressbar: "Progress Bar"
             }
         },
         accessibility: {
@@ -802,7 +808,7 @@ export const translations = {
         releaseshortcut: "Release the currently tracked game using the specified keyboard shortcut",
         themeselect: "Select a previously saved Theme",
         statwin: `Display configurable achievement stats for the current game in an external window<br><br><span class="ttdesc">When used in conjunction with the <span class="hl">Translate Achievements to Steam Language</span> option, some translations may not be available until the specified achievement is unlocked</span>`,
-        statwinaot: `Set the Achievement Stats Overlay to "Always on Top" mode, allowing the window to be displayed above the game window<br><br><span class="ttdesc">When enabled, the Achievement Stats Overlay will no longer register user interactions, such as "click" events. To re-enable interaction with the window, this option must be disabled</span>`,
+        statwinaot: `Set the Achievement Stats Overlay to "always on top" mode, locking the current position and allowing the overlay to be displayed above the game window<br><br><span class="ttdesc">When enabled, the Achievement Stats Overlay will no longer register user interactions, such as "click" events. To re-enable interaction with the window, this option must be disabled</span>`,
         statwinshortcut: "Toggle the Achievement Stats Overlay using the specified keyboard shortcut",
         ssdisplay: "Display a preview of the captured screenshot within the notification",
         iconscale: "Increase or decrease the size of the achievement icon",
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Override the text displayed in all Test Notifications",
         testnotifycustomtexttitle: "Override the text displayed for the title element in all Test Notifications",
         testnotifycustomtextdesc: "Override the text displayed for the description element in all Test Notifications",
-        radefault: `Always auto-switch to this entry when any RetroAchievements achievement is unlocked<br><br><span class="ttdesc">Only one Auto-Switch Themes entry can be designated as the default for all RetroAchievements achievements. This default can also be overridden per-game by adding a new Auto-Switch Themes entry for a specific RetroAchievements <span class="hl">GameID</span></span>`
+        radefault: `Always auto-switch to this entry when any RetroAchievements achievement is unlocked<br><br><span class="ttdesc">Only one Auto-Switch Themes entry can be designated as the default for all RetroAchievements achievements. This default can also be overridden per-game by adding a new Auto-Switch Themes entry for a specific RetroAchievements <span class="hl">GameID</span></span>`,
+        statwintype: "Set the layout type of the Achievement Stats Overlay",
+        statwinunlockonly: "Keep the Achievement Stats Overlay hidden until an achievement is unlocked",
+        statwinunlockonlydisplaytime: "Set the number of seconds the Achievement Stats Overlay will display for once an achievement is unlocked",
+        statwinunlockonlysync: "Sync the number of seconds the Achievement Stats Overlay will display for to the current notification's Display Time"
     },
     update: {
         updateavailable: "Update available",

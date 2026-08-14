@@ -11,7 +11,8 @@ dialog[menu] #settingscontent > .cont:has(.title#media) > .optcont:has(#ovmatch:
 body[beta] button#checkforupdates,
 body[beta] button#joinbetachannel,
 #settingscontent > .cont:has(.title#notifications) > .optcont:has(#customtriggerusedisplaytime:checked) > .opt:has(#customtriggerdelay),
-#settingscontent > .cont:has(.title#notifications) .opt:has(#notifymax)[extwin] {
+#settingscontent > .cont:has(.title#notifications) .opt:has(#notifymax)[extwin],
+#settingscontent:has(input#statwinunlockonlysync:checked) > .cont:has(.title#streaming) .opt:has(#statwinunlockonlydisplaytime) {
     opacity: 0.5;
     pointer-events: none;
 }
@@ -186,7 +187,7 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .opt:has(#steamlang:not(:checked)) + .wrapper:has(#maxsteamlangretries),
 .opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow,#extwinnotify),
 .cont:has(input[type="checkbox"]#nohwa:checked) ~ .cont:has(.title#streaming) .opt:has(#extwinnotify),
-.opt:has(#statwin:not(:checked)) + .wrapper:has(#statwinaot),
+.opt:has(#statwin:not(:checked)) ~ .wrapper:has(#statwinaot,#statwintype,#statwinunlockonly,#statwinunlockonlydisplaytime,#statwinunlockonlysync),
 .opt:has(#gametimerwin:not(:checked)) + .wrapper:has(#gametimerwinaot),
 .opt:has(#gametimerwin:not(:checked)) ~ button#resetgametimer,
 .opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime),
@@ -195,7 +196,9 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .optcont:has(input#usesanwatcher:checked) > .opt:has(#initdelay),
 .optcont:has(input#usesanwatcher:not(:checked)) > .opt:has(#releasewaittime),
 #settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#autoreleasegames,
-#settingscontent:has(input#usesanwatcher:not(:checked)) > .cont:has(.title#games) > .optcont > button#linkedgames {
+#settingscontent:has(input#usesanwatcher:not(:checked)) > .cont:has(.title#games) > .optcont > button#linkedgames,
+#settingscontent:has(select#statwintype > option[value="default"]:checked) > .cont:has(.title#streaming) .opt:has(#statwinunlockonly,#statwinunlockonlydisplaytime,#statwinunlockonlysync),
+#settingscontent:has(input#statwinunlockonly:not(:checked)) > .cont:has(.title#streaming) .opt:has(#statwinunlockonlydisplaytime,#statwinunlockonlysync) {
     display: none;
 }
 

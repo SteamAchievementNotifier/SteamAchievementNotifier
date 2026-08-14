@@ -12,6 +12,7 @@
     --main: #203e7a;
     --rare: #663399;
     --plat: #4e75c9;
+    --displaytime: 10s;
 }
 
 ::-webkit-scrollbar,
@@ -31,6 +32,25 @@ body {
 
 body {
     grid-template-rows: 1fr auto;
+}
+
+body[type="progressbar"][unlockonly] {
+    opacity: 0;
+    animation: none;
+}
+
+body[type="progressbar"][unlockonly][show] {
+    animation:
+        fadein calc(var(--transition) * 2) forwards,
+        fadeout calc(var(--transition) * 2) var(--displaytime) forwards !important;
+}
+
+@keyframes fadein {
+    to { opacity: 1; }
+}
+
+@keyframes fadeout {
+    to { opacity: 0; }
 }
 
 .wrapper#cont > .wrapper#controls {
@@ -65,7 +85,7 @@ body[aot] .menubtn#winopacity {
 
 .wrapper#cont {
     grid-template-columns: 1fr auto;
-    grid-template-rows: 1.5rem repeat(2,auto) 4fr;
+    grid-template-rows: min-content repeat(2,auto) 4fr;
     grid-column-start: 1;
     grid-row: 1 / -1;
     row-gap: 1rem;
@@ -117,6 +137,7 @@ body[aot] .wrapper#cont {
 .wrapper#progressbar {
     background-color: var(--lightgrey);
     border-radius: var(--elembr);
+    align-self: center;
     transition: filter var(--transition);
     isolation: isolate;
     overflow: hidden;
@@ -124,7 +145,7 @@ body[aot] .wrapper#cont {
 
 .wrapper#progressbar[complete] {
     filter: drop-shadow(0 0 0.25rem #e1c56b);
-    margin-right: 0;
+    margin-right: 0 !important;
 }
 
 .wrapper#progressbar::before {
@@ -159,17 +180,23 @@ body[aot] .wrapper#cont {
 }
 
 #trophy {
+    --trophysize: 100%;
     display: none;
 }
 
 .wrapper#progressbar[complete] + #trophy {
     display: block;
-    width: 2rem;
     height: 100%;
+    scale: 0;
+    align-self: center;
+    background: url("../../img/sanlogotrophy_gold.svg") center / var(--trophysize) no-repeat;
+    animation: popin 1s forwards;
+}
+
+body[type="default"] .wrapper#progressbar[complete] + #trophy {
+    width: 2rem;
     margin-right: 1.5rem;
     translate: 25% 0;
-    background: url("../../img/sanlogotrophy_gold.svg") center / 100% no-repeat;
-    animation: popin 1s forwards;
 }
 
 .wrapper#cont > .wrapper#achievements {
@@ -468,4 +495,33 @@ body[displaymode="unlocked"] button#displaymode {
 
 body[displaymode="unlocked"] button#displaymode {
     grid-column-start: -3;
+}
+
+body[type="progressbar"] > .wrapper#cont {
+    grid-template-columns: 5fr 0fr;
+    grid-template-rows: min-content auto 0fr;
+    row-gap: 5vw;
+}
+
+body[type="progressbar"]:has(.wrapper#progressbar[complete]) > .wrapper#cont {
+    grid-template-columns: 5fr 1fr;
+}
+
+body[type="progressbar"] #gamename,
+body[type="progressbar"] #achievements,
+body[type="progressbar"] > .wrapper#btnwrapper > *:not(button#winopacity) {
+    display: none;
+}
+
+body[type="progressbar"] .wrapper#progressbar {
+    border-radius: 1.55vw;
+    margin: 2.25vw 6.65vw;
+}
+
+body[type="progressbar"] #progressbar::before {
+    font-size: 4.5vw;
+}
+
+body[type="progressbar"] .wrapper#progressbar[complete] + #trophy {
+    --trophysize: 55%;
 }

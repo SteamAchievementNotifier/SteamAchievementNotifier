@@ -381,6 +381,7 @@ export const sanhelper: SANHelper = {
     shortcuts: () => ipcRenderer.send("shortcut",true),
     statwin: (value: boolean) => ipcRenderer.send("statwin",value),
     statwinaot: (value: boolean) => ipcRenderer.send("statwinaot",value),
+    statwinunlockonly: (value: boolean) => ipcRenderer.send("statwinunlockonly",value),
     gametimerwin: (value: boolean) => ipcRenderer.send("gametimerwin",value),
     gametimerwinaot: (value: boolean) => ipcRenderer.send("gametimerwinaot",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
@@ -529,6 +530,23 @@ export const sanhelper: SANHelper = {
                 sanhelper.reloadelemselector()
             }
             
+            return
+        }
+
+        if (elem.id === "statwintype") {
+            elem.value = config.get("statwintype")
+
+            elem.onchange = event => {
+                const target = event.target as HTMLInputElement
+                
+                config.set(elem.id,target.value)
+
+                sanhelper.updatetabs()
+                sanhelper.reloadelemselector()
+
+                ipcRenderer.send("statwintype",target.value)
+            }
+
             return
         }
 
@@ -840,7 +858,8 @@ export const sanhelper: SANHelper = {
             ["notifymax",""],
             ["notifyspace","px"],
             ["audiocooldown","ms"],
-            ["releasewaittime","s"]
+            ["releasewaittime","s"],
+            ["statwinunlockonlydisplaytime","s"]
         ])
 
         const wideelems = [

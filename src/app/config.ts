@@ -315,6 +315,10 @@ export const sanconfig = {
                 statwinaot: false,
                 statwinopacity: false,
                 statwindisplaymode: "locked",
+                statwintype: "default",
+                statwinunlockonly: false,
+                statwinunlockonlydisplaytime: 10,
+                statwinunlockonlysync: false,
                 raemus: [],
                 retroarchpath: "",
                 dolphinpath: "",
@@ -752,7 +756,7 @@ export const sanconfig = {
     },
     get defaultextwins(): Record<ExtWins,ExtWinConfig> {
         const config = sanconfig.get()
-        const { statwinpos, gametimerwinpos } = config.store
+        const { statwinpos, statwintype, gametimerwinpos } = config.store
         
         return {
             ext: {
@@ -765,9 +769,9 @@ export const sanconfig = {
             stat: {
                 wintitle: "Achievement Stats Overlay",
                 width: statwinpos?.width ?? 250,
-                height: statwinpos?.height ?? 500,
-                minWidth: 200,
-                minHeight: 300,
+                height: statwinpos?.height ?? (statwintype === "progressbar" ? 111 : 500),
+                minWidth: 250,
+                minHeight: statwintype === "progressbar" ? 111 : 300,
             },
             gametimer: {
                 wintitle: "Game Completion Timer",

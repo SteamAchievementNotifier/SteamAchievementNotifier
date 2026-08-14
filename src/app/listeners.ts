@@ -880,7 +880,7 @@ export const listeners = {
             }
 
             const { x, y } = config.get(`${type}winpos`)
-            const { wintitle, width, height, minWidth, minHeight } = defaultextwins[type]
+            const { wintitle, width, height, minWidth, minHeight } = sanconfig.defaultextwins[type]
 
             const win = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): ${wintitle || "!!!MISSING"}`,
@@ -888,8 +888,8 @@ export const listeners = {
                 height,
                 minWidth,
                 minHeight,
-                x: x,
-                y: y,
+                x,
+                y,
                 autoHideMenuBar: true,
                 fullscreen: false,
                 fullscreenable: false,
@@ -913,11 +913,16 @@ export const listeners = {
             type !== "ext" && win.setIgnoreMouseEvents(config.get(`${type}winaot`))
             type === "gametimer" && win.setAspectRatio(2.5/1)
 
+            if (type === "stat") {
+                win.on("moved",() => setwinbounds(config,"stat",statwin!))
+                win.on("resized",() => setwinbounds(config,"stat",statwin!))
+                win.on("will-resize",(event,bounds) => setprogressbarwinbounds(bounds,event))
+            }
+
             win.loadFile(path.join(__root,"dist","app",`${type}win.html`))
             sanhelper.devmode && sanhelper.setdevtools(win)
 
-            // Saved `config.get("statwinpos").height` value is not applied when positioned on a secondary monitor unless a timeout is used here
-            setTimeout(() => win.setBounds({ x, y, width, height }),250)
+            setTimeout(() => win.setBounds({ x, y, width, height }),250) // Saved `config.get("statwinpos").height` value is not applied when positioned on a secondary monitor unless a timeout is used here
 
             return win
         }
@@ -1002,6 +1007,17 @@ export const listeners = {
             extwinsstate[win] = state
         })
 
+        const setprogressbarwinbounds = (bounds: Electron.Rectangle,event?: any) => {
+            const config = sanconfig.get()
+            const { statwintype } = config.store
+            if (statwintype !== "progressbar") return
+
+            const ratio = 2.25
+            event?.preventDefault()
+
+            statwin!.setBounds({ ...bounds, height: Math.round(bounds.width / ratio) })
+        }
+
         ipcMain.on("statwin",(event,value: boolean) => {
             if (value && statwin) return log.write("WARN",`${defaultextwins.stat.wintitle} window already active`)
             
@@ -1015,16 +1031,17 @@ export const listeners = {
             
             ipcMain.once("statwinready",() => {
                 if (!statwin) return
+
+                const { statwinaot, statwinunlockonly, statwinunlockonlydisplaytime } = config.store
                 
-                const value = config.get("statwinaot")
-                value && statwin.webContents.send("statwinaot",value)
+                if (value) {
+                    statwin.webContents.send("statwinaot",statwinaot)
+                    statwin.webContents.send("statwinunlockonly",{ unlockonly: statwinunlockonly, displaytime: statwinunlockonlydisplaytime })
+                }
                 
                 const workerwin = extwinsstate.stat === "ra" ? raworker : worker
                 workerwin && workerwin.webContents.send("stats",true)
             })
-
-            statwin.on("moved",() => setwinbounds(config,"stat",statwin!))
-            statwin.on("resized",() => setwinbounds(config,"stat",statwin!))
 
             statwin.once("close",() => {
                 setwinbounds(config,"stat",statwin!)
@@ -1044,6 +1061,40 @@ export const listeners = {
             statwin.setIgnoreMouseEvents(value)
 
             statwin.webContents.send("statwinaot",value)
+        })
+
+        ipcMain.on("statwintype",(event,value: "default" | "progressbar") => {
+            if (!statwin) return
+            
+            setTimeout(() => {
+                const { minWidth, minHeight } = sanconfig.defaultextwins["stat"] // Do not use the cached global (i.e. `defaultextwins["statwin"]`), as the dynamic values do not get updated
+                const bounds = statwin!.getBounds()
+
+                statwin!.setMinimumSize(minWidth,minHeight)
+
+                const newbounds = {
+                    x: roundbounds(bounds.x,"pos"),
+                    y: roundbounds(bounds.y,"pos"),
+                    width: roundbounds(Math.max(bounds.width,minWidth),"size"),
+                    height: roundbounds(Math.max(bounds.height,minHeight),"size")
+                }
+                
+                statwin!.setBounds(newbounds)
+                setprogressbarwinbounds(newbounds)
+
+                statwin!.webContents.send("statwintype",value)
+            },250) // New `minWidth`/`minHeight` are prevented on select change unless a timeout is used here
+        })
+
+        ipcMain.on("statwinunlockonly",(event,value: boolean,displaytime?: number,show?: boolean) => {
+            if (!statwin) return
+            const { statwinunlockonlydisplaytime } = sanconfig.get().store
+
+            statwin && statwin.webContents.send("statwinunlockonly",{
+                unlockonly: value,
+                displaytime: displaytime ?? statwinunlockonlydisplaytime,
+                show
+            })
         })
 
         let runningstatwin: Record<"steam" | "ra",number> = { steam: 0, ra: 0 }
@@ -1585,8 +1636,10 @@ export const listeners = {
 
             runningmap.set(notify.id,notifywin)
 
-            // Sends event to `createsswin()` to build screenshot for `notify.id`
-            ipcMain.emit(`${notify.id}`)
+            ipcMain.emit(`${notify.id}`) // Sends event to `createsswin()` to build screenshot for `notify.id`
+            
+            const { statwinunlockonly, statwinunlockonlydisplaytime, statwinunlockonlysync } = config.store
+            statwin && ipcMain.emit("statwinunlockonly",null,statwinunlockonly,statwinunlockonlysync ? config.get(`customisation.${notify.type}.displaytime`) : statwinunlockonlydisplaytime,true)
 
             win.webContents.send("notifyprogress",notify.customisation.displaytime)
             log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)

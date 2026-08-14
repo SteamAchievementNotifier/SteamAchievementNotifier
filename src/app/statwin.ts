@@ -337,6 +337,15 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
 
 ipcRenderer.on("stats",(event,statsobj: StatsObj,translations: StatsObjTranslations,init?: boolean) => buildachievementlist(statsobj,translations,init))
 ipcRenderer.on("statwinaot",(event,value: boolean) => document.body.toggleAttribute("aot",value))
+ipcRenderer.on("statwintype",(event,value: "default" | "progressbar") => document.body.setAttribute("type",value))
+ipcRenderer.on("statwinunlockonly",(event,obj: { unlockonly: boolean, displaytime: number, show?: boolean }) => {
+    for (const prop of (["unlockonly","show"] as const)) {
+        document.body.toggleAttribute(prop,!!obj[prop])
+    }
+
+    document.documentElement.style.setProperty("--displaytime",`${obj.displaytime}s`)
+    setTimeout(() => document.body.removeAttribute("show"),(obj.displaytime * 1000) + 1000)
+})
 
 window.addEventListener("DOMContentLoaded",() => {
     document.getElementById("close")!.onclick = () => window.close()
@@ -351,7 +360,10 @@ window.addEventListener("DOMContentLoaded",() => {
         document.body.toggleAttribute("nospoilers",value)
     }
 
-    document.body.setAttribute("displaymode",sanconfig.get().store.statwindisplaymode)
+    const { statwindisplaymode, statwintype, statwinopacity } = sanconfig.get().store
+
+    document.body.setAttribute("displaymode",statwindisplaymode)
+    document.body.setAttribute("type",statwintype)
 
     document.getElementById("displaymode")!.onclick = () => {
         document.body.removeAttribute("reorder")
@@ -368,7 +380,7 @@ window.addEventListener("DOMContentLoaded",() => {
     }
 
     const winopacity = document.getElementById("winopacity")!
-    document.body.toggleAttribute("hidden",sanconfig.get().store.statwinopacity)
+    document.body.toggleAttribute("hidden",statwinopacity)
     
     winopacity.onclick = () => {
         const config = sanconfig.get()

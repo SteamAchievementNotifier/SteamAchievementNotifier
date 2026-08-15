@@ -360,7 +360,7 @@ window.addEventListener("DOMContentLoaded",() => {
         document.body.toggleAttribute("nospoilers",value)
     }
 
-    const { statwindisplaymode, statwintype, statwinopacity } = sanconfig.get().store
+    const { statwindisplaymode, statwintype } = sanconfig.get().store
 
     document.body.setAttribute("displaymode",statwindisplaymode)
     document.body.setAttribute("type",statwintype)
@@ -379,17 +379,17 @@ window.addEventListener("DOMContentLoaded",() => {
         window.statsobj && window.translations && buildachievementlist(window.statsobj,window.translations,true)
     }
 
-    const winopacity = document.getElementById("winopacity")!
-    document.body.toggleAttribute("hidden",statwinopacity)
+    // const winopacity = document.getElementById("winopacity")!
+    // document.body.toggleAttribute("hidden",statwinopacity)
     
-    winopacity.onclick = () => {
-        const config = sanconfig.get()
-        const value = !config.get("statwinopacity")
+    // winopacity.onclick = () => {
+    //     const config = sanconfig.get()
+    //     const value = !config.get("statwinopacity")
 
-        config.set("statwinopacity",value)
+    //     config.set("statwinopacity",value)
 
-        document.body.toggleAttribute("hidden",value)
-    }
+    //     document.body.toggleAttribute("hidden",value)
+    // }
 
     const maxdisplayelem = document.getElementById("maxdisplay") as HTMLSelectElement
     maxdisplayelem.value = `${sanconfig.get().store.statwinmaxdisplay}`

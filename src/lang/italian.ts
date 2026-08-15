@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Impossibile reimpostare il timer.",
                 resetgametimercomplete: "L'AppID $appid è già stato completato.",
-                extwinnotify: "Mostra Notifica a Schermo"
+                extwinnotify: "Mostra Notifica a Schermo",
+                statwintype: "Tipo di sovrapposizione",
+                statwinunlockonly: "Mostra solo allo sblocco",
+                statwinunlockonlydisplaytime: "Tempo di visualizzazione",
+                statwinunlockonlysync: "Sincronizza con la notifica",
+                default: "Predefinito",
+                progressbar: "Barra di avanzamento"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Sostituisci il testo visualizzato in tutte le notifiche di prova",
         testnotifycustomtexttitle: "Sostituisci il testo visualizzato per l'elemento del titolo in tutte le notifiche di prova",
         testnotifycustomtextdesc: "Sostituisci il testo visualizzato per l'elemento della descrizione in tutte le notifiche di prova",
-        radefault: `Passa sempre automaticamente a questa voce quando viene sbloccato un qualsiasi obiettivo di RetroAchievements<br><br><span class="ttdesc">Solo una voce di Cambio Automatico Tema può essere designata come predefinita per tutti gli obiettivi di RetroAchievements. Questa impostazione predefinita può anche essere sostituita per singolo gioco aggiungendo una nuova voce di Cambio Automatico Tema per uno specifico <span class="hl">GameID</span> di RetroAchievements</span>`
+        radefault: `Passa sempre automaticamente a questa voce quando viene sbloccato un qualsiasi obiettivo di RetroAchievements<br><br><span class="ttdesc">Solo una voce di Cambio Automatico Tema può essere designata come predefinita per tutti gli obiettivi di RetroAchievements. Questa impostazione predefinita può anche essere sostituita per singolo gioco aggiungendo una nuova voce di Cambio Automatico Tema per uno specifico <span class="hl">GameID</span> di RetroAchievements</span>`,
+        statwintype: "Imposta il tipo di layout della Finestra delle statistiche dei successi",
+        statwinunlockonly: "Mantieni nascosta la Finestra delle statistiche dei successi fino allo sblocco di un successo",
+        statwinunlockonlydisplaytime: "Imposta il numero di secondi per cui la Finestra delle statistiche dei successi verrà visualizzata dopo lo sblocco di un successo",
+        statwinunlockonlysync: "Sincronizza il numero di secondi per cui la Finestra delle statistiche dei successi verrà visualizzata con il Tempo di visualizzazione della notifica corrente"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

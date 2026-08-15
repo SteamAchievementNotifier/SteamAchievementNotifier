@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Zamanlayıcı sıfırlanamadı.",
                 resetgametimercomplete: "AppID $appid zaten tamamlandı.",
-                extwinnotify: "Ekran Bildirimini Göster"
+                extwinnotify: "Ekran Bildirimini Göster",
+                statwintype: "Pencere Türü",
+                statwinunlockonly: "Yalnızca Kilit Açıldığında Göster",
+                statwinunlockonlydisplaytime: "Görüntüleme Süresi",
+                statwinunlockonlysync: "Bildirimle Senkronize Et",
+                default: "Varsayılan",
+                progressbar: "İlerleme Çubuğu"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Tüm Test Bildirimlerinde görüntülenen metni geçersiz kıl",
         testnotifycustomtexttitle: "Tüm Test Bildirimlerinde başlık öğesi için görüntülenen metni geçersiz kıl",
         testnotifycustomtextdesc: "Tüm Test Bildirimlerinde açıklama öğesi için görüntülenen metni geçersiz kıl",
-        radefault: `Herhangi bir RetroAchievements başarımı açıldığında her zaman otomatik olarak bu girdiye geç<br><br><span class="ttdesc">Tüm RetroAchievements başarımları için varsayılan olarak yalnızca bir Tema Değişimini Otomatik Yap girdisi belirlenebilir. Bu varsayılan ayar, belirli bir RetroAchievements <span class="hl">GameID</span> için yeni bir Tema Değişimini Otomatik Yap girdisi eklenerek oyun bazında da geçersiz kılınabilir</span>`
+        radefault: `Herhangi bir RetroAchievements başarımı açıldığında her zaman otomatik olarak bu girdiye geç<br><br><span class="ttdesc">Tüm RetroAchievements başarımları için varsayılan olarak yalnızca bir Tema Değişimini Otomatik Yap girdisi belirlenebilir. Bu varsayılan ayar, belirli bir RetroAchievements <span class="hl">GameID</span> için yeni bir Tema Değişimini Otomatik Yap girdisi eklenerek oyun bazında da geçersiz kılınabilir</span>`,
+        statwintype: "Başarı İstatistikleri Penceresi düzen türünü ayarla",
+        statwinunlockonly: "Bir başarının kilidi açılana kadar Başarı İstatistikleri Penceresini gizli tut",
+        statwinunlockonlydisplaytime: "Bir başarının kilidi açıldığında Başarı İstatistikleri Penceresinin görüntüleneceği saniye sayısını ayarla",
+        statwinunlockonlysync: "Başarı İstatistikleri Penceresinin görüntüleneceği saniye sayısını mevcut bildirimin Görüntüleme Süresi ile senkronize et"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

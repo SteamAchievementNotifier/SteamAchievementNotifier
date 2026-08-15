@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Nepodařilo se resetovat časovač.",
                 resetgametimercomplete: "AppID $appid již byl dokončen.",
-                extwinnotify: "Zobrazit oznámení na obrazovce"
+                extwinnotify: "Zobrazit oznámení na obrazovce",
+                statwintype: "Typ překrytí",
+                statwinunlockonly: "Zobrazit pouze při odemknutí",
+                statwinunlockonlydisplaytime: "Doba zobrazení",
+                statwinunlockonlysync: "Synchronizovat s oznámením",
+                default: "Výchozí",
+                progressbar: "Ukazatel průběhu"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Přepsat text zobrazený ve všech testovacích oznámeních",
         testnotifycustomtexttitle: "Přepsat text zobrazený pro prvek názvu ve všech testovacích oznámeních",
         testnotifycustomtextdesc: "Přepsat text zobrazený pro prvek popisu ve všech testovacích oznámeních",
-        radefault: `Vždy automaticky přepnout na tuto položku při odemčení jakéhokoli achievementu RetroAchievements<br><br><span class="ttdesc">Pouze jedna položka Automatické přepínání témat může být nastavena jako výchozí pro všechny achievementy RetroAchievements. Toto výchozí nastavení lze také přepsat pro jednotlivé hry přidáním nové položky Automatické přepínání témat pro konkrétní <span class="hl">GameID</span> RetroAchievements</span>`
+        radefault: `Vždy automaticky přepnout na tuto položku při odemčení jakéhokoli achievementu RetroAchievements<br><br><span class="ttdesc">Pouze jedna položka Automatické přepínání témat může být nastavena jako výchozí pro všechny achievementy RetroAchievements. Toto výchozí nastavení lze také přepsat pro jednotlivé hry přidáním nové položky Automatické přepínání témat pro konkrétní <span class="hl">GameID</span> RetroAchievements</span>`,
+        statwintype: "Nastavit typ rozvržení Přehled statistik úspěchů",
+        statwinunlockonly: "Skrýt Přehled statistik úspěchů, dokud není odemknut úspěch",
+        statwinunlockonlydisplaytime: "Nastavit počet sekund, po které se bude Přehled statistik úspěchů zobrazovat po odemknutí úspěchu",
+        statwinunlockonlysync: "Synchronizovat počet sekund, po které se bude Přehled statistik úspěchů zobrazovat, s dobou zobrazení aktuálního oznámení"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Ajastimen nollaaminen epäonnistui.",
                 resetgametimercomplete: "AppID $appid on jo suoritettu.",
-                extwinnotify: "Näytä ilmoitus näytöllä"
+                extwinnotify: "Näytä ilmoitus näytöllä",
+                statwintype: "Peittokuvan tyyppi",
+                statwinunlockonly: "Näytä vain avattaessa",
+                statwinunlockonlydisplaytime: "Näyttöaika",
+                statwinunlockonlysync: "Synkronoi ilmoituksen kanssa",
+                default: "Oletus",
+                progressbar: "Edistymispalkki"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Korvaa kaikissa testi-ilmoituksissa näytettävä teksti",
         testnotifycustomtexttitle: "Korvaa kaikissa testi-ilmoituksissa otsikkoelementissä näytettävä teksti",
         testnotifycustomtextdesc: "Korvaa kaikissa testi-ilmoituksissa kuvauselementissä näytettävä teksti",
-        radefault: `Vaihda aina automaattisesti tähän kohteeseen, kun mikä tahansa RetroAchievements-saavutus avataan<br><br><span class="ttdesc">Vain yksi Vaihda teemoja automaattisesti -kohde voidaan määrittää oletukseksi kaikille RetroAchievements-saavutuksille. Tämä oletusasetus voidaan myös ohittaa pelikohtaisesti lisäämällä uusi Vaihda teemoja automaattisesti -kohde tietylle RetroAchievements <span class="hl">GameID</span>:lle</span>`
+        radefault: `Vaihda aina automaattisesti tähän kohteeseen, kun mikä tahansa RetroAchievements-saavutus avataan<br><br><span class="ttdesc">Vain yksi Vaihda teemoja automaattisesti -kohde voidaan määrittää oletukseksi kaikille RetroAchievements-saavutuksille. Tämä oletusasetus voidaan myös ohittaa pelikohtaisesti lisäämällä uusi Vaihda teemoja automaattisesti -kohde tietylle RetroAchievements <span class="hl">GameID</span>:lle</span>`,
+        statwintype: "Aseta Saavutustilastojen ikkuna -asettelun tyyppi",
+        statwinunlockonly: "Pidä Saavutustilastojen ikkuna piilotettuna, kunnes saavutus avataan",
+        statwinunlockonlydisplaytime: "Aseta, kuinka monta sekuntia Saavutustilastojen ikkuna näkyy saavutuksen avaamisen jälkeen",
+        statwinunlockonlysync: "Synkronoi Saavutustilastojen ikkuna näkyvissäoloaika nykyisen ilmoituksen näyttöajan kanssa"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

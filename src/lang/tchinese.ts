@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "無法重設計時器。",
                 resetgametimercomplete: "AppID $appid 已經完成。",
-                extwinnotify: "顯示螢幕通知"
+                extwinnotify: "顯示螢幕通知",
+                statwintype: "視窗類型",
+                statwinunlockonly: "僅在解鎖時顯示",
+                statwinunlockonlydisplaytime: "顯示時間",
+                statwinunlockonlysync: "與通知同步",
+                default: "預設",
+                progressbar: "進度條"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "覆寫所有測試通知中顯示的文字",
         testnotifycustomtexttitle: "覆寫所有測試通知中標題元素顯示的文字",
         testnotifycustomtextdesc: "覆寫所有測試通知中描述元素顯示的文字",
-        radefault: `當任何 RetroAchievements 成就解鎖時，始終自動切換至此項目<br><br><span class="ttdesc">只能將一個 自動切換主題 項目指定為所有 RetroAchievements 成就的預設項目。也可以透過為特定的 RetroAchievements <span class="hl">GameID</span> 新增一個 自動切換主題 項目來覆寫個別遊戲的預設設定</span>`
+        radefault: `當任何 RetroAchievements 成就解鎖時，始終自動切換至此項目<br><br><span class="ttdesc">只能將一個 自動切換主題 項目指定為所有 RetroAchievements 成就的預設項目。也可以透過為特定的 RetroAchievements <span class="hl">GameID</span> 新增一個 自動切換主題 項目來覆寫個別遊戲的預設設定</span>`,
+        statwintype: "設定成就統計窗口的版面配置類型",
+        statwinunlockonly: "在解鎖成就前保持隱藏成就統計窗口",
+        statwinunlockonlydisplaytime: "設定解鎖成就後成就統計窗口顯示的秒數",
+        statwinunlockonlysync: "將成就統計窗口的顯示秒數與目前通知的顯示時間同步"
     },
     update: {
         updateavailable: "有可用更新",

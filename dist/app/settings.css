@@ -188,6 +188,7 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow,#extwinnotify),
 .cont:has(input[type="checkbox"]#nohwa:checked) ~ .cont:has(.title#streaming) .opt:has(#extwinnotify),
 .opt:has(#statwin:not(:checked)) ~ .wrapper:has(#statwinaot,#statwintype,#statwinunlockonly,#statwinunlockonlydisplaytime,#statwinunlockonlysync),
+.opt:has(#statwin:not(:checked)) > button,
 .opt:has(#gametimerwin:not(:checked)) + .wrapper:has(#gametimerwinaot),
 .opt:has(#gametimerwin:not(:checked)) ~ button#resetgametimer,
 .opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime),
@@ -1001,7 +1002,38 @@ button#resetgametimer:hover {
     font-family: "VT323";
     margin-right: 0.25rem;
     padding: 0.1rem 0.25rem;
-    /* border-radius: 0.25rem; */
+}
+
+.opt:has(button.iconbtn) {
+    grid-template-columns: 1fr auto auto;
+    gap: 0;
+}
+
+.opt:has(button.iconbtn) > input[type="checkbox"] {
+    order: 1;
+}
+
+button.iconbtn {
+    --icon: url("../../icon/unlock.svg");
+    width: 1rem;
+    height: 1rem;
+    margin-inline: 1rem 0.25rem;
+    background: var(--icon) center / contain no-repeat;
+    opacity: 0.5;
+    scale: 0.85;
+    transition:
+        scale var(--transition),
+        opacity var(--transition);
+    cursor: pointer;
+}
+
+button.iconbtn:hover {
+    scale: 1;
+    opacity: 1;
+}
+
+.opt:has(input#statwin) > button[aot] {
+    --icon: url("../../icon/lock.svg");
 }
 
 @media (orientation: portrait) {

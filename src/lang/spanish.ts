@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "No se pudo restablecer el temporizador.",
                 resetgametimercomplete: "La AppID $appid ya ha sido completada.",
-                extwinnotify: "Mostrar notificación en pantalla"
+                extwinnotify: "Mostrar notificación en pantalla",
+                statwintype: "Tipo de ventana",
+                statwinunlockonly: "Mostrar solo al desbloquear",
+                statwinunlockonlydisplaytime: "Tiempo de visualización",
+                statwinunlockonlysync: "Sincronizar con la notificación",
+                default: "Predeterminado",
+                progressbar: "Barra de progreso"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Sobrescribir el texto mostrado en todas las notificaciones de prueba",
         testnotifycustomtexttitle: "Sobrescribir el texto mostrado para el elemento del título en todas las notificaciones de prueba",
         testnotifycustomtextdesc: "Sobrescribir el texto mostrado para el elemento de la descripción en todas las notificaciones de prueba",
-        radefault: `Cambiar siempre automáticamente a esta entrada cuando se desbloquee cualquier logro de RetroAchievements<br><br><span class="ttdesc">Solo una entrada de Cambio automático de temas puede designarse como la predeterminada para todos los logros de RetroAchievements. Este valor predeterminado también puede sobrescribirse por juego agregando una nueva entrada de Cambio automático de temas para un <span class="hl">GameID</span> específico de RetroAchievements</span>`
+        radefault: `Cambiar siempre automáticamente a esta entrada cuando se desbloquee cualquier logro de RetroAchievements<br><br><span class="ttdesc">Solo una entrada de Cambio automático de temas puede designarse como la predeterminada para todos los logros de RetroAchievements. Este valor predeterminado también puede sobrescribirse por juego agregando una nueva entrada de Cambio automático de temas para un <span class="hl">GameID</span> específico de RetroAchievements</span>`,
+        statwintype: "Establecer el tipo de diseño de la Ventana de estadísticas de logros",
+        statwinunlockonly: "Mantener oculta la Ventana de estadísticas de logros hasta que se desbloquee un logro",
+        statwinunlockonlydisplaytime: "Establecer el número de segundos que se mostrará la Ventana de estadísticas de logros una vez desbloqueado un logro",
+        statwinunlockonlysync: "Sincronizar el número de segundos que se mostrará la Ventana de estadísticas de logros con el Tiempo de visualización de la notificación actual"
     },
     update: {
         updateavailable: "Actualización disponible",

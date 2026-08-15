@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Kunne ikke nulstille timeren.",
                 resetgametimercomplete: "AppID $appid er allerede fuldført.",
-                extwinnotify: "Vis notifikation på skærmen"
+                extwinnotify: "Vis notifikation på skærmen",
+                statwintype: "Overlejringstype",
+                statwinunlockonly: "Vis kun ved oplåsning",
+                statwinunlockonlydisplaytime: "Visningstid",
+                statwinunlockonlysync: "Synkroniser med notifikation",
+                default: "Standard",
+                progressbar: "Statuslinje"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Tilsidesæt teksten, der vises i alle testmeddelelser",
         testnotifycustomtexttitle: "Tilsidesæt teksten, der vises for tittelelementet i alle testmeddelelser",
         testnotifycustomtextdesc: "Tilsidesæt teksten, der vises for beskrivelseselementet i alle testmeddelelser",
-        radefault: `Skift altid automatisk til denne post, når en RetroAchievements-præstation låses op<br><br><span class="ttdesc">Kun én Automatisk skift af tema-post kan angives som standard for alle RetroAchievements-præstationer. Denne standard kan også tilsidesættes pr. spil ved at tilføje en ny Automatisk skift af tema-post for et specifikt RetroAchievements <span class="hl">GameID</span></span>`
+        radefault: `Skift altid automatisk til denne post, når en RetroAchievements-præstation låses op<br><br><span class="ttdesc">Kun én Automatisk skift af tema-post kan angives som standard for alle RetroAchievements-præstationer. Denne standard kan også tilsidesættes pr. spil ved at tilføje en ny Automatisk skift af tema-post for et specifikt RetroAchievements <span class="hl">GameID</span></span>`,
+        statwintype: "Indstil layouttypen for Statistik for Præstationsvindue",
+        statwinunlockonly: "Hold Statistik for Præstationsvindue skjult, indtil en præstation låses op",
+        statwinunlockonlydisplaytime: "Indstil det antal sekunder, Statistik for Præstationsvindue skal vises, efter en præstation er låst op",
+        statwinunlockonlysync: "Synkroniser det antal sekunder, Statistik for Præstationsvindue skal vises, med den aktuelle notifikations visningstid"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

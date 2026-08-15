@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Kan timer niet resetten.",
                 resetgametimercomplete: "AppID $appid is al voltooid.",
-                extwinnotify: "Melding op scherm tonen"
+                extwinnotify: "Melding op scherm tonen",
+                statwintype: "Type overlay",
+                statwinunlockonly: "Alleen weergeven bij ontgrendeling",
+                statwinunlockonlydisplaytime: "Weergaveduur",
+                statwinunlockonlysync: "Synchroniseren met melding",
+                default: "Standaard",
+                progressbar: "Voortgangsbalk"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "De tekst overschrijven die wordt weergegeven in alle testmeldingen",
         testnotifycustomtexttitle: "De tekst overschrijven die wordt weergegeven voor het titeldeel in alle testmeldingen",
         testnotifycustomtextdesc: "De tekst overschrijven die wordt weergegeven voor het beschrijvingsdeel in alle testmeldingen",
-        radefault: `Altijd automatisch overschakelen naar dit item wanneer een RetroAchievements-prestatie wordt ontgrendeld<br><br><span class="ttdesc">Slechts één Automatisch Thema's Wisselen-item kan als standaard worden ingesteld voor alle RetroAchievements-prestaties. Deze standaardinstelling kan ook per spel worden overschreven door een nieuw Automatisch Thema's Wisselen-item toe te voegen voor een specifieke RetroAchievements <span class="hl">GameID</span></span>`
+        radefault: `Altijd automatisch overschakelen naar dit item wanneer een RetroAchievements-prestatie wordt ontgrendeld<br><br><span class="ttdesc">Slechts één Automatisch Thema's Wisselen-item kan als standaard worden ingesteld voor alle RetroAchievements-prestaties. Deze standaardinstelling kan ook per spel worden overschreven door een nieuw Automatisch Thema's Wisselen-item toe te voegen voor een specifieke RetroAchievements <span class="hl">GameID</span></span>`,
+        statwintype: "Het lay-outtype van het Prestatiestatistiekenvenster instellen",
+        statwinunlockonly: "Het Prestatiestatistiekenvenster verborgen houden totdat een prestatie is ontgrendeld",
+        statwinunlockonlydisplaytime: "Het aantal seconden instellen dat het Prestatiestatistiekenvenster wordt weergegeven nadat een prestatie is ontgrendeld",
+        statwinunlockonlysync: "Het aantal seconden dat het Prestatiestatistiekenvenster wordt weergegeven synchroniseren met de weergaveduur van de huidige melding"
     },
     update: {
         updateavailable: "Update beschikbaar",

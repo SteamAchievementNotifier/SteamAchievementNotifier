@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Kunne ikke tilbakestille tidtakeren.",
                 resetgametimercomplete: "AppID $appid er allerede fullført.",
-                extwinnotify: "Vis Varsel på Skjermen"
+                extwinnotify: "Vis Varsel på Skjermen",
+                statwintype: "Overleggstype",
+                statwinunlockonly: "Vis kun ved opplåsing",
+                statwinunlockonlydisplaytime: "Visningstid",
+                statwinunlockonlysync: "Synkroniser med varsling",
+                default: "Standard",
+                progressbar: "Fremdriftslinje"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Overstyr teksten som vises i alle testvarslinger",
         testnotifycustomtexttitle: "Overstyr teksten som vises for titelelementet i alle testvarslinger",
         testnotifycustomtextdesc: "Overstyr teksten som vises for beskrivelseselementet i alle testvarslinger",
-        radefault: `Bytt alltid automatisk til denne oppføringen når en RetroAchievements-prestasjon låses opp<br><br><span class="ttdesc">Kun én oppføring for automatisk temabytte kan angis som standard for alle RetroAchievements-prestasjoner. Denne standardinnstillingen kan også overstyres per spill ved å legge til en ny oppføring for automatisk temabytte for en bestemt RetroAchievements <span class="hl">GameID</span></span>`
+        radefault: `Bytt alltid automatisk til denne oppføringen når en RetroAchievements-prestasjon låses opp<br><br><span class="ttdesc">Kun én oppføring for automatisk temabytte kan angis som standard for alle RetroAchievements-prestasjoner. Denne standardinnstillingen kan også overstyres per spill ved å legge til en ny oppføring for automatisk temabytte for en bestemt RetroAchievements <span class="hl">GameID</span></span>`,
+        statwintype: "Angi layouttypen for Prestasjonstatistikkvindu",
+        statwinunlockonly: "Hold Prestasjonstatistikkvindu skjult til en prestasjon låses opp",
+        statwinunlockonlydisplaytime: "Angi antall sekunder Prestasjonstatistikkvindu skal vises etter at en prestasjon er låst opp",
+        statwinunlockonlysync: "Synkroniser antall sekunder Prestasjonstatistikkvindu skal vises med gjeldende visningstid for varslingen"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

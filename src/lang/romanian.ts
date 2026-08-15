@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Nu s-a putut reseta cronometrul.",
                 resetgametimercomplete: "AppID-ul $appid a fost deja completat.",
-                extwinnotify: "Afișează Notificare pe Ecran"
+                extwinnotify: "Afișează Notificare pe Ecran",
+                statwintype: "Tip de suprapunere",
+                statwinunlockonly: "Afișează doar la deblocare",
+                statwinunlockonlydisplaytime: "Timp de afișare",
+                statwinunlockonlysync: "Sincronizează cu notificarea",
+                default: "Implicit",
+                progressbar: "Bară de progres"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Suprascrie textul afișat în toate notificările de test",
         testnotifycustomtexttitle: "Suprascrie textul afișat pentru elementul de titlu în toate notificările de test",
         testnotifycustomtextdesc: "Suprascrie textul afișat pentru elementul de descriere în toate notificările de test",
-        radefault: `Comută întotdeauna automat la această intrare atunci când este deblocată orice realizare RetroAchievements<br><br><span class="ttdesc">Doar o singură intrare pentru Comutarea Automată a Temelor poate fi desemnată ca implicită pentru toate realizările RetroAchievements. Această setare implicită poate fi, de asemenea, suprascrisă pentru fiecare joc prin adăugarea unei noi intrări pentru Comutarea Automată a Temelor pentru un anumit <span class="hl">GameID</span> RetroAchievements</span>`
+        radefault: `Comută întotdeauna automat la această intrare atunci când este deblocată orice realizare RetroAchievements<br><br><span class="ttdesc">Doar o singură intrare pentru Comutarea Automată a Temelor poate fi desemnată ca implicită pentru toate realizările RetroAchievements. Această setare implicită poate fi, de asemenea, suprascrisă pentru fiecare joc prin adăugarea unei noi intrări pentru Comutarea Automată a Temelor pentru un anumit <span class="hl">GameID</span> RetroAchievements</span>`,
+        statwintype: "Setează tipul de aspect al Ferestrei cu statistici despre realizări",
+        statwinunlockonly: "Păstrează Fereastra cu statistici despre realizări ascunsă până când o realizare este deblocată",
+        statwinunlockonlydisplaytime: "Setează numărul de secunde pentru care Fereastra cu statistici despre realizări va fi afișată după deblocarea unei realizări",
+        statwinunlockonlysync: "Sincronizează numărul de secunde pentru care Fereastra cu statistici despre realizări va fi afișată cu timpul de afișare al notificării curente"
     },
     update: {
         updateavailable: "Actualizare disponibilă",

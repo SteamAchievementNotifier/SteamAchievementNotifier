@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "タイマーをリセットできませんでした。",
                 resetgametimercomplete: "AppID $appid はすでに完了しています。",
-                extwinnotify: "オンスクリーン通知を表示"
+                extwinnotify: "オンスクリーン通知を表示",
+                statwintype: "オーバーレイの種類",
+                statwinunlockonly: "解除時のみ表示",
+                statwinunlockonlydisplaytime: "表示時間",
+                statwinunlockonlysync: "通知と同期",
+                default: "デフォルト",
+                progressbar: "進行状況バー"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "すべてのテスト通知に表示されるテキストを上書きします",
         testnotifycustomtexttitle: "すべてのテスト通知のタイトル要素に表示されるテキストを上書きします",
         testnotifycustomtextdesc: "すべてのテスト通知の説明要素に表示されるテキストを上書きします",
-        radefault: `RetroAchievements の実績が解除されるたびに、常にこの項目へ自動的に切り替えます<br><br><span class="ttdesc">すべての RetroAchievements 実績に対して既定として設定できる自動テーマ切り替えの項目は 1 つだけです。この既定設定は、特定の RetroAchievements の <span class="hl">GameID</span> 用に新しい自動テーマ切り替え項目を追加することで、ゲームごとに上書きすることもできます</span>`
+        radefault: `RetroAchievements の実績が解除されるたびに、常にこの項目へ自動的に切り替えます<br><br><span class="ttdesc">すべての RetroAchievements 実績に対して既定として設定できる自動テーマ切り替えの項目は 1 つだけです。この既定設定は、特定の RetroAchievements の <span class="hl">GameID</span> 用に新しい自動テーマ切り替え項目を追加することで、ゲームごとに上書きすることもできます</span>`,
+        statwintype: "実績統計ウィンドウのレイアウトタイプを設定",
+        statwinunlockonly: "実績が解除されるまで実績統計ウィンドウを非表示にする",
+        statwinunlockonlydisplaytime: "実績が解除された際に実績統計ウィンドウを表示する秒数を設定",
+        statwinunlockonlysync: "実績統計ウィンドウの表示秒数を現在の通知の表示時間と同期"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

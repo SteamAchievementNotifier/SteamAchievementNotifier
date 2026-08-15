@@ -564,6 +564,16 @@ export const dialog = {
                 updatetables("themeswitch")
             }
 
+            ;(document.querySelector(".opt:has(input#statwin) > button.iconbtn") as HTMLButtonElement).onclick = event => {
+                const target = event.target as HTMLButtonElement
+                const value = !(config.store.statwinaot)
+
+                config.set("statwinaot",value)
+                target.toggleAttribute("aot",value)
+                
+                ipcRenderer.send("statwinaot",value)
+            }
+            
             document.getElementById("showcustomfiles")!.onclick = sanhelper.showcustomfiles
             document.getElementById("appdatadir")!.onclick = sanhelper.appdatadir
             

@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Timer konnte nicht zurückgesetzt werden.",
                 resetgametimercomplete: "AppID $appid wurde bereits abgeschlossen.",
-                extwinnotify: "Bildschirmbenachrichtigung anzeigen"
+                extwinnotify: "Bildschirmbenachrichtigung anzeigen",
+                statwintype: "Overlay-Typ",
+                statwinunlockonly: "Nur beim Freischalten anzeigen",
+                statwinunlockonlydisplaytime: "Anzeigedauer",
+                statwinunlockonlysync: "Mit Benachrichtigung synchronisieren",
+                default: "Standard",
+                progressbar: "Fortschrittsbalken"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Den in allen Testbenachrichtigungen angezeigten Text überschreiben",
         testnotifycustomtexttitle: "Den für das Titelelement in allen Testbenachrichtigungen angezeigten Text überschreiben",
         testnotifycustomtextdesc: "Den für das Beschreibungselement in allen Testbenachrichtigungen angezeigten Text überschreiben",
-        radefault: `Immer automatisch zu diesem Eintrag wechseln, wenn ein RetroAchievements-Erfolg freigeschaltet wird<br><br><span class="ttdesc">Nur ein Automatischer Designwechsel-Eintrag kann als Standard für alle RetroAchievements-Erfolge festgelegt werden. Dieser Standard kann außerdem spielbezogen überschrieben werden, indem ein neuer Automatischer Designwechsel-Eintrag für eine bestimmte RetroAchievements-<span class="hl">GameID</span> hinzugefügt wird</span>`
+        radefault: `Immer automatisch zu diesem Eintrag wechseln, wenn ein RetroAchievements-Erfolg freigeschaltet wird<br><br><span class="ttdesc">Nur ein Automatischer Designwechsel-Eintrag kann als Standard für alle RetroAchievements-Erfolge festgelegt werden. Dieser Standard kann außerdem spielbezogen überschrieben werden, indem ein neuer Automatischer Designwechsel-Eintrag für eine bestimmte RetroAchievements-<span class="hl">GameID</span> hinzugefügt wird</span>`,
+        statwintype: "Layouttyp des Statistikfensters für Erfolge festlegen",
+        statwinunlockonly: "Das Statistikfenster für Erfolge ausblenden, bis ein Erfolg freigeschaltet wird",
+        statwinunlockonlydisplaytime: "Die Anzahl der Sekunden festlegen, für die das Statistikfenster für Erfolge nach dem Freischalten eines Erfolgs angezeigt wird",
+        statwinunlockonlysync: "Die Anzahl der Sekunden, für die das Statistikfenster für Erfolge angezeigt wird, mit der Anzeigedauer der aktuellen Benachrichtigung synchronisieren"
     },
     update: {
         updateavailable: "Update verfügbar",

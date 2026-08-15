@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Không thể đặt lại bộ đếm thời gian.",
                 resetgametimercomplete: "AppID $appid đã được hoàn thành.",
-                extwinnotify: "Hiển thị thông báo trên màn hình"
+                extwinnotify: "Hiển thị thông báo trên màn hình",
+                statwintype: "Loại cửa sổ",
+                statwinunlockonly: "Chỉ hiển thị khi mở khóa",
+                statwinunlockonlydisplaytime: "Thời gian hiển thị",
+                statwinunlockonlysync: "Đồng bộ với thông báo",
+                default: "Mặc định",
+                progressbar: "Thanh tiến trình"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Ghi đè văn bản hiển thị trong tất cả thông báo thử nghiệm",
         testnotifycustomtexttitle: "Ghi đè văn bản hiển thị cho phần tiêu đề trong tất cả thông báo thử nghiệm",
         testnotifycustomtextdesc: "Ghi đè văn bản hiển thị cho phần mô tả trong tất cả thông báo thử nghiệm",
-        radefault: `Luôn tự động chuyển sang mục này khi bất kỳ thành tựu RetroAchievements nào được mở khóa<br><br><span class="ttdesc">Chỉ một mục Tự động chuyển đổi chủ đề có thể được chỉ định làm mặc định cho tất cả thành tựu RetroAchievements. Thiết lập mặc định này cũng có thể được ghi đè theo từng trò chơi bằng cách thêm một mục Tự động chuyển đổi chủ đề mới cho <span class="hl">GameID</span> RetroAchievements cụ thể</span>`
+        radefault: `Luôn tự động chuyển sang mục này khi bất kỳ thành tựu RetroAchievements nào được mở khóa<br><br><span class="ttdesc">Chỉ một mục Tự động chuyển đổi chủ đề có thể được chỉ định làm mặc định cho tất cả thành tựu RetroAchievements. Thiết lập mặc định này cũng có thể được ghi đè theo từng trò chơi bằng cách thêm một mục Tự động chuyển đổi chủ đề mới cho <span class="hl">GameID</span> RetroAchievements cụ thể</span>`,
+        statwintype: "Đặt kiểu bố cục của Cửa sổ thống kê thành tích",
+        statwinunlockonly: "Ẩn Cửa sổ thống kê thành tích cho đến khi một thành tích được mở khóa",
+        statwinunlockonlydisplaytime: "Đặt số giây Cửa sổ thống kê thành tích sẽ hiển thị sau khi một thành tích được mở khóa",
+        statwinunlockonlysync: "Đồng bộ số giây Cửa sổ thống kê thành tích sẽ hiển thị với Thời gian hiển thị của thông báo hiện tại"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

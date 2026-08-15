@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Impossible de réinitialiser le minuteur.",
                 resetgametimercomplete: "L’AppID $appid a déjà été terminé.",
-                extwinnotify: "Afficher une notification à l'écran"
+                extwinnotify: "Afficher une notification à l'écran",
+                statwintype: "Type de fenêtre",
+                statwinunlockonly: "Afficher uniquement lors du déverrouillage",
+                statwinunlockonlydisplaytime: "Durée d'affichage",
+                statwinunlockonlysync: "Synchroniser avec la notification",
+                default: "Par défaut",
+                progressbar: "Barre de progression"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Remplacer le texte affiché dans toutes les notifications de test",
         testnotifycustomtexttitle: "Remplacer le texte affiché pour l'élément de titre dans toutes les notifications de test",
         testnotifycustomtextdesc: "Remplacer le texte affiché pour l'élément de description dans toutes les notifications de test",
-        radefault: `Toujours basculer automatiquement vers cette entrée lorsqu'un succès RetroAchievements est débloqué<br><br><span class="ttdesc">Une seule entrée Changement automatique de thème peut être définie par défaut pour tous les succès RetroAchievements. Cette valeur par défaut peut également être remplacée pour chaque jeu en ajoutant une nouvelle entrée Changement automatique de thème pour un <span class="hl">GameID</span> RetroAchievements spécifique</span>`
+        radefault: `Toujours basculer automatiquement vers cette entrée lorsqu'un succès RetroAchievements est débloqué<br><br><span class="ttdesc">Une seule entrée Changement automatique de thème peut être définie par défaut pour tous les succès RetroAchievements. Cette valeur par défaut peut également être remplacée pour chaque jeu en ajoutant une nouvelle entrée Changement automatique de thème pour un <span class="hl">GameID</span> RetroAchievements spécifique</span>`,
+        statwintype: "Définir le type de disposition de la Fenêtre des Statistiques de Succès",
+        statwinunlockonly: "Garder la Fenêtre des Statistiques de Succès masquée jusqu'à ce qu'un succès soit déverrouillé",
+        statwinunlockonlydisplaytime: "Définir le nombre de secondes pendant lesquelles la Fenêtre des Statistiques de Succès sera affichée après le déverrouillage d'un succès",
+        statwinunlockonlysync: "Synchroniser le nombre de secondes pendant lesquelles la Fenêtre des Statistiques de Succès sera affichée avec la Durée d'affichage de la notification actuelle"
     },
     update: {
         updateavailable: "Mise à jour disponible",

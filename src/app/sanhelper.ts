@@ -194,20 +194,22 @@ export const sanhelper: SANHelper = {
     },
     findelectrondisplay: (id: number) => findElectronDisplay(id),
     setdevtools: async (win: Electron.BrowserWindow) => {
-        const { BrowserWindow, screen } = await import("electron")
-        const { width, height } = screen.getPrimaryDisplay().bounds
+        // const { BrowserWindow, screen } = await import("electron")
+        // const { width, height } = screen.getPrimaryDisplay().bounds
 
-        const devtools = new BrowserWindow({
-            width: Math.round(width / 5),
-            height: Math.round(height / 1.125),
-            autoHideMenuBar: true
-        })
+        // const devtools = new BrowserWindow({
+        //     width: Math.round(width / 5),
+        //     height: Math.round(height / 1.125),
+        //     autoHideMenuBar: true
+        // })
 
-        win.webContents.setDevToolsWebContents(devtools.webContents)
+        // win.webContents.setDevToolsWebContents(devtools.webContents)
+        // win.webContents.openDevTools({ mode: "detach" })
+        // devtools.setPosition(Math.round(width - (width / 5 + 20)),Math.round((height - (height / 1.125)) / 2))
+
+        // win.once("closed",() => devtools.destroy())
+
         win.webContents.openDevTools({ mode: "detach" })
-        devtools.setPosition(Math.round(width - (width / 5 + 20)),Math.round((height - (height / 1.125)) / 2))
-
-        win.once("closed",() => devtools.destroy())
 
         return
     },
@@ -380,7 +382,6 @@ export const sanhelper: SANHelper = {
     audiosrc: (value: "notify" | "app" | "off") => document.body.toggleAttribute("muted",value === "off"),
     shortcuts: () => ipcRenderer.send("shortcut",true),
     statwin: (value: boolean) => ipcRenderer.send("statwin",value),
-    statwinaot: (value: boolean) => ipcRenderer.send("statwinaot",value),
     statwinunlockonly: (value: boolean) => ipcRenderer.send("statwinunlockonly",value),
     gametimerwin: (value: boolean) => ipcRenderer.send("gametimerwin",value),
     gametimerwinaot: (value: boolean) => ipcRenderer.send("gametimerwinaot",value),
@@ -946,6 +947,13 @@ export const sanhelper: SANHelper = {
         const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id).map(btn => btn.id)
 
         if (settings) {
+            const props = {
+                appendTo: settings,
+                onTrigger(inst: Instance<Props>) {
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                }
+            }
+            
             settings.querySelectorAll(`
                 #settingscontent input,
                 #settingscontent .optbtn,
@@ -957,23 +965,31 @@ export const sanhelper: SANHelper = {
 
                 requestAnimationFrame(async () => {
                     const tt = tippy(settingsbtns.includes(elem.id) ? `#${elem.id}` : `
-                        .opt:not(:has(> .sub, > .opt)):has(#${elem.id}),
-                        .opt:has(> .sub, > .opt):has(> #${elem.id}) > #${elem.id},
-                        .opt:has(> .sub, > .opt):has(> #${elem.id}) > span
+                        .opt:not(:has(> .sub, > .opt, > .iconbtn)):has(#${elem.id}),
+                        .opt:has(> .sub, > .opt, > .iconbtn):has(> #${elem.id}) > #${elem.id},
+                        .opt:has(> .sub, > .opt, > .iconbtn):has(> #${elem.id}) > span
                     `,{
                         ...defaulttippy,
                         maxWidth: sanhelper.maxwidth(wideelems,elem),
                         content: `${await language.get(`${elem.id === "exclusionlist" && settings.querySelector(`.optcont:has(button#listmode[mode="inclusion"]`) ? elem.id.replace(/^ex/,"in") : elem.id}`,["tooltips"])}${(elem.id === "replaynotify" && !document.body.hasAttribute("allowreplay") ? await language.get("replaynotifyempty",["tooltips"]) : "")}`,
-                        appendTo: settings,
-                        onTrigger(inst) {
-                            inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
-                        }
+                        ...props
                     }) as Instance<Props>[]
             
                     tippies.push(tt)
                 })
             })
 
+            // Allows elements with the `.iconbtn` class to have a separate tooltip to the parent `.opt` element
+            settings.querySelectorAll(`.opt:has(> .iconbtn) > .iconbtn`).forEach(async elem => {
+                const tt = tippy(`#settingscontent .opt:has(> .iconbtn#${elem.id}) > .iconbtn#${elem.id}`,{
+                    ...defaulttippy,
+                    content: await language.get(elem.id,["tooltips"]),
+                    ...props
+                })
+                
+                tippies.push(tt)
+            })
+            
             sanhelper.loadadditionaltooltips(settings)
         }
 

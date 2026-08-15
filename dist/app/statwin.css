@@ -385,10 +385,16 @@ body[nospoilers] .achievement[unlocked="false"][hidden] > .inner > .icon {
     align-items: center;
     gap: 0.5rem;
     width: 100%;
+    min-height: 2rem;
     padding: 0.5rem;
     margin: 0;
     background-color: var(--primary);
-    transition: var(--transition);
+    transition: background-color var(--transition);
+}
+
+body[type="progressbar"] .wrapper#btnwrapper {
+    background-color: var(--bggrey);
+    transition: 0s;
 }
 
 body[displaymode="unlocked"] .wrapper#btnwrapper {

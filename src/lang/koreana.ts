@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "타이머를 초기화할 수 없습니다.",
                 resetgametimercomplete: "AppID $appid는 이미 완료되었습니다.",
-                extwinnotify: "화면 알림 표시"
+                extwinnotify: "화면 알림 표시",
+                statwintype: "오버레이 유형",
+                statwinunlockonly: "달성 시에만 표시",
+                statwinunlockonlydisplaytime: "표시 시간",
+                statwinunlockonlysync: "알림과 동기화",
+                default: "기본값",
+                progressbar: "진행률 표시줄"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "모든 테스트 알림에 표시되는 텍스트를 재정의합니다",
         testnotifycustomtexttitle: "모든 테스트 알림의 제목 요소에 표시되는 텍스트를 재정의합니다",
         testnotifycustomtextdesc: "모든 테스트 알림의 설명 요소에 표시되는 텍스트를 재정의합니다",
-        radefault: `RetroAchievements 업적이 잠금 해제될 때마다 항상 이 항목으로 자동 전환합니다<br><br><span class="ttdesc">모든 RetroAchievements 업적에 대해 기본값으로 지정할 수 있는 자동 테마 전환 항목은 하나뿐입니다. 이 기본값은 특정 RetroAchievements <span class="hl">GameID</span>에 대한 새 자동 테마 전환 항목을 추가하여 게임별로 재정의할 수도 있습니다</span>`
+        radefault: `RetroAchievements 업적이 잠금 해제될 때마다 항상 이 항목으로 자동 전환합니다<br><br><span class="ttdesc">모든 RetroAchievements 업적에 대해 기본값으로 지정할 수 있는 자동 테마 전환 항목은 하나뿐입니다. 이 기본값은 특정 RetroAchievements <span class="hl">GameID</span>에 대한 새 자동 테마 전환 항목을 추가하여 게임별로 재정의할 수도 있습니다</span>`,
+        statwintype: "업적 통계 창의 레이아웃 유형 설정",
+        statwinunlockonly: "업적이 달성될 때까지 업적 통계 창 숨기기",
+        statwinunlockonlydisplaytime: "업적이 달성된 후 업적 통계 창이 표시될 시간을 초 단위로 설정",
+        statwinunlockonlysync: "업적 통계 창의 표시 시간을 현재 알림의 표시 시간과 동기화"
     },
     update: {
         updateavailable: "업데이트 가능",

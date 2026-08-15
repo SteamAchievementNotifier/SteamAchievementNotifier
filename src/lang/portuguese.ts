@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Não foi possível redefinir o temporizador.",
                 resetgametimercomplete: "O AppID $appid já foi concluído.",
-                extwinnotify: "Mostrar Notificação no Ecrã"
+                extwinnotify: "Mostrar Notificação no Ecrã",
+                statwintype: "Tipo de sobreposição",
+                statwinunlockonly: "Mostrar apenas ao desbloquear",
+                statwinunlockonlydisplaytime: "Tempo de exibição",
+                statwinunlockonlysync: "Sincronizar com a notificação",
+                default: "Padrão",
+                progressbar: "Barra de progresso"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Substituir o texto apresentado em todas as Notificações de Teste",
         testnotifycustomtexttitle: "Substituir o texto apresentado no elemento de título em todas as Notificações de Teste",
         testnotifycustomtextdesc: "Substituir o texto apresentado no elemento de descrição em todas as Notificações de Teste",
-        radefault: `Mudar sempre automaticamente para esta entrada quando qualquer conquista do RetroAchievements for desbloqueada<br><br><span class="ttdesc">Apenas uma entrada de Mudança Automática de Tema pode ser definida como predefinição para todas as conquistas do RetroAchievements. Esta predefinição também pode ser substituída por jogo ao adicionar uma nova entrada de Mudança Automática de Tema para um <span class="hl">GameID</span> específico do RetroAchievements</span>`
+        radefault: `Mudar sempre automaticamente para esta entrada quando qualquer conquista do RetroAchievements for desbloqueada<br><br><span class="ttdesc">Apenas uma entrada de Mudança Automática de Tema pode ser definida como predefinição para todas as conquistas do RetroAchievements. Esta predefinição também pode ser substituída por jogo ao adicionar uma nova entrada de Mudança Automática de Tema para um <span class="hl">GameID</span> específico do RetroAchievements</span>`,
+        statwintype: "Defina o tipo de layout da Janela de Estatísticas de Conquistas",
+        statwinunlockonly: "Mantenha a Janela de Estatísticas de Conquistas oculta até que uma conquista seja desbloqueada",
+        statwinunlockonlydisplaytime: "Defina o número de segundos durante os quais a Janela de Estatísticas de Conquistas será exibida após uma conquista ser desbloqueada",
+        statwinunlockonlysync: "Sincronize o número de segundos durante os quais a Janela de Estatísticas de Conquistas será exibida com o Tempo de Exibição da notificação atual"
     },
     update: {
         updateavailable: "Atualização disponível",

@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "تعذر إعادة تعيين المؤقت.",
                 resetgametimercomplete: "تم بالفعل إكمال AppID $appid.",
-                extwinnotify: "إظهار إشعار على الشاشة"
+                extwinnotify: "إظهار إشعار على الشاشة",
+                statwintype: "نوع النافذة",
+                statwinunlockonly: "العرض عند فتح إنجاز فقط",
+                statwinunlockonlydisplaytime: "مدة العرض",
+                statwinunlockonlysync: "المزامنة مع الإشعار",
+                default: "افتراضي",
+                progressbar: "شريط التقدم"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "تجاوز النص المعروض في جميع إشعارات الاختبار",
         testnotifycustomtexttitle: "تجاوز النص المعروض لعنصر العنوان في جميع إشعارات الاختبار",
         testnotifycustomtextdesc: "تجاوز النص المعروض لعنصر الوصف في جميع إشعارات الاختبار",
-        radefault: `التبديل تلقائيًا دائمًا إلى هذا الإدخال عند فتح أي إنجاز من RetroAchievements<br><br><span class="ttdesc">يمكن تعيين إدخال واحد فقط من التبديل التلقائي للثيمات كإعداد افتراضي لجميع إنجازات RetroAchievements. يمكن أيضًا تجاوز هذا الإعداد الافتراضي لكل لعبة على حدة بإضافة إدخال جديد من التبديل التلقائي للثيمات لمعرف لعبة <span class="hl">GameID</span> محدد في RetroAchievements</span>`
+        radefault: `التبديل تلقائيًا دائمًا إلى هذا الإدخال عند فتح أي إنجاز من RetroAchievements<br><br><span class="ttdesc">يمكن تعيين إدخال واحد فقط من التبديل التلقائي للثيمات كإعداد افتراضي لجميع إنجازات RetroAchievements. يمكن أيضًا تجاوز هذا الإعداد الافتراضي لكل لعبة على حدة بإضافة إدخال جديد من التبديل التلقائي للثيمات لمعرف لعبة <span class="hl">GameID</span> محدد في RetroAchievements</span>`,
+        statwintype: "تعيين نوع تخطيط نافذة إحصائيات الإنجازات",
+        statwinunlockonly: "إبقاء نافذة إحصائيات الإنجازات مخفية حتى يتم فتح إنجاز",
+        statwinunlockonlydisplaytime: "تعيين عدد الثواني التي ستظهر فيها نافذة إحصائيات الإنجازات بعد فتح إنجاز",
+        statwinunlockonlysync: "مزامنة عدد الثواني التي ستظهر فيها نافذة إحصائيات الإنجازات مع مدة عرض الإشعار الحالي"
     },
     update: {
         updateavailable: "تحديث متاح",

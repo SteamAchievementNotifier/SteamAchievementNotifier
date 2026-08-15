@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "ไม่สามารถรีเซ็ตตัวจับเวลาได้",
                 resetgametimercomplete: "AppID $appid เสร็จสมบูรณ์แล้ว",
-                extwinnotify: "แสดงการแจ้งเตือนบนหน้าจอ"
+                extwinnotify: "แสดงการแจ้งเตือนบนหน้าจอ",
+                statwintype: "ประเภทหน้าต่าง",
+                statwinunlockonly: "แสดงเฉพาะเมื่อปลดล็อก",
+                statwinunlockonlydisplaytime: "เวลาแสดง",
+                statwinunlockonlysync: "ซิงค์กับการแจ้งเตือน",
+                default: "ค่าเริ่มต้น",
+                progressbar: "แถบความคืบหน้า"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "แทนที่ข้อความที่แสดงในทุกการแจ้งเตือนทดสอบ",
         testnotifycustomtexttitle: "แทนที่ข้อความที่แสดงสำหรับส่วนชื่อเรื่องในทุกการแจ้งเตือนทดสอบ",
         testnotifycustomtextdesc: "แทนที่ข้อความที่แสดงสำหรับส่วนคำอธิบายในทุกการแจ้งเตือนทดสอบ",
-        radefault: `สลับไปยังรายการนี้โดยอัตโนมัติเสมอเมื่อปลดล็อกความสำเร็จของ RetroAchievements ใด ๆ<br><br><span class="ttdesc">สามารถกำหนดรายการ เปลี่ยนธีมอัตโนมัติ ได้เพียงรายการเดียวให้เป็นค่าเริ่มต้นสำหรับความสำเร็จ RetroAchievements ทั้งหมด ค่าเริ่มต้นนี้ยังสามารถแทนที่เป็นรายเกมได้โดยเพิ่มรายการ เปลี่ยนธีมอัตโนมัติ ใหม่สำหรับ <span class="hl">GameID</span> ของ RetroAchievements ที่ระบุ</span>`
+        radefault: `สลับไปยังรายการนี้โดยอัตโนมัติเสมอเมื่อปลดล็อกความสำเร็จของ RetroAchievements ใด ๆ<br><br><span class="ttdesc">สามารถกำหนดรายการ เปลี่ยนธีมอัตโนมัติ ได้เพียงรายการเดียวให้เป็นค่าเริ่มต้นสำหรับความสำเร็จ RetroAchievements ทั้งหมด ค่าเริ่มต้นนี้ยังสามารถแทนที่เป็นรายเกมได้โดยเพิ่มรายการ เปลี่ยนธีมอัตโนมัติ ใหม่สำหรับ <span class="hl">GameID</span> ของ RetroAchievements ที่ระบุ</span>`,
+        statwintype: "ตั้งค่าประเภทเค้าโครงของหน้าต่างสถิติความสำเร็จ",
+        statwinunlockonly: "ซ่อนหน้าต่างสถิติความสำเร็จไว้จนกว่าจะปลดล็อกความสำเร็จ",
+        statwinunlockonlydisplaytime: "ตั้งค่าจำนวนวินาทีที่หน้าต่างสถิติความสำเร็จจะแสดงหลังจากปลดล็อกความสำเร็จ",
+        statwinunlockonlysync: "ซิงค์จำนวนวินาทีที่หน้าต่างสถิติความสำเร็จจะแสดงกับเวลาการแสดงของการแจ้งเตือนปัจจุบัน"
     },
     update: {
         updateavailable: "มีการอัปเดตใหม่",

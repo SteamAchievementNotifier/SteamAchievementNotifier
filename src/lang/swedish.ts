@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Det gick inte att återställa timern.",
                 resetgametimercomplete: "AppID $appid har redan slutförts.",
-                extwinnotify: "Visa skärmnotifikation"
+                extwinnotify: "Visa skärmnotifikation",
+                statwintype: "Fönstertyp",
+                statwinunlockonly: "Visa endast vid upplåsning",
+                statwinunlockonlydisplaytime: "Visningstid",
+                statwinunlockonlysync: "Synkronisera med avisering",
+                default: "Standard",
+                progressbar: "Förloppsindikator"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Åsidosätt texten som visas i alla testaviseringar",
         testnotifycustomtexttitle: "Åsidosätt texten som visas för titelfältet i alla testaviseringar",
         testnotifycustomtextdesc: "Åsidosätt texten som visas för beskrivningsfältet i alla testaviseringar",
-        radefault: `Växla alltid automatiskt till denna post när någon RetroAchievements-prestation låses upp<br><br><span class="ttdesc">Endast en Automatisk byte av teman-post kan anges som standard för alla RetroAchievements-prestationer. Denna standard kan också åsidosättas per spel genom att lägga till en ny Automatisk byte av teman-post för ett specifikt RetroAchievements <span class="hl">GameID</span></span>`
+        radefault: `Växla alltid automatiskt till denna post när någon RetroAchievements-prestation låses upp<br><br><span class="ttdesc">Endast en Automatisk byte av teman-post kan anges som standard för alla RetroAchievements-prestationer. Denna standard kan också åsidosättas per spel genom att lägga till en ny Automatisk byte av teman-post för ett specifikt RetroAchievements <span class="hl">GameID</span></span>`,
+        statwintype: "Ställ in layouttypen för Prestationstatistikfönster",
+        statwinunlockonly: "Håll Prestationstatistikfönster dolt tills en prestation låses upp",
+        statwinunlockonlydisplaytime: "Ställ in hur många sekunder Prestationstatistikfönster ska visas när en prestation har låsts upp",
+        statwinunlockonlysync: "Synkronisera antalet sekunder som Prestationstatistikfönster ska visas med den aktuella aviseringens visningstid"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

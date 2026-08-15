@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Nie można zresetować timera.",
                 resetgametimercomplete: "AppID $appid został już ukończony.",
-                extwinnotify: "Pokaż Powiadomienie na Ekranie"
+                extwinnotify: "Pokaż Powiadomienie na Ekranie",
+                statwintype: "Typ nakładki",
+                statwinunlockonly: "Pokazuj tylko przy odblokowaniu",
+                statwinunlockonlydisplaytime: "Czas wyświetlania",
+                statwinunlockonlysync: "Synchronizuj z powiadomieniem",
+                default: "Domyślne",
+                progressbar: "Pasek postępu"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Zastąp tekst wyświetlany we wszystkich powiadomieniach testowych",
         testnotifycustomtexttitle: "Zastąp tekst wyświetlany w elemencie tytułu we wszystkich powiadomieniach testowych",
         testnotifycustomtextdesc: "Zastąp tekst wyświetlany w elemencie opisu we wszystkich powiadomieniach testowych",
-        radefault: `Zawsze automatycznie przełączaj na ten wpis po odblokowaniu dowolnego osiągnięcia RetroAchievements<br><br><span class="ttdesc">Tylko jeden wpis Automatycznego Przełączania Motywów może zostać wyznaczony jako domyślny dla wszystkich osiągnięć RetroAchievements. To ustawienie domyślne można również zastąpić dla poszczególnych gier, dodając nowy wpis Automatycznego Przełączania Motywów dla określonego <span class="hl">GameID</span> RetroAchievements</span>`
+        radefault: `Zawsze automatycznie przełączaj na ten wpis po odblokowaniu dowolnego osiągnięcia RetroAchievements<br><br><span class="ttdesc">Tylko jeden wpis Automatycznego Przełączania Motywów może zostać wyznaczony jako domyślny dla wszystkich osiągnięć RetroAchievements. To ustawienie domyślne można również zastąpić dla poszczególnych gier, dodając nowy wpis Automatycznego Przełączania Motywów dla określonego <span class="hl">GameID</span> RetroAchievements</span>`,
+        statwintype: "Ustaw typ układu Okna statystyk osiągnięć",
+        statwinunlockonly: "Ukrywaj Okno statystyk osiągnięć do momentu odblokowania osiągnięcia",
+        statwinunlockonlydisplaytime: "Ustaw liczbę sekund, przez które Okno statystyk osiągnięć będzie wyświetlane po odblokowaniu osiągnięcia",
+        statwinunlockonlysync: "Synchronizuj liczbę sekund, przez które Okno statystyk osiągnięć będzie wyświetlane, z bieżącym Czasem wyświetlania powiadomienia"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

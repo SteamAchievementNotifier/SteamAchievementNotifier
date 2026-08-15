@@ -67,7 +67,7 @@ export const language = {
                         settingscontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(input) > input`).forEach(input => langmap.set(input.parentElement!.querySelector(`span`)!,settings[title].content[input.id]))
                         settingscontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(select) > select`).forEach(select => select.parentElement!.querySelector(`span`) && langmap.set(select.parentElement!.querySelector(`span`)!,settings[title].content[select.id]))
                         settingscontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(select:not(${selectignore})) > select > option`).forEach(opt => opt.textContent = posselect.includes(opt.parentElement!.id) ? global[(opt as HTMLOptionElement).value] : settings[title].content[(opt as HTMLOptionElement).value])
-                        settingscontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(button) > button`).forEach(btn => btn.parentElement!.querySelector(`span`) && langmap.set(btn.parentElement!.querySelector(`span`)!,btn.id === "sspreview" ? global.preview : settings[title].content[btn.id]))
+                        settingscontent.querySelectorAll(`.cont:has(span.title#${title}) .opt:has(button) > button`).forEach(btn => btn.id && !btn.classList.contains("iconbtn") && btn.parentElement!.querySelector(`span`) && langmap.set(btn.parentElement!.querySelector(`span`)!,btn.id === "sspreview" ? global.preview : settings[title].content[btn.id]))
                     })
 
                     const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id).map(btn => btn.id)!

@@ -300,7 +300,13 @@ export const translations = {
                 `,
                 resetgametimerfailed: "Nem sikerült visszaállítani az időzítőt.",
                 resetgametimercomplete: "Az AppID $appid már teljesítve lett.",
-                extwinnotify: "Képernyőértesítés Megjelenítése"
+                extwinnotify: "Képernyőértesítés Megjelenítése",
+                statwintype: "Átfedés típusa",
+                statwinunlockonly: "Csak feloldáskor jelenjen meg",
+                statwinunlockonlydisplaytime: "Megjelenítési idő",
+                statwinunlockonlysync: "Szinkronizálás az értesítéssel",
+                default: "Alapértelmezett",
+                progressbar: "Folyamatjelző"
             }
         },
         accessibility: {
@@ -883,7 +889,11 @@ export const translations = {
         testnotifycustomtext: "Az összes tesztértesítésben megjelenő szöveg felülbírálása",
         testnotifycustomtexttitle: "Az összes tesztértesítés címmezőjében megjelenő szöveg felülbírálása",
         testnotifycustomtextdesc: "Az összes tesztértesítés leírásmezőjében megjelenő szöveg felülbírálása",
-        radefault: `Mindig automatikusan váltson erre a bejegyzésre, amikor bármely RetroAchievements teljesítmény feloldásra kerül<br><br><span class="ttdesc">Csak egy Automatikus Témaváltás bejegyzés jelölhető ki alapértelmezettként az összes RetroAchievements teljesítményhez. Ez az alapértelmezett beállítás játékonként is felülbírálható egy új Automatikus Témaváltás bejegyzés hozzáadásával egy adott RetroAchievements <span class="hl">GameID</span> számára</span>`
+        radefault: `Mindig automatikusan váltson erre a bejegyzésre, amikor bármely RetroAchievements teljesítmény feloldásra kerül<br><br><span class="ttdesc">Csak egy Automatikus Témaváltás bejegyzés jelölhető ki alapértelmezettként az összes RetroAchievements teljesítményhez. Ez az alapértelmezett beállítás játékonként is felülbírálható egy új Automatikus Témaváltás bejegyzés hozzáadásával egy adott RetroAchievements <span class="hl">GameID</span> számára</span>`,
+        statwintype: "Az Eredménystatisztika ablak elrendezéstípusának beállítása",
+        statwinunlockonly: "Az Eredménystatisztika ablak elrejtése egy eredmény feloldásáig",
+        statwinunlockonlydisplaytime: "Az Eredménystatisztika ablak megjelenítési idejének beállítása másodpercben egy eredmény feloldása után",
+        statwinunlockonlysync: "Az Eredménystatisztika ablak megjelenítési idejének szinkronizálása az aktuális értesítés Megjelenítési idejével"
     },
     update: {
         updateavailable: "Frissítés elérhető",

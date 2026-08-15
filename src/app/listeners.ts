@@ -740,21 +740,29 @@ export const listeners = {
             })
             .then(() => {
                 win.setSize(width,height)
-                statwin && statwin.setSize(250,500)
-                gametimerwin && gametimerwin.setSize(250,100)
+
+                const extwinsmap = new Map<BrowserWindow | null,ExtWins>([
+                    [extwin,"ext"],
+                    [statwin,"stat"],
+                    [gametimerwin,"gametimer"]
+                ])
+
+                for (const [extwin,type] of extwinsmap) {
+                    if (!extwin) continue
+                    config.delete(`${type}winpos`) // Clear config values of active windows so `sanconfig.defaultextwins[type]` resets to default values (instead of re-applying existing persisted config values again)
+
+                    const { width, height } = sanconfig.defaultextwins[type]
+                    
+                    extwin.setSize(width,height)
+                    setwinbounds(config,type,extwin)
+                }
             })
             .finally(() => {
                 win.center()
                 win.show()
 
                 const { x, y } = win.getBounds()
-    
-                return config.set({
-                    width: width,
-                    height: height,
-                    x: x,
-                    y: y
-                })
+                return config.set({ width, height, x, y })
             })
         }
 

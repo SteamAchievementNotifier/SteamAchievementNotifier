@@ -5,7 +5,7 @@ import fs from "fs"
 import fsextra from "fs-extra"
 import { sanhelper, __root } from "./sanhelper"
 import { dialog } from "./dialog"
-import { sanconfig, customfilekeys } from "./config"
+import { sanconfig, customfilekeys, settingslvlkeys } from "./config"
 import { log } from "./log"
 
 const isobject = (item: any): item is Record<string,any> => typeof item === "object" && item !== null && !Array.isArray(item)
@@ -163,6 +163,11 @@ export const usertheme = {
         const selected = updatedthemes.find(theme => theme.enabled)!
         const customisation = { ...selected.customisation as Customisation }
 
+        // Persist current value of any Settings-level keys stored under `config.customisation.<type>.<key>`
+        for (const key of settingslvlkeys) {
+            (customisation as any)[key] = config.get(`customisation.${type}.${key}`)
+        }
+
         // Checks all keys in current type on import and adds defaults if missing
         ;(async () => {
             const { sanconfig } = await import("./config")
@@ -207,6 +212,10 @@ export const usertheme = {
 
         const customisation: Customisation = customobj || config.get(`customisation.${type}`) as Customisation
         delete (customisation as any).usertheme
+
+        for (const key of settingslvlkeys) {
+            delete (customisation as any)[key]
+        }
 
         const theme: UserTheme = {
             id: newid,
@@ -591,6 +600,12 @@ export const usertheme = {
 
             if (theme && "customisation" in theme) {
                 customobj = theme.customisation
+
+                // Ignore settings-level keys
+                for (const key of settingslvlkeys) {
+                    (customobj as any)[key] = config.get(`customisation.${type}.${key}`)
+                }
+
                 getsrc && (src = themeswitch[1].src)
             } else {
                 log.write("ERROR",`Unable to load Theme for AppID "${appid}" via Auto-Switch Themes - assigned Theme may have been deleted`)

@@ -10,6 +10,15 @@ const configfilekeys = [
     "imgpath"
 ]
 
+// Contains keys whose values are stored in "config.customisation.<type>" but should be treated as Settings-level (i.e. persist between Theme switches)
+export const settingslvlkeys: (keyof Customisation)[] = [
+    "ovpos",
+    "ovx",
+    "ovy",
+    "ovmatch",
+    "elemsmatch"
+]
+
 // Contains keys whose values are filepaths in "config.customisation.<type>"
 export const customfilekeys = [
     "bgimg",
@@ -666,7 +675,7 @@ export const sanconfig = {
         missingfiles.size && sanconfig.resetmissingfiles(missingfiles,config,log)
 
         const { customisation } = sanconfig.create()
-        const defaultkeys = Object.keys(customisation[type]).filter(key => key !== "usertheme")
+        const defaultkeys = Object.keys(customisation[type]).filter(key => key !== "usertheme" && !settingslvlkeys.includes(key as keyof Customisation))
 
         userthemes.forEach((theme,i) => {
             const userthemecustomicons = theme.customisation!.customicons

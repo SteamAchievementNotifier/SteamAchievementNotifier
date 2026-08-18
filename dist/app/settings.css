@@ -205,7 +205,8 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 
 .opt:has(#ssenabled:not(:checked)) ~ .opt:has(#ovpos,#ovmatch,.lbl#sselemselectorlbl,#ovpath,#imgpath,#ssdelay,#sspreview,#rauseemudir),
 .opt:has(#ssenabled:not(:checked)) ~ .wrapper[ssonly]:has(> .wrapper[ssonly]):has(#ovx,#ovy,#rauseemudir),
-.opt:has(#ssenabled:not(:checked)) ~ .wrapper[overlay]:has(> .wrapper[overlay]):has(#ovx,#ovy,#rauseemudir) {
+.opt:has(#ssenabled:not(:checked)) ~ .wrapper[overlay]:has(> .wrapper[overlay]):has(#ovx,#ovy,#rauseemudir),
+.optcont:has(select#ssmode > option[value="window"]:checked) > .opt:has(select#monitors) {
     display: none !important;
 }
 

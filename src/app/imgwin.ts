@@ -33,7 +33,10 @@ ipcRenderer.once(`imgwinready_${notifyid}`,(event,obj: { info: Info, dims: { wid
     obj.info.skipaudio = true
 
     // Sends the "sscapture_${notify.id}" (triggered via `base.ts` > `checkreadystate()` > `ipcRenderer.sendToHost()`) IPC event to Main
-    webview.addEventListener("ipc-message",event => setTimeout(() => ipcRenderer.send(event.channel),2000))
+    webview.addEventListener("ipc-message",event => setTimeout(async () => {
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))) // Using double-requestAnimationFrame waits for the second frame to render, ensuring the first has already been composited/submitted before continuing with capture
+        ipcRenderer.send(event.channel)
+    },2000))
 
     webview.addEventListener("dom-ready",() => {
         // Send "ss" event to webview - on receipt of this event, the webview adds the "ss" tag so animation can be disabled via CSS

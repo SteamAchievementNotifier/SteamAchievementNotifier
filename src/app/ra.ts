@@ -141,6 +141,8 @@ export const getlastactions = (key: string,file: string): LogAction[] => {
 let gameid = 0
 let ramode: "hard" | "soft" = "hard"
 let nowtrackingshown = false
+let hasshown = false
+
 export let racached: RAAchievement[] = []
 
 export const executeaction = async (lastaction: LogAction): Promise<[string | null,(string | null)[]]> => {
@@ -161,6 +163,8 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 
                 // Prevents occasional bug where the "Now Tracking" notification is displayed again after unlocking simultaneous achievements
                 if (nowtrackingshown) return ["INFO",[key,`[RA]: "start" action in "${emu || key}" re-triggered by GameID ${gameid || value} - skipping...`]]
+                
+                hasshown = false
 
                 log.write("INFO",`GameID ${value} is running in ${mode!.replace(mode![0],mode![0].toUpperCase())}core Mode`)
                 
@@ -183,6 +187,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                 ramode = "hard"
                 racached.length = 0
                 nowtrackingshown = false
+                hasshown = false
 
                 ipcRenderer.send("ragame",action)
                 
@@ -192,7 +197,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
                     localStorage.setItem("ralastachievement",`${value}`) // Set the id of the last earned achievement in localStorage
 
                     const config = sanconfig.get()
-                    const notify = await ranotify(gameid,value,ramode)
+                    const { notify, platobj } = await ranotify(gameid,value,ramode)
 
                     const { type } = notify
                     const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(gameid,true)
@@ -207,6 +212,9 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 
                     sanhelper.devmode && console.log(notifycopy)
                     ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notifycopy,undefined,themeswitch?.[1].src || config.get("monitor")))
+
+                    const platshown = raplatnotify(platobj)
+                    platshown && log.write("INFO",`"plat" notification triggered for GameID ${gameid}`)
 
                     ipcRenderer.send("ragame",action,{ emu, gamename: notifycopy.gamename, gameid } as RAGame)
                 }
@@ -308,13 +316,10 @@ const ranotify = async (gameid: number,achid: number,mode: "hard" | "soft") => {
         numachievements: racached.length
     }
 
-    await raplatnotify(platobj)
-    return notify
+    return { notify, platobj }
 }
 
-let hasshown = false
-
-const raplatnotify = async (platobj: RAAPlatObj) => {
+const raplatnotify = (platobj: RAAPlatObj) => {
     const { achievement, customisation, platicon, monitor, username, numawarded, numachievements } = platobj
     log.write("INFO",`"${username}" has unlocked ${numawarded}/${numachievements} in ${achievement.gamename}${numawarded === numachievements ? " - triggering 100% notification..." : ""}`)
 
@@ -341,14 +346,11 @@ const raplatnotify = async (platobj: RAAPlatObj) => {
         unlocktime: new Date(Date.now()).toISOString()
     }
 
-    // Set timer to ensure last achievement is added to queue before plat notification
-    setTimeout(() => {
-        sanhelper.devmode && console.log(platnotify)
-        ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,monitor))
-
-        hasshown = true
-    },1000)
-
+    sanhelper.devmode && console.log(platnotify)
+    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,monitor))
+    
+    hasshown = true
+    
     return true
 }
 

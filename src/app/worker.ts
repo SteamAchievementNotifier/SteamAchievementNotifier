@@ -30,6 +30,7 @@ window.localised = new Map<string,LocalisedObj>()
 
 const pids = new Set<number>()
 let releasetimer: NodeJS.Timeout | null = null
+let processing = false
 
 const statsobj: StatsObj = {
     appid: 0,
@@ -448,118 +449,137 @@ const startsan = async (appinfo: AppInfo) => {
                 sanhelper.devmode && (window.cachedata = live)
             
                 if (!unlocked.length) return
-        
+
                 sanhelper.devmode && log.write("INFO",JSON.stringify(unlocked))
-        
-                let hasshown = false
-        
-                unlocked.forEach(async (achievement: Achievement) => {
-                    const unlocktime = Date.now()
-                    achievement.unlocktimestamp = achievement.unlocked ? unlocktime : -1
 
-                    log.write("INFO",`Achievement unlocked: ${JSON.stringify(achievement)}`)
-        
-                    const config = sanconfig.get()
-                    const { rarity, semirarity, trophymode } = config.store
-                    const type = achievement.percent <= rarity ? "rare" : (trophymode && (achievement.percent <= semirarity && achievement.percent > rarity) ? "semi" : "main")
-        
-                    let retries = 0
-        
-                    const achievementicon = async (): Promise<string | null> => {
-                        let icon: string | null = null
-                        const cachedicon = !noiconcache ? worker.resolvefilepath(sanhelper.temp,`${achievement.apiname}.jpg`) : null
-        
-                        try {
-                            icon = cachedicon || await getachievementicon(client,achievement)
-                            if (!icon) throw new Error(`Icon for ${achievement.apiname} is null. Retrying....`)
-        
-                            log.write("INFO",`Icon for ${achievement.apiname} saved successfully`)
-                            return icon.replace(/\\/g,"/")
-                        } catch (err) {
-                            log.write("WARN",err as string)
-        
-                            retries++
-                            retries < 5 ? setTimeout(() => achievementicon(),100) : log.write("ERROR",`Failed to fetch icon for ${achievement.apiname}`)
-        
-                            return null
-                        }
-                    }
-        
-                    const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
-                    const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
-                    const localised = await worker.localisedobj(steam3id,achievement)
-                    const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(appid)
-                    const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
-                    
-                    if (themeswitch) {
-                        log.write("INFO",`Auto-switch entry detected for ${appid}`)
-                        sanhelper.devmode && console.log(customisation)
-                    }
-        
-                    const notify: Notify = {
-                        id: Math.round(Date.now() / Math.random() * 1000),
-                        customisation,
-                        type,
-                        gamename: gamename || "???",
-                        steam3id,
-                        apiname: achievement.apiname,
-                        name: localised.name || achievement.name,
-                        desc: localised.desc || achievement.desc,
-                        unlocked: achievement.unlocked,
-                        hidden: achievement.hidden,
-                        percent: achievement.percent,
-                        icon: await achievementicon() || sanhelper.setfilepath("img","sanlogosquare.svg"),
-                        gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg"),
-                        unlocktime: new Date(unlocktime).toISOString()
-                    }
-
-                    ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
-
-                    ;(async () => {
-                        statsobj.achievements = !config.get("steamlang") ? live : await Promise.all(
-                            live.map(async achievement => {
-                                const achievementcopy = { ...achievement }
-                                const localised = window.localised.get(achievementcopy.apiname) || await worker.localisedobj(steam3id,achievementcopy)
-        
-                                for (const key of Object.keys(localised)) {
-                                    achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]
-                                }
+                if (processing) return log.write("WARN",`Still processing achievement data in previous tick for AppID ${appid} - skipping...`)
                 
-                                return achievementcopy
-                            })
-                        )
-                    })()
+                processing = true
+                
+                let hasshown = false
+                
+                const config = sanconfig.get()
+                const { rarity, semirarity, trophymode } = config.store
+                const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(appid)
 
-                    const allunlocked = live.every(ach => ach.unlocked)
-                    workerinfo.allunlocked = allunlocked
-                    ipcRenderer.emit("gametimer")
+                ;(async () => {
+                    try {
+                        for (const achievement of unlocked) {
+                            const unlocktime = Date.now()
+                            achievement.unlocktimestamp = achievement.unlocked ? unlocktime : -1
         
-                    if (allunlocked && !hasshown) {
-                        const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon
-                        const customisation = config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation
+                            log.write("INFO",`Achievement unlocked: ${JSON.stringify(achievement)}`)
+                            
+                            const type = achievement.percent <= rarity ? "rare" : (trophymode && (achievement.percent <= semirarity && achievement.percent > rarity) ? "semi" : "main")
+                
+                            let retries = 0
+                
+                            const achievementicon = async (): Promise<string | null> => {
+                                let icon: string | null = null
+                                const cachedicon = !noiconcache ? worker.resolvefilepath(sanhelper.temp,`${achievement.apiname}.jpg`) : null
+                
+                                try {
+                                    icon = cachedicon || await getachievementicon(client,achievement)
+                                    if (!icon) throw new Error(`Icon for ${achievement.apiname} is null. Retrying....`)
+                
+                                    log.write("INFO",`Icon for ${achievement.apiname} saved successfully`)
+                                    return icon.replace(/\\/g,"/")
+                                } catch (err) {
+                                    log.write("WARN",err as string)
+                
+                                    retries++
+                                    retries < 5 ? setTimeout(() => achievementicon(),100) : log.write("ERROR",`Failed to fetch icon for ${achievement.apiname}`)
+                
+                                    return null
+                                }
+                            }
+                
+                            const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
+                            const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
+                            const localised = await worker.localisedobj(steam3id,achievement)
+                            const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
+                            
+                            if (themeswitch) {
+                                log.write("INFO",`Auto-switch entry detected for ${appid}`)
+                                sanhelper.devmode && console.log(customisation)
+                            }
+                
+                            const notify: Notify = {
+                                id: Math.round(Date.now() / Math.random() * 1000),
+                                customisation,
+                                type,
+                                gamename: gamename || "???",
+                                steam3id,
+                                apiname: achievement.apiname,
+                                name: localised.name || achievement.name,
+                                desc: localised.desc || achievement.desc,
+                                unlocked: achievement.unlocked,
+                                hidden: achievement.hidden,
+                                percent: achievement.percent,
+                                icon: await achievementicon() || sanhelper.setfilepath("img","sanlogosquare.svg"),
+                                gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg"),
+                                unlocktime: new Date(unlocktime).toISOString()
+                            }
         
-                        const platnotify: Notify = {
-                            id: Date.now(),
-                            customisation,
-                            type: "plat",
-                            gamename: gamename || "???",
-                            steam3id: steam3id,
-                            apiname: "PLAT_NOTIFICATION",
-                            name: "100%",
-                            desc: "",
-                            unlocked: true,
-                            hidden: false,
-                            percent: 0,
-                            icon: platicon || sanhelper.setfilepath("img","ribbon.svg"),
-                            gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg"),
-                            unlocktime: new Date(Date.now()).toISOString()
+                            ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
+        
+                            ;(async () => {
+                                statsobj.achievements = !config.get("steamlang") ? live : await Promise.all(
+                                    live.map(async achievement => {
+                                        const achievementcopy = { ...achievement }
+                                        const localised = window.localised.get(achievementcopy.apiname) || await worker.localisedobj(steam3id,achievementcopy)
+                
+                                        for (const key of Object.keys(localised)) {
+                                            achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]
+                                        }
+                        
+                                        return achievementcopy
+                                    })
+                                )
+                            })()
                         }
+                        
+                        const allunlocked = live.every(ach => ach.unlocked)
+                        workerinfo.allunlocked = allunlocked
+                        ipcRenderer.emit("gametimer")
+            
+                        if (allunlocked && !hasshown) {
+                            const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon
+                            const customisation = config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation
         
-                        ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,themeswitch?.[1].src))
-
-                        hasshown = true
+                            if (themeswitch) {
+                                log.write("INFO",`Auto-switch entry detected for ${appid}`)
+                                sanhelper.devmode && console.log(customisation)
+                            }
+                            
+                            const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
+                            const gameicon = (config.get(`customisation.plat.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
+            
+                            const platnotify: Notify = {
+                                id: Date.now(),
+                                customisation,
+                                type: "plat",
+                                gamename: gamename || "???",
+                                steam3id: steam3id,
+                                apiname: "PLAT_NOTIFICATION",
+                                name: "100%",
+                                desc: "",
+                                unlocked: true,
+                                hidden: false,
+                                percent: 0,
+                                icon: platicon || sanhelper.setfilepath("img","ribbon.svg"),
+                                gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg"),
+                                unlocktime: new Date(Date.now()).toISOString()
+                            }
+            
+                            ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,themeswitch?.[1].src))
+        
+                            hasshown = true
+                        }
+                    } finally {
+                        processing = false
                     }
-                })
+                })()
         
                 cache = cachedata(client,apinames)
             }

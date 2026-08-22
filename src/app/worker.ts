@@ -210,8 +210,6 @@ const startidle = () => {
                 }
             }
             
-            log.write("INFO",`AppID ${appid} detected - initialising...`)
-            
             const match = inclusionlist ? !exclusions.includes(appid) : exclusions.includes(appid)
     
             if (match) {
@@ -223,6 +221,8 @@ const startidle = () => {
                 return
             }
 
+            log.write("INFO",`AppID ${appid} detected - initialising...`)
+            
             clearInterval(timer)
     
             const appinfo: AppInfo = {

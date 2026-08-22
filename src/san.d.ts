@@ -642,7 +642,9 @@ declare interface SSWin {
     timer: NodeJS.Timeout | null,
     windowtitle: string | null,
     haswarned: boolean,
-    display?: Electron.Display
+    display?: Electron.Display,
+    /** Preserved for Screenshot Only so the deferred notification can reuse the original monitor */
+    monitorid?: number
 }
 
 declare type ExtWins = "ext" | "stat" | "gametimer"

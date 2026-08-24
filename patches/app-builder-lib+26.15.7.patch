@@ -1,0 +1,15 @@
+diff --git a/node_modules/app-builder-lib/out/targets/appimage/appImageUtil.js b/node_modules/app-builder-lib/out/targets/appimage/appImageUtil.js
+index 12f078a..60f9e6d 100644
+--- a/node_modules/app-builder-lib/out/targets/appimage/appImageUtil.js
++++ b/node_modules/app-builder-lib/out/targets/appimage/appImageUtil.js
+@@ -109,8 +109,8 @@ function escapeShellString(str) {
+  * Allowed: Unicode letters, digits, dots, underscores, hyphens, and spaces.
+  */
+ function validateCriticalPathString(str, fieldName) {
+-    if (!/^[\p{L}\p{N}._\- ]+$/u.test(str)) {
+-        throw new builder_util_1.InvalidConfigurationError(`${fieldName} contains characters that cannot be safely used in file paths: ${str}. Please use only letters, digits, hyphens, underscores, dots, and spaces.`);
++    if (!/^[\p{L}\p{N}._\- ()]+$/u.test(str)) {
++        throw new builder_util_1.InvalidConfigurationError(`${fieldName} contains characters that cannot be safely used in file paths: ${str}. Please use only letters, digits, hyphens, underscores, dots, spaces, and parentheses.`);
+     }
+ }
+ async function writeAppLauncherAndRelatedFiles(opts) {

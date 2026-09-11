@@ -310,6 +310,30 @@ const startsan = async (appinfo: AppInfo) => {
         const processes: ProcessInfo[] = []
 
         ipcRenderer.on("windowtitles",() => ipcRenderer.send("windowtitles",(usesanwatcher ? Array.from(pids) : processes.map(process => process.pid)).map(pid => client.processes.getWindowTitle(pid))))
+
+        ipcRenderer.on("processdata",() => {
+            const linkedgame = worker.linkedgame(appid) ?? null
+            
+            ipcRenderer.send("processdata",{
+                appid,
+                gamename,
+                installdir,
+                usesanwatcher,
+                linkedgame,
+                lastknowngame,
+                status: (usesanwatcher ? pids.size : processes.length) ? "active" : (releasetimer ? "releasing" : "active"),
+                releasetimer: !!releasetimer,
+                pids: usesanwatcher ? Array.from(pids) : processes.map(p => p.pid),
+                activeprocesses: usesanwatcher ? sanwatcher.getActiveProcesses(installdir,linkedgame) : processes.map(({ pid, exe }) => ({
+                    pid,
+                    exe,
+                    active: isprocessrunning(pid)
+                })),
+                duplicatelinkentries: Object.entries(JSON.parse(localStorage.getItem("linkgame") ?? "{}"))
+                    .filter(([id,path]) => parseInt(id) !== appid && path === linkedgame)
+                    .map(([id]) => parseInt(id))
+            } as TroubleshooterProcess)
+        })
         
         ipcRenderer.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
             try {

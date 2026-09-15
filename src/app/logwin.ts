@@ -1,5 +1,4 @@
-// ⚠ Use of `clipboard` API may be deprecated in renderer processes in future
-import { ipcRenderer, clipboard } from "electron"
+import { ipcRenderer } from "electron"
 import fs from "fs"
 import path from "path"
 import { language } from "./language"
@@ -9,7 +8,7 @@ import { sanhelper } from "./sanhelper"
 window.onkeydown = event => ((event.code === "Minus" || event.code === "Equal") && (event.ctrlKey || event.metaKey)) ? event.preventDefault() : null
 
 document.getElementById("close")!.onclick = () => window.close()
-document.getElementById("copylog")!.onclick = () => clipboard.writeText(`\`${document.querySelector("#logcontents > code")!.innerHTML.replace(/<br>/g,"\n")}\``)
+document.getElementById("copylog")!.onclick = async () => ipcRenderer.send("copylog",`\`${document.querySelector("#logcontents > code")!.innerHTML.replace(/<br>/g,"\n")}\``)
 
 window.addEventListener("DOMContentLoaded",() => {
     ipcRenderer.send("logwinready")

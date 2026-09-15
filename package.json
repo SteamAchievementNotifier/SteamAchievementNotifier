@@ -2,7 +2,7 @@
     "private": true,
     "name": "steamachievementnotifierv1.9",
     "author": "SteamAchievementNotifier",
-    "version": "1.9.46",
+    "version": "1.9.47",
     "description": "Steam Achievement Notifier (V1.9)",
     "main": "dist/app/app.js",
     "scripts": {
@@ -11,7 +11,8 @@
         "win:beta": "npx tsc --build --clean && npx tsc && electron-builder --win=nsis --x64 --config beta.json",
         "linux": "npx tsc --build --clean && npx tsc && electron-builder --linux",
         "linux:beta": "npx tsc --build --clean && npx tsc && electron-builder --linux --config beta.json",
-        "publish": "npx tsc --build --clean && npx tsc && electron-builder -p always"
+        "publish": "npx tsc --build --clean && npx tsc && electron-builder -p always",
+        "postinstall": "patch-package"
     },
     "repository": {
         "url": "https://github.com/SteamAchievementNotifier/SteamAchievementNotifier"
@@ -23,8 +24,9 @@
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
         "@types/sortablejs": "^1.15.8",
-        "electron": "^42.7.1",
-        "electron-builder": "^26.15.3",
+        "electron": "^44.2.0",
+        "electron-builder": "^26.15.7",
+        "patch-package": "^8.0.1",
         "typescript": "^6.0.2"
     },
     "dependencies": {

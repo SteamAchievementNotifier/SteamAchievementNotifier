@@ -26,7 +26,8 @@ declare global {
         type: NotifyType | null,
         update: Function,
         availabletest: Function,
-        resourceusage: Function
+        appusage: Function,
+        systemusage: Function
     }
 }
 
@@ -43,12 +44,19 @@ errorbtn.onclick = () => {
 
 sanhelper.errorhandler(log)
 
-const resourceusage = () => {
-    ipcRenderer.once("resourceusage",(event,resourceusage: ResourceUsage) => console.log(resourceusage))
-    ipcRenderer.send("resourceusage")
+const appusage = () => {
+    ipcRenderer.once("appusage",(event,appusage: AppUsage) => console.log(appusage))
+    ipcRenderer.send("appusage")
 }
 
-window.resourceusage = resourceusage
+window.appusage = appusage
+
+const systemusage = () => {
+    ipcRenderer.once("systemusage",(event,systemusage: SystemUsage) => console.log(systemusage))
+    ipcRenderer.send("systemusage")
+}
+
+window.systemusage = systemusage
 
 const gpu = () => ipcRenderer.send("gpu")
 window.gpu = gpu

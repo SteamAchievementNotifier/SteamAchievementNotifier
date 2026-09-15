@@ -372,6 +372,7 @@ export const sanconfig = {
                 testnotifycustomtext: false,
                 testnotifycustomtexttitle: "",
                 testnotifycustomtextdesc: "",
+                logresourceusage: false,
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

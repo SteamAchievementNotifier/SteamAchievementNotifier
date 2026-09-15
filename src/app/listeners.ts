@@ -10,6 +10,7 @@ import { update } from "./update"
 import { gameart } from "./gameart"
 import { screenshot } from "./screenshots"
 import { audio } from "./audio"
+import { resourceusage } from "./resourceusage"
 
 let appid: number = 0
 let gameid: number = 0 // RetroAchievements GameID
@@ -53,33 +54,11 @@ export const listeners = {
         const sanhelperlog = sanhelper.initlogger(path.join(sanhelper.appdata,"logs"))
         log.write("INFO",sanhelperlog)
 
-        ipcMain.on("resourceusage",async event => {
-            const metrics = app.getAppMetrics()
-            const { residentSet } = await process.getProcessMemoryInfo()
+        ipcMain.on("appusage",async event => event.reply("appusage",await resourceusage.app()))
+        ipcMain.on("systemusage",async event => event.reply("systemusage",sanconfig.get().store.logresourceusage ? await resourceusage.system() : `Error: "logresourceusage" not enabled in config`))
+        ipcMain.on("resourceusage",(event,value: boolean) => resourceusage[value ? "init" : "stop"]())
 
-            let cpu = 0
-
-            for (const process of metrics) {
-                cpu += process.cpu.percentCPUUsage
-            }
-
-            let totalmemMB = 0
-
-            for (const process of metrics) {
-                totalmemMB += process.memory.workingSetSize / 1024
-            }
-
-            return event.reply("resourceusage",{
-                processes: metrics.length,
-                cpupercent: parseFloat(cpu.toFixed(1)),
-                memmainMB: parseFloat((residentSet / 1024).toFixed(1)),
-                memperprocessMB: metrics.map(process => ({
-                    type: process.type,
-                    MB: parseFloat((process.memory.workingSetSize / 1024).toFixed(1))
-                })),
-                memtotalMB: parseFloat(totalmemMB.toFixed(1))
-            } as ResourceUsage)
-        })
+        sanconfig.get().store.logresourceusage && resourceusage.init()
 
         app.on("second-instance",() => win.show())
 
@@ -156,6 +135,24 @@ export const listeners = {
                                     .resize({ width: 16 }),
                             click: () => ipcMain.emit("releasegame"),
                             enabled: !betaunsupported
+                        },
+                        {
+                            label: await language.get("troubleshoot"),
+                            icon: nativeImage
+                                .createFromPath(path.join(__root,"icon","troubleshoot.png"))
+                                .resize({ width: 16 }),
+                            type: "submenu",
+                            submenu: [
+                                {
+                                    label: await language.get("copygameprocessdata"),
+                                    icon: nativeImage
+                                            .createFromPath(path.join(__root,"icon","clipboard.png"))
+                                            .resize({ width: 16 }),
+                                    click: () => ipcMain.emit("troubleshooter")
+                                }
+                            ],
+                            enabled: !!appid,
+                            visible: !!appid
                         },
                         {
                             label: await language.get(suspended ? "resume" : "suspend"),
@@ -1677,7 +1674,16 @@ export const listeners = {
                 })
     
                 config.get("notifydebug") && sanhelper.setdevtools(notifywin)
-                config.get("nvda") && clipboard.writeText(`${info.unlockmsg}. ${info.title}. ${info.desc}.`)
+                
+                config.get("nvda") && (async () => {
+                    try {
+                        await clipboard.writeText(`${info.unlockmsg}. ${info.title}. ${info.desc}.`)
+                        log.write("INFO",`Achievement text written to clipboard successfully`)
+                    } catch (err) {
+                        log.write("ERROR",`Unable to write achievement text to clipboard: ${(err as Error).message}`)
+                    }
+                })()
+                
                 config.get("customtrigger") && setTimeout(async () => {
                     const { jstosteamkeycodes, steamkeycodes } = await import("./keycodes")
                     const sckeys = config.get("customtriggershortcut").split("+")
@@ -1757,6 +1763,11 @@ export const listeners = {
 
             win.webContents.send("notifyprogress",notify.customisation.displaytime)
             log.write("INFO",`"${notify.apiname}" | unlocktime: ${notify.unlocktime} | notifytime: ${new Date(Date.now()).toISOString()}`)
+
+            config.get("logresourceusage") && (async () => {
+                log.write("INFO",`[RESOURCEUSAGE] System:\n\n${JSON.stringify(await resourceusage.system(),null,4)}`)
+                log.write("INFO",`[RESOURCEUSAGE] App:\n\n${JSON.stringify(await resourceusage.app(),null,4)}`)
+            })()
 
             const notifyfinished = (id: number) => {
                 notifywin instanceof BrowserWindow ? notifywin.webContents.send("notifyfinished",id) : ipcMain.emit("notifyfinished",null,id)
@@ -2266,6 +2277,68 @@ export const listeners = {
             gametimerwin.setIgnoreMouseEvents(value)
 
             gametimerwin.webContents.send("gametimerwinaot",value)
+        })
+
+        ipcMain.on("copylog",async (event,contents: string) => {
+            try {
+                await clipboard.writeText(contents)
+                log.write("INFO",`Log contents written to clipboard successfully`)
+            } catch (err) {
+                log.write("ERROR",`Unable to write log contents to clipboard: ${(err as Error).message}`)
+            }
+        })
+
+        ipcMain.on("troubleshooter",async () => {
+            try {
+                const { troubleshooter } = await import("./troubleshooter")
+    
+                const processdata = worker ? await new Promise<TroubleshooterProcess | null>(resolve => {
+                    ipcMain.once("processdata",(event,data: TroubleshooterProcess) => resolve(data))
+                    worker!.webContents.send("processdata")
+                }) : null
+    
+                if (!processdata) throw new Error(`Worker inactive`)
+    
+                const { releasewaittime, releasedelay, pollrate, initdelay, maxretries, userust, exclusions, inclusionlist } = sanconfig.get().store
+    
+                const data = {
+                    app: {
+                        version: sanhelper.semver,
+                        beta: sanhelper.beta,
+                        platform: process.platform,
+                        osinfo: await sanhelper.getosinfo(),
+                        config: {
+                            releasewaittime,
+                            releasedelay,
+                            pollrate,
+                            initdelay,
+                            maxretries,
+                            userust,
+                            exclusions,
+                            inclusionlist
+                        }
+                    } as TroubleshooterApp,
+                    process: {
+                        ...processdata,
+                        installdir: undefined
+                    },
+                    executable: [
+                        ...processdata.activeprocesses.map(process => ({
+                            islinkedgame: (!!processdata.linkedgame && process.exe.toLowerCase().replace(/\\/g,"/") === processdata.linkedgame.toLowerCase().replace(/\\/g,"/")) || undefined,
+                            ...troubleshooter.exeinfo(process,processdata.installdir!)
+                        })),
+                        ...(processdata.linkedgame && !processdata.activeprocesses.some(process => process.exe.toLowerCase().replace(/\\/g,"/") === processdata.linkedgame!.toLowerCase().replace(/\\/g,"/")) ? [({
+                            islinkedgame: true,
+                            ...troubleshooter.exeinfo({ exe: processdata.linkedgame } as DebugProcessInfo,processdata.installdir!)
+                        }) as TroubleshooterExecutable] : [])
+                    ]
+                } as TroubleshooterData
+
+                clipboard.writeText(`\`\`\`json\n${JSON.stringify(data,null,4)}\n\`\`\``)
+                log.write("INFO","Troubleshooter data copied to clipboard successfully")
+            } catch (err) {
+                log.write("ERROR",`Unable to copy troubleshooter data: ${(err as Error).message}`)
+            }
         })
 
         return

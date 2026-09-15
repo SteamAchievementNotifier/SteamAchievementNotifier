@@ -216,8 +216,6 @@ const startidle = () => {
                 }
             }
             
-            log.write("INFO",`AppID ${appid} detected - initialising...`)
-            
             const match = inclusionlist ? !exclusions.includes(appid) : exclusions.includes(appid)
     
             if (match) {
@@ -229,6 +227,8 @@ const startidle = () => {
                 return
             }
 
+            log.write("INFO",`AppID ${appid} detected - initialising...`)
+            
             clearInterval(timer)
     
             const appinfo: AppInfo = {
@@ -347,6 +347,30 @@ const startsan = async (appinfo: AppInfo) => {
         ipcRenderer.on("windowtitles",() => {
             // Instant reply only — never call getWindowTitle on this path
             ipcRenderer.send("windowtitles",cachedwindowtitles)
+        })
+
+        ipcRenderer.on("processdata",() => {
+            const linkedgame = worker.linkedgame(appid) ?? null
+            
+            ipcRenderer.send("processdata",{
+                appid,
+                gamename,
+                installdir,
+                usesanwatcher,
+                linkedgame,
+                lastknowngame,
+                status: (usesanwatcher ? pids.size : processes.length) ? "active" : (releasetimer ? "releasing" : "active"),
+                releasetimer: !!releasetimer,
+                pids: usesanwatcher ? Array.from(pids) : processes.map(p => p.pid),
+                activeprocesses: usesanwatcher ? sanwatcher.getActiveProcesses(installdir,linkedgame) : processes.map(({ pid, exe }) => ({
+                    pid,
+                    exe,
+                    active: isprocessrunning(pid)
+                })),
+                duplicatelinkentries: Object.entries(JSON.parse(localStorage.getItem("linkgame") ?? "{}"))
+                    .filter(([id,path]) => parseInt(id) !== appid && path === linkedgame)
+                    .map(([id]) => parseInt(id))
+            } as TroubleshooterProcess)
         })
         
         ipcRenderer.on("addtosteam",(event,imgpath: string,width: number,height: number) => {

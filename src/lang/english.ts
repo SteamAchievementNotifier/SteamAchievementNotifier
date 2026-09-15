@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Releases",
         checkapplog: "Please check the App Log for details.",
         workercrash: "Worker has crashed!",
-        workercrashsub: "Click here to restart Worker and re-attempt game tracking"
+        workercrashsub: "Click here to restart Worker and re-attempt game tracking",
+        troubleshoot: "Troubleshoot",
+        copygameprocessdata: "Copy Game Process Data"
     },
     app: {
         content: {
@@ -354,7 +356,8 @@ export const translations = {
                 ],
                 restorefailed: "Unable to restore backup.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Release Wait Time"
+                releasewaittime: "Release Wait Time",
+                logresourceusage: "Log Resource Usage"
             }
         },
         ra: {
@@ -893,7 +896,8 @@ export const translations = {
         statwintype: "Set the layout type of the Achievement Stats Overlay",
         statwinunlockonly: "Keep the Achievement Stats Overlay hidden until an achievement is unlocked",
         statwinunlockonlydisplaytime: "Set the number of seconds the Achievement Stats Overlay will display for once an achievement is unlocked",
-        statwinunlockonlysync: "Sync the number of seconds the Achievement Stats Overlay will display for to the current notification's Display Time"
+        statwinunlockonlysync: "Sync the number of seconds the Achievement Stats Overlay will display for to the current notification's Display Time",
+        logresourceusage: `Log app/system resource usage statistics when achievement notifications are triggered<br><br><span class="ttdesc">This can be used to determine whether certain in-app issues may be caused by total system load when achievements are unlocked</span>`
     },
     update: {
         updateavailable: "Update available",

@@ -6,7 +6,7 @@ export const error = {
     createwin: async (err: any) => {
         log.write("ERROR",err)
         
-        const { app, ipcMain, BrowserWindow, clipboard, nativeImage } = await import("electron")
+        const { app, ipcMain, BrowserWindow, clipboard, ClipboardItem } = await import("electron")
         const { setexit } = (await import("./listeners")).listeners
         
         setexit()
@@ -42,8 +42,10 @@ export const error = {
             const capture = await errwin.webContents.capturePage()
 
             try {
-                const img = nativeImage.createFromBuffer(capture.toPNG())
-                clipboard.writeImage(img)
+                const img = new Int8Array(capture.toPNG())
+                const item = new ClipboardItem({ "image/png": new Blob([img],{ type: "image/png" }) })
+
+                clipboard.write([item])
 
                 event.reply("capture")
             } catch (err) {

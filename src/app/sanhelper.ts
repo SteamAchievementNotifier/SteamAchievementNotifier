@@ -194,22 +194,20 @@ export const sanhelper: SANHelper = {
     },
     findelectrondisplay: (id: number) => findElectronDisplay(id),
     setdevtools: async (win: Electron.BrowserWindow) => {
-        // const { BrowserWindow, screen } = await import("electron")
-        // const { width, height } = screen.getPrimaryDisplay().bounds
+        const { BrowserWindow, screen } = await import("electron")
+        const { width, height } = screen.getPrimaryDisplay().bounds
 
-        // const devtools = new BrowserWindow({
-        //     width: Math.round(width / 5),
-        //     height: Math.round(height / 1.125),
-        //     autoHideMenuBar: true
-        // })
+        const devtools = new BrowserWindow({
+            width: Math.round(width / 5),
+            height: Math.round(height / 1.125),
+            autoHideMenuBar: true
+        })
 
-        // win.webContents.setDevToolsWebContents(devtools.webContents)
-        // win.webContents.openDevTools({ mode: "detach" })
-        // devtools.setPosition(Math.round(width - (width / 5 + 20)),Math.round((height - (height / 1.125)) / 2))
-
-        // win.once("closed",() => devtools.destroy())
-
+        win.webContents.setDevToolsWebContents(devtools.webContents)
         win.webContents.openDevTools({ mode: "detach" })
+        devtools.setPosition(Math.round(width - (width / 5 + 20)),Math.round((height - (height / 1.125)) / 2))
+
+        win.once("closed",() => devtools.destroy())
 
         return
     },
@@ -391,6 +389,7 @@ export const sanhelper: SANHelper = {
     usesanwatcher: () => ipcRenderer.send("usesanwatcher"),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
     workerdebug: () => ipcRenderer.send("releasegame",true),
+    logresourceusage: (value: boolean) => ipcRenderer.send("resourceusage",value),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
     raui: (value: boolean) => ipcRenderer.send("raui",value),

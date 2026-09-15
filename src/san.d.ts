@@ -174,6 +174,7 @@ declare interface Config {
     testnotifycustomtext: boolean,
     testnotifycustomtexttitle: string,
     testnotifycustomtextdesc: string,
+    logresourceusage: boolean,
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -697,7 +698,14 @@ declare interface ErrNotify {
     skipnotify?: boolean
 }
 
-declare interface ResourceUsage {
+declare interface SystemUsage {
+    cpupercent: number,
+    mempercent: number,
+    memusedMB: number,
+    memtotalMB: number
+}
+
+declare interface AppUsage {
     processes: number,
     cpupercent: number,
     memmainMB: number,
@@ -715,6 +723,62 @@ declare interface GameDisplayInfo {
 }
 
 declare type GameDisplay = Record<Platform,GameDisplayInfo>
+
+declare type TroubleshooterApp = {
+    version: string,
+    beta: boolean,
+    platform: any,
+    osinfo: string,
+    config: {
+        releasewaittime: number,
+        releasedelay: number,
+        pollrate: number,
+        initdelay: number,
+        maxretries: number,
+        userust: boolean,
+        exclusions: number[],
+        inclusionlist: boolean
+    }
+}
+
+declare type TroubleshooterProcess = {
+    appid: number,
+    gamename: string | null,
+    usesanwatcher: boolean,
+    linkedgame: string | null,
+    lastknowngame: LastKnownGame | null,
+    status: "active" | "releasing",
+    releasetimer: boolean,
+    pids: number[],
+    activeprocesses: DebugProcessInfo[],
+    duplicatelinkentries: any,
+    installdir?: string | null
+}
+
+declare type TroubleshooterExecutable = {
+    islinkedgame?: boolean,
+    path: string | null,
+    installdir: {
+        path: string | null,
+        exists: boolean,
+        dir: {
+            process: string,
+            steamworks: string,
+            match: boolean
+        }
+    } | null,
+    exists: boolean | null,
+    isexecutable?: boolean | null,
+    iswithininstalldir: boolean | null,
+    wrongplatformpath: boolean | null,
+    realpath: string | null
+}
+
+declare interface TroubleshooterData {
+    app: TroubleshooterApp,
+    process: TroubleshooterProcess,
+    executable: TroubleshooterExecutable[]
+}
 
 declare module "simple-vdf"
 declare module "adm-zip"

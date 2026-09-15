@@ -72,6 +72,18 @@ export const screenshot = {
         return { monitor: monitor || null, display: display || null }
     },
     srcpath: (id: number) => path.join(sanhelper.temp,`${id}.png`),
+    ensuretemp: () => {
+        if (fs.existsSync(sanhelper.temp)) return true
+
+        try {
+            fs.mkdirSync(sanhelper.temp,{ recursive: true })
+            log.write("INFO",`Created missing temp directory "${sanhelper.temp}"`)
+            return true
+        } catch (err) {
+            log.write("ERROR",`Unable to create temp directory "${sanhelper.temp}": ${err as Error}`)
+            return false
+        }
+    },
     checksrcimg: (notify: Notify,windowtitle: string | null,retries = 0) => {
         const tempimgpath = path.join(sanhelper.temp,`${notify.id}.png`)
         const sswin = sswins.get(notify.id)
@@ -122,18 +134,19 @@ export const screenshot = {
         log.write("INFO",`Building screenshot for "${notify.id}"...`)
         ssmode !== "window" || sswin.windowtitle !== null ? screenshot.checksrcimg(notify,sswin.windowtitle) : log.write("WARN",`Window Title for ID ${notify.id} not found`)
     },
-    configuresrc: async (notify: Notify,monitorid?: number) => {
+    configuresrc: async (notify: Notify,monitorid?: number,opts?: { skipdelay?: boolean }) => {
         try {
             const config = sanconfig.get()
             const screenshots = config.get("screenshots")
             if (screenshots === "off") return
 
-            const sswinsobj = {
+            const sswinsobj: SSWin = {
                 win: null,
                 src: monitorid || -1,
                 timer: null,
                 windowtitle: null,
-                haswarned: false
+                haswarned: false,
+                ...(screenshots === "ssonly" && { monitorid })
             }
 
             if (screenshots === "notifyimg") {
@@ -145,12 +158,14 @@ export const screenshot = {
 
             sswins.has(notify.id) && sswins.delete(notify.id)
 
-            ipcMain.once(`${notify.id}`,() => screenshot.checkwindowtitle(notify.ra ? "screen" : config.get("ssmode"),notify))
+            // Overlay still waits for the notify window before building the composited shot.
+            // Screenshot Only captures on its own (and may run before SAN's toast via earlycapture).
+            if (screenshots === "overlay") ipcMain.once(`${notify.id}`,() => screenshot.checkwindowtitle(notify.ra ? "screen" : config.get("ssmode"),notify))
 
-            const delay = config.get("ssdelay")
+            const delay = opts?.skipdelay ? 0 : config.get("ssdelay")
             const srcpath = screenshot.srcpath(notify.id)
             
-            // Wait to receive global vars from `listeners.ts`
+            // Same listener-var / window-title path as upstream — do not special-case ssmode here
             const [win,worker,appid] = await Promise.all((["win","worker","appid"] as const).map(lv => screenshot.getlistenersvar(lv))) as [BrowserWindow,BrowserWindow,number]
 
             sswins.set(notify.id,sswinsobj)
@@ -158,6 +173,7 @@ export const screenshot = {
             const sswin = sswins.get(notify.id)!
 
             if (worker && config.get("ssmode") === "window" && !notify.ra) {
+                // Replies from worker title cache (instant) — same control flow as upstream
                 sswin.windowtitle = !appid ? win.title : await new Promise(resolve => {
                     ipcMain.once("windowtitles",(event,windowtitles: string[]) => resolve(windowtitles[0]))
                     worker!.webContents.send("windowtitles")
@@ -189,13 +205,58 @@ export const screenshot = {
             sswins.set(notify.id,sswin)
 
             const { monitor } = screenshot.monitor(sswin.src)
-            if (!monitor) return log.write("ERROR",`Error configuring screenshot src: Could not locate monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
+            if (!monitor) {
+                log.write("ERROR",`Error configuring screenshot src: Could not locate monitor with id ${config.get("monitor")}, and no primary fallback found.\n\n${JSON.stringify(config.get("monitors"))}`)
+
+                if (screenshots === "ssonly") {
+                    const pendingmonitorid = sswins.get(notify.id)?.monitorid ?? monitorid
+                    screenshot.clearsswin(notify.id)
+                    ipcMain.emit("ssonly_screenshot_done",null,notify,pendingmonitorid)
+                }
+
+                return
+            }
 
             const ssmode: "screen" | "window" = !notify.ra && config.get("ssmode") === "window" && sswin.windowtitle ? "window" : "screen"
             log.write("INFO",`Using "${ssmode}" mode for Screenshot (ssmode: "${config.get("ssmode")}" | windowtitle: "${sswin.windowtitle}")`)
 
             const { id, label } = monitor
             let { bounds: { width, height } } = !notify.ra && ssmode === "window" && (["width","height"] as const).every(dim => screenshot.sswinbounds.bounds[dim] !== 0) ? screenshot.sswinbounds : monitor
+
+            if (screenshots === "ssonly") {
+                // Capture pixels, release deferred SAN notify, then save the file (same capture path as upstream)
+                const runssonlycapture = async () => {
+                    let released = false
+                    const release = () => {
+                        if (released) return
+                        released = true
+                        const pendingmonitorid = sswins.get(notify.id)?.monitorid ?? monitorid
+                        ipcMain.emit("ssonly_screenshot_done",null,notify,pendingmonitorid)
+                    }
+
+                    try {
+                        await screenshot.capturesrc({ config, notify: { id: notify.id }, bounds: { width, height }, id, label, monitor, ssmode, srcpath, windowtitle: sswin.windowtitle })
+                        release()
+
+                        if (fs.existsSync(srcpath)) {
+                            await screenshot.createsswin("ssonly",notify)
+                            return
+                        }
+
+                        log.write("WARN",`Screenshot Only capture missing for ID ${notify.id} - notification shown without screenshot file`)
+                        screenshot.clearsswin(notify.id)
+                    } catch (err) {
+                        log.write("ERROR",err as Error)
+                        release()
+                        screenshot.clearsswin(notify.id)
+                    }
+                }
+
+                if (delay > 0) setTimeout(runssonlycapture,delay * 1000)
+                else void runssonlycapture()
+
+                return
+            }
 
             ipcMain.once(`src_${notify.id}`,(event,err) => {
                 if (err) {
@@ -210,6 +271,14 @@ export const screenshot = {
             return
         } catch (err) {
             log.write("ERROR",err as Error)
+
+            if (sanconfig.get().store.screenshots === "ssonly") {
+                const pendingmonitorid = sswins.get(notify.id)?.monitorid ?? monitorid
+                screenshot.clearsswin(notify.id)
+                ipcMain.emit("ssonly_screenshot_done",null,notify,pendingmonitorid)
+                return
+            }
+
             return screenshot.clearsswin(notify.id)
         }
     },
@@ -217,6 +286,8 @@ export const screenshot = {
         const { config, notify, bounds, id, label, monitor, ssmode, srcpath, windowtitle } = ssconfig
         const sswin = sswins.get(notify.id)
         if (!sswin) return log.write("WARN",`"sswin" not found for ID ${notify.id}`)
+
+        if (!screenshot.ensuretemp()) return log.write("ERROR",`Cannot capture screenshot for ID ${notify.id}: temp directory unavailable`)
         
         if (config.get("hdrmode")) {
             let area: number[] | undefined

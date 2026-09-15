@@ -314,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Accessibility",
             content: {
+                uimode: "UI Mode",
+                basic: "Basic",
+                advanced: "Advanced",
                 noanim: "Disable App Window Animations",
                 noupdatedialog: "Disable Update Dialog",
                 nvda: "Enable NVDA Support",
@@ -497,7 +500,8 @@ export const translations = {
                 fontshadowcolor: "Font Shadow Color",
                 fontshadowscale: "Font Shadow Scale",
                 fontshadowx: "Horizontal Offset",
-                fontshadowy: "Vertical Offset"
+                fontshadowy: "Vertical Offset",
+                decorationshadow: "Decoration Shadow"
             }
         },
         icons: {
@@ -897,7 +901,9 @@ export const translations = {
         statwinunlockonly: "Keep the Achievement Stats Overlay hidden until an achievement is unlocked",
         statwinunlockonlydisplaytime: "Set the number of seconds the Achievement Stats Overlay will display for once an achievement is unlocked",
         statwinunlockonlysync: "Sync the number of seconds the Achievement Stats Overlay will display for to the current notification's Display Time",
-        logresourceusage: `Log app/system resource usage statistics when achievement notifications are triggered<br><br><span class="ttdesc">This can be used to determine whether certain in-app issues may be caused by total system load when achievements are unlocked</span>`
+        logresourceusage: `Log app/system resource usage statistics when achievement notifications are triggered<br><br><span class="ttdesc">This can be used to determine whether certain in-app issues may be caused by total system load when achievements are unlocked</span>`,
+        decorationshadow: "Set whether Font Shadow is also applied to the Decoration element",
+        uimode: `Select the number of options displayed in Settings/Customiser menus<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Basic</span>: Display only a limited set of user-friendly UI options</li><li><span class="hl">Advanced</span>: Display all available UI options</li></ul></span>`
     },
     update: {
         updateavailable: "Update available",

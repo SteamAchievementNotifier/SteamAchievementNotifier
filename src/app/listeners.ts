@@ -2230,6 +2230,8 @@ export const listeners = {
             }
         })
 
+        ipcMain.on("uimode",(event,value: "basic" | "advanced") => win.webContents.send("uimode",value))
+
         return
     }
 }

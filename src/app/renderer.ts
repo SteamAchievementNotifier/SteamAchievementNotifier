@@ -103,6 +103,9 @@ sanhelper.beta && sanhelper.checkbetastatus()
 
 ipcRenderer.on("noshortcuts",(event,value: boolean) => document.body.toggleAttribute("noshortcuts",value))
 
+document.body.toggleAttribute("adv",config.get("uimode") === "advanced")
+ipcRenderer.on("uimode",(event,value: "basic" | "advanced") => document.body.toggleAttribute("adv",value === "advanced"))
+
 window.addEventListener("DOMContentLoaded",() => setTimeout(async () => {
     const monitorslist = await monitors.get()
     sanhelper.devmode && console.log(monitorslist)

@@ -342,6 +342,14 @@ body[nodecoration] .wrapper#achcontent > span {
     /* padding-inline: calc(var(--scale) * 2px); */
 }
 
+body[nodecorationshadow] #achcontent {
+    filter: none;
+}
+
+body[nodecorationshadow] #achcontent > span {
+    filter: var(--fontshadow);
+}
+
 /* `padding-block` ensures text does not get cut off when custom per-element font-sizes are used */
 #achcontent > #unlockmsg {
     font-size: calc(1rem * var(--unlockmsgfontsize));

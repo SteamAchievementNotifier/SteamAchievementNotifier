@@ -373,6 +373,7 @@ export const sanconfig = {
                 testnotifycustomtexttitle: "",
                 testnotifycustomtextdesc: "",
                 logresourceusage: false,
+                uimode: "advanced",
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,
@@ -527,6 +528,7 @@ export const sanconfig = {
                 iconborderimgbronze: sanhelper.setfilepath("img","saniconborder_bronze.png"),
                 iconborderimgsilver: sanhelper.setfilepath("img","saniconborder_silver.png"),
                 textvspace: 0,
+                decorationshadow: true,
                 usertheme: [] as UserTheme[]
             }
 

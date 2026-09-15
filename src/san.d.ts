@@ -175,6 +175,7 @@ declare interface Config {
     testnotifycustomtexttitle: string,
     testnotifycustomtextdesc: string,
     logresourceusage: boolean,
+    uimode: "basic" | "advanced",
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -322,6 +323,7 @@ declare interface Customisation {
     iconborderimgbronze: string,
     iconborderimgsilver: string,
     textvspace: number,
+    decorationshadow: boolean,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }
@@ -750,7 +752,8 @@ declare type TroubleshooterProcess = {
     pids: number[],
     activeprocesses: DebugProcessInfo[],
     duplicatelinkentries: any,
-    installdir?: string | null
+    installdir?: string | null,
+    waitingforprocess?: boolean
 }
 
 declare type TroubleshooterExecutable = {

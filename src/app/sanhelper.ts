@@ -383,6 +383,7 @@ export const sanhelper: SANHelper = {
     statwinunlockonly: (value: boolean) => ipcRenderer.send("statwinunlockonly",value),
     gametimerwin: (value: boolean) => ipcRenderer.send("gametimerwin",value),
     gametimerwinaot: (value: boolean) => ipcRenderer.send("gametimerwinaot",value),
+    uimode: (value: "basic" | "advanced") => ipcRenderer.send("uimode",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     noshortcuts: (value: boolean) => ipcRenderer.send("shortcut",!value),
@@ -584,6 +585,7 @@ export const sanhelper: SANHelper = {
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
             elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
             elem.id === "rauser" && ipcRenderer.emit("ra") // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
+            elem.id === "uimode" && sanhelper.uimode(config.get("uimode"))
             
             // Updates labels and tooltips for percentage-based options while Customiser is open
             // Also ensures Silver Percentage value is always reset to be above the Rare Percentage value on change

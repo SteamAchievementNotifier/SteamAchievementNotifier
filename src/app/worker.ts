@@ -313,6 +313,11 @@ const startsan = async (appinfo: AppInfo) => {
 
         ipcRenderer.on("processdata",() => {
             const linkedgame = worker.linkedgame(appid) ?? null
+            const activeprocesses = usesanwatcher ? sanwatcher.getActiveProcesses(installdir,linkedgame) : processes.map(({ pid, exe }) => ({
+                pid,
+                exe,
+                active: isprocessrunning(pid)
+            }))
             
             ipcRenderer.send("processdata",{
                 appid,
@@ -324,14 +329,11 @@ const startsan = async (appinfo: AppInfo) => {
                 status: (usesanwatcher ? pids.size : processes.length) ? "active" : (releasetimer ? "releasing" : "active"),
                 releasetimer: !!releasetimer,
                 pids: usesanwatcher ? Array.from(pids) : processes.map(p => p.pid),
-                activeprocesses: usesanwatcher ? sanwatcher.getActiveProcesses(installdir,linkedgame) : processes.map(({ pid, exe }) => ({
-                    pid,
-                    exe,
-                    active: isprocessrunning(pid)
-                })),
+                activeprocesses,
                 duplicatelinkentries: Object.entries(JSON.parse(localStorage.getItem("linkgame") ?? "{}"))
                     .filter(([id,path]) => parseInt(id) !== appid && path === linkedgame)
-                    .map(([id]) => parseInt(id))
+                    .map(([id]) => parseInt(id)),
+                ...(usesanwatcher ? { waitingforprocess: !!linkedgame && !activeprocesses.length } : undefined)
             } as TroubleshooterProcess)
         })
         

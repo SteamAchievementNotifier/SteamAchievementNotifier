@@ -101,7 +101,9 @@ body[trophymode][main] .opt:has(#glow) > .opt:has(#glowrarity),
 body[trophymode][semi] .opt:has(#glow) > .opt:has(#glowrarity),
 body[trophymode][main] .opt:has(input#iconborderrarity),
 body[trophymode][semi] .opt:has(input#iconborderrarity),
-body:not([plat]) .opt:has(input#platcustomtext) {
+body:not([plat]) .opt:has(input#platcustomtext),
+.opt:has(> #decorationshadow),
+#customiseropts:has(.opt#elemselector):has(select#decorationpos > option[value="off"]:checked) .opt:has(> #decorationshadow,> [id^="decoration"]:not(#decorationpos),> #replacelogo) {
     display: none;
 }
 
@@ -194,7 +196,13 @@ body:not([plat]) .opt:has(input#platcustomtext) {
 #customiseropts:has(.opt > select#preset > option[value="xboxone"]:checked) .opt:has(#usepercent),
 #customiseropts:has(.opt > select#preset > option[value="xbox360"]:checked) .opt:has(#usepercent),
 .optcont:has(.opt > select#bgstyle > option[value="bgimg"]:checked) > .opt > .opt:has(#blur),
-.optcont:has(.opt > select#bgstyle > option[value="gameart"]:checked) > .opt > .opt:has(#blur) {
+.optcont:has(.opt > select#bgstyle > option[value="gameart"]:checked) > .opt > .opt:has(#blur),
+#customiseropts:has(.opt > select#preset > option[value="default"]:checked) > .cont:has(.title#colors) > .optcont > .opt:has(#fontshadow:checked) > .opt:has(#decorationshadow),
+#customiseropts:has(.opt > select#preset > option[value="steamdeck"]:checked) > .cont:has(.title#colors) > .optcont > .opt:has(#fontshadow:checked) > .opt:has(#decorationshadow),
+#customiseropts:has(.opt > select#preset > option[value="ps5"]:checked) > .cont:has(.title#colors) > .optcont > .opt:has(#fontshadow:checked) > .opt:has(#decorationshadow),
+#customiseropts:has(.opt > select#preset > option[value="ps4"]:checked) > .cont:has(.title#colors) > .optcont > .opt:has(#fontshadow:checked) > .opt:has(#decorationshadow),
+#customiseropts:has(.opt > select#preset > option[value="ps3"]:checked) > .cont:has(.title#colors) > .optcont > .opt:has(#fontshadow:checked) > .opt:has(#decorationshadow),
+#customiseropts:has(.opt > select#preset > option[value="windows"]:checked) > .cont:has(.title#colors) > .optcont > .opt:has(#fontshadow:checked) > .opt:has(#decorationshadow) {
     display: grid;
 }
 

@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Phiên bản phát hành",
         checkapplog: "Vui lòng kiểm tra Nhật ký Ứng dụng để biết chi tiết.",
         workercrash: "Worker đã gặp sự cố!",
-        workercrashsub: "Nhấn vào đây để khởi động lại Worker và thử theo dõi trò chơi lại"
+        workercrashsub: "Nhấn vào đây để khởi động lại Worker và thử theo dõi trò chơi lại",
+        troubleshoot: "Khắc phục sự cố",
+        copygameprocessdata: "Sao chép dữ liệu tiến trình trò chơi"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Tiện ích Truy cập",
             content: {
+                uimode: "Chế độ giao diện",
+                basic: "Cơ bản",
+                advanced: "Nâng cao",
                 noanim: "Vô hiệu hóa Hiệu ứng Cửa sổ Ứng dụng",
                 noupdatedialog: "Vô hiệu hóa hộp thoại Cập nhật",
                 nvda: "Bật hỗ trợ NVDA",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Không thể khôi phục bản sao lưu.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Thời gian chờ giải phóng"
+                releasewaittime: "Thời gian chờ giải phóng",
+                logresourceusage: "Ghi nhật ký mức sử dụng tài nguyên"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Văn bản tùy chỉnh",
                 usegametitle: "Sử dụng tiêu đề trò chơi",
                 customfont: "Phông chữ tùy chỉnh",
-                platcustomtext: "Văn bản 100% tùy chỉnh"
+                platcustomtext: "Văn bản 100% tùy chỉnh",
+                usecustomtext: "Văn bản tùy chỉnh",
+                customtextunlockmsg: "Thông báo mở khóa",
+                customtexttitle: "Tiêu đề thành tích",
+                customtextdesc: "Mô tả thành tích"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Màu bóng chữ",
                 fontshadowscale: "Tỷ lệ bóng chữ",
                 fontshadowx: "Độ dịch chuyển ngang",
-                fontshadowy: "Độ dịch chuyển dọc"
+                fontshadowy: "Độ dịch chuyển dọc",
+                decorationshadow: "Bóng trang trí"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Đặt kiểu bố cục của Cửa sổ thống kê thành tích",
         statwinunlockonly: "Ẩn Cửa sổ thống kê thành tích cho đến khi một thành tích được mở khóa",
         statwinunlockonlydisplaytime: "Đặt số giây Cửa sổ thống kê thành tích sẽ hiển thị sau khi một thành tích được mở khóa",
-        statwinunlockonlysync: "Đồng bộ số giây Cửa sổ thống kê thành tích sẽ hiển thị với Thời gian hiển thị của thông báo hiện tại"
+        statwinunlockonlysync: "Đồng bộ số giây Cửa sổ thống kê thành tích sẽ hiển thị với Thời gian hiển thị của thông báo hiện tại",
+        logresourceusage: `Ghi lại thống kê mức sử dụng tài nguyên của ứng dụng/hệ thống khi thông báo thành tích được kích hoạt<br><br><span class="ttdesc">Có thể sử dụng tùy chọn này để xác định liệu một số vấn đề trong ứng dụng có thể do tổng tải hệ thống khi mở khóa thành tích gây ra hay không</span>`,
+        decorationshadow: "Đặt xem Bóng phông chữ có được áp dụng cho cả thành phần Trang trí hay không",
+        uimode: `Chọn số lượng tùy chọn được hiển thị trong các menu Cài đặt/Tùy chỉnh<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Cơ bản</span>: Chỉ hiển thị một số tùy chọn giao diện thân thiện với người dùng</li><li><span class="hl">Nâng cao</span>: Hiển thị tất cả các tùy chọn giao diện hiện có</li></ul></span>`,
+        usecustomtext: "Đặt các thông báo tùy chỉnh sẽ được hiển thị trong thông báo",
+        customtextunlockmsg: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Thông báo mở khóa<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Thông báo mở khóa bị tắt</span>`,
+        customtexttitle: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Tiêu đề thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Tiêu đề thành tích bị tắt</span>`,
+        customtextdesc: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Mô tả thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị tắt</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

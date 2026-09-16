@@ -773,10 +773,6 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
     const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
     const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
 
-    const { testnotifycustomtext, testnotifycustomtexttitle, testnotifycustomtextdesc } = config.store
-    const titleoverride = testnotifycustomtext ? testnotifycustomtexttitle : null
-    const descoverride = testnotifycustomtext ? testnotifycustomtextdesc : null
-
     const notify: Notify = {
         id: Math.round(Date.now() / Math.random() * 1000),
         customisation: customisation,
@@ -784,8 +780,8 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
         steam3id: window.steam3id,
         type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
-        name: titleoverride || (type === "plat" ? "" : `Steam Achievement Notifier`),
-        desc: descoverride || (type === "plat" ? "" : await language.get("achievementdesc")),
+        name: config.get(`customisation.${type}.customtexttitle`) as string || (type === "plat" ? "" : `Steam Achievement Notifier`),
+        desc: config.get(`customisation.${type}.customtextdesc`) as string || (type === "plat" ? "" : await language.get("achievementdesc")),
         unlocked: true,
         hidden: customisation.previewhiddenicon,
         percent: type !== "plat" ? (type === "rare" ? config.get("rarity") : config.get("trophymode") && type === "semi" ? config.get("semirarity") : 50.0) : 0,

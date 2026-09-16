@@ -503,21 +503,6 @@ export const sanhelper: SANHelper = {
 
             return
         }
-
-        if (elem.id === "platcustomtext") {
-            elem.value = sanhelper.type as NotifyType === "plat" ? (config.get("platcustomtext") || "") : ""
-            
-            elem.onchange = event => {
-                const target = event.target as HTMLInputElement
-                
-                config.set("platcustomtext",target.value ?? "")
-
-                sanhelper.updatetabs()
-                sanhelper.reloadelemselector()
-            }
-            
-            return
-        }
         
         if ((["title","desc"] as const).map(value => `testnotifycustomtext${value}` as const).some(value => value === elem.id)) {
             elem.value = (config.get(elem.id) || "") as string
@@ -1008,7 +993,7 @@ export const sanhelper: SANHelper = {
                 #customisercontent select,
                 #customisercontent .rect
             `)!.forEach(async elem => {
-                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : elem.id,["tooltips"])
+                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : (elem.id.startsWith("usegametitle") ? "usegametitle" : elem.id),["tooltips"])
 
                 for (const id of rarityids) {
                     if (!elem.id.startsWith(id)) continue

@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Kiadások",
         checkapplog: "Kérjük, ellenőrizze az alkalmazás naplóját a részletekért.",
         workercrash: "A Worker összeomlott!",
-        workercrashsub: "Kattints ide a Worker újraindításához és a játék követésének újbóli megkísérléséhez"
+        workercrashsub: "Kattints ide a Worker újraindításához és a játék követésének újbóli megkísérléséhez",
+        troubleshoot: "Hibaelhárítás",
+        copygameprocessdata: "Játékfolyamat adatainak másolása"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Hozzáférhetőség",
             content: {
+                uimode: "Felhasználói felület módja",
+                basic: "Alap",
+                advanced: "Speciális",
                 noanim: "Alkalmazás ablakanimációk kikapcsolása",
                 noupdatedialog: "Frissítési párbeszédpanel kikapcsolása",
                 nvda: "NVDA támogatás engedélyezése",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "A biztonsági mentés visszaállítása sikertelen.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Felszabadítási várakozási idő"
+                releasewaittime: "Felszabadítási várakozási idő",
+                logresourceusage: "Erőforrás-használat naplózása"
             }
         },    
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Egyéni szöveg",
                 usegametitle: "Játékcím használata",
                 customfont: "Egyéni betűtípus",
-                platcustomtext: "Egyéni 100%-os szöveg"
+                platcustomtext: "Egyéni 100%-os szöveg",
+                usecustomtext: "Egyéni szöveg",
+                customtextunlockmsg: "Feloldási üzenet",
+                customtexttitle: "Teljesítmény címe",
+                customtextdesc: "Teljesítmény leírása"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Betűárnyék színe",
                 fontshadowscale: "Betűárnyék mérete",
                 fontshadowx: "Vízszintes eltolás",
-                fontshadowy: "Függőleges eltolás"
+                fontshadowy: "Függőleges eltolás",
+                decorationshadow: "Dekoráció árnyéka"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Az Eredménystatisztika ablak elrendezéstípusának beállítása",
         statwinunlockonly: "Az Eredménystatisztika ablak elrejtése egy eredmény feloldásáig",
         statwinunlockonlydisplaytime: "Az Eredménystatisztika ablak megjelenítési idejének beállítása másodpercben egy eredmény feloldása után",
-        statwinunlockonlysync: "Az Eredménystatisztika ablak megjelenítési idejének szinkronizálása az aktuális értesítés Megjelenítési idejével"
+        statwinunlockonlysync: "Az Eredménystatisztika ablak megjelenítési idejének szinkronizálása az aktuális értesítés Megjelenítési idejével",
+        logresourceusage: `Az alkalmazás/rendszer erőforrás-használati statisztikáinak naplózása a teljesítményértesítések aktiválásakor<br><br><span class="ttdesc">Ezzel meghatározható, hogy bizonyos alkalmazáson belüli problémákat okozhat-e a rendszer teljes terhelése a teljesítmények feloldásakor</span>`,
+        decorationshadow: "Annak beállítása, hogy a Betűárnyék a dekoráció elemre is alkalmazva legyen",
+        uimode: `A Beállítások/Testreszabó menükben megjelenített beállítások számának kiválasztása<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Alap</span>: Csak korlátozott számú, felhasználóbarát felületi beállítás megjelenítése</li><li><span class="hl">Speciális</span>: Az összes elérhető felületi beállítás megjelenítése</li></ul></span>`,
+        usecustomtext: "Az értesítésben megjelenítendő egyéni üzenetek beállítása",
+        customtextunlockmsg: `Az Feloldási üzenet elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Feloldási üzenet le van tiltva</span>`,
+        customtexttitle: `A Teljesítmény címe elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény címe le van tiltva</span>`,
+        customtextdesc: `A Teljesítmény leírása elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény leírása le van tiltva</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

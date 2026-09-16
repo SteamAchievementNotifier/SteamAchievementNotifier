@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "릴리스",
         checkapplog: "자세한 내용은 앱 로그를 확인하세요.",
         workercrash: "Worker가 충돌했습니다!",
-        workercrashsub: "여기를 클릭하여 Worker를 다시 시작하고 게임 추적을 다시 시도하세요"
+        workercrashsub: "여기를 클릭하여 Worker를 다시 시작하고 게임 추적을 다시 시도하세요",
+        troubleshoot: "문제 해결",
+        copygameprocessdata: "게임 프로세스 데이터 복사"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "접근성",
             content: {
+                uimode: "UI 모드",
+                basic: "기본",
+                advanced: "고급",
                 noanim: "앱 창 애니메이션 비활성화",
                 noupdatedialog: "업데이트 대화상자 비활성화",
                 nvda: "NVDA 지원 활성화",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "백업 복원에 실패했습니다.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "해제 대기 시간"
+                releasewaittime: "해제 대기 시간",
+                logresourceusage: "리소스 사용량 기록"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "사용자 정의 텍스트",
                 usegametitle: "게임 제목 사용",
                 customfont: "사용자 정의 글꼴",
-                platcustomtext: "사용자 지정 100% 텍스트"
+                platcustomtext: "사용자 지정 100% 텍스트",
+                usecustomtext: "사용자 지정 텍스트",
+                customtextunlockmsg: "잠금 해제 메시지",
+                customtexttitle: "업적 제목",
+                customtextdesc: "업적 설명"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "글꼴 그림자 색상",
                 fontshadowscale: "폰트 그림자 크기",
                 fontshadowx: "수평 오프셋",
-                fontshadowy: "수직 오프셋"
+                fontshadowy: "수직 오프셋",
+                decorationshadow: "장식 그림자"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "업적 통계 창의 레이아웃 유형 설정",
         statwinunlockonly: "업적이 달성될 때까지 업적 통계 창 숨기기",
         statwinunlockonlydisplaytime: "업적이 달성된 후 업적 통계 창이 표시될 시간을 초 단위로 설정",
-        statwinunlockonlysync: "업적 통계 창의 표시 시간을 현재 알림의 표시 시간과 동기화"
+        statwinunlockonlysync: "업적 통계 창의 표시 시간을 현재 알림의 표시 시간과 동기화",
+        logresourceusage: `업적 알림이 트리거될 때 앱/시스템 리소스 사용 통계를 기록합니다<br><br><span class="ttdesc">업적 잠금 해제 시 발생하는 특정 앱 내 문제가 시스템 전체 부하로 인해 발생하는지 확인하는 데 사용할 수 있습니다</span>`,
+        decorationshadow: "글꼴 그림자를 장식 요소에도 적용할지 설정합니다",
+        uimode: `설정/사용자 지정 메뉴에 표시되는 옵션 수를 선택합니다<br><br><span class="ttdesc" nostar><ul><li><span class="hl">기본</span>: 사용자 친화적인 UI 옵션 중 제한된 항목만 표시합니다</li><li><span class="hl">고급</span>: 사용 가능한 모든 UI 옵션을 표시합니다</li></ul></span>`,
+        usecustomtext: "알림에 표시할 사용자 지정 메시지를 설정합니다",
+        customtextunlockmsg: `잠금 해제 메시지 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 잠금 해제 메시지가 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
+        customtexttitle: `업적 제목 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 제목이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
+        customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",

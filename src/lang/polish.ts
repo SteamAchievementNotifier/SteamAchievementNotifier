@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Wydania",
         checkapplog: "Sprawdź dziennik aplikacji, aby uzyskać szczegóły.",
         workercrash: "Worker uległ awarii!",
-        workercrashsub: "Kliknij tutaj, aby ponownie uruchomić Worker i ponowić śledzenie gry"
+        workercrashsub: "Kliknij tutaj, aby ponownie uruchomić Worker i ponowić śledzenie gry",
+        troubleshoot: "Rozwiązywanie problemów",
+        copygameprocessdata: "Kopiuj dane procesu gry"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Dostępność",
             content: {
+                uimode: "Tryb interfejsu użytkownika",
+                basic: "Podstawowy",
+                advanced: "Zaawansowany",
                 noanim: "Wyłącz animacje okna aplikacji",
                 noupdatedialog: "Wyłącz okno aktualizacji",
                 nvda: "Włącz obsługę NVDA",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Nie udało się przywrócić kopii zapasowej.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Czas oczekiwania przed zwolnieniem"
+                releasewaittime: "Czas oczekiwania przed zwolnieniem",
+                logresourceusage: "Rejestruj użycie zasobów"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Niestandardowy Tekst",
                 usegametitle: "Użyj Tytułu Gry",
                 customfont: "Niestandardowa Czcionka",
-                platcustomtext: "Niestandardowy tekst 100%"
+                platcustomtext: "Niestandardowy tekst 100%",
+                usecustomtext: "Niestandardowy tekst",
+                customtextunlockmsg: "Komunikat odblokowania",
+                customtexttitle: "Tytuł osiągnięcia",
+                customtextdesc: "Opis osiągnięcia"
             }
         },
         sound: {
@@ -495,6 +505,7 @@ export const translations = {
                 fontshadowscale: "Skala Cienia Czcionki",
                 fontshadowx: "Przesunięcie Poziome",
                 fontshadowy: "Przesunięcie Pionowe",
+                decorationshadow: "Cień dekoracji"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Ustaw typ układu Okna statystyk osiągnięć",
         statwinunlockonly: "Ukrywaj Okno statystyk osiągnięć do momentu odblokowania osiągnięcia",
         statwinunlockonlydisplaytime: "Ustaw liczbę sekund, przez które Okno statystyk osiągnięć będzie wyświetlane po odblokowaniu osiągnięcia",
-        statwinunlockonlysync: "Synchronizuj liczbę sekund, przez które Okno statystyk osiągnięć będzie wyświetlane, z bieżącym Czasem wyświetlania powiadomienia"
+        statwinunlockonlysync: "Synchronizuj liczbę sekund, przez które Okno statystyk osiągnięć będzie wyświetlane, z bieżącym Czasem wyświetlania powiadomienia",
+        logresourceusage: `Rejestruj statystyki użycia zasobów aplikacji/systemu po wyświetleniu powiadomień o osiągnięciach<br><br><span class="ttdesc">Można tego użyć do określenia, czy niektóre problemy w aplikacji mogą być spowodowane całkowitym obciążeniem systemu podczas odblokowywania osiągnięć</span>`,
+        decorationshadow: "Ustaw, czy Cień czcionki ma być również stosowany do elementu dekoracji",
+        uimode: `Wybierz liczbę opcji wyświetlanych w menu Ustawienia/Dostosowywanie<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Podstawowy</span>: Wyświetlaj tylko ograniczony zestaw przyjaznych dla użytkownika opcji interfejsu</li><li><span class="hl">Zaawansowany</span>: Wyświetlaj wszystkie dostępne opcje interfejsu</li></ul></span>`,
+        usecustomtext: "Ustaw niestandardowe komunikaty wyświetlane w powiadomieniu",
+        customtextunlockmsg: `Ustaw niestandardowy komunikat wyświetlany w elemencie Komunikat odblokowania<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Dostosowywanie > Ustawienie wstępne > Elementy powiadomień > Komunikat odblokowania będzie wyłączone</span>`,
+        customtexttitle: `Ustaw niestandardowy komunikat wyświetlany w elemencie Tytuł osiągnięcia<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Dostosowywanie > Ustawienie wstępne > Elementy powiadomień > Tytuł osiągnięcia będzie wyłączone</span>`,
+        customtextdesc: `Ustaw niestandardowy komunikat wyświetlany w elemencie Opis osiągnięcia<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Dostosowywanie > Ustawienie wstępne > Elementy powiadomień > Opis osiągnięcia będzie wyłączone</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

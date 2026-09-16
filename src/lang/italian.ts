@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Rilasci",
         checkapplog: "Controlla il registro dell'app per i dettagli.",
         workercrash: "Il Worker si è arrestato in modo anomalo!",
-        workercrashsub: "Fai clic qui per riavviare il Worker e riprovare il rilevamento del gioco"
+        workercrashsub: "Fai clic qui per riavviare il Worker e riprovare il rilevamento del gioco",
+        troubleshoot: "Risoluzione dei problemi",
+        copygameprocessdata: "Copia dati del processo di gioco"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Accessibilità",
             content: {
+                uimode: "Modalità interfaccia utente",
+                basic: "Base",
+                advanced: "Avanzata",
                 noanim: "Disabilita animazioni finestra app",
                 noupdatedialog: "Disabilita il dialogo degli aggiornamenti",
                 nvda: "Abilita supporto NVDA",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Impossibile ripristinare il backup.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Tempo di attesa per il rilascio"
+                releasewaittime: "Tempo di attesa per il rilascio",
+                logresourceusage: "Registra utilizzo risorse"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Testo Personalizzato",
                 usegametitle: "Usa Titolo Gioco",
                 customfont: "Carattere Personalizzato",
-                platcustomtext: "Testo personalizzato per il 100%"
+                platcustomtext: "Testo personalizzato per il 100%",
+                usecustomtext: "Testo personalizzato",
+                customtextunlockmsg: "Messaggio di sblocco",
+                customtexttitle: "Titolo dell'obiettivo",
+                customtextdesc: "Descrizione dell'obiettivo"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Colore Ombra Carattere",
                 fontshadowscale: "Scala Ombra Carattere",
                 fontshadowx: "Offset Orizzontale",
-                fontshadowy: "Offset Verticale"
+                fontshadowy: "Offset Verticale",
+                decorationshadow: "Ombra decorazione"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Imposta il tipo di layout della Finestra delle statistiche dei successi",
         statwinunlockonly: "Mantieni nascosta la Finestra delle statistiche dei successi fino allo sblocco di un successo",
         statwinunlockonlydisplaytime: "Imposta il numero di secondi per cui la Finestra delle statistiche dei successi verrà visualizzata dopo lo sblocco di un successo",
-        statwinunlockonlysync: "Sincronizza il numero di secondi per cui la Finestra delle statistiche dei successi verrà visualizzata con il Tempo di visualizzazione della notifica corrente"
+        statwinunlockonlysync: "Sincronizza il numero di secondi per cui la Finestra delle statistiche dei successi verrà visualizzata con il Tempo di visualizzazione della notifica corrente",
+        logresourceusage: `Registra le statistiche sull'utilizzo delle risorse dell'app/sistema quando vengono attivate le notifiche degli obiettivi<br><br><span class="ttdesc">Questo può essere utilizzato per determinare se alcuni problemi all'interno dell'app potrebbero essere causati dal carico totale del sistema quando gli obiettivi vengono sbloccati</span>`,
+        decorationshadow: "Imposta se l'Ombra del carattere viene applicata anche all'elemento Decorazione",
+        uimode: `Seleziona il numero di opzioni visualizzate nei menu Impostazioni/Personalizzatore<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Base</span>: Mostra solo un insieme limitato di opzioni dell'interfaccia intuitive</li><li><span class="hl">Avanzata</span>: Mostra tutte le opzioni dell'interfaccia disponibili</li></ul></span>`,
+        usecustomtext: "Imposta messaggi personalizzati da visualizzare all'interno della notifica",
+        customtextunlockmsg: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Messaggio di sblocco<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Messaggio di sblocco è disabilitato</span>`,
+        customtexttitle: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Titolo dell'obiettivo<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Titolo dell'obiettivo è disabilitato</span>`,
+        customtextdesc: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Descrizione dell'obiettivo<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Descrizione dell'obiettivo è disabilitato</span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

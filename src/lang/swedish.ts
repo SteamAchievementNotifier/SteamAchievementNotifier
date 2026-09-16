@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Uppdateringar",
         checkapplog: "Vänligen kontrollera apploggen för mer information.",
         workercrash: "Worker har kraschat!",
-        workercrashsub: "Klicka här för att starta om Worker och försöka spåra spelet igen"
+        workercrashsub: "Klicka här för att starta om Worker och försöka spåra spelet igen",
+        troubleshoot: "Felsökning",
+        copygameprocessdata: "Kopiera data för spelprocessen"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Tillgänglighet",
             content: {
+                uimode: "Gränssnittsläge",
+                basic: "Grundläggande",
+                advanced: "Avancerat",
                 noanim: "Inaktivera appfönsteranimationer",
                 noupdatedialog: "Inaktivera uppdateringsdialog",
                 nvda: "Aktivera NVDA-stöd",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Kunde inte återställa säkerhetskopian.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Väntetid för frigöring"
+                releasewaittime: "Väntetid för frigöring",
+                logresourceusage: "Logga resursanvändning"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Anpassad text",
                 usegametitle: "Använd speltitel",
                 customfont: "Anpassad typsnitt",
-                platcustomtext: "Anpassad 100%-text"
+                platcustomtext: "Anpassad 100%-text",
+                usecustomtext: "Anpassad text",
+                customtextunlockmsg: "Upplåsningsmeddelande",
+                customtexttitle: "Prestationstitel",
+                customtextdesc: "Prestationsbeskrivning"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Typsnittsskuggans färg",
                 fontshadowscale: "Teckensnittets skuggsalning",
                 fontshadowx: "Horisontell förskjutning",
-                fontshadowy: "Vertikal förskjutning"
+                fontshadowy: "Vertikal förskjutning",
+                decorationshadow: "Dekorationsskugga"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Ställ in layouttypen för Prestationstatistikfönster",
         statwinunlockonly: "Håll Prestationstatistikfönster dolt tills en prestation låses upp",
         statwinunlockonlydisplaytime: "Ställ in hur många sekunder Prestationstatistikfönster ska visas när en prestation har låsts upp",
-        statwinunlockonlysync: "Synkronisera antalet sekunder som Prestationstatistikfönster ska visas med den aktuella aviseringens visningstid"
+        statwinunlockonlysync: "Synkronisera antalet sekunder som Prestationstatistikfönster ska visas med den aktuella aviseringens visningstid",
+        logresourceusage: `Logga statistik över appens/systemets resursanvändning när prestationsaviseringar utlöses<br><br><span class="ttdesc">Detta kan användas för att avgöra om vissa problem i appen kan orsakas av den totala systembelastningen när prestationer låses upp</span>`,
+        decorationshadow: "Ange om Teckensnittsskugga även ska tillämpas på dekorationselementet",
+        uimode: `Välj antalet alternativ som visas i menyerna Inställningar/Anpassning<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Grundläggande</span>: Visa endast ett begränsat antal användarvänliga gränssnittsalternativ</li><li><span class="hl">Avancerat</span>: Visa alla tillgängliga gränssnittsalternativ</li></ul></span>`,
+        usecustomtext: "Ange anpassade meddelanden som ska visas i aviseringen",
+        customtextunlockmsg: `Ange ett anpassat meddelande som ska visas i elementet Upplåsningsmeddelande<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Upplåsningsmeddelande är inaktiverat</span>`,
+        customtexttitle: `Ange ett anpassat meddelande som ska visas i elementet Prestationstitel<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationstitel är inaktiverat</span>`,
+        customtextdesc: `Ange ett anpassat meddelande som ska visas i elementet Prestationsbeskrivning<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationsbeskrivning är inaktiverat</span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

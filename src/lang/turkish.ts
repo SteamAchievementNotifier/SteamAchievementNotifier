@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Sürümler",
         checkapplog: "Detaylar için lütfen Uygulama Günlüğünü kontrol edin.",
         workercrash: "Worker çöktü!",
-        workercrashsub: "Worker'ı yeniden başlatmak ve oyun izlemeyi tekrar denemek için buraya tıklayın"
+        workercrashsub: "Worker'ı yeniden başlatmak ve oyun izlemeyi tekrar denemek için buraya tıklayın",
+        troubleshoot: "Sorun Giderme",
+        copygameprocessdata: "Oyun İşlemi Verilerini Kopyala"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Erişilebilirlik",
             content: {
+                uimode: "Arayüz Modu",
+                basic: "Temel",
+                advanced: "Gelişmiş",
                 noanim: "Uygulama Pencere Animasyonlarını Devre Dışı Bırak",
                 noupdatedialog: "Güncelleme İletişim Kutusunu Devre Dışı Bırak",
                 nvda: "NVDA Desteğini Etkinleştir",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Yedekleme geri yüklenemedi.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Serbest Bırakma Bekleme Süresi"
+                releasewaittime: "Serbest Bırakma Bekleme Süresi",
+                logresourceusage: "Kaynak Kullanımını Günlüğe Kaydet"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Özel Metin",
                 usegametitle: "Oyun Başlığını Kullan",
                 customfont: "Özel Font",
-                platcustomtext: "Özel %100 Metni"
+                platcustomtext: "Özel %100 Metni",
+                usecustomtext: "Özel Metin",
+                customtextunlockmsg: "Kilidi Açma Mesajı",
+                customtexttitle: "Başarım Başlığı",
+                customtextdesc: "Başarım Açıklaması"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Yazı Gölgesi Rengi",
                 fontshadowscale: "Yazı Tipi Gölgesi Ölçeği",
                 fontshadowx: "Yatay Ofset",
-                fontshadowy: "Dikey Ofset"
+                fontshadowy: "Dikey Ofset",
+                decorationshadow: "Dekorasyon Gölgesi"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Başarı İstatistikleri Penceresi düzen türünü ayarla",
         statwinunlockonly: "Bir başarının kilidi açılana kadar Başarı İstatistikleri Penceresini gizli tut",
         statwinunlockonlydisplaytime: "Bir başarının kilidi açıldığında Başarı İstatistikleri Penceresinin görüntüleneceği saniye sayısını ayarla",
-        statwinunlockonlysync: "Başarı İstatistikleri Penceresinin görüntüleneceği saniye sayısını mevcut bildirimin Görüntüleme Süresi ile senkronize et"
+        statwinunlockonlysync: "Başarı İstatistikleri Penceresinin görüntüleneceği saniye sayısını mevcut bildirimin Görüntüleme Süresi ile senkronize et",
+        logresourceusage: `Başarım bildirimleri tetiklendiğinde uygulama/sistem kaynak kullanım istatistiklerini günlüğe kaydet<br><br><span class="ttdesc">Bu, başarımların kilidi açılırken uygulama içindeki belirli sorunların toplam sistem yükünden kaynaklanıp kaynaklanmadığını belirlemek için kullanılabilir</span>`,
+        decorationshadow: "Yazı Tipi Gölgesinin Dekorasyon öğesine de uygulanıp uygulanmayacağını belirle",
+        uimode: `Ayarlar/Özelleştirici menülerinde görüntülenecek seçenek sayısını seç<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Temel</span>: Yalnızca sınırlı sayıda kullanıcı dostu arayüz seçeneğini görüntüle</li><li><span class="hl">Gelişmiş</span>: Kullanılabilir tüm arayüz seçeneklerini görüntüle</li></ul></span>`,
+        usecustomtext: "Bildirim içinde görüntülenecek özel mesajları ayarla",
+        customtextunlockmsg: `Kilidi Açma Mesajı öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Kilidi Açma Mesajı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
+        customtexttitle: `Başarım Başlığı öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Başlığı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
+        customtextdesc: `Başarım Açıklaması öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

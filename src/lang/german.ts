@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Releases",
         checkapplog: "Bitte prüfen Sie das App-Protokoll für weitere Details.",
         workercrash: "Worker ist abgestürzt!",
-        workercrashsub: "Klicken Sie hier, um Worker neu zu starten und die Spielverfolgung erneut zu versuchen"
+        workercrashsub: "Klicken Sie hier, um Worker neu zu starten und die Spielverfolgung erneut zu versuchen",
+        troubleshoot: "Fehlerbehebung",
+        copygameprocessdata: "Spielsprozessdaten kopieren"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Barrierefreiheit",
             content: {
+                uimode: "Benutzeroberflächenmodus",
+                basic: "Einfach",
+                advanced: "Erweitert",
                 noanim: "App-Fensteranimationen Deaktivieren",
                 noupdatedialog: "Update-Dialog deaktivieren",
                 nvda: "NVDA-Unterstützung Aktivieren",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Sicherung konnte nicht wiederhergestellt werden.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Wartezeit für Freigabe"
+                releasewaittime: "Wartezeit für Freigabe",
+                logresourceusage: "Ressourcennutzung protokollieren"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Benutzerdefinierter Text",
                 usegametitle: "Spielname verwenden",
                 customfont: "Benutzerdefinierte Schriftart",
-                platcustomtext: "Benutzerdefinierter 100%-Text"
+                platcustomtext: "Benutzerdefinierter 100%-Text",
+                usecustomtext: "Benutzerdefinierter Text",
+                customtextunlockmsg: "Freischaltungsnachricht",
+                customtexttitle: "Achievement-Titel",
+                customtextdesc: "Achievement-Beschreibung"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Farbe des Schriftschattens",
                 fontshadowscale: "Skalierung des Schriftschattens",
                 fontshadowx: "Horizontale Verschiebung",
-                fontshadowy: "Vertikale Verschiebung"
+                fontshadowy: "Vertikale Verschiebung",
+                decorationshadow: "Dekorationsschatten"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Layouttyp des Statistikfensters für Erfolge festlegen",
         statwinunlockonly: "Das Statistikfenster für Erfolge ausblenden, bis ein Erfolg freigeschaltet wird",
         statwinunlockonlydisplaytime: "Die Anzahl der Sekunden festlegen, für die das Statistikfenster für Erfolge nach dem Freischalten eines Erfolgs angezeigt wird",
-        statwinunlockonlysync: "Die Anzahl der Sekunden, für die das Statistikfenster für Erfolge angezeigt wird, mit der Anzeigedauer der aktuellen Benachrichtigung synchronisieren"
+        statwinunlockonlysync: "Die Anzahl der Sekunden, für die das Statistikfenster für Erfolge angezeigt wird, mit der Anzeigedauer der aktuellen Benachrichtigung synchronisieren",
+        logresourceusage: `Statistiken zur Ressourcen-Nutzung der App/des Systems protokollieren, wenn Achievement-Benachrichtigungen ausgelöst werden<br><br><span class="ttdesc">Dies kann verwendet werden, um festzustellen, ob bestimmte Probleme innerhalb der App durch die Gesamtbelastung des Systems beim Freischalten von Achievements verursacht werden</span>`,
+        decorationshadow: "Festlegen, ob der Schattierung der Schrift auch auf das Dekorationselement angewendet wird",
+        uimode: `Die Anzahl der Optionen auswählen, die in den Menüs Einstellungen/Anpassen angezeigt werden<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Einfach</span>: Nur eine begrenzte Auswahl benutzerfreundlicher Optionen der Benutzeroberfläche anzeigen</li><li><span class="hl">Erweitert</span>: Alle verfügbaren Optionen der Benutzeroberfläche anzeigen</li></ul></span>`,
+        usecustomtext: "Benutzerdefinierte Nachrichten festlegen, die innerhalb der Benachrichtigung angezeigt werden",
+        customtextunlockmsg: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Freischaltungsnachricht angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Freischaltungsnachricht deaktiviert ist</span>`,
+        customtexttitle: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Titel angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Titel deaktiviert ist</span>`,
+        customtextdesc: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Beschreibung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Beschreibung deaktiviert ist</span>`
     },
     update: {
         updateavailable: "Update verfügbar",

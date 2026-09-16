@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Lançamentos",
         checkapplog: "Por favor, verifique o Registro do App para mais detalhes.",
         workercrash: "Worker travou!",
-        workercrashsub: "Clique aqui para reiniciar o Worker e tentar rastrear o jogo novamente"
+        workercrashsub: "Clique aqui para reiniciar o Worker e tentar rastrear o jogo novamente",
+        troubleshoot: "Solucionar problemas",
+        copygameprocessdata: "Copiar dados do processo do jogo"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Acessibilidade",
             content: {
+                uimode: "Modo da interface",
+                basic: "Básico",
+                advanced: "Avançado",
                 noanim: "Desativar Animações da Janela do Aplicativo",
                 noupdatedialog: "Desativar Diálogo de Atualização",
                 nvda: "Ativar Suporte NVDA",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Não foi possível restaurar o backup.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Tempo de Espera para Liberação"
+                releasewaittime: "Tempo de Espera para Liberação",
+                logresourceusage: "Registrar uso de recursos"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Texto Personalizado",
                 usegametitle: "Usar Título do Jogo",
                 customfont: "Fonte Personalizada",
-                platcustomtext: "Texto personalizado de 100%"
+                platcustomtext: "Texto personalizado de 100%",
+                usecustomtext: "Texto personalizado",
+                customtextunlockmsg: "Mensagem de desbloqueio",
+                customtexttitle: "Título da conquista",
+                customtextdesc: "Descrição da conquista"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Cor da Sombra da Fonte",
                 fontshadowscale: "Escala da Sombra da Fonte",
                 fontshadowx: "Deslocamento Horizontal",
-                fontshadowy: "Deslocamento Vertical"
+                fontshadowy: "Deslocamento Vertical",
+                decorationshadow: "Sombra da decoração"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Definir o tipo de layout da Janela de Estatísticas de Conquistas",
         statwinunlockonly: "Manter a Janela de Estatísticas de Conquistas oculta até que uma conquista seja desbloqueada",
         statwinunlockonlydisplaytime: "Definir o número de segundos que a Janela de Estatísticas de Conquistas será exibida após uma conquista ser desbloqueada",
-        statwinunlockonlysync: "Sincronizar o número de segundos que a Janela de Estatísticas de Conquistas será exibida com o Tempo de Exibição da notificação atual"
+        statwinunlockonlysync: "Sincronizar o número de segundos que a Janela de Estatísticas de Conquistas será exibida com o Tempo de Exibição da notificação atual",
+        logresourceusage: `Registrar estatísticas de uso de recursos do aplicativo/sistema quando as notificações de conquistas forem acionadas<br><br><span class="ttdesc">Isso pode ser usado para determinar se certos problemas no aplicativo podem ser causados pela carga total do sistema quando as conquistas são desbloqueadas</span>`,
+        decorationshadow: "Definir se a Sombra da fonte também será aplicada ao elemento de decoração",
+        uimode: `Selecionar o número de opções exibidas nos menus de Configurações/Personalizador<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Básico</span>: Exibir apenas um conjunto limitado de opções de interface fáceis de usar</li><li><span class="hl">Avançado</span>: Exibir todas as opções de interface disponíveis</li></ul></span>`,
+        usecustomtext: "Definir mensagens personalizadas a serem exibidas dentro da notificação",
+        customtextunlockmsg: `Definir uma mensagem personalizada a ser exibida dentro do elemento Mensagem de desbloqueio<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos de notificação > Mensagem de desbloqueio estiver desativado</span>`,
+        customtexttitle: `Definir uma mensagem personalizada a ser exibida dentro do elemento Título da conquista<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos de notificação > Título da conquista estiver desativado</span>`,
+        customtextdesc: `Definir uma mensagem personalizada a ser exibida dentro da Descrição da conquista<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos de notificação > Descrição da conquista estiver desativado</span>`
     },
     update: {
         updateavailable: "Atualização disponível",

@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "リリース",
         checkapplog: "詳細についてはアプリのログを確認してください。",
         workercrash: "Worker がクラッシュしました！",
-        workercrashsub: "ここをクリックして Worker を再起動し、ゲームの追跡を再試行してください"
+        workercrashsub: "ここをクリックして Worker を再起動し、ゲームの追跡を再試行してください",
+        troubleshoot: "トラブルシューティング",
+        copygameprocessdata: "ゲームプロセスデータをコピー"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "アクセシビリティ",
             content: {
+                uimode: "UIモード",
+                basic: "基本",
+                advanced: "詳細",
                 noanim: "アプリウィンドウのアニメーションを無効にする",
                 noupdatedialog: "更新ダイアログを無効にする",
                 nvda: "NVDAサポートを有効にする",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "バックアップの復元に失敗しました。",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "解放待機時間"
+                releasewaittime: "解放待機時間",
+                logresourceusage: "リソース使用状況を記録"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "カスタムテキスト",
                 usegametitle: "ゲームタイトルを使用",
                 customfont: "カスタムフォント",
-                platcustomtext: "カスタム100%テキスト"
+                platcustomtext: "カスタム100%テキスト",
+                usecustomtext: "カスタムテキスト",
+                customtextunlockmsg: "解除メッセージ",
+                customtexttitle: "実績タイトル",
+                customtextdesc: "実績の説明"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "フォントシャドウカラー",
                 fontshadowscale: "フォントのシャドウスケール",
                 fontshadowx: "水平オフセット",
-                fontshadowy: "垂直オフセット"
+                fontshadowy: "垂直オフセット",
+                decorationshadow: "装飾の影"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "実績統計ウィンドウのレイアウトタイプを設定",
         statwinunlockonly: "実績が解除されるまで実績統計ウィンドウを非表示にする",
         statwinunlockonlydisplaytime: "実績が解除された際に実績統計ウィンドウを表示する秒数を設定",
-        statwinunlockonlysync: "実績統計ウィンドウの表示秒数を現在の通知の表示時間と同期"
+        statwinunlockonlysync: "実績統計ウィンドウの表示秒数を現在の通知の表示時間と同期",
+        logresourceusage: `実績通知がトリガーされた際に、アプリ/システムのリソース使用統計を記録<br><br><span class="ttdesc">実績の解除時に発生する特定のアプリ内の問題が、システム全体の負荷によって引き起こされているかどうかを判断するために使用できます</span>`,
+        decorationshadow: "フォントの影を装飾要素にも適用するかどうかを設定",
+        uimode: `設定/カスタマイズメニューに表示するオプションの数を選択<br><br><span class="ttdesc" nostar><ul><li><span class="hl">基本</span>: 使いやすいUIオプションの限られたセットのみを表示</li><li><span class="hl">詳細</span>: 利用可能なすべてのUIオプションを表示</li></ul></span>`,
+        usecustomtext: "通知内に表示するカスタムメッセージを設定",
+        customtextunlockmsg: `解除メッセージ要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 解除メッセージが無効になっている場合、このオプションは非表示になります</span>`,
+        customtexttitle: `実績タイトル要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績タイトルが無効になっている場合、このオプションは非表示になります</span>`,
+        customtextdesc: `実績の説明要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績の説明が無効になっている場合、このオプションは非表示になります</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

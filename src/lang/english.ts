@@ -414,7 +414,11 @@ export const translations = {
                 customtext: "Custom Text",
                 usegametitle: "Use Game Title",
                 customfont: "Custom Font",
-                platcustomtext: "Custom 100% Text"
+                platcustomtext: "Custom 100% Text",
+                usecustomtext: "Custom Text",
+                customtextunlockmsg: "Unlock Message",
+                customtexttitle: "Achievement Title",
+                customtextdesc: "Achievement Description"
             }
         },
         sound: {
@@ -681,7 +685,7 @@ export const translations = {
         displaytime: "Set the number of seconds the notification will display",
         scale: "Increase or decrease the size of the notification",
         customtext: `Set a custom message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
-        usegametitle: "Show the title of the current game within the notification",
+        usegametitle: "Show the title of the current game within this element",
         customfont: "Load a custom font to be used within the notification",
         soundmode: "Select either a single audio file, or a randomly selected audio file from within a folder containing multiple audio files, when a notification occurs",
         soundfile: "Select an audio file to play when a notification occurs",
@@ -903,7 +907,11 @@ export const translations = {
         statwinunlockonlysync: "Sync the number of seconds the Achievement Stats Overlay will display for to the current notification's Display Time",
         logresourceusage: `Log app/system resource usage statistics when achievement notifications are triggered<br><br><span class="ttdesc">This can be used to determine whether certain in-app issues may be caused by total system load when achievements are unlocked</span>`,
         decorationshadow: "Set whether Font Shadow is also applied to the Decoration element",
-        uimode: `Select the number of options displayed in Settings/Customiser menus<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Basic</span>: Display only a limited set of user-friendly UI options</li><li><span class="hl">Advanced</span>: Display all available UI options</li></ul></span>`
+        uimode: `Select the number of options displayed in Settings/Customiser menus<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Basic</span>: Display only a limited set of user-friendly UI options</li><li><span class="hl">Advanced</span>: Display all available UI options</li></ul></span>`,
+        usecustomtext: "Set custom messages to be displayed within the notification",
+        customtextunlockmsg: `Set a custom message to be displayed within the Unlock Message element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
+        customtexttitle: `Set a custom message to be displayed within the Achievement Title element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Title is disabled</span>`,
+        customtextdesc: `Set a custom message to be displayed within the Achievement Description<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`
     },
     update: {
         updateavailable: "Update available",

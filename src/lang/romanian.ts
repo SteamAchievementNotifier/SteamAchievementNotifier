@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Versiuni",
         checkapplog: "Vă rugăm să verificați jurnalul aplicației pentru detalii.",
         workercrash: "Worker s-a blocat!",
-        workercrashsub: "Faceți clic aici pentru a reporni Worker și a încerca din nou monitorizarea jocului"
+        workercrashsub: "Faceți clic aici pentru a reporni Worker și a încerca din nou monitorizarea jocului",
+        troubleshoot: "Depanare",
+        copygameprocessdata: "Copiază datele procesului jocului"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Accesibilitate",
             content: {
+                uimode: "Mod interfață",
+                basic: "De bază",
+                advanced: "Avansat",
                 noanim: "Dezactivează Animații Fereastră Aplicație",
                 noupdatedialog: "Dezactivați dialogul de actualizare",
                 nvda: "Activează Suport NVDA",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Nu s-a putut restaura backup-ul.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Timp de așteptare pentru eliberare"
+                releasewaittime: "Timp de așteptare pentru eliberare",
+                logresourceusage: "Înregistrează utilizarea resurselor"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Text Personalizat",
                 usegametitle: "Utilizare Titlu Joc",
                 customfont: "Font Personalizat",
-                platcustomtext: "Text personalizat 100%"
+                platcustomtext: "Text personalizat 100%",
+                usecustomtext: "Text personalizat",
+                customtextunlockmsg: "Mesaj de deblocare",
+                customtexttitle: "Titlul realizării",
+                customtextdesc: "Descrierea realizării"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Culoare Umbră Font",
                 fontshadowscale: "Scara Umbră Font",
                 fontshadowx: "Deplasare orizontală",
-                fontshadowy: "Deplasare verticală"
+                fontshadowy: "Deplasare verticală",
+                decorationshadow: "Umbră decorativă"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Setează tipul de aspect al Ferestrei cu statistici despre realizări",
         statwinunlockonly: "Păstrează Fereastra cu statistici despre realizări ascunsă până când o realizare este deblocată",
         statwinunlockonlydisplaytime: "Setează numărul de secunde pentru care Fereastra cu statistici despre realizări va fi afișată după deblocarea unei realizări",
-        statwinunlockonlysync: "Sincronizează numărul de secunde pentru care Fereastra cu statistici despre realizări va fi afișată cu timpul de afișare al notificării curente"
+        statwinunlockonlysync: "Sincronizează numărul de secunde pentru care Fereastra cu statistici despre realizări va fi afișată cu timpul de afișare al notificării curente",
+        logresourceusage: `Înregistrează statisticile privind utilizarea resurselor aplicației/sistemului atunci când sunt declanșate notificările pentru realizări<br><br><span class="ttdesc">Acest lucru poate fi folosit pentru a determina dacă anumite probleme din aplicație pot fi cauzate de încărcarea totală a sistemului atunci când realizările sunt deblocate</span>`,
+        decorationshadow: "Setează dacă Umbra fontului este aplicată și elementului de decor",
+        uimode: `Selectează numărul de opțiuni afișate în meniurile Setări/Personalizare<br><br><span class="ttdesc" nostar><ul><li><span class="hl">De bază</span>: Afișează doar un set limitat de opțiuni de interfață ușor de utilizat</li><li><span class="hl">Avansat</span>: Afișează toate opțiunile de interfață disponibile</li></ul></span>`,
+        usecustomtext: "Setează mesajele personalizate care vor fi afișate în notificare",
+        customtextunlockmsg: `Setează un mesaj personalizat care va fi afișat în elementul Mesaj de deblocare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Mesaj de deblocare este dezactivat</span>`,
+        customtexttitle: `Setează un mesaj personalizat care va fi afișat în elementul Titlul realizării<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Titlul realizării este dezactivat</span>`,
+        customtextdesc: `Setează un mesaj personalizat care va fi afișat în elementul Descrierea realizării<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Descrierea realizării este dezactivat</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

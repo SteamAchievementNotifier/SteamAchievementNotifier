@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "الإصدارات",
         checkapplog: "يرجى التحقق من سجل التطبيق للحصول على التفاصيل.",
         workercrash: "تعطل Worker!",
-        workercrashsub: "انقر هنا لإعادة تشغيل Worker وإعادة محاولة تتبع اللعبة"
+        workercrashsub: "انقر هنا لإعادة تشغيل Worker وإعادة محاولة تتبع اللعبة",
+        troubleshoot: "استكشاف الأخطاء وإصلاحها",
+        copygameprocessdata: "نسخ بيانات عملية اللعبة"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "سهولة الوصول",
             content: {
+                uimode: "وضع واجهة المستخدم",
+                basic: "أساسي",
+                advanced: "متقدم",
                 noanim: "تعطيل الرسوم المتحركة لنافذة التطبيق",
                 noupdatedialog: "تعطيل مربع حوار التحديث",
                 nvda: "تمكين دعم NVDA",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "تعذر استعادة النسخ الاحتياطي.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "وقت انتظار الإصدار"
+                releasewaittime: "وقت انتظار الإصدار",
+                logresourceusage: "تسجيل استخدام الموارد"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "النص المخصص",
                 usegametitle: "استخدام عنوان اللعبة",
                 customfont: "الخط المخصص",
-                platcustomtext: "نص مخصص لإكمال 100%"
+                platcustomtext: "نص مخصص لإكمال 100%",
+                usecustomtext: "نص مخصص",
+                customtextunlockmsg: "رسالة فتح القفل",
+                customtexttitle: "عنوان الإنجاز",
+                customtextdesc: "وصف الإنجاز"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "لون ظل الخط",
                 fontshadowscale: "مقياس ظل الخط",
                 fontshadowx: "الإزاحة الأفقية",
-                fontshadowy: "الإزاحة الرأسية"
+                fontshadowy: "الإزاحة الرأسية",
+                decorationshadow: "ظل الزخرفة"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "تعيين نوع تخطيط نافذة إحصائيات الإنجازات",
         statwinunlockonly: "إبقاء نافذة إحصائيات الإنجازات مخفية حتى يتم فتح إنجاز",
         statwinunlockonlydisplaytime: "تعيين عدد الثواني التي ستظهر فيها نافذة إحصائيات الإنجازات بعد فتح إنجاز",
-        statwinunlockonlysync: "مزامنة عدد الثواني التي ستظهر فيها نافذة إحصائيات الإنجازات مع مدة عرض الإشعار الحالي"
+        statwinunlockonlysync: "مزامنة عدد الثواني التي ستظهر فيها نافذة إحصائيات الإنجازات مع مدة عرض الإشعار الحالي",
+        logresourceusage: `تسجيل إحصائيات استخدام موارد التطبيق/النظام عند تشغيل إشعارات الإنجازات<br><br><span class="ttdesc">يمكن استخدام هذا لتحديد ما إذا كانت بعض المشكلات داخل التطبيق قد تكون ناتجة عن الحمل الإجمالي على النظام عند فتح الإنجازات</span>`,
+        decorationshadow: "تحديد ما إذا كان ظل الخط يُطبَّق أيضًا على عنصر الزخرفة",
+        uimode: `تحديد عدد الخيارات المعروضة في قوائم الإعدادات/التخصيص<br><br><span class="ttdesc" nostar><ul><li><span class="hl">أساسي</span>: عرض مجموعة محدودة فقط من خيارات واجهة المستخدم سهلة الاستخدام</li><li><span class="hl">متقدم</span>: عرض جميع خيارات واجهة المستخدم المتاحة</li></ul></span>`,
+        usecustomtext: "تعيين رسائل مخصصة ليتم عرضها داخل الإشعار",
+        customtextunlockmsg: `تعيين رسالة مخصصة ليتم عرضها داخل عنصر رسالة فتح القفل<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل التخصيص > الإعداد المسبق > عناصر الإشعار > رسالة فتح القفل</span>`,
+        customtexttitle: `تعيين رسالة مخصصة ليتم عرضها داخل عنصر عنوان الإنجاز<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل التخصيص > الإعداد المسبق > عناصر الإشعار > عنوان الإنجاز</span>`,
+        customtextdesc: `تعيين رسالة مخصصة ليتم عرضها داخل وصف الإنجاز<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل التخصيص > الإعداد المسبق > عناصر الإشعار > وصف الإنجاز</span>`
     },
     update: {
         updateavailable: "تحديث متاح",

@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Udgivelser",
         checkapplog: "Tjek venligst App-loggen for detaljer.",
         workercrash: "Worker er brudt sammen!",
-        workercrashsub: "Klik her for at genstarte Worker og forsøge at spore spillet igen"
+        workercrashsub: "Klik her for at genstarte Worker og forsøge at spore spillet igen",
+        troubleshoot: "Fejlfinding",
+        copygameprocessdata: "Kopiér spildata for spilprocessen"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Tilgængelighed",
             content: {
+                uimode: "Brugerfladetilstand",
+                basic: "Grundlæggende",
+                advanced: "Avanceret",
                 noanim: "Deaktiver app-vinduesanimationer",
                 noupdatedialog: "Deaktivér opdateringsdialog",
                 nvda: "Aktivér NVDA-support",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Kunne ikke gendanne backup.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Ventetid før frigivelse"
+                releasewaittime: "Ventetid før frigivelse",
+                logresourceusage: "Log ressourceforbrug"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Tilpasset tekst",
                 usegametitle: "Brug spiltitel",
                 customfont: "Tilpasset skrifttype",
-                platcustomtext: "Brugerdefineret 100%-tekst"
+                platcustomtext: "Brugerdefineret 100%-tekst",
+                usecustomtext: "Brugerdefineret tekst",
+                customtextunlockmsg: "Oplåsningsbesked",
+                customtexttitle: "Præstationstitel",
+                customtextdesc: "Præstationsbeskrivelse"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Skriftskyggefarve",
                 fontshadowscale: "Skriftskyggens skala",
                 fontshadowx: "Horisontal Offset",
-                fontshadowy: "Vertikal Offset"
+                fontshadowy: "Vertikal Offset",
+                decorationshadow: "Dekorationsskygge"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Indstil layouttypen for Statistik for Præstationsvindue",
         statwinunlockonly: "Hold Statistik for Præstationsvindue skjult, indtil en præstation låses op",
         statwinunlockonlydisplaytime: "Indstil det antal sekunder, Statistik for Præstationsvindue skal vises, efter en præstation er låst op",
-        statwinunlockonlysync: "Synkroniser det antal sekunder, Statistik for Præstationsvindue skal vises, med den aktuelle notifikations visningstid"
+        statwinunlockonlysync: "Synkroniser det antal sekunder, Statistik for Præstationsvindue skal vises, med den aktuelle notifikations visningstid",
+        logresourceusage: `Log statistik over appens/systemets ressourceforbrug, når præstationsnotifikationer udløses<br><br><span class="ttdesc">Dette kan bruges til at afgøre, om bestemte problemer i appen kan skyldes den samlede systembelastning, når præstationer låses op</span>`,
+        decorationshadow: "Angiv, om Skriftskygge også skal anvendes på dekorationselementet",
+        uimode: `Vælg antallet af indstillinger, der vises i menuerne Indstillinger/Tilpasning<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Grundlæggende</span>: Vis kun et begrænset udvalg af brugervenlige brugerfladeindstillinger</li><li><span class="hl">Avanceret</span>: Vis alle tilgængelige brugerfladeindstillinger</li></ul></span>`,
+        usecustomtext: "Angiv brugerdefinerede beskeder, der skal vises i notifikationen",
+        customtextunlockmsg: `Angiv en brugerdefineret besked, der skal vises i elementet Oplåsningsbesked<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Oplåsningsbesked er deaktiveret</span>`,
+        customtexttitle: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationstitel<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationstitel er deaktiveret</span>`,
+        customtextdesc: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationsbeskrivelse<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationsbeskrivelse er deaktiveret</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

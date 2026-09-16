@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "版本发布",
         checkapplog: "请查看应用程序日志以获取详细信息。",
         workercrash: "Worker 已崩溃！",
-        workercrashsub: "点击此处重新启动 Worker 并重新尝试游戏跟踪"
+        workercrashsub: "点击此处重新启动 Worker 并重新尝试游戏跟踪",
+        troubleshoot: "故障排除",
+        copygameprocessdata: "复制游戏进程数据"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "辅助功能",
             content: {
+                uimode: "界面模式",
+                basic: "基础",
+                advanced: "高级",
                 noanim: "禁用应用程序窗口动画",
                 noupdatedialog: "禁用更新对话框",
                 nvda: "启用NVDA支持",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "无法还原备份。",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "释放等待时间"
+                releasewaittime: "释放等待时间",
+                logresourceusage: "记录资源使用情况"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "自定义文本",
                 usegametitle: "使用游戏标题",
                 customfont: "自定义字体",
-                platcustomtext: "自定义100%文本"
+                platcustomtext: "自定义100%文本",
+                usecustomtext: "自定义文本",
+                customtextunlockmsg: "解锁消息",
+                customtexttitle: "成就标题",
+                customtextdesc: "成就描述"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "字体阴影颜色",
                 fontshadowscale: "字体阴影的缩放",
                 fontshadowx: "水平偏移",
-                fontshadowy: "垂直偏移"
+                fontshadowy: "垂直偏移",
+                decorationshadow: "装饰阴影"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "设置成就统计窗口的布局类型",
         statwinunlockonly: "在解锁成就前隐藏成就统计窗口",
         statwinunlockonlydisplaytime: "设置成就解锁后成就统计窗口显示的秒数",
-        statwinunlockonlysync: "将成就统计窗口的显示秒数与当前通知的显示时间同步"
+        statwinunlockonlysync: "将成就统计窗口的显示秒数与当前通知的显示时间同步",
+        logresourceusage: `触发成就通知时记录应用/系统资源使用统计信息<br><br><span class="ttdesc">这可用于确定解锁成就时某些应用内问题是否可能由系统总体负载造成</span>`,
+        decorationshadow: "设置是否也将字体阴影应用于装饰元素",
+        uimode: `选择在设置/自定义菜单中显示的选项数量<br><br><span class="ttdesc" nostar><ul><li><span class="hl">基础</span>：仅显示有限的一组易于使用的界面选项</li><li><span class="hl">高级</span>：显示所有可用的界面选项</li></ul></span>`,
+        usecustomtext: "设置要在通知中显示的自定义消息",
+        customtextunlockmsg: `设置要在解锁消息元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 解锁消息被禁用时，此选项将被隐藏</span>`,
+        customtexttitle: `设置要在成就标题元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 成就标题被禁用时，此选项将被隐藏</span>`,
+        customtextdesc: `设置要在成就描述元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 成就描述被禁用时，此选项将被隐藏</span>`
     },
     update: {
         updateavailable: "有可用更新",

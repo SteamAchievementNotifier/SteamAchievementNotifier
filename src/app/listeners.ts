@@ -1347,10 +1347,6 @@ export const listeners = {
         const buildnotify = async (notify: Notify): Promise<BuildNotifyInfo> => {
             const config = sanconfig.get()
             const { id, type, customisation, gamename, steam3id, apiname, icon, percent, hidden } = notify
-
-            const { testnotifycustomtext, testnotifycustomtexttitle, testnotifycustomtextdesc } = config.store
-            const titleoverride = testnotifycustomtext ? testnotifycustomtexttitle : null
-            const descoverride = testnotifycustomtext ? testnotifycustomtextdesc : null
             
             return {
                 id,
@@ -1359,9 +1355,10 @@ export const listeners = {
                 gamename,
                 steam3id,
                 apiname,
-                unlockmsg: `${(customisation.usegametitle && (gamename || await language.get("gametitle"))) || customisation.customtext || (notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked"))}`,
-                title: type === "plat" ? (titleoverride || await language.get("gamecomplete")) : notify.name,
-                desc: type === "plat" ? (config.get("platcustomtext") || descoverride || await language.get("gamecompletedesc")) : notify.desc,
+                name: notify.name,
+                unlockmsg: `${(customisation.usecustomtext && (customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || customisation.customtextunlockmsg) || (notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked"))}`,
+                title: (customisation.usecustomtext && (customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || customisation.customtexttitle) || (type === "plat" ? await language.get("gamecomplete") : notify.name),
+                desc: (customisation.usecustomtext && (customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || customisation.customtextdesc) || (type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
                 icon,
                 percent: {
                     value: percent,

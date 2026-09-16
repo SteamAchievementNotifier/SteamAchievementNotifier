@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Julkaisut",
         checkapplog: "Tarkista sovelluksen loki lisätietoja varten.",
         workercrash: "Worker kaatui!",
-        workercrashsub: "Käynnistä Worker uudelleen ja yritä pelin seurantaa uudelleen napsauttamalla tästä"
+        workercrashsub: "Käynnistä Worker uudelleen ja yritä pelin seurantaa uudelleen napsauttamalla tästä",
+        troubleshoot: "Vianmääritys",
+        copygameprocessdata: "Kopioi peliprosessin tiedot"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Saatavuus",
             content: {
+                uimode: "Käyttöliittymätila",
+                basic: "Perus",
+                advanced: "Edistynyt",
                 noanim: "Poista sovellusikkunan animaatiot käytöstä",
                 noupdatedialog: "Poista päivitysikkuna käytöstä",
                 nvda: "Ota NVDA-tuki käyttöön",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Varmuuskopion palautus epäonnistui.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Vapautuksen odotusaika"
+                releasewaittime: "Vapautuksen odotusaika",
+                logresourceusage: "Kirjaa resurssien käyttö"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Mukautettu Teksti",
                 usegametitle: "Käytä Pelin Otsikkoa",
                 customfont: "Mukautettu Fontti",
-                platcustomtext: "Mukautettu 100 % -teksti"
+                platcustomtext: "Mukautettu 100 % -teksti",
+                usecustomtext: "Mukautettu teksti",
+                customtextunlockmsg: "Avausviesti",
+                customtexttitle: "Saavutuksen otsikko",
+                customtextdesc: "Saavutuksen kuvaus"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Varjon Väri",
                 fontshadowscale: "Fontin varjon skaala",
                 fontshadowx: "Vaakasuora Siirtymä",
-                fontshadowy: "Pystysuora Siirtymä"
+                fontshadowy: "Pystysuora Siirtymä",
+                decorationshadow: "Koristeen varjo"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Aseta Saavutustilastojen ikkuna -asettelun tyyppi",
         statwinunlockonly: "Pidä Saavutustilastojen ikkuna piilotettuna, kunnes saavutus avataan",
         statwinunlockonlydisplaytime: "Aseta, kuinka monta sekuntia Saavutustilastojen ikkuna näkyy saavutuksen avaamisen jälkeen",
-        statwinunlockonlysync: "Synkronoi Saavutustilastojen ikkuna näkyvissäoloaika nykyisen ilmoituksen näyttöajan kanssa"
+        statwinunlockonlysync: "Synkronoi Saavutustilastojen ikkuna näkyvissäoloaika nykyisen ilmoituksen näyttöajan kanssa",
+        logresourceusage: `Kirjaa sovelluksen/järjestelmän resurssien käyttötilastot, kun saavutusilmoitukset käynnistyvät<br><br><span class="ttdesc">Tämän avulla voidaan selvittää, voivatko tietyt sovelluksen sisäiset ongelmat johtua järjestelmän kokonaiskuormasta, kun saavutuksia avataan</span>`,
+        decorationshadow: "Määritä, käytetäänkö fontin varjoa myös koriste-elementtiin",
+        uimode: `Valitse Asetukset/Mukauttaminen-valikoissa näytettävien vaihtoehtojen määrä<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Perus</span>: Näytä vain rajallinen määrä helppokäyttöisiä käyttöliittymäasetuksia</li><li><span class="hl">Edistynyt</span>: Näytä kaikki käytettävissä olevat käyttöliittymäasetukset</li></ul></span>`,
+        usecustomtext: "Määritä ilmoituksessa näytettävät mukautetut viestit",
+        customtextunlockmsg: `Määritä mukautettu viesti, joka näytetään Avausviesti-elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Avausviesti on poistettu käytöstä</span>`,
+        customtexttitle: `Määritä mukautettu viesti, joka näytetään Saavutuksen otsikko -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen otsikko on poistettu käytöstä</span>`,
+        customtextdesc: `Määritä mukautettu viesti, joka näytetään Saavutuksen kuvaus -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen kuvaus on poistettu käytöstä</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Utgivelser",
         checkapplog: "Vennligst sjekk Apploggen for detaljer.",
         workercrash: "Worker har krasjet!",
-        workercrashsub: "Klikk her for å starte Worker på nytt og prøve å spore spillet igjen"
+        workercrashsub: "Klikk her for å starte Worker på nytt og prøve å spore spillet igjen",
+        troubleshoot: "Feilsøking",
+        copygameprocessdata: "Kopier data for spillprosessen"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Tilgjengelighet",
             content: {
+                uimode: "Grensesnittmodus",
+                basic: "Grunnleggende",
+                advanced: "Avansert",
                 noanim: "Deaktiver App-vindu-animasjoner",
                 noupdatedialog: "Deaktiver oppdateringsdialog",
                 nvda: "Aktiver NVDA-støtte",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Kunne ikke gjenopprette sikkerhetskopi.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Ventetid før frigjøring"
+                releasewaittime: "Ventetid før frigjøring",
+                logresourceusage: "Logg ressursbruk"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Tilpasset Tekst",
                 usegametitle: "Bruk Spilltittel",
                 customfont: "Tilpasset Font",
-                platcustomtext: "Egendefinert 100%-tekst"
+                platcustomtext: "Egendefinert 100%-tekst",
+                usecustomtext: "Egendefinert tekst",
+                customtextunlockmsg: "Opplåsingsmelding",
+                customtexttitle: "Prestasjonstittel",
+                customtextdesc: "Prestasjonsbeskrivelse"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Fontskygge Farge",
                 fontshadowscale: "Fontskygge Skala",
                 fontshadowx: "Horisontal Forskyvning",
-                fontshadowy: "Vertikal Forskyvning"
+                fontshadowy: "Vertikal Forskyvning",
+                decorationshadow: "Dekorasjonsskygge"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Angi layouttypen for Prestasjonstatistikkvindu",
         statwinunlockonly: "Hold Prestasjonstatistikkvindu skjult til en prestasjon låses opp",
         statwinunlockonlydisplaytime: "Angi antall sekunder Prestasjonstatistikkvindu skal vises etter at en prestasjon er låst opp",
-        statwinunlockonlysync: "Synkroniser antall sekunder Prestasjonstatistikkvindu skal vises med gjeldende visningstid for varslingen"
+        statwinunlockonlysync: "Synkroniser antall sekunder Prestasjonstatistikkvindu skal vises med gjeldende visningstid for varslingen",
+        logresourceusage: `Logg statistikk over appens/systemets ressursbruk når prestasjonsvarsler utløses<br><br><span class="ttdesc">Dette kan brukes til å finne ut om visse problemer i appen kan skyldes den totale systembelastningen når prestasjoner låses opp</span>`,
+        decorationshadow: "Angi om Skriftskygge også skal brukes på dekorasjonselementet",
+        uimode: `Velg antallet alternativer som vises i menyene Innstillinger/Tilpasning<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Grunnleggende</span>: Vis bare et begrenset utvalg brukervennlige grensesnittalternativer</li><li><span class="hl">Avansert</span>: Vis alle tilgjengelige grensesnittalternativer</li></ul></span>`,
+        usecustomtext: "Angi egendefinerte meldinger som skal vises i varselet",
+        customtextunlockmsg: `Angi en egendefinert melding som skal vises i elementet Opplåsingsmelding<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Opplåsingsmelding er deaktivert</span>`,
+        customtexttitle: `Angi en egendefinert melding som skal vises i elementet Prestasjonstittel<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonstittel er deaktivert</span>`,
+        customtextdesc: `Angi en egendefinert melding som skal vises i elementet Prestasjonsbeskrivelse<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

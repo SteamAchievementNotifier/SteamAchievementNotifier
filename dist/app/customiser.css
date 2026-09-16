@@ -103,7 +103,12 @@ body[trophymode][main] .opt:has(input#iconborderrarity),
 body[trophymode][semi] .opt:has(input#iconborderrarity),
 body:not([plat]) .opt:has(input#platcustomtext),
 .opt:has(> #decorationshadow),
-#customiseropts:has(.opt#elemselector):has(select#decorationpos > option[value="off"]:checked) .opt:has(> #decorationshadow,> [id^="decoration"]:not(#decorationpos),> #replacelogo) {
+#customiseropts:has(.opt#elemselector):has(select#decorationpos > option[value="off"]:checked) .opt:has(> #decorationshadow,> [id^="decoration"]:not(#decorationpos),> #replacelogo),
+.optcont:has(input#usecustomtext:not(:checked)) > .opt:has([id^="customtext"]),
+.optcont:has(.sub > input[type="checkbox"][id^="usegametitle"]:checked) > .opt > .sub:has(input[type="checkbox"][id^="usegametitle"]:not(:checked)),
+#elemselector:has(select#unlockmsg > option[value="off"]:checked) ~ .opt:has(input[type="text"]#customtextunlockmsg),
+#elemselector:has(select#title > option[value="off"]:checked) ~ .opt:has(input[type="text"]#customtexttitle),
+#elemselector:has(select#desc > option[value="off"]:checked) ~ .opt:has(input[type="text"]#customtextdesc) {
     display: none;
 }
 

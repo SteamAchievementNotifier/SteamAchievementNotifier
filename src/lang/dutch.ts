@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Releases",
         checkapplog: "Controleer het App-logboek voor details.",
         workercrash: "Worker is gecrasht!",
-        workercrashsub: "Klik hier om Worker opnieuw te starten en de game opnieuw te laten volgen"
+        workercrashsub: "Klik hier om Worker opnieuw te starten en de game opnieuw te laten volgen",
+        troubleshoot: "Problemen oplossen",
+        copygameprocessdata: "Gameprocesgegevens kopiëren"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Toegankelijkheid",
             content: {
+                uimode: "Interface-modus",
+                basic: "Basis",
+                advanced: "Geavanceerd",
                 noanim: "App-vensteranimaties uitschakelen",
                 noupdatedialog: "Updatevenster uitschakelen",
                 nvda: "NVDA-ondersteuning inschakelen",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Kan back-up niet herstellen.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Wachttijd voor vrijgave"
+                releasewaittime: "Wachttijd voor vrijgave",
+                logresourceusage: "Resourcegebruik loggen"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Aangepaste Tekst",
                 usegametitle: "Gebruik Speltitel",
                 customfont: "Aangepast Lettertype",
-                platcustomtext: "Aangepaste 100%-tekst"
+                platcustomtext: "Aangepaste 100%-tekst",
+                usecustomtext: "Aangepaste tekst",
+                customtextunlockmsg: "Ontgrendelingsbericht",
+                customtexttitle: "Prestatietitel",
+                customtextdesc: "Prestatiebeschrijving"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Kleur Letter Schaduw",
                 fontshadowscale: "Schaal van letterschaduw",
                 fontshadowx: "Horizontale Offset",
-                fontshadowy: "Verticale Offset"
+                fontshadowy: "Verticale Offset",
+                decorationshadow: "Decoratieschaduw"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Het lay-outtype van het Prestatiestatistiekenvenster instellen",
         statwinunlockonly: "Het Prestatiestatistiekenvenster verborgen houden totdat een prestatie is ontgrendeld",
         statwinunlockonlydisplaytime: "Het aantal seconden instellen dat het Prestatiestatistiekenvenster wordt weergegeven nadat een prestatie is ontgrendeld",
-        statwinunlockonlysync: "Het aantal seconden dat het Prestatiestatistiekenvenster wordt weergegeven synchroniseren met de weergaveduur van de huidige melding"
+        statwinunlockonlysync: "Het aantal seconden dat het Prestatiestatistiekenvenster wordt weergegeven synchroniseren met de weergaveduur van de huidige melding",
+        logresourceusage: `Statistieken over het resourcegebruik van de app/het systeem loggen wanneer prestatiemeldingen worden geactiveerd<br><br><span class="ttdesc">Dit kan worden gebruikt om te bepalen of bepaalde problemen in de app mogelijk worden veroorzaakt door de totale systeembelasting wanneer prestaties worden ontgrendeld</span>`,
+        decorationshadow: "Instellen of de Schaduw van het lettertype ook op het decoratie-element wordt toegepast",
+        uimode: `Het aantal opties selecteren dat wordt weergegeven in de menu's Instellingen/Aanpassen<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Basis</span>: Alleen een beperkte set gebruiksvriendelijke interface-opties weergeven</li><li><span class="hl">Geavanceerd</span>: Alle beschikbare interface-opties weergeven</li></ul></span>`,
+        usecustomtext: "Aangepaste berichten instellen die in de melding worden weergegeven",
+        customtextunlockmsg: `Een aangepast bericht instellen dat wordt weergegeven in het element Ontgrendelingsbericht<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Ontgrendelingsbericht is uitgeschakeld</span>`,
+        customtexttitle: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatietitel<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatietitel is uitgeschakeld</span>`,
+        customtextdesc: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatiebeschrijving<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Lanzamientos",
         checkapplog: "Por favor, revisa el registro de la aplicación para más detalles.",
         workercrash: "¡El Worker se ha bloqueado!",
-        workercrashsub: "Haz clic aquí para reiniciar el Worker y volver a intentar el seguimiento del juego"
+        workercrashsub: "Haz clic aquí para reiniciar el Worker y volver a intentar el seguimiento del juego",
+        troubleshoot: "Solucionar problemas",
+        copygameprocessdata: "Copiar datos del proceso del juego"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Accesibilidad",
             content: {
+                uimode: "Modo de interfaz",
+                basic: "Básico",
+                advanced: "Avanzado",
                 noanim: "Desactivar animaciones de la ventana de la aplicación",
                 noupdatedialog: "Desactivar diálogo de actualización",
                 nvda: "Activar soporte de NVDA",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "No se pudo restaurar la copia de seguridad.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Tiempo de espera para liberar"
+                releasewaittime: "Tiempo de espera para liberar",
+                logresourceusage: "Registrar uso de recursos"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Texto Personalizado",
                 usegametitle: "Usar Título del Juego",
                 customfont: "Fuente Personalizada",
-                platcustomtext: "Texto personalizado del 100%"
+                platcustomtext: "Texto personalizado del 100%",
+                usecustomtext: "Texto personalizado",
+                customtextunlockmsg: "Mensaje de desbloqueo",
+                customtexttitle: "Título del logro",
+                customtextdesc: "Descripción del logro"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Color de Sombra de Fuente",
                 fontshadowscale: "Escala de Sombra de Fuente",
                 fontshadowx: "Desplazamiento Horizontal",
-                fontshadowy: "Desplazamiento Vertical"
+                fontshadowy: "Desplazamiento Vertical",
+                decorationshadow: "Sombra de decoración"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Establecer el tipo de diseño de la Ventana de estadísticas de logros",
         statwinunlockonly: "Mantener oculta la Ventana de estadísticas de logros hasta que se desbloquee un logro",
         statwinunlockonlydisplaytime: "Establecer el número de segundos que se mostrará la Ventana de estadísticas de logros una vez desbloqueado un logro",
-        statwinunlockonlysync: "Sincronizar el número de segundos que se mostrará la Ventana de estadísticas de logros con el Tiempo de visualización de la notificación actual"
+        statwinunlockonlysync: "Sincronizar el número de segundos que se mostrará la Ventana de estadísticas de logros con el Tiempo de visualización de la notificación actual",
+        logresourceusage: `Registrar estadísticas de uso de recursos de la aplicación/sistema cuando se activen las notificaciones de logros<br><br><span class="ttdesc">Esto puede utilizarse para determinar si ciertos problemas dentro de la aplicación pueden deberse a la carga total del sistema al desbloquear logros</span>`,
+        decorationshadow: "Establecer si la Sombra de fuente también se aplica al elemento de decoración",
+        uimode: `Seleccionar el número de opciones mostradas en los menús Ajustes/Personalización<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Básico</span>: Mostrar solo un conjunto limitado de opciones de interfaz fáciles de usar</li><li><span class="hl">Avanzado</span>: Mostrar todas las opciones de interfaz disponibles</li></ul></span>`,
+        usecustomtext: "Establecer mensajes personalizados para mostrar dentro de la notificación",
+        customtextunlockmsg: `Establecer un mensaje personalizado para mostrar dentro del elemento Mensaje de desbloqueo<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Mensaje de desbloqueo esté desactivado</span>`,
+        customtexttitle: `Establecer un mensaje personalizado para mostrar dentro del elemento Título del logro<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Título del logro esté desactivado</span>`,
+        customtextdesc: `Establecer un mensaje personalizado para mostrar dentro del elemento Descripción del logro<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Descripción del logro esté desactivado</span>`
     },
     update: {
         updateavailable: "Actualización disponible",

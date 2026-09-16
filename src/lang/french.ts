@@ -164,7 +164,9 @@ export const translations = {
         betaghreleases: "Releases",
         checkapplog: "Veuillez consulter le journal de l'application pour plus de détails.",
         workercrash: "Worker a planté!",
-        workercrashsub: "Cliquez ici pour redémarrer Worker et relancer le suivi du jeu"
+        workercrashsub: "Cliquez ici pour redémarrer Worker et relancer le suivi du jeu",
+        troubleshoot: "Dépannage",
+        copygameprocessdata: "Copier les données du processus du jeu"
     },
     app: {
         content: {
@@ -312,6 +314,9 @@ export const translations = {
         accessibility: {
             title: "Accessibilité",
             content: {
+                uimode: "Mode d’interface",
+                basic: "Basique",
+                advanced: "Avancé",
                 noanim: "Désactiver les animations de fenêtre d'application",
                 noupdatedialog: "Désactiver la boîte de dialogue de mise à jour",
                 nvda: "Activer le support NVDA",
@@ -354,7 +359,8 @@ export const translations = {
                 ],
                 restorefailed: "Impossible de restaurer la sauvegarde.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Délai d'attente avant libération"
+                releasewaittime: "Délai d'attente avant libération",
+                logresourceusage: "Journaliser l’utilisation des ressources"
             }
         },
         ra: {
@@ -408,7 +414,11 @@ export const translations = {
                 customtext: "Texte Personnalisé",
                 usegametitle: "Utiliser le Titre du Jeu",
                 customfont: "Police Personnalisée",
-                platcustomtext: "Texte personnalisé pour les 100 %"
+                platcustomtext: "Texte personnalisé pour les 100 %",
+                usecustomtext: "Texte personnalisé",
+                customtextunlockmsg: "Message de déverrouillage",
+                customtexttitle: "Titre du succès",
+                customtextdesc: "Description du succès"
             }
         },
         sound: {
@@ -494,7 +504,8 @@ export const translations = {
                 fontshadowcolor: "Couleur de l'Ombre de la Police",
                 fontshadowscale: "Échelle de l'Ombre de la Police",
                 fontshadowx: "Décalage Horizontal",
-                fontshadowy: "Décalage Vertical"
+                fontshadowy: "Décalage Vertical",
+                decorationshadow: "Ombre de décoration"
             }
         },
         icons: {
@@ -893,7 +904,14 @@ export const translations = {
         statwintype: "Définir le type de disposition de la Fenêtre des Statistiques de Succès",
         statwinunlockonly: "Garder la Fenêtre des Statistiques de Succès masquée jusqu'à ce qu'un succès soit déverrouillé",
         statwinunlockonlydisplaytime: "Définir le nombre de secondes pendant lesquelles la Fenêtre des Statistiques de Succès sera affichée après le déverrouillage d'un succès",
-        statwinunlockonlysync: "Synchroniser le nombre de secondes pendant lesquelles la Fenêtre des Statistiques de Succès sera affichée avec la Durée d'affichage de la notification actuelle"
+        statwinunlockonlysync: "Synchroniser le nombre de secondes pendant lesquelles la Fenêtre des Statistiques de Succès sera affichée avec la Durée d'affichage de la notification actuelle",
+        logresourceusage: `Journaliser les statistiques d’utilisation des ressources de l’application/du système lorsque les notifications de succès sont déclenchées<br><br><span class="ttdesc">Cela peut être utilisé pour déterminer si certains problèmes dans l’application peuvent être causés par la charge totale du système lors du déverrouillage des succès</span>`,
+        decorationshadow: "Définir si l’ombre de la police est également appliquée à l’élément de décoration",
+        uimode: `Sélectionner le nombre d’options affichées dans les menus Paramètres/Personnalisation<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Basique</span> : Afficher uniquement un ensemble limité d’options d’interface faciles à utiliser</li><li><span class="hl">Avancé</span> : Afficher toutes les options d’interface disponibles</li></ul></span>`,
+        usecustomtext: "Définir les messages personnalisés à afficher dans la notification",
+        customtextunlockmsg: `Définir un message personnalisé à afficher dans l’élément Message de déverrouillage<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Message de déverrouillage est désactivé</span>`,
+        customtexttitle: `Définir un message personnalisé à afficher dans l’élément Titre du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Titre du succès est désactivé</span>`,
+        customtextdesc: `Définir un message personnalisé à afficher dans l’élément Description du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Description du succès est désactivé</span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",

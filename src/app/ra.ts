@@ -201,7 +201,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 
                     const { type } = notify
                     const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(gameid,true)
-                    const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
+                    const customisation = usertheme.gettypecustomisation(config,type,themeswitch)
                     
                     if (themeswitch) {
                         log.write("INFO",`[RA]: Auto-switch entry detected for ${gameid}`)
@@ -304,7 +304,7 @@ const ranotify = async (gameid: number,achid: number,mode: "hard" | "soft") => {
 
     const { monitor, rauser } = config.store
     const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(gameid,true)
-    const platcustomisation = themeswitch ? customisation.plat.usertheme[themeswitch[1].themes.plat].customisation as Customisation : customisation.plat
+    const platcustomisation = ((themeswitch && customisation.plat.usertheme.find(theme => theme.id === themeswitch[1].themes.plat))?.customisation as Customisation) ?? customisation.plat
     
     const platobj: RAAPlatObj = {
         achievement,

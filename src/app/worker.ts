@@ -523,7 +523,7 @@ const startsan = async (appinfo: AppInfo) => {
                             const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
                             const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
                             const localised = await worker.localisedobj(steam3id,achievement)
-                            const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
+                            const customisation = usertheme.gettypecustomisation(config,type,themeswitch)
                             
                             if (themeswitch) {
                                 log.write("INFO",`Auto-switch entry detected for ${appid}`)
@@ -570,8 +570,9 @@ const startsan = async (appinfo: AppInfo) => {
                         ipcRenderer.emit("gametimer")
             
                         if (allunlocked && !hasshown) {
-                            const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon
-                            const customisation = config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation
+                            const platcustomisation = usertheme.gettypecustomisation(config,"plat",themeswitch)
+                            const { plat: platicon } = platcustomisation.customicons as CustomIcon
+                            const customisation = platcustomisation
         
                             if (themeswitch) {
                                 log.write("INFO",`Auto-switch entry detected for ${appid}`)

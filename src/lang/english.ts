@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Releases",
         checkapplog: "Please check the App Log for details.",
         workercrash: "Worker has crashed!",
-        workercrashsub: "Click here to restart Worker and re-attempt game tracking",
-        troubleshoot: "Troubleshoot",
-        copygameprocessdata: "Copy Game Process Data"
+        workercrashsub: "Click here to restart Worker and re-attempt game tracking"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 `The <span class="hl">URL</span> of the <span class="hl">game page</span> on the RetroAchievements site - it will be the number listed after <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Set as default for RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Troubleshoot",
+        content: {
+            copydata: "Copy Data",
+            noissues: "No issues found!",
+            noissuessub: "This game should release automatically.",
+            manualrelease: `You can manually release any game via <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
+            addedvia: "Added via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "No active processes",
+                issue: "No active game process found",
+                detail: "The executable file associated with this game isn't being detected as a running process. The following executables were checked:",
+                solution: [
+                    `Try adding the game's executable to $linkedgamesmenu.`,
+                    `Make sure the entry under $linkedgamesmenu points at the right executable.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Executable unknown",
+                issue: "Unable to identify game executable",
+                detail: "The path to the game's executable could not be located automatically, which is usually caused by pre-game launchers when launching the game via Steam.",
+                solution: [
+                    `Add a new entry for this game to $linkedgamesmenu, or remove any entries pointing to an incorrect game executable. Otherwise, check whether the game supports a Steam launch option to bypass any pre-game launchers, such as <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Try enabling $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Executable missing",
+                issue: "Game executable not found on disk",
+                detail: `The executable associated with this game could not be found on disk. The following executables were checked:`,
+                solution: ["Try verifying integrity of game files via Steam or reinstalling the game."]
+            },
+            notexecutable: {
+                title: "Not executable",
+                issue: `Game missing executable permission`,
+                detail: "The file Steam uses to launch the game is not able to be executed. The file was reported as:",
+                solution: ["To make this file executable, refer to instructions for your specific Linux distro."]
+            },
+            notwithininstalldir: {
+                title: "Not in game directory",
+                issue: "Executable not in installation directory",
+                detail: "An entry for this game has been detected under $linkedgamesmenu, but the linked executable is not located inside the game's installation folder, which may indicate it's not the correct one.",
+                solution: ["Edit the $linkedgamesmenu entry for this game and make sure it points at the right game executable."]
+            },
+            wrongplatformpath: {
+                title: "Game path invalid",
+                issue: "Game path invalid for current OS",
+                detail: "The executable path for this game looks like it belongs to a different OS - possibly due to a config copied from another machine or a dual-boot setup.",
+                solution: [`Do not use a config copied from another machine/OS, as this will probably not work as expected. All existing <span class="hl">Themes</hl> can be imported/exported cross-platform via the <span class="hl">Customiser</span> menu.`]
+            },
+            duplicatelinkentries: {
+                title: "Duplicate entries",
+                issue: "Duplicate $linkedgamesmenu entries found",
+                detail: "This game executable is also linked to $appids under $linkedgamesmenu.",
+                solution: ["Remove one of the duplicate entries and ensure the remaining entry points to the right game executable."]
+            },
+            releasing: {
+                title: "Game releasing",
+                issue: "The game is releasing",
+                detail: "This game is about to be released.",
+                solution: [`Please wait for a few more seconds - the dot in the <span class="hl">System Tray</span> icon will change from <span class="troubleshooterdialogicon" grey></span> (releasing) to <span class="troubleshooterdialogicon" red></span> (idle) once released.`]
+            }
         }
     }
 }

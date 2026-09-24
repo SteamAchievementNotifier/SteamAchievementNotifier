@@ -783,5 +783,20 @@ declare interface TroubleshooterData {
     executable: TroubleshooterExecutable[]
 }
 
+declare type TroubleshooterRuleId = "noactiveprocesses" | "unknownexecutable" | "missingexecutable" | "notexecutable" | "notwithininstalldir" | "wrongplatformpath" | "duplicatelinkentries" | "releasing"
+declare type TroubleshooterType = "info" | "warning" | "error"
+declare type TroubleshooterMsg = {
+    title: string,
+    issue: string,
+    detail: string,
+    solution: string
+}
+
+declare interface TroubleshooterResult {
+    id: TroubleshooterRuleId,
+    type: TroubleshooterType,
+    msg: TroubleshooterMsg
+}
+
 declare module "simple-vdf"
 declare module "adm-zip"

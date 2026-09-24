@@ -330,9 +330,7 @@ const startsan = async (appinfo: AppInfo) => {
                 releasetimer: !!releasetimer,
                 pids: usesanwatcher ? Array.from(pids) : processes.map(p => p.pid),
                 activeprocesses,
-                duplicatelinkentries: Object.entries(JSON.parse(localStorage.getItem("linkgame") ?? "{}"))
-                    .filter(([id,path]) => parseInt(id) !== appid && path === linkedgame)
-                    .map(([id]) => parseInt(id)),
+                duplicatelinkentries: Object.entries(JSON.parse(localStorage.getItem("linkgame") ?? "{}")).filter(([id,path]) => parseInt(id) !== appid && path === linkedgame).map(([id]) => parseInt(id)),
                 ...(usesanwatcher ? { waitingforprocess: !!linkedgame && !activeprocesses.length } : undefined)
             } as TroubleshooterProcess)
         })

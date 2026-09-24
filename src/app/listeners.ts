@@ -137,20 +137,11 @@ export const listeners = {
                             enabled: !betaunsupported
                         },
                         {
-                            label: await language.get("troubleshoot"),
+                            label: await language.get("title",["troubleshooter"]),
                             icon: nativeImage
                                 .createFromPath(path.join(__root,"icon","troubleshoot.png"))
                                 .resize({ width: 16 }),
-                            type: "submenu",
-                            submenu: [
-                                {
-                                    label: await language.get("copygameprocessdata"),
-                                    icon: nativeImage
-                                            .createFromPath(path.join(__root,"icon","clipboard.png"))
-                                            .resize({ width: 16 }),
-                                    click: () => ipcMain.emit("troubleshooter")
-                                }
-                            ],
+                            click: () => ipcMain.emit("troubleshooter"),
                             enabled: !!appid,
                             visible: !!appid
                         },
@@ -2220,6 +2211,17 @@ export const listeners = {
                     ]
                 } as TroubleshooterData
 
+                const result = await Promise.all(troubleshooter.result(data))
+                
+                win.webContents.send("troubleshooter",data,result)
+                win.show()
+            } catch (err) {
+                log.write("ERROR",`Unable to initialise troubleshooter: ${(err as Error).message}`)
+            }
+        })
+
+        ipcMain.on("copytroubleshooterdata",(event,data: { data: TroubleshooterData, result: TroubleshooterResult[] }) => {
+            try {
                 clipboard.writeText(`\`\`\`json\n${JSON.stringify(data,null,4)}\n\`\`\``)
                 log.write("INFO","Troubleshooter data copied to clipboard successfully")
             } catch (err) {

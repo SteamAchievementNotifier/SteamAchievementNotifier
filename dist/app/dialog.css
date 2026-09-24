@@ -1445,6 +1445,164 @@ button.optbtn#restorepath:empty {
     margin-bottom: 0.1rem;
 }
 
+.contentsub:has(.addhtml > .wrapper#troubleshooterinfobox)::before {
+    content: none;
+}
+
+.contentsub:has(.addhtml > .wrapper#troubleshooterinfobox) > .addhtml {
+    margin-top: 0;
+}
+
+.contentwrapper:has(.addhtml > .wrapper#troubleshooterinfobox) .btnwrapper > button:first-child:hover {
+    filter: none;
+    background-color: limegreen;
+}
+
+.addhtml:has(.wrapper#troubleshooterinfobox) {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.wrapper#troubleshooterinfobox {
+    --delay: 0s;
+    position: relative;
+    grid-template-rows: min-content;
+    height: 7.5rem;
+    overflow: overlay;
+    align-items: start;
+}
+
+/* Override for preventing layout reset when opening a dialog on top of another dialog (for troubleshooter results window) */
+.wrapper#contentcontainer:has(.wrapper#troubleshooterinfobox) {
+    --dialogicon: url("../../icon/troubleshoot.svg");
+}
+
+.addhtml > span#manualreleasereminder {
+    background-color: var(--primary);
+    font-size: 0.55rem;
+    text-align: center;
+    padding: 0.3rem 0.2rem;
+}
+
+div#troubleshooterinfobox > .troubleshooterresult {
+    --elemdelay: 0s;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 0.75rem;
+    margin-right: 0.75rem;
+    padding: 0.5rem;
+    border-radius: var(--elembr);
+    align-items: center;
+    translate: 0 -20%;
+    opacity: 0;
+    animation: slidein calc(var(--transition) * 2) calc(var(--transition) + var(--delay) + var(--elemdelay)) forwards;
+}
+
+@keyframes slidein {
+    to {
+        translate: 0 0;
+        opacity: 1;
+    }
+}
+
+div#troubleshooterinfobox > .troubleshooterresult[ok] {
+    grid-template-columns: 1fr;
+    place-self: center;
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
+}
+
+.troubleshooterresult[ok] > span:first-child {
+    font-size: 1.25rem;
+}
+
+.troubleshooterresult[ok] > span:last-child {
+    font-size: 0.75rem;
+}
+
+div#troubleshooterinfobox > .troubleshooterresult[ok]::before {
+    content: none;
+}
+
+div#troubleshooterinfobox:has(.troubleshooterresult[ok]) {
+    --delay: 1s;
+    height: auto;
+    overflow: hidden;
+}
+
+div#troubleshooterinfobox:has(.troubleshooterresult[ok])::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 3rem;
+    height: 3rem;
+    background: url("../../icon/thumbsup.svg") center / 75% no-repeat;
+    scale: 0;
+    animation: popin var(--delay) var(--transition) forwards;
+    border: 0.2rem solid white;
+    border-radius: 50%;
+}
+
+@keyframes popin {
+    10% { scale: 1.2; }
+    15% { scale: 1; }
+    85% { scale: 1; }
+    90% { scale: 1.2; }
+    to { scale: 0; }
+}
+
+div#troubleshooterinfobox > .troubleshooterresult[info] {
+    --icon: url("../../icon/info.svg");
+}
+
+div#troubleshooterinfobox > .troubleshooterresult[warning] {
+    --icon: url("../../icon/warning.svg");
+}
+
+div#troubleshooterinfobox > .troubleshooterresult[error] {
+    --icon: url("../../icon/error.svg");
+}
+
+div#troubleshooterinfobox > ::before {
+    content: "";
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--icon) center / contain no-repeat;
+    place-self: center;
+}
+
+button.troubleshooterresult {
+    background-color: transparent;
+    border-radius: var(--elembr);
+    font-size: 0.75rem;
+    text-align: start;
+    transition: background-color var(--transition);
+}
+
+button.troubleshooterresult:hover {
+    background-color: var(--mediumgrey);
+}
+
+.troubleshooterdialogicon {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    background: var(--icon) center / contain no-repeat;
+    vertical-align: sub;
+}
+
+.troubleshooterdialogicon[grey] {
+    --icon: url("../../icon/dot_grey.png");
+}
+
+.troubleshooterdialogicon[red] {
+    --icon: url("../../icon/dot_red.png");
+}
+
 @media (orientation: portrait) {
     dialog[default] > #content {
         width: 75%;

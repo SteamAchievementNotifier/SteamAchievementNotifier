@@ -1226,3 +1226,57 @@ ipcRenderer.on("activeprocesses",(event,appid: number,activeprocesses: boolean,l
     log.write(activeprocesses ? "INFO" : "WARN",activeprocesses ? `Active ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} found for AppID ${appid}` : `Waiting for ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} for AppID ${appid} to start...`)
     gamedisplayelem.toggleAttribute("waiting",!activeprocesses)
 })
+
+ipcRenderer.on("troubleshooter",async (event,data: TroubleshooterData,result: TroubleshooterResult[]) => {
+    dialog.open({
+        type: "default",
+        title: "Troubleshoot",
+        icon: sanhelper.setfilepath("icon","troubleshoot.svg"),
+        addHTML: `<div class="wrapper" id="troubleshooterinfobox"></div><span id="manualreleasereminder">💡 ${await language.get("manualrelease",["troubleshooter","content"])}</span>`,
+        buttons: [{
+            id: "copytroubleshooterdata",
+            label: await language.get("copydata",["troubleshooter","content"]),
+            icon: sanhelper.setfilepath("icon","clipboard.svg"),
+            click: () => ipcRenderer.send("copytroubleshooterdata",{ data, result })
+        }]
+    })
+
+    const troubleshooterinfobox = document.querySelector("dialog .addhtml > .wrapper#troubleshooterinfobox") as HTMLElement
+    const results = Object.values(result)
+
+    if (!results.length) {
+        const html = `<div class="troubleshooterresult" ok>
+            <span>🎉 ${await language.get("noissues",["troubleshooter","content"])}</span>
+            <span>${await language.get("noissuessub",["troubleshooter","content"])}</span>
+        </div>`
+        troubleshooterinfobox.insertAdjacentHTML("beforeend",html)
+
+        return
+    }
+
+    let i = 0
+
+    for (const result of results) {
+        const html = `<button class="troubleshooterresult" id="${result.id}" ${result.type}>${result.msg.issue}</button>`
+        troubleshooterinfobox.insertAdjacentHTML("beforeend",html)
+
+        const btn = troubleshooterinfobox.querySelector(`#${result.id}`) as HTMLSpanElement
+        
+        btn.style.setProperty("--elemdelay",`${i / 4}s`)
+        btn.onclick = async event => {
+            const target = event.target as HTMLButtonElement
+            
+            dialog.open({
+                title: await language.get("title",["troubleshooter","rules",target.id]),
+                type: "default",
+                icon: sanhelper.setfilepath("icon",`${target.hasAttribute("info") ? "info" : (target.hasAttribute("warning") ? "warning" : "error")}.svg`),
+                sub: [
+                    `${target.hasAttribute("info") ? "💡" : "❌"} ${result.msg.detail}`,
+                    `✅ ${result.msg.solution}`
+                ]
+            })
+        }
+        
+        i++
+    }
+})

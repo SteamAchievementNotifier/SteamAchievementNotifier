@@ -11,6 +11,7 @@ import { gameart } from "./gameart"
 import { screenshot } from "./screenshots"
 import { audio } from "./audio"
 import { resourceusage } from "./resourceusage"
+import { troubleshooter } from "./troubleshooter"
 
 let appid: number = 0
 let gameid: number = 0 // RetroAchievements GameID
@@ -95,14 +96,12 @@ export const listeners = {
 
         let suspended = false
 
-        const updatetray = async (tray: Tray,gamename?: string | null,achnum?: number,releasing?: boolean,betaunsupported?: boolean) => {
+        const updatetray = async (tray: Tray,gamename?: string | null,achnum?: number,releasing?: boolean,issues?: boolean,betaunsupported?: boolean) => {
             tray && tray.removeAllListeners()
 
-            const { usesanwatcher } = sanconfig.get().store
-
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
-            tray.setImage(path.join(__root,"img",`sanlogo_${releasing ? "releasing" : (achnum === 0 ? "inactive" : (gamename ? "active" : "idle"))}.${process.platform === "win32" ? "ico" : "png"}`))
-
+            tray.setImage(path.join(__root,"img",`sanlogo_${releasing ? "releasing" : (issues ? "active_error" : (achnum === 0 ? "inactive" : (gamename ? "active" : "idle")))}.${process.platform === "win32" ? "ico" : "png"}`))
+            
             const template: Electron.MenuItemConstructorOptions[] = [
                 {
                     label: gamename || await language.get("game",["app","content"]),
@@ -137,15 +136,6 @@ export const listeners = {
                             enabled: !betaunsupported
                         },
                         {
-                            label: await language.get("title",["troubleshooter"]),
-                            icon: nativeImage
-                                .createFromPath(path.join(__root,"icon","troubleshoot.png"))
-                                .resize({ width: 16 }),
-                            click: () => ipcMain.emit("troubleshooter"),
-                            enabled: !!appid,
-                            visible: !!appid
-                        },
-                        {
                             label: await language.get(suspended ? "resume" : "suspend"),
                             icon: nativeImage
                                     .createFromPath(path.join(__root,"icon",`power_${suspended ? "on" : "off"}.png`))
@@ -164,11 +154,11 @@ export const listeners = {
                 },
                 // Only show this option when global `appid` var is non-zero
                 {
-                    label: await language.get(`${usesanwatcher ? "linked" : "autorelease"}game`,["linkgame","content"]),
+                    label: await language.get("title",["troubleshooter"]),
                     icon: nativeImage
-                        .createFromPath(path.join(__root,"icon","link.png"))
+                        .createFromPath(path.join(__root,"icon","troubleshoot.png"))
                         .resize({ width: 16 }),
-                    click: () => ipcMain.emit("errnotify",null,{ channel: "noexe", skipnotify: true } as ErrNotify), // `skipnotify: true` initiates the `click()` action without showing the error notification
+                    click: () => ipcMain.emit("troubleshooter"),
                     enabled: !!appid,
                     visible: !!appid
                 },
@@ -216,7 +206,7 @@ export const listeners = {
             const { steam, ra } = gamedisplaystate
             
             const active = steam.releasing ? steam : ((raui && ra.gamename) ? ra : (steam.gamename ? steam : ra))
-            updatetray(tray!,active.gamename,active.achnum,active === steam ? steam.releasing : undefined)
+            updatetray(tray!,active.gamename,active.achnum,active === steam ? steam.releasing : undefined,active === steam ? steam.issues : undefined)
             
             win.webContents.send("gamedisplay",{ gamename: active.gamename, achnum: active.achnum } as GameDisplayInfo)
         }
@@ -367,13 +357,21 @@ export const listeners = {
             }
         })
 
-        ipcMain.on("releasing",(event,gamename: string,value: boolean) => {
-            gamedisplaystate.steam = { ...gamedisplaystate.steam, gamename, releasing: value }
+        ipcMain.on("releasing",async (event,gamename: string,value: boolean) => {
+            const { result } = await troubleshooter.data(worker).catch(() => ({ result: [] }))
+            gamedisplaystate.steam = { ...gamedisplaystate.steam, gamename, releasing: value, issues: !!result.length }
+            
             refreshgamedisplay()
             win.webContents.send("releasing",value)
         }) // Adds visual "releasing" hint in UI
 
-        ipcMain.on("activeprocesses",(event,appid: number,activeprocesses: boolean,linkedgame: string | null) => win.webContents.send("activeprocesses",appid,activeprocesses,linkedgame ?? undefined)) // Handles UI hint for active processes
+        ipcMain.on("activeprocesses",async (event,appid: number,activeprocesses: boolean,linkedgame: string | null) => {
+            win.webContents.send("activeprocesses",appid,activeprocesses,linkedgame ?? undefined) // Handles UI hint for active processes
+            
+            const { result } = await troubleshooter.data(worker).catch(() => ({ result: [] }))
+            gamedisplaystate.steam.issues = !!appid && !!result.length
+            refreshgamedisplay()
+        }) 
 
         let raworker: BrowserWindow | null = null
         let raworkerid = 0
@@ -516,6 +514,7 @@ export const listeners = {
             win.webContents.send(`${ra ? "game" : "app"}id`,workerinfo,skipui)
 
             gamedisplaystate[ra ? "ra" : "steam"] = {
+                ...gamedisplaystate[ra ? "ra" : "steam"],
                 gamename: gamename || null,
                 achnum,
                 ...(ra ? {} : { releasing: false })
@@ -2037,7 +2036,7 @@ export const listeners = {
                 worker = null
             },(config.get("initdelay") * 1000) + 1000)
 
-            updatetray(tray,undefined,undefined,undefined,true)
+            updatetray(tray,undefined,undefined,undefined,undefined,true)
         })
 
         ipcMain.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
@@ -2167,51 +2166,7 @@ export const listeners = {
 
         ipcMain.on("troubleshooter",async () => {
             try {
-                const { troubleshooter } = await import("./troubleshooter")
-    
-                const processdata = worker ? await new Promise<TroubleshooterProcess | null>(resolve => {
-                    ipcMain.once("processdata",(event,data: TroubleshooterProcess) => resolve(data))
-                    worker!.webContents.send("processdata")
-                }) : null
-    
-                if (!processdata) throw new Error(`Worker inactive`)
-    
-                const { releasewaittime, releasedelay, pollrate, initdelay, maxretries, userust, exclusions, inclusionlist } = sanconfig.get().store
-    
-                const data = {
-                    app: {
-                        version: sanhelper.semver,
-                        beta: sanhelper.beta,
-                        platform: process.platform,
-                        osinfo: await sanhelper.getosinfo(),
-                        config: {
-                            releasewaittime,
-                            releasedelay,
-                            pollrate,
-                            initdelay,
-                            maxretries,
-                            userust,
-                            exclusions,
-                            inclusionlist
-                        }
-                    } as TroubleshooterApp,
-                    process: {
-                        ...processdata,
-                        installdir: undefined
-                    },
-                    executable: [
-                        ...processdata.activeprocesses.map(process => ({
-                            islinkedgame: (!!processdata.linkedgame && process.exe.toLowerCase().replace(/\\/g,"/") === processdata.linkedgame.toLowerCase().replace(/\\/g,"/")) || undefined,
-                            ...troubleshooter.exeinfo(process,processdata.installdir!)
-                        })),
-                        ...(processdata.linkedgame && !processdata.activeprocesses.some(process => process.exe.toLowerCase().replace(/\\/g,"/") === processdata.linkedgame!.toLowerCase().replace(/\\/g,"/")) ? [({
-                            islinkedgame: true,
-                            ...troubleshooter.exeinfo({ exe: processdata.linkedgame } as DebugProcessInfo,processdata.installdir!)
-                        }) as TroubleshooterExecutable] : [])
-                    ]
-                } as TroubleshooterData
-
-                const result = await Promise.all(troubleshooter.result(data))
+                const { data, result } = await troubleshooter.data(worker)
                 
                 win.webContents.send("troubleshooter",data,result)
                 win.show()

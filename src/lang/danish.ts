@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Udgivelser",
         checkapplog: "Tjek venligst App-loggen for detaljer.",
         workercrash: "Worker er brudt sammen!",
-        workercrashsub: "Klik her for at genstarte Worker og forsøge at spore spillet igen",
-        troubleshoot: "Fejlfinding",
-        copygameprocessdata: "Kopiér spildata for spilprocessen"
+        workercrashsub: "Klik her for at genstarte Worker og forsøge at spore spillet igen"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 ` <span class="hl">URL'en</span> til <span class="hl">spilsiden</span> på RetroAchievements-webstedet – det er tallet efter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Angiv som standard for RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Fejlfinding",
+        content: {
+            copydata: "Kopiér",
+            noissues: "Ingen problemer fundet!",
+            noissuessub: "Dette spil burde blive frigivet automatisk.",
+            manualrelease: `Du kan frigive ethvert spil manuelt via <span class="hl">Systembakke</span> > <span class="hl">Indstillinger</span> > <span class="hl">Frigiv spil</span>.`,
+            addedvia: "Tilføjet via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Ingen aktive processer",
+                issue: "Ingen aktiv spilproces fundet",
+                detail: "Den eksekverbare fil, der er knyttet til dette spil, bliver ikke registreret som en kørende proces. Følgende eksekverbare filer blev kontrolleret:",
+                solution: [
+                    `Prøv at tilføje spillets eksekverbare fil til $linkedgamesmenu.`,
+                    `Sørg for, at posten under $linkedgamesmenu peger på den korrekte eksekverbare fil.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Ukendt eksekverbar fil",
+                issue: "Spillets eksekverbare fil kunne ikke identificeres",
+                detail: "Stien til spillets eksekverbare fil kunne ikke findes automatisk, hvilket normalt skyldes launchere før spillet ved start af spillet via Steam.",
+                solution: [
+                    `Tilføj en ny post for dette spil til $linkedgamesmenu, eller fjern eventuelle poster, der peger på en forkert eksekverbar fil. Ellers kan du kontrollere, om spillet understøtter en Steam-startindstilling, der omgår launchere før spillet, såsom <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Prøv at aktivere $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Eksekverbar fil mangler",
+                issue: "Spillets eksekverbare fil blev ikke fundet på disken",
+                detail: `Den eksekverbare fil, der er knyttet til dette spil, kunne ikke findes på disken. Følgende eksekverbare filer blev kontrolleret:`,
+                solution: ["Prøv at verificere integriteten af spilfilerne via Steam eller geninstallere spillet."]
+            },
+            notexecutable: {
+                title: "Ikke eksekverbar",
+                issue: `Spillet mangler eksekveringstilladelse`,
+                detail: "Den fil, som Steam bruger til at starte spillet, kan ikke køres. Filen blev rapporteret som:",
+                solution: ["For at gøre denne fil eksekverbar skal du følge instruktionerne for din specifikke Linux-distribution."]
+            },
+            notwithininstalldir: {
+                title: "Ikke i spilmappen",
+                issue: "Eksekverbar fil er ikke i installationsmappen",
+                detail: "Der er registreret en post for dette spil under $linkedgamesmenu, men den tilknyttede eksekverbare fil er ikke placeret i spillets installationsmappe, hvilket kan indikere, at det ikke er den korrekte.",
+                solution: ["Rediger $linkedgamesmenu-posten for dette spil, og sørg for, at den peger på den korrekte eksekverbare fil."]
+            },
+            wrongplatformpath: {
+                title: "Ugyldig spilsti",
+                issue: "Spilstien er ugyldig for det aktuelle OS",
+                detail: "Stien til dette spils eksekverbare fil ser ud til at tilhøre et andet operativsystem - muligvis på grund af en konfiguration, der er kopieret fra en anden maskine, eller en dual-boot-opsætning.",
+                solution: [`Brug ikke en konfiguration, der er kopieret fra en anden maskine/et andet OS, da den sandsynligvis ikke vil fungere som forventet. Alle eksisterende <span class="hl">Temaer</span> kan importeres/eksporteres på tværs af platforme via menuen <span class="hl">Tilpasning</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Dublerede poster",
+                issue: "Der blev fundet dublerede $linkedgamesmenu-poster",
+                detail: "Denne eksekverbare spilfil er også knyttet til $appids under $linkedgamesmenu.",
+                solution: ["Fjern en af de dublerede poster, og sørg for, at den resterende post peger på den korrekte eksekverbare spilfil."]
+            },
+            releasing: {
+                title: "Spillet frigives",
+                issue: "Spillet frigives",
+                detail: "Dette spil er ved at blive frigivet.",
+                solution: [`Vent venligst et par sekunder mere - prikken i <span class="hl">Systembakke</span>-ikonet ændres fra <span class="troubleshooterdialogicon" grey></span> (frigives) til <span class="troubleshooterdialogicon" red></span> (inaktiv), når spillet er frigivet.`]
+            }
         }
     }
 }

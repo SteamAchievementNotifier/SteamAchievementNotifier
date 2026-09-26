@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "版本发布",
         checkapplog: "请查看应用程序日志以获取详细信息。",
         workercrash: "Worker 已崩溃！",
-        workercrashsub: "点击此处重新启动 Worker 并重新尝试游戏跟踪",
-        troubleshoot: "故障排除",
-        copygameprocessdata: "复制游戏进程数据"
+        workercrashsub: "点击此处重新启动 Worker 并重新尝试游戏跟踪"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 `RetroAchievements 网站上的 <span class="hl">游戏页面</span> URL —— 即 <span class="hl">game/</span> 后面的数字：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "设为 RetroAchievements 默认项"
+        }
+    },
+    troubleshooter: {
+        title: "故障排除",
+        content: {
+            copydata: "复制",
+            noissues: "未发现问题！",
+            noissuessub: "此游戏应自动发布。",
+            manualrelease: `您可以通过 <span class="hl">系统托盘</span> > <span class="hl">选项</span> > <span class="hl">发布游戏</span> 手动发布任何游戏。`,
+            addedvia: "添加方式"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "没有活动进程",
+                issue: "未找到活动的游戏进程",
+                detail: "未检测到与此游戏关联的可执行文件正在作为运行中的进程运行。已检查以下可执行文件：",
+                solution: [
+                    `尝试将游戏的可执行文件添加到 $linkedgamesmenu。`,
+                    `确保 $linkedgamesmenu 中的条目指向正确的可执行文件。`
+                ]
+            },
+            unknownexecutable: {
+                title: "未知可执行文件",
+                issue: "无法识别游戏可执行文件",
+                detail: "无法自动找到游戏可执行文件的路径，这通常是由于通过 Steam 启动游戏时存在游戏启动前的启动器所导致的。",
+                solution: [
+                    `在 $linkedgamesmenu 中为此游戏添加新条目，或删除任何指向错误游戏可执行文件的条目。否则，请检查游戏是否支持 Steam 启动选项，以绕过游戏启动前的启动器，例如 <code style="font-size: 0.55rem;">-skiplauncher</code>。`,
+                    `尝试启用 $sanwatcher。`
+                ]
+            },
+            missingexecutable: {
+                title: "缺少可执行文件",
+                issue: "磁盘上未找到游戏可执行文件",
+                detail: `在磁盘上找不到与此游戏关联的可执行文件。已检查以下可执行文件：`,
+                solution: ["尝试通过 Steam 验证游戏文件的完整性，或重新安装游戏。"]
+            },
+            notexecutable: {
+                title: "不可执行",
+                issue: `游戏缺少可执行权限`,
+                detail: "Steam 用于启动游戏的文件无法执行。该文件被报告为：",
+                solution: ["要使此文件可执行，请参阅针对您的 Linux 发行版的相关说明。"]
+            },
+            notwithininstalldir: {
+                title: "不在游戏目录中",
+                issue: "可执行文件不在安装目录中",
+                detail: "$linkedgamesmenu 中检测到了此游戏的条目，但关联的可执行文件不在游戏的安装文件夹内，这可能表明该文件并不正确。",
+                solution: ["编辑此游戏的 $linkedgamesmenu 条目，并确保其指向正确的游戏可执行文件。"]
+            },
+            wrongplatformpath: {
+                title: "游戏路径无效",
+                issue: "游戏路径不适用于当前操作系统",
+                detail: "此游戏的可执行文件路径似乎属于其他操作系统——可能是由于配置文件从另一台计算机复制而来，或由于双系统设置所致。",
+                solution: [`请勿使用从其他计算机/操作系统复制的配置，因为这很可能无法按预期工作。所有现有的 <span class="hl">主题</span> 都可以通过 <span class="hl">自定义</span> 菜单进行跨平台导入/导出。`]
+            },
+            duplicatelinkentries: {
+                title: "重复条目",
+                issue: "发现重复的 $linkedgamesmenu 条目",
+                detail: "此游戏可执行文件还关联到了 $linkedgamesmenu 下的 $appids。",
+                solution: ["删除其中一个重复条目，并确保保留的条目指向正确的游戏可执行文件。"]
+            },
+            releasing: {
+                title: "正在发布游戏",
+                issue: "游戏正在发布",
+                detail: "此游戏即将发布。",
+                solution: [`请再等待几秒钟——发布完成后，<span class="hl">系统托盘</span> 图标中的圆点将从 <span class="troubleshooterdialogicon" grey></span>（发布中）变为 <span class="troubleshooterdialogicon" red></span>（空闲）。`]
+            }
         }
     }
 }

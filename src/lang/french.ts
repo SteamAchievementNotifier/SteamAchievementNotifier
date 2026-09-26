@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Releases",
         checkapplog: "Veuillez consulter le journal de l'application pour plus de détails.",
         workercrash: "Worker a planté!",
-        workercrashsub: "Cliquez ici pour redémarrer Worker et relancer le suivi du jeu",
-        troubleshoot: "Dépannage",
-        copygameprocessdata: "Copier les données du processus du jeu"
+        workercrashsub: "Cliquez ici pour redémarrer Worker et relancer le suivi du jeu"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 `L'<span class="hl">URL</span> de la <span class="hl">page du jeu</span> sur le site RetroAchievements : il s'agit du numéro indiqué après <span class="hl">game/</span> : <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Définir comme valeur par défaut pour RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Dépannage",
+        content: {
+            copydata: "Copier",
+            noissues: "Aucun problème trouvé !",
+            noissuessub: "Ce jeu devrait être libéré automatiquement.",
+            manualrelease: `Vous pouvez libérer manuellement n'importe quel jeu via <span class="hl">Zone de notification</span> > <span class="hl">Options</span> > <span class="hl">Libérer le jeu</span>.`,
+            addedvia: "Ajouté via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Aucun processus actif",
+                issue: "Aucun processus de jeu actif trouvé",
+                detail: "Le fichier exécutable associé à ce jeu n'est pas détecté comme un processus en cours d'exécution. Les fichiers exécutables suivants ont été vérifiés :",
+                solution: [
+                    `Essayez d'ajouter le fichier exécutable du jeu à $linkedgamesmenu.`,
+                    `Assurez-vous que l'entrée sous $linkedgamesmenu pointe vers le bon fichier exécutable.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Exécutable inconnu",
+                issue: "Impossible d'identifier le fichier exécutable du jeu",
+                detail: "Le chemin vers le fichier exécutable du jeu n'a pas pu être localisé automatiquement, ce qui est généralement dû aux lanceurs préalables au lancement du jeu lorsque celui-ci est lancé via Steam.",
+                solution: [
+                    `Ajoutez une nouvelle entrée pour ce jeu à $linkedgamesmenu, ou supprimez toute entrée pointant vers un fichier exécutable incorrect. Sinon, vérifiez si le jeu prend en charge une option de lancement Steam permettant de contourner les lanceurs préalables au lancement, comme <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Essayez d'activer $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Exécutable manquant",
+                issue: "Fichier exécutable du jeu introuvable sur le disque",
+                detail: `Le fichier exécutable associé à ce jeu est introuvable sur le disque. Les fichiers exécutables suivants ont été vérifiés :`,
+                solution: ["Essayez de vérifier l'intégrité des fichiers du jeu via Steam ou de réinstaller le jeu."]
+            },
+            notexecutable: {
+                title: "Non exécutable",
+                issue: `Le jeu n'a pas l'autorisation d'être exécuté`,
+                detail: "Le fichier utilisé par Steam pour lancer le jeu ne peut pas être exécuté. Le fichier a été signalé comme :",
+                solution: ["Pour rendre ce fichier exécutable, consultez les instructions correspondant à votre distribution Linux."]
+            },
+            notwithininstalldir: {
+                title: "Pas dans le répertoire du jeu",
+                issue: "L'exécutable n'est pas dans le répertoire d'installation",
+                detail: "Une entrée pour ce jeu a été détectée dans $linkedgamesmenu, mais le fichier exécutable associé ne se trouve pas dans le dossier d'installation du jeu, ce qui peut indiquer qu'il ne s'agit pas du bon fichier.",
+                solution: ["Modifiez l'entrée $linkedgamesmenu pour ce jeu et assurez-vous qu'elle pointe vers le bon fichier exécutable du jeu."]
+            },
+            wrongplatformpath: {
+                title: "Chemin du jeu invalide",
+                issue: "Le chemin du jeu est invalide pour le système d'exploitation actuel",
+                detail: "Le chemin du fichier exécutable de ce jeu semble appartenir à un autre système d'exploitation - peut-être en raison d'une configuration copiée depuis une autre machine ou d'une configuration à double démarrage.",
+                solution: [`N'utilisez pas une configuration copiée depuis une autre machine/un autre système d'exploitation, car cela ne fonctionnera probablement pas comme prévu. Tous les <span class="hl">Thèmes</span> existants peuvent être importés/exportés entre les plateformes via le menu <span class="hl">Personnaliseur</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Entrées en double",
+                issue: "Des entrées $linkedgamesmenu en double ont été trouvées",
+                detail: "Ce fichier exécutable de jeu est également lié à $appids dans $linkedgamesmenu.",
+                solution: ["Supprimez l'une des entrées en double et assurez-vous que l'entrée restante pointe vers le bon fichier exécutable du jeu."]
+            },
+            releasing: {
+                title: "Libération du jeu",
+                issue: "Le jeu est en cours de libération",
+                detail: "Ce jeu est sur le point d'être libéré.",
+                solution: [`Veuillez patienter quelques secondes supplémentaires - le point dans l'icône de la <span class="hl">Zone de notification</span> passera de <span class="troubleshooterdialogicon" grey></span> (libération en cours) à <span class="troubleshooterdialogicon" red></span> (inactif) une fois le jeu libéré.`]
+            }
         }
     }
 }

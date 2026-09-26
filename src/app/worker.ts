@@ -651,7 +651,8 @@ const startsan = async (appinfo: AppInfo) => {
             } else {
                 processes.push(...processinfo)
             }
-    
+
+            ipcRenderer.send("activeprocesses",appid,processes.some(process => process.pid !== -1),worker.linkedgame(appid) ?? null)
             initgameloop()
         }
             

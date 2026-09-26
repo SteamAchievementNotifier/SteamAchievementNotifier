@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Lanzamientos",
         checkapplog: "Por favor, revisa el registro de la aplicación para más detalles.",
         workercrash: "¡El Worker se ha bloqueado!",
-        workercrashsub: "Haz clic aquí para reiniciar el Worker y volver a intentar el seguimiento del juego",
-        troubleshoot: "Solucionar problemas",
-        copygameprocessdata: "Copiar datos del proceso del juego"
+        workercrashsub: "Haz clic aquí para reiniciar el Worker y volver a intentar el seguimiento del juego"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 `La <span class="hl">URL</span> de la <span class="hl">página del juego</span> en el sitio de RetroAchievements: es el número que aparece después de <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Establecer como predeterminado para RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Solucionar problemas",
+        content: {
+            copydata: "Copiar",
+            noissues: "¡No se encontraron problemas!",
+            noissuessub: "Este juego debería iniciarse automáticamente.",
+            manualrelease: `Puedes iniciar manualmente cualquier juego mediante <span class="hl">Bandeja del sistema</span> > <span class="hl">Opciones</span> > <span class="hl">Iniciar juego</span>.`,
+            addedvia: "Añadido mediante"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "No hay procesos activos",
+                issue: "No se encontró ningún proceso activo del juego",
+                detail: "No se detecta que el archivo ejecutable asociado a este juego se esté ejecutando como un proceso. Se comprobaron los siguientes ejecutables:",
+                solution: [
+                    `Intenta añadir el ejecutable del juego a $linkedgamesmenu.`,
+                    `Asegúrate de que la entrada de $linkedgamesmenu apunta al ejecutable correcto.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Ejecutable desconocido",
+                issue: "No se pudo identificar el ejecutable del juego",
+                detail: "No se pudo localizar automáticamente la ruta del ejecutable del juego, lo que suele deberse a lanzadores previos al juego al iniciar el juego mediante Steam.",
+                solution: [
+                    `Añade una nueva entrada para este juego a $linkedgamesmenu o elimina cualquier entrada que apunte a un ejecutable incorrecto del juego. De lo contrario, comprueba si el juego admite una opción de lanzamiento de Steam para omitir los lanzadores previos al juego, como <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Intenta activar $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Falta el ejecutable",
+                issue: "No se encontró el ejecutable del juego en el disco",
+                detail: `No se pudo encontrar en el disco el ejecutable asociado a este juego. Se comprobaron los siguientes ejecutables:`,
+                solution: ["Intenta verificar la integridad de los archivos del juego mediante Steam o reinstalar el juego."]
+            },
+            notexecutable: {
+                title: "No es ejecutable",
+                issue: `El juego no tiene permisos de ejecución`,
+                detail: "No se puede ejecutar el archivo que Steam utiliza para iniciar el juego. El archivo se indicó como:",
+                solution: ["Para hacer que este archivo sea ejecutable, consulta las instrucciones específicas de tu distribución de Linux."]
+            },
+            notwithininstalldir: {
+                title: "No está en el directorio del juego",
+                issue: "El ejecutable no está en el directorio de instalación",
+                detail: "Se ha detectado una entrada para este juego en $linkedgamesmenu, pero el ejecutable vinculado no se encuentra dentro de la carpeta de instalación del juego, lo que puede indicar que no es el correcto.",
+                solution: ["Edita la entrada de $linkedgamesmenu para este juego y asegúrate de que apunta al ejecutable correcto del juego."]
+            },
+            wrongplatformpath: {
+                title: "Ruta del juego no válida",
+                issue: "La ruta del juego no es válida para el sistema operativo actual",
+                detail: "La ruta del ejecutable de este juego parece pertenecer a otro sistema operativo, posiblemente debido a una configuración copiada de otro equipo o a una configuración de arranque dual.",
+                solution: [`No utilices una configuración copiada de otro equipo/SO, ya que probablemente no funcionará como se espera. Todos los <span class="hl">Temas</span> existentes se pueden importar/exportar entre plataformas mediante el menú <span class="hl">Personalizador</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Entradas duplicadas",
+                issue: "Se encontraron entradas duplicadas de $linkedgamesmenu",
+                detail: "Este ejecutable del juego también está vinculado a $appids en $linkedgamesmenu.",
+                solution: ["Elimina una de las entradas duplicadas y asegúrate de que la entrada restante apunta al ejecutable correcto del juego."]
+            },
+            releasing: {
+                title: "Iniciando juego",
+                issue: "El juego se está iniciando",
+                detail: "Este juego está a punto de iniciarse.",
+                solution: [`Espera unos segundos más: el punto del icono de la <span class="hl">Bandeja del sistema</span> cambiará de <span class="troubleshooterdialogicon" grey></span> (iniciando) a <span class="troubleshooterdialogicon" red></span> (inactivo) una vez iniciado.`]
+            }
         }
     }
 }

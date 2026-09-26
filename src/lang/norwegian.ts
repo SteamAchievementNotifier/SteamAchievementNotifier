@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Utgivelser",
         checkapplog: "Vennligst sjekk Apploggen for detaljer.",
         workercrash: "Worker har krasjet!",
-        workercrashsub: "Klikk her for å starte Worker på nytt og prøve å spore spillet igjen",
-        troubleshoot: "Feilsøking",
-        copygameprocessdata: "Kopier data for spillprosessen"
+        workercrashsub: "Klikk her for å starte Worker på nytt og prøve å spore spillet igjen"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 `URL-en til <span class="hl">spill-siden</span> på RetroAchievements-nettstedet – det er tallet etter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Angi som standard for RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Feilsøking",
+        content: {
+            copydata: "Kopier",
+            noissues: "Ingen problemer funnet!",
+            noissuessub: "Dette spillet skal lanseres automatisk.",
+            manualrelease: `Du kan manuelt lansere et hvilket som helst spill via <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
+            addedvia: "Lagt til via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Ingen aktive prosesser",
+                issue: "Ingen aktiv spillprosess funnet",
+                detail: "Den kjørbare filen som er knyttet til dette spillet, blir ikke oppdaget som en prosess som kjører. Følgende kjørbare filer ble kontrollert:",
+                solution: [
+                    `Prøv å legge spillets kjørbare fil til i $linkedgamesmenu.`,
+                    `Kontroller at oppføringen under $linkedgamesmenu peker til riktig kjørbar fil.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Ukjent kjørbar fil",
+                issue: "Kan ikke identifisere spillets kjørbare fil",
+                detail: "Banen til spillets kjørbare fil kunne ikke finnes automatisk. Dette skyldes vanligvis oppstartsprogrammer før spillet når spillet startes via Steam.",
+                solution: [
+                    `Legg til en ny oppføring for dette spillet i $linkedgamesmenu, eller fjern eventuelle oppføringer som peker til feil kjørbar spillfil. Alternativt kan du sjekke om spillet støtter et Steam-startalternativ for å omgå oppstartsprogrammer før spillet, for eksempel <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Prøv å aktivere $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Kjørbar fil mangler",
+                issue: "Spillets kjørbare fil ble ikke funnet på disken",
+                detail: `Den kjørbare filen som er knyttet til dette spillet, ble ikke funnet på disken. Følgende kjørbare filer ble kontrollert:`,
+                solution: ["Prøv å verifisere integriteten til spillfilene via Steam eller installer spillet på nytt."]
+            },
+            notexecutable: {
+                title: "Ikke kjørbar",
+                issue: `Spillet mangler tillatelse til å kjøre`,
+                detail: "Filen som Steam bruker til å starte spillet, kan ikke kjøres. Filen ble rapportert som:",
+                solution: ["For å gjøre denne filen kjørbar, se instruksjonene for din spesifikke Linux-distribusjon."]
+            },
+            notwithininstalldir: {
+                title: "Ikke i spillmappen",
+                issue: "Kjørbar fil er ikke i installasjonsmappen",
+                detail: "En oppføring for dette spillet er oppdaget under $linkedgamesmenu, men den tilknyttede kjørbare filen ligger ikke i spillets installasjonsmappe, noe som kan tyde på at det ikke er den riktige.",
+                solution: ["Rediger $linkedgamesmenu-oppføringen for dette spillet og sørg for at den peker til riktig kjørbar spillfil."]
+            },
+            wrongplatformpath: {
+                title: "Ugyldig spillbane",
+                issue: "Spillbanen er ugyldig for gjeldende operativsystem",
+                detail: "Banen til spillets kjørbare fil ser ut til å tilhøre et annet operativsystem - muligens på grunn av en konfigurasjon som er kopiert fra en annen maskin eller et dual-boot-oppsett.",
+                solution: [`Ikke bruk en konfigurasjon som er kopiert fra en annen maskin/OS, da dette sannsynligvis ikke vil fungere som forventet. Alle eksisterende <span class="hl">Themes</span> kan importeres/eksporteres på tvers av plattformer via <span class="hl">Customiser</span>-menyen.`]
+            },
+            duplicatelinkentries: {
+                title: "Dupliserte oppføringer",
+                issue: "Dupliserte $linkedgamesmenu-oppføringer funnet",
+                detail: "Denne kjørbare spillfilen er også koblet til $appids under $linkedgamesmenu.",
+                solution: ["Fjern én av de dupliserte oppføringene og sørg for at den gjenværende oppføringen peker til riktig kjørbar spillfil."]
+            },
+            releasing: {
+                title: "Spillet lanseres",
+                issue: "Spillet lanseres",
+                detail: "Dette spillet er i ferd med å lanseres.",
+                solution: [`Vent noen sekunder til - prikken i <span class="hl">System Tray</span>-ikonet endres fra <span class="troubleshooterdialogicon" grey></span> (lanserer) til <span class="troubleshooterdialogicon" red></span> (inaktiv) når spillet er lansert.`]
+            }
         }
     }
 }

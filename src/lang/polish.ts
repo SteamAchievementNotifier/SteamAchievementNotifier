@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Wydania",
         checkapplog: "Sprawdź dziennik aplikacji, aby uzyskać szczegóły.",
         workercrash: "Worker uległ awarii!",
-        workercrashsub: "Kliknij tutaj, aby ponownie uruchomić Worker i ponowić śledzenie gry",
-        troubleshoot: "Rozwiązywanie problemów",
-        copygameprocessdata: "Kopiuj dane procesu gry"
+        workercrashsub: "Kliknij tutaj, aby ponownie uruchomić Worker i ponowić śledzenie gry"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 `Adres <span class="hl">URL</span> strony gry na stronie RetroAchievements — jest to numer po <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Ustaw jako domyślne dla RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Rozwiązywanie problemów",
+        content: {
+            copydata: "Kopiuj",
+            noissues: "Nie znaleziono problemów!",
+            noissuessub: "Ta gra powinna zostać uruchomiona automatycznie.",
+            manualrelease: `Możesz ręcznie uruchomić dowolną grę poprzez <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
+            addedvia: "Dodano przez"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Brak aktywnych procesów",
+                issue: "Nie znaleziono aktywnego procesu gry",
+                detail: "Plik wykonywalny powiązany z tą grą nie jest wykrywany jako uruchomiony proces. Sprawdzono następujące pliki wykonywalne:",
+                solution: [
+                    `Spróbuj dodać plik wykonywalny gry do $linkedgamesmenu.`,
+                    `Upewnij się, że wpis w $linkedgamesmenu wskazuje właściwy plik wykonywalny.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Nieznany plik wykonywalny",
+                issue: "Nie można zidentyfikować pliku wykonywalnego gry",
+                detail: "Nie udało się automatycznie znaleźć ścieżki do pliku wykonywalnego gry. Zwykle jest to spowodowane przez programy uruchamiające przed grą podczas uruchamiania gry przez Steam.",
+                solution: [
+                    `Dodaj nowy wpis dla tej gry do $linkedgamesmenu lub usuń wpisy wskazujące na nieprawidłowy plik wykonywalny gry. W przeciwnym razie sprawdź, czy gra obsługuje opcję uruchamiania Steam pozwalającą pominąć programy uruchamiające przed grą, taką jak <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Spróbuj włączyć $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Brak pliku wykonywalnego",
+                issue: "Nie znaleziono pliku wykonywalnego gry na dysku",
+                detail: `Nie znaleziono na dysku pliku wykonywalnego powiązanego z tą grą. Sprawdzono następujące pliki wykonywalne:`,
+                solution: ["Spróbuj zweryfikować integralność plików gry za pośrednictwem Steam lub zainstalować grę ponownie."]
+            },
+            notexecutable: {
+                title: "Nie można uruchomić",
+                issue: `Gra nie ma uprawnień do uruchamiania`,
+                detail: "Nie można uruchomić pliku używanego przez Steam do uruchomienia gry. Zgłoszony stan pliku:",
+                solution: ["Aby nadać temu plikowi uprawnienia do uruchamiania, zapoznaj się z instrukcjami dotyczącymi używanej dystrybucji systemu Linux."]
+            },
+            notwithininstalldir: {
+                title: "Poza katalogiem gry",
+                issue: "Plik wykonywalny nie znajduje się w katalogu instalacyjnym",
+                detail: "Wykryto wpis dla tej gry w $linkedgamesmenu, ale powiązany plik wykonywalny nie znajduje się w folderze instalacyjnym gry, co może oznaczać, że nie jest właściwym plikiem.",
+                solution: ["Edytuj wpis $linkedgamesmenu dla tej gry i upewnij się, że wskazuje właściwy plik wykonywalny gry."]
+            },
+            wrongplatformpath: {
+                title: "Nieprawidłowa ścieżka gry",
+                issue: "Ścieżka gry jest nieprawidłowa dla bieżącego systemu operacyjnego",
+                detail: "Ścieżka do pliku wykonywalnego tej gry wygląda na należącą do innego systemu operacyjnego - prawdopodobnie z powodu konfiguracji skopiowanej z innego komputera lub konfiguracji dual-boot.",
+                solution: [`Nie używaj konfiguracji skopiowanej z innego komputera/systemu operacyjnego, ponieważ prawdopodobnie nie będzie działać zgodnie z oczekiwaniami. Wszystkie istniejące <span class="hl">Themes</span> można importować/eksportować między platformami za pomocą menu <span class="hl">Customiser</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Zduplikowane wpisy",
+                issue: "Znaleziono zduplikowane wpisy $linkedgamesmenu",
+                detail: "Ten plik wykonywalny gry jest również powiązany z $appids w $linkedgamesmenu.",
+                solution: ["Usuń jeden ze zduplikowanych wpisów i upewnij się, że pozostały wpis wskazuje właściwy plik wykonywalny gry."]
+            },
+            releasing: {
+                title: "Uruchamianie gry",
+                issue: "Gra jest uruchamiana",
+                detail: "Ta gra zostanie wkrótce uruchomiona.",
+                solution: [`Poczekaj jeszcze kilka sekund - kropka na ikonie <span class="hl">System Tray</span> zmieni się z <span class="troubleshooterdialogicon" grey></span> (uruchamianie) na <span class="troubleshooterdialogicon" red></span> (bezczynność), gdy gra zostanie uruchomiona.`]
+            }
         }
     }
 }

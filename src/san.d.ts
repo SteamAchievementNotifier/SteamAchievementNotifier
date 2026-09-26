@@ -721,7 +721,8 @@ declare interface AppUsage {
 declare interface GameDisplayInfo {
     gamename: string | null,
     achnum?: number,
-    releasing?: boolean
+    releasing?: boolean,
+    issues?: boolean
 }
 
 declare type GameDisplay = Record<Platform,GameDisplayInfo>

@@ -1094,68 +1094,7 @@ ipcRenderer.on("errnotifyclick",async (event,appid: number,{ channel, skipnotify
     
     if (!appid || channel === "workercrash") return ipcRenderer.send(ra ? "rastop" : "validateworker",ra)
     
-    const { usesanwatcher } = config.store
-    const menutype = `${usesanwatcher ? "linked" : "autorelease"}game` as const
-    const content = ["linkgame","content"]
-    
-    dialog.open({
-        title: await language.get(skipnotify ? menutype : "noexe",content),
-        type: "default",
-        icon: sanhelper.setfilepath("icon",`${skipnotify ? "link" : "error"}.svg`),
-        sub: [
-            await language.get(`${skipnotify ? `${menutype}focus` : "noexedialog"}sub`,content),
-            (await language.get("focussub",content) as string).replace(/\$linkgame/,await language.get(`${menutype}s`,["settings","games","content"])),
-            await language.get("linkgamehelplink",content)
-        ],
-        addHTML: `<span id="noexeclick"></span>`,
-        buttons: [{
-            id: "addlink",
-            label: await language.get("link",content),
-            icon: sanhelper.setfilepath("icon","newlink.svg"),
-            click: async () => {
-                const { getFocusedWinPath } = await import("sanhelper.rs")
-                let count = 5
-                const addlinkbtn = document.getElementById("addlinkbtn") as HTMLButtonElement
-            
-                addlinkbtn.setAttribute("timer",`${count}`)
-
-                const timer: NodeJS.Timeout = setInterval(() => {
-                    count--
-
-                    if (!count) {
-                        let winpath = getFocusedWinPath().replace(/\\/g,"/")
-                        winpath.endsWith("electron.exe") && (winpath = "")
-
-                        // Re-check `appid` is not 0 (i.e. game is still open) before writing to localStorage
-                        if (!winpath || !appid) {
-                            ipcRenderer.send("errnotify",{ channel: "addlinkfailed" } as ErrNotify)
-                        } else {
-                            const lsobj = JSON.parse(localStorage.getItem("linkgame")!)
-                            lsobj[window.appid] = winpath
-
-                            localStorage.setItem("linkgame",JSON.stringify(lsobj,null,4))
-                            log.write("INFO",`"${appid}" written to "linkgame" localStorage object successfully`)
-                        }
-
-                        addlinkbtn.removeAttribute("timer")
-                        clearInterval(timer)
-                        
-                        if (winpath && window.appid) {
-                            dialog.close()
-                            ipcRenderer.send("releasegame",true)
-                        }
-
-                        return
-                    }
-
-                    addlinkbtn.setAttribute("timer",`${count}`)
-                },1000)
-            }
-        }]
-    })
-
-    sanhelper.sethelpdialog(document.getElementById("linkgamehelp")!,"linkgamehelp",content)
-    document.querySelector(".wrapper#contentcontainer:has(#noexeclick)")!.toggleAttribute("autorelease",skipnotify)
+    ipcRenderer.send("troubleshooter")
 })
 
 ipcRenderer.on("ragame",async (event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => {

@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Kiadások",
         checkapplog: "Kérjük, ellenőrizze az alkalmazás naplóját a részletekért.",
         workercrash: "A Worker összeomlott!",
-        workercrashsub: "Kattints ide a Worker újraindításához és a játék követésének újbóli megkísérléséhez",
-        troubleshoot: "Hibaelhárítás",
-        copygameprocessdata: "Játékfolyamat adatainak másolása"
+        workercrashsub: "Kattints ide a Worker újraindításához és a játék követésének újbóli megkísérléséhez"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 `A RetroAchievements webhely <span class="hl">játékoldalának</span> <span class="hl">URL-címében</span> – ez a <span class="hl">game/</span> után szereplő szám: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Beállítás alapértelmezettként a RetroAchievements számára"
+        }
+    },
+    troubleshooter: {
+        title: "Hibaelhárítás",
+        content: {
+            copydata: "Másolás",
+            noissues: "Nem találhatók problémák!",
+            noissuessub: "Ennek a játéknak automatikusan el kell indulnia.",
+            manualrelease: `Bármely játékot manuálisan elindíthatsz a <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span> menüponton keresztül.`,
+            addedvia: "Hozzáadva ezen keresztül"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Nincsenek aktív folyamatok",
+                issue: "Nem található aktív játékfolyamat",
+                detail: "A játékhoz társított futtatható fájl nem észlelhető futó folyamatként. A következő futtatható fájlokat ellenőriztük:",
+                solution: [
+                    `Próbáld hozzáadni a játék futtatható fájlját a $linkedgamesmenu menühöz.`,
+                    `Győződj meg róla, hogy a $linkedgamesmenu alatti bejegyzés a megfelelő futtatható fájlra mutat.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Ismeretlen futtatható fájl",
+                issue: "Nem sikerült azonosítani a játék futtatható fájlját",
+                detail: "A játék futtatható fájljának elérési útja nem volt automatikusan meghatározható, amit általában a Steam-en keresztüli indításkor használt játékindítás előtti indítók okoznak.",
+                solution: [
+                    `Adj hozzá egy új bejegyzést ehhez a játékhoz a $linkedgamesmenu menühöz, vagy távolítsd el azokat a bejegyzéseket, amelyek helytelen játékfájlra mutatnak. Ellenkező esetben ellenőrizd, hogy a játék támogat-e olyan Steam indítási beállítást, amely megkerüli a játékindítás előtti indítókat, például a <code style="font-size: 0.55rem;">-skiplauncher</code> lehetőséget.`,
+                    `Próbáld engedélyezni a $sanwatcher funkciót.`
+                ]
+            },
+            missingexecutable: {
+                title: "Hiányzó futtatható fájl",
+                issue: "A játék futtatható fájlja nem található a lemezen",
+                detail: `A játékhoz társított futtatható fájl nem található a lemezen. A következő futtatható fájlokat ellenőriztük:`,
+                solution: ["Próbáld ellenőrizni a játékfájlok épségét a Steamen keresztül, vagy telepítsd újra a játékot."]
+            },
+            notexecutable: {
+                title: "Nem futtatható",
+                issue: `A játék futtatható fájlja nem rendelkezik végrehajtási jogosultsággal`,
+                detail: "A Steam által a játék indításához használt fájl nem hajtható végre. A fájl állapota:",
+                solution: ["A fájl futtathatóvá tételéhez tekintsd meg az adott Linux-disztribúciódra vonatkozó utasításokat."]
+            },
+            notwithininstalldir: {
+                title: "Nincs a játék könyvtárában",
+                issue: "A futtatható fájl nincs a telepítési könyvtárban",
+                detail: "A $linkedgamesmenu alatt található egy bejegyzés ehhez a játékhoz, de a hozzá kapcsolt futtatható fájl nem a játék telepítési mappájában található, ami arra utalhat, hogy nem a megfelelő fájlról van szó.",
+                solution: ["Szerkeszd a játékhoz tartozó $linkedgamesmenu bejegyzést, és győződj meg róla, hogy a megfelelő játékfájlra mutat."]
+            },
+            wrongplatformpath: {
+                title: "Érvénytelen játékútvonal",
+                issue: "A játék elérési útja érvénytelen a jelenlegi operációs rendszerhez",
+                detail: "A játék futtatható fájljának elérési útja úgy tűnik, hogy egy másik operációs rendszerhez tartozik - valószínűleg egy másik gépről átmásolt konfiguráció vagy dual-boot beállítás miatt.",
+                solution: [`Ne használj másik gépről/operációs rendszerről átmásolt konfigurációt, mivel ez valószínűleg nem fog megfelelően működni. Az összes meglévő <span class="hl">Themes</span> platformok között importálható/exportálható a <span class="hl">Customiser</span> menün keresztül.`]
+            },
+            duplicatelinkentries: {
+                title: "Duplikált bejegyzések",
+                issue: "Duplikált $linkedgamesmenu bejegyzések találhatók",
+                detail: "Ez a játékfájl a $linkedgamesmenu alatt található $appids elemhez is kapcsolódik.",
+                solution: ["Távolítsd el az egyik duplikált bejegyzést, és győződj meg róla, hogy a megmaradt bejegyzés a megfelelő játékfájlra mutat."]
+            },
+            releasing: {
+                title: "Játék indítása",
+                issue: "A játék indítása folyamatban van",
+                detail: "Ez a játék hamarosan elindul.",
+                solution: [`Várj még néhány másodpercet - a <span class="hl">System Tray</span> ikonján lévő pont <span class="troubleshooterdialogicon" grey></span> (indítás alatt) állapotról <span class="troubleshooterdialogicon" red></span> (tétlen) állapotra vált, amint a játék elindult.`]
+            }
         }
     }
 }

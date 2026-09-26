@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Releases",
         checkapplog: "Controleer het App-logboek voor details.",
         workercrash: "Worker is gecrasht!",
-        workercrashsub: "Klik hier om Worker opnieuw te starten en de game opnieuw te laten volgen",
-        troubleshoot: "Problemen oplossen",
-        copygameprocessdata: "Gameprocesgegevens kopiëren"
+        workercrashsub: "Klik hier om Worker opnieuw te starten en de game opnieuw te laten volgen"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 `De <span class="hl">URL</span> van de <span class="hl">spelpagina</span> op de RetroAchievements-website. Dit is het nummer dat volgt op <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Instellen als standaard voor RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Problemen oplossen",
+        content: {
+            copydata: "Kopiëren",
+            noissues: "Geen problemen gevonden!",
+            noissuessub: "Deze game zou automatisch moeten worden vrijgegeven.",
+            manualrelease: `Je kunt elke game handmatig vrijgeven via <span class="hl">Systeemvak</span> > <span class="hl">Opties</span> > <span class="hl">Game vrijgeven</span>.`,
+            addedvia: "Toegevoegd via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Geen actieve processen",
+                issue: "Geen actief gameproces gevonden",
+                detail: "Het uitvoerbare bestand dat aan deze game is gekoppeld, wordt niet gedetecteerd als een actief proces. De volgende uitvoerbare bestanden zijn gecontroleerd:",
+                solution: [
+                    `Probeer het uitvoerbare bestand van de game toe te voegen aan $linkedgamesmenu.`,
+                    `Zorg ervoor dat de vermelding onder $linkedgamesmenu naar het juiste uitvoerbare bestand verwijst.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Uitvoerbaar bestand onbekend",
+                issue: "Kan het uitvoerbare bestand van de game niet identificeren",
+                detail: "Het pad naar het uitvoerbare bestand van de game kon niet automatisch worden gevonden. Dit wordt meestal veroorzaakt door pre-game launchers wanneer de game via Steam wordt gestart.",
+                solution: [
+                    `Voeg een nieuwe vermelding voor deze game toe aan $linkedgamesmenu, of verwijder vermeldingen die naar een onjuist uitvoerbaar bestand van de game verwijzen. Controleer anders of de game een Steam-startoptie ondersteunt om pre-game launchers over te slaan, zoals <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Probeer $sanwatcher in te schakelen.`
+                ]
+            },
+            missingexecutable: {
+                title: "Uitvoerbaar bestand ontbreekt",
+                issue: "Uitvoerbaar bestand van de game niet op schijf gevonden",
+                detail: `Het uitvoerbare bestand dat aan deze game is gekoppeld, kon niet op schijf worden gevonden. De volgende uitvoerbare bestanden zijn gecontroleerd:`,
+                solution: ["Probeer de integriteit van de gamebestanden via Steam te verifiëren of installeer de game opnieuw."]
+            },
+            notexecutable: {
+                title: "Niet uitvoerbaar",
+                issue: `De game mist uitvoeringsrechten`,
+                detail: "Het bestand dat Steam gebruikt om de game te starten, kan niet worden uitgevoerd. Het bestand werd gemeld als:",
+                solution: ["Raadpleeg de instructies voor je specifieke Linux-distributie om dit bestand uitvoerbaar te maken."]
+            },
+            notwithininstalldir: {
+                title: "Niet in gamemap",
+                issue: "Uitvoerbaar bestand niet in installatiemap",
+                detail: "Er is een vermelding voor deze game gevonden onder $linkedgamesmenu, maar het gekoppelde uitvoerbare bestand bevindt zich niet in de installatiemap van de game, wat erop kan wijzen dat het niet het juiste bestand is.",
+                solution: ["Bewerk de $linkedgamesmenu-vermelding voor deze game en zorg ervoor dat deze naar het juiste uitvoerbare bestand van de game verwijst."]
+            },
+            wrongplatformpath: {
+                title: "Ongeldig gamepad",
+                issue: "Gamepad is ongeldig voor het huidige besturingssysteem",
+                detail: "Het pad naar het uitvoerbare bestand van deze game lijkt bij een ander besturingssysteem te horen - mogelijk door een configuratie die van een andere computer is gekopieerd of door een dual-bootconfiguratie.",
+                solution: [`Gebruik geen configuratie die van een andere computer/een ander besturingssysteem is gekopieerd, omdat deze waarschijnlijk niet naar verwachting zal werken. Alle bestaande <span class="hl">Thema's</span> kunnen platformonafhankelijk worden geïmporteerd/geëxporteerd via het menu <span class="hl">Aanpassingen</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Dubbele vermeldingen",
+                issue: "Dubbele $linkedgamesmenu-vermeldingen gevonden",
+                detail: "Dit uitvoerbare bestand van de game is ook gekoppeld aan $appids onder $linkedgamesmenu.",
+                solution: ["Verwijder een van de dubbele vermeldingen en zorg ervoor dat de overgebleven vermelding naar het juiste uitvoerbare bestand van de game verwijst."]
+            },
+            releasing: {
+                title: "Game wordt vrijgegeven",
+                issue: "De game wordt vrijgegeven",
+                detail: "Deze game wordt binnenkort vrijgegeven.",
+                solution: [`Wacht nog een paar seconden - de stip in het <span class="hl">Systeemvak</span>-pictogram verandert van <span class="troubleshooterdialogicon" grey></span> (wordt vrijgegeven) naar <span class="troubleshooterdialogicon" red></span> (inactief) zodra de game is vrijgegeven.`]
+            }
         }
     }
 }

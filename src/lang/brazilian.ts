@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Lançamentos",
         checkapplog: "Por favor, verifique o Registro do App para mais detalhes.",
         workercrash: "Worker travou!",
-        workercrashsub: "Clique aqui para reiniciar o Worker e tentar rastrear o jogo novamente",
-        troubleshoot: "Solucionar problemas",
-        copygameprocessdata: "Copiar dados do processo do jogo"
+        workercrashsub: "Clique aqui para reiniciar o Worker e tentar rastrear o jogo novamente"
     },
     app: {
         content: {
@@ -1083,6 +1081,72 @@ export const translations = {
                 `A <span class="hl">URL</span> da <span class="hl">página do jogo</span> no site do RetroAchievements — será o número exibido após <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Definir como padrão para o RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Solucionar problemas",
+        content: {
+            copydata: "Copiar",
+            noissues: "Nenhum problema encontrado!",
+            noissuessub: "Este jogo deve ser liberado automaticamente.",
+            manualrelease: `Você pode liberar qualquer jogo manualmente por meio da <span class="hl">Bandeja do sistema</span> > <span class="hl">Opções</span> > <span class="hl">Liberar jogo</span>.`,
+            addedvia: "Adicionado via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Nenhum processo ativo",
+                issue: "Nenhum processo ativo do jogo encontrado",
+                detail: "O arquivo executável associado a este jogo não está sendo detectado como um processo em execução. Os seguintes executáveis foram verificados:",
+                solution: [
+                    `Tente adicionar o executável do jogo a $linkedgamesmenu.`,
+                    `Certifique-se de que a entrada em $linkedgamesmenu aponta para o executável correto.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Executável desconhecido",
+                issue: "Não foi possível identificar o executável do jogo",
+                detail: "Não foi possível localizar automaticamente o caminho para o executável do jogo, o que geralmente é causado por inicializadores pré-jogo ao iniciar o jogo pelo Steam.",
+                solution: [
+                    `Adicione uma nova entrada para este jogo em $linkedgamesmenu ou remova quaisquer entradas que apontem para um executável incorreto do jogo. Caso contrário, verifique se o jogo oferece uma opção de inicialização pelo Steam para ignorar inicializadores pré-jogo, como <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Tente ativar $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Executável ausente",
+                issue: "Executável do jogo não encontrado no disco",
+                detail: `Não foi possível encontrar no disco o executável associado a este jogo. Os seguintes executáveis foram verificados:`,
+                solution: ["Tente verificar a integridade dos arquivos do jogo pelo Steam ou reinstalar o jogo."]
+            },
+            notexecutable: {
+                title: "Não executável",
+                issue: `O jogo não possui permissão de execução`,
+                detail: "O arquivo que o Steam usa para iniciar o jogo não pode ser executado. O arquivo foi reportado como:",
+                solution: ["Para tornar este arquivo executável, consulte as instruções específicas da sua distribuição Linux."]
+            },
+            notwithininstalldir: {
+                title: "Não está no diretório do jogo",
+                issue: "Executável não está no diretório de instalação",
+                detail: "Uma entrada para este jogo foi detectada em $linkedgamesmenu, mas o executável vinculado não está localizado dentro da pasta de instalação do jogo, o que pode indicar que não é o correto.",
+                solution: ["Edite a entrada de $linkedgamesmenu para este jogo e certifique-se de que ela aponta para o executável correto do jogo."]
+            },
+            wrongplatformpath: {
+                title: "Caminho do jogo inválido",
+                issue: "Caminho do jogo inválido para o SO atual",
+                detail: "O caminho do executável deste jogo parece pertencer a um sistema operacional diferente - possivelmente devido a uma configuração copiada de outra máquina ou a uma configuração de inicialização dupla.",
+                solution: [`Não use uma configuração copiada de outra máquina/SO, pois isso provavelmente não funcionará conforme o esperado. Todos os <span class="hl">Temas</span> existentes podem ser importados/exportados entre plataformas por meio do menu <span class="hl">Personalizador</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Entradas duplicadas",
+                issue: "Foram encontradas entradas duplicadas de $linkedgamesmenu",
+                detail: "Este executável do jogo também está vinculado a $appids em $linkedgamesmenu.",
+                solution: ["Remova uma das entradas duplicadas e certifique-se de que a entrada restante aponta para o executável correto do jogo."]
+            },
+            releasing: {
+                title: "Jogo sendo liberado",
+                issue: "O jogo está sendo liberado",
+                detail: "Este jogo está prestes a ser liberado.",
+                solution: [`Aguarde mais alguns segundos - o ponto no ícone da <span class="hl">Bandeja do sistema</span> mudará de <span class="troubleshooterdialogicon" grey></span> (sendo liberado) para <span class="troubleshooterdialogicon" red></span> (ocioso) assim que for liberado.`]
+            }
         }
     }
 }

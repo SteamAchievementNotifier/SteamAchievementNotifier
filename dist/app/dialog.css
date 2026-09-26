@@ -1479,6 +1479,7 @@ button.optbtn#restorepath:empty {
 
 .addhtml > span#manualreleasereminder {
     background-color: var(--primary);
+    border-radius: var(--elembr);
     font-size: 0.55rem;
     text-align: center;
     padding: 0.3rem 0.2rem;
@@ -1539,11 +1540,11 @@ div#troubleshooterinfobox:has(.troubleshooterresult[ok])::before {
     translate: -50% -50%;
     width: 3rem;
     height: 3rem;
-    background: url("../../icon/thumbsup.svg") center / 75% no-repeat;
+    background: url("../../icon/thumbsup.svg") center / 55% no-repeat;
+    background-color: limegreen;
+    border-radius: 50%;
     scale: 0;
     animation: popin var(--delay) var(--transition) forwards;
-    border: 0.2rem solid white;
-    border-radius: 50%;
 }
 
 @keyframes popin {

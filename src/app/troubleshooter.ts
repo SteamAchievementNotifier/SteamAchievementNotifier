@@ -1,6 +1,9 @@
+import { ipcMain } from "electron"
 import path from "path"
 import fs from "fs"
 import { language } from "./language"
+import { sanhelper } from "./sanhelper"
+import { sanconfig } from "./config"
 
 const isexecutable = (exe: string) => {
     try {
@@ -187,5 +190,50 @@ export const troubleshooter = {
             realpath: exists ? fs.realpathSync(p.exe) : null
         } as TroubleshooterExecutable
     },
-    result: (data: TroubleshooterData): Promise<TroubleshooterResult>[] => rules.filter(rule => rule.test(data)).map(async ({ id, type, msg }) => ({ id, type, msg: await msg(data) }))
+    result: (data: TroubleshooterData): Promise<TroubleshooterResult>[] => rules.filter(rule => rule.test(data)).map(async ({ id, type, msg }) => ({ id, type, msg: await msg(data) })),
+    data: async (worker: Electron.BrowserWindow | null) => {        
+        const processdata = worker ? await new Promise<TroubleshooterProcess | null>(resolve => {
+            ipcMain.once("processdata",(event,data: TroubleshooterProcess) => resolve(data))
+            worker!.webContents.send("processdata")
+        }) : null
+
+        if (!processdata) throw new Error(`Worker inactive`)
+
+        const { releasewaittime, releasedelay, pollrate, initdelay, maxretries, userust, exclusions, inclusionlist } = sanconfig.get().store
+
+        const data = {
+            app: {
+                version: sanhelper.semver,
+                beta: sanhelper.beta,
+                platform: process.platform,
+                osinfo: await sanhelper.getosinfo(),
+                config: {
+                    releasewaittime,
+                    releasedelay,
+                    pollrate,
+                    initdelay,
+                    maxretries,
+                    userust,
+                    exclusions,
+                    inclusionlist
+                }
+            } as TroubleshooterApp,
+            process: {
+                ...processdata,
+                installdir: undefined
+            },
+            executable: [
+                ...processdata.activeprocesses.map(process => ({
+                    islinkedgame: (!!processdata.linkedgame && process.exe.toLowerCase().replace(/\\/g,"/") === processdata.linkedgame.toLowerCase().replace(/\\/g,"/")) || undefined,
+                    ...troubleshooter.exeinfo(process,processdata.installdir!)
+                })),
+                ...(processdata.linkedgame && !processdata.activeprocesses.some(process => process.exe.toLowerCase().replace(/\\/g,"/") === processdata.linkedgame!.toLowerCase().replace(/\\/g,"/")) ? [({
+                    islinkedgame: true,
+                    ...troubleshooter.exeinfo({ exe: processdata.linkedgame } as DebugProcessInfo,processdata.installdir!)
+                }) as TroubleshooterExecutable] : [])
+            ]
+        } as TroubleshooterData
+
+        return { data, result: await Promise.all(troubleshooter.result(data)) }
+    }
 }

@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Hozzáférhetőség",
             content: {
+                uimode: "Felhasználói felület módja",
+                basic: "Alap",
+                advanced: "Speciális",
                 noanim: "Alkalmazás ablakanimációk kikapcsolása",
                 noupdatedialog: "Frissítési párbeszédpanel kikapcsolása",
                 nvda: "NVDA támogatás engedélyezése",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "A biztonsági mentés visszaállítása sikertelen.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Felszabadítási várakozási idő"
+                releasewaittime: "Felszabadítási várakozási idő",
+                logresourceusage: "Erőforrás-használat naplózása"
             }
         },    
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Egyéni szöveg",
                 usegametitle: "Játékcím használata",
                 customfont: "Egyéni betűtípus",
-                platcustomtext: "Egyéni 100%-os szöveg"
+                platcustomtext: "Egyéni 100%-os szöveg",
+                usecustomtext: "Egyéni szöveg",
+                customtextunlockmsg: "Feloldási üzenet",
+                customtexttitle: "Teljesítmény címe",
+                customtextdesc: "Teljesítmény leírása"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Betűárnyék színe",
                 fontshadowscale: "Betűárnyék mérete",
                 fontshadowx: "Vízszintes eltolás",
-                fontshadowy: "Függőleges eltolás"
+                fontshadowy: "Függőleges eltolás",
+                decorationshadow: "Dekoráció árnyéka"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Az Eredménystatisztika ablak elrendezéstípusának beállítása",
         statwinunlockonly: "Az Eredménystatisztika ablak elrejtése egy eredmény feloldásáig",
         statwinunlockonlydisplaytime: "Az Eredménystatisztika ablak megjelenítési idejének beállítása másodpercben egy eredmény feloldása után",
-        statwinunlockonlysync: "Az Eredménystatisztika ablak megjelenítési idejének szinkronizálása az aktuális értesítés Megjelenítési idejével"
+        statwinunlockonlysync: "Az Eredménystatisztika ablak megjelenítési idejének szinkronizálása az aktuális értesítés Megjelenítési idejével",
+        logresourceusage: `Az alkalmazás/rendszer erőforrás-használati statisztikáinak naplózása a teljesítményértesítések aktiválásakor<br><br><span class="ttdesc">Ezzel meghatározható, hogy bizonyos alkalmazáson belüli problémákat okozhat-e a rendszer teljes terhelése a teljesítmények feloldásakor</span>`,
+        decorationshadow: "Annak beállítása, hogy a Betűárnyék a dekoráció elemre is alkalmazva legyen",
+        uimode: `A Beállítások/Testreszabó menükben megjelenített beállítások számának kiválasztása<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Alap</span>: Csak korlátozott számú, felhasználóbarát felületi beállítás megjelenítése</li><li><span class="hl">Speciális</span>: Az összes elérhető felületi beállítás megjelenítése</li></ul></span>`,
+        usecustomtext: "Az értesítésben megjelenítendő egyéni üzenetek beállítása",
+        customtextunlockmsg: `Az Feloldási üzenet elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Feloldási üzenet le van tiltva</span>`,
+        customtexttitle: `A Teljesítmény címe elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény címe le van tiltva</span>`,
+        customtextdesc: `A Teljesítmény leírása elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény leírása le van tiltva</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `A RetroAchievements webhely <span class="hl">játékoldalának</span> <span class="hl">URL-címében</span> – ez a <span class="hl">game/</span> után szereplő szám: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Beállítás alapértelmezettként a RetroAchievements számára"
+        }
+    },
+    troubleshooter: {
+        title: "Hibaelhárítás",
+        content: {
+            copydata: "Másolás",
+            noissues: "Nem találhatók problémák!",
+            noissuessub: "Ennek a játéknak automatikusan el kell indulnia.",
+            manualrelease: `Bármely játékot manuálisan elindíthatsz a <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span> menüponton keresztül.`,
+            addedvia: "Hozzáadva ezen keresztül"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Nincsenek aktív folyamatok",
+                issue: "Nem található aktív játékfolyamat",
+                detail: "A játékhoz társított futtatható fájl nem észlelhető futó folyamatként. A következő futtatható fájlokat ellenőriztük:",
+                solution: [
+                    `Próbáld hozzáadni a játék futtatható fájlját a $linkedgamesmenu menühöz.`,
+                    `Győződj meg róla, hogy a $linkedgamesmenu alatti bejegyzés a megfelelő futtatható fájlra mutat.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Ismeretlen futtatható fájl",
+                issue: "Nem sikerült azonosítani a játék futtatható fájlját",
+                detail: "A játék futtatható fájljának elérési útja nem volt automatikusan meghatározható, amit általában a Steam-en keresztüli indításkor használt játékindítás előtti indítók okoznak.",
+                solution: [
+                    `Adj hozzá egy új bejegyzést ehhez a játékhoz a $linkedgamesmenu menühöz, vagy távolítsd el azokat a bejegyzéseket, amelyek helytelen játékfájlra mutatnak. Ellenkező esetben ellenőrizd, hogy a játék támogat-e olyan Steam indítási beállítást, amely megkerüli a játékindítás előtti indítókat, például a <code style="font-size: 0.55rem;">-skiplauncher</code> lehetőséget.`,
+                    `Próbáld engedélyezni a $sanwatcher funkciót.`
+                ]
+            },
+            missingexecutable: {
+                title: "Hiányzó futtatható fájl",
+                issue: "A játék futtatható fájlja nem található a lemezen",
+                detail: `A játékhoz társított futtatható fájl nem található a lemezen. A következő futtatható fájlokat ellenőriztük:`,
+                solution: ["Próbáld ellenőrizni a játékfájlok épségét a Steamen keresztül, vagy telepítsd újra a játékot."]
+            },
+            notexecutable: {
+                title: "Nem futtatható",
+                issue: `A játék futtatható fájlja nem rendelkezik végrehajtási jogosultsággal`,
+                detail: "A Steam által a játék indításához használt fájl nem hajtható végre. A fájl állapota:",
+                solution: ["A fájl futtathatóvá tételéhez tekintsd meg az adott Linux-disztribúciódra vonatkozó utasításokat."]
+            },
+            notwithininstalldir: {
+                title: "Nincs a játék könyvtárában",
+                issue: "A futtatható fájl nincs a telepítési könyvtárban",
+                detail: "A $linkedgamesmenu alatt található egy bejegyzés ehhez a játékhoz, de a hozzá kapcsolt futtatható fájl nem a játék telepítési mappájában található, ami arra utalhat, hogy nem a megfelelő fájlról van szó.",
+                solution: ["Szerkeszd a játékhoz tartozó $linkedgamesmenu bejegyzést, és győződj meg róla, hogy a megfelelő játékfájlra mutat."]
+            },
+            wrongplatformpath: {
+                title: "Érvénytelen játékútvonal",
+                issue: "A játék elérési útja érvénytelen a jelenlegi operációs rendszerhez",
+                detail: "A játék futtatható fájljának elérési útja úgy tűnik, hogy egy másik operációs rendszerhez tartozik - valószínűleg egy másik gépről átmásolt konfiguráció vagy dual-boot beállítás miatt.",
+                solution: [`Ne használj másik gépről/operációs rendszerről átmásolt konfigurációt, mivel ez valószínűleg nem fog megfelelően működni. Az összes meglévő <span class="hl">Themes</span> platformok között importálható/exportálható a <span class="hl">Customiser</span> menün keresztül.`]
+            },
+            duplicatelinkentries: {
+                title: "Duplikált bejegyzések",
+                issue: "Duplikált $linkedgamesmenu bejegyzések találhatók",
+                detail: "Ez a játékfájl a $linkedgamesmenu alatt található $appids elemhez is kapcsolódik.",
+                solution: ["Távolítsd el az egyik duplikált bejegyzést, és győződj meg róla, hogy a megmaradt bejegyzés a megfelelő játékfájlra mutat."]
+            },
+            releasing: {
+                title: "Játék indítása",
+                issue: "A játék indítása folyamatban van",
+                detail: "Ez a játék hamarosan elindul.",
+                solution: [`Várj még néhány másodpercet - a <span class="hl">System Tray</span> ikonján lévő pont <span class="troubleshooterdialogicon" grey></span> (indítás alatt) állapotról <span class="troubleshooterdialogicon" red></span> (tétlen) állapotra vált, amint a játék elindult.`]
+            }
         }
     }
 }

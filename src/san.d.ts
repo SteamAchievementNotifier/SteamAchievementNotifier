@@ -170,11 +170,8 @@ declare interface Config {
     usesanwatcher: boolean,
     releasewaittime: number,
     workerdebug: boolean,
-    platcustomtext: string,
-    testnotifycustomtext: boolean,
-    testnotifycustomtexttitle: string,
-    testnotifycustomtextdesc: string,
     logresourceusage: boolean,
+    uimode: "basic" | "advanced",
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -193,8 +190,6 @@ declare interface Customisation {
     preset: string,
     displaytime: number,
     scale: number,
-    customtext: string,
-    usegametitle: boolean,
     bgstyle: "solid" | "gradient" | "bgimg" | "gameart",
     gradientangle: number,
     bgimg: string,
@@ -322,6 +317,14 @@ declare interface Customisation {
     iconborderimgbronze: string,
     iconborderimgsilver: string,
     textvspace: number,
+    decorationshadow: boolean,
+    usecustomtext: boolean,
+    customtextunlockmsg: string,
+    usegametitleunlockmsg: boolean,
+    customtexttitle: string,
+    usegametitletitle: boolean,
+    customtextdesc: string,
+    usegametitledesc: boolean,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }
@@ -446,6 +449,7 @@ declare interface BuildNotifyInfo {
     steam3id: number,
     appid: number,
     apiname: string,
+    name: string,
     unlockmsg: string,
     title: string,
     desc: string,
@@ -719,7 +723,8 @@ declare interface AppUsage {
 declare interface GameDisplayInfo {
     gamename: string | null,
     achnum?: number,
-    releasing?: boolean
+    releasing?: boolean,
+    issues?: boolean
 }
 
 declare type GameDisplay = Record<Platform,GameDisplayInfo>
@@ -752,7 +757,8 @@ declare type TroubleshooterProcess = {
     pids: number[],
     activeprocesses: DebugProcessInfo[],
     duplicatelinkentries: any,
-    installdir?: string | null
+    installdir?: string | null,
+    waitingforprocess?: boolean
 }
 
 declare type TroubleshooterExecutable = {
@@ -778,6 +784,21 @@ declare interface TroubleshooterData {
     app: TroubleshooterApp,
     process: TroubleshooterProcess,
     executable: TroubleshooterExecutable[]
+}
+
+declare type TroubleshooterRuleId = "noactiveprocesses" | "unknownexecutable" | "missingexecutable" | "notexecutable" | "notwithininstalldir" | "wrongplatformpath" | "duplicatelinkentries" | "releasing"
+declare type TroubleshooterType = "info" | "warning" | "error"
+declare type TroubleshooterMsg = {
+    title: string,
+    issue: string,
+    detail: string,
+    solution: string
+}
+
+declare interface TroubleshooterResult {
+    id: TroubleshooterRuleId,
+    type: TroubleshooterType,
+    msg: TroubleshooterMsg
 }
 
 declare module "simple-vdf"

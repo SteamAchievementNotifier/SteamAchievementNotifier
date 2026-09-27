@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Přístupnost",
             content: {
+                uimode: "Režim uživatelského rozhraní",
+                basic: "Základní",
+                advanced: "Pokročilý",
                 noanim: "Vypnout animace okna aplikace",
                 noupdatedialog: "Deaktivovat dialog Aktualizace",
                 nvda: "Povolit podporu NVDA",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "Nepodařilo se obnovit zálohu.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Doba čekání na uvolnění"
+                releasewaittime: "Doba čekání na uvolnění",
+                logresourceusage: "Zaznamenávat využití zdrojů"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Vlastní text",
                 usegametitle: "Použít název hry",
                 customfont: "Vlastní písmo",
-                platcustomtext: "Vlastní text pro 100%"
+                platcustomtext: "Vlastní text pro 100%",
+                usecustomtext: "Vlastní text",
+                customtextunlockmsg: "Zpráva o odemčení",
+                customtexttitle: "Název achievementu",
+                customtextdesc: "Popis achievementu"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Barva stínu písma",
                 fontshadowscale: "Měřítko stínu písma",
                 fontshadowx: "Horizontální posunutí",
-                fontshadowy: "Vertikální posunutí"
+                fontshadowy: "Vertikální posunutí",
+                decorationshadow: "Stín dekorace"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Nastavit typ rozvržení Přehled statistik úspěchů",
         statwinunlockonly: "Skrýt Přehled statistik úspěchů, dokud není odemknut úspěch",
         statwinunlockonlydisplaytime: "Nastavit počet sekund, po které se bude Přehled statistik úspěchů zobrazovat po odemknutí úspěchu",
-        statwinunlockonlysync: "Synchronizovat počet sekund, po které se bude Přehled statistik úspěchů zobrazovat, s dobou zobrazení aktuálního oznámení"
+        statwinunlockonlysync: "Synchronizovat počet sekund, po které se bude Přehled statistik úspěchů zobrazovat, s dobou zobrazení aktuálního oznámení",
+        logresourceusage: `Zaznamenávat statistiky využití zdrojů aplikace/systému při zobrazení oznámení o achievementech<br><br><span class="ttdesc">Toto lze použít k určení, zda mohou být určité problémy v aplikaci způsobeny celkovým zatížením systému při odemykání achievementů</span>`,
+        decorationshadow: "Nastavit, zda se má Stín písma použít také na prvek dekorace",
+        uimode: `Vybrat počet možností zobrazených v nabídkách Nastavení/Přizpůsobení<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Základní</span>: Zobrazovat pouze omezenou sadu uživatelsky přívětivých možností rozhraní</li><li><span class="hl">Pokročilý</span>: Zobrazovat všechny dostupné možnosti rozhraní</li></ul></span>`,
+        usecustomtext: "Nastavit vlastní zprávy, které se mají zobrazovat v oznámení",
+        customtextunlockmsg: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Zpráva o odemčení<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Zpráva o odemčení zakázána</span>`,
+        customtexttitle: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Název achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Název achievementu zakázána</span>`,
+        customtextdesc: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Popis achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Popis achievementu zakázána</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `V <span class="hl">URL</span> <span class="hl">stránky hry</span> na webu RetroAchievements – jedná se o číslo uvedené za <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Nastavit jako výchozí pro RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Řešení problémů",
+        content: {
+            copydata: "Kopírovat",
+            noissues: "Nebyly nalezeny žádné problémy!",
+            noissuessub: "Tato hra by se měla uvolnit automaticky.",
+            manualrelease: `Jakoukoli hru můžete uvolnit ručně přes <span class="hl">Systémovou lištu</span> > <span class="hl">Možnosti</span> > <span class="hl">Uvolnit hru</span>.`,
+            addedvia: "Přidáno přes"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Žádné aktivní procesy",
+                issue: "Nebyl nalezen žádný aktivní proces hry",
+                detail: "Spustitelný soubor spojený s touto hrou nebyl detekován jako spuštěný proces. Byly zkontrolovány následující spustitelné soubory:",
+                solution: [
+                    `Zkuste přidat spustitelný soubor hry do $linkedgamesmenu.`,
+                    `Ujistěte se, že položka v $linkedgamesmenu odkazuje na správný spustitelný soubor.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Neznámý spustitelný soubor",
+                issue: "Nelze identifikovat spustitelný soubor hry",
+                detail: "Cestu ke spustitelnému souboru hry se nepodařilo automaticky najít, což je obvykle způsobeno spouštěči před spuštěním hry při jejím spuštění přes Steam.",
+                solution: [
+                    `Přidejte pro tuto hru novou položku do $linkedgamesmenu nebo odstraňte všechny položky odkazující na nesprávný spustitelný soubor hry. Jinak zkontrolujte, zda hra podporuje možnost spuštění přes Steam, která obejde spouštěče před spuštěním hry, například <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Zkuste povolit $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Chybějící spustitelný soubor",
+                issue: "Spustitelný soubor hry nebyl nalezen na disku",
+                detail: `Spustitelný soubor spojený s touto hrou nebyl nalezen na disku. Byly zkontrolovány následující spustitelné soubory:`,
+                solution: ["Zkuste ověřit integritu souborů hry prostřednictvím služby Steam nebo hru přeinstalovat."]
+            },
+            notexecutable: {
+                title: "Není spustitelný",
+                issue: `Hře chybí oprávnění ke spuštění`,
+                detail: "Soubor, který Steam používá ke spuštění hry, nelze spustit. Soubor byl nahlášen jako:",
+                solution: ["Chcete-li tento soubor nastavit jako spustitelný, postupujte podle pokynů pro konkrétní distribuci Linuxu."]
+            },
+            notwithininstalldir: {
+                title: "Není v adresáři hry",
+                issue: "Spustitelný soubor není v instalačním adresáři",
+                detail: "V $linkedgamesmenu byla zjištěna položka pro tuto hru, ale propojený spustitelný soubor se nenachází v instalační složce hry, což může znamenat, že není správný.",
+                solution: ["Upravte položku $linkedgamesmenu pro tuto hru a ujistěte se, že odkazuje na správný spustitelný soubor hry."]
+            },
+            wrongplatformpath: {
+                title: "Neplatná cesta ke hře",
+                issue: "Cesta ke hře je neplatná pro aktuální OS",
+                detail: "Zdá se, že cesta ke spustitelnému souboru této hry patří jinému operačnímu systému - možná kvůli konfiguraci zkopírované z jiného počítače nebo nastavení s duálním spouštěním.",
+                solution: [`Nepoužívejte konfiguraci zkopírovanou z jiného počítače/OS, protože pravděpodobně nebude fungovat podle očekávání. Všechna existující <span class="hl">Témata</span> lze mezi platformami importovat/exportovat prostřednictvím nabídky <span class="hl">Přizpůsobení</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Duplicitní položky",
+                issue: "Nalezeny duplicitní položky $linkedgamesmenu",
+                detail: "Tento spustitelný soubor hry je také propojen s $appids v $linkedgamesmenu.",
+                solution: ["Odstraňte jednu z duplicitních položek a ujistěte se, že zbývající položka odkazuje na správný spustitelný soubor hry."]
+            },
+            releasing: {
+                title: "Uvolňování hry",
+                issue: "Hra se uvolňuje",
+                detail: "Tato hra bude brzy uvolněna.",
+                solution: [`Počkejte prosím ještě několik sekund - tečka v ikoně <span class="hl">Systémové lišty</span> se po uvolnění změní z <span class="troubleshooterdialogicon" grey></span> (uvolňování) na <span class="troubleshooterdialogicon" red></span> (neaktivní).`]
+            }
         }
     }
 }

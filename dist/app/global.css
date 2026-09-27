@@ -286,6 +286,10 @@ input[type="password"] {
     content: "* ";
 }
 
+.ttdesc[nostar]::before {
+    content: none;
+}
+
 .ttdesc {
     color: lightgrey;
     font-size: 0.5rem;
@@ -801,4 +805,12 @@ select#themeselect {
     60% { scale: 1.1; }
     70% { scale: 1; }
     to { scale: 1; }
+}
+
+*[adv]:not(body) {
+    display: none;
+}
+
+body[adv] *[adv] {
+    display: grid;
 }

@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "可及性",
             content: {
+                uimode: "介面模式",
+                basic: "基本",
+                advanced: "進階",
                 noanim: "停用應用程式視窗動畫",
                 noupdatedialog: "停用更新對話框",
                 nvda: "啟用 NVDA 支援",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "無法還原備份。",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "釋放等待時間"
+                releasewaittime: "釋放等待時間",
+                logresourceusage: "記錄資源使用情況"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "自訂文字",
                 usegametitle: "使用遊戲標題",
                 customfont: "自訂字型",
-                platcustomtext: "自訂 100% 文字"
+                platcustomtext: "自訂 100% 文字",
+                usecustomtext: "自訂文字",
+                customtextunlockmsg: "解鎖訊息",
+                customtexttitle: "成就標題",
+                customtextdesc: "成就描述"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "文字陰影顏色",
                 fontshadowscale: "字型陰影縮放",
                 fontshadowx: "水平偏移",
-                fontshadowy: "垂直偏移"
+                fontshadowy: "垂直偏移",
+                decorationshadow: "裝飾陰影"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "設定成就統計窗口的版面配置類型",
         statwinunlockonly: "在解鎖成就前保持隱藏成就統計窗口",
         statwinunlockonlydisplaytime: "設定解鎖成就後成就統計窗口顯示的秒數",
-        statwinunlockonlysync: "將成就統計窗口的顯示秒數與目前通知的顯示時間同步"
+        statwinunlockonlysync: "將成就統計窗口的顯示秒數與目前通知的顯示時間同步",
+        logresourceusage: `觸發成就通知時記錄應用程式/系統資源使用統計資料<br><br><span class="ttdesc">這可用於判斷解鎖成就時某些應用程式內的問題是否可能由系統整體負載造成</span>`,
+        decorationshadow: "設定是否也將字型陰影套用至裝飾元素",
+        uimode: `選擇在設定/自訂選單中顯示的選項數量<br><br><span class="ttdesc" nostar><ul><li><span class="hl">基本</span>：僅顯示有限的一組易於使用的介面選項</li><li><span class="hl">進階</span>：顯示所有可用的介面選項</li></ul></span>`,
+        usecustomtext: "設定要在通知中顯示的自訂訊息",
+        customtextunlockmsg: `設定要在解鎖訊息元素中顯示的自訂訊息<br><br><span class="ttdesc">當自訂 > 預設 > 通知元素 > 解鎖訊息停用時，此選項將會隱藏</span>`,
+        customtexttitle: `設定要在成就標題元素中顯示的自訂訊息<br><br><span class="ttdesc">當自訂 > 預設 > 通知元素 > 成就標題停用時，此選項將會隱藏</span>`,
+        customtextdesc: `設定要在成就描述元素中顯示的自訂訊息<br><br><span class="ttdesc">當自訂 > 預設 > 通知元素 > 成就描述停用時，此選項將會隱藏</span>`
     },
     update: {
         updateavailable: "有可用更新",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `RetroAchievements 網站上的 <span class="hl">遊戲頁面</span> URL —— 即 <span class="hl">game/</span> 之後的數字：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "設為 RetroAchievements 預設項目"
+        }
+    },
+    troubleshooter: {
+        title: "疑難排解",
+        content: {
+            copydata: "複製",
+            noissues: "未發現問題！",
+            noissuessub: "此遊戲應會自動啟動。",
+            manualrelease: `你可以透過 <span class="hl">系統匣</span> > <span class="hl">選項</span> > <span class="hl">啟動遊戲</span> 手動啟動任何遊戲。`,
+            addedvia: "新增方式"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "沒有作用中的程序",
+                issue: "找不到作用中的遊戲程序",
+                detail: "未偵測到與此遊戲相關的可執行檔正在作為執行中的程序。已檢查以下可執行檔：",
+                solution: [
+                    `請嘗試將遊戲的可執行檔新增至 $linkedgamesmenu。`,
+                    `確保 $linkedgamesmenu 中的項目指向正確的可執行檔。`
+                ]
+            },
+            unknownexecutable: {
+                title: "未知的可執行檔",
+                issue: "無法識別遊戲的可執行檔",
+                detail: "無法自動找到遊戲可執行檔的路徑，這通常是因為透過 Steam 啟動遊戲時存在遊戲啟動前的啟動器。",
+                solution: [
+                    `在 $linkedgamesmenu 中為此遊戲新增項目，或移除任何指向錯誤遊戲可執行檔的項目。否則，請檢查遊戲是否支援 Steam 啟動選項，以略過遊戲啟動前的啟動器，例如 <code style="font-size: 0.55rem;">-skiplauncher</code>。`,
+                    `請嘗試啟用 $sanwatcher。`
+                ]
+            },
+            missingexecutable: {
+                title: "缺少可執行檔",
+                issue: "在磁碟上找不到遊戲的可執行檔",
+                detail: `在磁碟上找不到與此遊戲相關的可執行檔。已檢查以下可執行檔：`,
+                solution: ["請嘗試透過 Steam 驗證遊戲檔案的完整性，或重新安裝遊戲。"]
+            },
+            notexecutable: {
+                title: "無法執行",
+                issue: `遊戲缺少執行權限`,
+                detail: "Steam 用來啟動遊戲的檔案無法執行。該檔案回報為：",
+                solution: ["若要讓此檔案可執行，請參閱適用於你的 Linux 發行版的相關說明。"]
+            },
+            notwithininstalldir: {
+                title: "不在遊戲目錄中",
+                issue: "可執行檔不在安裝目錄中",
+                detail: "$linkedgamesmenu 中偵測到此遊戲的項目，但連結的可執行檔並不位於遊戲的安裝資料夾內，這可能表示該檔案並不正確。",
+                solution: ["編輯此遊戲的 $linkedgamesmenu 項目，並確保其指向正確的遊戲可執行檔。"]
+            },
+            wrongplatformpath: {
+                title: "遊戲路徑無效",
+                issue: "遊戲路徑不適用於目前的作業系統",
+                detail: "此遊戲的可執行檔路徑看起來屬於不同的作業系統——可能是因為設定檔從另一台電腦複製而來，或是因為雙系統設定。",
+                solution: [`請勿使用從其他電腦／作業系統複製的設定，因為這很可能無法正常運作。所有現有的 <span class="hl">主題</span> 都可以透過 <span class="hl">自訂器</span> 選單進行跨平台匯入／匯出。`]
+            },
+            duplicatelinkentries: {
+                title: "重複項目",
+                issue: "發現重複的 $linkedgamesmenu 項目",
+                detail: "此遊戲可執行檔也與 $linkedgamesmenu 下的 $appids 建立了連結。",
+                solution: ["移除其中一個重複項目，並確保剩餘的項目指向正確的遊戲可執行檔。"]
+            },
+            releasing: {
+                title: "遊戲正在啟動",
+                issue: "遊戲正在啟動",
+                detail: "此遊戲即將啟動。",
+                solution: [`請再等待幾秒鐘——遊戲啟動後，<span class="hl">系統匣</span> 圖示中的圓點會從 <span class="troubleshooterdialogicon" grey></span>（啟動中）變為 <span class="troubleshooterdialogicon" red></span>（閒置）。`]
+            }
         }
     }
 }

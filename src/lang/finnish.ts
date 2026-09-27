@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Saatavuus",
             content: {
+                uimode: "Käyttöliittymätila",
+                basic: "Perus",
+                advanced: "Edistynyt",
                 noanim: "Poista sovellusikkunan animaatiot käytöstä",
                 noupdatedialog: "Poista päivitysikkuna käytöstä",
                 nvda: "Ota NVDA-tuki käyttöön",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "Varmuuskopion palautus epäonnistui.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Vapautuksen odotusaika"
+                releasewaittime: "Vapautuksen odotusaika",
+                logresourceusage: "Kirjaa resurssien käyttö"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Mukautettu Teksti",
                 usegametitle: "Käytä Pelin Otsikkoa",
                 customfont: "Mukautettu Fontti",
-                platcustomtext: "Mukautettu 100 % -teksti"
+                platcustomtext: "Mukautettu 100 % -teksti",
+                usecustomtext: "Mukautettu teksti",
+                customtextunlockmsg: "Avausviesti",
+                customtexttitle: "Saavutuksen otsikko",
+                customtextdesc: "Saavutuksen kuvaus"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Varjon Väri",
                 fontshadowscale: "Fontin varjon skaala",
                 fontshadowx: "Vaakasuora Siirtymä",
-                fontshadowy: "Pystysuora Siirtymä"
+                fontshadowy: "Pystysuora Siirtymä",
+                decorationshadow: "Koristeen varjo"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Aseta Saavutustilastojen ikkuna -asettelun tyyppi",
         statwinunlockonly: "Pidä Saavutustilastojen ikkuna piilotettuna, kunnes saavutus avataan",
         statwinunlockonlydisplaytime: "Aseta, kuinka monta sekuntia Saavutustilastojen ikkuna näkyy saavutuksen avaamisen jälkeen",
-        statwinunlockonlysync: "Synkronoi Saavutustilastojen ikkuna näkyvissäoloaika nykyisen ilmoituksen näyttöajan kanssa"
+        statwinunlockonlysync: "Synkronoi Saavutustilastojen ikkuna näkyvissäoloaika nykyisen ilmoituksen näyttöajan kanssa",
+        logresourceusage: `Kirjaa sovelluksen/järjestelmän resurssien käyttötilastot, kun saavutusilmoitukset käynnistyvät<br><br><span class="ttdesc">Tämän avulla voidaan selvittää, voivatko tietyt sovelluksen sisäiset ongelmat johtua järjestelmän kokonaiskuormasta, kun saavutuksia avataan</span>`,
+        decorationshadow: "Määritä, käytetäänkö fontin varjoa myös koriste-elementtiin",
+        uimode: `Valitse Asetukset/Mukauttaminen-valikoissa näytettävien vaihtoehtojen määrä<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Perus</span>: Näytä vain rajallinen määrä helppokäyttöisiä käyttöliittymäasetuksia</li><li><span class="hl">Edistynyt</span>: Näytä kaikki käytettävissä olevat käyttöliittymäasetukset</li></ul></span>`,
+        usecustomtext: "Määritä ilmoituksessa näytettävät mukautetut viestit",
+        customtextunlockmsg: `Määritä mukautettu viesti, joka näytetään Avausviesti-elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Avausviesti on poistettu käytöstä</span>`,
+        customtexttitle: `Määritä mukautettu viesti, joka näytetään Saavutuksen otsikko -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen otsikko on poistettu käytöstä</span>`,
+        customtextdesc: `Määritä mukautettu viesti, joka näytetään Saavutuksen kuvaus -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen kuvaus on poistettu käytöstä</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `RetroAchievements-sivuston <span class="hl">pelisivun</span> <span class="hl">URL-osoitteen</span> – numero löytyy kohdan <span class="hl">game/</span> jälkeen: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Aseta oletukseksi RetroAchievementsille"
+        }
+    },
+    troubleshooter: {
+        title: "Vianmääritys",
+        content: {
+            copydata: "Kopioi",
+            noissues: "Ongelmia ei löytynyt!",
+            noissuessub: "Tämän pelin pitäisi vapautua automaattisesti.",
+            manualrelease: `Voit vapauttaa minkä tahansa pelin manuaalisesti <span class="hl">Järjestelmäalue</span> > <span class="hl">Asetukset</span> > <span class="hl">Vapauta peli</span> -valikosta.`,
+            addedvia: "Lisäystapa"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Ei aktiivisia prosesseja",
+                issue: "Aktiivista peliprosessia ei löytynyt",
+                detail: "Tähän peliin liittyvää suoritettavaa tiedostoa ei havaita käynnissä olevana prosessina. Seuraavat suoritettavat tiedostot tarkistettiin:",
+                solution: [
+                    `Yritä lisätä pelin suoritettava tiedosto kohteeseen $linkedgamesmenu.`,
+                    `Varmista, että kohteen $linkedgamesmenu merkintä osoittaa oikeaan suoritettavaan tiedostoon.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Suoritettava tiedosto tuntematon",
+                issue: "Pelin suoritettavaa tiedostoa ei voitu tunnistaa",
+                detail: "Pelin suoritettavan tiedoston polkua ei voitu löytää automaattisesti. Tämä johtuu yleensä pelin käynnistämistä edeltävistä käynnistysohjelmista, kun peli käynnistetään Steamin kautta.",
+                solution: [
+                    `Lisää tälle pelille uusi merkintä kohteeseen $linkedgamesmenu tai poista merkinnät, jotka osoittavat väärään pelin suoritettavaan tiedostoon. Tarkista muussa tapauksessa, tukeeko peli Steamin käynnistysasetusta, jolla pelin käynnistämistä edeltävät käynnistysohjelmat voidaan ohittaa, kuten <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Yritä ottaa $sanwatcher käyttöön.`
+                ]
+            },
+            missingexecutable: {
+                title: "Suoritettava tiedosto puuttuu",
+                issue: "Pelin suoritettavaa tiedostoa ei löytynyt levyltä",
+                detail: `Tähän peliin liittyvää suoritettavaa tiedostoa ei löytynyt levyltä. Seuraavat suoritettavat tiedostot tarkistettiin:`,
+                solution: ["Yritä tarkistaa pelitiedostojen eheys Steamin kautta tai asentaa peli uudelleen."]
+            },
+            notexecutable: {
+                title: "Ei suoritettavissa",
+                issue: `Peliltä puuttuu suoritusoikeus`,
+                detail: "Tiedostoa, jota Steam käyttää pelin käynnistämiseen, ei voida suorittaa. Tiedoston ilmoitettiin olevan:",
+                solution: ["Katso oman Linux-jakelusi ohjeista, miten tästä tiedostosta tehdään suoritettava."]
+            },
+            notwithininstalldir: {
+                title: "Ei pelihakemistossa",
+                issue: "Suoritettava tiedosto ei ole asennushakemistossa",
+                detail: "Kohteesta $linkedgamesmenu löytyi tätä peliä koskeva merkintä, mutta linkitetty suoritettava tiedosto ei sijaitse pelin asennuskansiossa, mikä saattaa tarkoittaa, ettei se ole oikea tiedosto.",
+                solution: ["Muokkaa tämän pelin $linkedgamesmenu-merkintää ja varmista, että se osoittaa oikeaan pelin suoritettavaan tiedostoon."]
+            },
+            wrongplatformpath: {
+                title: "Virheellinen pelipolku",
+                issue: "Pelipolku ei kelpaa nykyiselle käyttöjärjestelmälle",
+                detail: "Tämän pelin suoritettavan tiedoston polku näyttää kuuluvan eri käyttöjärjestelmälle – mahdollisesti toiselta tietokoneelta kopioidun määrityksen tai kaksoiskäynnistysasetuksen vuoksi.",
+                solution: [`Älä käytä toiselta tietokoneelta/käyttöjärjestelmästä kopioitua määritystä, sillä se ei todennäköisesti toimi odotetulla tavalla. Kaikki olemassa olevat <span class="hl">Teemat</span> voidaan tuoda/viedä eri käyttöjärjestelmien välillä <span class="hl">Mukauttaja</span>-valikon kautta.`]
+            },
+            duplicatelinkentries: {
+                title: "Päällekkäiset merkinnät",
+                issue: "Kohteesta $linkedgamesmenu löytyi päällekkäisiä merkintöjä",
+                detail: "Tämä pelin suoritettava tiedosto on linkitetty myös kohteeseen $appids kohdassa $linkedgamesmenu.",
+                solution: ["Poista toinen päällekkäisistä merkinnöistä ja varmista, että jäljelle jäävä merkintä osoittaa oikeaan pelin suoritettavaan tiedostoon."]
+            },
+            releasing: {
+                title: "Pelin vapauttaminen",
+                issue: "Peliä vapautetaan",
+                detail: "Tämä peli vapautetaan pian.",
+                solution: [`Odota vielä muutama sekunti – <span class="hl">Järjestelmäalue</span>-kuvakkeen piste muuttuu tilasta <span class="troubleshooterdialogicon" grey></span> (vapautetaan) tilaan <span class="troubleshooterdialogicon" red></span> (joutilaana), kun peli on vapautettu.`]
+            }
         }
     }
 }

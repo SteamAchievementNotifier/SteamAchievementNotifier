@@ -103,6 +103,9 @@ sanhelper.beta && sanhelper.checkbetastatus()
 
 ipcRenderer.on("noshortcuts",(event,value: boolean) => document.body.toggleAttribute("noshortcuts",value))
 
+document.body.toggleAttribute("adv",config.get("uimode") === "advanced")
+ipcRenderer.on("uimode",(event,value: "basic" | "advanced") => document.body.toggleAttribute("adv",value === "advanced"))
+
 window.addEventListener("DOMContentLoaded",() => setTimeout(async () => {
     const monitorslist = await monitors.get()
     sanhelper.devmode && console.log(monitorslist)
@@ -770,10 +773,6 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
     const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
     const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
 
-    const { testnotifycustomtext, testnotifycustomtexttitle, testnotifycustomtextdesc } = config.store
-    const titleoverride = testnotifycustomtext ? testnotifycustomtexttitle : null
-    const descoverride = testnotifycustomtext ? testnotifycustomtextdesc : null
-
     const notify: Notify = {
         id: Math.round(Date.now() / Math.random() * 1000),
         customisation: customisation,
@@ -781,8 +780,8 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
         steam3id: window.steam3id,
         type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
-        name: titleoverride || (type === "plat" ? "" : `Steam Achievement Notifier`),
-        desc: descoverride || (type === "plat" ? "" : await language.get("achievementdesc")),
+        name: config.get(`customisation.${type}.customtexttitle`) as string || (type === "plat" ? "" : `Steam Achievement Notifier`),
+        desc: config.get(`customisation.${type}.customtextdesc`) as string || (type === "plat" ? "" : await language.get("achievementdesc")),
         unlocked: true,
         hidden: customisation.previewhiddenicon,
         percent: type !== "plat" ? (type === "rare" ? config.get("rarity") : config.get("trophymode") && type === "semi" ? config.get("semirarity") : 50.0) : 0,
@@ -1095,68 +1094,7 @@ ipcRenderer.on("errnotifyclick",async (event,appid: number,{ channel, skipnotify
     
     if (!appid || channel === "workercrash") return ipcRenderer.send(ra ? "rastop" : "validateworker",ra)
     
-    const { usesanwatcher } = config.store
-    const menutype = `${usesanwatcher ? "linked" : "autorelease"}game` as const
-    const content = ["linkgame","content"]
-    
-    dialog.open({
-        title: await language.get(skipnotify ? menutype : "noexe",content),
-        type: "default",
-        icon: sanhelper.setfilepath("icon",`${skipnotify ? "link" : "error"}.svg`),
-        sub: [
-            await language.get(`${skipnotify ? `${menutype}focus` : "noexedialog"}sub`,content),
-            (await language.get("focussub",content) as string).replace(/\$linkgame/,await language.get(`${menutype}s`,["settings","games","content"])),
-            await language.get("linkgamehelplink",content)
-        ],
-        addHTML: `<span id="noexeclick"></span>`,
-        buttons: [{
-            id: "addlink",
-            label: await language.get("link",content),
-            icon: sanhelper.setfilepath("icon","newlink.svg"),
-            click: async () => {
-                const { getFocusedWinPath } = await import("sanhelper.rs")
-                let count = 5
-                const addlinkbtn = document.getElementById("addlinkbtn") as HTMLButtonElement
-            
-                addlinkbtn.setAttribute("timer",`${count}`)
-
-                const timer: NodeJS.Timeout = setInterval(() => {
-                    count--
-
-                    if (!count) {
-                        let winpath = getFocusedWinPath().replace(/\\/g,"/")
-                        winpath.endsWith("electron.exe") && (winpath = "")
-
-                        // Re-check `appid` is not 0 (i.e. game is still open) before writing to localStorage
-                        if (!winpath || !appid) {
-                            ipcRenderer.send("errnotify",{ channel: "addlinkfailed" } as ErrNotify)
-                        } else {
-                            const lsobj = JSON.parse(localStorage.getItem("linkgame")!)
-                            lsobj[window.appid] = winpath
-
-                            localStorage.setItem("linkgame",JSON.stringify(lsobj,null,4))
-                            log.write("INFO",`"${appid}" written to "linkgame" localStorage object successfully`)
-                        }
-
-                        addlinkbtn.removeAttribute("timer")
-                        clearInterval(timer)
-                        
-                        if (winpath && window.appid) {
-                            dialog.close()
-                            ipcRenderer.send("releasegame",true)
-                        }
-
-                        return
-                    }
-
-                    addlinkbtn.setAttribute("timer",`${count}`)
-                },1000)
-            }
-        }]
-    })
-
-    sanhelper.sethelpdialog(document.getElementById("linkgamehelp")!,"linkgamehelp",content)
-    document.querySelector(".wrapper#contentcontainer:has(#noexeclick)")!.toggleAttribute("autorelease",skipnotify)
+    ipcRenderer.send("troubleshooter")
 })
 
 ipcRenderer.on("ragame",async (event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => {
@@ -1226,4 +1164,58 @@ ipcRenderer.on("activeprocesses",(event,appid: number,activeprocesses: boolean,l
     
     log.write(activeprocesses ? "INFO" : "WARN",activeprocesses ? `Active ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} found for AppID ${appid}` : `Waiting for ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} for AppID ${appid} to start...`)
     gamedisplayelem.toggleAttribute("waiting",!activeprocesses)
+})
+
+ipcRenderer.on("troubleshooter",async (event,data: TroubleshooterData,result: TroubleshooterResult[]) => {
+    dialog.open({
+        type: "default",
+        title: "Troubleshoot",
+        icon: sanhelper.setfilepath("icon","troubleshoot.svg"),
+        addHTML: `<div class="wrapper" id="troubleshooterinfobox"></div><span id="manualreleasereminder">💡 ${await language.get("manualrelease",["troubleshooter","content"])}</span>`,
+        buttons: [{
+            id: "copytroubleshooterdata",
+            label: await language.get("copydata",["troubleshooter","content"]),
+            icon: sanhelper.setfilepath("icon","clipboard.svg"),
+            click: () => ipcRenderer.send("copytroubleshooterdata",{ data, result })
+        }]
+    })
+
+    const troubleshooterinfobox = document.querySelector("dialog .addhtml > .wrapper#troubleshooterinfobox") as HTMLElement
+    const results = Object.values(result)
+
+    if (!results.length) {
+        const html = `<div class="troubleshooterresult" ok>
+            <span>🎉 ${await language.get("noissues",["troubleshooter","content"])}</span>
+            <span>${await language.get("noissuessub",["troubleshooter","content"])}</span>
+        </div>`
+        troubleshooterinfobox.insertAdjacentHTML("beforeend",html)
+
+        return
+    }
+
+    let i = 0
+
+    for (const result of results) {
+        const html = `<button class="troubleshooterresult" id="${result.id}" ${result.type}>${result.msg.issue}</button>`
+        troubleshooterinfobox.insertAdjacentHTML("beforeend",html)
+
+        const btn = troubleshooterinfobox.querySelector(`#${result.id}`) as HTMLSpanElement
+        
+        btn.style.setProperty("--elemdelay",`${i / 4}s`)
+        btn.onclick = async event => {
+            const target = event.target as HTMLButtonElement
+            
+            dialog.open({
+                title: await language.get("title",["troubleshooter","rules",target.id]),
+                type: "default",
+                icon: sanhelper.setfilepath("icon",`${target.hasAttribute("info") ? "info" : (target.hasAttribute("warning") ? "warning" : "error")}.svg`),
+                sub: [
+                    `${target.hasAttribute("info") ? "💡" : "❌"} ${result.msg.detail}`,
+                    `✅ ${result.msg.solution}`
+                ]
+            })
+        }
+        
+        i++
+    }
 })

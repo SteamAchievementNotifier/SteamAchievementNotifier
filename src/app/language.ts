@@ -148,8 +148,10 @@ export const language = {
                     })
                 })
 
+                customisercontent.querySelectorAll(`.sub:has([id^="usegametitle"]) > input[type="checkbox"]`).forEach(input => langmap.set(input.parentElement!.querySelector("span")!,customiser.preset.content.usegametitle))
+
                 const themeselect = customisercontent.querySelector(`#customiseropts > .opt:has(select) > select`)!
-                langmap.set(themeselect.parentElement!.querySelector(`span`)!,customiser.theme.content[themeselect.id])
+                langmap.set(themeselect.parentElement!.querySelector("span")!,customiser.theme.content[themeselect.id])
             }
 
             langmap.forEach((value,elem) => {

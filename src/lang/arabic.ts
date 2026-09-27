@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "سهولة الوصول",
             content: {
+                uimode: "وضع واجهة المستخدم",
+                basic: "أساسي",
+                advanced: "متقدم",
                 noanim: "تعطيل الرسوم المتحركة لنافذة التطبيق",
                 noupdatedialog: "تعطيل مربع حوار التحديث",
                 nvda: "تمكين دعم NVDA",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "تعذر استعادة النسخ الاحتياطي.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "وقت انتظار الإصدار"
+                releasewaittime: "وقت انتظار الإصدار",
+                logresourceusage: "تسجيل استخدام الموارد"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "النص المخصص",
                 usegametitle: "استخدام عنوان اللعبة",
                 customfont: "الخط المخصص",
-                platcustomtext: "نص مخصص لإكمال 100%"
+                platcustomtext: "نص مخصص لإكمال 100%",
+                usecustomtext: "نص مخصص",
+                customtextunlockmsg: "رسالة فتح القفل",
+                customtexttitle: "عنوان الإنجاز",
+                customtextdesc: "وصف الإنجاز"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "لون ظل الخط",
                 fontshadowscale: "مقياس ظل الخط",
                 fontshadowx: "الإزاحة الأفقية",
-                fontshadowy: "الإزاحة الرأسية"
+                fontshadowy: "الإزاحة الرأسية",
+                decorationshadow: "ظل الزخرفة"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "تعيين نوع تخطيط نافذة إحصائيات الإنجازات",
         statwinunlockonly: "إبقاء نافذة إحصائيات الإنجازات مخفية حتى يتم فتح إنجاز",
         statwinunlockonlydisplaytime: "تعيين عدد الثواني التي ستظهر فيها نافذة إحصائيات الإنجازات بعد فتح إنجاز",
-        statwinunlockonlysync: "مزامنة عدد الثواني التي ستظهر فيها نافذة إحصائيات الإنجازات مع مدة عرض الإشعار الحالي"
+        statwinunlockonlysync: "مزامنة عدد الثواني التي ستظهر فيها نافذة إحصائيات الإنجازات مع مدة عرض الإشعار الحالي",
+        logresourceusage: `تسجيل إحصائيات استخدام موارد التطبيق/النظام عند تشغيل إشعارات الإنجازات<br><br><span class="ttdesc">يمكن استخدام هذا لتحديد ما إذا كانت بعض المشكلات داخل التطبيق قد تكون ناتجة عن الحمل الإجمالي على النظام عند فتح الإنجازات</span>`,
+        decorationshadow: "تحديد ما إذا كان ظل الخط يُطبَّق أيضًا على عنصر الزخرفة",
+        uimode: `تحديد عدد الخيارات المعروضة في قوائم الإعدادات/التخصيص<br><br><span class="ttdesc" nostar><ul><li><span class="hl">أساسي</span>: عرض مجموعة محدودة فقط من خيارات واجهة المستخدم سهلة الاستخدام</li><li><span class="hl">متقدم</span>: عرض جميع خيارات واجهة المستخدم المتاحة</li></ul></span>`,
+        usecustomtext: "تعيين رسائل مخصصة ليتم عرضها داخل الإشعار",
+        customtextunlockmsg: `تعيين رسالة مخصصة ليتم عرضها داخل عنصر رسالة فتح القفل<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل التخصيص > الإعداد المسبق > عناصر الإشعار > رسالة فتح القفل</span>`,
+        customtexttitle: `تعيين رسالة مخصصة ليتم عرضها داخل عنصر عنوان الإنجاز<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل التخصيص > الإعداد المسبق > عناصر الإشعار > عنوان الإنجاز</span>`,
+        customtextdesc: `تعيين رسالة مخصصة ليتم عرضها داخل وصف الإنجاز<br><br><span class="ttdesc">سيتم إخفاء هذا الخيار عند تعطيل التخصيص > الإعداد المسبق > عناصر الإشعار > وصف الإنجاز</span>`
     },
     update: {
         updateavailable: "تحديث متاح",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `عنوان <span class="hl">URL</span> الخاص <span class="hl">بصفحة اللعبة</span> على موقع RetroAchievements — سيكون الرقم الموجود بعد <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "تعيين كافتراضي لـ RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "استكشاف الأخطاء وإصلاحها",
+        content: {
+            copydata: "نسخ",
+            noissues: "لم يتم العثور على أي مشاكل!",
+            noissuessub: "من المفترض أن يتم إصدار هذه اللعبة تلقائيًا.",
+            manualrelease: `يمكنك إصدار أي لعبة يدويًا عبر <span class="hl">علبة النظام</span> > <span class="hl">الخيارات</span> > <span class="hl">إصدار اللعبة</span>.`,
+            addedvia: "تمت الإضافة عبر"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "لا توجد عمليات نشطة",
+                issue: "لم يتم العثور على عملية نشطة للعبة",
+                detail: "لم يتم اكتشاف الملف التنفيذي المرتبط بهذه اللعبة كعملية قيد التشغيل. تم التحقق من الملفات التنفيذية التالية:",
+                solution: [
+                    `حاول إضافة الملف التنفيذي للعبة إلى $linkedgamesmenu.`,
+                    `تأكد من أن الإدخال ضمن $linkedgamesmenu يشير إلى الملف التنفيذي الصحيح.`
+                ]
+            },
+            unknownexecutable: {
+                title: "الملف التنفيذي غير معروف",
+                issue: "تعذر تحديد الملف التنفيذي للعبة",
+                detail: "تعذر تحديد مسار الملف التنفيذي للعبة تلقائيًا، ويحدث ذلك عادةً بسبب مشغلات ما قبل تشغيل اللعبة عند تشغيل اللعبة عبر Steam.",
+                solution: [
+                    `أضف إدخالًا جديدًا لهذه اللعبة إلى $linkedgamesmenu، أو أزل أي إدخالات تشير إلى ملف تنفيذي غير صحيح للعبة. وإلا، فتحقق مما إذا كانت اللعبة تدعم خيار تشغيل عبر Steam لتجاوز مشغلات ما قبل التشغيل، مثل <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `حاول تمكين $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "الملف التنفيذي مفقود",
+                issue: "لم يتم العثور على الملف التنفيذي للعبة على القرص",
+                detail: `تعذر العثور على الملف التنفيذي المرتبط بهذه اللعبة على القرص. تم التحقق من الملفات التنفيذية التالية:`,
+                solution: ["حاول التحقق من سلامة ملفات اللعبة عبر Steam أو إعادة تثبيت اللعبة."]
+            },
+            notexecutable: {
+                title: "غير قابل للتنفيذ",
+                issue: `اللعبة تفتقد إلى إذن التنفيذ`,
+                detail: "الملف الذي يستخدمه Steam لتشغيل اللعبة غير قابل للتنفيذ. تم الإبلاغ عن الملف باعتباره:",
+                solution: ["لجعل هذا الملف قابلًا للتنفيذ، راجع التعليمات الخاصة بتوزيعة Linux التي تستخدمها."]
+            },
+            notwithininstalldir: {
+                title: "ليس في مجلد اللعبة",
+                issue: "الملف التنفيذي ليس في مجلد التثبيت",
+                detail: "تم اكتشاف إدخال لهذه اللعبة ضمن $linkedgamesmenu، ولكن الملف التنفيذي المرتبط لا يوجد داخل مجلد تثبيت اللعبة، مما قد يشير إلى أنه ليس الملف الصحيح.",
+                solution: ["عدّل إدخال $linkedgamesmenu لهذه اللعبة وتأكد من أنه يشير إلى الملف التنفيذي الصحيح للعبة."]
+            },
+            wrongplatformpath: {
+                title: "مسار اللعبة غير صالح",
+                issue: "مسار اللعبة غير صالح لنظام التشغيل الحالي",
+                detail: "يبدو أن مسار الملف التنفيذي لهذه اللعبة ينتمي إلى نظام تشغيل مختلف - ربما بسبب إعدادات تم نسخها من جهاز آخر أو إعداد تمهيد مزدوج.",
+                solution: [`لا تستخدم إعدادات تم نسخها من جهاز/نظام تشغيل آخر، لأن ذلك على الأرجح لن يعمل كما هو متوقع. يمكن استيراد/تصدير جميع <span class="hl">السمات</span> الموجودة عبر الأنظمة الأساسية من خلال قائمة <span class="hl">التخصيص</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "إدخالات مكررة",
+                issue: "تم العثور على إدخالات $linkedgamesmenu مكررة",
+                detail: "هذا الملف التنفيذي للعبة مرتبط أيضًا بـ $appids ضمن $linkedgamesmenu.",
+                solution: ["أزل أحد الإدخالات المكررة وتأكد من أن الإدخال المتبقي يشير إلى الملف التنفيذي الصحيح للعبة."]
+            },
+            releasing: {
+                title: "جارٍ إصدار اللعبة",
+                issue: "جارٍ إصدار اللعبة",
+                detail: "سيتم إصدار هذه اللعبة قريبًا.",
+                solution: [`يرجى الانتظار لبضع ثوانٍ إضافية - ستتغير النقطة الموجودة في أيقونة <span class="hl">علبة النظام</span> من <span class="troubleshooterdialogicon" grey></span> (جارٍ الإصدار) إلى <span class="troubleshooterdialogicon" red></span> (خامل) بمجرد إصدار اللعبة.`]
+            }
         }
     }
 }

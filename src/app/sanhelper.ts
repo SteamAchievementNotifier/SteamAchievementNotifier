@@ -383,6 +383,7 @@ export const sanhelper: SANHelper = {
     statwinunlockonly: (value: boolean) => ipcRenderer.send("statwinunlockonly",value),
     gametimerwin: (value: boolean) => ipcRenderer.send("gametimerwin",value),
     gametimerwinaot: (value: boolean) => ipcRenderer.send("gametimerwinaot",value),
+    uimode: (value: "basic" | "advanced") => ipcRenderer.send("uimode",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     noshortcuts: (value: boolean) => ipcRenderer.send("shortcut",!value),
@@ -502,21 +503,6 @@ export const sanhelper: SANHelper = {
 
             return
         }
-
-        if (elem.id === "platcustomtext") {
-            elem.value = sanhelper.type as NotifyType === "plat" ? (config.get("platcustomtext") || "") : ""
-            
-            elem.onchange = event => {
-                const target = event.target as HTMLInputElement
-                
-                config.set("platcustomtext",target.value ?? "")
-
-                sanhelper.updatetabs()
-                sanhelper.reloadelemselector()
-            }
-            
-            return
-        }
         
         if ((["title","desc"] as const).map(value => `testnotifycustomtext${value}` as const).some(value => value === elem.id)) {
             elem.value = (config.get(elem.id) || "") as string
@@ -584,6 +570,7 @@ export const sanhelper: SANHelper = {
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
             elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
             elem.id === "rauser" && ipcRenderer.emit("ra") // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
+            elem.id === "uimode" && sanhelper.uimode(config.get("uimode"))
             
             // Updates labels and tooltips for percentage-based options while Customiser is open
             // Also ensures Silver Percentage value is always reset to be above the Rare Percentage value on change
@@ -1006,7 +993,7 @@ export const sanhelper: SANHelper = {
                 #customisercontent select,
                 #customisercontent .rect
             `)!.forEach(async elem => {
-                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : elem.id,["tooltips"])
+                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : (elem.id.startsWith("usegametitle") ? "usegametitle" : elem.id),["tooltips"])
 
                 for (const id of rarityids) {
                     if (!elem.id.startsWith(id)) continue

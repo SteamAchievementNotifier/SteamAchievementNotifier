@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Erişilebilirlik",
             content: {
+                uimode: "Arayüz Modu",
+                basic: "Temel",
+                advanced: "Gelişmiş",
                 noanim: "Uygulama Pencere Animasyonlarını Devre Dışı Bırak",
                 noupdatedialog: "Güncelleme İletişim Kutusunu Devre Dışı Bırak",
                 nvda: "NVDA Desteğini Etkinleştir",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "Yedekleme geri yüklenemedi.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Serbest Bırakma Bekleme Süresi"
+                releasewaittime: "Serbest Bırakma Bekleme Süresi",
+                logresourceusage: "Kaynak Kullanımını Günlüğe Kaydet"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Özel Metin",
                 usegametitle: "Oyun Başlığını Kullan",
                 customfont: "Özel Font",
-                platcustomtext: "Özel %100 Metni"
+                platcustomtext: "Özel %100 Metni",
+                usecustomtext: "Özel Metin",
+                customtextunlockmsg: "Kilidi Açma Mesajı",
+                customtexttitle: "Başarım Başlığı",
+                customtextdesc: "Başarım Açıklaması"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Yazı Gölgesi Rengi",
                 fontshadowscale: "Yazı Tipi Gölgesi Ölçeği",
                 fontshadowx: "Yatay Ofset",
-                fontshadowy: "Dikey Ofset"
+                fontshadowy: "Dikey Ofset",
+                decorationshadow: "Dekorasyon Gölgesi"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Başarı İstatistikleri Penceresi düzen türünü ayarla",
         statwinunlockonly: "Bir başarının kilidi açılana kadar Başarı İstatistikleri Penceresini gizli tut",
         statwinunlockonlydisplaytime: "Bir başarının kilidi açıldığında Başarı İstatistikleri Penceresinin görüntüleneceği saniye sayısını ayarla",
-        statwinunlockonlysync: "Başarı İstatistikleri Penceresinin görüntüleneceği saniye sayısını mevcut bildirimin Görüntüleme Süresi ile senkronize et"
+        statwinunlockonlysync: "Başarı İstatistikleri Penceresinin görüntüleneceği saniye sayısını mevcut bildirimin Görüntüleme Süresi ile senkronize et",
+        logresourceusage: `Başarım bildirimleri tetiklendiğinde uygulama/sistem kaynak kullanım istatistiklerini günlüğe kaydet<br><br><span class="ttdesc">Bu, başarımların kilidi açılırken uygulama içindeki belirli sorunların toplam sistem yükünden kaynaklanıp kaynaklanmadığını belirlemek için kullanılabilir</span>`,
+        decorationshadow: "Yazı Tipi Gölgesinin Dekorasyon öğesine de uygulanıp uygulanmayacağını belirle",
+        uimode: `Ayarlar/Özelleştirici menülerinde görüntülenecek seçenek sayısını seç<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Temel</span>: Yalnızca sınırlı sayıda kullanıcı dostu arayüz seçeneğini görüntüle</li><li><span class="hl">Gelişmiş</span>: Kullanılabilir tüm arayüz seçeneklerini görüntüle</li></ul></span>`,
+        usecustomtext: "Bildirim içinde görüntülenecek özel mesajları ayarla",
+        customtextunlockmsg: `Kilidi Açma Mesajı öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Kilidi Açma Mesajı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
+        customtexttitle: `Başarım Başlığı öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Başlığı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
+        customtextdesc: `Başarım Açıklaması öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `RetroAchievements sitesindeki <span class="hl">oyun sayfasının</span> URL'sine bakın — <span class="hl">game/</span> ifadesinden sonra gelen sayı GameID'dir: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "RetroAchievements için varsayılan olarak ayarla"
+        }
+    },
+    troubleshooter: {
+        title: "Sorun Giderici",
+        content: {
+            copydata: "Kopyala",
+            noissues: "Hiçbir sorun bulunamadı!",
+            noissuessub: "Bu oyun otomatik olarak başlatılmalıdır.",
+            manualrelease: `Herhangi bir oyunu <span class="hl">Sistem Tepsisi</span> > <span class="hl">Seçenekler</span> > <span class="hl">Oyunu Başlat</span> üzerinden manuel olarak başlatabilirsiniz.`,
+            addedvia: "Eklendiği yer"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Etkin işlem yok",
+                issue: "Etkin oyun işlemi bulunamadı",
+                detail: "Bu oyunla ilişkili çalıştırılabilir dosya, çalışan bir işlem olarak algılanmıyor. Aşağıdaki çalıştırılabilir dosyalar kontrol edildi:",
+                solution: [
+                    `Oyunun çalıştırılabilir dosyasını $linkedgamesmenu öğesine eklemeyi deneyin.`,
+                    `$linkedgamesmenu altındaki girdinin doğru çalıştırılabilir dosyayı gösterdiğinden emin olun.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Çalıştırılabilir dosya bilinmiyor",
+                issue: "Oyun çalıştırılabilir dosyası belirlenemedi",
+                detail: "Oyunun çalıştırılabilir dosyasının yolu otomatik olarak bulunamadı. Bu durum genellikle oyun Steam üzerinden başlatılırken oyun öncesi başlatıcılar nedeniyle oluşur.",
+                solution: [
+                    `Bu oyun için $linkedgamesmenu öğesine yeni bir girdi ekleyin veya yanlış bir oyun çalıştırılabilir dosyasına işaret eden girdileri kaldırın. Alternatif olarak, oyunun oyun öncesi başlatıcıları atlamak için Steam başlatma seçeneğini destekleyip desteklemediğini kontrol edin; örneğin <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `$sanwatcher özelliğini etkinleştirmeyi deneyin.`
+                ]
+            },
+            missingexecutable: {
+                title: "Çalıştırılabilir dosya eksik",
+                issue: "Oyun çalıştırılabilir dosyası diskte bulunamadı",
+                detail: `Bu oyunla ilişkili çalıştırılabilir dosya diskte bulunamadı. Aşağıdaki çalıştırılabilir dosyalar kontrol edildi:`,
+                solution: ["Steam üzerinden oyun dosyalarının bütünlüğünü doğrulamayı veya oyunu yeniden yüklemeyi deneyin."]
+            },
+            notexecutable: {
+                title: "Çalıştırılamıyor",
+                issue: `Oyunda çalıştırma izni eksik`,
+                detail: "Steam'in oyunu başlatmak için kullandığı dosya çalıştırılamıyor. Dosya şu şekilde bildirildi:",
+                solution: ["Bu dosyayı çalıştırılabilir hâle getirmek için kullandığınız Linux dağıtımına özel talimatlara başvurun."]
+            },
+            notwithininstalldir: {
+                title: "Oyun dizininde değil",
+                issue: "Çalıştırılabilir dosya kurulum dizininde değil",
+                detail: "$linkedgamesmenu altında bu oyun için bir girdi algılandı, ancak bağlı çalıştırılabilir dosya oyunun kurulum klasörünün içinde bulunmuyor. Bu, dosyanın doğru dosya olmadığını gösterebilir.",
+                solution: ["Bu oyun için $linkedgamesmenu girdisini düzenleyin ve doğru oyun çalıştırılabilir dosyasını gösterdiğinden emin olun."]
+            },
+            wrongplatformpath: {
+                title: "Oyun yolu geçersiz",
+                issue: "Oyun yolu mevcut işletim sistemi için geçersiz",
+                detail: "Bu oyunun çalıştırılabilir dosyasının yolu farklı bir işletim sistemine ait gibi görünüyor; bunun nedeni başka bir bilgisayardan kopyalanmış bir yapılandırma veya çift önyükleme kurulumu olabilir.",
+                solution: [`Başka bir bilgisayardan/işletim sisteminden kopyalanmış bir yapılandırma kullanmayın; bu yapılandırma muhtemelen beklendiği gibi çalışmayacaktır. Mevcut tüm <span class="hl">Temalar</span>, <span class="hl">Özelleştirici</span> menüsü üzerinden platformlar arasında içe/dışa aktarılabilir.`]
+            },
+            duplicatelinkentries: {
+                title: "Yinelenen girdiler",
+                issue: "Yinelenen $linkedgamesmenu girdileri bulundu",
+                detail: "Bu oyun çalıştırılabilir dosyası, $linkedgamesmenu altında $appids ile de bağlantılı.",
+                solution: ["Yinelenen girdilerden birini kaldırın ve kalan girdinin doğru oyun çalıştırılabilir dosyasını gösterdiğinden emin olun."]
+            },
+            releasing: {
+                title: "Oyun başlatılıyor",
+                issue: "Oyun başlatılıyor",
+                detail: "Bu oyun başlatılmak üzere.",
+                solution: [`Lütfen birkaç saniye daha bekleyin — oyun başlatıldığında <span class="hl">Sistem Tepsisi</span> simgesindeki nokta <span class="troubleshooterdialogicon" grey></span> (başlatılıyor) durumundan <span class="troubleshooterdialogicon" red></span> (boşta) durumuna geçecektir.`]
+            }
         }
     }
 }

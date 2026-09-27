@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Tillgänglighet",
             content: {
+                uimode: "Gränssnittsläge",
+                basic: "Grundläggande",
+                advanced: "Avancerat",
                 noanim: "Inaktivera appfönsteranimationer",
                 noupdatedialog: "Inaktivera uppdateringsdialog",
                 nvda: "Aktivera NVDA-stöd",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "Kunde inte återställa säkerhetskopian.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Väntetid för frigöring"
+                releasewaittime: "Väntetid för frigöring",
+                logresourceusage: "Logga resursanvändning"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Anpassad text",
                 usegametitle: "Använd speltitel",
                 customfont: "Anpassad typsnitt",
-                platcustomtext: "Anpassad 100%-text"
+                platcustomtext: "Anpassad 100%-text",
+                usecustomtext: "Anpassad text",
+                customtextunlockmsg: "Upplåsningsmeddelande",
+                customtexttitle: "Prestationstitel",
+                customtextdesc: "Prestationsbeskrivning"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Typsnittsskuggans färg",
                 fontshadowscale: "Teckensnittets skuggsalning",
                 fontshadowx: "Horisontell förskjutning",
-                fontshadowy: "Vertikal förskjutning"
+                fontshadowy: "Vertikal förskjutning",
+                decorationshadow: "Dekorationsskugga"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Ställ in layouttypen för Prestationstatistikfönster",
         statwinunlockonly: "Håll Prestationstatistikfönster dolt tills en prestation låses upp",
         statwinunlockonlydisplaytime: "Ställ in hur många sekunder Prestationstatistikfönster ska visas när en prestation har låsts upp",
-        statwinunlockonlysync: "Synkronisera antalet sekunder som Prestationstatistikfönster ska visas med den aktuella aviseringens visningstid"
+        statwinunlockonlysync: "Synkronisera antalet sekunder som Prestationstatistikfönster ska visas med den aktuella aviseringens visningstid",
+        logresourceusage: `Logga statistik över appens/systemets resursanvändning när prestationsaviseringar utlöses<br><br><span class="ttdesc">Detta kan användas för att avgöra om vissa problem i appen kan orsakas av den totala systembelastningen när prestationer låses upp</span>`,
+        decorationshadow: "Ange om Teckensnittsskugga även ska tillämpas på dekorationselementet",
+        uimode: `Välj antalet alternativ som visas i menyerna Inställningar/Anpassning<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Grundläggande</span>: Visa endast ett begränsat antal användarvänliga gränssnittsalternativ</li><li><span class="hl">Avancerat</span>: Visa alla tillgängliga gränssnittsalternativ</li></ul></span>`,
+        usecustomtext: "Ange anpassade meddelanden som ska visas i aviseringen",
+        customtextunlockmsg: `Ange ett anpassat meddelande som ska visas i elementet Upplåsningsmeddelande<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Upplåsningsmeddelande är inaktiverat</span>`,
+        customtexttitle: `Ange ett anpassat meddelande som ska visas i elementet Prestationstitel<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationstitel är inaktiverat</span>`,
+        customtextdesc: `Ange ett anpassat meddelande som ska visas i elementet Prestationsbeskrivning<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationsbeskrivning är inaktiverat</span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `URL:en till <span class="hl">spelens sida</span> på RetroAchievements-webbplatsen – det är numret efter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Ange som standard för RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Felsökning",
+        content: {
+            copydata: "Kopiera",
+            noissues: "Inga problem hittades!",
+            noissuessub: "Det här spelet bör startas automatiskt.",
+            manualrelease: `Du kan starta valfritt spel manuellt via <span class="hl">Systemfältet</span> > <span class="hl">Alternativ</span> > <span class="hl">Starta spel</span>.`,
+            addedvia: "Tillagd via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Inga aktiva processer",
+                issue: "Ingen aktiv spelprocess hittades",
+                detail: "Den körbara filen som är kopplad till det här spelet upptäcks inte som en körande process. Följande körbara filer kontrollerades:",
+                solution: [
+                    `Försök lägga till spelets körbara fil i $linkedgamesmenu.`,
+                    `Se till att posten under $linkedgamesmenu pekar på rätt körbar fil.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Okänd körbar fil",
+                issue: "Det gick inte att identifiera spelets körbara fil",
+                detail: "Sökvägen till spelets körbara fil kunde inte hittas automatiskt, vilket vanligtvis orsakas av spelstartare som startas före spelet när spelet startas via Steam.",
+                solution: [
+                    `Lägg till en ny post för det här spelet i $linkedgamesmenu, eller ta bort poster som pekar på en felaktig körbar fil. Kontrollera annars om spelet har stöd för ett startalternativ i Steam som kringgår spelstartare, till exempel <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Försök aktivera $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Körbar fil saknas",
+                issue: "Spelets körbara fil hittades inte på disken",
+                detail: `Den körbara filen som är kopplad till det här spelet kunde inte hittas på disken. Följande körbara filer kontrollerades:`,
+                solution: ["Försök verifiera integriteten hos spelfilerna via Steam eller installera om spelet."]
+            },
+            notexecutable: {
+                title: "Inte körbar",
+                issue: `Spelet saknar körbehörighet`,
+                detail: "Filen som Steam använder för att starta spelet kan inte köras. Filen rapporterades som:",
+                solution: ["För att göra den här filen körbar, se instruktionerna för din specifika Linux-distribution."]
+            },
+            notwithininstalldir: {
+                title: "Inte i spelkatalogen",
+                issue: "Den körbara filen finns inte i installationskatalogen",
+                detail: "En post för det här spelet har upptäckts under $linkedgamesmenu, men den länkade körbara filen finns inte i spelets installationsmapp, vilket kan tyda på att det inte är rätt fil.",
+                solution: ["Redigera posten för det här spelet i $linkedgamesmenu och se till att den pekar på rätt körbara fil."]
+            },
+            wrongplatformpath: {
+                title: "Ogiltig spelsökväg",
+                issue: "Spelsökvägen är ogiltig för det aktuella operativsystemet",
+                detail: "Sökvägen till det här spelets körbara fil verkar tillhöra ett annat operativsystem – möjligen på grund av en konfiguration som kopierats från en annan dator eller en dual-boot-konfiguration.",
+                solution: [`Använd inte en konfiguration som kopierats från en annan dator/OS, eftersom den förmodligen inte kommer att fungera som förväntat. Alla befintliga <span class="hl">Teman</span> kan importeras/exporteras mellan plattformar via menyn <span class="hl">Anpassare</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Dubblettposter",
+                issue: "Dubbletter av $linkedgamesmenu-poster hittades",
+                detail: "Den här körbara spelfilen är också länkad till $appids under $linkedgamesmenu.",
+                solution: ["Ta bort en av dubblettposterna och se till att den återstående posten pekar på rätt körbara spelfil."]
+            },
+            releasing: {
+                title: "Spelet startas",
+                issue: "Spelet startas",
+                detail: "Det här spelet kommer snart att startas.",
+                solution: [`Vänta några sekunder till – punkten i ikonen för <span class="hl">Systemfältet</span> ändras från <span class="troubleshooterdialogicon" grey></span> (startar) till <span class="troubleshooterdialogicon" red></span> (inaktiv) när spelet har startats.`]
+            }
         }
     }
 }

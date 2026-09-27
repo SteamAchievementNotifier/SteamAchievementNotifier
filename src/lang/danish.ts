@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Tilgængelighed",
             content: {
+                uimode: "Brugerfladetilstand",
+                basic: "Grundlæggende",
+                advanced: "Avanceret",
                 noanim: "Deaktiver app-vinduesanimationer",
                 noupdatedialog: "Deaktivér opdateringsdialog",
                 nvda: "Aktivér NVDA-support",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "Kunne ikke gendanne backup.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Ventetid før frigivelse"
+                releasewaittime: "Ventetid før frigivelse",
+                logresourceusage: "Log ressourceforbrug"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Tilpasset tekst",
                 usegametitle: "Brug spiltitel",
                 customfont: "Tilpasset skrifttype",
-                platcustomtext: "Brugerdefineret 100%-tekst"
+                platcustomtext: "Brugerdefineret 100%-tekst",
+                usecustomtext: "Brugerdefineret tekst",
+                customtextunlockmsg: "Oplåsningsbesked",
+                customtexttitle: "Præstationstitel",
+                customtextdesc: "Præstationsbeskrivelse"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Skriftskyggefarve",
                 fontshadowscale: "Skriftskyggens skala",
                 fontshadowx: "Horisontal Offset",
-                fontshadowy: "Vertikal Offset"
+                fontshadowy: "Vertikal Offset",
+                decorationshadow: "Dekorationsskygge"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Indstil layouttypen for Statistik for Præstationsvindue",
         statwinunlockonly: "Hold Statistik for Præstationsvindue skjult, indtil en præstation låses op",
         statwinunlockonlydisplaytime: "Indstil det antal sekunder, Statistik for Præstationsvindue skal vises, efter en præstation er låst op",
-        statwinunlockonlysync: "Synkroniser det antal sekunder, Statistik for Præstationsvindue skal vises, med den aktuelle notifikations visningstid"
+        statwinunlockonlysync: "Synkroniser det antal sekunder, Statistik for Præstationsvindue skal vises, med den aktuelle notifikations visningstid",
+        logresourceusage: `Log statistik over appens/systemets ressourceforbrug, når præstationsnotifikationer udløses<br><br><span class="ttdesc">Dette kan bruges til at afgøre, om bestemte problemer i appen kan skyldes den samlede systembelastning, når præstationer låses op</span>`,
+        decorationshadow: "Angiv, om Skriftskygge også skal anvendes på dekorationselementet",
+        uimode: `Vælg antallet af indstillinger, der vises i menuerne Indstillinger/Tilpasning<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Grundlæggende</span>: Vis kun et begrænset udvalg af brugervenlige brugerfladeindstillinger</li><li><span class="hl">Avanceret</span>: Vis alle tilgængelige brugerfladeindstillinger</li></ul></span>`,
+        usecustomtext: "Angiv brugerdefinerede beskeder, der skal vises i notifikationen",
+        customtextunlockmsg: `Angiv en brugerdefineret besked, der skal vises i elementet Oplåsningsbesked<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Oplåsningsbesked er deaktiveret</span>`,
+        customtexttitle: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationstitel<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationstitel er deaktiveret</span>`,
+        customtextdesc: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationsbeskrivelse<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationsbeskrivelse er deaktiveret</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",
@@ -1065,6 +1081,72 @@ export const translations = {
                 ` <span class="hl">URL'en</span> til <span class="hl">spilsiden</span> på RetroAchievements-webstedet – det er tallet efter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Angiv som standard for RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Fejlfinding",
+        content: {
+            copydata: "Kopiér",
+            noissues: "Ingen problemer fundet!",
+            noissuessub: "Dette spil burde blive frigivet automatisk.",
+            manualrelease: `Du kan frigive ethvert spil manuelt via <span class="hl">Systembakke</span> > <span class="hl">Indstillinger</span> > <span class="hl">Frigiv spil</span>.`,
+            addedvia: "Tilføjet via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Ingen aktive processer",
+                issue: "Ingen aktiv spilproces fundet",
+                detail: "Den eksekverbare fil, der er knyttet til dette spil, bliver ikke registreret som en kørende proces. Følgende eksekverbare filer blev kontrolleret:",
+                solution: [
+                    `Prøv at tilføje spillets eksekverbare fil til $linkedgamesmenu.`,
+                    `Sørg for, at posten under $linkedgamesmenu peger på den korrekte eksekverbare fil.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Ukendt eksekverbar fil",
+                issue: "Spillets eksekverbare fil kunne ikke identificeres",
+                detail: "Stien til spillets eksekverbare fil kunne ikke findes automatisk, hvilket normalt skyldes launchere før spillet ved start af spillet via Steam.",
+                solution: [
+                    `Tilføj en ny post for dette spil til $linkedgamesmenu, eller fjern eventuelle poster, der peger på en forkert eksekverbar fil. Ellers kan du kontrollere, om spillet understøtter en Steam-startindstilling, der omgår launchere før spillet, såsom <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Prøv at aktivere $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Eksekverbar fil mangler",
+                issue: "Spillets eksekverbare fil blev ikke fundet på disken",
+                detail: `Den eksekverbare fil, der er knyttet til dette spil, kunne ikke findes på disken. Følgende eksekverbare filer blev kontrolleret:`,
+                solution: ["Prøv at verificere integriteten af spilfilerne via Steam eller geninstallere spillet."]
+            },
+            notexecutable: {
+                title: "Ikke eksekverbar",
+                issue: `Spillet mangler eksekveringstilladelse`,
+                detail: "Den fil, som Steam bruger til at starte spillet, kan ikke køres. Filen blev rapporteret som:",
+                solution: ["For at gøre denne fil eksekverbar skal du følge instruktionerne for din specifikke Linux-distribution."]
+            },
+            notwithininstalldir: {
+                title: "Ikke i spilmappen",
+                issue: "Eksekverbar fil er ikke i installationsmappen",
+                detail: "Der er registreret en post for dette spil under $linkedgamesmenu, men den tilknyttede eksekverbare fil er ikke placeret i spillets installationsmappe, hvilket kan indikere, at det ikke er den korrekte.",
+                solution: ["Rediger $linkedgamesmenu-posten for dette spil, og sørg for, at den peger på den korrekte eksekverbare fil."]
+            },
+            wrongplatformpath: {
+                title: "Ugyldig spilsti",
+                issue: "Spilstien er ugyldig for det aktuelle OS",
+                detail: "Stien til dette spils eksekverbare fil ser ud til at tilhøre et andet operativsystem - muligvis på grund af en konfiguration, der er kopieret fra en anden maskine, eller en dual-boot-opsætning.",
+                solution: [`Brug ikke en konfiguration, der er kopieret fra en anden maskine/et andet OS, da den sandsynligvis ikke vil fungere som forventet. Alle eksisterende <span class="hl">Temaer</span> kan importeres/eksporteres på tværs af platforme via menuen <span class="hl">Tilpasning</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Dublerede poster",
+                issue: "Der blev fundet dublerede $linkedgamesmenu-poster",
+                detail: "Denne eksekverbare spilfil er også knyttet til $appids under $linkedgamesmenu.",
+                solution: ["Fjern en af de dublerede poster, og sørg for, at den resterende post peger på den korrekte eksekverbare spilfil."]
+            },
+            releasing: {
+                title: "Spillet frigives",
+                issue: "Spillet frigives",
+                detail: "Dette spil er ved at blive frigivet.",
+                solution: [`Vent venligst et par sekunder mere - prikken i <span class="hl">Systembakke</span>-ikonet ændres fra <span class="troubleshooterdialogicon" grey></span> (frigives) til <span class="troubleshooterdialogicon" red></span> (inaktiv), når spillet er frigivet.`]
+            }
         }
     }
 }

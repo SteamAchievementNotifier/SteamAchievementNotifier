@@ -78,7 +78,7 @@ option {
     grid-column-start: 2;
 }
 
-#logcontents {
+.contents {
     position: relative;
     display: block;
     background-color: var(--mediumgrey);
@@ -89,14 +89,14 @@ option {
     -webkit-app-region: no-drag;
 }
 
-#logcontents > code {
+.contents > code {
     position: absolute;
     word-break: break-word;
     text-wrap: pretty;
     -webkit-app-region: no-drag;
 }
 
-button.rect#copylog {
+button.rect.copybtn {
     --icon: url("../../icon/clipboard.svg");
     min-height: 2.5rem;
     background-color: var(--primary);
@@ -105,8 +105,8 @@ button.rect#copylog {
 
 .logo,
 .wrapper#sub,
-#logcontents,
-button.rect#copylog {
+.contents,
+button.rect.contents {
     justify-self: center;
     width: 100%;
 }

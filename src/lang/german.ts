@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Barrierefreiheit",
             content: {
+                uimode: "Benutzeroberflächenmodus",
+                basic: "Einfach",
+                advanced: "Erweitert",
                 noanim: "App-Fensteranimationen Deaktivieren",
                 noupdatedialog: "Update-Dialog deaktivieren",
                 nvda: "NVDA-Unterstützung Aktivieren",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "Sicherung konnte nicht wiederhergestellt werden.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Wartezeit für Freigabe"
+                releasewaittime: "Wartezeit für Freigabe",
+                logresourceusage: "Ressourcennutzung protokollieren"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Benutzerdefinierter Text",
                 usegametitle: "Spielname verwenden",
                 customfont: "Benutzerdefinierte Schriftart",
-                platcustomtext: "Benutzerdefinierter 100%-Text"
+                platcustomtext: "Benutzerdefinierter 100%-Text",
+                usecustomtext: "Benutzerdefinierter Text",
+                customtextunlockmsg: "Freischaltungsnachricht",
+                customtexttitle: "Achievement-Titel",
+                customtextdesc: "Achievement-Beschreibung"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Farbe des Schriftschattens",
                 fontshadowscale: "Skalierung des Schriftschattens",
                 fontshadowx: "Horizontale Verschiebung",
-                fontshadowy: "Vertikale Verschiebung"
+                fontshadowy: "Vertikale Verschiebung",
+                decorationshadow: "Dekorationsschatten"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Layouttyp des Statistikfensters für Erfolge festlegen",
         statwinunlockonly: "Das Statistikfenster für Erfolge ausblenden, bis ein Erfolg freigeschaltet wird",
         statwinunlockonlydisplaytime: "Die Anzahl der Sekunden festlegen, für die das Statistikfenster für Erfolge nach dem Freischalten eines Erfolgs angezeigt wird",
-        statwinunlockonlysync: "Die Anzahl der Sekunden, für die das Statistikfenster für Erfolge angezeigt wird, mit der Anzeigedauer der aktuellen Benachrichtigung synchronisieren"
+        statwinunlockonlysync: "Die Anzahl der Sekunden, für die das Statistikfenster für Erfolge angezeigt wird, mit der Anzeigedauer der aktuellen Benachrichtigung synchronisieren",
+        logresourceusage: `Statistiken zur Ressourcen-Nutzung der App/des Systems protokollieren, wenn Achievement-Benachrichtigungen ausgelöst werden<br><br><span class="ttdesc">Dies kann verwendet werden, um festzustellen, ob bestimmte Probleme innerhalb der App durch die Gesamtbelastung des Systems beim Freischalten von Achievements verursacht werden</span>`,
+        decorationshadow: "Festlegen, ob der Schattierung der Schrift auch auf das Dekorationselement angewendet wird",
+        uimode: `Die Anzahl der Optionen auswählen, die in den Menüs Einstellungen/Anpassen angezeigt werden<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Einfach</span>: Nur eine begrenzte Auswahl benutzerfreundlicher Optionen der Benutzeroberfläche anzeigen</li><li><span class="hl">Erweitert</span>: Alle verfügbaren Optionen der Benutzeroberfläche anzeigen</li></ul></span>`,
+        usecustomtext: "Benutzerdefinierte Nachrichten festlegen, die innerhalb der Benachrichtigung angezeigt werden",
+        customtextunlockmsg: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Freischaltungsnachricht angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Freischaltungsnachricht deaktiviert ist</span>`,
+        customtexttitle: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Titel angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Titel deaktiviert ist</span>`,
+        customtextdesc: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Beschreibung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Beschreibung deaktiviert ist</span>`
     },
     update: {
         updateavailable: "Update verfügbar",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `Die <span class="hl">URL</span> der <span class="hl">Spielseite</span> auf der RetroAchievements-Website – es ist die Zahl nach <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Als Standard für RetroAchievements festlegen"
+        }
+    },
+    troubleshooter: {
+        title: "Fehlerbehebung",
+        content: {
+            copydata: "Kopieren",
+            noissues: "Keine Probleme gefunden!",
+            noissuessub: "Dieses Spiel sollte automatisch freigegeben werden.",
+            manualrelease: `Du kannst jedes Spiel manuell über <span class="hl">Systemleiste</span> > <span class="hl">Optionen</span> > <span class="hl">Spiel freigeben</span> freigeben.`,
+            addedvia: "Hinzugefügt über"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Keine aktiven Prozesse",
+                issue: "Kein aktiver Spielprozess gefunden",
+                detail: "Die mit diesem Spiel verknüpfte ausführbare Datei wird nicht als laufender Prozess erkannt. Die folgenden ausführbaren Dateien wurden überprüft:",
+                solution: [
+                    `Versuche, die ausführbare Datei des Spiels zu $linkedgamesmenu hinzuzufügen.`,
+                    `Stelle sicher, dass der Eintrag unter $linkedgamesmenu auf die richtige ausführbare Datei verweist.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Ausführbare Datei unbekannt",
+                issue: "Ausführbare Datei des Spiels konnte nicht identifiziert werden",
+                detail: "Der Pfad zur ausführbaren Datei des Spiels konnte nicht automatisch gefunden werden. Dies wird normalerweise durch vorgeschaltete Launcher verursacht, wenn das Spiel über Steam gestartet wird.",
+                solution: [
+                    `Füge einen neuen Eintrag für dieses Spiel zu $linkedgamesmenu hinzu oder entferne alle Einträge, die auf eine falsche ausführbare Datei des Spiels verweisen. Überprüfe andernfalls, ob das Spiel eine Steam-Startoption unterstützt, um vorgeschaltete Launcher zu umgehen, z. B. <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Versuche, $sanwatcher zu aktivieren.`
+                ]
+            },
+            missingexecutable: {
+                title: "Ausführbare Datei fehlt",
+                issue: "Ausführbare Datei des Spiels nicht auf dem Datenträger gefunden",
+                detail: `Die mit diesem Spiel verknüpfte ausführbare Datei konnte auf dem Datenträger nicht gefunden werden. Die folgenden ausführbaren Dateien wurden überprüft:`,
+                solution: ["Versuche, die Integrität der Spieldateien über Steam zu überprüfen oder das Spiel neu zu installieren."]
+            },
+            notexecutable: {
+                title: "Nicht ausführbar",
+                issue: `Dem Spiel fehlt die Berechtigung zur Ausführung`,
+                detail: "Die Datei, die Steam zum Starten des Spiels verwendet, kann nicht ausgeführt werden. Die Datei wurde wie folgt gemeldet:",
+                solution: ["Um diese Datei ausführbar zu machen, beachte die Anweisungen für deine spezifische Linux-Distribution."]
+            },
+            notwithininstalldir: {
+                title: "Nicht im Spielverzeichnis",
+                issue: "Ausführbare Datei nicht im Installationsverzeichnis",
+                detail: "Unter $linkedgamesmenu wurde ein Eintrag für dieses Spiel erkannt, aber die verknüpfte ausführbare Datei befindet sich nicht im Installationsordner des Spiels. Dies könnte darauf hindeuten, dass es nicht die richtige Datei ist.",
+                solution: ["Bearbeite den $linkedgamesmenu-Eintrag für dieses Spiel und stelle sicher, dass er auf die richtige ausführbare Datei des Spiels verweist."]
+            },
+            wrongplatformpath: {
+                title: "Ungültiger Spielpfad",
+                issue: "Spielpfad für das aktuelle Betriebssystem ungültig",
+                detail: "Der Pfad zur ausführbaren Datei dieses Spiels scheint zu einem anderen Betriebssystem zu gehören – möglicherweise aufgrund einer von einem anderen Computer kopierten Konfiguration oder einer Dual-Boot-Konfiguration.",
+                solution: [`Verwende keine von einem anderen Computer/Betriebssystem kopierte Konfiguration, da diese wahrscheinlich nicht wie erwartet funktioniert. Alle vorhandenen <span class="hl">Themes</span> können über das Menü <span class="hl">Anpassung</span> plattformübergreifend importiert/exportiert werden.`]
+            },
+            duplicatelinkentries: {
+                title: "Doppelte Einträge",
+                issue: "Doppelte $linkedgamesmenu-Einträge gefunden",
+                detail: "Diese ausführbare Spieldatei ist unter $linkedgamesmenu ebenfalls mit $appids verknüpft.",
+                solution: ["Entferne einen der doppelten Einträge und stelle sicher, dass der verbleibende Eintrag auf die richtige ausführbare Datei des Spiels verweist."]
+            },
+            releasing: {
+                title: "Spiel wird freigegeben",
+                issue: "Das Spiel wird freigegeben",
+                detail: "Dieses Spiel wird gerade freigegeben.",
+                solution: [`Bitte warte noch einige Sekunden – der Punkt im <span class="hl">Systemleisten</span>-Symbol wechselt nach der Freigabe von <span class="troubleshooterdialogicon" grey></span> (wird freigegeben) zu <span class="troubleshooterdialogicon" red></span> (inaktiv).`]
+            }
         }
     }
 }

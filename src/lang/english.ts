@@ -164,9 +164,7 @@ export const translations = {
         betaghreleases: "Releases",
         checkapplog: "Please check the App Log for details.",
         workercrash: "Worker has crashed!",
-        workercrashsub: "Click here to restart Worker and re-attempt game tracking",
-        troubleshoot: "Troubleshoot",
-        copygameprocessdata: "Copy Game Process Data"
+        workercrashsub: "Click here to restart Worker and re-attempt game tracking"
     },
     app: {
         content: {
@@ -314,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Accessibility",
             content: {
+                uimode: "UI Mode",
+                basic: "Basic",
+                advanced: "Advanced",
                 noanim: "Disable App Window Animations",
                 noupdatedialog: "Disable Update Dialog",
                 nvda: "Enable NVDA Support",
@@ -411,7 +412,11 @@ export const translations = {
                 customtext: "Custom Text",
                 usegametitle: "Use Game Title",
                 customfont: "Custom Font",
-                platcustomtext: "Custom 100% Text"
+                platcustomtext: "Custom 100% Text",
+                usecustomtext: "Custom Text",
+                customtextunlockmsg: "Unlock Message",
+                customtexttitle: "Achievement Title",
+                customtextdesc: "Achievement Description"
             }
         },
         sound: {
@@ -497,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Font Shadow Color",
                 fontshadowscale: "Font Shadow Scale",
                 fontshadowx: "Horizontal Offset",
-                fontshadowy: "Vertical Offset"
+                fontshadowy: "Vertical Offset",
+                decorationshadow: "Decoration Shadow"
             }
         },
         icons: {
@@ -677,7 +683,7 @@ export const translations = {
         displaytime: "Set the number of seconds the notification will display",
         scale: "Increase or decrease the size of the notification",
         customtext: `Set a custom message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
-        usegametitle: "Show the title of the current game within the notification",
+        usegametitle: "Show the title of the current game within this element",
         customfont: "Load a custom font to be used within the notification",
         soundmode: "Select either a single audio file, or a randomly selected audio file from within a folder containing multiple audio files, when a notification occurs",
         soundfile: "Select an audio file to play when a notification occurs",
@@ -897,7 +903,13 @@ export const translations = {
         statwinunlockonly: "Keep the Achievement Stats Overlay hidden until an achievement is unlocked",
         statwinunlockonlydisplaytime: "Set the number of seconds the Achievement Stats Overlay will display for once an achievement is unlocked",
         statwinunlockonlysync: "Sync the number of seconds the Achievement Stats Overlay will display for to the current notification's Display Time",
-        logresourceusage: `Log app/system resource usage statistics when achievement notifications are triggered<br><br><span class="ttdesc">This can be used to determine whether certain in-app issues may be caused by total system load when achievements are unlocked</span>`
+        logresourceusage: `Log app/system resource usage statistics when achievement notifications are triggered<br><br><span class="ttdesc">This can be used to determine whether certain in-app issues may be caused by total system load when achievements are unlocked</span>`,
+        decorationshadow: "Set whether Font Shadow is also applied to the Decoration element",
+        uimode: `Select the number of options displayed in Settings/Customiser menus<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Basic</span>: Display only a limited set of user-friendly UI options</li><li><span class="hl">Advanced</span>: Display all available UI options</li></ul></span>`,
+        usecustomtext: "Set custom messages to be displayed within the notification",
+        customtextunlockmsg: `Set a custom message to be displayed within the Unlock Message element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
+        customtexttitle: `Set a custom message to be displayed within the Achievement Title element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Title is disabled</span>`,
+        customtextdesc: `Set a custom message to be displayed within the Achievement Description<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`
     },
     update: {
         updateavailable: "Update available",
@@ -1069,6 +1081,72 @@ export const translations = {
                 `The <span class="hl">URL</span> of the <span class="hl">game page</span> on the RetroAchievements site - it will be the number listed after <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Set as default for RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Troubleshoot",
+        content: {
+            copydata: "Copy Data",
+            noissues: "No issues found!",
+            noissuessub: "This game should release automatically.",
+            manualrelease: `You can manually release any game via <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
+            addedvia: "Added via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "No active processes",
+                issue: "No active game process found",
+                detail: "The executable file associated with this game isn't being detected as a running process. The following executables were checked:",
+                solution: [
+                    `Try adding the game's executable to $linkedgamesmenu.`,
+                    `Make sure the entry under $linkedgamesmenu points at the right executable.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Executable unknown",
+                issue: "Unable to identify game executable",
+                detail: "The path to the game's executable could not be located automatically, which is usually caused by pre-game launchers when launching the game via Steam.",
+                solution: [
+                    `Add a new entry for this game to $linkedgamesmenu, or remove any entries pointing to an incorrect game executable. Otherwise, check whether the game supports a Steam launch option to bypass any pre-game launchers, such as <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Try enabling $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Executable missing",
+                issue: "Game executable not found on disk",
+                detail: `The executable associated with this game could not be found on disk. The following executables were checked:`,
+                solution: ["Try verifying integrity of game files via Steam or reinstalling the game."]
+            },
+            notexecutable: {
+                title: "Not executable",
+                issue: `Game missing executable permission`,
+                detail: "The file Steam uses to launch the game is not able to be executed. The file was reported as:",
+                solution: ["To make this file executable, refer to instructions for your specific Linux distro."]
+            },
+            notwithininstalldir: {
+                title: "Not in game directory",
+                issue: "Executable not in installation directory",
+                detail: "An entry for this game has been detected under $linkedgamesmenu, but the linked executable is not located inside the game's installation folder, which may indicate it's not the correct one.",
+                solution: ["Edit the $linkedgamesmenu entry for this game and make sure it points at the right game executable."]
+            },
+            wrongplatformpath: {
+                title: "Game path invalid",
+                issue: "Game path invalid for current OS",
+                detail: "The executable path for this game looks like it belongs to a different OS - possibly due to a config copied from another machine or a dual-boot setup.",
+                solution: [`Do not use a config copied from another machine/OS, as this will probably not work as expected. All existing <span class="hl">Themes</hl> can be imported/exported cross-platform via the <span class="hl">Customiser</span> menu.`]
+            },
+            duplicatelinkentries: {
+                title: "Duplicate entries",
+                issue: "Duplicate $linkedgamesmenu entries found",
+                detail: "This game executable is also linked to $appids under $linkedgamesmenu.",
+                solution: ["Remove one of the duplicate entries and ensure the remaining entry points to the right game executable."]
+            },
+            releasing: {
+                title: "Game releasing",
+                issue: "The game is releasing",
+                detail: "This game is about to be released.",
+                solution: [`Please wait for a few more seconds - the dot in the <span class="hl">System Tray</span> icon will change from <span class="troubleshooterdialogicon" grey></span> (releasing) to <span class="troubleshooterdialogicon" red></span> (idle) once released.`]
+            }
         }
     }
 }

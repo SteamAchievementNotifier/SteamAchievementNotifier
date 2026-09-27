@@ -277,6 +277,7 @@ try {
             const ssdisplay = screenshots === "overlay" && customisation.ssdisplay
             document.body.toggleAttribute("ssdisplay",ssdisplay)
             document.body.toggleAttribute("notify1line",notify1line)
+            document.body.toggleAttribute("nodecorationshadow",!customisation.decorationshadow)
     
             if (iswebview === "customiser") {
                 document.documentElement.style.scale = `0.${ssdisplay ? "" : 7}5`

@@ -72,10 +72,10 @@ export const usertheme = {
     },
     update: (newtype?: NotifyType) => {
         let { config, type, userthemes } = usertheme.data(newtype)
-        let enabled = userthemes.find(theme => theme.enabled)!.id as number
+        let enabled = userthemes.find(theme => theme.enabled)?.id as number
 
         // If no theme is enabled, enable the first one
-        if (!enabled) {
+        if (enabled === undefined) {
             config.set(`customisation.${type}.usertheme.0.enabled`,true)
 
             ;({ config, type, userthemes } = usertheme.data())
@@ -85,18 +85,20 @@ export const usertheme = {
         const synced = usertheme.issynced(config)
 
         requestAnimationFrame(() => {
-            if (!document.querySelector("dialog[selection]")) return document.querySelector(`#usertheme > span`)!.textContent = userthemes[enabled || 0].label
-    
+            const enabledtheme = userthemes.find(theme => theme.id === enabled)
+
+            if (!document.querySelector("dialog[selection]")) return document.querySelector(`#usertheme > span`)!.textContent = enabledtheme?.label ?? ""
+
             document.querySelectorAll(`dialog[selection] .contentsub > .rect`)!.forEach(btn => {
                 const id = parseInt(btn.id.replace(/[^\d]+/g, ""))
-                const exists = userthemes.some(theme => id === theme.id)
+                const theme = userthemes.find(theme => theme.id === id)
+
+                if (!theme) return btn.remove()
                 
-                if (!exists) return btn.remove()
-    
-                document.querySelector(`#${btn.id} > span`)!.textContent = userthemes[id].label
-                document.querySelector(`#usertheme > span`)!.textContent = userthemes[enabled || 0].label
-    
-                btn.toggleAttribute("enabled",btn.id === `usertheme${enabled || 0}`)
+                document.querySelector(`#${btn.id} > span`)!.textContent = theme.label
+                document.querySelector(`#usertheme > span`)!.textContent = enabledtheme?.label ?? ""
+
+                btn.toggleAttribute("enabled",btn.id === `usertheme${enabled}`)
             })
 
             const themeselect = document.querySelector(`dialog[selection]:has([id^="usertheme"])`)
@@ -199,16 +201,10 @@ export const usertheme = {
     },
     create: (label: string,icon: string,customobj?: Customisation,update?: string,userthemedir?: string,usecustomfiles?: boolean,newtype?: NotifyType) => {
         const { config, type, userthemes } = usertheme.data(newtype)
-        const ids = userthemes.map(theme => theme.id)
+        const ids = userthemes.map(theme => theme.id) as number[]
         const labelmatch = userthemes.find(theme => theme.label === label)
 
-        let newid = 0
-
-        if (labelmatch) {
-            newid = labelmatch.id as number
-        } else {
-            while (ids.includes(newid)) newid++
-        }
+        const newid = labelmatch ? labelmatch.id as number : (ids.length ? Math.max(...ids) + 1 : 0)
 
         const customisation: Customisation = customobj || config.get(`customisation.${type}`) as Customisation
         delete (customisation as any).usertheme
@@ -228,18 +224,22 @@ export const usertheme = {
 
         usecustomfiles && (theme.usecustomfiles = true)
 
-        userthemes.forEach((theme,i) => config.set(`customisation.${type}.usertheme.${i}.enabled`,false))
-        config.set(`customisation.${type}.usertheme.${newid}`,theme)
+        const updated = userthemes.map(exists => ({ ...exists, enabled: false }))
+        const i = updated.findIndex(exists => exists.id === newid)
+        
+        i >= 0 ? (updated[i] = theme) : updated.push(theme)
+
+        config.set(`customisation.${type}.usertheme`,updated)
 
         if (customobj) {
             (async () => await sanconfig.validatecustomicons(type))()
-            usertheme.set(theme.id as number)
+            usertheme.set(theme.id as number,undefined,type)
             window.dispatchEvent(new CustomEvent("tabchanged",{ detail: { type: type } }))
             return theme.id as number
         }
 
         usertheme.update(newtype)
-        
+
         if (!update) {
             dialog.close()
             return theme.id as number
@@ -264,7 +264,7 @@ export const usertheme = {
         const id = parseInt((target as HTMLElement).id.replace(/[^\d]+/g,""))
 
         const remaining: UserTheme[] = []
-        
+
         userthemes.forEach(theme => {
             if (theme.id !== id) return remaining.push(theme)
             
@@ -310,14 +310,9 @@ export const usertheme = {
       
         config.set(`customisation.${type}.usertheme`,remaining)
 
-        // Update the current userthemes list (after deleting theme), and reset each object's `id` to be zero indexed
-        userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
-        userthemes.forEach((theme,i) => {
-            config.set(`customisation.${type}.usertheme.${i}.id`,i)
-            document.getElementById(`usertheme${i}`)!.style.setProperty("--icon",`url('${fs.existsSync(theme.icon) ? theme.icon : "../../img/sanlogotrophy.svg"}')`)
-        })
+        remaining.forEach(theme => document.getElementById(`usertheme${theme.id}`)!.style.setProperty("--icon",`url('${fs.existsSync(theme.icon) ? theme.icon : "../../img/sanlogotrophy.svg"}')`))
 
-        const enabled = userthemes.find(theme => theme.enabled)
+        const enabled = remaining.find(theme => theme.enabled)
         !enabled && (config.set(`customisation.${type}.usertheme.0.enabled`,true))
 
         usertheme.update()
@@ -596,12 +591,11 @@ export const usertheme = {
         delete (customobj as any).usertheme
 
         if (themeswitch) {
-            const theme = config.get(`customisation.${type}.usertheme.${themeswitch[1].themes[type]}`) as UserTheme
+            const theme = (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === themeswitch[1].themes[type])
 
             if (theme && "customisation" in theme) {
                 customobj = theme.customisation
 
-                // Ignore settings-level keys
                 for (const key of settingslvlkeys) {
                     (customobj as any)[key] = config.get(`customisation.${type}.${key}`)
                 }
@@ -618,5 +612,9 @@ export const usertheme = {
     hasthemeswitch: (appid: number,ra?: boolean) => {
         const entries = usertheme.themeswitchentries()
         return entries.find(item => parseInt(item[0]) === appid) ?? (ra ? entries.find(item => item[1].radefault) : undefined)
+    },
+    gettypecustomisation: (config: Store<Config>,type: NotifyType,themeswitch?: [key: string,ThemeSwitch]) => {
+        const theme = themeswitch && (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === themeswitch[1].themes[type])
+        return (theme?.customisation as Customisation) ?? config.get(`customisation.${type}`) as Customisation
     }
 }

@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Accessibilità",
             content: {
+                uimode: "Modalità interfaccia utente",
+                basic: "Base",
+                advanced: "Avanzata",
                 noanim: "Disabilita animazioni finestra app",
                 noupdatedialog: "Disabilita il dialogo degli aggiornamenti",
                 nvda: "Abilita supporto NVDA",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "Impossibile ripristinare il backup.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Tempo di attesa per il rilascio"
+                releasewaittime: "Tempo di attesa per il rilascio",
+                logresourceusage: "Registra utilizzo risorse"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Testo Personalizzato",
                 usegametitle: "Usa Titolo Gioco",
                 customfont: "Carattere Personalizzato",
-                platcustomtext: "Testo personalizzato per il 100%"
+                platcustomtext: "Testo personalizzato per il 100%",
+                usecustomtext: "Testo personalizzato",
+                customtextunlockmsg: "Messaggio di sblocco",
+                customtexttitle: "Titolo dell'obiettivo",
+                customtextdesc: "Descrizione dell'obiettivo"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Colore Ombra Carattere",
                 fontshadowscale: "Scala Ombra Carattere",
                 fontshadowx: "Offset Orizzontale",
-                fontshadowy: "Offset Verticale"
+                fontshadowy: "Offset Verticale",
+                decorationshadow: "Ombra decorazione"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Imposta il tipo di layout della Finestra delle statistiche dei successi",
         statwinunlockonly: "Mantieni nascosta la Finestra delle statistiche dei successi fino allo sblocco di un successo",
         statwinunlockonlydisplaytime: "Imposta il numero di secondi per cui la Finestra delle statistiche dei successi verrà visualizzata dopo lo sblocco di un successo",
-        statwinunlockonlysync: "Sincronizza il numero di secondi per cui la Finestra delle statistiche dei successi verrà visualizzata con il Tempo di visualizzazione della notifica corrente"
+        statwinunlockonlysync: "Sincronizza il numero di secondi per cui la Finestra delle statistiche dei successi verrà visualizzata con il Tempo di visualizzazione della notifica corrente",
+        logresourceusage: `Registra le statistiche sull'utilizzo delle risorse dell'app/sistema quando vengono attivate le notifiche degli obiettivi<br><br><span class="ttdesc">Questo può essere utilizzato per determinare se alcuni problemi all'interno dell'app potrebbero essere causati dal carico totale del sistema quando gli obiettivi vengono sbloccati</span>`,
+        decorationshadow: "Imposta se l'Ombra del carattere viene applicata anche all'elemento Decorazione",
+        uimode: `Seleziona il numero di opzioni visualizzate nei menu Impostazioni/Personalizzatore<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Base</span>: Mostra solo un insieme limitato di opzioni dell'interfaccia intuitive</li><li><span class="hl">Avanzata</span>: Mostra tutte le opzioni dell'interfaccia disponibili</li></ul></span>`,
+        usecustomtext: "Imposta messaggi personalizzati da visualizzare all'interno della notifica",
+        customtextunlockmsg: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Messaggio di sblocco<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Messaggio di sblocco è disabilitato</span>`,
+        customtexttitle: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Titolo dell'obiettivo<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Titolo dell'obiettivo è disabilitato</span>`,
+        customtextdesc: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Descrizione dell'obiettivo<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Descrizione dell'obiettivo è disabilitato</span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `L'<span class="hl">URL</span> della <span class="hl">pagina del gioco</span> sul sito RetroAchievements: sarà il numero riportato dopo <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Imposta come predefinito per RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Risoluzione dei problemi",
+        content: {
+            copydata: "Copia",
+            noissues: "Nessun problema trovato!",
+            noissuessub: "Questo gioco dovrebbe essere rilasciato automaticamente.",
+            manualrelease: `Puoi rilasciare manualmente qualsiasi gioco tramite <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
+            addedvia: "Aggiunto tramite"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Nessun processo attivo",
+                issue: "Nessun processo di gioco attivo trovato",
+                detail: "Il file eseguibile associato a questo gioco non viene rilevato come processo in esecuzione. Sono stati controllati i seguenti eseguibili:",
+                solution: [
+                    `Prova ad aggiungere l'eseguibile del gioco a $linkedgamesmenu.`,
+                    `Assicurati che la voce in $linkedgamesmenu punti all'eseguibile corretto.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Eseguibile sconosciuto",
+                issue: "Impossibile identificare l'eseguibile del gioco",
+                detail: "Non è stato possibile individuare automaticamente il percorso dell'eseguibile del gioco, cosa che di solito è causata dai launcher pre-gioco quando si avvia il gioco tramite Steam.",
+                solution: [
+                    `Aggiungi una nuova voce per questo gioco a $linkedgamesmenu oppure rimuovi eventuali voci che puntano a un eseguibile di gioco errato. Altrimenti, verifica se il gioco supporta un'opzione di avvio di Steam per ignorare eventuali launcher pre-gioco, come <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Prova ad abilitare $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Eseguibile mancante",
+                issue: "Eseguibile del gioco non trovato sul disco",
+                detail: `Non è stato possibile trovare sul disco l'eseguibile associato a questo gioco. Sono stati controllati i seguenti eseguibili:`,
+                solution: ["Prova a verificare l'integrità dei file del gioco tramite Steam oppure reinstalla il gioco."]
+            },
+            notexecutable: {
+                title: "Non eseguibile",
+                issue: `Permesso di esecuzione mancante per il gioco`,
+                detail: "Il file utilizzato da Steam per avviare il gioco non può essere eseguito. Il file è stato segnalato come:",
+                solution: ["Per rendere eseguibile questo file, consulta le istruzioni per la tua specifica distribuzione Linux."]
+            },
+            notwithininstalldir: {
+                title: "Non nella directory del gioco",
+                issue: "L'eseguibile non si trova nella directory di installazione",
+                detail: "È stata rilevata una voce per questo gioco in $linkedgamesmenu, ma l'eseguibile collegato non si trova nella cartella di installazione del gioco, il che potrebbe indicare che non è quello corretto.",
+                solution: ["Modifica la voce di $linkedgamesmenu per questo gioco e assicurati che punti all'eseguibile corretto del gioco."]
+            },
+            wrongplatformpath: {
+                title: "Percorso del gioco non valido",
+                issue: "Percorso del gioco non valido per il sistema operativo attuale",
+                detail: "Il percorso dell'eseguibile di questo gioco sembra appartenere a un sistema operativo diverso - probabilmente a causa di una configurazione copiata da un altro computer o di una configurazione dual-boot.",
+                solution: [`Non utilizzare una configurazione copiata da un altro computer/sistema operativo, poiché probabilmente non funzionerà come previsto. Tutti i <span class="hl">Themes</span> esistenti possono essere importati/esportati tra piattaforme tramite il menu <span class="hl">Customiser</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Voci duplicate",
+                issue: "Trovate voci $linkedgamesmenu duplicate",
+                detail: "Questo eseguibile di gioco è collegato anche a $appids in $linkedgamesmenu.",
+                solution: ["Rimuovi una delle voci duplicate e assicurati che la voce rimanente punti all'eseguibile corretto del gioco."]
+            },
+            releasing: {
+                title: "Rilascio del gioco",
+                issue: "Il gioco è in fase di rilascio",
+                detail: "Questo gioco sta per essere rilasciato.",
+                solution: [`Attendi ancora qualche secondo - il punto nell'icona di <span class="hl">System Tray</span> cambierà da <span class="troubleshooterdialogicon" grey></span> (in fase di rilascio) a <span class="troubleshooterdialogicon" red></span> (inattivo) una volta rilasciato.`]
+            }
         }
     }
 }

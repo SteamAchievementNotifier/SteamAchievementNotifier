@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "접근성",
             content: {
+                uimode: "UI 모드",
+                basic: "기본",
+                advanced: "고급",
                 noanim: "앱 창 애니메이션 비활성화",
                 noupdatedialog: "업데이트 대화상자 비활성화",
                 nvda: "NVDA 지원 활성화",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "백업 복원에 실패했습니다.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "해제 대기 시간"
+                releasewaittime: "해제 대기 시간",
+                logresourceusage: "리소스 사용량 기록"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "사용자 정의 텍스트",
                 usegametitle: "게임 제목 사용",
                 customfont: "사용자 정의 글꼴",
-                platcustomtext: "사용자 지정 100% 텍스트"
+                platcustomtext: "사용자 지정 100% 텍스트",
+                usecustomtext: "사용자 지정 텍스트",
+                customtextunlockmsg: "잠금 해제 메시지",
+                customtexttitle: "업적 제목",
+                customtextdesc: "업적 설명"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "글꼴 그림자 색상",
                 fontshadowscale: "폰트 그림자 크기",
                 fontshadowx: "수평 오프셋",
-                fontshadowy: "수직 오프셋"
+                fontshadowy: "수직 오프셋",
+                decorationshadow: "장식 그림자"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "업적 통계 창의 레이아웃 유형 설정",
         statwinunlockonly: "업적이 달성될 때까지 업적 통계 창 숨기기",
         statwinunlockonlydisplaytime: "업적이 달성된 후 업적 통계 창이 표시될 시간을 초 단위로 설정",
-        statwinunlockonlysync: "업적 통계 창의 표시 시간을 현재 알림의 표시 시간과 동기화"
+        statwinunlockonlysync: "업적 통계 창의 표시 시간을 현재 알림의 표시 시간과 동기화",
+        logresourceusage: `업적 알림이 트리거될 때 앱/시스템 리소스 사용 통계를 기록합니다<br><br><span class="ttdesc">업적 잠금 해제 시 발생하는 특정 앱 내 문제가 시스템 전체 부하로 인해 발생하는지 확인하는 데 사용할 수 있습니다</span>`,
+        decorationshadow: "글꼴 그림자를 장식 요소에도 적용할지 설정합니다",
+        uimode: `설정/사용자 지정 메뉴에 표시되는 옵션 수를 선택합니다<br><br><span class="ttdesc" nostar><ul><li><span class="hl">기본</span>: 사용자 친화적인 UI 옵션 중 제한된 항목만 표시합니다</li><li><span class="hl">고급</span>: 사용 가능한 모든 UI 옵션을 표시합니다</li></ul></span>`,
+        usecustomtext: "알림에 표시할 사용자 지정 메시지를 설정합니다",
+        customtextunlockmsg: `잠금 해제 메시지 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 잠금 해제 메시지가 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
+        customtexttitle: `업적 제목 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 제목이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
+        customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `RetroAchievements 사이트의 <span class="hl">게임 페이지</span> <span class="hl">URL</span>을 확인하세요. <span class="hl">game/</span> 뒤에 있는 숫자가 GameID입니다: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "RetroAchievements의 기본값으로 설정"
+        }
+    },
+    troubleshooter: {
+        title: "문제 해결",
+        content: {
+            copydata: "복사",
+            noissues: "문제가 발견되지 않았습니다!",
+            noissuessub: "이 게임은 자동으로 릴리스되어야 합니다.",
+            manualrelease: `<span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>을 통해 게임을 수동으로 릴리스할 수 있습니다.`,
+            addedvia: "추가 경로"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "활성 프로세스 없음",
+                issue: "활성 게임 프로세스를 찾을 수 없음",
+                detail: "이 게임과 연결된 실행 파일이 실행 중인 프로세스로 감지되지 않습니다. 다음 실행 파일을 확인했습니다:",
+                solution: [
+                    `게임의 실행 파일을 $linkedgamesmenu에 추가해 보세요.`,
+                    `$linkedgamesmenu의 항목이 올바른 실행 파일을 가리키는지 확인하세요.`
+                ]
+            },
+            unknownexecutable: {
+                title: "실행 파일을 알 수 없음",
+                issue: "게임 실행 파일을 식별할 수 없음",
+                detail: "게임의 실행 파일 경로를 자동으로 찾을 수 없습니다. 이는 일반적으로 Steam을 통해 게임을 실행할 때 게임 실행 전 런처가 사용되기 때문에 발생합니다.",
+                solution: [
+                    `이 게임에 대한 새 항목을 $linkedgamesmenu에 추가하거나 잘못된 게임 실행 파일을 가리키는 항목을 제거하세요. 그렇지 않은 경우 <code style="font-size: 0.55rem;">-skiplauncher</code>와 같이 게임 실행 전 런처를 우회할 수 있는 Steam 실행 옵션을 게임에서 지원하는지 확인하세요.`,
+                    `$sanwatcher를 활성화해 보세요.`
+                ]
+            },
+            missingexecutable: {
+                title: "실행 파일 누락",
+                issue: "디스크에서 게임 실행 파일을 찾을 수 없음",
+                detail: `이 게임과 연결된 실행 파일을 디스크에서 찾을 수 없습니다. 다음 실행 파일을 확인했습니다:`,
+                solution: ["Steam을 통해 게임 파일의 무결성을 확인하거나 게임을 다시 설치해 보세요."]
+            },
+            notexecutable: {
+                title: "실행할 수 없음",
+                issue: `게임 실행 파일에 실행 권한이 없음`,
+                detail: "Steam에서 게임을 실행하는 데 사용하는 파일을 실행할 수 없습니다. 파일 상태는 다음과 같습니다:",
+                solution: ["이 파일을 실행 가능하게 만들려면 사용 중인 Linux 배포판에 해당하는 지침을 참조하세요."]
+            },
+            notwithininstalldir: {
+                title: "게임 디렉터리에 없음",
+                issue: "실행 파일이 설치 디렉터리에 없음",
+                detail: "$linkedgamesmenu에서 이 게임의 항목이 감지되었지만 연결된 실행 파일이 게임의 설치 폴더 안에 없습니다. 올바른 실행 파일이 아닐 수 있습니다.",
+                solution: ["이 게임의 $linkedgamesmenu 항목을 편집하고 올바른 게임 실행 파일을 가리키는지 확인하세요."]
+            },
+            wrongplatformpath: {
+                title: "게임 경로가 잘못됨",
+                issue: "현재 OS에 유효하지 않은 게임 경로",
+                detail: "이 게임의 실행 파일 경로가 다른 OS에 속한 것으로 보입니다. 다른 컴퓨터에서 복사한 설정이나 듀얼 부트 환경 때문일 수 있습니다.",
+                solution: [`다른 컴퓨터/OS에서 복사한 설정을 사용하지 마세요. 예상대로 작동하지 않을 가능성이 높습니다. 기존의 모든 <span class="hl">Themes</span>는 <span class="hl">Customiser</span> 메뉴를 통해 플랫폼 간에 가져오기/내보내기할 수 있습니다.`]
+            },
+            duplicatelinkentries: {
+                title: "중복 항목",
+                issue: "중복된 $linkedgamesmenu 항목이 발견됨",
+                detail: "이 게임 실행 파일은 $linkedgamesmenu의 $appids에도 연결되어 있습니다.",
+                solution: ["중복된 항목 중 하나를 제거하고 남은 항목이 올바른 게임 실행 파일을 가리키는지 확인하세요."]
+            },
+            releasing: {
+                title: "게임 릴리스 중",
+                issue: "게임이 릴리스되고 있음",
+                detail: "이 게임은 곧 릴리스됩니다.",
+                solution: [`몇 초만 더 기다려 주세요. 릴리스가 완료되면 <span class="hl">System Tray</span> 아이콘의 점이 <span class="troubleshooterdialogicon" grey></span>(릴리스 중)에서 <span class="troubleshooterdialogicon" red></span>(유휴)로 변경됩니다.`]
+            }
         }
     }
 }

@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Accesibilitate",
             content: {
+                uimode: "Mod interfață",
+                basic: "De bază",
+                advanced: "Avansat",
                 noanim: "Dezactivează Animații Fereastră Aplicație",
                 noupdatedialog: "Dezactivați dialogul de actualizare",
                 nvda: "Activează Suport NVDA",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "Nu s-a putut restaura backup-ul.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Timp de așteptare pentru eliberare"
+                releasewaittime: "Timp de așteptare pentru eliberare",
+                logresourceusage: "Înregistrează utilizarea resurselor"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Text Personalizat",
                 usegametitle: "Utilizare Titlu Joc",
                 customfont: "Font Personalizat",
-                platcustomtext: "Text personalizat 100%"
+                platcustomtext: "Text personalizat 100%",
+                usecustomtext: "Text personalizat",
+                customtextunlockmsg: "Mesaj de deblocare",
+                customtexttitle: "Titlul realizării",
+                customtextdesc: "Descrierea realizării"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Culoare Umbră Font",
                 fontshadowscale: "Scara Umbră Font",
                 fontshadowx: "Deplasare orizontală",
-                fontshadowy: "Deplasare verticală"
+                fontshadowy: "Deplasare verticală",
+                decorationshadow: "Umbră decorativă"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Setează tipul de aspect al Ferestrei cu statistici despre realizări",
         statwinunlockonly: "Păstrează Fereastra cu statistici despre realizări ascunsă până când o realizare este deblocată",
         statwinunlockonlydisplaytime: "Setează numărul de secunde pentru care Fereastra cu statistici despre realizări va fi afișată după deblocarea unei realizări",
-        statwinunlockonlysync: "Sincronizează numărul de secunde pentru care Fereastra cu statistici despre realizări va fi afișată cu timpul de afișare al notificării curente"
+        statwinunlockonlysync: "Sincronizează numărul de secunde pentru care Fereastra cu statistici despre realizări va fi afișată cu timpul de afișare al notificării curente",
+        logresourceusage: `Înregistrează statisticile privind utilizarea resurselor aplicației/sistemului atunci când sunt declanșate notificările pentru realizări<br><br><span class="ttdesc">Acest lucru poate fi folosit pentru a determina dacă anumite probleme din aplicație pot fi cauzate de încărcarea totală a sistemului atunci când realizările sunt deblocate</span>`,
+        decorationshadow: "Setează dacă Umbra fontului este aplicată și elementului de decor",
+        uimode: `Selectează numărul de opțiuni afișate în meniurile Setări/Personalizare<br><br><span class="ttdesc" nostar><ul><li><span class="hl">De bază</span>: Afișează doar un set limitat de opțiuni de interfață ușor de utilizat</li><li><span class="hl">Avansat</span>: Afișează toate opțiunile de interfață disponibile</li></ul></span>`,
+        usecustomtext: "Setează mesajele personalizate care vor fi afișate în notificare",
+        customtextunlockmsg: `Setează un mesaj personalizat care va fi afișat în elementul Mesaj de deblocare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Mesaj de deblocare este dezactivat</span>`,
+        customtexttitle: `Setează un mesaj personalizat care va fi afișat în elementul Titlul realizării<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Titlul realizării este dezactivat</span>`,
+        customtextdesc: `Setează un mesaj personalizat care va fi afișat în elementul Descrierea realizării<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Descrierea realizării este dezactivat</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `URL-ul <span class="hl">paginii jocului</span> de pe site-ul RetroAchievements — este numărul după <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Setează ca implicit pentru RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Depanare",
+        content: {
+            copydata: "Copiază",
+            noissues: "Nu au fost găsite probleme!",
+            noissuessub: "Acest joc ar trebui să fie lansat automat.",
+            manualrelease: `Poți lansa manual orice joc prin <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
+            addedvia: "Adăugat prin"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Nu există procese active",
+                issue: "Nu a fost găsit niciun proces activ al jocului",
+                detail: "Fișierul executabil asociat acestui joc nu este detectat ca proces în execuție. Au fost verificate următoarele fișiere executabile:",
+                solution: [
+                    `Încearcă să adaugi executabilul jocului în $linkedgamesmenu.`,
+                    `Asigură-te că intrarea din $linkedgamesmenu indică executabilul corect.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Executabil necunoscut",
+                issue: "Executabilul jocului nu poate fi identificat",
+                detail: "Calea către executabilul jocului nu a putut fi localizată automat, lucru cauzat de obicei de lansatoarele pre-joc atunci când jocul este pornit prin Steam.",
+                solution: [
+                    `Adaugă o intrare nouă pentru acest joc în $linkedgamesmenu sau elimină orice intrări care indică un executabil de joc incorect. În caz contrar, verifică dacă jocul acceptă o opțiune de lansare Steam pentru a ocoli lansatoarele pre-joc, precum <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Încearcă să activezi $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Executabil lipsă",
+                issue: "Executabilul jocului nu a fost găsit pe disc",
+                detail: `Executabilul asociat acestui joc nu a putut fi găsit pe disc. Au fost verificate următoarele fișiere executabile:`,
+                solution: ["Încearcă să verifici integritatea fișierelor jocului prin Steam sau să reinstalezi jocul."]
+            },
+            notexecutable: {
+                title: "Nu este executabil",
+                issue: `Jocului îi lipsește permisiunea de executare`,
+                detail: "Fișierul folosit de Steam pentru a lansa jocul nu poate fi executat. Fișierul a fost raportat ca:",
+                solution: ["Pentru a face acest fișier executabil, consultă instrucțiunile pentru distribuția ta specifică de Linux."]
+            },
+            notwithininstalldir: {
+                title: "Nu se află în directorul jocului",
+                issue: "Executabilul nu se află în directorul de instalare",
+                detail: "A fost detectată o intrare pentru acest joc în $linkedgamesmenu, dar executabilul asociat nu se află în folderul de instalare al jocului, ceea ce poate indica faptul că nu este cel corect.",
+                solution: ["Editează intrarea $linkedgamesmenu pentru acest joc și asigură-te că indică executabilul corect al jocului."]
+            },
+            wrongplatformpath: {
+                title: "Calea jocului este invalidă",
+                issue: "Calea jocului este invalidă pentru sistemul de operare curent",
+                detail: "Calea către executabilul acestui joc pare să aparțină unui alt sistem de operare - posibil din cauza unei configurații copiate de pe alt computer sau a unei configurații dual-boot.",
+                solution: [`Nu utiliza o configurație copiată de pe alt computer/sistem de operare, deoarece probabil nu va funcționa conform așteptărilor. Toate <span class="hl">Themes</span> existente pot fi importate/exportate între platforme prin meniul <span class="hl">Customiser</span>.`]
+            },
+            duplicatelinkentries: {
+                title: "Intrări duplicate",
+                issue: "Au fost găsite intrări $linkedgamesmenu duplicate",
+                detail: "Acest executabil al jocului este, de asemenea, asociat cu $appids în $linkedgamesmenu.",
+                solution: ["Elimină una dintre intrările duplicate și asigură-te că intrarea rămasă indică executabilul corect al jocului."]
+            },
+            releasing: {
+                title: "Lansarea jocului",
+                issue: "Jocul este în curs de lansare",
+                detail: "Acest joc urmează să fie lansat.",
+                solution: [`Mai așteaptă câteva secunde - punctul din pictograma <span class="hl">System Tray</span> se va schimba din <span class="troubleshooterdialogicon" grey></span> (în curs de lansare) în <span class="troubleshooterdialogicon" red></span> (inactiv) după ce jocul este lansat.`]
+            }
         }
     }
 }

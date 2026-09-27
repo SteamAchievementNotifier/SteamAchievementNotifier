@@ -312,6 +312,9 @@ export const translations = {
         accessibility: {
             title: "Tilgjengelighet",
             content: {
+                uimode: "Grensesnittmodus",
+                basic: "Grunnleggende",
+                advanced: "Avansert",
                 noanim: "Deaktiver App-vindu-animasjoner",
                 noupdatedialog: "Deaktiver oppdateringsdialog",
                 nvda: "Aktiver NVDA-støtte",
@@ -354,7 +357,8 @@ export const translations = {
                 ],
                 restorefailed: "Kunne ikke gjenopprette sikkerhetskopi.",
                 usesanwatcher: "SANWatcher",
-                releasewaittime: "Ventetid før frigjøring"
+                releasewaittime: "Ventetid før frigjøring",
+                logresourceusage: "Logg ressursbruk"
             }
         },
         ra: {
@@ -408,7 +412,11 @@ export const translations = {
                 customtext: "Tilpasset Tekst",
                 usegametitle: "Bruk Spilltittel",
                 customfont: "Tilpasset Font",
-                platcustomtext: "Egendefinert 100%-tekst"
+                platcustomtext: "Egendefinert 100%-tekst",
+                usecustomtext: "Egendefinert tekst",
+                customtextunlockmsg: "Opplåsingsmelding",
+                customtexttitle: "Prestasjonstittel",
+                customtextdesc: "Prestasjonsbeskrivelse"
             }
         },
         sound: {
@@ -494,7 +502,8 @@ export const translations = {
                 fontshadowcolor: "Fontskygge Farge",
                 fontshadowscale: "Fontskygge Skala",
                 fontshadowx: "Horisontal Forskyvning",
-                fontshadowy: "Vertikal Forskyvning"
+                fontshadowy: "Vertikal Forskyvning",
+                decorationshadow: "Dekorasjonsskygge"
             }
         },
         icons: {
@@ -893,7 +902,14 @@ export const translations = {
         statwintype: "Angi layouttypen for Prestasjonstatistikkvindu",
         statwinunlockonly: "Hold Prestasjonstatistikkvindu skjult til en prestasjon låses opp",
         statwinunlockonlydisplaytime: "Angi antall sekunder Prestasjonstatistikkvindu skal vises etter at en prestasjon er låst opp",
-        statwinunlockonlysync: "Synkroniser antall sekunder Prestasjonstatistikkvindu skal vises med gjeldende visningstid for varslingen"
+        statwinunlockonlysync: "Synkroniser antall sekunder Prestasjonstatistikkvindu skal vises med gjeldende visningstid for varslingen",
+        logresourceusage: `Logg statistikk over appens/systemets ressursbruk når prestasjonsvarsler utløses<br><br><span class="ttdesc">Dette kan brukes til å finne ut om visse problemer i appen kan skyldes den totale systembelastningen når prestasjoner låses opp</span>`,
+        decorationshadow: "Angi om Skriftskygge også skal brukes på dekorasjonselementet",
+        uimode: `Velg antallet alternativer som vises i menyene Innstillinger/Tilpasning<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Grunnleggende</span>: Vis bare et begrenset utvalg brukervennlige grensesnittalternativer</li><li><span class="hl">Avansert</span>: Vis alle tilgjengelige grensesnittalternativer</li></ul></span>`,
+        usecustomtext: "Angi egendefinerte meldinger som skal vises i varselet",
+        customtextunlockmsg: `Angi en egendefinert melding som skal vises i elementet Opplåsingsmelding<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Opplåsingsmelding er deaktivert</span>`,
+        customtexttitle: `Angi en egendefinert melding som skal vises i elementet Prestasjonstittel<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonstittel er deaktivert</span>`,
+        customtextdesc: `Angi en egendefinert melding som skal vises i elementet Prestasjonsbeskrivelse<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",
@@ -1065,6 +1081,72 @@ export const translations = {
                 `URL-en til <span class="hl">spill-siden</span> på RetroAchievements-nettstedet – det er tallet etter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Angi som standard for RetroAchievements"
+        }
+    },
+    troubleshooter: {
+        title: "Feilsøking",
+        content: {
+            copydata: "Kopier",
+            noissues: "Ingen problemer funnet!",
+            noissuessub: "Dette spillet skal lanseres automatisk.",
+            manualrelease: `Du kan manuelt lansere et hvilket som helst spill via <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
+            addedvia: "Lagt til via"
+        },
+        rules: {
+            noactiveprocesses: {
+                title: "Ingen aktive prosesser",
+                issue: "Ingen aktiv spillprosess funnet",
+                detail: "Den kjørbare filen som er knyttet til dette spillet, blir ikke oppdaget som en prosess som kjører. Følgende kjørbare filer ble kontrollert:",
+                solution: [
+                    `Prøv å legge spillets kjørbare fil til i $linkedgamesmenu.`,
+                    `Kontroller at oppføringen under $linkedgamesmenu peker til riktig kjørbar fil.`
+                ]
+            },
+            unknownexecutable: {
+                title: "Ukjent kjørbar fil",
+                issue: "Kan ikke identifisere spillets kjørbare fil",
+                detail: "Banen til spillets kjørbare fil kunne ikke finnes automatisk. Dette skyldes vanligvis oppstartsprogrammer før spillet når spillet startes via Steam.",
+                solution: [
+                    `Legg til en ny oppføring for dette spillet i $linkedgamesmenu, eller fjern eventuelle oppføringer som peker til feil kjørbar spillfil. Alternativt kan du sjekke om spillet støtter et Steam-startalternativ for å omgå oppstartsprogrammer før spillet, for eksempel <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
+                    `Prøv å aktivere $sanwatcher.`
+                ]
+            },
+            missingexecutable: {
+                title: "Kjørbar fil mangler",
+                issue: "Spillets kjørbare fil ble ikke funnet på disken",
+                detail: `Den kjørbare filen som er knyttet til dette spillet, ble ikke funnet på disken. Følgende kjørbare filer ble kontrollert:`,
+                solution: ["Prøv å verifisere integriteten til spillfilene via Steam eller installer spillet på nytt."]
+            },
+            notexecutable: {
+                title: "Ikke kjørbar",
+                issue: `Spillet mangler tillatelse til å kjøre`,
+                detail: "Filen som Steam bruker til å starte spillet, kan ikke kjøres. Filen ble rapportert som:",
+                solution: ["For å gjøre denne filen kjørbar, se instruksjonene for din spesifikke Linux-distribusjon."]
+            },
+            notwithininstalldir: {
+                title: "Ikke i spillmappen",
+                issue: "Kjørbar fil er ikke i installasjonsmappen",
+                detail: "En oppføring for dette spillet er oppdaget under $linkedgamesmenu, men den tilknyttede kjørbare filen ligger ikke i spillets installasjonsmappe, noe som kan tyde på at det ikke er den riktige.",
+                solution: ["Rediger $linkedgamesmenu-oppføringen for dette spillet og sørg for at den peker til riktig kjørbar spillfil."]
+            },
+            wrongplatformpath: {
+                title: "Ugyldig spillbane",
+                issue: "Spillbanen er ugyldig for gjeldende operativsystem",
+                detail: "Banen til spillets kjørbare fil ser ut til å tilhøre et annet operativsystem - muligens på grunn av en konfigurasjon som er kopiert fra en annen maskin eller et dual-boot-oppsett.",
+                solution: [`Ikke bruk en konfigurasjon som er kopiert fra en annen maskin/OS, da dette sannsynligvis ikke vil fungere som forventet. Alle eksisterende <span class="hl">Themes</span> kan importeres/eksporteres på tvers av plattformer via <span class="hl">Customiser</span>-menyen.`]
+            },
+            duplicatelinkentries: {
+                title: "Dupliserte oppføringer",
+                issue: "Dupliserte $linkedgamesmenu-oppføringer funnet",
+                detail: "Denne kjørbare spillfilen er også koblet til $appids under $linkedgamesmenu.",
+                solution: ["Fjern én av de dupliserte oppføringene og sørg for at den gjenværende oppføringen peker til riktig kjørbar spillfil."]
+            },
+            releasing: {
+                title: "Spillet lanseres",
+                issue: "Spillet lanseres",
+                detail: "Dette spillet er i ferd med å lanseres.",
+                solution: [`Vent noen sekunder til - prikken i <span class="hl">System Tray</span>-ikonet endres fra <span class="troubleshooterdialogicon" grey></span> (lanserer) til <span class="troubleshooterdialogicon" red></span> (inaktiv) når spillet er lansert.`]
+            }
         }
     }
 }

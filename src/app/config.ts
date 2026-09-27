@@ -368,11 +368,8 @@ export const sanconfig = {
                 usesanwatcher: false,
                 releasewaittime: 5,
                 workerdebug: false,
-                platcustomtext: "",
-                testnotifycustomtext: false,
-                testnotifycustomtexttitle: "",
-                testnotifycustomtextdesc: "",
                 logresourceusage: false,
+                uimode: "advanced",
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,
@@ -391,8 +388,6 @@ export const sanconfig = {
                 preset: "default",
                 displaytime: 10,
                 scale: 100,
-                customtext: "",
-                usegametitle: false,
                 bgstyle: "solid",
                 gradientangle: 90,
                 bgimg: "",
@@ -527,6 +522,14 @@ export const sanconfig = {
                 iconborderimgbronze: sanhelper.setfilepath("img","saniconborder_bronze.png"),
                 iconborderimgsilver: sanhelper.setfilepath("img","saniconborder_silver.png"),
                 textvspace: 0,
+                decorationshadow: true,
+                usecustomtext: false,
+                customtextunlockmsg: "",
+                usegametitleunlockmsg: false,
+                customtexttitle: "",
+                usegametitletitle: false,
+                customtextdesc: "",
+                usegametitledesc: false,
                 usertheme: [] as UserTheme[]
             }
 

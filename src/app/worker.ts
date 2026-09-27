@@ -351,6 +351,11 @@ const startsan = async (appinfo: AppInfo) => {
 
         ipcRenderer.on("processdata",() => {
             const linkedgame = worker.linkedgame(appid) ?? null
+            const activeprocesses = usesanwatcher ? sanwatcher.getActiveProcesses(installdir,linkedgame) : processes.map(({ pid, exe }) => ({
+                pid,
+                exe,
+                active: isprocessrunning(pid)
+            }))
             
             ipcRenderer.send("processdata",{
                 appid,
@@ -362,14 +367,9 @@ const startsan = async (appinfo: AppInfo) => {
                 status: (usesanwatcher ? pids.size : processes.length) ? "active" : (releasetimer ? "releasing" : "active"),
                 releasetimer: !!releasetimer,
                 pids: usesanwatcher ? Array.from(pids) : processes.map(p => p.pid),
-                activeprocesses: usesanwatcher ? sanwatcher.getActiveProcesses(installdir,linkedgame) : processes.map(({ pid, exe }) => ({
-                    pid,
-                    exe,
-                    active: isprocessrunning(pid)
-                })),
-                duplicatelinkentries: Object.entries(JSON.parse(localStorage.getItem("linkgame") ?? "{}"))
-                    .filter(([id,path]) => parseInt(id) !== appid && path === linkedgame)
-                    .map(([id]) => parseInt(id))
+                activeprocesses,
+                duplicatelinkentries: Object.entries(JSON.parse(localStorage.getItem("linkgame") ?? "{}")).filter(([id,path]) => parseInt(id) !== appid && path === linkedgame).map(([id]) => parseInt(id)),
+                ...(usesanwatcher ? { waitingforprocess: !!linkedgame && !activeprocesses.length } : undefined)
             } as TroubleshooterProcess)
         })
         
@@ -535,7 +535,8 @@ const startsan = async (appinfo: AppInfo) => {
                             log.write("INFO",`Achievement unlocked: ${JSON.stringify(achievement)}`)
                             
                             const type = achievement.percent <= rarity ? "rare" : (trophymode && (achievement.percent <= semirarity && achievement.percent > rarity) ? "semi" : "main")
-                            const customisation = config.get(`customisation.${type}${themeswitch ? `.usertheme.${themeswitch[1].themes[type]}.customisation` : ""}`) as Customisation
+                            // Resolve theme customisation before slow awaits so earlycapture can start immediately
+                            const customisation = usertheme.gettypecustomisation(config,type,themeswitch)
                             const notifyid = Math.round(Date.now() / Math.random() * 1000)
 
                             // Fire Screenshot Only capture immediately — before icon/localisation awaits — using cached window titles
@@ -631,8 +632,9 @@ const startsan = async (appinfo: AppInfo) => {
                         ipcRenderer.emit("gametimer")
             
                         if (allunlocked && !hasshown) {
-                            const { plat: platicon } = (config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation).customicons as CustomIcon
-                            const customisation = config.get(`customisation.plat${themeswitch ? `.usertheme.${themeswitch[1].themes.plat}.customisation` : ""}`) as Customisation
+                            const platcustomisation = usertheme.gettypecustomisation(config,"plat",themeswitch)
+                            const { plat: platicon } = platcustomisation.customicons as CustomIcon
+                            const customisation = platcustomisation
         
                             if (themeswitch) {
                                 log.write("INFO",`Auto-switch entry detected for ${appid}`)
@@ -713,7 +715,8 @@ const startsan = async (appinfo: AppInfo) => {
             } else {
                 processes.push(...processinfo)
             }
-    
+
+            ipcRenderer.send("activeprocesses",appid,processes.some(process => process.pid !== -1),worker.linkedgame(appid) ?? null)
             initgameloop()
         }
             

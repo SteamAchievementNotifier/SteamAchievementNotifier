@@ -1346,9 +1346,9 @@ export const listeners = {
                 steam3id,
                 apiname,
                 name: notify.name,
-                unlockmsg: `${(customisation.usecustomtext && (customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || customisation.customtextunlockmsg) || (notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked"))}`,
-                title: (customisation.usecustomtext && (customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || customisation.customtexttitle) || (type === "plat" ? await language.get("gamecomplete") : notify.name),
-                desc: (customisation.usecustomtext && (customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || customisation.customtextdesc) || (type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
+                unlockmsg: (customisation.usecustomtext && ((customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || customisation.customtextunlockmsg)) || (notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked")),
+                title: (customisation.usecustomtext && ((customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || customisation.customtexttitle)) || (type === "plat" ? await language.get("gamecomplete") : notify.name),
+                desc: (customisation.usecustomtext && ((customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || customisation.customtextdesc)) || (type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
                 icon,
                 percent: {
                     value: percent,

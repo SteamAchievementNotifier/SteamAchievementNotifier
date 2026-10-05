@@ -767,24 +767,27 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
     const customisation = { ...customobj }
     delete (customisation as any).usertheme
 
+    const { rarity, trophymode, semirarity } = config.store
+    const { usegameicon } = config.store.customisation[type]
+
     const { themeswitchcustomisation } = usertheme.themeswitchinfo(config,window.appid,{ customisation, type })
     const { plat } = (themeswitchcustomisation || config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
 
     const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
-    const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
+    const gameicon = (usegameicon && fs.existsSync(gameiconpath)) ? gameiconpath : null
 
     const notify: Notify = {
         id: Math.round(Date.now() / Math.random() * 1000),
-        customisation: customisation,
+        customisation,
         gamename: window.gamename || null,
         steam3id: window.steam3id,
         type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
-        name: config.get(`customisation.${type}.customtexttitle`) as string || (type === "plat" ? "" : `Steam Achievement Notifier`),
-        desc: config.get(`customisation.${type}.customtextdesc`) as string || (type === "plat" ? "" : await language.get("achievementdesc")),
+        name: type === "plat" ? "" : `Steam Achievement Notifier`,
+        desc:  type === "plat" ? "" : await language.get("achievementdesc"),
         unlocked: true,
         hidden: customisation.previewhiddenicon,
-        percent: type !== "plat" ? (type === "rare" ? config.get("rarity") : config.get("trophymode") && type === "semi" ? config.get("semirarity") : 50.0) : 0,
+        percent: type !== "plat" ? (type === "rare" ? rarity : trophymode && type === "semi" ? semirarity : 50.0) : 0,
         icon: type !== "plat" ? sanhelper.setfilepath("img",`achicon.png`) : plat || sanhelper.setfilepath("img","ribbon.svg"),
         gameicon: gameicon || sanhelper.setfilepath("img","gameicon.png"),
         istestnotification: true,

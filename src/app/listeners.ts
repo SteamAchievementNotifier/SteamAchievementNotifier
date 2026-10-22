@@ -358,20 +358,24 @@ export const listeners = {
         })
 
         ipcMain.on("releasing",async (event,gamename: string,value: boolean) => {
-            const { result } = await troubleshooter.data(worker).catch(() => ({ result: [] }))
+            const { result } = await troubleshooter.data(appid,worker).catch(() => ({ result: [] }))
             gamedisplaystate.steam = { ...gamedisplaystate.steam, gamename, releasing: value, issues: !!result.length }
             
             refreshgamedisplay()
             win.webContents.send("releasing",value)
         }) // Adds visual "releasing" hint in UI
 
-        ipcMain.on("activeprocesses",async (event,appid: number,activeprocesses: boolean,linkedgame: string | null) => {
-            win.webContents.send("activeprocesses",appid,activeprocesses,linkedgame ?? undefined) // Handles UI hint for active processes
-            
-            const { result } = await troubleshooter.data(worker).catch(() => ({ result: [] }))
-            gamedisplaystate.steam.issues = !!appid && !!result.length
+        ipcMain.on("activeprocesses",async (event,workerappid: number,activeprocesses: boolean,linkedgame: string | null) => {
+            win.webContents.send("activeprocesses",workerappid,activeprocesses,linkedgame ?? undefined) // Handles UI hint for active processes
+
+            const { result } = await troubleshooter.data(appid,worker).catch(() => ({ result: [] }))
+            const issues = !!result.length
+
+            if (!!gamedisplaystate.steam.issues === issues) return
+
+            gamedisplaystate.steam.issues = issues
             refreshgamedisplay()
-        }) 
+        })
 
         let raworker: BrowserWindow | null = null
         let raworkerid = 0
@@ -1860,7 +1864,7 @@ export const listeners = {
 
         let logwin: BrowserWindow | null = null
 
-        ipcMain.on("logwin",(event,logcontents: string,logtype: string) => {
+        ipcMain.on("logwin",(event,logcontents: string,logtype: LogFiles | "bak") => {
             if (logwin) return
 
             logwin = new BrowserWindow({
@@ -1887,14 +1891,21 @@ export const listeners = {
             sanhelper.devmode && sanhelper.setdevtools(logwin)
 
             ipcMain.once("logwinready",event => event.reply("updatelogwin",logcontents,logtype))
+            
             logwin.once("closed",() => {
                 log.write("EXIT",`"App Log" window closed`)
                 logwin = null
-                sanconfig.get().set("logwin","san") // Reset "logtype" to "san" on exit
+                sanconfig.get().set("logtype","san") // Reset "logtype" to "san" on exit
             })
         })
 
-        ipcMain.on("updatelogwin",(event,logcontents: string,logtype: "san" | "rust" | "sanhelperrs" | "bak",filename?: string) => logwin && logwin.webContents.send("updatelogwin",logcontents,logtype,filename))
+        ipcMain.on("updatelogwin",(event,logcontents: string,logtype: LogFiles | "bak",filename?: string) => logwin && logwin.webContents.send("updatelogwin",logcontents,logtype,filename))
+        
+        ipcMain.on("updatelogtype",(event,logtype: LogFiles | "bak",filename?: string) => {
+            sanconfig.get().set("logtype",logtype)
+            win.webContents.send("updatelogtype",logtype,filename)
+        })
+        
         ipcMain.on("updatelogtype",(event,logtype,filename?: string) => {
             sanconfig.get().set("logtype",logtype)
             win.webContents.send("updatelogtype",logtype,filename)
@@ -2166,7 +2177,7 @@ export const listeners = {
 
         ipcMain.on("troubleshooter",async () => {
             try {
-                const { data, result } = await troubleshooter.data(worker)
+                const { data, result } = await troubleshooter.data(appid,worker)
                 
                 win.webContents.send("troubleshooter",data,result)
                 win.show()

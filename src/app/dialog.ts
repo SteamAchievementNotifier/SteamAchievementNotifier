@@ -78,7 +78,7 @@ export const dialog = {
             shortcutkeys.forEach((partialcombo,key) => {
                 const btn = document.getElementById(`${key}shortcut`)! as HTMLButtonElement
                 
-                btn.textContent = sanhelper.getshortcut(config,btn.id,btn.id)
+                btn.textContent = sanhelper.getshortcut(config,document.getElementById(btn.id)!,btn.id)
                 btn.onclick = event => sanhelper.setshortcut(config,event,(event.target as HTMLButtonElement).id,partialcombo)
             })
 
@@ -478,7 +478,7 @@ export const dialog = {
     
                             radefaultinput.onchange = updateinput
 
-                            sanhelper.loadadditionaltooltips(document.querySelector(`dialog:has(input[type="checkbox"]#radefault) .wrapper#contentcontainer`))
+                            sanhelper.loadadditionaltooltips(document.querySelector(`dialog:has(input[type="checkbox"]#radefault) .wrapper#contentcontainer`)!)
                         } else {
                             themeswitchappid.value === rathemeswitchvalue && (themeswitchappid.value = "RetroAchievements")
                         }
@@ -659,7 +659,7 @@ export const dialog = {
                 
                 const backuppathbtn = opt.querySelector("button.optbtn#backuppath") as HTMLButtonElement
                 backuppathbtn.textContent = (config.get("backuppath") || path.join(path.dirname(sanhelper.appdata),"Temp")).replace(/\\/g,"/")
-                sanhelper.setbtn(config,backuppathbtn,null)
+                sanhelper.setbtn(config,backuppathbtn)
             }
             
             document.getElementById("restore")!.onclick = async () => {
@@ -743,7 +743,7 @@ export const dialog = {
                 opt.querySelector("span.lbl")!.textContent = await language.get("backuppath",["settings","advanced","content"])
 
                 const restorepathbtn = opt.querySelector("button.optbtn#restorepath") as HTMLButtonElement
-                sanhelper.setbtn(config,restorepathbtn,null)
+                sanhelper.setbtn(config,restorepathbtn)
 
                 const okbtn = document.querySelector("dialog .btnwrapper > button#okbtn") as HTMLButtonElement
                 okbtn.tabIndex = -1
@@ -807,7 +807,7 @@ export const dialog = {
                 "restartapp"
             ].forEach(id => document.getElementById(id)!.onclick = () => ipcRenderer.send(id.replace(/window$/,"win")))
 
-            document.getElementById("log")!.onclick = () => sanhelper.createlogwin(config.get("logtype"))
+            document.getElementById("log")!.onclick = () => sanhelper.createlogwin()
 
             document.getElementById("reset")!.onclick = async () => dialog.open({
                 title: await language.get("reset",["settings","misc","content"]),
@@ -834,7 +834,7 @@ export const dialog = {
             }
 
             sanhelper.getshortcut(config,document.body)
-            document.querySelector(`#settingsversion > span:last-child`)!.textContent = sanhelper.semver
+            document.querySelector(`#settingsversion > span:last-child`)!.textContent = sanhelper.semver!
         }
 
         buttons?.forEach((obj: Button) => {

@@ -24,10 +24,6 @@ declare interface Res {
     }
 }
 
-interface SANHelper {
-    [key: string]: function | boolean | number | string | Promise<any> | undefined
-}
-
 declare type NotifyType = "main" | "semi" | "rare" | "plat"
 declare type TrophyType = "bronze" | "silver" | "gold"
 
@@ -86,7 +82,7 @@ declare interface Config {
     noiconcache: boolean,
     exclusions: number[],
     inclusionlist: boolean,
-    logtype: "san" | "rust" | "sanhelperrs" | "bak",
+    logtype: LogFiles | "bak",
     ssalldetails: string[],
     webhooks: boolean,
     webhookmain: boolean,
@@ -798,6 +794,10 @@ declare interface TroubleshooterResult {
     type: TroubleshooterType,
     msg: TroubleshooterMsg
 }
+
+declare type RustLogFiles = "steamworks" | "sanwatcher"
+declare type ElectronLogFiles = "san" | "sanhelper"
+declare type LogFiles = ElectronLogFiles | RustLogFiles
 
 declare module "simple-vdf"
 declare module "adm-zip"

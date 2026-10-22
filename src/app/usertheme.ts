@@ -581,7 +581,7 @@ export const usertheme = {
     },
     themeswitchinfo: (config: Store<Config>,appid: number,notify?: { customisation: Customisation,type: NotifyType,getsrc?: boolean },ra?: boolean) => {
         const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(appid,ra)
-        if (!notify) return { themeswitchcustomisation: null, themeswitchsrc: null, enabled: Boolean(themeswitch) }
+        if (!notify) return { themeswitchcustomisation: null, themeswitchsrc: null, enabled: !!themeswitch }
 
         const { customisation, type, getsrc } = notify
 
@@ -606,7 +606,7 @@ export const usertheme = {
             }
         }
 
-        return { themeswitchcustomisation: customobj, themeswitchsrc: src, enabled: Boolean(themeswitch) }
+        return { themeswitchcustomisation: customobj, themeswitchsrc: src, enabled: !!themeswitch }
     },
     themeswitchentries: () => Object.entries(JSON.parse(localStorage.getItem("themeswitch") || "{}")) as [string,ThemeSwitch][],
     hasthemeswitch: (appid: number,ra?: boolean) => {

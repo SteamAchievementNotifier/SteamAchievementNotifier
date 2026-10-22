@@ -22,7 +22,7 @@ if (app.commandLine.hasSwitch("clean")) {
         fs.existsSync(sanhelper.appdata) && fs.rmSync(path.join(sanhelper.appdata), { recursive: true, force: true })
         console.log(`--clean: "${sanhelper.appdata}" removed successfully\n`)
     } catch (err) {
-        console.log(`--clean: Error removing "${sanhelper.adddata}": ${err}\n`)
+        console.log(`--clean: Error removing "${sanhelper.appdata}": ${err}\n`)
     }
 }
 
@@ -134,8 +134,11 @@ const checkdir = (dirpath: string,callback: () => void,msg: string) => {
 
         const customfilesversion = getcustomfilesversion(path.join(dirpath,"package.json"))
         const backuppath = dirpath + `_V${customfilesversion}`
+        
+        const { semver } = sanhelper
+        if (!semver) throw new Error("Unable to parse semver")
 
-        if (parseInt(customfilesversion.split(".")[2]) < parseInt(sanhelper.semver.split(".")[2])) {
+        if (parseInt(customfilesversion.split(".")[2]) < parseInt(semver.split(".")[2])) {
             log.write("INFO",`"${dirpath}" Package Version (${customfilesversion}) is outdated compared to current App Version (${sanhelper.semver}): Attempting backup...`)
 
             try {

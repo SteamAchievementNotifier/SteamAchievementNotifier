@@ -320,11 +320,11 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
     const settingscontent = document.querySelector("dialog[menu] #settingscontent")
 
     if (settingscontent) {
-        settingscontent.querySelectorAll(`#settingscontent .opt > input[type="checkbox"], #settingscontent .opt > .sub > input[type="checkbox"]`).forEach(opt => sanhelper.getcheckbox(config,opt,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
-        settingscontent.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *:not(button.iconbtn)`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLElement).parentElement?.hasAttribute("customisation") ? keypath : null))
-        settingscontent.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select, #settingscontent .opt > input[type="text"][id^="testnotifycustomtext"]`).forEach(elem => sanhelper.setvalue(config,elem,(elem as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
-        settingscontent.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,(btn as HTMLElement).parentElement!.hasAttribute("customisation") ? keypath : null))
-        settingscontent.querySelectorAll(`#settingscontent .cont:has(.title#ra) .opt:has(input[type="text"]) > input,#settingscontent .cont:has(.title#ra) .opt:has(input[type="password"]) > input`).forEach(input => sanhelper.setvalue(config,input,null))
+        settingscontent.querySelectorAll(`#settingscontent .opt > input[type="checkbox"], #settingscontent .opt > .sub > input[type="checkbox"]`).forEach(opt => sanhelper.getcheckbox(config,opt as HTMLInputElement,(opt as HTMLInputElement).parentElement?.hasAttribute("customisation") ? keypath : undefined))
+        settingscontent.querySelectorAll(`#settingscontent .opt:has(input[type="checkbox"]) > *:not(button.iconbtn)`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,(opt as HTMLInputElement).parentElement?.hasAttribute("customisation") ? keypath : undefined))
+        settingscontent.querySelectorAll(`#settingscontent .opt > input[type="range"], #settingscontent .opt > select, #settingscontent .opt > input[type="text"][id^="testnotifycustomtext"]`).forEach(elem => sanhelper.setvalue(config,elem as HTMLInputElement,(elem as HTMLInputElement).parentElement!.hasAttribute("customisation") ? keypath : undefined))
+        settingscontent.querySelectorAll(`#settingscontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn as HTMLButtonElement,(btn as HTMLButtonElement).parentElement!.hasAttribute("customisation") ? keypath : undefined))
+        settingscontent.querySelectorAll(`#settingscontent .cont:has(.title#ra) .opt:has(input[type="text"]) > input,#settingscontent .cont:has(.title#ra) .opt:has(input[type="password"]) > input`).forEach(input => sanhelper.setvalue(config,input as HTMLInputElement))
         ;(settingscontent.querySelector("#sspreview") as HTMLButtonElement).onclick = async () => sendsswin(type,(synced ? usertheme.syncedtheme(config,config.get(keypath) as Customisation) : customisation) as Customisation,src)
         ;(settingscontent.querySelector("#replaynotify") as HTMLButtonElement).onclick = () => ipcRenderer.send("replaynotify")
         settingscontent.querySelector("#ralastachievement > span:nth-child(2)")!.textContent = localStorage.getItem("ralastachievement")
@@ -398,10 +398,10 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         scaleelem.querySelector(".lockedlbl")!.textContent = `${(await language.get("lockedby")).replace("$lock",await language.get("notifymax",["settings","notifications","content"]))}`
         scaleelem.toggleAttribute("locked",config.get("notifymax") > 1)
         
-        customiser.querySelectorAll(`#customisercontent .opt > input[type="checkbox"]`).forEach(elem => sanhelper.getcheckbox(config,elem,keypath))
+        customiser.querySelectorAll(`#customisercontent .opt > input[type="checkbox"]`).forEach(input => sanhelper.getcheckbox(config,input as HTMLInputElement,keypath))
         customiser.querySelectorAll(`#customisercontent .opt:has(input[type="checkbox"]) > span, #customisercontent .opt > input[type="checkbox"]`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,keypath))
-        customiser.querySelectorAll(`#customisercontent .opt > input[type="range"], #customisercontent .opt > input[type="color"], #customisercontent .opt > select, #customisercontent .opt > input[type="text"], #customisercontent .opt > input[type="number"]`).forEach(elem => sanhelper.setvalue(config,elem,keypath))
-        customiser.querySelectorAll(`#customisercontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn,btn.id === "logo" || btn.id.includes("decoration") ? `${keypath}.customicons.${config.get(`${keypath}.preset`)}` : (btn.id === "plat" ? `${keypath}.customicons` : keypath)))
+        customiser.querySelectorAll(`#customisercontent .opt > input[type="range"], #customisercontent .opt > input[type="color"], #customisercontent .opt > select, #customisercontent .opt > input[type="text"], #customisercontent .opt > input[type="number"]`).forEach(elem => sanhelper.setvalue(config,elem as HTMLInputElement | HTMLSelectElement,keypath))
+        customiser.querySelectorAll(`#customisercontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn as HTMLButtonElement,btn.id === "logo" || btn.id.includes("decoration") ? `${keypath}.customicons.${config.get(`${keypath}.preset`)}` : (btn.id === "plat" ? `${keypath}.customicons` : keypath)))
         customiser.querySelectorAll(`#customisercontent .opt > .delbtn`).forEach(btn => (btn as HTMLButtonElement).onclick = async () => {
             const optbtn = btn.parentElement!.querySelector(`.optbtn`) as HTMLButtonElement
             const preset = config.get(`customisation.${type}.preset`) as string
@@ -551,7 +551,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")
 
     const dialogelem = document.querySelector("dialog") || document.getElementById("customiser")
-    sanhelper.loadclosedstate(dialogelem)
+    dialogelem && sanhelper.loadclosedstate(dialogelem)
 
     ;["settingscontent","customiser"].forEach(id => {
         const menuelem = document.getElementById(id)
@@ -788,7 +788,7 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
         unlocked: true,
         hidden: customisation.previewhiddenicon,
         percent: type !== "plat" ? (type === "rare" ? rarity : trophymode && type === "semi" ? semirarity : 50.0) : 0,
-        icon: type !== "plat" ? sanhelper.setfilepath("img",`achicon.png`) : plat || sanhelper.setfilepath("img","ribbon.svg"),
+        icon: type !== "plat" ? sanhelper.setfilepath("img",`achicon.png`) : plat as string || sanhelper.setfilepath("img","ribbon.svg"),
         gameicon: gameicon || sanhelper.setfilepath("img","gameicon.png"),
         istestnotification: true,
         unlocktime: new Date(Date.now()).toISOString()
@@ -1019,7 +1019,7 @@ ipcRenderer.on("updatemenu",(event,id) => {
 })
 
 ipcRenderer.on("workeractive",(event,value: boolean) => document.body.toggleAttribute("active",value))
-ipcRenderer.on("updatelogtype",(event,logtype,filename?: string) => sanhelper.updatelogwin(logtype,filename))
+ipcRenderer.on("updatelogtype",(event,logtype: LogFiles | "bak",filename?: string) => sanhelper.updatelogwin(logtype,filename))
 
 const getsteamuser = async (): Promise<string | null> => {
     const VDF = await import("simple-vdf")

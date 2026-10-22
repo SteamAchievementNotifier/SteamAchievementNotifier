@@ -38,11 +38,11 @@ export const log = {
     init: (process: "APP" | "MAIN" | "RENDERER" | "WORKER" | "ERROR") => {
         log.create(process)
 
-        // Rust-based log files must be created before game tracking starts to prevent continuous missing file error logging
         if (process === "APP") {
             log.clear()
-
-            for (const logfile of logfiles) {
+            
+            // Rust-based log files must be created before game tracking starts to prevent continuous missing file error logging
+            for (const logfile of rustlogfiles) {
                 try {
                     fs.writeFileSync(path.join(sanhelper.appdata,"logs",`${logfile}.log`),"")
                     log.write("INFO",`"${logfile}.log" created successfully`)
@@ -98,7 +98,6 @@ export const log = {
         try {
             const { lognum } = config.store
             const logspath = path.join(sanhelper.appdata,"logs")
-            const logfiles = fs.readdirSync(logspath).filter(file => file.endsWith("_san.log")).sort()
             const backups = log.getbackups(logspath)
             const timestamps = [...backups.keys()].sort()
 

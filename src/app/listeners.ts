@@ -1905,11 +1905,6 @@ export const listeners = {
             sanconfig.get().set("logtype",logtype)
             win.webContents.send("updatelogtype",logtype,filename)
         })
-        
-        ipcMain.on("updatelogtype",(event,logtype,filename?: string) => {
-            sanconfig.get().set("logtype",logtype)
-            win.webContents.send("updatelogtype",logtype,filename)
-        })
 
         ipcMain.on("steam3id",async (event,steam3id: number,skipss?: boolean) => {
             if (skipss) return log.write("INFO",`"skipss" received - skipping screenshot...`)

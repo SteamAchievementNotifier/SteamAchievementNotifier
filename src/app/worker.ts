@@ -592,7 +592,7 @@ const startsan = async (appinfo: AppInfo) => {
                                 unlocked: true,
                                 hidden: false,
                                 percent: 0,
-                                icon: platicon || sanhelper.setfilepath("img","ribbon.svg"),
+                                icon: platicon as string || sanhelper.setfilepath("img","ribbon.svg"),
                                 gameicon: gameicon || sanhelper.setfilepath("img","sanlogosquare.svg"),
                                 unlocktime: new Date(Date.now()).toISOString()
                             }
@@ -652,8 +652,8 @@ const startsan = async (appinfo: AppInfo) => {
                 processes.push(...processinfo)
             }
 
-            ipcRenderer.send("activeprocesses",appid,processes.some(process => process.pid !== -1),worker.linkedgame(appid) ?? null)
             initgameloop()
+            ipcRenderer.send("activeprocesses",appid,processes.some(process => process.pid !== -1),worker.linkedgame(appid) ?? null)
         }
             
         usesanwatcher ? initgameloop() : getrunninggameprocesses()

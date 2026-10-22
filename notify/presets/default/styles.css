@@ -239,3 +239,12 @@ body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont:has(.wrapper#achcontent
     border-radius: var(--ssbr);
     animation: ssbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 6)) forwards;
 }
+
+.wrapper#achcont:has(> .wrapper#achcontent > #desc) #achcontent > span:has(.scroller) {
+    container-type: inline-size;
+    animation-delay: calc(var(--displaytime) / 2);
+}
+
+.wrapper#achcont:has(> .wrapper#achcontent > #desc) #achcontent > span:has(.scroller) > .scroller {
+    --anim: min(0px,calc(100cqw - 100%)) 0;
+}

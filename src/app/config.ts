@@ -232,6 +232,8 @@ export const sanconfig = {
                 semirarity: 25,
                 soundonly: false,
                 showpercent: "rareonly",
+                showpercentpos: "right",
+                showpercentstyle: "brackets",
                 extwin: false,
                 extwinframerate: 60,
                 extwinshow: true,
@@ -483,8 +485,8 @@ export const sanconfig = {
                 sspercentbadge: false,
                 percentbadgepos: "bottomcenter",
                 sspercentbadgepos: "bottomcenter",
-                percentbadgecolor: `#${sanhelper.settypevalue(props,defaultcolors.primary)}`,
-                sspercentbadgecolor: `#${sanhelper.settypevalue(props,defaultcolors.primary)}`,
+                percentbadgecolor: `#${sanhelper.settypevalue(props as NotifyType,defaultcolors.primary)}`,
+                sspercentbadgecolor: `#${sanhelper.settypevalue(props as NotifyType,defaultcolors.primary)}`,
                 percentbadgefontsize: 100,
                 sspercentbadgefontsize: 100,
                 percentbadgefontcolor: "#ffffff",
@@ -540,7 +542,7 @@ export const sanconfig = {
         return {
             primarycolor: `#${sanhelper.settypevalue(type,defaultcolors.primary)}`,
             secondarycolor: `#${sanhelper.settypevalue(type,defaultcolors.secondary)}`,
-            shortcut: `CTRL+SHIFT+${sanhelper.settypevalue(type,{ main: 1, semi: "W", rare: 2, plat: 3 })}`,
+            shortcut: `CTRL+SHIFT+${sanhelper.settypevalue<number | string>(type,{ main: 1, semi: "W", rare: 2, plat: 3 })}`,
             elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
             usertheme: [{
                 id: 0,
@@ -644,7 +646,7 @@ export const sanconfig = {
     validatecustomicons: async (type: NotifyType) => {
         const config = sanconfig.get()
         const log = (await import("./log")).log
-        const defaulticons = sanconfig.defaulticons
+        const defaulticons = new Map<string,CustomIcon | string>(sanconfig.defaulticons)
 
         const customicons = config.get(`customisation.${type}.customicons`) as { [key: string]: any }
         const userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
@@ -729,7 +731,7 @@ export const sanconfig = {
         }
 
         // If the value is an Array, return the key plus the index of the missing file appended to the key string. If it's a string, just return as normal
-        return new Map(Array.from(files).flatMap(([key,value]) => Array.isArray(value) ? value.map((file,i) => !fs.existsSync(file) ? [[`${key[0]}.${i}`,`${key[1]}.${i}`],file] : null).filter((entry): entry is [string[],string] => Boolean(entry)) : !fs.existsSync(value) ? [[key,value]] : []))
+        return new Map(Array.from(files).flatMap(([key,value]) => Array.isArray(value) ? value.map((file,i) => !fs.existsSync(file) ? [[`${key[0]}.${i}`,`${key[1]}.${i}`],file] : null).filter((entry): entry is [string[],string] => !!entry) : !fs.existsSync(value) ? [[key,value]] : []))
     },
     resetmissingfiles: (files: Map<string[],string>,config: Store<Config>,log: any) => files.forEach((value,key) => {
         log.write("WARN",`"${value}" does not exist, but is currently in use by "${key[1]}" - resetting to default...`)

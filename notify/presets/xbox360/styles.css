@@ -249,3 +249,7 @@ body:not([ss])[ssdisplay] .wrapper#bg {
         var(--ssbrin),
         var(--ssbrout);
 }
+
+#achcontent > span:has(.scroller) {
+    margin-right: 1rem;
+}

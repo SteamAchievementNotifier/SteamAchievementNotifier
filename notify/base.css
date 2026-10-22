@@ -512,3 +512,21 @@ body[notify1line] .wrapper#achcontent span#desc {
 @keyframes ssbrout {
     to { border-radius: var(--roundness); }
 }
+
+#achcontent > span:has(.scroller) {
+    text-wrap: nowrap;
+    text-overflow: clip;
+}
+
+.scroller {
+    --anim: calc(var(--scrolldistance) * -1) 0;
+    --repeat: 1;
+    display: inline-block;
+    position: relative;
+    min-width: 100%;
+    animation: scrollh calc(var(--displaytime) / var(--repeat)) var(--transition) linear infinite;
+}
+
+@keyframes scrollh {
+    to { translate: var(--anim); }
+}

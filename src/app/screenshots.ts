@@ -219,7 +219,7 @@ export const screenshot = {
         if (!sswin) return log.write("WARN",`"sswin" not found for ID ${notify.id}`)
         
         if (config.get("hdrmode")) {
-            let area: number[] | undefined
+            let area: [number,number,number,number] | undefined
             
             if (ssmode === "window") {
                 const validwinsize = (["width","height"] as const).every(dim => screenshot.sswinbounds.bounds[dim] !== 0) // Check if width/height bounds are valid (i.e. non-zero) and fallback to "screen" mode if not

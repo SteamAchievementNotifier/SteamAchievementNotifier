@@ -333,34 +333,6 @@ body:not([ss])[ssdisplay][fastanim] .wrapper#bg {
     --ssbrout: none;
 }
 
-/* !!! Removes `border-radius` from the corner of `#iconbg` - not currently required */
-
-/* body[topleft] #iconbg,
-body[topcenter] #iconbg,
-body[topright] #iconbg {
-    --iconbgbr: var(--roundness) var(--roundness) var(--roundness) 0;
+#achcontent > span:has(.scroller) {
+    margin-right: 1rem;
 }
-
-body[bottomleft] #iconbg,
-body[bottomcenter] #iconbg,
-body[bottomright] #iconbg {
-    --iconbgbr: 0 var(--roundness) var(--roundness) var(--roundness);
-}
-
-body:not([ss])[ssdisplay] #iconbg {
-    --iconbgbrin: iconbgbrin calc(var(--transition) * 2) calc((var(--transition) * 7)) forwards;
-    --iconbgbrout: iconbgbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 12.25)) forwards;
-    animation:
-        scaleup var(--transition) ease-in-out forwards,
-        var(--iconbgbrin),
-        var(--iconbgbrout),
-        var(--finish);
-}
-
-@keyframes iconbgbrin {
-    to { border-radius: var(--iconbgbr); }
-}
-
-@keyframes iconbgbrout {
-    to { border-radius: var(--iconroundness); }
-} */

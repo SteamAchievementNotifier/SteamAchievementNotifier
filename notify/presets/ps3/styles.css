@@ -99,3 +99,7 @@ body:not([ss])[ssdisplay] .wrapper#achcont,
 body:not([ss])[ssdisplay] .wrapper#bg {
     border-radius: var(--ssbr);
 }
+
+#achcontent > span:has(.scroller) {
+    margin-right: 1rem;
+}

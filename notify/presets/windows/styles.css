@@ -155,3 +155,11 @@ body:not([ss])[ssdisplay] .wrapper#achcont,
 body:not([ss])[ssdisplay] .wrapper#bg {
     border-radius: var(--ssbr);
 }
+
+.wrapper#header > #unlockmsg:has(.scroller) {
+    text-wrap: nowrap;
+}
+
+#achcontent > span:has(.scroller) {
+    margin-right: 1rem;
+}

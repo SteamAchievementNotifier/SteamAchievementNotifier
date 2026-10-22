@@ -24,10 +24,6 @@ declare interface Res {
     }
 }
 
-interface SANHelper {
-    [key: string]: function | boolean | number | string | Promise<any> | undefined
-}
-
 declare type NotifyType = "main" | "semi" | "rare" | "plat"
 declare type TrophyType = "bronze" | "silver" | "gold"
 
@@ -42,6 +38,8 @@ declare interface Config {
     semirarity: number,
     soundonly: boolean,
     showpercent: "rareonly" | "all" | "off",
+    showpercentpos: "left" | "right",
+    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     extwin: boolean,
     extwinframerate: number,
     extwinshow: boolean,
@@ -86,7 +84,7 @@ declare interface Config {
     noiconcache: boolean,
     exclusions: number[],
     inclusionlist: boolean,
-    logtype: "san" | "rust" | "sanhelperrs" | "bak",
+    logtype: LogFiles | "bak",
     ssalldetails: string[],
     webhooks: boolean,
     webhookmain: boolean,
@@ -439,6 +437,8 @@ declare interface Info {
     gameartlibhero: string,
     gameartlogo: string,
     notify1line: boolean,
+    showpercentpos: "left" | "right",
+    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     ra?: boolean
 }
 
@@ -798,6 +798,10 @@ declare interface TroubleshooterResult {
     type: TroubleshooterType,
     msg: TroubleshooterMsg
 }
+
+declare type RustLogFiles = "steamworks" | "sanwatcher"
+declare type ElectronLogFiles = "san" | "sanhelper"
+declare type LogFiles = ElectronLogFiles | RustLogFiles
 
 declare module "simple-vdf"
 declare module "adm-zip"

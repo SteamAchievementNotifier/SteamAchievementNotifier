@@ -1354,9 +1354,6 @@ export const sanhelper = {
         const { semver } = sanhelper
         if (!semver) throw new Error("Unable to parse semver")
 
-        const { semver } = sanhelper
-        if (!semver) throw new Error("Unable to parse semver")
-
         try {
             const tagname = (await (await fetch("https://api.github.com/repos/steamachievementnotifier/steamachievementnotifier/releases")).json())[0].tag_name
             const latest = parseInt(tagname.split(".")[2])

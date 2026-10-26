@@ -40,7 +40,7 @@ export const log = {
 
         if (process === "APP") {
             log.clear()
-
+            
             // Rust-based log files must be created before game tracking starts to prevent continuous missing file error logging
             for (const logfile of rustlogfiles) {
                 try {
@@ -112,7 +112,7 @@ export const log = {
 
                 return log.write("INFO","Log file backup disabled")
             }
-
+            
             while (timestamps.length && timestamps.length >= lognum) {
                 const oldest = timestamps.shift()
                 oldest && backups.get(oldest)!.forEach(logfile => log.clearlogfile(logspath,logfile))

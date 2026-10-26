@@ -451,7 +451,7 @@ export const sanhelper = {
         // `elem.checked` property does not update when clicking `input` element if `requestAnimationFrame`/`setTimeout` is not used here.
         requestAnimationFrame(() => {
             elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean
-
+            
             // Call the function matching the id of the element in the `sanhelper` object (ensuring a callable function actually exists beforehand)
             const sanhelperfn = (sanhelper as Record<string,any>)[elem.id]
             typeof sanhelperfn === "function" && sanhelperfn(config.get(elem.id) as boolean, elem.id === "trophymode" ? config : undefined)
@@ -1351,6 +1351,9 @@ export const sanhelper = {
         const { dialog } = await import("./dialog")
         const { log } = await import("./log")
         
+        const { semver } = sanhelper
+        if (!semver) throw new Error("Unable to parse semver")
+
         const { semver } = sanhelper
         if (!semver) throw new Error("Unable to parse semver")
 

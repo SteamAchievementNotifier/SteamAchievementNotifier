@@ -1904,6 +1904,7 @@ export const listeners = {
         })
 
         ipcMain.on("updatelogwin",(event,logcontents: string,logtype: LogFiles | "bak",filename?: string) => logwin && logwin.webContents.send("updatelogwin",logcontents,logtype,filename))
+        
         ipcMain.on("updatelogtype",(event,logtype: LogFiles | "bak",filename?: string) => {
             sanconfig.get().set("logtype",logtype)
             win.webContents.send("updatelogtype",logtype,filename)

@@ -191,7 +191,7 @@ export const troubleshooter = {
         } as TroubleshooterExecutable
     },
     result: (data: TroubleshooterData): Promise<TroubleshooterResult>[] => rules.filter(rule => rule.test(data)).map(async ({ id, type, msg }) => ({ id, type, msg: await msg(data) })),
-    data: async (appid: number,worker: Electron.BrowserWindow | null) => {        
+    data: async (appid: number,worker: Electron.BrowserWindow | null) => {
         const processdata = appid && worker ? await new Promise<TroubleshooterProcess | null>(resolve => {
             ipcMain.once("processdata",(event,data: TroubleshooterProcess) => resolve(data))
             worker!.webContents.send("processdata")

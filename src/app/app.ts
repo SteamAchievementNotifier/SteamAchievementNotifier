@@ -137,7 +137,7 @@ const checkdir = (dirpath: string,callback: () => void,msg: string) => {
         
         const { semver } = sanhelper
         if (!semver) throw new Error("Unable to parse semver")
-
+        
         if (parseInt(customfilesversion.split(".")[2]) < parseInt(semver.split(".")[2])) {
             log.write("INFO",`"${dirpath}" Package Version (${customfilesversion}) is outdated compared to current App Version (${sanhelper.semver}): Attempting backup...`)
 

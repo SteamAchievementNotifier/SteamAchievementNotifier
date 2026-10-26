@@ -38,6 +38,8 @@ declare interface Config {
     semirarity: number,
     soundonly: boolean,
     showpercent: "rareonly" | "all" | "off",
+    showpercentpos: "left" | "right",
+    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     extwin: boolean,
     extwinframerate: number,
     extwinshow: boolean,
@@ -435,6 +437,8 @@ declare interface Info {
     gameartlibhero: string,
     gameartlogo: string,
     notify1line: boolean,
+    showpercentpos: "left" | "right",
+    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     ra?: boolean
 }
 

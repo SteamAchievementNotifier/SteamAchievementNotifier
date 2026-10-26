@@ -232,6 +232,8 @@ export const sanconfig = {
                 semirarity: 25,
                 soundonly: false,
                 showpercent: "rareonly",
+                showpercentpos: "right",
+                showpercentstyle: "brackets",
                 extwin: false,
                 extwinframerate: 60,
                 extwinshow: true,

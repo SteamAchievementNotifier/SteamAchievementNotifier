@@ -372,7 +372,7 @@ export const listeners = {
             const issues = !!result.length
 
             if (!!gamedisplaystate.steam.issues === issues) return
-
+            
             gamedisplaystate.steam.issues = issues
             refreshgamedisplay()
         })
@@ -1311,7 +1311,7 @@ export const listeners = {
             }
             
             if (iswebview === "customiser") {
-                const { ssalldetails, screenshots, notify1line } = config.store
+                const { ssalldetails, screenshots, notify1line, showpercentpos, showpercentstyle } = config.store
                 const { icon, libhero, logo } = gameartobj
 
                 return win.webContents.send("customisernotify",{
@@ -1327,7 +1327,9 @@ export const listeners = {
                     gamearticon: icon,
                     gameartlibhero: libhero,
                     gameartlogo: logo,
-                    notify1line
+                    notify1line,
+                    showpercentpos,
+                    showpercentstyle
                 } as Info)
             }
 
@@ -1512,7 +1514,7 @@ export const listeners = {
                 }
 
                 const notifyinfo = async (isextwin?: boolean) => {
-                    const { audiosrc, ssalldetails, screenshots, notify1line } = config.store
+                    const { audiosrc, ssalldetails, screenshots, notify1line, showpercentpos, showpercentstyle } = config.store
                     const { appid, steam3id } = info
                     const steampath = sanhelper.steampath
                     const hqicon = notify.ra ? notify.gameicon : sanhelper.gethqicon(appid)
@@ -1533,6 +1535,8 @@ export const listeners = {
                         gameartlibhero: libhero,
                         gameartlogo: logo,
                         notify1line,
+                        showpercentpos,
+                        showpercentstyle,
                         ra: notify.ra
                     } as Info
                 }

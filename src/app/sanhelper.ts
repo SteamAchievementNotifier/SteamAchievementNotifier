@@ -894,7 +894,7 @@ export const sanhelper = {
 
         elems.forEach(async id => {
             const parent = document.querySelector(`.rect:has(> #${id})`) as any
-
+            
             const tt = tippy(`#${id}`,{
                 ...defaulttippy,
                 maxWidth: sanhelper.maxwidth(wideelems,id),
@@ -1350,6 +1350,9 @@ export const sanhelper = {
 
         const { dialog } = await import("./dialog")
         const { log } = await import("./log")
+        
+        const { semver } = sanhelper
+        if (!semver) throw new Error("Unable to parse semver")
 
         const { semver } = sanhelper
         if (!semver) throw new Error("Unable to parse semver")

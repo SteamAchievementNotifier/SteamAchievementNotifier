@@ -5,6 +5,7 @@ import { log } from "./log"
 import { error } from "./error"
 import { sanconfig } from "./config"
 import { listeners } from "./listeners"
+import { gamescope } from "./gamescope"
 
 // Sets AppUserModelId for Native OS notifications
 app.setAppUserModelId(sanhelper.devmode ? process.execPath : "com.SteamAchievementNotifier.Jackson0ne")
@@ -26,6 +27,7 @@ export const main = async (starttime: string) => {
             const steampath = await sanhelper.steampath
             if (!steampath) throw new Error(`Steam installation path not found. Please install Steam before running Steam Achievement Notifier`)
             log.write("INFO",`Steam installation path: ${steampath}`)
+            gamescope.active && log.write("INFO",`gamescope session detected - notifications will be displayed as gamescope external overlays`)
         } catch (err) {
             if (err instanceof Error && err.message) throw err
             throw new Error(`Unable to start Steam Achievement Notifier: ${err}`)
@@ -53,7 +55,7 @@ export const main = async (starttime: string) => {
             minimizable: false,
             maximizable: true,
             resizable: true,
-            show: !config.get("startmin"),
+            show: !config.get("startmin") && !gamescope.active, // Main window would steal focus from the game in Game Mode
             skipTaskbar: false,
             webPreferences: {
                 nodeIntegration: true,

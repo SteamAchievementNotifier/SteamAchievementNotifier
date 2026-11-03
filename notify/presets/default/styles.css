@@ -186,12 +186,20 @@ body[nodecoration] .wrapper#achcontent > span {
 
 #unlockmsg,
 #title {
+    --scrollstart: calc(var(--transition) * 8);
+    --scrollend: calc(var(--displaytime) / 2 - var(--transition) * 2);
     grid-row-start: 1;
 }
 
 #desc {
     font-size: calc(0.85rem * var(--fontsize));
     grid-row-start: 2;
+}
+
+#title,
+#desc {
+    --scrollstart: calc(var(--displaytime) / 2 + var(--transition) * 3);
+    --scrollend: calc(var(--displaytime) - var(--transition) * 6);
 }
 
 body[ss] .wrapper#achcont:has(.wrapper#achcontent > #unlockmsg) {

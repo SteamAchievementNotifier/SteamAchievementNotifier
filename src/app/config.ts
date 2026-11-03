@@ -353,7 +353,8 @@ export const sanconfig = {
                 notifyspace: -25,
                 audiocooldown: 1000,
                 ssext: "png",
-                notify1line: false,
+                notifylinemode: "max",
+                notifyoverflow: "ellipsis",
                 ssaddtosteam: false,
                 backuppath: "",
                 gametimerwin: false,
@@ -532,6 +533,7 @@ export const sanconfig = {
                 usegametitletitle: false,
                 customtextdesc: "",
                 usegametitledesc: false,
+                scrollrepeat: 1,
                 usertheme: [] as UserTheme[]
             }
 

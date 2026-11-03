@@ -231,10 +231,12 @@ export const translations = {
                 trophymode: "Trophy Mode",
                 notifymax: "Max Notifications",
                 notifyspace: "Notification Spacing",
-                notify1line: "Limit Text to 1 Line",
-                testnotifycustomtext: "Test Notification Custom Text",
-                testnotifycustomtexttitle: "Title",
-                testnotifycustomtextdesc: "Description"
+                notifylinemode: "Line Mode",
+                single: "Single",
+                max: "Max",
+                notifyoverflow: "Overflow Mode",
+                ellipsis: "Ellipsis",
+                scroll: "Scroll"
             }
         },
         games: {
@@ -425,7 +427,8 @@ export const translations = {
                 usecustomtext: "Custom Text",
                 customtextunlockmsg: "Unlock Message",
                 customtexttitle: "Achievement Title",
-                customtextdesc: "Achievement Description"
+                customtextdesc: "Achievement Description",
+                scrollrepeat: "Scroll Repeat"
             }
         },
         sound: {
@@ -920,7 +923,10 @@ export const translations = {
         usecustomtext: "Set custom messages to be displayed within the notification",
         customtextunlockmsg: `Set a custom message to be displayed within the Unlock Message element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
         customtexttitle: `Set a custom message to be displayed within the Achievement Title element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Title is disabled</span>`,
-        customtextdesc: `Set a custom message to be displayed within the Achievement Description<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`
+        customtextdesc: `Set a custom message to be displayed within the Achievement Description<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`,
+        notifylinemode: "Set the maximum number of lines of text to display within notifications",
+        notifyoverflow: "Set the behaviour of overflowing text within notifications",
+        scrollrepeat: "Set how many times overflowing text will scroll while the notification is onscreen"
     },
     update: {
         updateavailable: "Update available",

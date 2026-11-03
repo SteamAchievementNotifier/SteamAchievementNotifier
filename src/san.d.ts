@@ -151,7 +151,8 @@ declare interface Config {
     notifyspace: number,
     audiocooldown: number,
     ssext: "png" | "jpg",
-    notify1line: boolean,
+    notifylinemode: "single" | "max",
+    notifyoverflow: "ellipsis" | "scroll",
     ssaddtosteam: boolean,
     backuppath: string,
     gametimerwin: boolean,
@@ -323,6 +324,7 @@ declare interface Customisation {
     usegametitletitle: boolean,
     customtextdesc: string,
     usegametitledesc: boolean,
+    scrollrepeat: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }
@@ -436,7 +438,8 @@ declare interface Info {
     gamearticon: string,
     gameartlibhero: string,
     gameartlogo: string,
-    notify1line: boolean,
+    notifylinemode: "single" | "max",
+    notifyoverflow: "ellipsis" | "scroll",
     showpercentpos: "left" | "right",
     showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     ra?: boolean

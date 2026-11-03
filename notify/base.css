@@ -57,6 +57,8 @@
     --ssimg: url("../img/santextlogobg.png");
     font-size: clamp(0.05rem,0.05rem + 3vmax,12.5rem);
     line-height: 1;
+    --scrollstart: calc(var(--transition) * 3);
+    --scrollend: calc(var(--displaytime) - var(--transition) * 4);
 }
 
 html,
@@ -520,11 +522,21 @@ body[notify1line] .wrapper#achcontent span#desc {
 
 .scroller {
     --anim: calc(var(--scrolldistance) * -1) 0;
-    --repeat: 1;
+    --scrollpause: 0.5s;
+    --scrolllength: calc((var(--scrollend) - var(--scrollstart)) / var(--scrollrepeat));
+    --scrollgap: min(var(--scrollpause),var(--scrolllength) / 4);
+    --scrollpercent: calc(var(--scrollgap) / var(--scrolllength) * 100%);
     display: inline-block;
     position: relative;
     min-width: 100%;
-    animation: scrollh calc(var(--displaytime) / var(--repeat)) var(--transition) linear infinite;
+    z-index: -1;
+    animation:
+        scrollh var(--scrolllength) var(--scrollstart) linear(0,0 var(--scrollpercent),1 calc(100% - var(--scrollpercent)),1) var(--scrollrepeat) both,
+        scrollfade var(--scrolllength) calc(var(--scrollstart) + var(--scrolllength) - var(--scrollgap) / 2) linear(0,1 calc(var(--scrollpercent) / 2),0 var(--scrollpercent),0) calc(var(--scrollrepeat) - 1) none;
+}
+
+@keyframes scrollfade {
+    to { opacity: 0; }
 }
 
 @keyframes scrollh {

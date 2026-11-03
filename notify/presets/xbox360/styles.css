@@ -188,8 +188,8 @@ body:not([alldetails]) .wrapper#achcontent > #desc {
     display: none;
 }
 
-/* body:not([nodecoration]) #title::before { */
-.wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::before {
+.wrapper#achcontent:has(#unlockmsg):has(#decoration) #title:not(:has(.scroller))::before,
+.wrapper#achcontent:has(#unlockmsg):has(#decoration) #title > .scroller::before {
     content: attr(gs) attr(unit) " - ";
 }
 

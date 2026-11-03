@@ -230,7 +230,8 @@ const notifyhelper = {
                 ["--iconborderscale",`${customisation.iconborderscale / 100}`],
                 ["--iconborderx",`${customisation.iconborderx}`],
                 ["--iconbordery",`${customisation.iconbordery}`],
-                ["--textvspace",`${customisation.textvspace}`]
+                ["--textvspace",`${customisation.textvspace}`],
+                ["--scrollrepeat",`${customisation.scrollrepeat}`]
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")
@@ -277,7 +278,7 @@ const notifyhelper = {
     isoverflowing: (elem: HTMLElement): boolean => {
         const clone = elem.cloneNode(true) as HTMLElement
 
-        Object.assign(clone.style, {
+        Object.assign(clone.style,{
             position: "absolute",
             visibility: "hidden",
             pointerEvents: "none",
@@ -307,26 +308,21 @@ const notifyhelper = {
     waitforlayout: async (elem: HTMLElement): Promise<void> => {
         await document.fonts.ready
 
-        const previousframe = {
-            width: -1,
-            height: -1
+        const nextframe = () => new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
+        const getelemsize = () => {
+            const { width, height } = elem.getBoundingClientRect()
+            return `${width}x${height}`
         }
 
-        let stable = 0
+        let previous = getelemsize()
+        let frames = 0
 
-        while (stable < 2) {
-            await new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
+        while (frames < 2) {
+            await nextframe()
+            const current = getelemsize()
 
-            const { width, height } = elem.getBoundingClientRect()
-
-            if (width === previousframe.width && height === previousframe.height) {
-                stable++
-            } else {
-                stable = 0
-            }
-
-            previousframe.width = width
-            previousframe.height = height
+            frames = current === previous ? frames + 1 : 0
+            previous = current
         }
     },
     addscroller: async (elem: HTMLElement) => {
@@ -339,6 +335,10 @@ const notifyhelper = {
             scroller = document.createElement("span")
             scroller.className = "scroller"
             scroller.innerHTML = html
+
+            for (const attr of ["gs","unit"]) {
+                elem.hasAttribute(attr) && scroller!.setAttribute(attr,elem.getAttribute(attr)!)
+            }
             
             elem.appendChild(scroller)
         }
@@ -348,6 +348,25 @@ const notifyhelper = {
 
         const scrolldistance = Math.max(0,scroller.scrollWidth - elem.clientWidth)
         scroller.style.setProperty("--scrolldistance",`${scrolldistance}px`)
+
+        await notifyhelper.syncscroller(scroller)
+    },
+    syncscroller: async (scroller: HTMLElement) => {
+        const anims = scroller.getAnimations() as CSSAnimation[]
+        if (!anims.length) return
+
+        await Promise.all(anims.map(anim => anim.ready))
+
+        const animset = new Set<CSSAnimation>(anims)
+        
+        const start = (document.getAnimations() as CSSAnimation[]).filter(anim => !animset.has(anim)).map(anim => anim.startTime as number | null).filter(starttime => starttime !== null)
+        if (!start.length) return
+
+        const origin = Math.min(...start)
+
+        for (const anim of anims) {
+            anim.startTime = origin
+        }
     }
 }
 
@@ -355,7 +374,7 @@ try {
     document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send(`animend_${notifyid}`,notifyid))
     
     ipcRenderer.on("notify",async (event,obj: Info,id: number) => {
-        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notify1line, showpercentpos, showpercentstyle, ra } = obj
+        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notifylinemode, notifyoverflow, showpercentpos, showpercentstyle, ra } = obj
         notifyid = id // Store globally to access in "notifyfinished" IPC event
     
         try {
@@ -364,7 +383,7 @@ try {
     
             const ssdisplay = screenshots === "overlay" && customisation.ssdisplay
             document.body.toggleAttribute("ssdisplay",ssdisplay)
-            document.body.toggleAttribute("notify1line",notify1line)
+            document.body.toggleAttribute("notify1line",notifylinemode === "single")
             document.body.toggleAttribute("nodecorationshadow",!customisation.decorationshadow)
     
             if (iswebview === "customiser") {
@@ -474,14 +493,15 @@ try {
     
                     document.documentElement.style.setProperty("--decorationindex",(customisation[`${ss}decorationpos`]).toString())
 
-                    requestAnimationFrame(async () => {
+                    notifylinemode === "single" && notifyoverflow === "scroll" && requestAnimationFrame(async () => {
                         for (const elem of Array.from(document.querySelectorAll("#unlockmsg,#title,#desc")) as HTMLElement[]) {
                             if (!elem.textContent || ss) continue
     
                             await notifyhelper.waitforlayout(elem)
                             notifyhelper.isoverflowing(elem) && await notifyhelper.addscroller(elem)
                             
-                            elem.addEventListener("animationstart",async ({ animationName }) => (animationName === "fadein" || animationName === "slideup") && await notifyhelper.addscroller(elem))
+                            elem.addEventListener("animationstart",async ({ animationName }) => (animationName === "fadein" || animationName === "slideup") && await notifyhelper.addscroller(elem)) // Start scrolling when text animation starts
+                            customisation.preset === "default" && document.getElementById("achcont")!.addEventListener("animationend",async ({ animationName }) => animationName === "expand" && await notifyhelper.addscroller(elem)) // Start scrolling when container has fully expanded
                         }
                     })
                 }

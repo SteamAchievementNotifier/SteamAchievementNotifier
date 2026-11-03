@@ -200,7 +200,8 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 #settingscontent:has(input#usesanwatcher:not(:checked)) > .cont:has(.title#games) > .optcont > button#linkedgames,
 #settingscontent:has(select#statwintype > option[value="default"]:checked) > .cont:has(.title#streaming) .opt:has(#statwinunlockonly,#statwinunlockonlydisplaytime,#statwinunlockonlysync),
 #settingscontent:has(input#statwinunlockonly:not(:checked)) > .cont:has(.title#streaming) .opt:has(#statwinunlockonlydisplaytime,#statwinunlockonlysync),
-.optcont:has(select#showpercent > option[value="off"]:checked) > .opt:has(select#showpercentpos,select#showpercentstyle) {
+.optcont:has(select#showpercent > option[value="off"]:checked) > .opt:has(select#showpercentpos,select#showpercentstyle),
+.optcont:has(select#notifylinemode > option[value="single"]:not(:checked)) > .opt:has(select#notifyoverflow) {
     display: none;
 }
 

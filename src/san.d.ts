@@ -362,7 +362,12 @@ declare interface Achievement {
     percent: number,
     hidden: boolean,
     icon?: string,
-    unlocktimestamp?: number
+    unlocktimestamp?: number,
+    statid?: number,
+    bit?: number,
+    unlocktime?: number,
+    relocked?: boolean,
+    raw?: any
 }
 
 declare interface Notify extends Achievement {
@@ -386,6 +391,11 @@ declare interface StatsObj {
     achievements?: Achievement[],
     ra?: boolean,
     mode?: "hard" | "soft"
+}
+
+declare interface LocalisedObj {
+    name: string | null,
+    desc: string | null
 }
 
 declare interface StatsEntry {
@@ -489,9 +499,9 @@ declare interface AppInfo {
     status?: "Active" | "Released",
     gamename?: string | null
     pollrate?: number,
-    releasedelay?: number,
-    maxretries?: number,
-    userust?: boolean,
+    // releasedelay?: number,
+    // maxretries?: number,
+    // userust?: boolean,
     debug?: boolean,
     noiconcache?: boolean
 }
@@ -499,10 +509,7 @@ declare interface AppInfo {
 declare interface DebugInfo extends AppInfo {
     username?: string,
     steam3id?: number,
-    steam64id?: string,
-    releasedelay?: number,
-    lastknowngame?: LastKnownGame,
-    processes: ProcessInfo[] | DebugProcessInfo[]
+    steam64id?: string
 }
 
 declare interface DebugProcessInfo extends ProcessInfo {
@@ -805,6 +812,14 @@ declare interface TroubleshooterResult {
 declare type RustLogFiles = "steamworks" | "sanwatcher"
 declare type ElectronLogFiles = "san" | "sanhelper"
 declare type LogFiles = ElectronLogFiles | RustLogFiles
+
+declare interface SteamUser {
+    steam3id: number,
+    steam64id: string,
+    timestamp: number,
+    personaname?: string,
+    mostrecent?: boolean | null,
+}
 
 declare module "simple-vdf"
 declare module "adm-zip"

@@ -434,11 +434,13 @@ button#listmode {
 }
 
 .cont:has(.title#games) > .optcont > button#exclusionlist {
-    grid-row-start: 3;
+    /* grid-row-start: 3; */
+    grid-row-start: 2;
 }
 
 .cont:has(.title#games) > .optcont > button#listmode {
-    grid-row-start: 3;
+    /* grid-row-start: 3; */
+    grid-row-start: 2;
     grid-column-start: 2;
     gap: 0;
 }

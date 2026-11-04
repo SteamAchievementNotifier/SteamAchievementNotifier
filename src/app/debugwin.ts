@@ -1,28 +1,23 @@
 import { ipcRenderer } from "electron"
 
 const getdebuginfo = (debuginfo: DebugInfo) => {
-    const { appid, gamename, pollrate, releasedelay, maxretries, steam3id, steam64id, username, userust, status, lastknowngame } = debuginfo
+    const { appid, gamename, pollrate, steam3id, steam64id, username, status } = debuginfo
 
     const lbls = new Map<string,any>([
-        ["username",username || ""],
-        ["steam3id",steam3id || ""],
-        ["steam64id",steam64id || ""],
+        ["username",username ?? ""],
+        ["steam3id",steam3id ?? ""],
+        ["steam64id",steam64id ?? ""],
         ["appid",appid],
-        ["status",status || "Released"],
-        ["gamename",gamename || ""],
-        ["pollrate",pollrate || 250],
-        ["releasedelay",releasedelay || 0],
-        ["maxretries",maxretries],
-        ["userust",userust ? "Rust" : "Node"],
-        ["lastknowngameappid",lastknowngame?.appid || ""],
-        ["lastknowngameinstalldir",lastknowngame?.installdir || ""]
+        ["status",status ?? "Released"],
+        ["gamename",gamename ?? ""],
+        ["pollrate",pollrate ?? 250]
     ])
 
     return lbls
 }
 
 ipcRenderer.on("debuginfoupdated",(event,debuginfo: DebugInfo,reset?: boolean) => {
-    const { processes } = debuginfo
+    // const { processes } = debuginfo
     const lbls = getdebuginfo(debuginfo)
 
     if (reset) document.getElementById("processes")!.innerHTML = ""
@@ -40,36 +35,36 @@ ipcRenderer.on("debuginfoupdated",(event,debuginfo: DebugInfo,reset?: boolean) =
         }
     })
 
-    const debugprocesses = processes as DebugProcessInfo[]
-    if (!debugprocesses) return
+    // const debugprocesses = processes as DebugProcessInfo[]
+    // if (!debugprocesses) return
 
-    const processeselem = document.getElementById("processes")!
+    // const processeselem = document.getElementById("processes")!
 
-    debugprocesses.forEach(({ exe, pid, active }: DebugProcessInfo,i) => {
-        const exeelem = document.getElementById(`exe_${i}`)
-        const imgelem = document.getElementById(`activity_${i}`)! as HTMLImageElement
+    // debugprocesses.forEach(({ exe, pid, active }: DebugProcessInfo,i) => {
+    //     const exeelem = document.getElementById(`exe_${i}`)
+    //     const imgelem = document.getElementById(`activity_${i}`)! as HTMLImageElement
 
-        if (exeelem) {
-            exeelem.textContent = exe
-            imgelem.src = `../../icon/dot_${active ? "green" : "red"}.png`
-            return
-        }
+    //     if (exeelem) {
+    //         exeelem.textContent = exe
+    //         imgelem.src = `../../icon/dot_${active ? "green" : "red"}.png`
+    //         return
+    //     }
 
-        const html = `
-            <div class="wrapper process">
-                <div class="exe">
-                    <span class="key">EXE</span>
-                    <code class="value" id="exe_${i}">${exe}</code>
-                </div>
-                <div class="pid">
-                    <span class="key">PID</span>
-                    <code class="value" id="pid_${i}">${pid}</code>
-                </div>
-                <img id="activity_${i}" src="../../icon/dot_${active ? "green" : "red"}.png">
-            </div>
-        `
-        processeselem.insertAdjacentHTML("beforeend",html)
-    })
+    //     const html = `
+    //         <div class="wrapper process">
+    //             <div class="exe">
+    //                 <span class="key">EXE</span>
+    //                 <code class="value" id="exe_${i}">${exe}</code>
+    //             </div>
+    //             <div class="pid">
+    //                 <span class="key">PID</span>
+    //                 <code class="value" id="pid_${i}">${pid}</code>
+    //             </div>
+    //             <img id="activity_${i}" src="../../icon/dot_${active ? "green" : "red"}.png">
+    //         </div>
+    //     `
+    //     processeselem.insertAdjacentHTML("beforeend",html)
+    // })
 })
 
 document.addEventListener("DOMContentLoaded",() => ipcRenderer.send("debugwinready"))

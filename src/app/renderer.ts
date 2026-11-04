@@ -11,6 +11,7 @@ import { update } from "./update"
 import { sendwebhook } from "./webhook"
 import { rasupported } from "./ra"
 import { monitors } from "./monitors"
+import { steam } from "./steam"
 
 declare global {
     interface Window {
@@ -27,9 +28,12 @@ declare global {
         update: Function,
         availabletest: Function,
         appusage: Function,
-        systemusage: Function
+        systemusage: Function,
+        steam: any
     }
 }
+
+window.steam = steam
 
 log.init("RENDERER")
 dialog.init()
@@ -512,7 +516,6 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         })
 
         ;(customiser.querySelector("button#copycustompos")! as HTMLButtonElement).onclick = () => {
-            
             for (const type of (["main","semi","rare","plat"] as NotifyType[])) {
                 if (type === sanhelper.type) continue
                 
@@ -531,6 +534,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         const setvisibilityicon = (key: string) => document.documentElement.style.setProperty("--visibility",`url('${sanhelper.setfilepath("icon",`visibility${!config.get(`${keypath}.${key}`) ? "_off" : ""}.svg`)}')`)
 
         setvisibilityicon("previewhiddenicon")
+        
         visibilitybtn.onclick = () => {
             config.set(`${keypath}.previewhiddenicon`,!config.get(`${keypath}.previewhiddenicon`))
             setvisibilityicon("previewhiddenicon")
@@ -546,6 +550,15 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
 
         const synclbl = customiser.querySelector(".synclbl")
         synclbl && synced && (synclbl.textContent = `${await language.get("syncedwith",["customiser","theme","content"])} ${await language.get((config.get("trophymode") ? "trophy" : "") + synced)}`)
+        
+        // Toggles visibility of options in the Customiser based on Settings-level values
+        const toggleelems = new Map<string,boolean>([
+            [`.opt:has(input[type="range"]#scrollrepeat)`,!(config.store.notifylinemode === "single" && config.store.notifyoverflow === "scroll")]
+        ])
+
+        for (const [selector,value] of toggleelems) {
+            customiser.querySelector(selector)?.toggleAttribute("soon",value)
+        }
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")

@@ -11,7 +11,7 @@ import { gameart } from "./gameart"
 import { screenshot } from "./screenshots"
 import { audio } from "./audio"
 import { resourceusage } from "./resourceusage"
-import { troubleshooter } from "./troubleshooter"
+// import { troubleshooter } from "./troubleshooter"
 
 let appid: number = 0
 let gameid: number = 0 // RetroAchievements GameID
@@ -94,19 +94,21 @@ export const listeners = {
         let tray: Tray | null = null
         tray = new Tray(path.join(__root,"img","sanlogo_idle.png"))
 
-        let suspended = false
+        // let suspended = false
 
-        const updatetray = async (tray: Tray,gamename?: string | null,achnum?: number,releasing?: boolean,issues?: boolean,betaunsupported?: boolean) => {
+        const updatetray = async (tray: Tray,gamename?: string | null,achnum?: number) => {
             tray && tray.removeAllListeners()
 
             tray.setToolTip(`Steam Achievement Notifier (V${sanhelper.version})`)
-            tray.setImage(path.join(__root,"img",`sanlogo_${releasing ? "releasing" : (issues ? "active_error" : (achnum === 0 ? "inactive" : (gamename ? "active" : "idle")))}.${process.platform === "win32" ? "ico" : "png"}`))
+            // tray.setImage(path.join(__root,"img",`sanlogo_${releasing ? "releasing" : (issues ? "active_error" : (achnum === 0 ? "inactive" : (gamename ? "active" : "idle")))}.${process.platform === "win32" ? "ico" : "png"}`))
+            tray.setImage(path.join(__root,"img",`sanlogo_${achnum === 0 ? "inactive" : (gamename ? "active" : "idle")}.${process.platform === "win32" ? "ico" : "png"}`))
             
             const template: Electron.MenuItemConstructorOptions[] = [
                 {
                     label: gamename || await language.get("game",["app","content"]),
                     icon: nativeImage
-                            .createFromPath(path.join(__root,"icon",`dot_${releasing ? "grey" : (achnum === 0 ? "yellow" : (gamename ? "green" : "red"))}.png`))
+                            // .createFromPath(path.join(__root,"icon",`dot_${releasing ? "grey" : (achnum === 0 ? "yellow" : (gamename ? "green" : "red"))}.png`))
+                            .createFromPath(path.join(__root,"icon",`dot_${achnum === 0 ? "yellow" : (gamename ? "green" : "red")}.png`))
                             .resize({ width: 10 }),
                     enabled: false
                 },
@@ -127,22 +129,22 @@ export const listeners = {
                                     .resize({ width: 16 }),
                             click: () => ipcMain.emit("resetwin")
                         },
-                        {
-                            label: await language.get("releasegame"),
-                            icon: nativeImage
-                                    .createFromPath(path.join(__root,"icon","donotdisturb.png"))
-                                    .resize({ width: 16 }),
-                            click: () => ipcMain.emit("releasegame"),
-                            enabled: !betaunsupported
-                        },
-                        {
-                            label: await language.get(suspended ? "resume" : "suspend"),
-                            icon: nativeImage
-                                    .createFromPath(path.join(__root,"icon",`power_${suspended ? "on" : "off"}.png`))
-                                    .resize({ width: 16 }),
-                            click: () => ipcMain.emit("suspendresume"),
-                            enabled: !betaunsupported
-                        },
+                        // {
+                        //     label: await language.get("releasegame"),
+                        //     icon: nativeImage
+                        //             .createFromPath(path.join(__root,"icon","donotdisturb.png"))
+                        //             .resize({ width: 16 }),
+                        //     click: () => ipcMain.emit("releasegame"),
+                        //     enabled: !betaunsupported
+                        // },
+                        // {
+                        //     label: await language.get(suspended ? "resume" : "suspend"),
+                        //     icon: nativeImage
+                        //             .createFromPath(path.join(__root,"icon",`power_${suspended ? "on" : "off"}.png`))
+                        //             .resize({ width: 16 }),
+                        //     click: () => ipcMain.emit("suspendresume"),
+                        //     enabled: !betaunsupported
+                        // },
                         {
                             label: await language.get("restartapp"),
                             icon: nativeImage
@@ -152,16 +154,16 @@ export const listeners = {
                         }
                     ]
                 },
-                // Only show this option when global `appid` var is non-zero
-                {
-                    label: await language.get("title",["troubleshooter"]),
-                    icon: nativeImage
-                        .createFromPath(path.join(__root,"icon","troubleshoot.png"))
-                        .resize({ width: 16 }),
-                    click: () => ipcMain.emit("troubleshooter"),
-                    enabled: !!appid,
-                    visible: !!appid
-                },
+                // // Only show this option when global `appid` var is non-zero
+                // {
+                //     label: await language.get("title",["troubleshooter"]),
+                //     icon: nativeImage
+                //         .createFromPath(path.join(__root,"icon","troubleshoot.png"))
+                //         .resize({ width: 16 }),
+                //     click: () => ipcMain.emit("troubleshooter"),
+                //     enabled: !!appid,
+                //     visible: !!appid
+                // },
                 {
                     label: await language.get("replaynotify",["settings","notifications","content"]),
                     icon: nativeImage
@@ -190,7 +192,7 @@ export const listeners = {
                             .resize({ width: 16 }),
                     click: () => {
                         savewindowstate(win)
-                        ipcMain.emit("exit",null,"App exited via System Tray")
+                        ipcMain.emit("exit",null,"App exited via system tray")
                     }
                 }
             ]
@@ -205,8 +207,8 @@ export const listeners = {
             const { raui } = sanconfig.get().store
             const { steam, ra } = gamedisplaystate
             
-            const active = steam.releasing ? steam : ((raui && ra.gamename) ? ra : (steam.gamename ? steam : ra))
-            updatetray(tray!,active.gamename,active.achnum,active === steam ? steam.releasing : undefined,active === steam ? steam.issues : undefined)
+            const active = (raui && ra.gamename) ? ra : (steam.gamename ? steam : ra)
+            updatetray(tray!,active.gamename,active.achnum)
             
             win.webContents.send("gamedisplay",{ gamename: active.gamename, achnum: active.achnum } as GameDisplayInfo)
         }
@@ -220,24 +222,25 @@ export const listeners = {
             workerwin && workerwin.webContents.send("stats")
         })
 
-        ipcMain.on("usesanwatcher",() => {
-            updatetray(tray!)
-            ipcMain.emit("validateworker",true)
-        })
+        // ipcMain.on("usesanwatcher",() => {
+        //     updatetray(tray!)
+        //     ipcMain.emit("validateworker",true)
+        // })
 
-        let lastknowngame: LastKnownGame | null = null // Updated via `worker.ts` and sent via "createworker" on each new "Worker" process spawn
+        // let lastknowngame: LastKnownGame | null = null // Updated via `worker.ts` and sent via "createworker" on each new "Worker" process spawn
 
-        // Received from `worker.ts` when tracking begins for a new game
-        ipcMain.on("lastknowngame",(event,game: LastKnownGame) => {
-            lastknowngame = game
-            log.write("INFO",`Cached last known game:\n- appid: ${game.appid}\n- installdir: ${game.installdir}`)
-        })
+        // // Received from `worker.ts` when tracking begins for a new game
+        // ipcMain.on("lastknowngame",(event,game: LastKnownGame) => {
+        //     lastknowngame = game
+        //     log.write("INFO",`Cached last known game:\n- appid: ${game.appid}\n- installdir: ${game.installdir}`)
+        // })
 
-        const createworker = (id: number,lastknowngame: LastKnownGame | null,ra?: boolean) => {
+        // const createworker = (id: number,lastknowngame: LastKnownGame | null,ra?: boolean) => {
+        const createworker = (id: number,ra?: boolean) => {
             const prefix = ra ? "RA" : ""
-            const args = !ra ? [
-                `--lastknowngame=${lastknowngame ? JSON.stringify(lastknowngame) : ""}` // "Worker" parses `lastknowngame` arg on spawn
-            ] : []
+            // const args = !ra ? [
+            //     `--lastknowngame=${lastknowngame ? JSON.stringify(lastknowngame) : ""}` // "Worker" parses `lastknowngame` arg on spawn
+            // ] : []
 
             const worker = new BrowserWindow({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): ${prefix}Worker`,
@@ -259,7 +262,7 @@ export const listeners = {
                     nodeIntegration: true,
                     contextIsolation: false,
                     backgroundThrottling: false,
-                    additionalArguments: args
+                    // additionalArguments: args
                 }
             })
 
@@ -281,26 +284,28 @@ export const listeners = {
         let worker: BrowserWindow | null = null
         let workerid = 0
         
-        ipcMain.on("createworker",(event,lastknowngame: LastKnownGame | null) => worker = createworker(++workerid,lastknowngame))
+        // ipcMain.on("createworker",(event,lastknowngame: LastKnownGame | null) => worker = createworker(++workerid,lastknowngame))
+        ipcMain.on("createworker",() => worker = createworker(++workerid))
         
-        ipcMain.on("workercrash",(event,ra?: boolean) => {
-            !ra && (applaunch = true)
-            win.webContents.send("workercrash",true,ra)
-            ipcMain.emit("errnotify",null,{ channel: "workercrash" } as ErrNotify,ra)
-        })
+        // ipcMain.on("workercrash",(event,ra?: boolean) => {
+        //     !ra && (applaunch = true)
+        //     win.webContents.send("workercrash",true,ra)
+        //     ipcMain.emit("errnotify",null,{ channel: "workercrash" } as ErrNotify,ra)
+        // })
 
         ipcMain.on("worker",(event,args) => console.log(JSON.parse(args)))
 
-        const validateworker = (manualrelease?: boolean): Promise<string> => {
+        // const validateworker = (manualrelease?: boolean): Promise<string> => {
+        const validateworker = (): Promise<string> => {
             return new Promise<string>((resolve,reject) => {
                 if (worker) {
                     worker.destroy()
                     worker = null
                     
-                    if (manualrelease) {
-                        applaunch = true
-                        lastknowngame = null
-                    }
+                    // if (manualrelease) {
+                    //     applaunch = true
+                    //     lastknowngame = null
+                    // }
                     
                     return reject(`Existing "Worker" process destroyed`)
                 }
@@ -312,77 +317,83 @@ export const listeners = {
             })
         }
 
-        let applaunch = true // Prevent SAN failing to start tracking for already-running games on launch
-        let workertimer: NodeJS.Timeout | null = null
-        let resetcounter = 0
+        // let applaunch = true // Prevent SAN failing to start tracking for already-running games on launch
+        // let workertimer: NodeJS.Timeout | null = null
+        // let resetcounter = 0
 
-        const events = [
-            "releasing",
-            "workercrash"
-        ] as const
+        // const events = [
+        //     "releasing",
+        //     "workercrash"
+        // ] as const
 
-        ipcMain.on("validateworker",async (event,manualrelease?: boolean) => {
-            if (workertimer) {
-                clearInterval(workertimer)
-                workertimer = null
-            }
+        // ipcMain.on("validateworker",async (event,manualrelease?: boolean) => {
+        ipcMain.on("validateworker",async () => {
+            // if (workertimer) {
+            //     clearInterval(workertimer)
+            //     workertimer = null
+            // }
 
-            for (const event of events) {
-                win.webContents.send(event,false) // Clear Renderer UI attributes
-            }
+            // for (const event of events) {
+            //     win.webContents.send(event,false) // Clear Renderer UI attributes
+            // }
             
-            const { releasedelay, usesanwatcher } = sanconfig.get().store
-            const runningappid = sanhelper.gameinfo.appid
+            // const { releasedelay, usesanwatcher } = sanconfig.get().store
+            // const runningappid = sanhelper.gameinfo.appid
 
-            if (usesanwatcher && !applaunch && appid && manualrelease) applaunch = true // If `manualrelease` is specified, override `applaunch` flag
+            // if (usesanwatcher && !applaunch && appid && manualrelease) applaunch = true // If `manualrelease` is specified, override `applaunch` flag
 
             try {
                 ipcMain.emit("appid",null,{ appid: 0 })
 
-                const msg = await validateworker(manualrelease)
+                // const msg = await validateworker(manualrelease)
+                const msg = await validateworker()
                 log.write("INFO",msg)
 
-                if (usesanwatcher) {
-                    if (!applaunch && !appid && runningappid) throw new Error(`Steam reports AppID ${runningappid} is still active - waiting for Steam to clear AppID (${resetcounter})s`)
+                // if (usesanwatcher) {
+                //     if (!applaunch && !appid && runningappid) throw new Error(`Steam reports AppID ${runningappid} is still active - waiting for Steam to clear AppID (${resetcounter})s`)
                     
-                    applaunch = false
-                    resetcounter = 0
-                }
+                //     applaunch = false
+                //     resetcounter = 0
+                // }
                 
-                workertimer = setTimeout(() => ipcMain.emit("createworker",null,lastknowngame),releasedelay * 1000)
+                // workertimer = setTimeout(() => ipcMain.emit("createworker",null,lastknowngame),releasedelay * 1000)
+
+                ipcMain.emit("createworker")
             } catch (err) {
                 log.write("WARN",(err as Error).message || err as Error)
-                usesanwatcher && ++resetcounter
-                workertimer = setTimeout(() => ipcMain.emit("validateworker",null,manualrelease),1000)
+                // usesanwatcher && ++resetcounter
+                // workertimer = setTimeout(() => ipcMain.emit("validateworker",null,manualrelease),1000)
+                ipcMain.emit("validateworker")
             }
         })
 
-        ipcMain.on("releasing",async (event,gamename: string,value: boolean) => {
-            const { result } = await troubleshooter.data(appid,worker).catch(() => ({ result: [] }))
-            gamedisplaystate.steam = { ...gamedisplaystate.steam, gamename, releasing: value, issues: !!result.length }
+        // ipcMain.on("releasing",async (event,gamename: string,value: boolean) => {
+        //     const { result } = await troubleshooter.data(appid,worker).catch(() => ({ result: [] }))
+        //     gamedisplaystate.steam = { ...gamedisplaystate.steam, gamename, releasing: value, issues: !!result.length }
             
-            refreshgamedisplay()
-            win.webContents.send("releasing",value)
-        }) // Adds visual "releasing" hint in UI
+        //     refreshgamedisplay()
+        //     win.webContents.send("releasing",value)
+        // }) // Adds visual "releasing" hint in UI
 
-        ipcMain.on("activeprocesses",async (event,workerappid: number,activeprocesses: boolean,linkedgame: string | null) => {
-            win.webContents.send("activeprocesses",workerappid,activeprocesses,linkedgame ?? undefined) // Handles UI hint for active processes
+        // ipcMain.on("activeprocesses",async (event,workerappid: number,activeprocesses: boolean,linkedgame: string | null) => {
+        //     win.webContents.send("activeprocesses",workerappid,activeprocesses,linkedgame ?? undefined) // Handles UI hint for active processes
 
-            const { result } = await troubleshooter.data(appid,worker).catch(() => ({ result: [] }))
-            const issues = !!result.length
+        //     const { result } = await troubleshooter.data(appid,worker).catch(() => ({ result: [] }))
+        //     const issues = !!result.length
 
-            if (!!gamedisplaystate.steam.issues === issues) return
+        //     if (!!gamedisplaystate.steam.issues === issues) return
             
-            gamedisplaystate.steam.issues = issues
-            refreshgamedisplay()
-        })
+        //     gamedisplaystate.steam.issues = issues
+        //     refreshgamedisplay()
+        // })
 
         let raworker: BrowserWindow | null = null
         let raworkerid = 0
 
         ipcMain.on("createraworker",() => {
             ipcMain.once("raworkerready",() => raworker && raworker.webContents.send("rastart"))
-            raworker = createworker(++raworkerid,null,true)
+            // raworker = createworker(++raworkerid,null,true)
+            raworker = createworker(++raworkerid,true)
         })
 
         sanconfig.get().store.raemus.length && ipcMain.emit("createraworker")
@@ -407,82 +418,82 @@ export const listeners = {
             restart && ipcMain.emit("rastart")
         })
         
-        const sendclick = (appid: number,errnotify: ErrNotify,ra?: boolean) => {
-            win.show()
-            win.focus()
-            win.webContents.send("errnotifyclick",appid,errnotify,ra)
-        }
+        // const sendclick = (appid: number,errnotify: ErrNotify,ra?: boolean) => {
+        //     win.show()
+        //     win.focus()
+        //     win.webContents.send("errnotifyclick",appid,errnotify,ra)
+        // }
 
-        ipcMain.on("errnotify",(event,errnotify: ErrNotify,ra?: boolean) => {
-            const { channel, skipnotify } = errnotify
+        // ipcMain.on("errnotify",(event,errnotify: ErrNotify,ra?: boolean) => {
+        //     const { channel, skipnotify } = errnotify
             
-            if (skipnotify) return sendclick(appid,errnotify)
+        //     if (skipnotify) return sendclick(appid,errnotify)
             
-            let errnotifywin: BrowserWindow | null = null
-            const config = sanconfig.get()
-            const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
-            const content = channel !== "workercrash" ? ["linkgame","content"] : undefined
+        //     let errnotifywin: BrowserWindow | null = null
+        //     const config = sanconfig.get()
+        //     const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
+        //     const content = channel !== "workercrash" ? ["linkgame","content"] : undefined
 
-            // Delay to prevent overlapping with trackwin
-            setTimeout(async () => {
-                errnotifywin = new BrowserWindow({
-                    title: `Steam Achievement Notifier (V${sanhelper.version}): ${await language.get(channel,content)}`,
-                    width: Math.round((375 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
-                    height: Math.round((112.5 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
-                    autoHideMenuBar: true,
-                    frame: false,
-                    transparent: true,
-                    focusable: false,
-                    minimizable: false,
-                    maximizable: false,
-                    fullscreen: false,
-                    fullscreenable: false,
-                    skipTaskbar: true,
-                    movable: false,
-                    resizable: false,
-                    show: false,
-                    webPreferences: {
-                        nodeIntegration: true,
-                        contextIsolation: false
-                    }
-                })
+        //     // Delay to prevent overlapping with trackwin
+        //     setTimeout(async () => {
+        //         errnotifywin = new BrowserWindow({
+        //             title: `Steam Achievement Notifier (V${sanhelper.version}): ${await language.get(channel,content)}`,
+        //             width: Math.round((375 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
+        //             height: Math.round((112.5 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
+        //             autoHideMenuBar: true,
+        //             frame: false,
+        //             transparent: true,
+        //             focusable: false,
+        //             minimizable: false,
+        //             maximizable: false,
+        //             fullscreen: false,
+        //             fullscreenable: false,
+        //             skipTaskbar: true,
+        //             movable: false,
+        //             resizable: false,
+        //             show: false,
+        //             webPreferences: {
+        //                 nodeIntegration: true,
+        //                 contextIsolation: false
+        //             }
+        //         })
     
-                channel === "addlinkfailed" && errnotifywin.setIgnoreMouseEvents(true)
-                errnotifywin.setAlwaysOnTop(true,"screen-saver")
-                sanhelper.devmode && sanhelper.setdevtools(errnotifywin)
+        //         // channel === "addlinkfailed" && errnotifywin.setIgnoreMouseEvents(true)
+        //         errnotifywin.setAlwaysOnTop(true,"screen-saver")
+        //         sanhelper.devmode && sanhelper.setdevtools(errnotifywin)
 
-                errnotifywin.loadFile(path.join(__root,"dist","app","errnotify.html"))
+        //         errnotifywin.loadFile(path.join(__root,"dist","app","errnotify.html"))
 
-                ipcMain.once("errnotifyready",async () => {
-                    if (!errnotifywin) return
+        //         ipcMain.once("errnotifyready",async () => {
+        //             if (!errnotifywin) return
 
-                    const { width, height } = errnotifywin.getBounds()
-                    const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
+        //             const { width, height } = errnotifywin.getBounds()
+        //             const bounds = setnotifybounds({ width: width, height: height },null) as { width: number, height: number, x: number, y: number }
 
-                    let title = await language.get(channel, content) as string
-                    let sub = await language.get(`${channel}sub`, content) as string
+        //             let title = await language.get(channel, content) as string
+        //             let sub = await language.get(`${channel}sub`, content) as string
 
-                    if (ra) [title,sub] = [title,sub].map(s => s.replace(/Worker/,"RAWorker"))
+        //             if (ra) [title,sub] = [title,sub].map(s => s.replace(/Worker/,"RAWorker"))
     
-                    errnotifywin.webContents.send("errnotifyready",channel,title,sub)
-                    shownotify(errnotifywin,bounds,undefined,true)
+        //             errnotifywin.webContents.send("errnotifyready",channel,title,sub)
+        //             shownotify(errnotifywin,bounds,undefined,true)
             
-                    return setTimeout(() => errnotifywin && errnotifywin.webContents.send("errnotifyclose"),channel === "addlinkfailed" ? 5000 : 7500)
-                })
+        //             return setTimeout(() => errnotifywin && errnotifywin.webContents.send("errnotifyclose"),channel === "addlinkfailed" ? 5000 : 7500)
+        //         })
 
-                const clickhandler = () => sendclick(appid,errnotify,ra)
+        //         const clickhandler = () => sendclick(appid,errnotify,ra)
     
-                ipcMain.once("errnotifyclose",() => {
-                    if (!errnotifywin) return
+        //         ipcMain.once("errnotifyclose",() => {
+        //             if (!errnotifywin) return
 
-                    ipcMain.removeListener("errnotifyclick",clickhandler) // If not clicked, removes previous `ipcMain.once("errnotifyclick",...)` event on close
-                    errnotifywin.destroy()
-                    errnotifywin = null // Resetting to `null` on "errnotifyclose" event prevents "The object has been destroyed" error
-                })
+        //             ipcMain.removeListener("errnotifyclick",clickhandler) // If not clicked, removes previous `ipcMain.once("errnotifyclick",...)` event on close
+        //             errnotifywin.destroy()
+        //             errnotifywin = null // Resetting to `null` on "errnotifyclose" event prevents "The object has been destroyed" error
+        //         })
 
-                channel !== "addlinkfailed" && ipcMain.once("errnotifyclick",clickhandler)
-            },config.get("nowtracking") && channel === "noexe" ? 6500 : 0)
-        })
+        //         channel !== "addlinkfailed" && ipcMain.once("errnotifyclick",clickhandler)
+        //     },config.get("nowtracking") && channel === "noexe" ? 6500 : 0)
+        // })
 
         // Emitted from `main.ts`
         ipcMain.on("quitforupdate",() => {
@@ -519,7 +530,7 @@ export const listeners = {
 
             gamedisplaystate[ra ? "ra" : "steam"] = {
                 ...gamedisplaystate[ra ? "ra" : "steam"],
-                gamename: gamename || null,
+                gamename: gamename ?? null,
                 achnum,
                 ...(ra ? {} : { releasing: false })
             }
@@ -543,7 +554,7 @@ export const listeners = {
         let debugwin: BrowserWindow | null = null
 
         ipcMain.on("debugwinready",() => worker && worker.webContents.send("debugwinready"))
-        ipcMain.on("debuginfoupdated",(event,debuginfo: DebugInfo,reset?: boolean) => debugwin && debugwin.webContents.send("debuginfoupdated",{ ...debuginfo, lastknowngame },reset))
+        ipcMain.on("debuginfoupdated",(event,debuginfo: DebugInfo,reset?: boolean) => debugwin && debugwin.webContents.send("debuginfoupdated",debuginfo,reset))
 
         ipcMain.on("debugwin",(event,value: boolean) => {
             if (value && debugwin) return log.write("WARN",`"debugwin" already active`)
@@ -783,26 +794,26 @@ export const listeners = {
 
         ipcMain.on("resetwin",setwinsize)
 
-        ipcMain.on("releasegame",(event,skipdialog?: boolean) => {
-            const { noreleasedialog } = sanconfig.get().store
-            const showdialog = !skipdialog && !noreleasedialog
+        // ipcMain.on("releasegame",(event,skipdialog?: boolean) => {
+        //     const { noreleasedialog } = sanconfig.get().store
+        //     const showdialog = !skipdialog && !noreleasedialog
 
-            if (showdialog) {
-                win.show()
-                win.focus()
-            }
+        //     if (showdialog) {
+        //         win.show()
+        //         win.focus()
+        //     }
 
-            win.webContents.send("releasegame",!showdialog)
-        })
+        //     win.webContents.send("releasegame",!showdialog)
+        // })
 
-        ipcMain.on("suspendresume",() => {
-            suspended ? ipcMain.emit("validateworker") : (worker && worker.close())
-            suspended = !suspended
+        // ipcMain.on("suspendresume",() => {
+        //     suspended ? ipcMain.emit("validateworker") : (worker && worker.close())
+        //     suspended = !suspended
 
-            log.write("INFO",`Worker ${suspended ? "suspended" : "resumed"}`)
-            win.webContents.send("suspendresume",suspended)
-            updatetray(tray)
-        })
+        //     log.write("INFO",`Worker ${suspended ? "suspended" : "resumed"}`)
+        //     win.webContents.send("suspendresume",suspended)
+        //     updatetray(tray)
+        // })
 
         ipcMain.on("restartapp",() => {
             win.show()
@@ -2048,7 +2059,7 @@ export const listeners = {
                 worker = null
             },(config.get("initdelay") * 1000) + 1000)
 
-            updatetray(tray,undefined,undefined,undefined,undefined,true)
+            updatetray(tray)
         })
 
         ipcMain.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
@@ -2176,25 +2187,25 @@ export const listeners = {
             }
         })
 
-        ipcMain.on("troubleshooter",async () => {
-            try {
-                const { data, result } = await troubleshooter.data(appid,worker)
+        // ipcMain.on("troubleshooter",async () => {
+        //     try {
+        //         const { data, result } = await troubleshooter.data(appid,worker)
                 
-                win.webContents.send("troubleshooter",data,result)
-                win.show()
-            } catch (err) {
-                log.write("ERROR",`Unable to initialise troubleshooter: ${(err as Error).message}`)
-            }
-        })
+        //         win.webContents.send("troubleshooter",data,result)
+        //         win.show()
+        //     } catch (err) {
+        //         log.write("ERROR",`Unable to initialise troubleshooter: ${(err as Error).message}`)
+        //     }
+        // })
 
-        ipcMain.on("copytroubleshooterdata",(event,data: { data: TroubleshooterData, result: TroubleshooterResult[] }) => {
-            try {
-                clipboard.writeText(`\`\`\`json\n${JSON.stringify(data,null,4)}\n\`\`\``)
-                log.write("INFO","Troubleshooter data copied to clipboard successfully")
-            } catch (err) {
-                log.write("ERROR",`Unable to copy troubleshooter data: ${(err as Error).message}`)
-            }
-        })
+        // ipcMain.on("copytroubleshooterdata",(event,data: { data: TroubleshooterData, result: TroubleshooterResult[] }) => {
+        //     try {
+        //         clipboard.writeText(`\`\`\`json\n${JSON.stringify(data,null,4)}\n\`\`\``)
+        //         log.write("INFO","Troubleshooter data copied to clipboard successfully")
+        //     } catch (err) {
+        //         log.write("ERROR",`Unable to copy troubleshooter data: ${(err as Error).message}`)
+        //     }
+        // })
 
         ipcMain.on("uimode",(event,value: "basic" | "advanced") => win.webContents.send("uimode",value))
 

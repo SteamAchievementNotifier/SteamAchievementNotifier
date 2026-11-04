@@ -305,6 +305,23 @@ const startsan = async (appinfo: AppInfo) => {
             return processinfo
         }
     
+        // On Linux, Steam launches every game (native or Proton) via its `reaper` process - e.g. `reaper SteamLaunch AppId=<appid> -- <launch command>`
+        // Proton games run as Wine processes, so if the game's own process can't be found, `reaper` is tracked instead, as it exits when the game does
+        const getreaperprocess = (): ProcessInfo[] => {
+            if (process.platform !== "linux") return []
+
+            for (const pid of fs.readdirSync("/proc").filter(dir => /^\d+$/.test(dir))) {
+                try {
+                    const args = fs.readFileSync(`/proc/${pid}/cmdline`).toString().split("\0")
+                    if (path.basename(args[0]) === "reaper" && args.includes("SteamLaunch") && args.includes(`AppId=${appid}`)) return [{ pid: parseInt(pid), exe: args[0] } as ProcessInfo]
+                } catch (err) {
+                    continue // Process exited during the scan, or is owned by another user
+                }
+            }
+
+            return []
+        }
+
         const isprocessrunning = (pid: number) => userust ? client.processes.isProcessRunning(pid) : sanhelper.isprocessrunning(pid)
     
         const processes: ProcessInfo[] = []
@@ -635,6 +652,15 @@ const startsan = async (appinfo: AppInfo) => {
                             const processinfo: ProcessInfo[] = getprocessinfo(exe.executable)
                             processinfo.length && processes.push(...processinfo)
                         })()
+                    }
+
+                    if (!processes.length) {
+                        const reaperprocess = getreaperprocess()
+
+                        if (reaperprocess.length) {
+                            log.write("INFO",`Game executable not found for "${gamename}" - tracking Steam "reaper" process (pid: ${reaperprocess[0].pid}) instead`)
+                            processes.push(...reaperprocess)
+                        }
                     }
 
                     // If an EXE is still not found, push an invalid process. The user will then need to manually release the game

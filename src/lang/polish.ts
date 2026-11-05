@@ -200,6 +200,15 @@ export const translations = {
                 all: "Wszystkie",
                 off: "Wyłączone",
                 showpercent: "Pokaż procent",
+                showpercentpos: "Pozycja procentowa",
+                showpercentstyle: "Styl procentowy",
+                left: "Lewo",
+                right: "Prawo",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Brak",
                 soundonly: "Tylko dźwięk",
                 nowtracking: "Pokaż powiadomienie o śledzeniu",
                 nowtrackingscale: "Skala śledzenia",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Tryb trofeów",
                 notifymax: "Maksymalna liczba powiadomień", 
                 notifyspace: "Odstęp między powiadomieniami",
-                notify1line: "Ogranicz tekst do 1 linii",
-                testnotifycustomtext: "Niestandardowy tekst powiadomienia testowego",
-                testnotifycustomtexttitle: "Tytuł",
-                testnotifycustomtextdesc: "Opis"
+                notifylinemode: "Tryb liczby wierszy",
+                single: "Pojedynczy",
+                max: "Maksymalny",
+                notifyoverflow: "Tryb przepełnienia",
+                ellipsis: "Wielokropek",
+                scroll: "Przewijanie"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Niestandardowy tekst",
                 customtextunlockmsg: "Komunikat odblokowania",
                 customtexttitle: "Tytuł osiągnięcia",
-                customtextdesc: "Opis osiągnięcia"
+                customtextdesc: "Opis osiągnięcia",
+                scrollrepeat: "Powtarzanie przewijania"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Procent, przy którym wyzwalane są powiadomienia o rzadkich osiągnięciach.<br><br>Każde osiągnięcie z procentem odblokowania powyżej tej wartości będzie wyświetlane jako główne powiadomienie<br><br><span class="ttdesc">Jeśli włączony jest <span class="hl">Tryb trofeów</span>, każde osiągnięcie z procentem odblokowania powyżej tej wartości będzie zamiast tego wyświetlane jako powiadomienie srebrne</span>`,
         semirarity: `Procent, przy którym wyświetlane są elementy powiadomień "Srebrne" (np. <span class="hl">Odznaki rzadkości</span>, <span class="hl">Dekoracje</span> itp.).<br><br>Każde osiągnięcie z procentem odblokowania poniżej (lub równym) tej wartości i powyżej wartości <span class="hl">Procent rzadkości</span> wyświetli elementy powiadomień skonfigurowane dla rzadkości "Srebrnych".<br><br>Każde osiągnięcie z procentem odblokowania powyżej tej wartości wyświetli elementy powiadomień skonfigurowane dla rzadkości "Brązowych"<br><br><span class="ttdesc">Jeśli włączony jest <span class="hl">Tryb trofeów</span>, każde osiągnięcie z procentem odblokowania powyżej tej wartości będzie zamiast tego wyświetlane jako powiadomienie brązowe</span>`,
         showpercent: "Wyświetl procent odblokowania osiągnięcia w powiadomieniu dla wybranych typów",
+        showpercentpos: "Ustaw pozycję procentowego wskaźnika odblokowania osiągnięcia w powiadomieniu dla wybranych typów",
+        showpercentstyle: "Ustaw styl procentowego wskaźnika odblokowania osiągnięcia w powiadomieniu dla wybranych typów",
         soundonly: "Wyłącz powiadomienia, odtwarzając tylko dźwięki ustawione za pomocą Customiser",
         extwin: "Utwórz okno, które duplikuje wszystkie powiadomienia aktualnie wyświetlane na ekranie. To okno może zostać dodane jako źródło przechwytywania okna do użycia w oprogramowaniu do streamingu, takim jak OBS",
         extwinframerate: "Ustaw docelową częstotliwość klatek dla powiadomień strumieniowych",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Ustaw niestandardowe komunikaty wyświetlane w powiadomieniu",
         customtextunlockmsg: `Ustaw niestandardowy komunikat wyświetlany w elemencie Komunikat odblokowania<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Dostosowywanie > Ustawienie wstępne > Elementy powiadomień > Komunikat odblokowania będzie wyłączone</span>`,
         customtexttitle: `Ustaw niestandardowy komunikat wyświetlany w elemencie Tytuł osiągnięcia<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Dostosowywanie > Ustawienie wstępne > Elementy powiadomień > Tytuł osiągnięcia będzie wyłączone</span>`,
-        customtextdesc: `Ustaw niestandardowy komunikat wyświetlany w elemencie Opis osiągnięcia<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Dostosowywanie > Ustawienie wstępne > Elementy powiadomień > Opis osiągnięcia będzie wyłączone</span>`
+        customtextdesc: `Ustaw niestandardowy komunikat wyświetlany w elemencie Opis osiągnięcia<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Dostosowywanie > Ustawienie wstępne > Elementy powiadomień > Opis osiągnięcia będzie wyłączone</span>`,
+        notifylinemode: "Ustaw maksymalną liczbę wierszy tekstu wyświetlanych w powiadomieniach",
+        notifyoverflow: "Ustaw sposób obsługi tekstu wykraczającego poza dostępny obszar w powiadomieniach",
+        scrollrepeat: `Ustaw, ile razy nadmiarowy tekst będzie przewijany, gdy powiadomienie jest widoczne na ekranie<br><br><span class="ttdesc">Szybkość przewijania zależy od czasu wyświetlania, ale wyższe wartości powtórzeń mogą nie być odpowiednie dla wszystkich presetów</span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

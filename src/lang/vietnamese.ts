@@ -200,6 +200,15 @@ export const translations = {
                 all: "Tất cả",
                 off: "Tắt",
                 showpercent: "Hiển thị Phần trăm",
+                showpercentpos: "Vị trí phần trăm",
+                showpercentstyle: "Kiểu phần trăm",
+                left: "Trái",
+                right: "Phải",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Không có",
                 soundonly: "Chỉ Âm thanh",
                 nowtracking: "Hiển thị Thông báo Theo dõi",
                 nowtrackingscale: "Tỷ lệ Theo dõi",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Chế độ Cúp",
                 notifymax: "Số lượng thông báo tối đa", 
                 notifyspace: "Khoảng cách giữa các thông báo",
-                notify1line: "Giới hạn văn bản trong 1 dòng",
-                testnotifycustomtext: "Văn bản tùy chỉnh của thông báo thử nghiệm",
-                testnotifycustomtexttitle: "Tiêu đề",
-                testnotifycustomtextdesc: "Mô tả"
+                notifylinemode: "Chế độ dòng",
+                single: "Một dòng",
+                max: "Tối đa",
+                notifyoverflow: "Chế độ tràn",
+                ellipsis: "Dấu ba chấm",
+                scroll: "Cuộn"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Văn bản tùy chỉnh",
                 customtextunlockmsg: "Thông báo mở khóa",
                 customtexttitle: "Tiêu đề thành tích",
-                customtextdesc: "Mô tả thành tích"
+                customtextdesc: "Mô tả thành tích",
+                scrollrepeat: "Số lần cuộn lặp lại"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Tỷ lệ phần trăm kích hoạt thông báo thành tích hiếm.<br><br>Bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị dưới dạng thông báo Chính<br><br><span class="ttdesc">Nếu <span class="hl">Chế độ Cúp</span> được bật, bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị dưới dạng thông báo Bạc thay thế</span>`,
         semirarity: `Tỷ lệ phần trăm mà các phần tử thông báo "Bạc" sẽ hiển thị (ví dụ: <span class="hl">Huy hiệu độ hiếm</span>, <span class="hl">Trang trí</span> v.v.).<br><br>Bất kỳ thành tích nào có tỷ lệ mở khóa thấp hơn (hoặc bằng) giá trị này và cao hơn giá trị <span class="hl">Tỷ lệ hiếm</span> sẽ hiển thị các phần tử thông báo được cấu hình cho độ hiếm "Bạc".<br><br>Bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị các phần tử thông báo được cấu hình cho độ hiếm "Đồng"<br><br><span class="ttdesc">Nếu <span class="hl">Chế độ Cúp</span> được bật, bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị dưới dạng thông báo Đồng thay thế</span>`,
         showpercent: "Hiển thị phần trăm mở khóa của thành tựu trong thông báo cho các loại đã chọn",
+        showpercentpos: "Thiết lập vị trí phần trăm mở khóa thành tích trong thông báo cho (các) loại đã chọn",
+        showpercentstyle: "Thiết lập kiểu hiển thị phần trăm mở khóa thành tích trong thông báo cho (các) loại đã chọn",
         soundonly: "Vô hiệu hóa thông báo, chỉ phát âm thanh được thiết lập qua Tùy chỉnh",
         extwin: "Tạo một cửa sổ sao chép tất cả thông báo hiện đang hiển thị trên màn hình. Cửa sổ này có thể được thêm vào làm nguồn bắt cửa sổ để sử dụng trong phần mềm phát sóng, chẳng hạn như OBS",
         extwinframerate: "Đặt tốc độ khung hình mục tiêu cho thông báo phát trực tuyến",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Đặt các thông báo tùy chỉnh sẽ được hiển thị trong thông báo",
         customtextunlockmsg: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Thông báo mở khóa<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Thông báo mở khóa bị tắt</span>`,
         customtexttitle: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Tiêu đề thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Tiêu đề thành tích bị tắt</span>`,
-        customtextdesc: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Mô tả thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị tắt</span>`
+        customtextdesc: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Mô tả thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị tắt</span>`,
+        notifylinemode: "Thiết lập số dòng văn bản tối đa hiển thị trong thông báo",
+        notifyoverflow: "Thiết lập cách xử lý văn bản tràn trong thông báo",
+        scrollrepeat: `Thiết lập số lần văn bản tràn sẽ cuộn trong khi thông báo đang hiển thị trên màn hình<br><br><span class="ttdesc">Tốc độ cuộn phụ thuộc vào Thời gian hiển thị, nhưng giá trị lặp lại cao có thể không phù hợp với tất cả các cấu hình cài đặt sẵn</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

@@ -200,6 +200,15 @@ export const translations = {
                 all: "모두",
                 off: "끔",
                 showpercent: "백분율 표시",
+                showpercentpos: "백분율 위치",
+                showpercentstyle: "백분율 스타일",
+                left: "왼쪽",
+                right: "오른쪽",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "없음",
                 soundonly: "사운드만",
                 nowtracking: "추적 알림 표시",
                 nowtrackingscale: "추적 스케일",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "트로피 모드",
                 notifymax: "최대 알림 수", 
                 notifyspace: "알림 간격",
-                notify1line: "텍스트를 1줄로 제한",
-                testnotifycustomtext: "테스트 알림 사용자 지정 텍스트",
-                testnotifycustomtexttitle: "제목",
-                testnotifycustomtextdesc: "설명"
+                notifylinemode: "줄 표시 모드",
+                single: "한 줄",
+                max: "최대",
+                notifyoverflow: "오버플로 모드",
+                ellipsis: "줄임표",
+                scroll: "스크롤"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "사용자 지정 텍스트",
                 customtextunlockmsg: "잠금 해제 메시지",
                 customtexttitle: "업적 제목",
-                customtextdesc: "업적 설명"
+                customtextdesc: "업적 설명",
+                scrollrepeat: "스크롤 반복"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `희귀 업적 알림이 표시되는 비율입니다.<br><br>이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 메인 알림으로 표시됩니다<br><br><span class="ttdesc"><span class="hl">트로피 모드</span>가 활성화된 경우, 이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 대신 실버 알림으로 표시됩니다</span>`,
         semirarity: `"실버" 알림 요소가 표시되는 비율입니다 (예: <span class="hl">희귀 배지</span>, <span class="hl">장식</span> 등).<br><br>이 값 이하(또는 같고)이며 <span class="hl">희귀도 비율</span>보다 높은 잠금 해제 비율을 가진 모든 업적은 "실버" 희귀도용으로 설정된 알림 요소를 표시합니다.<br><br>이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 "브론즈" 희귀도용으로 설정된 알림 요소를 표시합니다<br><br><span class="ttdesc"><span class="hl">트로피 모드</span>가 활성화된 경우, 이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 대신 브론즈 알림으로 표시됩니다</span>`,
         showpercent: "선택한 유형의 알림에 업적의 잠금 해제 백분율 표시",
+        showpercentpos: "선택한 유형의 알림에서 도전 과제 해제율을 표시할 위치를 설정합니다",
+        showpercentstyle: "선택한 유형의 알림에서 도전 과제 해제율의 표시 스타일을 설정합니다",
         soundonly: "알림 비활성화, Customiser에서 설정한 사운드만 재생",
         extwin: "현재 화면에 표시되는 모든 알림을 복제하는 창을 생성합니다. 이 창은 OBS와 같은 스트리밍 소프트웨어에서 창 캡처 소스로 추가할 수 있습니다",
         extwinframerate: "스트림 알림을 위한 목표 프레임 속도 설정",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "알림에 표시할 사용자 지정 메시지를 설정합니다",
         customtextunlockmsg: `잠금 해제 메시지 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 잠금 해제 메시지가 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
         customtexttitle: `업적 제목 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 제목이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
-        customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`
+        customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
+        notifylinemode: "알림에 표시할 텍스트의 최대 줄 수를 설정합니다",
+        notifyoverflow: "알림에서 텍스트가 넘칠 경우의 동작을 설정합니다",
+        scrollrepeat: `알림이 화면에 표시되는 동안 넘치는 텍스트를 스크롤할 횟수를 설정합니다<br><br><span class="ttdesc">스크롤 속도는 표시 시간에 따라 달라지며, 반복 횟수가 너무 높으면 일부 프리셋에 적합하지 않을 수 있습니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",

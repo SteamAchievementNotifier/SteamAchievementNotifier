@@ -200,6 +200,15 @@ export const translations = {
                 all: "Vše",
                 off: "Vypnuto",
                 showpercent: "Zobrazit procenta",
+                showpercentpos: "Pozice procent",
+                showpercentstyle: "Styl procent",
+                left: "Vlevo",
+                right: "Vpravo",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Žádné",
                 soundonly: "Pouze zvuk",
                 nowtracking: "Zobrazit Oznámení o Sledování",
                 nowtrackingscale: "Měřítko Sledování",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Režim trofejí",
                 notifymax: "Maximální počet oznámení", 
                 notifyspace: "Rozestup mezi oznámeními",
-                notify1line: "Omezit text na 1 řádek",
-                testnotifycustomtext: "Vlastní text testovacího oznámení",
-                testnotifycustomtexttitle: "Název",
-                testnotifycustomtextdesc: "Popis"
+                notifylinemode: "Režim řádků",
+                single: "Jeden",
+                max: "Maximum",
+                notifyoverflow: "Režim přetečení",
+                ellipsis: "Trojtečka",
+                scroll: "Posouvání"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Vlastní text",
                 customtextunlockmsg: "Zpráva o odemčení",
                 customtexttitle: "Název achievementu",
-                customtextdesc: "Popis achievementu"
+                customtextdesc: "Popis achievementu",
+                scrollrepeat: "Opakování posouvání"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Procento, při kterém budou spuštěna oznámení o vzácných úspěších.<br><br>Jakýkoli úspěch s procentem odemknutí nad touto hodnotou bude zobrazen jako Hlavní oznámení<br><br><span class="ttdesc">Pokud je povolen <span class="hl">Režim trofejí</span>, bude jakýkoli úspěch s procentem odemknutí nad touto hodnotou zobrazen jako Stříbrné oznámení</span>`,
         semirarity: `Procento, při kterém budou zobrazeny prvky oznámení typu "Stříbrné" (např. <span class="hl">Odznaky vzácnosti</span>, <span class="hl">Dekorace</span> atd.).<br><br>Jakýkoli úspěch s procentem odemknutí nižším (nebo rovným) této hodnotě a vyšším než hodnota <span class="hl">Procenta vzácnosti</span> zobrazí prvky oznámení určené pro "Stříbrné" vzácnosti.<br><br>Jakýkoli úspěch s procentem odemknutí vyšším než tato hodnota zobrazí prvky oznámení určené pro "Bronzové" vzácnosti<br><br><span class="ttdesc">Pokud je povolen <span class="hl">Režim trofejí</span>, bude jakýkoli úspěch s procentem odemknutí nad touto hodnotou zobrazen jako Bronzové oznámení</span>`,
         showpercent: "Zobrazit procento odemknutí achievementu v oznámení pro vybrané typy",
+        showpercentpos: "Nastaví pozici procentuálního vyjádření odemčení úspěchu v oznámení pro vybraný typ(y)",
+        showpercentstyle: "Nastaví styl procentuálního vyjádření odemčení úspěchu v oznámení pro vybraný typ(y)",
         soundonly: "Vypnout oznámení a pouze přehrát zvuky nastavené pomocí přizpůsobovače",
         extwin: "Vytvořte okno, které duplikuje všechna oznámení momentálně zobrazená na obrazovce. Toto okno může být následně přidáno jako zdroj zachytávání okna pro použití v softwaru pro streamování, jako je OBS",
         extwinframerate: "Nastavit cílovou snímkovou frekvenci pro oznámení streamu",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Nastavit vlastní zprávy, které se mají zobrazovat v oznámení",
         customtextunlockmsg: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Zpráva o odemčení<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Zpráva o odemčení zakázána</span>`,
         customtexttitle: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Název achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Název achievementu zakázána</span>`,
-        customtextdesc: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Popis achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Popis achievementu zakázána</span>`
+        customtextdesc: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Popis achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Popis achievementu zakázána</span>`,
+        notifylinemode: "Nastaví maximální počet řádků textu zobrazovaných v oznámeních",
+        notifyoverflow: "Nastaví chování přetékajícího textu v oznámeních",
+        scrollrepeat: `Nastaví, kolikrát se bude přetékající text posouvat, dokud je oznámení na obrazovce<br><br><span class="ttdesc">Rychlost posouvání závisí na době zobrazení, ale vyšší hodnoty opakování nemusí být vhodné pro všechna přednastavení</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

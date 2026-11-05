@@ -200,6 +200,15 @@ export const translations = {
                 all: "全部",
                 off: "关闭",
                 showpercent: "显示百分比",
+                showpercentpos: "百分比位置",
+                showpercentstyle: "百分比样式",
+                left: "左侧",
+                right: "右侧",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "无",
                 soundonly: "仅声音模式",
                 nowtracking: "显示跟踪通知",
                 nowtrackingscale: "跟踪比例",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "奖杯模式",
                 notifymax: "最大通知数", 
                 notifyspace: "通知间距",
-                notify1line: "将文本限制为一行",
-                testnotifycustomtext: "测试通知自定义文本",
-                testnotifycustomtexttitle: "标题",
-                testnotifycustomtextdesc: "描述"
+                notifylinemode: "行模式",
+                single: "单行",
+                max: "最大值",
+                notifyoverflow: "溢出模式",
+                ellipsis: "省略号",
+                scroll: "滚动"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "自定义文本",
                 customtextunlockmsg: "解锁消息",
                 customtexttitle: "成就标题",
-                customtextdesc: "成就描述"
+                customtextdesc: "成就描述",
+                scrollrepeat: "滚动重复次数"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `触发稀有成就通知的百分比。<br><br>任何解锁百分比高于此值的成就将显示为主要通知<br><br><span class="ttdesc">如果启用了<span class="hl">奖杯模式</span>，任何解锁百分比高于此值的成就将改为显示为白银通知</span>`,
         semirarity: `显示“白银”通知元素的百分比（例如<span class="hl">稀有度徽章</span>、<span class="hl">装饰</span>等）。<br><br>任何解锁百分比低于（或等于）此值且高于<span class="hl">稀有度百分比</span>的成就，将显示为配置为“白银”稀有度的通知元素。<br><br>任何解锁百分比高于此值的成就，将显示为配置为“青铜”稀有度的通知元素<br><br><span class="ttdesc">如果启用了<span class="hl">奖杯模式</span>，任何解锁百分比高于此值的成就将改为显示为青铜通知</span>`,
         showpercent: "在所选类型的通知中显示成就的解锁百分比",
+        showpercentpos: "设置所选类型的通知中成就解锁百分比的位置",
+        showpercentstyle: "设置所选类型的通知中成就解锁百分比的显示样式",
         soundonly: "禁用通知，仅播放通过Customiser设置的声音",
         extwin: "创建一个窗口，复制当前屏幕上显示的所有通知。然后，可以将该窗口作为窗口捕捉源添加到流媒体软件中，如 OBS",
         extwinframerate: "设置流通知的目标帧率",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "设置要在通知中显示的自定义消息",
         customtextunlockmsg: `设置要在解锁消息元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 解锁消息被禁用时，此选项将被隐藏</span>`,
         customtexttitle: `设置要在成就标题元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 成就标题被禁用时，此选项将被隐藏</span>`,
-        customtextdesc: `设置要在成就描述元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 成就描述被禁用时，此选项将被隐藏</span>`
+        customtextdesc: `设置要在成就描述元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 成就描述被禁用时，此选项将被隐藏</span>`,
+        notifylinemode: "设置通知中显示的最大文本行数",
+        notifyoverflow: "设置通知中文本溢出时的处理方式",
+        scrollrepeat: `设置通知显示期间溢出文本的滚动次数<br><br><span class="ttdesc">滚动速度取决于显示时间，但较高的重复次数可能不适用于所有预设</span>`
     },
     update: {
         updateavailable: "有可用更新",

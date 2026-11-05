@@ -200,6 +200,15 @@ export const translations = {
                 all: "Toate",
                 off: "Oprit",
                 showpercent: "Afișare Procentaj",
+                showpercentpos: "Poziția procentului",
+                showpercentstyle: "Stilul procentului",
+                left: "Stânga",
+                right: "Dreapta",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Niciuna",
                 soundonly: "Doar Sunet",
                 nowtracking: "Afișează Notificarea de Urmărire",
                 nowtrackingscale: "Scară de Urmărire",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Mod Trofeu",
                 notifymax: "Notificări Maxime", 
                 notifyspace: "Spațierea Notificărilor",
-                notify1line: "Limitează textul la 1 linie",
-                testnotifycustomtext: "Text personalizat pentru notificarea de test",
-                testnotifycustomtexttitle: "Titlu",
-                testnotifycustomtextdesc: "Descriere"
+                notifylinemode: "Modul liniilor",
+                single: "Singură",
+                max: "Maxim",
+                notifyoverflow: "Modul de depășire",
+                ellipsis: "Puncte de suspensie",
+                scroll: "Derulare"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Text personalizat",
                 customtextunlockmsg: "Mesaj de deblocare",
                 customtexttitle: "Titlul realizării",
-                customtextdesc: "Descrierea realizării"
+                customtextdesc: "Descrierea realizării",
+                scrollrepeat: "Repetarea derulării"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Procentajul la care se declanșează notificările pentru realizările rare.<br><br>Orice realizare cu un procentaj de deblocare peste această valoare va fi afișată ca o notificare Principală<br><br><span class="ttdesc">Dacă este activat <span class="hl">Modul Trofeu</span>, orice realizare cu un procentaj de deblocare peste această valoare va fi afișată ca o notificare Argint în schimb</span>`,
         semirarity: `Procentajul la care vor fi afișate elementele de notificare „Argint” (de ex. <span class="hl">Insigne de Raritate</span>, <span class="hl">Decorațiuni</span> etc.).<br><br>Orice realizare cu un procentaj de deblocare sub (sau egal cu) această valoare și peste valoarea <span class="hl">Procentajului de Raritate</span> va afișa elemente de notificare configurate pentru rarități „Argint”.<br><br>Orice realizare cu un procentaj de deblocare peste această valoare va afișa elemente de notificare configurate pentru rarități „Bronz”<br><br><span class="ttdesc">Dacă este activat <span class="hl">Modul Trofeu</span>, orice realizare cu un procentaj de deblocare peste această valoare va fi afișată ca o notificare Bronz în schimb</span>`,
         showpercent: "Afișați procentajul de deblocare al realizării în notificare pentru tipurile selectate",
+        showpercentpos: "Setează poziția procentului de deblocare a realizării în notificare pentru tipul sau tipurile selectate",
+        showpercentstyle: "Setează stilul procentului de deblocare a realizării în notificare pentru tipul sau tipurile selectate",
         soundonly: "Dezactivați notificările, redând doar sunetele setate prin Personalizator",
         extwin: "Creează o fereastră care duplică toate notificările afișate pe ecran. Această fereastră poate fi adăugată ulterior ca sursă de captură de fereastră pentru utilizare în software-ul de streaming, cum ar fi OBS",
         extwinframerate: "Setează rata cadrelor țintă pentru notificările de flux",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Setează mesajele personalizate care vor fi afișate în notificare",
         customtextunlockmsg: `Setează un mesaj personalizat care va fi afișat în elementul Mesaj de deblocare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Mesaj de deblocare este dezactivat</span>`,
         customtexttitle: `Setează un mesaj personalizat care va fi afișat în elementul Titlul realizării<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Titlul realizării este dezactivat</span>`,
-        customtextdesc: `Setează un mesaj personalizat care va fi afișat în elementul Descrierea realizării<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Descrierea realizării este dezactivat</span>`
+        customtextdesc: `Setează un mesaj personalizat care va fi afișat în elementul Descrierea realizării<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Descrierea realizării este dezactivat</span>`,
+        notifylinemode: "Setează numărul maxim de linii de text afișate în notificări",
+        notifyoverflow: "Setează comportamentul textului care depășește spațiul disponibil în notificări",
+        scrollrepeat: `Setează de câte ori va derula textul care depășește spațiul disponibil cât timp notificarea este afișată pe ecran<br><br><span class="ttdesc">Viteza de derulare depinde de timpul de afișare, însă valorile mai mari ale repetării pot să nu fie potrivite pentru toate presetările</span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

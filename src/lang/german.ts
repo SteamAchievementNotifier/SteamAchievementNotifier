@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alle",
                 off: "Aus",
                 showpercent: "Prozentsatz Anzeigen",
+                showpercentpos: "Prozentposition",
+                showpercentstyle: "Prozentstil",
+                left: "Links",
+                right: "Rechts",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Keine",
                 soundonly: "Nur Ton",
                 nowtracking: "Verfolgungshinweis anzeigen",
                 nowtrackingscale: "Verfolgungsskala",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trophäenmodus",
                 notifymax: "Maximale Benachrichtigungen", 
                 notifyspace: "Benachrichtigungsabstand",
-                notify1line: "Text auf 1 Zeile begrenzen",
-                testnotifycustomtext: "Benutzerdefinierter Text für Testbenachrichtigung",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beschreibung"
+                notifylinemode: "Zeilenmodus",
+                single: "Einzeln",
+                max: "Maximum",
+                notifyoverflow: "Überlaufmodus",
+                ellipsis: "Auslassungspunkte",
+                scroll: "Scrollen"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Benutzerdefinierter Text",
                 customtextunlockmsg: "Freischaltungsnachricht",
                 customtexttitle: "Achievement-Titel",
-                customtextdesc: "Achievement-Beschreibung"
+                customtextdesc: "Achievement-Beschreibung",
+                scrollrepeat: "Scroll-Wiederholung"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Der Prozentsatz, bei dem Benachrichtigungen für seltene Erfolge ausgelöst werden.<br><br>Jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert wird als Hauptbenachrichtigung angezeigt<br><br><span class="ttdesc">Wenn der <span class="hl">Trophäenmodus</span> aktiviert ist, wird jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert stattdessen als Silber-Benachrichtigung angezeigt</span>`,
         semirarity: `Der Prozentsatz, bei dem "Silber"-Benachrichtigungselemente angezeigt werden (z. B. <span class="hl">Seltenheitsabzeichen</span>, <span class="hl">Dekorationen</span> usw.).<br><br>Jeder Erfolg mit einem Freischaltungsprozentsatz unter (oder gleich) diesem Wert und über dem <span class="hl">Seltenheitsprozentsatz</span> zeigt Benachrichtigungselemente an, die für "Silber"-Seltenheiten konfiguriert sind.<br><br>Jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert zeigt Benachrichtigungselemente an, die für "Bronze"-Seltenheiten konfiguriert sind<br><br><span class="ttdesc">Wenn der <span class="hl">Trophäenmodus</span> aktiviert ist, wird jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert stattdessen als Bronze-Benachrichtigung angezeigt</span>`,
         showpercent: "Zeigen Sie den Freischaltungsprozentsatz des Erfolgs in der Benachrichtigung für die ausgewählten Typen an",
+        showpercentpos: "Legt die Position des Freischaltungsprozentsatzes des Erfolgs in der Benachrichtigung für die ausgewählten Typen fest",
+        showpercentstyle: "Legt den Stil des Freischaltungsprozentsatzes des Erfolgs in der Benachrichtigung für die ausgewählten Typen fest",
         soundonly: "Deaktivieren Sie Benachrichtigungen und spielen Sie nur Sounds ab, die über den Customiser festgelegt wurden",
         extwin: "Erstellen Sie ein Fenster, das alle derzeit auf dem Bildschirm angezeigten Benachrichtigungen dupliziert. Dieses Fenster kann dann als Fensteraufnahmequelle für Streaming-Software wie OBS hinzugefügt werden",
         extwinframerate: "Ziel-Bildwiederholrate für Stream-Benachrichtigungen festlegen",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Benutzerdefinierte Nachrichten festlegen, die innerhalb der Benachrichtigung angezeigt werden",
         customtextunlockmsg: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Freischaltungsnachricht angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Freischaltungsnachricht deaktiviert ist</span>`,
         customtexttitle: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Titel angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Titel deaktiviert ist</span>`,
-        customtextdesc: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Beschreibung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Beschreibung deaktiviert ist</span>`
+        customtextdesc: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Beschreibung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Beschreibung deaktiviert ist</span>`,
+        notifylinemode: "Legt die maximale Anzahl der Textzeilen fest, die in Benachrichtigungen angezeigt werden",
+        notifyoverflow: "Legt fest, wie überlaufender Text in Benachrichtigungen behandelt wird",
+        scrollrepeat: `Legt fest, wie oft überlaufender Text scrollt, während die Benachrichtigung auf dem Bildschirm angezeigt wird<br><br><span class="ttdesc">Die Scroll-Geschwindigkeit hängt von der Anzeigedauer ab, aber höhere Wiederholungswerte sind möglicherweise nicht für alle Voreinstellungen geeignet</span>`
     },
     update: {
         updateavailable: "Update verfügbar",

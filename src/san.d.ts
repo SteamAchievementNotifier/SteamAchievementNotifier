@@ -367,7 +367,8 @@ declare interface Achievement {
     bit?: number,
     unlocktime?: number,
     relocked?: boolean,
-    raw?: any
+    raw?: any,
+    progress?: AchievementProgress
 }
 
 declare interface Notify extends Achievement {
@@ -819,6 +820,20 @@ declare interface SteamUser {
     timestamp: number,
     personaname?: string,
     mostrecent?: boolean | null,
+}
+
+declare interface SteamStat {
+    statid: string,
+    type: string,
+    default: number
+}
+
+declare interface AchievementProgress {
+    stat: string,
+    value: number,
+    min: number,
+    max: number,
+    percent: number
 }
 
 declare module "simple-vdf"

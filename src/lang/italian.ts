@@ -200,6 +200,15 @@ export const translations = {
                 all: "Tutto",
                 off: "Spento",
                 showpercent: "Mostra percentuale",
+                showpercentpos: "Posizione percentuale",
+                showpercentstyle: "Stile percentuale",
+                left: "Sinistra",
+                right: "Destra",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Nessuno",
                 soundonly: "Solo audio",
                 nowtracking: "Mostra notifica di tracciamento",
                 nowtrackingscale: "Scala di tracciamento",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Modalità Trofeo",
                 notifymax: "Notifiche massime", 
                 notifyspace: "Spaziatura notifiche",
-                notify1line: "Limita il testo a 1 riga",
-                testnotifycustomtext: "Testo personalizzato della notifica di prova",
-                testnotifycustomtexttitle: "Titolo",
-                testnotifycustomtextdesc: "Descrizione"
+                notifylinemode: "Modalità righe",
+                single: "Singola",
+                max: "Massimo",
+                notifyoverflow: "Modalità di overflow",
+                ellipsis: "Puntini di sospensione",
+                scroll: "Scorrimento"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Testo personalizzato",
                 customtextunlockmsg: "Messaggio di sblocco",
                 customtexttitle: "Titolo dell'obiettivo",
-                customtextdesc: "Descrizione dell'obiettivo"
+                customtextdesc: "Descrizione dell'obiettivo",
+                scrollrepeat: "Ripetizione dello scorrimento"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `La percentuale alla quale verranno attivate le notifiche per i trofei rari.<br><br>Ogni trofeo con una percentuale di sblocco superiore a questo valore verrà mostrato come notifica Principale<br><br><span class="ttdesc">Se la <span class="hl">Modalità Trofeo</span> è abilitata, ogni trofeo con una percentuale di sblocco superiore a questo valore verrà mostrato come notifica Argento invece</span>`,
         semirarity: `La percentuale alla quale verranno mostrati gli elementi di notifica "Argento" (es. <span class="hl">Badge di Rarità</span>, <span class="hl">Decorazioni</span>, ecc.).<br><br>Ogni trofeo con una percentuale di sblocco inferiore (o uguale) a questo valore e superiore al valore di <span class="hl">Percentuale di Rarità</span> mostrerà gli elementi di notifica configurati per le rarità "Argento".<br><br>Ogni trofeo con una percentuale di sblocco superiore a questo valore mostrerà gli elementi di notifica configurati per le rarità "Bronzo"<br><br><span class="ttdesc">Se la <span class="hl">Modalità Trofeo</span> è abilitata, ogni trofeo con una percentuale di sblocco superiore a questo valore verrà mostrato come notifica Bronzo invece</span>`,
         showpercent: "Mostra la percentuale di sblocco dell'obiettivo nella notifica per i tipi selezionati",
+        showpercentpos: "Imposta la posizione della percentuale di sblocco dell'obiettivo nella notifica per il/i tipo/i selezionato/i",
+        showpercentstyle: "Imposta lo stile della percentuale di sblocco dell'obiettivo nella notifica per il/i tipo/i selezionato/i",
         soundonly: "Disabilita le notifiche, riproducendo solo i suoni impostati tramite il Personalizzatore",
         extwin: "Crea una finestra che duplica tutte le notifiche attualmente visualizzate sullo schermo. Questa finestra può quindi essere aggiunta come sorgente di acquisizione finestra per l'uso in software di streaming come OBS",
         extwinframerate: "Imposta la frequenza dei fotogrammi di destinazione per le notifiche di streaming",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Imposta messaggi personalizzati da visualizzare all'interno della notifica",
         customtextunlockmsg: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Messaggio di sblocco<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Messaggio di sblocco è disabilitato</span>`,
         customtexttitle: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Titolo dell'obiettivo<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Titolo dell'obiettivo è disabilitato</span>`,
-        customtextdesc: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Descrizione dell'obiettivo<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Descrizione dell'obiettivo è disabilitato</span>`
+        customtextdesc: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Descrizione dell'obiettivo<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Descrizione dell'obiettivo è disabilitato</span>`,
+        notifylinemode: "Imposta il numero massimo di righe di testo da visualizzare nelle notifiche",
+        notifyoverflow: "Imposta il comportamento del testo in overflow all'interno delle notifiche",
+        scrollrepeat: `Imposta quante volte il testo in overflow scorrerà mentre la notifica è visualizzata sullo schermo<br><br><span class="ttdesc">La velocità di scorrimento dipende dal tempo di visualizzazione, ma valori di ripetizione più elevati potrebbero non essere adatti a tutte le preimpostazioni</span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

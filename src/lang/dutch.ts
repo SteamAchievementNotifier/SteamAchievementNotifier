@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alle",
                 off: "Uit",
                 showpercent: "Percentage tonen",
+                showpercentpos: "Percentagepositie",
+                showpercentstyle: "Percentagestijl",
+                left: "Links",
+                right: "Rechts",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Geen",
                 soundonly: "Alleen geluid",
                 nowtracking: "Toon volgwaarschuwing",
                 nowtrackingscale: "Volgschaal",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trofee-modus",
                 notifymax: "Maximaal aantal meldingen", 
                 notifyspace: "Meldingsafstand",
-                notify1line: "Beperk tekst tot 1 regel",
-                testnotifycustomtext: "Aangepaste tekst voor testmelding",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beschrijving"
+                notifylinemode: "Regelmodus",
+                single: "Enkel",
+                max: "Maximum",
+                notifyoverflow: "Overloopmodus",
+                ellipsis: "Beletselteken",
+                scroll: "Scrollen"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Aangepaste tekst",
                 customtextunlockmsg: "Ontgrendelingsbericht",
                 customtexttitle: "Prestatietitel",
-                customtextdesc: "Prestatiebeschrijving"
+                customtextdesc: "Prestatiebeschrijving",
+                scrollrepeat: "Scrollherhaling"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Het percentage waarbij meldingen voor Zeldzame prestaties worden getoond.<br><br>Elke prestatie met een ontgrendelingspercentage boven deze waarde wordt weergegeven als een Hoofd-melding<br><br><span class="ttdesc">Als <span class="hl">Trofee-modus</span> is ingeschakeld, wordt elke prestatie met een ontgrendelingspercentage boven deze waarde in plaats daarvan weergegeven als een Zilver-melding</span>`,
         semirarity: `Het percentage waarbij "Zilver"-meldingsonderdelen worden weergegeven (bijv. <span class="hl">Zeldzaamheidsbadges</span>, <span class="hl">Decoraties</span>, enz.).<br><br>Elke prestatie met een ontgrendelingspercentage lager dan (of gelijk aan) deze waarde en hoger dan de waarde van <span class="hl">Zeldzaamheidspercentage</span>, zal meldingsonderdelen tonen die zijn geconfigureerd voor "Zilver"-zeldzaamheden.<br><br>Elke prestatie met een ontgrendelingspercentage boven deze waarde toont meldingsonderdelen geconfigureerd voor "Brons"-zeldzaamheden<br><br><span class="ttdesc">Als <span class="hl">Trofee-modus</span> is ingeschakeld, wordt elke prestatie met een ontgrendelingspercentage boven deze waarde in plaats daarvan weergegeven als een Brons-melding</span>`,
         showpercent: "Toon het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
+        showpercentpos: "Stel de positie in van het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
+        showpercentstyle: "Stel de stijl in van het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
         soundonly: "Schakel meldingen uit en speel alleen geluiden af die zijn ingesteld via de Customiser",
         extwin: "Maak een venster dat alle meldingen dupliceert die momenteel op het scherm worden weergegeven. Dit venster kan vervolgens worden toegevoegd als een Window Capture-bron voor gebruik in streamingsoftware, zoals OBS",
         extwinframerate: "Stel de doelbeeldsnelheid in voor streammeldingen",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Aangepaste berichten instellen die in de melding worden weergegeven",
         customtextunlockmsg: `Een aangepast bericht instellen dat wordt weergegeven in het element Ontgrendelingsbericht<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Ontgrendelingsbericht is uitgeschakeld</span>`,
         customtexttitle: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatietitel<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatietitel is uitgeschakeld</span>`,
-        customtextdesc: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatiebeschrijving<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`
+        customtextdesc: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatiebeschrijving<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`,
+        notifylinemode: "Stel het maximale aantal tekstregels in dat in meldingen wordt weergegeven",
+        notifyoverflow: "Stel in hoe overlopende tekst in meldingen wordt weergegeven",
+        scrollrepeat: `Stel in hoe vaak overlopende tekst scrolt terwijl de melding op het scherm staat<br><br><span class="ttdesc">De scrollsnelheid is afhankelijk van de weergaveduur, maar hogere herhalingswaarden zijn mogelijk niet geschikt voor alle presets</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

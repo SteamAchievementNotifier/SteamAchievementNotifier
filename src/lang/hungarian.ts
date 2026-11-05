@@ -200,6 +200,15 @@ export const translations = {
                 all: "Mind",
                 off: "Ki",
                 showpercent: "Százalék megjelenítése",
+                showpercentpos: "Százalékos pozíció",
+                showpercentstyle: "Százalékos stílus",
+                left: "Bal",
+                right: "Jobb",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Nincs",
                 soundonly: "Csak hang",
                 nowtracking: "Követési értesítés megjelenítése",
                 nowtrackingscale: "Követési skála",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trófea mód",
                 notifymax: "Maximális értesítések", 
                 notifyspace: "Értesítések közötti távolság",
-                notify1line: "Szöveg korlátozása 1 sorra",
-                testnotifycustomtext: "Egyéni tesztértesítés szövege",
-                testnotifycustomtexttitle: "Cím",
-                testnotifycustomtextdesc: "Leírás"
+                notifylinemode: "Sorsor mód",
+                single: "Egyetlen",
+                max: "Maximum",
+                notifyoverflow: "Túlcsordulási mód",
+                ellipsis: "Három pont",
+                scroll: "Görgetés"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Egyéni szöveg",
                 customtextunlockmsg: "Feloldási üzenet",
                 customtexttitle: "Teljesítmény címe",
-                customtextdesc: "Teljesítmény leírása"
+                customtextdesc: "Teljesítmény leírása",
+                scrollrepeat: "Görgetés ismétlése"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Az az arányszám, amelynél ritka eredmény értesítések jelennek meg.<br><br>Bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, Fő értesítésként jelenik meg<br><br><span class="ttdesc">Ha a <span class="hl">Trófea mód</span> engedélyezve van, bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, ezüst értesítésként jelenik meg</span>`,
         semirarity: `Az az arányszám, amelynél az "Ezüst" értesítési elemek megjelennek (pl. <span class="hl">Ritkasági jelvények</span>, <span class="hl">Díszítések</span> stb.).<br><br>Bármely eredmény, amelynek feloldási százaléka ennél az értéknél alacsonyabb (vagy egyenlő) és a <span class="hl">Ritkasági százalék</span> értékénél magasabb, az "Ezüst" ritkaságokra konfigurált értesítési elemeket jeleníti meg.<br><br>Bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, a "Bronz" ritkaságokra konfigurált értesítési elemeket jeleníti meg<br><br><span class="ttdesc">Ha a <span class="hl">Trófea mód</span> engedélyezve van, bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, bronz értesítésként jelenik meg</span>`,
         showpercent: "Az eredmény feloldási százalékának megjelenítése az értesítésben a kiválasztott típusokhoz",
+        showpercentpos: "A teljesítmény feloldási százalékának pozíciójának beállítása az értesítésben a kiválasztott típus(ok) esetén",
+        showpercentstyle: "A teljesítmény feloldási százalékának stílusának beállítása az értesítésben a kiválasztott típus(ok) esetén",
         soundonly: "Értesítések letiltása, csak a Customiser által beállított hangok lejátszása",
         extwin: "Hozzon létre egy ablakot, amely megkettőzi a képernyőn jelenleg megjelenő értesítéseket. Ez az ablak ezután hozzáadható ablakrögzítési forrásként a közvetítőszoftverekhez, például az OBS-hez",
         extwinframerate: "Cél képfrissítési sebesség beállítása a stream értesítésekhez",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Az értesítésben megjelenítendő egyéni üzenetek beállítása",
         customtextunlockmsg: `Az Feloldási üzenet elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Feloldási üzenet le van tiltva</span>`,
         customtexttitle: `A Teljesítmény címe elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény címe le van tiltva</span>`,
-        customtextdesc: `A Teljesítmény leírása elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény leírása le van tiltva</span>`
+        customtextdesc: `A Teljesítmény leírása elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény leírása le van tiltva</span>`,
+        notifylinemode: "Az értesítésekben megjelenítendő szövegsorok maximális számának beállítása",
+        notifyoverflow: "Az értesítésekben túlcsorduló szöveg viselkedésének beállítása",
+        scrollrepeat: `Annak beállítása, hogy a túlcsorduló szöveg hányszor görgessen, amíg az értesítés a képernyőn látható<br><br><span class="ttdesc">A görgetési sebesség a megjelenítési időtől függ, de a magasabb ismétlési értékek nem feltétlenül megfelelőek minden előbeállításhoz</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alle",
                 off: "Av",
                 showpercent: "Vis prosent",
+                showpercentpos: "Prosentposisjon",
+                showpercentstyle: "Prosentstil",
+                left: "Venstre",
+                right: "Høyre",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ingen",
                 soundonly: "Bare lyd",
                 nowtracking: "Vis sporingsvarsel",
                 nowtrackingscale: "Sporingsskala",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trofémodus",
                 notifymax: "Maksimalt antall varsler", 
                 notifyspace: "Avstand mellom varsler",
-                notify1line: "Begrens tekst til 1 linje",
-                testnotifycustomtext: "Egendefinert tekst for testvarsling",
-                testnotifycustomtexttitle: "Tittel",
-                testnotifycustomtextdesc: "Beskrivelse"
+                notifylinemode: "Linjemodus",
+                single: "Enkel",
+                max: "Maks",
+                notifyoverflow: "Overflytsmodus",
+                ellipsis: "Utelatelsestegn",
+                scroll: "Rulling"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Egendefinert tekst",
                 customtextunlockmsg: "Opplåsingsmelding",
                 customtexttitle: "Prestasjonstittel",
-                customtextdesc: "Prestasjonsbeskrivelse"
+                customtextdesc: "Prestasjonsbeskrivelse",
+                scrollrepeat: "Gjenta rulling"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Prosentandelen hvor varsler for sjeldne prestasjoner utløses.<br><br>Enhver prestasjon med en opplåsingsprosent over denne verdien vil vises som en Hovedvarsling<br><br><span class="ttdesc">Hvis <span class="hl">Trofe-modus</span> er aktivert, vil enhver prestasjon med en opplåsingsprosent over denne verdien vises som en Sølvvarsling i stedet</span>`,
         semirarity: `Prosentandelen hvor "Sølv"-varslingsobjekter vises (f.eks. <span class="hl">Sjeldenhetsmerker</span>, <span class="hl">Dekorasjoner</span> osv.).<br><br>Enhver prestasjon med en opplåsingsprosent under (eller lik) denne verdien, og over verdien for <span class="hl">Sjeldenhetsprosent</span>, vil vise varslingsobjekter konfigurert for "Sølv" sjeldenheter.<br><br>Enhver prestasjon med en opplåsingsprosent over denne verdien vil vise varslingsobjekter konfigurert for "Bronse" sjeldenheter<br><br><span class="ttdesc">Hvis <span class="hl">Trofe-modus</span> er aktivert, vil enhver prestasjon med en opplåsingsprosent over denne verdien vises som en Bronsevarsling i stedet</span>`,
         showpercent: "Vis låseprosenten for prestasjonen i varslingen for de valgte typene",
+        showpercentpos: "Angi plasseringen av opplåsingsprosenten for prestasjonen i varslingen for de valgte typene",
+        showpercentstyle: "Angi stilen på opplåsingsprosenten for prestasjonen i varslingen for de valgte typene",
         soundonly: "Deaktiver varsler, og spill bare av lyder som er satt via Tilpasseren",
         extwin: "Opprett et vindu som dupliserer alle varsler som for øyeblikket vises på skjermen. Dette vinduet kan deretter legges til som en vindusfangstkilde for bruk i strømmeprogramvare som OBS",
         extwinframerate: "Sett målbildesatsen for strømvarsler",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Angi egendefinerte meldinger som skal vises i varselet",
         customtextunlockmsg: `Angi en egendefinert melding som skal vises i elementet Opplåsingsmelding<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Opplåsingsmelding er deaktivert</span>`,
         customtexttitle: `Angi en egendefinert melding som skal vises i elementet Prestasjonstittel<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonstittel er deaktivert</span>`,
-        customtextdesc: `Angi en egendefinert melding som skal vises i elementet Prestasjonsbeskrivelse<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`
+        customtextdesc: `Angi en egendefinert melding som skal vises i elementet Prestasjonsbeskrivelse<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`,
+        notifylinemode: "Angi maksimalt antall tekstlinjer som skal vises i varsler",
+        notifyoverflow: "Angi hvordan tekst som overskrider tilgjengelig plass, skal håndteres i varsler",
+        scrollrepeat: `Angi hvor mange ganger tekst som overskrider tilgjengelig plass, skal rulle mens varslingen vises på skjermen<br><br><span class="ttdesc">Rullehastigheten avhenger av visningstiden, men høyere gjentakelsesverdier passer kanskje ikke for alle forhåndsinnstillinger</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alle",
                 off: "Fra",
                 showpercent: "Vis procent",
+                showpercentpos: "Procentplacering",
+                showpercentstyle: "Procentstil",
+                left: "Venstre",
+                right: "Højre",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ingen",
                 soundonly: "Lyd kun",
                 nowtracking: "Vis sporingsmeddelelse",
                 nowtrackingscale: "Sporingsskala",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trofætilstand",
                 notifymax: "Maksimalt antal notifikationer", 
                 notifyspace: "Afstand mellem notifikationer",
-                notify1line: "Begræns tekst til 1 linje",
-                testnotifycustomtext: "Brugerdefineret tekst til testmeddelelse",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beskrivelse"
+                notifylinemode: "Linjetilstand",
+                single: "Enkelt",
+                max: "Maksimum",
+                notifyoverflow: "Tekstoverløbstilstand",
+                ellipsis: "Udeladelsestegn",
+                scroll: "Rulning"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Brugerdefineret tekst",
                 customtextunlockmsg: "Oplåsningsbesked",
                 customtexttitle: "Præstationstitel",
-                customtextdesc: "Præstationsbeskrivelse"
+                customtextdesc: "Præstationsbeskrivelse",
+                scrollrepeat: "Gentagelse af rulning"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Procenten hvor notifikationer for Sjældne præstationer udløses.<br><br>Enhver præstation med en oplåsningsprocent over denne værdi vil blive vist som en Hoved-notifikation<br><br><span class="ttdesc">Hvis <span class="hl">Trofætilstand</span> er aktiveret, vil enhver præstation med en oplåsningsprocent over denne værdi i stedet blive vist som en Sølv-notifikation</span>`,
         semirarity: `Procenten hvor "Sølv"-notifikationselementer vises (f.eks. <span class="hl">Sjældenhedsemblemer</span>, <span class="hl">Dekorationer</span> osv.).<br><br>Enhver præstation med en oplåsningsprocent under (eller lig med) denne værdi og over værdien for <span class="hl">Sjældenhedsprocent</span>, vil vise notifikationselementer konfigureret til "Sølv"-sjældenheder.<br><br>Enhver præstation med en oplåsningsprocent over denne værdi vil vise notifikationselementer konfigureret til "Bronze"-sjældenheder<br><br><span class="ttdesc">Hvis <span class="hl">Trofætilstand</span> er aktiveret, vil enhver præstation med en oplåsningsprocent over denne værdi i stedet blive vist som en Bronze-notifikation</span>`,
         showpercent: "Vis låseprocenten af præstationen i meddelelsen for de valgte typer",
+        showpercentpos: "Angiver placeringen af præstationsoplåsningsprocenten i meddelelsen for de valgte typer",
+        showpercentstyle: "Angiver stilen for præstationsoplåsningsprocenten i meddelelsen for de valgte typer",
         soundonly: "Deaktiver meddelelser og afspil kun lyde, der er indstillet via Tilpasning",
         extwin: "Opret et vindue, der duplicerer alle meddelelser, der i øjeblikket vises på skærmen. Dette vindue kan derefter tilføjes som en vinduesoptagelseskilde til brug i streaming-software som OBS",
         extwinframerate: "Indstil den målrettede billedhastighed for stream-notifikationer",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Angiv brugerdefinerede beskeder, der skal vises i notifikationen",
         customtextunlockmsg: `Angiv en brugerdefineret besked, der skal vises i elementet Oplåsningsbesked<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Oplåsningsbesked er deaktiveret</span>`,
         customtexttitle: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationstitel<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationstitel er deaktiveret</span>`,
-        customtextdesc: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationsbeskrivelse<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationsbeskrivelse er deaktiveret</span>`
+        customtextdesc: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationsbeskrivelse<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationsbeskrivelse er deaktiveret</span>`,
+        notifylinemode: "Angiver det maksimale antal tekstlinjer, der skal vises i meddelelser",
+        notifyoverflow: "Angiver, hvordan overskydende tekst håndteres i meddelelser",
+        scrollrepeat: `Angiver, hvor mange gange overskydende tekst ruller, mens meddelelsen vises på skærmen<br><br><span class="ttdesc">Rullehastigheden afhænger af visningstiden, men højere gentagelsesværdier er muligvis ikke egnede til alle forudindstillinger</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

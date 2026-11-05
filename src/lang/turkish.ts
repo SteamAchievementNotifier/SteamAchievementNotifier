@@ -200,6 +200,15 @@ export const translations = {
                 all: "Tümü",
                 off: "Kapalı",
                 showpercent: "Yüzdeyi Göster",
+                showpercentpos: "Yüzde Konumu",
+                showpercentstyle: "Yüzde Stili",
+                left: "Sol",
+                right: "Sağ",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Hiçbiri",
                 soundonly: "Sesli Bildirim",
                 nowtracking: "Takip Bildirimini Göster",
                 nowtrackingscale: "Takip Ölçeği",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Kupa Modu",
                 notifymax: "Maksimum Bildirim Sayısı", 
                 notifyspace: "Bildirim Aralığı",
-                notify1line: "Metni 1 satırla sınırla",
-                testnotifycustomtext: "Test Bildirimi Özel Metni",
-                testnotifycustomtexttitle: "Başlık",
-                testnotifycustomtextdesc: "Açıklama"
+                notifylinemode: "Satır Modu",
+                single: "Tek",
+                max: "Maksimum",
+                notifyoverflow: "Taşma Modu",
+                ellipsis: "Üç Nokta",
+                scroll: "Kaydırma"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Özel Metin",
                 customtextunlockmsg: "Kilidi Açma Mesajı",
                 customtexttitle: "Başarım Başlığı",
-                customtextdesc: "Başarım Açıklaması"
+                customtextdesc: "Başarım Açıklaması",
+                scrollrepeat: "Kaydırma Tekrarı"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Nadir başarı bildirimlerinin tetikleneceği yüzde.<br><br>Bu değerin üzerindeki kilit açma yüzdesine sahip herhangi bir başarı Ana bildirim olarak gösterilecektir<br><br><span class="ttdesc"><span class="hl">Kupa Modu</span> etkinse, bu değerin üzerindeki kilit açma yüzdesine sahip herhangi bir başarı bunun yerine Gümüş bildirim olarak gösterilir</span>`,
         semirarity: `"Gümüş" bildirim öğelerinin (örneğin <span class="hl">Nadirlik Rozetleri</span>, <span class="hl">Süslemeler</span> vb.) gösterileceği yüzde.<br><br>Bu değerin altında (veya eşit) ve <span class="hl">Nadirlik Yüzdesi</span> değerinden yüksek olan herhangi bir başarı, "Gümüş" nadirlikler için yapılandırılmış bildirim öğelerini gösterecektir.<br><br>Bu değerin üzerinde olan herhangi bir başarı, "Bronz" nadirlikler için yapılandırılmış bildirim öğelerini gösterecektir<br><br><span class="ttdesc"><span class="hl">Kupa Modu</span> etkinse, bu değerin üzerindeki herhangi bir başarı bunun yerine Bronz bildirim olarak gösterilir</span>`,
         showpercent: "Seçilen tür(ler) için bildirimde başarının kilitleme yüzdesini göster",
+        showpercentpos: "Seçilen türler için bildirimde başarımın açılma yüzdesinin konumunu ayarla",
+        showpercentstyle: "Seçilen türler için bildirimde başarımın açılma yüzdesinin stilini ayarla",
         soundonly: "Bildirimleri devre dışı bırakır, yalnızca Customiser tarafından ayarlanan sesleri çalar",
         extwin: "Ekranda şu anda görüntülenen tüm bildirimleri kopyalayan bir pencere oluşturun. Bu pencere, OBS gibi yayın yazılımlarında pencere yakalama kaynağı olarak eklenebilir",
         extwinframerate: "Yayın Bildirimleri için hedef kare hızını ayarla",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Bildirim içinde görüntülenecek özel mesajları ayarla",
         customtextunlockmsg: `Kilidi Açma Mesajı öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Kilidi Açma Mesajı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
         customtexttitle: `Başarım Başlığı öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Başlığı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
-        customtextdesc: `Başarım Açıklaması öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`
+        customtextdesc: `Başarım Açıklaması öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`,
+        notifylinemode: "Bildirimlerde görüntülenecek maksimum metin satırı sayısını ayarla",
+        notifyoverflow: "Bildirimlerde taşan metnin nasıl davranacağını ayarla",
+        scrollrepeat: `Bildirim ekrandayken taşan metnin kaç kez kaydırılacağını ayarla<br><br><span class="ttdesc">Kaydırma hızı Görüntüleme Süresine bağlıdır, ancak yüksek tekrar değerleri tüm ön ayarlar için uygun olmayabilir</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

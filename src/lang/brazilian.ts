@@ -200,6 +200,15 @@ export const translations = {
                 all: "Tudo",
                 off: "Desativado",
                 showpercent: "Mostrar Porcentagem",
+                showpercentpos: "Posição da Porcentagem",
+                showpercentstyle: "Estilo da Porcentagem",
+                left: "Esquerda",
+                right: "Direita",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Nenhum",
                 soundonly: "Modo Somente Som",
                 nowtracking: "Mostrar Notificação de Rastreamento",
                 nowtrackingscale: "Escala de Rastreamento",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Modo Troféu",
                 notifymax: "Máximo de Notificações", 
                 notifyspace: "Espaçamento das Notificações",
-                notify1line: "Limitar texto a 1 linha",
-                testnotifycustomtext: "Texto Personalizado da Notificação de Teste",
-                testnotifycustomtexttitle: "Título",
-                testnotifycustomtextdesc: "Descrição"
+                notifylinemode: "Modo de Linhas",
+                single: "Única",
+                max: "Máximo",
+                notifyoverflow: "Modo de Excesso de Texto",
+                ellipsis: "Reticências",
+                scroll: "Rolagem"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Texto personalizado",
                 customtextunlockmsg: "Mensagem de desbloqueio",
                 customtexttitle: "Título da conquista",
-                customtextdesc: "Descrição da conquista"
+                customtextdesc: "Descrição da conquista",
+                scrollrepeat: "Repetição da Rolagem"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `A porcentagem na qual notificações de conquistas Raras serão exibidas.<br><br>Qualquer conquista com uma porcentagem de desbloqueio acima deste valor será exibida como uma notificação Principal<br><br><span class="ttdesc">Se o <span class="hl">Modo Troféu</span> estiver ativado, qualquer conquista com uma porcentagem de desbloqueio acima deste valor será exibida como uma notificação Prata em vez disso</span>`,
         semirarity: `A porcentagem na qual os elementos de notificação "Prata" serão exibidos (ex.: <span class="hl">Distintivos de Raridade</span>, <span class="hl">Decorações</span>, etc.).<br><br>Qualquer conquista com uma porcentagem de desbloqueio abaixo (ou igual) a este valor, e acima do valor de <span class="hl">Porcentagem de Raridade</span>, exibirá elementos de notificação configurados para raridades "Prata".<br><br>Qualquer conquista com uma porcentagem de desbloqueio acima deste valor exibirá elementos de notificação configurados para raridades "Bronze"<br><br><span class="ttdesc">Se o <span class="hl">Modo Troféu</span> estiver ativado, qualquer conquista com uma porcentagem de desbloqueio acima deste valor será exibida como uma notificação Bronze em vez disso</span>`,
         showpercent: "Exibir a porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
+        showpercentpos: "Define a posição da porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
+        showpercentstyle: "Define o estilo da porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
         soundonly: "Desativar notificações, reproduzindo apenas sons definidos pelo Personalizador",
         extwin: "Crie uma janela que duplica quaisquer notificações exibidas atualmente na tela. Esta janela pode então ser adicionada como uma fonte de Captura de Janela para uso em softwares de transmissão, como o OBS",
         extwinframerate: "Definir a taxa de quadros alvo para Notificações de Transmissão",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Definir mensagens personalizadas a serem exibidas dentro da notificação",
         customtextunlockmsg: `Definir uma mensagem personalizada a ser exibida dentro do elemento Mensagem de desbloqueio<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos de notificação > Mensagem de desbloqueio estiver desativado</span>`,
         customtexttitle: `Definir uma mensagem personalizada a ser exibida dentro do elemento Título da conquista<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos de notificação > Título da conquista estiver desativado</span>`,
-        customtextdesc: `Definir uma mensagem personalizada a ser exibida dentro da Descrição da conquista<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos de notificação > Descrição da conquista estiver desativado</span>`
+        customtextdesc: `Definir uma mensagem personalizada a ser exibida dentro da Descrição da conquista<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalizador > Predefinição > Elementos de notificação > Descrição da conquista estiver desativado</span>`,
+        notifylinemode: "Define o número máximo de linhas de texto a serem exibidas nas notificações",
+        notifyoverflow: "Define o comportamento do texto excedente nas notificações",
+        scrollrepeat: `Define quantas vezes o texto excedente será rolado enquanto a notificação estiver na tela<br><br><span class="ttdesc">A velocidade da rolagem depende do Tempo de Exibição, mas valores mais altos de repetição podem não ser adequados para todas as predefinições</span>`
     },
     update: {
         updateavailable: "Atualização disponível",

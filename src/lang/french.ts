@@ -200,6 +200,15 @@ export const translations = {
                 all: "Tout",
                 off: "Désactivé",
                 showpercent: "Afficher le pourcentage",
+                showpercentpos: "Position du pourcentage",
+                showpercentstyle: "Style du pourcentage",
+                left: "Gauche",
+                right: "Droite",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Aucun",
                 soundonly: "Mode son uniquement",
                 nowtracking: "Afficher la notification de suivi",
                 nowtrackingscale: "Échelle de suivi",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Mode Trophée",
                 notifymax: "Notifications maximales", 
                 notifyspace: "Espacement des notifications",
-                notify1line: "Limiter le texte à 1 ligne",
-                testnotifycustomtext: "Texte personnalisé de la notification de test",
-                testnotifycustomtexttitle: "Titre",
-                testnotifycustomtextdesc: "Description"
+                notifylinemode: "Mode des lignes",
+                single: "Unique",
+                max: "Maximum",
+                notifyoverflow: "Mode de débordement",
+                ellipsis: "Points de suspension",
+                scroll: "Défilement"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Texte personnalisé",
                 customtextunlockmsg: "Message de déverrouillage",
                 customtexttitle: "Titre du succès",
-                customtextdesc: "Description du succès"
+                customtextdesc: "Description du succès",
+                scrollrepeat: "Répétition du défilement"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Le pourcentage à partir duquel les notifications de succès rares seront déclenchées.<br><br>Tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Principale<br><br><span class="ttdesc">Si le <span class="hl">Mode Trophée</span> est activé, tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Argent à la place</span>`,
         semirarity: `Le pourcentage à partir duquel les éléments de notification "Argent" seront affichés (par ex. <span class="hl">Badges de rareté</span>, <span class="hl">Décorations</span>, etc.).<br><br>Tout succès avec un pourcentage de déverrouillage inférieur ou égal à cette valeur, et supérieur à la valeur du <span class="hl">Pourcentage de rareté</span>, affichera les éléments de notification configurés pour les raretés "Argent".<br><br>Tout succès avec un pourcentage de déverrouillage supérieur à cette valeur affichera les éléments de notification configurés pour les raretés "Bronze"<br><br><span class="ttdesc">Si le <span class="hl">Mode Trophée</span> est activé, tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Bronze à la place</span>`,
         showpercent: "Affiche le pourcentage de déverrouillage du succès dans la notification pour le(s) type(s) sélectionné(s)",
+        showpercentpos: "Définir la position du pourcentage de déblocage du succès dans la notification pour le(s) type(s) sélectionné(s)",
+        showpercentstyle: "Définir le style du pourcentage de déblocage du succès dans la notification pour le(s) type(s) sélectionné(s)",
         soundonly: "Désactive les notifications, en jouant uniquement les sons définis via le Personnaliseur",
         extwin: "Créez une fenêtre qui duplique toutes les notifications actuellement affichées à l'écran. Cette fenêtre peut ensuite être ajoutée comme source de capture de fenêtre pour être utilisée dans un logiciel de streaming, comme OBS",
         extwinframerate: "Définir le taux de trame cible pour les notifications de diffusion",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Définir les messages personnalisés à afficher dans la notification",
         customtextunlockmsg: `Définir un message personnalisé à afficher dans l’élément Message de déverrouillage<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Message de déverrouillage est désactivé</span>`,
         customtexttitle: `Définir un message personnalisé à afficher dans l’élément Titre du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Titre du succès est désactivé</span>`,
-        customtextdesc: `Définir un message personnalisé à afficher dans l’élément Description du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Description du succès est désactivé</span>`
+        customtextdesc: `Définir un message personnalisé à afficher dans l’élément Description du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Description du succès est désactivé</span>`,
+        notifylinemode: "Définir le nombre maximal de lignes de texte à afficher dans les notifications",
+        notifyoverflow: "Définir le comportement du texte qui dépasse l'espace disponible dans les notifications",
+        scrollrepeat: `Définir le nombre de fois que le texte excédentaire défile pendant que la notification est affichée à l'écran<br><br><span class="ttdesc">La vitesse de défilement dépend de la durée d'affichage, mais des valeurs de répétition plus élevées peuvent ne pas convenir à tous les préréglages</span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",

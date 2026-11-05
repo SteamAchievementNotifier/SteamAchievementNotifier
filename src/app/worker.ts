@@ -5,7 +5,7 @@ import { sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { steam } from "./steam"
 import { sanconfig } from "./config"
-import { checkunlockstatus } from "./achievement"
+import { sanachievement } from "./achievement"
 import { usertheme } from "./usertheme"
 import { utils } from "./utils"
 
@@ -16,6 +16,12 @@ declare global {
         localised: Map<string,LocalisedObj>,
         runninggametimers: any
     }
+}
+
+const logged = {
+    exclusion: false,
+    activeuser: false,
+    binfile: false
 }
 
 log.init("WORKER")
@@ -54,24 +60,35 @@ const startidle = () => {
         ipcRenderer.send("workeractive",false)
 
         const timer = setInterval(() => {
-            const { pollrate, releasedelay, maxretries, userust, debug, noiconcache, exclusions, inclusionlist } = sanconfig.get().store
+            const { pollrate, debug, noiconcache, exclusions, inclusionlist } = sanconfig.get().store
             const { appid, gamename } = sanhelper.gameinfo as AppInfo
             
-            if (!appid) return
+            if (!appid) {
+                logged.exclusion = false
+                logged.activeuser = false   
+                return
+            }
             
             const match = inclusionlist ? !exclusions.includes(appid) : exclusions.includes(appid)
     
             if (match) {
-                log.write("INFO",`AppID ${appid} ${inclusionlist ? "not in In" : "in Ex"}clusion List`)
+                if (!logged.exclusion) {
+                    log.write("INFO",`AppID ${appid} ${inclusionlist ? "not in In" : "in Ex"}clusion List`)
+                    logged.exclusion = true
+                }
+
                 return
             }
-
             
-            const users = steam.users.all(sanhelper.steampath)
-            const user = steam.users.current(users,sanhelper.activesteamuser)
+            const allusers = steam.getallusers(sanhelper.steampath)
+            const user = steam.getcurrentuser(allusers,sanhelper.activesteamuser)
             
             if (!user) {
-                log.write("WARN","No active Steam user found")
+                if (!logged.activeuser) {
+                    log.write("WARN","No active Steam user found")
+                    logged.activeuser = true
+                }
+
                 return
             }
             
@@ -83,9 +100,6 @@ const startidle = () => {
                 appid,
                 gamename,
                 pollrate: typeof pollrate !== "number" ? 250 : (pollrate < 50 ? 50 : pollrate),
-                // releasedelay,
-                // maxretries,
-                // userust,
                 debug: debug,
                 noiconcache: noiconcache
             }
@@ -103,28 +117,53 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
     
         const { steam3id, steam64id, personaname } = user
         const { appid, gamename, pollrate, noiconcache } = appinfo
+
+        // Handles game exits/AppID changes if `UserGameStats_<steam3id>_<appid>.bin` cannot be found and triggers early return
+        if (sanhelper.gameinfo.appid !== appid) {
+            log.write("INFO",utils.game.createinfo({
+                gamename: gamename ?? "???",
+                appid,
+                pollrate: pollrate ?? 250
+            },"exited"))
+            
+            ipcRenderer.send("validateworker")
+            return
+        }
         
         const statsdir = path.join(sanhelper.steampath,"appcache","stats")
-        
         const binfiles = {
-            userstats: `UserGameStats_${steam3id}_${appid}.bin`,
-            schema: `UserGameStatsSchema_${appid}.bin`
+            userstats: path.join(statsdir,`UserGameStats_${steam3id}_${appid}.bin`),
+            schema: path.join(statsdir,`UserGameStatsSchema_${appid}.bin`)
+        }
+
+        for (const binfile of Object.values(binfiles)) {
+            if (!fs.existsSync(binfile)) {
+                if (!logged.binfile) {
+                    log.write("INFO",`"${binfile}" not found - retrying...`)
+                    logged.binfile = true
+                }
+                
+                setTimeout(() => startsan(user,appinfo),1000)
+                return
+            }
         }
 
         const mtime = {
-            previous: fs.statSync(path.join(statsdir,binfiles.userstats)).mtimeMs,
+            previous: fs.statSync(binfiles.userstats).mtimeMs,
             current: -1
         }
         
-        const [userstats,schema] = [binfiles.userstats,binfiles.schema].map(binfile => steam.data.getbinarydata(statsdir,binfile))
+        const [userstats,schema] = [binfiles.userstats,binfiles.schema].map(binfile => steam.getbinarydata(binfile))
         log.write("INFO",`Achievement data for ${personaname} (${steam3id}) parsed successfully`)
 
-        let cache = await steam.data.getachievements(appid,userstats,schema)
+        let cache = await sanachievement.cachedata(appid,userstats,schema)
         window.cachedata = cache
 
-        log.write("INFO",utils.game.createinfo({ gamename: gamename ?? "???", appid, pollrate: pollrate ?? 250 },"started"))
-        
-        ipcRenderer.on("statwinicon",async (event,achievement: Achievement) => ipcRenderer.send(`iconpath_${achievement.apiname}`,achievement.icon ?? null))
+        log.write("INFO",utils.game.createinfo({
+            gamename: gamename ?? "???",
+            appid,
+            pollrate: pollrate ?? 250
+        },"started"))
 
         // ipcRenderer.on("windowtitles",() => ipcRenderer.send("windowtitles",(usesanwatcher ? Array.from(pids) : processes.map(process => process.pid)).map(pid => client.processes.getWindowTitle(pid))))
 
@@ -165,7 +204,11 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
 
         const gameloop = async () => {
             if (!sanhelper.gameinfo.appid) {
-                log.write("INFO",utils.game.createinfo({ gamename: gamename ?? "???", appid, pollrate: pollrate ?? 250 },"exited"))
+                log.write("INFO",utils.game.createinfo({
+                    gamename: gamename ?? "???",
+                    appid,
+                    pollrate: pollrate ?? 250
+                },"exited"))
 
                 clearInterval(timer)
 
@@ -183,10 +226,10 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                 })
 
                 ipcRenderer.send("stats",statsobj)
-
                 ipcRenderer.send("workeractive",false)
                 ipcRenderer.emit("appid",null,workerinfo)
-                ipcRenderer.emit("validateworker")
+                ipcRenderer.emit("gametimer")
+                ipcRenderer.send("validateworker")
                 
                 return
             }
@@ -203,7 +246,7 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
             })
 
             try {
-                mtime.current = fs.statSync(path.join(statsdir,binfiles.userstats)).mtimeMs
+                mtime.current = fs.statSync(binfiles.userstats).mtimeMs
             } catch {
                 return
             }
@@ -221,8 +264,8 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
             let live: Achievement[]
 
             try {
-                const [userstats,schema] = [binfiles.userstats,binfiles.schema].map(binfile => steam.data.getbinarydata(statsdir,binfile))
-                live = await steam.data.getachievements(appid,userstats,schema)
+                const [userstats,schema] = [binfiles.userstats,binfiles.schema].map(binfile => steam.getbinarydata(binfile))
+                live = await sanachievement.cachedata(appid,userstats,schema)
             } catch (err) {
                 log.write("WARN",`Unable to read achievement data: ${(err as Error).message}`) // Likely mid-write: mtime.previous is not updated, so the next tick retries
                 return
@@ -232,7 +275,7 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
 
             mtime.previous = mtime.current
 
-            const unlocked = checkunlockstatus(cache,live)
+            const unlocked = sanachievement.checkunlockstatus(cache,live)
             if (!unlocked.length) return
 
             cache = live
@@ -341,6 +384,8 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
         const timer = setInterval(gameloop,pollrate ?? 250)
     } catch (err) {
         log.write("ERROR",`Error tracking achievement data: ${(err as Error).message}`)
+        log.write("WARN","Restarting Worker process in 5 seconds...")
+        setTimeout(() => ipcRenderer.send("validateworker"),5000)
     }
 }
 

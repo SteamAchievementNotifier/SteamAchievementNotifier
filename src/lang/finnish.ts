@@ -200,6 +200,15 @@ export const translations = {
                 all: "Kaikki",
                 off: "Pois päältä",
                 showpercent: "Näytä prosenttiosuus",
+                showpercentpos: "Prosenttiosuuden sijainti",
+                showpercentstyle: "Prosenttiosuuden tyyli",
+                left: "Vasen",
+                right: "Oikea",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ei mitään",
                 soundonly: "Vain ääni",
                 nowtracking: "Näytä seurantan ilmoitus",
                 nowtrackingscale: "Seurantamittakaava",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trophymoodi",
                 notifymax: "Ilmoitusten enimmäismäärä", 
                 notifyspace: "Ilmoitusten väli",
-                notify1line: "Rajoita teksti yhteen riviin",
-                testnotifycustomtext: "Testi-ilmoituksen mukautettu teksti",
-                testnotifycustomtexttitle: "Otsikko",
-                testnotifycustomtextdesc: "Kuvaus"
+                notifylinemode: "Rivitila",
+                single: "Yksittäinen",
+                max: "Enimmäismäärä",
+                notifyoverflow: "Ylivuototila",
+                ellipsis: "Kolme pistettä",
+                scroll: "Vieritys"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Mukautettu teksti",
                 customtextunlockmsg: "Avausviesti",
                 customtexttitle: "Saavutuksen otsikko",
-                customtextdesc: "Saavutuksen kuvaus"
+                customtextdesc: "Saavutuksen kuvaus",
+                scrollrepeat: "Vierityksen toisto"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Prosentti, jolla harvinaisten saavutusten ilmoitukset laukeavat.<br><br>Kaikki saavutukset, joiden avausprosentti on tämän arvon yläpuolella, näytetään pääilmoituksena<br><br><span class="ttdesc">Jos <span class="hl">Trophymoodi</span> on käytössä, kaikki saavutukset, joiden avausprosentti ylittää tämän arvon, näytetään sen sijaan hopeailmoituksena</span>`,
         semirarity: `"Hopea"-ilmoituselementit näytetään, kun tämä prosentti ylittyy (esim. <span class="hl">Harvinaisuusmerkit</span>, <span class="hl">Koristeet</span> jne.).<br><br>Kaikki saavutukset, joiden avausprosentti on tämän arvon alapuolella (tai yhtä suuri), ja suurempi kuin <span class="hl">Harvinaisuusprosentti</span>, näyttävät ilmoituselementit, jotka on määritetty "Hopea"-harvinaisuudelle.<br><br>Kaikki saavutukset, joiden avausprosentti on tämän arvon yläpuolella, näyttävät "Pronssi"-harvinaisuudelle määritetyt ilmoituselementit<br><br><span class="ttdesc">Jos <span class="hl">Trophymoodi</span> on käytössä, kaikki saavutukset, joiden avausprosentti ylittää tämän arvon, näytetään sen sijaan pronssi-ilmoituksena</span>`,
         showpercent: "Näytä saavutuksen lukitusprosentti ilmoituksessa valituille tyypeille",
+        showpercentpos: "Määritä saavutuksen avausprosentin sijainti ilmoituksessa valituille tyypeille",
+        showpercentstyle: "Määritä saavutuksen avausprosentin tyyli ilmoituksessa valituille tyypeille",
         soundonly: "Poista ilmoitukset käytöstä ja toista vain äänet, jotka on määritetty Mukauttajassa",
         extwin: "Luo ikkuna, joka toistaa kaikki näytöllä tällä hetkellä näkyvät ilmoitukset. Tämä ikkuna voidaan sitten lisätä Ikkunan kaappauksen lähteeksi suoratoisto-ohjelmissa, kuten OBS:ssä",
         extwinframerate: "Aseta tavoitekuvataajuus suoratoistoilmoituksille",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Määritä ilmoituksessa näytettävät mukautetut viestit",
         customtextunlockmsg: `Määritä mukautettu viesti, joka näytetään Avausviesti-elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Avausviesti on poistettu käytöstä</span>`,
         customtexttitle: `Määritä mukautettu viesti, joka näytetään Saavutuksen otsikko -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen otsikko on poistettu käytöstä</span>`,
-        customtextdesc: `Määritä mukautettu viesti, joka näytetään Saavutuksen kuvaus -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen kuvaus on poistettu käytöstä</span>`
+        customtextdesc: `Määritä mukautettu viesti, joka näytetään Saavutuksen kuvaus -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen kuvaus on poistettu käytöstä</span>`,
+        notifylinemode: "Määritä ilmoituksissa näytettävien tekstirivien enimmäismäärä",
+        notifyoverflow: "Määritä, miten ilmoitusten ylivuotava teksti käsitellään",
+        scrollrepeat: `Määritä, kuinka monta kertaa ylivuotavaa tekstiä vieritetään ilmoituksen ollessa näytöllä<br><br><span class="ttdesc">Vieritysnopeus riippuu näyttöajasta, mutta suuremmat toistoarvot eivät välttämättä sovi kaikkiin esiasetuksiin</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

@@ -200,6 +200,15 @@ export const translations = {
                 all: "すべて",
                 off: "オフ",
                 showpercent: "パーセンテージを表示",
+                showpercentpos: "パーセンテージの位置",
+                showpercentstyle: "パーセンテージのスタイル",
+                left: "左",
+                right: "右",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "なし",
                 soundonly: "サウンドのみ",
                 nowtracking: "トラッキング通知を表示する",
                 nowtrackingscale: "トラッキングスケール",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "トロフィーモード",
                 notifymax: "最大通知数", 
                 notifyspace: "通知間の間隔",
-                notify1line: "テキストを1行に制限",
-                testnotifycustomtext: "テスト通知のカスタムテキスト",
-                testnotifycustomtexttitle: "タイトル",
-                testnotifycustomtextdesc: "説明"
+                notifylinemode: "行数モード",
+                single: "1行",
+                max: "最大",
+                notifyoverflow: "オーバーフローモード",
+                ellipsis: "省略記号",
+                scroll: "スクロール"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "カスタムテキスト",
                 customtextunlockmsg: "解除メッセージ",
                 customtexttitle: "実績タイトル",
-                customtextdesc: "実績の説明"
+                customtextdesc: "実績の説明",
+                scrollrepeat: "スクロールの繰り返し"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `レアな実績通知がトリガーされる割合。<br><br>この値を超える解除率の実績はメイン通知として表示されます<br><br><span class="ttdesc"><span class="hl">トロフィーモード</span>が有効な場合、この値を超える解除率の実績は代わりにシルバー通知として表示されます</span>`,
         semirarity: `"シルバー"通知要素（例：<span class="hl">レアリティバッジ</span>、<span class="hl">装飾</span>など）が表示される割合。<br><br>この値以下（または等しい）で、かつ<span class="hl">レアリティ割合</span>より上の解除率の実績は、「シルバー」レアリティ用に設定された通知要素を表示します。<br><br>この値を超える解除率の実績は、「ブロンズ」レアリティ用に設定された通知要素を表示します<br><br><span class="ttdesc"><span class="hl">トロフィーモード</span>が有効な場合、この値を超える解除率の実績は代わりにブロンズ通知として表示されます</span>`,
         showpercent: "選択したタイプの通知に実績のアンロックパーセンテージを表示する",
+        showpercentpos: "選択したタイプの通知内で、実績の解除率を表示する位置を設定します",
+        showpercentstyle: "選択したタイプの通知内で、実績の解除率の表示スタイルを設定します",
         soundonly: "通知を無効にし、カスタマイザで設定されたサウンドのみ再生する",
         extwin: "画面に現在表示されているすべての通知を複製するウィンドウを作成します。このウィンドウは、OBSなどのストリーミングソフトウェアでウィンドウキャプチャソースとして追加できます",
         extwinframerate: "ストリーム通知の目標フレームレートを設定",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "通知内に表示するカスタムメッセージを設定",
         customtextunlockmsg: `解除メッセージ要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 解除メッセージが無効になっている場合、このオプションは非表示になります</span>`,
         customtexttitle: `実績タイトル要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績タイトルが無効になっている場合、このオプションは非表示になります</span>`,
-        customtextdesc: `実績の説明要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績の説明が無効になっている場合、このオプションは非表示になります</span>`
+        customtextdesc: `実績の説明要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績の説明が無効になっている場合、このオプションは非表示になります</span>`,
+        notifylinemode: "通知内に表示するテキストの最大行数を設定します",
+        notifyoverflow: "通知内でテキストがオーバーフローした場合の動作を設定します",
+        scrollrepeat: `通知が画面に表示されている間に、オーバーフローしたテキストをスクロールする回数を設定します<br><br><span class="ttdesc">スクロール速度は表示時間に依存しますが、繰り返し回数を増やすと一部のプリセットに適さない場合があります</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

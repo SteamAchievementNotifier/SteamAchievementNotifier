@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alla",
                 off: "Av",
                 showpercent: "Visa procent",
+                showpercentpos: "Procentposition",
+                showpercentstyle: "Procentstil",
+                left: "Vänster",
+                right: "Höger",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ingen",
                 soundonly: "Endast ljud",
                 nowtracking: "Visa spårningsmeddelande",
                 nowtrackingscale: "Spårningsskala",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trofyläge",
                 notifymax: "Maximalt antal aviseringar", 
                 notifyspace: "Aviseringsavstånd",
-                notify1line: "Begränsa text till 1 rad",
-                testnotifycustomtext: "Anpassad text för testavisering",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beskrivning"
+                notifylinemode: "Radläge",
+                single: "Enkel",
+                max: "Max",
+                notifyoverflow: "Överflödesläge",
+                ellipsis: "Ellips",
+                scroll: "Rullning"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Anpassad text",
                 customtextunlockmsg: "Upplåsningsmeddelande",
                 customtexttitle: "Prestationstitel",
-                customtextdesc: "Prestationsbeskrivning"
+                customtextdesc: "Prestationsbeskrivning",
+                scrollrepeat: "Upprepad rullning"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `Procentandelen vid vilken sällsynta prestationer kommer att utlösa notifikationer.<br><br>Varje prestation med en upplåsningsprocent över detta värde kommer att visas som en Huvudnotifikation<br><br><span class="ttdesc">Om <span class="hl">Trofyläge</span> är aktiverat kommer varje prestation med en upplåsningsprocent över detta värde istället att visas som en Silvernotifikation</span>`,
         semirarity: `Procentandelen vid vilken "Silver"-notifikationselement kommer att visas (t.ex. <span class="hl">Sällsynthetsmärken</span>, <span class="hl">Dekorationer</span> osv.).<br><br>Varje prestation med en upplåsningsprocent under (eller lika med) detta värde, och över värdet för <span class="hl">Sällsynthetsprocent</span>, kommer att visa notifikationselement konfigurerade för "Silver"-sällsyntheter.<br><br>Varje prestation med en upplåsningsprocent över detta värde kommer att visa notifikationselement konfigurerade för "Brons"-sällsyntheter<br><br><span class="ttdesc">Om <span class="hl">Trofyläge</span> är aktiverat kommer varje prestation med en upplåsningsprocent över detta värde istället att visas som en Bronsnotifikation</span>`,
         showpercent: "Visa upplåsningsprocenten för prestationen i aviseringen för de valda typerna",
+        showpercentpos: "Ställ in positionen för prestationens upplåsningsprocent i aviseringen för de valda typerna",
+        showpercentstyle: "Ställ in stilen för prestationens upplåsningsprocent i aviseringen för de valda typerna",
         soundonly: "Inaktivera aviseringar och spela endast ljud som är inställt via anpassaren",
         extwin: "Skapa ett fönster som duplicerar alla meddelanden som för närvarande visas på skärmen. Detta fönster kan sedan läggas till som en fönsterkälla för användning i streamingsprogramvara som OBS",
         extwinframerate: "Ställ in målbilder för strömnotifikationer",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Ange anpassade meddelanden som ska visas i aviseringen",
         customtextunlockmsg: `Ange ett anpassat meddelande som ska visas i elementet Upplåsningsmeddelande<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Upplåsningsmeddelande är inaktiverat</span>`,
         customtexttitle: `Ange ett anpassat meddelande som ska visas i elementet Prestationstitel<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationstitel är inaktiverat</span>`,
-        customtextdesc: `Ange ett anpassat meddelande som ska visas i elementet Prestationsbeskrivning<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationsbeskrivning är inaktiverat</span>`
+        customtextdesc: `Ange ett anpassat meddelande som ska visas i elementet Prestationsbeskrivning<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationsbeskrivning är inaktiverat</span>`,
+        notifylinemode: "Ställ in det maximala antalet textrader som ska visas i aviseringar",
+        notifyoverflow: "Ställ in hur överflödande text ska hanteras i aviseringar",
+        scrollrepeat: `Ställ in hur många gånger överflödande text ska rulla medan aviseringen visas på skärmen<br><br><span class="ttdesc">Rullningshastigheten beror på visningstiden, men högre upprepningsvärden kanske inte passar alla förinställningar</span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

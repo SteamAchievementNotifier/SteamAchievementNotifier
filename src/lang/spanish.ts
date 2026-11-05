@@ -200,6 +200,15 @@ export const translations = {
                 all: "Todas",
                 off: "Apagado",
                 showpercent: "Mostrar porcentaje",
+                showpercentpos: "Posición del porcentaje",
+                showpercentstyle: "Estilo del porcentaje",
+                left: "Izquierda",
+                right: "Derecha",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ninguno",
                 soundonly: "Solo sonido",
                 nowtracking: "Mostrar Notificación de Seguimiento",
                 nowtrackingscale: "Escala de Seguimiento",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Modo Trofeo",
                 notifymax: "Notificaciones Máximas", 
                 notifyspace: "Espaciado de Notificaciones",
-                notify1line: "Limitar el texto a 1 línea",
-                testnotifycustomtext: "Texto personalizado de notificación de prueba",
-                testnotifycustomtexttitle: "Título",
-                testnotifycustomtextdesc: "Descripción"
+                notifylinemode: "Modo de líneas",
+                single: "Una",
+                max: "Máximo",
+                notifyoverflow: "Modo de desbordamiento",
+                ellipsis: "Puntos suspensivos",
+                scroll: "Desplazamiento"
             }
         },
         games: {
@@ -416,7 +427,8 @@ export const translations = {
                 usecustomtext: "Texto personalizado",
                 customtextunlockmsg: "Mensaje de desbloqueo",
                 customtexttitle: "Título del logro",
-                customtextdesc: "Descripción del logro"
+                customtextdesc: "Descripción del logro",
+                scrollrepeat: "Repetición del desplazamiento"
             }
         },
         sound: {
@@ -638,6 +650,8 @@ export const translations = {
         rarity: `El porcentaje en el que se activarán las notificaciones de logros raros.<br><br>Cualquier logro con un porcentaje de desbloqueo por encima de este valor se mostrará como una notificación Principal<br><br><span class="ttdesc">Si está activado el <span class="hl">Modo Trofeo</span>, cualquier logro con un porcentaje de desbloqueo por encima de este valor se mostrará como una notificación de Plata en su lugar</span>`,
         semirarity: `El porcentaje en el que se mostrarán los elementos de notificación "Plata" (por ejemplo, <span class="hl">Insignias de rareza</span>, <span class="hl">Decoraciones</span>, etc.).<br><br>Cualquier logro con un porcentaje de desbloqueo por debajo (o igual) a este valor y por encima del valor de <span class="hl">Porcentaje de rareza</span> mostrará los elementos de notificación configurados para rarezas "Plata".<br><br>Cualquier logro con un porcentaje de desbloqueo por encima de este valor mostrará los elementos de notificación configurados para rarezas "Bronce"<br><br><span class="ttdesc">Si está activado el <span class="hl">Modo Trofeo</span>, cualquier logro con un porcentaje de desbloqueo por encima de este valor se mostrará como una notificación de Bronce en su lugar</span>`,
         showpercent: "Mostrar el porcentaje de desbloqueo del logro en la notificación para el/los tipo(s) seleccionado(s)",
+        showpercentpos: "Establece la posición del porcentaje de desbloqueo del logro en la notificación para los tipos seleccionados",
+        showpercentstyle: "Establece el estilo del porcentaje de desbloqueo del logro en la notificación para los tipos seleccionados",
         soundonly: "Desactivar las notificaciones, reproduciendo solo los sonidos establecidos a través del Personalizador",
         extwin: "Crea una ventana que duplique todas las notificaciones que se están mostrando en la pantalla. Luego, esta ventana se puede agregar como fuente de captura de ventana para usarla en software de transmisión, como OBS",
         extwinframerate: "Establecer la tasa de fotogramas objetivo para las notificaciones de transmisión",
@@ -909,7 +923,10 @@ export const translations = {
         usecustomtext: "Establecer mensajes personalizados para mostrar dentro de la notificación",
         customtextunlockmsg: `Establecer un mensaje personalizado para mostrar dentro del elemento Mensaje de desbloqueo<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Mensaje de desbloqueo esté desactivado</span>`,
         customtexttitle: `Establecer un mensaje personalizado para mostrar dentro del elemento Título del logro<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Título del logro esté desactivado</span>`,
-        customtextdesc: `Establecer un mensaje personalizado para mostrar dentro del elemento Descripción del logro<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Descripción del logro esté desactivado</span>`
+        customtextdesc: `Establecer un mensaje personalizado para mostrar dentro del elemento Descripción del logro<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Descripción del logro esté desactivado</span>`,
+        notifylinemode: "Establece el número máximo de líneas de texto que se mostrarán en las notificaciones",
+        notifyoverflow: "Establece el comportamiento del texto que se desborda en las notificaciones",
+        scrollrepeat: `Establece cuántas veces se desplazará el texto desbordado mientras la notificación esté en pantalla<br><br><span class="ttdesc">La velocidad de desplazamiento depende del tiempo de visualización, pero los valores de repetición más altos pueden no ser adecuados para todos los ajustes preestablecidos</span>`
     },
     update: {
         updateavailable: "Actualización disponible",

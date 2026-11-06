@@ -317,17 +317,19 @@ export const listeners = {
 
         ipcMain.on("checkforupdates",() => !sanhelper.devmode ? update.check() : ipcMain.emit("noupdatetest"))
 
-        const cleartemp = () => {
+        const cleartemp = (temp: string) => {
+            if (!fs.readdirSync(temp).length) return log.write("WARN",`"${sanhelper.temp}" is empty`)
+
             try {
-                fs.rmSync(sanhelper.temp,{ recursive: true, force: true })
-                fs.mkdirSync(sanhelper.temp)
-                return log.write("INFO",`"${sanhelper.temp}" directory cleared successfully`)
+                fs.rmSync(temp,{ recursive: true, force: true })
+                fs.mkdirSync(temp)
+                return log.write("INFO",`"${temp}" directory cleared successfully`)
             } catch (err) {
-                return log.write("ERROR",`Error clearing "${sanhelper.temp}" directory: ${err as Error}`)
+                return log.write("ERROR",`Error clearing "${temp}" directory: ${err as Error}`)
             }
         }
 
-        cleartemp()
+        ipcMain.on("cleariconcache",() => cleartemp(sanhelper.temp))
 
         const updategameinfo = (workerinfo: WorkerInfo,skipui?: boolean) => {
             const { appid, gamename, achnum, ra } = workerinfo

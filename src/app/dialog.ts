@@ -479,6 +479,7 @@ export const dialog = {
             
             document.getElementById("showcustomfiles")!.onclick = sanhelper.showcustomfiles
             document.getElementById("appdatadir")!.onclick = sanhelper.appdatadir
+            document.getElementById("cleariconcache")!.onclick = sanhelper.cleariconcache
             
             document.getElementById("backup")!.onclick = async () => {
                 dialog.open({

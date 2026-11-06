@@ -2,7 +2,8 @@ import path from "path"
 import fs from "fs"
 import { sanhelper, __root } from "./sanhelper"
 import { sanconfig } from "./config"
-import { steam, steamiconurl } from "./steam"
+import { steam, steamiconurls } from "./steam"
+import { log } from "./log"
 
 const percentcache = new Map<number,Map<string,number>>()
 
@@ -15,7 +16,7 @@ export const sanachievement = {
         const statlookup = steam.getstatlookup(stats)
     
         const percentages = await sanachievement.getpercentages(appid)
-        const { lang } = sanconfig.get().store
+        const { lang, noiconcache } = sanconfig.get().store
     
         for (const [statid,stat] of Object.entries<any>(stats)) {
             if (stat?.type !== "ACHIEVEMENTS") continue
@@ -39,7 +40,6 @@ export const sanachievement = {
                     hidden: !!hidden,
                     percent: percentages.get(apiname) ?? percentages.get(apiname.toLowerCase()) ?? -1,
                     icon,
-                    unlocktimestamp: Date.now(),
                     statid: parseInt(statid),
                     bit,
                     unlocktime: unlocked ? time : null,
@@ -49,22 +49,26 @@ export const sanachievement = {
                 })
             }
         }
-    
-        const icons = new Map<string,string>()
-        const queue = new Set(result.map(achievement => achievement.icon).filter(icon => icon !== undefined)).values()
-    
-        await Promise.all(Array.from({ length: 5 },async () => {
-            for (const filename of queue) {
-                try {
-                    const icon = await sanachievement.geticon(appid,filename)
-                    icon && icons.set(filename,icon)
-                } catch (err) {
-                    console.error(`Failed to cache icon "${filename}": ${(err as Error).message}`)
+
+        if (!noiconcache) {
+            const icons = new Map<string,string>()
+            const queue = new Set(result.map(achievement => achievement.icon).filter(icon => icon !== undefined)).values()
+        
+            await Promise.all(Array.from({ length: 5 },async () => {
+                for (const filename of queue) {
+                    try {
+                        const icon = await sanachievement.geticon(appid,filename)
+                        icon && icons.set(filename,icon)
+                    } catch (err) {
+                        log.write("WARN",`Failed to cache achievement icon for "${filename}": ${(err as Error).message}`)
+                    }
                 }
+            }))
+        
+            for (const achievement of result) {
+                achievement.icon = achievement.icon ? icons.get(achievement.icon) : undefined
             }
-        }))
-    
-        for (const achievement of result) achievement.icon = achievement.icon ? icons.get(achievement.icon) : undefined
+        }
     
         return result
     },
@@ -76,7 +80,7 @@ export const sanachievement = {
         const url = `https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${appid}&format=json`
     
         try {
-            const res = await fetch(url,{ signal: AbortSignal.timeout(10000) })
+            const res = await fetch(url,{ signal: AbortSignal.timeout(5000) })
             if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
     
             const data: { name: string, percent: string | number }[] = (await res.json()).achievementpercentages?.achievements ?? []
@@ -90,7 +94,7 @@ export const sanachievement = {
     
             percentmap.size && percentcache.set(appid,percentmap)
         } catch (err) {
-            console.error(`Unable to fetch achievement percentages for AppID ${appid}: ${(err as Error).message}`)
+            log.write("WARN",`Unable to fetch achievement percentages for AppID ${appid}: ${(err as Error).message}`)
         }
     
         return percentmap
@@ -126,19 +130,31 @@ export const sanachievement = {
             percent
         } as AchievementProgress
     },
-    cacheicon: async (url: string,dest: string): Promise<string> => {
-        if (fs.existsSync(dest)) return dest // Get from cache if present
+    downloadicon: async (urls: string[],dest: string) => {
+        if (fs.existsSync(dest)) return dest
+        const dir = path.dirname(dest)
 
-        const res = await fetch(url,{ signal: AbortSignal.timeout(10000) })
-        if (!res.ok) throw new Error(`${path.basename(dest)}: ${res.status}`)
+        for (const url of urls) {
+            try {
+                const res = await fetch(url,{ signal: AbortSignal.timeout(5000) })
+                if (!res.ok) {
+                    log.write("ERROR",`${url}: ${res.status} ${res.statusText}`)
+                    continue
+                }
 
-        fs.mkdirSync(path.dirname(dest),{ recursive: true })
-        fs.writeFileSync(dest,Buffer.from(await res.arrayBuffer()))
+                fs.mkdirSync(dir,{ recursive: true })
+                fs.writeFileSync(dest,Buffer.from(await res.arrayBuffer()))
+                return dest
+            } catch (err) {
+                log.write("ERROR",`${url}: ${(err as Error).message}`)
+            }
+        }
 
-        return dest
+        log.write("ERROR",`Failed to download "${path.basename(dest)}" from any specified Steam URL`)
+        return null
     },
     geticon: async (appid: number,filename: string | undefined) => {
         if (!filename) return null
-        return sanachievement.cacheicon(`${steamiconurl}/${appid}/${filename}`,path.join(sanhelper.temp,`${appid}`,filename))
+        return sanachievement.downloadicon(steamiconurls.map(url => `https://${url}/images/apps/${appid}/${filename}`),path.join(sanhelper.temp,`${appid}`,filename))
     }
 }

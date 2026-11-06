@@ -232,7 +232,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 
 const raurl = `https://media.retroachievements.org`
 
-const geticon = async (type: "gameicon" | "gameartlibhero" | "achievement",label: string | number,url: string,format = "png") => (await sanachievement.cacheicon(url,path.join(sanhelper.temp,`${type !== "achievement" ? `${label}_${type}` : `${label}`}.${format}`))).replace(/\\/g,"/")
+const geticon = async (type: "gameicon" | "gameartlibhero" | "achievement",label: string | number,url: string,format = "png") => (await sanachievement.downloadicon([url],path.join(sanhelper.temp,`${type !== "achievement" ? `${label}_${type}` : `${label}`}.${format}`)) ?? sanhelper.setfilepath("img","sanlogosquare.svg")).replace(/\\/g,"/")
 
 export const getgamenamefromgameid = async (gameid: number,username: string,apikey: string) => {
     if (!gameid) throw new Error(`No "gameid" provided`)

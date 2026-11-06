@@ -1041,6 +1041,15 @@ button.iconbtn:hover {
     --icon: url("../../icon/lock.svg");
 }
 
+#cleariconcache {
+    --icon: url("../../icon/clearicons.svg");
+    background-color: #5662f6b5;
+}
+
+#cleariconcache:hover {
+    background-color: #5662f6;
+}
+
 @media (orientation: portrait) {
     dialog[menu] > #content {
         width: 100%;

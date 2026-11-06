@@ -316,7 +316,7 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                     unlocked: achievement.unlocked,
                     hidden: achievement.hidden,
                     percent: achievement.percent,
-                    icon: achievement.icon ?? sanhelper.setfilepath("img","sanlogosquare.svg"),
+                    icon: (noiconcache ? await sanachievement.geticon(appid,achievement.icon) : achievement.icon) ?? sanhelper.setfilepath("img","sanlogosquare.svg"),
                     gameicon: gameicon ?? sanhelper.setfilepath("img","sanlogosquare.svg"),
                     unlocktime: new Date(unlocktime).toISOString()
                 }

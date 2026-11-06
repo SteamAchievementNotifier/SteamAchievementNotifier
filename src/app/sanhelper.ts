@@ -212,6 +212,7 @@ export const sanhelper = {
     updatelogwin: (logtype: LogFiles | "bak",filename?: string) => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype,filename),logtype,filename),
     showcustomfiles: () => shell.openPath(path.join(sanhelper.appdata,"customfiles")),
     appdatadir: () => shell.openPath(sanhelper.appdata),
+    cleariconcache: () => ipcRenderer.send("cleariconcache"),
     switchtab: ({ target }: Event) => {
         target instanceof HTMLElement && (["main","semi","rare","plat"] as const).forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
         usertheme.update()

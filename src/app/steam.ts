@@ -5,7 +5,11 @@ import vdf from "simple-vdf"
 import { log } from "./log"
 
 const steam64base = 76561197960265728n
-export const steamiconurl = "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps"
+
+export const steamiconurls = [
+    "cdn.akamai.steamstatic.com/steamcommunity/public",
+    "shared.fastly.steamstatic.com/community_assets"
+]
 
 export const steam = {
     steam64tosteam3id: (steamid64: string) => Number(BigInt(steamid64) - steam64base), // BigInt: SteamID64 exceeds Number.MAX_SAFE_INTEGER

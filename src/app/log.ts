@@ -11,14 +11,8 @@ const iconmap = new Map([
     ["EXIT","⚫"]
 ])
 
-const rustlogfiles: RustLogFiles[] = [
-    "steamworks",
-    "sanwatcher"
-]
-
 export const logfiles: LogFiles[] = [
     "san",
-    ...rustlogfiles,
     "sanhelper"
 ]
 
@@ -40,16 +34,6 @@ export const log = {
 
         if (process === "APP") {
             log.clear()
-            
-            // Rust-based log files must be created before game tracking starts to prevent continuous missing file error logging
-            for (const logfile of rustlogfiles) {
-                try {
-                    fs.writeFileSync(path.join(sanhelper.appdata,"logs",`${logfile}.log`),"")
-                    log.write("INFO",`"${logfile}.log" created successfully`)
-                } catch (err) {
-                    log.write("ERROR",`Error creating "${logfile}.log": ${(err as Error).stack || (err as Error).message}`)
-                }
-            }
         } else if (process === "RENDERER") {
             const vnan = path.join(sanhelper.appdata,"..","Steam Achievement Notifier (VNaN)")
 
@@ -139,7 +123,7 @@ export const log = {
 
             for (const logtype of logfiles) {
                 const src = path.join(logspath,`${logtype}.log`)
-                if (!fs.existsSync(src)) continue // Not every log exists on every launch (e.g. "sanwatcher.log" when SANWatcher is not in use)
+                if (!fs.existsSync(src)) continue // Not every log exists on every launch
 
                 const logpath = path.join(logspath,`${timestamp}_${logtype}.log`)
 

@@ -1840,10 +1840,10 @@ export const listeners = {
             updatetray(tray)
         })
 
-        ipcMain.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
-            if (!fs.existsSync(imgpath)) return log.write("WARN",`Unable to add media to Steam: "${imgpath}" does not exist`)
-            worker && worker.webContents.send("addtosteam",imgpath,width,height)
-        })
+        // ipcMain.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
+        //     if (!fs.existsSync(imgpath)) return log.write("WARN",`Unable to add media to Steam: "${imgpath}" does not exist`)
+        //     worker && worker.webContents.send("addtosteam",imgpath,width,height)
+        // })
 
         ipcMain.on("gametimerwin",(event,value: boolean) => {
             if (value && gametimerwin) return log.write("WARN",`${defaultextwins.gametimer.wintitle} window already active`)

@@ -658,7 +658,8 @@ declare interface SSWin {
     timer: NodeJS.Timeout | null,
     windowtitle: string | null,
     haswarned: boolean,
-    display?: Electron.Display
+    capturing: boolean,
+    display?: Electron.Display,
 }
 
 declare type ExtWins = "ext" | "stat" | "gametimer"
@@ -810,9 +811,7 @@ declare interface TroubleshooterResult {
     msg: TroubleshooterMsg
 }
 
-declare type RustLogFiles = "steamworks" | "sanwatcher"
-declare type ElectronLogFiles = "san" | "sanhelper"
-declare type LogFiles = ElectronLogFiles | RustLogFiles
+declare type LogFiles = "san" | "sanhelper"
 
 declare interface SteamUser {
     steam3id: number,

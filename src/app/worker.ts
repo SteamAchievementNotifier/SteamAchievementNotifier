@@ -165,8 +165,6 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
             pollrate: pollrate ?? 250
         },"started"))
 
-        // ipcRenderer.on("windowtitles",() => ipcRenderer.send("windowtitles",(usesanwatcher ? Array.from(pids) : processes.map(process => process.pid)).map(pid => client.processes.getWindowTitle(pid))))
-
         // ipcRenderer.on("addtosteam",(event,imgpath: string,width: number,height: number) => {
         //     try {
         //         client.screenshots.addScreenshotToLibrary(imgpath,width,height)

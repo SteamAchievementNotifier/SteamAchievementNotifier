@@ -6,12 +6,13 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getAllDisplays, getWindowBounds, findElectronDisplay, getSteamActiveUser } from "sanhelper.rs"
+// import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getAllDisplays, getWindowBounds, findElectronDisplay, getSteamActiveUser } from "sanhelper.rs"
+import * as sanhelper_rs from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
 
-const { initLogger, testPanic } = sanhelperrslog
+const { initLogger, testPanic } = sanhelper_rs.log
 
 export const __root: string = path.resolve(__dirname,"..","..")
 const tippies: Instance<Props>[][] = []
@@ -89,9 +90,9 @@ export const sanhelper = {
         (async () => await copyicon())()
         return localicon
     },
-    get steampath(): string { return getSteamPath() },
-    get activesteamuser(): number | null { return getSteamActiveUser() },
-    get gameinfo(): AppInfo { return getAppInfo()[0] },
+    get steampath(): string { return sanhelper_rs.getSteamPath() },
+    get activesteamuser(): number | null { return sanhelper_rs.getSteamActiveUser() },
+    get gameinfo(): AppInfo { return sanhelper_rs.getAppInfo()[0] },
     getgamenamefromappid: async (appid: number) => {
         if (appid < 100) return undefined
         const url = `https://store.steampowered.com/api/appdetails?appids=${appid}`
@@ -135,20 +136,13 @@ export const sanhelper = {
         
         return `Linux kernel (${os.release()})`
     },
-    gethqicon: (appid: number = 0) => getHqIcon(appid),
-    getwindowbounds: (windowtitle: string) => getWindowBounds(windowtitle),
+    gethqicon: (appid: number = 0) => sanhelper_rs.getHqIcon(appid),
+    getwindowbounds: (windowtitle: string) => sanhelper_rs.getWindowBounds(windowtitle),
+    get getfocusedwin(): sanhelper_rs.FocusedWin | null { return sanhelper_rs.getFocusedWin() },
     initlogger: (appdata: string) => initLogger(appdata),
-    getalldisplayinfo: () => getAllDisplays(),
-    hdrscreenshot: (monitorid: number,sspath: string,area?: [number,number,number,number]) => hdrScreenshot(monitorid,sspath,area),
+    getalldisplayinfo: () => sanhelper_rs.getAllDisplays(),
+    hdrscreenshot: (monitorid: number,sspath: string,area?: [number,number,number,number]) => sanhelper_rs.hdrScreenshot(monitorid,sspath,area),
     testpanic: () => testPanic(),
-    isprocessrunning: (pid: number) => {
-        try {
-            process.kill(pid,0)
-            return true
-        } catch (err) {
-            return false
-        }
-    },
     errorhandler: (log: any) => {
         const handleerr = (err: string) => {
             document.body.setAttribute("error","")
@@ -193,7 +187,7 @@ export const sanhelper = {
             ipcRenderer.send("displays")
         })
     },
-    findelectrondisplay: (id: number) => findElectronDisplay(id),
+    findelectrondisplay: (id: number) => sanhelper_rs.findElectronDisplay(id),
     setdevtools: async (win: Electron.BrowserWindow) => {
         const { BrowserWindow, screen } = await import("electron")
         const { width, height } = screen.getPrimaryDisplay().bounds
@@ -1153,7 +1147,7 @@ export const sanhelper = {
             })
         })
     },
-    presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? pressKeysWin32(keys as number[]) : pressKeysLinux(keys as string[]),100),
+    presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? sanhelper_rs.pressKeysWin32(keys as number[]) : sanhelper_rs.pressKeysLinux(keys as string[]),100),
     triggerkeypress: async (hotkeys: (string | number)[]) => {
         const { log } = await import("./log")
         // The required lib is missing if `sanhelper.depsinstalled()` returns a non-empty string, so the value needs to be truthy to trigger the return
@@ -1163,7 +1157,7 @@ export const sanhelper = {
         sanhelper.presskeys(hotkeys)
     },
     depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl",section: string): string => {
-        const missinglib = depsInstalled(lib) // `depsInstalled()` returns the string(s) of missing deps (for logging purposes), or "" if installed
+        const missinglib = sanhelper_rs.depsInstalled(lib) // `depsInstalled()` returns the string(s) of missing deps (for logging purposes), or "" if installed
         
         if (process.platform === "linux" && missinglib) {
             if (!deps.has(lib)) throw new Error(`"${lib}" not found in "deps" map`)

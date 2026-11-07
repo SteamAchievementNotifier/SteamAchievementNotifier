@@ -1,9 +1,14 @@
 use fern::Dispatch;
 use log::{LevelFilter,info,error};
-use std::fs::File;
+use std::fs::OpenOptions;
 
-pub fn init_logger(app_data: String,filename: String) -> String {
+pub fn init_logger(app_data: String,filename: String,append: bool) -> String {
     let logfile = std::path::Path::new(&app_data).join(&filename);
+
+    let file = match OpenOptions::new().create(true).write(true).append(append).truncate(!append).open(&logfile) {
+        Ok(file) => file,
+        Err(err) => return format!("Failed to open log file for \"{}\": {}",&filename,err)
+    };
 
     let logger_config = Dispatch::new()
         .format(|out,message,record| {
@@ -16,7 +21,7 @@ pub fn init_logger(app_data: String,filename: String) -> String {
             ))
         })
         .level(LevelFilter::Debug)
-        .chain(File::create(logfile).expect(&format!("Failed to create log file for \"{}\"",&filename)))
+        .chain(file)
         .apply();
 
     if let Err(err) = logger_config {

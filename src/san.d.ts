@@ -811,7 +811,7 @@ declare interface TroubleshooterResult {
     msg: TroubleshooterMsg
 }
 
-declare type LogFiles = "san" | "sanhelper"
+declare type LogFiles = "san" | "sanhelper" | "sanhelperworker"
 
 declare interface SteamUser {
     steam3id: number,

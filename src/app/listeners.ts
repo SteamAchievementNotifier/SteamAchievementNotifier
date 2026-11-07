@@ -11,7 +11,6 @@ import { gameart } from "./gameart"
 import { screenshot } from "./screenshots"
 import { audio } from "./audio"
 import { resourceusage } from "./resourceusage"
-// import { troubleshooter } from "./troubleshooter"
 
 let appid: number = 0
 let gameid: number = 0 // RetroAchievements GameID
@@ -52,8 +51,11 @@ export const listeners = {
     set: (win: BrowserWindow): void => {
         listeners.setexit()
 
-        const sanhelperlog = sanhelper.initlogger(path.join(sanhelper.appdata,"logs"))
+        const logsdir = path.join(sanhelper.appdata,"logs")
+        const sanhelperlog = sanhelper.initlogger(logsdir,"sanhelper.log")
         log.write("INFO",sanhelperlog)
+
+        fs.writeFileSync(path.join(logsdir,"sanhelperworker.log"),"")
 
         ipcMain.on("appusage",async event => event.reply("appusage",await resourceusage.app()))
         ipcMain.on("systemusage",async event => event.reply("systemusage",sanconfig.get().store.logresourceusage ? await resourceusage.system() : `Error: "logresourceusage" not enabled in config`))

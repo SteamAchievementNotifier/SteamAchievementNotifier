@@ -139,7 +139,7 @@ export const sanhelper = {
     gethqicon: (appid: number = 0) => sanhelper_rs.getHqIcon(appid),
     getwindowbounds: (windowtitle: string) => sanhelper_rs.getWindowBounds(windowtitle),
     get getfocusedwin(): sanhelper_rs.FocusedWin | null { return sanhelper_rs.getFocusedWin() },
-    initlogger: (appdata: string) => initLogger(appdata),
+    initlogger: (appdata: string,filename: string,append: boolean = false) => initLogger(appdata,filename,append),
     getalldisplayinfo: () => sanhelper_rs.getAllDisplays(),
     hdrscreenshot: (monitorid: number,sspath: string,area?: [number,number,number,number]) => sanhelper_rs.hdrScreenshot(monitorid,sspath,area),
     testpanic: () => testPanic(),

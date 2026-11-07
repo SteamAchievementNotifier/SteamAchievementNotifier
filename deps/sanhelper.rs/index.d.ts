@@ -55,6 +55,6 @@ export interface JsMonitorInfo {
 }
 export function findElectronDisplay(id: number): JsMonitorInfo | null
 export namespace log {
-  export function initLogger(appData: string): string
+  export function initLogger(appData: string, filename: string, append: boolean): string
   export function testPanic(): void
 }

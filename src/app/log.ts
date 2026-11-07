@@ -13,7 +13,8 @@ const iconmap = new Map([
 
 export const logfiles: LogFiles[] = [
     "san",
-    "sanhelper"
+    "sanhelper",
+    "sanhelperworker"
 ]
 
 const backupregex = new RegExp(`^(\\d{8}_\\d{6})_(?:${logfiles.join("|")})\\.log$`) // Only matches backup log files, not live (e.g. "san.log"/"san_reset.log")

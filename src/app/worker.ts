@@ -18,14 +18,21 @@ declare global {
     }
 }
 
+const blacklist = new Map<number,string>([
+    [1182480,"EASteamLauncher"]
+])
+
 const logged = {
     exclusion: false,
     activeuser: false,
-    binfile: false
+    binfile: false,
+    blacklist: false
 }
 
 log.init("WORKER")
 sanhelper.errorhandler(log)
+
+log.write("INFO",sanhelper.initlogger(path.join(sanhelper.appdata,"logs"),"sanhelperworker.log",true))
 
 window.localised = new Map<string,LocalisedObj>()
 
@@ -64,8 +71,20 @@ const startidle = () => {
             const { appid, gamename } = sanhelper.gameinfo as AppInfo
             
             if (!appid) {
-                logged.exclusion = false
-                logged.activeuser = false   
+                for (const key of Object.keys(logged) as (keyof typeof logged)[]) {
+                    logged[key] = false
+                }
+                
+                return
+            }
+
+            if (blacklist.has(appid)) {
+                if (!logged.blacklist) {
+                    const appname = blacklist.get(appid)
+                    log.write("INFO",`AppID ${appid}${appname ? ` (${appname})` : ""} is blacklisted`)
+                    logged.blacklist = true
+                }
+
                 return
             }
             

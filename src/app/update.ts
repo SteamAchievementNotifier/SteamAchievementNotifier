@@ -144,6 +144,7 @@ export const update = {
      *      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\Steam Achievement Notifier (VX.X)`
      *      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run\Steam Achievement Notifier (VX.X)`
      * - Desktop shortcut (if present): `%userprofile%\Desktop\Steam Achievement Notifier (VX.X).lnk`
+     * - Start Menu shortcut: `%appdata%\Microsoft\Windows\Start Menu\Programs\Steam Achievement Notifier (VX.X).lnk`
      * 
      * Linux:
      * - Auto-start entry:
@@ -155,27 +156,43 @@ export const update = {
     cleanup: (legacyversion: string,desktop: boolean,startwin: boolean) => {
         if (legacyversion === sanhelper.version) return
 
+        const { platform, env: { appdata } } = process
+
         try {
-            if (sanhelper.removeautostartentries(legacyversion,process.platform)) {
+            if (sanhelper.removeautostartentries(legacyversion,platform)) {
                 log.write("INFO",`Removed legacy V${legacyversion} autostart entry`)
-                startwin && ipcMain.emit("startwin",null,true) // rebuild under the new name
+                startwin && ipcMain.emit("startwin",null,true) // Rebuild under latest version
             }
         } catch (err) {
             log.write("WARN",`Unable to remove legacy V${legacyversion} autostart entry: ${(err as Error).message}`)
         }
 
+        const shortcutfile = `Steam Achievement Notifier (V${legacyversion}).${process.platform === "linux" ? "desktop" : "lnk"}` as const
+
         try {
-            const shortcutdir = sanhelper.desktopshortcutpath(process.platform)
+            const shortcutdir = sanhelper.desktopshortcutpath(platform)
             if (!shortcutdir) return
 
-            const legacyshortcut = path.join(shortcutdir,`Steam Achievement Notifier (V${legacyversion}).${process.platform === "linux" ? "desktop" : "lnk"}`)
+            const legacyshortcut = path.join(shortcutdir,shortcutfile)
             if (!fs.existsSync(legacyshortcut)) return
 
             fs.rmSync(legacyshortcut)
             log.write("INFO",`Removed legacy V${legacyversion} desktop shortcut`)
-            desktop && sanhelper.desktop(true) // rebuild under the new name
+            desktop && sanhelper.desktop(true) // Rebuild under latest version
         } catch (err) {
             log.write("WARN",`Unable to remove legacy V${legacyversion} desktop shortcut: ${(err as Error).message}`)
+        }
+
+        if (platform !== "win32") return
+
+        try {
+            const legacystartmenu = path.join(appdata!,"Microsoft","Windows","Start Menu","Programs",shortcutfile)
+            if (!fs.existsSync(legacystartmenu)) return
+
+            fs.rmSync(legacystartmenu)
+            log.write("INFO",`Removed legacy V${legacyversion} Start Menu shortcut`)
+        } catch (err) {
+            log.write("WARN",`Unable to remove legacy V${legacyversion} Start Menu shortcut: ${(err as Error).message}`)
         }
     }
 }

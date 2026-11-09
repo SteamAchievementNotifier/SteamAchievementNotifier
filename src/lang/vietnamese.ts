@@ -200,6 +200,15 @@ export const translations = {
                 all: "Tất cả",
                 off: "Tắt",
                 showpercent: "Hiển thị Phần trăm",
+                showpercentpos: "Vị trí phần trăm",
+                showpercentstyle: "Kiểu phần trăm",
+                left: "Trái",
+                right: "Phải",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Không có",
                 soundonly: "Chỉ Âm thanh",
                 nowtracking: "Hiển thị Thông báo Theo dõi",
                 nowtrackingscale: "Tỷ lệ Theo dõi",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Chế độ Cúp",
                 notifymax: "Số lượng thông báo tối đa", 
                 notifyspace: "Khoảng cách giữa các thông báo",
-                notify1line: "Giới hạn văn bản trong 1 dòng",
-                testnotifycustomtext: "Văn bản tùy chỉnh của thông báo thử nghiệm",
-                testnotifycustomtexttitle: "Tiêu đề",
-                testnotifycustomtextdesc: "Mô tả"
+                notifylinemode: "Chế độ dòng",
+                single: "Một dòng",
+                max: "Tối đa",
+                notifyoverflow: "Chế độ tràn",
+                ellipsis: "Dấu ba chấm",
+                scroll: "Cuộn"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Thời gian chờ âm thanh",
                 usecustomfiles: "Sử dụng tập tin ứng dụng tùy chỉnh",
                 showcustomfiles: "Hiển thị tập tin ứng dụng tùy chỉnh",
+                cleariconcache: "Xóa bộ nhớ đệm biểu tượng",
                 appdatadir: "Hiển thị Thư mục AppData",
                 backup: "Sao lưu",
                 backuppath: "Đường dẫn sao lưu",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Văn bản tùy chỉnh",
                 customtextunlockmsg: "Thông báo mở khóa",
                 customtexttitle: "Tiêu đề thành tích",
-                customtextdesc: "Mô tả thành tích"
+                customtextdesc: "Mô tả thành tích",
+                scrollrepeat: "Số lần cuộn lặp lại"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Tham gia trên Discord!",
         github: "Báo cáo sự cố",
         lang: "Chọn ngôn ngữ giao diện người dùng được sử dụng trong ứng dụng",
-        steamlang: `Cố gắng tải các bản dịch nằm trong các tệp ứng dụng Steam để hiển thị thông tin thành tích bằng ngôn ngữ mà người dùng đã chọn trong ứng dụng Steam<br><br><span class="ttdesc">Tùy chọn này cố gắng tìm các bản dịch trong một tệp JSON lưu trữ trong dữ liệu ứng dụng Steam. Nếu không thể tìm thấy bản dịch cho thành tích hiện tại, thông tin về thành tích sẽ được hiển thị từ Steamworks thay thế.</span>`,
-        maxsteamlangretries: `Số lần thử (mỗi 100 ms) để tìm các bản dịch hợp lệ cho thành tích hiện tại<br><br><span class="ttdesc">Steam hiện chỉ lưu trữ một lượng nhỏ dữ liệu thành tích trong tệp JSON liên kết với mỗi trò chơi. Các thành tích không có trong tệp này sẽ được thêm vào sau khi thành tích được mở khóa.<br><br>Vì việc thêm dữ liệu mới có thể mất thời gian, việc tăng giá trị này sẽ làm tăng khả năng tìm thấy dữ liệu dịch cho thành tích hiện tại, nhưng cũng có thể làm chậm việc hiển thị thông báo trên màn hình theo thời gian tính toán bởi cài đặt này.<br><br>Nếu không thể tìm thấy dữ liệu dịch hợp lệ cho thành tích hiện tại, bản dịch sẽ quay lại ngôn ngữ được chỉ định trong Steamworks.</span>`,
+        steamlang: `Thử tải các bản dịch nằm trong tệp ứng dụng Steam để hiển thị thông tin thành tích bằng ngôn ngữ Steam mà người dùng đã chọn<br><br><span class="ttdesc">Tùy chọn này sẽ tìm kiếm các bản dịch trong tệp JSON được lưu trữ trong dữ liệu ứng dụng Steam. Nếu không tìm thấy bản dịch cho thành tích hiện tại, thông tin thành tích được lấy từ các tệp nhị phân nội bộ của Steam sẽ được hiển thị thay thế</span>`,
+        maxsteamlangretries: `Số lần thử tìm kiếm bản dịch hợp lệ cho thành tích hiện tại (mỗi 100 mili giây)<br><br><span class="ttdesc">Hiện tại, Steam chỉ lưu trữ một lượng nhỏ dữ liệu thành tích trong tệp JSON tương ứng của mỗi trò chơi. Những thành tích không có trong tệp này sẽ được bổ sung sau khi được mở khóa.<br><br>Vì việc bổ sung dữ liệu mới có thể mất thời gian, tăng giá trị này sẽ làm tăng khả năng tìm thấy dữ liệu bản dịch cho thành tích hiện tại, nhưng cũng có thể trì hoãn thời điểm thông báo xuất hiện trên màn hình theo khoảng thời gian được tính từ cài đặt này.<br><br>Nếu không tìm thấy dữ liệu bản dịch hợp lệ cho thành tích hiện tại, tiếng Anh sẽ được sử dụng thay thế.</span>`,
         desktop: "Chuyển đổi một phím tắt trên Màn hình để chạy ứng dụng",
         startwin: "Khởi động Steam Achievement Notifier tự động sau khi đăng nhập",
         startmin: "Sau khi khởi chạy, ẩn cửa sổ giao diện người dùng của ứng dụng cho đến khi mở từ Khay hệ thống",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Tỷ lệ phần trăm kích hoạt thông báo thành tích hiếm.<br><br>Bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị dưới dạng thông báo Chính<br><br><span class="ttdesc">Nếu <span class="hl">Chế độ Cúp</span> được bật, bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị dưới dạng thông báo Bạc thay thế</span>`,
         semirarity: `Tỷ lệ phần trăm mà các phần tử thông báo "Bạc" sẽ hiển thị (ví dụ: <span class="hl">Huy hiệu độ hiếm</span>, <span class="hl">Trang trí</span> v.v.).<br><br>Bất kỳ thành tích nào có tỷ lệ mở khóa thấp hơn (hoặc bằng) giá trị này và cao hơn giá trị <span class="hl">Tỷ lệ hiếm</span> sẽ hiển thị các phần tử thông báo được cấu hình cho độ hiếm "Bạc".<br><br>Bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị các phần tử thông báo được cấu hình cho độ hiếm "Đồng"<br><br><span class="ttdesc">Nếu <span class="hl">Chế độ Cúp</span> được bật, bất kỳ thành tích nào có tỷ lệ mở khóa cao hơn giá trị này sẽ hiển thị dưới dạng thông báo Đồng thay thế</span>`,
         showpercent: "Hiển thị phần trăm mở khóa của thành tựu trong thông báo cho các loại đã chọn",
+        showpercentpos: "Thiết lập vị trí phần trăm mở khóa thành tích trong thông báo cho (các) loại đã chọn",
+        showpercentstyle: "Thiết lập kiểu hiển thị phần trăm mở khóa thành tích trong thông báo cho (các) loại đã chọn",
         soundonly: "Vô hiệu hóa thông báo, chỉ phát âm thanh được thiết lập qua Tùy chỉnh",
         extwin: "Tạo một cửa sổ sao chép tất cả thông báo hiện đang hiển thị trên màn hình. Cửa sổ này có thể được thêm vào làm nguồn bắt cửa sổ để sử dụng trong phần mềm phát sóng, chẳng hạn như OBS",
         extwinframerate: "Đặt tốc độ khung hình mục tiêu cho thông báo phát trực tuyến",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Sao chép giao diện đã chọn sang loại thông báo khác",
         ssaddtosteam: "Tự động thêm phương tiện đã tạo vào Bản ghi và Ảnh chụp màn hình của trò chơi hiện tại trong Steam",
         appdatadir: "Mở vị trí thư mục AppData của ứng dụng",
+        cleariconcache: "Xóa tất cả biểu tượng thành tích đã được lưu trong bộ nhớ đệm trước đó",
         backup: "Sao lưu nội dung thư mục AppData của ứng dụng đến vị trí đã chọn, sẽ hoạt động như điểm khôi phục cho trạng thái hiện tại của ứng dụng",
         restore: "Khôi phục nội dung thư mục AppData của ứng dụng từ bản sao lưu trước đó",
         gametimerwin: "Hiển thị bộ đếm thời gian trên màn hình cho biết khoảng thời gian đã dùng để mở khóa tất cả thành tựu của trò chơi hiện tại",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Đặt các thông báo tùy chỉnh sẽ được hiển thị trong thông báo",
         customtextunlockmsg: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Thông báo mở khóa<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Thông báo mở khóa bị tắt</span>`,
         customtexttitle: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Tiêu đề thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Tiêu đề thành tích bị tắt</span>`,
-        customtextdesc: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Mô tả thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị tắt</span>`
+        customtextdesc: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Mô tả thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị tắt</span>`,
+        notifylinemode: "Thiết lập số dòng văn bản tối đa hiển thị trong thông báo",
+        notifyoverflow: "Thiết lập cách xử lý văn bản tràn trong thông báo",
+        scrollrepeat: `Thiết lập số lần văn bản tràn sẽ cuộn trong khi thông báo đang hiển thị trên màn hình<br><br><span class="ttdesc">Tốc độ cuộn phụ thuộc vào Thời gian hiển thị, nhưng giá trị lặp lại cao có thể không phù hợp với tất cả các cấu hình cài đặt sẵn</span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

@@ -3,6 +3,7 @@ import fs from "fs"
 import path from "path"
 import { language } from "./language"
 import { sanhelper } from "./sanhelper"
+import { logfiles } from "./log"
 
 // Prevent page zoom
 window.onkeydown = event => ((event.code === "Minus" || event.code === "Equal") && (event.ctrlKey || event.metaKey)) ? event.preventDefault() : null
@@ -12,23 +13,18 @@ document.getElementById("copylog")!.onclick = async () => ipcRenderer.send("copy
 
 window.addEventListener("DOMContentLoaded",() => {
     ipcRenderer.send("logwinready")
-    ipcRenderer.on("updatelogwin",(event,logcontents,logtype,filename) => {
+    ipcRenderer.on("updatelogwin",(event,logcontents: string,logtype: LogFiles | "bak",filename: string) => {
         const select = document.getElementById("logtype")! as HTMLSelectElement
         select.innerHTML = ""
 
-        for (const opt of [
-            "san",
-            "steamworks",
-            "sanhelper",
-            "sanwatcher"
-        ]) {
+        for (const opt of logfiles) {
             select.insertAdjacentHTML("beforeend",`<option value="${opt}">${opt}.log</option>`)
         }
 
-        const logfiles = fs.readdirSync(path.join(sanhelper.appdata,"logs")).filter(file => file.endsWith("_san.log")).sort()
+        const baklogfiles = fs.readdirSync(path.join(sanhelper.appdata,"logs")).filter(file => file.endsWith("_san.log")).sort()
 
-        if (logfiles.length) {
-            for (const logfile of logfiles) {
+        if (baklogfiles.length) {
+            for (const logfile of baklogfiles) {
                 select.insertAdjacentHTML("beforeend",`<option value="bak" timestamp="${logfile.replace(/_san.log$/,"")}">${logfile}</option>`)
             }
         }
@@ -50,7 +46,7 @@ window.addEventListener("DOMContentLoaded",() => {
 
     select.onchange = event => {
         const target = event.target as HTMLSelectElement
-        const value = target.value as "san" | "rust" | "sanhelperrs" | "bak"
+        const value = target.value as LogFiles | "bak"
         const filename = fs.readdirSync(path.join(sanhelper.appdata,"logs")).find(file => file.replace(/_san.log$/,"") === target.options[target.selectedIndex].getAttribute("timestamp"))
         
         ipcRenderer.send("updatelogtype",value,filename)

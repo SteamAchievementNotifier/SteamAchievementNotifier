@@ -200,6 +200,15 @@ export const translations = {
                 all: "Todas",
                 off: "Apagado",
                 showpercent: "Mostrar porcentaje",
+                showpercentpos: "Posición del porcentaje",
+                showpercentstyle: "Estilo del porcentaje",
+                left: "Izquierda",
+                right: "Derecha",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ninguno",
                 soundonly: "Solo sonido",
                 nowtracking: "Mostrar Notificación de Seguimiento",
                 nowtrackingscale: "Escala de Seguimiento",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Modo Trofeo",
                 notifymax: "Notificaciones Máximas", 
                 notifyspace: "Espaciado de Notificaciones",
-                notify1line: "Limitar el texto a 1 línea",
-                testnotifycustomtext: "Texto personalizado de notificación de prueba",
-                testnotifycustomtexttitle: "Título",
-                testnotifycustomtextdesc: "Descripción"
+                notifylinemode: "Modo de líneas",
+                single: "Una",
+                max: "Máximo",
+                notifyoverflow: "Modo de desbordamiento",
+                ellipsis: "Puntos suspensivos",
+                scroll: "Desplazamiento"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Enfriamiento de Audio",
                 usecustomfiles: "Utilizar Archivos de Aplicación Personalizados",
                 showcustomfiles: "Mostrar Archivos de Aplicación Personalizados",
+                cleariconcache: "Borrar caché de iconos",
                 appdatadir: "Mostrar carpeta AppData",
                 backup: "Copia de seguridad",
                 backuppath: "Ruta de copia de seguridad",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Texto personalizado",
                 customtextunlockmsg: "Mensaje de desbloqueo",
                 customtexttitle: "Título del logro",
-                customtextdesc: "Descripción del logro"
+                customtextdesc: "Descripción del logro",
+                scrollrepeat: "Repetición del desplazamiento"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "¡Unirse a Discord!",
         github: "Informar un problema",
         lang: "Seleccionar el idioma de la interfaz de usuario utilizado en la aplicación",
-        steamlang: `Intenta cargar las traducciones ubicadas en los archivos de la aplicación Steam para mostrar la información de logros en el idioma elegido por el usuario en el cliente de Steam<br><br><span class="ttdesc">Esta opción intenta localizar las traducciones en un archivo JSON almacenado en los datos de la aplicación Steam. Si no se puede encontrar una traducción para el logro actual, se mostrarán en su lugar las información de logros recuperada de Steamworks.</span>`,
-        maxsteamlangretries: `El número de intentos (cada 100 ms) para encontrar traducciones válidas para el logro actual<br><br><span class="ttdesc">Steam actualmente solo almacena una pequeña cantidad de datos sobre logros en el archivo JSON asociado a cada juego. Cualquier logro que no esté presente en este archivo se añadirá después de que se desbloquee el logro.<br><br>Dado que agregar nuevos datos puede llevar tiempo, aumentar este valor incrementará la probabilidad de encontrar datos de traducción para el logro actual, pero también puede retrasar la aparición de la notificación en pantalla durante el tiempo calculado por esta configuración.<br><br>Si no se pueden encontrar datos de traducción válidos para el logro actual, la traducción volverá al idioma especificado en Steamworks.</span>`,
+        steamlang: `Intentar cargar las traducciones ubicadas en los archivos de la aplicación Steam para mostrar la información de los logros en el idioma seleccionado por el usuario en el cliente de Steam<br><br><span class="ttdesc">Esta opción intenta localizar las traducciones en un archivo JSON almacenado en los datos de la aplicación Steam. Si no se encuentra una traducción para el logro actual, se mostrará en su lugar la información del logro obtenida de los archivos binarios internos de Steam</span>`,
+        maxsteamlangretries: `Número de veces que se intentará (cada 100 ms) localizar traducciones válidas para el logro actual<br><br><span class="ttdesc">Actualmente, Steam solo almacena una pequeña cantidad de datos de logros en el archivo JSON asociado a cada juego. Los logros que no estén presentes en este archivo se añadirán después de desbloquearse.<br><br>Como añadir nuevos datos puede llevar tiempo, aumentar este valor incrementará la probabilidad de encontrar los datos de traducción del logro actual, pero también puede retrasar la aparición de la notificación en pantalla durante el tiempo calculado por este ajuste.<br><br>Si no se encuentran datos de traducción válidos para el logro actual, se utilizará el inglés como idioma alternativo.</span>`,
         desktop: "Alternar un acceso directo en el escritorio para ejecutar la aplicación",
         startwin: "Iniciar Steam Achievement Notifier automáticamente después de iniciar sesión",
         startmin: "Después de iniciar, ocultar la ventana de la interfaz de usuario de la aplicación hasta que se abra desde la bandeja del sistema",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `El porcentaje en el que se activarán las notificaciones de logros raros.<br><br>Cualquier logro con un porcentaje de desbloqueo por encima de este valor se mostrará como una notificación Principal<br><br><span class="ttdesc">Si está activado el <span class="hl">Modo Trofeo</span>, cualquier logro con un porcentaje de desbloqueo por encima de este valor se mostrará como una notificación de Plata en su lugar</span>`,
         semirarity: `El porcentaje en el que se mostrarán los elementos de notificación "Plata" (por ejemplo, <span class="hl">Insignias de rareza</span>, <span class="hl">Decoraciones</span>, etc.).<br><br>Cualquier logro con un porcentaje de desbloqueo por debajo (o igual) a este valor y por encima del valor de <span class="hl">Porcentaje de rareza</span> mostrará los elementos de notificación configurados para rarezas "Plata".<br><br>Cualquier logro con un porcentaje de desbloqueo por encima de este valor mostrará los elementos de notificación configurados para rarezas "Bronce"<br><br><span class="ttdesc">Si está activado el <span class="hl">Modo Trofeo</span>, cualquier logro con un porcentaje de desbloqueo por encima de este valor se mostrará como una notificación de Bronce en su lugar</span>`,
         showpercent: "Mostrar el porcentaje de desbloqueo del logro en la notificación para el/los tipo(s) seleccionado(s)",
+        showpercentpos: "Establece la posición del porcentaje de desbloqueo del logro en la notificación para los tipos seleccionados",
+        showpercentstyle: "Establece el estilo del porcentaje de desbloqueo del logro en la notificación para los tipos seleccionados",
         soundonly: "Desactivar las notificaciones, reproduciendo solo los sonidos establecidos a través del Personalizador",
         extwin: "Crea una ventana que duplique todas las notificaciones que se están mostrando en la pantalla. Luego, esta ventana se puede agregar como fuente de captura de ventana para usarla en software de transmisión, como OBS",
         extwinframerate: "Establecer la tasa de fotogramas objetivo para las notificaciones de transmisión",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Copiar el tema seleccionado a otro tipo de notificación",
         ssaddtosteam: "Agregar automáticamente los medios generados a las grabaciones y capturas de pantalla del juego actual en Steam",
         appdatadir: "Abrir la ubicación de la carpeta AppData de la aplicación",
+        cleariconcache: "Eliminar todos los iconos de logros almacenados previamente en la caché",
         backup: "Realiza una copia de seguridad del contenido de la carpeta AppData de la aplicación en una ubicación seleccionada, que servirá como punto de restauración para el estado actual de la aplicación",
         restore: "Restaura el contenido de la carpeta AppData de la aplicación desde una copia de seguridad anterior",
         gametimerwin: "Mostrar un temporizador en pantalla que indique el tiempo empleado en desbloquear todos los logros del juego actual",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Establecer mensajes personalizados para mostrar dentro de la notificación",
         customtextunlockmsg: `Establecer un mensaje personalizado para mostrar dentro del elemento Mensaje de desbloqueo<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Mensaje de desbloqueo esté desactivado</span>`,
         customtexttitle: `Establecer un mensaje personalizado para mostrar dentro del elemento Título del logro<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Título del logro esté desactivado</span>`,
-        customtextdesc: `Establecer un mensaje personalizado para mostrar dentro del elemento Descripción del logro<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Descripción del logro esté desactivado</span>`
+        customtextdesc: `Establecer un mensaje personalizado para mostrar dentro del elemento Descripción del logro<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Descripción del logro esté desactivado</span>`,
+        notifylinemode: "Establece el número máximo de líneas de texto que se mostrarán en las notificaciones",
+        notifyoverflow: "Establece el comportamiento del texto que se desborda en las notificaciones",
+        scrollrepeat: `Establece cuántas veces se desplazará el texto desbordado mientras la notificación esté en pantalla<br><br><span class="ttdesc">La velocidad de desplazamiento depende del tiempo de visualización, pero los valores de repetición más altos pueden no ser adecuados para todos los ajustes preestablecidos</span>`
     },
     update: {
         updateavailable: "Actualización disponible",

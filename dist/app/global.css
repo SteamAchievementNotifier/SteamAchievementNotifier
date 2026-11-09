@@ -716,6 +716,10 @@ select#themeselect {
     content: attr(value) "px";
 }
 
+.opt:has(> .lbl):has(> input[type="range"][unit="times"])::before {
+    content: attr(value) "x";
+}
+
 .opt:has(> .lbl):has(> input[type="range"]) > :nth-child(2) {
     border-radius: 0 0.15rem 0.15rem 0.15rem;
 }

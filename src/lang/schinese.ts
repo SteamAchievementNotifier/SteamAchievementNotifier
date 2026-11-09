@@ -200,6 +200,15 @@ export const translations = {
                 all: "全部",
                 off: "关闭",
                 showpercent: "显示百分比",
+                showpercentpos: "百分比位置",
+                showpercentstyle: "百分比样式",
+                left: "左侧",
+                right: "右侧",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "无",
                 soundonly: "仅声音模式",
                 nowtracking: "显示跟踪通知",
                 nowtrackingscale: "跟踪比例",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "奖杯模式",
                 notifymax: "最大通知数", 
                 notifyspace: "通知间距",
-                notify1line: "将文本限制为一行",
-                testnotifycustomtext: "测试通知自定义文本",
-                testnotifycustomtexttitle: "标题",
-                testnotifycustomtextdesc: "描述"
+                notifylinemode: "行模式",
+                single: "单行",
+                max: "最大值",
+                notifyoverflow: "溢出模式",
+                ellipsis: "省略号",
+                scroll: "滚动"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "音频冷却时间",
                 usecustomfiles: "使用自定义应用文件",
                 showcustomfiles: "显示自定义应用文件",
+                cleariconcache: "清除图标缓存",
                 appdatadir: "显示 AppData 文件夹",
                 backup: "备份",
                 backuppath: "备份路径",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "自定义文本",
                 customtextunlockmsg: "解锁消息",
                 customtexttitle: "成就标题",
-                customtextdesc: "成就描述"
+                customtextdesc: "成就描述",
+                scrollrepeat: "滚动重复次数"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "加入Discord！",
         github: "报告问题",
         lang: "选择应用程序中使用的UI语言",
-        steamlang: `尝试加载位于 Steam 应用程序文件中的翻译，以在用户选择的 Steam 客户端语言中显示成就信息<br><br><span class="ttdesc">此选项尝试在 Steam 应用程序数据中存储的 JSON 文件中查找翻译。如果找不到当前成就的翻译，则会显示从 Steamworks 获取的成就信息。</span>`,
-        maxsteamlangretries: `查找当前成就有效翻译的尝试次数（每 100 毫秒一次）<br><br><span class="ttdesc">Steam 当前仅在与每个游戏关联的 JSON 文件中存储少量的成就数据。该文件中未包含的任何成就将在成就解锁后添加。<br><br>由于添加新数据可能需要时间，增加此值将提高找到当前成就翻译数据的可能性，但也可能会延迟通知在屏幕上出现的时间，具体取决于此设置计算的时间。<br><br>如果无法找到当前成就的有效翻译数据，翻译将回退到 Steamworks 中指定的语言。</span>`,
+        steamlang: `尝试加载 Steam 应用程序文件中的翻译，以便使用用户选择的 Steam 客户端语言显示成就信息<br><br><span class="ttdesc">此选项会尝试在 Steam 应用程序数据中存储的 JSON 文件内查找翻译。如果无法找到当前成就的翻译，则会显示从 Steam 内部二进制文件中获取的成就信息</span>`,
+        maxsteamlangretries: `尝试查找当前成就有效翻译的次数（每 100 毫秒一次）<br><br><span class="ttdesc">Steam 目前仅在每个游戏对应的 JSON 文件中存储少量成就数据。任何未包含在此文件中的成就，都将在成就解锁后追加进去。<br><br>由于追加新数据可能需要一些时间，增加此数值将提高找到当前成就翻译数据的可能性，但也可能根据此设置计算出的时间延迟屏幕通知的显示。<br><br>如果无法找到当前成就的有效翻译数据，则会回退到英语。</span>`,
         desktop: "在桌面上切换运行应用程序的快捷方式",
         startwin: "登录后自动启动Steam Achievement Notifier",
         startmin: "启动后，隐藏应用程序UI窗口，直到从系统托盘中打开",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `触发稀有成就通知的百分比。<br><br>任何解锁百分比高于此值的成就将显示为主要通知<br><br><span class="ttdesc">如果启用了<span class="hl">奖杯模式</span>，任何解锁百分比高于此值的成就将改为显示为白银通知</span>`,
         semirarity: `显示“白银”通知元素的百分比（例如<span class="hl">稀有度徽章</span>、<span class="hl">装饰</span>等）。<br><br>任何解锁百分比低于（或等于）此值且高于<span class="hl">稀有度百分比</span>的成就，将显示为配置为“白银”稀有度的通知元素。<br><br>任何解锁百分比高于此值的成就，将显示为配置为“青铜”稀有度的通知元素<br><br><span class="ttdesc">如果启用了<span class="hl">奖杯模式</span>，任何解锁百分比高于此值的成就将改为显示为青铜通知</span>`,
         showpercent: "在所选类型的通知中显示成就的解锁百分比",
+        showpercentpos: "设置所选类型的通知中成就解锁百分比的位置",
+        showpercentstyle: "设置所选类型的通知中成就解锁百分比的显示样式",
         soundonly: "禁用通知，仅播放通过Customiser设置的声音",
         extwin: "创建一个窗口，复制当前屏幕上显示的所有通知。然后，可以将该窗口作为窗口捕捉源添加到流媒体软件中，如 OBS",
         extwinframerate: "设置流通知的目标帧率",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "将所选主题复制到另一种通知类型",
         ssaddtosteam: "自动将生成的媒体添加到当前游戏在 Steam 中的录制和截图",
         appdatadir: "打开应用程序 AppData 文件夹的位置",
+        cleariconcache: "删除所有先前缓存的成就图标",
         backup: "将应用程序的 AppData 文件夹内容备份到选定位置，这将作为应用程序当前状态的还原点",
         restore: "从以前的备份中还原应用程序 AppData 文件夹的内容",
         gametimerwin: "显示一个屏幕计时器，用于显示完成当前游戏所有成就所花费的时间",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "设置要在通知中显示的自定义消息",
         customtextunlockmsg: `设置要在解锁消息元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 解锁消息被禁用时，此选项将被隐藏</span>`,
         customtexttitle: `设置要在成就标题元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 成就标题被禁用时，此选项将被隐藏</span>`,
-        customtextdesc: `设置要在成就描述元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 成就描述被禁用时，此选项将被隐藏</span>`
+        customtextdesc: `设置要在成就描述元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 成就描述被禁用时，此选项将被隐藏</span>`,
+        notifylinemode: "设置通知中显示的最大文本行数",
+        notifyoverflow: "设置通知中文本溢出时的处理方式",
+        scrollrepeat: `设置通知显示期间溢出文本的滚动次数<br><br><span class="ttdesc">滚动速度取决于显示时间，但较高的重复次数可能不适用于所有预设</span>`
     },
     update: {
         updateavailable: "有可用更新",

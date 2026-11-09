@@ -200,6 +200,15 @@ export const translations = {
                 all: "All",
                 off: "Off",
                 showpercent: "Show Percentage",
+                showpercentpos: "Percentage Position",
+                showpercentstyle: "Percentage Style",
+                left: "Left",
+                right: "Right",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "None",
                 soundonly: "Sound-Only Mode",
                 nowtracking: "Show Tracking Notification",
                 nowtrackingscale: "Tracking Scale",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trophy Mode",
                 notifymax: "Max Notifications",
                 notifyspace: "Notification Spacing",
-                notify1line: "Limit Text to 1 Line",
-                testnotifycustomtext: "Test Notification Custom Text",
-                testnotifycustomtexttitle: "Title",
-                testnotifycustomtextdesc: "Description"
+                notifylinemode: "Line Mode",
+                single: "Single",
+                max: "Max",
+                notifyoverflow: "Overflow Mode",
+                ellipsis: "Ellipsis",
+                scroll: "Scroll"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Audio Cooldown",
                 usecustomfiles: "Use Custom App Files",
                 showcustomfiles: "Show Custom App Files",
+                cleariconcache: "Clear Icon Cache",
                 appdatadir: "Show AppData Folder",
                 backup: "Backup",
                 backuppath: "Backup Path",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Custom Text",
                 customtextunlockmsg: "Unlock Message",
                 customtexttitle: "Achievement Title",
-                customtextdesc: "Achievement Description"
+                customtextdesc: "Achievement Description",
+                scrollrepeat: "Scroll Repeat"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Join on Discord!",
         github: "Report an issue",
         lang: "Select the UI language used within the app",
-        steamlang: `Attempt to load translations located within Steam's application files to display achievement information in the user's chosen Steam client language<br><br><span class="ttdesc">This option attempts to locate translations in a JSON file stored within Steam's application data. If a translation for the current achievement cannot be located, achievement information retrieved from Steamworks will be displayed instead</span>`,
-        maxsteamlangretries: `The number of times (per 100ms) attempts to locate valid translations for the current achievement will be made<br><br><span class="ttdesc">Steam currently only stores a small amount of achievement data within each game's associated JSON file. Any achievements that are not present within this file will be appended after the achievement is unlocked.<br><br>As appending new data can take time, increasing this value will increase the likelihood that translation data for the current achievement will be located, but may also delay the notification from appearing on-screen by the amount of time calculated by this setting.<br><br>If no valid translation data can be located for the current achievement, translations will fallback to the language specified in Steamworks.</span>`,
+        steamlang: `Attempt to load translations located within Steam's application files to display achievement information in the user's chosen Steam client language<br><br><span class="ttdesc">This option attempts to locate translations in a JSON file stored within Steam's application data. If a translation for the current achievement cannot be located, achievement information retrieved from Steam's internal binary files will be displayed instead</span>`,
+        maxsteamlangretries: `The number of times (per 100ms) attempts to locate valid translations for the current achievement will be made<br><br><span class="ttdesc">Steam currently only stores a small amount of achievement data within each game's associated JSON file. Any achievements that are not present within this file will be appended after the achievement is unlocked.<br><br>As appending new data can take time, increasing this value will increase the likelihood that translation data for the current achievement will be located, but may also delay the notification from appearing on-screen by the amount of time calculated by this setting.<br><br>If no valid translation data can be located for the current achievement, translations will fallback to English.</span>`,
         desktop: "Toggle a shortcut on the Desktop to run the app",
         startwin: "Start Steam Achievement Notifier automatically after logging in",
         startmin: "After launching, hide the app UI window until opened from the System Tray",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `The percentage at which Rare achievement notifications will be triggered.<br><br>Any achievement with an unlock percentage above this value will be displayed as a Main notification<br><br><span class="ttdesc">If <span class="hl">Trophy Mode</span> is enabled, any achievement with an unlock percentage above this value will be displayed as a Silver notification instead</span>`,
         semirarity: `The percentage at which "Silver" notification assets will be displayed (e.g. <span class="hl">Rarity Badges</span>, <span class="hl">Decorations</span> etc.).<br><br>Any achievement with an unlock percentage below (or equal to) this value, and above the value of <span class="hl">Rarity Percentage</span>, will display notification assets configured for "Silver" rarities.<br><br>Any achievement with an unlock percentage above this value will display notification assets configured for "Bronze" rarities<br><br><span class="ttdesc">If <span class="hl">Trophy Mode</span> is enabled, any achievement with an unlock percentage above this value will be displayed as a Bronze notification instead</span>`,
         showpercent: "Display the unlock percentage of the achievement in the notification for the selected type(s)",
+        showpercentpos: "Set the position of the unlock percentage of the achievement in the notification for the selected type(s)",
+        showpercentstyle: "Set the style of the unlock percentage of the achievement in the notification for the selected type(s)",
         soundonly: "Disable notifications, only playing sounds set via the Customiser",
         extwin: "Create a window that duplicates any notifications currently being displayed on-screen. This window can then be added as a Window Capture source for use in streaming software, such as OBS",
         extwinframerate: "Set the target frame rate for Stream Notifications",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Copy the selected Theme to another notification type",
         ssaddtosteam: "Automatically add generated media to the current game's Recordings and Screenshots in Steam",
         appdatadir: "Open the location of the app's AppData folder",
+        cleariconcache: "Delete all previously cached achievement icons",
         backup: "Backup the contents of the app's AppData folder to a chosen location, which will act as a restore point for the current state of the app",
         restore: "Restore the contents of the app's AppData folder from a previous backup",
         gametimerwin: "Display an on-screen timer showing the amount of time taken to unlock all achievements for the current game",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Set custom messages to be displayed within the notification",
         customtextunlockmsg: `Set a custom message to be displayed within the Unlock Message element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
         customtexttitle: `Set a custom message to be displayed within the Achievement Title element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Title is disabled</span>`,
-        customtextdesc: `Set a custom message to be displayed within the Achievement Description<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`
+        customtextdesc: `Set a custom message to be displayed within the Achievement Description<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`,
+        notifylinemode: "Set the maximum number of lines of text to display within notifications",
+        notifyoverflow: "Set the behaviour of overflowing text within notifications",
+        scrollrepeat: `Set how many times overflowing text will scroll while the notification is onscreen<br><br><span class="ttdesc">Scroll speed is dependent on Display Time, but higher repeat values may not be suitable for all presets</span>`
     },
     update: {
         updateavailable: "Update available",

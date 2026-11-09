@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alla",
                 off: "Av",
                 showpercent: "Visa procent",
+                showpercentpos: "Procentposition",
+                showpercentstyle: "Procentstil",
+                left: "Vänster",
+                right: "Höger",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ingen",
                 soundonly: "Endast ljud",
                 nowtracking: "Visa spårningsmeddelande",
                 nowtrackingscale: "Spårningsskala",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trofyläge",
                 notifymax: "Maximalt antal aviseringar", 
                 notifyspace: "Aviseringsavstånd",
-                notify1line: "Begränsa text till 1 rad",
-                testnotifycustomtext: "Anpassad text för testavisering",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beskrivning"
+                notifylinemode: "Radläge",
+                single: "Enkel",
+                max: "Max",
+                notifyoverflow: "Överflödesläge",
+                ellipsis: "Ellips",
+                scroll: "Rullning"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Ljudnedkylning",
                 usecustomfiles: "Använd anpassade appfiler",
                 showcustomfiles: "Visa anpassade appfiler",
+                cleariconcache: "Rensa ikoncache",
                 appdatadir: "Visa AppData-mapp",
                 backup: "Säkerhetskopiering",
                 backuppath: "Säkerhetskopieringsväg",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Anpassad text",
                 customtextunlockmsg: "Upplåsningsmeddelande",
                 customtexttitle: "Prestationstitel",
-                customtextdesc: "Prestationsbeskrivning"
+                customtextdesc: "Prestationsbeskrivning",
+                scrollrepeat: "Upprepad rullning"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Gå med på Discord!",
         github: "Rapportera ett problem",
         lang: "Välj det användargränssnittsspråk som används i appen",
-        steamlang: `Försök att ladda översättningar som finns i Steam-applikationsfilerna för att visa prestationer på det språk som användaren valt i Steam-klienten<br><br><span class="ttdesc">Detta alternativ försöker hitta översättningar i en JSON-fil som lagras i Steam-applikationsdata. Om en översättning för den aktuella prestationen inte kan hittas, visas istället information om prestationen som hämtas från Steamworks.</span>`,
-        maxsteamlangretries: `Antal försök (per 100 ms) för att hitta giltiga översättningar för den aktuella prestationen<br><br><span class="ttdesc">Steam lagrar för närvarande endast en liten mängd prestationsdata i JSON-filen som är kopplad till varje spel. Eventuella prestationer som inte finns i denna fil kommer att läggas till efter att prestationen har upplåsts.<br><br>Eftersom det kan ta tid att lägga till nya data, kommer en ökning av detta värde att öka chansen att hitta översättningsdata för den aktuella prestationen, men kan också fördröja visningen av meddelandet på skärmen med den tid som beräknas av denna inställning.<br><br>Om inga giltiga översättningsdata kan hittas för den aktuella prestationen, kommer översättningen att återgå till det språk som anges i Steamworks.</span>`,
+        steamlang: `Försök att läsa in översättningar från Steams programfiler för att visa prestationsinformation på det språk som användaren har valt i Steam-klienten<br><br><span class="ttdesc">Det här alternativet försöker hitta översättningar i en JSON-fil som lagras i Steams programdata. Om en översättning för den aktuella prestationen inte kan hittas visas i stället prestationsinformationen som hämtats från Steams interna binärfiler</span>`,
+        maxsteamlangretries: `Antalet gånger (med 100 ms mellanrum) som ett försök görs att hitta giltiga översättningar för den aktuella prestationen<br><br><span class="ttdesc">Steam lagrar för närvarande endast en liten mängd prestationsdata i varje spels tillhörande JSON-fil. Alla prestationer som inte finns i den här filen läggs till efter att prestationen har låsts upp.<br><br>Eftersom det kan ta tid att lägga till nya data ökar ett högre värde sannolikheten för att översättningsdata för den aktuella prestationen hittas, men det kan också fördröja aviseringens visning på skärmen med den tid som beräknas utifrån den här inställningen.<br><br>Om inga giltiga översättningsdata kan hittas för den aktuella prestationen används engelska som reservspråk.</span>`,
         desktop: "Växla en genväg på skrivbordet för att köra appen",
         startwin: "Starta Steam Achievement Notifier automatiskt efter inloggning",
         startmin: "Efter starten dölj appens användargränssnittsfönster tills det öppnas från systemfältet",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Procentandelen vid vilken sällsynta prestationer kommer att utlösa notifikationer.<br><br>Varje prestation med en upplåsningsprocent över detta värde kommer att visas som en Huvudnotifikation<br><br><span class="ttdesc">Om <span class="hl">Trofyläge</span> är aktiverat kommer varje prestation med en upplåsningsprocent över detta värde istället att visas som en Silvernotifikation</span>`,
         semirarity: `Procentandelen vid vilken "Silver"-notifikationselement kommer att visas (t.ex. <span class="hl">Sällsynthetsmärken</span>, <span class="hl">Dekorationer</span> osv.).<br><br>Varje prestation med en upplåsningsprocent under (eller lika med) detta värde, och över värdet för <span class="hl">Sällsynthetsprocent</span>, kommer att visa notifikationselement konfigurerade för "Silver"-sällsyntheter.<br><br>Varje prestation med en upplåsningsprocent över detta värde kommer att visa notifikationselement konfigurerade för "Brons"-sällsyntheter<br><br><span class="ttdesc">Om <span class="hl">Trofyläge</span> är aktiverat kommer varje prestation med en upplåsningsprocent över detta värde istället att visas som en Bronsnotifikation</span>`,
         showpercent: "Visa upplåsningsprocenten för prestationen i aviseringen för de valda typerna",
+        showpercentpos: "Ställ in positionen för prestationens upplåsningsprocent i aviseringen för de valda typerna",
+        showpercentstyle: "Ställ in stilen för prestationens upplåsningsprocent i aviseringen för de valda typerna",
         soundonly: "Inaktivera aviseringar och spela endast ljud som är inställt via anpassaren",
         extwin: "Skapa ett fönster som duplicerar alla meddelanden som för närvarande visas på skärmen. Detta fönster kan sedan läggas till som en fönsterkälla för användning i streamingsprogramvara som OBS",
         extwinframerate: "Ställ in målbilder för strömnotifikationer",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Kopiera det valda temat till en annan aviseringstyp",
         ssaddtosteam: "Lägg automatiskt till genererat media i det aktuella spelets inspelningar och skärmbilder i Steam",
         appdatadir: "Öppna platsen för appens AppData-mapp",
+        cleariconcache: "Ta bort alla tidigare cachade prestationsikoner",
         backup: "Säkerhetskopiera innehållet i appens AppData-mapp till en vald plats, vilket fungerar som en återställningspunkt för appens nuvarande tillstånd",
         restore: "Återställ innehållet i appens AppData-mapp från en tidigare säkerhetskopia",
         gametimerwin: "Visa en timer på skärmen som visar hur lång tid det tagit att låsa upp alla prestationer för det aktuella spelet",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Ange anpassade meddelanden som ska visas i aviseringen",
         customtextunlockmsg: `Ange ett anpassat meddelande som ska visas i elementet Upplåsningsmeddelande<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Upplåsningsmeddelande är inaktiverat</span>`,
         customtexttitle: `Ange ett anpassat meddelande som ska visas i elementet Prestationstitel<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationstitel är inaktiverat</span>`,
-        customtextdesc: `Ange ett anpassat meddelande som ska visas i elementet Prestationsbeskrivning<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationsbeskrivning är inaktiverat</span>`
+        customtextdesc: `Ange ett anpassat meddelande som ska visas i elementet Prestationsbeskrivning<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationsbeskrivning är inaktiverat</span>`,
+        notifylinemode: "Ställ in det maximala antalet textrader som ska visas i aviseringar",
+        notifyoverflow: "Ställ in hur överflödande text ska hanteras i aviseringar",
+        scrollrepeat: `Ställ in hur många gånger överflödande text ska rulla medan aviseringen visas på skärmen<br><br><span class="ttdesc">Rullningshastigheten beror på visningstiden, men högre upprepningsvärden kanske inte passar alla förinställningar</span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

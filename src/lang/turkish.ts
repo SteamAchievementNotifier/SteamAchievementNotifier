@@ -200,6 +200,15 @@ export const translations = {
                 all: "Tümü",
                 off: "Kapalı",
                 showpercent: "Yüzdeyi Göster",
+                showpercentpos: "Yüzde Konumu",
+                showpercentstyle: "Yüzde Stili",
+                left: "Sol",
+                right: "Sağ",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Hiçbiri",
                 soundonly: "Sesli Bildirim",
                 nowtracking: "Takip Bildirimini Göster",
                 nowtrackingscale: "Takip Ölçeği",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Kupa Modu",
                 notifymax: "Maksimum Bildirim Sayısı", 
                 notifyspace: "Bildirim Aralığı",
-                notify1line: "Metni 1 satırla sınırla",
-                testnotifycustomtext: "Test Bildirimi Özel Metni",
-                testnotifycustomtexttitle: "Başlık",
-                testnotifycustomtextdesc: "Açıklama"
+                notifylinemode: "Satır Modu",
+                single: "Tek",
+                max: "Maksimum",
+                notifyoverflow: "Taşma Modu",
+                ellipsis: "Üç Nokta",
+                scroll: "Kaydırma"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Ses Bekleme Süresi",
                 usecustomfiles: "Özel Uygulama Dosyalarını Kullan",
                 showcustomfiles: "Özel Uygulama Dosyalarını Göster",
+                cleariconcache: "Simge Önbelleğini Temizle",
                 appdatadir: "AppData Klasörünü Göster",
                 backup: "Yedekleme",
                 backuppath: "Yedekleme Yolu",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Özel Metin",
                 customtextunlockmsg: "Kilidi Açma Mesajı",
                 customtexttitle: "Başarım Başlığı",
-                customtextdesc: "Başarım Açıklaması"
+                customtextdesc: "Başarım Açıklaması",
+                scrollrepeat: "Kaydırma Tekrarı"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Discord'a Katıl!",
         github: "Bir sorun bildir",
         lang: "Uygulama içinde kullanılan UI dilini seçin",
-        steamlang: `Steam uygulama dosyalarında bulunan çevirileri yüklemeyi deneyin ve başarı bilgilerini kullanıcının seçtiği Steam istemci dilinde görüntüleyin<br><br><span class="ttdesc">Bu seçenek, Steam uygulama verilerinde saklanan JSON dosyasında çevirileri bulmayı dener. Mevcut başarı için bir çeviri bulunamazsa, Steamworks'ten alınan başarı bilgileri görüntülenecektir.</span>`,
-        maxsteamlangretries: `Mevcut başarı için geçerli çevirileri bulmak amacıyla yapılan deneme sayısı (her 100 ms’de bir)<br><br><span class="ttdesc">Steam şu anda her oyuna bağlı JSON dosyasında yalnızca küçük bir miktarda başarı verisi saklamaktadır. Bu dosyada bulunmayan herhangi bir başarı, başarı kilidi açıldığında eklenecektir.<br><br>Yeni verilerin eklenmesi zaman alabileceğinden, bu değeri artırmak, mevcut başarı için çeviri verilerini bulma olasılığını artıracaktır ancak bu ayar tarafından hesaplanan süre kadar ekran üzerindeki bildirimlerin görünmesini da geciktirebilir.<br><br>Mevcut başarı için geçerli çeviri verileri bulunamazsa, çeviri Steamworks'te belirtilen dile geri dönecektir.</span>`,
+        steamlang: `Başarım bilgilerini kullanıcının seçtiği Steam istemci dilinde görüntülemek için Steam'in uygulama dosyalarında bulunan çevirileri yüklemeyi dene<br><br><span class="ttdesc">Bu seçenek, Steam'in uygulama verilerinde saklanan bir JSON dosyasındaki çevirileri bulmaya çalışır. Mevcut başarım için bir çeviri bulunamazsa bunun yerine Steam'in dahili ikili dosyalarından alınan başarım bilgileri görüntülenir</span>`,
+        maxsteamlangretries: `Mevcut başarım için geçerli çevirileri bulmak amacıyla yapılacak deneme sayısı (her 100 ms'de bir)<br><br><span class="ttdesc">Steam şu anda her oyunun ilgili JSON dosyasında yalnızca az miktarda başarım verisi saklamaktadır. Bu dosyada bulunmayan başarımlar, kilitleri açıldıktan sonra dosyaya eklenecektir.<br><br>Yeni verilerin eklenmesi zaman alabileceğinden, bu değerin artırılması mevcut başarımın çeviri verilerinin bulunma olasılığını artırır. Ancak bu ayara göre hesaplanan süre kadar bildirimin ekranda görünmesini de geciktirebilir.<br><br>Mevcut başarım için geçerli çeviri verileri bulunamazsa İngilizce kullanılır.</span>`,
         desktop: "Uygulamayı çalıştırmak için Masaüstünde bir kısayol aç/kapat",
         startwin: "Oturum açtıktan sonra Steam Achievement Notifier'ı otomatik olarak başlat",
         startmin: "Başlatıldıktan sonra, uygulama arayüz penceresini Sistem Tepsisi'nden açılmadıkça gizle",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Nadir başarı bildirimlerinin tetikleneceği yüzde.<br><br>Bu değerin üzerindeki kilit açma yüzdesine sahip herhangi bir başarı Ana bildirim olarak gösterilecektir<br><br><span class="ttdesc"><span class="hl">Kupa Modu</span> etkinse, bu değerin üzerindeki kilit açma yüzdesine sahip herhangi bir başarı bunun yerine Gümüş bildirim olarak gösterilir</span>`,
         semirarity: `"Gümüş" bildirim öğelerinin (örneğin <span class="hl">Nadirlik Rozetleri</span>, <span class="hl">Süslemeler</span> vb.) gösterileceği yüzde.<br><br>Bu değerin altında (veya eşit) ve <span class="hl">Nadirlik Yüzdesi</span> değerinden yüksek olan herhangi bir başarı, "Gümüş" nadirlikler için yapılandırılmış bildirim öğelerini gösterecektir.<br><br>Bu değerin üzerinde olan herhangi bir başarı, "Bronz" nadirlikler için yapılandırılmış bildirim öğelerini gösterecektir<br><br><span class="ttdesc"><span class="hl">Kupa Modu</span> etkinse, bu değerin üzerindeki herhangi bir başarı bunun yerine Bronz bildirim olarak gösterilir</span>`,
         showpercent: "Seçilen tür(ler) için bildirimde başarının kilitleme yüzdesini göster",
+        showpercentpos: "Seçilen türler için bildirimde başarımın açılma yüzdesinin konumunu ayarla",
+        showpercentstyle: "Seçilen türler için bildirimde başarımın açılma yüzdesinin stilini ayarla",
         soundonly: "Bildirimleri devre dışı bırakır, yalnızca Customiser tarafından ayarlanan sesleri çalar",
         extwin: "Ekranda şu anda görüntülenen tüm bildirimleri kopyalayan bir pencere oluşturun. Bu pencere, OBS gibi yayın yazılımlarında pencere yakalama kaynağı olarak eklenebilir",
         extwinframerate: "Yayın Bildirimleri için hedef kare hızını ayarla",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Seçilen temayı başka bir bildirim türüne kopyala",
         ssaddtosteam: "Oluşturulan medyayı mevcut oyunun Steam'deki Kayıtlar ve Ekran Görüntülerine otomatik olarak ekle",
         appdatadir: "Uygulamanın AppData klasörünün konumunu aç",
+        cleariconcache: "Önbelleğe alınmış tüm başarı simgelerini sil",
         backup: "Uygulamanın AppData klasörünün içeriğini seçilen bir konuma yedekleyin; bu, uygulamanın mevcut durumu için bir geri yükleme noktası olarak hizmet edecektir",
         restore: "Uygulamanın AppData klasörünün içeriğini önceki bir yedekten geri yükleyin",
         gametimerwin: "Mevcut oyun için tüm başarımların kilidini açmak için harcanan süreyi gösteren ekran üstü bir zamanlayıcı görüntüle",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Bildirim içinde görüntülenecek özel mesajları ayarla",
         customtextunlockmsg: `Kilidi Açma Mesajı öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Kilidi Açma Mesajı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
         customtexttitle: `Başarım Başlığı öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Başlığı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
-        customtextdesc: `Başarım Açıklaması öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`
+        customtextdesc: `Başarım Açıklaması öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`,
+        notifylinemode: "Bildirimlerde görüntülenecek maksimum metin satırı sayısını ayarla",
+        notifyoverflow: "Bildirimlerde taşan metnin nasıl davranacağını ayarla",
+        scrollrepeat: `Bildirim ekrandayken taşan metnin kaç kez kaydırılacağını ayarla<br><br><span class="ttdesc">Kaydırma hızı Görüntüleme Süresine bağlıdır, ancak yüksek tekrar değerleri tüm ön ayarlar için uygun olmayabilir</span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

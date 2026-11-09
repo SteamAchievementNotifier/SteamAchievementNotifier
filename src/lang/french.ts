@@ -200,6 +200,15 @@ export const translations = {
                 all: "Tout",
                 off: "Désactivé",
                 showpercent: "Afficher le pourcentage",
+                showpercentpos: "Position du pourcentage",
+                showpercentstyle: "Style du pourcentage",
+                left: "Gauche",
+                right: "Droite",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Aucun",
                 soundonly: "Mode son uniquement",
                 nowtracking: "Afficher la notification de suivi",
                 nowtrackingscale: "Échelle de suivi",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Mode Trophée",
                 notifymax: "Notifications maximales", 
                 notifyspace: "Espacement des notifications",
-                notify1line: "Limiter le texte à 1 ligne",
-                testnotifycustomtext: "Texte personnalisé de la notification de test",
-                testnotifycustomtexttitle: "Titre",
-                testnotifycustomtextdesc: "Description"
+                notifylinemode: "Mode des lignes",
+                single: "Unique",
+                max: "Maximum",
+                notifyoverflow: "Mode de débordement",
+                ellipsis: "Points de suspension",
+                scroll: "Défilement"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Délai du son",
                 usecustomfiles: "Utiliser des fichiers d'application personnalisés",
                 showcustomfiles: "Afficher les fichiers d'application personnalisés",
+                cleariconcache: "Vider le cache des icônes",
                 appdatadir: "Afficher le dossier AppData",
                 backup: "Sauvegarde",
                 backuppath: "Chemin de la sauvegarde",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Texte personnalisé",
                 customtextunlockmsg: "Message de déverrouillage",
                 customtexttitle: "Titre du succès",
-                customtextdesc: "Description du succès"
+                customtextdesc: "Description du succès",
+                scrollrepeat: "Répétition du défilement"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Rejoindre sur Discord !",
         github: "Signaler un problème",
         lang: "Sélectionnez la langue de l'interface utilisateur utilisée dans l'application",
-        steamlang: `Tenter de charger les traductions situées dans les fichiers de l'application Steam afin d'afficher les informations des succès dans la langue choisie par l'utilisateur dans le client Steam<br><br><span class="ttdesc">Cette option tente de localiser les traductions dans un fichier JSON stocké dans les données de l'application Steam. Si une traduction pour le succès actuel ne peut pas être trouvée, les informations du succès récupérées depuis Steamworks seront affichées à la place.</span>`,
-        maxsteamlangretries: `Le nombre de tentatives (toutes les 100 ms) pour trouver des traductions valides pour le succès actuel<br><br><span class="ttdesc">Actuellement, Steam ne stocke qu'une petite quantité de données sur les succès dans le fichier JSON associé à chaque jeu. Tous les succès qui ne sont pas présents dans ce fichier seront ajoutés après le déverrouillage du succès.<br><br>Étant donné que l'ajout de nouvelles données peut prendre du temps, augmenter cette valeur augmentera la probabilité de trouver des données de traduction pour le succès actuel, mais cela peut également retarder l'apparition de la notification à l'écran du temps calculé par ce paramètre.<br><br>Si aucune donnée de traduction valide ne peut être trouvée pour le succès actuel, la traduction reviendra à la langue spécifiée dans Steamworks.</span>`,
+        steamlang: `Tenter de charger les traductions présentes dans les fichiers de l'application Steam afin d'afficher les informations des succès dans la langue choisie par l'utilisateur dans son client Steam<br><br><span class="ttdesc">Cette option tente de localiser les traductions dans un fichier JSON stocké dans les données de l'application Steam. Si aucune traduction ne peut être trouvée pour le succès actuel, les informations du succès récupérées à partir des fichiers binaires internes de Steam seront affichées à la place</span>`,
+        maxsteamlangretries: `Nombre de tentatives (toutes les 100ms) pour trouver des traductions valides pour le succès actuel<br><br><span class="ttdesc">Steam ne stocke actuellement qu'une petite quantité de données sur les succès dans le fichier JSON associé à chaque jeu. Tous les succès absents de ce fichier seront ajoutés après leur déverrouillage.<br><br>Comme l'ajout de nouvelles données peut prendre du temps, augmenter cette valeur accroît les chances de trouver les données de traduction du succès actuel, mais peut également retarder l'affichage de la notification à l'écran du temps calculé par ce paramètre.<br><br>Si aucune donnée de traduction valide ne peut être trouvée pour le succès actuel, les traductions anglaises seront utilisées.</span>`,
         desktop: "Activez un raccourci sur le bureau pour exécuter l'application",
         startwin: "Démarrer Steam Achievement Notifier automatiquement après la connexion",
         startmin: "Après le lancement, masquez la fenêtre de l'interface utilisateur de l'application jusqu'à son ouverture depuis la barre d'état système",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Le pourcentage à partir duquel les notifications de succès rares seront déclenchées.<br><br>Tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Principale<br><br><span class="ttdesc">Si le <span class="hl">Mode Trophée</span> est activé, tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Argent à la place</span>`,
         semirarity: `Le pourcentage à partir duquel les éléments de notification "Argent" seront affichés (par ex. <span class="hl">Badges de rareté</span>, <span class="hl">Décorations</span>, etc.).<br><br>Tout succès avec un pourcentage de déverrouillage inférieur ou égal à cette valeur, et supérieur à la valeur du <span class="hl">Pourcentage de rareté</span>, affichera les éléments de notification configurés pour les raretés "Argent".<br><br>Tout succès avec un pourcentage de déverrouillage supérieur à cette valeur affichera les éléments de notification configurés pour les raretés "Bronze"<br><br><span class="ttdesc">Si le <span class="hl">Mode Trophée</span> est activé, tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Bronze à la place</span>`,
         showpercent: "Affiche le pourcentage de déverrouillage du succès dans la notification pour le(s) type(s) sélectionné(s)",
+        showpercentpos: "Définir la position du pourcentage de déblocage du succès dans la notification pour le(s) type(s) sélectionné(s)",
+        showpercentstyle: "Définir le style du pourcentage de déblocage du succès dans la notification pour le(s) type(s) sélectionné(s)",
         soundonly: "Désactive les notifications, en jouant uniquement les sons définis via le Personnaliseur",
         extwin: "Créez une fenêtre qui duplique toutes les notifications actuellement affichées à l'écran. Cette fenêtre peut ensuite être ajoutée comme source de capture de fenêtre pour être utilisée dans un logiciel de streaming, comme OBS",
         extwinframerate: "Définir le taux de trame cible pour les notifications de diffusion",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Copier le thème sélectionné vers un autre type de notification",
         ssaddtosteam: "Ajouter automatiquement les médias générés aux Enregistrements et Captures d’écran du jeu actuel dans Steam",
         appdatadir: "Ouvrir l'emplacement du dossier AppData de l'application",
+        cleariconcache: "Supprimer toutes les icônes de succès précédemment mises en cache",
         backup: "Sauvegardez le contenu du dossier AppData de l'application vers un emplacement choisi, qui servira de point de restauration pour l'état actuel de l'application",
         restore: "Restaurez le contenu du dossier AppData de l'application à partir d'une sauvegarde précédente",
         gametimerwin: "Affiche un minuteur à l'écran indiquant le temps nécessaire pour débloquer tous les succès du jeu actuel",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Définir les messages personnalisés à afficher dans la notification",
         customtextunlockmsg: `Définir un message personnalisé à afficher dans l’élément Message de déverrouillage<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Message de déverrouillage est désactivé</span>`,
         customtexttitle: `Définir un message personnalisé à afficher dans l’élément Titre du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Titre du succès est désactivé</span>`,
-        customtextdesc: `Définir un message personnalisé à afficher dans l’élément Description du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Description du succès est désactivé</span>`
+        customtextdesc: `Définir un message personnalisé à afficher dans l’élément Description du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Description du succès est désactivé</span>`,
+        notifylinemode: "Définir le nombre maximal de lignes de texte à afficher dans les notifications",
+        notifyoverflow: "Définir le comportement du texte qui dépasse l'espace disponible dans les notifications",
+        scrollrepeat: `Définir le nombre de fois que le texte excédentaire défile pendant que la notification est affichée à l'écran<br><br><span class="ttdesc">La vitesse de défilement dépend de la durée d'affichage, mais des valeurs de répétition plus élevées peuvent ne pas convenir à tous les préréglages</span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",

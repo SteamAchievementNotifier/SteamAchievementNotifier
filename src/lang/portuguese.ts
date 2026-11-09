@@ -200,6 +200,15 @@ export const translations = {
                 all: "Tudo",
                 off: "Desligado",
                 showpercent: "Mostrar Percentagem",
+                showpercentpos: "Posição da porcentagem",
+                showpercentstyle: "Estilo da porcentagem",
+                left: "Esquerda",
+                right: "Direita",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Nenhum",
                 soundonly: "Apenas Som",
                 nowtracking: "Mostrar Notificação de Rastreio",
                 nowtrackingscale: "Escala de Rastreio",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Modo Troféu",
                 notifymax: "Notificações Máximas", 
                 notifyspace: "Espaçamento das Notificações",
-                notify1line: "Limitar texto a 1 linha",
-                testnotifycustomtext: "Texto Personalizado da Notificação de Teste",
-                testnotifycustomtexttitle: "Título",
-                testnotifycustomtextdesc: "Descrição"
+                notifylinemode: "Modo de linhas",
+                single: "Única",
+                max: "Máximo",
+                notifyoverflow: "Modo de transbordamento",
+                ellipsis: "Reticências",
+                scroll: "Rolagem"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Tempo de Espera do Áudio",
                 usecustomfiles: "Utilizar Arquivos Personalizados da Aplicação",
                 showcustomfiles: "Mostrar Arquivos Personalizados da Aplicação",
+                cleariconcache: "Limpar cache de ícones",
                 appdatadir: "Mostrar pasta AppData",
                 backup: "Backup",
                 backuppath: "Caminho do Backup",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Texto personalizado",
                 customtextunlockmsg: "Mensagem de desbloqueio",
                 customtexttitle: "Título da conquista",
-                customtextdesc: "Descrição da conquista"
+                customtextdesc: "Descrição da conquista",
+                scrollrepeat: "Repetição da rolagem"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Junte-se ao Discord!",
         github: "Reportar um problema",
         lang: "Selecione o idioma da interface do usuário usado no aplicativo",
-        steamlang: `Tente carregar traduções localizadas nos arquivos do aplicativo Steam para exibir informações sobre conquistas no idioma escolhido pelo usuário no cliente Steam<br><br><span class="ttdesc">Esta opção tenta localizar traduções em um arquivo JSON armazenado nos dados do aplicativo Steam. Se uma tradução para a conquista atual não puder ser encontrada, serão exibidas as informações sobre a conquista recuperadas do Steamworks.</span>`,
-        maxsteamlangretries: `O número de tentativas (a cada 100 ms) para encontrar traduções válidas para a conquista atual<br><br><span class="ttdesc">O Steam atualmente armazena apenas uma pequena quantidade de dados sobre conquistas no arquivo JSON associado a cada jogo. Quaisquer conquistas que não estejam presentes neste arquivo serão adicionadas após a conquista ser desbloqueada.<br><br>Como a adição de novos dados pode levar tempo, aumentar este valor aumentará a probabilidade de encontrar dados de tradução para a conquista atual, mas também pode atrasar a exibição da notificação na tela pelo tempo calculado por esta configuração.<br><br>Se não for possível encontrar dados de tradução válidos para a conquista atual, a tradução reverterá para o idioma especificado no Steamworks.</span>`,
+        steamlang: `Tentar carregar traduções localizadas nos ficheiros da aplicação Steam para apresentar informações sobre conquistas no idioma escolhido pelo utilizador no cliente Steam<br><br><span class="ttdesc">Esta opção tenta localizar traduções num ficheiro JSON armazenado nos dados da aplicação Steam. Se não for possível encontrar uma tradução para a conquista atual, serão apresentadas as informações da conquista obtidas a partir dos ficheiros binários internos do Steam</span>`,
+        maxsteamlangretries: `O número de vezes (a cada 100ms) que serão feitas tentativas para localizar traduções válidas para a conquista atual<br><br><span class="ttdesc">Atualmente, o Steam armazena apenas uma pequena quantidade de dados de conquistas no ficheiro JSON associado a cada jogo. Quaisquer conquistas que não estejam presentes neste ficheiro serão adicionadas após serem desbloqueadas.<br><br>Como a adição de novos dados pode demorar algum tempo, aumentar este valor aumentará a probabilidade de localizar os dados de tradução da conquista atual, mas também poderá atrasar a apresentação da notificação no ecrã pelo período de tempo calculado por esta definição.<br><br>Se não for possível localizar dados de tradução válidos para a conquista atual, serão utilizadas as traduções em inglês.</span>`,
         desktop: "Alternar um atalho na área de trabalho para executar o aplicativo",
         startwin: "Iniciar o Steam Achievement Notifier automaticamente após fazer login",
         startmin: "Após o lançamento, ocultar a janela da interface do aplicativo até ser aberta pela bandeja do sistema",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `A percentagem na qual as notificações de conquistas raras serão ativadas.<br><br>Qualquer conquista com uma percentagem de desbloqueio superior a este valor será mostrada como uma notificação Principal<br><br><span class="ttdesc">Se o <span class="hl">Modo Troféu</span> estiver ativado, qualquer conquista com uma percentagem de desbloqueio superior a este valor será mostrada como uma notificação Prata em vez disso</span>`,
         semirarity: `A percentagem na qual os elementos de notificação "Prata" serão exibidos (por ex. <span class="hl">Emblemas de Raridade</span>, <span class="hl">Decorações</span> etc.).<br><br>Qualquer conquista com uma percentagem de desbloqueio inferior (ou igual) a este valor e superior ao valor de <span class="hl">Percentagem de Raridade</span>, exibirá elementos de notificação configurados para raridades "Prata".<br><br>Qualquer conquista com uma percentagem de desbloqueio superior a este valor exibirá elementos de notificação configurados para raridades "Bronze"<br><br><span class="ttdesc">Se o <span class="hl">Modo Troféu</span> estiver ativado, qualquer conquista com uma percentagem de desbloqueio superior a este valor será mostrada como uma notificação Bronze em vez disso</span>`,
         showpercent: "Exibir a porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
+        showpercentpos: "Define a posição da porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
+        showpercentstyle: "Define o estilo da porcentagem de desbloqueio da conquista na notificação para o(s) tipo(s) selecionado(s)",
         soundonly: "Desativar notificações, reproduzindo apenas sons definidos por meio do Personalizador",
         extwin: "Crie uma janela que duplica todas as notificações atualmente exibidas na tela. Esta janela pode ser adicionada como uma fonte de Captura de Janela para uso em softwares de transmissão, como o OBS",
         extwinframerate: "Definir a taxa de quadros alvo para notificações de transmissão",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Copiar o tema selecionado para outro tipo de notificação",
         ssaddtosteam: "Adicionar automaticamente a mídia gerada às Gravações e Capturas de Tela do jogo atual no Steam",
         appdatadir: "Abrir a localização da pasta AppData da app",
+        cleariconcache: "Eliminar todos os ícones de conquistas anteriormente armazenados em cache",
         backup: "Faça backup do conteúdo da pasta AppData da app para um local à escolha, que servirá como ponto de restauração para o estado atual da app",
         restore: "Restaure o conteúdo da pasta AppData da app a partir de um backup anterior",
         gametimerwin: "Mostrar um temporizador no ecrã que indica o tempo necessário para desbloquear todos os achievements do jogo atual",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Definir mensagens personalizadas a apresentar na notificação",
         customtextunlockmsg: `Definir uma mensagem personalizada a apresentar no elemento Mensagem de desbloqueio<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalização > Predefinição > Elementos de notificação > Mensagem de desbloqueio estiver desativado</span>`,
         customtexttitle: `Definir uma mensagem personalizada a apresentar no elemento Título da conquista<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalização > Predefinição > Elementos de notificação > Título da conquista estiver desativado</span>`,
-        customtextdesc: `Definir uma mensagem personalizada a apresentar no elemento Descrição da conquista<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalização > Predefinição > Elementos de notificação > Descrição da conquista estiver desativado</span>`
+        customtextdesc: `Definir uma mensagem personalizada a apresentar no elemento Descrição da conquista<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalização > Predefinição > Elementos de notificação > Descrição da conquista estiver desativado</span>`,
+        notifylinemode: "Define o número máximo de linhas de texto a serem exibidas nas notificações",
+        notifyoverflow: "Define o comportamento do texto que excede o espaço disponível nas notificações",
+        scrollrepeat: `Define quantas vezes o texto excedente será rolado enquanto a notificação estiver visível na tela<br><br><span class="ttdesc">A velocidade de rolagem depende do tempo de exibição, mas valores de repetição mais altos podem não ser adequados para todas as predefinições</span>`
     },
     update: {
         updateavailable: "Atualização disponível",

@@ -15,7 +15,7 @@ The below table outlines current compatibility for emulators supporting **Retro 
 | Bizhawk | ❌ | No external log-to-file functionality, but PS1 cores can be loaded via RetroArch |
 | DuckStation | ✔ | [Requires `RA_Integration-x64.dll` + log file](#duckstation): `RALog.txt`  |
 | PCSX2 | ✔ | [Requires log file](#pcsx2): `emulog.txt` |
-| PPSPP | ✔ | [Requires log file](#ppsspp): `log.txt` |
+| PPSSPP | ✔ | [Requires log file](#ppsspp): `log.txt` |
 | RALibRetro | ❔ | Not tested |
 | RANes | ❔ | Not tested |
 | RALibRetro | ❔ | Not tested |

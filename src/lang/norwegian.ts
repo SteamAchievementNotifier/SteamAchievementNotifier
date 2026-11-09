@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alle",
                 off: "Av",
                 showpercent: "Vis prosent",
+                showpercentpos: "Prosentposisjon",
+                showpercentstyle: "Prosentstil",
+                left: "Venstre",
+                right: "Høyre",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ingen",
                 soundonly: "Bare lyd",
                 nowtracking: "Vis sporingsvarsel",
                 nowtrackingscale: "Sporingsskala",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trofémodus",
                 notifymax: "Maksimalt antall varsler", 
                 notifyspace: "Avstand mellom varsler",
-                notify1line: "Begrens tekst til 1 linje",
-                testnotifycustomtext: "Egendefinert tekst for testvarsling",
-                testnotifycustomtexttitle: "Tittel",
-                testnotifycustomtextdesc: "Beskrivelse"
+                notifylinemode: "Linjemodus",
+                single: "Enkel",
+                max: "Maks",
+                notifyoverflow: "Overflytsmodus",
+                ellipsis: "Utelatelsestegn",
+                scroll: "Rulling"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Lydnedkjøling",
                 usecustomfiles: "Bruk egendefinerte app-filer",
                 showcustomfiles: "Vis egendefinerte app-filer",
+                cleariconcache: "Tøm ikonbuffer",
                 appdatadir: "Vis AppData-mappe",
                 backup: "Sikkerhetskopi",
                 backuppath: "Sikkerhetskopi-sti",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Egendefinert tekst",
                 customtextunlockmsg: "Opplåsingsmelding",
                 customtexttitle: "Prestasjonstittel",
-                customtextdesc: "Prestasjonsbeskrivelse"
+                customtextdesc: "Prestasjonsbeskrivelse",
+                scrollrepeat: "Gjenta rulling"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Bli med på Discord!",
         github: "Rapporter et problem",
         lang: "Velg språket som brukes i appen",
-        steamlang: `Forsøk å laste oversettelser som ligger i Steams applikasjonsfiler for å vise prestasjonsinformasjon på brukerens valgte språk i Steam-klienten<br><br><span class="ttdesc">Dette alternativet prøver å finne oversettelser i en JSON-fil lagret i Steams applikasjonsdata. Hvis det ikke finnes noen oversettelse for den nåværende prestasjonen, vil informasjon om prestasjonen hentet fra Steamworks bli vist i stedet.</span>`,
-        maxsteamlangretries: `Antall forsøk (per 100 ms) for å finne gyldige oversettelser for den nåværende prestasjonen<br><br><span class="ttdesc">Steam lagrer for øyeblikket bare en liten mengde prestasjonsdata i JSON-filen knyttet til hvert spill. Eventuelle prestasjoner som ikke er til stede i denne filen, vil bli lagt til etter at prestasjonen er låst opp.<br><br>Siden det kan ta tid å legge til nye data, vil økning av denne verdien øke sjansen for å finne oversettelsesdata for den nåværende prestasjonen, men det kan også forsinke visningen av varslingen på skjermen med den tiden som beregnes av denne innstillingen.<br><br>Hvis ingen gyldige oversettelsesdata kan finnes for den nåværende prestasjonen, vil oversettelsen gå tilbake til språket spesifisert i Steamworks.</span>`,
+        steamlang: `Forsøk å laste inn oversettelser fra Steams applikasjonsfiler for å vise prestasjonsinformasjon på språket brukeren har valgt i Steam-klienten<br><br><span class="ttdesc">Dette alternativet forsøker å finne oversettelser i en JSON-fil som er lagret i Steams applikasjonsdata. Hvis en oversettelse for den aktuelle prestasjonen ikke kan finnes, vises prestasjonsinformasjon hentet fra Steams interne binærfiler i stedet</span>`,
+        maxsteamlangretries: `Antall ganger (per 100ms) det skal forsøkes å finne gyldige oversettelser for den aktuelle prestasjonen<br><br><span class="ttdesc">Steam lagrer for øyeblikket bare en liten mengde prestasjonsdata i JSON-filen som er knyttet til hvert spill. Prestasjoner som ikke finnes i denne filen, legges til etter at de er låst opp.<br><br>Siden det kan ta tid å legge til nye data, vil en økning av denne verdien øke sannsynligheten for at oversettelsesdata for den aktuelle prestasjonen blir funnet, men det kan også forsinke visningen av varslingen på skjermen med tiden som beregnes av denne innstillingen.<br><br>Hvis gyldige oversettelsesdata for den aktuelle prestasjonen ikke kan finnes, vil engelske oversettelser bli brukt.</span>`,
         desktop: "Veksle en snarvei på skrivebordet for å kjøre appen",
         startwin: "Start Steam Achievement Notifier automatisk etter pålogging",
         startmin: "Etter oppstart, skjul appens brukergrensesnittvindu til det åpnes fra systemstatusfeltet",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Prosentandelen hvor varsler for sjeldne prestasjoner utløses.<br><br>Enhver prestasjon med en opplåsingsprosent over denne verdien vil vises som en Hovedvarsling<br><br><span class="ttdesc">Hvis <span class="hl">Trofe-modus</span> er aktivert, vil enhver prestasjon med en opplåsingsprosent over denne verdien vises som en Sølvvarsling i stedet</span>`,
         semirarity: `Prosentandelen hvor "Sølv"-varslingsobjekter vises (f.eks. <span class="hl">Sjeldenhetsmerker</span>, <span class="hl">Dekorasjoner</span> osv.).<br><br>Enhver prestasjon med en opplåsingsprosent under (eller lik) denne verdien, og over verdien for <span class="hl">Sjeldenhetsprosent</span>, vil vise varslingsobjekter konfigurert for "Sølv" sjeldenheter.<br><br>Enhver prestasjon med en opplåsingsprosent over denne verdien vil vise varslingsobjekter konfigurert for "Bronse" sjeldenheter<br><br><span class="ttdesc">Hvis <span class="hl">Trofe-modus</span> er aktivert, vil enhver prestasjon med en opplåsingsprosent over denne verdien vises som en Bronsevarsling i stedet</span>`,
         showpercent: "Vis låseprosenten for prestasjonen i varslingen for de valgte typene",
+        showpercentpos: "Angi plasseringen av opplåsingsprosenten for prestasjonen i varslingen for de valgte typene",
+        showpercentstyle: "Angi stilen på opplåsingsprosenten for prestasjonen i varslingen for de valgte typene",
         soundonly: "Deaktiver varsler, og spill bare av lyder som er satt via Tilpasseren",
         extwin: "Opprett et vindu som dupliserer alle varsler som for øyeblikket vises på skjermen. Dette vinduet kan deretter legges til som en vindusfangstkilde for bruk i strømmeprogramvare som OBS",
         extwinframerate: "Sett målbildesatsen for strømvarsler",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Kopier det valgte temaet til en annen varslingstype",
         ssaddtosteam: "Legg automatisk til generert media i det nåværende spillets opptak og skjermbilder i Steam",
         appdatadir: "Åpne plasseringen av appens AppData-mappe",
+        cleariconcache: "Slett alle tidligere bufrede prestasjonsikoner",
         backup: "Sikkerhetskopier innholdet i appens AppData-mappe til et valgt sted, som fungerer som et gjenopprettingspunkt for appens nåværende tilstand",
         restore: "Gjenopprett innholdet i appens AppData-mappe fra en tidligere sikkerhetskopi",
         gametimerwin: "Vis en tidtaker på skjermen som viser hvor lang tid det tok å låse opp alle achievements for det nåværende spillet",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Angi egendefinerte meldinger som skal vises i varselet",
         customtextunlockmsg: `Angi en egendefinert melding som skal vises i elementet Opplåsingsmelding<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Opplåsingsmelding er deaktivert</span>`,
         customtexttitle: `Angi en egendefinert melding som skal vises i elementet Prestasjonstittel<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonstittel er deaktivert</span>`,
-        customtextdesc: `Angi en egendefinert melding som skal vises i elementet Prestasjonsbeskrivelse<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`
+        customtextdesc: `Angi en egendefinert melding som skal vises i elementet Prestasjonsbeskrivelse<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`,
+        notifylinemode: "Angi maksimalt antall tekstlinjer som skal vises i varsler",
+        notifyoverflow: "Angi hvordan tekst som overskrider tilgjengelig plass, skal håndteres i varsler",
+        scrollrepeat: `Angi hvor mange ganger tekst som overskrider tilgjengelig plass, skal rulle mens varslingen vises på skjermen<br><br><span class="ttdesc">Rullehastigheten avhenger av visningstiden, men høyere gjentakelsesverdier passer kanskje ikke for alle forhåndsinnstillinger</span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

@@ -131,3 +131,7 @@ body:not([ss])[ssdisplay] .wrapper#bg {
         ssbrin var(--transition) calc(var(--transition) / 1.5) forwards,
         ssbrout var(--transition) calc(var(--displaytime) - (var(--transition) * 2)) forwards;
 }
+
+#achcontent > span:has(.scroller) {
+    margin-right: 1rem;
+}

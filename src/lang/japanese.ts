@@ -200,6 +200,15 @@ export const translations = {
                 all: "すべて",
                 off: "オフ",
                 showpercent: "パーセンテージを表示",
+                showpercentpos: "パーセンテージの位置",
+                showpercentstyle: "パーセンテージのスタイル",
+                left: "左",
+                right: "右",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "なし",
                 soundonly: "サウンドのみ",
                 nowtracking: "トラッキング通知を表示する",
                 nowtrackingscale: "トラッキングスケール",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "トロフィーモード",
                 notifymax: "最大通知数", 
                 notifyspace: "通知間の間隔",
-                notify1line: "テキストを1行に制限",
-                testnotifycustomtext: "テスト通知のカスタムテキスト",
-                testnotifycustomtexttitle: "タイトル",
-                testnotifycustomtextdesc: "説明"
+                notifylinemode: "行数モード",
+                single: "1行",
+                max: "最大",
+                notifyoverflow: "オーバーフローモード",
+                ellipsis: "省略記号",
+                scroll: "スクロール"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "オーディオクールダウン",
                 usecustomfiles: "カスタムアプリファイルの使用",
                 showcustomfiles: "カスタムアプリファイルの表示",
+                cleariconcache: "アイコンキャッシュをクリア",
                 appdatadir: "AppDataフォルダーを表示",
                 backup: "バックアップ",
                 backuppath: "バックアップパス",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "カスタムテキスト",
                 customtextunlockmsg: "解除メッセージ",
                 customtexttitle: "実績タイトル",
-                customtextdesc: "実績の説明"
+                customtextdesc: "実績の説明",
+                scrollrepeat: "スクロールの繰り返し"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Discordに参加する！",
         github: "問題を報告する",
         lang: "アプリ内で使用するUI言語を選択",
-        steamlang: `Steamのアプリケーションファイルにある翻訳を読み込んで、ユーザーが選択した言語で成果情報を表示しようとします<br><br><span class="ttdesc">このオプションは、Steamのアプリケーションデータに保存されているJSONファイル内で翻訳を探そうとします。現在の成果の翻訳が見つからない場合は、代わりにSteamworksから取得した成果情報が表示されます。</span>`,
-        maxsteamlangretries: `現在の成果の有効な翻訳を見つけるための試行回数（100msごと）<br><br><span class="ttdesc">Steamは現在、各ゲームに関連付けられたJSONファイルに少量の成果データしか保存していません。このファイルに存在しない成果は、成果がアンロックされた後に追加されます。<br><br>新しいデータの追加には時間がかかる可能性があるため、この値を増やすことで現在の成果の翻訳データが見つかる可能性が高くなりますが、この設定によって計算された時間だけ画面上に通知が表示されるのが遅れる可能性もあります。<br><br>現在の成果に対して有効な翻訳データが見つからない場合は、Steamworksで指定された言語に戻ります。</span>`,
+        steamlang: `Steamクライアントでユーザーが選択した言語で実績情報を表示するために、Steamのアプリケーションファイル内にある翻訳の読み込みを試みます<br><br><span class="ttdesc">このオプションは、Steamのアプリケーションデータ内に保存されているJSONファイルから翻訳を検索します。現在の実績の翻訳が見つからない場合は、Steamの内部バイナリファイルから取得した実績情報が代わりに表示されます</span>`,
+        maxsteamlangretries: `現在の実績に対して有効な翻訳を検索する試行回数（100msごと）<br><br><span class="ttdesc">現在、Steamは各ゲームに関連付けられたJSONファイル内に少量の実績データしか保存していません。このファイルに含まれていない実績は、ロック解除後に追加されます。<br><br>新しいデータの追加には時間がかかる場合があるため、この値を増やすと現在の実績の翻訳データが見つかる可能性が高くなります。ただし、この設定によって計算された時間分、通知の画面表示が遅れる場合があります。<br><br>現在の実績に対する有効な翻訳データが見つからない場合は、英語の翻訳が使用されます。</span>`,
         desktop: "アプリを実行するためのデスクトップショートカットを切り替える",
         startwin: "ログイン後にSteam Achievement Notifierを自動的に開始する",
         startmin: "起動後、システムトレイから開かれるまでアプリUIウィンドウを非表示にする",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `レアな実績通知がトリガーされる割合。<br><br>この値を超える解除率の実績はメイン通知として表示されます<br><br><span class="ttdesc"><span class="hl">トロフィーモード</span>が有効な場合、この値を超える解除率の実績は代わりにシルバー通知として表示されます</span>`,
         semirarity: `"シルバー"通知要素（例：<span class="hl">レアリティバッジ</span>、<span class="hl">装飾</span>など）が表示される割合。<br><br>この値以下（または等しい）で、かつ<span class="hl">レアリティ割合</span>より上の解除率の実績は、「シルバー」レアリティ用に設定された通知要素を表示します。<br><br>この値を超える解除率の実績は、「ブロンズ」レアリティ用に設定された通知要素を表示します<br><br><span class="ttdesc"><span class="hl">トロフィーモード</span>が有効な場合、この値を超える解除率の実績は代わりにブロンズ通知として表示されます</span>`,
         showpercent: "選択したタイプの通知に実績のアンロックパーセンテージを表示する",
+        showpercentpos: "選択したタイプの通知内で、実績の解除率を表示する位置を設定します",
+        showpercentstyle: "選択したタイプの通知内で、実績の解除率の表示スタイルを設定します",
         soundonly: "通知を無効にし、カスタマイザで設定されたサウンドのみ再生する",
         extwin: "画面に現在表示されているすべての通知を複製するウィンドウを作成します。このウィンドウは、OBSなどのストリーミングソフトウェアでウィンドウキャプチャソースとして追加できます",
         extwinframerate: "ストリーム通知の目標フレームレートを設定",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "選択したテーマを別の通知タイプにコピーします",
         ssaddtosteam: "生成されたメディアを現在のゲームのSteamの録画およびスクリーンショットに自動的に追加",
         appdatadir: "アプリのAppDataフォルダーの場所を開く",
+        cleariconcache: "以前にキャッシュされたすべての実績アイコンを削除",
         backup: "アプリのAppDataフォルダーの内容を選択した場所にバックアップし、アプリの現在の状態の復元ポイントとして使用します",
         restore: "アプリのAppDataフォルダーの内容を以前のバックアップから復元します",
         gametimerwin: "現在のゲームのすべての achievement を解除するまでにかかった時間を表示するオンスクリーンタイマーを表示します",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "通知内に表示するカスタムメッセージを設定",
         customtextunlockmsg: `解除メッセージ要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 解除メッセージが無効になっている場合、このオプションは非表示になります</span>`,
         customtexttitle: `実績タイトル要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績タイトルが無効になっている場合、このオプションは非表示になります</span>`,
-        customtextdesc: `実績の説明要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績の説明が無効になっている場合、このオプションは非表示になります</span>`
+        customtextdesc: `実績の説明要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績の説明が無効になっている場合、このオプションは非表示になります</span>`,
+        notifylinemode: "通知内に表示するテキストの最大行数を設定します",
+        notifyoverflow: "通知内でテキストがオーバーフローした場合の動作を設定します",
+        scrollrepeat: `通知が画面に表示されている間に、オーバーフローしたテキストをスクロールする回数を設定します<br><br><span class="ttdesc">スクロール速度は表示時間に依存しますが、繰り返し回数を増やすと一部のプリセットに適さない場合があります</span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

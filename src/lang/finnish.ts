@@ -200,6 +200,15 @@ export const translations = {
                 all: "Kaikki",
                 off: "Pois päältä",
                 showpercent: "Näytä prosenttiosuus",
+                showpercentpos: "Prosenttiosuuden sijainti",
+                showpercentstyle: "Prosenttiosuuden tyyli",
+                left: "Vasen",
+                right: "Oikea",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ei mitään",
                 soundonly: "Vain ääni",
                 nowtracking: "Näytä seurantan ilmoitus",
                 nowtrackingscale: "Seurantamittakaava",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trophymoodi",
                 notifymax: "Ilmoitusten enimmäismäärä", 
                 notifyspace: "Ilmoitusten väli",
-                notify1line: "Rajoita teksti yhteen riviin",
-                testnotifycustomtext: "Testi-ilmoituksen mukautettu teksti",
-                testnotifycustomtexttitle: "Otsikko",
-                testnotifycustomtextdesc: "Kuvaus"
+                notifylinemode: "Rivitila",
+                single: "Yksittäinen",
+                max: "Enimmäismäärä",
+                notifyoverflow: "Ylivuototila",
+                ellipsis: "Kolme pistettä",
+                scroll: "Vieritys"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Äänien viive",
                 usecustomfiles: "Käytä Mukautettuja Sovellustiedostoja",
                 showcustomfiles: "Näytä Mukautetut Sovellustiedostot",
+                cleariconcache: "Tyhjennä kuvakkeiden välimuisti",
                 appdatadir: "Näytä AppData-kansio",
                 backup: "Varmuuskopio",
                 backuppath: "Varmuuskopion sijainti",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Mukautettu teksti",
                 customtextunlockmsg: "Avausviesti",
                 customtexttitle: "Saavutuksen otsikko",
-                customtextdesc: "Saavutuksen kuvaus"
+                customtextdesc: "Saavutuksen kuvaus",
+                scrollrepeat: "Vierityksen toisto"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Liity Discordiin!",
         github: "Ilmoita ongelmasta",
         lang: "Valitse sovelluksen käyttöliittymän kieli",
-        steamlang: `Yritä ladata käännöksiä Steamin sovellustiedostoista näyttääksesi saavutustiedot käyttäjän valitsemalla kielellä Steam-asiakasohjelmassa<br><br><span class="ttdesc">Tämä asetus yrittää löytää käännöksiä Steam-sovelluksen tiedoissa tallennetusta JSON-tiedostosta. Jos nykyiselle saavutukselle ei löydy käännöstä, näytetään sen sijaan Steamworksistä haetut saavutustiedot.</span>`,
-        maxsteamlangretries: `Nykyisen saavutuksen käännösten etsimisyritysten määrä (100 ms välein)<br><br><span class="ttdesc">Steam tallentaa tällä hetkellä vain pienen määrän saavutustietoja jokaisen pelin yhteydessä olevaan JSON-tiedostoon. Kaikki saavutukset, jotka eivät ole tässä tiedostossa, lisätään, kun saavutus on avattu.<br><br>Koska uusien tietojen lisääminen voi kestää, tämän arvon nostaminen lisää todennäköisyyttä, että käännöstiedot löydetään, mutta se voi myös viivästyttää näytöllä näkyvää ilmoitusta asetuksen mukaisella ajalla.<br><br>Jos saavutukselle ei löydy kelvollisia käännöstietoja, käännös palaa Steamworksissä määritettyyn kieleen.</span>`,
+        steamlang: `Yritä ladata Steam-sovellustiedostoissa olevat käännökset, jotta saavutustiedot näytetään käyttäjän valitsemalla Steam-asiakasohjelman kielellä<br><br><span class="ttdesc">Tämä asetus yrittää etsiä käännöksiä JSON-tiedostosta, joka on tallennettu Steamin sovellustietoihin. Jos nykyiselle saavutukselle ei löydy käännöstä, sen sijaan näytetään Steamin sisäisistä binääritiedostoista haetut saavutustiedot</span>`,
+        maxsteamlangretries: `Kuinka monta kertaa nykyisen saavutuksen kelvollisia käännöksiä yritetään löytää (100ms välein)<br><br><span class="ttdesc">Steam tallentaa tällä hetkellä vain pienen määrän saavutustietoja kunkin pelin JSON-tiedostoon. Kaikki saavutukset, joita ei ole tässä tiedostossa, lisätään vasta niiden avaamisen jälkeen.<br><br>Koska uusien tietojen lisääminen voi viedä aikaa, tämän arvon kasvattaminen lisää todennäköisyyttä löytää nykyisen saavutuksen käännöstiedot, mutta voi myös viivästyttää ilmoituksen näkymistä näytöllä tämän asetuksen määrittämän ajan verran.<br><br>Jos nykyiselle saavutukselle ei löydy kelvollisia käännöstietoja, käytetään englanninkielisiä käännöksiä.</span>`,
         desktop: "Vaihda työpöydän pikakuvaketta sovelluksen käynnistämiseksi",
         startwin: "Käynnistä Steam Achievement Notifier automaattisesti kirjautumisen jälkeen",
         startmin: "Piilota sovelluksen käyttöliittymäikkuna käynnistyksen jälkeen, kunnes se avataan järjestelmälokista",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Prosentti, jolla harvinaisten saavutusten ilmoitukset laukeavat.<br><br>Kaikki saavutukset, joiden avausprosentti on tämän arvon yläpuolella, näytetään pääilmoituksena<br><br><span class="ttdesc">Jos <span class="hl">Trophymoodi</span> on käytössä, kaikki saavutukset, joiden avausprosentti ylittää tämän arvon, näytetään sen sijaan hopeailmoituksena</span>`,
         semirarity: `"Hopea"-ilmoituselementit näytetään, kun tämä prosentti ylittyy (esim. <span class="hl">Harvinaisuusmerkit</span>, <span class="hl">Koristeet</span> jne.).<br><br>Kaikki saavutukset, joiden avausprosentti on tämän arvon alapuolella (tai yhtä suuri), ja suurempi kuin <span class="hl">Harvinaisuusprosentti</span>, näyttävät ilmoituselementit, jotka on määritetty "Hopea"-harvinaisuudelle.<br><br>Kaikki saavutukset, joiden avausprosentti on tämän arvon yläpuolella, näyttävät "Pronssi"-harvinaisuudelle määritetyt ilmoituselementit<br><br><span class="ttdesc">Jos <span class="hl">Trophymoodi</span> on käytössä, kaikki saavutukset, joiden avausprosentti ylittää tämän arvon, näytetään sen sijaan pronssi-ilmoituksena</span>`,
         showpercent: "Näytä saavutuksen lukitusprosentti ilmoituksessa valituille tyypeille",
+        showpercentpos: "Määritä saavutuksen avausprosentin sijainti ilmoituksessa valituille tyypeille",
+        showpercentstyle: "Määritä saavutuksen avausprosentin tyyli ilmoituksessa valituille tyypeille",
         soundonly: "Poista ilmoitukset käytöstä ja toista vain äänet, jotka on määritetty Mukauttajassa",
         extwin: "Luo ikkuna, joka toistaa kaikki näytöllä tällä hetkellä näkyvät ilmoitukset. Tämä ikkuna voidaan sitten lisätä Ikkunan kaappauksen lähteeksi suoratoisto-ohjelmissa, kuten OBS:ssä",
         extwinframerate: "Aseta tavoitekuvataajuus suoratoistoilmoituksille",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Kopioi valittu teema toiseen ilmoitustyyppiin",
         ssaddtosteam: "Lisää automaattisesti luotu media nykyisen pelin Tallenteisiin ja Kuvakaappauksiin Steamissa",
         appdatadir: "Avaa sovelluksen AppData-kansion sijainti",
+        cleariconcache: "Poista kaikki aiemmin välimuistiin tallennetut saavutuskuvakkeet",
         backup: "Tee varmuuskopio sovelluksen AppData-kansion sisällöstä valittuun sijaintiin, joka toimii palautuspisteenä sovelluksen nykyiselle tilalle",
         restore: "Palauta sovelluksen AppData-kansion sisältö aiemmasta varmuuskopiosta",
         gametimerwin: "Näyttää näytöllä ajastimen, joka näyttää ajan, joka kului kaikkien saavutusten avaamiseen nykyisessä pelissä",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Määritä ilmoituksessa näytettävät mukautetut viestit",
         customtextunlockmsg: `Määritä mukautettu viesti, joka näytetään Avausviesti-elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Avausviesti on poistettu käytöstä</span>`,
         customtexttitle: `Määritä mukautettu viesti, joka näytetään Saavutuksen otsikko -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen otsikko on poistettu käytöstä</span>`,
-        customtextdesc: `Määritä mukautettu viesti, joka näytetään Saavutuksen kuvaus -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen kuvaus on poistettu käytöstä</span>`
+        customtextdesc: `Määritä mukautettu viesti, joka näytetään Saavutuksen kuvaus -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen kuvaus on poistettu käytöstä</span>`,
+        notifylinemode: "Määritä ilmoituksissa näytettävien tekstirivien enimmäismäärä",
+        notifyoverflow: "Määritä, miten ilmoitusten ylivuotava teksti käsitellään",
+        scrollrepeat: `Määritä, kuinka monta kertaa ylivuotavaa tekstiä vieritetään ilmoituksen ollessa näytöllä<br><br><span class="ttdesc">Vieritysnopeus riippuu näyttöajasta, mutta suuremmat toistoarvot eivät välttämättä sovi kaikkiin esiasetuksiin</span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

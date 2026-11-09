@@ -24,10 +24,6 @@ declare interface Res {
     }
 }
 
-interface SANHelper {
-    [key: string]: function | boolean | number | string | Promise<any> | undefined
-}
-
 declare type NotifyType = "main" | "semi" | "rare" | "plat"
 declare type TrophyType = "bronze" | "silver" | "gold"
 
@@ -42,6 +38,8 @@ declare interface Config {
     semirarity: number,
     soundonly: boolean,
     showpercent: "rareonly" | "all" | "off",
+    showpercentpos: "left" | "right",
+    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     extwin: boolean,
     extwinframerate: number,
     extwinshow: boolean,
@@ -86,7 +84,7 @@ declare interface Config {
     noiconcache: boolean,
     exclusions: number[],
     inclusionlist: boolean,
-    logtype: "san" | "rust" | "sanhelperrs" | "bak",
+    logtype: LogFiles | "bak",
     ssalldetails: string[],
     webhooks: boolean,
     webhookmain: boolean,
@@ -153,7 +151,8 @@ declare interface Config {
     notifyspace: number,
     audiocooldown: number,
     ssext: "png" | "jpg",
-    notify1line: boolean,
+    notifylinemode: "single" | "max",
+    notifyoverflow: "ellipsis" | "scroll",
     ssaddtosteam: boolean,
     backuppath: string,
     gametimerwin: boolean,
@@ -325,6 +324,7 @@ declare interface Customisation {
     usegametitletitle: boolean,
     customtextdesc: string,
     usegametitledesc: boolean,
+    scrollrepeat: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }
@@ -362,7 +362,13 @@ declare interface Achievement {
     percent: number,
     hidden: boolean,
     icon?: string,
-    unlocktimestamp?: number
+    unlocktimestamp?: number,
+    statid?: number,
+    bit?: number,
+    unlocktime?: number,
+    relocked?: boolean,
+    raw?: any,
+    progress?: AchievementProgress
 }
 
 declare interface Notify extends Achievement {
@@ -386,6 +392,11 @@ declare interface StatsObj {
     achievements?: Achievement[],
     ra?: boolean,
     mode?: "hard" | "soft"
+}
+
+declare interface LocalisedObj {
+    name: string | null,
+    desc: string | null
 }
 
 declare interface StatsEntry {
@@ -438,7 +449,10 @@ declare interface Info {
     gamearticon: string,
     gameartlibhero: string,
     gameartlogo: string,
-    notify1line: boolean,
+    notifylinemode: "single" | "max",
+    notifyoverflow: "ellipsis" | "scroll",
+    showpercentpos: "left" | "right",
+    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     ra?: boolean
 }
 
@@ -486,9 +500,9 @@ declare interface AppInfo {
     status?: "Active" | "Released",
     gamename?: string | null
     pollrate?: number,
-    releasedelay?: number,
-    maxretries?: number,
-    userust?: boolean,
+    // releasedelay?: number,
+    // maxretries?: number,
+    // userust?: boolean,
     debug?: boolean,
     noiconcache?: boolean
 }
@@ -496,10 +510,7 @@ declare interface AppInfo {
 declare interface DebugInfo extends AppInfo {
     username?: string,
     steam3id?: number,
-    steam64id?: string,
-    releasedelay?: number,
-    lastknowngame?: LastKnownGame,
-    processes: ProcessInfo[] | DebugProcessInfo[]
+    steam64id?: string
 }
 
 declare interface DebugProcessInfo extends ProcessInfo {
@@ -647,6 +658,7 @@ declare interface SSWin {
     timer: NodeJS.Timeout | null,
     windowtitle: string | null,
     haswarned: boolean,
+    capturing: boolean,
     display?: Electron.Display,
     /** Preserved for Screenshot Only so the deferred notification can reuse the original monitor */
     monitorid?: number
@@ -799,6 +811,30 @@ declare interface TroubleshooterResult {
     id: TroubleshooterRuleId,
     type: TroubleshooterType,
     msg: TroubleshooterMsg
+}
+
+declare type LogFiles = "san" | "sanhelper" | "sanhelperworker"
+
+declare interface SteamUser {
+    steam3id: number,
+    steam64id: string,
+    timestamp: number,
+    personaname?: string,
+    mostrecent?: boolean | null,
+}
+
+declare interface SteamStat {
+    statid: string,
+    type: string,
+    default: number
+}
+
+declare interface AchievementProgress {
+    stat: string,
+    value: number,
+    min: number,
+    max: number,
+    percent: number
 }
 
 declare module "simple-vdf"

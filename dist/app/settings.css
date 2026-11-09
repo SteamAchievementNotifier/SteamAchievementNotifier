@@ -199,7 +199,9 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 #settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#autoreleasegames,
 #settingscontent:has(input#usesanwatcher:not(:checked)) > .cont:has(.title#games) > .optcont > button#linkedgames,
 #settingscontent:has(select#statwintype > option[value="default"]:checked) > .cont:has(.title#streaming) .opt:has(#statwinunlockonly,#statwinunlockonlydisplaytime,#statwinunlockonlysync),
-#settingscontent:has(input#statwinunlockonly:not(:checked)) > .cont:has(.title#streaming) .opt:has(#statwinunlockonlydisplaytime,#statwinunlockonlysync) {
+#settingscontent:has(input#statwinunlockonly:not(:checked)) > .cont:has(.title#streaming) .opt:has(#statwinunlockonlydisplaytime,#statwinunlockonlysync),
+.optcont:has(select#showpercent > option[value="off"]:checked) > .opt:has(select#showpercentpos,select#showpercentstyle),
+.optcont:has(select#notifylinemode > option[value="single"]:not(:checked)) > .opt:has(select#notifyoverflow) {
     display: none;
 }
 
@@ -432,11 +434,13 @@ button#listmode {
 }
 
 .cont:has(.title#games) > .optcont > button#exclusionlist {
-    grid-row-start: 3;
+    /* grid-row-start: 3; */
+    grid-row-start: 2;
 }
 
 .cont:has(.title#games) > .optcont > button#listmode {
-    grid-row-start: 3;
+    /* grid-row-start: 3; */
+    grid-row-start: 2;
     grid-column-start: 2;
     gap: 0;
 }
@@ -1035,6 +1039,15 @@ button.iconbtn:hover {
 
 .opt:has(input#statwin) > button[aot] {
     --icon: url("../../icon/lock.svg");
+}
+
+#cleariconcache {
+    --icon: url("../../icon/clearicons.svg");
+    background-color: #5662f6b5;
+}
+
+#cleariconcache:hover {
+    background-color: #5662f6;
 }
 
 @media (orientation: portrait) {

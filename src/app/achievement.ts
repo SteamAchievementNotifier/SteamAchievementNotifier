@@ -1,222 +1,160 @@
 import path from "path"
-import { readFileSync, createWriteStream } from "fs"
-import { get } from "https"
+import fs from "fs"
 import { sanhelper, __root } from "./sanhelper"
+import { sanconfig } from "./config"
+import { steam, steamiconurls } from "./steam"
 import { log } from "./log"
 
-export const cachedata = (client: any,apinames: string[]): Achievement[] => {
-    const {
-        isActivated,
-        getAchievementDisplayAttribute,
-        getAchievementAchievedPercent
-    } = client.achievement
+const percentcache = new Map<number,Map<string,number>>()
 
-    const achievements: Achievement[] = []
-
-    for (const i in apinames) {
-        const name = apinames[i]
-        const hidden = parseInt(getAchievementDisplayAttribute(name,"hidden"))
-        const achievement: Achievement = {
-            unlocked: isActivated(name),
-            apiname: name,
-            name: getAchievementDisplayAttribute(name,"name"),
-            desc: getAchievementDisplayAttribute(name,"desc"),
-            percent: getAchievementAchievedPercent(name),
-            hidden: hidden !== 0
-        }
-
-        achievements.push(achievement)
-    }
-
-    return achievements
-}
-
-export const checkunlockstatus = (cache: Achievement[],live: Achievement[]): Achievement[] => {
-    const unlocked: Achievement[] = []
-
-    for (const ach of live) {
-        const match = cache.find(cached => cached.apiname === ach.apiname)
-        match && ach.unlocked !== match.unlocked && unlocked.push(ach)
-    }
-
-    return unlocked
-}
-
-export const getachievementicon = async (client: any,achievement: Achievement): Promise<string | null> => {
-    const fs = await import("fs")
-    const { encode } = await import("jpeg-js")
-
-    const { apiname } = achievement
-    const { handle, width, height } = client.achievement.getAchievementIcon(apiname) as AchievementIcon
-    if (!handle) return null
-
-    log.write("INFO",`"${apiname}" Icon Info:\n- Handle: ${handle.length > 0 ? "OK" : "Error"}\n- Dimensions: ${width} x ${height}`)
-
-    const { data } = encode({
-        data: handle,
-        width: width,
-        height: height
-    },100)
+export const sanachievement = {
+    cachedata: async (appid: number,usergamestats: any,schema: any) => {
+        const stats = schema?.[appid]?.stats ?? {}
+        const cache = usergamestats?.cache ?? {}
+        const result: Achievement[] = []
     
-    const iconpath: string = path.join(sanhelper.temp,`${apiname}.jpg`)
-    fs.writeFileSync(iconpath,data)
-    return iconpath
-}
-
-export const downloadicon = async (achievement: { apiname: string, iconurl: string },format?: string): Promise<string> => {
-    const { apiname, iconurl } = achievement
-    const dest = path.join(sanhelper.temp,`${apiname}.${format || "jpg"}`)
-
-    try {
-        const iconpath = await new Promise<string>((resolve,reject) => {
-            get(iconurl,res => {
-                const file = createWriteStream(dest)
-                res.pipe(file)
-        
-                file
-                .on("finish",() => {
-                    file.close()
-                    resolve(dest)
+        const statlookup = steam.getstatlookup(stats)
+    
+        const percentages = await sanachievement.getpercentages(appid)
+        const { lang, noiconcache } = sanconfig.get().store
+    
+        for (const [statid,stat] of Object.entries<any>(stats)) {
+            if (stat?.type !== "ACHIEVEMENTS") continue
+    
+            const entry = cache[statid]
+            const data = typeof entry?.data === "number" ? entry.data as number : 0
+            const times = entry?.AchievementTimes ?? {}
+    
+            for (const [bitstr,achievement] of Object.entries<any>(stat.bits ?? {})) {
+                const bit = Number(bitstr)
+                const unlocked = ((data >> bit) & 1) === 1
+                const time = times[bitstr]
+    
+                const { name: apiname, display: { name, desc, hidden, icon } } = achievement
+    
+                result.push({
+                    unlocked,
+                    apiname: apiname.toLowerCase(),
+                    name: name[lang] ?? name.english ?? "",
+                    desc: desc[lang] ?? desc.english ?? "",
+                    hidden: !!hidden,
+                    percent: percentages.get(apiname) ?? percentages.get(apiname.toLowerCase()) ?? -1,
+                    icon,
+                    statid: parseInt(statid),
+                    bit,
+                    unlocktime: unlocked ? time : null,
+                    relocked: !unlocked && time !== undefined, // true: Previously unlocked, then relocked
+                    raw: achievement,
+                    progress: sanachievement.getprogress(achievement,statlookup,cache)
                 })
-                .on("error",err => {
-                    log.write("ERROR",`Error caching achievement icon for "${apiname}": ${err}`)
-                    reject("")
-                })
-            })
-        })
-
-        return iconpath
-    } catch (err) {
-        return err as string
-    }
-}
-
-const getsteamprofile = async (steam64id: string,appid: number,url?: string): Promise<Document | Error> => {
-    const steamurl = url || `https://steamcommunity.com/profiles/${steam64id}/stats/${appid}/?xml=1`
-
-    try {
-        const res = await fetch(steamurl)
-        if (!res.ok) throw new Error(`Error fetching Steam Community profile for "${steam64id}": [${res.status}] ${res.statusText}`)
-        
-        if (!res.url.includes(`${appid}`) && !res.url.includes("/?xml=1")) {
-            log.write("INFO",`Steam Community Page for "${appid}" uses game name instead of AppId. Retrying...`)
-            return getsteamprofile(steam64id,appid,`${res.url}/?xml=1`)
+            }
         }
 
-        const xml = new window.DOMParser().parseFromString(await res.text(),"text/xml")
-
-        const error = xml.querySelector("error")
-        if (error) throw new Error(`Error parsing Steam Community profile for "${steam64id}": ${error.textContent}`)
+        if (!noiconcache) {
+            const icons = new Map<string,string>()
+            const queue = new Set(result.map(achievement => achievement.icon).filter(icon => icon !== undefined)).values()
         
-        return xml
-    } catch (err) {
-        return err as Error
-    }
-}
-
-// As Steamworks' `getAchievementIcon()` function does not allow specification of whether to fetch locked/unlocked versions of achievement icons, they cannot be locally cached.
-// Caching icons from the user's Steam Community page ensures icons are locally available upon unlocking an achievement.
-// `getAchievementIcon()` is then used as a fallback, in case caching the icon via this function fails.
-export const cacheachievementicons = async (gamename: string,steam64id: string,appid: number,url?: string): Promise<string[]> => {
-    const icons: string[] = []
-    let total = 0
-
-    try {
-        const xml = await getsteamprofile(steam64id,appid,url)
-        if (xml instanceof Error) throw xml
-
-        const achievements = Array.from(xml.getElementsByTagName("achievement")) as HTMLElement[]
-        total = achievements.length
-
-        for (const i in achievements) {
-            try {
-                const achievement = {
-                    apiname: achievements[i].querySelector("apiname")!.textContent!.toUpperCase(),
-                    iconurl: achievements[i].querySelector("iconClosed")!.textContent!
+            await Promise.all(Array.from({ length: 5 },async () => {
+                for (const filename of queue) {
+                    try {
+                        const icon = await sanachievement.geticon(appid,filename)
+                        icon && icons.set(filename,icon)
+                    } catch (err) {
+                        log.write("WARN",`Failed to cache achievement icon for "${filename}": ${(err as Error).message}`)
+                    }
                 }
-
-                const icon = await downloadicon(achievement)
-                if (!icon) throw new Error(`Icon download failed for "${achievement.apiname}"`)
+            }))
+        
+            for (const achievement of result) {
+                achievement.icon = achievement.icon ? icons.get(achievement.icon) : undefined
+            }
+        }
+    
+        return result
+    },
+    getpercentages: async (appid: number): Promise<Map<string,number>> => {
+        const cached = percentcache.get(appid)
+        if (cached) return cached
+    
+        const percentmap = new Map<string,number>()
+        const url = `https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${appid}&format=json`
+    
+        try {
+            const res = await fetch(url,{ signal: AbortSignal.timeout(5000) })
+            if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
+    
+            const data: { name: string, percent: string | number }[] = (await res.json()).achievementpercentages?.achievements ?? []
+    
+            for (const { name, percent } of data) {
+                const value = parseFloat(String(percent))
                 
-                icons.push(icon)
-            } catch (err) {
-                throw new Error(`Error downloading achievement icon: ${(err as Error).message}`)
+                percentmap.set(name,value)
+                percentmap.set(name.toLowerCase(),value)
             }
-        }
-    } catch (err) {
-        log.write("ERROR",(err as Error).message)
-    }
-
-    log.write("INFO",`Cached ${icons.length}/${total} achievement icons for "${gamename}"`)
-
-    return icons
-}
-
-const getlocalisedachievementdata = (jsonpath: string,apiname: string) => {
-    try {
-        const data = JSON.parse(readFileSync(jsonpath).toString())
-        const achentry = data.find((entry: any[]) => entry[0] === "achievements")
-        const achmapentry = data.find((entry: any[]) => entry[0] === "achievementmap")
-
-        const achievementsdata = achentry?.[1]?.data || null
-        const achievementmapdata = achmapentry?.[1]?.data || null
-        const vecs: any[] = []
     
-        if (achievementsdata) {
-            for (const vec in achievementsdata) {
-                vec.startsWith("vec") && vecs.push(achievementsdata[vec])
-            }
+            percentmap.size && percentcache.set(appid,percentmap)
+        } catch (err) {
+            log.write("WARN",`Unable to fetch achievement percentages for AppID ${appid}: ${(err as Error).message}`)
         }
     
-        if (vecs.length) {
-            for (const vec of vecs) {
-                if (vec.length) {
-                    const vecdata = vecs.flat().find(ach => ach.strID === apiname)
-                    if (vecdata) return vecdata
+        return percentmap
+    },
+    checkunlockstatus: (cache: Achievement[],live: Achievement[]): Achievement[] => {
+        const unlocked: Achievement[] = []
+    
+        for (const achievement of live) {
+            const match = cache.find(cached => cached.apiname === achievement.apiname)
+            match && achievement.unlocked !== match.unlocked && unlocked.push(achievement)
+        }
+    
+        return unlocked
+    },
+    getprogress: (achievement: any,statlookup: Map<string,SteamStat>,cache: any) => {
+        const progress = achievement?.progress
+        if (!progress || progress.value?.operation !== "statvalue") return
+    
+        const stat = progress.value.operand1 as string
+        const def = statlookup.get(stat)
+        if (!def) return
+    
+        const min = progress.min_val as number ?? 0
+        const max = progress.max_val as number ?? 0
+        const value = steam.getstatvalue(def,cache)
+        const percent = max > min ? Math.min(100,Math.max(0, ((value - min) / (max - min)) * 100)) : 0
+    
+        return {
+            stat,
+            value,
+            min,
+            max,
+            percent
+        } as AchievementProgress
+    },
+    downloadicon: async (urls: string[],dest: string) => {
+        if (fs.existsSync(dest)) return dest
+        const dir = path.dirname(dest)
+
+        for (const url of urls) {
+            try {
+                const res = await fetch(url,{ signal: AbortSignal.timeout(5000) })
+                if (!res.ok) {
+                    log.write("ERROR",`${url}: ${res.status} ${res.statusText}`)
+                    continue
                 }
+
+                fs.mkdirSync(dir,{ recursive: true })
+                fs.writeFileSync(dest,Buffer.from(await res.arrayBuffer()))
+                return dest
+            } catch (err) {
+                log.write("ERROR",`${url}: ${(err as Error).message}`)
             }
         }
-    
-        if (achievementmapdata) {
-            const mapdata = JSON.parse(achievementmapdata)
-        
-            for (const [_,achievements] of mapdata) {
-                const match = achievements.find(([achname]: [string,any]) => achname === apiname)
-                if (match) return match[1]
-            }
-        }
-    
+
+        log.write("ERROR",`Failed to download "${path.basename(dest)}" from any specified Steam URL`)
         return null
-    } catch (err) {
-        log.write("ERROR",`Error parsing "${jsonpath}": ${(err as Error).stack!}`)
-        return null
-    }
-}
-
-export const getlocalisedachievementinfo = async (steam3id: number,apiname: string,key: "name" | "description",maxretries: number): Promise<string | null> => {
-    // JSON file only has a certain number of pre-added achievement objects (usually only 12 for...some reason).
-    // Any missing achievements are added to this file only after they are unlocked, which is why we need a "retries" system
-    let retries = 0
-    const jsonpath = path.join(sanhelper.steampath,"userdata",`${steam3id}`,"config","librarycache",`${sanhelper.gameinfo.appid}.json`)
-    const retryerr = `Unable to locate "${key}" for "${apiname}" in "${jsonpath}"`
-
-    try {
-        let achinfo = getlocalisedachievementdata(jsonpath,apiname);
-
-        while (!achinfo && retries < maxretries) {
-            retries++
-            log.write("WARN",`${retryerr} - retrying (${retries}/${maxretries})...`)
-
-            await new Promise(resolve => setTimeout(resolve,100))
-            achinfo = getlocalisedachievementdata(jsonpath,apiname)
-        }
-
-        if (achinfo) return achinfo[`str${key.replace(key[0],key[0].toUpperCase())}`]
-
-        log.write("ERROR",`${retryerr} - falling back to Steamworks...`)
-        return null
-    } catch (err) {
-        log.write("ERROR",`Error parsing "${jsonpath}": ${(err as Error).stack || (err as Error).message}`)
-        return null
+    },
+    geticon: async (appid: number,filename: string | undefined) => {
+        if (!filename) return null
+        return sanachievement.downloadicon(steamiconurls.map(url => `https://${url}/images/apps/${appid}/${filename}`),path.join(sanhelper.temp,`${appid}`,filename))
     }
 }

@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alle",
                 off: "Uit",
                 showpercent: "Percentage tonen",
+                showpercentpos: "Percentagepositie",
+                showpercentstyle: "Percentagestijl",
+                left: "Links",
+                right: "Rechts",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Geen",
                 soundonly: "Alleen geluid",
                 nowtracking: "Toon volgwaarschuwing",
                 nowtrackingscale: "Volgschaal",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trofee-modus",
                 notifymax: "Maximaal aantal meldingen", 
                 notifyspace: "Meldingsafstand",
-                notify1line: "Beperk tekst tot 1 regel",
-                testnotifycustomtext: "Aangepaste tekst voor testmelding",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beschrijving"
+                notifylinemode: "Regelmodus",
+                single: "Enkel",
+                max: "Maximum",
+                notifyoverflow: "Overloopmodus",
+                ellipsis: "Beletselteken",
+                scroll: "Scrollen"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Audio-wachttijd",
                 usecustomfiles: "Aangepaste App-bestanden Gebruiken",
                 showcustomfiles: "Aangepaste App-bestanden Weergeven",
+                cleariconcache: "Pictogramcache wissen",
                 appdatadir: "Toon AppData-map",
                 backup: "Back-up",
                 backuppath: "Back-up pad",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Aangepaste tekst",
                 customtextunlockmsg: "Ontgrendelingsbericht",
                 customtexttitle: "Prestatietitel",
-                customtextdesc: "Prestatiebeschrijving"
+                customtextdesc: "Prestatiebeschrijving",
+                scrollrepeat: "Scrollherhaling"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Doe mee op Discord!",
         github: "Meld een probleem",
         lang: "Selecteer de UI-taal die in de app wordt gebruikt",
-        steamlang: `Probeer vertalingen te laden die zich in de applicatiebestanden van Steam bevinden om prestatie-informatie weer te geven in de door de gebruiker gekozen taal van de Steam-client<br><br><span class="ttdesc">Deze optie probeert vertalingen te vinden in een JSON-bestand dat is opgeslagen in de applicatiegegevens van Steam. Als er geen vertaling voor de huidige prestatie kan worden gevonden, wordt in plaats daarvan prestatie-informatie weergegeven die is opgehaald uit Steamworks.</span>`,
-        maxsteamlangretries: `Het aantal pogingen (per 100ms) om geldige vertalingen voor de huidige prestatie te vinden<br><br><span class="ttdesc">Steam slaat momenteel slechts een kleine hoeveelheid prestatiegegevens op in het bijbehorende JSON-bestand van elke game. Eventuele prestaties die niet in dit bestand aanwezig zijn, worden toegevoegd nadat de prestatie is ontgrendeld.<br><br>Aangezien het toevoegen van nieuwe gegevens tijd kan kosten, zal het verhogen van deze waarde de kans vergroten dat vertaalgegevens voor de huidige prestatie worden gevonden, maar het kan ook de melding op het scherm vertragen met de tijd die door deze instelling wordt berekend.<br><br>Als er geen geldige vertaalgegevens voor de huidige prestatie kunnen worden gevonden, wordt de vertaling teruggezet naar de taal die is gespecificeerd in Steamworks.</span>`,
+        steamlang: `Probeer vertalingen te laden die zich in de toepassingsbestanden van Steam bevinden om prestatie-informatie weer te geven in de door de gebruiker gekozen Steam-clienttaal<br><br><span class="ttdesc">Deze optie probeert vertalingen te vinden in een JSON-bestand dat is opgeslagen in de toepassingsgegevens van Steam. Als er geen vertaling voor de huidige prestatie kan worden gevonden, wordt in plaats daarvan de prestatie-informatie weergegeven die is opgehaald uit de interne binaire bestanden van Steam</span>`,
+        maxsteamlangretries: `Het aantal keren dat wordt geprobeerd (elke 100ms) om geldige vertalingen voor de huidige prestatie te vinden<br><br><span class="ttdesc">Steam slaat momenteel slechts een kleine hoeveelheid prestatiegegevens op in het JSON-bestand dat bij elke game hoort. Alle prestaties die niet in dit bestand aanwezig zijn, worden toegevoegd nadat ze zijn ontgrendeld.<br><br>Omdat het toevoegen van nieuwe gegevens tijd kan kosten, vergroot het verhogen van deze waarde de kans dat vertaalgegevens voor de huidige prestatie worden gevonden. Het kan er echter ook voor zorgen dat de melding pas later op het scherm verschijnt, afhankelijk van de tijd die door deze instelling wordt berekend.<br><br>Als er geen geldige vertaalgegevens voor de huidige prestatie kunnen worden gevonden, worden de Engelse vertalingen gebruikt.</span>`,
         desktop: "Schakel een snelkoppeling op het bureaublad in om de app uit te voeren",
         startwin: "Start Steam Achievement Notifier automatisch na het inloggen",
         startmin: "Verberg het app-UI-venster na het starten totdat het wordt geopend vanuit het systeemvak",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Het percentage waarbij meldingen voor Zeldzame prestaties worden getoond.<br><br>Elke prestatie met een ontgrendelingspercentage boven deze waarde wordt weergegeven als een Hoofd-melding<br><br><span class="ttdesc">Als <span class="hl">Trofee-modus</span> is ingeschakeld, wordt elke prestatie met een ontgrendelingspercentage boven deze waarde in plaats daarvan weergegeven als een Zilver-melding</span>`,
         semirarity: `Het percentage waarbij "Zilver"-meldingsonderdelen worden weergegeven (bijv. <span class="hl">Zeldzaamheidsbadges</span>, <span class="hl">Decoraties</span>, enz.).<br><br>Elke prestatie met een ontgrendelingspercentage lager dan (of gelijk aan) deze waarde en hoger dan de waarde van <span class="hl">Zeldzaamheidspercentage</span>, zal meldingsonderdelen tonen die zijn geconfigureerd voor "Zilver"-zeldzaamheden.<br><br>Elke prestatie met een ontgrendelingspercentage boven deze waarde toont meldingsonderdelen geconfigureerd voor "Brons"-zeldzaamheden<br><br><span class="ttdesc">Als <span class="hl">Trofee-modus</span> is ingeschakeld, wordt elke prestatie met een ontgrendelingspercentage boven deze waarde in plaats daarvan weergegeven als een Brons-melding</span>`,
         showpercent: "Toon het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
+        showpercentpos: "Stel de positie in van het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
+        showpercentstyle: "Stel de stijl in van het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
         soundonly: "Schakel meldingen uit en speel alleen geluiden af die zijn ingesteld via de Customiser",
         extwin: "Maak een venster dat alle meldingen dupliceert die momenteel op het scherm worden weergegeven. Dit venster kan vervolgens worden toegevoegd als een Window Capture-bron voor gebruik in streamingsoftware, zoals OBS",
         extwinframerate: "Stel de doelbeeldsnelheid in voor streammeldingen",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Kopieer het geselecteerde thema naar een ander meldingstype",
         ssaddtosteam: "Automatisch gegenereerde media toevoegen aan de Opnamen en Screenshots van de huidige game in Steam",
         appdatadir: "Open de locatie van de AppData-map van de app",
+        cleariconcache: "Alle eerder in de cache opgeslagen prestatiepictogrammen verwijderen",
         backup: "Maak een back-up van de inhoud van de AppData-map van de app naar een gekozen locatie, die fungeert als herstelpunt voor de huidige staat van de app",
         restore: "Herstel de inhoud van de AppData-map van de app vanuit een eerdere back-up",
         gametimerwin: "Toont een timer op het scherm die laat zien hoeveel tijd nodig was om alle achievements voor het huidige spel te ontgrendelen",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Aangepaste berichten instellen die in de melding worden weergegeven",
         customtextunlockmsg: `Een aangepast bericht instellen dat wordt weergegeven in het element Ontgrendelingsbericht<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Ontgrendelingsbericht is uitgeschakeld</span>`,
         customtexttitle: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatietitel<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatietitel is uitgeschakeld</span>`,
-        customtextdesc: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatiebeschrijving<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`
+        customtextdesc: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatiebeschrijving<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`,
+        notifylinemode: "Stel het maximale aantal tekstregels in dat in meldingen wordt weergegeven",
+        notifyoverflow: "Stel in hoe overlopende tekst in meldingen wordt weergegeven",
+        scrollrepeat: `Stel in hoe vaak overlopende tekst scrolt terwijl de melding op het scherm staat<br><br><span class="ttdesc">De scrollsnelheid is afhankelijk van de weergaveduur, maar hogere herhalingswaarden zijn mogelijk niet geschikt voor alle presets</span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

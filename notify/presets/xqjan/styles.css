@@ -192,6 +192,8 @@ body[fastanim] .wrapper#achcont > #bgelems > div {
 #unlockmsg,
 #title {
     --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) / 2 - (var(--transition) * 4)) forwards;
+    --scrollstart: calc(var(--transition) * 14);
+    --scrollend: calc(var(--displaytime) / 2 - var(--transition) * 4);
 }
 
 #unlockmsg {
@@ -214,6 +216,11 @@ body[ss] .wrapper#achcontent > #title {
 #title,
 #desc {
     font-family: "customfont", "Titillium Web Regular", "Roboto";
+}
+
+#desc {
+    --scrollstart: calc(var(--displaytime) / 2);
+    --scrollend: calc(var(--displaytime) - var(--transition) * 14);
 }
 
 .wrapper#achcontent > #desc {

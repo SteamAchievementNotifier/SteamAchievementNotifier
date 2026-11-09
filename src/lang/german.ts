@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alle",
                 off: "Aus",
                 showpercent: "Prozentsatz Anzeigen",
+                showpercentpos: "Prozentposition",
+                showpercentstyle: "Prozentstil",
+                left: "Links",
+                right: "Rechts",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Keine",
                 soundonly: "Nur Ton",
                 nowtracking: "Verfolgungshinweis anzeigen",
                 nowtrackingscale: "Verfolgungsskala",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trophäenmodus",
                 notifymax: "Maximale Benachrichtigungen", 
                 notifyspace: "Benachrichtigungsabstand",
-                notify1line: "Text auf 1 Zeile begrenzen",
-                testnotifycustomtext: "Benutzerdefinierter Text für Testbenachrichtigung",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beschreibung"
+                notifylinemode: "Zeilenmodus",
+                single: "Einzeln",
+                max: "Maximum",
+                notifyoverflow: "Überlaufmodus",
+                ellipsis: "Auslassungspunkte",
+                scroll: "Scrollen"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Audio-Abklingzeit",
                 usecustomfiles: "Benutzerdefinierte App-Dateien Verwenden",
                 showcustomfiles: "Benutzerdefinierte App-Dateien Anzeigen",
+                cleariconcache: "Icon-Cache leeren",
                 appdatadir: "AppData-Ordner anzeigen",
                 backup: "Sicherung",
                 backuppath: "Sicherungspfad",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Benutzerdefinierter Text",
                 customtextunlockmsg: "Freischaltungsnachricht",
                 customtexttitle: "Achievement-Titel",
-                customtextdesc: "Achievement-Beschreibung"
+                customtextdesc: "Achievement-Beschreibung",
+                scrollrepeat: "Scroll-Wiederholung"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Treten Sie dem Discord bei!",
         github: "Melden Sie ein Problem",
         lang: "Wählen Sie die Nutzeroberflächen-Sprache, die in der App verwendet wird",
-        steamlang: `Versuchen Sie, Übersetzungen aus den Anwendungsdateien von Steam zu laden, um Erfolgsinformationen in der vom Benutzer gewählten Sprache des Steam-Clients anzuzeigen<br><br><span class="ttdesc">Diese Option versucht, Übersetzungen in einer JSON-Datei zu finden, die in den Anwendungsdaten von Steam gespeichert ist. Wenn keine Übersetzung für den aktuellen Erfolg gefunden werden kann, werden stattdessen die von Steamworks abgerufenen Erfolgsinformationen angezeigt.</span>`,
-        maxsteamlangretries: `Die Anzahl der Versuche (alle 100ms), um gültige Übersetzungen für den aktuellen Erfolg zu finden<br><br><span class="ttdesc">Steam speichert derzeit nur eine kleine Menge an Erfolgsdaten in der mit jedem Spiel verbundenen JSON-Datei. Alle Erfolge, die nicht in dieser Datei enthalten sind, werden hinzugefügt, nachdem der Erfolg freigeschaltet wurde.<br><br>Da das Hinzufügen neuer Daten Zeit in Anspruch nehmen kann, erhöht eine Erhöhung dieses Werts die Wahrscheinlichkeit, dass Übersetzungsdaten für den aktuellen Erfolg gefunden werden, kann jedoch auch die Anzeige der Benachrichtigung auf dem Bildschirm um die durch diese Einstellung berechnete Zeit verzögern.<br><br>Wenn keine gültigen Übersetzungsdaten für den aktuellen Erfolg gefunden werden können, wird die Übersetzung auf die in Steamworks festgelegte Sprache zurückgesetzt.</span>`,
+        steamlang: `Versuchen, Übersetzungen aus den Anwendungsdateien von Steam zu laden, um Achievement-Informationen in der vom Benutzer gewählten Sprache des Steam-Clients anzuzeigen<br><br><span class="ttdesc">Diese Option versucht, Übersetzungen in einer JSON-Datei zu finden, die in den Anwendungsdaten von Steam gespeichert ist. Wenn keine Übersetzung für das aktuelle Achievement gefunden werden kann, werden stattdessen die aus den internen Binärdateien von Steam abgerufenen Achievement-Informationen angezeigt</span>`,
+        maxsteamlangretries: `Die Anzahl der Versuche (alle 100ms), gültige Übersetzungen für das aktuelle Achievement zu finden<br><br><span class="ttdesc">Steam speichert derzeit nur eine geringe Menge an Achievement-Daten in der JSON-Datei, die jedem Spiel zugeordnet ist. Alle Achievements, die nicht in dieser Datei enthalten sind, werden erst nach ihrer Freischaltung hinzugefügt.<br><br>Da das Hinzufügen neuer Daten einige Zeit in Anspruch nehmen kann, erhöht ein höherer Wert die Wahrscheinlichkeit, Übersetzungsdaten für das aktuelle Achievement zu finden. Dies kann jedoch auch dazu führen, dass die Benachrichtigung entsprechend der durch diese Einstellung berechneten Zeit verzögert auf dem Bildschirm erscheint.<br><br>Wenn keine gültigen Übersetzungsdaten für das aktuelle Achievement gefunden werden können, werden die englischen Übersetzungen verwendet.</span>`,
         desktop: "Schalten Sie eine Verknüpfung auf dem Desktop ein, um die App auszuführen",
         startwin: "Starten Sie Steam Achievement Notifier automatisch nach dem Anmelden",
         startmin: "Nach dem Starten die App-Benutzeroberfläche ausblenden, bis sie aus dem System Tray geöffnet wird",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Der Prozentsatz, bei dem Benachrichtigungen für seltene Erfolge ausgelöst werden.<br><br>Jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert wird als Hauptbenachrichtigung angezeigt<br><br><span class="ttdesc">Wenn der <span class="hl">Trophäenmodus</span> aktiviert ist, wird jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert stattdessen als Silber-Benachrichtigung angezeigt</span>`,
         semirarity: `Der Prozentsatz, bei dem "Silber"-Benachrichtigungselemente angezeigt werden (z. B. <span class="hl">Seltenheitsabzeichen</span>, <span class="hl">Dekorationen</span> usw.).<br><br>Jeder Erfolg mit einem Freischaltungsprozentsatz unter (oder gleich) diesem Wert und über dem <span class="hl">Seltenheitsprozentsatz</span> zeigt Benachrichtigungselemente an, die für "Silber"-Seltenheiten konfiguriert sind.<br><br>Jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert zeigt Benachrichtigungselemente an, die für "Bronze"-Seltenheiten konfiguriert sind<br><br><span class="ttdesc">Wenn der <span class="hl">Trophäenmodus</span> aktiviert ist, wird jeder Erfolg mit einem Freischaltungsprozentsatz über diesem Wert stattdessen als Bronze-Benachrichtigung angezeigt</span>`,
         showpercent: "Zeigen Sie den Freischaltungsprozentsatz des Erfolgs in der Benachrichtigung für die ausgewählten Typen an",
+        showpercentpos: "Legt die Position des Freischaltungsprozentsatzes des Erfolgs in der Benachrichtigung für die ausgewählten Typen fest",
+        showpercentstyle: "Legt den Stil des Freischaltungsprozentsatzes des Erfolgs in der Benachrichtigung für die ausgewählten Typen fest",
         soundonly: "Deaktivieren Sie Benachrichtigungen und spielen Sie nur Sounds ab, die über den Customiser festgelegt wurden",
         extwin: "Erstellen Sie ein Fenster, das alle derzeit auf dem Bildschirm angezeigten Benachrichtigungen dupliziert. Dieses Fenster kann dann als Fensteraufnahmequelle für Streaming-Software wie OBS hinzugefügt werden",
         extwinframerate: "Ziel-Bildwiederholrate für Stream-Benachrichtigungen festlegen",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Das ausgewählte Design in einen anderen Benachrichtigungstyp kopieren",
         ssaddtosteam: "Generierte Medien automatisch zu den Aufnahmen und Screenshots des aktuellen Spiels in Steam hinzufügen",
         appdatadir: "Öffne den Speicherort des AppData-Ordners der App",
+        cleariconcache: "Alle zuvor zwischengespeicherten Achievement-Symbole löschen",
         backup: "Sichern Sie den Inhalt des AppData-Ordners der App an einem ausgewählten Ort, der als Wiederherstellungspunkt für den aktuellen Zustand der App dient",
         restore: "Stellen Sie den Inhalt des AppData-Ordners der App aus einer vorherigen Sicherung wieder her",
         gametimerwin: "Zeigt einen Bildschirm-Timer an, der die Zeit anzeigt, die benötigt wurde, um alle Erfolge für das aktuelle Spiel freizuschalten",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Benutzerdefinierte Nachrichten festlegen, die innerhalb der Benachrichtigung angezeigt werden",
         customtextunlockmsg: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Freischaltungsnachricht angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Freischaltungsnachricht deaktiviert ist</span>`,
         customtexttitle: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Titel angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Titel deaktiviert ist</span>`,
-        customtextdesc: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Beschreibung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Beschreibung deaktiviert ist</span>`
+        customtextdesc: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Beschreibung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Beschreibung deaktiviert ist</span>`,
+        notifylinemode: "Legt die maximale Anzahl der Textzeilen fest, die in Benachrichtigungen angezeigt werden",
+        notifyoverflow: "Legt fest, wie überlaufender Text in Benachrichtigungen behandelt wird",
+        scrollrepeat: `Legt fest, wie oft überlaufender Text scrollt, während die Benachrichtigung auf dem Bildschirm angezeigt wird<br><br><span class="ttdesc">Die Scroll-Geschwindigkeit hängt von der Anzeigedauer ab, aber höhere Wiederholungswerte sind möglicherweise nicht für alle Voreinstellungen geeignet</span>`
     },
     update: {
         updateavailable: "Update verfügbar",

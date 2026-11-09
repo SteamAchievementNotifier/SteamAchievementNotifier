@@ -1,10 +1,11 @@
 import { ipcRenderer } from "electron"
 import fs from "fs"
+import path from "path"
 import { buildAuthorization, getGameInfoAndUserProgress, getGame } from "@retroachievements/api"
 import { sanhelper } from "./sanhelper"
 import { sanconfig } from "./config"
 import { log } from "./log"
-import { downloadicon } from "./achievement"
+import { sanachievement } from "./achievement"
 import { usertheme } from "./usertheme"
 
 export const rasupported = [
@@ -231,7 +232,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 
 const raurl = `https://media.retroachievements.org`
 
-const geticon = async (type: "gameicon" | "gameartlibhero" | "achievement",label: string | number,url: string,format?: string) => (await downloadicon({ apiname: type !== "achievement" ? `${label}_${type}` : `${label}`, iconurl: url },format || "png")).replace(/\\/g,"/")
+const geticon = async (type: "gameicon" | "gameartlibhero" | "achievement",label: string | number,url: string,format = "png") => (await sanachievement.downloadicon([url],path.join(sanhelper.temp,`${type !== "achievement" ? `${label}_${type}` : `${label}`}.${format}`)) ?? sanhelper.setfilepath("img","sanlogosquare.svg")).replace(/\\/g,"/")
 
 export const getgamenamefromgameid = async (gameid: number,username: string,apikey: string) => {
     if (!gameid) throw new Error(`No "gameid" provided`)
@@ -253,7 +254,10 @@ const cacheradata = async (gameid: number,username: string,apikey: string,nowtra
     const gameartlibhero = await geticon("gameartlibhero",gameid,gameartlibherourl)
 
     const raachievements = await Promise.all(Object.values(achievements).map(async achievement => {
-        const icon = await geticon("achievement",achievement.badgeName,`${raurl}/Badge/${achievement.badgeName}.png`)
+        const icon = await geticon("achievement",achievement.badgeName,`${raurl}/Badge/${achievement.badgeName}.png`).catch(err => {
+            log.write("WARN",`Unable to cache RA icon: ${(err as Error).message}`);
+            return ""
+        })
 
         return {
             ...achievement,

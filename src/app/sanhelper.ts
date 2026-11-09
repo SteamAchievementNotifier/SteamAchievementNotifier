@@ -6,12 +6,13 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getAllDisplays, getWindowBounds, findElectronDisplay } from "sanhelper.rs"
+// import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getAllDisplays, getWindowBounds, findElectronDisplay, getSteamActiveUser } from "sanhelper.rs"
+import * as sanhelper_rs from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
 
-const { initLogger, testPanic } = sanhelperrslog
+const { initLogger, testPanic } = sanhelper_rs.log
 
 export const __root: string = path.resolve(__dirname,"..","..")
 const tippies: Instance<Props>[][] = []
@@ -59,7 +60,7 @@ const deps = new Map<string,(string | null)[][]>([
 
 const trophyimgpath = (trophy: NotifyType | TrophyType | "",customiser?: boolean) => path.join(__root,"img",`san${customiser ? "customiser" : "text"}logo${trophy}_colors.svg`).replace(/\\/g,"/")
 
-export const sanhelper: SANHelper = {
+export const sanhelper = {
     get devmode(): boolean { return process.env.npm_lifecycle_event === "dev" },
     // In devmode, run `npm run dev -- --beta` to enable Beta environment
     get beta(): boolean { return !sanhelper.devmode ? !!JSON.parse(fs.readFileSync(path.join(__root,"package.json")).toString())?.beta : (process.type === "renderer" ? ipcRenderer.sendSync("beta") : app.commandLine.hasSwitch("beta")) },
@@ -89,8 +90,9 @@ export const sanhelper: SANHelper = {
         (async () => await copyicon())()
         return localicon
     },
-    get steampath(): string { return getSteamPath() },
-    get gameinfo(): AppInfo { return getAppInfo()[0] },
+    get steampath(): string { return sanhelper_rs.getSteamPath() },
+    get activesteamuser(): number | null { return sanhelper_rs.getSteamActiveUser() },
+    get gameinfo(): AppInfo { return sanhelper_rs.getAppInfo()[0] },
     getgamenamefromappid: async (appid: number) => {
         if (appid < 100) return undefined
         const url = `https://store.steampowered.com/api/appdetails?appids=${appid}`
@@ -134,20 +136,13 @@ export const sanhelper: SANHelper = {
         
         return `Linux kernel (${os.release()})`
     },
-    gethqicon: (appid: number = 0) => getHqIcon(appid),
-    getwindowbounds: (windowtitle: string) => getWindowBounds(windowtitle),
-    initlogger: (appdata: string) => initLogger(appdata),
-    getalldisplayinfo: () => getAllDisplays(),
-    hdrscreenshot: (monitorid: number,sspath: string,area?: [number,number,number,number]) => hdrScreenshot(monitorid,sspath,area),
+    gethqicon: (appid: number = 0) => sanhelper_rs.getHqIcon(appid),
+    getwindowbounds: (windowtitle: string) => sanhelper_rs.getWindowBounds(windowtitle),
+    get getfocusedwin(): sanhelper_rs.FocusedWin | null { return sanhelper_rs.getFocusedWin() },
+    initlogger: (appdata: string,filename: string,append: boolean = false) => initLogger(appdata,filename,append),
+    getalldisplayinfo: () => sanhelper_rs.getAllDisplays(),
+    hdrscreenshot: (monitorid: number,sspath: string,area?: [number,number,number,number]) => sanhelper_rs.hdrScreenshot(monitorid,sspath,area),
     testpanic: () => testPanic(),
-    isprocessrunning: (pid: number) => {
-        try {
-            process.kill(pid,0)
-            return true
-        } catch (err) {
-            return false
-        }
-    },
     errorhandler: (log: any) => {
         const handleerr = (err: string) => {
             document.body.setAttribute("error","")
@@ -192,7 +187,7 @@ export const sanhelper: SANHelper = {
             ipcRenderer.send("displays")
         })
     },
-    findelectrondisplay: (id: number) => findElectronDisplay(id),
+    findelectrondisplay: (id: number) => sanhelper_rs.findElectronDisplay(id),
     setdevtools: async (win: Electron.BrowserWindow) => {
         const { BrowserWindow, screen } = await import("electron")
         const { width, height } = screen.getPrimaryDisplay().bounds
@@ -212,11 +207,12 @@ export const sanhelper: SANHelper = {
         return
     },
     get type(): NotifyType { return (["main","semi","rare","plat"] as const).find(attr => document.body.hasAttribute(attr))! as NotifyType },
-    logcontents: (logtype: "san" | "rust" | "sanhelperrs" | "bak",filename?: string) => fs.readFileSync(path.join(sanhelper.appdata,"logs",filename || `${logtype}.log`),"utf-8").replace(/(\r\n|\n|\r)/g,"<br>"),
+    logcontents: (logtype: LogFiles | "bak",filename?: string) => fs.readFileSync(path.join(sanhelper.appdata,"logs",filename || `${logtype}.log`),"utf-8").replace(/(\r\n|\n|\r)/g,"<br>"),
     createlogwin: () => ipcRenderer.send("logwin",sanhelper.logcontents("san"),"san"),
-    updatelogwin: (logtype: "san" | "rust" | "sanhelperrs" | "bak",filename?: string) => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype,filename),logtype,filename),
+    updatelogwin: (logtype: LogFiles | "bak",filename?: string) => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype,filename),logtype,filename),
     showcustomfiles: () => shell.openPath(path.join(sanhelper.appdata,"customfiles")),
     appdatadir: () => shell.openPath(sanhelper.appdata),
+    cleariconcache: () => ipcRenderer.send("cleariconcache"),
     switchtab: ({ target }: Event) => {
         target instanceof HTMLElement && (["main","semi","rare","plat"] as const).forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
         usertheme.update()
@@ -441,7 +437,7 @@ export const sanhelper: SANHelper = {
         if (process.platform === "linux") {
             for (const [lib,entries] of deps) {
                 for (const [id,section] of entries) {
-                    if (elem.id === id && !config.get(id) && sanhelper.depsinstalled(lib,section || "media")) return
+                    if (elem.id === id && !config.get(id) && sanhelper.depsinstalled(lib as "keypressrs" | "hdr" | "wmctrl",section || "media")) return
                 }
             }
         }
@@ -451,7 +447,10 @@ export const sanhelper: SANHelper = {
         // `elem.checked` property does not update when clicking `input` element if `requestAnimationFrame`/`setTimeout` is not used here.
         requestAnimationFrame(() => {
             elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean
-            sanhelper[elem.id] && sanhelper[elem.id](config.get(elem.id) as boolean,elem.id === "trophymode" ? config : undefined)
+            
+            // Call the function matching the id of the element in the `sanhelper` object (ensuring a callable function actually exists beforehand)
+            const sanhelperfn = (sanhelper as Record<string,any>)[elem.id]
+            typeof sanhelperfn === "function" && sanhelperfn(config.get(elem.id) as boolean, elem.id === "trophymode" ? config : undefined)
 
             sanhelper.updatetabs(noreload(elem) !== undefined)
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
@@ -565,10 +564,10 @@ export const sanhelper: SANHelper = {
                 sanhelper.tooltips(config.get("tooltips"))
             }
 
-            elem.id === "preset" && (async () => await sanhelper.resetelemselector(document.querySelector("#customiser")))()
+            elem.id === "preset" && (async () => await sanhelper.resetelemselector(document.querySelector("#customiser")!))()
             elem.id === "audiosrc" && sanhelper.audiosrc(config.get("audiosrc"))
             config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
-            elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`))
+            elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`)!)
             elem.id === "rauser" && ipcRenderer.emit("ra") // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
             elem.id === "uimode" && sanhelper.uimode(config.get("uimode"))
             
@@ -602,7 +601,7 @@ export const sanhelper: SANHelper = {
             if (process.platform === "linux") {   
                 for (const [lib,entries] of deps) {
                     for (const [id,section] of entries) {
-                        if (id === "ssmode" && elem.id === id && sanhelper.depsinstalled(lib,section || "media")) {
+                        if (id === "ssmode" && elem.id === id && sanhelper.depsinstalled(lib as "keypressrs" | "hdr" | "wmctrl",section || "media")) {
                             config.set("ssmode","screen")
                             elem.value = "screen"
                             return
@@ -731,7 +730,7 @@ export const sanhelper: SANHelper = {
                 ...defaulttippy,
                 appendTo: "parent",
                 content: content,
-                maxWidth: sanhelper.maxwidth(wideelems,elem),
+                maxWidth: sanhelper.maxwidth(wideelems,elem.id),
                 triggerTarget: !elem.id.startsWith("webhookembedcolor") && ![...rasupported].some(id => elem.id === id) && ![...elemselectorbtns,"resetpbimgs"].some(id => elem.id === id) ? elem.parentElement : ([...rasupported,...elemselectorbtns].some(id => elem.id === id) ? [elem,elem.previousElementSibling!] : elem),
                 onTrigger(inst) {
                     currenttippy && currenttippy !== inst && currenttippy.hide()
@@ -825,7 +824,7 @@ export const sanhelper: SANHelper = {
             tippies.push(tt)
         })
     }),
-    maxwidth: (wideelems: string[],elem: HTMLElement) => wideelems.includes(elem.id) ? 200 : defaulttippy.maxWidth,
+    maxwidth: (wideelems: string[],id: string) => wideelems.includes(id) ? 200 : defaulttippy.maxWidth,
     settooltips: (value: boolean) => {
         tippies.forEach(tt => tt[0]?.destroy())
         tippies.length = 0
@@ -861,7 +860,7 @@ export const sanhelper: SANHelper = {
                 const tt = tippy(`#${key}`,{
                     ...defaulttippy,
                     content: `${(elem as HTMLInputElement).value}${value}`,
-                    maxWidth: sanhelper.maxwidth(wideelems,elem),
+                    maxWidth: sanhelper.maxwidth(wideelems,elem.id),
                     appendTo: "parent",
                     hideOnClick: false,
                     placement: "top",
@@ -889,13 +888,13 @@ export const sanhelper: SANHelper = {
             "link"
         ]
 
-        elems.forEach(async elem => {
-            const parent = document.querySelector(`.rect:has(> #${elem})`) as any
+        elems.forEach(async id => {
+            const parent = document.querySelector(`.rect:has(> #${id})`) as any
             
-            const tt = tippy(`#${elem}`,{
+            const tt = tippy(`#${id}`,{
                 ...defaulttippy,
-                maxWidth: sanhelper.maxwidth(wideelems,elem),
-                content: await language.get(elem,["tooltips"]),
+                maxWidth: sanhelper.maxwidth(wideelems,id),
+                content: await language.get(id,["tooltips"]),
                 onTrigger(inst) {
                     inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
 
@@ -912,11 +911,11 @@ export const sanhelper: SANHelper = {
             "github"
         ]
 
-        btns.forEach(async btn => {
-            const tt = tippy(`#${btn}`,{
+        btns.forEach(async id => {
+            const tt = tippy(`#${id}`,{
                 ...defaulttippy,
-                maxWidth: sanhelper.maxwidth(wideelems,btn),
-                content: await language.get(btn,["tooltips"]),
+                maxWidth: sanhelper.maxwidth(wideelems,id),
+                content: await language.get(id,["tooltips"]),
                 placement: "top",
                 followCursor: false,
                 offset: [0,15],
@@ -956,7 +955,7 @@ export const sanhelper: SANHelper = {
                         .opt:has(> .sub, > .opt, > .iconbtn):has(> #${elem.id}) > span
                     `,{
                         ...defaulttippy,
-                        maxWidth: sanhelper.maxwidth(wideelems,elem),
+                        maxWidth: sanhelper.maxwidth(wideelems,elem.id),
                         content: `${await language.get(`${elem.id === "exclusionlist" && settings.querySelector(`.optcont:has(button#listmode[mode="inclusion"]`) ? elem.id.replace(/^ex/,"in") : elem.id}`,["tooltips"])}${(elem.id === "replaynotify" && !document.body.hasAttribute("allowreplay") ? await language.get("replaynotifyempty",["tooltips"]) : "")}`,
                         ...props
                     }) as Instance<Props>[]
@@ -1015,7 +1014,7 @@ export const sanhelper: SANHelper = {
                     .opt#posbtns > #${elem.id}
                 `,{
                     ...defaulttippy,
-                    maxWidth: sanhelper.maxwidth(wideelems,elem),
+                    maxWidth: sanhelper.maxwidth(wideelems,elem.id),
                     content,
                     onTrigger(inst) {
                         inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
@@ -1030,7 +1029,7 @@ export const sanhelper: SANHelper = {
             )!.forEach(async elem => {
                 const tt = tippy(`#${elem.id}`,{
                     ...defaulttippy,
-                    maxWidth: sanhelper.maxwidth(wideelems,elem),
+                    maxWidth: sanhelper.maxwidth(wideelems,elem.id),
                     content: await language.get(elem.id,["tooltips"]),
                     onTrigger(inst) {
                         inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
@@ -1047,7 +1046,7 @@ export const sanhelper: SANHelper = {
             .forEach(async elem =>  {
                 const tt = tippy(`.opt:has(#${elem.parentElement!.querySelector(`.optbtn`)!.id}) > .${elem.classList.contains("visibilitybtn") ? "visibilitybtn" : "delbtn"}`,{
                     ...defaulttippy,
-                    maxWidth: sanhelper.maxwidth(wideelems,elem),
+                    maxWidth: sanhelper.maxwidth(wideelems,elem.id),
                     content: await language.get(elem.classList.contains("visibilitybtn") ? "visibilitybtn" : "delbtn",["tooltips"]),
                     onTrigger(inst) {
                         inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
@@ -1069,7 +1068,7 @@ export const sanhelper: SANHelper = {
                 )!.forEach(async elem => {
                     const tt = tippy(`#${elem.id}`,{
                         ...defaulttippy,
-                        maxWidth: sanhelper.maxwidth(wideelems,elem),
+                        maxWidth: sanhelper.maxwidth(wideelems,elem.id),
                         content: await language.get(elem.id,["tooltips"]),
                         appendTo: "parent",
                         onTrigger(inst) {
@@ -1149,7 +1148,7 @@ export const sanhelper: SANHelper = {
             })
         })
     },
-    presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? pressKeysWin32(keys as number[]) : pressKeysLinux(keys as string[]),100),
+    presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? sanhelper_rs.pressKeysWin32(keys as number[]) : sanhelper_rs.pressKeysLinux(keys as string[]),100),
     triggerkeypress: async (hotkeys: (string | number)[]) => {
         const { log } = await import("./log")
         // The required lib is missing if `sanhelper.depsinstalled()` returns a non-empty string, so the value needs to be truthy to trigger the return
@@ -1159,7 +1158,7 @@ export const sanhelper: SANHelper = {
         sanhelper.presskeys(hotkeys)
     },
     depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl",section: string): string => {
-        const missinglib = depsInstalled(lib) // `depsInstalled()` returns the string(s) of missing deps (for logging purposes), or "" if installed
+        const missinglib = sanhelper_rs.depsInstalled(lib) // `depsInstalled()` returns the string(s) of missing deps (for logging purposes), or "" if installed
         
         if (process.platform === "linux" && missinglib) {
             if (!deps.has(lib)) throw new Error(`"${lib}" not found in "deps" map`)
@@ -1347,11 +1346,14 @@ export const sanhelper: SANHelper = {
 
         const { dialog } = await import("./dialog")
         const { log } = await import("./log")
+        
+        const { semver } = sanhelper
+        if (!semver) throw new Error("Unable to parse semver")
 
         try {
             const tagname = (await (await fetch("https://api.github.com/repos/steamachievementnotifier/steamachievementnotifier/releases")).json())[0].tag_name
             const latest = parseInt(tagname.split(".")[2])
-            const beta = parseInt(sanhelper.semver.split(".")[2])
+            const beta = parseInt(semver.split(".")[2])
 
             if (latest >= beta) {
                 ipcRenderer.send("betaunsupported")
@@ -1445,7 +1447,7 @@ export const sanhelper: SANHelper = {
     
         log.write(!err ? "INFO" : "WARN",!err ? `"${id}" key in localStorage verified successfully` : `Unable to verify "${id}" key in localStorage: ${err}`)
     },
-    settabindex: (btn: HTMLButtonElement,values: (string | null | undefined)[]) => btn.tabIndex = values.every(value => Boolean(value)) ? 0 : -1,
+    settabindex: (btn: HTMLButtonElement,values: (string | null | undefined)[]) => btn.tabIndex = values.every(value => !!value) ? 0 : -1,
     restorefrombackup: (sanbak: string,log: any) => {
         const dir = sanhelper.appdata
         const tempdir = `${sanhelper.appdata}_TEMP`

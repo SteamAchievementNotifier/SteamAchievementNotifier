@@ -200,6 +200,15 @@ export const translations = {
                 all: "Mind",
                 off: "Ki",
                 showpercent: "Százalék megjelenítése",
+                showpercentpos: "Százalékos pozíció",
+                showpercentstyle: "Százalékos stílus",
+                left: "Bal",
+                right: "Jobb",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Nincs",
                 soundonly: "Csak hang",
                 nowtracking: "Követési értesítés megjelenítése",
                 nowtrackingscale: "Követési skála",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trófea mód",
                 notifymax: "Maximális értesítések", 
                 notifyspace: "Értesítések közötti távolság",
-                notify1line: "Szöveg korlátozása 1 sorra",
-                testnotifycustomtext: "Egyéni tesztértesítés szövege",
-                testnotifycustomtexttitle: "Cím",
-                testnotifycustomtextdesc: "Leírás"
+                notifylinemode: "Sorsor mód",
+                single: "Egyetlen",
+                max: "Maximum",
+                notifyoverflow: "Túlcsordulási mód",
+                ellipsis: "Három pont",
+                scroll: "Görgetés"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Hang-várakozási idő",
                 usecustomfiles: "Egyedi alkalmazásfájlok használata",
                 showcustomfiles: "Egyedi alkalmazásfájlok megjelenítése",
+                cleariconcache: "Ikongyorsítótár törlése",
                 appdatadir: "AppData mappa megjelenítése",
                 backup: "Biztonsági mentés",
                 backuppath: "Mentési útvonal",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Egyéni szöveg",
                 customtextunlockmsg: "Feloldási üzenet",
                 customtexttitle: "Teljesítmény címe",
-                customtextdesc: "Teljesítmény leírása"
+                customtextdesc: "Teljesítmény leírása",
+                scrollrepeat: "Görgetés ismétlése"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Csatlakozzon a Discordhoz!",
         github: "Probléma jelentése",
         lang: "Válassza ki az alkalmazásban használt felhasználói felület nyelvét",
-        steamlang: `Próbálj meg betölteni fordításokat a Steam alkalmazásfájljaiból, hogy az eredményinformációkat a felhasználó által választott nyelven jelenítse meg a Steam kliensben<br><br><span class="ttdesc">Ez a lehetőség megpróbálja megtalálni a fordításokat egy JSON fájlban, amely a Steam alkalmazásadataiban van tárolva. Ha nem található fordítás a jelenlegi eredményhez, akkor a Steamworks-ból lekért eredményinformációk jelennek meg helyette.</span>`,
-        maxsteamlangretries: `Az érvényes fordítások keresési kísérleteinek száma (100 ms-onként) az aktuális eredményhez<br><br><span class="ttdesc">A Steam jelenleg csak egy kis mennyiségű eredményadatot tárol minden játékhoz tartozó JSON fájlban. Minden olyan eredményt, amely nem található ebben a fájlban, hozzáadnak az eredmény feloldása után.<br><br>Mivel az új adatok hozzáadása időt vehet igénybe, ennek az értéknek a növelése növeli annak esélyét, hogy megtalálhatók a fordítási adatok a jelenlegi eredményhez, de ez késleltetheti az értesítés megjelenését a képernyőn a beállítás szerint kiszámított idővel.<br><br>Ha nem találhatók érvényes fordítási adatok a jelenlegi eredményhez, a fordítás visszaáll a Steamworks-ben megadott nyelvre.</span>`,
+        steamlang: `A Steam alkalmazásfájljaiban található fordítások betöltésének megkísérlése az achievementek adatainak a felhasználó által választott Steam-kliens nyelvén történő megjelenítéséhez<br><br><span class="ttdesc">Ez a beállítás megpróbálja megkeresni a fordításokat a Steam alkalmazásadataiban tárolt JSON-fájlban. Ha az aktuális achievementhez nem található fordítás, akkor a Steam belső bináris fájljaiból lekért achievement-információk jelennek meg helyette</span>`,
+        maxsteamlangretries: `Az aktuális achievementhez tartozó érvényes fordítások megkeresésére tett kísérletek száma (100 ms-onként)<br><br><span class="ttdesc">A Steam jelenleg csak kis mennyiségű achievement-adatot tárol az egyes játékokhoz tartozó JSON-fájlokban. Az ebben a fájlban nem szereplő achievementek adatai csak az achievement feloldása után kerülnek hozzáadásra.<br><br>Mivel az új adatok hozzáadása időt vehet igénybe, ennek az értéknek a növelése növeli annak esélyét, hogy az aktuális achievement fordítási adatai megtalálhatók legyenek, de az értesítés képernyőn való megjelenését is késleltetheti az ezzel a beállítással kiszámított időtartammal.<br><br>Ha az aktuális achievementhez nem találhatók érvényes fordítási adatok, a rendszer az angol fordításokat használja.</span>`,
         desktop: "Parancsikon váltása az asztalon az alkalmazás futtatásához",
         startwin: "Az Steam Achievement Notifier automatikus indítása bejelentkezés után",
         startmin: "Indítás után elrejti az alkalmazás felhasználói felületét, amíg a rendszertálcáról meg nem nyitják",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Az az arányszám, amelynél ritka eredmény értesítések jelennek meg.<br><br>Bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, Fő értesítésként jelenik meg<br><br><span class="ttdesc">Ha a <span class="hl">Trófea mód</span> engedélyezve van, bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, ezüst értesítésként jelenik meg</span>`,
         semirarity: `Az az arányszám, amelynél az "Ezüst" értesítési elemek megjelennek (pl. <span class="hl">Ritkasági jelvények</span>, <span class="hl">Díszítések</span> stb.).<br><br>Bármely eredmény, amelynek feloldási százaléka ennél az értéknél alacsonyabb (vagy egyenlő) és a <span class="hl">Ritkasági százalék</span> értékénél magasabb, az "Ezüst" ritkaságokra konfigurált értesítési elemeket jeleníti meg.<br><br>Bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, a "Bronz" ritkaságokra konfigurált értesítési elemeket jeleníti meg<br><br><span class="ttdesc">Ha a <span class="hl">Trófea mód</span> engedélyezve van, bármely eredmény, amelynek feloldási százaléka meghaladja ezt az értéket, bronz értesítésként jelenik meg</span>`,
         showpercent: "Az eredmény feloldási százalékának megjelenítése az értesítésben a kiválasztott típusokhoz",
+        showpercentpos: "A teljesítmény feloldási százalékának pozíciójának beállítása az értesítésben a kiválasztott típus(ok) esetén",
+        showpercentstyle: "A teljesítmény feloldási százalékának stílusának beállítása az értesítésben a kiválasztott típus(ok) esetén",
         soundonly: "Értesítések letiltása, csak a Customiser által beállított hangok lejátszása",
         extwin: "Hozzon létre egy ablakot, amely megkettőzi a képernyőn jelenleg megjelenő értesítéseket. Ez az ablak ezután hozzáadható ablakrögzítési forrásként a közvetítőszoftverekhez, például az OBS-hez",
         extwinframerate: "Cél képfrissítési sebesség beállítása a stream értesítésekhez",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "A kiválasztott téma másolása egy másik értesítési típushoz",
         ssaddtosteam: "A generált média automatikus hozzáadása az aktuális játék Felvételeihez és Képernyőképeihez a Steamen",
         appdatadir: "Nyissa meg az alkalmazás AppData mappájának helyét",
+        cleariconcache: "Az összes korábban gyorsítótárazott achievementikon törlése",
         backup: "Készítsen biztonsági másolatot az alkalmazás AppData mappájának tartalmáról egy kiválasztott helyre, amely a jelenlegi állapot visszaállítási pontjaként szolgál",
         restore: "Állítsa vissza az alkalmazás AppData mappájának tartalmát egy korábbi biztonsági mentésből",
         gametimerwin: "Egy képernyőn megjelenő időzítő megjelenítése, amely mutatja, mennyi idő kellett az aktuális játék összes achievementjének feloldásához",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Az értesítésben megjelenítendő egyéni üzenetek beállítása",
         customtextunlockmsg: `Az Feloldási üzenet elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Feloldási üzenet le van tiltva</span>`,
         customtexttitle: `A Teljesítmény címe elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény címe le van tiltva</span>`,
-        customtextdesc: `A Teljesítmény leírása elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény leírása le van tiltva</span>`
+        customtextdesc: `A Teljesítmény leírása elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény leírása le van tiltva</span>`,
+        notifylinemode: "Az értesítésekben megjelenítendő szövegsorok maximális számának beállítása",
+        notifyoverflow: "Az értesítésekben túlcsorduló szöveg viselkedésének beállítása",
+        scrollrepeat: `Annak beállítása, hogy a túlcsorduló szöveg hányszor görgessen, amíg az értesítés a képernyőn látható<br><br><span class="ttdesc">A görgetési sebesség a megjelenítési időtől függ, de a magasabb ismétlési értékek nem feltétlenül megfelelőek minden előbeállításhoz</span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

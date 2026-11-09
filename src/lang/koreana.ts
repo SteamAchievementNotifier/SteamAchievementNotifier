@@ -200,6 +200,15 @@ export const translations = {
                 all: "모두",
                 off: "끔",
                 showpercent: "백분율 표시",
+                showpercentpos: "백분율 위치",
+                showpercentstyle: "백분율 스타일",
+                left: "왼쪽",
+                right: "오른쪽",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "없음",
                 soundonly: "사운드만",
                 nowtracking: "추적 알림 표시",
                 nowtrackingscale: "추적 스케일",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "트로피 모드",
                 notifymax: "최대 알림 수", 
                 notifyspace: "알림 간격",
-                notify1line: "텍스트를 1줄로 제한",
-                testnotifycustomtext: "테스트 알림 사용자 지정 텍스트",
-                testnotifycustomtexttitle: "제목",
-                testnotifycustomtextdesc: "설명"
+                notifylinemode: "줄 표시 모드",
+                single: "한 줄",
+                max: "최대",
+                notifyoverflow: "오버플로 모드",
+                ellipsis: "줄임표",
+                scroll: "스크롤"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "오디오 대기 시간",
                 usecustomfiles: "사용자 정의 앱 파일 사용",
                 showcustomfiles: "사용자 정의 앱 파일 표시",
+                cleariconcache: "아이콘 캐시 지우기",
                 appdatadir: "AppData 폴더 표시",
                 backup: "백업",
                 backuppath: "백업 경로",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "사용자 지정 텍스트",
                 customtextunlockmsg: "잠금 해제 메시지",
                 customtexttitle: "업적 제목",
-                customtextdesc: "업적 설명"
+                customtextdesc: "업적 설명",
+                scrollrepeat: "스크롤 반복"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Discord에 가입하기!",
         github: "문제 보고",
         lang: "앱에서 사용되는 UI 언어 선택",
-        steamlang: `Steam의 애플리케이션 파일에 있는 번역을 로드하여 사용자가 선택한 언어로 성취 정보를 표시하려고 시도합니다<br><br><span class="ttdesc">이 옵션은 Steam의 애플리케이션 데이터에 저장된 JSON 파일에서 번역을 찾으려고 시도합니다. 현재 성취의 번역을 찾을 수 없는 경우, 대신 Steamworks에서 가져온 성취 정보가 표시됩니다.</span>`,
-        maxsteamlangretries: `현재 성취에 대한 유효한 번역을 찾기 위한 시도 횟수 (100ms마다)<br><br><span class="ttdesc">Steam은 현재 각 게임과 연결된 JSON 파일에 적은 양의 성취 데이터만 저장합니다. 이 파일에 없는 성취는 성취가 잠금 해제된 후에 추가됩니다.<br><br>새로운 데이터를 추가하는 데 시간이 걸릴 수 있으므로 이 값을 높이면 현재 성취에 대한 번역 데이터를 찾을 가능성이 높아지지만, 이 설정에 의해 계산된 시간만큼 화면에 알림이 표시되는 것이 지연될 수도 있습니다.<br><br>현재 성취에 대한 유효한 번역 데이터를 찾을 수 없는 경우, 번역은 Steamworks에서 지정한 언어로 돌아갑니다.</span>`,
+        steamlang: `Steam 클라이언트에서 사용자가 선택한 언어로 도전 과제 정보를 표시하기 위해 Steam 애플리케이션 파일에 있는 번역을 불러오려고 시도합니다<br><br><span class="ttdesc">이 옵션은 Steam 애플리케이션 데이터에 저장된 JSON 파일에서 번역을 검색합니다. 현재 도전 과제에 대한 번역을 찾을 수 없는 경우 Steam의 내부 바이너리 파일에서 가져온 도전 과제 정보가 대신 표시됩니다</span>`,
+        maxsteamlangretries: `현재 도전 과제에 대한 유효한 번역을 찾기 위해 시도할 횟수(100ms당)<br><br><span class="ttdesc">현재 Steam은 각 게임과 연결된 JSON 파일에 소량의 도전 과제 데이터만 저장합니다. 이 파일에 포함되지 않은 도전 과제는 잠금 해제된 후에 추가됩니다.<br><br>새 데이터를 추가하는 데 시간이 걸릴 수 있으므로 이 값을 높이면 현재 도전 과제의 번역 데이터를 찾을 가능성이 높아지지만, 이 설정으로 계산된 시간만큼 알림이 화면에 표시되는 시점이 지연될 수도 있습니다.<br><br>현재 도전 과제에 대한 유효한 번역 데이터를 찾을 수 없는 경우 영어 번역이 사용됩니다.</span>`,
         desktop: "데스크톱에 앱 실행 바로 가기 전환",
         startwin: "로그인 후 Steam Achievement Notifier 자동 시작",
         startmin: "실행 후, 시스템 트레이에서 열릴 때까지 앱 UI 창 숨기기",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `희귀 업적 알림이 표시되는 비율입니다.<br><br>이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 메인 알림으로 표시됩니다<br><br><span class="ttdesc"><span class="hl">트로피 모드</span>가 활성화된 경우, 이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 대신 실버 알림으로 표시됩니다</span>`,
         semirarity: `"실버" 알림 요소가 표시되는 비율입니다 (예: <span class="hl">희귀 배지</span>, <span class="hl">장식</span> 등).<br><br>이 값 이하(또는 같고)이며 <span class="hl">희귀도 비율</span>보다 높은 잠금 해제 비율을 가진 모든 업적은 "실버" 희귀도용으로 설정된 알림 요소를 표시합니다.<br><br>이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 "브론즈" 희귀도용으로 설정된 알림 요소를 표시합니다<br><br><span class="ttdesc"><span class="hl">트로피 모드</span>가 활성화된 경우, 이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 대신 브론즈 알림으로 표시됩니다</span>`,
         showpercent: "선택한 유형의 알림에 업적의 잠금 해제 백분율 표시",
+        showpercentpos: "선택한 유형의 알림에서 도전 과제 해제율을 표시할 위치를 설정합니다",
+        showpercentstyle: "선택한 유형의 알림에서 도전 과제 해제율의 표시 스타일을 설정합니다",
         soundonly: "알림 비활성화, Customiser에서 설정한 사운드만 재생",
         extwin: "현재 화면에 표시되는 모든 알림을 복제하는 창을 생성합니다. 이 창은 OBS와 같은 스트리밍 소프트웨어에서 창 캡처 소스로 추가할 수 있습니다",
         extwinframerate: "스트림 알림을 위한 목표 프레임 속도 설정",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "선택한 테마를 다른 알림 유형으로 복사합니다",
         ssaddtosteam: "생성된 미디어를 현재 게임의 Steam 녹화 및 스크린샷에 자동으로 추가",
         appdatadir: "앱의 AppData 폴더 위치 열기",
+        cleariconcache: "이전에 캐시된 모든 도전 과제 아이콘 삭제",
         backup: "앱의 AppData 폴더 내용을 선택한 위치에 백업하여, 앱의 현재 상태를 복원할 수 있는 복원 지점으로 사용합니다",
         restore: "앱의 AppData 폴더 내용을 이전 백업에서 복원합니다",
         gametimerwin: "현재 게임의 모든 achievement를 잠금 해제하는 데 걸린 시간을 표시하는 화면 타이머를 표시합니다",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "알림에 표시할 사용자 지정 메시지를 설정합니다",
         customtextunlockmsg: `잠금 해제 메시지 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 잠금 해제 메시지가 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
         customtexttitle: `업적 제목 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 제목이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
-        customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`
+        customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
+        notifylinemode: "알림에 표시할 텍스트의 최대 줄 수를 설정합니다",
+        notifyoverflow: "알림에서 텍스트가 넘칠 경우의 동작을 설정합니다",
+        scrollrepeat: `알림이 화면에 표시되는 동안 넘치는 텍스트를 스크롤할 횟수를 설정합니다<br><br><span class="ttdesc">스크롤 속도는 표시 시간에 따라 달라지며, 반복 횟수가 너무 높으면 일부 프리셋에 적합하지 않을 수 있습니다</span>`
     },
     update: {
         updateavailable: "업데이트 가능",

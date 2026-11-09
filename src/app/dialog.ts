@@ -78,11 +78,11 @@ export const dialog = {
             shortcutkeys.forEach((partialcombo,key) => {
                 const btn = document.getElementById(`${key}shortcut`)! as HTMLButtonElement
                 
-                btn.textContent = sanhelper.getshortcut(config,btn.id,btn.id)
+                btn.textContent = sanhelper.getshortcut(config,document.getElementById(btn.id)!,btn.id)
                 btn.onclick = event => sanhelper.setshortcut(config,event,(event.target as HTMLButtonElement).id,partialcombo)
             })
 
-            const updatetables = async (type: "linkgame" | "exclusionlist" | "themeswitch") => {
+            const updatetables = async (type: "exclusionlist" | "themeswitch") => {
                 const table = document.querySelector(`.addhtml > .tbl#${type}tablewrapper > table`)! as HTMLTableElement
                 const entries = type !== "exclusionlist" ? Object.entries(JSON.parse(localStorage.getItem(type)!)).sort() as [string,any][] : config.get("exclusions") as number[]
 
@@ -90,7 +90,7 @@ export const dialog = {
                 table.querySelector(`#${type}headers > th:first-child`)!.textContent = await language.get("game",["settings","ra","content"])
 
                 if (type !== "exclusionlist") {
-                    table.querySelector(`#${type}headers > th:nth-child(2)`)!.textContent = await language.get(type === "linkgame" ? "exepath" : "themes",[type,"content"])
+                    table.querySelector(`#${type}headers > th:nth-child(2)`)!.textContent = await language.get("themes",[type,"content"])
                     type === "themeswitch" && (table.querySelector(`#${type}headers > th:nth-child(3)`)!.textContent = await language.get("src",[type,"content"]))
                 }
 
@@ -215,69 +215,8 @@ export const dialog = {
                 })
             }
 
-            const setnewdialog = (type: "linkgame" | "exclusionlist" | "themeswitch",obj?: { appid: number, lsentry: ThemeSwitch | string | number }) => {
+            const setnewdialog = (type: "exclusionlist" | "themeswitch",obj?: { appid: number, lsentry: ThemeSwitch | string | number }) => {
                 switch (type) {
-                    case "linkgame": return async () => {
-                        const { usesanwatcher } = config.store
-                        const content = ["settings","games","content"]
-                        
-                        const [linkedgames,autoreleasegames] = await Promise.all([
-                            language.get("linkedgames",content),
-                            language.get("autoreleasegames",content)
-                        ])
-                        
-                        const sub = await language.get(`link${!!obj ? "edit" : "new"}sub`,[type,"content"]) as string[]
-                        
-                        dialog.open({
-                            title: await language.get(`link${!!obj ? "edit" : "new"}`,[type,"content"]),
-                            type: "default",
-                            icon: sanhelper.setfilepath("icon",`${!!obj ? "edit" : "newlink"}.svg`),
-                            sub: sub.map(str => str.replace(/\$linkgame/,usesanwatcher ? linkedgames : autoreleasegames)),
-                            addHTML: path.join(__dirname,"linkgamenew.html"),
-                            buttons: [{
-                                id: "ok",
-                                label: !!obj ? await language.get("edit") : await language.get("link",[type,"content"]),
-                                icon: "",
-                                click: () => {
-                                    const entries = {
-                                        ...JSON.parse(localStorage.getItem(type)!),
-                                        [linkgameappid.value]: linkgameselect.textContent
-                                    }
-
-                                    localStorage.setItem(type,JSON.stringify(entries))
-
-                                    updatetables(type)
-                                    dialog.close()
-                                }
-                            }]
-                        })
-
-                        document.querySelector("#linkgamenewheaders > th:nth-child(2)")!.textContent = await language.get("exepath",["linkgame","content"])
-
-                        const linkgameappid = document.getElementById("linkgameappid")! as HTMLInputElement
-                        const linkgameselect = document.getElementById("linkgameselect")! as HTMLTableCellElement
-
-                        linkgameappid.toggleAttribute("readonly",!!obj)
-
-                        if (obj) {
-                            linkgameappid.value = `${obj.appid}`
-                            linkgameselect.textContent = obj.lsentry as string
-                        }
-
-                        linkgameselect.onclick = () => {
-                            ipcRenderer.once("loadfile",(event,file) => file && (linkgameselect.textContent = file[0].replace(/\\/g,"/")))
-                            ipcRenderer.send("loadfile","exe")
-                        }
-
-                        const okbtn = document.querySelector("button#okbtn")! as HTMLButtonElement
-                        okbtn.tabIndex = -1
-
-                        ;[linkgameappid,linkgameselect].forEach(elem => {
-                            elem.onfocus = () => sanhelper.settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
-                            elem.onblur = () => sanhelper.settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
-                            elem.onkeydown = () => sanhelper.settabindex(okbtn,[linkgameappid.value,linkgameselect.textContent])
-                        })
-                    }
                     case "exclusionlist": return async () => {
                         ipcRenderer.once("runningappid",async (event,appid) => {
                             const { inclusionlist } = config.store
@@ -478,47 +417,11 @@ export const dialog = {
     
                             radefaultinput.onchange = updateinput
 
-                            sanhelper.loadadditionaltooltips(document.querySelector(`dialog:has(input[type="checkbox"]#radefault) .wrapper#contentcontainer`))
+                            sanhelper.loadadditionaltooltips(document.querySelector(`dialog:has(input[type="checkbox"]#radefault) .wrapper#contentcontainer`)!)
                         } else {
                             themeswitchappid.value === rathemeswitchvalue && (themeswitchappid.value = "RetroAchievements")
                         }
                     }
-                }
-            }
-
-            const linkedgameselems = [
-                "linked",
-                "autorelease"
-            ].map(id => `${id}games`)
-
-            for (const id of linkedgameselems) {
-                document.getElementById(id)!.onclick = async () => {
-                    const [title,opt,idsub,managesub] = await Promise.all([
-                        language.get(id,["settings","games","content"]),
-                        language.get(id.slice(0,-1),["linkgame","content"]),
-                        language.get(`${id}sub`,["linkgame","content"]),
-                        language.get("managesub",["linkgame","content"]),
-                    ])
-
-                    dialog.open({
-                        title: await language.get(id,["settings","games","content"]),
-                        type: "default",
-                        icon: sanhelper.setfilepath("icon","link.svg"),
-                        sub: [
-                            ...((idsub as string[]).map(str => str.replace(/\$linkgame/,title as string)) as string[]),
-                            ...((managesub as string[]).map(str => str.replace(/\$linkgame/,opt as string)) as string[])
-                        ],
-                        addHTML: path.join(__dirname,"linkgame.html"),
-                        buttons: [{
-                            id: "linknew",
-                            label: await language.get("new"),
-                            icon: sanhelper.setfilepath("icon","newlink.svg"),
-                            click: setnewdialog("linkgame")
-                        }]
-                    })
-    
-                    sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
-                    updatetables("linkgame")
                 }
             }
             
@@ -576,6 +479,7 @@ export const dialog = {
             
             document.getElementById("showcustomfiles")!.onclick = sanhelper.showcustomfiles
             document.getElementById("appdatadir")!.onclick = sanhelper.appdatadir
+            document.getElementById("cleariconcache")!.onclick = sanhelper.cleariconcache
             
             document.getElementById("backup")!.onclick = async () => {
                 dialog.open({
@@ -659,7 +563,7 @@ export const dialog = {
                 
                 const backuppathbtn = opt.querySelector("button.optbtn#backuppath") as HTMLButtonElement
                 backuppathbtn.textContent = (config.get("backuppath") || path.join(path.dirname(sanhelper.appdata),"Temp")).replace(/\\/g,"/")
-                sanhelper.setbtn(config,backuppathbtn,null)
+                sanhelper.setbtn(config,backuppathbtn)
             }
             
             document.getElementById("restore")!.onclick = async () => {
@@ -743,7 +647,7 @@ export const dialog = {
                 opt.querySelector("span.lbl")!.textContent = await language.get("backuppath",["settings","advanced","content"])
 
                 const restorepathbtn = opt.querySelector("button.optbtn#restorepath") as HTMLButtonElement
-                sanhelper.setbtn(config,restorepathbtn,null)
+                sanhelper.setbtn(config,restorepathbtn)
 
                 const okbtn = document.querySelector("dialog .btnwrapper > button#okbtn") as HTMLButtonElement
                 okbtn.tabIndex = -1
@@ -807,7 +711,7 @@ export const dialog = {
                 "restartapp"
             ].forEach(id => document.getElementById(id)!.onclick = () => ipcRenderer.send(id.replace(/window$/,"win")))
 
-            document.getElementById("log")!.onclick = () => sanhelper.createlogwin(config.get("logtype"))
+            document.getElementById("log")!.onclick = () => sanhelper.createlogwin()
 
             document.getElementById("reset")!.onclick = async () => dialog.open({
                 title: await language.get("reset",["settings","misc","content"]),
@@ -834,7 +738,7 @@ export const dialog = {
             }
 
             sanhelper.getshortcut(config,document.body)
-            document.querySelector(`#settingsversion > span:last-child`)!.textContent = sanhelper.semver
+            document.querySelector(`#settingsversion > span:last-child`)!.textContent = sanhelper.semver!
         }
 
         buttons?.forEach((obj: Button) => {

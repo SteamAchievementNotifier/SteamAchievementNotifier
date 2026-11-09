@@ -214,16 +214,20 @@ body[fastanim] .wrapper#achcontent {
     display: none;
 }
 
-body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::before,
-body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::before {
+/* body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title::before, */
+body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc::before,
+body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title:not(:has(.scroller))::before,
+body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title > .scroller::before {
     --ssize: 30%;
     content: attr(gs) attr(unit) " - ";
     padding-left: calc(1.25rem * var(--fontsize));
     background: var(--s) left / var(--ssize) no-repeat;
 }
 
-body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title[unit="%"]::before,
-body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc[unit="%"]::before {
+/* body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title[unit="%"]::before, */
+body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc[unit="%"]::before,
+body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title:not(:has(.scroller))[unit="%"]::before,
+body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title > .scroller[unit="%"]::before {
     --ssize: 20%;
 }
 
@@ -232,6 +236,8 @@ body[ss] .wrapper#achcontent:has(#title):has(#decoration) #desc[unit="%"]::befor
     --finish: slideup calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition)) * 2) cubic-bezier(0.5, 0, 1, 1) forwards;
     --elemopacity: 1;
     --translate: -100vh;
+    --scrollstart: calc(var(--transition) * 10.5);
+    --scrollend: calc(var(--displaytime) / 2 - var(--transition) * 2);
     animation:
         fadein calc(var(--transition) * 2) calc((var(--transition) * 8.5)) forwards,
         var(--finish);
@@ -258,6 +264,8 @@ body[fastanim] #title {
     --start: slideup calc(var(--transition) * 2) calc(var(--displaytime) / 2 - calc(var(--transition)) * 2) cubic-bezier(0.5, 0, 1, 1) forwards;
     --finish: fadeout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 12.5)) forwards;
     --translate: 0;
+    --scrollstart: calc(var(--displaytime) / 2);
+    --scrollend: calc(var(--displaytime) - var(--transition) * 12.5);
     align-self: center;
     grid-row: 1 / span 2;
     translate: 0 100vh;
@@ -333,34 +341,6 @@ body:not([ss])[ssdisplay][fastanim] .wrapper#bg {
     --ssbrout: none;
 }
 
-/* !!! Removes `border-radius` from the corner of `#iconbg` - not currently required */
-
-/* body[topleft] #iconbg,
-body[topcenter] #iconbg,
-body[topright] #iconbg {
-    --iconbgbr: var(--roundness) var(--roundness) var(--roundness) 0;
+#achcontent > span:has(.scroller) {
+    margin-right: 1rem;
 }
-
-body[bottomleft] #iconbg,
-body[bottomcenter] #iconbg,
-body[bottomright] #iconbg {
-    --iconbgbr: 0 var(--roundness) var(--roundness) var(--roundness);
-}
-
-body:not([ss])[ssdisplay] #iconbg {
-    --iconbgbrin: iconbgbrin calc(var(--transition) * 2) calc((var(--transition) * 7)) forwards;
-    --iconbgbrout: iconbgbrout calc(var(--transition) * 2) calc(var(--displaytime) - (var(--transition) * 12.25)) forwards;
-    animation:
-        scaleup var(--transition) ease-in-out forwards,
-        var(--iconbgbrin),
-        var(--iconbgbrout),
-        var(--finish);
-}
-
-@keyframes iconbgbrin {
-    to { border-radius: var(--iconbgbr); }
-}
-
-@keyframes iconbgbrout {
-    to { border-radius: var(--iconroundness); }
-} */

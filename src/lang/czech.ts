@@ -200,6 +200,15 @@ export const translations = {
                 all: "Vše",
                 off: "Vypnuto",
                 showpercent: "Zobrazit procenta",
+                showpercentpos: "Pozice procent",
+                showpercentstyle: "Styl procent",
+                left: "Vlevo",
+                right: "Vpravo",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Žádné",
                 soundonly: "Pouze zvuk",
                 nowtracking: "Zobrazit Oznámení o Sledování",
                 nowtrackingscale: "Měřítko Sledování",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Režim trofejí",
                 notifymax: "Maximální počet oznámení", 
                 notifyspace: "Rozestup mezi oznámeními",
-                notify1line: "Omezit text na 1 řádek",
-                testnotifycustomtext: "Vlastní text testovacího oznámení",
-                testnotifycustomtexttitle: "Název",
-                testnotifycustomtextdesc: "Popis"
+                notifylinemode: "Režim řádků",
+                single: "Jeden",
+                max: "Maximum",
+                notifyoverflow: "Režim přetečení",
+                ellipsis: "Trojtečka",
+                scroll: "Posouvání"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Časový odstup zvuku",
                 usecustomfiles: "Použít vlastní soubory aplikace",
                 showcustomfiles: "Zobrazit vlastní soubory aplikace",
+                cleariconcache: "Vymazat mezipaměť ikon",
                 appdatadir: "Zobrazit složku AppData",
                 backup: "Záloha",
                 backuppath: "Cesta zálohy",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Vlastní text",
                 customtextunlockmsg: "Zpráva o odemčení",
                 customtexttitle: "Název achievementu",
-                customtextdesc: "Popis achievementu"
+                customtextdesc: "Popis achievementu",
+                scrollrepeat: "Opakování posouvání"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Připojte se na Discord!",
         github: "Nahlásit problém",
         lang: "Vyberte jazyk uživatelského rozhraní používaný v aplikaci",
-        steamlang: `Pokuste se načíst překlady umístěné v aplikačních souborech Steamu, aby se zobrazily informace o úspěších ve zvoleném jazyce uživatele v klientu Steamu<br><br><span class="ttdesc">Tato možnost se pokusí najít překlady v souboru JSON uloženém v aplikačních datech Steamu. Pokud nelze najít překlad pro aktuální úspěch, místo toho se zobrazí informace o úspěchu získané ze Steamworks.</span>`,
-        maxsteamlangretries: `Počet pokusů (za každých 100 ms) o nalezení platných překladů pro aktuální úspěch<br><br><span class="ttdesc">Steam aktuálně ukládá jen malé množství dat o úspěších do souboru JSON spojeného s každou hrou. Jakékoliv úspěchy, které nejsou v tomto souboru, budou přidány po jejich odemčení.<br><br>Vzhledem k tomu, že přidání nových dat může nějaký čas trvat, zvýšení této hodnoty zvýší pravděpodobnost, že se najdou překlady pro aktuální úspěch, ale může to také zpozdit zobrazení oznámení na obrazovce o čas vypočítaný tímto nastavením.<br><br>Pokud se nepodaří najít platné překlady pro aktuální úspěch, překládání se vrátí na jazyk určený ve Steamworks.</span>`,
+        steamlang: `Pokusit se načíst překlady umístěné v souborech aplikace Steam a zobrazit informace o achievementech v jazyce klienta Steam zvoleném uživatelem<br><br><span class="ttdesc">Tato možnost se pokusí najít překlady v souboru JSON uloženém v datech aplikace Steam. Pokud se nepodaří najít překlad aktuálního achievementu, zobrazí se místo něj informace o achievementu získané z interních binárních souborů Steamu</span>`,
+        maxsteamlangretries: `Počet pokusů o nalezení platných překladů aktuálního achievementu (každých 100ms)<br><br><span class="ttdesc">Steam v současnosti ukládá pouze malé množství dat o achievementech do souboru JSON přidruženého ke každé hře. Všechny achievementy, které v tomto souboru nejsou uvedeny, budou přidány až po jejich odemčení.<br><br>Protože přidání nových dat může nějakou dobu trvat, zvýšení této hodnoty zvýší pravděpodobnost nalezení přeložených údajů pro aktuální achievement, ale může také zpozdit zobrazení oznámení na obrazovce o dobu vypočítanou tímto nastavením.<br><br>Pokud se nepodaří najít platné překladové údaje pro aktuální achievement, budou použity anglické překlady.</span>`,
         desktop: "Přepnout zástupce na ploše pro spuštění aplikace",
         startwin: "Spustit Steam Achievement Notifier automaticky po přihlášení",
         startmin: "Po spuštění skrýt okno aplikace v uživatelském rozhraní, dokud není otevřeno z lišty systému",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Procento, při kterém budou spuštěna oznámení o vzácných úspěších.<br><br>Jakýkoli úspěch s procentem odemknutí nad touto hodnotou bude zobrazen jako Hlavní oznámení<br><br><span class="ttdesc">Pokud je povolen <span class="hl">Režim trofejí</span>, bude jakýkoli úspěch s procentem odemknutí nad touto hodnotou zobrazen jako Stříbrné oznámení</span>`,
         semirarity: `Procento, při kterém budou zobrazeny prvky oznámení typu "Stříbrné" (např. <span class="hl">Odznaky vzácnosti</span>, <span class="hl">Dekorace</span> atd.).<br><br>Jakýkoli úspěch s procentem odemknutí nižším (nebo rovným) této hodnotě a vyšším než hodnota <span class="hl">Procenta vzácnosti</span> zobrazí prvky oznámení určené pro "Stříbrné" vzácnosti.<br><br>Jakýkoli úspěch s procentem odemknutí vyšším než tato hodnota zobrazí prvky oznámení určené pro "Bronzové" vzácnosti<br><br><span class="ttdesc">Pokud je povolen <span class="hl">Režim trofejí</span>, bude jakýkoli úspěch s procentem odemknutí nad touto hodnotou zobrazen jako Bronzové oznámení</span>`,
         showpercent: "Zobrazit procento odemknutí achievementu v oznámení pro vybrané typy",
+        showpercentpos: "Nastaví pozici procentuálního vyjádření odemčení úspěchu v oznámení pro vybraný typ(y)",
+        showpercentstyle: "Nastaví styl procentuálního vyjádření odemčení úspěchu v oznámení pro vybraný typ(y)",
         soundonly: "Vypnout oznámení a pouze přehrát zvuky nastavené pomocí přizpůsobovače",
         extwin: "Vytvořte okno, které duplikuje všechna oznámení momentálně zobrazená na obrazovce. Toto okno může být následně přidáno jako zdroj zachytávání okna pro použití v softwaru pro streamování, jako je OBS",
         extwinframerate: "Nastavit cílovou snímkovou frekvenci pro oznámení streamu",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Zkopírovat vybraný motiv do jiného typu oznámení",
         ssaddtosteam: "Automaticky přidat vygenerovaná média do záznamů a snímků obrazovky aktuální hry ve Steam",
         appdatadir: "Otevřít umístění složky AppData aplikace",
+        cleariconcache: "Smazat všechny dříve uložené ikony achievementů z mezipaměti",
         backup: "Zálohujte obsah složky AppData aplikace do vybraného umístění, které bude sloužit jako bod obnovení aktuálního stavu aplikace",
         restore: "Obnovte obsah složky AppData aplikace z předchozí zálohy",
         gametimerwin: "Zobrazí časovač na obrazovce ukazující čas potřebný k odemčení všech achievementů pro aktuální hru",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Nastavit vlastní zprávy, které se mají zobrazovat v oznámení",
         customtextunlockmsg: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Zpráva o odemčení<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Zpráva o odemčení zakázána</span>`,
         customtexttitle: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Název achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Název achievementu zakázána</span>`,
-        customtextdesc: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Popis achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Popis achievementu zakázána</span>`
+        customtextdesc: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Popis achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Popis achievementu zakázána</span>`,
+        notifylinemode: "Nastaví maximální počet řádků textu zobrazovaných v oznámeních",
+        notifyoverflow: "Nastaví chování přetékajícího textu v oznámeních",
+        scrollrepeat: `Nastaví, kolikrát se bude přetékající text posouvat, dokud je oznámení na obrazovce<br><br><span class="ttdesc">Rychlost posouvání závisí na době zobrazení, ale vyšší hodnoty opakování nemusí být vhodné pro všechna přednastavení</span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

@@ -200,6 +200,15 @@ export const translations = {
                 all: "Alle",
                 off: "Fra",
                 showpercent: "Vis procent",
+                showpercentpos: "Procentplacering",
+                showpercentstyle: "Procentstil",
+                left: "Venstre",
+                right: "Højre",
+                brackets: "()",
+                sqbrackets: "[]",
+                dash: "-",
+                pipe: "|",
+                none: "Ingen",
                 soundonly: "Lyd kun",
                 nowtracking: "Vis sporingsmeddelelse",
                 nowtrackingscale: "Sporingsskala",
@@ -222,10 +231,12 @@ export const translations = {
                 trophymode: "Trofætilstand",
                 notifymax: "Maksimalt antal notifikationer", 
                 notifyspace: "Afstand mellem notifikationer",
-                notify1line: "Begræns tekst til 1 linje",
-                testnotifycustomtext: "Brugerdefineret tekst til testmeddelelse",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beskrivelse"
+                notifylinemode: "Linjetilstand",
+                single: "Enkelt",
+                max: "Maksimum",
+                notifyoverflow: "Tekstoverløbstilstand",
+                ellipsis: "Udeladelsestegn",
+                scroll: "Rulning"
             }
         },
         games: {
@@ -340,6 +351,7 @@ export const translations = {
                 audiocooldown: "Lydnedkøling",
                 usecustomfiles: "Brug tilpassede app-filer",
                 showcustomfiles: "Vis tilpassede app-filer",
+                cleariconcache: "Ryd ikoncache",
                 appdatadir: "Vis AppData-mappe",
                 backup: "Backup",
                 backuppath: "Backup-sti",
@@ -416,7 +428,8 @@ export const translations = {
                 usecustomtext: "Brugerdefineret tekst",
                 customtextunlockmsg: "Oplåsningsbesked",
                 customtexttitle: "Præstationstitel",
-                customtextdesc: "Præstationsbeskrivelse"
+                customtextdesc: "Præstationsbeskrivelse",
+                scrollrepeat: "Gentagelse af rulning"
             }
         },
         sound: {
@@ -628,8 +641,8 @@ export const translations = {
         discord: "Deltag på Discord!",
         github: "Rapporter et problem",
         lang: "Vælg det sprog, der bruges i appen",
-        steamlang: `Forsøg at indlæse oversættelser placeret i Steams applikationsfiler for at vise præstationsinformation på brugerens valgte sprog i Steam-klienten<br><br><span class="ttdesc">Denne mulighed forsøger at finde oversættelser i en JSON-fil, der er gemt i Steams applikationsdata. Hvis en oversættelse for den aktuelle præstation ikke kan findes, vil præstationsinformation hentet fra Steamworks blive vist i stedet.</span>`,
-        maxsteamlangretries: `Antallet af gange (pr. 100ms), der forsøges at finde gyldige oversættelser for den aktuelle præstation<br><br><span class="ttdesc">Steam gemmer i øjeblikket kun en lille mængde præstationsdata i hver spils tilknyttede JSON-fil. Eventuelle præstationer, der ikke er til stede i denne fil, vil blive tilføjet, når præstationen er låst op.<br><br>Da tilføjelse af nye data kan tage tid, vil en forøgelse af denne værdi øge sandsynligheden for, at der findes oversættelsesdata for den aktuelle præstation, men det kan også forsinke notifikationen, der vises på skærmen, med den tid, der beregnes af denne indstilling.<br><br>Hvis der ikke kan findes gyldige oversættelsesdata for den aktuelle præstation, vil oversættelsen falde tilbage til det sprog, der er angivet i Steamworks.</span>`,
+        steamlang: `Forsøg at indlæse oversættelser fra Steams programfiler for at vise oplysninger om præstationer på det sprog, brugeren har valgt i sin Steam-klient<br><br><span class="ttdesc">Denne indstilling forsøger at finde oversættelser i en JSON-fil, der er gemt i Steams programdata. Hvis der ikke kan findes en oversættelse til den aktuelle præstation, vises oplysningerne om præstationen, der er hentet fra Steams interne binære filer, i stedet</span>`,
+        maxsteamlangretries: `Antallet af gange, der forsøges (for hver 100ms) at finde gyldige oversættelser til den aktuelle præstation<br><br><span class="ttdesc">Steam gemmer i øjeblikket kun en lille mængde præstationsdata i JSON-filen, der er knyttet til hvert spil. Alle præstationer, der ikke findes i denne fil, tilføjes, efter at de er blevet låst op.<br><br>Da det kan tage tid at tilføje nye data, vil en forøgelse af denne værdi øge sandsynligheden for, at oversættelsesdata til den aktuelle præstation findes, men det kan også forsinke visningen af meddelelsen på skærmen med det tidsrum, der beregnes ud fra denne indstilling.<br><br>Hvis der ikke kan findes gyldige oversættelsesdata til den aktuelle præstation, vil engelske oversættelser blive brugt i stedet.</span>`,
         desktop: "Skift en genvej på skrivebordet for at køre appen",
         startwin: "Start Steam Achievement Notifier automatisk efter login",
         startmin: "Efter lancering skjul appens brugergrænsefladevindue, indtil det åbnes fra systembakken",
@@ -638,6 +651,8 @@ export const translations = {
         rarity: `Procenten hvor notifikationer for Sjældne præstationer udløses.<br><br>Enhver præstation med en oplåsningsprocent over denne værdi vil blive vist som en Hoved-notifikation<br><br><span class="ttdesc">Hvis <span class="hl">Trofætilstand</span> er aktiveret, vil enhver præstation med en oplåsningsprocent over denne værdi i stedet blive vist som en Sølv-notifikation</span>`,
         semirarity: `Procenten hvor "Sølv"-notifikationselementer vises (f.eks. <span class="hl">Sjældenhedsemblemer</span>, <span class="hl">Dekorationer</span> osv.).<br><br>Enhver præstation med en oplåsningsprocent under (eller lig med) denne værdi og over værdien for <span class="hl">Sjældenhedsprocent</span>, vil vise notifikationselementer konfigureret til "Sølv"-sjældenheder.<br><br>Enhver præstation med en oplåsningsprocent over denne værdi vil vise notifikationselementer konfigureret til "Bronze"-sjældenheder<br><br><span class="ttdesc">Hvis <span class="hl">Trofætilstand</span> er aktiveret, vil enhver præstation med en oplåsningsprocent over denne værdi i stedet blive vist som en Bronze-notifikation</span>`,
         showpercent: "Vis låseprocenten af præstationen i meddelelsen for de valgte typer",
+        showpercentpos: "Angiver placeringen af præstationsoplåsningsprocenten i meddelelsen for de valgte typer",
+        showpercentstyle: "Angiver stilen for præstationsoplåsningsprocenten i meddelelsen for de valgte typer",
         soundonly: "Deaktiver meddelelser og afspil kun lyde, der er indstillet via Tilpasning",
         extwin: "Opret et vindue, der duplicerer alle meddelelser, der i øjeblikket vises på skærmen. Dette vindue kan derefter tilføjes som en vinduesoptagelseskilde til brug i streaming-software som OBS",
         extwinframerate: "Indstil den målrettede billedhastighed for stream-notifikationer",
@@ -883,6 +898,7 @@ export const translations = {
         copytheme: "Kopiér det valgte tema til en anden notifikationstype",
         ssaddtosteam: "Tilføj automatisk genereret medie til den aktuelle spils Optagelser og Skærmbilleder i Steam",
         appdatadir: "Åbn placeringen af appens AppData-mappe",
+        cleariconcache: "Slet alle tidligere cachelagrede præstationsikoner",
         backup: "Lav en backup af indholdet i appens AppData-mappe til et valgt sted, som vil fungere som et gendannelsespunkt for den nuværende tilstand af appen",
         restore: "Gendan indholdet af appens AppData-mappe fra en tidligere backup",
         gametimerwin: "Viser en timer på skærmen, der viser den tid, det tager at låse op for alle achievements i det aktuelle spil",
@@ -909,7 +925,10 @@ export const translations = {
         usecustomtext: "Angiv brugerdefinerede beskeder, der skal vises i notifikationen",
         customtextunlockmsg: `Angiv en brugerdefineret besked, der skal vises i elementet Oplåsningsbesked<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Oplåsningsbesked er deaktiveret</span>`,
         customtexttitle: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationstitel<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationstitel er deaktiveret</span>`,
-        customtextdesc: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationsbeskrivelse<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationsbeskrivelse er deaktiveret</span>`
+        customtextdesc: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationsbeskrivelse<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationsbeskrivelse er deaktiveret</span>`,
+        notifylinemode: "Angiver det maksimale antal tekstlinjer, der skal vises i meddelelser",
+        notifyoverflow: "Angiver, hvordan overskydende tekst håndteres i meddelelser",
+        scrollrepeat: `Angiver, hvor mange gange overskydende tekst ruller, mens meddelelsen vises på skærmen<br><br><span class="ttdesc">Rullehastigheden afhænger af visningstiden, men højere gentagelsesværdier er muligvis ikke egnede til alle forudindstillinger</span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

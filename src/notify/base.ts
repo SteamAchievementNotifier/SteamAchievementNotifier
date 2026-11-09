@@ -13,6 +13,14 @@ const hiddenelems = [
     "ps5"
 ]
 
+const styles = {
+    brackets: ["(",")"],
+    sqbrackets: ["[","]"],
+    dash: "-",
+    pipe: "|",
+    none: ""
+}
+
 let notifyid: number = -1
 
 const notifyhelper = {
@@ -222,7 +230,8 @@ const notifyhelper = {
                 ["--iconborderscale",`${customisation.iconborderscale / 100}`],
                 ["--iconborderx",`${customisation.iconborderx}`],
                 ["--iconbordery",`${customisation.iconbordery}`],
-                ["--textvspace",`${customisation.textvspace}`]
+                ["--textvspace",`${customisation.textvspace}`],
+                ["--scrollrepeat",`${customisation.scrollrepeat}`]
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")
@@ -260,6 +269,104 @@ const notifyhelper = {
     
             return reject(errobj)
         })
+    },
+    setstyle: (str: string,value: string | string[],pos: "left" | "right") => {
+        if (!str) return ""
+        if (Array.isArray(value)) return `${value[0]}${str}${value[1]}`
+        return pos === "left" ? `${str}${value ? ` ${value} ` : ""}` : `${value ? ` ${value} ` : ""}${str}`
+    },
+    isoverflowing: (elem: HTMLElement): boolean => {
+        const clone = elem.cloneNode(true) as HTMLElement
+
+        Object.assign(clone.style,{
+            position: "absolute",
+            visibility: "hidden",
+            pointerEvents: "none",
+            width: `${elem.clientWidth}px`,
+            height: "auto",
+            maxHeight: "none",
+            overflow: "visible",
+            whiteSpace: "normal",
+            textOverflow: "clip",
+            display: "block",
+            WebkitLineClamp: "unset",
+            WebkitBoxOrient: "initial"
+        })
+
+        elem.parentElement!.appendChild(clone)
+
+        const range = document.createRange()
+        range.selectNodeContents(clone)
+
+        const rects = Array.from(range.getClientRects())
+        const lines = new Set(rects.map(rect => Math.round(rect.top)))
+
+        clone.remove()
+
+        return lines.size > 1
+    },
+    waitforlayout: async (elem: HTMLElement): Promise<void> => {
+        await document.fonts.ready
+
+        const nextframe = () => new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
+        const getelemsize = () => {
+            const { width, height } = elem.getBoundingClientRect()
+            return `${width}x${height}`
+        }
+
+        let previous = getelemsize()
+        let frames = 0
+
+        while (frames < 2) {
+            await nextframe()
+            const current = getelemsize()
+
+            frames = current === previous ? frames + 1 : 0
+            previous = current
+        }
+    },
+    addscroller: async (elem: HTMLElement) => {
+        let scroller = elem.querySelector(".scroller") as HTMLElement | null
+
+        if (!scroller) {
+            const html = elem.innerHTML
+            elem.innerHTML = ""
+
+            scroller = document.createElement("span")
+            scroller.className = "scroller"
+            scroller.innerHTML = html
+
+            for (const attr of ["gs","unit"]) {
+                elem.hasAttribute(attr) && scroller!.setAttribute(attr,elem.getAttribute(attr)!)
+            }
+            
+            elem.appendChild(scroller)
+        }
+
+        await document.fonts.ready
+        await notifyhelper.waitforlayout(elem)
+
+        const scrolldistance = Math.max(0,scroller.scrollWidth - elem.clientWidth)
+        scroller.style.setProperty("--scrolldistance",`${scrolldistance}px`)
+
+        await notifyhelper.syncscroller(scroller)
+    },
+    syncscroller: async (scroller: HTMLElement) => {
+        const anims = scroller.getAnimations() as CSSAnimation[]
+        if (!anims.length) return
+
+        await Promise.all(anims.map(anim => anim.ready))
+
+        const animset = new Set<CSSAnimation>(anims)
+        
+        const start = (document.getAnimations() as CSSAnimation[]).filter(anim => !animset.has(anim)).map(anim => anim.startTime as number | null).filter(starttime => starttime !== null)
+        if (!start.length) return
+
+        const origin = Math.min(...start)
+
+        for (const anim of anims) {
+            anim.startTime = origin
+        }
     }
 }
 
@@ -267,7 +374,7 @@ try {
     document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send(`animend_${notifyid}`,notifyid))
     
     ipcRenderer.on("notify",async (event,obj: Info,id: number) => {
-        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notify1line, ra } = obj
+        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notifylinemode, notifyoverflow, showpercentpos, showpercentstyle, ra } = obj
         notifyid = id // Store globally to access in "notifyfinished" IPC event
     
         try {
@@ -276,7 +383,7 @@ try {
     
             const ssdisplay = screenshots === "overlay" && customisation.ssdisplay
             document.body.toggleAttribute("ssdisplay",ssdisplay)
-            document.body.toggleAttribute("notify1line",notify1line)
+            document.body.toggleAttribute("notify1line",notifylinemode === "single")
             document.body.toggleAttribute("nodecorationshadow",!customisation.decorationshadow)
     
             if (iswebview === "customiser") {
@@ -329,11 +436,12 @@ try {
                 const achicons = document.querySelectorAll("#achicon")!
                 achicons.forEach(achicon => (achicon as HTMLImageElement)!.src = icon)
     
+                const ss = iswebview && !customisation.elemsmatch && iswebview.startsWith("ss") ? "ss" : ""
+
                 const percentvalue = Math.max(parseFloat(percent.value.toFixed(1)),0.1)
-                const percentstr = customisation.percentbadge ? "" : `${((type === "main" || type === "semi") && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? ` (${percentvalue}%)` : ""}`
+                const percentstr = customisation[`${ss}percentbadge`] ? "" : `${((type === "main" || type === "semi") && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? `${percentvalue}%` : ""}`
                 const percentimg = percentvalue <= percent.rarity ? "gold" : ((percentvalue <= percent.semirarity && percentvalue > percent.rarity) ? "silver" : "bronze")
     
-                const ss = iswebview && !customisation.elemsmatch && iswebview.startsWith("ss") ? "ss" : ""
                 customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : `${percentvalue}%`}</span>`))
     
                 const str = {
@@ -356,10 +464,10 @@ try {
                         if (!customisation[`${ss}${type}pos`] || customisation[`${ss}${type}pos`] + (ssnodetails ? 1 : 0) !== pos) return ""
                         
                         switch (type) {
-                            case "percent": return ` ${percentstr}`
+                            case "percent": return notifyhelper.setstyle(percentstr,styles[showpercentstyle],showpercentpos)
                             case "hiddenicon": return customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""
                             case "decoration": return customisation[`${ss}decorationpos`] ? `<span id="decoration"></span>` : ""
-                            default: ""
+                            default: return ""
                         }
                     }
     
@@ -370,13 +478,32 @@ try {
                     ])
                     .forEach((value,key) => {
                         const elem = document.getElementById(key)!
-                        elem.innerHTML = `${addelem("decoration",value[0])}${addelem("hiddenicon",value[0])}${key === "unlockmsg" && ssnodetails ? "" : str[filter[value[1]]] || ""}${addelem("percent",value[0])}`
+                        const desc = key === "unlockmsg" && ssnodetails ? "" : str[filter[value[1]]] || ""
+                        const decoration = addelem("decoration",value[0])
+                        const hiddenicon = addelem("hiddenicon",value[0])
+                        const percent = addelem("percent",value[0])
+                        const text = (showpercentpos === "left" ? [percent,desc] : [desc,percent]).filter(text => !!text).join(" ")
+
+                        elem.innerHTML = `${decoration}${hiddenicon}${text}`
+                        
                         // Once `innerHTML` has been added, see if it has any `textContent`. If not, remove the element's `innerHTML`
                         // Not ideal, but "hiddenicon"/"decoration" elements aren't added until the text is, so checking for `textContent` beforehand added won't work
-                        !elem.textContent && (elem.innerHTML = "")
+                        !elem.textContent?.trim() && (elem.innerHTML = "")
                     })
     
                     document.documentElement.style.setProperty("--decorationindex",(customisation[`${ss}decorationpos`]).toString())
+
+                    notifylinemode === "single" && notifyoverflow === "scroll" && requestAnimationFrame(async () => {
+                        for (const elem of Array.from(document.querySelectorAll("#unlockmsg,#title,#desc")) as HTMLElement[]) {
+                            if (!elem.textContent || ss) continue
+    
+                            await notifyhelper.waitforlayout(elem)
+                            notifyhelper.isoverflowing(elem) && await notifyhelper.addscroller(elem)
+                            
+                            elem.addEventListener("animationstart",async ({ animationName }) => (animationName === "fadein" || animationName === "slideup") && await notifyhelper.addscroller(elem)) // Start scrolling when text animation starts
+                            customisation.preset === "default" && document.getElementById("achcont")!.addEventListener("animationend",async ({ animationName }) => animationName === "expand" && await notifyhelper.addscroller(elem)) // Start scrolling when container has fully expanded
+                        }
+                    })
                 }
                 
                 if (!steampath) throw new Error(`Steam installation path not found!`)

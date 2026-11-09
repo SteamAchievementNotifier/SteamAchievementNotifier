@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Die Farbe des ersten Textelements festlegen",
         titlefontcolor: "Die Farbe des zweiten Textelements festlegen",
         descfontcolor: "Die Farbe des dritten Textelements festlegen",
-        exportachdata: `Erfolgsdaten in eine JSON-Datei exportieren, wenn ein Erfolg freigeschaltet wird<br><br><span class="ttdesc">Wenn aktiviert, wird <span class="ttcode">achdata.json</span> exportiert nach:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Erfolgsdaten in eine JSON-Datei exportieren, wenn ein Erfolg freigeschaltet wird<br><br><span class="ttdesc">Wenn aktiviert, wird <span class="ttcode">achdata.json</span> exportiert nach:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Passt den vertikalen Abstand zwischen den Textelementen in der Benachrichtigung an",
         ssmode: `Legen Sie fest, ob Screenshots den gesamten Bildschirm oder das aktuelle Spielfenster erfassen<span style="color: red;">*</span><br><br><span class="ttdesc">Wenn die <span class="hl">ausführbare Datei</span> des aktuellen Spiels nicht gefunden werden kann (<i>entweder über die <span class="hl">automatische Prozessverfolgung</span> oder beim Hinzufügen als Eintrag in <span class="hl">Automatische Spielfreigabe</span></i>), wird diese Option standardmäßig auf den Modus „Bildschirm“ gesetzt</span>`,
         replaynotify: "Wiederhole die letzte Erfolgsbenachrichtigung",

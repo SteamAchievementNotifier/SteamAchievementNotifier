@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "设置第一个文本元素的颜色",
         titlefontcolor: "设置第二个文本元素的颜色",
         descfontcolor: "设置第三个文本元素的颜色",
-        exportachdata: `当成就解锁时，将成就数据导出到 JSON 文件<br><br><span class="ttdesc">启用时，<span class="ttcode">achdata.json</span> 将导出到:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `当成就解锁时，将成就数据导出到 JSON 文件<br><br><span class="ttdesc">启用时，<span class="ttcode">achdata.json</span> 将导出到:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "调整通知中文本元素之间的垂直间距",
         ssmode: `设置截图时捕获整个屏幕还是当前游戏窗口<span style="color: red;">*</span><br><br><span class="ttdesc">如果无法定位当前游戏的 <span class="hl">可执行文件</span>（<i>无论是通过 <span class="hl">自动进程跟踪</span>，还是作为 <span class="hl">自动释放游戏</span> 条目添加时</i>），此选项将默认使用“屏幕”模式</span>`,
         replaynotify: "重播最后的成就通知",

@@ -2,7 +2,7 @@ import { app } from "electron"
 import path from "path"
 
 if (process.platform === "win32" && process.env.npm_lifecycle_event !== "dev") {
-    const appdir = path.join(process.env.localappdata!,"Programs",app.name)
+    const appdir = path.dirname(process.execPath)
     process.cwd() !== appdir && process.chdir(appdir)
 }
 
@@ -13,6 +13,11 @@ import { sanconfig } from "./config"
 import { log } from "./log"
 import { error } from "./error"
 import { main } from "./main"
+import { lt, valid } from "semver"
+import { update } from "./update"
+
+const legacydir = update.getlegacydir()
+const result = legacydir && update.migrateappdata(legacydir)
 
 sanconfig.get().store.colorprofile !== "none" && app.commandLine.appendSwitch("force-color-profile",sanconfig.get().store.colorprofile)
 
@@ -38,6 +43,8 @@ checksingleinstance(lock)
 
 const starttime = new Date().toLocaleTimeString()
 log.init("APP")
+
+result && log.write(result.level,result.msg)
 
 ;(async () => log.write("INFO",`OS: ${await sanhelper.getosinfo()}`))()
 
@@ -119,13 +126,8 @@ new Map<string,NotifyType | undefined>([
 .forEach((value,key) => resetlegacykey(key,value))
 
 const getcustomfilesversion = (packagepath: string): string => {
-    try {
-        if (!fs.existsSync(packagepath)) throw new Error(`"package.json" does not exist in "${path.join(sanhelper.appdata,"customfiles")}"`)
-        return (JSON.parse(fs.readFileSync(packagepath).toString())).version
-    } catch (err) {
-        log.write("ERROR",`Error parsing package version number in "${packagepath}": ${err as Error}`)
-        return "0.0.0"
-    }
+    const version = (JSON.parse(fs.readFileSync(packagepath).toString())).version
+    return valid(version) ? version : "0.0.0"
 }
 
 const checkdir = (dirpath: string,callback: () => void,msg: string) => {
@@ -138,7 +140,7 @@ const checkdir = (dirpath: string,callback: () => void,msg: string) => {
         const { semver } = sanhelper
         if (!semver) throw new Error("Unable to parse semver")
         
-        if (parseInt(customfilesversion.split(".")[2]) < parseInt(semver.split(".")[2])) {
+        if (lt(customfilesversion,semver)) {
             log.write("INFO",`"${dirpath}" Package Version (${customfilesversion}) is outdated compared to current App Version (${sanhelper.semver}): Attempting backup...`)
 
             try {
@@ -184,7 +186,8 @@ const ignore = [
     "tsconfig.json",
     "_template",
     "_template.html",
-    "afterpack.js"
+    "afterpack.js",
+    "patches"
 ]
 
 const copyrecursive = (src: string,dest: string,ignore: Set<string>) => {

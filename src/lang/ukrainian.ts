@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Встановити колір першого текстового елемента",
         titlefontcolor: "Встановити колір другого текстового елемента",
         descfontcolor: "Встановити колір третього текстового елемента",
-        exportachdata: `Експортувати дані досягнень у JSON-файл при розблокуванні досягнення<br><br><span class="ttdesc">Якщо увімкнено, <span class="ttcode">achdata.json</span> буде експортовано до:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Експортувати дані досягнень у JSON-файл при розблокуванні досягнення<br><br><span class="ttdesc">Якщо увімкнено, <span class="ttcode">achdata.json</span> буде експортовано до:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Налаштуйте вертикальний інтервал між текстовими елементами сповіщення",
         ssmode: `Налаштуйте, чи потрібно робити знімки екрана всього екрана або поточного вікна гри<span style="color: red;">*</span><br><br><span class="ttdesc">Якщо <span class="hl">виконуваний файл</span> поточної гри не вдається знайти (<i>ані через <span class="hl">автоматичне відстеження процесів</span>, ані під час додавання як запису <span class="hl">Ігри з Автоматичним Звільненням</span></i>), цей параметр за замовчуванням використовуватиме режим "Екран"</span>`,
         replaynotify: "Повторити останнє сповіщення про досягнення",

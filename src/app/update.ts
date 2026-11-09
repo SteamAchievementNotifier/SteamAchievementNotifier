@@ -1,17 +1,19 @@
 import { ipcMain, ipcRenderer, BrowserWindow, shell } from "electron"
 import path from "path"
+import fs from "fs"
 import { autoUpdater } from "electron-updater"
 import { sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { dialog } from "./dialog"
 import { language } from "./language"
+import { coerce, lt, rcompare, inc } from "semver"
 
 export const update = {
     check: () => !sanhelper.devmode ? autoUpdater.checkForUpdates() : log.write("INFO",`Unable to check for updates in devmode`),
     setlisteners: (win: BrowserWindow) => {
         autoUpdater.autoDownload = false
-        sanhelper.devmode && ipcMain.on("availabletest",(event,newversion: string) => win.webContents.send("updateavailable",newversion || "1.9.X"))
-        sanhelper.devmode && ipcMain.on("noupdatetest",(event,currentversion: string) => win.webContents.send("noupdateavailable",currentversion || "1.9.X"))
+        sanhelper.devmode && ipcMain.on("availabletest",(event,newversion: string) => win.webContents.send("updateavailable",newversion || inc(sanhelper.semver!,"patch")!))
+        sanhelper.devmode && ipcMain.on("noupdatetest",(event,currentversion: string) => win.webContents.send("noupdateavailable",currentversion || sanhelper.semver!))
 
         ipcMain.once("updateconfirmed",() => autoUpdater.downloadUpdate())
         autoUpdater.on("checking-for-update",() => update.ipc(win,"Checking for update..."))
@@ -99,5 +101,39 @@ export const update = {
         
         const availabletest = (newversion: string) => ipcRenderer.send("availabletest",newversion)
         window.availabletest = availabletest
+    },
+    migrateappdata: (legacypath: string) => {
+        const newconfig = path.join(sanhelper.appdata,"config.json")
+
+        if (legacypath !== sanhelper.appdata && !fs.existsSync(newconfig) && fs.existsSync(path.join(legacypath,"config.json"))) {
+            try {
+                fs.cpSync(legacypath,sanhelper.appdata,{
+                    recursive: true,
+                    filter: src => path.relative(legacypath,src) !== "logs"
+                })
+                return { level: "INFO", msg: `Migrated "${legacypath}" to "${sanhelper.appdata}" successfully` } as MigrationResult
+            } catch (err) {
+                try { fs.rmSync(newconfig,{ force: true }) } catch {}
+                return { level: "ERROR", msg: `Error migrating "${legacypath}" to "${sanhelper.appdata}": ${(err as Error).message}` } as MigrationResult
+            }
+        }
+    },
+    getlegacydir: () => {
+        try {
+            const parent = path.dirname(sanhelper.appdata)
+            const current = coerce(sanhelper.version)!
+    
+            return fs.readdirSync(parent,{ withFileTypes: true })
+                .filter(entry => entry.isDirectory())
+                .map(entry => ({
+                    entry,
+                    match: /^Steam Achievement Notifier \(V(\d+\.\d+)\)( \[DEVMODE\])?$/.exec(entry.name)
+                }))
+                .filter(({ match }) => match && !!match[2] === sanhelper.devmode && lt(coerce(match[1])!,current))
+                .sort((a,b) => rcompare(coerce(a.match![1])!,coerce(b.match![1])!))
+                .map(({ entry }) => path.join(parent,entry.name))[0]
+        } catch {
+            return undefined
+        }
     }
 }

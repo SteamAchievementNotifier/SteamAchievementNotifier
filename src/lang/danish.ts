@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Indstil farven på det første tekstelement",
         titlefontcolor: "Indstil farven på det andet tekstelement",
         descfontcolor: "Indstil farven på det tredje tekstelement",
-        exportachdata: `Eksporter præstationsdata til en JSON-fil, når en præstation låses op<br><br><span class="ttdesc">Når aktiveret, vil <span class="ttcode">achdata.json</span> blive eksporteret til:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Eksporter præstationsdata til en JSON-fil, når en præstation låses op<br><br><span class="ttdesc">Når aktiveret, vil <span class="ttcode">achdata.json</span> blive eksporteret til:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Justerer den lodrette afstand mellem textelementerne i notifikationen",
         ssmode: `Indstil om skærmbilleder skal optage hele skærmen eller det aktuelle spilvindue<span style="color: red;">*</span><br><br><span class="ttdesc">Hvis den aktuelle spils <span class="hl">eksekverbare fil</span> ikke kan findes (<i>enten via <span class="hl">automatisk processporing</span> eller når den tilføjes som en post i <span class="hl">Automatisk frigivelse af spil</span></i>), vil denne indstilling som standard blive sat til tilstanden "Skærm"</span>`,
         replaynotify: "Gentag den seneste præstationsnotifikation",

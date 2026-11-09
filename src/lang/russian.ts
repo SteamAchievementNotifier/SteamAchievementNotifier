@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Установить цвет первого текстового элемента",
         titlefontcolor: "Установить цвет второго текстового элемента",
         descfontcolor: "Установить цвет третьего текстового элемента",
-        exportachdata: `Экспортировать данные достижений в файл JSON при разблокировке достижения<br><br><span class="ttdesc">При включении файл <span class="ttcode">achdata.json</span> будет экспортирован в:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Экспортировать данные достижений в файл JSON при разблокировке достижения<br><br><span class="ttdesc">При включении файл <span class="ttcode">achdata.json</span> будет экспортирован в:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Настройка вертикального интервала между текстовыми элементами в уведомлении",
         ssmode: `Задаёт, следует ли в скриншотах захватывать весь экран или текущее окно игры<span style="color: red;">*</span><br><br><span class="ttdesc">Если <span class="hl">исполняемый файл</span> текущей игры не может быть найден (<i>ни через <span class="hl">автоматическое отслеживание процессов</span>, ни при добавлении в качестве записи <span class="hl">Игр с автоосвобождением</span></i>), этот параметр по умолчанию будет установлен в режим «Экран»</span>`,
         replaynotify: "Повторить последнее уведомление о достижении",

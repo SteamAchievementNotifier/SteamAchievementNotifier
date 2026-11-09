@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Imposta il colore del primo elemento di testo",
         titlefontcolor: "Imposta il colore del secondo elemento di testo",
         descfontcolor: "Imposta il colore del terzo elemento di testo",
-        exportachdata: `Esporta i dati di successo in un file JSON quando un successo viene sbloccato<br><br><span class="ttdesc">Quando abilitato, <span class="ttcode">achdata.json</span> verrà esportato in:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Esporta i dati di successo in un file JSON quando un successo viene sbloccato<br><br><span class="ttdesc">Quando abilitato, <span class="ttcode">achdata.json</span> verrà esportato in:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Regola la spaziatura verticale tra gli elementi di testo nella notifica",
         ssmode: `Imposta se acquisire l'intero schermo o la finestra del gioco corrente<span style="color: red;">*</span> negli screenshot<br><br><span class="ttdesc">Se il <span class="hl">file eseguibile</span> del gioco corrente non può essere individuato (<i>sia tramite <span class="hl">tracciamento automatico dei processi</span> sia quando aggiunto come voce in <span class="hl">Giochi con rilascio automatico</span></i>), questa opzione utilizzerà per impostazione predefinita la modalità "Schermo"</span>`,
         replaynotify: "Ripeti l'ultima notifica di conquista",

@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "تحديد لون عنصر النص الأول",
         titlefontcolor: "تحديد لون عنصر النص الثاني",
         descfontcolor: "تحديد لون عنصر النص الثالث",
-        exportachdata: `تصدير بيانات الإنجاز إلى ملف JSON عند فتح الإنجاز<br><br><span class="ttdesc">عند التمكين، سيتم تصدير <span class="ttcode">achdata.json</span> إلى:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `تصدير بيانات الإنجاز إلى ملف JSON عند فتح الإنجاز<br><br><span class="ttdesc">عند التمكين، سيتم تصدير <span class="ttcode">achdata.json</span> إلى:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "ضبط التباعد العمودي بين عناصر النص داخل الإشعار",
         ssmode: `حدد ما إذا كان سيتم التقاط الشاشة بالكامل أو نافذة اللعبة الحالية<span style="color: red;">*</span> في لقطات الشاشة<br><br><span class="ttdesc">إذا تعذر تحديد موقع <span class="hl">ملف التشغيل</span> الخاص باللعبة الحالية (<i>سواء عبر <span class="hl">تتبع العمليات التلقائي</span> أو عند إضافتها كإدخال ضمن <span class="hl">التحرير التلقائي للألعاب</span></i>)، فسيتم تعيين هذا الخيار افتراضيًا على وضع "الشاشة"</span>`,
         replaynotify: "أعد تشغيل إشعار الإنجاز الأخير",

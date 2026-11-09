@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "ตั้งค่าสีขององค์ประกอบข้อความแรก",
         titlefontcolor: "ตั้งค่าสีขององค์ประกอบข้อความที่สอง",
         descfontcolor: "ตั้งค่าสีขององค์ประกอบข้อความที่สาม",
-        exportachdata: `ส่งออกข้อมูลความสำเร็จเป็นไฟล์ JSON เมื่อปลดล็อกความสำเร็จ<br><br><span class="ttdesc">เมื่อเปิดใช้งาน <span class="ttcode">achdata.json</span> จะถูกส่งออกไปยัง:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `ส่งออกข้อมูลความสำเร็จเป็นไฟล์ JSON เมื่อปลดล็อกความสำเร็จ<br><br><span class="ttdesc">เมื่อเปิดใช้งาน <span class="ttcode">achdata.json</span> จะถูกส่งออกไปยัง:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "ปรับระยะห่างในแนวตั้งระหว่างองค์ประกอบข้อความในการแจ้งเตือน",
         ssmode: `ตั้งค่าว่าจะจับภาพหน้าจอทั้งหน้าจอหรือหน้าต่างเกมปัจจุบัน<span style="color: red;">*</span><br><br><span class="ttdesc">หากไม่สามารถค้นหา <span class="hl">ไฟล์ปฏิบัติการ</span> ของเกมปัจจุบันได้ (<i>ไม่ว่าจะผ่าน <span class="hl">การติดตามกระบวนการอัตโนมัติ</span> หรือเมื่อเพิ่มเป็นรายการ <span class="hl">เกมปล่อยอัตโนมัติ</span></i>) ตัวเลือกนี้จะใช้โหมด "หน้าจอ" เป็นค่าเริ่มต้น</span>`,
         replaynotify: "เล่นซ้ำการแจ้งเตือนความสำเร็จล่าสุด",

@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "İlk metin öğesinin rengini ayarlayın",
         titlefontcolor: "İkinci metin öğesinin rengini ayarlayın",
         descfontcolor: "Üçüncü metin öğesinin rengini ayarlayın",
-        exportachdata: `Bir başarı kilidi açıldığında başarı verilerini bir JSON dosyasına dışa aktar<br><br><span class="ttdesc">Etkinleştirildiğinde, <span class="ttcode">achdata.json</span> şu konuma dışa aktarılacaktır:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Bir başarı kilidi açıldığında başarı verilerini bir JSON dosyasına dışa aktar<br><br><span class="ttdesc">Etkinleştirildiğinde, <span class="ttcode">achdata.json</span> şu konuma dışa aktarılacaktır:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Bildirimdeki metin öğeleri arasındaki dikey boşluğu ayarla",
         ssmode: `Ekran görüntülerinde tüm ekranın mı yoksa geçerli oyun penceresinin mi yakalanacağını ayarlayın<span style="color: red;">*</span><br><br><span class="ttdesc">Geçerli oyunun <span class="hl">yürütülebilir dosyası</span> bulunamazsa (<i><span class="hl">otomatik işlem izleme</span> yoluyla veya <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> girdisi olarak eklenirken</i>), bu seçenek varsayılan olarak "Ekran" modunu kullanır</span>`,
         replaynotify: "Son Başarı Bildirimini Tekrarla",

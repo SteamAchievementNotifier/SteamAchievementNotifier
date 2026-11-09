@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "設定第一個文字元素的顏色",
         titlefontcolor: "設定第二個文字元素的顏色",
         descfontcolor: "設定第三個文字元素的顏色",
-        exportachdata: `當成就解鎖時，將成就數據匯出為 JSON 文件<br><br><span class="ttdesc">啟用後，<span class="ttcode">achdata.json</span> 將匯出至:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `當成就解鎖時，將成就數據匯出為 JSON 文件<br><br><span class="ttdesc">啟用後，<span class="ttcode">achdata.json</span> 將匯出至:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "調整通知中各文本元素之間的垂直間距",
         ssmode: `設定螢幕截圖時要擷取整個螢幕或目前的遊戲視窗<span style="color: red;">*</span><br><br><span class="ttdesc">如果無法找到目前遊戲的 <span class="hl">可執行檔</span>（<i>無論是透過 <span class="hl">自動處理程序追蹤</span>，或是新增為 <span class="hl">自動釋放遊戲</span> 項目時</i>），此選項將預設使用「螢幕」模式</span>`,
         replaynotify: "重播最後的成就通知",

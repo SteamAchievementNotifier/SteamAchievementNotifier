@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Chọn màu cho phần văn bản đầu tiên",
         titlefontcolor: "Chọn màu cho phần văn bản thứ hai",
         descfontcolor: "Chọn màu cho phần văn bản thứ ba",
-        exportachdata: `Xuất dữ liệu thành tích vào tệp JSON khi một thành tích được mở khóa<br><br><span class="ttdesc">Khi bật, <span class="ttcode">achdata.json</span> sẽ được xuất ra tại:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Xuất dữ liệu thành tích vào tệp JSON khi một thành tích được mở khóa<br><br><span class="ttdesc">Khi bật, <span class="ttcode">achdata.json</span> sẽ được xuất ra tại:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Điều chỉnh khoảng cách dọc giữa các phần tử văn bản trong thông báo",
         ssmode: `Thiết lập việc chụp toàn bộ màn hình hay cửa sổ trò chơi hiện tại<span style="color: red;">*</span> trong ảnh chụp màn hình<br><br><span class="ttdesc">Nếu không thể tìm thấy <span class="hl">tệp thực thi</span> của trò chơi hiện tại (<i>dù là thông qua <span class="hl">theo dõi tiến trình tự động</span> hay khi được thêm làm một mục <span class="hl">Trò chơi Giải phóng Tự động</span></i>), tùy chọn này sẽ mặc định sử dụng chế độ "Màn hình"</span>`,
         replaynotify: "Phát lại thông báo thành tích cuối cùng",

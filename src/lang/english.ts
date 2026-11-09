@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Set the color of the first text element",
         titlefontcolor: "Set the color of the second text element",
         descfontcolor: "Set the color of the third text element",
-        exportachdata: `Export achievement data to a JSON file when an achievement is unlocked<br><br><span class="ttdesc">When enabled, <span class="ttcode">achdata.json</span> will be exported to:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Export achievement data to a JSON file when an achievement is unlocked<br><br><span class="ttdesc">When enabled, <span class="ttcode">achdata.json</span> will be exported to:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Adjust the vertical spacing between text elements within the notification",
         ssmode: `Set whether to capture the entire screen or the current game window<span style="color: red;">*</span> in screenshots<br><br><span class="ttdesc">If the current game's <span class="hl">executable file</span> cannot be located (<i>either via <span class="hl">automatic process tracking</span> or when added as an <span class="hl">Auto-Release Games</span> entry</i>), this option will default to "Screen" mode</span>`,
         replaynotify: "Replay the last achievement notification",

@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Задаване на цвят за първия текстов елемент",
         titlefontcolor: "Задаване на цвят за втория текстов елемент",
         descfontcolor: "Задаване на цвят за третия текстов елемент",
-        exportachdata: `Експортиране на данните за постижения в JSON файл при отключване на постижение<br><br><span class="ttdesc">Ако е активирано, <span class="ttcode">achdata.json</span> ще бъде експортиран в:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Експортиране на данните за постижения в JSON файл при отключване на постижение<br><br><span class="ttdesc">Ако е активирано, <span class="ttcode">achdata.json</span> ще бъде експортиран в:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Регулира вертикалното разстояние между текстовите елементи в известието",
         ssmode: `Задайте дали екранните снимки да улавят целия екран или текущия прозорец на играта<span style="color: red;">*</span><br><br><span class="ttdesc">Ако <span class="hl">изпълнимият файл</span> на текущата игра не може да бъде открит (<i>независимо дали чрез <span class="hl">автоматично проследяване на процеси</span> или когато е добавена като запис в <span class="hl">Автоматично освобождаване на игри</span></i>), тази опция по подразбиране ще бъде зададена на режим „Екран“</span>`,
         replaynotify: "Повтори последното известие за постижение",

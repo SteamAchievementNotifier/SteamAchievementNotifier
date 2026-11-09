@@ -168,14 +168,12 @@ export const screenshot = {
 
             sswins.has(notify.id) && sswins.delete(notify.id)
 
-            // Overlay still waits for the notify window before building the composited shot.
-            // Screenshot Only captures on its own (and may run before SAN's toast via earlycapture).
+            // Overlay waits for the SAN window. Screenshot Only captures without it.
             if (screenshots === "overlay") ipcMain.once(`${notify.id}`,() => screenshot.checkwindowtitle(notify.ra ? "screen" : config.get("ssmode"),notify))
 
             const delay = opts?.skipdelay ? 0 : config.get("ssdelay")
             const srcpath = screenshot.srcpath(notify.id)
             
-            // Window mode uses the author's focused-window lookup. Do not special-case ssmode here.
             const [win,worker,appid] = await Promise.all((["win","worker","appid"] as const).map(lv => screenshot.getlistenersvar(lv))) as [BrowserWindow,BrowserWindow,number]
 
             sswins.set(notify.id,sswinsobj)
@@ -233,7 +231,6 @@ export const screenshot = {
             let { bounds: { width, height } } = !notify.ra && ssmode === "window" && (["width","height"] as const).every(dim => screenshot.sswinbounds.bounds[dim] !== 0) ? screenshot.sswinbounds : monitor
 
             if (screenshots === "ssonly") {
-                // Capture pixels, release deferred SAN notify, then save the file (same capture path as upstream)
                 const runssonlycapture = async () => {
                     let released = false
                     const release = () => {
@@ -251,7 +248,6 @@ export const screenshot = {
                             screenshot.clearsswin(notify.id)
                         }
 
-                        // File copy uses the full notify once localisation/icon prep has finished
                         release()
                     } catch (err) {
                         log.write("ERROR",err as Error)

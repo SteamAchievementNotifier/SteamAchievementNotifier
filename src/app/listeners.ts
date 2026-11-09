@@ -982,7 +982,7 @@ export const listeners = {
         })
 
         const queue: WinType[] = []
-        // Screenshot Only: hold the notification until the screen capture finishes so Steam's achievement toast can still be in frame
+        // Screenshot Only: show SAN's notification only after the capture is saved, so Steam's toast can still be in frame
         const pendingScreenshotOnly = new Map<number,{ wintypeobj: WinType, prep: Promise<void> }>()
         const earlyCaptureStarted = new Set<number>()
         const earlyCaptureFinished = new Map<number,number | undefined>()
@@ -1069,10 +1069,9 @@ export const listeners = {
                     } as BrowserWindowConstructorOptions
                 }
 
-                // Screenshot Only: delay queueing until after the screen capture is saved
                 if (deferssonly) {
                     pendingScreenshotOnly.set(notify.id,{ wintypeobj: { ...wintypeobj, order: 0 } as WinType, prep })
-                    // Safety: never leave the SAN toast hanging if capture stalls
+                    // Show the notification if capture does not finish
                     setTimeout(() => {
                         if (!pendingScreenshotOnly.has(notify.id)) return
                         log.write("WARN",`Screenshot Only capture timed out for id ${notify.id} - showing notification anyway`)
@@ -1101,8 +1100,7 @@ export const listeners = {
             }
 
             try {
-                // Screenshot Only: capture should already have started via `earlycapture`.
-                // Fall back here only if the worker did not send it (e.g. test notifications).
+                // Test notifications do not send `earlycapture`
                 if (deferssonly && !earlyCaptureStarted.has(notify.id)) {
                     worker && worker.webContents.send("steam3id")
                     await new Promise<void>(resolve => setImmediate(resolve))
@@ -1171,7 +1169,6 @@ export const listeners = {
 
                 win.webContents.send("queue",queue)
 
-                // Screenshot Only: notification + sound wait for `ssonly_screenshot_done`
                 if (deferssonly) {
                     // Capture may have finished before notify prep completed
                     if (earlyCaptureFinished.has(notify.id)) {
@@ -1189,7 +1186,7 @@ export const listeners = {
             }
         })
 
-        // Fired from the worker as soon as an unlock is detected — starts capture before icon/localisation work
+        // Unlock path: wait out Screenshot Delay, then fire the Steam hotkey and SAN capture together
         ipcMain.on("earlycapture",async (event,notify: Notify,monitorid?: number) => {
             const config = sanconfig.get()
             if (config.get("screenshots") !== "ssonly" || !notify.customisation.ssenabled || notify.customisation.preset === "os") return
@@ -1198,7 +1195,6 @@ export const listeners = {
             earlyCaptureStarted.add(notify.id)
             log.write("INFO",`Early Screenshot Only capture started for "${notify.apiname}" (id: ${notify.id})`)
 
-            // Apply the author's Screenshot Delay once, then fire Steam + SAN together
             const delaysec = config.get("ssdelay")
             if (delaysec > 0) {
                 log.write("INFO",`Applying Screenshot Delay (${delaysec}s) before Steam/SAN capture...`)

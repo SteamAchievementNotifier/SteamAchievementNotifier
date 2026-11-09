@@ -660,7 +660,7 @@ declare interface SSWin {
     haswarned: boolean,
     capturing: boolean,
     display?: Electron.Display,
-    /** Preserved for Screenshot Only so the deferred notification can reuse the original monitor */
+    /** Monitor for the deferred Screenshot Only notification */
     monitorid?: number
 }
 

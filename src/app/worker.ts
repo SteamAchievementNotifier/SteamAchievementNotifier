@@ -315,7 +315,7 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                 const customisation = usertheme.gettypecustomisation(config,type,themeswitch)
                 const notifyid = Math.round(Date.now() / Math.random() * 1000)
 
-                // Screenshot Only: start capture before localisation/icon awaits. Window bounds come from the author's focused-window lookup on the main process.
+                // Start Screenshot Only before localisation and icon fetches, while the Steam toast is still up.
                 if (config.get("screenshots") === "ssonly" && customisation.ssenabled && customisation.preset !== "os") {
                     const earlynotify: Notify = {
                         id: notifyid,

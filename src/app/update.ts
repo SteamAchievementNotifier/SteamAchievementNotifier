@@ -6,13 +6,13 @@ import { sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { dialog } from "./dialog"
 import { language } from "./language"
-import { coerce, lt, rcompare, inc } from "semver"
+import semver from "semver"
 
 export const update = {
     check: () => !sanhelper.devmode ? autoUpdater.checkForUpdates() : log.write("INFO",`Unable to check for updates in devmode`),
     setlisteners: (win: BrowserWindow) => {
         autoUpdater.autoDownload = false
-        sanhelper.devmode && ipcMain.on("availabletest",(event,newversion: string) => win.webContents.send("updateavailable",newversion || inc(sanhelper.semver!,"patch")!))
+        sanhelper.devmode && ipcMain.on("availabletest",(event,newversion: string) => win.webContents.send("updateavailable",newversion || semver.inc(sanhelper.semver!,"patch")!))
         sanhelper.devmode && ipcMain.on("noupdatetest",(event,currentversion: string) => win.webContents.send("noupdateavailable",currentversion || sanhelper.semver!))
 
         ipcMain.once("updateconfirmed",() => autoUpdater.downloadUpdate())
@@ -121,7 +121,7 @@ export const update = {
     getlegacydir: () => {
         try {
             const parent = path.dirname(sanhelper.appdata)
-            const current = coerce(sanhelper.version)!
+            const current = semver.coerce(sanhelper.version)!
     
             return fs.readdirSync(parent,{ withFileTypes: true })
                 .filter(entry => entry.isDirectory())
@@ -129,11 +129,53 @@ export const update = {
                     entry,
                     match: /^Steam Achievement Notifier \(V(\d+\.\d+)\)( \[DEVMODE\])?$/.exec(entry.name)
                 }))
-                .filter(({ match }) => match && !!match[2] === sanhelper.devmode && lt(coerce(match[1])!,current))
-                .sort((a,b) => rcompare(coerce(a.match![1])!,coerce(b.match![1])!))
+                .filter(({ match }) => match && !!match[2] === sanhelper.devmode && semver.lt(semver.coerce(match[1])!,current))
+                .sort((a,b) => semver.rcompare(semver.coerce(a.match![1])!,semver.coerce(b.match![1])!))
                 .map(({ entry }) => path.join(parent,entry.name))[0]
         } catch {
             return undefined
+        }
+    },
+    /**
+     * Removes/rebuilds the following upon upgrading to next major version.
+     * 
+     * Windows:
+     * - Auto-start entries in the Windows Registry (via `sanhelper.rs`):
+     *      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\Steam Achievement Notifier (VX.X)`
+     *      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run\Steam Achievement Notifier (VX.X)`
+     * - Desktop shortcut (if present): `%userprofile%\Desktop\Steam Achievement Notifier (VX.X).lnk`
+     * 
+     * Linux:
+     * - Auto-start entry:
+     *      - `~/.config/autostart/Steam Achievement Notifier (VX.X).desktop`
+     * - Desktop shortcut (if present):
+     *      - `${xdgdesktopdir}/Steam Achievement Notifier (VX.X).desktop` or
+     *      - `~/Desktop/Steam Achievement Notifier (VX.X).desktop`
+     */
+    cleanup: (legacyversion: string,desktop: boolean,startwin: boolean) => {
+        if (legacyversion === sanhelper.version) return
+
+        try {
+            if (sanhelper.removeautostartentries(legacyversion,process.platform)) {
+                log.write("INFO",`Removed legacy V${legacyversion} autostart entry`)
+                startwin && ipcMain.emit("startwin",null,true) // rebuild under the new name
+            }
+        } catch (err) {
+            log.write("WARN",`Unable to remove legacy V${legacyversion} autostart entry: ${(err as Error).message}`)
+        }
+
+        try {
+            const shortcutdir = sanhelper.desktopshortcutpath(process.platform)
+            if (!shortcutdir) return
+
+            const legacyshortcut = path.join(shortcutdir,`Steam Achievement Notifier (V${legacyversion}).${process.platform === "linux" ? "desktop" : "lnk"}`)
+            if (!fs.existsSync(legacyshortcut)) return
+
+            fs.rmSync(legacyshortcut)
+            log.write("INFO",`Removed legacy V${legacyversion} desktop shortcut`)
+            desktop && sanhelper.desktop(true) // rebuild under the new name
+        } catch (err) {
+            log.write("WARN",`Unable to remove legacy V${legacyversion} desktop shortcut: ${(err as Error).message}`)
         }
     }
 }

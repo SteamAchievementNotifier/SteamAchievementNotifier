@@ -632,6 +632,17 @@ export const listeners = {
             sanhelper.devmode && log.write("INFO",JSON.stringify(app.getLoginItemSettings(),null,4))
         })
 
+        // Clean up after installs of previous version
+        if (!sanhelper.devmode) {
+            const legacydir = update.getlegacydir()
+            const legacyversion = legacydir && /\(V(\d+\.\d+)\)/.exec(path.basename(legacydir))?.[1]
+            
+            if (legacyversion) {
+                const { desktop, startwin } = sanconfig.get().store
+                update.cleanup(legacyversion,desktop,startwin) // Calls `ipcMain.emit("startwin",null,true)`, so needs to be called after the "startwin" listener is set up
+            }
+        }
+
         ipcMain.on("restart",(event,reason: string) => {
             return new Promise(async (resolve,reject) => {
                 if (reason !== "Reset App confirmed by user") return resolve(reason)

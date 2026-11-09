@@ -10,6 +10,7 @@ export interface AppInfo {
   gamename: string
 }
 export function getAppInfo(): Array<AppInfo>
+export function removeAutostartRegKeys(version: string): boolean
 export function pressKeysWin32(keys: Array<number>): void
 export function pressKeysLinux(keys: Array<string>): void
 export function getHqIcon(appid: number): string

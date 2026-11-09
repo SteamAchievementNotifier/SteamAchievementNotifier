@@ -10,7 +10,7 @@ import * as sanhelper_rs from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
-import { gte, major, minor } from "semver"
+import semver from "semver"
 
 const { initLogger, testPanic } = sanhelper_rs.log
 
@@ -66,10 +66,7 @@ export const sanhelper = {
     get beta(): boolean { return !sanhelper.devmode ? !!JSON.parse(fs.readFileSync(path.join(__root,"package.json")).toString())?.beta : (process.type === "renderer" ? ipcRenderer.sendSync("beta") : app.commandLine.hasSwitch("beta")) },
     // `process.env.npm_package_version` is not available in the Renderer on build
     get semver(): string | undefined { return sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion()) },
-    get version(): string {
-        const semver = sanhelper.semver!
-        return `${major(semver)}.${minor(semver)}`
-    },
+    get version(): string { return `${semver.major(sanhelper.semver ?? "0.0.0")}.${semver.minor(sanhelper.semver ?? "0.0.0")}` },
     get appdata(): string { return path.join(process.platform === "linux" ? path.join(process.env.HOME!,".local","share") : process.env.localappdata!,`Steam Achievement Notifier (V${sanhelper.version})${sanhelper.devmode ? " [DEVMODE]" : ""}`) },
     get temp(): string { return sanhelper.devmode ? path.join(__root,"temp") : (process.platform === "linux" ? path.join(sanhelper.appdata,"resources","temp") : path.join(__root,"..","temp")) },
     get icon(): string {
@@ -317,6 +314,7 @@ export const sanhelper = {
         const timer = setTimeout(stop,5000)
     },
     updategamelbl: async (gamename: string | null) => document.querySelector(".rect#game > span")!.textContent = gamename || await language.get("game",["app","content"]),
+    steamlang: () => ipcRenderer.send("steamlang"),
     get linuxshortcut(): string {
         return [
             "[Desktop Entry]",
@@ -329,7 +327,6 @@ export const sanhelper = {
             "Categories=Utility;"
         ].join("\n")
     },
-    steamlang: () => ipcRenderer.send("steamlang"),
     createshortcut: (value: boolean,shortcutpath: string) => {
         if ((!value && !fs.existsSync(shortcutpath)) || (value && fs.existsSync(shortcutpath))) return
 
@@ -350,21 +347,20 @@ export const sanhelper = {
 
         return fs.rmSync(shortcutpath)
     },
-    desktop: (value: boolean) => {
-        const shortcutpath = (platform: string) => {
-            if (platform !== "win32" && platform !== "linux") return ""
+    desktopshortcutpath: (platform: string) => {
+        if (platform !== "win32" && platform !== "linux") return ""
 
-            try {
-                const xdgdesktopdir = fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))?.match(/"([^"]+)"/)?.[1]?.replace(/^\$(?:\{)?HOME(?:\})?/,process.env.HOME!)
-                if (!xdgdesktopdir || (xdgdesktopdir && !fs.existsSync(xdgdesktopdir))) throw new Error(`"${xdgdesktopdir}" not found - reverting to default Desktop path...`)
-                
-                return xdgdesktopdir
-            } catch (err) {
-                return path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
-            }
+        try {
+            const xdgdesktopdir = fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))?.match(/"([^"]+)"/)?.[1]?.replace(/^\$(?:\{)?HOME(?:\})?/,process.env.HOME!)
+            if (!xdgdesktopdir || (xdgdesktopdir && !fs.existsSync(xdgdesktopdir))) throw new Error(`"${xdgdesktopdir}" not found - reverting to default Desktop path...`)
+            
+            return xdgdesktopdir
+        } catch (err) {
+            return path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
         }
-
-        const shortcutdir = shortcutpath(process.platform)
+    },
+    desktop: (value: boolean) => {
+        const shortcutdir = sanhelper.desktopshortcutpath(process.platform)
         shortcutdir && sanhelper.createshortcut(value,path.join(shortcutdir,`Steam Achievement Notifier (V${sanhelper.version}).${process.platform === "linux" ? "desktop" : "lnk"}`))
     },
     startwin: (value: boolean) => ipcRenderer.send("startwin",value),
@@ -1336,14 +1332,11 @@ export const sanhelper = {
 
         const { dialog } = await import("./dialog")
         const { log } = await import("./log")
-        
-        const { semver } = sanhelper
-        if (!semver) throw new Error("Unable to parse semver")
 
         try {
             const tagname = (await (await fetch("https://api.github.com/repos/steamachievementnotifier/steamachievementnotifier/releases")).json())[0].tag_name
             
-            if (gte(tagname,semver)) {
+            if (semver.gte(tagname,sanhelper.semver ?? "0.0.0")) {
                 ipcRenderer.send("betaunsupported")
 
                 dialog.open({
@@ -1361,7 +1354,7 @@ export const sanhelper = {
                         icon: sanhelper.setfilepath("icon","close.svg"),
                         id: "betaexit",
                         label: await language.get("exit"),
-                        click: () => ipcRenderer.send("exit",`Unsupported Beta version installed (Beta: V${semver} | Latest: V${tagname})`)
+                        click: () => ipcRenderer.send("exit",`Unsupported Beta version installed (Beta: V${sanhelper.semver} | Latest: V${tagname})`)
                     }]
                 })
             }
@@ -1477,5 +1470,22 @@ export const sanhelper = {
                 }
             }
         }
+    },
+    removeautostartentries: (version: string,platform: string) => {
+        if (platform !== "win32" && platform !== "linux") return
+
+        if (platform === "linux") {
+            const autostartpath = path.join(process.env.HOME!,".config","autostart")
+            const shortcutpath = path.join(autostartpath,`Steam Achievement Notifier (V${version}).desktop`)
+            
+            if (fs.existsSync(shortcutpath)) {
+                fs.rmSync(shortcutpath)
+                return true
+            }
+
+            return false
+        }
+
+        return sanhelper_rs.removeAutostartRegKeys(version)
     }
 }

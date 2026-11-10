@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Setează culoarea primului element de text",
         titlefontcolor: "Setează culoarea celui de-al doilea element de text",
         descfontcolor: "Setează culoarea celui de-al treilea element de text",
-        exportachdata: `Exportă datele realizărilor într-un fișier JSON atunci când o realizare este deblocat<br><br><span class="ttdesc">Când este activat, <span class="ttcode">achdata.json</span> va fi exportat în:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Exportă datele realizărilor într-un fișier JSON atunci când o realizare este deblocat<br><br><span class="ttdesc">Când este activat, <span class="ttcode">achdata.json</span> va fi exportat în:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Ajustează spațierea verticală dintre elementele de text din notificare",
         ssmode: `Setați dacă în capturile de ecran să fie capturat întregul ecran sau fereastra jocului curent<span style="color: red;">*</span><br><br><span class="ttdesc">Dacă <span class="hl">fișierul executabil</span> al jocului curent nu poate fi localizat (<i>fie prin <span class="hl">urmărirea automată a proceselor</span>, fie atunci când este adăugat ca intrare în <span class="hl">Jocuri cu eliberare automată</span></i>), această opțiune va fi implicit setată pe modul „Ecran”</span>`,
         replaynotify: "Repetă ultima notificare de realizare",

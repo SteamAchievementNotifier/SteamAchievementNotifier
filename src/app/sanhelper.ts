@@ -6,11 +6,11 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-// import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getAllDisplays, getWindowBounds, findElectronDisplay, getSteamActiveUser } from "sanhelper.rs"
 import * as sanhelper_rs from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
+import semver from "semver"
 
 const { initLogger, testPanic } = sanhelper_rs.log
 
@@ -65,8 +65,8 @@ export const sanhelper = {
     // In devmode, run `npm run dev -- --beta` to enable Beta environment
     get beta(): boolean { return !sanhelper.devmode ? !!JSON.parse(fs.readFileSync(path.join(__root,"package.json")).toString())?.beta : (process.type === "renderer" ? ipcRenderer.sendSync("beta") : app.commandLine.hasSwitch("beta")) },
     // `process.env.npm_package_version` is not available in the Renderer on build
-    get version(): number { return parseFloat(sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion())) },
     get semver(): string | undefined { return sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion()) },
+    get version(): string { return `${semver.major(sanhelper.semver ?? "0.0.0")}.${semver.minor(sanhelper.semver ?? "0.0.0")}` },
     get appdata(): string { return path.join(process.platform === "linux" ? path.join(process.env.HOME!,".local","share") : process.env.localappdata!,`Steam Achievement Notifier (V${sanhelper.version})${sanhelper.devmode ? " [DEVMODE]" : ""}`) },
     get temp(): string { return sanhelper.devmode ? path.join(__root,"temp") : (process.platform === "linux" ? path.join(sanhelper.appdata,"resources","temp") : path.join(__root,"..","temp")) },
     get icon(): string {
@@ -259,8 +259,7 @@ export const sanhelper = {
         let count: number = 0
         let pressed: string[] = []
 
-        // "false" unregisters all shortcuts then returns
-        ipcRenderer.send("shortcut",false)
+        ipcRenderer.send("shortcut",false) // "false" unregisters all shortcuts then returns
         
         const keydown = (event: KeyboardEvent) => {
             const key = event.code.toUpperCase()
@@ -315,6 +314,7 @@ export const sanhelper = {
         const timer = setTimeout(stop,5000)
     },
     updategamelbl: async (gamename: string | null) => document.querySelector(".rect#game > span")!.textContent = gamename || await language.get("game",["app","content"]),
+    steamlang: () => ipcRenderer.send("steamlang"),
     get linuxshortcut(): string {
         return [
             "[Desktop Entry]",
@@ -327,7 +327,6 @@ export const sanhelper = {
             "Categories=Utility;"
         ].join("\n")
     },
-    steamlang: () => ipcRenderer.send("steamlang"),
     createshortcut: (value: boolean,shortcutpath: string) => {
         if ((!value && !fs.existsSync(shortcutpath)) || (value && fs.existsSync(shortcutpath))) return
 
@@ -348,21 +347,20 @@ export const sanhelper = {
 
         return fs.rmSync(shortcutpath)
     },
-    desktop: (value: boolean) => {
-        const shortcutpath = (platform: string) => {
-            if (platform !== "win32" && platform !== "linux") return ""
+    desktopshortcutpath: (platform: string) => {
+        if (platform !== "win32" && platform !== "linux") return ""
 
-            try {
-                const xdgdesktopdir = fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))?.match(/"([^"]+)"/)?.[1]?.replace(/^\$(?:\{)?HOME(?:\})?/,process.env.HOME!)
-                if (!xdgdesktopdir || (xdgdesktopdir && !fs.existsSync(xdgdesktopdir))) throw new Error(`"${xdgdesktopdir}" not found - reverting to default Desktop path...`)
-                
-                return xdgdesktopdir
-            } catch (err) {
-                return path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
-            }
+        try {
+            const xdgdesktopdir = fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))?.match(/"([^"]+)"/)?.[1]?.replace(/^\$(?:\{)?HOME(?:\})?/,process.env.HOME!)
+            if (!xdgdesktopdir || (xdgdesktopdir && !fs.existsSync(xdgdesktopdir))) throw new Error(`"${xdgdesktopdir}" not found - reverting to default Desktop path...`)
+            
+            return xdgdesktopdir
+        } catch (err) {
+            return path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
         }
-
-        const shortcutdir = shortcutpath(process.platform)
+    },
+    desktop: (value: boolean) => {
+        const shortcutdir = sanhelper.desktopshortcutpath(process.platform)
         shortcutdir && sanhelper.createshortcut(value,path.join(shortcutdir,`Steam Achievement Notifier (V${sanhelper.version}).${process.platform === "linux" ? "desktop" : "lnk"}`))
     },
     startwin: (value: boolean) => ipcRenderer.send("startwin",value),
@@ -391,8 +389,7 @@ export const sanhelper = {
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
     raui: (value: boolean) => ipcRenderer.send("raui",value),
     trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {
-        // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled
-        ;(async () => await sanhelper.verifylocalstorage("themeswitch"))()
+        ;(async () => await sanhelper.verifylocalstorage("themeswitch"))() // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled
         
         document.body.toggleAttribute("trophymode",value)
 
@@ -421,16 +418,13 @@ export const sanhelper = {
 
         ipcRenderer.send("shortcut",!config.get("noshortcuts"))
 
-        // Below actions should only happen on app load
-        if (customiser) return
+        if (customiser) return // Below actions should only happen on app load
 
         ;(async () => language.load())()
-        // Switch tab back to "Main" if "Semi" is currently selected when toggling Settings > Notifications > Trophy Mode off
-        !value && document.body.hasAttribute("semi") && (document.querySelector(".wrapper#tabs > .tab[main]")! as HTMLButtonElement).click()
+        !value && document.body.hasAttribute("semi") && (document.querySelector(".wrapper#tabs > .tab[main]")! as HTMLButtonElement).click() // Switch tab back to "Main" if "Semi" is currently selected when toggling Settings > Notifications > Trophy Mode off
     },
     getcheckbox: (config: Store<Config>,elem: HTMLInputElement,keypath?: string) => elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean,
     setcheckbox: (config: Store<Config>,event: Event,keypath?: string) => {
-        // event.preventDefault()
         const elem = (event.target instanceof HTMLSpanElement ? event.target.parentElement!.querySelector(`input[type="checkbox"]`)! : event.target!) as HTMLInputElement
         if (raelems.find(id => elem.id === id)) return
 
@@ -448,8 +442,7 @@ export const sanhelper = {
         requestAnimationFrame(() => {
             elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean
             
-            // Call the function matching the id of the element in the `sanhelper` object (ensuring a callable function actually exists beforehand)
-            const sanhelperfn = (sanhelper as Record<string,any>)[elem.id]
+            const sanhelperfn = (sanhelper as Record<string,any>)[elem.id] // Call the function matching the id of the element in the `sanhelper` object (ensuring a callable function actually exists beforehand)
             typeof sanhelperfn === "function" && sanhelperfn(config.get(elem.id) as boolean, elem.id === "trophymode" ? config : undefined)
 
             sanhelper.updatetabs(noreload(elem) !== undefined)
@@ -460,8 +453,7 @@ export const sanhelper = {
         const key = config.get((keypath ? `${keypath}.` : "") + elem.id)
 
         if (elem.id === "monitors" && elem instanceof HTMLSelectElement) {
-            // Resets `<select>` options to prevent duplicates
-            elem.textContent = ""
+            elem.textContent = "" // Resets `<select>` options to prevent duplicates
 
             const monitors = key as Monitor[]
             
@@ -542,8 +534,7 @@ export const sanhelper = {
             ...raelems
         ]
         
-        // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
-        if (skipelems.find(id => elem.id === id)) return
+        if (skipelems.find(id => elem.id === id)) return // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
 
         elem.value = elem.id === "scale" && config.get("notifymax") > 1 ? `${config.get(`customisation.main.${elem.id}`)}` : key.toString()
 
@@ -696,8 +687,7 @@ export const sanhelper = {
         ].join(",")
 
         menuelem.querySelectorAll(elems)!.forEach(async elem => {
-            // Removes previous tooltips from `tippies` array when present
-            const prevtt = tippies.find(tt => tt[0]?.reference === elem.parentElement)
+            const prevtt = tippies.find(tt => tt[0]?.reference === elem.parentElement) // Removes previous tooltips from `tippies` array when present
             prevtt && tippies.splice(tippies.indexOf(prevtt,1)).forEach(tt => tt[0]?.destroy())
 
             const trophies = [
@@ -778,8 +768,7 @@ export const sanhelper = {
             }
         })
 
-        // Changing `menuelem` to `#customisercontent` would be easier, but stops displaying tooltips when changed for some reason
-        const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`)
+        const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`) // Changing `menuelem` to `#customisercontent` would be easier, but stops displaying tooltips when changed for some reason
 
         menu?.querySelectorAll(`input[type="color"]`)?.forEach(async clr => {
             const { sanconfig } = await import("./config")
@@ -956,7 +945,7 @@ export const sanhelper = {
                     `,{
                         ...defaulttippy,
                         maxWidth: sanhelper.maxwidth(wideelems,elem.id),
-                        content: `${await language.get(`${elem.id === "exclusionlist" && settings.querySelector(`.optcont:has(button#listmode[mode="inclusion"]`) ? elem.id.replace(/^ex/,"in") : elem.id}`,["tooltips"])}${(elem.id === "replaynotify" && !document.body.hasAttribute("allowreplay") ? await language.get("replaynotifyempty",["tooltips"]) : "")}`,
+                        content: `${(await language.get(`${elem.id === "exclusionlist" && settings.querySelector(`.optcont:has(button#listmode[mode="inclusion"]`) ? elem.id.replace(/^ex/,"in") : elem.id}`,["tooltips"]) as string | undefined)?.replace(/\$version/g,sanhelper.version)}${(elem.id === "replaynotify" && !document.body.hasAttribute("allowreplay") ? await language.get("replaynotifyempty",["tooltips"]) : "")}`,
                         ...props
                     }) as Instance<Props>[]
             
@@ -1141,9 +1130,8 @@ export const sanhelper = {
                 doctitles && doctitles.forEach(elem => {
                     elem.toggleAttribute("notransition",elem.hasAttribute("closed"))
                     elem.toggleAttribute("closed",closedstate.includes(elem.id))
-    
-                    // Remove "notransition" attribute after transition duration to prevent elements from playing transition animation when opening menu
-                    setTimeout(() => elem.removeAttribute("notransition"),200)
+                    
+                    setTimeout(() => elem.removeAttribute("notransition"),200) // Remove "notransition" attribute after transition duration to prevent elements from playing transition animation when opening menu
                 })
             })
         })
@@ -1151,8 +1139,7 @@ export const sanhelper = {
     presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? sanhelper_rs.pressKeysWin32(keys as number[]) : sanhelper_rs.pressKeysLinux(keys as string[]),100),
     triggerkeypress: async (hotkeys: (string | number)[]) => {
         const { log } = await import("./log")
-        // The required lib is missing if `sanhelper.depsinstalled()` returns a non-empty string, so the value needs to be truthy to trigger the return
-        if (process.platform === "linux" && sanhelper.depsinstalled("keypressrs","media")) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`)
+        if (process.platform === "linux" && sanhelper.depsinstalled("keypressrs","media")) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`) // The required lib is missing if `sanhelper.depsinstalled()` returns a non-empty string, so the value needs to be truthy to trigger the return
         if (!hotkeys?.length) return log.write("WARN",`No valid keys provided to trigger keypress/combo`)
 
         sanhelper.presskeys(hotkeys)
@@ -1210,8 +1197,7 @@ export const sanhelper = {
         const type = sanhelper.type
         const { defaulticons } = sanconfig
 
-        // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
-        ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype]))
+        ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype])) // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
         const index = defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.index
         selectorelems.filter(id => ["percent","hiddenicon","decoration"].find(elemid => id === `${elemid}pos`)).forEach(id => [id,`ss${id}`].forEach(key => index && config.set(`customisation.${type}.${key}`,index[`${key.replace(/^ss/,"").replace(/pos$/,"")}`])))
 
@@ -1346,16 +1332,11 @@ export const sanhelper = {
 
         const { dialog } = await import("./dialog")
         const { log } = await import("./log")
-        
-        const { semver } = sanhelper
-        if (!semver) throw new Error("Unable to parse semver")
 
         try {
             const tagname = (await (await fetch("https://api.github.com/repos/steamachievementnotifier/steamachievementnotifier/releases")).json())[0].tag_name
-            const latest = parseInt(tagname.split(".")[2])
-            const beta = parseInt(semver.split(".")[2])
-
-            if (latest >= beta) {
+            
+            if (semver.gte(tagname,sanhelper.semver ?? "0.0.0")) {
                 ipcRenderer.send("betaunsupported")
 
                 dialog.open({
@@ -1373,7 +1354,7 @@ export const sanhelper = {
                         icon: sanhelper.setfilepath("icon","close.svg"),
                         id: "betaexit",
                         label: await language.get("exit"),
-                        click: () => ipcRenderer.send("exit",`Unsupported Beta version installed (Beta: V1.9.${beta} | Latest: V1.9.${latest})`)
+                        click: () => ipcRenderer.send("exit",`Unsupported Beta version installed (Beta: V${sanhelper.semver} | Latest: V${tagname})`)
                     }]
                 })
             }
@@ -1489,5 +1470,22 @@ export const sanhelper = {
                 }
             }
         }
+    },
+    removeautostartentries: (version: string,platform: string) => {
+        if (platform !== "win32" && platform !== "linux") return
+
+        if (platform === "linux") {
+            const autostartpath = path.join(process.env.HOME!,".config","autostart")
+            const shortcutpath = path.join(autostartpath,`Steam Achievement Notifier (V${version}).desktop`)
+            
+            if (fs.existsSync(shortcutpath)) {
+                fs.rmSync(shortcutpath)
+                return true
+            }
+
+            return false
+        }
+
+        return sanhelper_rs.removeAutostartRegKeys(version)
     }
 }

@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Ange färgen för det första textelementet",
         titlefontcolor: "Ange färgen för det andra textelementet",
         descfontcolor: "Ange färgen för det tredje textelementet",
-        exportachdata: `Exportera prestationsdata till en JSON-fil när en prestation låses upp<br><br><span class="ttdesc">När aktiverat kommer <span class="ttcode">achdata.json</span> att exporteras till:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Exportera prestationsdata till en JSON-fil när en prestation låses upp<br><br><span class="ttdesc">När aktiverat kommer <span class="ttcode">achdata.json</span> att exporteras till:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Justera det vertikala avståndet mellan textelementen i notifikationen",
         ssmode: `Ställ in om hela skärmen eller det aktuella spelfönstret<span style="color: red;">*</span> ska fångas i skärmbilder<br><br><span class="ttdesc">Om den aktuella spelets <span class="hl">körbara fil</span> inte kan hittas (<i>antingen via <span class="hl">automatisk processpårning</span> eller när det läggs till som en post i <span class="hl">Automatiskt Frigjorda Spel</span></i>), kommer detta alternativ som standard att använda läget "Skärm"</span>`,
         replaynotify: "Repetera den senaste prestationen",

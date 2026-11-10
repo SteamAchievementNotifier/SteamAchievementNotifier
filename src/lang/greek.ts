@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Ορίστε το χρώμα του πρώτου στοιχείου κειμένου",
         titlefontcolor: "Ορίστε το χρώμα του δεύτερου στοιχείου κειμένου",
         descfontcolor: "Ορίστε το χρώμα του τρίτου στοιχείου κειμένου",
-        exportachdata: `Εξαγωγή δεδομένων επιτευγμάτων σε αρχείο JSON όταν ένα επίτευγμα ξεκλειδωθεί<br><br><span class="ttdesc">Όταν είναι ενεργοποιημένο, το <span class="ttcode">achdata.json</span> θα εξαχθεί στο εξής:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Εξαγωγή δεδομένων επιτευγμάτων σε αρχείο JSON όταν ένα επίτευγμα ξεκλειδωθεί<br><br><span class="ttdesc">Όταν είναι ενεργοποιημένο, το <span class="ttcode">achdata.json</span> θα εξαχθεί στο εξής:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Ρυθμίζει την κάθετη απόσταση μεταξύ των στοιχείων κειμένου στην ειδοποίηση",
         ssmode: `Ορίστε αν θα γίνεται λήψη στιγμιότυπων ολόκληρης της οθόνης ή του τρέχοντος παραθύρου παιχνιδιού<span style="color: red;">*</span><br><br><span class="ttdesc">Αν το <span class="hl">εκτελέσιμο αρχείο</span> του τρέχοντος παιχνιδιού δεν μπορεί να εντοπιστεί (<i>είτε μέσω <span class="hl">automatic process tracking</span> είτε όταν προστεθεί ως καταχώρηση <span class="hl">Αυτόματη Αποδέσμευση Παιχνιδιών</span></i>), αυτή η επιλογή θα προεπιλεγεί στη λειτουργία "Screen"</span>`,
         replaynotify: "Επανάληψη της τελευταίας ειδοποίησης επιτυχίας",

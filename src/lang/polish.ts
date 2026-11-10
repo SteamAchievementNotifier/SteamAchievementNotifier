@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Ustaw kolor pierwszego elementu tekstowego",
         titlefontcolor: "Ustaw kolor drugiego elementu tekstowego",
         descfontcolor: "Ustaw kolor trzeciego elementu tekstowego",
-        exportachdata: `Eksportuj dane osiągnięć do pliku JSON, gdy osiągnięcie zostanie odblokowane<br><br><span class="ttdesc">Po włączeniu, plik <span class="ttcode">achdata.json</span> zostanie wyeksportowany do:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Eksportuj dane osiągnięć do pliku JSON, gdy osiągnięcie zostanie odblokowane<br><br><span class="ttdesc">Po włączeniu, plik <span class="ttcode">achdata.json</span> zostanie wyeksportowany do:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Dostosuj pionowy odstęp między elementami tekstowymi w powiadomieniu",
         ssmode: `Ustaw, czy w zrzutach ekranu przechwytywać cały ekran czy bieżące okno gry<span style="color: red;">*</span><br><br><span class="ttdesc">Jeśli <span class="hl">plik wykonywalny</span> bieżącej gry nie może zostać zlokalizowany (<i>ani przez <span class="hl">automatyczne śledzenie procesów</span>, ani gdy został dodany jako wpis w <span class="hl">Gry z automatycznym zwalnianiem</span></i>), ta opcja domyślnie przełączy się w tryb „Ekran”</span>`,
         replaynotify: "Powtórz ostatnie powiadomienie o osiągnięciu",

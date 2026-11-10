@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Definir a cor do primeiro elemento de texto",
         titlefontcolor: "Definir a cor do segundo elemento de texto",
         descfontcolor: "Definir a cor do terceiro elemento de texto",
-        exportachdata: `Exportar dados de conquista para um arquivo JSON quando uma conquista for desbloqueada<br><br><span class="ttdesc">Quando ativado, <span class="ttcode">achdata.json</span> será exportado para:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Exportar dados de conquista para um arquivo JSON quando uma conquista for desbloqueada<br><br><span class="ttdesc">Quando ativado, <span class="ttcode">achdata.json</span> será exportado para:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Ajusta o espaçamento vertical entre os elementos de texto na notificação",
         ssmode: `Defina se as capturas de ecrã devem capturar o ecrã inteiro ou a janela do jogo atual<span style="color: red;">*</span><br><br><span class="ttdesc">Se o <span class="hl">ficheiro executável</span> do jogo atual não puder ser localizado (<i>quer através do <span class="hl">rastreio automático de processos</span>, quer quando adicionado como uma entrada de <span class="hl">Jogos com libertação automática</span></i>), esta opção será predefinida para o modo "Ecrã"</span>`,
         replaynotify: "Repetir a última notificação de conquista",

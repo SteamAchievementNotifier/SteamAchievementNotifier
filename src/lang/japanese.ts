@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "最初のテキスト要素の色を設定",
         titlefontcolor: "2番目のテキスト要素の色を設定",
         descfontcolor: "3番目のテキスト要素の色を設定",
-        exportachdata: `実績が解除されると、実績データをJSONファイルとしてエクスポート<br><br><span class="ttdesc">有効にすると、<span class="ttcode">achdata.json</span>は以下の場所にエクスポートされます:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `実績が解除されると、実績データをJSONファイルとしてエクスポート<br><br><span class="ttdesc">有効にすると、<span class="ttcode">achdata.json</span>は以下の場所にエクスポートされます:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "通知内のテキスト要素間の縦の間隔を調整",
         ssmode: `スクリーンショットで、画面全体をキャプチャするか、現在のゲームウィンドウ<span style="color: red;">*</span>をキャプチャするかを設定します<br><br><span class="ttdesc">現在のゲームの <span class="hl">実行ファイル</span> が特定できない場合（<i><span class="hl">自動プロセストラッキング</span> 経由、または <span class="hl">自動リリース ゲーム</span> のエントリとして追加された場合のいずれでも</i>）、このオプションは既定で「スクリーン」モードになります</span>`,
         replaynotify: "最後の実績通知を再通知",

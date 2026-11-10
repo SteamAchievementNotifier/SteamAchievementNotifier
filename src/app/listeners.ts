@@ -65,8 +65,7 @@ export const listeners = {
 
         app.on("second-instance",() => win.show())
 
-        // Prevent page zoom
-        win.webContents.on("before-input-event",(event,input) => ((input.code === "Minus" || input.code === "Equal") && (input.control || input.meta)) && event.preventDefault())
+        win.webContents.on("before-input-event",(event,input) => ((input.code === "Minus" || input.code === "Equal") && (input.control || input.meta)) && event.preventDefault()) // Prevent page zoom
 
         // Fixes issue where non-standard Windows scaling values - e.g. 149% - causes window to grow larger each time `savewindowstate()` is called
         const roundbounds = (value: number,type: "size" | "pos") => {
@@ -95,8 +94,6 @@ export const listeners = {
 
         let tray: Tray | null = null
         tray = new Tray(path.join(__root,"img","sanlogo_idle.png"))
-
-        // let suspended = false
 
         const updatetray = async (tray: Tray,gamename?: string | null,achnum?: number) => {
             tray && tray.removeAllListeners()
@@ -643,6 +640,17 @@ export const listeners = {
             sanhelper.devmode && log.write("INFO",JSON.stringify(app.getLoginItemSettings(),null,4))
         })
 
+        // Clean up after installs of previous version
+        if (!sanhelper.devmode) {
+            const legacydir = update.getlegacydir()
+            const legacyversion = legacydir && /\(V(\d+\.\d+)\)/.exec(path.basename(legacydir))?.[1]
+            
+            if (legacyversion) {
+                const { desktop, startwin } = sanconfig.get().store
+                update.cleanup(legacyversion,desktop,startwin) // Calls `ipcMain.emit("startwin",null,true)`, so needs to be called after the "startwin" listener is set up
+            }
+        }
+
         ipcMain.on("restart",(event,reason: string) => {
             return new Promise(async (resolve,reject) => {
                 if (reason !== "Reset App confirmed by user") return resolve(reason)
@@ -715,8 +723,7 @@ export const listeners = {
                 }
             })
 
-            // `extwin` does not render content if transparency is set while HWA is disabled
-            type === "ext" && !config.get("nohwa") && win.setOpacity(config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0))
+            type === "ext" && !config.get("nohwa") && win.setOpacity(config.get("extwinshow") ? 1 : (sanhelper.devmode ? 0.5 : 0)) // `extwin` does not render content if transparency is set while HWA is disabled
             type !== "ext" && win.setIgnoreMouseEvents(config.get(`${type}winaot`))
             type === "gametimer" && win.setAspectRatio(2.5/1)
 
@@ -787,8 +794,7 @@ export const listeners = {
 
             win.webContents.send("notifymax",value)
 
-            // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
-            let reopenonlaunch = true
+            let reopenonlaunch = true // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
 
             extwin = createextwin(config,"ext",value)
             if (!extwin) return
@@ -830,8 +836,7 @@ export const listeners = {
             
             const config = sanconfig.get()
 
-            // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
-            let reopenonlaunch = true
+            let reopenonlaunch = true // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
             
             statwin = createextwin(config,"stat",value)
             if (!statwin) return
@@ -1026,8 +1031,7 @@ export const listeners = {
             const { syncedtheme } = (await import("./usertheme")).usertheme
             notify.customisation = syncedtheme(config,notify.customisation)
 
-            // Set all notifications to use the same scaling when Max Notifications > 1
-            config.get("notifymax") > 1 && (notify.customisation = { ...notify.customisation, scale: config.get("customisation.main.scale") as number })
+            config.get("notifymax") > 1 && (notify.customisation = { ...notify.customisation, scale: config.get("customisation.main.scale") as number }) // Set all notifications to use the same scaling when Max Notifications > 1
 
             const { preset } = notify.customisation
             const deferssonly = !iswebview && config.get("screenshots") === "ssonly" && notify.customisation.ssenabled && preset !== "os"
@@ -1047,7 +1051,6 @@ export const listeners = {
                     notify,
                     options: {
                         title: `Steam Achievement Notifier (V${sanhelper.version}): Notification`,
-                        // show: false,
                         alwaysOnTop: true,
                         frame: false,
                         transparent: true,
@@ -1088,9 +1091,8 @@ export const listeners = {
                         return a.order - b.order // Otherwise, preserve original order
                     }).forEach((obj,i) => obj.order = i) // Normalise to sequential order
 
-                    // Safeguard to prevent duplicate `order` IDs if found
                     const orders = queue.map(obj => obj.order)
-                    const duplicates = orders.some((order,i) => orders.indexOf(order) !== i)
+                    const duplicates = orders.some((order,i) => orders.indexOf(order) !== i) // Safeguard to prevent duplicate `order` IDs if found
                     
                     if (duplicates) {
                         log.write("WARN",`Notification queue contains duplicate order IDs - renormalising...`)
@@ -1410,8 +1412,7 @@ export const listeners = {
                     offscreenwin.loadFile(basehtml)
                     offscreenwin.setIgnoreMouseEvents(true)
 
-                    // Send img data to offscreen window if `extwin` is active
-                    offscreenwin.webContents.on("paint",(event,_,img) => extwin && extwin.webContents.send("imgdata",img.toDataURL()))
+                    offscreenwin.webContents.on("paint",(event,_,img) => extwin && extwin.webContents.send("imgdata",img.toDataURL())) // Send img data to offscreen window if `extwin` is active
                 }
 
                 const notifyinfo = async (isextwin?: boolean) => {
@@ -1485,8 +1486,7 @@ export const listeners = {
                         const steamkeycode = steamkeycodes.get(hotkey)
                         const value = steamkeycode?.[process.platform === "win32" ? 0 : 1]
 
-                        // Ensure 0x-based keycodes are not accidentally excluded by checking specifically for `null`/`undefined`
-                        ;(value !== null && value !== undefined) ? keypresses.push(value) : log.write("WARN",`Custom Trigger not activated due to invalid key "${sckey}"`)
+                        ;(value !== null && value !== undefined) ? keypresses.push(value) : log.write("WARN",`Custom Trigger not activated due to invalid key "${sckey}"`) // Ensure 0x-based keycodes are not accidentally excluded by checking specifically for `null`/`undefined`
                     }
 
                     if (keypresses.length < sckeys.length) return log.write("WARN",`Custom Trigger failed due to invalid key(s)`)
@@ -1866,7 +1866,7 @@ export const listeners = {
 
         ipcMain.on("importtheme",async event => {
             const impdialog = dialog.showOpenDialogSync({
-                title: `Steam Achievement Notifier (V1.9): Import Theme`,
+                title: `Steam Achievement Notifier (V${sanhelper.version}): Import Theme`,
                 properties: [
                     "openFile",
                     "dontAddToRecent"
@@ -1915,9 +1915,7 @@ export const listeners = {
 
         ipcMain.on("storekey",async (event,key: string) => {
             const { safeStorage } = await import("electron")
-    
-            // safeStorage encryption is not available on Steam Deck
-            const encrypted = key.length ? (safeStorage.isEncryptionAvailable() ? safeStorage.encryptString(key).toString("base64") : key) : ""
+            const encrypted = key.length ? (safeStorage.isEncryptionAvailable() ? safeStorage.encryptString(key).toString("base64") : key) : "" // safeStorage encryption is not available on Steam Deck
     
             const config = sanconfig.get()
             config.set("rakey",encrypted)
@@ -1965,8 +1963,7 @@ export const listeners = {
             if (value && gametimerwin) return log.write("WARN",`${defaultextwins.gametimer.wintitle} window already active`)
             const config = sanconfig.get()
             
-            // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
-            let reopenonlaunch = true
+            let reopenonlaunch = true // If `reopenonlaunch` is true when the app closes, the window reopens next time the app is launched (as it writes bool value to config)
 
             gametimerwin = createextwin(config,"gametimer",value)
             if (!gametimerwin) return
@@ -2007,8 +2004,7 @@ export const listeners = {
                 runninggametimer[active].appid = appid
                 if (runninggametimer[active].started === 0) runninggametimer[active].started = Date.now()
             } else {
-                // Fixes issue where Game Timer will continue to count up after game has exited if Game Timer option is not enabled
-                !gametimerwin && runninggametimer[active].appid && ipcMain.emit("stopgametimer",null,runninggametimer[active].appid,active,true)
+                !gametimerwin && runninggametimer[active].appid && ipcMain.emit("stopgametimer",null,runninggametimer[active].appid,active,true) // Fixes issue where Game Timer will continue to count up after game has exited if Game Timer option is not enabled
             }
 
             // Fixes issue where Game Timer entry for the active game will not be written to localStorage if the Game Timer option is not enabled at game launch, which then causes an error when `gametimer.stop()` is called after closing the game

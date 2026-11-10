@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Állítsa be az első szövegelem színét",
         titlefontcolor: "Állítsa be a második szövegelem színét",
         descfontcolor: "Állítsa be a harmadik szövegelem színét",
-        exportachdata: `Teljesítményadatok exportálása JSON fájlba, amikor egy teljesítmény feloldódik<br><br><span class="ttdesc">Ha engedélyezve van, az <span class="ttcode">achdata.json</span> a következő helyre lesz exportálva:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Teljesítményadatok exportálása JSON fájlba, amikor egy teljesítmény feloldódik<br><br><span class="ttdesc">Ha engedélyezve van, az <span class="ttcode">achdata.json</span> a következő helyre lesz exportálva:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Beállítja a vertikális távolságot a szövegelemek között az értesítésben",
         ssmode: `Beállítja, hogy a képernyőkép teljes képernyőt vagy csak az aktuális játékablakot<span style="color: red;">*</span> rögzítse<br><br><span class="ttdesc">Ha az aktuális játék <span class="hl">végrehajtható fájlja</span> nem található (<i>akár <span class="hl">automatikus folyamatfigyeléssel</span>, akár <span class="hl">Linked Game</span> hozzáadásával</i>), akkor ez az opció alapértelmezés szerint "Képernyő" módra vált</span>`,
         replaynotify: "Ismételd meg az utolsó teljesítmény értesítést",

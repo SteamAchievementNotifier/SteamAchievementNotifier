@@ -2,14 +2,14 @@
 <img width="75%" src="./img/santextlogo.svg">
 </p>
 
-<h1 align="center">V1.9: Developer Guide</h1>
+<h1 align="center">Developer Guide</h1>
 
 <h2 align="center" id="prerequisites">PREREQUISITES</h2>
 
 Make sure the following programs are installed:
 
 1. [Node JS](https://nodejs.org/en/download/current) (*with NPM*)
-2. [Rust](https://www.rust-lang.org/tools/install) (*Optional - only required if editing `steamworks-rs`/`steamworks.js` dependencies*)
+2. [Rust](https://www.rust-lang.org/tools/install) (*Optional - only required if editing `sanhelper.rs`*)
 3. [git](https://git-scm.com/) (*Optional*)
 
 > 🐧 On Linux, the `build-essential` package must be installed to build Rust native addons:
@@ -83,9 +83,10 @@ Within `src`/`dist`, there are several subfolders to separate core app functiona
 - `app`: Contains `.ts`/`.js` files and associated `HTML`/`CSS` for core `BrowserWindow` instances used for in-app pages, menus and dialogs. Also contains:
 
     - `app.ts`: The entry point to the Electron app
-    - `main.ts`: The "Main process"
-    - `listeners.ts`: An extension of `main.ts` that focuses on managing various event listeners
-    - `worker.ts`: A background `BrowserWindow` instance that initialises Steamworks when a game process is detected. Dynamically spawned/destroyed in order to initialise/release Steamworks between game instances
+    - `main.ts`: Electron's "Main process"
+    - `listeners.ts`: An extension of `main.ts` that focuses on managing various event listeners, setting up `BrowserWindow` instances etc.
+    - `steam.ts`: Handles parsing Steam users/`UserGameStats`/`UserGameStatsSchema` BIN files etc. required for gathering the current user's achievement information
+    - `worker.ts`: A background `BrowserWindow` instance that initialises Steamworks when a game process is detected. Dynamically spawned/destroyed between game instances
 
 - `lang`: Contains modules for each supported app language.
 
@@ -93,6 +94,88 @@ Within `src`/`dist`, there are several subfolders to separate core app functiona
 
 - `notify`: Contains `.ts`/`.js` to control `BrowserWindow` instances that are used by notification windows
 
+<h2 align="center" id="steamworks-overview">SANHELPER.RS OVERVIEW</h2>
+
+Steam Achievement Notifier uses `sanhelper.rs`, an [napi-rs](https://napi.rs/) native addon which provides the ability to call low-level Rust functions in TS.
+
+> ⚠ Under normal circumstances, if you only want to edit Steam Achievement Notifier itself, you **will not** need to install the `sanhelper.rs` dependency outlined below - the **Basic Installation** section will be enough!
+
+<h2 align="center" id="advanced-installation">ADVANCED INSTALLATION: STEAMWORKS</h2>
+
+Clone the `sanhelper.rs` repository into `./deps`:
+
+```git
+cd deps
+git clone https://github.com/SteamAchievementNotifier/san_sanhelper.rs.git
+```
+
+<details>
+<summary>
+<h4>Adding functions to <code>sanhelper.rs</code></h4>
+</summary>
+
+If you have written a function in `sanhelper.rs` that you want to make available to TS, you'll need to create a new function like so:
+
+```rust
+// Example
+#[napi]
+pub fn hello_world() -> string {
+    return "hello world!".to_string()
+}
+```
+
+The `sanhelper.rs` build script does all the **Rust** > **JS** conversion for you, so as long as you're not getting any errors, your function should be available in JS after building.
+</details>
+
+<details>
+<summary>
+<h4>Building <code>sanhelper.rs</code></h4>
+</summary>
+
+To build a release version of `sanhelper.rs` (including any changes) navigate to `./deps/san_sanhelper.rs` and run:
+
+```
+npm run build
+```
+
+This will generate a **release** (*i.e. optimised*) `.node` file in `./deps/sanhelper.rs` , which is the module needed to load the functions created in `sanhelper.rs` into Node/Electron.
+</details>
+
+<details>
+<summary>
+<h4>Creating the release project</h4>
+</summary>
+Include the required dependencies for `sanhelper.rs` to work as a Node module.
+
+```typescript
+// TODO: This could probably be automated via a `package.json` command...
+```
+
+#### Method
+1. Go to `./deps/san_sanhelper.rs` and copy the following:
+- `index.d.ts`
+- `index.js`
+- `package.json`
+- `sanhelperrs.win32-x64-msvc.node` (Windows)
+- `sanhelperrs.linux-x64-gnu.node` (Linux)
+2. Paste into `./deps/sanhelper.rs` (create if not present)
+3. Go back to the project root
+4. If not done already, open `package.json` and add the following:
+```json
+"dependencies": {
+    "sanhelper.rs": "./deps/sanhelper.rs"
+}
+```
+5. Run the following command in the root directory:
+```
+npm i
+```
+
+This will add `./deps/sanhelper.rs` as a dependency (and recreate it in `./node_modules/sanhelper.rs`), so you can now use `sanhelper.rs` within Electron - including all your changes!
+
+</details>
+
+<!--
 <h2 align="center" id="steamworks-overview">STEAMWORKS OVERVIEW</h2>
 
 In Steam Achievement Notifier (V1.9), there are two projects that provide Steamworks integration via Rust - [steamworks-rs](https://github.com/SteamAchievementNotifier/san_steamworks-rs) and [steamworks.js](https://github.com/SteamAchievementNotifier/san_steamworks.js).
@@ -203,3 +286,5 @@ npm i
 This will add `./deps/steamworks.js` as a dependency (and recreate it in `./node_modules/steamworks.js`), so you can now use `steamworks.js` within Electron - including all your changes!
 
 </details>
+
+-->

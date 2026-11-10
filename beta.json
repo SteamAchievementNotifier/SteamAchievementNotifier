@@ -1,6 +1,6 @@
 {
     "appId": "com.SteamAchievementNotifier.Jackson0ne",
-    "productName": "Steam Achievement Notifier (V1.9)",
+    "productName": "Steam Achievement Notifier (V2.0)",
     "directories": {
         "output": "_release"
     },
@@ -47,7 +47,7 @@
         "artifactName": "SteamAchievementNotifier_V${version}_BETA.exe",
         "createDesktopShortcut": false,
         "deleteAppDataOnUninstall": true,
-        "shortcutName": "Steam Achievement Notifier (V1.9)"
+        "shortcutName": "Steam Achievement Notifier (V2.0)"
     },
     "linux": {
         "target": "AppImage",

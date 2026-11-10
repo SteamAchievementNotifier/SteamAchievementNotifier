@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Sett fargen på det første tekstelementet",
         titlefontcolor: "Sett fargen på det andre tekstelementet",
         descfontcolor: "Sett fargen på det tredje tekstelementet",
-        exportachdata: `Eksporter prestasjonsdata til en JSON-fil når en prestasjon låses opp<br><br><span class="ttdesc">Når aktivert, vil <span class="ttcode">achdata.json</span> bli eksportert til:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Eksporter prestasjonsdata til en JSON-fil når en prestasjon låses opp<br><br><span class="ttdesc">Når aktivert, vil <span class="ttcode">achdata.json</span> bli eksportert til:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Justere den vertikale avstanden mellom textelementene i varslingen",
         ssmode: `Angi om skjermbilder skal ta opp hele skjermen eller det gjeldende spillvinduet<span style="color: red;">*</span><br><br><span class="ttdesc">Hvis det gjeldende spillets <span class="hl">kjørbare fil</span> ikke kan finnes (<i>enten via <span class="hl">automatisk prosesstracking</span> eller når det er lagt til som en <span class="hl">Spill med automatisk frigivelse</span>-oppføring</i>), vil dette alternativet som standard bruke "Skjerm"-modus</span>`,
         replaynotify: "Gjenta den siste prestasjonsvarslingen",

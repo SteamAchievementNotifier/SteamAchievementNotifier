@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Configurar el color del primer elemento de texto",
         titlefontcolor: "Configurar el color del segundo elemento de texto",
         descfontcolor: "Configurar el color del tercer elemento de texto",
-        exportachdata: `Exportar datos de logros a un archivo JSON cuando se desbloquee un logro<br><br><span class="ttdesc">Cuando está activado, <span class="ttcode">achdata.json</span> se exportará a:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Exportar datos de logros a un archivo JSON cuando se desbloquee un logro<br><br><span class="ttdesc">Cuando está activado, <span class="ttcode">achdata.json</span> se exportará a:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Ajusta el espaciado vertical entre los elementos de texto en la notificación",
         ssmode: `Configura si se debe capturar la pantalla completa o la ventana del juego actual<span style="color: red;">*</span> en las capturas de pantalla<br><br><span class="ttdesc">Si no se puede localizar el <span class="hl">archivo ejecutable</span> del juego actual (<i>ya sea mediante el <span class="hl">seguimiento automático de procesos</span> o al añadirse como una entrada de <span class="hl">Juegos de Liberación Automática</span></i>), esta opción usará por defecto el modo "Pantalla"</span>`,
         replaynotify: "Repetir la última notificación de logro",

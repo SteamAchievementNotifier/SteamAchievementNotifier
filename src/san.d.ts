@@ -837,5 +837,10 @@ declare interface AchievementProgress {
     percent: number
 }
 
+declare interface MigrationResult {
+    level: "INFO" | "ERROR",
+    msg: string
+}
+
 declare module "simple-vdf"
 declare module "adm-zip"

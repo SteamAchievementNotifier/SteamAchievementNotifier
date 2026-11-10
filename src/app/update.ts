@@ -1,17 +1,19 @@
 import { ipcMain, ipcRenderer, BrowserWindow, shell } from "electron"
 import path from "path"
+import fs from "fs"
 import { autoUpdater } from "electron-updater"
 import { sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { dialog } from "./dialog"
 import { language } from "./language"
+import semver from "semver"
 
 export const update = {
     check: () => !sanhelper.devmode ? autoUpdater.checkForUpdates() : log.write("INFO",`Unable to check for updates in devmode`),
     setlisteners: (win: BrowserWindow) => {
         autoUpdater.autoDownload = false
-        sanhelper.devmode && ipcMain.on("availabletest",(event,newversion: string) => win.webContents.send("updateavailable",newversion || "1.9.X"))
-        sanhelper.devmode && ipcMain.on("noupdatetest",(event,currentversion: string) => win.webContents.send("noupdateavailable",currentversion || "1.9.X"))
+        sanhelper.devmode && ipcMain.on("availabletest",(event,newversion: string) => win.webContents.send("updateavailable",newversion || semver.inc(sanhelper.semver!,"patch")!))
+        sanhelper.devmode && ipcMain.on("noupdatetest",(event,currentversion: string) => win.webContents.send("noupdateavailable",currentversion || sanhelper.semver!))
 
         ipcMain.once("updateconfirmed",() => autoUpdater.downloadUpdate())
         autoUpdater.on("checking-for-update",() => update.ipc(win,"Checking for update..."))
@@ -99,5 +101,98 @@ export const update = {
         
         const availabletest = (newversion: string) => ipcRenderer.send("availabletest",newversion)
         window.availabletest = availabletest
+    },
+    migrateappdata: (legacypath: string) => {
+        const newconfig = path.join(sanhelper.appdata,"config.json")
+
+        if (legacypath !== sanhelper.appdata && !fs.existsSync(newconfig) && fs.existsSync(path.join(legacypath,"config.json"))) {
+            try {
+                fs.cpSync(legacypath,sanhelper.appdata,{
+                    recursive: true,
+                    filter: src => path.relative(legacypath,src) !== "logs"
+                })
+                return { level: "INFO", msg: `Migrated "${legacypath}" to "${sanhelper.appdata}" successfully` } as MigrationResult
+            } catch (err) {
+                try { fs.rmSync(newconfig,{ force: true }) } catch {}
+                return { level: "ERROR", msg: `Error migrating "${legacypath}" to "${sanhelper.appdata}": ${(err as Error).message}` } as MigrationResult
+            }
+        }
+    },
+    getlegacydir: () => {
+        try {
+            const parent = path.dirname(sanhelper.appdata)
+            const current = semver.coerce(sanhelper.version)!
+    
+            return fs.readdirSync(parent,{ withFileTypes: true })
+                .filter(entry => entry.isDirectory())
+                .map(entry => ({
+                    entry,
+                    match: /^Steam Achievement Notifier \(V(\d+\.\d+)\)( \[DEVMODE\])?$/.exec(entry.name)
+                }))
+                .filter(({ match }) => match && !!match[2] === sanhelper.devmode && semver.lt(semver.coerce(match[1])!,current))
+                .sort((a,b) => semver.rcompare(semver.coerce(a.match![1])!,semver.coerce(b.match![1])!))
+                .map(({ entry }) => path.join(parent,entry.name))[0]
+        } catch {
+            return undefined
+        }
+    },
+    /**
+     * Removes/rebuilds the following upon upgrading to next major version.
+     * 
+     * Windows:
+     * - Auto-start entries in the Windows Registry (via `sanhelper.rs`):
+     *      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\Steam Achievement Notifier (VX.X)`
+     *      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run\Steam Achievement Notifier (VX.X)`
+     * - Desktop shortcut (if present): `%userprofile%\Desktop\Steam Achievement Notifier (VX.X).lnk`
+     * - Start Menu shortcut: `%appdata%\Microsoft\Windows\Start Menu\Programs\Steam Achievement Notifier (VX.X).lnk`
+     * 
+     * Linux:
+     * - Auto-start entry:
+     *      - `~/.config/autostart/Steam Achievement Notifier (VX.X).desktop`
+     * - Desktop shortcut (if present):
+     *      - `${xdgdesktopdir}/Steam Achievement Notifier (VX.X).desktop` or
+     *      - `~/Desktop/Steam Achievement Notifier (VX.X).desktop`
+     */
+    cleanup: (legacyversion: string,desktop: boolean,startwin: boolean) => {
+        if (legacyversion === sanhelper.version) return
+
+        const { platform, env: { appdata } } = process
+
+        try {
+            if (sanhelper.removeautostartentries(legacyversion,platform)) {
+                log.write("INFO",`Removed legacy V${legacyversion} autostart entry`)
+                startwin && ipcMain.emit("startwin",null,true) // Rebuild under latest version
+            }
+        } catch (err) {
+            log.write("WARN",`Unable to remove legacy V${legacyversion} autostart entry: ${(err as Error).message}`)
+        }
+
+        const shortcutfile = `Steam Achievement Notifier (V${legacyversion}).${process.platform === "linux" ? "desktop" : "lnk"}` as const
+
+        try {
+            const shortcutdir = sanhelper.desktopshortcutpath(platform)
+            if (!shortcutdir) return
+
+            const legacyshortcut = path.join(shortcutdir,shortcutfile)
+            if (!fs.existsSync(legacyshortcut)) return
+
+            fs.rmSync(legacyshortcut)
+            log.write("INFO",`Removed legacy V${legacyversion} desktop shortcut`)
+            desktop && sanhelper.desktop(true) // Rebuild under latest version
+        } catch (err) {
+            log.write("WARN",`Unable to remove legacy V${legacyversion} desktop shortcut: ${(err as Error).message}`)
+        }
+
+        if (platform !== "win32") return
+
+        try {
+            const legacystartmenu = path.join(appdata!,"Microsoft","Windows","Start Menu","Programs",shortcutfile)
+            if (!fs.existsSync(legacystartmenu)) return
+
+            fs.rmSync(legacystartmenu)
+            log.write("INFO",`Removed legacy V${legacyversion} Start Menu shortcut`)
+        } catch (err) {
+            log.write("WARN",`Unable to remove legacy V${legacyversion} Start Menu shortcut: ${(err as Error).message}`)
+        }
     }
 }

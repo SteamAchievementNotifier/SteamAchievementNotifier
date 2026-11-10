@@ -875,7 +875,7 @@ export const translations = {
         unlockmsgfontcolor: "Aseta ensimmäisen tekstielementin väri",
         titlefontcolor: "Aseta toisen tekstielementin väri",
         descfontcolor: "Aseta kolmannen tekstielementin väri",
-        exportachdata: `Vie saavutustiedot JSON-tiedostoon, kun saavutus avataan<br><br><span class="ttdesc">Kun käytössä, <span class="ttcode">achdata.json</span> viedään sijaintiin:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Vie saavutustiedot JSON-tiedostoon, kun saavutus avataan<br><br><span class="ttdesc">Kun käytössä, <span class="ttcode">achdata.json</span> viedään sijaintiin:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Säätää pystysuuntaista välistystä ilmoituksen tekstielementtien välillä",
         ssmode: `Määritä, tallennetaanko kuvakaappauksiin koko näyttö vai nykyinen pelin ikkuna<span style="color: red;">*</span><br><br><span class="ttdesc">Jos nykyisen pelin <span class="hl">suoritettavaa tiedostoa</span> ei voida paikantaa (<i>joko <span class="hl">automaattisen prosessiseurannan</span> kautta tai kun se on lisätty merkintänä kohtaan <span class="hl">Pelien automaattinen vapautus</span></i>), tämä asetus määritetään oletuksena tilaan "Näyttö"</span>`,
         replaynotify: "Toista viimeisin saavutuksen ilmoitus",

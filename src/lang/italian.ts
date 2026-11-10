@@ -236,7 +236,8 @@ export const translations = {
                 max: "Massimo",
                 notifyoverflow: "Modalità di overflow",
                 ellipsis: "Puntini di sospensione",
-                scroll: "Scorrimento"
+                scroll: "Scorrimento",
+                setplat: "Notifiche di completamento al 100%"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Descrizione dell'obiettivo<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Descrizione dell'obiettivo è disabilitato</span>`,
         notifylinemode: "Imposta il numero massimo di righe di testo da visualizzare nelle notifiche",
         notifyoverflow: "Imposta il comportamento del testo in overflow all'interno delle notifiche",
-        scrollrepeat: `Imposta quante volte il testo in overflow scorrerà mentre la notifica è visualizzata sullo schermo<br><br><span class="ttdesc">La velocità di scorrimento dipende dal tempo di visualizzazione, ma valori di ripetizione più elevati potrebbero non essere adatti a tutte le preimpostazioni</span>`
+        scrollrepeat: `Imposta quante volte il testo in overflow scorrerà mentre la notifica è visualizzata sullo schermo<br><br><span class="ttdesc">La velocità di scorrimento dipende dal tempo di visualizzazione, ma valori di ripetizione più elevati potrebbero non essere adatti a tutte le preimpostazioni</span>`,
+        setplat: "Mostra la notifica di completamento al 100% dopo aver completato ogni set di obiettivi nei giochi compatibili"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

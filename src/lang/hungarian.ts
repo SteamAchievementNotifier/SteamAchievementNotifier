@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maximum",
                 notifyoverflow: "Túlcsordulási mód",
                 ellipsis: "Három pont",
-                scroll: "Görgetés"
+                scroll: "Görgetés",
+                setplat: "100%-os értesítések"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `A Teljesítmény leírása elemben megjelenítendő egyéni üzenet beállítása<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Testreszabó > Előbeállítás > Értesítési elemek > Teljesítmény leírása le van tiltva</span>`,
         notifylinemode: "Az értesítésekben megjelenítendő szövegsorok maximális számának beállítása",
         notifyoverflow: "Az értesítésekben túlcsorduló szöveg viselkedésének beállítása",
-        scrollrepeat: `Annak beállítása, hogy a túlcsorduló szöveg hányszor görgessen, amíg az értesítés a képernyőn látható<br><br><span class="ttdesc">A görgetési sebesség a megjelenítési időtől függ, de a magasabb ismétlési értékek nem feltétlenül megfelelőek minden előbeállításhoz</span>`
+        scrollrepeat: `Annak beállítása, hogy a túlcsorduló szöveg hányszor görgessen, amíg az értesítés a képernyőn látható<br><br><span class="ttdesc">A görgetési sebesség a megjelenítési időtől függ, de a magasabb ismétlési értékek nem feltétlenül megfelelőek minden előbeállításhoz</span>`,
+        setplat: "A 100%-os értesítés megjelenítése minden teljesítménykészlet befejezése után a kompatibilis játékokban"
     },
     update: {
         updateavailable: "Frissítés elérhető",

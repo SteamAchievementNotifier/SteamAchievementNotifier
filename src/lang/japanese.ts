@@ -236,7 +236,8 @@ export const translations = {
                 max: "最大",
                 notifyoverflow: "オーバーフローモード",
                 ellipsis: "省略記号",
-                scroll: "スクロール"
+                scroll: "スクロール",
+                setplat: "100%達成通知"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `実績の説明要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績の説明が無効になっている場合、このオプションは非表示になります</span>`,
         notifylinemode: "通知内に表示するテキストの最大行数を設定します",
         notifyoverflow: "通知内でテキストがオーバーフローした場合の動作を設定します",
-        scrollrepeat: `通知が画面に表示されている間に、オーバーフローしたテキストをスクロールする回数を設定します<br><br><span class="ttdesc">スクロール速度は表示時間に依存しますが、繰り返し回数を増やすと一部のプリセットに適さない場合があります</span>`
+        scrollrepeat: `通知が画面に表示されている間に、オーバーフローしたテキストをスクロールする回数を設定します<br><br><span class="ttdesc">スクロール速度は表示時間に依存しますが、繰り返し回数を増やすと一部のプリセットに適さない場合があります</span>`,
+        setplat: "対応ゲームで各実績セットを完了した後に100%達成通知を表示する"
     },
     update: {
         updateavailable: "アップデートが利用可能です",

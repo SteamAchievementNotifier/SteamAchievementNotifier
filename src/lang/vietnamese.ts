@@ -236,7 +236,8 @@ export const translations = {
                 max: "Tối đa",
                 notifyoverflow: "Chế độ tràn",
                 ellipsis: "Dấu ba chấm",
-                scroll: "Cuộn"
+                scroll: "Cuộn",
+                setplat: "Thông báo hoàn thành 100%"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Mô tả thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị tắt</span>`,
         notifylinemode: "Thiết lập số dòng văn bản tối đa hiển thị trong thông báo",
         notifyoverflow: "Thiết lập cách xử lý văn bản tràn trong thông báo",
-        scrollrepeat: `Thiết lập số lần văn bản tràn sẽ cuộn trong khi thông báo đang hiển thị trên màn hình<br><br><span class="ttdesc">Tốc độ cuộn phụ thuộc vào Thời gian hiển thị, nhưng giá trị lặp lại cao có thể không phù hợp với tất cả các cấu hình cài đặt sẵn</span>`
+        scrollrepeat: `Thiết lập số lần văn bản tràn sẽ cuộn trong khi thông báo đang hiển thị trên màn hình<br><br><span class="ttdesc">Tốc độ cuộn phụ thuộc vào Thời gian hiển thị, nhưng giá trị lặp lại cao có thể không phù hợp với tất cả các cấu hình cài đặt sẵn</span>`,
+        setplat: "Hiển thị thông báo hoàn thành 100% sau khi hoàn tất từng bộ thành tích trong các trò chơi tương thích"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

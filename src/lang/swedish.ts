@@ -236,7 +236,8 @@ export const translations = {
                 max: "Max",
                 notifyoverflow: "Överflödesläge",
                 ellipsis: "Ellips",
-                scroll: "Rullning"
+                scroll: "Rullning",
+                setplat: "100 % slutförandemeddelanden"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Ange ett anpassat meddelande som ska visas i elementet Prestationsbeskrivning<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationsbeskrivning är inaktiverat</span>`,
         notifylinemode: "Ställ in det maximala antalet textrader som ska visas i aviseringar",
         notifyoverflow: "Ställ in hur överflödande text ska hanteras i aviseringar",
-        scrollrepeat: `Ställ in hur många gånger överflödande text ska rulla medan aviseringen visas på skärmen<br><br><span class="ttdesc">Rullningshastigheten beror på visningstiden, men högre upprepningsvärden kanske inte passar alla förinställningar</span>`
+        scrollrepeat: `Ställ in hur många gånger överflödande text ska rulla medan aviseringen visas på skärmen<br><br><span class="ttdesc">Rullningshastigheten beror på visningstiden, men högre upprepningsvärden kanske inte passar alla förinställningar</span>`,
+        setplat: "Visa meddelandet om 100 % slutförande efter att varje prestationsuppsättning har slutförts i kompatibla spel"
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

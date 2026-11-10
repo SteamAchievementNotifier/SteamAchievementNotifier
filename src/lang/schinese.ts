@@ -236,7 +236,8 @@ export const translations = {
                 max: "最大值",
                 notifyoverflow: "溢出模式",
                 ellipsis: "省略号",
-                scroll: "滚动"
+                scroll: "滚动",
+                setplat: "100% 完成通知"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `设置要在成就描述元素中显示的自定义消息<br><br><span class="ttdesc">当自定义 > 预设 > 通知元素 > 成就描述被禁用时，此选项将被隐藏</span>`,
         notifylinemode: "设置通知中显示的最大文本行数",
         notifyoverflow: "设置通知中文本溢出时的处理方式",
-        scrollrepeat: `设置通知显示期间溢出文本的滚动次数<br><br><span class="ttdesc">滚动速度取决于显示时间，但较高的重复次数可能不适用于所有预设</span>`
+        scrollrepeat: `设置通知显示期间溢出文本的滚动次数<br><br><span class="ttdesc">滚动速度取决于显示时间，但较高的重复次数可能不适用于所有预设</span>`,
+        setplat: "在兼容的游戏中完成每个成就集后显示 100% 完成通知"
     },
     update: {
         updateavailable: "有可用更新",

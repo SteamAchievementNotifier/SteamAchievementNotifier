@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maks",
                 notifyoverflow: "Overflytsmodus",
                 ellipsis: "Utelatelsestegn",
-                scroll: "Rulling"
+                scroll: "Rulling",
+                setplat: "100 % fullføringsvarsler"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Angi en egendefinert melding som skal vises i elementet Prestasjonsbeskrivelse<br><br><span class="ttdesc">Dette alternativet skjules når Tilpasning > Forhåndsinnstilling > Varselselementer > Prestasjonsbeskrivelse er deaktivert</span>`,
         notifylinemode: "Angi maksimalt antall tekstlinjer som skal vises i varsler",
         notifyoverflow: "Angi hvordan tekst som overskrider tilgjengelig plass, skal håndteres i varsler",
-        scrollrepeat: `Angi hvor mange ganger tekst som overskrider tilgjengelig plass, skal rulle mens varslingen vises på skjermen<br><br><span class="ttdesc">Rullehastigheten avhenger av visningstiden, men høyere gjentakelsesverdier passer kanskje ikke for alle forhåndsinnstillinger</span>`
+        scrollrepeat: `Angi hvor mange ganger tekst som overskrider tilgjengelig plass, skal rulle mens varslingen vises på skjermen<br><br><span class="ttdesc">Rullehastigheten avhenger av visningstiden, men høyere gjentakelsesverdier passer kanskje ikke for alle forhåndsinnstillinger</span>`,
+        setplat: "Vis 100 %-varselet etter at hvert prestasjonssett er fullført i kompatible spill"
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

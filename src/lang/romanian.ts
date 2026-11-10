@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maxim",
                 notifyoverflow: "Modul de depășire",
                 ellipsis: "Puncte de suspensie",
-                scroll: "Derulare"
+                scroll: "Derulare",
+                setplat: "Notificări de completare 100%"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Setează un mesaj personalizat care va fi afișat în elementul Descrierea realizării<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Descrierea realizării este dezactivat</span>`,
         notifylinemode: "Setează numărul maxim de linii de text afișate în notificări",
         notifyoverflow: "Setează comportamentul textului care depășește spațiul disponibil în notificări",
-        scrollrepeat: `Setează de câte ori va derula textul care depășește spațiul disponibil cât timp notificarea este afișată pe ecran<br><br><span class="ttdesc">Viteza de derulare depinde de timpul de afișare, însă valorile mai mari ale repetării pot să nu fie potrivite pentru toate presetările</span>`
+        scrollrepeat: `Setează de câte ori va derula textul care depășește spațiul disponibil cât timp notificarea este afișată pe ecran<br><br><span class="ttdesc">Viteza de derulare depinde de timpul de afișare, însă valorile mai mari ale repetării pot să nu fie potrivite pentru toate presetările</span>`,
+        setplat: "Afișează notificarea de completare 100% după finalizarea fiecărui set de realizări în jocurile compatibile"
     },
     update: {
         updateavailable: "Actualizare disponibilă",

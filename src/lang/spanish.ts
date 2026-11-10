@@ -236,7 +236,8 @@ export const translations = {
                 max: "Máximo",
                 notifyoverflow: "Modo de desbordamiento",
                 ellipsis: "Puntos suspensivos",
-                scroll: "Desplazamiento"
+                scroll: "Desplazamiento",
+                setplat: "Notificaciones de finalización al 100%"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Establecer un mensaje personalizado para mostrar dentro del elemento Descripción del logro<br><br><span class="ttdesc">Esta opción se ocultará cuando Personalización > Preajuste > Elementos de notificación > Descripción del logro esté desactivado</span>`,
         notifylinemode: "Establece el número máximo de líneas de texto que se mostrarán en las notificaciones",
         notifyoverflow: "Establece el comportamiento del texto que se desborda en las notificaciones",
-        scrollrepeat: `Establece cuántas veces se desplazará el texto desbordado mientras la notificación esté en pantalla<br><br><span class="ttdesc">La velocidad de desplazamiento depende del tiempo de visualización, pero los valores de repetición más altos pueden no ser adecuados para todos los ajustes preestablecidos</span>`
+        scrollrepeat: `Establece cuántas veces se desplazará el texto desbordado mientras la notificación esté en pantalla<br><br><span class="ttdesc">La velocidad de desplazamiento depende del tiempo de visualización, pero los valores de repetición más altos pueden no ser adecuados para todos los ajustes preestablecidos</span>`,
+        setplat: "Mostrar la notificación de finalización al 100% después de completar cada conjunto de logros en juegos compatibles"
     },
     update: {
         updateavailable: "Actualización disponible",

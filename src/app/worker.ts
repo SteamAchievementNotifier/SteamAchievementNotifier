@@ -6,8 +6,8 @@ import { log } from "./log"
 import { steam } from "./steam"
 import { sanconfig } from "./config"
 import { sanachievement } from "./achievement"
-import { usertheme } from "./usertheme"
 import { utils } from "./utils"
+import { sannotify } from "./notify"
 
 declare global {
     interface Window {
@@ -297,14 +297,11 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
 
             cache = live
             window.cachedata = live
-
-            sanhelper.devmode && log.write("INFO",JSON.stringify(unlocked))
             
             let hasshown = false
             
             const config = sanconfig.get()
-            const { rarity, semirarity, trophymode } = config.store
-            const themeswitch: [key: string,ThemeSwitch] | undefined = usertheme.hasthemeswitch(appid)
+            const { rarity, semirarity, trophymode, lang } = config.store
             
             for (const achievement of unlocked) {
                 const unlocktime = Date.now()
@@ -312,20 +309,9 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                 
                 const valid = achievement.percent >= 0 // -1: Percentages unavailable
                 const type = valid && achievement.percent <= rarity ? "rare" : (trophymode && valid && achievement.percent <= semirarity && achievement.percent > rarity ? "semi" : "main")
-
-                const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
-                const gameicon = (config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
                 const localised = await utils.localised.obj(steam3id,achievement)
-                const customisation = usertheme.gettypecustomisation(config,type,themeswitch)
-                
-                if (themeswitch) {
-                    log.write("INFO",`Auto-switch entry detected for ${appid}`)
-                    sanhelper.devmode && console.log(customisation)
-                }
-    
-                const notify: Notify = {
-                    id: Math.round(Date.now() / Math.random() * 1000),
-                    customisation,
+
+                const notify = sannotify.show(appid,{
                     type,
                     gamename: gamename ?? "???",
                     steam3id,
@@ -335,12 +321,11 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                     unlocked: achievement.unlocked,
                     hidden: achievement.hidden,
                     percent: achievement.percent,
-                    icon: (noiconcache ? await sanachievement.geticon(appid,achievement.icon) : achievement.icon) ?? sanhelper.setfilepath("img","sanlogosquare.svg"),
-                    gameicon: gameicon ?? sanhelper.setfilepath("img","sanlogosquare.svg"),
-                    unlocktime: new Date(unlocktime).toISOString()
-                }
+                    icon: (noiconcache ? await sanachievement.geticon(appid,achievement.icon) : achievement.icon) ?? sanhelper.setfilepath("img","sanlogosquare.svg")
+                })
 
-                ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src))
+                sanhelper.devmode && console.log(notify)
+                log.write("INFO",`Unlocked "${notify.type}" achievement: "${notify.apiname}"`)
 
                 ;(async () => {
                     statsobj.achievements = !config.get("steamlang") ? live : await Promise.all(
@@ -362,37 +347,35 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
             workerinfo.allunlocked = allunlocked
             ipcRenderer.emit("gametimer")
 
-            if (allunlocked && !hasshown) {
-                const platcustomisation = usertheme.gettypecustomisation(config,"plat",themeswitch)
-                const { plat: platicon } = platcustomisation.customicons as CustomIcon
-                const customisation = platcustomisation
+            if (config.get("setplat") && !allunlocked) {
+                for (const groupid of sanachievement.getcompletedsets(live,unlocked)) {
+                    const setname = sanachievement.getsetname(schema,appid,groupid,lang)
+                    
+                    const setplatnotify = sannotify.show(appid,{
+                        type: "plat",
+                        gamename: gamename ?? "???",
+                        steam3id,
+                        apiname: `PLAT_SET_${groupid}`,
+                        name: "100%",
+                        desc: setname
+                    })
 
-                if (themeswitch) {
-                    log.write("INFO",`Auto-switch entry detected for ${appid}`)
-                    sanhelper.devmode && console.log(customisation)
+                    sanhelper.devmode && console.log(setplatnotify)
+                    log.write("INFO",`Completed achievement set: "${setplatnotify.desc}"`)
                 }
-                
-                const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
-                const gameicon = (config.get(`customisation.plat.usegameicon`) && fs.existsSync(gameiconpath)) ? gameiconpath : null
+            }
 
-                const platnotify: Notify = {
-                    id: Date.now(),
-                    customisation,
+            if (allunlocked && !hasshown) {
+                const platnotify = sannotify.show(appid,{
                     type: "plat",
                     gamename: gamename ?? "???",
-                    steam3id: steam3id,
+                    steam3id,
                     apiname: "PLAT_NOTIFICATION",
-                    name: "100%",
-                    desc: "",
-                    unlocked: true,
-                    hidden: false,
-                    percent: 0,
-                    icon: platicon as string ?? sanhelper.setfilepath("img","ribbon.svg"),
-                    gameicon: gameicon ?? sanhelper.setfilepath("img","sanlogosquare.svg"),
-                    unlocktime: new Date(Date.now()).toISOString()
-                }
+                    name: "100%"
+                })
 
-                ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,platnotify,undefined,themeswitch?.[1].src))
+                sanhelper.devmode && console.log(platnotify)
+                log.write("INFO",`Completed game: "${platnotify.gamename ?? "???"}"`)
 
                 hasshown = true
             }

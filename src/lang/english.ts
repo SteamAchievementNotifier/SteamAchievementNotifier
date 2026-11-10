@@ -236,7 +236,8 @@ export const translations = {
                 max: "Max",
                 notifyoverflow: "Overflow Mode",
                 ellipsis: "Ellipsis",
-                scroll: "Scroll"
+                scroll: "Scroll",
+                setplat: "100% Set Notifications"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Set a custom message to be displayed within the Achievement Description<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`,
         notifylinemode: "Set the maximum number of lines of text to display within notifications",
         notifyoverflow: "Set the behaviour of overflowing text within notifications",
-        scrollrepeat: `Set how many times overflowing text will scroll while the notification is onscreen<br><br><span class="ttdesc">Scroll speed is dependent on Display Time, but higher repeat values may not be suitable for all presets</span>`
+        scrollrepeat: `Set how many times overflowing text will scroll while the notification is onscreen<br><br><span class="ttdesc">Scroll speed is dependent on Display Time, but higher repeat values may not be suitable for all presets</span>`,
+        setplat: "Display the 100% notification after completing each achievement set in compatible games"
     },
     update: {
         updateavailable: "Update available",

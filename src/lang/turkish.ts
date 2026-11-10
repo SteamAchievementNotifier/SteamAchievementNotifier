@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maksimum",
                 notifyoverflow: "Taşma Modu",
                 ellipsis: "Üç Nokta",
-                scroll: "Kaydırma"
+                scroll: "Kaydırma",
+                setplat: "%100 Tamamlanma Bildirimleri"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Başarım Açıklaması öğesinde görüntülenecek özel bir mesaj ayarla<br><br><span class="ttdesc">Özelleştirici > Ön Ayar > Bildirim Öğeleri > Başarım Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`,
         notifylinemode: "Bildirimlerde görüntülenecek maksimum metin satırı sayısını ayarla",
         notifyoverflow: "Bildirimlerde taşan metnin nasıl davranacağını ayarla",
-        scrollrepeat: `Bildirim ekrandayken taşan metnin kaç kez kaydırılacağını ayarla<br><br><span class="ttdesc">Kaydırma hızı Görüntüleme Süresine bağlıdır, ancak yüksek tekrar değerleri tüm ön ayarlar için uygun olmayabilir</span>`
+        scrollrepeat: `Bildirim ekrandayken taşan metnin kaç kez kaydırılacağını ayarla<br><br><span class="ttdesc">Kaydırma hızı Görüntüleme Süresine bağlıdır, ancak yüksek tekrar değerleri tüm ön ayarlar için uygun olmayabilir</span>`,
+        setplat: "Desteklenen oyunlarda her başarı seti tamamlandıktan sonra %100 tamamlanma bildirimini göster"
     },
     update: {
         updateavailable: "Güncelleme mevcut",

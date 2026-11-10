@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maximum",
                 notifyoverflow: "Überlaufmodus",
                 ellipsis: "Auslassungspunkte",
-                scroll: "Scrollen"
+                scroll: "Scrollen",
+                setplat: "100%-Abschlussbenachrichtigungen"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Eine benutzerdefinierte Nachricht festlegen, die innerhalb des Elements Achievement-Beschreibung angezeigt wird<br><br><span class="ttdesc">Diese Option wird ausgeblendet, wenn Anpassen > Voreinstellung > Benachrichtigungselemente > Achievement-Beschreibung deaktiviert ist</span>`,
         notifylinemode: "Legt die maximale Anzahl der Textzeilen fest, die in Benachrichtigungen angezeigt werden",
         notifyoverflow: "Legt fest, wie überlaufender Text in Benachrichtigungen behandelt wird",
-        scrollrepeat: `Legt fest, wie oft überlaufender Text scrollt, während die Benachrichtigung auf dem Bildschirm angezeigt wird<br><br><span class="ttdesc">Die Scroll-Geschwindigkeit hängt von der Anzeigedauer ab, aber höhere Wiederholungswerte sind möglicherweise nicht für alle Voreinstellungen geeignet</span>`
+        scrollrepeat: `Legt fest, wie oft überlaufender Text scrollt, während die Benachrichtigung auf dem Bildschirm angezeigt wird<br><br><span class="ttdesc">Die Scroll-Geschwindigkeit hängt von der Anzeigedauer ab, aber höhere Wiederholungswerte sind möglicherweise nicht für alle Voreinstellungen geeignet</span>`,
+        setplat: "Die 100%-Benachrichtigung anzeigen, nachdem jedes Achievement-Set in kompatiblen Spielen abgeschlossen wurde"
     },
     update: {
         updateavailable: "Update verfügbar",

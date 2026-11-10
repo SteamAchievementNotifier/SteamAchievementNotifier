@@ -236,7 +236,8 @@ export const translations = {
                 max: "Máximo",
                 notifyoverflow: "Modo de transbordamento",
                 ellipsis: "Reticências",
-                scroll: "Rolagem"
+                scroll: "Rolagem",
+                setplat: "Notificações de conclusão a 100%"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Definir uma mensagem personalizada a apresentar no elemento Descrição da conquista<br><br><span class="ttdesc">Esta opção ficará oculta quando Personalização > Predefinição > Elementos de notificação > Descrição da conquista estiver desativado</span>`,
         notifylinemode: "Define o número máximo de linhas de texto a serem exibidas nas notificações",
         notifyoverflow: "Define o comportamento do texto que excede o espaço disponível nas notificações",
-        scrollrepeat: `Define quantas vezes o texto excedente será rolado enquanto a notificação estiver visível na tela<br><br><span class="ttdesc">A velocidade de rolagem depende do tempo de exibição, mas valores de repetição mais altos podem não ser adequados para todas as predefinições</span>`
+        scrollrepeat: `Define quantas vezes o texto excedente será rolado enquanto a notificação estiver visível na tela<br><br><span class="ttdesc">A velocidade de rolagem depende do tempo de exibição, mas valores de repetição mais altos podem não ser adequados para todas as predefinições</span>`,
+        setplat: "Exibir a notificação de conclusão a 100% após completar cada conjunto de conquistas em jogos compatíveis"
     },
     update: {
         updateavailable: "Atualização disponível",

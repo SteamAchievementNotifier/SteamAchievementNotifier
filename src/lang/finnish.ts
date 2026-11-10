@@ -236,7 +236,8 @@ export const translations = {
                 max: "Enimmäismäärä",
                 notifyoverflow: "Ylivuototila",
                 ellipsis: "Kolme pistettä",
-                scroll: "Vieritys"
+                scroll: "Vieritys",
+                setplat: "100 %:n suoritusilmoitukset"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Määritä mukautettu viesti, joka näytetään Saavutuksen kuvaus -elementissä<br><br><span class="ttdesc">Tämä vaihtoehto piilotetaan, kun Mukauttaminen > Esiasetus > Ilmoituselementit > Saavutuksen kuvaus on poistettu käytöstä</span>`,
         notifylinemode: "Määritä ilmoituksissa näytettävien tekstirivien enimmäismäärä",
         notifyoverflow: "Määritä, miten ilmoitusten ylivuotava teksti käsitellään",
-        scrollrepeat: `Määritä, kuinka monta kertaa ylivuotavaa tekstiä vieritetään ilmoituksen ollessa näytöllä<br><br><span class="ttdesc">Vieritysnopeus riippuu näyttöajasta, mutta suuremmat toistoarvot eivät välttämättä sovi kaikkiin esiasetuksiin</span>`
+        scrollrepeat: `Määritä, kuinka monta kertaa ylivuotavaa tekstiä vieritetään ilmoituksen ollessa näytöllä<br><br><span class="ttdesc">Vieritysnopeus riippuu näyttöajasta, mutta suuremmat toistoarvot eivät välttämättä sovi kaikkiin esiasetuksiin</span>`,
+        setplat: "Näytä 100 %:n suoritusilmoitus, kun jokainen saavutuskokonaisuus on suoritettu yhteensopivissa peleissä"
     },
     update: {
         updateavailable: "Päivitys saatavilla",

@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maximum",
                 notifyoverflow: "Overloopmodus",
                 ellipsis: "Beletselteken",
-                scroll: "Scrollen"
+                scroll: "Scrollen",
+                setplat: "100%-voltooiingsmeldingen"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatiebeschrijving<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`,
         notifylinemode: "Stel het maximale aantal tekstregels in dat in meldingen wordt weergegeven",
         notifyoverflow: "Stel in hoe overlopende tekst in meldingen wordt weergegeven",
-        scrollrepeat: `Stel in hoe vaak overlopende tekst scrolt terwijl de melding op het scherm staat<br><br><span class="ttdesc">De scrollsnelheid is afhankelijk van de weergaveduur, maar hogere herhalingswaarden zijn mogelijk niet geschikt voor alle presets</span>`
+        scrollrepeat: `Stel in hoe vaak overlopende tekst scrolt terwijl de melding op het scherm staat<br><br><span class="ttdesc">De scrollsnelheid is afhankelijk van de weergaveduur, maar hogere herhalingswaarden zijn mogelijk niet geschikt voor alle presets</span>`,
+        setplat: "De 100%-melding weergeven nadat elke achievementset in compatibele games is voltooid"
     },
     update: {
         updateavailable: "Update beschikbaar",

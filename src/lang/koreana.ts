@@ -236,7 +236,8 @@ export const translations = {
                 max: "최대",
                 notifyoverflow: "오버플로 모드",
                 ellipsis: "줄임표",
-                scroll: "스크롤"
+                scroll: "스크롤",
+                setplat: "100% 달성 알림"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
         notifylinemode: "알림에 표시할 텍스트의 최대 줄 수를 설정합니다",
         notifyoverflow: "알림에서 텍스트가 넘칠 경우의 동작을 설정합니다",
-        scrollrepeat: `알림이 화면에 표시되는 동안 넘치는 텍스트를 스크롤할 횟수를 설정합니다<br><br><span class="ttdesc">스크롤 속도는 표시 시간에 따라 달라지며, 반복 횟수가 너무 높으면 일부 프리셋에 적합하지 않을 수 있습니다</span>`
+        scrollrepeat: `알림이 화면에 표시되는 동안 넘치는 텍스트를 스크롤할 횟수를 설정합니다<br><br><span class="ttdesc">스크롤 속도는 표시 시간에 따라 달라지며, 반복 횟수가 너무 높으면 일부 프리셋에 적합하지 않을 수 있습니다</span>`,
+        setplat: "호환되는 게임에서 각 도전 과제 세트를 완료한 후 100% 달성 알림 표시"
     },
     update: {
         updateavailable: "업데이트 가능",

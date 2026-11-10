@@ -373,6 +373,7 @@ export const sanconfig = {
                 workerdebug: false,
                 logresourceusage: false,
                 uimode: "advanced",
+                setplat: false,
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

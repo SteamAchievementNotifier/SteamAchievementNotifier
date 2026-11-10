@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maksimum",
                 notifyoverflow: "Tekstoverløbstilstand",
                 ellipsis: "Udeladelsestegn",
-                scroll: "Rulning"
+                scroll: "Rulning",
+                setplat: "100% fuldførelsesnotifikationer"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Angiv en brugerdefineret besked, der skal vises i elementet Præstationsbeskrivelse<br><br><span class="ttdesc">Denne indstilling skjules, når Tilpasning > Forudindstilling > Notifikationselementer > Præstationsbeskrivelse er deaktiveret</span>`,
         notifylinemode: "Angiver det maksimale antal tekstlinjer, der skal vises i meddelelser",
         notifyoverflow: "Angiver, hvordan overskydende tekst håndteres i meddelelser",
-        scrollrepeat: `Angiver, hvor mange gange overskydende tekst ruller, mens meddelelsen vises på skærmen<br><br><span class="ttdesc">Rullehastigheden afhænger af visningstiden, men højere gentagelsesværdier er muligvis ikke egnede til alle forudindstillinger</span>`
+        scrollrepeat: `Angiver, hvor mange gange overskydende tekst ruller, mens meddelelsen vises på skærmen<br><br><span class="ttdesc">Rullehastigheden afhænger af visningstiden, men højere gentagelsesværdier er muligvis ikke egnede til alle forudindstillinger</span>`,
+        setplat: "Vis 100%-notifikationen efter fuldførelse af hvert achievement-sæt i kompatible spil"
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

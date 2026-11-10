@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maksymalny",
                 notifyoverflow: "Tryb przepełnienia",
                 ellipsis: "Wielokropek",
-                scroll: "Przewijanie"
+                scroll: "Przewijanie",
+                setplat: "Powiadomienia o ukończeniu w 100%"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Ustaw niestandardowy komunikat wyświetlany w elemencie Opis osiągnięcia<br><br><span class="ttdesc">Ta opcja będzie ukryta, gdy Dostosowywanie > Ustawienie wstępne > Elementy powiadomień > Opis osiągnięcia będzie wyłączone</span>`,
         notifylinemode: "Ustaw maksymalną liczbę wierszy tekstu wyświetlanych w powiadomieniach",
         notifyoverflow: "Ustaw sposób obsługi tekstu wykraczającego poza dostępny obszar w powiadomieniach",
-        scrollrepeat: `Ustaw, ile razy nadmiarowy tekst będzie przewijany, gdy powiadomienie jest widoczne na ekranie<br><br><span class="ttdesc">Szybkość przewijania zależy od czasu wyświetlania, ale wyższe wartości powtórzeń mogą nie być odpowiednie dla wszystkich presetów</span>`
+        scrollrepeat: `Ustaw, ile razy nadmiarowy tekst będzie przewijany, gdy powiadomienie jest widoczne na ekranie<br><br><span class="ttdesc">Szybkość przewijania zależy od czasu wyświetlania, ale wyższe wartości powtórzeń mogą nie być odpowiednie dla wszystkich presetów</span>`,
+        setplat: "Wyświetlaj powiadomienie o ukończeniu w 100% po zdobyciu wszystkich osiągnięć w danym zestawie w kompatybilnych grach"
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maximum",
                 notifyoverflow: "Mode de débordement",
                 ellipsis: "Points de suspension",
-                scroll: "Défilement"
+                scroll: "Défilement",
+                setplat: "Notifications de complétion à 100 %"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Définir un message personnalisé à afficher dans l’élément Description du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Description du succès est désactivé</span>`,
         notifylinemode: "Définir le nombre maximal de lignes de texte à afficher dans les notifications",
         notifyoverflow: "Définir le comportement du texte qui dépasse l'espace disponible dans les notifications",
-        scrollrepeat: `Définir le nombre de fois que le texte excédentaire défile pendant que la notification est affichée à l'écran<br><br><span class="ttdesc">La vitesse de défilement dépend de la durée d'affichage, mais des valeurs de répétition plus élevées peuvent ne pas convenir à tous les préréglages</span>`
+        scrollrepeat: `Définir le nombre de fois que le texte excédentaire défile pendant que la notification est affichée à l'écran<br><br><span class="ttdesc">La vitesse de défilement dépend de la durée d'affichage, mais des valeurs de répétition plus élevées peuvent ne pas convenir à tous les préréglages</span>`,
+        setplat: "Afficher la notification de complétion à 100 % après avoir terminé chaque ensemble de succès dans les jeux compatibles"
     },
     update: {
         updateavailable: "Mise à jour disponible",

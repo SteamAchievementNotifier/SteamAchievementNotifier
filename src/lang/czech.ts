@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maximum",
                 notifyoverflow: "Režim přetečení",
                 ellipsis: "Trojtečka",
-                scroll: "Posouvání"
+                scroll: "Posouvání",
+                setplat: "Oznámení o 100% dokončení"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Popis achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Popis achievementu zakázána</span>`,
         notifylinemode: "Nastaví maximální počet řádků textu zobrazovaných v oznámeních",
         notifyoverflow: "Nastaví chování přetékajícího textu v oznámeních",
-        scrollrepeat: `Nastaví, kolikrát se bude přetékající text posouvat, dokud je oznámení na obrazovce<br><br><span class="ttdesc">Rychlost posouvání závisí na době zobrazení, ale vyšší hodnoty opakování nemusí být vhodné pro všechna přednastavení</span>`
+        scrollrepeat: `Nastaví, kolikrát se bude přetékající text posouvat, dokud je oznámení na obrazovce<br><br><span class="ttdesc">Rychlost posouvání závisí na době zobrazení, ale vyšší hodnoty opakování nemusí být vhodné pro všechna přednastavení</span>`,
+        setplat: "Zobrazit oznámení o 100% dokončení po dokončení každé sady achievementů v kompatibilních hrách"
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

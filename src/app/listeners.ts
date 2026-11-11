@@ -633,7 +633,7 @@ export const listeners = {
         })
 
         // Clean up after installs of previous version
-        if (!sanhelper.devmode && !sanhelper.beta) {
+        if (!sanhelper.devmode) {
             const legacydir = update.getlegacydir()
             const legacyversion = legacydir && /\(V(\d+\.\d+)\)/.exec(path.basename(legacydir))?.[1]
             

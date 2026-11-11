@@ -31,8 +31,11 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 
 <div align="center">
 
-| <a href="#features">Features</a> | <a href="#updates">Updates</a> | <a href="#installation">Installation</a> | <a href="#credits">Credits</a> |
-| --- | --- | --- | --- |
+<!-- | <a href="#features">Features</a> | <a href="#updates">Updates</a> | <a href="#installation">Installation</a> | <a href="#credits">Credits</a> |
+| --- | --- | --- | --- | -->
+
+| <a href="#features">Features</a> | <a href="#installation">Installation</a> | <a href="#credits">Credits</a> |
+| --- | --- | --- |
 
 </div>
 
@@ -112,10 +115,6 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 - [fs-extra](https://github.com/jprichardson/node-fs-extra) by [jprichardson](https://github.com/jprichardson/)
 - [electron-builder/electron-updater](https://github.com/electron-userland/electron-builder)
 - [Tippy.js](https://atomiks.github.io/tippyjs/)
-<!--
-- [jpeg-js](https://github.com/jpeg-js/jpeg-js)
-- [steam-game-path](https://github.com/osztenkurden/steam-game-path) by [osztenkurden](https://github.com/osztenkurden)
--->
 - [vdf-rs](https://github.com/CosmicHorrorDev/vdf-rs) by [CosmicHorrorDev](https://github.com/CosmicHorrorDev)
 - Custom forks of [screenshots (xcap)](https://github.com/nashaofu/xcap)/[display-info](https://github.com/nashaofu/display-info) by [nashaofu](https://github.com/nashaofu)
 - [icojs](https://github.com/egy186/icojs) by [egy186](https://github.com/egy186)

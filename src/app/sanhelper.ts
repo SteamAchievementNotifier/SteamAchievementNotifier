@@ -981,7 +981,7 @@ export const sanhelper = {
                 #customisercontent select,
                 #customisercontent .rect
             `)!.forEach(async elem => {
-                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : (elem.id.startsWith("usegametitle") ? "usegametitle" : elem.id),["tooltips"])
+                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : ((await import("./config")).subopts.find(opt => elem.id.startsWith(opt)) ?? elem.id),["tooltips"])
 
                 for (const id of rarityids) {
                     if (!elem.id.startsWith(id)) continue

@@ -49,7 +49,7 @@ dialog > #content {
     place-self: center;
     flex-direction: column;
     scale: 0;
-    background-color: #1b1b1b;
+    background-color: var(--bggrey);
     color: white;
     border-radius: var(--winbr);
     width: 50%;
@@ -94,6 +94,7 @@ dialog[selection] .contentwrapper {
     width: 100%;
     padding: 0.35rem;
     background-color: var(--primary);
+    background: var(--primarygradient);
     border-radius: var(--elembr) var(--elembr) 0 0;
     text-align: center;
     text-transform: uppercase;
@@ -401,6 +402,7 @@ body[plat] dialog:has([id*="theme"]) {
 
 dialog[selection] .rect[enabled] {
     background-color: var(--primary);
+    background: var(--primarygradient);
     pointer-events: none;
 }
 
@@ -1050,6 +1052,7 @@ button#userthemesync {
     text-transform: none;
     border-radius: 0 0 var(--elembr) var(--elembr);
     background-color: var(--primary);
+    background: var(--primarygradient);
 }
 
 button#userthemesync::before {

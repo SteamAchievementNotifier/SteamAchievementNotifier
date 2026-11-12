@@ -473,17 +473,17 @@ export const listeners = {
                     !ra && worker && worker.webContents.send("steam3id",true)
 
                     const { steam3id, skipss } = ra ? { steam3id: 0, skipss: true } : await new Promise<{ steam3id: number, skipss?: boolean }>(resolve => ipcMain.once("steam3id",async (event,steam3id: number = 0,skipss?: boolean) => resolve({ steam3id, skipss })))
-                    const { icon, gameartlibhero } = ra || await getgameartimgs({ ...gameartobj, steam3id },gameartfiles)
+                    const { icon, gameartlibhero } = ra ?? await getgameartimgs({ ...gameartobj, steam3id },gameartfiles)
                     const gamearticon = ra ? null : await gameart.convertICO(icon,tempdir)
 
                     skipss && sendtrackinfo(gamename,gamearticon || icon,gameartlibhero)
                 } catch (err) {
                     log.write("ERROR",`Error sending tracking info to Worker: ${err}`)
                     
-                    const { icon, gameartlibhero } = ra || await getgameartimgs(gameartobj,gameartfiles)
+                    const { icon, gameartlibhero } = ra ?? await getgameartimgs(gameartobj,gameartfiles)
                     const gamearticon = ra ? null : await gameart.convertICO(icon,tempdir)
 
-                    sendtrackinfo(gamename,gamearticon || icon,gameartlibhero)
+                    sendtrackinfo(gamename,gamearticon ?? icon,gameartlibhero)
                 }
             })
 

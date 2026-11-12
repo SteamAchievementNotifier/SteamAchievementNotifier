@@ -316,7 +316,7 @@ span#nopreview {
     gap: 0.5rem;
     padding-bottom: 1rem;
     font-size: 0.75rem;
-    background-color: #1b1b1b;
+    background-color: var(--bggrey);
     z-index: 1;
 }
 
@@ -389,6 +389,7 @@ body[plat] .wrapper#customisertabs > .wrapper#customisertablbl::before {
     width: 100%;
     padding: 0.15rem 0.25rem;
     background-color: var(--primary);
+    background: var(--primarygradient);
     border-radius: var(--elembr);
     transition: background-color var(--transition);
 }

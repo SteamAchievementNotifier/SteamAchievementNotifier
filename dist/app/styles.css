@@ -320,6 +320,7 @@ body[trophymode] .wrapper#tabs {
     padding-block: 0.25vh;
     font-size: 0.8rem;
     background-color: var(--primary);
+    background: var(--primarygradient);
     transition: background-color var(--transition),
         color var(--transition),
         opacity var(--transition);
@@ -335,6 +336,7 @@ body[semi] .wrapper > .tab[semi],
 body[rare] .wrapper > .tab[rare],
 body[plat] .wrapper > .tab[plat] {
     background-color: white;
+    background: white;
     color: black;
     opacity: 1;
     pointer-events: none;

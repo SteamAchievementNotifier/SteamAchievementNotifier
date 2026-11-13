@@ -24,7 +24,8 @@ export const selectorelems = [
     "percentbadgeimgbronze",
     "percentbadgeimgsilver",
     "percentbadgeimggold",
-    "ssdisplay"
+    "ssdisplay",
+    "playtime"
 ].flatMap(id => ["unlockmsg","title","desc","ssdisplay"].includes(id) ? [id] : [id,`ss${id}`])
 
 const moveelem = (arr: string[],from: number,to: number) => arr.map((item,i) => (i === to ? arr[from] : i === from ? arr[to] : item))

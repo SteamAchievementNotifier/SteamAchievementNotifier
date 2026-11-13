@@ -69,7 +69,10 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 }
 
 #settingscontent {
-    --primary: #203e7a;
+    /* --primary: #203e7a; */
+    --primary: #2f5bb5;
+    --primarydark: color-mix(in srgb,var(--primary),black 35%);
+    --primarygradient: radial-gradient(circle,var(--primary),var(--primarydark));
     display: block;
     padding-right: 1rem;
     overflow: hidden scroll;
@@ -94,6 +97,7 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
     gap: 0.5rem;
     padding: 0.25rem;
     background-color: var(--primary);
+    background: var(--primarygradient);
     transition: background-color var(--transition);
     text-transform: uppercase;
 }
@@ -150,6 +154,7 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 .optcont {
     padding: 0.7rem;
     gap: 0.5rem;
+    background-color: var(--mediumgrey);
 }
 
 .opt {

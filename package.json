@@ -41,7 +41,6 @@
         "electron-updater": "^6.1.7",
         "fs-extra": "^11.2.0",
         "icojs": "^0.22.1",
-        "jpeg-js": "^0.4.4",
         "sanhelper.rs": "./deps/sanhelper.rs",
         "semver": "^7.8.6",
         "simple-vdf": "^1.1.1",
@@ -49,7 +48,6 @@
         "tippy.js": "^6.3.7"
     },
     "overrides": {
-        "adm-zip": "^0.6.0",
         "brace-expansion": "^5.0.8"
     },
     "build": {
@@ -110,5 +108,8 @@
             "category": "Utility"
         },
         "afterPack": "./afterpack.js"
+    },
+    "allowScripts": {
+        "electron-winstaller@5.4.0": true
     }
 }

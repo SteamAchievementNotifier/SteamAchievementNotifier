@@ -236,7 +236,8 @@ export const translations = {
                 max: "最大",
                 notifyoverflow: "オーバーフローモード",
                 ellipsis: "省略記号",
-                scroll: "スクロール"
+                scroll: "スクロール",
+                setplat: "100%達成通知"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `実績の説明要素に表示するカスタムメッセージを設定<br><br><span class="ttdesc">カスタマイズ > プリセット > 通知要素 > 実績の説明が無効になっている場合、このオプションは非表示になります</span>`,
         notifylinemode: "通知内に表示するテキストの最大行数を設定します",
         notifyoverflow: "通知内でテキストがオーバーフローした場合の動作を設定します",
-        scrollrepeat: `通知が画面に表示されている間に、オーバーフローしたテキストをスクロールする回数を設定します<br><br><span class="ttdesc">スクロール速度は表示時間に依存しますが、繰り返し回数を増やすと一部のプリセットに適さない場合があります</span>`
+        scrollrepeat: `通知が画面に表示されている間に、オーバーフローしたテキストをスクロールする回数を設定します<br><br><span class="ttdesc">スクロール速度は表示時間に依存しますが、繰り返し回数を増やすと一部のプリセットに適さない場合があります</span>`,
+        setplat: "対応ゲームで各実績セットを完了した後に100%達成通知を表示する"
     },
     update: {
         updateavailable: "アップデートが利用可能です",
@@ -1100,72 +1102,6 @@ export const translations = {
                 `RetroAchievementsサイトの<span class="hl">ゲームページ</span>の<span class="hl">URL</span>を確認してください。<span class="hl">game/</span>の後に表示される番号がGameIDです：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "RetroAchievements の既定として設定"
-        }
-    },
-    troubleshooter: {
-        title: "トラブルシューティング",
-        content: {
-            copydata: "コピー",
-            noissues: "問題は見つかりませんでした！",
-            noissuessub: "このゲームは自動的にリリースされるはずです。",
-            manualrelease: `<span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span> から、ゲームを手動でリリースできます。`,
-            addedvia: "追加元"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "アクティブなプロセスがありません",
-                issue: "アクティブなゲームプロセスが見つかりません",
-                detail: "このゲームに関連付けられた実行ファイルが、実行中のプロセスとして検出されません。以下の実行ファイルを確認しました：",
-                solution: [
-                    `ゲームの実行ファイルを $linkedgamesmenu に追加してみてください。`,
-                    `$linkedgamesmenu のエントリが正しい実行ファイルを指していることを確認してください。`
-                ]
-            },
-            unknownexecutable: {
-                title: "実行ファイルが不明です",
-                issue: "ゲームの実行ファイルを特定できません",
-                detail: "ゲームの実行ファイルへのパスを自動的に特定できませんでした。これは通常、Steam 経由でゲームを起動する際にゲーム起動前のランチャーが使用されていることが原因です。",
-                solution: [
-                    `このゲームの新しいエントリを $linkedgamesmenu に追加するか、誤ったゲーム実行ファイルを指しているエントリを削除してください。それでも解決しない場合は、<code style="font-size: 0.55rem;">-skiplauncher</code> のような、ゲーム起動前のランチャーを回避する Steam の起動オプションをゲームがサポートしているか確認してください。`,
-                    `$sanwatcher を有効にしてみてください。`
-                ]
-            },
-            missingexecutable: {
-                title: "実行ファイルがありません",
-                issue: "ゲームの実行ファイルがディスク上に見つかりません",
-                detail: `このゲームに関連付けられた実行ファイルがディスク上に見つかりませんでした。以下の実行ファイルを確認しました：`,
-                solution: ["Steam からゲームファイルの整合性を確認するか、ゲームを再インストールしてみてください。"]
-            },
-            notexecutable: {
-                title: "実行できません",
-                issue: `ゲームの実行ファイルに実行権限がありません`,
-                detail: "Steam がゲームの起動に使用するファイルを実行できません。ファイルの状態は次のとおりです：",
-                solution: ["このファイルを実行可能にするには、使用している Linux ディストリビューションの手順を参照してください。"]
-            },
-            notwithininstalldir: {
-                title: "ゲームディレクトリ内にありません",
-                issue: "実行ファイルがインストールディレクトリ内にありません",
-                detail: "$linkedgamesmenu にこのゲームのエントリが検出されましたが、リンクされている実行ファイルがゲームのインストールフォルダ内にありません。正しい実行ファイルではない可能性があります。",
-                solution: ["このゲームの $linkedgamesmenu エントリを編集し、正しいゲームの実行ファイルを指していることを確認してください。"]
-            },
-            wrongplatformpath: {
-                title: "ゲームパスが無効です",
-                issue: "現在の OS に対してゲームパスが無効です",
-                detail: "このゲームの実行ファイルのパスは別の OS に属しているようです。別のマシンからコピーした設定やデュアルブート環境が原因である可能性があります。",
-                solution: [`別のマシン/OS からコピーした設定は使用しないでください。正しく動作しない可能性があります。既存の <span class="hl">Themes</span> は、<span class="hl">Customiser</span> メニューからプラットフォーム間でインポート/エクスポートできます。`]
-            },
-            duplicatelinkentries: {
-                title: "重複したエントリ",
-                issue: "重複した $linkedgamesmenu エントリが見つかりました",
-                detail: "このゲームの実行ファイルは、$linkedgamesmenu の $appids にもリンクされています。",
-                solution: ["重複しているエントリのいずれかを削除し、残ったエントリが正しいゲームの実行ファイルを指していることを確認してください。"]
-            },
-            releasing: {
-                title: "ゲームをリリース中",
-                issue: "ゲームをリリースしています",
-                detail: "このゲームはまもなくリリースされます。",
-                solution: [`もう数秒お待ちください。リリースが完了すると、<span class="hl">System Tray</span> アイコンのドットが <span class="troubleshooterdialogicon" grey></span>（リリース中）から <span class="troubleshooterdialogicon" red></span>（アイドル）に変わります。`]
-            }
         }
     }
 }

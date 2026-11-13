@@ -30,7 +30,7 @@ export const sanachievement = {
                 const unlocked = ((data >> bit) & 1) === 1
                 const time = times[bitstr]
     
-                const { name: apiname, display: { name, desc, hidden, icon } } = achievement
+                const { name: apiname, display: { name, desc, hidden, icon }, groupid: setid } = achievement
     
                 result.push({
                     unlocked,
@@ -41,6 +41,7 @@ export const sanachievement = {
                     percent: percentages.get(apiname) ?? percentages.get(apiname.toLowerCase()) ?? -1,
                     icon,
                     statid: parseInt(statid),
+                    setid,
                     bit,
                     unlocktime: unlocked ? time : null,
                     relocked: !unlocked && time !== undefined, // true: Previously unlocked, then relocked
@@ -156,5 +157,16 @@ export const sanachievement = {
     geticon: async (appid: number,filename: string | undefined) => {
         if (!filename) return null
         return sanachievement.downloadicon(steamiconurls.map(url => `https://${url}/images/apps/${appid}/${filename}`),path.join(sanhelper.temp,`${appid}`,filename))
+    },
+    getsetname: (schema: any,appid: number,groupid: number,lang: string) => {
+        const name = schema?.[appid]?.groups?.[groupid]?.name
+        return name?.[lang] ?? name?.english ?? `Set ${groupid}`
+    },
+    getcompletedsets: (live: Achievement[],unlocked: Achievement[]) => {
+        const setids = new Set(live.map(achievement => achievement.setid).filter(id => id !== undefined))
+        if (setids.size < 2) return [] // 0-1 Sets: Trigger normal 100% notification
+        
+        const unlockset = new Set(unlocked.filter(achievement => achievement.unlocked && achievement.setid !== undefined).map(achievement => achievement.setid!))
+        return [...unlockset].filter(id => live.filter(achievement => achievement.setid === id).every(achievement => achievement.unlocked))
     }
 }

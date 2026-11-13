@@ -1,7 +1,8 @@
 import fs from "fs"
 import path from "path"
 import vdfbinary from "@xan105/vdf/binary"
-import vdf from "simple-vdf"
+// import vdf from "simple-vdf"
+import vdf from "@xan105/vdf"
 import { log } from "./log"
 
 const steam64base = 76561197960265728n
@@ -20,14 +21,8 @@ export const steam = {
         const userdatadir = path.join(steampath,"userdata")
         const ondisk = new Set(fs.existsSync(userdatadir) ? fs.readdirSync(userdatadir,{ withFileTypes: true }).filter(entry => entry.isDirectory() && /^[1-9]\d*$/.test(entry.name)).map(entry => entry.name) : [])
         const loginusers = path.join(steampath,"config","loginusers.vdf")
-        
-        let vdfdata: any = {}
 
-        try {
-            vdfdata = vdf.parse(fs.readFileSync(loginusers,"utf8")) // `simple-vdf` only accepts a string, not a Buffer
-        } catch (err) {
-            log.write("WARN",`Unable to parse "${loginusers}": ${(err as Error).message}`)
-        }
+        const vdfdata = steam.parsevdf(loginusers)
 
         for (const [steam64id,entry] of Object.entries<any>(vdfdata.users ?? {})) {
             const steam3id = steam.steam64tosteam3id(steam64id)
@@ -44,7 +39,7 @@ export const steam = {
             })
         }
 
-        // Userdata folders with no matching loginusers.vdf entry (e.g. removed accounts)
+        // Userdata folders with no matching `loginusers.vdf` entry (e.g. removed accounts)
         for (const id of ondisk) {
             users.push({
                 steam3id: parseInt(id),
@@ -69,9 +64,14 @@ export const steam = {
     getstatlookup: (stats: Record<string, any>) => {
         const lookup = new Map<string,SteamStat>()
 
-        for (const [statid, stat] of Object.entries<any>(stats)) {
+        for (const [statid,stat] of Object.entries<any>(stats)) {
             if (stat?.type === "ACHIEVEMENTS" || typeof stat?.name !== "string") continue
-            lookup.set(stat.name, { statid, type: stat.type, default: Number(stat.default ?? 0) })
+            
+            lookup.set(stat.name,{
+                statid,
+                type: stat.type,
+                default: Number(stat.default ?? 0)
+            })
         }
 
         return lookup
@@ -87,5 +87,19 @@ export const steam = {
         }
 
         return data
+    },
+    parsevdf: (filename: string) => {
+        try {
+            return vdf.parse(fs.readFileSync(filename,"utf8")) as any
+        } catch (err) {
+            log.write("WARN",`Unable to parse "${filename}": ${(err as Error).message}`)
+        }
+    },
+    getplaytime: (user: SteamUser,appid: number,steampath: string) => {
+        const localconfig = path.join(steampath,"userdata",`${user.steam3id}`,"config","localconfig.vdf")
+        const vdfdata = steam.parsevdf(localconfig)
+        const playtime = parseInt(vdfdata.UserLocalConfigStore?.Software?.valve?.Steam?.apps?.[appid]?.Playtime ?? "-1")
+
+        return playtime >= 0 ? Math.round((playtime / 60) * 10) / 10 : -1 // Steam rounds to the nearest .1
     }
 }

@@ -70,6 +70,11 @@ const defaultcolors = {
     }
 } as const
 
+// Used to simplify translation lookup in `language.ts`
+export const subopts = [
+    "gametitle",
+].map(id => `use${id}`)
+
 export const sanconfig = {
     get defaultfiles(): { [key: string]: any } {
         const customobj = sanconfig.defaultobj("customisation")
@@ -373,6 +378,7 @@ export const sanconfig = {
                 workerdebug: false,
                 logresourceusage: false,
                 uimode: "advanced",
+                setplat: false,
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,

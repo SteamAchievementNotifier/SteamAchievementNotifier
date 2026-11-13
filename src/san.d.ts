@@ -171,6 +171,7 @@ declare interface Config {
     workerdebug: boolean,
     logresourceusage: boolean,
     uimode: "basic" | "advanced",
+    setplat: boolean,
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -364,6 +365,7 @@ declare interface Achievement {
     icon?: string,
     unlocktimestamp?: number,
     statid?: number,
+    setid?: number,
     bit?: number,
     unlocktime?: number,
     relocked?: boolean,
@@ -455,6 +457,8 @@ declare interface Info {
     showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     ra?: boolean
 }
+
+declare type NotifyInfo = Pick<Notify,"type" | "apiname" | "name" | "gamename" | "steam3id"> & Partial<Omit<Notify,"customisation">>
 
 declare interface BuildNotifyInfo {
     id: number,
@@ -610,11 +614,8 @@ declare interface RAAchievement {
     unlocktimestamp?: number
 }
 
-declare interface RAAPlatObj {
+declare interface RAPlat {
     achievement: RAAchievement,
-    customisation: Customisation,
-    platicon: string,
-    monitor: number,
     username: string,
     numawarded: number,
     numachievements: number

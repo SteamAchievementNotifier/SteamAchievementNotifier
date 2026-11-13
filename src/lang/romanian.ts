@@ -236,7 +236,8 @@ export const translations = {
                 max: "Maxim",
                 notifyoverflow: "Modul de depășire",
                 ellipsis: "Puncte de suspensie",
-                scroll: "Derulare"
+                scroll: "Derulare",
+                setplat: "Notificări de completare 100%"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Setează un mesaj personalizat care va fi afișat în elementul Descrierea realizării<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Personalizare > Presetare > Elemente de notificare > Descrierea realizării este dezactivat</span>`,
         notifylinemode: "Setează numărul maxim de linii de text afișate în notificări",
         notifyoverflow: "Setează comportamentul textului care depășește spațiul disponibil în notificări",
-        scrollrepeat: `Setează de câte ori va derula textul care depășește spațiul disponibil cât timp notificarea este afișată pe ecran<br><br><span class="ttdesc">Viteza de derulare depinde de timpul de afișare, însă valorile mai mari ale repetării pot să nu fie potrivite pentru toate presetările</span>`
+        scrollrepeat: `Setează de câte ori va derula textul care depășește spațiul disponibil cât timp notificarea este afișată pe ecran<br><br><span class="ttdesc">Viteza de derulare depinde de timpul de afișare, însă valorile mai mari ale repetării pot să nu fie potrivite pentru toate presetările</span>`,
+        setplat: "Afișează notificarea de completare 100% după finalizarea fiecărui set de realizări în jocurile compatibile"
     },
     update: {
         updateavailable: "Actualizare disponibilă",
@@ -1100,72 +1102,6 @@ export const translations = {
                 `URL-ul <span class="hl">paginii jocului</span> de pe site-ul RetroAchievements — este numărul după <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Setează ca implicit pentru RetroAchievements"
-        }
-    },
-    troubleshooter: {
-        title: "Depanare",
-        content: {
-            copydata: "Copiază",
-            noissues: "Nu au fost găsite probleme!",
-            noissuessub: "Acest joc ar trebui să fie lansat automat.",
-            manualrelease: `Poți lansa manual orice joc prin <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
-            addedvia: "Adăugat prin"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "Nu există procese active",
-                issue: "Nu a fost găsit niciun proces activ al jocului",
-                detail: "Fișierul executabil asociat acestui joc nu este detectat ca proces în execuție. Au fost verificate următoarele fișiere executabile:",
-                solution: [
-                    `Încearcă să adaugi executabilul jocului în $linkedgamesmenu.`,
-                    `Asigură-te că intrarea din $linkedgamesmenu indică executabilul corect.`
-                ]
-            },
-            unknownexecutable: {
-                title: "Executabil necunoscut",
-                issue: "Executabilul jocului nu poate fi identificat",
-                detail: "Calea către executabilul jocului nu a putut fi localizată automat, lucru cauzat de obicei de lansatoarele pre-joc atunci când jocul este pornit prin Steam.",
-                solution: [
-                    `Adaugă o intrare nouă pentru acest joc în $linkedgamesmenu sau elimină orice intrări care indică un executabil de joc incorect. În caz contrar, verifică dacă jocul acceptă o opțiune de lansare Steam pentru a ocoli lansatoarele pre-joc, precum <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
-                    `Încearcă să activezi $sanwatcher.`
-                ]
-            },
-            missingexecutable: {
-                title: "Executabil lipsă",
-                issue: "Executabilul jocului nu a fost găsit pe disc",
-                detail: `Executabilul asociat acestui joc nu a putut fi găsit pe disc. Au fost verificate următoarele fișiere executabile:`,
-                solution: ["Încearcă să verifici integritatea fișierelor jocului prin Steam sau să reinstalezi jocul."]
-            },
-            notexecutable: {
-                title: "Nu este executabil",
-                issue: `Jocului îi lipsește permisiunea de executare`,
-                detail: "Fișierul folosit de Steam pentru a lansa jocul nu poate fi executat. Fișierul a fost raportat ca:",
-                solution: ["Pentru a face acest fișier executabil, consultă instrucțiunile pentru distribuția ta specifică de Linux."]
-            },
-            notwithininstalldir: {
-                title: "Nu se află în directorul jocului",
-                issue: "Executabilul nu se află în directorul de instalare",
-                detail: "A fost detectată o intrare pentru acest joc în $linkedgamesmenu, dar executabilul asociat nu se află în folderul de instalare al jocului, ceea ce poate indica faptul că nu este cel corect.",
-                solution: ["Editează intrarea $linkedgamesmenu pentru acest joc și asigură-te că indică executabilul corect al jocului."]
-            },
-            wrongplatformpath: {
-                title: "Calea jocului este invalidă",
-                issue: "Calea jocului este invalidă pentru sistemul de operare curent",
-                detail: "Calea către executabilul acestui joc pare să aparțină unui alt sistem de operare - posibil din cauza unei configurații copiate de pe alt computer sau a unei configurații dual-boot.",
-                solution: [`Nu utiliza o configurație copiată de pe alt computer/sistem de operare, deoarece probabil nu va funcționa conform așteptărilor. Toate <span class="hl">Themes</span> existente pot fi importate/exportate între platforme prin meniul <span class="hl">Customiser</span>.`]
-            },
-            duplicatelinkentries: {
-                title: "Intrări duplicate",
-                issue: "Au fost găsite intrări $linkedgamesmenu duplicate",
-                detail: "Acest executabil al jocului este, de asemenea, asociat cu $appids în $linkedgamesmenu.",
-                solution: ["Elimină una dintre intrările duplicate și asigură-te că intrarea rămasă indică executabilul corect al jocului."]
-            },
-            releasing: {
-                title: "Lansarea jocului",
-                issue: "Jocul este în curs de lansare",
-                detail: "Acest joc urmează să fie lansat.",
-                solution: [`Mai așteaptă câteva secunde - punctul din pictograma <span class="hl">System Tray</span> se va schimba din <span class="troubleshooterdialogicon" grey></span> (în curs de lansare) în <span class="troubleshooterdialogicon" red></span> (inactiv) după ce jocul este lansat.`]
-            }
         }
     }
 }

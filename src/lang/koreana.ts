@@ -236,7 +236,8 @@ export const translations = {
                 max: "최대",
                 notifyoverflow: "오버플로 모드",
                 ellipsis: "줄임표",
-                scroll: "스크롤"
+                scroll: "스크롤",
+                setplat: "100% 달성 알림"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
         notifylinemode: "알림에 표시할 텍스트의 최대 줄 수를 설정합니다",
         notifyoverflow: "알림에서 텍스트가 넘칠 경우의 동작을 설정합니다",
-        scrollrepeat: `알림이 화면에 표시되는 동안 넘치는 텍스트를 스크롤할 횟수를 설정합니다<br><br><span class="ttdesc">스크롤 속도는 표시 시간에 따라 달라지며, 반복 횟수가 너무 높으면 일부 프리셋에 적합하지 않을 수 있습니다</span>`
+        scrollrepeat: `알림이 화면에 표시되는 동안 넘치는 텍스트를 스크롤할 횟수를 설정합니다<br><br><span class="ttdesc">스크롤 속도는 표시 시간에 따라 달라지며, 반복 횟수가 너무 높으면 일부 프리셋에 적합하지 않을 수 있습니다</span>`,
+        setplat: "호환되는 게임에서 각 도전 과제 세트를 완료한 후 100% 달성 알림 표시"
     },
     update: {
         updateavailable: "업데이트 가능",
@@ -1100,72 +1102,6 @@ export const translations = {
                 `RetroAchievements 사이트의 <span class="hl">게임 페이지</span> <span class="hl">URL</span>을 확인하세요. <span class="hl">game/</span> 뒤에 있는 숫자가 GameID입니다: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "RetroAchievements의 기본값으로 설정"
-        }
-    },
-    troubleshooter: {
-        title: "문제 해결",
-        content: {
-            copydata: "복사",
-            noissues: "문제가 발견되지 않았습니다!",
-            noissuessub: "이 게임은 자동으로 릴리스되어야 합니다.",
-            manualrelease: `<span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>을 통해 게임을 수동으로 릴리스할 수 있습니다.`,
-            addedvia: "추가 경로"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "활성 프로세스 없음",
-                issue: "활성 게임 프로세스를 찾을 수 없음",
-                detail: "이 게임과 연결된 실행 파일이 실행 중인 프로세스로 감지되지 않습니다. 다음 실행 파일을 확인했습니다:",
-                solution: [
-                    `게임의 실행 파일을 $linkedgamesmenu에 추가해 보세요.`,
-                    `$linkedgamesmenu의 항목이 올바른 실행 파일을 가리키는지 확인하세요.`
-                ]
-            },
-            unknownexecutable: {
-                title: "실행 파일을 알 수 없음",
-                issue: "게임 실행 파일을 식별할 수 없음",
-                detail: "게임의 실행 파일 경로를 자동으로 찾을 수 없습니다. 이는 일반적으로 Steam을 통해 게임을 실행할 때 게임 실행 전 런처가 사용되기 때문에 발생합니다.",
-                solution: [
-                    `이 게임에 대한 새 항목을 $linkedgamesmenu에 추가하거나 잘못된 게임 실행 파일을 가리키는 항목을 제거하세요. 그렇지 않은 경우 <code style="font-size: 0.55rem;">-skiplauncher</code>와 같이 게임 실행 전 런처를 우회할 수 있는 Steam 실행 옵션을 게임에서 지원하는지 확인하세요.`,
-                    `$sanwatcher를 활성화해 보세요.`
-                ]
-            },
-            missingexecutable: {
-                title: "실행 파일 누락",
-                issue: "디스크에서 게임 실행 파일을 찾을 수 없음",
-                detail: `이 게임과 연결된 실행 파일을 디스크에서 찾을 수 없습니다. 다음 실행 파일을 확인했습니다:`,
-                solution: ["Steam을 통해 게임 파일의 무결성을 확인하거나 게임을 다시 설치해 보세요."]
-            },
-            notexecutable: {
-                title: "실행할 수 없음",
-                issue: `게임 실행 파일에 실행 권한이 없음`,
-                detail: "Steam에서 게임을 실행하는 데 사용하는 파일을 실행할 수 없습니다. 파일 상태는 다음과 같습니다:",
-                solution: ["이 파일을 실행 가능하게 만들려면 사용 중인 Linux 배포판에 해당하는 지침을 참조하세요."]
-            },
-            notwithininstalldir: {
-                title: "게임 디렉터리에 없음",
-                issue: "실행 파일이 설치 디렉터리에 없음",
-                detail: "$linkedgamesmenu에서 이 게임의 항목이 감지되었지만 연결된 실행 파일이 게임의 설치 폴더 안에 없습니다. 올바른 실행 파일이 아닐 수 있습니다.",
-                solution: ["이 게임의 $linkedgamesmenu 항목을 편집하고 올바른 게임 실행 파일을 가리키는지 확인하세요."]
-            },
-            wrongplatformpath: {
-                title: "게임 경로가 잘못됨",
-                issue: "현재 OS에 유효하지 않은 게임 경로",
-                detail: "이 게임의 실행 파일 경로가 다른 OS에 속한 것으로 보입니다. 다른 컴퓨터에서 복사한 설정이나 듀얼 부트 환경 때문일 수 있습니다.",
-                solution: [`다른 컴퓨터/OS에서 복사한 설정을 사용하지 마세요. 예상대로 작동하지 않을 가능성이 높습니다. 기존의 모든 <span class="hl">Themes</span>는 <span class="hl">Customiser</span> 메뉴를 통해 플랫폼 간에 가져오기/내보내기할 수 있습니다.`]
-            },
-            duplicatelinkentries: {
-                title: "중복 항목",
-                issue: "중복된 $linkedgamesmenu 항목이 발견됨",
-                detail: "이 게임 실행 파일은 $linkedgamesmenu의 $appids에도 연결되어 있습니다.",
-                solution: ["중복된 항목 중 하나를 제거하고 남은 항목이 올바른 게임 실행 파일을 가리키는지 확인하세요."]
-            },
-            releasing: {
-                title: "게임 릴리스 중",
-                issue: "게임이 릴리스되고 있음",
-                detail: "이 게임은 곧 릴리스됩니다.",
-                solution: [`몇 초만 더 기다려 주세요. 릴리스가 완료되면 <span class="hl">System Tray</span> 아이콘의 점이 <span class="troubleshooterdialogicon" grey></span>(릴리스 중)에서 <span class="troubleshooterdialogicon" red></span>(유휴)로 변경됩니다.`]
-            }
         }
     }
 }

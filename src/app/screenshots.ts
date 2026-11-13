@@ -413,7 +413,7 @@ export const screenshot = {
             const srcpath: string | null = isss ? (!ispreview ? screenshot.srcpath(notify.id) : sanhelper.setfilepath("img","santextlogobg.png")) : null
 
             try {
-                !fs.existsSync(imgpath) && fs.mkdirSync(imgpath, { recursive: true })
+                !fs.existsSync(imgpath) && fs.mkdirSync(imgpath,{ recursive: true })
                 log.write("INFO",`"${imgpath}" ${!fs.existsSync(imgpath) ? "created successfully" : "already exists"}`)
             } catch (err) {
                 log.write("ERROR",`Error creating "${imgpath}": ${err as Error}`)

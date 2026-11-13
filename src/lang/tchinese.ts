@@ -236,7 +236,8 @@ export const translations = {
                 max: "最大值",
                 notifyoverflow: "溢出模式",
                 ellipsis: "省略號",
-                scroll: "捲動"
+                scroll: "捲動",
+                setplat: "100% 完成通知"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `設定要在成就描述元素中顯示的自訂訊息<br><br><span class="ttdesc">當自訂 > 預設 > 通知元素 > 成就描述停用時，此選項將會隱藏</span>`,
         notifylinemode: "設定通知中顯示的最大文字行數",
         notifyoverflow: "設定通知中文字溢出時的處理方式",
-        scrollrepeat: `設定通知顯示期間溢出文字的捲動次數<br><br><span class="ttdesc">捲動速度取決於顯示時間，但較高的重複次數可能不適用於所有預設設定</span>`
+        scrollrepeat: `設定通知顯示期間溢出文字的捲動次數<br><br><span class="ttdesc">捲動速度取決於顯示時間，但較高的重複次數可能不適用於所有預設設定</span>`,
+        setplat: "在相容的遊戲中完成每個成就集後顯示 100% 完成通知"
     },
     update: {
         updateavailable: "有可用更新",
@@ -1100,72 +1102,6 @@ export const translations = {
                 `RetroAchievements 網站上的 <span class="hl">遊戲頁面</span> URL —— 即 <span class="hl">game/</span> 之後的數字：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "設為 RetroAchievements 預設項目"
-        }
-    },
-    troubleshooter: {
-        title: "疑難排解",
-        content: {
-            copydata: "複製",
-            noissues: "未發現問題！",
-            noissuessub: "此遊戲應會自動啟動。",
-            manualrelease: `你可以透過 <span class="hl">系統匣</span> > <span class="hl">選項</span> > <span class="hl">啟動遊戲</span> 手動啟動任何遊戲。`,
-            addedvia: "新增方式"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "沒有作用中的程序",
-                issue: "找不到作用中的遊戲程序",
-                detail: "未偵測到與此遊戲相關的可執行檔正在作為執行中的程序。已檢查以下可執行檔：",
-                solution: [
-                    `請嘗試將遊戲的可執行檔新增至 $linkedgamesmenu。`,
-                    `確保 $linkedgamesmenu 中的項目指向正確的可執行檔。`
-                ]
-            },
-            unknownexecutable: {
-                title: "未知的可執行檔",
-                issue: "無法識別遊戲的可執行檔",
-                detail: "無法自動找到遊戲可執行檔的路徑，這通常是因為透過 Steam 啟動遊戲時存在遊戲啟動前的啟動器。",
-                solution: [
-                    `在 $linkedgamesmenu 中為此遊戲新增項目，或移除任何指向錯誤遊戲可執行檔的項目。否則，請檢查遊戲是否支援 Steam 啟動選項，以略過遊戲啟動前的啟動器，例如 <code style="font-size: 0.55rem;">-skiplauncher</code>。`,
-                    `請嘗試啟用 $sanwatcher。`
-                ]
-            },
-            missingexecutable: {
-                title: "缺少可執行檔",
-                issue: "在磁碟上找不到遊戲的可執行檔",
-                detail: `在磁碟上找不到與此遊戲相關的可執行檔。已檢查以下可執行檔：`,
-                solution: ["請嘗試透過 Steam 驗證遊戲檔案的完整性，或重新安裝遊戲。"]
-            },
-            notexecutable: {
-                title: "無法執行",
-                issue: `遊戲缺少執行權限`,
-                detail: "Steam 用來啟動遊戲的檔案無法執行。該檔案回報為：",
-                solution: ["若要讓此檔案可執行，請參閱適用於你的 Linux 發行版的相關說明。"]
-            },
-            notwithininstalldir: {
-                title: "不在遊戲目錄中",
-                issue: "可執行檔不在安裝目錄中",
-                detail: "$linkedgamesmenu 中偵測到此遊戲的項目，但連結的可執行檔並不位於遊戲的安裝資料夾內，這可能表示該檔案並不正確。",
-                solution: ["編輯此遊戲的 $linkedgamesmenu 項目，並確保其指向正確的遊戲可執行檔。"]
-            },
-            wrongplatformpath: {
-                title: "遊戲路徑無效",
-                issue: "遊戲路徑不適用於目前的作業系統",
-                detail: "此遊戲的可執行檔路徑看起來屬於不同的作業系統——可能是因為設定檔從另一台電腦複製而來，或是因為雙系統設定。",
-                solution: [`請勿使用從其他電腦／作業系統複製的設定，因為這很可能無法正常運作。所有現有的 <span class="hl">主題</span> 都可以透過 <span class="hl">自訂器</span> 選單進行跨平台匯入／匯出。`]
-            },
-            duplicatelinkentries: {
-                title: "重複項目",
-                issue: "發現重複的 $linkedgamesmenu 項目",
-                detail: "此遊戲可執行檔也與 $linkedgamesmenu 下的 $appids 建立了連結。",
-                solution: ["移除其中一個重複項目，並確保剩餘的項目指向正確的遊戲可執行檔。"]
-            },
-            releasing: {
-                title: "遊戲正在啟動",
-                issue: "遊戲正在啟動",
-                detail: "此遊戲即將啟動。",
-                solution: [`請再等待幾秒鐘——遊戲啟動後，<span class="hl">系統匣</span> 圖示中的圓點會從 <span class="troubleshooterdialogicon" grey></span>（啟動中）變為 <span class="troubleshooterdialogicon" red></span>（閒置）。`]
-            }
         }
     }
 }

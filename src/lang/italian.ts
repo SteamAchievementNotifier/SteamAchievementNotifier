@@ -236,7 +236,8 @@ export const translations = {
                 max: "Massimo",
                 notifyoverflow: "Modalità di overflow",
                 ellipsis: "Puntini di sospensione",
-                scroll: "Scorrimento"
+                scroll: "Scorrimento",
+                setplat: "Notifiche di completamento al 100%"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Imposta un messaggio personalizzato da visualizzare all'interno dell'elemento Descrizione dell'obiettivo<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Preimpostazione > Elementi di notifica > Descrizione dell'obiettivo è disabilitato</span>`,
         notifylinemode: "Imposta il numero massimo di righe di testo da visualizzare nelle notifiche",
         notifyoverflow: "Imposta il comportamento del testo in overflow all'interno delle notifiche",
-        scrollrepeat: `Imposta quante volte il testo in overflow scorrerà mentre la notifica è visualizzata sullo schermo<br><br><span class="ttdesc">La velocità di scorrimento dipende dal tempo di visualizzazione, ma valori di ripetizione più elevati potrebbero non essere adatti a tutte le preimpostazioni</span>`
+        scrollrepeat: `Imposta quante volte il testo in overflow scorrerà mentre la notifica è visualizzata sullo schermo<br><br><span class="ttdesc">La velocità di scorrimento dipende dal tempo di visualizzazione, ma valori di ripetizione più elevati potrebbero non essere adatti a tutte le preimpostazioni</span>`,
+        setplat: "Mostra la notifica di completamento al 100% dopo aver completato ogni set di obiettivi nei giochi compatibili"
     },
     update: {
         updateavailable: "Aggiornamento disponibile",
@@ -1100,72 +1102,6 @@ export const translations = {
                 `L'<span class="hl">URL</span> della <span class="hl">pagina del gioco</span> sul sito RetroAchievements: sarà il numero riportato dopo <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Imposta come predefinito per RetroAchievements"
-        }
-    },
-    troubleshooter: {
-        title: "Risoluzione dei problemi",
-        content: {
-            copydata: "Copia",
-            noissues: "Nessun problema trovato!",
-            noissuessub: "Questo gioco dovrebbe essere rilasciato automaticamente.",
-            manualrelease: `Puoi rilasciare manualmente qualsiasi gioco tramite <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
-            addedvia: "Aggiunto tramite"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "Nessun processo attivo",
-                issue: "Nessun processo di gioco attivo trovato",
-                detail: "Il file eseguibile associato a questo gioco non viene rilevato come processo in esecuzione. Sono stati controllati i seguenti eseguibili:",
-                solution: [
-                    `Prova ad aggiungere l'eseguibile del gioco a $linkedgamesmenu.`,
-                    `Assicurati che la voce in $linkedgamesmenu punti all'eseguibile corretto.`
-                ]
-            },
-            unknownexecutable: {
-                title: "Eseguibile sconosciuto",
-                issue: "Impossibile identificare l'eseguibile del gioco",
-                detail: "Non è stato possibile individuare automaticamente il percorso dell'eseguibile del gioco, cosa che di solito è causata dai launcher pre-gioco quando si avvia il gioco tramite Steam.",
-                solution: [
-                    `Aggiungi una nuova voce per questo gioco a $linkedgamesmenu oppure rimuovi eventuali voci che puntano a un eseguibile di gioco errato. Altrimenti, verifica se il gioco supporta un'opzione di avvio di Steam per ignorare eventuali launcher pre-gioco, come <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
-                    `Prova ad abilitare $sanwatcher.`
-                ]
-            },
-            missingexecutable: {
-                title: "Eseguibile mancante",
-                issue: "Eseguibile del gioco non trovato sul disco",
-                detail: `Non è stato possibile trovare sul disco l'eseguibile associato a questo gioco. Sono stati controllati i seguenti eseguibili:`,
-                solution: ["Prova a verificare l'integrità dei file del gioco tramite Steam oppure reinstalla il gioco."]
-            },
-            notexecutable: {
-                title: "Non eseguibile",
-                issue: `Permesso di esecuzione mancante per il gioco`,
-                detail: "Il file utilizzato da Steam per avviare il gioco non può essere eseguito. Il file è stato segnalato come:",
-                solution: ["Per rendere eseguibile questo file, consulta le istruzioni per la tua specifica distribuzione Linux."]
-            },
-            notwithininstalldir: {
-                title: "Non nella directory del gioco",
-                issue: "L'eseguibile non si trova nella directory di installazione",
-                detail: "È stata rilevata una voce per questo gioco in $linkedgamesmenu, ma l'eseguibile collegato non si trova nella cartella di installazione del gioco, il che potrebbe indicare che non è quello corretto.",
-                solution: ["Modifica la voce di $linkedgamesmenu per questo gioco e assicurati che punti all'eseguibile corretto del gioco."]
-            },
-            wrongplatformpath: {
-                title: "Percorso del gioco non valido",
-                issue: "Percorso del gioco non valido per il sistema operativo attuale",
-                detail: "Il percorso dell'eseguibile di questo gioco sembra appartenere a un sistema operativo diverso - probabilmente a causa di una configurazione copiata da un altro computer o di una configurazione dual-boot.",
-                solution: [`Non utilizzare una configurazione copiata da un altro computer/sistema operativo, poiché probabilmente non funzionerà come previsto. Tutti i <span class="hl">Themes</span> esistenti possono essere importati/esportati tra piattaforme tramite il menu <span class="hl">Customiser</span>.`]
-            },
-            duplicatelinkentries: {
-                title: "Voci duplicate",
-                issue: "Trovate voci $linkedgamesmenu duplicate",
-                detail: "Questo eseguibile di gioco è collegato anche a $appids in $linkedgamesmenu.",
-                solution: ["Rimuovi una delle voci duplicate e assicurati che la voce rimanente punti all'eseguibile corretto del gioco."]
-            },
-            releasing: {
-                title: "Rilascio del gioco",
-                issue: "Il gioco è in fase di rilascio",
-                detail: "Questo gioco sta per essere rilasciato.",
-                solution: [`Attendi ancora qualche secondo - il punto nell'icona di <span class="hl">System Tray</span> cambierà da <span class="troubleshooterdialogicon" grey></span> (in fase di rilascio) a <span class="troubleshooterdialogicon" red></span> (inattivo) una volta rilasciato.`]
-            }
         }
     }
 }

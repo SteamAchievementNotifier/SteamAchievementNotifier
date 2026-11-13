@@ -236,7 +236,8 @@ export const translations = {
                 max: "Tối đa",
                 notifyoverflow: "Chế độ tràn",
                 ellipsis: "Dấu ba chấm",
-                scroll: "Cuộn"
+                scroll: "Cuộn",
+                setplat: "Thông báo hoàn thành 100%"
             }
         },
         games: {
@@ -928,7 +929,8 @@ export const translations = {
         customtextdesc: `Đặt thông báo tùy chỉnh sẽ được hiển thị trong thành phần Mô tả thành tích<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Tùy chỉnh > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị tắt</span>`,
         notifylinemode: "Thiết lập số dòng văn bản tối đa hiển thị trong thông báo",
         notifyoverflow: "Thiết lập cách xử lý văn bản tràn trong thông báo",
-        scrollrepeat: `Thiết lập số lần văn bản tràn sẽ cuộn trong khi thông báo đang hiển thị trên màn hình<br><br><span class="ttdesc">Tốc độ cuộn phụ thuộc vào Thời gian hiển thị, nhưng giá trị lặp lại cao có thể không phù hợp với tất cả các cấu hình cài đặt sẵn</span>`
+        scrollrepeat: `Thiết lập số lần văn bản tràn sẽ cuộn trong khi thông báo đang hiển thị trên màn hình<br><br><span class="ttdesc">Tốc độ cuộn phụ thuộc vào Thời gian hiển thị, nhưng giá trị lặp lại cao có thể không phù hợp với tất cả các cấu hình cài đặt sẵn</span>`,
+        setplat: "Hiển thị thông báo hoàn thành 100% sau khi hoàn tất từng bộ thành tích trong các trò chơi tương thích"
     },
     update: {
         updateavailable: "Có bản cập nhật mới",
@@ -1100,72 +1102,6 @@ export const translations = {
                 `URL của <span class="hl">trang trò chơi</span> trên trang RetroAchievements — đó là số nằm sau <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Đặt làm mặc định cho RetroAchievements"
-        }
-    },
-    troubleshooter: {
-        title: "Khắc phục sự cố",
-        content: {
-            copydata: "Sao chép",
-            noissues: "Không tìm thấy vấn đề nào!",
-            noissuessub: "Trò chơi này sẽ được khởi chạy tự động.",
-            manualrelease: `Bạn có thể khởi chạy thủ công bất kỳ trò chơi nào qua <span class="hl">Khay hệ thống</span> > <span class="hl">Tùy chọn</span> > <span class="hl">Khởi chạy trò chơi</span>.`,
-            addedvia: "Được thêm qua"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "Không có tiến trình đang hoạt động",
-                issue: "Không tìm thấy tiến trình trò chơi đang hoạt động",
-                detail: "Tệp thực thi liên kết với trò chơi này không được phát hiện là một tiến trình đang chạy. Các tệp thực thi sau đã được kiểm tra:",
-                solution: [
-                    `Hãy thử thêm tệp thực thi của trò chơi vào $linkedgamesmenu.`,
-                    `Đảm bảo mục trong $linkedgamesmenu trỏ đến đúng tệp thực thi.`
-                ]
-            },
-            unknownexecutable: {
-                title: "Tệp thực thi không xác định",
-                issue: "Không thể xác định tệp thực thi của trò chơi",
-                detail: "Không thể tự động xác định đường dẫn đến tệp thực thi của trò chơi, thường là do các trình khởi chạy trước trò chơi khi khởi chạy trò chơi qua Steam.",
-                solution: [
-                    `Thêm mục mới cho trò chơi này vào $linkedgamesmenu hoặc xóa các mục trỏ đến tệp thực thi trò chơi không chính xác. Nếu không, hãy kiểm tra xem trò chơi có hỗ trợ tùy chọn khởi chạy Steam để bỏ qua các trình khởi chạy trước trò chơi hay không, chẳng hạn như <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
-                    `Hãy thử bật $sanwatcher.`
-                ]
-            },
-            missingexecutable: {
-                title: "Thiếu tệp thực thi",
-                issue: "Không tìm thấy tệp thực thi của trò chơi trên ổ đĩa",
-                detail: `Không tìm thấy tệp thực thi liên kết với trò chơi này trên ổ đĩa. Các tệp thực thi sau đã được kiểm tra:`,
-                solution: ["Hãy thử xác minh tính toàn vẹn của tệp trò chơi thông qua Steam hoặc cài đặt lại trò chơi."]
-            },
-            notexecutable: {
-                title: "Không thể thực thi",
-                issue: `Trò chơi thiếu quyền thực thi`,
-                detail: "Không thể thực thi tệp mà Steam sử dụng để khởi chạy trò chơi. Tệp được báo cáo là:",
-                solution: ["Để làm cho tệp này có thể thực thi, hãy tham khảo hướng dẫn dành cho bản phân phối Linux cụ thể của bạn."]
-            },
-            notwithininstalldir: {
-                title: "Không nằm trong thư mục trò chơi",
-                issue: "Tệp thực thi không nằm trong thư mục cài đặt",
-                detail: "Đã phát hiện một mục cho trò chơi này trong $linkedgamesmenu, nhưng tệp thực thi được liên kết không nằm trong thư mục cài đặt của trò chơi, điều này có thể cho thấy đây không phải là tệp chính xác.",
-                solution: ["Chỉnh sửa mục $linkedgamesmenu cho trò chơi này và đảm bảo mục đó trỏ đến đúng tệp thực thi của trò chơi."]
-            },
-            wrongplatformpath: {
-                title: "Đường dẫn trò chơi không hợp lệ",
-                issue: "Đường dẫn trò chơi không hợp lệ đối với hệ điều hành hiện tại",
-                detail: "Đường dẫn tệp thực thi của trò chơi này có vẻ thuộc về một hệ điều hành khác — có thể do cấu hình được sao chép từ máy tính khác hoặc do thiết lập khởi động kép.",
-                solution: [`Không sử dụng cấu hình được sao chép từ máy tính/hệ điều hành khác, vì cấu hình này có thể sẽ không hoạt động như mong đợi. Tất cả <span class="hl">Chủ đề</span> hiện có đều có thể được nhập/xuất giữa các nền tảng thông qua menu <span class="hl">Tùy chỉnh</span>.`]
-            },
-            duplicatelinkentries: {
-                title: "Mục trùng lặp",
-                issue: "Tìm thấy các mục $linkedgamesmenu trùng lặp",
-                detail: "Tệp thực thi của trò chơi này cũng được liên kết với $appids trong $linkedgamesmenu.",
-                solution: ["Xóa một trong các mục trùng lặp và đảm bảo mục còn lại trỏ đến đúng tệp thực thi của trò chơi."]
-            },
-            releasing: {
-                title: "Đang khởi chạy trò chơi",
-                issue: "Trò chơi đang được khởi chạy",
-                detail: "Trò chơi này sắp được khởi chạy.",
-                solution: [`Vui lòng đợi thêm vài giây — dấu chấm trên biểu tượng <span class="hl">Khay hệ thống</span> sẽ thay đổi từ <span class="troubleshooterdialogicon" grey></span> (đang khởi chạy) thành <span class="troubleshooterdialogicon" red></span> (nhàn rỗi) sau khi trò chơi được khởi chạy.`]
-            }
         }
     }
 }

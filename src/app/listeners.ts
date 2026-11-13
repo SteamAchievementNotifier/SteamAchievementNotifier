@@ -317,14 +317,22 @@ export const listeners = {
         ipcMain.on("checkforupdates",() => !sanhelper.devmode ? update.check() : ipcMain.emit("noupdatetest"))
 
         const cleartemp = (temp: string) => {
-            if (!fs.readdirSync(temp).length) return log.write("WARN",`"${sanhelper.temp}" is empty`)
+            if (!fs.existsSync(temp) || !fs.readdirSync(temp).length) return log.write("WARN",`"${temp}" is empty`)
 
             try {
                 fs.rmSync(temp,{ recursive: true, force: true })
-                fs.mkdirSync(temp)
+                fs.mkdirSync(temp,{ recursive: true })
                 return log.write("INFO",`"${temp}" directory cleared successfully`)
             } catch (err) {
-                return log.write("ERROR",`Error clearing "${temp}" directory: ${err as Error}`)
+                log.write("ERROR",`Error clearing "${temp}" directory: ${err as Error}`)
+
+                // Ensure the directory still exists so HDR/icon writes do not fail with ENOENT
+                try {
+                    fs.mkdirSync(temp,{ recursive: true })
+                    log.write("INFO",`"${temp}" directory recreated after clear failure`)
+                } catch (mkdirerr) {
+                    log.write("ERROR",`Unable to recreate "${temp}": ${mkdirerr as Error}`)
+                }
             }
         }
 
@@ -979,6 +987,10 @@ export const listeners = {
         })
 
         const queue: WinType[] = []
+        // Screenshot Only: show SAN's notification only after the capture is saved, so Steam's toast can still be in frame
+        const pendingScreenshotOnly = new Map<number,{ wintypeobj: WinType, prep: Promise<void> }>()
+        const earlyCaptureStarted = new Set<number>()
+        const earlyCaptureFinished = new Map<number,number | undefined>()
         const runningmap = new Map<number,BrowserWindow | Notification>()
         const posmap = new Map<"topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright",{ y: number, items: { id: number, win: BrowserWindow, bounds: { width: number, height: number, x: number, y: number }, type: NotifyType }[] }>()
 
@@ -1022,6 +1034,9 @@ export const listeners = {
             config.get("notifymax") > 1 && (notify.customisation = { ...notify.customisation, scale: config.get("customisation.main.scale") as number }) // Set all notifications to use the same scaling when Max Notifications > 1
 
             const { preset } = notify.customisation
+            const deferssonly = !iswebview && config.get("screenshots") === "ssonly" && notify.customisation.ssenabled && preset !== "os"
+            let resolveprep = () => {}
+            const prep = deferssonly ? new Promise<void>(resolve => { resolveprep = resolve }) : Promise.resolve()
 
             if (!iswebview) {
                 const wintypeobj = preset === "os" ? {
@@ -1057,80 +1072,172 @@ export const listeners = {
                     } as BrowserWindowConstructorOptions
                 }
 
-                queue.push({ ...wintypeobj, order: queue.length } as WinType)
-                
-                // Sort "plat" notifications to always display last
-                queue.sort((a,b) => {
-                    if (a.notify.type === "plat" && b.notify.type !== "plat") return 1   // "plat" after "main"/"semi"/"rare"
-                    if (a.notify.type !== "plat" && b.notify.type === "plat") return -1  // "main"/"semi"/"rare" before "plat"
-                    
-                    return a.order - b.order // Otherwise, preserve original order
-                }).forEach((obj,i) => obj.order = i) // Normalise to sequential order
-
-                const orders = queue.map(obj => obj.order)
-                const duplicates = orders.some((order,i) => orders.indexOf(order) !== i) // Safeguard to prevent duplicate `order` IDs if found
-                
-                if (duplicates) {
-                    log.write("WARN",`Notification queue contains duplicate order IDs - renormalising...`)
-                    queue.forEach((obj,i) => obj.order = i)
-                }
-            }
-
-            const info = await buildnotify(notify)
-
-            const steampath = sanhelper.steampath
-            const __temp = sanhelper.temp
-            const steam3id = notify.steam3id
-            const hqicon = sanhelper.gethqicon(appid)
-
-            if (config.get(`customisation.${notify.type}.bgstyle`) === "gameart" || config.get(`customisation.${notify.type}.usegameicon`)) {
-                if (notify.ra) {
-                    for (const [key,value] of Object.entries({
-                        icon: notify.gameicon!,
-                        libhero: notify.libhero!,
-                        logo: notify.gameicon!
-                    })) {
-                        gameartobj[key] = value
-                    }
+                if (deferssonly) {
+                    pendingScreenshotOnly.set(notify.id,{ wintypeobj: { ...wintypeobj, order: 0 } as WinType, prep })
+                    // Show the notification if capture does not finish
+                    setTimeout(() => {
+                        if (!pendingScreenshotOnly.has(notify.id)) return
+                        log.write("WARN",`Screenshot Only capture timed out for id ${notify.id} - showing notification anyway`)
+                        ipcMain.emit("ssonly_screenshot_done",null,notify,monitorid)
+                    },10000)
                 } else {
-                    // Gets all Game Art img files and assigns them to the global "gameartobj" object
-                    for (const [key,value] of Object.entries(await gameart.getall(
-                        { appid, hqicon, steam3id, steampath },
-                        gameartfiles,
-                        __temp,
-                        __root
-                    ))) {
-                        gameartobj[key] = value
+                    queue.push({ ...wintypeobj, order: queue.length } as WinType)
+                
+                    // Sort "plat" notifications to always display last
+                    queue.sort((a,b) => {
+                        if (a.notify.type === "plat" && b.notify.type !== "plat") return 1   // "plat" after "main"/"semi"/"rare"
+                        if (a.notify.type !== "plat" && b.notify.type === "plat") return -1  // "main"/"semi"/"rare" before "plat"
+                        
+                        return a.order - b.order // Otherwise, preserve original order
+                    }).forEach((obj,i) => obj.order = i) // Normalise to sequential order
+
+                    const orders = queue.map(obj => obj.order)
+                    const duplicates = orders.some((order,i) => orders.indexOf(order) !== i) // Safeguard to prevent duplicate `order` IDs if found
+                    
+                    if (duplicates) {
+                        log.write("WARN",`Notification queue contains duplicate order IDs - renormalising...`)
+                        queue.forEach((obj,i) => obj.order = i)
                     }
                 }
             }
-            
-            if (iswebview === "customiser") {
-                const { ssalldetails, screenshots, notifylinemode, notifyoverflow, showpercentpos, showpercentstyle } = config.store
-                const { icon, libhero, logo } = gameartobj
 
-                return win.webContents.send("customisernotify",{
-                    info,
-                    customisation: notify.customisation,
-                    iswebview,
-                    steampath,
-                    steam3id: notify.steam3id,
-                    hqicon,
-                    temp: sanhelper.temp,
-                    ssalldetails,
-                    screenshots,
-                    gamearticon: icon,
-                    gameartlibhero: libhero,
-                    gameartlogo: logo,
-                    notifylinemode,
-                    notifyoverflow,
-                    showpercentpos,
-                    showpercentstyle
-                } as Info)
+            try {
+                // Test notifications do not send `earlycapture`
+                if (deferssonly && !earlyCaptureStarted.has(notify.id)) {
+                    worker && worker.webContents.send("steam3id")
+                    await new Promise<void>(resolve => setImmediate(resolve))
+                    screenshot.configuresrc(notify,monitorid).catch(err => log.write("ERROR",`configuresrc: ${err as Error}`))
+                }
+
+                earlyCaptureStarted.delete(notify.id)
+
+                const info = await buildnotify(notify)
+
+                const steampath = sanhelper.steampath
+                const __temp = sanhelper.temp
+                const steam3id = notify.steam3id
+                const hqicon = sanhelper.gethqicon(appid)
+
+                if (config.get(`customisation.${notify.type}.bgstyle`) === "gameart" || config.get(`customisation.${notify.type}.usegameicon`)) {
+                    if (notify.ra) {
+                        for (const [key,value] of Object.entries({
+                            icon: notify.gameicon!,
+                            libhero: notify.libhero!,
+                            logo: notify.gameicon!
+                        })) {
+                            gameartobj[key] = value
+                        }
+                    } else {
+                        // Gets all Game Art img files and assigns them to the global "gameartobj" object
+                        for (const [key,value] of Object.entries(await gameart.getall(
+                            { appid, hqicon, steam3id, steampath },
+                            gameartfiles,
+                            __temp,
+                            __root
+                        ))) {
+                            gameartobj[key] = value
+                        }
+                    }
+                }
+                
+                if (iswebview === "customiser") {
+                    const { ssalldetails, screenshots, notifylinemode, notifyoverflow, showpercentpos, showpercentstyle } = config.store
+                    const { icon, libhero, logo } = gameartobj
+
+                    return win.webContents.send("customisernotify",{
+                        info,
+                        customisation: notify.customisation,
+                        iswebview,
+                        steampath,
+                        steam3id: notify.steam3id,
+                        hqicon,
+                        temp: sanhelper.temp,
+                        ssalldetails,
+                        screenshots,
+                        gamearticon: icon,
+                        gameartlibhero: libhero,
+                        gameartlogo: logo,
+                        notifylinemode,
+                        notifyoverflow,
+                        showpercentpos,
+                        showpercentstyle
+                    } as Info)
+                }
+
+                if (!deferssonly) {
+                    worker && worker.webContents.send("steam3id")
+                    preset !== "os" && notify.customisation.ssenabled && await screenshot.configuresrc(notify,monitorid)
+                }
+
+                win.webContents.send("queue",queue)
+
+                if (deferssonly) {
+                    // Capture may have finished before notify prep completed
+                    if (earlyCaptureFinished.has(notify.id)) {
+                        const finishedmonitorid = earlyCaptureFinished.get(notify.id)
+                        earlyCaptureFinished.delete(notify.id)
+                        ipcMain.emit("ssonly_screenshot_done",null,notify,finishedmonitorid ?? monitorid)
+                    }
+
+                    return
+                }
+
+                checkifrunning(info,monitorid)
+            } finally {
+                resolveprep()
+            }
+        })
+
+        // Unlock path: wait out Screenshot Delay, then fire the Steam hotkey and SAN capture together
+        ipcMain.on("earlycapture",async (event,notify: Notify,monitorid?: number) => {
+            const config = sanconfig.get()
+            if (config.get("screenshots") !== "ssonly" || !notify.customisation.ssenabled || notify.customisation.preset === "os") return
+            if (earlyCaptureStarted.has(notify.id)) return
+
+            earlyCaptureStarted.add(notify.id)
+            log.write("INFO",`Early Screenshot Only capture started for "${notify.apiname}" (id: ${notify.id})`)
+
+            const delaysec = config.get("ssdelay")
+            if (delaysec > 0) {
+                log.write("INFO",`Applying Screenshot Delay (${delaysec}s) before Steam/SAN capture...`)
+                await new Promise<void>(resolve => setTimeout(resolve,delaysec * 1000))
             }
 
-            worker && worker.webContents.send("steam3id")
-            preset !== "os" && notify.customisation.ssenabled && await screenshot.configuresrc(notify,monitorid)
+            await takesteamss(notify.steam3id)
+            screenshot.configuresrc(notify,monitorid,{ skipdelay: true }).catch(err => log.write("ERROR",`earlycapture configuresrc: ${err as Error}`))
+        })
+
+        ipcMain.on("ssonly_screenshot_done",async (event,notify: Notify,monitorid?: number) => {
+            const pending = pendingScreenshotOnly.get(notify.id)
+            if (!pending) {
+                // Capture finished before the full notify handler registered pending state
+                earlyCaptureFinished.set(notify.id,monitorid)
+                return
+            }
+
+            pendingScreenshotOnly.delete(notify.id)
+            earlyCaptureFinished.delete(notify.id)
+
+            // Wait for gameart/buildnotify prep that runs in parallel with the capture
+            await pending.prep
+
+            // Use the full notify (localised name/icon), not the early-capture placeholder
+            const fullnotify = pending.wintypeobj.notify
+            const info = await buildnotify(fullnotify)
+            queue.push({ ...pending.wintypeobj, order: queue.length } as WinType)
+
+            // Sort "plat" notifications to always display last
+            queue.sort((a,b) => {
+                if (a.notify.type === "plat" && b.notify.type !== "plat") return 1
+                if (a.notify.type !== "plat" && b.notify.type === "plat") return -1
+                return a.order - b.order
+            }).forEach((obj,i) => obj.order = i)
+
+            if (fs.existsSync(screenshot.srcpath(fullnotify.id))) {
+                await screenshot.createsswin("ssonly",fullnotify)
+            } else {
+                log.write("WARN",`Screenshot Only capture missing for ID ${fullnotify.id} - notification shown without screenshot file`)
+            }
 
             win.webContents.send("queue",queue)
             checkifrunning(info,monitorid)
@@ -1705,8 +1812,7 @@ export const listeners = {
             win.webContents.send("updatelogtype",logtype,filename)
         })
 
-        ipcMain.on("steam3id",async (event,steam3id: number,skipss?: boolean) => {
-            if (skipss) return log.write("INFO",`"skipss" received - skipping screenshot...`)
+        const takesteamss = async (steam3id: number) => {
             if (!sanconfig.get().store.steamss) return log.write("INFO",`"steamss" not active`)
 
             try {
@@ -1719,9 +1825,15 @@ export const listeners = {
                 if (!hotkey) return log.write("WARN",`"${InGameOverlayScreenshotHotKey}" not found in "steamkeycodes" Map`)
 
                 sanhelper.triggerkeypress([hotkey])
+                log.write("INFO",`Steam screenshot hotkey triggered for steam3id ${steam3id}`)
             } catch (err) {
                 log.write("ERROR",`Error triggering Steam screenshot: ${err}`)
             }
+        }
+
+        ipcMain.on("steam3id",async (event,steam3id: number,skipss?: boolean) => {
+            if (skipss) return log.write("INFO",`"skipss" received - skipping screenshot...`)
+            await takesteamss(steam3id)
         })
 
         const listenersvars = {

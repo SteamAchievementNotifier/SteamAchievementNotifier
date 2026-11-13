@@ -309,9 +309,25 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                 
                 const valid = achievement.percent >= 0 // -1: Percentages unavailable
                 const type = valid && achievement.percent <= rarity ? "rare" : (trophymode && valid && achievement.percent <= semirarity && achievement.percent > rarity ? "semi" : "main")
+
+                // Screenshot Only starts here, before localisation and icon fetches.
+                const notifyid = sannotify.earlycapture(appid,{
+                    type,
+                    gamename: gamename ?? "???",
+                    steam3id,
+                    apiname: achievement.apiname,
+                    name: achievement.name,
+                    desc: achievement.desc,
+                    unlocked: achievement.unlocked,
+                    hidden: achievement.hidden,
+                    percent: achievement.percent,
+                    unlocktime: new Date(unlocktime).toISOString()
+                })
+
                 const localised = await utils.localised.obj(steam3id,achievement)
 
                 const notify = sannotify.show(appid,{
+                    ...(notifyid !== undefined ? { id: notifyid } : {}),
                     type,
                     gamename: gamename ?? "???",
                     steam3id,

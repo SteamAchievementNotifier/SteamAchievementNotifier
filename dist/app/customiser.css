@@ -677,7 +677,7 @@ dialog .contentwrapper:has(.addhtml > .rect[id^="copytheme"][selected]) > .btnwr
 }
 
 .addhtml:has(.rect[id^="copytheme"]) > .rect[selected] {
-    background-color: white;
+    background: white;
     color: black;
 }
 
@@ -705,6 +705,11 @@ body[trophymode] .rect#copythemerare {
     --icon: url("../../icon/trophy_plat.svg")
 }
 
+.rect#copythemeset {
+    --icon: url("../../icon/trophy_set.svg");
+}
+
+body:not([plat][setplat]) .addhtml:has(.rect[id^="copytheme"]) > .rect[id$="set"],
 body[main] .addhtml:has(.rect[id^="copytheme"]) > .rect[id$="main"],
 body[semi] .addhtml:has(.rect[id^="copytheme"]) > .rect[id$="semi"],
 body:not([trophymode]) .addhtml:has(.rect[id^="copytheme"]) > .rect[id$="semi"],

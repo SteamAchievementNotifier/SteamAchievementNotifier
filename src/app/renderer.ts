@@ -4,7 +4,7 @@ import fs from "fs"
 import { __root, sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { dialog } from "./dialog"
-import { sanconfig } from "./config"
+import { sanconfig, settingslvlkeys } from "./config"
 import { usertheme } from "./usertheme"
 import { language } from "./language"
 import { update } from "./update"
@@ -518,16 +518,16 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         })
 
         ;(customiser.querySelector("button#copycustompos")! as HTMLButtonElement).onclick = () => {
-            for (const type of (["main","semi","rare","plat"] as NotifyType[])) {
+            for (const type of (["main","semi","rare","plat","set"] as NotifyType[])) {
                 if (type === sanhelper.type) continue
                 
                 try {
                     config.set(`customisation.${type}.usecustompos`,true)
                     config.set(`customisation.${type}.custompos`,config.get(`customisation.${sanhelper.type}.custompos`))
     
-                    log.write("INFO",`Custom Position for "${sanhelper.type}" applied to "${type}"`)
+                    log.write("INFO",`Custom position for "${sanhelper.type}" applied to "${type}"`)
                 } catch (err) {
-                    log.write("ERROR",`Unable to apply Custom Position for "${sanhelper.type}" to "${type}": ${err as Error}`)
+                    log.write("ERROR",`Unable to apply custom position for "${sanhelper.type}" to "${type}": ${err as Error}`)
                 }
             }
         }
@@ -717,6 +717,9 @@ const opencustomiser = () => {
                 <button class="rect" id="copythemeplat">
                     <span></span>
                 </button>
+                <button class="rect" id="copythemeset">
+                    <span></span>
+                </button>
             `,
             buttons: [{
                 id: "ok",
@@ -739,7 +742,33 @@ const opencustomiser = () => {
                         }
                     }
                     
-                    if (!types.length) return log.write("WARN",`No types selected to copy Theme to`)
+                    const copytoset = basetype === "plat" && !!document.querySelector(`.addhtml > .rect#copythemeset[selected]`)
+                    if (!types.length && !copytoset) return log.write("WARN",`No types selected to copy Theme to`)
+
+                    // "Game > Set" copies the selected Theme's "plat" customisation into the same Theme's "set" customisation without creating a new Theme
+                    if (copytoset) {
+                        const { userthemes } = usertheme.data("plat")
+                        const theme = userthemes.find(theme => theme.id === selectedtheme.id)
+
+                        if (theme) {
+                            const set = structuredClone(theme.customisation) as Customisation
+                            delete (set as any).usertheme
+
+                            for (const key of settingslvlkeys) {
+                                delete (set as any)[key]
+                            }
+
+                            theme.set = set
+                            selectedtheme.set = set
+
+                            config.set("customisation.plat.usertheme",userthemes)
+                            usertheme.set(theme.id as number,undefined,"plat")
+                            
+                            sanhelper.updatetabs()
+                        } else {
+                            log.write("ERROR",`Unable to find stored Theme "${selectedtheme.label}" to copy Game customisation to Set`)
+                        }
+                    }
 
                     for (const type of types) {
                         const id = usertheme.create(selectedtheme.label,selectedtheme.icon,selectedtheme.customisation,undefined,selectedtheme.userthemedir,false,type,type === "plat" ? selectedtheme.set : undefined)
@@ -755,12 +784,13 @@ const opencustomiser = () => {
             }
         }
 
+        const copythemeset = document.querySelector(`.addhtml > .rect#copythemeset > span`)
+        copythemeset && (copythemeset.textContent = (await Promise.all((["game","set"] as const).map(key => language.get(key,["customiser","platnotifytype","content"])))).join(" > "))
+
         const okbtn = document.querySelector(`dialog .contentwrapper:has(.addhtml > .rect[id^="copytheme"]) > .btnwrapper > button#okbtn`) as HTMLButtonElement
         okbtn.tabIndex = -1
 
-        for (const e of document.querySelectorAll(`.addhtml:has(.rect[id^="copytheme"]) > .rect`)) {
-            const elem = e as HTMLElement
-            
+        for (const elem of Array.from(document.querySelectorAll(`.addhtml:has(.rect[id^="copytheme"]) > .rect`)) as HTMLElement[]) {
             elem.onclick = () => {
                 elem.toggleAttribute("selected",!elem.hasAttribute("selected"))
                 okbtn.tabIndex = !document.querySelectorAll(`.addhtml:has(.rect[id^="copytheme"]) > .rect[selected]`).length ? -1 : 0

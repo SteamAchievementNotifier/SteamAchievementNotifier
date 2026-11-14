@@ -24,7 +24,7 @@ declare interface Res {
     }
 }
 
-declare type NotifyType = "main" | "semi" | "rare" | "plat"
+declare type NotifyType = "main" | "semi" | "rare" | "plat" | "set"
 declare type TrophyType = "bronze" | "silver" | "gold"
 
 declare interface Config {
@@ -91,6 +91,7 @@ declare interface Config {
     webhooksemi: boolean,
     webhookrare: boolean,
     webhookplat: boolean,
+    webhookset: boolean,
     webhooktest: boolean,
     webhookurl: string,
     webhooklaststatus: string,
@@ -99,6 +100,7 @@ declare interface Config {
     webhookembedcolorsemi: string,
     webhookembedcolorrare: string,
     webhookembedcolorplat: string,
+    webhookembedcolorset: string,
     webhookappid: boolean,
     // discord: {
     //     [key: string]: string,
@@ -177,6 +179,7 @@ declare interface Config {
         semi: Customisation,
         rare: Customisation,
         plat: Customisation,
+        set: Customisation
         [key: string]: object
     },
     [key: string]: string | number | boolean | object
@@ -385,7 +388,8 @@ declare interface Notify extends Achievement {
     ra?: boolean,
     emu?: string | null,
     libhero?: string,
-    unlocktime?: string
+    unlocktime?: string,
+    setname?: string
 }
 
 declare interface StatsObj {
@@ -427,7 +431,8 @@ declare interface UserTheme extends Button {
     enabled: boolean,
     version?: string,
     userthemedir?: string,
-    usecustomfiles?: boolean
+    usecustomfiles?: boolean,
+    set?: Customisation
 }
 
 declare interface WinType {
@@ -541,7 +546,8 @@ declare interface ThemeSwitch {
         main: number,
         semi: number,
         rare: number,
-        plat: number
+        plat: number,
+        set?: number
     },
     src: number,
     ra?: boolean,

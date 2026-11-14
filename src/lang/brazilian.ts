@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Concluído",
         achievementdesc: "Clicou no botão Mostrar Notificação de Teste",
         gamecompletedesc: "Você desbloqueou todas as conquistas!",
+        setname: "Nome do conjunto",
+        setcomplete: "Você completou o conjunto de conquistas!",
         defaultcustomfont: "Padrão (Nenhuma Fonte Selecionada)",
         defaultsoundfile: "Padrão (Nenhum Arquivo Selecionado)",
         defaultsounddir: "Padrão (Nenhuma Pasta Selecionada)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Novo...",
         nodata: "Sem Dados",
         webhookunlockmsg: "$user desbloqueou uma conquista",
+        webhookunlockmsgset: "$user concluiu um conjunto de conquistas",
         webhookunlockmsgplat: "$user desbloqueou todas as conquistas",
         webhookingame: "em $gamename",
         notconnected: "Não conectado",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Copiar tema",
                 copythemesub: "Selecione o(s) tipo(s) de notificação para copiar o tema selecionado"
             }
+        },
+        platnotifytype: {
+            title: "Personalizar",
+            content: {
+                platsubtype: "Subtipo",
+                game: "Jogo",
+                set: "Conjunto"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Alternar se as informações de conquista devem ser enviadas para um servidor Discord quando uma conquista $semi for desbloqueada`,
         webhookrare: "Alternar se as informações de conquista devem ser enviadas para um servidor Discord quando uma conquista $rare for desbloqueada",
         webhookplat: "Alternar se as informações de conquista devem ser enviadas para um servidor Discord quando uma conquista $plat for desbloqueada",
+        webhookset: "Alternar se as informações das conquistas devem ser publicadas em um servidor do Discord quando um conjunto de conquistas for concluído",
         webhooktest: "Alternar se as informações de teste devem ser enviadas para um servidor do Discord quando notificações de teste de qualquer tipo forem acionadas",
         webhookurl: `Defina a <span class="hl">URL do Webhook</span> para o servidor Discord desejado<br><br><span class="ttdesc">Uma <span class="hl">URL do Webhook</span> é usada para postar em um servidor/canal Discord em nome de um usuário ou aplicativo. Para configurar um novo Webhook para um servidor Discord, o usuário deve ter um papel dentro do servidor desejado que permita a criação de Webhooks<br><br><u>Uma URL do Webhook é necessária ao usar esta opção</u><br><br>Consulte a documentação oficial do Discord para mais informações</span>`,
         webhookspoilers: `Adicionar uma tag de spoiler para conquistas "Ocultas" ao postar no Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Definir a cor usada na embed do webhook quando uma conquista $semi for desbloqueada",
         webhookembedcolorrare: "Definir a cor usada na embed do webhook quando uma conquista $rare for desbloqueada",
         webhookembedcolorplat: "Definir a cor usada na embed do webhook quando uma conquista $plat for desbloqueada",
+        webhookembedcolorset: "Definir a cor usada na incorporação do webhook quando um conjunto de conquistas for concluído",
         raemus: "Exibir notificações quando jogos forem detectados em emuladores compatíveis",
         rauser: "Definir o nome de usuário do RetroAchievements para acompanhar as conquistas",
         rakey: `Defina a Chave da API Web para usar na autenticação com a RetroAchievements API<br><br><span class="ttdesc">Uma Chave da API Web pode ser copiada ou regenerada ao fazer login no site da RetroAchievements e navegar até <span class="hl">Configurações > Chaves > Chave da API Web</span><br><br>🔒 A chave fornecida será criptografada antes de ser armazenada localmente no sistema (se o sistema operacional atual oferecer suporte à criptografia)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Define o número máximo de linhas de texto a serem exibidas nas notificações",
         notifyoverflow: "Define o comportamento do texto excedente nas notificações",
         scrollrepeat: `Define quantas vezes o texto excedente será rolado enquanto a notificação estiver na tela<br><br><span class="ttdesc">A velocidade da rolagem depende do Tempo de Exibição, mas valores mais altos de repetição podem não ser adequados para todas as predefinições</span>`,
-        setplat: "Exibir a notificação de 100% após concluir cada conjunto de conquistas em jogos compatíveis"
+        setplat: "Exibir notificações ao concluir cada conjunto de conquistas em jogos compatíveis",
+        platsubtype: `Selecione o subtipo de notificação de <span class="hl">100%</span> para personalizar<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Jogo</span>: A notificação exibida quando todas as conquistas do jogo são desbloqueadas</li><li><span class="hl">Conjunto</span>: A notificação exibida quando todas as conquistas de um único conjunto são desbloqueadas</li></ul></span>`
     },
     update: {
         updateavailable: "Atualização disponível",

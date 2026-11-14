@@ -171,18 +171,21 @@ export const language = {
         }
     },
     getkeypath: (obj: any,keys: string[]): any => keys.reduce((acc,key) => (acc && acc[key] !== undefined ? acc[key] : undefined),obj),
+    lookup: async (lang: string,id: string,keys?: string | string[]) => {
+        const { translations, translations: { global } } = await import(`../lang/${lang}`)
+        if (!keys) return global[id]
+
+        const [top,...keysarr] = Array.isArray(keys) ? [...keys] : [keys]
+        return language.getkeypath(translations[top],keysarr)?.[id]
+    },
     get: async (id: string,keys?: string | string[]) => {
         const config = sanconfig.get()
         const lang = config.get("lang") || "english"
     
         try {
-            const { translations, translations: { global } } = await import(`../lang/${lang}`)
-            if (!keys) return global[id]
-
-            const [top,...keysarr] = Array.isArray(keys) ? [...keys] : [keys]
-            const keypath = language.getkeypath(translations[top],keysarr)
-    
-            return keypath ? keypath[id] : "MISSING!!!"
+            // Fall back to `english` for keys not yet translated in the selected language file
+            const value = (await language.lookup(lang,id,keys)) ?? (lang !== "english" ? await language.lookup("english",id,keys) : undefined)
+            return value ?? (keys ? "MISSING!!!" : undefined)
         } catch (err) {
             log.write("ERROR",`Error getting translation for "${id}" in language file "${lang}.js": ${err}`)
         }

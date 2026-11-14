@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "Hoàn Thành 100%",
         achievementdesc: "Nhấp vào nút để hiển thị thông báo thử nghiệm",
         gamecompletedesc: "Bạn đã mở khóa tất cả các thành tích!",
+        setname: "Tên bộ thành tích",
+        setcomplete: "Bạn đã hoàn thành bộ thành tích!",
         defaultcustomfont: "Mặc Định (Không Chọn Font)",
         defaultsoundfile: "Mặc Định (Không Chọn File)",
         defaultsounddir: "Mặc Định (Không Chọn Thư Mục)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Mới...",
         nodata: "Không có dữ liệu",
         webhookunlockmsg: "$user đã mở khóa một thành tựu",
+        webhookunlockmsgset: "$user đã hoàn thành một bộ thành tích",
         webhookunlockmsgplat: "$user đã mở khóa tất cả thành tích",
         webhookingame: "trong $gamename",
         notconnected: "Chưa kết nối",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Sao chép giao diện",
                 copythemesub: "Chọn (các) loại thông báo để sao chép giao diện đã chọn sang"
             }
+        },
+        platnotifytype: {
+            title: "Tùy chỉnh",
+            content: {
+                platsubtype: "Loại phụ",
+                game: "Trò chơi",
+                set: "Bộ thành tích"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Chuyển đổi việc đăng thông tin thành tích lên máy chủ Discord khi mở khóa thành tích $semi`,
         webhookrare: "Chuyển đổi việc đăng thông tin thành tích lên máy chủ Discord khi mở khóa thành tích $rare",
         webhookplat: "Chuyển đổi việc đăng thông tin thành tích lên máy chủ Discord khi mở khóa thành tích $plat",
+        webhookset: "Bật hoặc tắt việc đăng thông tin thành tích lên máy chủ Discord khi một bộ thành tích được hoàn thành",
         webhooktest: "Chuyển đổi xem có gửi thông tin kiểm tra đến máy chủ Discord khi bất kỳ loại thông báo kiểm tra nào được kích hoạt hay không",
         webhookurl: `Cài đặt <span class="hl">URL Webhook</span> cho máy chủ Discord mong muốn<br><br><span class="ttdesc">URL Webhook được sử dụng để đăng lên máy chủ/kanal Discord thay mặt cho người dùng hoặc ứng dụng. Để thiết lập một Webhook mới cho máy chủ Discord, người dùng phải có một vai trò trên máy chủ mong muốn cho phép tạo Webhooks<br><br><u>URL Webhook là cần thiết khi sử dụng tùy chọn này</u><br><br>Xem tài liệu chính thức của Discord để biết thêm thông tin</span>`,
         webhookspoilers: `Thêm thẻ spoiler cho các thành tích "Ẩn" khi đăng lên Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Đặt màu được sử dụng trong webhook embed khi mở khóa thành tích $semi",
         webhookembedcolorrare: "Đặt màu được sử dụng trong webhook embed khi mở khóa thành tích $rare",
         webhookembedcolorplat: "Đặt màu được sử dụng trong webhook embed khi mở khóa thành tích $plat",
+        webhookembedcolorset: "Đặt màu được sử dụng trong phần nhúng webhook khi một bộ thành tích được hoàn thành",
         raemus: "Hiển thị thông báo khi phát hiện trò chơi trong các trình giả lập hỗ trợ",
         rauser: "Đặt tên người dùng RetroAchievements để theo dõi các thành tích",
         rakey: `Cài đặt Web API Key sẽ được sử dụng để xác thực với API của RetroAchievements<br><br><span class="ttdesc">Một Web API Key có thể được sao chép hoặc tạo lại bằng cách đăng nhập vào trang web RetroAchievements và đi tới <span class="hl">Cài đặt > Khóa > Web API Key</span><br><br>🔒 Khóa đã cung cấp sẽ được mã hóa trước khi lưu trữ trên hệ thống cục bộ (nếu hệ điều hành hiện tại hỗ trợ mã hóa)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Thiết lập số dòng văn bản tối đa hiển thị trong thông báo",
         notifyoverflow: "Thiết lập cách xử lý văn bản tràn trong thông báo",
         scrollrepeat: `Thiết lập số lần văn bản tràn sẽ cuộn trong khi thông báo đang hiển thị trên màn hình<br><br><span class="ttdesc">Tốc độ cuộn phụ thuộc vào Thời gian hiển thị, nhưng giá trị lặp lại cao có thể không phù hợp với tất cả các cấu hình cài đặt sẵn</span>`,
-        setplat: "Hiển thị thông báo hoàn thành 100% sau khi hoàn tất từng bộ thành tích trong các trò chơi tương thích"
+        setplat: "Hiển thị thông báo khi hoàn thành từng bộ thành tích trong các trò chơi tương thích",
+        platsubtype: `Chọn loại phụ của thông báo <span class="hl">100%</span> để tùy chỉnh<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Trò chơi</span>: Thông báo hiển thị khi tất cả thành tích trong trò chơi đã được mở khóa</li><li><span class="hl">Bộ thành tích</span>: Thông báo hiển thị khi tất cả thành tích trong một bộ thành tích đã được mở khóa</li></ul></span>`
     },
     update: {
         updateavailable: "Có bản cập nhật mới",

@@ -155,7 +155,9 @@ export const sanhelper = {
         process.on("uncaughtException",(err: Error) => handleerr(`${err.stack}`))
         process.on("unhandledRejection",(err: Error) => handleerr(`${err.stack}`))
     },
-    settypevalue: <T>(type: NotifyType,values: { main: T,semi: T,rare: T,plat: T }) => values[type],
+    settypevalue: <T>(type: NotifyType,values: { main: T,semi: T,rare: T,plat: T,set?: T }) => values[type] ?? values.plat,
+    basetype: (type: NotifyType): "main" | "semi" | "rare" | "plat" => type === "set" ? "plat" : type,
+    plattype: (type: NotifyType) => type === "plat" || type === "set",
     // On build, the Notifications API cannot access the `img` files within the asar
     setfilepath: (dir: "img" | "icon" | "sound",filename: string) => path.join((dir === "img" && !sanhelper.devmode) ? (process.platform === "linux" ? path.join(sanhelper.appdata,"resources") : process.resourcesPath) : __root,dir,filename).replace(/\\/g,"/"),
     showtrack: (gamename: string) => ipcRenderer.send("showtrack",gamename),
@@ -206,7 +208,7 @@ export const sanhelper = {
 
         return
     },
-    get type(): NotifyType { return (["main","semi","rare","plat"] as const).find(attr => document.body.hasAttribute(attr))! as NotifyType },
+    get type(): NotifyType { return (["set","main","semi","rare","plat"] as const).find(attr => document.body.hasAttribute(attr))! },
     logcontents: (logtype: LogFiles | "bak",filename?: string) => fs.readFileSync(path.join(sanhelper.appdata,"logs",filename || `${logtype}.log`),"utf-8").replace(/(\r\n|\n|\r)/g,"<br>"),
     createlogwin: () => ipcRenderer.send("logwin",sanhelper.logcontents("san"),"san"),
     updatelogwin: (logtype: LogFiles | "bak",filename?: string) => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype,filename),logtype,filename),
@@ -214,7 +216,7 @@ export const sanhelper = {
     appdatadir: () => shell.openPath(sanhelper.appdata),
     cleariconcache: () => ipcRenderer.send("cleariconcache"),
     switchtab: ({ target }: Event) => {
-        target instanceof HTMLElement && (["main","semi","rare","plat"] as const).forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
+        target instanceof HTMLElement && (["main","semi","rare","plat","set"] as const).forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
         usertheme.update()
         sanhelper.reloadelemselector()
     },
@@ -227,6 +229,7 @@ export const sanhelper = {
         switch ((target as HTMLElement)!.id) {
             case "customiserbackbtn":
                 if (i > 0) {
+                    document.body.removeAttribute("set")
                     document.body.setAttribute(attrs[i - 1],"")
                     document.body.removeAttribute(attrs[i])
                     window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: attrs[i - 1] } }))
@@ -234,6 +237,7 @@ export const sanhelper = {
                 break
             case "customisernextbtn":
                 if (i < attrs.length - 1) {
+                    document.body.removeAttribute("set")
                     document.body.setAttribute(attrs[i + 1],"")
                     document.body.removeAttribute(attrs[i])
                     window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: attrs[i + 1] } }))
@@ -253,7 +257,7 @@ export const sanhelper = {
     },
     setshortcut: (config: Store<Config>,event: Event,id?: string,partialcombo: boolean = false) => {
         const target = event.target as HTMLElement
-        const type = sanhelper.type
+        const { type } = sanhelper
         const keys: string[] = []
         const shortcutbtn = document.getElementById(id ? id : "shortcutbtn")! as HTMLButtonElement
         let count: number = 0
@@ -365,6 +369,13 @@ export const sanhelper = {
     },
     startwin: (value: boolean) => ipcRenderer.send("startwin",value),
     nohwa: (value: boolean) => ipcRenderer.send("restart",`"nohwa" Settings option toggled to ${value}.`),
+    setplat: (value: boolean) => {
+        document.body.toggleAttribute("setplat",value)
+        if (value || !document.body.hasAttribute("set")) return
+
+        document.body.removeAttribute("set")
+        window.dispatchEvent(new CustomEvent("tabchanged",{ detail: { type: "plat" } }))
+    },
     soundonly: (value: boolean) => {
         document.body.toggleAttribute("soundonly",value)
         window.dispatchEvent(new Event("soundonly"))
@@ -395,11 +406,12 @@ export const sanhelper = {
 
         const { customisation, trophymode } = config.store
 
-        const trophymap: Record<"main" | "semi" | "rare" | "plat",NotifyType | TrophyType | ""> = {
+        const trophymap: Record<NotifyType,NotifyType | TrophyType | ""> = {
             main: trophymode ? "bronze" : "",
             semi: trophymode ? "silver" : "",
             rare: trophymode ? "gold" : "rare",
-            plat: "plat"
+            plat: "plat",
+            set: "plat"
         }
 
         const synced = usertheme.issynced(config)
@@ -610,7 +622,7 @@ export const sanhelper = {
     setbtn: async (config: Store<Config>,elem: HTMLButtonElement,keypath?: string) => {
         elem.removeAttribute("novalue")
 
-        const type = sanhelper.type
+        const { type } = sanhelper
         const key = config.get((keypath ? `${keypath}.` : "") + elem.id.replace(/\d/,""))
         
         elem.onclick = () => {
@@ -642,7 +654,7 @@ export const sanhelper = {
         if (!elem.classList.contains("customicon")) return elem.style.setProperty("--img",`url('${key ? key : sanhelper.setfilepath(elem.id === "hiddenicon" ? "icon" : "img",`${elem.id === "hiddenicon" ? (key || "lock.svg") : "sanimgbg.png"}`)}')`)
 
         const customiconkey = (): string | null => Array.isArray(key) ? key[parseInt(elem.id.replace(/[^\d]/g,"")) - 1] as string : key as string || null
-        if (!customiconkey() || (type !== "plat" && elem.id === "plat") || (elem.id.includes("decoration") && (!Array.isArray(key) && elem.id !== "decoration1"))) return elem.setAttribute("novalue","")
+        if (!customiconkey() || (!sanhelper.plattype(type) && elem.id === "plat") || (elem.id.includes("decoration") && (!Array.isArray(key) && elem.id !== "decoration1"))) return elem.setAttribute("novalue","")
 
         elem.style.setProperty("--img",`url('${customiconkey()}')`)
 
@@ -668,10 +680,10 @@ export const sanhelper = {
                 if (((type === "main" || type === "semi") && (i - 1) > 1) || ((type !== "main" && type !== "semi") && (i - 1) < 2)) return elem.setAttribute("novalue","")
             }
             
-            elem.parentElement!.querySelector("span")!.textContent = type === "plat" ? await language.get("decoration",["customiser","icons","content"]) : `${await language.get(Array.isArray(key) ? "rarity" : "decoration",["customiser","icons","content"])}${Array.isArray(key) ? `: ${raritylbl}` : ""}`
+            elem.parentElement!.querySelector("span")!.textContent = sanhelper.plattype(type) ? await language.get("decoration",["customiser","icons","content"]) : `${await language.get(Array.isArray(key) ? "rarity" : "decoration",["customiser","icons","content"])}${Array.isArray(key) ? `: ${raritylbl}` : ""}`
         }
     },
-    updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: (["main","semi","rare","plat"] as NotifyType[]).find(attr => document.body.hasAttribute(attr)), noreload: noreload } })),
+    updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged",{ detail: { type: sanhelper.type, noreload } })),
     loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
         if (!menuelem) return
 
@@ -709,7 +721,7 @@ export const sanhelper = {
             for (const id of trophies) {
                 if (elem.id.endsWith(id)) {
                     const config = (await import("./config")).sanconfig.get()
-                    content = (sanhelper.type as NotifyType) === "plat" && elem.id.endsWith("percentbadgeimggold") ? await language.get("percentbadgeimgplat",["tooltips"])  : language.configregex(config,content,"%")
+                    content = sanhelper.plattype(sanhelper.type) && elem.id.endsWith("percentbadgeimggold") ? await language.get("percentbadgeimgplat",["tooltips"])  : language.configregex(config,content,"%")
                 }
             }
 
@@ -1193,9 +1205,9 @@ export const sanhelper = {
     },
     resetelemselector: async (menuelem: HTMLElement) => {
         const { sanconfig } = await import("./config")
-        const config = sanconfig.get()
-        const type = sanhelper.type
+        const { type } = sanhelper
         const { defaulticons } = sanconfig
+        const config = sanconfig.get()
 
         ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype])) // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
         const index = defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.index

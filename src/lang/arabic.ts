@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "اللعبة مكتملة 100٪",
         achievementdesc: "انقر على زر إظهار الإخطار التجريبي",
         gamecompletedesc: "لقد فتحت جميع الإنجازات!",
+        setname: "اسم المجموعة",
+        setcomplete: "لقد أكملت مجموعة الإنجازات!",
         defaultcustomfont: "الافتراضي (لم يتم اختيار خط)",
         defaultsoundfile: "الافتراضي (لم يتم اختيار ملف صوتي)",
         defaultsounddir: "الافتراضي (لم يتم اختيار مجلد)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "جديد...",
         nodata: "لا توجد بيانات",
         webhookunlockmsg: "$user فتح إنجازًا",
+        webhookunlockmsgset: "أكمل $user مجموعة إنجازات",
         webhookunlockmsgplat: "$user فتح جميع الإنجازات",
         webhookingame: "في $gamename",
         notconnected: "غير متصل",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "نسخ السمة",
                 copythemesub: "حدد نوع (أنواع) الإشعارات لنسخ السمة المحددة إليها"
             }
+        },
+        platnotifytype: {
+            title: "تخصيص",
+            content: {
+                platsubtype: "النوع الفرعي",
+                game: "اللعبة",
+                set: "المجموعة"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `تبديل ما إذا كان سيتم نشر معلومات الإنجاز إلى خادم Discord عند فتح إنجاز $semi`,
         webhookrare: "تبديل ما إذا كان سيتم نشر معلومات الإنجاز إلى خادم Discord عند فتح إنجاز $rare",
         webhookplat: "تبديل ما إذا كان سيتم نشر معلومات الإنجاز إلى خادم Discord عند فتح إنجاز $plat",
+        webhookset: "تبديل ما إذا كان سيتم نشر معلومات الإنجازات على خادم Discord عند اكتمال مجموعة إنجازات",
         webhooktest: "تبديل ما إذا كان سيتم إرسال معلومات الاختبار إلى خادم ديسكورد عند تشغيل إشعارات الاختبار من أي نوع",
         webhookurl: `قم بتعيين <span class="hl">عنوان URL للويب هوك</span> للخادم المطلوب<br><br><span class="ttdesc">يستخدم <span class="hl">عنوان URL للويب هوك</span> للنشر في خادم/قناة ديسكورد نيابة عن المستخدم أو التطبيق. لتكوين ويب هوك جديد لخادم ديسكورد، يجب أن يكون لدى المستخدم دور داخل الخادم المطلوب يسمح بإنشاء ويب هوك<br><br><u>عنوان URL للويب هوك مطلوب عند استخدام هذا الخيار</u><br><br>يرجى الرجوع إلى وثائق ديسكورد الرسمية لمزيد من المعلومات</span>`,
         webhookspoilers: `أضف علامة مفسد إلى الإنجازات "المخفية" عند نشرها على ديسكورد`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "تعيين اللون المستخدم في تضمين Webhook عند فتح إنجاز $semi",
         webhookembedcolorrare: "تعيين اللون المستخدم في تضمين Webhook عند فتح إنجاز $rare",
         webhookembedcolorplat: "تعيين اللون المستخدم في تضمين Webhook عند فتح إنجاز $plat",
+        webhookembedcolorset: "تعيين اللون المستخدم في تضمين Webhook عند اكتمال مجموعة إنجازات",
         raemus: "عرض الإشعارات عند اكتشاف الألعاب في المحاكيات المدعومة",
         rauser: "تحديد اسم مستخدم RetroAchievements لتتبع الإنجازات",
         rakey: `قم بتعيين مفتاح واجهة برمجة تطبيقات الويب لاستخدامه في المصادقة مع واجهة RetroAchievements API<br><br><span class="ttdesc">يمكنك نسخ أو إعادة توليد مفتاح واجهة برمجة التطبيقات الويب عن طريق تسجيل الدخول إلى موقع RetroAchievements والانتقال إلى <span class="hl">الإعدادات > المفاتيح > مفتاح واجهة برمجة التطبيقات الويب</span><br><br>🔒 سيتم تشفير المفتاح المُقدم قبل تخزينه محليًا على النظام (إذا كان نظام التشغيل الحالي يدعم التشفير)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "تعيين الحد الأقصى لعدد أسطر النص التي سيتم عرضها داخل الإشعارات",
         notifyoverflow: "تعيين سلوك النص الذي يتجاوز المساحة المتاحة داخل الإشعارات",
         scrollrepeat: `تعيين عدد مرات تمرير النص الزائد أثناء ظهور الإشعار على الشاشة<br><br><span class="ttdesc">تعتمد سرعة التمرير على مدة العرض، ولكن قد لا تكون قيم التكرار المرتفعة مناسبة لجميع الإعدادات المسبقة</span>`,
-        setplat: "عرض إشعار إكمال 100% بعد إكمال كل مجموعة إنجازات في الألعاب المتوافقة"
+        setplat: "عرض إشعارات عند إكمال كل مجموعة إنجازات في الألعاب المتوافقة",
+        platsubtype: `حدد النوع الفرعي لإشعار <span class="hl">100%</span> المراد تخصيصه<br><br><span class="ttdesc" nostar><ul><li><span class="hl">اللعبة</span>: الإشعار الذي يظهر عند فتح جميع الإنجازات في اللعبة</li><li><span class="hl">المجموعة</span>: الإشعار الذي يظهر عند فتح جميع الإنجازات في مجموعة إنجازات واحدة</li></ul></span>`
     },
     update: {
         updateavailable: "تحديث متاح",

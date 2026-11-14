@@ -90,7 +90,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     const elemselector = menutype.querySelector("#elemselector")
     elemselector && elemselector.remove()
 
-    const type = sanhelper.type as NotifyType
+    const { type } = sanhelper
     const max = elemtype === "sselems" && !(config.get("ssalldetails") as string[]).includes(config.get(`customisation.${type}.preset`) as string) ? 2 : 3
     const elems = config.get(`customisation.${type}.${elemtype}`) as string[]
 
@@ -152,14 +152,12 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
             if (id.includes("decorationpos")) {
                 // Note: `defaulticons.epicgames.decoration` is NOT null in config, hence the equality check
                 if (decoration === null || preset === "epicgames") {
-                    // Dynamically removes the `select` element if `defaulticons.<preset>.decoration` is null
-                    if (!decorationoverride.includes(preset)) return select.parentElement!.remove()
-                    // Dynamically removes any `option` elements greater than 1 for any preset in the `usedecoration` array (replaces legacy "Show Decoration" option)
-                    menutype.querySelectorAll(`#${id} > option:not([value="off"],[value="1"])`).forEach(elem => elem.remove())
+                    if (!decorationoverride.includes(preset)) return select.parentElement!.remove() // Dynamically removes the `select` element if `defaulticons.<preset>.decoration` is null
+                    menutype.querySelectorAll(`#${id} > option:not([value="off"],[value="1"])`).forEach(elem => elem.remove()) // Dynamically removes any `option` elements greater than 1 for any preset in the `usedecoration` array (replaces legacy "Show Decoration" option)
                 }
             }
 
-            if ((type === "plat" && id.includes("hiddeniconpos")) || (config.get(`customisation.${type}.${elemtype === "sselems" ? "ss" : ""}percentbadge`) && id.includes("percentpos"))) return select.parentElement!.remove()
+            if ((sanhelper.plattype(type) && id.includes("hiddeniconpos")) || (config.get(`customisation.${type}.${elemtype === "sselems" ? "ss" : ""}percentbadge`) && id.includes("percentpos"))) return select.parentElement!.remove()
 
             const pos = config.get(`customisation.${type}.${id}`) as number
             select.value = pos > 0 ? pos.toString() : "off"
@@ -226,7 +224,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     menutype.querySelectorAll(`#elemselector > .opt > .opt:has(button[id*="percentbadgeimg"]) > button`)!.forEach(async b => {
         const btn = b as HTMLImageElement
-        btn.parentElement!.querySelector("span")!.textContent = type === "plat" ? await language.get("gamecomplete")  : language.configregex(config,notificationelems.content[btn.id],"%")
+        btn.parentElement!.querySelector("span")!.textContent = sanhelper.plattype(type) ? await language.get("gamecomplete")  : language.configregex(config,notificationelems.content[btn.id],"%")
 
         btn.style.setProperty("--img",`url('${config.get(`customisation.${type}.${btn.id}`)}')`)
 

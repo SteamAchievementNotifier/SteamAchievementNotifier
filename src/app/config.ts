@@ -52,7 +52,8 @@ const defaultuserthemelbls = {
     main: "Main",
     semi: "Semi-Rare",
     rare: "Rare",
-    plat: "100%"
+    plat: "100%",
+    set: "Set"
 } as const
 
 const defaultcolors = {
@@ -60,13 +61,15 @@ const defaultcolors = {
         main: "203e7a",
         semi: "60707a",
         rare: "663399",
-        plat: "4e75c9"
+        plat: "4e75c9",
+        set: "ae45bd"
     },
     secondary: {
         main: "0c2a66",
         semi: "4c5c66",
         rare: "521f85",
-        plat: "3a61b5"
+        plat: "3a61b5",
+        set: "8a2be2"
     }
 } as const
 
@@ -299,6 +302,7 @@ export const sanconfig = {
                 webhooksemi: true,
                 webhookrare: true,
                 webhookplat: true,
+                webhookset: true,
                 webhooktest: false,
                 webhookurl: "",
                 webhooklaststatus: "",
@@ -307,6 +311,7 @@ export const sanconfig = {
                 webhookembedcolorsemi: `#${defaultcolors.primary.semi}`,
                 webhookembedcolorrare: `#${defaultcolors.primary.rare}`,
                 webhookembedcolorplat: `#${defaultcolors.primary.plat}`,
+                webhookembedcolorset: `#${defaultcolors.primary.set}`,
                 webhookappid: false,
                 // discord: {
                 //     userid: "",
@@ -383,7 +388,8 @@ export const sanconfig = {
                     main: {} as Customisation,
                     semi: {} as Customisation,
                     rare: {} as Customisation,
-                    plat: {} as Customisation
+                    plat: {} as Customisation,
+                    set: {} as Customisation
                 }
             }
 
@@ -550,7 +556,7 @@ export const sanconfig = {
         return {
             primarycolor: `#${sanhelper.settypevalue(type,defaultcolors.primary)}`,
             secondarycolor: `#${sanhelper.settypevalue(type,defaultcolors.secondary)}`,
-            shortcut: `CTRL+SHIFT+${sanhelper.settypevalue<number | string>(type,{ main: 1, semi: "W", rare: 2, plat: 3 })}`,
+            shortcut: `CTRL+SHIFT+${sanhelper.settypevalue<number | string>(type,{ main: 1, semi: "W", rare: 2, plat: 3, set: "S" })}`,
             elems: sanconfig.defaulticons.get(customobj.preset)!.elems,
             usertheme: [{
                 id: 0,
@@ -585,25 +591,24 @@ export const sanconfig = {
         const props = { id, imgpath, target, width, height }
         const obj = sanconfig.defaultobj("config",props) as Config
 
-        if (validate) {
-            sanconfig.validateconfigobj(obj)
-        }
+        validate && sanconfig.validateconfigobj(obj)
 
         for (const type in obj.customisation) {
             const customobj = sanconfig.defaultobj("customisation",type as NotifyType) as Customisation
-            validate && sanconfig.validateconfigobj(customobj,type as NotifyType)
+
+            if (validate) sanconfig.validateconfigobj(customobj,type as NotifyType)
 
             if (!validate) {
                 sanconfig.defaulticons.forEach((value: CustomIcon,key: string) => {
                     customobj.customicons[key] = value
-                    type === "plat" && (customobj.customicons.plat = sanhelper.setfilepath("img","ribbon.svg"))
+                    sanhelper.plattype(type as NotifyType) && (customobj.customicons.plat = sanhelper.setfilepath("img","ribbon.svg"))
                 })
-                
+
                 Object.assign(customobj,sanconfig.defaultcustomobj(customobj,type as NotifyType))
-    
+
                 customobj.usertheme[0].customisation = { ...customobj as any }
                 delete (customobj.usertheme[0].customisation as any).usertheme
-    
+
                 obj.customisation[type] = customobj
             }
         }
@@ -651,6 +656,35 @@ export const sanconfig = {
         const missingfiles = await sanconfig.validatefiles(config,objkeys,type as NotifyType | undefined)
         missingfiles.size && sanconfig.resetmissingfiles(missingfiles,config,log)
     },
+    linkset: async (config: Store<Config>,defaultset?: Customisation) => {
+        defaultset ||= sanconfig.create().customisation.set.usertheme[0].customisation as Customisation // Each "plat" Theme stores its "set" customisation in `theme.set` - `customisation.set.usertheme` mirrors that key
+
+        const platthemes = (config.get(`customisation.plat.usertheme`) ?? []) as UserTheme[]
+
+        platthemes.forEach((theme,i) => {
+            const legacy = (theme as any).settheme as Customisation | undefined
+
+            if (legacy) {
+                !theme.set && config.set(`customisation.plat.usertheme.${i}.set`,legacy)
+                config.delete(`customisation.plat.usertheme.${i}.settheme` as any)
+            }
+
+            !theme.set && !legacy && config.set(`customisation.plat.usertheme.${i}.set`,{ ...defaultset })
+        })
+
+        const linked = (config.get(`customisation.plat.usertheme`) as UserTheme[]).map(theme => {
+            const customisation = { ...defaultset, ...theme.set } as Customisation
+            delete (customisation as any).usertheme
+
+            for (const key of settingslvlkeys) {
+                delete (customisation as any)[key]
+            }
+
+            return { id: theme.id, label: theme.label, icon: theme.icon, customisation, enabled: theme.enabled, userthemedir: theme.userthemedir } as UserTheme
+        })
+
+        config.set(`customisation.set.usertheme`,linked)
+    },
     validatecustomicons: async (type: NotifyType) => {
         const config = sanconfig.get()
         const log = (await import("./log")).log
@@ -659,7 +693,7 @@ export const sanconfig = {
         const customicons = config.get(`customisation.${type}.customicons`) as { [key: string]: any }
         const userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
 
-        type === "plat" && defaulticons.set("plat",sanhelper.setfilepath("img","ribbon.svg"))
+        sanhelper.plattype(type) && defaulticons.set("plat",sanhelper.setfilepath("img","ribbon.svg"))
 
         const defaulticonkeys = Array.from(defaulticons.keys())
         const customiconkeys = Object.keys(customicons)
@@ -690,6 +724,9 @@ export const sanconfig = {
 
         const { customisation } = sanconfig.create()
         const defaultkeys = Object.keys(customisation[type]).filter(key => key !== "usertheme" && !settingslvlkeys.includes(key as keyof Customisation))
+
+        // Link the default "set" customisation to any "plat" Theme saved before "set" `NotifyType` existed
+        sanhelper.plattype(type) && await sanconfig.linkset(config,customisation.set.usertheme[0].customisation as Customisation)
 
         userthemes.forEach((theme,i) => {
             const userthemecustomicons = theme.customisation!.customicons
@@ -755,27 +792,29 @@ export const sanconfig = {
     validateconfigobj: async (obj: Config | Customisation,type?: NotifyType) => {
         const config = sanconfig.get()
         const customisation = `customisation.${type}`
-        
+
         // Creates new notification type object in config if missing
         if (type && !config.get(customisation)) {
             const customobj = sanconfig.defaultobj("customisation",type) as Customisation
             
             Object.assign(customobj,sanconfig.defaultcustomobj(customobj,type))
-
+            
             customobj.usertheme[0].customisation = { ...customobj as any }
             delete (customobj.usertheme[0].customisation as any).usertheme
-
+            
             config.set(customisation,customobj)
         }
 
         const configkeys = Object.keys(!type ? config.store : config.get(`customisation.${type}`))
         const objkeys = Object.keys(obj)
-
         const keys = !type ? configfilekeys : customfilekeys
-        keys.forEach(key => sanconfig.defaultfiles[key] = obj[key])
+
+        for (const key of keys) {
+            sanconfig.defaultfiles[key] = obj[key]
+        }
 
         await sanconfig.validateconfigkeys(configkeys,objkeys,obj,type)
-        type && await sanconfig.validatecustomicons(type as NotifyType)
+        type && await sanconfig.validatecustomicons(type)
     },
     get defaultextwins(): Record<ExtWins,ExtWinConfig> {
         const config = sanconfig.get()

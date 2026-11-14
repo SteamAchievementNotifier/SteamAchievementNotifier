@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Voltooid",
         achievementdesc: "Klikte op de knop Testmelding weergeven",
         gamecompletedesc: "Je hebt alle prestaties ontgrendeld!",
+        setname: "Setnaam",
+        setcomplete: "Je hebt de volledige prestatieset voltooid!",
         defaultcustomfont: "Standaard (Geen lettertype geselecteerd)",
         defaultsoundfile: "Standaard (Geen bestand geselecteerd)",
         defaultsounddir: "Standaard (Geen map geselecteerd)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Nieuw...",
         nodata: "Geen gegevens",
         webhookunlockmsg: "$user heeft een prestatie ontgrendeld",
+        webhookunlockmsgset: "$user heeft een achievementset voltooid",
         webhookunlockmsgplat: "$user ontgrendelde alle prestaties",
         webhookingame: "in $gamename",
         notconnected: "Niet verbonden",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Thema kopiëren",
                 copythemesub: "Selecteer het/de meldingstype(n) om het geselecteerde thema naartoe te kopiëren"
             }
+        },
+        platnotifytype: {
+            title: "Aanpassen",
+            content: {
+                platsubtype: "Subtype",
+                game: "Game",
+                set: "Set"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Schakel in of prestatie-informatie naar een Discord-server moet worden gestuurd wanneer een $semi prestatie wordt ontgrendeld`,
         webhookrare: "Schakel in of prestatie-informatie naar een Discord-server moet worden gestuurd wanneer een $rare prestatie wordt ontgrendeld",
         webhookplat: "Schakel in of prestatie-informatie naar een Discord-server moet worden gestuurd wanneer een $plat prestatie wordt ontgrendeld",
+        webhookset: "Schakel in of uit of informatie over achievements naar een Discord-server wordt geplaatst wanneer een achievementset is voltooid",
         webhooktest: "Schakel in of er testinformatie naar een Discord-server moet worden gestuurd wanneer testmeldingen van welk type dan ook worden geactiveerd",
         webhookurl: `Stel de <span class="hl">webhook-URL</span> in voor de gewenste Discord-server<br><br><span class="ttdesc">Een <span class="hl">webhook-URL</span> wordt gebruikt om namens een gebruiker of applicatie te plaatsen in een Discord-server/kanaal. Om een nieuwe webhook in te stellen voor een Discord-server, moet de gebruiker een rol hebben binnen de gewenste server die het maken van webhooks toestaat<br><br><u>Een webhook-URL is vereist bij gebruik van deze optie</u><br><br>Raadpleeg de officiële documentatie van Discord voor meer informatie</span>`,
         webhookspoilers: `Voeg een spoilerlabel toe aan "Verborgen" prestaties bij het posten naar Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Stel de kleur in die wordt gebruikt in de webhook-embed wanneer een $semi prestatie wordt ontgrendeld",
         webhookembedcolorrare: "Stel de kleur in die wordt gebruikt in de webhook-embed wanneer een $rare prestatie wordt ontgrendeld",
         webhookembedcolorplat: "Stel de kleur in die wordt gebruikt in de webhook-embed wanneer een $plat prestatie wordt ontgrendeld",
+        webhookembedcolorset: "Stel de kleur in die wordt gebruikt in de webhook-insluiting wanneer een achievementset is voltooid",
         raemus: "Meldingen weergeven wanneer spellen worden gedetecteerd in ondersteunde emulators",
         rauser: "Stel de RetroAchievements-gebruikersnaam in om achievements bij te houden",
         rakey: `Stel de Web API-sleutel in die gebruikt wordt voor authenticatie met de RetroAchievements API<br><br><span class="ttdesc">Een Web API-sleutel kan worden gekopieerd of opnieuw gegenereerd door in te loggen op de RetroAchievements-website en te navigeren naar <span class="hl">Instellingen > Sleutels > Web API-sleutel</span><br><br>🔒 De opgegeven sleutel wordt versleuteld voordat deze lokaal op het systeem wordt opgeslagen (als het huidige besturingssysteem versleuteling ondersteunt)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Stel het maximale aantal tekstregels in dat in meldingen wordt weergegeven",
         notifyoverflow: "Stel in hoe overlopende tekst in meldingen wordt weergegeven",
         scrollrepeat: `Stel in hoe vaak overlopende tekst scrolt terwijl de melding op het scherm staat<br><br><span class="ttdesc">De scrollsnelheid is afhankelijk van de weergaveduur, maar hogere herhalingswaarden zijn mogelijk niet geschikt voor alle presets</span>`,
-        setplat: "De 100%-melding weergeven nadat elke achievementset in compatibele games is voltooid"
+        setplat: "Meldingen weergeven wanneer elke achievementset in compatibele games is voltooid",
+        platsubtype: `Selecteer het <span class="hl">100%</span>-meldingssubtype dat je wilt aanpassen<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Game</span>: De melding die wordt weergegeven wanneer alle achievements in de game zijn ontgrendeld</li><li><span class="hl">Set</span>: De melding die wordt weergegeven wanneer alle achievements in één achievementset zijn ontgrendeld</li></ul></span>`
     },
     update: {
         updateavailable: "Update beschikbaar",

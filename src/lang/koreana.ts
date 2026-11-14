@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% 완료",
         achievementdesc: "테스트 알림 버튼을 클릭했습니다",
         gamecompletedesc: "모든 업적이 잠금 해제되었습니다!",
+        setname: "세트 이름",
+        setcomplete: "업적 세트를 모두 완료했습니다!",
         defaultcustomfont: "기본값 (선택된 폰트 없음)",
         defaultsoundfile: "기본값 (선택된 파일 없음)",
         defaultsounddir: "기본값 (선택된 폴더 없음)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "새로 만들기...",
         nodata: "데이터 없음",
         webhookunlockmsg: "$user가 업적을 잠금 해제했습니다",
+        webhookunlockmsgset: "$user 님이 도전 과제 세트를 완료했습니다",
         webhookunlockmsgplat: "$user 님이 모든 업적을 해제했습니다",
         webhookingame: "$gamename에서",
         notconnected: "연결되지 않음",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "테마 복사",
                 copythemesub: "선택한 테마를 복사할 알림 유형을 선택하세요"
             }
+        },
+        platnotifytype: {
+            title: "사용자 지정",
+            content: {
+                platsubtype: "하위 유형",
+                game: "게임",
+                set: "세트"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `$semi 업적이 잠금 해제될 때 Discord 서버에 업적 정보를 게시할지 전환`,
         webhookrare: `$rare 업적이 잠금 해제될 때 Discord 서버에 업적 정보를 게시할지 전환`,
         webhookplat: `$plat 업적이 잠금 해제될 때 Discord 서버에 업적 정보를 게시할지 전환`,
+        webhookset: "도전 과제 세트 완료 시 Discord 서버에 도전 과제 정보를 게시할지 여부를 전환합니다",
         webhooktest: "모든 유형의 테스트 알림이 트리거될 때 테스트 정보를 Discord 서버에 게시할지 여부를 전환",
         webhookurl: `원하는 Discord 서버를 위한 <span class="hl">Webhook URL</span>을 설정하세요<br><br><span class="ttdesc">Webhook URL은 사용자 또는 애플리케이션을 대신하여 Discord 서버/채널에 게시하는 데 사용됩니다. Discord 서버에 새로운 Webhook을 설정하려면 사용자가 Webhook 생성을 허용하는 역할을 가진 서버의 멤버여야 합니다<br><br><u>이 옵션을 사용하려면 Webhook URL이 필요합니다</u><br><br>자세한 내용은 Discord의 공식 문서를 참조하세요</span>`,
         webhookspoilers: `Discord에 게시할 때 "숨겨진" 업적에 스포일러 태그 추가`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: `$semi 업적이 잠금 해제될 때 웹후크 임베드에 사용되는 색상 설정`,
         webhookembedcolorrare: `$rare 업적이 잠금 해제될 때 웹후크 임베드에 사용되는 색상 설정`,
         webhookembedcolorplat: `$plat 업적이 잠금 해제될 때 웹후크 임베드에 사용되는 색상 설정`,
+        webhookembedcolorset: "도전 과제 세트 완료 시 웹훅 임베드에 사용되는 색상을 설정합니다",
         raemus: "지원되는 에뮬레이터에서 게임이 감지될 때 알림 표시",
         rauser: "업적 추적에 사용할 RetroAchievements 사용자 이름 설정",
         rakey: `RetroAchievements API 인증에 사용할 Web API 키를 설정합니다<br><br><span class="ttdesc">Web API 키는 RetroAchievements 웹사이트에 로그인하고 <span class="hl">설정 > 키 > Web API 키</span>로 이동하여 복사하거나 다시 생성할 수 있습니다<br><br>🔒 제공된 키는 시스템에 로컬로 저장되기 전에 암호화됩니다 (현재 운영 체제가 암호화를 지원하는 경우)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "알림에 표시할 텍스트의 최대 줄 수를 설정합니다",
         notifyoverflow: "알림에서 텍스트가 넘칠 경우의 동작을 설정합니다",
         scrollrepeat: `알림이 화면에 표시되는 동안 넘치는 텍스트를 스크롤할 횟수를 설정합니다<br><br><span class="ttdesc">스크롤 속도는 표시 시간에 따라 달라지며, 반복 횟수가 너무 높으면 일부 프리셋에 적합하지 않을 수 있습니다</span>`,
-        setplat: "호환되는 게임에서 각 도전 과제 세트를 완료한 후 100% 달성 알림 표시"
+        setplat: "호환되는 게임에서 각 도전 과제 세트를 완료할 때 알림을 표시합니다",
+        platsubtype: `사용자 지정할 <span class="hl">100%</span> 알림 하위 유형을 선택하세요<br><br><span class="ttdesc" nostar><ul><li><span class="hl">게임</span>: 게임 내 모든 도전 과제를 잠금 해제했을 때 표시되는 알림</li><li><span class="hl">세트</span>: 하나의 도전 과제 세트에 포함된 모든 도전 과제를 잠금 해제했을 때 표시되는 알림</li></ul></span>`
     },
     update: {
         updateavailable: "업데이트 가능",

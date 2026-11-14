@@ -27,3 +27,4 @@ TODO
 **/*.txt
 src/app/plugin.ts
 src/plugin.d.ts
+*.zip

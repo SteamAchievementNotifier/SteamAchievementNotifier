@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Dokončeno",
         achievementdesc: "Kliknutím na tlačítko Zobrazit testovací oznámení",
         gamecompletedesc: "Odemkli jste všechny úspěchy!",
+        setname: "Název sady",
+        setcomplete: "Dokončil(a) jsi celou sadu úspěchů!",
         defaultcustomfont: "Výchozí (Není vybráno písmo)",
         defaultsoundfile: "Výchozí (Není vybrán zvukový soubor)",
         defaultsounddir: "Výchozí (Není vybraná složka)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Nové...",
         nodata: "Žádná data",
         webhookunlockmsg: "$user odemkl úspěch",
+        webhookunlockmsgset: "$user dokončil sadu achievementů",
         webhookunlockmsgplat: "$user odemkl všechny úspěchy",
         webhookingame: "ve $gamename",
         notconnected: "Nepřipojeno",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Kopírovat motiv",
                 copythemesub: "Vyberte typ(y) oznámení, do kterých chcete zkopírovat vybraný motiv"
             }
+        },
+        platnotifytype: {
+            title: "Přizpůsobit",
+            content: {
+                platsubtype: "Podtyp",
+                game: "Hra",
+                set: "Sada"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Přepnout, zda se mají odesílat informace o úspěchu na Discord server při odemčení $semi úspěchu`,
         webhookrare: "Přepnout, zda se mají odesílat informace o úspěchu na Discord server při odemčení $rare úspěchu",
         webhookplat: "Přepnout, zda se mají odesílat informace o úspěchu na Discord server při odemčení $plat úspěchu",
+        webhookset: "Přepnout, zda se mají při dokončení sady achievementů zveřejňovat informace o achievementech na serveru Discord",
         webhooktest: "Přepnout, zda se mají odesílat testovací informace na Discord server, když jsou spuštěna testovací oznámení jakéhokoli typu",
         webhookurl: `Nastavte <span class="hl">URL Webhooku</span> pro požadovaný Discord server<br><br><span class="ttdesc"> <span class="hl">URL Webhooku</span> slouží k odesílání na Discord server/kanál jménem uživatele nebo aplikace. Aby bylo možné nastavit nový Webhook pro Discord server, uživatel musí mít v požadovaném serveru roli, která umožňuje vytváření Webhooků<br><br><u>Při použití této možnosti je vyžadována URL Webhooku</u><br><br>Pro více informací se podívejte do oficiální dokumentace Discordu</span>`,
         webhookspoilers: `Přidat označení spoileru ke "Skrytým" úspěchům při zveřejnění na Discordu`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Nastavit barvu použitou ve vložené zprávě webhooku při odemčení $semi úspěchu",
         webhookembedcolorrare: "Nastavit barvu použitou ve vložené zprávě webhooku při odemčení $rare úspěchu",
         webhookembedcolorplat: "Nastavit barvu použitou ve vložené zprávě webhooku při odemčení $plat úspěchu",
+        webhookembedcolorset: "Nastavit barvu použitou ve vložené zprávě webhooku při dokončení sady achievementů",
         raemus: "Zobrazit oznámení, když jsou hry detekovány v podporovaných emulátorech",
         rauser: "Nastavit uživatelské jméno RetroAchievements pro sledování úspěchů",
         rakey: `Nastavte Web API klíč pro ověřování k RetroAchievements API<br><br><span class="ttdesc">Web API klíč lze zkopírovat nebo znovu vygenerovat po přihlášení na web RetroAchievements a přechodu na <span class="hl">Nastavení > Klíče > Web API klíč</span><br><br>🔒 Zadaný klíč bude před uložením na systém místně zašifrován (pokud aktuální OS podporuje šifrování)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Nastaví maximální počet řádků textu zobrazovaných v oznámeních",
         notifyoverflow: "Nastaví chování přetékajícího textu v oznámeních",
         scrollrepeat: `Nastaví, kolikrát se bude přetékající text posouvat, dokud je oznámení na obrazovce<br><br><span class="ttdesc">Rychlost posouvání závisí na době zobrazení, ale vyšší hodnoty opakování nemusí být vhodné pro všechna přednastavení</span>`,
-        setplat: "Zobrazit oznámení o 100% dokončení po dokončení každé sady achievementů v kompatibilních hrách"
+        setplat: "Zobrazovat oznámení při dokončení každé sady achievementů v kompatibilních hrách",
+        platsubtype: `Vyberte podtyp oznámení <span class="hl">100%</span>, který chcete přizpůsobit<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Hra</span>: Oznámení zobrazené po odemknutí všech achievementů ve hře</li><li><span class="hl">Sada</span>: Oznámení zobrazené po odemknutí všech achievementů v jedné sadě</li></ul></span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",

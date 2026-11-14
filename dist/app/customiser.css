@@ -157,7 +157,8 @@ body:not([plat]) .opt:has(input#platcustomtext),
 #customiseropts:has(.opt > select#preset > option[value="windows"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#decorationscale),
 #customiseropts:has(.opt > select#preset > option[value="gfwl"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#decorationscale),
 #customiseropts:has(.opt > select#preset > option[value="os"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#logoscale),
-#customiseropts:has(.opt > select#preset > option[value="os"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#decorationscale) {
+#customiseropts:has(.opt > select#preset > option[value="os"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#decorationscale),
+body:not([plat][setplat]) .cont:has(.title#platnotifytype) {
     display: none;
 }
 
@@ -452,6 +453,10 @@ body[plat] .wrapper#customisertabs > #customisernextbtn,
 
 .cont:has(.title#theme) > .title::before {
     --icon: url("../../icon/stars.svg");
+}
+
+.cont:has(.title#platnotifytype) > .title::before {
+    --icon: url("../../icon/customise.svg");
 }
 
 .opt:has(> select#bgstyle) > .opt,

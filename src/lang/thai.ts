@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "เกมสมบูรณ์ 100%",
         achievementdesc: "คลิกที่ปุ่มเพื่อแสดงการแจ้งเตือนทดสอบ",
         gamecompletedesc: "คุณปลดล็อคผลงานทั้งหมดแล้ว!",
+        setname: "ชื่อชุด",
+        setcomplete: "คุณทำชุดความสำเร็จสำเร็จแล้ว!",
         defaultcustomfont: "ค่าเริ่มต้น (ไม่ได้เลือกฟอนต์)",
         defaultsoundfile: "ค่าเริ่มต้น (ไม่ได้เลือกไฟล์)",
         defaultsounddir: "ค่าเริ่มต้น (ไม่ได้เลือกโฟลเดอร์)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "ใหม่...",
         nodata: "ไม่มีข้อมูล",
         webhookunlockmsg: "$user ได้ปลดล็อกความสำเร็จ",
+        webhookunlockmsgset: "$user ทำชุดความสำเร็จเสร็จสมบูรณ์",
         webhookunlockmsgplat: "$user ปลดล็อกความสำเร็จทั้งหมด",
         webhookingame: "ใน $gamename",
         notconnected: "ไม่เชื่อมต่อ",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "คัดลอกธีม",
                 copythemesub: "เลือกประเภทการแจ้งเตือนที่จะคัดลอกธีมที่เลือกไปยัง"
             }
+        },
+        platnotifytype: {
+            title: "ปรับแต่ง",
+            content: {
+                platsubtype: "ประเภทย่อย",
+                game: "เกม",
+                set: "ชุด"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `สลับการโพสต์ข้อมูลความสำเร็จไปยังเซิร์ฟเวอร์ Discord เมื่อปลดล็อกความสำเร็จ $semi`,
         webhookrare: "สลับการโพสต์ข้อมูลความสำเร็จไปยังเซิร์ฟเวอร์ Discord เมื่อปลดล็อกความสำเร็จ $rare",
         webhookplat: "สลับการโพสต์ข้อมูลความสำเร็จไปยังเซิร์ฟเวอร์ Discord เมื่อปลดล็อกความสำเร็จ $plat",
+        webhookset: "เปิดหรือปิดการโพสต์ข้อมูลความสำเร็จไปยังเซิร์ฟเวอร์ Discord เมื่อชุดความสำเร็จเสร็จสมบูรณ์",
         webhooktest: "สลับว่าเมื่อการแจ้งเตือนทดสอบประเภทใดก็ตามถูกกระตุ้น จะส่งข้อมูลทดสอบไปยังเซิร์ฟเวอร์ Discord หรือไม่",
         webhookurl: `ตั้งค่า <span class="hl">Webhook URL</span> สำหรับเซิร์ฟเวอร์ Discord ที่ต้องการ<br><br><span class="ttdesc">URL ของ Webhook ใช้สำหรับโพสต์ในเซิร์ฟเวอร์/ช่อง Discord ในนามของผู้ใช้หรือแอปพลิเคชัน เพื่อตั้งค่า Webhook ใหม่สำหรับเซิร์ฟเวอร์ Discord ผู้ใช้จะต้องมีบทบาทในเซิร์ฟเวอร์ที่ต้องการซึ่งอนุญาตให้สร้าง Webhooks<br><br><u>ต้องใช้ Webhook URL เมื่อใช้ตัวเลือกนี้</u><br><br>ดูเอกสารอย่างเป็นทางการของ Discord สำหรับข้อมูลเพิ่มเติม</span>`,
         webhookspoilers: `เพิ่มแท็กสปอยเลอร์ให้กับความสำเร็จ "ซ่อน" เมื่อโพสต์ไปยัง Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "ตั้งค่าสีที่ใช้ใน webhook embed เมื่อปลดล็อกความสำเร็จ $semi",
         webhookembedcolorrare: "ตั้งค่าสีที่ใช้ใน webhook embed เมื่อปลดล็อกความสำเร็จ $rare",
         webhookembedcolorplat: "ตั้งค่าสีที่ใช้ใน webhook embed เมื่อปลดล็อกความสำเร็จ $plat",
+        webhookembedcolorset: "กำหนดสีที่ใช้ในการฝังข้อความ Webhook เมื่อชุดความสำเร็จเสร็จสมบูรณ์",
         raemus: "แสดงการแจ้งเตือนเมื่อเกมถูกตรวจจับในอีมูเลเตอร์ที่รองรับ",
         rauser: "ตั้งค่าชื่อผู้ใช้ RetroAchievements เพื่อการติดตามความสำเร็จ",
         rakey: `ตั้งค่า Web API Key ที่จะใช้ในการยืนยันตัวตนกับ API ของ RetroAchievements<br><br><span class="ttdesc">Web API Key สามารถคัดลอกหรือสร้างใหม่ได้โดยการเข้าสู่ระบบเว็บไซต์ของ RetroAchievements และไปที่ <span class="hl">การตั้งค่า > คีย์ > Web API Key</span><br><br>🔒 คีย์ที่ให้มาจะถูกเข้ารหัสก่อนที่จะถูกจัดเก็บในระบบท้องถิ่น (หากระบบปฏิบัติการปัจจุบันรองรับการเข้ารหัส)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "กำหนดจำนวนบรรทัดข้อความสูงสุดที่จะแสดงในการแจ้งเตือน",
         notifyoverflow: "กำหนดวิธีจัดการข้อความที่ยาวเกินพื้นที่ในการแจ้งเตือน",
         scrollrepeat: `กำหนดจำนวนครั้งที่ข้อความส่วนเกินจะเลื่อนขณะที่การแจ้งเตือนแสดงอยู่บนหน้าจอ<br><br><span class="ttdesc">ความเร็วในการเลื่อนขึ้นอยู่กับระยะเวลาแสดงผล แต่ค่าการเลื่อนซ้ำที่สูงอาจไม่เหมาะกับค่าที่ตั้งไว้ล่วงหน้าบางรูปแบบ</span>`,
-        setplat: "แสดงการแจ้งเตือนเมื่อเล่นเกมครบ 100% หลังจากทำชุดความสำเร็จแต่ละชุดเสร็จสิ้นในเกมที่รองรับ"
+        setplat: "แสดงการแจ้งเตือนเมื่อทำชุดความสำเร็จแต่ละชุดเสร็จสมบูรณ์ในเกมที่รองรับ",
+        platsubtype: `เลือกประเภทย่อยของการแจ้งเตือน <span class="hl">100%</span> ที่ต้องการปรับแต่ง<br><br><span class="ttdesc" nostar><ul><li><span class="hl">เกม</span>: การแจ้งเตือนที่แสดงเมื่อปลดล็อกความสำเร็จทั้งหมดในเกมแล้ว</li><li><span class="hl">ชุด</span>: การแจ้งเตือนที่แสดงเมื่อปลดล็อกความสำเร็จทั้งหมดในชุดความสำเร็จชุดเดียวแล้ว</li></ul></span>`
     },
     update: {
         updateavailable: "มีการอัปเดตใหม่",

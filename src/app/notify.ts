@@ -31,7 +31,7 @@ export const sannotify = {
             unlocktime: new Date().toISOString(),
             ...info,
             customisation,
-            icon: info.icon ?? (type === "plat" ? (customisation.customicons as CustomIcon).plat as string ?? sanhelper.setfilepath("img","ribbon.svg") : fbimg),
+            icon: info.icon ?? (sanhelper.plattype(type) ? (customisation.customicons as CustomIcon).plat as string ?? sanhelper.setfilepath("img","ribbon.svg") : fbimg),
             gameicon: info.gameicon ?? (usegameicon ? gameiconpath : fbimg)
         }
  

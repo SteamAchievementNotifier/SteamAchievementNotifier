@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Valmis",
         achievementdesc: "Klikkasi Testi-ilmoituksen näyttöpainiketta",
         gamecompletedesc: "Olet avannut kaikki saavutukset!",
+        setname: "Sarjan nimi",
+        setcomplete: "Olet suorittanut saavutuskokonaisuuden!",
         defaultcustomfont: "Oletus (Ei valittua fonttia)",
         defaultsoundfile: "Oletus (Ei valittua äänitiedostoa)",
         defaultsounddir: "Oletus (Ei valittua kansioita)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Uusi...",
         nodata: "Ei tietoja",
         webhookunlockmsg: "$user avasi saavutuksen",
+        webhookunlockmsgset: "$user suoritti saavutusjoukon",
         webhookunlockmsgplat: "$user avasi kaikki saavutukset",
         webhookingame: "pelissä $gamename",
         notconnected: "Ei yhdistetty",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Kopioi teema",
                 copythemesub: "Valitse ilmoitustyyppi(t), joihin valittu teema kopioidaan"
             }
+        },
+        platnotifytype: {
+            title: "Mukauta",
+            content: {
+                platsubtype: "Alatyyppi",
+                game: "Peli",
+                set: "Sarja"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Vaihda, lähetetäänkö saavutustiedot Discord-palvelimelle, kun $semi saavutus avataan`,
         webhookrare: "Vaihda, lähetetäänkö saavutustiedot Discord-palvelimelle, kun $rare saavutus avataan",
         webhookplat: "Vaihda, lähetetäänkö saavutustiedot Discord-palvelimelle, kun $plat saavutus avataan",
+        webhookset: "Määritä, julkaistaanko saavutustiedot Discord-palvelimelle, kun saavutusjoukko on suoritettu",
         webhooktest: "Vaihda, lähetetäänkö testitietoja Discord-palvelimelle, kun minkä tahansa tyyppiset testailmoitukset käynnistyvät",
         webhookurl: `Aseta <span class="hl">Webhook-URL</span> halutulle Discord-palvelimelle<br><br><span class="ttdesc"><span class="hl">Webhook-URL</span> käytetään julkaisemaan viesti Discord-palvelimelle/kanavalle käyttäjän tai sovelluksen puolesta. Jos haluat asettaa uuden Webhookin Discord-palvelimelle, käyttäjällä on oltava rooli palvelimella, joka sallii Webhookien luomisen<br><br><u>Webhook-URL vaaditaan tämän asetuksen käyttämiseen</u><br><br>Katso lisätietoja Discordin virallisesta dokumentaatiosta</span>`,
         webhookspoilers: `Lisää spoiler-tunniste "Piilotetuille" saavutuksille, kun ne julkaistaan Discordissa`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Aseta väri, jota käytetään webhook-upotuksessa, kun $semi saavutus avataan",
         webhookembedcolorrare: "Aseta väri, jota käytetään webhook-upotuksessa, kun $rare saavutus avataan",
         webhookembedcolorplat: "Aseta väri, jota käytetään webhook-upotuksessa, kun $plat saavutus avataan",
+        webhookembedcolorset: "Määritä väri, jota käytetään webhook-upotuksessa, kun saavutusjoukko on suoritettu",
         raemus: "Näytä ilmoitukset, kun pelejä havaitaan tuetuissa emulaattoreissa",
         rauser: "Aseta RetroAchievements -käyttäjätunnus saavutusten seuraamista varten",
         rakey: `Aseta Web API -avain, jota käytetään tunnistautumiseen RetroAchievements API:ssa<br><br><span class="ttdesc">Web API -avaimen voi kopioida tai luoda uudelleen kirjautumalla sisään RetroAchievements -sivustolle ja siirtymällä kohtaan <span class="hl">Asetukset > Avaimet > Web API -avain</span><br><br>🔒 Annettu avain salataan ennen sen tallentamista paikallisesti järjestelmään (jos nykyinen käyttöjärjestelmä tukee salausta)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Määritä ilmoituksissa näytettävien tekstirivien enimmäismäärä",
         notifyoverflow: "Määritä, miten ilmoitusten ylivuotava teksti käsitellään",
         scrollrepeat: `Määritä, kuinka monta kertaa ylivuotavaa tekstiä vieritetään ilmoituksen ollessa näytöllä<br><br><span class="ttdesc">Vieritysnopeus riippuu näyttöajasta, mutta suuremmat toistoarvot eivät välttämättä sovi kaikkiin esiasetuksiin</span>`,
-        setplat: "Näytä 100 %:n suoritusilmoitus, kun jokainen saavutuskokonaisuus on suoritettu yhteensopivissa peleissä"
+        setplat: "Näytä ilmoitukset jokaisen saavutusjoukon suorittamisesta yhteensopivissa peleissä",
+        platsubtype: `Valitse mukautettava <span class="hl">100%</span>-ilmoituksen alatyyppi<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Peli</span>: Ilmoitus, joka näytetään, kun kaikki pelin saavutukset on avattu</li><li><span class="hl">Sarja</span>: Ilmoitus, joka näytetään, kun kaikki yhden saavutusjoukon saavutukset on avattu</li></ul></span>`
     },
     update: {
         updateavailable: "Päivitys saatavilla",

@@ -392,7 +392,6 @@ export const sanhelper = {
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     noshortcuts: (value: boolean) => ipcRenderer.send("shortcut",!value),
-    usesanwatcher: () => ipcRenderer.send("usesanwatcher"),
     debug: (value: boolean) => ipcRenderer.send("debugwin",value),
     workerdebug: () => ipcRenderer.send("releasegame",true),
     logresourceusage: (value: boolean) => ipcRenderer.send("resourceusage",value),
@@ -850,8 +849,7 @@ export const sanhelper = {
         ])
 
         const wideelems = [
-            "exportachdata",
-            "usesanwatcher"
+            "exportachdata"
         ]
 
         range.forEach((value,key) => {

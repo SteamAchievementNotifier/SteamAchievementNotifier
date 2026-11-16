@@ -96,8 +96,8 @@ export const main = async (starttime: string) => {
 
     nativeTheme.themeSource = "dark"
 
-    process.on("uncaughtException",err => win?.webContents.send("error",err))
-    process.on("unhandledRejection",err => win?.webContents.send("error",err))
+    process.on("uncaughtException",err => win && !win.isDestroyed() && win.webContents.send("error",err))
+    process.on("unhandledRejection",err => win && !win.isDestroyed() && win.webContents.send("error",err))
 
     app.on("window-all-closed",app.quit)
 

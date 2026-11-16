@@ -1,8 +1,54 @@
+import asar from "@electron/asar"
 import fs from "fs"
 import path from "path"
+import Store from "electron-store"
 import { sanconfig } from "./config"
 import { log } from "./log"
 import { sanhelper } from "./sanhelper"
+import { lt, valid } from "semver"
+
+const ignore = new Set([
+    "TODO",
+    ".git",
+    ".github",
+    ".vscode",
+    "_backup",
+    "_release",
+    "deps",
+    "node_modules",
+    "src",
+    ".gitattributes",
+    ".gitignore",
+    "beta.json",
+    "DEV.md",
+    "KNOWNISSUES.md",
+    "NOTIFY.md.old",
+    "gh_token.txt",
+    "package-lock.json",
+    "RA.md",
+    "README.md",
+    "san.d.ts",
+    "tsconfig.json",
+    "_template",
+    "_template.html",
+    "afterpack.js",
+    "patches"
+])
+
+const ignoredirs: Record<string,string[]> = {
+    customfiles: [
+        "temp"
+    ],
+    img: [
+        "dist",
+        "fonts",
+        "icon",
+        "notify",
+        "sound",
+        "temp",
+        "package.json"
+    ]
+}
 
 export const utils = {
     game: {
@@ -126,6 +172,161 @@ export const utils = {
                     return achievementcopy
                 }))
             } as StatsObj
+        }
+    },
+    app: {
+        checksingleinstance: (lock: boolean) => {
+            if (!lock) {
+                log.write("WARN",`Steam Achievement Notifier (V${sanhelper.version}) is already running!`)
+                // return app.exit()
+                return true
+            }
+
+            return false
+        },
+        getcustomfilesversion: (packagepath: string) => {
+            try {
+                return valid(JSON.parse(fs.readFileSync(packagepath,"utf8")).version) ?? "0.0.0"
+            } catch {
+                return "0.0.0"
+            }
+        },
+        copyrecursive: (src: string,dest: string,ignore: Set<string>) => {
+            if (!fs.existsSync(src)) throw new Error(`"${src}" does not exist`)
+            if (ignore.has(path.basename(src))) return
+
+            if (fs.statSync(src).isDirectory()) {
+                !fs.existsSync(dest) && fs.mkdirSync(dest,{ recursive: true })
+
+                for (const file of fs.readdirSync(src)) {
+                    utils.app.copyrecursive(path.join(src,file),path.join(dest,file),ignore)
+                }
+            } else {
+                fs.copyFileSync(src,dest)
+            }
+        },
+        checkdir: (dirpath: string,callback: () => void,msg: string) => {
+            if (fs.existsSync(dirpath)) {
+                if (path.basename(dirpath) !== "customfiles") return log.write("INFO",`"${dirpath}" already exists: No changes were made`)
+
+                const customfilesversion = utils.app.getcustomfilesversion(path.join(dirpath,"package.json"))
+                const backuppath = dirpath + `_V${customfilesversion}`
+                
+                const { semver } = sanhelper
+                if (!semver) throw new Error("Unable to parse semver")
+                
+                if (lt(customfilesversion,semver)) {
+                    log.write("INFO",`"${dirpath}" Package Version (${customfilesversion}) is outdated compared to current App Version (${sanhelper.semver}): Attempting backup...`)
+
+                    try {
+                        fs.renameSync(dirpath,backuppath)
+                        log.write("INFO",`"${backuppath}" backup directory created successfully`)
+                    } catch (err) {
+                        return log.write("ERROR",`Error creating backup for ${customfilesversion} "customfiles" directory: ${err as Error}`)
+                    }
+                } else {
+                    return log.write("INFO",`"${dirpath}" Package Version (${customfilesversion}) matches current App Version (${sanhelper.semver}): No changes were made`)
+                }
+            }
+
+            try {
+                callback()
+                log.write("INFO",msg)
+            } catch (err) {
+                log.write("ERROR",(err as Error).message)
+            }
+        },
+        createdir: (dirpath: string,src?: string,destdir?: string) => {
+            utils.app.checkdir(dirpath,() => fs.mkdirSync(dirpath),`"${dirpath}" created successfully`)
+
+            if (!src || !destdir) return log.write("INFO",`No ${!src ? "src" : "destdir"} value specified - copy operation aborted`)
+
+            const dest = path.join(dirpath,destdir)
+            const ignorelist = new Set([
+                ...ignore,
+                ...(ignoredirs[destdir] ?? [])
+            ])
+
+            utils.app.checkdir(dest,() => {
+                if (path.extname(src) === ".asar") {
+                    const tempasar = path.join(sanhelper.appdata,"tempasar")
+
+                    try {
+                        asar.extractAll(src,tempasar)
+                        utils.app.copyrecursive(tempasar,dest,ignorelist)
+                    } finally {
+                        fs.rmSync(tempasar,{ recursive: true, force: true })
+                    }
+                } else {
+                    utils.app.copyrecursive(src,dest,ignorelist)
+                }
+            },`"${src}" copied to "${dest}" successfully`)
+
+            process.platform === "linux" && fs.existsSync(dest) && fs.chmod(dest,0o777,err => log.write(err ? "ERROR" : "INFO",err ? `Error setting folder permissions for "${dest}": ${err}` : `Folder permissions for "${dest}" set successfully`))
+        }
+    },
+    config: {
+        removelegacykeys: (config: Store<Config>,keys: string[]) => {
+            for (const key of keys) {
+                if (!config.has(key)) continue
+
+                try {
+                    config.delete(key)
+                    log.write("INFO",`Legacy "${key}" key removed from config successfully`)
+                } catch (err) {
+                    log.write("WARN",`Unable to remove legacy "${key}" key: ${err}`)
+                }
+            }
+        },
+        cleanup: (config: Store<Config>) => {
+            // Legacy keys required to be removed if existing in config
+            utils.config.removelegacykeys(config,[
+                "webhooktypes",
+                "uselegacynotifytimer"
+            ])
+
+            // Overwrites old default `customisation` key values with new default values
+            for (const [key,values] of new Map<string,[any,any]>([
+                ["outline",["off","solid"]]
+            ])) {
+                utils.customisation.updatekeys(config,key,keypath => utils.customisation.updatedefaultvalue(config,keypath,values))
+            }
+
+            // Reset legacy keys for each type, optionally limited to a single `NotifyType`
+            for (const [key,type] of new Map<string,NotifyType | undefined>([
+                ["alldetails",undefined],
+                ["showdecoration",undefined],
+                ["previewhiddenicon","plat"]
+            ])) {
+                utils.customisation.updatekeys(config,key,keypath => config.set(keypath,false),type)
+            }
+        }
+    },
+    customisation: {
+        updatekeys: (config: Store<Config>,key: string,callback: (path: string) => void,limittype?: NotifyType) => {
+            const customisation = (config.get("customisation") ?? {}) as Record<NotifyType,Customisation>
+
+            for (const [type,{ usertheme }] of Object.entries(customisation) as [NotifyType,Customisation][]) {
+                if (limittype && limittype !== type) continue
+
+                callback(`customisation.${type}.${key}`)
+
+                for (const i in usertheme) {
+                    callback(`customisation.${type}.usertheme.${i}.customisation.${key}`)
+                }
+            }
+        },
+        updatedefaultvalue: (config: Store<Config>,path: string,[oldvalue,newvalue]: [any,any]) => {
+            if (!config.has(path)) return log.write("WARN",`Unable to set new value for "${path}" key: Key not present in config`)
+
+            try {
+                if (config.get(path) === oldvalue) {
+                    config.set(path,newvalue)
+                    log.write("INFO",`Updated default "${path}" value from "${oldvalue}" to "${newvalue}" successfully`)
+                }
+            } catch (err) {
+                log.write("ERROR",`Unable to update default value for "${path}" key: ${err}`)
+            }
         }
     }
 }

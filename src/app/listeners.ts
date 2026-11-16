@@ -1833,12 +1833,11 @@ export const listeners = {
 
         ipcMain.on("betaunsupported",() => {
             if (!sanhelper.beta) return
-            const config = sanconfig.get()
 
             setTimeout(() => {
                 worker && worker.destroy()
                 worker = null
-            },(config.get("initdelay") * 1000) + 1000)
+            },1000)
 
             updatetray(tray)
         })
